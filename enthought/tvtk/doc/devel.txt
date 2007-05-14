@@ -1,0 +1,332 @@
+===========================
+Development guide for TVTK
+===========================
+:Author: Prabhu Ramachandran
+:Contact: prabhu_r@users.sourceforge.net
+:Copyright: 2004, Enthought, Inc.
+
+.. contents::
+
+
+Introduction
+============
+
+This document provides some details on how TVTK works and how it is
+implemented.  Basic documentation on the installation, features and
+usage of tvtk is provided in the README.txt file that should be in the
+same directory as this file.
+
+
+How tvtk works
+==============
+
+All tvtk classes derive from `TVTKBase`.  This is defined in
+`tvtk_base.py`.  `TVTKBase` provides basic functionality common to all
+tvtk classes.  Most importantly it provides for the following:
+
+ * Allows one to wrap an existing VTK object or create a new one.
+   `TVTKBase.__init__` accepts an optional VTK object, that can be
+   used to wrap an existing VTK object.  Read the method docstring for
+   more details.
+
+ * Sets up the event handlers that allow us to listen to any changes
+   made to the underlying VTK object.
+
+ * Basic support for pickling the object.
+
+ * The `update_traits` automatically updates the traits of the tvtk
+   class such that they reflect the state of the underlying VTK
+   object.
+
+ * Common code to change the underlying VTK object when the trait is
+   changed.
+
+As mentioned above, tvtk classes can either wrap an existing VTK
+object or create a new one and manage the new object.
+
+
+Automatic trait updation
+------------------------
+
+One very important feature of tvtk objects is that any VTK related
+traits of object are dynamically updated if the underlying VTK object
+is changed.  This is achieved by adding an observer to the VTK object
+that effectively calls TVTKBase.update_traits when the 'ModifiedEvent'
+is invoked.  Here is an example of a VTK observer callback::
+
+    >>> import vtk
+    >>> p = vtk.vtkProperty()
+    >>> def cb(obj, evt):
+    ...     print obj.__class__.__name__, evt
+    ... 
+    >>> p.AddObserver("ModifiedEvent", cb)
+    1
+    >>> p.SetRepresentationToWireframe()
+    vtkOpenGLProperty ModifiedEvent
+
+As can be seen, when the property is modified, the callback is called.
+The trouble with this approach is that `p` now holds a reference to
+`cb`.  Thus if `cb` were the `update_traits` method of the tvtk class
+that manages the VTK object, we run into a non-garbage-collectable
+reference cycle issue and a huge memory leak.  To get around this we
+use the functionality provided by `messenger.py`.  Effectively,
+`TVTKBase.__init__` tells messenger to call `self.update_traits` when
+it is called back from the VTK object.  Messenger itself uses
+`weakrefs` so the reference cycle problem does not exist.  The VTK
+object basically calls `messenger.send` and `messenger` takes care of
+the rest.  This allows the tvtk class to be safely used and also
+allows for automatic trait updation.
+
+Each tvtk class has an attribute called `_updateable_traits_`.  This
+is a tuple of tuples.  Each tuple contains a pair of strings like so::
+
+    >>> p = tvtk.Property()
+    >>> p._updateable_traits_[:4]
+    (('opacity', 'GetOpacity'),
+     ('frontface_culling', 'GetFrontfaceCulling'),
+     ('point_size', 'GetPointSize'),
+     ('specular_color', 'GetSpecularColor'))
+
+The first string is the name of the trait and the second the name of
+the function used to obtain the value of the trait from the VTK
+object. `TVTKBase.update_traits` uses this tuple and for each trait it
+calls the relevant VTK 'get' function and updates the value of the
+trait.
+
+While this whole process seems to be inefficient, it actually works
+quite well in practice and does not appear to be slow at all.
+
+
+Messaging
+---------
+
+The messaging functionality is defined in `tvtk/messenger.py`.  Unit
+tests are in the 'tests/' directory.  As described in the previous
+section, tvtk objects use the messenger functionality to ensure that
+the traits are always up to date.  `messenger.py` is well documented
+and tested.  So please read the docstrings for more details.  Here is
+some basic information from the documentation.  
+
+`messenger.py` implements a simple, robust, safe, `Messenger` class
+that allows one to register callbacks for a signal/slot (or
+event/handler) kind of messaging system.  One can basically register a
+callback function/method to be called when an object sends a
+particular event.  The Messenger class is Borg.  So it is easy to
+instantiate and use.  This module is also reload-safe, so if the
+module is reloaded the callback information is not lost.  Method
+callbacks do not have a reference counting problem since weak
+references are used.  The main functionality is provided by three
+functions, `connect`, `disconnect` and `send`.
+
+`connect` basically allows one to connect an object, `obj`, that emits
+an event, `event` to a callback function, `callback`.  
+
+When an object calls `send`, it passes itself, the event it wishes to
+emit along with any optional arguments and keyword arguments to send.
+All registered `callback` for the particular event are called with the
+the object that called it (`obj`), the event (`event`) and the
+optional arguments.
+
+`disconnect` allows one to disconnect either a particular callback, or
+all callbacks for a particular event or the entire object.
+
+The messenger class thus provides a simple observer pattern
+implementation that makes it easy to do inter-object communication.
+For further details please read the code and docstrings.  Also look at
+the test suite in `tests/test_messenger.py`.
+
+
+Pickling
+--------
+
+`TVTKBase` provides the basic functionality for pickling.
+Essentially, the dictionary (`self.__dict__`) of the tvtk object is
+pickled.  The `_vtk_obj` attribute is not pickled since VTK objects
+are not picklable.  Other irrelevant attributes are also removed.
+`__setstate__` works even on a live object by checking to see if
+`self._vtk_obj` exists.  Some of the tvtk classes override these
+methods to implement them better.  For example look at the code for
+the `Matrix4x4` class.
+
+
+Array handling
+--------------
+
+TVTK lets the user pass Numeric arrays/Python lists in place of the
+`DataArray`, `CellArray`, `Points` etc. classes.  This is done by
+finding the call signature of the wrapped VTK method, checking to see
+if it has an array and then intelligently generating the appropriate
+VTK array data using the signature information.  This generated VTK
+data array is then passed to the wrapped function under the covers.
+This functionality also works if the method has multiple call
+signatures (overloaded VTK method) and one of them involves arrays.
+The main functions to do this conversion magic are in the
+`array_handler.py` module.  The `wrapper_gen.py` module generates the
+appropriate wrapper code depending on the call signature.  So if a
+method has no VTK objects in its signature, no wrapping is necessary.
+If it only has non-array VTK objects, then array handling is
+unnecessary but one must dereference the VTK object from the passed
+tvtk wrapper object.  If the call signature involves VTK array
+objects, then any Numeric arrays or Python lists are converted to the
+correct VTK data array and passed to the wrapped VTK object.  
+
+For the efficient conversion to `CellArray` objects, an extension
+module is required.  The sources for this extension module are in
+`src/array_ext.*`.  The Pyrex_ source file can be used to generate the
+`src/array_ext.c` file like so::
+
+  $ cd src
+  $ pyrexc array_ext.pyx
+
+The sources ship with the generated source file so that folks without
+Pyrex can build it.
+
+`special_gen.py` defines all the additional methods for the
+`DataArray` and other classes that allow these objects to support
+iteration, `__repr__`, `__getitem__` etc.
+
+
+.. _Pyrex: http://www.cosc.canterbury.ac.nz/~greg/python/Pyrex/
+
+
+The magical `tvtk` instance
+---------------------------
+
+When one does the following::
+
+    >>> from enthought.tvtk.api import tvtk
+
+The imported `tvtk` is really an instance of a class and not a module!
+This is so because, the tvtk classes are almost 800 in number and they
+wrap around the *entire* VTK API.  VTK itself allows one to import all
+the defined classes in one go.  That is, if one does `import vtk`, one
+can instantiate all VTK related classes.  This is very useful
+functionality.  However, importing 800 wrapper classes in one go is
+*extremely* slow.  Thus, `tvtk` provides a convenient solution to get
+around the problem.  While `tvtk` is a class instance, it behaves just
+like you'd expect of a module.
+
+ * It supports tab-completion on class names.
+ * Allows one to access all the tvtk classes.
+ * Imports extremely fast.  Any slowness in the import is really
+   because tvtk needs to import VTK.  Thus importing tvtk should not
+   be much slower than importing vtk itself.
+ * Imports the tvtk classes *only* on demand.
+
+All the tvtk related code is generated and saved into the
+`tvtk_classes.zip` file.  The `tvtk` instance is basically an instance
+of the TVTK class.  This is defined in `tvtk_helper.py`.  This file is
+inside the ZIP file.  For each wrapped VTK class, TVTK defines a
+property having the name of the wrapper tvtk class.  The `get` method
+of the property basically returns the class after importing it
+dynamically from the ZIP file.  This is done in the `get_class`
+function.  Each class thus imported is cached (in `_cache`) and if a
+cached copy exists the class is not re-imported.  Note that in the
+implementation, the class and its parent classes need to be imported.
+These parent classes are also cached.
+
+`enthought/tvtk/__init__.py` adds the `tvtk_classes.zip` file into
+`sys.path` and instantiates the TVTK class to provide the `tvtk`
+instance.
+
+Note that any files inside the `tvtk_classes.zip` are automatically
+generated.
+
+
+Miscellaneous details
+---------------------
+
+`tvtk_base.py` defines some important and frequently used traits that
+are used in tvtk.  It is used by all the tvtk classes.  It provides a
+couple of useful functions (`get_tvtk_name` and `camel2enthought`) to
+perform name mangling so one can change the VTK method name to an
+enthought style name.  The module also provides the function
+`deref_vtk`, that lets one obtain the underlying VTK object from the
+tvtk object.
+
+
+
+Code Generation
+===============
+
+All the tvtk classes are dynamically generated.  `code_gen.py` is the
+main driver module that is responsible for this.  Code generation
+works involves the following steps.
+
+ * Listing and sorting all the VTK classes into a class hierarchy.
+   This is done by `class_tree.py`.  `ClassTree` basically organizes
+   all the VTK classes into a tree structure.  The tree is organized
+   into "levels".  The classes with no bases are at the lowest level
+   (the root) and the higher levels represent classes that have one or
+   more bases.  Each class in the tree is represented as a `Node`.
+   Each node has references to its children and parents.  Thus one can
+   walk the entire class hierarchy given a single node.  This is
+   fairly generic code and will work with any class hierarchy.  Its
+   main function is to allow us to generate the classes in the right
+   order and also allows us to easily find the parents and children of
+   a class in a class hierarchy.  More details are in the file
+   `class_tree.py`.  UTSL.
+
+ * Parsing the methods of each VTK class and categorizing them.  This
+   step also involves finding the default values of the state of the
+   VTK objects, the valid range of values etc.  This entire
+   functionality is provided by `vtk_parser.py`.  VTK parser module is
+   completely self documenting and the public interface is fairly
+   simple.  The `VTKMethodParser` by default uses an instance of the
+   `ClassTree` class to do some of its work (the use of the
+   `ClassTree` can be turned off though).
+
+ * Formatting the output code correctly (indentation).  This is
+   handled by the `indenter.Indent` class.  The `Indent` class lets us
+   format a code-string suitably so that the code is formatted at the
+   current indentation level.
+
+ * Massaging VTK documentation suitably.  This is done by
+   `indenter.VTKDocMassager`.
+
+ * Generating the tvtk code.  Done mainly by `code_gen.py`.
+
+ * Generating a ZIP file of the code, also done by `code_gen.py`.
+
+
+The `code_gen` module defines a `TVTKGenerator` class that drives the
+code generation.  The module uses the `wrapper_gen` module to generate
+the wrapper classes.
+
+The `wrapper_gen` defines a `WrapperGenerator` class.  An instance of
+this class creates an instance of the `VTKMethodParser` (and uses its
+internal `ClassTree` instance).  `TVTKGenerator` uses this class tree.
+
+For each class in the VTK hierarchy (starting from classes at the root
+of the tree), the class is parsed, and a suitable tvtk wrapper class
+(with the name of the class and file name of the module suitably
+modified) is generated using the functionality provided by
+`WrapperGenerator`.  A separate `tvtk_helper` module (described in the
+`The magical tvtk instance`_ section) is also simultaneously updated
+with the class for which the wrapper is generated.  All of these
+classes are dumped into a temporary directory.  These classes are then
+put into a ZIP file.
+
+The `tvtk_helper.py` code is generated by the `HelperGenerator` class.
+The other tvtk classes are generated by the `WrapperGenerator` class.
+'WrapperGenerator` also makes use of the `SpecialGenerator` to write
+special code for some of the VTK classes.
+
+`TVTKGenerator` uses the other code generators and drives the entire
+code generation process, builds a ZIP file and optionally cleans up
+the temporary directory where the wrapper code was written.
+
+Please run the following::
+
+  $ python code_gen.py -h
+
+To see a list of options to the code generator.  Some of the options
+are extremely useful during development.  For example do this to
+generate the code for a few classes alone::
+
+  $ python code_gen.py -n -z -o /tmp/tvtk_tmp vtkCollection \
+    vtkProperty vtkConeSource
+
+The `-n` option ensures that '/tmp/tvtk_tmp' is not removed.  `-z`
+inhibits ZIP file generation.
+
