@@ -27,7 +27,7 @@ setup(
     url          = 'http://www.enthought.com/enthought/wiki/TVTK',
     license = "BSD",
     install_requires = [
-        'VTK',
+        # 'VTK',  # fixme: VTK is not available as an egg on all platforms.
         'enthought.pyface[tvtk]',  # fix? circular dependency
     ],
     namespace_packages = [
