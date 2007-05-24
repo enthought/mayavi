@@ -20,7 +20,7 @@ def configuration(parent_package='', top_path=None):
 
 setup(
     name = 'enthought.tvtk',
-    version      = '1.0.0',
+    version      = '2.0',
     description  = "Traited VTK",
     author       = "Prabhu Ramachandran",
     author_email = "prabhu_r@users.sf.net",
@@ -28,7 +28,7 @@ setup(
     license = "BSD",
     install_requires = [
         # 'VTK',  # fixme: VTK is not available as an egg on all platforms.
-        'enthought.pyface[tvtk]',  # fix? circular dependency
+        'enthought.pyface==2.0',
     ],
     namespace_packages = [
         "enthought",
