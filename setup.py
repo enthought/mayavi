@@ -29,6 +29,7 @@ setup(
     install_requires = [
         # 'VTK',  # fixme: VTK is not available as an egg on all platforms.
         'enthought.pyface==2.0',
+        'enthought.persistence==2.0',
     ],
     namespace_packages = [
         "enthought",
