@@ -7,12 +7,8 @@ import os
 build_numeric = False
 build_numarray = False
 
-minimum_numpy_version = '0.9.7.2467'
 def configuration(parent_package='enthought',top_path=None):
     import numpy
-    if numpy.__version__ < minimum_numpy_version:
-        raise RuntimeError, 'numpy version %s or higher required, but got %s'\
-              % (minimum_numpy_version, numpy.__version__)
     from os.path import join
     from numpy.distutils.misc_util import Configuration
     config = Configuration('tvtk',parent_package,top_path)
@@ -21,9 +17,6 @@ def configuration(parent_package='enthought',top_path=None):
                        delegate_options_to_subpackages=True,
                        quiet=True)
 
-
-    #add the parent __init__.py to allow for importing
-    config.add_data_files(('..', os.path.abspath(os.path.join('..','__init__.py'))))
 
     config.add_subpackage('custom')
     config.add_subpackage('pipeline')
@@ -35,8 +28,6 @@ def configuration(parent_package='enthought',top_path=None):
     config.add_subpackage('tools')
     config.add_subpackage('util')
     
-    config.add_data_dir('doc')
-    config.add_data_dir('examples')
     config.add_data_dir('tests')
 
     # Numpy support.
@@ -129,22 +120,4 @@ def vtk_version_changed(zipfile):
         sys.path.pop()
 
     return result
-
-if __name__ == "__main__":
-    try:
-        from numpy.distutils.core import setup
-    except ImportError:
-        # Fall back to scipy_distutils based setup script.
-        execfile('setup_tvtk.py')
-    else:
-        setup(
-            version      = '1.0.0',
-            description  = "Traited VTK",
-            author       = "Prabhu Ramachandran",
-            author_email = "prabhu_r@users.sf.net",
-            install_requires = ['vtk', 'enthought.pyface.tvtk'],
-            url          = 'http://www.enthought.com/enthought/wiki/TVTK',
-            license      = "BSD",
-            zip_safe     = False,
-            configuration=configuration)
 
