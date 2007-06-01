@@ -66,7 +66,7 @@ from enthought.tvtk.tools import ivtk
 from enthought.pyface.api import GUI
 from enthought.util.wx.timer import Timer
 from enthought.tvtk.tvtk_base import TVTKBase, vtk_color_trait
-import enthought.util.scipyx as scipy
+import enthought.util.numerix as numpy
 
 
 # Set the global variable to None, for it's future use in function
@@ -631,9 +631,9 @@ class Curve(HasTraits):
             lines = None
         else:
             np = len(self.points) - 1
-            lines = scipy.zeros((np, 2), 'l')
-            lines[:,0] = scipy.arange(0, np-0.5, 1, 'l')
-            lines[:,1] = scipy.arange(1, np+0.5, 1, 'l')        
+            lines = numpy.zeros((np, 2), 'l')
+            lines[:,0] = numpy.arange(0, np-0.5, 1, 'l')
+            lines[:,1] = numpy.arange(1, np+0.5, 1, 'l')        
         self.polydata.lines = lines
         v = self.viewer
         if v is not None:
@@ -763,9 +763,9 @@ class Ring(HasTraits):
             self.points[i][2] = self.radius*cos(theta)            
 
         np = len(self.points) - 1
-        lines = scipy.zeros((np, 2), 'l')
-        lines[:,0] = scipy.arange(0, np-0.5, 1, 'l')
-        lines[:,1] = scipy.arange(1, np+0.5, 1, 'l')
+        lines = numpy.zeros((np, 2), 'l')
+        lines[:,0] = numpy.arange(0, np-0.5, 1, 'l')
+        lines[:,1] = numpy.arange(1, np+0.5, 1, 'l')
         self.polydata.points = self.points
         self.polydata.lines = lines
         v = self.viewer
@@ -1701,9 +1701,9 @@ class Helix(HasTraits):
             h = h + cons
             
         np = len(self.points) - 1
-        lines = scipy.zeros((np, 2), 'l')
-        lines[:,0] = scipy.arange(0, np-0.5, 1, 'l')
-        lines[:,1] = scipy.arange(1, np+0.5, 1, 'l')
+        lines = numpy.zeros((np, 2), 'l')
+        lines[:,0] = numpy.arange(0, np-0.5, 1, 'l')
+        lines[:,1] = numpy.arange(1, np+0.5, 1, 'l')
         self.polydata.points = self.points
         self.polydata.lines = lines
         
@@ -1733,9 +1733,9 @@ class Helix(HasTraits):
             h = h + cons
             
         np = len(p) - 1
-        lines = scipy.zeros((np, 2), 'l')
-        lines[:,0] = scipy.arange(0, np-0.5, 1, 'l')
-        lines[:,1] = scipy.arange(1, np+0.5, 1, 'l')
+        lines = numpy.zeros((np, 2), 'l')
+        lines[:,0] = numpy.arange(0, np-0.5, 1, 'l')
+        lines[:,1] = numpy.arange(1, np+0.5, 1, 'l')
         self.polydata.points = p
         self.polydata.lines = lines
         self.points = p        
