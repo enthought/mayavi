@@ -21,7 +21,7 @@ def configuration(parent_package='', top_path=None):
 # Function to convert simple ETS component names and versions to a requirements
 # spec that works for both development builds and stable builds.
 def gendeps(list):
-    return ['%s >=%s.dev, <=%s.dev' % (p,min,max) for p,min,max in list]
+    return ['%s >=%s.dev, <%s.dev' % (p,min,max) for p,min,max in list]
 
 # Declare our installation requirements.
 install_requires = gendeps([
