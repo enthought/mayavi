@@ -39,6 +39,7 @@ setup(
     author_email = "prabhu_r@users.sf.net",
     url          = 'http://www.enthought.com/enthought/wiki/TVTK',
     license = "BSD",
+    zip_safe     = False,
     install_requires = install_requires,
     extras_require = {
         # All non-ets dependencies should be in this extra to ensure users can
