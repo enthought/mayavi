@@ -34,10 +34,10 @@ install_requires = etsdeps([
     ('enthought.util', '2.0b1'),
     ])
 print 'install_requires:\n\t%s' % '\n\t'.join(install_requires)
-envisageplugin_requires = etsdeps([
+plugin_requires = etsdeps([
     ('enthought.envisage', '2.0b1'),
     ])
-print 'envisageplugin_requires:\n\t%s' % '\n\t'.join(envisageplugin_requires)
+print 'plugin_requires:\n\t%s' % '\n\t'.join(plugin_requires)
 
 
 setup(
@@ -51,7 +51,7 @@ setup(
     zip_safe     = False,
     install_requires = install_requires,
     extras_require = {
-        'envisageplugin': envisageplugin_requires,
+        'plugin': plugin_requires,
 
         # All non-ets dependencies should be in this extra to ensure users can
         # decide whether to require them or not.
