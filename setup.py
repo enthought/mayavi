@@ -19,14 +19,17 @@ def configuration(parent_package='', top_path=None):
 
 
 # Function to convert simple ETS component names and versions to a requirements
-# spec that works for both development builds and stable builds.
-def gendeps(list):
-    return ['%s >=%s.dev, <%s.dev' % (p,min,max) for p,min,max in list]
+# spec that works for both development builds and stable builds.  This relies
+# on the Enthought's standard versioning scheme -- see the following write up:
+#    https://svn.enthought.com/enthought/wiki/EnthoughtVersionNumbers
+def etsdeps(list):
+    return ['%s >=%s.dev, <%s.a' % (p,ver,int(ver[:1])+1) for p,ver in list]
+
 
 # Declare our installation requirements.
-install_requires = gendeps([
-    ("enthought.pyface", "2.0b1", "3"),
-    ("enthought.persistence", "2.0b1", "3"),
+install_requires = etsdeps([
+    ("enthought.pyface", "2.0b1"),
+    ("enthought.persistence", "2.0b1"),
     ])
 print 'install_requires:\n\t%s' % '\n\t'.join(install_requires)
 
