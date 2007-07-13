@@ -38,18 +38,17 @@ plugin_requires = etsdeps([
     ('enthought.envisage', '2.0b1'),
     ])
 print 'plugin_requires:\n\t%s' % '\n\t'.join(plugin_requires)
+test_requires = [
+    "nose >= 0.9, ",
+    ] + etsdeps([
+    ])
+print 'test_requires:\n\t%s' % '\n\t'.join(test_requires)
 
 
 setup(
-    name = 'enthought.tvtk',
-    version      = '2.0b1',
-    description  = "Traited VTK",
-    author       = "Prabhu Ramachandran",
+    author = "Prabhu Ramachandran",
     author_email = "prabhu_r@users.sf.net",
-    url          = 'http://www.enthought.com/enthought/wiki/TVTK',
-    license = "BSD",
-    zip_safe     = False,
-    install_requires = install_requires,
+    description = "Traited VTK",
     extras_require = {
         'plugin': plugin_requires,
 
@@ -59,9 +58,17 @@ setup(
             # 'VTK',  # fixme: VTK is not available as an egg on all platforms.
             'numpy >= 1.0.3',
             ],
-    },
+        },
+    install_requires = install_requires,
+    license = "BSD",
+    name = 'enthought.tvtk',
     namespace_packages = [
         "enthought",
-    ],
+        ],
+    tests_require = test_requires,
+    test_suite = 'nose.collector',
+    url = 'http://www.enthought.com/enthought/wiki/TVTK',
+    version = '2.0b1',
+    zip_safe = False,
     **configuration().todict()
 )
