@@ -1,0 +1,7 @@
+[plugin]
+enthought.tvtk.plugins = *
+
+
+[wx]
+enthought.tvtk.util.wx_gradient_editor = *
+

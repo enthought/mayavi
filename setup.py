@@ -28,8 +28,7 @@ def etsdeps(list):
 
 # Declare our installation requirements.
 install_requires = etsdeps([
-    ("enthought.pyface", "2.0b1"),
-    ("enthought.persistence", "2.0b1"),
+    ("enthought.pyface[tvtk]", "2.0b1"),
     ('enthought.traits', '2.0b1'),
     ('enthought.util', '2.0b1'),
     ])
@@ -43,6 +42,10 @@ test_requires = [
     ] + etsdeps([
     ])
 print 'test_requires:\n\t%s' % '\n\t'.join(test_requires)
+wx_requires = etsdeps([
+    ('enthought.traits.ui.wx', '2.0b1'),
+    ])
+print 'wx_requires:\n\t%s' % '\n\t'.join(wx_requires)
 
 
 setup(
@@ -51,6 +54,7 @@ setup(
     description = "Traited VTK",
     extras_require = {
         'plugin': plugin_requires,
+        'wx': wx_requires,
 
         # All non-ets dependencies should be in this extra to ensure users can
         # decide whether to require them or not.
