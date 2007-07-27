@@ -30,7 +30,7 @@ def etsdeps(list):
 install_requires = etsdeps([
     ("enthought.pyface[tvtk]", "2.0b1"),
     ('enthought.traits[ui]', '2.0b1'),
-    ('enthought.util[wx]', '2.0b1'),    # tools/visual.py imports from util.wx.timer
+    ('enthought.util', '2.0b1'),    # tools/visual.py imports from util.wx.timer
     ])
 print 'install_requires:\n\t%s' % '\n\t'.join(install_requires)
 plugin_requires = etsdeps([
