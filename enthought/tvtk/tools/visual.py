@@ -64,7 +64,7 @@ from enthought.traits.ui.message import message
 from enthought.tvtk.api import tvtk
 from enthought.tvtk.tools import ivtk
 from enthought.pyface.api import GUI
-from enthought.util.wx.timer import Timer
+from enthought.pyface.timer.api import Timer
 from enthought.tvtk.tvtk_base import TVTKBase, vtk_color_trait
 import enthought.util.numerix as numpy
 
