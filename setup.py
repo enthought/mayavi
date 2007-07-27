@@ -18,34 +18,27 @@ def configuration(parent_package='', top_path=None):
     return config
 
 
-# Function to convert simple ETS component names and versions to a requirements
-# spec that works for both development builds and stable builds.  This relies
-# on the Enthought's standard versioning scheme -- see the following write up:
+# Function to convert simple ETS project names and versions to a requirements
+# spec that works for both development builds and stable builds.  Allows
+# a caller to specify a max version, which is intended to work along with
+# Enthought's standard versioning scheme -- see the following write up:
 #    https://svn.enthought.com/enthought/wiki/EnthoughtVersionNumbers
-def etsdeps(list):
-    return ['%s >=%s.dev, <%s.a' % (p,ver,int(ver[:1])+1) for p,ver in list]
+def etsdep(p, min, max=None, literal=False):
+    require = '%s >=%s.dev' % (p, min)
+    if max is not None:
+        if literal is False:
+            require = '%s, <%s.dev' % (require, max)
+        else:
+            require = '%s, <%s' % (require, max)
+    return require
 
 
-# Declare our installation requirements.
-install_requires = etsdeps([
-    ("enthought.pyface[tvtk]", "2.0b1"),
-    ('enthought.traits[ui]', '2.0b1'),
-    ('enthought.util', '2.0b1'),    # tools/visual.py imports from util.wx.timer
-    ])
-print 'install_requires:\n\t%s' % '\n\t'.join(install_requires)
-plugin_requires = etsdeps([
-    ('enthought.envisage', '2.0b1'),
-    ])
-print 'plugin_requires:\n\t%s' % '\n\t'.join(plugin_requires)
-test_requires = [
-    "nose >= 0.9, ",
-    ] + etsdeps([
-    ])
-print 'test_requires:\n\t%s' % '\n\t'.join(test_requires)
-wx_requires = etsdeps([
-    ('enthought.traits.ui.wx', '2.0b1'),
-    ])
-print 'wx_requires:\n\t%s' % '\n\t'.join(wx_requires)
+# Declare our ETS project dependencies.
+ENVISAGE = etsdep('enthought.envisage', '2.0b1')
+PYFACE_TVTK = etsdep('enthought.pyface[tvtk]', '2.0b1')
+TRAITS_UI = etsdep('enthought.traits[ui]', '2.0b1')
+TRAITSUIWX = etsdep('enthought.traits.ui.wx', '2.0b1')
+UTIL = etsdep('enthought.util', '2.0b1')
 
 
 setup(
@@ -53,8 +46,12 @@ setup(
     author_email = "prabhu_r@users.sf.net",
     description = "Traited VTK",
     extras_require = {
-        'plugin': plugin_requires,
-        'wx': wx_requires,
+        'plugin': [
+            ENVISAGE,
+            ],
+        'wx': [
+            TRAITSUIWX,
+            ],
 
         # All non-ets dependencies should be in this extra to ensure users can
         # decide whether to require them or not.
@@ -63,16 +60,22 @@ setup(
             'numpy >= 1.0.3',
             ],
         },
-    install_requires = install_requires,
+    install_requires = [
+        PYFACE_TVTK,
+        TRAITS_UI,
+        UTIL,
+        ],
     license = "BSD",
     name = 'enthought.tvtk',
     namespace_packages = [
         "enthought",
         ],
-    tests_require = test_requires,
+    tests_require = [
+        'nose >= 0.9',
+        ],
     test_suite = 'nose.collector',
     url = 'http://www.enthought.com/enthought/wiki/TVTK',
     version = '2.0b1',
     zip_safe = False,
     **configuration().todict()
-)
+    )
