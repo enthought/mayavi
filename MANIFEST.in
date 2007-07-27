@@ -1,0 +1,5 @@
+recursive-include examples *
+recursive-include doc *
+include *.txt
+include extras.map
+
