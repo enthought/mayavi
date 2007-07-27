@@ -27,7 +27,7 @@ def etsdep(p, min, max=None, literal=False):
     require = '%s >=%s.dev' % (p, min)
     if max is not None:
         if literal is False:
-            require = '%s, <%s.dev' % (require, max)
+            require = '%s, <%s.a' % (require, max)
         else:
             require = '%s, <%s' % (require, max)
     return require
