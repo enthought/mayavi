@@ -96,8 +96,10 @@ def set_id_type_array(id_array, out_array):
 
     `id_array` need not be contiguous but `out_array` must be.
     """
-    assert id_array.dtype.char == Int, \
-           "id_array must have a dtype.char of Int."
+    import vtk
+    VTK_ID_TYPE_SIZE = vtk.vtkIdTypeArray().GetDataTypeSize()
+    assert numpy.issubdtype(id_array.dtype, numpy.signedinteger) and \
+       id_array.dtype.itemsize == VTK_ID_TYPE_SIZE
     
     assert out_array.dtype.char == Int, \
            "out_array must have a dtype.char of Int."
