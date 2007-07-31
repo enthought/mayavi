@@ -74,7 +74,7 @@ setup(
         'nose >= 0.9',
         ],
     test_suite = 'nose.collector',
-    url = 'http://www.enthought.com/enthought/wiki/TVTK',
+    url = 'http://code.enthought.com/tvtk/',
     version = '2.0b1',
     zip_safe = False,
     **configuration().todict()
