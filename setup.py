@@ -44,6 +44,10 @@ UTIL = etsdep('enthought.util', '2.0b1')
 setup(
     author = "Prabhu Ramachandran",
     author_email = "prabhu_r@users.sf.net",
+    dependency_links = [
+        'http://code.enthought.com/enstaller/eggs/source',
+        'http://code.enthought.com/enstaller/eggs/source/unstable',
+        ],
     description = "Traited VTK",
     extras_require = {
         'plugin': [
