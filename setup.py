@@ -44,6 +44,11 @@ UTIL = etsdep('enthought.util', '2.0b1')
 setup(
     author = "Prabhu Ramachandran",
     author_email = "prabhu_r@users.sf.net",
+    cmdclass = {
+        # Work around a numpy distutils bug by forcing the use of the
+        # setuptools' sdist command.
+        'sdist': setuptools.command.sdist.sdist,
+        },
     dependency_links = [
         'http://code.enthought.com/enstaller/eggs/source',
         'http://code.enthought.com/enstaller/eggs/source/unstable',
