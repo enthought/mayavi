@@ -18,9 +18,11 @@ from os.path import abspath, dirname, join
 import enthought
 from enthought import envisage
 from enthought import tvtk
+import enthought.plugins.python_shell as python_shell
 
 enthought_path = abspath(dirname(enthought.__file__))
 envisage_path = abspath(dirname(envisage.__file__))
+python_shell_path = abspath(dirname(python_shell.__file__))
 
 # tvtk path.
 tvtk_path = abspath(dirname(tvtk.__file__))
@@ -37,8 +39,8 @@ PLUGIN_DEFINITIONS = [
     join(envisage_path, 'workbench/action/action_plugin_definition.py'),
     join(envisage_path, 'workbench/preference/preference_plugin_definition.py'),
     # Enthought plugins.
-    join(enthought_path,
-         'plugins/python_shell/python_shell_plugin_definition.py'),
+    join(python_shell_path,
+         'python_shell_plugin_definition.py'),
 
     join(tvtk_path, 'plugins/scene/scene_plugin_definition.py'),
     join(tvtk_path, 'plugins/scene/scene_ui_plugin_definition.py'),
