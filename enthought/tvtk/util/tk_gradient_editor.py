@@ -110,7 +110,7 @@ class FunctionControl(tk.Frame):
 
         def set_value( self, color, new_value_on_this_channel ):
             """Color will be modified: NewValue.. will be set to the color
-            channel *self represents."""
+            channel that ``*self`` represents."""
             if ( self.mode == 'hsv' ):
                 hsva = [color.get_hsva()[0], color.get_hsva()[1],
                         color.get_hsva()[2], color.get_hsva()[3] ]
@@ -128,7 +128,7 @@ class FunctionControl(tk.Frame):
                 color.set_rgba(rgba[0],rgba[1],rgba[2],rgba[3])
         def set_value_index( self, color, y ):
             """Color will be modified: the value assigned to the height index 
-            y will be set to the color channel of Color *self represents."""
+            y will be set to the color channel of Color that ``*self`` represents."""
             self.set_value( color, self.get_index_value(y) )
 
         def get_pos_index(self,f):
@@ -333,11 +333,15 @@ class GradientEditor(tk.Toplevel):
     def __init__(self, master, vtk_table, on_change_color_table = None):
         """Initialize the gradient editor window.
         
-        input:
-        master: Owning widget, for example a tk root object.
-        VtkTable: Instance of vtkLookupTable, designating the table which is
+        Parameters
+        ----------
+        master
+            Owning widget, for example a tk root object.
+        VtkTable 
+            Instance of vtkLookupTable, designating the table which is
             to be edited.
-        OnChangeColorTable: Callback function taking no arguments. Called
+        OnChangeColorTable
+            Callback function taking no arguments. Called
             when the color table was changed and rendering is requested."""
         
         # Inner dimensions of the color control gui-elements in pixels.

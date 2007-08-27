@@ -25,20 +25,21 @@ This module offers the following classes :
 
 To see examples of classes and functions look at the `test_*`
 functions at the end of this file. Here is a quick example
-demonstrating how to use visual::
+demonstrating how to use visual.
 
 Note: To provide threading support for WXWidgets which are essential
 for all GUI fucntionalities in visual, the visual module should be
 interactively used in ipython only when wthread mode is
 enabled. visual will not work properly in an interactive mode in
 vanilla python interpretor.
+::
 
-$ ipython -wthread
-
-In [1]: from enthought.tvtk.tools import visual
-In [2]: visual.test_sphere()
-In [3]: s = visual.sphere() # Create a sphere actor
-In [4]: s.edit_traits() # Edit sphere actor's properties via GUI
+    $ ipython -wthread
+    
+    In [1]: from enthought.tvtk.tools import visual
+    In [2]: visual.test_sphere()
+    In [3]: s = visual.sphere() # Create a sphere actor
+    In [4]: s.edit_traits() # Edit sphere actor's properties via GUI
 
 """    
 # Author: Raashid Baig <raashid@aero.iitb.ac.in> 
@@ -315,6 +316,7 @@ class VTimer(Timer):
 class Animator(HasTraits):
     #####################################################################
     # Traits definitions
+
     start_animation = Button('Start Animation')
     stop_animation = Button('Stop Animation')
     time_period = Range(1, 100000, 100,
@@ -324,6 +326,7 @@ class Animator(HasTraits):
 
     ######################################################################
     # User interface view 
+
     event_group = Group(Item('start_animation', style = 'simple'),
                          Item('_'),
                          Item('stop_animation', style = 'simple'),
@@ -428,6 +431,7 @@ class Frame(HasTraits):
     unit, so that they can be manipulated as a combined entity."""
     #####################################################################
     # Traits definitions
+
     axis = Array(value = (1.0, 0.0, 0.0), desc = 'the frame axis')
     x = Range(-1e299, 1e299, 0.0, desc = 'the X coordinate of frame objects')
     y = Range(-1e299, 1e299, 0.0, desc = 'the Y coordinate of frame objects')  
@@ -439,6 +443,7 @@ class Frame(HasTraits):
 
     ######################################################################
     # User interface view 
+
     traits_view = View(Group(Item(name = 'x', label = 'Pos X'),
                              Item(name = 'y', label = 'Pos Y'),
                              Item(name = 'z', label = 'Pos Z'),                             
@@ -524,6 +529,7 @@ class Curve(HasTraits):
     create a polydata actor"""
     #####################################################################
     # Traits definitions
+
     points = Trait(None, None, Array('d', shape=(None,3)), desc='the points of the curve')
     pos = Array(value = (0.0, 0.0, 0.0), desc = 'the curve pos')
     radius = Range(0.0, 1.0e299, value = 0.01, desc = 'the radius of curve tube')
@@ -544,6 +550,7 @@ class Curve(HasTraits):
 
     ######################################################################
     # User interface view 
+
     traits_view = View(Group(Item(name = 'color'),
                              Item(name = 'visibility'),
                              Item(name = 'radius'),
@@ -690,6 +697,7 @@ class Ring(HasTraits):
     the usual VTK pipeline and creates a ring actor."""
     #####################################################################
     # Traits definitions
+
     points = Array('d', shape = (360,3))
     radius = Range(-1e299, 1e299, value = 0.5, desc = 'the ring radius')
     pos = Array(value = (0.0, 0.0, 0.0), desc = 'the ring pos')
@@ -710,6 +718,7 @@ class Ring(HasTraits):
 
     ######################################################################
     # User interface view 
+
     traits_view = View(Group(Item(name = 'radius'),
                              Item(name = 'thickness'),
                              Item(name = 'x', label = 'Pos X'),
@@ -864,6 +873,7 @@ class Cone(HasTraits):
     """
     #####################################################################
     # Traits definitions
+
     points = Array('d', shape = (7,3))
     radius = Range(0.0, 100.0, value = 0.5, desc = 'the cone radius')
     height = Range(0.0, 100.0, value = 1.0, desc = 'the cone height')
@@ -883,6 +893,7 @@ class Cone(HasTraits):
 
     ######################################################################
     # User interface view 
+
     traits_view = View(Group(Item(name = 'radius'),
                              Item(name = 'height'),
                              Item(name = 'x', label = 'Pos X'),
@@ -1011,6 +1022,7 @@ class Sphere(HasTraits):
     """
     #####################################################################
     # Traits definitions
+
     radius = Range(0.0, 1e299, value = 0.5, desc = 'the sphere radius')
     pos = Array(value = (0.0, 0.0, 0.0), desc = 'the sphere pos')
     axis = Array(value = (1.0, 0.0, 0.0), desc= 'the sphere axis')
@@ -1028,6 +1040,7 @@ class Sphere(HasTraits):
 
     ######################################################################
     # User interface view     
+
     traits_view = View(Group(Item(name = 'radius', style = 'simple'),
                              Item(name = 'x', label = 'Pos X'),
                              Item(name = 'y', label = 'Pos Y'),
@@ -1149,6 +1162,7 @@ class Cylinder(HasTraits):
     """
     #####################################################################
     # Traits definitions
+
     radius = Range(0.0, 100.0, value = 1.0, desc = 'the cylinder radius') 
     length = Range(0.0, 100.0, value = 1.0, desc = 'the cylinder length')
     pos = Array(value = (0.0, 0.0, 0.0), desc = 'the cylinder pos')
@@ -1168,6 +1182,7 @@ class Cylinder(HasTraits):
 
     ######################################################################
     # User interface view     
+
     traits_view = View(Group(Item(name = 'radius', style = 'simple'),
                              Item(name = 'length', style = 'simple'),
                              Item(name = 'x', label = 'Pos X'),
@@ -1301,6 +1316,7 @@ class Box(HasTraits):
     """
     #####################################################################
     # Traits definitions
+
     size = Tuple((1.0, 1.0, 1.0), desc = 'the box size')
     pos = Array(value = (0.0, 0.0, 0.0), desc = 'the Box pos')
     color = vtk_color_trait((1.0, 1.0, 1.0))
@@ -1322,6 +1338,7 @@ class Box(HasTraits):
 
     ######################################################################
     # User interface view 
+
     traits_view = View(Group(Item(name = 'length'),
                              Item(name = 'height'),
                              Item(name = 'width'),
@@ -1461,6 +1478,7 @@ class Arrow(HasTraits):
     """
     #####################################################################
     # Traits definitions
+
     points = Array('d', shape = (31 ,3))
     radius_cone = Range(0.0, 10.0, value = 0.08, desc = 'the radius of cone portion of arrow') 
     radius_shaft = Range(0.0, 5.0, value = 0.03, desc = 'the radius of shaft portion of arrow')
@@ -1481,6 +1499,7 @@ class Arrow(HasTraits):
 
     ######################################################################
     # User interface view         
+
     traits_view = View(Group(Item(name = 'radius_cone'),
                              Item(name = 'length_cone'),
                              Item(name = 'radius_shaft'),
@@ -1618,6 +1637,7 @@ class Helix(HasTraits):
     """
     #####################################################################
     # Traits definitions
+
     coils = Int(5)
     points = Array('d', shape = (None, 3))
     radius = Range(0.01, 1e299, value = 0.2, desc = 'the helix radius')
@@ -1641,6 +1661,7 @@ class Helix(HasTraits):
 
     ######################################################################
     # User interface view
+
     traits_view = View(Group(Item(name = 'radius'),
                              Item(name = 'length'),
                              Item(name = 'thickness'),
@@ -1831,6 +1852,7 @@ class Ellipsoid(HasTraits):
     """
     #####################################################################
     # Traits definitions
+
     radius = Range(0.0, 1e299, value = 0.5, desc = 'Undistorted ellipsoid radius')
     pos = Array(value = (0.0, 0.0, 0.0), desc = 'Ellipsoid pos')
     color = vtk_color_trait((1.0, 1.0, 1.0))
@@ -1852,6 +1874,7 @@ class Ellipsoid(HasTraits):
     
     ######################################################################
     # User interface view 
+
     traits_view = View(Group(Item(name = 'radius', style = 'simple'),
                              Item(name = 'x', label = 'Pos X'),
                              Item(name = 'y', label = 'Pos Y'),

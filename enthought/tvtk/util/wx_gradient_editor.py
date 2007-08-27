@@ -133,7 +133,7 @@ class Channel:
 
     def set_value( self, color, new_value_on_this_channel ):
         """Color will be modified: NewValue.. will be set to the color
-        channel *self represents."""
+        channel that ``*self`` represents."""
         if ( self.mode == 'hsv' ):
             hsva = [color.get_hsva()[0], color.get_hsva()[1],
                     color.get_hsva()[2], color.get_hsva()[3] ]
@@ -152,7 +152,7 @@ class Channel:
 
     def set_value_index( self, color, y ):
         """Color will be modified: the value assigned to the height index 
-        y will be set to the color channel of Color *self represents."""
+        y will be set to the color channel of Color ``*self`` represents."""
         self.set_value( color, self.get_index_value(y) )
 
     def get_pos_index(self,f):
@@ -618,8 +618,8 @@ class wxGradientEditorWidget(wx.Panel, AbstractGradEditor):
 
     def on_save(self, event):
         """
-        Open "Save" dialog, write lookuptable to 3 files: *.lut (lookuptable) *.grad
-        (gradient table for use with this program), and *.jpg (image of the
+        Open "Save" dialog, write lookuptable to 3 files: ``*.lut`` (lookuptable) ``*.grad``
+        (gradient table for use with this program), and ``*.jpg`` (image of the
         gradient)
         """
         dlg = wx.FileDialog(self, "Save LUT to...", style=wx.SAVE)
@@ -633,7 +633,7 @@ class wxGradientEditorWidget(wx.Panel, AbstractGradEditor):
 
     def on_load(self, event):
         """
-        Load a *.grad lookuptable file using wxpython dialog
+        Load a ``*.grad`` lookuptable file using wxpython dialog
         """
 
         dlg = wx.FileDialog(self, "Open a file")
@@ -658,12 +658,13 @@ class wxGradientEditor(wx.Frame):
     def __init__(self, vtk_table, on_change_color_table = None, colors=None):
         """Initialize the gradient editor window.
         
-        input:
+        Parameters
+        ----------
         vtk_table: Instance of vtkLookupTable, designating the table which is
             to be edited.
         on_change_color_table: Callback function taking no arguments. Called
             when the color table was changed and rendering is
-        requested.
+            requested.
         """
 
         wx.Frame.__init__(self, None, -1, "Color Gradient Editor",
