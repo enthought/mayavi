@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 """The TVTK pipeline browser plugin definition.
 
 """

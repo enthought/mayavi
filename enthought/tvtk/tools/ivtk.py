@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 """ivtk - Interactive TVTK.
 
 A utility module that makes VTK/TVTK easier to use from the Python

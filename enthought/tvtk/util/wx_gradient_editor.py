@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 """ A wxPython based color gradient editor for vtkLookupTables and
 color transfer functions.
 

@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 """A Scene Editor that is placed in the work area.
 
 """

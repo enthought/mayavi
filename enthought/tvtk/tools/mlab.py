@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 """A module that provides Matlab like 3d visualization functionality.
 
 The general idea is shamelessly stolen from the `high-level API`_

@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 """ Defines the UI for a gradient editor for vtkLookupTables and color
 transfer functions.
 
