@@ -296,7 +296,11 @@ class TVTKBase(traits.HasStrictTraits):
         for i in dict:
             # Not enough to update the dict because the vtk object
             # needs to be updated.
-            setattr(self, i, dict[i])
+            try:
+                setattr(self, i, dict[i])
+            except traits.TraitError, msg:
+                print "WARNING:",
+                print msg
         self._in_set = 0
 
     def __str__(self):
