@@ -19,7 +19,7 @@ from vtk.util import vtkConstants
 # Enthought library imports.
 from enthought.util import numerix
 
-
+# Conditional imports.
 which_numerix = numerix.which[0]
 if which_numerix == 'numeric':
     from enthought.tvtk.array_ext import empty_array, set_id_type_array
@@ -28,6 +28,12 @@ elif which_numerix == 'numpy':
 else:
     from enthought.tvtk.array_ext_na import empty_array, set_id_type_array
 
+# Useful constants for ID_TYPE_ARRAYS.
+VTK_ID_TYPE_SIZE = vtk.vtkIdTypeArray().GetDataTypeSize()
+if VTK_ID_TYPE_SIZE == 4:
+    ID_TYPE_CODE = 'i'
+elif VTK_ID_TYPE_SIZE == 8:
+    ID_TYPE_CODE = 'l'
 
 ######################################################################
 # The array cache.
@@ -100,7 +106,7 @@ def get_vtk_to_numeric_typemap():
                 vtkConstants.VTK_UNSIGNED_INT:numerix.UInt32,
                 vtkConstants.VTK_LONG:numerix.Int,
                 vtkConstants.VTK_UNSIGNED_LONG:numerix.UInt32,
-                vtkConstants.VTK_ID_TYPE:numerix.Int,
+                vtkConstants.VTK_ID_TYPE:ID_TYPE_CODE,
                 vtkConstants.VTK_FLOAT:numerix.Float32,
                 vtkConstants.VTK_DOUBLE:numerix.Float64}
     return _vtk_arr
@@ -122,7 +128,7 @@ def get_sizeof_vtk_array(vtk_array_type):
                   vtkConstants.VTK_UNSIGNED_INT : 4,
                   vtkConstants.VTK_LONG : 4,
                   vtkConstants.VTK_UNSIGNED_LONG : 4,
-                  vtkConstants.VTK_ID_TYPE : 4,
+                  vtkConstants.VTK_ID_TYPE : VTK_ID_TYPE_SIZE,
                   vtkConstants.VTK_FLOAT : 4,
                   vtkConstants.VTK_DOUBLE : 8 }
     return _size_dict[vtk_array_type]
@@ -417,9 +423,9 @@ def array2vtkCellArray(num_array, vtk_array=None):
 
     def _get_tmp_array(arr):
         try:
-            tmp_arr = numerix.asarray(arr, numerix.Int)
+            tmp_arr = numerix.asarray(arr, ID_TYPE_CODE)
         except TypeError:
-            tmp_arr = arr.astype(numerix.Int)
+            tmp_arr = arr.astype(ID_TYPE_CODE)
         return tmp_arr
 
     def _set_cells(cells, n_cells, id_typ_arr):
@@ -447,7 +453,7 @@ def array2vtkCellArray(num_array, vtk_array=None):
                 tot_size += shp[0]*(shp[1] + 1)
                 n_cells += shp[0]
             # Create an empty array.
-            id_typ_arr = empty_array((tot_size,), numerix.Int)
+            id_typ_arr = empty_array((tot_size,), ID_TYPE_CODE)
             # Now populate it with the ids.
             count = 0
             for arr in num_array:
@@ -465,7 +471,7 @@ def array2vtkCellArray(num_array, vtk_array=None):
         assert len(num_array.shape) == 2, "Input array must be 2D."
         tmp_arr = _get_tmp_array(num_array)
         shp = tmp_arr.shape
-        id_typ_arr = empty_array((shp[0]*(shp[1] + 1),), numerix.Int)
+        id_typ_arr = empty_array((shp[0]*(shp[1] + 1),), ID_TYPE_CODE)
         set_id_type_array(tmp_arr, id_typ_arr)
         _set_cells(cells, shp[0], id_typ_arr)
         return cells

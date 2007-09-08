@@ -59,10 +59,6 @@ class TestArrayExt(unittest.TestCase):
         self.assertRaises(AssertionError, set_id_type_array,
                           d, b)
         
-        b = numpy.zeros((N, 5), 'd')
-        self.assertRaises(AssertionError, set_id_type_array,
-                          a, b)
-
         # B should b contiguous.
         b = numpy.zeros((N, 10), 'l')
         self.assertRaises(AssertionError, set_id_type_array,

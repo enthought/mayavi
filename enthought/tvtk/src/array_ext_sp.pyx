@@ -101,9 +101,6 @@ def set_id_type_array(id_array, out_array):
     assert numpy.issubdtype(id_array.dtype, numpy.signedinteger) and \
        id_array.dtype.itemsize == VTK_ID_TYPE_SIZE
     
-    assert out_array.dtype.char == Int, \
-           "out_array must have a dtype.char of Int."
-
     assert out_array.flags.contiguous == 1, \
            "out_array must be contiguous."
     
