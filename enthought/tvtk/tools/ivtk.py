@@ -29,17 +29,15 @@ Here is example usage of the viewer along with tvtk under IPython:
 import os
 import os.path
 
-import wx
-
 # Enthought library imports.
-from enthought.pyface.api import GUI, PythonShell
+from enthought.pyface.api import FileDialog, GUI, OK, PythonShell
 from enthought.pyface.api import SplitApplicationWindow, ApplicationWindow
-from enthought.pyface.split_widget import SplitWidget
-from enthought.pyface.tvtk.decorated_scene import Scene, DecoratedScene
+from enthought.pyface.api import SplitPanel
+from enthought.pyface.tvtk.api import Scene, DecoratedScene
 from enthought.pyface.action.api import Action, Group, MenuBarManager,\
      MenuManager, Separator
 
-from enthought.traits.api import Float, Str, Instance, Trait
+from enthought.traits.api import Bool, Float, Str, Instance, Trait
 
 from enthought.tvtk.api import tvtk
 
@@ -75,14 +73,10 @@ class SaveImageAction(Action):
         extns = ['*.png', '*.jpg', '*.jpeg', '*.tiff', '*.bmp', '*.ps', '*.eps',
                  '*.tex', '*.rib', '*.wrl', '*.oogl', '*.pdf', '*.vrml', '*.obj',
                  '*.iv']
-        dlg = wx.FileDialog(self._window.control, style=wx.SAVE,
-                            wildcard='|'.join(extns),
-                            message="Save scene to image")
-        rc = (dlg.ShowModal() == wx.ID_OK)
-        filename = os.path.abspath(dlg.GetPath())
-        dlg.Destroy()
-        if rc:
-            self._window.scene.save(filename)
+        dlg = FileDialog(self._window.control, action='save as',
+                wildcard='|'.join(extns), title="Save scene to image")
+        if dlg.open() == OK:
+            self._window.scene.save(dlg.path)
 
 
 ######################################################################
@@ -157,66 +151,9 @@ def create_ivtk_menu(obj):
 
 
 ######################################################################
-# `OrderedSplitWidget` class.
-######################################################################
-class OrderedSplitWidget(SplitWidget):
-
-    # Specifies the creation order of the lhs and rhs.
-    creation_order = Trait("left-right", "left-right", "right-left")
-
-    def _create_splitter(self, parent):
-        """ Create the toolkit-specific control that represents the widget. """
-
-        sizer = wx.BoxSizer(wx.VERTICAL)
-        splitter = wx.SplitterWindow(parent, -1, style=wx.CLIP_CHILDREN)
-        splitter.SetSizer(sizer)
-        splitter.SetAutoLayout(True)
-
-        # If we don't set the minimum pane size, the user can drag the sash and
-        # make one pane disappear!
-        splitter.SetMinimumPaneSize(50)
-
-        if self.creation_order == "left-right":
-            # Left hand side/top.
-            lhs = self._create_lhs(splitter)
-            sizer.Add(lhs, 1, wx.EXPAND)
-
-            # Right hand side/bottom.
-            rhs = self._create_rhs(splitter)
-            sizer.Add(rhs, 1, wx.EXPAND)
-        else:
-            # Right hand side/bottom.
-            rhs = self._create_rhs(splitter)
-            sizer.Add(rhs, 1, wx.EXPAND)
-
-            # Left hand side/top.
-            lhs = self._create_lhs(splitter)
-            sizer.Prepend(lhs, 1, wx.EXPAND)
-        
-        # Resize the splitter to fit the sizer's minimum size.
-        sizer.Fit(splitter)
-
-        # Split the window in the appropriate direction.
-        #
-        # fixme: Notice that on the initial split, we DON'T specify the split
-        # ratio.  If we do then sadly, wx won't let us move the sash 8^()
-        if self.direction == 'vertical':
-            splitter.SplitVertically(lhs, rhs)
-
-        else:
-            splitter.SplitHorizontally(lhs, rhs)
-
-        # We respond to the FIRST size event to make sure that the split ratio
-        # is correct when the splitter is laid out in its parent.
-        wx.EVT_SIZE(splitter, self._on_size)
-
-        return splitter
-
-
-######################################################################
 # `SceneWithBrowser` class.
 ######################################################################
-class SceneWithBrowser(OrderedSplitWidget):
+class SceneWithBrowser(SplitPanel):
     """ Provides an Scene along with an embedded PyCrust Python shell.
     In the shell, 'scene' and 's' are bound to the Scene."""
 
@@ -226,9 +163,6 @@ class SceneWithBrowser(OrderedSplitWidget):
     # The direction in which the panel is split.
     direction = Str('vertical')
 
-    # Creation order of widget.
-    creation_order = Str('right-left')
-
     # The `Scene` instance into which VTK renders.
     scene = Instance(Scene)
 
@@ -236,20 +170,11 @@ class SceneWithBrowser(OrderedSplitWidget):
     browser = Instance(PipelineBrowser)
 
     ###########################################################################
-    # 'object' interface.
-    ###########################################################################
-    def __init__(self, parent, **traits):
-        """ Creates a new window. """
-        # Base class constructor.
-        super(SceneWithBrowser, self).__init__(**traits)
-        # Create the control.
-        self.control = self._create_splitter(parent)
-
-    ###########################################################################
-    # Protected 'OrderedSplitWidget' interface.
+    # Protected 'SplitPanel' interface.
     ###########################################################################
     def _create_lhs(self, parent):
         """ Creates the left hand side or top depending on the style. """
+        self._create_scene(parent)
         self.browser = PipelineBrowser(self.scene)
         self.browser.show(parent=parent)
         return self.browser.ui.control
@@ -257,10 +182,17 @@ class SceneWithBrowser(OrderedSplitWidget):
     def _create_rhs(self, parent):
         """ Creates the right hand side or bottom depending on the
         style.  's' and 'scene' are bound to the Scene instance."""
-        self.scene = DecoratedScene(parent)
+        self._create_scene(parent)
         self.scene.renderer.background = 0.5, 0.5, 0.5        
         return self.scene.control
 
+    ###########################################################################
+    # Private 'SceneWithBrowser' interface.
+    ###########################################################################
+    def _create_scene(self, parent):
+        """ Make sure that the scene has been created. """
+        if self.scene is None:
+            self.scene = DecoratedScene(parent)
 
 
 ######################################################################

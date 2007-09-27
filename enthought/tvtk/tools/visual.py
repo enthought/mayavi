@@ -51,7 +51,6 @@ vanilla python interpretor.
 
 # Standard library imports.
 import sys
-import wx
 import numpy
 import time
 from math import sin, cos, pi, sqrt, acos, asin
@@ -82,7 +81,7 @@ def _create_viewer():
     """Creates and retunrs the ivtk viewer to get_viewer() function"""
     v = ivtk.viewer(browser = False)
     v.scene.background = (0,0,0)
-    wx.Yield()
+    GUI.process_events()
     return v
         
 def get_viewer():
@@ -99,7 +98,7 @@ def get_viewer():
     else:
         try:
             _viewer.scene.render()
-        except wx.PyDeadObjectError:
+        except:
             # If the original ivtk window is destroyed when function
             # is called more than once an exception is raised so that
             # a new ivtk browser is created and returned.
