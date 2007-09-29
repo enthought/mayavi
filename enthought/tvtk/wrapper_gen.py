@@ -322,6 +322,9 @@ class WrapperGenerator:
             if vtk_val == 0 and klass.__name__ == 'vtkGenericEnSightReader' \
                    and m == 'ByteOrder':
                 extra_val = 2
+            if vtk_val == 0 and klass.__name__ == 'vtkImageData' \
+                   and m == 'ScalarType':
+                extra_val = 0
             if vtk_val == 0 and klass.__name__ == 'vtkImagePlaneWidget' \
                    and m == 'PlaneOrientation':
                 extra_val = 3
