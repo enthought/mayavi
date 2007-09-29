@@ -244,10 +244,13 @@ class TVTKBase(traits.HasStrictTraits):
         # Setup the observer so the traits are updated even if the
         # wrapped VTK object changes.
         vtk_obj = self._vtk_obj
-        messenger.connect(vtk_obj, 'ModifiedEvent',
-                          self.update_traits)
-        self._observer_ids += (vtk_obj.AddObserver('ModifiedEvent',
-                                                   messenger.send),)
+        if hasattr(vtk_obj, 'AddObserver'):
+            # Some classes like vtkInformation* derive from
+            # tvtk.ObjectBase which don't support Add/RemoveObserver.
+            messenger.connect(vtk_obj, 'ModifiedEvent',
+                              self.update_traits)
+            self._observer_ids += (vtk_obj.AddObserver('ModifiedEvent',
+                                                       messenger.send),)
         _object_cache[vtk_obj.__this__] = self
     
     def __del__(self):
@@ -382,7 +385,7 @@ class TVTKBase(traits.HasStrictTraits):
             return        
         vtk_obj = self._vtk_obj
         self._in_set += 1
-        mtime = vtk_obj.GetMTime() + 1
+        mtime = self._wrapped_mtime(vtk_obj) + 1
         try:
             method(val)
         except TypeError:
@@ -391,7 +394,7 @@ class TVTKBase(traits.HasStrictTraits):
             else:
                 raise
         self._in_set -= 1
-        if force_update or vtk_obj.GetMTime() > mtime:
+        if force_update or self._wrapped_mtime(vtk_obj) > mtime:
             self.update_traits()
 
     def _wrap_call(self, vtk_method, *args):
@@ -415,9 +418,19 @@ class TVTKBase(traits.HasStrictTraits):
         """
         vtk_obj = self._vtk_obj
         self._in_set += 1
-        mtime = vtk_obj.GetMTime() + 1
+        mtime = self._wrapped_mtime(vtk_obj) + 1
         ret = vtk_method(*args)
         self._in_set -= 1
-        if vtk_obj.GetMTime() > mtime:
+        if self._wrapped_mtime(vtk_obj) > mtime:
             self.update_traits()
         return ret
+
+    def _wrapped_mtime(self, vtk_obj):
+        """A simple wrapper for the mtime so tvtk can be used for
+        `vtk.vtkObjectBase` subclasses that neither have an
+        `AddObserver` or a `GetMTime` method.
+        """
+        try:
+            return vtk_obj.GetMTime()
+        except AttributeError:
+            return 0

@@ -476,6 +476,14 @@ class TestTVTK(unittest.TestCase):
         # a list and it should work OK.
         sg.extent = [0,-1, 0,-1, 0,-1]
 
+    def test_information_keys(self):
+        """Test if vtk information objects can be created."""
+        s = tvtk.StructuredPoints()
+        x = s.FIELD_ARRAY_TYPE()
+        y = tvtk.Information()
+        x.get(y)
+        
+        
 # This separates out any tests for the entire module that would affect
 # the functioning of the other tests.
 class TestTVTKModule(unittest.TestCase):        
