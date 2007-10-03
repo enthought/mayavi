@@ -1,2 +1,2 @@
-The tvtk package, a part othe Enthought Tool Suite.
+The tvtk package, a part of the Enthought Tool Suite.
 
