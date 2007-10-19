@@ -66,7 +66,7 @@ from enthought.tvtk.tools import ivtk
 from enthought.pyface.api import GUI
 from enthought.pyface.timer.api import Timer
 from enthought.tvtk.tvtk_base import TVTKBase, vtk_color_trait
-import enthought.util.numerix as numpy
+
 
 
 # Set the global variable to None, for it's future use in function

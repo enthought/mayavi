@@ -7,16 +7,16 @@ Tests for array_handler.py.
 
 import unittest
 import vtk
+import numpy
 
-from enthought.util import numerix
 from enthought.tvtk import array_handler
 from test_tvtk_base import Prop
 from enthought.tvtk import tvtk_base
 
 def mysum(arr):
     val = arr
-    while type(val) == numerix.ArrayType:
-        val = numerix.sum(val)
+    while type(val) == numpy.ndarray:
+        val = numpy.sum(val)
     return val
 
 
@@ -29,12 +29,12 @@ class TestArrayHandler(unittest.TestCase):
             for i in range(len(arr)):
                 if dim1 in [1,2,3,4,9]:
                     res = getattr(vtk_arr, 'GetTuple%s'%dim1)(i)
-                    self.assertEqual(numerix.sum(res - arr[i]), 0)
+                    self.assertEqual(numpy.sum(res - arr[i]), 0)
                 else:
                     res = [vtk_arr.GetComponent(i, j) for j in range(dim1)]
-                    self.assertEqual(numerix.sum(res - arr[i]), 0)
+                    self.assertEqual(numpy.sum(res - arr[i]), 0)
         else:
-            if numerix.typecode(arr) == 'c':
+            if arr.dtype.char == 'c':
                 for i in range(len(arr)):
                     self.assertEqual(chr(int(vtk_arr.GetTuple1(i))), arr[i])
             else:
@@ -48,53 +48,54 @@ class TestArrayHandler(unittest.TestCase):
         t_z = []        
 
         # Test the different types of arrays.
-        t_z.append(numerix.array([-128, 0, 127], numerix.Int8))
-        if numerix.which[0] == 'numeric':
-            t_z.append(numerix.array([-128, 0, 127], numerix.Character))
-        t_z.append(numerix.array([-32768, 0, 32767], numerix.Int16))
-        t_z.append(numerix.array([-2147483648, 0, 2147483647], numerix.Int32))
-        t_z.append(numerix.array([0, 255], numerix.UInt8))
-        t_z.append(numerix.array([0, 65535], numerix.UInt16))
-        t_z.append(numerix.array([0, 4294967295L], numerix.UInt32))
-        t_z.append(numerix.array([-1.0e38, 0, 1.0e38], 'f'))
-        t_z.append(numerix.array([-1.0e299, 0, 1.0e299], 'd'))
+        t_z.append(numpy.array([-128, 0, 127], numpy.int8))
+
+        # FIXME: character arrays are a problem since there is no
+        # unique mapping to a VTK data type and back.
+        #t_z.append(numpy.array([-128, 0, 127], numpy.character))
+        t_z.append(numpy.array([-32768, 0, 32767], numpy.int16))
+        t_z.append(numpy.array([-2147483648, 0, 2147483647], numpy.int32))
+        t_z.append(numpy.array([0, 255], numpy.uint8))
+        t_z.append(numpy.array([0, 65535], numpy.uint16))
+        t_z.append(numpy.array([0, 4294967295L], numpy.uint32))
+        t_z.append(numpy.array([-1.0e38, 0, 1.0e38], 'f'))
+        t_z.append(numpy.array([-1.0e299, 0, 1.0e299], 'd'))
 
         # Check multi-component arrays.
-        t_z.append(numerix.array([[1], [2], [300]], 'd'))
-        t_z.append(numerix.array([[1, 20], [300, 4000]], 'd'))
-        t_z.append(numerix.array([[1, 2, 3], [4, 5, 6]], 'f'))
-        t_z.append(numerix.array([[1, 2, 3],[4, 5, 6]], 'd'))
-        t_z.append(numerix.array([[1, 2, 3, 400],[4, 5, 6, 700]],
+        t_z.append(numpy.array([[1], [2], [300]], 'd'))
+        t_z.append(numpy.array([[1, 20], [300, 4000]], 'd'))
+        t_z.append(numpy.array([[1, 2, 3], [4, 5, 6]], 'f'))
+        t_z.append(numpy.array([[1, 2, 3],[4, 5, 6]], 'd'))
+        t_z.append(numpy.array([[1, 2, 3, 400],[4, 5, 6, 700]],
                                  'd'))
-        t_z.append(numerix.array([range(9),range(10,19)], 'f'))
+        t_z.append(numpy.array([range(9),range(10,19)], 'f'))
 
         # Test if a Python list also works.
-        t_z.append(numerix.array([[1., 2., 3., 400.],[4, 5, 6, 700]],
+        t_z.append(numpy.array([[1., 2., 3., 400.],[4, 5, 6, 700]],
                                  'd'))
 
         # Test if arrays with number of components not in [1,2,3,4,9] work.
-        t_z.append(numerix.array([[1, 2, 3, 400, 5000],
+        t_z.append(numpy.array([[1, 2, 3, 400, 5000],
                                   [4, 5, 6, 700, 8000]], 'd'))
-        t_z.append(numerix.array([range(10), range(10,20)], 'd'))
+        t_z.append(numpy.array([range(10), range(10,20)], 'd'))
 
         for z in t_z:
             vtk_arr = array_handler.array2vtk(z)
             # Test for memory leaks.
             self.assertEqual(vtk_arr.GetReferenceCount(), 2)
-            #print z
             self._check_arrays(z, vtk_arr)
             z1 = array_handler.vtk2array(vtk_arr)
             if len(z.shape) == 1:
                 self.assertEqual(len(z1.shape), 1)
-            if numerix.typecode(z) != 'c':
+            if z.dtype.char != 'c':
                 #print z1
-                self.assertEqual(sum(numerix.ravel(z) - numerix.ravel(z1)), 0)
+                self.assertEqual(sum(numpy.ravel(z) - numpy.ravel(z1)), 0)
             else:
                 #print z1.astype('c')
                 self.assertEqual(z, z1.astype('c'))
         
         # Check if type conversion works correctly.
-        z = numerix.array([-128, 0, 127], numerix.Int8)
+        z = numpy.array([-128, 0, 127], numpy.int8)
         vtk_arr = vtk.vtkDoubleArray()
         ident = id(vtk_arr)
         vtk_arr = array_handler.array2vtk(z, vtk_arr)
@@ -109,7 +110,7 @@ class TestArrayHandler(unittest.TestCase):
         vtk_arr.InsertNextValue(0)
         vtk_arr.InsertNextValue(1)
         arr = array_handler.vtk2array(vtk_arr)
-        self.assertEqual(numerix.sum(arr - [0,1,0,1]), 0)
+        self.assertEqual(numpy.sum(arr - [0,1,0,1]), 0)
         vtk_arr = array_handler.array2vtk(arr, vtk_arr)
         self.assertEqual(vtk_arr.GetValue(0), 0)
         self.assertEqual(vtk_arr.GetValue(1), 1)
@@ -118,9 +119,9 @@ class TestArrayHandler(unittest.TestCase):
 
         # ----------------------------------------
         # Test if the array is copied or not.
-        a = numerix.array([[1, 2, 3],[4, 5, 6]], 'd')
+        a = numpy.array([[1, 2, 3],[4, 5, 6]], 'd')
         vtk_arr = array_handler.array2vtk(a)
-        # Change the numerix array and see if the changes are
+        # Change the numpy array and see if the changes are
         # reflected in the VTK array.
         a[0] = [10.0, 20.0, 30.0]
         self.assertEqual(vtk_arr.GetTuple3(0), (10., 20., 30.))
@@ -128,7 +129,7 @@ class TestArrayHandler(unittest.TestCase):
         # Make sure the cache is doing its job.
         key = vtk_arr.__this__
         z = array_handler._array_cache[key]
-        self.assertEqual(numerix.sum(z - numerix.ravel(a)), 0.0)
+        self.assertEqual(numpy.sum(z - numpy.ravel(a)), 0.0)
 
         l1 = len(array_handler._array_cache)
         # del the Numeric array and see if this still works.
@@ -139,15 +140,13 @@ class TestArrayHandler(unittest.TestCase):
 
         # Delete the VTK array and see if the cache is cleared.
         del vtk_arr
-        if numerix.which[0] != 'numpy':
-            # FIXME: Somehow this does not work with numpy arrays.
-            self.assertEqual(len(array_handler._array_cache), l1-1)
-            self.assertEqual(array_handler._array_cache.has_key(key),
-                             False)
+        self.assertEqual(len(array_handler._array_cache), l1-1)
+        self.assertEqual(array_handler._array_cache.has_key(key),
+                         False)
 
         # Make sure bit arrays are copied.
         vtk_arr = vtk.vtkBitArray()
-        a = numerix.array([0,1,0,1], numerix.Int32)
+        a = numpy.array([0,1,0,1], numpy.int32)
         vtk_arr = array_handler.array2vtk(a, vtk_arr)
         del a
         self.assertEqual(vtk_arr.GetValue(0), 0)
@@ -161,9 +160,9 @@ class TestArrayHandler(unittest.TestCase):
         # Test list of lists.
         a = [[0], [1, 2], [3, 4, 5], [6, 7, 8, 9]]
         cells = array_handler.array2vtkCellArray(a)
-        z = numerix.array([1, 0, 2, 1,2, 3, 3,4,5, 4, 6,7,8,9])
+        z = numpy.array([1, 0, 2, 1,2, 3, 3,4,5, 4, 6,7,8,9])
         arr = array_handler.vtk2array(cells.GetData())
-        self.assertEqual(numerix.sum(arr - z), 0)
+        self.assertEqual(numpy.sum(arr - z), 0)
         self.assertEqual(len(arr.shape), 1)
         self.assertEqual(len(arr), 14)
 
@@ -173,7 +172,7 @@ class TestArrayHandler(unittest.TestCase):
         cells = array_handler.array2vtkCellArray(a, cells)
         self.assertEqual(id(cells), ident)
         arr = array_handler.vtk2array(cells.GetData())
-        self.assertEqual(numerix.sum(arr - z), 0)
+        self.assertEqual(numpy.sum(arr - z), 0)
         self.assertEqual(cells.GetNumberOfCells(), 4)
 
         # Make sure this resets the cell array and does not add to the
@@ -183,13 +182,13 @@ class TestArrayHandler(unittest.TestCase):
 
         # Test Numeric array handling.
         N = 3
-        a = numerix.zeros((N,3), numerix.Int)
+        a = numpy.zeros((N,3), numpy.int)
         a[:,1] = 1
         a[:,2] = 2
         cells = array_handler.array2vtkCellArray(a)
         arr = array_handler.vtk2array(cells.GetData())
-        expect = numerix.array([3, 0, 1, 2]*3,numerix.Int) 
-        self.assertEqual(numerix.alltrue(numerix.equal(arr, expect)),
+        expect = numpy.array([3, 0, 1, 2]*3, numpy.int) 
+        self.assertEqual(numpy.alltrue(numpy.equal(arr, expect)),
                          True)
         self.assertEqual(cells.GetNumberOfCells(), N)
 
@@ -197,15 +196,15 @@ class TestArrayHandler(unittest.TestCase):
         l_a = [a[:,:1], a, a[:2,:2]]
         cells = array_handler.array2vtkCellArray(l_a)
         arr = array_handler.vtk2array(cells.GetData())
-        expect = numerix.array([1, 0]*3 + [3, 0, 1, 2]*3 + [2, 0,1]*2,numerix.Int)
-        self.assertEqual(numerix.alltrue(numerix.equal(arr, expect)),
+        expect = numpy.array([1, 0]*3 + [3, 0, 1, 2]*3 + [2, 0,1]*2, numpy.int)
+        self.assertEqual(numpy.alltrue(numpy.equal(arr, expect)),
                          True)
         self.assertEqual(cells.GetNumberOfCells(), N*2 + 2)
 
         # This should not take a long while.  This merely tests if a
         # million cells can be created rapidly.
         N = int(1e6)
-        a = numerix.zeros((N,3), numerix.Int)
+        a = numpy.zeros((N,3), numpy.int)
         a[:,1] = 1
         a[:,2] = 2
         cells = array_handler.array2vtkCellArray(a)
@@ -219,7 +218,7 @@ class TestArrayHandler(unittest.TestCase):
         self.assertEqual(p.GetPoint(1), (1.0, 1.0, 1.0))
         p = vtk.vtkPoints()
         ident = id(p)
-        p = array_handler.array2vtkPoints(numerix.array(a), p)
+        p = array_handler.array2vtkPoints(numpy.array(a), p)
         self.assertEqual(p.GetPoint(0), (0.0, 0.0, 0.0))
         self.assertEqual(p.GetPoint(1), (1.0, 1.0, 1.0))
         self.assertEqual(id(p), ident)
@@ -237,7 +236,7 @@ class TestArrayHandler(unittest.TestCase):
             self.assertEqual(p.GetId(i), j)
         p = vtk.vtkIdList()
         ident = id(p)
-        p = array_handler.array2vtkIdList(numerix.array(a), p)
+        p = array_handler.array2vtkIdList(numpy.array(a), p)
         for i, j in enumerate(a):            
             self.assertEqual(p.GetId(i), j)
         self.assertEqual(id(p), ident)
@@ -277,7 +276,7 @@ class TestArrayHandler(unittest.TestCase):
                  [1,1], # No arrays!
                  [1,1], # No match so returns None.
                  [1, [1,1,1]], # ambiguous, pick first match.
-                 [numerix.array([1,1]), [1,1,1]], # Match!
+                 [numpy.array([1,1]), [1,1,1]], # Match!
                  [obj, [2,1,2,3]], # TVTK array object, match.
                  [[2,1,2,3], obj], # TVTK array object, match but has
                                    # wrong argument. Should be caught
@@ -323,7 +322,7 @@ class TestArrayHandler(unittest.TestCase):
                 [[[0.,0.,0.], [1.,1.,1.]]],
                 [1, [1,2,3]],
                 [1, (0.0, 0.0), [1.0, 1.0, 1.0]],
-                [Prop(), 1, numerix.array([1.0, 1.0, 1.0])],
+                [Prop(), 1, numpy.array([1.0, 1.0, 1.0])],
                 [[[1,2,3]], [1,2,3]]
                 ]
         r = array_handler.deref_array(args[0], sigs[0])
@@ -336,7 +335,7 @@ class TestArrayHandler(unittest.TestCase):
         
         r = array_handler.deref_array(args[3], sigs[3])
         self.assertEqual(mysum(array_handler.vtk2array(r[0].GetData()) -
-                                     numerix.array(args[3], 'f')), 0)
+                                     numpy.array(args[3], 'f')), 0)
         
         r = array_handler.deref_array(args[4], sigs[4])
         self.assertEqual(r[0], 1)
@@ -356,8 +355,8 @@ class TestArrayHandler(unittest.TestCase):
 
     def test_reference_to_array(self):
         """Does to_array return an existing array instead of a new copy."""
-        arr = numerix.arange(0.0, 10.0, 0.1)
-        arr  = numerix.reshape(arr, (25, 4))
+        arr = numpy.arange(0.0, 10.0, 0.1)
+        arr  = numpy.reshape(arr, (25, 4))
         vtk_arr = array_handler.array2vtk(arr)
         arr1 = array_handler.vtk2array(vtk_arr)
         # Now make sure these are using the same memory.

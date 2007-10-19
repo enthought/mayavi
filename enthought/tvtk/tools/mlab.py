@@ -54,9 +54,9 @@ This module offers the following broad class of functionality:
   Plots the mesh using tubes and spheres so its fancier.
 
 `Mesh`
-  Given x, y generated from scipy.mgrid, and a z to go with it.  Along
+  Given x, y generated from numpy.mgrid, and a z to go with it.  Along
   with optional scalars.  This class builds the triangle connectivity
-  (assuming that x, y are from scipy.mgrid) and builds a mesh and
+  (assuming that x, y are from numpy.mgrid) and builds a mesh and
   shows it. 
 
 `FancyMesh` 
@@ -93,13 +93,11 @@ functions::
 # License: BSD Style.
 
 
-import enthought.util.scipyx as scipy
+import numpy
 
 from enthought.traits.api import HasTraits, List, Instance, Any, Float, Bool, \
                                  Str, Trait, Int
 from enthought.pyface.api import GUI
-
-from enthought.util import numerix
 
 from enthought.tvtk.api import tvtk
 from enthought.tvtk.tvtk_base import TVTKBase, vtk_color_trait
@@ -128,7 +126,7 @@ def _make_actor(**kwargs):
 
 def _create_structured_points_direct(x, y, z=None):
     """Creates a StructuredPoints object given input data in the form
-    of Numeric arrays.
+    of numpy arrays.
 
     Input Arguments:
        x -- Array of x-coordinates.  These should be regularly spaced.
@@ -145,7 +143,7 @@ def _create_structured_points_direct(x, y, z=None):
     nx = len(x)
     ny = len(y)
     if z is not None:
-        nz = scipy.size(z)
+        nz = numpy.size(z)
         assert nx*ny == nz, "len(x)*len(y) != len(z)"\
                "You passed nx=%d, ny=%d,  nz=%d"%(nx, ny, nz)
 
@@ -156,7 +154,7 @@ def _create_structured_points_direct(x, y, z=None):
                                origin=(xmin, ymin, 0),
                                spacing=(dx, dy, 1))
     if z is not None:
-        sp.point_data.scalars = scipy.ravel(z)
+        sp.point_data.scalars = numpy.ravel(z)
         sp.point_data.scalars.name = 'scalars'
     return sp
 
@@ -180,13 +178,11 @@ def sampler(xa, ya, func, *args, **kwargs):
         kwargs -- a dict of additional keyword arguments for func()
         (default is empty)
     """
-    ret = func(xa[:,scipy.NewAxis] +
-               scipy.zeros(len(ya), numerix.typecode(ya)),
-               scipy.transpose(ya[:,scipy.NewAxis] +
-               scipy.zeros(len(xa), numerix.typecode(xa))),
+    ret = func(xa[:,None] + numpy.zeros_like(ya),
+               numpy.transpose(ya[:,None] + numpy.zeros_like(xa)),
                *args, **kwargs
                )
-    return scipy.transpose(ret)
+    return numpy.transpose(ret)
 
 
 def _check_sanity(x, y, z):
@@ -209,10 +205,10 @@ def _check_sanity(x, y, z):
 
 def squeeze(a):
     "Returns a with any ones from the shape of a removed"
-    a = scipy.asarray(a)
-    b = scipy.asarray(a.shape)
-    val = scipy.reshape(a,
-                          tuple(scipy.compress(scipy.not_equal(b, 1), b)))
+    a = numpy.asarray(a)
+    b = numpy.asarray(a.shape)
+    val = numpy.reshape(a,
+                          tuple(numpy.compress(numpy.not_equal(b, 1), b)))
     return val
 
 
@@ -249,12 +245,12 @@ def make_surf_actor(x, y, z, warp=1, scale=[1.0, 1.0, 1.0],
     """
 
     if callable(z):
-        zval = scipy.ravel(sampler(x, y, z, *args, **kwargs))
+        zval = numpy.ravel(sampler(x, y, z, *args, **kwargs))
         x, y = squeeze(x), squeeze(y)
     else:
         x, y = squeeze(x), squeeze(y)
         _check_sanity(x, y, z)
-        zval = scipy.ravel(z)
+        zval = numpy.ravel(z)
         assert len(zval) > 0, "z is empty - nothing to plot!"
 
     xs = x*scale[0]
@@ -280,21 +276,21 @@ def make_surf_actor(x, y, z, warp=1, scale=[1.0, 1.0, 1.0],
 
 
 def make_triangle_polydata(triangles, points, scalars=None):
-    t = scipy.asarray(triangles, 'l')
+    t = numpy.asarray(triangles, 'l')
     assert t.shape[1] == 3, "The list of polygons must be Nx3."
 
     if scalars is not None:
-        assert len(points) == len(scipy.ravel(scalars))
+        assert len(points) == len(numpy.ravel(scalars))
     
     pd = tvtk.PolyData(points=points, polys=t)
     if scalars is not None:
-        pd.point_data.scalars = scipy.ravel(scalars)
+        pd.point_data.scalars = numpy.ravel(scalars)
         pd.point_data.scalars.name = 'scalars'
     return pd
 
 
 def make_triangles_points(x, y, z, scalars=None):
-    """Given x, y, and z co-ordinates made using scipy.mgrid and
+    """Given x, y, and z co-ordinates made using numpy.mgrid and
     optional scalars.  This function returns triangles and points
     corresponding to a mesh formed by them.
     
@@ -302,11 +298,11 @@ def make_triangles_points(x, y, z, scalars=None):
     ----------
 
     - x : array
-        A list of x coordinate values formed using scipy.mgrid.
+        A list of x coordinate values formed using numpy.mgrid.
     - y : array
-        A list of y coordinate values formed using scipy.mgrid.
+        A list of y coordinate values formed using numpy.mgrid.
     - z : array
-        A list of z coordinate values formed using scipy.mgrid.
+        A list of z coordinate values formed using numpy.mgrid.
     - scalars : array (optional)
         Scalars to associate with the points.          
     """
@@ -317,18 +313,18 @@ def make_triangles_points(x, y, z, scalars=None):
     assert y.shape == z.shape, "Arrays y and z must have same shape."
 
     nx, ny = x.shape
-    i, j = scipy.mgrid[0:nx-1,0:ny-1]
-    i, j = scipy.ravel(i), scipy.ravel(j)
+    i, j = numpy.mgrid[0:nx-1,0:ny-1]
+    i, j = numpy.ravel(i), numpy.ravel(j)
     t1 = i*ny+j, (i+1)*ny+j, (i+1)*ny+(j+1)
     t2 = (i+1)*ny+(j+1), i*ny+(j+1), i*ny+j
     nt = len(t1[0])
-    triangles = scipy.zeros((nt*2, 3), 'l')
+    triangles = numpy.zeros((nt*2, 3), 'l')
     triangles[0:nt,0], triangles[0:nt,1], triangles[0:nt,2] = t1
     triangles[nt:,0], triangles[nt:,1], triangles[nt:,2] = t2
 
-    points = scipy.zeros((nx, ny, 3), 'd')
+    points = numpy.zeros((nx, ny, 3), 'd')
     points[:,:,0], points[:,:,1], points[:,:,2] = x, y, z
-    points = scipy.reshape(points, (nx*ny, 3))
+    points = numpy.reshape(points, (nx*ny, 3))
 
     return triangles, points
 
@@ -400,8 +396,8 @@ class Glyphs(MLabBase):
         self.vectors = vectors
         self.scalars = scalars
 
-        polys = scipy.arange(0, len(points), 1, 'l')
-        polys = scipy.reshape(polys, (len(points), 1))
+        polys = numpy.arange(0, len(points), 1, 'l')
+        polys = numpy.reshape(polys, (len(points), 1))
         pd = tvtk.PolyData(points=points, polys=polys)
         if self.vectors is not None:
             pd.point_data.vectors = vectors
@@ -542,9 +538,9 @@ class Line3(MLabBase):
         self.points = points
 
         np = len(points) - 1
-        lines = scipy.zeros((np, 2), 'l')
-        lines[:,0] = scipy.arange(0, np-0.5, 1, 'l')
-        lines[:,1] = scipy.arange(1, np+0.5, 1, 'l')
+        lines = numpy.zeros((np, 2), 'l')
+        lines[:,0] = numpy.arange(0, np-0.5, 1, 'l')
+        lines[:,1] = numpy.arange(1, np+0.5, 1, 'l')
         pd = tvtk.PolyData(points=points, lines=lines)
         self.poly_data = pd
 
@@ -832,7 +828,7 @@ class TriMesh(LUTBase):
         mapper = tvtk.PolyDataMapper(input=self.pd, lookup_table=self.lut,
                                      scalar_visibility=self.scalar_visibility)
         if scalars is not None:
-            rs = scipy.ravel(scalars)
+            rs = numpy.ravel(scalars)
             dr = min(rs), max(rs)
             mapper.scalar_range = dr
             self.lut.table_range = dr
@@ -949,7 +945,7 @@ class FancyTriMesh(LUTBase):
         sphere_actor.property.color = self.color
 
         if scalars is not None:
-            rs = scipy.ravel(scalars)
+            rs = numpy.ravel(scalars)
             dr = min(rs), max(rs)
             self.lut.table_range = dr
             edge_mapper.scalar_range = dr
@@ -966,8 +962,8 @@ class FancyTriMesh(LUTBase):
     def _tube_radius_changed(self, val):
         points = self.points
         if val < 1.0e-9:
-            val = (max(numerix.ravel(points)) -
-                   min(numerix.ravel(points)))/250.0
+            val = (max(numpy.ravel(points)) -
+                   min(numpy.ravel(points)))/250.0
         self.tube_radius = val
         self.tube_filter.radius = val
         self.render()
@@ -975,8 +971,8 @@ class FancyTriMesh(LUTBase):
     def _sphere_radius_changed(self, val):
         points = self.points
         if val < 1.0e-9:
-            val = (max(numerix.ravel(points)) -
-                       min(numerix.ravel(points)))/100.0
+            val = (max(numpy.ravel(points)) -
+                       min(numpy.ravel(points)))/100.0
         self.sphere_radius = val
         self.sphere_source.radius = val
         self.render()
@@ -996,11 +992,11 @@ class Mesh(TriMesh):
         ----------
 
         - x : array
-          A list of x coordinate values formed using scipy.mgrid.
+          A list of x coordinate values formed using numpy.mgrid.
         - y : array
-          A list of y coordinate values formed using scipy.mgrid.
+          A list of y coordinate values formed using numpy.mgrid.
         - z : array
-          A list of z coordinate values formed using scipy.mgrid.
+          A list of z coordinate values formed using numpy.mgrid.
         - scalars : array (optional)
           Scalars to associate with the points.          
         """
@@ -1018,11 +1014,11 @@ class FancyMesh(FancyTriMesh):
         ----------
 
         - x : array
-          A list of x coordinate values formed using scipy.mgrid.
+          A list of x coordinate values formed using numpy.mgrid.
         - y : array
-          A list of y coordinate values formed using scipy.mgrid.
+          A list of y coordinate values formed using numpy.mgrid.
         - z : array
-          A list of z coordinate values formed using scipy.mgrid.
+          A list of z coordinate values formed using numpy.mgrid.
         - scalars : array (optional)
           Scalars to associate with the points.          
         """
@@ -1046,11 +1042,11 @@ class Surf(LUTBase):
         ----------
 
         - x : array
-          A list of x coordinate values formed using scipy.mgrid.
+          A list of x coordinate values formed using numpy.mgrid.
         - y : array
-          A list of y coordinate values formed using scipy.mgrid.
+          A list of y coordinate values formed using numpy.mgrid.
         - z : array
-          A list of z coordinate values formed using scipy.mgrid.
+          A list of z coordinate values formed using numpy.mgrid.
         - scalars : array (optional)
           Scalars to associate with the points.          
         """
@@ -1061,7 +1057,7 @@ class Surf(LUTBase):
         mapper = tvtk.PolyDataMapper(input=self.pd, lookup_table=self.lut,
                                      scalar_visibility=self.scalar_visibility)
         if scalars is not None:
-            rs = scipy.ravel(scalars)            
+            rs = numpy.ravel(scalars)            
             dr = min(rs), max(rs)
             mapper.scalar_range = dr
             self.lut.table_range = dr
@@ -1106,11 +1102,11 @@ class Contour3(LUTBase):
         ----------
 
         - x : array
-          A list of x coordinate values formed using scipy.mgrid.
+          A list of x coordinate values formed using numpy.mgrid.
         - y : array
-          A list of y coordinate values formed using scipy.mgrid.
+          A list of y coordinate values formed using numpy.mgrid.
         - z : array
-          A list of z coordinate values formed using scipy.mgrid.
+          A list of z coordinate values formed using numpy.mgrid.
         - scalars : array
           Scalars to associate with the points.          
         """
@@ -1140,7 +1136,7 @@ class Contour3(LUTBase):
 # `ImShow` class.
 ######################################################################
 class ImShow(LUTBase):
-    """Allows one to view a 2D Numeric array as an image.  This works
+    """Allows one to view a 2D numpy array as an image.  This works
     best for very large arrays (like 1024x1024 arrays).
     """
 
@@ -1161,11 +1157,11 @@ class ImShow(LUTBase):
         assert len(arr.shape) == 2, "Only 2D arrays can be viewed!"
 
         ny, nx = arr.shape
-        dx, dy, junk = scipy.array(scale)*1.0
-        xa = scipy.arange(0, nx*scale[0] - 0.1*dx, dx, 'f')
-        ya = scipy.arange(0, ny*scale[1] - 0.1*dy, dy, 'f')
+        dx, dy, junk = numpy.array(scale)*1.0
+        xa = numpy.arange(0, nx*scale[0] - 0.1*dx, dx, 'f')
+        ya = numpy.arange(0, ny*scale[1] - 0.1*dy, dy, 'f')
 
-        arr_flat = scipy.ravel(arr)
+        arr_flat = numpy.ravel(arr)
         min_val = min(arr_flat)
         max_val = max(arr_flat)
 
@@ -1268,15 +1264,15 @@ def test_arrows(fig):
 def test_lines(fig):
     """Generates a pretty set of lines."""
     n_mer, n_long = 6, 11
-    pi = scipy.pi
+    pi = numpy.pi
     dphi = pi/1000.0
-    phi = scipy.arange(0.0, 2*pi + 0.5*dphi, dphi, 'd')
+    phi = numpy.arange(0.0, 2*pi + 0.5*dphi, dphi, 'd')
     mu = phi*n_mer
-    x = scipy.cos(mu)*(1+scipy.cos(n_long*mu/n_mer)*0.5)
-    y = scipy.sin(mu)*(1+scipy.cos(n_long*mu/n_mer)*0.5)
-    z = scipy.sin(n_long*mu/n_mer)*0.5
+    x = numpy.cos(mu)*(1+numpy.cos(n_long*mu/n_mer)*0.5)
+    y = numpy.sin(mu)*(1+numpy.cos(n_long*mu/n_mer)*0.5)
+    z = numpy.sin(n_long*mu/n_mer)*0.5
 
-    pts = scipy.zeros((len(mu), 3), 'd')
+    pts = numpy.zeros((len(mu), 3), 'd')
     pts[:,0], pts[:,1], pts[:,2] = x, y, z
 
     l = Line3(pts, radius=0.05, color=(0.0, 0.0, 0.8))
@@ -1302,7 +1298,7 @@ def test_molecule(fig):
 
 def test_trimesh(fig):
     """Test for simple triangle mesh."""
-    pts = scipy.array([[0.0,0,0], [1.0,0.0,0.0], [1,1,0]], 'd')
+    pts = numpy.array([[0.0,0,0], [1.0,0.0,0.0], [1,1,0]], 'd')
     triangles = [[0, 1, 2]]
     t1 = TriMesh(triangles, pts)
     fig.add(t1)
@@ -1314,10 +1310,10 @@ def test_trimesh(fig):
 def test_surf_regular(fig, contour=1):
     """Test Surf on regularly spaced co-ordinates like MayaVi."""
     def f(x, y):
-        return scipy.sin(x*y)/(x*y)
+        return numpy.sin(x*y)/(x*y)
 
-    x = scipy.arange(-7., 7.05, 0.1)
-    y = scipy.arange(-5., 5.05, 0.05)
+    x = numpy.arange(-7., 7.05, 0.1)
+    y = numpy.arange(-5., 5.05, 0.05)
     if contour:
         s = SurfRegularC(x, y, f)
     else:
@@ -1327,19 +1323,19 @@ def test_surf_regular(fig, contour=1):
 
 def test_simple_surf(fig):
     """Test Surf with a simple collection of points."""
-    x, y = scipy.mgrid[0:3:1,0:3:1]
+    x, y = numpy.mgrid[0:3:1,0:3:1]
     z = x
-    s = Surf(x, y, z, scipy.asarray(z, 'd'))
+    s = Surf(x, y, z, numpy.asarray(z, 'd'))
     fig.add(s)    
 
 def test_surf(fig):
     """A very pretty picture of spherical harmonics translated from
     the octaviz example."""
-    pi = scipy.pi
-    cos = scipy.cos
-    sin = scipy.sin
+    pi = numpy.pi
+    cos = numpy.cos
+    sin = numpy.sin
     dphi, dtheta = pi/250.0, pi/250.0
-    [phi,theta] = scipy.mgrid[0:pi+dphi*1.5:dphi,0:2*pi+dtheta*1.5:dtheta] 
+    [phi,theta] = numpy.mgrid[0:pi+dphi*1.5:dphi,0:2*pi+dtheta*1.5:dtheta] 
     m0 = 4; m1 = 3; m2 = 2; m3 = 3; m4 = 6; m5 = 2; m6 = 6; m7 = 4;
     r = sin(m0*phi)**m1 + cos(m2*phi)**m3 + sin(m4*theta)**m5 + cos(m6*theta)**m7
     x = r*sin(phi)*cos(theta)
@@ -1351,11 +1347,11 @@ def test_surf(fig):
 
 def test_mesh_sphere(fig):
     """Create a simple sphere and test the mesh."""
-    pi = scipy.pi
-    cos = scipy.cos
-    sin = scipy.sin    
+    pi = numpy.pi
+    cos = numpy.cos
+    sin = numpy.sin    
     du, dv = pi/20.0, pi/20.0
-    phi, theta = scipy.mgrid[0.01:pi+du*1.5:du, 0:2*pi+dv*1.5:dv]
+    phi, theta = numpy.mgrid[0.01:pi+du*1.5:du, 0:2*pi+dv*1.5:dv]
     r = 1.0
     x = r*sin(phi)*cos(theta)
     y = r*sin(phi)*sin(theta)
@@ -1365,11 +1361,11 @@ def test_mesh_sphere(fig):
 
 def test_mesh(fig):
     """Create a fancy looking mesh (example taken from octaviz)."""
-    pi = scipy.pi
-    cos = scipy.cos
-    sin = scipy.sin
+    pi = numpy.pi
+    cos = numpy.cos
+    sin = numpy.sin
     du, dv = pi/20.0, pi/20.0
-    u, v = scipy.mgrid[0.01:pi+du*1.5:du, 0:2*pi+dv*1.5:dv]
+    u, v = numpy.mgrid[0.01:pi+du*1.5:du, 0:2*pi+dv*1.5:dv]
     x = (1- cos(u))*cos(u+2*pi/3) * cos(v + 2*pi/3.0)*0.5
     y = (1- cos(u))*cos(u+2*pi/3) * cos(v - 2*pi/3.0)*0.5
     z = cos(u-2*pi/3.)
@@ -1379,8 +1375,7 @@ def test_mesh(fig):
 
 def test_imshow(fig):
     """Show a large random array."""
-    import enthought.util.randomx as RandomArray
-    z_large = RandomArray.random((1024, 512))
+    z_large = numpy.random.random((1024, 512))
     i = ImShow(z_large)
     fig.add(i)
 

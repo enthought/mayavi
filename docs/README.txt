@@ -22,7 +22,7 @@ module).  Here is a list of current features.
  * Support for traits_.
  * Elementary pickle support.
  * Pythonic feel.
- * Handles Numeric/numarray/scipy arrays/Python lists transparently.
+ * Handles numpy arrays/Python lists transparently.
  * Support for a pipeline browser, `ivtk` and a high-level `mlab` like
    module.
  * Envisage plugins for a tvtk scene and the pipeline browser.
@@ -44,8 +44,7 @@ tvtk.
    imports.
  * VTK-5.x, VTK-4.4 or VTK-4.2.  It is unlikely to work with VTK-3.x.
  * Traits, version 2.
- * Numeric/numarray/scipy -- Any recent version should be fine.
- * scipy_distutils/scipy.distutils -- for the installation script.
+ * numpy -- Any recent version should be fine.
  * To use `ivtk.py`, `mlab` you need to have `pyface` installed.
  * To use the plugins you need Envisage installed.
 
@@ -435,26 +434,26 @@ Array handling
 All the `DataArray` subclasses behave like Pythonic arrays and support
 the iteration protocol in addition to `__getitem__`, `__setitem__`,
 `__repr__`, `append`, `extend` etc.  Further, it is possible to set
-the value of the array using either a Numeric/numarray/scipy (numerix)
-array or a Python list (using the `from_array` method).  One can also
-get the data stored in the array into a numerix array (using the
-`to_array` method).  Similarly, the `Points` and `IdList` classes also
-support these features.  The `CellArray` class only provides the
-`from_array` and `to_array` methods and does not provide a sequence
-like protocol.  This is because of the peculiarity of the wrapped
-`vtkCellArray` class.
+the value of the array using either a numpy array or a Python list
+(using the `from_array` method).  One can also get the data stored in
+the array into a numpy array (using the `to_array` method).
+Similarly, the `Points` and `IdList` classes also support these
+features.  The `CellArray` class only provides the `from_array` and
+`to_array` methods and does not provide a sequence like protocol.
+This is because of the peculiarity of the wrapped `vtkCellArray`
+class.
 
 One extremely useful feature is that almost any tvtk method/property
 that accepts a `DataArray`, `Points`, `IdList` or `CellArray`
-instance, will transparently accept a numerix array or a Python list.
+instance, will transparently accept a numpy array or a Python list.
 Here is a simple example demonstrating these::
 
     >>> ########################################
     >>> from enthought.tvtk.api import tvtk
-    >>> import Numeric      
-    >>> data = Numeric.array([[0,0,0,10], [1,0,0,20],
+    >>> import numpy      
+    >>> data = numpy.array([[0,0,0,10], [1,0,0,20],
     ...                      [0,1,0,20], [0,0,1,30]], 'f')
-    >>> triangles = Numeric.array([[0,1,3], [0,3,2],
+    >>> triangles = numpy.array([[0,1,3], [0,3,2],
     ...                            [1,2,3], [0,2,1]])
     >>> points = data[:,:3]
     >>> temperature = data[:,-1]
@@ -501,22 +500,22 @@ in one of several ways.
        cell connectivity list.  This is very slow and is to be
        used only when efficiency is of no consequence.
 
-    2. A 2D numerix array with the cell connectivity list.
+    2. A 2D numpy array with the cell connectivity list.
 
-    3. A Python list of 2D numerix arrays.  Each numeric array can
-       have a different shape.  This makes it easy to generate a cell
-       array having cells of different kinds.  
+    3. A Python list of 2D numpy arrays.  Each numpy array can have a
+       different shape.  This makes it easy to generate a cell array
+       having cells of different kinds.
 
-This conversion is most efficient if the passed numerix arrays have a
-typecode of `Numeric.Int` ('l').  Otherwise a typecast is necessary
-and this involves an extra copy.  The input data is *always copied*
-during the conversion.  Here is an example illustrating these
-different approaches::
+This conversion is most efficient if the passed numpy arrays have a
+typecode of `enthought.tvtk.array_handler.ID_TYPE_CODE`.  Otherwise a
+typecast is necessary and this involves an extra copy.  The input data
+is *always copied* during the conversion.  Here is an example
+illustrating these different approaches::
 
     >>> a = [[0], [1, 2], [3, 4, 5], [6, 7, 8, 9]]
     >>> cells = tvtk.CellArray()
     >>> cells.from_array(a)
-    >>> a = Numeric.array([[0,1,2], [3,4,5], [6,7,8]], 'l')
+    >>> a = numpy.array([[0,1,2], [3,4,5], [6,7,8]], int)
     >>> cells.from_array(a)
     >>> l_a = [a[:,:1], a[:2,:2], a]
     >>> cells.from_array(a)
@@ -526,10 +525,10 @@ An alternative way to use an arbitrary connectivity list having
 different numbers of points per cell is to use the following
 approach::
 
-    >>> ids = Numeric.array([3, 0,1,3, 
-    ...                      3, 0,3,2, 
-    ...                      3, 1,2,3, 
-    ...                      3, 0,2,1])
+    >>> ids = numpy.array([3, 0,1,3, 
+    ...                    3, 0,3,2, 
+    ...                    3, 1,2,3, 
+    ...                    3, 0,2,1])
     >>> # The list is of form [npts,p0,p1,...p(npts-1), ...]
     >>> n_cell = 4
     >>> cells = tvtk.CellArray()
@@ -564,11 +563,11 @@ To clarify the ensuing discussion we make a distinction between two
 different forms of array handling.
 
   a. Explicit conversion -- These happen when the user is creating a
-     tvtk array object and initializes this from a Numeric array or
+     tvtk array object and initializes this from a numpy array or
      Python list.  Like so::
 
         >>> f = tvtk.FloatArray()
-        >>> a = Numeric.array([1,2,3], 'i')
+        >>> a = numpy.array([1,2,3], int)
         >>> f.from_array(a)
 
   b. Implicit conversion -- These happen when the user passes an array
@@ -578,12 +577,12 @@ different forms of array handling.
 
 There are a few issues to keep in mind when using tvtk's array
 handling features.  When possible, tvtk uses a view of the passed
-Numeric array and does not make a copy of the data stored in it.  This
-means that changes to the VTK data array or to the numerix array are
+numpy array and does not make a copy of the data stored in it.  This
+means that changes to the VTK data array or to the numpy array are
 visible in the other.  For example::
 
    >>> f = tvtk.FloatArray()
-   >>> a = Numeric.array([1,2,3], 'f')
+   >>> a = numpy.array([1,2,3], 'f')
    >>> f.from_array(a)
    >>> a[0] = 10.0
    >>> print f
@@ -593,26 +592,26 @@ visible in the other.  For example::
    [-1.  2.  3.]
 
 It is important to note that it is perfectly safe to delete the
-reference to the numerix array since this array is actually cached
+reference to the numpy array since this array is actually cached
 safely to eliminate nasty problems.  This memory is freed when the VTK
-array is garbage collected.  Saving a reference to the numeric array
-also ensures that the numerix array cannot be resized (this could have
+array is garbage collected.  Saving a reference to the numpy array
+also ensures that the numpy array cannot be resized (this could have
 disastrous effects).
 
 
 However, there are exceptions to this behaviour of using "views" of
-the numerix array.  The `DataArray` class and its subclasses and the
+the numpy array.  The `DataArray` class and its subclasses and the
 `Points` class only make copies of the given data in the following
 situations.
 
     1. A Python list is given as the data.
 
-    2. A non-contiguous numerix array is given.
+    2. A non-contiguous numpy array is given.
 
     3. The method requiring the conversion of the array to a VTK array
        expects a `vtkBitArray` instance.
 
-    4. The types of the expected VTK array and the passed numerix
+    4. The types of the expected VTK array and the passed numpy
        array are not equivalent to each other.  For example if the
        array passed has typecode 'i' but the tvtk method expects a
        `FloatArray`.
@@ -627,27 +626,29 @@ conversions.
 example::
 
     >>> ca = tvtk.CellArray()
-    >>> triangles = Numeric.array([[0,1,3], [0,3,2],
-    ...                            [1,2,3], [0,2,1]])
+    >>> triangles = numpy.array([[0,1,3], [0,3,2],
+    ...                          [1,2,3], [0,2,1]])
     >>> ca.from_array(triangles)
     
 This always makes a copy.  However, if one uses the `set_cells` method
 a copy is made in the same circumstances as specified above for
 `DataArray` and `Points` classes.  If no copy is made, the cell data
-is a "view" of the Numeric array.  Thus, the following example does
+is a "view" of the numpy array.  Thus, the following example does
 not make a copy::
 
-    >>> ids = Numeric.array([3, 0,1,3, 
-    ...                      3, 0,3,2, 
-    ...                      3, 1,2,3, 
-    ...                      3, 0,2,1], 'l')
+    >>> ids = numpy.array([3, 0,1,3, 
+    ...                    3, 0,3,2, 
+    ...                    3, 1,2,3, 
+    ...                    3, 0,2,1], int)
     >>> ca.set_cells(4, ids)
 
 
 Changing the values of the ids or changing the number of cells is
 *not* recommended and will lead to undefined behaviour.  It should
 also be noted that it is best to pass cell connectivity data in arrays
-having typecode 'l' (`Numeric.Int`).
+having typecode `enthought.tvtk.array_handler.ID_TYPE_CODE` (this is
+actually computed dynamically depending on your VTK build and
+platform).
 
 The `IdList` also *always* makes a copy of the data passed to it.
 
@@ -657,7 +658,7 @@ re-allocate memory if they are resized.  This is illustrated in the
 following example::
  
    >>> d = tvtk.DoubleArray()
-   >>> a = Numeric.array([1,2,3], 'd')
+   >>> a = numpy.array([1,2,3], 'd')
    >>> d.from_array(a)
    >>> a[0] = 10
    >>> d.append(4.0)
@@ -684,20 +685,21 @@ To summarize the considerations of the previous sub-section, the
 following are to be noted.
 
   1. Most often `DataArray` and `Points` objects do not make copies of
-     the numerix data.  The exceptions are listed above.  This means
+     the numpy data.  The exceptions are listed above.  This means
      changes to either the tvtk object or the array are reflected in
      the other.
 
   2. It is safe to delete references to the array object converted.
-     You cannot resize the numerix array though.
+     You cannot resize the numpy array though.
 
   3. `CellArray` always copies data on assignment.  However, when
      using `set_cells`, the behaviour is similar to what happens for
      `DataArray` objects.  Note that it is not advisable to change the
      connectivity ids and number of cells when this is done.  Also
      note that for the `CellArray` it is best to pass data in the form
-     of numerix arrays having a typecode of 'l' (`Numeric.Int`).
-     Otherwise one incurs an extra copy due to a typecast.
+     of numpy arrays having a typecode of
+     `enthought.tvtk.array_handler.ID_TYPE_CODE`).  Otherwise one
+     incurs an extra copy due to a typecast.
 
   4. `IdList` always makes a copy of the data.  This class is very
      rarely used.
@@ -825,9 +827,9 @@ This module offers the following broad class of functionality:
   Plots the mesh using tubes and spheres so its fancier.
 
 `Mesh`
-  Given x, y generated from `scipy.mgrid`, and a z to go with it.
+  Given x, y generated from `numpy.mgrid`, and a z to go with it.
   Along with optional scalars.  This class builds the triangle
-  connectivity (assuming that x, y are from `scipy.mgrid`) and builds
+  connectivity (assuming that x, y are from `numpy.mgrid`) and builds
   a mesh and shows it.
 
 `FancyMesh` 
@@ -841,7 +843,7 @@ This module offers the following broad class of functionality:
   Shows contour for a mesh.
  
 `ImShow`
-  Allows one to view large numeric arrays as image data using an image
+  Allows one to view large numpy arrays as image data using an image
   actor.  This is just like MayaVi1's `mayavi.tools.imv.viewi`.
 
 To see nice examples of all of these look at the `test_*` functions at
@@ -863,7 +865,7 @@ Here is the `test_surf` function just to show you how easy it is to
 use `mlab`::
 
  >>> # Create the spherical harmonic.
- >>> from scipy import pi, cos, sin, mgrid
+ >>> from numpy import pi, cos, sin, mgrid
  >>> dphi, dtheta = pi/250.0, pi/250.0
  >>> [phi,theta] = mgrid[0:pi+dphi*1.5:dphi,0:2*pi+dtheta*1.5:dtheta]
  >>> m0, m1, m2, m3, m4, m5, m6, m7 = 4, 3, 2, 3, 6, 2, 6, 4

@@ -38,7 +38,6 @@ ENVISAGE = etsdep('enthought.envisage', '2.0b1')
 PYFACE_TVTK = etsdep('enthought.pyface[tvtk]', '2.0b1')
 TRAITS_UI = etsdep('enthought.traits[ui]', '2.0b1')
 TRAITSUIWX = etsdep('enthought.traits.ui.wx', '2.0b1')
-UTIL = etsdep('enthought.util', '2.0b1')
 
 
 setup(
@@ -72,7 +71,6 @@ setup(
     install_requires = [
         PYFACE_TVTK,
         TRAITS_UI,
-        UTIL,
         ],
     license = "BSD",
     name = 'enthought.tvtk',

@@ -1,16 +1,16 @@
 #!/usr/bin/env python
 
-"""A simple example demonstrating how one can use Numeric arrays
+"""A simple example demonstrating how one can use numpy arrays
 transparently with TVTK.
 
 """
 
 # Author: Prabhu Ramachandran and Eric Jones
-# Copyright (c) 2004-2006, Enthought, Inc.
+# Copyright (c) 2004-2007, Enthought, Inc.
 # License: BSD Style.
 
 from enthought.tvtk.api import tvtk
-from enthought.util.numerix import array
+from numpy import array
 
 ### DATA
 data = array([[0,0,0,10],

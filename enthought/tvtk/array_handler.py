@@ -2,8 +2,11 @@
 This module contains all the array handling code for TVTK.
 
 The most important functions provided by this module involve the
-conversion of Numeric arrays/Python lists to different VTK data arrays
+conversion of numpy arrays/Python lists to different VTK data arrays
 and vice-versa.
+
+Warning: Numpy Character arrays will not work properly since there
+seems no unique one-to-one VTK data array type to map it to.
 
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
@@ -15,33 +18,33 @@ import sys
 
 import vtk
 from vtk.util import vtkConstants
+import numpy
 
 # Enthought library imports.
-from enthought.util import numerix
+from enthought.tvtk.array_ext_sp import empty_array, set_id_type_array
 
-# Conditional imports.
-which_numerix = numerix.which[0]
-if which_numerix == 'numeric':
-    from enthought.tvtk.array_ext import empty_array, set_id_type_array
-elif which_numerix == 'numpy':
-    from enthought.tvtk.array_ext_sp import empty_array, set_id_type_array
-else:
-    from enthought.tvtk.array_ext_na import empty_array, set_id_type_array
-
-# Useful constants for ID_TYPE_ARRAYS.
+# Useful constants for VTK arrays.
 VTK_ID_TYPE_SIZE = vtk.vtkIdTypeArray().GetDataTypeSize()
 if VTK_ID_TYPE_SIZE == 4:
-    ID_TYPE_CODE = 'i'
+    ID_TYPE_CODE = numpy.int32
 elif VTK_ID_TYPE_SIZE == 8:
-    ID_TYPE_CODE = 'l'
+    ID_TYPE_CODE = numpy.int64
+
+VTK_LONG_TYPE_SIZE = vtk.vtkLongArray().GetDataTypeSize()
+if VTK_LONG_TYPE_SIZE == 4:
+    LONG_TYPE_CODE = numpy.int32
+    ULONG_TYPE_CODE = numpy.uint32
+elif VTK_LONG_TYPE_SIZE == 8:
+    LONG_TYPE_CODE = numpy.int64
+    ULONG_TYPE_CODE = numpy.uint64
 
 ######################################################################
 # The array cache.
 ######################################################################
 
 # The array object cache (`_array_cache`) caches all the converted
-# Numeric arrays that are not copied.  This prevents the user from
-# deleting or resizing the Numeric array after it has been sent down
+# numpy arrays that are not copied.  This prevents the user from
+# deleting or resizing the numpy array after it has been sent down
 # to VTK.
 
 _dummy = None
@@ -75,45 +78,46 @@ def _remove_cached_array(key):
 # Array conversion functions.
 ######################################################################
 def get_vtk_array_type(numeric_array_type):
-    """Returns a VTK typecode given a Numeric array."""
-    # This is a Mapping from Numeric array types to VTK array types.
-    _arr_vtk = {numerix.Character:vtkConstants.VTK_UNSIGNED_CHAR,
-                numerix.UInt8:vtkConstants.VTK_UNSIGNED_CHAR,
-                numerix.UInt16:vtkConstants.VTK_UNSIGNED_SHORT,
-                numerix.UInt32:vtkConstants.VTK_UNSIGNED_LONG,
-                numerix.Int8:vtkConstants.VTK_CHAR,
-                numerix.Int16:vtkConstants.VTK_SHORT,
-                numerix.Int32:vtkConstants.VTK_INT,
-                numerix.Int:vtkConstants.VTK_LONG,
-                numerix.Float32:vtkConstants.VTK_FLOAT,
-                numerix.Float64:vtkConstants.VTK_DOUBLE,
-                numerix.Complex32:vtkConstants.VTK_FLOAT,
-                numerix.Complex64:vtkConstants.VTK_DOUBLE}
-    if which_numerix == 'numarray':
-        for k, v in _arr_vtk.items():
-            _arr_vtk[numerix.type2charmap[k]] = v
-    return _arr_vtk[numeric_array_type]
-
+    """Returns a VTK typecode given a numpy array."""
+    # This is a Mapping from numpy array types to VTK array types.
+    _arr_vtk = {numpy.character:vtkConstants.VTK_UNSIGNED_CHAR,
+                numpy.uint8:vtkConstants.VTK_UNSIGNED_CHAR,
+                numpy.uint16:vtkConstants.VTK_UNSIGNED_SHORT,
+                ULONG_TYPE_CODE:vtkConstants.VTK_UNSIGNED_LONG,
+                numpy.int8:vtkConstants.VTK_CHAR,
+                numpy.int16:vtkConstants.VTK_SHORT,
+                numpy.int32:vtkConstants.VTK_INT,
+                LONG_TYPE_CODE:vtkConstants.VTK_LONG,
+                numpy.float32:vtkConstants.VTK_FLOAT,
+                numpy.float64:vtkConstants.VTK_DOUBLE,
+                numpy.complex64:vtkConstants.VTK_FLOAT,
+                numpy.complex128:vtkConstants.VTK_DOUBLE}
+    try:
+        return _arr_vtk[numeric_array_type]
+    except KeyError:
+        for key in _arr_vtk:
+            if numpy.issubdtype(numeric_array_type, key):
+                return _arr_vtk[key]
 
 def get_vtk_to_numeric_typemap():
-    """Returns the VTK array type to Numeric array type mapping."""
-    _vtk_arr = {vtkConstants.VTK_BIT:numerix.Int8,
-                vtkConstants.VTK_CHAR:numerix.Int8,
-                vtkConstants.VTK_UNSIGNED_CHAR:numerix.UInt8,
-                vtkConstants.VTK_SHORT:numerix.Int16,
-                vtkConstants.VTK_UNSIGNED_SHORT:numerix.UInt16,
-                vtkConstants.VTK_INT:numerix.Int32,
-                vtkConstants.VTK_UNSIGNED_INT:numerix.UInt32,
-                vtkConstants.VTK_LONG:numerix.Int,
-                vtkConstants.VTK_UNSIGNED_LONG:numerix.UInt32,
+    """Returns the VTK array type to numpy array type mapping."""
+    _vtk_arr = {vtkConstants.VTK_BIT:numpy.bool,
+                vtkConstants.VTK_CHAR:numpy.int8,
+                vtkConstants.VTK_UNSIGNED_CHAR:numpy.uint8,
+                vtkConstants.VTK_SHORT:numpy.int16,
+                vtkConstants.VTK_UNSIGNED_SHORT:numpy.uint16,
+                vtkConstants.VTK_INT:numpy.int32,
+                vtkConstants.VTK_UNSIGNED_INT:numpy.uint32,
+                vtkConstants.VTK_LONG:LONG_TYPE_CODE,
+                vtkConstants.VTK_UNSIGNED_LONG:ULONG_TYPE_CODE,
                 vtkConstants.VTK_ID_TYPE:ID_TYPE_CODE,
-                vtkConstants.VTK_FLOAT:numerix.Float32,
-                vtkConstants.VTK_DOUBLE:numerix.Float64}
+                vtkConstants.VTK_FLOAT:numpy.float32,
+                vtkConstants.VTK_DOUBLE:numpy.float64}
     return _vtk_arr
 
 
 def get_numeric_array_type(vtk_array_type):
-    """Returns a Numeric array typecode given a VTK array type."""
+    """Returns a numpy array typecode given a VTK array type."""
     return get_vtk_to_numeric_typemap()[vtk_array_type]
 
 
@@ -126,8 +130,8 @@ def get_sizeof_vtk_array(vtk_array_type):
                   vtkConstants.VTK_UNSIGNED_SHORT : 2,
                   vtkConstants.VTK_INT : 4,
                   vtkConstants.VTK_UNSIGNED_INT : 4,
-                  vtkConstants.VTK_LONG : 4,
-                  vtkConstants.VTK_UNSIGNED_LONG : 4,
+                  vtkConstants.VTK_LONG : VTK_LONG_TYPE_SIZE,
+                  vtkConstants.VTK_UNSIGNED_LONG : VTK_LONG_TYPE_SIZE,
                   vtkConstants.VTK_ID_TYPE : VTK_ID_TYPE_SIZE,
                   vtkConstants.VTK_FLOAT : 4,
                   vtkConstants.VTK_DOUBLE : 8 }
@@ -146,7 +150,7 @@ def create_vtk_array(vtk_arr_type):
 
 
 def array2vtk(num_array, vtk_array=None):
-    """Converts a real Numeric Array (or a Python list) to a VTK array
+    """Converts a real numpy Array (or a Python list) to a VTK array
     object.
 
     This function only works for real arrays.  Complex arrays are NOT
@@ -154,20 +158,20 @@ def array2vtk(num_array, vtk_array=None):
     1, and 2 dimensional arrays are supported.  This function is very
     efficient, so large arrays should not be a problem.
 
-    Even in cases when no copy of the Numeric array data is performed,
+    Even in cases when no copy of the numpy array data is performed,
     a reference to the array is cached.  The passed array can
     therefore be deleted safely in all circumstances.
 
     Parameters
     ----------
 
-    - num_array : Numeric array or Python list/tuple
+    - num_array : numpy array or Python list/tuple
 
       The input array must be 1 or 2D.  A copy of the numeric array
       data passed is made in the following circumstances:
 
        1. A Python list/tuple was passed.
-       2. A non-contiguous Numeric array was passed.
+       2. A non-contiguous numpy array was passed.
        3. A `vtkBitArray` instance was passed as the second argument.
        4. The types of the `vtk_array` and the `num_array` are not
           equivalent to each other.  For example if one is an integer
@@ -180,23 +184,15 @@ def array2vtk(num_array, vtk_array=None):
       then a new array is not created and returned.  The passed array
       is itself returned.
 
-    Warning
-    -------
-
-    This code is unlikely to work with the vtkIdTypeArray if you are
-    using 64 bit ID's.  This is because 64 bit ids are 8 bytes long
-    and it is not clear what Numeric array type one has to use in this
-    case!  This code will also not work with complex arrays.
-
     """
 
-    z = numerix.asarray(num_array)
+    z = numpy.asarray(num_array)
 
     shape = z.shape
     assert len(shape) < 3, \
            "Only arrays of dimensionality 2 or lower are allowed!"
-    assert numerix.typecode(z) not in [numerix.Complex32, numerix.Complex64], \
-           "Complex Numeric arrays cannot be converted to vtk arrays."\
+    assert not numpy.issubdtype(z.dtype, complex), \
+           "Complex numpy arrays cannot be converted to vtk arrays."\
            "Use real() or imag() to get a component of the array before"\
            " passing it to vtk."
 
@@ -204,7 +200,7 @@ def array2vtk(num_array, vtk_array=None):
     # Bit arrays need special casing.
     bit_array = False
     if vtk_array is None:
-        vtk_typecode = get_vtk_array_type(numerix.typecode(z))
+        vtk_typecode = get_vtk_array_type(z.dtype)
         result_array = create_vtk_array(vtk_typecode)
     elif vtk_array.GetDataType() == vtkConstants.VTK_BIT:
         vtk_typecode = vtkConstants.VTK_CHAR
@@ -223,17 +219,15 @@ def array2vtk(num_array, vtk_array=None):
     result_array.SetNumberOfTuples(shape[0])
 
     # Ravel the array appropriately.
-    if get_numeric_array_type(vtk_typecode) != numerix.typecode(z):
-        z_flat = numerix.ravel(z).astype(get_numeric_array_type(vtk_typecode))
+    arr_dtype = get_numeric_array_type(vtk_typecode)
+    if numpy.issubdtype(z.dtype, arr_dtype):
+        z_flat = numpy.ravel(z)
     else:
-        z_flat = numerix.ravel(z)
+        z_flat = numpy.ravel(z).astype(arr_dtype)
 
-    # Point the VTK array to the Numeric data.  The last argument (1)
+    # Point the VTK array to the numpy data.  The last argument (1)
     # tells the array not to deallocate.
-    if which_numerix in ('numeric', 'numpy'):
-        result_array.SetVoidArray(z_flat, len(z_flat), 1)
-    else:
-        result_array.SetVoidArray(z_flat._data, len(z_flat), 1)
+    result_array.SetVoidArray(z_flat, len(z_flat), 1)
 
     if bit_array:
         # Handle bit arrays -- they have to be copied.  Note that bit
@@ -264,10 +258,10 @@ def array2vtk(num_array, vtk_array=None):
 
 
 def vtk2array(vtk_array):
-    """Converts a VTK data array to a Numeric array.
+    """Converts a VTK data array to a numpy array.
 
     Given a subclass of vtkDataArray, this function returns an
-    appropriate Numeric array containing the same data.  The function
+    appropriate numpy array containing the same data.  The function
     is very efficient since it uses the VTK imaging pipeline to
     convert the data.
 
@@ -278,14 +272,6 @@ def vtk2array(vtk_array):
 
       The VTK data array to be converted.
 
-    Warning
-    -------
-
-    This code is unlikely to work with the vtkIdTypeArray if you are
-    using 64 bit ID's.  This is because 64 bit ids are 8 bytes long
-    and it is not clear what Numeric array type one has to use in this
-    case!
-
     """
     typ = vtk_array.GetDataType()
     assert typ in get_vtk_to_numeric_typemap().keys(), \
@@ -294,14 +280,14 @@ def vtk2array(vtk_array):
     shape = vtk_array.GetNumberOfTuples(), \
             vtk_array.GetNumberOfComponents()
 
-    # First check if this array already has a numerix array cached, if
+    # First check if this array already has a numpy array cached, if
     # it does, reshape that and return it.
     key = vtk_array.__this__
     if key in _array_cache:
         arr = _array_cache[key]
         if shape[1] == 1:
             shape = (shape[0], )
-        arr = numerix.reshape(arr, shape)
+        arr = numpy.reshape(arr, shape)
         return arr
 
     # Setup an imaging pipeline to export the array.
@@ -338,28 +324,25 @@ def vtk2array(vtk_array):
 
     # Create an array of the right size and export the image into it.
     im_arr = empty_array((shape[0]*shape[1],), get_numeric_array_type(typ))
-    if which_numerix in ('numeric', 'numpy'):
-        exp.Export(im_arr)
-    else:
-        exp.Export(im_arr._data)
+    exp.Export(im_arr)
 
     # Now reshape it.
     if shape[1] == 1:
         shape = (shape[0], )
-    im_arr = numerix.reshape(im_arr, shape)
+    im_arr = numpy.reshape(im_arr, shape)
     return im_arr
 
 
 def array2vtkCellArray(num_array, vtk_array=None):
-    """Given a nested Python list or a Numeric array, this method
+    """Given a nested Python list or a numpy array, this method
     creates a vtkCellArray instance and returns it.
 
     A variety of input arguments are supported as described in the
-    Parameter documentation.  If Numeric arrays are given, this method
+    Parameter documentation.  If numpy arrays are given, this method
     is highly efficient.  This function is most efficient if the
-    passed Numeric arrays have a typecode of Numeric.Int ('l').
-    Otherwise a typecast is necessary and this involves an extra copy.
-    This method *always copies* the input data.
+    passed numpy arrays have a typecode `ID_TYPE_CODE`.  Otherwise a
+    typecast is necessary and this involves an extra copy.  This
+    method *always copies* the input data.
 
     An alternative and more efficient way to build the connectivity
     list is to create a vtkIdTypeArray having data of the form
@@ -369,7 +352,7 @@ def array2vtkCellArray(num_array, vtk_array=None):
     Parameters
     ----------
 
-    - num_array : Numeric array or Python list/tuple
+    - num_array : numpy array or Python list/tuple
 
       Valid values are:
 
@@ -377,9 +360,9 @@ def array2vtkCellArray(num_array, vtk_array=None):
            cell connectivity list.  This is very slow and is to be
            used only when efficiency is of no consequence.
 
-        2. A 2D Numeric array with the cell connectivity list.
+        2. A 2D numpy array with the cell connectivity list.
 
-        3. A Python list of 2D Numeric arrays.  Each numeric array can
+        3. A Python list of 2D numpy arrays.  Each numeric array can
            have a different shape.  This makes it easy to generate a
            cell array having cells of different kinds.
 
@@ -394,7 +377,7 @@ def array2vtkCellArray(num_array, vtk_array=None):
 
        >>> a = [[0], [1, 2], [3, 4, 5], [6, 7, 8, 9]]
        >>> cells = array_handler.array2vtkCellArray(a)
-       >>> a = Numeric.array([[0,1,2], [3,4,5], [6,7,8]], 'l')
+       >>> a = numpy.array([[0,1,2], [3,4,5], [6,7,8]], 'l')
        >>> cells = array_handler.array2vtkCellArray(a)
        >>> l_a = [a[:,:1], a[:2,:2], a]
        >>> cells = array_handler.array2vtkCellArray(l_a)
@@ -423,7 +406,7 @@ def array2vtkCellArray(num_array, vtk_array=None):
 
     def _get_tmp_array(arr):
         try:
-            tmp_arr = numerix.asarray(arr, ID_TYPE_CODE)
+            tmp_arr = numpy.asarray(arr, ID_TYPE_CODE)
         except TypeError:
             tmp_arr = arr.astype(ID_TYPE_CODE)
         return tmp_arr
@@ -435,15 +418,15 @@ def array2vtkCellArray(num_array, vtk_array=None):
     ########################################
 
     msg = "Invalid argument.  Valid types are a Python list of lists,"\
-          " a Python list of Numeric arrays, or a Numeric array."
+          " a Python list of numpy arrays, or a numpy array."
 
-    if type(num_array) in (types.ListType, types.TupleType):
+    if issubclass(type(num_array), (types.ListType, types.TupleType)):
         assert len(num_array[0]) > 0, "Input array must be 2D."
         tp = type(num_array[0])
-        if tp == types.ListType: # Pure Python list.
+        if issubclass(tp, types.ListType): # Pure Python list.
             _slow_array2cells(num_array, cells)
             return cells
-        elif tp == numerix.ArrayType:  # List of arrays.
+        elif issubclass(tp, numpy.ndarray):  # List of arrays.
             # Check shape of array and find total size.
             tot_size = 0
             n_cells = 0
@@ -467,7 +450,7 @@ def array2vtkCellArray(num_array, vtk_array=None):
             return cells
         else:
             raise TypeError, msg
-    elif type(num_array) == numerix.ArrayType:
+    elif issubclass(type(num_array), numpy.ndarray):
         assert len(num_array.shape) == 2, "Input array must be 2D."
         tmp_arr = _get_tmp_array(num_array)
         shp = tmp_arr.shape
@@ -480,7 +463,7 @@ def array2vtkCellArray(num_array, vtk_array=None):
 
 
 def array2vtkPoints(num_array, vtk_points=None):
-    """Converts a Numeric array/Python list to a vtkPoints object.
+    """Converts a numpy array/Python list to a vtkPoints object.
 
     Unless a Python list/tuple or a non-contiguous array is given, no
     copy of the data is made.  Thus the function is very efficient.
@@ -488,7 +471,7 @@ def array2vtkPoints(num_array, vtk_points=None):
     Parameters
     ----------
 
-    - num_array : Numeric array or Python list/tuple
+    - num_array : numpy array or Python list/tuple
 
       The input array must be 2D with `shape[1] == 3`.
 
@@ -504,7 +487,7 @@ def array2vtkPoints(num_array, vtk_points=None):
     else:
         points = vtk.vtkPoints()
 
-    arr = numerix.asarray(num_array)
+    arr = numpy.asarray(num_array)
     assert len(arr.shape) == 2, "Points array must be 2 dimensional."
     assert arr.shape[1] == 3, "Incorrect shape: shape[1] must be 3."
     vtk_array = array2vtk(arr)
@@ -513,12 +496,12 @@ def array2vtkPoints(num_array, vtk_points=None):
 
 
 def array2vtkIdList(num_array, vtk_idlist=None):
-    """Converts a Numeric array/Python list to a vtkIdList object.
+    """Converts a numpy array/Python list to a vtkIdList object.
 
     Parameters
     ----------
 
-    - num_array : Numeric array or Python list/tuple
+    - num_array : numpy array or Python list/tuple
 
       The input array must be 2D with `shape[1] == 3`.
 
@@ -534,7 +517,7 @@ def array2vtkIdList(num_array, vtk_idlist=None):
     else:
         ids = vtk.vtkIdList()
 
-    arr = numerix.asarray(num_array)
+    arr = numpy.asarray(num_array)
     assert len(arr.shape) == 1, "Array for vtkIdList must be 1D"
     ids.SetNumberOfIds(len(arr))
     for i, j in enumerate(arr):
@@ -547,8 +530,8 @@ def array2vtkIdList(num_array, vtk_idlist=None):
 ######################################################################
 
 def is_array(arr):
-    """Returns True if the passed `arr` is a Numeric array or a List."""
-    if type(arr) in [numerix.ArrayType, types.ListType]:
+    """Returns True if the passed `arr` is a numpy array or a List."""
+    if issubclass(type(arr), (numpy.ndarray, types.ListType)):
         return True
     return False
 
@@ -560,7 +543,7 @@ def convert_array(arr, vtk_typ=None):
     Parameters
     ----------
 
-    - arr : Numeric array/list.
+    - arr : numpy array/list.
     - vtk_typ : `string` or `None`
       represents the type the array is to be converted to.
 
@@ -677,7 +660,7 @@ def deref_vtk(obj):
 def deref_array(args, sigs=None):
     """Given a bunch of arguments and optional signature information,
     this converts the arguments suitably.  If the argument is either a
-    Python list or a Numeric array it is converted to a suitable type
+    Python list or a numpy array it is converted to a suitable type
     based on the signature information.  If it is not an array, but a
     TVTK object the VTK object is dereferenced.  Otherwise nothing is
     done.  If no signature information is provided the arrays are

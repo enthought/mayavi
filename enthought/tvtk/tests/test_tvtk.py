@@ -15,8 +15,8 @@ import vtk
 import new
 import sys
 import gc
+import numpy
 
-from enthought.util import numerix
 from enthought.tvtk import tvtk_base
 from enthought.tvtk.common import get_tvtk_name
 
@@ -40,8 +40,8 @@ from tvtk_classes import tvtk_helper
 
 def mysum(arr):
     val = arr
-    while type(val) == numerix.ArrayType:
-        val = numerix.sum(val)
+    while type(val) == numpy.ndarray:
+        val = numpy.sum(val)
     return val
 
 class TestTVTK(unittest.TestCase):
@@ -319,7 +319,7 @@ class TestTVTK(unittest.TestCase):
         """Test if vtkDataArrays behave in a Pythonic fashion."""
         # Check a 3D array.
         f = tvtk.FloatArray()
-        a = numerix.array([[0.,0,0],[1,1,1]])
+        a = numpy.array([[0.,0,0],[1,1,1]])
         f.from_array(a)
         self.assertEqual(f.number_of_components, 3)
         self.assertEqual(f.number_of_tuples, 2)        
@@ -340,7 +340,7 @@ class TestTVTK(unittest.TestCase):
         self.assertRaises(IndexError, f.__setitem__, 100, 100)
 
         # Check a 5D arrray
-        a = numerix.array([[0.,0,0, 0, 0],[1,1,1, 1, 1]])
+        a = numpy.array([[0.,0,0, 0, 0],[1,1,1, 1, 1]])
         f.from_array(a)
         self.assertEqual(mysum(f.to_array()- a), 0.0)
         for i, j in zip(a, f):
@@ -363,7 +363,7 @@ class TestTVTK(unittest.TestCase):
     def test_points(self):
         """Test if vtkPoints behaves in a Pythonic fashion."""
         f = tvtk.Points()
-        a = numerix.array([[0.,0,0],[1,1,1]])
+        a = numpy.array([[0.,0,0],[1,1,1]])
         f.from_array(a)
         self.assertEqual(mysum(f.to_array() - a), 0)
         for i, j in zip(a, f):
@@ -387,7 +387,7 @@ class TestTVTK(unittest.TestCase):
     def test_idlist(self):
         """Test if vtkIdList behaves in a Pythonic fashion."""
         f = tvtk.IdList()
-        a = numerix.array([0, 1, 2, 3])
+        a = numpy.array([0, 1, 2, 3])
         f.from_array(a)
         for i, j in zip(a, f):
             self.assertEqual(i, j)
@@ -405,10 +405,10 @@ class TestTVTK(unittest.TestCase):
     def test_array_conversion(self):
         """Test if Numeric/VTK array conversion works."""
         # This is only a simple test.
-        data = numerix.array([[0,0,0,10], [1,0,0,20],
-                              [0,1,0,20], [0,0,1,30]], 'f')
-        triangles = numerix.array([[0,1,3], [0,3,2],
-                                   [1,2,3], [0,2,1]])
+        data = numpy.array([[0,0,0,10], [1,0,0,20],
+                            [0,1,0,20], [0,0,1,30]], 'f')
+        triangles = numpy.array([[0,1,3], [0,3,2],
+                                 [1,2,3], [0,2,1]])
         points = data[:,:3]
         temperature = data[:,-1]
         mesh = tvtk.PolyData()

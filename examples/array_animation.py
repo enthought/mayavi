@@ -2,13 +2,13 @@
 """A simple example showing an animation.  The example illustrates a
 few things.
 
- 1. You can pass a Numeric array of scalars and use it directly with
+ 1. You can pass a numpy array of scalars and use it directly with
     tvtk.
 
- 2. The tvtk arrays are views of Numeric arrays.  Thus changing the
-    Numeric array in-place will also change the underlying VTK data.
+ 2. The tvtk arrays are views of numpy arrays.  Thus changing the
+    array in-place will also change the underlying VTK data.
 
- 3. When changing the Numeric data you must call modified on a
+ 3. When changing the numpy data you must call `modified` on a
     relevant tvtk object.
 
 The example is a little contrived since there are better ways of
@@ -17,12 +17,12 @@ achieving the same effect but the present form nicely illustrates item
 
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2004-2006, Enthought, Inc.
+# Copyright (c) 2004-2007, Enthought, Inc.
 # License: BSD Style.
 
 from enthought.tvtk.api import tvtk
-from enthought.util import numerix
-from enthought.util import scipyx as scipy
+import numpy
+import scipy
 import time
 try:
     import scipy.special
@@ -35,15 +35,15 @@ sp = tvtk.StructuredPoints(origin=(-10., -10., 0.0),
                            spacing=(0.25, 0.25, 0.0))
 
 # Create some nice data at these points.
-x = numerix.arange(-10., 10., 0.25)
+x = numpy.arange(-10., 10., 0.25)
 y = x
-r = numerix.sqrt(x[:,numerix.NewAxis]**2+y**2)
+r = numpy.sqrt(x[:,None]**2+y**2)
 # We need the transpose so the data is as per VTK's expected format
 # where X coords vary fastest, Y next and then Z.
 if hasattr(scipy, 'special'):
-    z = numerix.reshape(numerix.transpose(5.0*scipy.special.j0(r)), (-1,) )
+    z = numpy.reshape(numpy.transpose(5.0*scipy.special.j0(r)), (-1,) )
 else:
-    z = numerix.reshape(numerix.transpose(5.0*numerix.sin(r)/r), (-1,) )    
+    z = numpy.reshape(numpy.transpose(5.0*numpy.sin(r)/r), (-1,) )    
 
 # Now set the scalar data for the StructuredPoints object.  The
 # scalars of the structured points object will be a view into our
@@ -86,11 +86,11 @@ rwi.render()
 
 # The following is a crude approach but illustrates the point.
 scale = old_scale = 1.0
-pi = numerix.pi
-for i in numerix.arange(pi*0.5, 2.5*pi, 0.2):
+pi = numpy.pi
+for i in numpy.arange(pi*0.5, 2.5*pi, 0.2):
     if abs(i) < 1.0e-10:
         continue
-    scale = numerix.sin(i)
+    scale = numpy.sin(i)
     # We change 'z' in-place
     z *= scale/old_scale
     # Reset the scalar range.
