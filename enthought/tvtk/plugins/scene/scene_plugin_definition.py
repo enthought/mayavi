@@ -25,7 +25,7 @@ from enthought.envisage.workbench.preference.preference_plugin_definition \
 preferences = Preferences(
     defaults={'stereo': False,
               'magnification': 1,
-              'background_color': (0.1, 0.2, 0.4),
+              'background_color': (0.5, 0.5, 0.5),
               'foreground_color': (1.0, 1.0, 1.0)
               }
     )
