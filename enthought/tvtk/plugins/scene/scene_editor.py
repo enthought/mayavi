@@ -106,8 +106,6 @@ class SceneEditor(Editor):
             
         super(SceneEditor, self).destroy_control()
 
-        self.scene = None
-
         if self.control is not None:
             self.closed = self
 
