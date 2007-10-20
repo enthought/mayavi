@@ -1,16 +1,15 @@
 """
-A Pyrex extension module for new scipy_core.  Currently this extension
-module allows us to massage a 2D scipy array into a form usable as a
+A Pyrex extension module for numpy.  Currently this extension module
+allows us to massage a 2D scipy array into a form usable as a
 `vtkIdTypeArray`.  This is then used to set the cells of a
 `vtkCellArray` instance.
 """
 
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2005, Enthought, Inc.
+# Copyright (c) 2005-2007, Enthought, Inc.
 # License: BSD Style.
 
 import numpy
-Int = 'l'
 
 ######################################################################
 # External declarations.
@@ -75,13 +74,6 @@ cdef c_set_id_type_array(ndarray id_array, ndarray out_array):
 ######################################################################
 # Exported (externally visible) functions.
 ######################################################################
-
-def empty_array(dims, dtype=numpy.float64):
-    """A simple wrapper function along the lines of what is done for
-    older Numeric versions that returns an uninitialized numarray
-    array."""
-    return numpy.empty(dims, dtype)
-
 
 def set_id_type_array(id_array, out_array):
     """Given a 2D Int array (`id_array`), and a contiguous 1D numarray

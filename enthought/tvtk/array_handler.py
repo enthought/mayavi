@@ -21,7 +21,7 @@ from vtk.util import vtkConstants
 import numpy
 
 # Enthought library imports.
-from enthought.tvtk.array_ext import empty_array, set_id_type_array
+from enthought.tvtk.array_ext import set_id_type_array
 
 # Useful constants for VTK arrays.
 VTK_ID_TYPE_SIZE = vtk.vtkIdTypeArray().GetDataTypeSize()
@@ -323,7 +323,7 @@ def vtk2array(vtk_array):
     exp.SetInput(img_data)
 
     # Create an array of the right size and export the image into it.
-    im_arr = empty_array((shape[0]*shape[1],), get_numeric_array_type(typ))
+    im_arr = numpy.empty((shape[0]*shape[1],), get_numeric_array_type(typ))
     exp.Export(im_arr)
 
     # Now reshape it.
@@ -436,7 +436,7 @@ def array2vtkCellArray(num_array, vtk_array=None):
                 tot_size += shp[0]*(shp[1] + 1)
                 n_cells += shp[0]
             # Create an empty array.
-            id_typ_arr = empty_array((tot_size,), ID_TYPE_CODE)
+            id_typ_arr = numpy.empty((tot_size,), ID_TYPE_CODE)
             # Now populate it with the ids.
             count = 0
             for arr in num_array:
@@ -454,7 +454,7 @@ def array2vtkCellArray(num_array, vtk_array=None):
         assert len(num_array.shape) == 2, "Input array must be 2D."
         tmp_arr = _get_tmp_array(num_array)
         shp = tmp_arr.shape
-        id_typ_arr = empty_array((shp[0]*(shp[1] + 1),), ID_TYPE_CODE)
+        id_typ_arr = numpy.empty((shp[0]*(shp[1] + 1),), ID_TYPE_CODE)
         set_id_type_array(tmp_arr, id_typ_arr)
         _set_cells(cells, shp[0], id_typ_arr)
         return cells

@@ -12,22 +12,9 @@ import vtk
 import weakref
 import gc
 
-from enthought.tvtk.array_ext import empty_array, set_id_type_array
+from enthought.tvtk.array_ext import set_id_type_array
 
 class TestArrayExt(unittest.TestCase):
-    def test_empty_array(self):
-        shapes = [(1,2), (2,2), (3,3), (4,5)]
-        typecodes = ['l', 'd', 'f']
-        for shape, typecode in zip(shapes, typecodes):
-            a = empty_array(shape, typecode)
-            self.assertEqual(a.shape, shape)
-            self.assertEqual(a.dtype.char, typecode)
-            # Check garbage collection.
-            r = weakref.ref(a)
-            del a
-            gc.collect()
-            self.assertEqual(r(), None)
-
     def test_set_id_type_array(self):
         N = 5
         a = numpy.zeros((N,4), 'l')
