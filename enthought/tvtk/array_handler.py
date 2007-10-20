@@ -21,7 +21,7 @@ from vtk.util import vtkConstants
 import numpy
 
 # Enthought library imports.
-from enthought.tvtk.array_ext_sp import empty_array, set_id_type_array
+from enthought.tvtk.array_ext import empty_array, set_id_type_array
 
 # Useful constants for VTK arrays.
 VTK_ID_TYPE_SIZE = vtk.vtkIdTypeArray().GetDataTypeSize()

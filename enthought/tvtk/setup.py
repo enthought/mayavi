@@ -4,9 +4,6 @@
 #
 import os
 
-build_numeric = False
-build_numarray = False
-
 def configuration(parent_package='enthought',top_path=None):
     import numpy
     from os.path import join
@@ -31,41 +28,11 @@ def configuration(parent_package='enthought',top_path=None):
     config.add_data_dir('tests')
 
     # Numpy support.
-    config.add_extension('array_ext_sp',
-                         sources = [join('src','array_ext_sp.c')],
-                         depends = [join('src','array_ext_sp.pyx')],
+    config.add_extension('array_ext',
+                         sources = [join('src','array_ext.c')],
+                         depends = [join('src','array_ext.pyx')],
                          )
 
-    # Numeric support.
-    if build_numeric:
-        array_ext_c = config.paths('src/array_ext.c')[0]
-        def get_array_ext_c(ext, build_dir):
-            try:
-                import Numeric
-            except ImportError, msg:
-                print 'Skip building %s: %s' % (ext.name, msg)
-                return None
-            return array_ext_c
-        config.add_extension('array_ext',
-                             sources = [get_array_ext_c],
-                             depends = ['src/array_ext.*']
-                             )
-
-    # Numarray support.
-    if build_numarray:
-        array_ext_na_c = config.paths('src/array_ext_na.c')[0]
-        def get_array_ext_na_c(ext, build_dir):
-            try:
-                import numarray
-            except ImportError, msg:
-                print 'Skip building %s: %s' % (ext.name, msg)
-                return None
-            return array_ext_na_c
-        config.add_extension('array_ext_na',
-                             sources = [get_array_ext_na_c],
-                             depends = ['src/array_ext_na.*']
-                             )
-    
     tvtk_classes_zip_depends = config.paths(
         'code_gen.py','wrapper_gen.py', 'special_gen.py',
         'tvtk_base.py', 'indenter.py')
