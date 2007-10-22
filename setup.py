@@ -50,7 +50,6 @@ setup(
         },
     dependency_links = [
         'http://code.enthought.com/enstaller/eggs/source',
-        'http://code.enthought.com/enstaller/eggs/source/unstable',
         ],
     description = "Traited VTK",
     extras_require = {
