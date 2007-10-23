@@ -24,8 +24,8 @@ def configuration(parent_package='enthought',top_path=None):
 
     config.add_subpackage('tools')
     config.add_subpackage('util')
-    
-    config.add_data_dir('tests')
+
+    config.add_subpackage('tests')
 
     # Numpy support.
     config.add_extension('array_ext',
@@ -67,11 +67,11 @@ def vtk_version_changed(zipfile):
     """Checks the ZIP file's VTK build version versus the current
     installed version of VTK and returns `True` if the versions are
     different.
- 
+
     """
     import os, sys
     result = True
-    if os.path.exists(zipfile):        
+    if os.path.exists(zipfile):
         import vtk
         vtk_version = vtk.vtkVersion().GetVTKVersion()[:3]
         sys.path.append(zipfile)

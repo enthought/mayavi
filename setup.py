@@ -13,7 +13,7 @@ def configuration(parent_package='', top_path=None):
     )
 
     config.add_subpackage('enthought.tvtk')
-    config.add_data_files('enthought/__init__.py')
+    config.add_subpackage('enthought')
 
     return config
 
