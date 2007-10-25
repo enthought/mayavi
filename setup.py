@@ -27,17 +27,17 @@ def etsdep(p, min, max=None, literal=False):
     require = '%s >=%s.dev' % (p, min)
     if max is not None:
         if literal is False:
-            require = '%s, <%s.a' % (require, max)
+            require = '%s, <%sa' % (require, max)
         else:
             require = '%s, <%s' % (require, max)
     return require
 
 
 # Declare our ETS project dependencies.
-ENVISAGE = etsdep('enthought.envisage', '2.0b1')
-PYFACE_TVTK = etsdep('enthought.pyface[tvtk]', '2.0b1')
-TRAITS_UI = etsdep('enthought.traits[ui]', '2.0b1')
-TRAITSUIWX = etsdep('enthought.traits.ui.wx', '2.0b1')
+ENVISAGE = etsdep('enthought.envisage', '2.0.1b1', '3.0')
+PYFACE_TVTK = etsdep('enthought.pyface[tvtk]', '2.0.1b1', '3.0')
+TRAITS_UI = etsdep('enthought.traits[ui]', '2.0.1b1', '3.0')
+TRAITSUIWX = etsdep('enthought.traits.ui.wx', '2.0.1b1', '3.0')
 
 
 setup(
