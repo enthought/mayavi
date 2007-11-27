@@ -49,12 +49,12 @@ class TestClassTree(unittest.TestCase):
         # Simple VTK test.
         t = self.t
         n = t.get_node('vtkDataArray')
-        if hasattr(vtk, 'vtkAbstractArray'):
-            self.assertEqual([x.name for x in n.get_ancestors()],
-                             ['vtkAbstractArray', 'vtkObject', 'vtkObjectBase'])
-        else:
-            self.assertEqual([x.name for x in n.get_ancestors()],
-                             ['vtkObject', 'vtkObjectBase'])
+        x = vtk.vtkDataArray
+        ancestors = []
+        while x.__name__ != 'vtkObjectBase':
+            x = x.__bases__[0]
+            ancestors.append(x.__name__)
+        self.assertEqual([x.name for x in n.get_ancestors()], ancestors)
 
         # Simple __builtin__ test.
         t = class_tree.ClassTree(__builtin__)
