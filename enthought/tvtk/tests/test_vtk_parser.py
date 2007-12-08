@@ -45,7 +45,7 @@ class TestVTKParser(unittest.TestCase):
                          {'Debug': 0, 'GlobalWarningDisplay': 1})
         self.assertEqual(p.get_state_methods(), {})
         self.assertEqual(p.get_get_set_methods(), {})
-        self.assertEqual(p.get_get_methods(), ['GetClassName', 'GetMTime'])
+        self.assertEqual(p.get_get_methods(), ['GetMTime'])
 
         res = ['AddObserver', 'BreakOnError', 'HasObserver',
                'InvokeEvent', 'IsA', 'Modified', 'NewInstance',
@@ -104,19 +104,18 @@ class TestVTKParser(unittest.TestCase):
 
         if hasattr(obj, 'GetTexture'):
             self.assertEqual(p.get_get_methods(),
-                             ['GetClassName', 'GetMaterial',
-                              'GetNumberOfTextures', 'GetShaderProgram'])            
+                             ['GetMaterial', 'GetNumberOfTextures',
+                              'GetShaderProgram'])            
         else:
-            self.assertEqual(p.get_get_methods(), ['GetClassName'])
+            self.assertEqual(p.get_get_methods(), [])
         self.assertEqual(p.get_meths, p.get_get_methods())
 
-        res = ['BackfaceRender', 'DeepCopy', 'IsA', 'NewInstance',
-               'Render', 'SafeDownCast']
+        res = ['BackfaceRender', 'DeepCopy', 'Render']
         if hasattr(obj, 'GetTexture'):
             res = ['AddShaderVariable', 'BackfaceRender', 'DeepCopy',
-                   'IsA', 'LoadMaterial', 'LoadMaterialFromString', 'NewInstance',
+                   'LoadMaterial', 'LoadMaterialFromString', 
                    'ReleaseGraphicsResources', 'RemoveAllTextures', 'RemoveTexture',
-                   'Render', 'SafeDownCast']
+                   'Render']
         self.assertEqual(p.get_other_methods(), res)
         self.assertEqual(p.other_meths, p.get_other_methods())
 

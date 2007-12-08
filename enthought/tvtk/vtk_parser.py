@@ -154,12 +154,26 @@ class VTKMethodParser:
             # Reset warning status.
             vtk.vtkObject.SetGlobalWarningDisplay(warn)
 
+    def _get_parent_methods(self, klass):
+        """Returns all the methods of the classes parents."""
+        methods = {}
+        while len(klass.__bases__) > 0:
+            klass = klass.__bases__[0]
+            meths = dir(klass)
+            d = methods.fromkeys(meths)
+            methods.update(d)
+        return methods.keys()
+
     def get_methods(self, klass):
         """Returns all the relevant methods of the given VTK class."""
         methods = dir(klass)[:]
         if hasattr(klass, '__members__'):
             # Only VTK versions < 4.5 have these.
             for m in klass.__members__:
+                methods.remove(m)
+        parent_methods = self._get_parent_methods(klass)
+        for m in methods[:]:
+            if m in parent_methods:
                 methods.remove(m)
 
         return methods

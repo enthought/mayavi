@@ -88,7 +88,7 @@ class WrapperGenerator:
         # Automatically generated code: EDIT AT YOUR OWN RISK
         import vtk
         from enthought.traits import api as traits
-        from enthought.traits.ui.api import View
+        from enthought.traits.ui import api as traitsui
 
         from enthought.tvtk import tvtk_base
         from enthought.tvtk import messenger
@@ -227,7 +227,7 @@ class WrapperGenerator:
         gs_g = get_set.keys(); gs_g.sort()
         class_name = get_tvtk_name(node.name)
         title = 'Edit %s properties'%class_name
-        junk = textwrap.fill('View((%s, %s, %s),'%(t_g, s_g, gs_g))
+        junk = textwrap.fill('traitsui.View((%s, %s, %s),'%(t_g, s_g, gs_g))
         code = "\nfull_traits_view = \\" + \
                "\n%s\ntitle=\'%s\', scrollable=True)\n\n"%(junk, title)
         out.write(self.indent.format(code))
@@ -242,7 +242,7 @@ class WrapperGenerator:
         t_g = toggle.keys(); t_g.sort()
         s_g = state.keys(); s_g.sort()
         gs_g = get_set.keys(); gs_g.sort()
-        junk = textwrap.fill('View((%s, %s, %s),'%(t_g, s_g, gs_g))
+        junk = textwrap.fill('traitsui.View((%s, %s, %s),'%(t_g, s_g, gs_g))
         code = "\ntraits_view = \\" + \
                "\n%s\ntitle=\'%s\', scrollable=True)\n\n"%(junk, title)
         out.write(self.indent.format(code))
