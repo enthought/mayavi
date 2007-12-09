@@ -47,7 +47,7 @@ shows how disconnection works.
 
 """
 # Author: Prabhu Ramachandran
-# Copyright (c) 2004, Enthought, Inc.
+# Copyright (c) 2004-2007, Enthought, Inc.
 # License: BSD Style.
 
 __all__ = ['Messenger', 'MessengerError',
@@ -119,8 +119,8 @@ class Messenger:
     
     def connect(self, obj, event, callback):
         """ Registers a slot given an object and its signal to slot
-        into and also given a bound method in callback that should
-        have two arguments.  emit_signal will call the callback
+        into and also given a bound method in `callback` that should
+        have two arguments.  `send` will call the callback
         with the object that emitted the signal and the actual
         event/signal as arguments.
         
@@ -166,7 +166,7 @@ class Messenger:
                   "Callback must be a function or method. "\
                   "You passed a %s."%(str(callback))
     
-    def disconnect(self, obj, event=None, callback=None):
+    def disconnect(self, obj, event=None, callback=None, obj_is_hash=False):
         """Disconnects the object and its event handlers.
 
         Parameters
@@ -188,9 +188,18 @@ class Messenger:
          and 'event' alone are specified, all handlers for the event
          are removed.
 
+        - obj_is_hash : `bool` 
+
+         Specifies if the object passed is a hash instead of the object itself.
+         This is needed if the object is gc'd but only the hash exists and one
+         wants to disconnect the object.
+
         """
         signals = self._signals
-        key = hash(obj)
+        if obj_is_hash:
+            key = obj
+        else:
+            key = hash(obj)
         if not signals.has_key(key):
             return
         if callback is None:
@@ -294,7 +303,7 @@ def connect(obj, event, callback):
     _messenger.connect(obj, event, callback)
 connect.__doc__ = _messenger.connect.__doc__
 
-def disconnect(obj, event=None, callback=None):
+def disconnect(obj, event=None, callback=None, obj_is_hash=False):
     _messenger.disconnect(obj, event, callback)
 disconnect.__doc__ = _messenger.disconnect.__doc__
 
