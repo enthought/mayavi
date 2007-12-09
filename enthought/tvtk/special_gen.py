@@ -503,7 +503,7 @@ class HelperGenerator:
             if isinstance(obj, tvtk_base.TVTKBase):
                 return obj
             elif isinstance(obj, vtk.vtkObjectBase):
-                cached_obj = tvtk_base._object_cache.get(obj.__this__)
+                cached_obj = tvtk_base.get_tvtk_object_from_cache(obj)
                 if cached_obj is not None:
                     return cached_obj
                 cname = get_tvtk_name(obj.__class__.__name__)

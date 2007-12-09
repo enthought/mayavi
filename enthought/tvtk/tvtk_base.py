@@ -37,12 +37,16 @@ for name in ['tvtk_base', 'enthought.tvtk.tvtk_base']:
         del mod
         break
 
-if _dummy:
+if _dummy is not None:
     _object_cache = _dummy
 else:
     _object_cache = weakref.WeakValueDictionary()
 del _dummy
 
+
+def get_tvtk_object_from_cache(vtk_obj):
+    """Returns the cached TVTK object given a VTK object."""
+    return _object_cache.get(vtk_obj.__this__)
 
 
 ######################################################################
