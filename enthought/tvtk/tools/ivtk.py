@@ -73,7 +73,7 @@ class SaveImageAction(Action):
         extns = ['*.png', '*.jpg', '*.jpeg', '*.tiff', '*.bmp', '*.ps', '*.eps',
                  '*.tex', '*.rib', '*.wrl', '*.oogl', '*.pdf', '*.vrml', '*.obj',
                  '*.iv']
-        dlg = FileDialog(self._window.control, action='save as',
+        dlg = FileDialog(parent=self._window.control, action='save as',
                 wildcard='|'.join(extns), title="Save scene to image")
         if dlg.open() == OK:
             self._window.scene.save(dlg.path)
