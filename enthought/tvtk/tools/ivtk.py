@@ -222,7 +222,7 @@ class IVTKWithCrust(SplitApplicationWindow):
 
         # Base class constructor.
         super(IVTKWithCrust, self).__init__(**traits)
-        self.title = 'Interactive TVTK'
+        self.title = 'TVTK Scene'
         # Create the window's menu bar.
         self.menu_bar_manager = create_ivtk_menu(self)
 
@@ -282,7 +282,7 @@ class IVTKWithCrustAndBrowser(SplitApplicationWindow):
 
         # Base class constructor.
         super(IVTKWithCrustAndBrowser, self).__init__(**traits)
-        self.title = 'Interactive TVTK'
+        self.title = 'TVTK Scene'
         # Create the window's menu bar.
         self.menu_bar_manager = create_ivtk_menu(self)
 
@@ -330,7 +330,7 @@ class IVTK(ApplicationWindow):
 
         # Base class constructor.
         super(IVTK, self).__init__(**traits)
-        self.title = 'Interactive TVTK'
+        self.title = 'TVTK Scene'
         self.menu_bar_manager = create_ivtk_menu(self)
 
     ###########################################################################
@@ -369,7 +369,7 @@ class IVTKWithBrowser(ApplicationWindow):
 
         # Base class constructor.
         super(IVTKWithBrowser, self).__init__(**traits)
-        self.title = 'Interactive TVTK'
+        self.title = 'TVTK Scene'
         self.menu_bar_manager = create_ivtk_menu(self)
 
     ###########################################################################
