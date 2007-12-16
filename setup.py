@@ -35,9 +35,9 @@ def etsdep(p, min, max=None, literal=False):
 
 # Declare our ETS project dependencies.
 ENVISAGE = etsdep('enthought.envisage', '2.0.1b1', '3.0')
-PYFACE_TVTK = etsdep('enthought.pyface[tvtk]', '2.0.1b1', '3.0')
-TRAITS_UI = etsdep('enthought.traits[ui]', '2.0.1b1', '3.0')
-TRAITSUIWX = etsdep('enthought.traits.ui.wx', '2.0.1b1', '3.0')
+PYFACE_TVTK = etsdep('enthought.pyface[tvtk]', '2.0.1b1', '3.1')
+TRAITS_UI = etsdep('enthought.traits[ui]', '2.0.1b1', '3.1')
+TRAITSUIWX = etsdep('enthought.traits.ui.wx', '2.0.1b1', '3.1')
 
 
 setup(
