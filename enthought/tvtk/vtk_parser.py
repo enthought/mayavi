@@ -7,10 +7,11 @@ type information, and organizes them.
 # License: BSD Style.
 
 import re
-import vtk
 
 # Local imports (these are relative imports for a good reason).
 import class_tree
+import vtk_module as vtk
+
 
 class VTKMethodParser:
     """This class provides useful methods for parsing methods of a VTK

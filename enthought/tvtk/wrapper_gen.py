@@ -86,10 +86,10 @@ class WrapperGenerator:
         """        
         prelim = """
         # Automatically generated code: EDIT AT YOUR OWN RISK
-        import vtk
         from enthought.traits import api as traits
         from enthought.traits.ui import api as traitsui
 
+        from enthought.tvtk import vtk_module as vtk
         from enthought.tvtk import tvtk_base
         from enthought.tvtk import messenger
         from enthought.tvtk.tvtk_base import deref_vtk
