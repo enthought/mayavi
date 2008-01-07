@@ -1,7 +1,7 @@
 The icons are mostly derived work from other icons. As such they are
 licensed accordingly to the original license:
 
-    Eclipse: Eclipse Publishing Licence
+    Eclipse: Eclipse Public Licence
     Nuvola: LGPL
     Crystal: LGPL
     OOo: LGPL

@@ -36,6 +36,8 @@ from enthought.pyface.api import SplitPanel
 from enthought.pyface.tvtk.api import Scene, DecoratedScene
 from enthought.pyface.action.api import Action, Group, MenuBarManager,\
      MenuManager, Separator
+from enthought.pyface.image_resource import ImageResource
+from enthought.resource.api import resource_path
 
 from enthought.traits.api import Bool, Float, Str, Instance, Trait
 
@@ -43,6 +45,14 @@ from enthought.tvtk.api import tvtk
 
 from enthought.tvtk.pipeline.browser import PipelineBrowser
 
+######################################################################
+# The scene icon.
+######################################################################
+def mk_scene_icon():
+    icon_path = resource_path() + os.sep + 'images' + os.sep
+    return ImageResource(icon_path + 'scene.ico')
+
+scene_icon = mk_scene_icon()
 
 ######################################################################
 # `ExitAction` class.
@@ -290,6 +300,10 @@ class IVTKWithCrustAndBrowser(SplitApplicationWindow):
     ###########################################################################
     # Protected 'SplitApplicationWindow' interface.
     ###########################################################################
+
+    # The icon of the window
+    icon = Instance(ImageResource, scene_icon)
+
     def _create_lhs(self, parent):
         """ Creates the left hand side or top depending on the style. """
         self.browser_scene = SceneWithBrowser(parent)
@@ -336,6 +350,10 @@ class IVTK(ApplicationWindow):
     ###########################################################################
     # Protected 'ApplicationWindow' interface.
     ###########################################################################
+
+    # The icon of the window
+    icon = Instance(ImageResource, scene_icon)
+
     def _create_contents(self, parent):
         """ Create the contents of the window. """
 
@@ -375,6 +393,10 @@ class IVTKWithBrowser(ApplicationWindow):
     ###########################################################################
     # Protected 'ApplicationWindow' interface.
     ###########################################################################
+
+    # The icon of the window
+    icon = Instance(ImageResource, scene_icon)
+
     def _create_contents(self, parent):
         """ Create the contents of the window. """
 
