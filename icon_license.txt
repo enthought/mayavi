@@ -13,15 +13,21 @@ Files and orginal authors:
 ----------------------------------------------------------------
                           actor.png | Nuvola
                      coordinate.png | Crystal
+                         filter.ico | Nuvola
                          filter.png | Nuvola
                     lookuptable.png | OOo
                          mapper.png | Crystal
+                         module.ico | Crystal
+                  modulemanager.ico | Crystal
                        polydata.png | Nuvola
                        property.png | Eclipse
                          reader.png | Crystal
                        renderer.png | Crystal
        rendererwindowinteractor.png | Nuvola
+                          scene.ico | Crystal
+                         source.ico | Crystal
                          source.png | OOo
                         texture.png | Eclipse
                          window.png | Eclipse
+
 
