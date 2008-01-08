@@ -1,5 +1,6 @@
 import setuptools
 from numpy.distutils.core import setup
+from setup_data import INFO
 
 
 def configuration(parent_package='', top_path=None):
@@ -16,6 +17,14 @@ def configuration(parent_package='', top_path=None):
     config.add_subpackage('enthought')
 
     return config
+
+
+# Build the full set of packages by appending any found by setuptools'
+# find_packages to those discovered by numpy.distutils.
+config = configuration().todict()
+packages = setuptools.find_packages(exclude=config['packages'] +
+    ['docs', 'examples'])
+config['packages'] += packages
 
 
 # This renames the mayavi script to a MayaVi.pyw script on win32.
@@ -40,32 +49,6 @@ class my_install_scripts(install_scripts):
                         os.rename (file, new_file)
 
 
-# Function to convert simple ETS project names and versions to a requirements
-# spec that works for both development builds and stable builds.  Allows
-# a caller to specify a max version, which is intended to work along with
-# Enthought's standard versioning scheme -- see the following write up:
-#    https://svn.enthought.com/enthought/wiki/EnthoughtVersionNumbers
-def etsdep(p, min, max=None, literal=False):
-    require = '%s >=%s.dev' % (p, min)
-    if max is not None:
-        if literal is False:
-            require = '%s, <%sa' % (require, max)
-        else:
-            require = '%s, <%s' % (require, max)
-    return require
-
-
-# Declare our ETS project dependencies.
-APPTOOLS = etsdep('AppTools', '3.0.0b1')
-ENTHOUGHTBASE = etsdep('EnthoughtBase', '3.0.0b1')    # The 'plugin' extra is required by loose-coupling in the mayavi ui plugin definition's default pespective.
-ENVISAGECORE = etsdep('EnvisageCore', '3.0.0b1')
-ENVISAGEPLUGINS = etsdep('EnvisagePlugins', '3.0.0b1')
-TRAITSBACKENDQT = etsdep('TraitsBackendQt', '3.0.0b1')
-TRAITSBACKENDWX = etsdep('TraitsBackendWX', '3.0.0b1')
-TRAITSGUI = etsdep('TraitsGUI[tvtk]', '3.0.0b1')
-TRAITS_UI = etsdep('Traits[ui]', '3.0.0b1', '3.1')
-
-
 setup(
     author = "Prabhu Ramachandran",
     author_email = "prabhu_r@users.sf.net",
@@ -84,49 +67,21 @@ setup(
             'mayavi2 = enthought.mayavi.scripts.mayavi2:main'
             ],
         },
-    extras_require = {
-        'plugin': [
-            ENVISAGECORE,
-            ],
-        'ui': [
-            APPTOOLS,
-            ENVISAGECORE,
-            ENVISAGEPLUGINS,
-            ],
-        'qt': [
-            TRAITSBACKENDQT,
-            ],
-        'wx': [
-            TRAITSBACKENDWX,
-            ],
-
-        # All non-ets dependencies should be in this extra to ensure users can
-        # decide whether to require them or not.
-        'nonets': [
-            'numpy >= 1.0.3',
-            "scipy >=0.5.2",
-            # 'VTK',  # fixme: VTK is not available as an egg on all platforms.
-            ],
-        },
+    extras_require = INFO['extras_require'],
     include_package_data = True,
-    install_requires = [
-        ENTHOUGHTBASE,
-        TRAITSGUI,
-        TRAITS_UI,
-        ],
+    install_requires = INFO['install_requires'],
     license = "BSD",
-    name = 'Mayavi',
+    name = INFO['name'],
     namespace_packages = [
         "enthought",
         ],
-    packages = find_packages(exclude=['docs', 'examples']),
     tests_require = [
         'nose >= 0.9',
         ],
     test_suite = 'nose.collector',
     url = 'http://code.enthought.com/ets/',
-    version = '2.0.3a1',
+    version = INFO['version'],
     zip_safe = False,
-    **configuration().todict()
+    **config
     )
 
