@@ -27,7 +27,7 @@ TRAITS_UI = etsdep('Traits[ui]', '3.0.0b1', '3.1')
 # A dictionary of the pre_setup information.
 INFO = {
     'extras_require': {
-        'plugin': [
+        'envisage': [
             ENVISAGECORE,
             ],
         'ui': [

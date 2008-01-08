@@ -1,4 +1,4 @@
-[plugin]
+[envisage]
 enthought.tvtk.plugins = *
 
 
