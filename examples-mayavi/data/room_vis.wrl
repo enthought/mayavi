@@ -1,0 +1,1335 @@
+#VRML V2.0 utf8
+
+Group {
+children [
+# Light light
+Transform {
+	translation 0.245131 0.396386 0.309058
+	children [
+		PointLight
+		{
+		on TRUE
+		intensity 1
+		color 1 1 1
+		}
+		]
+}
+
+
+# Object "p:leftwall" 
+
+# Object "e" 
+
+# Object "i" 
+
+# Object "e" 
+
+# Object "o" 
+
+# Object "e" 
+
+# Object "e" 
+
+# Object "p:rearwall" 
+
+# Object "e" 
+Shape {
+appearance Appearance { 
+ material Material {
+  diffuseColor 0.270588 0.52549 0.454902
+  specularColor 0.5 0.5 0.5
+  emissiveColor 0 0 0
+  shininess 0.078125
+  transparency 0.000000
+ }
+}
+geometry IndexedFaceSet {
+solid FALSE
+creaseAngle 0.5
+
+normalPerVertex TRUE
+coord Coordinate { 
+point [
+-0.1 0 1.19209e-007,
+-3.72529e-009 0 1.19209e-007,
+-3.72529e-009 0 2.4,
+-0.1 0 2.4]
+}
+
+coordIndex [
+ 0, 1, 2, 3, -1]
+normal Normal {
+    vector [ 
+0 -1 0, 0 -1 0, 0 -1 0, 0 -1 0
+]
+}
+
+    normalIndex [ 0, 1, 2, 3, -1]
+}
+}
+
+# Object "i" 
+Shape {
+appearance Appearance { 
+ material Material {
+  diffuseColor 0.270588 0.52549 0.454902
+  specularColor 0.5 0.5 0.5
+  emissiveColor 0 0 0
+  shininess 0.078125
+  transparency 0.000000
+ }
+}
+geometry IndexedFaceSet {
+solid FALSE
+creaseAngle 0.5
+
+normalPerVertex TRUE
+coord Coordinate { 
+point [
+-1.00583e-007 0 1.19209e-007,
+-1.00583e-007 2.5 1.19209e-007,
+-1.00583e-007 2.5 2.4,
+-1.00583e-007 0 2.4]
+}
+
+coordIndex [
+ 0, 1, 2, 3, -1]
+normal Normal {
+    vector [ 
+1 0 0, 1 0 0, 1 0 0, 1 0 0
+]
+}
+
+    normalIndex [ 0, 1, 2, 3, -1]
+}
+}
+
+# Object "e" 
+Shape {
+appearance Appearance { 
+ material Material {
+  diffuseColor 0.270588 0.52549 0.454902
+  specularColor 0.5 0.5 0.5
+  emissiveColor 0 0 0
+  shininess 0.078125
+  transparency 0.000000
+ }
+}
+geometry IndexedFaceSet {
+solid FALSE
+creaseAngle 0.5
+
+normalPerVertex TRUE
+coord Coordinate { 
+point [
+-0.1 2.5 2.4,
+-0.1 0 2.4,
+-3.72529e-009 0 2.4,
+-3.72529e-009 2.5 2.4]
+}
+
+coordIndex [
+ 0, 1, 2, 3, -1]
+normal Normal {
+    vector [ 
+0 0 1, 0 0 1, 0 0 1, 0 0 1
+]
+}
+
+    normalIndex [ 0, 1, 2, 3, -1]
+}
+}
+
+# Object "o" 
+Shape {
+appearance Appearance { 
+ material Material {
+  diffuseColor 0.270588 0.52549 0.454902
+  specularColor 0.5 0.5 0.5
+  emissiveColor 0 0 0
+  shininess 0.078125
+  transparency 0.000000
+ }
+}
+geometry IndexedFaceSet {
+solid FALSE
+creaseAngle 0.5
+
+normalPerVertex TRUE
+coord Coordinate { 
+point [
+-0.1 0 2.4,
+-0.1 2.5 2.4,
+-0.1 2.5 1.19209e-007,
+-0.1 0 1.19209e-007]
+}
+
+coordIndex [
+ 0, 1, 2, 3, -1]
+normal Normal {
+    vector [ 
+-1 0 0, -1 0 0, -1 0 0, -1 0 0
+]
+}
+
+    normalIndex [ 0, 1, 2, 3, -1]
+}
+}
+
+# Object "e" 
+Shape {
+appearance Appearance { 
+ material Material {
+  diffuseColor 0.270588 0.52549 0.454902
+  specularColor 0.5 0.5 0.5
+  emissiveColor 0 0 0
+  shininess 0.078125
+  transparency 0.000000
+ }
+}
+geometry IndexedFaceSet {
+solid FALSE
+creaseAngle 0.5
+
+normalPerVertex TRUE
+coord Coordinate { 
+point [
+-0.1 0 0,
+-0.1 2.5 0,
+-3.72529e-009 2.5 0,
+-3.72529e-009 0 0]
+}
+
+coordIndex [
+ 0, 1, 2, 3, -1]
+normal Normal {
+    vector [ 
+0 0 -1, 0 0 -1, 0 0 -1, 0 0 -1
+]
+}
+
+    normalIndex [ 0, 1, 2, 3, -1]
+}
+}
+
+# Object "e" 
+Shape {
+appearance Appearance { 
+ material Material {
+  diffuseColor 0.270588 0.52549 0.454902
+  specularColor 0.5 0.5 0.5
+  emissiveColor 0 0 0
+  shininess 0.078125
+  transparency 0.000000
+ }
+}
+geometry IndexedFaceSet {
+solid FALSE
+creaseAngle 0.5
+
+normalPerVertex TRUE
+coord Coordinate { 
+point [
+-3.72529e-009 2.5 1.19209e-007,
+-0.1 2.5 1.19209e-007,
+-0.1 2.5 2.4,
+-3.72529e-009 2.5 2.4]
+}
+
+coordIndex [
+ 0, 1, 2, 3, -1]
+normal Normal {
+    vector [ 
+0 1 0, 0 1 0, 0 1 0, 0 1 0
+]
+}
+
+    normalIndex [ 0, 1, 2, 3, -1]
+}
+}
+
+# Object "p:floor" 
+
+# Object "e" 
+Shape {
+appearance Appearance { 
+ material Material {
+  diffuseColor 0.627451 0.25098 0.25098
+  specularColor 0.5 0.5 0.5
+  emissiveColor 0 0 0
+  shininess 0.078125
+  transparency 0.000000
+ }
+}
+geometry IndexedFaceSet {
+solid FALSE
+creaseAngle 0.5
+
+normalPerVertex TRUE
+coord Coordinate { 
+point [
+-0.0999999 4.47035e-008 -0.1,
+-0.0999999 -0.1 -0.1,
+-0.0999999 -0.1 2.5,
+-0.0999999 4.47035e-008 2.5]
+}
+
+coordIndex [
+ 0, 1, 2, 3, -1]
+normal Normal {
+    vector [ 
+-1 0 0, -1 0 0, -1 0 0, -1 0 0
+]
+}
+
+    normalIndex [ 0, 1, 2, 3, -1]
+}
+}
+
+# Object "o" 
+Shape {
+appearance Appearance { 
+ material Material {
+  diffuseColor 0.627451 0.25098 0.25098
+  specularColor 0.5 0.5 0.5
+  emissiveColor 0 0 0
+  shininess 0.078125
+  transparency 0.000000
+ }
+}
+geometry IndexedFaceSet {
+solid FALSE
+creaseAngle 0.5
+
+normalPerVertex TRUE
+coord Coordinate { 
+point [
+-0.0999999 -0.1 -0.1,
+6 -0.1 -0.1,
+6 -0.1 2.5,
+-0.0999999 -0.1 2.5]
+}
+
+coordIndex [
+ 0, 1, 2, 3, -1]
+normal Normal {
+    vector [ 
+-1.46569e-008 -1 0, -1.46569e-008 -1 0, -1.46569e-008 -1 0, -1.46569e-008 -1 0
+]
+}
+
+    normalIndex [ 0, 1, 2, 3, -1]
+}
+}
+
+# Object "e" 
+Shape {
+appearance Appearance { 
+ material Material {
+  diffuseColor 0.627451 0.25098 0.25098
+  specularColor 0.5 0.5 0.5
+  emissiveColor 0 0 0
+  shininess 0.078125
+  transparency 0.000000
+ }
+}
+geometry IndexedFaceSet {
+solid FALSE
+creaseAngle 0.5
+
+normalPerVertex TRUE
+coord Coordinate { 
+point [
+6 -1.00583e-007 2.5,
+-0.0999999 0 2.5,
+-0.0999999 -0.0999999 2.5,
+6 -0.1 2.5]
+}
+
+coordIndex [
+ 0, 1, 2, 3, -1]
+normal Normal {
+    vector [ 
+0 0 1, 0 0 1, 0 0 1, 0 0 1
+]
+}
+
+    normalIndex [ 0, 1, 2, 3, -1]
+}
+}
+
+# Object "i" 
+Shape {
+appearance Appearance { 
+ material Material {
+  diffuseColor 0.627451 0.25098 0.25098
+  specularColor 0.5 0.5 0.5
+  emissiveColor 0 0 0
+  shininess 0.078125
+  transparency 0.000000
+ }
+}
+geometry IndexedFaceSet {
+solid FALSE
+creaseAngle 0.5
+
+normalPerVertex TRUE
+coord Coordinate { 
+point [
+-0.0999999 4.84288e-008 2.5,
+6 -4.84288e-008 2.5,
+6 -4.84288e-008 -0.1,
+-0.0999999 4.84288e-008 -0.1]
+}
+
+coordIndex [
+ 0, 1, 2, 3, -1]
+normal Normal {
+    vector [ 
+1.58783e-008 1 0, 1.58783e-008 1 0, 1.58783e-008 1 0, 1.58783e-008 1 0
+]
+}
+
+    normalIndex [ 0, 1, 2, 3, -1]
+}
+}
+
+# Object "e" 
+Shape {
+appearance Appearance { 
+ material Material {
+  diffuseColor 0.627451 0.25098 0.25098
+  specularColor 0.5 0.5 0.5
+  emissiveColor 0 0 0
+  shininess 0.078125
+  transparency 0.000000
+ }
+}
+geometry IndexedFaceSet {
+solid FALSE
+creaseAngle 0.5
+
+normalPerVertex TRUE
+coord Coordinate { 
+point [
+-0.0999999 0 -0.0999999,
+6 -1.00583e-007 -0.0999999,
+6 -0.1 -0.0999999,
+-0.0999999 -0.0999999 -0.0999999]
+}
+
+coordIndex [
+ 0, 1, 2, 3, -1]
+normal Normal {
+    vector [ 
+0 0 -1, 0 0 -1, 0 0 -1, 0 0 -1
+]
+}
+
+    normalIndex [ 0, 1, 2, 3, -1]
+}
+}
+
+# Object "e" 
+Shape {
+appearance Appearance { 
+ material Material {
+  diffuseColor 0.627451 0.25098 0.25098
+  specularColor 0.5 0.5 0.5
+  emissiveColor 0 0 0
+  shininess 0.078125
+  transparency 0.000000
+ }
+}
+geometry IndexedFaceSet {
+solid FALSE
+creaseAngle 0.5
+
+normalPerVertex TRUE
+coord Coordinate { 
+point [
+6 -0.1 -0.1,
+6 -4.84288e-008 -0.1,
+6 -4.84288e-008 2.5,
+6 -0.1 2.5]
+}
+
+coordIndex [
+ 0, 1, 2, 3, -1]
+normal Normal {
+    vector [ 
+1 0 0, 1 0 0, 1 0 0, 1 0 0
+]
+}
+
+    normalIndex [ 0, 1, 2, 3, -1]
+}
+}
+
+# Object "p:ceiling" 
+
+# Object "e" 
+Shape {
+appearance Appearance { 
+ material Material {
+  diffuseColor 0.270588 0.52549 0.454902
+  specularColor 0.5 0.5 0.5
+  emissiveColor 0 0 0
+  shininess 0.078125
+  transparency 0.000000
+ }
+}
+geometry IndexedFaceSet {
+solid FALSE
+creaseAngle 0.5
+
+normalPerVertex TRUE
+coord Coordinate { 
+point [
+-0.0999999 2.6 -0.1,
+-0.0999999 2.5 -0.1,
+-0.0999999 2.5 2.5,
+-0.0999999 2.6 2.5]
+}
+
+coordIndex [
+ 0, 1, 2, 3, -1]
+normal Normal {
+    vector [ 
+-1 0 0, -1 0 0, -1 0 0, -1 0 0
+]
+}
+
+    normalIndex [ 0, 1, 2, 3, -1]
+}
+}
+
+# Object "i" 
+Shape {
+appearance Appearance { 
+ material Material {
+  diffuseColor 0.270588 0.52549 0.454902
+  specularColor 0.5 0.5 0.5
+  emissiveColor 0 0 0
+  shininess 0.078125
+  transparency 0.000000
+ }
+}
+geometry IndexedFaceSet {
+solid FALSE
+creaseAngle 0.5
+
+normalPerVertex TRUE
+coord Coordinate { 
+point [
+-0.0999999 2.5 -0.1,
+6 2.5 -0.1,
+6 2.5 2.5,
+-0.0999999 2.5 2.5]
+}
+
+coordIndex [
+ 0, 1, 2, 3, -1]
+normal Normal {
+    vector [ 
+0 -1 0, 0 -1 0, 0 -1 0, 0 -1 0
+]
+}
+
+    normalIndex [ 0, 1, 2, 3, -1]
+}
+}
+
+# Object "e" 
+Shape {
+appearance Appearance { 
+ material Material {
+  diffuseColor 0.270588 0.52549 0.454902
+  specularColor 0.5 0.5 0.5
+  emissiveColor 0 0 0
+  shininess 0.078125
+  transparency 0.000000
+ }
+}
+geometry IndexedFaceSet {
+solid FALSE
+creaseAngle 0.5
+
+normalPerVertex TRUE
+coord Coordinate { 
+point [
+6 2.6 2.5,
+-0.0999999 2.6 2.5,
+-0.0999999 2.5 2.5,
+6 2.5 2.5]
+}
+
+coordIndex [
+ 0, 1, 2, 3, -1]
+normal Normal {
+    vector [ 
+0 0 1, 0 0 1, 0 0 1, 0 0 1
+]
+}
+
+    normalIndex [ 0, 1, 2, 3, -1]
+}
+}
+
+# Object "o" 
+Shape {
+appearance Appearance { 
+ material Material {
+  diffuseColor 0.270588 0.52549 0.454902
+  specularColor 0.5 0.5 0.5
+  emissiveColor 0 0 0
+  shininess 0.078125
+  transparency 0.000000
+ }
+}
+geometry IndexedFaceSet {
+solid FALSE
+creaseAngle 0.5
+
+normalPerVertex TRUE
+coord Coordinate { 
+point [
+-0.0999999 2.6 2.5,
+6 2.6 2.5,
+6 2.6 -0.1,
+-0.0999999 2.6 -0.1]
+}
+
+coordIndex [
+ 0, 1, 2, 3, -1]
+normal Normal {
+    vector [ 
+0 1 0, 0 1 0, 0 1 0, 0 1 0
+]
+}
+
+    normalIndex [ 0, 1, 2, 3, -1]
+}
+}
+
+# Object "e" 
+Shape {
+appearance Appearance { 
+ material Material {
+  diffuseColor 0.270588 0.52549 0.454902
+  specularColor 0.5 0.5 0.5
+  emissiveColor 0 0 0
+  shininess 0.078125
+  transparency 0.000000
+ }
+}
+geometry IndexedFaceSet {
+solid FALSE
+creaseAngle 0.5
+
+normalPerVertex TRUE
+coord Coordinate { 
+point [
+-0.0999999 2.6 -0.0999999,
+6 2.6 -0.0999999,
+6 2.5 -0.0999999,
+-0.0999999 2.5 -0.0999999]
+}
+
+coordIndex [
+ 0, 1, 2, 3, -1]
+normal Normal {
+    vector [ 
+0 0 -1, 0 0 -1, 0 0 -1, 0 0 -1
+]
+}
+
+    normalIndex [ 0, 1, 2, 3, -1]
+}
+}
+
+# Object "e" 
+Shape {
+appearance Appearance { 
+ material Material {
+  diffuseColor 0.270588 0.52549 0.454902
+  specularColor 0.5 0.5 0.5
+  emissiveColor 0 0 0
+  shininess 0.078125
+  transparency 0.000000
+ }
+}
+geometry IndexedFaceSet {
+solid FALSE
+creaseAngle 0.5
+
+normalPerVertex TRUE
+coord Coordinate { 
+point [
+6 2.5 -0.1,
+6 2.6 -0.1,
+6 2.6 2.5,
+6 2.5 2.5]
+}
+
+coordIndex [
+ 0, 1, 2, 3, -1]
+normal Normal {
+    vector [ 
+1 0 0, 1 0 0, 1 0 0, 1 0 0
+]
+}
+
+    normalIndex [ 0, 1, 2, 3, -1]
+}
+}
+
+# Object "s:doorwall" 
+Shape {
+appearance Appearance { 
+ material Material {
+  diffuseColor 1 0.466667 0
+  specularColor 0.5 0.5 0.5
+  emissiveColor 0 0 0
+  shininess 0.078125
+  transparency 0.000000
+ }
+}
+geometry IndexedFaceSet {
+solid FALSE
+creaseAngle 0.5
+
+normalPerVertex TRUE
+coord Coordinate { 
+point [
+3 1.9 0,
+3.1 1.9 0,
+3.1 1.9 2.4,
+3 1.9 2.4,
+3.1 1.9 0,
+3.1 2.5 0,
+3.1 2.5 2.4,
+3.1 1.9 2.4,
+3 2.5 2.4,
+3 1.9 2.4,
+3.1 1.9 2.4,
+3.1 2.5 2.4,
+3 1.9 2.4,
+3 2.5 2.4,
+3 2.5 0,
+3 1.9 0,
+3 1.9 0,
+3 2.5 0,
+3.1 2.5 0,
+3.1 1.9 0,
+3.1 2.5 0,
+3 2.5 0,
+3 2.5 2.4,
+3.1 2.5 2.4,
+3 0 0,
+3.1 0 0,
+3.1 0 0.8,
+3 0 0.8,
+3.1 0 0,
+3.1 1.9 0,
+3.1 1.9 0.8,
+3.1 0 0.8,
+3 1.9 0.8,
+3 0 0.8,
+3.1 0 0.8,
+3.1 1.9 0.8,
+3 0 0.8,
+3 1.9 0.8,
+3 1.9 0,
+3 0 0,
+3 0 0,
+3 1.9 0,
+3.1 1.9 0,
+3.1 0 0,
+3.1 1.9 0,
+3 1.9 0,
+3 1.9 0.8,
+3.1 1.9 0.8,
+3 0 1.6,
+3.1 0 1.6,
+3.1 0 2.4,
+3 0 2.4,
+3.1 0 1.6,
+3.1 1.9 1.6,
+3.1 1.9 2.4,
+3.1 0 2.4,
+3 1.9 2.4,
+3 0 2.4,
+3.1 0 2.4,
+3.1 1.9 2.4,
+3 0 2.4,
+3 1.9 2.4,
+3 1.9 1.6,
+3 0 1.6,
+3 0 1.6,
+3 1.9 1.6,
+3.1 1.9 1.6,
+3.1 0 1.6,
+3.1 1.9 1.6,
+3 1.9 1.6,
+3 1.9 2.4,
+3.1 1.9 2.4]
+}
+
+coordIndex [
+ 0, 1, 2, 3, -1,
+ 4, 5, 6, 7, -1,
+ 8, 9, 10, 11, -1,
+ 12, 13, 14, 15, -1,
+ 16, 17, 18, 19, -1,
+ 20, 21, 22, 23, -1,
+ 24, 25, 26, 27, -1,
+ 28, 29, 30, 31, -1,
+ 32, 33, 34, 35, -1,
+ 36, 37, 38, 39, -1,
+ 40, 41, 42, 43, -1,
+ 44, 45, 46, 47, -1,
+ 48, 49, 50, 51, -1,
+ 52, 53, 54, 55, -1,
+ 56, 57, 58, 59, -1,
+ 60, 61, 62, 63, -1,
+ 64, 65, 66, 67, -1,
+ 68, 69, 70, 71, -1]
+normal Normal {
+    vector [ 
+0 -1 0, 0 -1 0, 0 -1 0, 0 -1 0,
+1 0 0, 1 0 0, 1 0 0, 1 0 0,
+0 0 1, 0 0 1, 0 0 1, 0 0 1,
+-1 0 0, -1 0 0, -1 0 0, -1 0 0,
+0 0 -1, 0 0 -1, 0 0 -1, 0 0 -1,
+0 1 0, 0 1 0, 0 1 0, 0 1 0,
+0 -1 0, 0 -1 0, 0 -1 0, 0 -1 0,
+1 0 0, 1 0 0, 1 0 0, 1 0 0,
+0 0 1, 0 0 1, 0 0 1, 0 0 1,
+-1 0 0, -1 0 0, -1 0 0, -1 0 0,
+0 0 -1, 0 0 -1, 0 0 -1, 0 0 -1,
+0 1 0, 0 1 0, 0 1 0, 0 1 0,
+0 -1 0, 0 -1 0, 0 -1 0, 0 -1 0,
+1 0 0, 1 0 0, 1 0 0, 1 0 0,
+0 0 1, 0 0 1, 0 0 1, 0 0 1,
+-1 0 0, -1 0 0, -1 0 0, -1 0 0,
+0 0 -1, 0 0 -1, 0 0 -1, 0 0 -1,
+0 1 0, 0 1 0, 0 1 0, 0 1 0
+]
+}
+
+    normalIndex [ 0, 1, 2, 3, -1,
+4, 5, 6, 7, -1,
+8, 9, 10, 11, -1,
+12, 13, 14, 15, -1,
+16, 17, 18, 19, -1,
+20, 21, 22, 23, -1,
+24, 25, 26, 27, -1,
+28, 29, 30, 31, -1,
+32, 33, 34, 35, -1,
+36, 37, 38, 39, -1,
+40, 41, 42, 43, -1,
+44, 45, 46, 47, -1,
+48, 49, 50, 51, -1,
+52, 53, 54, 55, -1,
+56, 57, 58, 59, -1,
+60, 61, 62, 63, -1,
+64, 65, 66, 67, -1,
+68, 69, 70, 71, -1]
+}
+}
+
+# Object "f:pbound" 
+
+# Object "p:firebox" 
+
+# Object "e" 
+Shape {
+appearance Appearance { 
+ material Material {
+  diffuseColor 0.933333 0.501961 0.933333
+  specularColor 0.5 0.5 0.5
+  emissiveColor 0 0 0
+  shininess 0.078125
+  transparency 0.000000
+ }
+}
+geometry IndexedFaceSet {
+solid FALSE
+creaseAngle 0.5
+
+normalPerVertex TRUE
+coord Coordinate { 
+point [
+0.2 0 0.2,
+0.2 0.1 0.2,
+0.5 0.1 0.2,
+0.5 0 0.2]
+}
+
+coordIndex [
+ 0, 1, 2, 3, -1]
+normal Normal {
+    vector [ 
+0 0 -1, 0 0 -1, 0 0 -1, 0 0 -1
+]
+}
+
+    normalIndex [ 0, 1, 2, 3, -1]
+}
+}
+
+# Object "e" 
+Shape {
+appearance Appearance { 
+ material Material {
+  diffuseColor 0.933333 0.501961 0.933333
+  specularColor 0.5 0.5 0.5
+  emissiveColor 0 0 0
+  shininess 0.078125
+  transparency 0.000000
+ }
+}
+geometry IndexedFaceSet {
+solid FALSE
+creaseAngle 0.5
+
+normalPerVertex TRUE
+coord Coordinate { 
+point [
+0.5 0.1 0.5,
+0.5 0 0.5,
+0.5 0 0.2,
+0.5 0.1 0.2]
+}
+
+coordIndex [
+ 0, 1, 2, 3, -1]
+normal Normal {
+    vector [ 
+1 0 0, 1 0 0, 1 0 0, 1 0 0
+]
+}
+
+    normalIndex [ 0, 1, 2, 3, -1]
+}
+}
+
+# Object "e" 
+Shape {
+appearance Appearance { 
+ material Material {
+  diffuseColor 0.933333 0.501961 0.933333
+  specularColor 0.5 0.5 0.5
+  emissiveColor 0 0 0
+  shininess 0.078125
+  transparency 0.000000
+ }
+}
+geometry IndexedFaceSet {
+solid FALSE
+creaseAngle 0.5
+
+normalPerVertex TRUE
+coord Coordinate { 
+point [
+0.5 0 0.5,
+0.5 0.1 0.5,
+0.2 0.1 0.5,
+0.2 0 0.5]
+}
+
+coordIndex [
+ 0, 1, 2, 3, -1]
+normal Normal {
+    vector [ 
+0 0 1, 0 0 1, 0 0 1, 0 0 1
+]
+}
+
+    normalIndex [ 0, 1, 2, 3, -1]
+}
+}
+
+# Object "e" 
+Shape {
+appearance Appearance { 
+ material Material {
+  diffuseColor 0.933333 0.501961 0.933333
+  specularColor 0.5 0.5 0.5
+  emissiveColor 0 0 0
+  shininess 0.078125
+  transparency 0.000000
+ }
+}
+geometry IndexedFaceSet {
+solid FALSE
+creaseAngle 0.5
+
+normalPerVertex TRUE
+coord Coordinate { 
+point [
+0.2 0 0.5,
+0.2 0.1 0.5,
+0.2 0.1 0.2,
+0.2 0 0.2]
+}
+
+coordIndex [
+ 0, 1, 2, 3, -1]
+normal Normal {
+    vector [ 
+-1 0 0, -1 0 0, -1 0 0, -1 0 0
+]
+}
+
+    normalIndex [ 0, 1, 2, 3, -1]
+}
+}
+
+# Object "firesrc" 
+Shape {
+appearance Appearance { 
+ material Material {
+  diffuseColor 0.933333 0.501961 0.933333
+  specularColor 0.5 0.5 0.5
+  emissiveColor 0 0 0
+  shininess 0.078125
+  transparency 0.000000
+ }
+}
+geometry IndexedFaceSet {
+solid FALSE
+creaseAngle 0.5
+
+normalPerVertex TRUE
+coord Coordinate { 
+point [
+0.2 0.1 0.2,
+0.2 0.1 0.5,
+0.5 0.1 0.5,
+0.5 0.1 0.2]
+}
+
+coordIndex [
+ 0, 1, 2, 3, -1]
+normal Normal {
+    vector [ 
+0 1 0, 0 1 0, 0 1 0, 0 1 0
+]
+}
+
+    normalIndex [ 0, 1, 2, 3, -1]
+}
+}
+
+# Object "e" 
+Shape {
+appearance Appearance { 
+ material Material {
+  diffuseColor 0.933333 0.501961 0.933333
+  specularColor 0.5 0.5 0.5
+  emissiveColor 0 0 0
+  shininess 0.078125
+  transparency 0.000000
+ }
+}
+geometry IndexedFaceSet {
+solid FALSE
+creaseAngle 0.5
+
+normalPerVertex TRUE
+coord Coordinate { 
+point [
+0.2 0 0.5,
+0.2 0 0.2,
+0.5 0 0.2,
+0.5 0 0.5]
+}
+
+coordIndex [
+ 0, 1, 2, 3, -1]
+normal Normal {
+    vector [ 
+0 -1 0, 0 -1 0, 0 -1 0, 0 -1 0
+]
+}
+
+    normalIndex [ 0, 1, 2, 3, -1]
+}
+}
+
+# Object "s:fireplume" 
+Shape {
+appearance Appearance { 
+ material Material {
+  diffuseColor 1 0 0
+  specularColor 0.5 0.5 0.5
+  emissiveColor 0 0 0
+  shininess 0.078125
+  transparency 0.000000
+ }
+}
+geometry IndexedFaceSet {
+solid FALSE
+creaseAngle 0.5
+
+normalPerVertex TRUE
+coord Coordinate { 
+point [
+0.2 0.1 0.2,
+0.2 0.8 0.2,
+0.5 0.8 0.2,
+0.5 0.1 0.2,
+0.2 0.1 0.5,
+0.2 0.8 0.5,
+0.5 0.8 0.5,
+0.5 0.1 0.5]
+}
+
+coordIndex [
+ 0, 1, 2, 3, -1,
+ 6, 7, 3, 2, -1,
+ 7, 6, 5, 4, -1,
+ 4, 5, 1, 0, -1,
+ 1, 5, 6, 2, -1,
+ 4, 0, 3, 7, -1]
+normal Normal {
+    vector [ 
+0 0 -1, 0 0 -1, 0 0 -1, 0 0 -1,
+1 0 0, 1 0 0, 1 0 0, 1 0 0,
+0 0 1, 0 0 1, 0 0 1, 0 0 1,
+-1 0 0, -1 0 0, -1 0 0, -1 0 0,
+0 1 0, 0 1 0, 0 1 0, 0 1 0,
+0 -1 0, 0 -1 0, 0 -1 0, 0 -1 0
+]
+}
+
+    normalIndex [ 0, 1, 2, 3, -1,
+4, 5, 6, 7, -1,
+8, 9, 10, 11, -1,
+12, 13, 14, 15, -1,
+16, 17, 18, 19, -1,
+20, 21, 22, 23, -1]
+}
+}
+
+# Object "p:rightwall" 
+
+# Object "e" 
+Shape {
+appearance Appearance { 
+ material Material {
+  diffuseColor 0.270588 0.52549 0.454902
+  specularColor 0.5 0.5 0.5
+  emissiveColor 0 0 0
+  shininess 0.078125
+  transparency 0.000000
+ }
+}
+geometry IndexedFaceSet {
+solid FALSE
+creaseAngle 0.5
+
+normalPerVertex TRUE
+coord Coordinate { 
+point [
+-0.0935402 0 0,
+-0.0935402 0 -0.1,
+6 0 -0.1,
+6 0 0]
+}
+
+coordIndex [
+ 0, 1, 2, 3, -1]
+normal Normal {
+    vector [ 
+0 -1 0, 0 -1 0, 0 -1 0, 0 -1 0
+]
+}
+
+    normalIndex [ 0, 1, 2, 3, -1]
+}
+}
+
+# Object "o" 
+Shape {
+appearance Appearance { 
+ material Material {
+  diffuseColor 0.270588 0.52549 0.454902
+  specularColor 0.5 0.5 0.5
+  emissiveColor 0 0 0
+  shininess 0.078125
+  transparency 0.000000
+ }
+}
+geometry IndexedFaceSet {
+solid FALSE
+creaseAngle 0.5
+
+normalPerVertex TRUE
+coord Coordinate { 
+point [
+-0.0935402 0 -0.1,
+-0.0935402 2.5 -0.1,
+6 2.5 -0.1,
+6 0 -0.1]
+}
+
+coordIndex [
+ 0, 1, 2, 3, -1]
+normal Normal {
+    vector [ 
+0 0 -1, 0 0 -1, 0 0 -1, 0 0 -1
+]
+}
+
+    normalIndex [ 0, 1, 2, 3, -1]
+}
+}
+
+# Object "e" 
+Shape {
+appearance Appearance { 
+ material Material {
+  diffuseColor 0.270588 0.52549 0.454902
+  specularColor 0.5 0.5 0.5
+  emissiveColor 0 0 0
+  shininess 0.078125
+  transparency 0.000000
+ }
+}
+geometry IndexedFaceSet {
+solid FALSE
+creaseAngle 0.5
+
+normalPerVertex TRUE
+coord Coordinate { 
+point [
+6 2.5 0,
+6 0 0,
+6 0 -0.1,
+6 2.5 -0.1]
+}
+
+coordIndex [
+ 0, 1, 2, 3, -1]
+normal Normal {
+    vector [ 
+1 0 0, 1 0 0, 1 0 0, 1 0 0
+]
+}
+
+    normalIndex [ 0, 1, 2, 3, -1]
+}
+}
+
+# Object "i" 
+Shape {
+appearance Appearance { 
+ material Material {
+  diffuseColor 0.270588 0.52549 0.454902
+  specularColor 0.5 0.5 0.5
+  emissiveColor 0 0 0
+  shininess 0.078125
+  transparency 0.000000
+ }
+}
+geometry IndexedFaceSet {
+solid FALSE
+creaseAngle 0.5
+
+normalPerVertex TRUE
+coord Coordinate { 
+point [
+6 0 0,
+6 2.5 0,
+-0.0935402 2.5 0,
+-0.0935402 0 0]
+}
+
+coordIndex [
+ 0, 1, 2, 3, -1]
+normal Normal {
+    vector [ 
+0 0 1, 0 0 1, 0 0 1, 0 0 1
+]
+}
+
+    normalIndex [ 0, 1, 2, 3, -1]
+}
+}
+
+# Object "e" 
+Shape {
+appearance Appearance { 
+ material Material {
+  diffuseColor 0.270588 0.52549 0.454902
+  specularColor 0.5 0.5 0.5
+  emissiveColor 0 0 0
+  shininess 0.078125
+  transparency 0.000000
+ }
+}
+geometry IndexedFaceSet {
+solid FALSE
+creaseAngle 0.5
+
+normalPerVertex TRUE
+coord Coordinate { 
+point [
+-0.0935402 0 0,
+-0.0935402 2.5 0,
+-0.0935402 2.5 -0.1,
+-0.0935402 0 -0.1]
+}
+
+coordIndex [
+ 0, 1, 2, 3, -1]
+normal Normal {
+    vector [ 
+-1 0 0, -1 0 0, -1 0 0, -1 0 0
+]
+}
+
+    normalIndex [ 0, 1, 2, 3, -1]
+}
+}
+
+# Object "e" 
+Shape {
+appearance Appearance { 
+ material Material {
+  diffuseColor 0.270588 0.52549 0.454902
+  specularColor 0.5 0.5 0.5
+  emissiveColor 0 0 0
+  shininess 0.078125
+  transparency 0.000000
+ }
+}
+geometry IndexedFaceSet {
+solid FALSE
+creaseAngle 0.5
+
+normalPerVertex TRUE
+coord Coordinate { 
+point [
+-0.0935402 2.5 -0.1,
+-0.0935402 2.5 0,
+6 2.5 0,
+6 2.5 -0.1]
+}
+
+coordIndex [
+ 0, 1, 2, 3, -1]
+normal Normal {
+    vector [ 
+0 1 0, 0 1 0, 0 1 0, 0 1 0
+]
+}
+
+    normalIndex [ 0, 1, 2, 3, -1]
+}
+}
+]
+}

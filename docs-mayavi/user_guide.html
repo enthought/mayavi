@@ -1,0 +1,2174 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.4.1: http://docutils.sourceforge.net/" />
+<title>MayaVi2 Users Guide</title>
+<meta name="author" content="Prabhu Ramachandran" />
+<style type="text/css">
+
+/*
+:Author: David Goodger
+:Contact: goodger@users.sourceforge.net
+:Date: $Date: 2005-12-18 01:56:14 +0100 (Sun, 18 Dec 2005) $
+:Revision: $Revision: 4224 $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin-left: 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left {
+  clear: left }
+
+img.align-right {
+  clear: right }
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font-family: serif ;
+  font-size: 100% }
+
+pre.literal-block, pre.doctest-block {
+  margin-left: 2em ;
+  margin-right: 2em ;
+  background-color: #eeeeee }
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+tt.docutils {
+  background-color: #eeeeee }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document" id="mayavi2-users-guide">
+<h1 class="title">MayaVi2 Users Guide</h1>
+<table class="docinfo" frame="void" rules="none">
+<col class="docinfo-name" />
+<col class="docinfo-content" />
+<tbody valign="top">
+<tr><th class="docinfo-name">Author:</th>
+<td>Prabhu Ramachandran</td></tr>
+<tr><th class="docinfo-name">Contact:</th>
+<td>prabhu[at]aero.iitb.ac.in</td></tr>
+</tbody>
+</table>
+<div class="contents topic">
+<p class="topic-title first"><a id="contents" name="contents">Contents</a></p>
+<ul class="simple">
+<li><a class="reference" href="#vision" id="id2" name="id2">Vision</a></li>
+<li><a class="reference" href="#introduction" id="id3" name="id3">Introduction</a><ul>
+<li><a class="reference" href="#technical-details" id="id4" name="id4">Technical details</a></li>
+</ul>
+</li>
+<li><a class="reference" href="#installation" id="id5" name="id5">Installation</a><ul>
+<li><a class="reference" href="#requirements" id="id6" name="id6">Requirements</a></li>
+<li><a class="reference" href="#eggs" id="id7" name="id7">Eggs</a><ul>
+<li><a class="reference" href="#introduction-to-eggs" id="id8" name="id8">Introduction to Eggs</a></li>
+</ul>
+</li>
+<li><a class="reference" href="#the-bleeding-edge-svn" id="id9" name="id9">The bleeding edge: SVN</a></li>
+</ul>
+</li>
+<li><a class="reference" href="#an-overview-of-mayavi" id="id10" name="id10">An overview of MayaVi</a></li>
+<li><a class="reference" href="#quick-tour" id="id11" name="id11">Quick tour</a><ul>
+<li><a class="reference" href="#heart-vtk-example" id="id12" name="id12"><tt class="docutils literal"><span class="pre">heart.vtk</span></tt> example</a></li>
+<li><a class="reference" href="#fire-ug-vtu-example" id="id13" name="id13"><tt class="docutils literal"><span class="pre">fire_ug.vtu</span></tt> example</a></li>
+<li><a class="reference" href="#parametric-surfaces-example" id="id14" name="id14">Parametric surfaces example</a></li>
+</ul>
+</li>
+<li><a class="reference" href="#using-mayavi" id="id15" name="id15">Using MayaVi</a><ul>
+<li><a class="reference" href="#command-line-arguments" id="id16" name="id16">Command line arguments</a></li>
+<li><a class="reference" href="#general-layout-of-ui" id="id17" name="id17">General layout of UI</a></li>
+<li><a class="reference" href="#interaction-with-the-scene" id="id18" name="id18">Interaction with the scene</a><ul>
+<li><a class="reference" href="#mouse-interaction" id="id19" name="id19">Mouse interaction</a></li>
+<li><a class="reference" href="#keyboard-interaction" id="id20" name="id20">Keyboard interaction</a></li>
+</ul>
+</li>
+<li><a class="reference" href="#the-embedded-python-interpreter" id="id21" name="id21">The embedded Python interpreter</a></li>
+<li><a class="reference" href="#visualizing-data" id="id22" name="id22">Visualizing data</a></li>
+<li><a class="reference" href="#modules" id="id23" name="id23">Modules</a></li>
+<li><a class="reference" href="#filters" id="id24" name="id24">Filters</a></li>
+</ul>
+</li>
+<li><a class="reference" href="#scripting-mayavi" id="id25" name="id25">Scripting MayaVi</a><ul>
+<li><a class="reference" href="#design-overview" id="id26" name="id26">Design Overview</a></li>
+<li><a class="reference" href="#scripting-the-mayavi2-application" id="id27" name="id27">Scripting the <tt class="docutils literal"><span class="pre">mayavi2</span></tt> application</a><ul>
+<li><a class="reference" href="#scripting-from-the-ui" id="id28" name="id28">Scripting from the UI</a></li>
+<li><a class="reference" href="#scripting-from-ipython" id="id29" name="id29">Scripting from IPython</a></li>
+<li><a class="reference" href="#an-example" id="id30" name="id30">An example</a></li>
+</ul>
+</li>
+<li><a class="reference" href="#using-mlab" id="id31" name="id31">Using <tt class="docutils literal"><span class="pre">mlab</span></tt></a></li>
+<li><a class="reference" href="#using-the-mayavi-envisage-plugins" id="id32" name="id32">Using the mayavi envisage plugins</a></li>
+</ul>
+</li>
+<li><a class="reference" href="#creating-data-for-mayavi" id="id33" name="id33">Creating data for MayaVi</a></li>
+<li><a class="reference" href="#tips-and-tricks" id="id34" name="id34">Tips and Tricks</a><ul>
+<li><a class="reference" href="#customizing-mayavi2" id="id35" name="id35">Customizing mayavi2</a></li>
+<li><a class="reference" href="#off-screen-rendering" id="id36" name="id36">Off screen rendering</a></li>
+</ul>
+</li>
+<li><a class="reference" href="#miscellaneous" id="id37" name="id37">Miscellaneous</a><ul>
+<li><a class="reference" href="#tests-for-mayavi2" id="id38" name="id38">Tests for MayaVi2</a></li>
+<li><a class="reference" href="#getting-help" id="id39" name="id39">Getting help</a></li>
+<li><a class="reference" href="#helping-out" id="id40" name="id40">Helping out</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section">
+<h1><a class="toc-backref" href="#id2" id="vision" name="vision">Vision</a></h1>
+<p><a class="reference" href="https://svn.enthought.com/enthought/wiki/MayaVi">MayaVi2</a> seeks to provide easy and interactive visualization of 3D
+data.  It does this by the following:</p>
+<blockquote>
+<ul class="simple">
+<li>an (optional) rich user interface with dialogs to interact with
+all data and objects in the visualization.</li>
+<li>a simple and clean scripting interface in <a class="reference" href="http://www.python.org">Python</a>, including
+one-liners, a-la <a class="reference" href="https://svn.enthought.com/enthought/attachment/wiki/MayaVi/mlab.pdf">mlab</a>, or object-oriented programming interface.</li>
+<li>harnesses the power of the <a class="reference" href="http://www.vtk.org">VTK</a> toolkit without forcing you to
+learn it.</li>
+</ul>
+</blockquote>
+<p>Additionally Mayavi2 strives to be a reusable tool that can be
+embedded in your applications in different ways or combined with the
+<a class="reference" href="https://svn.enthought.com/enthought/wiki/Envisage">envisage</a> application-building framework to assemble domain-specific
+tools.</p>
+</div>
+<div class="section">
+<h1><a class="toc-backref" href="#id3" id="introduction" name="introduction">Introduction</a></h1>
+<p>MayaVi2 is a general purpose, cross-platform tool for 3-D scientific
+data visualization. Its features include:</p>
+<blockquote>
+<ul class="simple">
+<li>Visualization of scalar, vector and tensor data in 2 and 3
+dimensions</li>
+<li>Easy scriptability using Python</li>
+<li>Easy extendability via custom sources, modules, and data filters</li>
+<li>Reading several file formats: <a class="reference" href="http://www.vtk.org">VTK</a> (legacy and XML), PLOT3D,
+etc.</li>
+<li>Saving of visualizations</li>
+<li>Saving rendered visualization in a variety of image formats</li>
+<li>Convenient functionality for rapid scientific plotting via mlab
+(see <a class="reference" href="#using-mlab">Using mlab</a>)</li>
+</ul>
+</blockquote>
+<p>Unlike its predecessor <a class="reference" href="http://mayavi.sourceforge.net">MayaVi1</a>, MayaVi2 has been designed with
+scriptability and extensibility in mind from the ground up.  While the
+mayavi2 application is usable by itself, it may be used as an Envisage
+plugin which allows it to be embedded in user applications natively.
+Alternatively, it may be used as a visualization engine for any
+application.</p>
+<div class="section">
+<h2><a class="toc-backref" href="#id4" id="technical-details" name="technical-details">Technical details</a></h2>
+<p>MayaVi-2 provides a general purpose visualization engine based on a
+pipeline architecture similar to that used in VTK.  MayaVi2 also
+provides an Envisage plug-in for 2D/3D scientific data visualization.
+MayaVi2 uses the Enthought Tool Suite (<a class="reference" href="http://code.enthought.com/ets">ETS</a>) in the form of <a class="reference" href="https://svn.enthought.com/enthought/wiki/Traits">Traits</a>,
+<a class="reference" href="https://svn.enthought.com/enthought/wiki/TVTK">TVTK</a> and <a class="reference" href="https://svn.enthought.com/enthought/wiki/Envisage">Envisage</a>. Here are some of its features:</p>
+<blockquote>
+<ul>
+<li><p class="first">Allows users to easily visualize scalar, vector and (eventually)
+tensor field data in 2 and 3 dimensions.</p>
+</li>
+<li><p class="first">Easier to script than MayaVi-1 due to a much cleaner MVC design.</p>
+</li>
+<li><p class="first">Easy to extend with added sources, components, modules and data
+filters.</p>
+</li>
+<li><p class="first">Envisage plugin. This implies that it is:</p>
+<blockquote>
+<ul class="simple">
+<li>easy to use other envisage plugins in mayavi.  For
+example, Mayavi provides an embedded Python shell.  This
+is an Envisage plugin and requires one line of code to
+include in Mayavi.</li>
+<li>easy to use Mayavi inside Envisage based applications.
+Thus, any envisage based application can readily use
+the mayavi plugin and script it to visualize data.</li>
+</ul>
+</blockquote>
+</li>
+<li><p class="first">wxPython/Qt4 based GUI (thanks entirely to Traits, PyFace and
+Envisage).  It is important to note that there is no wxPython or
+Qt4 code used directly in Mayavi source.</p>
+</li>
+<li><p class="first">Persistent visualizations like in <a class="reference" href="http://mayavi.sourceforge.net">MayaVi1</a>.</p>
+</li>
+<li><p class="first">Ability to save rendered visualizations to various image
+formats.</p>
+</li>
+</ul>
+</blockquote>
+</div>
+</div>
+<div class="section">
+<h1><a class="toc-backref" href="#id5" id="installation" name="installation">Installation</a></h1>
+<p>Up-to-date install instructions are always available at the <a class="reference" href="https://svn.enthought.com/enthought/wiki/MayaVi">MayaVi2</a>
+web page.  The following instructions are likely not up-to-date but
+should give you a good idea of the general installation procedure and
+a start on where to look.</p>
+<div class="section">
+<h2><a class="toc-backref" href="#id6" id="requirements" name="requirements">Requirements</a></h2>
+<p>Mayavi requires at the very minimum the following packages:</p>
+<blockquote>
+<ul class="simple">
+<li><a class="reference" href="http://www.vtk.org">VTK</a> &gt;= 4.4 (5.x is ideal)</li>
+<li><a class="reference" href="http://www.scipy.org">numpy</a> &gt;= 1.0.1</li>
+<li><a class="reference" href="http://www.wxpython.org">wxPython</a> 2.6.x</li>
+<li><a class="reference" href="http://peak.telecommunity.com/DevCenter/setuptools">setuptools</a> (for installation and egg builds)</li>
+<li><a class="reference" href="https://svn.enthought.com/enthought/wiki/TVTK">TVTK</a> (<cite>enthought.tvtk</cite>)</li>
+<li><a class="reference" href="https://svn.enthought.com/enthought/wiki/Traits">Traits</a> &gt;= 2.0 (<cite>enthought.traits</cite>)</li>
+<li><a class="reference" href="https://svn.enthought.com/enthought/wiki/Envisage">Envisage</a> == 2.x (<cite>enthought.envisage</cite>)</li>
+</ul>
+</blockquote>
+<p>One can install the requirements in several ways.</p>
+<blockquote>
+<ul class="simple">
+<li>Win32: Under Win32 the best way to get all the dependencies is to
+use Enthought's <a class="reference" href="http://code.enthought.com/enstaller">enstaller</a>.</li>
+<li>Linux: Most Linux distributions will have installable binaries
+available for the some of the above.  For example, under <a class="reference" href="http://www.debian.org">Debian</a>
+or <a class="reference" href="http://www.ubuntu.com">Ubuntu</a> you would need <tt class="docutils literal"><span class="pre">python-vtk</span></tt>, <tt class="docutils literal"><span class="pre">python-wxgtk2.6</span></tt>,
+<tt class="docutils literal"><span class="pre">python-setuptools</span></tt>, <tt class="docutils literal"><span class="pre">python-numpy</span></tt>.</li>
+<li>Mac OS X: The best available instructions for this platform are
+available on the <a class="reference" href="https://svn.enthought.com/enthought/wiki/IntelMacPython25">IntelMacPython25</a> page.</li>
+</ul>
+</blockquote>
+<p>There are several ways to install <a class="reference" href="https://svn.enthought.com/enthought/wiki/TVTK">TVTK</a>, <a class="reference" href="https://svn.enthought.com/enthought/wiki/Traits">Traits</a> and MayaVi.  These
+are described in the following.</p>
+</div>
+<div class="section">
+<h2><a class="toc-backref" href="#id7" id="eggs" name="eggs">Eggs</a></h2>
+<p><a class="reference" href="https://svn.enthought.com/enthought/wiki/MayaVi">MayaVi</a> is part of the Enthought Tool Suite (<a class="reference" href="http://code.enthought.com/ets">ETS</a>).  ETS has been
+organized into several different Python packages.  These packages are
+distributed as Python <a class="reference" href="http://peak.telecommunity.com/DevCenter/PythonEggs">Eggs</a>.  Python eggs are fairly sophisticated and
+carry information on dependencies with other eggs.  As such they are
+rapidly becoming the standard for distributing Python packages.</p>
+<div class="section">
+<h3><a class="toc-backref" href="#id8" id="introduction-to-eggs" name="introduction-to-eggs">Introduction to Eggs</a></h3>
+<p>There are primarily two ways to use ETS eggs.</p>
+<blockquote>
+<ol class="arabic simple">
+<li>The first and easiest is to use pre-built eggs built for your
+particular platform.  More instructions on this follow.</li>
+<li>The second is to build the eggs from the source tarballs.  This
+is also fairly easy to do if you have a decent build environment.</li>
+</ol>
+</blockquote>
+<p>Given this background please see the following:</p>
+<blockquote>
+<ul>
+<li><p class="first"><a class="reference" href="https://svn.enthought.com/enthought/wiki/InstallWithEggs">InstallWithEggs</a> describes how ETS can be installed with
+eggs. Check this page first.</p>
+</li>
+<li><p class="first">If there aren't any pre-built eggs for your platform, first make
+sure the requirements are installed, and then build and install
+the eggs like so:</p>
+<pre class="literal-block">
+$ easy_install -f http://code.enthought.com/enstaller/eggs/source \
+&gt; enthought.mayavi
+</pre>
+<p>This one command will download, build and install all the required
+ETS related modules that mayavi needs.  If you run into trouble
+please check the <a class="reference" href="https://svn.enthought.com/enthought/wiki/InstallWithEggs">InstallWithEggs</a> pages.  Note that the above is
+really one line, it has been split with the <tt class="docutils literal"><span class="pre">\</span></tt> character into
+two lines in order to fit on the printed version of this document.</p>
+</li>
+<li><p class="first"><a class="reference" href="https://svn.enthought.com/enthought/wiki/Install">Install</a> describes the various ways to install the ETS of which
+mayavi2 is a part.</p>
+</li>
+<li><p class="first">Additionally, non-modular source tarballs can be downloaded at</p>
+<p><a class="reference" href="http://code.enthought.com/downloads/source/">http://code.enthought.com/downloads/source/</a></p>
+<p>giving the different ETS dependencies for mayavi as a set of
+monolithic downloads.</p>
+</li>
+</ul>
+</blockquote>
+</div>
+</div>
+<div class="section">
+<h2><a class="toc-backref" href="#id9" id="the-bleeding-edge-svn" name="the-bleeding-edge-svn">The bleeding edge: SVN</a></h2>
+<p>If you want to get the latest development version of mayavi, we
+recommend that you check it out from SVN.</p>
+<ul>
+<li><p class="first">Currently the easiest way to get mayavi from the SVN repository is
+to do the following:</p>
+<blockquote>
+<ol class="arabic">
+<li><p class="first">Make sure you have all the requirements installed.</p>
+</li>
+<li><p class="first">Checkout the branches (current development is occurring in the branches):</p>
+<pre class="literal-block">
+svn co https://svn.enthought.com/svn/enthought/branches
+</pre>
+</li>
+<li><p class="first">Run <tt class="docutils literal"><span class="pre">egg_builder.py</span></tt> like so (the built eggs will be put
+in the <tt class="docutils literal"><span class="pre">dist</span></tt> directory):</p>
+<pre class="literal-block">
+cd branches
+python egg_builder.py
+</pre>
+</li>
+<li><p class="first">Install the necessary packages and pull any packages not in the
+branches from the last stable release:</p>
+<pre class="literal-block">
+$ cd branches
+$ easy_install -f http://code.enthought.com/enstaller/eggs/source \
+&gt; -f dist enthought.mayavi
+</pre>
+</li>
+<li><p class="first">You should be all set. Try any of the examples in your working
+copy.</p>
+</li>
+</ol>
+</blockquote>
+</li>
+</ul>
+<p>The easiest way to test if your install is OK is to run the mayavi2
+command like so:</p>
+<pre class="literal-block">
+mayavi2
+</pre>
+<p>To get more help on the command try this:</p>
+<pre class="literal-block">
+mayavi2 -h
+</pre>
+<p><tt class="docutils literal"><span class="pre">mayavi2</span></tt> is the mayavi application.  On some platforms like win32
+you will need to double click on the <tt class="docutils literal"><span class="pre">mayavi2.exe</span></tt> program found in
+your <tt class="docutils literal"><span class="pre">Python2X\Scripts</span></tt> folder.  Make sure this directory is in your
+path.</p>
+<div class="note">
+<p class="first admonition-title">Note</p>
+<p class="last">Mayavi can be used in a variety of other ways but the the
+<tt class="docutils literal"><span class="pre">mayavi2</span></tt> application is the easiest to start with.</p>
+</div>
+<p>If you have the source tarball of mayavi or downloaded it via SVN, you
+can run the examples in <tt class="docutils literal"><span class="pre">enthought.mayavi*/examples</span></tt>.  There are
+plenty of example scripts illustrating various features.  Tests are
+available in the <tt class="docutils literal"><span class="pre">enthought.mayavi*/tests</span></tt> sub-directory.</p>
+</div>
+</div>
+<div class="section">
+<h1><a class="toc-backref" href="#id10" id="an-overview-of-mayavi" name="an-overview-of-mayavi">An overview of MayaVi</a></h1>
+<p>All the following sections assume you have a working mayavi
+<a class="reference" href="#installation">Installation</a>.</p>
+<p>As a user there are two primary ways to use mayavi:</p>
+<blockquote>
+<ol class="arabic">
+<li><p class="first">Use the <tt class="docutils literal"><span class="pre">mayavi2</span></tt> application completely graphically.  More
+information on this is in the <a class="reference" href="#using-mayavi">Using MayaVi</a> section.</p>
+</li>
+<li><p class="first">Script MayaVi from Python.  MayaVi features a powerful and
+general purpose scripting API.</p>
+<blockquote>
+<ol class="loweralpha simple">
+<li>You can script mayavi while using the <tt class="docutils literal"><span class="pre">mayavi2</span></tt> application
+in order to automate tasks and extend mayavi's behavior.</li>
+<li>You can script mayavi from your own Python based application.</li>
+<li>You can embed mayavi into your application in a variety of
+ways either using <a class="reference" href="https://svn.enthought.com/enthought/wiki/Envisage">Envisage</a> or otherwise.</li>
+</ol>
+</blockquote>
+<p>More details on this are available in the <a class="reference" href="#scripting-mayavi">Scripting MayaVi</a>
+chapter.</p>
+</li>
+</ol>
+</blockquote>
+<p>MayaVi is a scientific data visualizer.  There are two primary ways to
+make your data available to it.</p>
+<blockquote>
+<ol class="arabic simple">
+<li>Use a supported file format like VTK legacy or VTK XML files
+etc. See <a class="reference" href="http://www.vtk.org/pdf/file-formats.pdf">VTK file formats</a> for more information on the VTK
+formats.</li>
+<li>Generate a TVTK dataset via <a class="reference" href="http://www.scipy.org">numpy</a> arrays or any other sequence.</li>
+</ol>
+</blockquote>
+<p>More information on datasets in general and how to create VTK files or
+create them from numpy arrays is available in the <a class="reference" href="#creating-data-for-mayavi">Creating data for
+MayaVi</a> section.</p>
+<p>MayaVi uses a pipeline architecture like <a class="reference" href="http://www.vtk.org">VTK</a>.  As far as a user is
+concerned this basically boils down to a simple hierarchy.</p>
+<blockquote>
+<ul class="simple">
+<li>The user visualizes data on a <cite>TVTK Scene</cite> -- this is an area
+where the 3D visualization is performed.  New scenes may be
+created by using the <cite>File-&gt;New-&gt;VTK Scene</cite> menu.</li>
+<li>On each scene the user loads data (either using a file or created
+from a script).  Any number of data files or data objects may be
+opened.</li>
+<li>This data is optionally processed using <cite>Filters</cite> that operate on
+the data and visualized using visualization <cite>Modules</cite>.  The
+Filters and Modules are accessible via the <cite>Visualize</cite> menu on the
+UI or may be instantiated as Python objects.</li>
+</ul>
+</blockquote>
+<p>More information on each of these are available in the following
+sections.</p>
+</div>
+<div class="section">
+<h1><a class="toc-backref" href="#id11" id="quick-tour" name="quick-tour">Quick tour</a></h1>
+<p>To get acquainted with mayavi you may start up <tt class="docutils literal"><span class="pre">mayavi2</span></tt> like so:</p>
+<pre class="literal-block">
+$ mayavi2
+</pre>
+<p>On windows you can double click on the installed <tt class="docutils literal"><span class="pre">mayavi2.exe</span></tt>
+executable (usually in the <tt class="docutils literal"><span class="pre">Python2X\Scripts</span></tt> directory).</p>
+<p>Once mayavi starts, you may resize the various panes of the user
+interface to get a comfortable layout.  These settings will become the
+default &quot;perspective&quot; of the mayavi application.  More details on the
+UI are available in the <a class="reference" href="#general-layout-of-ui">General layout of UI</a> section.</p>
+<p>Before proceeding on the quick tour it is important to locate some
+data to experiment with.  The mayavi sources ship with several useful
+data files for examples and testing.  These may be found in the
+<tt class="docutils literal"><span class="pre">examples/data</span></tt> directory inside the root of the mayavi source tree.
+If these are not installed, the sources may be downloaded from here:
+<a class="reference" href="http://code.enthought.com/enstaller/eggs/source/">http://code.enthought.com/enstaller/eggs/source/</a></p>
+<p>If for some reason the sample data files are not available or there is
+no Internet access to download them, one can always create some
+interesting looking surfaces using the <cite>File-&gt;Open-&gt;Create Parametric
+surface source</cite> menu item.  This will let us create very pretty
+looking surfaces without reference to any external data.  This is
+described in the <a class="reference" href="#parametric-surfaces-example">Parametric surfaces example</a> section below.</p>
+<div class="section">
+<h2><a class="toc-backref" href="#id12" id="heart-vtk-example" name="heart-vtk-example"><tt class="docutils literal"><span class="pre">heart.vtk</span></tt> example</a></h2>
+<p>This section describes a simple example with the <tt class="docutils literal"><span class="pre">heart.vtk</span></tt> file.
+This is a simple volume of 3D data (32 x 32 x 12 points) with scalars
+at each point (the points are equally spaced).  The data is a
+structured dataset (an <cite>ImageData</cite> in fact), we'll read more about
+these later but you can think of it as a cube of points regularly
+spaced with some scalar data associated with each point.  The data
+apparently represents a CT scan of a heart.  I have no idea whose
+heart!  The file is a readable text file, look at it in a text editor
+if you'd like to.</p>
+<blockquote>
+<ol class="arabic">
+<li><p class="first">With <tt class="docutils literal"><span class="pre">mayavi2</span></tt> started, we start by opening the data file.  Go
+to the <cite>File-&gt;Open-&gt;VTK File</cite> menu item and then in the file
+dialog, navigate to the directory that contains the sample data.
+There select the <tt class="docutils literal"><span class="pre">heart.vtk</span></tt> file.</p>
+<p>Once you choose the data, you will see a new node on the MayaVi
+tree view on the left that says <cite>VTK file (heart.vtk)</cite>.  Note
+that you <strong>will not</strong> see anything visualized on the TVTK scene
+yet.</p>
+</li>
+<li><p class="first">To see an outline (a box) of the data, navigate to the
+<cite>Visualize-&gt;Modules</cite> menu item and select the <cite>Outline</cite> module.
+You will immediately see a white box on the TVTK scene.  You
+should also see two new nodes on the tree view, one called
+<cite>Modules</cite> and one underneath that called <cite>Outline</cite>.</p>
+</li>
+<li><p class="first">You can change properties of the outline displayed by clicking on
+the <cite>Outline</cite> node on the left.  This will create an object
+editor window on left bottom of the window (the object editor
+tab) below the tree view.  Play with the settings here and look
+at the results.  If you double-click a node on the tree view it
+will pop up the editor dialog rather than show it in the embedded
+object editor.</p>
+<p>Note that in general, the editor window for a <cite>Module</cite> will have
+a section for the <cite>Actor</cite>, one for the <cite>Mapper</cite> and one for
+<cite>Property</cite>.  These refer to TVTK/VTK terminology.  You may think
+of Properties as those related to the color, representation
+(surface, wireframe, etc.), line size etc.  Things grouped under
+<cite>Actor</cite> are related to the object that is rendered on screen and
+typically the editor will let you toggle its visibility.  In VTK
+parlance, the word <cite>Mapper</cite> refers to an object that converts the
+data to graphics primitives.  Properties related to it will be
+grouped under the <cite>Mapper</cite> head.</p>
+</li>
+<li><p class="first">To interact with the TVTK scene window, look at the section on
+<a class="reference" href="#interaction-with-the-scene">Interaction with the scene</a> for more details.  Experiment with
+these options till you are comfortable.</p>
+</li>
+<li><p class="first">Now create an iso-surface by selecting the
+<cite>Visualize-&gt;Modules-&gt;IsoSurface</cite> menu item.  You will see a new
+<cite>IsoSurface</cite> node on the left and an iso-contour of the scalar
+data on the scene.  The iso-surface is colored as per the
+particular iso-value chosen.  Experiment with the settings of
+this module.</p>
+</li>
+<li><p class="first">To produce meaningful visualizations you need to know what each
+color means.  To display this legend on the scene, click on the
+<cite>Modules</cite> node on the tree view and on the object editor activate
+the <cite>Show scalar bar</cite> check-box.  This will show you a legend on
+the TVTK scene.  The legend can be moved around on the scene by
+clicking on it and dragging on it.  It can also be resized by
+clicking and dragging on its edges.  You can change the nature of
+the color-mapping by choosing various options on the object
+editor.</p>
+</li>
+<li><p class="first">Create a simple &quot;grid plane&quot; to obtain an idea of the actual
+points on the grid.  This can be done using the <cite>GridPlane</cite>
+module, and created via the <cite>Visualize-&gt;Modules-&gt;GridPlane</cite> menu
+item.</p>
+</li>
+<li><p class="first">You can delete a particular module by right clicking on it and
+choosing delete.  Try this on the <cite>GridPlane</cite> module.  Try the
+other right click menu options as well.</p>
+</li>
+<li><p class="first">Experiment with the <cite>ContourGridPlane</cite> module and also the
+<cite>ScalarCutPlane</cite> module a little.</p>
+<p>The <cite>ScalarCutPlane</cite> module features a very powerful feature
+called <em>3D widgets</em>.  On the TVTK scene window you will see a cut
+plane that slices through your data showing you colors
+representing your data.  This cut plane will have a red outline
+and an arrow sticking out of it.  You can click directly on the
+cut plane and move it by dragging it.  Click on the arrow head to
+rotate the plane.  You can also reset its position by using the
+editor window for the scalar cut plane.</p>
+</li>
+<li><p class="first">You can save the visualization to an image produced by clicking
+on the little save icon on the TVTK scene or via any of the
+options on the <cite>File-&gt;Save Scene As</cite> menu.</p>
+</li>
+</ol>
+</blockquote>
+<p>You should have a visualization that looks something like the one
+shown below.</p>
+<img alt="Sample visualization of the ``heart.vtk`` dataset." src="images/heart.png" />
+<p>The nice thing about mayavi is that although in this case all of the
+above was done using the user interface, all of it can be done using
+pure Python scripts as well.  More details on this are available in
+the <a class="reference" href="#scripting-mayavi">Scripting MayaVi</a> section.</p>
+<p>Opening data files and starting up modules can also be done from the
+command line.  For example we could simply have done:</p>
+<pre class="literal-block">
+$ mayavi2 -d /path/to/heart.vtk -m Outline -m IsoSurface \
+&gt; -m GridPlane -m ScalarCutPlane
+</pre>
+<p>More details are available in the <a class="reference" href="#command-line-arguments">Command line arguments</a> section.</p>
+</div>
+<div class="section">
+<h2><a class="toc-backref" href="#id13" id="fire-ug-vtu-example" name="fire-ug-vtu-example"><tt class="docutils literal"><span class="pre">fire_ug.vtu</span></tt> example</a></h2>
+<p>Like <tt class="docutils literal"><span class="pre">heart.vtk</span></tt>, the <tt class="docutils literal"><span class="pre">fire_ug.vtu</span></tt> example dataset is available
+in the <tt class="docutils literal"><span class="pre">examples/data</span></tt> directory.  This dataset is an unstructured
+grid stored in a VTK XML file.  It represents a room with a fire in
+one corner.  A simulation of the fluid flow generated by this fire was
+performed and the resulting data at a particular instant of time is
+stored in the file.  The dataset was provided by Dr. Philip Rubini,
+who at the time was at Cranfield University.  A VRML file
+(<tt class="docutils literal"><span class="pre">room_vis.wrl</span></tt>) is also provided to show the context of the room in
+which the fire is taking place.</p>
+<blockquote>
+<ol class="arabic">
+<li><p class="first">With mayavi2 started, select <cite>File-&gt;Open-&gt;VTK XML file</cite> to load
+the data.  Again, you will see a node on the tree view on the
+left but nothing on the TVTK scene.  This dataset contains
+different scalars and vectors in the same data file.  If you
+select the <cite>VTK XML file ...</cite> node on the left you will see a
+drop list of all the scalars, vectors etc. in this data file.
+Select any that you wish to view.</p>
+</li>
+<li><p class="first">Create an outline of the data as described earlier using an
+<cite>Outline</cite> module.  View an iso-surface of the data by creating an
+<cite>IsoSurface</cite> module.  Also experiment with the <cite>ScalarCutPlane</cite>
+module.</p>
+</li>
+<li><p class="first">Show the scalar bar that represents the color mapping (via a Look
+up table that maps scalar values to colors) by clicking on the
+<cite>Modules</cite> and enabling the <cite>Show scalar bar</cite>.  Experiment with
+the different color maps provided by default.</p>
+</li>
+<li><p class="first">Now click on the <cite>VTK XML file ...</cite> and select different scalar
+values to see how the data has changed.  Your legend should
+automatically update when the scalar value is changed.</p>
+</li>
+<li><p class="first">This data also features vectors.  The scalar data has <cite>u</cite>, <cite>v</cite>
+and <cite>w</cite> but not the magnitude of the velocity.  Lets say we'd
+like to be able to view iso-contours of the magnitude of the
+velocity.  To do this lets use the <cite>ExtractVectorNorm</cite> filter.
+This is created by choosing the <cite>Visualize-&gt;Filters-&gt;Extract
+Vector Norm</cite> menu.</p>
+</li>
+<li><p class="first">If you now create a <cite>ScalarCutPlane</cite>, you will see a new
+<cite>Modules</cite> node under the <cite>ExtractVectorNorm</cite> node.  This scalar
+cut plane is displaying colors for the velocity magnitude that
+the filter has created.  You can drag the iso-surface module from
+the other <cite>Modules</cite> node and drop it on this <cite>Modules</cite> node so
+that the IsoSurface generated is for the velocity magnitude and
+not for the scalars chosen in the data.</p>
+<p>Note that the view on the left represents a pipeline of the flow
+of the data from <cite>source -&gt; filter -&gt; modules</cite>. Essentially the
+data flows from the parent node down to the children nodes below
+it.</p>
+<p>Now if you want to visualize something on a different &quot;branch&quot; of
+the pipeline, lets say you want to view iso-surfaces of the
+temperature data you must first click on the modules or the
+source object (the <cite>VTK XML File ...</cite> node) itself and then
+select the menu item.  When you select an item on the tree, it
+makes that item the <em>current object</em> and menu selections made
+after that will in general create new modules/filters below the
+current object.</p>
+</li>
+<li><p class="first">You can filter &quot;filtered data&quot;.  So select the
+<cite>ExtractVectorNorm</cite> node to make it the active object.  Now
+create a Threshold filter by selecting
+<cite>Visualize-&gt;Filters-&gt;Threshold</cite>.  Now set the upper and lower
+thresholds on the object editor for the Threshold to something
+like 0.5 and 3.0.  If you create a <cite>VectorCutPlane</cite> module at
+this point and move the cut plane you should see arrows but only
+arrows that are between the threshold values you have selected.
+Thus, you can create pretty complicated visualization pipelines
+using this approach.</p>
+</li>
+<li><p class="first">There are several vector modules.  <cite>VectorCutPlane</cite>, <cite>Vectors</cite>,
+<cite>WarpVectorCutPlane</cite> and <cite>Streamlines</cite>.  If you view streamlines
+then mayavi will generate streamlines of vector data in your
+dataset.  To view streamlines of the original dataset you can
+click on the original <cite>Outline</cite> module (or the source) and then
+choose the <cite>Streamline</cite> menu item.  The streamline lets you move
+different type of seeds on screen using 3D widgets.  Seed points
+originating from these positions are used to trace out the
+streamlines.  Sphere, line and plane sources may be used here to
+initialize the streamline seeds.</p>
+</li>
+<li><p class="first">You can view the room in which the fire is taking place by
+opening the VRML file by the <cite>File-&gt;Open-&gt;VRML2 file</cite> menu item
+and selecting the <tt class="docutils literal"><span class="pre">room_vis.wrl</span></tt> file included with the data.</p>
+</li>
+<li><p class="first">Once you setup a complex visualization pipeline and want to save
+it for later experimentation you may save the entire
+visualization via the <cite>File-&gt;Save Visualization</cite> menu.  A saved
+file can be loaded later using the <cite>File-&gt;Load Visualization</cite>
+menu item.  This option is not 100% robust and is still
+experimental.  Future versions will improve this feature.
+However, it does work and can be used for the time being.</p>
+</li>
+</ol>
+</blockquote>
+<p>Once again, the visualization in this case was created by using the
+user interface.  It is possible to script this entirely using Python
+scripts.  A simple script demonstrating several of the above modules
+is available in <tt class="docutils literal"><span class="pre">examples/streamline.py</span></tt>.  This file may be studied.
+It can be run either like so:</p>
+<pre class="literal-block">
+$ cd examples
+$ python streamline.py
+</pre>
+<p>or so:</p>
+<pre class="literal-block">
+$ mayavi2 -x streamline.py
+</pre>
+<p>As can be seen from the example, it is quite easy to script mayavi to
+visualize data.  An image of a resulting visualization generated from
+this script is shown below.</p>
+<img alt="Sample visualization of the ``fire_ug.vtu`` dataset." src="images/streamline.png" />
+</div>
+<div class="section">
+<h2><a class="toc-backref" href="#id14" id="parametric-surfaces-example" name="parametric-surfaces-example">Parametric surfaces example</a></h2>
+<p>Parametric surfaces are particularly handy if you are unable to find
+any data to play with right away.  Parametric surfaces are surfaces
+parametrized typically by 2 variables, u and v.  VTK has a bunch of
+classes that let users explore Parametric surfaces.  This
+functionality is also available in MayaVi.  The data basically is a 2D
+surface embedded in 3D.  Scalar data is also available on the surface.
+More details on parametric surfaces in VTK may be obtained from Andrew
+Maclean's <a class="reference" href="http://www.vtk.org/pdf/ParametricSurfaces.pdf">Parametric Surfaces</a> document.</p>
+<blockquote>
+<ol class="arabic">
+<li><p class="first">After starting mayavi2, create a simple Parametric surface source
+by selecting <cite>File-&gt;Open-&gt;Create Parametric Surface source</cite>.
+Once you create the data, you will see a new node on the MayaVi
+tree view on the left that says <cite>ParametricSurface</cite>.  Note that
+you <strong>will not</strong> see anything visualized on the TVTK scene yet.</p>
+<p>You can modify the nature of the parametric surface by clicking
+on the node for the <cite>ParametricSurface</cite> source object.</p>
+</li>
+<li><p class="first">To see an outline (a box) of the data, navigate to the
+<cite>Visualize-&gt;Modules</cite> menu item and select the <cite>Outline</cite> module.
+You will immediately see a white box on the TVTK scene.  You
+should also see two new nodes on the tree view, one called
+<cite>Modules</cite> and one underneath that called <cite>Outline</cite>.</p>
+</li>
+<li><p class="first">You can change properties of the outline displayed by clicking on
+the <cite>Outline</cite> node on the left.  This will create an object
+editor window on left bottom of the window (the object editor
+tab) below the tree view.  Play with the settings here and look
+at the results.  If you double-click a node on the left it will
+pop up the editor dialog rather than show it in the embedded
+object editor.</p>
+</li>
+<li><p class="first">To navigate the scene look at the section on <a class="reference" href="#interaction-with-the-scene">Interaction with
+the scene</a> section for more details.  Experiment with these.</p>
+</li>
+<li><p class="first">To view the actual surface create a <cite>Surface</cite> module by selecting
+<cite>Visualize-&gt;Modules-&gt;Surface</cite>.  You can show contours of the
+scalar data on this surface by clicking on the <cite>Surface</cite> node on
+the left and switching on the <cite>Enable contours</cite> check-box.</p>
+</li>
+<li><p class="first">To look at the color legend click on the <cite>Modules</cite> node on the
+tree view and on the object editor activate the <cite>Show scalar bar</cite>
+check-box.  This will show you a legend on the TVTK scene.  The
+legend can be moved around on the scene by clicking on it and
+dragging on it.  It can also be resized by clicking and dragging
+on its edges.  You can change the nature of the color-mapping by
+choosing various options on the object editor.</p>
+</li>
+<li><p class="first">You can add as many modules as you like.  Not all modules make
+sense for all data.  MayaVi does not yet grey out menu items and
+options if they are invalid for the particular data chosen.  This
+will be implemented in the future.  However making a mistake
+should not in general be disastrous, so go ahead and experiment.</p>
+</li>
+<li><p class="first">You may add as many data sources as you like.  It is possible to
+view two different parametric surfaces on the same scene.
+Whether this makes sense or not is up to the user.  You may also
+create as many scenes you want to and view anything in those.
+You can cut/paste/copy sources and modules between any nodes on
+the tree view using the right click options.</p>
+</li>
+<li><p class="first">To delete the <cite>Outline</cite> module say, right click on the <cite>Outline</cite>
+node and select the Delete option.  You may also want to
+experiment with the other options.</p>
+</li>
+<li><p class="first">You can save the rendered visualization to a variety of file
+formats using the <cite>File-&gt;Save Scene As</cite> menu.</p>
+</li>
+<li><p class="first">The visualization may itself be saved out to a file via the
+<cite>File-&gt;Save Visualization</cite> menu and reloaded using the <cite>Load
+visualization</cite> menu.</p>
+</li>
+</ol>
+</blockquote>
+<p>Shown below is an example visualization made using the parametric
+source.  Note that the positioning of the different surfaces was
+effected by moving the actors on screen using the actor mode of the
+scene via the 'a' key.  For more details on this see the section on
+<a class="reference" href="#interaction-with-the-scene">Interaction with the scene</a>.</p>
+<img alt="Sample visualization using parametric surfaces." src="images/param.png" />
+<p>The examples detailed above should provide a good general idea of how
+to visualize data with MayaVi2 and also an idea of its features and
+capabilities.</p>
+</div>
+</div>
+<div class="section">
+<h1><a class="toc-backref" href="#id15" id="using-mayavi" name="using-mayavi">Using MayaVi</a></h1>
+<p>This chapter primarily concerns using the <tt class="docutils literal"><span class="pre">mayavi2</span></tt> application.
+Some of the things mentioned here also apply when mayavi is scripted.
+We recommend that new users read this chapter before going to the more
+advanced ones.</p>
+<div class="section">
+<h2><a class="toc-backref" href="#id16" id="command-line-arguments" name="command-line-arguments">Command line arguments</a></h2>
+<p>The <tt class="docutils literal"><span class="pre">mayavi2</span></tt> application features several useful command line
+arguments that are described in the following section.  These options
+are described in the <tt class="docutils literal"><span class="pre">mayavi2</span></tt> man page as well.</p>
+<p>MayaVi can be run like so:</p>
+<pre class="literal-block">
+mayavi2 [options] [args]
+</pre>
+<p>Where <tt class="docutils literal"><span class="pre">arg1</span></tt>, <tt class="docutils literal"><span class="pre">arg2</span></tt> etc.  are optional file names that correspond
+to saved MayaVi2 visualizations (<tt class="docutils literal"><span class="pre">filename.mv2</span></tt>) or MayaVi2 scripts
+(<tt class="docutils literal"><span class="pre">filename.py</span></tt>).  If no options or arguments are provided mayavi
+will start up with a default blank scene.</p>
+<p>The options are:</p>
+<table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">-h</span></kbd></td>
+<td>This prints all the available command line options and exits.
+Also available through --help.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-V</span></kbd></td>
+<td>This prints the MayaVi version on the command line and exits.
+Also available through --version.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-z <var>file_name</var></span></kbd></td>
+<td>This loads a previously saved MayaVi2 visualization.  Also
+available through --viz file_name or --visualization
+file_name.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-d <var>vtk_file</var></span></kbd></td>
+<td>Opens a (legacy or XML) VTK file (<tt class="docutils literal"><span class="pre">*.vt*</span></tt>) passed as the
+argument.  Also available through --vtk.</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">-p <var>plot3d_xyz_file</var></span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>This opens a PLOT3D co-ordinate file passed as the argument.
+The plot3d-xyz-file must be a PLOT3D single block
+co-ordinate file. Also available through --plot3d-xyz.</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">-q <var>plot3d_q_file</var></span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>This opens a PLOT3D (single block) solution file passed as the
+argument. Please note that this option must always follow a
+-q or --plot3d-xyz option.  Also available through
+--plot3d-q.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-w <var>vrml-file</var></span></kbd></td>
+<td>Imports a VRML2 scene given an appropriate file.  Also available
+through --vrml.</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">-3 <var>threed-studio-file</var></span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>Imports a 3D Studio scene given an appropriate file.  Also
+available through --3ds.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-m <var>module-name</var></span></kbd></td>
+<td><p class="first">A module is an object that actually visualizes the data.  The
+given <tt class="docutils literal"><span class="pre">module-name</span></tt> is loaded in the current <tt class="docutils literal"><span class="pre">ModuleManager</span></tt>.
+The module name must be a valid one if not you will get an error
+message.</p>
+<p>If a module is specified as <tt class="docutils literal"><span class="pre">package.sub.module.SomeModule</span>
+<span class="pre">then</span> <span class="pre">the</span> <span class="pre">module</span> <span class="pre">(``SomeModule</span></tt>) is imported from
+<tt class="docutils literal"><span class="pre">package.sub.module</span></tt>.  Standard modules provided with
+<tt class="docutils literal"><span class="pre">mayavi2</span></tt> do not need the full path specification.  For
+example:</p>
+<pre class="literal-block">
+mayavi2 -d data.vtk -m Outline -m m2_user_modules.TestModule
+</pre>
+<p class="last">In this example <tt class="docutils literal"><span class="pre">Outline</span></tt> is a standard module and
+<tt class="docutils literal"><span class="pre">m2_user_modules.TestModule</span></tt> is some user defined module.
+Also available through --module.</p>
+</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-f <var>filter-name</var></span></kbd></td>
+<td><p class="first">A filter is an object that filters out the data in some way or
+the other.  The given <tt class="docutils literal"><span class="pre">filter-name</span></tt> is loaded with respect to
+the current source/filter object.  The filter name must be a
+valid one if not you will get an error message.</p>
+<p>If the filter is specified as <tt class="docutils literal"><span class="pre">package.sub.filter.SomeFilter</span>
+<span class="pre">then</span> <span class="pre">the</span> <span class="pre">filter</span> <span class="pre">(``SomeFilter</span></tt>) is imported from
+<tt class="docutils literal"><span class="pre">package.sub.filter</span></tt>.  Standard modules provided with
+<tt class="docutils literal"><span class="pre">mayavi2</span></tt> do not need the full path specification.  For
+example:</p>
+<pre class="literal-block">
+mayavi2 -d data.vtk -f ExtractVectorNorm -f m2_user_filters.TestFilter
+</pre>
+<p class="last">In this example <tt class="docutils literal"><span class="pre">ExtractVectorNorm</span></tt> is a standard filter and
+<tt class="docutils literal"><span class="pre">m2_user_filters.TestFilter</span></tt> is some user defined filter.
+Also available through --filter.</p>
+</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-M</span></kbd></td>
+<td>Starts up a new module manager on the MayaVi pipeline. Also
+available through --module-mgr.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-n</span></kbd></td>
+<td><dl class="first last docutils">
+<dt>Creates a new window/scene. Any options passed after this will</dt>
+<dd>apply to this newly created scene.  Also available through
+--new-window.</dd>
+</dl>
+</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-x <var>script-file</var></span></kbd></td>
+<td>This executes the given script in a namespace where we guarantee
+that the name 'mayavi' is MayaVi's script instance -- just like
+in the embedded Python interpreter.  Also available through
+--exec.</td></tr>
+</tbody>
+</table>
+<div class="warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Note that <tt class="docutils literal"><span class="pre">-x</span></tt> or <tt class="docutils literal"><span class="pre">--exec</span></tt> uses <cite>execfile</cite>, so this can be
+dangerous if the script does something nasty!</p>
+</div>
+<p>It is important to note that mayavi's <strong>command line arguments are
+processed sequentially</strong> in the same order they are given.  This
+allows users to do interesting things.</p>
+<p>Here are a few examples of the command line arguments:</p>
+<pre class="literal-block">
+$ mayavi2 -d heart.vtk -m Axes -m Outline -m GridPlane \
+&gt; -m ContourGridPlane -m IsoSurface
+
+$ mayavi2 -d fire_ug.vtu -m Axes -m Outline -m VectorCutPlane \
+&gt; -f MaskPoints -m Glyph
+</pre>
+<p>In the above examples, <tt class="docutils literal"><span class="pre">heart.vtk</span></tt> and <tt class="docutils literal"><span class="pre">fire_ug.vtu</span></tt> VTK files can
+be found in the <tt class="docutils literal"><span class="pre">examples/data</span></tt> directory in the source.  They may
+also be installed on your computer depending on your particular
+platform.</p>
+</div>
+<div class="section">
+<h2><a class="toc-backref" href="#id17" id="general-layout-of-ui" name="general-layout-of-ui">General layout of UI</a></h2>
+<p>When the <cite>mayavi2</cite> application is started it will provide a user
+interface that looks something like the figure shown below.</p>
+<div class="figure">
+<img alt="Figure of MayaVi's initial UI window." src="images/mayavi_ui_first.png" />
+<p class="caption">Figure of MayaVi's initial UI window.</p>
+</div>
+<p>The UI features several sections described below.</p>
+<blockquote>
+<dl class="docutils">
+<dt>Menus</dt>
+<dd>The menus let you open files, load modules, set preferences etc.</dd>
+<dt>The MayaVi engine tree view</dt>
+<dd><dl class="first last docutils">
+<dt>This is a tree view of the mayavi pipeline.</dt>
+<dd><ul class="first last simple">
+<li>Right click a tree node to rename, delete, copy the objects.</li>
+<li>Left click on a node to edit its properties on the object
+editor below the tree.</li>
+<li>It is possible to drag the nodes around on the tree.  For
+example it is possible to drag and move a module from one set
+of Modules to another, or to move a visualization from one
+scene to another.</li>
+</ul>
+</dd>
+</dl>
+</dd>
+<dt>The object editor</dt>
+<dd>This is where the properties of mayavi pipeline objects can be
+changed when an object on the engine's pipeline is clicked.</dd>
+<dt>TVTK scenes</dt>
+<dd>This is where the visualization of the data happens.  One can
+interact with this scene via the mouse and the keyboard.  More
+details are in the following sections.</dd>
+<dt>Python interpreter</dt>
+<dd>The built-in Python interpreter that can be used to script mayavi
+and do other things.  You can drag nodes from the mayavi tree and
+drop them on the interpreter and then script it!</dd>
+<dt>Logger</dt>
+<dd>Application log messages may be seen here.</dd>
+</dl>
+</blockquote>
+<p>MayaVi's UI layout is highly configurable:</p>
+<blockquote>
+<ul class="simple">
+<li>the line in-between the sections can be dragged to resize
+particular views.</li>
+<li>most of the &quot;tabs&quot; on the widgets can be dragged around to move
+them anywhere in the application.</li>
+<li>Each view area (the mayavi engine view, object editor, python shell
+and logger) can all be disabled and enabled at will using the
+<cite>View</cite> menu by toggling the views on and off.</li>
+</ul>
+</blockquote>
+<p>Each time you change the appearance of mayavi it is saved and the next
+time you start up the application it will have the same configuration.
+In addition, you can save different layouts into different
+&quot;perspectives&quot; using the <cite>View-&gt;Perspectives</cite> menu item.</p>
+<p>Shown below is a specifically configured mayavi user interface view.
+In this view the size of the various parts are changed.  The Python
+shell is activated by default.</p>
+<div class="figure">
+<img alt="Figure of MayaVi's UI after being configured by a user." src="images/mayavi_ui_second.png" />
+<p class="caption">Figure of MayaVi's UI after being configured by a user.</p>
+</div>
+</div>
+<div class="section">
+<h2><a class="toc-backref" href="#id18" id="interaction-with-the-scene" name="interaction-with-the-scene">Interaction with the scene</a></h2>
+<p>The TVTK scenes on the UI can be closed by clicking on the little 'x'
+icon on the tab.  Each scene features a toolbar that supports various
+features:</p>
+<blockquote>
+<ul class="simple">
+<li>Buttons to set the view to view along the positive or negative X,
+Y and Z axes or obtain an isometric view.</li>
+<li>A button to turn on parallel projection instead of the default
+perspective projection.  This is particularly useful when one is
+looking at 2D plots.</li>
+<li>A button to turn on an axes to indicate the x, y and z axes.</li>
+<li>A button to turn on full-screen viewing.  Note that once
+full-screen mode is entered one must press 'q' or 'e' to get back
+a normal window.</li>
+<li>A button to save the scene to a variety of image formats.  The
+image format to use is determined by the extension provided for
+the file.</li>
+</ul>
+</blockquote>
+<p>The primary means to interact with the scene is to use the mouse and
+keyboard.</p>
+<div class="section">
+<h3><a class="toc-backref" href="#id19" id="mouse-interaction" name="mouse-interaction">Mouse interaction</a></h3>
+<p>There are two modes of mouse interaction:</p>
+<blockquote>
+<ul class="simple">
+<li>Camera mode: the default, where the camera is operated on with
+mouse moves.  This mode is activated by pressing the 'c' key.</li>
+<li>Actor mode: in this mode the mouse actions operate on the actor
+the mouse is currently above.  This mode is activated by pressing
+the 'a' key.</li>
+</ul>
+</blockquote>
+<p>The view on the scene can be changed by using various mouse actions.
+Usually these are accomplished by holding down a mouse button and
+dragging.</p>
+<blockquote>
+<ul>
+<li><p class="first">holding the left mouse button down and dragging will rotate the
+camera/actor in the direction moved.</p>
+<blockquote>
+<ul class="simple">
+<li>Holding down &quot;SHIFT&quot; when doing this will pan the scene --
+just like the middle button.</li>
+<li>Holding down &quot;CONTROL&quot; will rotate about the camera's focal
+point.</li>
+<li>Holding down &quot;SHIFT&quot; and &quot;CONTROL&quot; and dragging up will zoom
+in and dragging down will zoom out.  This is like the right
+button.</li>
+</ul>
+</blockquote>
+</li>
+<li><p class="first">holding the right mouse button down and dragging upwards will zoom
+in (or increase the actors scale) and dragging downwards will zoom
+out (or reduce scale).</p>
+</li>
+<li><p class="first">holding the middle mouse button down and dragging will pan the
+scene or translate the object.</p>
+</li>
+<li><p class="first">Rotating the mouse wheel upwards will zoom in and downwards will
+zoom out.</p>
+</li>
+</ul>
+</blockquote>
+</div>
+<div class="section">
+<h3><a class="toc-backref" href="#id20" id="keyboard-interaction" name="keyboard-interaction">Keyboard interaction</a></h3>
+<p>The scene supports several features activated via keystrokes.  These
+are:</p>
+<blockquote>
+<ul class="simple">
+<li>'3': Turn on/off stereo rendering.  This may not work if the
+'stereo' preference item is not set to True.</li>
+<li>'a': Use actor mode for mouse interaction instead of camera mode.</li>
+<li>'c': Use camera mode for mouse interaction instead of actor mode.</li>
+<li>'e'/'q': Exit full-screen mode.</li>
+<li>'f': Move camera's focal point to current mouse location.  This
+will move the camera focus to center the view at the current mouse
+position.</li>
+<li>'j': Use joystick mode for the mouse interaction.  In joystick mode
+the mouse somewhat mimics a joystick.  For example, holding the
+mouse left button down when away from the center will rotate the
+scene.</li>
+<li>'l': Configure the lights that are illumining the scene.  This will
+pop-up a window to change the light configuration.</li>
+<li>'p': Pick the data at the current mouse point.  This will pop-up a
+window with information on the current pick.  The UI will also
+allow one to change the behavior of the picker to pick cells,
+points or arbitrary points.</li>
+<li>'r': Reset the camera focal point and position.  This is very handy.</li>
+<li>'t': Use trackball mode for the mouse interaction.  This is the
+default mode for the mouse interaction.</li>
+<li>'='/'+': Zoom in.</li>
+<li>'-': Zoom out.</li>
+<li>'left'/'right'/'up'/'down' arrows: Pressing the left, right, up and
+down arrow let you rotate the camera in those directions.  When
+&quot;SHIFT&quot; modifier is also held down the camera is panned.</li>
+</ul>
+</blockquote>
+</div>
+</div>
+<div class="section">
+<h2><a class="toc-backref" href="#id21" id="the-embedded-python-interpreter" name="the-embedded-python-interpreter">The embedded Python interpreter</a></h2>
+<p>The embedded Python interpreter offers extremely powerful
+possibilities.  The interpreter features command completion, automatic
+documentation tooltips and some multi-line editing.  In addition it
+supports the following features:</p>
+<blockquote>
+<ul>
+<li><p class="first">The name <tt class="docutils literal"><span class="pre">mayavi</span></tt> is bound to the
+<tt class="docutils literal"><span class="pre">enthought.mayavi.script.Script</span></tt> instance.  This may be used to
+easily script mayavi.</p>
+</li>
+<li><p class="first">The name <tt class="docutils literal"><span class="pre">application</span></tt> is bound to the envisage application.</p>
+</li>
+<li><p class="first">If a Python file is opened via the <tt class="docutils literal"><span class="pre">File-&gt;Open</span> <span class="pre">File...</span></tt> menu item
+one can edit it with a color syntax capable editor.  To execute
+this script in the embedded Python interpreter, the user may type
+<tt class="docutils literal"><span class="pre">Control-r</span></tt> on the editor window.  To save the file press
+<tt class="docutils literal"><span class="pre">Control-s</span></tt>.  This is a very handy feature when developing simple
+mayavi scripts.</p>
+</li>
+<li><p class="first">As mentioned earlier, one may drag and drop nodes from the MayaVi
+engine tree view onto the Python shell.  The object may then be
+scripted as one normally would.  A commonly used pattern when this
+is done is the following:</p>
+<pre class="literal-block">
+&gt;&gt;&gt; tvtk_scene_1
+&lt;enthought.mayavi.core.scene.Scene object at 0x9f4cbe3c&gt;
+&gt;&gt;&gt; s = _
+</pre>
+<p>In this case the name <tt class="docutils literal"><span class="pre">s</span></tt> is bound to the dropped tvtk_scene
+object.  The <tt class="docutils literal"><span class="pre">_</span></tt> variable stores the last evaluated expression
+which is the dropped object.  Using <tt class="docutils literal"><span class="pre">tvtk_scene_1</span></tt> will also work
+but is a mouthful.</p>
+</li>
+</ul>
+</blockquote>
+</div>
+<div class="section">
+<h2><a class="toc-backref" href="#id22" id="visualizing-data" name="visualizing-data">Visualizing data</a></h2>
+<p>MayaVi modules can be used to visualize the data as described in the
+<a class="reference" href="#an-overview-of-mayavi">An overview of MayaVi</a> section and the <a class="reference" href="#quick-tour">Quick tour</a> section.  One
+needs to have some data or the other loaded before a <cite>Module</cite> or
+<cite>Filter</cite> may be used.  MayaVi supports several data file formats most
+notably VTK data file formats.  More information on this is available
+here in the <a class="reference" href="#creating-data-for-mayavi">Creating data for MayaVi</a> section.</p>
+<p>Once data is loaded one can optionally use a variety of <a class="reference" href="#filters">Filters</a> to
+filter or modify the data in some way or the other and then visualize
+the data using several <a class="reference" href="#modules">Modules</a>.  The Modules and Filters are
+briefly described in the subsequent sections.</p>
+</div>
+<div class="section">
+<h2><a class="toc-backref" href="#id23" id="modules" name="modules">Modules</a></h2>
+<p>Here is a list of the MayaVi modules along with a brief description.</p>
+<blockquote>
+<dl class="docutils">
+<dt>Axes</dt>
+<dd>Draws simple axes.</dd>
+<dt>ContourGridPlane</dt>
+<dd>A contour grid plane module. This module lets one take a
+slice of input grid data and view contours of the data.</dd>
+<dt>CustomGridPlane</dt>
+<dd>A custom grid plane with a lot more flexibility than
+GridPlane module.</dd>
+<dt>Glyph</dt>
+<dd>Displays different types of glyphs oriented and colored
+as per scalar or vector data at the input points.</dd>
+<dt>GridPlane</dt>
+<dd>A simple grid plane module.</dd>
+<dt>ImagePlaneWidget</dt>
+<dd>A simple module to view image data.</dd>
+<dt>IsoSurface</dt>
+<dd>A module that allows the user to make contours of input
+point data.</dd>
+<dt>OrientationAxes</dt>
+<dd>Creates a small axes on the side that indicates the
+position of the co-ordinate axes and thereby marks the
+orientation of the scene. Requires VTK-4.5 and above.</dd>
+<dt>Outline</dt>
+<dd>A module that draws an outline for the given data.</dd>
+<dt>ScalarCutPlane</dt>
+<dd>Takes a cut plane of any input data set using an
+implicit plane and plots the data with optional
+contouring and scalar warping.</dd>
+<dt>SliceUnstructuredGrid</dt>
+<dd>This module takes a slice of the unstructured grid data
+and shows the cells that intersect or touch the slice.</dd>
+<dt>Streamline</dt>
+<dd>Allows the user to draw streamlines for given vector
+data. This supports various types of seed objects (line,
+sphere, plane and point seeds). It also allows the user
+to draw ribbons or tubes and further supports different
+types of interactive modes of calculating the
+streamlines.</dd>
+<dt>StructuredGridOutline</dt>
+<dd>Draws a grid-conforming outline for structured grids.</dd>
+<dt>Surface</dt>
+<dd>Draws a surface for any input dataset with optional contouring.</dd>
+<dt>Text</dt>
+<dd>This module allows the user to place text on the screen.</dd>
+<dt>VectorCutPlane</dt>
+<dd>Takes an arbitrary slice of the input data using an
+implicit cut plane and places glyphs according to the
+vector field data. The glyphs may be colored using
+either the vector magnitude or the scalar attributes.</dd>
+<dt>Vectors</dt>
+<dd>Displays different types of glyphs oriented and colored
+as per vector data at the input points. This is merely a
+convenience module that is entirely based on the Glyph
+module.</dd>
+<dt>Volume</dt>
+<dd>The Volume module visualizes scalar fields using
+volumetric visualization techniques.</dd>
+<dt>WarpVectorCutPlane</dt>
+<dd>Takes an arbitrary slice of the input data using an
+implicit cut plane and warps it according to the vector
+field data. The scalars are displayed on the warped
+surface as colors.</dd>
+</dl>
+</blockquote>
+</div>
+<div class="section">
+<h2><a class="toc-backref" href="#id24" id="filters" name="filters">Filters</a></h2>
+<p>Here is a list of the MayaVi Filters.</p>
+<blockquote>
+<dl class="docutils">
+<dt>CellToPointData</dt>
+<dd>Transforms cell attribute data to point data by
+averaging the cell data from the cells at the point.</dd>
+<dt>Delaunay2D</dt>
+<dd>Performs a 2D Delaunay triangulation.</dd>
+<dt>Delaunay3D</dt>
+<dd>Performs a 3D Delaunay triangulation.</dd>
+<dt>ExtractGrid</dt>
+<dd>Allows a user to select a part of a structured grid.</dd>
+<dt>ExtractUnstructuredGrid</dt>
+<dd>Allows a user to select a part of an unstructured grid.</dd>
+<dt>ExtractVectorNorm</dt>
+<dd>Computes the norm (Euclidean) of the input vector data
+(with optional scaling between [0, 1]). This is useful
+when the input data has vector input but no scalar data
+for the magnitude of the vectors.</dd>
+<dt>MaskPoints</dt>
+<dd>Selectively passes the input points downstream. This can
+be used to subsample the input points.  Note that this
+does not pass geometry data, this means all grid
+information is lost.</dd>
+<dt>PointToCellData</dt>
+<dd>Does the inverse of the CellToPointData filter.</dd>
+<dt>PolyDataNormals</dt>
+<dd>Computes normals from input data. This gives meshes a
+smoother appearance. This should work for any input
+dataset. Note: this filter is called &quot;Compute Normals&quot;
+in MayaVi2 GUI (Visualize/Filters/Compute Normals).</dd>
+<dt>Threshold</dt>
+<dd>A simple filter that thresholds on input data.</dd>
+<dt>TransformData</dt>
+<dd>Performs a linear transformation to input data.</dd>
+<dt>WarpScalar</dt>
+<dd>Warps the input data along a particular direction
+(either the normals or a specified direction) with a
+scale specified by the local scalar value. Useful for
+making carpet plots.</dd>
+<dt>WarpVector</dt>
+<dd>Warps the input data along a the point vector attribute
+scaled as per a scale factor.  Useful for showing flow
+profiles or displacements.</dd>
+</dl>
+</blockquote>
+</div>
+</div>
+<div class="section">
+<h1><a class="toc-backref" href="#id25" id="scripting-mayavi" name="scripting-mayavi">Scripting MayaVi</a></h1>
+<p>As elaborated in the <a class="reference" href="#quick-tour">Quick tour</a> section, mayavi can be scripted
+from Python in order to visualize data.  MayaVi2 was designed from the
+ground up to be highly scriptable.  Everything that can be done from
+the user interface can be achieved using Python scripts.</p>
+<p>If you are not looking to script mayavi itself but looking for quick
+ways to get your visualization done with simple code you may want to
+check out mayavi's mlab module.  This is described in more detail in
+the <a class="reference" href="#using-mlab">Using mlab</a> section.</p>
+<p>To best understand how to script mayavi, a reasonable understanding of
+the mayavi internals is necessary.  The following sections provides an
+overview of the basic design and objects in the mayavi pipeline.
+Subsequent sections consider specific example scripts that are
+included with the mayavi sources that illustrate the ideas.</p>
+<p>MayaVi2 uses <a class="reference" href="https://svn.enthought.com/enthought/wiki/Traits">Traits</a> and <a class="reference" href="https://svn.enthought.com/enthought/wiki/TVTK">TVTK</a> internally.  <a class="reference" href="https://svn.enthought.com/enthought/wiki/Traits">Traits</a> in many ways
+changes the way we program.  So it is important to have a good idea of
+Traits in order to understand mayavi's internals.  If you are unsure
+of traits it is a good idea to get a general idea about traits now.
+Trust me, your efforts learning Traits will not be wasted!</p>
+<div class="section">
+<h2><a class="toc-backref" href="#id26" id="design-overview" name="design-overview">Design Overview</a></h2>
+<p>This section provides a brief introduction to mayavi's internal
+architecture.</p>
+<p>The &quot;big picture&quot; of a visualization in mayavi is that an <tt class="docutils literal"><span class="pre">Engine</span></tt>
+(<tt class="docutils literal"><span class="pre">enthought.mayavi.engine.Engine</span></tt>) object manages the entire
+visualization.  The <tt class="docutils literal"><span class="pre">Engine</span></tt> manages a collection of <tt class="docutils literal"><span class="pre">Scene</span></tt>
+(<tt class="docutils literal"><span class="pre">enthought.mayavi.core.scene.Scene</span></tt>) objects.  In each <tt class="docutils literal"><span class="pre">Scene</span></tt>, a
+user may have created any number of <tt class="docutils literal"><span class="pre">Source</span></tt>
+(<tt class="docutils literal"><span class="pre">enthought.mayavi.core.source.Source</span></tt>) objects.  A <tt class="docutils literal"><span class="pre">Source</span></tt>
+object can further contain any number of <tt class="docutils literal"><span class="pre">Filters</span></tt>
+(<tt class="docutils literal"><span class="pre">enthought.mayavi.core.filter.Filter</span></tt>) or <tt class="docutils literal"><span class="pre">ModuleManager</span></tt>
+(<tt class="docutils literal"><span class="pre">enthought.mayavi.core.module_manager.ModuleManager</span></tt>) objects.  A
+<tt class="docutils literal"><span class="pre">Filter</span></tt> may contain either other filters or <tt class="docutils literal"><span class="pre">ModuleManagers</span></tt>.  A
+<tt class="docutils literal"><span class="pre">ModuleManager</span></tt> manages any number of <tt class="docutils literal"><span class="pre">Modules</span></tt>.  The figure below
+shows this hierarchy in a graphical form.</p>
+<div class="figure">
+<img alt="Illustration of the various objects in the mayavi pipeline." src="images/m2_big_picture.png" />
+<p class="caption">Illustration of the various objects in the mayavi pipeline.</p>
+</div>
+<p>This hierarchy is precisely what is seen in the MayaVi tree view on
+the UI.  The UI is therefore merely a graphical representation of this
+internal world-view.  A little more detail on these objects is given
+below.  For even more details please refer to the sources.</p>
+<p>All objects in the mayavi pipeline feature <tt class="docutils literal"><span class="pre">start</span></tt> and <tt class="docutils literal"><span class="pre">stop</span></tt>
+methods.  The reasoning for this is that any object in mayavi is not
+usable (i.e. it may not provide any outputs) unless it has been
+started.  Similarly the <tt class="docutils literal"><span class="pre">stop</span></tt> method &quot;deactivates&quot; the object.
+This is done because mayavi is essentially driving VTK objects
+underneath.  These objects require inputs in order to do anything
+useful.  Thus, an object that is not connected to the pipeline cannot
+be used.  For example, consider an <tt class="docutils literal"><span class="pre">IsoSurface</span></tt> module.  It requires
+some data in order to contour anything.  Thus, the module in isolation
+is completely useless.  It is usable only when it is added to the
+mayavi pipeline.  When an object is added to the pipeline, its inputs
+are setup and its <tt class="docutils literal"><span class="pre">start</span></tt> method is called automatically.  When the
+object is removed from the pipeline its <tt class="docutils literal"><span class="pre">stop</span></tt> method is called
+automatically.</p>
+<p>Apart from the <tt class="docutils literal"><span class="pre">Engine</span></tt> object, all other objects in the mayavi
+pipeline feature a <tt class="docutils literal"><span class="pre">scene</span></tt> trait which refers to the current
+<tt class="docutils literal"><span class="pre">enthought.pyface.tvtk.tvtk_scene.TVTKScene</span></tt> instance that the
+object is associated with.  The objects also feature an <tt class="docutils literal"><span class="pre">add_child</span></tt>
+method that lets one build up the pipeline by adding &quot;children&quot;
+objects.  The <tt class="docutils literal"><span class="pre">add_child</span></tt> method is &quot;intelligent&quot; and will try to
+appropriately add the child in the right place.</p>
+<p>Here is a brief description of the key objects in the mayavi pipeline.</p>
+<blockquote>
+<dl class="docutils">
+<dt><tt class="docutils literal"><span class="pre">Engine</span></tt></dt>
+<dd><p class="first">The MayaVi engine is defined in the <tt class="docutils literal"><span class="pre">enthought.mayavi.engine</span></tt>
+module.</p>
+<blockquote class="last">
+<ul class="simple">
+<li>It possesses a <tt class="docutils literal"><span class="pre">scenes</span></tt> trait which is a Trait <tt class="docutils literal"><span class="pre">List</span></tt> of
+<tt class="docutils literal"><span class="pre">Scene</span></tt> objects.</li>
+<li>Features several methods that let one add a
+<tt class="docutils literal"><span class="pre">Filter/Source/Module</span></tt> instance to it.  It allows one to
+create new scenes and delete them.  Also has methods to load
+and save the entire visualization.</li>
+<li>The <tt class="docutils literal"><span class="pre">EnvisageEngine</span></tt> defined in the
+<tt class="docutils literal"><span class="pre">enthought.mayavi.envisage_engine</span></tt> module is a subclass of
+<tt class="docutils literal"><span class="pre">Engine</span></tt> and is the one used in the <tt class="docutils literal"><span class="pre">mayavi2</span></tt> application.
+The <tt class="docutils literal"><span class="pre">Engine</span></tt> object is not abstract and itself perfectly
+usable.  It is useful when users do not want to use <a class="reference" href="https://svn.enthought.com/enthought/wiki/Envisage">Envisage</a>
+but still desire to use mayavi for visualization.</li>
+</ul>
+</blockquote>
+</dd>
+<dt><tt class="docutils literal"><span class="pre">Scene</span></tt></dt>
+<dd><p class="first">Defined in the <tt class="docutils literal"><span class="pre">enthought.mayavi.core.scene</span></tt> module.</p>
+<blockquote class="last">
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">scene</span></tt> attribute: manages a <tt class="docutils literal"><span class="pre">TVTKScene</span></tt>
+(<tt class="docutils literal"><span class="pre">enthought.pyface.tvtk.tvtk_scene</span></tt>) object which is where
+all the rendering occurs.</li>
+<li>The <tt class="docutils literal"><span class="pre">children</span></tt> attribute is a <tt class="docutils literal"><span class="pre">List</span></tt> trait that manages a
+list of <tt class="docutils literal"><span class="pre">Source</span></tt> objects.</li>
+</ul>
+</blockquote>
+</dd>
+<dt><tt class="docutils literal"><span class="pre">PipelineBase</span></tt></dt>
+<dd><p class="first">Defined in the <tt class="docutils literal"><span class="pre">enthought.mayavi.core.pipeline_base</span></tt> module.
+Derives from <tt class="docutils literal"><span class="pre">Base</span></tt> which merely abstracts out common
+functionality.  The <tt class="docutils literal"><span class="pre">PipelineBase</span></tt> is the base class for all
+objects in the mayavi pipeline except the <tt class="docutils literal"><span class="pre">Scene</span></tt> and <tt class="docutils literal"><span class="pre">Engine</span></tt>
+(which really isn't <em>in</em> the pipeline but contains the pipeline).</p>
+<blockquote class="last">
+<ul>
+<li><p class="first">This class is characterized by two events, <tt class="docutils literal"><span class="pre">pipeline_changed</span></tt>
+and <tt class="docutils literal"><span class="pre">data_changed</span></tt>.  These are <tt class="docutils literal"><span class="pre">Event</span></tt> traits.  They
+determine when the pipeline has been changed and when the data
+has changed.  Therefore, if one does:</p>
+<pre class="literal-block">
+object.pipeline_changed = True
+</pre>
+<p>then the <tt class="docutils literal"><span class="pre">pipeline_changed</span></tt> event is fired.  Objects
+downstream of <tt class="docutils literal"><span class="pre">object</span></tt> in the pipeline are automatically
+setup to listen to events from an upstream object and will call
+their <tt class="docutils literal"><span class="pre">update_pipeline</span></tt> method.  Similarly, if the
+<tt class="docutils literal"><span class="pre">data_changed</span></tt> event is fired then downstream objects will
+automatically call their <tt class="docutils literal"><span class="pre">update_data</span></tt> methods.</p>
+</li>
+<li><p class="first">The <tt class="docutils literal"><span class="pre">outputs</span></tt> attribute is a trait <tt class="docutils literal"><span class="pre">List</span></tt> of outputs
+produced by the object.</p>
+</li>
+</ul>
+</blockquote>
+</dd>
+<dt><tt class="docutils literal"><span class="pre">Source</span></tt></dt>
+<dd><p class="first">Defined in the <tt class="docutils literal"><span class="pre">enthought.mayavi.core.source</span></tt> module.  All the
+file readers, Parametric surface etc. are subclasses of the
+<tt class="docutils literal"><span class="pre">Source</span></tt> class.</p>
+<blockquote class="last">
+<ul class="simple">
+<li>Contains the rest of the pipeline via its <tt class="docutils literal"><span class="pre">children</span></tt> trait.
+This is a <tt class="docutils literal"><span class="pre">List</span></tt> of either <tt class="docutils literal"><span class="pre">Modules</span></tt> or other <tt class="docutils literal"><span class="pre">Filters</span></tt>.</li>
+<li>The <tt class="docutils literal"><span class="pre">outputs</span></tt> attribute is a trait <tt class="docutils literal"><span class="pre">List</span></tt> of outputs
+produced by the source.</li>
+</ul>
+</blockquote>
+</dd>
+<dt><tt class="docutils literal"><span class="pre">Filter</span></tt></dt>
+<dd><p class="first">Defined in the <tt class="docutils literal"><span class="pre">enthought.mayavi.core.filter</span></tt> module.  All the
+<tt class="docutils literal"><span class="pre">Filters</span></tt> described in the <a class="reference" href="#filters">Filters</a> section are subclasses of
+this.</p>
+<blockquote class="last">
+<ul>
+<li><p class="first">Contains the rest of the pipeline via its <tt class="docutils literal"><span class="pre">children</span></tt> trait.
+This is a <tt class="docutils literal"><span class="pre">List</span></tt> of either <tt class="docutils literal"><span class="pre">Modules</span></tt> or other <tt class="docutils literal"><span class="pre">Filters</span></tt>.</p>
+</li>
+<li><p class="first">The <tt class="docutils literal"><span class="pre">inputs</span></tt> attribute is a trait <tt class="docutils literal"><span class="pre">List</span></tt> of input data
+objects that feed into the filter.</p>
+</li>
+<li><p class="first">The <tt class="docutils literal"><span class="pre">outputs</span></tt> attribute is a trait <tt class="docutils literal"><span class="pre">List</span></tt> of outputs
+produced by the filter.</p>
+</li>
+<li><p class="first">Also features the three methods:</p>
+<ul>
+<li><dl class="first docutils">
+<dt><tt class="docutils literal"><span class="pre">setup_pipeline</span></tt>: used to create the underlying</dt>
+<dd><p class="first last">TVTK pipeline objects if needed.</p>
+</dd>
+</dl>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">update_pipeline</span></tt>: a method that is called when the
+upstream pipeline has been changed, i.e. an upstream object
+fires a <tt class="docutils literal"><span class="pre">pipeline_changed</span></tt> event.</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">update_data</span></tt>: a method that is called when the upstream
+pipeline has <strong>not</strong> been changed but the data in the
+pipeline has been changed.  This happens when the upstream
+object fires a <tt class="docutils literal"><span class="pre">data_changed</span></tt> event.</p>
+</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+</dd>
+<dt><tt class="docutils literal"><span class="pre">ModuleManager</span></tt></dt>
+<dd><p class="first">Defined in the <tt class="docutils literal"><span class="pre">enthought.mayavi.core.module_manager</span></tt> module.
+This object is the one called <em>Modules</em> in the tree view on the
+UI.  The main purpose of this object is to manage <tt class="docutils literal"><span class="pre">Modules</span></tt> and
+share common data between them.  All modules typically will use
+the same lookup table (LUT) in order to produce a meaningful
+visualization.  This lookup table is managed by the module
+manager.</p>
+<blockquote class="last">
+<ul class="simple">
+<li>The <tt class="docutils literal"><span class="pre">source</span></tt> attribute is the <tt class="docutils literal"><span class="pre">Source</span></tt> or <tt class="docutils literal"><span class="pre">Filter</span></tt> object
+that is the input of this object.</li>
+<li>Contains a list of <tt class="docutils literal"><span class="pre">Modules</span></tt> in its <tt class="docutils literal"><span class="pre">children</span></tt> trait.</li>
+<li>The <tt class="docutils literal"><span class="pre">scalar_lut_manager</span></tt> attribute is an instance of a
+<tt class="docutils literal"><span class="pre">LUTManager</span></tt> which basically manages the color mapping from
+scalar values to colors on the visualizations.  This is
+basically a mapping from scalars to colors.</li>
+<li>The <tt class="docutils literal"><span class="pre">vector_lut_manager</span></tt> attribute is an instance of a
+<tt class="docutils literal"><span class="pre">LUTManager</span></tt> which basically manages the color mapping from
+vector values to colors on the visualizations.</li>
+<li>The class also features a <tt class="docutils literal"><span class="pre">lut_data_mode</span></tt> attribute that
+specifies the data type to use for the LUTs.  This can be
+changed between 'auto', 'point data' and 'cell data'.  Changing
+this setting will change the data range and name of the lookup
+table/legend bar.  If set to 'auto' (the default), it
+automatically looks for cell and point data with point data
+being preferred over cell data and chooses the one available.
+If set to 'point data' it uses the input point data for the LUT
+and if set to 'cell data' it uses the input cell data.</li>
+</ul>
+</blockquote>
+</dd>
+<dt><tt class="docutils literal"><span class="pre">Module</span></tt></dt>
+<dd><p class="first">Defined in the <tt class="docutils literal"><span class="pre">enthought.mayavi.core.module</span></tt> module.
+These objects are the ones that typically produce a visualization
+on the TVTK scene.  All the modules defined in the <a class="reference" href="#modules">Modules</a>
+section are subclasses of this.</p>
+<blockquote class="last">
+<ul>
+<li><p class="first">The <tt class="docutils literal"><span class="pre">components</span></tt> attribute is a trait <tt class="docutils literal"><span class="pre">List</span></tt> of various
+reusable components that are used by the module.  These usually
+are never used directly by the user.  However, they are
+extremely useful when creating new modules.  A <tt class="docutils literal"><span class="pre">Component</span></tt> is
+basically a reusable piece of code that is used by various
+other objects.  For example, almost every <tt class="docutils literal"><span class="pre">Module</span></tt> uses a
+TVTK actor, mapper and property.  These are all &quot;componentized&quot;
+into a reusable <cite>Actor</cite> component that the modules use.  Thus,
+components are a means to promote reuse between mayavi pipeline
+objects.</p>
+</li>
+<li><p class="first">The <tt class="docutils literal"><span class="pre">module_manager</span></tt> attribute specifies the
+<tt class="docutils literal"><span class="pre">ModuleManager</span></tt> instance that it is attached to.</p>
+</li>
+<li><p class="first">Like the <tt class="docutils literal"><span class="pre">Filter</span></tt> modules also feature the three methods:</p>
+<ul>
+<li><dl class="first docutils">
+<dt><tt class="docutils literal"><span class="pre">setup_pipeline</span></tt>: used to create the underlying</dt>
+<dd><p class="first last">TVTK pipeline objects if needed.</p>
+</dd>
+</dl>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">update_pipeline</span></tt>: a method that is called when the
+upstream pipeline has been changed, i.e. an upstream object
+fires a <tt class="docutils literal"><span class="pre">pipeline_changed</span></tt> event.</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">update_data</span></tt>: a method that is called when the upstream
+pipeline has <strong>not</strong> been changed but the data in the
+pipeline has been changed.  This happens when the upstream
+object fires a <tt class="docutils literal"><span class="pre">data_changed</span></tt> event.</p>
+</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+</dd>
+</dl>
+</blockquote>
+<p>The following figures show the class hierarchy of the various objects
+involved.</p>
+<div class="figure">
+<img alt="The ``Engine`` object." src="images/design2c.png" />
+<p class="caption">The <tt class="docutils literal"><span class="pre">Engine</span></tt> object and its important attributes and methods.</p>
+</div>
+<div class="figure">
+<img alt="Basic object hierarchy" src="images/design2a.png" />
+<p class="caption">This hierarchy depicts the <tt class="docutils literal"><span class="pre">Base</span></tt> object, the <tt class="docutils literal"><span class="pre">Scene</span></tt>,
+<tt class="docutils literal"><span class="pre">PipelineBase</span></tt> and the <tt class="docutils literal"><span class="pre">ModuleManager</span></tt>.</p>
+</div>
+<div class="figure">
+<img alt="More object hierarchy" src="images/design2b.png" />
+<p class="caption">This hierarchy depicts the <tt class="docutils literal"><span class="pre">PipelineBase</span></tt> object, the <tt class="docutils literal"><span class="pre">Source</span></tt>,
+<tt class="docutils literal"><span class="pre">Filter</span></tt>, <tt class="docutils literal"><span class="pre">Module</span></tt> and the <tt class="docutils literal"><span class="pre">Component</span></tt>.</p>
+</div>
+</div>
+<div class="section">
+<h2><a class="toc-backref" href="#id27" id="scripting-the-mayavi2-application" name="scripting-the-mayavi2-application">Scripting the <tt class="docutils literal"><span class="pre">mayavi2</span></tt> application</a></h2>
+<p>The <tt class="docutils literal"><span class="pre">mayavi2</span></tt> application is implemented in the
+<tt class="docutils literal"><span class="pre">enthought.mayavi.scripts.mayavi2</span></tt> module (look at the
+<tt class="docutils literal"><span class="pre">mayavi2.py</span></tt> file and not the <tt class="docutils literal"><span class="pre">mayavi2</span></tt> script).  This code
+handles the command line argument parsing and runs the application.</p>
+<p><tt class="docutils literal"><span class="pre">mayavi2</span></tt> is an <a class="reference" href="https://svn.enthought.com/enthought/wiki/Envisage">Envisage</a> application.  It starts the Envisage
+application in its <tt class="docutils literal"><span class="pre">main</span></tt> method.  The code for this is in the
+<tt class="docutils literal"><span class="pre">enthought.mayavi.app</span></tt> module.  Mayavi uses several envisage plugins
+to build up its functionality.  These plugins are defined in the
+<tt class="docutils literal"><span class="pre">enthought.mayavi.plugin_definitions</span></tt> module.  In this module there
+are two lists of plugins defined, <tt class="docutils literal"><span class="pre">PLUGIN_DEFINITIONS</span></tt> and the
+<tt class="docutils literal"><span class="pre">NONGUI_PLUGIN_DEFINITIONS</span></tt>.  The default application uses the
+former which produces a GUI that the user can use.  If one uses the
+latter (<tt class="docutils literal"><span class="pre">NONGUI_PLUGIN_DEFINITIONS</span></tt>) then the mayavi tree view,
+object editor and menu items will not be available when the
+application is run.  This allows a developer to create an application
+that uses mayavi but does not show its user interface.  An example of
+how this may be done is provided in <tt class="docutils literal"><span class="pre">examples/nongui.py</span></tt>.</p>
+<div class="section">
+<h3><a class="toc-backref" href="#id28" id="scripting-from-the-ui" name="scripting-from-the-ui">Scripting from the UI</a></h3>
+<p>When using the <tt class="docutils literal"><span class="pre">mayavi2</span></tt> application, it is possible to script from
+the embedded Python interpreter on the UI.  On the interpreter the
+name <tt class="docutils literal"><span class="pre">mayavi</span></tt> is automatically bound to an
+<tt class="docutils literal"><span class="pre">enthought.mayavi.script.Script</span></tt> instance that may be used to easily
+script mayavi.  This instance is a simple wrapper object that merely
+provides some nice conveniences while scripting from the UI.  It has
+an <tt class="docutils literal"><span class="pre">engine</span></tt> trait that is a reference to the running mayavi engine.</p>
+<p>As described in <a class="reference" href="#the-embedded-python-interpreter">The embedded Python interpreter</a> section, one can
+always drag a mayavi object from the tree and drop it on the
+interpreter to script it directly.</p>
+<p>One may select the <cite>File-&gt;Open File...</cite> menu to open an existing
+Python file in the text editor, or choose the <cite>File-&gt;New File</cite> menu to
+create a new file.  The text editor is Python-aware and one may write
+a script assuming that the <tt class="docutils literal"><span class="pre">mayavi</span></tt> name is bound to the <tt class="docutils literal"><span class="pre">Script</span></tt>
+instance as it is on the shell.  To execute this script one can press
+<tt class="docutils literal"><span class="pre">Control-r</span></tt> as described earlier.  <tt class="docutils literal"><span class="pre">Control-s</span></tt> will save the
+script.</p>
+<p>The nice thing about this kind of scripting is that if one scripts
+something on the interpreter or on the editor, one may save the
+contents to a file, say <tt class="docutils literal"><span class="pre">script.py</span></tt> and then the next time mayavi
+run it like so:</p>
+<pre class="literal-block">
+$ mayavi2 -x script.py
+</pre>
+<p>This will execute the script for automatically.  The name <tt class="docutils literal"><span class="pre">mayavi</span></tt>
+is available to the script and is bound to the <tt class="docutils literal"><span class="pre">Script</span></tt> instance.
+This is very convenient.  It is possible to have mayavi execute
+multiple scripts.  For example:</p>
+<pre class="literal-block">
+$ mayavi2 -d foo.vtk -m IsoSurface -x setup_iso.py -x script2.py
+</pre>
+<p>will load the <tt class="docutils literal"><span class="pre">foo.vtk</span></tt> file, create an <tt class="docutils literal"><span class="pre">IsoSurface</span></tt> module, then
+run <tt class="docutils literal"><span class="pre">setup_iso.py</span></tt> and then run <tt class="docutils literal"><span class="pre">script2.py</span></tt>.</p>
+<p>There are several scripts in the mayavi <tt class="docutils literal"><span class="pre">examples</span></tt> directory that
+should show how this can be done.  The <tt class="docutils literal"><span class="pre">examples/README.txt</span></tt>
+contains some information on the recommended ways to script.</p>
+</div>
+<div class="section">
+<h3><a class="toc-backref" href="#id29" id="scripting-from-ipython" name="scripting-from-ipython">Scripting from IPython</a></h3>
+<p>It is possible to script MayaVi using <a class="reference" href="http://ipython.scipy.org">IPython</a>.  IPython will have to
+be invoked with the <tt class="docutils literal"><span class="pre">-wthread</span></tt> command line option in order to allow
+one to interactively script the mayavi application:</p>
+<pre class="literal-block">
+$ ipython -wthread
+</pre>
+<p>To start a visualization do the following:</p>
+<pre class="literal-block">
+from enthought.mayavi.app import main
+# Note, this does not process any command line arguments.
+mayavi = main()
+# 'mayavi' is the mayavi Script instance.
+</pre>
+<p>It is also possible to use mlab (see <a class="reference" href="#using-mlab">Using mlab</a>) for this purpose:</p>
+<pre class="literal-block">
+from enthought.mayavi.tools import mlab
+f = mlab.figure() # Returns the current scene.
+mayavi = mlab.get_mayavi() # Returns the Script instance.
+</pre>
+<p>With this it should be possible to script mayavi just the way it is
+done on the embedded interpreter or on the text editor.</p>
+</div>
+<div class="section">
+<h3><a class="toc-backref" href="#id30" id="an-example" name="an-example">An example</a></h3>
+<p>Here is an example script that illustrates various features of
+scripting mayavi:</p>
+<pre class="literal-block">
+# Create a new mayavi scene.
+mayavi.new_scene()
+
+# Get the current active scene.
+s = mayavi.engine.current_scene
+
+# Read a data file.
+from enthought.mayavi.sources.api import VTKXMLFileReader
+d = VTKXMLFileReader()
+# You must specify the full path to the data here.
+d.initialize('fire_ug.vtu')
+mayavi.add_source(d)
+
+# Import a few modules.
+from enthought.mayavi.modules.api import Outline, IsoSurface, Streamline
+
+# Show an outline.
+o = Outline()
+mayavi.add_module(o)
+o.actor.property.color = 1, 0, 0 # red color.
+
+# Make a few contours.
+iso = IsoSurface()
+mayavi.add_module(iso)
+iso.contour.contours = [450, 570]
+# Make them translucent.
+iso.actor.property.opacity = 0.4
+# Show the colormapping.
+iso.module_manager.scalar_lut_manager.show_scalar_bar = True
+
+# A streamline.
+st = Streamline()
+mayavi.add_module(st)
+# Position the seed center.
+st.seed.widget.center = 3.5, 0.625, 1.25
+st.streamline_type = 'tube'
+
+# Save the resulting image.
+s.scene.save('test.png')
+
+# Make an animation:
+for i in range(36):
+    # Rotate the camera by 10 degrees.
+    s.scene.camera.azimuth(10)
+
+    # Resets the camera clipping plane so everything fits and then
+    # renders.
+    s.scene.reset_zoom()
+
+    # Save the scene.
+    s.scene.save_png('anim%d.png'%i)
+</pre>
+<p>Sometimes, given a mayavi <tt class="docutils literal"><span class="pre">Script</span></tt> instance or <tt class="docutils literal"><span class="pre">Engine</span></tt>, it is
+handy to be able to navigate to a particular module/object.  In the
+above this could be achieved as follows:</p>
+<pre class="literal-block">
+x = mayavi.engine.scenes[0].children[0].children[0].children[-1]
+print x
+</pre>
+<p>In this case <tt class="docutils literal"><span class="pre">x</span></tt> will be set to the <tt class="docutils literal"><span class="pre">Streamline</span></tt> instance that we
+just created.</p>
+<p>There are plenty of examples illustrating various things in the
+<tt class="docutils literal"><span class="pre">examples</span></tt> directory.  These are all fairly well documented.</p>
+<p>In particular, the <tt class="docutils literal"><span class="pre">standalone.py</span></tt> example illustrates how one can
+script mayavi without using the envisage application at all.  The
+<tt class="docutils literal"><span class="pre">offscreen.py</span></tt> example illustrates how this may be done using off
+screen rendering (if supported by your particular build of VTK).</p>
+<p><tt class="docutils literal"><span class="pre">examples/README.txt</span></tt> contains some information on the recommended
+ways to script and some additional information.</p>
+</div>
+</div>
+<div class="section">
+<h2><a class="toc-backref" href="#id31" id="using-mlab" name="using-mlab">Using <tt class="docutils literal"><span class="pre">mlab</span></tt></a></h2>
+<p>Mlab was originally written by the author of this document to provide
+a simple way for users to do visualization using just a few lines of
+code.  It has since been completely rewritten by Gaël Varoquaux.  The
+idea is to provide quick one-liners as done in the <a class="reference" href="http://matplotlib.sf.net">matplotlib</a>
+<tt class="docutils literal"><span class="pre">pylab</span></tt> interface with an emphasis on 3D visualization using
+mayavi2.  This allows users to perform quick 3D visualization while
+being able to use mayavi's powerful features.</p>
+<p>The best way to use mayavi's mlab is to use <a class="reference" href="http://ipython.scipy.org">IPython</a>.  IPython will
+have to be invoked with the <tt class="docutils literal"><span class="pre">-wthread</span></tt> command line option like so:</p>
+<pre class="literal-block">
+$ ipython -wthread
+</pre>
+<p>Once started, here is a pretty example showing a spherical harmonic:</p>
+<pre class="literal-block">
+from numpy import *
+from enthought.mayavi.tools import mlab
+# Create the data.
+dphi, dtheta = pi/250.0, pi/250.0
+[phi,theta] = mgrid[0:pi+dphi*1.5:dphi,0:2*pi+dtheta*1.5:dtheta]
+m0 = 4; m1 = 3; m2 = 2; m3 = 3; m4 = 6; m5 = 2; m6 = 6; m7 = 4;
+r = sin(m0*phi)**m1 + cos(m2*phi)**m3 + sin(m4*theta)**m5 + cos(m6*theta)**m7
+x = r*sin(phi)*cos(theta)
+y = r*cos(phi)
+z = r*sin(phi)*sin(theta);
+# View it.
+f = mlab.figure()
+s = mlab.surf(x, y, z)
+</pre>
+<p>Bulk of the code in the above example is to create the data.  One line
+suffices to visualize it.  This produces the following visualization
+in a mayavi window.</p>
+<img alt="mlab/surf.jpg" src="mlab/surf.jpg" />
+<p>The data and visualization modules are all created by the single
+command <tt class="docutils literal"><span class="pre">surf</span></tt> in the above.  One can now change the visualization
+using mayavi as described in other parts of this manual.</p>
+<p>This is just a sampling of what you can do with mlab.  More
+documentation on mlab is available here:</p>
+<blockquote>
+<a class="reference" href="https://svn.enthought.com/enthought/attachment/wiki/MayaVi/mlab.pdf">https://svn.enthought.com/enthought/attachment/wiki/MayaVi/mlab.pdf</a></blockquote>
+</div>
+<div class="section">
+<h2><a class="toc-backref" href="#id32" id="using-the-mayavi-envisage-plugins" name="using-the-mayavi-envisage-plugins">Using the mayavi envisage plugins</a></h2>
+<p>The mayavi related plugin definitions to use are:</p>
+<blockquote>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">mayavi_plugin_definition.py</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">mayavi_ui_plugin_definition.py</span></tt></li>
+</ul>
+</blockquote>
+<p>These are in the <tt class="docutils literal"><span class="pre">enthought.mayavi</span></tt> package.  To see an example of
+how to use this see the <tt class="docutils literal"><span class="pre">enthought.mayavi.plugin_definitions</span></tt>
+module and the <tt class="docutils literal"><span class="pre">enthought.mayavi.app</span></tt> module.</p>
+<p>If you are writing Envisage plugins for an application and desire to
+use the mayavi plugins from your plugins/applications then it is
+important to note that mayavi creates three application objects for
+your convenience.  These are:</p>
+<blockquote>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">enthought.mayavi.services.IMAYAVI</span></tt>: This is an
+<tt class="docutils literal"><span class="pre">enthought.mayavi.script.Script</span></tt> instance that may be used to
+easily script mayavi.  It is a simple wrapper object that merely
+provides some nice conveniences while scripting from the UI.  It
+has an <tt class="docutils literal"><span class="pre">engine</span></tt> trait that is a reference to the running mayavi
+engine.</li>
+<li><tt class="docutils literal"><span class="pre">enthought.mayavi.services.IMAYAVI_ENGINE</span></tt>: This is the running
+mayavi engine instance.</li>
+<li><tt class="docutils literal"><span class="pre">enthought.mayavi.services.IMAYAVI_ENGINE_VIEW</span></tt>:  This is the
+view of the engine and is only exposed if the
+<tt class="docutils literal"><span class="pre">mayavi_ui_plugin_definition.py</span></tt> is used.</li>
+</ul>
+</blockquote>
+<p>A simple example that demonstrates the use of the mayavi plugin in an
+envisage application is included in the <tt class="docutils literal"><span class="pre">examples/explorer</span></tt>
+directory.  This may be studied to understand how you may do the same
+in your envisage applications.</p>
+</div>
+</div>
+<div class="section">
+<h1><a class="toc-backref" href="#id33" id="creating-data-for-mayavi" name="creating-data-for-mayavi">Creating data for MayaVi</a></h1>
+<p>This section of the user guide will be improved later.  For now, the
+following two presentations best describe how one can create data
+objects or data files for MayaVi and TVTK.</p>
+<blockquote>
+<ul>
+<li><p class="first">Presentation on TVTK and MayaVi2 for course at IIT Bombay</p>
+<p><a class="reference" href="https://svn.enthought.com/enthought/attachment/wiki/MayaVi/tvtk_mayavi2.pdf">https://svn.enthought.com/enthought/attachment/wiki/MayaVi/tvtk_mayavi2.pdf</a></p>
+<p>This presentation provides information on graphics in general, 3D
+data representation, creating VTK data files, creating datasets
+from numpy in Python, and also about mayavi.</p>
+</li>
+<li><p class="first">Presentation on making TVTK datasets using numpy arrays made for SciPy07.</p>
+<p><a class="reference" href="https://svn.enthought.com/enthought/attachment/wiki/MayaVi/tvtk_datasets.pdf">https://svn.enthought.com/enthought/attachment/wiki/MayaVi/tvtk_datasets.pdf</a></p>
+<p>This presentation focuses on creating TVTK datasets using numpy
+arrays.</p>
+</li>
+</ul>
+</blockquote>
+<p>There are several examples in the mayavi sources that highlight the
+creation of the most important datasets from numpy arrays.  These may
+be found in the <tt class="docutils literal"><span class="pre">examples</span></tt> directory.  Specifically they are:</p>
+<blockquote>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">polydata.py</span></tt>:  Demonstrates how to create Polydata datasets
+from numpy arrays and visualize them in mayavi.</li>
+<li><tt class="docutils literal"><span class="pre">structured_points2d.py</span></tt>: Demonstrates how to create a 2D
+structured points (or image data) dataset from numpy arrays and
+visualize them in mayavi.  This is basically a square of
+equispaced points.</li>
+<li><tt class="docutils literal"><span class="pre">structured_points3d.py</span></tt>: Demonstrates how to create a 3D
+structured points (or image data) dataset from numpy arrays and
+visualize them in mayavi.  This is a cube of points that are
+regularly spaced.</li>
+<li><tt class="docutils literal"><span class="pre">structured_grid.py</span></tt>: Demonstrates the creation and
+visualization of a 3D structured grid.</li>
+<li><tt class="docutils literal"><span class="pre">unstructured_grid.py</span></tt>: Demonstrates the creation and
+visualization of an unstructured grid.</li>
+</ul>
+</blockquote>
+<p>These scripts may be run like so:</p>
+<pre class="literal-block">
+$ mayavi2 -x structured_grid.py
+</pre>
+<p>or better yet, all in one go like so:</p>
+<pre class="literal-block">
+$ mayavi2 -x polydata.py -x structured_points2d.py \
+&gt; -x structured_points3d.py -x structured_grid.py -x unstructured_grid.py
+</pre>
+<!-- Creating datasets from numpy arrays
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+Add content here from the presentations. -->
+<!-- VTK Data files
+- - - - - - - - - - - - - -
+
+Add content here from the presentations. -->
+</div>
+<div class="section">
+<h1><a class="toc-backref" href="#id34" id="tips-and-tricks" name="tips-and-tricks">Tips and Tricks</a></h1>
+<p>Below are a few common tips and tricks.</p>
+<div class="section">
+<h2><a class="toc-backref" href="#id35" id="customizing-mayavi2" name="customizing-mayavi2">Customizing mayavi2</a></h2>
+<p>See the <tt class="docutils literal"><span class="pre">examples/mayavi_custom_ui.py</span></tt> example that documents and
+shows how the UI of mayavi2 can be modified.  The module documents how
+this can be done and provides a simple example.</p>
+</div>
+<div class="section">
+<h2><a class="toc-backref" href="#id36" id="off-screen-rendering" name="off-screen-rendering">Off screen rendering</a></h2>
+<p>Often you write mayavi scripts to render a whole batch of images to
+make an animation or so and find that each time you save an image,
+mayavi &quot;raises&quot; the window to make it the active window thus
+disrupting your work.  This is needed since VTK internally grabs the
+window to make a picture.  To get around this behavior you may click
+on the scene and set the &quot;Off screen rendering&quot; option on.  Or from a
+script:</p>
+<pre class="literal-block">
+mayavi.engine.current_scene.scene.off_screen_rendering = True
+</pre>
+<p>This will stop raising the window.  However, this may not be enough.
+If you are using win32 then off screen rendering should work well out
+of the box.  On Linux and the Mac you will need VTK-5.1 (currently
+from CVS) to get this working properly.</p>
+<p>If upgrading VTK is a problem there is another approach for any OS
+that supports X11.  This option should work irrespective of the
+version of VTK you are using.  The idea is to use the virtual
+framebuffer X server for X11 like so:</p>
+<blockquote>
+<ul>
+<li><p class="first">Make sure you have the <cite>xvfb</cite> package installed.</p>
+</li>
+<li><p class="first">Create the virtual framebuffer X server like so:</p>
+<pre class="literal-block">
+xvfb :1 -screen 0 1280x1024x24
+</pre>
+<p>This creates the display &quot;:1&quot; and creates a screen of size
+1280x1024 with 24 bpp.  For more options check your <tt class="docutils literal"><span class="pre">xvfb</span></tt> man
+page.</p>
+</li>
+<li><p class="first">Export display to :1 like so (on bash):</p>
+<pre class="literal-block">
+$ export DISPLAY=:1
+</pre>
+</li>
+<li><p class="first">Now run your mayavi script.  It should run uninterrupted on this X
+server and produce your saved images.</p>
+</li>
+</ul>
+</blockquote>
+<p>This probably will have to be fine tuned to suit your taste.</p>
+<p>Note that if you want to use mayavi without the envisage UI or even a
+traits UI (i.e. with a pure TVTK window) and do off screen rendering
+with Python scripts you may be interested in the
+<tt class="docutils literal"><span class="pre">examples/offscreen.py</span></tt> example.  This simple example shows how you
+can use MayaVi without using Envisage or the MayaVi envisage
+application and still do off screen rendering.</p>
+</div>
+</div>
+<div class="section">
+<h1><a class="toc-backref" href="#id37" id="miscellaneous" name="miscellaneous">Miscellaneous</a></h1>
+<div class="section">
+<h2><a class="toc-backref" href="#id38" id="tests-for-mayavi2" name="tests-for-mayavi2">Tests for MayaVi2</a></h2>
+<p>MayaVi features a few simple tests.  These are in the <tt class="docutils literal"><span class="pre">tests</span></tt>
+directory.  The testing is performed using the same technique that
+<a class="reference" href="http://www.vtk.org">VTK</a> employs.  Basically, a visualization is scripted and the
+resulting visualization window is captured and compared with an
+existing test image.  If there are differences in the images then
+there is an error, if not the test passes.  The test cases are
+themselves relatively simple and the magic of the actual generation of
+test images etc. is all in the <tt class="docutils literal"><span class="pre">tests/common.py</span></tt> module.</p>
+<p>To run a test you may do something like the following:</p>
+<pre class="literal-block">
+$ cd tests
+$ python test_array_source.py
+</pre>
+</div>
+<div class="section">
+<h2><a class="toc-backref" href="#id39" id="getting-help" name="getting-help">Getting help</a></h2>
+<p>Most of the user and developer discussion for mayavi2 occurs on the
+Enthought OSS developers mailing list
+(<a class="reference" href="mailto:enthought-dev&#64;mail.enthought.com">enthought-dev&#64;mail.enthought.com</a>).  This list is also available via
+gmane from here:
+<a class="reference" href="http://dir.gmane.org/gmane.comp.python.enthought.devel">http://dir.gmane.org/gmane.comp.python.enthought.devel</a></p>
+<p>Discussion and bug reports are also sometimes sent to the mayavi-users
+mailing list (<a class="reference" href="mailto:MayaVi-users&#64;lists.sourceforge.net">MayaVi-users&#64;lists.sourceforge.net</a>).  We recommend
+sending messages to the enthought-dev list though.</p>
+<p>The MayaVi web page: <a class="reference" href="https://svn.enthought.com/enthought/wiki/MayaVi">https://svn.enthought.com/enthought/wiki/MayaVi</a></p>
+<p>is a trac page where one can also enter bug reports and feature
+requests.</p>
+<p>If this manual, the mayavi web page and google are of no help feel
+free to post on the enthought-dev mailing list for help.</p>
+</div>
+<div class="section">
+<h2><a class="toc-backref" href="#id40" id="helping-out" name="helping-out">Helping out</a></h2>
+<p>We are always on the lookout for people to help this project grow.
+Feel free to send us patches -- these are best sent to the mailing
+list.  Depending on your contributions we might grant you SVN checkin
+privileges.  Thanks!</p>
+<!-- Local Variables:
+mode: rst
+indent-tabs-mode: nil
+sentence-end-double-space: t
+fill-column: 70
+End: -->
+<!-- LocalWords:  prabhu aero iitb ac Enthought mlab VTK Mayavi scriptability Qt -->
+<!-- LocalWords:  extendability XML mayavi plugin ETS TVTK MVC plugins wxPython -->
+<!-- LocalWords:  GUI PyFace numpy setuptools enthought tvtk enstaller Ubuntu co -->
+<!-- LocalWords:  installable vtk wxgtk IntelMacPython tarballs InstallWithEggs -->
+<!-- LocalWords:  pre SVN svn py dist cd exe tarball API mayavi's UI ImageData -->
+<!-- LocalWords:  CT iso IsoSurface GridPlane ContourGridPlane ScalarCutPlane -->
+<!-- LocalWords:  alt vtu Rubini Cranfield VRML wrl ExtractVectorNorm Maclean's -->
+<!-- LocalWords:  VectorCutPlane WarpVectorCutPlane parametrized args arg vrml -->
+<!-- LocalWords:  ParametricSurface ModuleManager SomeModule TestModule MayaVi's -->
+<!-- LocalWords:  SomeFilter TestFilter namespace execfile MaskPoints vti glyphs -->
+<!-- LocalWords:  trackball tooltips CustomGridPlane ImagePlaneWidget Delaunay -->
+<!-- LocalWords:  OrientationAxes SliceUnstructuredGrid StructuredGridOutline -->
+<!-- LocalWords:  CellToPointData ExtractGrid ExtractUnstructuredGrid WarpScalar -->
+<!-- LocalWords:  PointToCellData PolyDataNormals TransformData WarpVector rst -->
+<!-- LocalWords:  MayaVi Ramachandran natively Debian dataset datasets resize -->
+<!-- LocalWords:  wireframe resized scriptable ModuleManagers EnvisageEngine lut -->
+<!-- LocalWords:  TVTKScene PipelineBase lookup LUTManager LUTs IIT IPython SciPy -->
+<!-- LocalWords:  wthread VTKXMLFileReader png matplotlib pylab ipython CVS xvfb -->
+<!-- LocalWords:  framebuffer google checkin -->
+</div>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,41 @@
+MayaVi2:
+   - Add image readers and elementary texture support. (p)
+   - Reimplement the hide feature. (p/g) 
+   - Script to generate the user guide docs and the mlab docs. (g)
+   - Modify tests to use standalone. (p)
+   - Customize the UI/modules/whatever for the entire install. (p)
+   - Add a "close" method to the scene that works both with and without
+     envisage.
+   - Make the viewer used in standalone more versatile (make it easy to
+     control what goes on the toolbar and in the menus.
+    
+   - Traits3 support. (p/g)
+   - Transfer editor for images. (g)
+
+   - Trunk versions.
+   - Envisage 3.
+
+   - Configuration options for an application at every level -- do we use
+     tconfig?
+   - Right click on tree view to get full functionality.
+   - Context sensitive menus.
+   - Persistence to use a better approach.
+   - More powerful reuse of components.
+   - Easier interface to open data files.
+   - Multiblock data support.
+   - Improve user guide, add more devel info.
+   - Support for animation .
+
+Mlab:
+   - mlab should guess by looking at sys.modules and using
+       get_application/get_service when it is ran inside an existing
+       envisage instance, and choose the right engine in this case (g)
+	    ->	Half done, but "mayavi2.standalone pulls envisage in, I am
+		not sure we want that.
+   - Mlab documentation images should be a standard size (400, 400) and the 
+     background/foreground should be set and reset when the tests are
+     run. (g)
+   - Mlab documentation PDF and HTML need to be generated and checked in
+     before a release. (g)
+   - Mlab docs. (g)
+ 

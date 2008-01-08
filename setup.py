@@ -18,6 +18,28 @@ def configuration(parent_package='', top_path=None):
     return config
 
 
+# This renames the mayavi script to a MayaVi.pyw script on win32.
+from setuptools.command.install_scripts import install_scripts
+class my_install_scripts(install_scripts):
+    def run(self):
+        import os
+        install_scripts.run(self)
+        if os.name != 'posix':
+            # Rename <script> to <script>.pyw. Executable bits
+            # are already set in install_scripts.run().
+            for file in self.get_outputs():
+                if file[-4:] != '.pyw':
+                    if file[-7:] == 'mayavi2':
+                        new_file = file[:-7] + 'MayaVi2.pyw'
+                    else:
+                        new_file = os.path.splitext(file)[0] + '.pyw'
+                    self.announce("renaming %s to %s" % (file, new_file))
+                    if not self.dry_run:
+                        if os.path.exists(new_file):
+                            os.remove (new_file)
+                        os.rename (file, new_file)
+
+
 # Function to convert simple ETS project names and versions to a requirements
 # spec that works for both development builds and stable builds.  Allows
 # a caller to specify a max version, which is intended to work along with
@@ -34,10 +56,14 @@ def etsdep(p, min, max=None, literal=False):
 
 
 # Declare our ETS project dependencies.
-ENVISAGE = etsdep('enthought.envisage', '2.0.1b1', '3.0')
-PYFACE_TVTK = etsdep('enthought.pyface[tvtk]', '2.0.1b1', '3.1')
-TRAITS_UI = etsdep('enthought.traits[ui]', '2.0.1b1', '3.1')
-TRAITSUIWX = etsdep('enthought.traits.ui.wx', '2.0.1b1', '3.1')
+APPTOOLS = etsdep('AppTools', '3.0.0b1')
+ENTHOUGHTBASE = etsdep('EnthoughtBase', '3.0.0b1')    # The 'plugin' extra is required by loose-coupling in the mayavi ui plugin definition's default pespective.
+ENVISAGECORE = etsdep('EnvisageCore', '3.0.0b1')
+ENVISAGEPLUGINS = etsdep('EnvisagePlugins', '3.0.0b1')
+TRAITSBACKENDQT = etsdep('TraitsBackendQt', '3.0.0b1')
+TRAITSBACKENDWX = etsdep('TraitsBackendWX', '3.0.0b1')
+TRAITSGUI = etsdep('TraitsGUI[tvtk]', '3.0.0b1')
+TRAITS_UI = etsdep('Traits[ui]', '3.0.0b1', '3.1')
 
 
 setup(
@@ -47,41 +73,60 @@ setup(
         # Work around a numpy distutils bug by forcing the use of the
         # setuptools' sdist command.
         'sdist': setuptools.command.sdist.sdist,
+        'install_scripts': my_install_scripts,
         },
     dependency_links = [
         'http://code.enthought.com/enstaller/eggs/source',
         ],
-    description = "Traited VTK",
+    description = "The MayaVi scientific data visualizer",
+    entry_points = {
+        'console_scripts': [
+            'mayavi2 = enthought.mayavi.scripts.mayavi2:main'
+            ],
+        },
     extras_require = {
         'plugin': [
-            ENVISAGE,
+            ENVISAGECORE,
+            ],
+        'ui': [
+            APPTOOLS,
+            ENVISAGECORE,
+            ENVISAGEPLUGINS,
+            ],
+        'qt': [
+            TRAITSBACKENDQT,
             ],
         'wx': [
-            TRAITSUIWX,
+            TRAITSBACKENDWX,
             ],
 
         # All non-ets dependencies should be in this extra to ensure users can
         # decide whether to require them or not.
         'nonets': [
-            # 'VTK',  # fixme: VTK is not available as an egg on all platforms.
             'numpy >= 1.0.3',
+            "scipy >=0.5.2",
+            # 'VTK',  # fixme: VTK is not available as an egg on all platforms.
             ],
         },
+    include_package_data = True,
     install_requires = [
-        PYFACE_TVTK,
+        ENTHOUGHTBASE,
+        TRAITSGUI,
         TRAITS_UI,
         ],
     license = "BSD",
-    name = 'enthought.tvtk',
+    name = 'Mayavi',
     namespace_packages = [
         "enthought",
         ],
+    packages = find_packages(exclude=['docs', 'examples']),
     tests_require = [
         'nose >= 0.9',
         ],
     test_suite = 'nose.collector',
-    url = 'http://code.enthought.com/tvtk/',
-    version = '2.0.0b3',
+    url = 'http://code.enthought.com/ets/',
+    version = '2.0.3a1',
     zip_safe = False,
     **configuration().todict()
     )
+
