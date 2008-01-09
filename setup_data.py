@@ -14,31 +14,23 @@ def etsdep(p, min, max=None, literal=False):
 
 
 # Declare our ETS project dependencies.
-APPTOOLS = etsdep('AppTools', '3.0.0b1')
+APPTOOLS = etsdep('AppTools', '3.0.0b1')  # -- imports of persistence and resource in many places
 ENTHOUGHTBASE = etsdep('EnthoughtBase', '3.0.0b1')    # The 'plugin' extra is required by loose-coupling in the mayavi ui plugin definition's default pespective.
 ENVISAGECORE = etsdep('EnvisageCore', '3.0.0b1')
 ENVISAGEPLUGINS = etsdep('EnvisagePlugins', '3.0.0b1')
-TRAITSBACKENDQT = etsdep('TraitsBackendQt', '3.0.0b1')
+TRAITS = etsdep('Traits', '3.0.0b1', '3.1')
 TRAITSBACKENDWX = etsdep('TraitsBackendWX', '3.0.0b1')
-TRAITSGUI = etsdep('TraitsGUI[tvtk]', '3.0.0b1')
-TRAITS_UI = etsdep('Traits[ui]', '3.0.0b1', '3.1')
+TRAITSGUI_TVTK = etsdep('TraitsGUI[tvtk]', '3.0.0b1')
 
 
 # A dictionary of the pre_setup information.
 INFO = {
     'extras_require': {
-        'envisage': [
-            ENVISAGECORE,
-            ],
         'ui': [
-            APPTOOLS,
             ENVISAGECORE,
             ENVISAGEPLUGINS,
             ],
-        'qt': [
-            TRAITSBACKENDQT,
-            ],
-        'wx': [
+        'util': [
             TRAITSBACKENDWX,
             ],
 
@@ -51,9 +43,10 @@ INFO = {
             ],
         },
     'install_requires': [
+        APPTOOLS,
         ENTHOUGHTBASE,
-        TRAITSGUI,
-        TRAITS_UI,
+        TRAITS,
+        TRAITSGUI_TVTK,
         ],
     'name': 'Mayavi',
     'version': '2.0.3a1',

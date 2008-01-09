@@ -1,7 +1,25 @@
-[envisage]
-enthought.tvtk.plugins = *
+[ui]
+enthought.mayavi.action.common = *
+enthought.mayavi.app = *
+enthought.mayavi.mayavi_plugin_definition = *
+enthought.mayavi.mayavi_ui_plugin_definition = *
+enthought.mayavi.plugin_definitions = *
+enthought.mayavi.preference_page = *
+enthought.mayavi.runnable = *
+enthought.mayavi.scripts.mayavi2 = *
+enthought.mayavi.tools.envisage_engine_manager = *
+enthought.mayavi.tools.old_mlab = *
+enthought.tvtk.plugins.browser.browser_plugin = *
+enthought.tvtk.plugins.browser.browser_plugin_definition = *
+enthought.tvtk.plugins.browser.browser_view = *
+enthought.tvtk.plugins.scene.actions = *
+enthought.tvtk.plugins.scene.scene_editor = *
+enthought.tvtk.plugins.scene.scene_plugin = *
+enthought.tvtk.plugins.scene.scene_plugin_definition = *
+enthought.tvtk.plugins.scene.scene_preference_page = *
+enthought.tvtk.plugins.scene.scene_ui_plugin_definition = *
 
 
-[wx]
+[util]
 enthought.tvtk.util.wx_gradient_editor = *
 
