@@ -18,9 +18,9 @@ APPTOOLS = etsdep('AppTools', '3.0.0b1')  # -- imports of persistence and resour
 ENTHOUGHTBASE = etsdep('EnthoughtBase', '3.0.0b1')    # The 'plugin' extra is required by loose-coupling in the mayavi ui plugin definition's default pespective.
 ENVISAGECORE = etsdep('EnvisageCore', '3.0.0b1')
 ENVISAGEPLUGINS = etsdep('EnvisagePlugins', '3.0.0b1')
-TRAITS = etsdep('Traits', '3.0.0b1', '3.1')
 TRAITSBACKENDWX = etsdep('TraitsBackendWX', '3.0.0b1')
 TRAITSGUI_TVTK = etsdep('TraitsGUI[tvtk]', '3.0.0b1')
+TRAITS_UI = etsdep('Traits[ui]', '3.0.0b1', '3.1')
 
 
 # A dictionary of the pre_setup information.
@@ -39,15 +39,17 @@ INFO = {
         'nonets': [
             'numpy >= 1.0.3',
             "scipy >=0.5.2",
-            # 'VTK',  # fixme: VTK is not available as an egg on all platforms.
+            'setuptools',
+            #'VTK',  # fixme: VTK is not available as an egg on all platforms.
+            #'wxPython',  # Not everyone uses WX.
             ],
         },
     'install_requires': [
         APPTOOLS,
         ENTHOUGHTBASE,
-        TRAITS,
         TRAITSGUI_TVTK,
+        TRAITS_UI,
         ],
     'name': 'Mayavi',
-    'version': '2.0.3a1',
+    'version': '3.0.0a1',
     }
