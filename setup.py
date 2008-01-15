@@ -19,6 +19,28 @@ def configuration(parent_package='', top_path=None):
     return config
 
 
+# The following monkeypatching code comes from Numpy distutils.
+#
+# Monkeypatch the 'develop' command so that we build_src will execute
+# inplace.  This is fixed in numpy 1.0.5 (svn r4569).
+import numpy
+if numpy.__version__[:5] < '1.0.5':
+
+    # Replace setuptools's develop command with our own
+    from setuptools.command import develop
+    old_develop = develop.develop
+    class develop(old_develop):
+        __doc__ = old_develop.__doc__
+        def install_for_development(self):
+            self.reinitialize_command('build_src', inplace=1)
+            old_develop.install_for_development(self)
+    develop.develop = develop
+
+    # Make numpy distutils use this develop.
+    from numpy.distutils import core
+    core.numpy_cmdclass['develop'] = develop
+
+
 # Build the full set of packages by appending any found by setuptools'
 # find_packages to those discovered by numpy.distutils.
 config = configuration().todict()
