@@ -165,6 +165,17 @@ class TestVTKParser(unittest.TestCase):
         self.assertEqual([([None], ['int'])],
                          p.get_method_signature(o.RemoveObserver))
 
+    def test_special_non_state_methods(self):
+        """Check exceptional cases that are not state methods."""
+        p = self.p
+        p.parse(vtk.vtkDataObject)
+        self.assert_('UpdateExtent' not in p.get_state_methods())
+        self.assert_('UpdateExtent' in p.get_get_set_methods())
+
+        p.parse(vtk.vtkImageImport)
+        self.assert_('DataExtent' not in p.get_state_methods())
+        self.assert_('DataExtent' in p.get_get_set_methods())
+
     def test_no_tree(self):
         """Check if parser is usable without the tree."""
         p = vtk_parser.VTKMethodParser(use_tree=False)
