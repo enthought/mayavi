@@ -4,6 +4,10 @@ mayavi2.  The script can be run like so:
 
   $ mayavi2 -x structured_grid.py
 
+Alternatively, it can be run as:
+
+  $ python structured_grid.py
+  
 Authors: Eric Jones <eric at enthought dot com>
          Prabhu Ramachandran <prabhu at aero dot iitb dot ac dot in>
 
@@ -11,15 +15,15 @@ Copyright (c) 2007, Enthought, Inc.
 License: BSD style.
 """
 
-import numpy
-from numpy import linspace, cos, sin, pi, empty, sqrt
-from enthought.tvtk.api import tvtk
-
 # The following *optional* two lines allow a user to call this script
 # as either `python script.py` or `mayavi2 script.py`.  These two
 # lines must be placed before any other mayavi imports.
 from enthought.mayavi.scripts import mayavi2
 mayavi2.standalone(globals())
+
+import numpy
+from numpy import linspace, cos, sin, pi, empty, sqrt
+from enthought.tvtk.api import tvtk
 
 def generate_annulus(r=None, theta=None, z=None):
     """ Generate points for structured grid for a cylindrical annular

@@ -4,20 +4,25 @@ mayavi2.  The script can be run like so:
 
   $ mayavi2 -x structured_points2d.py
 
+Alternatively, it can be run as:
+
+  $ python structured_points2d.py
+  
 Author: Prabhu Ramachandran <prabhu at aero dot iitb dot ac dot in>
 
 Copyright (c) 2007, Enthought, Inc.
 License: BSD style.
 """
-from numpy import arange, sqrt
-from scipy import special
-from enthought.tvtk.api import tvtk
 
 # The following *optional* two lines allow a user to call this script
 # as either `python script.py` or `mayavi2 script.py`.  These two
 # lines must be placed before any other mayavi imports.
 from enthought.mayavi.scripts import mayavi2
 mayavi2.standalone(globals())
+
+from numpy import arange, sqrt
+from scipy import special
+from enthought.tvtk.api import tvtk
 
 # Generate the scalar values.
 x = (arange(50.0)-25)/2.0

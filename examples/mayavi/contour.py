@@ -14,7 +14,7 @@ from enthought.mayavi.scripts import mayavi2
 mayavi2.standalone(globals())
 
 # Standard library imports
-from os.path import join, dirname
+from os.path import join, abspath
 
 # Enthought library imports
 import enthought.mayavi
@@ -26,7 +26,7 @@ from enthought.mayavi.modules.contour_grid_plane import ContourGridPlane
 from enthought.mayavi.modules.iso_surface import IsoSurface
 from enthought.mayavi.modules.scalar_cut_plane import ScalarCutPlane
 
-
+                        
 def contour():
     """The script itself.  We needn't have defined a function but
     having a function makes this more reusable.
@@ -37,7 +37,9 @@ def contour():
 
     # Read a VTK (old style) data file.
     r = VTKFileReader()
-    r.initialize(join('data', 'heart.vtk'))
+    filename = join(mayavi2.get_data_dir(abspath(__file__)),
+                    'heart.vtk')
+    r.initialize(filename)
     mayavi.add_source(r)
 
     # Create an outline for the data.

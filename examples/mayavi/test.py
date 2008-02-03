@@ -1,29 +1,22 @@
 #!/usr/bin/env python
 
 """This script demonstrates how one can script MayaVi, create a new
-VTK scene and create a few simple modules.
+VTK scene and create a few simple modules. This should be run as:
+
+   $ python test.py
 
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
 # Copyright (c) 2005-2007, Enthought, Inc.
 # License: BSD Style.
 
-# On systems with multiple wx installations installed, pick one that works
-# with the libraries Mayavi depends on.
-try:
-    import wxversion
-    wxversion.ensureMinimal('2.6')
-except ImportError:
-    pass
-
 # Standard library imports
-import sys
-from os.path import join, dirname
+from os.path import join, abspath
 
 # Enthought library imports
 from enthought.mayavi.app import Mayavi
-
-
+from enthought.mayavi.scripts.util import get_data_dir
+                       
 class MyApp(Mayavi):
     def run(self):
         """This is executed once the application GUI has started.
@@ -44,7 +37,7 @@ class MyApp(Mayavi):
 
         # Read a VTK (old style) data file.
         r = VTKFileReader()
-        r.initialize(join(dirname(__file__), 'data', 'heart.vtk'))
+        r.initialize(join(get_data_dir(abspath(__file__)), 'heart.vtk'))
         script.add_source(r)
 
         # Put up some text.

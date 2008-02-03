@@ -15,7 +15,7 @@ from enthought.mayavi.scripts import mayavi2
 mayavi2.standalone(globals())
 
 # Standard library imports
-from os.path import join, dirname
+from os.path import join, abspath
 
 # Enthought library imports
 import enthought.mayavi
@@ -37,7 +37,8 @@ def glyph():
 
     # Read a VTK (old style) data file.
     r = VTKXMLFileReader()
-    r.initialize(join('data', 'fire_ug.vtu'))
+    r.initialize(join(mayavi2.get_data_dir(abspath(__file__)),
+                      'fire_ug.vtu'))
     mayavi.add_source(r)
 
     # Create an outline and a vector cut plane.

@@ -5,13 +5,12 @@
 # Run this script like so::
 #   $ mayavi2 -x scatter_plot.py
 #
+# Alternatively it can be run as:
+#   $ python scatter_plot.py
+#
 # Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
 # Copyright (c) 2007 Prabhu Ramachandran.
 # License: BSD Style.
-
-# Create some random points to view.
-from enthought.tvtk.api import tvtk
-import numpy
 
 # The following *optional* two lines allow a user to call this script
 # as either `python script.py` or `mayavi2 script.py`.  These two
@@ -19,6 +18,9 @@ import numpy
 from enthought.mayavi.scripts import mayavi2
 mayavi2.standalone(globals())
 
+# Create some random points to view.
+from enthought.tvtk.api import tvtk
+import numpy
 pd = tvtk.PolyData()
 pd.points = numpy.random.random((1000, 3))
 verts = numpy.arange(0, 1000, 1)

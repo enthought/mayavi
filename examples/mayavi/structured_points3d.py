@@ -4,20 +4,25 @@ mayavi2.  The script can be run like so:
 
   $ mayavi2 -x structured_points3d.py
 
+Alternatively, it can be run as:
+
+  $ python structured_points3d.py
+  
 Author: Prabhu Ramachandran <prabhu at aero dot iitb dot ac dot in>
 
 Copyright (c) 2007, Enthought, Inc.
 License: BSD style.
 """
-from enthought.tvtk.api import tvtk
-from enthought.tvtk.array_handler import get_vtk_array_type
-from numpy import array, ogrid, sin, ravel
 
 # The following *optional* two lines allow a user to call this script
 # as either `python script.py` or `mayavi2 script.py`.  These two
 # lines must be placed before any other mayavi imports.
 from enthought.mayavi.scripts import mayavi2
 mayavi2.standalone(globals())
+
+from enthought.tvtk.api import tvtk
+from enthought.tvtk.array_handler import get_vtk_array_type
+from numpy import array, ogrid, sin, ravel
 
 # Make the data.
 dims = array((128, 128, 128))

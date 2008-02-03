@@ -1,4 +1,3 @@
-
 """A MayaVi example of how to generate a polydata dataset using numpy
 arrays.  The example is similar to tvtk/examples/tiny_mesh.py.  Also
 shown is a way to visualize this data with mayavi2.  The script can be
@@ -6,19 +5,24 @@ run like so:
 
   $ mayavi2 -x polydata.py
 
+It can be alternatively run as:
+
+  $ python polydata.py
+  
 Author: Prabhu Ramachandran <prabhu at aero dot iitb dot ac dot in>
 
 Copyright (c) 2007, Enthought, Inc.
 License: BSD style.
 """
-from numpy import array
-from enthought.tvtk.api import tvtk
 
 # The following *optional* two lines allow a user to call this script
 # as either `python script.py` or `mayavi2 script.py`.  These two
 # lines must be placed before any other mayavi imports.
 from enthought.mayavi.scripts import mayavi2
 mayavi2.standalone(globals())
+
+from numpy import array
+from enthought.tvtk.api import tvtk
 
 # The numpy array data.
 points = array([[0,0,0], [1,0,0], [0,1,0], [0,0,1]], 'f')

@@ -3,28 +3,24 @@
 """This script demonstrates how one can use the MayaVi framework
 without displaying MayaVi's UI.  Note: look at the end of this file to
 see how the non gui plugin is chosen instead of the default gui
-mayavi plugin.
+mayavi plugin. This should be run as:
+
+  $ python nongui.py
+
+Or:
+  $ mayavi2 script.py
 
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
 # Copyright (c) 2005, Enthought, Inc.
 # License: BSD Style.
 
-# On systems with multiple wx installations installed, pick one that works
-# with the libraries Mayavi depends on.
-try:
-    import wxversion
-    wxversion.ensureMinimal('2.6')
-except ImportError:
-    pass
-
 # Standard library imports
-import sys
-from os.path import join, dirname
+from os.path import join, abspath
 
 # Enthought library imports
+from enthought.mayavi.scripts.util import get_data_dir
 from enthought.mayavi.app import Mayavi, NONGUI_PLUGIN_DEFINITIONS
-
 
 class MyApp(Mayavi):
     def run(self):
@@ -48,8 +44,9 @@ class MyApp(Mayavi):
         script.new_scene()
 
         # Read a VTK (old style) data file.
-        r = VTKFileReader()
-        r.initialize(join('data', 'heart.vtk'))
+        r = VTKFileReader()        
+        r.initialize(join(get_data_dir(abspath(__file__)),
+                          'heart.vtk'))
         script.add_source(r)
 
         # Put up some text.

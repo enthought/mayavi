@@ -3,6 +3,7 @@
 
 # Standard library imports.
 import sys
+import os.path
 
 # Enthought library imports.
 from enthought.envisage.api import Application
@@ -41,7 +42,8 @@ PLUGIN_DEFINITIONS = [
     join(enthought.mayavi,   'mayavi_ui_plugin_definition.py'),
 
     # Application plugins.
-    join('explorer_plugin_definition.py'),
+    os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                 'explorer_plugin_definition.py'),
 ]
 
 ######################################################################

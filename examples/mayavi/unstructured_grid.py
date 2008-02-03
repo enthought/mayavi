@@ -4,20 +4,24 @@ mayavi2.  The script can be run like so:
 
   $ mayavi2 -x unstructured_grid.py
 
+Alternatively, it can be run as:
+
+  $ python unstructured_grid.py
+  
 Author: Prabhu Ramachandran <prabhu at aero dot iitb dot ac dot in>
 
 Copyright (c) 2007, Enthought, Inc.
 License: BSD style.
 """
 
-from numpy import array, arange, random
-from enthought.tvtk.api import tvtk
-
 # The following *optional* two lines allow a user to call this script
 # as either `python script.py` or `mayavi2 script.py`.  These two
 # lines must be placed before any other mayavi imports.
 from enthought.mayavi.scripts import mayavi2
 mayavi2.standalone(globals())
+
+from numpy import array, arange, random
+from enthought.tvtk.api import tvtk
 
 def single_type_ug():
     """Simple example showing how to create an unstructured grid

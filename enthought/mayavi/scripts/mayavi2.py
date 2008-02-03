@@ -28,6 +28,7 @@ from os.path import splitext, exists
 
 # Local imports.
 from enthought.mayavi.__version__ import __version__
+from enthought.mayavi.scripts.util import get_data_dir
 
 ###########################################################################
 # Utility functions.
@@ -456,7 +457,9 @@ def standalone(globals_dict):
         # Exit after mayavi has run.  If this is not done the rest of
         # the script will be executed which will cause errors.
         sys.exit(0)
-       
+
+
+# A global mayavi instance so we can close it correctly.
 mayavi = None
 
 def main():

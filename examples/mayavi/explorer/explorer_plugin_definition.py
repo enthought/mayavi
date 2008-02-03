@@ -4,7 +4,6 @@ from enthought.envisage.core.core_plugin_definition import \
 from enthought.envisage.workbench.workbench_plugin_definition import \
      Workbench, View, Perspective
 
-
 my_app_obj = ApplicationObject(class_name='explorer_app.Explorer3D',
                                uol='service://explorer3d.Explorer3D')
 views = [View(name='3D function explorer',

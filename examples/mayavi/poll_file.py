@@ -4,11 +4,15 @@ the mayavi pipeline automatically.  This script is to be run like so:
 
  $ mayavi2 -x poll_file.py
 
+Or:
+ $ python poll_file.py
+ 
 The script currently defaults to using the example data in
 examples/data/heart.vtk.  You can try editing that
 data file or change this script to point to other data which you can
 edit.
 """
+
 # Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
 # Copyright (c) 2006-2007, Enthought Inc.
 # License: BSD Style.
@@ -21,7 +25,7 @@ mayavi2.standalone(globals())
 
 # Standard imports.
 import os
-from os.path import join, dirname
+from os.path import join, abspath
 
 # Enthought library imports
 from enthought.mayavi.sources.vtk_file_reader import VTKFileReader
@@ -70,6 +74,7 @@ class Pollster(object):
         d.data_changed = True
 
 
+                       
 def setup_data(fname):
     """Given a VTK file name `fname`, this creates a mayavi2 reader
     for it and adds it to the pipeline.  It returns the reader
@@ -101,7 +106,8 @@ if __name__ == '__main__':
 
     import enthought.mayavi
     #fname = '/tmp/heart.vtk'
-    fname = join('data', 'heart.vtk')
+    fname = join(mayavi2.get_data_dir(abspath(__file__)),
+                 'heart.vtk')
 
     data = setup_data(fname)
     view_data()

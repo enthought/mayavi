@@ -7,13 +7,14 @@ using Envisage or the MayaVi envisage application.
 # Copyright (c) 2007, Enthought, Inc.
 # License: BSD Style.
 
-from os.path import join, dirname
+from os.path import join, abspath 
 
 from enthought.pyface.api import GUI
 # The core Engine.
 from enthought.mayavi.engine import Engine
 from enthought.mayavi.view.engine_view import EngineView
 # Usual MayaVi imports
+from enthought.mayavi.scripts.util import get_data_dir
 from enthought.mayavi.sources.api import VTKXMLFileReader
 from enthought.mayavi.modules.api import Outline, ScalarCutPlane, Streamline
 
@@ -36,7 +37,8 @@ def main():
 
     # Now setup a normal MayaVi pipeline.
     src = VTKXMLFileReader()
-    src.initialize(join('data', 'fire_ug.vtu'))
+    src.initialize(join(get_data_dir(abspath(__file__)),
+                        'fire_ug.vtu'))
     e.add_source(src)
     e.add_module(Outline())
     e.add_module(ScalarCutPlane())

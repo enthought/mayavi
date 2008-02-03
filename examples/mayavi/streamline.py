@@ -13,7 +13,7 @@ from enthought.mayavi.scripts import mayavi2
 mayavi2.standalone(globals())
 
 # Standard library imports
-from os.path import join, dirname
+from os.path import join, abspath
 
 # Enthought library imports
 from enthought.mayavi.sources.vtk_xml_file_reader import VTKXMLFileReader
@@ -21,8 +21,7 @@ from enthought.mayavi.sources.vrml_importer import VRMLImporter
 from enthought.mayavi.modules.outline import Outline
 from enthought.mayavi.modules.streamline import Streamline
 from enthought.mayavi.modules.iso_surface import IsoSurface
-
-
+    
 def setup_data(fname):
     """Given a VTK XML file name `fname`, this creates a mayavi2
     reader for it and adds it to the pipeline.  It returns the reader
@@ -61,11 +60,12 @@ def streamline():
 
 
 if __name__ == '__main__':
-    import enthought.mayavi
     mayavi.new_scene()
-    vrml_fname = join('data', 'room_vis.wrl')
+
+    data_dir = mayavi2.get_data_dir(abspath(__file__))
+    vrml_fname = join(data_dir, 'room_vis.wrl')
     r = show_vrml(vrml_fname)
 
-    fname = join('data', 'fire_ug.vtu')
+    fname = join(data_dir, 'fire_ug.vtu')
     r = setup_data(fname)
     streamline()
