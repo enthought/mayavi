@@ -135,6 +135,12 @@ class ImplicitPlane(Component):
         """
         self.data_changed = True
 
+    def update_plane(self):
+        """Convenience method to update the plane once the widget is
+        changed.
+        """
+        self.widget.get_plane(self.plane)
+
     ######################################################################
     # Non-public interface.
     ######################################################################
@@ -145,6 +151,7 @@ class ImplicitPlane(Component):
         old = w.normal
         w.normal = value
         self.trait_property_changed('normal', old, value)
+        self.update_plane()
 
     def _get_origin(self):
         return self.widget.origin
@@ -154,11 +161,12 @@ class ImplicitPlane(Component):
         old = w.GetOrigin()
         w.SetOrigin(list(value))
         self.trait_property_changed('origin', old, value)
+        self.update_plane()
         
     def _on_interaction_event(self, obj, event):
         if not self._busy:
             self._busy = True
-            self.widget.get_plane(self.plane)
+            self.update_plane()
             self._busy = False
 
     def _on_normal_set(self):
