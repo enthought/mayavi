@@ -5,26 +5,26 @@ mayavi2 \- A scientific visualization package for 2-D and 3-D data
 .B mayavi2 [options]  [args]
 
 Where arg1, arg2 etc\&. are optional file names that correspond to saved
-MayaVi2 visualizations (filename\&.mv2) or MayaVi2 scripts
+Mayavi2 visualizations (filename\&.mv2) or Mayavi2 scripts
 (filename\&.py)\&.
 
 .SH "DESCRIPTION"
 
 .PP
-MayaVi2 is a tool for 2-D and 3-D scientific visualization\&. Features
-of MayaVi2 include:
+Mayavi2 is a tool for 2-D and 3-D scientific visualization\&. Features
+of Mayavi2 include:
 
 .PP
 .IP *
 Visualization of scalar and vector data in 2 and 3 dimensions
 .IP *
-Easy scriptability using Python
+Easy scriptability using Python 
 .IP *
 Easy extendability via sources, components, modules, and data filters
 .IP *
 Reading several file formats: VTK (legacy and XML), PLOT3D, etc\&.
 .IP *
-Saving of visualizations
+Saving of visualizations 
 .IP *
 Saving rendered visualization in a variety of image formats\&.
 
@@ -39,13 +39,13 @@ available through \fB\-\-help\fP\&.
 .PP
 .B -V
 
-This prints the MayaVi version on the command line and exits\&.  Also
+This prints the Mayavi version on the command line and exits\&.  Also
 available through \fB\-\-version\fP\&.
 
 .PP
 .B -z filename\&.mv2
 
-This loads a previously saved MayaVi2 visualization\&.  Also available
+This loads a previously saved Mayavi2 visualization\&.  Also available
 through \fB\-\-viz\fP filename\&.mv2 or \fB\-\-visualization\fP
 filename\&.mv2\&.
 
@@ -113,7 +113,7 @@ available through \fB\-\-module\fP\&.
 .B -f
 filter-name
 
-A filter is an object that filters out the data in some way or the
+A filter is an object that filters out the data in some way or the 
 other\&.  The given filter-name is loaded with respect to the current
 source/filter object\&.  The filter name must be a valid one if not you
 will get an error message\&.
@@ -138,7 +138,7 @@ available through \fB\-\-filter\fP\&.
 .PP
 .B -M
 
-Starts up a new module manager on the MayaVi pipeline\&. Also available
+Starts up a new module manager on the Mayavi pipeline\&. Also available
 through \fB\-\-module\-mgr\fP\&.
 
 .PP
@@ -151,8 +151,8 @@ to this newly created scene\&.  Also available through \fB\-\-new\-window\fP\&.
 .B -x
 script-file
 
-This executes the given script in a namespace where we guarantee that
-the name 'mayavi' is MayaVi's script instance -- just like in the
+This executes the given script in a namespace where we guarantee that 
+the name 'mayavi' is Mayavi's script instance -- just like in the
 embedded Python interpreter\&.  Also available through \fB\-\-exec\fP
 
 .B WARNING:
@@ -177,12 +177,25 @@ A custom grid plane with a lot more flexibility than GridPlane module\&.
 
 .TP
 .B Glyph
-Displays different types of glyphs oriented and colored as per scalar
+Displays different types of glyphs oriented and colored as per scalar 
 or vector data at the input points\&.
 
 .TP
 .B GridPlane
 A simple grid plane module\&.
+
+.TP
+.B HyperStreamline
+A module that integrates through a tensor field to generate a 
+hyperstreamline\&. The integration is along the maximum eigenvector and
+the cross section of the hyperstreamline is defined by the two other 
+eigenvectors\&. Thus the shape of the hyperstreamline is "tube-like",
+with the cross section being elliptical. Hyperstreamlines are used to
+visualize tensor fields\&.
+
+.TP
+.B ImageActor
+A simple module to view image data efficiently\&.
 
 .TP
 .B ImagePlaneWidget
@@ -209,7 +222,7 @@ plots the data with optional contouring and scalar warping\&.
 
 .TP
 .B SliceUnstructuredGrid
-This module takes a slice of the unstructured grid data and shows the
+This module takes a slice of the unstructured grid data and shows the 
 cells that intersect or touch the slice\&.
 
 .TP
@@ -229,29 +242,34 @@ Draws a grid-conforming outline for structured grids\&.
 Draws a surface for any input dataset with optional contouring\&.
 
 .TP
+.B TensorGlyph
+Displays tensor glyphs oriented and colored as per scalar or vector data at 
+the input points\&.
+
+.TP
 .B Text
 This module allows the user to place text on the screen\&.
 
 .TP
 .B VectorCutPlane
-Takes an arbitrary slice of the input data using an implicit cut plane
+Takes an arbitrary slice of the input data using an implicit cut plane 
 and places glyphs according to the vector field data\&. The glyphs may
 be colored using either the vector magnitude or the scalar attributes\&.
 
 .TP
 .B Vectors
-Displays different types of glyphs oriented and colored as per vector
+Displays different types of glyphs oriented and colored as per vector 
 data at the input points\&. This is merely a convenience module that is
 entirely based on the Glyph module\&.
 
 .TP
 .B Volume
-The Volume module visualizes scalar fields using volumetric
+The Volume module visualizes scalar fields using volumetric 
 visualization techniques\&.
 
 .TP
 .B WarpVectorCutPlane
-Takes an arbitrary slice of the input data using an implicit cut plane
+Takes an arbitrary slice of the input data using an implicit cut plane 
 and warps it according to the vector field data\&. The scalars are
 displayed on the warped surface as colors\&.
 
@@ -260,8 +278,13 @@ displayed on the warped surface as colors\&.
 
 .TP
 .B CellToPointData
-Transforms cell attribute data to point data by averaging the cell
+Transforms cell attribute data to point data by averaging the cell 
 data from the cells at the point\&.
+
+.TP
+.B ElevationFilter
+Creates scalar data corresponding to the elevation of the points along a 
+line\&.
 
 .TP
 .B Delaunay2D
@@ -272,8 +295,17 @@ Performs a 2D Delaunay triangulation\&.
 Performs a 3D Delaunay triangulation\&.
 
 .TP
+.B ExtractEdges
+This filter extracts cell edges from any input data\&.
+
+.TP
 .B ExtractGrid
 Allows a user to select a part of a structured grid\&.
+
+.TP
+.B ExtractTensorComponents 
+Wraps the TVTK ExtractTensorComponents filter to extract components from 
+a tensor field\&.
 
 .TP
 .B ExtractUnstructuredGrid
@@ -286,10 +318,19 @@ scaling between [0, 1])\&. This is useful when the input data has vector
 input but no scalar data for the magnitude of the vectors\&.
 
 .TP
+.B GaussianSplatter
+This filter splat points into a volume with an elliptical, Gaussian distribution\&.
+
+.TP
 .B MaskPoints
 Selectively passes the input points downstream\&. This can be used to
 subsample the input points. Note that this does not pass geometry
 data, this means all grid information is lost\&.
+
+.TP
+.B GreedyTerrainDecimation
+Approximates a height field (image data) with a triangle mesh, keeping the 
+number of triangles minimum\&.
 
 .TP
 .B PointToCellData
@@ -299,8 +340,13 @@ Does the inverse of the CellToPointData filter\&.
 .B PolyDataNormals
 Computes normals from input data\&. This gives meshes a smoother
 appearance\&. This should work for any input dataset\&. Note: this filter
-is called "Compute Normals" in MayaVi2 GUI (Visualize/Filters/Compute
+is called "Compute Normals" in Mayavi2 GUI (Visualize/Filters/Compute
 Normals)\&.
+
+.TP
+.B QuadricDecimation
+Reduce triangles in a mesh, forming a good approximation of the original 
+mesh\&.
 
 .TP
 .B Threshold
@@ -311,6 +357,16 @@ A simple filter that thresholds on input data\&.
 Performs a linear transformation to input data\&.
 
 .TP
+.B TriangleFilter
+Converts input polygons and triangle strips to triangles using 
+the tvtk\&.TriangleFilter class\&.  This is useful when you have a
+downstream filter that only processes triangles\&.
+
+.TP
+.B Tube
+Turns lines into tubes\&.
+
+.TP
 .B WarpScalar
 Warps the input data along a particular direction (either the normals
 or a specified direction) with a scale specified by the local scalar
@@ -318,7 +374,7 @@ value\&. Useful for making carpet plots\&.
 
 .TP
 .B WarpVector
-Warps the input data along a the point vector attribute scaled as per
+Warps the input data along a the point vector attribute scaled as per 
 a scale factor\&.  Useful for showing flow profiles or displacements\&.
 
 .SH "EXAMPLES"
@@ -340,8 +396,8 @@ examples\&.
 .SH "AUTHOR"
 
 .PP 
-MayaVi was originally developed by Prabhu Ramachandran.  Many people
+Mayavi was originally developed by Prabhu Ramachandran.  Many people
 have later contributed to it.
 .PP
-More information on MayaVi2 can be obtained from
+More information on Mayavi2 can be obtained from
 http://code\&.enthought\&.com/mayavi2
