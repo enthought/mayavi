@@ -10,7 +10,7 @@ using Envisage or the MayaVi envisage application.
 from enthought.pyface.api import GUI
 from enthought.mayavi.view.engine_view import EngineView
 # Mlab imports
-from enthought.mayavi.tools import mlab
+from enthought.mayavi import mlab
 
 from numpy import mgrid, sin, sqrt
 

@@ -7,7 +7,7 @@ using Envisage or the MayaVi envisage application.
 # Copyright (c) 2007, Enthought, Inc.
 # License: BSD Style.
 
-from os.path import join, abspath 
+from os.path import join, abspath
 
 from enthought.pyface.api import GUI
 # The core Engine.

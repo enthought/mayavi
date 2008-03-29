@@ -6,7 +6,10 @@ Win32 you will not see any windows popping up at all.  In the end you
 should have an offscreen.png image in the same directory with the
 rendered visualization.
 
+It can be run as:
+    $ python offscreen.py
 """
+
 # Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
 # Copyright (c) 2007, Enthought, Inc.
 # License: BSD Style.
@@ -24,7 +27,6 @@ from enthought.mayavi.modules.api import Outline, ScalarCutPlane, Streamline
 # The TVTK window.
 from enthought.pyface.tvtk.tvtk_scene import TVTKWindow
 
-
 def off_screen_viewer():
     """A factory that creates an offscreen viewer."""
     win = TVTKWindow(off_screen_rendering=True)
@@ -33,7 +35,7 @@ def off_screen_viewer():
     win.scene.set_size((100,100))
     return win
 
-
+                        
 def main():
     # Create the MayaVi engine and start it.  Set the scene_factory to
     # use an off screen viewer defined above.

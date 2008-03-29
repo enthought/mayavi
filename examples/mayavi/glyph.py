@@ -25,8 +25,7 @@ from enthought.mayavi.modules.glyph import Glyph
 from enthought.mayavi.modules.vector_cut_plane import VectorCutPlane
 from enthought.mayavi.modules.vectors import Vectors
 from enthought.mayavi.filters.mask_points import MaskPoints
-
-
+    
 def glyph():
     """The script itself.  We needn't have defined a function but
     having a function makes this more reusable.

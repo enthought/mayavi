@@ -18,7 +18,7 @@ from enthought.traits.api import HasTraits, Instance, Property, Enum
 from enthought.traits.ui.api import View, Item, HSplit, VSplit, InstanceEditor
 from enthought.pyface.tvtk.scene_editor import SceneEditor 
 from enthought.mayavi.view.engine_view import EngineView
-from enthought.mayavi.tools import mlab
+from enthought.mayavi import mlab
 from enthought.mayavi.tools.mlab_scene_model import MlabSceneModel
 
 # Set mlab to use the simple backend instead of envisage.
