@@ -1,0 +1,111 @@
+% Author: Gael Varoquaux <gael dot varoquaux at normalesup dot org>
+% Copyright (c) 2008, Enthought, Inc.
+% License: BSD Style.
+
+\newcommand{\DSearly}{%
+\usepackage{xcolor}
+\usepackage{url}
+\usepackage{framed}
+\usepackage{fancyhdr}
+\definecolor{SkoleBrown}{RGB}{150,100,50}
+\definecolor{SkoleYellow}{RGB}{232,183,3}
+\definecolor{SkoleOrange}{RGB}{252,135,36}
+\colorlet{SkoleLightBrown}{SkoleBrown!50!SkoleYellow}
+\colorlet{titlecolor}{SkoleOrange!50!black}
+\colorlet{codeblockcolorbase}{SkoleLightBrown!80!black}
+\colorlet{mycodeblockcolor}{codeblockcolorbase!08}
+
+\usepackage{geometry}
+
+%\setlength\textheight{0.8\paperheight}
+\geometry{a4paper, twoside, textheight=25cm}
+}
+
+\newcommand{\DSlate}{%
+\setcounter{page}{0}%
+\thispagestyle{empty}%
+}
+
+\newlength\leftsidespace
+
+\def\mycolorbox#1{%
+\setlength\leftsidespace{\textwidth}
+\advance\leftsidespace -\linewidth
+\begin{minipage}{\textwidth}
+\mbox{
+\begin{minipage}{1.9\leftsidespace}
+~~~
+\end{minipage}
+\begin{minipage}{1.1\linewidth}
+\fcolorbox{black!50}{mycodeblockcolor}{#1}
+\end{minipage}
+}
+\end{minipage}
+}
+
+\newcommand{\DNliteralblock}[1]{%
+\def\FrameCommand{\mycolorbox}%
+{%
+\setlength\hsize{\linewidth}%
+\advance\hsize -\leftmargin
+\MakeFramed {\FrameRestore}%
+\raggedright\noindent\nohyphens{%
+\textnhtt{\footnotesize%
+#1}}%
+\endMakeFramed%
+}%
+}%
+
+% Titles
+\newcommand{\Ddocumenttitle}[1]{%
+  \begin{center}{\Huge\sffamily\bfseries\textcolor{titlecolor}{#1}}\end{center}%
+}
+
+\newcommand{\Dsectiontitlei}[1]{%
+
+\vbox{
+\vskip 2em plus 1.5em minus 0.5em%
+\noindent\textcolor{titlecolor}{\Large\bfseries\sffamily 
+\rule{\linewidth}{0.2ex}\\[-0.1em]
+\noindent#1%
+\\[-.5em]\noindent\rule{\linewidth}{0.2ex}}
+}
+\vskip 2em plus 1.5em minus 0.5em
+}
+
+\newcommand{\Dsectiontitleii}[1]{%
+
+\vskip 2em plus 1.5em minus 1em%
+\noindent\textcolor{titlecolor}{\large\bfseries\sffamily 
+#1%
+}
+\\
+\vskip 1em plus .5em minus .5em
+}
+
+\newcommand{\Ddeepsectiontitle}[1]{
+
+\vskip 1em plus 0.5em minus 0.5em%
+\noindent{\bfseries\sffamily #1 }\\[-1em]\hrule
+\vskip 1em plus 0.5em minus 0.5em}
+
+\newcommand{\Dsetlistrightmargin}{%
+    \setlength{\rightmargin}{0pt}%
+}%
+
+\newcommand{\Dformatblockquote}[1]{%
+  {#1}%
+}
+
+\newcommand{\Dexplicitreferencecolor}{titlecolor} 
+
+\newcommand{\DNheader}[1]{
+\fancyhead{} % clear all header fields
+\fancyhead[LO,RE]{\bfseries #1}
+\fancyfoot{} % clear all footer fields
+\fancyfoot[LO,RE]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\pagestyle{fancy}
+}
+
