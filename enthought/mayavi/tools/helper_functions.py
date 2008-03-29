@@ -21,8 +21,8 @@ from filters import ExtractVectorNormFactory, WarpScalarFactory, \
             TubeFactory, ExtractEdgesFactory
 from auto_doc import traits_doc, dedent
 import tools
-# FIXME:
-from enthought.traits.api import *
+from enthought.traits.api import Array, Callable, CFloat, HasTraits, \
+    List, Trait
 import numpy
 
 def document_pipeline(pipeline):
@@ -38,8 +38,7 @@ def document_pipeline(pipeline):
 
     the_function.__doc__  = dedent("""%s
 
-    Keyword arguments
-    -----------------
+    **Keyword arguments:**
     %s""") % ( dedent(doc),
                 traits_doc(pipeline.get_all_traits()), )
     
@@ -111,9 +110,8 @@ quiver3d = Pipeline(
     Plots glyphs (like arrows) indicating the direction of the vectors
     for a 3D volume of data supplied as arguments.
 
-    Function signatures
-    -------------------
-
+    **Function signatures**::
+    
         quiver3d(u, v, w, ...)
         quiver3d(x, y, z, u, v, w, ...)
         quiver3d(x, y, z, f, ...)
@@ -146,7 +144,7 @@ def test_quiver3d():
     w = sin(x*z)
 
     obj = quiver3d(x, y, z, u, v, w, mode='cone', extent=(0,1, 0,1, 0,1),
-            scale_factor=0.9)
+                   scale_factor=0.9)
 
     return u, v, w, obj
 
@@ -173,9 +171,8 @@ class Flow(Pipeline):
     """
     Creates streamlines following the flow of a vector field. 
                       
-    Function signatures
-    -------------------
-
+    **Function signatures**::
+    
         flow(u, v, w, ...)
         flow(x, y, z, u, v, w, ...)
         flow(x, y, z, f, ...)
@@ -228,8 +225,7 @@ def test_flow():
     v = sin(y/2.)
     w = sin(x*z/4.)
 
-    obj = flow(x, y, z, u, v, w, extent=(-1,1, -1,1, -1,1))
-
+    obj = flow(x, y, z, u, v, w, linetype='tube')
     return u, v, w, obj
 
 def test_flow_scalars():
@@ -260,8 +256,7 @@ class Points3d(Pipeline):
     """ 
     Plots glyphs (like points) at the position of the supplied data.
 
-    Function signatures
-    -------------------
+    **Function signatures**::
 
         points3d(scalardata, ...)
         points3d(x, y, z...)
@@ -330,8 +325,7 @@ class Contour3d(Pipeline):
     """
     Plots iso-surfaces for a 3D volume of data suplied as arguments.
 
-    Function signatures
-    -------------------
+    **Function signatures**::
 
         contour3d(scalars, ...)
         contour3d(scalarfield, ...)"""
@@ -366,11 +360,10 @@ class Plot3d(Pipeline):
     """
     Draws lines between points.
 
-    Function signatures
-    -------------------
+    **Function signatures**::
 
-    plot3d(x, y, z, ...)
-    plot3d(x, y, z, s, ...)"""
+        plot3d(x, y, z, ...)
+        plot3d(x, y, z, s, ...)"""
 
     tube_radius = CFloat(0.025, adapts='filter.radius',
                         desc = """radius of the tubes used to represent the
@@ -418,8 +411,7 @@ class ImShow(Pipeline):
     Allows one to view a 2D Numeric array as an image.  This works
     best for very large arrays (like 1024x1024 arrays).
 
-    Function signatures
-    -------------------
+    **Function signatures**::
 
         imshow(2darray, ...)"""
 
@@ -441,8 +433,7 @@ class Surf(Pipeline):
     Plots a surface using regularly spaced elevation data supplied as a 2D 
     array.
 
-    Function signatures
-    -------------------
+    **Function signatures**::
 
         surf(s, ...)
         surf(x, y, s, ...)
@@ -497,8 +488,7 @@ class Mesh(Pipeline):
     """
     Plots a surface using-grid spaced data supplied as 2D arrays.
 
-    Function signatures
-    -------------------
+    **Function signatures**::
 
         mesh(x, y, z, ...)
     
@@ -607,8 +597,7 @@ class ContourSurf(Pipeline):
     Plots a the contours of asurface using grid spaced data supplied as 2D 
     arrays.
 
-    Function signatures
-    -------------------
+    **Function signatures**::
 
         contour_surf(s, ...)
         contour_surf(x, y, s, ...)

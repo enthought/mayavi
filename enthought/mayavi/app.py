@@ -4,11 +4,6 @@
 # Copyright (c) 2005-2007, Enthought, Inc.
 # License: BSD Style.
 
-# On systems with multiple wx installations installed, pick one that works
-# with the libraries Mayavi depends on.
-from enthought.util import wxversioncheck
-wxversioncheck.ensureMinimal('2.6')
-
 # Standard library imports.
 import sys
 

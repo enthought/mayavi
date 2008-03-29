@@ -28,6 +28,24 @@ class CellToPointDataFilter(WorkbenchAction):
 
 
 ######################################################################
+# `DecimateProFilter` class.
+######################################################################
+class DecimateProFilter(WorkbenchAction):
+    """ An action that starts a DecimatePro  filter. """
+
+    ###########################################################################
+    # 'Action' interface.
+    ###########################################################################
+
+    def perform(self):
+        """ Performs the action. """
+        from enthought.mayavi.filters.decimatepro import DecimatePro
+        f = DecimatePro()
+        mv = get_imayavi(self.window)
+        mv.add_filter(f)
+
+
+######################################################################
 # `Delaunay2DFilter` class.
 ######################################################################
 class Delaunay2DFilter(WorkbenchAction):
@@ -56,6 +74,20 @@ class Delaunay3DFilter(WorkbenchAction):
         f = Delaunay3D()
         mv = get_imayavi(self.window)
         mv.add_filter(f)
+
+
+######################################################################
+# `ElevationFilter` class.
+######################################################################
+class ElevationFilter(WorkbenchAction):
+    """ An action that starts an Elevation filter. """
+    def perform(self):
+        """ Performs the action. """
+        from enthought.mayavi.filters.elevation_filter import \
+                ElevationFilter
+        t = ElevationFilter()
+        mv = get_imayavi(self.window)
+        mv.add_filter(t)
 
 
 ######################################################################
@@ -131,6 +163,19 @@ class GaussianSplatterFilter(WorkbenchAction):
 
 
 ######################################################################
+# `GreddyTerrainDecimation` class.
+######################################################################
+class GreedyTerrainDecimationFilter(WorkbenchAction):
+    def perform(self):
+        """ Performs the action. """
+        from enthought.mayavi.filters.greedy_terrain_decimation import \
+                GreedyTerrainDecimation
+        f = GreedyTerrainDecimation()
+        mv = get_imayavi(self.window)
+        mv.add_filter(f)
+
+
+######################################################################
 # `MaskPointsFilter` class.
 ######################################################################
 class MaskPointsFilter(WorkbenchAction):
@@ -169,6 +214,19 @@ class PolyDataNormalsFilter(WorkbenchAction):
 
 
 ######################################################################
+# `QuadricDecimation` class.
+######################################################################
+class QuadricDecimationFilter(WorkbenchAction):
+    def perform(self):
+        """ Performs the action. """
+        from enthought.mayavi.filters.quadric_decimation import \
+                QuadricDecimation
+        f = QuadricDecimation()
+        mv = get_imayavi(self.window)
+        mv.add_filter(f)
+
+
+######################################################################
 # `TransformData` class.
 ######################################################################
 class TransformDataFilter(WorkbenchAction):
@@ -193,6 +251,18 @@ class ThresholdFilter(WorkbenchAction):
         mv = get_imayavi(self.window)
         mv.add_filter(t)
 
+
+######################################################################
+# `TriangleFilter` class.
+######################################################################
+class TriangleFilter(WorkbenchAction):
+    """ An action that starts a triangle filter. """
+    def perform(self):
+        """ Performs the action. """
+        from enthought.mayavi.filters.triangle_filter import TriangleFilter
+        t = TriangleFilter()
+        mv = get_imayavi(self.window)
+        mv.add_filter(t)
 
 ######################################################################
 # `TubeFilter` class.

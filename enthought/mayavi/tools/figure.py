@@ -16,11 +16,11 @@ from enthought.tvtk.api import tvtk
 # Mayavi imports
 from camera import view
 from config import get_engine
+from enthought.mayavi.config.config import options
 
 from types import IntType
 
 ######################################################################
-# mlab interface
 
 def figure(name=None):
     """ Creates a new scene or retrieves an existing scene. If the mayavi
@@ -40,7 +40,12 @@ def figure(name=None):
     else:
         engine.new_scene()
     view(40, 50)
-    return engine.current_scene
+    fig = engine.current_scene
+    #FIXME: we need a configuration framework, and not custom solutions
+    # like this one
+    fig.scene.background = options.scene.background 
+    fig.scene.foreground = options.scene.foreground
+    return fig
 
 def gcf():
     """Return a handle to the current figure.
@@ -63,6 +68,8 @@ def clf():
         pass
 
 def draw():
+    """ Forces a redraw of the current figure.
+    """
     gcf().render()
 
 def savefig(filename, size=None, **kwargs):

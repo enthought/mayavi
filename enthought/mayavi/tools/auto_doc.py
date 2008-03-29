@@ -30,8 +30,7 @@ def make_doc(klass):
         doc = dedent(klass.__doc__) + "\n"
     else:
         doc = ""
-    doc += dedent("""Keyword arguments
-                     -----------------""")
+    doc += dedent("""**Keyword arguments:**""")
     traits = klass.class_traits().copy()
     traits.pop('trait_added')
     traits.pop('trait_modified')
@@ -46,7 +45,7 @@ def traits_doc(traits):
     return doc
 
 def format_argument(trait_name, trait_obj):
-    doc = "\n    %s -- " % trait_name
+    doc = "\n    :%s: " % trait_name
     pad = "\n" + (len(doc)-1) * " "
     help = trait_obj.help
     if help is not None:

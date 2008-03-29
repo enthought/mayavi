@@ -10,8 +10,8 @@ helper functions.
 # Copyright (c) 2007, Enthought, Inc. 
 # License: BSD Style.
 
-from enthought.traits.api import Trait, CArray, Instance, CFloat, Enum, \
-    Any, false, TraitTuple, Range
+from enthought.traits.api import Trait, CArray, Instance, CFloat, \
+    Any, false, TraitTuple, Range, Bool
 from pipe_base import PipeFactory, make_function
 import enthought.mayavi.modules.api as modules
 from enthought.tvtk.api import tvtk
@@ -19,8 +19,12 @@ import numpy
 from enthought.mayavi.core.lut_manager import lut_mode_list
 import tools
 
-__all__ = ( 'vectors', 'glyph', 'streamline', 'volume', 'surface',
-                'isosurface', 'contoursurface')
+__all__ = [ 'vectors', 'glyph', 'streamline', 'volume', 'surface',
+    'isosurface', 'contoursurface', 'image', 'imageplanewidget',
+    'scalarcutplane', 'contourgridplane', 'customgridplane', 'gridplane',
+    'hyperstreamline', 'sliceunstructuredgrid', 'structuredgridoutline',
+    'tensorglyph', 'vectorcutplane', 'warpvectorcutplane',
+]
 
 ##############################################################################
 # Abstract module classes
@@ -146,7 +150,7 @@ class ContourModuleFactory(DataModuleFactory):
         else:
             assert type(self.contours) == int, \
                             "The contours argument must be an integer"
-            assert self.contours > 1, "The contours argument must be positiv"
+            assert self.contours > 1, "The contours argument must be positive"
             self._target.contour.set(auto_contours=True,
                                 number_of_contours=self.contours)
         if hasattr(self._target, 'enable_contours'):
@@ -295,4 +299,118 @@ class ContourSurfaceFactory(ContourModuleFactory):
 
 
 contoursurface = make_function(ContourSurfaceFactory)
+
+##############################################################################
+class ImageActorFactory(DataModuleFactory):
+    """Applies the ImageActor mayavi module to the given VTK data object."""
+    _target = Instance(modules.ImageActor, ())
+
+    interpolate = Bool(True, adapts='actor.interpolate',
+                       desc="""if the pixels in the image are to be
+                       interpolated or not.""")
+
+    opacity = Range(0.0, 1.0, 1.0, adapts='actor.opacity',
+                    desc="""the opacity of the image.""")
+
+
+image = make_function(ImageActorFactory)
+
+
+##############################################################################
+class ImagePlaneWidgetFactory(DataModuleFactory):
+    """Applies the ImagePlaneWidget mayavi module to the given VTK data 
+        object."""
+    _target = Instance(modules.ImagePlaneWidget, ())
+
+
+imageplanewidget = make_function(ImagePlaneWidgetFactory)
+
+
+##############################################################################
+class ScalarCutPlaneFactory(DataModuleFactory):
+    """Applies the ScalarCutImagePlane mayavi module to the given VTK data 
+        object."""
+    _target = Instance(modules.ScalarCutPlane, ())
+
+
+scalarcutplane = make_function(ScalarCutPlaneFactory)
+
+
+##############################################################################
+class ContourGridPlaneFactory(ContourModuleFactory):
+    """Applies the ContourGridPlane mayavi module to the given VTK data
+    object."""
+    _target = Instance(modules.ContourGridPlane, ())
+
+contourgridplane = make_function(ContourGridPlaneFactory)
+
+
+##############################################################################
+class CustomGridPlaneFactory(ContourModuleFactory):
+    """Applies the CustomGridPlane mayavi module to the given VTK data
+    object."""
+    _target = Instance(modules.CustomGridPlane, ())
+
+customgridplane = make_function(CustomGridPlaneFactory)
+
+
+##############################################################################
+class GridPlaneFactory(DataModuleFactory):
+    """Applies the GridPlane mayavi module to the given VTK data object."""
+    _target = Instance(modules.GridPlane, ())
+
+gridplane = make_function(GridPlaneFactory)
+
+
+##############################################################################
+class HyperStreamlineFactory(DataModuleFactory):
+    """Applies the HyperStreamline mayavi module to the given VTK data
+    object."""
+    _target = Instance(modules.HyperStreamline, ())
+
+hyperstreamline = make_function(HyperStreamlineFactory)
+
+
+##############################################################################
+class SliceUnstructuredGridFactory(DataModuleFactory):
+    """Applies the SliceUnstructuredGrid mayavi module to the given VTK data
+    object."""
+    _target = Instance(modules.SliceUnstructuredGrid, ())
+
+sliceunstructuredgrid = make_function(SliceUnstructuredGridFactory)
+
+
+##############################################################################
+class StructuredGridOutlineFactory(DataModuleFactory):
+    """Applies the StructuredGridOutline mayavi module to the given VTK data
+    object."""
+    _target = Instance(modules.StructuredGridOutline, ())
+
+structuredgridoutline = make_function(StructuredGridOutlineFactory)
+
+
+##############################################################################
+class TensorGlyphFactory(DataModuleFactory):
+    """Applies the TensorGlyph mayavi module to the given VTK data object."""
+    _target = Instance(modules.TensorGlyph, ())
+
+tensorglyph = make_function(TensorGlyphFactory)
+
+
+##############################################################################
+class VectorCutPlaneFactory(DataModuleFactory):
+    """Applies the VectorCutPlane mayavi module to the given VTK data object."""
+    _target = Instance(modules.VectorCutPlane, ())
+
+vectorcutplane = make_function(VectorCutPlaneFactory)
+
+
+##############################################################################
+class WarpVectorCutPlaneFactory(DataModuleFactory):
+    """Applies the WarpVectorCutPlane mayavi module to the given VTK data
+    object."""
+    _target = Instance(modules.WarpVectorCutPlane, ())
+
+warpvectorcutplane = make_function(WarpVectorCutPlaneFactory)
+
 

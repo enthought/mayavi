@@ -35,7 +35,10 @@ def get_home():
     else:
         raise RuntimeError('please define environment variable $HOME')
 
-config_file_name = get_home() + os.sep + '.mayavi.conf'
+config_file_dir = get_home() + os.sep + '.mayavi2'
+if not os.path.exists(config_file_dir):
+    os.mkdir(config_file_dir)
+config_file_name = config_file_dir + os.sep + 'mayavi.conf'
 
 
 ##############################################################################
@@ -45,8 +48,15 @@ class MayaviConfig(TConfig):
 
     backend = T.Trait('auto', 'envisage', 'simple')
     
-#    class mlab(TConfig):
-#        """Configuration for mlab."""
+    class scene(TConfig):
+        """Configuration of the scenes."""
+        background = T.Trait((1., 1., 1.),
+                T.TraitTuple(T.Range(0., 1.), T.Range(0., 1.), T.Range(0., 1.)),
+                help="""Color of the background""", )
+
+        foreground = T.Trait((0., 0., 0.),
+                T.TraitTuple(T.Range(0., 1.), T.Range(0., 1.), T.Range(0., 1.)),
+                help="""Color of the foreground""", )
 
         
 

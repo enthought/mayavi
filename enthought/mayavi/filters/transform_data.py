@@ -26,6 +26,10 @@ from enthought.mayavi.core.common import error
 # `TransformData` class.
 ######################################################################
 class TransformData(Filter):
+    """Performs a linear transformation to input data using a
+    tvtk.BoxWidget.  This does not work with
+    ImageData/StructuredPoints/RectilinearGrid.
+    """
 
     # The version of this class.  Used for persistence.
     __version__ = 0

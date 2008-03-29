@@ -49,12 +49,13 @@ def scalarbar(object=None, title=None, orientation=None):
     If no object is specified, the first object with scalar data in the scene 
     is used.
 
-    Keyword arguments
-    -----------------
+    **Keyword arguments**::
     
-        title -- The title string 
+        :object: Optional object to get the scalar color map from
+    
+        :title: The title string 
 
-        orientation -- Can be 'horizontal' or 'vertical'
+        :orientation: Can be 'horizontal' or 'vertical'
     """
     module_manager = tools._find_module_manager(object=object, 
                                                     data_type="scalar")
@@ -80,14 +81,13 @@ def vectorbar(object=None, title=None, orientation=None):
     If no object is specified, the first object with vector data in the scene 
     is used.
 
-    Keyword arguments
-    -----------------
-
-        object -- Optional object to get the vector lut from
+    **Keyword arguments**
     
-        title -- The title string 
+        :object: Optional object to get the vector color map from
+    
+        :title: The title string 
 
-        orientation -- Can be 'horizontal' or 'vertical'
+        :orientation: Can be 'horizontal' or 'vertical'
     """
     module_manager = tools._find_module_manager(object=object, 
                                                     data_type="vector")
@@ -115,14 +115,13 @@ def colorbar(object=None, title=None, orientation=None):
     If no object is specified, the first object with a color map in the scene 
     is used.
 
-    Keyword arguments
-    -----------------
-
-        object -- Optional object to get the vector lut from
+    **Keyword arguments**:
     
-        title       -- The title string 
+        :object: Optional object to get the color map from
+    
+        :title: The title string 
 
-        orientation -- Can be 'horizontal' or 'vertical'
+        :orientation: Can be 'horizontal' or 'vertical'
     """
     colorbar = scalarbar(object=object, title=title, orientation=orientation)
     if colorbar is None:
@@ -217,10 +216,9 @@ def xlabel(text, object=None):
     """ 
     Creates a set of axes if there isn't already one, and sets the x label
 
-    Keyword arguments
-    -----------------
+    **Keyword arguments**:
     
-        object --  The object to apply the module to, if not the whole scene
+        :object:  The object to apply the module to, if not the whole scene
                   is searched for a suitable object.
     """
     return axes(object, xlabel=text)
@@ -230,10 +228,10 @@ def ylabel(text, object=None):
     """ 
     Creates a set of axes if there isn't already one, and sets the y label
 
-    Keyword arguments
-    -----------------
+    **Keyword arguments**:
     
-        object --  The object to apply the module to, if not the whole scene
+    
+        :object:  The object to apply the module to, if not the whole scene
                   is searched for a suitable object.
     """
     return axes(object, ylabel=text)
@@ -243,13 +241,31 @@ def zlabel(text, object=None):
     """ 
     Creates a set of axes if there isn't already one, and sets the z label
 
-    Keyword arguments
-    -----------------
+    **Keyword arguments**
     
-        object --  The object to apply the module to, if not the whole scene
+        :object:  The object to apply the module to, if not the whole scene
                   is searched for a suitable object.
     """
     return axes(object, zlabel=text)
+
+
+##############################################################################
+class OrientationAxesFactory(SingletonModuleFactory):
+    """Applies the OrientationAxes mayavi module to the given VTK data object.
+    """
+
+    xlabel = String(None, adapts='axes.x_axis_label_text',
+                help='the label of the x axis')
+
+    ylabel = String(None, adapts='axes.y_axis_label_text',
+                help='the label of the y axis')
+
+    zlabel = String(None, adapts='axes.z_axis_label_text',
+                help='the label of the z axis')
+
+    _target = Instance(modules.OrientationAxes, ())
+
+orientationaxes = make_function(OrientationAxesFactory)
 
 
 ###############################################################################

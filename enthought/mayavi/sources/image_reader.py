@@ -45,15 +45,16 @@ class ImageReader(FileDataSource):
     # `object` interface
     ######################################################################
     def __init__(self, **traits):
+        d = {'bmp':tvtk.BMPReader(),
+             'jpg':tvtk.JPEGReader(),
+             'png':tvtk.PNGReader(),
+             'pnm':tvtk.PNMReader(),
+             'tiff':tvtk.TIFFReader()
+            }
+        d['jpeg'] = d['jpg']
+        self._image_reader_dict = d
         # Call parent class' init.
-        self._image_reader_dict={'bmp':tvtk.BMPReader(),
-                                 'jpg':tvtk.JPEGReader(),
-                                 'png':tvtk.PNGReader(),
-                                 'pnm':tvtk.PNMReader(),
-                                 'tiff':tvtk.TIFFReader()
-                                }
         super(ImageReader, self).__init__(**traits)
-
 
     def __set_pure_state__(self, state):
         # The reader has its own file_name which needs to be fixed.

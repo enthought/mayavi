@@ -15,12 +15,6 @@ Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
 # License: BSD Style.
 
 # Standard library imports.
-
-# On systems with multiple wx installations installed, pick one that works
-# with the libraries Mayavi depends on.
-from enthought.util import wxversioncheck
-wxversioncheck.ensureMinimal('2.6')
-
 import sys
 import types
 import getopt

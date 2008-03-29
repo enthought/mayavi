@@ -10,4 +10,5 @@ pipeline.
 
 from modules import *
 from sources import *
+from filters import *
 

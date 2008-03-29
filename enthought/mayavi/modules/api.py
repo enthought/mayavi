@@ -13,6 +13,7 @@ from custom_grid_plane import CustomGridPlane
 from glyph import Glyph
 from grid_plane import GridPlane
 from hyper_streamline import HyperStreamline
+from image_actor import ImageActor
 from image_plane_widget import ImagePlaneWidget
 from iso_surface import IsoSurface
 from orientation_axes import OrientationAxes

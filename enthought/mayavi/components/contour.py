@@ -75,6 +75,11 @@ class Contour(Component):
     # all.
     show_filled_contours = Bool(True)
 
+    # Specify if the lower and upper bound for the data is to be
+    # automatically reset or not.
+    auto_update_range = Bool(True, 
+                             desc='if the contour range is updated automatically')
+
     ########################################
     # The component's view
 
@@ -90,7 +95,14 @@ class Contour(Component):
                            visible_when='auto_contours'),
                       Item(name='maximum_contour',
                            visible_when='auto_contours'),
-                      )
+                      Item(name='auto_update_range'),
+                      Item(name='_data_min',
+                           label='Data minimum',
+                           visible_when='not auto_update_range'),
+                      Item(name='_data_max',
+                           label='Data maximum',
+                           visible_when='not auto_update_range'),
+                     )
                 )
 
     ########################################
@@ -101,12 +113,12 @@ class Contour(Component):
     # The minimum value of the input data.  Set to a very large negative value
     # to avoid errors prior to the object being added to the mayavi
     # tree.
-    _data_min = Float(-1e20)
+    _data_min = Float(-1e20, enter_set=True, auto_set=False)
 
     # The maximum value of the input data.  Set to a very large value
     # to avoid errors prior to the object being added to the mayavi
     # tree.
-    _data_max = Float(1e20)
+    _data_max = Float(1e20, enter_set=True, auto_set=False)
 
     # The contour filter.
     _cont_filt = Instance(tvtk.ContourFilter, args=())
@@ -191,6 +203,8 @@ class Contour(Component):
     def _update_ranges(self):
         # Here we get the module's source since the input of this
         # component may not in general represent the entire object.
+        if not self.auto_update_range:
+            return
         src = get_module_source(self.inputs[0])
         sc = src.outputs[0].point_data.scalars
         if sc is not None:
@@ -218,6 +232,17 @@ class Contour(Component):
             self._do_auto_contours()
         else:
             self._contours_changed(self.contours)
+
+    def _auto_update_range_changed(self, value):
+        if value:
+            rng = self._data_min, self._data_max
+            self._current_range = rng
+            self._update_ranges()
+            self.trait_property_changed('_data_min', rng[0],
+                                        self._data_min)
+            self.trait_property_changed('_data_max', rng[1],
+                                        self._data_max)
+
 
     def _do_auto_contours(self):        
         if not self._has_input():

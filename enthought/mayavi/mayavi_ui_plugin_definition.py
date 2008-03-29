@@ -91,8 +91,8 @@ groups = [Group(id = "VisualizeMenuGroup",
 # Menus
 
 open_menu = Menu(
-    id     = "OpenMenu",
-    name   = "&Open",
+    id     = "LoadDataMenu",
+    name   = "&Load data",
     location   = Location(path="MenuBar/FileMenu/additions",
                           after="NewMenu"),
 )
@@ -127,7 +127,7 @@ open_3ds = Action(
     #image         = "images/new_scene.png",
     tooltip       = "Import a 3D Studio file",
     description   = "Import a 3D Studio file",
-    locations     = [Location(path="MenuBar/FileMenu/OpenMenu/additions"),]
+    locations     = [Location(path="MenuBar/FileMenu/LoadDataMenu/additions"),]
 )
 
 open_image = Action(
@@ -137,7 +137,7 @@ open_image = Action(
     #image         = "images/new_scene.png",
     tooltip       = "Import a PNG/JPG/BMP/PNM/TIFF image",
     description   = "Import a PNG/JPG/BMP/PNM/TIFF image",
-    locations     = [Location(path="MenuBar/FileMenu/OpenMenu/additions"),]
+    locations     = [Location(path="MenuBar/FileMenu/LoadDataMenu/additions"),]
 )
 
 open_plot3d = Action(
@@ -147,7 +147,7 @@ open_plot3d = Action(
     #image         = "images/new_scene.png",
     tooltip       = "Open a PLOT3D data file",
     description   = "Open a PLOT3D data file",
-    locations     = [Location(path="MenuBar/FileMenu/OpenMenu/additions"),]
+    locations     = [Location(path="MenuBar/FileMenu/LoadDataMenu/additions"),]
 )
 
 open_vrml = Action(
@@ -157,7 +157,7 @@ open_vrml = Action(
     #image         = "images/new_scene.png",
     tooltip       = "Import a VRML2 data file",
     description   = "Import a VRML2 data file",
-    locations     = [Location(path="MenuBar/FileMenu/OpenMenu/additions"),]
+    locations     = [Location(path="MenuBar/FileMenu/LoadDataMenu/additions"),]
 )
 
 open_vtk = Action(
@@ -167,7 +167,7 @@ open_vtk = Action(
     #image         = "images/new_scene.png",
     tooltip       = "Open a VTK data file",
     description   = "Open a VTK data file",
-    locations     = [Location(path="MenuBar/FileMenu/OpenMenu/additions"),]
+    locations     = [Location(path="MenuBar/FileMenu/LoadDataMenu/additions"),]
 )
 
 open_vtk_xml = Action(
@@ -177,7 +177,7 @@ open_vtk_xml = Action(
     #image         = "images/new_scene.png",
     tooltip       = "Open a VTK XML data file",
     description   = "Open a VTK XML data file",
-    locations     = [Location(path="MenuBar/FileMenu/OpenMenu/additions"),]
+    locations     = [Location(path="MenuBar/FileMenu/LoadDataMenu/additions"),]
 )
 
 parametric_surface = Action(
@@ -186,7 +186,7 @@ parametric_surface = Action(
     name          = "&Create Parametric surface source",
     tooltip       = "Create a parametric surface source",
     description   = "Create a parametric surface source",
-    locations     = [Location(path="MenuBar/FileMenu/OpenMenu/additions"),]
+    locations     = [Location(path="MenuBar/FileMenu/LoadDataMenu/additions"),]
 )
 
 point_load = Action(
@@ -195,7 +195,7 @@ point_load = Action(
     name          = "Create Point &load source",
     tooltip       = "Simulates a point load on a cube of data (for tensors)",
     description   = "Simulates a point load on a cube of data (for tensors)",
-    locations     = [Location(path="MenuBar/FileMenu/OpenMenu/additions"),]
+    locations     = [Location(path="MenuBar/FileMenu/LoadDataMenu/additions"),]
 )
 
 save_viz = Action(
@@ -451,9 +451,6 @@ warp_vector_cut_plane_module = Action(
     locations = [Location(path="MenuBar/VisualizeMenu/ModulesMenu/additions"),]
 )
 
-########################################
-# Visualize/Filter menu items.
-
 cell_to_point_data_filter = Action(
     id            = "CellToPointDataFilter",
     class_name    = ID + ".action.filters.CellToPointDataFilter",
@@ -461,6 +458,16 @@ cell_to_point_data_filter = Action(
     #image         = "images/new_scene.png",
     tooltip       = "Convert cell data to point data for the active data",
     description   = "Convert cell data to point data for the active data",
+    locations = [Location(path="MenuBar/VisualizeMenu/FiltersMenu/additions"),]
+)
+
+decimatepro_filter = Action(
+    id            = "DecimateProFilter",
+    class_name    = ID + ".action.filters.DecimateProFilter",
+    name          = "&DecimatePro",
+    #image         = "images/new_scene.png",
+    tooltip       = "Simpilies a mesh using the DecimatePro filter",
+    description   = "Simpilies a mesh using the DecimatePro filter",
     locations = [Location(path="MenuBar/VisualizeMenu/FiltersMenu/additions"),]
 )
 
@@ -481,6 +488,18 @@ delaunay3d_filter = Action(
     #image         = "images/new_scene.png",
     tooltip       = "Perform a 3D Delaunay triangulation for the given data",
     description   = "Perform a 3D Delaunay triangulation for the given data",
+    locations = [Location(path="MenuBar/VisualizeMenu/FiltersMenu/additions"),]
+)
+
+elevation_filter = Action(
+    id            = "ElevationFilter",
+    class_name    = ID + ".action.filters.ElevationFilter",
+    name          = "Elevation Filter",
+    #image         = "images/new_scene.png",
+    tooltip       = "Creates scalar data from the elevation along a" \
+                        "direction",
+    description   = "Creates scalar data from the elevation along a" \
+                        "direction",
     locations = [Location(path="MenuBar/VisualizeMenu/FiltersMenu/additions"),]
 )
 
@@ -545,6 +564,16 @@ gaussian_splatter_filter = Action(
     locations = [Location(path="MenuBar/VisualizeMenu/FiltersMenu/additions"),]
 )
 
+greedy_terrain_decimation_filter = Action(
+    id            = "GreedyTerrainDecimationFilter",
+    class_name    = ID + ".action.filters.GreedyTerrainDecimationFilter",
+    name          = "Greedy Terrain Decimation",
+    #image         = "images/new_scene.png",
+    tooltip       = "Simplifies image data and performs a triangulation",
+    description   = "Simplifies image data and performs a triangulation",
+    locations = [Location(path="MenuBar/VisualizeMenu/FiltersMenu/additions"),]
+)
+
 mask_points_filter = Action(
     id            = "MaskPointsFilter",
     class_name    = ID + ".action.filters.MaskPointsFilter",
@@ -575,6 +604,16 @@ poly_data_normals_filter = Action(
     locations = [Location(path="MenuBar/VisualizeMenu/FiltersMenu/additions"),]
 )
 
+quadric_decimation_filter = Action(
+    id            = "QuadricDecimationFilter",
+    class_name    = ID + ".action.filters.QuadricDecimationFilter",
+    name          = "Quadric Decimation",
+    #image         = "images/new_scene.png",
+    tooltip       = "Simplifies a triangular mesh",
+    description   = "Simplifies a triangular mesh",
+    locations = [Location(path="MenuBar/VisualizeMenu/FiltersMenu/additions"),]
+)
+
 transform_data_filter = Action(
     id            = "TransformDataFilter",
     class_name    = ID + ".action.filters.TransformDataFilter",
@@ -595,6 +634,15 @@ threshold_filter = Action(
     locations = [Location(path="MenuBar/VisualizeMenu/FiltersMenu/additions"),]
 )
 
+triangle_filter = Action(
+    id            = "TriangleFilter",
+    class_name    = ID + ".action.filters.TriangleFilter",
+    name          = "TriangleFilter",
+    #image         = "images/new_scene.png",
+    tooltip       = "Convert input polygons and triangle strips to triangles",
+    description   = "Convert input polygons and triangle strips to triangles",
+    locations = [Location(path="MenuBar/VisualizeMenu/FiltersMenu/additions"),]
+)
 tube_filter = Action(
     id            = "TubeFilter",
     class_name    = ID + ".action.filters.TubeFilter",
@@ -623,6 +671,19 @@ warp_vector_filter = Action(
     tooltip       = "Move points of data along the vector data at point",
     description   = "Move points of data along the vector data at point",
     locations = [Location(path="MenuBar/VisualizeMenu/FiltersMenu/additions"),]
+)
+
+########################################
+# Help menu items.
+
+help_index = Action(
+    id            = "HelpIndex",
+    class_name    = ID + ".action.help.HelpIndex",
+    name          = "&User Guide",
+    #image         = "images/new_scene.png",
+    tooltip       = "The Mayavi2 user guide",
+    description   = "The Mayavi2 user guide",
+    locations = [Location(path="MenuBar/HelpMenu/additions"),]
 )
 
 ########################################
@@ -675,22 +736,28 @@ action_set = WorkbenchActionSet(
                warp_vector_cut_plane_module,
                # Filters.
                cell_to_point_data_filter,
+               decimatepro_filter,
                delaunay2d_filter,
                delaunay3d_filter,
+               elevation_filter,
                extract_edges_filter,
                extract_grid_filter,
                extract_tensor_components_filter,
                extract_unstructured_grid_filter,
                extract_vector_norm_filter,               
                gaussian_splatter_filter,
+               greedy_terrain_decimation_filter,
                mask_points_filter,
                point_to_cell_data_filter,
                poly_data_normals_filter,
+               quadric_decimation_filter,
                transform_data_filter,
                threshold_filter,
+               triangle_filter,
                tube_filter,
                warp_scalar_filter,
                warp_vector_filter,
+               help_index,
                ]
 )
 

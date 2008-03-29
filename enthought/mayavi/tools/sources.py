@@ -12,8 +12,9 @@ import tools
 from enthought.tvtk.tools import mlab
 from enthought.tvtk.api import tvtk
 
-__all__ = ( 'vectorscatter', 'vectorfield', 'scalarscatter',
-        'scalarfield', 'linesource', 'array2dsource', 'gridsource')
+__all__ = [ 'vectorscatter', 'vectorfield', 'scalarscatter', 'scalarfield',
+    'linesource', 'array2dsource', 'gridsource',
+]
 
 def _make_glyph_data(points, vectors=None, scalars=None):
     """Makes the data for glyphs using mlab.
@@ -97,7 +98,9 @@ def process_regular_2d_scalars(*args):
 
 def vectorscatter(*args, **kwargs):
     """ Creates scattered vector data. 
-                      
+    
+    **Function signatures**::
+
         vectorscatter(u, v, w, ...)
         vectorscatter(x, y, z, u, v, w, ...)
         vectorscatter(x, y, z, f, ...)
@@ -108,11 +111,11 @@ def vectorscatter(*args, **kwargs):
     If 4 positional arguments are passed the last one must be a callable, f, 
     that returns vectors.
 
-    Keyword arguments
-    -----------------
-        name -- the name of the vtk object created.
+    **Keyword arguments**:
+    
+        :name: the name of the vtk object created.
 
-        scalars -- optional scalar data."""
+        :scalars: optional scalar data."""
     x, y, z, u, v, w = process_regular_vectors(*args)
 
     points = numpy.c_[x.ravel(), y.ravel(), z.ravel()]
@@ -126,7 +129,9 @@ def vectorscatter(*args, **kwargs):
 
 def vectorfield(*args, **kwargs):
     """ Creates vector field data. 
-                      
+    
+    **Function signatures**::
+
         vectorsfield(u, v, w, ...)
         vectorsfield(x, y, z, u, v, w, ...)
         vectorsfield(x, y, z, f, ...)
@@ -141,11 +146,11 @@ def vectorfield(*args, **kwargs):
     If 4 positional arguments are passed the last one must be a callable, f, 
     that returns vectors.
 
-    Keyword arguments
-    -----------------
-        name -- the name of the vtk object created.
+    **Keyword arguments**:
+        
+        :name: the name of the vtk object created.
 
-        scalars -- optional scalar data."""
+        :scalars: optional scalar data."""
     x, y, z, u, v, w = process_regular_vectors(*args)
 
     dx = x[1, 0, 0] - x[0, 0, 0]
@@ -176,23 +181,22 @@ def scalarscatter(*args, **kwargs):
     """
     Creates scattered scalar data. 
     
-    Function signatures
-    -------------------
+    **Function signatures**::
 
         scalarscatter(s, ...)
         scalarscatter(x, y, z, s, ...)
         scalarscatter(x, y, z, s, ...)
         scalarscatter(x, y, z, f, ...)
 
-        If only 1 array s is passed the x, y and z arrays are assumed to be
-        made from the indices of vectors.
+    If only 1 array s is passed the x, y and z arrays are assumed to be
+    made from the indices of vectors.
 
-        If 4 positional arguments are passed the last one must be an array s, or
-        a callable, f, that returns an array.
+    If 4 positional arguments are passed the last one must be an array s, or
+    a callable, f, that returns an array.
 
-    Keyword arguments
-    -----------------
-        name -- the name of the vtk object created."""
+    **Keyword arguments**:
+    
+        :name: the name of the vtk object created."""
     x, y, z, s = process_regular_scalars(*args)
 
     points = numpy.c_[x.ravel(), y.ravel(), z.ravel()]
@@ -210,9 +214,8 @@ def scalarfield(*args, **kwargs):
     """
     Creates a scalar field data.
                       
-    Function signatures
-    -------------------
-
+    **Function signatures**::
+    
         scalarfield(s, ...)
         scalarfield(x, y, z, s, ...)
         scalarfield(x, y, z, f, ...)
@@ -227,9 +230,9 @@ def scalarfield(*args, **kwargs):
     If 4 positional arguments are passed the last one must be an array s, or
     a callable, f, that returns an array.
     
-    Keyword arguments
-    -----------------
-        name -- the name of the vtk object created."""
+    **Keyword arguments**:
+
+        :name: the name of the vtk object created."""
     x, y, z, s = process_regular_scalars(*args)
 
     points = numpy.c_[x.ravel(), y.ravel(), z.ravel()]
@@ -249,9 +252,8 @@ def linesource(*args, **kwargs):
     """
     Creates line data.
     
-    Function signatures
-    -------------------
-
+    **Function signatures**::
+    
         linesource(x, y, z, ...)
         linesource(x, y, z, s, ...)
         linesource(x, y, z, f, ...)
@@ -259,9 +261,9 @@ def linesource(*args, **kwargs):
         If 4 positional arguments are passed the last one must be an array s, or
         a callable, f, that returns an array. 
 
-    Keyword arguments
-    -----------------
-        name -- the name of the vtk object created."""
+    **Keyword arguments**:
+    
+        :name: the name of the vtk object created."""
     if len(args)==1:
         raise ValueError, "wrong number of arguments"    
     x, y, z, s = process_regular_scalars(*args)
@@ -286,7 +288,7 @@ def array2dsource(*args, **kwargs):
     Creates 2D regularly-spaced data from a 2D array.
     
     Function signatures
-    -------------------
+    ___________________
 
         array2dsource(s, ...)
         array2dsource(x, y, s, ...)
@@ -325,11 +327,11 @@ def gridsource(x, y, z, **kwargs):
     """
     Creates grid data.
  
-    Keyword arguments
-    -----------------
-        name -- the name of the vtk object created.
+    **Keyword arguments**:
+    
+        :name: the name of the vtk object created.
         
-        scalars -- optional scalar data."""
+        :scalars: optional scalar data."""
     scalars = kwargs.pop('scalars', None)
     if scalars is None:
         scalars = z
