@@ -10,6 +10,9 @@ a convenient option to create "filled contours".
 # Copyright (c) 2005, Enthought, Inc.
 # License: BSD Style.
 
+# Standard library imports.
+import numpy
+
 # Enthought library imports.
 from enthought.traits.api import Instance, List, Tuple, Bool, Int, Range, \
                                  Float, Property
@@ -208,7 +211,13 @@ class Contour(Component):
         src = get_module_source(self.inputs[0])
         sc = src.outputs[0].point_data.scalars
         if sc is not None:
-            rng = sc.range
+            sc_array = sc.to_array()
+            has_nan = numpy.isnan(sc_array).any()
+            if has_nan:
+                rng = (float(numpy.nanmin(sc_array)),
+                       float(numpy.nanmax(sc_array)))
+            else:
+                rng = sc.range
         else:
             error('Cannot contour: No scalars in input data!')
             rng = (0.0, 1.0)

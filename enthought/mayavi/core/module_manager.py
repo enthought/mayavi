@@ -7,6 +7,8 @@ tables.
 # License: BSD Style.
 
 
+import numpy
+
 # Enthought library imports.
 from enthought.traits.api import List, Instance, Trait, TraitPrefixList, \
                                  HasTraits, Str
@@ -36,6 +38,11 @@ class DataAttributes(HasTraits):
     # The range of the data array.
     range = List
 
+    def _get_np_arr(self, arr):
+        data_array = arr.to_array()
+        data_has_nan = numpy.isnan(data_array).any()
+        return data_array, data_has_nan
+
     def compute_scalar(self, data, mode='point'):
         """Compute the scalar range from given VTK data array.  Mode
         can be 'point' or 'cell'."""
@@ -43,7 +50,12 @@ class DataAttributes(HasTraits):
             if data.name is None or len(data.name) == 0:
                 data.name = mode + '_scalars'
             self.name = data.name
-            self.range = list(data.range)
+            data_array, data_has_nan = self._get_np_arr(data)
+            if data_has_nan:
+                self.range = [float(numpy.nanmin(data_array)),
+                              float(numpy.nanmax(data_array))]
+            else:
+                self.range = list(data.range)
 
     def compute_vector(self, data, type='point'):
         """Compute the vector range from given VTK data array.  Mode
@@ -52,7 +64,13 @@ class DataAttributes(HasTraits):
             if data.name is None or len(data.name) == 0:
                 data.name = mode + '_vectors'
             self.name = data.name
-            self.range = [0.0, data.max_norm]
+            data_array, data_has_nan = self._get_np_arr(data)
+            if data_has_nan:
+                d_mag = numpy.sqrt((data_array*data_array).sum(axis=1))
+                self.range = [float(numpy.nanmin(d_mag)), 
+                              float(numpy.nanmax(d_mag))]
+            else:
+                self.range = [0.0, data.max_norm]
 
     def config_lut(self, lut_mgr):
         """Set the attributes of the LUTManager."""
