@@ -31,7 +31,11 @@ class VTKFileReader(VTKXMLFileReader):
     __version__ = 0
 
     # The VTK data file reader.
-    reader = Instance(tvtk.DataSetReader, args=())    
+    reader = Instance(tvtk.DataSetReader, args=(),
+                      kw={'read_all_scalars':True, 
+                          'read_all_vectors': True,
+                          'read_all_tensors': True,
+                          'read_all_fields': True} )    
 
     ######################################################################
     # Non-public interface
