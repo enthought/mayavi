@@ -172,9 +172,20 @@ def _set_extent(module, extents):
     boundsy = 0.5*(ymax - ymin)
     boundsz = 0.5*(zmax - zmin)
     xs, ys, zs = module.actor.actor.scale
-    module.actor.actor.scale = (xs*extentx/boundsx,
-                                        ys*extenty/boundsy,
-                                        zs*extentz/boundsz)
+    if not numpy.allclose(xmin, xmax):
+        scalex = xs*extentx/boundsx
+    else:
+        scalex = 1
+    if not numpy.allclose(ymin, ymax):
+        scaley = ys*extenty/boundsy
+    else:
+        scaley = 1
+    if not numpy.allclose(zmin, zmax):
+        scalez = zs*extentz/boundsz
+    else:
+        scalez = 1
+    
+    module.actor.actor.scale = (scalex, scaley, scalez)
     ## Remeasure the bounds
     xmin, xmax, ymin, ymax, zmin, zmax = module.actor.actor.bounds
     xcenter = 0.5*(xmax + xmin)
