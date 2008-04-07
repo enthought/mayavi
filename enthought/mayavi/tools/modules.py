@@ -40,7 +40,7 @@ class ModuleFactory(PipeFactory):
     def _color_changed(self):
         if self.color:
             self._target.actor.property.color = self.color
-            if hasattr(self._target.actor.mapper, "scalarvisibility"):
+            if hasattr(self._target.actor.mapper, "scalar_visibility"):
                 self._target.actor.mapper.scalar_visibility = False
             if hasattr(self._target, "property"):
                 self._target.property.color = self.color
