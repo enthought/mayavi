@@ -84,6 +84,12 @@ class SceneEditor(Editor):
         # Add this editor to the plugin's editors.  We do this only here and
         # not at initialization time because the browser plugin listens for
         # this and requires that the scene attribute be set.
+        #
+        # fixme: We don't want editor's to have to know about Envisage!
+        self.scene_manager = self.window.application.get_service(
+            'enthought.tvtk.plugins_e3.scene.scene_manager.SceneManager'
+        )
+        
         self.scene_manager.editors.append(self)
         self.scene_manager.current_editor = self
 
