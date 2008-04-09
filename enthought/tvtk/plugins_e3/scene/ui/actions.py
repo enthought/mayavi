@@ -25,6 +25,8 @@ def get_scene_manager(window):
 class NewScene(Action):
     """ An action that creates a new TVTK scene. """
 
+    name = 'Scene'
+    
     ###########################################################################
     # 'Action' interface.
     ###########################################################################
@@ -42,6 +44,8 @@ class NewScene(Action):
 class SaveScene(Action):
     """ An action that saves a scene to an image. """
 
+    name = 'Save Scene'
+    
     ###########################################################################
     # 'Action' interface.
     ###########################################################################

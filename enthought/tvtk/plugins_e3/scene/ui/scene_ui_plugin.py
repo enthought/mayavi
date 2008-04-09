@@ -38,7 +38,7 @@ class SceneUIPlugin(Plugin):
             SceneUIActionSet
         )
         
-        return [SceneUIActionSet()]
+        return [SceneUIActionSet]
 
     preferences_pages = List(contributes_to=PREFERENCES_PAGES)
 
