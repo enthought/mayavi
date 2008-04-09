@@ -20,7 +20,7 @@ class BrowserView(View):
     id = 'enthought.tvtk.plugins.browser.browser_view'
 
     # The part's name (displayed to the user).
-    name = 'TVTK pipeline browser'
+    name = 'TVTK Pipeline Browser'
 
     #### 'IView' interface ####################################################
 
@@ -30,13 +30,18 @@ class BrowserView(View):
     
     #### 'BrowserView' interface ##############################################
 
+    # The pipeline browser instance we manage.
+    browser = Instance('enthought.tvtk.pipeline.browser.PipelineBrowser')
+
     # The browser manager.
     browser_manager = Instance(
         'enthought.tvtk.plugins_e3.browser.browser_manager.BrowserManager'
     )
 
-    # The pipeline browser instance we manage.
-    browser = Instance('enthought.tvtk.pipeline.browser.PipelineBrowser')
+    # The scene manager.
+    scene_manager = Instance(
+        'enthought.tvtk.plugins_e3.scene.scene_manager.SceneManager'
+    )
 
     ###########################################################################
     # 'IWorkbenchPart' interface.
@@ -46,15 +51,6 @@ class BrowserView(View):
         """ Create the toolkit-specific control that represents the view. """
 
         from enthought.tvtk.pipeline.browser import PipelineBrowser
-
-        application   = self.window.application
-        scene_manager = application.get_service(
-            'enthought.tvtk.plugins_e3.scene.scene_manager.SceneManager'
-        )
-
-        scene_manager.on_trait_change(
-            self._on_scene_editors_changed, 'editors_items'
-        )
                 
         self.browser = PipelineBrowser()
         self.browser.show(parent=parent)
@@ -63,6 +59,11 @@ class BrowserView(View):
         # at initialization to allow someone listening to the manager's
         # 'view_items' trait to use the created browser.
         self.browser_manager.views.append(self)
+
+        # Listen for scene editors being added/removed.
+        self.scene_manager.on_trait_change(
+            self._on_scene_editors_changed, 'editors_items'
+        )
         
         return self.browser.ui.control
 
