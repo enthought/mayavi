@@ -69,6 +69,7 @@ class SceneManager(HasTraits):
 
         if self.current_editor is not None:
             current_scene = self.current_editor.scene
+            
         else:
             current_scene = None
 
@@ -76,19 +77,34 @@ class SceneManager(HasTraits):
     
     #### Trait change handlers ################################################
 
-    def _window_changed(self, trait_name, old, new):
-        """ Static trait change handler. """
+    @on_trait_change('window:editor_opened')
+    def _on_editor_opened(self, obj, trait_name, old, new):
+        """ Dynamic trait change handler. """
 
-        # Listen to editors being added/removed from the window.
-        print 'Window changed', old, new
-        
+        if isinstance(new, SceneEditor):
+            self.editors.append(new)
+            
         return
 
     @on_trait_change('window:editor_closed')
     def _on_editor_closed(self, obj, trait_name, old, new):
         """ Dynamic trait change handler. """
 
-        print 'Editor closed', obj, trait_name, old, new
+        if isinstance(new, SceneEditor):
+            self.editors.remove(new)
+            
+        return
+
+    @on_trait_change('window:active_editor')
+    def _on_active_editor_changed(self, obj, trait_name, old, new):
+        """ Dynamic trait change handler. """
+
+        if isinstance(new, SceneEditor):
+            self.current_editor = new
+
+        else:
+            self.current_editor = None
+            
         return
     
 #### EOF ######################################################################

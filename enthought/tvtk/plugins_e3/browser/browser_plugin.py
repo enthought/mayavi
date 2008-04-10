@@ -44,9 +44,10 @@ class BrowserPlugin(Plugin):
         from enthought.tvtk.plugins_e3.browser.browser_view import (
             BrowserView
         )
-
+        
         scene_manager = self.application.get_service(
-            'enthought.tvtk.plugins_e3.scene.scene_manager.SceneManager'
+            'enthought.tvtk.plugins_e3.scene.scene_manager.SceneManager',
+            query='id(window) == %d' % id(traits['window'])
         )
 
         return BrowserView(scene_manager=scene_manager, **traits)
