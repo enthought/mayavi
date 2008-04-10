@@ -13,15 +13,15 @@ class SceneManager(HasTraits):
     """ Manage the TVTK scenes. """
 
     #### 'SceneManager' interface #############################################
-    
-    # A list of scene editors.
-    editors = List(SceneEditor)
 
-    # The currently active scene.
+    # The currently active scene editor.
     current_editor = Property(Instance(SceneEditor))
 
     # The currently active scene.
     current_scene = Property(Instance(Scene))
+
+    # A list of all open scene editors.
+    editors = List(SceneEditor)
     
     # The workbench window that the manager is in (there is one scene manager
     # per workbench window).
@@ -31,10 +31,6 @@ class SceneManager(HasTraits):
 
     # Shadow trait for the 'current_editor' property.
     _current_editor = Any
-
-    ###########################################################################
-    # 'object' interface.
-    ###########################################################################
 
     ###########################################################################
     # 'SceneManager' interface.
