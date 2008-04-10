@@ -16,7 +16,8 @@ def get_scene_manager(window):
     """ Return the scene manager for a given workbench window. """
 
     scene_manager = window.application.get_service(
-        'enthought.tvtk.plugins_e3.scene.scene_manager.SceneManager'
+        'enthought.tvtk.plugins_e3.scene.scene_manager.SceneManager',
+        query='id(window) == %d' % id(window)
     )
 
     return scene_manager
@@ -25,11 +26,9 @@ def get_scene_manager(window):
 class NewScene(Action):
     """ An action that creates a new TVTK scene. """
 
+    #### 'Action' interface ###################################################
+
     name = 'Scene'
-    
-    ###########################################################################
-    # 'Action' interface.
-    ###########################################################################
 
     def perform(self, event):
         """ Performs the action. """
@@ -44,11 +43,9 @@ class NewScene(Action):
 class SaveScene(Action):
     """ An action that saves a scene to an image. """
 
+    #### 'Action' interface ###################################################
+
     name = 'Save Scene'
-    
-    ###########################################################################
-    # 'Action' interface.
-    ###########################################################################
 
     def perform(self, event):
         """ Performs the action. """        
@@ -68,9 +65,9 @@ class SaveScene(Action):
             wildcard = wildcard
         )
         if dialog.open() == OK:
-            view = get_scene_manager(self.window).current_editor
-            if view is not None:
-                view.scene.save(dialog.path)
+            scene= get_scene_manager(self.window).current_scene
+            if scene is not None:
+                scene.save(dialog.path)
 
         return
     
@@ -78,21 +75,25 @@ class SaveScene(Action):
 class SaveSceneToImage(Action):
     """ An action that saves a scene to an image. """
 
-    # Name of the image.
-    name = Str('image')
+    #### 'Action' interface ###################################################
+    
+    # Name of the action.
+    name = 'Image'
+
+    #### 'SaveSceneToImage' interface #########################################
+    
+    # The save method name.
+    save_method = Str('save')
 
     # The wildcard for the file dialog.
     wildcard = Str("All files (*.*)|*.*")
-
-    # The save method name.
-    save_method = Str('save')
 
     ###########################################################################
     # 'Action' interface.
     ###########################################################################
 
     def perform(self, event):
-        """ Performs the action. """        
+        """ Perform the action. """        
 
         dialog = FileDialog(
             parent   = self.window.control,
@@ -101,9 +102,9 @@ class SaveSceneToImage(Action):
             wildcard = self.wildcard
         )
         if dialog.open() == OK:
-            view = get_scene_manager(self.window).current_editor
-            if view is not None:
-                method = getattr(view.scene, self.save_method)
+            scene = get_scene_manager(self.window).current_scene
+            if scene is not None:
+                method = getattr(scene, self.save_method)
                 method(dialog.path)
 
         return
@@ -112,88 +113,94 @@ class SaveSceneToImage(Action):
 # These are all specific subclasses that save particular images.
 class SaveSceneToPNG(SaveSceneToImage):
     name        = 'PNG Image'
+    save_method = 'save_png'
     wildcard    = 'PNG images (*.png)|*.png|' \
                   'All files (*.*)|*.*'
-    save_method = 'save_png'
     
 class SaveSceneToJPEG(SaveSceneToImage):
     name        = 'JPEG Image'
+    save_method = 'save_jpg'
     wildcard    = 'JPEG images (*.jpg)|*.jpg|' \
                   'JPEG images (*.jpeg)|*.jpeg|' \
                   'All files (*.*)|*.*'
-    save_method = 'save_jpg'
 
 class SaveSceneToBMP(SaveSceneToImage):
     name        = 'BMP Image'
+    save_method = 'save_bmp'
     wildcard    = 'BMP images (*.bmp)|*.bmp|' \
                   'All files (*.*)|*.*'
-    save_method = 'save_bmp'
 
 class SaveSceneToTIFF(SaveSceneToImage):
     name        = 'TIFF Image'
+    save_method = 'save_tiff'
     wildcard    = 'TIFF images (*.tif)|*.tif|' \
                   'TIFF images (*.tiff)|*.tiff|' \
                   'All files (*.*)|*.*'
-    save_method = 'save_tiff'
 
 class SaveSceneToPS(SaveSceneToImage):
     name        = 'PostScript bitmap Image'
+    save_method = 'save_ps'
     wildcard    = 'PostScript bitmap images (*.ps)|*.ps|' \
                   'All files (*.*)|*.*'
-    save_method = 'save_ps'
 
 class SaveSceneToGL2PS(SaveSceneToImage):
     name        = 'Vector PS/EPS/PDF/TeX'
+    save_method = 'save_gl2ps'
     wildcard    = 'All files (*.*)|*.*|' \
                   'EPS files (*.eps)|*.eps|' \
                   'PS files (*.ps)|*.ps|' \
                   'PDF files (*.pdf)|*.pdf|' \
                   'TeX files (*.tex)|*.tex'
-    save_method = 'save_gl2ps'
 
 class SaveSceneToRIB(SaveSceneToImage):
     name        = 'RenderMan RIB file'
+    save_method = 'save_rib'
     wildcard    = 'RIB files (*.rib)|*.rib|' \
                   'All files (*.*)|*.*'
-    save_method = 'save_rib'
 
 class SaveSceneToOOGL(SaveSceneToImage):
     name        = 'GeomView OOGL file'
+    save_method = 'save_oogl'
     wildcard    = 'OOGL files (*.oogl)|*.oogl|' \
                   'All files (*.*)|*.*'
-    save_method = 'save_oogl'
 
 class SaveSceneToIV(SaveSceneToImage):
     name        = 'OpenInventor file'
+    save_method = 'save_iv'
     wildcard    = 'OpenInventor files (*.iv)|*.iv|' \
                   'All files (*.*)|*.*'
-    save_method = 'save_iv'
 
 class SaveSceneToVRML(SaveSceneToImage):
     name        = 'VRML file'
+    save_method = 'save_vrml'
     wildcard    = 'VRML files (*.wrl)|*.wrl|' \
                   'All files (*.*)|*.*'
-    save_method = 'save_vrml'
 
 class SaveSceneToOBJ(SaveSceneToImage):
     name        = 'Wavefront OBJ file'
+    save_method = 'save_wavefront'
     wildcard    = 'OBJ files (*.obj)|*.obj|' \
                   'All files (*.*)|*.*'
-    save_method = 'save_wavefront'
 
 
 class SetView(Action):
-    """Sets the scene to a particular view."""
+    """ An action that sets the current scene to a particular view."""
 
+    #### 'SetView' interface ##################################################
+    
     # The method to invoke on the scene that will set the view.
     view_method = Str
+    
+    ###########################################################################
+    # 'Action' interface.
+    ###########################################################################
 
     def perform(self, event):
-        """ Performs the action. """
+        """ Perform the action. """
 
-        view = get_scene_manager(self.window).current_editor
-        if view is not None:
-            method = getattr(view.scene, self.view_method)
+        scene = get_scene_manager(self.window).current_scene
+        if scene is not None:
+            method = getattr(scene, self.view_method)
             method()
 
         return

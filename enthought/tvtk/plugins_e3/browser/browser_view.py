@@ -30,13 +30,8 @@ class BrowserView(View):
     
     #### 'BrowserView' interface ##############################################
 
-    # The pipeline browser instance we manage.
+    # The pipeline browser instance that we wrap.
     browser = Instance('enthought.tvtk.pipeline.browser.PipelineBrowser')
-
-    # The browser manager.
-    browser_manager = Instance(
-        'enthought.tvtk.plugins_e3.browser.browser_manager.BrowserManager'
-    )
 
     # The scene manager.
     scene_manager = Instance(
@@ -55,12 +50,7 @@ class BrowserView(View):
         self.browser = PipelineBrowser()
         self.browser.show(parent=parent)
 
-        # Add this view to the browser manager's views. We do this here and not
-        # at initialization to allow someone listening to the manager's
-        # 'view_items' trait to use the created browser.
-        self.browser_manager.views.append(self)
-
-        # Listen for scene editors being added/removed.
+        # Listen for scenes being added/removed.
         self.scene_manager.on_trait_change(
             self._on_scene_editors_changed, 'editors_items'
         )

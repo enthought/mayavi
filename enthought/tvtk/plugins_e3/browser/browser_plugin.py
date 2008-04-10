@@ -32,19 +32,7 @@ class BrowserPlugin(Plugin):
 
     #### Services offered by this plugin ######################################
 
-    browser_manager = Instance(
-        'enthought.tvtk.plugins_e3.browser.browser_manager.BrowserManager',
-        service=True
-    )
-
-    def _browser_manager_default(self):
-        """ Trait initializer. """
-
-        from enthought.tvtk.plugins_e3.browser.browser_manager import (
-            BrowserManager
-        )
-        
-        return BrowserManager()
+    # None.
 
     ###########################################################################
     # Private interface.
@@ -52,25 +40,15 @@ class BrowserPlugin(Plugin):
 
     def _browser_view_factory(self, **traits):
         """ Factory method for browser views. """
-        
+
         from enthought.tvtk.plugins_e3.browser.browser_view import (
             BrowserView
-        )
-
-        browser_manager = self.application.get_service(
-            'enthought.tvtk.plugins_e3.browser.browser_manager.BrowserManager'
         )
 
         scene_manager = self.application.get_service(
             'enthought.tvtk.plugins_e3.scene.scene_manager.SceneManager'
         )
 
-        browser_view = BrowserView(
-            browser_manager = browser_manager,
-            scene_manager   = scene_manager,
-            **traits
-        )
-
-        return browser_view
+        return BrowserView(scene_manager=scene_manager, **traits)
 
 #### EOF ######################################################################

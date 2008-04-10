@@ -9,14 +9,14 @@
 from enthought.preferences.api import bind_preference
 from enthought.pyface.tvtk.scene import Scene
 from enthought.pyface.workbench.api import Editor
-from enthought.traits.api import Any, Instance, Str, Event
+from enthought.traits.api import Instance, Event
 
 
-##############################################################################
-# Handy functions
+#### Handy functions ##########################################################
+
 def _id_generator():
-    """Returns a sequence of numbers for the title of the scene editor
-    window."""
+    """ Return an ever-increasing number useful for creating unique Ids. """
+
     n = 1
     while True:
         yield(n)
