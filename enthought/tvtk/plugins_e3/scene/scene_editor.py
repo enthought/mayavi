@@ -28,7 +28,7 @@ _id_generator = _id_generator()
 class SceneEditor(Editor):
     """ A TVTK scene editor. """
 
-    #### 'IWorkbenchPart' interface ###########################################
+    #### 'SceneEditor' interface ##############################################
     
     # The scene manager.
     scene_manager = Instance(
@@ -51,45 +51,37 @@ class SceneEditor(Editor):
 
     # The editor has been closed.
     closed = Event
-
-    ###########################################################################
-    # `object` interface
-    ###########################################################################
-
-    def __init__(self, **traits):
-        """ Constructor. """
-        
-        super(SceneEditor, self).__init__(**traits)
-
-        # Create a unique Id.
-        self.id = self.name = 'TVTK Scene %d' % (_id_generator.next())        
-
-        return
     
     ###########################################################################
     # 'IWorkbenchPart' interface.
     ###########################################################################
 
+    #### Trait initializers ###################################################
+    
+    def _id_default(self):
+        """ Trait initializer. """
+
+        return self.name
+
+    def _name_default(self):
+        """ Trait initializer. """
+
+        return 'TVTK Scene %d' % (_id_generator.next())
+
+    #### Methods ##############################################################
+    
     def create_control(self, parent):
         """ Create the toolkit-specific control that represents the editor. """
 
-        scene = self._create_decorated_scene(parent)
-        scene.render()
-
-        # Hold a reference to the scene itself, to make sure it does not get
+        # We hold a reference to the scene itself to make sure it does not get
         # garbage collected (because we only return the scene's 'control' not
         # the scene itself).
-        self.scene = scene
+        self.scene = self._create_decorated_scene(parent)
+        self.scene.render()
 
-        # Add this editor to the plugin's editors.  We do this only here and
-        # not at initialization time because the browser plugin listens for
-        # this and requires that the scene attribute be set.
-        #
-        # fixme: We don't want editor's to have to know about Envisage!
-        self.scene_manager = self.window.application.get_service(
-            'enthought.tvtk.plugins_e3.scene.scene_manager.SceneManager'
-        )
-        
+        # Add this editor to the scene manager. We do this only here and not at
+        # initialization time because the browser manager listens for this and
+        # requires that the 'scene' attribute be set.
         self.scene_manager.editors.append(self)
         self.scene_manager.current_editor = self
 
@@ -110,8 +102,24 @@ class SceneEditor(Editor):
 
         return
 
+    ###########################################################################
+    # 'SceneEditor' interface.
+    ###########################################################################
+
+    #### Trait initializers ###################################################
+    
+    def _scene_manager_default(self):
+        """ Trait initializer. """
+
+        from enthought.tvtk.plugins_e3.scene.scene_manager import SceneManager
+        
+        # fixme: We don't want editor's to have to know about Envisage!
+        return self.window.application.get_service(SceneManager)
+
+    #### Trait change handlers ################################################
+
     def _closing_fired(self, event):
-        """ This event fires when the window closes. """
+        """ Static trait change handler. """
 
         # Remove ourselves from the scene manager at this time.
         self.scene_manager.editors.remove(self)
@@ -119,7 +127,7 @@ class SceneEditor(Editor):
         return
     
     def _activated_fired(self, event):
-        """ This event fires when this frame/editor is activated. """
+        """ Static trait change handler. """
 
         self.scene_manager.current_editor = self
 
@@ -132,6 +140,8 @@ class SceneEditor(Editor):
     def _create_decorated_scene(self, parent):
         """ Create a new decorated scene. """
 
+        # fixme: This should be 'DecoratedScene' but I couldn't get that to
+        # work! It barfed saying the wx backend doesn't implement it...
         scene = Scene(parent)
 
         # Bind the scene's traits to preferences.
