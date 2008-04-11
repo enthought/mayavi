@@ -781,4 +781,4 @@ if __name__ == '__main__':
     from enthought.pyface.api import GUI
     gui = GUI()
     main(instantiate_gui=False)
-    gui.event_loop()
+    gui.start_event_loop()
