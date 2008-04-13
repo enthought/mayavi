@@ -52,7 +52,7 @@ class BrowserView(View):
 
         # Listen for scenes being added/removed.
         self.scene_manager.on_trait_change(
-            self._on_scene_editors_changed, 'editors_items'
+            self._on_scenes_changed, 'scenes_items'
         )
         
         return self.browser.ui.control
@@ -61,26 +61,24 @@ class BrowserView(View):
     # Private interface.
     ###########################################################################
 
-    def _on_scene_editors_changed(self, list_event):
+    def _on_scenes_changed(self, event):
         """ Dynamic trait change handler.
 
-        This is called when the items of the editors trait of the ScenePlugin
-        change.  This is used to add and remove objects from the pipeline.
+        This is called when scenes are added/removed from the scene manager, it
+        is used to add and remove objects from the pipeline.
 
         """
 
         browser = self.browser
         
         # Remove any removed scenes.
-        for editor in list_event.removed:
-            scene = editor.scene
+        for scene in event.removed:
             if scene in browser.renwins:
                 browser.renwins.remove(scene)
                 browser.root_object.remove(scene.render_window)
                 
         # Add any added scenes.
-        for editor in list_event.added:
-            scene = editor.scene
+        for scene in event.added:
             browser.renwins.append(scene)
             browser.root_object.append(scene.render_window)
 

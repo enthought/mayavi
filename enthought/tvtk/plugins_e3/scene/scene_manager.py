@@ -14,14 +14,11 @@ class SceneManager(HasTraits):
 
     #### 'SceneManager' interface #############################################
 
-    # The currently active scene editor.
-    current_editor = Property(Instance(SceneEditor))
-
     # The currently active scene.
     current_scene = Property(Instance(Scene))
 
-    # A list of all open scene editors.
-    editors = List(SceneEditor)
+    # A list of all open scenes.
+    scenes = List(Scene)
     
     # The workbench window that the manager is in (there is one scene manager
     # per workbench window).
@@ -29,8 +26,8 @@ class SceneManager(HasTraits):
     
     #### Private interface ####################################################
 
-    # Shadow trait for the 'current_editor' property.
-    _current_editor = Any
+    # Shadow trait for the 'current_scene' property.
+    _current_scene = Any
 
     ###########################################################################
     # 'SceneManager' interface.
@@ -38,36 +35,25 @@ class SceneManager(HasTraits):
 
     #### Trait properties #####################################################
     
-    def _get_current_editor(self):
-        """ Property getter. """
-
-        le = len(self.editors)
-        if le == 0:
-            editor = None
-
-        elif le == 1:
-            editor = self.editors[0]
-
-        else:
-            editor = self._current_editor
-
-        return editor
-
-    def _set_current_editor(self, editor):
-        """ Property setter. """
-        
-        self._current_editor = editor
-
-        return
-
     def _get_current_scene(self):
         """ Property getter. """
 
-        if self.current_editor is not None:
-            current_scene = self.current_editor.scene
-            
+        scene_count = len(self.scenes)
+        if scene_count == 0:
+            scene = None
+
+        elif scene_count == 1:
+            scene = self.scenes[0]
+
         else:
-            current_scene = None
+            scene = self._current_scene
+
+        return scene
+
+    def _set_current_scene(self, scene):
+        """ Property setter. """
+        
+        self._current_scene = scene
 
         return
     
@@ -78,7 +64,7 @@ class SceneManager(HasTraits):
         """ Dynamic trait change handler. """
 
         if isinstance(new, SceneEditor):
-            self.editors.append(new)
+            self.scenes.append(new.scene)
             
         return
 
@@ -87,7 +73,7 @@ class SceneManager(HasTraits):
         """ Dynamic trait change handler. """
 
         if isinstance(new, SceneEditor):
-            self.editors.remove(new)
+            self.scenes.remove(new.scene)
             
         return
 
@@ -96,10 +82,10 @@ class SceneManager(HasTraits):
         """ Dynamic trait change handler. """
 
         if isinstance(new, SceneEditor):
-            self.current_editor = new
+            self.current_scene = new.scene
 
         else:
-            self.current_editor = None
+            self.current_scene = None
             
         return
     
