@@ -46,7 +46,7 @@ class ModuleFactory(PipeFactory):
                 self._target.property.color = self.color
     
     opacity = CFloat(1.,
-                help="""The overall opactiy of the vtk object.""")
+                help="""The overall opacity of the vtk object.""")
 
     def _opacity_changed(self):
         try:
@@ -150,7 +150,7 @@ class ContourModuleFactory(DataModuleFactory):
         else:
             assert type(self.contours) == int, \
                             "The contours argument must be an integer"
-            assert self.contours > 1, "The contours argument must be positive"
+            assert self.contours > 0, "The contours argument must be positive"
             self._target.contour.set(auto_contours=True,
                                 number_of_contours=self.contours)
         if hasattr(self._target, 'enable_contours'):
