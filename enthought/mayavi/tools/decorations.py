@@ -272,7 +272,10 @@ orientationaxes = make_function(OrientationAxesFactory)
 class Text(ModuleFactory):
     """ Adds a text on the figure.
     
-        signature: text(x, y, text, ...) 
+        **Function signature**:: 
+            
+            text(x, y, text, ...) 
+
         x, and y are the position of the origin of
         the text on the 2D projection of the figure.
         """
