@@ -3,7 +3,7 @@
 
 # Enthought library imports.
 from enthought.envisage.api import Plugin
-from enthought.traits.api import List, Instance
+from enthought.traits.api import List
 
 
 class BrowserPlugin(Plugin):
@@ -38,18 +38,28 @@ class BrowserPlugin(Plugin):
     # Private interface.
     ###########################################################################
 
-    def _browser_view_factory(self, **traits):
+    def _browser_view_factory(self, window, **traits):
         """ Factory method for browser views. """
 
+        # Get the scene manager for the window that the view is being created
+        # in.
+        from enthought.tvtk.plugins_e3.scene.scene_manager import (
+            SceneManager
+        )
+
+        scene_manager = self.application.get_service(
+            SceneManager, query='id(window) == %d' % id(window)
+        )
+
+        # Create the view.
         from enthought.tvtk.plugins_e3.browser.browser_view import (
             BrowserView
         )
-        
-        scene_manager = self.application.get_service(
-            'enthought.tvtk.plugins_e3.scene.scene_manager.SceneManager',
-            query='id(window) == %d' % id(traits['window'])
+
+        browser_view = BrowserView(
+            scene_manager=scene_manager, window=window, **traits
         )
 
-        return BrowserView(scene_manager=scene_manager, **traits)
-
+        return browser_view
+    
 #### EOF ######################################################################
