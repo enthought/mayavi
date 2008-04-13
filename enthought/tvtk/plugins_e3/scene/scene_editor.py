@@ -56,7 +56,7 @@ class SceneEditor(Editor):
 
         # We hold a reference to the scene itself to make sure it does not get
         # garbage collected (because we only return the scene's 'control' not
-        # the scene itself).
+        # the scene itself). The scene is also referenced by the scene manager.
         self.scene = self._create_decorated_scene(parent)
         self.scene.render()
 
@@ -86,6 +86,9 @@ class SceneEditor(Editor):
            scene, 'foreground', 'enthought.tvtk.scene.foreground_color'
         )
 
+        # fixme: This preference is bound to the renderer not the scene! Why
+        # doesn't the scene expose this trait too (especially since it exposes
+        # the foreground colour!)?
         bind_preference(
             scene.renderer,'background','enthought.tvtk.scene.background_color'
         )
