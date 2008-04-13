@@ -299,7 +299,10 @@ text = make_function(Text)
 class Title(SingletonModuleFactory):
     """Creates a title for the figure.
 
-    signature: title(text, ...)
+    **Function signature**::
+    
+        title(text, ...)
+
     """
 
     size = CFloat(1, help="the size of the title")
