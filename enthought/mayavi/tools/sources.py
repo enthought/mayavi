@@ -26,8 +26,19 @@ def _make_glyph_data(points, vectors=None, scalars=None):
 # Argument processing
 ############################################################################
 
+def convert_to_arrays(args):
+    """ Converts a list of iterables to a list of arrays or callables, 
+        if needed.
+    """
+    args = list(args)
+    for index, arg in enumerate(args):
+        if not hasattr(arg, 'shape') and not callable(arg):
+            args[index] = numpy.array(arg)
+    return args
+
 def process_regular_vectors(*args):
     """ Converts different signatures to (x, y, z, u, v, w). """
+    args = convert_to_arrays(args)
     if len(args)==3:
         u, v, w = args
         assert len(u.shape)==3, "3D array required"
@@ -52,6 +63,7 @@ def process_regular_vectors(*args):
 
 def process_regular_scalars(*args):
     """ Converts different signatures to (x, y, z, s). """
+    args = convert_to_arrays(args)
     if len(args)==1:
         s = args[0]
         assert len(s.shape)==3, "3D array required"
@@ -75,6 +87,7 @@ def process_regular_scalars(*args):
 
 def process_regular_2d_scalars(*args):
     """ Converts different signatures to (x, y, s). """
+    args = convert_to_arrays(args)
     if len(args)==1:
         s = args[0]
         assert len(s.shape)==2, "2D array required"
@@ -83,6 +96,8 @@ def process_regular_2d_scalars(*args):
         x, y, s = args
         if callable(s):
             s = s(x, y)
+        else:
+            print type(s)
     else:
         raise ValueError, "wrong number of arguments"
 
@@ -300,6 +315,7 @@ def array2dsource(*args, **kwargs):
     If only 1 array s is passed the x, z arrays are assumed to be
     made from the indices of arrays, and a regular data set is created."""
     if len(args) == 1:
+        args = convert_to_arrays(args)
         s = args[0]
         nx, ny = s.shape
         data_source = ArraySource(transpose_input_array=True,
