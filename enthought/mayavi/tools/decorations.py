@@ -184,6 +184,29 @@ class AxesLikeModuleFactory(SingletonModuleFactory):
         tools._set_extent(self._target, self.extent)
 
 
+    # Override the color and opacity handlers: axes and outlines do not
+    # behave like other modules
+
+    def _color_changed(self):
+        if self.color:
+            try:
+                self._target.property.color = self.color
+            except AttributeError:
+                try:
+                    self._target.actor.property.color = self.color
+                except AttributeError:
+                    pass
+    
+    def _opacity_changed(self):
+        try:
+            self._target.property.opacity = self.opacity
+        except AttributeError:
+            try:
+                self._target.actor.property.opacity = self.opacity
+            except AttributeError:
+                pass
+
+
 #############################################################################
 class Outline(AxesLikeModuleFactory):
     """ Creates an outline for the current (or given) object."""
@@ -272,8 +295,8 @@ orientationaxes = make_function(OrientationAxesFactory)
 class Text(ModuleFactory):
     """ Adds a text on the figure.
     
-        **Function signature**:: 
-            
+        **Function signature**::
+        
             text(x, y, text, ...) 
 
         x, and y are the position of the origin of
@@ -299,7 +322,7 @@ text = make_function(Text)
 class Title(SingletonModuleFactory):
     """Creates a title for the figure.
 
-    **Function signature**::
+    **Function signature**:: 
     
         title(text, ...)
 
