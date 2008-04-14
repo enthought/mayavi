@@ -4,17 +4,22 @@
 # Enthought library imports.
 from enthought.pyface.tvtk.scene import Scene
 from enthought.pyface.workbench.api import WorkbenchWindow
-from enthought.traits.api import Any, HasTraits, List, Instance, Property
-from enthought.traits.api import on_trait_change
+from enthought.traits.api import HasTraits, List, Instance, Property
+from enthought.traits.api import implements, on_trait_change
 from enthought.tvtk.plugins_e3.scene.scene_editor import SceneEditor
+
+# Local imports.
+from i_scene_manager import ISceneManager
 
 
 class SceneManager(HasTraits):
     """ Manage the TVTK scenes. """
 
+    implements(ISceneManager)
+
     #### 'SceneManager' interface #############################################
 
-    # The currently active scene.
+    # The currently active scene (None, if no scene is active).
     current_scene = Property(Instance(Scene))
 
     # A list of all open scenes.
@@ -27,7 +32,7 @@ class SceneManager(HasTraits):
     #### Private interface ####################################################
 
     # Shadow trait for the 'current_scene' property.
-    _current_scene = Any
+    _current_scene = Instance(Scene)
 
     ###########################################################################
     # 'SceneManager' interface.

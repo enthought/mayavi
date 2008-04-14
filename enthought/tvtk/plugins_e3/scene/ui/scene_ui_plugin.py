@@ -51,8 +51,4 @@ class SceneUIPlugin(Plugin):
 
         return [ScenePreferencesPage]
 
-    #### Services offered by this plugin ######################################
-
-    # None.
-
 #### EOF ######################################################################

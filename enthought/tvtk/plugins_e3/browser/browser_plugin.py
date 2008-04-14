@@ -30,10 +30,6 @@ class BrowserPlugin(Plugin):
         
         return [self._browser_view_factory]
 
-    #### Services offered by this plugin ######################################
-
-    # None.
-
     ###########################################################################
     # Private interface.
     ###########################################################################
@@ -41,16 +37,14 @@ class BrowserPlugin(Plugin):
     def _browser_view_factory(self, window, **traits):
         """ Factory method for browser views. """
 
-        # Get the scene manager for the window that the view is being created
-        # in.
-        from enthought.tvtk.plugins_e3.scene.scene_manager import (
-            SceneManager
+        # Get the scene manager (a 'per window' service, so we look it up via
+        # the window!).
+        from enthought.tvtk.plugins_e3.scene.i_scene_manager import (
+            ISceneManager
         )
 
-        scene_manager = self.application.get_service(
-            SceneManager, query='id(window) == %d' % id(window)
-        )
-
+        scene_manager = window.get_service(ISceneManager)
+        
         # Create the view.
         from enthought.tvtk.plugins_e3.browser.browser_view import (
             BrowserView

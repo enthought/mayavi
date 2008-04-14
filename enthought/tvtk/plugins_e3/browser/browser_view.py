@@ -8,7 +8,7 @@
 
 # Enthought library imports.
 from enthought.pyface.workbench.api import View
-from enthought.traits.api import Instance
+from enthought.traits.api import Instance, on_trait_change
 
 
 class BrowserView(View):
@@ -16,9 +16,6 @@ class BrowserView(View):
 
     #### 'IWorkbenchPart' interface ###########################################
     
-    # The part's globally unique identifier.
-    id = 'enthought.tvtk.plugins.browser.browser_view'
-
     # The part's name (displayed to the user).
     name = 'TVTK Pipeline Browser'
 
@@ -30,12 +27,12 @@ class BrowserView(View):
     
     #### 'BrowserView' interface ##############################################
 
-    # The pipeline browser instance that we wrap.
+    # The pipeline browser instance that we are a view of.
     browser = Instance('enthought.tvtk.pipeline.browser.PipelineBrowser')
 
     # The scene manager.
     scene_manager = Instance(
-        'enthought.tvtk.plugins_e3.scene.scene_manager.SceneManager'
+        'enthought.tvtk.plugins_e3.scene.i_scene_manager.ISceneManager'
     )
 
     ###########################################################################
@@ -49,11 +46,6 @@ class BrowserView(View):
                 
         self.browser = PipelineBrowser()
         self.browser.show(parent=parent)
-
-        # Listen for scenes being added/removed.
-        self.scene_manager.on_trait_change(
-            self._on_scenes_changed, 'scenes_items'
-        )
         
         return self.browser.ui.control
 
@@ -61,6 +53,9 @@ class BrowserView(View):
     # Private interface.
     ###########################################################################
 
+    #### Trait change handlers ################################################
+    
+    @on_trait_change('scene_manager:scenes_items')
     def _on_scenes_changed(self, event):
         """ Dynamic trait change handler.
 
@@ -69,18 +64,30 @@ class BrowserView(View):
 
         """
 
-        browser = self.browser
+        # Scenes that were removed.
+        map(self._remove_scene, event.removed)
         
-        # Remove any removed scenes.
-        for scene in event.removed:
-            if scene in browser.renwins:
-                browser.renwins.remove(scene)
-                browser.root_object.remove(scene.render_window)
-                
-        # Add any added scenes.
-        for scene in event.added:
-            browser.renwins.append(scene)
-            browser.root_object.append(scene.render_window)
+        # Scenes that were added.
+        map(self._add_scene, event.added)
+
+        return
+
+    #### Methods ##############################################################
+
+    def _add_scene(self, scene):
+        """ Add the specified scene to the pipeline browser. """
+
+        self.browser.renwins.append(scene)
+        self.browser.root_object.append(scene.render_window)
+
+        return
+
+    def _remove_scene(self, scene):
+        """ Remove the specified scene from the pipeline browser. """
+
+        if scene in self.browser.renwins:
+            self.browser.renwins.remove(scene)
+            self.browser.root_object.remove(scene.render_window)
 
         return
 
