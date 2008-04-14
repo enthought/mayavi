@@ -9,15 +9,27 @@
 # Enthought library imports.
 from enthought.pyface.api import FileDialog, OK
 from enthought.pyface.action.api import Action
-from enthought.traits.api import Str
+from enthought.traits.api import Instance, Property, Str
 
 
-def get_scene_manager(window):
-    """ Return the scene manager for a given workbench window. """
+class SceneAction(Action):
+    """ Base class for actions that require a scene manager. """
 
-    from enthought.tvtk.plugins_e3.scene.i_scene_manager import ISceneManager
+    #### 'SceneAction' interface ##############################################
 
-    return window.get_service(ISceneManager)
+    # The scene manager.
+    scene_manager = Property(Instance(
+        'enthought.tvtk.plugins_e3.scene.i_scene_manager import ISceneManager'
+    ))
+
+    def _get_scene_manager(self):
+        """ Trait property getter. """
+
+        from enthought.tvtk.plugins_e3.scene.i_scene_manager import (
+            ISceneManager
+        )
+        
+        return self.window.get_service(ISceneManager)
 
 
 class NewScene(Action):
@@ -37,7 +49,7 @@ class NewScene(Action):
         return
 
 
-class SaveScene(Action):
+class SaveScene(SceneAction):
     """ An action that saves a scene to an image. """
 
     #### 'Action' interface ###################################################
@@ -62,14 +74,14 @@ class SaveScene(Action):
             wildcard = wildcard
         )
         if dialog.open() == OK:
-            scene= get_scene_manager(self.window).current_scene
+            scene = self.scene_manager.current_scene
             if scene is not None:
                 scene.save(dialog.path)
 
         return
     
 
-class SaveSceneToImage(Action):
+class SaveSceneToImage(SceneAction):
     """ An action that saves a scene to an image. """
 
     #### 'Action' interface ###################################################
@@ -99,7 +111,7 @@ class SaveSceneToImage(Action):
             wildcard = self.wildcard
         )
         if dialog.open() == OK:
-            scene = get_scene_manager(self.window).current_scene
+            scene = self.scene_manager.current_scene
             if scene is not None:
                 method = getattr(scene, self.save_method)
                 method(dialog.path)
@@ -180,7 +192,7 @@ class SaveSceneToOBJ(SaveSceneToImage):
                   'All files (*.*)|*.*'
 
 
-class SetView(Action):
+class SetView(SceneAction):
     """ An action that sets the current scene to a particular view."""
 
     #### 'SetView' interface ##################################################
@@ -195,7 +207,7 @@ class SetView(Action):
     def perform(self, event):
         """ Perform the action. """
 
-        scene = get_scene_manager(self.window).current_scene
+        scene = self.scene_manager.current_scene
         if scene is not None:
             method = getattr(scene, self.view_method)
             method()
