@@ -15,12 +15,9 @@ from enthought.traits.api import Str
 def get_scene_manager(window):
     """ Return the scene manager for a given workbench window. """
 
-    scene_manager = window.application.get_service(
-        'enthought.tvtk.plugins_e3.scene.scene_manager.SceneManager',
-        query='id(window) == %d' % id(window)
-    )
+    from enthought.tvtk.plugins_e3.scene.i_scene_manager import ISceneManager
 
-    return scene_manager
+    return window.get_service(ISceneManager)
 
 
 class NewScene(Action):
