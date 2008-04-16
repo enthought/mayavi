@@ -181,8 +181,10 @@ class AxesLikeModuleFactory(SingletonModuleFactory):
                             Default is the object's extents.""", )
 
     def _extent_changed(self):
-        tools._set_extent(self._target, self.extent)
-
+        """ There is no universal way of setting extents for decoration
+            objects. This should be implemented in subclasses
+        """
+        pass
 
     # Override the color and opacity handlers: axes and outlines do not
     # behave like other modules
@@ -213,6 +215,10 @@ class Outline(AxesLikeModuleFactory):
 
     _target = Instance(modules.Outline, ())
 
+    def _extent_changed(self):
+        tools._set_extent(self._target, self.extent)
+
+
 outline = make_function(Outline)
 
 
@@ -229,8 +235,29 @@ class Axes(AxesLikeModuleFactory):
     zlabel = String(None, adapts='axes.z_label',
                 help='the label of the z axis')
 
+    ranges = Trait(None, None, CArray(shape=(6,)),
+                    help="""[xmin, xmax, ymin, ymax, zmin, zmax]
+                            Ranges of the labels displayed on the axes.
+                            Default is the object's extents.""", )
+
     _target = Instance(modules.Axes, ())
 
+    def _extent_changed(self):
+        """ Code to modify the extents for 
+        """
+        axes = self._target
+        axes.axes.use_data_bounds = False 
+        axes.axes.bounds = self.extent
+        if self.ranges is None:
+            axes.axes.ranges = \
+                axes.module_manager.source.filter.output.bounds
+            axes.axes.use_ranges = True
+        else:
+            print self.ranges
+
+    def _ranges_changed(self):
+        self._target.axes.ranges = self.ranges
+        self._target.axes.use_ranges = True
 
 axes = make_function(Axes)
 
