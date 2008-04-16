@@ -5,13 +5,70 @@
 # License: BSD Style.
 
 # Enthought library imports.
-from enthought.traits.api import Instance, Property
-from enthought.traits.ui.api import View, Group, Item
+from enthought.traits.api import Instance, Property, true
+from enthought.traits.ui.api import View, Group, HGroup, \
+        Item, BooleanEditor
 from enthought.tvtk.api import tvtk
 from enthought.persistence import state_pickler
 
 # Local imports
 from enthought.mayavi.core.module import Module
+
+######################################################################
+# `CubeAxesActor2D` class.
+######################################################################
+class CubeAxesActor2D(tvtk.CubeAxesActor2D):
+    """ Just has a different view than the tvtk.CubesAxesActor2D, with an 
+        additional tick box.
+    """
+
+    # Automaticaly fit the bounds of the axes to the data
+    use_data_bounds = true
+
+    ########################################
+    # The view of this object.
+
+    traits_view = View(Group(
+                        Group(
+                            Item('visibility'),
+                            HGroup(
+                                 Item('x_axis_visibility', label='X axis'),
+                                 Item('y_axis_visibility', label='Y axis'),
+                                 Item('z_axis_visibility', label='Z axis'),
+                                ),
+                            show_border=True, label='Visibity'),
+                        Group(
+                            Item('use_ranges'),
+                            HGroup(
+                                 Item('ranges', enabled_when='use_ranges'),
+                                ),
+                            show_border=True),
+                        Group(
+                            Item('use_data_bounds'),
+                            HGroup(
+                                 Item('bounds', 
+                                    enabled_when='not use_data_bounds'),
+                                ),
+                            show_border=True),
+                        Group(   
+                            Item('x_label'),
+                            Item('y_label'),
+                            Item('z_label'),
+                            Item('label_format'),
+                            Item('number_of_labels'),
+                            Item('font_factor'),
+                            show_border=True),
+                        HGroup(Item('show_actual_bounds', 
+                                label='Use size bigger than screen',
+                                editor=BooleanEditor())),
+                        Item('fly_mode'),
+                        Item('corner_offset'),
+                        Item('layer_number'),
+                       springy=True,
+                      ),
+                     scrollable=True,
+                     resizable=True,
+                     )
 
 
 ######################################################################
@@ -22,7 +79,7 @@ class Axes(Module):
     __version__ = 0
 
     # The tvtk axes actor.
-    axes = Instance(tvtk.CubeAxesActor2D, allow_none=False)
+    axes = Instance(CubeAxesActor2D, allow_none=False)
 
     # The property of the axes (color etc.).
     property = Property
@@ -42,7 +99,7 @@ class Axes(Module):
     ########################################
     # The view of this object.
 
-    view = View(Group(Item(name='axes', style='custom', resizable=True),
+    view = View(Group(Item(name='axes', style='custom', resizable=True), 
                       label='Axes',
                       show_labels=False),
                 Group(Item(name='_property', style='custom',
@@ -85,7 +142,7 @@ class Axes(Module):
         set the `actors` attribute up at this point.
         """
         # Create the axes and set things up.
-        axes = tvtk.CubeAxesActor2D(number_of_labels= 2,
+        axes = CubeAxesActor2D(number_of_labels= 2,
                                     font_factor=1.5,
                                     fly_mode='outer_edges',
                                     corner_offset=0.0,
@@ -104,7 +161,8 @@ class Axes(Module):
         sends a `pipeline_changed` event.
         """
         mm = self.module_manager
-        if mm is None:
+        if mm is None or not self.axes.use_data_bounds:
+            self.axes.input = None
             return
         src = mm.source
         self.axes.input = src.outputs[0]
@@ -167,3 +225,10 @@ class Axes(Module):
 
     def _get_label_text_property(self):
         return self._label_text_property
+
+    def _use_data_bounds_changed_for_axes(self):
+        """ Updating the pipeline for this module is inexpensive and fits
+            the actor to the source (if any). We are using it here.
+        """
+        self.update_pipeline()
+
