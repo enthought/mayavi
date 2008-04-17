@@ -2,7 +2,7 @@
 
 
 # Enthought library imports.
-from enthought.envisage.api import Plugin, ServiceOffer
+from enthought.envisage.api import Plugin, ServiceFactory
 from enthought.traits.api import List
 
 
@@ -14,8 +14,8 @@ class ScenePlugin(Plugin):
     """ The TVTK render window scene plugin. """
 
     # Extension point Ids.
-    PREFERENCES = 'enthought.envisage.preferences'
-    SERVICES    = 'enthought.envisage.services'
+    PREFERENCES       = 'enthought.envisage.preferences'
+    SERVICE_FACTORIES = 'enthought.envisage.service_factories'
     
     #### 'IPlugin' interface ##################################################
 
@@ -29,23 +29,23 @@ class ScenePlugin(Plugin):
     #### Contributions to extension points made by this plugin ################
 
     preferences = List(contributes_to=PREFERENCES)
-
+        
     def _preferences_default(self):
         """ Trait initializer. """
 
         return ['pkgfile://%s/preferences.ini' % PKG]
 
-    services = List(contributes_to=SERVICES)
+    service_factories = List(contributes_to=SERVICE_FACTORIES)
 
-    def _services_default(self):
+    def _service_factories_default(self):
         """ Trait initializer. """
 
-        scene_manager_service = ServiceOffer(
-            protocol = '%s.i_scene_manager.ISceneManager' % PKG,
-            factory  = '%s.scene_manager.SceneManager' % PKG,
+        scene_manager_service_factory = ServiceFactory(
+            protocol = PKG + '.i_scene_manager.ISceneManager',
+            factory  = PKG + '.scene_manager.SceneManager',
             scope    = 'window'
         )
 
-        return [scene_manager_service]
+        return [scene_manager_service_factory]
 
 #### EOF ######################################################################

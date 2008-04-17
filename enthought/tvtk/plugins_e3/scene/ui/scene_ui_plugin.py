@@ -15,7 +15,7 @@ class SceneUIPlugin(Plugin):
     """
 
     # Extension point Ids.
-    ACTION_SETS       = 'enthought.envisage.ui.workbench.actions'
+    ACTION_SETS       = 'enthought.envisage.ui.workbench.action_sets'
     PREFERENCES_PAGES = 'enthought.envisage.ui.workbench.preferences_pages'
     
     #### 'IPlugin' interface ##################################################
