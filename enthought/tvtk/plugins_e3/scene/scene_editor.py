@@ -7,7 +7,8 @@
 
 # Enthought library imports.
 from enthought.preferences.api import bind_preference
-from enthought.pyface.tvtk.scene import Scene
+from enthought.pyface.tvtk.tvtk_scene import TVTKScene
+from enthought.pyface.tvtk.api import DecoratedScene
 from enthought.pyface.workbench.api import Editor
 from enthought.traits.api import Instance
 
@@ -31,7 +32,7 @@ class SceneEditor(Editor):
     #### 'SceneEditor' interface ##############################################
     
     # The TVTK scene object.
-    scene = Instance(Scene)
+    scene = Instance(TVTKScene)
 
     ###########################################################################
     # 'IWorkbenchPart' interface.
@@ -69,9 +70,7 @@ class SceneEditor(Editor):
     def _create_decorated_scene(self, parent):
         """ Create a new decorated scene. """
 
-        # fixme: This should be 'DecoratedScene' but I couldn't get that to
-        # work! It barfed saying the wx backend doesn't implement it...
-        scene = Scene(parent)
+        scene = DecoratedScene(parent)
 
         # Bind the scene's traits to preferences.
         bind_preference(
