@@ -58,15 +58,19 @@ def get_attribute_list(data):
         """Makes the specified `value` the first item in `lst`."""
         lst.remove(value)
         lst.insert(0, value)
-        
+    
+    attr1 = attr.copy()
     for a in attr:
         v = getattr(data, a)
         if v is not None:
             name = v.name
             if name is not None:
-                _mk_first(attr[a], v.name)
-
-    return attr
+                try:
+                    _mk_first(attr[a], v.name)
+                except ValueError:
+                    # Sometimes we have a multi-component scalar.
+                    attr1[a].insert(0, name)
+    return attr1
 
 
 def get_all_attributes(obj):
