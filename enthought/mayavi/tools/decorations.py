@@ -49,7 +49,7 @@ def scalarbar(object=None, title=None, orientation=None):
     If no object is specified, the first object with scalar data in the scene 
     is used.
 
-    **Keyword arguments**::
+    **Keyword arguments**:
     
         :object: Optional object to get the scalar color map from
     
@@ -250,14 +250,15 @@ class Axes(AxesLikeModuleFactory):
         axes.axes.bounds = self.extent
         if self.ranges is None:
             axes.axes.ranges = \
-                axes.module_manager.source.filter.output.bounds
+                axes.module_manager.source.outputs[0].bounds
             axes.axes.use_ranges = True
         else:
             print self.ranges
 
     def _ranges_changed(self):
-        self._target.axes.ranges = self.ranges
-        self._target.axes.use_ranges = True
+        if self.ranges is not None:
+            self._target.axes.ranges = self.ranges
+            self._target.axes.use_ranges = True
 
 axes = make_function(Axes)
 
