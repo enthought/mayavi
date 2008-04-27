@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Creating data for Mayavi &mdash; Mayavi2 v3.0.0a1 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:   '',
+        VERSION:    '3.0.0a1'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/interface.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="contents" title="Global table of contents" href="contents.html" />
+    <link rel="index" title="Global index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="top" title="Mayavi2 v3.0.0a1 documentation" href="index.html" />
+    <link rel="next" title="Tips and Tricks" href="tips.html" />
+    <link rel="prev" title="Advanced Scripting with Mayavi" href="advanced_scripting.html" />
+  </head>
+  <body>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px"><a href="genindex.html" title="General Index" accesskey="I">index</a></li>
+        <li class="right"><a href="modindex.html" title="Global Module Index" accesskey="M">modules</a> |</li>
+          <li class="right"><a href="tips.html" title="Tips and Tricks" accesskey="N">next</a> |</li>
+          <li class="right"><a href="advanced_scripting.html" title="Advanced Scripting with Mayavi" accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Mayavi2 v3.0.0a1 documentation</a> &raquo;</li>
+      </ul>
+    </div>
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  
+  <div class="section">
+<h1 id="id1"><span id="creating-data-for-mayavi"></span>Creating data for Mayavi<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>This section of the user guide will be improved later.  For now, the
+following two presentations best describe how one can create data
+objects or data files for Mayavi and TVTK.</p>
+<blockquote>
+<ul>
+<li><p class="first">Presentation on TVTK and Mayavi2 for course at IIT Bombay</p>
+<p><a class="reference" href="https://svn.enthought.com/enthought/attachment/wiki/Mayavi/tvtk_mayavi2.pdf">https://svn.enthought.com/enthought/attachment/wiki/Mayavi/tvtk_mayavi2.pdf</a></p>
+<p>This presentation provides information on graphics in general, 3D
+data representation, creating VTK data files, creating datasets
+from numpy in Python, and also about mayavi.</p>
+</li>
+<li><p class="first">Presentation on making TVTK datasets using numpy arrays made for SciPy07.</p>
+<p><a class="reference" href="https://svn.enthought.com/enthought/attachment/wiki/Mayavi/tvtk_datasets.pdf">https://svn.enthought.com/enthought/attachment/wiki/Mayavi/tvtk_datasets.pdf</a></p>
+<p>This presentation focuses on creating TVTK datasets using numpy
+arrays.</p>
+</li>
+</ul>
+</blockquote>
+<p>There are several examples in the mayavi sources that highlight the
+creation of the most important datasets from numpy arrays.  These may
+be found in the <tt class="docutils literal"><span class="pre">examples</span></tt> directory.  Specifically they are:</p>
+<blockquote>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">polydata.py</span></tt>:  Demonstrates how to create Polydata datasets
+from numpy arrays and visualize them in mayavi.</li>
+<li><tt class="docutils literal"><span class="pre">structured_points2d.py</span></tt>: Demonstrates how to create a 2D
+structured points (or image data) dataset from numpy arrays and
+visualize them in mayavi.  This is basically a square of
+equispaced points.</li>
+<li><tt class="docutils literal"><span class="pre">structured_points3d.py</span></tt>: Demonstrates how to create a 3D
+structured points (or image data) dataset from numpy arrays and
+visualize them in mayavi.  This is a cube of points that are
+regularly spaced.</li>
+<li><tt class="docutils literal"><span class="pre">structured_grid.py</span></tt>: Demonstrates the creation and
+visualization of a 3D structured grid.</li>
+<li><tt class="docutils literal"><span class="pre">unstructured_grid.py</span></tt>: Demonstrates the creation and
+visualization of an unstructured grid.</li>
+</ul>
+</blockquote>
+<p>These scripts may be run like so:</p>
+<pre>$ mayavi2 -x structured_grid.py</pre>
+<p>or better yet, all in one go like so:</p>
+<pre>$ mayavi2 -x polydata.py -x structured_points2d.py \
+&gt; -x structured_points3d.py -x structured_grid.py -x unstructured_grid.py</pre>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sidebar">
+        <div class="sidebarwrapper">
+          
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="advanced_scripting.html" title="previous chapter">Advanced Scripting with Mayavi</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="tips.html" title="next chapter">Tips and Tricks</a></p>
+          
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+            
+              <li><a href="_sources/data.txt">Show Source</a></li>
+            
+            </ul>
+          
+          
+          
+            <h3>Quick search</h3>
+            <form class="search" action="search.html" method="get">
+              <input type="text" name="q" size="18"> <input type="submit" value="Go" />
+              <input type="hidden" name="check_keywords" value="yes" />
+              <input type="hidden" name="area" value="default" />
+            </form>
+            
+          
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px"><a href="genindex.html" title="General Index" accesskey="I">index</a></li>
+        <li class="right"><a href="modindex.html" title="Global Module Index" accesskey="M">modules</a> |</li>
+          <li class="right"><a href="tips.html" title="Tips and Tricks" accesskey="N">next</a> |</li>
+          <li class="right"><a href="advanced_scripting.html" title="Advanced Scripting with Mayavi" accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Mayavi2 v3.0.0a1 documentation</a> &raquo;</li>
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2008, Prabhu Ramachandran, Gaël Varoquaux.
+      Last updated on Apr 27, 2008.
+    </div>
+  </body>
+</html>
