@@ -108,6 +108,8 @@ html_last_updated_fmt = '%b %d, %Y'
 # Output file base name for HTML help builder.
 htmlhelp_basename = 'Mayavi2doc'
 
+# A logo displayed in the html sidebar.
+html_logo = 'mayavi-logo.png'
 
 # Options for LaTeX output
 # ------------------------
@@ -128,6 +130,10 @@ latex_preamble = """
 \definecolor{VerbatimColor}{rgb}{0.95,1,0.833}
 \definecolor{VerbatimBorderColor}{rgb}{0.6,0.6,0.6}
 """
+
+# A logo displayed on the cover page.
+latex_logo = 'mayavi-banner.jpg'
+
 
 # Documents to append as an appendix to all manuals.
 #latex_appendices = []
