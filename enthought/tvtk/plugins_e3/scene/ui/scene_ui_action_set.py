@@ -153,8 +153,6 @@ z_minus_view = Action(
 class SceneUIActionSet(ActionSet):
     """ The default action set for the scene UI plugin. """
 
-    id      = PKG + '.action_set',
-    name    = 'SceneActionSet',
     groups  = [scene_group, view_group]
     menus   = [new_menu, save_scene_as_menu]
     actions = [
