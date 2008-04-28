@@ -46,7 +46,9 @@ config_file_name = config_file_dir + os.sep + 'mayavi.conf'
 class MayaviConfig(TConfig):
     """Configuration for mayavi."""
 
-    backend = T.Trait('auto', 'envisage', 'simple')
+    # FIXME: Moving away from auto, because this is not working on ETS 3
+    #backend = T.Trait('auto', 'envisage', 'simple')
+    backend = T.Trait('simple', 'auto', 'envisage')
     
     class scene(TConfig):
         """Configuration of the scenes."""
