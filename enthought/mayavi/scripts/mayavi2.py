@@ -11,7 +11,7 @@ Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
 
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2005-2007, Enthought, Inc.
+# Copyright (c) 2005-2008, Enthought, Inc.
 # License: BSD Style.
 
 # Standard library imports.
@@ -404,8 +404,7 @@ if ('-V' in sys.argv[1:]) or ('--version' in sys.argv[1:]):
 
 # Importing here to avoid time-consuming import when user only wanted
 # version/help information.
-from enthought.mayavi.app import Mayavi
-from enthought.envisage.workbench.api import IWORKBENCH
+from enthought.mayavi.plugins_e3.app import Mayavi
 
 ##########################################################################
 # `MayaviApp` class
@@ -471,7 +470,7 @@ def close():
     """ This closes the mayavi2 application.
     """
     if mayavi is not None:
-        mayavi.application.get_service(IWORKBENCH).exit()
+        mayavi.window.close()
 
 if __name__ == '__main__':
     main()
