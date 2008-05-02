@@ -12,12 +12,15 @@ import logging
 # Enthought library imports.
 from enthought.logger.api import LogFileHandler, FORMATTER
 from enthought.etsconfig.api import ETSConfig
-from enthought.envisage.ui.workbench.api import WorkbenchApplication
 from enthought.traits.api import HasTraits, Instance
 
-logger = logging.getLogger()
+# Local imports.
+from mayavi_workbench_application import MayaviWorkbenchApplication
+
 
 # GLOBALS
+logger = logging.getLogger()
+
 # Indicates if we are being run from ipython -wthread or -pylab.  This
 # is set the first time the application is run.
 WTHREAD_MODE = None
@@ -105,7 +108,7 @@ class Mayavi(HasTraits):
     """
 
     # The main envisage application.
-    application = Instance(WorkbenchApplication)
+    application = Instance('enthought.envisage.ui.workbench.api.WorkbenchApplication')
 
     # The MayaVi Script instance.
     script = Instance('enthought.mayavi.plugins_e3.script.Script')
@@ -140,10 +143,9 @@ class Mayavi(HasTraits):
         _set_wthread_mode()
 
         # Create the application
-        self.application = app = WorkbenchApplication(
-                                             id='enthought.mayavi_e3',
-                                             plugins=plugins
-                                             )
+        app = MayaviWorkbenchApplication(plugins=plugins)
+        self.application = app
+
         setup_logger(logger, 'mayavi.log', mode=logging.DEBUG)
         # Arrange a the callback to be called on application's started
         # event.  This can be used to script mayavi.
@@ -237,7 +239,8 @@ class Mayavi(HasTraits):
 
         py.bind('mayavi', script)
         py.bind('mayavi_app', script.engine)
-    
+   
+
 def main(argv=None):
     """Simple helper to start up the mayavi application.  This returns
     the running ``Script`` instance."""

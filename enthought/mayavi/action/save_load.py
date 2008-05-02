@@ -10,23 +10,24 @@ from os.path import isfile
 
 # Enthought library imports.
 from enthought.pyface.api import FileDialog, OK
-from enthought.mayavi.core.common import error
+from enthought.pyface.action.api import Action
 
 # Local imports
-from enthought.mayavi.action.common import WorkbenchAction, get_imayavi
+from enthought.mayavi.plugins_e3.script import get_imayavi
+from enthought.mayavi.core.common import error
 
 
 ######################################################################
 # `SaveVisualization` class.
 ######################################################################
-class SaveVisualization(WorkbenchAction):
+class SaveVisualization(Action):
     """ An action that saves the current visualization. """
 
     ###########################################################################
     # 'Action' interface.
     ###########################################################################
 
-    def perform(self):
+    def perform(self, event):
         """ Performs the action. """
         wildcard = 'MayaVi2 files (*.mv2)|*.mv2|' + FileDialog.WILDCARD_ALL
         dialog = FileDialog(parent=self.window.control,
@@ -40,14 +41,14 @@ class SaveVisualization(WorkbenchAction):
 ######################################################################
 # `LoadVisualization` class.
 ######################################################################
-class LoadVisualization(WorkbenchAction):
+class LoadVisualization(Action):
     """ An action that loads a visualization from file. """
 
     ###########################################################################
     # 'Action' interface.
     ###########################################################################
 
-    def perform(self):
+    def perform(self, event):
         """ Performs the action. """
         wildcard = 'MayaVi2 files (*.mv2)|*.mv2|' + FileDialog.WILDCARD_ALL
         parent = self.window.control

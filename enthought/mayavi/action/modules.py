@@ -5,19 +5,22 @@
 # Copyright (c) 2005, Enthought, Inc.
 # License: BSD Style.
 
+# Enthought library imports.
+from enthought.pyface.action.api import Action
+
 # Local imports.
-from enthought.mayavi.action.common import WorkbenchAction, get_imayavi
+from enthought.mayavi.plugins_e3.script import get_imayavi
 
 
 ######################################################################
 # `AxesModule` class.
 ######################################################################
-class AxesModule(WorkbenchAction):
+class AxesModule(Action):
     """ An action that creates an Axes module. """
     ###########################################################################
     # 'Action' interface.
     ###########################################################################
-    def perform(self):
+    def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.modules.axes import Axes
         a = Axes()
@@ -28,9 +31,9 @@ class AxesModule(WorkbenchAction):
 ######################################################################
 # `ContourGridPlaneModule` class.
 ######################################################################
-class ContourGridPlaneModule(WorkbenchAction):
+class ContourGridPlaneModule(Action):
     """ An action that creates a ContourGridPlane module. """
-    def perform(self):
+    def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.modules.contour_grid_plane import ContourGridPlane
         m = ContourGridPlane()
@@ -41,9 +44,9 @@ class ContourGridPlaneModule(WorkbenchAction):
 ######################################################################
 # `CustomGridPlaneModule` class.
 ######################################################################
-class CustomGridPlaneModule(WorkbenchAction):
+class CustomGridPlaneModule(Action):
     """ An action that creates a CustomGridPlane module. """
-    def perform(self):
+    def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.modules.custom_grid_plane import CustomGridPlane
         m = CustomGridPlane()
@@ -53,9 +56,9 @@ class CustomGridPlaneModule(WorkbenchAction):
 ######################################################################
 # `GlyphModule` class.
 ######################################################################
-class GlyphModule(WorkbenchAction):
+class GlyphModule(Action):
     """ An action that creates a Glyph module. """
-    def perform(self):
+    def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.modules.glyph import Glyph
         m = Glyph()
@@ -65,9 +68,9 @@ class GlyphModule(WorkbenchAction):
 ######################################################################
 # `GridPlaneModule` class.
 ######################################################################
-class GridPlaneModule(WorkbenchAction):
+class GridPlaneModule(Action):
     """ An action that creates a GridPlane module. """
-    def perform(self):
+    def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.modules.grid_plane import GridPlane
         gp = GridPlane()
@@ -77,9 +80,9 @@ class GridPlaneModule(WorkbenchAction):
 ######################################################################
 # `HyperStreamlineModule` class.
 ######################################################################
-class HyperStreamlineModule(WorkbenchAction):
+class HyperStreamlineModule(Action):
     """ An action that creates a HyperStreamline module. """
-    def perform(self):
+    def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.modules.hyper_streamline import HyperStreamline
         h = HyperStreamline()
@@ -90,9 +93,9 @@ class HyperStreamlineModule(WorkbenchAction):
 ######################################################################
 # `ImageActorModule` class.
 ######################################################################
-class ImageActorModule(WorkbenchAction):
+class ImageActorModule(Action):
     """ An action that creates an ImageActor module. """
-    def perform(self):
+    def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.modules.image_actor import ImageActor
         i = ImageActor()
@@ -103,9 +106,9 @@ class ImageActorModule(WorkbenchAction):
 ######################################################################
 # `ImagePlaneWidgetModule` class.
 ######################################################################
-class ImagePlaneWidgetModule(WorkbenchAction):
+class ImagePlaneWidgetModule(Action):
     """ An action that creates an ImagePlaneWidget module. """
-    def perform(self):
+    def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.modules.image_plane_widget import ImagePlaneWidget
         ipw = ImagePlaneWidget()
@@ -116,9 +119,9 @@ class ImagePlaneWidgetModule(WorkbenchAction):
 ######################################################################
 # `IsoSurfaceModule` class.
 ######################################################################
-class IsoSurfaceModule(WorkbenchAction):
+class IsoSurfaceModule(Action):
     """ An action that creates a IsoSurface module. """
-    def perform(self):
+    def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.modules.iso_surface import IsoSurface
         iso = IsoSurface()
@@ -129,9 +132,9 @@ class IsoSurfaceModule(WorkbenchAction):
 ######################################################################
 # `AddModuleManager` class.
 ######################################################################
-class AddModuleManager(WorkbenchAction):
+class AddModuleManager(Action):
     """ An action that adds a ModuleManager to the tree. """
-    def perform(self):
+    def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.core.module_manager import ModuleManager
         mm = ModuleManager()
@@ -142,9 +145,9 @@ class AddModuleManager(WorkbenchAction):
 ######################################################################
 # `OrientationAxesModule` class.
 ######################################################################
-class OrientationAxesModule(WorkbenchAction):
+class OrientationAxesModule(Action):
     """ An action that starts an orientation axes module. """
-    def perform(self):
+    def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.modules.orientation_axes import OrientationAxes
         o = OrientationAxes()
@@ -155,9 +158,9 @@ class OrientationAxesModule(WorkbenchAction):
 ######################################################################
 # `OutlineModule` class.
 ######################################################################
-class OutlineModule(WorkbenchAction):
+class OutlineModule(Action):
     """ An action that starts an outline module. """
-    def perform(self):
+    def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.modules.outline import Outline
         o = Outline()
@@ -168,9 +171,9 @@ class OutlineModule(WorkbenchAction):
 ######################################################################
 # `ScalarCutPlaneModule` class.
 ######################################################################
-class ScalarCutPlaneModule(WorkbenchAction):
+class ScalarCutPlaneModule(Action):
     """ An action that creates a scalar cut plane module. """
-    def perform(self):
+    def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.modules.scalar_cut_plane import ScalarCutPlane
         s = ScalarCutPlane()
@@ -181,9 +184,9 @@ class ScalarCutPlaneModule(WorkbenchAction):
 ######################################################################
 # `SliceUnstructuredGridModule` class.
 ######################################################################
-class SliceUnstructuredGridModule(WorkbenchAction):
+class SliceUnstructuredGridModule(Action):
     """ An action that creates a scalar cut plane module. """
-    def perform(self):
+    def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.modules.slice_unstructured_grid import SliceUnstructuredGrid
         s = SliceUnstructuredGrid()
@@ -194,9 +197,9 @@ class SliceUnstructuredGridModule(WorkbenchAction):
 ######################################################################
 # `StreamlineModule` class.
 ######################################################################
-class StreamlineModule(WorkbenchAction):
+class StreamlineModule(Action):
     """ An action that starts a streamline module. """
-    def perform(self):
+    def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.modules.streamline import Streamline
         s = Streamline()
@@ -207,9 +210,9 @@ class StreamlineModule(WorkbenchAction):
 ######################################################################
 # `StructuredGridOutlineModule` class.
 ######################################################################
-class StructuredGridOutlineModule(WorkbenchAction):
+class StructuredGridOutlineModule(Action):
     """ An action that starts a streamline module. """
-    def perform(self):
+    def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.modules.structured_grid_outline \
              import StructuredGridOutline
@@ -221,9 +224,9 @@ class StructuredGridOutlineModule(WorkbenchAction):
 ######################################################################
 # `SurfaceModule` class.
 ######################################################################
-class SurfaceModule(WorkbenchAction):
+class SurfaceModule(Action):
     """ An action that starts an outline module. """
-    def perform(self):
+    def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.modules.surface import Surface
         s = Surface()
@@ -233,9 +236,9 @@ class SurfaceModule(WorkbenchAction):
 ######################################################################
 # `TensorGlyphModule` class.
 ######################################################################
-class TensorGlyphModule(WorkbenchAction):
+class TensorGlyphModule(Action):
     """ An action that creates a TensorGlyph module. """
-    def perform(self):
+    def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.modules.tensor_glyph import TensorGlyph
         h = TensorGlyph()
@@ -245,9 +248,9 @@ class TensorGlyphModule(WorkbenchAction):
 ######################################################################
 # `TextModule` class.
 ######################################################################
-class TextModule(WorkbenchAction):
+class TextModule(Action):
     """ An action that starts a text module. """
-    def perform(self):
+    def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.modules.text import Text
         t = Text()
@@ -257,9 +260,9 @@ class TextModule(WorkbenchAction):
 ######################################################################
 # `VectorCutPlaneModule` class.
 ######################################################################
-class VectorCutPlaneModule(WorkbenchAction):
+class VectorCutPlaneModule(Action):
     """ An action that creates a VecturCutPlane module. """
-    def perform(self):
+    def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.modules.vector_cut_plane import VectorCutPlane
         m = VectorCutPlane()
@@ -269,9 +272,9 @@ class VectorCutPlaneModule(WorkbenchAction):
 ######################################################################
 # `Vectors` class.
 ######################################################################
-class VectorsModule(WorkbenchAction):
+class VectorsModule(Action):
     """ An action that creates a Vectors module. """
-    def perform(self):
+    def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.modules.vectors import Vectors
         m = Vectors()
@@ -281,9 +284,9 @@ class VectorsModule(WorkbenchAction):
 ######################################################################
 # `VolumeModule` class.
 ######################################################################
-class VolumeModule(WorkbenchAction):
+class VolumeModule(Action):
     """ An action that creates a Volume module. """
-    def perform(self):
+    def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.modules.volume import Volume
         m = Volume()
@@ -293,9 +296,9 @@ class VolumeModule(WorkbenchAction):
 ######################################################################
 # `WarpVectorCutPlaneModule` class.
 ######################################################################
-class WarpVectorCutPlaneModule(WorkbenchAction):
+class WarpVectorCutPlaneModule(Action):
     """ An action that creates a WarpVectorCutPlane module. """
-    def perform(self):
+    def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.modules.warp_vector_cut_plane import WarpVectorCutPlane
         m = WarpVectorCutPlane()
