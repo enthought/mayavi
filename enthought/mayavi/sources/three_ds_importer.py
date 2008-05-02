@@ -40,7 +40,7 @@ class ThreeDSImporter(VRMLImporter):
         name = "3DStudio file (%s)"%basename(self.file_name)
         if '[Hidden]' in self.name:
             name += ' [Hidden]'
-        seld.name = name
+        self.name = name
 
         self._file_path.set(value)
         self._update_reader()
