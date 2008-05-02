@@ -49,6 +49,7 @@ class MayaviUIPlugin(Plugin):
     VIEWS             = 'enthought.envisage.ui.workbench.views'
     PERSPECTIVES      = 'enthought.envisage.ui.workbench.perspectives'
     PREFERENCES_PAGES = 'enthought.envisage.ui.workbench.preferences_pages'
+    ACTION_SETS       = 'enthought.envisage.ui.workbench.action_sets'
 
     # The plugins name.
     name = 'Mayavi UI plugin'
@@ -64,6 +65,9 @@ class MayaviUIPlugin(Plugin):
     # Preferences pages.
     preferences_pages = List(contributes_to=PREFERENCES_PAGES)
 
+    # Our action sets.
+    action_sets = List(contributes_to=ACTION_SETS)
+
     def _views_default(self):
         """ Trait initializer. """
         return [self._engine_view_factory,
@@ -75,10 +79,16 @@ class MayaviUIPlugin(Plugin):
 
     def _preferences_pages_default(self):
         """ Trait initializer. """
-
         from enthought.mayavi.plugins_e3.mayavi_preferences_page import \
             MayaviPreferencesPage
         return [MayaviPreferencesPage]
+
+    def _action_sets_default(self):
+        """ Trait initializer. """
+        from enthought.mayavi.plugins_e3.mayavi_ui_action_set import (
+            MayaviUIActionSet
+        )
+        return [MayaviUIActionSet]
 
 
     ######################################################################

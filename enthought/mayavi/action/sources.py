@@ -10,11 +10,11 @@ from os.path import isfile
 
 # Enthought library imports.
 from enthought.pyface.api import FileDialog, OK
+from enthought.pyface.action.api import Action
 
 # Local imports
-from enthought.mayavi.script import get_imayavi
+from enthought.mayavi.plugins_e3.script import get_imayavi
 from enthought.mayavi.core.common import error
-from enthought.mayavi.action.common import WorkbenchAction, get_imayavi
 
 
 ######################################################################
@@ -33,14 +33,14 @@ def get_scene(mayavi):
 ######################################################################
 # `OpenImageFile` class.
 ######################################################################
-class OpenImageFile(WorkbenchAction):
+class OpenImageFile(Action):
     """ An action that opens a new image file. """
 
     ###########################################################################
     # 'Action' interface.
     ###########################################################################
 
-    def perform(self):
+    def perform(self, event):
         """ Performs the action. """
         mv = get_imayavi(self.window)
         s = get_scene(mv)
@@ -76,14 +76,14 @@ class OpenImageFile(WorkbenchAction):
 ######################################################################
 # `Open3DSFile` class.
 ######################################################################
-class Open3DSFile(WorkbenchAction):
+class Open3DSFile(Action):
     """ An action that opens a new 3DS file. """
 
     ###########################################################################
     # 'Action' interface.
     ###########################################################################
 
-    def perform(self):
+    def perform(self, event):
         """ Performs the action. """
         mv = get_imayavi(self.window)
         s = get_scene(mv)
@@ -113,14 +113,14 @@ class Open3DSFile(WorkbenchAction):
 ######################################################################
 # `OpenPLOT3DFile` class.
 ######################################################################
-class OpenPLOT3DFile(WorkbenchAction):
+class OpenPLOT3DFile(Action):
     """ An action that opens a new PLOT3D file. """
 
     ###########################################################################
     # 'Action' interface.
     ###########################################################################
 
-    def perform(self):
+    def perform(self, event):
         """ Performs the action. """
         mv = get_imayavi(self.window)
         s = get_scene(mv)
@@ -163,14 +163,14 @@ class OpenPLOT3DFile(WorkbenchAction):
 ######################################################################
 # `OpenVRMLFile` class.
 ######################################################################
-class OpenVRMLFile(WorkbenchAction):
+class OpenVRMLFile(Action):
     """ An action that opens a new VRML file. """
 
     ###########################################################################
     # 'Action' interface.
     ###########################################################################
 
-    def perform(self):
+    def perform(self, event):
         """ Performs the action. """
         mv = get_imayavi(self.window)
         s = get_scene(mv)
@@ -200,14 +200,14 @@ class OpenVRMLFile(WorkbenchAction):
 ######################################################################
 # `OpenVTKFile` class.
 ######################################################################
-class OpenVTKFile(WorkbenchAction):
+class OpenVTKFile(Action):
     """ An action that opens a new VTK file. """
 
     ###########################################################################
     # 'Action' interface.
     ###########################################################################
 
-    def perform(self):
+    def perform(self, event):
         """ Performs the action. """
         mv = get_imayavi(self.window)
         s = get_scene(mv)
@@ -238,14 +238,14 @@ class OpenVTKFile(WorkbenchAction):
 ######################################################################
 # `OpenVTKXMLFile` class.
 ######################################################################
-class OpenVTKXMLFile(WorkbenchAction):
+class OpenVTKXMLFile(Action):
     """ An action that opens a new VTK XML file. """
 
     ###########################################################################
     # 'Action' interface.
     ###########################################################################
 
-    def perform(self):
+    def perform(self, event):
         """ Performs the action. """
         mv = get_imayavi(self.window)
         s = get_scene(mv)
@@ -287,14 +287,14 @@ class OpenVTKXMLFile(WorkbenchAction):
 ######################################################################
 # `ParametricSurfaceSource` class.
 ######################################################################
-class ParametricSurfaceSource(WorkbenchAction):
+class ParametricSurfaceSource(Action):
     """ An action that creates a ParametricSurface source. """
 
     ###########################################################################
     # 'Action' interface.
     ###########################################################################
 
-    def perform(self):
+    def perform(self, event):
         """ Performs the action. """
         mv = get_imayavi(self.window)
         s = get_scene(mv)
@@ -308,14 +308,14 @@ class ParametricSurfaceSource(WorkbenchAction):
 ######################################################################
 # `PointLoadSource` class.
 ######################################################################
-class PointLoadSource(WorkbenchAction):
+class PointLoadSource(Action):
     """ An action that creates a PointLoad source. """
 
     ###########################################################################
     # 'Action' interface.
     ###########################################################################
 
-    def perform(self):
+    def perform(self, event):
         """ Performs the action. """
         mv = get_imayavi(self.window)
         s = get_scene(mv)
