@@ -7,11 +7,15 @@ Singleton class holding the engine.
 # License: BSD Style.
 
 # Enthought library imports.
-from enthought.envisage import get_application
+from enthought.envisage.api import Service
+from enthought.pyface.api import GUI
 
 # MayaVi related imports.
-from enthought.mayavi.services import IMAYAVI
-from enthought.mayavi.app import Mayavi
+from enthought.mayavi.plugins_e3.script import Script
+from enthought.mayavi.plugins_e3.app import Mayavi
+
+def get_application():
+    return Service.application
 
 ######################################################################
 # EngineManager singleton class
@@ -28,11 +32,13 @@ class EngineManager(object):
     @classmethod
     def get_engine(cls):
         cls.application = get_application()
-        if (cls.application is None 
-                or cls.application.stopped is not None):
+        # FIXME: need a way to determine if an app is running or not.
+        if (cls.application is None): 
+                #or cls.application.stopped is not None):
             cls.create_engine()
         else:
-            m = cls.application.get_service(IMAYAVI)
+            app = cls.application
+            m = app.workbench.active_window.get_service(Script)
             cls.engine = m.engine
         return cls.engine
 
@@ -40,6 +46,7 @@ class EngineManager(object):
     def create_engine(cls):
         m = Mayavi()
         m.main()
+        GUI.process_events()
         mayavi = m.script
         cls.application = get_application()
         cls.engine = mayavi.engine
