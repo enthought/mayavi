@@ -230,7 +230,9 @@ class TraitSimpleDRange ( TraitHandler ):
         return self.vtype(val)
 
     low = property(_get_low)
+    _low = low
     high = property(_get_high)
+    _high = high
 
     def _set_object(self, object):
         if object is None:
