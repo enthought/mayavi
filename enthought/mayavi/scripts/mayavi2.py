@@ -18,6 +18,7 @@ Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
 import sys
 import types
 import getopt
+import logging
 from os.path import splitext, exists
 
 # Local imports.
@@ -133,6 +134,11 @@ options are one or more of the following:
      Loads a previously saved MayaVi2 visualization file passed as the
      argument.
 
+-v
+--verbose
+
+     Prints verbose logs on the console.
+
 -V 
 --version
 
@@ -174,7 +180,7 @@ def parse_cmd_line(arguments):
     if type(arguments) in types.StringTypes:
         arguments = arguments.split()
         
-    options = "d:p:q:e:m:f:z:w:3:x:nM"
+    options = "d:p:q:e:m:f:z:w:3:x:nMv"
     
     long_opts = ['vtk=',
                  'plot3d-xyz=', 'plot3d-q=',
@@ -184,6 +190,7 @@ def parse_cmd_line(arguments):
                  'vrml=',
                  '3ds=',
                  'exec=',
+                 'verbose',
                  'module-mgr', 'new-scene']
 
     try:
@@ -416,6 +423,11 @@ class MayaviApp(Mayavi):
         # started in `run`.
         options, args = parse_cmd_line(argv)
         self.cmd_line_opts = (options, args)
+        # If the verbose option is set, change the log mode.
+        for opts, args in options:
+            if opts in ('-v', '--verbose'):
+                self.log_mode = logging.DEBUG
+                break
 
     def run(self):
         """Process the command line options and setup mayavi as per

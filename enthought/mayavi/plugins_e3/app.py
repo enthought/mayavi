@@ -12,7 +12,7 @@ import logging
 # Enthought library imports.
 from enthought.logger.api import LogFileHandler, FORMATTER
 from enthought.etsconfig.api import ETSConfig
-from enthought.traits.api import HasTraits, Instance
+from enthought.traits.api import HasTraits, Instance, Int
 
 # Local imports.
 from mayavi_workbench_application import MayaviWorkbenchApplication
@@ -51,6 +51,7 @@ def _set_wthread_mode():
                 # OSX!
                 WTHREAD_MODE = wx_app.IsMainLoopRunning()
 
+
 def setup_logger(logger, fname, stream=True, mode=logging.ERROR):
     """Setup a log file and the logger in `ETSConfig.application_home`.
 
@@ -75,6 +76,7 @@ def setup_logger(logger, fname, stream=True, mode=logging.ERROR):
     logger.info("*"*80)
     logger.info("logfile is: '%s'", os.path.abspath(path))
     logger.info("*"*80)
+
 
 def get_plugins():
     from enthought.envisage.core_plugin import CorePlugin
@@ -113,6 +115,9 @@ class Mayavi(HasTraits):
     # The MayaVi Script instance.
     script = Instance('enthought.mayavi.plugins_e3.script.Script')
 
+    # The logging mode.
+    log_mode = Int(logging.ERROR, desc='the logging mode to use')
+
     def main(self, argv=None, plugins=None):
         """The main application is created and launched here.
 
@@ -130,6 +135,8 @@ class Mayavi(HasTraits):
           List of plugins to start.  If none is provided it defaults to
           something meaningful.
 
+        - log_mode : The logging mode to use.
+
         """
         # Parse any cmd line args.
         if argv is None:
@@ -146,7 +153,7 @@ class Mayavi(HasTraits):
         app = MayaviWorkbenchApplication(plugins=plugins)
         self.application = app
 
-        setup_logger(logger, 'mayavi.log', mode=logging.DEBUG)
+        setup_logger(logger, 'mayavi.log', mode=self.log_mode)
         # Arrange a the callback to be called on application's started
         # event.  This can be used to script mayavi.
         app.on_trait_change(self._start, 'started')
