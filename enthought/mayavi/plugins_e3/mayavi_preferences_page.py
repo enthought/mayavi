@@ -46,3 +46,8 @@ class MayaviPreferencesPage(PreferencesPage):
                              )
                        )
 
+    #### Traits handlers ######################################################
+    def _confirm_delete_changed(self, value):
+        from enthought.mayavi.core.base import Base
+        Base.confirm_delete = value
+
