@@ -21,37 +21,9 @@ from mayavi_workbench_application import MayaviWorkbenchApplication
 # GLOBALS
 logger = logging.getLogger()
 
-# Indicates if we are being run from ipython -wthread or -pylab.  This
-# is set the first time the application is run.
-WTHREAD_MODE = None
-
 ######################################################################
-# Private function.
+# Useful functions.
 ######################################################################
-def _set_wthread_mode():
-    """Sets the wthread mode global.
-    """
-    import wx
-    global WTHREAD_MODE
-    # We check to see if a wxApp is already running (this happens
-    # mayavi is used via ipython -pylab/-wthread) in which case
-    # special care is necessary in starting and stopping the
-    # envisage app.
-    if WTHREAD_MODE is None:
-        wx_app = wx.GetApp()
-        if wx_app is not None:
-            if sys.platform == 'darwin':
-                # This is not optimal at all!  There ought to be a
-                # better way to see if the wxMainloop is running on
-                # the Mac.
-                WTHREAD_MODE = ('-wthread' in sys.argv) or \
-                               ('-pylab' in sys.argv)
-            else:
-                # For some strange reason this does not work on Mac
-                # OSX!
-                WTHREAD_MODE = wx_app.IsMainLoopRunning()
-
-
 def setup_logger(logger, fname, stream=True, mode=logging.ERROR):
     """Setup a log file and the logger in `ETSConfig.application_home`.
 
@@ -146,9 +118,6 @@ class Mayavi(HasTraits):
         if plugins is None:
             plugins = get_plugins()
 
-        # Setup the wthread mode if necessary.
-        _set_wthread_mode()
-
         # Create the application
         app = MayaviWorkbenchApplication(plugins=plugins)
         self.application = app
@@ -161,8 +130,6 @@ class Mayavi(HasTraits):
         # Start the application.
         app.run()
 
-        if not WTHREAD_MODE:
-            app.stop()
 
     def parse_command_line(self, argv):
         """Parse command line options.
@@ -212,21 +179,6 @@ class Mayavi(HasTraits):
                           'started') 
         g.on_trait_change(lambda : g.invoke_later(self.run), 'started')
 
-        if WTHREAD_MODE:
-            # This calls the application's stop method when the
-            # workbench fires the 'window_closed' event and when there
-            # are no windows left.  This is necessary since when we
-            # are started from an `ipython -wthread` session this is
-            # the only way to shutdown cleanly.
-            def _window_closed(obj, name, value):
-                """This function stops the envisage application if the
-                last window is closed.
-                """
-                if len(obj.windows) == 0:
-                    app.stop()
-
-            wb = app.workbench
-            wb.on_trait_change(_window_closed, 'window_closed')
 
     def _bind_name_to_shell(self, value, app):
         if not value:
