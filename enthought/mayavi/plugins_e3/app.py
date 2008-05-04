@@ -16,7 +16,7 @@ from enthought.traits.api import HasTraits, Instance, Int
 
 # Local imports.
 from mayavi_workbench_application import MayaviWorkbenchApplication
-
+from enthought.mayavi.preferences.api import preference_manager
 
 # GLOBALS
 logger = logging.getLogger()
@@ -171,6 +171,10 @@ class Mayavi(HasTraits):
         enthought.envisage.Application singleton instance.
         """
         app = app_event.application
+
+        # Set the preference manager's preferences to that of the
+        # application.
+        preference_manager.preferences = app.preferences
         
         # This in turn calls the testing code once the GUI mainloop is
         # running.

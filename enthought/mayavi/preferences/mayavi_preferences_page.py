@@ -4,6 +4,7 @@
 # Copyright (c) 2008,  Enthought, Inc.
 # License: BSD Style.
 
+# Enthought library imports.
 from enthought.preferences.ui.api import PreferencesPage
 from enthought.traits.api import Bool
 from enthought.traits.ui.api import View, Group, Item
@@ -36,18 +37,12 @@ class MayaviPreferencesPage(PreferencesPage):
     # confirmation or not.  If True the user will be prompted before
     # the object is deleted.  If it is False then the user will not be
     # prompted.
-    confirm_delete = Bool(True, desc='if the user is prompted before'
+    confirm_delete = Bool(desc='if the user is prompted before'
                           ' a node on the MayaVi tree is deleted')
 
     #### Traits UI views ######################################################
 
-    traits_view = View(Group(
-                             Item(name='confirm_delete'),
-                             )
+    traits_view = View(Group(Item(name='confirm_delete'),
+                            )
                        )
-
-    #### Traits handlers ######################################################
-    def _confirm_delete_changed(self, value):
-        from enthought.mayavi.core.base import Base
-        Base.confirm_delete = value
 

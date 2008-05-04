@@ -20,6 +20,17 @@ from enthought.pyface.image_resource import ImageResource
 from enthought.traits.ui.menu \
     import Menu, Action, Separator
 
+# Local imports.
+from enthought.mayavi.preferences.api import preference_manager
+
+
+################################################################################
+# Setup a handler to change the confirm_delete class attribute.
+def _confirm_delete_handler(value):
+    Base.confirm_delete = value
+
+preference_manager.root.on_trait_change(_confirm_delete_handler,
+                                        'confirm_delete')
 
 #-------------------------------------------------------------------------------
 #  The core tree node menu actions:
@@ -43,7 +54,6 @@ RenameAction = Action( name         = 'Rename',
                        enabled_when = 'editor._is_renameable(object)' )
 standard_menu_actions = [ CutAction, CopyAction, PasteAction, Separator(),
                     DeleteAction, Separator(), RenameAction, Separator() ]
-
 
 
 ######################################################################
@@ -72,7 +82,7 @@ class Base(TreeNodeObject):
     # confirmation or not.  This is not a trait!
     # If True the user will be prompted before the object is deleted.
     # If it is False then the user will not be prompted.
-    confirm_delete = True
+    confirm_delete = preference_manager.root.confirm_delete
 
     ##################################################
     # Private traits
