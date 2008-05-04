@@ -79,7 +79,7 @@ class MayaviUIPlugin(Plugin):
 
     def _preferences_pages_default(self):
         """ Trait initializer. """
-        from enthought.mayavi.plugins_e3.mayavi_preferences_page import \
+        from enthought.mayavi.preferences.mayavi_preferences_page import \
             MayaviPreferencesPage
         return [MayaviPreferencesPage]
 

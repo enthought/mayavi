@@ -9,6 +9,8 @@ from enthought.envisage.api import Plugin, ServiceFactory
 
 # This module's package.
 PKG = '.'.join(__name__.split('.')[:-1])
+# The mayavi package ID.
+ID = 'enthought.mayavi'
 
 ###############################################################################
 # `MayaviPlugin` class.
@@ -32,7 +34,7 @@ class MayaviPlugin(Plugin):
 
     def _preferences_default(self):
         """ Trait initializer. """
-        return ['pkgfile://%s/preferences.ini' % PKG]
+        return ['pkgfile://%s/preferences/preferences.ini' % ID]
 
 
     ######################################################################
