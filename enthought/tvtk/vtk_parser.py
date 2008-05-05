@@ -173,8 +173,9 @@ class VTKMethodParser:
             for m in klass.__members__:
                 methods.remove(m)
         parent_methods = self._get_parent_methods(klass)
+        skip = ['GetInput', 'SetInput']
         for m in methods[:]:
-            if m in parent_methods:
+            if m in parent_methods and m not in skip:
                 methods.remove(m)
 
         return methods

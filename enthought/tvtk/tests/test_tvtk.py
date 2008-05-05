@@ -482,6 +482,14 @@ class TestTVTK(unittest.TestCase):
         x = s.FIELD_ARRAY_TYPE()
         y = tvtk.Information()
         x.get(y)
+
+    def test_parent_child_input(self):
+        """Case where parent has GetInput and child SetInput."""
+        vm = tvtk.VolumeTextureMapper2D()
+        # In this case if the wrapping is not done right, the input
+        # trait is made read-only which is a bug.  We set the input
+        # below to test this.
+        vm.input = None
         
         
 # This separates out any tests for the entire module that would affect
