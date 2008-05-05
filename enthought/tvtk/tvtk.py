@@ -4,38 +4,50 @@ and this instance serves as the `tvtk` 'module'.  For more details on
 this see the devel.txt in the TVTK documentation directory.
 """
 # Author: Prabhu Ramachandran <prabhu [at] aero.iitb.ac.in>
-# Copyright (c) 2007,  Enthought, Inc.
+# Copyright (c) 2007-2008,  Enthought, Inc.
 # License: BSD Style.
 
 
-from os.path import exists, join, dirname
+from os.path import exists, join, dirname, isdir
 import sys
 
-# The tvtk wrapper code is all inside one zip file.  We try to find
-# this file and put it in sys.path and then create the 'tvtk' module
-# wrapper from that.  If the zip file is not found, nothing is done.
+# The tvtk wrapper code is all typically inside one zip file.  We try to
+# find this file and put it in sys.path and then create the 'tvtk'
+# module wrapper from that.  If the ZIP file is extracted into a
+# tvtk_classes directory the ZIP file is not used and the tvtk_classes
+# directory is inserted into sys.path and the directory contents are
+# used for the tvtk classes -- note that you must have the following
+# structure tvtk_classes/tvtk_classes/__init__.py.  This is handy for
+# tools like pydev (Eclipse). If neither the tvtk_classes directory or
+# the zip file is found an error is raised.
 
 _zip = join(dirname(__file__), 'tvtk_classes.zip')
-if exists(_zip) and _zip not in sys.path:
+tvtk_class_dir = join(dirname(__file__), 'tvtk_classes')
+
+if exists(tvtk_class_dir) and isdir(tvtk_class_dir):
+    sys.path.append(tvtk_class_dir)
+elif exists(_zip) and _zip not in sys.path:
     sys.path.append(_zip)
-    # Check if the VTK version is the same as that used to build TVTK.
-    from tvtk_classes.vtk_version import vtk_build_version
-    import vtk
-    vtk_version = vtk.vtkVersion().GetVTKVersion()[:3]
-    if vtk_version != vtk_build_version:
-        msg = '*'*80 + "\n" + \
-              'WARNING: Imported VTK version (%s) does not match the one used\n'\
-              '         to build the TVTK classes (%s). This may cause problems.\n'\
-              '         Please rebuild TVTK.\n'%(vtk_version, vtk_build_version) +\
-              '*'*80 + '\n'
-        print msg
+else:
+    msg = """TVTK not built properly.  Unable to find
+          either a directory: %s 
+          or a file: %s
+          with the TVTK classes."""%(tvtk_class_dir, _zip)
+    raise ImportError(msg)
 
-    # Now setup TVTK itself.
-    from tvtk_classes import tvtk_helper
-    tvtk = tvtk_helper.TVTK()
+# Check if the VTK version is the same as that used to build TVTK.
+from tvtk_classes.vtk_version import vtk_build_version
+import vtk
+vtk_version = vtk.vtkVersion().GetVTKVersion()[:3]
+if vtk_version != vtk_build_version:
+    msg = '*'*80 + "\n" + \
+          'WARNING: Imported VTK version (%s) does not match the one used\n'\
+          '         to build the TVTK classes (%s). This may cause problems.\n'\
+          '         Please rebuild TVTK.\n'%(vtk_version, vtk_build_version) +\
+          '*'*80 + '\n'
+    print msg
 
-    # Clean up names users should not see.
-    del tvtk_helper, vtk
+# Now setup TVTK itself.
+from tvtk_classes import tvtk_helper
+tvtk = tvtk_helper.TVTK()
 
-# Clean up names users should not see.
-del _zip, sys, exists, join, dirname
