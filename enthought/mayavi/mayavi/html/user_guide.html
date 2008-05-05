@@ -1,0 +1,1011 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.5: http://docutils.sourceforge.net/" />
+<title>Mayavi2 Users Guide</title>
+<meta name="authors" content="Prabhu Ramachandran  Gael Varoquaux" />
+<style type="text/css">
+
+/* CSS for MayaVi2. Based upon the default docutils CSS.
+ *
+ * defaults.css is included with some modifications. 
+ * Majors changes are added at the end.
+ * We don't use the 'use' css instruction to avoid having a second file.
+ */
+
+/*
+:Author: David Goodger
+:Contact: goodger@users.sourceforge.net
+:Date: $Date: 2005-09-08 09:54:28 +0100 (Thu, 08 Sep 2005) $
+:Version: $Revision: 123 $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+*/
+
+/* "! important" is used here to override other ``margin-top`` and
+   ``margin-bottom`` styles that are later in the stylesheet or 
+   more specific.  See http://www.w3.org/TR/CSS1#the-cascade */
+.first {
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin: 0 auto 0 auto ; 
+  padding: 0 auto 0 auto ;}
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin-left: 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+/*hr.docutils {
+  width: 75% }*/
+
+img.align-left {
+  clear: left }
+
+img.align-right {
+  clear: right }
+
+img.borderless {
+  border: 0 }
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font-family: serif ;
+  font-size: 100% }
+
+/*pre.line-block {
+  font-family: serif ;
+  font-size: 100% }*/
+
+pre.literal-block, pre.doctest-block {
+  margin-left: 2em ;
+  margin-right: 2em ;
+  background-color: #eeeeee }
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid thin gray }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid thin black }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+/*tt.docutils {
+  background-color: #eeeeee }*/
+
+ul.auto-toc {
+  list-style-type: none }
+
+/********************* MayaVi modifications ********************************/
+
+body {
+    max-width: 79ex ; /* Not recognized by IE, but ... */
+    margin: 1px auto 1px auto ;
+    text-align: justify ;
+}
+
+a:visited { color: #EF7811 ; text-decoration: none; font-weight:700; }
+a:link { color: #9b4e00; text-decoration: none; font-weight: 700; }
+a:hover { color: #EF7811; text-decoration: underline; font-weight: 700; }
+/* Internal links */
+a.toc-backref { color: #643200 ; text-decoration: none ;}
+
+h1 {
+    font-size: xx-large ;
+    color : #3c0a00 ;
+    border-color : #3c0a00 ;
+    color: #643200 ;
+    border-color: #643200 ;
+    border-width: 0 0 3px 0 ;
+    border-style: solid ;
+    padding : 0 0 0 1ex ;
+    font-family: sans-serif ; 
+}
+
+
+h2 {
+    font-size: x-large ;
+    padding : 0 0 0 3ex ;
+    color: #643200 ;
+    border-color: #643200 ;
+    border-width: 0 0 2px 0 ;
+    border-style: solid ;
+    font-family: sans-serif ; 
+}
+
+/* An attempt to make list bullets orange */
+.contents li: { color: orange; }
+/*li p { color: black; }*/
+
+/* Code : */
+pre.literal-block {
+    color: #333 ;
+    background-color: #f2eac0;
+    background-repeat: repeat-y;
+    background-position:  right;
+    border: 1px solid;
+    border-color: #999999;
+    margin: 0 2em 0 2em ;
+    padding: 1px;
+}
+
+div.warning {
+    margin: 2em ;
+    border-width: 0 0 0 0 ;
+    color: #660000 ;
+    padding: 0 1em 0.5em 1em }
+
+div.warning p.admonition-title {
+    margin : 0 ;
+    padding: 0 ;
+    color: #ee0000 ;
+    border-width : 0 0 1px 0 ;
+    border-style: solid ;
+}
+
+div.warning p.last {
+    color: #660000 ;
+    margin : 0.5ex 2px 2px 2px ;
+    padding: 0 ;
+    border-width: 0 0 1px 0 ;
+    border-style: solid ;
+    border-color: #660000 ;
+}
+
+div.topic {
+    color: #444 ;
+    border-width : 0 0 1px 0 ;
+    border-style: solid ;
+    background-color: white ;
+    font-family: sans-serif ;
+}
+
+div.topic p {
+    margin: 1px 1em 1px 1em ;
+    font-size: smaller ;
+}
+
+div.topic p.topic-title {
+    font-size: larger ;
+    border-width : 0 0 1px 0 ;
+    border-style: solid;
+    margin: 0 0 2px 0 ;
+    background-color: #f9f9f9 ;
+}
+
+blockquote.epigraph {
+/*    font-size: smaller ;*/
+    font-family: sans-serif ;
+    font-weight : 500 ;
+    padding : 0.5ex 2ex 0.5ex 5ex ;
+    margin: 2px 1ex 2px 1ex ; 
+    background-color: white ;
+    border: solid #e3e3e3 ;
+    border-width : 1px ;
+    background-image: url("quotes.png");
+    background-repeat: no-repeat;
+    /*background-position:  right;*/
+}
+
+blockquote.highlights {
+    font-size: smaller ;
+    font-family: sans-serif ;
+    font-weight : 600 ;
+    border : solid #CCCCCC;
+    border-width : 0 0 0 10px ;
+    padding : 0 0 0 1ex ;
+}
+
+
+div.navigation {
+    font-size: larger ;
+    background-color: black ;
+    color: #f9f9f9 ;
+    padding: 0px 4px 4px 4px; 
+    background-image: url("images/mayavi2-48x48.png");
+    background-repeat: no-repeat;
+    background-position:  right;
+}
+
+a.navigation { 
+    color: #EF7811 ; text-decoration: none; font-weight:900; 
+    padding: 0px 10px 2px 2px; }
+a.navigation:visited { 
+    color: #EF7811 ; text-decoration: none; font-weight:900; 
+    padding: 0px 10px 2px 2px; }
+a.navigation:link { 
+    color: #FF8821; text-decoration: none; font-weight: 900; 
+    padding: 0px 10px 2px 2px; }
+a.navigation:hover { 
+    color: #EF7811; text-decoration: underline; font-weight: 900; 
+    padding: 0px 10px 2px 2px; }
+
+/* The home-made toc */
+div.toc0 { padding: 10px 1px 1px 0em ; font-family: sans-serif ;}
+div.toc1 { padding: 1px 2px 1px 2em ; font-family: sans-serif ;}
+div.toc2 { padding: 1px 2px 1px 4em ; font-family: sans-serif ;}
+a.toc0  { 
+    font-size: large ; font-weight: 700 ;
+    font-family: sans-serif ;}
+a.toc0:visited { 
+    font-size: large ; font-weight: 700 ;
+    font-family: sans-serif ;}
+a.toc0:link { 
+    font-size: large ; font-weight: 700 ;
+    font-family: sans-serif ;}
+a.toc0:hover { 
+    font-size: large ; font-weight: 700 ;
+    font-family: sans-serif ;}
+
+</style>
+</head>
+<body>
+<div class="header">
+Mayavi 2 user guide
+<hr class="header"/>
+</div>
+<div class="document" id="mayavi2-users-guide">
+<h1 class="title">Mayavi2 Users Guide</h1>
+<table class="docinfo" frame="void" rules="none">
+<col class="docinfo-name" />
+<col class="docinfo-content" />
+<tbody valign="top">
+<tr><th class="docinfo-name">Authors:</th>
+<td>Prabhu Ramachandran
+<br />Gael Varoquaux</td></tr>
+<tr><th class="docinfo-name">Contact:</th>
+<td>prabhu[at]aero.iitb.ac.in, gael.varoquaux[at]normalesup.org</td></tr>
+</tbody>
+</table>
+<div class='toc0'><a class='toc0' href='introduction.html#introduction'>
+Introduction
+</a></div>
+
+
+
+
+
+
+
+<div class='toc1'><a class='toc1' href='introduction.html#what-is-mayavi2'>
+What is mayavi2?
+</a></div>
+
+
+
+
+
+
+
+<div class='toc1'><a class='toc1' href='introduction.html#technical-details'>
+Technical details
+</a></div><div class='toc0'><a class='toc0' href='installation.html#installation'>
+Installation
+</a></div>
+
+
+
+
+
+
+
+<div class='toc1'><a class='toc1' href='installation.html#requirements'>
+Requirements
+</a></div>
+
+
+
+
+
+
+
+<div class='toc1'><a class='toc1' href='installation.html#python-packages-eggs'>
+Python packages: eggs
+</a></div>
+
+
+
+
+
+
+
+<div class='toc1'><a class='toc1' href='installation.html#the-bleeding-edge-svn'>
+The bleeding edge: svn
+</a></div>
+
+
+
+
+
+
+
+<div class='toc1'><a class='toc1' href='installation.html#testing-your-installation'>
+Testing your installation
+</a></div><div class='toc0'><a class='toc0' href='overview.html#an-overview-of-mayavi'>
+An overview of mayavi
+</a></div>
+
+
+
+
+
+
+
+<div class='toc1'><a class='toc1' href='overview.html#using-mayavi-as-an-application-or-a-library'>
+Using mayavi as an application, or a library?
+</a></div>
+
+
+
+
+
+
+
+<div class='toc1'><a class='toc1' href='overview.html#scenes-and-visualization-objects'>
+Scenes and visualization objects
+</a></div>
+
+
+
+
+
+
+
+<div class='toc1'><a class='toc1' href='overview.html#loading-data-into-mayavi'>
+Loading data into mayavi
+</a></div><div class='toc0'><a class='toc0' href='examples.html#learning-mayavi-by-example'>
+Learning mayavi by example
+</a></div>
+
+
+
+
+
+
+
+<div class='toc1'><a class='toc1' href='examples.html#parametric-surfaces-example'>
+Parametric surfaces example
+</a></div>
+
+
+
+
+
+
+
+<div class='toc1'><a class='toc1' href='examples.html#heart-vtk-example'>
+Heart.vtk example
+</a></div>
+
+
+
+
+
+
+
+<div class='toc1'><a class='toc1' href='examples.html#fire-ug-vtu-example'>
+Fire_ug.vtu example
+</a></div><div class='toc0'><a class='toc0' href='application.html#using-the-mayavi-application'>
+Using the mayavi application
+</a></div>
+
+
+
+
+
+
+
+<div class='toc1'><a class='toc1' href='application.html#general-layout-of-ui'>
+General layout of ui
+</a></div>
+
+
+
+
+
+
+
+<div class='toc1'><a class='toc1' href='application.html#visualizing-data'>
+Visualizing data
+</a></div>
+
+
+
+
+
+
+
+<div class='toc2'><a class='toc2' href='application.html#modules'>
+Modules
+</a></div>
+
+
+
+
+
+
+
+<div class='toc2'><a class='toc2' href='application.html#filters'>
+Filters
+</a></div>
+
+
+
+
+
+
+
+<div class='toc1'><a class='toc1' href='application.html#interaction-with-the-scene'>
+Interaction with the scene
+</a></div>
+
+
+
+
+
+
+
+<div class='toc2'><a class='toc2' href='application.html#mouse-interaction'>
+Mouse interaction
+</a></div>
+
+
+
+
+
+
+
+<div class='toc2'><a class='toc2' href='application.html#keyboard-interaction'>
+Keyboard interaction
+</a></div>
+
+
+
+
+
+
+
+<div class='toc1'><a class='toc1' href='application.html#the-embedded-python-interpreter'>
+The embedded python interpreter
+</a></div>
+
+
+
+
+
+
+
+<div class='toc1'><a class='toc1' href='application.html#command-line-arguments'>
+Command line arguments
+</a></div><div class='toc0'><a class='toc0' href='mlab.html#simple-scripting-with-mlab'>
+Simple scripting with mlab
+</a></div>
+
+
+
+
+
+
+
+<div class='toc1'><a class='toc1' href='mlab.html#a-demo'>
+A demo
+</a></div>
+
+
+
+
+
+
+
+<div class='toc1'><a class='toc1' href='mlab.html#plotting'>
+Plotting
+</a></div>
+
+
+
+
+
+
+
+<div class='toc1'><a class='toc1' href='mlab.html#handling-figures'>
+Handling figures
+</a></div>
+
+
+
+
+
+
+
+<div class='toc1'><a class='toc1' href='mlab.html#figure-decorations'>
+Figure decorations
+</a></div>
+
+
+
+
+
+
+
+<div class='toc1'><a class='toc1' href='mlab.html#moving-the-camera'>
+Moving the camera
+</a></div>
+
+
+
+
+
+
+
+<div class='toc1'><a class='toc1' href='mlab.html#interacting-graphically-with-the-visualization'>
+Interacting graphically with the visualization
+</a></div>
+
+
+
+
+
+
+
+<div class='toc1'><a class='toc1' href='mlab.html#running-mlab-scripts'>
+Running mlab scripts
+</a></div>
+
+
+
+
+
+
+
+<div class='toc2'><a class='toc2' href='mlab.html#interactively'>
+Interactively
+</a></div>
+
+
+
+
+
+
+
+<div class='toc2'><a class='toc2' href='mlab.html#as-batch-scripts'>
+As batch scripts
+</a></div><div class='toc0'><a class='toc0' href='advanced_scripting.html#advanced-scripting-with-mayavi'>
+Advanced scripting with mayavi
+</a></div>
+
+
+
+
+
+
+
+<div class='toc1'><a class='toc1' href='advanced_scripting.html#design-overview'>
+Design overview
+</a></div>
+
+
+
+
+
+
+
+<div class='toc1'><a class='toc1' href='advanced_scripting.html#scripting-the-mayavi2-application'>
+Scripting the mayavi2 application
+</a></div>
+
+
+
+
+
+
+
+<div class='toc2'><a class='toc2' href='advanced_scripting.html#scripting-from-the-ui'>
+Scripting from the ui
+</a></div>
+
+
+
+
+
+
+
+<div class='toc2'><a class='toc2' href='advanced_scripting.html#scripting-from-ipython'>
+Scripting from ipython
+</a></div>
+
+
+
+
+
+
+
+<div class='toc2'><a class='toc2' href='advanced_scripting.html#an-example'>
+An example
+</a></div>
+
+
+
+
+
+
+
+<div class='toc1'><a class='toc1' href='advanced_scripting.html#using-the-mayavi-envisage-plugins'>
+Using the mayavi envisage plugins
+</a></div><div class='toc0'><a class='toc0' href='data.html#creating-data-for-mayavi'>
+Creating data for mayavi
+</a></div><div class='toc0'><a class='toc0' href='tips.html#tips-and-tricks'>
+Tips and tricks
+</a></div>
+
+
+
+
+
+
+
+<div class='toc1'><a class='toc1' href='tips.html#customizing-the-mayavi2-ui'>
+Customizing the mayavi2 ui
+</a></div>
+
+
+
+
+
+
+
+<div class='toc1'><a class='toc1' href='tips.html#off-screen-rendering'>
+Off screen rendering
+</a></div>
+
+
+
+
+
+
+
+<div class='toc1'><a class='toc1' href='tips.html#using-mlab-with-the-full-envisage-ui'>
+Using mlab with the full envisage ui
+</a></div>
+
+
+
+
+
+
+
+<div class='toc1'><a class='toc1' href='tips.html#scripting-mayavi-without-using-envisage'>
+Scripting mayavi without using envisage
+</a></div>
+
+
+
+
+
+
+
+<div class='toc1'><a class='toc1' href='tips.html#embedding-mayavi-in-your-own-traits-ui'>
+Embedding mayavi in your own traits ui
+</a></div>
+
+
+
+
+
+
+
+<div class='toc1'><a class='toc1' href='tips.html#computing-in-a-thread'>
+Computing in a thread
+</a></div>
+
+
+
+
+
+
+
+<div class='toc1'><a class='toc1' href='tips.html#polling-a-file-and-auto-updating-mayavi'>
+Polling a file and auto-updating mayavi
+</a></div><div class='toc0'><a class='toc0' href='misc.html#miscellaneous'>
+Miscellaneous
+</a></div>
+
+
+
+
+
+
+
+<div class='toc1'><a class='toc1' href='misc.html#tests-for-mayavi2'>
+Tests for mayavi2
+</a></div>
+
+
+
+
+
+
+
+<div class='toc1'><a class='toc1' href='misc.html#getting-help'>
+Getting help
+</a></div>
+
+
+
+
+
+
+
+<div class='toc1'><a class='toc1' href='misc.html#helping-out'>
+Helping out
+</a></div><div class='toc0'><a class='toc0' href='auto_mlab_reference.html#mlab-reference'>
+Mlab reference
+</a></div>
+
+
+
+
+
+
+
+<div class='toc1'><a class='toc1' href='auto_mlab_reference.html#plotting-functions'>
+Plotting functions
+</a></div>
+
+
+
+
+
+
+
+<div class='toc1'><a class='toc1' href='auto_mlab_reference.html#figure-handling-functions'>
+Figure handling functions
+</a></div>
+
+
+
+
+
+
+
+<div class='toc1'><a class='toc1' href='auto_mlab_reference.html#figure-decorations-functions'>
+Figure decorations functions
+</a></div>
+
+
+
+
+
+
+
+<div class='toc1'><a class='toc1' href='auto_mlab_reference.html#camera-handling-functions'>
+Camera handling functions
+</a></div>
+
+
+
+
+
+
+
+<div class='toc1'><a class='toc1' href='auto_mlab_reference.html#misc'>
+Misc
+</a></div><!-- Local Variables:
+mode: rst
+indent-tabs-mode: nil
+sentence-end-double-space: t
+fill-column: 70
+End: -->
+</div>
+</body>
+</html>
