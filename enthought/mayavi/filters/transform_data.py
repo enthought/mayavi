@@ -61,7 +61,8 @@ class TransformData(Filter):
                             Item(name='widget', style='custom', resizable=True),
                             show_labels=False
                             )
-                      )
+                      ),
+                resizable=True
                 )
 
     ########################################
