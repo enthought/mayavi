@@ -24,14 +24,6 @@ from enthought.traits.ui.menu \
 from enthought.mayavi.preferences.api import preference_manager
 
 
-################################################################################
-# Setup a handler to change the confirm_delete class attribute.
-def _confirm_delete_handler(value):
-    Base.confirm_delete = value
-
-preference_manager.root.on_trait_change(_confirm_delete_handler,
-                                        'confirm_delete')
-
 #-------------------------------------------------------------------------------
 #  The core tree node menu actions:
 #-------------------------------------------------------------------------------
@@ -78,11 +70,6 @@ class Base(TreeNodeObject):
     # The human readable type for this object
     type = Str('')
 
-    # Specifies if the nodes on the tree may be deleted without a
-    # confirmation or not.  This is not a trait!
-    # If True the user will be prompted before the object is deleted.
-    # If it is False then the user will not be prompted.
-    confirm_delete = preference_manager.root.confirm_delete
 
     ##################################################
     # Private traits
@@ -222,7 +209,7 @@ class Base(TreeNodeObject):
     def tno_confirm_delete(self, node):
         """Confirms that a specified object can be deleted or not.
         """
-        if self.confirm_delete:
+        if preference_manager.root.confirm_delete:
             return None
         else:
             return True
