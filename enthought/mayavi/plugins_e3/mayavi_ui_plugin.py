@@ -79,9 +79,9 @@ class MayaviUIPlugin(Plugin):
 
     def _preferences_pages_default(self):
         """ Trait initializer. """
-        from enthought.mayavi.preferences.mayavi_preferences_page import \
-            MayaviPreferencesPage
-        return [MayaviPreferencesPage]
+        from enthought.mayavi.preferences.mayavi_preferences_page import (
+            MayaviRootPreferencesPage, MayaviMlabPreferencesPage)
+        return [MayaviRootPreferencesPage, MayaviMlabPreferencesPage]
 
     def _action_sets_default(self):
         """ Trait initializer. """

@@ -5,8 +5,8 @@
 # License: BSD Style.
 
 # Enthought library imports
-from enthought.traits.api import Bool
-from enthought.traits.ui.api import View, Group, Item
+from enthought.traits.api import Bool, Enum, Tuple, Range
+from enthought.traits.ui.api import View, Group, Item, RGBColorEditor
 from enthought.preferences.api import PreferencesHelper
 
 ################################################################################
@@ -32,6 +32,43 @@ class RootPreferencesHelper(PreferencesHelper):
 
     traits_view = View(Group(
                              Item(name='confirm_delete'),
+                             ),
+                       resizable=True
+                      )
+
+
+################################################################################
+# `MlabPreferencesHelper` class
+################################################################################
+class MlabPreferencesHelper(PreferencesHelper):
+
+    # The preferences path for which we use.
+    preferences_path = 'enthought.mayavi.mlab'
+
+    ######################################################################
+    # Our preferences.
+
+    # The mlab backend to use.  
+    backend = Enum('auto', 'envisage', 'simple', 
+                   desc='the mlab backend to use')
+
+    # The background color of the renderer.
+    background_color = Tuple(Range(0., 1.), Range(0., 1.), Range(0., 1.),
+                             editor=RGBColorEditor,
+                             desc='the background color of the scene')
+
+    # The foreground color of the renderer.
+    foreground_color = Tuple(Range(0., 1.), Range(0., 1.), Range(0., 1.),
+                             editor=RGBColorEditor,
+                             desc='the foreground color of the scene')
+
+    ######################################################################
+    # Traits UI view.
+
+    traits_view = View(Group(
+                             Item(name='backend'),
+                             Item(name='background_color'),
+                             Item(name='foreground_color'),
                              ),
                        resizable=True
                       )

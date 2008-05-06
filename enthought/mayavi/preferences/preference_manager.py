@@ -32,7 +32,7 @@ from enthought.preferences.api import (ScopedPreferences, IPreferences,
 
 # Local imports.
 from enthought.mayavi.preferences.preferences_helpers import (
-        RootPreferencesHelper )
+        RootPreferencesHelper, MlabPreferencesHelper )
 
 # The application ID where the preferences are stored.
 ID = 'enthought.mayavi_e3'
@@ -47,6 +47,10 @@ class PreferenceManager(HasTraits):
     # 'enthought.mayavi.preference'.
     root = Instance(PreferencesHelper)
     
+    # The mlab preferences helper for preferences of the form 
+    # 'enthought.mayavi.mlab.preference'.
+    mlab = Instance(PreferencesHelper)
+    
     # The preferences.
     preferences = Instance(IPreferences)
 
@@ -55,6 +59,7 @@ class PreferenceManager(HasTraits):
 
     traits_view = View(Group(
                              Item(name='root', style='custom'),
+                             Item(name='mlab', style='custom'),
                              ),
                        resizable=True
                       )
@@ -75,6 +80,10 @@ class PreferenceManager(HasTraits):
     def _root_default(self):
         """Trait initializer."""
         return RootPreferencesHelper(preferences=self.preferences)
+
+    def _mlab_default(self):
+        """Trait initializer."""
+        return MlabPreferencesHelper(preferences=self.preferences)
 
     ######################################################################
     # Private interface.

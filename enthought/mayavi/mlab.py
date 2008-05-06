@@ -11,8 +11,9 @@ application with the WxWidget mainloop running.
 
 from tools.camera import view, roll
 from tools.figure import figure, clf, gcf, savefig, draw
-from enthought.mayavi.config.config import options 
+from enthought.mayavi.preferences.api import preference_manager
 from tools.config import get_engine, show_engine
+options = preference_manager.mlab
 
 from tools.helper_functions import contour3d, test_contour3d, \
     quiver3d, test_quiver3d, test_quiver3d_2d_data, \

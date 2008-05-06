@@ -5,12 +5,14 @@ This is _very_ temporary. Better will come soon.
 """
 
 # Author: Gael Varoquaux <gael.varoquaux@normalesup.org>
-# Copyright (c) 2007, Enthought, Inc.
+# Copyright (c) 2007-2008, Enthought, Inc.
 # License: BSD Style.
 
-from enthought.mayavi.config.config import options
+from enthought.mayavi.preferences.api import preference_manager
 from enthought.traits.ui.api import View, Item
 from enthought.traits.ui.menu import NoButtons
+
+options = preference_manager.mlab
 
 def get_engine():
     """ Returns the mayavi engine used to create the visualisations.

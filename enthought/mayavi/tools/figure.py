@@ -9,6 +9,7 @@ Functions related to creating the engine or the figures.
 
 # Standard library imports.
 import numpy
+from types import IntType
 
 # Enthought library imports.
 from enthought.tvtk.api import tvtk
@@ -16,15 +17,28 @@ from enthought.tvtk.api import tvtk
 # Mayavi imports
 from camera import view
 from config import get_engine
-from enthought.mayavi.config.config import options
+from enthought.mayavi.preferences.api import preference_manager
 
-from types import IntType
+
+options = preference_manager.mlab
 
 ######################################################################
 
-def figure(name=None):
+def figure(name=None, background=None, foreground=None):
     """ Creates a new scene or retrieves an existing scene. If the mayavi
     engine is not running this also starts it.
+
+    Parameters:
+    -----------
+
+    name -- A string specifying the name of the scene.
+
+    background -- A 3-tuple of floats in the range [0,1] specifying the
+    background color to use on the scene.
+
+    foreground -- A 3-tuple of floats in the range [0,1] specifying the
+    foreground color to use on the scene.
+
     """
     engine = get_engine()
     if type(name) == IntType:
@@ -41,10 +55,13 @@ def figure(name=None):
         engine.new_scene()
     view(40, 50)
     fig = engine.current_scene
-    #FIXME: we need a configuration framework, and not custom solutions
-    # like this one
-    fig.scene.background = options.scene.background 
-    fig.scene.foreground = options.scene.foreground
+    if background is None:
+        background = options.background_color
+    if foreground is None:
+        foreground = options.foreground_color
+
+    fig.scene.background = background
+    fig.scene.foreground = foreground
     return fig
 
 def gcf():
