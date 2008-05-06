@@ -8,14 +8,8 @@ MayaVi2:
    - Make the viewer used in standalone more versatile (make it easy to
      control what goes on the toolbar and in the menus.
     
-   - Traits3 support. (p/g)
    - Transfer editor for images. (g)
 
-   - Trunk versions.
-   - Envisage 3.
-
-   - Configuration options for an application at every level -- do we use
-     tconfig?
    - Right click on tree view to get full functionality.
    - Context sensitive menus.
    - Persistence to use a better approach.
@@ -23,7 +17,7 @@ MayaVi2:
    - Easier interface to open data files.
    - Multiblock data support.
    - Improve user guide, add more devel info.
-   - Support for animation .
+   - Support for animation.
    - Add a "remove_from_visualization" method on pipeline objects.
    - Clean up the doc generation scripts (g).
 
