@@ -19,7 +19,7 @@ from enthought.persistence.file_path import FilePath
 
 # Local imports.
 from enthought.mayavi.core.source import Source
-from enthought.mayavi.core.common import handle_children_state
+from enthought.mayavi.core.common import handle_children_state, error
 
 
 ########################################################################
@@ -131,6 +131,10 @@ class PLOT3DReader(Source):
         time series, this initializes the list of files.  This method
         need not be called to initialize the data.
         """
+        # First set properties of the reader.  This is useful when the
+        # data format has atypical defaults.  Automatic detection can be
+        # disastrous sometimes due to VTK related problems.
+        self.reader.edit_traits(kind='livemodal')
         self.xyz_file_name = xyz_file_name
         if len(q_file_name) > 0:
             self.q_file_name = q_file_name
@@ -164,32 +168,51 @@ class PLOT3DReader(Source):
     def _update_reader_output(self):
         r = self.reader
         r.update()
-        if r.output.points is None:
+
+        if r.error_code != 0:
             try:
                 self.reader.i_blanking = True
             except AttributeError:
                 pass
-        r.update()
+            else:
+                r.update()
+
         # Try reading file.
-        if r.output.points is None:
+        if r.error_code != 0:
             # No output so the file might be an ASCII file.
             try:
                 # Turn off IBlanking.
                 r.set(i_blanking = False, binary_file = False)
             except AttributeError:
                 pass
-            
+            else:
+                r.update()
+
         # Try again this time as ascii and with blanking.
-        r.update()
-        if r.output.points is None:
+        if r.error_code != 0:
             # No output so the file might be an ASCII file.
             try:
                 # Turn on IBlanking.
                 r.i_blanking = True
             except AttributeError:
                 pass
+            else:
+                r.update()
 
-        r.update()
+        # If there still is an error, ask the user.
+        if r.error_code != 0:
+            r.edit_traits(kind='livemodal')
+            r.update()
+
+        # If there still is an error, ask the user to retry.
+        if r.error_code != 0:
+            msg = 'Unable to read file properly. '\
+                  'Please check the settings of the reader '\
+                  'on the UI and press the "Update Reader" button '\
+                  'when done and try again!'
+            error(msg)            
+            return
+
         # Now setup the outputs by resetting self.outputs.  Changing
         # the outputs automatically fires a pipeline_changed event.
         try:
@@ -224,7 +247,7 @@ class PLOT3DReader(Source):
 
     def _update_reader_fired(self):
         self.reader.modified()
-        self.update()
+        self._update_reader_output()
         self.pipeline_changed = True
 
     def _get_name(self):
