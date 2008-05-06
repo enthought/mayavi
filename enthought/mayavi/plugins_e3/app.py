@@ -119,7 +119,9 @@ class Mayavi(HasTraits):
             plugins = get_plugins()
 
         # Create the application
-        app = MayaviWorkbenchApplication(plugins=plugins)
+        prefs = preference_manager.preferences
+        app = MayaviWorkbenchApplication(plugins=plugins,
+                                         preferences=prefs)
         self.application = app
 
         setup_logger(logger, 'mayavi.log', mode=self.log_mode)
@@ -172,10 +174,6 @@ class Mayavi(HasTraits):
         """
         app = app_event.application
 
-        # Set the preference manager's preferences to that of the
-        # application.
-        preference_manager.preferences = app.preferences
-        
         # This in turn calls the testing code once the GUI mainloop is
         # running.
         g = app.gui
