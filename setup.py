@@ -21,6 +21,10 @@ def configuration(parent_package='', top_path=None):
     config.add_data_dir('enthought/mayavi/images')
     config.add_data_dir('enthought/mayavi/view/images')
 
+    # *.ini files.
+    config.add_data_dir('enthought/tvtk/plugins_e3/scene')
+    config.add_data_dir('enthought/mayavi/preferences')
+
     return config
 
 
