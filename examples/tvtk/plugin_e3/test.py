@@ -137,7 +137,7 @@ def main():
                                        )
     # This needs to be done here since the ETSConfig.application_home is
     # not set correctly up to this point.
-    setup_logger(logger, 'test.log', mode=logging.CRITICAL)
+    setup_logger(logger, 'test.log', mode=logging.DEBUG)
 
     application.gui.on_trait_change(lambda value: bind_object(value, application), 
                                     'started')
