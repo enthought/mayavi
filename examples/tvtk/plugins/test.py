@@ -21,9 +21,9 @@ from enthought.envisage.ui.workbench.api import WorkbenchApplication
 from enthought.envisage.core_plugin import CorePlugin
 from enthought.envisage.ui.workbench.workbench_plugin import WorkbenchPlugin
 from enthought.plugins.python_shell.python_shell_plugin import PythonShellPlugin
-from enthought.tvtk.plugins_e3.scene.scene_plugin import ScenePlugin
-from enthought.tvtk.plugins_e3.scene.ui.scene_ui_plugin import SceneUIPlugin
-from enthought.tvtk.plugins_e3.browser.browser_plugin import BrowserPlugin
+from enthought.tvtk.plugins.scene.scene_plugin import ScenePlugin
+from enthought.tvtk.plugins.scene.ui.scene_ui_plugin import SceneUIPlugin
+from enthought.tvtk.plugins.browser.browser_plugin import BrowserPlugin
 from enthought.pyface.workbench.api import Perspective, PerspectiveItem
 
 
@@ -45,7 +45,7 @@ class TestPerspective(Perspective):
     show_editor_area = True
 
     # View IDs.
-    BROWSER_VIEW = 'enthought.tvtk.plugins_e3.browser.browser_view.BrowserView'
+    BROWSER_VIEW = 'enthought.tvtk.plugins.browser.browser_view.BrowserView'
     SHELL_VIEW = 'enthought.plugins.python_shell.view.python_shell_view.PythonShellView'
 
     # The contents of the perspective.
@@ -113,7 +113,7 @@ def bind_object(value, app):
     id = 'enthought.plugins.python_shell.view.python_shell_view.PythonShellView'
     py = app.workbench.active_window.get_view_by_id(id)
 
-    id = 'enthought.tvtk.plugins_e3.scene.i_scene_manager.ISceneManager'
+    id = 'enthought.tvtk.plugins.scene.i_scene_manager.ISceneManager'
     sm = app.workbench.active_window.get_service(id)
     py.bind('scene_manager', sm)
 
@@ -131,7 +131,7 @@ def main():
                PythonShellPlugin(),
                ]
     # Create an Envisage application.
-    id = 'enthought.tvtk.examples.plugin_e3.test'
+    id = 'enthought.tvtk.examples.plugins.test'
     application = WorkbenchApplication(id=id,
                                        plugins = plugins 
                                        )
