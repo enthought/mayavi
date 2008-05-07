@@ -54,10 +54,10 @@ def get_plugins():
     from enthought.envisage.core_plugin import CorePlugin
     from enthought.envisage.ui.workbench.workbench_plugin import WorkbenchPlugin
     from enthought.plugins.python_shell.python_shell_plugin import PythonShellPlugin
-    from enthought.tvtk.plugins_e3.scene.scene_plugin import ScenePlugin
-    from enthought.tvtk.plugins_e3.scene.ui.scene_ui_plugin import SceneUIPlugin
-    from enthought.mayavi.plugins_e3.mayavi_plugin import MayaviPlugin
-    from enthought.mayavi.plugins_e3.mayavi_ui_plugin import MayaviUIPlugin
+    from enthought.tvtk.plugins.scene.scene_plugin import ScenePlugin
+    from enthought.tvtk.plugins.scene.ui.scene_ui_plugin import SceneUIPlugin
+    from enthought.mayavi.plugins.mayavi_plugin import MayaviPlugin
+    from enthought.mayavi.plugins.mayavi_ui_plugin import MayaviUIPlugin
     plugins = [CorePlugin(),
                WorkbenchPlugin(),
                MayaviPlugin(),
@@ -85,7 +85,7 @@ class Mayavi(HasTraits):
     application = Instance('enthought.envisage.ui.workbench.api.WorkbenchApplication')
 
     # The MayaVi Script instance.
-    script = Instance('enthought.mayavi.plugins_e3.script.Script')
+    script = Instance('enthought.mayavi.plugins.script.Script')
 
     # The logging mode.
     log_mode = Int(logging.ERROR, desc='the logging mode to use')
@@ -186,7 +186,7 @@ class Mayavi(HasTraits):
         if not value:
             return
         # Setup the script instances.
-        from enthought.mayavi.plugins_e3.script import Script
+        from enthought.mayavi.plugins.script import Script
         self.script = app.workbench.active_window.get_service(Script)
         script = self.script
         script.engine.start()

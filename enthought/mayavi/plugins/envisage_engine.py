@@ -6,15 +6,17 @@
 
 # Enthought library imports.
 from enthought.traits.api import Instance
-from enthought.tvtk.plugins.scene.services import ITVTKSCENE
-from enthought.tvtk.plugins.scene import scene_editor
-from enthought.tvtk.plugins.scene.actions import NewScene
+from enthought.tvtk.plugins.scene.i_scene_manager import \
+            ISceneManager
+from enthought.tvtk.plugins.scene.ui.actions import NewScene
+from enthought.tvtk.plugins.scene import scene_editor 
 from enthought.pyface.api import GUI
+from enthought.pyface.workbench.api import WorkbenchWindow
 
 # Local imports.
 from enthought.mayavi.core.scene import Scene
-from enthought.mayavi.preference_manager import PreferenceManager
-from enthought.mayavi.engine import Engine, get_active_window
+#from enthought.mayavi.preference_manager import PreferenceManager
+from enthought.mayavi.engine import Engine
 
 
 ######################################################################
@@ -26,10 +28,10 @@ class EnvisageEngine(Engine):
     __version__ = 0
 
     # The envisage application.
-    application = Instance('enthought.envisage.core.application.Application')
+    window = Instance(WorkbenchWindow)
 
     # The preference manager.
-    preference_manager = Instance(PreferenceManager)
+    #preference_manager = Instance(PreferenceManager)
     
     ######################################################################
     # `object` interface
@@ -48,21 +50,19 @@ class EnvisageEngine(Engine):
         starts."""
         
         # Add all the existing scenes from the scene plugin.
-        instance = self.application.get_service(ITVTKSCENE)
-        for editor in instance.editors:
-            scene = Scene(scene=editor.scene, name=editor.name)
-            scene.sync_trait('name', editor)
-            scene.start()
-            self.scenes.append(scene)
+        scene_manager = self.window.get_service(ISceneManager)
+        for scene in scene_manager.scenes:
+            self.add_scene(scene)
 
         # Create the preference manager.  We do this here since at
         # this point we are guaranteed that the mayavi2 plugin is
         # running.
-        self.preference_manager = PreferenceManager(engine=self)
+        #self.preference_manager = PreferenceManager(engine=self)
         
         # Setup a handler that is invoked when a new Scene is
         # added/removed.
-        instance.on_trait_change(self._scene_editors_changed, 'editors_items')
+        scene_manager.on_trait_change(self._scene_editors_changed,
+                                      'scenes_items')
 
         # Call the parent start method.
         super(EnvisageEngine, self).start()
@@ -70,9 +70,8 @@ class EnvisageEngine(Engine):
     def new_scene(self):
         """Creates a new VTK scene window.
         """
-        active_window = get_active_window(self.application)
-        action = NewScene(window=active_window)
-        action.perform()
+        action = NewScene(window=self.window)
+        action.perform(None)
         
         # Flush the UI.
         GUI.process_events()
@@ -81,7 +80,7 @@ class EnvisageEngine(Engine):
     def close_scene(self, scene):
         """Given a VTK scene instance, this method closes it.
         """
-        active_window = get_active_window(self.application)
+        active_window = self.window 
         s = scene.scene
         for editor in active_window.editors[:]:
             if isinstance(editor, scene_editor.SceneEditor):
@@ -96,18 +95,11 @@ class EnvisageEngine(Engine):
     ######################################################################
     def _scene_editors_changed(self, list_event):
         """This is called when the items of the editors trait of the
-        ScenePlugin change.  This is used to update `self.scenes`."""
+        SceneManager change.  This is used to update `self.scenes`."""
         # Remove any removed scenes.
-        for editor in list_event.removed:
-            scene = editor.scene
-            remove = [x for x in self.scenes if x.scene == scene]
-            for x in remove:
-                x.stop()
-                self.scenes.remove(x)
+        for scene in list_event.removed:
+            self.remove_scene(scene)
         # Add any new scenes.
-        for editor in list_event.added:
-            scene = Scene(scene=editor.scene, name=editor.name)
-            scene.sync_trait('name', editor)
-            scene.start()
-            self.scenes.append(scene)
+        for scene in list_event.added:
+            self.add_scene(scene)
 

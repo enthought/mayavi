@@ -1,14 +1,12 @@
 """This represents the scripting API for MayaVi.
 
-The Script class provides a scriptable view of the MayaVi Engine.
-Users should really use the mayavi.services.IMAYAVI service to get
-hold of a script instance.  However, it is safe to instantiate as many
-Script instances as desired.
+The Script class provides a scriptable view of the MayaVi Engine.  It is
+safe to instantiate as many Script instances as desired.
 
 """
 
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2005, Enthought, Inc.
+# Copyright (c) 2005-2008, Enthought, Inc.
 # License: BSD Style.
 
 # Enthought imports
@@ -17,7 +15,6 @@ from enthought.traits.api import HasTraits, Instance
 # Local imports
 from enthought.mayavi.engine import Engine, get_active_window
 from enthought.mayavi.core.common import exception
-from enthought.mayavi.services import IMAYAVI_ENGINE, IMAYAVI
 
 
 ##############################################################################

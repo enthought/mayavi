@@ -85,7 +85,7 @@ class MayaviUIPlugin(Plugin):
 
     def _action_sets_default(self):
         """ Trait initializer. """
-        from enthought.mayavi.plugins_e3.mayavi_ui_action_set import (
+        from enthought.mayavi.plugins.mayavi_ui_action_set import (
             MayaviUIActionSet
         )
         return [MayaviUIActionSet]
@@ -97,7 +97,7 @@ class MayaviUIPlugin(Plugin):
         """ Factory method for engine views. """
         from enthought.pyface.workbench.traits_ui_view import \
                 TraitsUIView
-        from enthought.mayavi.plugins_e3.engine_view import \
+        from enthought.mayavi.plugins.engine_view import \
                             EngineView
 
         engine_view = EngineView(engine=self._get_engine(window))

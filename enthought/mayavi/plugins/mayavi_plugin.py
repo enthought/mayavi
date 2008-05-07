@@ -5,7 +5,7 @@
 # License: BSD Style.
 
 from enthought.traits.api import List
-from enthought.envisage.api import Plugin, ServiceFactory
+from enthought.envisage.api import Plugin, ServiceOffer
 
 # This module's package.
 PKG = '.'.join(__name__.split('.')[:-1])
@@ -18,7 +18,7 @@ ID = 'enthought.mayavi'
 class MayaviPlugin(Plugin):
 
     # Extension point Ids.
-    SERVICE_FACTORIES = 'enthought.envisage.service_factories'
+    SERVICE_OFFERS = 'enthought.envisage.ui.workbench.service_offers'
     PREFERENCES       = 'enthought.envisage.preferences'
 
     # The plugins name.
@@ -27,7 +27,7 @@ class MayaviPlugin(Plugin):
     ###### Contributions to extension points made by this plugin ######
 
     # Services we contribute.
-    service_factories = List(contributes_to=SERVICE_FACTORIES)
+    service_offers = List(contributes_to=SERVICE_OFFERS)
 
     # Preferences.
     preferences = List(contributes_to=PREFERENCES)
@@ -39,18 +39,16 @@ class MayaviPlugin(Plugin):
 
     ######################################################################
     # Private methods.
-    def _service_factories_default(self):
+    def _service_offers_default(self):
         """ Trait initializer. """
-        engine_service_factory = ServiceFactory(
+        engine_service_offer = ServiceOffer(
             protocol = 'enthought.mayavi.engine.Engine',
-            factory  = PKG + '.envisage_engine.EnvisageEngine',
-            scope    = 'window'
+            factory  = PKG + '.envisage_engine.EnvisageEngine'
         )
 
-        script_service_factory = ServiceFactory(
-            protocol = 'enthought.mayavi.plugins_e3.script.Script',
-            factory  = PKG + '.script.Script',
-            scope    = 'window'
+        script_service_offer = ServiceOffer(
+            protocol = 'enthought.mayavi.plugins.script.Script',
+            factory  = PKG + '.script.Script'
         )
-        return [engine_service_factory, script_service_factory]
+        return [engine_service_offer, script_service_offer]
 
