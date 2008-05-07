@@ -11,8 +11,8 @@ from enthought.envisage.api import Service
 from enthought.pyface.api import GUI
 
 # MayaVi related imports.
-from enthought.mayavi.plugins_e3.script import Script
-from enthought.mayavi.plugins_e3.app import Mayavi
+from enthought.mayavi.plugins.script import Script
+from enthought.mayavi.plugins.app import Mayavi
 
 def get_application():
     return Service.application

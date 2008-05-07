@@ -13,7 +13,7 @@ from enthought.pyface.api import FileDialog, OK
 from enthought.pyface.action.api import Action
 
 # Local imports
-from enthought.mayavi.plugins_e3.script import get_imayavi
+from enthought.mayavi.plugins.script import get_imayavi
 from enthought.mayavi.core.common import error
 
 

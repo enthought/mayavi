@@ -411,7 +411,7 @@ if ('-V' in sys.argv[1:]) or ('--version' in sys.argv[1:]):
 
 # Importing here to avoid time-consuming import when user only wanted
 # version/help information.
-from enthought.mayavi.plugins_e3.app import Mayavi
+from enthought.mayavi.plugins.app import Mayavi
 
 ##########################################################################
 # `MayaviApp` class
