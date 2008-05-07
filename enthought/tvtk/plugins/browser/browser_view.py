@@ -32,7 +32,7 @@ class BrowserView(View):
 
     # The scene manager.
     scene_manager = Instance(
-        'enthought.tvtk.plugins_e3.scene.i_scene_manager.ISceneManager'
+        'enthought.tvtk.plugins.scene.i_scene_manager.ISceneManager'
     )
 
     ###########################################################################

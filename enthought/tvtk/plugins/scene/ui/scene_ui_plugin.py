@@ -34,7 +34,7 @@ class SceneUIPlugin(Plugin):
     def _action_sets_default(self):
         """ Trait initializer. """
 
-        from enthought.tvtk.plugins_e3.scene.ui.scene_ui_action_set import (
+        from enthought.tvtk.plugins.scene.ui.scene_ui_action_set import (
             SceneUIActionSet
         )
         
@@ -45,7 +45,7 @@ class SceneUIPlugin(Plugin):
     def _preferences_pages_default(self):
         """ Trait initializer. """
         
-        from enthought.tvtk.plugins_e3.scene.ui.scene_preferences_page import (
+        from enthought.tvtk.plugins.scene.ui.scene_preferences_page import (
             ScenePreferencesPage
         )
 

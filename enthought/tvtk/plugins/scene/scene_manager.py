@@ -6,7 +6,7 @@ from enthought.pyface.tvtk.tvtk_scene import TVTKScene
 from enthought.pyface.workbench.api import WorkbenchWindow
 from enthought.traits.api import HasTraits, List, Instance, Property
 from enthought.traits.api import implements, on_trait_change
-from enthought.tvtk.plugins_e3.scene.scene_editor import SceneEditor
+from enthought.tvtk.plugins.scene.scene_editor import SceneEditor
 
 # Local imports.
 from i_scene_manager import ISceneManager
