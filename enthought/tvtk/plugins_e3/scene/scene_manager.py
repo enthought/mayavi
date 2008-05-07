@@ -78,6 +78,10 @@ class SceneManager(HasTraits):
         """ Dynamic trait change handler. """
 
         if isinstance(new, SceneEditor):
+            # Disable renders to prevent render calls at this time when
+            # the window is dead.  If this is not done, we get
+            # PyDeadObjectErrors.
+            new.scene.disable_render = True
             self.scenes.remove(new.scene)
             
         return
