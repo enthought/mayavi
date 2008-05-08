@@ -28,7 +28,7 @@ class MayaviPerspective(Perspective):
     show_editor_area = True
 
     # View IDs.
-    ENGINE_VIEW = PKG + '.engine_view.EngineView'
+    ENGINE_VIEW = 'enthought.mayavi.view.engine_view.EngineView'
     CURRENT_SELECTION_VIEW = PKG + '.current_selection'
     SHELL_VIEW = 'enthought.plugins.python_shell.view.python_shell_view.PythonShellView'
 
@@ -97,7 +97,7 @@ class MayaviUIPlugin(Plugin):
         """ Factory method for engine views. """
         from enthought.pyface.workbench.traits_ui_view import \
                 TraitsUIView
-        from enthought.mayavi.plugins.engine_view import \
+        from enthought.mayavi.view.engine_view import \
                             EngineView
 
         engine_view = EngineView(engine=self._get_engine(window))
