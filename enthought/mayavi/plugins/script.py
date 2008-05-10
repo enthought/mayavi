@@ -13,7 +13,7 @@ safe to instantiate as many Script instances as desired.
 from enthought.traits.api import HasTraits, Instance
 
 # Local imports
-from enthought.mayavi.engine import Engine, get_active_window
+from enthought.mayavi.core.engine import Engine
 from enthought.mayavi.core.common import exception
 
 

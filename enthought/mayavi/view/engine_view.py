@@ -16,7 +16,7 @@ from enthought.resource.resource_path import resource_path
 from enthought.pyface.image_resource import ImageResource
 
 # Local imports.
-from enthought.mayavi.engine import Engine
+from enthought.mayavi.core.engine import Engine
 from enthought.mayavi.core.base import Base
 
 ##############################################################################

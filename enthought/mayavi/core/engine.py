@@ -3,7 +3,7 @@ highest level.
 
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2005-2007, Enthought, Inc.
+# Copyright (c) 2005-2008, Enthought, Inc.
 # License: BSD Style.
 
 # Standard library imports.
@@ -25,18 +25,6 @@ from enthought.mayavi.core.common import error
 ######################################################################
 # Utility functions.
 ######################################################################
-def get_active_window(app):
-    """Get the currently active window given the current Envisage
-    application.
-
-    Note: This code is here and not in `envisage_engine.py` to avoid
-    API breakage.  The code does not require an envisage import either
-    which makes this acceptable.
-    """
-    wb = app.get_service('enthought.envisage.workbench.IWorkbench')
-    return wb.active_window
-
-
 def _scene_id_generator():
     """Returns a sequence of numbers for the title of the scene
     window."""

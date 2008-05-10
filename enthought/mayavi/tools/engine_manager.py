@@ -6,7 +6,7 @@ Singleton class holding the engine.
 # Copyright (c) 2007, Enthought, Inc.
 # License: BSD Style.
 
-from enthought.mayavi.engine import Engine
+from enthought.mayavi.core.engine import Engine
 
 ######################################################################
 # EngineManager singleton class

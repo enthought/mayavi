@@ -16,7 +16,7 @@ from enthought.pyface.workbench.api import WorkbenchWindow
 # Local imports.
 from enthought.mayavi.core.scene import Scene
 #from enthought.mayavi.preference_manager import PreferenceManager
-from enthought.mayavi.engine import Engine
+from enthought.mayavi.core.engine import Engine
 
 
 ######################################################################

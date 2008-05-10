@@ -17,7 +17,7 @@ It can be run as:
 from os.path import join, abspath
 
 # The core Engine.
-from enthought.mayavi.engine import Engine
+from enthought.mayavi.core.engine import Engine
 
 # Usual MayaVi imports
 from enthought.mayavi.scripts.util import get_data_dir

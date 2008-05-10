@@ -11,7 +11,7 @@ from os.path import join, abspath
 
 from enthought.pyface.api import GUI
 # The core Engine.
-from enthought.mayavi.engine import Engine
+from enthought.mayavi.core.engine import Engine
 from enthought.mayavi.view.engine_view import EngineView
 # Usual MayaVi imports
 from enthought.mayavi.scripts.util import get_data_dir

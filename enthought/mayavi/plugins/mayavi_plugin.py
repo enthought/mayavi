@@ -42,7 +42,7 @@ class MayaviPlugin(Plugin):
     def _service_offers_default(self):
         """ Trait initializer. """
         engine_service_offer = ServiceOffer(
-            protocol = 'enthought.mayavi.engine.Engine',
+            protocol = 'enthought.mayavi.core.engine.Engine',
             factory  = PKG + '.envisage_engine.EnvisageEngine'
         )
 

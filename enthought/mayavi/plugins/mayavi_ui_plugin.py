@@ -130,5 +130,5 @@ class MayaviUIPlugin(Plugin):
 
     def _get_engine(self, window):
         """Return the Mayavi engine of the particular window."""
-        from enthought.mayavi.engine import Engine
+        from enthought.mayavi.core.engine import Engine
         return window.get_service(Engine)
