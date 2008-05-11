@@ -12,7 +12,8 @@ import logging
 # Enthought library imports.
 from enthought.logger.api import LogFileHandler, FORMATTER
 from enthought.etsconfig.api import ETSConfig
-from enthought.traits.api import HasTraits, Instance, Int
+from enthought.traits.api import (HasTraits, Instance, Int,
+    on_trait_change)
 
 # Local imports.
 from mayavi_workbench_application import MayaviWorkbenchApplication
@@ -77,7 +78,7 @@ class Mayavi(HasTraits):
     """The Mayavi application class.
 
     This class may be easily subclassed to do something different.
-    For example, the way to script MayaVi (as a standalone application
+    For example, one way to script MayaVi (as a standalone application
     and not interactively) is to subclass this and do the needful.
     """
 
@@ -124,10 +125,8 @@ class Mayavi(HasTraits):
                                          preferences=prefs)
         self.application = app
 
+        # Setup the logger.
         setup_logger(logger, 'mayavi.log', mode=self.log_mode)
-        # Arrange a the callback to be called on application's started
-        # event.  This can be used to script mayavi.
-        app.on_trait_change(self._start, 'started')
 
         # Start the application.
         app.run()
@@ -167,47 +166,29 @@ class Mayavi(HasTraits):
     ######################################################################
     # Non-public interface.
     ######################################################################
-    def _start(self, app_event):
-        """This callback is called as soon as Envisage starts up.  The
-        argument to this function is the
-        enthought.envisage.Application singleton instance.
-        """
-        app = app_event.application
+    @on_trait_change('application.gui:started')
+    def _on_application_gui_started(self, obj, trait_name, old, new):
 
-        # This in turn calls the testing code once the GUI mainloop is
-        # running.
-        g = app.gui
-        g.on_trait_change(lambda value: self._bind_name_to_shell(value,app),
-                          'started') 
-        g.on_trait_change(lambda : g.invoke_later(self.run), 'started')
+        """This is called as soon as  the Envisage GUI starts
+        up.   The method is responsible for setting our script instance   """
 
-
-    def _bind_name_to_shell(self, value, app):
-        if not value:
+        if trait_name != 'started' or not new:
             return
-        # Setup the script instances.
+        app = self.application
         from enthought.mayavi.plugins.script import Script
-        self.script = app.workbench.active_window.get_service(Script)
-        script = self.script
-        script.engine.start()
-
-        id = 'enthought.plugins.python_shell.view.python_shell_view.PythonShellView'
-        py = app.workbench.active_window.get_view_by_id(id)
-        if py is None:
-            logger.error('*'*80)
-            logger.error("Can't find the Python shell view to bind variables")
-            return
-
-        py.bind('mayavi', script)
-        py.bind('mayavi_app', script.engine)
-   
+        window = app.workbench.active_window
+        # Set our script instance.
+        self.script = window.get_service(Script)
+        # Call self.run from the GUI thread.
+        app.gui.invoke_later(self.run)
+  
 
 def main(argv=None):
     """Simple helper to start up the mayavi application.  This returns
-    the running ``Script`` instance."""
+    the running application."""
     m = Mayavi()
     m.main(argv)
-    return m.script
+    return m
 
 if __name__ == '__main__':
     main(sys.argv[1:])

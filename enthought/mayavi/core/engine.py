@@ -11,9 +11,9 @@ highest level.
 import vtk
 
 # Enthought library imports.
-from enthought.traits.api import HasStrictTraits, List, Str, \
-                                 Property, Instance, Event, \
-                                 HasTraits, Callable, Dict
+from enthought.traits.api import (HasStrictTraits, List, Str, 
+        Property, Instance, Event, HasTraits, Callable, Dict,
+        Bool)
 from enthought.traits.ui.api import View, Item
 from enthought.persistence import state_pickler
 
@@ -73,7 +73,9 @@ class Engine(HasStrictTraits):
     # load saved visualizations using the new scene.  Handy for things
     # like off-screen rendering.
     scene_factory = Callable
-    
+   
+    # Are we running?
+    running = Bool(False)
 
     ########################################
     # Private traits.
@@ -136,9 +138,10 @@ class Engine(HasStrictTraits):
         starts."""
         # Notify any listeners that the engine is started.
         self.started = self
+        self.running = True
 
     def stop(self):
-        pass
+        self.running = False
 
     def add_source(self, src, scene=None):
         """Adds a source to the pipeline. Uses the current scene unless a

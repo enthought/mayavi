@@ -5,7 +5,7 @@
 # License: BSD Style.
 
 # Enthought library imports.
-from enthought.traits.api import Instance
+from enthought.traits.api import Instance, Bool, on_trait_change
 from enthought.tvtk.plugins.scene.i_scene_manager import \
             ISceneManager
 from enthought.tvtk.plugins.scene.ui.actions import NewScene
@@ -15,7 +15,6 @@ from enthought.pyface.workbench.api import WorkbenchWindow
 
 # Local imports.
 from enthought.mayavi.core.scene import Scene
-#from enthought.mayavi.preference_manager import PreferenceManager
 from enthought.mayavi.core.engine import Engine
 
 
@@ -30,9 +29,6 @@ class EnvisageEngine(Engine):
     # The envisage application.
     window = Instance(WorkbenchWindow)
 
-    # The preference manager.
-    #preference_manager = Instance(PreferenceManager)
-    
     ######################################################################
     # `object` interface
     ######################################################################
@@ -46,19 +42,18 @@ class EnvisageEngine(Engine):
     # `Engine` interface
     ######################################################################
     def start(self):
-        """This is called by the plugin when the plugin actually
-        starts."""
+        """This starts the engine.  Only after the engine starts is it
+        possible to use mayavi.  This particular method is called
+        automatically when the window is opened."""
+
+        if self.running:
+            return
         
         # Add all the existing scenes from the scene plugin.
         scene_manager = self.window.get_service(ISceneManager)
         for scene in scene_manager.scenes:
             self.add_scene(scene)
 
-        # Create the preference manager.  We do this here since at
-        # this point we are guaranteed that the mayavi2 plugin is
-        # running.
-        #self.preference_manager = PreferenceManager(engine=self)
-        
         # Setup a handler that is invoked when a new Scene is
         # added/removed.
         scene_manager.on_trait_change(self._scene_editors_changed,
@@ -66,6 +61,10 @@ class EnvisageEngine(Engine):
 
         # Call the parent start method.
         super(EnvisageEngine, self).start()
+
+    def stop(self):
+        # Call the parent stop method.
+        super(EnvisageEngine, self).stop()
 
     def new_scene(self):
         """Creates a new VTK scene window.
@@ -103,3 +102,8 @@ class EnvisageEngine(Engine):
         for scene in list_event.added:
             self.add_scene(scene)
 
+    @on_trait_change('window:opened')
+    def _on_window_opened(self, obj, trait_name, old, new):
+        """We start the engine when the window is opened.""" 
+        if trait_name == 'opened':
+            self.start()
