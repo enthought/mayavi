@@ -15,7 +15,6 @@ import scipy
 from enthought.traits.api import HasTraits, Button, Instance, \
      Any, Str, Array
 from enthought.traits.ui.api import Item, View, TextEditor
-from enthought.mayavi.services import IMAYAVI
 
 
 ######################################################################
@@ -30,9 +29,8 @@ class Explorer3D(HasTraits):
     ########################################
     # Traits.
     
-    # Set by envisage when this is instantiated using the
-    # ApplicationObject.
-    application = Instance('enthought.envisage.core.application.Application')
+    # Set by envisage when this is offered as a service offer.
+    window = Instance('enthought.pyface.workbench.api.WorkbenchWindow')
 
     # The equation that generates the scalar field.
     equation = Str('sin(x*y*z)/(x*y*z)',
@@ -101,7 +99,8 @@ class Explorer3D(HasTraits):
         # changes to our application trait.
 
     def get_mayavi(self):
-        return self.application.get_service(IMAYAVI)
+        from enthought.mayavi.plugins.script import Script
+        return self.window.get_service(Script)
 
     ######################################################################
     # Non-public methods.
@@ -216,7 +215,7 @@ class Explorer3D(HasTraits):
             return
         self.source.scalar_data = value
         
-    def _application_changed(self):
+    def _window_changed(self):
         m = self.get_mayavi()
         # Show the data once the mayavi engine has started.
         m.engine.on_trait_change(self._show_data, 'started')
