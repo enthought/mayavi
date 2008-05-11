@@ -68,6 +68,8 @@ class Contour(Component):
     # on input data.
     contours = List(SimpleDRange(low_name='_data_min',
                                  high_name='_data_max',
+                                 low=-1e20,
+                                 high=1e20,
                                  default=0.0),
                     rows=3,
                     desc='explicitly the contours to be generated')

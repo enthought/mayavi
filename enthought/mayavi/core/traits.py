@@ -47,8 +47,8 @@
 
 from weakref import ref
 
-from enthought.traits.api \
-    import Property, TraitFactory, TraitError, TraitHandler, Trait
+from enthought.traits.api import (Property, TraitFactory, 
+        TraitError, TraitHandler, Trait, Float, Int)
 from enthought.traits.ui.api \
     import RangeEditor, EnumEditor
 
@@ -344,7 +344,29 @@ def SimpleDRange ( low_name, high_name, default = None, is_float = True,
                                            exclude_low, exclude_high ), 
                  **metadata )
 
+#-------------------------------------------------------------------------------
+# Overriden SimpleDRange trait.  This works much better.  The previous
+# approach seems to introduce more problems than it solves.
+#-------------------------------------------------------------------------------
+def SimpleDRange ( low_name, high_name, low=0.0, high=1.0,
+                   default = None, is_float = True,
+                   exclude_low = False, exclude_high = False,
+                   **metadata ):
+    e = RangeEditor(low_name=low_name, high_name=high_name,
+                    low=low, high=high,
+                    mode='auto', is_float=is_float)
+
+    if is_float:
+        trt = Float
+    else:
+        trt = Int
+    if default is not None:
+        return trt(default, editor=e, **metadata)
+    else:
+        return trt(editor=e, **metadata)
+
 SimpleDRange = TraitFactory( SimpleDRange )    
+
     
 #--------------------------------------------------------------------------------
 # Helper class for DRange trait.
@@ -459,7 +481,7 @@ DRange = Property( DRangeHelper.get_value,
                    editor       = ( DRangeHelper.make_editor, { 'trait': None } ) )
 
 DRange = TraitFactory( DRange )
-
+DRange = SimpleDRange
 
 #--------------------------------------------------------------------------------
 # Helper class for DEnum trait.
