@@ -20,7 +20,7 @@ from os.path import join, abspath
 
 # Enthought library imports
 from enthought.mayavi.scripts.util import get_data_dir
-from enthought.mayavi.app import Mayavi, NONGUI_PLUGIN_DEFINITIONS
+from enthought.mayavi.plugins.app import Mayavi, get_non_gui_plugins
 
 class MyApp(Mayavi):
     def run(self):
@@ -103,5 +103,7 @@ class MyApp(Mayavi):
 
 if __name__ == '__main__':
     m = MyApp()
-    # Note how we change the plugins that are loaded only here.
-    m.main(plugin_defs=NONGUI_PLUGIN_DEFINITIONS)
+    # Get the default non GUI plugins.
+    plugins = get_non_gui_plugins()
+    # Start the app with these plugins.
+    m.main(plugins=plugins)

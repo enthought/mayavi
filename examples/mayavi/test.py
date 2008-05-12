@@ -14,7 +14,7 @@ VTK scene and create a few simple modules. This should be run as:
 from os.path import join, abspath
 
 # Enthought library imports
-from enthought.mayavi.app import Mayavi
+from enthought.mayavi.plugins.app import Mayavi
 from enthought.mayavi.scripts.util import get_data_dir
                        
 class MyApp(Mayavi):
