@@ -12,10 +12,12 @@ from enthought.traits.api import List, on_trait_change
 from enthought.envisage.api import Plugin
 from enthought.pyface.workbench.api import Perspective, PerspectiveItem
 
-# This module's package.
-PKG = '.'.join(__name__.split('.')[:-1])
-
 logger = logging.getLogger()
+
+# View IDs.
+ENGINE_VIEW = 'enthought.mayavi.view.engine_view.EngineView'
+CURRENT_SELECTION_VIEW = 'enthought.mayavi.core.engine.Engine.current_selection'
+SHELL_VIEW = 'enthought.plugins.python_shell.view.python_shell_view.PythonShellView'
 
 ###############################################################################
 # `MayaviPerspective` class.
@@ -31,11 +33,6 @@ class MayaviPerspective(Perspective):
 
     # Should the editor area be shown in this perspective?
     show_editor_area = True
-
-    # View IDs.
-    ENGINE_VIEW = 'enthought.mayavi.view.engine_view.EngineView'
-    CURRENT_SELECTION_VIEW = PKG + '.current_selection'
-    SHELL_VIEW = 'enthought.plugins.python_shell.view.python_shell_view.PythonShellView'
 
     # The contents of the perspective.
     contents = [
@@ -107,7 +104,7 @@ class MayaviUIPlugin(Plugin):
 
         engine_view = EngineView(engine=self._get_engine(window))
         tui_engine_view = TraitsUIView(obj=engine_view,
-                                       id=PKG + '.engine_view.EngineView',
+                                       id=ENGINE_VIEW,
                                        name='Mayavi',
                                        window=window,
                                        position='left',
@@ -124,11 +121,11 @@ class MayaviUIPlugin(Plugin):
         engine = self._get_engine(window)
         tui_engine_view = TraitsUIView(obj=engine,
                                        view='current_selection_view',
-                                       id=PKG + '.current_selection',
+                                       id=CURRENT_SELECTION_VIEW,
                                        name='Mayavi object editor',
                                        window=window,
                                        position='bottom',
-                                       relative_to=PKG + '.engine_view.EngineView',
+                                       relative_to=ENGINE_VIEW,
                                        **traits
                                        )
         return tui_engine_view
@@ -163,7 +160,7 @@ class MayaviUIPlugin(Plugin):
         script = self._get_script(window)
 
         # Get a hold of the Python shell view.
-        id = 'enthought.plugins.python_shell.view.python_shell_view.PythonShellView'
+        id = SHELL_VIEW
         py = window.get_view_by_id(id)
         if py is None:
             logger.warn('*'*80)
