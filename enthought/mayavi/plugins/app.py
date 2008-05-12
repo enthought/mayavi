@@ -52,6 +52,7 @@ def setup_logger(logger, fname, stream=True, mode=logging.ERROR):
 
 
 def get_plugins():
+    """Get list of default plugins to use for Mayavi."""
     from enthought.envisage.core_plugin import CorePlugin
     from enthought.envisage.ui.workbench.workbench_plugin import WorkbenchPlugin
     from enthought.plugins.python_shell.python_shell_plugin import PythonShellPlugin
@@ -69,6 +70,19 @@ def get_plugins():
                ]
     return plugins
 
+def get_non_gui_plugins():
+    """Get list of basic mayavi plugins that do not add any views or
+    actions."""
+    from enthought.envisage.core_plugin import CorePlugin
+    from enthought.envisage.ui.workbench.workbench_plugin import WorkbenchPlugin
+    from enthought.tvtk.plugins.scene.scene_plugin import ScenePlugin
+    from enthought.mayavi.plugins.mayavi_plugin import MayaviPlugin
+    plugins = [CorePlugin(),
+               WorkbenchPlugin(),
+               MayaviPlugin(),
+               ScenePlugin(),
+               ]
+    return plugins
 
 
 ###########################################################################

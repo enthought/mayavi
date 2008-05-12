@@ -4,6 +4,9 @@
 # Copyright (c) 2005-2007, Enthought, Inc.
 # License: BSD Style.
 
+# Standard library imports.
+import logging
+
 # Enthought library imports.
 from enthought.traits.api import Instance, Bool, on_trait_change
 from enthought.tvtk.plugins.scene.i_scene_manager import \
@@ -17,6 +20,7 @@ from enthought.pyface.workbench.api import WorkbenchWindow
 from enthought.mayavi.core.scene import Scene
 from enthought.mayavi.core.engine import Engine
 
+logger = logging.getLogger()
 
 ######################################################################
 # `EnvisageEngine` class
@@ -62,6 +66,8 @@ class EnvisageEngine(Engine):
         # Call the parent start method.
         super(EnvisageEngine, self).start()
 
+        logger.debug ('--------- EnvisageEngine started ----------')
+
     def stop(self):
         # Call the parent stop method.
         super(EnvisageEngine, self).stop()
@@ -104,6 +110,15 @@ class EnvisageEngine(Engine):
 
     @on_trait_change('window:opened')
     def _on_window_opened(self, obj, trait_name, old, new):
-        """We start the engine when the window is opened.""" 
+        """We start the engine when the window is opened."""
         if trait_name == 'opened':
+            self.start()
+
+    def _window_changed(self, old, new):
+        """Static trait handler."""
+        # This is needed since the service may be offered *after* the
+        # window is opened in which case the _on_window_opened will do
+        # nothing.
+        sm = new.get_service(ISceneManager)
+        if sm is not None:
             self.start()
