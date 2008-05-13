@@ -97,6 +97,14 @@ setup(
         'console_scripts': [
             'mayavi2 = enthought.mayavi.scripts.mayavi2:main'
             ],
+
+        'enthought.envisage.plugins': [
+            'scene = enthought.tvtk.plugins.scene.scene_plugin:ScenePlugin',
+            'scene_ui = enthought.tvtk.plugins.scene.ui.scene_ui_plugin:SceneUIPlugin',
+            'browser = enthought.tvtk.plugins.browser.browser_plugin:BrowserPlugin',
+            'mayavi = enthought.mayavi.plugins.mayavi_plugin:MayaviPlugin',
+            'mayavi_ui = enthought.mayavi.plugins.mayavi_ui_plugin:MayaviUIPlugin'
+            ],
         },
     extras_require = INFO['extras_require'],
     include_package_data = True,
