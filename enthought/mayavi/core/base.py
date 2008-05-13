@@ -187,6 +187,7 @@ class Base(TreeNodeObject):
                             + self.icon
         view.icon = ImageResource(icon)
         view.title = "Edit%s: %s" % (self.type, self.name)
+        view.buttons = ['OK', 'Cancel']
         return view
 
     ######################################################################

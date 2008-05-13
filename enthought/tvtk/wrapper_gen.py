@@ -229,7 +229,8 @@ class WrapperGenerator:
         title = 'Edit %s properties'%class_name
         junk = textwrap.fill('traitsui.View((%s, %s, %s),'%(t_g, s_g, gs_g))
         code = "\nfull_traits_view = \\" + \
-               "\n%s\ntitle=\'%s\', scrollable=True)\n\n"%(junk, title)
+               "\n%s\ntitle=\'%s\', scrollable=True,"\
+               "\nbuttons=['OK', 'Cancel'])\n\n"%(junk, title)
         out.write(self.indent.format(code))
 
         # The default traits_view is more compact and removes some
@@ -244,7 +245,8 @@ class WrapperGenerator:
         gs_g = get_set.keys(); gs_g.sort()
         junk = textwrap.fill('traitsui.View((%s, %s, %s),'%(t_g, s_g, gs_g))
         code = "\ntraits_view = \\" + \
-               "\n%s\ntitle=\'%s\', scrollable=True)\n\n"%(junk, title)
+               "\n%s\ntitle=\'%s\', scrollable=True,"\
+               "\nbuttons=['OK', 'Cancel'])\n\n"%(junk, title)
         out.write(self.indent.format(code))
 
     def _generate_delegates(self, node, n_data, out):
