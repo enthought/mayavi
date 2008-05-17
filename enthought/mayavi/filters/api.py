@@ -22,6 +22,7 @@ from mask_points import MaskPoints
 from point_to_cell_data import PointToCellData
 from poly_data_normals import PolyDataNormals
 from quadric_decimation import QuadricDecimation
+from select_output import SelectOutput
 from threshold import Threshold
 from transform_data import TransformData
 from triangle_filter import TriangleFilter

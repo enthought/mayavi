@@ -17,7 +17,7 @@ from enthought.traits.api import Instance, CFloat, CInt, CArray, Trait, \
 from enthought.mayavi.filters.filter_base import FilterBase
 
 __all__ = [ 'extractedges', 'extractvectornorm', 'tube', 'warpscalar',
-    'delaunay2d', 'threshold', 'pointtocelldata', 'elevationfilter',
+    'delaunay2d', 'selectoutput', 'threshold', 'pointtocelldata', 'elevationfilter',
     'quadricdecimation', 'celltopointdata', 'decimatepro', 'delaunay3d',
     'extractgrid', 'extracttensorcomponents', 'extractvectorcomponents',
     'extractunstructuredgrid', 'gaussiansplatter', 'greedyterraindecimation',
@@ -246,6 +246,12 @@ class PolyDataNormalsFactory(PipeFactory):
 
 polydatanormals = make_function(PolyDataNormalsFactory)
 
+##############################################################################
+class SelectOutputFactory(PipeFactory):
+    """Applies the SelectOutput mayavi filter to the given source."""
+    _target = Instance(filters.SelectOutput, ())
+
+selectoutput = make_function(SelectOutputFactory)
 
 ##############################################################################
 class TransformDataFactory(PipeFactory):

@@ -605,6 +605,17 @@ quadric_decimation_filter = Action(
     path="MenuBar/VisualizeMenu/FiltersMenu"
 )
 
+select_output_filter = Action(
+    id            = "SelectOutputFilter",
+    class_name    = ID + ".action.filters.SelectOutputFilter",
+    name          = "&Select Output",
+    #image         = "images/new_scene.png",
+    tooltip       = "Choose the output of the source that should be used",
+    description   = "Choose the output of the source that should be used",
+    group = "FiltersGroup",
+    path="MenuBar/VisualizeMenu/FiltersMenu"
+)
+
 transform_data_filter = Action(
     id            = "TransformDataFilter",
     class_name    = ID + ".action.filters.TransformDataFilter",
@@ -753,6 +764,7 @@ class MayaviUIActionSet(ActionSet):
                point_to_cell_data_filter,
                poly_data_normals_filter,
                quadric_decimation_filter,
+               select_output_filter,
                transform_data_filter,
                threshold_filter,
                triangle_filter,

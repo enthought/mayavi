@@ -287,6 +287,11 @@ Here is a list of the Mayavi Filters.
           Reduce triangles in a mesh, forming a good approximation of the
           original mesh.
 
+   SelectOutput
+          A filter that allows a user to select one among several of the
+          outputs of a given input.  This is typically very useful for a
+          multi-block data source.
+
    Threshold
           A simple filter that thresholds on input data.
 

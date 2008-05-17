@@ -238,6 +238,18 @@ class QuadricDecimationFilter(Action):
         mv = get_imayavi(self.window)
         mv.add_filter(f)
 
+######################################################################
+# `SelectOutput` class.
+######################################################################
+class SelectOutputFilter(Action):
+    """ An action that creates a SelectOutput filter. """
+    def perform(self, event):
+        """ Performs the action. """
+        from enthought.mayavi.filters.select_output import SelectOutput
+        f = SelectOutput()
+        mv = get_imayavi(self.window)
+        mv.add_filter(f)
+
 
 ######################################################################
 # `TransformData` class.
