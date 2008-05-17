@@ -103,7 +103,8 @@ class Engine(HasStrictTraits):
     def __get_pure_state__(self):
         d = self.__dict__.copy()
         for x in ['_current_scene', '_current_object',
-                  '__sync_trait__', '_viewer_ref']:
+                  '__sync_trait__', '_viewer_ref',
+                  '__traits_listener__']:
             d.pop(x, None)
         return d    
 

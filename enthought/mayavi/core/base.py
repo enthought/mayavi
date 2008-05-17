@@ -110,6 +110,7 @@ class Base(TreeNodeObject):
         """
         d = self.__dict__.copy()
         for attr in ('scene', '_is_running', '__sync_trait__',
+                     '__traits_listener__',
                      '_menu', '_HideShowAction'):
             d.pop(attr, None)
         return d
