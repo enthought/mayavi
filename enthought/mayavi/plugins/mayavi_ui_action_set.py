@@ -147,8 +147,7 @@ save_viz = Action(
     tooltip       = "Save current visualization",
     description   = "Save current visualization to a MayaVi2 file",
     group = "MayaviFileGroup",
-    #path="MenuBar/File",
-    after="LoadVisualization"
+    path="MenuBar/File",
 )
 
 load_viz = Action(
@@ -158,8 +157,7 @@ load_viz = Action(
     tooltip       = "Load saved visualization",
     description   = "Load saved visualization from a MayaVi2 file",
     group = "MayaviFileGroup",
-    #path="MenuBar/File",
-    #after="SaveScene"
+    path="MenuBar/File",
 )
 
 ########################################
