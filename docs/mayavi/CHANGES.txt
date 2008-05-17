@@ -1,0 +1,59 @@
+This file contains a log of significant changes made to the package
+especially API changes.
+
+
+17 May, 2008 (PR):
+    - NEW: Adding an SelectOutput filter that should address bug number
+      478359 in the Debian BTS.  See [18700].
+    
+13 May, 2008 (PR):
+    - NEW: Adding an ExtractVectorComponents filter contributed by Varun
+      Hiremath.
+
+11,12 May 2008 (PR):
+    - ENH/API: The plugins now start the engine themselves and also do
+      the binding to the shell. Earlier this was done by the
+      application.  This makes the plugins reusable. Also added a
+      running trait to the engine to check on its status. [18672],
+      [18678]. 
+    - At this point all examples in trunk work save the mayavi_custom_ui
+      plugin stuff.
+
+10 May 2008 (PR):
+    - API: Moving enthought/mayavi/engine.py ->
+      enthought/mayavi/core/engine.py where it really belongs; see
+      [18667].
+
+7,8 May 2008 (PR):
+    - API: The plugins_e3 package is now moved into plugins.  This
+      breaks the enthought.tvtk.plugins API and also the
+      enthought.mayavi.mayavi_*_definition modules.  The older envisage2
+      plugin code is all removed. See: [18649], [18650], [18651],
+      [18652], [18655], [18657], [18662].
+
+6 May 2008 (PR):
+    - API: The enthought.mayavi.core.Base.confirm_delete class attribute
+      is gone since it is no longer needed [18635].
+    - API: Removed config directory, integrated all mlab preferences
+      into the the mayavi preferences framework, see [18632].
+      To get the preferences just do:
+        from enthought.mayavi.preferences.api import preference_manager
+      This is the preference manager that manages all prefs.  To see the
+      code look in enthought.mayavi.preferences.preference_manager.  It
+      is also a good idea to read the enthought.preferences
+      documentation.
+    - BUG: [18627] Fixed bug number 478844 on the Debian BTS here:
+      http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=478844 
+
+4 May 2008 (PR):
+    - API: Added to api.  Added a new preferences framework for mayavi2.
+      This uses enthought.preferences and works well both standalone and
+      with envisage3. It makes it easy to create/define/change
+      preferences at the application and library level. 
+
+2 May, 2008 (PR):
+    - API: Ported the mayavi2 application and plugin to work with Envisage3.
+      See changesets [18595] and [18598].  *This obviously breaks the
+      plugin API completely!*
+    - Got the mlab envisage_engine_manager working with new changes
+      [18599].
