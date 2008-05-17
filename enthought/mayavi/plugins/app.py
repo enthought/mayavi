@@ -140,11 +140,14 @@ class Mayavi(HasTraits):
         self.application = app
 
         # Setup the logger.
-        setup_logger(logger, 'mayavi.log', mode=self.log_mode)
+        self.setup_logger()
 
         # Start the application.
         app.run()
 
+    def setup_logger(self):
+        """Setup logging for the application."""
+        setup_logger(logger, 'mayavi.log', mode=self.log_mode)
 
     def parse_command_line(self, argv):
         """Parse command line options.
@@ -154,10 +157,7 @@ class Mayavi(HasTraits):
 
         - argv : `list` of `strings`
 
-          The list of command line arguments.  The default is `None`
-          where no command line arguments are parsed.  To support
-          command line arguments you can pass `sys.argv[1:]`.
-
+          The list of command line arguments.
         """
         from optparse import OptionParser
         usage = "usage: %prog [options]"
