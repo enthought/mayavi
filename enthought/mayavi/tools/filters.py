@@ -19,9 +19,10 @@ from enthought.mayavi.filters.filter_base import FilterBase
 __all__ = [ 'extractedges', 'extractvectornorm', 'tube', 'warpscalar',
     'delaunay2d', 'threshold', 'pointtocelldata', 'elevationfilter',
     'quadricdecimation', 'celltopointdata', 'decimatepro', 'delaunay3d',
-    'extractgrid', 'extracttensorcomponents', 'extractunstructuredgrid',
-    'gaussiansplatter', 'greedyterraindecimation', 'maskpoints',
-    'polydatanormals', 'transformdata', 'trianglefilter', 'warpvector',
+    'extractgrid', 'extracttensorcomponents', 'extractvectorcomponents',
+    'extractunstructuredgrid', 'gaussiansplatter', 'greedyterraindecimation',
+    'maskpoints', 'polydatanormals', 'transformdata', 'trianglefilter',
+    'warpvector',
 ]
 
 
@@ -192,6 +193,13 @@ class ExtractTensorComponentsFactory(PipeFactory):
     _target = Instance(filters.ExtractTensorComponents, ())
 
 extracttensorcomponents = make_function(ExtractTensorComponentsFactory)
+
+##############################################################################
+class ExtractVectorComponentsFactory(PipeFactory):
+    """Applies the ExtractVectorComponents mayavi filter to the given VTK object."""
+    _target = Instance(filters.ExtractVectorComponents, ())
+
+extractvectorcomponents = make_function(ExtractVectorComponentsFactory)
 
 
 ##############################################################################

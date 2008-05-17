@@ -518,13 +518,24 @@ extract_unstructured_grid_filter = Action(
 extract_vector_norm_filter = Action(
     id            = "ExtractVectorNormFilter",
     class_name    = ID + ".action.filters.ExtractVectorNormFilter",
-    name          = "Extract &Vector Norm",
+    name          = "Extract Vector &Norm",
     #image         = "images/new_scene.png",
     tooltip       = "Compute the vector norm for the current vector data",
     description   = "Compute the vector norm for the current vector data",
     group = "FiltersGroup",
     path="MenuBar/VisualizeMenu/FiltersMenu"
 )
+
+extract_vector_components_filter = Action(
+    id            = "ExtractVectorComponentsFilter",
+    class_name    = ID + ".action.filters.ExtractVectorComponentsFilter",
+    name          = "Extract &Vector Components",
+    tooltip       = "Extract vector components from vector data",
+    description   = "Extract vector components from vector data",
+    group = "FiltersGroup",
+    path="MenuBar/VisualizeMenu/FiltersMenu"
+)
+
 
 gaussian_splatter_filter = Action(
     id            = "GaussianSplatterFilter",
@@ -734,7 +745,8 @@ class MayaviUIActionSet(ActionSet):
                extract_grid_filter,
                extract_tensor_components_filter,
                extract_unstructured_grid_filter,
-               extract_vector_norm_filter,               
+               extract_vector_norm_filter,
+               extract_vector_components_filter,
                gaussian_splatter_filter,
                greedy_terrain_decimation_filter,
                mask_points_filter,

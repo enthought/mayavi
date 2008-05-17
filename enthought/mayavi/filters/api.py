@@ -15,6 +15,7 @@ from extract_grid import ExtractGrid
 from extract_tensor_components import ExtractTensorComponents
 from extract_unstructured_grid import ExtractUnstructuredGrid
 from extract_vector_norm import ExtractVectorNorm
+from extract_vector_components import ExtractVectorComponents
 from gaussian_splatter import GaussianSplatter
 from greedy_terrain_decimation import GreedyTerrainDecimation
 from mask_points import MaskPoints

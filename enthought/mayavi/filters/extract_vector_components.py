@@ -1,0 +1,63 @@
+# Author: Varun Hiremath <varun@debian.org>
+
+# Enthought library imports.
+from enthought.traits.api import Instance, Enum
+from enthought.traits.ui.api import View, Group, Item, InstanceEditor
+from enthought.tvtk.api import tvtk
+
+# Local imports
+from enthought.mayavi.filters.filter_base import FilterBase
+
+######################################################################
+# `ExtractVectorComponents` class.
+######################################################################
+class ExtractVectorComponents(FilterBase):
+    """ This wraps the TVTK ExtractVectorComponents filter and allows
+    one to select any of the three components of an input vector data
+    attribute."""
+
+    # The version of this class.  Used for persistence.
+    __version__ = 0
+
+    # The actual TVTK filter that this class manages.
+    filter = Instance(tvtk.ExtractVectorComponents, args=(), allow_none=False)
+
+    # The Vector Component to be extracted
+    component = Enum('x-component', 'y-component', 'z-component',
+                     desc='component of the vector to be extracted')
+
+    view = View(Group(Item(name='component')),
+                resizable=True
+                )
+
+    ######################################################################
+    # `Filter` interface.
+    ######################################################################
+    def update_pipeline(self):
+        # Do nothing if there is no input.
+        inputs = self.inputs
+        if len(inputs) == 0:
+            return
+
+        fil = self.filter
+        fil.input = inputs[0].outputs[0]
+        fil.update()
+        self._component_changed(self.component)
+
+    ######################################################################
+    # Non-public interface.
+    ######################################################################
+    def _component_changed(self, value):
+        # Obtain output from the TVTK ExtractVectorComponents filter
+        # corresponding to the selected vector component
+
+        if len(self.inputs) == 0:
+            return
+
+        if value == 'x-component':
+            self._set_outputs([self.filter.vx_component])
+        elif value == 'y-component':
+            self._set_outputs([self.filter.vy_component])
+        elif value == 'z-component':
+            self._set_outputs([self.filter.vz_component])
+        self.render()

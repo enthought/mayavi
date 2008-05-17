@@ -254,6 +254,11 @@ Here is a list of the Mayavi Filters.
           (with optional scaling between [0, 1]). This is useful
           when the input data has vector input but no scalar data
           for the magnitude of the vectors.
+	  
+   ExtractVectorComponents
+	  Wraps the TVTK ExtractVectorComponents filter to extract
+	  components of a vector. This is useful for analysing
+	  individual components of a vector data.
 
    GaussianSplatter
           This filter splat points into a volume with an elliptical,

@@ -151,6 +151,16 @@ class ExtractVectorNormFilter(Action):
         mv = get_imayavi(self.window)
         mv.add_filter(f)
 
+######################################################################
+# `ExtractVectorComponentsFilter` class.
+######################################################################
+class ExtractVectorComponentsFilter(Action):
+    def perform(self, event):
+        """ Performs the action. """
+        from enthought.mayavi.filters.extract_vector_components import ExtractVectorComponents
+        f = ExtractVectorComponents()
+        mv = get_imayavi(self.window)
+        mv.add_filter(f)
 
 ######################################################################
 # `GaussianSplatter` class.
