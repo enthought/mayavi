@@ -63,6 +63,17 @@ class SceneEditor(Editor):
 
         return self.scene.control
 
+    def destroy_control(self):
+        """ Destroy the toolkit-specific control that represents the
+        editor.
+        """
+        if self.scene is not None:
+            # Close the scene to cleanly shut it down.
+            self.scene.close()
+            
+        # Call the parent method.
+        return super(SceneEditor, self).destroy_control() 
+
     ###########################################################################
     # Private interface.
     ###########################################################################

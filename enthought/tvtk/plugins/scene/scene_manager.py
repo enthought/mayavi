@@ -77,8 +77,6 @@ class SceneManager(HasTraits):
         """ Dynamic trait change handler. """
 
         if isinstance(new, SceneEditor):
-            # Close the scene to cleanly shut it down.
-            new.scene.close()
             self.scenes.remove(new.scene)
             
         return
