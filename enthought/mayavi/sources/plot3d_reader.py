@@ -114,7 +114,10 @@ class PLOT3DReader(Source):
             msg += 'Please move the file there and try again.'
             raise IOError, msg
         
-        self.initialize(xyz_fn, q_fn)
+        # Setup the reader state.
+        set_state(self, state, first=['reader'], ignore=['*'])
+        # Initialize the files.
+        self.initialize(xyz_fn, q_fn, configure=False)
         # Now set the remaining state without touching the children.
         set_state(self, state, ignore=['children', 'xyz_file_path', 'q_file_path'])
         # Setup the children.
@@ -126,15 +129,20 @@ class PLOT3DReader(Source):
     ######################################################################
     # `FileDataSource` interface
     ######################################################################
-    def initialize(self, xyz_file_name, q_file_name=''):
-        """Given a single filename which may or may not be part of a
-        time series, this initializes the list of files.  This method
-        need not be called to initialize the data.
+    def initialize(self, xyz_file_name, q_file_name='', configure=True):
+        """Given an xyz filename and a Q filename which may or may not
+        be part of a time series, this initializes the list of files.
+        This method need not be called to initialize the data.
+
+        If configure is True, it pops up a UI to configure the
+        PLOT3DReader.
         """
-        # First set properties of the reader.  This is useful when the
-        # data format has atypical defaults.  Automatic detection can be
-        # disastrous sometimes due to VTK related problems.
-        self.reader.edit_traits(kind='livemodal')
+        if configure:
+            # First set properties of the reader.  This is useful when
+            # the data format has atypical defaults.  Automatic
+            # detection can be disastrous sometimes due to VTK related
+            # problems.
+            self.reader.edit_traits(kind='livemodal')
         self.xyz_file_name = xyz_file_name
         if len(q_file_name) > 0:
             self.q_file_name = q_file_name
