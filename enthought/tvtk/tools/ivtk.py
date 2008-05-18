@@ -22,11 +22,10 @@ Here is example usage of the viewer along with tvtk under IPython:
 """
 
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2005, Enthought, Inc.
+# Copyright (c) 2005-2008, Enthought, Inc.
 # License: BSD Style.
 
 # Standard library imports.
-import os
 import os.path
 
 # Enthought library imports.
@@ -49,8 +48,8 @@ from enthought.tvtk.pipeline.browser import PipelineBrowser
 # The scene icon.
 ######################################################################
 def mk_scene_icon():
-    icon_path = resource_path() + os.sep + 'images' + os.sep
-    return ImageResource(icon_path + 'scene.ico')
+    icon_path = os.path.join(resource_path(), 'images', 'scene.ico')
+    return ImageResource(icon_path)
 
 scene_icon = mk_scene_icon()
 
@@ -180,6 +179,14 @@ class SceneWithBrowser(SplitPanel):
     browser = Instance(PipelineBrowser)
 
     ###########################################################################
+    # `IWidget` interface.
+    ###########################################################################
+    def destroy(self):
+        if self.scene is not None:
+            self.scene.close()
+        super(SceneWithBrowser, self).destroy()
+
+    ###########################################################################
     # Protected 'SplitPanel' interface.
     ###########################################################################
     def _create_lhs(self, parent):
@@ -236,6 +243,13 @@ class IVTKWithCrust(SplitApplicationWindow):
         # Create the window's menu bar.
         self.menu_bar_manager = create_ivtk_menu(self)
 
+    ###########################################################################
+    # `IWindow` interface.
+    ###########################################################################
+    def close(self):
+        if self.scene is not None:
+            self.scene.close()
+        super(IVTKWithCrust, self).close()
 
     ###########################################################################
     # Protected 'SplitApplicationWindow' interface.
@@ -296,6 +310,13 @@ class IVTKWithCrustAndBrowser(SplitApplicationWindow):
         # Create the window's menu bar.
         self.menu_bar_manager = create_ivtk_menu(self)
 
+    ###########################################################################
+    # `IWindow` interface.
+    ###########################################################################
+    def close(self):
+        if self.scene is not None:
+            self.scene.close()
+        super(IVTKWithCrustAndBrowser, self).close()
 
     ###########################################################################
     # Protected 'SplitApplicationWindow' interface.
@@ -348,6 +369,14 @@ class IVTK(ApplicationWindow):
         self.menu_bar_manager = create_ivtk_menu(self)
 
     ###########################################################################
+    # `IWindow` interface.
+    ###########################################################################
+    def close(self):
+        if self.scene is not None:
+            self.scene.close()
+        super(IVTK, self).close()
+
+    ###########################################################################
     # Protected 'ApplicationWindow' interface.
     ###########################################################################
 
@@ -389,6 +418,14 @@ class IVTKWithBrowser(ApplicationWindow):
         super(IVTKWithBrowser, self).__init__(**traits)
         self.title = 'TVTK Scene'
         self.menu_bar_manager = create_ivtk_menu(self)
+
+    ###########################################################################
+    # `IWindow` interface.
+    ###########################################################################
+    def close(self):
+        if self.scene is not None:
+            self.scene.close()
+        super(IVTKWithBrowser, self).close()
 
     ###########################################################################
     # Protected 'ApplicationWindow' interface.
