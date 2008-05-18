@@ -1,6 +1,5 @@
 """ Manage the TVTK scenes. """
 
-
 # Enthought library imports.
 from enthought.pyface.tvtk.tvtk_scene import TVTKScene
 from enthought.pyface.workbench.api import WorkbenchWindow
@@ -78,10 +77,8 @@ class SceneManager(HasTraits):
         """ Dynamic trait change handler. """
 
         if isinstance(new, SceneEditor):
-            # Disable renders to prevent render calls at this time when
-            # the window is dead.  If this is not done, we get
-            # PyDeadObjectErrors.
-            new.scene.disable_render = True
+            # Close the scene to cleanly shut it down.
+            new.close()
             self.scenes.remove(new.scene)
             
         return

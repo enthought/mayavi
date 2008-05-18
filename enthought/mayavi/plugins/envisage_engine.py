@@ -90,6 +90,8 @@ class EnvisageEngine(Engine):
         for editor in active_window.editors[:]:
             if isinstance(editor, scene_editor.SceneEditor):
                 if id(editor.scene) == id(s):
+                    # Close the scene cleanly.
+                    s.close()
                     editor.close()
                     break
         # Flush the UI.
