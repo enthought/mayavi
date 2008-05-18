@@ -1,17 +1,16 @@
 """Simple test for the contour related modules.
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2005,  Enthought, Inc.
+# Copyright (c) 2005-2008,  Enthought, Inc.
 # License: BSD Style.
 
 # Standard library imports.
-import os
-from os.path import join, abspath
+from os.path import abspath
 from StringIO import StringIO
 import copy
 
 # Local imports.
-from common import TestCase, fixpath
+from common import TestCase, get_example_data
 
 
 class TestContour(TestCase):
@@ -32,8 +31,8 @@ class TestContour(TestCase):
 
         # Read a VTK (old style) data file.
         r = VTKFileReader()
-        r.initialize(abspath(fixpath(join(os.pardir, 'examples', 'data',
-                                          'heart.vtk'))))
+        r.initialize(get_example_data('heart.vtk'))
+
         script.add_source(r)
 
         # Create an outline for the data.
@@ -149,4 +148,4 @@ class TestContour(TestCase):
 
 if __name__ == "__main__":
     t = TestContour()
-    t.run()
+    t.main()

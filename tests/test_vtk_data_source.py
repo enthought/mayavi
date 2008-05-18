@@ -6,13 +6,12 @@ of test_contour.py with the data source alone modified.
 # License: BSD Style.
 
 # Standard library imports.
-import os
-from os.path import join, abspath
+from os.path import abspath
 from StringIO import StringIO
 import copy
 
 # Local imports.
-from common import TestCase, fixpath
+from common import TestCase, get_example_data
 
 
 class TestVTKDataSource(TestCase):
@@ -34,8 +33,7 @@ class TestVTKDataSource(TestCase):
 
         # Read a VTK (old style) data file.
         r = tvtk.StructuredPointsReader()
-        r.file_name = abspath(fixpath(join(os.pardir, 'examples',
-                                           'data', 'heart.vtk')))
+        r.file_name = get_example_data('heart.vtk')
         r.update()
         d = VTKDataSource(data=r.output)
         script.add_source(d)
@@ -127,4 +125,4 @@ class TestVTKDataSource(TestCase):
 
 if __name__ == "__main__":
     t = TestVTKDataSource()
-    t.run()
+    t.main()

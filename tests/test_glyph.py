@@ -5,7 +5,7 @@
 # License: BSD Style.
 
 # Standard library imports.
-from os.path import join, abspath
+from os.path import abspath
 from StringIO import StringIO
 import copy
 import numpy
@@ -115,7 +115,6 @@ class TestGlyph(TestCase):
         # Now compare the image.
         self.compare_image(s, 'images/test_glyph.png')
         s.render()
-        
 
         ############################################################
         # Test if saving a visualization and restoring it works.
@@ -129,7 +128,7 @@ class TestGlyph(TestCase):
         # Remove existing scene.
         engine = script.engine
         engine.close_scene(s)
-
+        
         # Load visualization
         script.load_visualization(f)
         s = engine.current_scene
@@ -166,4 +165,4 @@ class TestGlyph(TestCase):
 
 if __name__ == "__main__":
     t = TestGlyph()
-    t.run()
+    t.main()

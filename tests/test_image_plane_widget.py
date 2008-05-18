@@ -5,7 +5,7 @@
 # License: BSD Style.
 
 # Standard library imports.
-from os.path import join, abspath
+from os.path import abspath
 from StringIO import StringIO
 import copy
 import numpy
@@ -131,4 +131,4 @@ class TestImagePlaneWidget(TestCase):
 
 if __name__ == "__main__":
     t = TestImagePlaneWidget()
-    t.run()
+    t.main()
