@@ -160,6 +160,15 @@ load_viz = Action(
     path="MenuBar/File",
 )
 
+run_script = Action(
+    id            = "RunScript",
+    class_name    = ID + ".action.save_load.RunScript",
+    name          = "&Run Python Script",
+    tooltip       = "Execute a Python script (typically a Mayavi script)",
+    description   = "Execute a Python script (typically a Mayavi script)",
+    group = "MayaviFileGroup",
+    path="MenuBar/File",
+)
 ########################################
 # Visualize menu items.
 add_mm = Action(
@@ -719,6 +728,7 @@ class MayaviUIActionSet(ActionSet):
                point_load,
                save_viz,
                load_viz,
+               run_script,
                # Add module manager.
                add_mm,
                # Modules.

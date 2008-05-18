@@ -6,6 +6,7 @@
 # License: BSD Style.
 
 # Standard library imports.
+import sys 
 from os.path import isfile
 
 # Enthought library imports.
@@ -14,7 +15,7 @@ from enthought.pyface.action.api import Action
 
 # Local imports
 from enthought.mayavi.plugins.script import get_imayavi
-from enthought.mayavi.core.common import error
+from enthought.mayavi.core.common import error, exception
 
 
 ######################################################################
@@ -63,4 +64,40 @@ class LoadVisualization(Action):
             
             mv = get_imayavi(self.window)
             mv.load_visualization(dialog.path)
+
+######################################################################
+# `RunScript` class.
+######################################################################
+class RunScript(Action):
+    """ An action that runs a mayavi script.  
+    
+    WARNING: this can be dangerous since the file runs execfile! """
+
+    ###########################################################################
+    # 'Action' interface.
+    ###########################################################################
+
+    def perform(self, event):
+        """ Performs the action. """
+        wildcard = 'Python files (*.py)|*.py'
+        parent = self.window.control
+        dialog = FileDialog(parent=parent,
+                            title='Open Python file',
+                            action='open', wildcard=wildcard
+                            )
+        if dialog.open() == OK:
+            if not isfile(dialog.path):
+                error("File '%s' does not exist"%dialog.path, parent)
+                return
+            
+            # Get the globals.
+            # The following code is taken from scripts/mayavi2.py.
+            g = sys.modules['__main__'].__dict__
+            # Do execfile
+            try:
+                # If we don't pass globals twice we get NameErrors and nope,
+                # using exec open(script_name).read() does not fix it.
+                execfile(dialog.path, g, g)
+            except Exception, msg:
+                exception(str(msg))
 
