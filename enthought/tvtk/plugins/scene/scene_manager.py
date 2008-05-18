@@ -78,7 +78,7 @@ class SceneManager(HasTraits):
 
         if isinstance(new, SceneEditor):
             # Close the scene to cleanly shut it down.
-            new.close()
+            new.scene.close()
             self.scenes.remove(new.scene)
             
         return
