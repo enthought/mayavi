@@ -1,10 +1,28 @@
+-----------------------------------------------------------------------------
 This file contains a log of significant changes made to the package
-especially API changes.
+especially API changes.  The log refers to changesets like so [18702].
+To view these use a URL like so: 
+    https://svn.enthought.com/enthought/changeset/18702
+-----------------------------------------------------------------------------
 
+18 May, 2008 (PR):
+    - API: Added a close method to
+      `enthought.pyface.tvtk.tvtk_scene.TVTKScene`.  This class is
+      inherited by all Scenes (DecoratedScene and Scene).  The close
+      method shuts down the scene properly.  This should hopefully
+      prevent async errors when closing editors/windows containing
+      scenes.  See [18708].
+    - Updated the scene plugin, scene_editor (TraitsBackend*),
+      actor_editor and the ivtk code to use the close method.
+    - TEST: All the tests run on the trunk and pass when the offscreen
+      option is used (which was also added).
 
 17 May, 2008 (PR):
     - NEW: Adding an SelectOutput filter that should address bug number
       478359 in the Debian BTS.  See [18700].
+    - API: enthought.mayavi.plugins.app.Mayavi now defines a
+      setup_logger method so this can be overridden by subclasses, see
+      [18703].
     
 13 May, 2008 (PR):
     - NEW: Adding an ExtractVectorComponents filter contributed by Varun
