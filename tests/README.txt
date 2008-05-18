@@ -1,5 +1,5 @@
 =======================
-Notes on testing MayaVi
+Notes on testing Mayavi
 =======================
 
 Introduction
@@ -31,6 +31,9 @@ all tested in sequence to check for a valid image.  If a default test
 image is called `test_outline_image.png` then its various alternatives
 can be called `test_outline_image_%d.png` (for example,
 `test_outline_image_1.png`).
+
+To run all the tests simply execute the `run.py` script like so::
+    $ python run.py
 
 
 Command line arguments
