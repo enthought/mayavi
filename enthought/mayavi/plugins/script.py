@@ -81,7 +81,7 @@ class Script(HasTraits):
     def new_scene(self):
         """Creates a new VTK scene window.
         """
-        self.engine.new_scene()
+        return self.engine.new_scene()
 
     def load_visualization(self, fname):
         """Given a file/file name this loads the visualization.
