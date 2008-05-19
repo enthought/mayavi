@@ -87,7 +87,8 @@ class Explorer3D(HasTraits):
         super(Explorer3D, self).__init__(**traits)
         self.source = None
         # Make some default data.
-        self._make_data()
+        if len(self.data) == 0:
+            self._make_data()
         # Note: to show the visualization by default we must wait till
         # the mayavi engine has started.  To do this we hook into the
         # mayavi engine's started event and setup our visualization.
@@ -217,6 +218,13 @@ class Explorer3D(HasTraits):
         
     def _window_changed(self):
         m = self.get_mayavi()
-        # Show the data once the mayavi engine has started.
-        m.engine.on_trait_change(self._show_data, 'started')
+        if m.engine.running:
+            if len(self.data) == 0:
+                # Happens since the window may be set on __init__ at
+                # which time the data is not created.
+                self._make_data()
+            self._show_data()
+        else:
+            # Show the data once the mayavi engine has started.
+            m.engine.on_trait_change(self._show_data, 'started')
         
