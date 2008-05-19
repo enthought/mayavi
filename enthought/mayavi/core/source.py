@@ -181,7 +181,8 @@ class Source(PipelineBase):
                 except:
                     exception()
 
-    def _scene_changed(self, value):        
+    def _scene_changed(self, old, new):
+        super(Source, self)._scene_changed(old, new)
         for obj in self.children:
-            obj.scene = value        
+            obj.scene = new
 
