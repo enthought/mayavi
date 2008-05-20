@@ -125,9 +125,11 @@ class Wrapper(Filter):
     def _filter_changed(self, old, new):
         """Static traits handler."""
         if old is not None:
+            self._setup_events(old, remove=True)
             old.stop()
         if self.scene is not None:
             new.scene = self.scene
+        self._setup_events(new, remove=False)
         self._enabled_changed(self.enabled)
 
     def _scene_changed(self, old, new):
@@ -135,9 +137,13 @@ class Wrapper(Filter):
         self.filter.scene = new
         super(Wrapper, self)._scene_changed(old, new)
 
-    def _data_changed_for_filter(self):
-         self.data_changed = True
-
-    def _pipeline_changed_for_filter(self):
+    def _fire_pipeline_changed(self):
         self.pipeline_changed = True
 
+    def _setup_events(self, obj, remove=False):
+        obj.on_trait_change(self._fire_pipeline_changed,
+                            'pipeline_changed', 
+                            remove=remove)
+        obj.on_trait_change(self.update_data,
+                            'data_changed', 
+                            remove=remove)
