@@ -1,26 +1,39 @@
 MayaVi2:
-   - Add image readers and elementary texture support. (p)
-   - Reimplement the hide feature. (p/g) 
-   - Modify tests to use standalone. (p)
-   - Customize the UI/modules/whatever for the entire install. (p)
-   - Add a "close" method to the scene that works both with and without
-     envisage.
-   - Make the viewer used in standalone more versatile (make it easy to
-     control what goes on the toolbar and in the menus.
-    
-   - Transfer editor for images. (g)
+    - Core:
+        - Better and correct persistence. (p)
+        - More powerful reuse of components/filters. (p)
+   
+        - Local and global customization. (p)
+        - Reimplement the hide feature. (p) 
+        - Context sensitive menus.
+        - Add a "remove_from_visualization" method on pipeline objects?
 
-   - Right click on tree view to get full functionality.
-   - Context sensitive menus.
-   - Persistence to use a better approach.
-   - More powerful reuse of components.
-   - Easier interface to open data files.
-   - Multiblock data support.
-   - Improve user guide, add more devel info.
-   - Support for animation.
-   - Add a "remove_from_visualization" method on pipeline objects.
-   - Clean up the doc generation scripts (g).
+    - Sources:
+        - Easier interface to open data files.
+        - A registry for file extensions/types that readers/handlers can
+          handle?
+        - Multiblock data support.
 
-Mlab:
-   - mlab.show to start the GUI event-loop in a clever way (g).
+    - Modules/Filters:
+        - Add image readers and elementary texture support. (p)
+        - Feature complete w.r.t. mayavi1's filters and modules. (p)
+        
+    - UI:
+        - Make the viewer used in standalone more versatile (make it easy to
+          control what goes on the toolbar and in the menus.
+        - Right click on tree view to get full functionality.
+        - Context sensitive menus.
+        - Easier access to the LUT editor.
+        - Transfer editor for images. (g)
+
+    - Misc:
+        - Cleaner approach for mayavi2 -x, use a decorator?
+        - Support for animation.
+
+    - Documentation:
+        - Improve user guide, add more devel info.
+        - Clean up the doc generation scripts (g).
+
+    - Mlab:
+        - mlab.show to start the GUI event-loop in a clever way (g).
  
