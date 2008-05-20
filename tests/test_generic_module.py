@@ -28,11 +28,6 @@ class TestGenericModule(TestCase):
         from enthought.mayavi.components.actor import Actor
         from enthought.mayavi.modules.generic_module import GenericModule
         from enthought.mayavi.sources.vtk_xml_file_reader import VTKXMLFileReader
-        from enthought.mayavi.components.contour import Contour
-        from enthought.mayavi.filters.optional import Optional
-        from enthought.mayavi.filters.collection import Collection 
-        from enthought.mayavi.filters.api import PolyDataNormals
-        from enthought.mayavi.modules.api import Surface
 
         ############################################################
         # Create a new scene and set up the visualization.
