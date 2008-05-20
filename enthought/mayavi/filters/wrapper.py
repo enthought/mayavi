@@ -137,11 +137,12 @@ class Wrapper(Filter):
         self.filter.scene = new
         super(Wrapper, self)._scene_changed(old, new)
 
-    def _fire_pipeline_changed(self):
-        self.pipeline_changed = True
+    def _filter_pipeline_changed(self):
+        if self.enabled:
+            self._set_outputs(self.filter.outputs)
 
     def _setup_events(self, obj, remove=False):
-        obj.on_trait_change(self._fire_pipeline_changed,
+        obj.on_trait_change(self._filter_pipeline_changed,
                             'pipeline_changed', 
                             remove=remove)
         obj.on_trait_change(self.update_data,
