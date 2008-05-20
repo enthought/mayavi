@@ -386,7 +386,10 @@ class LUTManager(Base):
         self._default_data_range_changed(self.default_data_range)
 
     def _data_range_changed(self, value):
-        self.lut.set_range(value[0], value[1])
+        try:
+            self.lut.set_range(value[0], value[1])
+        except TypeError:
+            self.lut.set_range((value[0], value[1]))
         self.scalar_bar.modified()
         self.render()
 
