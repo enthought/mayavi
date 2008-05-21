@@ -15,7 +15,7 @@ from enthought.persistence import state_pickler
 # Local imports.
 from enthought.mayavi.core.pipeline_base import PipelineBase
 from enthought.mayavi.core.filter import Filter
-
+from enthought.mayavi.core.common import handle_children_state
 
 ################################################################################
 # `Wrapper` class.
@@ -49,7 +49,9 @@ class Wrapper(Filter):
     ###################################################################### 
     def __set_pure_state__(self, state):
         # Create and set the filter.
-        self.filter = state_pickler.create_instance(state.filter)
+        children = [f for f in [self.filter] if f is not None]
+        handle_children_state(children, [state.filter])
+        self.filter = children[0]
         # Restore our state.
         super(Wrapper, self).__set_pure_state__(state)
 
@@ -84,7 +86,8 @@ class Wrapper(Filter):
         # There is no need to override start since the wrapped filter is
         # always started automatically in the _enabled_changed handler.
         super(Wrapper, self).stop()
-        self.filter.stop()
+        if self.filter is not None:
+            self.filter.stop()
 
     def update_pipeline(self):
         """This method *updates* the tvtk pipeline when data upstream is
