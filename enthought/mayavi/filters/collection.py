@@ -8,14 +8,12 @@ filters/components bundled into one.
 # Enthought library imports.
 from enthought.traits.api import Instance, Bool, Str, List
 from enthought.traits.ui.api import Item, Group, View, ListEditor
+from enthought.persistence import state_pickler
 
 # Local imports.
 from enthought.mayavi.core.pipeline_base import PipelineBase
 from enthought.mayavi.core.filter import Filter
 
-# FIXME:  This filter cannot be persisted due to the broken nature of
-# our persistence framework.  This should work when we use the new
-# pickle approach.
 
 ################################################################################
 # `Collection` class.
@@ -37,6 +35,19 @@ class Collection(Filter):
 
     # Is the pipeline ready?  Used internally.
     _pipeline_ready = Bool(False)
+
+    ######################################################################
+    # `object` interface.
+    ###################################################################### 
+    def __set_pure_state__(self, state):
+        # Create and set the filters.
+        filters = []
+        for fs in state.filters:
+            f = state_pickler.create_instance(fs)
+            filters.append(f)
+        self.filters = filters
+        # Restore our state using the super class method.
+        super(Collection, self).__set_pure_state__(state)
 
     ######################################################################
     # HasTraits interface.
@@ -93,7 +104,7 @@ class Collection(Filter):
     ###################################################################### 
     def _setup_pipeline(self):
         """Sets up the objects in the pipeline."""
-        if len(self.inputs) == 0:
+        if len(self.inputs) == 0 or len(self.filters) == 0:
             return
         # Our input.
         my_input = self.inputs[0]
@@ -134,6 +145,8 @@ class Collection(Filter):
             self._setup_events(filter, remove=True)
             filter.stop()
         for filter in added:
+            if self.scene is not None:
+                filter.scene = self.scene
             if len(filter.name) == 0:
                 filter.name = filter.__class__.__name__
             if filter is self.filters[-1]:

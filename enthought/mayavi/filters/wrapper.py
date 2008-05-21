@@ -10,14 +10,12 @@ from the UI, for that see the `Optional` filter.
 # Enthought library imports.
 from enthought.traits.api import Instance, Bool, Str
 from enthought.traits.ui.api import Item, Group, View
+from enthought.persistence import state_pickler
 
 # Local imports.
 from enthought.mayavi.core.pipeline_base import PipelineBase
 from enthought.mayavi.core.filter import Filter
 
-# FIXME:  This filter cannot be persisted due to the broken nature of
-# our persistence framework.  This should work when we use the new
-# pickle approach.
 
 ################################################################################
 # `Wrapper` class.
@@ -45,6 +43,15 @@ class Wrapper(Filter):
     # the `Optional` filter merely changes this to True.  This trait is
     # not meant for interactive changing.
     _show_enabled = Bool(False)
+
+    ######################################################################
+    # `object` interface.
+    ###################################################################### 
+    def __set_pure_state__(self, state):
+        # Create and set the filter.
+        self.filter = state_pickler.create_instance(state.filter)
+        # Restore our state.
+        super(Wrapper, self).__set_pure_state__(state)
 
     ######################################################################
     # HasTraits interface.
@@ -104,7 +111,7 @@ class Wrapper(Filter):
     ###################################################################### 
     def _enabled_changed(self, value):
         """Static traits handler."""
-        if len(self.inputs) == 0:
+        if len(self.inputs) == 0 or self.filter is None:
             return
         my_input = self.inputs[0]
         filter = self.filter
@@ -134,7 +141,8 @@ class Wrapper(Filter):
 
     def _scene_changed(self, old, new):
         """Static traits handler."""
-        self.filter.scene = new
+        if self.filter is not None:
+            self.filter.scene = new
         super(Wrapper, self)._scene_changed(old, new)
 
     def _filter_pipeline_changed(self):

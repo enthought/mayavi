@@ -46,8 +46,10 @@ class TestOptionalCollection(TestCase):
 
         ########################################
         # do the testing.
-        def check():
-            """Check if test status is OK."""
+        def check(coll):
+            """Check if test status is OK given the collection."""
+            c, o = coll.filters
+            n = o.filter
             assert coll.outputs[0].point_data.scalars.range == (127.5, 127.5)
             # Adding a contour should create the appropriate output in
             # the collection.
@@ -66,13 +68,51 @@ class TestOptionalCollection(TestCase):
             assert coll.outputs[0] is n.outputs[0]
             assert 'disabled' not in o.name
 
-        check()
+        check(coll)
 
-        # FIXME:  The Collection and Optional filters cannot be
-        # persisted due to the broken nature of our persistence
-        # framework.  This should work when we use the new pickle
-        # approach.
+        ############################################################
+        # Test if saving a visualization and restoring it works.
 
+        # Save visualization.
+        f = StringIO()
+        f.name = abspath('test.mv2') # We simulate a file.
+        script.save_visualization(f)
+        f.seek(0) # So we can read this saved data.
+
+        # Remove existing scene.
+        engine = script.engine
+        engine.close_scene(s)
+
+        # Load visualization
+        script.load_visualization(f)
+        s = engine.current_scene
+
+        # Now do the check.
+        coll = s.children[0].children[0]
+        check(coll)
+
+        ############################################################
+        # Test if the Mayavi2 visualization can be deep-copied.
+
+        # Pop the source object.
+        source = s.children.pop()
+        # Add it back to see if that works without error.
+        s.children.append(source)
+        # Now do the check.
+        coll = s.children[0].children[0]
+        check(coll)
+
+        # Now deepcopy the source and replace the existing one with
+        # the copy.  This basically simulates cutting/copying the
+        # object from the UI via the right-click menu on the tree
+        # view, and pasting the copy back.
+        source1 = copy.deepcopy(source)
+        s.children[0] = source1
+        # Now do the check.
+        coll = s.children[0].children[0]
+        check(coll)
+        
+        # If we have come this far, we are golden!
 
 if __name__ == "__main__":
     t = TestOptionalCollection()
