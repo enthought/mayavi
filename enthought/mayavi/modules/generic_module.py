@@ -11,15 +11,42 @@ create new modules.
 # Enthought library imports.
 from enthought.traits.api import Bool, Str, List, Enum, Instance
 from enthought.traits.ui.api import Item, Group, View, ListEditor
+from enthought.persistence import state_pickler
 
 # Local imports.
 from enthought.mayavi.core.module import Module
+from enthought.mayavi.core.common import handle_children_state
 from enthought.mayavi.components.actor import Actor
 
+################################################################################
+# Utility function.
+################################################################################
+def find_object_given_state(needle, haystack, object):
+    """
+    Find the object which corrsponds to given state instance (`needle`)
+    in the given state (`haystack`) and object representing that
+    haystack.
 
-# FIXME:  This cannot be persisted due to the broken nature of
-# our persistence framework.  This should work when we use the new
-# pickle approach.
+    Parameters
+    ----------
+    
+    `needle` -- The `State` instance to find
+    haystack -- The source State in which we are to find the state
+    `object` -- the object corresponding to the `haystack`
+    """
+    if needle is haystack:
+        return object
+    if hasattr(object, 'filter'):
+        return find_object_given_state(needle, 
+                                       haystack.filter, 
+                                       object.filter)
+    elif hasattr(object, 'filters'):
+        for h, obj in zip(haystack.filters, object.filters):
+            r = find_object_given_state(needle, h, obj)
+            if r is not None:
+                return r
+    return None
+
 
 ################################################################################
 # `GenericModule` class.
@@ -30,9 +57,8 @@ class GenericModule(Module):
     filters/components put together.  This is very convenient and useful
     to create new modules.
 
-    Note that all components including the actor must be set in the
-    components trait.
-
+    Note that all components including the actor must be passed as a
+    list to set the components trait.
     """
 
     # Our name.
@@ -53,12 +79,58 @@ class GenericModule(Module):
     # Should we use the scalar LUT or the vector LUT?
     lut_mode = Enum('scalar', 'vector')
     
-
     ########################################
     # Private traits.
 
     # Is the pipeline ready?  Used internally.
     _pipeline_ready = Bool(False)
+
+    ######################################################################
+    # `object` interface.
+    ######################################################################
+    def __get_pure_state__(self):
+        # Need to pickle the components.
+        d = super(GenericModule, self).__get_pure_state__()
+        d['components'] = self.components
+        d.pop('_pipeline_ready', None)
+        return d
+
+    def __set_pure_state__(self, state):
+        # If we are already running, there is a problem since the
+        # components will be started automatically in the module's
+        # handle_components even though their state is not yet set call
+        # so we disable it here and restart it later.
+        running = self.running
+        self.running = False
+
+        # Remove the actor states since we don't want these unpickled.
+        actor_st = state.pop('actor', None)
+        contour_st = state.pop('contour', None)
+        # Create and set the components.
+        components = list(self.components)
+        handle_children_state(components, state.components)
+        self.components = components
+
+        # Restore our state using set_state.
+        state_pickler.set_state(self, state)
+
+        # Now set our actor and component by finding the right one to get from
+        # the state.
+        if actor_st is not None:
+            for cst, c in zip(state.components, components):
+                actor = find_object_given_state(actor_st, cst, c)
+                if actor is not None:
+                    self.actor = actor
+                    break
+        if contour_st is not None:
+            for cst, c in zip(state.components, components):
+                contour = find_object_given_state(contour_st, cst, c)
+                if contour is not None:
+                    self.contour = contour
+                    break
+        # Now start all components if needed.
+        self._start_components()
+        self.running = running
 
     ######################################################################
     # `HasTraits` interface.
@@ -112,7 +184,7 @@ class GenericModule(Module):
     def _setup_pipeline(self):
         """Sets up the objects in the pipeline."""
         mm = self.module_manager
-        if mm is None:
+        if mm is None or len(self.components) == 0:
             return
         # Our input.
         my_input = mm.source
@@ -127,9 +199,7 @@ class GenericModule(Module):
                 component.inputs = [components[i-1]]
             self._pipeline_ready = True
         # Start components.
-        for component in components:
-            component.start()
-
+        self._start_components()
         # Setup the LUT of any actors.
         self._lut_mode_changed(self.lut_mode)
 
@@ -143,6 +213,7 @@ class GenericModule(Module):
                     self.actor = component
 
         self._pipeline_ready = False
+        self._setup_pipeline()
 
     def _lut_mode_changed(self, value):
         """Static traits listener."""
@@ -172,4 +243,9 @@ class GenericModule(Module):
             self.actor.mapper.scalar_mode = 'default'
         self.render()
 
+    def _start_components(self):
+        for component in self.components:
+            if len(component.inputs) > 0 and \
+               len(component.inputs[0].outputs) > 0:
+                component.start()
 

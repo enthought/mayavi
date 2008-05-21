@@ -12,6 +12,20 @@ import copy
 # Local imports.
 from common import TestCase, get_example_data
 
+# Create a simple CutPlane filter for testing.  This is needed since the
+# cutter is connected to the implicit plane via the cut_function which
+# needs to be set -- this can't be pickled.
+# FIXME: replace with standard cut plane filter when that is
+# implemented.
+from enthought.mayavi.components.cutter import Cutter
+from enthought.mayavi.components.implicit_plane import ImplicitPlane
+from enthought.mayavi.filters.collection import Collection
+class CutPlane(Collection):
+    def setup_pipeline(self):
+        ip = ImplicitPlane()
+        cut = Cutter(cut_function=ip.plane)
+        self.filters = [ip, cut]
+
 
 class TestGenericModule(TestCase):
 
@@ -20,8 +34,6 @@ class TestGenericModule(TestCase):
         # Imports.
         script = self.script
         from enthought.mayavi.filters.optional import Optional
-        from enthought.mayavi.components.implicit_plane import ImplicitPlane
-        from enthought.mayavi.components.cutter import Cutter
         from enthought.mayavi.filters.warp_scalar import WarpScalar
         from enthought.mayavi.components.poly_data_normals import PolyDataNormals
         from enthought.mayavi.components.contour import Contour
@@ -40,8 +52,7 @@ class TestGenericModule(TestCase):
 
         # We now create the complete equivalent of a ScalarCutPlane in
         # the next block!
-        ip = ImplicitPlane()
-        cut = Cutter(cut_function=ip.plane)
+        cp = CutPlane()
         w = WarpScalar()
         warper = Optional(filter=w, label_text='Enable warping', enabled=False)
         c = Contour()
@@ -49,7 +60,7 @@ class TestGenericModule(TestCase):
         p = PolyDataNormals(name='Normals') 
         normals = Optional(filter=p, label_text='Compute normals', enabled=False)
         a = Actor()
-        components = [ip, cut, warper, ctr, normals, a]
+        components = [cp, warper, ctr, normals, a]
         m = GenericModule(name='ScalarCutPlane',
                           components=components,
                           contour=c, actor=a)
@@ -59,8 +70,10 @@ class TestGenericModule(TestCase):
 
         ########################################
         # do the testing.
-        def check():
-            """Check if test status is OK."""
+        def check(mod):
+            """Check if test status is OK for the given module."""
+            cut, warper, ctr, normals, a = mod.components
+            c = ctr.filter
             # The intermediate ones are disabled.
             assert normals.outputs[0] is cut.outputs[0]
             # Enable the contours.
@@ -95,9 +108,54 @@ class TestGenericModule(TestCase):
             ctr.enabled = False
             assert normals.outputs[0] is cut.outputs[0]
 
-        check()
+        check(m)
 
-        # FIXME: Add persistence support and test for it. 
+        ############################################################
+        # Test if saving a visualization and restoring it works.
+
+        # Save visualization.
+        f = StringIO()
+        f.name = abspath('test.mv2') # We simulate a file.
+        script.save_visualization(f)
+        f.seek(0) # So we can read this saved data.
+
+        # Remove existing scene.
+        engine = script.engine
+        engine.close_scene(s)
+
+        # Load visualization
+        script.load_visualization(f)
+        s = engine.current_scene
+        s.scene.isometric_view()
+
+        # Now do the check.
+        m = s.children[0].children[0].children[0]
+        check(m)
+
+        ############################################################
+        # Test if the Mayavi2 visualization can be deep-copied.
+
+        # Pop the source object.
+        source = s.children.pop()
+        # Add it back to see if that works without error.
+        s.children.append(source)
+        # Now do the check.
+        m = s.children[0].children[0].children[0]
+        s.scene.isometric_view()
+        check(m)
+
+        # Now deepcopy the source and replace the existing one with
+        # the copy.  This basically simulates cutting/copying the
+        # object from the UI via the right-click menu on the tree
+        # view, and pasting the copy back.
+        source1 = copy.deepcopy(source)
+        s.children[0] = source1
+        # Now do the check.
+        m = s.children[0].children[0].children[0]
+        s.scene.isometric_view()
+        check(m)
+        
+        # If we have come this far, we are golden!
 
 if __name__ == "__main__":
     t = TestGenericModule()
