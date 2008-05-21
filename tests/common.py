@@ -293,7 +293,7 @@ class TestCase(Mayavi):
     ######################################################################
     def main(self, argv=None, plugins=None):
         """Overridden main method that sets the argv to sys.argv[1:] by
-        default.
+        default.  Call this to run the test.
         """
         if argv is None:
             argv = sys.argv[1:]
@@ -305,7 +305,8 @@ class TestCase(Mayavi):
         setup_logger(logger, 'mayavi-test.log', mode=self.log_mode)
 
     def run(self):
-        """This starts everything up and runs the test."""
+        """This starts everything up and runs the test.  Call main to
+        run the test."""
 
         # Calls the users test code.
         self.test()
@@ -419,4 +420,21 @@ def get_example_data(fname):
     """
     p = os.path.join(os.pardir, 'examples', 'mayavi', 'data', fname)
     return os.path.abspath(fixpath(p))
-    
+   
+def test(function):
+    """A decorator to make a simple mayavi2 script function into a
+    test case.
+    """
+    class MyTest(TestCase):
+        def test(self):
+            g = sys.modules['__main__'].__dict__
+            if 'mayavi' not in g:
+                g['mayavi'] = self.script
+            # Call the test.
+            function()
+        def __call__(self):
+           self.main()
+
+    test = MyTest()
+    return test
+
