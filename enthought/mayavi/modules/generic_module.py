@@ -9,7 +9,7 @@ create new modules.
 # License: BSD Style.
 
 # Enthought library imports.
-from enthought.traits.api import Bool, Str, List, Enum, Instance
+from enthought.traits.api import Bool, List, Enum, Instance
 from enthought.traits.ui.api import Item, Group, View, ListEditor
 from enthought.persistence import state_pickler
 
@@ -60,9 +60,6 @@ class GenericModule(Module):
     Note that all components including the actor must be passed as a
     list to set the components trait.
     """
-
-    # Our name.
-    name = Str('GenericModule')
 
     # The *optional* Contour component to which we must listen to if
     # any.  This is needed for modules that use a contour component

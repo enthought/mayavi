@@ -6,7 +6,7 @@ filters/components bundled into one.
 # License: BSD Style.
 
 # Enthought library imports.
-from enthought.traits.api import Instance, Bool, Str, List
+from enthought.traits.api import Instance, Bool, List
 from enthought.traits.ui.api import Item, Group, View, ListEditor
 from enthought.persistence import state_pickler
 
@@ -27,9 +27,6 @@ class Collection(Filter):
 
     # The filters we manage.
     filters = List(Instance(PipelineBase))
-
-    # Our name.
-    name = Str('CollectionFilter')
 
     ########################################
     # Private traits.
