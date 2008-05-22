@@ -104,9 +104,8 @@ class GenericModule(Module):
         actor_st = state.pop('actor', None)
         contour_st = state.pop('contour', None)
         # Create and set the components.
-        components = list(self.components)
-        handle_children_state(components, state.components)
-        self.components = components
+        handle_children_state(self.components, state.components)
+        components = self.components
 
         # Restore our state using set_state.
         state_pickler.set_state(self, state)

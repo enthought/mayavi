@@ -39,9 +39,7 @@ class Collection(Filter):
     ###################################################################### 
     def __set_pure_state__(self, state):
         # Create and set the filters.
-        filters = list(self.filters)
-        handle_children_state(filters, state.filters)
-        self.filters = filters
+        handle_children_state(self.filters, state.filters)
         # Restore our state using the super class method.
         super(Collection, self).__set_pure_state__(state)
 

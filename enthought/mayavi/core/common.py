@@ -63,19 +63,27 @@ def handle_children_state(children, kids):
     children by removing unnecessary ones, fixing existing ones and
     adding new children if necessary (depending on the state).
     """
-    n_child, n_kid = len(children),  len(kids)
+    # Make a copy of the list so adding/removing does not trigger events
+    # each time.
+    m_children = list(children)
+
+    n_child, n_kid = len(m_children),  len(kids)
     # Remove extra children we have.
     for i in range(n_child - n_kid):
-        children.pop()
+        m_children.pop()
     # Now check existing children deleting existing ones and
     # creating new ones if needed.
     for i in range(n_child):
-        child, kid = children[i], kids[i]
+        child, kid = m_children[i], kids[i]
         md = kid.__metadata__
         if (child.__module__ != md['module']) \
                or (child.__class__.__name__ != md['class_name']):
-            children[i] = create_instance(kid)
+            m_children[i] = create_instance(kid)
     # Add any extra kids.
     for i in range(n_kid - n_child):
         child = create_instance(kids[n_child + i])
-        children.append(child)
+        m_children.append(child)
+
+    # Now set the children in one shot.
+    children[:] = m_children
+
