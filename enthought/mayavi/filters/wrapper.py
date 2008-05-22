@@ -81,7 +81,16 @@ class Wrapper(Filter):
 
     ######################################################################
     # `Filter` interface.
-    ###################################################################### 
+    ######################################################################
+    def setup_pipeline(self):
+        """Setup the pipeline."""
+        # Needed because a user may have defined a filter by setting the
+        # default value of the trait in the subclass in which case the
+        # filter changed handler will never be called leading to
+        # problems.
+        if self.filter is not None:
+            self._setup_events(self.filter)
+
     def stop(self):
         # There is no need to override start since the wrapped filter is
         # always started automatically in the _enabled_changed handler.

@@ -69,6 +69,15 @@ class Collection(Filter):
     ######################################################################
     # `Filter` interface.
     ###################################################################### 
+    def setup_pipeline(self):
+        """Setup the pipeline."""
+        # Needed because a user may have defined the filters by setting
+        # the default value of the trait in the subclass in which case
+        # the filters_changed handler will never be called leading to
+        # problems.
+        if len(self.filters) > 0 and not self._pipeline_ready:
+            self._filters_changed([], self.filters)
+
     def stop(self):
         # There is no need to override start since the wrapped filters
         # are always started automatically in the filters_changed

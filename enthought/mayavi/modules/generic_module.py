@@ -153,6 +153,15 @@ class GenericModule(Module):
     ######################################################################
     # `Module` interface.
     ###################################################################### 
+    def setup_pipeline(self):
+        """Setup the pipeline."""
+        # Needed because a user may have setup the components by setting
+        # the default value of the trait in the subclass in which case
+        # the components_changed handler will never be called leading to
+        # problems.
+        if len(self.components) > 0 and not self._pipeline_ready:
+            self._components_changed([], self.components)
+
     def update_pipeline(self):
         """This method *updates* the tvtk pipeline when data upstream is
         known to have changed.
