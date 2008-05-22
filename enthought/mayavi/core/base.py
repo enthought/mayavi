@@ -247,13 +247,6 @@ class Base(TreeNodeObject):
             self._is_running = new
             self.trait_property_changed('running', old, new)
 
-    def _running_changed(self):
-        if self.running:
-            if ' [Stopped]' in self.name:
-                self.name = self.name.replace(' [Stopped]', '')
-        else:
-            self.name = "%s [Stopped]" % self.name
-
     def _visible_changed(self , value):
         if value:
             self._HideShowAction.name = "Hide"
