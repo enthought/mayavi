@@ -70,6 +70,9 @@ class Base(TreeNodeObject):
     # The human readable type for this object
     type = Str('')
 
+    # Is this object visible or not. 
+    visible = Bool(True, desc='if the object is visible')
+
 
     ##################################################
     # Private traits
@@ -246,18 +249,24 @@ class Base(TreeNodeObject):
 
     def _running_changed(self):
         if self.running:
-            if self.name[-9:] == ' [Hidden]':
-                self.name = self.name[:-9]
-            self._HideShowAction.name = "Hide"
+            if ' [Stopped]' in self.name:
+                self.name = self.name.replace(' [Stopped]', '')
         else:
-            self.name = "%s [Hidden]" % self.name
+            self.name = "%s [Stopped]" % self.name
+
+    def _visible_changed(self , value):
+        if value:
+            self._HideShowAction.name = "Hide"
+            self.name = self.name.replace(' [Hidden]', '')
+        else:
             self._HideShowAction.name = "Show"
+            self.name = "%s [Hidden]" % self.name
 
     def _hideshow(self):
-        if self._HideShowAction.name == "Hide":
-            self.stop()
+        if self.visible:
+            self.visible = False
         else:
-            self.start()
+            self.visible = True
 
     def _load_saved_state(self):
         """Load the saved state (if any) of this object.

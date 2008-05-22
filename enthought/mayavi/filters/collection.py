@@ -164,3 +164,9 @@ class Collection(Filter):
                             remove=remove)
         obj.on_trait_change(self._fire_pipeline_changed,
                             'pipeline_changed', remove=remove)
+
+    def _visible_changed(self, value):
+        for filter in self.filters:
+            filter.visible = value
+        super(Collection, self)._visible_changed(value)
+

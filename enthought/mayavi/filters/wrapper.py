@@ -159,3 +159,8 @@ class Wrapper(Filter):
         obj.on_trait_change(self.update_data,
                             'data_changed', 
                             remove=remove)
+
+    def _visible_changed(self, value):
+        self.filter.visible = value
+        super(Wrapper, self)._visible_changed(value)
+

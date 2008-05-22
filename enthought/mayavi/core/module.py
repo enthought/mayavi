@@ -2,7 +2,7 @@
 
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2005, Enthought, Inc.
+# Copyright (c) 2005-2008, Enthought, Inc.
 # License: BSD Style.
 
 # Enthought library imports.
@@ -221,4 +221,10 @@ class Module(PipelineBase):
                 component.scene = scene
             if self.running:
                 component.start()
+
+    def _visible_changed(self,value):              
+        for c in self.components:                  
+            c.visible = value                      
+                                                   
+        super(Module,self)._visible_changed(value)
 

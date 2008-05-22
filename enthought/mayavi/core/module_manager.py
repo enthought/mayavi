@@ -3,7 +3,7 @@ tables.
 
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2005,  Enthought, Inc.
+# Copyright (c) 2005-2008,  Enthought, Inc.
 # License: BSD Style.
 
 
@@ -326,3 +326,12 @@ class ModuleManager(Base):
             data_attr.copy_traits(cell_data_attr)
 
         data_attr.config_lut(self.vector_lut_manager)
+
+    def _visible_changed(self,value):
+        for c in self.children:
+            c.visible = value
+        self.scalar_lut_manager.visible = value
+        self.vector_lut_manager.visible = value
+    
+        super(ModuleManager,self)._visible_changed(value)
+

@@ -2,7 +2,7 @@
 
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2005, Enthought, Inc.
+# Copyright (c) 2005-2008, Enthought, Inc.
 # License: BSD Style.
 
 # Enthought library imports.
@@ -186,3 +186,9 @@ class Source(PipelineBase):
         for obj in self.children:
             obj.scene = new
 
+    def _visible_changed(self,value):
+        for c in self.children:
+            c.visible = value           
+
+        super(Source,self)._visible_changed(value)
+    

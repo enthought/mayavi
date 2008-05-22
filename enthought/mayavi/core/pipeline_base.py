@@ -3,7 +3,7 @@ basically abstracts out the common parts of the pipeline interface.
 
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2005, Enthought, Inc.
+# Copyright (c) 2005-2008, Enthought, Inc.
 # License: BSD Style.
 
 
@@ -56,6 +56,8 @@ class PipelineBase(Base):
     # not.
     _actors_added = Bool(False)
 
+    # Stores the state of the widgets prior to disabling them.
+    _widget_state = List
 
     ######################################################################
     # `object` interface.
@@ -163,3 +165,39 @@ class PipelineBase(Base):
             old_scene.remove_widgets(self.widgets)
             new_scene.add_actors(self.actors)
             new_scene.add_widgets(self.widgets)
+    
+    def _backup_widget_state(self):
+        # store the enabled trait of the widgets
+        # in the _widget_state list
+        state = []
+        for w in self.widgets:
+            state.append(w.enabled)
+            self._widget_state[:] = state
+        
+    def _restore_widget_state(self):
+        if len(self._widget_state) != len(self.widgets):
+            # someone has played with the widgets
+            # we just enable all of them
+            for w in self.widgets:
+                w.enable = True
+        else:
+            for i in range(len(self.widgets)):
+                self.widgets[i].enabled = self._widget_state[i]
+            
+    def _visible_changed(self,value):
+        if value:
+            # restore the state of the widgets from the 
+            # backed up values.
+            self._restore_widget_state()
+        else:
+            self._backup_widget_state()
+            # disable all the widgets
+            for w in self.widgets:
+                w.enabled = False
+
+        # hide all actors
+        for a in self.actors:
+            a.visibility = value
+        
+        super(PipelineBase , self)._visible_changed(value)
+        

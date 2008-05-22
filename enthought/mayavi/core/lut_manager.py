@@ -397,6 +397,11 @@ class LUTManager(Base):
         if self.use_default_range:
             self.data_range = value
 
+    def _visible_changed(self, value):
+        state = self.show_scalar_bar and value
+        self._show_scalar_bar_changed(state)
+        super(LUTManager, self)._visible_changed(value)
+
     def load_lut_from_file(self, file_name):
         lut_list = []
         if len(file_name) > 0:

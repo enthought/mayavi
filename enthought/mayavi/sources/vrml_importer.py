@@ -127,3 +127,15 @@ class VRMLImporter(Source):
             # does a read.
             self.scene.render()
 
+    def _visible_changed(self, value):
+        if value:
+            if not self._actors_added:
+                self.scene.add_actors(self.actors)
+                self._actors_added = True
+        else:
+            if self._actors_added:
+                self.scene.remove_actors(self.actors)
+                self._actors_added = False
+        self.render()
+        super(VRMLImporter, self)._visible_changed(value)
+
