@@ -12,20 +12,6 @@ import copy
 # Local imports.
 from common import TestCase, get_example_data
 
-# Create a simple CutPlane filter for testing.  This is needed since the
-# cutter is connected to the implicit plane via the cut_function which
-# needs to be set -- this can't be pickled.
-# FIXME: replace with standard cut plane filter when that is
-# implemented.
-from enthought.mayavi.components.cutter import Cutter
-from enthought.mayavi.components.implicit_plane import ImplicitPlane
-from enthought.mayavi.filters.collection import Collection
-class CutPlane(Collection):
-    def setup_pipeline(self):
-        ip = ImplicitPlane()
-        cut = Cutter(cut_function=ip.plane)
-        self.filters = [ip, cut]
-
 
 class TestGenericModule(TestCase):
 
@@ -35,6 +21,7 @@ class TestGenericModule(TestCase):
         script = self.script
         from enthought.mayavi.filters.optional import Optional
         from enthought.mayavi.filters.warp_scalar import WarpScalar
+        from enthought.mayavi.filters.cut_plane import CutPlane
         from enthought.mayavi.components.poly_data_normals import PolyDataNormals
         from enthought.mayavi.components.contour import Contour
         from enthought.mayavi.components.actor import Actor

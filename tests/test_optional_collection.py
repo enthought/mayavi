@@ -20,7 +20,7 @@ class TestOptionalCollection(TestCase):
         # Imports.
         script = self.script
         from enthought.mayavi.sources.vtk_file_reader import VTKFileReader
-        from enthought.mayavi.components.contour import Contour
+        from enthought.mayavi.filters.contour import Contour
         from enthought.mayavi.filters.optional import Optional
         from enthought.mayavi.filters.collection import Collection 
         from enthought.mayavi.filters.api import PolyDataNormals
@@ -49,6 +49,7 @@ class TestOptionalCollection(TestCase):
         def check(coll):
             """Check if test status is OK given the collection."""
             c, o = coll.filters
+            c = c.filter
             n = o.filter
             assert coll.outputs[0].point_data.scalars.range == (127.5, 127.5)
             # Adding a contour should create the appropriate output in
