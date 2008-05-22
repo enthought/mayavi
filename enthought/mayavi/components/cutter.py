@@ -1,12 +1,13 @@
 """A simple wrapper for `tvtk.Cutter`.
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2005, Enthought, Inc.
+# Copyright (c) 2005-2008, Enthought, Inc.
 # License: BSD Style.
 
 
 # Enthought library imports.
 from enthought.traits.api import Instance, Property
+from enthought.traits.ui.api import View, Group, Item
 from enthought.tvtk.api import tvtk
 
 # Local imports.
@@ -26,6 +27,15 @@ class Cutter(Component):
     # The cut function.  This should be a delegate but due to a bug in
     # traits that does not work.
     cut_function = Property
+
+    ########################################
+    # View related traits.
+
+    view = View(Group(Item(name='cutter', 
+                           style='custom',
+                           resizable=True),
+                      show_labels=False),
+                resizable=True)
 
     ######################################################################
     # `Component` interface
