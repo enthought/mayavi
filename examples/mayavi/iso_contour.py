@@ -1,8 +1,5 @@
 #!/usr/bin/mayavi2
 """This example shows how you can produce contours on an IsoSurface.
-
-WARNING:  If you turn on the visibility of the iso-surface this script
-will very likely segfault!
 """
 # Author: Prabhu Ramachandran <prabhu [at] aero . iitb . ac . in>
 # Copyright (c) 2008,  Enthought, Inc.
@@ -18,34 +15,49 @@ mayavi2.standalone(globals())
 from os.path import join, abspath
 
 # Mayavi imports.
-from enthought.mayavi.sources.api import VTKXMLFileReader, VTKDataSource
-from enthought.mayavi.modules.api import IsoSurface, Surface
+from enthought.mayavi.sources.api import VTKXMLFileReader
+from enthought.mayavi.filters.contour import Contour
+from enthought.mayavi.filters.api import PolyDataNormals
+from enthought.mayavi.filters.set_active_attribute import SetActiveAttribute
+from enthought.mayavi.modules.api import Surface, Outline
 
 def main():
     mayavi.new_scene()
+
+    # Read the example data: fire_ug.vtu.
     r = VTKXMLFileReader()
     filename = join(mayavi2.get_data_dir(abspath(__file__)),
                     'fire_ug.vtu')
     r.initialize(filename)
     mayavi.add_source(r)
+    # Set the active point scalars to 'u'.
+    r.point_scalars_name = 'u'
 
-    iso = IsoSurface()
-    mayavi.add_module(iso)
-    # Don't show the isosurface if not we run into problems.  Need to
-    # figure out how to work around that.
-    iso.actor.actor.visibility = False
+    # Simple outline for the data.
+    o = Outline()
+    mayavi.add_module(o)
 
-    # Now get the data of the contours of the IsoSurface and use that as
-    # a data source.
-    data = iso.contour.outputs[0]
-    s = VTKDataSource(data=data)
-    mayavi.add_source(s)
-    # Select the 'u' scalar to contour
-    s.point_scalars_name = 'u'
+    # Branch the pipeline with a contour -- the outline above is
+    # directly attached to the source whereas the contour below is a
+    # filter and will branch the flow of data.   An isosurface in the
+    # 'u' data attribute is generated and normals generated for it.
 
-    # Now view this surface.
-    surf = Surface(enable_contours=True)
-    mayavi.add_module(surf)
+    c = Contour()
+    mayavi.add_filter(c)
+    n = PolyDataNormals()
+    mayavi.add_filter(n)
+
+    # Now we want to show the temperature 't' on the surface of the 'u'
+    # iso-contour.  This is easily done by using the SetActiveAttribute
+    # filter below.
+
+    aa = SetActiveAttribute()
+    mayavi.add_filter(aa)
+    aa.point_scalars_name = 't'
+
+    # Now view the iso-contours of 't' with a Surface filter.
+    s = Surface(enable_contours=True)
+    mayavi.add_module(s)
 
 
 if __name__ == "__main__":
