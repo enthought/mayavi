@@ -167,12 +167,17 @@ class VTKXMLFileReader(FileDataSource):
         d = super(VTKXMLFileReader, self).__get_pure_state__()
         for name in ('_assign_attribute', '_first'):
             d.pop(name, None)
+        # Pickle the 'point_scalars_name' etc. since these are
+        # properties and not in __dict__.
+        attr = {}
         for name in ('point_scalars', 'point_vectors',
                      'point_tensors', 'cell_scalars',
                      'cell_vectors', 'cell_tensors'):
             d.pop('_' + name + '_list', None)
             d.pop('_' + name + '_name', None)
-
+            x = name + '_name'
+            attr[x] = getattr(self, x)
+        d.update(attr)
         return d
     
     def __set_pure_state__(self, state):
