@@ -95,7 +95,8 @@ setup(
     description = "The MayaVi scientific data visualizer",
     entry_points = {
         'console_scripts': [
-            'mayavi2 = enthought.mayavi.scripts.mayavi2:main'
+            'mayavi2 = enthought.mayavi.scripts.mayavi2:main',
+            'tvtk_doc = enthought.tvtk.tools.tvtk_doc:main'
             ],
 
         'enthought.envisage.plugins': [
