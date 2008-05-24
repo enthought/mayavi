@@ -19,6 +19,7 @@ docs are shown.
 # Standard library imports.
 import vtk
 import types
+import inspect
 
 # Enthought library imports.
 from enthought.traits.api import HasTraits, Property, List, Str, \
@@ -84,10 +85,44 @@ def get_tvtk_class_names():
 
     return result
 
+def get_func_doc(func, fname):
+    """Returns function documentation."""
+    if inspect.isfunction(func):
+        func_obj = func
+    elif inspect.ismethod(func):
+        func_obj = func.im_func
+    else:
+        return ''
+    args, vargs, vkw = inspect.getargs(func_obj.func_code)
+    defaults = func_obj.func_defaults
+    doc = fname + inspect.formatargspec(args, vargs, vkw, defaults)
+    d = inspect.getdoc(func)
+    if d is not None:
+        doc += '\n\n' + d + '\n\n'
+    return doc
+
 def get_tvtk_class_doc(obj):
     """Return's the objects documentation."""
-    return obj.__doc__
+    doc = obj.__doc__ + '\nTraits:\n-------------------\n\n'
 
+    ignore = ['trait_added', 'trait_modified']
+    for key, trait in obj.traits().iteritems():
+        if key.startswith('_') or key.endswith('_') or key in ignore:
+            continue
+        doc += '\n%s: %s'%(key, trait.help)
+
+    doc += '\nMethods:\n----------------------\n\n'
+    traits = obj.trait_names()
+    for name in dir(obj):
+        if name in traits or name.startswith('_'): 
+            continue
+        if name.find('trait') > -1 and name != 'update_traits':
+            continue
+        func = getattr(obj, name)
+        if callable(func):
+            doc += '\n' + get_func_doc(func, name)
+
+    return doc
 
 # GLOBALS
 TVTK_CLASSES, TVTK_SOURCES, TVTK_FILTERS, TVTK_SINKS = get_tvtk_class_names()
@@ -194,6 +229,29 @@ class DocSearch(object):
 
         return [get_tvtk_name(x) for x in ret]
 
+_search_help_doc =  """
+                        Help on Searching
+           ---------------------------------------
+
+To search for a particular TVTK class, type in the 'class_name' text entry
+widget.  The class names are all case sensitive.   You may also select
+the class from the list of available class names at the top.
+
+As you type you will see completion options in the completions
+list, the instant a complete match is found the class documentation will
+be show in the bottom.
+
+You can also search the TVTK class documentation for strings (case
+insensitive).  The search option supports the 'and' and 'or' keywords to
+do advanced searches.  Press <Enter>/<Return> to perform the search.
+
+The top 25 hits will show up in the completions, to view a particular
+hit either select the choice from the available ones or type in the
+name in the 'class_name' entry box.  To clear the search string click
+the 'Clear search' button or erase the search string manually.
+
+"""
+
 
 ################################################################################
 # `TVTKClassChooser` class.
@@ -216,7 +274,7 @@ class TVTKClassChooser(HasTraits):
     clear_search = Button
 
     # The class documentation.
-    doc = Str
+    doc = Str(_search_help_doc)
 
     # Completions for the choice of class.
     completions = List(Str)
@@ -251,7 +309,7 @@ class TVTKClassChooser(HasTraits):
                            ),
                       Item(name='doc', 
                            resizable=True,
-                           label='Class documentation',
+                           label='Documentation',
                            style='custom')
                       ),
                 id='tvtk_doc',
@@ -276,7 +334,7 @@ class TVTKClassChooser(HasTraits):
         if len(self.class_name) > 0:
             try:
                 o = getattr(tvtk, self.class_name)()
-            except AttributeError:
+            except (AttributeError, TypeError):
                 pass
         return o
 
@@ -290,6 +348,8 @@ class TVTKClassChooser(HasTraits):
         o = self.object
         if o is not None:
             self.doc = get_tvtk_class_doc(o)
+        else:
+            self.doc = _search_help_doc
 
     def _finder_default(self):
         return DocSearch()
