@@ -318,15 +318,32 @@ def process_cmd_line(app, opts, args):
                 modname = a[:idx]
                 classname = a[idx+1:]
             else:
-                modname = 'enthought.mayavi.filters.%s'%camel2enthought(a)
-                classname = a
+                if a[:12] == 'UserDefined:':
+                    modname = 'enthought.mayavi.filters.user_defined'
+                    classname = 'UserDefined'
+                    # Create the wrapped filter.
+                    fname = a[12:]
+                    from enthought.tvtk.api import tvtk
+                    try:
+                        extra = getattr(tvtk, fname)()
+                    except (AttributeError, TypeError):
+                        # Don't worry about errors.
+                        extra = None
+                else:
+                    modname = 'enthought.mayavi.filters.%s'%camel2enthought(a)
+                    classname = a
+                    extra = None
             try:
                 mod = __import__(modname, globals(), locals(), [classname])
             except ImportError, msg:
                 exception(str(msg))
                 return
             else:
-                f = getattr(mod, classname)()
+                klass = getattr(mod, classname)
+                if extra is None:
+                    f = klass()
+                else:
+                    f = klass(filter=extra)
                 script.add_filter(f)
 
         if o in ('-M', '--module-mgr'):
