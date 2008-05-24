@@ -65,9 +65,11 @@ def get_tvtk_class_names():
             all.append(tvtk_name)
             has_input = has_output = False
             if hasattr(klass, 'GetNumberOfInputPorts'):
-                has_input = True
+                if c.GetNumberOfInputPorts() > 0:
+                    has_input = True
             if hasattr(klass, 'GetNumberOfOutputPorts'):
-                has_output = True
+                if c.GetNumberOfOutputPorts() > 0:
+                    has_output = True
 
             if has_input:
                 if has_output:
