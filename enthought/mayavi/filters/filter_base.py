@@ -49,9 +49,11 @@ class FilterBase(Filter):
         basic objects and setup those parts of the pipeline not
         dependent on upstream sources and filters.
         """
-        # Just hook up the filter so the scene is updated when its
-        # traits change.
-        self.filter.on_trait_change(self.render)
+        f = self.filter
+        if f is not None:
+            # Just hook up the filter so the scene is updated when its
+            # traits change.
+            f.on_trait_change(self.render)
     
     def update_pipeline(self):
         """Override this method so that it *updates* the tvtk pipeline
