@@ -340,10 +340,11 @@ def process_cmd_line(app, opts, args):
                 return
             else:
                 klass = getattr(mod, classname)
-                if extra is None:
+                if classname != 'UserDefined':
                     f = klass()
                 else:
                     f = klass(filter=extra)
+                    f.setup_filter()
                 script.add_filter(f)
 
         if o in ('-M', '--module-mgr'):

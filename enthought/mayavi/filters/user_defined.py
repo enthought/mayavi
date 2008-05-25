@@ -28,22 +28,19 @@ class UserDefined(FilterBase):
     ######################################################################
     # `object` interface.
     ######################################################################
-    def __init__(self, **traits):
-        super(UserDefined, self).__init__(**traits)
-        self._setup_filter()
-
     def __set_pure_state__(self, state):
         # Create and set the filter.
         children = [f for f in [self.filter] if f is not None]
         handle_children_state(children, [state.filter])
         self.filter = children[0]
+        self.update_pipeline()
         # Restore our state.
         super(UserDefined, self).__set_pure_state__(state)
 
     ######################################################################
-    # Non-public interface.
+    # `UserDefined` interface.
     ###################################################################### 
-    def _setup_filter(self):
+    def setup_filter(self):
         """Setup the filter if none has been set or check it if it
         already has been."""
         obj = self.filter
@@ -54,6 +51,9 @@ class UserDefined(FilterBase):
             obj = self._choose_filter()
             self.filter = obj
 
+    ######################################################################
+    # Non-public interface.
+    ###################################################################### 
     def _choose_filter(self):
         chooser = TVTKFilterChooser()
         chooser.edit_traits(kind='livemodal')

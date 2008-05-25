@@ -64,12 +64,12 @@ class FilterBase(Filter):
         """
         # Do nothing if there is no input.
         inputs = self.inputs
-        if len(inputs) == 0:
+        fil = self.filter
+        if len(inputs) == 0 or fil is None:
             return
         
         # By default we set the input to the first output of the first
         # input.
-        fil = self.filter
         fil.input = inputs[0].outputs[0]
         fil.update()
         self._set_outputs([fil.output])
@@ -81,8 +81,8 @@ class FilterBase(Filter):
         This method is invoked (automatically) when any of the inputs
         sends a `data_changed` event.
         """
-        # Do nothing if there is no input.
-        if len(self.inputs) == 0:
+        # Do nothing if there is no input and we aren't running.
+        if len(self.inputs) == 0 or not self.running:
             return
 
         self.filter.update()
