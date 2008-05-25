@@ -87,7 +87,7 @@ class Base(TreeNodeObject):
 
     # Hide and show actions
     _HideShowAction = Instance(Action,  
-                            {'name': 'Hide', 'action': 'object._hideshow'}, )
+                            {'name': 'Hide/Show', 'action': 'object._hideshow'}, )
 
     _menu = Instance(Menu)
 
@@ -249,10 +249,10 @@ class Base(TreeNodeObject):
 
     def _visible_changed(self , value):
         if value:
-            self._HideShowAction.name = "Hide"
+            #self._HideShowAction.name = "Hide"
             self.name = self.name.replace(' [Hidden]', '')
         else:
-            self._HideShowAction.name = "Show"
+            #self._HideShowAction.name = "Show"
             self.name = "%s [Hidden]" % self.name
 
     def _hideshow(self):

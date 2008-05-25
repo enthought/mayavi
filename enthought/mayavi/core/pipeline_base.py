@@ -198,6 +198,7 @@ class PipelineBase(Base):
         # hide all actors
         for a in self.actors:
             a.visibility = value
-        
+       
+        self.render()
         super(PipelineBase , self)._visible_changed(value)
         
