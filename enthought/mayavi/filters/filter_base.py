@@ -51,9 +51,9 @@ class FilterBase(Filter):
         """
         f = self.filter
         if f is not None:
-            # Just hook up the filter so the scene is updated when its
-            # traits change.
-            f.on_trait_change(self.render)
+            # Just hook up the filter so the update_data method is
+            # called when the traits change.
+            f.on_trait_change(self.update_data)
     
     def update_pipeline(self):
         """Override this method so that it *updates* the tvtk pipeline
@@ -91,9 +91,9 @@ class FilterBase(Filter):
 
     def _filter_changed(self, old, new):
         if old is not None:
-            old.on_trait_change(self.render, remove=True)
+            old.on_trait_change(self.update_data, remove=True)
 
-        new.on_trait_change(self.render)
+        new.on_trait_change(self.update_data)
 
         if old is not None:
             self.update_pipeline()
