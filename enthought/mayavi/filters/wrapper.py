@@ -34,7 +34,7 @@ class Wrapper(Filter):
     label_text = Str('Enable Filter')
 
     # Are we enabled or not.
-    enabled = Bool(True, desc='if the wrapped filter is enabled or not')
+    enabled = Bool(True, desc='if the filter is enabled or not')
 
     ########################################
     # Private traits.
@@ -140,6 +140,7 @@ class Wrapper(Filter):
             self._set_outputs(my_input.outputs)
             name += ' (disabled)'
         self.name = name
+        self.render()
 
     def _filter_changed(self, old, new):
         """Static traits handler."""
