@@ -132,10 +132,5 @@ class VRMLImporter(Source):
             if not self._actors_added:
                 self.scene.add_actors(self.actors)
                 self._actors_added = True
-        else:
-            if self._actors_added:
-                self.scene.remove_actors(self.actors)
-                self._actors_added = False
-        self.render()
         super(VRMLImporter, self)._visible_changed(value)
 
