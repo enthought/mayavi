@@ -10,6 +10,7 @@
 from axes import Axes
 from contour_grid_plane import ContourGridPlane
 from custom_grid_plane import CustomGridPlane
+from generic_module import GenericModule
 from glyph import Glyph
 from grid_plane import GridPlane
 from hyper_streamline import HyperStreamline
