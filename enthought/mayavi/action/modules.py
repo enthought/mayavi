@@ -2,7 +2,7 @@
 
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2005, Enthought, Inc.
+# Copyright (c) 2005-2008, Enthought, Inc.
 # License: BSD Style.
 
 # Enthought library imports.
@@ -17,6 +17,11 @@ from enthought.mayavi.plugins.script import get_imayavi
 ######################################################################
 class AxesModule(Action):
     """ An action that creates an Axes module. """
+
+    tooltip       = "Draw axes on the outline of input data"
+
+    description   = "Draw cubical axes on the outline for given input"
+
     ###########################################################################
     # 'Action' interface.
     ###########################################################################
@@ -33,6 +38,11 @@ class AxesModule(Action):
 ######################################################################
 class ContourGridPlaneModule(Action):
     """ An action that creates a ContourGridPlane module. """
+
+    tooltip       = "Shows a contour grid plane for the given input"
+
+    description   = "Shows a contour grid plane for the given input"
+
     def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.modules.contour_grid_plane import ContourGridPlane
@@ -46,6 +56,11 @@ class ContourGridPlaneModule(Action):
 ######################################################################
 class CustomGridPlaneModule(Action):
     """ An action that creates a CustomGridPlane module. """
+
+    tooltip       = "Creates a highly customizable grid plane for given input"
+
+    description   = "Creates a highly customizable grid plane for given input"
+
     def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.modules.custom_grid_plane import CustomGridPlane
@@ -58,6 +73,11 @@ class CustomGridPlaneModule(Action):
 ######################################################################
 class GlyphModule(Action):
     """ An action that creates a Glyph module. """
+
+    tooltip       = "Creates colored and scaled glyphs at at input points"
+
+    description   = "Creates colored and scaled glyphs at at input points"
+
     def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.modules.glyph import Glyph
@@ -70,6 +90,11 @@ class GlyphModule(Action):
 ######################################################################
 class GridPlaneModule(Action):
     """ An action that creates a GridPlane module. """
+
+    tooltip       = "Shows a grid plane for the given input"
+
+    description   = "Shows a grid plane for the given input"
+
     def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.modules.grid_plane import GridPlane
@@ -82,6 +107,11 @@ class GridPlaneModule(Action):
 ######################################################################
 class HyperStreamlineModule(Action):
     """ An action that creates a HyperStreamline module. """
+
+    tooltip       = "Shows hyper streamlines for tensor data"
+
+    description   = "Shows hyper streamlines for tensor data"
+
     def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.modules.hyper_streamline import HyperStreamline
@@ -95,6 +125,11 @@ class HyperStreamlineModule(Action):
 ######################################################################
 class ImageActorModule(Action):
     """ An action that creates an ImageActor module. """
+
+    tooltip       = "Shows an image actor for image data"
+
+    description   = "Shows an image actor for image data"
+
     def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.modules.image_actor import ImageActor
@@ -108,6 +143,11 @@ class ImageActorModule(Action):
 ######################################################################
 class ImagePlaneWidgetModule(Action):
     """ An action that creates an ImagePlaneWidget module. """
+
+    tooltip       = "Shows an image plane widget for image data"
+
+    description   = "Shows an image plane widget for image data"
+
     def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.modules.image_plane_widget import ImagePlaneWidget
@@ -121,6 +161,11 @@ class ImagePlaneWidgetModule(Action):
 ######################################################################
 class IsoSurfaceModule(Action):
     """ An action that creates a IsoSurface module. """
+
+    tooltip       = "Creates an iso-surface for the given input"
+
+    description   = "Creates an iso-surface for the given input"
+
     def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.modules.iso_surface import IsoSurface
@@ -134,6 +179,11 @@ class IsoSurfaceModule(Action):
 ######################################################################
 class AddModuleManager(Action):
     """ An action that adds a ModuleManager to the tree. """
+
+    tooltip       = "Add a ModuleManager to the current source/filter"
+
+    description   = "Add a ModuleManager to the current source/filter"
+
     def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.core.module_manager import ModuleManager
@@ -147,6 +197,11 @@ class AddModuleManager(Action):
 ######################################################################
 class OrientationAxesModule(Action):
     """ An action that starts an orientation axes module. """
+
+    tooltip       = "Show an axes indicating the current orientation"
+
+    description   = "Show an axes indicating the current orientation"
+
     def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.modules.orientation_axes import OrientationAxes
@@ -160,6 +215,11 @@ class OrientationAxesModule(Action):
 ######################################################################
 class OutlineModule(Action):
     """ An action that starts an outline module. """
+
+    tooltip       = "Draw an outline for given input"
+
+    description   = "Draw an outline for given input"
+
     def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.modules.outline import Outline
@@ -173,6 +233,11 @@ class OutlineModule(Action):
 ######################################################################
 class ScalarCutPlaneModule(Action):
     """ An action that creates a scalar cut plane module. """
+
+    tooltip       = "Slice through the data with optional contours"
+
+    description   = "Slice through the data with optional contours"
+
     def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.modules.scalar_cut_plane import ScalarCutPlane
@@ -186,6 +251,11 @@ class ScalarCutPlaneModule(Action):
 ######################################################################
 class SliceUnstructuredGridModule(Action):
     """ An action that creates a scalar cut plane module. """
+
+    tooltip       = "Slice an unstructured grid to show cells"
+
+    description   = "Slice an unstructured grid to show cells"
+
     def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.modules.slice_unstructured_grid import SliceUnstructuredGrid
@@ -199,6 +269,11 @@ class SliceUnstructuredGridModule(Action):
 ######################################################################
 class StreamlineModule(Action):
     """ An action that starts a streamline module. """
+
+    tooltip       = "Generate streamlines for the vectors"
+
+    description   = "Generate streamlines for the vectors"
+
     def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.modules.streamline import Streamline
@@ -212,6 +287,11 @@ class StreamlineModule(Action):
 ######################################################################
 class StructuredGridOutlineModule(Action):
     """ An action that starts a streamline module. """
+
+    tooltip       = "Draw a grid-conforming outline for structured grids"
+
+    description   = "Draw a grid-conforming outline for structured grids"
+
     def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.modules.structured_grid_outline \
@@ -226,6 +306,11 @@ class StructuredGridOutlineModule(Action):
 ######################################################################
 class SurfaceModule(Action):
     """ An action that starts an outline module. """
+
+    tooltip       = "Creates a surface for the given input"
+
+    description   = "Creates a surface for the given input"
+
     def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.modules.surface import Surface
@@ -238,6 +323,11 @@ class SurfaceModule(Action):
 ######################################################################
 class TensorGlyphModule(Action):
     """ An action that creates a TensorGlyph module. """
+
+    tooltip       = "Displays glyphs scaled and oriented as per tensor data"
+
+    description   = "Displays glyphs scaled and oriented as per tensor data"
+
     def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.modules.tensor_glyph import TensorGlyph
@@ -250,6 +340,11 @@ class TensorGlyphModule(Action):
 ######################################################################
 class TextModule(Action):
     """ An action that starts a text module. """
+
+    tooltip       = "Displays text on screen"
+
+    description   = "Displays user specified text on screen"
+
     def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.modules.text import Text
@@ -262,6 +357,11 @@ class TextModule(Action):
 ######################################################################
 class VectorCutPlaneModule(Action):
     """ An action that creates a VecturCutPlane module. """
+
+    tooltip       = "Display vectors along a cut plane"
+
+    description   = "Display vectors along a cut plane"
+
     def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.modules.vector_cut_plane import VectorCutPlane
@@ -274,6 +374,11 @@ class VectorCutPlaneModule(Action):
 ######################################################################
 class VectorsModule(Action):
     """ An action that creates a Vectors module. """
+
+    tooltip       = "Display input vectors using arrows or other glyphs"
+
+    description   = "Display input vectors using arrows or other glyphs"
+
     def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.modules.vectors import Vectors
@@ -286,6 +391,11 @@ class VectorsModule(Action):
 ######################################################################
 class VolumeModule(Action):
     """ An action that creates a Volume module. """
+
+    tooltip       = "Use volume rendering to view the scalar field"
+
+    description   = "Use volume rendering to view the scalar field"
+
     def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.modules.volume import Volume
@@ -298,6 +408,11 @@ class VolumeModule(Action):
 ######################################################################
 class WarpVectorCutPlaneModule(Action):
     """ An action that creates a WarpVectorCutPlane module. """
+
+    tooltip       = "Warp cut plane along scaled input vectors"
+
+    description   = "Warp cut plane along scaled input vectors"
+
     def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.modules.warp_vector_cut_plane import WarpVectorCutPlane

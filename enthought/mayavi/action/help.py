@@ -24,6 +24,10 @@ HTML_DIR = join(dirname(enthought.mayavi.api.__file__), 'html')
 class HelpIndex(Action):
     """ An action that pop up the help in a browser. """
 
+    tooltip       = "The Mayavi2 user guide"
+
+    description   = "The Mayavi2 user guide"
+
     ###########################################################################
     # 'Action' interface.
     ###########################################################################

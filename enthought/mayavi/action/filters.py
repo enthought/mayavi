@@ -18,6 +18,10 @@ from enthought.mayavi.plugins.script import  get_imayavi
 class CellToPointDataFilter(Action):
     """ An action that starts a delaunay 2d filter. """
 
+    tooltip       = "Convert cell data to point data for the active data"
+
+    description   = "Convert cell data to point data for the active data"
+
     ###########################################################################
     # 'Action' interface.
     ###########################################################################
@@ -35,6 +39,10 @@ class CellToPointDataFilter(Action):
 ######################################################################
 class DecimateProFilter(Action):
     """ An action that starts a DecimatePro  filter. """
+
+    tooltip       = "Simpilies a mesh using the DecimatePro filter"
+
+    description   = "Simpilies a mesh using the DecimatePro filter"
 
     ###########################################################################
     # 'Action' interface.
@@ -54,6 +62,10 @@ class DecimateProFilter(Action):
 class Delaunay2DFilter(Action):
     """ An action that starts a delaunay 2d filter. """
 
+    tooltip       = "Perform a 2D Delaunay triangulation for the given data"
+
+    description   = "Perform a 2D Delaunay triangulation for the given data"
+
     ###########################################################################
     # 'Action' interface.
     ###########################################################################
@@ -71,6 +83,11 @@ class Delaunay2DFilter(Action):
 ######################################################################
 class Delaunay3DFilter(Action):
     """ An action that starts a delaunay 3d filter. """
+
+    tooltip       = "Perform a 3D Delaunay triangulation for the given data"
+
+    description   = "Perform a 3D Delaunay triangulation for the given data"
+
     def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.filters.delaunay3d import Delaunay3D
@@ -84,6 +101,13 @@ class Delaunay3DFilter(Action):
 ######################################################################
 class ElevationFilter(Action):
     """ An action that starts an Elevation filter. """
+
+    tooltip       = "Creates scalar data from the elevation along a" \
+                        "direction"
+
+    description   = "Creates scalar data from the elevation along a" \
+                        "direction"
+
     def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.filters.elevation_filter import \
@@ -97,6 +121,10 @@ class ElevationFilter(Action):
 # `ExtractGridFilter` class.
 ######################################################################
 class ExtractEdgesFilter(Action):
+
+    tooltip       = "Turns edges into lines."
+    description   = "Turns edges into lines."
+
     def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.filters.extract_edges import ExtractEdges
@@ -109,6 +137,10 @@ class ExtractEdgesFilter(Action):
 # `ExtractGridFilter` class.
 ######################################################################
 class ExtractGridFilter(Action):
+
+    tooltip       = "Extract/subsample part of any structured grid"
+    description   = "Extract/subsample part of any structured grid"
+
     def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.filters.extract_grid import ExtractGrid
@@ -120,6 +152,10 @@ class ExtractGridFilter(Action):
 # `ExtractTensorComponentsFilter` class.
 ######################################################################
 class ExtractTensorComponentsFilter(Action):
+
+    tooltip       = "Extract tensor components from tensor data"
+    description   = "Extract tensor components from tensor data"
+
     def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.filters.extract_tensor_components import ExtractTensorComponents
@@ -132,6 +168,10 @@ class ExtractTensorComponentsFilter(Action):
 # `ExtractUnstructuredGridFilter` class.
 ######################################################################
 class ExtractUnstructuredGridFilter(Action):
+
+    tooltip       = "Extract part of an unstructured grid"
+    description   = "Extract part of an unstructured grid"
+
     def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.filters.extract_unstructured_grid import ExtractUnstructuredGrid
@@ -144,6 +184,10 @@ class ExtractUnstructuredGridFilter(Action):
 # `ExtractVectorNormFilter` class.
 ######################################################################
 class ExtractVectorNormFilter(Action):
+
+    tooltip       = "Compute the vector norm for the current vector data"
+    description   = "Compute the vector norm for the current vector data"
+
     def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.filters.extract_vector_norm import ExtractVectorNorm
@@ -155,6 +199,10 @@ class ExtractVectorNormFilter(Action):
 # `ExtractVectorComponentsFilter` class.
 ######################################################################
 class ExtractVectorComponentsFilter(Action):
+
+    tooltip       = "Extract vector components from vector data"
+    description   = "Extract vector components from vector data"
+
     def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.filters.extract_vector_components import ExtractVectorComponents
@@ -166,6 +214,12 @@ class ExtractVectorComponentsFilter(Action):
 # `GaussianSplatter` class.
 ######################################################################
 class GaussianSplatterFilter(Action):
+
+    tooltip       = "Builds a structured set of points from a cloud of "\
+                        "points, the local density defining the scalar"
+    description   = "Builds a structured set of points from a cloud of "\
+                        "points, the local density defining the scalar"
+
     def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.filters.gaussian_splatter import \
@@ -179,6 +233,10 @@ class GaussianSplatterFilter(Action):
 # `GreddyTerrainDecimation` class.
 ######################################################################
 class GreedyTerrainDecimationFilter(Action):
+
+    tooltip       = "Simplifies image data and performs a triangulation"
+    description   = "Simplifies image data and performs a triangulation"
+
     def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.filters.greedy_terrain_decimation import \
@@ -193,6 +251,10 @@ class GreedyTerrainDecimationFilter(Action):
 ######################################################################
 class MaskPointsFilter(Action):
     """ An action that starts a mask points filter. """
+
+    tooltip       = "Mask the input points in the data"
+    description   = "Mask the input points in the data"
+
     def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.filters.mask_points import MaskPoints
@@ -206,6 +268,11 @@ class MaskPointsFilter(Action):
 ######################################################################
 class PointToCellDataFilter(Action):
     """ An action that starts a mask points filter. """
+
+    tooltip       = "Convert point data to cell data for the active data"
+
+    description   = "Convert point data to cell data for the active data"
+
     def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.filters.point_to_cell_data import PointToCellData
@@ -218,6 +285,11 @@ class PointToCellDataFilter(Action):
 ######################################################################
 class PolyDataNormalsFilter(Action):
     """ An action that starts a mask points filter. """
+
+    tooltip       = "Compute normals and smooth the appearance"
+
+    description   = "Compute normals and smooth the appearance"
+
     def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.filters.poly_data_normals import PolyDataNormals
@@ -230,6 +302,11 @@ class PolyDataNormalsFilter(Action):
 # `QuadricDecimation` class.
 ######################################################################
 class QuadricDecimationFilter(Action):
+
+    tooltip       = "Simplifies a triangular mesh"
+
+    description   = "Simplifies a triangular mesh"
+
     def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.filters.quadric_decimation import \
@@ -243,6 +320,11 @@ class QuadricDecimationFilter(Action):
 ######################################################################
 class SelectOutputFilter(Action):
     """ An action that creates a SelectOutput filter. """
+
+    tooltip       = "Choose the output of the source that should be used"
+
+    description   = "Choose the output of the source that should be used"
+
     def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.filters.select_output import SelectOutput
@@ -256,6 +338,11 @@ class SelectOutputFilter(Action):
 ######################################################################
 class TransformDataFilter(Action):
     """ An action that starts a TransformData filter. """
+
+    tooltip       = "Transform (rotate/translate/scale) non ImageData datasets"
+
+    description   = "Transform (rotate/translate/scale) non ImageData datasets"
+
     def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.filters.transform_data import TransformData
@@ -269,6 +356,11 @@ class TransformDataFilter(Action):
 ######################################################################
 class ThresholdFilter(Action):
     """ An action that starts a threshold filter. """
+
+    tooltip       = "Threshold input data based on scalar values"
+
+    description   = "Threshold input data based on scalar values"
+
     def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.filters.threshold import Threshold
@@ -282,6 +374,11 @@ class ThresholdFilter(Action):
 ######################################################################
 class TriangleFilter(Action):
     """ An action that starts a triangle filter. """
+
+    tooltip       = "Convert input polygons and triangle strips to triangles"
+
+    description   = "Convert input polygons and triangle strips to triangles"
+
     def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.filters.triangle_filter import TriangleFilter
@@ -294,6 +391,11 @@ class TriangleFilter(Action):
 ######################################################################
 class TubeFilter(Action):
     """ An action that starts a tube filter. """
+
+    tooltip       = "Turns lines into tubes"
+
+    description   = "Turns lines into tubes"
+
     def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.filters.tube import Tube
@@ -308,6 +410,11 @@ class TubeFilter(Action):
 ######################################################################
 class WarpScalarFilter(Action):
     """ An action that starts a mask points filter. """
+
+    tooltip       = "Move points of data along normals by the scalar data"
+
+    description   = "Move points of data along normals by the scalar data"
+
     def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.filters.warp_scalar import WarpScalar
@@ -321,9 +428,15 @@ class WarpScalarFilter(Action):
 ######################################################################
 class WarpVectorFilter(Action):
     """ An action that starts a mask points filter. """
+
+    tooltip       = "Move points of data along the vector data at point"
+
+    description   = "Move points of data along the vector data at point"
+
     def perform(self, event):
         """ Performs the action. """
         from enthought.mayavi.filters.warp_vector import WarpVector
         f = WarpVector()
         mv = get_imayavi(self.window)
         mv.add_filter(f)
+

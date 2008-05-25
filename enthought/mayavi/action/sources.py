@@ -36,6 +36,10 @@ def get_scene(mayavi):
 class OpenImageFile(Action):
     """ An action that opens a new image file. """
 
+    tooltip       = "Import a PNG/JPG/BMP/PNM/TIFF image"
+
+    description   = "Import a PNG/JPG/BMP/PNM/TIFF image"
+
     ###########################################################################
     # 'Action' interface.
     ###########################################################################
@@ -79,6 +83,10 @@ class OpenImageFile(Action):
 class Open3DSFile(Action):
     """ An action that opens a new 3DS file. """
 
+    tooltip       = "Import a 3D Studio file"
+
+    description   = "Import a 3D Studio file"
+
     ###########################################################################
     # 'Action' interface.
     ###########################################################################
@@ -115,6 +123,10 @@ class Open3DSFile(Action):
 ######################################################################
 class OpenPLOT3DFile(Action):
     """ An action that opens a new PLOT3D file. """
+
+    tooltip       = "Open a PLOT3D data file"
+
+    description   = "Open a PLOT3D data file"
 
     ###########################################################################
     # 'Action' interface.
@@ -166,6 +178,10 @@ class OpenPLOT3DFile(Action):
 class OpenVRMLFile(Action):
     """ An action that opens a new VRML file. """
 
+    tooltip       = "Import a VRML2 data file"
+
+    description   = "Import a VRML2 data file"
+
     ###########################################################################
     # 'Action' interface.
     ###########################################################################
@@ -202,6 +218,10 @@ class OpenVRMLFile(Action):
 ######################################################################
 class OpenVTKFile(Action):
     """ An action that opens a new VTK file. """
+
+    tooltip       = "Open a VTK data file"
+
+    description   = "Open a VTK data file"
 
     ###########################################################################
     # 'Action' interface.
@@ -240,6 +260,10 @@ class OpenVTKFile(Action):
 ######################################################################
 class OpenVTKXMLFile(Action):
     """ An action that opens a new VTK XML file. """
+
+    tooltip       = "Open a VTK XML data file"
+
+    description   = "Open a VTK XML data file"
 
     ###########################################################################
     # 'Action' interface.
@@ -290,6 +314,10 @@ class OpenVTKXMLFile(Action):
 class ParametricSurfaceSource(Action):
     """ An action that creates a ParametricSurface source. """
 
+    tooltip       = "Create a parametric surface source"
+
+    description   = "Create a parametric surface source"
+
     ###########################################################################
     # 'Action' interface.
     ###########################################################################
@@ -310,6 +338,10 @@ class ParametricSurfaceSource(Action):
 ######################################################################
 class PointLoadSource(Action):
     """ An action that creates a PointLoad source. """
+
+    tooltip       = "Simulates a point load on a cube of data (for tensors)"
+
+    description   = "Simulates a point load on a cube of data (for tensors)"
 
     ###########################################################################
     # 'Action' interface.

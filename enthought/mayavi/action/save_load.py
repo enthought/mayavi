@@ -24,6 +24,10 @@ from enthought.mayavi.core.common import error, exception
 class SaveVisualization(Action):
     """ An action that saves the current visualization. """
 
+    tooltip       = "Save current visualization"
+
+    description   = "Save current visualization to a MayaVi2 file"
+    
     ###########################################################################
     # 'Action' interface.
     ###########################################################################
@@ -44,6 +48,10 @@ class SaveVisualization(Action):
 ######################################################################
 class LoadVisualization(Action):
     """ An action that loads a visualization from file. """
+
+    tooltip       = "Load saved visualization"
+
+    description   = "Load saved visualization from a MayaVi2 file"
 
     ###########################################################################
     # 'Action' interface.
@@ -72,6 +80,10 @@ class RunScript(Action):
     """ An action that runs a mayavi script.  
     
     WARNING: this can be dangerous since the file runs execfile! """
+
+    tooltip       = "Execute a Python script (typically a Mayavi script)"
+
+    description   = "Execute a Python script (typically a Mayavi script)"
 
     ###########################################################################
     # 'Action' interface.
