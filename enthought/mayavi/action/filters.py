@@ -11,12 +11,33 @@ from enthought.pyface.action.api import Action
 # Local imports.
 from enthought.mayavi.plugins.script import  get_imayavi
 
+######################################################################
+# `CellDerivativesFilter` class.
+######################################################################
+class CellDerivativesFilter(Action):
+
+    tooltip       = "Calculate derivatives of input point/vector data "\
+                    "and output these as cell data"
+
+    description   = "Calculate derivatives of input point/vector data "\
+                    "and output these as cell data"
+
+    ###########################################################################
+    # 'Action' interface.
+    ###########################################################################
+
+    def perform(self, event):
+        """ Performs the action. """
+        from enthought.mayavi.filters.cell_derivatives import CellDerivatives
+        f = CellDerivatives()
+        mv = get_imayavi(self.window)
+        mv.add_filter(f)
+
 
 ######################################################################
 # `CellToPointDataFilter` class.
 ######################################################################
 class CellToPointDataFilter(Action):
-    """ An action that starts a delaunay 2d filter. """
 
     tooltip       = "Convert cell data to point data for the active data"
 
@@ -30,6 +51,47 @@ class CellToPointDataFilter(Action):
         """ Performs the action. """
         from enthought.mayavi.filters.cell_to_point_data import CellToPointData
         f = CellToPointData()
+        mv = get_imayavi(self.window)
+        mv.add_filter(f)
+
+
+######################################################################
+# `ContourFilter` class.
+######################################################################
+class ContourFilter(Action):
+
+    tooltip       = "Compute contours of the input dataset"
+
+    description   = "Compute contours of the input dataset"
+    
+    ###########################################################################
+    # 'Action' interface.
+    ###########################################################################
+
+    def perform(self, event):
+        """ Performs the action. """
+        from enthought.mayavi.filters.contour import Contour
+        f = Contour()
+        mv = get_imayavi(self.window)
+        mv.add_filter(f)
+
+######################################################################
+# `CutPlaneFilter` class.
+######################################################################
+class CutPlaneFilter(Action):
+
+    tooltip       = "Slice the input dataset with a cut plane"
+
+    description   = "Slice the input dataset with a cut plane"
+    
+    ###########################################################################
+    # 'Action' interface.
+    ###########################################################################
+
+    def perform(self, event):
+        """ Performs the action. """
+        from enthought.mayavi.filters.cut_plane import CutPlane
+        f = CutPlane()
         mv = get_imayavi(self.window)
         mv.add_filter(f)
 
@@ -332,6 +394,26 @@ class SelectOutputFilter(Action):
         mv = get_imayavi(self.window)
         mv.add_filter(f)
 
+######################################################################
+# `SetActiveAttributeFilter` class.
+######################################################################
+class SetActiveAttributeFilter(Action):
+
+    tooltip       = "Set the active attribute (scalar/vector/tensor) to use"
+
+    description   = "Set the active attribute (scalar/vector/tensor) to use"
+    
+    ###########################################################################
+    # 'Action' interface.
+    ###########################################################################
+
+    def perform(self, event):
+        """ Performs the action. """
+        from enthought.mayavi.filters.set_active_attribute import SetActiveAttribute
+        f = SetActiveAttribute()
+        mv = get_imayavi(self.window)
+        mv.add_filter(f)
+
 
 ######################################################################
 # `TransformData` class.
@@ -403,7 +485,45 @@ class TubeFilter(Action):
         mv = get_imayavi(self.window)
         mv.add_filter(t)
 
+######################################################################
+# `UserDefinedFilter` class.
+######################################################################
+class UserDefinedFilter(Action):
 
+    tooltip       = "Create a UserDefined filter (will popup a selection dialog)"
+
+    description   = "Create a UserDefined filter (will popup a selection dialog)"
+    
+    ###########################################################################
+    # 'Action' interface.
+    ###########################################################################
+
+    def perform(self, event):
+        """ Performs the action. """
+        from enthought.mayavi.filters.user_defined import UserDefined
+        f = UserDefined()
+        mv = get_imayavi(self.window)
+        mv.add_filter(f)
+
+######################################################################
+# `VorticityFilter` class.
+######################################################################
+class VorticityFilter(Action):
+
+    tooltip       = "Calculate the vorticity (curl) of input vector field"
+
+    description   = "Calculate the vorticity (curl) of input vector field"
+    
+    ###########################################################################
+    # 'Action' interface.
+    ###########################################################################
+
+    def perform(self, event):
+        """ Performs the action. """
+        from enthought.mayavi.filters.vorticity import Vorticity
+        f = Vorticity()
+        mv = get_imayavi(self.window)
+        mv.add_filter(f)
 
 ######################################################################
 # `WarpScalarFilter` class.

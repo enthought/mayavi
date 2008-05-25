@@ -340,10 +340,35 @@ warp_vector_cut_plane_module = Action(
 # Filter items.
 ########################################
 
+cell_derivatives_filter = Action(
+    id            = "CellDerivativesFilter",
+    class_name    = ID + ".action.filters.CellDerivativesFilter",
+    name          = "&CellDerivatives",
+    group = "FiltersGroup",
+    path="MenuBar/VisualizeMenu/FiltersMenu"
+)
+
 cell_to_point_data_filter = Action(
     id            = "CellToPointDataFilter",
     class_name    = ID + ".action.filters.CellToPointDataFilter",
     name          = "&CellToPointData",
+    group = "FiltersGroup",
+    path="MenuBar/VisualizeMenu/FiltersMenu"
+)
+
+contour_filter = Action(
+    id            = "ContourFilter",
+    class_name    = ID + ".action.filters.ContourFilter",
+    name          = "&Contour",
+    group = "FiltersGroup",
+    path="MenuBar/VisualizeMenu/FiltersMenu"
+)
+
+
+cut_plane_filter = Action(
+    id            = "CutPlaneFilter",
+    class_name    = ID + ".action.filters.CutPlaneFilter",
+    name          = "&CutPlane",
     group = "FiltersGroup",
     path="MenuBar/VisualizeMenu/FiltersMenu"
 )
@@ -485,6 +510,14 @@ select_output_filter = Action(
     path="MenuBar/VisualizeMenu/FiltersMenu"
 )
 
+set_active_attribute_filter = Action(
+    id            = "SetActiveAttributeFilter",
+    class_name    = ID + ".action.filters.SetActiveAttributeFilter",
+    name          = "&SetActiveAttribute",
+    group = "FiltersGroup",
+    path="MenuBar/VisualizeMenu/FiltersMenu"
+)
+
 transform_data_filter = Action(
     id            = "TransformDataFilter",
     class_name    = ID + ".action.filters.TransformDataFilter",
@@ -513,6 +546,22 @@ tube_filter = Action(
     id            = "TubeFilter",
     class_name    = ID + ".action.filters.TubeFilter",
     name          = "Tu&be",
+    group = "FiltersGroup",
+    path="MenuBar/VisualizeMenu/FiltersMenu"
+)
+
+user_defined_filter = Action(
+    id            = "UserDefinedFilter",
+    class_name    = ID + ".action.filters.UserDefinedFilter",
+    name          = "&UserDefined",
+    group = "FiltersGroup",
+    path="MenuBar/VisualizeMenu/FiltersMenu"
+)
+
+vorticity_filter = Action(
+    id            = "VorticityFilter",
+    class_name    = ID + ".action.filters.VorticityFilter",
+    name          = "&Vorticity",
     group = "FiltersGroup",
     path="MenuBar/VisualizeMenu/FiltersMenu"
 )
@@ -597,7 +646,10 @@ class MayaviUIActionSet(ActionSet):
                volume_module,
                warp_vector_cut_plane_module,
                # Filters.
+               cell_derivatives_filter,
                cell_to_point_data_filter,
+               contour_filter,
+               cut_plane_filter,
                decimatepro_filter,
                delaunay2d_filter,
                delaunay3d_filter,
@@ -615,10 +667,13 @@ class MayaviUIActionSet(ActionSet):
                poly_data_normals_filter,
                quadric_decimation_filter,
                select_output_filter,
+               set_active_attribute_filter,
                transform_data_filter,
                threshold_filter,
                triangle_filter,
                tube_filter,
+               user_defined_filter,
+               vorticity_filter,
                warp_scalar_filter,
                warp_vector_filter,
                # Help.
