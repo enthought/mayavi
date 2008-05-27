@@ -309,6 +309,22 @@ class GreedyTerrainDecimationFilter(Action):
 
 
 ######################################################################
+# `ImageDataProbeFilter` class.
+######################################################################
+class ImageDataProbeFilter(Action):
+
+    tooltip     = "Samples arbitrary datasets onto an image dataset (cube of data)"
+    description = "Samples arbitrary datasets onto an image dataset (cube of data)"
+
+    def perform(self, event):
+        """ Performs the action. """
+        from enthought.mayavi.filters.image_data_probe import ImageDataProbe
+        f = ImageDataProbe()
+        mv = get_imayavi(self.window)
+        mv.add_filter(f)
+
+
+######################################################################
 # `MaskPointsFilter` class.
 ######################################################################
 class MaskPointsFilter(Action):

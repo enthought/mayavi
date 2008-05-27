@@ -470,6 +470,14 @@ greedy_terrain_decimation_filter = Action(
     path="MenuBar/VisualizeMenu/FiltersMenu"
 )
 
+image_data_probe_filter = Action(
+    id            = "ImageDataProbeFilter",
+    class_name    = ID + ".action.filters.ImageDataProbeFilter",
+    name          = "&Probe data onto image data",
+    group = "FiltersGroup",
+    path="MenuBar/VisualizeMenu/FiltersMenu"
+)
+
 mask_points_filter = Action(
     id            = "MaskPointsFilter",
     class_name    = ID + ".action.filters.MaskPointsFilter",
@@ -662,6 +670,7 @@ class MayaviUIActionSet(ActionSet):
                extract_vector_components_filter,
                gaussian_splatter_filter,
                greedy_terrain_decimation_filter,
+               image_data_probe_filter,
                mask_points_filter,
                point_to_cell_data_filter,
                poly_data_normals_filter,

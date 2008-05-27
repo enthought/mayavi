@@ -22,6 +22,7 @@ from extract_vector_components import ExtractVectorComponents
 from extract_vector_norm import ExtractVectorNorm
 from gaussian_splatter import GaussianSplatter
 from greedy_terrain_decimation import GreedyTerrainDecimation
+from image_data_probe import ImageDataProbe
 from mask_points import MaskPoints
 from optional import Optional
 from point_to_cell_data import PointToCellData
