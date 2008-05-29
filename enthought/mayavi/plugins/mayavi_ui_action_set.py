@@ -231,6 +231,14 @@ isosurface_module = Action(
     path="MenuBar/VisualizeMenu/ModulesMenu"
 )
 
+labels_module = Action(
+    id            = "LabelsModule",
+    class_name    = ID + ".action.modules.LabelsModule",
+    name          = "&Labels",
+    group = "ModulesGroup",
+    path="MenuBar/VisualizeMenu/ModulesMenu"
+)
+
 orientation_axes_module = Action(
     id            = "OrientationAxesModule",
     class_name    = ID + ".action.modules.OrientationAxesModule",
@@ -640,6 +648,7 @@ class MayaviUIActionSet(ActionSet):
                image_actor_module,
                image_plane_widget_module,
                isosurface_module,
+               labels_module,
                orientation_axes_module,
                outline_module,
                scalar_cut_plane_module,

@@ -310,6 +310,8 @@ def process_cmd_line(app, opts, args):
                 return
             else:
                 m = getattr(mod, classname)()
+                if classname == 'Labels':
+                    m.object = script.engine.current_object
                 script.add_module(m)
 
         if o in ('-f', '--filter'):

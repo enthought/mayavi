@@ -191,6 +191,23 @@ class AddModuleManager(Action):
         mv = get_imayavi(self.window)
         mv.add_module(mm)
 
+######################################################################
+# `LabelsModule` class.
+######################################################################
+class LabelsModule(Action):
+
+    tooltip       = "Display labels for active dataset or active module"
+
+    description   = "Display labels for active dataset or active module"
+    
+    def perform(self, event):
+        """ Performs the action. """
+        from enthought.mayavi.modules.labels import Labels
+        mv = get_imayavi(self.window)
+        object = mv.current_object
+        m = Labels(object=object)
+        mv.add_module(m)
+
 
 ######################################################################
 # `OrientationAxesModule` class.
