@@ -72,7 +72,7 @@ class SceneManager(HasTraits):
             
         return
 
-    @on_trait_change('window:editor_closed')
+    @on_trait_change('window:editor_closing')
     def _on_editor_closed(self, obj, trait_name, old, new):
         """ Dynamic trait change handler. """
 
