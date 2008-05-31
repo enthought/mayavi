@@ -13,7 +13,7 @@ import copy
 from common import TestCase, get_example_data
 
 
-class TestUserDefined(TestCase):
+class TestHideShow(TestCase):
 
     def check(self, saved=False):
         """Does the checking, if saved is True it does not change the
@@ -143,6 +143,6 @@ class TestUserDefined(TestCase):
         # If we have come this far, we are golden!
 
 if __name__ == "__main__":
-    t = TestUserDefined()
+    t = TestHideShow()
     t.main()
 
