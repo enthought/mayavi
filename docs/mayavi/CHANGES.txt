@@ -5,7 +5,72 @@ To view these use a URL like so:
     https://svn.enthought.com/enthought/changeset/18702
 -----------------------------------------------------------------------------
 
+
+31 May, 2008 (PR):
+    - PORT: Backported important additions to the 2.2.0 branch.
+    - BUG: Added a test case for the hide/show functionality and fixed
+      known bugs.
+
+30 May, 2008 (PR):
+    - API: Adding closing, closed lifecycle events to the scene [18806].
+
+27 May, 2008 (PR):
+    - NEW: Adding a Labels module to label input data.  This is like
+      MayaVi1's module and with this checkin all important mayavi1
+      modules and filters are supported in mayavi2.  The only missing
+      one is Locator which hardly anyone uses I think.  See [18801].
+
+27 May, 2008 (PR):
+    - NEW: Adding an ImageDataProbe filter which does the same thing
+      that MayaVi-1.5's StructuredPointsProbe does. [18792]
+
+25 May, 2008 (PR):
+    - NEW: Adding CellDerivatives and Vorticity filters. [18785]
+
+24 May, 2008 (PR):
+    - NEW: Adding a tvtk_doc.py module that doubles as a
+      TVTK Class/Filter/Source/Sink chooser and also as a documentation
+      browser (with search!) like Mayavi1.x's vtk_doc.py.  tvtk_doc is
+      also installed as a console script now. [18776]
+    - NEW: Adding a UserDefined filter where the user can wrap around
+      any TVTK filter. [18780]
+
+23 May, 2008 (PR):
+    - NEW: SetActiveAttribute filter that lets you select the active
+      attribute.  This makes it very easy to find the contours of one
+      scalar on the iso-contour of another.  The example
+      contour_contour.py shows how this is done.  See [18774], [18775].
+
+22 May, 2008 (PR):
+    - NEW: Adding Contour and CutPlane filters that use the Wrapper
+      filter and respective components.  This is very convenient.
+    - Checked in modified patch from Chandrashekhar Kaushik (CSE IITB),
+      which reimplements hide/show using a visible trait.
+
+
+21 May, 2008 (PR):
+    - TEST: Adding an @test decorator to make it easy to create a mayavi
+      test case from a mayavi script.  While this is convenient, I still
+      prefer to explicitly use the TestCase class since this makes the
+      code compatible with the 2.2.0 branch.
+    - The GenericModule is now tested.
+
+20 May, 2008 (PR):
+    - NEW: Adding a GenericModule to easily put together a bunch of
+      Filters and Components.  Using this code it takes 30 simple
+      lines of code for a ScalarCutPlane compared to the 300 complex
+      ones we need for the current implementation!  This is because the
+      module takes care of all the dirty work.
+    - NEW: Adding Wrapper, Optional and Collection filters that make it
+      easy to wrap around existing Components and Filters, make them
+      optional and create collections of them very easily.  This gives
+      us a great deal of reuse and makes it very easy to create new
+      filters.
+
 18 May, 2008 (PR):
+    - ENH: Improved the PLOT3D reader and added a test for it.
+    - Added a menu item to allow a user to run a Python script from the
+      UI.
     - API: Added a close method to
       `enthought.pyface.tvtk.tvtk_scene.TVTKScene`.  This class is
       inherited by all Scenes (DecoratedScene and Scene).  The close
