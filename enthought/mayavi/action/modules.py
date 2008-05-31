@@ -204,7 +204,7 @@ class LabelsModule(Action):
         """ Performs the action. """
         from enthought.mayavi.modules.labels import Labels
         mv = get_imayavi(self.window)
-        object = mv.current_object
+        object = mv.engine.current_object
         m = Labels(object=object)
         mv.add_module(m)
 
