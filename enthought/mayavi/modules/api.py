@@ -17,6 +17,7 @@ from hyper_streamline import HyperStreamline
 from image_actor import ImageActor
 from image_plane_widget import ImagePlaneWidget
 from iso_surface import IsoSurface
+from labels import Labels
 from orientation_axes import OrientationAxes
 from outline import Outline
 from scalar_cut_plane import ScalarCutPlane
