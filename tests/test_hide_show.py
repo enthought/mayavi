@@ -21,7 +21,7 @@ class TestHideShow(TestCase):
         final unpickled state."""
         script = self.script
         e = script.engine
-        scene = engine.current_scene
+        scene = e.current_scene
         wrl = scene.children[0]
         src = scene.children[1]
         mm = src.children[0]

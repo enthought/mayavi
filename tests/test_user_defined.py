@@ -24,7 +24,7 @@ class TestUserDefined(TestCase):
         final unpickled state."""
         script = self.script
         e = script.engine
-        scene = engine.current_scene
+        scene = e.current_scene
         src = scene.children[0]
         ud = src.children[0]
         o = ud.children[0].children[0].children[0]

@@ -13,7 +13,7 @@ import copy
 from common import TestCase, get_example_data
 
 
-class TestUserDefined(TestCase):
+class TestImageDataProbe(TestCase):
 
     def check(self, saved=False):
         """Does the checking, if saved is True it does not change the
@@ -21,7 +21,7 @@ class TestUserDefined(TestCase):
         final unpickled state."""
         script = self.script
         e = script.engine
-        scene = engine.current_scene
+        scene = e.current_scene
         src = scene.children[0]
         idp = src.children[0]
         mm = idp.children[0]
@@ -119,6 +119,6 @@ class TestUserDefined(TestCase):
         # If we have come this far, we are golden!
 
 if __name__ == "__main__":
-    t = TestUserDefined()
+    t = TestImageDataProbe()
     t.main()
 
