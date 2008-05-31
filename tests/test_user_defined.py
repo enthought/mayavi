@@ -125,7 +125,6 @@ class TestUserDefined(TestCase):
         # Add it back to see if that works without error.
         s.children.append(source)
         # Now do the check.
-        m = s.children[0].children[0].children[0]
         s.scene.isometric_view()
         self.check(saved=True)
 
@@ -136,7 +135,6 @@ class TestUserDefined(TestCase):
         source1 = copy.deepcopy(source)
         s.children[0] = source1
         # Now do the check.
-        m = s.children[0].children[0].children[0]
         s.scene.isometric_view()
         self.check(saved=True)
         
