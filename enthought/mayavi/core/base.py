@@ -253,7 +253,9 @@ class Base(TreeNodeObject):
             self.name = self.name.replace(' [Hidden]', '')
         else:
             #self._HideShowAction.name = "Show"
-            self.name = "%s [Hidden]" % self.name
+            n = self.name
+            if ' [Hidden]' not in n:
+                self.name = "%s [Hidden]" % n
 
     def _hideshow(self):
         if self.visible:

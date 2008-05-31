@@ -13,6 +13,7 @@ from enthought.tvtk.api import tvtk
 from enthought.traits.api import Instance, List, Str
 from enthought.traits.ui.api import View, Item, Group, FileEditor
 from enthought.persistence.file_path import FilePath
+from enthought.persistence.state_pickler import set_state
 
 # Local imports
 from enthought.mayavi.core.source import Source
@@ -54,6 +55,8 @@ class VRMLImporter(Source):
         fname = state._file_path.abs_pth
         # Now call the parent class to setup everything.
         self.initialize(fname)
+        # Setup the rest of the state.
+        set_state(self, state, ignore=['_file_path'])
 
     def initialize(self, file_name):
         self.file_name = file_name        
@@ -68,6 +71,8 @@ class VRMLImporter(Source):
             self.reader.render_window = self.scene.render_window
             self._update_reader()
             self._actors_added = True
+            if not self.visible:
+                self._visible_changed(self.visible)
             self.scene.render()
 
     def remove_actors(self):

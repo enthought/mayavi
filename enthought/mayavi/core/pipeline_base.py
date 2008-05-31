@@ -113,6 +113,7 @@ class PipelineBase(Base):
         """
         self.scene.add_actors(self.actors)
         self.scene.add_widgets(self.widgets)
+        self._set_widget_visibility(self.widgets)
         self._actors_added = True
 
     def remove_actors(self):
@@ -158,6 +159,7 @@ class PipelineBase(Base):
             scene = self.scene
             scene.remove_widgets(removed)
             scene.add_widgets(added)
+            self._set_widget_visibility(added)
         
     def _scene_changed(self, old_scene, new_scene):
         if self._actors_added:
@@ -165,6 +167,7 @@ class PipelineBase(Base):
             old_scene.remove_widgets(self.widgets)
             new_scene.add_actors(self.actors)
             new_scene.add_widgets(self.widgets)
+            self._set_widget_visibility(self.widgets)
     
     def _backup_widget_state(self):
         # store the enabled trait of the widgets
@@ -192,8 +195,7 @@ class PipelineBase(Base):
         else:
             self._backup_widget_state()
             # disable all the widgets
-            for w in self.widgets:
-                w.enabled = False
+            self._set_widget_visibility(self.widgets)
 
         # hide all actors
         for a in self.actors:
@@ -202,3 +204,7 @@ class PipelineBase(Base):
         self.render()
         super(PipelineBase , self)._visible_changed(value)
         
+    def _set_widget_visibility(self, widgets):
+        if not self.visible:
+            for widget in widgets:
+                widget.enabled = False
