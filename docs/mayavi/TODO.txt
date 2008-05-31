@@ -1,10 +1,8 @@
 MayaVi2:
     - Core:
         - Better and correct persistence. (p)
-        - More powerful reuse of components/filters. (p)
    
         - Local and global customization. (p)
-        - Reimplement the hide feature. (p) 
         - Context sensitive menus.
         - Add a "remove_from_visualization" method on pipeline objects?
 
@@ -16,7 +14,6 @@ MayaVi2:
 
     - Modules/Filters:
         - Add image readers and elementary texture support. (p)
-        - Feature complete w.r.t. mayavi1's filters and modules. (p)
         
     - UI:
         - Make the viewer used in standalone more versatile (make it easy to

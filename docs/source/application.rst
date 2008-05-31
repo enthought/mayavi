@@ -146,6 +146,10 @@ Here is a list of the Mayavi modules along with a brief description.
           A module that allows the user to make contours of input
           point data.
 
+   Labels
+          Allows a user to label the current dataset or the current
+          actor of the active module.
+
    OrientationAxes
           Creates a small axes on the side that indicates the
           position of the co-ordinate axes and thereby marks the
@@ -217,10 +221,23 @@ intermediate between the data sources and the modules.
 
 Here is a list of the Mayavi Filters.
 
+   CellDerivatives
+          Computes derivatives from input point scalar and vector data
+          and produces cell data on the gradients.  Can be used to
+          approximately calcuate the vorticity for example.
 
    CellToPointData
           Transforms cell attribute data to point data by
           averaging the cell data from the cells at the point.
+
+   Contour
+          A contour filter that wraps around the Contour component to
+          generate iso-surfaces on any input dataset.
+    
+   CutPlane
+          This class represents a cut plane that can be used to slice
+          through any dataset.  It also provides a 3D widget interface
+          to position and move the slice interactively.
 
    DecimatePro
           Reduces the number of triangles in a triangular mesh by
@@ -268,6 +285,12 @@ Here is a list of the Mayavi Filters.
           Approximates a height field (image data) with a triangle mesh,
           keeping the number of triangles minimum.
 
+   ImageDataProbe
+          A filter that can be used to probe any dataset using a
+          Structured Points dataset.  The filter also allows one to
+          convert the scalar data to an unsigned short array so that the
+          scalars can be used for volume visualization.
+
    MaskPoints
           Selectively passes the input points downstream. This can
           be used to subsample the input points.  Note that this
@@ -292,6 +315,12 @@ Here is a list of the Mayavi Filters.
           outputs of a given input.  This is typically very useful for a
           multi-block data source.
 
+   SetActiveAttribute
+          This filter lets a user set the active data attribute
+          (scalars, vectors and tensors) on a VTK dataset.  This is
+          particularly useful if you need to do something like compute
+          contours of one scalar on the contour of another scalar.
+
    Threshold
           A simple filter that thresholds on input data.
 
@@ -301,6 +330,19 @@ Here is a list of the Mayavi Filters.
    Tube
           Turns lines into tubes.
 
+   UserDefined
+          This filter lets the user define their own filter
+          dynamically/interactively.  It is like `FilterBase` but allows
+          a user to specify the class without writing any code.
+    
+   Vorticity
+          This filter computes the vorticity of an input vector field.
+          For convenience, the filter allows one to optionally
+          pass-through the given input vector field.  The filter also
+          allows the user to show the component of the vorticity along a
+          particular cartesian co-ordinate axes.  It produces point data
+          on output which is ready to visualize.
+    
    WarpScalar
           Warps the input data along a particular direction
           (either the normals or a specified direction) with a
