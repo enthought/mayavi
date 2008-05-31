@@ -7,11 +7,13 @@
 
 # Enthought library imports.
 from enthought.traits.api import Instance
-from enthought.traits.ui.api import View, Group, Item, InstanceEditor
+from enthought.traits.ui.api import View, Group, Item, InstanceEditor, DropEditor
+from enthought.traits.api import Bool
 from enthought.tvtk.api import tvtk
 
 # Local imports.
 from enthought.mayavi.core.component import Component
+from enthought.mayavi.core.source import Source
 
 VTK_VER = tvtk.Version().vtk_version
 
@@ -32,6 +34,14 @@ class Actor(Component):
     # The actor's property.
     property = Instance(tvtk.Property)
 
+    # If texturing is enabled for the actor or not
+    enable_texture = Bool(False, desc='if texturing is enabled')
+
+    # the source of the texture's image
+    texture_source_object = Instance(Source)
+
+    # the actors texture
+    texture = Instance(tvtk.Texture)
 
     ########################################
     # View related traits.
@@ -53,7 +63,13 @@ class Actor(Component):
         _mapper_group = Group(Item(name='scalar_visibility'),
                               Item(name='interpolate_scalars_before_mapping'),
                               show_border=True, label='Mapper')
-        
+
+    # The Texture's view group
+    _texture_group = Group(Item(name='interpolate'),
+                           Item(name='map_color_scalars_through_lookup_table'),
+                           Item(name='repeat'),
+                           show_border=True,label='Texture')
+       
     # The Actor's view group.
     _actor_group = Group(Item(name='visibility'),
                          show_border=True, label='Actor')
@@ -65,8 +81,29 @@ class Actor(Component):
                            editor=InstanceEditor(view=View(_mapper_group))),
                       Item(name='property', style='custom',
                            editor=InstanceEditor(view=View(_prop_group))),
-                      show_labels=False)
+                      show_labels=False,
+                      label='Actor'),
+                Group(Item(name='enable_texture'),
+                      Group(Item(name='texture_source_object' , style='custom',editor=DropEditor()),
+                            Item(name='texture',style='custom',
+                                 editor=InstanceEditor(view=View(_texture_group))),
+                            show_labels=False,
+                            label='Texture Properties',
+                            enabled_when='object.enable_texture',),
+                      label='Texturing',
+                      ),
+                resizable=True
                 )
+    
+    ######################################################################
+    # `object` interface
+    ######################################################################
+    def __get_pure_state__(self):
+        d = super(Actor, self).__get_pure_state__()
+        for attr in ('texture', 'texture_source_object', 'enable_texture'):
+            d.pop(attr,None)
+        return d            
+    
 
     ######################################################################
     # `Component` interface
@@ -85,6 +122,7 @@ class Actor(Component):
         self.mapper = tvtk.PolyDataMapper(use_lookup_table_scalar_range=1)
         self.actor = tvtk.Actor()
         self.property = self.actor.property
+        self.texture = tvtk.Texture()
     
     def update_pipeline(self):
         """Override this method so that it *updates* the tvtk pipeline
@@ -169,3 +207,53 @@ class Actor(Component):
     def _scene_changed(self, old, new):
         super(Actor, self)._scene_changed(old, new)
         self._foreground_changed_for_scene(None, new.foreground)
+        
+    def _enable_texture_changed(self, value):
+        if self.texture_source_object is None :
+            self.actor.texture = None
+            return
+        if value:
+            self.actor.texture = self.texture
+        else:
+            self.actor.texture = None
+
+    def _can_object_give_image_data(self, source):
+        if source is None:
+            return False
+        if not issubclass(source, Source):
+            return False
+        if source.outputs[0].is_a('vtkImageData'):
+            return True
+        return False
+
+    def _change_texture_input(self):
+        if self._can_object_give_image_data(self.texture_source_object):
+            img_data = self.texture_source_object.outputs[0]
+            self.texture.input = img_data
+            self.actor.texture = self.texture
+        else:
+            self.texture_source_object = None
+
+    def _texture_source_object_changed(self,old,new):
+        if old is not None :
+            old.on_trait_change(self._change_texture_input, 
+                                'pipeline_changed', 
+                                remove=True)
+        if new is not None :
+            new.on_trait_change(self._change_texture_input, 
+                                'pipeline_changed' )
+
+        if new is not None:
+            self._change_texture_input()
+        else:
+            self.actor.texture = None
+            self.texture.input = None
+    
+    def _texture_changed(self,value):
+        # Setup the actor's texture.
+        actor = self.actor
+        if actor is not None:
+            actor.texture = value
+            self.texture.on_trait_change(self.render)
+
+        self.render()

@@ -13,7 +13,7 @@ from glob import glob
 
 # Enthought library imports.
 from enthought.traits.api import List, Str, Instance, Int
-from enthought.traits.ui.api import Group, Item
+from enthought.traits.ui.api import Group, Item, FileEditor
 from enthought.persistence.state_pickler import set_state
 from enthought.persistence.file_path import FilePath
 
@@ -94,9 +94,13 @@ class FileDataSource(Source):
     # This is done so the timestep bounds are linked to the number of
     # the files in the file list.
     timestep = DRange(default=0,
+                      is_float=False,
                       low_name='_min_timestep',
                       high_name='_max_timestep',
                       desc='the current time step')
+    
+    base_file_name=Str('', desc="the base name of the file" , 
+                       editor=FileEditor())
 
     # A timestep view group that may be included by subclasses.
     time_step_group = Group(Item(name='file_path', style='readonly'),
@@ -149,13 +153,7 @@ class FileDataSource(Source):
         time series, this initializes the list of files.  This method
         need not be called to initialize the data.
         """
-        self.file_list = get_file_list(base_file_name)
-        if len(self.file_list) == 0:
-            self.file_list = [base_file_name]
-        try:
-            self.timestep = self.file_list.index(base_file_name)
-        except ValueError:
-            self.timestep = 0
+        self.base_file_name = base_file_name
     
     ######################################################################
     # Non-public interface
@@ -180,3 +178,12 @@ class FileDataSource(Source):
         else:
             self.file_path = FilePath('')
 
+    def _base_file_name_changed(self,value):
+        self.file_list = get_file_list(value)
+        if len(self.file_list) == 0:
+            self.file_list = [value]
+        try:
+            self.timestep = self.file_list.index(value)
+        except ValueError:
+            self.timestep = 0
+            

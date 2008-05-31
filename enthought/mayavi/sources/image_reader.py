@@ -3,6 +3,7 @@
 """
 # Author:  KK Rai (kk.rai [at] iitb.ac.in)
 #          R. Ambareesha (ambareesha [at] iitb.ac.in)
+#          Chandrashekhar Kaushik
 #          Prabhu Ramachandran <prabhu [at] aero.iitb.ac.in>
 # Copyright (c) 2007, Enthought, Inc.
 # License: BSD Style.
@@ -32,7 +33,9 @@ class ImageReader(FileDataSource):
     reader = Instance(tvtk.Object, allow_none=False)    
 
     # Our view.
-    view = View(Group(Item(name='reader',style='custom',
+    view = View(Group(Item(name='base_file_name'),
+                      Item(name='reader',
+                           style='custom',
                            resizable=True),
                       show_labels=False),
                 resizable=True)
