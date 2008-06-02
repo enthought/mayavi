@@ -518,6 +518,7 @@ class UserDefinedFilter(Action):
         """ Performs the action. """
         from enthought.mayavi.filters.user_defined import UserDefined
         f = UserDefined()
+        f.setup_filter()
         mv = get_imayavi(self.window)
         mv.add_filter(f)
 

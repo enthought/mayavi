@@ -345,7 +345,10 @@ def process_cmd_line(app, opts, args):
                 if classname != 'UserDefined':
                     f = klass()
                 else:
-                    f = klass(filter=extra)
+                    if extra is not None:
+                        f = klass(filter=extra)
+                    else:
+                        f = klass()
                     f.setup_filter()
                 script.add_filter(f)
 
