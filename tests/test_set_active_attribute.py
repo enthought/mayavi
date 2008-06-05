@@ -44,7 +44,7 @@ class TestSetActiveAttribute(TestCase):
 
         mayavi = script = self.script
 
-        scene = mayavi.new_scene()
+        scene = self.new_scene()
         r = VTKXMLFileReader()
         r.initialize(get_example_data('fire_ug.vtu'))
         mayavi.add_source(r)

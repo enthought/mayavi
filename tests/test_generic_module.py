@@ -52,7 +52,7 @@ class TestGenericModule(TestCase):
                           components=components,
                           contour=c, actor=a)
 
-        mayavi.add_module(m)
+        script.add_module(m)
         s.scene.isometric_view()
 
         ########################################

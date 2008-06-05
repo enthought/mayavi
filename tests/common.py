@@ -311,7 +311,7 @@ class TestCase(Mayavi):
         # Calls the users test code.
         self.test()
         if not self.interact:
-            self.application.exit()
+            self.application.gui.invoke_later(self.application.exit)
 
     def parse_command_line(self, argv):
         """Parse command line options."""
@@ -430,6 +430,8 @@ def test(function):
             g = sys.modules['__main__'].__dict__
             if 'mayavi' not in g:
                 g['mayavi'] = self.script
+            if 'application' not in g:
+                g['application'] = self.application
             # Call the test.
             function()
         def __call__(self):

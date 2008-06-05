@@ -40,9 +40,9 @@ class TestOptionalCollection(TestCase):
         n = PolyDataNormals(name='Normals') 
         o = Optional(filter=n, label_text='Compute normals')
         coll = Collection(filters=[c, o], name='IsoSurface')
-        mayavi.add_filter(coll)
+        script.add_filter(coll)
         s = Surface()
-        mayavi.add_module(s)
+        script.add_module(s)
 
         ########################################
         # do the testing.
