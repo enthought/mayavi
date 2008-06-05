@@ -30,26 +30,32 @@ class CustomGridPlane(Component):
 
     # Minimum x value.
     x_min = DRange(default=0, low_name='_x_low', high_name='_x_high',
+                   is_float=False,
                    desc='minimum x value of the domain')
 
     # Maximum x value.
     x_max = DRange(default=10000, low_name='_x_low', high_name='_x_high',
+                   is_float=False,
                    desc='maximum x value of the domain')
 
     # Minimum y value.
     y_min = DRange(default=0, low_name='_y_low', high_name='_y_high',
+                   is_float=False,
                    desc='minimum y value of the domain')
 
     # Maximum y value.
     y_max = DRange(default=10000, low_name='_y_low', high_name='_y_high',
+                   is_float=False,
                    desc='maximum y value of the domain')
 
     # Minimum z value.
     z_min = DRange(default=0, low_name='_z_low', high_name='_z_high',
+                   is_float=False,
                    desc='minimum z value of the domain')
 
     # Maximum z value.
     z_max = DRange(default=10000, low_name='_z_low', high_name='_z_high',
+                   is_float=False,
                    desc='maximum z value of the domain')
 
     

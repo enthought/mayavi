@@ -40,6 +40,7 @@ class Explorer3D(HasTraits):
 
     # Dimensions of the cube of data.
     dimensions = Array(value=(128, 128, 128),
+                       dtype=int,
                        shape=(3,),
                        cols=1,
                        labels=['nx', 'ny', 'nz'],

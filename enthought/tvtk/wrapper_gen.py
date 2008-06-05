@@ -458,8 +458,13 @@ class WrapperGenerator:
                     else:
                         # Some other tuple
                         shape = (len(default),)
+                        if type(default[0]) is int:
+                            dtype = 'int'
+                        else:
+                            dtype = 'float'
                         t_def = 'traits.Trait(traits.Array('\
-                                'shape=%(shape)s, value=%(default)s), '\
+                                'shape=%(shape)s, value=%(default)s, '\
+                                'dtype=%(dtype)s), '\
                                 'cols=3)'%locals()
                         self._write_trait(out, name, t_def, vtk_set_meth,
                                           mapped=False)

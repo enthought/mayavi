@@ -153,10 +153,12 @@ class LUTManager(Base):
     # The default data range -- this is computed and set by the
     # module manager.
     default_data_range = Array(shape=(2,), value=[0.0, 1.0],
+                               dtype=float,
                                desc='the default range of the data mapped')
 
     # The optionally user defined range of the data.
     data_range = Array(shape=(2,), value=[0.0, 1.0],
+                       dtype=float,
                        desc='the range of the data mapped')
 
     # The view of this object.
@@ -193,7 +195,7 @@ class LUTManager(Base):
     ########################################
     ## Private traits.
     # The original range of the data.
-    _orig_data_range = Array(shape=(2,), value=[0.0, 1.0])
+    _orig_data_range = Array(shape=(2,), value=[0.0, 1.0], type=float)
     _title_text_property = Instance(tvtk.TextProperty)
     _label_text_property = Instance(tvtk.TextProperty)
     
