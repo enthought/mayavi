@@ -345,7 +345,10 @@ class Engine(HasStrictTraits):
          scene - `pyface.tvtk.scene.Scene`
         """
         self.remove_scene(scene.scene)
-        scene.close()
+        if hasattr(scene, 'close'):
+            scene.close()
+        else:
+            scene.scene.close()
 
     ######################################################################
     # Non-public interface
