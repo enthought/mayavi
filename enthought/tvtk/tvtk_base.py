@@ -245,31 +245,15 @@ class TVTKBase(traits.HasStrictTraits):
         if update:
             self.update_traits()
 
-        # Setup the observer so the traits are updated even if the
-        # wrapped VTK object changes.
-        vtk_obj = self._vtk_obj
-        if hasattr(vtk_obj, 'AddObserver'):
-            # Some classes like vtkInformation* derive from
-            # tvtk.ObjectBase which don't support Add/RemoveObserver.
-            messenger.connect(vtk_obj, 'ModifiedEvent',
-                              self.update_traits)
-            self._observer_ids += (vtk_obj.AddObserver('ModifiedEvent',
-                                                       messenger.send),)
-        _object_cache[vtk_obj.__this__] = self
+        # Setup observers for the modified event.
+        self.setup_observers()
+
+        _object_cache[self._vtk_obj.__this__] = self
     
     def __del__(self):
         #print "DEL", self.__class__.__name__, repr(self._vtk_obj)
-        if hasattr(self, '_observer_ids') and self._observer_ids:
-            for ob_id in self._observer_ids:
-                try:
-                    # The disconnection sometimes fails at exit.
-                    self._vtk_obj.RemoveObserver(ob_id)
-                except AttributeError:
-                    pass
-            try:
-                messenger.disconnect(self._vtk_obj)
-            except AttributeError:
-                pass
+        # teardown the observers. 
+        self.teardown_observers()
 
     def __getinitargs__(self):
         """This is merely a placeholder so that subclasses can
@@ -322,6 +306,35 @@ class TVTKBase(traits.HasStrictTraits):
     #################################################################
     # `TVTKBase` interface.
     #################################################################
+    def setup_observers(self):
+        """Add an observer for the ModifiedEvent so the traits are kept
+        up-to-date with the wrapped VTK object and do it in a way that
+        avoids reference cycles."""
+        # Setup the observer so the traits are updated even if the
+        # wrapped VTK object changes.
+        vtk_obj = self._vtk_obj
+        if hasattr(vtk_obj, 'AddObserver'):
+            # Some classes like vtkInformation* derive from
+            # tvtk.ObjectBase which don't support Add/RemoveObserver.
+            messenger.connect(vtk_obj, 'ModifiedEvent',
+                              self.update_traits)
+            self._observer_ids += (vtk_obj.AddObserver('ModifiedEvent',
+                                                       messenger.send),)
+
+    def teardown_observers(self):
+        """Remove the observer for the Modified event."""
+        if hasattr(self, '_observer_ids') and self._observer_ids:
+            for ob_id in self._observer_ids:
+                try:
+                    # The disconnection sometimes fails at exit.
+                    self._vtk_obj.RemoveObserver(ob_id)
+                except AttributeError:
+                    pass
+            try:
+                messenger.disconnect(self._vtk_obj)
+            except AttributeError:
+                pass
+            self._observer_ids = () 
 
     def update_traits(self, obj=None, event=None):
         """Updates all the 'updateable' traits of the object.

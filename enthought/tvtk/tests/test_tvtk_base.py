@@ -136,6 +136,38 @@ class TestTVTKBase(unittest.TestCase):
         val = (0.0, 1.0, 0.0)
         obj.SetSpecularColor(val)
         self.assertEqual(p.specular_color, val)
+
+    def test_setup_teardown_observers(self):
+        """If setup_observers and teardown_observers work correctly."""
+        p = Prop()
+        # Turn off the observers.
+        p.teardown_observers()
+        obj = p._vtk_obj
+        obj.SetEdgeVisibility(1)
+        self.assertEqual(p.edge_visibility, 0)
+
+        obj.SetOpacity(0.5)
+        self.assertEqual(p.opacity, 1.0)
+
+        obj.SetRepresentationToPoints()
+        self.assertEqual(p.representation, 'surface')
+
+        # Setup the observers again.
+        p.update_traits()
+        p.setup_observers()
+
+        self.assertEqual(p.edge_visibility, 1)
+        self.assertEqual(p.opacity, 0.5)
+        self.assertEqual(p.representation, 'points')
+
+        obj.SetEdgeVisibility(0)
+        self.assertEqual(p.edge_visibility, 0)
+
+        obj.SetOpacity(1.0)
+        self.assertEqual(p.opacity, 1.0)
+
+        obj.SetRepresentationToSurface()
+        self.assertEqual(p.representation, 'surface')
         
     def test_pickle(self):
         """Test if pickling works."""
