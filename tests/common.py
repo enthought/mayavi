@@ -17,9 +17,22 @@ from enthought.pyface.timer.api import do_later
 from enthought.tvtk.api import tvtk
 from enthought.mayavi.plugins.app import Mayavi, setup_logger
 
+# The TVTK window.
+from enthought.pyface.tvtk.tvtk_scene import TVTKWindow
+
 # Global variables.
 VERBOSE = False
 logger = logging.getLogger()
+
+
+def off_screen_viewer():
+    """A factory that creates an offscreen viewer."""
+    win = TVTKWindow(off_screen_rendering=True)
+    # Need to set some non-zero size for the off screen window.  If
+    # not we get VTK errors on Linux.
+    win.scene.set_size((300,300))
+    return win
+
 
 class MayaviTestError(Exception):
     pass
@@ -231,6 +244,7 @@ def compare_image_offscreen(scene, img_path):
         abs_img_path = fixpath(img_path)
     
     s = scene.scene
+    saved = s.off_screen_rendering
     s.off_screen_rendering = True
     s.render_window.size = (300, 300)
     s.reset_zoom()
@@ -238,7 +252,7 @@ def compare_image_offscreen(scene, img_path):
     try:
         compare_image_raw(s.render_window, abs_img_path)
     finally:
-        s.off_screen_rendering = False
+        s.off_screen_rendering = saved
         s.render()
 
 
@@ -321,7 +335,12 @@ class TestCase(Mayavi):
         from enthought.mayavi.core.engine import Engine
         from enthought.mayavi.plugins.script import Script
         from enthought.pyface.api import ApplicationWindow, GUI
-        engine = Engine()
+        if self.offscreen:
+            engine = Engine(scene_factory=off_screen_viewer)
+        else:
+            engine = Engine()
+        engine.start()
+
         self.script = Script(engine=engine)
         self.gui = g = GUI()
         self.app_window = a = ApplicationWindow()

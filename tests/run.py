@@ -66,12 +66,17 @@ class RunAllTests(TestCase):
 
 
 def main():
-    tests = get_tests()
-    run_tests(tests)
+    argv = ' '.join(sys.argv)
+
+    if '--one-shot' in argv:
+        argv = argv.replace('--one-shot', '')
+        sys.argv = argv.split()
+        t = RunAllTests()
+        t.main()
+    else:
+        tests = get_tests()
+        run_tests(tests)
 
 if __name__ == "__main__":
-    #main()
-    t = RunAllTests()
-    t.main()
-
+    main()
 
