@@ -11,7 +11,7 @@ import logging
 from optparse import OptionParser
 
 # Enthought library imports
-from enthought.traits.api import  Bool
+from enthought.traits.api import  Bool, Instance
 from enthought.pyface.api import GUI
 from enthought.pyface.timer.api import do_later
 from enthought.tvtk.api import tvtk
@@ -288,6 +288,13 @@ class TestCase(Mayavi):
     # `self.compare_image` was called in the test..
     offscreen = Bool(False)
 
+    # Use the standalone mode.
+    standalone = Bool(False)
+
+    app_window = Instance('enthought.pyface.api.ApplicationWindow')
+
+    gui = Instance('enthought.pyface.gui.GUI')
+
     ######################################################################
     # `Mayavi` interface.
     ######################################################################
@@ -297,12 +304,31 @@ class TestCase(Mayavi):
         """
         if argv is None:
             argv = sys.argv[1:]
-        # Call the superclass main method.
-        super(TestCase, self).main(argv, plugins)
+
+        self.parse_command_line(argv)
+
+        if self.standalone:
+            self.run_standalone()
+        else:
+            # Call the superclass main method.
+            super(TestCase, self).main(argv, plugins)
 
     def setup_logger(self):
         """Overridden logger setup."""
         setup_logger(logger, 'mayavi-test.log', mode=self.log_mode)
+
+    def run_standalone(self):
+        from enthought.mayavi.core.engine import Engine
+        from enthought.mayavi.plugins.script import Script
+        from enthought.pyface.api import ApplicationWindow, GUI
+        engine = Engine()
+        self.script = Script(engine=engine)
+        self.gui = g = GUI()
+        self.app_window = a = ApplicationWindow()
+        a.open()
+        a.show(False)
+        g.invoke_later(self.run)
+        g.start_event_loop()
 
     def run(self):
         """This starts everything up and runs the test.  Call main to
@@ -311,7 +337,11 @@ class TestCase(Mayavi):
         # Calls the users test code.
         self.test()
         if not self.interact:
-            self.application.gui.invoke_later(self.application.exit)
+            if self.standalone:
+                self.app_window.close()
+                self.gui.stop_event_loop()
+            else:
+                self.application.gui.invoke_later(self.application.exit)
 
     def parse_command_line(self, argv):
         """Parse command line options."""
@@ -322,6 +352,10 @@ class TestCase(Mayavi):
         parser.add_option("-i", "--interact", action="store_true",
                           dest="interact", default=False,
                           help="Allow interaction after test (default: False)")
+        parser.add_option("-s", "--standalone", action="store_true",
+                          dest="standalone", default=False,
+                          help="Run test using standalone mode without "\
+                          "envisage (default: False)")
         parser.add_option("-o", "--offscreen", action="store_true",
                           dest="offscreen", default=False,
                           help="Always use offscreen rendering when "\
@@ -334,6 +368,7 @@ class TestCase(Mayavi):
             self.log_mode = logging.DEBUG
         self.offscreen = options.offscreen
         self.interact = options.interact
+        self.standalone = options.standalone
 
     ######################################################################
     # `TestCase` interface.

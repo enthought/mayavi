@@ -20,8 +20,6 @@ def test_close_scene():
     engine.close_scene(s1)
     # Neither should this.
     engine.close_scene(s2)
-    # Close after we are done.
-    application.exit()    
 
 if __name__ == "__main__":
     test_close_scene()
