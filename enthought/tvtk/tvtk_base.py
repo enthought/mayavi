@@ -75,10 +75,10 @@ class TVTKObjectCache(weakref.WeakValueDictionary):
                 vtk_obj.RemoveObserver(ob_id)
             except AttributeError:
                 pass
-            try:
-                messenger.disconnect(vtk_obj)
-            except AttributeError:
-                pass
+        try:
+            messenger.disconnect(vtk_obj)
+        except AttributeError:
+            pass
         del od[key]
 
 
