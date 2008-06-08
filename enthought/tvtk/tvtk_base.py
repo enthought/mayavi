@@ -19,6 +19,69 @@ import messenger
 # The TVTK object cache.
 ######################################################################
 
+class TVTKObjectCache(weakref.WeakValueDictionary):
+    def __init__(self, *args, **kw):
+        self._observer_data = {}
+        weakref.WeakValueDictionary.__init__(self, *args, **kw)
+        def remove(wr, selfref=weakref.ref(self)):
+            self = selfref()
+            if self is not None:
+                self.teardown_observers(wr.key)
+                del self.data[wr.key]
+        self._remove = remove
+
+    def setup_observers(self, vtk_obj, event, method):
+        """Setup the observer for the VTK object's event.
+
+        Parameters
+        ----------
+
+        vtk_obj -- The VTK object for which the `event` is
+        observed.
+
+        event -- The VTK event to watch.
+
+        method -- The method to be called back when `event` is
+        fired on the VTK object.
+
+        """
+
+        # Setup the observer so the traits are updated even if the
+        # wrapped VTK object changes.
+        if hasattr(vtk_obj, 'AddObserver'):
+            # Some classes like vtkInformation* derive from
+            # tvtk.ObjectBase which don't support Add/RemoveObserver.
+            messenger.connect(vtk_obj, event, method)
+            ob_id = vtk_obj.AddObserver(event, messenger.send)
+            key = vtk_obj.__this__
+            od = self._observer_data
+            if key in od:
+                od[key].append((vtk_obj, ob_id))
+            else:
+                od[key] = [(vtk_obj, ob_id)]
+
+    def teardown_observers(self, key):
+        """Given the key of the VTK object (vtk_obj.__this__), this
+        removes the observer for the ModifiedEvent and also disconnects
+        the messenger.
+        """
+        od = self._observer_data
+        if key not in od:
+            return
+
+        for vtk_obj, ob_id in od[key]:
+            try:
+                # The disconnection sometimes fails at exit.
+                vtk_obj.RemoveObserver(ob_id)
+            except AttributeError:
+                pass
+            try:
+                messenger.disconnect(vtk_obj)
+            except AttributeError:
+                pass
+        del od[key]
+
+
 # The TVTK object cache (`_object_cache`).  This caches all the TVTK
 # instances using weakrefs.  When a VTK object is wrapped via the
 # `wrap_vtk` function this cache is checked.  The key is the VTK
@@ -40,7 +103,7 @@ for name in ['tvtk_base', 'enthought.tvtk.tvtk_base']:
 if _dummy is not None:
     _object_cache = _dummy
 else:
-    _object_cache = weakref.WeakValueDictionary()
+    _object_cache = TVTKObjectCache()
 del _dummy
 
 
@@ -179,10 +242,6 @@ class TVTKBase(traits.HasStrictTraits):
     # notifications when set which is why we use `Python`.
     _in_set = traits.Python
 
-    # A tuple of the observer IDs for the 'ModifiedEvent' and other
-    # events.
-    _observer_ids = traits.Tuple
-
     # The wrapped VTK object.
     _vtk_obj = traits.Trait(None, None, vtk.vtkObjectBase())
 
@@ -250,11 +309,6 @@ class TVTKBase(traits.HasStrictTraits):
 
         _object_cache[self._vtk_obj.__this__] = self
     
-    def __del__(self):
-        #print "DEL", self.__class__.__name__, repr(self._vtk_obj)
-        # teardown the observers. 
-        self.teardown_observers()
-
     def __getinitargs__(self):
         """This is merely a placeholder so that subclasses can
         override this if needed.  This is called by `__setstate__`
@@ -271,7 +325,7 @@ class TVTKBase(traits.HasStrictTraits):
         """
         self.update_traits()
         d = self.__dict__.copy()
-        for i in ['_vtk_obj', '_observer_ids', '_in_set', 'reference_count',
+        for i in ['_vtk_obj', '_in_set', 'reference_count',
                   'global_warning_display', '__sync_trait__']:
             d.pop(i, None)
         return d
@@ -301,7 +355,6 @@ class TVTKBase(traits.HasStrictTraits):
         object.
         """
         return str(self._vtk_obj)
-    
         
     #################################################################
     # `TVTKBase` interface.
@@ -310,31 +363,13 @@ class TVTKBase(traits.HasStrictTraits):
         """Add an observer for the ModifiedEvent so the traits are kept
         up-to-date with the wrapped VTK object and do it in a way that
         avoids reference cycles."""
-        # Setup the observer so the traits are updated even if the
-        # wrapped VTK object changes.
-        vtk_obj = self._vtk_obj
-        if hasattr(vtk_obj, 'AddObserver'):
-            # Some classes like vtkInformation* derive from
-            # tvtk.ObjectBase which don't support Add/RemoveObserver.
-            messenger.connect(vtk_obj, 'ModifiedEvent',
-                              self.update_traits)
-            self._observer_ids += (vtk_obj.AddObserver('ModifiedEvent',
-                                                       messenger.send),)
+        _object_cache.setup_observers(self._vtk_obj, 
+                                      'ModifiedEvent', 
+                                      self.update_traits)
 
     def teardown_observers(self):
         """Remove the observer for the Modified event."""
-        if hasattr(self, '_observer_ids') and self._observer_ids:
-            for ob_id in self._observer_ids:
-                try:
-                    # The disconnection sometimes fails at exit.
-                    self._vtk_obj.RemoveObserver(ob_id)
-                except AttributeError:
-                    pass
-            try:
-                messenger.disconnect(self._vtk_obj)
-            except AttributeError:
-                pass
-            self._observer_ids = () 
+        _object_cache.teardown_observers(self._vtk_obj.__this__)
 
     def update_traits(self, obj=None, event=None):
         """Updates all the 'updateable' traits of the object.

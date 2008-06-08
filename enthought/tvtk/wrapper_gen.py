@@ -125,28 +125,25 @@ class WrapperGenerator:
         indent.incr()
 
         # Write __init__
-        if 'vtk3DWidget' in [x.name for x in node.get_ancestors()]:
-           # In this case we also update the traits on the
-           # EndInteractionEvent.  Note that we don't need to change
-           # __del__.
-            decl = '''
-            def __init__(self, obj=None, update=True, **traits):
-                tvtk_base.TVTKBase.__init__(self, vtk.%(vtk_class_name)s, obj, update, **traits)
-                vtk_obj = self._vtk_obj
-                messenger.connect(vtk_obj, "EndInteractionEvent",
-                                  self.update_traits)
-                self._observer_ids += (vtk_obj.AddObserver("EndInteractionEvent",
-                                                              messenger.send),)
-            '''%locals()        
-        else:
-            # Otherwise do a simple __init__.
-            decl = """
-            def __init__(self, obj=None, update=True, **traits):
-                tvtk_base.TVTKBase.__init__(self, vtk.%(vtk_class_name)s, obj, update, **traits)
-                
-            """%locals()
-        
+        decl = """
+        def __init__(self, obj=None, update=True, **traits):
+            tvtk_base.TVTKBase.__init__(self, vtk.%(vtk_class_name)s, obj, update, **traits)
+            
+        """%locals()
         out.write(indent.format(decl))
+
+        if 'vtk3DWidget' in [x.name for x in node.get_ancestors()]:
+            # In this case we also update the traits on the
+            # EndInteractionEvent.  Note that we don't need to change
+            decl = '''
+            def setup_observers(self):
+                """Setup the observers for the object."""
+                super(%(class_name)s, self).setup_observers()
+                tvtk_base._object_cache.setup_observers(self._vtk_obj, 
+                                              'EndInteractionEvent', 
+                                              self.update_traits)
+            '''%locals()
+            out.write(indent.format(decl))
 
     def _gen_methods(self, node, out):
         klass = self.get_tree().get_class(node.name)
