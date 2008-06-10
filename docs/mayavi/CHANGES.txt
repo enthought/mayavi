@@ -1,15 +1,45 @@
 -----------------------------------------------------------------------------
 This file contains a log of significant changes made to the package
-especially API changes.  The log refers to changesets like so [18702].
-To view these use a URL like so: 
+especially API changes.  The log refers to changesets in the trac format
+[#revno], for example to view the changeset [18702] use the following
+URL: 
     https://svn.enthought.com/enthought/changeset/18702
 -----------------------------------------------------------------------------
 
+07, 08 June, 2008 (PR):
+    - API: TVTK: Added two methods `setup_observers` and
+      `teardown_observers` that let one turn on/off the observer for the
+      ModifiedEvent fired on each VTK object that a TVTK object wraps to
+      keep the traits updated.  Thus, if you call `teardown_observers`
+      the traits will not be automatically updated if the wrapped VTK
+      object is changed.  This can be manually updated by calling the
+      `update_traits` method.  It is OK to call the
+      setup/teardown_observers method as often as needed.  This is also
+      tested.  See [18885].
+    - API: TVTK: Removed the `__del__` method on all TVTK objects.  This
+      should make it much nicer for proper garbage collection.  See
+      [18886], [18887].
+
+06 June, 2008 (PR):
+    - TEST: Added a standalone mode to the tests so you can test without
+      starting up the envisage app.  Envisage imports may be required
+      however.  To use this run any test with the -s option. [18880]
+    - TEST: Added a way to run the tests on one application launch
+      instead of starting mayavi each time.  To use this execute run.py
+      with the --one-shot command line option.  [18880] [18881].
+    - TEST: The standalone offscreen mode now should work without a
+      single Traits UI showing up with just a dummy blank window being
+      used.  This demonstrates how mayavi scripts can work in completely
+      different contexts.  [18881].
+      
 
 31 May, 2008 (PR):
     - PORT: Backported important additions to the 2.2.0 branch.
     - BUG: Added a test case for the hide/show functionality and fixed
       known bugs.
+    - API: Adding elementary support for texturing an actor (if it has
+      texture coords).  This was thanks to a patch from Chandrashekhar
+      Kaushik. [18827]
 
 30 May, 2008 (PR):
     - API: Adding closing, closed lifecycle events to the scene [18806].
