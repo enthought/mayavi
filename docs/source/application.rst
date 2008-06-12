@@ -614,6 +614,15 @@ The options are:
        apply to this newly created scene.  Also available through
        --new-window.
 
+-o
+--offscreen
+
+      Run Mayavi in offscreen mode without any graphical user interface.
+      This is most useful for scripts that need to render images
+      offscreen (for an animation say) in the background without an
+      intrusive user interface popping up.  Mayavi scripts (run via the
+      -x argument) should typically work fine in this mode. 
+
 -x script-file
       This executes the given script in a namespace where we guarantee
       that the name 'mayavi' is Mayavi's script instance -- just like

@@ -25,6 +25,13 @@ from os.path import splitext, exists
 from enthought.mayavi.__version__ import __version__
 from enthought.mayavi.scripts.util import get_data_dir
 
+# Globals.
+OFFSCREEN = False
+
+# A global mayavi instance so we can close it correctly.
+mayavi = None
+
+
 ###########################################################################
 # Utility functions.
 ###########################################################################
@@ -116,6 +123,13 @@ options are one or more of the following:
      Creates a new TVTK scene.  Any options passed after this will
      apply to this newly created scene.
 
+-o
+--offscreen
+
+     Run Mayavi in offscreen mode without any graphical user interface.
+     This is most useful for scripts that need to render images
+     offscreen.
+
 -x script-file
 --exec script-file
 
@@ -180,7 +194,7 @@ def parse_cmd_line(arguments):
     if type(arguments) in types.StringTypes:
         arguments = arguments.split()
         
-    options = "d:p:q:e:m:f:z:w:3:x:nMv"
+    options = "d:p:q:e:m:f:z:w:3:x:nMvo"
     
     long_opts = ['vtk=',
                  'plot3d-xyz=', 'plot3d-q=',
@@ -191,7 +205,7 @@ def parse_cmd_line(arguments):
                  '3ds=',
                  'exec=',
                  'verbose',
-                 'module-mgr', 'new-scene']
+                 'module-mgr', 'new-scene', 'offscreen']
 
     try:
         opts, args = getopt.getopt (arguments, options, long_opts)
@@ -431,6 +445,8 @@ if ('-V' in sys.argv[1:]) or ('--version' in sys.argv[1:]):
     print 'MayaVi %s'%__version__
     sys.exit(0)
 
+if ('-o' in sys.argv[1:]) or ('--offscreen' in sys.argv[1:]):
+    OFFSCREEN = True
 
 # Importing here to avoid time-consuming import when user only wanted
 # version/help information.
@@ -461,8 +477,40 @@ class MayaviApp(Mayavi):
         process_cmd_line(self, options, args)
 
 
+################################################################################
+# `MayaviOffscreen` class.
+################################################################################ 
+class MayaviOffscreen(MayaviApp):
+    """
+    The mayavi application used for offscreen rendering.
+    """
+
+    def _script_default(self):
+        from enthought.mayavi.plugins.script import Script
+        from enthought.mayavi.core.engine import Engine
+        engine = Engine(scene_factory=off_screen_viewer)
+        s = Script(engine=engine)
+        return s
+
+    def main(self, argv=None):
+        if argv is None:
+            argv = []
+        self.parse_command_line(argv)
+        self.run()
+
+
 ##########################################################################
 # Helper functions
+##########################################################################
+def off_screen_viewer():
+    """A factory that creates an offscreen viewer."""
+    from enthought.pyface.tvtk.tvtk_scene import TVTKWindow
+    win = TVTKWindow(off_screen_rendering=True)
+    # Need to set some non-zero size for the off screen window.  If
+    # not we get VTK errors on Linux.
+    win.scene.set_size((300,300))
+    return win
+
 def standalone(globals_dict):
     """This could be optionally called at the top of stand-alone
     scripts so that the script runs either as::
@@ -486,10 +534,6 @@ def standalone(globals_dict):
         # the script will be executed which will cause errors.
         sys.exit(0)
 
-
-# A global mayavi instance so we can close it correctly.
-mayavi = None
-
 def main():
     """This starts up the mayavi2 application.
     """
@@ -498,13 +542,16 @@ def main():
     if '' not in sys.path:
         sys.path.insert(0, '')
     # Start the app.
-    mayavi = MayaviApp()
+    if OFFSCREEN:
+        mayavi = MayaviOffscreen()
+    else:
+        mayavi = MayaviApp()
     mayavi.main(sys.argv[1:])
 
 def close():
     """ This closes the mayavi2 application.
     """
-    if mayavi is not None:
+    if mayavi is not None and not OFFSCREEN:
         mayavi.window.close()
 
 if __name__ == '__main__':
