@@ -19,7 +19,7 @@ import sys
 import types
 import getopt
 import logging
-from os.path import splitext, exists
+from os.path import splitext, exists, join, abspath
 
 # Local imports.
 from enthought.mayavi.__version__ import __version__
@@ -445,12 +445,15 @@ if ('-V' in sys.argv[1:]) or ('--version' in sys.argv[1:]):
     print 'MayaVi %s'%__version__
     sys.exit(0)
 
-if ('-o' in sys.argv[1:]) or ('--offscreen' in sys.argv[1:]):
-    OFFSCREEN = True
+for opt, arg in parse_cmd_line(sys.argv[1:])[0]:
+    if opt in ('-o', '--offscreen'):
+        OFFSCREEN = True
+        break
+del opt, arg
 
 # Importing here to avoid time-consuming import when user only wanted
 # version/help information.
-from enthought.mayavi.plugins.app import Mayavi
+from enthought.mayavi.plugins.app import Mayavi, setup_logger
 
 ##########################################################################
 # `MayaviApp` class
@@ -492,10 +495,20 @@ class MayaviOffscreen(MayaviApp):
         s = Script(engine=engine)
         return s
 
+    def setup_logger(self):
+        from enthought.etsconfig.api import ETSConfig
+        path = join(ETSConfig.application_data, 
+                    'enthought.mayavi_e3', 'mayavi.log')
+        path = abspath(path)
+        logger = logging.getLogger()
+        setup_logger(logger, path, mode=self.log_mode)        
+
     def main(self, argv=None):
         if argv is None:
             argv = []
+
         self.parse_command_line(argv)
+        self.setup_logger()
         self.run()
 
 

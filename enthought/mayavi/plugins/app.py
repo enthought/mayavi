@@ -26,19 +26,26 @@ logger = logging.getLogger()
 # Useful functions.
 ######################################################################
 def setup_logger(logger, fname, stream=True, mode=logging.ERROR):
-    """Setup a log file and the logger in `ETSConfig.application_home`.
+    """Setup a log file and the logger.  If the given file name is not
+    absolute, put the log file in `ETSConfig.application_home`, if not
+    it will create it where desired.
 
     Parameters:
     -----------
 
-    fname -- file name the logger should use.
+    fname -- file name the logger should use.  If this is an absolute
+    path it will create the log file as specified, if not it will put it
+    in `ETSConfig.application_home`.
 
     stream -- Add a stream handler.
 
     mode -- the logging mode.
     
     """
-    path = os.path.join(ETSConfig.application_home, fname)
+    if not os.path.isabs(fname):
+        path = os.path.join(ETSConfig.application_home, fname)
+    else:
+        path = fname
     handler = LogFileHandler(path)
     logger.addHandler(handler)
     if stream:

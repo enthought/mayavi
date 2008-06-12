@@ -11,6 +11,7 @@ import logging
 from optparse import OptionParser
 
 # Enthought library imports
+from enthought.etsconfig.api import ETSConfig
 from enthought.traits.api import  Bool, Instance
 from enthought.pyface.api import GUI
 from enthought.pyface.timer.api import do_later
@@ -329,12 +330,20 @@ class TestCase(Mayavi):
 
     def setup_logger(self):
         """Overridden logger setup."""
-        setup_logger(logger, 'mayavi-test.log', mode=self.log_mode)
+        if self.standalone:
+            path = os.path.join(ETSConfig.application_data,
+                                'enthought.mayavi_e3', 'mayavi-test.log')
+            path = os.path.abspath(path)
+        else:
+            path = 'mayavi-test.log'
+        setup_logger(logger, path, mode=self.log_mode)
 
     def run_standalone(self):
         from enthought.mayavi.core.engine import Engine
         from enthought.mayavi.plugins.script import Script
         from enthought.pyface.api import ApplicationWindow, GUI
+
+        self.setup_logger()
         if self.offscreen:
             engine = Engine(scene_factory=off_screen_viewer)
         else:
