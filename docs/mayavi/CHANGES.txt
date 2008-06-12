@@ -6,6 +6,14 @@ URL:
     https://svn.enthought.com/enthought/changeset/18702
 -----------------------------------------------------------------------------
 
+12 June, 2008 (PR):
+    - ENH: Adding an offscreen option to the mayavi2 application.  This
+      lets you run a normal mayavi Python script in offscreen mode
+      without the full UI.  This is very convenient when you want to
+      render a huge number of images from a visualization and don't want
+      the UI to bother you or create a special script for the purpose.
+      See [18951], [18955].
+
 07, 08 June, 2008 (PR):
     - API: TVTK: Added two methods `setup_observers` and
       `teardown_observers` that let one turn on/off the observer for the
