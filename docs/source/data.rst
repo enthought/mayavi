@@ -10,7 +10,7 @@ objects or data files for Mayavi and TVTK.
 
  * Presentation on TVTK and Mayavi2 for course at IIT Bombay
 
-   https://svn.enthought.com/enthought/attachment/wiki/Mayavi/tvtk_mayavi2.pdf
+   https://svn.enthought.com/enthought/attachment/wiki/MayaVi/tvtk_mayavi2.pdf
 
    This presentation provides information on graphics in general, 3D
    data representation, creating VTK data files, creating datasets
@@ -18,7 +18,7 @@ objects or data files for Mayavi and TVTK.
 
  * Presentation on making TVTK datasets using numpy arrays made for SciPy07.
 
-   https://svn.enthought.com/enthought/attachment/wiki/Mayavi/tvtk_datasets.pdf
+   https://svn.enthought.com/enthought/attachment/wiki/MayaVi/tvtk_datasets.pdf
 
    This presentation focuses on creating TVTK datasets using numpy
    arrays.
