@@ -449,6 +449,9 @@ for opt, arg in parse_cmd_line(sys.argv[1:])[0]:
     if opt in ('-o', '--offscreen'):
         OFFSCREEN = True
         break
+# Create opt and arg to be able to delete them even if the previous loop
+# is empty.
+opt, arg = None, None
 del opt, arg
 
 # Importing here to avoid time-consuming import when user only wanted
