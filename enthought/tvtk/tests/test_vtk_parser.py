@@ -103,9 +103,13 @@ class TestVTKParser(unittest.TestCase):
                                  (default, val))
 
         if hasattr(obj, 'GetTexture'):
-            self.assertEqual(p.get_get_methods(),
-                             ['GetMaterial', 'GetNumberOfTextures',
-                              'GetShaderProgram'])            
+            expect = ['GetMaterial', 'GetMaterialName', 
+                      'GetNumberOfTextures', 'GetShaderProgram']
+            if hasattr(obj, 'GetMaterialName'):
+                self.assertEqual(p.get_get_methods(), expect)
+            else:
+                expect.remove('GetMaterialName')
+                self.assertEqual(p.get_get_methods(), expect)
         else:
             self.assertEqual(p.get_get_methods(), [])
         self.assertEqual(p.get_meths, p.get_get_methods())
