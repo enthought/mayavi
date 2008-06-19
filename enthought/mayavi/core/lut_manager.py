@@ -195,7 +195,7 @@ class LUTManager(Base):
     ########################################
     ## Private traits.
     # The original range of the data.
-    _orig_data_range = Array(shape=(2,), value=[0.0, 1.0], type=float)
+    _orig_data_range = Array(shape=(2,), value=[0.0, 1.0], dtype=float)
     _title_text_property = Instance(tvtk.TextProperty)
     _label_text_property = Instance(tvtk.TextProperty)
     
@@ -392,6 +392,8 @@ class LUTManager(Base):
             self.lut.set_range(value[0], value[1])
         except TypeError:
             self.lut.set_range((value[0], value[1]))
+        except AttributeError:
+            self.lut.range = value
         self.scalar_bar.modified()
         self.render()
 
