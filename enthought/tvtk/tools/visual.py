@@ -395,29 +395,29 @@ class MVector(numpy.ndarray):
     z = property(_get_z, _set_z)    
 
     def dot(vec1, vec2):
-	""" Function performs the dot vector multiplication of 2
-	vector instances and returning a new vector instance equal to
-	the dot product of given vectors"""
-	i = vec1.x * vec2.x
-	j = vec1.y * vec2.y
-	k = vec1.z * vec2.z	
-	dot = i + j + k 
-	return dot	
+        """ Function performs the dot vector multiplication of 2
+        vector instances and returning a new vector instance equal to
+        the dot product of given vectors"""
+        i = vec1.x * vec2.x
+        j = vec1.y * vec2.y
+        k = vec1.z * vec2.z     
+        dot = i + j + k 
+        return dot      
 
     def cross(vec1, vec2):
-	""" Function performing the cross vector multiplication of 2
-	vector instances and returning a new vector instance equal to
-	the cross product of given vectors"""
-	i = (vec1.y*vec2.z - vec1.z*vec2.y)
-	j = (vec1.z*vec2.x - vec1.x*vec2.z)
-	k = (vec1.x*vec2.y - vec1.y*vec2.x)
-	cross = MVector(i, j, k) 
-	return cross
+        """ Function performing the cross vector multiplication of 2
+        vector instances and returning a new vector instance equal to
+        the cross product of given vectors"""
+        i = (vec1.y*vec2.z - vec1.z*vec2.y)
+        j = (vec1.z*vec2.x - vec1.x*vec2.z)
+        k = (vec1.x*vec2.y - vec1.y*vec2.x)
+        cross = MVector(i, j, k) 
+        return cross
 
     def mag(vec):
-	""" Function computes and returns the magnitude of a vector"""
-	mag = sqrt(vec[0]**2 + vec[1]**2 + vec[2]**2)
-	return mag
+        """ Function computes and returns the magnitude of a vector"""
+        mag = sqrt(vec[0]**2 + vec[1]**2 + vec[2]**2)
+        return mag
 
     def norm(vec):
         """ Function computes and returns the normalized form of a
