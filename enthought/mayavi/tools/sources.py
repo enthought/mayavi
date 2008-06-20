@@ -80,7 +80,7 @@ def process_regular_scalars(*args):
 
     assert ( x.shape == y.shape and
             y.shape == z.shape and
-            ( s == None
+            ( s is None
                 or s.shape == z.shape ) ), "argument shape are not equal"
 
     return x, y, z, s
@@ -216,7 +216,7 @@ def scalarscatter(*args, **kwargs):
 
     points = numpy.c_[x.ravel(), y.ravel(), z.ravel()]
 
-    if not s == None:
+    if s is not None:
         s = s.ravel()
 
     data_source = _make_glyph_data(points, None, s)
@@ -290,9 +290,10 @@ def linesource(*args, **kwargs):
     lines[:,1] = numpy.arange(1, np+0.5, 1, 'l')
     data_source = tvtk.PolyData(points=points, lines=lines)
 
-    if not s == None:
+    if s is not None:
         s = s.ravel()
         data_source.point_data.scalars = s
+        data_source.point_data.scalars.name = 'scalars'
 
     name = kwargs.pop('name', 'LineSource')
     return tools._add_data(data_source, name)
@@ -332,6 +333,7 @@ def array2dsource(*args, **kwargs):
         s = s.T
         s = s.ravel()
         data_source.point_data.scalars = s
+        data_source.point_data.scalars.name = 'scalars'
         data_source.scalar_type = 'unsigned_char'
         data_source.number_of_scalar_components = 1
 

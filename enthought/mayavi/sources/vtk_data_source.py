@@ -3,7 +3,7 @@ pickled or persisted, it saves the data given to it in the form of a
 gzipped string.
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2005-2006, Enthought, Inc.
+# Copyright (c) 2005-2008, Enthought, Inc.
 # License: BSD Style.
 
 # Enthought library imports.
@@ -19,6 +19,22 @@ from enthought.mayavi.core.source import Source
 from enthought.mayavi.core.common import handle_children_state
 from enthought.mayavi.core.traits import DEnum
 from vtk_xml_file_reader import get_all_attributes
+
+
+######################################################################
+# Utility functions.
+######################################################################
+def has_attributes(dataset):
+    """Returns `True` when the given TVTK `dataset` has any attribute
+    arrays in point and cell data and `False` otherwise.  
+    """
+    pd = dataset.point_data
+    if pd is not None and pd.number_of_arrays > 0:
+        return True
+    cd = dataset.cell_data
+    if cd is not None and cd.number_of_arrays > 0:
+        return True
+    return False
 
 
 ######################################################################
@@ -173,10 +189,13 @@ class VTKDataSource(Source):
     # Non-public interface
     ######################################################################
     def _data_changed(self, old, new):
-        aa = self._assign_attribute
-        aa.input = new
-        self._update_data()
-        self.outputs = [aa.output]
+        if has_attributes(self.data):
+            aa = self._assign_attribute
+            aa.input = new
+            self._update_data()
+            self.outputs = [aa.output]
+        else:
+            self.outputs = [self.data]
         self.data_changed = True
 
         # Add an observer to the VTK dataset after removing the one

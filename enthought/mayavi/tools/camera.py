@@ -21,9 +21,16 @@ def _xyz2rthetaphi(vec):
     degrees, x and y swapped compared to cylindrical coords)"""
     pi = numpy.pi
     r = numpy.sqrt(numpy.square(vec).sum())
-    vec = vec / r
+    if r < 1.0e-24:
+        vec = numpy.ones_like(vec)*numpy.nan
+    else:
+        vec = vec / r
     theta = numpy.arccos(vec[2])*180/pi
-    xy = vec[0:2] / numpy.sqrt(numpy.square(vec[0:2]).sum())
+    xy_mag = numpy.sqrt(numpy.dot(vec[0:2], vec[0:2]))
+    if xy_mag < 1.0e-24:
+        xy = numpy.ones_like(vec)*numpy.nan
+    else:
+        xy = vec[0:2] / xy_mag
     phi = numpy.arccos(xy[1])*180/pi
     if numpy.isnan(phi):
         phi=0
