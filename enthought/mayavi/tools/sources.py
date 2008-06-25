@@ -96,13 +96,9 @@ def process_regular_2d_scalars(*args):
         x, y, s = args
         if callable(s):
             s = s(x, y)
-        else:
-            print type(s)
     else:
         raise ValueError, "wrong number of arguments"
-
-    assert ( x.shape == y.shape and
-                s.shape == y.shape ), "argument shape are not equal"
+    assert len(s.shape)==2, "2D array required"
 
     return x, y, s
 
@@ -325,11 +321,11 @@ def array2dsource(*args, **kwargs):
                     spacing=[1, 1, 1])
     else:
         x, y, s = process_regular_2d_scalars(*args)
-        assert len(s.shape)==2, "2D array required"
-        nx, ny = s.shape
-        xa = numpy.linspace(x.min(), x.max(), nx)
-        ya = numpy.linspace(y.min(), y.max(), ny)
-        data_source = mlab._create_structured_points_direct(xa, ya)
+        # Do some magic to extract the first row/column, independently of
+        # the shape of x and y
+        x = numpy.atleast_2d(x.squeeze().T)[0, :].squeeze()
+        y = numpy.atleast_2d(y.squeeze())[0, :].squeeze()
+        data_source = mlab._create_structured_points_direct(x, y)
         s = s.T
         s = s.ravel()
         data_source.point_data.scalars = s
