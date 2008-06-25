@@ -22,7 +22,7 @@ from filters import ExtractVectorNormFactory, WarpScalarFactory, \
 from auto_doc import traits_doc, dedent
 import tools
 from enthought.traits.api import Array, Callable, CFloat, HasTraits, \
-    List, Trait
+    List, Trait, Any
 import numpy
 
 def document_pipeline(pipeline):
@@ -459,6 +459,31 @@ class Surf(Pipeline):
     _source_function = Callable(array2dsource)
 
     _pipeline = [WarpScalarFactory, SurfaceFactory]
+
+
+    warp_scale = Any('auto', help="""scale of the z axis (warped from
+                        the value of the scalar). By default this scale
+                        is calculated to give a pleasant aspect ratio to
+                        the plot. You can overright this behavoir by
+                        specifying a float value.""")
+
+
+    def __call__(self, *args, **kwargs):
+        """ Override the call to be able to scale automaticaly the axis.
+        """
+        self.source = self._source_function(*args, **kwargs)
+        kwargs.pop('name', None)
+        if self.warp_scale == 'auto' and not 'extent' in kwargs:
+            xi, xf, yi, yf, zi, zf = self.source.data.bounds
+            zf = 0.5*((xf - xi) + (yf - yi))
+            kwargs['extent'] = (xi, xf, yi, yf, zi, zf)
+            kwargs['warp_scale'] = 1.
+        self.store_kwargs(kwargs)
+
+        # Copy the pipeline so as not to modify it for the next call
+        self.pipeline = self._pipeline[:]
+        return self.build_pipeline()
+
 
 
 surf = document_pipeline(Surf())
