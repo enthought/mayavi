@@ -281,16 +281,16 @@ points3d = document_pipeline(Points3d())
 
 
 def test_points3d():
-    t = numpy.linspace(0, 4*numpy.pi, 100)
+    t = numpy.linspace(0, 4*numpy.pi, 20)
     cos = numpy.cos
     sin = numpy.sin
 
     x = sin(2*t)
     y = cos(t)
-    z = sin(2*t)
-    s = sin(t)
+    z = cos(2*t)
+    s = 2+sin(t)
 
-    points3d(x, y, z, s, colormap="copper")
+    points3d(x, y, z, s, colormap="copper", scale_factor=.25)
 
 def test_molecule():
     """Generates and shows a Caffeine molecule."""
