@@ -85,7 +85,7 @@ def process_regular_scalars(*args):
 
     return x, y, z, s
 
-def process_regular_2d_scalars(*args):
+def process_regular_2d_scalars(*args, **kwargs):
     """ Converts different signatures to (x, y, s). """
     args = convert_to_arrays(args)
     if len(args)==1:
@@ -99,6 +99,10 @@ def process_regular_2d_scalars(*args):
     else:
         raise ValueError, "wrong number of arguments"
     assert len(s.shape)==2, "2D array required"
+
+    if 'mask' in kwargs:
+        mask = kwargs['mask']
+        s[mask.astype('bool')] = numpy.nan
 
     return x, y, s
 
@@ -327,7 +331,7 @@ def array2dsource(*args, **kwargs):
                     origin=[-nx/2., ny/2., 0],
                     spacing=[1, 1, 1])
     else:
-        x, y, s = process_regular_2d_scalars(*args)
+        x, y, s = process_regular_2d_scalars(*args, **kwargs)
         # Do some magic to extract the first row/column, independently of
         # the shape of x and y
         x = numpy.atleast_2d(x.squeeze().T)[0, :].squeeze()

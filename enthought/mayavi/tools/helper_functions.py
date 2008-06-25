@@ -467,6 +467,7 @@ class Surf(Pipeline):
                         the plot. You can overright this behavoir by
                         specifying a float value.""")
 
+    mask = Array(help="boolean mask array to suppress some data points.")
 
     def __call__(self, *args, **kwargs):
         """ Override the call to be able to scale automaticaly the axis.
@@ -554,6 +555,8 @@ class Mesh(Pipeline):
                         """)
 
     scalars = Array(help="""optional scalar data.""")
+
+    mask = Array(help="boolean mask array to suppress some data points.")
 
     representation = Trait('surface', 'wireframe', 'points', 'mesh',
                     'fancymesh',
