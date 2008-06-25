@@ -1,0 +1,11 @@
+""" A mostly-general Traits UI editor for viewing things in TVTK scenes.
+"""
+
+# Authors: Robert Kern <robert.kern [at] gmail.com>
+#          Prabhu Ramachandran <prabhu [at] aero.iitb.ac.in>
+# Copyright (c) 2007, Enthought, Inc.
+# License: BSD Style.
+
+# Import the toolkit specific version.
+from enthought.pyface.toolkit import toolkit_object
+ActorEditor = toolkit_object('tvtk.actor_editor:ActorEditor')
