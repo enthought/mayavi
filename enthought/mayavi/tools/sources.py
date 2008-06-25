@@ -346,13 +346,22 @@ def array2dsource(*args, **kwargs):
 
 def gridsource(x, y, z, **kwargs):
     """
-    Creates grid data.
- 
+    Creates 2D grid data.
+
+    x, y, z are 2D arrays giving the positions of the vertices of the surface.
+    The connectivity between these points is implied by the connectivity on
+    the arrays.
+    
+    For simple structures (such as orthogonal grids) prefer the array2dsource
+    function, as it will create more efficient data structures. 
+
     **Keyword arguments**:
     
         :name: the name of the vtk object created.
         
-        :scalars: optional scalar data."""
+        :scalars: optional scalar data.
+        
+        """
     scalars = kwargs.pop('scalars', None)
     if scalars is None:
         scalars = z
