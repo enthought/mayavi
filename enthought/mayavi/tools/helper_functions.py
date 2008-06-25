@@ -439,9 +439,22 @@ class Surf(Pipeline):
         surf(x, y, s, ...)
         surf(x, y, f, ...)        
     
-    If only one array z is passed the x and y arrays are assumed to be made 
-    of the indices of z.
-    z is the elevation matrix."""
+    If 3 positional arguments are passed the last one must be an array s,
+    or a callable, f, that returns an array. x and y give the
+    coordinnates of positions corresponding to the s values. 
+    
+    z is the elevation matrix.
+    
+    x and y can be 1D or 2D arrays (such as returned by numpy.ogrid or
+    numpy.mgrid), but the points should be located on an orthogonal grid
+    (possibly non-uniform). In other words, all the points sharing a same
+    index in the s array need to have the same x or y value. For 
+    arbitrary-shaped position arrays (non-orthogonal grids), see the mesh 
+    function.
+
+    If only 1 array s is passed the x and y arrays are assumed to be
+    made from the indices of arrays, and an uniformly-spaced data set is 
+    created."""
 
     _source_function = Callable(array2dsource)
 
@@ -486,12 +499,18 @@ def test_surf_wigner():
 ############################################################################# 
 class Mesh(Pipeline):
     """
-    Plots a surface using-grid spaced data supplied as 2D arrays.
+    Plots a surface using grid-spaced data supplied as 2D arrays.
 
     **Function signatures**::
 
         mesh(x, y, z, ...)
     
+    x, y, z are 2D arrays giving the positions of the vertices of the surface.
+    The connectivity between these points is implied by the connectivity on 
+    the arrays. 
+
+    For simple structures (such as orthogonal grids) prefer the surf function,
+    as it will create more efficient data structures.
     """
 
     scale_mode = Trait('none', {'none':'data_scaling_off',

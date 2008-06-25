@@ -297,7 +297,7 @@ def linesource(*args, **kwargs):
 
 def array2dsource(*args, **kwargs):
     """
-    Creates 2D regularly-spaced data from a 2D array.
+    Creates structured 2D data from a 2D array.
     
     Function signatures
     ___________________
@@ -306,11 +306,18 @@ def array2dsource(*args, **kwargs):
         array2dsource(x, y, s, ...)
         array2dsource(x, y, f, ...)
 
-    If 3 positional arguments are passed the last one must be an array s, or
-    a callable, f, that returns an array.
+    If 3 positional arguments are passed the last one must be an array s,
+    or a callable, f, that returns an array. x and y give the
+    coordinnates of positions corresponding to the s values. 
+    
+    x and y can be 1D or 2D arrays (such as returned by numpy.ogrid or
+    numpy.mgrid), but the points should be located on an orthogonal grid
+    (possibly non-uniform). In other words, all the points sharing a same
+    index in the s array need to have the same x or y value.
 
-    If only 1 array s is passed the x, z arrays are assumed to be
-    made from the indices of arrays, and a regular data set is created."""
+    If only 1 array s is passed the x and y arrays are assumed to be
+    made from the indices of arrays, and an uniformly-spaced data set is
+    created."""
     if len(args) == 1:
         args = convert_to_arrays(args)
         s = args[0]
