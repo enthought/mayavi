@@ -33,9 +33,9 @@ from enthought.traits.api import Instance, Button, Any, Bool
 from enthought.traits.ui.api import View, Group, Item, InstanceEditor
 
 from enthought.pyface.api import Widget, GUI, FileDialog, OK
-from enthought.pyface.tvtk import picker
-from enthought.pyface.tvtk import light_manager
-from enthought.pyface.tvtk.tvtk_scene import TVTKScene
+from enthought.tvtk.pyface import picker
+from enthought.tvtk.pyface import light_manager
+from enthought.tvtk.pyface.tvtk_scene import TVTKScene
 
 from QVTKRenderWindowInteractor import QVTKRenderWindowInteractor
 

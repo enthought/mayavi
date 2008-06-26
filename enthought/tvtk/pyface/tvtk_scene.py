@@ -20,7 +20,7 @@ from enthought.tvtk.tvtk_base import vtk_color_trait
 from enthought.traits.api import HasPrivateTraits, HasTraits, Any, Int, \
      Property, Instance, Event, Range, Bool, Trait
 
-from enthought.pyface.tvtk import light_manager
+from enthought.tvtk.pyface import light_manager
 
 VTK_VER = tvtk.Version().vtk_version
 

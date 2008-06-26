@@ -17,7 +17,7 @@ Caveats:
 from enthought.traits.api import Dict, Event, HasTraits, \
                                  Instance, List, Property
 from enthought.traits.ui.api import View, Group, Item, InstanceEditor
-from enthought.pyface.tvtk.tvtk_scene import TVTKScene
+from enthought.tvtk.pyface.tvtk_scene import TVTKScene
 
 
 #####################################################################

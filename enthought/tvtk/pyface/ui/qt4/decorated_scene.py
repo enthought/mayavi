@@ -219,9 +219,9 @@ class DecoratedScene(Scene):
         toolbar."""
 
         # So that we can find the images.
-        import enthought.pyface.tvtk.api
+        import enthought.tvtk.pyface.api
 
-        return dirname(enthought.pyface.tvtk.api.__file__)
+        return dirname(enthought.tvtk.pyface.api.__file__)
 
     def _toggle_projection(self):
         """ Toggle between perspective and parallel projection, this

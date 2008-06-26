@@ -9,5 +9,5 @@ etc.
 
 
 # Import the toolkit specific version.
-from enthought.pyface.toolkit import toolkit_object
-DecoratedScene = toolkit_object('tvtk.decorated_scene:DecoratedScene')
+from enthought.tvtk.pyface.toolkit import toolkit_object
+DecoratedScene = toolkit_object('decorated_scene:DecoratedScene')
