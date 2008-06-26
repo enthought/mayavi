@@ -65,7 +65,7 @@ class Engine(HasStrictTraits):
     # An optional callable that will generate a usable new viewer
     # containing a `enthought.tvtk.pyface.TVTKScene` instance. Ideally
     # the viewer should have an interface like
-    # `enthought.pyface.tvtk.TVTKWindow` -- basically it must
+    # `enthought.tvtk.pyface.TVTKWindow` -- basically it must
     # implement the `closing` and `activated` events, however, this is
     # not necessary.  The created viewer is used by the `new_scene`
     # method to create a new Viewer.  This is a mechanism to use a

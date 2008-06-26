@@ -19,7 +19,7 @@ from enthought.tvtk.api import tvtk
 from enthought.mayavi.plugins.app import Mayavi, setup_logger
 
 # The TVTK window.
-from enthought.pyface.tvtk.tvtk_scene import TVTKWindow
+from enthought.tvtk.pyface.tvtk_scene import TVTKWindow
 
 # Global variables.
 VERBOSE = False
