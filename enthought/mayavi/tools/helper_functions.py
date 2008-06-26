@@ -475,7 +475,10 @@ class Surf(Pipeline):
         self.source = self._source_function(*args, **kwargs)
         kwargs.pop('name', None)
         if self.warp_scale == 'auto' and not 'extent' in kwargs:
-            xi, xf, yi, yf, zi, zf = self.source.data.bounds
+            try:
+                xi, xf, yi, yf, zi, zf = self.source.data.bounds
+            except AttributeError:
+                xi, xf, yi, yf, zi, zf = self.source.image_data.bounds
             zf = 0.5*((xf - xi) + (yf - yi))
             kwargs['extent'] = (xi, xf, yi, yf, zi, zf)
             kwargs['warp_scale'] = 1.

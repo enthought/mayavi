@@ -103,6 +103,8 @@ def process_regular_2d_scalars(*args, **kwargs):
     if 'mask' in kwargs:
         mask = kwargs['mask']
         s[mask.astype('bool')] = numpy.nan
+        # The NaN tric only works with floats.
+        s = s.astype('float')
 
     return x, y, s
 
@@ -322,10 +324,16 @@ def array2dsource(*args, **kwargs):
     If only 1 array s is passed the x and y arrays are assumed to be
     made from the indices of arrays, and an uniformly-spaced data set is
     created."""
-    if len(args) == 1:
+    if len(args) == 1 :
         args = convert_to_arrays(args)
         s = args[0]
         nx, ny = s.shape
+        if 'mask' in kwargs:
+            mask = kwargs['mask']
+            s[mask.astype('bool')] = numpy.nan
+            # The NaN tric only works with floats.
+            s = s.astype('float')
+
         data_source = ArraySource(transpose_input_array=True,
                     scalar_data=s,
                     origin=[-nx/2., ny/2., 0],
