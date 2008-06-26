@@ -49,7 +49,7 @@ def _init_toolkit():
             be = 'enthought.tvtk.pyface.ui.null.'
             __import__(be + 'init')
             import warnings
-            warnings.warn("Unable to import the %s backend for pyface; using the 'null' toolkit instead.")
+            warnings.warn("Unable to import the %s backend for pyface; using the 'null' toolkit instead." % ", ".join(toolkits))
         except:
             if toolkit:
                 raise ImportError("unable to import a pyface backend for the %s toolkit" % toolkit)
