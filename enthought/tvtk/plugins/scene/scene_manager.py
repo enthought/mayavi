@@ -1,7 +1,7 @@
 """ Manage the TVTK scenes. """
 
 # Enthought library imports.
-from enthought.pyface.tvtk.tvtk_scene import TVTKScene
+from enthought.tvtk.pyface.tvtk_scene import TVTKScene
 from enthought.pyface.workbench.api import WorkbenchWindow
 from enthought.traits.api import HasTraits, List, Instance, Property
 from enthought.traits.api import implements, on_trait_change

@@ -13,7 +13,7 @@ from numpy import sqrt, sin, mgrid
 # Enthought imports.
 from enthought.traits.api import HasTraits, Instance
 from enthought.traits.ui.api import View, Item
-from enthought.pyface.tvtk.scene_editor import SceneEditor 
+from enthought.tvtk.pyface.scene_editor import SceneEditor 
 
 from enthought.mayavi import mlab
 from enthought.mayavi.tools.mlab_scene_model import MlabSceneModel

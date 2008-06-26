@@ -10,7 +10,7 @@ from enthought.traits.api import Instance, Int, Range, Bool, Trait, Array, \
      Str, Property, List, Enum
 from enthought.traits.ui.api import View, Group, Item, FileEditor, \
     ImageEnumEditor
-from enthought.pyface.tvtk.api import Scene
+from enthought.tvtk.pyface.api import Scene
 from enthought.tvtk.api import tvtk
 
 # Local imports.

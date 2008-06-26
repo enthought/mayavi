@@ -25,7 +25,7 @@ from enthought.mayavi.sources.api import VTKXMLFileReader
 from enthought.mayavi.modules.api import Outline, ScalarCutPlane, Streamline
 
 # The TVTK window.
-from enthought.pyface.tvtk.tvtk_scene import TVTKWindow
+from enthought.tvtk.pyface.tvtk_scene import TVTKWindow
 
 def off_screen_viewer():
     """A factory that creates an offscreen viewer."""

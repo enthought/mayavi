@@ -291,7 +291,7 @@ class TVTKBase(traits.HasStrictTraits):
         else:
             self._vtk_obj = klass()
 
-        #print "INIT", self.__class__.__name__, repr(self._vtk_obj)
+        # print "INIT", self.__class__.__name__, repr(self._vtk_obj)
 
         # Call the Super class to update the traits.
         # Inhibit any updates at this point since we update in the end

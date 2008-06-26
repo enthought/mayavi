@@ -8,7 +8,7 @@
 # Enthought library imports.
 from enthought.traits.api import HasTraits, Instance, List, Str, Property
 from enthought.traits.ui.api import View, Group, Item
-from enthought.pyface.tvtk.scene import Scene
+from enthought.tvtk.pyface.scene import Scene
 from enthought.persistence.state_pickler import set_state
 
 # Local imports.

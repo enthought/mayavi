@@ -7,8 +7,8 @@
 
 # Enthought library imports.
 from enthought.preferences.api import bind_preference
-from enthought.pyface.tvtk.tvtk_scene import TVTKScene
-from enthought.pyface.tvtk.api import DecoratedScene
+from enthought.tvtk.pyface.tvtk_scene import TVTKScene
+from enthought.tvtk.pyface.api import DecoratedScene
 from enthought.pyface.workbench.api import Editor
 from enthought.traits.api import Instance
 

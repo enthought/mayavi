@@ -2,7 +2,7 @@
 
 
 # Enthought library imports.
-from enthought.pyface.tvtk.tvtk_scene import TVTKScene
+from enthought.tvtk.pyface.tvtk_scene import TVTKScene
 from enthought.pyface.workbench.api import WorkbenchWindow
 from enthought.traits.api import Interface, List, Instance
 

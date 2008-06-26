@@ -291,7 +291,13 @@ def test_suite():
     total_suite = unittest.TestSuite(suites)
     return total_suite
 
-def test(verbose=2):
+# FIXME: I am renaming this function since we don't want nose to detect this 
+# as a test and run it (in addition to running all other tests in the test 
+# case. If nose runs this test, that means there will be tests that run after 
+# test_zz_object_cache is run (which modifies the Prop class) leading to 
+# errors. This is a temporary fix, and there should be a better way to 
+# specify the tests for Nose.
+def all(verbose=2):
     """Useful when you need to run the tests interactively."""
     all_tests = test_suite()
     runner = unittest.TextTestRunner(verbosity=verbose)

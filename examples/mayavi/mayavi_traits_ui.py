@@ -16,7 +16,7 @@ from numpy import sqrt, sin, mgrid
 # Enthought imports.
 from enthought.traits.api import HasTraits, Instance, Property, Enum
 from enthought.traits.ui.api import View, Item, HSplit, VSplit, InstanceEditor
-from enthought.pyface.tvtk.scene_editor import SceneEditor 
+from enthought.tvtk.pyface.scene_editor import SceneEditor 
 from enthought.mayavi.view.engine_view import EngineView
 from enthought.mayavi import mlab
 from enthought.mayavi.tools.mlab_scene_model import MlabSceneModel

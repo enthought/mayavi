@@ -520,7 +520,7 @@ class MayaviOffscreen(MayaviApp):
 ##########################################################################
 def off_screen_viewer():
     """A factory that creates an offscreen viewer."""
-    from enthought.pyface.tvtk.tvtk_scene import TVTKWindow
+    from enthought.tvtk.pyface.tvtk_scene import TVTKWindow
     win = TVTKWindow(off_screen_rendering=True)
     # Need to set some non-zero size for the off screen window.  If
     # not we get VTK errors on Linux.

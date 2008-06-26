@@ -32,7 +32,7 @@ import os.path
 from enthought.pyface.api import FileDialog, GUI, OK, PythonShell
 from enthought.pyface.api import SplitApplicationWindow, ApplicationWindow
 from enthought.pyface.api import SplitPanel
-from enthought.pyface.tvtk.api import Scene, DecoratedScene
+from enthought.tvtk.pyface.api import Scene, DecoratedScene
 from enthought.pyface.action.api import Action, Group, MenuBarManager,\
      MenuManager, Separator
 from enthought.pyface.image_resource import ImageResource

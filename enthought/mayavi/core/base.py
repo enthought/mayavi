@@ -13,7 +13,7 @@ import os
 # Enthought library imports.
 from enthought.traits.api import Instance, Property, Bool, Str, Python
 from enthought.traits.ui.api import TreeNodeObject
-from enthought.pyface.tvtk.tvtk_scene import TVTKScene
+from enthought.tvtk.pyface.tvtk_scene import TVTKScene
 from enthought.persistence import state_pickler
 from enthought.resource.api import resource_path
 from enthought.pyface.image_resource import ImageResource
