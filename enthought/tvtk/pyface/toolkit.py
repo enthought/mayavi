@@ -84,7 +84,7 @@ def toolkit_object(name):
         """
 
         def __init__(self, *args, **kwargs):
-            raise NotImplementedError("the %s pyface backend doesn't implement %s" % (ETSConfig.toolkit, oname))
+            raise NotImplementedError("the %s pyface backend doesn't implement %s" % (_toolkit_backend.split('.')[-2], oname))
 
     be_obj = Unimplemented
 
