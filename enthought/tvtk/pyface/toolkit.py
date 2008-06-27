@@ -15,14 +15,16 @@ import sys
 # Enthought library imports.
 from enthought.etsconfig.api import ETSConfig
 
-
-# This is set to the root part of the module path for the selected backend.
-_toolkit_backend = None
-
+# This is set to the toolkit selection.
+_toolkit = None
 
 def _init_toolkit():
     """ Initialise the current toolkit. """
 
+    global _toolkit
+    if _toolkit is not None:
+        return
+    
     # Toolkits to check for if none is explicitly specified.
     known_toolkits = ('wx', 'qt4', 'null')
 
@@ -40,13 +42,16 @@ def _init_toolkit():
 
         try:
             __import__(be + 'init')
+            # In case we have just decided on a toolkit, tell everybody else.
+            ETSConfig.toolkit = tk
             break
         except ImportError:
             pass
     else:
         # Try to import the null toolkit but don't set the ETSConfig toolkit
         try:
-            be = 'enthought.tvtk.pyface.ui.null.'
+            tk = 'null'
+            be = 'enthought.tvtk.pyface.ui.%s.' % tk
             __import__(be + 'init')
             import warnings
             warnings.warn("Unable to import the %s backend for pyface; using the 'null' toolkit instead." % ", ".join(toolkits))
@@ -56,17 +61,8 @@ def _init_toolkit():
             else:
                 raise ImportError("unable to import a pyface backend for any of the %s toolkits" % ", ".join(known_toolkits))
 
-    # In case we have just decided on a toolkit, tell everybody else.
-    ETSConfig.toolkit = tk
-
-    # Save the imported toolkit module.
-    global _toolkit_backend
-    _toolkit_backend = be
-
-
-# Do this once then disappear.
-_init_toolkit()
-del _init_toolkit
+    # Save the imported toolkit name.
+    _toolkit = tk
 
 
 def toolkit_object(name):
@@ -75,8 +71,13 @@ def toolkit_object(name):
     colon.
     """
 
+    # Set the value of the _toolkit variable. Nothing is done if it is already
+    # set.
+    _init_toolkit()
+
     mname, oname = name.split(':')
-    be_mname = _toolkit_backend + mname
+    be = 'enthought.tvtk.pyface.ui.%s.' % _toolkit
+    be_mname = be + mname
 
     class Unimplemented(object):
         """ This is returned if an object isn't implemented by the selected
@@ -84,7 +85,7 @@ def toolkit_object(name):
         """
 
         def __init__(self, *args, **kwargs):
-            raise NotImplementedError("the %s pyface backend doesn't implement %s" % (_toolkit_backend.split('.')[-2], oname))
+            raise NotImplementedError("the %s pyface backend doesn't implement %s" % (be, oname))
 
     be_obj = Unimplemented
 
