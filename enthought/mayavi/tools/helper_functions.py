@@ -479,7 +479,7 @@ class Surf(Pipeline):
                 xi, xf, yi, yf, zi, zf = self.source.data.bounds
             except AttributeError:
                 xi, xf, yi, yf, zi, zf = self.source.image_data.bounds
-            zf = 0.5*((xf - xi) + (yf - yi))
+            zf = 0.3*((xf - xi) + (yf - yi))
             kwargs['extent'] = (xi, xf, yi, yf, zi, zf)
             kwargs['warp_scale'] = 1.
         self.store_kwargs(kwargs)
