@@ -154,6 +154,12 @@ class TestArrayHandler(unittest.TestCase):
         self.assertEqual(vtk_arr.GetValue(2), 0)
         self.assertEqual(vtk_arr.GetValue(3), 1)
         
+        # Make sure the code at least runs for all the non-complex 
+        # numerical dtypes in numpy.
+        for dtype in (numpy.sctypes['int'] + numpy.sctypes['uint'] +
+                            numpy.sctypes['float']):
+            array_handler.array2vtk(numpy.zeros((1,), dtype=dtype))
+
 
     def test_arr2cell_array(self):
         """Test Numeric array to vtkCellArray conversion."""
@@ -363,7 +369,7 @@ class TestArrayHandler(unittest.TestCase):
         arr[0][0] = 100.0
         self.assertEqual(arr[0][0], arr1[0][0])
         self.assertEqual(arr.shape, arr1.shape)
-        
+   
 
 def test_suite():
     """Collects all the tests to be run."""
