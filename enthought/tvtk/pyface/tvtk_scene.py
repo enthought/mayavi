@@ -175,6 +175,7 @@ class TVTKScene(HasPrivateTraits):
     _renderer = Instance(tvtk.Renderer)
     _renwin = Instance(tvtk.RenderWindow)
     _interactor = Instance(tvtk.RenderWindowInteractor)
+    _camera = Instance(tvtk.Camera)
     _busy_count = Int(0)
 
     ###########################################################################
@@ -197,7 +198,7 @@ class TVTKScene(HasPrivateTraits):
         # The control attribute is not picklable since it is a VTK
         # object so we remove it.
         d = self.__dict__.copy()
-        for x in ['control', '_renwin', '_interactor', 
+        for x in ['control', '_renwin', '_interactor', '_camera',
                   '_busy_count', '__sync_trait__',
                   '__traits_listener__']:
             d.pop(x, None)
@@ -711,13 +712,16 @@ class TVTKScene(HasPrivateTraits):
         self._renderer = tvtk.Renderer()
         renwin.add_renderer(self._renderer)
         self._interactor = tvtk.RenderWindowInteractor(render_window=renwin)
+        # Save a reference to our camera so it is not GC'd -- needed for
+        # the sync_traits to work.
+        self._camera = self.camera
 
         # Sync various traits.
         self._renderer.background = self.background
         self.sync_trait('background', self._renderer)
         self._renderer.on_trait_change(self.render, 'background')
-        self.camera.parallel_projection = self.parallel_projection
-        self.sync_trait('parallel_projection', self.camera)
+        self._camera.parallel_projection = self.parallel_projection
+        self.sync_trait('parallel_projection', self._camera)
         renwin.off_screen_rendering = self.off_screen_rendering
         self.sync_trait('off_screen_rendering', self._renwin)
         self.render_window.on_trait_change(self.render, 'off_screen_rendering')
