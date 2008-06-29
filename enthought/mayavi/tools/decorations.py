@@ -21,7 +21,7 @@ import types
 # Mayavi imports
 from pipe_base import make_function
 from modules import ModuleFactory
-from config import get_engine
+from figure_manager import get_engine
 
 #############################################################################
 # Colorbar related functions

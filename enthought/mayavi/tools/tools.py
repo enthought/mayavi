@@ -18,7 +18,7 @@ from enthought.mayavi.core.module_manager import ModuleManager
 from enthought.mayavi.sources.array_source import ArraySource
 from enthought.mayavi.core.source import Source
 
-from config import get_engine
+from figure_manager import get_engine
 from figure import gcf
 
 ######################################################################

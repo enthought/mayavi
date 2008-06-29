@@ -9,10 +9,12 @@ application with the WxWidget mainloop running.
 # Copyright (c) 2007, Enthought, Inc. 
 # License: BSD Style.
 
-from tools.camera import view, roll
-from tools.figure import figure, clf, gcf, savefig, draw
+# Mayavi imports
 from enthought.mayavi.preferences.api import preference_manager
-from tools.config import get_engine, show_engine
+from enthought.mayavi.tools.camera import view, roll
+from enthought.mayavi.tools.figure import figure, clf, gcf, savefig, draw
+from enthought.mayavi.tools.figure_manager import get_engine, show_engine
+
 options = preference_manager.mlab
 
 from tools.helper_functions import contour3d, test_contour3d, \

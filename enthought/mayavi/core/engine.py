@@ -1,4 +1,4 @@
-"""The MayaVi engine.  This class manages the MayaVi objects at the
+"""The Mayavi engine.  This class manages the Mayavi objects at the
 highest level.
 
 """
@@ -16,6 +16,9 @@ from enthought.traits.api import (HasStrictTraits, List, Str,
         Bool)
 from enthought.traits.ui.api import View, Item
 from enthought.persistence import state_pickler
+
+# Mayavi imports
+from enthought.mayavi.tools.figure_manager import figure_manager
 
 # Local imports.
 from enthought.mayavi.core.base import Base
@@ -47,7 +50,7 @@ class Engine(HasStrictTraits):
     scenes = List(Scene)
 
     # Our name.
-    name = Str('MayaVi Engine')
+    name = Str('Mayavi Engine')
 
     # Current scene.
     current_scene = Property(Instance(Scene))
@@ -140,9 +143,14 @@ class Engine(HasStrictTraits):
         # Notify any listeners that the engine is started.
         self.started = self
         self.running = True
+        figure_manager.engines.append(self)
 
     def stop(self):
         self.running = False
+        for index, engine in enumerate(figure_manager.engines):
+            if engine == self:
+                figure_manager.engines.pop(index)
+                break
 
     def add_source(self, src, scene=None):
         """Adds a source to the pipeline. Uses the current scene unless a
