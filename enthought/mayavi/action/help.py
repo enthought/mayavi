@@ -36,6 +36,6 @@ class HelpIndex(Action):
         """ Performs the action. """
 
         auto_close_message("Opening help in web browser...")
-        webbrowser.open(join(HTML_DIR, 'user_guide.html'),
+        webbrowser.open(join(HTML_DIR, 'index.html'),
                         new=1, autoraise=1)
 
