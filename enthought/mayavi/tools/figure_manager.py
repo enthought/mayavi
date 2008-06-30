@@ -58,7 +58,7 @@ class FigureManager(HasTraits):
 
     def show_engine(self):
         engine = self.get_engine()
-        if engine.__class__.__class__ == 'EnvisageEngine':
+        if engine.__class__.__name__ == 'EnvisageEngine':
             # FIXME: This should pop up the relevent envisage view
             pass
         else:

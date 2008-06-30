@@ -8,15 +8,12 @@ using Envisage or the MayaVi envisage application.
 # License: BSD Style.
 
 from enthought.pyface.api import GUI
-from enthought.mayavi.view.engine_view import EngineView
 # Mlab imports
 from enthought.mayavi import mlab
 
 from numpy import mgrid, sin, sqrt
 
 def main():
-    mlab.options.backend = 'simple'
-
     # Display the MayaVi tree view UI.
     ui = mlab.show_engine()
 
@@ -36,5 +33,5 @@ if __name__ == '__main__':
     ui = main()
     # Create a GUI instance and start the event loop.  We do this here
     # so that main can be run from IPython -wthread if needed.
-    gui = GUI()
-    gui.start_event_loop()
+    #gui = GUI()
+    #gui.start_event_loop()
