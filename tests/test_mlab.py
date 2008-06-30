@@ -21,7 +21,6 @@ class TestMlab(TestCase):
         ############################################################
         # Create a new scene and set up the visualization.
         s = self.new_scene()
-        mlab.options.backend = 'envisage'
 
         ############################################################
         # run all the "test_foobar" functions in the mlab module.
