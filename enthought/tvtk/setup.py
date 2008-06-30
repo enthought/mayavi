@@ -19,6 +19,7 @@ def configuration(parent_package='enthought',top_path=None):
     config.add_subpackage('pipeline')
     config.add_data_dir('pipeline/images')
     config.add_data_dir('pyface/images')
+    config.add_data_dir('tools/images')
 
     config.add_subpackage('plugins')
     config.add_subpackage('plugins.*')

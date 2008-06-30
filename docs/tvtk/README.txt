@@ -742,7 +742,7 @@ the code and docstrings for more details on the implementation.
 ------------
 
 A utility module that makes VTK/TVTK easier to use from the Python
-interpreter.  The module uses the PyFace `tvtk.scene` module to
+interpreter.  The module uses the `tvtk.scene` module to
 provide a wxPython widget.  ivtk basically provides this scene along
 with an optional Python interpreter (via PyCrust) and an optional
 pipeline browser view.
@@ -785,7 +785,7 @@ visualization capability is implemented as a class that has traits.
 So each of these may be configured.  Each visualization class derives
 (ultimately) from MLabBase which is responsible for adding/removing
 its actors into the render window.  The classes all require that the
-RenderWindow be a `pyface.tvtk.scene.Scene` instance (this constraint
+RenderWindow be a `enthought.tvtk.scene.Scene` instance (this constraint
 can be relaxed if necessary later on).
 
 This module offers the following broad class of functionality:
