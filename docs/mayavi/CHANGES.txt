@@ -6,6 +6,30 @@ URL:
     https://svn.enthought.com/enthought/changeset/18702
 -----------------------------------------------------------------------------
 
+
+
+29 June, 2008 (GV): 
+	- ENH: Updated Sphinx docs [19318]. 
+	- ENH: New splash screen [19319].
+	- ENH: mlab now works with envisage, including in "mayavi2 -x"
+	  [19321] [19323]
+
+
+27 June, 2008 (Vibha):
+	- API: Remove SimpleScene class [19285].
+	- API: Moved tvtk-related examples from TraitsGUI to Mayavi 
+		[19191] [19197] [19231] [19280]
+
+27 June, 2008 (GV):
+	- BUG: tvtk: proper handling of non-float numpy arrays. Added
+	  test case [19297]
+
+25 June, 2008 (GV):
+	- ENH: Add autoscale to mlab.surf (scalez keyword argument)
+	  [19131]
+	- ENH: mlab.usrf and mlab.mesh can now take x and y arguments
+	  with a more flexible shape [19114].
+
 12 June, 2008 (PR):
     - ENH: Adding an offscreen option to the mayavi2 application.  This
       lets you run a normal mayavi Python script in offscreen mode
