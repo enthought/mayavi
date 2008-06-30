@@ -33,4 +33,4 @@ MayaVi2:
 
     - Mlab:
         - mlab.show to start the GUI event-loop in a clever way (g).
- 
+	- add texture support to Mlab 
