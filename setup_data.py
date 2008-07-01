@@ -19,7 +19,7 @@ ENTHOUGHTBASE = etsdep('EnthoughtBase', '3.0.0b1')    # The 'plugin' extra is re
 ENVISAGECORE = etsdep('EnvisageCore', '3.0.0b1')
 ENVISAGEPLUGINS = etsdep('EnvisagePlugins', '3.0.0b1')
 TRAITSBACKENDWX = etsdep('TraitsBackendWX', '3.0.0b1')
-TRAITSGUI_TVTK = etsdep('TraitsGUI[tvtk]', '3.0.0b1')
+TRAITSGUI = etsdep('TraitsGUI', '3.0.0b1')
 TRAITS_UI = etsdep('Traits[ui]', '3.0.0b1', '3.1')
 
 
@@ -47,7 +47,7 @@ INFO = {
     'install_requires': [
         APPTOOLS,
         ENTHOUGHTBASE,
-        TRAITSGUI_TVTK,
+        TRAITSGUI,
         TRAITS_UI,
         ],
     'name': 'Mayavi',
