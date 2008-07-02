@@ -9,6 +9,7 @@
 import cPickle
 from copy import deepcopy
 import os
+import logging
 
 # Enthought library imports.
 from enthought.traits.api import Instance, Property, Bool, Str, Python
@@ -22,6 +23,9 @@ from enthought.traits.ui.menu \
 
 # Local imports.
 from enthought.mayavi.preferences.api import preference_manager
+
+# Setup a logger for this module.
+logger = logging.getLogger(__name__)
 
 
 #-------------------------------------------------------------------------------
@@ -193,7 +197,33 @@ class Base(TreeNodeObject):
         view.title = "Edit%s: %s" % (self.type, self.name)
         view.buttons = ['OK', 'Cancel']
         return view
+	
+    def trait_view(self, name = None, view_element = None ):
+        """ Gets or sets a ViewElement associated with an object's class.
 
+        Overridden here to search through a particular directory for the
+        view to use for this object. The view should be declared in the file
+        named <class name>_view. If a file with this name is not found, the
+        trait_view method on the base class will be called.
+
+        """
+
+        thisDir = os.path.dirname(__file__)
+        viewsDir = os.path.join(thisDir, 'views')
+        try:
+            class_name = self.__class__.__name__
+            view_filename = os.path.join(thisDir, 'views', 
+                                      	class_name.lower()+ '_view.py')
+            result = {}
+            execfile(view_filename, {}, result)
+            view = result['view']
+        except Exception, e:
+            logger.debug("No view found for [%s] in [%s]. "
+                         "Using the base class trait_view instead.", 
+                         self, viewsDir)
+            view = super(Base, self).trait_view(name, view_element)
+        return view
+        
     ######################################################################
     # `TreeNodeObject` interface
     ######################################################################
