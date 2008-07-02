@@ -16,8 +16,8 @@ from enthought.tvtk.api import tvtk
 # Local imports.
 from enthought.mayavi.core.base import Base
 from enthought.mayavi.core.common import error
-
 from enthought.mayavi.core.lut.pylab_luts import lut_dic as pylab_luts
+
 from enthought.mayavi.core import lut 
 import os
 lut_image_dir = os.path.dirname(lut.__file__)
@@ -81,6 +81,7 @@ def parse_lut_file(file_name):
 
     return lut
 
+
 def lut_mode_list():
     """ Function to generate the list of acceptable lut_mode values.
     """
@@ -89,6 +90,7 @@ def lut_mode_list():
                                                     not key[-2:]=='_r' ])
     lut_mode_list.sort()
     return lut_mode_list
+
 
 ######################################################################
 # `LUTManager` class.
@@ -161,36 +163,6 @@ class LUTManager(Base):
                        dtype=float,
                        desc='the range of the data mapped')
 
-    # The view of this object.
-    view = View(Group(Item(name='lut_mode',
-                       editor=ImageEnumEditor( values=lut_mode_list() , 
-                                                cols=6,
-                                                path=lut_image_dir)),
-                      Item(name='file_name', visible_when="lut_mode=='file'"), 
-                      Item(name='show_scalar_bar'),
-                      Item(name='reverse_lut'),
-                      Item(name='number_of_colors'),
-                      Item(name='number_of_labels'),
-                      Item(name='shadow'),
-                      Item(name='use_default_name'),
-                      Item(name='data_name'),
-                      Item(name='use_default_range'),
-                      Item(name='data_range',
-                           enabled_when='not object.use_default_range'),
-                      label='LUT Manager',
-                      ),
-                Group(Item(name='_title_text_property',
-                           style='custom',
-                           resizable=True),
-                      show_labels=False,
-                      label='Title'),
-                Group(Item(name='_label_text_property',
-                           style='custom',
-                           resizable=True),
-                      show_labels=False,
-                      label='Labels'),
-                resizable=True
-                )
 
     ########################################
     ## Private traits.
@@ -431,7 +403,7 @@ class LUTManager(Base):
     def load_lut_from_list(self, list):
             self.lut = set_lut(self.lut, list)
             self.render()
-        
+    
 
     def _get_title_text_property(self):
         return self._title_text_property
