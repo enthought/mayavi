@@ -9,7 +9,7 @@
 from os.path import join
 
 # Enthought library imports.
-from enthought.traits.api import Instance, HasTraits, Any
+from enthought.traits.api import Instance, HasTraits
 from enthought.traits.ui.api import \
      Group, Item, TreeEditor, TreeNode, ObjectTreeNode, View, Handler, UIInfo
 from enthought.resource.resource_path import resource_path
