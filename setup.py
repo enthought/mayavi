@@ -17,13 +17,16 @@ def configuration(parent_package='', top_path=None):
     config.add_subpackage('enthought')
     config.add_data_dir('enthought/mayavi/core/images')
     config.add_data_dir('enthought/mayavi/core/lut')
-    config.add_data_dir('enthought/mayavi/html')
     config.add_data_dir('enthought/mayavi/images')
     config.add_data_dir('enthought/mayavi/view/images')
 
     # *.ini files.
     config.add_data_dir('enthought/tvtk/plugins/scene')
     config.add_data_dir('enthought/mayavi/preferences')
+
+    # Add the documentation.
+    #config.add_data_dir('docs/mayavi')
+    config.add_data_files(('enthought/mayavi/html/*', ['docs/mayavi/user_guide/build/html/*']))    
 
     return config
 
