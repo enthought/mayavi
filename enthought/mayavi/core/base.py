@@ -208,9 +208,12 @@ class Base(TreeNodeObject):
 
         """
 
-        if name is not None:
+        # If a name is specified, then call the HasTraits trait_view method
+        # which will return (or assign) the *view_element* associated with 
+        # *name*.
+        if name:
             return super(Base, self).trait_view(name, view_element)
-            
+
         thisDir = os.path.dirname(__file__)
         viewsDir = os.path.join(thisDir, 'views')
         try:
