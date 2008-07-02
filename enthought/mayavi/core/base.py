@@ -214,19 +214,19 @@ class Base(TreeNodeObject):
         if name:
             return super(Base, self).trait_view(name, view_element)
 
-        thisDir = os.path.dirname(__file__)
-        viewsDir = os.path.join(thisDir, 'views')
+        baseDir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        viewDir = os.path.join(baseDir, 'view')
         try:
             class_name = self.__module__.split('.')[-1]
-            view_filename = os.path.join(thisDir, 'views', 
-                                      	class_name + '_view.py')
+            view_filename = os.path.join(viewDir,
+                                      	 class_name + '_view.py')
             result = {}
             execfile(view_filename, {}, result)
             view = result['view']
         except Exception, e:
             logger.debug("No view found for [%s] in [%s]. "
                          "Using the base class trait_view instead.", 
-                         self, viewsDir)
+                         self, viewDir)
             view = super(Base, self).trait_view(name, view_element)
         return view
         
