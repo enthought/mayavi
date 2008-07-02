@@ -208,6 +208,9 @@ class Base(TreeNodeObject):
 
         """
 
+        if name is not None:
+            return super(Base, self).trait_view(name, view_element)
+            
         thisDir = os.path.dirname(__file__)
         viewsDir = os.path.join(thisDir, 'views')
         try:
