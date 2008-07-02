@@ -9,15 +9,40 @@
 from os.path import join
 
 # Enthought library imports.
-from enthought.traits.api import Instance, HasTraits
+from enthought.traits.api import Instance, HasTraits, Any
 from enthought.traits.ui.api import \
-     Group, Item, TreeEditor, TreeNode, ObjectTreeNode, View
+     Group, Item, TreeEditor, TreeNode, ObjectTreeNode, View, Handler, UIInfo
 from enthought.resource.resource_path import resource_path
 from enthought.pyface.image_resource import ImageResource
 
 # Local imports.
 from enthought.mayavi.core.engine import Engine
 from enthought.mayavi.core.base import Base
+
+class EngineViewHandler(Handler):
+    """ A handler for the EngineView object. 
+    """
+
+    info = Instance(UIInfo)
+
+    def init_info(self, info):
+        """ Informs the handler what the UIInfo object for a View will be.
+        Overridden here to save a reference to the info object.
+        
+        """
+        self.info = info
+        return
+
+    def _on_dclick(self, object):
+        """ Called when a node in the tree editor is double-clicked.
+        """
+        object.edit_traits(view=object.dialog_view(), 
+                           parent=self.info.ui.control )
+
+    def _on_select(self, object):
+        """ Called when a node in the tree editor is selected.
+        """
+        self.info.object.engine._on_select(object)
 
 ##############################################################################
 # EngineView class.
@@ -64,8 +89,8 @@ class EngineView(HasTraits):
         
         tree_editor = TreeEditor(editable=False,
                                  hide_root=True,
-                                 on_dclick=self._on_dclick,
-                                 on_select=self._on_select,
+                                 on_dclick='handler._on_dclick',
+                                 on_select='handler._on_select',
                                  orientation='vertical',
                                  nodes=nodes
                                  )
@@ -88,14 +113,8 @@ class EngineView(HasTraits):
                     title='Mayavi pipeline',
                     icon=self.icon,
                     width=0.3,
-                    height=0.3)
+                    height=0.3,
+                    handler = EngineViewHandler)
         return view
 
-    ###########################################################################
-    # Non-public interface.
-    ###########################################################################
-    def _on_dclick(self, object):
-        object.edit_traits(view=object.dialog_view())
-
-    def _on_select(self, object):
-        self.engine._on_select(object)
+### EOF ######################################################################
