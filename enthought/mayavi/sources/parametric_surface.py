@@ -8,7 +8,6 @@ the surface.
 
 # Enthought library imports.
 from enthought.traits.api import Instance, Enum, Dict, Str
-from enthought.traits.ui.api import View, Group, Item
 from enthought.tvtk.api import tvtk
 
 # Local imports
@@ -37,21 +36,6 @@ class ParametricSurface(Source):
     source = Instance(tvtk.ParametricFunctionSource, args=(),
                       kw={'scalar_mode': 'distance'},
                       allow_none=False)
-
-    # Create the UI for the traits.
-    view = View(Group(Item(name='function'),
-                      Item(name='parametric_function',
-                           style='custom',
-                           resizable=True),
-                      label='Function',
-                      show_labels=False
-                      ),
-                Group(Item(name='source',
-                           style='custom',
-                           resizable=True),
-                      label='Source',
-                      show_labels=False),
-                resizable=True)
 
     ########################################
     # Private traits.
