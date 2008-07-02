@@ -172,10 +172,13 @@ class VTKMethodParser:
             # Only VTK versions < 4.5 have these.
             for m in klass.__members__:
                 methods.remove(m)
-        parent_methods = self._get_parent_methods(klass)
+        # Ignore the parent methods.
+        ignore = self._get_parent_methods(klass)
         skip = ['GetInput', 'SetInput']
+        if 'GetViewProp' in methods and 'GetProp' in methods:
+            ignore.extend(['GetProp', 'SetProp'])
         for m in methods[:]:
-            if m in parent_methods and m not in skip:
+            if m in ignore and m not in skip:
                 methods.remove(m)
 
         return methods
