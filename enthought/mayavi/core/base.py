@@ -217,9 +217,9 @@ class Base(TreeNodeObject):
         thisDir = os.path.dirname(__file__)
         viewsDir = os.path.join(thisDir, 'views')
         try:
-            class_name = self.__class__.__name__
+            class_name = self.__module__.split('.')[-1]
             view_filename = os.path.join(thisDir, 'views', 
-                                      	class_name.lower()+ '_view.py')
+                                      	class_name + '_view.py')
             result = {}
             execfile(view_filename, {}, result)
             view = result['view']
