@@ -17,7 +17,7 @@ logger = logging.getLogger()
 # View IDs.
 ENGINE_VIEW = 'enthought.mayavi.view.engine_view.EngineView'
 CURRENT_SELECTION_VIEW = 'enthought.mayavi.core.engine.Engine.current_selection'
-SHELL_VIEW = 'enthought.plugins.python_shell.view.python_shell_view.PythonShellView'
+SHELL_VIEW = 'enthought.plugins.python_shell_view'
 
 ###############################################################################
 # `MayaviPerspective` class.
