@@ -12,7 +12,7 @@ from os.path import split, join, isfile
 from glob import glob
 
 # Enthought library imports.
-from enthought.traits.api import List, Str, Instance, Int
+from enthought.traits.api import List, Str, Instance, Int, Range
 from enthought.traits.ui.api import Group, Item, FileEditor
 from enthought.persistence.state_pickler import set_state
 from enthought.persistence.file_path import FilePath
@@ -20,7 +20,6 @@ from enthought.persistence.file_path import FilePath
 # Local imports
 from enthought.mayavi.core.source import Source
 from enthought.mayavi.core.common import handle_children_state
-from enthought.mayavi.core.traits import DRange
 
 
 ######################################################################
@@ -93,11 +92,10 @@ class FileDataSource(Source):
     # and is dynamically changed when the `file_list` trait changes.
     # This is done so the timestep bounds are linked to the number of
     # the files in the file list.
-    timestep = DRange(default=0,
-                      is_float=False,
-                      low_name='_min_timestep',
-                      high_name='_max_timestep',
-                      desc='the current time step')
+    timestep = Range(value=0,
+                     low='_min_timestep',
+                     high='_max_timestep',
+                     desc='the current time step')
     
     base_file_name=Str('', desc="the base name of the file" , 
                        editor=FileEditor())

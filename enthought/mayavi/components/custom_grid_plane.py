@@ -6,7 +6,7 @@
 # License: BSD Style.
 
 # Enthought library imports.
-from enthought.traits.api import Instance, Enum, Int
+from enthought.traits.api import Instance, Enum, Int, Range
 from enthought.traits.ui.api import View, Group, Item
 from enthought.tvtk.api import tvtk
 from enthought.persistence import state_pickler
@@ -14,7 +14,6 @@ from enthought.persistence import state_pickler
 # Local imports.
 from enthought.mayavi.core.component import Component
 from enthought.mayavi.core.common import error
-from enthought.mayavi.core.traits import DRange
 
 
 ######################################################################
@@ -29,34 +28,28 @@ class CustomGridPlane(Component):
     plane = Instance(tvtk.Object)
 
     # Minimum x value.
-    x_min = DRange(default=0, low_name='_x_low', high_name='_x_high',
-                   is_float=False,
-                   desc='minimum x value of the domain')
+    x_min = Range(value=0, low='_x_low', high='_x_high',
+                  desc='minimum x value of the domain')
 
     # Maximum x value.
-    x_max = DRange(default=10000, low_name='_x_low', high_name='_x_high',
-                   is_float=False,
-                   desc='maximum x value of the domain')
+    x_max = Range(value=10000, low='_x_low', high='_x_high',
+                  desc='maximum x value of the domain')
 
     # Minimum y value.
-    y_min = DRange(default=0, low_name='_y_low', high_name='_y_high',
-                   is_float=False,
-                   desc='minimum y value of the domain')
+    y_min = Range(value=0, low='_y_low', high='_y_high',
+                  desc='minimum y value of the domain')
 
     # Maximum y value.
-    y_max = DRange(default=10000, low_name='_y_low', high_name='_y_high',
-                   is_float=False,
-                   desc='maximum y value of the domain')
+    y_max = Range(value=10000, low='_y_low', high='_y_high',
+                  desc='maximum y value of the domain')
 
     # Minimum z value.
-    z_min = DRange(default=0, low_name='_z_low', high_name='_z_high',
-                   is_float=False,
-                   desc='minimum z value of the domain')
+    z_min = Range(value=0, low='_z_low', high='_z_high',
+                  desc='minimum z value of the domain')
 
     # Maximum z value.
-    z_max = DRange(default=10000, low_name='_z_low', high_name='_z_high',
-                   is_float=False,
-                   desc='maximum z value of the domain')
+    z_max = Range(value=10000, low='_z_low', high='_z_high',
+                  desc='maximum z value of the domain')
 
     
     ########################################

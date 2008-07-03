@@ -13,7 +13,6 @@ from enthought.tvtk.api import tvtk
 
 # Local imports
 from enthought.mayavi.core.filter import Filter
-from enthought.mayavi.core.traits import DRange
 
 
 ######################################################################
@@ -34,17 +33,17 @@ class Threshold(Filter):
 
     # Lower threshold (this is a dynamic trait that is changed when
     # input data changes).
-    lower_threshold = DRange(default=-1.0e20,
-                             low_name='_data_min',
-                             high_name='_data_max',
-                             desc='the lower threshold of the filter')
+    lower_threshold = Range(value=-1.0e20,
+                            low='_data_min',
+                            high='_data_max',
+                            desc='the lower threshold of the filter')
 
     # Upper threshold (this is a dynamic trait that is changed when
     # input data changes).
-    upper_threshold = DRange(default=1.0e20,
-                             low_name='_data_min',
-                             high_name='_data_max',
-                             desc='the upper threshold of the filter')
+    upper_threshold = Range(value=1.0e20,
+                            low='_data_min',
+                            high='_data_max',
+                            desc='the upper threshold of the filter')
 
     # Automatically reset the lower threshold when the upstream data
     # changes.

@@ -8,7 +8,7 @@ Rectilinear.
 # License: BSD Style.
 
 # Enthought library imports.
-from enthought.traits.api import Instance, Int
+from enthought.traits.api import Instance, Int, Range
 from enthought.traits.ui.api import View, Group, Item
 
 from enthought.tvtk.api import tvtk
@@ -16,7 +16,6 @@ from enthought.tvtk.api import tvtk
 # Local imports
 from enthought.mayavi.core.common import error
 from enthought.mayavi.filters.filter_base import FilterBase
-from enthought.mayavi.core.traits import DRange
 
 
 ######################################################################
@@ -31,49 +30,40 @@ class ExtractGrid(FilterBase):
     __version__ = 0
 
     # Minimum x value.
-    x_min = DRange(default=0, low_name='_x_low', high_name='_x_high',
-                   is_float=False,
-                   desc='minimum x value of the domain')
+    x_min = Range(value=0, low='_x_low', high='_x_high',
+                  desc='minimum x value of the domain')
 
     # Maximum x value.
-    x_max = DRange(default=10000, low_name='_x_low', high_name='_x_high',
-                   is_float=False,
-                   desc='maximum x value of the domain')
+    x_max = Range(value=10000, low='_x_low', high='_x_high',
+                  desc='maximum x value of the domain')
 
     # Minimum y value.
-    y_min = DRange(default=0, low_name='_y_low', high_name='_y_high',
-                   is_float=False,
-                   desc='minimum y value of the domain')
+    y_min = Range(value=0, low='_y_low', high='_y_high',
+                  desc='minimum y value of the domain')
 
     # Maximum y value.
-    y_max = DRange(default=10000, low_name='_y_low', high_name='_y_high',
-                   is_float=False,
-                   desc='maximum y value of the domain')
+    y_max = Range(value=10000, low='_y_low', high='_y_high',
+                  desc='maximum y value of the domain')
 
     # Minimum z value.
-    z_min = DRange(default=0, low_name='_z_low', high_name='_z_high',
-                   is_float=False,
-                   desc='minimum z value of the domain')
+    z_min = Range(value=0, low='_z_low', high='_z_high',
+                  desc='minimum z value of the domain')
 
     # Maximum z value.
-    z_max = DRange(default=10000, low_name='_z_low', high_name='_z_high',
-                   is_float=False,
-                   desc='maximum z value of the domain')
+    z_max = Range(value=10000, low='_z_low', high='_z_high',
+                  desc='maximum z value of the domain')
 
     # Sample rate in x.
-    x_ratio = DRange(default=1, low_name='_min_sample', high_name='_x_high',
-                     is_float=False,
-                     desc='sample rate along x')
+    x_ratio = Range(value=1, low='_min_sample', high='_x_high',
+                    desc='sample rate along x')
 
     # Sample rate in y.
-    y_ratio = DRange(default=1, low_name='_min_sample', high_name='_y_high',
-                     is_float=False,
-                     desc='sample rate along y')
+    y_ratio = Range(value=1, low='_min_sample', high='_y_high',
+                    desc='sample rate along y')
 
     # Sample rate in z.
-    z_ratio = DRange(default=1, low_name='_min_sample', high_name='_z_high',
-                     is_float=False,
-                     desc='sample rate along z')
+    z_ratio = Range(value=1, low='_min_sample', high='_z_high',
+                    desc='sample rate along z')
 
     # The actual TVTK filter that this class manages.
     filter = Instance(tvtk.Object, tvtk.ExtractVOI(), allow_none=False)

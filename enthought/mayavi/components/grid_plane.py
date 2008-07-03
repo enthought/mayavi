@@ -6,7 +6,7 @@
 # License: BSD Style.
 
 # Enthought library imports.
-from enthought.traits.api import Instance, Enum, Int
+from enthought.traits.api import Instance, Enum, Int, Range
 from enthought.traits.ui.api import View, Group, Item
 from enthought.tvtk.api import tvtk
 from enthought.persistence import state_pickler
@@ -14,7 +14,7 @@ from enthought.persistence import state_pickler
 # Local imports.
 from enthought.mayavi.core.component import Component
 from enthought.mayavi.core.common import error
-from enthought.mayavi.core.traits import DRange
+
 
 def _get_extent(inp):
     # Simple function to get a suitable extent.  This wierdness is
@@ -43,8 +43,7 @@ class GridPlane(Component):
                 desc='specifies the axis normal to the grid plane')
 
     # The position of the grid plane.
-    position = DRange(default=0, low_name='_low', high_name='_high',
-                      is_float=False)
+    position = Range(value=0, low='_low', high='_high')
     
     ########################################
     # Private traits.

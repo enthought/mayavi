@@ -7,10 +7,10 @@ source.  """
 # License: BSD Style.
 
 # Enthought library imports.
-from enthought.traits.api import Int
+from enthought.traits.api import Int, Range
 from enthought.traits.ui.api import View, Group, Item
 from enthought.mayavi.core.filter import Filter
-from enthought.mayavi.core.traits import SimpleDRange
+
 
 ################################################################################
 # `SelectOutput` class.
@@ -23,12 +23,10 @@ class SelectOutput(Filter):
     """
 
     # The output index in the input to choose from.
-    output_index = SimpleDRange(low_name='_min_index',
-                                high_name='_max_index',
-                                low=0,
-                                high=0,
-                                is_float=False)
-
+    output_index = Range(value=0,
+                         low='_min_index',
+                         high='_max_index')
+    
     # The minimum output index of our input.
     _min_index = Int(0, desc='the minimum output index')
     # The maximum output index of our input.
