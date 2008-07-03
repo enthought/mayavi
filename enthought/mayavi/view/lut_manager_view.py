@@ -1,4 +1,5 @@
-from enthought.traits.ui.api import Item, Group, View, ImageEnumEditor, InstanceEditor
+from enthought.traits.ui.api \
+    import Item, Group, View, ImageEnumEditor, InstanceEditor, HGroup
 from enthought.mayavi.core import lut 
 from enthought.mayavi.core.lut_manager import lut_mode_list
 import os
@@ -25,13 +26,17 @@ view = View(Group(Item(name='lut_mode',
                           Item(name='use_default_range'),
                           Item(name='data_range',
                                enabled_when='not object.use_default_range'),
-                          Item(name='_title_text_property',
-                               show_label=False,
-                               editor=InstanceEditor(label='Edit bar Title')),
-                          Item(name='_label_text_property',
-                               show_label=False,
-                               editor=InstanceEditor(label='Edit bar Text'),
-                               label='Edit bar Text'),
+                          
+                          HGroup(
+                              Item(name='_title_text_property',
+                                   show_label=False,
+                                   editor=InstanceEditor(label='Edit bar Title')),
+                              Item(name='_label_text_property',
+                                   show_label=False,
+                                   editor=InstanceEditor(label='Edit bar Text'),
+                                   label='Edit bar Text'),
+                          ),
+                               
                           enabled_when='show_scalar_bar==True',
                       ),    
                       show_border=True,
