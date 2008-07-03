@@ -28,11 +28,14 @@ class Wizard(HasTraits):
     def _get__data_sources_labels(self):
         return self.data_sources.keys()
 
-    view = View(Item('_selected_data_source', 
-                    editor=EnumEditor(name='_data_sources_labels')), 
-                    handler=WizardHandler(),
-                    buttons=OKCancelButtons,
-                    title='Import arrays wizard')
+    view = View(
+                Item('_selected_data_source', 
+                    editor=EnumEditor(name='_data_sources_labels')
+                    ), 
+                handler=WizardHandler(),
+                buttons=OKCancelButtons,
+                title='Import arrays wizard'
+                )
 
 
     def _build_data_source(self):
