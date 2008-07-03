@@ -6,8 +6,7 @@ import shutil
 from subprocess import Popen
 import tempfile
 
-CEC_MAYAVI_SVN = 'https://svn.enthought.com/svn/internal/www/code.enthought' \
-                     '.com/projects/mayavi/'
+CEC_MAYAVI_SVN = 'https://svn.enthought.com/svn/cec/trunk/projects/mayavi'
 
 def find_stdout(options):
     if not hasattr(options, 'stdout'):
@@ -25,18 +24,18 @@ def debug_print(msg, options):
 def build_html(options):
     debug_print('Building html', options)
 
-    Popen('sphinx-build -b html %s %s/html/' % (options.docsrc, options.temp),
-        stdout=find_stdout(options), shell=True).wait()
+    Popen('sphinx-build -b html %s %s/html/' % (options.docsrc,
+        options.target), stdout=find_stdout(options), shell=True).wait()
 
 def build_latex(options):
     debug_print('Building LaTeX', options)
 
     # Build the LaTeX source files (ignore cwd property)
     Popen('sphinx-build -b latex %s %s/latex/' % (options.docsrc,
-        options.temp), stdout=find_stdout(options), shell=True).wait()
+        options.target), stdout=find_stdout(options), shell=True).wait()
 
     kwargs = {
-        'cwd': '%s/latex/' % options.temp,
+        'cwd': '%s/latex/' % options.target,
         'shell': True,
         'stdout': find_stdout(options),
     }
@@ -62,23 +61,25 @@ def build_latex(options):
                 os.remove(full_path)
 
 def main(options):
-    # Create temp dir and checkout SVN there
-    options.temp = tempfile.mkdtemp()
-    debug_print('Using "%s" temp dir' % options.temp, options)
+    # Checkout SVN to target directory
+    debug_print('Using "%s" target dir' % options.target, options)
 
-    Popen('svn co %s %s' % (CEC_MAYAVI_SVN, options.temp),
+    Popen('svn co %s %s' % (CEC_MAYAVI_SVN, options.target),
         stdout=find_stdout(options), shell=True).wait()
 
     # Build docs
     build_html(options)
-    build_latex(options)
+    # build_latex(options)
 
     # Checkin HTML to CEC SVN.
-    Popen('svn commit %s -m "%s"' % (options.temp, options.commit_message),
+    Popen('svn add %(target)s/html/* %(target)s/latex/*' % {
+            'target': options.target
+        }, stdout=find_stdout(options), shell=True).wait()
+    Popen('svn commit %s -m "%s"' % (options.target, options.commit_message),
         stdout=find_stdout(options), shell=True).wait()
 
-    # Removed temp directory
-    shutil.rmtree(options.temp)
+    # Removed target directory
+    shutil.rmtree(options.target)
 
 def handle_exec():
     # Handle options
@@ -90,9 +91,11 @@ def handle_exec():
         help='read the documentation from the documentation source')
 
     parser.add_option('-m', '--commit-message', action='store',
-        default='Updating docs',
         help='use commit message when committing to code.enthought.com\'s ' \
             'repo')
+
+    parser.add_option('-t', '--target', action='store',
+        help='place the html and latex directories in the target destination')
 
     parser.add_option('-v', '--verbose', action='store_true',
         help='print output of all commands which this executes [default]',)
@@ -104,6 +107,7 @@ def handle_exec():
         'docsrc': os.path.join(os.path.abspath(os.path.dirname(__file__)),
             'docs', 'mayavi', 'user_guide', 'source'),
         'commit_message': 'Updating docs',
+        'target': tempfile.mkdtemp(),
         'verbose': False,
     })
 
