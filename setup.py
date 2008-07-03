@@ -81,6 +81,17 @@ class my_install_scripts(install_scripts):
                             os.remove (new_file)
                         os.rename (file, new_file)
 
+# Create custom 'build' step hook to auto-generate the
+# documentation at build time.
+from numpy.distutils.command.build import build
+from numpy.distutils import log
+class my_build(build):
+    def run(self):
+        build.run(self)
+
+        # Run the documentation generation script.
+        log.info("auto-generating documentation")
+        # TODO: Call the documentation generation script.
 
 setup(
     author = "Prabhu Ramachandran",
@@ -90,6 +101,7 @@ setup(
         # setuptools' sdist command.
         'sdist': setuptools.command.sdist.sdist,
         'install_scripts': my_install_scripts,
+        'build': my_build,
         },
     dependency_links = [
         'http://code.enthought.com/enstaller/eggs/source',
