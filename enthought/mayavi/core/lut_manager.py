@@ -122,11 +122,11 @@ class LUTManager(Base):
                     desc='the filename containing the LUT')
 
     # Reverse the colors of the LUT.
-    reverse_lut = Bool(False, desc='specifies if the lut is to be reversed')
+    reverse_lut = Bool(False, desc='if the lut is to be reversed')
 
     # Turn on/off the visibility of the scalar bar.
     show_scalar_bar = Bool(False,
-                           desc='specifies if scalar bar is shown or not')
+                           desc='if scalar bar is shown or not')
 
     # The number of labels to use for the scalar bar.
     number_of_labels = Range(0, 64, 8,
@@ -137,11 +137,11 @@ class LUTManager(Base):
                              desc='the number of colors for the LUT')
 
     # Enable shadowing of the labels and text.
-    shadow = Bool(False, desc='specifies if the labels and text have shadows')
+    shadow = Bool(False, desc='if the labels and text have shadows')
 
     # Use the default data name or the user specified one.
     use_default_name = Bool(True,
-                            desc='specifies if the default data name is to be used')
+                            desc='if the default data name is to be used')
 
     # The default data name -- set by the module manager.
     default_data_name = Str('data', desc='the default data name')
@@ -151,7 +151,7 @@ class LUTManager(Base):
 
     # Use the default range or user specified one.
     use_default_range = Bool(True,
-                             desc='specifies if the default data range is to be used')
+                             desc='if the default data range is to be used')
     # The default data range -- this is computed and set by the
     # module manager.
     default_data_range = Array(shape=(2,), value=[0.0, 1.0],
