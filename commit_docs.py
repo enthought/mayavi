@@ -6,38 +6,28 @@ import shutil
 from subprocess import Popen
 import tempfile
 
+# Only publish the build functions to other Python modules looking at this.
+__all__ = ['build_html', 'build_latex']
+
 CEC_MAYAVI_SVN = 'https://svn.enthought.com/svn/cec/trunk/projects/mayavi'
 
-def find_stdout(options):
-    if not hasattr(options, 'stdout'):
-        if options.verbose:
-            options.stdout = None
-        else:
-            options.stdout = open(os.devnull, 'w')
+def build_html(docsrc, target, stdout, verbose=False):
+    if verbose: 'Building html'
 
-    return options.stdout
+    Popen('sphinx-build -b html %s %s' % (docsrc, os.path.join(target,
+        'html')), stdout=stdout, shell=True).wait()
 
-def debug_print(msg, options):
-    if options.verbose == None:
-        print msg
-
-def build_html(options):
-    debug_print('Building html', options)
-
-    Popen('sphinx-build -b html %s %s/html/' % (options.docsrc,
-        options.target), stdout=find_stdout(options), shell=True).wait()
-
-def build_latex(options):
-    debug_print('Building LaTeX', options)
+def build_latex(docsrc, target, stdout, verbose=False):
+    if verbose: 'Building LaTeX'
 
     # Build the LaTeX source files (ignore cwd property)
-    Popen('sphinx-build -b latex %s %s/latex/' % (options.docsrc,
-        options.target), stdout=find_stdout(options), shell=True).wait()
+    Popen('sphinx-build -b latex %s %s' % (docsrc, os.path.join(target,
+        'latex')), stdout=stdout, shell=True).wait()
 
     kwargs = {
-        'cwd': '%s/latex/' % options.target,
+        'cwd': os.path.join(target, 'latex'),
         'shell': True,
-        'stdout': find_stdout(options),
+        'stdout': stdout
     }
 
     # Build LaTeX (stupidly difficult)
@@ -52,7 +42,7 @@ def build_latex(options):
 
     # Clean up all the non-PDF files
     for name in os.listdir(kwargs['cwd']):
-        full_path = '%s/%s' % (os.path.dirname(kwargs['cwd']), name)
+        full_path = os.path.join(target, 'latex', name)
 
         if full_path[-3:] != 'pdf' and full_path[-4:] != '.svn':
             if os.path.isdir(full_path):
@@ -61,22 +51,32 @@ def build_latex(options):
                 os.remove(full_path)
 
 def main(options):
-    # Checkout SVN to target directory
-    debug_print('Using "%s" target dir' % options.target, options)
+    if options.verbose: 'Using "%s" target dir' % options.target
 
+    # Create stdout attribute of options
+    if options.verbose:
+        options.stdout = None
+    else:
+        options.stdout = open(os.devnull, 'w')
+
+    # Checkout SVN to target directory
     Popen('svn co %s %s' % (CEC_MAYAVI_SVN, options.target),
-        stdout=find_stdout(options), shell=True).wait()
+        stdout=options.stdout, shell=True).wait()
 
     # Build docs
-    build_html(options)
-    # build_latex(options)
+    kwargs = dict((k, getattr(options, k)) for k in
+        ('docsrc', 'target', 'stdout', 'verbose'))
 
-    # Checkin HTML to CEC SVN.
+    build_html(**kwargs)
+    build_latex(**kwargs)
+
+    # Checkin HTML to CEC SVN. Suppress stderr too, because this has a lot of
+    # dumb warnings, if verbose is false.
     Popen('svn add %(target)s/html/* %(target)s/latex/*' % {
             'target': options.target
-        }, stdout=find_stdout(options), shell=True).wait()
+        }, stdout=options.stdout, stderr=options.stdout, shell=True).wait()
     Popen('svn commit %s -m "%s"' % (options.target, options.commit_message),
-        stdout=find_stdout(options), shell=True).wait()
+        stdout=options.stdout, shell=True).wait()
 
     # Removed target directory
     shutil.rmtree(options.target)
@@ -98,10 +98,11 @@ def handle_exec():
         help='place the html and latex directories in the target destination')
 
     parser.add_option('-v', '--verbose', action='store_true',
-        help='print output of all commands which this executes [default]',)
+        help='print output of all commands which this executes',)
 
     parser.add_option('-q', '--quiet', action='store_false', dest='verbose',
-        help='suppress the output of all commands which this executes')
+        help='suppress the output of all commands which this executes ' \
+            '[default]')
 
     parser.set_defaults(**{
         'docsrc': os.path.join(os.path.abspath(os.path.dirname(__file__)),
