@@ -12,7 +12,6 @@ import numpy
 # Enthought library imports.
 from enthought.traits.api import List, Instance, Trait, TraitPrefixList, \
                                  HasTraits, Str
-from enthought.traits.ui.api import View, Group, Item
 from enthought.persistence.state_pickler import set_state
 
 # Local imports
@@ -82,6 +81,9 @@ class DataAttributes(HasTraits):
         lut_mgr.default_data_name = self.name
 
 
+# Constant for a ModuleManager class and it's View.
+LUT_DATA_MODE_TYPES = ['auto', 'point data', 'cell data']
+
 ######################################################################
 # `ModuleManager` class.
 ######################################################################
@@ -101,7 +103,7 @@ class ModuleManager(Base):
     # data for the LUT and if set to 'cell data' it uses the input
     # cell data.
     lut_data_mode = Trait('auto',
-                          TraitPrefixList(['auto', 'point data', 'cell data']),
+                          TraitPrefixList(LUT_DATA_MODE_TYPES),
                           desc='specify the data type used by the lookup tables',
                           )
 
@@ -120,15 +122,6 @@ class ModuleManager(Base):
     # The human-readable type for this object
     type = Str(' module manager')
 
-    # Our view
-    view = View(Group(Item('scalar_lut_manager', style='custom'),
-                      label='Scalar LUT', show_labels=False,
-                      selected=True),
-                Group(Item('vector_lut_manager', style='custom'),
-                      label='Vector LUT', show_labels=False),
-                Group(Item('lut_data_mode'),
-                      label='ModuleManager', selected=False),
-                )
 
     ######################################################################
     # `object` interface
