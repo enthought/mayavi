@@ -32,16 +32,6 @@ class Surface(Module):
     # The actor component that represents the visualization.
     actor = Instance(Actor, allow_none=False)
 
-    ########################################
-    # The view of this module.
-
-    view = View([Group(Item(name='enable_contours')),
-                 Group(Item(name='contour', style='custom',
-                            enabled_when='object.enable_contours'),
-                       Item(name='actor', style='custom'),
-                       show_labels=False)
-                 ]
-                )
 
     ######################################################################
     # `Module` interface
