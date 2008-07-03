@@ -14,11 +14,42 @@ import logging
 import vtk
 
 from enthought.traits import api as traits
-from enthought.traits.ui.api import BooleanEditor, RGBColorEditor, FileEditor
+from enthought.traits.ui.api import BooleanEditor, RGBColorEditor, FileEditor, Handler, UIInfo
 import messenger
 
 # Setup a logger for this module.
 logger = logging.getLogger(__name__)
+
+class TVTKBaseHandler(Handler):
+   """ A handler for the TVTKBase object. 
+   """
+
+   # Currently the only purpose of this class is to contribute a button which
+   # when clicked will display the 'full view' for the tvtk object. We may
+   # want to change the implementation so the 'full_view' appears through some
+   # selection on the menu bar, and in that case, this handler class can be 
+   # disposed of.
+   advanced_view = traits.Button('Display Advanced View')
+
+   # A reference to the UIInfo object.
+   info = traits.Instance(UIInfo)
+
+   def init_info(self, info):
+       """ Informs the handler what the UIInfo object for a View will be.
+       Overridden here to save a reference to the info object.
+        
+       """
+       self.info = info
+       return
+
+ 
+   def _advanced_view_fired(self):
+       """ Displays the full traits view for this object.
+       Called when the 'advanced view' button is clicked.
+       """
+       self.info.object.edit_traits('full_traits_view', 
+                                     parent=self.info.ui.control)
+       return
 
 ######################################################################
 # The TVTK object cache.

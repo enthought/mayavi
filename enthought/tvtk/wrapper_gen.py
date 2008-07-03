@@ -237,12 +237,18 @@ class WrapperGenerator:
                               'debug', 'global_warning_display'])
 
         # Write the traits_view.
+        # FIXME: I have added a handler and included the handler's advanced
+        # view trait to the traits view. This is an event which when fired
+        # will display the full traits view of the TVTKBase object. We may
+        # want to change the implementation later. This is a first cut.
         t_g = toggle.keys(); t_g.sort()
         s_g = state.keys(); s_g.sort()
         gs_g = get_set.keys(); gs_g.sort()
-        junk = textwrap.fill('traitsui.View((%s, %s, %s),'%(t_g, s_g, gs_g))
+        junk = textwrap.fill('traitsui.View((%s, %s, %s, %s),'%
+                              (t_g, s_g, gs_g, ["handler.advanced_view"]))
         code = "\ntraits_view = \\" + \
                "\n%s\ntitle=\'%s\', scrollable=True,"\
+               "\nhandler=tvtk_base.TVTKBaseHandler,"\
                "\nbuttons=['OK', 'Cancel'])\n\n"%(junk, title)
         out.write(self.indent.format(code))
 
