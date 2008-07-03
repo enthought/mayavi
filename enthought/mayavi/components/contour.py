@@ -22,7 +22,6 @@ from enthought.tvtk.api import tvtk
 # Local imports.
 from enthought.mayavi.core.component import Component
 from enthought.mayavi.core.common import error
-from enthought.mayavi.core.traits import DRange, SimpleDRange
 from enthought.mayavi.components.common \
      import get_module_source, convert_to_poly_data
 
@@ -51,29 +50,28 @@ class Contour(Component):
 
     # Minimum contour, this is the starting value when `auto_contours`
     # is turned on.
-    minimum_contour = SimpleDRange(low_name='_data_min',
-                                   high_name='_data_max',
-                                   default=0.0,
-                                   desc='the starting contour value')
+    minimum_contour = Range(value=0.0,
+                            low='_data_min',
+                            high='_data_max',
+                            desc='the starting contour value')
+    
     # Maximum contour, this is the last contour when `auto_contours`
     # is turned on.
-    maximum_contour = SimpleDRange(low_name='_data_min',
-                                   high_name='_data_max',
-                                   default=0.0,
-                                   desc='the ending contour value')
+    maximum_contour = Range(value=0.0,
+                            low='_data_min',
+                            high='_data_max',
+                            desc='the ending contour value')
     
     # The explicit contours to create.  These specify the contours
     # explicitly and are used when `auto_contours` is turned off.  The
     # traits of the items in the list are dynamically generated based
     # on input data.
-    contours = List(SimpleDRange(low_name='_data_min',
-                                 high_name='_data_max',
-                                 low=-1e20,
-                                 high=1e20,
-                                 default=0.0),
+    contours = List(Range(value=0.0,
+                          low='_data_min',
+                          high='_data_max'),
                     rows=3,
                     desc='explicitly the contours to be generated')
-
+    
     # Specify if the filled contour option should be shown in the view
     # or not.  This is useful in situations like the iso_surface
     # module where it does not make sense to use filled contours at
