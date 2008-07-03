@@ -1,5 +1,11 @@
+# Standard imports
 import setuptools
 from numpy.distutils.core import setup
+import os
+from pkg_resources import require, DistributionNotFound
+import zipfile
+
+# Local imports
 from setup_data import INFO
 
 
@@ -64,7 +70,6 @@ config['packages'] += packages
 from setuptools.command.install_scripts import install_scripts
 class my_install_scripts(install_scripts):
     def run(self):
-        import os
         install_scripts.run(self)
         if os.name != 'posix':
             # Rename <script> to <script>.pyw. Executable bits
@@ -82,17 +87,60 @@ class my_install_scripts(install_scripts):
                         os.rename (file, new_file)
 
 # Create custom 'build' step hook to auto-generate the
-# documentation at build time.
+# documentation at build time, if Sphinx is installed.
+# Otherwise, it will unzip the html_docs.zip.
+from commit_docs import build_html
 from numpy.distutils.command.build import build
 from numpy.distutils import log
+
+def unzip_html_docs(src_path, dest_dir):
+    """Given a path to a zipfile, extract
+    it's contents to a given 'dest_dir'.
+    """
+    file = zipfile.ZipFile(src_path)
+    for name in file.namelist():
+        cur_name = os.path.join(dest_dir, name)
+        if not name.endswith('/'):
+            out = open(cur_name, 'wb')
+            out.write(file.read(name))
+            out.flush()
+            out.close()
+        else:
+            if not os.path.exists(cur_name):
+                os.mkdir(cur_name)
+    file.close()
+
 class my_build(build):
     def run(self):
         build.run(self)
 
-        # Run the documentation generation script.
-        log.info("auto-generating documentation")
-        # TODO: Call the documentation generation script.
+        # Figure out the documentation source directory and
+        # the output directory based on current location.
+        user_guide_dir = os.path.join(os.path.abspath(os.path.dirname(__file__)),
+            'docs', 'mayavi', 'user_guide')
+        html_zip = os.path.join(user_guide_dir, 'html_docs.zip')
+        dest_dir = os.path.join(user_guide_dir, 'build', 'html')    
+        try:
+            require("Sphinx")
+            
+            log.info("Auto-generating documentation...")
+            docsrc = os.path.join(user_guide_dir, 'source')
+            target = os.path.join(user_guide_dir, 'build')
+            try:
+                build_html(docsrc, target, None)
+            except:
+                log.error("The documentation generation failed.  Falling back to the zip file.")
 
+                # Unzip the docs into the 'html' folder.
+                unzip_html_docs(html_zip, dest_dir)
+
+        except DistributionNotFound:
+            log.error("Sphinx is not installed, so the documentation could not be generated.  Falling back to the zip file.")
+
+            # Unzip the docs into the 'html' folder.
+            unzip_html_docs(html_zip, dest_dir)
+
+        
 setup(
     author = "Prabhu Ramachandran",
     author_email = "prabhu_r@users.sf.net",
