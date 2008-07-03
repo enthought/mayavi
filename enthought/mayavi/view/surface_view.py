@@ -1,4 +1,5 @@
-from enthought.traits.ui.api import Item, Group, View
+from enthought.traits.ui.api import Item, Group, View, InstanceEditor
+from enthought.mayavi.view.actor_view import actor_view, texture_view
 
 view = View(Group(Item(name='enable_contours', label='Enable Contours'),
                   Group(Item(name='contour', style='custom',
@@ -9,9 +10,17 @@ view = View(Group(Item(name='enable_contours', label='Enable Contours'),
                   label='Contours'
             ),
             
-            Group(
-                  Item(name='actor', style='custom'),
+            Group(Item('actor', 
+                       resizable=True, style='custom',
+                       editor=InstanceEditor(view=actor_view)),
+                  label='Actor',
                   show_labels=False,
-                  label='Actor / Texturing',
+            ),
+                  
+            Group(Item('actor', 
+                       resizable=True, style='custom',
+                       editor=InstanceEditor(view=texture_view)),
+                  label='Texturing',
+                  show_labels=False,
             ),       
         )
