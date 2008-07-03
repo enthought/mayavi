@@ -8,12 +8,17 @@
 import types
 import sys
 import weakref
+import os
+import logging
 
 import vtk
 
 from enthought.traits import api as traits
 from enthought.traits.ui.api import BooleanEditor, RGBColorEditor, FileEditor
 import messenger
+
+# Setup a logger for this module.
+logger = logging.getLogger(__name__)
 
 ######################################################################
 # The TVTK object cache.
@@ -355,6 +360,46 @@ class TVTKBase(traits.HasStrictTraits):
         object.
         """
         return str(self._vtk_obj)
+
+    #################################################################
+    # `HasTraits` interface.
+    #################################################################
+
+    def trait_view(self, name = None, view_element = None ):
+        """ Gets or sets a ViewElement associated with an object's class.
+
+        Overridden here to search through a particular directory for the
+        view to use for this tvtk object. The view should be declared in a 
+        file named <class name>_view. If a file with this name is not found, 
+        the trait_view method on the base class will be called.
+
+        """
+
+        # If a name is specified, then call the HasTraits trait_view method
+        # which will return (or assign) the *view_element* associated with 
+        # *name*.
+
+        # FIXME: This is only a temporary implementation designed for fast
+        # iterations on the views. The final implementation should do an
+        # import instead of the execfile.
+        if name:
+            return super(TVTKBase, self).trait_view(name, view_element)
+
+        baseDir = os.path.dirname(os.path.abspath(__file__))
+        viewDir = os.path.join(baseDir, 'view')
+        try:
+            module_name = self.__module__.split('.')[-1]
+            view_filename = os.path.join(viewDir,
+                                      	 module_name + '_view.py')
+            result = {}
+            execfile(view_filename, {}, result)
+            view = result['view']
+        except Exception, e:
+            logger.debug("No view found for [%s] in [%s]. "
+                         "Using the base class trait_view instead.", 
+                         self, viewDir)
+            view = super(TVTKBase, self).trait_view(name, view_element)
+        return view
         
     #################################################################
     # `TVTKBase` interface.
