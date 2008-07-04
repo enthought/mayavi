@@ -4,7 +4,7 @@ the in a scene using visual modeule."""
 # Author: Raashid Baig <raashid@aero.iitb.ac.in>
 # License: BSD Style.
 
-from enthought.tvtk.tools.visual import *
+from enthought.tvtk.tools.visual import box, sphere, vector, iterate, show
 
 def main():
     # Creating parameters for box size
