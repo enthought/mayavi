@@ -12,8 +12,8 @@ the in a scene using visual modeule."""
 #variables are angle of upper bar, angle of lower bar,measured from
 #the vertical.
 
-from enthought.tvtk.tools.visual import *
-from math import pi
+from enthought.tvtk.tools.visual import box, vector, frame, iterate, show
+from math import pi, sin
 
 g = 9.8
 M1 = 2.0
@@ -86,5 +86,3 @@ def anim():
 a = iterate(20, anim)
 a.edit_traits()
 show()
-
-
