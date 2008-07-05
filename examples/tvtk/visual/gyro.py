@@ -4,9 +4,11 @@
 # License: BSD Style.
 
 # Gyroscope hanging from a spring
+from math import atan, cos, sin, pi
 
-from enthought.tvtk.tools.visual import *
-from math import atan, cos, sin
+from enthought.tvtk.tools.visual import vector, MVector, Box, Helix, Frame, \
+    Cylinder, curve, color, iterate, show
+
 
 top = vector(0,1.,0) # where top of spring is held
 ks = 100. # spring stiffness

@@ -5,9 +5,10 @@ the in a scene using visual modeule."""
 
 # Author: Raashid Baig <raashid@aero.iitb.ac.in>
 # License: BSD Style.
-
-from enthought.tvtk.tools.visual import *
 from math import pi, cos, sin
+
+from enthought.tvtk.tools.visual import vector, box, cylinder, frame, curve, \
+    iterate, show
 
 # Gyroscope sitting on a pedestal
 
