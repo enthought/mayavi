@@ -6,29 +6,50 @@ URL:
     https://svn.enthought.com/enthought/changeset/18702
 -----------------------------------------------------------------------------
 
-
+5 July, 2008 (PR):
+    - NEW/API: [19458] adds the following features:
+        - A Registry (enthought.mayavi.core.registry.Registry) to
+          register engines, sources, filters and modules. Source, filter
+          and module metadata is registered and this can be used to do
+          various things like generate menus, register data file
+          extension handlers and whatnot. The metadata related classes
+          are in enthought.mayavi.core.metadata.
+        - This registry and metadata information is used to generate the
+          envisage menus and actions.
+        - The registry can be used by users to register new sources,
+          readers, filters and modules.
+        - A method to Engine and Script to easily open any supported
+          data file.
+        - Simplify the open file interface so it is just one menu item
+          that supports different file extensions.
+        - Changed the command line options for the mayavi2 application
+          so you can open *any* supported data file format with the -d
+          option.  This breaks backwards compatibility but makes it very
+          easy to open supported data files -- even if the new ones are
+          added by users.
+        - Fixed the PLOT3DReader so it opens the q file using the xyz
+          filenames basename. 
 
 29 June, 2008 (GV): 
-	- ENH: Updated Sphinx docs [19318]. 
-	- ENH: New splash screen [19319].
-	- ENH: mlab now works with envisage, including in "mayavi2 -x"
-	  [19321] [19323]
+    - ENH: Updated Sphinx docs [19318]. 
+    - ENH: New splash screen [19319].
+    - ENH: mlab now works with envisage, including in "mayavi2 -x"
+      [19321] [19323]
 
 
 27 June, 2008 (Vibha):
-	- API: Remove SimpleScene class [19285].
-	- API: Moved tvtk-related examples from TraitsGUI to Mayavi 
-		[19191] [19197] [19231] [19280]
+    - API: Remove SimpleScene class [19285].
+    - API: Moved tvtk-related examples from TraitsGUI to Mayavi [19191]
+      [19197] [19231] [19280]
 
 27 June, 2008 (GV):
-	- BUG: tvtk: proper handling of non-float numpy arrays. Added
-	  test case [19297]
+    - BUG: tvtk: proper handling of non-float numpy arrays. Added test
+      case [19297]
 
 25 June, 2008 (GV):
-	- ENH: Add autoscale to mlab.surf (scalez keyword argument)
-	  [19131]
-	- ENH: mlab.usrf and mlab.mesh can now take x and y arguments
-	  with a more flexible shape [19114].
+   - ENH: Add autoscale to mlab.surf (scalez keyword argument) [19131]
+   - ENH: mlab.usrf and mlab.mesh can now take x and y arguments with a
+     more flexible shape [19114].
 
 12 June, 2008 (PR):
     - ENH: Adding an offscreen option to the mayavi2 application.  This

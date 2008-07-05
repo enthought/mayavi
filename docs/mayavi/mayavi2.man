@@ -5,8 +5,8 @@ mayavi2 \- A scientific visualization package for 2-D and 3-D data
 .B mayavi2 [options]  [args]
 
 Where arg1, arg2 etc\&. are optional file names that correspond to saved
-Mayavi2 visualizations (filename\&.mv2) or Mayavi2 scripts
-(filename\&.py)\&.
+Mayavi2 visualizations (filename\&.mv2),  Mayavi2 scripts
+(filename\&.py) and any data file formats that Mayavi supports\&.
 
 .SH "DESCRIPTION"
 
@@ -51,40 +51,12 @@ filename\&.mv2\&.
 
 .PP
 .B -d
-vtk_file\&.vt*
+datafile\&.*
 
-Opens a (legacy or XML) VTK file passed as the argument\&.  Also
-available through \fB\-\-vtk\fP\&.
-
-.PP
-.B -p
-plot3d_xyz_file
-
-This opens a PLOT3D co-ordinate file passed as the argument\&.  The
-plot3d-xyz-file must be a PLOT3D single block co-ordinate file\&. Also
-available through \fB\-\-plot3d\-xyz\fP\&.
-
-.PP
-.B -q
-plot3d_q_file
-
-This opens a PLOT3D (single block) solution file passed as the
-argument\&. Please note that this option must always follow a \fB\-q\fP or
-\fB\-\-plot3d-xyz\fP option\&.  Also available through \fB\-\-plot3d\-q\fP\&.
-
-.PP
-.B -w
-vrml-file
-
-Imports a VRML2 scene given an appropriate file\&.  Also available
-through \fB\-\-vrml\fP\&.
-
-.PP
-.B -3
-3DStudio-file
-
-Imports a 3D Studio scene given an appropriate file\&.  Also available
-through \fB\-\-3ds\fP\&.
+Opens any of the supported data file formats\&.  This includes VTK file
+formats (*\&.vtk, *\&.xml, *\&.vt[i,p,r,s,u], *\&.pvt[i,p,r,s,u]), VRML2
+(*\&.wrl), 3D Studio (*\&.3ds), PLOT3D (*\&.xyz) and various others that
+are supported\&. Also available through \fB\-\-data\fP\&.
 
 .PP
 .B -m

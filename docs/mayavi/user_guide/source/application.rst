@@ -526,9 +526,9 @@ Mayavi can be run like so::
        mayavi2 [options] [args]
 
 Where ``arg1``, ``arg2`` etc.  are optional file names that correspond
-to saved Mayavi2 visualizations (``filename.mv2``) or Mayavi2 scripts
-(``filename.py``).  If no options or arguments are provided mayavi
-will start up with a default blank scene.
+to saved Mayavi2 visualizations (``filename.mv2``),  Mayavi2 scripts
+(``filename.py``) or any datafile supported by Mayavi.  If no options or
+arguments are provided mayavi will start up with a default blank scene.
 
 The options are:
 
@@ -545,29 +545,12 @@ The options are:
       available through --viz file_name or --visualization
       file_name.
 
--d vtk_file
-      Opens a (legacy or XML) VTK file (``*.vt*``) passed as the
-      argument.  Also available through --vtk.
+-d data_file
 
--p plot3d_xyz_file
-      This opens a PLOT3D co-ordinate file passed as the argument.
-      The plot3d-xyz-file must be a PLOT3D single block
-      co-ordinate file. Also available through --plot3d-xyz.
-
-
--q plot3d_q_file
-      This opens a PLOT3D (single block) solution file passed as the
-      argument. Please note that this option must always follow a
-      -p or --plot3d-xyz option.  Also available through
-      --plot3d-q.
-
--w vrml-file
-      Imports a VRML2 scene given an appropriate file.  Also available
-      through --vrml.
-
--3 threed-studio-file
-      Imports a 3D Studio scene given an appropriate file.  Also
-      available through --3ds.
+    Opens any of the supported data file formats.  This includes VTK
+    file formats (*.vtk, *.xml, *.vt[i,p,r,s,u], *.pvt[i,p,r,s,u]),
+    VRML2 (*.wrl), 3D Studio (*.3ds), PLOT3D (*.xyz) and various others
+    that are supported. Also available through --data.
 
 -m module-name
       A module is an object that actually visualizes the data.  The
