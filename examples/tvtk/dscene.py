@@ -24,9 +24,11 @@ from enthought.pyface.api import OK
 from enthought.pyface.api import PythonShell
 from enthought.pyface.api import SplitApplicationWindow
 from enthought.tvtk.pyface.api import DecoratedScene
-from enthought.tvtk.pyface.actors import *
-from enthought.pyface.action.api import Action, Group, MenuBarManager, MenuManager,\
-                                    Separator
+from enthought.tvtk.pyface.actors import sphere_actor, cylinder_actor, \
+                                         arrow_actor, axes_actor, cone_actor, \
+                                         cube_actor, earth_actor
+from enthought.pyface.action.api import Action, Group, MenuBarManager, \
+                                        MenuManager, Separator
 
 from enthought.traits.api import Float, Str, Instance
 
@@ -51,9 +53,9 @@ class SaveImageAction(Action):
 
     def perform(self):
         """Pops up a dialog used to save the scene to an image."""
-        extns = ['*.png', '*.jpg', '*.jpeg', '*.tiff', '*.bmp', '*.ps', '*.eps',
-                 '*.tex', '*.rib', '*.wrl', '*.oogl', '*.pdf', '*.vrml', '*.obj',
-                 '*.iv']
+        extns = ['*.png', '*.jpg', '*.jpeg', '*.tiff', '*.bmp', '*.ps',
+                 '*.eps', '*.tex', '*.rib', '*.wrl', '*.oogl', '*.pdf',
+                 '*.vrml', '*.obj', '*.iv']
         dlg = FileDialog(parent=self._window.control, action='save as',
                 wildcard='|'.join(extns), title="Save scene to image")
         if dlg.open() == OK:
