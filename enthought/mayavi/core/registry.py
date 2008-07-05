@@ -100,8 +100,9 @@ registry = Registry()
 from enthought.mayavi.sources.metadata import sources
 registry.sources.extend(sources)
 
-#import enthought.mayavi.modules.metadata import modules
+from enthought.mayavi.filters.metadata import filters
+registry.filters.extend(filters)
+
+#from enthought.mayavi.modules.metadata import modules
 #registry.modules.extend(modules)
-#import enthought.mayavi.filters.metadata import filters
-#registry.filters.extend(filters)
 
