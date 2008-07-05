@@ -5,6 +5,14 @@ Author: Ilan Schnell <ischnell@enthought.com>
 Copyright 2008, Enthought, Inc.
 License: BSD Style.
 """
+# The following *optional* two lines allow a user to call this script
+# as either `python script.py` or `mayavi2 script.py`.  These two
+# lines must be placed before any other mayavi imports.
+from enthought.mayavi.scripts import mayavi2
+mayavi2.standalone(globals())
+
+
+
 print "This script is numerically intensive and requires a lot of memory."
 print "Please be patient..."
 
