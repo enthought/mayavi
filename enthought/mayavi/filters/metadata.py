@@ -7,7 +7,6 @@ Metadata for all filters.
 
 # Local imports.
 from enthought.mayavi.core.metadata import FilterMetadata
-from enthought.mayavi.core.registry import registry
 
 BASE = 'enthought.mayavi.filters'
 

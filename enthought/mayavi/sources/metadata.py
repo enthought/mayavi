@@ -7,7 +7,6 @@ Metadata for all sources.
 
 # Local imports.
 from enthought.mayavi.core.metadata import SourceMetadata
-from enthought.mayavi.core.registry import registry
 
 BASE = 'enthought.mayavi.sources'
 

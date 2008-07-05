@@ -1,5 +1,4 @@
 """Actions to start various filters.
-
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
 # Copyright (c) 2005-2008, Enthought, Inc.
@@ -8,7 +7,7 @@
 import new
 
 from enthought.pyface.action.api import Action
-from enthought.traits.api import Instance, Str
+from enthought.traits.api import Instance
 
 from enthought.mayavi.plugins.script import  get_imayavi
 from enthought.mayavi.core.registry import registry
