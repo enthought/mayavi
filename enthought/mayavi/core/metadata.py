@@ -11,6 +11,52 @@ from enthought.traits.api import HasTraits, Str, Callable, Either, List
 
 
 ################################################################################
+# Utility functions.
+################################################################################
+def import_symbol(symbol_path):
+
+    """ Import the symbol defined by the specified symbol path. 
+    Copied from envisage's import manager.
+    """
+
+    if ':' in symbol_path:
+        module_name, symbol_name = symbol_path.split(':')
+
+        module = import_module(module_name)
+        symbol = eval(symbol_name, module.__dict__)
+
+    else:
+        components = symbol_path.split('.')
+
+        module_name = '.'.join(components[:-1])
+        symbol_name = components[-1]
+
+        module = __import__(
+            module_name, globals(), locals(), [symbol_name]
+        )
+
+        symbol = getattr(module, symbol_name)
+
+    return symbol
+
+def import_module(module_name):
+
+    """This imports the given module name.  This code is copied from
+    envisage's import manager!
+
+    """
+
+    module = __import__(module_name)
+
+    components = module_name.split('.')
+    for component in components[1:]:
+        module = getattr(module, component)
+
+    return module
+
+
+
+################################################################################
 # `Metadata` class.
 ################################################################################ 
 class Metadata(HasTraits):
@@ -46,70 +92,21 @@ class Metadata(HasTraits):
     # Metadata interface.
     ######################################################################
     def get_callable(self):
-        """Return the callable that will create a new instance of the object implementing this
-        metadata.
+        """Return the callable that will create a new instance of the
+        object implementing this metadata.  
         """
         factory = self.factory
         if factory is not None:
             if callable(factory):
                 symbol = factory
             elif isinstance(factory, str) and len(factory) > 0:
-                symbol = self._import_symbol(factory)
+                symbol = import_symbol(factory)
             else:
-                symbol = self._import_symbol(self.class_name)
+                symbol = import_symbol(self.class_name)
         else:
-            symbol = self._import_symbol(self.class_name)
+            symbol = import_symbol(self.class_name)
 
         return symbol
-
-
-    ######################################################################
-    # Non-public interface.
-    ######################################################################
-    def _import_symbol(self, symbol_path):
-
-        """ Import the symbol defined by the specified symbol path. 
-        Copied from envisage's import manager.
-        """
-
-        if ':' in symbol_path:
-            module_name, symbol_name = symbol_path.split(':')
-
-            module = self._import_module(module_name)
-            symbol = eval(symbol_name, module.__dict__)
-
-        else:
-            components = symbol_path.split('.')
-
-            module_name = '.'.join(components[:-1])
-            symbol_name = components[-1]
-
-            module = __import__(
-                module_name, globals(), locals(), [symbol_name]
-            )
-
-            symbol = getattr(module, symbol_name)
-
-        # Event notification.
-        self.symbol_imported = symbol
-
-        return symbol
-        
-
-    def _import_module(self, module_name):
-
-        """This imports the given module name.  This code is copied from
-        envisage's import manager!
-
-        """
-
-        module = __import__(module_name)
-
-        components = module_name.split('.')
-        for component in components[1:]:
-            module = getattr(module, component)
-
-        return module
 
 
 ################################################################################
