@@ -39,42 +39,17 @@ def usage ():
     msg="""Usage:\n\nmayavi2 [options] ... [arg1] [arg2] ...
 
 Where arg1, arg2 ... are optional file names that correspond to saved
-MayaVi2 visualizations (file.mv2) or MayaVi2 scripts (file.py).  Valid
-options are one or more of the following:
+MayaVi2 visualizations (file.mv2) or MayaVi2 scripts (file.py) or any
+data files supported by Mayavi.  Valid options are one or more of the
+following:
 
--d vtk-file.[vt*,xml]
---vtk vtk-file.[vt*,xml]
+-d datafile.ext
+--data datafile.ext
 
-     vtk-file.vt* can be any VTK file (old style or XML).
-
--p plot3d-xyz-file
---plot3d-xyz plot3d-xyz-file
-
-     The plot3d-xyz-file must be a PLOT3D single block co-ordinate
-     file.  
-
--q plot3d-q-file
---plot3d-q plot3d-q-file
-
-     The plot3d-q-file must be a PLOT3D single block solution file.
-     The -q option is optional but must always follow the
-     -p/--plot3d-xyz option.
-
--e ensight-case-file [FIXME]
---ensight ensight-case-file
-
-     ensight-case-file must be a valid EnSight case file.  EnSightGold
-     and EnSight6 formats are supported.
-
--w vrml-file
---vrml vrml-file
-
-     Imports a VRML2 scene given an appropriate file.
-
--3 3DStudio-file
---3ds 3dStudio-file
-
-     Imports a 3D Studio scene given an appropriate file.
+     datafile.ext can be any of the supported data file formats.  This
+     includes VTK file formats (*.vtk, *.xml, *.vt[i,p,r,s,u],
+     *.pvt[i,p,r,s,u]), VRML2 (*.wrl), 3D Studio (*.3ds), PLOT3D (*.xyz)
+     and various others that are supported.
 
 --filter filter-name
 -f filter-name
@@ -194,15 +169,11 @@ def parse_cmd_line(arguments):
     if type(arguments) in types.StringTypes:
         arguments = arguments.split()
         
-    options = "d:p:q:e:m:f:z:w:3:x:nMvo"
+    options = "d:m:f:z:x:nMvo"
     
-    long_opts = ['vtk=',
-                 'plot3d-xyz=', 'plot3d-q=',
-                 'ensight=',
+    long_opts = ['data=',
                  'module=', 'filter=',
                  'visualization=', 'viz=', 
-                 'vrml=',
-                 '3ds=',
                  'exec=',
                  'verbose',
                  'module-mgr', 'new-scene', 'offscreen']
@@ -252,62 +223,12 @@ def process_cmd_line(app, opts, args):
             script.new_scene()
         
     for o, a in opts:
-        if o in ('-d', '--vtk'):
+        if o in ('-d', '--data'):
             base, ext = splitext(a)
             if not exists(a):
                 error("File %s does not exist!"%a)
                 return
-            if ext in ['.xml', '.vti', '.vtr', '.vts', '.vtp', '.vtu',
-                       '.pvti', '.pvtr', '.pvts', '.pvtp', '.pvtu']:
-                from enthought.mayavi.sources.vtk_xml_file_reader \
-                     import VTKXMLFileReader
-                r = VTKXMLFileReader()
-                r.initialize(a)
-                script.add_source(r)
-            elif ext == '.vtk':
-                from enthought.mayavi.sources.vtk_file_reader \
-                     import VTKFileReader
-                r = VTKFileReader()
-                r.initialize(a)
-                script.add_source(r)
-            else:
-                error("File %s does not appear to be a VTK file!"%a)
-                return
-        if in_plot3d:
-            from enthought.mayavi.sources.plot3d_reader \
-                 import PLOT3DReader
-            r = PLOT3DReader()
-            if o in ('-q', '--plot3d-q'):
-                r.initialize(xyz_file, a)
-            else:
-                r.initialize(xyz_file)
-            script.add_source(r)
-            in_plot3d = False
-        else:
-            if o in ('-q', '--plot3d-q'):
-                error("Sorry, the -q/--plot3d-q option must follow "\
-                      "a -p/--plot3d-xyz option.")
-        
-        if o in ('-p', '--plot3d-xyz'):
-            in_plot3d = True
-            xyz_file = a
-
-        # FIXME.
-        if o in ('-e', '--ensight'):
-            error('Feature not implemented!  Patches welcome! ;-)')
-            #script.open_ensight(a, config=0)
-
-        if o in ('-w', '--vrml'):
-            from enthought.mayavi.sources.vrml_importer import VRMLImporter
-            r = VRMLImporter()
-            r.initialize(a)
-            script.add_source(r)
-
-        if o in ('-3', '--3ds'):
-            from enthought.mayavi.sources.three_ds_importer import ThreeDSImporter
-            r = ThreeDSImporter()
-            r.initialize(a)
-            script.add_source(r)
+            script.open(a)
 
         if o in ('-m', '--module'):
             if '.' in a:
@@ -394,17 +315,9 @@ def process_cmd_line(app, opts, args):
         elif ext == '.py':
             err = run_script(script, arg)
             if err: # stop processing arguments.
-                return            
+                return
         else:
-            err =  "Please specify a MayaVi file with a '.mv2' extension. "\
-                   "Or a MayaVi script with a '.py' extension. "\
-                   "For details on how to load other files please read the "\
-                   "usage documentation using mayavi2 --help."
-            error(err)
-            print usage()
-            print "*"*70
-            print err
-            print "*"*70
+            script.open(arg)
 
 
 def run_script(mayavi, script_name):

@@ -104,6 +104,14 @@ class Script(HasTraits):
         """Get the currently active window."""
         return self.window
 
+    def open(self, filename):
+        """Open a data file if possible.
+        """
+        try:
+            self.engine.open(filename)
+        except:
+            exception()
+
     ######################################################################
     # Non-public interface
     ######################################################################

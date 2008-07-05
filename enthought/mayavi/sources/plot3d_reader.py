@@ -8,7 +8,7 @@ files.
 
 
 # Standard library imports.
-from os.path import basename, isfile
+from os.path import basename, isfile, exists, splitext
 
 # Enthought library imports.
 from enthought.traits.api import Trait, Instance, Str, TraitPrefixMap, Button
@@ -137,6 +137,12 @@ class PLOT3DReader(Source):
         If configure is True, it pops up a UI to configure the
         PLOT3DReader.
         """
+        if len(q_file_name) == 0:
+            base = splitext(xyz_file_name)[0]
+            qf = base + '.q'
+            if exists(qf):
+                q_file_name = qf
+
         if configure:
             # First set properties of the reader.  This is useful when
             # the data format has atypical defaults.  Automatic

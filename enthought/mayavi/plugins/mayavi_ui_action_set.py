@@ -6,6 +6,7 @@
 
 # Enthought library imports.
 from enthought.envisage.ui.action.api import Action, ActionSet, Group, Menu
+from enthought.mayavi.core.registry import registry
 
 # This package
 PKG = '.'.join(__name__.split('.')[:-1])
@@ -68,62 +69,29 @@ filters_menu = Menu(
 
 ID = 'enthought.mayavi'
 
-open_3ds = Action(
-    id            = "Open3DSFile",
-    class_name    = "enthought.mayavi.action.sources.Open3DSFile",
-    name          = "&3D Studio file",
+####################
+# Source actions.
+open_file = Action(
+    id            = "OpenFile",
+    class_name    = ID + ".action.sources.OpenFile",
+    name          = "&Open file ...",
     path        =  "MenuBar/File/LoadDataMenu"
 )
 
-open_image = Action(
-    id            = "OpenImageFile",
-    class_name    = ID + ".action.sources.OpenImageFile",
-    name          = "&Image file (PNG/JPG/BMP/PNM/TIFF)",
-    path="MenuBar/File/LoadDataMenu",
-)
+# Automatic source generation for non-open file related sources.
+SOURCE_ACTIONS = [open_file]
 
-open_plot3d = Action(
-    id            = "OpenPLOT3DFile",
-    class_name    = ID + ".action.sources.OpenPLOT3DFile",
-    name          = "&PLOT3D file",
-    path="MenuBar/File/LoadDataMenu",
-)
+for src in registry.sources:
+    if len(src.extensions) == 0:
+        action = Action(id=src.id,
+                        class_name=ID + ".action.sources." + src.id,
+                        name= src.menu_name,
+                        path="MenuBar/File/LoadDataMenu"
+                        )
+        SOURCE_ACTIONS.append(action)
 
-open_vrml = Action(
-    id            = "OpenVRMLFile",
-    class_name    = ID + ".action.sources.OpenVRMLFile",
-    name          = "V&RML2 file",
-    path="MenuBar/File/LoadDataMenu",
-)
-
-open_vtk = Action(
-    id            = "OpenVTKFile",
-    class_name    = ID + ".action.sources.OpenVTKFile",
-    name          = "&VTK file",
-    path="MenuBar/File/LoadDataMenu",
-)
-
-open_vtk_xml = Action(
-    id            = "OpenVTKXMLFile",
-    class_name    = ID + ".action.sources.OpenVTKXMLFile",
-    name          = "VTK &XML file",
-    path="MenuBar/File/LoadDataMenu",
-)
-
-parametric_surface = Action(
-    id            = "ParametricSurfaceSource",
-    class_name    = ID + ".action.sources.ParametricSurfaceSource",
-    name          = "&Create Parametric surface source",
-    path="MenuBar/File/LoadDataMenu",
-)
-
-point_load = Action(
-    id            = "PointLoadSource",
-    class_name    = ID + ".action.sources.PointLoadSource",
-    name          = "Create Point &load source",
-    path="MenuBar/File/LoadDataMenu",
-)
-
+####################
+# Save/load actions.
 save_viz = Action(
     id            = "SaveVisualization",
     class_name    = ID + ".action.save_load.SaveVisualization",
@@ -147,6 +115,7 @@ run_script = Action(
     group = "MayaviFileGroup",
     path="MenuBar/File",
 )
+
 ########################################
 # Visualize menu items.
 add_mm = Action(
@@ -625,15 +594,8 @@ class MayaviUIActionSet(ActionSet):
              modules_menu,
              filters_menu
              ]
-    actions = [open_3ds, # File menu
-               open_image, 
-               open_plot3d,
-               open_vrml,
-               open_vtk,  
-               open_vtk_xml,
-               parametric_surface,
-               point_load,
-               save_viz,
+    actions = SOURCE_ACTIONS + \
+              [save_viz, # Save load actions.
                load_viz,
                run_script,
                # Add module manager.

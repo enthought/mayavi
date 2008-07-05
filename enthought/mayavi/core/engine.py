@@ -9,6 +9,7 @@ highest level.
 # Standard library imports.
 # VTK is used to just shut off the warnings temporarily.
 import vtk
+from os.path import splitext
 
 # Enthought library imports.
 from enthought.traits.api import (HasStrictTraits, List, Str, 
@@ -24,6 +25,8 @@ from enthought.mayavi.tools.figure_manager import figure_manager
 from enthought.mayavi.core.base import Base
 from enthought.mayavi.core.scene import Scene
 from enthought.mayavi.core.common import error
+from enthought.mayavi.core.registry import registry
+
 
 ######################################################################
 # Utility functions.
@@ -246,6 +249,31 @@ class Engine(HasStrictTraits):
         finally:
             # Reset the warning state.
             o.SetGlobalWarningDisplay(w)
+
+    def open(self, filename):
+        """Open a file given a filename if possible.
+        """
+        base, ext = splitext(filename)
+        readers = registry.get_file_reader(ext)
+        if len(readers) == 0:
+            msg = 'No readers found for the extension %s'%ext
+            error(msg)
+        else:
+            cs = self.current_scene
+            if cs is None:
+                cs = self.new_scene()
+            try:
+                cs.scene.busy = True
+                reader = readers[-1]
+                callable = reader.get_callable()
+                if reader.factory is None:
+                    src = callable()
+                    src.initialize(filename)
+                else:
+                    src = callable(filename)
+                self.add_source(src)
+            finally:
+                cs.scene.busy = False
 
     ######################################################################
     # Scene creation/deletion related methods.
