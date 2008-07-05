@@ -12,13 +12,12 @@ from enthought.mayavi.scripts import mayavi2
 mayavi2.standalone(globals())
 
 
-
 print "This script is numerically intensive and requires a lot of memory."
 print "Please be patient..."
 
 import hashlib
 
-import numpy
+from numpy import ogrid, log
 from scipy import weave
 
 from enthought.mayavi import mlab as M
@@ -54,14 +53,12 @@ PyUFunc_0(char **args, npy_intp *dimensions, npy_intp *steps, void *func)
         char *ip1 = args[1];
         char *op = args[2];
         n = dimensions[0];
-        double cr, ci;
         
         for(i = 0; i < n; i++) {
-                cr = *(double *)ip0;
-                ci = *(double *)ip1;
-                double *out = (double *)op;
+                long *out = (long *)op;
                 
-                *out = log(log(iterations(cr, ci)));
+                *out = iterations(*(double *)ip0,
+                                  *(double *)ip1);
                 
                 ip0 += is0;
                 ip1 += is1;
@@ -74,7 +71,7 @@ static PyUFuncGenericFunction f_functions[] = {
 };
 
 static char f_types[] = {
-        NPY_DOUBLE, NPY_DOUBLE, NPY_DOUBLE,
+        NPY_DOUBLE, NPY_DOUBLE, NPY_LONG,
 };
 '''
 
@@ -93,28 +90,31 @@ return_val = PyUFunc_FromFuncAndData(
             1,             /* nout */
             PyUFunc_None,  /* identity */
             "mandel",      /* name */
-            "returns depth from cr, ci",         /* doc */
+            "returns iterations for z = x + i y",   /* doc */
             0);
             ''',
                       support_code=support_code,
                       verbose=0,
                       customize=ufunc_info)
-########################################################################
-# Now mandel is a UFunc which takes x, y and returns the height.
-# The height is the log of the log of the number of iterations for
-# the point z = x + iy in the complex plane.
-########################################################################
 
-x, y = numpy.ogrid[-3.0:+2.0:500j, -2.25:+2.25:500j]
+##############################################################################
+# Now mandel is a UFunc which takes x, y and returns the number of iterations
+# for the start point z = x + iy in the complex plane to diverge.
+##############################################################################
+
+x, y = ogrid[-3.0:+2.0:500j, -2.5:+2.5:500j]
+
+# mandel_array is a 2D numpy array with the height for each point
+mandel_array = log(log(mandel(x, y)))
 
 P = M.pipeline
 
-mandel_array = P.array2dsource(x, y, mandel)
-mandel_warp = P.warpscalar(mandel_array)
+mandel_struct2d = P.array2dsource(x, y, mandel_array)
+mandel_warp = P.warpscalar(mandel_struct2d)
 mandel_triangles = P.trianglefilter(mandel_warp)
 mandel_triangles = P.quadricdecimation(mandel_triangles)
 mandel_elevation = P.elevationfilter(mandel_triangles,
-                      low_point  = [0, 0, -0.4],
-                      high_point = [0, 0,  1.9])
+                      low_point  = [0, 0, mandel_array.min()],
+                      high_point = [0, 0, mandel_array.max()])
 
 P.surface(mandel_elevation, colormap='jet')
