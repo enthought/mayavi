@@ -125,190 +125,15 @@ add_mm = Action(
 
 ########################################
 # Modules.
-axes_module = Action(
-    id            = "AxesModule",
-    class_name    = ID + ".action.modules.AxesModule",
-    name          = "&Axes",
-    group = "ModulesGroup",
-    path="MenuBar/VisualizeMenu/ModulesMenu"
-)
-
-contour_grid_plane_module = Action(
-    id            = "ContourGridPlaneModule",
-    class_name    = ID + ".action.modules.ContourGridPlaneModule",
-    name          = "&ContourGridPlane",
-    group = "ModulesGroup",
-    path="MenuBar/VisualizeMenu/ModulesMenu"
-)
-
-custom_grid_plane_module = Action(
-    id            = "CustomGridPlaneModule",
-    class_name    = ID + ".action.modules.CustomGridPlaneModule",
-    name          = "CustomGridPlane",
-    group = "ModulesGroup",
-    path="MenuBar/VisualizeMenu/ModulesMenu"
-)
-
-glyph_module = Action(
-    id            = "GlyphModule",
-    class_name    = ID + ".action.modules.GlyphModule",
-    name          = "Gl&yph",
-    group = "ModulesGroup",
-    path="MenuBar/VisualizeMenu/ModulesMenu"
-)
-
-grid_plane_module = Action(
-    id            = "GridPlaneModule",
-    class_name    = ID + ".action.modules.GridPlaneModule",
-    name          = "&GridPlane",
-    group = "ModulesGroup",
-    path="MenuBar/VisualizeMenu/ModulesMenu"
-)
-
-hyper_streamline_module = Action(
-    id            = "HyperStreamlineModule",
-    class_name    = ID + ".action.modules.HyperStreamlineModule",
-    name          = "&HyperStreamline",
-    group = "ModulesGroup",
-    path="MenuBar/VisualizeMenu/ModulesMenu"
-)
-
-image_actor_module = Action(
-    id            = "ImageActorModule",
-    class_name    = ID + ".action.modules.ImageActorModule",
-    name          = "&ImageActor",
-    group = "ModulesGroup",
-    path="MenuBar/VisualizeMenu/ModulesMenu"
-)
-
-image_plane_widget_module = Action(
-    id            = "ImagePlaneWidgetModule",
-    class_name    = ID + ".action.modules.ImagePlaneWidgetModule",
-    name          = "I&magePlaneWidget",
-    group = "ModulesGroup",
-    path="MenuBar/VisualizeMenu/ModulesMenu"
-)
-
-isosurface_module = Action(
-    id            = "IsoSurfaceModule",
-    class_name    = ID + ".action.modules.IsoSurfaceModule",
-    name          = "&IsoSurface",
-    group = "ModulesGroup",
-    path="MenuBar/VisualizeMenu/ModulesMenu"
-)
-
-labels_module = Action(
-    id            = "LabelsModule",
-    class_name    = ID + ".action.modules.LabelsModule",
-    name          = "&Labels",
-    group = "ModulesGroup",
-    path="MenuBar/VisualizeMenu/ModulesMenu"
-)
-
-orientation_axes_module = Action(
-    id            = "OrientationAxesModule",
-    class_name    = ID + ".action.modules.OrientationAxesModule",
-    name          = "Orientation A&xes",
-    group = "ModulesGroup",
-    path="MenuBar/VisualizeMenu/ModulesMenu"
-)
-
-outline_module = Action(
-    id            = "OutlineModule",
-    class_name    = ID + ".action.modules.OutlineModule",
-    name          = "&Outline",
-    group = "ModulesGroup",
-    path="MenuBar/VisualizeMenu/ModulesMenu"
-)
-
-scalar_cut_plane_module = Action(
-    id            = "ScalarCutPlaneModule",
-    class_name    = ID + ".action.modules.ScalarCutPlaneModule",
-    name          = "Scalar Cut &Plane",
-    group = "ModulesGroup",
-    path="MenuBar/VisualizeMenu/ModulesMenu"
-)
-
-slice_ug_module = Action(
-    id            = "SliceUnstructuredGridModule",
-    class_name    = ID + ".action.modules.SliceUnstructuredGridModule",
-    name          = "Slice &Unstructured Grid",
-    group = "ModulesGroup",
-    path="MenuBar/VisualizeMenu/ModulesMenu"
-)
-
-sgrid_outline_module = Action(
-    id            = "StructuredGridOutlineModule",
-    class_name    = ID + ".action.modules.StructuredGridOutlineModule",
-    name          = "StructuredGridOutline",
-    group = "ModulesGroup",
-    path="MenuBar/VisualizeMenu/ModulesMenu"
-)
-
-streamline_module = Action(
-    id            = "StreamlineModule",
-    class_name    = ID + ".action.modules.StreamlineModule",
-    name          = "Stream&line",
-    group = "ModulesGroup",
-    path="MenuBar/VisualizeMenu/ModulesMenu"
-)
-
-surface_module = Action(
-    id            = "SurfaceModule",
-    class_name    = ID + ".action.modules.SurfaceModule",
-    name          = "&Surface",
-    group = "ModulesGroup",
-    path="MenuBar/VisualizeMenu/ModulesMenu"
-)
-
-tensor_glyph_module = Action(
-    id            = "TensorGlyphModule",
-    class_name    = ID + ".action.modules.TensorGlyphModule",
-    name          = "Te&nsorGlyph",
-    group = "ModulesGroup",
-    path="MenuBar/VisualizeMenu/ModulesMenu"
-)
-
-text_module = Action(
-    id            = "TextModule",
-    class_name    = ID + ".action.modules.TextModule",
-    name          = "&Text",
-    group = "ModulesGroup",
-    path="MenuBar/VisualizeMenu/ModulesMenu"
-)
-
-vector_cut_plane_module = Action(
-    id            = "VectorCutPlaneModule",
-    class_name    = ID + ".action.modules.VectorCutPlaneModule",
-    name          = "&VectorCutPlane",
-    group = "ModulesGroup",
-    path="MenuBar/VisualizeMenu/ModulesMenu"
-)
-
-vectors_module = Action(
-    id            = "VectorsModule",
-    class_name    = ID + ".action.modules.VectorsModule",
-    name          = "Vecto&rs",
-    group = "ModulesGroup",
-    path="MenuBar/VisualizeMenu/ModulesMenu"
-)
-
-volume_module = Action(
-    id            = "VolumeModule",
-    class_name    = ID + ".action.modules.VolumeModule",
-    name          = "Volum&e",
-    group = "ModulesGroup",
-    path="MenuBar/VisualizeMenu/ModulesMenu"
-)
-
-warp_vector_cut_plane_module = Action(
-    id            = "WarpVectorCutPlaneModule",
-    class_name    = ID + ".action.modules.WarpVectorCutPlaneModule",
-    name          = "&WarpVectorCutPlane",
-    group = "ModulesGroup",
-    path="MenuBar/VisualizeMenu/ModulesMenu"
-)
-
+MODULE_ACTIONS = []
+for module in registry.modules:
+    action = Action(id=module.id,
+                    class_name=ID + ".action.modules." + module.id,
+                    name= module.menu_name,
+                    group = "ModulesGroup",
+                    path="MenuBar/VisualizeMenu/ModulesMenu"
+                    )
+    MODULE_ACTIONS.append(action)
 
 ########################################
 # Filter items.
@@ -356,31 +181,8 @@ class MayaviUIActionSet(ActionSet):
                run_script,
                # Add module manager.
                add_mm,
-               # Modules.
-               axes_module,
-               contour_grid_plane_module,
-               custom_grid_plane_module,
-               glyph_module,
-               grid_plane_module,
-               hyper_streamline_module,
-               image_actor_module,
-               image_plane_widget_module,
-               isosurface_module,
-               labels_module,
-               orientation_axes_module,
-               outline_module,
-               scalar_cut_plane_module,
-               slice_ug_module,
-               sgrid_outline_module,
-               streamline_module,
-               surface_module,
-               tensor_glyph_module,
-               text_module,
-               vector_cut_plane_module,
-               vectors_module,
-               volume_module,
-               warp_vector_cut_plane_module,
-               ] + \
-               FILTER_ACTIONS + \
+              ] + \
+              MODULE_ACTIONS + \
+              FILTER_ACTIONS + \
               [help_index,
               ]

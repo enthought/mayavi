@@ -103,6 +103,6 @@ registry.sources.extend(sources)
 from enthought.mayavi.filters.metadata import filters
 registry.filters.extend(filters)
 
-#from enthought.mayavi.modules.metadata import modules
-#registry.modules.extend(modules)
+from enthought.mayavi.modules.metadata import modules
+registry.modules.extend(modules)
 
