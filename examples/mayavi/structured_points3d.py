@@ -50,7 +50,7 @@ spoints.point_data.scalars.name = 'scalars'
 # This is needed in slightly older versions of VTK (like the 5.0.2
 # release) to prevent a segfault.  VTK does not detect the correct
 # data type.
-spoints.scalar_type = get_vtk_array_type(s.dtype.char)
+spoints.scalar_type = get_vtk_array_type(s.dtype)
 
 # Uncomment the next two lines to save the dataset to a VTK XML file.
 #w = tvtk.XMLImageDataWriter(input=spoints, file_name='spoints3d.vti')
