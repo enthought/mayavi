@@ -10,8 +10,9 @@ from os.path import join
 
 # Enthought library imports.
 from enthought.traits.api import Instance, HasTraits
-from enthought.traits.ui.api import \
-     Group, Item, TreeEditor, TreeNode, ObjectTreeNode, View, Handler, UIInfo
+from enthought.traits.ui.api import (Group, Item, TreeEditor, TreeNode,
+        ObjectTreeNode, View, Handler, UIInfo)
+from enthought.traits.ui.menu import Action, Menu
 from enthought.resource.resource_path import resource_path
 from enthought.pyface.image_resource import ImageResource
 
@@ -68,14 +69,22 @@ class EngineView(HasTraits):
     def default_traits_view(self):
         """The default traits view of the Engine View.
         """
+        # The engine right menu actions.
+        new_scene_action = Action(name='New Scene',
+                                  action='object.new_scene',
+                                  tooltip='Create a new scene')
+
         # Now setup the view.
         nodes = [TreeNode(node_for=[Engine],
                           children='scenes',
-                          label='name',
+                          label='=Mayavi',
                           auto_open=True,
                           copy=False,
                           delete=False,
                           rename=False,
+                          view=View(),
+                          tooltip='=Right click to create a new scene',
+                          menu=Menu(new_scene_action)
                           ),
                  ObjectTreeNode(node_for=[Base],
                                 children='children',
@@ -88,7 +97,7 @@ class EngineView(HasTraits):
                  ]
         
         tree_editor = TreeEditor(editable=False,
-                                 hide_root=True,
+                                 hide_root=False,
                                  on_dclick='handler._on_dclick',
                                  on_select='handler._on_select',
                                  orientation='vertical',

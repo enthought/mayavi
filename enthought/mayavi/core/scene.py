@@ -1,5 +1,4 @@
 """A scene object manages a TVTK scene and objects in it.
-
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
 # Copyright (c) 2005,  Enthought, Inc.
@@ -148,4 +147,7 @@ class Scene(Base):
                     obj.start()
                 except:
                     exception()
-            
+     
+    def __menu_helper_default(self):
+        from enthought.mayavi.core.traits_menu import SourceMenuHelper
+        return SourceMenuHelper(object=self)

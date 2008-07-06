@@ -228,3 +228,6 @@ class Module(PipelineBase):
                                                    
         super(Module,self)._visible_changed(value)
 
+    def __menu_helper_default(self):
+        from enthought.mayavi.core.traits_menu import ModuleMenuHelper
+        return ModuleMenuHelper(object=self)

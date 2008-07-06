@@ -12,14 +12,13 @@ import os
 import logging
 
 # Enthought library imports.
-from enthought.traits.api import Instance, Property, Bool, Str, Python
+from enthought.traits.api import Instance, Property, Bool, Str, Python, HasTraits
 from enthought.traits.ui.api import TreeNodeObject
 from enthought.tvtk.pyface.tvtk_scene import TVTKScene
 from enthought.persistence import state_pickler
 from enthought.resource.api import resource_path
 from enthought.pyface.image_resource import ImageResource
-from enthought.traits.ui.menu \
-    import Menu, Action, Separator
+from enthought.traits.ui.menu import Menu, Action, Separator
 
 # Local imports.
 from enthought.mayavi.preferences.api import preference_manager
@@ -33,23 +32,23 @@ logger = logging.getLogger(__name__)
 #-------------------------------------------------------------------------------
 
 NewAction    = 'NewAction'
-CopyAction   = Action( name         = 'Copy',
-                       action       = 'editor._menu_copy_node',
-                       enabled_when = 'editor._is_copyable(object)' )
-CutAction    = Action( name         = 'Cut',
-                       action       = 'editor._menu_cut_node',
-                       enabled_when = 'editor._is_cutable(object)' )
-PasteAction  = Action( name         = 'Paste',
-                       action       = 'editor._menu_paste_node',
-                       enabled_when = 'editor._is_pasteable(object)' )
-DeleteAction = Action( name         = 'Delete',
-                       action       = 'editor._menu_delete_node',
-                       enabled_when = 'editor._is_deletable(object)' )
-RenameAction = Action( name         = 'Rename',
-                       action       = 'editor._menu_rename_node',
-                       enabled_when = 'editor._is_renameable(object)' )
-standard_menu_actions = [ CutAction, CopyAction, PasteAction, Separator(),
-                    DeleteAction, Separator(), RenameAction, Separator() ]
+CopyAction   = Action(name         = 'Copy',
+                      action       = 'editor._menu_copy_node',
+                      enabled_when = 'editor._is_copyable(object)' )
+CutAction    = Action(name         = 'Cut',
+                      action       = 'editor._menu_cut_node',
+                      enabled_when = 'editor._is_cutable(object)' )
+PasteAction  = Action(name         = 'Paste',
+                      action       = 'editor._menu_paste_node',
+                      enabled_when = 'editor._is_pasteable(object)' )
+DeleteAction = Action(name         = 'Delete',
+                      action       = 'editor._menu_delete_node',
+                      enabled_when = 'editor._is_deletable(object)' )
+RenameAction = Action(name         = 'Rename',
+                      action       = 'editor._menu_rename_node',
+                      enabled_when = 'editor._is_renameable(object)' )
+standard_menu_actions = [CutAction, CopyAction, PasteAction, Separator(),
+                         DeleteAction, Separator(), RenameAction, Separator()]
 
 
 ######################################################################
@@ -91,19 +90,17 @@ class Base(TreeNodeObject):
 
     # Hide and show actions
     _HideShowAction = Instance(Action,  
-                            {'name': 'Hide/Show', 'action': 'object._hideshow'}, )
+                               kw={'name': 'Hide/Show', 
+                                   'action': 'object._hideshow'}, )
 
+    # The menu shown on right-click for this.
     _menu = Instance(Menu)
 
-    def __menu_default(self):
-        menu_actions = deepcopy(standard_menu_actions) \
-                        + [self._HideShowAction ]
-        return Menu( *menu_actions)
+    # A helper that generates the menu items.
+    _menu_helper = Instance(HasTraits)
 
+    # Path to the icon for this object.
     _icon_path = Str()
-
-    def __icon_path_default(self):
-        return resource_path()
 
     # Work around problem with HasPrivateTraits.
     __ = Python
@@ -117,8 +114,8 @@ class Base(TreeNodeObject):
         """
         d = self.__dict__.copy()
         for attr in ('scene', '_is_running', '__sync_trait__',
-                     '__traits_listener__',
-                     '_menu', '_HideShowAction'):
+                     '__traits_listener__', '_icon_path',
+                     '_menu', '_HideShowAction', '_menu_helper'):
             d.pop(attr, None)
         return d
 
@@ -310,3 +307,15 @@ class Base(TreeNodeObject):
             else:
                 state_pickler.set_state(self, state)
             self._saved_state = ''
+
+    def __menu_default(self):
+        extras = []
+        if self._menu_helper is not None:
+            extras = self._menu_helper.actions
+        menu_actions = extras + deepcopy(standard_menu_actions) \
+                        + [self._HideShowAction ]
+        return Menu( *menu_actions)
+
+    def __icon_path_default(self):
+        return resource_path()
+

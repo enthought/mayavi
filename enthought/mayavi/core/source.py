@@ -191,4 +191,7 @@ class Source(PipelineBase):
             c.visible = value           
 
         super(Source,self)._visible_changed(value)
-    
+
+    def __menu_helper_default(self):
+        from enthought.mayavi.core.traits_menu import FilterMenuHelper
+        return FilterMenuHelper(object=self)
