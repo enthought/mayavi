@@ -184,7 +184,7 @@ class ArraySource(Source):
             img_data.point_data.scalars = numpy.ravel(data)            
         img_data.point_data.scalars.name = self.scalar_name
         # This is very important and if not done can lead to a segfault!
-        typecode = data.dtype.char
+        typecode = data.dtype
         img_data.scalar_type = array_handler.get_vtk_array_type(typecode)
         img_data.update() # This sets up the extents correctly.
         img_data.update_traits()
