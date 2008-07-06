@@ -111,16 +111,18 @@ There are several examples in the mayavi sources that highlight the
 creation of the most important datasets from numpy arrays.  These may
 be found in the ``examples`` directory.  Specifically they are:
 
+   * ``datasets.py`` : Generate a simple example for each type of VTK dataset.
+
    * ``polydata.py``:  Demonstrates how to create Polydata datasets
      from numpy arrays and visualize them in mayavi.
 
    * ``structured_points2d.py``: Demonstrates how to create a 2D
-     structured points (or image data) dataset from numpy arrays and
+     structured points (an ImageData) dataset from numpy arrays and
      visualize them in mayavi.  This is basically a square of
      equispaced points.
 
    * ``structured_points3d.py``: Demonstrates how to create a 3D
-     structured points (or image data) dataset from numpy arrays and
+     structured points (an ImageData) dataset from numpy arrays and
      visualize them in mayavi.  This is a cube of points that are
      regularly spaced.
 
