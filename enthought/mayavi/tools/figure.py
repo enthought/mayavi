@@ -20,14 +20,25 @@ from figure_manager import get_engine
 
 ######################################################################
 
-def figure(name=None):
+def figure(name=None, bgcolor=None, fgcolor=None):
     """ Creates a new scene or retrieves an existing scene. If the mayavi
     engine is not running this also starts it.
+
+    **Keyword arguments**
+
+        :name: The name of the scene.
+
+        :bgcolor: The color of the background (None is default).
+
+        :fgcolor: The color of the foreground (None is default).
+
     """
     engine = get_engine()
     if type(name) == IntType:
         name = 'TVTK Scene %d' % name
     if name is not None:
+        # Go looking in the engine see if the scene is not already
+        # running
         for scene in engine.scenes:
             if scene.name == name:
                 engine.current_scene = scene
@@ -39,6 +50,10 @@ def figure(name=None):
         engine.new_scene()
     view(40, 50)
     fig = engine.current_scene
+    if bgcolor is not None:
+        fig.scene.background = bgcolor
+    if fgcolor is not None:
+        fig.scene.foreground = fgcolor
     return fig
 
 def gcf():
