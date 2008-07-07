@@ -198,11 +198,10 @@ class Base(TreeNodeObject):
     def trait_view(self, name = None, view_element = None ):
         """ Gets or sets a ViewElement associated with an object's class.
 
-        Overridden here to search through a particular directory for the
-        view to use for this object. The view should be declared in the file
-        named <class name>_view. If a file with this name is not found, the
-        trait_view method on the base class will be called.
-
+        Overridden here to search for a separate file in the same directory 
+        for the view to use for this object. The view should be declared in 
+        the file named <class name>_view. If a file with this name is not 
+        found, the trait_view method on the base class will be called.
         """
 
         # If a name is specified, then call the HasTraits trait_view method
@@ -212,15 +211,15 @@ class Base(TreeNodeObject):
             return super(Base, self).trait_view(name, view_element)
 
         baseDir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        viewDir = os.path.join(baseDir, 'view')
+        viewDir = reduce(os.path.join, 
+                         [baseDir] + self.__module__.split('.')[2:-1])
         try:
             class_name = self.__module__.split('.')[-1]
-            view_filename = os.path.join(viewDir,
-                                      	 class_name + '_view.py')
+            view_filename = os.path.join(viewDir, class_name + '_view.py')
             result = {}
             execfile(view_filename, {}, result)
             view = result['view']
-        except Exception:
+        except IOError:
             logger.debug("No view found for [%s] in [%s]. "
                          "Using the base class trait_view instead.", 
                          self, viewDir)
