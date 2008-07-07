@@ -120,6 +120,11 @@ class my_build(build):
             'docs', 'mayavi', 'user_guide')
         html_zip = os.path.join(user_guide_dir, 'html_docs.zip')
         dest_dir = os.path.join(user_guide_dir, 'build', 'html')    
+        # Make sure the destination directory is created if it
+        # doesn't already exist.
+        if not os.path.exists(dest_dir):
+            os.makedirs(dest_dir)
+
         try:
             require("Sphinx")
             
