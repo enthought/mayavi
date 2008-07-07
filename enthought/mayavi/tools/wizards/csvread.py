@@ -1,6 +1,6 @@
 # This function returns an object that contains the information in a CSV file
 
-from numpy import array
+from numpy import loadtxt,  array
 from enthought.traits.api import HasTraits, Dict, Str
 from enthought.traits.ui.api import View, Item, Group
 
@@ -16,10 +16,10 @@ class csvObject(HasTraits):
 	view = View(
 			Item(name = 'filename',
 				label = 'name of CSV file: '
-				)
-			Item(name = 'dictionary',
-				label = 'dictionary of information'
-				)
+				)#,
+			#Item(name = 'dictionary',
+			#	label = 'dictionary of information'
+			#	)
 			)
 	
 	
@@ -32,13 +32,11 @@ class csvObject(HasTraits):
 		print 'data: ', data
 		self.dictionary = {}
 		for i, name in enumerate(names):
-			self.dictionary.update({name: data[i:]})	
+			self.dictionary.update({name : data[i::len(names)]})	
 			
 
 
 # script statement tests the csvObject class on a sample CSV file
-if __name__ == '__main__':
-	testfile = 'csvtest.txt'
-	myObj = csvObject(filename = testfile)
-	print "dict: ", myObj.dictionary
-	print "column 2: ", myObj.dictionary['col2']
+myObj = csvObject(filename = 'csvtest.txt')
+print "dict: ", myObj.dictionary
+print "column 2: ", myObj.dictionary['col2']
