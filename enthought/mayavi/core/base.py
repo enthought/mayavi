@@ -194,7 +194,7 @@ class Base(TreeNodeObject):
         view.title = "Edit%s: %s" % (self.type, self.name)
         view.buttons = ['OK', 'Cancel']
         return view
-	
+
     def trait_view(self, name = None, view_element = None ):
         """ Gets or sets a ViewElement associated with an object's class.
 
@@ -220,7 +220,7 @@ class Base(TreeNodeObject):
             result = {}
             execfile(view_filename, {}, result)
             view = result['view']
-        except Exception, e:
+        except Exception:
             logger.debug("No view found for [%s] in [%s]. "
                          "Using the base class trait_view instead.", 
                          self, viewDir)
