@@ -1,14 +1,96 @@
 
 from enthought.traits.api import Property, Str, Button, \
-    Any, Instance, HasStrictTraits
+    Any, Instance, HasStrictTraits, false, Enum, Dict, HasTraits
 from enthought.traits.ui.api import EnumEditor, View, Item, HGroup, \
     VGroup, spring, Group, TextEditor, HTMLEditor, InstanceEditor, \
-    TabularEditor, Label, TitleEditor
+    TabularEditor, TitleEditor
 
 from enthought.traits.ui.tabular_adapter import TabularAdapter
 
 from data_source_factory import DataSourceFactory
 
+############################################################################
+# The DataSourceWizard class
+############################################################################
+class DataSourceWizard(HasTraits):
+
+    data_sources = Dict
+
+    _data_sources_names = Property(depends_on='data_sources')
+
+    def _get__data_sources_names(self):
+        names = self.data_sources.keys()
+        names.sort()
+        return names
+
+
+    # Dictionnary mapping the views
+    view_mapping = {
+            'A set of points, that can be connected by lines':
+                    '_set_of_points_view',
+            'A set of vectors':
+                    '_set_of_vectors_view',
+            'Volumetric data':
+                    '_volumetric_data_view',
+            'A surface':
+                    '_surface_view',
+            'A planar orthogonal grid surface':
+                    '_planar_surface_view',
+            }
+
+
+    # The different data source types that we can create
+    data_type = Enum(*view_mapping.keys())
+    
+
+    # Whether or not the data points should be connected.
+    lines = false
+
+    # The scalar data slection
+    scalar_data = Str('', help="Select the array that gives the value of the "
+                            "scalars plotted.")
+
+    # Whether the position is implicitely inferred from the array indices
+    position_implicit = false(help="The positionning of the data points "
+                        "can be inferred implicitely from the shape of "
+                        "the data array, if it is a three dimensional "
+                        "array. In this case the data is assumed to be "
+                        "positioned on an orthogonal regular grid")
+
+    x_position = Str(help="Select the array that gives the x "
+                        "positon of the data points")
+    
+    y_position = Str(help="Select the array that gives the y "
+                        "positon of the data points")
+    
+    z_position = Str(help="Select the array that gives the z "
+                        "positon of the data points")
+
+    connectivity_implicit = false
+
+    connectivity = Str
+
+    vector_data = false(help="""Do you want to plot vector components?""")
+
+    # A boolean to ask the user if he wants to load scalar data
+    scalar_data_option = false
+
+    vector_u = Str
+
+    vector_v = Str
+
+    vector_w =  Str
+
+
+    #----------------------------------------------------------------------
+    # Public interface
+    #----------------------------------------------------------------------
+
+    def build_data_source(self):
+        """ This is where we apply the selections made by the user in
+            in the wizard to build the data source.
+        """
+        # Here we need to do this adaptation with the factory
 
 ############################################################################
 # class ArrayColumnWrapper
@@ -34,7 +116,7 @@ class ArrayColumnAdapter(TabularAdapter):
 ############################################################################
 # The DataSourceWizardView class
 ############################################################################
-class DataSourceWizardView(DataSourceFactory):
+class DataSourceWizardView(DataSourceWizard):
 
     _data_sources_wrappers = Property(depends_on='data_sources')
 
@@ -74,7 +156,7 @@ class DataSourceWizardView(DataSourceFactory):
     _shown_help_text = Str
 
     # A traits pointing to the object, to play well with traitsUI
-    _self = Instance(DataSourceFactory)
+    _self = Instance(DataSourceWizard)
 
     _suitable_traits_view = Property(depends_on="data_type")
 
@@ -104,7 +186,7 @@ class DataSourceWizardView(DataSourceFactory):
         """
         if self.data_type == 'A surface':
             return False
-        elif self.data_type == 'A planar surface':
+        elif self.data_type == 'A planar orthogonal grid surface':
             return False
         elif self.data_type == 'A set of vectors':
             return False
