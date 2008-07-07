@@ -182,6 +182,7 @@ def main():
     })
 
     options, args = parser.parse_args()
+    valid_cmds = ('build', 'build-zip', 'update-web')
 
     for command in args:
         if command == 'build':
@@ -203,9 +204,9 @@ def main():
                 options.target = tempfile.mkdtemp()
             svn_commit(options)
 
-        if command not in ('build', 'update-web'):
-            print 'Invalid command; only valid choices are "build" or '\
-                '"update-web"'
+        if command not in valid_cmds:
+            print 'Invalid command; only valid choices are "build", "build-'\
+                'zip" or "update-web"'
 
 if __name__ == '__main__':
     main()
