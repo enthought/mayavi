@@ -24,6 +24,9 @@ repository, it is equally simple:
 
 $ ./commit_docs.py update-web
 
+This also offers to update CEC automatically; doing so requires a password and
+permission on the CEC webserver.
+
 Of course, the commands may be combined, so this also works:
 
 $ ./commit_docs.py build update-web
@@ -129,8 +132,14 @@ def svn_commit(options):
     Popen('svn commit %s -m "%s"' % (options.target, options.commit_message),
         stdout=options.stdout, shell=True).wait()
 
+    # Try updating CEC via SSH (this will prompt for the password by itself, if
+    # necessary); also, don't allow this to run silently
+    if raw_input('Try connecting to CEC and updating? (y/n) ') == 'y':
+        Popen('ssh code.enthought.com "(cd /www/htdocs/code.enthought.com/' \
+                  'projects/mayavi/ && svn up)"', shell=True).wait()
+
     # Removed target directory
-    # shutil.rmtree(options.target)
+    shutil.rmtree(options.target)
 
 def rebuild_docs(options, targets):
     """ Create a ZIP with the documentation to the Mayavi SVN. """
