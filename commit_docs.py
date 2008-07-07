@@ -14,6 +14,11 @@ $ ./commit_docs.py build
 which will build the HTML, LaTeX, and ZIP (of the HTML) within the docs dir in
 Mayavi: docs/mayavi/user_guide/, relative to this file.
 
+To just generate the ZIP (as to commit back to Mayavi SVN), use the build-zip
+command:
+
+$ ./commit_docs.py build-zip
+
 To publish the docs by creating them elsewhere and then committing to the CEC
 repository, it is equally simple:
 
@@ -127,7 +132,7 @@ def svn_commit(options):
     # Removed target directory
     # shutil.rmtree(options.target)
 
-def rebuild_docs(options):
+def rebuild_docs(options, targets):
     """ Create a ZIP with the documentation to the Mayavi SVN. """
 
     # This should be moved to main(); currently it's a duplicate of the same
@@ -141,9 +146,9 @@ def rebuild_docs(options):
     kwargs = dict((k, getattr(options, k)) for k in
                   ('docsrc', 'target', 'stdout', 'verbose'))
 
-    build_html(**kwargs)
-    build_latex(**kwargs)
-    build_zip(**kwargs)
+    if 'html' in targets:  build_html(**kwargs)
+    if 'latex' in targets: build_latex(**kwargs)
+    if 'zip' in targets:   build_zip(**kwargs)
 
 def main():
     # Handle options
@@ -182,7 +187,12 @@ def main():
         if command == 'build':
             if options.target is None:
                 options.target = os.path.abspath('docs/mayavi/user_guide/')
-            rebuild_docs(options)
+            rebuild_docs(options, targets=('html', 'latex', 'zip',))
+
+        if command == 'build-zip':
+            if options.target is None:
+                options.target = os.path.abspath('docs/mayavi/user_guide/')
+            rebuild_docs(options, targets=('zip',))
 
         if command == 'update-web':
             print 'Note that this requires SVN commit privelidges on code.'\
