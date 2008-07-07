@@ -1,5 +1,38 @@
 #!/usr/bin/env python
 # encoding: utf-8
+
+""" Build and distribute the Mayavi documentation in an automated fashion.
+
+This script allows one to build the documentation locally within the Mayavi docs
+directory, as well as building the docs externally and then committing to the
+CEC SVN repo.
+
+To merely build the docs locally is very simple:
+
+$ ./commit_docs.py build
+
+which will build the HTML, LaTeX, and ZIP (of the HTML) within the docs dir in
+Mayavi: docs/mayavi/user_guide/, relative to this file.
+
+To publish the docs by creating them elsewhere and then committing to the CEC
+repository, it is equally simple:
+
+$ ./commit_docs.py update-web
+
+Of course, the commands may be combined, so this also works:
+
+$ ./commit_docs.py build update-web
+
+although the reverse order is not currently supported. This will not use the
+same docs for both instances: they are build independently, because the TARGET
+directory is normally in different places for each: in a temporary directory for
+update-web, and within the checkout of Mayavi for build.
+
+Using the --target option allows a different directory to be used for building
+either with build or update-web, and both will be able to use that location
+without problems.
+"""
+
 from optparse import OptionParser
 import os.path
 import shutil
@@ -92,7 +125,7 @@ def svn_commit(options):
         stdout=options.stdout, shell=True).wait()
 
     # Removed target directory
-    shutil.rmtree(options.target)
+    # shutil.rmtree(options.target)
 
 def rebuild_docs(options):
     """ Create a ZIP with the documentation to the Mayavi SVN. """
@@ -145,21 +178,24 @@ def main():
 
     options, args = parser.parse_args()
 
-    if len(args) == 1:
-        command = args[0]
-    else:
-        parser.error('only one command should be given')
+    for command in args:
+        if command == 'build':
+            if options.target is None:
+                options.target = os.path.abspath('docs/mayavi/user_guide/')
+            rebuild_docs(options)
 
-    if command == 'build':
-        if options.target is None:
-            options.target = os.path.abspath('docs/mayavi/user_guide/')
-        rebuild_docs(options)
-    elif command == 'update-web':
-        if options.target is None:
-            options.target = tempfile.mkdtemp()
-        svn_commit(options)
-    else:
-        parser.error('only valid commands are "build" and "update-web"')
+        if command == 'update-web':
+            print 'Note that this requires SVN commit privelidges on code.'\
+                'enthought.com, and the SVN must be updated on the server '\
+                'after this finishes successfully.'
+            if options.target is None or \
+                    os.path.exists(os.path.join(options.target, '.svn')):
+                options.target = tempfile.mkdtemp()
+            svn_commit(options)
+
+        if command not in ('build', 'update-web'):
+            print 'Invalid command; only valid choices are "build" or '\
+                '"update-web"'
 
 if __name__ == '__main__':
     main()
