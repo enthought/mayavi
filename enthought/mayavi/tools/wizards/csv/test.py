@@ -2,7 +2,8 @@
 import sys
 import csv
 
-f = open(sys.argv[1], 'r')
+#f = open(sys.argv[1], 'r')
+f = open('example1.csv', 'r')
 
 dialect = csv.Sniffer().sniff(f.readline())
 
