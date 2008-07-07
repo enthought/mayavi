@@ -5,6 +5,7 @@ view = View(
             Group(Item(name='enable_contours', label='Enable Contours'),
                   Group(Item(name='contour', 
                              style='custom',
+                             editor=InstanceEditor(),
                              enabled_when='object.enable_contours'
                              ),
                         show_labels=False,
