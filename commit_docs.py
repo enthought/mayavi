@@ -155,9 +155,15 @@ def rebuild_docs(options, targets):
     kwargs = dict((k, getattr(options, k)) for k in
                   ('docsrc', 'target', 'stdout', 'verbose'))
 
-    if 'html' in targets:  build_html(**kwargs)
-    if 'latex' in targets: build_latex(**kwargs)
-    if 'zip' in targets:   build_zip(**kwargs)
+    if 'html' in targets:
+        build_html(**kwargs)
+    if 'latex' in targets:
+        build_latex(**kwargs)
+    if 'zip' in targets:
+        if 'html' not in targets: built_html(**kwargs)
+        build_zip(**kwargs)
+        if 'html' not in targets:
+            shutil.rmtree(os.path.join(options.target, 'html'))
 
 def main():
     # Handle options
