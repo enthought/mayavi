@@ -26,6 +26,8 @@ from enthought.mayavi.preferences.api import preference_manager
 # Setup a logger for this module.
 logger = logging.getLogger(__name__)
 
+# Subdirectory that the Base class will check for possible external views.
+UI_DIR_NAME = ['ui']
 
 #-------------------------------------------------------------------------------
 #  The core tree node menu actions:
@@ -210,19 +212,21 @@ class Base(TreeNodeObject):
         if name:
             return super(Base, self).trait_view(name, view_element)
 
+        module = self.__module__.split('.')
+        class_filename = module[-1] + '.py'
+        module_dir_name = module[2:-1]
         baseDir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        viewDir = reduce(os.path.join, 
-                         [baseDir] + self.__module__.split('.')[2:-1])
+        view_filename = reduce(os.path.join, 
+                               [baseDir] + module_dir_name \
+                               + UI_DIR_NAME + [class_filename])
+        result = {}
         try:
-            class_name = self.__module__.split('.')[-1]
-            view_filename = os.path.join(viewDir, class_name + '_view.py')
-            result = {}
             execfile(view_filename, {}, result)
             view = result['view']
         except IOError:
             logger.debug("No view found for [%s] in [%s]. "
                          "Using the base class trait_view instead.", 
-                         self, viewDir)
+                         self, view_filename)
             view = super(Base, self).trait_view(name, view_element)
         return view
         

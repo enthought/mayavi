@@ -14,7 +14,7 @@ importing.
 
 
 from enthought.traits.ui.api import Item, Group, View, InstanceEditor
-from enthought.mayavi.components.actor_view import actor_view, texture_view
+from enthought.mayavi.components.ui.actor import actor_view, texture_view
 
 view = View(
             Group(Item(name='enable_contours', label='Enable Contours'),
