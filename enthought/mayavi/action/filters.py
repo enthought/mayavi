@@ -7,7 +7,7 @@
 import new
 
 from enthought.pyface.action.api import Action
-from enthought.traits.api import Instance, Property
+from enthought.traits.api import Instance
 
 from enthought.mayavi.plugins.script import get_imayavi
 from enthought.mayavi.core.registry import registry
@@ -23,7 +23,7 @@ class FilterAction(Action):
     # The Metadata associated with this particular action.
     metadata = Instance(Metadata)
 
-    mayavi = Property(Instance('enthought.mayavi.plugins.script.Script'))
+    mayavi = Instance('enthought.mayavi.plugins.script.Script')
 
     def __init__(self, **traits):
         super(FilterAction, self).__init__(**traits)
@@ -47,7 +47,7 @@ class FilterAction(Action):
         else:
             self.enabled = False
         
-    def _get_mayavi(self):
+    def _mayavi_default(self):
         return get_imayavi(self.window)
 
 
