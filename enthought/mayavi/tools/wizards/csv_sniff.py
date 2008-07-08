@@ -16,24 +16,23 @@ class Sniff:
         are suitable to determine required keyword arguments for
         numpy.loadtxt
 
-        For a usecase, see the loadtxt_unknown function below.
+        For a usecase, see csv_sniff.loadtxt_unknown
     """
     def __init__(self, filename):
-        self.lines = self._read_few_lines(filename)
-        self.reallines = [line for line in self.lines if line.strip()]
-        self.dialect = csv.Sniffer().sniff(self.reallines[0])
+        self._lines = self._read_few_lines(filename)
+        self._reallines = [line for line in self._lines if line.strip()]
+        self._dialect = csv.Sniffer().sniff(self._reallines[0])
 
         self._usePySplit = False
-        if self.dialect.delimiter == ' ':
+        if self._dialect.delimiter == ' ':
             self._usePySplit = True
         
-        self.numcols = len(self._split(self.reallines[0]))
+        self._numcols = len(self._split(self._reallines[0]))
         
-        for rl in self.reallines:
-            assert len(self._split(rl)) == self.numcols
+        for rl in self._reallines:
+            assert len(self._split(rl)) == self._numcols
         
-        self.datatypes = self._datatypes_of_line(self.reallines[-1])
-
+        self._datatypes = self._datatypes_of_line(self._reallines[-1])
         
     def _read_few_lines(self, filename):
         res = []
@@ -44,38 +43,24 @@ class Sniff:
                 break
         return res
     
-    def _show(self):
-        for a in dir(self.dialect):
-            if a.startswith('_'):
-                continue
-            print '%20s: %r' % (a, getattr(self.dialect, a))
-    
     def _split(self, line):
         if self._usePySplit:
             return line.split()
         else:
-            return csv.reader([line], self.dialect).next()
+            return csv.reader([line], self._dialect).next()
     
-    def delimiter(self):
-        return self.dialect.delimiter
-    
-    def skiprows(self):
-        for n, line in enumerate(self.lines):
-            if self.datatypes == self._datatypes_of_line(line):
-                return n
-    
-    def names(self):
-        line0 = self.reallines[0]
-        if self._datatypes_of_line(line0) == self.datatypes:
-            return tuple('Column %i' % (i+1) for i in xrange(self.numcols))
+    def _names(self):
+        line0 = self._reallines[0]
+        if self._datatypes_of_line(line0) == self._datatypes:
+            return tuple('Column %i' % (i+1) for i in xrange(self._numcols))
         else:
             return tuple(t.strip('"\' ') for t in self._split(line0))
 
-    def formats(self):
+    def _formats(self):
         res = []
-        for c, t in enumerate(self.datatypes):
+        for c, t in enumerate(self._datatypes):
             if t == str:
-                items = [len(self._split(l)[c]) for l in self.reallines[1:]]
+                items = [len(self._split(l)[c]) for l in self._reallines[1:]]
                 items.append(1)
                 res.append('S%i' % max(items))
             else:
@@ -83,10 +68,6 @@ class Sniff:
             
         return tuple(res)
     
-    def dtype(self):
-        return {'names': self.names(),
-                'formats': self.formats()}
-
     def _datatypes_of_line(self, line):
 
         def isFloat(s):
@@ -104,16 +85,30 @@ class Sniff:
                 res.append(str)
         return tuple(res)
 
+    #-----------------------------------------------------------------------
+    # Public API:
+    #-----------------------------------------------------------------------
+    
+    def delimiter(self):
+        return self._dialect.delimiter
+    
+    def skiprows(self):
+        for n, line in enumerate(self._lines):
+            if self._datatypes == self._datatypes_of_line(line):
+                return n
+    
+    def dtype(self):
+        return {'names': self._names(),
+                'formats': self._formats()}
 
-def loadtxt_unknown(filename, verbose=False):
+
+
+def loadtxt_unknown(filename):
     """ Like numpy.loadtxt but more general, in the sense that it uses
         Sniff first to determine the necessary keyword arguments for loadtxt.
     """
     s = Sniff(filename)
 
-    if verbose:
-        s._show()
-    
     delimiter = s.delimiter()
     if delimiter == ' ':
         delimiter = None
@@ -134,13 +129,3 @@ def array2dict(arr):
         d[k] = arr[k]
         
     return d
-
-
-if __name__ == '__main__':
-    import sys
-    
-    fname = sys.argv[1]
-
-    x = loadtxt_unknown(fname, verbose=1)
-    
-    print array2dict(x)
