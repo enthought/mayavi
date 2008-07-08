@@ -25,6 +25,10 @@ class FilterAction(Action):
 
     mayavi = Instance('enthought.mayavi.plugins.script.Script')
 
+    # We disable the actions by default since these are dynamically
+    # enabled depending on the current selection or object.
+    enabled = False
+
     def __init__(self, **traits):
         super(FilterAction, self).__init__(**traits)
         self.mayavi.engine.on_trait_change(self._update_enabled,
