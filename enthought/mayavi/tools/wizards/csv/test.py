@@ -2,7 +2,6 @@
 import sys
 import csv
 
-#f = open(sys.argv[1], 'r')
 f = open('example1.csv', 'r')
 
 dialect = csv.Sniffer().sniff(f.readline())
@@ -17,3 +16,13 @@ for a in dir(dialect):
         continue
 
     print '%20s: %r' % (a, getattr(dialect, a))
+
+
+from numpy import loadtxt, array
+
+a = loadtxt('example5.csv',
+            dtype={'names':   ('title','weight', 'id'),
+                   'formats': ('S4',      float,  int)},
+
+#              delimiter=' ',
+              skiprows=0)
