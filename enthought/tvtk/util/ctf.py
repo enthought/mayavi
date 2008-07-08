@@ -117,7 +117,7 @@ def rescale_ctfs(volume_property, new_range):
     def _rescale_value(x, old, new):
         nx = (x - old[0])/(old[1] - old[0])
         return new[0] + nx*(new[1] - new[0])
-    if new_range != old_range:
+    if new_range[0] != old_range[0] and new_range[1] != old_range[1]:
         s_d = save_ctfs(volume_property)
         # Set the new range making sure that they are in the right order.
         s1, s2 = new_range
