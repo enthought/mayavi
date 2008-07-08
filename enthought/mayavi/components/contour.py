@@ -16,7 +16,6 @@ import numpy
 # Enthought library imports.
 from enthought.traits.api import Instance, List, Tuple, Bool, Int, Range, \
                                  Float, Property
-from enthought.traits.ui.api import View, Group, Item
 from enthought.tvtk.api import tvtk
 
 # Local imports.
