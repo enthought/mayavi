@@ -177,6 +177,8 @@ class VTKMethodParser:
         skip = ['GetInput', 'SetInput']
         if 'GetViewProp' in methods and 'GetProp' in methods:
             ignore.extend(['GetProp', 'SetProp'])
+        if 'GetViewProps' in methods and 'GetProps' in methods:
+            ignore.extend(['GetProps', 'SetProps'])
         for m in methods[:]:
             if m in ignore and m not in skip:
                 methods.remove(m)

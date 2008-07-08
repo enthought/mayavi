@@ -191,9 +191,15 @@ class TestTVTK(unittest.TestCase):
 
         # Test for a bug with collections and the object cache.
         r = tvtk.Renderer()
-        p = r.props
+        def _get_props(obj):
+            if hasattr(obj, 'view_props'):
+                return obj.view_props
+            else:
+                return obj.props
+
+        p = _get_props(r)
         l1 = len(tvtk_base._object_cache)
-        p1 = r.props
+        p1 = _get_props(r)
         del p1
         l2 = len(tvtk_base._object_cache)
         self.assertEqual(l1, l2)
