@@ -86,27 +86,27 @@ class Contour(Component):
     ########################################
     # The component's view
 
-    view = View(Group(Item(name='filled_contours',
-                           defined_when='show_filled_contours'),
-                      Item(name='auto_contours'), '_',
-                      Item(name='contours',
-                           style='custom',
-                           visible_when='not auto_contours'),
-                      Item(name='number_of_contours',
-                           visible_when='auto_contours'),
-                      Item(name='minimum_contour',
-                           visible_when='auto_contours'),
-                      Item(name='maximum_contour',
-                           visible_when='auto_contours'),
-                      Item(name='auto_update_range'),
-                      Item(name='_data_min',
-                           label='Data minimum',
-                           visible_when='not auto_update_range'),
-                      Item(name='_data_max',
-                           label='Data maximum',
-                           visible_when='not auto_update_range'),
-                     )
-                )
+    #view = View(Group(Item(name='filled_contours',
+    #                       defined_when='show_filled_contours'),
+    #                  Item(name='auto_contours'), '_',
+    #                  Item(name='contours',
+    #                       style='custom',
+    #                       visible_when='not auto_contours'),
+    #                  Item(name='number_of_contours',
+    #                       visible_when='auto_contours'),
+    #                  Item(name='minimum_contour',
+    #                       visible_when='auto_contours'),
+    #                  Item(name='maximum_contour',
+    #                       visible_when='auto_contours'),
+    #                  Item(name='auto_update_range'),
+    #                  Item(name='_data_min',
+    #                       label='Data minimum',
+    #                       visible_when='not auto_update_range'),
+    #                  Item(name='_data_max',
+    #                       label='Data maximum',
+    #                       visible_when='not auto_update_range'),
+    #                 )
+    #            )
 
     ########################################
     # Private traits.
