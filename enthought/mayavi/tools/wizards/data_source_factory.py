@@ -1,8 +1,8 @@
 
 from numpy import c_, zeros, arange
 
-from enthought.traits.api import HasTraits, \
-    false, CArray, Traits, Instance
+from enthought.traits.api import HasStrictTraits, \
+    false, CArray, Trait, Instance
 
 from enthought.mayavi.sources.vtk_data_source import VTKDataSource
 from enthought.mayavi.sources.array_source import ArraySource
@@ -10,12 +10,12 @@ from enthought.mayavi.core.source import Source
 
 from enthought.tvtk.api import tvtk
 
-ArrayOrNone = Traits(None, CArray)
+ArrayOrNone = Trait(None, (None, CArray))
 
 ############################################################################
 # The DataSourceFactory class
 ############################################################################
-class DataSourceFactory(HasTraits):
+class DataSourceFactory(HasStrictTraits):
     """ Factory for creating data sources. The information about the 
         organisation of the data is given by setting the public traits.
     """
@@ -25,6 +25,9 @@ class DataSourceFactory(HasTraits):
 
     # Whether the data is on an orthogonal grid
     orthogonal_grid = false
+
+    # If the data is unstructured
+    unstructured = false
 
     # The position of the data points
     position_x = ArrayOrNone
@@ -67,7 +70,7 @@ class DataSourceFactory(HasTraits):
         """ Adds the scalar data to the vtk source.
         """
         if self.scalar_data is not None:
-            scalars = self.scalars.ravel()
+            scalars = self.scalar_data.ravel()
             self._vtk_source.point_data.scalars = scalars
 
 
@@ -97,11 +100,11 @@ class DataSourceFactory(HasTraits):
             lines[:,0] = arange(0, np-0.5, 1, 'l')
             lines[:,1] = arange(1, np+0.5, 1, 'l')
         self._vtk_source = tvtk.PolyData(points=points, lines=lines)
-        if self.connectivity:
-            assert self.connectivity.shape[1] == 3, \
+        if self.connectivity_triangles is not None:
+            assert self.connectivity_triangles.shape[1] == 3, \
                     "The connectivity list must be Nx3."
-            self._vtk_source.polys = self.connectivity
-        self._mayavi_source = VTKDataSource(self._vtk_source)
+            self._vtk_source.polys = self.connectivity_triangles
+        self._mayavi_source = VTKDataSource(data=self._vtk_source)
 
 
     def _mk_image_data(self):
@@ -130,44 +133,116 @@ class DataSourceFactory(HasTraits):
         if z.ndim == 3:
             z = z[0, 0, :]
         # FIXME: We should check array size here.
-        rg.dimensions = (x.shape, y.shape, z.shape)
+        rg.dimensions = (x.size, y.size, z.size)
         rg.x_coordinates = x
         rg.y_coordinates = y
         rg.z_coordinates = z
         self._vtk_source = rg
-        self._mayavi_source = VTKDataSource(self._vtk_source)
+        self._mayavi_source = VTKDataSource(data=self._vtk_source)
         
 
     def _mk_structured_grid(self):
         """ Creates a StructuredGrid VTK data set using the factory's 
             attributes.
         """
+        # FIXME: We need to figure out the dimensions of the data
+        # here, if any.
         sg = tvtk.StructuredGrid(dimensions=self.scalar_data.shape)
         sg.points = c_[ self.position_x.ravel(), 
                         self.position_y.ravel(),
                         self.position_z.ravel(),
                       ]
         self._vtk_source = sg
-        self._mayavi_source = VTKDataSource(self._vtk_source)
+        self._mayavi_source = VTKDataSource(data=self._vtk_source)
  
 
     #----------------------------------------------------------------------
     # Public interface
     #----------------------------------------------------------------------
 
-    def build_data_source(self):
+    def build_data_source(self, **traits):
         """ Uses all the information given by the user on his data
             structure to figure out the right data structure.
         """
+        self.set(**traits)
         if self.position_implicit:
             self._mk_image_data()
         elif self.orthogonal_grid:
             self._mk_rectilinear_grid()
-        elif self.connectivity is None:
-            self._mk_structured_grid()
+        elif self.connectivity_triangles is None:
+            if self.unstructured:
+                self._mk_polydata()
+            else:
+                self._mk_structured_grid()
         else:
             self._mk_polydata()
         self._add_scalar_data()
         self._add_vector_data()
         return self._mayavi_source
 
+
+def view(src):
+    """ Open up a mayavi scene and display the dataset in it.
+    """
+    from enthought.mayavi import mlab
+    mayavi = mlab.get_engine()
+    fig = mlab.figure(bgcolor=(1, 1, 1), fgcolor=(0, 0, 0),)
+    mayavi.add_source(src) 
+
+    mlab.pipeline.surface(src, opacity=0.1)
+    mlab.pipeline.surface(mlab.pipeline.extractedges(src),
+                            color=(0, 0, 0), )
+
+
+
+def test_image_data():
+    from numpy import random
+    scalars = random.random((3, 3, 3))
+    factory = DataSourceFactory()
+    image_data = factory.build_data_source(scalar_data=scalars,
+                                       position_implicit=True,)
+    view(image_data)
+
+
+def test_rectilinear_grid():
+    from numpy import random, mgrid
+    factory = DataSourceFactory()
+
+    scalars = random.random((3, 3, 3))
+    x = arange(3)**2 
+    y = 0.5*arange(3)**2
+    z = arange(3)**2
+    
+    rectilinear_grid = factory.build_data_source(scalar_data=scalars,
+                                       position_implicit=False,
+                                       orthogonal_grid=True,
+                                       position_x=x,
+                                       position_y=y,
+                                       position_z=z)
+    view(rectilinear_grid)
+
+
+def test_structured_grid():
+    from numpy import random, mgrid
+    factory = DataSourceFactory()
+
+    scalars = random.random((3, 3, 3))
+    x, y, z = mgrid[0:3, 0:3, 0:3]
+    x = x + 0.5*random.random(x.shape)
+    y = y + 0.5*random.random(y.shape)
+    z = z + 0.5*random.random(z.shape)
+
+    structured_grid = factory.build_data_source(scalar_data=scalars,
+                                       position_x=x,
+                                       position_y=y,
+                                       position_z=z)
+    view(structured_grid)
+    
+
+
+if __name__ == '__main__':
+    from enthought.pyface.api import GUI
+    test_image_data()
+    test_rectilinear_grid()
+    test_structured_grid()
+    GUI().start_event_loop()
