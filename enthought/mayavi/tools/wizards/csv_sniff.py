@@ -2,9 +2,11 @@
 # Copyright (c) 2008, Ilan Schnell, Enthought, Inc.
 # License: BSD Style.
 
+# TODO: should derive from HasTraits
+
 import csv
 
-# FIXME, see loadtxt.py (should really be the loadtxt from numpy)
+# FIXME: see loadtxt.py (should really be the loadtxt from numpy)
 from enthought.mayavi.tools.wizards.loadtxt import loadtxt
 
 
@@ -42,6 +44,9 @@ class Sniff(object):
         if line0.startswith(('#', '%')):
             self._comment = line0[0]
             self._reallines[0] = self._dialect.delimiter.join(line0.split()[1:])
+            for i in xrange(1, len(self._reallines)):
+                self._reallines[i] = \
+                    self._reallines[i].split(self._comment)[0]
     
     def _read_few_lines(self, filename):
         res = []
@@ -98,7 +103,7 @@ class Sniff(object):
     # Public API:
     #-----------------------------------------------------------------------
     
-    def comment(self):
+    def comments(self):
         return self._comment
     
     def delimiter(self):
@@ -126,9 +131,10 @@ def loadtxt_unknown(filename):
         delimiter = None
 
     return loadtxt(filename,
-                   delimiter=delimiter,
-                   dtype=s.dtype(),
-                   skiprows=s.skiprows())
+                   delimiter = delimiter,
+                   comments  = s.comments(),
+                   dtype     = s.dtype(),
+                   skiprows  = s.skiprows())
 
 
 def array2dict(arr):
