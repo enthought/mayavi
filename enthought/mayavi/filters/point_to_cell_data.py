@@ -8,6 +8,8 @@ from enthought.tvtk.api import tvtk
 
 # Local imports
 from enthought.mayavi.filters.cell_to_point_data import CellToPointData
+from enthought.mayavi.core.pipeline_info import PipelineInfo
+
 
 ######################################################################
 # `PointToCellData` class.
@@ -19,3 +21,11 @@ class PointToCellData(CellToPointData):
     # The actual TVTK filter that this class manages.
     filter = Instance(tvtk.PointDataToCellData, args=(), allow_none=False)
     
+    input_info = PipelineInfo(datasets=['any'],
+                              attribute_types=['point'],
+                              attributes=['any'])
+
+    output_info = PipelineInfo(datasets=['any'],
+                               attribute_types=['cell'],
+                               attributes=['any'])
+

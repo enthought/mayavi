@@ -13,6 +13,7 @@ from enthought.persistence import state_pickler
 # Local imports.
 from enthought.mayavi.core.common import error
 from enthought.mayavi.core.pipeline_base import PipelineBase
+from enthought.mayavi.core.pipeline_info import PipelineInfo
 from enthought.mayavi.core.module import Module
 from enthought.mayavi.filters.optional import Optional
 from enthought.mayavi.filters.mask_points import MaskPoints
@@ -57,6 +58,10 @@ class Labels(Module):
 
     # The mapper for the labels.
     mapper = Instance(tvtk.LabeledDataMapper, args=())
+
+    input_info = PipelineInfo(datasets=['any'],
+                              attribute_types=['any'],
+                              attributes=['any'])    
 
     ########################################
     # Private traits.

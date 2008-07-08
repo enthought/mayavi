@@ -8,6 +8,7 @@ from enthought.tvtk.api import tvtk
 
 # Local imports
 from enthought.mayavi.filters.poly_data_normals import PolyDataNormals
+from enthought.mayavi.core.pipeline_info import PipelineInfo
 
 
 ######################################################################
@@ -25,3 +26,12 @@ class WarpScalar(PolyDataNormals):
 
     # The actual TVTK filter that this class manages.
     filter = Instance(tvtk.WarpScalar, args=(), allow_none=False)
+
+    input_info = PipelineInfo(datasets=['any'],
+                              attribute_types=['any'],
+                              attributes=['scalars'])
+
+    output_info = PipelineInfo(datasets=['any'],
+                               attribute_types=['any'],
+                               attributes=['any'])
+

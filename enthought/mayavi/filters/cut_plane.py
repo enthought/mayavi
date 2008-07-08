@@ -6,6 +6,7 @@
 from enthought.mayavi.components.cutter import Cutter
 from enthought.mayavi.components.implicit_plane import ImplicitPlane
 from enthought.mayavi.filters.collection import Collection
+from enthought.mayavi.core.pipeline_info import PipelineInfo
 
 ################################################################################
 # `CutPlane` class.
@@ -18,6 +19,13 @@ class CutPlane(Collection):
     """
     # The version of this class.  Used for persistence.
     __version__ = 0
+
+    input_info = PipelineInfo(datasets=['any'],
+                              attribute_types=['any'],
+                              attributes=['any'])
+    output_info = PipelineInfo(datasets=['poly_data'],
+                               attribute_types=['any'],
+                               attributes=['any'])
 
     ######################################################################
     # `Filter` interface.

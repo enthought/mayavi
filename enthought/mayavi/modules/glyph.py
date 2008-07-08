@@ -15,6 +15,7 @@ from enthought.tvtk.api import tvtk
 from enthought.mayavi.core.module import Module
 from enthought.mayavi.components import glyph
 from enthought.mayavi.components.actor import Actor
+from enthought.mayavi.core.pipeline_info import PipelineInfo
 
 
 ######################################################################
@@ -30,6 +31,10 @@ class Glyph(Module):
 
     # The Glyph component.
     actor = Instance(Actor, allow_none=False)
+
+    input_info = PipelineInfo(datasets=['any'],
+                              attribute_types=['any'],
+                              attributes=['any'])    
 
     ########################################
     # View related traits.

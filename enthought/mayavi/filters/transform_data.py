@@ -20,6 +20,7 @@ from enthought.persistence import state_pickler
 # Local imports
 from enthought.mayavi.core.filter import Filter
 from enthought.mayavi.core.common import error
+from enthought.mayavi.core.pipeline_info import PipelineInfo
 
 
 ######################################################################
@@ -48,6 +49,18 @@ class TransformData(Filter):
                         TraitMap({'interactive':'InteractionEvent',
                                   'semi-interactive': 'EndInteractionEvent'}),
                         desc='speed at which the data should be updated')
+
+    input_info = PipelineInfo(datasets=['poly_data', 
+                                        'structured_grid',
+                                        'unstructured_grid'],
+                              attribute_types=['any'],
+                              attributes=['any'])
+
+    output_info = PipelineInfo(datasets=['poly_data', 
+                                         'structured_grid',
+                                         'unstructured_grid'],
+                               attribute_types=['any'],
+                               attributes=['any'])
 
     ########################################
     # View related code.

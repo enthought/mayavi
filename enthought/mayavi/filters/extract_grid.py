@@ -16,6 +16,7 @@ from enthought.tvtk.api import tvtk
 # Local imports
 from enthought.mayavi.core.common import error
 from enthought.mayavi.filters.filter_base import FilterBase
+from enthought.mayavi.core.pipeline_info import PipelineInfo
 
 
 ######################################################################
@@ -67,6 +68,18 @@ class ExtractGrid(FilterBase):
 
     # The actual TVTK filter that this class manages.
     filter = Instance(tvtk.Object, tvtk.ExtractVOI(), allow_none=False)
+
+    input_info = PipelineInfo(datasets=['image_data',
+                                        'rectilinear_grid',
+                                        'structured_grid'],
+                              attribute_types=['any'],
+                              attributes=['any'])
+
+    output_info = PipelineInfo(datasets=['image_data',
+                                         'rectilinear_grid',
+                                         'structured_grid'],
+                               attribute_types=['any'],
+                               attributes=['any'])
 
     ########################################
     # Private traits.

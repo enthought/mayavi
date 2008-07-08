@@ -18,6 +18,8 @@ from enthought.tvtk import messenger
 from enthought.mayavi.core.source import Source
 from enthought.mayavi.core.common import handle_children_state
 from enthought.mayavi.core.traits import DEnum
+from enthought.mayavi.core.pipeline_info import (PipelineInfo, 
+        get_tvtk_dataset_name)
 from vtk_xml_file_reader import get_all_attributes
 
 
@@ -58,6 +60,11 @@ class VTKDataSource(Source):
     # The VTK dataset to manage.
     data = Instance(tvtk.DataSet, allow_none=False)
     
+    # Information about what this object can produce.
+    output_info = PipelineInfo(datasets=['any'], 
+                               attribute_types=['any'],
+                               attributes=['any'])
+
     ########################################
     # Dynamic traits: These traits are dynamic and are updated on the
     # _update_data method.
@@ -197,6 +204,9 @@ class VTKDataSource(Source):
         else:
             self.outputs = [self.data]
         self.data_changed = True
+
+        self.output_info.datasets = \
+                [get_tvtk_dataset_name(self.outputs[0])]
 
         # Add an observer to the VTK dataset after removing the one
         # for the old dataset.  We use the messenger to avoid an

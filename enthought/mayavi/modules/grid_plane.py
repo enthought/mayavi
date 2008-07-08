@@ -8,12 +8,12 @@
 # Enthought library imports.
 from enthought.traits.api import Instance
 from enthought.traits.ui.api import View, Group, Item
-from enthought.tvtk.api import tvtk
 
 # Local imports
 from enthought.mayavi.core.module import Module
 from enthought.mayavi.components import grid_plane
 from enthought.mayavi.components.actor import Actor
+from enthought.mayavi.core.pipeline_info import PipelineInfo
 
 
 ######################################################################
@@ -27,6 +27,13 @@ class GridPlane(Module):
     grid_plane = Instance(grid_plane.GridPlane, allow_none=False)
 
     actor = Instance(Actor, allow_non=False)
+
+    input_info = PipelineInfo(datasets=['image_data', 
+                                        'structured_grid',
+                                        'rectilinear_grid'],
+                              attribute_types=['any'],
+                              attributes=['any'])
+
 
     view = View(Group(Item(name='grid_plane', style='custom'),
                       Item(name='actor', style='custom'),

@@ -9,7 +9,7 @@ create new modules.
 # License: BSD Style.
 
 # Enthought library imports.
-from enthought.traits.api import Bool, List, Enum, Instance
+from enthought.traits.api import Bool, Enum, Instance
 from enthought.traits.ui.api import Item, Group, View, ListEditor
 from enthought.persistence import state_pickler
 
@@ -216,6 +216,11 @@ class GenericModule(Module):
             if self.actor is None:
                 if isinstance(component, Actor):
                     self.actor = component
+
+        if len(self.components) == 0:
+            self.input_info.datasets = ['none']
+        else:
+            self.input_info.copy_traits(self.components[0].input_info)
 
         self._pipeline_ready = False
         self._setup_pipeline()

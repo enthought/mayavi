@@ -8,6 +8,7 @@ from enthought.tvtk.api import tvtk
 
 # Local imports
 from enthought.mayavi.filters.filter_base import FilterBase
+from enthought.mayavi.core.pipeline_info import PipelineInfo
 
 
 ######################################################################
@@ -24,6 +25,15 @@ class CellToPointData(FilterBase):
 
     # The actual TVTK filter that this class manages.
     filter = Instance(tvtk.CellDataToPointData, args=(), allow_none=False)
+
+    # Information about what this object can consume/produce.
+    input_info = PipelineInfo(datasets=['any'],
+                              attribute_types=['cell'],
+                              attributes=['any'])
+
+    output_info = PipelineInfo(datasets=['any'],
+                               attribute_types=['any'],
+                               attributes=['any'])
 
     def update_pipeline(self):
         # Do nothing if there is no input.

@@ -12,6 +12,7 @@ from enthought.tvtk.api import tvtk
 
 # Local imports.
 from enthought.mayavi.core.filter import Filter
+from enthought.mayavi.core.pipeline_info import PipelineInfo
 
 
 ################################################################################
@@ -60,6 +61,14 @@ class ImageDataProbe(Filter):
 
     # Name of rescaled scalar to generate.
     rescaled_scalar_name = Str('probe_us_array')
+
+    input_info = PipelineInfo(datasets=['image_data'],
+                              attribute_types=['any'],
+                              attributes=['any'])
+
+    output_info = PipelineInfo(datasets=['image_data'],
+                               attribute_types=['any'],
+                               attributes=['any'])
 
     ########################################
     # Private traits.

@@ -16,6 +16,7 @@ from enthought.tvtk.api import tvtk
 # Local imports
 from enthought.mayavi.core.module import Module
 from enthought.mayavi.components.actor import Actor
+from enthought.mayavi.core.pipeline_info import PipelineInfo
 
 
 ######################################################################
@@ -36,6 +37,10 @@ class Outline(Module):
                         desc='if outline mode is "full" or "cornered"')
 
     actor = Instance(Actor, allow_none=False)
+
+    input_info = PipelineInfo(datasets=['any'],
+                              attribute_types=['any'],
+                              attributes=['any'])    
 
     # Create the UI for the traits.
 

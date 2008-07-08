@@ -13,6 +13,8 @@ from enthought.traits.api import Instance
 from enthought.tvtk.api import tvtk
 
 # Local imports.
+from enthought.mayavi.core.pipeline_info import (PipelineInfo, 
+        get_tvtk_dataset_name)
 from vtk_xml_file_reader import VTKXMLFileReader 
 
 
@@ -36,6 +38,11 @@ class VTKFileReader(VTKXMLFileReader):
                           'read_all_vectors': True,
                           'read_all_tensors': True,
                           'read_all_fields': True} )    
+
+    # Information about what this object can produce.
+    output_info = PipelineInfo(datasets=['any'], 
+                               attribute_types=['any'],
+                               attributes=['any'])
 
     ######################################################################
     # Non-public interface
@@ -69,6 +76,9 @@ class VTKFileReader(VTKXMLFileReader):
             self.update_data()
 
             self.outputs = outputs
+
+            # FIXME: The output info is only based on the first output.
+            self.output_info.datasets = [get_tvtk_dataset_name(outputs[0])]
 
             # Change our name on the tree view
             self.name = self._get_name()

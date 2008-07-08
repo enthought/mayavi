@@ -12,9 +12,9 @@ attributes.
 # Enthought library imports.
 from enthought.traits.api import Instance
 from enthought.traits.ui.api import View, Group, Item
-from enthought.tvtk.api import tvtk
 
 # Local imports
+from enthought.mayavi.core.pipeline_info import PipelineInfo
 from enthought.mayavi.core.module import Module
 from enthought.mayavi.components.implicit_plane import ImplicitPlane
 from enthought.mayavi.components.cutter import Cutter
@@ -41,6 +41,10 @@ class VectorCutPlane(Module):
 
     # The Glyph component.
     actor = Instance(Actor, allow_none=False)
+
+    input_info = PipelineInfo(datasets=['any'],
+                              attribute_types=['any'],
+                              attributes=['vectors'])    
 
     ########################################
     # View related traits.

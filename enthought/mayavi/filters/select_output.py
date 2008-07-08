@@ -10,6 +10,7 @@ source.  """
 from enthought.traits.api import Int, Range
 from enthought.traits.ui.api import View, Group, Item
 from enthought.mayavi.core.filter import Filter
+from enthought.mayavi.core.pipeline_info import PipelineInfo
 
 
 ################################################################################
@@ -27,6 +28,14 @@ class SelectOutput(Filter):
                          low='_min_index',
                          high='_max_index')
     
+    input_info = PipelineInfo(datasets=['any'],
+                              attribute_types=['any'],
+                              attributes=['any'])
+
+    output_info = PipelineInfo(datasets=['any'],
+                               attribute_types=['any'],
+                               attributes=['any'])
+
     # The minimum output index of our input.
     _min_index = Int(0, desc='the minimum output index')
     # The maximum output index of our input.

@@ -15,6 +15,7 @@ from enthought.tvtk.api import tvtk
 
 # Local imports.
 from enthought.mayavi.core.file_data_source import FileDataSource
+from enthought.mayavi.core.pipeline_info import PipelineInfo
 
 
 ########################################################################
@@ -31,6 +32,9 @@ class ImageReader(FileDataSource):
 
     # The Image data file reader.
     reader = Instance(tvtk.Object, allow_none=False)    
+
+    # Information about what this object can produce.
+    output_info = PipelineInfo(datasets=['image_data'])
 
     # Our view.
     view = View(Group(Item(name='base_file_name'),

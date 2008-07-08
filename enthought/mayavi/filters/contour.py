@@ -6,7 +6,8 @@
 from enthought.traits.api import Instance
 
 # Local imports.
-from enthought.mayavi.components.contour import Contour
+from enthought.mayavi.components.contour import Contour as ContourComponent
+from enthought.mayavi.core.pipeline_info import PipelineInfo
 from enthought.mayavi.filters.wrapper import Wrapper
 
 ################################################################################
@@ -21,5 +22,12 @@ class Contour(Wrapper):
     __version__ = 0
 
     # The contour component this wraps.
-    filter = Instance(Contour, args=())
+    filter = Instance(ContourComponent, args=())
 
+    input_info = PipelineInfo(datasets=['any'],
+                              attribute_types=['point'],
+                              attributes=['any'])
+
+    output_info = PipelineInfo(datasets=['any'],
+                               attribute_types=['any'],
+                               attributes=['any'])

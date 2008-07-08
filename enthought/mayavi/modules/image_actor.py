@@ -12,6 +12,7 @@ from enthought.tvtk.api import tvtk
 
 # Local imports
 from enthought.mayavi.core.module import Module
+from enthought.mayavi.core.pipeline_info import PipelineInfo
 
 
 ######################################################################
@@ -21,6 +22,10 @@ class ImageActor(Module):
 
     # An image actor.
     actor = Instance(tvtk.ImageActor, allow_none=False)
+
+    input_info = PipelineInfo(datasets=['image_data'],
+                              attribute_types=['any'],
+                              attributes=['any'])    
 
     ########################################
     # The view of this module.

@@ -6,16 +6,12 @@ basically abstracts out the common parts of the pipeline interface.
 # Copyright (c) 2005-2008, Enthought, Inc.
 # License: BSD Style.
 
-
 # Enthought library imports.
 from enthought.traits.api import List, Event, Bool, Instance
 
 # Local imports.
 from enthought.mayavi.core.base import Base
-from enthought.traits.ui.menu \
-    import Menu, Action, Separator
-from copy import deepcopy
-
+from enthought.mayavi.core.pipeline_info import PipelineInfo
 
 
 ######################################################################
@@ -38,6 +34,12 @@ class PipelineBase(Base):
     # this list while the widgets are renderered *is* safe and will do
     # the right thing.
     widgets = List
+
+    # Information about what this object can consume.
+    input_info = Instance(PipelineInfo)
+
+    # Information about what this object can produce.
+    output_info = Instance(PipelineInfo)
 
     ########################################
     # Events.

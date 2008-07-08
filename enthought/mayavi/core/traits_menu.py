@@ -32,6 +32,28 @@ class MenuHelper(HasTraits):
     ######################################################################
     # Public interface.
     ######################################################################
+    def check_active(self, metadata):
+        """Check if the `metadata` passed can be added to `self.object`.
+        """
+        # FIXME: This should also have logic for checking the attributes
+        # and attribute_types.
+        output_info = self.object.output_info
+        input_info = metadata.input_info
+        if output_info is None:
+            return True
+        elif input_info is None:
+            return True
+        output_datasets = output_info.datasets
+        input_datasets = input_info.datasets
+        if 'none' in output_datasets:
+            return False
+        if 'any' in input_datasets:
+            return True
+        for d in input_datasets:
+            if d in output_datasets:
+                return True
+        return False
+
     def open_file_action(self):
         wildcard = 'All files (*.*)|*.*'
         for src in registry.sources:
@@ -93,6 +115,7 @@ class MenuHelper(HasTraits):
 
         for src in registry.sources:
             if len(src.extensions) == 0:
+                # The method that creates the source.
                 setattr(self, src.id, 
                         lambda self=self, md=src: self._create_source(md))
                 a = Action(name=src.menu_name,
@@ -104,10 +127,16 @@ class MenuHelper(HasTraits):
     def _build_filter_actions(self):
         actions = []
         for fil in registry.filters:
+            # The method that creates the object.
             setattr(self, fil.id, 
                     lambda self=self, md=fil: self._create_object(md))
+            # The method that checks if the menu can be activated or
+            # not.
+            setattr(self, 'check_' + fil.id, 
+                    lambda self=self, md=fil: self.check_active(md))
             a = Action(name=fil.menu_name,
                        action='object._menu_helper.' + fil.id,
+                       enabled_when='object._menu_helper.check_%s()'%fil.id,
                        tooltip=fil.tooltip)
             actions.append(a)
         return actions
@@ -115,10 +144,16 @@ class MenuHelper(HasTraits):
     def _build_module_actions(self):
         actions = []
         for mod in registry.modules:
+            # The method that creates the module.
             setattr(self, mod.id, 
                     lambda self=self, md=mod: self._create_object(md))
+            # The method that checks if the menu can be activated or
+            # not.
+            setattr(self, 'check_' + mod.id, 
+                    lambda self=self, md=mod: self.check_active(md))
             a = Action(name=mod.menu_name,
                        action='object._menu_helper.' + mod.id,
+                       enabled_when='object._menu_helper.check_%s()'%mod.id,
                        tooltip=mod.tooltip)
             actions.append(a)
         return actions

@@ -10,13 +10,13 @@ for structured points, rectilinear grid and structured grid input.
 # Enthought library imports.
 from enthought.traits.api import Instance, Bool
 from enthought.traits.ui.api import View, Group, Item
-from enthought.tvtk.api import tvtk
 
 # Local imports
 from enthought.mayavi.core.module import Module
 from enthought.mayavi.components.grid_plane import GridPlane
 from enthought.mayavi.components.contour import Contour
 from enthought.mayavi.components.actor import Actor
+from enthought.mayavi.core.pipeline_info import PipelineInfo
 
 
 ######################################################################
@@ -39,6 +39,12 @@ class ContourGridPlane(Module):
     # The actor component that represents the visualization.
     actor = Instance(Actor, allow_none=False)
 
+    input_info = PipelineInfo(datasets=['image_data', 
+                                        'structured_grid',
+                                        'rectilinear_grid'],
+                              attribute_types=['any'],
+                              attributes=['any'])
+    
     view = View([Group(Item(name='grid_plane', style='custom'),
                        show_labels=False),
                  Group(Item(name='enable_contours')),

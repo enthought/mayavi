@@ -13,6 +13,7 @@ from enthought.tvtk.api import tvtk
 # Local imports
 from enthought.mayavi.core.module import Module
 from enthought.mayavi.core.common import error
+from enthought.mayavi.core.pipeline_info import PipelineInfo
 
 
 ######################################################################
@@ -24,6 +25,10 @@ class ImagePlaneWidget(Module):
     __version__ = 0
 
     ipw = Instance(tvtk.ImagePlaneWidget, allow_none=False)
+
+    input_info = PipelineInfo(datasets=['image_data'],
+                              attribute_types=['any'],
+                              attributes=['scalars'])    
 
     view = View(Group(Item(name='ipw', style='custom', resizable=True),
                       show_labels=False

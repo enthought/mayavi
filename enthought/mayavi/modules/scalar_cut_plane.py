@@ -9,10 +9,10 @@ plots the data with optional contouring and scalar warping.
 # Enthought library imports.
 from enthought.traits.api import Instance, Bool
 from enthought.traits.ui.api import View, Group, Item, InstanceEditor
-from enthought.tvtk.api import tvtk
 
 # Local imports
 from enthought.mayavi.core.module import Module
+from enthought.mayavi.core.pipeline_info import PipelineInfo
 from enthought.mayavi.components.implicit_plane import ImplicitPlane
 from enthought.mayavi.components.cutter import Cutter
 from enthought.mayavi.filters.warp_scalar import WarpScalar
@@ -56,6 +56,10 @@ class ScalarCutPlane(Module):
     
     # The actor component that represents the visualization.
     actor = Instance(Actor, allow_none=False)
+
+    input_info = PipelineInfo(datasets=['any'],
+                              attribute_types=['any'],
+                              attributes=['scalars'])    
     
     ########################################
     # View related code.

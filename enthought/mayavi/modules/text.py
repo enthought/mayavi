@@ -14,6 +14,7 @@ from enthought.persistence import state_pickler
 
 # Local imports
 from enthought.mayavi.core.module import Module
+from enthought.mayavi.core.pipeline_info import PipelineInfo
 
 
 ######################################################################
@@ -55,6 +56,10 @@ class Text(Module):
     # The width of the text.
     width = Range(0.0, 1.0, 0.4,
                   desc='the width of the text as a fraction of the viewport')
+
+    input_info = PipelineInfo(datasets=['any'],
+                              attribute_types=['any'],
+                              attributes=['any'])    
 
     ########################################
     # The view of this object.

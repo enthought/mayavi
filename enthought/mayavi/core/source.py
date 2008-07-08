@@ -15,6 +15,7 @@ from enthought.mayavi.core.pipeline_base import PipelineBase
 from enthought.mayavi.core.module import Module
 from enthought.mayavi.core.module_manager import ModuleManager
 from enthought.mayavi.core.common import handle_children_state, exception
+from enthought.mayavi.core.pipeline_info import PipelineInfo
 
 ######################################################################
 # Utility functions.
@@ -41,6 +42,12 @@ class Source(PipelineBase):
 
     # The human-readable type for this object
     type = Str(' data source')
+
+    # Information about what this object can consume.
+    input_info = PipelineInfo(datasets=['none'])
+
+    # Information about what this object can produce.
+    output_info = PipelineInfo(datasets=['any'])
 
     ######################################################################
     # `object` interface

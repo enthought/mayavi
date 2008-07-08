@@ -8,6 +8,7 @@ from enthought.tvtk.api import tvtk
 
 # Local imports
 from enthought.mayavi.filters.filter_base import FilterBase
+from enthought.mayavi.core.pipeline_info import PipelineInfo
 
 
 ######################################################################
@@ -25,6 +26,14 @@ class ExtractVectorNorm(FilterBase):
 
     # The actual TVTK filter that this class manages.
     filter = Instance(tvtk.VectorNorm, args=(), allow_none=False)
+
+    input_info = PipelineInfo(datasets=['any'],
+                              attribute_types=['any'],
+                              attributes=['vectors'])
+
+    output_info = PipelineInfo(datasets=['any'],
+                               attribute_types=['any'],
+                               attributes=['any'])
 
     ######################################################################
     # `Filter` interface.

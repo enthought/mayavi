@@ -8,6 +8,7 @@ from enthought.traits.ui.api import View, Group, Item
 from enthought.tvtk.api import tvtk
 
 # Local imports.
+from enthought.mayavi.core.pipeline_info import PipelineInfo
 from enthought.mayavi.core.filter import Filter
 from enthought.mayavi.core.traits import DEnum
 from enthought.mayavi.sources.vtk_xml_file_reader import \
@@ -28,6 +29,14 @@ class SetActiveAttribute(Filter):
 
     # The version of this class.  Used for persistence.
     __version__ = 0
+
+    input_info = PipelineInfo(datasets=['any'],
+                              attribute_types=['any'],
+                              attributes=['any'])
+
+    output_info = PipelineInfo(datasets=['any'],
+                               attribute_types=['any'],
+                               attributes=['any'])
 
     ########################################
     # Dynamic traits: These traits are dynamic and are automatically

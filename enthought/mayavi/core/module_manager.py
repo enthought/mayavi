@@ -6,7 +6,6 @@ tables.
 # Copyright (c) 2005-2008,  Enthought, Inc.
 # License: BSD Style.
 
-
 import numpy
 
 # Enthought library imports.
@@ -19,6 +18,7 @@ from enthought.mayavi.core.base import Base
 from enthought.mayavi.core.module import Module
 from enthought.mayavi.core.lut_manager import LUTManager
 from enthought.mayavi.core.common import handle_children_state, exception
+from enthought.mayavi.core.pipeline_info import PipelineInfo
 
 
 ######################################################################
@@ -56,7 +56,7 @@ class DataAttributes(HasTraits):
             else:
                 self.range = list(data.range)
 
-    def compute_vector(self, data, type='point'):
+    def compute_vector(self, data, mode='point'):
         """Compute the vector range from given VTK data array.  Mode
         can be 'point' or 'cell'."""
         if data is not None:
@@ -122,6 +122,12 @@ class ModuleManager(Base):
     # The human-readable type for this object
     type = Str(' module manager')
 
+
+    # Information about what this object can consume.
+    input_info = PipelineInfo(datasets=['any'])
+
+    # Information about what this object can produce.
+    output_info = PipelineInfo(datasets=['any'])
 
     ######################################################################
     # `object` interface
@@ -251,6 +257,7 @@ class ModuleManager(Base):
                     exception()
 
     def _source_changed(self):
+        self.output_info.copy_traits(self.source.output_info)
         self.update()
         
     def _setup_event_handlers(self):

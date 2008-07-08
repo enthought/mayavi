@@ -8,6 +8,8 @@ from enthought.tvtk.api import tvtk
 
 # Local imports
 from enthought.mayavi.filters.filter_base import FilterBase
+from enthought.mayavi.core.pipeline_info import PipelineInfo
+
 
 ######################################################################
 # `CellDerivatives` class.
@@ -24,4 +26,14 @@ class CellDerivatives(FilterBase):
 
     # The actual TVTK filter that this class manages.
     filter = Instance(tvtk.CellDerivatives, args=(), allow_none=False)
+
+    # Information about what this object can consume.
+    input_info = PipelineInfo(datasets=['any'],
+                              attribute_types=['any'],
+                              attributes=['any'])
+
+    # Information about what this object can produce.
+    output_info = PipelineInfo(datasets=['any'],
+                               attribute_types=['any'],
+                               attributes=['any'])
 

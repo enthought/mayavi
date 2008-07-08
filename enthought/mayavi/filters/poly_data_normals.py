@@ -9,6 +9,7 @@ from enthought.tvtk.api import tvtk
 # Local imports
 from enthought.mayavi.filters.poly_data_filter_base import \
         PolyDataFilterBase
+from enthought.mayavi.core.pipeline_info import PipelineInfo
 
 
 ######################################################################
@@ -25,4 +26,12 @@ class PolyDataNormals(PolyDataFilterBase):
 
     # The actual TVTK filter that this class manages.
     filter = Instance(tvtk.PolyDataNormals, args=(), allow_none=False)
+
+    input_info = PipelineInfo(datasets=['poly_data'],
+                              attribute_types=['any'],
+                              attributes=['any'])
+
+    output_info = PipelineInfo(datasets=['poly_data'],
+                               attribute_types=['any'],
+                               attributes=['any'])
 

@@ -25,6 +25,7 @@ from enthought.tvtk.util.wx_gradient_editor import gradient_editor_factory
 from enthought.persistence import state_pickler
 
 # Local imports
+from enthought.mayavi.core.pipeline_info import PipelineInfo
 from enthought.mayavi.core.module import Module
 from enthought.mayavi.core.common import error
 from enthought.mayavi.core.traits import DEnum
@@ -194,6 +195,11 @@ class Volume(Module):
     ray_cast_function = Property
 
     lut_manager = Instance(VolumeLUTManager, args=(), allow_none=False)
+
+    input_info = PipelineInfo(datasets=['image_data',
+                                        'unstructured_grid'],
+                              attribute_types=['any'],
+                              attributes=['scalars'])    
 
     ########################################
     # View related code.

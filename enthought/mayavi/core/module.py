@@ -10,6 +10,7 @@ from enthought.traits.api import List, Instance, Str
 
 # Local imports
 from enthought.mayavi.core.pipeline_base import PipelineBase
+from enthought.mayavi.core.pipeline_info import PipelineInfo
 from enthought.mayavi.core.common import exception
 
 
@@ -37,6 +38,12 @@ class Module(PipelineBase):
 
     # The human-readable type for this object
     type = Str(' module')
+
+    # Information about what this object can consume.
+    input_info = PipelineInfo(datasets=['any'])
+
+    # Information about what this object can produce.
+    output_info = PipelineInfo(datasets=['none'])
 
     ######################################################################
     # `object` interface.
@@ -230,4 +237,4 @@ class Module(PipelineBase):
 
     def __menu_helper_default(self):
         from enthought.mayavi.core.traits_menu import ModuleMenuHelper
-        return ModuleMenuHelper(object=self)
+        return ModuleMenuHelper(object=self.module_manager)

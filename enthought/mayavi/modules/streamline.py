@@ -19,6 +19,7 @@ from enthought.tvtk.api import tvtk
 
 # Local imports
 from enthought.mayavi.core.module import Module
+from enthought.mayavi.core.pipeline_info import PipelineInfo
 from enthought.mayavi.components.actor import Actor
 from enthought.mayavi.components.source_widget import SourceWidget
 
@@ -55,6 +56,10 @@ class Streamline(Module):
 
     # The actor component that represents the visualization.
     actor = Instance(Actor, allow_none=False)
+
+    input_info = PipelineInfo(datasets=['any'],
+                              attribute_types=['any'],
+                              attributes=['vectors'])    
 
     ########################################
     # Private traits.

@@ -7,12 +7,13 @@
 #          Prabhu Ramachandran (prabhu [at] aero.iitb.ac.in)
 
 # Enthought library imports.
-from enthought.traits.api import Instance, Float, Array, Bool
+from enthought.traits.api import Instance
 from enthought.traits.ui.api import View, Group, Item
 from enthought.tvtk.api import tvtk
 
 # Local imports
 from enthought.mayavi.core.source import Source
+from enthought.mayavi.core.pipeline_info import PipelineInfo
 
 
 ######################################################################
@@ -23,6 +24,12 @@ class PointLoad(Source):
     __version__ = 0
 
     point_load = Instance(tvtk.PointLoad, args=(), allow_none=False)
+
+
+    # Information about what this object can produce.
+    output_info = PipelineInfo(datasets=['image_data'], 
+                               attribute_types=['any'],
+                               attributes=['any'])
 
     # Create the UI for the traits.
     view = View(Group(Item(name='point_load',

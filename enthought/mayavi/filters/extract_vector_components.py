@@ -2,11 +2,13 @@
 
 # Enthought library imports.
 from enthought.traits.api import Instance, Enum
-from enthought.traits.ui.api import View, Group, Item, InstanceEditor
+from enthought.traits.ui.api import View, Group, Item
 from enthought.tvtk.api import tvtk
 
 # Local imports
 from enthought.mayavi.filters.filter_base import FilterBase
+from enthought.mayavi.core.pipeline_info import PipelineInfo
+
 
 ######################################################################
 # `ExtractVectorComponents` class.
@@ -25,6 +27,14 @@ class ExtractVectorComponents(FilterBase):
     # The Vector Component to be extracted
     component = Enum('x-component', 'y-component', 'z-component',
                      desc='component of the vector to be extracted')
+
+    input_info = PipelineInfo(datasets=['any'],
+                              attribute_types=['any'],
+                              attributes=['vectors'])
+
+    output_info = PipelineInfo(datasets=['any'],
+                               attribute_types=['any'],
+                               attributes=['any'])
 
     view = View(Group(Item(name='component')),
                 resizable=True

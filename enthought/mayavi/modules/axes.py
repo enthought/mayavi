@@ -13,6 +13,7 @@ from enthought.persistence import state_pickler
 
 # Local imports
 from enthought.mayavi.core.module import Module
+from enthought.mayavi.core.pipeline_info import PipelineInfo
 
 ######################################################################
 # `CubeAxesActor2D` class.
@@ -24,6 +25,10 @@ class CubeAxesActor2D(tvtk.CubeAxesActor2D):
 
     # Automaticaly fit the bounds of the axes to the data
     use_data_bounds = true
+
+    input_info = PipelineInfo(datasets=['any'],
+                              attribute_types=['any'],
+                              attributes=['any'])    
 
     ########################################
     # The view of this object.

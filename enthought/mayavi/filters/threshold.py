@@ -13,6 +13,7 @@ from enthought.tvtk.api import tvtk
 
 # Local imports
 from enthought.mayavi.core.filter import Filter
+from enthought.mayavi.core.pipeline_info import PipelineInfo
 
 
 ######################################################################
@@ -56,6 +57,16 @@ class Threshold(Filter):
     auto_reset_upper = Bool(True, desc='if the upper threshold is '
                             'automatically reset when upstream '
                             'data changes')
+
+    input_info = PipelineInfo(datasets=['any'],
+                              attribute_types=['any'],
+                              attributes=['any'])
+
+    output_info = PipelineInfo(datasets=['poly_data', 
+                                         'unstructured_grid'],
+                               attribute_types=['any'],
+                               attributes=['any'])
+
     # Our view.
     view = View(Group(Group(Item(name='filter_type'),
                             Item(name='lower_threshold'),

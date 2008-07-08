@@ -8,7 +8,7 @@
 from os.path import basename
 
 # Enthought library imports.
-from enthought.traits.api import Trait, Instance, List, Str, Bool
+from enthought.traits.api import Instance, List, Str, Bool
 from enthought.traits.ui.api import View, Group, Item, Include
 from enthought.tvtk.api import tvtk
 
@@ -16,6 +16,8 @@ from enthought.tvtk.api import tvtk
 from enthought.mayavi.core.file_data_source import FileDataSource
 from enthought.mayavi.core.common import error
 from enthought.mayavi.core.traits import DEnum
+from enthought.mayavi.core.pipeline_info import (PipelineInfo, 
+        get_tvtk_dataset_name)
 
 
 ######################################################################
@@ -126,6 +128,11 @@ class VTKXMLFileReader(FileDataSource):
     
     # The VTK data file reader.
     reader = Instance(tvtk.XMLReader)
+
+    # Information about what this object can produce.
+    output_info = PipelineInfo(datasets=['any'], 
+                               attribute_types=['any'],
+                               attributes=['any'])
 
     # Our view.
     view = View(Group(Include('time_step_group'),
@@ -295,6 +302,9 @@ class VTKXMLFileReader(FileDataSource):
             self.update_data()
 
             self.outputs = outputs
+
+            # FIXME: The output info is only based on the first output.
+            self.output_info.datasets = [get_tvtk_dataset_name(outputs[0])]
 
             # Change our name on the tree view
             self.name = self._get_name()

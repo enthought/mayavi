@@ -10,13 +10,14 @@ from os.path import basename
 
 # Enthought imports.
 from enthought.tvtk.api import tvtk
-from enthought.traits.api import Instance, List, Str
-from enthought.traits.ui.api import View, Item, Group, FileEditor
+from enthought.traits.api import Instance, Str
+from enthought.traits.ui.api import View, Item, FileEditor
 from enthought.persistence.file_path import FilePath
 from enthought.persistence.state_pickler import set_state
 
 # Local imports
 from enthought.mayavi.core.source import Source
+from enthought.mayavi.core.pipeline_info import PipelineInfo
 
 ######################################################################
 # `VRMLImporter` class.
@@ -30,6 +31,8 @@ class VRMLImporter(Source):
 
     # The VRML importer.
     reader = Instance(tvtk.VRMLImporter, args=(), allow_none=False)
+
+    output_info = PipelineInfo(datasets=['none'])
 
     ###############
     # Private traits.

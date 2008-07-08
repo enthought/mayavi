@@ -7,6 +7,7 @@ Metadata for all filters.
 
 # Local imports.
 from enthought.mayavi.core.metadata import FilterMetadata
+from enthought.mayavi.core.pipeline_info import PipelineInfo
 
 BASE = 'enthought.mayavi.filters'
 
@@ -29,6 +30,12 @@ cell_derivatives_filter = FilterMetadata(
     tooltip = "Calculate derivatives of input point/vector data and output these as cell data",
     desc = "Calculate derivatives of input point/vector data and output these as cell data",
     help = "Calculate derivatives of input point/vector data and output these as cell data",
+    input_info = PipelineInfo(datasets=['any'],
+                              attribute_types=['any'],
+                              attributes=['any']), 
+    output_info = PipelineInfo(datasets=['any'],
+                               attribute_types=['any'],
+                               attributes=['any'])
 )
 
 cell_to_point_data_filter = FilterMetadata(
@@ -38,6 +45,12 @@ cell_to_point_data_filter = FilterMetadata(
     tooltip = "Convert cell data to point data for the active data",
     desc = "Convert cell data to point data for the active data",
     help = "Convert cell data to point data for the active data",
+    input_info = PipelineInfo(datasets=['any'],
+                              attribute_types=['cell'],
+                              attributes=['any']), 
+    output_info = PipelineInfo(datasets=['any'],
+                               attribute_types=['any'],
+                               attributes=['any'])
 )
 
 contour_filter = FilterMetadata(
@@ -47,6 +60,12 @@ contour_filter = FilterMetadata(
     tooltip = "Compute contours of the input dataset",
     desc = "Compute contours of the input dataset",
     help = "Compute contours of the input dataset",
+    input_info = PipelineInfo(datasets=['any'],
+                              attribute_types=['point'],
+                              attributes=['any']), 
+    output_info = PipelineInfo(datasets=['any'],
+                               attribute_types=['any'],
+                               attributes=['any'])
 )
 
 
@@ -57,6 +76,12 @@ cut_plane_filter = FilterMetadata(
     tooltip = "Slice the input dataset with a cut plane",
     desc = "Slice the input dataset with a cut plane",
     help = "Slice the input dataset with a cut plane",
+    input_info = PipelineInfo(datasets=['any'],
+                              attribute_types=['any'],
+                              attributes=['any']), 
+    output_info = PipelineInfo(datasets=['poly_data'],
+                               attribute_types=['any'],
+                               attributes=['any'])
 )
 
 decimatepro_filter = FilterMetadata(
@@ -66,6 +91,12 @@ decimatepro_filter = FilterMetadata(
     tooltip = "Simpilies a mesh using the DecimatePro filter",
     desc = "Simpilies a mesh using the DecimatePro filter",
     help = "Simpilies a mesh using the DecimatePro filter",
+    input_info = PipelineInfo(datasets=['poly_data'],
+                              attribute_types=['any'],
+                              attributes=['any']), 
+    output_info = PipelineInfo(datasets=['poly_data'],
+                               attribute_types=['any'],
+                               attributes=['any'])
 )
 
 delaunay2d_filter = FilterMetadata(
@@ -75,6 +106,13 @@ delaunay2d_filter = FilterMetadata(
     tooltip = "Perform a 2D Delaunay triangulation for the given data",
     desc = "Perform a 2D Delaunay triangulation for the given data",
     help = "Perform a 2D Delaunay triangulation for the given data",
+    input_info = PipelineInfo(datasets=['structured_grid', 'poly_data',
+                                        'unstructured_grid'],
+                              attribute_types=['any'],
+                              attributes=['any']), 
+    output_info = PipelineInfo(datasets=['poly_data'],
+                               attribute_types=['any'],
+                               attributes=['any'])
 )
 
 delaunay3d_filter = FilterMetadata(
@@ -84,6 +122,13 @@ delaunay3d_filter = FilterMetadata(
     tooltip = "Perform a 3D Delaunay triangulation for the given data",
     desc = "Perform a 3D Delaunay triangulation for the given data",
     help = "Perform a 3D Delaunay triangulation for the given data",
+    input_info = PipelineInfo(datasets=['structured_grid', 'poly_data',
+                                        'unstructured_grid'],
+                              attribute_types=['any'],
+                              attributes=['any']), 
+    output_info = PipelineInfo(datasets=['unstructured_grid'],
+                               attribute_types=['any'],
+                               attributes=['any'])
 )
 
 elevation_filter = FilterMetadata(
@@ -93,6 +138,12 @@ elevation_filter = FilterMetadata(
     tooltip = "Creates scalar data from the elevation along a direction",
     desc = "Creates scalar data from the elevation along a direction",
     help = "Creates scalar data from the elevation along a direction",
+    input_info = PipelineInfo(datasets=['any'],
+                              attribute_types=['any'],
+                              attributes=['any']), 
+    output_info = PipelineInfo(datasets=['any'],
+                               attribute_types=['any'],
+                               attributes=['any'])
 )
 
 extract_edges_filter = FilterMetadata(
@@ -102,6 +153,12 @@ extract_edges_filter = FilterMetadata(
     tooltip = "Turns edges into lines.",
     desc = "Turns edges into lines.",
     help = "Turns edges into lines.",
+    input_info = PipelineInfo(datasets=['any'],
+                              attribute_types=['any'],
+                              attributes=['any']), 
+    output_info = PipelineInfo(datasets=['poly_data'],
+                               attribute_types=['any'],
+                               attributes=['any'])
 )
 
 extract_grid_filter = FilterMetadata(
@@ -111,6 +168,16 @@ extract_grid_filter = FilterMetadata(
     tooltip = "Extract/subsample part of any structured grid",
     desc = "Extract/subsample part of any structured grid",
     help = "Extract/subsample part of any structured grid",
+    input_info = PipelineInfo(datasets=['image_data',
+                                        'rectilinear_grid',
+                                        'structured_grid'],
+                              attribute_types=['any'],
+                              attributes=['any']), 
+    output_info = PipelineInfo(datasets=['image_data',
+                                         'rectilinear_grid',
+                                         'structured_grid'],
+                               attribute_types=['any'],
+                               attributes=['any'])
 )
 
 extract_tensor_components_filter = FilterMetadata(
@@ -120,6 +187,12 @@ extract_tensor_components_filter = FilterMetadata(
     tooltip = "Extract tensor components from tensor data",
     desc = "Extract tensor components from tensor data",
     help = "Extract tensor components from tensor data",
+    input_info = PipelineInfo(datasets=['any'],
+                              attribute_types=['any'],
+                              attributes=['tensors']), 
+    output_info = PipelineInfo(datasets=['any'],
+                               attribute_types=['any'],
+                               attributes=['any'])
 )
 
 extract_unstructured_grid_filter = FilterMetadata(
@@ -129,6 +202,12 @@ extract_unstructured_grid_filter = FilterMetadata(
     tooltip = "Extract part of an unstructured grid",
     desc = "Extract part of an unstructured grid",
     help = "Extract part of an unstructured grid",
+    input_info = PipelineInfo(datasets=['unstructured_grid'],
+                              attribute_types=['any'],
+                              attributes=['any']), 
+    output_info = PipelineInfo(datasets=['unstructured_grid'],
+                               attribute_types=['any'],
+                               attributes=['any'])
 )
 
 extract_vector_norm_filter = FilterMetadata(
@@ -138,6 +217,12 @@ extract_vector_norm_filter = FilterMetadata(
     tooltip = "Compute the vector norm for the current vector data",
     desc = "Compute the vector norm for the current vector data",
     help = "Compute the vector norm for the current vector data",
+    input_info = PipelineInfo(datasets=['any'],
+                              attribute_types=['any'],
+                              attributes=['vectors']), 
+    output_info = PipelineInfo(datasets=['any'],
+                               attribute_types=['any'],
+                               attributes=['any'])
 )
 
 extract_vector_components_filter = FilterMetadata(
@@ -147,8 +232,13 @@ extract_vector_components_filter = FilterMetadata(
     tooltip = "Extract vector components from vector data",
     desc = "Extract vector components from vector data",
     help = "Extract vector components from vector data",
+    input_info = PipelineInfo(datasets=['any'],
+                              attribute_types=['any'],
+                              attributes=['vectors']), 
+    output_info = PipelineInfo(datasets=['any'],
+                               attribute_types=['any'],
+                               attributes=['any'])
 )
-
 
 gaussian_splatter_filter = FilterMetadata(
     id            = "GaussianSplatterFilter",
@@ -157,6 +247,12 @@ gaussian_splatter_filter = FilterMetadata(
     tooltip = "Builds a structured set of points from a cloud of points, the local density defining the scalar",
     desc = "Builds a structured set of points from a cloud of points, the local density defining the scalar",
     help = "Builds a structured set of points from a cloud of points, the local density defining the scalar",
+    input_info = PipelineInfo(datasets=['any'],
+                              attribute_types=['any'],
+                              attributes=['any']), 
+    output_info = PipelineInfo(datasets=['image_data'],
+                               attribute_types=['any'],
+                               attributes=['any'])
 )
 
 greedy_terrain_decimation_filter = FilterMetadata(
@@ -166,6 +262,12 @@ greedy_terrain_decimation_filter = FilterMetadata(
     tooltip = "Simplifies image data and performs a triangulation",
     desc = "Simplifies image data and performs a triangulation",
     help = "Simplifies image data and performs a triangulation",
+    input_info = PipelineInfo(datasets=['any'],
+                              attribute_types=['any'],
+                              attributes=['any']), 
+    output_info = PipelineInfo(datasets=['poly_data'],
+                               attribute_types=['any'],
+                               attributes=['any'])
 )
 
 image_data_probe_filter = FilterMetadata(
@@ -175,6 +277,12 @@ image_data_probe_filter = FilterMetadata(
     tooltip = "Samples arbitrary datasets onto an image dataset (cube of data)",
     desc = "Samples arbitrary datasets onto an image dataset (cube of data)",
     help = "Samples arbitrary datasets onto an image dataset (cube of data)",
+    input_info = PipelineInfo(datasets=['any'],
+                              attribute_types=['any'],
+                              attributes=['any']), 
+    output_info = PipelineInfo(datasets=['image_data'],
+                               attribute_types=['any'],
+                               attributes=['any'])
 )
 
 mask_points_filter = FilterMetadata(
@@ -184,6 +292,12 @@ mask_points_filter = FilterMetadata(
     tooltip = "Mask the input points in the data",
     desc = "Mask the input points in the data",
     help = "Mask the input points in the data",
+    input_info = PipelineInfo(datasets=['any'],
+                              attribute_types=['any'],
+                              attributes=['any']), 
+    output_info = PipelineInfo(datasets=['poly_data'],
+                               attribute_types=['any'],
+                               attributes=['any'])
 )
 
 point_to_cell_data_filter = FilterMetadata(
@@ -193,6 +307,12 @@ point_to_cell_data_filter = FilterMetadata(
     tooltip = "Convert point data to cell data for the active data",
     desc = "Convert point data to cell data for the active data",
     help = "Convert point data to cell data for the active data",
+    input_info = PipelineInfo(datasets=['any'],
+                              attribute_types=['point'],
+                              attributes=['any']), 
+    output_info = PipelineInfo(datasets=['any'],
+                               attribute_types=['cell'],
+                               attributes=['any'])
 )
 
 poly_data_normals_filter = FilterMetadata(
@@ -202,6 +322,12 @@ poly_data_normals_filter = FilterMetadata(
     tooltip = "Compute normals and smooth the appearance",
     desc = "Compute normals and smooth the appearance",
     help = "Compute normals and smooth the appearance",
+    input_info = PipelineInfo(datasets=['poly_data'],
+                              attribute_types=['any'],
+                              attributes=['any']), 
+    output_info = PipelineInfo(datasets=['poly_data'],
+                               attribute_types=['any'],
+                               attributes=['any'])
 )
 
 quadric_decimation_filter = FilterMetadata(
@@ -211,6 +337,12 @@ quadric_decimation_filter = FilterMetadata(
     tooltip = "Simplifies a triangular mesh",
     desc = "Simplifies a triangular mesh",
     help = "Simplifies a triangular mesh",
+    input_info = PipelineInfo(datasets=['poly_data'],
+                              attribute_types=['any'],
+                              attributes=['any']), 
+    output_info = PipelineInfo(datasets=['poly_data'],
+                               attribute_types=['any'],
+                               attributes=['any'])
 )
 
 select_output_filter = FilterMetadata(
@@ -220,6 +352,12 @@ select_output_filter = FilterMetadata(
     tooltip = "Choose the output of the source that should be used",
     desc = "Choose the output of the source that should be used",
     help = "Choose the output of the source that should be used",
+    input_info = PipelineInfo(datasets=['any'],
+                              attribute_types=['any'],
+                              attributes=['any']), 
+    output_info = PipelineInfo(datasets=['any'],
+                               attribute_types=['any'],
+                               attributes=['any'])
 )
 
 set_active_attribute_filter = FilterMetadata(
@@ -229,6 +367,12 @@ set_active_attribute_filter = FilterMetadata(
     tooltip = "Set the active attribute (scalar/vector/tensor) to use",
     desc = "Set the active attribute (scalar/vector/tensor) to use",
     help = "Set the active attribute (scalar/vector/tensor) to use",
+    input_info = PipelineInfo(datasets=['any'],
+                              attribute_types=['any'],
+                              attributes=['any']), 
+    output_info = PipelineInfo(datasets=['any'],
+                               attribute_types=['any'],
+                               attributes=['any'])
 )
 
 transform_data_filter = FilterMetadata(
@@ -238,6 +382,16 @@ transform_data_filter = FilterMetadata(
     tooltip = "Transform (rotate/translate/scale) non ImageData datasets",
     desc = "Transform (rotate/translate/scale) non ImageData datasets",
     help = "Transform (rotate/translate/scale) non ImageData datasets",
+    input_info = PipelineInfo(datasets=['poly_data', 
+                                        'structured_grid',
+                                        'unstructured_grid'],
+                              attribute_types=['any'],
+                              attributes=['any']), 
+    output_info = PipelineInfo(datasets=['poly_data', 
+                                         'structured_grid',
+                                         'unstructured_grid'],
+                               attribute_types=['any'],
+                               attributes=['any'])
 )
 
 threshold_filter = FilterMetadata(
@@ -247,6 +401,13 @@ threshold_filter = FilterMetadata(
     tooltip = "Threshold input data based on scalar values",
     desc = "Threshold input data based on scalar values",
     help = "Threshold input data based on scalar values",
+    input_info = PipelineInfo(datasets=['any'],
+                              attribute_types=['any'],
+                              attributes=['any']), 
+    output_info = PipelineInfo(datasets=['poly_data', 
+                                         'unstructured_grid'],
+                               attribute_types=['any'],
+                               attributes=['any'])
 )
 
 triangle_filter = FilterMetadata(
@@ -256,6 +417,12 @@ triangle_filter = FilterMetadata(
     tooltip = "Convert input polygons and triangle strips to triangles",
     desc = "Convert input polygons and triangle strips to triangles",
     help = "Convert input polygons and triangle strips to triangles",
+    input_info = PipelineInfo(datasets=['poly_data'],
+                              attribute_types=['any'],
+                              attributes=['any']), 
+    output_info = PipelineInfo(datasets=['poly_data'],
+                               attribute_types=['any'],
+                               attributes=['any'])
 )
 
 tube_filter = FilterMetadata(
@@ -265,6 +432,12 @@ tube_filter = FilterMetadata(
     tooltip = "Turns lines into tubes",
     desc = "Turns lines into tubes",
     help = "Turns lines into tubes",
+    input_info = PipelineInfo(datasets=['poly_data'],
+                              attribute_types=['any'],
+                              attributes=['any']), 
+    output_info = PipelineInfo(datasets=['poly_data'],
+                               attribute_types=['any'],
+                               attributes=['any'])
 )
 
 user_defined_filter = FilterMetadata(
@@ -274,6 +447,12 @@ user_defined_filter = FilterMetadata(
     tooltip = "Create a UserDefined filter (will popup a selection dialog)",
     desc = "Create a UserDefined filter (will popup a selection dialog)",
     help = "Create a UserDefined filter (will popup a selection dialog)",
+    input_info = PipelineInfo(datasets=['any'],
+                              attribute_types=['any'],
+                              attributes=['any']), 
+    output_info = PipelineInfo(datasets=['any'],
+                               attribute_types=['any'],
+                               attributes=['any'])
 )
 
 vorticity_filter = FilterMetadata(
@@ -283,6 +462,12 @@ vorticity_filter = FilterMetadata(
     tooltip = "Calculate the vorticity (curl) of input vector field",
     desc = "Calculate the vorticity (curl) of input vector field",
     help = "Calculate the vorticity (curl) of input vector field",
+    input_info = PipelineInfo(datasets=['any'],
+                              attribute_types=['any'],
+                              attributes=['vectors']), 
+    output_info = PipelineInfo(datasets=['any'],
+                               attribute_types=['any'],
+                               attributes=['any'])
 )
 
 warp_scalar_filter = FilterMetadata(
@@ -292,6 +477,12 @@ warp_scalar_filter = FilterMetadata(
     tooltip = "Move points of data along normals by the scalar data",
     desc = "Move points of data along normals by the scalar data",
     help = "Move points of data along normals by the scalar data",
+    input_info = PipelineInfo(datasets=['any'],
+                              attribute_types=['any'],
+                              attributes=['scalars']), 
+    output_info = PipelineInfo(datasets=['any'],
+                               attribute_types=['any'],
+                               attributes=['any'])
 )
 
 warp_vector_filter = FilterMetadata(
@@ -301,6 +492,12 @@ warp_vector_filter = FilterMetadata(
     tooltip = "Move points of data along the vector data at point",
     desc = "Move points of data along the vector data at point",
     help = "Move points of data along the vector data at point",
+    input_info = PipelineInfo(datasets=['any'],
+                              attribute_types=['any'],
+                              attributes=['vectors']), 
+    output_info = PipelineInfo(datasets=['any'],
+                               attribute_types=['any'],
+                               attributes=['any'])
 )
 
 # Now collect all the filters for the mayavi registry.

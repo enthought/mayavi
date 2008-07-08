@@ -16,6 +16,7 @@ from enthought.persistence import state_pickler
 # Local imports
 from enthought.mayavi.core.module import Module
 from enthought.mayavi.core.common import error
+from enthought.mayavi.core.pipeline_info import PipelineInfo
 
 if not hasattr(tvtk, 'OrientationMarkerWidget'):
     msg = 'The OrientationAxes module requires VTK version >= 4.5'
@@ -37,6 +38,10 @@ class OrientationAxes(Module):
 
     # The property of the axes (color etc.).
     text_property = Property
+
+    input_info = PipelineInfo(datasets=['any'],
+                              attribute_types=['any'],
+                              attributes=['any'])    
 
     ########################################
     # Private traits.

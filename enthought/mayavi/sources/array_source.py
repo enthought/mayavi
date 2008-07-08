@@ -18,6 +18,7 @@ from enthought.tvtk import array_handler
 # Local imports
 from enthought.mayavi.core.common import handle_children_state
 from enthought.mayavi.core.source import Source
+from enthought.mayavi.core.pipeline_info import PipelineInfo
 
 def _check_scalar_array(obj, name, value):
     """Validates a scalar array passed to the object."""
@@ -98,6 +99,9 @@ class ArraySource(Source):
     # then we assume that the array has already been suitably
     # formatted by the user.
     transpose_input_array = Bool(True, desc='if input array should be transposed (if on VTK will copy the input data)')
+
+    # Information about what this object can produce.
+    output_info = PipelineInfo(datasets=['image_data'])
 
     # Our view.
     view = View(Group(Item(name='transpose_input_array'),

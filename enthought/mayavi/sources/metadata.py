@@ -7,6 +7,7 @@ Metadata for all sources.
 
 # Local imports.
 from enthought.mayavi.core.metadata import SourceMetadata
+from enthought.mayavi.core.pipeline_info import PipelineInfo
 
 BASE = 'enthought.mayavi.sources'
 
@@ -18,11 +19,14 @@ open_3ds = SourceMetadata(
     help   = "Import a 3D Studio file",
     menu_name        = "&3D Studio file",
     extensions = ['3ds'], 
-    wildcard = '3D Studio files (*.3ds)|*.3ds'
+    wildcard = '3D Studio files (*.3ds)|*.3ds',
+    output_info = PipelineInfo(datasets=['none'],
+                               attribute_types=['any'],
+                               attributes=['any'])
 )
 
 open_image = SourceMetadata(
-    id            = "BMPFile",
+    id            = "ImageFile",
     class_name    = BASE + ".image_reader.ImageReader",
     menu_name     = "&Image file (PNG/JPG/BMP/PNM/TIFF)",
     tooltip       = "Import a PNG/JPG/BMP/PNM/TIFF image",
@@ -33,7 +37,10 @@ open_image = SourceMetadata(
                'JPEG files (*.jpeg)|*.jpeg|'\
                'BMP files (*.bmp)|*.bmp|'\
                'PNM files (*.pnm)|*.pnm|'\
-               'TIFF files (*.tiff)|*.tiff'
+               'TIFF files (*.tiff)|*.tiff',
+    output_info = PipelineInfo(datasets=['image_data'],
+                               attribute_types=['any'],
+                               attributes=['any'])
 )
 
 open_plot3d = SourceMetadata(
@@ -45,6 +52,9 @@ open_plot3d = SourceMetadata(
     help        = "Open a PLOT3D data data",
     extensions = ['xyz'],
     wildcard = 'PLOT3D files (*.xyz)|*.xyz',
+    output_info = PipelineInfo(datasets=['structured_grid'],
+                               attribute_types=['any'],
+                               attributes=['any'])
 )
 
 open_vrml = SourceMetadata(
@@ -56,6 +66,9 @@ open_vrml = SourceMetadata(
     help    = "Import a VRML2 data file",
     extensions = ['wrl'],
     wildcard = 'VRML2 files (*.wrl)|*.wrl',
+    output_info = PipelineInfo(datasets=['none'],
+                               attribute_types=['any'],
+                               attributes=['any'])
 )
 
 open_vtk = SourceMetadata(
@@ -67,6 +80,9 @@ open_vtk = SourceMetadata(
     help    = "Open a VTK data file",
     extensions = ['vtk'],
     wildcard = 'VTK files (*.vtk)|*.vtk',
+    output_info = PipelineInfo(datasets=['any'],
+                               attribute_types=['any'],
+                               attributes=['any'])
 )
 
 open_vtk_xml = SourceMetadata(
@@ -88,7 +104,10 @@ open_vtk_xml = SourceMetadata(
                'Parallel Poly Data (*.pvtp)|*.pvtp|'\
                'Parallel Rectilinear Grid (*.pvtr)|*.pvtr|'\
                'Parallel Structured Grid (*.pvts)|*.pvts|'\
-               'Parallel Unstructured Grid (*.pvtu)|*.pvtu'
+               'Parallel Unstructured Grid (*.pvtu)|*.pvtu',
+    output_info = PipelineInfo(datasets=['any'],
+                               attribute_types=['any'],
+                               attributes=['any'])
 )
 
 parametric_surface = SourceMetadata(
@@ -100,6 +119,9 @@ parametric_surface = SourceMetadata(
     help    = "Create a parametric surface source",
     extensions = [],
     wildcard = '',
+    output_info = PipelineInfo(datasets=['poly_data'],
+                               attribute_types=['any'],
+                               attributes=['any'])
 )
 
 point_load = SourceMetadata(
@@ -111,6 +133,9 @@ point_load = SourceMetadata(
     help    = "Simulates a point load on a cube of data (for tensors)",
     extensions = [],
     wildcard = '',
+    output_info = PipelineInfo(datasets=['image_data'],
+                               attribute_types=['any'],
+                               attributes=['any'])
 )
 
 # Now collect all the sources for the mayavi registry.

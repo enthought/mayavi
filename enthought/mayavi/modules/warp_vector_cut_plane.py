@@ -15,6 +15,7 @@ from enthought.traits.ui.api import View, Group, Item, InstanceEditor
 from enthought.tvtk.api import tvtk
 
 # Local imports
+from enthought.mayavi.core.pipeline_info import PipelineInfo
 from enthought.mayavi.core.module import Module
 from enthought.mayavi.components.implicit_plane import ImplicitPlane
 from enthought.mayavi.components.cutter import Cutter
@@ -49,6 +50,10 @@ class WarpVectorCutPlane(Module):
     
     # The Actor component.
     actor = Instance(Actor, allow_none=False)
+
+    input_info = PipelineInfo(datasets=['any'],
+                              attribute_types=['any'],
+                              attributes=['vectors'])    
     
     ########################################
     # View related traits.

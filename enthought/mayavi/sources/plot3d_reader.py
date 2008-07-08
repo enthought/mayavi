@@ -20,6 +20,7 @@ from enthought.persistence.file_path import FilePath
 # Local imports.
 from enthought.mayavi.core.source import Source
 from enthought.mayavi.core.common import handle_children_state, error
+from enthought.mayavi.core.pipeline_info import PipelineInfo
 
 
 ########################################################################
@@ -63,6 +64,9 @@ class PLOT3DReader(Source):
 
     # The VTK data file reader.
     reader = Instance(tvtk.PLOT3DReader, args=(), allow_none=False)
+
+    # Information about what this object can produce.
+    output_info = PipelineInfo(datasets=['structured_grid'])
 
     ########################################
     # View related code.

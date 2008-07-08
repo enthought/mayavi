@@ -11,6 +11,8 @@ from enthought.traits.api import List, Str
 # Local imports
 from enthought.mayavi.core.source import Source
 from enthought.mayavi.core.pipeline_base import PipelineBase
+from enthought.mayavi.core.pipeline_info import (PipelineInfo,
+        get_tvtk_dataset_name)
 
 
 ######################################################################
@@ -29,6 +31,9 @@ class Filter(Source):
 
     # The human-readable type for this object
     type = Str(' filter')
+
+    # Information about what this object can consume.
+    input_info = PipelineInfo(datasets=['any'])
 
     ######################################################################
     # `object` interface.
@@ -126,6 +131,8 @@ class Filter(Source):
         """
         old_outputs = self.outputs
         self.outputs = new_outputs
+        self.output_info.datasets = \
+            [get_tvtk_dataset_name(self.outputs[0])]
         if old_outputs == self.outputs:
             # Even if the outputs don't change we want to propagate a
             # data_changed event since the data could have changed.

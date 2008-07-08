@@ -12,6 +12,7 @@ from enthought.tvtk.api import tvtk
 
 # Local imports
 from enthought.mayavi.core.source import Source
+from enthought.mayavi.core.pipeline_info import PipelineInfo
 
 
 ######################################################################
@@ -37,6 +38,11 @@ class ParametricSurface(Source):
                       kw={'scalar_mode': 'distance'},
                       allow_none=False)
 
+    # Information about what this object can produce.
+    output_info = PipelineInfo(datasets=['poly_data'], 
+                               attribute_types=['any'],
+                               attributes=['any'])
+    
     ########################################
     # Private traits.
     

@@ -7,7 +7,8 @@ mayavi registry
 # License: BSD Style.
 
 # Enthought library imports.
-from enthought.traits.api import HasTraits, Str, Callable, Either, List
+from enthought.traits.api import HasTraits, Str, Callable, Either, List, Instance
+from enthought.mayavi.core.pipeline_info import PipelineInfo
 
 
 ################################################################################
@@ -87,6 +88,12 @@ class Metadata(HasTraits):
 
     # The optional tooltip to display for this object.
     tooltip = Str
+
+    # Information about what this object can consume.
+    input_info = Instance(PipelineInfo)
+
+    # Information about what this object can produce.
+    output_info = Instance(PipelineInfo)
 
     ######################################################################
     # Metadata interface.

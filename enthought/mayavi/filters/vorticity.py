@@ -9,6 +9,7 @@ from enthought.traits.api import Instance
 from enthought.traits.ui.api import View, Group, Item
 
 # Local imports.
+from enthought.mayavi.core.pipeline_info import PipelineInfo
 from enthought.mayavi.filters.optional import Optional
 from enthought.mayavi.filters.collection import Collection
 from enthought.mayavi.filters.cell_derivatives import CellDerivatives
@@ -32,6 +33,14 @@ class Vorticity(Optional):
 
     # This is used just for the UI.
     vorticity_component = Instance(Optional)
+
+    input_info = PipelineInfo(datasets=['any'],
+                              attribute_types=['any'],
+                              attributes=['vectors'])
+
+    output_info = PipelineInfo(datasets=['any'],
+                               attribute_types=['any'],
+                               attributes=['any'])
 
     ######################################################################
     # `object` interface.

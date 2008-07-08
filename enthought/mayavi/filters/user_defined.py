@@ -4,11 +4,11 @@
 
 # Enthought library imports.
 from enthought.tvtk.tools.tvtk_doc import TVTKFilterChooser, TVTK_FILTERS
-from enthought.persistence import state_pickler
 
 # Local imports.
 from enthought.mayavi.filters.filter_base import FilterBase
 from enthought.mayavi.core.common import handle_children_state, error
+from enthought.mayavi.core.pipeline_info import PipelineInfo
 
 
 ################################################################################
@@ -24,6 +24,14 @@ class UserDefined(FilterBase):
 
     # The version of this class.  Used for persistence.
     __version__ = 0
+
+    input_info = PipelineInfo(datasets=['any'],
+                              attribute_types=['any'],
+                              attributes=['any'])
+
+    output_info = PipelineInfo(datasets=['any'],
+                               attribute_types=['any'],
+                               attributes=['any'])
 
     ######################################################################
     # `object` interface.

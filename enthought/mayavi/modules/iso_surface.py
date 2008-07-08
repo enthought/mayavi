@@ -16,6 +16,7 @@ from enthought.mayavi.core.module import Module
 from enthought.mayavi.components.contour import Contour
 from enthought.mayavi.components.poly_data_normals import PolyDataNormals
 from enthought.mayavi.components.actor import Actor
+from enthought.mayavi.core.pipeline_info import PipelineInfo
 
 
 ######################################################################
@@ -38,6 +39,10 @@ class IsoSurface(Module):
 
     # The actor component that represents the iso-surface.
     actor = Instance(Actor)
+
+    input_info = PipelineInfo(datasets=['any'],
+                              attribute_types=['any'],
+                              attributes=['scalars'])    
 
     ########################################
     # The view of this object.

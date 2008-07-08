@@ -10,12 +10,13 @@
 #          Prabhu Ramachandran <prabhu_r@users.sf.net>
 
 # Enthought library imports.
-from enthought.traits.api import Instance, Delegate
+from enthought.traits.api import Instance
 from enthought.traits.ui.api import View, Group, Item
 from enthought.tvtk.api import tvtk
 
 # Local imports
 from enthought.mayavi.core.module import Module
+from enthought.mayavi.core.pipeline_info import PipelineInfo
 from enthought.mayavi.components.actor import Actor
 
 ######################################################################
@@ -36,6 +37,10 @@ class HyperStreamline(Module):
                       kw={'outline': False, 'x_shadows': False,
                       'y_shadows': False, 'z_shadows': False},
                       allow_none=False)
+
+    input_info = PipelineInfo(datasets=['any'],
+                              attribute_types=['any'],
+                              attributes=['tensors'])    
 
     # Create the UI for the traits.
     view = View(Group(Item(name='actor', style='custom'),
