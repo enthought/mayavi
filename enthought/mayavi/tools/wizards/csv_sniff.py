@@ -8,7 +8,7 @@ import csv
 from enthought.mayavi.tools.wizards.loadtxt import loadtxt
 
 
-class Sniff:
+class Sniff(object):
     """ Sniff a CSV file and determine some of it's properties.
 
         The properties determined here allow an CSV of unknown format
@@ -21,10 +21,13 @@ class Sniff:
     def __init__(self, filename):
         self._lines = self._read_few_lines(filename)
         self._reallines = [line for line in self._lines if line.strip()]
-        self._dialect = csv.Sniffer().sniff(self._reallines[0])
+        self._dialect = csv.Sniffer().sniff(self._reallines[-1])
 
+        self._comment = '#'
+        self._check_comment()
+        
         self._usePySplit = False
-        if self._dialect.delimiter == ' ':
+        if self._dialect.delimiter in (' ', '\t'):
             self._usePySplit = True
         
         self._numcols = len(self._split(self._reallines[0]))
@@ -33,7 +36,13 @@ class Sniff:
             assert len(self._split(rl)) == self._numcols
         
         self._datatypes = self._datatypes_of_line(self._reallines[-1])
-        
+
+    def _check_comment(self):
+        line0 = self._reallines[0]
+        if line0.startswith(('#', '%')):
+            self._comment = line0[0]
+            self._reallines[0] = self._dialect.delimiter.join(line0.split()[1:])
+    
     def _read_few_lines(self, filename):
         res = []
         for line in open(filename, 'rb'):
@@ -54,7 +63,7 @@ class Sniff:
         if self._datatypes_of_line(line0) == self._datatypes:
             return tuple('Column %i' % (i+1) for i in xrange(self._numcols))
         else:
-            return tuple(t.strip('"\' ') for t in self._split(line0))
+            return tuple(t.strip('"\' \t') for t in self._split(line0))
 
     def _formats(self):
         res = []
@@ -89,6 +98,9 @@ class Sniff:
     # Public API:
     #-----------------------------------------------------------------------
     
+    def comment(self):
+        return self._comment
+    
     def delimiter(self):
         return self._dialect.delimiter
     
@@ -110,7 +122,7 @@ def loadtxt_unknown(filename):
     s = Sniff(filename)
 
     delimiter = s.delimiter()
-    if delimiter == ' ':
+    if delimiter in (' ', '\t'):
         delimiter = None
 
     return loadtxt(filename,
