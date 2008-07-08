@@ -1,3 +1,17 @@
+"""
+Traits View definition file.
+
+The view trait of the parent class is extracted from the model definition 
+file.  This file can either be exec()ed or imported.  See 
+core/base.py:Base.trait_view() for what is currently used.  Using exec() 
+allows view changes without needing to restart Mayavi, but is slower than 
+importing.
+"""
+# Authors: Prabhu Ramachandran <prabhu_r@users.sf.net>
+#          Judah De Paula <judah@enthought.com>
+# Copyright (c) 2005-2008, Enthought, Inc.
+# License: BSD Style.
+
 from enthought.traits.ui.api import View, Group, Item, InstanceEditor, DropEditor
 from enthought.tvtk.api import tvtk
 
