@@ -33,16 +33,20 @@ class TestUserDefined(TestCase):
             assert ud.filter.vector_mode == 'compute_gradient'
             assert src.outputs[0].point_data.scalars.name == 't'
             assert src.outputs[0].point_data.vectors.name == 'uvw'
-            assert o.outputs[0].point_data.scalars.name == 'ScalarGradient-y'
-            assert o.outputs[0].point_data.vectors.name == 'ScalarGradient'
-            assert mm.scalar_lut_manager.data_name == 'ScalarGradient-y'
+            expect = ['ScalarGradient', 'Vorticity']
+            expect1 = [x +'-y' for x in expect]
+            expect2 = [x + ' magnitude' for x in expect]
+            # FIXME: This is really a bug in VTK, the name of the scalar
+            # should really be ScalarGradient-y.  This is fixed in
+            # 5.2 but earlier versions fail. 
+            assert o.outputs[0].point_data.scalars.name in expect1
+            assert o.outputs[0].point_data.vectors.name in expect
+            assert mm.scalar_lut_manager.data_name in expect1
             # Turn of extraction.
             o.enabled = False
-            assert o.outputs[0].point_data.scalars.name == \
-                'ScalarGradient magnitude'
-            assert o.outputs[0].point_data.vectors.name == 'ScalarGradient'
-            assert mm.scalar_lut_manager.data_name == \
-                'ScalarGradient magnitude'
+            assert o.outputs[0].point_data.scalars.name in expect2
+            assert o.outputs[0].point_data.vectors.name in expect
+            assert mm.scalar_lut_manager.data_name in expect2
 
             # Compute the vorticity
             ud.filter.vector_mode = 'compute_vorticity'
