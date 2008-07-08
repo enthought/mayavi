@@ -7,11 +7,12 @@
 import new
 
 from enthought.pyface.action.api import Action
-from enthought.traits.api import Instance
+from enthought.traits.api import Instance, Property
 
-from enthought.mayavi.plugins.script import  get_imayavi
+from enthought.mayavi.plugins.script import get_imayavi
 from enthought.mayavi.core.registry import registry
 from enthought.mayavi.core.metadata import Metadata
+from enthought.mayavi.core.pipeline_base import PipelineBase
 
 
 ######################################################################
@@ -22,6 +23,14 @@ class FilterAction(Action):
     # The Metadata associated with this particular action.
     metadata = Instance(Metadata)
 
+    mayavi = Property(Instance('enthought.mayavi.plugins.script.Script'))
+
+    def __init__(self, **traits):
+        super(FilterAction, self).__init__(**traits)
+        self.mayavi.engine.on_trait_change(self._update_enabled,
+                                           ['current_selection',
+                                            'current_object'])
+
     ###########################################################################
     # 'Action' interface.
     ###########################################################################
@@ -29,8 +38,17 @@ class FilterAction(Action):
         """ Performs the action. """
         callable = self.metadata.get_callable()
         obj = callable()
-        mv = get_imayavi(self.window)
-        mv.add_filter(obj)
+        self.mayavi.add_filter(obj)
+
+    def _update_enabled(self, obj):
+        if isinstance(obj, PipelineBase):
+            e = obj._menu_helper.check_active(self.metadata)
+            self.enabled = e 
+        else:
+            self.enabled = False
+        
+    def _get_mayavi(self):
+        return get_imayavi(self.window)
 
 
 ######################################################################

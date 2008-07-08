@@ -7,39 +7,16 @@
 
 import new
 
-# Enthought library imports.
-from enthought.pyface.action.api import Action
-from enthought.traits.api import Instance
-
 # Local imports.
-from enthought.mayavi.plugins.script import get_imayavi
 from enthought.mayavi.core.registry import registry
-from enthought.mayavi.core.metadata import Metadata
-
-######################################################################
-# `AddModuleManager` class.
-######################################################################
-class AddModuleManager(Action):
-    """ An action that adds a ModuleManager to the tree. """
-
-    tooltip       = "Add a ModuleManager to the current source/filter"
-
-    description   = "Add a ModuleManager to the current source/filter"
-
-    def perform(self, event):
-        """ Performs the action. """
-        from enthought.mayavi.core.module_manager import ModuleManager
-        mm = ModuleManager()
-        mv = get_imayavi(self.window)
-        mv.add_module(mm)
+from enthought.mayavi.core.metadata import ModuleMetadata
+from enthought.mayavi.core.pipeline_info import PipelineInfo
+from enthought.mayavi.action.filters import FilterAction
 
 ######################################################################
 # `ModuleAction` class.
 ######################################################################
-class ModuleAction(Action):
-
-    # The Metadata associated with this particular action.
-    metadata = Instance(Metadata)
+class ModuleAction(FilterAction):
 
     ###########################################################################
     # 'Action' interface.
@@ -48,8 +25,34 @@ class ModuleAction(Action):
         """ Performs the action. """
         callable = self.metadata.get_callable()
         obj = callable()
-        mv = get_imayavi(self.window)
-        mv.add_module(obj)
+        self.mayavi.add_module(obj)
+
+
+######################################################################
+# `AddModuleManager` class.
+######################################################################
+class AddModuleManager(ModuleAction):
+    """ An action that adds a ModuleManager to the tree. """
+
+    tooltip       = "Add a ModuleManager to the current source/filter"
+
+    description   = "Add a ModuleManager to the current source/filter"
+
+    metadata = ModuleMetadata(id="AddModuleManager",
+                class_name="enthought.mayavi.core.module_manager.ModuleManager",
+                menu_name="&Add ModuleManager",
+                tooltip="Add a ModuleManager to the current source/filter",
+                description="Add a ModuleManager to the current source/filter",
+                input_info = PipelineInfo(datasets=['any'],
+                                  attribute_types=['any'],
+                                  attributes=['any'])
+                )
+
+    def perform(self, event):
+        """ Performs the action. """
+        from enthought.mayavi.core.module_manager import ModuleManager
+        mm = ModuleManager()
+        self.mayavi.add_module(mm)
 
 
 ######################################################################
