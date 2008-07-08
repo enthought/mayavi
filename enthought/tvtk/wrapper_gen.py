@@ -91,6 +91,7 @@ class WrapperGenerator:
 
         from enthought.tvtk import vtk_module as vtk
         from enthought.tvtk import tvtk_base
+        from enthought.tvtk.tvtk_base_handler import TVTKBaseHandler
         from enthought.tvtk import messenger
         from enthought.tvtk.tvtk_base import deref_vtk
         from enthought.tvtk import array_handler
@@ -222,11 +223,26 @@ class WrapperGenerator:
         t_g = toggle.keys(); t_g.sort()
         s_g = state.keys(); s_g.sort()
         gs_g = get_set.keys(); gs_g.sort()
+
+        # ----------------------------------------
+        # Write out the _full_traitnames_list: this is used by the handler
+        # to build a TableEditor for all of the (relevant) traits in the tvtk
+        # object.
+        junk = textwrap.fill("(%s)" % (t_g + s_g + gs_g))
+        code = "\n_full_traitnames_list_ = \\" + "\n%s\n\n"%junk
+        out.write(self.indent.format(code))
+
         class_name = get_tvtk_name(node.name)
         title = 'Edit %s properties'%class_name
-        junk = textwrap.fill('traitsui.View((%s, %s, %s),'%(t_g, s_g, gs_g))
+        ## NOTE: I am commenting out the original full traits view and instead
+        ## displaying all of the traits in a TableEditor.
+        ## junk = textwrap.fill('traitsui.View((%s, %s, %s),'%(t_g, s_g, gs_g))
+        item_contents = textwrap.fill('traitsui.Item(("%s"), show_label=False)'% 
+                                                "handler._full_traits_list")
+        junk = textwrap.fill('traitsui.View((%s),'% item_contents)
         code = "\nfull_traits_view = \\" + \
-               "\n%s\ntitle=\'%s\', scrollable=True,"\
+               "\n%s\ntitle=\'%s\', scrollable=True, resizable=True,"\
+               "\nhandler=TVTKBaseHandler,"\
                "\nbuttons=['OK', 'Cancel'])\n\n"%(junk, title)
         out.write(self.indent.format(code))
 
@@ -244,11 +260,13 @@ class WrapperGenerator:
         t_g = toggle.keys(); t_g.sort()
         s_g = state.keys(); s_g.sort()
         gs_g = get_set.keys(); gs_g.sort()
+        item_contents = textwrap.fill('traitsui.Item(("%s"), show_label=False)'% 
+                                                "handler.advanced_view")
         junk = textwrap.fill('traitsui.View((%s, %s, %s, %s),'%
-                              (t_g, s_g, gs_g, ["handler.advanced_view"]))
+                              (t_g, s_g, gs_g, item_contents))
         code = "\ntraits_view = \\" + \
                "\n%s\ntitle=\'%s\', scrollable=True,"\
-               "\nhandler=tvtk_base.TVTKBaseHandler,"\
+               "\nhandler=TVTKBaseHandler,"\
                "\nbuttons=['OK', 'Cancel'])\n\n"%(junk, title)
         out.write(self.indent.format(code))
 
