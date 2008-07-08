@@ -44,9 +44,15 @@ class PreviewWindow(HasTraits):
     def add_module(self, module):
         self._engine.add_module(module)
 
+
+    def add_filter(self, filter):
+        self._engine.add_module(filter)
+
+
     def clear(self):
-        self._scene.disable_render = True
-        self._scene.children[:] = []
+        self._scene.scene.disable_render = True
+        if hasattr(self._scene.scene, 'children'):
+            self._scene.scene.children[:] = []
         self._scene.scene.disable_render = False
 
 

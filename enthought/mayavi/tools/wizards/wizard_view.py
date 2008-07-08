@@ -10,7 +10,10 @@ from enthought.traits.ui.api import EnumEditor, View, Item, HGroup, \
 from enthought.traits.ui.tabular_adapter import TabularAdapter
 
 from data_source_factory import DataSourceFactory
-from data_source_factory import view as view_data_source
+from preview_window import PreviewWindow
+from enthought.mayavi.modules.api import Surface, Glyph
+from enthought.mayavi.filters.api import ExtractEdges
+
 
 ############################################################################
 # The DataSourceWizard class
@@ -191,9 +194,6 @@ class DataSourceWizard(HasTraits):
         self.factory = factory
 
         self.data_source = factory.build_data_source()
-        view_data_source(self.data_source)
-        from enthought.mayavi.mlab import show_engine
-        show_engine()
 
 
 ############################################################################
@@ -275,6 +275,13 @@ class DataSourceWizardView(DataSourceWizard):
 
     ui = Any(False)
 
+    _preview_button = Button(label='Preview structure')
+
+    def __preview_button_fired(self):
+        if self.ui:
+            self.build_data_source()
+            self.preview()
+
     _ok_button = Button(label='OK')
 
     def __ok_button_fired(self):
@@ -307,6 +314,7 @@ class DataSourceWizardView(DataSourceWizard):
             return False
         return True
 
+    _preview_window = Instance(PreviewWindow, ())
 
     #----------------------------------------------------------------------
     # TraitsUI views
@@ -461,12 +469,26 @@ class DataSourceWizardView(DataSourceWizard):
                                     view_name='_suitable_traits_view'),
                         ),
                     Group(
-                        Item('_shown_help_text', editor=HTMLEditor(), 
-                            width=300,
-                            ),
-                        show_labels=False,
-                        show_border=True,
-                        label='Help',
+                        Group(
+                            Item('_shown_help_text', editor=HTMLEditor(), 
+                                width=300,
+                                label='Help',
+                                ),
+                            show_labels=False,
+                            label='Help',
+                            layout='tabbed',
+                            dock='tab',
+                        ),
+                        Group(
+                            Item('_preview_window', style='custom',
+                                    label='Preview structure'),
+                            show_labels=False,
+                            label='Preview structure',
+                            layout='tabbed',
+                            dock='tab',
+                        ),
+                        layout='tabbed',
+                        dock='tab',
                     ),
                     show_labels=False,
                     show_border=True,
@@ -532,6 +554,7 @@ class DataSourceWizardView(DataSourceWizard):
                 ),
             '_',
             HGroup(spring, 
+                '_preview_button', 
                 '_cancel_button', 
                 Item('_ok_button', enabled_when='_is_ok'),
                 show_labels=False,
@@ -560,6 +583,20 @@ class DataSourceWizardView(DataSourceWizard):
         self._is_ok
         self.ui = self.edit_traits(view='_wizard_view')
 
+    def preview(self):
+        """ Display a preview of the data structure in the preview
+            window.
+        """
+        self._preview_window.clear()
+        self._preview_window.add_source(self.data_source)
+        self._preview_window.add_module(Surface())
+        g = Glyph()
+        g.glyph.glyph_source.glyph_source = \
+                    g.glyph.glyph_source.glyph_list[0]
+        g.glyph.glyph_source.glyph_source.glyph_type = 'cross'
+        self._preview_window.add_module(g)
+        self._preview_window.add_filter(ExtractEdges())
+        self._preview_window.add_module(Surface())
 
 
 if __name__ == '__main__':
