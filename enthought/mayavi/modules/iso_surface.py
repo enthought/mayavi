@@ -46,28 +46,28 @@ class IsoSurface(Module):
 
     ########################################
     # The view of this object.
-    
-    view = View([Group(
-                     Item( name  = 'contour', 
-                           style = 'custom' ),
-                     show_labels = False,
-                     show_border = True,
-                     label       = 'Contours' ),
-                 Group( 
-                     Item( name = 'compute_normals' ), 
-                     '_',
-                     Item( name         = 'normals', 
-                           style        = 'custom',
-                           show_label   = False,
-                           enabled_when = 'compute_normals' ),
-                     show_border = True,
-                     label       = 'Normals' ),
-                 Group(
-                     Item( name  = 'actor', 
-                           style = 'custom' ),
-                     show_labels = False )
-                 ]
-                )
+    # Commented out, since we are now using the iso_surface_view.py version.
+    #view = View([Group(
+    #                 Item( name  = 'contour', 
+    #                       style = 'custom' ),
+    #                 show_labels = False,
+    #                 show_border = True,
+    #                 label       = 'Contours' ),
+    #             Group( 
+    #                 Item( name = 'compute_normals' ), 
+    #                 '_',
+    #                 Item( name         = 'normals', 
+    #                       style        = 'custom',
+    #                       show_label   = False,
+    #                       enabled_when = 'compute_normals' ),
+    #                 show_border = True,
+    #                 label       = 'Normals' ),
+    #             Group(
+    #                 Item( name  = 'actor', 
+    #                       style = 'custom' ),
+    #                 show_labels = False )
+    #             ]
+    #            )
 
     ######################################################################
     # `Module` interface
