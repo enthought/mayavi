@@ -5,6 +5,7 @@
 # TODO: should derive from HasTraits
 
 import csv
+from numpy import float64
 
 # FIXME: see loadtxt.py (should really be the loadtxt from numpy)
 from enthought.mayavi.tools.wizards.loadtxt import loadtxt
@@ -92,7 +93,7 @@ class Sniff(object):
         res = []
         for s in self._split(line):
             if isFloat(s):
-                res.append(float)
+                res.append(float64)
             else:
                 res.append(str)
         return tuple(res)
