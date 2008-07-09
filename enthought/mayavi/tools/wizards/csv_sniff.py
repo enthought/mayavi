@@ -33,14 +33,18 @@ class Sniff(object):
         self._lines = self._read_few_lines()
         self._reallines = [line for line in self._lines if line.strip()]
         self._dialect = csv.Sniffer().sniff(self._reallines[-1])
-        
+
         self._comment = '#'
         self._check_comment()
         
-        self._usePySplit = not self._dialect.delimiter.strip()
-        
-        self._numcols = len(self._split(self._reallines[0]))
-        
+        if self._dialect.delimiter.isalnum():
+            self._usePySplit = True
+            self._numcols = 1
+            
+        else:
+            self._usePySplit = not self._dialect.delimiter.strip()
+            self._numcols = len(self._split(self._reallines[0]))
+            
         self._datatypes = self._datatypes_of_line(self._reallines[-1])
         
     def _check_comment(self):
@@ -142,6 +146,7 @@ class Sniff(object):
         for n, line in enumerate(self._lines):
             if self._datatypes == self._datatypes_of_line(line):
                 return n
+        return 0
     
     def dtype(self):
         """ Return a dict suitable to be used as the dtype keyword

@@ -6,8 +6,9 @@ Tests for the CSV file sniffer
 # License: BSD Style.
 import os.path
 import unittest
+from test import test_support
 
-from numpy import array, ndarray, float64
+from numpy import array, ndarray
 
 from enthought.mayavi.tools.wizards.csv_sniff import \
      Sniff, loadtxt, loadtxt_unknown, array2dict
@@ -16,87 +17,131 @@ from enthought.mayavi.tools.wizards.csv_sniff import \
 CSV_PATH = os.path.join(os.path.dirname(__file__), 'csv_files')
 
 
+
 class Util(object):
 
-    def assertClose(self, x, y):
+    def assertNamedClose(self, x, y):
+        self.assertEqual(x.shape, y.shape)
+        self.assertEqual(x.dtype.names, y.dtype.names)
+        for name in x.dtype.names:
+            self.assertAllClose(x[name], y[name])
+
+    def assertAllClose(self, x, y):
         self.assertEqual(len(x), len(y))
-        for i in xrange(len(x)):
-            if isinstance(x[i], (int, float)):
-                if repr(x[i]) == 'nan':
-                    self.assert_(repr(y[i]) == 'nan')
-                else:
-                    self.assert_(abs(x[i] - y[i]) < 1e-12 * max(1, abs(x[i])),
-                                 '%r %r  %r != %r  %r' %
-                                 (type(x[i]),
-                                  type(y[i]),
-                                  x[i], y[i], abs(x[i] - y[i])))
-                    
-            elif isinstance(x[i], str):
-                self.assertEqual(x[i], y[i])
+        for a, b in zip(x, y):
+            self.assertClose(a, b)
+
+    def assertClose(self, a, b):
+        if isinstance(a, (int, float)):
+            if repr(a) == 'nan':
+                self.assert_(repr(b) == 'nan')
+            else:
+                self.assert_(abs(a - b) < 1e-6 * max(1, abs(a)),
+                             '%r != %r  %r' % (a, b, abs(a - b)))
+                
+        elif isinstance(a, str):
+            self.assertEqual(a, b)
+
+        else:
+            raise TypeError("Hmm, did not expect: %r" % a)
 
 
-class Test_Files(unittest.TestCase, Util):
+class Test(unittest.TestCase, Util):
 
-    def test_1(self):
-        filename = os.path.join(CSV_PATH, '1.csv')
+    def test_methods(self):
+        fo = open(test_support.TESTFN, 'wb')
+        fo.write(''' "A", "B", "C"
+                     1, 2, 3.2
+                     7, 4, 1.87''')
+        fo.close()
         
-        s = Sniff(filename)
+        s = Sniff(test_support.TESTFN)
+        self.assertEqual(s.comments(), '#')
         self.assertEqual(s.delimiter(), ',')
         self.assertEqual(s.skiprows(), 1)
-        self.assertEqual(s.dtype()['names'], ('A', 'B', 'C'))
-        
-        delimiter = s.delimiter()
-        if delimiter == ' ':
-            delimiter = None
-            
-        x = loadtxt(filename,
-                    delimiter=delimiter,
-                    skiprows=s.skiprows(),
-                    dtype=s.dtype())
-
-        self.assert_(isinstance(x, ndarray))
-
+        self.assertEqual(s.dtype(), {'names': ('A', 'B', 'C'),
+                                     'formats': (float, float, float)})
+        x = s.loadtxt()
         y = array([(1.0, 2.0, 3.20),
                    (7.0, 4.0, 1.87)], 
-                  dtype=[('A', float64), ('B', float64), ('C', float64)])
-        
-        self.assertEqual(x.shape, y.shape)
-        self.assertClose(x['A'], y['A'])
-        self.assertClose(x['B'], y['B'])
-        self.assertClose(x['C'], y['C'])
+                  dtype=[('A', float), ('B', float), ('C', float)])
+        self.assertNamedClose(x, y)
 
-        d = array2dict(loadtxt_unknown(filename))
+        y = loadtxt(test_support.TESTFN, **s.kwds())
+        self.assertNamedClose(x, y)
+        
+        d = array2dict(loadtxt_unknown(test_support.TESTFN))
         self.assertEqual(type(d), type({}))
-        self.assertClose(x['A'], [1, 7])
-        self.assertClose(x['B'], [2, 4])
-        self.assertClose(x['C'], [3.2, 1.87])
+        self.assertAllClose(x['A'], [1, 7])
+        self.assertAllClose(x['B'], [2, 4])
+        self.assertAllClose(x['C'], [3.2, 1.87])
 
 
-    def test_comment1(self):
-        filename = os.path.join(CSV_PATH, 'comment1.csv')
-        s = Sniff(filename)
-        self.assertEqual(s.comments(), '%')
+    def test_comment(self):
+        fo = open(test_support.TESTFN, 'wb')
+        fo.write('''
+        % "A"  "B"  "C"
+           1    2   4.2   % comment''')
+        fo.close()
         
-        x = loadtxt_unknown(filename)
-        self.assertEqual(x.dtype.names, ('A', 'B', 'C'))
-        self.assertClose([x['A']], [1])
-        self.assertClose([x['B']], [2])
-        self.assertClose([x['C']], [3.2])
+        s = Sniff(test_support.TESTFN)
+        self.assertEqual(s.kwds(),
+          {'dtype': {'names': ('A', 'B', 'C'),
+                     'formats': (float, float, float)},
+           'delimiter': None,
+           'skiprows': 0,   # FIXME
+           'comments': '%'})
+
+        
+    def test_tabs(self):
+        fo = open(test_support.TESTFN, 'wb')
+        fo.write('''54\t87\n21\t32''')
+        fo.close()
+        
+        s = Sniff(test_support.TESTFN)
+        self.assertEqual(s.delimiter(), None)
+        self.assertEqual(s.skiprows(), 0)
+
+
+    def test_nohead(self):
+        fo = open(test_support.TESTFN, 'wb')
+        fo.write('''Hello;54;87\nWorld;42;86.5''')
+        fo.close()
+        
+        s = Sniff(test_support.TESTFN)
+        self.assertEqual(s.kwds(),
+          {'comments': '#',
+           'delimiter': ';',
+           'skiprows': 0,
+           'dtype': {'names': ('Column 1', 'Column 2', 'Column 3'),
+                     'formats': ('S5', float, float)}})
+
+        
+    def test_empty_file(self):
+        fo = open(test_support.TESTFN, 'wb')
+        fo.write('')
+        fo.close()
+        
+        self.assertRaises(IndexError, Sniff, test_support.TESTFN)
+        
 
 
 class Test_csv_py_files(unittest.TestCase, Util):
-    
+    """
+        These tests require files in csv_files/
+    """
     def check_csv_py(self, name):
         """ Check if the output array from csv_files/<name>.csv
             (which is of unkown format)
             is the same as the array in csv_files/<name>.py
         """
-        x = loadtxt_unknown(os.path.join(CSV_PATH, '%s.csv' % name))
+        x = loadtxt_unknown(os.path.join(CSV_PATH, '%s.csv' % name),
+                            verbose=0)
         #print repr(x)
         nan = float('nan')
         y = eval(open(os.path.join(CSV_PATH, '%s.py' % name)).read())
-        for name in y.dtype.names:
-            self.assertClose(x[name], y[name])
+        
+        self.assertNamedClose(x, y)
     
     def test_file_example1(self):
         self.check_csv_py('example1')
@@ -107,15 +152,12 @@ class Test_csv_py_files(unittest.TestCase, Util):
     def test_file_OObeta3(self):
         self.check_csv_py('OObeta3')
         
-    #def test_file_hp11c(self):
-    #    self.check_csv_py('hp11c')
+    def test_file_hp11c(self):
+        self.check_csv_py('hp11c')
         
-    #def test_file_1col(self):
-    #    self.check_csv_py('1col')
+    def test_file_1col(self):
+        self.check_csv_py('1col')
         
-    #def test_file_tarray(self):
-    #    self.check_csv_py('tarray')
-
 
 if __name__ == '__main__':
     unittest.main()
