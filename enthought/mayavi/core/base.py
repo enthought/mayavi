@@ -292,6 +292,14 @@ class Base(TreeNodeObject):
             self.trait_property_changed('running', old, new)
 
 
+    def _get_children_ui_list(self):
+        """ Getter for Traits Property children_ui_list.
+        
+        For the base class, do not add anything to the children list.
+        """
+        return self.children 
+
+
     @on_trait_change('children[]')
     def _trigger_children_ui_list(self, old, new):
         """ Trigger a children_ui_list change when scenes changed.
