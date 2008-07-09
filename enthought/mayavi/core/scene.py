@@ -14,7 +14,7 @@ from enthought.persistence.state_pickler import set_state
 from enthought.mayavi.core.base import Base
 from enthought.mayavi.core.source import Source
 from enthought.mayavi.core.common import handle_children_state, exception
-from enthought.mayavi.view.adder_node import AdderNode
+from enthought.mayavi.view.adder_node import SourceAdderNode
 
 
 ######################################################################
@@ -141,7 +141,7 @@ class Scene(Base):
     def _get_children_ui_list(self):
         """ Trait getter for scenes_ui Property.
         """
-        node = AdderNode(label='Add a source', object=self)
+        node = SourceAdderNode(object=self)
         return self.children + [node] 
 
     
