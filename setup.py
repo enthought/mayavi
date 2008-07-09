@@ -112,7 +112,7 @@ def unzip_html_docs(src_path, dest_dir):
 
 class my_build(build):
     def run(self):
-        # build.run(self)
+        build.run(self)
 
         # Figure out the documentation source directory and
         # the output directory based on current location.
@@ -126,7 +126,7 @@ class my_build(build):
             os.makedirs(dest_dir)
 
         try:
-            require("Sasdfdfphinx")
+            require("Sphinx")
             
             log.info("Auto-generating documentation...")
             docsrc = os.path.join(user_guide_dir, 'source')
