@@ -43,6 +43,15 @@ class Process(object):
     action_name = None
 
     def start(self, options, args):
+        if isinstance(options, dict):
+            class Options(object):
+                pass
+
+            opts = Options()
+            for key, value in options.iteritems():
+                setattr(opts, key, value)
+            options = opts
+
         self.options = options
         self.args = args
 
@@ -178,8 +187,10 @@ class HtmlBuild(Build):
 
     def run(self):
         if not self.options.subversion:
-            for path in ('html',):
-                os.mkdir(os.path.join(self.target, path))
+            for path in ('html', 'html/auto/', 'html/images', 'html/_sources',
+                         'html/_static'):
+                if not os.path.exists(os.path.join(self.target, path)):
+                    os.mkdir(os.path.join(self.target, path))
 
         self._run('html')
 
@@ -222,11 +233,6 @@ class CreateZip(Process):
 
     def run(self):
         # Create an HtmlBuild which will generate the documentation to zip.
-        class Options(object):
-            def __init__(self, **kwargs):
-                for key, value in kwargs.iteritems():
-                    setattr(self, key, value)
-
         opts = {
             'commit_message': None,
             'doc_source': self.options.doc_source,
@@ -237,7 +243,7 @@ class CreateZip(Process):
         }
 
         build = HtmlBuild()
-        build.start(Options(**opts), [])
+        build.start(opts, [])
 
         # Create actual ZIP file and copy files (to the parent of the doc src)
         zf = zipfile.ZipFile(os.path.join(self.options.doc_source, '..',

@@ -89,7 +89,7 @@ class my_install_scripts(install_scripts):
 # Create custom 'build' step hook to auto-generate the
 # documentation at build time, if Sphinx is installed.
 # Otherwise, it will unzip the html_docs.zip.
-from commit_docs import build_html
+from commit_docs import HtmlBuild
 from numpy.distutils.command.build import build
 from numpy.distutils import log
 
@@ -112,7 +112,7 @@ def unzip_html_docs(src_path, dest_dir):
 
 class my_build(build):
     def run(self):
-        build.run(self)
+        # build.run(self)
 
         # Figure out the documentation source directory and
         # the output directory based on current location.
@@ -126,14 +126,24 @@ class my_build(build):
             os.makedirs(dest_dir)
 
         try:
-            require("Sphinx")
+            require("Sasdfdfphinx")
             
             log.info("Auto-generating documentation...")
             docsrc = os.path.join(user_guide_dir, 'source')
             target = os.path.join(user_guide_dir, 'build')
             try:
-                build_html(docsrc, target, None)
-            except:
+                build = HtmlBuild()
+                build.start({
+                    'commit_message': None,
+                    'doc_source': docsrc,
+                    'preserve_temp': True,
+                    'subversion': False,
+                    'target': target,
+                    'verbose': False,
+                }, [])
+                del build
+            except Exception, e:
+                raise e
                 log.error("The documentation generation failed.  Falling back to the zip file.")
 
                 # Unzip the docs into the 'html' folder.
@@ -144,7 +154,6 @@ class my_build(build):
 
             # Unzip the docs into the 'html' folder.
             unzip_html_docs(html_zip, dest_dir)
-
         
 setup(
     author = "Prabhu Ramachandran",
