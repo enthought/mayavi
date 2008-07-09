@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
-""" Build and distribute the Mayavi documentation in an automated fashion.
+__doc__ = """
+Build and distribute the Mayavi documentation in an automated fashion.
 
 This script allows one to build the documentation locally within the Mayavi docs
 directory, as well as building the docs externally and then committing to the
@@ -39,6 +40,7 @@ update-web, and within the checkout of Mayavi for build.
 Using the --target option allows a different directory to be used for building
 either with build or update-web, and both will be able to use that location
 without problems.
+
 """
 
 from optparse import OptionParser
@@ -171,7 +173,7 @@ def rebuild_docs(options, targets):
 
 def main():
     # Handle options
-    parser = OptionParser()
+    parser = OptionParser(usage=__doc__)
 
     parser.add_option('-d', '--docsrc', action='store',
         default=os.path.join(os.path.abspath(os.path.dirname(__file__)),
