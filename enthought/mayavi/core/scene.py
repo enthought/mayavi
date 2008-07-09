@@ -141,7 +141,7 @@ class Scene(Base):
     def _get_children_ui_list(self):
         """ Trait getter for scenes_ui Property.
         """
-        node = AdderNode(name='Add a new source')
+        node = AdderNode(label='Add a source', object=self)
         return self.children + [node] 
 
     

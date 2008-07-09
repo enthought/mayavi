@@ -19,6 +19,7 @@ from enthought.pyface.image_resource import ImageResource
 # Local imports.
 from enthought.mayavi.core.engine import Engine
 from enthought.mayavi.core.base import Base
+from enthought.mayavi.view.adder_node import AdderNode
 
 class EngineViewHandler(Handler):
     """ A handler for the EngineView object. 
@@ -133,6 +134,17 @@ class EngineView(HasTraits):
                                 delete=True,
                                 rename=True,
                                 ),
+                 TreeNode(node_for=[AdderNode],
+                          children='',
+                          label='label',
+                          auto_open=True,
+                          copy=False,
+                          delete=False,
+                          rename=False,
+                          tooltip='tooltip',
+                          #menu=Menu(new_scene_action)
+                          ),
+                 
                  ]
         return nodes
 

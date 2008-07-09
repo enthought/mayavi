@@ -453,7 +453,7 @@ class Engine(HasStrictTraits):
 
     def _set_current_selection(self, object):
         old = self._current_selection
-        if not isinstance(object, Base):
+        if not isinstance(object, (Base, AdderNode)):
             object = None
         self._current_selection = object
         self.trait_property_changed('current_selection', old, object)
@@ -470,7 +470,7 @@ class Engine(HasStrictTraits):
     def _get_children_ui_list(self):
         """ Trait getter for children_ui_list Property.
         """
-        node = AdderNode(name='Add a new scene')
+        node = AdderNode(label='Add a new scene')
         return self.scenes + [node] 
 
     @on_trait_change('scenes[]')
