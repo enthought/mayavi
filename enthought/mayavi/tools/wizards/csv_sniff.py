@@ -18,10 +18,19 @@ class Sniff(object):
         are suitable to determine required keyword arguments for
         numpy.loadtxt
 
-        For a usecase, see csv_sniff.loadtxt_unknown
+        Exmaple:
+        
+        s = Sniff('mydata.csv')
+        print repr(s.delimiter())     # ','
+        print s.skiprows()            # 2
+        a = s.loadtxt()               # a is now the array
+        
+        from numpy import loadtxt     # make sure it's numpy 1.1.0 or higher
+        b = loadtxt('mydata.csv', **s.kwds())
     """
     def __init__(self, filename):
-        self._lines = self._read_few_lines(filename)
+        self._filename = filename
+        self._lines = self._read_few_lines()
         self._reallines = [line for line in self._lines if line.strip()]
         self._dialect = csv.Sniffer().sniff(self._reallines[-1])
         
@@ -43,13 +52,15 @@ class Sniff(object):
                 self._reallines[i] = \
                     self._reallines[i].split(self._comment)[0]
     
-    def _read_few_lines(self, filename):
+    def _read_few_lines(self):
         res = []
-        for line in open(filename, 'rb'):
+        f = open(self._filename, 'rb')
+        for line in f:
             line = line.strip()
             res.append(line)
             if len(res) > 10:
                 break
+        f.close()
         return res
     
     def _split(self, line):
@@ -100,27 +111,58 @@ class Sniff(object):
                 
         return tuple(res)
 
+    def _debug(self):
+        print '===== Sniffed information for file %r:' % self._filename
+        print 'delimiter = %r' % self.delimiter()
+        print 'comments  = %r' % self.comments()
+        print 'dtype     = %r' % self.dtype()
+        print 'skiprows  = %r' % self.skiprows()
+
     #-----------------------------------------------------------------------
     # Public API:
     #-----------------------------------------------------------------------
     
     def comments(self):
+        """ Return the character used for comments (usually '#').
+        """
         return self._comment
     
     def delimiter(self):
+        """ Return the delimiter string.
+            When whitespace is used as the delimiter, None is returned.
+        """
         if self._usePySplit:
-            return ''
+            return None
         else:
             return self._dialect.delimiter
     
     def skiprows(self):
+        """ The number (int) of rows from the top to skip.
+        """
         for n, line in enumerate(self._lines):
             if self._datatypes == self._datatypes_of_line(line):
                 return n
     
     def dtype(self):
+        """ Return a dict suitable to be used as the dtype keyword
+            argument of loadtxt.
+        """
         return {'names': self._names(),
                 'formats': self._formats()}
+
+    def kwds(self):
+        """ Return a dict of the keyword argument needed by numpy.loadtxt
+        """
+        return {'comments' : self.comments(),
+                'delimiter': self.delimiter(),
+                'skiprows' : self.skiprows(),
+                'dtype'    : self.dtype()}
+
+    def loadtxt(self):
+        """ Return the array (by using numpy.loadtxt), using the sniffed
+            information in the keyword arguments.
+        """
+        return loadtxt(self._filename, **self.kwds())
 
 
 
@@ -131,26 +173,18 @@ def loadtxt_unknown(filename, verbose=0):
     s = Sniff(filename)
     
     if verbose:
-        print '===== Sniffed information for file %r:' % filename
-        print 'delimiter = %r' % s.delimiter()
-        print 'comments  = %r' % s.comments()
-        print 'dtype     = %r' % s.dtype()
-        print 'skiprows  = %r' % s.skiprows()
+        s._debug()
 
-    return loadtxt(filename,
-                   delimiter = s.delimiter() if s.delimiter() else None,
-                   comments  = s.comments(),
-                   dtype     = s.dtype(),
-                   skiprows  = s.skiprows())
+    return s.loadtxt()
 
 
 def array2dict(arr):
-    """ Takes an array with  special names dtypes and returns a dict where
+    """ Takes an array with special names dtypes and returns a dict where
         each name is a key and the corresponding data (as a 1d array) is the
         value.
     """
-    d = {}
+    res = {}
     for k in arr.dtype.names:
-        d[k] = arr[k]
+        res[k] = arr[k]
         
-    return d
+    return res
