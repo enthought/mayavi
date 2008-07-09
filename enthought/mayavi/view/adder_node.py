@@ -9,4 +9,7 @@ from enthought.mayavi.core.base import Base
 from enthought.traits.api import List
 
 class AdderNode(Base):
-    children = List()
+    def _get_children_ui_list(self):
+        """ Adder Nodes should never have children.
+        """
+        return []

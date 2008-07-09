@@ -26,6 +26,7 @@ from enthought.mayavi.core.base import Base
 from enthought.mayavi.core.scene import Scene
 from enthought.mayavi.core.common import error
 from enthought.mayavi.core.registry import registry
+from enthought.mayavi.view.adder_node import AdderNode
 
 
 ######################################################################
@@ -51,6 +52,11 @@ class Engine(HasStrictTraits):
 
     # The scenes associated with this project.
     scenes = List(Scene)
+
+    # The list to provide to a TreeEditor.  Always add on a AdderNode.
+    # TODO: It makes more sense to put the modification of the list 
+    #       in some other UI module, and not here.
+    children_ui_list = Property
 
     # Our name.
     name = Str('Mayavi Engine')
@@ -309,6 +315,7 @@ class Engine(HasStrictTraits):
         self.scenes.append(s)
         self.current_scene = s
 
+    
     def remove_scene(self, scene):
         """Remove a given `scene` (a `pyface.tvtk.scene.Scene`
         instance) from the mayavi engine if it is already being
@@ -454,4 +461,8 @@ class Engine(HasStrictTraits):
                 self.current_scene = scene
                 break
 
-
+    def _get_children_ui_list(self):
+        """ Trait getter for children_ui_list Property.
+        """
+        node = AdderNode(name='Add a new scene')
+        return self.scenes + [node] 

@@ -9,7 +9,7 @@
 from os.path import join
 
 # Enthought library imports.
-from enthought.traits.api import Instance, HasTraits
+from enthought.traits.api import Instance, HasTraits, Property, Any, List
 from enthought.traits.ui.api import (Group, Item, TreeEditor, TreeNode,
         ObjectTreeNode, View, Handler, UIInfo)
 from enthought.traits.ui.menu import Action, Menu
@@ -45,6 +45,7 @@ class EngineViewHandler(Handler):
         """
         self.info.object.engine._on_select(object)
 
+
 ##############################################################################
 # EngineView class.
 ##############################################################################
@@ -53,8 +54,11 @@ class EngineView(HasTraits):
 
     # The MayaVi engine we are a view of.
     engine = Instance(Engine, allow_none=True)
-
+   
     icon = ImageResource(join(resource_path(), 'images', 'mv2.ico'))
+
+    # Nodes on the tree.
+    nodes = Any
 
     ###########################################################################
     # `object` interface.
@@ -69,39 +73,13 @@ class EngineView(HasTraits):
     def default_traits_view(self):
         """The default traits view of the Engine View.
         """
-        # The engine right menu actions.
-        new_scene_action = Action(name='New Scene',
-                                  action='object.new_scene',
-                                  tooltip='Create a new scene')
-
-        # Now setup the view.
-        nodes = [TreeNode(node_for=[Engine],
-                          children='scenes',
-                          label='=Mayavi',
-                          auto_open=True,
-                          copy=False,
-                          delete=False,
-                          rename=False,
-                          view=View(),
-                          tooltip='=Right click to create a new scene',
-                          menu=Menu(new_scene_action)
-                          ),
-                 ObjectTreeNode(node_for=[Base],
-                                children='children',
-                                label='name',
-                                auto_open=True,
-                                copy=True,
-                                delete=True,
-                                rename=True,
-                                ),
-                 ]
         
         tree_editor = TreeEditor(editable=False,
                                  hide_root=False,
                                  on_dclick='handler._on_dclick',
                                  on_select='handler._on_select',
                                  orientation='vertical',
-                                 nodes=nodes
+                                 nodes=self.nodes
                                  )
 
 
@@ -125,5 +103,39 @@ class EngineView(HasTraits):
                     height=0.3,
                     handler = EngineViewHandler)
         return view
+    
 
+    def _nodes_default(self):
+        """ The default value of the cached nodes list.
+        """
+        # The engine right menu actions.
+        new_scene_action = Action(name='New Scene',
+                                  action='object.new_scene',
+                                  tooltip='Create a new scene')
+
+        # Now setup the view.
+        nodes = [TreeNode(node_for=[Engine],
+                          children='children_ui_list',
+                          label='=Mayavi',
+                          auto_open=True,
+                          copy=False,
+                          delete=False,
+                          rename=False,
+                          view=View(),
+                          tooltip='=Right click to create a new scene',
+                          menu=Menu(new_scene_action)
+                          ),
+                 ObjectTreeNode(node_for=[Base],
+                                children='children_ui_list',
+                                label='name',
+                                auto_open=True,
+                                copy=True,
+                                delete=True,
+                                rename=True,
+                                ),
+                 ]
+        return nodes
+
+  
+    
 ### EOF ######################################################################

@@ -5,7 +5,7 @@
 # License: BSD Style.
 
 # Enthought library imports.
-from enthought.traits.api import HasTraits, Instance, List, Str, Property
+from enthought.traits.api import List, Str
 from enthought.traits.ui.api import View, Group, Item
 from enthought.tvtk.pyface.scene import Scene
 from enthought.persistence.state_pickler import set_state
@@ -14,6 +14,7 @@ from enthought.persistence.state_pickler import set_state
 from enthought.mayavi.core.base import Base
 from enthought.mayavi.core.source import Source
 from enthought.mayavi.core.common import handle_children_state, exception
+from enthought.mayavi.view.adder_node import AdderNode
 
 
 ######################################################################
@@ -37,7 +38,9 @@ class Scene(Base):
     type = Str(' scene')
 
     # The objects view.
-    view = View(Group(Item(name='scene', style='custom'), show_labels=False) )
+    view = View(Group(Item(name='scene', style='custom'), 
+                           show_labels=False) 
+               )
 
 
     ######################################################################
@@ -135,6 +138,13 @@ class Scene(Base):
     def _children_items_changed(self, list_event):
         self._handle_children(list_event.removed, list_event.added)            
     
+    def _get_children_ui_list(self):
+        """ Trait getter for scenes_ui Property.
+        """
+        node = AdderNode(name='Add a new source')
+        return self.children + [node] 
+
+    
     def _handle_children(self, removed, added):
         for obj in removed:
             obj.stop()
@@ -151,3 +161,4 @@ class Scene(Base):
     def __menu_helper_default(self):
         from enthought.mayavi.core.traits_menu import SourceMenuHelper
         return SourceMenuHelper(object=self)
+

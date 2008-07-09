@@ -78,6 +78,8 @@ class Base(TreeNodeObject):
     # Is this object visible or not. 
     visible = Bool(True, desc='if the object is visible')
 
+    # Extend the children list with an AdderNode when a TreeEditor needs it.
+    children_ui_list = Property
 
     ##################################################
     # Private traits
@@ -282,6 +284,13 @@ class Base(TreeNodeObject):
             old = self._is_running
             self._is_running = new
             self.trait_property_changed('running', old, new)
+
+    def _get_children_ui_list(self):
+        """ Getter for Traits Property children_ui_list.
+        
+        For the base class, do not add anything to the children list.
+        """
+        return self.children 
 
     def _visible_changed(self , value):
         if value:
