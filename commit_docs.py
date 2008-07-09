@@ -3,42 +3,18 @@
 
 """ Build and distribute the Mayavi documentation in an automated fashion.
 
-This script allows one to build the documentation locally within the Mayavi docs
-directory, as well as building the docs externally and then committing to the
-CEC SVN repo.
+The application is based on a set of actions which each accept a list of
+options. At the time of this writing, the valid actions are:
 
-To merely build the docs locally is very simple:
+ * build-html
+ * build-latex
+ * create-zip
 
-$ ./commit_docs.py build
+Having used those, the --help option may be used to find a list of all options.
 
-which will build the HTML, LaTeX, and ZIP (of the HTML) within the docs dir in
-Mayavi: docs/mayavi/user_guide/, relative to this file.
+For example, this is how to get the help information for build-html:
 
-To just generate the ZIP (as to commit back to Mayavi SVN), use the build-zip
-command:
-
-$ ./commit_docs.py build-zip
-
-To publish the docs by creating them elsewhere and then committing to the CEC
-repository, it is equally simple:
-
-$ ./commit_docs.py update-web
-
-This also offers to update CEC automatically; doing so requires a password and
-permission on the CEC webserver.
-
-Of course, the commands may be combined, so this also works:
-
-$ ./commit_docs.py build update-web
-
-although the reverse order is not currently supported. This will not use the
-same docs for both instances: they are build independently, because the TARGET
-directory is normally in different places for each: in a temporary directory for
-update-web, and within the checkout of Mayavi for build.
-
-Using the --target option allows a different directory to be used for building
-either with build or update-web, and both will be able to use that location
-without problems.
+$ ./commit_docs.py build-html --help
 """
 
 from optparse import OptionParser
