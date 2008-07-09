@@ -90,7 +90,7 @@ class my_install_scripts(install_scripts):
 # documentation at build time, if Sphinx is installed.
 # Otherwise, it will unzip the html_docs.zip.
 from commit_docs import HtmlBuild
-from numpy.distutils.command.build import build
+from numpy.distutils.command.build import build as distbuild
 from numpy.distutils import log
 
 def unzip_html_docs(src_path, dest_dir):
@@ -110,9 +110,9 @@ def unzip_html_docs(src_path, dest_dir):
                 os.mkdir(cur_name)
     file.close()
 
-class my_build(build):
+class my_build(distbuild):
     def run(self):
-        build.run(self)
+        distbuild.run(self)
 
         # Figure out the documentation source directory and
         # the output directory based on current location.
