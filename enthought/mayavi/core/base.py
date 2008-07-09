@@ -293,7 +293,7 @@ class Base(TreeNodeObject):
         """
         return self.children 
 
-    @on_trait_change('children,children_items')
+    @on_trait_change('children[]')
     def _trigger_children_ui_list(self, old, new):
         """ Trigger a children_ui_list change when scenes changed.
         """

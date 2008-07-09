@@ -473,7 +473,7 @@ class Engine(HasStrictTraits):
         node = AdderNode(name='Add a new scene')
         return self.scenes + [node] 
 
-    @on_trait_change('scenes,scenes_items')
+    @on_trait_change('scenes[]')
     def _trigger_children_ui_list(self, old, new):
         """ Trigger a children_ui_list change when scenes changed.
         """
