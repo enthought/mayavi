@@ -4,7 +4,7 @@ Tests for the CSV file sniffer
 # Author: Ilan Schnell <ischnell@enthought.com>
 # Copyright (c) 2008, Ilan Schnell, Enthought, Inc.
 # License: BSD Style.
-
+import os.path
 import unittest
 
 from numpy import array, ndarray, float64
@@ -13,7 +13,10 @@ from enthought.mayavi.tools.wizards.csv_sniff import \
      Sniff, loadtxt, loadtxt_unknown, array2dict
 
 
-class Test_Files(unittest.TestCase):
+CSV_PATH = os.path.join(os.path.dirname(__file__), 'csv_files')
+
+
+class Util(object):
 
     def assertClose(self, x, y):
         self.assertEqual(len(x), len(y))
@@ -30,10 +33,14 @@ class Test_Files(unittest.TestCase):
                     
             elif isinstance(x[i], str):
                 self.assertEqual(x[i], y[i])
-            
+
+
+class Test_Files(unittest.TestCase, Util):
 
     def test_1(self):
-        s = Sniff('csv_files/1.csv')
+        filename = os.path.join(CSV_PATH, '1.csv')
+        
+        s = Sniff(filename)
         self.assertEqual(s.delimiter(), ',')
         self.assertEqual(s.skiprows(), 1)
         self.assertEqual(s.dtype()['names'], ('A', 'B', 'C'))
@@ -42,7 +49,7 @@ class Test_Files(unittest.TestCase):
         if delimiter == ' ':
             delimiter = None
             
-        x = loadtxt('csv_files/1.csv',
+        x = loadtxt(filename,
                     delimiter=delimiter,
                     skiprows=s.skiprows(),
                     dtype=s.dtype())
@@ -58,7 +65,7 @@ class Test_Files(unittest.TestCase):
         self.assertClose(x['B'], y['B'])
         self.assertClose(x['C'], y['C'])
 
-        d = array2dict(loadtxt_unknown('csv_files/1.csv'))
+        d = array2dict(loadtxt_unknown(filename))
         self.assertEqual(type(d), type({}))
         self.assertClose(x['A'], [1, 7])
         self.assertClose(x['B'], [2, 4])
@@ -66,32 +73,48 @@ class Test_Files(unittest.TestCase):
 
 
     def test_comment1(self):
-        s = Sniff('csv_files/comment1.csv')
+        filename = os.path.join(CSV_PATH, 'comment1.csv')
+        s = Sniff(filename)
         self.assertEqual(s.comments(), '%')
         
-        x = loadtxt_unknown('csv_files/comment1.csv')
+        x = loadtxt_unknown(filename)
         self.assertEqual(x.dtype.names, ('A', 'B', 'C'))
         self.assertClose([x['A']], [1])
         self.assertClose([x['B']], [2])
         self.assertClose([x['C']], [3.2])
 
-    def test_colors(self):
-        x = loadtxt_unknown('csv_files/colors.csv')
-        self.assertEqual(x.dtype.names, ('Name', 'r', 'g', 'b'))
-        self.assertEqual(list(x['Name']),
-                         ['Red', 'Green', 'Blue', 'Orange', 'Yellow'])
 
-    def test_files(self):
-        # Test various files in `csv_files` subfolder for each .csv
-        # there must be a .py which contains the corresponding array.
-        for name in '''example1 colors
-                    '''.split():
-            x = loadtxt_unknown('csv_files/%s.csv' % name)
-            #print repr(x)
-            nan = float('nan')
-            y = eval(open('csv_files/%s.py' % name).read())
-            for name in y.dtype.names:
-                self.assertClose(x[name], y[name])
+class Test_csv_py_files(unittest.TestCase, Util):
+    
+    def check_csv_py(self, name):
+        """ Check if the output array from csv_files/<name>.csv
+            (which is of unkown format)
+            is the same as the array in csv_files/<name>.py
+        """
+        x = loadtxt_unknown(os.path.join(CSV_PATH, '%s.csv' % name))
+        #print repr(x)
+        nan = float('nan')
+        y = eval(open(os.path.join(CSV_PATH, '%s.py' % name)).read())
+        for name in y.dtype.names:
+            self.assertClose(x[name], y[name])
+    
+    def test_file_example1(self):
+        self.check_csv_py('example1')
+        
+    def test_file_colors(self):
+        self.check_csv_py('colors')
+        
+    def test_file_OObeta3(self):
+        self.check_csv_py('OObeta3')
+        
+    #def test_file_hp11c(self):
+    #    self.check_csv_py('hp11c')
+        
+    #def test_file_1col(self):
+    #    self.check_csv_py('1col')
+        
+    #def test_file_tarray(self):
+    #    self.check_csv_py('tarray')
 
 
 if __name__ == '__main__':
