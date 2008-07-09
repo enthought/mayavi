@@ -4,9 +4,10 @@ Tests for the CSV file sniffer
 # Author: Ilan Schnell <ischnell@enthought.com>
 # Copyright (c) 2008, Ilan Schnell, Enthought, Inc.
 # License: BSD Style.
+import os
 import os.path
 import unittest
-from test import test_support
+from test.test_support import TESTFN, TestFailed
 
 from numpy import array, ndarray
 
@@ -15,7 +16,6 @@ from enthought.mayavi.tools.wizards.csv_sniff import \
 
 
 CSV_PATH = os.path.join(os.path.dirname(__file__), 'csv_files')
-
 
 
 class Util(object):
@@ -43,19 +43,19 @@ class Util(object):
             self.assertEqual(a, b)
 
         else:
-            raise TypeError("Hmm, did not expect: %r" % a)
+            raise TestFailed("Hmm, did not expect: %r" % a)
 
 
 class Test(unittest.TestCase, Util):
 
     def test_methods(self):
-        fo = open(test_support.TESTFN, 'wb')
+        fo = open(TESTFN, 'wb')
         fo.write(''' "A", "B", "C"
                      1, 2, 3.2
                      7, 4, 1.87''')
         fo.close()
         
-        s = Sniff(test_support.TESTFN)
+        s = Sniff(TESTFN)
         self.assertEqual(s.comments(), '#')
         self.assertEqual(s.delimiter(), ',')
         self.assertEqual(s.skiprows(), 1)
@@ -67,10 +67,10 @@ class Test(unittest.TestCase, Util):
                   dtype=[('A', float), ('B', float), ('C', float)])
         self.assertNamedClose(x, y)
 
-        y = loadtxt(test_support.TESTFN, **s.kwds())
+        y = loadtxt(TESTFN, **s.kwds())
         self.assertNamedClose(x, y)
         
-        d = array2dict(loadtxt_unknown(test_support.TESTFN))
+        d = array2dict(loadtxt_unknown(TESTFN))
         self.assertEqual(type(d), type({}))
         self.assertAllClose(x['A'], [1, 7])
         self.assertAllClose(x['B'], [2, 4])
@@ -78,13 +78,13 @@ class Test(unittest.TestCase, Util):
 
 
     def test_comment(self):
-        fo = open(test_support.TESTFN, 'wb')
+        fo = open(TESTFN, 'wb')
         fo.write('''
         % "A"  "B"  "C"
            1    2   4.2   % comment''')
         fo.close()
         
-        s = Sniff(test_support.TESTFN)
+        s = Sniff(TESTFN)
         self.assertEqual(s.kwds(),
           {'dtype': {'names': ('A', 'B', 'C'),
                      'formats': (float, float, float)},
@@ -94,21 +94,21 @@ class Test(unittest.TestCase, Util):
 
         
     def test_tabs(self):
-        fo = open(test_support.TESTFN, 'wb')
+        fo = open(TESTFN, 'wb')
         fo.write('''54\t87\n21\t32''')
         fo.close()
         
-        s = Sniff(test_support.TESTFN)
+        s = Sniff(TESTFN)
         self.assertEqual(s.delimiter(), None)
         self.assertEqual(s.skiprows(), 0)
 
 
     def test_nohead(self):
-        fo = open(test_support.TESTFN, 'wb')
+        fo = open(TESTFN, 'wb')
         fo.write('''Hello;54;87\nWorld;42;86.5''')
         fo.close()
         
-        s = Sniff(test_support.TESTFN)
+        s = Sniff(TESTFN)
         self.assertEqual(s.kwds(),
           {'comments': '#',
            'delimiter': ';',
@@ -118,12 +118,15 @@ class Test(unittest.TestCase, Util):
 
         
     def test_empty_file(self):
-        fo = open(test_support.TESTFN, 'wb')
+        fo = open(TESTFN, 'wb')
         fo.write('')
         fo.close()
         
-        self.assertRaises(IndexError, Sniff, test_support.TESTFN)
-        
+        self.assertRaises(IndexError, Sniff, TESTFN)
+
+
+    def tearDown(self):
+        os.unlink(TESTFN)
 
 
 class Test_csv_py_files(unittest.TestCase, Util):
