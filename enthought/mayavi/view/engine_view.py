@@ -9,7 +9,7 @@
 from os.path import join
 
 # Enthought library imports.
-from enthought.traits.api import Instance, HasTraits, Property, Any, List
+from enthought.traits.api import Instance, HasTraits, Any
 from enthought.traits.ui.api import (Group, Item, TreeEditor, TreeNode,
         ObjectTreeNode, View, Handler, UIInfo)
 from enthought.traits.ui.menu import Action, Menu
@@ -142,7 +142,6 @@ class EngineView(HasTraits):
                           delete=False,
                           rename=False,
                           tooltip='tooltip',
-                          #menu=Menu(new_scene_action)
                           ),
                  
                  ]
