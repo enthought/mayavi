@@ -12,7 +12,8 @@ import os
 import logging
 
 # Enthought library imports.
-from enthought.traits.api import Instance, Property, Bool, Str, Python, HasTraits
+from enthought.traits.api import Instance, Property, Bool, Str, Python, \
+    HasTraits, on_trait_change
 from enthought.traits.ui.api import TreeNodeObject
 from enthought.tvtk.pyface.tvtk_scene import TVTKScene
 from enthought.persistence import state_pickler
@@ -292,6 +293,13 @@ class Base(TreeNodeObject):
         """
         return self.children 
 
+    @on_trait_change('children,children_items')
+    def _trigger_children_ui_list(self, old, new):
+        """ Trigger a children_ui_list change when scenes changed.
+        """
+        self.trait_property_changed('children_ui_list', old, new)
+
+
     def _visible_changed(self , value):
         if value:
             #self._HideShowAction.name = "Hide"
@@ -330,4 +338,3 @@ class Base(TreeNodeObject):
 
     def __icon_path_default(self):
         return resource_path()
-

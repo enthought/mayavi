@@ -14,7 +14,7 @@ from os.path import splitext
 # Enthought library imports.
 from enthought.traits.api import (HasStrictTraits, List, Str, 
         Property, Instance, Event, HasTraits, Callable, Dict,
-        Bool)
+        Bool, Any, on_trait_change)
 from enthought.traits.ui.api import View, Item
 from enthought.persistence import state_pickler
 
@@ -393,6 +393,12 @@ class Engine(HasStrictTraits):
         else:
             scene.scene.close()
 
+
+    def dialog_view(self):
+        """ Default dialog view for Engine objects.
+        """
+        return None
+
     ######################################################################
     # Non-public interface
     ######################################################################
@@ -466,3 +472,11 @@ class Engine(HasStrictTraits):
         """
         node = AdderNode(name='Add a new scene')
         return self.scenes + [node] 
+
+    @on_trait_change('scenes,scenes_items')
+    def _trigger_children_ui_list(self, old, new):
+        """ Trigger a children_ui_list change when scenes changed.
+        """
+        self.trait_property_changed('children_ui_list', old, new)
+
+    

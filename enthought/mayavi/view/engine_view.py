@@ -115,7 +115,7 @@ class EngineView(HasTraits):
 
         # Now setup the view.
         nodes = [TreeNode(node_for=[Engine],
-                          children='scenes',
+                          children='children_ui_list',
                           label='=Mayavi',
                           auto_open=True,
                           copy=False,
@@ -126,7 +126,7 @@ class EngineView(HasTraits):
                           menu=Menu(new_scene_action)
                           ),
                  ObjectTreeNode(node_for=[Base],
-                                children='children',
+                                children='children_ui_list',
                                 label='name',
                                 auto_open=True,
                                 copy=True,
