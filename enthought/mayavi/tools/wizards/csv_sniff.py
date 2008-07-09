@@ -5,7 +5,6 @@
 # TODO: should derive from HasTraits
 
 import csv
-from numpy import float64
 
 # FIXME: see loadtxt.py (should really be the loadtxt from numpy)
 from enthought.mayavi.tools.wizards.loadtxt import loadtxt
@@ -29,9 +28,7 @@ class Sniff(object):
         self._comment = '#'
         self._check_comment()
         
-        self._usePySplit = False
-        if self._dialect.delimiter in (' ', '\t'):
-            self._usePySplit = True
+        self._usePySplit = not self._dialect.delimiter.strip()
         
         self._numcols = len(self._split(self._reallines[0]))
         
@@ -76,9 +73,13 @@ class Sniff(object):
                          if self._datatypes_of_line(l) == self._datatypes]
                 items.append(1)
                 res.append('S%i' % max(items))
-            else:
+                
+            elif t == float:
                 res.append(t)
-            
+
+            else:
+                raise TypeError("Hmm, did not expect: %r" % t)
+                
         return tuple(res)
     
     def _datatypes_of_line(self, line):
@@ -93,9 +94,10 @@ class Sniff(object):
         res = []
         for s in self._split(line):
             if isFloat(s):
-                res.append(float64)
+                res.append(float)
             else:
                 res.append(str)
+                
         return tuple(res)
 
     #-----------------------------------------------------------------------
@@ -106,7 +108,10 @@ class Sniff(object):
         return self._comment
     
     def delimiter(self):
-        return self._dialect.delimiter
+        if self._usePySplit:
+            return ''
+        else:
+            return self._dialect.delimiter
     
     def skiprows(self):
         for n, line in enumerate(self._lines):
@@ -119,18 +124,21 @@ class Sniff(object):
 
 
 
-def loadtxt_unknown(filename):
+def loadtxt_unknown(filename, verbose=0):
     """ Like numpy.loadtxt but more general, in the sense that it uses
         Sniff first to determine the necessary keyword arguments for loadtxt.
     """
     s = Sniff(filename)
-
-    delimiter = s.delimiter()
-    if delimiter in (' ', '\t'):
-        delimiter = None
+    
+    if verbose:
+        print '===== Sniffed information for file %r:' % filename
+        print 'delimiter = %r' % s.delimiter()
+        print 'comments  = %r' % s.comments()
+        print 'dtype     = %r' % s.dtype()
+        print 'skiprows  = %r' % s.skiprows()
 
     return loadtxt(filename,
-                   delimiter = delimiter,
+                   delimiter = s.delimiter() if s.delimiter() else None,
                    comments  = s.comments(),
                    dtype     = s.dtype(),
                    skiprows  = s.skiprows())
