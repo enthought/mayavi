@@ -272,6 +272,11 @@ class Base(TreeNodeObject):
         return self._icon_path
 
 
+    def tno_delete_child(self, node, index):
+        del self.children[index]
+
+
+
     ######################################################################
     # Non-public interface
     ######################################################################
@@ -286,12 +291,6 @@ class Base(TreeNodeObject):
             self._is_running = new
             self.trait_property_changed('running', old, new)
 
-    def _get_children_ui_list(self):
-        """ Getter for Traits Property children_ui_list.
-        
-        For the base class, do not add anything to the children list.
-        """
-        return self.children 
 
     @on_trait_change('children[]')
     def _trigger_children_ui_list(self, old, new):
