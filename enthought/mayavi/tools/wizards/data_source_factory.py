@@ -2,7 +2,7 @@
 from numpy import c_, zeros, arange
 
 from enthought.traits.api import HasStrictTraits, \
-    false, CArray, Trait, Instance
+    true, false, CArray, Trait, Instance
 
 from enthought.mayavi.sources.vtk_data_source import VTKDataSource
 from enthought.mayavi.sources.array_source import ArraySource
@@ -28,6 +28,9 @@ class DataSourceFactory(HasStrictTraits):
 
     # If the data is unstructured
     unstructured = false
+    
+    # If the factory should attempt to connect the data points
+    connected = true
 
     # The position of the data points
     position_x = ArrayOrNone
@@ -100,7 +103,8 @@ class DataSourceFactory(HasStrictTraits):
             lines[:,0] = arange(0, np-0.5, 1, 'l')
             lines[:,1] = arange(1, np+0.5, 1, 'l')
         self._vtk_source = tvtk.PolyData(points=points, lines=lines)
-        if self.connectivity_triangles is not None:
+        if (self.connectivity_triangles is not None and
+                        self.connected):
             assert self.connectivity_triangles.shape[1] == 3, \
                     "The connectivity list must be Nx3."
             self._vtk_source.polys = self.connectivity_triangles

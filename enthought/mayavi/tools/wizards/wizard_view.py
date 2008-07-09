@@ -166,11 +166,13 @@ class DataSourceWizard(HasTraits):
         if self.data_type_ == 'point':
             # The only sensible data structures for points is with
             # explicit positioning.
-            self.position_type_ = 'explicit'
+            self.position_type_ == 'explicit'
             # In addition, this view does not allow for
-            # connectivity with triangles.
-            self.connectivity_triangles = ''
+            # connectivity. 
             factory.unstructured = True
+            factory.connected = False
+        else:
+            factory.connected = True
 
         if self.position_type_ == "image data":
             factory.position_implicit = True
@@ -275,7 +277,7 @@ class DataSourceWizardView(DataSourceWizard):
 
     ui = Any(False)
 
-    _preview_button = Button(label='Preview structure')
+    _preview_button = Button(label='Update preview')
 
     def __preview_button_fired(self):
         if self.ui:
@@ -476,16 +478,13 @@ class DataSourceWizardView(DataSourceWizard):
                                 ),
                             show_labels=False,
                             label='Help',
-                            layout='tabbed',
-                            dock='tab',
                         ),
                         Group(
+                            '_preview_button', 
                             Item('_preview_window', style='custom',
                                     label='Preview structure'),
                             show_labels=False,
                             label='Preview structure',
-                            layout='tabbed',
-                            dock='tab',
                         ),
                         layout='tabbed',
                         dock='tab',
@@ -542,6 +541,7 @@ class DataSourceWizardView(DataSourceWizard):
 
 
     _wizard_view = View(
+          Group(
             HGroup(
                 Item('_self', style='custom', show_label=False,
                      editor=InstanceEditor(view='_array_view'),
@@ -552,15 +552,14 @@ class DataSourceWizardView(DataSourceWizard):
                      editor=InstanceEditor(view='_questions_view'),
                      ),
                 ),
-            '_',
             HGroup(spring, 
-                '_preview_button', 
                 '_cancel_button', 
                 Item('_ok_button', enabled_when='_is_ok'),
                 show_labels=False,
             ),
-            title='Import arrays',
-            )
+          ),
+        title='Import arrays',
+        )
 
 
     #----------------------------------------------------------------------
@@ -587,16 +586,35 @@ class DataSourceWizardView(DataSourceWizard):
         """ Display a preview of the data structure in the preview
             window.
         """
+        import sys
+        print >>sys.stderr, "Alive 1"
         self._preview_window.clear()
+        print >>sys.stderr, "Alive 2"
         self._preview_window.add_source(self.data_source)
-        self._preview_window.add_module(Surface())
+        print >>sys.stderr, "Alive 3"
         g = Glyph()
         g.glyph.glyph_source.glyph_source = \
                     g.glyph.glyph_source.glyph_list[0]
         g.glyph.glyph_source.glyph_source.glyph_type = 'cross'
-        self._preview_window.add_module(g)
+        if not self.has_vector_data or self.data_type == 'vector':
+            g.actor.property.representation = 'points'
+        #g.edit_traits()
+        if not self.position_type in ('points', 'vectors'):
+            print >>sys.stderr, "Alive 4"
+            self._preview_window.add_module(g)
+            print >>sys.stderr, "Alive 5"
+            s = Surface()
+            s.actor.property.opacity = 0.2
+            self._preview_window.add_module(s)
+        print >>sys.stderr, "Alive 6"
         self._preview_window.add_filter(ExtractEdges())
-        self._preview_window.add_module(Surface())
+        print >>sys.stderr, "Alive 7"
+        s = Surface()
+        s.actor.property.opacity = 0.3
+        s.actor.property.representation = 'wireframe'
+        print >>sys.stderr, "Alive 8"
+        self._preview_window.add_module(s)
+        print >>sys.stderr, "Alive 9"
 
 
 if __name__ == '__main__':
@@ -616,4 +634,6 @@ if __name__ == '__main__':
     wizard.init_arrays()
     wizard.guess_array_names()
     wizard.view_wizard()
+    from enthought.pyface.api import GUI
+    GUI().start_event_loop()
 

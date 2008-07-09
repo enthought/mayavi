@@ -7,9 +7,9 @@ from enthought.traits.api import HasTraits, Instance
 from enthought.traits.ui.api import View, Item
 from enthought.tvtk.pyface.scene_editor import SceneEditor
 from enthought.tvtk.pyface.scene_model import SceneModel
+from enthought.tvtk.pyface.scene import Scene
 
 from enthought.mayavi.core.engine import Engine
-
 
 ##############################################################################
 # PreviewWindow class
@@ -21,15 +21,10 @@ class PreviewWindow(HasTraits):
     # The engine that manages the preview view
     _engine = Instance(Engine)
 
-    def __engine_default(self):
-        e = Engine()
-        e.start()
-        e.new_scene(self._scene)
-        return e
-
     _scene = Instance(SceneModel, ())
 
-    view = View(Item('_scene', editor=SceneEditor(), show_label=False),
+    view = View(Item('_scene', editor=SceneEditor(scene_class=Scene), 
+                        show_label=False),
                 width=500, height=500)
 
     #-----------------------------------------------------------------------
@@ -50,10 +45,20 @@ class PreviewWindow(HasTraits):
 
 
     def clear(self):
-        self._scene.scene.disable_render = True
-        if hasattr(self._scene.scene, 'children'):
-            self._scene.scene.children[:] = []
-        self._scene.scene.disable_render = False
+        self._engine.current_scene.scene.disable_render = True
+        self._engine.current_scene.children[:] = []
+        self._engine.current_scene.scene.disable_render = False
+
+    
+    #-----------------------------------------------------------------------
+    # Private API
+    #-----------------------------------------------------------------------
+    
+    def __engine_default(self):
+        e = Engine()
+        e.start()
+        e.new_scene(self._scene)
+        return e
 
 
 if __name__ == '__main__':
