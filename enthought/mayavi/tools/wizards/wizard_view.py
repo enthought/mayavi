@@ -164,7 +164,8 @@ class DataSourceWizard(HasTraits):
             factory.scalar_data = data(self.scalar_data)
 
         if self.data_type_ == 'point':
-            # The only sensible data structures for points is with
+            # The user wants to explicitly position vector, 
+            # thus only sensible data structures for points is with
             # explicit positioning.
             self.position_type_ == 'explicit'
             # In addition, this view does not allow for
@@ -196,6 +197,12 @@ class DataSourceWizard(HasTraits):
         self.factory = factory
 
         self.data_source = factory.build_data_source()
+
+        if self.has_scalar_data:
+            if hasattr(self.data_source, 'scalar_name'):
+               self.data_source.scalar_name = self.scalar_data
+            elif hasattr(self.data_source, 'point_scalar_name'):
+               self.data_source.point_scalar_name = self.scalars
 
 
 ############################################################################
@@ -537,6 +544,7 @@ class DataSourceWizardView(DataSourceWizard):
                 View(Group(
                    _scalar_data_group,
                    _position_group,
+                   _optional_vector_data_group,
                 ))
 
 
@@ -582,39 +590,32 @@ class DataSourceWizardView(DataSourceWizard):
         self._is_ok
         self.ui = self.edit_traits(view='_wizard_view')
 
+
     def preview(self):
         """ Display a preview of the data structure in the preview
             window.
         """
-        import sys
-        print >>sys.stderr, "Alive 1"
         self._preview_window.clear()
-        print >>sys.stderr, "Alive 2"
         self._preview_window.add_source(self.data_source)
-        print >>sys.stderr, "Alive 3"
+        data = lambda name: self.data_sources[name]
         g = Glyph()
         g.glyph.glyph_source.glyph_source = \
                     g.glyph.glyph_source.glyph_list[0]
-        g.glyph.glyph_source.glyph_source.glyph_type = 'cross'
-        if not self.has_vector_data or self.data_type == 'vector':
+        g.glyph.scale_mode = 'data_scaling_off'
+        if not (self.has_vector_data or self.data_type_ == 'vector'):
+            g.glyph.glyph_source.glyph_source.glyph_type = 'cross'
             g.actor.property.representation = 'points'
-        #g.edit_traits()
-        if not self.position_type in ('points', 'vectors'):
-            print >>sys.stderr, "Alive 4"
-            self._preview_window.add_module(g)
-            print >>sys.stderr, "Alive 5"
+            g.actor.property.point_size = 3.
+        self._preview_window.add_module(g)
+        if not self.data_type_ in ('point', 'vector'):
+            s = Surface()
+            s.actor.property.opacity = 0.3
+            self._preview_window.add_module(s)
+        if not self.data_type_ == 'point':
+            self._preview_window.add_filter(ExtractEdges())
             s = Surface()
             s.actor.property.opacity = 0.2
             self._preview_window.add_module(s)
-        print >>sys.stderr, "Alive 6"
-        self._preview_window.add_filter(ExtractEdges())
-        print >>sys.stderr, "Alive 7"
-        s = Surface()
-        s.actor.property.opacity = 0.3
-        s.actor.property.representation = 'wireframe'
-        print >>sys.stderr, "Alive 8"
-        self._preview_window.add_module(s)
-        print >>sys.stderr, "Alive 9"
 
 
 if __name__ == '__main__':
@@ -634,6 +635,4 @@ if __name__ == '__main__':
     wizard.init_arrays()
     wizard.guess_array_names()
     wizard.view_wizard()
-    from enthought.pyface.api import GUI
-    GUI().start_event_loop()
 
