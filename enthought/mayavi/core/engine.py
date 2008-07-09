@@ -470,7 +470,7 @@ class Engine(HasStrictTraits):
     def _get_children_ui_list(self):
         """ Trait getter for children_ui_list Property.
         """
-        node = SceneAdderNode(label='Add a new scene')
+        node = SceneAdderNode(label='Add a new scene', object=self)
         return self.scenes + [node] 
 
     @on_trait_change('scenes[]')
