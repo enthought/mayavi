@@ -56,6 +56,9 @@ def build_html(docsrc, target, stdout, verbose=False):
     Popen('sphinx-build -b html %s %s' % (docsrc, os.path.join(target,
         'html')), stdout=stdout, shell=True).wait()
 
+    # Remove .doctrees directory
+    shutil.rmtree(os.path.join(target, 'html', '.doctrees'))
+
 def build_latex(docsrc, target, stdout, verbose=False):
     if verbose: 'Building LaTeX'
 
@@ -126,15 +129,16 @@ def svn_commit(options):
 
     # Checkin HTML to CEC SVN. Suppress stderr too, because this has a lot of
     # dumb warnings, if verbose is false.
-    Popen('svn add %(target)s/html/* %(target)s/latex/*' % {
-            'target': options.target
-        }, stdout=options.stdout, stderr=options.stdout, shell=True).wait()
+    cmd = 'svn add %(target)s --force' % {
+        'target': os.path.join(options.target, 'html')
+        }
+    Popen(cmd, stdout=options.stdout, stderr=options.stdout, shell=True).wait()
     Popen('svn commit %s -m "%s"' % (options.target, options.commit_message),
-        stdout=options.stdout, shell=True).wait()
+          stdout=options.stdout, shell=True).wait()
 
     # Try updating CEC via SSH (this will prompt for the password by itself, if
     # necessary); also, don't allow this to run silently
-    if raw_input('Try connecting to CEC and updating? (y/n) ') == 'y':
+    if raw_input('Try connecting to CEC and updating? (y/[n]) ').lower() == 'y':
         Popen('ssh code.enthought.com "(cd /www/htdocs/code.enthought.com/' \
                   'projects/mayavi/ && svn up)"', shell=True).wait()
 
