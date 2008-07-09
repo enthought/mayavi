@@ -26,7 +26,7 @@ from enthought.mayavi.core.base import Base
 from enthought.mayavi.core.scene import Scene
 from enthought.mayavi.core.common import error
 from enthought.mayavi.core.registry import registry
-from enthought.mayavi.view.adder_node import AdderNode
+from enthought.mayavi.view.adder_node import AdderNode, SceneAdderNode
 
 
 ######################################################################
@@ -470,7 +470,7 @@ class Engine(HasStrictTraits):
     def _get_children_ui_list(self):
         """ Trait getter for children_ui_list Property.
         """
-        node = AdderNode(label='Add a new scene')
+        node = SceneAdderNode(label='Add a new scene')
         return self.scenes + [node] 
 
     @on_trait_change('scenes[]')

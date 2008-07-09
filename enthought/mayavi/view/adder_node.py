@@ -14,6 +14,7 @@ class AdderNode(HasTraits):
     tooltip = Str('Add an item')
     object =  Any
     scene = Property
+    view = View(Group(label='AdderNode'))   
     
     
     def dialog_view(self):
@@ -23,13 +24,20 @@ class AdderNode(HasTraits):
         return view
     
     
-    def trait_view(self):
-        view = View(Group(label='test 2'))
-        return view
-    
-    
     def _get_scene(self):
         if self.object is not None:
             return self.object.scene
         else:
             return None
+
+
+class SceneAdderNode(AdderNode):  
+    view = View(Group(label='Add a scene'))   
+    
+class SourceAdderNode(AdderNode):  
+    view = View(Group(label='Add a source'))   
+    
+class FilterAdderNode(AdderNode):  
+    view = View(Group(label='Add a Filter or Module'))
+
+
