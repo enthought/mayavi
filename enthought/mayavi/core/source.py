@@ -16,6 +16,7 @@ from enthought.mayavi.core.module import Module
 from enthought.mayavi.core.module_manager import ModuleManager
 from enthought.mayavi.core.common import handle_children_state, exception
 from enthought.mayavi.core.pipeline_info import PipelineInfo
+from enthought.mayavi.view.adder_node import FilterAdderNode
 
 ######################################################################
 # Utility functions.
@@ -187,6 +188,12 @@ class Source(PipelineBase):
                     obj.start()
                 except:
                     exception()
+
+    def _get_children_ui_list(self):
+        """ Trait getter for scenes_ui Property.
+        """
+        node = FilterAdderNode(object=self)
+        return self.children + [node] 
 
     def _scene_changed(self, old, new):
         super(Source, self)._scene_changed(old, new)
