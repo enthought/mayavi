@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
-__doc__ = """
-Build and distribute the Mayavi documentation in an automated fashion.
+""" Build and distribute the Mayavi documentation in an automated fashion.
 
 This script allows one to build the documentation locally within the Mayavi docs
 directory, as well as building the docs externally and then committing to the
@@ -40,194 +39,255 @@ update-web, and within the checkout of Mayavi for build.
 Using the --target option allows a different directory to be used for building
 either with build or update-web, and both will be able to use that location
 without problems.
-
 """
 
 from optparse import OptionParser
 import os.path
 import shutil
 from subprocess import Popen
+import sys
 import tempfile
 import zipfile
 
-CEC_MAYAVI_SVN = 'https://svn.enthought.com/svn/cec/trunk/projects/mayavi'
+ACTIONS = {}
 
-def build_html(docsrc, target, stdout, verbose=False):
-    if verbose: 'Building html'
+def register(process):
+    ACTIONS[process.action_name] = process
 
-    Popen('sphinx-build -b html %s %s' % (docsrc, os.path.join(target,
-        'html')), stdout=stdout, shell=True).wait()
+def has_started(method):
+    def _m(self, *args, **kwargs):
+        if not hasattr(self, 'options') or not hasattr(self, 'args'):
+            raise RuntimeError('function %s must be run after the process ' \
+                                   'has started' % method)
+        else:
+            return method(self, *args, **kwargs)
+    return _m
 
-    # Remove .doctrees directory
-    shutil.rmtree(os.path.join(target, 'html', '.doctrees'))
+class Process(object):
+    action_name = None
 
-def build_latex(docsrc, target, stdout, verbose=False):
-    if verbose: 'Building LaTeX'
+    def start(self, options, args):
+        self.options = options
+        self.args = args
 
-    # Build the LaTeX source files (ignore cwd property)
-    Popen('sphinx-build -b latex %s %s' % (docsrc, os.path.join(target,
-        'latex')), stdout=stdout, shell=True).wait()
+        self.run()
 
-    kwargs = {
-        'cwd': os.path.join(target, 'latex'),
-        'shell': True,
-        'stdout': stdout
-    }
+    @has_started
+    def run_command(self, command, **kwargs):
+        if self.options.verbose:
+            print '\033[1mRunning\033[0;0m: %s' % command
 
-    # Build LaTeX (stupidly difficult)
-    for i in range(3):
-        Popen('pdflatex mayavi_user_guide.tex', **kwargs).wait()
+        kwargs.setdefault('shell', True)
+        kwargs.setdefault('stdout', self.stdout)
+        return Popen(command, **kwargs).wait()
 
-    Popen('makeindex -s python.ist mayavi_user_guide.idx', **kwargs).wait()
-    Popen('makeindex -s python.ist modmayavi_user_guide.idx', **kwargs).wait()
+    @property
+    def stdout(self):
+        if hasattr(self, 'options') and self.options.verbose:
+            return None
+        elif hasattr(self, 'devnull'):
+            return self.devnull
+        else:
+            self.devnull = open(os.devnull, 'w')
+            return self.devnull
 
-    for i in range(2):
-        Popen('pdflatex mayavi_user_guide.tex', **kwargs).wait()
+    @property
+    def option_parser(self):
+        p = OptionParser()
+        p.add_option('-v', '--verbose', action='store_true',
+                     help='Print out lots of information')
+        p.add_option('--doc-source',
+                     help='Location of the documentation')
 
-    # Clean up all the non-PDF files
-    for name in os.listdir(kwargs['cwd']):
-        full_path = os.path.join(target, 'latex', name)
+        p.set_defaults(doc_source=os.path.join(os.path.dirname(__file__),
+                                               'docs', 'mayavi', 'user_guide',
+                                               'source'))
 
-        if full_path[-3:] != 'pdf' and full_path[-4:] != '.svn':
-            if os.path.isdir(full_path):
-                shutil.rmtree(full_path)
-            else:
-                os.remove(full_path)
+        return p
 
-def build_zip(docsrc, target, stdout, verbose=False):
-    """ Read from the html directory in options.target and ZIP that folder. """
-    if verbose: 'Creating ZIP archive of target\'s html'
+class Build(Process):
+    @has_started
+    def svn_checkout(self):
+        self.run_command('svn checkout %s %s' % (self.options.repository,
+                                                 self.target))
 
-    zf = zipfile.ZipFile(os.path.join(target, 'html_docs.zip'), 'w')
+    @has_started
+    def svn_add_forced(self, output_dir):
+        self.run_command('svn add %s --force' % output_dir)
 
-    # Write files in html/ to zf
-    length = len(os.path.abspath(os.path.join(target, 'html')))
-    subtract_base = lambda root: root[length+1:]
-    for root, dirs, files in os.walk(os.path.join(target, 'html')):
-        baseless = subtract_base(root)
-        if not baseless.startswith('.doctrees'):
-            for f in files:
-                zf.write(os.path.join(root, f), os.path.join(baseless, f))
+    @has_started
+    def svn_commit(self):
+        self.run_command('svn commit %s -m "%s"' % (self.target,
+            self.options.commit_message))
 
-def svn_commit(options):
-    if options.verbose: 'Using "%s" target dir' % options.target
+    @has_started
+    def run_sphinx(self, format, output_dir=None):
+        if not output_dir:
+            output_dir = os.path.join(self.target, format)
 
-    # Create stdout attribute of options
-    if options.verbose:
-        options.stdout = None
-    else:
-        options.stdout = open(os.devnull, 'w')
+        self.run_command('sphinx-build -b %s %s %s'
+                         % (format, self.options.doc_source, output_dir))
 
-    # Checkout SVN to target directory
-    Popen('svn co %s %s' % (CEC_MAYAVI_SVN, options.target),
-        stdout=options.stdout, shell=True).wait()
+    @has_started
+    def remove_tmp_files(output_dir):
+        pass
 
-    # Build docs
-    kwargs = dict((k, getattr(options, k)) for k in
-                  ('docsrc', 'target', 'stdout', 'verbose'))
+    @property
+    @has_started
+    def target(self):
+        if self.options.target:
+            return self.options.target
+        elif hasattr(self, 'tmpdir'):
+            return self.tmpdir
+        else:
+            self.tmpdir = tempfile.mkdtemp()
+            return self.tmpdir
 
-    build_html(**kwargs)
-    build_latex(**kwargs)
+    def _run(self, format):
+        output_dir = os.path.join(self.target, format)
 
-    # Checkin HTML to CEC SVN. Suppress stderr too, because this has a lot of
-    # dumb warnings, if verbose is false.
-    cmd = 'svn add %(target)s --force' % {
-        'target': os.path.join(options.target, 'html')
+        # Checkout SVN if necessary
+        if self.options.subversion:
+            self.svn_checkout()
+
+        # Build the HTML in self.options.target
+        # print self.options.target
+        self.run_sphinx(format)
+
+        # The child class needs to know how to remove unnecessary files (or none
+        # are removed, otherwise).
+        self.remove_tmp_files(output_dir)
+
+        # Add all of Sphinx's output to SVN (using force, because SVN doesn't
+        # think it needs to if the root is already tracked).
+        if self.options.subversion:
+            self.svn_add_forced(output_dir)
+
+            if self.options.commit:
+                self.svn_commit()
+
+    @property
+    def option_parser(self):
+        p = super(Build, self).option_parser
+        p.add_option('-t', '--target',
+                     help='Set working directory for any build executed')
+        p.add_option('--use-subversion', action='store_true', dest='subversion',
+                     help='Pull from Subversin, update data, and then publish '\
+                         'changes')
+        p.add_option('-r', '--repository',
+                     help='Full path to Subversion target')
+        p.add_option('--commit-message',
+                     help='Message used when committing to the repository')
+        p.add_option('--preserve-temp', action='store_true',
+                     help='Preseve temporary directories used')
+        p.add_option('--skip-commit', action='store_false', dest='commit',
+                     help='Do not actually commit anything to a repository')
+
+        p.set_defaults(commit=True, commit_message='Updating documentation',
+                       subversion=False,
+                       repository='https://svn.enthought.com/svn/cec/trunk/' \
+                           'projects/mayavi/docs/development/')
+
+        return p
+
+    def __del__(self):
+        if hasattr(self, 'tmpdir') and self.tmpdir and \
+                not self.options.preserve_temp:
+            # shutil needs to be re-imported, because has already been removed
+            import shutil
+            shutil.rmtree(self.target)
+
+class HtmlBuild(Build):
+    action_name = 'build-html'
+
+    def run(self):
+        if not self.options.subversion:
+            for path in ('html',):
+                os.mkdir(os.path.join(self.target, path))
+
+        self._run('html')
+
+    @has_started
+    def remove_tmp_files(self, html_dir):
+        shutil.rmtree(os.path.join(html_dir, '.doctrees'))        
+
+    @property
+    def option_parser(self):
+        p = super(HtmlBuild, self).option_parser
+        p.set_defaults(commit_message='Update HTML documentation')
+        return p
+
+register(HtmlBuild)
+
+class LaTeXBuild(Build):
+    action_name = 'build-latex'
+
+    def run(self):
+        self._run('latex')
+
+    @has_started
+    def remove_tmp_files(self, latex_dir):
+        shutil.rmtree(os.path.join(latex_dir, '.doctrees'))
+        for entry in os.listdir(latex_dir):
+            f = os.path.join(latex_dir, entry)
+            if os.path.isfile(f) and entry != 'mayavi_user_guide.pdf':
+                os.remove(f)
+
+    @property
+    def option_parser(self):
+        p = super(LaTeXBuild, self).option_parser
+        p.set_defaults(commit_message='Update LaTeX documentation')
+        return p
+
+register(LaTeXBuild)
+
+class CreateZip(Process):
+    action_name = 'create-zip'
+
+    def run(self):
+        # Create an HtmlBuild which will generate the documentation to zip.
+        class Options(object):
+            def __init__(self, **kwargs):
+                for key, value in kwargs.iteritems():
+                    setattr(self, key, value)
+
+        opts = {
+            'commit_message': None,
+            'doc_source': self.options.doc_source,
+            'preserve_temp': False,
+            'subversion': False,
+            'target': None,
+            'verbose': self.options.verbose,
         }
-    Popen(cmd, stdout=options.stdout, stderr=options.stdout, shell=True).wait()
-    Popen('svn commit %s -m "%s"' % (options.target, options.commit_message),
-          stdout=options.stdout, shell=True).wait()
 
-    # Try updating CEC via SSH (this will prompt for the password by itself, if
-    # necessary); also, don't allow this to run silently
-    if raw_input('Try connecting to CEC and updating? (y/[n]) ').lower() == 'y':
-        Popen('ssh code.enthought.com "(cd /www/htdocs/code.enthought.com/' \
-                  'projects/mayavi/ && svn up)"', shell=True).wait()
+        build = HtmlBuild()
+        build.start(Options(**opts), [])
 
-    # Removed target directory
-    shutil.rmtree(options.target)
+        # Create actual ZIP file and copy files (to the parent of the doc src)
+        zf = zipfile.ZipFile(os.path.join(self.options.doc_source, '..',
+                                          'html_docs.zip'), 'w')
 
-def rebuild_docs(options, targets):
-    """ Create a ZIP with the documentation to the Mayavi SVN. """
+        # This code is _very_ ugly, but I don't know of a better solution.
+        length = len(os.path.abspath(os.path.join(build.target, 'html')))
+        subtract_base = lambda root: root[length+1:]
+        for root, dirs, files in os.walk(os.path.join(build.target, 'html')):
+            baseless = subtract_base(root)
+            if not baseless.startswith('.doctrees'):
+                for f in files:
+                    zf.write(os.path.join(root, f), os.path.join(baseless, f))
 
-    # This should be moved to main(); currently it's a duplicate of the same
-    # code in svn_commit().
-    if options.verbose:
-        options.stdout = None
-    else:
-        options.stdout = open(os.devnull, 'w')
+        del build
 
-    # zipfile = zipfile.ZipFile('docs/mayavi/user_guide/html_docs.zip')
-    kwargs = dict((k, getattr(options, k)) for k in
-                  ('docsrc', 'target', 'stdout', 'verbose'))
+    @property
+    def option_parser(self):
+        p = super(CreateZip, self).option_parser
+        return p
 
-    if 'html' in targets:
-        build_html(**kwargs)
-    if 'latex' in targets:
-        build_latex(**kwargs)
-    if 'zip' in targets:
-        if 'html' not in targets: built_html(**kwargs)
-        build_zip(**kwargs)
-        if 'html' not in targets:
-            shutil.rmtree(os.path.join(options.target, 'html'))
-
-def main():
-    # Handle options
-    parser = OptionParser(usage=__doc__)
-
-    parser.add_option('-d', '--docsrc', action='store',
-        default=os.path.join(os.path.abspath(os.path.dirname(__file__)),
-            'docs', 'mayavi', 'user_guide', 'source'),
-        help='read the documentation from the documentation source')
-
-    parser.add_option('-m', '--commit-message', action='store',
-        help='use commit message when committing to code.enthought.com\'s ' \
-            'repo')
-
-    parser.add_option('-t', '--target', action='store',
-        help='place the html and latex directories in the target destination')
-
-    parser.add_option('-v', '--verbose', action='store_true',
-        help='print output of all commands which this executes',)
-
-    parser.add_option('-q', '--quiet', action='store_false', dest='verbose',
-        help='suppress the output of all commands which this executes ' \
-            '[default]')
-
-    parser.set_defaults(**{
-        'docsrc': os.path.join(os.path.abspath(os.path.dirname(__file__)),
-            'docs', 'mayavi', 'user_guide', 'source'),
-        'commit_message': 'Updating docs',
-        'target': None,
-        'verbose': False,
-    })
-
-    options, args = parser.parse_args()
-    valid_cmds = ('build', 'build-zip', 'update-web')
-
-    for command in args:
-        if command == 'build':
-            if options.target is None:
-                options.target = os.path.abspath('docs/mayavi/user_guide/')
-            rebuild_docs(options, targets=('html', 'latex', 'zip',))
-
-        if command == 'build-zip':
-            if options.target is None:
-                options.target = os.path.abspath('docs/mayavi/user_guide/')
-            rebuild_docs(options, targets=('zip',))
-
-        if command == 'update-web':
-            print 'Note that this requires SVN commit privelidges on code.'\
-                'enthought.com, and the SVN must be updated on the server '\
-                'after this finishes successfully.'
-            if options.target is None or \
-                    os.path.exists(os.path.join(options.target, '.svn')):
-                options.target = tempfile.mkdtemp()
-            svn_commit(options)
-
-        if command not in valid_cmds:
-            print 'Invalid command; only valid choices are "build", "build-'\
-                'zip" or "update-web"'
+register(CreateZip)
 
 if __name__ == '__main__':
-    main()
+    if len(sys.argv) == 1 or sys.argv[1] not in ACTIONS:
+        print 'Need a valid action'
+    else:
+        action = ACTIONS[sys.argv[1]]()
+        action.start(*action.option_parser.parse_args(sys.argv[2:]))
