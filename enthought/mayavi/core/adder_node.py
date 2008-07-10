@@ -91,12 +91,16 @@ class SourceAdderNode(AdderNode):
     label = 'Add Source'
     
     # Trait view to show in the Mayavi current object panel.
-    view = View(Group(Item('open_file'),
-                      Item('source'),
-                      Item('add_source'),
+    view = View(Group(Group(Item('open_file'),
+                            label='Add a source from a file',
+                            show_border=True),
+                      Group(Item('source'),
+                            Item('add_source'),
+                            label='Add a Mayavi source',
+                            show_border=True),
                       label='Add a source'))
-    
-    
+
+
     def _object_changed(self, value):
         """ Trait handler for when the self.object trait changes.
         """
