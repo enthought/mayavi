@@ -219,53 +219,59 @@ class WrapperGenerator:
         # No point having these in the GUI.
         _safe_remove(get_set, ['reference_count', 'progress'])
 
+        class_name = get_tvtk_name(node.name)
+        title = 'Edit %s properties'%class_name
+
         # Write the full_traits_view.
+        # The full traits view displays all of the relevant traits in a table
+        # editor. For this, we first write out the _full_traitnames_list: this
+        # is used by the TVTKBaseHandler to build a TableEditor for all of 
+        # the (relevant) traits in the tvtk object.
         t_g = toggle.keys(); t_g.sort()
         s_g = state.keys(); s_g.sort()
         gs_g = get_set.keys(); gs_g.sort()
 
-        # ----------------------------------------
-        # Write out the _full_traitnames_list: this is used by the handler
-        # to build a TableEditor for all of the (relevant) traits in the tvtk
-        # object.
         junk = textwrap.fill("(%s)" % (t_g + s_g + gs_g))
         code = "\n_full_traitnames_list_ = \\" + "\n%s\n\n"%junk
         out.write(self.indent.format(code))
-
-        class_name = get_tvtk_name(node.name)
-        title = 'Edit %s properties'%class_name
-        ## NOTE: I am commenting out the original full traits view and instead
-        ## displaying all of the traits in a TableEditor.
-        ## junk = textwrap.fill('traitsui.View((%s, %s, %s),'%(t_g, s_g, gs_g))
-        item_contents = textwrap.fill('traitsui.Item(("%s"), show_label=False)'% 
-                                                "handler._full_traits_list")
-        junk = textwrap.fill('traitsui.View((%s),'% item_contents)
+          
+        # Now write the full traits view.
+        item_contents = (
+              'traitsui.Item("handler._full_traits_list",show_label=False)')
+        junk = 'traitsui.View((%s),'% item_contents
         code = "\nfull_traits_view = \\" + \
                "\n%s\ntitle=\'%s\', scrollable=True, resizable=True,"\
                "\nhandler=TVTKBaseHandler,"\
                "\nbuttons=['OK', 'Cancel'])\n\n"%(junk, title)
         out.write(self.indent.format(code))
 
-        # The default traits_view is more compact and removes some
-        # generally unused items.
+        # Next, we write a compact traits_view (which we call 'view'), which 
+        # removes some generally unused items.	
         _safe_remove(toggle, ['abort_execute', 'release_data_flag',
                               'dragable', 'pickable',
                               'debug', 'global_warning_display'])
-
-        # Write the traits_view.
-        # FIXME: I have added a handler and included the handler's advanced
-        # view trait to the traits view. This is an event which when fired
-        # will display the full traits view of the TVTKBase object. We may
-        # want to change the implementation later. This is a first cut.
         t_g = toggle.keys(); t_g.sort()
         s_g = state.keys(); s_g.sort()
         gs_g = get_set.keys(); gs_g.sort()
-        item_contents = textwrap.fill('traitsui.Item(("%s"), show_label=False)'% 
-                                                "handler.advanced_view")
-        junk = textwrap.fill('traitsui.View((%s, %s, %s, %s),'%
-                              (t_g, s_g, gs_g, item_contents))
+        junk = textwrap.fill('traitsui.View((%s, %s, %s),'%(t_g, s_g, gs_g))
+        code = "\nview = \\" + \
+               "\n%s\ntitle=\'%s\', scrollable=True, resizable=True,"\
+               "\nhandler=TVTKBaseHandler,"\
+               "\nbuttons=['OK', 'Cancel'])\n\n"%(junk, title)
+        out.write(self.indent.format(code))
+
+        # Finally, we write the default traits_view which includes a field
+        # for specifying the view type (basic or advanced) and the                     # corresponding view (basic->view and advanced->full_traits_view)
+        viewtype_contents = (
+            'traitsui.HGroup(traitsui.spring, "handler.view_type", ' +\
+                             'show_border=True)')
+        view_contents = (
+            '\ntraitsui.Item("handler.info.object", ' +\
+            'editor = traitsui.InstanceEditor(view_name="handler.view"), ' +\
+            'style = "custom", show_label=False)')
+        junk = 'traitsui.View((%s, %s),'% (viewtype_contents, view_contents)
         code = "\ntraits_view = \\" + \
-               "\n%s\ntitle=\'%s\', scrollable=True,"\
+               "\n%s\ntitle=\'%s\', scrollable=True, resizable=True,"\
                "\nhandler=TVTKBaseHandler,"\
                "\nbuttons=['OK', 'Cancel'])\n\n"%(junk, title)
         out.write(self.indent.format(code))

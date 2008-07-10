@@ -4,8 +4,8 @@
 # Copyright (c) 2008,  Enthought, Inc.
 # License: BSD Style.
 
-from enthought.traits.api import HasTraits, Str, Instance, Property, Button, List
-from enthought.traits.ui.api import Handler, UIInfo, TableEditor
+from enthought.traits.api import HasTraits, Str, Instance, Property, Button, List, Enum
+from enthought.traits.ui.api import Handler, UIInfo, TableEditor, View, Item
 from enthought.traits.ui.table_column import ObjectColumn
 from enthought.traits.trait_base \
     import user_name_for, xgetattr
@@ -69,18 +69,17 @@ class TVTKBaseHandler(Handler):
    """ A handler for the TVTKBase object. 
    """
 
-   # Currently the only purpose of this class is to contribute a button which
-   # when clicked will display the 'full view' for the tvtk object. We may
-   # want to change the implementation so the 'full_view' appears through some
-   # selection on the menu bar, and in that case, this handler class can be 
-   # disposed of.
-   advanced_view = Button('Display Advanced View')
-
    # A reference to the UIInfo object.
    info = Instance(UIInfo)
+   
+   # Type of view (of info.object) to display.
+   view_type = Enum(['Basic', 'Advanced'])
 
-   # List of TraitsViewObject items, where each item contains information about the trait name
-   # to display as a row in a table editor.
+   # The view for the object (that is, info.object)
+   view = Property(depends_on='view_type')
+
+   # List of TraitsViewObject items, where each item contains information 
+   # about the trait to display as a row in a table editor.
    _full_traits_list = Property(List, editor = TableEditor(columns = 
                                            [ObjectColumn(name='name'), 
                                             ValueColumn(name='value')]))
@@ -88,22 +87,31 @@ class TVTKBaseHandler(Handler):
    def init_info(self, info):
        """ Informs the handler what the UIInfo object for a View will be.
        Overridden here to save a reference to the info object.
-        
        """
        self.info = info
        return
 
 
-   def _get__full_traits_list(self):
+   def _get__full_traits_list(self):  
+       """ Returns a list of objects to be included in the table editor for 
+       the full traits view.
+       """       
        return [TraitsViewObject(name=name, parent = self.info.object) 
-                               for name in self.info.object._full_traitnames_list_]
+                          for name in self.info.object._full_traitnames_list_]
 
- 
-   def _advanced_view_fired(self):
-       """ Displays the full traits view for this object.
-       Called when the 'advanced view' button is clicked.
-       """
-       self.info.object.edit_traits('full_traits_view')
-       return 
+   def _get_view(self):
+      """ Returns the view (for info.object) to be displayed in the 
+      InstanceEditor.
+      """
+      if self.view_type ==  "Basic":
+           view = self.info.object.trait_view('view')
+      else:
+           view = self.info.object.trait_view('full_traits_view')
+      # This method is called when the default traits view for the object is
+      # displayed. The default traits view already has a title, so do not 
+      # display a title for the contained view.
+      view.title = ''
+      return view
+   
 
 #### EOF ###################################################################

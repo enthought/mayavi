@@ -366,42 +366,43 @@ class TVTKBase(traits.HasStrictTraits):
     #################################################################
     # `HasTraits` interface.
     #################################################################
+        
+    def class_trait_view_elements ( cls ):
+        """ Returns the ViewElements object associated with the class.
 
-    def trait_view(self, name = None, view_element = None ):
-        """ Gets or sets a ViewElement associated with an object's class.
+        The returned object can be used to access all the view elements
+        associated with the class.
 
-        Overridden here to search through a particular directory for the
-        view to use for this tvtk object. The view should be declared in a 
-        file named <class name>_view. If a file with this name is not found, 
-        the trait_view method on the base class will be called.
+        Overridden here to search through a particular directory for substitute
+        views to use for this tvtk object. The view should be declared in a 
+        file named <class name>_view. We execute this file and replace any
+        currently defined view elements with view elements declared in this
+        file (that have the same name).
 
         """
 
-        # If a name is specified, then call the HasTraits trait_view method
-        # which will return (or assign) the *view_element* associated with 
-        # *name*.
+        # FIXME: This can be enhanced to search for new views also (in addition
+        # to replacing current views).
 
-        # FIXME: This is only a temporary implementation designed for fast
-        # iterations on the views. The final implementation should do an
-        # import instead of the execfile.
-        if name:
-            return super(TVTKBase, self).trait_view(name, view_element)
-
+        view_elements = super(TVTKBase, cls).class_trait_view_elements()
+        # Get the names of all the currently defined view elements.
+        names = view_elements.filter_by()
         baseDir = os.path.dirname(os.path.abspath(__file__))
         viewDir = os.path.join(baseDir, 'view')
         try:
-            module_name = self.__module__.split('.')[-1]
+            module_name = cls.__module__.split('.')[-1]
             view_filename = os.path.join(viewDir,
                                       	 module_name + '_view.py')
             result = {}
             execfile(view_filename, {}, result)
-            view = result['view']
+            for name in names:
+                if name in result:
+                    view_elements.content[ name ] = result[name]
         except Exception, e:
-            logger.debug("No view found for [%s] in [%s]. "
-                         "Using the base class trait_view instead.", 
-                         self, viewDir)
-            view = super(TVTKBase, self).trait_view(name, view_element)
-        return view
+            pass
+        return view_elements
+
+    class_trait_view_elements = classmethod( class_trait_view_elements )
         
     #################################################################
     # `TVTKBase` interface.
