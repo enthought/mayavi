@@ -265,6 +265,7 @@ class Engine(HasStrictTraits):
             msg = 'No readers found for the extension %s'%ext
             error(msg)
         else:
+            src = None
             cs = self.current_scene
             if cs is None:
                 cs = self.new_scene()
@@ -276,10 +277,15 @@ class Engine(HasStrictTraits):
                     src = callable()
                     src.initialize(filename)
                 else:
-                    src = callable(filename)
-                self.add_source(src)
+                    # Factory functions are passed the filename and a
+                    # reference to the engine. 
+                    src = callable(filename, self)
+                if src is not None:
+                    self.add_source(src)
             finally:
                 cs.scene.busy = False
+            if src is not None:
+                return src
 
     ######################################################################
     # Scene creation/deletion related methods.

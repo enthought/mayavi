@@ -74,7 +74,7 @@ class Metadata(HasTraits):
 
     # The factory that implements the object overrides the class_name if
     # not the empty string.  The callable will be given the filename to
-    # open.
+    # open along with the engine (for sources).
     factory = Either(Str, Callable, allow_none=False)
 
     # Description of the object being described.
