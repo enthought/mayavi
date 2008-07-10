@@ -108,7 +108,7 @@ class Script(HasTraits):
         """Open a data file if possible.
         """
         try:
-            self.engine.open(filename)
+            return self.engine.open(filename)
         except:
             exception()
 
