@@ -73,12 +73,13 @@ class Sniff(object):
             return csv.reader([line], self._dialect).next()
     
     def _names(self):
-        for line in self._reallines:
-            if len(self._split(line)) != self._numcols:
-                continue
-            if self._datatypes_of_line(line) != self._numcols * (str,):
-                continue
-            return tuple(t.strip('"\' \t') for t in self._split(line))
+        if self._datatypes != self._numcols * (str,):
+            for line in self._reallines:
+                if len(self._split(line)) != self._numcols:
+                    continue
+                if self._datatypes_of_line(line) != self._numcols * (str,):
+                    continue
+                return tuple(t.strip('"\' \t') for t in self._split(line))
         
         return tuple('Column %i' % (i+1) for i in xrange(self._numcols))
     
