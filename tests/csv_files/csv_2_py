@@ -1,0 +1,30 @@
+#!/usr/bin/env python
+
+# Small tool to read .csv files and print the .py files for the tests
+
+import sys
+import pprint
+
+from enthought.mayavi.tools.wizards.csv_sniff import Sniff
+
+
+filename = sys.argv[1]
+
+s = Sniff(filename)
+
+d = {'kwds': s.kwds(),
+     'array': s.loadtxt()}
+
+pp = pprint.PrettyPrinter(indent=2, width=40)
+
+out = pp.pformat(d)
+out = out.replace("<type 'float'>", 'float')
+out = out.replace("'<f8'", 'float')
+out = out.replace("|S", 'S')
+
+print out
+
+
+# Local Variables:
+# mode: python
+# End:
