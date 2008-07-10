@@ -49,7 +49,7 @@ class Util(object):
 
 class Test(unittest.TestCase, Util):
 
-    def test_methods(self):
+    def test_API(self):
         fo = open(TESTFN, 'wb')
         fo.write(''' "A", "B", "C"
                      1, 2, 3.2
@@ -71,7 +71,10 @@ class Test(unittest.TestCase, Util):
         y = loadtxt(TESTFN, **s.kwds())
         self.assertNamedClose(x, y)
         
-        d = array2dict(loadtxt_unknown(TESTFN))
+        y = loadtxt_unknown(TESTFN)
+        self.assertNamedClose(x, y)
+        
+        d = array2dict(y)
         self.assertEqual(type(d), type({}))
         self.assertAllClose(x['A'], [1, 7])
         self.assertAllClose(x['B'], [2, 4])
@@ -124,6 +127,7 @@ class Test(unittest.TestCase, Util):
         fo.close()
         
         self.assertRaises(IndexError, Sniff, TESTFN)
+
 
 
     def tearDown(self):
