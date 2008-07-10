@@ -140,6 +140,7 @@ class my_build(distbuild):
                     'subversion': False,
                     'target': target,
                     'verbose': True,
+                    'versioned': False,
                 }, [])
                 del build
             except Exception, e:
