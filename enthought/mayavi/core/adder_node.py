@@ -6,10 +6,12 @@ to the tree.
 #          Prabhu Ramachandran <prabhu_r@users.sf.net>
 # Copyright (c) 2008, Enthought, Inc.
 # License: BSD Style.
-from enthought.traits.api import HasTraits, Str, Property, Any, Button, Enum, List
+from enthought.traits.api import (HasTraits, Str, Property, Any, Button, Enum, 
+                                  List, Dict)
 from enthought.traits.ui.api import View, Item, Group
 
 from enthought.mayavi.core.registry import registry
+from enthought.mayavi.core.metadata import Metadata
 
 
 class AdderNode(HasTraits):
@@ -73,7 +75,7 @@ class SourceAdderNode(AdderNode):
     """
     
     # Button for adding a data file, with automatic format checking.
-    open_file = Button('Open File')        
+    open_file = Button('Open data file')        
     
     # Button for adding a source.
     add_source = Button('Add Source')
@@ -81,21 +83,29 @@ class SourceAdderNode(AdderNode):
     # View object to display a list of source names.    
     source = Enum(values='names')
 
+    # Documentation for the source to be added.
+    source_doc = Str('Documentation')
+
     # The source names to display to the user.
     names = List(Str)
 
-    # The mapping of the source name and how to access the code.
-    mapping = List(Str)
+    # The mapping of the source name to the Metadata.
+    mapping = Dict(Str, Metadata)
     
     # The string to display on the icon in the TreeEditor.
     label = 'Add Source'
     
     # Trait view to show in the Mayavi current object panel.
-    view = View(Group(Group(Item('open_file'),
+    view = View(Group(Group(Item('open_file', 
+                                 show_label=False),
                             label='Add a source from a file',
                             show_border=True),
                       Group(Item('source'),
-                            Item('add_source'),
+                            Item('source_doc',
+                                 label='Documentation',
+                                 style='custom'),
+                            Item('add_source',
+                                 show_label=False),
                             label='Add a Mayavi source',
                             show_border=True),
                       label='Add a source'))
@@ -104,34 +114,41 @@ class SourceAdderNode(AdderNode):
     def _object_changed(self, value):
         """ Trait handler for when the self.object trait changes.
         """
+        mapping = {} 
         result = []
-        mapping = []
         if value is not None:
             for src in registry.sources:
                 if len(src.extensions) == 0:
-                    result.append(src.menu_name.replace('&',''))
-                    mapping.append(src.id)
+                    name = src.menu_name.replace('&','')
+                    result.append(name)
+                    mapping[name] = src
         self.names = result
         self.mapping = mapping
         # Don't need 'x', but do need to generate the actions.
         x = value._menu_helper.actions
 
+    def _source_changed(self, value):
+        self.source_doc = self.mapping[value].help
 
     def _open_file_fired(self):
         """ Trait handler for when the open_file button is clicked.
         """
         self.object._menu_helper.open_file_action()
 
-
     def _add_source_fired(self):
         """ Trait handler for when the add_source button is clicked.
         """
-        src = self.source
-        index = self.names.index(src)
-        id = self.mapping[index]
+        id = self.mapping[self.source].id
         action = getattr(self.object._menu_helper, id)
         action()
-    
+
+    def _source_doc_default(self):
+        src = self.source
+        if len(src) > 0:
+            return self.mapping[src].help
+        else:
+            return ''
+
     
 ###############################################################################
 class FilterAdderNode(AdderNode):  
@@ -151,8 +168,11 @@ class FilterAdderNode(AdderNode):
     module_names = List(Str)
     
     # The mayavi lookup value to use the module code.
-    module_mapping = List(Str)
-    
+    module_mapping = Dict(Str, Metadata)
+ 
+    # The module documentation to show.
+    module_doc = Str('')
+
     # View Button for adding a filter to the source.
     add_filter = Button('Add Filter')        
     
@@ -163,17 +183,28 @@ class FilterAdderNode(AdderNode):
     filter_names = List(Str)
     
     # The mayavi lookup value to use the filter code.
-    filter_mapping = List(Str)
+    filter_mapping = Dict(Str, Metadata)
+
+    # The filter documentation to show.
+    filter_doc = Str('')
 
     # The View to show in the selected object panel.
     view = View(Group(Group(Item('filter'),
-                           Item('add_filter'),
-                           label='Filters',
-                           show_border=True),
+                            Item('filter_doc',
+                                 label='Documentation',
+                                 style='custom'),
+                            Item('add_filter', 
+                                 show_label=False),
+                            label='Filters',
+                            show_border=True),
                       Group(Item('module'),
-                           Item('add_module'),
-                           label='Modules',
-                           show_border=True),
+                            Item('module_doc',
+                                 label='Documentation',
+                                 style='custom'),
+                            Item('add_module',
+                                 show_label=False),
+                            label='Modules',
+                            show_border=True),
                       )
                 )
     
@@ -186,25 +217,27 @@ class FilterAdderNode(AdderNode):
         
         # First calculate modules.
         module_names = []
-        module_mapping = []
+        module_mapping = {}
         # Don't use x, but the call triggers some assignments.
         x = value._menu_helper.actions
         for mod in registry.modules:
             chk = getattr(self.object._menu_helper, 'check_' + mod.id)
             if chk():
-                module_names.append(mod.menu_name.replace('&',''))
-                module_mapping.append(mod.id)
+                name = mod.menu_name.replace('&','')
+                module_names.append(name)
+                module_mapping[name] = mod
         self.module_names = module_names
         self.module_mapping = module_mapping
 
         # Second, calculate filters.
         filter_names = []
-        filter_mapping = []
+        filter_mapping = {}
         for fil in registry.filters:
             chk = getattr(self.object._menu_helper, 'check_' + fil.id)
             if chk():
-                filter_names.append(fil.menu_name.replace('&',''))
-                filter_mapping.append(fil.id)
+                name = fil.menu_name.replace('&','')
+                filter_names.append(name)
+                filter_mapping[name] = fil
         self.filter_names = filter_names
         self.filter_mapping = filter_mapping
     
@@ -212,20 +245,35 @@ class FilterAdderNode(AdderNode):
     def _add_module_fired(self):
         """ Trait handler for when add_module button is clicked.
         """
-        mod = self.module
-        index = self.module_names.index(mod)
-        id = self.module_mapping[index]
+        id = self.module_mapping[self.module].id
         action = getattr(self.object._menu_helper, id)
         action()
-
 
     def _add_filter_fired(self):
         """ Trait handler for when add_filter button is clicked.
         """
-        fil = self.filter
-        index = self.filter_names.index(fil)
-        id = self.filter_mapping[index]
+        id = self.filter_mapping[self.filter].id
         action = getattr(self.object._menu_helper, id)
         action()
+
+    def _module_doc_default(self):
+        src = self.module
+        if len(src) > 0:
+            return self.module_mapping[src].help
+        else:
+            return ''
+
+    def _module_changed(self, value):
+        self.module_doc = self.module_mapping[value].help
+
+    def _filter_changed(self, value):
+        self.filter_doc = self.filter_mapping[value].help
+
+    def _filter_doc_default(self):
+        src = self.filter
+        if len(src) > 0:
+            return self.filter_mapping[src].help
+        else:
+            return ''
 
 ### EOF #######################################################################

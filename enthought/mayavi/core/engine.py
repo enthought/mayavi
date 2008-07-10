@@ -14,7 +14,7 @@ from os.path import splitext
 # Enthought library imports.
 from enthought.traits.api import (HasStrictTraits, List, Str, 
         Property, Instance, Event, HasTraits, Callable, Dict,
-        Bool, Any, on_trait_change)
+        Bool, on_trait_change)
 from enthought.traits.ui.api import View, Item
 from enthought.persistence import state_pickler
 
@@ -471,7 +471,7 @@ class Engine(HasStrictTraits):
         """ Trait getter for children_ui_list Property.
         """
         node = SceneAdderNode(label='Add a new scene', object=self)
-        return self.scenes + [node] 
+        return [node] + self.scenes
 
     @on_trait_change('scenes[]')
     def _trigger_children_ui_list(self, old, new):

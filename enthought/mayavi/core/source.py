@@ -193,7 +193,7 @@ class Source(PipelineBase):
         """ Trait getter for scenes_ui Property.
         """
         node = FilterAdderNode(object=self)
-        return self.children + [node] 
+        return [node] + self.children
 
     def _scene_changed(self, old, new):
         super(Source, self)._scene_changed(old, new)

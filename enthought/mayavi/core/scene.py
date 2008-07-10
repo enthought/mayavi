@@ -142,7 +142,7 @@ class Scene(Base):
         """ Trait getter for scenes_ui Property.
         """
         node = SourceAdderNode(object=self)
-        return self.children + [node] 
+        return [node] + self.children
 
     
     def _handle_children(self, removed, added):
