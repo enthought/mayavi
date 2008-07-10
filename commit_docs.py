@@ -94,7 +94,7 @@ class Build(Process):
     @has_started
     def svn_checkout(self):
         self.run_command('svn checkout %s %s' % (self.options.repository,
-                                                 self.target))
+                                                 self.temp_dir))
 
     @has_started
     def svn_add_forced(self, output_dir):
@@ -102,7 +102,7 @@ class Build(Process):
 
     @has_started
     def svn_commit(self):
-        self.run_command('svn commit %s -m "%s"' % (self.target,
+        self.run_command('svn commit %s -m "%s"' % (self.temp_dir,
             self.options.commit_message))
 
     @has_started
@@ -120,15 +120,27 @@ class Build(Process):
     @property
     @has_started
     def target(self):
-        if self.options.target:
-            return self.options.target
-        elif hasattr(self, 'tmpdir'):
-            return self.tmpdir
+        if self.options.versioned:
+            conf = __import__(os.path.join(self.options.doc_source, 'conf'))
+            return os.path.join(self.options.target, conf.release)
         else:
-            self.tmpdir = tempfile.mkdtemp()
-            return self.tmpdir
+            return self.options.target
 
-    def _run(self, format):
+    @property
+    @has_started
+    def temp_dir(self):
+        if hasattr(self, 'temp_dir_path'):
+            return self.temp_dir_path
+        else:
+            self.temp_dir_path = tempfile.mkdtemp()
+            return self.temp_dir_path
+
+    @property
+    @has_started
+    def using_temp_dir(self):
+        return hasattr(self, 'temp_dir_path')
+
+    def _run(self, format, post_run=None):
         output_dir = os.path.join(self.target, format)
 
         # Checkout SVN if necessary
@@ -138,15 +150,39 @@ class Build(Process):
         # Build the HTML in self.options.target
         # print self.options.target
         self.run_sphinx(format)
+        if post_run: post_run(self)
+
+        # Copy files (and do magic with .svn dirs)
+        if self.using_temp_dir:
+            # Preserve .svn directory
+            cut = lambda p: p[len(self.temp_dir)+1:]
+            for root, files, dirs in os.walk(os.path.join(self.temp_dir,
+                                                          format)):
+                shutil.move(os.path.join(root, '.svn'),
+                            os.path.join(self.temp_dir, 'svndirs',
+                                         cut(root), '.svn'))
+
+            shutil.rmtree(os.path.join(self.temp_dir, format))
+            shutil.copytree(os.path.join(self.target, format),
+                            os.path.join(self.temp_dir, format))
+
+            cut = lambda p: p[len(os.path.join(self.temp_dir, 'svndirs'))+1:]
+            for root, files, dirs in os.walk(os.path.join(self.temp_dir,
+                                                          'svndirs', format)):
+                if os.path.exists(os.path.join(self.temp_dir, 'svndirs',
+                                               cut(root), '.svn')):
+                    shutil.move(os.path.join(self.temp_dir, 'svndirs',
+                                             cut(root), '.svn'),
+                                os.path.join(self.temp_dir, cut(root), '.svn'))
 
         # The child class needs to know how to remove unnecessary files (or none
         # are removed, otherwise).
-        self.remove_tmp_files(output_dir)
+        self.remove_tmp_files()
 
         # Add all of Sphinx's output to SVN (using force, because SVN doesn't
         # think it needs to if the root is already tracked).
         if self.options.subversion:
-            self.svn_add_forced(output_dir)
+            self.svn_add_forced(os.path.join(self.temp_dir, 'latex'))
 
             if self.options.commit:
                 self.svn_commit()
@@ -167,20 +203,28 @@ class Build(Process):
                      help='Preseve temporary directories used')
         p.add_option('--skip-commit', action='store_false', dest='commit',
                      help='Do not actually commit anything to a repository')
+        p.add_option('--versioned', action='store_true',
+                     help='Create a version (e.g. 3.0.0a1) directory within ' \
+                         'the TARGET, rather than format directories directly')
+
+        default_target = os.path.join(
+            os.path.abspath(os.path.dirname(__file__)), 'build', 'docs',
+        )
 
         p.set_defaults(commit=True, commit_message='Updating documentation',
-                       subversion=False,
                        repository='https://svn.enthought.com/svn/cec/trunk/' \
-                           'projects/mayavi/docs/development/')
+                           'projects/mayavi/docs/development/',
+                       subversion=False, target=default_target, versioned=False)
 
         return p
 
     def __del__(self):
-        if hasattr(self, 'tmpdir') and self.tmpdir and \
+        if hasattr(self, 'options') and self.using_temp_dir and \
                 not self.options.preserve_temp:
-            # shutil needs to be re-imported, because has already been removed
+            # shutil needs to be re-imported, because it has already been
+            # removed
             import shutil
-            shutil.rmtree(self.target)
+            shutil.rmtree(self.temp_dir)
 
 class HtmlBuild(Build):
     action_name = 'build-html'
@@ -190,13 +234,14 @@ class HtmlBuild(Build):
             for path in ('html', 'html/auto/', 'html/images', 'html/_sources',
                          'html/_static'):
                 if not os.path.exists(os.path.join(self.target, path)):
-                    os.mkdir(os.path.join(self.target, path))
+                    os.makedirs(os.path.join(self.target, path))
 
         self._run('html')
 
     @has_started
-    def remove_tmp_files(self, html_dir):
-        shutil.rmtree(os.path.join(html_dir, '.doctrees'))        
+    def remove_tmp_files(self):
+        if self.using_temp_dir:
+            shutil.rmtree(os.path.join(self.temp_dir, 'html', '.doctrees'))
 
     @property
     def option_parser(self):
@@ -210,15 +255,36 @@ class LaTeXBuild(Build):
     action_name = 'build-latex'
 
     def run(self):
-        self._run('latex')
+        if not os.path.exists(os.path.join(self.target, 'latex')):
+            os.makedirs(os.path.join(self.target, 'latex'))
+
+        # This is run directly after Sphinx, before tmp files are removed or
+        # anything is checked into SVN.
+        def post_run(self):
+            for i in range(3):
+                self.run_command('pdflatex mayavi_user_guide.tex',
+                                 cwd=os.path.join(self.target, 'latex'))
+
+            for index in ('mayavi_user_guide.idx', 'modmayavi_user_guide.idx'):
+                self.run_command('makeindex -s %s %s' % (
+                    os.path.join(self.target, 'latex',  'python.ist'),
+                    os.path.join(self.target, 'latex', index)
+                ))
+
+            for i in range(3):
+                self.run_command('pdflatex mayavi_user_guide.tex',
+                                 cwd=os.path.join(self.target, 'latex'))
+
+        self._run('latex', post_run)
 
     @has_started
-    def remove_tmp_files(self, latex_dir):
-        shutil.rmtree(os.path.join(latex_dir, '.doctrees'))
-        for entry in os.listdir(latex_dir):
-            f = os.path.join(latex_dir, entry)
-            if os.path.isfile(f) and entry != 'mayavi_user_guide.pdf':
-                os.remove(f)
+    def remove_tmp_files(self):
+        if self.using_temp_dir:
+            shutil.rmtree(os.path.join(self.temp_dir, 'latex', '.doctrees'))
+            for entry in os.listdir(os.path.join(self.temp_dir, 'latex')):
+                f = os.path.join(self.temp_dir, 'latex', entry)
+                if os.path.isfile(f) and entry != 'mayavi_user_guide.pdf':
+                    os.remove(f)
 
     @property
     def option_parser(self):
@@ -233,17 +299,15 @@ class CreateZip(Process):
 
     def run(self):
         # Create an HtmlBuild which will generate the documentation to zip.
-        opts = {
-            'commit_message': None,
-            'doc_source': self.options.doc_source,
-            'preserve_temp': False,
-            'subversion': False,
-            'target': None,
-            'verbose': self.options.verbose,
-        }
-
         build = HtmlBuild()
-        build.start(opts, [])
+
+        # Add --format option, as this might be called from BuildSeveral which
+        # would have that in the argv.
+        op = build.option_parser
+        op.add_option('-f', '--formats')
+
+        # Parse the same args that were passed to this runner.
+        build.start(*op.parse_args(sys.argv[2:]))
 
         # Create actual ZIP file and copy files (to the parent of the doc src)
         zf = zipfile.ZipFile(os.path.join(self.options.doc_source, '..',
@@ -266,6 +330,49 @@ class CreateZip(Process):
         return p
 
 register(CreateZip)
+
+class BuildSeveral(Process):
+    action_name = 'build'
+
+    def run(self):
+        targets = {'html':  HtmlBuild, 'latex': LaTeXBuild, 'zip':   CreateZip}
+        formats = filter(None, map(lambda k: k in self.options.formats
+                                   and targets[k], targets))
+
+        if self.options.verbose:
+            print 'Building with', formats
+
+        for format in formats:
+            runner = format()
+
+            # Add the formats option so that all the options to this process may
+            # be simply forwarded on without errors.
+            op = runner.option_parser
+            op.add_option('-f', '--formats')
+
+            runner.start(*op.parse_args(sys.argv[2:]))
+
+    @property
+    def option_parser(self):
+        p = super(BuildSeveral, self).option_parser
+        p.add_option('-f', '--formats',
+                     help='Comma-delimited (quoted or without space) list of ' \
+                          'the formats to build [html,latex,zip]')
+
+        p.set_defaults(formats='html,latex,zip')
+
+        return p
+
+register(BuildSeveral)
+
+class UpdateCEC(Process):
+    action_name = 'update-cec'
+
+    def run(self):
+        self.run_command('ssh code.enthought.com "(cd /www/htdocs/code.' \
+                             'enthought.com/projects/mayavi/ && svn up)"')
+
+register(UpdateCEC)
 
 if __name__ == '__main__':
     if len(sys.argv) == 1 or sys.argv[1] not in ACTIONS:
