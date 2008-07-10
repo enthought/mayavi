@@ -119,7 +119,8 @@ class my_build(distbuild):
         user_guide_dir = os.path.join(os.path.abspath(os.path.dirname(__file__)),
             'docs', 'mayavi', 'user_guide')
         html_zip = os.path.join(user_guide_dir, 'html_docs.zip')
-        dest_dir = os.path.join(user_guide_dir, 'build', 'html')    
+        dest_dir = os.path.join(os.path.abspath(os.path.dirname(__file__)),
+                                'build')
         # Make sure the destination directory is created if it
         # doesn't already exist.
         if not os.path.exists(dest_dir):
@@ -130,7 +131,7 @@ class my_build(distbuild):
             
             log.info("Auto-generating documentation...")
             docsrc = os.path.join(user_guide_dir, 'source')
-            target = os.path.join(user_guide_dir, 'build')
+            target = dest_dir
             try:
                 build = HtmlBuild()
                 build.start({
