@@ -155,7 +155,9 @@ class my_build(distbuild):
             log.error("Sphinx is not installed, so the documentation could not be generated.  Falling back to the zip file.")
 
             # Unzip the docs into the 'html' folder.
-            unzip_html_docs(html_zip, dest_dir)
+            if not os.path.exists(os.path.join(dest_dir, 'html')):
+                os.makedirs(os.path.join(dest_dir, 'html'))
+            unzip_html_docs(html_zip, os.path.join(dest_dir, 'html'))
         
 setup(
     author = "Prabhu Ramachandran",
