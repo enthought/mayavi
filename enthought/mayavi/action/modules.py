@@ -25,7 +25,9 @@ class ModuleAction(FilterAction):
         """ Performs the action. """
         callable = self.metadata.get_callable()
         obj = callable()
-        self.mayavi.add_module(obj)
+        mv = self.mayavi
+        mv.add_module(obj)
+        mv.engine.current_selection = obj
 
 
 ######################################################################
@@ -52,7 +54,9 @@ class AddModuleManager(ModuleAction):
         """ Performs the action. """
         from enthought.mayavi.core.module_manager import ModuleManager
         mm = ModuleManager()
-        self.mayavi.add_module(mm)
+        mv = self.mayavi
+        mv.add_module(mm)
+        mv.engine.current_selection = mm 
 
 
 ######################################################################

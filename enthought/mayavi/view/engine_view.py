@@ -79,6 +79,7 @@ class EngineView(HasTraits):
                                  on_dclick='handler._on_dclick',
                                  on_select='handler._on_select',
                                  orientation='vertical',
+                                 selected='object.engine.current_selection',
                                  nodes=self.nodes
                                  )
 

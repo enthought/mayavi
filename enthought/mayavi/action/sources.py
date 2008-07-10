@@ -75,7 +75,9 @@ class OpenFile(Action):
                 return
             # FIXME: Ask for user input if a filetype is unknown and
             # choose appropriate reader.
-            mv.open(dialog.path)
+            src = mv.open(dialog.path)
+            if src is not None:
+                mv.engine.current_selection = src
 
 
 ######################################################################
@@ -94,6 +96,7 @@ class SourceAction(Action):
         callable = self.metadata.get_callable()
         obj = callable()
         mv.add_source(obj)
+        mv.engine.current_selection = obj
 
 
 ######################################################################
@@ -105,5 +108,4 @@ for src in registry.sources:
              'metadata': src}
         action = new.classobj(src.id, (SourceAction,), d)
         globals()[src.id] = action
-
     

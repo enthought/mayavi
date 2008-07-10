@@ -42,7 +42,9 @@ class FilterAction(Action):
         """ Performs the action. """
         callable = self.metadata.get_callable()
         obj = callable()
-        self.mayavi.add_filter(obj)
+        mv = self.mayavi
+        mv.add_filter(obj)
+        mv.engine.current_selection = obj
 
     def _update_enabled(self, obj):
         if isinstance(obj, PipelineBase):
