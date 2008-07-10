@@ -273,7 +273,7 @@ class Base(TreeNodeObject):
 
 
     def tno_delete_child(self, node, index):
-        del self.children[index]
+        del self.children[index - 1]
 
 
 
@@ -345,3 +345,4 @@ class Base(TreeNodeObject):
 
     def __icon_path_default(self):
         return resource_path()
+
