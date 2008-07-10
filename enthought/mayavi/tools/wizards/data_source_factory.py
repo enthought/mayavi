@@ -169,15 +169,18 @@ class DataSourceFactory(HasStrictTraits):
             structure to figure out the right data structure.
         """
         self.set(**traits)
-        if self.position_implicit:
-            self._mk_image_data()
-        elif self.orthogonal_grid:
-            self._mk_rectilinear_grid()
-        elif self.connectivity_triangles is None:
-            if self.unstructured:
-                self._mk_polydata()
+        if not self.lines:
+            if self.position_implicit:
+                self._mk_image_data()
+            elif self.orthogonal_grid:
+                self._mk_rectilinear_grid()
+            elif self.connectivity_triangles is None:
+                if self.unstructured:
+                    self._mk_polydata()
+                else:
+                    self._mk_structured_grid()
             else:
-                self._mk_structured_grid()
+                self._mk_polydata()
         else:
             self._mk_polydata()
         self._add_scalar_data()

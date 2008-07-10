@@ -1,11 +1,12 @@
 
-from numpy import ones_like
+from numpy import ones, resize
 
 from enthought.traits.api import Property, Str, Button, Trait, \
-    Any, Instance, HasStrictTraits, false, Enum, Dict, HasTraits
+    Any, Instance, HasStrictTraits, false, Enum, Dict, HasTraits, \
+    CArray
 from enthought.traits.ui.api import EnumEditor, View, Item, HGroup, \
     VGroup, spring, Group, TextEditor, HTMLEditor, InstanceEditor, \
-    TabularEditor, TitleEditor, Label
+    TabularEditor, TitleEditor, Label, ArrayEditor
 
 from enthought.traits.ui.tabular_adapter import TabularAdapter
 
@@ -46,12 +47,50 @@ class DataSourceWizard(HasTraits):
     position_type = Trait('image data',
                      {'Specified explicitly':
                         'explicit',
-                      'Given by the shape of the data array':
+                      'Implicitely positioned on a regular grid':
                         'image data',
                       'On an orthogonal grid with varying spacing':
                         'orthogonal grid',
                         })
 
+
+    # The array that is used for finding out the shape of the grid,
+    # when creating an ImageData
+    grid_shape_source = Property(depends_on='grid_shape_source_')
+
+    def _get_grid_shape_source(self):
+        if self.grid_shape_source_ == '':
+            # catter for improperly initialized view
+            keys = self.data_sources.keys()
+            keys.sort()
+            if not self.grid_shape.any():
+                self.grid_shape = \
+                        self.data_sources[keys[0]].shape
+            return keys[0]
+        elif self.grid_shape_source_[:16]=='Shape of array: ':
+            return self.grid_shape_source_[17:-1]
+        else:
+            return ""
+
+    # Shadow traits for grid_shape_source
+    grid_shape_source_ = Str
+
+    def _grid_shape_source_changed(self):
+        if not self.grid_shape_source == '':
+            self.grid_shape = \
+                    self.data_sources[self.grid_shape_source].shape
+    
+    _grid_shape_source_labels = Property(depends_on='_data_sources_names')
+
+    def _get__grid_shape_source_labels(self):
+        values = ['Shape of array: "%s"' % name
+                    for name in  self._data_sources_names]
+        values.sort
+        values.append('Specified explicitly')
+        return values
+
+    # The shape of the grid array. Used when position is implicit
+    grid_shape = CArray(shape=(3,), dtype='i')
 
     # Whether or not the data points should be connected.
     lines = false
@@ -149,20 +188,15 @@ class DataSourceWizard(HasTraits):
             in the wizard to build the data source.
         """
         data = lambda name: self.data_sources[name]
+        def sdata(name):
+            ary = self.data_sources[name]
+            if not self.data_type_ == 'point':
+                ary = resize(ary, self.grid_shape)
+            return ary
         factory = DataSourceFactory()
-        if self.has_vector_data or self.data_type_ == 'vector':
-            # In the vector view, the user is not explicitly asked to 
-            # Enable vectors.
-            factory.has_vector_data = True
-            factory.vector_u = data(self.vector_u)
-            factory.vector_v = data(self.vector_v)
-            factory.vector_w = data(self.vector_w)
-        
-        if self.has_scalar_data or self.data_type_ == 'volumetric':
-            # In the volumetric view, the user is not explicitly asked to 
-            # Enable scalars.
-            factory.scalar_data = data(self.scalar_data)
-
+        # Keep a reference to the factory to be able to replay it, say
+        # on other data.
+        self._factory = factory
         if self.data_type_ == 'point':
             # The user wants to explicitly position vector, 
             # thus only sensible data structures for points is with
@@ -175,26 +209,38 @@ class DataSourceWizard(HasTraits):
         else:
             factory.connected = True
 
-        if self.position_type_ == "image data":
-            factory.position_implicit = True
-            if not self.has_scalar_data:
+        if (self.position_type_ == "image data" 
+                and not self.data_type_=="point"):
+            if not self.has_scalar_data and not self.vector_u=='':
                 # With image data we need a scalar array always:
-                factory.scalar_data = ones_like(data(self.vector_u))
+                factory.scalar_data = ones(self.grid_shape)
+            factory.position_implicit = True
         else:
-            factory.position_x = data(self.position_x)
-            factory.position_y = data(self.position_y)
-            factory.position_z = data(self.position_z)
+            factory.position_x = sdata(self.position_x)
+            factory.position_y = sdata(self.position_y)
+            factory.position_z = sdata(self.position_z)
         if self.position_type_ == "orthogonal grid":
             factory.orthogonal_grid = True
         if self.position_type_ == "explicit" and self.data_type_ == "surface":
             factory.connectivity_triangles = data(self.connectivity_triangles)
-        if self.lines:
+        if self.lines and self.data_type_=="point":
             factory.lines = True
+
+        if self.has_vector_data or self.data_type_ == 'vector':
+            # In the vector view, the user is not explicitly asked to 
+            # Enable vectors.
+            factory.has_vector_data = True
+            factory.vector_u = sdata(self.vector_u)
+            factory.vector_v = sdata(self.vector_v)
+            factory.vector_w = sdata(self.vector_w)
+        
+        if self.has_scalar_data or self.data_type_ == 'volumetric':
+            # In the volumetric view, the user is not explicitly asked to 
+            # Enable scalars.
+            factory.scalar_data = sdata(self.scalar_data)
 
         if self.connectivity_triangles == '':
             factory.connectivity_triangles = None
-
-        self.factory = factory
 
         self.data_source = factory.build_data_source()
 
@@ -241,22 +287,22 @@ class DataSourceWizardView(DataSourceWizard):
 
     _data_type_text = Str("What does your data represents?" )
 
-    _lines_text = Str("Connect the points with lines:" )
+    _lines_text = Str("Connect the points with lines" )
 
-    _scalar_data_text = Str("Array giving the value of the scalars:")
+    _scalar_data_text = Str("Array giving the value of the scalars")
 
-    _optional_scalar_data_text = Str("Associate scalars with the data points:")
+    _optional_scalar_data_text = Str("Associate scalars with the data points")
 
-    _connectivity_text = Str("Array giving the triangles:")
+    _connectivity_text = Str("Array giving the triangles")
 
-    _vector_data_text = Str("Associate vector components:")
+    _vector_data_text = Str("Associate vector components")
 
     _position_text = Property(depends_on="position_type_")
 
     _position_text_dict = {'explicit':
                 'Coordinnates of the data points:',
                            'orthogonal grid':
-                'Position of the layers along each axis:'
+                'Position of the layers along each axis:',
             }
 
     def _get__position_text(self):
@@ -343,9 +389,23 @@ class DataSourceWizardView(DataSourceWizard):
     _position_group = \
                     Group(
                        Item('position_type'),
-                       Item('_position_text', style='readonly'),
                        Group(_coordinates_group,
-                           enabled_when='not position_type_=="image data"',
+                           Item('_position_text', style='readonly'),
+                           visible_when='not position_type_=="image data"',
+                       ),
+                       Group(
+                           Item('grid_shape_source_',
+                            label='Grid shape',
+                            editor=EnumEditor(
+                                name='_grid_shape_source_labels')),
+                           HGroup(
+                            spring,
+                            Item('grid_shape', style='custom', 
+                                    editor=ArrayEditor(width=-60),
+                                    show_label=False),
+                           enabled_when='grid_shape_source==""',
+                            ),
+                           visible_when='position_type_=="image data"',
                        ),
                        label='Position of the data points',
                        show_border=True,
@@ -376,9 +436,9 @@ class DataSourceWizardView(DataSourceWizard):
                        Item('_scalar_data_text', style='readonly', 
                            show_label=False),
                        HGroup(
+                           spring,
                            Item('scalar_data', 
                                editor=EnumEditor(name='_data_sources_names')),
-                           spring,
                            show_labels=False,
                            ),
                        label='Scalar value',
@@ -390,8 +450,8 @@ class DataSourceWizardView(DataSourceWizard):
     _optional_scalar_data_group = \
                    Group(
                        HGroup(
-                       Item('_optional_scalar_data_text', style='readonly'),
                        'has_scalar_data',
+                       Item('_optional_scalar_data_text', style='readonly'),
                        show_labels=False,
                        ),
                        Item('_scalar_data_text', style='readonly', 
@@ -428,10 +488,10 @@ class DataSourceWizardView(DataSourceWizard):
     _optional_vector_data_group = \
                    VGroup(
                         HGroup(
+                            Item('has_vector_data', show_label=False),
                             Item('_vector_data_text', style='readonly', 
                                 editor=TextEditor(multi_line=True),
                                 show_label=False),
-                            Item('has_vector_data', show_label=False),
                         ),
                        HGroup(
                            Item('vector_u', label='u',
@@ -508,8 +568,8 @@ class DataSourceWizardView(DataSourceWizard):
                         show_border=True,
                    ),
                    HGroup(
-                       Item('_lines_text', style='readonly'), 
                        'lines',
+                       Item('_lines_text', style='readonly'), 
                        label='Lines',
                        show_labels=False,
                        show_border=True,
@@ -587,6 +647,7 @@ class DataSourceWizardView(DataSourceWizard):
         self.position_type_
         self.data_type_
         self._suitable_traits_view
+        self.grid_shape_source
         self._is_ok
         self.ui = self.edit_traits(view='_wizard_view')
 
@@ -607,7 +668,7 @@ class DataSourceWizardView(DataSourceWizard):
             g.actor.property.representation = 'points'
             g.actor.property.point_size = 3.
         self._preview_window.add_module(g)
-        if not self.data_type_ in ('point', 'vector'):
+        if not self.data_type_ in ('point', 'vector') or self.lines:
             s = Surface()
             s.actor.property.opacity = 0.3
             self._preview_window.add_module(s)
