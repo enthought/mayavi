@@ -4,6 +4,7 @@ Tests for the CSV file sniffer
 # Author: Ilan Schnell <ischnell@enthought.com>
 # Copyright (c) 2008, Ilan Schnell, Enthought, Inc.
 # License: BSD Style.
+import glob
 import os
 import os.path
 import unittest
@@ -133,34 +134,27 @@ class Test_csv_py_files(unittest.TestCase, Util):
     """
         These tests require files in csv_files/
     """
-    def check_csv_py(self, name):
-        """ Check if the output array from csv_files/<name>.csv
+    def test_csv_files(self):
+        """
+            Check if the output array from csv_files/<name>.csv
             (which is of unkown format)
             is the same as the array in csv_files/<name>.py
         """
-        x = loadtxt_unknown(os.path.join(CSV_PATH, '%s.csv' % name),
-                            verbose=0)
-        #print repr(x)
-        nan = float('nan')
-        y = eval(open(os.path.join(CSV_PATH, '%s.py' % name)).read())
+        for csv_file in glob.glob(os.path.join(CSV_PATH, '*.csv')):
+            print csv_file
+            
+            s = Sniff(csv_file)
+            
+            py_file = csv_file[:-4] + '.py'
+            
+            nan = float('nan') # must be in namespace for some .py files
+            d = eval(open(py_file).read())
+            
+            self.assertEqual(d['kwds'], s.kwds())
+            
+            self.assertNamedClose(d['array'], s.loadtxt())
         
-        self.assertNamedClose(x, y)
-    
-    def test_file_example1(self):
-        self.check_csv_py('example1')
-        
-    def test_file_colors(self):
-        self.check_csv_py('colors')
-        
-    def test_file_OObeta3(self):
-        self.check_csv_py('OObeta3')
-        
-    def test_file_hp11c(self):
-        self.check_csv_py('hp11c')
-        
-    def test_file_1col(self):
-        self.check_csv_py('1col')
-        
+
 
 if __name__ == '__main__':
     unittest.main()
