@@ -40,10 +40,9 @@ class Sniff(object):
         if self._dialect.delimiter.isalnum():
             self._usePySplit = True
             self._numcols = 1
-            
         else:
             self._usePySplit = not self._dialect.delimiter.strip()
-            self._numcols = len(self._split(self._reallines[0]))
+            self._numcols = len(self._split(self._reallines[-1]))
             
         self._datatypes = self._datatypes_of_line(self._reallines[-1])
         
@@ -74,12 +73,15 @@ class Sniff(object):
             return csv.reader([line], self._dialect).next()
     
     def _names(self):
-        line0 = self._reallines[0]
-        if self._datatypes_of_line(line0) == self._datatypes:
-            return tuple('Column %i' % (i+1) for i in xrange(self._numcols))
-        else:
-            return tuple(t.strip('"\' \t') for t in self._split(line0))
-
+        for line in self._reallines:
+            if len(self._split(line)) != self._numcols:
+                continue
+            if self._datatypes_of_line(line) != self._numcols * (str,):
+                continue
+            return tuple(t.strip('"\' \t') for t in self._split(line))
+        
+        return tuple('Column %i' % (i+1) for i in xrange(self._numcols))
+    
     def _formats(self):
         res = []
         for c, t in enumerate(self._datatypes):
