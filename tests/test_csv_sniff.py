@@ -140,9 +140,10 @@ class Test_csv_py_files(unittest.TestCase, Util):
             (which is of unkown format)
             is the same as the array in csv_files/<name>.py
         """
+        count = 0
         for csv_file in glob.glob(os.path.join(CSV_PATH, '*.csv')):
-            print csv_file
-            
+            count += 1
+            #print 'Running:', csv_file
             s = Sniff(csv_file)
             
             py_file = csv_file[:-4] + '.py'
@@ -151,9 +152,9 @@ class Test_csv_py_files(unittest.TestCase, Util):
             d = eval(open(py_file).read())
             
             self.assertEqual(d['kwds'], s.kwds())
-            
             self.assertNamedClose(d['array'], s.loadtxt())
-        
+
+        self.assert_(count > 10)
 
 
 if __name__ == '__main__':
