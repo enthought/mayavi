@@ -16,7 +16,7 @@ from enthought.mayavi.core.module import Module
 from enthought.mayavi.core.module_manager import ModuleManager
 from enthought.mayavi.core.common import handle_children_state, exception
 from enthought.mayavi.core.pipeline_info import PipelineInfo
-from enthought.mayavi.view.adder_node import FilterAdderNode
+from enthought.mayavi.core.adder_node import FilterAdderNode
 
 ######################################################################
 # Utility functions.

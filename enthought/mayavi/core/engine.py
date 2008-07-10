@@ -26,7 +26,7 @@ from enthought.mayavi.core.base import Base
 from enthought.mayavi.core.scene import Scene
 from enthought.mayavi.core.common import error
 from enthought.mayavi.core.registry import registry
-from enthought.mayavi.view.adder_node import AdderNode, SceneAdderNode
+from enthought.mayavi.core.adder_node import AdderNode, SceneAdderNode
 
 
 ######################################################################

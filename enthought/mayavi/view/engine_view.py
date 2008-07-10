@@ -19,7 +19,7 @@ from enthought.pyface.image_resource import ImageResource
 # Local imports.
 from enthought.mayavi.core.engine import Engine
 from enthought.mayavi.core.base import Base
-from enthought.mayavi.view.adder_node import AdderNode
+from enthought.mayavi.core.adder_node import AdderNode
 
 class EngineViewHandler(Handler):
     """ A handler for the EngineView object. 

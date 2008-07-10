@@ -14,7 +14,7 @@ from enthought.persistence.state_pickler import set_state
 from enthought.mayavi.core.base import Base
 from enthought.mayavi.core.source import Source
 from enthought.mayavi.core.common import handle_children_state, exception
-from enthought.mayavi.view.adder_node import SourceAdderNode
+from enthought.mayavi.core.adder_node import SourceAdderNode
 
 
 ######################################################################
