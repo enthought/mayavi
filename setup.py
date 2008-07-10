@@ -112,7 +112,7 @@ def unzip_html_docs(src_path, dest_dir):
 
 class my_build(distbuild):
     def run(self):
-        distbuild.run(self)
+        # distbuild.run(self)
 
         # Figure out the documentation source directory and
         # the output directory based on current location.
@@ -120,7 +120,7 @@ class my_build(distbuild):
             'docs', 'mayavi', 'user_guide')
         html_zip = os.path.join(user_guide_dir, 'html_docs.zip')
         dest_dir = os.path.join(os.path.abspath(os.path.dirname(__file__)),
-                                'build')
+                                'build', 'docs')
         # Make sure the destination directory is created if it
         # doesn't already exist.
         if not os.path.exists(dest_dir):
