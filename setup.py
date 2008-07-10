@@ -112,7 +112,7 @@ def unzip_html_docs(src_path, dest_dir):
 
 class my_build(distbuild):
     def run(self):
-        # distbuild.run(self)
+        distbuild.run(self)
 
         # Figure out the documentation source directory and
         # the output directory based on current location.
