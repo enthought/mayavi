@@ -7,7 +7,7 @@ to the tree.
 # Copyright (c) 2008, Enthought, Inc.
 # License: BSD Style.
 from enthought.traits.api import (HasTraits, Str, Property, Any, Button, Enum, 
-                                  List, Title, Instance)
+                                  List, Title, Instance, Bool)
 from enthought.traits.ui.api import View, Item, Group, ListEditor, \
         ButtonEditor, TextEditor, HGroup, spring
 
@@ -78,22 +78,28 @@ class SceneAdderNode(AdderNode):
 
 
 class DocumentedItem(HasTraits):
-    """ Container to hold a name and a documentation.
+    """ Container to hold a name and a documentation for an action.
     """
 
+    # Whether the action is enabled
+    enabled = Bool
+
+    # Name of the action
     name = Str
 
+    # Button to trigger the action
     add = Button
 
+    # Object the action will apply on
     object = Any
 
+    # Two lines documentation for the action
     documentation = Str
 
-    parent = Instance(AdderNode)
-
     view = View(Item('add', editor=ButtonEditor(label_value='name'),
-                    show_label=False),
+                    show_label=False, enabled_when="enabled"),
                 Item('documentation', style='readonly',
+                    defined_when='enabled',
                     editor=TextEditor(multi_line=True),
                     resizable=True,
                     height=-35,
@@ -106,17 +112,6 @@ class DocumentedItem(HasTraits):
         """
         action = getattr(self.object._menu_helper, self.id)
         action()
-
-
-class DisabledItem(DocumentedItem):
-
-    view = View('_',
-                HGroup(
-                    spring,
-                    Item('name', style='readonly', show_label=False, 
-                            enabled_when='False'),
-                    spring,
-                    ))
 
 
 ###############################################################################
@@ -148,16 +143,14 @@ class ListAdderNode(AdderNode):
             Mutable.attr = value
             for src in self.items_list_source:
                 name = src.menu_name.replace('&','')
-                if self._is_action_suitable(value, src):
-                    ItemClass = DocumentedItem
-                else:
-                    ItemClass = DisabledItem
-                result.append(ItemClass(
-                                    name=name,
-                                    documentation=src.help,
-                                    id=src.id,
-                                    object=value)
-                                )
+                result.append(
+                        DocumentedItem(
+                                name=name,
+                                enabled=self._is_action_suitable(value, src),
+                                documentation=src.help,
+                                id=src.id,
+                                object=value)
+                        )
         self.items_list = result
 
 
@@ -168,7 +161,8 @@ class ListAdderNode(AdderNode):
         if  hasattr(object._menu_helper, 'check_%s' % src.id) \
                 and getattr(object._menu_helper, 'check_%s' % src.id)():
             return True
-
+        else:
+            return False
 
 class Mutable:
 
