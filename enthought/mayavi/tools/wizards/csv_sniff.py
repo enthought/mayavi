@@ -33,9 +33,7 @@ class Sniff(object):
         self._lines = self._read_few_lines()
         self._reallines = [line for line in self._lines if line.strip()]
         self._dialect = csv.Sniffer().sniff(self._reallines[-1])
-
-        self._comment = '#'
-        self._check_comment()
+        self._get_comment()
         
         if self._dialect.delimiter.isalnum():
             self._usePySplit = True
@@ -46,7 +44,8 @@ class Sniff(object):
             
         self._datatypes = self._datatypes_of_line(self._reallines[-1])
         
-    def _check_comment(self):
+    def _get_comment(self):
+        self._comment = '#'
         line0 = self._reallines[0]
         if line0.startswith(('#', '%')):
             self._comment = line0[0]
@@ -61,7 +60,7 @@ class Sniff(object):
         for line in f:
             line = line.strip()
             res.append(line)
-            if len(res) > 10:
+            if len(res) > 20:
                 break
         f.close()
         return res
