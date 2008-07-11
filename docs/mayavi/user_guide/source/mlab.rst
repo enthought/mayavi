@@ -14,10 +14,22 @@ features.
 Mayavi's mlab is designed to be used in a manner well suited to
 scripting and does not present a fully object-oriented API (this is
 similar to matplotlib's ``pylab``).  It is best used interactively with
-IPython_.  IPython must be invoked with the ``-wthread`` command line
-option like so::
+IPython_.  
 
- $ ipython -wthread
+.. important:: 
+
+    IPython must be invoked with the ``-wthread`` command line option like so::
+
+         $ ipython -wthread
+
+    If you are using the `Enthought Python Distribution
+    <www.enthought.com/products/epd.php>`_, or the latest 
+    `Python(x,y) <http://www.pythonxy>`_ distribution, the Pylab menu
+    entry will start ipython with the right switch. In older release of
+    Python(x,y) you need to start "Interactive Console (wxPython)".
+
+    For more details on using mlab and running scripts, read the section
+    `running Mlab scripts`_
 
 .. _matplotlib: http://matplotlib.sf.net
 
