@@ -46,13 +46,7 @@ class Process(object):
 
     def start(self, options, args):
         if isinstance(options, dict):
-            class Options(object):
-                pass
-
-            opts = Options()
-            for key, value in options.iteritems():
-                setattr(opts, key, value)
-            options = opts
+            options = type('Options', (object,), options)()
 
         self.options = options
         self.args = args
