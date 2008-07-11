@@ -17,6 +17,26 @@ Having used those, the --help option may be used to find a list of all options.
 For example, this is how to get the help information for build-html:
 
 $ ./commit_docs.py build-html --help
+
+All of the build commands share some common options (although not all available
+commands are for building):
+
+  -h, --help            show this help message and exit
+  -v, --verbose         Print out lots of information
+  --doc-source=DOC_SOURCE
+                        Location of the documentation
+  -t TARGET, --target=TARGET
+                        Set working directory for any build executed
+  --use-subversion      Pull from Subversin, update data, and then publish
+                        changes
+  -r REPOSITORY, --repository=REPOSITORY
+                        Full path to Subversion target
+  --commit-message=COMMIT_MESSAGE
+                        Message used when committing to the repository
+  --preserve-temp       Preseve temporary directories used
+  --skip-commit         Do not actually commit anything to a repository
+  --versioned           Create a version (e.g. 3.0.0a1) directory within the
+                        TARGET, rather than format directories directly
 """
 
 from optparse import OptionParser
