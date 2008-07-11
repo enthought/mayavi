@@ -122,13 +122,17 @@ class Build(Process):
     @property
     @has_started
     def target(self):
-        if self.options.versioned:
+        if hasattr(self, '_target'):
+            return self._target
+        elif self.options.versioned:
             os.sys.path.insert(0, os.path.abspath(self.options.doc_source))
             conf = __import__('conf')
             del os.sys.path[0]
-            return os.path.join(self.options.target, conf.release)
+            self._target = os.path.join(self.options.target, conf.release)
         else:
-            return self.options.target
+            self._target = self.options.target
+
+        return self._target
 
     @property
     @has_started
