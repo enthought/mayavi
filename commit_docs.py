@@ -381,7 +381,7 @@ class UpdateCEC(Process):
             cd /www/htdocs/code.enthought.com/projects/mayavi/ \
             && svn up \
             && chmod -R g+w docs \
-            && chgrp -R apache ."''' % user)
+            && chgrp -R apache docs"''' % user)
 
     @property
     def option_parser(self):
