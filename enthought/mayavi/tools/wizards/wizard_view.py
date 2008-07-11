@@ -1,14 +1,17 @@
 
-from numpy import ones, resize
+from numpy import ones, resize, linspace
 
 from enthought.traits.api import Property, Str, Button, Trait, \
-    Any, Instance, HasStrictTraits, false, Enum, Dict, HasTraits, \
-    CArray
+    Any, Instance, HasStrictTraits, false, Dict, HasTraits, \
+    CArray, Bool
 from enthought.traits.ui.api import EnumEditor, View, Item, HGroup, \
     VGroup, spring, Group, TextEditor, HTMLEditor, InstanceEditor, \
-    TabularEditor, TitleEditor, Label, ArrayEditor
+    TabularEditor, TitleEditor, Label, ArrayEditor, ImageEditor
 
 from enthought.traits.ui.tabular_adapter import TabularAdapter
+from enthought.traits.ui.image.image import ImageLibrary
+
+from enthought.pyface.api import ImageResource
 
 from data_source_factory import DataSourceFactory
 from preview_window import PreviewWindow
@@ -77,8 +80,11 @@ class DataSourceWizard(HasTraits):
 
     def _grid_shape_source_changed(self):
         if not self.grid_shape_source == '':
-            self.grid_shape = \
+            array_shape = \
                     self.data_sources[self.grid_shape_source].shape
+            grid_shape = ones((3, ))
+            grid_shape[:len(array_shape)] = array_shape
+            self.grid_shape = grid_shape 
     
     _grid_shape_source_labels = Property(depends_on='_data_sources_names')
 
@@ -139,10 +145,9 @@ class DataSourceWizard(HasTraits):
             if len(array_names) > 0:
                 array_name = array_names.pop()
             setattr(self, attr, array_name)
-            
 
 
-    def guess_array_names(self):
+    def guess_arrays(self):
         """ Do some guess work on the arrays to find sensible default.
         """
         array_names = set(self.data_sources.keys())
@@ -187,12 +192,6 @@ class DataSourceWizard(HasTraits):
         """ This is where we apply the selections made by the user in
             in the wizard to build the data source.
         """
-        data = lambda name: self.data_sources[name]
-        def sdata(name):
-            ary = self.data_sources[name]
-            if not self.data_type_ == 'point':
-                ary = resize(ary, self.grid_shape)
-            return ary
         factory = DataSourceFactory()
         # Keep a reference to the factory to be able to replay it, say
         # on other data.
@@ -216,13 +215,14 @@ class DataSourceWizard(HasTraits):
                 factory.scalar_data = ones(self.grid_shape)
             factory.position_implicit = True
         else:
-            factory.position_x = sdata(self.position_x)
-            factory.position_y = sdata(self.position_y)
-            factory.position_z = sdata(self.position_z)
+            factory.position_x = self.get_sdata(self.position_x)
+            factory.position_y = self.get_sdata(self.position_y)
+            factory.position_z = self.get_sdata(self.position_z)
         if self.position_type_ == "orthogonal grid":
             factory.orthogonal_grid = True
         if self.position_type_ == "explicit" and self.data_type_ == "surface":
-            factory.connectivity_triangles = data(self.connectivity_triangles)
+            factory.connectivity_triangles = self.get_data(
+                                                self.connectivity_triangles)
         if self.lines and self.data_type_=="point":
             factory.lines = True
 
@@ -230,14 +230,14 @@ class DataSourceWizard(HasTraits):
             # In the vector view, the user is not explicitly asked to 
             # Enable vectors.
             factory.has_vector_data = True
-            factory.vector_u = sdata(self.vector_u)
-            factory.vector_v = sdata(self.vector_v)
-            factory.vector_w = sdata(self.vector_w)
+            factory.vector_u = self.get_sdata(self.vector_u)
+            factory.vector_v = self.get_sdata(self.vector_v)
+            factory.vector_w = self.get_sdata(self.vector_w)
         
         if self.has_scalar_data or self.data_type_ == 'volumetric':
             # In the volumetric view, the user is not explicitly asked to 
             # Enable scalars.
-            factory.scalar_data = sdata(self.scalar_data)
+            factory.scalar_data = self.get_sdata(self.scalar_data)
 
         if self.connectivity_triangles == '':
             factory.connectivity_triangles = None
@@ -249,6 +249,53 @@ class DataSourceWizard(HasTraits):
                self.data_source.scalar_name = self.scalar_data
             elif hasattr(self.data_source, 'point_scalar_name'):
                self.data_source.point_scalar_name = self.scalars
+
+        
+    #----------------------------------------------------------------------
+    # Private interface
+    #----------------------------------------------------------------------
+
+    def get_data(self, name): 
+        return self.data_sources[name]
+
+
+    def get_sdata(self, name):
+        ary = self.data_sources[name]
+        if not self.data_type_ == 'point':
+            ary = resize(ary, self.grid_shape)
+        return ary
+
+
+    def active_arrays(self):
+        """ Return the list of the active array-selection drop-downs.
+        """
+        arrays = []
+        if self.data_type_ == 'point' or self.position_type_ == 'explicit':
+            arrays.extend(
+                    ['position_x' ,'position_y', 'position_z',])
+        if self.data_type_ == 'vector' or self.has_vector_data:
+            arrays.extend(['vector_u', 'vector_v', 'vector_w'])
+        if self.has_scalar_data or self.data_type_ == 'volumetric':
+            arrays.extend(['scalar_data'])
+        return arrays
+
+
+    def check_arrays(self):
+        """ Checks that all the array have the right size.
+        """
+        arrays_to_check = self.active_arrays()
+        if len(arrays_to_check)==0:
+            return True
+        size = self.get_data(getattr(self, arrays_to_check.pop())).size
+        for attr in arrays_to_check: 
+            if not self.get_data(getattr(self, attr)).size == size:
+                return False
+        if ( self.data_type_ == 'surface' 
+                and self.position_type_ == "explicit"):
+            if not self.connectivity_triangles.size/3 == size:
+                return False
+        return True
+ 
 
 
 ############################################################################
@@ -282,6 +329,8 @@ class DataSourceWizardView(DataSourceWizard):
     #----------------------------------------------------------------------
 
     _top_label = Str('Describe your data')
+
+    _info_text = Str('Array size do not match')
 
     _array_label = Str('Available arrays')
 
@@ -330,7 +379,7 @@ class DataSourceWizardView(DataSourceWizard):
 
     ui = Any(False)
 
-    _preview_button = Button(label='Update preview')
+    _preview_button = Button(label='Preview structure')
 
     def __preview_button_fired(self):
         if self.ui:
@@ -351,25 +400,21 @@ class DataSourceWizardView(DataSourceWizard):
         if self.ui:
             self.ui.dispose()
 
-    _is_ok = Property()
+    _is_ok = Bool
 
-    def _get__is_ok(self):
+    _is_not_ok = Bool
+
+    def _anytrait_changed(self):
         """ Validates if the OK button is enabled.
         """
-        # XXX punt on this right now
-        return True
-        if self.data_type == 'A surface':
-            return False
-        elif self.data_type == 'A set of vectors':
-            return False
-        elif self.data_type == 'Volumetric data':
-            return False
-        elif self.data_type == \
-                'A set of points, that can be connected by lines':
-            return False
-        return True
-
+        if self.ui:
+            self._is_ok =  self.check_arrays()
+            self._is_not_ok = not self._is_ok
+    
     _preview_window = Instance(PreviewWindow, ())
+
+    _info_image = Instance(ImageResource, 
+                    ImageLibrary.image_resource('@std:alert16',))
 
     #----------------------------------------------------------------------
     # TraitsUI views
@@ -378,26 +423,32 @@ class DataSourceWizardView(DataSourceWizard):
     _coordinates_group = \
                         HGroup(
                            Item('position_x', label='x',
-                               editor=EnumEditor(name='_data_sources_names')), 
+                               editor=EnumEditor(name='_data_sources_names',
+                                        invalid='_is_not_ok')), 
                            Item('position_y', label='y',
-                               editor=EnumEditor(name='_data_sources_names')), 
+                               editor=EnumEditor(name='_data_sources_names', 
+                                        invalid='_is_not_ok')), 
                            Item('position_z', label='z',
-                               editor=EnumEditor(name='_data_sources_names')), 
+                               editor=EnumEditor(name='_data_sources_names', 
+                                        invalid='_is_not_ok')), 
                        )
 
 
     _position_group = \
                     Group(
                        Item('position_type'),
-                       Group(_coordinates_group,
-                           Item('_position_text', style='readonly'),
+                       Group(
+                           Item('_position_text', style='readonly',
+                                    show_label=False),
+                           _coordinates_group,
                            visible_when='not position_type_=="image data"',
                        ),
                        Group(
                            Item('grid_shape_source_',
                             label='Grid shape',
                             editor=EnumEditor(
-                                name='_grid_shape_source_labels')),
+                                name='_grid_shape_source_labels',
+                                        invalid='_is_not_ok')), 
                            HGroup(
                             spring,
                             Item('grid_shape', style='custom', 
@@ -438,7 +489,8 @@ class DataSourceWizardView(DataSourceWizard):
                        HGroup(
                            spring,
                            Item('scalar_data', 
-                               editor=EnumEditor(name='_data_sources_names')),
+                               editor=EnumEditor(name='_data_sources_names',
+                                        invalid='_is_not_ok')), 
                            show_labels=False,
                            ),
                        label='Scalar value',
@@ -460,7 +512,8 @@ class DataSourceWizardView(DataSourceWizard):
                        HGroup(
                            spring, 
                            Item('scalar_data', 
-                               editor=EnumEditor(name='_data_sources_names'),
+                               editor=EnumEditor(name='_data_sources_names',
+                                        invalid='_is_not_ok'), 
                                enabled_when='has_scalar_data'),
                            show_labels=False,
                            ),
@@ -474,11 +527,14 @@ class DataSourceWizardView(DataSourceWizard):
                    VGroup(
                        HGroup(
                            Item('vector_u', label='u',
-                               editor=EnumEditor(name='_data_sources_names')), 
+                               editor=EnumEditor(name='_data_sources_names', 
+                                        invalid='_is_not_ok')), 
                            Item('vector_v', label='v',
-                               editor=EnumEditor(name='_data_sources_names')), 
+                               editor=EnumEditor(name='_data_sources_names', 
+                                        invalid='_is_not_ok')), 
                            Item('vector_w', label='w',
-                               editor=EnumEditor(name='_data_sources_names')), 
+                               editor=EnumEditor(name='_data_sources_names', 
+                                        invalid='_is_not_ok')), 
                        ),
                        label='Vector data',
                        show_border=True,
@@ -495,11 +551,14 @@ class DataSourceWizardView(DataSourceWizard):
                         ),
                        HGroup(
                            Item('vector_u', label='u',
-                               editor=EnumEditor(name='_data_sources_names')), 
+                               editor=EnumEditor(name='_data_sources_names', 
+                                        invalid='_is_not_ok')), 
                            Item('vector_v', label='v',
-                               editor=EnumEditor(name='_data_sources_names')), 
+                               editor=EnumEditor(name='_data_sources_names', 
+                                        invalid='_is_not_ok')), 
                            Item('vector_w', label='w',
-                               editor=EnumEditor(name='_data_sources_names')), 
+                               editor=EnumEditor(name='_data_sources_names', 
+                                        invalid='_is_not_ok')), 
                            enabled_when='has_vector_data',
                        ),
                        label='Vector data',
@@ -538,23 +597,26 @@ class DataSourceWizardView(DataSourceWizard):
                                     view_name='_suitable_traits_view'),
                         ),
                     Group(
-                        Group(
-                            Item('_shown_help_text', editor=HTMLEditor(), 
-                                width=300,
-                                label='Help',
-                                ),
-                            show_labels=False,
-                            label='Help',
-                        ),
-                        Group(
-                            '_preview_button', 
+                        # FIXME: Giving up on context sensitive help
+                        # because of lack of time.
+                        #Group(
+                        #    Item('_shown_help_text', editor=HTMLEditor(), 
+                        #        width=300,
+                        #        label='Help',
+                        #        ),
+                        #    show_labels=False,
+                        #    label='Help',
+                        #),
+                        #Group(
+                            Item('_preview_button', 
+                                    enabled_when='_is_ok'),
                             Item('_preview_window', style='custom',
                                     label='Preview structure'),
                             show_labels=False,
-                            label='Preview structure',
-                        ),
-                        layout='tabbed',
-                        dock='tab',
+                            #label='Preview structure',
+                        #),
+                        #layout='tabbed',
+                        #dock='tab',
                     ),
                     show_labels=False,
                     show_border=True,
@@ -620,7 +682,12 @@ class DataSourceWizardView(DataSourceWizard):
                      editor=InstanceEditor(view='_questions_view'),
                      ),
                 ),
-            HGroup(spring, 
+            HGroup(
+                Item('_info_image', editor=ImageEditor(),
+                    visible_when="_is_not_ok"),
+                Item('_info_text', style='readonly',
+                    visible_when="_is_not_ok"),
+                spring, 
                 '_cancel_button', 
                 Item('_ok_button', enabled_when='_is_ok'),
                 show_labels=False,
@@ -684,9 +751,10 @@ if __name__ == '__main__':
 
     x, y, z = mgrid[-5:5, -5:5, -5:5]
     r = x**2 + y**2 + z**2
+    X = linspace(0, 8)
 
     data_sources = {
-            'x':x,
+            'x':X,
             'y':y,
             'z':z,
             'r':r
@@ -694,6 +762,6 @@ if __name__ == '__main__':
 
     wizard = DataSourceWizardView(data_sources=data_sources)
     wizard.init_arrays()
-    wizard.guess_array_names()
+    wizard.guess_arrays()
     wizard.view_wizard()
 

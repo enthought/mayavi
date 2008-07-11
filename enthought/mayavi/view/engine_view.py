@@ -125,7 +125,7 @@ class EngineView(HasTraits):
                                 copy=True,
                                 delete=True,
                                 rename=True,
-                                tooltip='=Right click for more options'
+                                tooltip='=Right click for more options',
                                 ),
                  TreeNode(node_for=[AdderNode],
                           children='',
@@ -135,6 +135,8 @@ class EngineView(HasTraits):
                           delete=False,
                           rename=False,
                           tooltip='tooltip',
+                          icon_path=resource_path(),
+                          icon_item='add.ico',
                           ),
                  
                  ]

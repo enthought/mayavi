@@ -7,12 +7,15 @@ to the tree.
 # Copyright (c) 2008, Enthought, Inc.
 # License: BSD Style.
 from enthought.traits.api import (HasTraits, Str, Property, Any, Button, Enum, 
-                                  List, Dict)
-from enthought.traits.ui.api import View, Item, Group
+                                  List, Title, Instance)
+from enthought.traits.ui.api import View, Item, Group, ListEditor, \
+        ButtonEditor, TextEditor
 
 from enthought.mayavi.core.registry import registry
 from enthought.mayavi.core.metadata import Metadata
 
+from enthought.pyface.api import ImageResource
+from enthought.resource.api import resource_path
 
 class AdderNode(HasTraits):
     """ Base class that will display a TreeNode to add items to the tree.
@@ -29,7 +32,10 @@ class AdderNode(HasTraits):
     
     # Duck-typing is necessary since Mayavi assumes nodes always have scenes.
     scene = Property
-    
+
+    # Icon
+    _icon = ImageResource('add.ico')
+
     # Trait view to show in the Mayavi current object panel.
     view = View(Group(label='AdderNode'))   
 
@@ -37,8 +43,12 @@ class AdderNode(HasTraits):
         """ View shown by double-clicking on the node.  Same as in Base().
         """
         view = self.trait_view()    
-        view.buttons = ['OK', 'Cancel']
+        view.buttons = ['OK', ]
         view.title = self.label
+        view.icon = self._icon
+        view.resizable = True
+        view.width = 350
+        view.height = 650
         return view
     
     def _get_scene(self):
@@ -56,10 +66,10 @@ class SceneAdderNode(AdderNode):
     """
     
     # Button for the View.
-    add_scene = Button('Add a new scene')  
+    add_scene = Button('Add a new scene', )  
     
     # Trait view to show in the Mayavi current object panel.
-    view = View(Group(Item('add_scene'), 
+    view = View(Group(Item('add_scene', show_label=False), 
                       label='Add a scene'))
     
     
@@ -67,213 +77,156 @@ class SceneAdderNode(AdderNode):
         """ Trait handler for when the add_scene button is clicked.
         """
         self.object.new_scene()
-  
-  
-###############################################################################
-class SourceAdderNode(AdderNode):
-    """ Tree node that presents a view to the user to add a scene source.
+
+
+class DocumentedItem(HasTraits):
+    """ Container to hold a name and a documentation.
     """
-    
-    # Button for adding a data file, with automatic format checking.
-    open_file = Button('Open data file')        
-    
-    # Button for adding a source.
-    add_source = Button('Add Source')
-    
-    # View object to display a list of source names.    
-    source = Enum(values='names')
 
-    # Documentation for the source to be added.
-    source_doc = Str('Documentation')
+    name = Str
 
-    # The source names to display to the user.
-    names = List(Str)
+    add = Button
 
-    # The mapping of the source name to the Metadata.
-    mapping = Dict(Str, Metadata)
+    object = Any
+
+    documentation = Str
+
+    parent = Instance(AdderNode)
+
+    view = View(Item('add', editor=ButtonEditor(label_value='name'),
+                    show_label=False),
+                Item('documentation', style='readonly',
+                    editor=TextEditor(multi_line=True),
+                    resizable=True,
+                    height=-35,
+                    show_label=False),
+                )
+
+    def _add_fired(self):
+        """ Trait handler for when the add_source button is clicked in
+            one of the sub objects in the list.
+        """
+        action = getattr(self.object._menu_helper, self.id)
+        action()
+
     
-    # The string to display on the icon in the TreeEditor.
-    label = 'Add Source'
-    
+###############################################################################
+class ListAdderNode(AdderNode):
+    """ A node for adding object, with a list of objects to add generated
+        from the registry.
+    """
+
+    # The list of items to display to the user.
+    items_list = List(DocumentedItem)
+
+    # A reference to the registry, to generate this list.
+    items_list_source = List()
+
     # Trait view to show in the Mayavi current object panel.
-    view = View(Group(Group(Item('open_file', 
-                                 show_label=False),
-                            label='Add a source from a file',
-                            show_border=True),
-                      Group(Item('source'),
-                            Item('source_doc',
-                                 label='Documentation',
-                                 style='custom'),
-                            Item('add_source',
-                                 show_label=False),
-                            label='Add a Mayavi source',
-                            show_border=True),
-                      label='Add a source'))
+    view = View(Item('items_list', style='readonly',
+                            editor=ListEditor(style='custom'),
+                            show_label=False,),
+                )
 
 
     def _object_changed(self, value):
         """ Trait handler for when the self.object trait changes.
         """
-        mapping = {} 
         result = []
         if value is not None:
-            for src in registry.sources:
-                if len(src.extensions) == 0:
-                    name = src.menu_name.replace('&','')
-                    result.append(name)
-                    mapping[name] = src
-        self.names = result
-        self.mapping = mapping
-        # Don't need 'x', but do need to generate the actions.
-        x = value._menu_helper.actions
+            # Don't need 'x', but do need to generate the actions.
+            x = value._menu_helper.actions
+            for src in self.items_list_source:
+                name = src.menu_name.replace('&','')
+                result.append(
+                    DocumentedItem(
+                            name=name,
+                            documentation=src.help,
+                            id=src.id,
+                            object=value,
+                            ))
+        self.items_list = result
 
-    def _source_changed(self, value):
-        self.source_doc = self.mapping[value].help
+    
 
+###############################################################################
+class SourceAdderNode(ListAdderNode):
+    """ Tree node that presents a view to the user to add a scene source.
+    """
+    
+    # Button for adding a data file, with automatic format checking.
+    open_file = Button('Load data from file')        
+    
+    # A reference to the registry, to generate this list.
+    items_list_source = [source for source in registry.sources
+                            if len(source.extensions) == 0]
+
+    # The string to display on the icon in the TreeEditor.
+    label = 'Add Data Source'
+    
+    # Trait view to show in the Mayavi current object panel.
+    view = View(Group(Group(Item('open_file'),
+                      show_labels=False, show_border=True),
+                      Item('items_list', style='readonly',
+                            editor=ListEditor(style='custom')),
+                      show_labels=False,
+                      label='Add a data source'))
+
+
+   
     def _open_file_fired(self):
         """ Trait handler for when the open_file button is clicked.
         """
         self.object._menu_helper.open_file_action()
 
-    def _add_source_fired(self):
-        """ Trait handler for when the add_source button is clicked.
-        """
-        id = self.mapping[self.source].id
-        action = getattr(self.object._menu_helper, id)
-        action()
-
-    def _source_doc_default(self):
-        src = self.source
-        if len(src) > 0:
-            return self.mapping[src].help
-        else:
-            return ''
 
     
 ###############################################################################
-class FilterAdderNode(AdderNode):  
-    """ Tree node that presents a view to the user to add filters or modules.
+class ModuleAdderNode(ListAdderNode):  
+    """ Tree node that presents a view to the user to add modules.
     """
     
-    # Text to show on the icon in the TreeEditor
-    label = 'Add Module/Filter'
+    # A reference to the registry, to generate this list.
+    items_list_source = registry.modules
 
-    # View Button for adding a module to the source.
-    add_module = Button('Add Module')    
-    
-    # Object that the View can use for the user to select a module.
-    module = Enum(values='module_names')
-    
-    # The name of the module to display to the user.
-    module_names = List(Str)
-    
-    # The mayavi lookup value to use the module code.
-    module_mapping = Dict(Str, Metadata)
- 
-    # The module documentation to show.
-    module_doc = Str('')
 
-    # View Button for adding a filter to the source.
-    add_filter = Button('Add Filter')        
+###############################################################################
+class FilterAdderNode(ListAdderNode):  
+    """ Tree node that presents a view to the user to add filters.
+    """
     
-    # Object that the View can use for the user to select a module.
-    filter = Enum(values='filter_names')
-    
-    # The name of the filter to display to the user.
-    filter_names = List(Str)
-    
-    # The mayavi lookup value to use the filter code.
-    filter_mapping = Dict(Str, Metadata)
+    # A reference to the registry, to generate this list.
+    items_list_source = registry.filters
 
-    # The filter documentation to show.
-    filter_doc = Str('')
 
-    # The View to show in the selected object panel.
-    view = View(Group(Group(Item('filter'),
-                            Item('filter_doc',
-                                 label='Documentation',
-                                 style='custom'),
-                            Item('add_filter', 
-                                 show_label=False),
-                            label='Filters',
-                            show_border=True),
-                      Group(Item('module'),
-                            Item('module_doc',
-                                 label='Documentation',
-                                 style='custom'),
-                            Item('add_module',
-                                 show_label=False),
-                            label='Modules',
-                            show_border=True),
-                      )
+###############################################################################
+class ModuleFilterAdderNode(AdderNode):  
+    """ Tree node that presents a view to the user to add filter and
+        modules.
+    """
+
+    # The string to display on the icon in the TreeEditor.
+    label = 'Add module or filter'
+
+    modules = Instance(ModuleAdderNode, ())
+
+    filters = Instance(FilterAdderNode, ())
+
+    def _object_changed(self):
+        self.filters.object = self.object
+        self.modules.object = self.object
+
+    # Trait view to show in the Mayavi current object panel.
+    view = View(Group(
+                Group(Item('modules', style='custom'), show_labels=False,
+                    label='Visualization modules'),
+                Group(Item('filters', style='custom'), show_labels=False,
+                    label='Processing filters'),
+                label="Add module or filter",
+                layout="tabbed",
+                ),
+                resizable=True,
+                scrollable=True,
                 )
-    
-    
-    def _object_changed(self, value):
-        """ Trait handler for when self.object is changed.
-        """
-        if value is None:
-            return
-        
-        # First calculate modules.
-        module_names = []
-        module_mapping = {}
-        # Don't use x, but the call triggers some assignments.
-        x = value._menu_helper.actions
-        for mod in registry.modules:
-            chk = getattr(self.object._menu_helper, 'check_' + mod.id)
-            if chk():
-                name = mod.menu_name.replace('&','')
-                module_names.append(name)
-                module_mapping[name] = mod
-        self.module_names = module_names
-        self.module_mapping = module_mapping
-
-        # Second, calculate filters.
-        filter_names = []
-        filter_mapping = {}
-        for fil in registry.filters:
-            chk = getattr(self.object._menu_helper, 'check_' + fil.id)
-            if chk():
-                name = fil.menu_name.replace('&','')
-                filter_names.append(name)
-                filter_mapping[name] = fil
-        self.filter_names = filter_names
-        self.filter_mapping = filter_mapping
-    
-    
-    def _add_module_fired(self):
-        """ Trait handler for when add_module button is clicked.
-        """
-        id = self.module_mapping[self.module].id
-        action = getattr(self.object._menu_helper, id)
-        action()
-
-    def _add_filter_fired(self):
-        """ Trait handler for when add_filter button is clicked.
-        """
-        id = self.filter_mapping[self.filter].id
-        action = getattr(self.object._menu_helper, id)
-        action()
-
-    def _module_doc_default(self):
-        src = self.module
-        if len(src) > 0:
-            return self.module_mapping[src].help
-        else:
-            return ''
-
-    def _module_changed(self, value):
-        self.module_doc = self.module_mapping[value].help
-
-    def _filter_changed(self, value):
-        self.filter_doc = self.filter_mapping[value].help
-
-    def _filter_doc_default(self):
-        src = self.filter
-        if len(src) > 0:
-            return self.filter_mapping[src].help
-        else:
-            return ''
 
 ### EOF #######################################################################
