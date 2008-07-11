@@ -1,7 +1,8 @@
 # FIXME:
 #   This file contains the loadtxt function from numpy 1.1.0 because there
 #   is a bug the loadtxt function of numpy 1.0.4.
-#   In the future this file can be removed, once Mayavi depends on 1.1.0
+#   In the future this file can be removed, once Mayavi depends on
+#   numpy 1.1.0 (or higher).
 
 import numpy as np
 
