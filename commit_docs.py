@@ -216,7 +216,8 @@ class Build(Process):
         p.set_defaults(commit=True, commit_message='Updating documentation',
                        repository='https://svn.enthought.com/svn/cec/trunk/' \
                            'projects/mayavi/docs/development/',
-                       subversion=False, target=default_target, versioned=False)
+                       subversion=False, target=default_target,
+                       versioned=False)
 
         return p
 
