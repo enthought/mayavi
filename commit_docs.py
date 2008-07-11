@@ -86,9 +86,9 @@ class Process(object):
         p.add_option('--doc-source',
                      help='Location of the documentation')
 
-        p.set_defaults(doc_source=os.path.join(os.path.dirname(__file__),
-                                               'docs', 'mayavi', 'user_guide',
-                                               'source'))
+        p.set_defaults(doc_source=os.path.join(
+                os.path.abspath(os.path.dirname(__file__)),
+                'docs', 'mayavi', 'user_guide', 'source'))
 
         return p
 
@@ -123,7 +123,9 @@ class Build(Process):
     @has_started
     def target(self):
         if self.options.versioned:
-            conf = __import__(os.path.join(self.options.doc_source, 'conf'))
+            os.sys.path.insert(0, os.path.abspath(self.options.doc_source))
+            conf = __import__('conf')
+            del os.sys.path[0]
             return os.path.join(self.options.target, conf.release)
         else:
             return self.options.target
