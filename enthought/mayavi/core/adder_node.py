@@ -9,7 +9,7 @@ to the tree.
 from enthought.traits.api import (HasTraits, Str, Property, Any, Button, Enum, 
                                   List, Title, Instance)
 from enthought.traits.ui.api import View, Item, Group, ListEditor, \
-        ButtonEditor, TextEditor
+        ButtonEditor, TextEditor, HGroup, spring
 
 from enthought.mayavi.core.registry import registry
 from enthought.mayavi.core.metadata import Metadata
@@ -59,8 +59,6 @@ class AdderNode(HasTraits):
         else:
             return None
 
-
-
 class SceneAdderNode(AdderNode):
     """ Subclass for adding Scene nodes to a Mayavi Engine node.
     """
@@ -109,7 +107,18 @@ class DocumentedItem(HasTraits):
         action = getattr(self.object._menu_helper, self.id)
         action()
 
-    
+
+class DisabledItem(DocumentedItem):
+
+    view = View('_',
+                HGroup(
+                    spring,
+                    Item('name', style='readonly', show_label=False, 
+                            enabled_when='False'),
+                    spring,
+                    ))
+
+
 ###############################################################################
 class ListAdderNode(AdderNode):
     """ A node for adding object, with a list of objects to add generated
@@ -136,18 +145,35 @@ class ListAdderNode(AdderNode):
         if value is not None:
             # Don't need 'x', but do need to generate the actions.
             x = value._menu_helper.actions
+            Mutable.attr = value
             for src in self.items_list_source:
                 name = src.menu_name.replace('&','')
-                result.append(
-                    DocumentedItem(
-                            name=name,
-                            documentation=src.help,
-                            id=src.id,
-                            object=value,
-                            ))
+                if self._is_action_suitable(value, src):
+                    ItemClass = DocumentedItem
+                else:
+                    ItemClass = DisabledItem
+                result.append(ItemClass(
+                                    name=name,
+                                    documentation=src.help,
+                                    id=src.id,
+                                    object=value)
+                                )
         self.items_list = result
 
-    
+
+    def _is_action_suitable(self, object, src):
+        """ Check that the action described by src can be applied on the
+            given object.
+        """
+        if  hasattr(object._menu_helper, 'check_%s' % src.id) \
+                and getattr(object._menu_helper, 'check_%s' % src.id)():
+            return True
+
+
+class Mutable:
+
+    attr = None
+
 
 ###############################################################################
 class SourceAdderNode(ListAdderNode):
@@ -180,6 +206,9 @@ class SourceAdderNode(ListAdderNode):
         self.object._menu_helper.open_file_action()
 
 
+    def _is_action_suitable(self, object, src):
+        return True
+
     
 ###############################################################################
 class ModuleAdderNode(ListAdderNode):  
@@ -189,6 +218,11 @@ class ModuleAdderNode(ListAdderNode):
     # A reference to the registry, to generate this list.
     items_list_source = registry.modules
 
+
+    def _object_changed(self, value):
+        if value is not None:
+            value._menu_helper._build_filter_actions()
+        ListAdderNode._object_changed(self, value) 
 
 ###############################################################################
 class FilterAdderNode(ListAdderNode):  
