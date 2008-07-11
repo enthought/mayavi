@@ -376,7 +376,7 @@ register(UpdateCEC)
 
 if __name__ == '__main__':
     if len(sys.argv) == 1 or sys.argv[1] not in ACTIONS:
-        print 'Need a valid action'
+        print 'Need a valid action: %s' % ' '.join(ACTIONS.keys())
     else:
         action = ACTIONS[sys.argv[1]]()
         action.start(*action.option_parser.parse_args(sys.argv[2:]))
