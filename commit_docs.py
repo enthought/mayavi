@@ -369,8 +369,25 @@ class UpdateCEC(Process):
     action_name = 'update-cec'
 
     def run(self):
-        self.run_command('ssh code.enthought.com "(cd /www/htdocs/code.' \
-                             'enthought.com/projects/mayavi/ && svn up)"')
+        if self.options.username:
+            user = '%s@' % self.options.username
+        else:
+            user = ''
+
+        # The chgrp gives errors on files the user does not own, but this is
+        # perfectly acceptable --- it is only there to clean up permissions on
+        # files this script created.
+        self.run_command('''ssh %scode.enthought.com " \
+            cd /www/htdocs/code.enthought.com/projects/mayavi/ \
+            && svn up \
+            && chmod -R g+w docs \
+            && chgrp -R apache ."''' % user)
+
+    @property
+    def option_parser(self):
+        p = super(UpdateCEC, self).option_parser
+        p.add_option('-u', '--username', help='username on CEC')
+        return p
 
 register(UpdateCEC)
 
