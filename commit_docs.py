@@ -9,6 +9,8 @@ options. At the time of this writing, the valid actions are:
  * build-html
  * build-latex
  * create-zip
+ * build (defaults to all three above)
+ * update-cec (requires SSH access to CEC)
 
 Having used those, the --help option may be used to find a list of all options.
 
