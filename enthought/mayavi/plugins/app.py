@@ -18,6 +18,7 @@ from enthought.traits.api import (HasTraits, Instance, Int,
 # Local imports.
 from mayavi_workbench_application import MayaviWorkbenchApplication
 from enthought.mayavi.preferences.api import preference_manager
+from enthought.mayavi.core.customize import get_custom_plugins
 
 # GLOBALS
 logger = logging.getLogger()
@@ -141,6 +142,8 @@ class Mayavi(HasTraits):
 
         if plugins is None:
             plugins = get_plugins()
+
+        plugins += get_custom_plugins()
 
         # Create the application
         prefs = preference_manager.preferences

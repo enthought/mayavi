@@ -106,3 +106,9 @@ registry.filters.extend(filters)
 from enthought.mayavi.modules.metadata import modules
 registry.modules.extend(modules)
 
+# Do any customizations from either the `site_mayavi.py` or the
+# `user_mayavi.py` files.  This is done by importing the customize.py
+# module here which in turn imports the necessary code from the users's
+# customization.
+from enthought.mayavi.core import customize
+
