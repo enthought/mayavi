@@ -18,9 +18,6 @@ from enthought.traits.api import (HasStrictTraits, List, Str,
 from enthought.traits.ui.api import View, Item
 from enthought.persistence import state_pickler
 
-# Mayavi imports
-from enthought.mayavi.tools.figure_manager import figure_manager
-
 # Local imports.
 from enthought.mayavi.core.base import Base
 from enthought.mayavi.core.scene import Scene
@@ -32,15 +29,16 @@ from enthought.mayavi.core.adder_node import AdderNode, SceneAdderNode
 ######################################################################
 # Utility functions.
 ######################################################################
-def _scene_id_generator():
+def _id_generator():
     """Returns a sequence of numbers for the title of the scene
     window."""
     n = 1
     while True:
         yield(n)
         n += 1
-scene_id_generator = _scene_id_generator()
-        
+scene_id_generator = _id_generator()
+
+engine_id_generator = _id_generator()
 
 ######################################################################
 # `Engine` class
@@ -152,14 +150,11 @@ class Engine(HasStrictTraits):
         # Notify any listeners that the engine is started.
         self.started = self
         self.running = True
-        figure_manager.engines.append(self)
+        name = self.name + '%d' %  engine_id_generator.next()
+        registry.engines[name] = self
 
     def stop(self):
         self.running = False
-        for index, engine in enumerate(figure_manager.engines):
-            if engine == self:
-                figure_manager.engines.pop(index)
-                break
 
     def add_source(self, src, scene=None):
         """Adds a source to the pipeline. Uses the current scene unless a

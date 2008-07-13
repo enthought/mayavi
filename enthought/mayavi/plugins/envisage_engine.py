@@ -8,7 +8,7 @@
 import logging
 
 # Enthought library imports.
-from enthought.traits.api import Instance, Bool, on_trait_change
+from enthought.traits.api import Instance, Bool, on_trait_change, Str
 from enthought.tvtk.plugins.scene.i_scene_manager import \
             ISceneManager
 from enthought.tvtk.plugins.scene.ui.actions import NewScene
@@ -32,6 +32,9 @@ class EnvisageEngine(Engine):
 
     # The envisage application.
     window = Instance(WorkbenchWindow)
+
+    # Our name.
+    name = Str('Mayavi Envisage Engine')
 
     ######################################################################
     # `object` interface

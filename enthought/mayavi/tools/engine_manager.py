@@ -4,9 +4,14 @@ Central registry for figures with mlab.
 from enthought.traits.api import HasTraits, List
 from enthought.mayavi.preferences.api import preference_manager
 from enthought.pyface.api import GUI
+
+from enthought.mayavi.core.registry import registry
+
 options = preference_manager.mlab
 
-class FigureManager(HasTraits):
+from enthought.mayavi.core.engine import Engine
+
+class EngineManager(HasTraits):
     """ Central registry for figures with mlab.
 
         This is a container for a list of engines having declared
@@ -17,20 +22,17 @@ class FigureManager(HasTraits):
         engine and get a figure.
     """
 
-    # The list of engine that have declared themselves as available to
-    # mlab.
-    engines = List()
-    
 
     def get_engine(self):
         """ Returns an engine in agreement with the options."""
+        engines = registry.engines.values()
         if options.backend == 'auto':
-            suitable = self.engines
+            suitable = engines
         elif options.backend == 'envisage':
-            suitable = [e for e in self.engines 
+            suitable = [e for e in engines 
                                 if e.__class__.__name__ == 'EnvisageEngine']
         else:
-            suitable = [e for e in self.engines 
+            suitable = [e for e in engines 
                                 if e.__class__.__name__ == 'Engine']
         if len(suitable) == 0:
             return self.new_engine()
@@ -50,8 +52,7 @@ class FigureManager(HasTraits):
             GUI.process_events()
             engine = m.script.engine
         else:
-            from enthought.mayavi.core.engine import Engine
-            engine = Engine()
+            engine = Engine(name='Mlab Engine')
             engine.start()
         return engine
 
@@ -66,9 +67,9 @@ class FigureManager(HasTraits):
             return EngineView(engine=engine).edit_traits()
 
 
-figure_manager = FigureManager()
+engine_manager = EngineManager()
 
-get_engine = figure_manager.get_engine
+get_engine = engine_manager.get_engine
 
-show_engine = figure_manager.show_engine
+show_engine = engine_manager.show_engine
 

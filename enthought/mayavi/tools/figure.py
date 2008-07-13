@@ -16,7 +16,8 @@ from enthought.tvtk.api import tvtk
 
 # Mayavi imports
 from camera import view
-from figure_manager import get_engine
+from engine_manager import get_engine
+from enthought.mayavi.core import registry
 
 ######################################################################
 

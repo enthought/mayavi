@@ -14,7 +14,7 @@ from enthought.tvtk.api import tvtk
 
 # We can't use gcf, as it creates a circular import in camera management
 # routines.
-from figure_manager import get_engine
+from engine_manager import get_engine
 
 def _xyz2rthetaphi(vec):
     """ Returns an r, theta, phi vector for an yxz one (! angles in

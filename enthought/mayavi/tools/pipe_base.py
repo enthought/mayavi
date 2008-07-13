@@ -11,7 +11,7 @@ from auto_doc import make_doc
 from enthought.traits.api import HasPrivateTraits, Str, TraitError
 from enthought.mayavi.filters.filter_base import FilterBase
 import tools
-from figure_manager import get_engine
+from engine_manager import get_engine
 
 def get_obj(obj, components):
     """ Get the target object for the specified components. """
