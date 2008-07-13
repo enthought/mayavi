@@ -1,35 +1,32 @@
 MayaVi2:
     - Core:
         - Better and correct persistence. (p)
-   
-        - Local and global customization. (p)
-        - Context sensitive menus.
         - Add a "remove_from_visualization" method on pipeline objects?
 
     - Sources:
-        - Easier interface to open data files.
-        - A registry for file extensions/types that readers/handlers can
-          handle?
         - Multiblock data support.
+        - DataObjectManager to abstract what SetActiveAttribute does.
+          It should also support using expressions to add new
+          scalars/vectors etc.
 
     - Modules/Filters:
-        - Add image readers and elementary texture support. (p)
         
     - UI:
+        - Right click on filter should allow you to save the output to
+          a VTK XML file.
         - Make the viewer used in standalone more versatile (make it easy to
           control what goes on the toolbar and in the menus.
-        - Right click on tree view to get full functionality.
-        - Context sensitive menus.
         - Easier access to the LUT editor.
         - Transfer editor for images. (g)
+        - More preference options: disable splash screen, disable adder
+          nodes,
 
     - Misc:
         - Cleaner approach for mayavi2 -x, use a decorator?
         - Support for animation.
+        - Support for multiple renderers in a single scene.
 
     - Documentation:
-        - Improve user guide, add more devel info.
-        - Clean up the doc generation scripts (g).
 
     - Mlab:
         - mlab.show to start the GUI event-loop in a clever way (g).
