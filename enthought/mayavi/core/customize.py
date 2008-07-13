@@ -53,13 +53,17 @@ except ImportError:
 
 home = get_home_directory()
 m2dir = join(home, '.mayavi2')
-if exists(m2dir):
+user_module = join(m2dir, 'user_mayavi.py')
+if exists(user_module):
     # Add ~/.mayavi2 to sys.path.
     sys.path.append(m2dir)
-    # Now try and import the user defined plugin extension.
+    # Doing an import gives user information on any errors. 
+    import user_mayavi
     try:
+        # Now try and import the user defined plugin extension.
         from user_mayavi import get_plugins as _get_user_plugins
     except ImportError:
+        # user_mayavi may not be adding any new plugins.
         pass
 
 
