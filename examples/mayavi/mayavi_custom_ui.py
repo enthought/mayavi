@@ -1,71 +1,150 @@
-"""This module allows us to extend the MayaVi2 UI.  It defines two
-lists: `extensions` and `requires` as expected by the
-`enthought.envisage.api.PluginDefinition` class.
+"""This code is not to be executed as `mayavi2 -x user_mayavi.py` or
+`python user_mayavi.py`.  
 
-`extensions` must be a list of plugin extension contributions that we
-want to add.  `requires` specifies a list of plugins that we'd like to
-have started.  The `requires` does not ensure that the plugin is
-actually loaded but only ensures that the "required" plugins are
-started (if loaded) before the mayavi2 ui plugin.  For most common
-tasks it unlikely we will need to use a non-empty requires.
+Put this file in ~/.mayavi2/user_mayavi.py and rerun mayavi2 to see what
+it does -- the worker view may not show up by default so you will have
+to go to View->Other and in the Show View dialog, activate the "Custom
+Mayavi2 View". 
 
-This file must be placed inside the `~/.mayavi2` directory.
-
-Please note that `~/.mayavi2` is placed in `sys.path` so make sure
-that you choose your module names carefully (so as not to override any
-common module names).
+The added modules should show up in the menus (Look for UserOutline in
+the Modules)
+"""
 
 """
-# Author: Prabhu Ramachandran <prabhu_r at users dot sf dot net>
-# Copyright (c) 2006-2007, Enthought, Inc.
+This module demonstrates how to extend Mayavi2.  It extends the  modules
+provided by mayavi by adding these to the mayavi registry.  Note that
+the registry imports customize which in turn imports this file.
+
+It also defines an envisage plugin that is added to the default list of
+plugins to extend the running mayavi application.  This plugin is
+returned by the `get_plugins()` function.
+
+This file must be placed inside the `~/.mayavi2` directory and called
+`user_mayavi.py`.  Please note that `~/.mayavi2` is placed in `sys.path`
+(if the directory exists) so make sure that you choose your module names
+carefully (so as not to override any common module names).
+
+The file may also be placed anywhere on sys.path and called
+`site_mayavi.py` for global system level customizations.
+
+"""
+# Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
+# Copyright (c) 2006-2008, Enthought, Inc.
 # License: BSD Style.
 
+from enthought.mayavi.core.registry import registry
+from enthought.mayavi.core.pipeline_info import PipelineInfo
+from enthought.mayavi.core.metadata import ModuleMetadata
+
+# Metadata for the new module we want to add -- notice that we use a
+# factory function here for convenience, we could also use a class but
+# the reasons for doing this are documented below.
+user_outline = ModuleMetadata(
+    id            = "UserOutlineModule",
+    menu_name          = "&UserOutline",
+    factory = 'user_mayavi.user_outline',
+    desc   = "Draw a cornered outline for given input",
+    tooltip       = "Draw a cornered outline for given input",
+    help       = "Draw a cornered outline for given input",
+    input_info = PipelineInfo(datasets=['any'],
+                              attribute_types=['any'],
+                              attributes=['any'])
+)
+
+# Register the module with the mayavi registry.
+registry.modules.append(user_outline)
+
+#######
+# The all important function that returns the plugin we wish to add to
+# the default mayavi application.
+def get_plugins():
+    # We simply return a list containing the WorkerPlugin defined below.
+    return [WorkerPlugin()]
+
 ######################################################################
-# THE FOLLOWING BLOCK OF CODE COULD BE IN A SEPARATE MODULE.
+# Thats it, basically.  The rest of the code should really be in another
+# module but is in the same module for convenience here.  There are
+# problems with doing any significant non-core module imports in this
+# module as documented below. 
+######################################################################
+
+
+######################################################################
+# THE CODE BELOW SHOULD REALLY BE IN SEPARATE MODULES.
 #
 # The following can very well be in a separate module but I've kept it
 # here to make this a compact demo of how to customize things.
 ######################################################################
 
-# This code simulates something the user would like to do.  The code
-# below is simply traits code with a few extra things to be able to
-# grab the running mayavi instance and script it.  The envisage
-# specific code only gets the application and the IMAYAVI service.
-import numpy
-import scipy
 
-from enthought.traits.api import HasTraits, Range, Button, Instance
-from enthought.traits.ui.api import Item, View
-from enthought.mayavi.services import IMAYAVI
+######################################################################
+# A new module to expose to mayavi.
+#
+# WARNING: Do not do other mayavi imports right here like for example:
+# 'from enthought.mayavi.modules.outline import Outline' etc.  This is
+# because the user_mayavi is imported at a time when many of the imports
+# are not complete and this will cause hard-to-debug circular import
+# problems.  The registry is given only metadata mostly in the form of
+# strings and this will cause no problem.  Therefore to define new
+# modules, we strongly recommend that the modules be defined in another
+# module or be defined in a factory function as done below.
+
+def user_outline():
+    """A Factory function that creates a new module to add to the
+    pipeline.  Note that the method safely does any mayavi imports
+    inside avoiding any circular imports.
+    """
+    print "User Outline"
+    from enthought.mayavi.modules.outline import Outline
+    o = Outline(outline_mode='cornered', name='UserOutline')
+    return o
 
 
 ######################################################################
-# A test class.
+# This code simulates something the user would like to do.  In this case
+# we just want to create some data, view it with mayavi and modify the
+# data.  We want to add this as a view to the standard mayavi.  The code
+# below is simply traits code with a few extra things to be able to grab
+# the running mayavi instance and script it.  The object we create we
+# offer as an envisage service offer -- this instantiates the worker.
+# The WorkerPlugin exposes the service offer and shows the view of this
+# worker.
+
+import numpy
+import scipy
+
+from enthought.traits.api import HasTraits, Range, Button, Instance, List
+from enthought.traits.ui.api import Item, View
+
+######################################################################
+# `Worker` class
+######################################################################
 class Worker(HasTraits):
     """This class basically allows you to create a data set, view it
     and modify the dataset.  This is a rather crude example but
     demonstrates how things can be done.
     """
     
-    # Set by envisage when this is instantiated using the
-    # ApplicationObject.
-    application = Instance  
+    # Set by envisage when this is contributed as a ServiceOffer.
+    window = Instance('enthought.pyface.workbench.api.WorkbenchWindow')
 
     create_data = Button('Create data')
     reset_data = Button('Reset data')
     view_data = Button('View data')
     scale = Range(0.0, 1.0)
-    source = Instance
+    source = Instance('enthought.mayavi.core.source.Source')
 
     # Our UI view.
     view = View(Item('create_data', show_label=False),
                 Item('view_data', show_label=False),
                 Item('reset_data', show_label=False),
                 Item('scale'),
+                resizable=True
                 )
 
     def get_mayavi(self):
-        return self.application.get_service(IMAYAVI)
+        from enthought.mayavi.plugins.script import Script
+        return self.window.get_service(Script)
 
     def _make_data(self):
         dims = [64, 64, 64]
@@ -110,74 +189,68 @@ class Worker(HasTraits):
         data += value*0.01
         numpy.mod(data, 1.0, data)
         src.update()
-# END OF CODE THAT COULD BE IN A SEPARATE MODULE.
-######################################################################
-
 
 ######################################################################
 # The following code is the small amount of envisage code that brings
-# the users code (above) and Envisage/MayaVi UI together.
-
-from enthought.envisage.workbench.action.action_plugin_definition import \
-     Action, Location, WorkbenchActionSet
-from enthought.envisage.core.core_plugin_definition import \
-     ApplicationObject
-from enthought.mayavi.action.common import WorkbenchAction, get_imayavi
-from enthought.envisage.workbench.workbench_plugin_definition import \
-     Workbench, View
+# the users code (above) and Envisage/Mayavi UI together.
+from enthought.envisage.api import Plugin, ServiceOffer
 
 ######################################################################
-# Workbench actions.
-
-# A simple example menu item action.
-
-class AddModuleManager(WorkbenchAction):
-    """Adds a module manager to the tree.
-    """
-    def perform(self):
-        """ Performs the action.
-        """
-        from enthought.mayavi.core.module_manager import ModuleManager
-        mm = ModuleManager()
-        mv = get_imayavi(self.window)        
-        mv.add_module(mm)
-
-
+# `WorkerPlugin` class
 ######################################################################
-# The extension items.
+class WorkerPlugin(Plugin):
 
-# The menu bar action extension item.
-add_mm = Action(
-    id            = "user.ModuleManager",
-    class_name    = "mayavi_custom_ui.AddModuleManager",
-    name          = "&User Defined ModuleManager",
-    tooltip       = "Add a user defined ModuleManager to the current source",
-    description   = "Add a user defined ModuleManager to the current source",
-    locations = [Location(path="MenuBar/VisualizeMenu/additions"),]
-)
+    # Extension point Ids.
+    SERVICE_OFFERS = 'enthought.envisage.ui.workbench.service_offers'
+    VIEWS          = 'enthought.envisage.ui.workbench.views'
 
-# The action set collects all the actions, menus etc.  The id and name
-# are not important but 
-action_set = WorkbenchActionSet(id='user.mayavi2.action_set',
-                                name='User.MayaVi2.ActionSet',
-                                actions=[add_mm])
+    # Services we contribute.
+    service_offers = List(contributes_to=SERVICE_OFFERS)
+    # Views.
+    views = List(contributes_to=VIEWS)
+    
+    ######################################################################
+    # Private methods.
+    def _service_offers_default(self):
+        """ Trait initializer. """
+        worker_service_offer = ServiceOffer(
+            protocol = 'user_mayavi.Worker',
+            factory  = 'user_mayavi.Worker'
+        )
+        return [worker_service_offer]
 
-# An elegant way to publish an object for all envisagers to use via
-# the UOL -- here we publish the above Worker class as a service.
-worker_app_obj = ApplicationObject(class_name='mayavi_custom_ui.Worker',
-                                   uol='service://mayavi_custom_ui.Worker')
+    def _views_default(self):
+        """ Trait initializer. """
+        return [self._worker_view_factory]
 
-# Now add the view of our worker.
-views = [View(name='Custom MayaVi2 View',
-              id = 'mayavi_custom_ui.Worker',
-              uol = 'service://mayavi_custom_ui.Worker',
-              traits_ui_view = 'view',
-              position = 'left')
-         ]
-workbench = Workbench(views=views)
+    def _worker_view_factory(self, window, **traits):
+        """ Factory method for the current selection of the engine. """
 
+        from enthought.pyface.workbench.traits_ui_view import \
+                TraitsUIView
+
+        worker = window.get_service(Worker)
+        tui_worker_view = TraitsUIView(obj=worker,
+                                       view='view',
+                                       id='user_mayavi.Worker.view',
+                                       name='Custom Mayavi2 View',
+                                       window=window,
+                                       position='left',
+                                       **traits
+                                       )
+        return tui_worker_view
+
+# END OF CODE THAT SHOULD REALLY BE IN SEPARATE MODULES.
 ######################################################################
-# The all important extensions and requires.  These are injected into
-# Envisage by the MayaVi2 UI plugin.
-extensions = [worker_app_obj, action_set, workbench]
-requires = []
+
+if __name__ == '__main__':
+    import sys
+    print "*"*80
+    print "ERROR: This script isn't supposed to be executed."
+    print __doc__
+    print "*"*80
+
+    from enthought.util.home_directory import get_home_directory
+    print "Your .mayavi2 directory should be in %s"%get_home_directory()
+    print "*"*80
+    sys.exit(1)
