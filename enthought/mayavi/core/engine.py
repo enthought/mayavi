@@ -38,8 +38,6 @@ def _id_generator():
         n += 1
 scene_id_generator = _id_generator()
 
-engine_id_generator = _id_generator()
-
 ######################################################################
 # `Engine` class
 ######################################################################
@@ -150,11 +148,11 @@ class Engine(HasStrictTraits):
         # Notify any listeners that the engine is started.
         self.started = self
         self.running = True
-        name = self.name + '%d' %  engine_id_generator.next()
-        registry.engines[name] = self
+        registry.register_engine(self)
 
     def stop(self):
         self.running = False
+        registry.unregister_engine(self)
 
     def add_source(self, src, scene=None):
         """Adds a source to the pipeline. Uses the current scene unless a
