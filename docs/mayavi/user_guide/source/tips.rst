@@ -5,12 +5,49 @@ Below are a few useful tips and tricks that you may find useful when you
 use Mayavi2.
 
 
-Customizing the Mayavi2 UI
----------------------------
+Customizing Mayavi2
+--------------------
 
-See the ``examples/mayavi_custom_ui.py`` example that documents and
-shows how the UI of the ``mayavi2`` application can be modified.  The
-module documents how this can be done and provides a simple example.
+There are two ways a user can customize mayavi:
+
+  1. At a global, system wide level via a ``site_mayavi.py``.  This file
+     is to be placed anywhere on ``sys.path``.
+
+  2. At a local, user level.  This is achieved by placing a
+     ``user_mayavi.py`` in the users ``~/.mayavi2/`` directory.  If a 
+     ``~/.mayavi2/user_mayavi.py`` is found, the directory is placed in
+     ``sys.path``.
+
+The files are similar in their content.  Two things may be done in this
+file:
+
+  1. Registering new sources, modules or filters in the mayavi registry
+     (``enthought.mayavi.core.registry.registry``).  This is done by
+     registering metadata for the new class in the registry.  See
+     ``examples/mayavi/user_mayavi.py`` to see an example.
+
+  2. Adding additional envisage plugins to the mayavi2 application.
+     This is done by defining a function called ``get_plugins()`` that
+     returns a list of plugins that you wish to add to the mayavi2
+     application.
+
+
+The ``examples/mayavi/user_mayavi.py`` example documents and shows how
+this can be done.  To see it, copy the file to the ``~/.mayavi2``
+directory.  If you are unsure where ``~`` is on your platform, just run
+the example and it should print out the directory.
+
+.. warning::
+
+ In the ``user_mayavi.py`` or ``site_mayavi.py``, avoid mayavi imports
+ like  ``from enthought.mayavi.modules.outline import Outline`` etc.
+ This is because ``user_mayavi`` is imported at a time when many of the
+ imports are not complete and this will cause hard-to-debug circular
+ import problems.  The ``registry`` is given only metadata mostly in the
+ form of strings and this will cause no problem.  Therefore to define
+ new modules, we strongly recommend that the modules be defined in
+ another module or be defined in a factory function as done in the
+ example ``user_mayavi.py`` provided.
 
 
 Off screen rendering
