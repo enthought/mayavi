@@ -96,7 +96,59 @@ class my_install_scripts(install_scripts):
 from make_docs import HtmlBuild
 from numpy.distutils.command.build import build as distbuild
 from numpy.distutils import log
+from setuptools.command.develop import develop
 
+def generate_docs():
+    """ Generate the documentation, whether that be using
+    Sphinx or unzipping them.
+    """
+    # Figure out the documentation source directory and
+    # the output directory based on current location.
+    user_guide_dir = os.path.join(os.path.abspath(os.path.dirname(__file__)),
+        'docs', 'mayavi', 'user_guide')
+    html_zip = os.path.join(user_guide_dir, 'html_docs.zip')
+    dest_dir = os.path.join(os.path.abspath(os.path.dirname(__file__)),
+        'build', 'docs')
+
+    # Make sure the destination directory is created if it
+    # doesn't already exist.
+    if not os.path.exists(dest_dir):
+        os.makedirs(dest_dir)
+
+    try:
+        require("Sphinx>=0.4.1")
+            
+        log.info("Auto-generating documentation...")
+        docsrc = os.path.join(user_guide_dir, 'source')
+        target = dest_dir
+        try:
+            build = HtmlBuild()
+            build.start({
+                'commit_message': None,
+                'doc_source': docsrc,
+                'preserve_temp': True,
+                'subversion': False,
+                'target': target,
+                'verbose': True,
+                'versioned': False,
+                }, [])
+            del build
+        except:
+            log.error("The documentation generation failed.  Falling back to the zip file.")
+
+            # Unzip the docs into the 'html' folder.
+            if not os.path.exists(os.path.join(dest_dir, 'html')):
+                os.makedirs(os.path.join(dest_dir, 'html'))
+            unzip_html_docs(html_zip, os.path.join(dest_dir, 'html'))
+
+    except DistributionNotFound:
+        log.error("Sphinx is not installed, so the documentation could not be generated.  Falling back to the zip file.")
+
+        # Unzip the docs into the 'html' folder.
+        if not os.path.exists(os.path.join(dest_dir, 'html')):
+            os.makedirs(os.path.join(dest_dir, 'html'))
+        unzip_html_docs(html_zip, os.path.join(dest_dir, 'html'))
+        
 def unzip_html_docs(src_path, dest_dir):
     """Given a path to a zipfile, extract
     it's contents to a given 'dest_dir'.
@@ -114,55 +166,20 @@ def unzip_html_docs(src_path, dest_dir):
                 os.mkdir(cur_name)
     file.close()
 
+class my_develop(develop):
+    def run(self):
+        develop.run(self)
+        
+        # Generate the documentation.
+        generate_docs()
+
 class my_build(distbuild):
     def run(self):
         distbuild.run(self)
 
-        # Figure out the documentation source directory and
-        # the output directory based on current location.
-        user_guide_dir = os.path.join(os.path.abspath(os.path.dirname(__file__)),
-            'docs', 'mayavi', 'user_guide')
-        html_zip = os.path.join(user_guide_dir, 'html_docs.zip')
-        dest_dir = os.path.join(os.path.abspath(os.path.dirname(__file__)),
-                                'build', 'docs')
-        # Make sure the destination directory is created if it
-        # doesn't already exist.
-        if not os.path.exists(dest_dir):
-            os.makedirs(dest_dir)
+        # Generate the documentation.
+        generate_docs()
 
-        try:
-            require("Sphinx>=0.4.1")
-            
-            log.info("Auto-generating documentation...")
-            docsrc = os.path.join(user_guide_dir, 'source')
-            target = dest_dir
-            try:
-                build = HtmlBuild()
-                build.start({
-                    'commit_message': None,
-                    'doc_source': docsrc,
-                    'preserve_temp': True,
-                    'subversion': False,
-                    'target': target,
-                    'verbose': True,
-                    'versioned': False,
-                }, [])
-                del build
-            except Exception, e:
-                raise e
-                log.error("The documentation generation failed.  Falling back to the zip file.")
-
-                # Unzip the docs into the 'html' folder.
-                unzip_html_docs(html_zip, dest_dir)
-
-        except DistributionNotFound:
-            log.error("Sphinx is not installed, so the documentation could not be generated.  Falling back to the zip file.")
-
-            # Unzip the docs into the 'html' folder.
-            if not os.path.exists(os.path.join(dest_dir, 'html')):
-                os.makedirs(os.path.join(dest_dir, 'html'))
-            unzip_html_docs(html_zip, os.path.join(dest_dir, 'html'))
-        
 setup(
     author = "Prabhu Ramachandran",
     author_email = "prabhu_r@users.sf.net",
@@ -172,6 +189,7 @@ setup(
         'sdist': setuptools.command.sdist.sdist,
         'install_scripts': my_install_scripts,
         'build': my_build,
+        'develop': my_develop,
         },
     dependency_links = [
         'http://code.enthought.com/enstaller/eggs/source',
