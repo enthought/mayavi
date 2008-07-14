@@ -127,7 +127,7 @@ class my_build(distbuild):
             os.makedirs(dest_dir)
 
         try:
-            require("Sphinx")
+            require("Sphinx>=0.4.1")
             
             log.info("Auto-generating documentation...")
             docsrc = os.path.join(user_guide_dir, 'source')
