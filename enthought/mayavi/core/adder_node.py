@@ -9,13 +9,16 @@ to the tree.
 from enthought.traits.api import (HasTraits, Str, Property, Any, Button, Enum, 
                                   List, Title, Instance, Bool)
 from enthought.traits.ui.api import View, Item, Group, ListEditor, \
-        ButtonEditor, TextEditor, HGroup, spring
+        ButtonEditor, TextEditor, HGroup, spring, TableEditor
+from enthought.traits.ui.table_column import ObjectColumn
 
 from enthought.mayavi.core.registry import registry
 from enthought.mayavi.core.metadata import Metadata
 
 from enthought.pyface.api import ImageResource
 from enthought.resource.api import resource_path
+
+from textwrap import wrap
 
 class AdderNode(HasTraits):
     """ Base class that will display a TreeNode to add items to the tree.
@@ -77,6 +80,16 @@ class SceneAdderNode(AdderNode):
         self.object.new_scene()
 
 
+item_view = View(Item('add', editor=ButtonEditor(label_value='name'),
+                    show_label=False, enabled_when="enabled"),
+                Item('documentation', style='readonly',
+                    defined_when='enabled',
+                    editor=TextEditor(multi_line=True),
+                    resizable=True,
+                    show_label=False),
+                resizable=True,
+                )
+
 class DocumentedItem(HasTraits):
     """ Container to hold a name and a documentation for an action.
     """
@@ -96,22 +109,40 @@ class DocumentedItem(HasTraits):
     # Two lines documentation for the action
     documentation = Str
 
-    view = View(Item('add', editor=ButtonEditor(label_value='name'),
-                    show_label=False, enabled_when="enabled"),
-                Item('documentation', style='readonly',
-                    defined_when='enabled',
-                    editor=TextEditor(multi_line=True),
-                    resizable=True,
-                    height=-35,
-                    show_label=False),
-                )
+    # Description displayed in the table
+    _description = Property(depends_on=['name', 'documentation'])
 
+    def _get__description(self):
+        if self.enabled:
+            return "%s\n%s" % (self.name, 
+                    '\n'.join(wrap(self.documentation, width=40)))
+        else:
+            return self.name
+
+    view = item_view
+    
     def _add_fired(self):
         """ Trait handler for when the add_source button is clicked in
             one of the sub objects in the list.
         """
         action = getattr(self.object._menu_helper, self.id)
         action()
+
+
+###############################################################################
+class GrayedColumn(ObjectColumn):
+
+    width = 1.
+
+    def get_text_color(self, object):
+        if object.enabled:
+            return 'black'
+        else:
+            return 'light grey'
+
+    def on_dclick(self, object):
+        if object.enabled:
+            object._add_fired()
 
 
 ###############################################################################
@@ -128,7 +159,18 @@ class ListAdderNode(AdderNode):
 
     # Trait view to show in the Mayavi current object panel.
     view = View(Item('items_list', style='readonly',
-                            editor=ListEditor(style='custom'),
+                editor=
+                    TableEditor(
+                      sortable=False,
+                      deletable=False,
+                      editable=False,
+                      configurable=False,
+                      edit_view=item_view,
+                      orientation='vertical',
+                      edit_view_height=-0.9,
+                      show_column_labels=False,
+                      columns = [GrayedColumn( name='_description'), ],
+                    ),
                             show_label=False,),
                 )
 
@@ -250,7 +292,6 @@ class ModuleFilterAdderNode(AdderNode):
                     label='Visualization modules'),
                 Group(Item('filters', style='custom'), show_labels=False,
                     label='Processing filters'),
-                label="Add module or filter",
                 layout="tabbed",
                 ),
                 resizable=True,
