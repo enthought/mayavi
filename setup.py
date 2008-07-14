@@ -31,7 +31,11 @@ def configuration(parent_package='', top_path=None):
     config.add_data_dir('enthought/mayavi/preferences')
 
     # Add the documentation.
-    config.add_data_files(('enthought/mayavi/html/*', ['docs/mayavi/user_guide/build/html/*']))    
+    config.add_data_files(('enthought/mayavi/html', ['build/docs/html/*.*']))
+    config.add_data_files(('enthought/mayavi/html/_images', ['build/docs/html/_images/*.*']))
+    config.add_data_files(('enthought/mayavi/html/_sources', ['build/docs/html/_sources/*.*']))
+    config.add_data_files(('enthought/mayavi/html/_static', ['build/docs/html/_static/*.*']))
+    config.add_data_files(('enthought/mayavi/html/auto', ['build/docs/html/auto/*.*']))
 
     return config
 
@@ -89,7 +93,7 @@ class my_install_scripts(install_scripts):
 # Create custom 'build' step hook to auto-generate the
 # documentation at build time, if Sphinx is installed.
 # Otherwise, it will unzip the html_docs.zip.
-from commit_docs import HtmlBuild
+from make_docs import HtmlBuild
 from numpy.distutils.command.build import build as distbuild
 from numpy.distutils import log
 

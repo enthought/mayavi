@@ -25,8 +25,7 @@ from enthought.mayavi.core.common import error
 local_dir = dirname(enthought.mayavi.api.__file__)
 HTML_DIR = join(local_dir, 'html')
 if not path.exists(HTML_DIR):
-    HTML_DIR = join(dirname(dirname(local_dir)), 'docs', 'mayavi',
-        'user_guide', 'build', 'docs', 'html')
+    HTML_DIR = join(dirname(dirname(local_dir)), 'build', 'docs', 'html')
     if not path.exists(HTML_DIR):
         HTML_DIR = None
 
