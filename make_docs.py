@@ -27,7 +27,7 @@ commands are for building):
                         Location of the documentation
   -t TARGET, --target=TARGET
                         Set working directory for any build executed
-  --use-subversion      Pull from Subversin, update data, and then publish
+  --use-subversion      Pull from Subversion, update data, and then publish
                         changes
   -r REPOSITORY, --repository=REPOSITORY
                         Full path to Subversion target
