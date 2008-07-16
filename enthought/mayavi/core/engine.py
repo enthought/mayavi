@@ -309,7 +309,7 @@ class Engine(HasStrictTraits):
             else:
                 name = 'TVTK Scene %d'%scene_id_generator.next()
         
-        s = Scene(scene=scene, name=name)
+        s = Scene(scene=scene, name=name, parent=self)
         s.start()
         self.scenes.append(s)
         self.current_scene = s
@@ -384,7 +384,9 @@ class Engine(HasStrictTraits):
         Parameters:
         -----------
 
-         scene - `pyface.tvtk.scene.Scene`
+         scene - `pyface.tvtk.scene.Scene` or an object that holds a
+         reference to a `pyface.tvtk.scene.Scene` in a `scene`
+         attribute.
         """
         self.remove_scene(scene.scene)
         if hasattr(scene, 'close'):

@@ -108,6 +108,18 @@ class Scene(Base):
         the MayaVi pipeline.        
         """
         self.children.append(child)
+
+    def remove_child(self, child):
+        """Remove specified child from our children.
+        """
+        self.children.remove(child)
+
+    def remove(self):
+        """Remove ourselves from the mayavi pipeline.
+        """
+        if self.parent is not None:
+            self.stop()
+            self.parent.close_scene(self)
     
     ######################################################################
     # `TreeNodeObject` interface
@@ -143,13 +155,12 @@ class Scene(Base):
         """
         node = SourceAdderNode(object=self)
         return [node] + self.children
-
     
     def _handle_children(self, removed, added):
         for obj in removed:
             obj.stop()
         for obj in added:
-            obj.scene = self.scene
+            obj.set(scene=self.scene, parent=self)
             if self.running:
                 # It makes sense to start children only if we are running.
                 # If not, the children will be started when we start.

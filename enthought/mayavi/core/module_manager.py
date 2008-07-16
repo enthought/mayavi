@@ -212,6 +212,11 @@ class ModuleManager(Base):
             # Ask our source to deal with it.
             self.source.add_child(child)
 
+    def remove_child(self, child):
+        """Remove specified child from our children.
+        """
+        self.children.remove(child)
+
     ######################################################################
     # `TreeNodeObject` interface
     ######################################################################
@@ -247,7 +252,7 @@ class ModuleManager(Base):
             obj.stop()
         # Setup and start the new ones.
         for obj in added:
-            obj.set(module_manager=self, scene=self.scene)
+            obj.set(module_manager=self, scene=self.scene, parent=self)
             if self.running:
                 # It makes sense to start children only if we are running.
                 # If not, the children will be started when we start.

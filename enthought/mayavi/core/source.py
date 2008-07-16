@@ -137,6 +137,11 @@ class Source(PipelineBase):
         else:
             self.children.append(child)
 
+    def remove_child(self, child):
+        """Remove specified child from our children.
+        """
+        self.children.remove(child)
+
     ######################################################################
     # `TreeNodeObject` interface
     ######################################################################
@@ -178,7 +183,7 @@ class Source(PipelineBase):
 
         # Process the new objects.
         for obj in added:
-            obj.scene = self.scene
+            obj.set(scene=self.scene, parent=self)
             if isinstance(obj, ModuleManager):
                 obj.source = self
             elif is_filter(obj):
