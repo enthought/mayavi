@@ -1,7 +1,6 @@
 MayaVi2:
     - Core:
         - Better and correct persistence. (p)
-        - Add a "remove_from_visualization" method on pipeline objects?
 
     - Sources:
         - Multiblock data support.
