@@ -201,7 +201,7 @@ setup(
     tests_require = [
         'nose >= 0.9',
         ],
-    test_suite = 'nose.collector',
+    test_suite = 'test_all',
     url = 'http://code.enthought.com/ets/',
     version = INFO['version'],
     zip_safe = False,
