@@ -14,8 +14,8 @@ from enthought.tvtk import tvtk_base
 
 # FIXME: test_tvtk_base.py is in the local directory so just doing
 #     from test_tvtk_base import Prop
-#     should be enough, however nose will not find it, unless you give
-#     it the full path.
+#     should be enough, however nose 0.9.3 will not find it, unless you give
+#     it the full path.  It nose 0.10.3 works fine in this respect.
 from enthought.tvtk.tests.test_tvtk_base import Prop
 
 
