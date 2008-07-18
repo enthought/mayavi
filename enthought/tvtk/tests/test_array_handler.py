@@ -10,8 +10,14 @@ import vtk
 import numpy
 
 from enthought.tvtk import array_handler
-from enthought.tvtk.tests.test_tvtk_base import Prop
 from enthought.tvtk import tvtk_base
+
+# FIXME: test_tvtk_base.py is in the local directory so just doing
+#     from test_tvtk_base import Prop
+#     should be enough, however nose will not find it, unless you give
+#     it the full path.
+from enthought.tvtk.tests.test_tvtk_base import Prop
+
 
 def mysum(arr):
     val = arr
