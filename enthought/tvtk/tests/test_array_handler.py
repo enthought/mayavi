@@ -10,7 +10,7 @@ import vtk
 import numpy
 
 from enthought.tvtk import array_handler
-from test_tvtk_base import Prop
+from enthought.tvtk.tests.test_tvtk_base import Prop
 from enthought.tvtk import tvtk_base
 
 def mysum(arr):
