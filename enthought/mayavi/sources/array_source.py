@@ -10,13 +10,11 @@ import numpy
 
 # Enthought library imports
 from enthought.traits.api import Instance, Array, Trait, Str, Bool, Button
-from enthought.traits.ui.api import View, Group, Item, InstanceEditor
-from enthought.persistence.state_pickler import set_state
+from enthought.traits.ui.api import View, Group, Item
 from enthought.tvtk.api import tvtk
 from enthought.tvtk import array_handler
 
 # Local imports
-from enthought.mayavi.core.common import handle_children_state
 from enthought.mayavi.core.source import Source
 from enthought.mayavi.core.pipeline_info import PipelineInfo
 
@@ -131,6 +129,11 @@ class ArraySource(Source):
         # Setup the mayavi pipeline by sticking the image data into
         # our outputs.
         self.outputs = [self.image_data]
+
+    def __get_pure_state__(self):
+        d = super(ArraySource, self).__get_pure_state__()
+        d.pop('image_data', None)
+        return d
     
     ######################################################################
     # ArraySource interface.
