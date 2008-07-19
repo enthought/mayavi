@@ -9,13 +9,30 @@
 from os.path import splitext, isfile
 
 # Enthought library imports.
-from enthought.traits.api import HasTraits, Any, List, Instance
+from enthought.traits.api import HasTraits, Any, List
 from enthought.traits.ui.menu import Action, Menu
 from enthought.pyface.api import FileDialog, OK
 
 # Local imports.
 from enthought.mayavi.core.registry import registry
 from enthought.mayavi.core.common import error
+
+
+################################################################################
+# Utility functions.
+################################################################################
+def get_engine(obj):
+    """Try and return the engine given an object in the mayavi
+    pipeline.  This basically walks up the parent's of the object till
+    the engine is found.
+    """
+    from enthought.mayavi.core.engine import Engine
+    if obj is not None:
+        if isinstance(obj, Engine):
+            return obj
+        else:
+            return get_engine(obj.parent)
+    return None
 
 
 ################################################################################
@@ -66,7 +83,7 @@ class MenuHelper(HasTraits):
                             )
         if dialog.open() == OK:
             if not isfile(dialog.path):
-                error("File '%s' does not exist!"%dialog.path, parent)
+                error("File '%s' does not exist!"%dialog.path)
                 return
             # FIXME: Ask for user input if a filetype is unknown and
             # choose appropriate reader.
@@ -96,15 +113,32 @@ class MenuHelper(HasTraits):
     ######################################################################
     # Non-public interface.
     ######################################################################
-    def _create_source(self, metadata):
+    def _create_source(self, metadata, select=True):
+        """Create source object given its metadata.  If `select` is
+        `True` make the created object the active selection.
+        """
         callable = metadata.get_callable()
         obj = callable()
         self.object.add_child(obj)
+        if select:
+            self._make_active(obj)
 
-    def _create_object(self, metadata):
+    def _create_object(self, metadata, select=True):
+        """Create mayavi pipeline object given its metadata.  If
+        `select` is `True` make the created object the active selection.
+        """
         callable = metadata.get_callable()
         obj = callable()
         self.object.add_child(obj)
+        if select:
+            self._make_active(obj)
+
+    def _make_active(self, obj):
+        """Make the object given, `obj`, the current selection of the
+        engine."""
+        engine = get_engine(obj)
+        if engine is not None:
+            engine.current_selection = obj
 
     def _build_source_actions(self):
         actions = []
@@ -117,7 +151,8 @@ class MenuHelper(HasTraits):
             if len(src.extensions) == 0:
                 # The method that creates the source.
                 setattr(self, src.id, 
-                        lambda self=self, md=src: self._create_source(md))
+                        lambda self=self, md=src, select=True:
+                        self._create_source(md, select))
                 a = Action(name=src.menu_name,
                            action='object._menu_helper.'+src.id,
                            tooltip=src.tooltip)
@@ -129,7 +164,8 @@ class MenuHelper(HasTraits):
         for fil in registry.filters:
             # The method that creates the object.
             setattr(self, fil.id, 
-                    lambda self=self, md=fil: self._create_object(md))
+                    lambda self=self, md=fil, select=True: 
+                    self._create_object(md, select))
             # The method that checks if the menu can be activated or
             # not.
             setattr(self, 'check_' + fil.id, 
@@ -146,7 +182,8 @@ class MenuHelper(HasTraits):
         for mod in registry.modules:
             # The method that creates the module.
             setattr(self, mod.id, 
-                    lambda self=self, md=mod: self._create_object(md))
+                    lambda self=self, md=mod, select=True: 
+                    self._create_object(md, select))
             # The method that checks if the menu can be activated or
             # not.
             setattr(self, 'check_' + mod.id, 

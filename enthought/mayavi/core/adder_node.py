@@ -6,20 +6,20 @@ to the tree.
 #          Prabhu Ramachandran <prabhu_r@users.sf.net>
 # Copyright (c) 2008, Enthought, Inc.
 # License: BSD Style.
-from enthought.traits.api import (HasTraits, Str, Property, Any, Button, Enum, 
-                                  List, Title, Instance, Bool)
-from enthought.traits.ui.api import View, Item, Group, ListEditor, \
-        ButtonEditor, TextEditor, HGroup, spring, TableEditor
-from enthought.traits.ui.table_column import ObjectColumn
-
-from enthought.mayavi.core.registry import registry
-from enthought.mayavi.core.metadata import Metadata
-
-from enthought.pyface.api import ImageResource
-from enthought.resource.api import resource_path
 
 from textwrap import wrap
 
+from enthought.traits.api import (HasTraits, Str, Property, Any, Button,
+                                  List, Instance, Bool)
+from enthought.traits.ui.api import View, Item, Group, ListEditor, \
+        ButtonEditor, TextEditor, TableEditor
+from enthought.traits.ui.table_column import ObjectColumn
+from enthought.pyface.api import ImageResource
+
+from enthought.mayavi.core.registry import registry
+
+
+###############################################################################
 class AdderNode(HasTraits):
     """ Base class that will display a TreeNode to add items to the tree.
     """
@@ -62,6 +62,7 @@ class AdderNode(HasTraits):
         else:
             return None
 
+###############################################################################
 class SceneAdderNode(AdderNode):
     """ Subclass for adding Scene nodes to a Mayavi Engine node.
     """
@@ -90,6 +91,7 @@ item_view = View(Item('add', editor=ButtonEditor(label_value='name'),
                 resizable=True,
                 )
 
+###############################################################################
 class DocumentedItem(HasTraits):
     """ Container to hold a name and a documentation for an action.
     """
@@ -126,7 +128,7 @@ class DocumentedItem(HasTraits):
             one of the sub objects in the list.
         """
         action = getattr(self.object._menu_helper, self.id)
-        action()
+        action(select=False)
 
 
 ###############################################################################
@@ -171,7 +173,7 @@ class ListAdderNode(AdderNode):
                       show_column_labels=False,
                       columns = [GrayedColumn( name='_description'), ],
                     ),
-                            show_label=False,),
+                show_label=False,),
                 )
 
 
@@ -206,6 +208,8 @@ class ListAdderNode(AdderNode):
         else:
             return False
 
+
+###############################################################################
 class Mutable:
 
     attr = None
