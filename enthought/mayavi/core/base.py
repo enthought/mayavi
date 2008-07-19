@@ -289,7 +289,10 @@ class Base(TreeNodeObject):
         return self._icon_path
 
     def tno_delete_child(self, node, index):
-        del self.children[index - 1]
+        if len(self.children_ui_list) > len(self.children):
+            del self.children[index - 1]
+        else:
+            del self.children[index]
 
     ######################################################################
     # Non-public interface
