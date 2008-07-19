@@ -131,8 +131,9 @@ class Filter(Source):
         """
         old_outputs = self.outputs
         self.outputs = new_outputs
-        self.output_info.datasets = \
-            [get_tvtk_dataset_name(self.outputs[0])]
+        if len(new_outputs) > 0:
+            self.output_info.datasets = \
+                [get_tvtk_dataset_name(new_outputs[0])]
         if old_outputs == self.outputs:
             # Even if the outputs don't change we want to propagate a
             # data_changed event since the data could have changed.
