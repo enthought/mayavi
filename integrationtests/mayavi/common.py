@@ -481,7 +481,8 @@ def get_example_data(fname):
     """Given a relative path to data inside the examples directory,
     obtains the full path to the file.
     """
-    p = os.path.join(os.pardir, 'examples', 'mayavi', 'data', fname)
+    p = os.path.join(os.pardir, os.pardir, 
+                     'examples', 'mayavi', 'data', fname)
     return os.path.abspath(fixpath(p))
    
 def test(function):

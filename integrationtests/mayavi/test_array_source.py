@@ -113,9 +113,9 @@ class TestGridPlane(TestCase):
         d = ArraySource()
         self.test_input_validation(d)
         sc, vec = self.make_2d_data()
+        d.origin = (-1, -1, 0)
         d.scalar_data = sc
         d.vector_data = vec
-        d.image_data.origin = (-1, -1, 0)
 
         script.add_source(d)
 

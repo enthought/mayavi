@@ -74,7 +74,6 @@ class TestImagePlaneWidget(TestCase):
         d = ArraySource()
         sc = self.make_data()
         d.scalar_data = sc
-        d.image_data.origin = (-5, -5, -5)
 
         script.add_source(d)
 

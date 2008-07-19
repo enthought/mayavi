@@ -9,6 +9,7 @@ source.  """
 # Enthought library imports.
 from enthought.traits.api import Int, Range
 from enthought.traits.ui.api import View, Group, Item
+
 from enthought.mayavi.core.filter import Filter
 from enthought.mayavi.core.pipeline_info import PipelineInfo
 
@@ -47,6 +48,19 @@ class SelectOutput(Filter):
     view = View(Group(Item('output_index', 
                            enabled_when='_max_index > 0')),
                 resizable=True)
+
+    ######################################################################
+    # `object` interface.
+    def __get_pure_state__(self):
+        d = super(SelectOutput, self).__get_pure_state__()
+        d['output_index'] = self.output_index
+        return d
+
+    def __set_pure_state__(self, state):
+        super(SelectOutput, self).__set_pure_state__(state)
+        # Force an update of the output index -- if not this doesn't
+        # change. 
+        self._output_index_changed(state.output_index)
 
     ######################################################################
     # `Filter` interface.

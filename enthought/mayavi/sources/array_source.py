@@ -181,7 +181,8 @@ class ArraySource(Source):
         dims = list(data.shape)
         if len(dims) == 2:
             dims.append(1)
-       
+      
+        img_data.origin = tuple(self.origin)
         img_data.dimensions = tuple(dims)
         img_data.extent = 0, dims[0]-1, 0, dims[1]-1, 0, dims[2]-1
         img_data.update_extent = 0, dims[0]-1, 0, dims[1]-1, 0, dims[2]-1
@@ -210,6 +211,7 @@ class ArraySource(Source):
             dims.insert(2, 1)
             data = numpy.reshape(data, dims)
         
+        img_data.origin = tuple(self.origin)
         img_data.dimensions = tuple(dims[:-1])
         img_data.extent = 0, dims[0]-1, 0, dims[1]-1, 0, dims[2]-1
         img_data.update_extent = 0, dims[0]-1, 0, dims[1]-1, 0, dims[2]-1

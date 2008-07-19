@@ -50,9 +50,9 @@ class TestStreamline(TestCase):
 
         d = ArraySource()
         sc, vec = self.make_data()
+        d.origin = (-5, -5, -5)
         d.scalar_data = sc
         d.vector_data = vec
-        d.image_data.origin = (-5, -5, -5)
 
         script.add_source(d)
 
