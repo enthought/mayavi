@@ -11,20 +11,14 @@ from StringIO import StringIO
 import copy
 
 # Local imports.
-from common import TestCase, get_example_data
+from common import get_example_data
+from test_contour import TestContour
 
 
-class TestVTKDataSource(TestCase):
-    def test(self):        
-        ############################################################
-        # Imports.
+class TestVTKDataSource(TestContour):
+    def setup(self):
         script = self.script
         from enthought.mayavi.sources.vtk_data_source import VTKDataSource
-        from enthought.mayavi.modules.outline import Outline
-        from enthought.mayavi.modules.iso_surface import IsoSurface
-        from enthought.mayavi.modules.contour_grid_plane \
-             import ContourGridPlane
-        from enthought.mayavi.modules.scalar_cut_plane import ScalarCutPlane
         from enthought.tvtk.api import tvtk
         
         ############################################################
@@ -38,6 +32,17 @@ class TestVTKDataSource(TestCase):
         d = VTKDataSource(data=r.output)
         script.add_source(d)
 
+    def test(self):       
+        # Setup the source.
+        self.setup()
+
+        from enthought.mayavi.modules.outline import Outline
+        from enthought.mayavi.modules.iso_surface import IsoSurface
+        from enthought.mayavi.modules.contour_grid_plane \
+             import ContourGridPlane
+        from enthought.mayavi.modules.scalar_cut_plane import ScalarCutPlane
+        script = self.script
+        s = script.engine.current_scene
         # Create an outline for the data.
         o = Outline()
         script.add_module(o)
@@ -72,9 +77,7 @@ class TestVTKDataSource(TestCase):
         # Set the scene to an isometric view.
         s.scene.isometric_view()
 
-        # Now compare the image.
-        self.compare_image(s, 'images/test_contour.png')
-
+        self.check()
 
         ############################################################
         # Test if saving a visualization and restoring it works.
@@ -93,8 +96,7 @@ class TestVTKDataSource(TestCase):
         script.load_visualization(f)
         s = engine.current_scene
 
-        # Now compare the image.
-        self.compare_image(s, 'images/test_contour.png')
+        self.check()
 
         ############################################################
         # Test if the MayaVi2 visualization can be deep-copied.
@@ -107,8 +109,7 @@ class TestVTKDataSource(TestCase):
         # to get correctly.
         cp = source.children[0].children[-1]
         cp.implicit_plane.widget.enabled = False
-        # Now compare the image.
-        self.compare_image(s, 'images/test_contour.png')
+        self.check()
 
         # Now deepcopy the source and replace the existing one with
         # the copy.  This basically simulates cutting/copying the
@@ -118,7 +119,7 @@ class TestVTKDataSource(TestCase):
         s.children[0] = source1
         cp = source1.children[0].children[-1]
         cp.implicit_plane.widget.enabled = False
-        self.compare_image(s, 'images/test_contour.png')
+        self.check()
         
         # If we have come this far, we are golden!
         

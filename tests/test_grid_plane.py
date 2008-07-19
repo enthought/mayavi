@@ -14,6 +14,23 @@ from common import TestCase, get_example_data
 
 
 class TestGridPlane(TestCase):
+    def check(self):
+        script = self.script
+        s = script.engine.current_scene
+        mm = s.children[0].children[0]
+        gp1, gp2, gp3 = mm.children[1:]
+        assert gp1.grid_plane.axis == 'x'
+        assert gp1.grid_plane.position == 0
+        assert gp1.actor.property.ambient == 1.0
+
+        assert gp2.grid_plane.axis == 'y'
+        assert gp2.grid_plane.position == 16
+        assert gp2.actor.property.ambient == 1.0
+
+        assert gp3.grid_plane.axis == 'z'
+        assert gp3.grid_plane.position == 6
+        assert gp3.actor.property.ambient == 1.0
+
     def test(self):        
         ############################################################
         # Imports.
@@ -58,8 +75,7 @@ class TestGridPlane(TestCase):
         # Set the scene to an isometric view.
         s.scene.isometric_view()
 
-        # Now compare the image.
-        self.compare_image(s, 'images/test_grid_plane.png')
+        self.check()
 
         ############################################################
         # Test if saving a visualization and restoring it works.
@@ -77,11 +93,8 @@ class TestGridPlane(TestCase):
         # Load visualization
         script.load_visualization(f)
         s = engine.current_scene
-        # Make the scene's size the default so we can test the image.
-        #self.set_active_scene_size()
 
-        # Now compare the image.
-        self.compare_image(s, 'images/test_grid_plane.png')
+        self.check()
 
         ############################################################
         # Test if the MayaVi2 visualization can be deepcopied.
@@ -90,8 +103,8 @@ class TestGridPlane(TestCase):
         source = s.children.pop()
         # Add it back to see if that works without error.
         s.children.append(source)
-        # Now compare the image.
-        self.compare_image(s, 'images/test_grid_plane.png')
+        
+        self.check()
 
         # Now deepcopy the source and replace the existing one with
         # the copy.  This basically simulates cutting/copying the
@@ -99,7 +112,8 @@ class TestGridPlane(TestCase):
         # view, and pasting the copy back.
         source1 = copy.deepcopy(source)
         s.children[0] = source1
-        self.compare_image(s, 'images/test_grid_plane.png')
+        
+        self.check()
         
         # If we have come this far, we are golden!
         

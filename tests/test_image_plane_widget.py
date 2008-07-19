@@ -42,6 +42,23 @@ class TestImagePlaneWidget(TestCase):
         c.elevation(30)
         s.render()
 
+    def check(self):
+        script = self.script
+        src = script.engine.current_scene.children[0]
+        i1, i2, i3 = src.children[0].children[1:]
+        assert i1.ipw.plane_orientation == 'x_axes'
+        assert numpy.allclose(i1.ipw.center, (0, 31.5, 31.5))
+        rng = i1.ipw.reslice_output.point_data.scalars.range
+        assert numpy.allclose(rng, (-0.2, 1.0), atol=0.1)
+        assert i2.ipw.plane_orientation == 'y_axes'
+        assert numpy.allclose(i2.ipw.center, (31.5, 0, 31.5))
+        rng = i2.ipw.reslice_output.point_data.scalars.range
+        assert numpy.allclose(rng, (-0.2, 1.0), atol=0.1)
+        assert i3.ipw.plane_orientation == 'z_axes'
+        assert numpy.allclose(i3.ipw.center, (31.5, 31.5, 0))
+        rng = i3.ipw.reslice_output.point_data.scalars.range
+        assert numpy.allclose(rng, (-0.2, 1.0), atol=0.1)
+
     def test(self):        
         ############################################################
         # Imports.
@@ -79,8 +96,7 @@ class TestImagePlaneWidget(TestCase):
         # Set the scene to a suitable view.
         self.set_view(s)
 
-        # Now compare the image.
-        self.compare_image(s, 'images/test_image_plane_widget.png')
+        self.check()
 
         ############################################################
         # Test if saving a visualization and restoring it works.
@@ -100,8 +116,8 @@ class TestImagePlaneWidget(TestCase):
         s = engine.current_scene
         # Set the scene to a suitable view.
         self.set_view(s)
-        # Now compare the image.
-        self.compare_image(s, 'images/test_image_plane_widget.png')
+
+        self.check()
 
         ############################################################
         # Test if the MayaVi2 visualization can be deepcopied.
@@ -113,8 +129,8 @@ class TestImagePlaneWidget(TestCase):
         s.children.extend(sources)
 
         self.set_view(s)
-        # Now compare the image.
-        self.compare_image(s, 'images/test_image_plane_widget.png')
+
+        self.check()
 
         # Now deepcopy the source and replace the existing one with
         # the copy.  This basically simulates cutting/copying the
@@ -124,7 +140,8 @@ class TestImagePlaneWidget(TestCase):
         s.children[:] = sources
 
         self.set_view(s)
-        self.compare_image(s, 'images/test_image_plane_widget.png')
+
+        self.check()
         
         # If we have come this far, we are golden!
         

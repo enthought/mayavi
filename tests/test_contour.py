@@ -8,12 +8,42 @@
 from os.path import abspath
 from StringIO import StringIO
 import copy
+import numpy
 
 # Local imports.
 from common import TestCase, get_example_data
 
 
 class TestContour(TestCase):
+    def check(self):
+        """Do the actual testing."""
+        script = self.script
+        e = script.engine
+        scene = e.current_scene
+        src = scene.children[0]
+        mm = src.children[0]
+        cgp1 = mm.children[1]
+        assert cgp1.grid_plane.position == 15
+
+        cgp2 = mm.children[2]
+        assert cgp2.contour.filled_contours == True
+        assert cgp2.grid_plane.axis == 'y'
+        assert cgp2.grid_plane.position == 15
+
+        iso = mm.children[3]
+        ctr = iso.contour.contours
+        assert iso.compute_normals == True
+        assert ctr == [200.0]
+        rng = iso.actor.mapper.input.point_data.scalars.range
+        assert rng[0] == 200.0
+        assert rng[1] == 200.0
+
+        cp = mm.children[4]
+        ip = cp.implicit_plane
+        assert abs(numpy.sum(ip.normal - (0,0,1))) < 1e-16
+        assert abs(numpy.sum(ip.origin - (0,0,5))) < 1e-16
+        assert ip.widget.enabled == False
+
     def test(self):        
         ############################################################
         # Imports.
@@ -69,8 +99,8 @@ class TestContour(TestCase):
         # Set the scene to an isometric view.
         s.scene.isometric_view()
 
-        # Now compare the image.
-        self.compare_image(s, 'images/test_contour.png')
+        # Now test.
+        self.check()
 
         ############################################################
         # Test if the modules respond correctly when the components
@@ -93,10 +123,10 @@ class TestContour(TestCase):
         cp.cutter = cp.cutter.__class__()
         cp.actor = cp.actor.__class__()
 
-        s.render()        
-        # Now compare the image.
-        self.compare_image(s, 'images/test_contour.png')
         s.render()
+
+        # Now check.
+        self.check()
         
 
         ############################################################
@@ -116,9 +146,8 @@ class TestContour(TestCase):
         script.load_visualization(f)
         s = engine.current_scene
 
-        # Now compare the image.
-        self.compare_image(s, 'images/test_contour.png')
-
+        self.check()
+    
         ############################################################
         # Test if the MayaVi2 visualization can be deep-copied.
 
@@ -130,8 +159,8 @@ class TestContour(TestCase):
         # to get correctly.
         cp = source.children[0].children[-1]
         cp.implicit_plane.widget.enabled = False
-        # Now compare the image.
-        self.compare_image(s, 'images/test_contour.png')
+
+        self.check()
 
         # Now deepcopy the source and replace the existing one with
         # the copy.  This basically simulates cutting/copying the
@@ -141,7 +170,7 @@ class TestContour(TestCase):
         s.children[0] = source1
         cp = source1.children[0].children[-1]
         cp.implicit_plane.widget.enabled = False
-        self.compare_image(s, 'images/test_contour.png')
+        self.check()
         
         # If we have come this far, we are golden!
         

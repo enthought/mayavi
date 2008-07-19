@@ -73,6 +73,30 @@ class TestGridPlane(TestCase):
         s, v = tps(s), tps(v, (2, 1, 0, 3))
         return s, v
 
+    def check(self):
+        script = self.script
+        s = script.engine.current_scene
+        d1, d2 = s.children
+        s1, v1 = d1.children[0].children[1:]
+        expect = list(self.make_2d_data())
+        tps = numpy.transpose
+        expect[0] = tps(expect[0])
+        expect[1] = tps(expect[1], (1, 0, 2))
+        sc1 = s1.actor.mapper.input.point_data.scalars.to_array()
+        assert numpy.allclose(sc1.flatten(), expect[0].flatten())
+        vec1 = s1.actor.mapper.input.point_data.vectors.to_array()
+        assert numpy.allclose(vec1.flatten(), expect[1].flatten())
+        
+        s2, v2 = d2.children[0].children[1:]
+        expect = list(self.make_3d_data())
+        tps = numpy.transpose
+        expect[0] = tps(expect[0])
+        expect[1] = tps(expect[1], (2, 1, 0, 3))
+        sc2 = s2.actor.mapper.input.point_data.scalars.to_array()
+        assert numpy.allclose(sc2.flatten(), expect[0].flatten())
+        vec2 = s2.actor.mapper.input.point_data.vectors.to_array()
+        assert numpy.allclose(vec2.flatten(), expect[1].flatten())
+
     def test(self):        
         ############################################################
         # Imports.
@@ -124,9 +148,8 @@ class TestGridPlane(TestCase):
         c = s.scene.camera
         c.azimuth(-30)
         c.elevation(30)
-        
-        # Now compare the image.
-        self.compare_image(s, 'images/test_array_source.png')
+       
+        self.check()
 
         ############################################################
         # Test if saving a visualization and restoring it works.
@@ -153,8 +176,7 @@ class TestGridPlane(TestCase):
         c.elevation(30)
         s.scene.background = bg
 
-        # Now compare the image.
-        self.compare_image(s, 'images/test_array_source.png')
+        self.check()
 
         ############################################################
         # Test if the MayaVi2 visualization can be deepcopied.
@@ -166,8 +188,8 @@ class TestGridPlane(TestCase):
         s.children.extend(sources)
 
         s.scene.reset_zoom()
-        # Now compare the image.
-        self.compare_image(s, 'images/test_array_source.png')
+        
+        self.check()
 
         # Now deepcopy the source and replace the existing one with
         # the copy.  This basically simulates cutting/copying the
@@ -176,7 +198,7 @@ class TestGridPlane(TestCase):
         sources1 = copy.deepcopy(sources)
         s.children[:] = sources
         s.scene.reset_zoom()
-        self.compare_image(s, 'images/test_array_source.png')
+        self.check()
         
         # If we have come this far, we are golden!
         

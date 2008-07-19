@@ -39,6 +39,30 @@ class TestGlyph(TestCase):
         c.elevation(20)
         s.render()
 
+    def check(self):
+        script = self.script
+        s = script.engine.current_scene
+        src = s.children[0]
+        g = src.children[0].children[1]
+        assert g.glyph.glyph_source.glyph_position == 'center'
+        assert g.glyph.glyph.vector_mode == 'use_normal'
+        assert g.glyph.glyph.scale_factor == 0.5
+        assert g.actor.property.line_width == 1.0
+
+        v = src.children[0].children[2]
+        glyph = v.glyph
+        gs = glyph.glyph_source
+        assert gs.glyph_position == 'tail'
+        assert gs.glyph_source == gs.glyph_list[1]
+        assert numpy.allclose(v.implicit_plane.normal,  (0., 1., 0.))
+        
+        v = src.children[0].children[3] 
+        glyph = v.glyph
+        gs = glyph.glyph_source
+        assert gs.glyph_source == gs.glyph_list[2]
+        assert gs.glyph_position == 'head'
+        assert numpy.allclose(v.implicit_plane.normal,  (0., 1., 0.))
+
     def test(self):        
         ############################################################
         # Imports.
@@ -90,8 +114,7 @@ class TestGlyph(TestCase):
         # Set the scene to a suitable view.
         self.set_view(s)
 
-        # Now compare the image.
-        self.compare_image(s, 'images/test_glyph.png')
+        self.check()
 
         ############################################################
         # Test if the modules respond correctly when the components
@@ -112,9 +135,8 @@ class TestGlyph(TestCase):
         v.implicit_plane = ip
 
         s.render()
-        # Now compare the image.
-        self.compare_image(s, 'images/test_glyph.png')
-        s.render()
+
+        self.check()
 
         ############################################################
         # Test if saving a visualization and restoring it works.
@@ -134,8 +156,8 @@ class TestGlyph(TestCase):
         s = engine.current_scene
         # Set the scene to a suitable view.
         self.set_view(s)
-        # Now compare the image.
-        self.compare_image(s, 'images/test_glyph.png')
+
+        self.check()
 
         ############################################################
         # Test if the MayaVi2 visualization can be deepcopied.
@@ -147,8 +169,8 @@ class TestGlyph(TestCase):
         s.children.extend(sources)
 
         self.set_view(s)
-        # Now compare the image.
-        self.compare_image(s, 'images/test_glyph.png')
+
+        self.check()
 
         # Now deepcopy the source and replace the existing one with
         # the copy.  This basically simulates cutting/copying the
@@ -158,7 +180,7 @@ class TestGlyph(TestCase):
         s.children[:] = sources
 
         self.set_view(s)
-        self.compare_image(s, 'images/test_glyph.png')
+        self.check()
         
         # If we have come this far, we are golden!
         
