@@ -322,6 +322,12 @@ class Base(TreeNodeObject):
         self.trait_property_changed('children_ui_list', old, new)
 
     def _visible_changed(self , value):
+        # A hack to set the name when the tree view is not active.
+        # `self.name` is set only when tno_get_label is called and this
+        # is never called when the tree view is not shown leading to an
+        # empty name.
+        if len(self.name) == 0:
+            self.tno_get_label(None)
         if value:
             #self._HideShowAction.name = "Hide"
             self.name = self.name.replace(' [Hidden]', '')
