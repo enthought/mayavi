@@ -75,7 +75,7 @@ def main():
         t.main()
     else:
         tests = get_tests()
-        run_tests(tests)
+        run_all(tests)
 
 if __name__ == "__main__":
     main()
