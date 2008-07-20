@@ -304,7 +304,7 @@ class TestCase(Mayavi):
     offscreen = Bool(False)
 
     # Use the standalone mode.
-    standalone = Bool(False)
+    standalone = Bool(True)
 
     app_window = Instance('enthought.pyface.api.ApplicationWindow')
 
@@ -380,10 +380,10 @@ class TestCase(Mayavi):
         parser.add_option("-i", "--interact", action="store_true",
                           dest="interact", default=False,
                           help="Allow interaction after test (default: False)")
-        parser.add_option("-s", "--standalone", action="store_true",
+        parser.add_option("-s", "--nostandalone", action="store_true",
                           dest="standalone", default=False,
-                          help="Run test using standalone mode without "\
-                          "envisage (default: False)")
+                          help="Run test using envisage without standalone "\
+                          "(default: False)")
         parser.add_option("-o", "--offscreen", action="store_true",
                           dest="offscreen", default=False,
                           help="Always use offscreen rendering when "\
@@ -396,7 +396,7 @@ class TestCase(Mayavi):
             self.log_mode = logging.DEBUG
         self.offscreen = options.offscreen
         self.interact = options.interact
-        self.standalone = options.standalone
+        self.standalone = not options.standalone
 
     ######################################################################
     # `TestCase` interface.
