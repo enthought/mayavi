@@ -394,6 +394,14 @@ class Engine(HasStrictTraits):
         else:
             scene.scene.close()
 
+    def get_viewer(self, scene):
+        """Return the viewer associated with a given scene.
+
+        Parameters:
+        -----------
+         scene - An `enthought.mayavi.core.scene.Scene` instance.
+        """
+        return self._viewer_ref[scene.scene]
 
     def dialog_view(self):
         """ Default dialog view for Engine objects.
