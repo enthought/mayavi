@@ -355,11 +355,13 @@ class Engine(HasStrictTraits):
         if viewer is None:
             if self.scene_factory is None:
                 from enthought.tvtk.tools.ivtk import IVTK
+                from enthought.pyface.api import GUI
                 viewer = IVTK(size=(400, 350))
                 if True:
                     # FIXME: Need preferences here
                     viewer.menu_bar_manager = None
                 viewer.open()
+                GUI.process_events()
             else:
                 viewer = self.scene_factory()
             
@@ -388,11 +390,14 @@ class Engine(HasStrictTraits):
          reference to a `pyface.tvtk.scene.Scene` in a `scene`
          attribute.
         """
+        viewer = self.get_viewer(scene) 
         self.remove_scene(scene.scene)
         if hasattr(scene, 'close'):
             scene.close()
         else:
             scene.scene.close()
+        if viewer is not None and hasattr(viewer, 'close'):
+            viewer.close()
 
     def get_viewer(self, scene):
         """Return the viewer associated with a given scene.
@@ -401,7 +406,7 @@ class Engine(HasStrictTraits):
         -----------
          scene - An `enthought.mayavi.core.scene.Scene` instance.
         """
-        return self._viewer_ref[scene.scene]
+        return self._viewer_ref.get(scene.scene)
 
     def dialog_view(self):
         """ Default dialog view for Engine objects.
