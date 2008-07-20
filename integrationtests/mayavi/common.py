@@ -366,6 +366,15 @@ class TestCase(Mayavi):
         self.do()
         if not self.interact:
             if self.standalone:
+                # Close all existing viewers.
+                e = self.script.engine
+                for scene in e.scenes:
+                    viewer = e.get_viewer(scene)
+                    if self.offscreen:
+                        viewer.scene.close()
+                    else:
+                        viewer.close()
+                # Shut down the app and the event loop.
                 self.app_window.close()
                 self.gui.stop_event_loop()
             else:
