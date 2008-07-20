@@ -62,9 +62,11 @@ class TestHideShow(TestCase):
         assert iso.name == 'IsoSurface [Hidden]'
         assert iso.actor.actor.visibility == False
 
-        
 
     def test(self):
+        self.main()
+    
+    def do(self):
         ############################################################
         # Imports.
         from enthought.mayavi.sources.api import VTKXMLFileReader,\
@@ -144,5 +146,5 @@ class TestHideShow(TestCase):
 
 if __name__ == "__main__":
     t = TestHideShow()
-    t.main()
+    t.test()
 

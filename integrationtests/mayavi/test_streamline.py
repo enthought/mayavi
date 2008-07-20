@@ -36,7 +36,10 @@ class TestStreamline(TestCase):
         return s, v
 
 
-    def test(self):        
+    def test(self):       
+        self.main()
+
+    def do(self):
         ############################################################
         # Imports.
         script = self.script
@@ -174,4 +177,4 @@ class TestStreamline(TestCase):
 
 if __name__ == "__main__":
     t = TestStreamline()
-    t.main()
+    t.test()

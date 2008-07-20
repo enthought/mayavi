@@ -17,8 +17,8 @@ from enthought.traits.api import TraitError
 from common import TestCase
 
 
-class TestGridPlane(TestCase):
-    def test_input_validation(self, obj):
+class TestArraySource(TestCase):
+    def check_input_validation(self, obj):
         """Tests if only the correct forms of input arrays are supported."""
         # These should work.
         obj.scalar_data = numpy.zeros((2,2), 'd')
@@ -97,7 +97,10 @@ class TestGridPlane(TestCase):
         vec2 = s2.actor.mapper.input.point_data.vectors.to_array()
         assert numpy.allclose(vec2.flatten(), expect[1].flatten())
 
-    def test(self):        
+    def test(self):       
+        self.main()
+
+    def do(self):
         ############################################################
         # Imports.
         script = self.script
@@ -111,7 +114,7 @@ class TestGridPlane(TestCase):
         s = self.new_scene()
 
         d = ArraySource()
-        self.test_input_validation(d)
+        self.check_input_validation(d)
         sc, vec = self.make_2d_data()
         d.origin = (-1, -1, 0)
         d.scalar_data = sc
@@ -204,5 +207,5 @@ class TestGridPlane(TestCase):
         
 
 if __name__ == "__main__":
-    t = TestGridPlane()
-    t.main()
+    t = TestArraySource()
+    t.test()

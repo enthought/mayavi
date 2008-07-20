@@ -17,7 +17,7 @@ def get_tests():
     files = glob.glob('test_*.py')
     return files
 
-def run_tests(tests):
+def run_all(tests):
     """Run the given tests.
     """
     args = ' '.join(sys.argv[1:])
@@ -51,7 +51,7 @@ class RunAllTests(TestCase):
                     continue
         return klasses
 
-    def test(self):
+    def do(self):
         klasses = self.get_tests()
         for name, klass in klasses:
             # Close existing scenes. 

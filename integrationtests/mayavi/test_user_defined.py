@@ -63,6 +63,9 @@ class TestUserDefined(TestCase):
         
 
     def test(self):
+        self.main()
+    
+    def do(self):
         ############################################################
         # Imports.
         from enthought.mayavi.filters.optional import Optional
@@ -146,5 +149,5 @@ class TestUserDefined(TestCase):
 
 if __name__ == "__main__":
     t = TestUserDefined()
-    t.main()
+    t.test()
 

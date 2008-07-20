@@ -162,4 +162,4 @@ class Test_csv_py_files(unittest.TestCase, Util):
 
 
 if __name__ == '__main__':
-    unittest.main()
+    unittest.test()

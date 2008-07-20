@@ -363,7 +363,7 @@ class TestCase(Mayavi):
         run the test."""
 
         # Calls the users test code.
-        self.test()
+        self.do()
         if not self.interact:
             if self.standalone:
                 self.app_window.close()
@@ -401,7 +401,7 @@ class TestCase(Mayavi):
     ######################################################################
     # `TestCase` interface.
     ######################################################################
-    def test(self):
+    def do(self):
         """Override this to do whatever you want to do as your test
         code.
 
@@ -487,10 +487,10 @@ def get_example_data(fname):
    
 def test(function):
     """A decorator to make a simple mayavi2 script function into a
-    test case.
+    test case.  Note that this will not work with nosetests.
     """
     class MyTest(TestCase):
-        def test(self):
+        def do(self):
             g = sys.modules['__main__'].__dict__
             if 'mayavi' not in g:
                 g['mayavi'] = self.script

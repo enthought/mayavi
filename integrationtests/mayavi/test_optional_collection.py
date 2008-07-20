@@ -16,6 +16,9 @@ from common import TestCase, get_example_data
 class TestOptionalCollection(TestCase):
 
     def test(self):
+        self.main()
+    
+    def do(self):
         ############################################################
         # Imports.
         script = self.script
@@ -117,5 +120,5 @@ class TestOptionalCollection(TestCase):
 
 if __name__ == "__main__":
     t = TestOptionalCollection()
-    t.main()
+    t.test()
 

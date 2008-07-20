@@ -63,7 +63,10 @@ class TestGlyph(TestCase):
         assert gs.glyph_position == 'head'
         assert numpy.allclose(v.implicit_plane.normal,  (0., 1., 0.))
 
-    def test(self):        
+    def test(self):       
+        self.main()
+
+    def do(self):
         ############################################################
         # Imports.
         script = self.script
@@ -187,4 +190,4 @@ class TestGlyph(TestCase):
 
 if __name__ == "__main__":
     t = TestGlyph()
-    t.main()
+    t.test()

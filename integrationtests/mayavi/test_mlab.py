@@ -13,7 +13,10 @@ from common import TestCase
 
 class TestMlab(TestCase):
 
-    def test(self):        
+    def test(self):       
+        self.main()
+
+    def do(self):
         ############################################################
         # Imports.
         from enthought.mayavi import mlab
@@ -33,4 +36,4 @@ class TestMlab(TestCase):
 
 if __name__ == "__main__":
     t = TestMlab()
-    t.main()
+    t.test()

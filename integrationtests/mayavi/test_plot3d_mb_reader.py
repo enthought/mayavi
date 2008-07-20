@@ -16,7 +16,10 @@ from common import TestCase, get_example_data
 
 
 class TestPLOT3DReader(TestCase):
-    def test(self):        
+    def test(self):       
+        self.main()
+
+    def do(self):
         ############################################################
         # Imports.
         script = self.script
@@ -88,6 +91,6 @@ class TestPLOT3DReader(TestCase):
 
 if __name__ == "__main__":
     t = TestPLOT3DReader()
-    t.main()
+    t.test()
 
 

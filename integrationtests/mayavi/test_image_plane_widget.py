@@ -59,7 +59,10 @@ class TestImagePlaneWidget(TestCase):
         rng = i3.ipw.reslice_output.point_data.scalars.range
         assert numpy.allclose(rng, (-0.2, 1.0), atol=0.1)
 
-    def test(self):        
+    def test(self):
+        self.main()
+
+    def do(self):        
         ############################################################
         # Imports.
         script = self.script
@@ -147,4 +150,4 @@ class TestImagePlaneWidget(TestCase):
 
 if __name__ == "__main__":
     t = TestImagePlaneWidget()
-    t.main()
+    t.test()

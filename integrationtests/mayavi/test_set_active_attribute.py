@@ -34,6 +34,9 @@ class TestSetActiveAttribute(TestCase):
         s = aa.children[0].children[0]
 
     def test(self):
+        self.main()
+    
+    def do(self):
         """Test for the SetActiveAttribute filter.
         """
         from enthought.mayavi.sources.api import VTKXMLFileReader
@@ -110,4 +113,4 @@ class TestSetActiveAttribute(TestCase):
 
 if __name__ == '__main__':
     t = TestSetActiveAttribute()
-    t.main()
+    t.test()

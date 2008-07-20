@@ -15,7 +15,7 @@ from common import TestCase, get_example_data
 from test_vtk_data_source import TestVTKDataSource
 
 class TestVTKXMLReader(TestVTKDataSource):
-    def setup(self):
+    def make_data(self):
         script = self.script
         from enthought.mayavi.sources.vtk_xml_file_reader import VTKXMLFileReader
 
@@ -28,8 +28,9 @@ class TestVTKXMLReader(TestVTKDataSource):
         r.initialize(get_example_data('heart.vti'))
         script.add_source(r)
 
-        
+    def test(self):
+        self.main()
 
 if __name__ == "__main__":
     t = TestVTKXMLReader()
-    t.main()
+    t.test()

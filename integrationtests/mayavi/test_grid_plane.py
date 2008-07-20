@@ -31,7 +31,10 @@ class TestGridPlane(TestCase):
         assert gp3.grid_plane.position == 6
         assert gp3.actor.property.ambient == 1.0
 
-    def test(self):        
+    def test(self):       
+        self.main()
+
+    def do(self):
         ############################################################
         # Imports.
         script = self.script
@@ -120,4 +123,4 @@ class TestGridPlane(TestCase):
 
 if __name__ == "__main__":
     t = TestGridPlane()
-    t.main()
+    t.test()

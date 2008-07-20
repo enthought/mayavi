@@ -44,7 +44,10 @@ class TestContour(TestCase):
         assert abs(numpy.sum(ip.origin - (0,0,5))) < 1e-16
         assert ip.widget.enabled == False
 
-    def test(self):        
+    def test(self):       
+        self.main()
+
+    def do(self):
         ############################################################
         # Imports.
         script = self.script
@@ -177,4 +180,4 @@ class TestContour(TestCase):
 
 if __name__ == "__main__":
     t = TestContour()
-    t.main()
+    t.test()

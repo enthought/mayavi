@@ -16,6 +16,9 @@ from common import TestCase, get_example_data
 class TestGenericModule(TestCase):
 
     def test(self):
+        self.main()
+    
+    def do(self):
         ############################################################
         # Imports.
         script = self.script
@@ -146,5 +149,5 @@ class TestGenericModule(TestCase):
 
 if __name__ == "__main__":
     t = TestGenericModule()
-    t.main()
+    t.test()
 

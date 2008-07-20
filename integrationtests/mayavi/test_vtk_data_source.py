@@ -16,7 +16,7 @@ from test_contour import TestContour
 
 
 class TestVTKDataSource(TestContour):
-    def setup(self):
+    def make_data(self):
         script = self.script
         from enthought.mayavi.sources.vtk_data_source import VTKDataSource
         from enthought.tvtk.api import tvtk
@@ -32,9 +32,12 @@ class TestVTKDataSource(TestContour):
         d = VTKDataSource(data=r.output)
         script.add_source(d)
 
-    def test(self):       
+    def test(self):      
+        self.main()
+
+    def do(self):
         # Setup the source.
-        self.setup()
+        self.make_data()
 
         from enthought.mayavi.modules.outline import Outline
         from enthought.mayavi.modules.iso_surface import IsoSurface
@@ -126,4 +129,4 @@ class TestVTKDataSource(TestContour):
 
 if __name__ == "__main__":
     t = TestVTKDataSource()
-    t.main()
+    t.test()

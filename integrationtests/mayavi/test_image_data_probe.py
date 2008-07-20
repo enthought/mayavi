@@ -44,9 +44,10 @@ class TestImageDataProbe(TestCase):
         assert abs(sc.range[1] - 65535.0) < 1.e-2
         assert (idp.outputs[0].dimensions == (41, 19, 19)).all()
 
-        
-
     def test(self):
+        self.main()
+    
+    def do(self):
         ############################################################
         # Imports.
         from enthought.mayavi.filters.image_data_probe import ImageDataProbe
@@ -120,5 +121,5 @@ class TestImageDataProbe(TestCase):
 
 if __name__ == "__main__":
     t = TestImageDataProbe()
-    t.main()
+    t.test()
 

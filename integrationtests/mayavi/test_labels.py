@@ -47,6 +47,9 @@ class TestLabels(TestCase):
         
 
     def test(self):
+        self.main()
+    
+    def do(self):
         ############################################################
         # Imports.
         from enthought.mayavi.modules.api import ScalarCutPlane
@@ -118,5 +121,5 @@ class TestLabels(TestCase):
 
 if __name__ == "__main__":
     t = TestLabels()
-    t.main()
+    t.test()
 
