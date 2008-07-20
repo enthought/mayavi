@@ -2,57 +2,83 @@
 Notes on testing Mayavi
 =======================
 
-Introduction
-============
 
-MayaVi tests use the same approach that VTK uses.  A visualization is
-created and the rendered scene is saved to a PNG image.  The test code
-will check to see if a rendered scene is similar to the image saved.
-If the pictures are nearly-identical then the test passes.  If not one
-gets a failure with an error message and a bunch of images that
-indicate the difference between the saved and rendered images.  In
-addition no error or warning messages should be shown if a test
-passes.
-
-The tests here do not use `unittest` or `py.test`.  The problem with
-these is that `PyFace.GUI` (and wxPython underneath) is running a
-mainloop.  `Unittest` and friends want to run the test code for you.
-Therefore, it is a pain to use them.  Therefore we use a much simpler
-approach and merely run the tests in this directory as normal Python
-programs.  It is the tests responsibility to print suitable error
-messages when there is a failure.
-
-VTK and the `mayavi` tests support the notion of multiple valid test
-images.  For example between VTK-4.4 and 5.0 there were changes made
-to the way the camera was reset.  Thus, an image produced with 4.4 is
-different from that with 5.0.  In order to be able to test for these
-VTK tests allow the user to save a number of test images.  These are
-all tested in sequence to check for a valid image.  If a default test
-image is called `test_outline_image.png` then its various alternatives
-can be called `test_outline_image_%d.png` (for example,
-`test_outline_image_1.png`).
-
-To run all the tests simply execute the `run.py` script like so::
-    $ python run.py
+This directory contains integration tests for mayavi.  The unit tests
+are in `enthought/mayavi/tests` and are distributed with the package.  The
+tvtk unit tests are in `enthought/tvtk/tests`.  
 
 
-Command line arguments
-======================
+Running the tests
+=================
 
-By default, when a test is executed, it will pop up a window, do some
-things and close.  Each test provides some command line options.  Here
-is an example::
+The best way to run the tests in this directory is to do::
 
-  $ python test_foo.py -h
-  [ usage and help message ]
-  
-  $ python test_foo.py -v # print verbose output.
-  $ python test_foo.py -i # don't close window when done.
+ $ ./run.py
+
+This will run all of the tests in the mayavi directory by running them
+each in a separate Python interpreter.  You may also run each test
+individually.  For example::
+
+ $ python test_contour.py
+
+To see the supported command line options you may do::
+
+    $ python test_contour.py -h # or --help
+
+    Usage: test_contour.py [options]
+
+    Options:
+      -h, --help          show this help message and exit
+      -v, --verbose       Print verbose output
+      -i, --interact      Allow interaction after test (default: False)
+      -s, --nostandalone  Run test using envisage without standalone (default:
+                          False)
+      -o, --offscreen     Always use offscreen rendering when generating images
+                          (default: False)
+
+You should be able to run the tests as::
+
+ $ nosetests
+
+However, nosetests changes the Python environment when it runs the tests
+and this does not always work cleanly with Mayavi.  So if this does run,
+fine if not use `run.py`.
 
 
-Writing Tests
+Writing tests
 =============
 
-The best way to write a test is to look at an existing test like
-`test_grid_plane.py` and adapt it to suit your needs.  All the
-commonly used functionality is available in `common.py`.
+Mayavi tests are not typical tests.  The easiest way to get started
+writing a test is to look at the existing ones and copy one of them then
+modify it suitably for your test.
+
+Image based tests
+=================
+
+Image based tests (like the ones VTK uses) are possible but a pain since
+there are almost always complications.  The image tests may fail due to
+hardware/driver issues and this becomes a red-herring for new users.
+**Therefore, in general we do not recommend the use of image based
+tests**.
+
+There is one test that is image based for your reference --
+`test_streamline.py`, the images for this test are in the `images`
+directory.  The image based tests  use the same approach that VTK uses.
+A visualization is created and the rendered scene is saved to a PNG
+image.  The test code will check to see if a rendered scene is similar
+to the image saved.  If the pictures are nearly-identical then the test
+passes.  If not one gets a failure with an error message and a bunch of
+images that indicate the difference between the saved and rendered
+images.  In addition no error or warning messages should be shown if a
+test passes.
+
+VTK and the `mayavi` image based tests support the notion of multiple
+valid test images.  For example between VTK-4.4 and 5.0 there were
+changes made to the way the camera was reset.  Thus, an image produced
+with 4.4 is different from that with 5.0.  In order to be able to test
+for these VTK tests allow the user to save a number of test images. These
+are all tested in sequence to check for a valid image.  If a default
+test image is called `test_outline_image.png` then its various
+alternatives can be called `test_outline_image_%d.png` (for example,
+`test_outline_image_1.png`).
+
