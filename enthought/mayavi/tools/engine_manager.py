@@ -63,7 +63,7 @@ class EngineManager(HasTraits):
             # FIXME: This should pop up the relevent envisage view
             pass
         else:
-            from enthought.mayavi.view.engine_view import EngineView
+            from enthought.mayavi.core.ui.engine_view import EngineView
             return EngineView(engine=engine).edit_traits()
 
 

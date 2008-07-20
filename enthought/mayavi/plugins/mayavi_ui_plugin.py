@@ -15,7 +15,7 @@ from enthought.pyface.workbench.api import Perspective, PerspectiveItem
 logger = logging.getLogger()
 
 # View IDs.
-ENGINE_VIEW = 'enthought.mayavi.view.engine_view.EngineView'
+ENGINE_VIEW = 'enthought.mayavi.core.ui.engine_view.EngineView'
 CURRENT_SELECTION_VIEW = 'enthought.mayavi.core.engine.Engine.current_selection'
 SHELL_VIEW = 'enthought.plugins.python_shell_view'
 
@@ -99,7 +99,7 @@ class MayaviUIPlugin(Plugin):
         """ Factory method for engine views. """
         from enthought.pyface.workbench.traits_ui_view import \
                 TraitsUIView
-        from enthought.mayavi.view.engine_view import \
+        from enthought.mayavi.core.ui.engine_view import \
                             EngineView
 
         engine_view = EngineView(engine=self._get_engine(window))
