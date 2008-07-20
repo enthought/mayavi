@@ -429,6 +429,8 @@ class TestCase(Mayavi):
         # Create a new VTK scene.
         script.new_scene()
         # Set its background.
+        if self.standalone:
+            GUI.process_events()
         s = script.engine.current_scene
         s.scene.background = (0.5, 0.5, 0.5)
         return s
