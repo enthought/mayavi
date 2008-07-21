@@ -129,7 +129,7 @@ def generate_docs():
         
 def unzip_html_docs(src_path, dest_dir):
     """Given a path to a zipfile, extract
-    it's contents to a given 'dest_dir'.
+    its contents to a given 'dest_dir'.
     """
     file = zipfile.ZipFile(src_path)
     for name in file.namelist():
