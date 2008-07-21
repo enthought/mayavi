@@ -24,6 +24,7 @@ from enthought.mayavi.core.scene import Scene
 from enthought.mayavi.core.common import error
 from enthought.mayavi.core.registry import registry
 from enthought.mayavi.core.adder_node import AdderNode, SceneAdderNode
+from enthought.mayavi.preferences.api import preference_manager
 
 
 ######################################################################
@@ -107,6 +108,13 @@ class Engine(HasStrictTraits):
     ######################################################################
     def __init__(self, **traits):
         super(Engine, self).__init__(**traits)
+
+        # FIXME: This is tied to preferences.  It really should not be
+        # we need to use bind_preferences here.
+        cbk = lambda : self.trait_property_changed('children_ui_list', [],
+                                                   self.children_ui_list)
+        preference_manager.root.on_trait_change(cbk,
+                                                'show_helper_nodes')
 
     def __get_pure_state__(self):
         d = self.__dict__.copy()
@@ -484,8 +492,11 @@ class Engine(HasStrictTraits):
     def _get_children_ui_list(self):
         """ Trait getter for children_ui_list Property.
         """
-        node = SceneAdderNode(label='Add a new scene', object=self)
-        return [node] + self.scenes
+        if preference_manager.root.show_helper_nodes:
+            node = SceneAdderNode(label='Add a new scene', object=self)
+            return [node] + self.scenes
+        else:
+            return self.scenes
 
     @on_trait_change('scenes[]')
     def _trigger_children_ui_list(self, old, new):

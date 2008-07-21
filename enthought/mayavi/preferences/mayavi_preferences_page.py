@@ -40,9 +40,19 @@ class MayaviRootPreferencesPage(PreferencesPage):
     confirm_delete = Bool(desc='if the user is prompted before'
                           ' a node on the MayaVi tree is deleted')
 
+    # Specifies if the splash screen is shown when mayavi starts.
+    show_splash_screen = Bool(desc='if the splash screen is shown at'
+                              ' startup')
+
+    # Specifies if the adder nodes are shown on the mayavi tree view.
+    show_helper_nodes = Bool(desc='if the helper (adder) nodes are shown'
+                             ' on the tree view')
+
     #### Traits UI views ######################################################
 
     traits_view = View(Group(Item(name='confirm_delete'),
+                             Item(name='show_splash_screen'),
+                             Item(name='show_helper_nodes'),
                             )
                        )
 

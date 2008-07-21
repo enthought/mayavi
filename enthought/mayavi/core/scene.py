@@ -7,7 +7,6 @@
 # Enthought library imports.
 from enthought.traits.api import List, Str
 from enthought.traits.ui.api import View, Group, Item
-from enthought.tvtk.pyface.scene import Scene
 from enthought.persistence.state_pickler import set_state
 
 # Local imports.
@@ -15,7 +14,7 @@ from enthought.mayavi.core.base import Base
 from enthought.mayavi.core.source import Source
 from enthought.mayavi.core.common import handle_children_state, exception
 from enthought.mayavi.core.adder_node import SourceAdderNode
-
+from enthought.mayavi.preferences.api import preference_manager
 
 ######################################################################
 # `Scene` class.
@@ -153,9 +152,12 @@ class Scene(Base):
     def _get_children_ui_list(self):
         """ Trait getter for scenes_ui Property.
         """
-        node = SourceAdderNode(object=self)
-        return [node] + self.children
-    
+        if preference_manager.root.show_helper_nodes:
+            node = SourceAdderNode(object=self)
+            return [node] + self.children
+        else:
+            return self.children
+
     def _handle_children(self, removed, added):
         for obj in removed:
             obj.stop()

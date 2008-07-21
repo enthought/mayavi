@@ -13,6 +13,7 @@ from enthought.pyface.api import AboutDialog, ImageResource, SplashScreen
 
 # Local imports.
 import enthought.mayavi.api
+from enthought.mayavi.preferences.api import preference_manager
 
 IMG_DIR = dirname(enthought.mayavi.api.__file__)
 
@@ -54,12 +55,14 @@ class MayaviWorkbenchApplication(WorkbenchApplication):
 
     def _splash_screen_default(self):
         """ Trait initializer. """
-
-        splash_screen = SplashScreen(
-            image             = ImageResource('m2_about.jpg',
-                                              search_path=[IMG_DIR]),
-            show_log_messages = True,
-        )
+        if preference_manager.root.show_splash_screen:
+            splash_screen = SplashScreen(
+                image             = ImageResource('m2_about.jpg',
+                                                  search_path=[IMG_DIR]),
+                show_log_messages = True,
+            )
+        else:
+            splash_screen = None
 
         return splash_screen
 
