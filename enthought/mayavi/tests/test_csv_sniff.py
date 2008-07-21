@@ -15,8 +15,7 @@ from numpy import array, ndarray
 from enthought.mayavi.tools.wizards.csv_sniff import \
      Sniff, loadtxt, loadtxt_unknown, array2dict
 
-
-CSV_PATH = os.path.join(os.path.dirname(__file__), 'csv_files')
+from enthought.util.resource import find_resource, store_resource
 
 
 class Util(object):
@@ -138,28 +137,82 @@ class Test_csv_py_files(unittest.TestCase, Util):
     """
         These tests require files in csv_files/
     """
-    def test_csv_files(self):
+    def check(self, name):
         """
             Check if the output array from csv_files/<name>.csv
             (which is of unkown format)
             is the same as the array in csv_files/<name>.py
         """
-        count = 0
-        for csv_file in glob.glob(os.path.join(CSV_PATH, '*.csv')):
-            count += 1
-            #print 'Running:', csv_file
-            s = Sniff(csv_file)
-            
-            py_file = csv_file[:-4] + '.py'
-            
-            nan = float('nan') # must be in namespace for some .py files
-            d = eval(open(py_file).read())
-            
-            self.assertEqual(d['kwds'], s.kwds())
-            self.assertNamedClose(d['array'], s.loadtxt())
+        store_resource('Mayavi',
+                       os.path.join('enthought', 'mayavi', 'tests',
+                                    'csv_files', name + '.csv'),
+                       TESTFN)
+        s = Sniff(TESTFN)
 
-        self.assert_(count > 10)
+        
+        f_py = find_resource('Mayavi',
+                             os.path.join('enthought', 'mayavi', 'tests',
+                                          'csv_files', name + '.py'))
+        
+        nan = float('nan') # must be in namespace for some .py files
+        d = eval(f_py.read())
+        
+        # compare
+        self.assertEqual(d['kwds'], s.kwds())
+        self.assertNamedClose(d['array'], s.loadtxt())
+
+    def test_11(self):
+        self.check('11')
+
+    def test_1col(self):
+        self.check('1col')
+
+    def test_54(self):
+        self.check('54')
+        
+    def test_79(self):
+        self.check('79')
+        
+    def test_82(self):
+        self.check('82')
+        
+    def test_89(self):
+        self.check('89')
+        
+    def test_99(self):
+        self.check('99')
+        
+    def test_colors(self):
+        self.check('colors')
+        
+    def test_example1(self):
+        self.check('example1')
+        
+    def test_hp11c(self):
+        self.check('hp11c')
+        
+    def test_loc(self):
+        self.check('loc')
+       
+    def test_multi_col(self):
+        self.check('multi-col')
+        
+    def test_mydata(self):
+        self.check('mydata')
+        
+    def test_OObeta3(self):
+        self.check('OObeta3')
+        
+    def test_post(self):
+        self.check('post')
+        
+    def test_webaccess(self):
+        self.check('webaccess')
+        
+
+    def tearDown(self):
+        os.unlink(TESTFN)
 
 
 if __name__ == '__main__':
-    unittest.test()
+    unittest.main()
