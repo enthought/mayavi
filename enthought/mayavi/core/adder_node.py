@@ -127,7 +127,7 @@ class DocumentedItem(HasTraits):
         """ Trait handler for when the add_source button is clicked in
             one of the sub objects in the list.
         """
-        action = getattr(self.object._menu_helper, self.id)
+        action = getattr(self.object.menu_helper, self.id)
         action(select=False)
 
 
@@ -183,7 +183,7 @@ class ListAdderNode(AdderNode):
         result = []
         if value is not None:
             # Don't need 'x', but do need to generate the actions.
-            x = value._menu_helper.actions
+            x = value.menu_helper.actions
             Mutable.attr = value
             for src in self.items_list_source:
                 name = src.menu_name.replace('&','')
@@ -202,8 +202,8 @@ class ListAdderNode(AdderNode):
         """ Check that the action described by src can be applied on the
             given object.
         """
-        if  hasattr(object._menu_helper, 'check_%s' % src.id) \
-                and getattr(object._menu_helper, 'check_%s' % src.id)():
+        if  hasattr(object.menu_helper, 'check_%s' % src.id) \
+                and getattr(object.menu_helper, 'check_%s' % src.id)():
             return True
         else:
             return False
@@ -243,7 +243,7 @@ class SourceAdderNode(ListAdderNode):
     def _open_file_fired(self):
         """ Trait handler for when the open_file button is clicked.
         """
-        self.object._menu_helper.open_file_action()
+        self.object.menu_helper.open_file_action()
 
 
     def _is_action_suitable(self, object, src):
@@ -261,7 +261,7 @@ class ModuleAdderNode(ListAdderNode):
 
     def _object_changed(self, value):
         if value is not None:
-            value._menu_helper._build_filter_actions()
+            value.menu_helper._build_filter_actions()
         ListAdderNode._object_changed(self, value) 
 
 ###############################################################################

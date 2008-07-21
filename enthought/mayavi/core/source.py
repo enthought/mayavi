@@ -215,6 +215,6 @@ class Source(PipelineBase):
 
         super(Source,self)._visible_changed(value)
 
-    def __menu_helper_default(self):
+    def _menu_helper_default(self):
         from enthought.mayavi.core.traits_menu import FilterMenuHelper
         return FilterMenuHelper(object=self)

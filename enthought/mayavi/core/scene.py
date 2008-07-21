@@ -171,7 +171,7 @@ class Scene(Base):
                 except:
                     exception()
      
-    def __menu_helper_default(self):
+    def _menu_helper_default(self):
         from enthought.mayavi.core.traits_menu import SourceMenuHelper
         return SourceMenuHelper(object=self)
 

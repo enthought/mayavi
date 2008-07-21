@@ -87,6 +87,9 @@ class Base(TreeNodeObject):
     # this trait is None.
     parent = WeakRef
 
+    # A helper for the right click menus, context sensitivity etc.
+    menu_helper = Instance(HasTraits)
+
     ##################################################
     # Private traits
     _is_running = Bool(False)
@@ -106,9 +109,6 @@ class Base(TreeNodeObject):
     # The menu shown on right-click for this.
     _menu = Instance(Menu)
 
-    # A helper that generates the menu items.
-    _menu_helper = Instance(HasTraits)
-
     # Path to the icon for this object.
     _icon_path = Str()
 
@@ -125,7 +125,7 @@ class Base(TreeNodeObject):
         d = self.__dict__.copy()
         for attr in ('scene', '_is_running', '__sync_trait__',
                      '__traits_listener__', '_icon_path',
-                     '_menu', '_HideShowAction', '_menu_helper',
+                     '_menu', '_HideShowAction', 'menu_helper',
                      'parent', 'parent_'):
             d.pop(attr, None)
         return d
@@ -357,8 +357,8 @@ class Base(TreeNodeObject):
 
     def __menu_default(self):
         extras = []
-        if self._menu_helper is not None:
-            extras = self._menu_helper.actions
+        if self.menu_helper is not None:
+            extras = self.menu_helper.actions
         menu_actions = extras + deepcopy(standard_menu_actions) \
                         + [self._HideShowAction ]
         return Menu( *menu_actions)

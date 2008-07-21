@@ -48,7 +48,7 @@ class FilterAction(Action):
 
     def _update_enabled(self, obj):
         if isinstance(obj, PipelineBase):
-            e = obj._menu_helper.check_active(self.metadata)
+            e = obj.menu_helper.check_active(self.metadata)
             self.enabled = e 
         else:
             self.enabled = False

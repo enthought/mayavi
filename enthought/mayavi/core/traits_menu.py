@@ -143,7 +143,7 @@ class MenuHelper(HasTraits):
     def _build_source_actions(self):
         actions = []
         a = Action(name='Open File ...',
-                   action='object._menu_helper.open_file_action',
+                   action='object.menu_helper.open_file_action',
                    tooltip='Open a supported data file')
         actions.append(a)
 
@@ -154,7 +154,7 @@ class MenuHelper(HasTraits):
                         lambda self=self, md=src, select=True:
                         self._create_source(md, select))
                 a = Action(name=src.menu_name,
-                           action='object._menu_helper.'+src.id,
+                           action='object.menu_helper.'+src.id,
                            tooltip=src.tooltip)
                 actions.append(a)
         return actions
@@ -171,8 +171,8 @@ class MenuHelper(HasTraits):
             setattr(self, 'check_' + fil.id, 
                     lambda self=self, md=fil: self.check_active(md))
             a = Action(name=fil.menu_name,
-                       action='object._menu_helper.' + fil.id,
-                       enabled_when='object._menu_helper.check_%s()'%fil.id,
+                       action='object.menu_helper.' + fil.id,
+                       enabled_when='object.menu_helper.check_%s()'%fil.id,
                        tooltip=fil.tooltip)
             actions.append(a)
         return actions
@@ -189,8 +189,8 @@ class MenuHelper(HasTraits):
             setattr(self, 'check_' + mod.id, 
                     lambda self=self, md=mod: self.check_active(md))
             a = Action(name=mod.menu_name,
-                       action='object._menu_helper.' + mod.id,
-                       enabled_when='object._menu_helper.check_%s()'%mod.id,
+                       action='object.menu_helper.' + mod.id,
+                       enabled_when='object.menu_helper.check_%s()'%mod.id,
                        tooltip=mod.tooltip)
             actions.append(a)
         return actions
