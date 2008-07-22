@@ -126,8 +126,9 @@ class Build(Process):
         if not output_dir:
             output_dir = os.path.join(self.target, format)
 
-        self.run_command('sphinx-build -b %s %s %s'
-                         % (format, self.options.doc_source, output_dir))
+        self.run_command('sphinx-build -D version=%s -D release=%s -b %s %s %s'
+                        % (self.options.version, self.options.release, format, \
+                           self.options.doc_source, output_dir))
 
     @has_started
     def remove_tmp_files(output_dir):
@@ -285,7 +286,7 @@ class LaTeXBuild(Build):
         # anything is checked into SVN.
         def post_run(self):
             for i in range(3):
-                self.run_command('pdflatex *_user_guide.tex',
+                self.run_command('pdflatex *.tex',
                                  cwd=os.path.join(self.target, 'latex'))
 
             self.run_command('makeindex -s %s %s' % (
@@ -294,7 +295,7 @@ class LaTeXBuild(Build):
             ))
 
             for i in range(3):
-                self.run_command('pdflatex *_user_guide.tex',
+                self.run_command('pdflatex *.tex',
                                  cwd=os.path.join(self.target, 'latex'))
 
         self._run('latex', post_run)
@@ -305,7 +306,7 @@ class LaTeXBuild(Build):
             shutil.rmtree(os.path.join(self.temp_dir, 'latex', '.doctrees'))
             for entry in os.listdir(os.path.join(self.temp_dir, 'latex')):
                 f = os.path.join(self.temp_dir, 'latex', entry)
-                if os.path.isfile(f) and not entry.endswith('_user_guide.pdf'):
+                if os.path.isfile(f) and not entry.endswith('.pdf'):
                     os.remove(f)
 
     @property
