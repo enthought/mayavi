@@ -10,12 +10,10 @@ application with the WxWidget mainloop running.
 # License: BSD Style.
 
 # Mayavi imports
-from enthought.mayavi.preferences.api import preference_manager
 from enthought.mayavi.tools.camera import view, roll
 from enthought.mayavi.tools.figure import figure, clf, gcf, savefig, draw
-from enthought.mayavi.tools.engine_manager import get_engine, show_engine
+from enthought.mayavi.tools.engine_manager import get_engine, show_engine, options
 
-options = preference_manager.mlab
 
 show_pipeline = show_engine
 

@@ -2,12 +2,15 @@
 Central registry for figures with mlab.
 """
 from enthought.traits.api import HasTraits, List
-from enthought.mayavi.preferences.api import preference_manager
 from enthought.pyface.api import GUI
 
+from enthought.mayavi.preferences.api import preference_manager
 from enthought.mayavi.core.registry import registry
+from preferences_mirror import PreferencesMirror
 
-options = preference_manager.mlab
+# The mlab options.
+options = PreferencesMirror()
+options.preferences = preference_manager.mlab
 
 from enthought.mayavi.core.engine import Engine
 
