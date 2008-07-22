@@ -85,8 +85,7 @@ def generate_docs():
     user_guide_dir = os.path.join(os.path.abspath(os.path.dirname(__file__)),
         'docs', 'mayavi', 'user_guide')
     html_zip = os.path.join(user_guide_dir, 'html_docs.zip')
-    dest_dir = os.path.join(os.path.abspath(os.path.dirname(__file__)),
-        'build', 'docs')
+    dest_dir = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'docs')
 
     # Make sure the destination directory is created if it
     # doesn't already exist.
@@ -109,11 +108,13 @@ def generate_docs():
                 'target': target,
                 'verbose': True,
                 'versioned': False,
+                'version': INFO['version'],
+                'release': INFO['version']
                 }, [])
             del build
-        except:
+        except Exception, e:
             log.error("The documentation generation failed.  Falling back to the zip file.")
-
+            print e
             # Unzip the docs into the 'html' folder.
             if not os.path.exists(os.path.join(dest_dir, 'html')):
                 os.makedirs(os.path.join(dest_dir, 'html'))
