@@ -285,17 +285,16 @@ class LaTeXBuild(Build):
         # anything is checked into SVN.
         def post_run(self):
             for i in range(3):
-                self.run_command('pdflatex mayavi_user_guide.tex',
+                self.run_command('pdflatex *_user_guide.tex',
                                  cwd=os.path.join(self.target, 'latex'))
 
-            for index in ('mayavi_user_guide.idx', 'modmayavi_user_guide.idx'):
-                self.run_command('makeindex -s %s %s' % (
-                    os.path.join(self.target, 'latex',  'python.ist'),
-                    os.path.join(self.target, 'latex', index)
-                ))
+            self.run_command('makeindex -s %s %s' % (
+                os.path.join(self.target, 'latex',  'python.ist'),
+                os.path.join(self.target, 'latex', '*.idx')
+            ))
 
             for i in range(3):
-                self.run_command('pdflatex mayavi_user_guide.tex',
+                self.run_command('pdflatex *_user_guide.tex',
                                  cwd=os.path.join(self.target, 'latex'))
 
         self._run('latex', post_run)
@@ -306,7 +305,7 @@ class LaTeXBuild(Build):
             shutil.rmtree(os.path.join(self.temp_dir, 'latex', '.doctrees'))
             for entry in os.listdir(os.path.join(self.temp_dir, 'latex')):
                 f = os.path.join(self.temp_dir, 'latex', entry)
-                if os.path.isfile(f) and entry != 'mayavi_user_guide.pdf':
+                if os.path.isfile(f) and not entry.endswith('_user_guide.pdf'):
                     os.remove(f)
 
     @property
