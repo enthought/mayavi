@@ -6,14 +6,18 @@ Data sources classes and their associated functions for mlab.
 # Copyright (c) 2007, Enthought, Inc. 
 # License: BSD Style.
 
-from enthought.mayavi.sources.array_source import ArraySource
 import numpy
-import tools
 from enthought.tvtk.tools import mlab
 from enthought.tvtk.api import tvtk
+from enthought.tvtk.common import camel2enthought
+from enthought.mayavi.sources.array_source import ArraySource
+
+from enthought.mayavi.core.registry import registry
+
+import tools
 
 __all__ = [ 'vectorscatter', 'vectorfield', 'scalarscatter', 'scalarfield',
-    'linesource', 'array2dsource', 'gridsource',
+    'linesource', 'array2dsource', 'gridsource', 'open'
 ]
 
 def _make_glyph_data(points, vectors=None, scalars=None):
@@ -382,3 +386,40 @@ def gridsource(x, y, z, **kwargs):
     data_source = mlab.make_triangle_polydata(triangles, points, scalars)
     return tools._add_data(data_source, name)
 
+
+def open(filename):
+    """Open a supported data file given a filename.  Returns the source
+    object if a suitable reader was found for the file.
+    """
+    engine = tools.get_engine()
+    src = engine.open(filename)
+    return src
+    
+############################################################################
+# Automatically generated sources from registry.
+############################################################################
+def _create_data_source(metadata):
+    """Creates a data source and adds it to the mayavi engine given
+    metadata of the source.  Returns the created source.  
+    """
+    factory = metadata.get_callable()
+    src = factory()
+    engine = tools.get_engine()
+    engine.add_source(src)
+    return src
+
+def _make_functions(namespace):
+    """Make the automatic functions and add them to the namespace."""
+    for src in registry.sources:
+        if len(src.extensions) == 0:
+            func_name = camel2enthought(src.id)
+            if func_name.endswith('_source'):
+                func_name = func_name[:-7]
+            func = lambda metadata=src: _create_data_source(metadata)
+            func.__doc__ = src.help
+            func.__name__ = func_name
+            # Inject function into the namespace and __all__.
+            namespace[func_name] = func
+            __all__.append(func_name)
+
+_make_functions(locals())
