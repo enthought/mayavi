@@ -127,7 +127,60 @@ def generate_docs():
         if not os.path.exists(os.path.join(dest_dir, 'html')):
             os.makedirs(os.path.join(dest_dir, 'html'))
         unzip_html_docs(html_zip, os.path.join(dest_dir, 'html'))
-        
+
+def generate_tvtk_docs():
+    """ Generate the documentation, whether that be using
+    Sphinx or unzipping them.
+    """
+    # Figure out the documentation source directory and
+    # the output directory based on current location.
+    source_dir = os.path.join(os.path.abspath(os.path.dirname(__file__)),
+        'docs', 'tvtk')
+    html_zip = os.path.join(source_dir, 'html_docs.zip')
+    dest_dir = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'docs',
+                            'tvtk')
+
+    # Make sure the destination directory is created if it
+    # doesn't already exist.
+    if not os.path.exists(dest_dir):
+        os.makedirs(dest_dir)
+
+    try:
+        require("Sphinx>=0.4.1")
+            
+        log.info("Auto-generating documentation...")
+        docsrc = os.path.join(source_dir, 'source')
+        target = dest_dir
+        try:
+            build = HtmlBuild()
+            build.start({
+                'commit_message': None,
+                'doc_source': docsrc,
+                'preserve_temp': True,
+                'subversion': False,
+                'target': target,
+                'verbose': True,
+                'versioned': False,
+                'version': INFO['version'],
+                'release': INFO['version']
+                }, [])
+            del build
+        except Exception, e:
+            log.error("The documentation generation failed.  Falling back to the zip file.")
+            print e
+            # Unzip the docs into the 'html' folder.
+            if not os.path.exists(os.path.join(dest_dir, 'html')):
+                os.makedirs(os.path.join(dest_dir, 'html'))
+            unzip_html_docs(html_zip, os.path.join(dest_dir, 'html'))
+
+    except DistributionNotFound:
+        log.error("Sphinx is not installed, so the documentation could not be generated.  Falling back to the zip file.")
+
+        # Unzip the docs into the 'html' folder.
+        if not os.path.exists(os.path.join(dest_dir, 'html')):
+            os.makedirs(os.path.join(dest_dir, 'html'))
+        unzip_html_docs(html_zip, os.path.join(dest_dir, 'html'))
+  
 def unzip_html_docs(src_path, dest_dir):
     """Given a path to a zipfile, extract
     its contents to a given 'dest_dir'.
@@ -161,6 +214,7 @@ class my_build(distbuild):
 
         # Generate the documentation.
         generate_docs()
+        generate_tvtk_docs()
 
 setup(
     author = "Prabhu Ramachandran",
