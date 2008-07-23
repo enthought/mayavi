@@ -7,12 +7,12 @@ using Envisage or the MayaVi envisage application.
 # Copyright (c) 2007, Enthought, Inc.
 # License: BSD Style.
 
-from enthought.pyface.api import GUI
 # Mlab imports
 from enthought.mayavi import mlab
 
 from numpy import mgrid, sin, sqrt
 
+@mlab.show
 def main():
     # Display the MayaVi tree view UI.
     ui = mlab.show_engine()
@@ -28,10 +28,4 @@ def main():
 
 
 if __name__ == '__main__':
-    # When main returns the ui goes out of scope and destructs causing the 
-    # engine view to disappear with qt4. 
-    ui = main()
-    # Create a GUI instance and start the event loop.  We do this here
-    # so that main can be run from IPython -wthread if needed.
-    #gui = GUI()
-    #gui.start_event_loop()
+    main()

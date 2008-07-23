@@ -14,6 +14,7 @@ from enthought.mayavi.tools.camera import view, roll
 from enthought.mayavi.tools.figure import figure, clf, gcf, savefig, draw
 from enthought.mayavi.tools.engine_manager import get_engine, show_engine, \
         options, set_engine
+from enthought.mayavi.tools.show import show
 
 
 show_pipeline = show_engine
