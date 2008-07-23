@@ -246,7 +246,9 @@ gaussian_splatter_filter = FilterMetadata(
     class_name = BASE + '.gaussian_splatter.GaussianSplatter',
     tooltip = "Builds a structured set of points from a cloud of points, the local density defining the scalar",
     desc = "Builds a structured set of points from a cloud of points, the local density defining the scalar",
-    help = "Builds a structured set of points from a cloud of points, the local density defining the scalar",
+    help = """Builds a structured set of points from a cloud of points,
+    the local density defining the scalar.  It is essentially equivalent
+    to a 3D Gaussian kernel density estimate.""",
     input_info = PipelineInfo(datasets=['any'],
                               attribute_types=['any'],
                               attributes=['any']), 
@@ -411,7 +413,7 @@ threshold_filter = FilterMetadata(
 )
 
 triangle_filter = FilterMetadata(
-    id            = "TriangleFilter",
+    id            = "TriangleFilterFilter",
     menu_name          = "TriangleFilter",
     class_name = BASE + '.triangle_filter.TriangleFilter',
     tooltip = "Convert input polygons and triangle strips to triangles",
