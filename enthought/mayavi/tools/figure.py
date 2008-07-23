@@ -8,20 +8,15 @@ Functions related to creating the engine or the figures.
 # License: BSD Style.
 
 # Standard library imports.
-import numpy
 from types import IntType
-
-# Enthought library imports.
-from enthought.tvtk.api import tvtk
 
 # Mayavi imports
 from camera import view
 from engine_manager import get_engine
-from enthought.mayavi.core import registry
 
 ######################################################################
 
-def figure(name=None, bgcolor=None, fgcolor=None):
+def figure(name=None, bgcolor=None, fgcolor=None, engine=None):
     """ Creates a new scene or retrieves an existing scene. If the mayavi
     engine is not running this also starts it.
 
@@ -33,8 +28,10 @@ def figure(name=None, bgcolor=None, fgcolor=None):
 
         :fgcolor: The color of the foreground (None is default).
 
+        :engine: The mayavi engine that controls the figure.
     """
-    engine = get_engine()
+    if engine is None:
+        engine = get_engine()
     if type(name) == IntType:
         name = 'TVTK Scene %d' % name
     if name is not None:
@@ -57,32 +54,47 @@ def figure(name=None, bgcolor=None, fgcolor=None):
         fig.scene.foreground = fgcolor
     return fig
 
-def gcf():
+
+def gcf(engine=None):
     """Return a handle to the current figure.
+
+    You can supply the engine from which you want to retrieve the
+    current figure, if you have several mayavi engines.
     """
-    engine = get_engine()
+    if engine is None:
+        engine = get_engine()
     scene = engine.current_scene
     if scene is None:
-        return figure()
+        return figure(engine=engine)
     return scene
 
-def clf():
+
+def clf(figure=None):
     """Clear the current figure.
+
+    You can also supply the figure that you want to clear.
     """
     try:
-        scene = gcf()
+        if figure is None:
+            scene = gcf()
+        else:
+            scene = figure
         scene.scene.disable_render = True
         scene.children[:] = []
         scene.scene.disable_render = False
     except AttributeError:
         pass
 
-def draw():
+
+def draw(figure=None):
     """ Forces a redraw of the current figure.
     """
-    gcf().render()
+    if figure is None: 
+        figure = gcf()
+    figure.render()
 
-def savefig(filename, size=None, **kwargs):
+
+def savefig(filename, size=None, figure=None, **kwargs):
     """ Save the current scene.
         The output format are deduced by the extension to filename.
         Possibilities are png, jpg, bmp, tiff, ps, eps, pdf, rib (renderman),
@@ -98,5 +110,7 @@ def savefig(filename, size=None, **kwargs):
         Any extra keyword arguments are passed along to the respective
         image format's save method.
     """
-    gcf().scene.save(filename, size=size, **kwargs)
+    if figure is None:
+        figure = gcf()
+    figure.scene.save(filename, size=size, **kwargs)
 

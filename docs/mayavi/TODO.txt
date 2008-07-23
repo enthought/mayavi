@@ -30,3 +30,5 @@ MayaVi2:
     - Mlab:
         - mlab.show to start the GUI event-loop in a clever way (g).
 	- add texture support to Mlab 
+	- add a keyword argument to mlab.points3d to do
+	  resolution.

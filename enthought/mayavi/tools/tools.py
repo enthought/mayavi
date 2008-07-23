@@ -18,13 +18,13 @@ from enthought.mayavi.core.module_manager import ModuleManager
 from enthought.mayavi.sources.array_source import ArraySource
 from enthought.mayavi.core.source import Source
 
-from engine_manager import get_engine
+from engine_manager import get_engine, engine_manager
 from figure import gcf
 
 ######################################################################
 # Utility functions.
 
-def _add_data(tvtk_data, name=''):
+def _add_data(tvtk_data, name='', figure=None):
     """Add a TVTK data object `tvtk_data` to the mayavi pipleine.
     Give the object a name of `name`.
     """
@@ -40,8 +40,13 @@ def _add_data(tvtk_data, name=''):
 
     if len(name) > 0:
         d.name = name
-    gcf()
-    get_engine().add_source(d)
+    if figure is None:
+        gcf()
+        engine = get_engine()
+    else:
+        engine = engine_manager.find_figure_engine(figure)
+        engine.current_scene = figure
+    engine.add_source(d)
     return d
 
 def _traverse(node):

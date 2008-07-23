@@ -7,8 +7,6 @@ pipeline in a procedural way.
 # Copyright (c) 2007, Enthought, Inc.
 # License: BSD Style.
 
-# Standard library imports.
-import numpy
 
 # Enthought library imports.
 import enthought.mayavi.modules.api as modules
@@ -16,12 +14,11 @@ from enthought.traits.api import String, CFloat, Instance, HasTraits, \
             Trait, CArray
 import tools
 from figure import draw, gcf
-import types
 
 # Mayavi imports
 from pipe_base import make_function
 from modules import ModuleFactory
-from engine_manager import get_engine
+from engine_manager import get_engine, engine_manager
 
 #############################################################################
 # Colorbar related functions
@@ -139,7 +136,13 @@ class SingletonModuleFactory(ModuleFactory):
         # Call the HasTraits constructor, but not the PipeBase one.
         HasTraits.__init__(self)
         self._scene = gcf()
-        self._engine = get_engine() 
+        if not 'figure' in kwargs:
+            self._engine = get_engine() 
+        else:
+            figure = kwargs['figure']
+            self._engine = engine_manager.find_figure_engine(figure)
+            self._engine.current_scene = figure
+            kwargs.pop('figure')
         self._scene.scene.disable_render = True
         # Process the arguments
         if len(args)==1:

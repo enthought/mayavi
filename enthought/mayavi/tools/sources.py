@@ -16,6 +16,7 @@ from enthought.mayavi.sources.array_source import ArraySource
 from enthought.mayavi.core.registry import registry
 
 import tools
+from engine_manager import engine_manager
 
 __all__ = [ 'vectorscatter', 'vectorfield', 'scalarscatter', 'scalarfield',
     'linesource', 'array2dsource', 'gridsource', 'open'
@@ -137,7 +138,9 @@ def vectorscatter(*args, **kwargs):
     
         :name: the name of the vtk object created.
 
-        :scalars: optional scalar data."""
+        :scalars: optional scalar data.
+       
+        :figure: optionally, the figure on which to add the data source."""
     x, y, z, u, v, w = process_regular_vectors(*args)
 
     points = numpy.c_[x.ravel(), y.ravel(), z.ravel()]
@@ -146,7 +149,8 @@ def vectorscatter(*args, **kwargs):
     name = kwargs.pop('name', 'VectorScatter')
 
     data_source = _make_glyph_data(points, vectors, scalars)
-    return tools._add_data(data_source, name)
+    figure = kwargs.pop('figure', None)
+    return tools._add_data(data_source, name, figure=figure)
 
 
 def vectorfield(*args, **kwargs):
@@ -172,7 +176,9 @@ def vectorfield(*args, **kwargs):
         
         :name: the name of the vtk object created.
 
-        :scalars: optional scalar data."""
+        :scalars: optional scalar data.
+       
+        :figure: optionally, the figure on which to add the data source."""
     x, y, z, u, v, w = process_regular_vectors(*args)
 
     dx = x[1, 0, 0] - x[0, 0, 0]
@@ -196,7 +202,8 @@ def vectorfield(*args, **kwargs):
                     **kwargs)
 
     name = kwargs.pop('name', 'VectorField')
-    return tools._add_data(data_source, name)
+    figure = kwargs.pop('figure', None)
+    return tools._add_data(data_source, name, figure=figure)
 
 
 def scalarscatter(*args, **kwargs):
@@ -218,7 +225,9 @@ def scalarscatter(*args, **kwargs):
 
     **Keyword arguments**:
     
-        :name: the name of the vtk object created."""
+        :name: the name of the vtk object created.
+
+        :figure: optionally, the figure on which to add the data source."""
     x, y, z, s = process_regular_scalars(*args)
 
     points = numpy.c_[x.ravel(), y.ravel(), z.ravel()]
@@ -229,7 +238,8 @@ def scalarscatter(*args, **kwargs):
     data_source = _make_glyph_data(points, None, s)
 
     name = kwargs.pop('name', 'ScalarScatter')
-    return tools._add_data(data_source, name)
+    figure = kwargs.pop('figure', None)
+    return tools._add_data(data_source, name, figure=figure)
 
 
 def scalarfield(*args, **kwargs):
@@ -254,7 +264,9 @@ def scalarfield(*args, **kwargs):
     
     **Keyword arguments**:
 
-        :name: the name of the vtk object created."""
+        :name: the name of the vtk object created.
+
+        :figure: optionally, the figure on which to add the data source."""
     x, y, z, s = process_regular_scalars(*args)
 
     points = numpy.c_[x.ravel(), y.ravel(), z.ravel()]
@@ -267,7 +279,8 @@ def scalarfield(*args, **kwargs):
                     spacing=[dx, dy, dz])
 
     name = kwargs.pop('name', 'ScalarField')
-    return tools._add_data(data_source, name)
+    figure = kwargs.pop('figure', None)
+    return tools._add_data(data_source, name, figure=figure)
 
 
 def linesource(*args, **kwargs):
@@ -285,7 +298,9 @@ def linesource(*args, **kwargs):
 
     **Keyword arguments**:
     
-        :name: the name of the vtk object created."""
+        :name: the name of the vtk object created.
+
+        :figure: optionally, the figure on which to add the data source."""
     if len(args)==1:
         raise ValueError, "wrong number of arguments"    
     x, y, z, s = process_regular_scalars(*args)
@@ -303,15 +318,15 @@ def linesource(*args, **kwargs):
         data_source.point_data.scalars.name = 'scalars'
 
     name = kwargs.pop('name', 'LineSource')
-    return tools._add_data(data_source, name)
+    figure = kwargs.pop('figure', None)
+    return tools._add_data(data_source, name, figure=figure)
 
 
 def array2dsource(*args, **kwargs):
     """
     Creates structured 2D data from a 2D array.
     
-    Function signatures
-    ___________________
+    **Function signatures**::
 
         array2dsource(s, ...)
         array2dsource(x, y, s, ...)
@@ -328,7 +343,13 @@ def array2dsource(*args, **kwargs):
 
     If only 1 array s is passed the x and y arrays are assumed to be
     made from the indices of arrays, and an uniformly-spaced data set is
-    created."""
+    created.
+
+    **Keyword arguments**:
+    
+        :name: the name of the vtk object created.
+
+        :figure: optionally, the figure on which to add the data source."""
     if len(args) == 1 :
         args = convert_to_arrays(args)
         s = args[0]
@@ -358,7 +379,8 @@ def array2dsource(*args, **kwargs):
         data_source.number_of_scalar_components = 1
 
     name = kwargs.pop('name', 'Array2DSource')
-    return tools._add_data(data_source, name)
+    figure = kwargs.pop('figure', None)
+    return tools._add_data(data_source, name, figure=figure)
 
 
 def gridsource(x, y, z, **kwargs):
@@ -377,7 +399,8 @@ def gridsource(x, y, z, **kwargs):
         :name: the name of the vtk object created.
         
         :scalars: optional scalar data.
-        
+       
+        :figure: optionally, the figure on which to add the data source.
         """
     scalars = kwargs.pop('scalars', None)
     if scalars is None:
@@ -385,14 +408,19 @@ def gridsource(x, y, z, **kwargs):
     name    = kwargs.pop('name', 'GridSource')
     triangles, points = mlab.make_triangles_points(x, y, z, scalars)
     data_source = mlab.make_triangle_polydata(triangles, points, scalars)
-    return tools._add_data(data_source, name)
+    figure = kwargs.pop('figure', None)
+    return tools._add_data(data_source, name, figure=figure)
 
 
-def open(filename):
+def open(filename, figure=None):
     """Open a supported data file given a filename.  Returns the source
     object if a suitable reader was found for the file.
     """
-    engine = tools.get_engine()
+    if figure is None:
+        engine = tools.get_engine()
+    else:
+        engine = engine_manager.find_figure_engine(figure)
+        engine.current_scene = figure
     src = engine.open(filename)
     return src
     

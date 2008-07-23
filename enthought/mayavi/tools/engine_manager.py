@@ -1,7 +1,7 @@
 """
 Central registry for figures with mlab.
 """
-from enthought.traits.api import HasTraits, List, Instance
+from enthought.traits.api import HasTraits, Instance
 from enthought.pyface.api import GUI
 
 from enthought.mayavi.preferences.api import preference_manager
@@ -30,7 +30,7 @@ class EngineManager(HasTraits):
     def get_engine(self):
         """ Returns an engine in agreement with the options."""
         if not self.current_engine is None:
-            engines = list(self.current_engine)
+            engines = list((self.current_engine,))
         else:
             engines = list()
         engines.extend(registry.engines.values())
@@ -49,6 +49,8 @@ class EngineManager(HasTraits):
             return suitable[-1]
 
     def set_engine(self, engine):
+        """ Sets the mlab engine.
+        """
         self.current_engine = engine
 
 
@@ -69,8 +71,19 @@ class EngineManager(HasTraits):
         return engine
 
 
-    def show_engine(self):
-        engine = self.get_engine()
+    def find_figure_engine(self, fig):
+        """ Find the engine corresponding to a given scene.
+        """
+        for engine in registry.engines.values():
+            if fig in engine.scenes:
+                return engine
+        else:
+            raise TypeError, "Figure not attached to a mayavi engine."
+
+
+    def show_engine(self, engine=None):
+        if engine is None:
+            engine = self.get_engine()
         if engine.__class__.__name__ == 'EnvisageEngine':
             # FIXME: This should pop up the relevent envisage view
             pass

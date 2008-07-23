@@ -6,6 +6,12 @@ URL:
     https://svn.enthought.com/enthought/changeset/18702
 -----------------------------------------------------------------------------
 
+23 July, 2008 (GV):
+    - ENH: The mlab API can now take either engine or figure keyword
+      arguments. This allows to avoid the use of the global sate set
+      in the mlab engine. Mlab also now exposes a set_engine function. 
+      [20245]
+
 23 July, 2008 (PR)
     - ENH/NEW: The mlab.pipeline sources, modules and filters now
       feature automatic source/filter/module generation functions from
