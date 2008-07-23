@@ -1,7 +1,7 @@
 """
 Central registry for figures with mlab.
 """
-from enthought.traits.api import HasTraits, List
+from enthought.traits.api import HasTraits, List, Instance
 from enthought.pyface.api import GUI
 
 from enthought.mayavi.preferences.api import preference_manager
@@ -25,10 +25,15 @@ class EngineManager(HasTraits):
         engine and get a figure.
     """
 
+    current_engine = Instance(Engine)
 
     def get_engine(self):
         """ Returns an engine in agreement with the options."""
-        engines = registry.engines.values()
+        if not self.current_engine is None:
+            engines = list(self.current_engine)
+        else:
+            engines = list()
+        engines.extend(registry.engines.values())
         if options.backend == 'auto':
             suitable = engines
         elif options.backend == 'envisage':
@@ -43,7 +48,10 @@ class EngineManager(HasTraits):
             # Return the most engine add to the list most recently.
             return suitable[-1]
 
-    
+    def set_engine(self, engine):
+        self.current_engine = engine
+
+
     def new_engine(self):
         """ Creates a new engine, envisage or not depending on the
             options.
@@ -57,6 +65,7 @@ class EngineManager(HasTraits):
         else:
             engine = Engine(name='Mlab Engine')
             engine.start()
+        self.current_engine = engine
         return engine
 
 
@@ -73,6 +82,8 @@ class EngineManager(HasTraits):
 engine_manager = EngineManager()
 
 get_engine = engine_manager.get_engine
+
+set_engine = engine_manager.set_engine
 
 show_engine = engine_manager.show_engine
 
