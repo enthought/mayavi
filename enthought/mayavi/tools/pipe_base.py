@@ -14,7 +14,7 @@ from enthought.mayavi.core.filter import Filter
 from enthought.mayavi.core.engine import Engine
 
 import tools
-from engine_manager import get_engine, engine_manager
+from engine_manager import get_engine
 
 def get_obj(obj, components):
     """ Get the target object for the specified components. """
@@ -41,23 +41,13 @@ class PipeFactory(HasPrivateTraits):
         
     name = Str(adapts='name', help='the name of the vtk object created.')
 
-    figure = Instance('enthought.mayavi.core.scene.Scene', 
-                        help='the mayavi engine that governes the scene')
-
     _engine = Instance(Engine)
-
 
     def __init__(self, parent, **kwargs):
         # We are not passing the traits to the parent class
         super(PipeFactory, self).__init__()
         self._scene = tools.gcf()
-        if 'figure' in kwargs:
-            figure = kwargs['figure']
-            self._engine = engine_manager.find_figure_engine(figure)
-            self._engine.current_scene = figure
-            kwargs.pop('figure')
-        else:
-            self._engine = get_engine()
+        self._engine = get_engine()
         self._scene.scene.disable_render = True
         if issubclass(self._target.__class__, Filter):
             self._engine.add_filter(self._target, obj=parent)
