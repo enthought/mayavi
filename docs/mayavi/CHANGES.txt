@@ -6,6 +6,18 @@ URL:
     https://svn.enthought.com/enthought/changeset/18702
 -----------------------------------------------------------------------------
 
+23 July, 2008 (PR)
+    - ENH/NEW: The mlab.pipeline sources, modules and filters now
+      feature automatic source/filter/module generation functions from
+      registry information.  This means mlab fully supports creating
+      objects on the mayavi pipeline with easy one-liners. [20239]
+    - API: The API has broken!  Sources, filters and modules that mirror
+      an existing mayavi class now are named with underscores.  For
+      example, isosurface has become iso_surface, extractedges becomes
+      extract_edges etc.
+    - NEW: Exposing the engine's open method to mlab so it is easy to
+      open data files from mlab also.
+
 18, 19 July, 2008 (PR)
     - TEST/API: The mayavi tests are now split into integration and unit
       tests.  Unit tests go into enthought/mayavi/tests.  Integration
