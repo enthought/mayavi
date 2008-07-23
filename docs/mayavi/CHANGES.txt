@@ -23,6 +23,9 @@ URL:
       extract_edges etc.
     - NEW: Exposing the engine's open method to mlab so it is easy to
       open data files from mlab also.
+    - ENH: Implemented an mlab.show decorator so one can write out a
+      normal function for visualization which will work from ipython,
+      standalone and mayavi completely seamlessly.
 
 18, 19 July, 2008 (PR)
     - TEST/API: The mayavi tests are now split into integration and unit

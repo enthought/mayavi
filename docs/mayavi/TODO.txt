@@ -17,18 +17,17 @@ MayaVi2:
           control what goes on the toolbar and in the menus.
         - Easier access to the LUT editor.
         - Transfer editor for images. (g)
-        - More preference options: disable splash screen, disable adder
-          nodes,
 
     - Misc:
         - Cleaner approach for mayavi2 -x, use a decorator?
         - Support for animation.
         - Support for multiple renderers in a single scene.
+        - Support for saving the default values of a TVTK object and
+          persist them.
 
     - Documentation:
 
     - Mlab:
-        - mlab.show to start the GUI event-loop in a clever way (g).
 	- add texture support to Mlab 
 	- add a keyword argument to mlab.points3d to do
 	  resolution.
