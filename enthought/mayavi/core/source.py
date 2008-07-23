@@ -126,7 +126,7 @@ class Source(PipelineBase):
         if is_filter(child):
             # It is a Filter, so append to children.
             self.children.append(child)
-        elif isinstance(child, self.__class__):
+        elif isinstance(child, Source):
             # A non-filter source object.  This should be added to the
             # scene.            
             self.scene.add_child(child)
