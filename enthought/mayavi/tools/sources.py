@@ -3,7 +3,8 @@ Data sources classes and their associated functions for mlab.
 """
 
 # Author: Gael Varoquaux <gael.varoquaux@normalesup.org>
-# Copyright (c) 2007, Enthought, Inc. 
+#         Prabhu Ramachandran
+# Copyright (c) 2007-2008, Enthought, Inc. 
 # License: BSD Style.
 
 import numpy

@@ -7,24 +7,30 @@ helper functions.
 """
 
 # Author: Gael Varoquaux <gael.varoquaux@normalesup.org>
-# Copyright (c) 2007, Enthought, Inc. 
+#         Prabhu Ramachandran
+# Copyright (c) 2007-2008, Enthought, Inc. 
 # License: BSD Style.
 
-from enthought.traits.api import Trait, CArray, Instance, CFloat, \
-    Any, false, TraitTuple, Range, Bool
-from pipe_base import PipeFactory, make_function
-import enthought.mayavi.modules.api as modules
-from enthought.tvtk.api import tvtk
 import numpy
-from enthought.mayavi.core.lut_manager import lut_mode_list
-import tools
+import new
 
-__all__ = [ 'vectors', 'glyph', 'streamline', 'volume', 'surface',
-    'isosurface', 'contoursurface', 'image', 'imageplanewidget',
-    'scalarcutplane', 'contourgridplane', 'customgridplane', 'gridplane',
-    'hyperstreamline', 'sliceunstructuredgrid', 'structuredgridoutline',
-    'tensorglyph', 'vectorcutplane', 'warpvectorcutplane',
-]
+from enthought.traits.api import Trait, CArray, Instance, CFloat, \
+    Any, false, TraitTuple, Range, Bool, Property
+from enthought.tvtk.api import tvtk
+from enthought.tvtk.common import camel2enthought
+
+from enthought.mayavi.core.lut_manager import lut_mode_list
+import enthought.mayavi.modules.api as modules
+from enthought.mayavi.core.registry import registry
+import tools
+from pipe_base import PipeFactory, make_function
+
+
+# This the list is dynamically populated further down below at the end.
+__all__ = [ 'vectors', 'glyph', 'streamline', 'surface', 'iso_surface',
+            'image_actor', 'contour_surface', 'contour_grid_plane',
+            'custom_grid_plane',
+            ]
 
 ##############################################################################
 # Abstract module classes
@@ -255,14 +261,6 @@ class StreamlineFactory(DataModuleFactory):
 
 streamline = make_function(StreamlineFactory)
 
-##############################################################################
-class VolumeFactory(DataModuleFactory):
-    """Applies the Volume mayavi module to the given VTK data object."""
-
-    _target = Instance(modules.Volume, ())
-
-volume = make_function(VolumeFactory)
-
 
 ##############################################################################
 class SurfaceFactory(DataModuleFactory):
@@ -283,7 +281,7 @@ class IsoSurfaceFactory(ContourModuleFactory):
     _target = Instance(modules.IsoSurface, ())
 
 
-isosurface = make_function(IsoSurfaceFactory)
+iso_surface = make_function(IsoSurfaceFactory)
 
 
 ##############################################################################
@@ -298,7 +296,7 @@ class ContourSurfaceFactory(ContourModuleFactory):
         self._contours_changed()
 
 
-contoursurface = make_function(ContourSurfaceFactory)
+contour_surface = make_function(ContourSurfaceFactory)
 
 ##############################################################################
 class ImageActorFactory(DataModuleFactory):
@@ -313,27 +311,7 @@ class ImageActorFactory(DataModuleFactory):
                     desc="""the opacity of the image.""")
 
 
-image = make_function(ImageActorFactory)
-
-
-##############################################################################
-class ImagePlaneWidgetFactory(DataModuleFactory):
-    """Applies the ImagePlaneWidget mayavi module to the given VTK data 
-        object."""
-    _target = Instance(modules.ImagePlaneWidget, ())
-
-
-imageplanewidget = make_function(ImagePlaneWidgetFactory)
-
-
-##############################################################################
-class ScalarCutPlaneFactory(DataModuleFactory):
-    """Applies the ScalarCutImagePlane mayavi module to the given VTK data 
-        object."""
-    _target = Instance(modules.ScalarCutPlane, ())
-
-
-scalarcutplane = make_function(ScalarCutPlaneFactory)
+image_actor = make_function(ImageActorFactory)
 
 
 ##############################################################################
@@ -342,7 +320,7 @@ class ContourGridPlaneFactory(ContourModuleFactory):
     object."""
     _target = Instance(modules.ContourGridPlane, ())
 
-contourgridplane = make_function(ContourGridPlaneFactory)
+contour_grid_plane = make_function(ContourGridPlaneFactory)
 
 
 ##############################################################################
@@ -351,66 +329,65 @@ class CustomGridPlaneFactory(ContourModuleFactory):
     object."""
     _target = Instance(modules.CustomGridPlane, ())
 
-customgridplane = make_function(CustomGridPlaneFactory)
+custom_grid_plane = make_function(CustomGridPlaneFactory)
 
 
-##############################################################################
-class GridPlaneFactory(DataModuleFactory):
-    """Applies the GridPlane mayavi module to the given VTK data object."""
-    _target = Instance(modules.GridPlane, ())
+############################################################################
+# Automatically generated modules from registry.
+############################################################################
+class _AutomaticModuleFactory(DataModuleFactory):
+    """The base class for any auto-generated factory classes.
+    
+    NOTE: This class requires that the `_metadata` trait be set to
+    the metadata object for the object for which this is a factory.
+    """
 
-gridplane = make_function(GridPlaneFactory)
+    # The target.
+    _target = Property
 
+    # The saved target that is created once and then always returned.
+    _saved_target = Any(None)
 
-##############################################################################
-class HyperStreamlineFactory(DataModuleFactory):
-    """Applies the HyperStreamline mayavi module to the given VTK data
-    object."""
-    _target = Instance(modules.HyperStreamline, ())
-
-hyperstreamline = make_function(HyperStreamlineFactory)
-
-
-##############################################################################
-class SliceUnstructuredGridFactory(DataModuleFactory):
-    """Applies the SliceUnstructuredGrid mayavi module to the given VTK data
-    object."""
-    _target = Instance(modules.SliceUnstructuredGrid, ())
-
-sliceunstructuredgrid = make_function(SliceUnstructuredGridFactory)
+    def _get__target(self):
+        """Getter for the _target trait."""
+        if self._saved_target is None:
+            self._saved_target = self._metadata.get_callable()()
+        
+        return self._saved_target
 
 
-##############################################################################
-class StructuredGridOutlineFactory(DataModuleFactory):
-    """Applies the StructuredGridOutline mayavi module to the given VTK data
-    object."""
-    _target = Instance(modules.StructuredGridOutline, ())
+def _make_functions(namespace):
+    """Make the functions for adding modules and add them to the
+    namespace automatically.
+    """
+    # Ignore these since they are already provided.
+    ignore = ['axes', 'text', 'orientation_axes']
+    for mod in registry.modules:
+        func_name = camel2enthought(mod.id)
+        class_name = mod.id
+        if func_name.endswith('_module'):
+            func_name = func_name[:-7]
+            class_name = class_name[:-6]
+        class_name = class_name + 'Factory'
 
-structuredgridoutline = make_function(StructuredGridOutlineFactory)
+        # Don't create any that are already defined or ignored.
+        if class_name in namespace or func_name in ignore:
+            continue
 
+        # The class to wrap.
+        klass = new.classobj(class_name, 
+                             (_AutomaticModuleFactory,),
+                             {'__doc__': mod.help,}
+                             )
+        klass._metadata = mod
+        # The mlab helper function.
+        func = make_function(klass)
 
-##############################################################################
-class TensorGlyphFactory(DataModuleFactory):
-    """Applies the TensorGlyph mayavi module to the given VTK data object."""
-    _target = Instance(modules.TensorGlyph, ())
+        # Inject class/function into the namespace and __all__.
+        namespace[class_name] = klass
+        namespace[func_name] = func
+        __all__.append(func_name)
 
-tensorglyph = make_function(TensorGlyphFactory)
-
-
-##############################################################################
-class VectorCutPlaneFactory(DataModuleFactory):
-    """Applies the VectorCutPlane mayavi module to the given VTK data object."""
-    _target = Instance(modules.VectorCutPlane, ())
-
-vectorcutplane = make_function(VectorCutPlaneFactory)
-
-
-##############################################################################
-class WarpVectorCutPlaneFactory(DataModuleFactory):
-    """Applies the WarpVectorCutPlane mayavi module to the given VTK data
-    object."""
-    _target = Instance(modules.WarpVectorCutPlane, ())
-
-warpvectorcutplane = make_function(WarpVectorCutPlaneFactory)
-
+# Create the module related functions.
+_make_functions(locals())
 

@@ -7,44 +7,22 @@ helper functions.
 """
 
 # Author: Gael Varoquaux <gael.varoquaux@normalesup.org>
-# Copyright (c) 2007, Enthought, Inc. 
+#         Prabhu Ramachandran
+# Copyright (c) 2007-2008, Enthought, Inc. 
 # License: BSD Style.
 
-from pipe_base import PipeFactory, make_function
-import enthought.mayavi.filters.api as filters
+import new
+
 from enthought.traits.api import Instance, CFloat, CInt, CArray, Trait, \
-            Enum
-from enthought.mayavi.filters.filter_base import FilterBase
+            Enum, Property, Any
+from enthought.tvtk.common import camel2enthought
+import enthought.mayavi.filters.api as filters
+from enthought.mayavi.core.registry import registry
+from pipe_base import PipeFactory, make_function
 
-__all__ = [ 'extractedges', 'extractvectornorm', 'tube', 'warpscalar',
-    'delaunay2d', 'selectoutput', 'threshold', 'pointtocelldata', 'elevationfilter',
-    'quadricdecimation', 'celltopointdata', 'decimatepro', 'delaunay3d',
-    'extractgrid', 'extracttensorcomponents', 'extractvectorcomponents',
-    'extractunstructuredgrid', 'gaussiansplatter', 'greedyterraindecimation',
-    'maskpoints', 'polydatanormals', 'transformdata', 'trianglefilter',
-    'warpvector',
-]
-
-
-##############################################################################
-class ExtractEdgesFactory(PipeFactory):
-    """Applies the ExtractEdges mayavi filter to the given VTK object."""
-    
-    _target = Instance(filters.ExtractEdges, ())
-
-
-extractedges = make_function(ExtractEdgesFactory)
-
-
-##############################################################################
-class ExtractVectorNormFactory(PipeFactory):
-    """Applies the ExtractVectorNormaFactory mayavi filter to the given VTK
-    object."""
-    
-    _target = Instance(filters.ExtractVectorNorm, ())
-
-
-extractvectornorm = make_function(ExtractVectorNormFactory)
+# This the list is dynamically populated further down below at the end.
+__all__ = [ 'tube', 'warp_scalar', 'threshold', 'elevation_filter', 
+          ]
 
 
 ##############################################################################
@@ -75,16 +53,7 @@ class WarpScalarFactory(PipeFactory):
     warp_scale = CFloat(1.0, adapts="filter.scale_factor",
                             help="scale of the warp scalar")
 
-warpscalar = make_function(WarpScalarFactory)
-
-
-##############################################################################
-class Delaunay2DFactory(PipeFactory):
-    """Applies the Delaunay mayavi filter to the given VTK object."""
-    
-    _target = Instance(filters.Delaunay2D, ())
-
-delaunay2d = make_function(Delaunay2DFactory)
+warp_scalar = make_function(WarpScalarFactory)
 
 
 ##############################################################################
@@ -117,15 +86,6 @@ threshold = make_function(ThresholdFactory)
 
 
 ##############################################################################
-class PointToCellDataFactory(PipeFactory):
-    """Applies the Point to Cell Data mayavi filter to the given VTK object."""
-    
-    _target = Instance(filters.PointToCellData, ())
-
-pointtocelldata = make_function(PointToCellDataFactory)
-
-
-##############################################################################
 class ElevationFilterFactory(PipeFactory):
     """Applies the Elevation Filter mayavi filter to the given VTK object."""
 
@@ -139,145 +99,64 @@ class ElevationFilterFactory(PipeFactory):
 
     _target = Instance(filters.ElevationFilter, ())
 
-elevationfilter = make_function(ElevationFilterFactory)
+elevation_filter = make_function(ElevationFilterFactory)
 
 
-##############################################################################
-class QuadricDecimationFactory(PipeFactory):
-    """Applies the Quadric Decimation mayavi filter to the given VTK object.
-
-    The input data must be composed of triangles."""
+############################################################################
+# Automatically generated filters from registry.
+############################################################################
+class _AutomaticFilterFactory(PipeFactory):
+    """The base class for any auto-generated factory classes.
     
-    _target = Instance(filters.QuadricDecimation, ())
+    NOTE: This class requires that the `_metadata` trait be set to
+    the metadata object for the object for which this is a factory.
+    """
 
-quadricdecimation = make_function(QuadricDecimationFactory)
+    # The target.
+    _target = Property
 
+    # The saved target that is created once and then always returned.
+    _saved_target = Any(None)
 
-##############################################################################
-class CellToPointDataFactory(PipeFactory):
-    """Applies the CellToPointData mayavi filter to the given VTK object."""
-    _target = Instance(filters.CellToPointData, ())
-
-celltopointdata = make_function(CellToPointDataFactory)
-
-
-##############################################################################
-class DecimateProFactory(PipeFactory):
-    """Applies the DecimatePro mayavi filter to the given VTK object.
-
-    The input data must be composed of triangles."""
-    _target = Instance(filters.DecimatePro, ())
-
-decimatepro = make_function(DecimateProFactory)
+    def _get__target(self):
+        """Getter for the _target trait."""
+        if self._saved_target is None:
+            self._saved_target = self._metadata.get_callable()()
+        
+        return self._saved_target
 
 
-##############################################################################
-class Delaunay3DFactory(PipeFactory):
-    """Applies the Delaunay3D mayavi filter to the given VTK object."""
-    _target = Instance(filters.Delaunay3D, ())
+def _make_functions(namespace):
+    """Make the functions for adding filters and add them to the
+    namespace automatically.
+    """
+    for fil in registry.filters:
+        func_name = camel2enthought(fil.id)
+        class_name = fil.id
+        if func_name.endswith('_filter'):
+            func_name = func_name[:-7]
+            class_name = class_name[:-6]
+        class_name = class_name + 'Factory'
 
-delaunay3d = make_function(Delaunay3DFactory)
+        # Don't create any that are already defined.
+        if class_name in namespace:
+            continue
 
+        # The class to wrap.
+        klass = new.classobj(class_name, 
+                             (_AutomaticFilterFactory,),
+                             {'__doc__': fil.help,}
+                             )
+        klass._metadata = fil
 
-##############################################################################
-class ExtractGridFactory(PipeFactory):
-    """Applies the ExtractGrid mayavi filter to the given VTK object."""
-    _target = Instance(filters.ExtractGrid, ())
+        # The mlab helper function.
+        func = make_function(klass)
 
-extractgrid = make_function(ExtractGridFactory)
+        # Inject class/function into the namespace and __all__.
+        namespace[class_name] = klass
+        namespace[func_name] = func
+        __all__.append(func_name)
 
-
-##############################################################################
-class ExtractTensorComponentsFactory(PipeFactory):
-    """Applies the ExtractTensorComponents mayavi filter to the given VTK object."""
-    _target = Instance(filters.ExtractTensorComponents, ())
-
-extracttensorcomponents = make_function(ExtractTensorComponentsFactory)
-
-##############################################################################
-class ExtractVectorComponentsFactory(PipeFactory):
-    """Applies the ExtractVectorComponents mayavi filter to the given VTK object."""
-    _target = Instance(filters.ExtractVectorComponents, ())
-
-extractvectorcomponents = make_function(ExtractVectorComponentsFactory)
-
-
-##############################################################################
-class ExtractUnstructuredGridFactory(PipeFactory):
-    """Applies the ExtractUnstructuredGrid mayavi filter to the given VTK object."""
-    _target = Instance(filters.ExtractUnstructuredGrid, ())
-
-extractunstructuredgrid = make_function(ExtractUnstructuredGridFactory)
-
-
-##############################################################################
-class GaussianSplatterFactory(PipeFactory):
-    """Applies the GaussianSplatter mayavi filter to the given VTK object.
-
-    This filter converts scattered point data into continuous volume data. It is
-    essentially equivalent to a 3D Gaussian kernel density estimate."""
-    _target = Instance(filters.GaussianSplatter, ())
-
-gaussiansplatter = make_function(GaussianSplatterFactory)
-
-
-##############################################################################
-class GreedyTerrainDecimationFactory(PipeFactory):
-    """Applies the GreedyTerrainDecimation mayavi filter to the given VTK object.
-
-    The input must be an ImageData data source."""
-    _target = Instance(filters.GreedyTerrainDecimation, ())
-
-greedyterraindecimation = make_function(GreedyTerrainDecimationFactory)
-
-
-##############################################################################
-class MaskPointsFactory(PipeFactory):
-    """Applies the MaskPoints mayavi filter to the given VTK object."""
-    _target = Instance(filters.MaskPoints, ())
-
-maskpoints = make_function(MaskPointsFactory)
-
-
-##############################################################################
-class PolyDataNormalsFactory(PipeFactory):
-    """Applies the PolyDataNormals mayavi filter to the given VTK object."""
-    _target = Instance(filters.PolyDataNormals, ())
-
-polydatanormals = make_function(PolyDataNormalsFactory)
-
-##############################################################################
-class SelectOutputFactory(PipeFactory):
-    """Applies the SelectOutput mayavi filter to the given source."""
-    _target = Instance(filters.SelectOutput, ())
-
-selectoutput = make_function(SelectOutputFactory)
-
-##############################################################################
-class TransformDataFactory(PipeFactory):
-    """Applies the TransformData mayavi filter to the given VTK object."""
-    _target = Instance(filters.TransformData, ())
-
-transformdata = make_function(TransformDataFactory)
-
-
-##############################################################################
-class TriangleFilterFactory(PipeFactory):
-    """Applies the TriangleFilter mayavi filter to the given VTK object.
-
-    This is useful in between modules which produce non-triangular polygon data
-    and filters which need to consume triangular data, notably the decimation
-    filters."""
-    _target = Instance(filters.TriangleFilter, ())
-
-trianglefilter = make_function(TriangleFilterFactory)
-
-
-##############################################################################
-class WarpVectorFactory(PipeFactory):
-    """Applies the WarpVector mayavi filter to the given VTK object."""
-    _target = Instance(filters.WarpVector, ())
-
-warpvector = make_function(WarpVectorFactory)
-
+# Create the module related functions.
+_make_functions(locals())
 

@@ -14,8 +14,8 @@ License: BSD style.
 # The following *optional* two lines allow a user to call this script
 # as either `python script.py` or `mayavi2 script.py`.  These two
 # lines must be placed before any other mayavi imports.
-from enthought.mayavi.scripts import mayavi2
-mayavi2.standalone(globals())
+#from enthought.mayavi.scripts import mayavi2
+#mayavi2.standalone(globals())
 
 from numpy import array, arange, random, linspace, pi, ravel, cos, sin, \
     empty, array 
@@ -27,12 +27,12 @@ from enthought.mayavi.modules.surface import Surface
 
 from enthought.mayavi import mlab
 
-mayavi = mlab.get_engine()
 
 def image_data():
     data = random.random((3, 3, 3))
     i = tvtk.ImageData(spacing=(1, 1, 1), origin=(0, 0, 0))
     i.point_data.scalars = data.ravel()
+    i.point_data.scalars.name = 'scalars'
     i.dimensions = data.shape
     return i
     
@@ -41,6 +41,7 @@ def rectilinear_grid():
     data = random.random((3, 3, 3))
     r = tvtk.RectilinearGrid()
     r.point_data.scalars = data.ravel()
+    r.point_data.scalars.name = 'scalars'
     r.dimensions = data.shape
     r.x_coordinates = array((0, 0.7, 1.4))
     r.y_coordinates = array((0, 1, 3))
@@ -91,6 +92,7 @@ def structured_grid():
     sgrid.points = pts
     s = random.random((dims[0]*dims[1]*dims[2]))
     sgrid.point_data.scalars = ravel(s.copy())
+    sgrid.point_data.scalars.name = 'scalars'
     return sgrid
 
 
@@ -118,6 +120,7 @@ def unstructured_grid():
     ug.set_cells(cell_types, offset, cell_array)
     scalars = random.random(points.shape) 
     ug.point_data.scalars = scalars
+    ug.point_data.scalars.name = 'scalars'
     return ug
 
 
@@ -134,25 +137,27 @@ def polydata():
     # The TVTK dataset.
     mesh = tvtk.PolyData(points=points, polys=triangles)
     mesh.point_data.scalars = scalars
+    mesh.point_data.scalars.name = 'scalars'
     return mesh
 
 
 def view(dataset):
     """ Open up a mayavi scene and display the dataset in it.
     """
+    engine = mlab.get_engine()
     fig = mlab.figure(bgcolor=(1, 1, 1), fgcolor=(0, 0, 0), 
-            name=dataset.class_name[3:])
+                      name=dataset.class_name[3:])
     src = VTKDataSource(data=dataset)
-    mayavi.add_source(src) 
-
+    engine.add_source(src) 
     mlab.pipeline.surface(src, opacity=0.1)
-    mlab.pipeline.surface(mlab.pipeline.extractedges(src),
+    mlab.pipeline.surface(mlab.pipeline.extract_edges(src),
                             color=(0, 0, 0), )
 
-view(image_data())
-view(rectilinear_grid())
-view(structured_grid())
-view(unstructured_grid())
-view(polydata())
+if __name__ == '__main__':
+    view(image_data())
+    view(rectilinear_grid())
+    view(structured_grid())
+    view(unstructured_grid())
+    view(polydata())
 
 

@@ -197,7 +197,7 @@ def view(src):
     mayavi.add_source(src) 
 
     mlab.pipeline.surface(src, opacity=0.1)
-    mlab.pipeline.surface(mlab.pipeline.extractedges(src),
+    mlab.pipeline.surface(mlab.pipeline.extract_edges(src),
                             color=(0, 0, 0), )
 
 
