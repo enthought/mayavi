@@ -47,6 +47,8 @@ import sys
 import tempfile
 import zipfile
 
+from setup_data import INFO
+
 ACTIONS = {}
 
 def register(process):
@@ -127,7 +129,7 @@ class Build(Process):
             output_dir = os.path.join(self.target, format)
 
         self.run_command('sphinx-build -D version=%s -D release=%s -b %s %s %s'
-                        % (self.options.version, self.options.release, format, \
+                        % (INFO['version'], INFO['version'], format, \
                            self.options.doc_source, output_dir))
 
     @has_started
