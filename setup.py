@@ -169,17 +169,17 @@ def generate_tvtk_docs():
             log.error("The documentation generation failed.  Falling back to the zip file.")
             print e
             # Unzip the docs into the 'html' folder.
-            if not os.path.exists(os.path.join(dest_dir, 'html')):
-                os.makedirs(os.path.join(dest_dir, 'html'))
-            unzip_html_docs(html_zip, os.path.join(dest_dir, 'html'))
+#            if not os.path.exists(os.path.join(dest_dir, 'html')):
+#                os.makedirs(os.path.join(dest_dir, 'html'))
+            unzip_html_docs(html_zip, dest_dir)
 
     except DistributionNotFound:
         log.error("Sphinx is not installed, so the documentation could not be generated.  Falling back to the zip file.")
 
         # Unzip the docs into the 'html' folder.
-        if not os.path.exists(os.path.join(dest_dir, 'html')):
-            os.makedirs(os.path.join(dest_dir, 'html'))
-        unzip_html_docs(html_zip, os.path.join(dest_dir, 'html'))
+#        if not os.path.exists(os.path.join(dest_dir, 'html')):
+#            os.makedirs(os.path.join(dest_dir, 'html'))
+        unzip_html_docs(html_zip, dest_dir)
   
 def unzip_html_docs(src_path, dest_dir):
     """Given a path to a zipfile, extract
