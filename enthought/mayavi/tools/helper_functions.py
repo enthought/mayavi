@@ -22,7 +22,7 @@ from filters import ExtractVectorNormFactory, WarpScalarFactory, \
 from auto_doc import traits_doc, dedent
 import tools
 from enthought.traits.api import Array, Callable, CFloat, HasTraits, \
-    List, Trait, Any
+    List, Trait, Any, Instance
 import numpy
 
 def document_pipeline(pipeline):
@@ -52,6 +52,10 @@ class Pipeline(HasTraits):
     _source_function = Callable()
 
     _pipeline = List()
+
+    # Traits here only for documentation purposes
+    figure = Instance('enthought.mayavi.core.scene.Scene',
+                help='Figure to populate.')
 
     def __call__(self, *args, **kwargs):
         """ Builds the source and runs through the pipeline, returning
