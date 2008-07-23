@@ -9,7 +9,8 @@ Base class for factories for adding objects to the pipeline.
 
 from auto_doc import make_doc
 from enthought.traits.api import HasPrivateTraits, Str, TraitError
-from enthought.mayavi.filters.filter_base import FilterBase
+from enthought.mayavi.core.filter import Filter
+
 import tools
 from engine_manager import get_engine
 
@@ -37,14 +38,14 @@ class PipeFactory(HasPrivateTraits):
     """ Base class for all factories adding pipes on the pipeline """
         
     name = Str(adapts='name', help='the name of the vtk object created.')
-        
+
     def __init__(self, parent, **kwargs):
         # We are not passing the traits to the parent class
         super(PipeFactory, self).__init__()
         self._scene = tools.gcf()
         self._engine = get_engine()
         self._scene.scene.disable_render = True
-        if issubclass(self._target.__class__, FilterBase):
+        if issubclass(self._target.__class__, Filter):
             self._engine.add_filter(self._target, obj=parent)
         else:
             self._engine.add_module(self._target, obj=parent)
