@@ -4,6 +4,7 @@ from numpy.distutils.core import setup
 import os
 from pkg_resources import require, DistributionNotFound
 import zipfile
+import shutil
 
 # Local imports
 from setup_data import INFO
@@ -76,16 +77,16 @@ from numpy.distutils.command.build import build as distbuild
 from numpy.distutils import log
 from setuptools.command.develop import develop
 
-def generate_docs():
+def generate_docs(project):
     """ Generate the documentation, whether that be using
     Sphinx or unzipping them.
     """
     # Figure out the documentation source directory and
     # the output directory based on current location.
-    user_guide_dir = os.path.join(os.path.abspath(os.path.dirname(__file__)),
-        'docs', 'mayavi', 'user_guide')
-    html_zip = os.path.join(user_guide_dir, 'html_docs.zip')
-    dest_dir = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'docs')
+    doc_dir = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'docs') 
+    source_dir = os.path.join(doc_dir, 'source', project)
+    html_zip = os.path.join(doc_dir,  '%s_html_docs.zip' % project)
+    dest_dir = os.path.join(doc_dir, 'html')
 
     # Make sure the destination directory is created if it
     # doesn't already exist.
@@ -95,8 +96,8 @@ def generate_docs():
     try:
         require("Sphinx>=0.4.1")
             
-        log.info("Auto-generating documentation...")
-        docsrc = os.path.join(user_guide_dir, 'source')
+        log.info("Auto-generating %s documentation..." % project)
+        docsrc = source_dir
         target = dest_dir
         try:
             build = HtmlBuild()
@@ -107,79 +108,29 @@ def generate_docs():
                 'subversion': False,
                 'target': target,
                 'verbose': True,
-                'versioned': False,
-                'version': INFO['version'],
-                'release': INFO['version']
+                'versioned': False
                 }, [])
             del build
-        except Exception, e:
-            log.error("The documentation generation failed.  Falling back to the zip file.")
-            print e
-            # Unzip the docs into the 'html' folder.
-            if not os.path.exists(os.path.join(dest_dir, 'html')):
-                os.makedirs(os.path.join(dest_dir, 'html'))
-            unzip_html_docs(html_zip, os.path.join(dest_dir, 'html'))
-
-    except DistributionNotFound:
-        log.error("Sphinx is not installed, so the documentation could not be generated.  Falling back to the zip file.")
-
-        # Unzip the docs into the 'html' folder.
-        if not os.path.exists(os.path.join(dest_dir, 'html')):
-            os.makedirs(os.path.join(dest_dir, 'html'))
-        unzip_html_docs(html_zip, os.path.join(dest_dir, 'html'))
-
-def generate_tvtk_docs():
-    """ Generate the documentation, whether that be using
-    Sphinx or unzipping them.
-    """
-    # Figure out the documentation source directory and
-    # the output directory based on current location.
-    source_dir = os.path.join(os.path.abspath(os.path.dirname(__file__)),
-        'docs', 'tvtk')
-    html_zip = os.path.join(source_dir, 'html_docs.zip')
-    dest_dir = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'docs',
-                            'tvtk')
-
-    # Make sure the destination directory is created if it
-    # doesn't already exist.
-    if not os.path.exists(dest_dir):
-        os.makedirs(dest_dir)
-
-    try:
-        require("Sphinx>=0.4.1")
             
-        log.info("Auto-generating documentation...")
-        docsrc = os.path.join(source_dir, 'source')
-        target = dest_dir
-        try:
-            build = HtmlBuild()
-            build.start({
-                'commit_message': None,
-                'doc_source': docsrc,
-                'preserve_temp': True,
-                'subversion': False,
-                'target': target,
-                'verbose': True,
-                'versioned': False,
-                'version': INFO['version'],
-                'release': INFO['version']
-                }, [])
-            del build
-        except Exception, e:
+            # Sphinx produces docs in docs/html/html
+            # We need to move that to docs/html/<project name>
+            html_dir = os.path.join(target, 'html')
+            project_dir = os.path.join(dest_dir, project)
+            if os.path.exists(project_dir):
+                shutil.rmtree(project_dir)
+            shutil.move(html_dir, project_dir)
+            
+        except:
             log.error("The documentation generation failed.  Falling back to the zip file.")
-            print e
+            
             # Unzip the docs into the 'html' folder.
-#            if not os.path.exists(os.path.join(dest_dir, 'html')):
-#                os.makedirs(os.path.join(dest_dir, 'html'))
-            unzip_html_docs(html_zip, dest_dir)
+            unzip_html_docs(html_zip, doc_dir)
 
     except DistributionNotFound:
         log.error("Sphinx is not installed, so the documentation could not be generated.  Falling back to the zip file.")
 
         # Unzip the docs into the 'html' folder.
-#        if not os.path.exists(os.path.join(dest_dir, 'html')):
-#            os.makedirs(os.path.join(dest_dir, 'html'))
-        unzip_html_docs(html_zip, dest_dir)
+        unzip_html_docs(html_zip, doc_dir)
   
 def unzip_html_docs(src_path, dest_dir):
     """Given a path to a zipfile, extract
@@ -206,15 +157,30 @@ class my_develop(develop):
         develop.run(self)
         
         # Generate the documentation.
-        generate_docs()
+        source_dir = os.path.join(os.path.abspath(os.path.dirname(__file__)),
+                                  'docs', 'source')
+        source_list = os.listdir(source_dir)
+        # Check to make sure we're using non-hidden directories.
+        source_dirs = [listing for listing in source_list
+                       if os.path.isdir(os.path.join(source_dir, listing))
+                       and not listing.startswith('.')]
+        for project in source_dirs:
+            generate_docs(project)
 
 class my_build(distbuild):
     def run(self):
         distbuild.run(self)
 
         # Generate the documentation.
-        generate_docs()
-        generate_tvtk_docs()
+        source_dir = os.path.join(os.path.abspath(os.path.dirname(__file__)),
+                                  'docs', 'source')
+        source_list = os.listdir(source_dir)
+        # Check to make sure we're using non-hidden directories.
+        source_dirs = [listing for listing in source_list
+                       if os.path.isdir(os.path.join(source_dir, listing))
+                       and not listing.startswith('.')]
+        for project in source_dirs:
+            generate_docs(project)
 
 setup(
     author = "Prabhu Ramachandran",
