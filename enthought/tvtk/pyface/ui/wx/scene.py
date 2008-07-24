@@ -521,8 +521,9 @@ class Scene(TVTKScene, Widget):
     def OnSize(self, event):
         """Overrides the default OnSize in order to refresh the traits
         of the render window."""
-        self._vtk_control.OnSize(event)
-        self._renwin.update_traits()
+        if self._renwin is not None:
+            self._vtk_control.OnSize(event)
+            self._renwin.update_traits()
 
     def OnButtonDown(self, event):
         """Overrides the default on button down method.
