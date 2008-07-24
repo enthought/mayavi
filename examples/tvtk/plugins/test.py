@@ -115,7 +115,8 @@ def bind_object(value, app):
 
     id = 'enthought.tvtk.plugins.scene.i_scene_manager.ISceneManager'
     sm = app.workbench.active_window.get_service(id)
-    py.bind('scene_manager', sm)
+    if py is not None:
+        py.bind('scene_manager', sm)
 
 
 def main():
