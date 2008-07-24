@@ -20,7 +20,7 @@ def is_ui_running():
             # Hack gleaned from enthought.traits.ui.qt4.view_application
             if hasattr(app, '_in_event_loop'):
                 if _gui is None:
-                    return True
+                    return app._in_event_loop
                 else:
                     return _gui.started
 
