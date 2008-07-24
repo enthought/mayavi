@@ -47,7 +47,7 @@ class Sniff(object):
     def _get_comment(self):
         self._comment = '#'
         line0 = self._reallines[0]
-        if line0.startswith(('#', '%')):
+        if line0.startswith('#') or line0.startswith('%'):
             self._comment = line0[0]
             self._reallines[0] = self._dialect.delimiter.join(line0.split()[1:])
             for i in xrange(1, len(self._reallines)):
