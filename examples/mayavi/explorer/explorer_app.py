@@ -86,7 +86,6 @@ class Explorer3D(HasTraits):
     ######################################################################
     def __init__(self, **traits):
         super(Explorer3D, self).__init__(**traits)
-        self.source = None
         # Make some default data.
         if len(self.data) == 0:
             self._make_data()
@@ -136,7 +135,6 @@ class Explorer3D(HasTraits):
         self.source = src
         mayavi.add_source(src)
 
-        mayavi = self.get_mayavi()
         from enthought.mayavi.modules.outline import Outline
         from enthought.mayavi.modules.image_plane_widget import ImagePlaneWidget
         from enthought.mayavi.modules.axes import Axes

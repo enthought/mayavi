@@ -91,7 +91,7 @@ class ExplorerPlugin(Plugin):
         explorer = self._get_explorer(window)
         tui_engine_view = TraitsUIView(obj=explorer,
                                        id='explorer3d.Explorer3D',
-                                       name='Mayavi',
+                                       name='Explorer3D',
                                        window=window,
                                        position='left',
                                        **traits
