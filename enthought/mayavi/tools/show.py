@@ -27,12 +27,25 @@ def is_ui_running():
     return False
 
 
-def show(func):
-    """Decorator to run something which requires a UI.   If the GUI
-    event loop is already running it simply runs the function.  If not
-    the event loop is started and function is run in the toolkit's event
-    loop.  The choice of UI is via `ETSConfig.toolkit`.  
+def show(func=None):
+    """By default, this function simply creates a GUI and starts its
+    event loop if needed.
+    
+    If it is used as a decorator, then it may be used to decorate a
+    function which requires a UI.   If the GUI event loop is already
+    running it simply runs the function.  If not the event loop is
+    started and function is run in the toolkit's event loop.  The choice
+    of UI is via `ETSConfig.toolkit`.  
+
     """
+    global _gui
+    if func is None:
+        if not is_ui_running():
+            g = GUI()
+            _gui = g
+            g.start_event_loop()
+        return
+
     def wrapper(*args, **kw):
         """Wrapper function to run given function inside the GUI event
         loop.
