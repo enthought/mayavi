@@ -14,7 +14,7 @@ from os.path import splitext
 # Enthought library imports.
 from enthought.traits.api import (HasStrictTraits, List, Str, 
         Property, Instance, Event, HasTraits, Callable, Dict,
-        Bool, on_trait_change)
+        Bool, on_trait_change, Any)
 from enthought.traits.ui.api import View, Item
 from enthought.persistence import state_pickler
 
@@ -93,6 +93,7 @@ class Engine(HasStrictTraits):
     _current_object = Instance(HasTraits)
     _current_selection = Instance(HasTraits)
     _viewer_ref = Dict
+    _adder_node = Any(transient=True)
 
     # View related traits.
     current_selection_view = View(Item(name='_current_selection',
@@ -477,6 +478,8 @@ class Engine(HasStrictTraits):
         old = self._current_selection
         if not isinstance(object, (Base, AdderNode)):
             object = None
+        if isinstance(object, AdderNode):
+            self._adder_node.object = old
         self._current_selection = object
         self.trait_property_changed('current_selection', old, object)
 
@@ -493,8 +496,9 @@ class Engine(HasStrictTraits):
         """ Trait getter for children_ui_list Property.
         """
         if preference_manager.root.show_helper_nodes:
-            node = EngineAdderNode(label='Add a new scene', engine=self)
-            return [node] + self.scenes
+            if self._adder_node is None:
+                self._adder_node = EngineAdderNode(label='Add a new scene', engine=self)
+            return [self._adder_node] + self.scenes
         else:
             return self.scenes
 

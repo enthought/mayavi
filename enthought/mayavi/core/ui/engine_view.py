@@ -43,10 +43,7 @@ class EngineViewHandler(Handler):
     def _on_select(self, object):
         """ Called when a node in the tree editor is selected.
         """
-        if isinstance(object, AdderNode):
-            object.edit_traits(view=object.dialog_view())
-        else:
-            self.info.object.engine._on_select(object)
+        self.info.object.engine._on_select(object)
 
 
 ##############################################################################

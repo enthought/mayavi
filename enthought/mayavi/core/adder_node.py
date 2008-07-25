@@ -57,8 +57,11 @@ class AdderNode(HasTraits):
     def _get_scene(self):
         """ Trait Property getter for 'scene'.
         """
-        if self.object is not None:
-            return self.object.scene
+        object = self.obj
+        if isinstance(object, AdderNode):
+            return None
+        if object is not None:
+            return object.scene
         else:
             return None
 
@@ -327,15 +330,19 @@ class EngineAdderNode(AdderNode):
                 scrollable=True
                 )
 
-    def _object_changed(self, obj):
+    def _object_changed(self, old, new):
         from enthought.mayavi.core.scene import Scene
         from enthought.mayavi.core.source import Source
         from enthought.mayavi.core.module_manager import ModuleManager
 
         adders = self.adders
 
-        if (isinstance(obj, self.__class__) or \
-            isinstance(obj, self.engine.__class__)):
+        if new is self:
+            obj = old
+        else:
+            obj = new
+
+        if isinstance(obj, self.engine.__class__):
             self.adder_node = adders['scene']
         elif isinstance(obj, Scene):
             self.adder_node = adders['source']
