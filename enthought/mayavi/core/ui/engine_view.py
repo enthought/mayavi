@@ -44,7 +44,7 @@ class EngineViewHandler(Handler):
         """ Called when a node in the tree editor is selected.
         """
         if isinstance(object, AdderNode):
-            self._on_dclick(object)
+            object.edit_traits(view=object.dialog_view())
         else:
             self.info.object.engine._on_select(object)
 
