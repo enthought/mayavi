@@ -50,8 +50,10 @@ DeleteAction = Action(name         = 'Delete',
 RenameAction = Action(name         = 'Rename',
                       action       = 'editor._menu_rename_node',
                       enabled_when = 'editor._is_renameable(object)' )
-standard_menu_actions = [CutAction, CopyAction, PasteAction, Separator(),
-                         DeleteAction, Separator(), RenameAction, Separator()]
+standard_menu_actions = [Separator(), CutAction, CopyAction, PasteAction,
+                         Separator(),
+                         RenameAction, DeleteAction, Separator(), 
+                        ]
 
 
 ######################################################################
@@ -359,8 +361,9 @@ class Base(TreeNodeObject):
         extras = []
         if self.menu_helper is not None:
             extras = self.menu_helper.actions
-        menu_actions = extras + deepcopy(standard_menu_actions) \
-                        + [self._HideShowAction ]
+        menu_actions = [Separator()] + extras + \
+                       [Separator(), self._HideShowAction, Separator()] + \
+                       deepcopy(standard_menu_actions)
         return Menu( *menu_actions)
 
     def __icon_path_default(self):
