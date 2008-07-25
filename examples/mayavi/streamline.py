@@ -6,16 +6,11 @@ streamlines and an iso surface.
 # Copyright (c) 2005-2007, Enthought, Inc.
 # License: BSD Style.
 
-# The following *optional* two lines allow a user to call this script
-# as either `python script.py` or `mayavi2 script.py`.  These two
-# lines must be placed before any other mayavi imports.
-from enthought.mayavi.scripts import mayavi2
-mayavi2.standalone(globals())
-
 # Standard library imports
 from os.path import join, abspath
 
 # Enthought library imports
+from enthought.mayavi.scripts import mayavi2
 from enthought.mayavi.sources.vtk_xml_file_reader import VTKXMLFileReader
 from enthought.mayavi.sources.vrml_importer import VRMLImporter
 from enthought.mayavi.modules.outline import Outline
@@ -58,8 +53,8 @@ def streamline():
     i.contour.contours[0] = 550
     i.actor.property.opacity = 0.5
 
-
-if __name__ == '__main__':
+@mayavi2.standalone
+def main():
     mayavi.new_scene()
 
     data_dir = mayavi2.get_data_dir(abspath(__file__))
@@ -69,3 +64,7 @@ if __name__ == '__main__':
     fname = join(data_dir, 'fire_ug.vtu')
     r = setup_data(fname)
     streamline()
+
+
+if __name__ == '__main__':
+    main()

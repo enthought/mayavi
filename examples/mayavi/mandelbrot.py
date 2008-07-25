@@ -5,12 +5,6 @@ Author: Ilan Schnell <ischnell@enthought.com>
 Copyright 2008, Enthought, Inc.
 License: BSD Style.
 """
-# The following *optional* two lines allow a user to call this script
-# as either `python script.py` or `mayavi2 script.py`.  These two
-# lines must be placed before any other mayavi imports.
-from enthought.mayavi.scripts import mayavi2
-mayavi2.standalone(globals())
-
 
 print "This script is numerically intensive and requires a lot of memory."
 print "Please be patient..."
@@ -20,9 +14,9 @@ import hashlib
 from numpy import ogrid, log
 from scipy import weave
 
-from enthought.mayavi import mlab as M
 
-M.options.backend = 'envisage'
+from enthought.mayavi.scripts import mayavi2
+from enthought.mayavi import mlab as M
 
 
 support_code = '''
@@ -101,20 +95,25 @@ return_val = PyUFunc_FromFuncAndData(
 # Now mandel is a UFunc which takes x, y and returns the number of iterations
 # for the start point z = x + iy in the complex plane to diverge.
 ##############################################################################
+@mayavi2.standalone
+def view():
+    x, y = ogrid[-3.0:+2.0:500j, -2.5:+2.5:500j]
 
-x, y = ogrid[-3.0:+2.0:500j, -2.5:+2.5:500j]
+    # mandel_array is a 2D numpy array with the height for each point
+    mandel_array = log(log(mandel(x, y)))
 
-# mandel_array is a 2D numpy array with the height for each point
-mandel_array = log(log(mandel(x, y)))
+    P = M.pipeline
 
-P = M.pipeline
+    mandel_struct2d = P.array2dsource(x, y, mandel_array)
+    mandel_warp = P.warp_scalar(mandel_struct2d)
+    mandel_triangles = P.triangle_filter(mandel_warp)
+    mandel_triangles = P.quadric_decimation(mandel_triangles)
+    mandel_elevation = P.elevation_filter(mandel_triangles,
+                          low_point  = [0, 0, mandel_array.min()],
+                          high_point = [0, 0, mandel_array.max()])
 
-mandel_struct2d = P.array2dsource(x, y, mandel_array)
-mandel_warp = P.warpscalar(mandel_struct2d)
-mandel_triangles = P.trianglefilter(mandel_warp)
-mandel_triangles = P.quadricdecimation(mandel_triangles)
-mandel_elevation = P.elevationfilter(mandel_triangles,
-                      low_point  = [0, 0, mandel_array.min()],
-                      high_point = [0, 0, mandel_array.max()])
+    P.surface(mandel_elevation, colormap='jet')
 
-P.surface(mandel_elevation, colormap='jet')
+if __name__ == '__main__':
+    view()
+

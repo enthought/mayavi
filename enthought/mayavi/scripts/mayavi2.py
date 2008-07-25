@@ -440,28 +440,62 @@ def off_screen_viewer():
     win.scene.set_size((300,300))
     return win
 
-def standalone(globals_dict):
-    """This could be optionally called at the top of stand-alone
-    scripts so that the script runs either as::
-    
-     $ mayavi2 script.py
-
-    or::
-
-     $ python script.py
-
-    The script is typically passed the result of globals().
-    For example:
-    >>> from enthought.mayavi.scripts import mayavi2
-    >>> mayavi2.standalone(globals())
+def get_mayavi_script_instance():
+    """Return the mayavi Script instance from the first available set of
+    envisage engines registered in the registry.
     """
-    if 'mayavi' not in globals_dict.keys():
-        sys.argv.insert(0, 'mayavi2')
-        # Main will execute the script for us via run_script.
-        main()
-        # Exit after mayavi has run.  If this is not done the rest of
-        # the script will be executed which will cause errors.
-        sys.exit(0)
+    from enthought.mayavi.core.registry import registry
+    from enthought.mayavi.plugins.envisage_engine import EnvisageEngine
+    from enthought.mayavi.plugins.script import Script
+    for name, engine in registry.engines.iteritems():
+        if isinstance(engine, EnvisageEngine):
+            return engine.window.get_service(Script)
+    return
+
+def contains_mayavi(namespace):
+    """Returns if the given namespace contains a 'mayavi' name bound to
+    a mayavi script instance.
+    """
+    from enthought.mayavi.plugins.script import Script
+    if 'mayavi' in namespace:
+        if isinstance(namespace.get('mayavi'), Script):
+            return True
+    return False
+
+def standalone(func):
+    """A decorator to run a function from within mayavi.  This lets
+    users write a normal Python function and have that run from within
+    mayavi.  It implicitly assumes that the name 'mayavi' refers the the
+    Script instance and will overwrite it if not.
+    """
+    def wrapper(*args, **kw):
+        script = get_mayavi_script_instance()
+        if script is None:
+            def caller(script):
+                """Callback that runs the function inside the mayavi
+                app."""
+                # Bind the 'mayavi' name to the script instance
+                func.func_globals['mayavi'] = script
+                # Run the function in the event loop.
+                g = script.window.application.gui
+                g.invoke_later(func, *args, **kw)
+
+            # Start up mayavi and invoke caller when the script instance
+            # is available.
+            m = Mayavi()
+            m.on_trait_change(caller, 'script')
+            # Run the mayavi app.
+            m.main()
+        else:
+            ns = func.func_globals
+            if not contains_mayavi(ns):
+                # Bind the 'mayavi' name to the script instance
+                ns['mayavi'] = script
+            # Now run the function.
+            func(*args, **kw)
+
+    return wrapper
+
 
 def main():
     """This starts up the mayavi2 application.

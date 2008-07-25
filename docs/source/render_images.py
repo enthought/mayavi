@@ -9,15 +9,10 @@ This scipts requires image magic to be installed.
 # Copyright (c) 2007, Enthought, Inc.
 # License: BSD Style.
 
-if __name__ == "__main__":
-    # The following *optional* two lines allow a user to call this script
-    # as either `python script.py` or `mayavi2 script.py`.  These two
-    # lines must be placed before any other mayavi imports.
-    from enthought.mayavi.scripts import mayavi2
-    mayavi2.standalone(globals())
 
-from enthought.mayavi import mlab
 import os
+from enthought.mayavi import mlab
+from enthought.mayavi.scripts import mayavi2
 
 from inspect import getmembers
 
@@ -51,7 +46,11 @@ def illustrate_module(module, directory=IMAGE_DIR):
 
 #############################################################################
 # Entry point
-
-if __name__ == '__main__':
+@mayavi2.standalone
+def main():
     illustrate_module(mlab)
     mayavi2.close()
+
+if __name__ == '__main__':
+    main()
+

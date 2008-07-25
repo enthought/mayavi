@@ -14,15 +14,10 @@ Copyright (c) 2007, Enthought, Inc.
 License: BSD style.
 """
 
-# The following *optional* two lines allow a user to call this script
-# as either `python script.py` or `mayavi2 script.py`.  These two
-# lines must be placed before any other mayavi imports.
-from enthought.mayavi.scripts import mayavi2
-mayavi2.standalone(globals())
-
 from enthought.tvtk.api import tvtk
 from enthought.tvtk.array_handler import get_vtk_array_type
 from numpy import array, ogrid, sin, ravel
+from enthought.mayavi.scripts import mayavi2
 
 # Make the data.
 dims = array((128, 128, 128))
@@ -57,6 +52,7 @@ spoints.scalar_type = get_vtk_array_type(s.dtype)
 #w.write()
 
 # Now view the data.
+@mayavi2.standalone
 def view():
     from enthought.mayavi.sources.vtk_data_source import VTKDataSource
     from enthought.mayavi.modules.outline import Outline
@@ -68,4 +64,5 @@ def view():
     mayavi.add_module(Outline())
     mayavi.add_module(ImagePlaneWidget())
 
-view()
+if __name__ == '__main__':
+    view()

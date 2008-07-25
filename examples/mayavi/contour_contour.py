@@ -1,26 +1,22 @@
-#!/usr/bin/mayavi2
+#!/usr/bin/env python
 """This example shows how you can produce contours on an IsoSurface.
 """
 # Author: Prabhu Ramachandran <prabhu [at] aero . iitb . ac . in>
 # Copyright (c) 2008,  Enthought, Inc.
 # License: BSD Style.
 
-# The following *optional* two lines allow a user to call this script
-# as either `python script.py` or `mayavi2 script.py`.  These two
-# lines must be placed before any other mayavi imports.
-from enthought.mayavi.scripts import mayavi2
-mayavi2.standalone(globals())
-
 # Standard library imports
 from os.path import join, abspath
 
 # Mayavi imports.
+from enthought.mayavi.scripts import mayavi2
 from enthought.mayavi.sources.api import VTKXMLFileReader
 from enthought.mayavi.filters.contour import Contour
 from enthought.mayavi.filters.api import PolyDataNormals
 from enthought.mayavi.filters.set_active_attribute import SetActiveAttribute
 from enthought.mayavi.modules.api import Surface, Outline
 
+@mayavi2.standalone
 def main():
     mayavi.new_scene()
 

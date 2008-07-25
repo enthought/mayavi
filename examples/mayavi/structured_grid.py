@@ -15,15 +15,10 @@ Copyright (c) 2007, Enthought, Inc.
 License: BSD style.
 """
 
-# The following *optional* two lines allow a user to call this script
-# as either `python script.py` or `mayavi2 script.py`.  These two
-# lines must be placed before any other mayavi imports.
-from enthought.mayavi.scripts import mayavi2
-mayavi2.standalone(globals())
-
 import numpy
 from numpy import linspace, cos, sin, pi, empty, sqrt
 from enthought.tvtk.api import tvtk
+from enthought.mayavi.scripts import mayavi2
 
 def generate_annulus(r=None, theta=None, z=None):
     """ Generate points for structured grid for a cylindrical annular
@@ -99,6 +94,7 @@ sgrid.point_data.scalars.name = 'scalars'
 #w.write()
 
 # View the data.
+@mayavi2.standalone
 def view():
     from enthought.mayavi.sources.vtk_data_source import VTKDataSource
     from enthought.mayavi.modules.outline import Outline
@@ -117,5 +113,6 @@ def view():
     g = GridPlane()
     g.grid_plane.axis = 'z'
     mayavi.add_module(g)
-    
-view()
+
+if __name__ == '__main__':
+    view()

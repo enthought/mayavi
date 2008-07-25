@@ -1,4 +1,4 @@
-#!/usr/bin/env mayavi2
+#!/usr/bin/env python
 """A simple script that polls a data file for changes and then updates
 the mayavi pipeline automatically.  This script is to be run like so:
 
@@ -17,17 +17,12 @@ edit.
 # Copyright (c) 2006-2007, Enthought Inc.
 # License: BSD Style.
 
-# The following *optional* two lines allow a user to call this script
-# as either `python script.py` or `mayavi2 script.py`.  These two
-# lines must be placed before any other mayavi imports.
-from enthought.mayavi.scripts import mayavi2
-mayavi2.standalone(globals())
-
 # Standard imports.
 import os
 from os.path import join, abspath
 
 # Enthought library imports
+from enthought.mayavi.scripts import mayavi2
 from enthought.mayavi.sources.vtk_file_reader import VTKFileReader
 from enthought.mayavi.modules.outline import Outline
 from enthought.mayavi.modules.contour_grid_plane import ContourGridPlane
@@ -99,8 +94,8 @@ def view_data():
     c.grid_plane.position = 16
     c.module_manager.scalar_lut_manager.show_scalar_bar = True
 
-
-if __name__ == '__main__':
+@mayavi2.standalone
+def main():
     # Change this to suit your needs.  Edit the file after running this
     # script and the pipeline should be updated automatically.
 
@@ -118,3 +113,7 @@ if __name__ == '__main__':
 
     # To stop polling the file do:
     #timer.Stop()
+
+if __name__ == '__main__':
+    main()
+

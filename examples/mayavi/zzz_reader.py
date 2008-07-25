@@ -1,5 +1,5 @@
-"""A simple example that shows how to create a reader factory and
-register that reader with mayavi.
+"""This is a simple example that shows how to create a reader factory
+and register that reader with mayavi.
 
 To use this:
 

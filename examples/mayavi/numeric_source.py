@@ -1,23 +1,18 @@
-#!/usr/bin/env mayavi2
+#!/usr/bin/env python
 
 """This script demonstrates how to create a numpy array data and
 visualize it as image data using a few modules.
 
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2005-2007, Enthought, Inc.
+# Copyright (c) 2005-2008, Enthought, Inc.
 # License: BSD Style.
-
-# The following *optional* two lines allow a user to call this script
-# as either `python script.py` or `mayavi2 script.py`.  These two
-# lines must be placed before any other mayavi imports.
-from enthought.mayavi.scripts import mayavi2
-mayavi2.standalone(globals())
 
 # Standard library imports
 import numpy
 
 # Enthought library imports
+from enthought.mayavi.scripts import mayavi2
 from enthought.mayavi.sources.array_source import ArraySource
 from enthought.mayavi.modules.outline import Outline
 from enthought.mayavi.modules.image_plane_widget import ImagePlaneWidget
@@ -48,6 +43,7 @@ def make_data(dims=(128, 128, 128)):
     return s
 
 
+@mayavi2.standalone
 def view_numpy():
     """Example showing how to view a 3D numpy array in mayavi2.
     """

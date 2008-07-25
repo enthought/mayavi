@@ -14,15 +14,10 @@ Copyright (c) 2007, Enthought, Inc.
 License: BSD style.
 """
 
-# The following *optional* two lines allow a user to call this script
-# as either `python script.py` or `mayavi2 script.py`.  These two
-# lines must be placed before any other mayavi imports.
-from enthought.mayavi.scripts import mayavi2
-mayavi2.standalone(globals())
-
 from numpy import arange, sqrt
 from scipy import special
 from enthought.tvtk.api import tvtk
+from enthought.mayavi.scripts import mayavi2
 
 # Generate the scalar values.
 x = (arange(50.0)-25)/2.0
@@ -46,6 +41,7 @@ spoints.point_data.scalars.name = 'scalar'
 #w.write()
 
 # Now view the data.
+@mayavi2.standalone
 def view():
     from enthought.mayavi.sources.vtk_data_source import VTKDataSource
     from enthought.mayavi.filters.warp_scalar import WarpScalar
@@ -60,4 +56,5 @@ def view():
     s = Surface()
     mayavi.add_module(s)
 
-view()
+if __name__ == '__main__':
+    view()

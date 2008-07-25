@@ -15,14 +15,9 @@ Copyright (c) 2007, Enthought, Inc.
 License: BSD style.
 """
 
-# The following *optional* two lines allow a user to call this script
-# as either `python script.py` or `mayavi2 script.py`.  These two
-# lines must be placed before any other mayavi imports.
-from enthought.mayavi.scripts import mayavi2
-mayavi2.standalone(globals())
-
 from numpy import array
 from enthought.tvtk.api import tvtk
+from enthought.mayavi.scripts import mayavi2
 
 # The numpy array data.
 points = array([[0,0,0], [1,0,0], [0,1,0], [0,0,1]], 'f')
@@ -39,6 +34,7 @@ mesh.point_data.scalars.name = 'Temperature'
 #w.write()
 
 # Now view the data.
+@mayavi2.standalone
 def view():
     from enthought.mayavi.sources.vtk_data_source import VTKDataSource
     from enthought.mayavi.modules.surface import Surface
@@ -49,4 +45,6 @@ def view():
     s = Surface()
     mayavi.add_module(s)
 
-view()
+if __name__ == '__main__':
+    view()
+

@@ -1,16 +1,11 @@
-#!/usr/bin/env mayavi2
+#!/usr/bin/env python
 """This script demonstrates how to create a numpy array data and
 visualize it as image data using a few modules.  It also shows how one
 can do a computation in another thread and update the mayavi pipeline.
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2007, Enthought, Inc.
+# Copyright (c) 2007-2008, Enthought, Inc.
 # License: BSD Style.
-
-import sys
-if 'mayavi' not in globals():
-    print "This script must be run as mayavi2 -x <script.py>"
-    sys.exit(1)
 
 # Standard library imports
 import numpy
@@ -18,6 +13,7 @@ from threading import Thread
 from time import sleep
 
 # Enthought library imports
+from enthought.mayavi.scripts import mayavi2
 from enthought.traits.api import HasTraits, Button, Instance
 from enthought.traits.ui.api import View, Item
 from enthought.mayavi.sources.array_source import ArraySource
@@ -75,6 +71,7 @@ class Controller(HasTraits):
         action.start()
 
 
+@mayavi2.standalone
 def view_numpy():
     """Example showing how to view a 3D numpy array in mayavi2.
     """

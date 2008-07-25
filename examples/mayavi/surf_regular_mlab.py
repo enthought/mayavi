@@ -1,4 +1,4 @@
-#!/usr/bin/env mayavi2
+#!/usr/bin/env python
 """Shows how to view data created by `enthought.tvtk.tools.mlab` with
 mayavi2.
 """
@@ -7,14 +7,9 @@ mayavi2.
 # Copyright (c) 2006-2007, Enthought Inc.
 # License: BSD Style.
 
-# The following *optional* two lines allow a user to call this script
-# as either `python script.py` or `mayavi2 script.py`.  These two
-# lines must be placed before any other mayavi imports.
-from enthought.mayavi.scripts import mayavi2
-mayavi2.standalone(globals())
-
 import numpy
 
+from enthought.mayavi.scripts import mayavi2
 from enthought.tvtk.tools import mlab
 from enthought.mayavi.sources.vtk_data_source import VTKDataSource
 from enthought.mayavi.filters.warp_scalar import WarpScalar
@@ -22,15 +17,15 @@ from enthought.mayavi.modules.outline import Outline
 from enthought.mayavi.modules.surface import Surface
 
 
-def f(x, y):
-    """Some test function.
-    """
-    return numpy.sin(x*y)/(x*y)
-
 def make_data():
     """Make some test numpy data and create a TVTK data object from it
     that we will visualize.
     """    
+    def f(x, y):
+        """Some test function.
+        """
+        return numpy.sin(x*y)/(x*y)
+
     x = numpy.arange(-7., 7.05, 0.1)
     y = numpy.arange(-5., 5.05, 0.05)
     s = mlab.SurfRegular(x, y, f)
@@ -53,9 +48,12 @@ def surf_regular():
     mayavi.add_module(o)
     mayavi.add_module(s)
 
-
-if __name__ == '__main__':
+@mayavi2.standalone
+def main():
     mayavi.new_scene()
     d = make_data()
     add_data(d)
     surf_regular()
+
+if __name__ == '__main__':
+    main()

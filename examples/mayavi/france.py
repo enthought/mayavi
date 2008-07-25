@@ -11,12 +11,6 @@ from numpy import loadtxt, sqrt, r_, c_, ones_like, empty_like, unique
 import urllib, zipfile, cStringIO, os
 from enthought.mayavi import mlab as M
 
-############################################################################
-# The following *optional* two lines allow a user to call this script
-# as either `python script.py` or `mayavi2 script.py`.  These two
-# lines must be placed before any other mayavi imports.
-from enthought.mayavi.scripts import mayavi2
-mayavi2.standalone(globals())
 
 ############################################################################
 # Get the data from the web
@@ -77,4 +71,4 @@ france_elevation = P.elevation_filter( P.quadric_decimation(
 
 france  = P.surface(france_elevation, colormap='gist_earth')
 M.view(0, 0)
-
+M.show()

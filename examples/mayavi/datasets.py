@@ -1,9 +1,9 @@
 """A MayaVi example to show the different data sets.
-  $ mayavi2 -x dataset.py
+  $ mayavi2 -x datasets.py
 
 Alternatively, it can be run as:
 
-  $ python dataset.py
+  $ python datasets.py
   
 Author: Gael Varoquaux <gael dot varoquaux at normalesup.org> 
 
@@ -11,16 +11,11 @@ Copyright (c) 2008, Enthought, Inc.
 License: BSD style.
 """
 
-# The following *optional* two lines allow a user to call this script
-# as either `python script.py` or `mayavi2 script.py`.  These two
-# lines must be placed before any other mayavi imports.
-#from enthought.mayavi.scripts import mayavi2
-#mayavi2.standalone(globals())
-
 from numpy import array, arange, random, linspace, pi, ravel, cos, sin, \
     empty, array 
 from enthought.tvtk.api import tvtk
 
+from enthought.mayavi.scripts import mayavi2
 from enthought.mayavi.sources.vtk_data_source import VTKDataSource
 from enthought.mayavi.sources.array_source import ArraySource
 from enthought.mayavi.modules.surface import Surface
@@ -153,11 +148,15 @@ def view(dataset):
     mlab.pipeline.surface(mlab.pipeline.extract_edges(src),
                             color=(0, 0, 0), )
 
-if __name__ == '__main__':
+
+@mayavi2.standalone
+def main():
     view(image_data())
     view(rectilinear_grid())
     view(structured_grid())
     view(unstructured_grid())
     view(polydata())
 
+if __name__ == '__main__':
+    main()
 

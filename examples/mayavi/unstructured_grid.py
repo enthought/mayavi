@@ -14,14 +14,9 @@ Copyright (c) 2007, Enthought, Inc.
 License: BSD style.
 """
 
-# The following *optional* two lines allow a user to call this script
-# as either `python script.py` or `mayavi2 script.py`.  These two
-# lines must be placed before any other mayavi imports.
-from enthought.mayavi.scripts import mayavi2
-mayavi2.standalone(globals())
-
 from numpy import array, arange, random
 from enthought.tvtk.api import tvtk
+from enthought.mayavi.scripts import mayavi2
 
 def single_type_ug():
     """Simple example showing how to create an unstructured grid
@@ -90,6 +85,7 @@ for ug in ug1, ug2:
 #save_xml(ug2, 'file.vtu')
 
 # Now view the data.
+@mayavi2.standalone
 def view():
     from enthought.mayavi.sources.vtk_data_source import VTKDataSource
     from enthought.mayavi.modules.outline import Outline
@@ -111,4 +107,5 @@ def view():
     mayavi.add_module(Surface())
     mayavi.add_module(Vectors())
 
-view()
+if __name__ == '__main__':
+    view()
