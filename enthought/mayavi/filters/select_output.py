@@ -88,4 +88,8 @@ class SelectOutput(Filter):
             self.output_index = self._min_index
         else:
             self._set_outputs([self.inputs[0].outputs[value]])
+            s = self.scene
+            if s is not None:
+                s.renderer.reset_camera_clipping_range()
+                s.render()
 
