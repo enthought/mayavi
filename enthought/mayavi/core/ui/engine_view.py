@@ -43,7 +43,10 @@ class EngineViewHandler(Handler):
     def _on_select(self, object):
         """ Called when a node in the tree editor is selected.
         """
-        self.info.object.engine._on_select(object)
+        if isinstance(object, AdderNode):
+            self._on_dclick(object)
+        else:
+            self.info.object.engine._on_select(object)
 
 
 ##############################################################################
@@ -119,7 +122,7 @@ class EngineView(HasTraits):
                           rename=False,
                           ),
                  ObjectTreeNode(node_for=[Base],
-                                children='children_ui_list',
+                                children='children',
                                 label='name',
                                 auto_open=True,
                                 copy=True,

@@ -23,7 +23,7 @@ from enthought.mayavi.core.base import Base
 from enthought.mayavi.core.scene import Scene
 from enthought.mayavi.core.common import error
 from enthought.mayavi.core.registry import registry
-from enthought.mayavi.core.adder_node import AdderNode, SceneAdderNode
+from enthought.mayavi.core.adder_node import AdderNode, EngineAdderNode
 from enthought.mayavi.preferences.api import preference_manager
 
 
@@ -493,7 +493,7 @@ class Engine(HasStrictTraits):
         """ Trait getter for children_ui_list Property.
         """
         if preference_manager.root.show_helper_nodes:
-            node = SceneAdderNode(label='Add a new scene', object=self)
+            node = EngineAdderNode(label='Add a new scene', engine=self)
             return [node] + self.scenes
         else:
             return self.scenes

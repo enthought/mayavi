@@ -10,7 +10,7 @@ to the tree.
 from textwrap import wrap
 
 from enthought.traits.api import (HasTraits, Str, Property, Any, Button,
-                                  List, Instance, Bool)
+                                  List, Instance, Bool, Dict)
 from enthought.traits.ui.api import View, Item, Group, ListEditor, \
         ButtonEditor, TextEditor, TableEditor
 from enthought.traits.ui.table_column import ObjectColumn
@@ -225,7 +225,7 @@ class SourceAdderNode(ListAdderNode):
     
     # A reference to the registry, to generate this list.
     items_list_source = [source for source in registry.sources
-                            if len(source.extensions) == 0]
+                         if len(source.extensions) == 0]
 
     # The string to display on the icon in the TreeEditor.
     label = 'Add Data Source'
@@ -237,14 +237,11 @@ class SourceAdderNode(ListAdderNode):
                             editor=ListEditor(style='custom')),
                       show_labels=False,
                       label='Add a data source'))
-
-
    
     def _open_file_fired(self):
         """ Trait handler for when the open_file button is clicked.
         """
         self.object.menu_helper.open_file_action()
-
 
     def _is_action_suitable(self, object, src):
         return True
@@ -301,5 +298,85 @@ class ModuleFilterAdderNode(AdderNode):
                 resizable=True,
                 scrollable=True,
                 )
+
+
+################################################################################
+# `EngineAdderNode` class.
+################################################################################ 
+class EngineAdderNode(AdderNode):
+    """This presents one unified adder node for the Engine as a whole.
+    """
+    
+    engine = Instance('enthought.mayavi.core.engine.Engine',
+                      allow_none=False)
+
+    label = 'Add a new Scene'
+
+    # The adder node currently used.
+    adder_node = Instance(AdderNode)
+
+    # Default adder nodes.
+    adders = Dict(Str, Instance(AdderNode))
+
+    view = View(Group(Item('adder_node', 
+                           style='custom',
+                           show_label=False),
+                      show_labels = False,
+                      ),
+                resizable=True,
+                scrollable=True
+                )
+
+    def _object_changed(self, obj):
+        from enthought.mayavi.core.scene import Scene
+        from enthought.mayavi.core.source import Source
+        from enthought.mayavi.core.module_manager import ModuleManager
+
+        adders = self.adders
+
+        if (isinstance(obj, self.__class__) or \
+            isinstance(obj, self.engine.__class__)):
+            self.adder_node = adders['scene']
+        elif isinstance(obj, Scene):
+            self.adder_node = adders['source']
+        elif (isinstance(obj, Source) or \
+              isinstance(obj, ModuleManager) or \
+              hasattr(obj, 'module_manager')):
+            self.adder_node = adders['module-filter']
+        else:
+            self.adder_node = adders['scene']
+
+        if obj is None:
+            self.adder_node.object = self.engine
+        else:
+            self.adder_node.object = obj
+
+    def _change_object(self, value):
+        self.object = value
+
+    def _engine_changed(self, old, new):
+        if old is not None:
+            old.on_trait_change(self._change_object,
+                                'current_selection',
+                                remove=True)
+        new.on_trait_change(self._change_object,
+                            'current_selection')
+        self.object = new.current_selection
+        if self.object is None:
+            self.adder_node.object = new
+
+    def _adders_default(self):
+        d = {'scene': SceneAdderNode(),
+             'source': SourceAdderNode(),
+             'module-filter': ModuleFilterAdderNode()
+             }
+        return d
+
+    def _adder_node_default(self):
+        return self.adders['scene']
+
+    def _adder_node_changed(self, new):
+        self.label = new.label
+
 
 ### EOF #######################################################################
