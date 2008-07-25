@@ -194,10 +194,9 @@ class Mayavi(HasTraits):
     ######################################################################
     @on_trait_change('application.gui:started')
     def _on_application_gui_started(self, obj, trait_name, old, new):
-
-        """This is called as soon as  the Envisage GUI starts
-        up.   The method is responsible for setting our script instance   """
-
+        """This is called as soon as  the Envisage GUI starts up.  The
+        method is responsible for setting our script instance.   
+        """
         if trait_name != 'started' or not new:
             return
         app = self.application
