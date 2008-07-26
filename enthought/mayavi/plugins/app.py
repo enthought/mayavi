@@ -52,11 +52,11 @@ def setup_logger(logger, fname, stream=True, mode=logging.ERROR):
     if stream:
         s = logging.StreamHandler()
         s.setFormatter(FORMATTER)
-        s.setLevel(mode)
         logger.addHandler(s)
     logger.info("*"*80)
     logger.info("logfile is: '%s'", os.path.abspath(path))
     logger.info("*"*80)
+    logger.setLevel(mode)
 
 
 def get_plugins():
