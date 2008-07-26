@@ -8,13 +8,16 @@
 # Enthought library imports.
 from enthought.traits.api import List, Str
 from enthought.persistence.state_pickler import set_state
+from enthought.traits.ui.menu import Action
+from enthought.tvtk.api import write_data
 
 # Local imports
 from enthought.mayavi.core.base import Base
 from enthought.mayavi.core.pipeline_base import PipelineBase
 from enthought.mayavi.core.module import Module
 from enthought.mayavi.core.module_manager import ModuleManager
-from enthought.mayavi.core.common import handle_children_state, exception
+from enthought.mayavi.core.common import handle_children_state, \
+                                         exception, error
 from enthought.mayavi.core.pipeline_info import PipelineInfo
 from enthought.mayavi.core.adder_node import ModuleFilterAdderNode
 from enthought.mayavi.preferences.api import preference_manager
@@ -83,6 +86,15 @@ class Source(PipelineBase):
             self.children.append(mm)
         mm.children.append(module)
 
+    def save_output(self, fname):
+        """Save our output (by default the first of our outputs) to the
+        specified filename as a VTK file.  Both old style and new style
+        XML files are supported.
+        """
+        if len(self.outputs) > 0:
+            write_data(self.outputs[0], fname)
+        else:
+            error('Object has no outputs to save!')
 
     ######################################################################
     # `Base` interface
@@ -218,3 +230,30 @@ class Source(PipelineBase):
     def _menu_helper_default(self):
         from enthought.mayavi.core.traits_menu import FilterMenuHelper
         return FilterMenuHelper(object=self)
+
+    def _extra_menu_items(self):
+        """Return a save output menu action."""
+        save_output = Action(name='Save output to file',
+                             action='object._save_output_action',
+                             enabled_when='len(object.outputs) > 0')
+        return [save_output]
+
+    def _save_output_action(self):
+        """Pops up a dialog box for the action to ask for a file."""
+        # FIXME: in a refactor this should all go in a separate view
+        # related object.
+        from enthought.pyface.api import FileDialog, OK
+        wildcard = 'All files (*.*)|*.*|'\
+                   'VTK XML files (*.xml)|*.xml|'\
+                   'Image Data (*.vti)|*.vti|'\
+                   'Poly Data (*.vtp)|*.vtp|'\
+                   'Rectilinear Grid (*.vtr)|*.vtr|'\
+                   'Structured Grid (*.vts)|*.vts|'\
+                   'Unstructured Grid (*.vtu)|*.vtu|'\
+                   'Old-style VTK files (*.vtk)|*.vtk'
+                   
+        dialog = FileDialog(title='Save output to file',
+                            action='save as', wildcard=wildcard
+                            )
+        if dialog.open() == OK:
+            self.save_output(dialog.path)

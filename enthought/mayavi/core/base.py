@@ -360,7 +360,7 @@ class Base(TreeNodeObject):
     def __menu_default(self):
         extras = []
         if self.menu_helper is not None:
-            extras = self.menu_helper.actions
+            extras = self.menu_helper.actions + self._extra_menu_items()
         menu_actions = [Separator()] + extras + \
                        [Separator(), self._HideShowAction, Separator()] + \
                        deepcopy(standard_menu_actions)
@@ -369,3 +369,7 @@ class Base(TreeNodeObject):
     def __icon_path_default(self):
         return resource_path()
 
+    def _extra_menu_items(self):
+        """Override this to generate any new menu actions you want on
+        the right click menu."""
+        return []
