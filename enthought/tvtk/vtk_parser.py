@@ -175,6 +175,12 @@ class VTKMethodParser:
         # Ignore the parent methods.
         ignore = self._get_parent_methods(klass)
         skip = ['GetInput', 'SetInput']
+        # Sometimes the child has only GetInput while the parent has
+        # SetInput.
+        if hasattr(klass, 'SetInput') and \
+            'SetInput' not in methods and \
+            'GetInput' in methods:
+            methods.append('SetInput')
         if 'GetViewProp' in methods and 'GetProp' in methods:
             ignore.extend(['GetProp', 'SetProp'])
         if 'GetViewProps' in methods and 'GetProps' in methods:

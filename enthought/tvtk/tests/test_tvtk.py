@@ -496,6 +496,9 @@ class TestTVTK(unittest.TestCase):
         # trait is made read-only which is a bug.  We set the input
         # below to test this.
         vm.input = None
+
+        spw = tvtk.StructuredPointsWriter()
+        spw.input = None
         
         
 # This separates out any tests for the entire module that would affect
