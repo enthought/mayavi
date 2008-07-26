@@ -296,6 +296,20 @@ class Base(TreeNodeObject):
         else:
             del self.children[index]
 
+    def tno_append_child(self, node, child):
+        """ Appends a child to the object's children.
+        """
+        self.children.append(child)
+
+    def tno_insert_child(self, node, index, child):
+        """ Inserts a child into the object's children.
+        """
+        if len(self.children_ui_list) > len(self.children):
+            idx = index -1
+        else:
+            idx = index
+        self.children[idx:idx] = [child]
+
     ######################################################################
     # Non-public interface
     ######################################################################
