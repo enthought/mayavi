@@ -18,6 +18,11 @@ import sys
 
 import vtk
 from vtk.util import vtkConstants
+try:
+    from vtk.util import numpy_support
+except ImportError:
+    numpy_support = None
+
 import numpy
 
 # Enthought library imports.
@@ -264,7 +269,9 @@ def vtk2array(vtk_array):
     Given a subclass of vtkDataArray, this function returns an
     appropriate numpy array containing the same data.  The function
     is very efficient since it uses the VTK imaging pipeline to
-    convert the data.
+    convert the data.  If a sufficiently new version of VTK (5.2) is
+    installed then it actually uses the buffer interface to return a
+    view of the VTK array in the returned numpy array.
 
     Parameters
     ----------
@@ -290,6 +297,15 @@ def vtk2array(vtk_array):
             shape = (shape[0], )
         arr = numpy.reshape(arr, shape)
         return arr
+
+    # If VTK's new numpy support is available, use the buffer interface.
+    if numpy_support is not None and typ != vtkConstants.VTK_BIT:
+        dtype = get_numeric_array_type(typ)
+        result = numpy.frombuffer(vtk_array, dtype=dtype)
+        if shape[1] == 1:
+            shape = (shape[0], )
+        result.shape = shape
+        return result
 
     # Setup an imaging pipeline to export the array.
     img_data = vtk.vtkImageData()
