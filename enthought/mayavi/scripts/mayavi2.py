@@ -470,6 +470,8 @@ def standalone(func):
     """
     def wrapper(*args, **kw):
         script = get_mayavi_script_instance()
+        if script is None and mayavi is not None:
+            script = mayavi.script
         if script is None:
             def caller(script):
                 """Callback that runs the function inside the mayavi
