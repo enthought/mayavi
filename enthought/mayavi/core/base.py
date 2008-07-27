@@ -10,6 +10,7 @@ import cPickle
 from copy import deepcopy
 import os
 import logging
+import imp
 
 # Enthought library imports.
 from enthought.traits.api import Instance, Property, Bool, Str, Python, \
@@ -20,6 +21,7 @@ from enthought.persistence import state_pickler
 from enthought.resource.api import resource_path
 from enthought.pyface.image_resource import ImageResource
 from enthought.traits.ui.menu import Menu, Action, Separator
+from enthought.traits.ui.api import View
 
 # Local imports.
 from enthought.mayavi.preferences.api import preference_manager
@@ -82,7 +84,7 @@ class Base(TreeNodeObject):
     visible = Bool(True, desc='if the object is visible')
 
     # Extend the children list with an AdderNode when a TreeEditor needs it.
-    children_ui_list = Property
+    children_ui_list = Property(depends_on=['children'])
 
     # The parent of this object, i.e. self is an element of the parents
     # children.  If there is no notion of a parent/child relationship
@@ -113,6 +115,15 @@ class Base(TreeNodeObject):
 
     # Path to the icon for this object.
     _icon_path = Str()
+
+    # Adder node: a dialog to add children to this object
+    _adder_node_class = None
+
+    # Name of the file that may host the hand-crafted view
+    _view_filename = Str
+
+    # Hand crafted view.
+    _module_view = Instance(View)
 
     # Work around problem with HasPrivateTraits.
     __ = Python
@@ -234,21 +245,24 @@ class Base(TreeNodeObject):
         if name:
             return super(Base, self).trait_view(name, view_element)
 
-        module = self.__module__.split('.')
-        class_filename = module[-1] + '.py'
-        module_dir_name = module[2:-1]
-        baseDir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        view_filename = reduce(os.path.join, 
-                               [baseDir] + module_dir_name \
-                               + UI_DIR_NAME + [class_filename])
+        #if self._module_view is not None:
+        #    view = self._module_view
+        #else:
+        #    logger.debug("No view found for [%s] in [%s]. "
+        #                 "Using the base class trait_view instead.", 
+        #                     self, self._view_filename)
+        #    view = super(Base, self).trait_view(name, view_element)
+
+        # Uncomment this when developping views.
         result = {}
+        view_filename = self._view_filename 
         try:
             execfile(view_filename, {}, result)
             view = result['view']
         except IOError:
             logger.debug("No view found for [%s] in [%s]. "
-                         "Using the base class trait_view instead.", 
-                         self, view_filename)
+                            "Using the base class trait_view instead.", 
+                            self, view_filename)
             view = super(Base, self).trait_view(name, view_element)
         return view
         
@@ -374,6 +388,33 @@ class Base(TreeNodeObject):
             else:
                 state_pickler.set_state(self, state)
             self._saved_state = ''
+
+
+    def __view_filename_default(self):
+        """ The name of the file that will host the view.
+        """
+        module = self.__module__.split('.')
+        class_filename = module[-1] + '.py'
+        module_dir_name = module[2:-1]
+        base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        view_filename = reduce(os.path.join, 
+                               [base_dir] + module_dir_name \
+                               + UI_DIR_NAME + [class_filename])
+        return view_filename
+
+
+    def __module_view_default(self):
+        """ Try to load a view for this object.
+        """
+        view_filename = self._view_filename
+        try:
+            result = imp.load_module('view', file(view_filename),
+                            view_filename, ('.py', 'U', 1))
+            view = result.view
+        except:
+            view = None
+        return view
+
 
     def __menu_default(self):
         extras = []
