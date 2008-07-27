@@ -2,7 +2,7 @@
 import setuptools
 from numpy.distutils.core import setup
 import os
-from pkg_resources import require, DistributionNotFound
+from pkg_resources import require, DistributionNotFound, VersionConflict
 import zipfile
 import shutil
 
@@ -131,7 +131,13 @@ def generate_docs(project):
 
         # Unzip the docs into the 'html' folder.
         unzip_html_docs(html_zip, doc_dir)
-  
+    
+    except VersionConflict:
+        log.error("The correct Sphinx version is not installed, so the documentation could not be generated.  Falling back to the zip file.")
+    
+        # Unzip the docs into the 'html' folder.
+        unzip_html_docs(html_zip, doc_dir)
+        
 def unzip_html_docs(src_path, dest_dir):
     """Given a path to a zipfile, extract
     its contents to a given 'dest_dir'.
