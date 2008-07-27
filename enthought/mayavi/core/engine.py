@@ -23,7 +23,7 @@ from enthought.mayavi.core.base import Base
 from enthought.mayavi.core.scene import Scene
 from enthought.mayavi.core.common import error
 from enthought.mayavi.core.registry import registry
-from enthought.mayavi.core.adder_node import AdderNode, EngineAdderNode
+from enthought.mayavi.core.adder_node import AdderNode, SceneAdderNode
 from enthought.mayavi.preferences.api import preference_manager
 
 
@@ -478,8 +478,6 @@ class Engine(HasStrictTraits):
         old = self._current_selection
         if not isinstance(object, (Base, AdderNode)):
             object = None
-        if isinstance(object, AdderNode):
-            self._adder_node.object = old
         self._current_selection = object
         self.trait_property_changed('current_selection', old, object)
 
@@ -495,10 +493,9 @@ class Engine(HasStrictTraits):
     def _get_children_ui_list(self):
         """ Trait getter for children_ui_list Property.
         """
-        if preference_manager.root.show_helper_nodes:
-            if self._adder_node is None:
-                self._adder_node = EngineAdderNode(label='Add a new scene', engine=self)
-            return [self._adder_node] + self.scenes
+        if preference_manager.root.show_helper_nodes \
+                    and len(self.scenes) == 0:
+            return [SceneAdderNode(object=self)]
         else:
             return self.scenes
 

@@ -139,6 +139,8 @@ class MenuHelper(HasTraits):
         engine = get_engine(obj)
         if engine is not None:
             engine.current_selection = obj
+        else:
+            print "No engine"
 
     def _build_source_actions(self):
         actions = []

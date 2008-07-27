@@ -329,7 +329,11 @@ class Base(TreeNodeObject):
         
         For the base class, do not add anything to the children list.
         """
-        return self.children 
+        if preference_manager.root.show_helper_nodes and \
+                len(self.children) > 0 or self._adder_node_class is None:
+            return self.children
+        else:
+                return [self._adder_node_class(object=self),]
 
     @on_trait_change('children[]')
     def _trigger_children_ui_list(self, old, new):

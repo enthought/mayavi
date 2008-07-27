@@ -9,7 +9,8 @@
 from os.path import join
 
 # Enthought library imports.
-from enthought.traits.api import Instance, HasTraits, Any, Delegate
+from enthought.traits.api import Instance, HasTraits, Any, Delegate, \
+        on_trait_change
 from enthought.traits.ui.api import (Group, Item, TreeEditor, TreeNode,
         ObjectTreeNode, View, Handler, UIInfo)
 from enthought.traits.ui.menu import ToolBar, Action, Separator
@@ -20,8 +21,9 @@ from enthought.pyface.image_resource import ImageResource
 from enthought.mayavi.core.engine import Engine
 from enthought.mayavi.core.base import Base
 from enthought.mayavi.core.pipeline_base import PipelineBase
-from enthought.mayavi.core.adder_node import AdderNode, \
-        SourceAdderNode, ModuleAdderNode, FilterAdderNode
+from enthought.mayavi.core.adder_node import ModuleFilterAdderNode, \
+        SourceAdderNode, ModuleAdderNode, FilterAdderNode, \
+        SceneAdderNode, AdderNode
 from enthought.mayavi.action.help import open_help_index
 
 class EngineViewHandler(Handler):
@@ -41,7 +43,10 @@ class EngineViewHandler(Handler):
     def _on_dclick(self, object):
         """ Called when a node in the tree editor is double-clicked.
         """
-        object.edit_traits(view=object.dialog_view(), 
+        if isinstance(object, SceneAdderNode):
+            self.info.object._perform_new_scene()
+        else:
+            object.edit_traits(view=object.dialog_view(), 
                            parent=self.info.ui.control )
 
     def _on_select(self, object):
@@ -49,6 +54,21 @@ class EngineViewHandler(Handler):
         """
         self.info.object.engine._on_select(object)
 
+
+class AdderTreeNode(TreeNode):
+    """ TreeNode for the adder nodes.
+    """
+
+    children=''
+    label='label'
+    auto_open=True
+    copy=False
+    delete_me=False
+    rename_me=False
+    tooltip='tooltip'
+    icon_path=resource_path()
+    icon_item='add.ico'
+ 
 
 ##############################################################################
 # EngineView class.
@@ -129,13 +149,13 @@ class EngineView(HasTraits):
         nodes = [TreeNode(node_for=[Engine],
                           children='children_ui_list',
                           label='=Mayavi',
-                          auto_open=False,
+                          auto_open=True,
                           copy=False,
                           delete=False,
                           rename=False,
                           ),
                  ObjectTreeNode(node_for=[Base],
-                                children='children',
+                                children='children_ui_list',
                                 label='name',
                                 auto_open=True,
                                 copy=True,
@@ -143,18 +163,15 @@ class EngineView(HasTraits):
                                 rename=True,
                                 tooltip='=Right click for more options',
                                 ),
-                 TreeNode(node_for=[AdderNode],
-                          children='',
-                          label='label',
-                          auto_open=True,
-                          copy=False,
-                          delete_me=False,
-                          rename_me=False,
-                          tooltip='tooltip',
-                          icon_path=resource_path(),
-                          icon_item='add.ico',
-                          ),
-                 
+                 AdderTreeNode(node_for=[SceneAdderNode],
+                               icon_item='add_scene.png',
+                               ),
+                 AdderTreeNode(node_for=[SourceAdderNode],
+                               icon_item='add_source.png',
+                               ),
+                 AdderTreeNode(node_for=[ModuleFilterAdderNode],
+                               icon_item='add_module.png',
+                               ),
                  ]
         return nodes
 
@@ -167,7 +184,7 @@ class EngineView(HasTraits):
                 tooltip="Create a new scene",
                 defined_when='True',
                 enabled_when='True',
-                perform=self.engine.new_scene,
+                perform=self._perform_new_scene,
             )
 
         add_source = \
@@ -186,10 +203,12 @@ class EngineView(HasTraits):
                                             search_path=self._image_path),
                 tooltip="Add a visualization module",
                 defined_when='True',
-                # isinstance doesn't work well in enabled_when
+                # isinstance doesn't work in enabled_when
                 enabled_when=\
-                    'current_selection is not None '
-                    'and hasattr(current_selection, "output_info")',
+                    'current_selection is not None and'
+                    '( hasattr(current_selection, "output_info")'
+                    'or current_selection.__class__.__name__ =='
+                    '"ModuleFilterAdderNode")',
                 perform=self._perform_add_module,
             )
 
@@ -200,8 +219,10 @@ class EngineView(HasTraits):
                 tooltip="Add a processing filter",
                 defined_when='True',
                 enabled_when=\
-                    'current_selection is not None '
-                    'and hasattr(current_selection, "output_info")',
+                    'current_selection is not None and'
+                    '( hasattr(current_selection, "output_info")'
+                    'or current_selection.__class__.__name__ =='
+                    '"ModuleFilterAdderNode")',
                 perform=self._perform_add_filter,
              )
 
@@ -232,18 +253,32 @@ class EngineView(HasTraits):
     # private interface.
     ###########################################################################
 
+    def _perform_new_scene(self):
+        self.engine.new_scene()
+        self.engine.current_selection = self.engine.current_scene
+
     def _perform_add_source(self):
         adder = SourceAdderNode(object=self.engine.current_scene)
         adder.edit_traits(view=adder.dialog_view())
 
 
     def _perform_add_module(self):
-        adder = ModuleAdderNode(object=self.engine.current_selection)
+        object = self.engine.current_selection
+        if isinstance(object, AdderNode):
+            object = object.object
+        adder = ModuleAdderNode(object=object)
         adder.edit_traits(view=adder.dialog_view())
 
 
     def _perform_add_filter(self):
-        adder = FilterAdderNode(object=self.engine.current_selection)
+        object = self.engine.current_selection
+        if isinstance(object, AdderNode):
+            object = object.object
+        adder = FilterAdderNode(object=object)
         adder.edit_traits(view=adder.dialog_view())
+
+    @on_trait_change('object.engine.current_object')
+    def update_selection(self):
+        print 'fired'
 
 ### EOF ######################################################################

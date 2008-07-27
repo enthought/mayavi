@@ -36,9 +36,6 @@ class AdderNode(HasTraits):
     # Duck-typing is necessary since Mayavi assumes nodes always have scenes.
     scene = Property
 
-    # Icon
-    _icon = ImageResource('add.ico')
-
     # Trait view to show in the Mayavi current object panel.
     view = View(Group(label='AdderNode'))   
 
@@ -70,9 +67,9 @@ class SceneAdderNode(AdderNode):
     """ Subclass for adding Scene nodes to a Mayavi Engine node.
     """
     
-    # Icon
-    _icon = ImageResource('add_scene.png')
-
+    # String to be shown in the TreeEditor.
+    label = Str('Add a new scene')
+    
     # Button for the View.
     add_scene = Button('Add a new scene', )  
     
@@ -134,7 +131,7 @@ class DocumentedItem(HasTraits):
             one of the sub objects in the list.
         """
         action = getattr(self.object.menu_helper, self.id)
-        action(select=False)
+        action()
 
 
 ###############################################################################
@@ -226,9 +223,6 @@ class SourceAdderNode(ListAdderNode):
     """ Tree node that presents a view to the user to add a scene source.
     """
 
-    # Icon
-    _icon = ImageResource('add_source.png')
-    
     # Button for adding a data file, with automatic format checking.
     open_file = Button('Load data from file')        
     
@@ -264,7 +258,6 @@ class ModuleAdderNode(ListAdderNode):
     # A reference to the registry, to generate this list.
     items_list_source = registry.modules
 
-
     def _object_changed(self, value):
         if value is not None:
             value.menu_helper._build_filter_actions()
@@ -285,9 +278,6 @@ class ModuleFilterAdderNode(AdderNode):
         modules.
     """
     
-    # Icon
-    _icon = ImageResource('add_source.png')
-
     # The string to display on the icon in the TreeEditor.
     label = 'Add module or filter'
 
@@ -310,89 +300,6 @@ class ModuleFilterAdderNode(AdderNode):
                 resizable=True,
                 scrollable=True,
                 )
-
-
-################################################################################
-# `EngineAdderNode` class.
-################################################################################ 
-class EngineAdderNode(AdderNode):
-    """This presents one unified adder node for the Engine as a whole.
-    """
-    
-    engine = Instance('enthought.mayavi.core.engine.Engine',
-                      allow_none=False)
-
-    label = 'Add a new Scene'
-
-    # The adder node currently used.
-    adder_node = Instance(AdderNode)
-
-    # Default adder nodes.
-    adders = Dict(Str, Instance(AdderNode))
-
-    view = View(Group(Item('adder_node', 
-                           style='custom',
-                           show_label=False),
-                      show_labels = False,
-                      ),
-                resizable=True,
-                scrollable=True
-                )
-
-    def _object_changed(self, old, new):
-        from enthought.mayavi.core.scene import Scene
-        from enthought.mayavi.core.source import Source
-        from enthought.mayavi.core.module_manager import ModuleManager
-
-        adders = self.adders
-
-        if new is self:
-            obj = old
-        else:
-            obj = new
-
-        if isinstance(obj, self.engine.__class__):
-            self.adder_node = adders['scene']
-        elif isinstance(obj, Scene):
-            self.adder_node = adders['source']
-        elif (isinstance(obj, Source) or \
-              isinstance(obj, ModuleManager) or \
-              hasattr(obj, 'module_manager')):
-            self.adder_node = adders['module-filter']
-        else:
-            self.adder_node = adders['scene']
-
-        if obj is None:
-            self.adder_node.object = self.engine
-        else:
-            self.adder_node.object = obj
-
-    def _change_object(self, value):
-        self.object = value
-
-    def _engine_changed(self, old, new):
-        if old is not None:
-            old.on_trait_change(self._change_object,
-                                'current_selection',
-                                remove=True)
-        new.on_trait_change(self._change_object,
-                            'current_selection')
-        self.object = new.current_selection
-        if self.object is None:
-            self.adder_node.object = new
-
-    def _adders_default(self):
-        d = {'scene': SceneAdderNode(),
-             'source': SourceAdderNode(),
-             'module-filter': ModuleFilterAdderNode()
-             }
-        return d
-
-    def _adder_node_default(self):
-        return self.adders['scene']
-
-    def _adder_node_changed(self, new):
-        self.label = new.label
 
 
 ### EOF #######################################################################

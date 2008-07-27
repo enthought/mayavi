@@ -41,6 +41,8 @@ class Scene(Base):
                            show_labels=False) 
                )
 
+    # The adder node dialog class
+    _adder_node_class = SourceAdderNode
 
     ######################################################################
     # `object` interface
@@ -149,15 +151,6 @@ class Scene(Base):
     def _children_items_changed(self, list_event):
         self._handle_children(list_event.removed, list_event.added)            
     
-    def _get_children_ui_list(self):
-        """ Trait getter for scenes_ui Property.
-        """
-        if preference_manager.root.show_helper_nodes:
-            node = SourceAdderNode(object=self)
-            return [node] + self.children
-        else:
-            return self.children
-
     def _handle_children(self, removed, added):
         for obj in removed:
             obj.stop()

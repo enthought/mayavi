@@ -54,6 +54,9 @@ class Source(PipelineBase):
     # Information about what this object can produce.
     output_info = PipelineInfo(datasets=['any'])
 
+    # The adder node dialog class
+    _adder_node_class = ModuleFilterAdderNode
+
     ######################################################################
     # `object` interface
     ######################################################################
@@ -206,15 +209,6 @@ class Source(PipelineBase):
                     obj.start()
                 except:
                     exception()
-
-    def _get_children_ui_list(self):
-        """ Trait getter for scenes_ui Property.
-        """
-        if preference_manager.root.show_helper_nodes:
-            node = ModuleFilterAdderNode(object=self)
-            return [node] + self.children
-        else:
-            return self.children
 
     def _scene_changed(self, old, new):
         super(Source, self)._scene_changed(old, new)
