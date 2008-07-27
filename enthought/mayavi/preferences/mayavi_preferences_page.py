@@ -48,11 +48,17 @@ class MayaviRootPreferencesPage(PreferencesPage):
     show_helper_nodes = Bool(desc='if the helper (adder) nodes are shown'
                              ' on the tree view')
 
+    # Specifies if the adder nodes are shown on the mayavi tree view.
+    open_help_in_light_browser = Bool(
+                    desc='if the help pages are opened in a chromeless'
+                             'browser window (only works with Firefox')
+
     #### Traits UI views ######################################################
 
     traits_view = View(Group(Item(name='confirm_delete'),
                              Item(name='show_splash_screen'),
                              Item(name='show_helper_nodes'),
+                             Item(name='open_help_in_light_browser'),
                             )
                        )
 

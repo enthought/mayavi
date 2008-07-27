@@ -18,6 +18,7 @@ from enthought.traits.ui.api import auto_close_message
 # Local imports
 import enthought.mayavi.api
 from enthought.mayavi.core.common import error
+from enthought.mayavi.preferences.api import preference_manager
 
 # To find the html documentation directory, first look under the
 # standard place.  If that directory doesn't exist, assume you
@@ -29,14 +30,14 @@ if not path.exists(HTML_DIR):
     if not path.exists(HTML_DIR):
         HTML_DIR = None
 
-if webbrowser._iscommand('firefox'):
-    # Firefox is installed, let's use it, we know how to make it
-    # chromeless.
-    def browser_open(url):
-       firefox = webbrowser.get('firefox')
-       firefox._invoke(['-chrome', url], remote=False, autoraise=True)
-else:
-    def browser_open(url):
+def browser_open(url):
+    if webbrowser._iscommand('firefox') and \
+                    preference_manager.root.open_help_in_light_browser:
+        # Firefox is installed, let's use it, we know how to make it
+        # chromeless.
+        firefox = webbrowser.get('firefox')
+        firefox._invoke(['-chrome', url], remote=False, autoraise=True)
+    else:
         webbrowser.open(url, new=1, autoraise=1)
 
 
