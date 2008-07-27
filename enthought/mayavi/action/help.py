@@ -29,14 +29,23 @@ if not path.exists(HTML_DIR):
     if not path.exists(HTML_DIR):
         HTML_DIR = None
 
+if webbrowser._iscommand('firefox'):
+    # Firefox is installed, let's use it, we know how to make it
+    # chromeless.
+    def browser_open(url):
+       firefox = webbrowser.get('firefox')
+       firefox._invoke(['-chrome', url], remote=False, autoraise=True)
+else:
+    def browser_open(url):
+        webbrowser.open(url, new=1, autoraise=1)
+
 
 def open_help_index():
     # If the HTML_DIR was found, bring up the documentation in a
     # web browser.  Otherwise, bring up an error message.
     if HTML_DIR:
         auto_close_message("Opening help in web browser...")
-        webbrowser.open(join(HTML_DIR, 'index.html'),
-                        new=1, autoraise=1)
+        browser_open(join(HTML_DIR, 'index.html'))
     else:
         error("Could not find the user guide in your installation " \
             "or the source tree.")
