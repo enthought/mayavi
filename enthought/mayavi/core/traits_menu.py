@@ -11,7 +11,7 @@ from os.path import splitext, isfile
 # Enthought library imports.
 from enthought.traits.api import HasTraits, Any, List
 from enthought.traits.ui.menu import Action, Menu
-from enthought.pyface.api import FileDialog, OK
+from enthought.pyface.api import FileDialog, OK, GUI
 
 # Local imports.
 from enthought.mayavi.core.registry import registry
@@ -138,6 +138,8 @@ class MenuHelper(HasTraits):
         engine."""
         engine = get_engine(obj)
         if engine is not None:
+            # This is required when running mayavi in envisage.
+            GUI.process_events()
             engine.current_selection = obj
         else:
             print "No engine"
