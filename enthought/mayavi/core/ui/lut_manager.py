@@ -33,6 +33,9 @@ view = View(Group(Item(name='lut_mode',
                   Group(Item(name='show_scalar_bar'),
                       Group(   
                           Item(name='number_of_labels'),
+                          enabled_when='show_scalar_bar==True',
+                      ),
+                      Group(   
                           Item(name='shadow'),
                           Item(name='use_default_name'),
                           Item(name='data_name',
