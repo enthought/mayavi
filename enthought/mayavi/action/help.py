@@ -29,6 +29,18 @@ if not path.exists(HTML_DIR):
     if not path.exists(HTML_DIR):
         HTML_DIR = None
 
+
+def open_help_index():
+    # If the HTML_DIR was found, bring up the documentation in a
+    # web browser.  Otherwise, bring up an error message.
+    if HTML_DIR:
+        auto_close_message("Opening help in web browser...")
+        webbrowser.open(join(HTML_DIR, 'index.html'),
+                        new=1, autoraise=1)
+    else:
+        error("Could not find the user guide in your installation " \
+            "or the source tree.")
+
 ######################################################################
 # `HelpIndex` class.
 ######################################################################
@@ -45,13 +57,5 @@ class HelpIndex(Action):
 
     def perform(self, event):
         """ Performs the action. """
+        open_help_index()
 
-        # If the HTML_DIR was found, bring up the documentation in a
-        # web browser.  Otherwise, bring up an error message.
-        if HTML_DIR:
-            auto_close_message("Opening help in web browser...")
-            webbrowser.open(join(HTML_DIR, 'index.html'),
-                            new=1, autoraise=1)
-        else:
-            error("Could not find the user guide in your installation " \
-                "or the source tree.")

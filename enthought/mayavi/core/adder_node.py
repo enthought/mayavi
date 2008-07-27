@@ -48,7 +48,7 @@ class AdderNode(HasTraits):
         view = self.trait_view()    
         view.buttons = ['OK', ]
         view.title = self.label
-        view.icon = self._icon
+        view.icon = ImageResource('add.ico')
         view.resizable = True
         view.width = 350
         view.height = 650
@@ -70,6 +70,9 @@ class SceneAdderNode(AdderNode):
     """ Subclass for adding Scene nodes to a Mayavi Engine node.
     """
     
+    # Icon
+    _icon = ImageResource('add_scene.png')
+
     # Button for the View.
     add_scene = Button('Add a new scene', )  
     
@@ -222,6 +225,9 @@ class Mutable:
 class SourceAdderNode(ListAdderNode):
     """ Tree node that presents a view to the user to add a scene source.
     """
+
+    # Icon
+    _icon = ImageResource('add_source.png')
     
     # Button for adding a data file, with automatic format checking.
     open_file = Button('Load data from file')        
@@ -278,6 +284,9 @@ class ModuleFilterAdderNode(AdderNode):
     """ Tree node that presents a view to the user to add filter and
         modules.
     """
+    
+    # Icon
+    _icon = ImageResource('add_source.png')
 
     # The string to display on the icon in the TreeEditor.
     label = 'Add module or filter'
