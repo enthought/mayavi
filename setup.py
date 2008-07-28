@@ -2,7 +2,7 @@
 import setuptools
 from numpy.distutils.core import setup
 import os
-from pkg_resources import require, DistributionNotFound, VersionConflict
+from pkg_resources import DistributionNotFound, parse_version, require, VersionConflict
 import zipfile
 import shutil
 
@@ -92,13 +92,29 @@ def generate_docs(project):
     # doesn't already exist.
     if not os.path.exists(dest_dir):
         os.makedirs(dest_dir)
-
+    
+    required_sphinx_version = "0.4.1"
+    sphinx_installed = False
     try:
-        require("Sphinx>=0.4.1")
-            
-        log.info("Auto-generating %s documentation..." % project)
+        require("Sphinx>=%s" % required_sphinx_version)
+        sphinx_installed = True
+    except (DistributionNotFound, VersionConflict):
+        log.warn('Sphinx install of version %s could not be verified.'
+                    ' Trying simple import...' % required_sphinx_version)
+        try:
+            import sphinx
+            if parse_version(sphinx.__version__) < parse_version(required_sphinx_version):
+                log.error("Sphinx version must be >=%s." % required_sphinx_version)
+            else:
+                sphinx_installed = True
+        except ImportError:
+            log.error("Sphnix install not found.")# Installing docs from zip files.")
+    
+    if sphinx_installed:             
+        log.info("Generating %s documentation..." % project)
         docsrc = source_dir
         target = dest_dir
+        
         try:
             build = HtmlBuild()
             build.start({
@@ -121,21 +137,14 @@ def generate_docs(project):
             shutil.move(html_dir, project_dir)
             
         except:
-            log.error("The documentation generation failed.  Falling back to the zip file.")
+            log.error("The documentation generation failed.  Falling back to "
+                      "the zip file.")
             
             # Unzip the docs into the 'html' folder.
             unzip_html_docs(html_zip, doc_dir)
-
-    except DistributionNotFound:
-        log.error("Sphinx is not installed, so the documentation could not be generated.  Falling back to the zip file.")
-
+    else:
         # Unzip the docs into the 'html' folder.
-        unzip_html_docs(html_zip, doc_dir)
-    
-    except VersionConflict:
-        log.error("The correct Sphinx version is not installed, so the documentation could not be generated.  Falling back to the zip file.")
-    
-        # Unzip the docs into the 'html' folder.
+        log.info("Installing %s documentaion from zip file.\n" % project)
         unzip_html_docs(html_zip, doc_dir)
         
 def unzip_html_docs(src_path, dest_dir):
