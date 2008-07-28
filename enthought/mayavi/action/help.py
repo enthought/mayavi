@@ -26,7 +26,7 @@ from enthought.mayavi.preferences.api import preference_manager
 local_dir = dirname(enthought.mayavi.api.__file__)
 HTML_DIR = join(local_dir, 'html')
 if not path.exists(HTML_DIR):
-    HTML_DIR = join(dirname(dirname(local_dir)), 'build', 'docs', 'html')
+    HTML_DIR = join(dirname(dirname(local_dir)), 'docs', 'html', 'mayavi')
     if not path.exists(HTML_DIR):
         HTML_DIR = None
 
