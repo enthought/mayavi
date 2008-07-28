@@ -92,6 +92,19 @@ class Registry(HasTraits):
         return result
 
 
+    def find_scene_engine(self, scene):
+        """ Find the engine corresponding to a given tvtk scene.
+        """
+        for engine in self.engines.values():
+            if scene in [s.scene for s in engine.scenes]:
+                return engine
+        else:
+            raise TypeError, "Scene not attached to a mayavi engine."
+
+
+ 
+
+
 # The global registry instance.
 registry = Registry()
 

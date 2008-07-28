@@ -25,6 +25,7 @@ from enthought.mayavi.core.common import error
 from enthought.mayavi.core.registry import registry
 from enthought.mayavi.core.adder_node import AdderNode, SceneAdderNode
 from enthought.mayavi.preferences.api import preference_manager
+from enthought.mayavi.core.ui.mlab_scene import viewer_factory
 
 
 ######################################################################
@@ -81,7 +82,7 @@ class Engine(HasStrictTraits):
     # user specified scene with the Engine and have the ability to
     # load saved visualizations using the new scene.  Handy for things
     # like off-screen rendering.
-    scene_factory = Callable
+    scene_factory = Callable(viewer_factory)
    
     # Are we running?
     running = Bool(False)
@@ -363,15 +364,7 @@ class Engine(HasStrictTraits):
         """
         if viewer is None:
             from enthought.pyface.api import GUI
-            if self.scene_factory is None:
-                from enthought.tvtk.tools.ivtk import IVTK
-                viewer = IVTK(size=(400, 350))
-                if True:
-                    # FIXME: Need preferences here
-                    viewer.menu_bar_manager = None
-                viewer.open()
-            else:
-                viewer = self.scene_factory()
+            viewer = self.scene_factory()
             GUI.process_events()
             
         # Hang on to a reference to this viewer, if not done this will cause a

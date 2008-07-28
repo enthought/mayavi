@@ -17,8 +17,6 @@ from enthought.pyface.action.api import Action
 from enthought.resource.api import resource_path
 
 # Local imports
-from enthought.mayavi.core.ui.engine_view import EngineView
-from enthought.mayavi.tools.engine_manager import engine_manager
 from enthought.mayavi.core.common import error
 
 ###############################################################################
@@ -37,8 +35,10 @@ class MlabScene(DecoratedScene):
         """ Open the engine view corresponding to the engine of the
             scene.
         """
+        from enthought.mayavi.core.registry import registry
+        from enthought.mayavi.core.ui.engine_view import EngineView
         try:
-            engine = engine_manager.find_scene_engine(self)
+            engine = registry.find_scene_engine(self)
             return EngineView(engine=engine).edit_traits()
         except TypeError:
             error('This scene is not managed by Mayavi')

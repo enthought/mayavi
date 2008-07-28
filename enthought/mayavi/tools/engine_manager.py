@@ -68,9 +68,7 @@ class EngineManager(HasTraits):
             GUI.process_events()
             engine = m.script.engine
         else:
-            from enthought.mayavi.tools.mlab_scene import viewer_factory
             engine = Engine(name='Mlab Engine')
-            engine.scene_factory = viewer_factory
             engine.start()
         self.current_engine = engine
         return engine
@@ -84,16 +82,6 @@ class EngineManager(HasTraits):
                 return engine
         else:
             raise TypeError, "Figure not attached to a mayavi engine."
-
-
-    def find_scene_engine(self, scene):
-        """ Find the engine corresponding to a given tvtk scene.
-        """
-        for engine in registry.engines.values():
-            if scene in [s.scene for s in engine.scenes]:
-                return engine
-        else:
-            raise TypeError, "Scene not attached to a mayavi engine."
 
 
     def show_engine(self, engine=None):
