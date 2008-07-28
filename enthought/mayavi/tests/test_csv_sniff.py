@@ -7,9 +7,11 @@ Tests for the CSV file sniffer
 import glob
 import os
 import os.path
+import sys
 import unittest
 from test.test_support import TESTFN, TestFailed
 
+import nose
 from numpy import array, ndarray
 
 from enthought.mayavi.tools.wizards.csv_sniff import \
@@ -137,7 +139,7 @@ class Test_csv_py_files(unittest.TestCase, Util):
     """
         These tests require files in csv_files/
     """
-    def check(self, name):
+    def check(self, name, skip_if_win=False):
         """
             Check if the output array from csv_files/<name>.csv
             (which is of unkown format)
@@ -147,6 +149,10 @@ class Test_csv_py_files(unittest.TestCase, Util):
                        os.path.join('enthought', 'mayavi', 'tests',
                                     'csv_files', name + '.csv'),
                        TESTFN)
+        
+        if skip_if_win and sys.platform.startswith('win'):
+            raise nose.SkipTest
+        
         s = Sniff(TESTFN)
 
         
@@ -157,7 +163,6 @@ class Test_csv_py_files(unittest.TestCase, Util):
         nan = float('nan') # must be in namespace for some .py files
         d = eval(f_py.read())
         
-        # compare
         self.assertEqual(d['kwds'], s.kwds())
         self.assertNamedClose(d['array'], s.loadtxt())
 
@@ -186,7 +191,9 @@ class Test_csv_py_files(unittest.TestCase, Util):
         self.check('colors')
         
     def test_example1(self):
-        self.check('example1')
+        # this test need to be skipped on Windows because the data file
+        # has some floats nan, and float('nan') fails on on Windows.
+        self.check('example1', skip_if_win=True)
         
     def test_hp11c(self):
         self.check('hp11c')
