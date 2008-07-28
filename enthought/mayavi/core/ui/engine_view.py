@@ -149,7 +149,7 @@ class EngineView(HasTraits):
         nodes = [TreeNode(node_for=[Engine],
                           children='children_ui_list',
                           label='=Mayavi',
-                          auto_open=True,
+                          auto_open=False,
                           copy=False,
                           delete=False,
                           rename=False,
