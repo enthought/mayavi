@@ -37,7 +37,7 @@ def configuration(parent_package='enthought',top_path=None):
 
     tvtk_classes_zip_depends = config.paths(
         'code_gen.py','wrapper_gen.py', 'special_gen.py',
-        'tvtk_base.py', 'indenter.py')
+        'tvtk_base.py', 'indenter.py', 'vtk_parser.py')
     from code_gen import TVTKGenerator
     def gen_tvtk_classes_zip(build_dir):
         import os, sys
