@@ -245,25 +245,9 @@ class Base(TreeNodeObject):
         if name:
             return super(Base, self).trait_view(name, view_element)
 
-        #if self._module_view is not None:
-        #    view = self._module_view
-        #else:
-        #    logger.debug("No view found for [%s] in [%s]. "
-        #                 "Using the base class trait_view instead.", 
-        #                     self, self._view_filename)
-        #    view = super(Base, self).trait_view(name, view_element)
-
+        view = self._load_view_cached(name, view_element)
         # Uncomment this when developping views.
-        result = {}
-        view_filename = self._view_filename 
-        try:
-            execfile(view_filename, {}, result)
-            view = result['view']
-        except IOError:
-            logger.debug("No view found for [%s] in [%s]. "
-                            "Using the base class trait_view instead.", 
-                            self, view_filename)
-            view = super(Base, self).trait_view(name, view_element)
+        #view = self._load_view_non_cached(name, view_element)
         return view
         
     ######################################################################
@@ -370,6 +354,34 @@ class Base(TreeNodeObject):
             n = self.name
             if ' [Hidden]' not in n:
                 self.name = "%s [Hidden]" % n
+
+    def _load_view_cached(self, name, view_element):
+        """ Use a cached view for the object, for faster refresh.
+        """
+        if self._module_view is not None:
+            view = self._module_view
+        else:
+            logger.debug("No view found for [%s] in [%s]. "
+                         "Using the base class trait_view instead.", 
+                             self, self._view_filename)
+            view = super(Base, self).trait_view(name, view_element)
+        return view
+
+    def _load_view_non_cached(self, name, view_element):
+        """ Loads the view by execing a file. Useful when tweaking
+            views.
+        """
+        result = {}
+        view_filename = self._view_filename 
+        try:
+            execfile(view_filename, {}, result)
+            view = result['view']
+        except IOError:
+            logger.debug("No view found for [%s] in [%s]. "
+                            "Using the base class trait_view instead.", 
+                            self, view_filename)
+            view = super(Base, self).trait_view(name, view_element)
+        return view
 
     def _hideshow(self):
         if self.visible:
