@@ -18,8 +18,8 @@ from enthought.mayavi.core.registry import registry
 import tools
 from engine_manager import engine_manager
 
-__all__ = [ 'vectorscatter', 'vectorfield', 'scalarscatter', 'scalarfield',
-    'linesource', 'array2dsource', 'gridsource', 'open'
+__all__ = [ 'vector_scatter', 'vector_field', 'scalar_scatter',
+    'scalar_field', 'line_source', 'array2d_source', 'grid_source', 'open'
 ]
 
 def _make_glyph_data(points, vectors=None, scalars=None):
@@ -119,14 +119,14 @@ def process_regular_2d_scalars(*args, **kwargs):
 # Sources 
 ############################################################################
 
-def vectorscatter(*args, **kwargs):
+def vector_scatter(*args, **kwargs):
     """ Creates scattered vector data. 
     
     **Function signatures**::
 
-        vectorscatter(u, v, w, ...)
-        vectorscatter(x, y, z, u, v, w, ...)
-        vectorscatter(x, y, z, f, ...)
+        vector_scatter(u, v, w, ...)
+        vector_scatter(x, y, z, u, v, w, ...)
+        vector_scatter(x, y, z, f, ...)
 
     If only 3 arrays u, v, w are passed the x, y and z arrays are assumed to be
     made from the indices of vectors.
@@ -153,14 +153,14 @@ def vectorscatter(*args, **kwargs):
     return tools._add_data(data_source, name, figure=figure)
 
 
-def vectorfield(*args, **kwargs):
+def vector_field(*args, **kwargs):
     """ Creates vector field data. 
     
     **Function signatures**::
 
-        vectorsfield(u, v, w, ...)
-        vectorsfield(x, y, z, u, v, w, ...)
-        vectorsfield(x, y, z, f, ...)
+        vector_field(u, v, w, ...)
+        vector_field(x, y, z, u, v, w, ...)
+        vector_field(x, y, z, f, ...)
 
     If only 3 arrays u, v, w are passed the x, y and z arrays are assumed to be
     made from the indices of vectors.
@@ -206,16 +206,16 @@ def vectorfield(*args, **kwargs):
     return tools._add_data(data_source, name, figure=figure)
 
 
-def scalarscatter(*args, **kwargs):
+def scalar_scatter(*args, **kwargs):
     """
     Creates scattered scalar data. 
     
     **Function signatures**::
 
-        scalarscatter(s, ...)
-        scalarscatter(x, y, z, s, ...)
-        scalarscatter(x, y, z, s, ...)
-        scalarscatter(x, y, z, f, ...)
+        scalar_scatter(s, ...)
+        scalar_scatter(x, y, z, s, ...)
+        scalar_scatter(x, y, z, s, ...)
+        scalar_scatter(x, y, z, f, ...)
 
     If only 1 array s is passed the x, y and z arrays are assumed to be
     made from the indices of vectors.
@@ -242,15 +242,15 @@ def scalarscatter(*args, **kwargs):
     return tools._add_data(data_source, name, figure=figure)
 
 
-def scalarfield(*args, **kwargs):
+def scalar_field(*args, **kwargs):
     """
     Creates a scalar field data.
                       
     **Function signatures**::
     
-        scalarfield(s, ...)
-        scalarfield(x, y, z, s, ...)
-        scalarfield(x, y, z, f, ...)
+        scalar_field(s, ...)
+        scalar_field(x, y, z, s, ...)
+        scalar_field(x, y, z, f, ...)
 
     If only 1 array s is passed the x, y and z arrays are assumed to be
     made from the indices of arrays.
@@ -283,15 +283,15 @@ def scalarfield(*args, **kwargs):
     return tools._add_data(data_source, name, figure=figure)
 
 
-def linesource(*args, **kwargs):
+def line_source(*args, **kwargs):
     """
     Creates line data.
     
     **Function signatures**::
     
-        linesource(x, y, z, ...)
-        linesource(x, y, z, s, ...)
-        linesource(x, y, z, f, ...)
+        line_source(x, y, z, ...)
+        line_source(x, y, z, s, ...)
+        line_source(x, y, z, f, ...)
 
         If 4 positional arguments are passed the last one must be an array s, or
         a callable, f, that returns an array. 
@@ -322,15 +322,15 @@ def linesource(*args, **kwargs):
     return tools._add_data(data_source, name, figure=figure)
 
 
-def array2dsource(*args, **kwargs):
+def array2d_source(*args, **kwargs):
     """
     Creates structured 2D data from a 2D array.
     
     **Function signatures**::
 
-        array2dsource(s, ...)
-        array2dsource(x, y, s, ...)
-        array2dsource(x, y, f, ...)
+        array2d_source(s, ...)
+        array2d_source(x, y, s, ...)
+        array2d_source(x, y, f, ...)
 
     If 3 positional arguments are passed the last one must be an array s,
     or a callable, f, that returns an array. x and y give the
@@ -383,7 +383,7 @@ def array2dsource(*args, **kwargs):
     return tools._add_data(data_source, name, figure=figure)
 
 
-def gridsource(x, y, z, **kwargs):
+def grid_source(x, y, z, **kwargs):
     """
     Creates 2D grid data.
 

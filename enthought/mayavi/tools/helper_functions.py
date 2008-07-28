@@ -15,8 +15,8 @@ both for testing and to ilustrate its use.
 
 from modules import VectorsFactory, StreamlineFactory, GlyphFactory, \
             IsoSurfaceFactory, SurfaceFactory, ContourSurfaceFactory
-from sources import vectorscatter, vectorfield, scalarscatter, \
-            scalarfield, linesource, array2dsource, gridsource
+from sources import vector_scatter, vector_field, scalar_scatter, \
+            scalar_field, line_source, array2d_source, grid_source
 from filters import ExtractVectorNormFactory, WarpScalarFactory, \
             TubeFactory, ExtractEdgesFactory
 from auto_doc import traits_doc, dedent
@@ -125,7 +125,7 @@ quiver3d = Pipeline(
     
     If 4 positional arguments are passed the last one must be a callable, f, 
     that returns vectors. """,
-            _source_function=vectorscatter,
+            _source_function=vector_scatter,
             _pipeline=[VectorsFactory, ] 
         )
 quiver3d = document_pipeline(quiver3d)
@@ -193,7 +193,7 @@ class Flow(Pipeline):
 
     scalars = Array(help="""optional scalar data.""")
 
-    _source_function = Callable(vectorfield)
+    _source_function = Callable(vector_field)
 
     _pipeline = [ExtractVectorNormFactory, StreamlineFactory, ] 
 
@@ -276,7 +276,7 @@ class Points3d(Pipeline):
     If 4 positional arguments are passed the last one can be an array s
     or a callable f that gives the size and color of the glyph."""
 
-    _source_function = Callable(scalarscatter)
+    _source_function = Callable(scalar_scatter)
 
     _pipeline = [GlyphFactory, ]
 
@@ -331,7 +331,7 @@ class Contour3d(Pipeline):
         contour3d(scalars, ...)
         contour3d(scalarfield, ...)"""
 
-    _source_function = Callable(scalarfield)
+    _source_function = Callable(scalar_field)
 
     _pipeline = [IsoSurfaceFactory, ]
 
@@ -370,7 +370,7 @@ class Plot3d(Pipeline):
                         desc = """radius of the tubes used to represent the
                         lines""")
 
-    _source_function = Callable(linesource)
+    _source_function = Callable(line_source)
 
     _pipeline = [TubeFactory, SurfaceFactory, ]
 
@@ -416,7 +416,7 @@ class ImShow(Pipeline):
 
         imshow(2darray, ...)"""
 
-    _source_function = Callable(array2dsource)
+    _source_function = Callable(array2d_source)
 
     _pipeline = [SurfaceFactory, ]
 
@@ -457,7 +457,7 @@ class Surf(Pipeline):
     made from the indices of arrays, and an uniformly-spaced data set is 
     created."""
 
-    _source_function = Callable(array2dsource)
+    _source_function = Callable(array2d_source)
 
     _pipeline = [WarpScalarFactory, SurfaceFactory]
 
@@ -566,7 +566,7 @@ class Mesh(Pipeline):
                     'fancymesh',
                     desc="""the representation type used for the surface.""")
 
-    _source_function = Callable(gridsource)
+    _source_function = Callable(grid_source)
 
     _pipeline = [ExtractEdgesFactory, GlyphFactory, TubeFactory, 
                         SurfaceFactory]
@@ -658,7 +658,7 @@ class ContourSurf(Pipeline):
     of the indices of s.
     s is the elevation matrix."""
 
-    _source_function = Callable(array2dsource)
+    _source_function = Callable(array2d_source)
 
     _pipeline = [WarpScalarFactory, ContourSurfaceFactory]
 

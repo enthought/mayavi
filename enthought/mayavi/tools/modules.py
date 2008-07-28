@@ -185,7 +185,7 @@ class VectorsFactory(DataModuleFactory):
                             help="""the scaling mode for the glyphs
                             ('vector', 'scalar', or 'none').""")
 
-    resolution = CInt(help="The resolution of the glyph created. For"
+    resolution = CInt(8, help="The resolution of the glyph created. For"
                         "spheres, for instance, this is the number of"
                         "divisions along theta and phi.")
 
