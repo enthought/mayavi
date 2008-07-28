@@ -15,7 +15,7 @@ import numpy
 import new
 
 from enthought.traits.api import Trait, CArray, Instance, CFloat, \
-    Any, false, TraitTuple, Range, Bool, Property, CInt
+    Any, false, TraitTuple, Range, Bool, Property, CInt, Enum
 from enthought.tvtk.api import tvtk
 from enthought.tvtk.common import camel2enthought
 
@@ -29,7 +29,7 @@ from pipe_base import PipeFactory, make_function
 # This the list is dynamically populated further down below at the end.
 __all__ = [ 'vectors', 'glyph', 'streamline', 'surface', 'iso_surface',
             'image_actor', 'contour_surface', 'contour_grid_plane',
-            'custom_grid_plane',
+            'custom_grid_plane', 'image_plane_widget',
             ]
 
 ##############################################################################
@@ -331,6 +331,28 @@ class ImageActorFactory(DataModuleFactory):
 
 
 image_actor = make_function(ImageActorFactory)
+
+
+##############################################################################
+class ImagePlaneWidgetFactory(DataModuleFactory):
+    """ Applies the ImagePlaneWidget mayavi module to the given data
+        source. 
+    """
+    _target = Instance(modules.ImagePlaneWidget, ())
+
+    slice_index = CInt(0, adapts='ipw.slice_index',
+                        help="""The index along wich the
+                                            image is sliced.""")
+
+    plane_opacity = Range(0.0, 1.0, 1.0, adapts='ipw.plane_property.opacity',
+                    desc="""the opacity of the plane actor.""")
+
+    plane_orientation = Enum('x_axes', 'y_axes', 'z_axes',
+                        adapts='ipw.plane_orientation',
+                        desc="""the orientation of the plane""")
+
+image_plane_widget = make_function(ImagePlaneWidgetFactory)
+
 
 
 ##############################################################################
