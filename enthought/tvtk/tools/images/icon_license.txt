@@ -1,0 +1,13 @@
+The icons are mostly derived work from other icons. As such they are
+licensed accordingly to the original license:
+
+    Crystal: LGPL
+
+Unless stated in this file, icons are work of enthought, and are released
+under a 3 clause BSD-like license.
+
+Files and orginal authors:
+----------------------------------------------------------------
+                          scene.ico | Crystal
+
+
