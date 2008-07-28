@@ -7,19 +7,19 @@ to the tree.
 # Copyright (c) 2008, Enthought, Inc.
 # License: BSD Style.
 
-from textwrap import wrap
-from os.path import join
-
+# Enthought library imports.
 from enthought.traits.api import (HasTraits, Str, Property, Any, Button,
-                                  List, Instance, Bool, Dict,
+                                  List, Instance, 
                                   ToolbarButton)
-from enthought.traits.ui.api import View, Item, Group, ListEditor, \
-        ButtonEditor, TextEditor, TreeEditor, TreeNode
-from enthought.traits.ui.table_column import ObjectColumn
+from enthought.traits.ui.api import View, Item, Group, \
+        TextEditor, TreeEditor, TreeNode, ListEditor
 from enthought.pyface.api import ImageResource
 
+# Local imports.
 from enthought.mayavi.core.registry import registry
 
+###############################################################################
+# AdderNode class
 ###############################################################################
 class AdderNode(HasTraits):
     """ Base class that will display a TreeNode to add items to the tree.
@@ -63,6 +63,9 @@ class AdderNode(HasTraits):
         else:
             return None
 
+
+###############################################################################
+# SceneAdderNode class
 ###############################################################################
 class SceneAdderNode(AdderNode):
     """ Subclass for adding Scene nodes to a Mayavi Engine node.
@@ -87,6 +90,8 @@ class SceneAdderNode(AdderNode):
 
 
 ###############################################################################
+# DocumentedItem class
+###############################################################################
 class DocumentedItem(HasTraits):
     """ Container to hold a name and a documentation for an action.
     """
@@ -104,7 +109,8 @@ class DocumentedItem(HasTraits):
     # Two lines documentation for the action
     documentation = Str
 
-    view = View(Item('add', style='custom', show_label=False),
+    view = View('_',
+                Item('add', style='custom', show_label=False),
                 Item('documentation', style='readonly',
                     editor=TextEditor(multi_line=True),
                     resizable=True,
@@ -139,6 +145,8 @@ def documented_item_factory(name='', documentation='',
 
 
 ###############################################################################
+# ListAdderNode class
+###############################################################################
 class ListAdderNode(AdderNode):
     """ A node for adding object, with a list of objects to add generated
         from the registry.
@@ -153,6 +161,7 @@ class ListAdderNode(AdderNode):
     # Selected item
     selected_item = Instance(DocumentedItem)
 
+    # A reference to self, to allow to build the tree view.
     self = Instance(AdderNode)
 
     # The icon of the displayed objects
@@ -175,7 +184,8 @@ class ListAdderNode(AdderNode):
                           delete=False,
                           rename=False,
                           icon_item=self.icon_name,
-                          ), ]
+                          ), 
+                 ]
 
         tree_editor = TreeEditor(editable=False,
                                  hide_root=True,
@@ -236,12 +246,16 @@ class ListAdderNode(AdderNode):
 
 
 ###############################################################################
+# SourceAdderNode class
+###############################################################################
 class SourceAdderNode(ListAdderNode):
     """ Tree node that presents a view to the user to add a scene source.
     """
 
     # Button for adding a data file, with automatic format checking.
-    open_file = Button('Load data from file')        
+    open_file = ToolbarButton('Load data from file',
+                                orientation='horizontal',
+                                image=ImageResource('file.png'))
     
     # A reference to the registry, to generate this list.
     items_list_source = [source for source in registry.sources
@@ -254,8 +268,9 @@ class SourceAdderNode(ListAdderNode):
     icon_name = Str('source.ico')
     
     # Trait view to show in the Mayavi current object panel.
-    view = View(Group(Group(Item('open_file'),
-                      show_labels=False, show_border=True),
+    def default_traits_view(self):
+        return View(Group(Group(Item('open_file', style='custom'),
+                      show_labels=False, show_border=False),
                       Item('items_list', style='readonly',
                             editor=ListEditor(style='custom')),
                       show_labels=False,
@@ -270,6 +285,8 @@ class SourceAdderNode(ListAdderNode):
         return True
 
     
+###############################################################################
+# ModuleAdderNode class
 ###############################################################################
 class ModuleAdderNode(ListAdderNode):  
     """ Tree node that presents a view to the user to add modules.
@@ -286,6 +303,9 @@ class ModuleAdderNode(ListAdderNode):
             value.menu_helper._build_filter_actions()
         ListAdderNode._object_changed(self, value) 
 
+
+###############################################################################
+# FilterAdderNode class
 ###############################################################################
 class FilterAdderNode(ListAdderNode):  
     """ Tree node that presents a view to the user to add filters.
@@ -299,6 +319,8 @@ class FilterAdderNode(ListAdderNode):
 
 
 ###############################################################################
+# ModuleFilterAdderNode class
+###############################################################################
 class ModuleFilterAdderNode(AdderNode):  
     """ Tree node that presents a view to the user to add filter and
         modules.
@@ -307,11 +329,15 @@ class ModuleFilterAdderNode(AdderNode):
     # The string to display on the icon in the TreeEditor.
     label = 'Add module or filter'
 
+    # An adder node for modules
     modules = Instance(ModuleAdderNode, ())
 
+    # An adder node for filters
     filters = Instance(FilterAdderNode, ())
 
     def _object_changed(self):
+        """ Propagate the object to the sub nodes.
+        """
         self.filters.object = self.object
         self.modules.object = self.object
 
