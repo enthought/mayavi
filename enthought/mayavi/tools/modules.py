@@ -15,7 +15,7 @@ import numpy
 import new
 
 from enthought.traits.api import Trait, CArray, Instance, CFloat, \
-    Any, false, TraitTuple, Range, Bool, Property
+    Any, false, TraitTuple, Range, Bool, Property, CInt
 from enthought.tvtk.api import tvtk
 from enthought.tvtk.common import camel2enthought
 
@@ -184,6 +184,25 @@ class VectorsFactory(DataModuleFactory):
                                 'vector':'scale_by_vector'},
                             help="""the scaling mode for the glyphs
                             ('vector', 'scalar', or 'none').""")
+
+    resolution = CInt(help="The resolution of the glyph created. For"
+                        "spheres, for instance, this is the number of"
+                        "divisions along theta and phi.")
+
+
+    def _resolution_changed(self):
+        glyph = self._target.glyph.glyph_source.glyph_source
+        if hasattr(glyph, 'theta_resolution'):
+            glyph.theta_resolution = self.resolution
+        if hasattr(glyph, 'phi_resolution'):
+            glyph.phi_resolution = self.resolution
+        if hasattr(glyph, 'resolution'):
+            glyph.resolution = self.resolution
+        if hasattr(glyph, 'shaft_resolution'):
+            glyph.shaft_resolution = self.resolution
+        if hasattr(glyph, 'tip_resolution'):
+            glyph.tip_resolution = self.resolution
+
 
     def _scale_mode_changed(self):
         self._target.glyph.glyph.scale_mode = self.scale_mode_

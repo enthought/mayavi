@@ -296,6 +296,7 @@ def test_points3d():
 
     points3d(x, y, z, s, colormap="copper", scale_factor=.25)
 
+
 def test_molecule():
     """Generates and shows a Caffeine molecule."""
     o = [[30, 62, 19],[8, 21, 10]]
@@ -310,18 +311,14 @@ def test_molecule():
     hx, hy, hz = map(numpy.array, zip(*h))
 
     oxygen = points3d(ox, oy, oz, scale_factor=16, scale_mode='none',
-                                        color=(1,0,0), name='Oxygen')
+                                resolution=20, color=(1,0,0), name='Oxygen')
     nitrogen = points3d(nx, ny, nz, scale_factor=20, scale_mode='none', 
-                                        color=(0,0,1), name='Nitrogen')
+                                resolution=20, color=(0,0,1), name='Nitrogen')
     carbon = points3d(cx, cy, cz, scale_factor=20, scale_mode='none', 
-                                        color=(0,1,0), name='Carbon')
+                                resolution=20, color=(0,1,0), name='Carbon')
     hydrogen = points3d(hx, hy, hz, scale_factor=10, scale_mode='none', 
-                                        color=(1,1,1), name='Hydrogen')
+                                resolution=20, color=(1,1,1), name='Hydrogen')
 
-    atoms = oxygen, nitrogen, carbon, hydrogen
-    for atom in atoms:
-        atom.glyph.glyph_source.glyph_source.theta_resolution = 20
-        atom.glyph.glyph_source.glyph_source.phi_resolution = 20
     return oxygen, nitrogen, carbon, hydrogen
 
 ############################################################################# 
