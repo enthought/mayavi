@@ -11,7 +11,7 @@ from os.path import join
 # Enthought library imports
 from enthought.tvtk.tools.ivtk import IVTK
 from enthought.tvtk.pyface.api import DecoratedScene
-from enthought.traits.api import Callable, List, Either
+from enthought.traits.api import Callable
 from enthought.pyface.api import ImageResource
 from enthought.pyface.action.api import Action
 from enthought.resource.api import resource_path
@@ -22,7 +22,7 @@ from enthought.mayavi.core.common import error
 ###############################################################################
 # A decorated scene with an additional button.
 ###############################################################################
-class MlabScene(DecoratedScene):
+class MayaviScene(DecoratedScene):
     """ Like a decorated scene, but with more buttons.
     """
 
@@ -59,18 +59,18 @@ class MlabScene(DecoratedScene):
 
 
 ###############################################################################
-# A viewer making use of the MlabScene 
+# A viewer making use of the MayaviScene 
 ###############################################################################
-class MlabViewer(IVTK):
+class MayaviViewer(IVTK):
     """ A viewer window for mlab.
     """
     size=(400, 350)
 
-    _scene_factory = Callable(MlabScene)
+    _scene_factory = Callable(MayaviScene)
 
 
 def viewer_factory():
-    viewer = MlabViewer()
+    viewer = MayaviViewer()
     viewer.menu_bar_manager = None
     viewer.open()
     return viewer

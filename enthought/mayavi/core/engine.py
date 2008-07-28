@@ -25,7 +25,7 @@ from enthought.mayavi.core.common import error
 from enthought.mayavi.core.registry import registry
 from enthought.mayavi.core.adder_node import AdderNode, SceneAdderNode
 from enthought.mayavi.preferences.api import preference_manager
-from enthought.mayavi.core.ui.mlab_scene import viewer_factory
+from enthought.mayavi.core.ui.mayavi_scene import viewer_factory
 
 
 ######################################################################
