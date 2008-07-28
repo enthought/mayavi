@@ -6,6 +6,23 @@ URL:
     https://svn.enthought.com/enthought/changeset/18702
 -----------------------------------------------------------------------------
 
+27 July, 2008 (GV):
+    - ENH: Add an option (on by default) to open the docs in a chromeless
+      window when using firefox. [20451] [20450]
+    - ENH: Add toolbar to the engine view [20447]
+    - ENH: Selected item on the tree jumps to newly created objects
+      [20454]
+    - ENH: Add a button on the viewer using by mayavi in standalone to
+      open up the engine view [20456] [20462]
+    - ENH: Clean UI for adding sources/filters/modules (Adder nodes)
+      [20461] [20460] [20458] [20452]
+    - ENH: [mlab] add a resolution argument to glyphs [20465]
+    - API: [mlab] API Breakage!
+	Make mlab source names compatible with ETS standards:
+        grid_source rather than gridsource [20466]
+    - NEW: Add image_plane_widget to mlab.pipeline, with helpful keyword
+        arguments.
+
 23 July, 2008 (GV):
     - ENH: The mlab API can now take either engine or figure keyword
       arguments. This allows to avoid the use of the global sate set
