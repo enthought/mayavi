@@ -104,8 +104,8 @@ class Process(object):
 
         p.set_defaults(doc_source=os.path.join(
                 os.path.abspath(os.path.dirname(__file__)),
-                'docs', 'mayavi', 'user_guide', 'source'))
-
+                'docs', 'source', 'mayavi'))
+        
         return p
 
 class Build(Process):
@@ -129,9 +129,9 @@ class Build(Process):
             output_dir = os.path.join(self.target, format)
 
         self.run_command('sphinx-build -D version=%s -D release=%s -b %s %s %s'
-                        % (INFO['version'], INFO['version'], format, \
-                           self.options.doc_source, output_dir))
-
+                         % (INFO['version'], INFO['version'], format,
+                            self.options.doc_source, output_dir))
+        
     @has_started
     def remove_tmp_files(output_dir):
         pass
@@ -176,7 +176,7 @@ class Build(Process):
         # print self.options.target
         self.run_sphinx(format)
         if post_run: post_run(self)
-
+        
         # Copy files (and do magic with .svn dirs)
         if self.using_temp_dir:
             # Preserve .svn directory
@@ -418,6 +418,7 @@ register(UpdateCEC)
 
 if __name__ == '__main__':
     if len(sys.argv) == 1 or sys.argv[1] not in ACTIONS:
+        print __doc__
         print 'Need a valid action: %s' % ' '.join(ACTIONS.keys())
     else:
         action = ACTIONS[sys.argv[1]]()
