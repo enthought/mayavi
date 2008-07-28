@@ -1,0 +1,10 @@
+Icon original authors and license
+
+    GV: Gael Varoquaux: BSD-licensed
+
+
+Files and original authors:
+-----------------------------------
+m2.png	     | GV
+m2_about.jpg | GV
+
