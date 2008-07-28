@@ -32,11 +32,15 @@ def configuration(parent_package='', top_path=None):
     config.add_data_dir('enthought/mayavi/preferences')
 
     # Add the documentation.
-    config.add_data_files(('enthought/mayavi/html', ['build/docs/html/*.*']))
-    config.add_data_files(('enthought/mayavi/html/_images', ['build/docs/html/_images/*.*']))
-    config.add_data_files(('enthought/mayavi/html/_sources', ['build/docs/html/_sources/*.*']))
-    config.add_data_files(('enthought/mayavi/html/_static', ['build/docs/html/_static/*.*']))
-    config.add_data_files(('enthought/mayavi/html/auto', ['build/docs/html/auto/*.*']))
+    config.add_data_files(('enthought/mayavi/html', ['docs/html/mayavi/*.*']))
+    config.add_data_files(('enthought/mayavi/html/_images',
+                                ['docs/html/mayavi/html/_images/*.*']))
+    config.add_data_files(('enthought/mayavi/html/_sources',
+                                ['docs/html/mayavi/_sources/*.*']))
+    config.add_data_files(('enthought/mayavi/html/_static',
+                                ['docs/html/mayavi/_static/*.*']))
+    config.add_data_files(('enthought/mayavi/html/auto',
+                                ['docs/html/mayavi/auto/*.*']))
 
     return config
 
@@ -108,7 +112,7 @@ def generate_docs(project):
             else:
                 sphinx_installed = True
         except ImportError:
-            log.error("Sphnix install not found.")# Installing docs from zip files.")
+            log.error("Sphinx install not found.")# Installing docs from zip files.")
     
     if sphinx_installed:             
         log.info("Generating %s documentation..." % project)
