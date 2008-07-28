@@ -33,10 +33,11 @@ def configuration(parent_package='', top_path=None):
 
     # Add the documentation.
     for root, dirs, files in os.walk('docs/html/mayavi'):
-        config.add_data_files((
-              root.replace('docs/html/mayavi', 'enthought/mayavi/html'), 
-              [os.path.join(root, '*.*')]
-              ))
+        if len(files) > 0:
+            config.add_data_files((
+                root.replace('docs/html/mayavi', 'enthought/mayavi/html'), 
+                [os.path.join(root, '*.*')]
+                ))
 
     return config
 
