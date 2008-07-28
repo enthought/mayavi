@@ -17,11 +17,8 @@ from enthought.traits.ui.api import View, Item, Group, ListEditor, \
         ButtonEditor, TextEditor, TreeEditor, TreeNode
 from enthought.traits.ui.table_column import ObjectColumn
 from enthought.pyface.api import ImageResource
-from enthought.resource.api import resource_path
 
 from enthought.mayavi.core.registry import registry
-
-image_path = join([resource_path, 'images'])
 
 ###############################################################################
 class AdderNode(HasTraits):
@@ -89,23 +86,10 @@ class SceneAdderNode(AdderNode):
         self.object.new_scene()
 
 
-item_view = View(Item('add', style='custom',
-                    show_label=False, enabled_when="enabled"),
-                Item('documentation', style='readonly',
-                    defined_when='enabled',
-                    editor=TextEditor(multi_line=True),
-                    resizable=True,
-                    show_label=False),
-                resizable=True,
-                )
-
 ###############################################################################
 class DocumentedItem(HasTraits):
     """ Container to hold a name and a documentation for an action.
     """
-
-    # Whether the action is enabled
-    enabled = Bool
 
     # Name of the action
     name = Str
@@ -121,9 +105,12 @@ class DocumentedItem(HasTraits):
     documentation = Str
 
     view = View(Item('add', style='custom', show_label=False),
-                Item('documentation', style='custom', show_label=False,
-                            resizable=True)) 
-    
+                Item('documentation', style='readonly',
+                    editor=TextEditor(multi_line=True),
+                    resizable=True,
+                    show_label=False),
+                )
+
     def _add_fired(self):
         """ Trait handler for when the add_source button is clicked in
             one of the sub objects in the list.
@@ -132,18 +119,20 @@ class DocumentedItem(HasTraits):
         action()
 
 
-def documented_item_factory(name='', enabled=False, documentation='', 
+def documented_item_factory(name='', documentation='', 
                 id='', object=None):
     """ Factory for creating a DocumentedItem with the right button
         label.
     """
+    documentation = documentation.replace('\n', '')
+    documentation = documentation.replace('  ', '')
+
     class MyDocumentedItem(DocumentedItem):
         add = ToolbarButton('%s' % name, orientation='horizontal',
                         image=ImageResource('add.ico'))
 
     return MyDocumentedItem(
                         name=name,
-                        enabled=enabled,
                         documentation=documentation,
                         id=id,
                         object=object)
@@ -166,6 +155,9 @@ class ListAdderNode(AdderNode):
 
     self = Instance(AdderNode)
 
+    # The icon of the displayed objects
+    icon_name = Str('add.ico')
+
     def _self_default(self):
         return self
 
@@ -182,7 +174,7 @@ class ListAdderNode(AdderNode):
                           copy=False,
                           delete=False,
                           rename=False,
-                          icon_item='add.ico',
+                          icon_item=self.icon_name,
                           ), ]
 
         tree_editor = TreeEditor(editable=False,
@@ -190,6 +182,7 @@ class ListAdderNode(AdderNode):
                                  orientation='vertical',
                                  selected='object.selected_item',
                                  nodes=nodes,
+                                 on_dclick='object._on_tree_dclick',
                                  )
 
         view = View(Item('self',
@@ -212,11 +205,12 @@ class ListAdderNode(AdderNode):
             # Don't need 'x', but do need to generate the actions.
             x = value.menu_helper.actions
             for src in self.items_list_source:
+                if not self._is_action_suitable(value, src):
+                    continue
                 name = src.menu_name.replace('&','')
                 result.append(
                         documented_item_factory(
                                 name=name,
-                                enabled=self._is_action_suitable(value, src),
                                 documentation=src.help,
                                 id=src.id,
                                 object=value)
@@ -234,6 +228,12 @@ class ListAdderNode(AdderNode):
         else:
             return False
 
+    def _on_tree_dclick(self, object):
+        """ Called when an user double clicks on an item in the tree
+            view.
+        """
+        object._add_fired()
+
 
 ###############################################################################
 class SourceAdderNode(ListAdderNode):
@@ -249,6 +249,9 @@ class SourceAdderNode(ListAdderNode):
 
     # The string to display on the icon in the TreeEditor.
     label = 'Add Data Source'
+
+    # The icon of the displayed objects
+    icon_name = Str('source.ico')
     
     # Trait view to show in the Mayavi current object panel.
     view = View(Group(Group(Item('open_file'),
@@ -272,6 +275,9 @@ class ModuleAdderNode(ListAdderNode):
     """ Tree node that presents a view to the user to add modules.
     """
     
+    # The icon of the displayed objects
+    icon_name = Str('module.ico')
+    
     # A reference to the registry, to generate this list.
     items_list_source = registry.modules
 
@@ -284,6 +290,9 @@ class ModuleAdderNode(ListAdderNode):
 class FilterAdderNode(ListAdderNode):  
     """ Tree node that presents a view to the user to add filters.
     """
+    
+    # The icon of the displayed objects
+    icon_name = Str('filter.ico')
     
     # A reference to the registry, to generate this list.
     items_list_source = registry.filters
