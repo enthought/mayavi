@@ -17,6 +17,7 @@ from enthought.tvtk.pyface.scene_editor import SceneEditor
 
 from enthought.mayavi import mlab
 from enthought.mayavi.tools.mlab_scene_model import MlabSceneModel
+from enthought.mayavi.core.ui.mayavi_scene import MayaviScene
 
 # Set mlab to use the simple backend instead of envisage.
 mlab.options.backend = 'simple'
@@ -29,7 +30,7 @@ class ActorViewer(HasTraits):
 
     ######################
     view = View(Item(name='scene', 
-                     editor=SceneEditor(),
+                     editor=SceneEditor(scene_class=MayaviScene),
                      show_label=False,
                      resizable=True,
                      height=500,

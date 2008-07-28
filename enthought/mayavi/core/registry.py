@@ -96,8 +96,14 @@ class Registry(HasTraits):
         """ Find the engine corresponding to a given tvtk scene.
         """
         for engine in self.engines.values():
-            if scene in [s.scene for s in engine.scenes]:
-                return engine
+            for s in engine.scenes:
+                sc = s.scene
+                if scene is sc:
+                    return engine
+                elif hasattr(sc, 'scene_editor') and \
+                     scene is sc.scene_editor:
+                    # This check is needed for scene model objects.
+                    return engine
         else:
             raise TypeError, "Scene not attached to a mayavi engine."
 
