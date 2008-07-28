@@ -291,7 +291,9 @@ class SourceAdderNode(ListAdderNode):
 class ModuleAdderNode(ListAdderNode):  
     """ Tree node that presents a view to the user to add modules.
     """
-    
+    # String to be shown in the TreeEditor.
+    label = Str('Add a visualization module')
+   
     # The icon of the displayed objects
     icon_name = Str('module.ico')
     
@@ -310,6 +312,8 @@ class ModuleAdderNode(ListAdderNode):
 class FilterAdderNode(ListAdderNode):  
     """ Tree node that presents a view to the user to add filters.
     """
+    # String to be shown in the TreeEditor.
+    label = Str('Add a processing filter')
     
     # The icon of the displayed objects
     icon_name = Str('filter.ico')
