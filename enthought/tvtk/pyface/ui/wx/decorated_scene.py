@@ -27,7 +27,7 @@ import wx
 from enthought.pyface.api import ImageResource, FileDialog, OK
 from enthought.pyface.action.api import ToolBarManager, Group, Action
 from enthought.tvtk.api import tvtk
-from enthought.traits.api import Instance, false
+from enthought.traits.api import Instance, false, List, Either
 
 # Local imports.
 from scene import Scene
@@ -58,6 +58,9 @@ class DecoratedScene(Scene):
 
     # Determine if the orientation axis is shown or not.
     show_axes = false
+
+    # The list of actions represented in the toolbar
+    actions = List(Either(Action, Group))
 
     ##########################################################################
     # `object` interface
@@ -129,7 +132,88 @@ class DecoratedScene(Scene):
     def _get_tool_bar_manager(self):
         """ Returns the tool_bar_manager for this scene.
         """
-        action_groups = [
+        tbm = ToolBarManager( *self.actions )
+        return tbm
+    
+    def _get_image_path(self):
+        """Returns the directory which contains the images used by the
+        toolbar."""
+
+        # So that we can find the images.
+        import enthought.tvtk.pyface.api
+
+        return dirname(enthought.tvtk.pyface.api.__file__)
+
+    def _toggle_projection(self):
+        """ Toggle between perspective and parallel projection, this
+        is used for the toolbar.
+        """
+        if self._panel is not None:
+            self.parallel_projection = not self.parallel_projection
+
+    def _toggle_axes(self):
+        """Used by the toolbar to turn on/off the axes indicator.
+        """
+        if self._panel is not None:
+            self.show_axes = not self.show_axes
+
+    def _save_snapshot(self):
+        """Invoked by the toolbar menu to save a snapshot of the scene
+        to an image.  Note that the extension of the filename
+        determines what image type is saved.  The default is PNG.
+        """
+        if self._panel is not None:
+            wildcard = "PNG images (*.png)|*.png|All files (*.*)|*.*"
+            dialog = FileDialog(
+                parent = self._panel,
+                title = 'Save scene to image',
+                action = 'save as',
+                default_filename = "snapshot.png",
+                wildcard = wildcard
+            )
+            if dialog.open() == OK:
+                # The extension of the path will determine the actual
+                # image type saved.
+                self.save(dialog.path)
+
+    def _configure_scene(self):
+        """Invoked when the toolbar icon for configuration is clicked.
+        """
+        self.edit_traits()
+
+    ######################################################################
+    # Trait handlers.
+    ######################################################################
+    def _show_axes_changed(self):
+        marker = self.marker
+        if (self._vtk_control is not None) and (marker is not None):
+            if not self.show_axes:
+                marker.interactor = None
+                marker.enabled = False
+            else:
+                marker.interactor = self.interactor
+                marker.enabled = True
+            self.render()
+
+    def _background_changed(self, value):
+        # Depending on the background, this sets the axes text and
+        # outline color to something that should be visible.
+        axes = self.axes
+        if (self._vtk_control is not None) and (axes is not None):
+            p = self.axes.x_axis_caption_actor2d.caption_text_property
+            m = self.marker
+            s = value[0] + value[1] + value[2]
+            if s <= 1.0:
+                p.color = (1,1,1)
+                m.set_outline_color(1,1,1)
+            else:
+                p.color = (0,0,0)
+                m.set_outline_color(0,0,0)
+            self.render()
+
+
+    def _actions_default(self):
+        return [
             Group(
                 Action(
                     image = ImageResource('16x16/x-axis',
@@ -228,81 +312,4 @@ class DecoratedScene(Scene):
                     ),
                 ),
             ]
-        tbm = ToolBarManager( *action_groups )
-        return tbm
-    
-    def _get_image_path(self):
-        """Returns the directory which contains the images used by the
-        toolbar."""
-
-        # So that we can find the images.
-        import enthought.tvtk.pyface.api
-
-        return dirname(enthought.tvtk.pyface.api.__file__)
-
-    def _toggle_projection(self):
-        """ Toggle between perspective and parallel projection, this
-        is used for the toolbar.
-        """
-        if self._panel is not None:
-            self.parallel_projection = not self.parallel_projection
-
-    def _toggle_axes(self):
-        """Used by the toolbar to turn on/off the axes indicator.
-        """
-        if self._panel is not None:
-            self.show_axes = not self.show_axes
-
-    def _save_snapshot(self):
-        """Invoked by the toolbar menu to save a snapshot of the scene
-        to an image.  Note that the extension of the filename
-        determines what image type is saved.  The default is PNG.
-        """
-        if self._panel is not None:
-            wildcard = "PNG images (*.png)|*.png|All files (*.*)|*.*"
-            dialog = FileDialog(
-                parent = self._panel,
-                title = 'Save scene to image',
-                action = 'save as',
-                default_filename = "snapshot.png",
-                wildcard = wildcard
-            )
-            if dialog.open() == OK:
-                # The extension of the path will determine the actual
-                # image type saved.
-                self.save(dialog.path)
-
-    def _configure_scene(self):
-        """Invoked when the toolbar icon for configuration is clicked.
-        """
-        self.edit_traits()
-
-    ######################################################################
-    # Trait handlers.
-    ######################################################################
-    def _show_axes_changed(self):
-        marker = self.marker
-        if (self._vtk_control is not None) and (marker is not None):
-            if not self.show_axes:
-                marker.interactor = None
-                marker.enabled = False
-            else:
-                marker.interactor = self.interactor
-                marker.enabled = True
-            self.render()
-
-    def _background_changed(self, value):
-        # Depending on the background, this sets the axes text and
-        # outline color to something that should be visible.
-        axes = self.axes
-        if (self._vtk_control is not None) and (axes is not None):
-            p = self.axes.x_axis_caption_actor2d.caption_text_property
-            m = self.marker
-            s = value[0] + value[1] + value[2]
-            if s <= 1.0:
-                p.color = (1,1,1)
-                m.set_outline_color(1,1,1)
-            else:
-                p.color = (0,0,0)
-                m.set_outline_color(0,0,0)
-            self.render()
+ 

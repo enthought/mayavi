@@ -1,18 +1,21 @@
 """
 Central registry for figures with mlab.
 """
+
+# Enthought librairies imports
 from enthought.traits.api import HasTraits, Instance
 from enthought.pyface.api import GUI
 
+# Local imports
 from enthought.mayavi.preferences.api import preference_manager
 from enthought.mayavi.core.registry import registry
+from enthought.mayavi.core.engine import Engine
 from preferences_mirror import PreferencesMirror
 
 # The mlab options.
 options = PreferencesMirror()
 options.preferences = preference_manager.mlab
 
-from enthought.mayavi.core.engine import Engine
 
 class EngineManager(HasTraits):
     """ Central registry for figures with mlab.
@@ -65,20 +68,32 @@ class EngineManager(HasTraits):
             GUI.process_events()
             engine = m.script.engine
         else:
+            from enthought.mayavi.tools.mlab_scene import viewer_factory
             engine = Engine(name='Mlab Engine')
+            engine.scene_factory = viewer_factory
             engine.start()
         self.current_engine = engine
         return engine
 
 
     def find_figure_engine(self, fig):
-        """ Find the engine corresponding to a given scene.
+        """ Find the engine corresponding to a given mayavi scene.
         """
         for engine in registry.engines.values():
             if fig in engine.scenes:
                 return engine
         else:
             raise TypeError, "Figure not attached to a mayavi engine."
+
+
+    def find_scene_engine(self, scene):
+        """ Find the engine corresponding to a given tvtk scene.
+        """
+        for engine in registry.engines.values():
+            if scene in [s.scene for s in engine.scenes]:
+                return engine
+        else:
+            raise TypeError, "Scene not attached to a mayavi engine."
 
 
     def show_engine(self, engine=None):

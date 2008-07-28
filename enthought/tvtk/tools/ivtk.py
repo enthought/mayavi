@@ -33,12 +33,12 @@ from enthought.pyface.api import FileDialog, GUI, OK, PythonShell
 from enthought.pyface.api import SplitApplicationWindow, ApplicationWindow
 from enthought.pyface.api import SplitPanel
 from enthought.tvtk.pyface.api import Scene, DecoratedScene
-from enthought.pyface.action.api import Action, Group, MenuBarManager,\
+from enthought.pyface.action.api import Action, MenuBarManager,\
      MenuManager, Separator
 from enthought.pyface.image_resource import ImageResource
 from enthought.resource.api import resource_path
 
-from enthought.traits.api import Bool, Float, Str, Instance, Trait
+from enthought.traits.api import Float, Str, Instance, Callable
 
 from enthought.tvtk.api import tvtk
 
@@ -356,6 +356,9 @@ class IVTK(ApplicationWindow):
 
     # The `Scene` instance into which VTK renders.
     scene = Instance(Scene)
+    
+    # The callable (or class) to create the scene instance
+    _scene_factory = Callable(DecoratedScene)
 
     ###########################################################################
     # 'object' interface.
@@ -386,7 +389,7 @@ class IVTK(ApplicationWindow):
     def _create_contents(self, parent):
         """ Create the contents of the window. """
 
-        self.scene = DecoratedScene(parent)
+        self.scene = self._scene_factory(parent)
         self.scene.renderer.background = 0.5, 0.5, 0.5
 
         return self.scene.control

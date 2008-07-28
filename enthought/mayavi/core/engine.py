@@ -362,17 +362,17 @@ class Engine(HasStrictTraits):
         The method returns the created viewer.
         """
         if viewer is None:
+            from enthought.pyface.api import GUI
             if self.scene_factory is None:
                 from enthought.tvtk.tools.ivtk import IVTK
-                from enthought.pyface.api import GUI
                 viewer = IVTK(size=(400, 350))
                 if True:
                     # FIXME: Need preferences here
                     viewer.menu_bar_manager = None
                 viewer.open()
-                GUI.process_events()
             else:
                 viewer = self.scene_factory()
+            GUI.process_events()
             
         # Hang on to a reference to this viewer, if not done this will cause a
         # crash with Qt4.  This because the viewer will be closed and gc'd if
