@@ -58,7 +58,7 @@ Z = r_[Z,  -10000*ones_like(Y_add).ravel()]
 # Do the visualization using the Mlab pipeline
 P = M.pipeline
 M.clf()
-france_points = P.scalarscatter(X, Y, Z, Z)
+france_points = P.scalar_scatter(X, Y, Z, Z)
 france_elevation = P.elevation_filter( P.quadric_decimation(
                         P.threshold(
                             P.point_to_cell_data(
