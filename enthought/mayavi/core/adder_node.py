@@ -8,16 +8,20 @@ to the tree.
 # License: BSD Style.
 
 from textwrap import wrap
+from os.path import join
 
 from enthought.traits.api import (HasTraits, Str, Property, Any, Button,
-                                  List, Instance, Bool, Dict)
+                                  List, Instance, Bool, Dict,
+                                  ToolbarButton)
 from enthought.traits.ui.api import View, Item, Group, ListEditor, \
-        ButtonEditor, TextEditor, TableEditor
+        ButtonEditor, TextEditor, TreeEditor, TreeNode
 from enthought.traits.ui.table_column import ObjectColumn
 from enthought.pyface.api import ImageResource
+from enthought.resource.api import resource_path
 
 from enthought.mayavi.core.registry import registry
 
+image_path = join([resource_path, 'images'])
 
 ###############################################################################
 class AdderNode(HasTraits):
@@ -71,10 +75,11 @@ class SceneAdderNode(AdderNode):
     label = Str('Add a new scene')
     
     # Button for the View.
-    add_scene = Button('Add a new scene', )  
+    add_scene = Button('Add a new scene', 
+                      image=ImageResource('add_scene.png'))  
     
     # Trait view to show in the Mayavi current object panel.
-    view = View(Group(Item('add_scene', show_label=False), 
+    view = View(Group(Item('add_scene', show_label=False, style='custom'), 
                       label='Add a scene'))
     
     
@@ -84,7 +89,7 @@ class SceneAdderNode(AdderNode):
         self.object.new_scene()
 
 
-item_view = View(Item('add', editor=ButtonEditor(label_value='name'),
+item_view = View(Item('add', style='custom',
                     show_label=False, enabled_when="enabled"),
                 Item('documentation', style='readonly',
                     defined_when='enabled',
@@ -106,7 +111,8 @@ class DocumentedItem(HasTraits):
     name = Str
 
     # Button to trigger the action
-    add = Button
+    add = ToolbarButton('Add', orientation='horizontal',
+                    image=ImageResource('add.ico'))
 
     # Object the action will apply on
     object = Any
@@ -114,17 +120,9 @@ class DocumentedItem(HasTraits):
     # Two lines documentation for the action
     documentation = Str
 
-    # Description displayed in the table
-    _description = Property(depends_on=['name', 'documentation'])
-
-    def _get__description(self):
-        if self.enabled:
-            return "%s\n%s" % (self.name, 
-                    '\n'.join(wrap(self.documentation, width=40)))
-        else:
-            return self.name
-
-    view = item_view
+    view = View(Item('add', style='custom', show_label=False),
+                Item('documentation', style='custom', show_label=False,
+                            resizable=True)) 
     
     def _add_fired(self):
         """ Trait handler for when the add_source button is clicked in
@@ -134,20 +132,21 @@ class DocumentedItem(HasTraits):
         action()
 
 
-###############################################################################
-class GrayedColumn(ObjectColumn):
+def documented_item_factory(name='', enabled=False, documentation='', 
+                id='', object=None):
+    """ Factory for creating a DocumentedItem with the right button
+        label.
+    """
+    class MyDocumentedItem(DocumentedItem):
+        add = ToolbarButton('%s' % name, orientation='horizontal',
+                        image=ImageResource('add.ico'))
 
-    width = 1.
-
-    def get_text_color(self, object):
-        if object.enabled:
-            return 'black'
-        else:
-            return 'light grey'
-
-    def on_dclick(self, object):
-        if object.enabled:
-            object._add_fired()
+    return MyDocumentedItem(
+                        name=name,
+                        enabled=enabled,
+                        documentation=documentation,
+                        id=id,
+                        object=object)
 
 
 ###############################################################################
@@ -162,22 +161,47 @@ class ListAdderNode(AdderNode):
     # A reference to the registry, to generate this list.
     items_list_source = List()
 
-    # Trait view to show in the Mayavi current object panel.
-    view = View(Item('items_list', style='readonly',
-                editor=
-                    TableEditor(
-                      sortable=False,
-                      deletable=False,
-                      editable=False,
-                      configurable=False,
-                      edit_view=item_view,
-                      orientation='vertical',
-                      edit_view_height=-0.9,
-                      show_column_labels=False,
-                      columns = [GrayedColumn( name='_description'), ],
-                    ),
-                show_label=False,),
-                )
+    # Selected item
+    selected_item = Instance(DocumentedItem)
+
+    self = Instance(AdderNode)
+
+    def _self_default(self):
+        return self
+
+    def default_traits_view(self):
+        nodes = [TreeNode(node_for=[AdderNode],
+                          label='name',
+                          copy=False,
+                          delete=False,
+                          rename=False,
+                          children='items_list',
+                          ), 
+                 TreeNode(node_for=[DocumentedItem],
+                          label='name',
+                          copy=False,
+                          delete=False,
+                          rename=False,
+                          icon_item='add.ico',
+                          ), ]
+
+        tree_editor = TreeEditor(editable=False,
+                                 hide_root=True,
+                                 orientation='vertical',
+                                 selected='object.selected_item',
+                                 nodes=nodes,
+                                 )
+
+        view = View(Item('self',
+                            show_label=False,
+                            editor=tree_editor,
+                            resizable=True,
+                            springy=True,
+                            height=0.5),
+                    Item('selected_item', style='custom', show_label=False,
+                            height=0.5),
+                    resizable=True)
+        return view
 
 
     def _object_changed(self, value):
@@ -187,11 +211,10 @@ class ListAdderNode(AdderNode):
         if value is not None:
             # Don't need 'x', but do need to generate the actions.
             x = value.menu_helper.actions
-            Mutable.attr = value
             for src in self.items_list_source:
                 name = src.menu_name.replace('&','')
                 result.append(
-                        DocumentedItem(
+                        documented_item_factory(
                                 name=name,
                                 enabled=self._is_action_suitable(value, src),
                                 documentation=src.help,
@@ -210,12 +233,6 @@ class ListAdderNode(AdderNode):
             return True
         else:
             return False
-
-
-###############################################################################
-class Mutable:
-
-    attr = None
 
 
 ###############################################################################
@@ -290,15 +307,19 @@ class ModuleFilterAdderNode(AdderNode):
         self.modules.object = self.object
 
     # Trait view to show in the Mayavi current object panel.
-    view = View(Group(
-                Group(Item('modules', style='custom'), show_labels=False,
+    view = View(
+                Group(Item('modules', style='custom', springy=True,
+                            resizable=True,
+                            height=1.,
+                            ), 
+                    show_labels=False,
                     label='Visualization modules'),
-                Group(Item('filters', style='custom'), show_labels=False,
+                Group(Item('filters', style='custom', springy=True, 
+                            resizable=True,
+                            height=1.,
+                            ), 
+                    show_labels=False,
                     label='Processing filters'),
-                layout="tabbed",
-                ),
-                resizable=True,
-                scrollable=True,
                 )
 
 
