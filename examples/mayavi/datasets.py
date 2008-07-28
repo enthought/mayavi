@@ -11,14 +11,11 @@ Copyright (c) 2008, Enthought, Inc.
 License: BSD style.
 """
 
-from numpy import array, arange, random, linspace, pi, ravel, cos, sin, \
-    empty, array 
+from numpy import array, random, linspace, pi, ravel, cos, sin, empty 
 from enthought.tvtk.api import tvtk
 
 from enthought.mayavi.scripts import mayavi2
 from enthought.mayavi.sources.vtk_data_source import VTKDataSource
-from enthought.mayavi.sources.array_source import ArraySource
-from enthought.mayavi.modules.surface import Surface
 
 from enthought.mayavi import mlab
 

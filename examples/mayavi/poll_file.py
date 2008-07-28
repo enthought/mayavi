@@ -99,8 +99,6 @@ def main():
     # Change this to suit your needs.  Edit the file after running this
     # script and the pipeline should be updated automatically.
 
-    import enthought.mayavi
-    #fname = '/tmp/heart.vtk'
     fname = join(mayavi2.get_data_dir(abspath(__file__)),
                  'heart.vtk')
 

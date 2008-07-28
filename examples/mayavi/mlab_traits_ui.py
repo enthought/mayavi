@@ -15,12 +15,9 @@ from enthought.traits.api import HasTraits, Instance
 from enthought.traits.ui.api import View, Item
 from enthought.tvtk.pyface.scene_editor import SceneEditor 
 
-from enthought.mayavi import mlab
 from enthought.mayavi.tools.mlab_scene_model import MlabSceneModel
 from enthought.mayavi.core.ui.mayavi_scene import MayaviScene
 
-# Set mlab to use the simple backend instead of envisage.
-mlab.options.backend = 'simple'
 
 ######################################################################
 class ActorViewer(HasTraits):

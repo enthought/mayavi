@@ -15,8 +15,7 @@ from numpy import ogrid, log
 from scipy import weave
 
 
-from enthought.mayavi.scripts import mayavi2
-from enthought.mayavi import mlab as M
+from enthought.mayavi import mlab
 
 
 support_code = '''
@@ -95,16 +94,16 @@ return_val = PyUFunc_FromFuncAndData(
 # Now mandel is a UFunc which takes x, y and returns the number of iterations
 # for the start point z = x + iy in the complex plane to diverge.
 ##############################################################################
-@mayavi2.standalone
+@mlab.show
 def view():
     x, y = ogrid[-3.0:+2.0:500j, -2.5:+2.5:500j]
 
     # mandel_array is a 2D numpy array with the height for each point
     mandel_array = log(log(mandel(x, y)))
 
-    P = M.pipeline
+    P = mlab.pipeline
 
-    mandel_struct2d = P.array2dsource(x, y, mandel_array)
+    mandel_struct2d = P.array2d_source(x, y, mandel_array)
     mandel_warp = P.warp_scalar(mandel_struct2d)
     mandel_triangles = P.triangle_filter(mandel_warp)
     mandel_triangles = P.quadric_decimation(mandel_triangles)

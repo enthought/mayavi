@@ -9,7 +9,7 @@ print "Please be patient"
 
 from numpy import loadtxt, sqrt, r_, c_, ones_like, empty_like, unique
 import urllib, zipfile, cStringIO, os
-from enthought.mayavi import mlab as M
+from enthought.mayavi import mlab
 
 
 ############################################################################
@@ -56,8 +56,8 @@ Z = r_[Z,  -10000*ones_like(Y_add).ravel()]
 
 ############################################################################
 # Do the visualization using the Mlab pipeline
-P = M.pipeline
-M.clf()
+P = mlab.pipeline
+mlab.clf()
 france_points = P.scalar_scatter(X, Y, Z, Z)
 france_elevation = P.elevation_filter( P.quadric_decimation(
                         P.threshold(
@@ -70,5 +70,5 @@ france_elevation = P.elevation_filter( P.quadric_decimation(
                     )
 
 france  = P.surface(france_elevation, colormap='gist_earth')
-M.view(0, 0)
-M.show()
+mlab.view(0, 0)
+mlab.show()

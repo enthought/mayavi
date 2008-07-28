@@ -24,7 +24,6 @@ class MyApp(Mayavi):
         """
         # Various imports to do different things.
         from enthought.mayavi.sources.vtk_file_reader import VTKFileReader
-        from enthought.mayavi.filters.threshold import Threshold
         from enthought.mayavi.modules.outline import Outline
         from enthought.mayavi.modules.axes import Axes
         from enthought.mayavi.modules.grid_plane import GridPlane

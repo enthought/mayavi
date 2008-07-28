@@ -12,20 +12,16 @@ from enthought.mayavi import mlab
 
 from numpy import mgrid, sin, sqrt
 
-@mlab.show
-def main():
-    # Display the MayaVi tree view UI.
-    ui = mlab.show_engine()
+# Display the MayaVi tree view UI.
+ui = mlab.show_engine()
 
-    # Create some data
-    X, Y = mgrid[-1:1:100j, -1:1:100j]
-    R = 10*sqrt(X**2 + Y**2)
-    Z = sin(R)/R
+# Create some data
+X, Y = mgrid[-1:1:100j, -1:1:100j]
+R = 10*sqrt(X**2 + Y**2)
+Z = sin(R)/R
 
-    # Plot it.
-    mlab.surf(X, Y, Z, colormap='gist_earth')
-    return ui
+# Plot it.
+mlab.surf(X, Y, Z, colormap='gist_earth')
 
+mlab.show()
 
-if __name__ == '__main__':
-    main()
