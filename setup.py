@@ -32,15 +32,11 @@ def configuration(parent_package='', top_path=None):
     config.add_data_dir('enthought/mayavi/preferences')
 
     # Add the documentation.
-    config.add_data_files(('enthought/mayavi/html', ['docs/html/mayavi/*.*']))
-    config.add_data_files(('enthought/mayavi/html/_images',
-                                ['docs/html/mayavi/html/_images/*.*']))
-    config.add_data_files(('enthought/mayavi/html/_sources',
-                                ['docs/html/mayavi/_sources/*.*']))
-    config.add_data_files(('enthought/mayavi/html/_static',
-                                ['docs/html/mayavi/_static/*.*']))
-    config.add_data_files(('enthought/mayavi/html/auto',
-                                ['docs/html/mayavi/auto/*.*']))
+    for root, dirs, files in os.walk('docs/html/mayavi'):
+        config.add_data_files((
+              root.replace('docs/html/mayavi', 'enthought/mayavi/html'), 
+              [os.path.join(root, '*.*')]
+              ))
 
     return config
 
