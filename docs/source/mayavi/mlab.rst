@@ -163,7 +163,7 @@ this manual, or add new modules or filters by using this icons on the
 pipeline, or through the right-click menus on the objects in the
 pipeline.
 
-.. image:: pipeline_and_scene.png
+.. image:: images/pipeline_and_scene.png
 
 In addition, for every object returned by a mlab function,
 ``this_object.edit_traits()`` brings up a dialog that can be used to

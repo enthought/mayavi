@@ -1,10 +1,10 @@
 # Standard imports
 import setuptools
 from numpy.distutils.core import setup
+from distutils.core import setup
 import os
 from pkg_resources import DistributionNotFound, parse_version, require, VersionConflict
 import zipfile
-import shutil
 
 # Local imports
 from setup_data import INFO
@@ -73,27 +73,19 @@ class my_install_scripts(install_scripts):
 # Create custom 'build' step hook to auto-generate the
 # documentation at build time, if Sphinx is installed.
 # Otherwise, it will unzip the html_docs.zip.
-from make_docs import HtmlBuild
-from numpy.distutils.command.build import build as distbuild
+from make_docs import HtmlBuild, DEFAULT_HTML_ZIP, \
+                DEFAULT_HTML_TARGET_DIR
+#from numpy.distutils.command.build import build as distbuild
+from distutils.command.build import build as distbuild
 from numpy.distutils import log
+
 from setuptools.command.develop import develop
 
 def generate_docs(project):
     """ Generate the documentation, whether that be using
     Sphinx or unzipping them.
     """
-    # Figure out the documentation source directory and
-    # the output directory based on current location.
-    doc_dir = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'docs') 
-    source_dir = os.path.join(doc_dir, 'source', project)
-    html_zip = os.path.join(doc_dir,  '%s_html_docs.zip' % project)
-    dest_dir = os.path.join(doc_dir, 'html')
 
-    # Make sure the destination directory is created if it
-    # doesn't already exist.
-    if not os.path.exists(dest_dir):
-        os.makedirs(dest_dir)
-    
     required_sphinx_version = "0.4.1"
     sphinx_installed = False
     try:
@@ -106,52 +98,43 @@ def generate_docs(project):
             import sphinx
             if parse_version(sphinx.__version__) < parse_version(required_sphinx_version):
                 log.error("Sphinx version must be >=%s." % required_sphinx_version)
+            if False:
+                pass
             else:
                 sphinx_installed = True
         except ImportError:
             log.error("Sphinx install not found.")
     
-    if sphinx_installed:             
+    if sphinx_installed: 
         log.info("Generating %s documentation..." % project)
-        docsrc = source_dir
-        target = dest_dir
         
         try:
             build = HtmlBuild()
             build.start({
                 'commit_message': None,
-                'doc_source': docsrc,
                 'preserve_temp': True,
                 'subversion': False,
-                'target': target,
                 'verbose': True,
                 'versioned': False
                 }, [])
             del build
-            
-            # Sphinx produces docs in docs/html/html
-            # We need to move that to docs/html/<project name>
-            html_dir = os.path.join(target, 'html')
-            project_dir = os.path.join(dest_dir, project)
-            if os.path.exists(project_dir):
-                shutil.rmtree(project_dir)
-            shutil.move(html_dir, project_dir)
             
         except:
             log.error("The documentation generation failed.  Falling back to "
                       "the zip file.")
             
             # Unzip the docs into the 'html' folder.
-            unzip_html_docs(html_zip, doc_dir)
+            unzip_html_docs(DEFAULT_HTML_ZIP, DEFAULT_HTML_TARGET_DIR)
     else:
         # Unzip the docs into the 'html' folder.
-        log.info("Installing %s documentaion from zip file.\n" % project)
-        unzip_html_docs(html_zip, doc_dir)
+        log.info("Installing %s documentation from zip file.\n" % project)
+        unzip_html_docs(DEFAULT_HTML_ZIP, DEFAULT_HTML_TARGET_DIR)
         
 def unzip_html_docs(src_path, dest_dir):
     """Given a path to a zipfile, extract
     its contents to a given 'dest_dir'.
     """
+    import sys
     file = zipfile.ZipFile(src_path)
     for name in file.namelist():
         cur_name = os.path.join(dest_dir, name)
@@ -185,18 +168,24 @@ class my_develop(develop):
 
 class my_build(distbuild):
     def run(self):
-        distbuild.run(self)
+        # distutils catches exceptions, and formats them nicely. We
+        # don't want this "featue".
+        try:
+            distbuild.run(self)
 
-        # Generate the documentation.
-        source_dir = os.path.join(os.path.abspath(os.path.dirname(__file__)),
-                                  'docs', 'source')
-        source_list = os.listdir(source_dir)
-        # Check to make sure we're using non-hidden directories.
-        source_dirs = [listing for listing in source_list
-                       if os.path.isdir(os.path.join(source_dir, listing))
-                       and not listing.startswith('.')]
-        for project in source_dirs:
-            generate_docs(project)
+            # Generate the documentation.
+            source_dir = os.path.join(os.path.abspath(os.path.dirname(__file__)),
+                                    'docs', 'source')
+            source_list = os.listdir(source_dir)
+            # Check to make sure we're using non-hidden directories.
+            source_dirs = [listing for listing in source_list
+                        if os.path.isdir(os.path.join(source_dir, listing))
+                        and not listing.startswith('.')]
+            for project in source_dirs:
+                generate_docs(project)
+        except Exception, e:
+            from traceback import print_exc
+            print_exc()
 
 setup(
     author = "Prabhu Ramachandran",

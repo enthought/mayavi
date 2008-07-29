@@ -54,7 +54,8 @@ DEFAULT_HTML_TARGET_DIR = os.path.join('docs', 'html', 'mayavi')
 DEFAULT_LATEX_TARGET_DIR = os.path.join('docs', 'latex')
 DEFAULT_PDF_TARGET_DIR = os.path.join('docs', 'pdf', 'mayavi')
 DEFAULT_INPUT_DIR = os.path.join('docs', 'source', 'mayavi')
-
+DEFAULT_HTML_ZIP = os.path.abspath(os.path.join(DEFAULT_INPUT_DIR, '..',
+                                          '..', 'mayavi_html_docs.zip'))
 ACTIONS = {}
 
 def register(process):
@@ -143,6 +144,7 @@ class Build(Process):
         if not os.path.exists(output_dir):
             print "Warning: output dir (%s) does not exist. Creating it." \
                         % output_dir
+            os.makedirs(output_dir)
 
         print "Running sphinx to build", format
         self.run_command('sphinx-build -D version=%s -D release=%s -b %s %s %s'
@@ -377,15 +379,13 @@ class CreateZip(Process):
         # Parse the same args that were passed to this runner.
         build.start(*op.parse_args(sys.argv[2:]))
 
-        # Create actual ZIP file and copy files (to the grandparent of 
-        # the doc src)
-        zf = zipfile.ZipFile(os.path.join(self.options.doc_source, '..',
-                                          '..', 'mayavi_html_docs.zip'), 'w')
+        # Create actual ZIP file and copy files
+        zf = zipfile.ZipFile(DEFAULT_HTML_ZIP, 'w')
 
         # This code is _very_ ugly, but I don't know of a better solution.
-        length = len(os.path.abspath(os.path.join(build.target, 'html')))
+        length = len(os.path.abspath(os.path.join(build.target)))
         subtract_base = lambda root: root[length+1:]
-        for root, dirs, files in os.walk(os.path.join(build.target, 'html')):
+        for root, dirs, files in os.walk(os.path.join(build.target)):
             baseless = subtract_base(root)
             if not baseless.startswith('.doctrees'):
                 for f in files:
