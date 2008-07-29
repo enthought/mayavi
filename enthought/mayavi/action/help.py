@@ -10,6 +10,7 @@
 import webbrowser
 from os import path
 from os.path import join, dirname
+import sys
 
 # Enthought library imports.
 from enthought.pyface.action.api import Action
@@ -31,8 +32,9 @@ if not path.exists(HTML_DIR):
         HTML_DIR = None
 
 def browser_open(url):
-    if webbrowser._iscommand('firefox') and \
-                    preference_manager.root.open_help_in_light_browser:
+    if sys.patform == 'darwin':
+        os.system('open %s &' % url)
+    elif webbrowser._iscommand('firefox') and \
         # Firefox is installed, let's use it, we know how to make it
         # chromeless.
         firefox = webbrowser.get('firefox')
