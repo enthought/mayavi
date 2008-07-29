@@ -42,13 +42,15 @@ class MayaviWorkbenchApplication(WorkbenchApplication):
 
     def _about_dialog_default(self):
         """ Trait initializer. """
-
+        from enthought.mayavi import api
         about_dialog = AboutDialog(
             parent = self.workbench.active_window.control,
             image  = ImageResource('m2_about.jpg',
                                    search_path=[IMG_DIR]),
             additions = ['Authors: Prabhu Ramachandran',
-                         'and Gael Varoquaux'],
+                            'and Gael Varoquaux',
+                            '',
+                            'Mayavi version %s' % api.__version__],
         )
 
         return about_dialog
