@@ -12,7 +12,7 @@ from types import IntType
 
 # Mayavi imports
 from camera import view
-from engine_manager import get_engine
+from engine_manager import get_engine, options
 
 ######################################################################
 
@@ -48,10 +48,12 @@ def figure(name=None, bgcolor=None, fgcolor=None, engine=None):
         engine.new_scene()
     view(40, 50)
     fig = engine.current_scene
-    if bgcolor is not None:
-        fig.scene.background = bgcolor
-    if fgcolor is not None:
-        fig.scene.foreground = fgcolor
+    if bgcolor is None:
+        bgcolor = options.background_color
+    fig.scene.background = bgcolor
+    if fgcolor is None:
+        fgcolor = options.foreground_color
+    fig.scene.foreground = fgcolor
     return fig
 
 

@@ -28,7 +28,9 @@ def is_ui_running():
 
 
 def show(func=None):
-    """By default, this function simply creates a GUI and starts its
+    """ Start interacting with the figure.
+    
+    By default, this function simply creates a GUI and starts its
     event loop if needed.
     
     If it is used as a decorator, then it may be used to decorate a
