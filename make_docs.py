@@ -74,7 +74,7 @@ class Process(object):
     action_name = None
 
     def __init__(self):
-        self.options = self.option_parser.parse_args()[0]
+        self.options = self.option_parser.parse_args([])[0]
 
     def start(self, options, args):
         if isinstance(options, Values):

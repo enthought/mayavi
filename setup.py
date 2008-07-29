@@ -4,52 +4,10 @@ from numpy.distutils.core import setup
 import os
 from pkg_resources import DistributionNotFound, parse_version, require, VersionConflict
 import zipfile
+from traceback import print_exc
 
 # Local imports
 from setup_data import INFO
-
-
-def configuration(parent_package='', top_path=None):
-    from numpy.distutils.misc_util import Configuration
-    config = Configuration(None, parent_package, top_path)
-    config.set_options(
-        ignore_setup_xxx_py=True,
-        assume_default_configuration=True,
-        delegate_options_to_subpackages=True,
-        quiet=True,
-    )
-
-    config.add_subpackage('enthought.tvtk')
-    config.add_subpackage('enthought')
-    config.add_data_dir('enthought/mayavi/core/lut')
-
-    # Image files.
-    for root, dirs, files in os.walk('enthought'):
-        if os.path.split(root)[-1] == 'images':
-            config.add_data_dir(root)
-
-    # *.ini files.
-    config.add_data_dir('enthought/tvtk/plugins/scene')
-    config.add_data_dir('enthought/mayavi/preferences')
-
-    # Add the documentation.
-    for root, dirs, files in os.walk('docs/html/mayavi'):
-        if len(files) > 0 and not '.doctrees' in root:
-            config.add_data_files((
-                root.replace('docs/html/mayavi', 'enthought/mayavi/html'), 
-                [os.path.join(root, '*.*')]
-                ))
-
-    return config
-
-
-# Build the full set of packages by appending any found by setuptools'
-# find_packages to those discovered by numpy.distutils.
-config = configuration().todict()
-packages = setuptools.find_packages(exclude=config['packages'] +
-    ['docs', 'examples'])
-config['packages'] += packages
-
 
 # This renames the mayavi script to a MayaVi.pyw script on win32.
 from setuptools.command.install_scripts import install_scripts
@@ -80,19 +38,6 @@ from numpy.distutils.command.build import build as distbuild
 from numpy.distutils import log
 
 from setuptools.command.develop import develop
-from traceback import print_exc
-
-def print_tb(func):
-    """ Decorator to make sure a traceback is printed when an exception
-        is raised in the function.
-    """
-    def my_func(*args, **kwargs):
-        try:
-            func(*args, **kwargs)
-        except Exception, e:
-            print_exc()
-            raise e
-    return my_func
 
 def generate_docs(project):
     """ Generate the documentation, whether that be using
@@ -162,9 +107,6 @@ def unzip_html_docs(src_path, dest_dir):
     file.close()
 
 class my_develop(develop):
-    # distutils catches exceptions, and formats them nicely. We
-    # don't want this "feature", so we use the print_tb decorator.
-    #@print_tb
     def run(self):
             # Make sure that the 'build_src' command will
             # always be inplace when we do a 'develop'.
@@ -183,9 +125,6 @@ class my_develop(develop):
                 generate_docs(project)
 
 class my_build(distbuild):
-    # distutils catches exceptions, and formats them nicely. We
-    # don't want this "feature", so we use the print_tb decorator.
-    #@print_tb
     def run(self):
         distbuild.run(self)
 
@@ -199,6 +138,45 @@ class my_build(distbuild):
                     and not listing.startswith('.')]
         for project in source_dirs:
             generate_docs(project)
+
+def configuration(parent_package='', top_path=None):
+    from numpy.distutils.misc_util import Configuration
+    config = Configuration(None, parent_package, top_path)
+    config.set_options(
+        ignore_setup_xxx_py=True,
+        assume_default_configuration=True,
+        delegate_options_to_subpackages=True,
+        quiet=True,
+    )
+
+    config.add_subpackage('enthought.tvtk')
+    config.add_subpackage('enthought')
+    config.add_data_dir('enthought/mayavi/core/lut')
+
+    # Image files.
+    for root, dirs, files in os.walk('enthought'):
+        if os.path.split(root)[-1] == 'images':
+            config.add_data_dir(root)
+
+    # *.ini files.
+    config.add_data_dir('enthought/tvtk/plugins/scene')
+    config.add_data_dir('enthought/mayavi/preferences')
+
+    # The documentation.
+    config.add_data_files(['enthought/mayavi/html/*', 
+                            os.path.join(DEFAULT_HTML_TARGET_DIR, '*')])
+
+    return config
+
+
+# Build the full set of packages by appending any found by setuptools'
+# find_packages to those discovered by numpy.distutils.
+config = configuration().todict()
+packages = setuptools.find_packages(exclude=config['packages'] +
+    ['docs', 'examples'])
+config['packages'] += packages
+
+
 
 setup(
     author = "Prabhu Ramachandran",
