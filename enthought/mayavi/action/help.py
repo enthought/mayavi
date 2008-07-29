@@ -9,8 +9,9 @@
 # Standard library imports.
 import webbrowser
 from os import path
-from os.path import join, dirname
+import os
 import sys
+from os.path import join, dirname
 
 # Enthought library imports.
 from enthought.pyface.action.api import Action
@@ -27,14 +28,15 @@ from enthought.mayavi.preferences.api import preference_manager
 local_dir = dirname(enthought.mayavi.api.__file__)
 HTML_DIR = join(local_dir, 'html')
 if not path.exists(HTML_DIR):
-    HTML_DIR = join(dirname(dirname(local_dir)), 'docs', 'html', 'mayavi')
+    HTML_DIR = join(dirname(dirname(local_dir)), 'build', 'docs', 'html')
     if not path.exists(HTML_DIR):
         HTML_DIR = None
 
 def browser_open(url):
-    if sys.patform == 'darwin':
-        os.system('open %s &' % url)
+    if sys.platform == 'darwin':
+            os.system('open %s &' % url)
     elif webbrowser._iscommand('firefox') and \
+                    preference_manager.root.open_help_in_light_browser:
         # Firefox is installed, let's use it, we know how to make it
         # chromeless.
         firefox = webbrowser.get('firefox')
