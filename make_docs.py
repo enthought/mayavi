@@ -46,8 +46,14 @@ from subprocess import Popen
 import sys
 import tempfile
 import zipfile
+from glob import glob
 
 from setup_data import INFO
+
+DEFAULT_HTML_TARGET_DIR = os.path.join('docs', 'html', 'mayavi')
+DEFAULT_LATEX_TARGET_DIR = os.path.join('docs', 'latex')
+DEFAULT_PDF_TARGET_DIR = os.path.join('docs', 'pdf')
+DEFAULT_INPUT_DIR = os.path.join('docs', 'source', 'mayavi')
 
 ACTIONS = {}
 
@@ -104,7 +110,7 @@ class Process(object):
 
         p.set_defaults(doc_source=os.path.join(
                 os.path.abspath(os.path.dirname(__file__)),
-                'docs', 'source', 'mayavi'))
+                DEFAULT_INPUT_DIR))
         
         return p
 
@@ -125,9 +131,17 @@ class Build(Process):
 
     @has_started
     def run_sphinx(self, format, output_dir=None):
+        if not os.path.exists(self.options.doc_source):
+            raise IOError, "Doc source directory (%s) does not exists" \
+                                % self.options.doc_source
         if not output_dir:
-            output_dir = os.path.join(self.target, format)
+            output_dir = self.target
 
+        if not os.path.exists(output_dir):
+            print "Warning: output dir (%s) does not exist. Creating it." \
+                        % output_dir
+
+        print "Running sphinx to build", format
         self.run_command('sphinx-build -D version=%s -D release=%s -b %s %s %s'
                          % (INFO['version'], INFO['version'], format,
                             self.options.doc_source, output_dir))
@@ -173,7 +187,6 @@ class Build(Process):
             self.svn_checkout()
 
         # Build the HTML in self.options.target
-        # print self.options.target
         self.run_sphinx(format)
         if post_run: post_run(self)
         
@@ -233,8 +246,9 @@ class Build(Process):
                          'the TARGET, rather than format directories directly')
 
         default_target = os.path.join(
-            os.path.abspath(os.path.dirname(__file__)), 'build', 'docs',
-        )
+                os.path.abspath(os.path.dirname(__file__)),
+                DEFAULT_HTML_TARGET_DIR
+            )
 
         p.set_defaults(commit=True, commit_message='Updating documentation',
                        repository='https://svn.enthought.com/svn/cec/trunk/' \
@@ -257,8 +271,8 @@ class HtmlBuild(Build):
 
     def run(self):
         if not self.options.subversion:
-            for path in ('html', 'html/auto/', 'html/images', 'html/_sources',
-                         'html/_static'):
+            for path, dirs, files in os.walk(self.options.doc_source):
+                print path
                 if not os.path.exists(os.path.join(self.target, path)):
                     os.makedirs(os.path.join(self.target, path))
 
@@ -281,24 +295,28 @@ class LaTeXBuild(Build):
     action_name = 'build-latex'
 
     def run(self):
-        if not os.path.exists(os.path.join(self.target, 'latex')):
-            os.makedirs(os.path.join(self.target, 'latex'))
+        if not os.path.exists(self.target):
+            print "Creating %s" % self.target
+            os.makedirs(self.target)
 
         # This is run directly after Sphinx, before tmp files are removed or
         # anything is checked into SVN.
         def post_run(self):
-            for i in range(3):
-                self.run_command('pdflatex *.tex',
-                                 cwd=os.path.join(self.target, 'latex'))
+            for filename in glob(os.path.join(self.target, '*.tex')):
+                filename = os.path.basename(filename)
+                for i in range(3):
+                    self.run_command('pdflatex %s' % filename,
+                                 cwd=self.target)
 
-            self.run_command('makeindex -s %s %s' % (
-                os.path.join(self.target, 'latex',  'python.ist'),
-                os.path.join(self.target, 'latex', '*.idx')
-            ))
+                for indexfile in glob(os.path.join(self.target, '*.dxx')):
+                    self.run_command('makeindex -s %s %s' % (
+                                os.path.join(self.target, 'python.ist'),
+                                indexfile)
+                            )
 
-            for i in range(3):
-                self.run_command('pdflatex *.tex',
-                                 cwd=os.path.join(self.target, 'latex'))
+                for i in range(3):
+                    self.run_command('pdflatex %s' % filename,
+                                                    cwd=self.target)
 
         self._run('latex', post_run)
 
@@ -315,6 +333,10 @@ class LaTeXBuild(Build):
     def option_parser(self):
         p = super(LaTeXBuild, self).option_parser
         p.set_defaults(commit_message='Update LaTeX documentation')
+        p.set_defaults(target=DEFAULT_LATEX_TARGET_DIR)
+        p.add_option('--pdf-outputdir',
+                     help='The output directory for the final pdf.')
+        p.set_defaults(pdf_outputdir=DEFAULT_PDF_TARGET_DIR)
         return p
 
 register(LaTeXBuild)
@@ -334,9 +356,10 @@ class CreateZip(Process):
         # Parse the same args that were passed to this runner.
         build.start(*op.parse_args(sys.argv[2:]))
 
-        # Create actual ZIP file and copy files (to the parent of the doc src)
+        # Create actual ZIP file and copy files (to the grandparent of 
+        # the doc src)
         zf = zipfile.ZipFile(os.path.join(self.options.doc_source, '..',
-                                          'html_docs.zip'), 'w')
+                                          '..', 'mayavi_html_docs.zip'), 'w')
 
         # This code is _very_ ugly, but I don't know of a better solution.
         length = len(os.path.abspath(os.path.join(build.target, 'html')))
@@ -419,6 +442,7 @@ register(UpdateCEC)
 if __name__ == '__main__':
     if len(sys.argv) == 1 or sys.argv[1] not in ACTIONS:
         print __doc__
+        print "-"*80
         print 'Need a valid action: %s' % ' '.join(ACTIONS.keys())
     else:
         action = ACTIONS[sys.argv[1]]()

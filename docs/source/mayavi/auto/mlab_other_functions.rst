@@ -38,6 +38,25 @@ axes
     
 
 
+show
+~~~~
+
+.. function:: show(func=None)
+
+    By default, this function simply creates a GUI and starts its
+    event loop if needed.
+    
+    If it is used as a decorator, then it may be used to decorate a
+    function which requires a UI.   If the GUI event loop is already
+    running it simply runs the function.  If not the event loop is
+    started and function is run in the toolkit's event loop.  The choice
+    of UI is via `ETSConfig.toolkit`.
+    
+    
+
+    
+
+
 text
 ~~~~
 
@@ -56,12 +75,23 @@ text
     
         :opacity: The overall opacity of the vtk object.
     
-        :width: width of the text.
-    
         :name: the name of the vtk object created.
     
         :color: the color of the vtk object. Overides the colormap,
                 if any, when specified.
+    
+        :width: width of the text.
+    
+
+    
+
+
+set_engine
+~~~~~~~~~~
+
+.. function:: set_engine(self, engine)
+
+    Sets the mlab engine.
     
 
     
@@ -72,8 +102,7 @@ show_engine
 
 .. function:: show_engine()
 
-    Show the UI for the mayavi engine used to create the
-    visualisations.
+    This function is depreciated, please use show_pipeline.
     
 
     
@@ -82,9 +111,9 @@ show_engine
 get_engine
 ~~~~~~~~~~
 
-.. function:: get_engine()
+.. function:: get_engine(self)
 
-    Returns the mayavi engine used to create the visualisations.
+    Returns an engine in agreement with the options.
     
 
     
@@ -101,13 +130,26 @@ outline
     
         :opacity: The overall opacity of the vtk object.
     
+        :name: the name of the vtk object created.
+    
         :color: the color of the vtk object. Overides the colormap,
                 if any, when specified.
     
-        :name: the name of the vtk object created.
-    
         :extent: [xmin, xmax, ymin, ymax, zmin, zmax]
                  Default is the object's extents.
+    
+
+    
+
+
+show_pipeline
+~~~~~~~~~~~~~
+
+.. function:: show_pipeline(self, engine=None)
+
+    Show a dialog with the mayavi pipeline. This dialog allows to
+    edit graphicaly the properties of the different objects on
+    the scenes.
     
 
     
@@ -131,11 +173,11 @@ title
     
         :name: the name of the vtk object created.
     
-        :height: height of the title, in portion of the
-                 figure height
-    
         :color: the color of the vtk object. Overides the colormap,
                 if any, when specified.
+    
+        :height: height of the title, in portion of the
+                 figure height
     
         :size: the size of the title
     

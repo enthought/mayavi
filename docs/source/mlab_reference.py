@@ -8,8 +8,9 @@ Script to generate the function reference for mlab.
 
 import os
 
-OUT_DIR = os.path.dirname(os.path.abspath(__file__)) + os.sep \
-            + 'source' + os.sep + 'auto'
+OUT_DIR = os.sep.join(
+        [os.path.dirname(os.path.abspath(__file__)),'mayavi','auto']
+            )
 
 from enthought.mayavi.tools import auto_doc
 from enthought.mayavi import mlab
@@ -62,7 +63,7 @@ def relpath(target, base=os.curdir):
         i+=1
 
     rel_list = [os.pardir] * (len(base_list)-i) + target_list[i:]
-    return os.path.join(*rel_list)
+    return os.sep.join(*rel_list)
 
 
 def is_valid_rst(string):
@@ -93,10 +94,14 @@ def document_function(func, func_name=None, example_code=None,
 
     func_doc = func.__doc__
 
-    if is_valid_rst(func_doc):
-        func_doc = dedent(func_doc)
+    if func_doc is None:
+        print 'function %s is undocumented' % func_name
+        func_doc = '\n\n'
     else:
-        func_doc = "\n::\n" + func_doc
+        if is_valid_rst(func_doc):
+            func_doc = dedent(func_doc)
+        else:
+            func_doc = "\n::\n" + func_doc
 
     func_signature = formatargspec(*getargspec(func))
 
@@ -215,7 +220,7 @@ class ModuleReference(object):
                             if not ( name[:5] == 'test_' or name[0] == '_')
                                                      and callable(func)])
 
-        outfile = file(self.out_dir + os.sep + self.filename, 'w')
+        outfile = file(os.sep.join([self.out_dir, self.filename]), 'w')
         
         outfile.write(self.header)
 
@@ -233,7 +238,7 @@ class ModuleReference(object):
             self.sub_headers = ['' for submodule in self.sub_modules]
         if self.sub_filenames is None:
             self.sub_filenames = ['%s.rst' for submodule in self.sub_modules]
-        
+       
         # Document the functions imported from a submodule
         for submodule, header, filename, title in zip(
                     self.sub_modules, self.sub_headers,
@@ -256,7 +261,7 @@ class ModuleReference(object):
 
 .. include:: %s
 
-""" % mist_filename)
+""" % misc_filename)
         else:
             outfile.write('\t%s\n' % misc_filename)
 
@@ -269,7 +274,7 @@ class ModuleReference(object):
             submodule. If submodule is none, all the non-processed
             functions are processed.
         """
-        outfile = file(self.out_dir + os.sep + filename, 'w')
+        outfile = file(os.sep.join([self.out_dir, filename]), 'w')
         
         if header is not None:
             outfile.write(header)
@@ -303,6 +308,12 @@ class ModuleReference(object):
 # Entry point
 
 if __name__ == '__main__':
+    try:
+        os.makedirs(OUT_DIR)
+    except:
+        pass
+
+
     from enthought.mayavi.tools import helper_functions, camera, \
             decorations, figure
 

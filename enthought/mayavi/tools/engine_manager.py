@@ -85,6 +85,10 @@ class EngineManager(HasTraits):
 
 
     def show_engine(self, engine=None):
+        """ Show a dialog with the mayavi pipeline. This dialog allows to
+            edit graphicaly the properties of the different objects on
+            the scenes.
+        """
         if engine is None:
             engine = self.get_engine()
         if engine.__class__.__name__ == 'EnvisageEngine':
@@ -101,5 +105,5 @@ get_engine = engine_manager.get_engine
 
 set_engine = engine_manager.set_engine
 
-show_engine = engine_manager.show_engine
+show_pipeline = engine_manager.show_engine
 

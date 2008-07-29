@@ -24,11 +24,11 @@ imshow
     
         :colormap: type of colormap to use.
     
-        :vmin: vmin is used to scale the colormap
-               If None, the min of the data will be used
-    
         :color: the color of the vtk object. Overides the colormap,
                 if any, when specified.
+    
+        :vmin: vmin is used to scale the colormap
+               If None, the min of the data will be used
     
         :extent: [xmin, xmax, ymin, ymax, zmin, zmax]
                  Default is the x, y, z arrays extents.
@@ -43,14 +43,12 @@ imshow
         :transparent: make the opacity of the actor depend on the
                       scalar.
     
+        :figure: Figure to populate.
+    
         :name: the name of the vtk object created.
     
 
     
-
-.. image:: ../images/enthought_mayavi_mlab_imshow.jpg
-
-
 Example::
 
     def test_imshow():
@@ -86,24 +84,12 @@ quiver3d
     
         :scale_factor: the scaling applied to the glyphs. The
                        size of the glyph is by default in drawing
-                       units. Default: 1.0
+                       units. Must be a float. Default: 1.0
     
         :colormap: type of colormap to use.
     
-        :vmin: vmin is used to scale the colormap
-               If None, the min of the data will be used
-    
         :color: the color of the vtk object. Overides the colormap,
                 if any, when specified.
-    
-        :scale_mode: the scaling mode for the glyphs
-                     ('vector', 'scalar', or 'none').
-    
-        :mode: the mode of the glyphs. Must be '2darrow' or '2dcircle' or
-               '2dcross' or '2ddash' or '2ddiamond' or '2dhooked_arrow' or
-               '2dsquare' or '2dthick_arrow' or '2dthick_cross' or
-               '2dtriangle' or '2dvertex' or 'arrow' or 'cone' or 'cube' or
-               'cylinder' or 'point' or 'sphere'. Default: 2darrow
     
         :extent: [xmin, xmax, ymin, ymax, zmin, zmax]
                  Default is the x, y, z arrays extents.
@@ -116,12 +102,26 @@ quiver3d
     
         :name: the name of the vtk object created.
     
-
+        :vmin: vmin is used to scale the colormap
+               If None, the min of the data will be used
+    
+        :scale_mode: the scaling mode for the glyphs
+                     ('vector', 'scalar', or 'none').
+    
+        :mode: the mode of the glyphs. Must be '2darrow' or '2dcircle' or
+               '2dcross' or '2ddash' or '2ddiamond' or '2dhooked_arrow' or
+               '2dsquare' or '2dthick_arrow' or '2dthick_cross' or
+               '2dtriangle' or '2dvertex' or 'arrow' or 'cone' or 'cube' or
+               'cylinder' or 'point' or 'sphere'. Default: 2darrow
+    
+        :figure: Figure to populate.
+    
+        :resolution: The resolution of the glyph created. Forspheres, for
+                     instance, this is the number ofdivisions along theta and
+                     phi.
     
 
-.. image:: ../images/enthought_mayavi_mlab_quiver3d.jpg
-
-
+    
 Example::
 
     def test_quiver3d():
@@ -166,7 +166,7 @@ plot3d
         :opacity: The overall opacity of the vtk object.
     
         :tube_radius: radius of the tubes used to represent the
-                      lines Default: 0.025
+                      lines Must be a float. Default: 0.025
     
         :colormap: type of colormap to use.
     
@@ -182,6 +182,8 @@ plot3d
         :transparent: make the opacity of the actor depend on the
                       scalar.
     
+        :figure: Figure to populate.
+    
         :name: the name of the vtk object created.
     
         :vmin: vmin is used to scale the colormap
@@ -192,14 +194,10 @@ plot3d
                          surface
     
         :tube_sides: number of sides of the tubes used to
-                     represent the lines. Default: 6
+                     represent the lines. Must be an integer. Default: 6
     
 
     
-
-.. image:: ../images/enthought_mayavi_mlab_plot3d.jpg
-
-
 Example::
 
     def test_plot3d():
@@ -234,9 +232,22 @@ surf
         surf(x, y, s, ...)
         surf(x, y, f, ...)
     
-    If only one array z is passed the x and y arrays are assumed to be made
-    of the indices of z.
+    If 3 positional arguments are passed the last one must be an array s,
+    or a callable, f, that returns an array. x and y give the
+    coordinnates of positions corresponding to the s values.
+    
     z is the elevation matrix.
+    
+    x and y can be 1D or 2D arrays (such as returned by numpy.ogrid or
+    numpy.mgrid), but the points should be located on an orthogonal grid
+    (possibly non-uniform). In other words, all the points sharing a same
+    index in the s array need to have the same x or y value. For
+    arbitrary-shaped position arrays (non-orthogonal grids), see the mesh
+    function.
+    
+    If only 1 array s is passed the x and y arrays are assumed to be
+    made from the indices of arrays, and an uniformly-spaced data set is
+    created.
     
     **Keyword arguments:**
     
@@ -256,12 +267,20 @@ surf
         :transparent: make the opacity of the actor depend on the
                       scalar.
     
-        :warp_scale: scale of the warp scalar
+        :figure: Figure to populate.
+    
+        :warp_scale: scale of the z axis (warped from
+                     the value of the scalar). By default this scale
+                     is calculated to give a pleasant aspect ratio to
+                     the plot. You can overright this behavoir by
+                     specifying a float value.
     
         :name: the name of the vtk object created.
     
         :vmin: vmin is used to scale the colormap
                If None, the min of the data will be used
+    
+        :mask: boolean mask array to suppress some data points.
     
         :representation: the representation type used for the surface. Must be
                          'surface' or 'wireframe' or 'points'. Default:
@@ -269,10 +288,6 @@ surf
     
 
     
-
-.. image:: ../images/enthought_mayavi_mlab_surf.jpg
-
-
 Example::
 
     def test_surf():
@@ -295,12 +310,18 @@ mesh
 .. function:: mesh(*args, **kwargs)
 
     
-    Plots a surface using-grid spaced data supplied as 2D arrays.
+    Plots a surface using grid-spaced data supplied as 2D arrays.
     
     **Function signatures**::
     
         mesh(x, y, z, ...)
     
+    x, y, z are 2D arrays giving the positions of the vertices of the surface.
+    The connectivity between these points is implied by the connectivity on
+    the arrays.
+    
+    For simple structures (such as orthogonal grids) prefer the surf function,
+    as it will create more efficient data structures.
     
     
     **Keyword arguments:**
@@ -308,7 +329,8 @@ mesh
         :opacity: The overall opacity of the vtk object.
     
         :scale_factor: scale factor of the glyphs used to represent
-                       the vertices, in fancy_mesh mode. Default: 0.05
+                       the vertices, in fancy_mesh mode. Must be a float.
+                       Default: 0.05
     
         :colormap: type of colormap to use.
     
@@ -327,6 +349,8 @@ mesh
         :transparent: make the opacity of the actor depend on the
                       scalar.
     
+        :figure: Figure to populate.
+    
         :name: the name of the vtk object created.
     
         :vmin: vmin is used to scale the colormap
@@ -334,6 +358,8 @@ mesh
     
         :scale_mode: the scaling mode for the glyphs
                      ('vector', 'scalar', or 'none').
+    
+        :mask: boolean mask array to suppress some data points.
     
         :scalars: optional scalar data.
     
@@ -347,15 +373,15 @@ mesh
                          'surface' or 'wireframe' or 'points' or 'mesh' or
                          'fancymesh'. Default: surface
     
+        :resolution: The resolution of the glyph created. Forspheres, for
+                     instance, this is the number ofdivisions along theta and
+                     phi.
+    
         :tube_sides: number of sides of the tubes used to
-                     represent the lines. Default: 6
+                     represent the lines. Must be an integer. Default: 6
     
 
     
-
-.. image:: ../images/enthought_mayavi_mlab_mesh.jpg
-
-
 Example::
 
     def test_mesh():
@@ -394,13 +420,12 @@ contour3d
     
         :opacity: The overall opacity of the vtk object.
     
-        :colormap: type of colormap to use.
-    
-        :vmin: vmin is used to scale the colormap
-               If None, the min of the data will be used
+        :name: the name of the vtk object created.
     
         :color: the color of the vtk object. Overides the colormap,
                 if any, when specified.
+    
+        :colormap: type of colormap to use.
     
         :contours: Integer/list specifying number/list of
                    contours. Specifying 0 shows no contours.
@@ -413,17 +438,16 @@ contour3d
         :vmax: vmax is used to scale the colormap
                If None, the max of the data will be used
     
+        :figure: Figure to populate.
+    
         :transparent: make the opacity of the actor depend on the
                       scalar.
     
-        :name: the name of the vtk object created.
+        :vmin: vmin is used to scale the colormap
+               If None, the min of the data will be used
     
 
     
-
-.. image:: ../images/enthought_mayavi_mlab_contour3d.jpg
-
-
 Example::
 
     def test_contour3d():
@@ -475,24 +499,12 @@ points3d
     
         :scale_factor: the scaling applied to the glyphs. The
                        size of the glyph is by default in drawing
-                       units. Default: 1.0
+                       units. Must be a float. Default: 1.0
     
         :colormap: type of colormap to use.
     
-        :vmin: vmin is used to scale the colormap
-               If None, the min of the data will be used
-    
         :color: the color of the vtk object. Overides the colormap,
                 if any, when specified.
-    
-        :scale_mode: the scaling mode for the glyphs
-                     ('vector', 'scalar', or 'none').
-    
-        :mode: the mode of the glyphs. Must be '2darrow' or '2dcircle' or
-               '2dcross' or '2ddash' or '2ddiamond' or '2dhooked_arrow' or
-               '2dsquare' or '2dthick_arrow' or '2dthick_cross' or
-               '2dtriangle' or '2dvertex' or 'arrow' or 'cone' or 'cube' or
-               'cylinder' or 'point' or 'sphere'. Default: sphere
     
         :extent: [xmin, xmax, ymin, ymax, zmin, zmax]
                  Default is the x, y, z arrays extents.
@@ -505,25 +517,39 @@ points3d
     
         :name: the name of the vtk object created.
     
-
+        :vmin: vmin is used to scale the colormap
+               If None, the min of the data will be used
+    
+        :scale_mode: the scaling mode for the glyphs
+                     ('vector', 'scalar', or 'none').
+    
+        :mode: the mode of the glyphs. Must be '2darrow' or '2dcircle' or
+               '2dcross' or '2ddash' or '2ddiamond' or '2dhooked_arrow' or
+               '2dsquare' or '2dthick_arrow' or '2dthick_cross' or
+               '2dtriangle' or '2dvertex' or 'arrow' or 'cone' or 'cube' or
+               'cylinder' or 'point' or 'sphere'. Default: sphere
+    
+        :figure: Figure to populate.
+    
+        :resolution: The resolution of the glyph created. Forspheres, for
+                     instance, this is the number ofdivisions along theta and
+                     phi.
     
 
-.. image:: ../images/enthought_mayavi_mlab_points3d.jpg
-
-
+    
 Example::
 
     def test_points3d():
-        t = numpy.linspace(0, 4*numpy.pi, 100)
+        t = numpy.linspace(0, 4*numpy.pi, 20)
         cos = numpy.cos
         sin = numpy.sin
     
         x = sin(2*t)
         y = cos(t)
-        z = sin(2*t)
-        s = sin(t)
+        z = cos(2*t)
+        s = 2+sin(t)
     
-        points3d(x, y, z, s, colormap="copper")
+        points3d(x, y, z, s, colormap="copper", scale_factor=.25)
     
 
 
@@ -584,12 +610,10 @@ flow
     
         :scalars: optional scalar data.
     
-
+        :figure: Figure to populate.
     
 
-.. image:: ../images/enthought_mayavi_mlab_flow.jpg
-
-
+    
 Example::
 
     def test_flow():
@@ -663,12 +687,10 @@ contour_surf
                    Specifying a list of values will only give the
                    requested contours asked for.
     
-
+        :figure: Figure to populate.
     
 
-.. image:: ../images/enthought_mayavi_mlab_contour_surf.jpg
-
-
+    
 Example::
 
     def test_contour_surf():

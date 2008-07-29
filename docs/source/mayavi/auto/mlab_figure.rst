@@ -8,10 +8,20 @@ Figure handling functions
 figure
 ~~~~~~
 
-.. function:: figure(name=None)
+.. function:: figure(name=None, bgcolor=None, fgcolor=None, engine=None)
 
     Creates a new scene or retrieves an existing scene. If the mayavi
     engine is not running this also starts it.
+    
+    **Keyword arguments**
+    
+        :name: The name of the scene.
+    
+        :bgcolor: The color of the background (None is default).
+    
+        :fgcolor: The color of the foreground (None is default).
+    
+        :engine: The mayavi engine that controls the figure.
     
 
     
@@ -20,7 +30,7 @@ figure
 savefig
 ~~~~~~~
 
-.. function:: savefig(filename, size=None, **kwargs)
+.. function:: savefig(filename, size=None, figure=None, **kwargs)
 
     Save the current scene.
     The output format are deduced by the extension to filename.
@@ -44,9 +54,12 @@ savefig
 gcf
 ~~~
 
-.. function:: gcf()
+.. function:: gcf(engine=None)
 
     Return a handle to the current figure.
+    
+    You can supply the engine from which you want to retrieve the
+    current figure, if you have several mayavi engines.
     
 
     
@@ -55,9 +68,11 @@ gcf
 clf
 ~~~
 
-.. function:: clf()
+.. function:: clf(figure=None)
 
     Clear the current figure.
+    
+    You can also supply the figure that you want to clear.
     
 
     
@@ -66,7 +81,7 @@ clf
 draw
 ~~~~
 
-.. function:: draw()
+.. function:: draw(figure=None)
 
     Forces a redraw of the current figure.
     
