@@ -39,7 +39,7 @@ commands are for building):
                         TARGET, rather than format directories directly
 """
 
-from optparse import OptionParser
+from optparse import OptionParser, Values
 import os.path
 import shutil
 from subprocess import Popen
@@ -73,11 +73,14 @@ def has_started(method):
 class Process(object):
     action_name = None
 
-    def start(self, options, args):
-        if isinstance(options, dict):
-            options = type('Options', (object,), options)()
+    def __init__(self):
+        self.options = self.option_parser.parse_args()[0]
 
-        self.options = options
+    def start(self, options, args):
+        if isinstance(options, Values):
+            options = options.__dict__
+
+        self.options._update_loose(options)
         self.args = args
 
         self.run()

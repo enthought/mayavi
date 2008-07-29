@@ -1,7 +1,6 @@
 # Standard imports
 import setuptools
 from numpy.distutils.core import setup
-from distutils.core import setup
 import os
 from pkg_resources import DistributionNotFound, parse_version, require, VersionConflict
 import zipfile
@@ -23,6 +22,8 @@ def configuration(parent_package='', top_path=None):
     config.add_subpackage('enthought.tvtk')
     config.add_subpackage('enthought')
     config.add_data_dir('enthought/mayavi/core/lut')
+
+    # Image files.
     for root, dirs, files in os.walk('enthought'):
         if os.path.split(root)[-1] == 'images':
             config.add_data_dir(root)
@@ -33,7 +34,7 @@ def configuration(parent_package='', top_path=None):
 
     # Add the documentation.
     for root, dirs, files in os.walk('docs/html/mayavi'):
-        if len(files) > 0:
+        if len(files) > 0 and not '.doctrees' in root:
             config.add_data_files((
                 root.replace('docs/html/mayavi', 'enthought/mayavi/html'), 
                 [os.path.join(root, '*.*')]
@@ -75,11 +76,23 @@ class my_install_scripts(install_scripts):
 # Otherwise, it will unzip the html_docs.zip.
 from make_docs import HtmlBuild, DEFAULT_HTML_ZIP, \
                 DEFAULT_HTML_TARGET_DIR
-#from numpy.distutils.command.build import build as distbuild
-from distutils.command.build import build as distbuild
+from numpy.distutils.command.build import build as distbuild
 from numpy.distutils import log
 
 from setuptools.command.develop import develop
+from traceback import print_exc
+
+def print_tb(func):
+    """ Decorator to make sure a traceback is printed when an exception
+        is raised in the function.
+    """
+    def my_func(*args, **kwargs):
+        try:
+            func(*args, **kwargs)
+        except Exception, e:
+            print_exc()
+            raise e
+    return my_func
 
 def generate_docs(project):
     """ Generate the documentation, whether that be using
@@ -120,6 +133,7 @@ def generate_docs(project):
             del build
             
         except:
+            print_exc()
             log.error("The documentation generation failed.  Falling back to "
                       "the zip file.")
             
@@ -134,7 +148,6 @@ def unzip_html_docs(src_path, dest_dir):
     """Given a path to a zipfile, extract
     its contents to a given 'dest_dir'.
     """
-    import sys
     file = zipfile.ZipFile(src_path)
     for name in file.namelist():
         cur_name = os.path.join(dest_dir, name)
@@ -149,30 +162,15 @@ def unzip_html_docs(src_path, dest_dir):
     file.close()
 
 class my_develop(develop):
+    # distutils catches exceptions, and formats them nicely. We
+    # don't want this "feature", so we use the print_tb decorator.
+    #@print_tb
     def run(self):
-        # Make sure that the 'build_src' command will
-        # always be inplace when we do a 'develop'.
-        self.reinitialize_command('build_src', inplace=1)
-        develop.run(self)
-        
-        # Generate the documentation.
-        source_dir = os.path.join(os.path.abspath(os.path.dirname(__file__)),
-                                  'docs', 'source')
-        source_list = os.listdir(source_dir)
-        # Check to make sure we're using non-hidden directories.
-        source_dirs = [listing for listing in source_list
-                       if os.path.isdir(os.path.join(source_dir, listing))
-                       and not listing.startswith('.')]
-        for project in source_dirs:
-            generate_docs(project)
-
-class my_build(distbuild):
-    def run(self):
-        # distutils catches exceptions, and formats them nicely. We
-        # don't want this "featue".
-        try:
-            distbuild.run(self)
-
+            # Make sure that the 'build_src' command will
+            # always be inplace when we do a 'develop'.
+            self.reinitialize_command('build_src', inplace=1)
+            develop.run(self)
+            
             # Generate the documentation.
             source_dir = os.path.join(os.path.abspath(os.path.dirname(__file__)),
                                     'docs', 'source')
@@ -183,9 +181,24 @@ class my_build(distbuild):
                         and not listing.startswith('.')]
             for project in source_dirs:
                 generate_docs(project)
-        except Exception, e:
-            from traceback import print_exc
-            print_exc()
+
+class my_build(distbuild):
+    # distutils catches exceptions, and formats them nicely. We
+    # don't want this "feature", so we use the print_tb decorator.
+    #@print_tb
+    def run(self):
+        distbuild.run(self)
+
+        # Generate the documentation.
+        source_dir = os.path.join(os.path.abspath(os.path.dirname(__file__)),
+                                'docs', 'source')
+        source_list = os.listdir(source_dir)
+        # Check to make sure we're using non-hidden directories.
+        source_dirs = [listing for listing in source_list
+                    if os.path.isdir(os.path.join(source_dir, listing))
+                    and not listing.startswith('.')]
+        for project in source_dirs:
+            generate_docs(project)
 
 setup(
     author = "Prabhu Ramachandran",
