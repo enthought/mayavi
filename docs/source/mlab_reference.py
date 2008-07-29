@@ -323,6 +323,8 @@ if __name__ == '__main__':
             module  = mlab,
             header  = """
 
+.. _mlab-reference: 
+
 MLab reference
 =================
 

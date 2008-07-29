@@ -1,5 +1,7 @@
 
 
+.. _mlab-reference: 
+
 MLab reference
 =================
 

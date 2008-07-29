@@ -43,6 +43,8 @@ show
 
 .. function:: show(func=None)
 
+    Start interacting with the figure.
+    
     By default, this function simply creates a GUI and starts its
     event loop if needed.
     

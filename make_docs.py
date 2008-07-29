@@ -52,7 +52,7 @@ from setup_data import INFO
 
 DEFAULT_HTML_TARGET_DIR = os.path.join('docs', 'html', 'mayavi')
 DEFAULT_LATEX_TARGET_DIR = os.path.join('docs', 'latex')
-DEFAULT_PDF_TARGET_DIR = os.path.join('docs', 'pdf')
+DEFAULT_PDF_TARGET_DIR = os.path.join('docs', 'pdf', 'mayavi')
 DEFAULT_INPUT_DIR = os.path.join('docs', 'source', 'mayavi')
 
 ACTIONS = {}
@@ -115,6 +115,9 @@ class Process(object):
         return p
 
 class Build(Process):
+    # Use a list, for a Borg-like behavior
+    mlab_reference_generated = [False ]
+
     @has_started
     def svn_checkout(self):
         self.run_command('svn checkout %s %s' % (self.options.repository,
@@ -186,6 +189,7 @@ class Build(Process):
         if self.options.subversion:
             self.svn_checkout()
 
+        self.mlab_reference()
         # Build the HTML in self.options.target
         self.run_sphinx(format)
         if post_run: post_run(self)
@@ -224,6 +228,22 @@ class Build(Process):
 
             if self.options.commit:
                 self.svn_commit()
+
+    def mlab_reference(self):
+        """ If mayavi is installed, run the mlab_reference generator.
+        """
+        if self.mlab_reference_generated[0]:
+            return
+        try:
+            from enthought.mayavi import mlab
+            print "Generating the mlab reference documentation"
+            os.system('python %s' % 
+                        os.path.join(DEFAULT_INPUT_DIR,
+                                            '..', 'mlab_reference.py'))
+        except:
+            pass
+        self.mlab_reference_generated[0] = True
+
 
     @property
     def option_parser(self):
@@ -272,7 +292,6 @@ class HtmlBuild(Build):
     def run(self):
         if not self.options.subversion:
             for path, dirs, files in os.walk(self.options.doc_source):
-                print path
                 if not os.path.exists(os.path.join(self.target, path)):
                     os.makedirs(os.path.join(self.target, path))
 
@@ -317,6 +336,8 @@ class LaTeXBuild(Build):
                 for i in range(3):
                     self.run_command('pdflatex %s' % filename,
                                                     cwd=self.target)
+            for filename in glob(os.path.join(self.target, '*.pdf')):
+                shutil.move(filename, self.options.pdf_outputdir)
 
         self._run('latex', post_run)
 

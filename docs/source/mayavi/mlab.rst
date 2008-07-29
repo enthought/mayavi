@@ -5,16 +5,16 @@ Simple Scripting with ``mlab``
 
 .. currentmodule:: enthought.mayavi.mlab
 
-The ``enthought.mayavi.mlab`` module, that we call mlab, provides quick
+The :mod:`enthought.mayavi.mlab` module, that we call mlab, provides an easy
+way to visulize data in a script or from an interactive prompt with 
 one-liners as done in the matplotlib_ ``pylab`` interface but with an
-emphasis on 3D visualization using Mayavi2.  This allows users to perform
+emphasis on 3D visualization using Mayavi2. This allows users to perform
 quick 3D visualization while being able to use Mayavi's powerful
 features.
 
 Mayavi's mlab is designed to be used in a manner well suited to
-scripting and does not present a fully object-oriented API (this is
-similar to matplotlib's ``pylab``).  It is best used interactively with
-IPython_.  
+scripting and does not present a fully object-oriented API.
+It is can be used interactively with IPython_.
 
 .. important:: 
 
@@ -42,6 +42,7 @@ Once started, here is a pretty example showing a spherical harmonic::
 
  from numpy import *
  from enthought.mayavi import mlab
+
  # Create the data.
  dphi, dtheta = pi/250.0, pi/250.0
  [phi,theta] = mgrid[0:pi+dphi*1.5:dphi,0:2*pi+dtheta*1.5:dtheta]
@@ -49,22 +50,27 @@ Once started, here is a pretty example showing a spherical harmonic::
  r = sin(m0*phi)**m1 + cos(m2*phi)**m3 + sin(m4*theta)**m5 + cos(m6*theta)**m7
  x = r*sin(phi)*cos(theta)
  y = r*cos(phi)
- z = r*sin(phi)*sin(theta);
+ z = r*sin(phi)*sin(theta)
+
  # View it.
- f = mlab.figure()
  s = mlab.mesh(x, y, z)
 
+ mlab.show()
+
 Bulk of the code in the above example is to create the data.  One line
-suffices to visualize it.  This produces the following visualization
-in a Mayavi window.
+suffices to visualize it.  This produces the following visualization:
 
 .. image:: images/mlab_surf_example.jpg
 
-The data and visualization modules are all created by the single
-command ``mesh`` in the above. 
- 
-Plotting 
----------
+The visualization is created by the single command ``mesh`` in the above. 
+
+Plotting functions
+-------------------
+
+Visualization can be created in mlab by a set of functions operating on
+numpy arrays. In this section, we only list the different functions. They
+are described in details in the :mod:`mlab` reference, at the
+end of the user guide.
 
 The mlab plotting functions take numpy arrays as input, describing the
 ``x``, ``y``, and ``z`` coordinates of the data. They build full-blown
@@ -146,31 +152,48 @@ explicitly sets the roll angle of the camera.
 Interacting graphically with the visualization
 -----------------------------------------------
 
-The Mayavi pipeline tree can be displayed using :func:`show_engine`
-command. One can now change the visualization using this dialog by
-double-clicking on each object to edit its properties, as described in
-other parts of this manual.
+Mayavi, and thus mlab, allow you to interactively modify your
+visualization.
+
+The Mayavi pipeline tree can be displayed by clicking on the mayavi icon
+in the figure's toolbar, or by using :func:`show_pipeline` mlab command.
+One can now change the visualization using this dialog by double-clicking
+on each object to edit its properties, as described in other parts of
+this manual, or add new modules or filters by using this icons on the
+pipeline, or through the right-click menus on the objects in the
+pipeline.
+
+.. image:: pipeline_and_scene.png
 
 In addition, for every object returned by a mlab function,
 ``this_object.edit_traits()`` brings up a dialog that can be used to
-interactively edit the object's properties.
+interactively edit the object's properties. If the dialog doesn't show up
+when you enter this command, please see the next paragraph.
 
 
-Running Mlab scripts
+Running mlab scripts
 ---------------------
 
-Interactively
-~~~~~~~~~~~~~~~
+Mlab, like the rest of Mayavi, is an interactive application. To
+interact with the figures or the rest of the drawing elements, you need
+to use the :func:`show` function. For instance, if you are writing
+a script, you need to call :func:`show` each time you want to
+display one or more figures and allow the user to interact with them.
 
-Using `IPython`_ mlab instructions can be run interactively, or in
-scripts using `IPython`_'s ``%run`` command.
+Using mlab interactively
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Alternatively, using `IPython`_ mlab instructions can be run
+interactively, or in scripts using `IPython`_'s ``%run`` command, as soon
+as they are executed, alleviating the need to use the :func:`show`
+function.
 
 Mlab can also be used interactively in the Python shell of the mayavi2
 application, or in any interactive Python shell of wxPython-based
 application (such as other Envisage-based applications, or Stani's
 Python editor).
 
-As batch scripts
+In scripts
 ~~~~~~~~~~~~~~~~~
 
 Mlab commands can be written to a file, to form a script. This script
@@ -179,15 +202,19 @@ entry, and executed using the *File->Refresh code* menu entry or by
 pressing ``Control-r``.  It can also be executed during the start of the
 Mayavi application using the ``-x`` command line switch.
 
-You can also make your mlab script a normal Python script, that can be
-run with ``python my_script.py`` by adding the following lines at the end
-of your script::
+As already mentioned, you can call the :func:`show` function to pause
+your script and have the user interact with the figure. You can also
+use  :func:`show` to decorate a function, and have it run in the
+event-loop, which give you more flexibility::
 
-    from enthought.pyface.api import GUI
-    GUI().start_event_loop()
+ from enthought.mayavi import mlab
+ from numpy import random
+ 
+ @mlab.show
+ def image():
+    imshow(random.random((10, 10))
 
-Don't do this when running it in an interactive environment, as it will
-freeze your environment.
+
 
 ..
    Local Variables:
