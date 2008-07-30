@@ -18,7 +18,7 @@ from modules import VectorsFactory, StreamlineFactory, GlyphFactory, \
 from sources import vector_scatter, vector_field, scalar_scatter, \
             scalar_field, line_source, array2d_source, grid_source
 from filters import ExtractVectorNormFactory, WarpScalarFactory, \
-            TubeFactory, ExtractEdgesFactory
+            TubeFactory, ExtractEdgesFactory, PolyDataNormalsFactory
 from auto_doc import traits_doc, dedent
 import tools
 from enthought.traits.api import Array, Callable, CFloat, HasTraits, \
@@ -459,7 +459,7 @@ class Surf(Pipeline):
 
     _source_function = Callable(array2d_source)
 
-    _pipeline = [WarpScalarFactory, SurfaceFactory]
+    _pipeline = [WarpScalarFactory, PolyDataNormalsFactory, SurfaceFactory]
 
 
     warp_scale = Any('auto', help="""scale of the z axis (warped from
@@ -584,6 +584,7 @@ class Mesh(Pipeline):
             self.pipeline.remove(ExtractEdgesFactory)
             self.pipeline.remove(TubeFactory)
             self.pipeline.remove(GlyphFactory)
+            self.pipeline = [PolyDataNormalsFactory, ] + self.pipeline
         else:
             if self.kwargs['tube_radius'] == None:
                 self.pipeline.remove(TubeFactory)
