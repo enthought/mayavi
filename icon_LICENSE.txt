@@ -38,9 +38,6 @@ enthought/mayavi/images/:
                              m2.png | GV
                        m2_about.jpg | GV
 
-enthought/tvtk/tools/images/:
-                          scene.ico | Crystal
-
 enthought/tvtk/pipeline/images/:
                           actor.png | Nuvola
 			 camera.png | GV
@@ -59,6 +56,19 @@ enthought/tvtk/pipeline/images/:
                          window.png | Eclipse
                          writer.png | GV
 
+enthought/tvtk/pyface/images/16x16/:
+                      configure.png | Nuvola
+                     fullscreen.png | GV
+                      isometric.png | Nuvola
+                   origin_glyph.png | Enthought
+                       parallel.png | GV
+                           save.png | Crystal
+                         x-axis.png | Eclipse
+                         y-axis.png | Eclipse
+                         z-axis.png | Eclipse
+
+enthought/tvtk/tools/images/:
+                          scene.ico | Crystal
 
 examples/tvtk/images/:
                         masonry.jpg | BSD-like license
