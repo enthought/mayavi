@@ -1,33 +1,60 @@
 The icons are mostly derived work from other icons. As such they are
 licensed accordingly to the original license:
 
-    Eclipse: Eclipse Public Licence
-    Nuvola: LGPL
-    Crystal: LGPL
-    OOo: LGPL
+    Eclipse: Eclipse Public Licence see icon_LICENSE_Eclipse.txt
+    Nuvola: LGPL license as described in icon_LICENSE_Nuvola.txt
+    Crystal: LGPL license as described in icon_LICENSE_CP.txt
+    OOo: LGPL license as described in icon_LICENSE_OOo.txt
+    GV: Gael Varoquaux: BSD-licensed
 
 Unless stated in this file, icons are work of enthought, and are released
 under a 3 clause BSD-like license.
 
 Files and orginal authors:
 ----------------------------------------------------------------
-                          actor.png | Nuvola
-                     coordinate.png | Crystal
+enthought/mayavi/core/images/:
+                            add.ico | GV
+		     add_module.png | Crystal
+		      add_scene.png | Crystal
+		     add_source.png | Crystal
+		           file.png | GV
                          filter.ico | Nuvola
+                         module.ico | Crystal
+                  modulemanager.ico | Crystal
+                          scene.ico | Crystal
+                         source.ico | Crystal
+
+enthought/mayavi/core/ui/images/:
+		     add_filter.png | Nuvola
+		     add_module.png | Crystal
+		      add_scene.png | Crystal
+		     add_source.png | Crystal
+                            add.ico | GV
+		    help_action.png | GV
+                             m2.png | GV
+                            mv2.ico | GV
+
+enthought/mayavi/images/:
+                             m2.png | GV
+                       m2_about.jpg | GV
+
+enthought/tvtk/tools/images/:
+                          scene.ico | Crystal
+
+enthought/tvtk/pipeline/images/:
+                          actor.png | Nuvola
+			 camera.png | GV
+                     coordinate.png | Crystal
                          filter.png | Nuvola
                     lookuptable.png | OOo
                          mapper.png | Crystal
-                         module.ico | Crystal
-                  modulemanager.ico | Crystal
                        polydata.png | Nuvola
                        property.png | Eclipse
                          reader.png | Crystal
                        renderer.png | Crystal
        rendererwindowinteractor.png | Nuvola
-                          scene.ico | Crystal
-                         source.ico | Crystal
+		 rendererwindow.png | Crystal
                          source.png | OOo
                         texture.png | Eclipse
                          window.png | Eclipse
-
-
+                         writer.png | GV
