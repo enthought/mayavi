@@ -5,7 +5,7 @@
 #
 
 """
-3-Dimensional Visualization
+The MayaVi scientific data 3-dimensional visualizer.
 
 The Mayavi *project* includes two related *packages* for 3-dimensional
 visualization:
@@ -16,25 +16,25 @@ visualization:
 
 These libraries operate at different levels of abstraction. TVTK manipulates
 visualization objects, while Mayavi2 lets you operate on your data, and then
-see the results. Most users either use the Mayavi user interface or program 
-to its scripting interface; you probably don't need to interact with TVTK 
-unless you want to create a new Mayavi module. 
+see the results. Most users either use the Mayavi user interface or program
+to its scripting interface; you probably don't need to interact with TVTK
+unless you want to create a new Mayavi module.
 
 Mayavi2
 -------
-Mayavi2 seeks to provide easy and interactive visualization of 3-D data. 
+Mayavi2 seeks to provide easy and interactive visualization of 3-D data.
 It offers:
 
-- An (optional) rich user interface with dialogs to interact with all data 
+- An (optional) rich user interface with dialogs to interact with all data
   and objects in the visualization.
-- A simple and clean scripting interface in Python, including one-liners, 
+- A simple and clean scripting interface in Python, including one-liners,
   or an object-oriented programming interface.
 - The power of the VTK toolkit, harnessed through these interfaces, without
   forcing you to learn it.
 
-Additionally Mayavi2 is a reusable tool that can be embedded in your 
-applications in different ways or combined with the Envisage 
-application-building framework to assemble domain-specific tools. 
+Additionally Mayavi2 is a reusable tool that can be embedded in your
+applications in different ways or combined with the Envisage
+application-building framework to assemble domain-specific tools.
 
 TVTK
 ----
@@ -44,49 +44,55 @@ Traits attributes and NumPy/SciPy arrays. TVTK is implemented mostly in pure
 Python, except for a small extension module.
 
 Developers typically use TVTK to write Mayavi modules, and then use Mayavi to
-interact with visualizations or create applications. 
+interact with visualizations or create applications.
 
 """
-# Standard imports
+
+
+# NOTE: Setuptools must be imported BEFORE numpy.distutils or else
+# numpy.distutils does the Wrong(TM) thing.
 import setuptools
-from numpy.distutils.core import setup
-import os
-from pkg_resources import DistributionNotFound, parse_version, require, VersionConflict
-import zipfile
-from traceback import print_exc
-import shutil
 
-# Major library imports
-from numpy.distutils import log
 
-# Different distutils hooks
-from numpy.distutils.command.build import build as distbuild
 from distutils.command.clean import clean
+from make_docs import HtmlBuild, DEFAULT_HTML_ZIP, DEFAULT_HTML_TARGET_DIR, \
+    DEFAULT_INPUT_DIR
+from numpy.distutils import log
+from numpy.distutils.command.build import build as distbuild
 from numpy.distutils.command.install_data import install_data
+from numpy.distutils.core import setup
+from pkg_resources import DistributionNotFound, parse_version, require, \
+    VersionConflict
+from setup_data import INFO
 from setuptools.command.develop import develop
 from setuptools.command.install_scripts import install_scripts
+from traceback import print_exc
+import os
+import shutil
+import zipfile
 
-# Local imports
-from setup_data import INFO
-from make_docs import HtmlBuild, DEFAULT_HTML_ZIP, \
-                DEFAULT_HTML_TARGET_DIR, DEFAULT_INPUT_DIR
+
+##############################################################################
+# Pull the description values for the setup keywords from our file docstring.
+##############################################################################
+DOCLINES = __doc__.split("\n")
 
 
 ##############################################################################
 # Functions to generate the docs
 ##############################################################################
 def list_doc_projects():
-    """ List the different source directories under DEFAULT_INPUT_DIR 
+    """ List the different source directories under DEFAULT_INPUT_DIR
         for which we have docs.
     """
     source_dir = os.path.join(os.path.abspath(os.path.dirname(__file__)),
-                            DEFAULT_INPUT_DIR)
+        DEFAULT_INPUT_DIR)
     source_list = os.listdir(source_dir)
     # Check to make sure we're using non-hidden directories.
     source_dirs = [listing for listing in source_list
-                if os.path.isdir(os.path.join(source_dir, listing))
-                and not listing.startswith('.')]
-    return source_dirs 
+        if os.path.isdir(os.path.join(source_dir, listing))
+        and not listing.startswith('.')]
+    return source_dirs
 
 def generate_docs(project):
     """ Generate the documentation, whether that be using
@@ -101,7 +107,7 @@ def generate_docs(project):
         sphinx_installed = True
     except (DistributionNotFound, VersionConflict):
         log.warn('Sphinx install of version %s could not be verified.'
-                    ' Trying simple import...' % required_sphinx_version)
+            ' Trying simple import...' % required_sphinx_version)
         try:
             import sphinx
             if parse_version(sphinx.__version__) < parse_version(required_sphinx_version):
@@ -112,10 +118,10 @@ def generate_docs(project):
                 sphinx_installed = True
         except ImportError:
             log.error("Sphinx install not found.")
-    
-    if sphinx_installed: 
+
+    if sphinx_installed:
         log.info("Generating %s documentation..." % project)
-        
+
         try:
             build = HtmlBuild()
             build.start({
@@ -130,23 +136,22 @@ def generate_docs(project):
                     os.path.join(DEFAULT_INPUT_DIR, project),
                 }, [])
             del build
-            
+
         except:
             print_exc()
             log.error("The documentation generation failed.  Falling back to "
-                      "the zip file.")
-            
+                "the zip file.")
+
             # Unzip the docs into the 'html' folder.
-            unzip_html_docs(DEFAULT_HTML_ZIP % project, 
-                    os.path.join(DEFAULT_HTML_TARGET_DIR, project))
+            unzip_html_docs(DEFAULT_HTML_ZIP % project,
+                os.path.join(DEFAULT_HTML_TARGET_DIR, project))
     else:
         # Unzip the docs into the 'html' folder.
         log.info("Installing %s documentation from zip file.\n" % project)
         unzip_html_docs(DEFAULT_HTML_ZIP % project, project_target_dir)
 
 def unzip_html_docs(src_path, dest_dir):
-    """Given a path to a zipfile, extract
-    its contents to a given 'dest_dir'.
+    """ Given a path to a zipfile, extract its contents to a given 'dest_dir'.
     """
     file = zipfile.ZipFile(src_path)
     for name in file.namelist():
@@ -176,9 +181,9 @@ def list_docs_data_files(project):
         if len(files) == 0:
             continue
         install_dir = root.replace(project_target_dir,
-                    os.path.join('enthought', project, 'html'))
+            os.path.join('enthought', project, 'html'))
         return_list.append(
-                    (install_dir, [os.path.join(root, f) for f in files]))
+            (install_dir, [os.path.join(root, f) for f in files]))
     return return_list
 
 
@@ -196,7 +201,7 @@ class my_develop(develop):
         # always be inplace when we do a 'develop'.
         self.reinitialize_command('build_src', inplace=1)
         develop.run(self)
-            
+
 
 class my_build(distbuild):
     """ A build hook to generate the documentation.
@@ -251,7 +256,7 @@ class my_install_scripts(install_scripts):
 
 
 ##############################################################################
-# The configuration object
+# Configure our extensions to Python
 ##############################################################################
 def configuration(parent_package='', top_path=None):
     from numpy.distutils.misc_util import Configuration
@@ -291,13 +296,32 @@ config['packages'] += packages
 
 
 ##############################################################################
+# The actual setup call
+##############################################################################
 setup(
-    author = "Prabhu Ramachandran",
+    author = "Prabhu Ramachandran, et. al.",
     author_email = "prabhu_r@users.sf.net",
+    classifiers = [c.strip() for c in """\
+        Development Status :: 4 - Beta
+        Intended Audience :: Developers
+        Intended Audience :: Science/Research
+        License :: OSI Approved :: BSD License
+        Operating System :: MacOS
+        Operating System :: Microsoft :: Windows
+        Operating System :: OS Independent
+        Operating System :: POSIX
+        Operating System :: Unix
+        Programming Language :: C
+        Programming Language :: Python
+        Topic :: Scientific/Engineering
+        Topic :: Software Development
+        Topic :: Software Development :: Libraries
+        """.splitlines()],
     cmdclass = {
         # Work around a numpy distutils bug by forcing the use of the
         # setuptools' sdist command.
         'sdist': setuptools.command.sdist.sdist,
+
         'install_scripts': my_install_scripts,
         'install_data': my_install_data,
         'build': my_build,
@@ -307,7 +331,7 @@ setup(
     dependency_links = [
         'http://code.enthought.com/enstaller/eggs/source',
         ],
-    description = "The MayaVi scientific data visualizer",
+    description = DOCLINES[1],
     entry_points = {
         'console_scripts': [
             'mayavi2 = enthought.mayavi.scripts.mayavi2:main',
@@ -326,10 +350,14 @@ setup(
     include_package_data = True,
     install_requires = INFO['install_requires'],
     license = "BSD",
+    long_description = '\n'.join(DOCLINES[3:]),
+    maintainer = 'ETS Developers',
+    maintainer_email = 'enthought-dev@enthought.com',
     name = INFO['name'],
     namespace_packages = [
         "enthought",
         ],
+    platforms = ["Windows", "Linux", "Mac OS-X", "Unix", "Solaris"],
     tests_require = [
         'nose >= 0.10.3',
         ],
