@@ -1,0 +1,10 @@
+
+
+masonry.jpg:
+    The image masonry.jpg is part of the VTK data (used for regression
+    testing and is openly available), it is actually distributed as
+    masonry.bmp, which Prabhu converted to masonry.jpg to save some disk
+    space.  No license is advertised for this image in particular,
+    however VTK code is under a BSD like license.  We therefore consider
+    this image to have a BSD like license as well.
+

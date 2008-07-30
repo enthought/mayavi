@@ -58,3 +58,7 @@ enthought/tvtk/pipeline/images/:
                         texture.png | Eclipse
                          window.png | Eclipse
                          writer.png | GV
+
+
+examples/tvtk/images/:
+                        masonry.jpg | BSD-like license
