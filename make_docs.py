@@ -50,12 +50,13 @@ from glob import glob
 
 from setup_data import INFO
 
-DEFAULT_HTML_TARGET_DIR = os.path.join('docs', 'html', 'mayavi')
+DEFAULT_HTML_TARGET_DIR = os.path.join('docs', 'html')
 DEFAULT_LATEX_TARGET_DIR = os.path.join('docs', 'latex')
 DEFAULT_PDF_TARGET_DIR = os.path.join('docs', 'pdf', 'mayavi')
-DEFAULT_INPUT_DIR = os.path.join('docs', 'source', 'mayavi')
-DEFAULT_HTML_ZIP = os.path.abspath(os.path.join(DEFAULT_INPUT_DIR, '..',
-                                          '..', 'mayavi_html_docs.zip'))
+DEFAULT_INPUT_DIR = os.path.join('docs', 'source',)
+DEFAULT_HTML_ZIP = os.path.abspath(os.path.join('docs', '%s_html_docs.zip'))
+DEFAULT_PROJECT = "mayavi"
+
 ACTIONS = {}
 
 def register(process):
@@ -114,7 +115,7 @@ class Process(object):
 
         p.set_defaults(doc_source=os.path.join(
                 os.path.abspath(os.path.dirname(__file__)),
-                DEFAULT_INPUT_DIR))
+                DEFAULT_INPUT_DIR, DEFAULT_PROJECT))
         
         return p
 
@@ -237,6 +238,9 @@ class Build(Process):
     def mlab_reference(self):
         """ If mayavi is installed, run the mlab_reference generator.
         """
+        # XXX: This is really a hack: the script is not made to be used
+        # for different projects, but it ended up being. This part is
+        # mayavi-specific.
         if self.mlab_reference_generated[0]:
             return
         try:
@@ -244,7 +248,7 @@ class Build(Process):
             print "Generating the mlab reference documentation"
             os.system('python %s' % 
                         os.path.join(DEFAULT_INPUT_DIR,
-                                            '..', 'mlab_reference.py'))
+                                DEFAULT_PROJECT, '..', 'mlab_reference.py'))
         except:
             pass
         self.mlab_reference_generated[0] = True
@@ -272,7 +276,7 @@ class Build(Process):
 
         default_target = os.path.join(
                 os.path.abspath(os.path.dirname(__file__)),
-                DEFAULT_HTML_TARGET_DIR
+                DEFAULT_HTML_TARGET_DIR, DEFAULT_PROJECT,
             )
 
         p.set_defaults(commit=True, commit_message='Updating documentation',
@@ -359,10 +363,12 @@ class LaTeXBuild(Build):
     def option_parser(self):
         p = super(LaTeXBuild, self).option_parser
         p.set_defaults(commit_message='Update LaTeX documentation')
-        p.set_defaults(target=DEFAULT_LATEX_TARGET_DIR)
+        p.set_defaults(target=os.path.join(DEFAULT_LATEX_TARGET_DIR, 
+                                    DEFAULT_PROJECT))
         p.add_option('--pdf-outputdir',
                      help='The output directory for the final pdf.')
-        p.set_defaults(pdf_outputdir=DEFAULT_PDF_TARGET_DIR)
+        p.set_defaults(pdf_outputdir=os.path.join(DEFAULT_PDF_TARGET_DIR,
+                                    DEFAULT_PROJECT))
         return p
 
 register(LaTeXBuild)
@@ -383,7 +389,7 @@ class CreateZip(Process):
         build.start(*op.parse_args(sys.argv[2:]))
 
         # Create actual ZIP file and copy files
-        zf = zipfile.ZipFile(DEFAULT_HTML_ZIP, 'w')
+        zf = zipfile.ZipFile(self.options.zipfile, 'w')
 
         # This code is _very_ ugly, but I don't know of a better solution.
         length = len(os.path.abspath(os.path.join(build.target)))
@@ -399,6 +405,9 @@ class CreateZip(Process):
     @property
     def option_parser(self):
         p = super(CreateZip, self).option_parser
+        p.add_option('--zipfile',
+                     help='The name of the zip file created.')
+        p.set_defaults(zipfile=DEFAULT_HTML_ZIP % DEFAULT_PROJECT)
         return p
 
 register(CreateZip)

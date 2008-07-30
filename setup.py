@@ -54,44 +54,45 @@ import os
 from pkg_resources import DistributionNotFound, parse_version, require, VersionConflict
 import zipfile
 from traceback import print_exc
+import shutil
+
+# Major library imports
+from numpy.distutils import log
+
+# Different distutils hooks
+from numpy.distutils.command.build import build as distbuild
+from distutils.command.clean import clean
+from numpy.distutils.command.install_data import install_data
+from setuptools.command.develop import develop
+from setuptools.command.install_scripts import install_scripts
 
 # Local imports
 from setup_data import INFO
-
-# This renames the mayavi script to a MayaVi.pyw script on win32.
-from setuptools.command.install_scripts import install_scripts
-class my_install_scripts(install_scripts):
-    def run(self):
-        install_scripts.run(self)
-        if os.name != 'posix':
-            # Rename <script> to <script>.pyw. Executable bits
-            # are already set in install_scripts.run().
-            for file in self.get_outputs():
-                if file[-4:] != '.pyw':
-                    if file[-7:] == 'mayavi2':
-                        new_file = file[:-7] + 'MayaVi2.pyw'
-                    else:
-                        new_file = os.path.splitext(file)[0] + '.pyw'
-                    self.announce("renaming %s to %s" % (file, new_file))
-                    if not self.dry_run:
-                        if os.path.exists(new_file):
-                            os.remove (new_file)
-                        os.rename (file, new_file)
-
-# Create custom 'build' step hook to auto-generate the
-# documentation at build time, if Sphinx is installed.
-# Otherwise, it will unzip the html_docs.zip.
 from make_docs import HtmlBuild, DEFAULT_HTML_ZIP, \
-                DEFAULT_HTML_TARGET_DIR
-from numpy.distutils.command.build import build as distbuild
-from numpy.distutils import log
+                DEFAULT_HTML_TARGET_DIR, DEFAULT_INPUT_DIR
 
-from setuptools.command.develop import develop
+
+##############################################################################
+# Functions to generate the docs
+##############################################################################
+def list_doc_projects():
+    """ List the different source directories under DEFAULT_INPUT_DIR 
+        for which we have docs.
+    """
+    source_dir = os.path.join(os.path.abspath(os.path.dirname(__file__)),
+                            DEFAULT_INPUT_DIR)
+    source_list = os.listdir(source_dir)
+    # Check to make sure we're using non-hidden directories.
+    source_dirs = [listing for listing in source_list
+                if os.path.isdir(os.path.join(source_dir, listing))
+                and not listing.startswith('.')]
+    return source_dirs 
 
 def generate_docs(project):
     """ Generate the documentation, whether that be using
-    Sphinx or unzipping them.
+        Sphinx or by unzipping it.
     """
+    project_target_dir = os.path.join(DEFAULT_HTML_TARGET_DIR, project)
 
     required_sphinx_version = "0.4.1"
     sphinx_installed = False
@@ -122,7 +123,11 @@ def generate_docs(project):
                 'preserve_temp': True,
                 'subversion': False,
                 'verbose': True,
-                'versioned': False
+                'versioned': False,
+                'target':
+                    os.path.join(DEFAULT_HTML_TARGET_DIR, project),
+                'doc_source':
+                    os.path.join(DEFAULT_INPUT_DIR, project),
                 }, [])
             del build
             
@@ -132,12 +137,13 @@ def generate_docs(project):
                       "the zip file.")
             
             # Unzip the docs into the 'html' folder.
-            unzip_html_docs(DEFAULT_HTML_ZIP, DEFAULT_HTML_TARGET_DIR)
+            unzip_html_docs(DEFAULT_HTML_ZIP % project, 
+                    os.path.join(DEFAULT_HTML_TARGET_DIR, project))
     else:
         # Unzip the docs into the 'html' folder.
         log.info("Installing %s documentation from zip file.\n" % project)
-        unzip_html_docs(DEFAULT_HTML_ZIP, DEFAULT_HTML_TARGET_DIR)
-        
+        unzip_html_docs(DEFAULT_HTML_ZIP % project, project_target_dir)
+
 def unzip_html_docs(src_path, dest_dir):
     """Given a path to a zipfile, extract
     its contents to a given 'dest_dir'.
@@ -155,39 +161,98 @@ def unzip_html_docs(src_path, dest_dir):
                 os.mkdir(cur_name)
     file.close()
 
+def list_docs_data_files(project):
+    """ List the files to add to a project by inspecting the
+        documentation directory. This works only if called after the
+        build step, as the files have to be builts.
+
+        returns a list of (install_dir, [data_files, ]) tuples.
+    """
+    project_target_dir = os.path.join(DEFAULT_HTML_TARGET_DIR, project)
+    return_list = []
+    for root, dirs, files in os.walk(project_target_dir, topdown=True):
+        # Modify inplace the list of directories to walk
+        dirs[:] = [d for d in dirs if not d.startswith('.')]
+        if len(files) == 0:
+            continue
+        install_dir = root.replace(project_target_dir,
+                    os.path.join('enthought', project, 'html'))
+        return_list.append(
+                    (install_dir, [os.path.join(root, f) for f in files]))
+    return return_list
+
+
+##############################################################################
+# Our custom distutils hooks
+##############################################################################
 class my_develop(develop):
+    """ A hook to have the docs rebuilt during develop.
+    """
     def run(self):
-            # Make sure that the 'build_src' command will
-            # always be inplace when we do a 'develop'.
-            self.reinitialize_command('build_src', inplace=1)
-            develop.run(self)
-            
-            # Generate the documentation.
-            source_dir = os.path.join(os.path.abspath(os.path.dirname(__file__)),
-                                    'docs', 'source')
-            source_list = os.listdir(source_dir)
-            # Check to make sure we're using non-hidden directories.
-            source_dirs = [listing for listing in source_list
-                        if os.path.isdir(os.path.join(source_dir, listing))
-                        and not listing.startswith('.')]
-            for project in source_dirs:
-                generate_docs(project)
-
-class my_build(distbuild):
-    def run(self):
-        distbuild.run(self)
-
-        # Generate the documentation.
-        source_dir = os.path.join(os.path.abspath(os.path.dirname(__file__)),
-                                'docs', 'source')
-        source_list = os.listdir(source_dir)
-        # Check to make sure we're using non-hidden directories.
-        source_dirs = [listing for listing in source_list
-                    if os.path.isdir(os.path.join(source_dir, listing))
-                    and not listing.startswith('.')]
-        for project in source_dirs:
+        for project in list_doc_projects():
             generate_docs(project)
 
+        # Make sure that the 'build_src' command will
+        # always be inplace when we do a 'develop'.
+        self.reinitialize_command('build_src', inplace=1)
+        develop.run(self)
+            
+
+class my_build(distbuild):
+    """ A build hook to generate the documentation.
+    """
+    def run(self):
+        for project in list_doc_projects():
+            generate_docs(project)
+        distbuild.run(self)
+
+
+class my_install_data(install_data):
+    """ An install hook to copy the generated documentation.
+    """
+    def run(self):
+        install_data_command = self.get_finalized_command('install_data')
+        for project in list_doc_projects():
+            install_data_command.data_files.extend(
+                                    list_docs_data_files(project))
+        install_data.run(self)
+
+
+class my_clean(clean):
+    """ A hook to remove the generated documentation when cleaning.
+    """
+    def run(self):
+        clean.run(self)
+        if os.path.exists(DEFAULT_HTML_TARGET_DIR):
+            log.info("Removing '%s' (and everything under it)" %
+                                            DEFAULT_HTML_TARGET_DIR)
+            shutil.rmtree(DEFAULT_HTML_TARGET_DIR)
+
+
+class my_install_scripts(install_scripts):
+    """ Hook to rename the  mayavi script to a MayaVi.pyw script on win32.
+    """
+    def run(self):
+        install_scripts.run(self)
+        if os.name != 'posix':
+            # Rename <script> to <script>.pyw. Executable bits
+            # are already set in install_scripts.run().
+            for file in self.get_outputs():
+                if file[-4:] != '.pyw':
+                    if file[-7:] == 'mayavi2':
+                        new_file = file[:-7] + 'MayaVi2.pyw'
+                    else:
+                        new_file = os.path.splitext(file)[0] + '.pyw'
+                    self.announce("renaming %s to %s" % (file, new_file))
+                    if not self.dry_run:
+                        if os.path.exists(new_file):
+                            os.remove (new_file)
+                        os.rename (file, new_file)
+
+
+##############################################################################
+# The configuration object
+##############################################################################
 def configuration(parent_package='', top_path=None):
     from numpy.distutils.misc_util import Configuration
     config = Configuration(None, parent_package, top_path)
@@ -211,10 +276,9 @@ def configuration(parent_package='', top_path=None):
     config.add_data_dir('enthought/tvtk/plugins/scene')
     config.add_data_dir('enthought/mayavi/preferences')
 
-    # The documentation.
-    config.add_data_files(['enthought/mayavi/html/*', 
-                            os.path.join(DEFAULT_HTML_TARGET_DIR, '*')])
-
+    # The mayavi documentation.
+    # Take a peak at the zip file to know which path to add:
+    zip = zipfile.ZipFile(DEFAULT_HTML_ZIP % 'mayavi')
     return config
 
 
@@ -226,7 +290,7 @@ packages = setuptools.find_packages(exclude=config['packages'] +
 config['packages'] += packages
 
 
-
+##############################################################################
 setup(
     author = "Prabhu Ramachandran",
     author_email = "prabhu_r@users.sf.net",
@@ -235,8 +299,10 @@ setup(
         # setuptools' sdist command.
         'sdist': setuptools.command.sdist.sdist,
         'install_scripts': my_install_scripts,
+        'install_data': my_install_data,
         'build': my_build,
         'develop': my_develop,
+        'clean': my_clean,
         },
     dependency_links = [
         'http://code.enthought.com/enstaller/eggs/source',
