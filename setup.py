@@ -151,14 +151,14 @@ def unzip_html_docs(src_path, dest_dir):
     file = zipfile.ZipFile(src_path)
     for name in file.namelist():
         cur_name = os.path.join(dest_dir, name)
-        if not name.endswith('/'):
+        cur_name = cur_name.replace('/', os.sep)
+        if not os.path.exists(os.path.dirname(cur_name)):
+            os.makedirs(os.path.dirname(cur_name))
+        if not cur_name.endswith(os.sep):
             out = open(cur_name, 'wb')
             out.write(file.read(name))
             out.flush()
             out.close()
-        else:
-            if not os.path.exists(cur_name):
-                os.mkdir(cur_name)
     file.close()
 
 def list_docs_data_files(project):
