@@ -327,8 +327,14 @@ class Base(TreeNodeObject):
         
         For the base class, do not add anything to the children list.
         """
-        if preference_manager.root.show_helper_nodes and \
-                len(self.children) > 0 or self._adder_node_class is None:
+        if ((preference_manager.root.show_helper_nodes and
+                        len(self.children) > 0)
+                or self._adder_node_class is None
+                or (not self.type == ' scene' and
+                    'none' in self.output_info.datasets)
+                    # We can't use isinstance, as we would have circular
+                    # imports
+                ):
             return self.children
         else:
                 return [self._adder_node_class(object=self),]
