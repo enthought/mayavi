@@ -27,4 +27,4 @@ Files and orginal authors:
                          source.png | OOo
                         texture.png | Eclipse
                          window.png | Eclipse
-
+                         writer.png | GV
