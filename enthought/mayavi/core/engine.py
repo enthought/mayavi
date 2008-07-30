@@ -351,7 +351,7 @@ class Engine(HasStrictTraits):
         if scene in self._viewer_ref:
             del self._viewer_ref[scene]
         
-    def new_scene(self, name=None, viewer=None):
+    def new_scene(self, viewer=None, name=None):
         """Create or manage a new VTK scene window.  If no `viewer`
         argument is provided, the method creates a new viewer using
         `self.scene_factory`.  If `self.scene_factor` is `None` then
