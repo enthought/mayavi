@@ -42,7 +42,7 @@ def browser_open(url):
         firefox = webbrowser.get('firefox')
         firefox._invoke(['-chrome', url], remote=False, autoraise=True)
     else:
-        webbrowser.open(url, new=1, autoraise=1)
+        webbrowser.open(url, autoraise=1)
 
 
 def open_help_index():
