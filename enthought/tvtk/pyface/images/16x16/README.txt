@@ -1,0 +1,22 @@
+The icons are mostly derived work from other icons. As such they are
+licensed accordingly to the original license:
+
+    GV: Gael Varoquaux: BSD-like 
+    Enthought: BSD-like
+    Nuvola: LGPL
+    Crystal: LGPL
+
+Unless stated in this file, icons are work of enthought, and are released
+under BSD-like license.
+
+Files and orginal authors:
+----------------------------------------------------------------
+                      configure.png | Crystal
+		     fullscreen.png | GV
+		      isometric.png | Nuvola
+		   origin_glyph.png | Enthought
+		       parallel.png | GV
+			   save.png | Crystal
+			 x-axis.png | Eclipse
+			 y-axis.png | Eclipse
+			 z-axis.png | Eclipse
