@@ -75,11 +75,13 @@ class EnvisageEngine(Engine):
         # Call the parent stop method.
         super(EnvisageEngine, self).stop()
 
-    def new_scene(self):
+    def new_scene(self, name=None):
         """Creates a new VTK scene window.
         """
         action = NewScene(window=self.window)
-        action.perform(None)
+        editor = action.perform(None)
+        if name is not None:
+            editor.name = name
         
         # Flush the UI.
         GUI.process_events()

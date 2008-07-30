@@ -351,7 +351,7 @@ class Engine(HasStrictTraits):
         if scene in self._viewer_ref:
             del self._viewer_ref[scene]
         
-    def new_scene(self, viewer=None):
+    def new_scene(self, name=None, viewer=None):
         """Create or manage a new VTK scene window.  If no `viewer`
         argument is provided, the method creates a new viewer using
         `self.scene_factory`.  If `self.scene_factor` is `None` then
@@ -367,6 +367,8 @@ class Engine(HasStrictTraits):
             viewer = self.scene_factory()
             GUI.process_events()
             
+        if name is not None:
+            viewer.name = name
         # Hang on to a reference to this viewer, if not done this will cause a
         # crash with Qt4.  This because the viewer will be closed and gc'd if
         # there isn't a reference to it.  When the viewer is gc'd the scene is

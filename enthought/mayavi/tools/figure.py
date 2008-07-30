@@ -42,7 +42,7 @@ def figure(name=None, bgcolor=None, fgcolor=None, engine=None):
                 engine.current_scene = scene
                 break
         else:
-            engine.new_scene()
+            engine.new_scene(name=name)
             engine.current_scene.name = name
     else:
         engine.new_scene()

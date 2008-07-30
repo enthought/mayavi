@@ -44,9 +44,9 @@ class NewScene(Action):
 
         from enthought.tvtk.plugins.scene.scene_editor import SceneEditor
 
-        self.window.edit(object(), kind=SceneEditor)
-
-        return
+        editor = self.window.edit(object(), kind=SceneEditor)
+        
+        return editor
 
 
 class SaveScene(SceneAction):
