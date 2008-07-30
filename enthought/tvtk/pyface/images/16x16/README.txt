@@ -11,7 +11,7 @@ under BSD-like license.
 
 Files and orginal authors:
 ----------------------------------------------------------------
-                      configure.png | Crystal
+                      configure.png | Nuvola
 		     fullscreen.png | GV
 		      isometric.png | Nuvola
 		   origin_glyph.png | Enthought
