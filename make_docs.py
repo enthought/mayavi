@@ -245,10 +245,9 @@ class Build(Process):
             return
         try:
             from enthought.mayavi import mlab
+            from enthought.mayavi.tools import auto_doc
             print "Generating the mlab reference documentation"
-            os.system('python %s' % 
-                        os.path.join(DEFAULT_INPUT_DIR,
-                                DEFAULT_PROJECT, '..', 'mlab_reference.py'))
+            os.system('python mlab_reference.py')
         except:
             pass
         self.mlab_reference_generated[0] = True

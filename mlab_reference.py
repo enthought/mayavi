@@ -8,20 +8,26 @@ Script to generate the function reference for mlab.
 
 import os
 
+from make_docs import DEFAULT_INPUT_DIR
 OUT_DIR = os.sep.join(
-        [os.path.dirname(os.path.abspath(__file__)),'mayavi','auto']
+        [os.path.dirname(os.path.abspath(__file__)), DEFAULT_INPUT_DIR, 
+                'mayavi','auto']
             )
 
 from enthought.mayavi.tools import auto_doc
 from enthought.mayavi import mlab
-
-from render_images import IMAGE_DIR
 
 from inspect import getmembers, getsource, getfile, getargspec, \
         formatargspec
 from docutils import io as docIO
 from docutils import core as docCore
 
+# We need to exec render_image, as we can't import it, because it is not
+# in a python package.
+render_images = dict(__name__='', 
+   __file__=os.path.abspath(os.path.join('docs', 'source', 'render_images.py')))
+execfile(render_images['__file__'], render_images)
+IMAGE_DIR = render_images['IMAGE_DIR']
 
 ##############################################################################
 def dedent(string):
