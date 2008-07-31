@@ -13,7 +13,7 @@ from enthought.mayavi import mlab
 from numpy import mgrid, sin, sqrt
 
 # Display the MayaVi tree view UI.
-ui = mlab.show_engine()
+ui = mlab.show_pipeline()
 
 # Create some data
 X, Y = mgrid[-1:1:100j, -1:1:100j]
