@@ -316,7 +316,7 @@ setup(
         Topic :: Scientific/Engineering
         Topic :: Software Development
         Topic :: Software Development :: Libraries
-        """.splitlines()],
+        """.splitlines() if len(c.split()) > 0],
     cmdclass = {
         # Work around a numpy distutils bug by forcing the use of the
         # setuptools' sdist command.
@@ -362,7 +362,7 @@ setup(
         'nose >= 0.10.3',
         ],
     test_suite = 'nose.collector',
-    url = 'http://code.enthought.com/ets/',
+    url = 'http://code.enthought.com/projects/mayavi/',
     version = INFO['version'],
     zip_safe = False,
     **config
