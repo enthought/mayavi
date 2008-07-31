@@ -16,7 +16,7 @@ Having used those, the --help option may be used to find a list of all options.
 
 For example, this is how to get the help information for build-html:
 
-$ ./commit_docs.py build-html --help
+$ ./make_docs.py build-html --help
 
 All of the build commands share some common options (although not all available
 commands are for building):
@@ -75,6 +75,7 @@ class Process(object):
     action_name = None
 
     def __init__(self):
+        # Initialize the options to their default value
         self.options = self.option_parser.parse_args([])[0]
 
     def start(self, options, args):
@@ -116,7 +117,13 @@ class Process(object):
         p.set_defaults(doc_source=os.path.join(
                 os.path.abspath(os.path.dirname(__file__)),
                 DEFAULT_INPUT_DIR, DEFAULT_PROJECT))
-        
+
+        p = self.extent_option_parser(p)
+        return p
+
+
+    def extent_option_parser(self, p):
+        """ Base class, does nothing"""
         return p
 
 class Build(Process):
@@ -129,11 +136,21 @@ class Build(Process):
                                                  self.temp_dir))
 
     @has_started
-    def svn_add_forced(self, output_dir):
-        self.run_command('svn add %s --force' % output_dir)
+    def svn_add(self, output_dir):
+        for root, dirs, files in os.walk(output_dir):
+            if '.svn' in root:
+                continue
+            for f in files:
+                self.run_command('svn add %s ' % os.path.join(root, f))
+            for d in dirs:
+                if not d == '.svn':
+                    self.run_command('svn add -N %s ' % os.path.join(root, d))
 
     @has_started
     def svn_commit(self):
+        print "Commit to repository"
+        if self.options.verbose:
+            self.run_command('cd %s && svn stat' % self.temp_dir)
         self.run_command('svn commit %s -m "%s"' % (self.temp_dir,
             self.options.commit_message))
 
@@ -189,7 +206,7 @@ class Build(Process):
         return hasattr(self, 'temp_dir_path')
 
     def _run(self, format, post_run=None):
-        output_dir = os.path.join(self.target, format)
+        output_dir = self.target
 
         # Checkout SVN if necessary
         if self.options.subversion:
@@ -204,18 +221,18 @@ class Build(Process):
         if self.using_temp_dir:
             # Preserve .svn directory
             cut = lambda p: p[len(self.temp_dir)+1:]
-            for root, files, dirs in os.walk(os.path.join(self.temp_dir,
+            for root, dirs, files in os.walk(os.path.join(self.temp_dir,
                                                           format)):
                 shutil.move(os.path.join(root, '.svn'),
                             os.path.join(self.temp_dir, 'svndirs',
                                          cut(root), '.svn'))
 
             shutil.rmtree(os.path.join(self.temp_dir, format))
-            shutil.copytree(os.path.join(self.target, format),
+            shutil.copytree(self.target,
                             os.path.join(self.temp_dir, format))
 
             cut = lambda p: p[len(os.path.join(self.temp_dir, 'svndirs'))+1:]
-            for root, files, dirs in os.walk(os.path.join(self.temp_dir,
+            for root, dirs, files in os.walk(os.path.join(self.temp_dir,
                                                           'svndirs', format)):
                 if os.path.exists(os.path.join(self.temp_dir, 'svndirs',
                                                cut(root), '.svn')):
@@ -227,10 +244,16 @@ class Build(Process):
         # are removed, otherwise).
         self.remove_tmp_files()
 
-        # Add all of Sphinx's output to SVN (using force, because SVN doesn't
-        # think it needs to if the root is already tracked).
+        # Add all of Sphinx's output to SVN 
         if self.options.subversion:
-            self.svn_add_forced(os.path.join(self.temp_dir, 'latex'))
+            if self.using_temp_dir:
+                doc_source = os.path.join(self.temp_dir, format, 'docs')
+                if os.path.exists(doc_source):
+                    if self.options.verbose:
+                        print "Removing the sources in %s" % doc_source
+                    shutil.rmtree(doc_source)
+
+            self.svn_add(os.path.join(self.temp_dir, format))
 
             if self.options.commit:
                 self.svn_commit()
@@ -253,9 +276,8 @@ class Build(Process):
         self.mlab_reference_generated[0] = True
 
 
-    @property
-    def option_parser(self):
-        p = super(Build, self).option_parser
+    def extent_option_parser(self, p):
+        p = super(Build, self).extent_option_parser(p)
         p.add_option('-t', '--target',
                      help='Set working directory for any build executed')
         p.add_option('--use-subversion', action='store_true', dest='subversion',
@@ -278,7 +300,8 @@ class Build(Process):
                 DEFAULT_HTML_TARGET_DIR, DEFAULT_PROJECT,
             )
 
-        p.set_defaults(commit=True, commit_message='Updating documentation',
+        p.set_defaults(commit=True, 
+            commit_message='[mayavi2] automatic documentation update',
                        repository='https://svn.enthought.com/svn/cec/trunk/' \
                            'projects/mayavi/docs/development/',
                        subversion=False, target=default_target,
@@ -287,11 +310,13 @@ class Build(Process):
         return p
 
     def __del__(self):
+        self.clean()
+
+    def clean(self):
         if hasattr(self, 'options') and self.using_temp_dir and \
                 not self.options.preserve_temp:
             # shutil needs to be re-imported, because it has already been
             # removed
-            import shutil
             shutil.rmtree(self.temp_dir)
 
 class HtmlBuild(Build):
@@ -304,16 +329,17 @@ class HtmlBuild(Build):
                     os.makedirs(os.path.join(self.target, path))
 
         self._run('html')
+        self.clean()
 
     @has_started
     def remove_tmp_files(self):
         if self.using_temp_dir:
             shutil.rmtree(os.path.join(self.temp_dir, 'html', '.doctrees'))
 
-    @property
-    def option_parser(self):
-        p = super(HtmlBuild, self).option_parser
-        p.set_defaults(commit_message='Update HTML documentation')
+    def extent_option_parser(self, p):
+        p = super(HtmlBuild, self).extent_option_parser(p)
+        p.set_defaults(
+                commit_message='[mayavi2] automatic html documentation update')
         return p
 
 register(HtmlBuild)
@@ -345,9 +371,10 @@ class LaTeXBuild(Build):
                     self.run_command('pdflatex %s' % filename,
                                                     cwd=self.target)
             for filename in glob(os.path.join(self.target, '*.pdf')):
-                shutil.move(filename, self.options.pdf_outputdir)
+                shutil.copy2(filename, self.options.pdf_outputdir)
 
         self._run('latex', post_run)
+        self.clean()
 
     @has_started
     def remove_tmp_files(self):
@@ -358,9 +385,8 @@ class LaTeXBuild(Build):
                 if os.path.isfile(f) and not entry.endswith('.pdf'):
                     os.remove(f)
 
-    @property
-    def option_parser(self):
-        p = super(LaTeXBuild, self).option_parser
+    def extent_option_parser(self, p):
+        p = super(LaTeXBuild, self).extent_option_parser(p)
         p.set_defaults(commit_message='Update LaTeX documentation')
         p.set_defaults(target=os.path.join(DEFAULT_LATEX_TARGET_DIR, 
                                     DEFAULT_PROJECT))
@@ -401,9 +427,8 @@ class CreateZip(Process):
 
         del build
 
-    @property
-    def option_parser(self):
-        p = super(CreateZip, self).option_parser
+    def extent_option_parser(self, p):
+        p = super(CreateZip, self).extent_option_parser(p)
         p.add_option('--zipfile',
                      help='The name of the zip file created.')
         p.set_defaults(zipfile=DEFAULT_HTML_ZIP % DEFAULT_PROJECT)
@@ -411,11 +436,22 @@ class CreateZip(Process):
 
 register(CreateZip)
 
-class BuildSeveral(Process):
+
+class BuildLikeCreateZip(CreateZip, Build):
+    """ Artifical class that does the work of CreateZip, but also
+        has a Build interface to be used be BuildSeveral.
+    """
+    def run(self):
+        # Make sure the CreateZip run method gets called
+        CreateZip.run(self)
+
+
+class BuildSeveral(Build):
     action_name = 'build'
 
     def run(self):
-        targets = {'html':  HtmlBuild, 'latex': LaTeXBuild, 'zip':   CreateZip}
+        targets = {'html':  HtmlBuild, 'latex': LaTeXBuild, 
+                        'zip': BuildLikeCreateZip }
         formats = filter(None, map(lambda k: k in self.options.formats
                                    and targets[k], targets))
 
@@ -430,11 +466,10 @@ class BuildSeveral(Process):
             op = runner.option_parser
             op.add_option('-f', '--formats')
 
-            runner.start(*op.parse_args(sys.argv[2:]))
+            runner.start(self.options, self.args)
 
-    @property
-    def option_parser(self):
-        p = super(BuildSeveral, self).option_parser
+    def extent_option_parser(self, p):
+        p = super(BuildSeveral, self).extent_option_parser(p)
         p.add_option('-f', '--formats',
                      help='Comma-delimited (quoted or without space) list of ' \
                           'the formats to build [html,latex,zip]')
@@ -445,10 +480,11 @@ class BuildSeveral(Process):
 
 register(BuildSeveral)
 
-class UpdateCEC(Process):
+class UpdateCEC(BuildSeveral):
     action_name = 'update-cec'
 
     def run(self):
+        super(UpdateCEC, self).run()
         if self.options.username:
             user = '%s@' % self.options.username
         else:
@@ -463,9 +499,9 @@ class UpdateCEC(Process):
             && chmod -R g+w docs \
             && chgrp -R apache docs"''' % user)
 
-    @property
-    def option_parser(self):
-        p = super(UpdateCEC, self).option_parser
+    def extent_option_parser(self, p):
+        p = super(UpdateCEC, self).extent_option_parser(p)
+        p.set_defaults(subversion=True, preserve_temp=True)
         p.add_option('-u', '--username', help='username on CEC')
         return p
 
