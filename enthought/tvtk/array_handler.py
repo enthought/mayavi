@@ -10,11 +10,13 @@ seems no unique one-to-one VTK data array type to map it to.
 
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2004-2007,  Enthought, Inc.
+# Copyright (c) 2004-2008,  Enthought, Inc.
 # License: BSD Style.
 
 import types
 import sys
+import weakref
+import atexit
 
 import vtk
 from vtk.util import vtkConstants
@@ -43,14 +45,93 @@ elif VTK_LONG_TYPE_SIZE == 8:
     LONG_TYPE_CODE = numpy.int64
     ULONG_TYPE_CODE = numpy.uint64
 
+
 ######################################################################
 # The array cache.
 ######################################################################
+class ArrayCache(object):
 
-# The array object cache (`_array_cache`) caches all the converted
-# numpy arrays that are not copied.  This prevents the user from
-# deleting or resizing the numpy array after it has been sent down
+    """Caches references to numpy arrays that are not copied but views
+    of which are converted to VTK arrays.  The caching prevents the user
+    from deleting or resizing the numpy array after it has been sent
+    down to VTK.  """
+
+    ######################################################################
+    # `object` interface.
+    ######################################################################
+    def __init__(self):
+        # The cache.
+        self._cache = {}
+
+    def __len__(self):
+        return len(self._cache)
+
+    def __contains__(self, vtk_arr):
+        key = vtk_arr.__this__
+        return self._cache.has_key(key)
+
+    ######################################################################
+    # `ArrayCache` interface.
+    ######################################################################
+    def add(self, vtk_arr, np_arr):
+        """Add numpy array corresponding to the vtk array to the
+        cache."""
+        key = vtk_arr.__this__
+        cache = self._cache
+
+        # Setup a callback so this cached array reference is removed
+        # when the VTK array is destroyed.  Passing the key to the
+        # `lambda` function is necessary because the callback will not
+        # receive the object (it will receive `None`) and thus there
+        # is no way to know which array reference one has to remove.
+        ob_id = vtk_arr.AddObserver('DeleteEvent', lambda o, e, key=key: \
+                                    self._remove_array(key))
+        # Try creating a weakref to the array.
+        try:
+            ref = weakref.ref(vtk_arr)
+        except TypeError: 
+            # Old versions of VTK (<5.0) did not support weakrefs.
+            ref = None
+        # Cache the array, weakref and the observer id.
+        cache[key] = (np_arr, ref, ob_id)
+
+    def get(self, vtk_arr):
+        """Return the cached numpy array given a VTK array."""
+        key = vtk_arr.__this__
+        return self._cache[key][0]
+
+    def on_exit(self):
+        """Should be registered with atexit.register so the observers are
+        removed before the VTK arrays destruct.  If not done, this
+        causes segfaults.  Note that this is not done by default so the
+        user must explicitly register this function with atexit.
+        """
+        cache = self._cache
+        for key in cache:
+            np_arr, ref, ob_id = cache.get(key)
+            if ref is not None:
+                vtk_arr = ref()
+                if vtk_arr is not None:
+                    vtk_arr.RemoveObserver(ob_id)
+
+    ######################################################################
+    # Non-public interface.
+    ###################################################################### 
+    def _remove_array(self, key):
+        """Private function that removes the cached array.  Do not
+        call this unless you know what you are doing."""
+        try:
+            del self._cache[key]
+        except KeyError:
+            pass
+
+
+######################################################################
+# Setup a global `_array_cache`.  The array object cache caches all the
+# converted numpy arrays that are not copied.  This prevents the user
+# from deleting or resizing the numpy array after it has been sent down
 # to VTK.
+######################################################################
 
 _dummy = None
 # This makes the cache work even when the module is reloaded.
@@ -65,18 +146,10 @@ for name in ['array_handler', 'enthought.tvtk.array_handler']:
 if _dummy:
     _array_cache = _dummy
 else:
-    _array_cache = {}
+    _array_cache = ArrayCache() 
+    # Register function to call when Python exits.
+    atexit.register(_array_cache.on_exit)
 del _dummy
-
-
-def _remove_cached_array(key):
-    """Internal function that removes an array from the cache.  Do not
-    call this unless you know what you are doing."""
-    global _array_cache
-    try:
-        del _array_cache[key]
-    except KeyError:
-        pass
 
 
 ######################################################################
@@ -250,15 +323,7 @@ def array2vtk(num_array, vtk_array=None):
         # and getting into serious trouble.  This is only done for
         # non-bit array cases where the data is not copied.
         global _array_cache
-        key = result_array.__this__
-        _array_cache[key] = z_flat
-        # Setup a callback so this cached array reference is removed
-        # when the VTK array is destroyed.  Passing the key to the
-        # `lambda` function is necessary because the callback will not
-        # receive the object (it will receive `None`) and thus there
-        # is no way to know which array reference one has to remove.
-        result_array.AddObserver('DeleteEvent', lambda o, e, key=key: \
-                                 _remove_cached_array(key))
+        _array_cache.add(result_array, z_flat)
 
     return result_array
 
@@ -290,9 +355,8 @@ def vtk2array(vtk_array):
 
     # First check if this array already has a numpy array cached, if
     # it does, reshape that and return it.
-    key = vtk_array.__this__
-    if key in _array_cache:
-        arr = _array_cache[key]
+    if vtk_array in _array_cache:
+        arr = _array_cache.get(vtk_array)
         if shape[1] == 1:
             shape = (shape[0], )
         arr = numpy.reshape(arr, shape)

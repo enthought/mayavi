@@ -25,6 +25,8 @@ def mysum(arr):
         val = numpy.sum(val)
     return val
 
+# A global array to test the atexit cleanup that prevents a segfault.
+global_arr = None
 
 class TestArrayHandler(unittest.TestCase):
     def _check_arrays(self, arr, vtk_arr):
@@ -134,7 +136,7 @@ class TestArrayHandler(unittest.TestCase):
 
         # Make sure the cache is doing its job.
         key = vtk_arr.__this__
-        z = array_handler._array_cache[key]
+        z = array_handler._array_cache.get(vtk_arr)
         self.assertEqual(numpy.sum(z - numpy.ravel(a)), 0.0)
 
         l1 = len(array_handler._array_cache)
@@ -147,7 +149,7 @@ class TestArrayHandler(unittest.TestCase):
         # Delete the VTK array and see if the cache is cleared.
         del vtk_arr
         self.assertEqual(len(array_handler._array_cache), l1-1)
-        self.assertEqual(array_handler._array_cache.has_key(key),
+        self.assertEqual(array_handler._array_cache._cache.has_key(key),
                          False)
 
         # Make sure bit arrays are copied.
@@ -375,7 +377,59 @@ class TestArrayHandler(unittest.TestCase):
         arr[0][0] = 100.0
         self.assertEqual(arr[0][0], arr1[0][0])
         self.assertEqual(arr.shape, arr1.shape)
-   
+
+    def test_atexit_cleanup(self):
+        """Is cleanup done at exit"""
+
+        # This test is peculiar since we want to test if when Python
+        # shuts down there are no segfaults.  This was happening to Fred
+        # when the interpreter was closed but the arrays were
+        # destructing and called back the Python function due to the
+        # DeleteEvent callback.  The C++ destructors were called after
+        # the interpreter was cleaned up and the crash occurred when
+        # PyGILState_Ensure was called.  This test tries to recreate
+        # that problem by creating a global array.  The test is
+        # successful if the test suite does not segfault when it exits.
+        global global_arr
+        arr = numpy.zeros(100, float)
+        global_arr = array_handler.array2vtk(arr)
+
+    def test_array_cache(self):
+        """Test the ArrayCache class."""
+        cache = array_handler.ArrayCache()
+        # Test if len works.
+        self.assertEqual(len(cache), 0)
+        arr = numpy.zeros(100, float)
+        varr = vtk.vtkFloatArray()
+        # test contains
+        self.assertEqual(varr not in cache, True)
+        cache.add(varr, arr)
+        self.assertEqual(len(cache), 1)
+        self.assertEqual(varr in cache, True)
+        
+        # This one depends on implementation (white box test).
+        key = varr.__this__
+        ref = cache._cache[key][1]
+        self.assertEqual(varr, ref())
+
+        # Test if the callback on delete is working.
+        del varr
+        self.assertEqual(len(cache), 0)
+
+        # Test the atexit function.
+        varr = vtk.vtkFloatArray()
+        self.assertEqual(varr not in cache, True)
+        cache.add(varr, arr)
+        self.assertEqual(len(cache), 1)
+        self.assertEqual(varr in cache, True)
+
+        # When this is called, the cache should not be cleared.
+        cache.on_exit()
+        key = varr.__this__
+        del varr
+        self.assertEqual(len(cache), 1)
+        self.assertEqual(key in cache._cache, True)
+
 
 def test_suite():
     """Collects all the tests to be run."""
