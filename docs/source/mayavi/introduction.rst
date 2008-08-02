@@ -99,7 +99,7 @@ Envisage_. Here are some of its features:
       without a wxPython or Qt4 based UI.
 
 
-.. _ETS: http://code.enthought.com/ets
+.. _ETS: http://code.enthought.com/projects/tool-suite.php
 .. _Traits: https://svn.enthought.com/enthought/wiki/Traits
 .. _TVTK: https://svn.enthought.com/enthought/wiki/TVTK
 .. _MVC: http://en.wikipedia.org/wiki/Model-view-controller
