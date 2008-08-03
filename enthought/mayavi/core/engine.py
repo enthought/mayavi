@@ -14,7 +14,7 @@ from os.path import splitext
 # Enthought library imports.
 from enthought.traits.api import (HasStrictTraits, List, Str, 
         Property, Instance, Event, HasTraits, Callable, Dict,
-        Bool, on_trait_change, Any)
+        Bool, on_trait_change)
 from enthought.traits.ui.api import View, Item
 from enthought.persistence import state_pickler
 
@@ -94,7 +94,6 @@ class Engine(HasStrictTraits):
     _current_object = Instance(HasTraits)
     _current_selection = Instance(HasTraits)
     _viewer_ref = Dict
-    _adder_node = Any(transient=True)
 
     # View related traits.
     current_selection_view = View(Item(name='_current_selection',
