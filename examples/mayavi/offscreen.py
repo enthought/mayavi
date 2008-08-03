@@ -40,8 +40,8 @@ def main():
     # Create the MayaVi engine and start it.  Set the scene_factory to
     # use an off screen viewer defined above.
     e = Engine(scene_factory=off_screen_viewer)
-    # The `start` method does nothing much but is useful if someone is
-    # listening to the engine's `started` event.
+    # Starting the engine registers the engine with the registry and
+    # notifies others that the engine is ready.
     e.start()
 
     # Create a new scene.
@@ -58,7 +58,7 @@ def main():
     win.scene.isometric_view()
     # Change the size argument to anything you want.
     win.scene.save('offscreen.png', size=(800,800))
-    
-                   
+
+
 if __name__ == '__main__':
     main()

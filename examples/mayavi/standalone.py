@@ -22,8 +22,8 @@ from enthought.mayavi.modules.api import Outline, ScalarCutPlane, Streamline
 def main():
     # Create the MayaVi engine and start it.
     e = Engine()
-    # start does nothing much but useful if someone is listening to
-    # your engine.
+    # Starting the engine registers the engine with the registry and
+    # notifies others that the engine is ready.
     e.start()
 
     # Do this if you need to see the MayaVi tree view UI.
