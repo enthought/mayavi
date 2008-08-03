@@ -594,13 +594,9 @@ visible in the other.  For example::
 It is important to note that it is perfectly safe to delete the
 reference to the numpy array since this array is actually cached safely
 to eliminate nasty problems.  This memory is freed when the VTK array is
-garbage collected and when either the next numpy array is converted or
-when a TVTK object is gc'd.  The cache can also be explicitly cleaned of
-unused references by calling
-`enthought.tvtk.array_handler.clean_cache()`.  Saving a reference to the
-numpy array also ensures that the numpy array cannot be resized (this
-could have disastrous effects).
-
+garbage collected.  Saving a reference to the numpy array also ensures
+that the numpy array cannot be resized (this could have disastrous
+effects).
 
 However, there are exceptions to this behaviour of using "views" of
 the numpy array.  The `DataArray` class and its subclasses and the

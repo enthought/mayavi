@@ -6,19 +6,6 @@ URL:
     https://svn.enthought.com/enthought/changeset/18702
 -----------------------------------------------------------------------------
 
-3 Aug, 2008 (PR):
-    - BUG: [20848] [20854].  Fred was getting segfaults on exit when
-      running boy.py or some of the other examples.   This fix marks an
-      important change in TVTK internals.  The saved reference to a
-      numpy array converted to a VTK array is not automatically removed
-      by a DeleteEvent observer event callback but explicitly on new
-      conversions or at the time TVTK objects are gc'd.  This can also
-      be explicitly done using enthought.tvtk.array_handler's
-      clean_cache() function.   Additionally, VTK 5.2 and 5.3 have
-      changed the default reference count number used internally, this
-      has been updated in this patch potentially fixing a large memory
-      leak with tvtk.
-
 27 July, 2008 (GV):
     - ENH: Add an option (on by default) to open the docs in a chromeless
       window when using firefox. [20451] [20450]

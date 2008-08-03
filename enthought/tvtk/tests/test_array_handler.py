@@ -141,14 +141,12 @@ class TestArrayHandler(unittest.TestCase):
         l1 = len(array_handler._array_cache)
         # del the Numeric array and see if this still works.
         del a
-        array_handler.clean_cache()
         self.assertEqual(vtk_arr.GetTuple3(0), (10., 20., 30.))
         # Check the cache -- just making sure.
         self.assertEqual(len(array_handler._array_cache), l1)
 
         # Delete the VTK array and see if the cache is cleared.
         del vtk_arr
-        array_handler.clean_cache()
         self.assertEqual(len(array_handler._array_cache), l1-1)
         self.assertEqual(array_handler._array_cache._cache.has_key(key),
                          False)
@@ -397,21 +395,6 @@ class TestArrayHandler(unittest.TestCase):
 
         # Test if the cache is cleared when the array is deleted.
         del varr
-        cache.clean()
-        self.assertEqual(len(cache), 0)
-
-        # Test if the cache is cleared when add is called.
-        varr = vtk.vtkFloatArray()
-        cache.add(varr, arr)
-        self.assertEqual(len(cache), 1)
-        self.assertEqual(varr in cache, True)
-        del varr
-        varr1 = vtk.vtkFloatArray()
-        cache.add(varr1, arr)
-        self.assertEqual(len(cache), 1)
-        self.assertEqual(varr1 in cache, True)
-        del varr1
-        cache.clean()
         self.assertEqual(len(cache), 0)
 
 

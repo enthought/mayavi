@@ -16,7 +16,6 @@ import vtk
 from enthought.traits import api as traits
 from enthought.traits.ui.api import BooleanEditor, RGBColorEditor, FileEditor
 import messenger
-from array_handler import clean_cache
 
 # Setup a logger for this module.
 logger = logging.getLogger(__name__)
@@ -86,10 +85,6 @@ class TVTKObjectCache(weakref.WeakValueDictionary):
         except AttributeError:
             pass
         del od[key]
-
-        # Clean the array cache, this ensures that the array cache gets
-        # cleaned up periodically.
-        clean_cache()
 
 
 # The TVTK object cache (`_object_cache`).  This caches all the TVTK

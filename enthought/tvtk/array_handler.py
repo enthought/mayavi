@@ -54,7 +54,8 @@ class ArrayCache(object):
     """Caches references to numpy arrays that are not copied but views
     of which are converted to VTK arrays.  The caching prevents the user
     from deleting or resizing the numpy array after it has been sent
-    down to VTK.  """
+    down to VTK.  The cached arrays are automatically removed when the
+    VTK array destructs."""
 
     ######################################################################
     # `object` interface.
@@ -76,39 +77,35 @@ class ArrayCache(object):
     def add(self, vtk_arr, np_arr):
         """Add numpy array corresponding to the vtk array to the
         cache."""
-        # First clean the cache.
-        self.clean()
-
         key = vtk_arr.__this__
         cache = self._cache
 
-        #print "add:", key
-        # Cache the array, vtk_array
-        cache[key] = (np_arr, vtk_arr)
+        # Setup a callback so this cached array reference is removed 
+        # when the VTK array is destroyed.  Passing the key to the 
+        # `lambda` function is necessary because the callback will not 
+        # receive the object (it will receive `None`) and thus there 
+        # is no way to know which array reference one has to remove. 
+        vtk_arr.AddObserver('DeleteEvent', lambda o, e, key=key: \
+ 	                    self._remove_array(key)) 
+
+        # Cache the array
+        cache[key] = np_arr
 
     def get(self, vtk_arr):
         """Return the cached numpy array given a VTK array."""
         key = vtk_arr.__this__
-        return self._cache[key][0]
+        return self._cache[key]
 
-    def clean(self):
-        """Process cache and clean any unused references.  This is run
-        everytime add is called or may be called by the user to clean
-        out the cache periodically.
-        """
-        cache = self._cache
-        #print "cache size:", len(cache)
-        remove = []
-        for key, (np_arr, vtk_arr) in cache.iteritems():
-            pyrc = sys.getrefcount(vtk_arr)
-            if pyrc <= 3:
-                rc = vtk_arr.GetReferenceCount()
-                if rc <= BASE_REFERENCE_COUNT:
-                    remove.append(key)
-        # Now remove all the unused arrays.
-        for key in remove:
-            #print "remove:", key
-            del cache[key]
+    ######################################################################
+    # Non-public interface.
+    ###################################################################### 
+    def _remove_array(self, key):
+        """Private function that removes the cached array.  Do not
+        call this unless you know what you are doing."""
+        try:
+            del self._cache[key]
+        except KeyError:
+            pass
 
 
 ######################################################################
@@ -134,11 +131,6 @@ else:
     _array_cache = ArrayCache() 
 del _dummy
 
-
-def clean_cache():
-    """A convenience function to clean up the global array cache."""
-    global _array_cache
-    _array_cache.clean()
 
 
 ######################################################################
