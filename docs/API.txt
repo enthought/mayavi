@@ -1,0 +1,29 @@
+Public and private APIs in TVTK and Mayavi
+===========================================
+
+In general the following page documents the version numbers of each
+Mayavi project release:
+
+   https://svn.enthought.com/enthought/wiki/EnthoughtVersionNumbers
+
+However, not everything released as part of the project is really a
+public API that we guarantee to ensure.   Public API's are those that
+will follow the above scheme.  If we don't its a bug and you should tell
+us.  However, the internal implementation and private API's may change
+between patch level or minor versions.  This document attempts to
+document what we call public and private.
+
+
+Public API:
+    - The core object model (not the UI, the UI views or the UI related
+      implementation).
+    - Public methods and traits.
+    - Essentially, all the features used in the examples distributed with
+      the source will honor the versioning scheme.
+
+Private API:
+    - All protected/private methods (those with a leading underscore).
+    - Implementation details of TVTK, like the array and object cache
+      (these variables actually have leading underscores).
+    - Internal implementation of persistence.
+    
