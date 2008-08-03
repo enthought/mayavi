@@ -55,7 +55,7 @@ class AdderNode(HasTraits):
     def _get_scene(self):
         """ Trait Property getter for 'scene'.
         """
-        object = self.obj
+        object = self.object
         if isinstance(object, AdderNode):
             return None
         if object is not None:
