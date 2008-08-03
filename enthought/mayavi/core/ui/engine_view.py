@@ -277,8 +277,4 @@ class EngineView(HasTraits):
         adder = FilterAdderNode(object=object)
         adder.edit_traits(view=adder.dialog_view())
 
-    @on_trait_change('object.engine.current_object')
-    def update_selection(self):
-        print 'fired'
-
 ### EOF ######################################################################
