@@ -7,9 +7,11 @@ following.  Please let us know if we missed anyone, thanks!
 
 Patches:
     - Fredéric Petit
+        - Extensive testing, wiki and cookbook pages.  Patch for NaN
+          support.
     - Varun Hiremath 
         - Debian package maintainer, ExtractVectorComponents
-          filter
+          filter.
     - K. K. Rai and R. A. Ambareesha
         - Parametric source, image readers and image filters.
     Chandrashekhar P. Kaushik
