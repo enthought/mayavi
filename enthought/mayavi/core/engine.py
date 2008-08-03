@@ -155,14 +155,14 @@ class Engine(HasStrictTraits):
     def start(self):
         """This is called by the plugin when the plugin actually
         starts."""
+        registry.register_engine(self)
         # Notify any listeners that the engine is started.
         self.started = self
         self.running = True
-        registry.register_engine(self)
 
     def stop(self):
-        self.running = False
         registry.unregister_engine(self)
+        self.running = False
 
     def add_source(self, src, scene=None):
         """Adds a source to the pipeline. Uses the current scene unless a
