@@ -1,8 +1,8 @@
-"""NOTE: This test requires user intervention.  Just close the scene
-window after it stops doing anything."""
+"""Test for the mlab.show function/decorator."""
 
 from inspect import getmembers
 from enthought.mayavi import mlab
+from enthought.pyface.api import GUI
 
 def do_mlab():
     ############################################################
@@ -13,9 +13,18 @@ def do_mlab():
         mlab.clf()
         func()
 
+def close():
+    """Close the scene."""
+    f = mlab.gcf()
+    e = mlab.get_engine()
+    v = e.get_viewer(f)
+    v.close()
+
 def test_mlab_show():
     """Test mlab.show()"""
     do_mlab()
+    # Automatically close window in 2500 msecs.
+    GUI.invoke_after(2500, close)
     mlab.show()
 
 def test_show_decorator():
@@ -23,6 +32,8 @@ def test_show_decorator():
     @mlab.show
     def f():
         do_mlab()
+        # Automatically close window in 2500 msecs.
+        GUI.invoke_after(2500, close)
     f()
 
 if __name__ == '__main__':
