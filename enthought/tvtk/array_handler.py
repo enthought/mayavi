@@ -15,8 +15,6 @@ seems no unique one-to-one VTK data array type to map it to.
 
 import types
 import sys
-import weakref
-import atexit
 
 import vtk
 from vtk.util import vtkConstants
@@ -44,6 +42,8 @@ if VTK_LONG_TYPE_SIZE == 4:
 elif VTK_LONG_TYPE_SIZE == 8:
     LONG_TYPE_CODE = numpy.int64
     ULONG_TYPE_CODE = numpy.uint64
+
+BASE_REFERENCE_COUNT = vtk.vtkObject().GetReferenceCount()
 
 
 ######################################################################
@@ -76,54 +76,39 @@ class ArrayCache(object):
     def add(self, vtk_arr, np_arr):
         """Add numpy array corresponding to the vtk array to the
         cache."""
+        # First clean the cache.
+        self.clean()
+
         key = vtk_arr.__this__
         cache = self._cache
 
-        # Setup a callback so this cached array reference is removed
-        # when the VTK array is destroyed.  Passing the key to the
-        # `lambda` function is necessary because the callback will not
-        # receive the object (it will receive `None`) and thus there
-        # is no way to know which array reference one has to remove.
-        ob_id = vtk_arr.AddObserver('DeleteEvent', lambda o, e, key=key: \
-                                    self._remove_array(key))
-        # Try creating a weakref to the array.
-        try:
-            ref = weakref.ref(vtk_arr)
-        except TypeError: 
-            # Old versions of VTK (<5.0) did not support weakrefs.
-            ref = None
-        # Cache the array, weakref and the observer id.
-        cache[key] = (np_arr, ref, ob_id)
+        #print "add:", key
+        # Cache the array, vtk_array
+        cache[key] = (np_arr, vtk_arr)
 
     def get(self, vtk_arr):
         """Return the cached numpy array given a VTK array."""
         key = vtk_arr.__this__
         return self._cache[key][0]
 
-    def on_exit(self):
-        """Should be registered with atexit.register so the observers are
-        removed before the VTK arrays destruct.  If not done, this
-        causes segfaults.  Note that this is not done by default so the
-        user must explicitly register this function with atexit.
+    def clean(self):
+        """Process cache and clean any unused references.  This is run
+        everytime add is called or may be called by the user to clean
+        out the cache periodically.
         """
         cache = self._cache
-        for key in cache:
-            np_arr, ref, ob_id = cache.get(key)
-            if ref is not None:
-                vtk_arr = ref()
-                if vtk_arr is not None:
-                    vtk_arr.RemoveObserver(ob_id)
-
-    ######################################################################
-    # Non-public interface.
-    ###################################################################### 
-    def _remove_array(self, key):
-        """Private function that removes the cached array.  Do not
-        call this unless you know what you are doing."""
-        try:
-            del self._cache[key]
-        except KeyError:
-            pass
+        #print "cache size:", len(cache)
+        remove = []
+        for key, (np_arr, vtk_arr) in cache.iteritems():
+            pyrc = sys.getrefcount(vtk_arr)
+            if pyrc <= 3:
+                rc = vtk_arr.GetReferenceCount()
+                if rc <= BASE_REFERENCE_COUNT:
+                    remove.append(key)
+        # Now remove all the unused arrays.
+        for key in remove:
+            #print "remove:", key
+            del cache[key]
 
 
 ######################################################################
@@ -147,9 +132,13 @@ if _dummy:
     _array_cache = _dummy
 else:
     _array_cache = ArrayCache() 
-    # Register function to call when Python exits.
-    atexit.register(_array_cache.on_exit)
 del _dummy
+
+
+def clean_cache():
+    """A convenience function to clean up the global array cache."""
+    global _array_cache
+    _array_cache.clean()
 
 
 ######################################################################
@@ -224,7 +213,7 @@ def create_vtk_array(vtk_arr_type):
     tmp = vtk.vtkDataArray.CreateDataArray(vtk_arr_type)
     # CreateDataArray sets the refcount to 3 and this causes a severe
     # memory leak.
-    tmp.SetReferenceCount(2)
+    tmp.SetReferenceCount(BASE_REFERENCE_COUNT)
     return tmp
 
 

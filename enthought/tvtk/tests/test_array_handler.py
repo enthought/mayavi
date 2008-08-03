@@ -2,7 +2,7 @@
 Tests for array_handler.py.
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2005, Enthought, Inc.
+# Copyright (c) 2005-2008, Enthought, Inc.
 # License: BSD Style.
 
 import unittest
@@ -25,8 +25,6 @@ def mysum(arr):
         val = numpy.sum(val)
     return val
 
-# A global array to test the atexit cleanup that prevents a segfault.
-global_arr = None
 
 class TestArrayHandler(unittest.TestCase):
     def _check_arrays(self, arr, vtk_arr):
@@ -90,7 +88,8 @@ class TestArrayHandler(unittest.TestCase):
         for z in t_z:
             vtk_arr = array_handler.array2vtk(z)
             # Test for memory leaks.
-            self.assertEqual(vtk_arr.GetReferenceCount(), 2)
+            self.assertEqual(vtk_arr.GetReferenceCount(),
+                             array_handler.BASE_REFERENCE_COUNT)
             self._check_arrays(z, vtk_arr)
             z1 = array_handler.vtk2array(vtk_arr)
             if len(z.shape) == 1:
@@ -142,12 +141,14 @@ class TestArrayHandler(unittest.TestCase):
         l1 = len(array_handler._array_cache)
         # del the Numeric array and see if this still works.
         del a
+        array_handler.clean_cache()
         self.assertEqual(vtk_arr.GetTuple3(0), (10., 20., 30.))
         # Check the cache -- just making sure.
         self.assertEqual(len(array_handler._array_cache), l1)
 
         # Delete the VTK array and see if the cache is cleared.
         del vtk_arr
+        array_handler.clean_cache()
         self.assertEqual(len(array_handler._array_cache), l1-1)
         self.assertEqual(array_handler._array_cache._cache.has_key(key),
                          False)
@@ -378,22 +379,6 @@ class TestArrayHandler(unittest.TestCase):
         self.assertEqual(arr[0][0], arr1[0][0])
         self.assertEqual(arr.shape, arr1.shape)
 
-    def test_atexit_cleanup(self):
-        """Is cleanup done at exit"""
-
-        # This test is peculiar since we want to test if when Python
-        # shuts down there are no segfaults.  This was happening to Fred
-        # when the interpreter was closed but the arrays were
-        # destructing and called back the Python function due to the
-        # DeleteEvent callback.  The C++ destructors were called after
-        # the interpreter was cleaned up and the crash occurred when
-        # PyGILState_Ensure was called.  This test tries to recreate
-        # that problem by creating a global array.  The test is
-        # successful if the test suite does not segfault when it exits.
-        global global_arr
-        arr = numpy.zeros(100, float)
-        global_arr = array_handler.array2vtk(arr)
-
     def test_array_cache(self):
         """Test the ArrayCache class."""
         cache = array_handler.ArrayCache()
@@ -406,29 +391,28 @@ class TestArrayHandler(unittest.TestCase):
         cache.add(varr, arr)
         self.assertEqual(len(cache), 1)
         self.assertEqual(varr in cache, True)
-        
-        # This one depends on implementation (white box test).
-        key = varr.__this__
-        ref = cache._cache[key][1]
-        self.assertEqual(varr, ref())
+       
+        # Test the get method.
+        self.assertEqual(cache.get(varr) is arr, True)
 
-        # Test if the callback on delete is working.
+        # Test if the cache is cleared when the array is deleted.
         del varr
+        cache.clean()
         self.assertEqual(len(cache), 0)
 
-        # Test the atexit function.
+        # Test if the cache is cleared when add is called.
         varr = vtk.vtkFloatArray()
-        self.assertEqual(varr not in cache, True)
         cache.add(varr, arr)
         self.assertEqual(len(cache), 1)
         self.assertEqual(varr in cache, True)
-
-        # When this is called, the cache should not be cleared.
-        cache.on_exit()
-        key = varr.__this__
         del varr
+        varr1 = vtk.vtkFloatArray()
+        cache.add(varr1, arr)
         self.assertEqual(len(cache), 1)
-        self.assertEqual(key in cache._cache, True)
+        self.assertEqual(varr1 in cache, True)
+        del varr1
+        cache.clean()
+        self.assertEqual(len(cache), 0)
 
 
 def test_suite():
