@@ -63,7 +63,6 @@ from numpy.distutils.command.install_data import install_data
 from numpy.distutils.core import setup
 from pkg_resources import DistributionNotFound, parse_version, require, \
     VersionConflict
-from setup_data import INFO
 from setuptools.command.develop import develop
 from setuptools.command.install_scripts import install_scripts
 from traceback import print_exc
@@ -71,6 +70,12 @@ import os
 import shutil
 import zipfile
 
+# FIXME: This works around a setuptools bug which gets setup_data.py metadata
+# from incorrect packages. Ticket #1592
+#from setup_data import INFO
+setup_data = dict(__name__='', __file__='setup_data.py')
+execfile('setup_data.py', setup_data)
+INFO = setup_data['INFO']
 
 ##############################################################################
 # Pull the description values for the setup keywords from our file docstring.
