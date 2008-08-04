@@ -145,7 +145,7 @@ def vector_scatter(*args, **kwargs):
 
     points = numpy.c_[x.ravel(), y.ravel(), z.ravel()]
     vectors = numpy.c_[u.ravel(), v.ravel(), w.ravel()]
-    scalars = kwargs.pop('scalar', None)
+    scalars = kwargs.pop('scalars', None)
     name = kwargs.pop('name', 'VectorScatter')
 
     data_source = _make_glyph_data(points, vectors, scalars)
