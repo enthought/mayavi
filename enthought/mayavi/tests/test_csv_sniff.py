@@ -2,7 +2,7 @@
 Tests for the CSV file sniffer
 """
 # Author: Ilan Schnell <ischnell@enthought.com>
-# Copyright (c) 2008, Ilan Schnell, Enthought, Inc.
+# Copyright (c) 2008, Enthought, Inc.
 # License: BSD Style.
 import glob
 import os
