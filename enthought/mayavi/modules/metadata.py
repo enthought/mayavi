@@ -14,6 +14,7 @@ BASE = 'enthought.mayavi.modules'
 
 ################################################################################
 # Metadata.
+
 axes_module = ModuleMetadata(
     id            = "AxesModule",
     menu_name          = "&Axes",

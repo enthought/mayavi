@@ -53,7 +53,7 @@ class Engine(HasStrictTraits):
 
     # The list to provide to a TreeEditor.  Always add on a AdderNode.
     # TODO: It makes more sense to put the modification of the list 
-    #       in some other UI module, and not here.
+    # in some other UI module, and not here.
     children_ui_list = Property
 
     # Our name.

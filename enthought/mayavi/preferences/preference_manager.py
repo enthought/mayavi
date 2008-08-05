@@ -116,5 +116,6 @@ class PreferenceManager(HasTraits):
 
 ##########################################################
 # A Global preference manager that all other modules can use.
+
 preference_manager = PreferenceManager()
 

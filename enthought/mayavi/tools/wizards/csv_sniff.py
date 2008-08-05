@@ -18,15 +18,15 @@ class Sniff(object):
         are suitable to determine required keyword arguments for
         numpy.loadtxt
 
-        Exmaple:
-        
-        s = Sniff('mydata.csv')
-        print repr(s.delimiter())     # ','
-        print s.skiprows()            # 2
-        a = s.loadtxt()               # a is now the array
-        
-        from numpy import loadtxt     # make sure it's numpy 1.1.0 or higher
-        b = loadtxt('mydata.csv', **s.kwds())
+        Example::
+            
+            s = Sniff('mydata.csv')
+            print repr(s.delimiter())     # ','
+            print s.skiprows()            # 2
+            a = s.loadtxt()               # a is now the array
+            
+            from numpy import loadtxt     # make sure it's numpy 1.1.0 or higher
+            b = loadtxt('mydata.csv', **s.kwds())
     """
     def __init__(self, filename):
         self._filename = filename

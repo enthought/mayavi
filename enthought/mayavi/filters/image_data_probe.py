@@ -78,6 +78,7 @@ class ImageDataProbe(Filter):
 
     ########################################
     # View related traits.
+
     view = View(Group(Item(name='dimensions',
                            enabled_when='allow_changes'
                            ),

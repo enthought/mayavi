@@ -73,7 +73,7 @@ class Glyph(Component):
     glyph = Instance(tvtk.Object, allow_none=False)
 
     # The Source to use for the glyph.  This is chosen from
-    # `self._glyph_list` or `self.glyph_dict'.
+    # `self._glyph_list` or `self.glyph_dict`.
     glyph_source = Instance(glyph_source.GlyphSource,  
                             allow_none=False)
 
@@ -95,6 +95,7 @@ class Glyph(Component):
     
     ########################################
     # View related traits.            
+
     view = View(Group(Item(name='mask_input_points'),
                       Group(Item(name='mask_points',
                                  enabled_when='object.mask_input_points',

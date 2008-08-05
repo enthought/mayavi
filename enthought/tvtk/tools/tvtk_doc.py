@@ -286,6 +286,7 @@ class TVTKClassChooser(HasTraits):
 
     ########################################
     # Private traits.
+
     finder = Instance(DocSearch)
 
     n_completion = Int(25)

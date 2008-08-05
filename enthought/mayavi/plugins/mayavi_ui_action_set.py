@@ -68,6 +68,7 @@ ID = 'enthought.mayavi'
 
 ####################
 # Source actions.
+
 open_file = Action(
     id            = "OpenFile",
     class_name    = ID + ".action.sources.OpenFile",
@@ -89,6 +90,7 @@ for src in registry.sources:
 
 ####################
 # Save/load actions.
+
 save_viz = Action(
     id            = "SaveVisualization",
     class_name    = ID + ".action.save_load.SaveVisualization",
@@ -115,6 +117,7 @@ run_script = Action(
 
 ########################################
 # Visualize menu items.
+
 add_mm = Action(
     id            = "AddModuleManager",
     class_name    = ID + ".action.modules.AddModuleManager",
@@ -125,6 +128,7 @@ add_mm = Action(
 
 ########################################
 # Modules.
+
 MODULE_ACTIONS = []
 for module in registry.modules:
     action = Action(id=module.id,

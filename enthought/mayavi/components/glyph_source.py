@@ -35,7 +35,7 @@ class GlyphSource(Component):
                            desc='position of glyph w.r.t. data point')
 
     # The Source to use for the glyph.  This is chosen from
-    # `self._glyph_list` or `self.glyph_dict'.
+    # `self._glyph_list` or `self.glyph_dict`.
     glyph_source = Instance(tvtk.Object, allow_none=False)
 
     # A list of predefined glyph sources that can be used.
@@ -52,6 +52,7 @@ class GlyphSource(Component):
     
     ########################################
     # View related traits.            
+
     view = View(Group(Group(Item(name='glyph_position')),                       
                       Group(Item(name='glyph_source', 
                                  style='custom',

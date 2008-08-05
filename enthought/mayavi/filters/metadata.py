@@ -23,6 +23,7 @@ def make_user_defined_filter():
 
 ################################################################################
 # Metadata.
+
 cell_derivatives_filter = FilterMetadata(
     id            = "CellDerivativesFilter",
     menu_name          = "&CellDerivatives",

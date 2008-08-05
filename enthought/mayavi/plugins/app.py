@@ -120,19 +120,15 @@ class Mayavi(HasTraits):
 
         Parameters
         ----------
-
-        - argv : `list` of `strings`
-
-          The list of command line arguments.  The default is `None`
-          where no command line arguments are parsed.  To support
-          command line arguments you can pass `sys.argv[1:]`.
-
-        - plugins : `list` of `Plugin`s
-
-          List of plugins to start.  If none is provided it defaults to
-          something meaningful.
-
-        - log_mode : The logging mode to use.
+        argv : list of strings
+            The list of command line arguments.  The default is `None`
+            where no command line arguments are parsed.  To support
+            command line arguments you can pass `sys.argv[1:]`.
+        plugins : list of Plugin objects
+            List of plugins to start.  If none is provided it defaults to
+            something meaningful.
+        log_mode : 
+            The logging mode to use.
 
         """
         # Parse any cmd line args.
