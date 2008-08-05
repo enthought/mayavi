@@ -115,8 +115,10 @@ def generate_docs(project):
             ' Trying simple import...' % required_sphinx_version)
         try:
             import sphinx
-            if parse_version(sphinx.__version__) < parse_version(required_sphinx_version):
-                log.error("Sphinx version must be >=%s." % required_sphinx_version)
+            if parse_version(sphinx.__version__) < parse_version(
+                required_sphinx_version):
+                log.error("Sphinx version must be >=%s." %\
+                    required_sphinx_version)
             if False:
                 pass
             else:
