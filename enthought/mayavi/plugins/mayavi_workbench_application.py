@@ -43,6 +43,8 @@ class MayaviWorkbenchApplication(WorkbenchApplication):
     def _about_dialog_default(self):
         """ Trait initializer. """
         from enthought.mayavi import api
+        from vtk import vtkVersion
+        vtk_version = vtkVersion().GetVTKVersion()
         about_dialog = AboutDialog(
             parent = self.workbench.active_window.control,
             image  = ImageResource('m2_about.jpg',
@@ -50,7 +52,8 @@ class MayaviWorkbenchApplication(WorkbenchApplication):
             additions = ['Authors: Prabhu Ramachandran',
                             'and Gael Varoquaux',
                             '',
-                            'Mayavi version %s' % api.__version__],
+                            'Mayavi version %s \t - \t VTK version %s' % 
+                            (api.__version__, vtk_version)],
         )
 
         return about_dialog
