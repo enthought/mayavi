@@ -127,8 +127,43 @@ class Process(object):
         return p
 
 class Build(Process):
+    
+    # Currently the simplest solution that works for checking if the mlab
+    # reference docs have been generated or not. Still needs to be refactored
+    # to be a method without class-level variables or hard-coded paths
+    AUTO_SOURCE_INPUT = os.path.join('enthought', 'mayavi')
+    AUTO_HTML_DEST = os.path.join(DEFAULT_HTML_TARGET_DIR, 'mayavi', 'auto')
+    
     # Use a list, for a Borg-like behavior
-    mlab_reference_generated = [False ]
+    mlab_reference_generated = [True ]
+    
+    # If the mlab module reference has already been created, this walks the 
+    # enthought.mayavi code tree to see if there have been any changes. 
+    # If a change has been made, the docs need to be regenerated so 
+    # mlab_reference_generated is set to False.
+    if os.path.exists(AUTO_HTML_DEST):
+        latest_source_time, latest_dest_time = 0, 0
+        
+        for root, dirs, files in os.walk(AUTO_HTML_DEST):
+            for file in files:
+                if os.path.getmtime(os.path.join(root, file)) > latest_dest_time:
+                    latest_dest_time = os.path.getmtime(os.path.join(root, file))
+        
+        for root, dirs, files in os.walk(AUTO_SOURCE_INPUT):
+            if '.svn' in root:
+                continue
+            for file in files:
+                 if not file.endswith('.py'):
+                     continue
+                 if os.path.getmtime(os.path.join(root, file)) > latest_source_time:
+                     latest_source_time = \
+                        os.path.getmtime(os.path.join(root, file))
+        if latest_source_time > latest_dest_time:
+           mlab_reference_generated = [False ] 
+    # If the destination directory does not exist, automatically set 
+    # mlab_reference_generated to False
+    else:
+        mlab_reference_generated = [False ]
 
     @has_started
     def svn_checkout(self):
