@@ -212,7 +212,7 @@ event-loop, which give you more flexibility::
  
  @mlab.show
  def image():
-    imshow(random.random((10, 10))
+    mlab.imshow(random.random((10, 10)))
 
 
 
