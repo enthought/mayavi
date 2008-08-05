@@ -613,20 +613,20 @@ def test_mesh():
 
     return mesh(x, y, z, colormap="bone")
 
-def test_mesh_sphere():
-    """Create a simple sphere and test the mesh."""
+
+def test_mesh_sphere(r=1.0, npts=(100,100), colormap='jet'):
+    """Create a simple sphere."""
     pi = numpy.pi
     cos = numpy.cos
-    sin = numpy.sin    
-    du, dv = pi/20.0, pi/20.0
-    phi, theta = numpy.mgrid[0.01:pi+du*1.5:du, 0:2*pi+dv*1.5:dv]
-    r = 1.0
+    sin = numpy.sin
+    np_phi = npts[0]*1j
+    np_theta = npts[1]*1j
+    phi, theta = numpy.mgrid[0:pi:np_phi, 0:2*pi:np_theta]
     x = r*sin(phi)*cos(theta)
     y = r*sin(phi)*sin(theta)
     z = r*cos(phi)
-    s = mesh(x, y, z, representation='mesh', colormap='jet',
-                    tube_radius=None)
-                   #tube_radius=None, sphere_radius=0.025)
+    return mesh(x, y, z, colormap=colormap)
+
 
 def test_fancy_mesh():
     """Create a fancy looking mesh using mesh (example taken from octaviz)."""
