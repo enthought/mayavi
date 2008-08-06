@@ -142,7 +142,7 @@ class Build(Process):
     # If a change has been made, the docs need to be regenerated so 
     # mlab_reference_generated is set to False.
     if os.path.exists(AUTO_HTML_DEST):
-        latest_source_time, latest_dest_time = 0, 0
+        latest_source_time = latest_dest_time = 0
         
         for root, dirs, files in os.walk(AUTO_HTML_DEST):
             for file in files:
