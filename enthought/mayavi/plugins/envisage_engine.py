@@ -75,8 +75,11 @@ class EnvisageEngine(Engine):
         # Call the parent stop method.
         super(EnvisageEngine, self).stop()
 
-    def new_scene(self, name=None):
-        """Creates a new VTK scene window.
+    def new_scene(self, name=None, **kwargs):
+        """ Creates a new VTK scene window.
+
+            For the time being the extra kwargs are ignored with the
+            envisage engine.
         """
         action = NewScene(window=self.window)
         editor = action.perform(None)
