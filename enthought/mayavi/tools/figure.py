@@ -16,7 +16,8 @@ from engine_manager import get_engine, options
 
 ######################################################################
 
-def figure(name=None, bgcolor=None, fgcolor=None, engine=None):
+def figure(name=None, bgcolor=None, fgcolor=None, engine=None,
+                size=(400, 350)):
     """ Creates a new scene or retrieves an existing scene. If the mayavi
     engine is not running this also starts it.
 
@@ -29,6 +30,9 @@ def figure(name=None, bgcolor=None, fgcolor=None, engine=None):
         :fgcolor: The color of the foreground (None is default).
 
         :engine: The mayavi engine that controls the figure.
+
+        :size: The size of the scene created, in pixels. May not apply
+               for certain scene viewer.
     """
     if engine is None:
         engine = get_engine()
@@ -42,10 +46,10 @@ def figure(name=None, bgcolor=None, fgcolor=None, engine=None):
                 engine.current_scene = scene
                 break
         else:
-            engine.new_scene(name=name)
+            engine.new_scene(name=name, size=size)
             engine.current_scene.name = name
     else:
-        engine.new_scene()
+        engine.new_scene(size=size)
     view(40, 50)
     fig = engine.current_scene
     if bgcolor is None:

@@ -69,9 +69,10 @@ class MayaviViewer(IVTK):
     _scene_factory = Callable(MayaviScene)
 
 
-def viewer_factory():
+def viewer_factory(size=(400, 350)):
     viewer = MayaviViewer()
     viewer.menu_bar_manager = None
+    viewer.size=size
     viewer.open()
     return viewer
 

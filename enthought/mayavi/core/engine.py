@@ -40,6 +40,12 @@ def _id_generator():
         n += 1
 scene_id_generator = _id_generator()
 
+def get_args(function):
+    """ Simple inspect-like function to inspect the arguments a function
+        takes.
+    """
+    return function.func_code.co_varnames[:function.func_code.co_argcount]
+
 ######################################################################
 # `Engine` class
 ######################################################################
@@ -324,7 +330,7 @@ class Engine(HasStrictTraits):
         self.current_scene = s
 
     
-    def remove_scene(self, scene):
+    def remove_scene(self, scene, **kwargs):
         """Remove a given `scene` (a `pyface.tvtk.scene.Scene`
         instance) from the mayavi engine if it is already being
         managed by mayavi.  Note that for the `EnvisageEngine` this is
@@ -350,7 +356,7 @@ class Engine(HasStrictTraits):
         if scene in self._viewer_ref:
             del self._viewer_ref[scene]
         
-    def new_scene(self, viewer=None, name=None):
+    def new_scene(self, viewer=None, name=None, **kwargs):
         """Create or manage a new VTK scene window.  If no `viewer`
         argument is provided, the method creates a new viewer using
         `self.scene_factory`.  If `self.scene_factor` is `None` then
@@ -360,10 +366,27 @@ class Engine(HasStrictTraits):
         supports `closing` and `activated` events.
 
         The method returns the created viewer.
+         
+        Parameters:
+        -----------
+
+         viewer - The viewer object, if None, one is created for you.
+
+         name - The name attribute of the viewer
+
+         ``**kwargs`` - The extra keyword arguments are passed along to
+         the scene factory.
+
         """
         if viewer is None:
             from enthought.pyface.api import GUI
-            viewer = self.scene_factory()
+            factory_kwargs = {}
+            factory_kwargs_names = get_args(self.scene_factory)
+            for arg, value in kwargs.iteritems():
+                if arg in factory_kwargs_names:
+                    factory_kwargs[arg] = value
+                
+            viewer = self.scene_factory(**factory_kwargs)
             GUI.process_events()
             
         if name is not None:
