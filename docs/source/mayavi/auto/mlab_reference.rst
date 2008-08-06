@@ -8,6 +8,12 @@ MLab reference
 Reference list of all the main functions of ``enthought.mayavi.mlab``
 with documentation and examples.
 
+.. note::
+
+    This section is only a reference, please see chapter on
+    :ref:`simple-scripting-with-mlab` for an introduction to mlab
+    and how to run the examples.
+
 
 
 .. module:: enthought.mayavi.mlab

@@ -2,6 +2,14 @@
 
 .. currentmodule:: enthought.mayavi.mlab
 
+.. note::
+
+    This section is only a reference, please see chapter on
+    :ref:`simple-scripting-with-mlab` for an introduction to mlab.
+
+    Please see the section on :ref:`running-mlab-scripts` for
+    instructions on running the examples.
+
 Plotting functions
 ==================
 
@@ -49,11 +57,21 @@ imshow
     
 
     
-Example::
 
+.. image:: ../images/enthought_mayavi_mlab_imshow.jpg
+
+
+**Example** (run in ``ipython -wthread`` or in the mayavi2 interactive shell,
+see :ref:`running-mlab-scripts` for more info)::
+
+    
+    import numpy
+    from enthought.mayavi.mlab import *
+    
     def test_imshow():
         return imshow(numpy.random.random((10,10)), colormap='gist_earth')
     
+                
 
 
 
@@ -122,8 +140,17 @@ quiver3d
     
 
     
-Example::
 
+.. image:: ../images/enthought_mayavi_mlab_quiver3d.jpg
+
+
+**Example** (run in ``ipython -wthread`` or in the mayavi2 interactive shell,
+see :ref:`running-mlab-scripts` for more info)::
+
+    
+    import numpy
+    from enthought.mayavi.mlab import *
+    
     def test_quiver3d():
         dims = [8, 8, 8]
         xmin, xmax, ymin, ymax, zmin, zmax = [-5,5,-5,5,-5,5]
@@ -145,6 +172,7 @@ Example::
     
         return u, v, w, obj
     
+                
 
 
 
@@ -198,8 +226,17 @@ plot3d
     
 
     
-Example::
 
+.. image:: ../images/enthought_mayavi_mlab_plot3d.jpg
+
+
+**Example** (run in ``ipython -wthread`` or in the mayavi2 interactive shell,
+see :ref:`running-mlab-scripts` for more info)::
+
+    
+    import numpy
+    from enthought.mayavi.mlab import *
+    
     def test_plot3d():
         """Generates a pretty set of lines."""
         n_mer, n_long = 6, 11
@@ -214,6 +251,7 @@ Example::
         l = plot3d(x, y, z, numpy.sin(mu), tube_radius=0.025, colormap='Spectral')
         return l
     
+                
 
 
 
@@ -288,8 +326,17 @@ surf
     
 
     
-Example::
 
+.. image:: ../images/enthought_mayavi_mlab_surf.jpg
+
+
+**Example** (run in ``ipython -wthread`` or in the mayavi2 interactive shell,
+see :ref:`running-mlab-scripts` for more info)::
+
+    
+    import numpy
+    from enthought.mayavi.mlab import *
+    
     def test_surf():
         """Test surf on regularly spaced co-ordinates like MayaVi."""
         def f(x, y):
@@ -301,6 +348,7 @@ Example::
         #cs = contour_surf(x, y, f, contour_z=0)
         return s
     
+                
 
 
 
@@ -382,8 +430,17 @@ mesh
     
 
     
-Example::
 
+.. image:: ../images/enthought_mayavi_mlab_mesh.jpg
+
+
+**Example** (run in ``ipython -wthread`` or in the mayavi2 interactive shell,
+see :ref:`running-mlab-scripts` for more info)::
+
+    
+    import numpy
+    from enthought.mayavi.mlab import *
+    
     def test_mesh():
         """A very pretty picture of spherical harmonics translated from
         the octaviz example."""
@@ -400,6 +457,7 @@ Example::
     
         return mesh(x, y, z, colormap="bone")
     
+                
 
 
 
@@ -448,8 +506,17 @@ contour3d
     
 
     
-Example::
 
+.. image:: ../images/enthought_mayavi_mlab_contour3d.jpg
+
+
+**Example** (run in ``ipython -wthread`` or in the mayavi2 interactive shell,
+see :ref:`running-mlab-scripts` for more info)::
+
+    
+    import numpy
+    from enthought.mayavi.mlab import *
+    
     def test_contour3d():
         dims = [64, 64, 64]
         xmin, xmax, ymin, ymax, zmin, zmax = [-5,5,-5,5,-5,5]
@@ -466,6 +533,7 @@ Example::
         obj = contour3d(scalars, contours=4, transparent=True)
         return obj, scalars
     
+                
 
 
 
@@ -537,8 +605,17 @@ points3d
     
 
     
-Example::
 
+.. image:: ../images/enthought_mayavi_mlab_points3d.jpg
+
+
+**Example** (run in ``ipython -wthread`` or in the mayavi2 interactive shell,
+see :ref:`running-mlab-scripts` for more info)::
+
+    
+    import numpy
+    from enthought.mayavi.mlab import *
+    
     def test_points3d():
         t = numpy.linspace(0, 4*numpy.pi, 20)
         cos = numpy.cos
@@ -551,6 +628,7 @@ Example::
     
         points3d(x, y, z, s, colormap="copper", scale_factor=.25)
     
+                
 
 
 
@@ -614,8 +692,17 @@ flow
     
 
     
-Example::
 
+.. image:: ../images/enthought_mayavi_mlab_flow.jpg
+
+
+**Example** (run in ``ipython -wthread`` or in the mayavi2 interactive shell,
+see :ref:`running-mlab-scripts` for more info)::
+
+    
+    import numpy
+    from enthought.mayavi.mlab import *
+    
     def test_flow():
         dims = [32, 32, 32]
         xmin, xmax, ymin, ymax, zmin, zmax = [-5,5,-5,5,-5,5]
@@ -635,6 +722,7 @@ Example::
         obj = flow(x, y, z, u, v, w, linetype='tube')
         return u, v, w, obj
     
+                
 
 
 
@@ -691,8 +779,17 @@ contour_surf
     
 
     
-Example::
 
+.. image:: ../images/enthought_mayavi_mlab_contour_surf.jpg
+
+
+**Example** (run in ``ipython -wthread`` or in the mayavi2 interactive shell,
+see :ref:`running-mlab-scripts` for more info)::
+
+    
+    import numpy
+    from enthought.mayavi.mlab import *
+    
     def test_contour_surf():
         """Test contour_surf on regularly spaced co-ordinates like MayaVi."""
         def f(x, y):
@@ -703,5 +800,6 @@ Example::
         s = contour_surf(x, y, f)
         return s
     
+                
 
 

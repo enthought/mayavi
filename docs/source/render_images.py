@@ -1,6 +1,5 @@
 """
-Script to be called either in "ipython -wthread" or with "mayavi -x" to
-render the images for the Mayavi user guide.
+Script to render the images for the Mayavi user guide.
 
 This scipts requires image magic to be installed.
 
@@ -16,8 +15,8 @@ from enthought.mayavi.scripts import mayavi2
 
 from inspect import getmembers
 
-IMAGE_DIR = os.path.dirname(os.path.abspath(__file__)) + os.sep \
-            + 'source' + os.sep + 'images'
+IMAGE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                                        'mayavi', 'images')
 
 #############################################################################
 def capture_image(func, filename):
@@ -46,8 +45,9 @@ def illustrate_module(module, directory=IMAGE_DIR):
 
 #############################################################################
 # Entry point
-@mayavi2.standalone
+@mlab.show
 def main():
+    mlab.figure(bgcolor=(1, 1, 1), fgcolor=(0, 0, 0), size=(400, 400))
     illustrate_module(mlab)
     mayavi2.close()
 

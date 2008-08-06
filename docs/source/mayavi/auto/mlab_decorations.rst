@@ -2,6 +2,14 @@
 
 .. currentmodule:: enthought.mayavi.mlab
 
+.. note::
+
+    This section is only a reference, please see chapter on
+    :ref:`simple-scripting-with-mlab` for an introduction to mlab.
+
+    Please see the section on :ref:`running-mlab-scripts` for
+    instructions on running the examples.
+
 Figure decoration functions
 ===========================
 

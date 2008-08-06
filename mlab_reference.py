@@ -69,7 +69,7 @@ def relpath(target, base=os.curdir):
         i+=1
 
     rel_list = [os.pardir] * (len(base_list)-i) + target_list[i:]
-    return os.sep.join(*rel_list)
+    return os.path.join(*rel_list)
 
 
 def is_valid_rst(string):
@@ -135,7 +135,8 @@ def document_function(func, func_name=None, example_code=None,
 
     if example_code is not None:
         documentation += """
-Example::
+**Example** (run in ``ipython -wthread`` or in the mayavi2 interactive shell,
+see :ref:`running-mlab-scripts` for more info)::
 
 %s
 """ % indent(example_code)
@@ -195,8 +196,12 @@ class ModuleReference(object):
         if hasattr(self.module, 'test_' + func_name):
             example_code = getsource(
                                 getattr(self.module, 'test_' + func_name))
-            # Get rid of the function call:
-            #example_code = '\n'.join(example_code.split('\n')[1:])
+            example_code = """
+import numpy
+from enthought.mayavi.mlab import *
+
+%s
+            """ % example_code
         else:
             example_code = None
         
@@ -289,6 +294,14 @@ class ModuleReference(object):
 
 .. currentmodule:: %s
 
+.. note::
+
+    This section is only a reference, please see chapter on
+    :ref:`simple-scripting-with-mlab` for an introduction to mlab.
+
+    Please see the section on :ref:`running-mlab-scripts` for
+    instructions on running the examples.
+
 ''' % self.module.__name__ )
         if title is not None:
             outfile.write(title + '\n')
@@ -336,6 +349,12 @@ MLab reference
 
 Reference list of all the main functions of ``enthought.mayavi.mlab``
 with documentation and examples.
+
+.. note::
+
+    This section is only a reference, please see chapter on
+    :ref:`simple-scripting-with-mlab` for an introduction to mlab
+    and how to run the examples.
 
 """, 
             sub_modules = [module.__name__ for module in sub_modules],

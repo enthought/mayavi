@@ -2,13 +2,21 @@
 
 .. currentmodule:: enthought.mayavi.mlab
 
+.. note::
+
+    This section is only a reference, please see chapter on
+    :ref:`simple-scripting-with-mlab` for an introduction to mlab.
+
+    Please see the section on :ref:`running-mlab-scripts` for
+    instructions on running the examples.
+
 Figure handling functions
 =========================
 
 figure
 ~~~~~~
 
-.. function:: figure(name=None, bgcolor=None, fgcolor=None, engine=None)
+.. function:: figure(name=None, bgcolor=None, fgcolor=None, engine=None, size=(400, 350))
 
     Creates a new scene or retrieves an existing scene. If the mayavi
     engine is not running this also starts it.
@@ -22,6 +30,9 @@ figure
         :fgcolor: The color of the foreground (None is default).
     
         :engine: The mayavi engine that controls the figure.
+    
+        :size: The size of the scene created, in pixels. May not apply
+               for certain scene viewer.
     
 
     

@@ -16,7 +16,7 @@ Mayavi's mlab is designed to be used in a manner well suited to
 scripting and does not present a fully object-oriented API.
 It is can be used interactively with IPython_.
 
-.. important:: 
+.. note:: 
 
     IPython must be invoked with the ``-wthread`` command line option like so::
 
@@ -69,7 +69,7 @@ Plotting functions
 
 Visualization can be created in mlab by a set of functions operating on
 numpy arrays. In this section, we only list the different functions. They
-are described in details in the :mod:`mlab` reference, at the
+are described in details in the :ref:`mlab-reference`, at the
 end of the user guide.
 
 The mlab plotting functions take numpy arrays as input, describing the
@@ -170,28 +170,33 @@ In addition, for every object returned by a mlab function,
 interactively edit the object's properties. If the dialog doesn't show up
 when you enter this command, please see the next paragraph.
 
+.. _running-mlab-scripts:
 
 Running mlab scripts
 ---------------------
 
-Mlab, like the rest of Mayavi, is an interactive application. To
+Mlab, like the rest of Mayavi, is an interactive application. If you are
+not already in an interactive environment (see next paragraph), to
 interact with the figures or the rest of the drawing elements, you need
-to use the :func:`show` function. For instance, if you are writing
-a script, you need to call :func:`show` each time you want to
-display one or more figures and allow the user to interact with them.
+to use the :func:`show` function. For instance, if you are writing a
+script, you need to call :func:`show` each time you want to display one
+or more figures and allow the user to interact with them.
 
 Using mlab interactively
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Alternatively, using `IPython`_ mlab instructions can be run
-interactively, or in scripts using `IPython`_'s ``%run`` command, as soon
-as they are executed, alleviating the need to use the :func:`show`
-function.
+Using `IPython`_ mlab instructions can be run interactively, or in
+scripts using `IPython`_'s ``%run`` command, as soon as they are
+executed, alleviating the need to use the :func:`show` function. For this
+you need to start `Ipython`_ with the `-wthread` option (when installed
+with `EPD`_, the `pylab` start-menu link does this for you).
+
+.. _EPD: http://www.enthought.com/products/epd.php
 
 Mlab can also be used interactively in the Python shell of the mayavi2
 application, or in any interactive Python shell of wxPython-based
-application (such as other Envisage-based applications, or Stani's
-Python editor).
+application (such as other Envisage-based applications, or SPE, Stani's
+Python Editor).
 
 In scripts
 ~~~~~~~~~~~~~~~~~
@@ -202,10 +207,12 @@ entry, and executed using the *File->Refresh code* menu entry or by
 pressing ``Control-r``.  It can also be executed during the start of the
 Mayavi application using the ``-x`` command line switch.
 
-As already mentioned, you can call the :func:`show` function to pause
-your script and have the user interact with the figure. You can also
-use  :func:`show` to decorate a function, and have it run in the
-event-loop, which give you more flexibility::
+As mentioned above, when running outside of an interactive environment,
+for instance with `python myscript.py`, you need to call the :func:`show`
+function to pause your script and have the user interact with the figure.
+
+You can also use :func:`show` to decorate a function, and have it run in
+the event-loop, which give you more flexibility::
 
  from enthought.mayavi import mlab
  from numpy import random
@@ -214,7 +221,10 @@ event-loop, which give you more flexibility::
  def image():
     mlab.imshow(random.random((10, 10)))
 
-
+With this decorator, each time the `image` function is called, `mlab`
+makes sure an interactive environment is running before executing the
+`image` function. If an interactive environment is not running, `mlab`
+will start one and the image function will not return until it is closed.
 
 ..
    Local Variables:
