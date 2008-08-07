@@ -8,7 +8,13 @@ highest level.
 
 # Standard library imports.
 # VTK is used to just shut off the warnings temporarily.
-import vtk
+try:
+    import vtk
+except ImportError, e:
+    e.message = '%s\n%s\nDo you have vtk installed properly?' % (
+                e.message, '_'*80)
+    e.args = tuple((e.message, ) + e.args[1:])
+    raise e
 from os.path import splitext
 
 # Enthought library imports.

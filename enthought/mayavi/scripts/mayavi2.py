@@ -367,9 +367,31 @@ for opt, arg in parse_cmd_line(sys.argv[1:])[0]:
 opt, arg = None, None
 del opt, arg
 
+
+# The vtk module is imported by the engine, so mayavi is never going to 
+# start without it. Let us capture the error early, and give a meaningful
+# error message
+try:
+    import vtk
+except ImportError, e:
+    e.message = '%s\n%s\nDo you have vtk installed properly?' % (
+                e.message, '_'*80)
+    e.args = tuple((e.message, ) + e.args[1:])
+    raise e
+
+
 # Importing here to avoid time-consuming import when user only wanted
 # version/help information.
-from enthought.mayavi.plugins.app import Mayavi, setup_logger
+try:
+    from enthought.mayavi.plugins.app import Mayavi, setup_logger
+except ImportError, e:
+    e.message = '%s\n%s\nCould not load envisage. \n' \
+    'Do you have the EnvisageCore and EnvisagePlugins project installed?' % (
+                e.message, '_'*80)
+    e.args = tuple((e.message, ) + e.args[1:])
+    raise e
+
+
 
 ##########################################################################
 # `MayaviApp` class
@@ -503,6 +525,7 @@ def main():
     """This starts up the mayavi2 application.
     """
     global mayavi
+
     # Make sure '.' is in sys.path
     if '' not in sys.path:
         sys.path.insert(0, '')
@@ -510,6 +533,16 @@ def main():
     if OFFSCREEN:
         mayavi = MayaviOffscreen()
     else:
+        # Check that we have a traits backend installed
+        from enthought.traits.ui.toolkit import toolkit
+        toolkit() # This forces the selection of a toolkit.
+        from enthought.etsconfig.api import ETSConfig
+        if ETSConfig.toolkit in ('null', ''):
+            raise ImportError, '''Could not import backend for traits
+________________________________________________________________________________
+Make sure that you have either the TraitsBackendWx or the TraitsBackendQt
+projects installed.'''
+            
         mayavi = MayaviApp()
     mayavi.main(sys.argv[1:])
 

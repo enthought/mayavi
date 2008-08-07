@@ -9,6 +9,16 @@ application with the WxWidget mainloop running.
 # Copyright (c) 2007, Enthought, Inc. 
 # License: BSD Style.
 
+# Before anything else, check that we have a traits backend installed
+from enthought.traits.ui.toolkit import toolkit
+toolkit() # This forces the selection of a toolkit.
+from enthought.etsconfig.api import ETSConfig
+if ETSConfig.toolkit in ('null', ''):
+    raise ImportError, '''Could not import backend for traits
+________________________________________________________________________________
+Make sure that you have either the TraitsBackendWx or the TraitsBackendQt
+projects installed.'''
+
 # Mayavi imports
 from enthought.mayavi.tools.camera import view, roll
 from enthought.mayavi.tools.figure import figure, clf, gcf, savefig, draw
