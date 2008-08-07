@@ -40,23 +40,25 @@ def setup_logger(logger, fname, stream=True, mode=logging.ERROR):
 
     stream -- Add a stream handler.
 
-    mode -- the logging mode.
+    mode -- the logging mode of the stream handler.
     
     """
     if not os.path.isabs(fname):
         path = os.path.join(ETSConfig.application_home, fname)
     else:
         path = fname
+    logger.setLevel(logging.DEBUG)
     handler = LogFileHandler(path)
+    handler.setLevel(logging.DEBUG)
     logger.addHandler(handler)
     if stream:
         s = logging.StreamHandler()
         s.setFormatter(FORMATTER)
+        s.setLevel(mode)
         logger.addHandler(s)
     logger.info("*"*80)
     logger.info("logfile is: '%s'", os.path.abspath(path))
     logger.info("*"*80)
-    logger.setLevel(mode)
 
 
 def get_plugins():
