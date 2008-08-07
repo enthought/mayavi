@@ -53,7 +53,8 @@ Prerequisites
 You must have the following libraries installed before installing the Mayavi
 project:
     
-* `Numpy <http://pypi.python.org/pypi/numpy/1.1.1>`_ version 1.0.4 or later. 
+* `Numpy <http://pypi.python.org/pypi/numpy/1.1.1>`_ version 1.1.0 or later is
+  preferred. Version 1.0.4 will work, but some tests may fail.
 * `VTK <http://www.vtk.org/>`_ version 5.0 or later. 
 * `wxPython <http://www.wxpython.org/>`_ version 2.8 or later.
 * `setuptools <http://pypi.python.org/pypi/setuptools/0.6c8>`_.
