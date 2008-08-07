@@ -46,6 +46,11 @@ Python, except for a small extension module.
 Developers typically use TVTK to write Mayavi modules, and then use Mayavi to
 interact with visualizations or create applications.
 
+Prerequisites
+`````````````
+TVTK requires `VTK <http://www.vtk.org/>`_ version 5.0 or later. Use your 
+platform-specific installation utility to install it.
+
 """
 
 
