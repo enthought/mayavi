@@ -55,8 +55,8 @@ import setuptools
 
 
 from distutils.command.clean import clean
-from make_docs import HtmlBuild, DEFAULT_HTML_ZIP, DEFAULT_HTML_TARGET_DIR, \
-    DEFAULT_INPUT_DIR
+from make_docs import HtmlBuild#, DEFAULT_HTML_ZIP, DEFAULT_HTML_TARGET_DIR, \
+    #DEFAULT_INPUT_DIR
 from numpy.distutils import log
 from numpy.distutils.command.build import build as distbuild
 from numpy.distutils.command.install_data import install_data
@@ -76,6 +76,14 @@ import zipfile
 setup_data = dict(__name__='', __file__='setup_data.py')
 execfile('setup_data.py', setup_data)
 INFO = setup_data['INFO']
+
+# FIXME: Same issue as above, for importing from make_docs.py.
+# Uncomment imports from make_docs when fixed.
+make_docs_data = dict(__name__='', __file__='make_docs.py')
+execfile('make_docs.py', make_docs_data)
+DEFAULT_HTML_ZIP = make_docs_data['DEFAULT_HTML_ZIP']
+DEFAULT_HTML_TARGET_DIR = make_docs_data['DEFAULT_HTML_TARGET_DIR']
+DEFAULT_INPUT_DIR = make_docs_data['DEFAULT_INPUT_DIR']
 
 ##############################################################################
 # Pull the description values for the setup keywords from our file docstring.
