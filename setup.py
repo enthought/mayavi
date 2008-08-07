@@ -36,6 +36,8 @@ Additionally Mayavi2 is a reusable tool that can be embedded in your
 applications in different ways or combined with the Envisage
 application-building framework to assemble domain-specific tools.
 
+
+
 TVTK
 ----
 
@@ -47,9 +49,14 @@ Developers typically use TVTK to write Mayavi modules, and then use Mayavi to
 interact with visualizations or create applications.
 
 Prerequisites
-`````````````
-TVTK requires `VTK <http://www.vtk.org/>`_ version 5.0 or later. Use your 
-platform-specific installation utility to install it.
+-------------
+You must have the following libraries installed before installing the Mayavi
+project:
+    
+* `Numpy <http://pypi.python.org/pypi/numpy/1.1.1>`_ version 1.0.4 or later. 
+* `VTK <http://www.vtk.org/>`_ version 5.0 or later. 
+* `wxPython <http://www.wxpython.org/>`_ version 2.8 or later.
+* `setuptools <http://pypi.python.org/pypi/setuptools/0.6c8>`_.
 
 """
 
