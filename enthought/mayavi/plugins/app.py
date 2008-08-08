@@ -47,6 +47,16 @@ def setup_logger(logger, fname, stream=True, mode=logging.ERROR):
         path = os.path.join(ETSConfig.application_home, fname)
     else:
         path = fname
+
+    # Check if we have already added a logger (can happen when the app
+    # is started multiple number of times from ipython say).
+    handlers = logger.handlers
+    if len(handlers) > 1:
+        h = handlers[0]
+        if isinstance(h, LogFileHandler) and h.baseFilename == path:
+            logger.info('Logging handlers already set!  Not duplicating.')
+            return
+
     logger.setLevel(logging.DEBUG)
     handler = LogFileHandler(path)
     handler.setLevel(logging.DEBUG)

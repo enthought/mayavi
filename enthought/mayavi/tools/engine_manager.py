@@ -32,7 +32,15 @@ class EngineManager(HasTraits):
 
     def get_engine(self):
         """ Returns an engine in agreement with the options."""
-        if not self.current_engine is None:
+
+        # First check if the current engine is running and if it is in
+        # the registered engines.
+        ce = self.current_engine
+        if ce is not None:
+            if not ce.running or ce not in registry.engines.values():
+                self.current_engine = None
+
+        if self.current_engine is not None:
             engines = list((self.current_engine,))
         else:
             engines = list()

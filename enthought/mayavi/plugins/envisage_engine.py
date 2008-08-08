@@ -122,6 +122,12 @@ class EnvisageEngine(Engine):
         if trait_name == 'opened':
             self.start()
 
+    @on_trait_change('window:closed')
+    def _on_window_closed(self, obj, trait_name, old, new):
+        """We stop the engine when the window is closed."""
+        if trait_name == 'closed':
+            self.stop()
+
     def _window_changed(self, old, new):
         """Static trait handler."""
         # This is needed since the service may be offered *after* the
