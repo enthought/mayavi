@@ -43,7 +43,10 @@ from tools.helper_functions import contour3d, test_contour3d, \
     surf, test_surf, mesh, test_mesh, test_simple_surf, \
     test_mesh_sphere, test_fancy_mesh,\
     contour_surf, test_contour_surf, \
-    plot3d, test_plot3d 
+    plot3d, test_plot3d, \
+    test_plot3d_anim, test_points3d_anim, test_contour3d_anim,\
+    test_simple_surf_anim, test_flow_anim, test_mesh_sphere_anim
+
 from tools.decorations import colorbar, scalarbar, vectorbar, \
     outline, axes, xlabel, ylabel, zlabel, text, title, \
     orientationaxes

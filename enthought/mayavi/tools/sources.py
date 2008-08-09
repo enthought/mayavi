@@ -8,11 +8,13 @@ Data sources classes and their associated functions for mlab.
 # License: BSD Style.
 
 import numpy
-from enthought.tvtk.tools import mlab
+
+from enthought.traits.api import (HasTraits, Instance, Array, Either,
+            on_trait_change)
 from enthought.tvtk.api import tvtk
 from enthought.tvtk.common import camel2enthought
-from enthought.mayavi.sources.array_source import ArraySource
 
+from enthought.mayavi.sources.array_source import ArraySource
 from enthought.mayavi.core.registry import registry
 
 import tools
@@ -22,11 +24,496 @@ __all__ = [ 'vector_scatter', 'vector_field', 'scalar_scatter',
     'scalar_field', 'line_source', 'array2d_source', 'grid_source', 'open'
 ]
 
-def _make_glyph_data(points, vectors=None, scalars=None):
-    """Makes the data for glyphs using mlab.
+
+################################################################################
+# `MlabSource` class.
+################################################################################ 
+class MlabSource(HasTraits):
     """
-    g = mlab.Glyphs(points, vectors, scalars)
-    return g.poly_data
+    This class represents the base class for all mlab sources.  These
+    classes allow a user to easily update the data without having to
+    recreate the whole pipeline.
+    """
+
+    # The TVTK dataset we manage.
+    dataset = Instance(tvtk.DataSet)
+
+    # The Mayavi data source we manage.
+    m_data = Instance(HasTraits)
+
+    ######################################################################
+    # `MGlyphSource` interface.
+    ######################################################################
+    def create(self):
+        """Function to create the data from input arrays etc.
+        """
+        raise NotImplementedError()
+
+    def update(self):
+        """Update the visualization.
+
+        This is to be called after the data of the visualization has
+        changed.
+        """
+        self.dataset.modified()
+        self.m_data.data_changed = True
+
+    ######################################################################
+    # Non-public interface.
+    ######################################################################
+    def _m_data_changed(self, ds):
+        if not hasattr(ds, 'mlab_source'):
+            ds.add_trait('mlab_source', Instance(MlabSource))
+        ds.mlab_source = self
+
+
+ArrayOrNone = Either(None, Array)
+
+################################################################################
+# `MGlyphSource` class.
+################################################################################ 
+class MGlyphSource(MlabSource):
+    """
+    This class represents a glyph data source for Mlab objects and
+    allows the user to set the x, y, z, scalar/vector attributes.
+    """
+
+    # The x, y, z and points of the glyphs.
+    x = ArrayOrNone
+    y = ArrayOrNone
+    z = ArrayOrNone
+    points = ArrayOrNone
+
+    # The scalars shown on the glyphs.
+    scalars = ArrayOrNone
+
+    # The u, v, w components of the vector and the vectors.
+    u = ArrayOrNone
+    v = ArrayOrNone
+    w = ArrayOrNone
+    vectors = ArrayOrNone
+
+    ######################################################################
+    # `MGlyphSource` interface.
+    ######################################################################
+    def create(self):
+        """Creates the dataset afresh.  Call this after you have set the
+        x, y, z, scalars/vectors."""
+
+        vectors = self.vectors
+        scalars = self.scalars
+        points = self.points
+        x, y, z = self.x, self.y, self.z
+        if points is None or len(points) == 0:
+            points = numpy.c_[x.ravel(), y.ravel(), z.ravel()].ravel()
+            points.shape = (points.size/3, 3)
+            self.set(points=points, trait_change_notify=False)
+    
+        u, v, w = self.u, self.v, self.w
+        if vectors is None or len(vectors) == 0:
+            if u is not None and len(u) > 0:
+                vectors = numpy.c_[u.ravel(), v.ravel(),
+                                   w.ravel()].ravel()
+                vectors.shape = (vectors.size/3, 3)
+                self.set(vectors=vectors, trait_change_notify=False)
+
+        if vectors is not None and len(vectors) > 0:
+            assert len(points) == len(vectors)
+        if scalars is not None and len(scalars) > 0:
+            assert len(points) == len(scalars)
+        
+        # Create the dataset.
+        polys = numpy.arange(0, len(points), 1, 'l')
+        polys = numpy.reshape(polys, (len(points), 1))
+        pd = tvtk.PolyData(points=points, polys=polys)
+
+        if self.vectors is not None:
+            pd.point_data.vectors = self.vectors
+            pd.point_data.vectors.name = 'vectors'
+        if self.scalars is not None:
+            pd.point_data.scalars = self.scalars
+            pd.point_data.scalars.name = 'scalars'
+
+        self.dataset = pd
+
+    ######################################################################
+    # Non-public interface.
+    ######################################################################
+    def _x_changed(self, x):
+        self.points[:,0] = x
+        self.update()
+
+    def _y_changed(self, y):
+        self.points[:,1] = y
+        self.update()
+    
+    def _z_changed(self, z):
+        self.points[:,2] = z
+        self.update()
+
+    def _u_changed(self, u):
+        self.vectors[:,0] = u
+        self.update()
+
+    def _v_changed(self, v):
+        self.vectors[:,1] = v
+        self.update()
+    
+    def _w_changed(self, w):
+        self.vectors[:,2] = w 
+        self.update()
+
+    def _points_changed(self, p):
+        self.dataset.points = p
+        self.update()
+
+    def _scalars_changed(self, s):
+        self.dataset.point_data.scalars = s
+        self.dataset.point_data.scalars.name = 'scalars'
+        self.update()
+
+    def _vectors_changed(self, v):
+        self.dataset.point_data.vectors = v
+        self.dataset.point_data.vectors.name = 'vectors'
+        self.update()
+
+
+################################################################################
+# `MArraySource` class.
+################################################################################ 
+class MArraySource(MlabSource):
+    """
+    This class represents an array data source for Mlab objects and
+    allows the user to set the x, y, z, scalar/vector attributes.
+    """
+
+    # The x, y, z arrays for the volume.
+    x = ArrayOrNone
+    y = ArrayOrNone
+    z = ArrayOrNone
+
+    # The scalars shown on the glyphs.
+    scalars = ArrayOrNone
+
+    # The u, v, w components of the vector and the vectors.
+    u = ArrayOrNone
+    v = ArrayOrNone
+    w = ArrayOrNone
+    vectors = ArrayOrNone
+
+    ######################################################################
+    # `MGlyphSource` interface.
+    ######################################################################
+    def create(self):
+        """Creates the dataset afresh.  Call this after you have set the
+        x, y, z, scalars/vectors."""
+        vectors = self.vectors
+        scalars = self.scalars
+        x, y, z = self.x, self.y, self.z
+    
+        u, v, w = self.u, self.v, self.w
+        if vectors is None or len(vectors) == 0:
+            if u is not None and len(u) > 0:
+                #vectors = numpy.concatenate([u[..., numpy.newaxis],
+                #                             v[..., numpy.newaxis],
+                #                             w[..., numpy.newaxis] ],
+                #                axis=3)
+                vectors = numpy.c_[u.ravel(), v.ravel(),
+                                   w.ravel()].ravel()
+                vectors.shape = (len(u), len(v), len(w), 3)
+                self.set(vectors=vectors, trait_change_notify=False)
+
+        if vectors is not None and len(vectors) > 0:
+            assert len(x) == len(vectors)
+        if scalars is not None and len(scalars) > 0:
+            assert len(x) == len(scalars)
+
+        dx = x[1, 0, 0] - x[0, 0, 0]
+        dy = y[0, 1, 0] - y[0, 0, 0]
+        dz = z[0, 0, 1] - z[0, 0, 0]
+                                
+        ds = ArraySource(transpose_input_array=True,
+                         vector_data=vectors,
+                         origin=[x.min(), y.min(), z.min()],
+                         spacing=[dx, dy, dz],
+                         scalar_data=scalars)
+        
+        self.dataset = ds.image_data
+        self.m_data = ds 
+
+    ######################################################################
+    # Non-public interface.
+    ######################################################################
+    @on_trait_change('[x, y, z]')
+    def _xyz_changed(self):
+        x, y, z = self.x, self.y, self.z
+        dx = x[1, 0, 0] - x[0, 0, 0]
+        dy = y[0, 1, 0] - y[0, 0, 0]
+        dz = z[0, 0, 1] - z[0, 0, 0]
+        ds = self.dataset
+        ds.origin = [x.min(), y.min(), z.min()]
+        ds.spacing = [dx, dy, dz] 
+        self.update()
+
+    def _u_changed(self, u):
+        self.vectors[...,0] = u
+        self.m_data._vector_data_changed(self.vectors)
+
+    def _v_changed(self, v):
+        self.vectors[...,1] = v
+        self.m_data._vector_data_changed(self.vectors)
+    
+    def _w_changed(self, w):
+        self.vectors[...,2] = w
+        self.m_data._vector_data_changed(self.vectors)
+
+    def _scalars_changed(self, s):
+        self.m_data.scalar_data = s
+
+    def _vectors_changed(self, v):
+        self.m_data.vector_data = v
+
+
+################################################################################
+# `MLineSource` class.
+################################################################################ 
+class MLineSource(MlabSource):
+    """
+    This class represents a line data source for Mlab objects and
+    allows the user to set the x, y, z, scalar attributes.
+    """
+
+    # The x, y, z and points of the glyphs.
+    x = ArrayOrNone
+    y = ArrayOrNone
+    z = ArrayOrNone
+    points = ArrayOrNone
+
+    # The scalars shown on the glyphs.
+    scalars = ArrayOrNone
+
+    ######################################################################
+    # `MGlyphSource` interface.
+    ######################################################################
+    def create(self):
+        """Creates the dataset afresh.  Call this after you have set the
+        x, y, z, scalars/vectors."""
+        points = self.points
+        scalars = self.scalars
+        x, y, z = self.x, self.y, self.z
+    
+        if points is None or len(points) == 0:
+            points = numpy.c_[x.ravel(), y.ravel(), z.ravel()].ravel()
+            points.shape = (len(x), 3)
+            self.set(points=points, trait_change_notify=False)
+
+        # Create the dataset.
+        np = len(points) - 1
+        lines  = numpy.zeros((np, 2), 'l')
+        lines[:,0] = numpy.arange(0, np-0.5, 1, 'l')
+        lines[:,1] = numpy.arange(1, np+0.5, 1, 'l')
+        pd = tvtk.PolyData(points=points, lines=lines)
+
+        if scalars is not None and len(scalars) > 0:
+            assert len(x) == len(scalars)
+            pd.point_data.scalars = scalars.ravel() 
+            pd.point_data.scalars.name = 'scalars'
+
+        self.dataset = pd
+
+    ######################################################################
+    # Non-public interface.
+    ######################################################################
+    def _x_changed(self, x):
+        self.points[:,0] = x
+        self.update()
+
+    def _y_changed(self, y):
+        self.points[:,1] = y
+        self.update()
+    
+    def _z_changed(self, z):
+        self.points[:,2] = z
+        self.update()
+
+    def _points_changed(self, p):
+        self.dataset.points = p
+        self.update()
+
+    def _scalars_changed(self, s):
+        self.dataset.point_data.scalars = s.ravel()
+        self.dataset.point_data.scalars.name = 'scalars'
+        self.update()
+
+################################################################################
+# `MArray2DSource` class.
+################################################################################ 
+class MArray2DSource(MlabSource):
+    """
+    This class represents a 2D array data source for Mlab objects and
+    allows the user to set the x, y  and scalar attributes.
+    """
+
+    # The x, y values.
+    x = ArrayOrNone
+    y = ArrayOrNone
+
+    # The scalars shown on the glyphs.
+    scalars = ArrayOrNone
+
+    # The masking array.
+    mask = ArrayOrNone
+
+    ######################################################################
+    # `MGlyphSource` interface.
+    ######################################################################
+    def create(self):
+        """Creates the dataset afresh.  Call this after you have set the
+        x, y, scalars."""
+        x, y, mask = self.x, self.y, self.mask
+        scalars = self.scalars
+
+        if mask is not None and len(mask) > 0:
+            scalars[mask.astype('bool')] = numpy.nan
+            # The NaN tric only works with floats.
+            scalars = scalars.astype('float')
+            self.set(scalars=scalars, trait_change_notify=False)
+
+        if x is None or len(x) == 0:
+            nx, ny = scalars.shape
+            x, y = numpy.mgrid[-nx/2.:nx/2, -ny/2.:ny/2]
+            z = numpy.array([0])
+            self.set(x=x, y=y, z=z, trait_change_notify=False)
+
+        dx = x[1, 0] - x[0, 0]
+        dy = y[0, 1] - y[0, 0]
+                                
+        ds = ArraySource(transpose_input_array=True,
+                         origin=[x.min(), y.min(), 0],
+                         spacing=[dx, dy, 1],
+                         scalar_data=scalars)
+        
+        self.dataset = ds.image_data
+        self.m_data = ds 
+
+    ######################################################################
+    # Non-public interface.
+    ######################################################################
+    @on_trait_change('[x, y]')
+    def _xyz_changed(self):
+        x, y = self.x, self.y
+        dx = x[1, 0] - x[0, 0]
+        dy = y[0, 1] - y[0, 0]
+        ds = self.dataset
+        ds.origin = [x.min(), y.min(), 0]
+        ds.spacing = [dx, dy, 1] 
+        self.update()
+
+    def _scalars_changed(self, s):
+        mask = self.mask
+        if mask is not None and len(mask) > 0:
+            scalars[mask.astype('bool')] = numpy.nan
+            # The NaN tric only works with floats.
+            scalars = scalars.astype('float')
+            self.set(scalars=scalars, trait_change_notify=False)
+        self.m_data.scalar_data = s
+
+
+################################################################################
+# `MGridSource` class.
+################################################################################ 
+class MGridSource(MlabSource):
+    """
+    This class represents a grid source for Mlab objects and
+    allows the user to set the x, y, scalar attributes.
+    """
+
+    # The x, y, z and points of the grid.
+    x = ArrayOrNone
+    y = ArrayOrNone
+    z = ArrayOrNone
+    points = ArrayOrNone
+
+    # The scalars shown on the glyphs.
+    scalars = ArrayOrNone
+
+    ######################################################################
+    # `MGlyphSource` interface.
+    ######################################################################
+    def create(self):
+        """Creates the dataset afresh.  Call this after you have set the
+        x, y, z, scalars/vectors."""
+        points = self.points
+        scalars = self.scalars
+        x, y, z = self.x, self.y, self.z
+
+        assert len(x.shape) == 2, "Array x must be 2 dimensional."
+        assert len(y.shape) == 2, "Array y must be 2 dimensional."
+        assert len(z.shape) == 2, "Array z must be 2 dimensional."
+        assert x.shape == y.shape, "Arrays x and y must have same shape."
+        assert y.shape == z.shape, "Arrays y and z must have same shape."
+    
+        nx, ny = x.shape
+        if points is None or len(points) == 0:
+            points = numpy.c_[x.ravel(), y.ravel(), z.ravel()].ravel()
+            points.shape = (nx*ny, 3)
+            self.set(points=points, trait_change_notify=False)
+
+        i, j = numpy.mgrid[0:nx-1,0:ny-1]
+        i, j = numpy.ravel(i), numpy.ravel(j)
+        t1 = i*ny+j, (i+1)*ny+j, (i+1)*ny+(j+1)
+        t2 = (i+1)*ny+(j+1), i*ny+(j+1), i*ny+j
+        nt = len(t1[0])
+        triangles = numpy.zeros((nt*2, 3), 'l')
+        triangles[0:nt,0], triangles[0:nt,1], triangles[0:nt,2] = t1
+        triangles[nt:,0], triangles[nt:,1], triangles[nt:,2] = t2
+
+        pd = tvtk.PolyData(points=points, polys=triangles)
+
+        if scalars is not None and len(scalars) > 0:
+            if not scalars.flags.contiguous:
+                scalars = scalars.copy()
+                self.set(scalars=scalars, trait_change_notify=False)
+            assert x.shape == scalars.shape
+            pd.point_data.scalars = scalars.ravel() 
+            pd.point_data.scalars.name = 'scalars'
+
+        self.dataset = pd
+
+    ######################################################################
+    # Non-public interface.
+    ######################################################################
+    def _x_changed(self, x):
+        nx, ny = self.x.shape
+        x.shape = (nx*ny,)
+        self.points[:,0] = x
+        self.update()
+
+    def _y_changed(self, y):
+        nx, ny = self.x.shape
+        y.shape = (nx*ny,)
+        self.points[:,1] = y
+        self.update()
+    
+    def _z_changed(self, z):
+        nx, ny = self.x.shape
+        z.shape = (nx*ny,)
+        self.points[:,2] = z
+        self.update()
+
+    def _points_changed(self, p):
+        self.dataset.points = p
+        self.update()
+
+    def _scalars_changed(self, s):
+        self.dataset.point_data.scalars = s.ravel()
+        self.dataset.point_data.scalars.name = 'scalars'
+        self.update()
+
+
+
+# FIXME: Add tests for new sources.
+
 
 ############################################################################
 # Argument processing
@@ -143,14 +630,18 @@ def vector_scatter(*args, **kwargs):
         :figure: optionally, the figure on which to add the data source."""
     x, y, z, u, v, w = process_regular_vectors(*args)
 
-    points = numpy.c_[x.ravel(), y.ravel(), z.ravel()]
-    vectors = numpy.c_[u.ravel(), v.ravel(), w.ravel()]
     scalars = kwargs.pop('scalars', None)
     name = kwargs.pop('name', 'VectorScatter')
 
-    data_source = _make_glyph_data(points, vectors, scalars)
+    data_source = MGlyphSource()
+    data_source.set(x=x, y=y, z=z, u=u, v=v, w=w, scalars=scalars, 
+                    trait_change_notify=False)
+    data_source.create()
+
     figure = kwargs.pop('figure', None)
-    return tools._add_data(data_source, name, figure=figure)
+    ds = tools._add_data(data_source.dataset, name, figure=figure)
+    data_source.m_data = ds
+    return ds
 
 
 def vector_field(*args, **kwargs):
@@ -181,29 +672,15 @@ def vector_field(*args, **kwargs):
         :figure: optionally, the figure on which to add the data source."""
     x, y, z, u, v, w = process_regular_vectors(*args)
 
-    dx = x[1, 0, 0] - x[0, 0, 0]
-    dy = y[0, 1, 0] - y[0, 0, 0]
-    dz = z[0, 0, 1] - z[0, 0, 0]
-
-    vectors = numpy.concatenate([u[..., numpy.newaxis],
-                            v[..., numpy.newaxis],
-                            w[..., numpy.newaxis] ],
-                            axis=3)
-                            
     scalars = kwargs.pop('scalars', None)
-    kwargs = {}
-    if scalars is not None:
-        kwargs['scalar_data'] = scalars
-        
-    data_source = ArraySource(transpose_input_array=True,
-                    vector_data=vectors,
-                    origin=[x.min(), y.min(), z.min()],
-                    spacing=[dx, dy, dz],
-                    **kwargs)
-
+    data_source = MArraySource()
+    data_source.set(x=x, y=y, z=z, u=u, v=v, w=w,
+                    scalars = scalars,
+                    trait_change_notify=False)
+    data_source.create()
     name = kwargs.pop('name', 'VectorField')
     figure = kwargs.pop('figure', None)
-    return tools._add_data(data_source, name, figure=figure)
+    return tools._add_data(data_source.m_data, name, figure=figure)
 
 
 def scalar_scatter(*args, **kwargs):
@@ -230,16 +707,18 @@ def scalar_scatter(*args, **kwargs):
         :figure: optionally, the figure on which to add the data source."""
     x, y, z, s = process_regular_scalars(*args)
 
-    points = numpy.c_[x.ravel(), y.ravel(), z.ravel()]
-
     if s is not None:
         s = s.ravel()
 
-    data_source = _make_glyph_data(points, None, s)
+    data_source = MGlyphSource()
+    data_source.set(x=x, y=y, z=z, scalars=s, trait_change_notify=False)
+    data_source.create()
 
     name = kwargs.pop('name', 'ScalarScatter')
     figure = kwargs.pop('figure', None)
-    return tools._add_data(data_source, name, figure=figure)
+    ds = tools._add_data(data_source.dataset, name, figure=figure)
+    data_source.m_data = ds
+    return ds
 
 
 def scalar_field(*args, **kwargs):
@@ -269,18 +748,15 @@ def scalar_field(*args, **kwargs):
         :figure: optionally, the figure on which to add the data source."""
     x, y, z, s = process_regular_scalars(*args)
 
-    points = numpy.c_[x.ravel(), y.ravel(), z.ravel()]
-    dx = x[1, 0, 0] - x[0, 0, 0]
-    dy = y[0, 1, 0] - y[0, 0, 0]
-    dz = z[0, 0, 1] - z[0, 0, 0]        
-
-    data_source = ArraySource(scalar_data=s,
-                    origin=[points[0, 0], points[0, 1], points[0, 2]],
-                    spacing=[dx, dy, dz])
+    data_source = MArraySource()
+    data_source.set(x=x, y=y, z=z,
+                    scalars=s,
+                    trait_change_notify=False)
+    data_source.create()
 
     name = kwargs.pop('name', 'ScalarField')
     figure = kwargs.pop('figure', None)
-    return tools._add_data(data_source, name, figure=figure)
+    return tools._add_data(data_source.m_data, name, figure=figure)
 
 
 def line_source(*args, **kwargs):
@@ -305,21 +781,15 @@ def line_source(*args, **kwargs):
         raise ValueError, "wrong number of arguments"    
     x, y, z, s = process_regular_scalars(*args)
 
-    points = numpy.c_[x.ravel(), y.ravel(), z.ravel()]
-    np = len(points) - 1
-    lines  = numpy.zeros((np, 2), 'l')
-    lines[:,0] = numpy.arange(0, np-0.5, 1, 'l')
-    lines[:,1] = numpy.arange(1, np+0.5, 1, 'l')
-    data_source = tvtk.PolyData(points=points, lines=lines)
-
-    if s is not None:
-        s = s.ravel()
-        data_source.point_data.scalars = s
-        data_source.point_data.scalars.name = 'scalars'
+    data_source = MLineSource()
+    data_source.set(x=x, y=y, z=z, scalars=s, trait_change_notify=False)
+    data_source.create()
 
     name = kwargs.pop('name', 'LineSource')
     figure = kwargs.pop('figure', None)
-    return tools._add_data(data_source, name, figure=figure)
+    ds = tools._add_data(data_source.dataset, name, figure=figure)
+    data_source.m_data = ds
+    return ds
 
 
 def array2d_source(*args, **kwargs):
@@ -349,38 +819,29 @@ def array2d_source(*args, **kwargs):
     
         :name: the name of the vtk object created.
 
-        :figure: optionally, the figure on which to add the data source."""
+        :figure: optionally, the figure on which to add the data source.
+        
+        :mask: Mask points specified in a boolean masking array.
+    """
+    data_source = MArray2DSource()
+    mask = kwargs.pop('mask', None)
     if len(args) == 1 :
         args = convert_to_arrays(args)
         s = args[0]
-        nx, ny = s.shape
-        if 'mask' in kwargs:
-            mask = kwargs['mask']
-            s[mask.astype('bool')] = numpy.nan
-            # The NaN tric only works with floats.
-            s = s.astype('float')
-
-        data_source = ArraySource(transpose_input_array=True,
-                    scalar_data=s,
-                    origin=[-nx/2., ny/2., 0],
-                    spacing=[1, 1, 1])
+        data_source.set(scalars=s, mask=mask, trait_change_notify=False)
     else:
         x, y, s = process_regular_2d_scalars(*args, **kwargs)
         # Do some magic to extract the first row/column, independently of
         # the shape of x and y
-        x = numpy.atleast_2d(x.squeeze().T)[0, :].squeeze()
-        y = numpy.atleast_2d(y.squeeze())[0, :].squeeze()
-        data_source = mlab._create_structured_points_direct(x, y)
-        s = s.T
-        s = s.ravel()
-        data_source.point_data.scalars = s
-        data_source.point_data.scalars.name = 'scalars'
-        data_source.scalar_type = 'unsigned_char'
-        data_source.number_of_scalar_components = 1
+        #x = numpy.atleast_2d(x.squeeze().T)[0, :].squeeze()
+        #y = numpy.atleast_2d(y.squeeze())[0, :].squeeze()
+        data_source.set(x=x, y=y, scalars=s, mask=mask,
+                        trait_change_notify=False)
 
+    data_source.create()
     name = kwargs.pop('name', 'Array2DSource')
     figure = kwargs.pop('figure', None)
-    return tools._add_data(data_source, name, figure=figure)
+    return tools._add_data(data_source.m_data, name, figure=figure)
 
 
 def grid_source(x, y, z, **kwargs):
@@ -405,11 +866,17 @@ def grid_source(x, y, z, **kwargs):
     scalars = kwargs.pop('scalars', None)
     if scalars is None:
         scalars = z
-    name    = kwargs.pop('name', 'GridSource')
-    triangles, points = mlab.make_triangles_points(x, y, z, scalars)
-    data_source = mlab.make_triangle_polydata(triangles, points, scalars)
+
+    data_source = MGridSource()
+    data_source.set(x=x, y=y, z=z, scalars=scalars,
+                    trait_change_notify=False)
+    data_source.create()
+
+    name = kwargs.pop('name', 'GridSource')
     figure = kwargs.pop('figure', None)
-    return tools._add_data(data_source, name, figure=figure)
+    ds = tools._add_data(data_source.dataset, name, figure=figure)
+    data_source.m_data = ds
+    return ds
 
 
 def open(filename, figure=None):

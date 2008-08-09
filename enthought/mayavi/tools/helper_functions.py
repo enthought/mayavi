@@ -93,6 +93,11 @@ class Pipeline(HasTraits):
                 if key in keywords:
                     this_kwargs[key] = value
             object = pipe(object, **this_kwargs)._target
+        # Inject the magical mlab source trait.
+        if hasattr(self.source, 'mlab_source'):
+            ms = self.source.mlab_source
+            object.add_trait('mlab_source', Instance(ms.__class__))
+            object.mlab_source = ms
         return object
 
     def get_all_traits(self):
@@ -232,6 +237,31 @@ def test_flow():
     obj = flow(x, y, z, u, v, w, linetype='tube')
     return u, v, w, obj
 
+def test_flow_anim():
+    dims = [32, 32, 32]
+    xmin, xmax, ymin, ymax, zmin, zmax = [-5,5,-5,5,-5,5]
+    x, y, z = numpy.mgrid[xmin:xmax:dims[0]*1j,
+                          ymin:ymax:dims[1]*1j,
+                          zmin:zmax:dims[2]*1j]
+    x = x.astype('f')
+    y = y.astype('f')
+    z = z.astype('f')
+
+    sin = numpy.sin
+    cos = numpy.cos
+    u = cos(x/2.)
+    v = sin(y/2.)
+    w = sin(x*z/4.)
+
+    obj = flow(x, y, z, u, v, w, linetype='tube')
+
+    # Now animate the flow.
+    ms = obj.mlab_source
+    for i in range(10):
+        ms.u = cos(x/2. + numpy.pi*(i+1)/10.)
+        ms.w = sin(x*z/4. + numpy.pi*(i+1)/10.)
+    return obj
+
 def test_flow_scalars():
     dims = [32, 32, 32]
     xmin, xmax, ymin, ymax, zmin, zmax = [-5,5,-5,5,-5,5]
@@ -294,7 +324,17 @@ def test_points3d():
     z = cos(2*t)
     s = 2+sin(t)
 
-    points3d(x, y, z, s, colormap="copper", scale_factor=.25)
+    return points3d(x, y, z, s, colormap="copper", scale_factor=.25)
+
+def test_points3d_anim():
+    """Animates the test_points3d example."""
+    g = test_points3d()
+    t = numpy.linspace(0, 4*numpy.pi, 20)
+    # Animate the points3d.
+    ms = g.mlab_source
+    for i in range(10):
+        ms.z = numpy.cos(2*t*0.1*(i+1))
+    return g
 
 
 def test_molecule():
@@ -355,6 +395,26 @@ def test_contour3d():
     obj = contour3d(scalars, contours=4, transparent=True)
     return obj, scalars
 
+def test_contour3d_anim():
+    dims = [64, 64, 64]
+    xmin, xmax, ymin, ymax, zmin, zmax = [-5,5,-5,5,-5,5]
+    x, y, z = numpy.ogrid[xmin:xmax:dims[0]*1j,
+                          ymin:ymax:dims[1]*1j,
+                          zmin:zmax:dims[2]*1j]
+    x = x.astype('f')
+    y = y.astype('f')
+    z = z.astype('f')
+
+    sin = numpy.sin
+    scalars = x*x*0.5 + y*x*0.1 + z*z*0.25
+    obj = contour3d(scalars, contours=4, transparent=True)
+
+    # Now animate the contours.
+    ms = obj.mlab_source
+    for i in range(1, 10):
+        ms.scalars = x*x*0.5 + y*x*0.1*(i+1) + z*z*0.25
+    return obj
+
 
 ############################################################################# 
 class Plot3d(Pipeline):
@@ -405,6 +465,26 @@ def test_plot3d():
     l = plot3d(x, y, z, numpy.sin(mu), tube_radius=0.025, colormap='Spectral')
     return l
 
+def test_plot3d_anim():
+    """Generates a pretty set of lines and animates it."""
+
+    # Run the standard example and get the module generated.
+    l = test_plot3d()
+
+    # Some data from the test example for the animation.
+    n_mer, n_long = 6, 11
+    pi = numpy.pi
+    dphi = pi/1000.0
+    phi = numpy.arange(0.0, 2*pi + 0.5*dphi, dphi, 'd')
+    mu = phi*n_mer
+
+    # Now animate the data.
+    ms = l.mlab_source
+    for i in range(10):
+        ms.x = numpy.cos(mu)*(1+numpy.cos(n_long*mu/n_mer + 
+                                          numpy.pi*(i+1)/5.)*0.5)
+        ms.scalars = numpy.sin(mu + numpy.pi*(i+1)/5)
+    return l
 
 ############################################################################# 
 class ImShow(Pipeline):
@@ -499,6 +579,15 @@ def test_simple_surf():
     x, y = numpy.mgrid[0:3:1,0:3:1]
     return surf(x, y, numpy.asarray(x, 'd'))
 
+def test_simple_surf_anim():
+    """Test Surf with a simple collection of points and animate it."""
+    x, y = numpy.mgrid[0:3:1,0:3:1]
+    s = surf(x, y, numpy.asarray(x*0.1, 'd'))
+
+    ms = s.mlab_source
+    for i in range(10):
+        ms.scalars = numpy.asarray(x*0.1*(i+1), 'd')
+    return s
 
 def test_surf():
     """Test surf on regularly spaced co-ordinates like MayaVi."""
@@ -627,6 +716,26 @@ def test_mesh_sphere(r=1.0, npts=(100,100), colormap='jet'):
     z = r*cos(phi)
     return mesh(x, y, z, colormap=colormap)
 
+
+def test_mesh_sphere_anim(r=1.0, npts=(100,100), colormap='jet'):
+    """Create a simple sphere and animate it."""
+    pi = numpy.pi
+    cos = numpy.cos
+    sin = numpy.sin
+    np_phi = npts[0]*1j
+    np_theta = npts[1]*1j
+    phi, theta = numpy.mgrid[0:pi:np_phi, 0:2*pi:np_theta]
+    x = r*sin(phi)*cos(theta)
+    y = r*sin(phi)*sin(theta)
+    z = r*cos(phi)
+    s = mesh(x, y, z, colormap=colormap)
+
+    ms = s.mlab_source
+    for i in range(1, 10):
+        z = (r+i*0.25)*cos(phi)
+        ms.z = z
+        ms.scalars = z
+    return s
 
 def test_fancy_mesh():
     """Create a fancy looking mesh using mesh (example taken from octaviz)."""
