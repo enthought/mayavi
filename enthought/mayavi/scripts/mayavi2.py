@@ -430,6 +430,7 @@ class MayaviOffscreen(MayaviApp):
         from enthought.mayavi.plugins.script import Script
         from enthought.mayavi.core.engine import Engine
         engine = Engine(scene_factory=off_screen_viewer)
+        engine.start()
         s = Script(engine=engine)
         return s
 
