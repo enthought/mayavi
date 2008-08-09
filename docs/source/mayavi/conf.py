@@ -34,7 +34,7 @@ master_doc = 'index'
 
 # General substitutions.
 project = 'Mayavi2'
-copyright = '2008, Prabhu Ramachandran, Gaël Varoquaux'
+copyright = u'2008, Prabhu Ramachandran, Gaël Varoquaux'
 
 # The default replacements for |version| and |release|, also used in various
 # other places throughout the built documents.

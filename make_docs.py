@@ -350,14 +350,17 @@ class Build(Process):
     def clean(self):
         if hasattr(self, 'options') and self.using_temp_dir and \
                 not self.options.preserve_temp:
-            # shutil needs to be re-imported, because it has already been
-            # removed
             shutil.rmtree(self.temp_dir)
+
 
 class HtmlBuild(Build):
     action_name = 'build-html'
 
     def run(self):
+        if not self.using_temp_dir:
+            # Clean up the destination dir, to avoid side-effects
+            shutil.rmtree(self.target)
+
         if not self.options.subversion:
             for path, dirs, files in os.walk(self.options.doc_source):
                 if not os.path.exists(os.path.join(self.target, path)):
