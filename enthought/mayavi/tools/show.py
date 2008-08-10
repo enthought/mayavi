@@ -1,3 +1,7 @@
+# Author: Prabhu Ramachandran <prabhu[at]aero[dot]iitb[dot]ac[dot]in>
+# Copyright (c) 2008, Enthought, Inc.
+# License: BSD Style.
+
 from enthought.pyface.api import GUI, ApplicationWindow
 from enthought.traits.api import HasTraits, Int
 from enthought.traits.ui.api import toolkit
