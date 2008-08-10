@@ -11,15 +11,10 @@ MayaVi2:
     - Modules/Filters:
         
     - UI:
-        - Right click on filter should allow you to save the output to
-          a VTK XML file.
-        - Make the viewer used in standalone more versatile (make it easy to
-          control what goes on the toolbar and in the menus.
         - Easier access to the LUT editor.
         - Transfer editor for images. (g)
 
     - Misc:
-        - Cleaner approach for mayavi2 -x, use a decorator?
         - Support for animation.
         - Support for multiple renderers in a single scene.
         - Support for saving the default values of a TVTK object and
@@ -29,5 +24,3 @@ MayaVi2:
 
     - Mlab:
 	- add texture support to Mlab 
-	- add a keyword argument to mlab.points3d to do
-	  resolution.
