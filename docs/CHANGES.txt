@@ -6,6 +6,17 @@ URL:
     https://svn.enthought.com/enthought/changeset/18702
 -----------------------------------------------------------------------------
 
+10 August, 2008 (PR):
+    - ENH/API: [mlab] Added a `MlabSource` class to abstract out the
+      data creation and modification into one object that may be
+      modified.  This source object is injected in the form of a
+      `mlab_source` trait on objects returned by any of the helper
+      functions (`surf`, `plot3d` etc.) or the sources.  The user can
+      use this to modify the data visualized without recreating the
+      pipeline each time, making animations very easy and smooth.  There
+      are several examples of the form `test_blah_anim` showing how this
+      is done.
+
 27 July, 2008 (GV):
     - ENH: Add an option (on by default) to open the docs in a chromeless
       window when using firefox. [20451] [20450]
