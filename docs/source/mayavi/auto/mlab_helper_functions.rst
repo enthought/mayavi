@@ -134,8 +134,8 @@ quiver3d
     
         :figure: Figure to populate.
     
-        :resolution: The resolution of the glyph created. Forspheres, for
-                     instance, this is the number ofdivisions along theta and
+        :resolution: The resolution of the glyph created. For spheres, for
+                     instance, this is the number of divisions along theta and
                      phi.
     
 
@@ -421,8 +421,8 @@ mesh
                          'surface' or 'wireframe' or 'points' or 'mesh' or
                          'fancymesh'. Default: surface
     
-        :resolution: The resolution of the glyph created. Forspheres, for
-                     instance, this is the number ofdivisions along theta and
+        :resolution: The resolution of the glyph created. For spheres, for
+                     instance, this is the number of divisions along theta and
                      phi.
     
         :tube_sides: number of sides of the tubes used to
@@ -599,8 +599,8 @@ points3d
     
         :figure: Figure to populate.
     
-        :resolution: The resolution of the glyph created. Forspheres, for
-                     instance, this is the number ofdivisions along theta and
+        :resolution: The resolution of the glyph created. For spheres, for
+                     instance, this is the number of divisions along theta and
                      phi.
     
 
@@ -626,7 +626,7 @@ see :ref:`running-mlab-scripts` for more info)::
         z = cos(2*t)
         s = 2+sin(t)
     
-        points3d(x, y, z, s, colormap="copper", scale_factor=.25)
+        return points3d(x, y, z, s, colormap="copper", scale_factor=.25)
     
                 
 

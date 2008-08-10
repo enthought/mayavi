@@ -107,6 +107,19 @@ set_engine
     
 
 
+toolkit
+~~~~~~~
+
+.. function:: toolkit(*toolkits)
+
+    Selects and returns a low-level GUI toolkit.
+    
+    Use this function to get a reference to the current toolkit.
+    
+
+    
+
+
 show_engine
 ~~~~~~~~~~~
 
