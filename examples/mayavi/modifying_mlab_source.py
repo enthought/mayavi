@@ -7,7 +7,7 @@ This example uses a traits object to wire up callbacks to modify a plot.
 The scene is displayed in the traits view using an mlab_scene_model.
 """
 # Author: Gael Varoquaux <gael.varoquaux@normalesup.org> 
-# Copyright (c) 2007, Enthought, Inc.
+# Copyright (c) 2008, Enthought, Inc.
 # License: BSD Style.
 
 
@@ -17,20 +17,22 @@ from enthought.mayavi.mlab import plot3d
 from enthought.traits.api import HasTraits, Range, Instance, \
         on_trait_change
 from enthought.traits.ui.api import View, Item, HGroup, spring
+from enthought.tvtk.pyface.scene_editor import SceneEditor
 from enthought.mayavi.tools.mlab_scene_model import MlabSceneModel
 from enthought.mayavi.core.pipeline_base import PipelineBase
-from enthought.tvtk.pyface.scene_editor import SceneEditor
+from enthought.mayavi.core.ui.mayavi_scene import MayaviScene
+
 
 dphi = pi/1000.
 phi = arange(0.0, 2*pi + 0.5*dphi, dphi, 'd')
 
 def curve(n_mer, n_long):
-        mu = phi*n_mer
-        x = cos(mu) * (1 + cos(n_long * mu/n_mer)*0.5)
-        y = sin(mu) * (1 + cos(n_long * mu/n_mer)*0.5)
-        z = 0.5 * sin(n_long*mu/n_mer)
-        t = sin(mu)
-        return x, y, z, t    
+    mu = phi*n_mer
+    x = cos(mu) * (1 + cos(n_long * mu/n_mer)*0.5)
+    y = sin(mu) * (1 + cos(n_long * mu/n_mer)*0.5)
+    z = 0.5 * sin(n_long*mu/n_mer)
+    t = sin(mu)
+    return x, y, z, t    
 
 
 class MyModel(HasTraits):
@@ -39,7 +41,7 @@ class MyModel(HasTraits):
 
     scene = Instance(MlabSceneModel, ())
 
-    plot = Instance(PipelineBase, )
+    plot = Instance(PipelineBase)
 
     def _plot_default(self):
         x, y, z, t = curve(self.n_meridional, self.n_longitudinal)
@@ -50,13 +52,11 @@ class MyModel(HasTraits):
     @on_trait_change('n_meridional,n_longitudinal')
     def update_plot(self):
         x, y, z, t = curve(self.n_meridional, self.n_longitudinal)
-        self.scene.disable_render = True
         self.plot.mlab_source.set(x=x, y=y, z=z, scalars=t)
-        self.scene.disable_render = False
 
-
-    view = View(Item('scene', editor=SceneEditor(), height=500,
-                    width=500, show_label=False), '_', 
+    view = View(Item('scene', editor=SceneEditor(scene_class=MayaviScene), 
+                     height=500, width=500, show_label=False), 
+                '_', 
                 HGroup('n_meridional', spring, 'n_longitudinal'))
 
 my_model = MyModel()

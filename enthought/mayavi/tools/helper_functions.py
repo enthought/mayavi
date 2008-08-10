@@ -258,8 +258,10 @@ def test_flow_anim():
     # Now animate the flow.
     ms = obj.mlab_source
     for i in range(10):
-        ms.u = cos(x/2. + numpy.pi*(i+1)/10.)
-        ms.w = sin(x*z/4. + numpy.pi*(i+1)/10.)
+        u = cos(x/2. + numpy.pi*(i+1)/10.)
+        w = sin(x*z/4. + numpy.pi*(i+1)/10.)
+        ms.set(u=u, w=w)
+
     return obj
 
 def test_flow_scalars():
@@ -481,9 +483,10 @@ def test_plot3d_anim():
     # Now animate the data.
     ms = l.mlab_source
     for i in range(10):
-        ms.x = numpy.cos(mu)*(1+numpy.cos(n_long*mu/n_mer + 
+        x = numpy.cos(mu)*(1+numpy.cos(n_long*mu/n_mer + 
                                           numpy.pi*(i+1)/5.)*0.5)
-        ms.scalars = numpy.sin(mu + numpy.pi*(i+1)/5)
+        scalars = numpy.sin(mu + numpy.pi*(i+1)/5)
+        ms.set(x=x, scalars=scalars)
     return l
 
 ############################################################################# 
@@ -733,8 +736,7 @@ def test_mesh_sphere_anim(r=1.0, npts=(100,100), colormap='jet'):
     ms = s.mlab_source
     for i in range(1, 10):
         z = (r+i*0.25)*cos(phi)
-        ms.z = z
-        ms.scalars = z
+        ms.set(z=z, scalars=z)
     return s
 
 def test_fancy_mesh():
