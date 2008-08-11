@@ -5,7 +5,7 @@
 #
 
 """
-The MayaVi scientific data 3-dimensional visualizer.
+The Mayavi scientific data 3-dimensional visualizer.
 
 The Mayavi *project* includes two related *packages* for 3-dimensional
 visualization:
