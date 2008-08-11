@@ -75,9 +75,13 @@ Plotting functions
 -------------------
 
 Visualization can be created in mlab by a set of functions operating on
-numpy arrays. In this section, we only list the different functions. They
-are described in details in the :ref:`mlab-reference`, at the
-end of the user guide.
+numpy arrays. 
+
+.. note:: 
+
+    In this section, we only list the different functions. Each function
+    is described in details in the :ref:`mlab-reference`, the next 
+    section of the user guide, with figures and example.
 
 The mlab plotting functions take numpy arrays as input, describing the
 ``x``, ``y``, and ``z`` coordinates of the data. They build full-blown
@@ -243,32 +247,34 @@ Animating the data
 
 Often it isn't sufficient to just plot the data.  You may also want to
 change the data of the plot and update the plot without having to
-recreate the entire visualization (which leads to very jerky looking
-animations).  To do this, mlab provides a very convenient way to change
+recreate the entire visualization, for instance to do animations, or in
+an interactive application. Indeed, recreating the entire visualization
+is very inefficient and leads to very jerky looking
+animations. To do this, mlab provides a very convenient way to change
 the data of an existing mlab visualization.  Consider a very simple
 example.  The `mlab.test_simple_surf_anim` function has this code::
 
     x, y = numpy.mgrid[0:3:1,0:3:1]
     s = mlab.surf(x, y, numpy.asarray(x*0.1, 'd'))
 
-    ms = s.mlab_source
     for i in range(10):
-        ms.scalars = numpy.asarray(x*0.1*(i+1), 'd')
+        s.mlab_source.scalars = numpy.asarray(x*0.1*(i+1), 'd')
 
 The first two lines define a simple plane and view that.  The next three
 lines animate that data by changing the scalars producing a plane that
 rotates about the origin.  The key here is that the `s` object above has
-a special trait called `mlab_source` which is an instance of an
-`MlabSource`.  This object allows us to manipulate the points and
-scalars.  If we wanted to change the `x` values we could set that too
-by::
+a special attribute called `mlab_source`.  This sub-object allows us to
+manipulate the points and scalars.  If we wanted to change the `x` values
+we could set that too by::
 
-    ms.x = new_x
+    s.mlab_source.x = new_x
 
 The only thing to keep in mind here is that the shape of `x` should not
-be changed.  If multiple values have to be changed, you can use the
-`set` method of the `mlab_source` to set them as shown in the more
-complicated example below::
+be changed. 
+
+If multiple values have to be changed, you can use the `set` method of
+the `mlab_source` to set them as shown in the more complicated example
+below::
 
     # Produce some nice data.
     n_mer, n_long = 6, 11
@@ -291,10 +297,10 @@ complicated example below::
         scalars = numpy.sin(mu + numpy.pi*(i+1)/5)
         ms.set(x=x, scalars=scalars)
 
-Notice the use of the `set` method above.  In this case, the shape of
-the new arrays has not changed, only their values have.  If the shape of
-the array changes then one should use the `reset` method as shown
-below::
+Notice the use of the `set` method above. With this method, the
+visualization is recomputed only once.  In this case, the shape of the
+new arrays has not changed, only their values have.  If the shape of the
+array changes then one should use the `reset` method as shown below::
 
     x, y = numpy.mgrid[0:3:1,0:3:1]
     s = mlab.surf(x, y, numpy.asarray(x*0.1, 'd'),

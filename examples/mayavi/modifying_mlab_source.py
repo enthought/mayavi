@@ -36,8 +36,8 @@ def curve(n_mer, n_long):
 
 
 class MyModel(HasTraits):
-    n_meridional    = Range(0, 30, 6, mode='spinner')
-    n_longitudinal  = Range(0, 30, 11, mode='spinner')
+    n_meridional    = Range(0, 30, 6, )#mode='spinner')
+    n_longitudinal  = Range(0, 30, 11, )#mode='spinner')
 
     scene = Instance(MlabSceneModel, ())
 
