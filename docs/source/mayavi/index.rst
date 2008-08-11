@@ -10,11 +10,11 @@ Mayavi2 Users Guide
     examples.rst
     application.rst
     mlab.rst
-    auto/mlab_reference.rst
     advanced_scripting.rst
     data.rst
     tips.rst
     misc.rst
+    auto/mlab_reference.rst
 
 Indices and tables
 ==================
