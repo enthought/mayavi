@@ -359,7 +359,8 @@ class HtmlBuild(Build):
     def run(self):
         if not self.using_temp_dir:
             # Clean up the destination dir, to avoid side-effects
-            shutil.rmtree(self.target)
+            if os.path.exists(self.target):
+                shutil.rmtree(self.target)
 
         if not self.options.subversion:
             for path, dirs, files in os.walk(self.options.doc_source):
