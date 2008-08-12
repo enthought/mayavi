@@ -2,7 +2,8 @@
 # Setup script for TVTK, numpy.distutils based.
 #
 #
-import os
+import os, sys
+
 
 def configuration(parent_package='enthought',top_path=None):
     import numpy
@@ -38,33 +39,30 @@ def configuration(parent_package='enthought',top_path=None):
     tvtk_classes_zip_depends = config.paths(
         'code_gen.py','wrapper_gen.py', 'special_gen.py',
         'tvtk_base.py', 'indenter.py', 'vtk_parser.py')
-    from code_gen import TVTKGenerator
-    def gen_tvtk_classes_zip(build_dir):
-        import os, sys
-        from distutils.dep_util import newer_group
-        from distutils.dir_util import mkpath
-        target = join(build_dir,'tvtk_classes.zip')
-        if newer_group(tvtk_classes_zip_depends ,target) \
-               or vtk_version_changed(target):
-            output_dir = os.path.dirname(target)
-            mkpath(output_dir, verbose=1)
-            print '-'*70
-            print "Building TVTK classes...",
-            sys.stdout.flush()
-            cwd = os.getcwd()
-            os.chdir(output_dir)
-            gen = TVTKGenerator('')
-            gen.generate_code()
-            gen.build_zip(True)
-            gen.clean()
-            os.chdir(cwd)
-            print "Done."
-            print '-'*70
-        return target
-    config.add_data_files(gen_tvtk_classes_zip)
-
-
+    
     return config
+
+
+def gen_tvtk_classes_zip():
+    from code_gen import TVTKGenerator
+    target = os.path.join(os.path.dirname(__file__), 'tvtk_classes.zip')
+    output_dir = os.path.dirname(target)
+    try:
+        os.mkdir(output_dir)
+    except:
+        pass
+    print '-'*70
+    print "Building TVTK classes...",
+    sys.stdout.flush()
+    cwd = os.getcwd()
+    os.chdir(output_dir)
+    gen = TVTKGenerator('')
+    gen.generate_code()
+    gen.build_zip(True)
+    os.chdir(cwd)
+    print "Done."
+    print '-'*70
+
 
 def vtk_version_changed(zipfile):
     """Checks the ZIP file's VTK build version versus the current
@@ -72,7 +70,6 @@ def vtk_version_changed(zipfile):
     different.
 
     """
-    import os, sys
     result = True
     if os.path.exists(zipfile):
         import vtk

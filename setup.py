@@ -80,6 +80,7 @@ from setuptools.command.develop import develop
 from setuptools.command.install_scripts import install_scripts
 from traceback import print_exc
 import os
+import sys
 import shutil
 import zipfile
 
@@ -237,6 +238,13 @@ class my_build(distbuild):
     def run(self):
         for project in list_doc_projects():
             generate_docs(project)
+        
+        tvtk_dir = os.path.join('enthought', 'tvtk')
+        sys.path.insert(0, tvtk_dir)
+        from setup import gen_tvtk_classes_zip
+        gen_tvtk_classes_zip()
+        sys.path.remove(tvtk_dir)
+        
         distbuild.run(self)
 
 
@@ -248,6 +256,8 @@ class my_install_data(install_data):
         for project in list_doc_projects():
             install_data_command.data_files.extend(
                                     list_docs_data_files(project))
+        install_data_command.data_files.append(
+            os.path.join('enthought', 'tvtk', 'tvtk_classes.zip'))
         install_data.run(self)
 
 
