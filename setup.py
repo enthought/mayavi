@@ -77,7 +77,6 @@ from numpy.distutils.core import setup
 from pkg_resources import DistributionNotFound, parse_version, require, \
     VersionConflict
 from setuptools.command.develop import develop
-from setuptools.command.install_scripts import install_scripts
 from setuptools.command.sdist import sdist
 from traceback import print_exc
 import os
@@ -236,8 +235,6 @@ class my_build(distbuild):
     """ A build hook to generate the documentation.
     """
     def run(self):
-#        print "BUILD CLASS #############################################"
-#        import sys; sys.exit()
         for project in list_doc_projects():
             generate_docs(project)
         distbuild.run(self)
@@ -285,21 +282,7 @@ class my_install_scripts(install_scripts):
                             os.remove (new_file)
                         os.rename (file, new_file)
 
-class my_sdist(sdist):
-    
-    def run(self):
-#        print len(config['data_files'])
-#
-#        for conf in config['data_files'][:]:
-##            if conf[1]:
-##            print len(conf[1])
-#            if conf[0] == 'enthought/tvtk/':
-#                print dir(conf[1][0])
-#                config['data_files'].remove(conf)
-#        print len(config['data_files'])
-#        import sys; sys.exit()
-        sdist.run(self)
-        
+
 ##############################################################################
 # Configure our extensions to Python
 ##############################################################################
@@ -365,7 +348,7 @@ setup(
     cmdclass = {
         # Work around a numpy distutils bug by forcing the use of the
         # setuptools' sdist command.
-        'sdist': my_sdist,
+        'sdist': setuptools.command.sdist.sdist,
 
         'install_scripts': my_install_scripts,
         'install_data': my_install_data,
