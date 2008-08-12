@@ -77,7 +77,7 @@ from numpy.distutils.core import setup
 from pkg_resources import DistributionNotFound, parse_version, require, \
     VersionConflict
 from setuptools.command.develop import develop
-from setuptools.command.sdist import sdist
+from setuptools.command.install_scripts import install_scripts
 from traceback import print_exc
 import os
 import shutil
