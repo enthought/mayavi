@@ -2,7 +2,7 @@
 # Setup script for TVTK, numpy.distutils based.
 #
 #
-import os
+import os, sys
 
 def configuration(parent_package='enthought',top_path=None):
     import numpy
@@ -61,7 +61,17 @@ def configuration(parent_package='enthought',top_path=None):
             print "Done."
             print '-'*70
         return target
+    
+    binaries = ('bdist', 'build', 'develop', 'install', 'bdist_egg')
+    for arg in sys.argv:
+        print arg
+        if arg in binaries:
+            print "HERE"
+    #sys.exit()
     config.add_data_files(gen_tvtk_classes_zip)
+#    print dir()
+#    print dir(config)
+#    print config
 
     return config
 

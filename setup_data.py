@@ -26,6 +26,11 @@ TRAITS_UI = etsdep('Traits[ui]', '3.0.1')
 # A dictionary of the pre_setup information.
 INFO = {
     'extras_require': {
+        'app' : [
+            ENVISAGECORE,
+            ENVISAGEPLUGINS,
+            TRAITSBACKENDWX,
+            ],
         'ui': [
             ENVISAGECORE,
             ENVISAGEPLUGINS,
@@ -33,7 +38,7 @@ INFO = {
         'util': [
             TRAITSBACKENDWX,
             ],
-
+            
         # All non-ets dependencies should be in this extra to ensure users can
         # decide whether to require them or not.
         'nonets': [
