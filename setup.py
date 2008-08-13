@@ -219,6 +219,14 @@ def list_docs_data_files(project):
 ##############################################################################
 # Our custom distutils hooks
 ##############################################################################
+def build_tvtk_classes_zip():
+    tvtk_dir = os.path.join('enthought', 'tvtk')
+    sys.path.insert(0, tvtk_dir)
+    from setup import gen_tvtk_classes_zip
+    gen_tvtk_classes_zip()
+    sys.path.remove(tvtk_dir)
+
+
 class my_develop(develop):
     """ A hook to have the docs rebuilt during develop.
     """
@@ -229,6 +237,10 @@ class my_develop(develop):
         # Make sure that the 'build_src' command will
         # always be inplace when we do a 'develop'.
         self.reinitialize_command('build_src', inplace=1)
+        
+        # tvtk_classes.zip always need to be created on 'develop'.
+        build_tvtk_classes_zip()
+        
         develop.run(self)
 
 
@@ -238,13 +250,7 @@ class my_build(distbuild):
     def run(self):
         for project in list_doc_projects():
             generate_docs(project)
-        
-        tvtk_dir = os.path.join('enthought', 'tvtk')
-        sys.path.insert(0, tvtk_dir)
-        from setup import gen_tvtk_classes_zip
-        gen_tvtk_classes_zip()
-        sys.path.remove(tvtk_dir)
-        
+        build_tvtk_classes_zip()
         distbuild.run(self)
 
 
