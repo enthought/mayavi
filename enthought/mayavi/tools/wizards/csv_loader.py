@@ -102,8 +102,11 @@ class CSVLoader(HasTraits):
                      'delimiter': ',',
                      'dtype': float,
                      'skiprows': 0 }
-        
-        self.delimiter = kwds['delimiter'] if kwds['delimiter'] else ' '
+
+        if kwds['delimiter']:
+            self.delimiter = kwds['delimiter']
+        else:
+            self.delimiter = ' '
         self.comments = kwds['comments']
         self.skiprows = kwds['skiprows']
         self.names = list(kwds['dtype']['names'])
@@ -116,7 +119,7 @@ class CSVLoader(HasTraits):
         print ';;;;;;;;;;;'
 #    def _get_data(self):
         kwds = { 'comments': self.comments,
-                 'delimiter': self.delimiter if self.delimiter else None,
+                 'delimiter': [None, self.delimiter][bool(self.delimiter)],
                  'dtype': { 'names': tuple(self.names),
                             'formats': ('S3', 'f', 'f') },
                  'skiprows': self.skiprows }
