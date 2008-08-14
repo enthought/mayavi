@@ -126,6 +126,8 @@ quiver3d
         :scale_mode: the scaling mode for the glyphs
                      ('vector', 'scalar', or 'none').
     
+        :scalars: optional scalar data.
+    
         :mode: the mode of the glyphs. Must be '2darrow' or '2dcircle' or
                '2dcross' or '2ddash' or '2ddiamond' or '2dhooked_arrow' or
                '2dsquare' or '2dthick_arrow' or '2dthick_cross' or
@@ -310,8 +312,13 @@ surf
         :warp_scale: scale of the z axis (warped from
                      the value of the scalar). By default this scale
                      is calculated to give a pleasant aspect ratio to
-                     the plot. You can overright this behavoir by
+                     the plot. You can overright this behavior by
                      specifying a float value.
+                     If you specify a value for warp_scale in
+                     addition to an extent, the warp scale will be
+                     determined by the warp_scale, and the plot be
+                     positioned along the z axis with the zero of the
+                     data centered on the center of the extent.
     
         :name: the name of the vtk object created.
     

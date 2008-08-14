@@ -455,8 +455,13 @@ class MArray2DSource(MlabSource):
             z = numpy.array([0])
             self.set(x=x, y=y, z=z, trait_change_notify=False)
 
-        dx = x[1, 0] - x[0, 0]
-        dy = y[0, 1] - y[0, 0]
+        # Do some magic to extract the first row/column, independently of
+        # the shape of x and y
+        x = numpy.atleast_2d(x.squeeze().T)[0, :].squeeze()
+        y = numpy.atleast_2d(y.squeeze())[0, :].squeeze()
+
+        dx = x[1] - x[0]
+        dy = y[1] - y[0]
 
         if self.m_data is None:
             ds = ArraySource(transpose_input_array=True)
@@ -712,6 +717,8 @@ def vector_scatter(*args, **kwargs):
     x, y, z, u, v, w = process_regular_vectors(*args)
 
     scalars = kwargs.pop('scalars', None)
+    if scalars is not None:
+        scalars = scalars.ravel()
     name = kwargs.pop('name', 'VectorScatter')
 
     data_source = MGlyphSource()

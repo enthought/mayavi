@@ -33,6 +33,22 @@ class TestMlab(TestCase):
             mlab.clf()
             func()
        
+        ############################################################
+        # Test some specific corner-cases
+        import numpy
+        x, y, z = numpy.mgrid[1:10, 1:10, 1:10]
+        u, v, w = numpy.mgrid[1:10, 1:10, 1:10]
+        s = numpy.sqrt(u**2 + v**2)
+        
+        mlab.clf()
+        # Test the extra argument "scalars"
+        mlab.quiver3d(x,y,z,u,v,w,scalars=s)
+
+        # Test surf with strange-shaped inputs
+        X, Y = numpy.ogrid[-10:10, -10:10]
+        Z = X**2 + Y**2
+        mlab.surf(X, Y, Z)
+        mlab.surf(X.ravel(), Y.ravel(), Z)
 
 if __name__ == "__main__":
     t = TestMlab()

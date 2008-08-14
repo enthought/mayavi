@@ -114,8 +114,8 @@ class Pipeline(HasTraits):
 
 ############################################################################# 
 
-quiver3d = Pipeline( 
-            doc="""
+class Quiver3D(Pipeline):
+    """
     Plots glyphs (like arrows) indicating the direction of the vectors
     for a 3D volume of data supplied as arguments.
 
@@ -129,11 +129,16 @@ quiver3d = Pipeline(
     made from the indices of vectors.
     
     If 4 positional arguments are passed the last one must be a callable, f, 
-    that returns vectors. """,
-            _source_function=vector_scatter,
-            _pipeline=[VectorsFactory, ] 
-        )
-quiver3d = document_pipeline(quiver3d)
+    that returns vectors. """
+
+    scalars = Array(help="""optional scalar data.""")
+
+    _source_function = Callable(vector_scatter)
+
+    _pipeline = [VectorsFactory, ]
+
+
+quiver3d = document_pipeline(Quiver3D())
 
 
 def test_quiver3d():
@@ -548,8 +553,15 @@ class Surf(Pipeline):
     warp_scale = Any('auto', help="""scale of the z axis (warped from
                         the value of the scalar). By default this scale
                         is calculated to give a pleasant aspect ratio to
-                        the plot. You can overright this behavoir by
-                        specifying a float value.""")
+                        the plot. You can overright this behavior by
+                        specifying a float value. 
+                        
+                        If you specify a value for warp_scale in
+                        addition to an extent, the warp scale will be
+                        determined by the warp_scale, and the plot be
+                        positioned along the z axis with the zero of the
+                        data centered on the center of the extent.
+                        """)
 
     mask = Array(help="boolean mask array to suppress some data points.")
 
@@ -558,14 +570,39 @@ class Surf(Pipeline):
         """
         self.source = self._source_function(*args, **kwargs)
         kwargs.pop('name', None)
-        if self.warp_scale == 'auto' and not 'extent' in kwargs:
+        # Deal with both explicit warp scale and extent, this is 
+        # slightly hairy. The wigner example is a good test case for
+        # this.
+        if 'warp_scale' in kwargs and not kwargs['warp_scale']=='auto' \
+                and 'extent' in kwargs:
+            # XXX: I should use the logging module.
+            print 'Warning: both warp_scale and extent keyword argument' \
+            'specified, the z bounds of the extents will be overridden'
+            xi, xf, yi, yf, zi, zf = kwargs['extent']
+            zo = 0.5*(zi + zf)
             try:
-                xi, xf, yi, yf, zi, zf = self.source.data.bounds
+                si, sf = self.source.data.scalar_range
             except AttributeError:
-                xi, xf, yi, yf, zi, zf = self.source.image_data.bounds
-            zf = 0.3*((xf - xi) + (yf - yi))
+                si, sf = self.source.image_data.scalar_range
+            z_span = kwargs['warp_scale'] * abs(sf - si)
+            zi = zo + si * kwargs['warp_scale'] 
+            zf = zi + z_span
             kwargs['extent'] = (xi, xf, yi, yf, zi, zf)
             kwargs['warp_scale'] = 1.
+        elif self.warp_scale == 'auto':
+                if 'extent' in kwargs and 'warp_scale' in kwargs:
+                    print "Warning: extent specified, warp_scale='auto' " \
+                    "ignored."
+                else:
+                    try:
+                        xi, xf, yi, yf, _, _ = self.source.data.bounds
+                        zi, zf = self.source.data.scalar_range
+                    except AttributeError:
+                        xi, xf, yi, yf, _, _ = self.source.image_data.bounds
+                        zi, zf = self.source.image_data.scalar_range
+                zf = 0.3*((xf - xi) + (yf - yi))
+                kwargs['extent'] = (xi, xf, yi, yf, zi, zf)
+                kwargs['warp_scale'] = 1.
         self.store_kwargs(kwargs)
 
         # Copy the pipeline so as not to modify it for the next call

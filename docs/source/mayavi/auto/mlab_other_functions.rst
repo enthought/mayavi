@@ -35,12 +35,18 @@ axes
                  Ranges of the labels displayed on the axes.
                  Default is the object's extents.
     
+        :x_axis_visibility: Whether or not the x axis is visible (boolean)
+    
+        :y_axis_visibility: Whether or not the y axis is visible (boolean)
+    
         :xlabel: the label of the x axis
     
         :extent: [xmin, xmax, ymin, ymax, zmin, zmax]
                  Default is the object's extents.
     
         :ylabel: the label of the y axis
+    
+        :z_axis_visibility: Whether or not the z axis is visible (boolean)
     
 
     
