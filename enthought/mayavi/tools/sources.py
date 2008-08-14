@@ -909,10 +909,6 @@ def array2d_source(*args, **kwargs):
         data_source.reset(scalars=s, mask=mask)
     else:
         x, y, s = process_regular_2d_scalars(*args, **kwargs)
-        # Do some magic to extract the first row/column, independently of
-        # the shape of x and y
-        #x = numpy.atleast_2d(x.squeeze().T)[0, :].squeeze()
-        #y = numpy.atleast_2d(y.squeeze())[0, :].squeeze()
         data_source.reset(x=x, y=y, scalars=s, mask=mask)
 
     name = kwargs.pop('name', 'Array2DSource')
