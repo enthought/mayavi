@@ -11,7 +11,7 @@ pipeline in a procedural way.
 # Enthought library imports.
 import enthought.mayavi.modules.api as modules
 from enthought.traits.api import String, CFloat, Instance, HasTraits, \
-            Trait, CArray
+            Trait, CArray, true
 import tools
 from figure import draw, gcf
 
@@ -243,6 +243,16 @@ class Axes(AxesLikeModuleFactory):
                             Ranges of the labels displayed on the axes.
                             Default is the object's extents.""", )
 
+    x_axis_visibility = true(adapts='axes.x_axis_visibility',
+                help="Whether or not the x axis is visible (boolean)")
+
+    y_axis_visibility = true(adapts='axes.y_axis_visibility',
+                help="Whether or not the y axis is visible (boolean)")
+
+    z_axis_visibility = true(adapts='axes.z_axis_visibility',
+                help="Whether or not the z axis is visible (boolean)")
+
+
     _target = Instance(modules.Axes, ())
 
     def _extent_changed(self):
@@ -255,8 +265,6 @@ class Axes(AxesLikeModuleFactory):
             axes.axes.ranges = \
                 axes.module_manager.source.outputs[0].bounds
             axes.axes.use_ranges = True
-        else:
-            print self.ranges
 
     def _ranges_changed(self):
         if self.ranges is not None:
