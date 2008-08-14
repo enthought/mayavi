@@ -263,10 +263,12 @@ class my_install_data(install_data):
             install_data_command.data_files.extend(
                                     list_docs_data_files(project))
         
+        # make sure tvtk_classes.zip always get created before putting it
+        # in the install data.
+        build_tvtk_classes_zip()
+        tvtk_dir = os.path.join('enthought', 'tvtk')
         install_data_command.data_files.append(
-            (os.path.join('enthought', 'tvtk'),
-             [os.path.join(os.path.dirname(__file__),
-                           'enthought', 'tvtk', 'tvtk_classes.zip')]))
+            (tvtk_dir, [os.path.join(tvtk_dir, 'tvtk_classes.zip')]))
         
         install_data.run(self)
 
