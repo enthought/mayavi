@@ -262,11 +262,12 @@ class my_install_data(install_data):
         for project in list_doc_projects():
             install_data_command.data_files.extend(
                                     list_docs_data_files(project))
-            print list_docs_data_files(project)
+        
         install_data_command.data_files.append(
             (os.path.join('enthought', 'tvtk'),
              [os.path.join(os.path.dirname(__file__),
                            'enthought', 'tvtk', 'tvtk_classes.zip')]))
+        
         install_data.run(self)
 
 
