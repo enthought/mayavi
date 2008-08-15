@@ -7,8 +7,6 @@ Tests for the pipeline_info.py module
 
 import unittest
 
-import nose
-
 from enthought.tvtk.api import tvtk
 from enthought.mayavi.core import pipeline_info
 
@@ -16,13 +14,6 @@ from enthought.mayavi.core import pipeline_info
 class TestPipelineInfoTest(unittest.TestCase):
     
     def test_tvtk_dataset_name(self):
-        # FIXME:
-        #   For some reason this does not work when invoked by
-        #   $ python setup.py test
-        #   but when run locally with nose (0.10.3) is works.
-        #   Therefore, it is skipped for now.
-        raise nose.SkipTest
-    
         "Can tvtk datasets can be converted to names correctly."
         datasets = [tvtk.ImageData(), 
                     tvtk.StructuredPoints(),  
