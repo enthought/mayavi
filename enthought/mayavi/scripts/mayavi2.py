@@ -386,13 +386,17 @@ except ImportError, e:
 try:
     from enthought.mayavi.plugins.app import Mayavi, setup_logger
 except ImportError, e:
-    e.message = '''%s\n%s\nCould not load envisage. Do you have the EnvisageCore and EnvisagePlugins project installed?
+    e.message = '''%s\n%s\nCould not load envisage. Do you have the EnvisageCore and EnvisagePlugins installed?
 
 If you installed Mayavi with easy_install, try 'easy_install <pkg_name>'.
 'easy_install Mayavi[app]' will also work.
 
 If you performed a source checkout and installed via 'python setup.py develop',
 be sure to run the same command in the EnvisageCore and EnvisagePlugins folders.
+
+If these packages appear to be installed, check your numpy installation. If you
+need numpy, 'easy_install numpy' will install numpy.
+http://numpy.scipy.org
         ''' % (e.message, '_'*80)
     e.args = tuple((e.message, ) + e.args[1:])
     raise e
