@@ -41,6 +41,7 @@ commands are for building):
 
 from optparse import OptionParser, Values
 import os.path
+import re
 import shutil
 from subprocess import Popen
 import sys
@@ -50,6 +51,7 @@ from glob import glob
 
 from setup_data import INFO
 
+# FIXME: Move everything hard-coded to setup.py
 DEFAULT_HTML_TARGET_DIR = os.path.join('docs', 'html')
 DEFAULT_LATEX_TARGET_DIR = os.path.join('docs', 'latex')
 DEFAULT_PDF_TARGET_DIR = os.path.join('docs', 'pdf', 'mayavi')
@@ -128,42 +130,60 @@ class Process(object):
 
 class Build(Process):
     
-    # Currently the simplest solution that works for checking if the mlab
-    # reference docs have been generated or not. Still needs to be refactored
-    # to be a method without class-level variables or hard-coded paths
-    AUTO_SOURCE_INPUT = os.path.join('enthought', 'mayavi')
-    AUTO_HTML_DEST = os.path.join(DEFAULT_HTML_TARGET_DIR, 'mayavi', 'auto')
-    
-    # Use a list, for a Borg-like behavior
-    mlab_reference_generated = [True ]
-    
-    # If the mlab module reference has already been created, this walks the 
-    # enthought.mayavi code tree to see if there have been any changes. 
-    # If a change has been made, the docs need to be regenerated so 
-    # mlab_reference_generated is set to False.
-    if os.path.exists(AUTO_HTML_DEST):
-        latest_source_time = latest_dest_time = 0
+    def latest_modified(self, the_path, filetypes='', ignore_dirs=''):
+        """Traverses a path looking for the most recently modified file
         
-        for root, dirs, files in os.walk(AUTO_HTML_DEST):
-            for file in files:
-                if os.path.getmtime(os.path.join(root, file)) > latest_dest_time:
-                    latest_dest_time = os.path.getmtime(os.path.join(root, file))
+        Parameters
+        ----------
+        the_path : string
+            Contains path to be traversed or filename to be inspected.
+        filetypes : string
+            Regular expression pattern of files to examine. If specified, other 
+            files are ignored. Otherwise, all files are examined.
+        ignore_dirs : string
+            Regular expression pattern of directories to be ignored. If ignore
+            specified, all directories are walked. 
+            
+        Returns
+        -------
+        latest_time : float
+            Modification time of latest_path.
+        latest_path : string
+            Most recently modified file.
         
-        for root, dirs, files in os.walk(AUTO_SOURCE_INPUT):
-            if '.svn' in root:
-                continue
-            for file in files:
-                 if not file.endswith('.py'):
-                     continue
-                 if os.path.getmtime(os.path.join(root, file)) > latest_source_time:
-                     latest_source_time = \
-                        os.path.getmtime(os.path.join(root, file))
-        if latest_source_time > latest_dest_time:
-           mlab_reference_generated = [False ] 
-    # If the destination directory does not exist, automatically set 
-    # mlab_reference_generated to False
-    else:
-        mlab_reference_generated = [False ]
+        Description
+        -----------
+        
+        """
+        
+        file_re = re.compile(filetypes)
+        dir_re = re.compile(ignore_dirs)
+        
+        if os.path.isdir(the_path):
+            latest_time = 0
+            latest_path = the_path
+            for root, dirs, files in os.walk(the_path):
+                if ignore_dirs != '':
+                    # This needs to iterate over a copy of the list. Otherwise,
+                    # as things get removed from the original list, the indices
+                    # become invalid.
+                    for dir in dirs[:]:
+                        if dir_re.search(dir):
+                            dirs.remove(dir)
+                for file in files:
+                    if filetypes != '':
+                        if not file_re.search(file):
+                            continue
+                    current_file_time = os.path.getmtime(os.path.join(root,
+                        file))
+                    if current_file_time > latest_time:
+                        latest_time = current_file_time
+                        latest_path = os.path.join(root, file)
+            return latest_time, latest_path
+
+        else:
+            return os.path.getmtime(the_path), the_path
+
 
     @has_started
     def svn_checkout(self):
@@ -299,16 +319,25 @@ class Build(Process):
         # XXX: This is really a hack: the script is not made to be used
         # for different projects, but it ended up being. This part is
         # mayavi-specific.
-        if self.mlab_reference_generated[0]:
-            return
-        try:
-            from enthought.mayavi import mlab
-            from enthought.mayavi.tools import auto_doc
-            print "Generating the mlab reference documentation"
-            os.system('python mlab_reference.py')
-        except:
-            pass
-        self.mlab_reference_generated[0] = True
+        
+        mlab_ref_dir = os.path.join(DEFAULT_INPUT_DIR, 'mayavi','auto')
+        
+        source_path = os.path.join('enthought', 'mayavi')
+        sources = '\.py$'
+        excluded_dirs = '^\.'
+        target_path = mlab_ref_dir
+        target_time = self.latest_modified(target_path, ignore_dirs=excluded_dirs)[0]
+        
+        if self.latest_modified(source_path, filetypes=sources,
+            ignore_dirs=excluded_dirs)[0] > target_time or \
+            self.latest_modified('mlab_reference.py')[0] > target_time:
+            try:
+                from enthought.mayavi import mlab
+                from enthought.mayavi.tools import auto_doc
+                print "Generating the mlab reference documentation"
+                os.system('python mlab_reference.py')
+            except:
+                pass
 
 
     def extent_option_parser(self, p):
@@ -316,7 +345,7 @@ class Build(Process):
         p.add_option('-t', '--target',
                      help='Set working directory for any build executed')
         p.add_option('--use-subversion', action='store_true', dest='subversion',
-                     help='Pull from Subversin, update data, and then publish '\
+                     help='Pull from Subversion, update data, and then publish '\
                          'changes')
         p.add_option('-r', '--repository',
                      help='Full path to Subversion target')
@@ -361,7 +390,7 @@ class HtmlBuild(Build):
             # Clean up the destination dir, to avoid side-effects
             if os.path.exists(self.target):
                 shutil.rmtree(self.target)
-
+                
         if not self.options.subversion:
             for path, dirs, files in os.walk(self.options.doc_source):
                 if not os.path.exists(os.path.join(self.target, path)):
@@ -440,7 +469,7 @@ register(LaTeXBuild)
 class CreateZip(Process):
     action_name = 'create-zip'
 
-    def run(self):
+    def run(self):       
         # Create an HtmlBuild which will generate the documentation to zip.
         build = HtmlBuild()
 
