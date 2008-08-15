@@ -386,6 +386,9 @@ class HtmlBuild(Build):
     action_name = 'build-html'
 
     def run(self):
+        # FIXME: This needs to be refactored or moved to CreateZip so that it
+        # ONLY happens when a zip is being created. As it stands now, we are
+        # back to having docs re-created everytime a build is done.
         if not self.using_temp_dir:
             # Clean up the destination dir, to avoid side-effects
             if os.path.exists(self.target):
