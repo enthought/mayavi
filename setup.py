@@ -352,7 +352,7 @@ setup(
     author = "Prabhu Ramachandran, et. al.",
     author_email = "prabhu_r@users.sf.net",
     classifiers = [c.strip() for c in """\
-        Development Status :: 4 - Beta
+        Development Status :: 5 - Production/Stable
         Intended Audience :: Developers
         Intended Audience :: Science/Research
         License :: OSI Approved :: BSD License
