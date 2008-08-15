@@ -374,8 +374,9 @@ del opt, arg
 try:
     import vtk
 except ImportError, e:
-    e.message = '%s\n%s\nDo you have vtk installed properly?' % (
-                e.message, '_'*80)
+    e.message = '%s\n%s\nDo you have vtk installed properly?\n' \
+        'VTK (and build instructions) can be obtained from http://www.vtk.org\n' \
+        % (e.message, '_'*80)
     e.args = tuple((e.message, ) + e.args[1:])
     raise e
 
@@ -542,7 +543,16 @@ def main():
             raise ImportError, '''Could not import backend for traits
 ________________________________________________________________________________
 Make sure that you have either the TraitsBackendWx or the TraitsBackendQt
-projects installed.'''
+projects installed. If you installed Mayavi with easy_install, try easy_install 
+<pkg_name>. easy_install Mayavi[app] will also work.
+
+If you performed a source checkout, be sure to run 'python setup.py install'
+in Traits, TraitsGUI, and the Traits backend of your choice.
+
+Also make sure that either wxPython or PyQT is installed.
+wxPython: http://www.wxpython.org/
+PyQT: http://www.riverbankcomputing.co.uk/software/pyqt/intro
+'''
             
         mayavi = MayaviApp()
     mayavi.main(sys.argv[1:])

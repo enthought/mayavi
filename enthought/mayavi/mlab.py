@@ -13,11 +13,21 @@ application with the WxWidget mainloop running.
 from enthought.traits.ui.toolkit import toolkit
 toolkit() # This forces the selection of a toolkit.
 from enthought.etsconfig.api import ETSConfig
+
 if ETSConfig.toolkit in ('null', ''):
     raise ImportError, '''Could not import backend for traits
 ________________________________________________________________________________
 Make sure that you have either the TraitsBackendWx or the TraitsBackendQt
-projects installed.'''
+projects installed. If you installed Mayavi with easy_install, try easy_install 
+<pkg_name>. easy_install Mayavi[app] will also work.
+
+If you performed a source checkout, be sure to run 'python setup.py install'
+in Traits, TraitsGUI, and the Traits backend of your choice.
+
+Also make sure that either wxPython or PyQT is installed.
+wxPython: http://www.wxpython.org/
+PyQT: http://www.riverbankcomputing.co.uk/software/pyqt/intro
+'''
 
 # Mayavi imports
 from enthought.mayavi.tools.camera import view, roll

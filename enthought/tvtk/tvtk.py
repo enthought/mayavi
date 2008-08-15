@@ -37,7 +37,17 @@ else:
 
 # Check if the VTK version is the same as that used to build TVTK.
 from tvtk_classes.vtk_version import vtk_build_version
-import vtk
+
+# Make sure VTK is installed.
+try:
+    import vtk
+except ImportError, e:
+    e.message = '%s\n%s\nDo you have vtk installed properly?\n' \
+        'VTK (and build instructions) can be obtained from http://www.vtk.org\n' \
+        % (e.message, '_'*80)
+    e.args = tuple((e.message, ) + e.args[1:])
+    raise e
+
 vtk_version = vtk.vtkVersion().GetVTKVersion()[:3]
 if vtk_version != vtk_build_version:
     msg = '*'*80 + "\n" + \
