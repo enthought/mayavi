@@ -56,5 +56,5 @@ INFO = {
         TRAITS_UI,
         ],
     'name': 'Mayavi',
-    'version': '3.0.0',
+    'version': '3.0.1',
     }
