@@ -460,8 +460,11 @@ class Scene(TVTKScene, Widget):
             # Set camera focal point.
             if key.lower() in ['f']:
                 if not modifiers:
-                    x = event.GetX()
-                    y = self._vtk_control.GetSize()[1] - event.GetY()
+                    if sys.platform == 'darwin':
+                        x, y = self._interactor.event_position
+                    else:
+                        x = event.GetX()
+                        y = self._vtk_control.GetSize()[1] - event.GetY()
                     data = self.picker.pick_world(x, y)
                     coord = data.coordinate
                     if coord is not None:                  
@@ -471,8 +474,11 @@ class Scene(TVTKScene, Widget):
             # Handle picking.
             if key.lower() in ['p']:
                 if not modifiers:
-                    x = event.GetX()
-                    y = self._vtk_control.GetSize()[1] - event.GetY()
+                    if sys.platform == 'darwin':
+                        x, y = self._interactor.event_position
+                    else:
+                        x = event.GetX()
+                        y = self._vtk_control.GetSize()[1] - event.GetY()
                     self.picker.pick(x, y)
                     return
                 else:
