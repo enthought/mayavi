@@ -111,7 +111,7 @@ def view():
                           low_point  = [0, 0, mandel_array.min()],
                           high_point = [0, 0, mandel_array.max()])
 
-    P.surface(mandel_elevation, colormap='jet')
+    P.surface(mandel_elevation, colormap='jet', extent=(0,1, 0,1, 0, 0.3))
 
 if __name__ == '__main__':
     view()

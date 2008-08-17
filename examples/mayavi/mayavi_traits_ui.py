@@ -24,9 +24,6 @@ from enthought.mayavi.tools.mlab_scene_model import MlabSceneModel
 ######################################################################
 class Mayavi(HasTraits):
 
-    # Generate data with mayavi or mlab.
-    data_source = Enum('mlab', 'mayavi')
-
     # The scene model.
     scene = Instance(MlabSceneModel, ())
 
@@ -50,14 +47,12 @@ class Mayavi(HasTraits):
                                    springy=True,
                                    show_label=False),
                                    ),
-                        VSplit(Item(name='data_source'),
                                Item(name='scene', 
                                     editor=SceneEditor(),
                                     show_label=False,
                                     resizable=True,
                                     height=500,
                                     width=500),
-                               )
                         ),
                 resizable=True,
                 scrollable=True
@@ -73,18 +68,7 @@ class Mayavi(HasTraits):
         self.scene.engine.on_trait_change(self._selection_change,
                                           'current_selection')
 
-        self._data_source_changed(self.data_source)
-
-    def generate_data_mlab(self):
-        """Demo's how to generate data from mayavi."""
-        # Create some data
-        X, Y = mgrid[-2:2:200j, -2:2:200j]
-        R = 10*sqrt(X**2 + Y**2)
-        Z = sin(R)/R
-
-        # Here we are using mlab to generate data.  We could just as well have
-        # used the mayavi API.
-        self.scene.mlab.surf(X, Y, Z, colormap='gist_earth')
+        self.generate_data_mayavi()
 
     def generate_data_mayavi(self):
         """Shows how you can generate data using mayavi instead of mlab."""
@@ -101,13 +85,6 @@ class Mayavi(HasTraits):
 
     def _get_current_selection(self):
         return self.scene.engine.current_selection
-
-    def _data_source_changed(self, value):
-        self.scene.mlab.clf()
-        if value == 'mayavi':
-            self.generate_data_mayavi()
-        elif value == 'mlab':
-            self.generate_data_mlab()
 
 
 if __name__ == '__main__':
