@@ -496,7 +496,8 @@ supports the following features:
    this script in the embedded Python interpreter, the user may type
    ``Control-r`` on the editor window.  To save the file press
    ``Control-s``.  This is a very handy feature when developing simple
-   mayavi scripts.
+   mayavi scripts. You can also increase and decrease the font size using
+   ``Control-n`` and ``Control-s``.
 
  * As mentioned earlier, one may drag and drop nodes from the Mayavi
    engine tree view onto the Python shell.  The object may then be
