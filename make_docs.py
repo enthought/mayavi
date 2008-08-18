@@ -386,14 +386,6 @@ class HtmlBuild(Build):
     action_name = 'build-html'
 
     def run(self):
-        # FIXME: This needs to be refactored or moved to CreateZip so that it
-        # ONLY happens when a zip is being created. As it stands now, we are
-        # back to having docs re-created everytime a build is done.
-        if not self.using_temp_dir:
-            # Clean up the destination dir, to avoid side-effects
-            if os.path.exists(self.target):
-                shutil.rmtree(self.target)
-                
         if not self.options.subversion:
             for path, dirs, files in os.walk(self.options.doc_source):
                 if not os.path.exists(os.path.join(self.target, path)):
@@ -472,7 +464,15 @@ register(LaTeXBuild)
 class CreateZip(Process):
     action_name = 'create-zip'
 
-    def run(self):       
+    def run(self):
+        # This snippet used to reside in HtmlBuild and checked for 
+        # self.using_temp_dir. This resulted in rebuilding docs every build.
+        # Now html docs are cleaned before each zipfile generation, which was
+        # the original purpose anyway.
+        # Clean up the destination dir, to avoid side-effects
+        if os.path.exists(self.target):
+            shutil.rmtree(self.target)
+
         # Create an HtmlBuild which will generate the documentation to zip.
         build = HtmlBuild()
 
