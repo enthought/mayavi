@@ -275,7 +275,7 @@ class MArraySource(MlabSource):
                 #                axis=3)
                 vectors = numpy.c_[u.ravel(), v.ravel(),
                                    w.ravel()].ravel()
-                vectors.shape = (len(u), len(v), len(w), 3)
+                vectors.shape = (u.shape[0] , u.shape[1], w.shape[2], 3)
                 self.set(vectors=vectors, trait_change_notify=False)
 
         if vectors is not None and len(vectors) > 0:

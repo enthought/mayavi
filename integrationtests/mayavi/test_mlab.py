@@ -42,13 +42,16 @@ class TestMlab(TestCase):
         
         mlab.clf()
         # Test the extra argument "scalars"
-        mlab.quiver3d(x,y,z,u,v,w,scalars=s)
+        mlab.quiver3d(x, y, z, u, v, w, scalars=s)
 
         # Test surf with strange-shaped inputs
         X, Y = numpy.ogrid[-10:10, -10:10]
         Z = X**2 + Y**2
         mlab.surf(X, Y, Z)
         mlab.surf(X.ravel(), Y.ravel(), Z)
+
+        x, y, z = numpy.mgrid[-10:10, -10:10, -3:2]
+        mlab.flow(x, y, z)
 
 if __name__ == "__main__":
     t = TestMlab()
