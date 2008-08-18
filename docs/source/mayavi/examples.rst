@@ -43,7 +43,7 @@ More details on parametric surfaces in VTK may be obtained from Andrew
 Maclean's `Parametric Surfaces`_ document.
 
   1. After starting mayavi2, create a simple Parametric surface source
-     by selecting `File->Open->Create Parametric Surface source`.
+     by selecting `File->Load data->Create Parametric Surface source`.
      Once you create the data, you will see a new node on the Mayavi
      tree view on the left that says `ParametricSurface`.  Note that
      you **will not** see anything visualized on the TVTK scene yet.
@@ -138,7 +138,7 @@ heart!  The file is a readable text file, look at it in a text editor
 if you'd like to.
 
   1. With ``mayavi2`` started, we start by opening the data file.  Go
-     to the `File->Open->VTK File` menu item and then in the file
+     to the `File->Load data->Open file` menu item and then in the file
      dialog, navigate to the directory that contains the sample data.
      There select the ``heart.vtk`` file.
 
