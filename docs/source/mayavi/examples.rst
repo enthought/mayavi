@@ -176,7 +176,7 @@ if you'd like to.
      :ref:`interaction-with-the-scene` for more details.  Experiment with
      these options till you are comfortable.
 
-  5. Now create an iso-surface by selecting the
+  5. Now, with the Outline node selected, create an iso-surface by selecting the
      `Visualize->Modules->IsoSurface` menu item.  You will see a new
      `IsoSurface` node on the left and an iso-contour of the scalar
      data on the scene.  The iso-surface is colored as per the
