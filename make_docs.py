@@ -223,9 +223,10 @@ class Build(Process):
             os.makedirs(output_dir)
 
         print "Running sphinx to build", format
-        self.run_command('sphinx-build -D version=%s -D release=%s -b %s %s %s'
-                         % (INFO['version'], INFO['version'], format,
-                            self.options.doc_source, output_dir))
+        self.run_command('sphinx-build' \
+                         ' -D version=%s -D release=%s -b %s "%s" "%s"'
+                         % (INFO['version'], INFO['version'], format, \
+                         self.options.doc_source, output_dir))
         
     @has_started
     def remove_tmp_files(output_dir):
