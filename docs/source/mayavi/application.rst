@@ -67,8 +67,7 @@ Mayavi's UI layout is highly configurable:
    them anywhere in the application.
 
  * Each view area (the mayavi engine view, object editor, python shell
-   and logger) can all be disabled and enabled at will using the
-   `View` menu by toggling the views on and off.
+   and logger) can be enabled and disabled in the 'View' menu.
 
 Each time you change the appearance of mayavi it is saved and the next
 time you start up the application it will have the same configuration.

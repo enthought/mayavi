@@ -55,14 +55,16 @@ Maclean's `Parametric Surfaces`_ document.
      `Visualize->Modules` menu item and select the `Outline` module.
      You will immediately see a wireframe cube on the TVTK scene. 
      You should also see two new nodes on the tree view, one called
-     `Modules` and one underneath that called `Outline`.  
+     `Modules` and one underneath that called `Outline`.
 
   3. You can change properties of the outline displayed by clicking on
      the `Outline` node on the left.  This will create an object editor
      window on left bottom of the window (the object editor tab) below
      the tree view.  Play with the settings here and look at the
-     results.  If you double-click a node on the left it will pop up an
-     editor dialog rather than show it in the embedded object editor.
+     results.  For example, to change the color of the outline box
+     modify the value in the color field.  If you double-click a node on
+     the left it will pop up an editor dialog rather than show it in the
+     embedded object editor.  
 
   4. To navigate the scene look at the section on 
      :ref:`interaction-with-the-scene` section for more details.  Experiment 
@@ -74,8 +76,8 @@ Maclean's `Parametric Surfaces`_ document.
      the left and switching on the `Enable contours` check-box.
 
   6. To view the color legend (used to map scalar values to colors),
-     click on the `Modules` node on the tree view and on the object
-     editor activate the `Show scalar bar` check-box.  This will show
+     click on the `Modules` node on the tree view. Then, on the 'Scalar LUT'
+     tab, activate the `Show scalar bar` check-box.  This will show
      you a legend on the TVTK scene.  The legend can be moved around on
      the scene by clicking on it and dragging it.  It can also be
      resized by clicking and dragging on its edges.  You can change the
@@ -90,7 +92,8 @@ Maclean's `Parametric Surfaces`_ document.
      experiment.
 
   8. You may add as many data sources as you like.  It is possible to
-     view two different parametric surfaces on the same scene.
+     view two different parametric surfaces on the same scene by selecting
+     the scene node and then loading another parametric surface source.
      Whether this makes sense or not is up to the user.  You may also
      create as many scenes you want to and view anything in those.
      You can cut/paste/copy sources and modules between any nodes on
