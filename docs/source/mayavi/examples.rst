@@ -53,8 +53,8 @@ Maclean's `Parametric Surfaces`_ document.
 
   2. To see an outline (a box) of the data, navigate to the
      `Visualize->Modules` menu item and select the `Outline` module.
-     You will immediately see a white box on the TVTK scene.  You
-     should also see two new nodes on the tree view, one called
+     You will immediately see a wireframe cube on the TVTK scene. 
+     You should also see two new nodes on the tree view, one called
      `Modules` and one underneath that called `Outline`.  
 
   3. You can change properties of the outline displayed by clicking on
