@@ -251,7 +251,7 @@ who at the time was at Cranfield University.  A VRML file
 (``room_vis.wrl``) is also provided to show the context of the room in
 which the fire is taking place.
 
-  1. With mayavi2 started, select `File->Open->VTK XML file` to load the
+  1. With mayavi2 started, select `File->Load data->Open file` to load the
      data.  Again, you will see a node on the tree view on the left but
      nothing on the TVTK scene.  This dataset contains different scalars
      and vectors in the same data file.  If you select the `VTK XML file
