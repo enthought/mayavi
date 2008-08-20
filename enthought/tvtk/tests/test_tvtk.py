@@ -489,6 +489,11 @@ class TestTVTK(unittest.TestCase):
         y = tvtk.Information()
         x.get(y)
 
+    def test_parent_child_bounds(self):
+        """CubeAxesActor2D's bounds should be writable."""
+        c = tvtk.CubeAxesActor2D()
+        c.bounds = (0,1,0,1,0,1)
+
     def test_parent_child_input(self):
         """Case where parent has GetInput and child SetInput."""
         vm = tvtk.VolumeTextureMapper2D()

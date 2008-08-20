@@ -174,6 +174,8 @@ class VTKMethodParser:
                 methods.remove(m)
         # Ignore the parent methods.
         ignore = self._get_parent_methods(klass)
+
+        # Skip some of the ignores.
         skip = ['GetInput', 'SetInput']
         # Sometimes the child has only GetInput while the parent has
         # SetInput.
@@ -181,10 +183,33 @@ class VTKMethodParser:
             'SetInput' not in methods and \
             'GetInput' in methods:
             methods.append('SetInput')
+
+        # Get/set pairs that are overridden.  Basically, if a parent
+        # class has a 'GetThing' and the child overrides/has a
+        # 'SetThing' (or vice-versa), then the removal of the parent
+        # methods is wrong since the child changes the trait definition
+        # which breaks things.  We therefore do not remove any of the
+        # Get/SetThings that are ignored due to them being in the
+        # parent.
+        overrides = []
+        for m in methods:
+            check = False
+            if m.startswith('Get'):
+                m1 = 'Set' + m[3:]
+                check = True
+            elif m.startswith('Set'):
+                m1 = 'Get' + m[3:]
+                check = True
+            if check:
+                if m1 in methods and (m1 in ignore or m in ignore):
+                    skip.extend([m1, m])
+
         if 'GetViewProp' in methods and 'GetProp' in methods:
             ignore.extend(['GetProp', 'SetProp'])
         if 'GetViewProps' in methods and 'GetProps' in methods:
             ignore.extend(['GetProps', 'SetProps'])
+
+        # Now we can safely remove the methods.
         for m in methods[:]:
             if m in ignore and m not in skip:
                 methods.remove(m)
