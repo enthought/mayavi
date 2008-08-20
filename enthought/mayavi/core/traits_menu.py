@@ -139,8 +139,7 @@ class MenuHelper(HasTraits):
         engine = get_engine(obj)
         if engine is not None:
             # This is required when running mayavi in envisage.
-            GUI.process_events()
-            engine.current_selection = obj
+            GUI.set_trait_later(engine, 'current_selection', obj)
         else:
             print "No engine"
 
