@@ -18,6 +18,7 @@ logger = logging.getLogger()
 ENGINE_VIEW = 'enthought.mayavi.core.ui.engine_view.EngineView'
 CURRENT_SELECTION_VIEW = 'enthought.mayavi.core.engine.Engine.current_selection'
 SHELL_VIEW = 'enthought.plugins.python_shell_view'
+LOGGER_VIEW = 'enthought.logger.plugin.view.logger_view.LoggerView'
 
 ###############################################################################
 # `MayaviPerspective` class.
@@ -39,7 +40,9 @@ class MayaviPerspective(Perspective):
         PerspectiveItem(id=ENGINE_VIEW, position='left'),
         PerspectiveItem(id=CURRENT_SELECTION_VIEW, position='bottom',
                         relative_to=ENGINE_VIEW),
-        PerspectiveItem(id=SHELL_VIEW, position='bottom')
+        PerspectiveItem(id=SHELL_VIEW, position='bottom'),
+        PerspectiveItem(id=LOGGER_VIEW, position='with',
+                        relative_to=SHELL_VIEW)
     ]
 
 ###############################################################################

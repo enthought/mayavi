@@ -77,12 +77,14 @@ def get_plugins():
     from enthought.envisage.ui.workbench.workbench_plugin import WorkbenchPlugin
     from enthought.plugins.python_shell.python_shell_plugin import PythonShellPlugin
     from enthought.plugins.text_editor.text_editor_plugin import TextEditorPlugin
+    from enthought.logger.plugin.logger_plugin import LoggerPlugin
     from enthought.tvtk.plugins.scene.scene_plugin import ScenePlugin
     from enthought.tvtk.plugins.scene.ui.scene_ui_plugin import SceneUIPlugin
     from enthought.mayavi.plugins.mayavi_plugin import MayaviPlugin
     from enthought.mayavi.plugins.mayavi_ui_plugin import MayaviUIPlugin
     plugins = [CorePlugin(),
                WorkbenchPlugin(),
+               LoggerPlugin(),
                MayaviPlugin(),
                MayaviUIPlugin(),
                ScenePlugin(),
