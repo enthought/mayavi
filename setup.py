@@ -52,10 +52,10 @@ Prerequisites
 -------------
 You must have the following libraries installed before installing the Mayavi
 project:
-    
+
 * `Numpy <http://pypi.python.org/pypi/numpy/1.1.1>`_ version 1.1.0 or later is
   preferred. Version 1.0.4 will work, but some tests may fail.
-* `VTK <http://www.vtk.org/>`_ version 5.0 or later. 
+* `VTK <http://www.vtk.org/>`_ version 5.0 or later.
 * `wxPython <http://www.wxpython.org/>`_ version 2.8 or later.
 * `setuptools <http://pypi.python.org/pypi/setuptools/0.6c8>`_.
 
@@ -67,22 +67,21 @@ project:
 import setuptools
 
 
-from distutils.command.clean import clean
 from make_docs import HtmlBuild#, DEFAULT_HTML_ZIP, DEFAULT_HTML_TARGET_DIR, \
     #DEFAULT_INPUT_DIR
 from numpy.distutils import log
-from numpy.distutils.command.build import build as distbuild
-from numpy.distutils.command.install_data import install_data
-from numpy.distutils.core import setup
+from numpy.distutils.command import build, install_data
 from pkg_resources import DistributionNotFound, parse_version, require, \
     VersionConflict
-from setuptools.command.develop import develop
-from setuptools.command.install_scripts import install_scripts
+from setuptools.command import develop, install_scripts
 from traceback import print_exc
+import distutils
+import numpy
 import os
 import sys
 import shutil
 import zipfile
+
 
 # FIXME: This works around a setuptools bug which gets setup_data.py metadata
 # from incorrect packages. Ticket #1592
@@ -90,6 +89,7 @@ import zipfile
 setup_data = dict(__name__='', __file__='setup_data.py')
 execfile('setup_data.py', setup_data)
 INFO = setup_data['INFO']
+
 
 # FIXME: Same issue as above, for importing from make_docs.py.
 # Uncomment imports from make_docs when fixed.
@@ -99,15 +99,8 @@ DEFAULT_HTML_ZIP = make_docs_data['DEFAULT_HTML_ZIP']
 DEFAULT_HTML_TARGET_DIR = make_docs_data['DEFAULT_HTML_TARGET_DIR']
 DEFAULT_INPUT_DIR = make_docs_data['DEFAULT_INPUT_DIR']
 
-##############################################################################
-# Pull the description values for the setup keywords from our file docstring.
-##############################################################################
-DOCLINES = __doc__.split("\n")
 
-
-##############################################################################
 # Functions to generate the docs
-##############################################################################
 def list_doc_projects():
     """ List the different source directories under DEFAULT_INPUT_DIR
         for which we have docs.
@@ -216,9 +209,7 @@ def list_docs_data_files(project):
     return return_list
 
 
-##############################################################################
 # Our custom distutils hooks
-##############################################################################
 def build_tvtk_classes_zip():
     tvtk_dir = os.path.join('enthought', 'tvtk')
     sys.path.insert(0, tvtk_dir)
@@ -227,9 +218,45 @@ def build_tvtk_classes_zip():
     sys.path.remove(tvtk_dir)
 
 
-class my_develop(develop):
-    """ A hook to have the docs rebuilt during develop.
+class MyBuild(build.build):
+    """ A build hook to generate the documentation.
+
+        We sub-class numpy.distutils' build command because we're relying on
+        numpy.distutils' setup method to build python extensions.
+
     """
+
+    def run(self):
+        build_tvtk_classes_zip()
+        build.build.run(self)
+        for project in list_doc_projects():
+            generate_docs(project)
+
+
+class MyClean(distutils.command.clean.clean):
+    """ A hook to remove the generated documentation when cleaning.
+
+        We subclass distutils' clean command because neither numpy.distutils
+        nor setuptools has an implementation.
+
+    """
+
+    def run(self):
+        distutils.command.clean.clean.run(self)
+        if os.path.exists(DEFAULT_HTML_TARGET_DIR):
+            log.info("Removing '%s' (and everything under it)" %
+                                            DEFAULT_HTML_TARGET_DIR)
+            shutil.rmtree(DEFAULT_HTML_TARGET_DIR)
+
+
+class MyDevelop(develop.develop):
+    """ A hook to have the docs rebuilt during develop.
+
+        Subclassing setuptools' command because numpy.distutils doesn't
+        have an implementation.
+
+    """
+
     def run(self):
         for project in list_doc_projects():
             generate_docs(project)
@@ -237,58 +264,47 @@ class my_develop(develop):
         # Make sure that the 'build_src' command will
         # always be inplace when we do a 'develop'.
         self.reinitialize_command('build_src', inplace=1)
-        
+
         # tvtk_classes.zip always need to be created on 'develop'.
         build_tvtk_classes_zip()
-        
-        develop.run(self)
+
+        develop.develop.run(self)
 
 
-class my_build(distbuild):
-    """ A build hook to generate the documentation.
-    """
-    def run(self):
-        for project in list_doc_projects():
-            generate_docs(project)
-        build_tvtk_classes_zip()
-        distbuild.run(self)
-
-
-class my_install_data(install_data):
+class MyInstallData(install_data.install_data):
     """ An install hook to copy the generated documentation.
+
+        We subclass numpy.distutils' command because we're relying on
+        numpy.distutils' setup method to build python extensions.
+
     """
+
     def run(self):
         install_data_command = self.get_finalized_command('install_data')
         for project in list_doc_projects():
             install_data_command.data_files.extend(
                                     list_docs_data_files(project))
-        
+
         # make sure tvtk_classes.zip always get created before putting it
         # in the install data.
         build_tvtk_classes_zip()
         tvtk_dir = os.path.join('enthought', 'tvtk')
         install_data_command.data_files.append(
             (tvtk_dir, [os.path.join(tvtk_dir, 'tvtk_classes.zip')]))
-        
-        install_data.run(self)
+
+        install_data.install_data.run(self)
 
 
-class my_clean(clean):
-    """ A hook to remove the generated documentation when cleaning.
-    """
-    def run(self):
-        clean.run(self)
-        if os.path.exists(DEFAULT_HTML_TARGET_DIR):
-            log.info("Removing '%s' (and everything under it)" %
-                                            DEFAULT_HTML_TARGET_DIR)
-            shutil.rmtree(DEFAULT_HTML_TARGET_DIR)
-
-
-class my_install_scripts(install_scripts):
+class MyInstallScripts(install_scripts.install_scripts):
     """ Hook to rename the  mayavi script to a MayaVi.pyw script on win32.
+
+        Subclassing setuptools' command because numpy.distutils doesn't
+        have an implementation.
+
     """
+
     def run(self):
-        install_scripts.run(self)
+        install_scripts.install_scripts.run(self)
         if os.name != 'posix':
             # Rename <script> to <script>.pyw. Executable bits
             # are already set in install_scripts.run().
@@ -305,9 +321,7 @@ class my_install_scripts(install_scripts):
                         os.rename (file, new_file)
 
 
-##############################################################################
 # Configure our extensions to Python
-##############################################################################
 def configuration(parent_package='', top_path=None):
     from numpy.distutils.misc_util import Configuration
     config = Configuration(None, parent_package, top_path)
@@ -345,10 +359,9 @@ packages = setuptools.find_packages(exclude=config['packages'] +
 config['packages'] += packages
 
 
-##############################################################################
 # The actual setup call
-##############################################################################
-setup(
+DOCLINES = __doc__.split("\n")
+numpy.distutils.core.setup(
     author = "Prabhu Ramachandran, et. al.",
     author_email = "prabhu_r@users.sf.net",
     classifiers = [c.strip() for c in """\
@@ -372,11 +385,11 @@ setup(
         # setuptools' sdist command.
         'sdist': setuptools.command.sdist.sdist,
 
-        'install_scripts': my_install_scripts,
-        'install_data': my_install_data,
-        'build': my_build,
-        'develop': my_develop,
-        'clean': my_clean,
+        'build': MyBuild,
+        'clean': MyClean,
+        'develop': MyDevelop,
+        'install_scripts': MyInstallScripts,
+        'install_data': MyInstallData,
         },
     dependency_links = [
         'http://code.enthought.com/enstaller/eggs/source',
