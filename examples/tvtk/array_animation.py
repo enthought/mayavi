@@ -22,12 +22,7 @@ achieving the same effect but the present form nicely illustrates item
 
 from enthought.tvtk.api import tvtk
 import numpy
-import scipy
 import time
-try:
-    import scipy.special
-except ImportError:
-    pass
 
 # First create a structured points data set.
 sp = tvtk.StructuredPoints(origin=(-10., -10., 0.0),
@@ -40,9 +35,10 @@ y = x
 r = numpy.sqrt(x[:,None]**2+y**2)
 # We need the transpose so the data is as per VTK's expected format
 # where X coords vary fastest, Y next and then Z.
-if hasattr(scipy, 'special'):
+try:
+    import scipy.special
     z = numpy.reshape(numpy.transpose(5.0*scipy.special.j0(r)), (-1,) )
-else:
+except ImportError:
     z = numpy.reshape(numpy.transpose(5.0*numpy.sin(r)/r), (-1,) )    
 
 # Now set the scalar data for the StructuredPoints object.  The

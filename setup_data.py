@@ -43,7 +43,6 @@ INFO = {
         # decide whether to require them or not.
         'nonets': [
             'numpy >= 1.1.0',
-            "scipy >= 0.6.0",
             'setuptools',
             #'VTK',  # fixme: VTK is not available as an egg on all platforms.
             #'wxPython',  # Not everyone uses WX.

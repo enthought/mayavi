@@ -10,8 +10,8 @@ TVTK sees a view of this array without doing any data transfers.
 # Copyright (c) 2006, Enthought, Inc.
 # License: BSD Style.
 
-from scipy import stats, arange, zeros, float32, float64, uint8, \
-                  atleast_3d
+from numpy import arange, zeros, float32, float64, uint8, \
+                  atleast_3d, exp, sqrt, pi
                   
 from enthought.tvtk.api import tvtk
 
@@ -106,7 +106,7 @@ ren.add_actor(a)
 rwi.initialize()
 
 # create a little wave to slide across the image.
-wave = stats.norm.pdf(arange(-2,2,.05))*255
+wave = 1/sqrt(2*pi)*exp(-arange(-2, 2, .05)**2/2)*255
 # have to use += here because = doesn't respect broadcasting correctly.
 array_3d[:len(wave)] += wave.astype(uint8)[:,None,None]
 

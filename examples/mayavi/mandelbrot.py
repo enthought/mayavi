@@ -12,8 +12,12 @@ print "Please be patient..."
 import hashlib
 
 from numpy import ogrid, log
-from scipy import weave
-
+try:
+    from scipy import weave
+except ImportError:
+    print "This example requires the scipy package to run"
+    import sys
+    sys.exit(1)
 
 from enthought.mayavi import mlab
 

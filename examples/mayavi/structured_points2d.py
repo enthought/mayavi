@@ -14,16 +14,15 @@ Copyright (c) 2007, Enthought, Inc.
 License: BSD style.
 """
 
-from numpy import arange, sqrt
-from scipy import special
+from numpy import arange, sqrt, sin
 from enthought.tvtk.api import tvtk
 from enthought.mayavi.scripts import mayavi2
 
 # Generate the scalar values.
-x = (arange(50.0)-25)/2.0
-y = (arange(50.0)-25)/2.0
+x = (arange(0.1, 50.0)-25)/2.0
+y = (arange(0.1, 50.0)-25)/2.0
 r = sqrt(x[:,None]**2+y**2)
-z = 5.0*special.j0(r)  # Bessel function of order 0
+z = 5.0*sin(r)/r  # 
 
 # Make the tvtk dataset.
 # tvtk.ImageData is identical and could also be used here.
