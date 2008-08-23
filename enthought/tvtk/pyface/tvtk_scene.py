@@ -705,6 +705,11 @@ class TVTKScene(HasPrivateTraits):
 
         # Create the renderwindow.
         renwin = self._renwin = tvtk.RenderWindow()
+        # If we are doing offscreen rendering we set the window size to
+        # (1,1) so the window does not appear at all
+        if self.off_screen_rendering:
+            renwin.size = (1,1)
+
         renwin.set(point_smoothing=self.point_smoothing,
                    line_smoothing=self.line_smoothing,
                    polygon_smoothing=self.polygon_smoothing)
@@ -732,6 +737,12 @@ class TVTKScene(HasPrivateTraits):
         self._interactor.initialize()
         self._interactor.render()
         self.light_manager = light_manager.LightManager(self)
+        
+        if self.off_screen_rendering:
+            # We want the default size to be the normal (300, 300).
+            # Setting the size now should not resize the window if
+            # offscreen is working properly in VTK.
+            renwin.size = (300, 300)
 
         return self._interactor
 
