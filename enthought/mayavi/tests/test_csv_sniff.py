@@ -14,7 +14,7 @@ from test.test_support import TESTFN, TestFailed
 import nose
 from numpy import array, ndarray
 
-from enthought.mayavi.tools.wizards.csv_sniff import \
+from enthought.mayavi.tools.data_wizards.csv_sniff import \
      Sniff, loadtxt, loadtxt_unknown, array2dict
 
 from enthought.util.resource import find_resource, store_resource

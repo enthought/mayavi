@@ -7,7 +7,7 @@
 import csv
 
 # FIXME: see loadtxt.py (should really be the loadtxt from numpy)
-from enthought.mayavi.tools.wizards.loadtxt import loadtxt
+from enthought.mayavi.tools.data_wizards.loadtxt import loadtxt
 
 
 class Sniff(object):
