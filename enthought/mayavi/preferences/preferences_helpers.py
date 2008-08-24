@@ -77,13 +77,18 @@ class MlabPreferencesHelper(PreferencesHelper):
                              editor=RGBColorEditor,
                              desc='the foreground color of the scene')
 
+    # Offscreen rendering.
+    offscreen = Bool(desc='if mlab should use offscreen rendering'
+                          ' (no window will show up in this case)')
+
     ######################################################################
     # Traits UI view.
 
     traits_view = View(Group(
-                             Item(name='backend'),
-                             Item(name='background_color'),
-                             Item(name='foreground_color'),
+                             Item('backend'),
+                             Item('background_color'),
+                             Item('foreground_color'),
+                             Item('offscreen')
                              ),
                        resizable=True
                       )

@@ -17,6 +17,21 @@ options = PreferencesMirror()
 options.preferences = preference_manager.mlab
 
 
+################################################################################
+# Utility functions.
+def off_screen_viewer():
+    """A factory that creates an offscreen viewer."""
+    from enthought.tvtk.pyface.tvtk_scene import TVTKWindow
+    win = TVTKWindow(off_screen_rendering=True)
+    # Need to set some non-zero size for the off screen window.  If
+    # not we get VTK errors on Linux.
+    win.scene.set_size((400, 400))
+    return win
+
+
+################################################################################
+# `EngineManager` class.
+################################################################################ 
 class EngineManager(HasTraits):
     """ Central registry for figures with mlab.
 
@@ -76,8 +91,13 @@ class EngineManager(HasTraits):
             GUI.process_events()
             engine = m.script.engine
         else:
-            engine = Engine(name='Mlab Engine')
-            engine.start()
+            if options.offscreen:
+                engine = Engine(name='Mlab offscreen Engine',
+                                scene_factory=off_screen_viewer)
+                engine.start()
+            else:
+                engine = Engine(name='Mlab Engine')
+                engine.start()
         self.current_engine = engine
         return engine
 

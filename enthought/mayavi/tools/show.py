@@ -14,6 +14,10 @@ _gui = None
 def is_ui_running():
     """Returns True if the UI event loop is running."""
     tk = ETSConfig.toolkit
+    from engine_manager import options
+    if options.offscreen:
+        return True 
+
     if tk == 'wx':
         import wx
         return wx.App.IsMainLoopRunning()
