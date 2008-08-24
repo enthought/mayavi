@@ -439,6 +439,7 @@ class DataSourceWizardView(DataSourceWizard):
                        Item('position_type'),
                        Group(
                            Item('_position_text', style='readonly',
+                                    resizable=False,
                                     show_label=False),
                            _coordinates_group,
                            visible_when='not position_type_=="image data"',
@@ -467,7 +468,8 @@ class DataSourceWizardView(DataSourceWizard):
     _connectivity_group = \
                    Group(
                        HGroup(
-                         Item('_connectivity_text', style='readonly'),
+                         Item('_connectivity_text', style='readonly',
+                                resizable=False),
                          spring,
                          Item('connectivity_triangles',
                                 editor=EnumEditor(name='_data_sources_names'),
@@ -485,6 +487,7 @@ class DataSourceWizardView(DataSourceWizard):
     _scalar_data_group = \
                    Group(
                        Item('_scalar_data_text', style='readonly', 
+                           resizable=False,
                            show_label=False),
                        HGroup(
                            spring,
@@ -503,10 +506,13 @@ class DataSourceWizardView(DataSourceWizard):
                    Group(
                        HGroup(
                        'has_scalar_data',
-                       Item('_optional_scalar_data_text', style='readonly'),
+                       Item('_optional_scalar_data_text',
+                            resizable=False,
+                            style='readonly'),
                        show_labels=False,
                        ),
                        Item('_scalar_data_text', style='readonly', 
+                            resizable=False,
                             enabled_when='has_scalar_data',
                            show_label=False),
                        HGroup(
@@ -546,7 +552,7 @@ class DataSourceWizardView(DataSourceWizard):
                         HGroup(
                             Item('has_vector_data', show_label=False),
                             Item('_vector_data_text', style='readonly', 
-                                editor=TextEditor(multi_line=True),
+                                resizable=False,
                                 show_label=False),
                         ),
                        HGroup(
@@ -584,7 +590,8 @@ class DataSourceWizardView(DataSourceWizard):
                 Item('_top_label', editor=TitleEditor(),
                         show_label=False),
                 HGroup(
-                    Item('_data_type_text', style='readonly'),
+                    Item('_data_type_text', style='readonly',
+                                resizable=False),
                     spring,
                     'data_type',
                     spring,
@@ -631,7 +638,8 @@ class DataSourceWizardView(DataSourceWizard):
                    ),
                    HGroup(
                        'lines',
-                       Item('_lines_text', style='readonly'), 
+                       Item('_lines_text', style='readonly',
+                                        resizable=False), 
                        label='Lines',
                        show_labels=False,
                        show_border=True,
@@ -685,7 +693,7 @@ class DataSourceWizardView(DataSourceWizard):
             HGroup(
                 Item('_info_image', editor=ImageEditor(),
                     visible_when="_is_not_ok"),
-                Item('_info_text', style='readonly',
+                Item('_info_text', style='readonly', resizable=False,
                     visible_when="_is_not_ok"),
                 spring, 
                 '_cancel_button', 
@@ -694,6 +702,7 @@ class DataSourceWizardView(DataSourceWizard):
             ),
           ),
         title='Import arrays',
+        resizable=True,
         )
 
 
