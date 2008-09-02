@@ -37,12 +37,13 @@ import re
 from enthought.traits.api import HasTraits, Property, Any, Float, Instance, \
                              Trait, List, Str, Dict, Python
 from enthought.traits.ui.api import \
-     TreeEditor, TreeNodeObject, ObjectTreeNode, View, Item, Group, Handler
+     TreeEditor, TreeNodeObject, ObjectTreeNode, View, Item, Group
 from enthought.traits.ui.menu import Menu, Action
 
 from enthought.tvtk.api import tvtk
 from enthought.tvtk import messenger
 from enthought.tvtk.tvtk_base import TVTKBase
+from enthought.tvtk.tvtk_base_handler import TVTKBaseHandler
 from enthought.tvtk.common import camel2enthought
 
 
@@ -584,7 +585,7 @@ class TVTKCollectionNode(TreeNodeObject):
 ######################################################################
 # `CloseHandler` class.
 ######################################################################
-class UICloseHandler(Handler):
+class UICloseHandler(TVTKBaseHandler):
     """This class cleans up after the UI for the object is closed."""
     # The browser associated with this UI.
     browser = Any
