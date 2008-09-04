@@ -70,44 +70,45 @@ def setup_logger(logger, fname, stream=True, mode=logging.ERROR):
     logger.info("logfile is: '%s'", os.path.abspath(path))
     logger.info("*"*80)
 
-
-def get_plugins():
-    """Get list of default plugins to use for Mayavi."""
+def get_non_gui_plugin_classes():
+    """Get list of basic mayavi plugin classes that do not add any views or
+    actions."""
     from enthought.envisage.core_plugin import CorePlugin
     from enthought.envisage.ui.workbench.workbench_plugin import WorkbenchPlugin
-    from enthought.plugins.python_shell.python_shell_plugin import PythonShellPlugin
-    from enthought.plugins.text_editor.text_editor_plugin import TextEditorPlugin
-    from enthought.logger.plugin.logger_plugin import LoggerPlugin
     from enthought.tvtk.plugins.scene.scene_plugin import ScenePlugin
-    from enthought.tvtk.plugins.scene.ui.scene_ui_plugin import SceneUIPlugin
     from enthought.mayavi.plugins.mayavi_plugin import MayaviPlugin
-    from enthought.mayavi.plugins.mayavi_ui_plugin import MayaviUIPlugin
-    plugins = [CorePlugin(),
-               WorkbenchPlugin(),
-               LoggerPlugin(),
-               MayaviPlugin(),
-               MayaviUIPlugin(),
-               ScenePlugin(),
-               SceneUIPlugin(),
-               PythonShellPlugin(),
-               TextEditorPlugin(),
+    plugins = [CorePlugin,
+               WorkbenchPlugin,
+               MayaviPlugin,
+               ScenePlugin,
                ]
     return plugins
 
 def get_non_gui_plugins():
     """Get list of basic mayavi plugins that do not add any views or
     actions."""
-    from enthought.envisage.core_plugin import CorePlugin
-    from enthought.envisage.ui.workbench.workbench_plugin import WorkbenchPlugin
-    from enthought.tvtk.plugins.scene.scene_plugin import ScenePlugin
-    from enthought.mayavi.plugins.mayavi_plugin import MayaviPlugin
-    plugins = [CorePlugin(),
-               WorkbenchPlugin(),
-               MayaviPlugin(),
-               ScenePlugin(),
-               ]
+    return [cls() for cls in get_non_gui_plugin_classes()]
+
+def get_plugin_classes():
+    """Get list of default plugin classes to use for Mayavi."""
+    from enthought.plugins.python_shell.python_shell_plugin import PythonShellPlugin
+    from enthought.plugins.text_editor.text_editor_plugin import TextEditorPlugin
+    from enthought.logger.plugin.logger_plugin import LoggerPlugin
+    from enthought.tvtk.plugins.scene.ui.scene_ui_plugin import SceneUIPlugin
+    from enthought.mayavi.plugins.mayavi_ui_plugin import MayaviUIPlugin
+    plugins = get_non_gui_plugin_classes()
+    plugins.extend([
+                LoggerPlugin,
+                MayaviUIPlugin,
+                SceneUIPlugin,
+                PythonShellPlugin,
+                TextEditorPlugin,
+                ])
     return plugins
 
+def get_plugins():
+    """Get list of default plugins to use for Mayavi."""
+    return [cls() for cls in get_plugin_classes()]
 
 ###########################################################################
 # `Mayavi` class.
