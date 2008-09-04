@@ -91,7 +91,24 @@ def get_non_gui_plugins():
 
 def get_plugin_classes():
     """Get list of default plugin classes to use for Mayavi."""
-    from enthought.plugins.python_shell.python_shell_plugin import PythonShellPlugin
+
+    # Force the selection of a toolkit:
+    from enthought.traits.ui.api import toolkit
+    toolkit()
+    from enthought.etsconfig.api import ETSConfig
+    use_ipython = False
+    if ETSConfig.toolkit == 'wx':
+        try:
+            from IPython.frontend.wx.wx_frontend import WxController
+            use_ipython = True
+        except: pass
+
+    if use_ipython:
+        from enthought.plugins.ipython_shell.ipython_shell_plugin import \
+                IPythonShellPlugin
+        PythonShellPlugin = IPythonShellPlugin
+    else:
+        from enthought.plugins.python_shell.python_shell_plugin import PythonShellPlugin
     from enthought.plugins.text_editor.text_editor_plugin import TextEditorPlugin
     from enthought.logger.plugin.logger_plugin import LoggerPlugin
     from enthought.tvtk.plugins.scene.ui.scene_ui_plugin import SceneUIPlugin
