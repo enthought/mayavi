@@ -44,7 +44,7 @@ def figure(name=None, bgcolor=None, fgcolor=None, engine=None,
         for scene in engine.scenes:
             if scene.name == name:
                 engine.current_scene = scene
-                break
+                return scene
         else:
             engine.new_scene(name=name, size=size)
             engine.current_scene.name = name
