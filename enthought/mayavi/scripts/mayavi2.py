@@ -116,6 +116,21 @@ following:
                   this can be dangerous if the script does something
                   nasty!
 
+-s python-expression
+--set python-expression
+
+     Execute the expression on the last created object.  For example,
+     lets say the previous object was a module.  If you want to set the
+     color of that object you may do::
+
+      $ mayavi2 [...] -m Outline -s"actor.property.color = (1,0,0)" \
+        -s "scene.save('test.png', size=(800, 800))"
+
+     You should use quotes for the expression.
+
+     **WARNING**: Note that this uses `exec`, so please note that
+                  this can be dangerous!
+
 -z saved-visualization-file
 --viz saved-visualization-file
 --visualization saved-visualization-file
@@ -169,12 +184,13 @@ def parse_cmd_line(arguments):
     if type(arguments) in types.StringTypes:
         arguments = arguments.split()
         
-    options = "d:m:f:z:x:nMvo"
+    options = "d:m:f:z:x:s:nMvo"
     
     long_opts = ['data=',
                  'module=', 'filter=',
                  'visualization=', 'viz=', 
                  'exec=',
+                 'set=',
                  'verbose',
                  'module-mgr', 'new-scene', 'offscreen']
 
@@ -205,8 +221,7 @@ def process_cmd_line(app, opts, args):
     from enthought.tvtk.common import camel2enthought
 
     script = app.script
-    in_plot3d = False
-    xyz_file = ""
+    last_obj = None
 
     # Start a new scene by default if there is none currently and none
     # was specified at the start of the command line arguments.
@@ -220,7 +235,7 @@ def process_cmd_line(app, opts, args):
                                  '-x', '--exec')):
             new_scene = True
         if new_scene:            
-            script.new_scene()
+            last_obj = script.new_scene()
         
     for o, a in opts:
         if o in ('-d', '--data'):
@@ -228,7 +243,7 @@ def process_cmd_line(app, opts, args):
             if not exists(a):
                 error("File %s does not exist!"%a)
                 return
-            script.open(a)
+            last_obj = script.open(a)
 
         if o in ('-m', '--module'):
             if '.' in a:
@@ -248,6 +263,7 @@ def process_cmd_line(app, opts, args):
                 if classname == 'Labels':
                     m.object = script.engine.current_object
                 script.add_module(m)
+                last_obj = m
 
         if o in ('-f', '--filter'):
             if '.' in a:
@@ -286,23 +302,33 @@ def process_cmd_line(app, opts, args):
                         f = klass()
                     f.setup_filter()
                 script.add_filter(f)
+                last_obj = f
 
         if o in ('-M', '--module-mgr'):
             from enthought.mayavi.core.module_manager \
                  import ModuleManager
             mm = ModuleManager()            
             script.add_filter(mm)
+            last_obj = mm
 
         if o in ('-n', '--new-scene'):
             script.new_scene()
             e = script.engine
             s = e.scenes[-1]
             e.set(current_scene=s, current_object=s)
+            last_obj = s
 
         if o in ('-x', '--exec' ):
             err = run_script(script, a)
             if err: # stop processing options.
                 return
+
+        if o in ('-s', '--set'):
+            try:
+                stmt = 'last_obj.' + a
+                exec stmt
+            except Exception, msg:
+                exception(str(msg))
 
         if o in ('-z', '--visualization', '--viz'):
             script.load_visualization(a)
