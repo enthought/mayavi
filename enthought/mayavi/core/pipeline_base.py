@@ -102,6 +102,27 @@ class PipelineBase(Base):
         # Call parent method to set the running state.
         super(PipelineBase, self).stop()
 
+    def render(self):
+        """Invokes render on the scene, this in turn invokes Render on
+        the VTK pipeline.
+        """
+        s = self.scene
+        if s is not None:
+            s.render()
+        elif self.running:
+            # If there is no scene and we are running, we flush the
+            # pipeline manually by calling update.
+            for actor in self.actors:
+                if hasattr(actor, 'mapper'):
+                    m = actor.mapper
+                    if m is not None:
+                        m.update()
+            for widget in self.widgets:
+                if hasattr(widget, 'input'):
+                    input = widget.input
+                    if input is not None:
+                        input.update()
+
     ######################################################################
     # `PipelineBase` interface.
     ######################################################################
@@ -113,10 +134,12 @@ class PipelineBase(Base):
         This is typically called when start is invoked.  You should
         avoid calling this unless you know what you are doing.
         """
-        self.scene.add_actors(self.actors)
-        self.scene.add_widgets(self.widgets)
-        self._set_widget_visibility(self.widgets)
-        self._actors_added = True
+        scene = self.scene
+        if scene is not None:
+            scene.add_actors(self.actors)
+            scene.add_widgets(self.widgets)
+            self._set_widget_visibility(self.widgets)
+            self._actors_added = True
 
     def remove_actors(self):
         """Removes `self.actors` from the scene.
@@ -125,9 +148,10 @@ class PipelineBase(Base):
         avoid calling this unless you know what you are doing.
         """
         scene = self.scene
-        scene.remove_actors(self.actors)
-        scene.remove_widgets(self.widgets)
-        self._actors_added = False
+        if scene is not None:
+            scene.remove_actors(self.actors)
+            scene.remove_widgets(self.widgets)
+            self._actors_added = False
 
     ######################################################################
     # Non-public interface
