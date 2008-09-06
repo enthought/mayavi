@@ -368,7 +368,8 @@ class TVTKScene(HasPrivateTraits):
                     '.png': 'png', '.jpg': 'jpg', '.jpeg': 'jpg',
                     '.iv': 'iv', '.wrl': 'vrml', '.vrml':'vrml',
                     '.oogl': 'oogl', '.rib': 'rib', '.obj': 'wavefront',
-                    '.eps': 'gl2ps', '.pdf':'gl2ps', '.tex': 'gl2ps'}
+                    '.eps': 'gl2ps', '.pdf':'gl2ps', '.tex': 'gl2ps',
+                    '.x3d': 'x3d', '.pov': 'povray'}
         if ext.lower() not in meth_map.keys():
             raise ValueError, \
                   'Unable to find suitable image type for given file extension.'
@@ -641,6 +642,52 @@ class TVTKScene(HasPrivateTraits):
                 self._exporter_write(ex)
             else:
                 ex.write()
+
+    def save_x3d(self, file_name):
+        """Save scene to an X3D file (http://www.web3d.org/x3d/).
+
+        Keyword Arguments:
+
+        file_name -- File name to save to.
+        """
+        # Make sure the exporter is available.
+        if not hasattr(tvtk, 'X3DExporter'):
+            msg = "Saving as a X3D file does not appear to be  "\
+                  "supported by your version of VTK."
+            print msg
+            return
+
+        if len(file_name) != 0:
+            ex = tvtk.X3DExporter()
+            ex.input = self._renwin
+            ex.file_name = file_name
+            ex.update()
+            ex.write()
+
+    def save_povray(self, file_name):
+        """Save scene to a POVRAY (Persistance of Vision Raytracer),
+        file (http://www.povray.org).
+
+        Keyword Arguments:
+
+        file_name -- File name to save to.
+        """
+        # Make sure the exporter is available.
+        if not hasattr(tvtk, 'POVExporter'):
+            msg = "Saving as a POVRAY file does not appear to be  "\
+                  "supported by your version of VTK."
+            print msg
+            return
+
+        if len(file_name) != 0:
+            ex = tvtk.POVExporter()
+            ex.input = self._renwin
+            if hasattr(ex, 'file_name'):
+                ex.file_name = file_name
+            else:
+                ex.file_prefix = os.path.splitext(file_name)[0]
+            ex.update()
+            ex.write()
 
     def get_size(self):
         """Return size of the render window."""

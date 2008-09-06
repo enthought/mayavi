@@ -198,7 +198,7 @@ class Actor(Component):
     def _texture_changed(self,value):
         # Setup the actor's texture.
         actor = self.actor
-        if actor is not None:
+        if actor is not None and value.input is not None:
             actor.texture = value
             self.texture.on_trait_change(self.render)
 
