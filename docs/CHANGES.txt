@@ -15,6 +15,7 @@ URL:
     - TEST: Modified pipeline_base.py so mayavi objects may be started
       without creating a scene (and therefore a UI).  This allows us to
       create completely non-interactive tests.  [21709]
+    - ENH: Adding X3D and POVRAY export options. [21711]
 
 23 August, 2008 (PR):
     - ENH: Adding an offscreen option for mlab.  Now you can set
