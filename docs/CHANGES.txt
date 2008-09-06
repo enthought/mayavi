@@ -6,6 +6,35 @@ URL:
     https://svn.enthought.com/enthought/changeset/18702
 -----------------------------------------------------------------------------
 
+
+6 September, 2008 (PR):
+    - ENH/API: Cleaned up the enthought.mayavi.core.traits to remove
+      buggy, and unused DRange and SimpleDRange traits. [21705]
+    - BUG/TEST: Added tests for some of the MlabSource subclasses and
+      fixed many bugs in the code. [21708]
+    - TEST: Modified pipeline_base.py so mayavi objects may be started
+      without creating a scene (and therefore a UI).  This allows us to
+      create completely non-interactive tests.  [21709]
+
+23 August, 2008 (PR):
+    - ENH: Adding an offscreen option for mlab.  Now you can set
+      mlab.options.offscreen = True. [21510]
+    - ENH: Setting the window size to (1,1) if the window is offscreen,
+      this prevents the window from showing up prominently -- it still
+      does show up though. [21519]
+
+21-16 August, 2008 (PR):
+    - ENH: Adding the logger plugin to the mayavi2 app. [21487]
+    - BUG: fixed various miscellaneous bugs including a testing
+      error[21304], a long standing Mac bug with picking [21310], a
+      segfault [21453] and a bug in tvtk when wrapping certain methods
+      [21475].
+
+15 August, 2008 (PR):
+    - NEW: Adding a fully tested data set manager that lets users
+      add/remove/modify attribute arrays to a tvtk dataset. This is
+      fully tested and also does not influence any other code. [21300]
+
 10 August, 2008 (PR):
     - ENH/API: [mlab] Added a `MlabSource` class to abstract out the
       data creation and modification into one object that may be
@@ -15,7 +44,7 @@ URL:
       use this to modify the data visualized without recreating the
       pipeline each time, making animations very easy and smooth.  There
       are several examples of the form `test_blah_anim` showing how this
-      is done.
+      is done.  [21098], [21103].
 
 27 July, 2008 (GV):
     - ENH: Add an option (on by default) to open the docs in a chromeless
