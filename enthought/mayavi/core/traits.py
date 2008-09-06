@@ -21,7 +21,7 @@
 #-------------------------------------------------------------------------------
 
 from enthought.traits.api import (Property, TraitFactory, TraitError,
-        TraitType)
+        TraitType, Int)
 from enthought.traits.ui.api import EnumEditor
 from enthought.traits.traits import trait_cast
 
@@ -224,10 +224,36 @@ class ShadowProperty(TraitType):
         if self.smart_notify:
             if old is value:
                 fire = False
-        if fire:
+        if fire and self._check_notification(object):
             object.trait_property_changed(name, old, value)
 
     def _get_shadow(self, name):
         """Get the shadow attribute name to use."""
         return '_' + name
+
+    def _check_notification(self, object):
+        """Checks to see if notifications are allowed or not i.e. has
+        the trait been set via:
+         object.set(name=value, trait_change_notify=False)
+        """
+        if hasattr(object, '_get_trait_change_notify'):
+            return object._get_trait_change_notify()
+        else:
+            # Traits won't tell us so we find out by adding a dynamic
+            # trait, changing it and then seeing if the callback was
+            # called, sigh!
+            attr = '_testing_Notification_handlers_tmp_dont_touch'
+
+            def callback(value):
+                callback.value = value
+            callback.value = -1
+            object.add_trait(attr, Int)
+            object.on_trait_change(callback, attr)
+            setattr(object, attr, 1)
+            status = False
+            if callback.value == 1:
+                status = True
+            object.on_trait_change(callback, attr, remove=True)
+            object.remove_trait(attr)
+            return status
 

@@ -83,6 +83,21 @@ class TestShadowProperty(unittest.TestCase):
         d = DataNotSmart(x=x)
         self.assertRaises(TraitError, d.__setattr__, 'x', 'hey')
 
+    def test_set_trait_change_notify(self):
+        "If trait_change_notify is honored."
+        s = Simple()
+        trait_names = s.trait_names()
+        s.x = 10.0
+        self.assertEqual(s._test, 1)
+        self.assertEqual(s.x, 10.0)
+        s.set(x=20.0, trait_change_notify=False)
+        self.assertEqual(s._test, 1)
+        self.assertEqual(s.x, 20.0)
+        # Assert that no new traits were added and no new notifiers were
+        # added.
+        self.assertEqual(s.trait_names(), trait_names)
+        self.assertEqual(s._notifiers(False), None)
+
 if __name__ == '__main__':
     unittest.main()
 
