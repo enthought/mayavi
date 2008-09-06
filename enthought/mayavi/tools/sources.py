@@ -16,6 +16,7 @@ from enthought.tvtk.common import camel2enthought
 
 from enthought.mayavi.sources.array_source import ArraySource
 from enthought.mayavi.core.registry import registry
+from enthought.mayavi.core.traits import ShadowProperty
 
 import tools
 from engine_manager import engine_manager
@@ -48,7 +49,7 @@ class MlabSource(HasTraits):
     _disable_update = Bool(False)
 
     ######################################################################
-    # `MGlyphSource` interface.
+    # `MlabSource` interface.
     ######################################################################
     def reset(self, **traits):
         """Function to create the data from input arrays etc.  
@@ -67,7 +68,9 @@ class MlabSource(HasTraits):
         """
         if not self._disable_update:
             self.dataset.modified()
-            self.m_data.data_changed = True
+            md = self.m_data
+            if md is not None:
+                md.data_changed = True
 
     def set(self, trait_change_notify=True, **traits):
         """Shortcut for setting object trait attributes.
@@ -109,7 +112,7 @@ class MlabSource(HasTraits):
         ds.mlab_source = self
 
 
-ArrayOrNone = Either(None, Array)
+ArrayOrNone = ShadowProperty(Either(None, Array), smart_notify=False)
 
 ################################################################################
 # `MGlyphSource` class.
@@ -136,7 +139,7 @@ class MGlyphSource(MlabSource):
     vectors = ArrayOrNone
 
     ######################################################################
-    # `MGlyphSource` interface.
+    # `MlabSource` interface.
     ######################################################################
     def reset(self, **traits):
         """Creates the dataset afresh or resets existing data source."""
@@ -149,18 +152,16 @@ class MGlyphSource(MlabSource):
         scalars = self.scalars
         points = self.points
         x, y, z = self.x, self.y, self.z
-        if points is None or len(points) == 0:
-            points = numpy.c_[x.ravel(), y.ravel(), z.ravel()].ravel()
-            points.shape = (points.size/3, 3)
-            self.set(points=points, trait_change_notify=False)
+        points = numpy.c_[x.ravel(), y.ravel(), z.ravel()].ravel()
+        points.shape = (points.size/3, 3)
+        self.set(points=points, trait_change_notify=False)
     
         u, v, w = self.u, self.v, self.w
-        if vectors is None or len(vectors) == 0:
-            if u is not None and len(u) > 0:
-                vectors = numpy.c_[u.ravel(), v.ravel(),
-                                   w.ravel()].ravel()
-                vectors.shape = (vectors.size/3, 3)
-                self.set(vectors=vectors, trait_change_notify=False)
+        if u is not None and len(u) > 0:
+            vectors = numpy.c_[u.ravel(), v.ravel(),
+                               w.ravel()].ravel()
+            vectors.shape = (vectors.size/3, 3)
+            self.set(vectors=vectors, trait_change_notify=False)
 
         if vectors is not None and len(vectors) > 0:
             assert len(points) == len(vectors)
@@ -253,7 +254,7 @@ class MArraySource(MlabSource):
     vectors = ArrayOrNone
 
     ######################################################################
-    # `MGlyphSource` interface.
+    # `MlabSource` interface.
     ######################################################################
     def reset(self, **traits):
         """Creates the dataset afresh or resets existing data source."""
@@ -267,16 +268,15 @@ class MArraySource(MlabSource):
         x, y, z = self.x, self.y, self.z
     
         u, v, w = self.u, self.v, self.w
-        if vectors is None or len(vectors) == 0:
-            if u is not None and len(u) > 0:
-                #vectors = numpy.concatenate([u[..., numpy.newaxis],
-                #                             v[..., numpy.newaxis],
-                #                             w[..., numpy.newaxis] ],
-                #                axis=3)
-                vectors = numpy.c_[u.ravel(), v.ravel(),
-                                   w.ravel()].ravel()
-                vectors.shape = (u.shape[0] , u.shape[1], w.shape[2], 3)
-                self.set(vectors=vectors, trait_change_notify=False)
+        if u is not None and len(u) > 0:
+            #vectors = numpy.concatenate([u[..., numpy.newaxis],
+            #                             v[..., numpy.newaxis],
+            #                             w[..., numpy.newaxis] ],
+            #                axis=3)
+            vectors = numpy.c_[u.ravel(), v.ravel(),
+                               w.ravel()].ravel()
+            vectors.shape = (u.shape[0] , u.shape[1], w.shape[2], 3)
+            self.set(vectors=vectors, trait_change_notify=False)
 
         if vectors is not None and len(vectors) > 0:
             assert len(x) == len(vectors)
@@ -291,11 +291,15 @@ class MArraySource(MlabSource):
             ds = ArraySource(transpose_input_array=True)
         else:
             ds = self.m_data
+        old_scalar = ds.scalar_data
         ds.set(vector_data=vectors,
                origin=[x.min(), y.min(), z.min()],
                spacing=[dx, dy, dz],
                scalar_data=scalars)
-        
+        if scalars is old_scalar:
+            ds._scalar_data_changed(scalars)
+        ds.image_data.set(origin=ds.origin, spacing=ds.spacing)
+
         self.dataset = ds.image_data
         self.m_data = ds 
 
@@ -310,7 +314,9 @@ class MArraySource(MlabSource):
         dz = z[0, 0, 1] - z[0, 0, 0]
         ds = self.dataset
         ds.origin = [x.min(), y.min(), z.min()]
-        ds.spacing = [dx, dy, dz] 
+        ds.spacing = [dx, dy, dz]
+        if self.m_data is not None:
+            self.m_data.set(origin=ds.origin, spacing=ds.spacing)
         self.update()
 
     def _u_changed(self, u):
@@ -326,7 +332,10 @@ class MArraySource(MlabSource):
         self.m_data._vector_data_changed(self.vectors)
 
     def _scalars_changed(self, s):
+        old = self.m_data.scalar_data
         self.m_data.scalar_data = s
+        if old is s:
+            self.m_data._scalar_data_changed(s)
 
     def _vectors_changed(self, v):
         self.m_data.vector_data = v
@@ -351,7 +360,7 @@ class MLineSource(MlabSource):
     scalars = ArrayOrNone
 
     ######################################################################
-    # `MGlyphSource` interface.
+    # `MlabSource` interface.
     ######################################################################
     def reset(self, **traits):
         """Creates the dataset afresh or resets existing data source."""
@@ -364,10 +373,9 @@ class MLineSource(MlabSource):
         scalars = self.scalars
         x, y, z = self.x, self.y, self.z
     
-        if points is None or len(points) == 0:
-            points = numpy.c_[x.ravel(), y.ravel(), z.ravel()].ravel()
-            points.shape = (len(x), 3)
-            self.set(points=points, trait_change_notify=False)
+        points = numpy.c_[x.ravel(), y.ravel(), z.ravel()].ravel()
+        points.shape = (len(x), 3)
+        self.set(points=points, trait_change_notify=False)
 
         # Create the dataset.
         np = len(points) - 1
@@ -431,7 +439,7 @@ class MArray2DSource(MlabSource):
     mask = ArrayOrNone
 
     ######################################################################
-    # `MGlyphSource` interface.
+    # `MlabSource` interface.
     ######################################################################
     def reset(self, **traits):
         """Creates the dataset afresh or resets existing data source."""
@@ -449,11 +457,10 @@ class MArray2DSource(MlabSource):
             scalars = scalars.astype('float')
             self.set(scalars=scalars, trait_change_notify=False)
 
-        if x is None or len(x) == 0:
-            nx, ny = scalars.shape
-            x, y = numpy.mgrid[-nx/2.:nx/2, -ny/2.:ny/2]
-            z = numpy.array([0])
-            self.set(x=x, y=y, z=z, trait_change_notify=False)
+        nx, ny = scalars.shape
+        x, y = numpy.mgrid[-nx/2.:nx/2, -ny/2.:ny/2]
+        z = numpy.array([0])
+        self.set(x=x, y=y, z=z, trait_change_notify=False)
 
         # Do some magic to extract the first row/column, independently of
         # the shape of x and y
@@ -467,9 +474,13 @@ class MArray2DSource(MlabSource):
             ds = ArraySource(transpose_input_array=True)
         else:
             ds = self.m_data
+        old_scalar = ds.scalar_data
         ds.set(origin=[x.min(), y.min(), 0],
                spacing=[dx, dy, 1],
                scalar_data=scalars)
+        if old_scalar is scalars:
+            ds._scalar_data_changed(scalars)
+        ds.image_data.set(origin=ds.origin, spacing=ds.spacing)
         
         self.dataset = ds.image_data
         self.m_data = ds 
@@ -485,6 +496,8 @@ class MArray2DSource(MlabSource):
         ds = self.dataset
         ds.origin = [x.min(), y.min(), 0]
         ds.spacing = [dx, dy, 1] 
+        if self.m_data is not None:
+            self.m_data.set(origin=ds.origin, spacing=ds.spacing)
         self.update()
 
     def _scalars_changed(self, s):
@@ -494,7 +507,10 @@ class MArray2DSource(MlabSource):
             # The NaN tric only works with floats.
             scalars = scalars.astype('float')
             self.set(scalars=scalars, trait_change_notify=False)
+        old = self.m_data.scalar_data
         self.m_data.scalar_data = s
+        if s is old:
+            self.m_data._scalar_data_changed(s)
 
 
 ################################################################################
@@ -516,7 +532,7 @@ class MGridSource(MlabSource):
     scalars = ArrayOrNone
 
     ######################################################################
-    # `MGlyphSource` interface.
+    # `MlabSource` interface.
     ######################################################################
     def reset(self, **traits):
         """Creates the dataset afresh or resets existing data source."""
@@ -536,10 +552,9 @@ class MGridSource(MlabSource):
         assert y.shape == z.shape, "Arrays y and z must have same shape."
     
         nx, ny = x.shape
-        if points is None or len(points) == 0:
-            points = numpy.c_[x.ravel(), y.ravel(), z.ravel()].ravel()
-            points.shape = (nx*ny, 3)
-            self.set(points=points, trait_change_notify=False)
+        points = numpy.c_[x.ravel(), y.ravel(), z.ravel()].ravel()
+        points.shape = (nx*ny, 3)
+        self.set(points=points, trait_change_notify=False)
 
         i, j = numpy.mgrid[0:nx-1,0:ny-1]
         i, j = numpy.ravel(i), numpy.ravel(j)
