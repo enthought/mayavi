@@ -20,8 +20,10 @@
 #  Imports:
 #-------------------------------------------------------------------------------
 
-from enthought.traits.api import (Property, TraitFactory, TraitError)
+from enthought.traits.api import (Property, TraitFactory, TraitError,
+        TraitType)
 from enthought.traits.ui.api import EnumEditor
+from enthought.traits.traits import trait_cast
 
 
 #-------------------------------------------------------------------------------
@@ -159,4 +161,73 @@ DEnum = Property(DEnumHelper.get_value, DEnumHelper.set_value,
                  )
 
 DEnum = TraitFactory(DEnum)
+
+
+##########################################################################
+# `ShadowProperty` trait type.
+##########################################################################
+class ShadowProperty(TraitType):
+
+    # Not really necessary but specifies the attribute up front.
+    trait_type = None
+
+    # Call the notifiers smartly only when the value has really changed.
+    # If this is set to False, the notification will always occur.
+    smart_notify = True
+
+    def __init__(self, trait_type, smart_notify=True, **metadata):
+        """Defines a shadow property trait that is best explained by
+        example::
+
+            class Thing(HasTraits):
+                x = ShadowProperty(Float, smart_notify=False)
+                def _x_changed(self, value):
+                    print value
+
+        In this example, the actual value of the property (`x`) will be
+        stored in `_x` and `_x_changed` will be called regardless
+        whether the value actually changed or not.  If `smart_notify` is
+        set to `True` then the handler is called only if the value has
+        actually changed.
+    
+        Note that the validation uses the validation of the specified
+        `trait_type` parameter.
+        """
+        self.trait_type = trait_cast(trait_type)
+        self.smart_notify = smart_notify
+        super(ShadowProperty, self).__init__(**metadata)
+
+    def validate(self, object, name, value):
+        """Validates that a specified value is valid for this trait.
+        """
+        trt = self.trait_type
+        if trt is not None and hasattr(trt, 'validate'):
+            value = trt.validate(object, name, value)
+        return value
+
+    def get(self, object, name):
+        """Get the value of the trait."""
+        shadow = self._get_shadow(name)
+        d = object.__dict__
+        if shadow in d:
+            return d[shadow]
+        else:
+            return None
+
+    def set(self, object, name, value):
+        """Set the value of the trait."""
+        old = self.get(object, name)
+        shadow = self._get_shadow(name)
+        object.__dict__[shadow] = value
+        # Fire a trait property changed.
+        fire = True
+        if self.smart_notify:
+            if old is value:
+                fire = False
+        if fire:
+            object.trait_property_changed(name, old, value)
+
+    def _get_shadow(self, name):
+        """Get the shadow attribute name to use."""
+        return '_' + name
 
