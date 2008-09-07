@@ -53,10 +53,13 @@ filename\&.mv2\&.
 .B -d
 datafile\&.*
 
-Opens any of the supported data file formats\&.  This includes VTK file
-formats (*\&.vtk, *\&.xml, *\&.vt[i,p,r,s,u], *\&.pvt[i,p,r,s,u]), VRML2
-(*\&.wrl), 3D Studio (*\&.3ds), PLOT3D (*\&.xyz) and various others that
-are supported\&. Also available through \fB\-\-data\fP\&.
+Opens any of the supported data file formats or a non-file related data
+source\&.  This includes VTK file formats (*\&.vtk, *\&.xml,
+*\&.vt[i,p,r,s,u], *\&.pvt[i,p,r,s,u]), VRML2 (*\&.wrl), 3D Studio
+(*\&.3ds), PLOT3D (*\&.xyz) and various others that are supported\&.
+datafile\&.* can also be a source object not associated with a file, for
+example ParametricSurface or PointLoad will load the corresponding data 
+sources into Mayavi\&.  Also available through \fB\-\-data\fP\&.
 
 .PP
 .B -m
@@ -131,6 +134,25 @@ embedded Python interpreter\&.  Also available through \fB\-\-exec\fP
 Note that this uses `execfile`, so please note that
 this can be dangerous if the script does something nasty!
 
+.PP
+.B -s 
+python-expression
+
+Execute the expression on the last created object\&.  For example, if
+the previous object was a module, and we want to set the color of that
+object one can do -s "actor\&.property\&.color = (1,0,0)".  One should
+use quotes for the expression. Also available with \fB\-\-set\fP\&.  For
+example: 
+
+.PP
+.RS
+ \f(CWmayavi2 \-d ParametricSurface \-m Outline \\ \fP
+ \f(CW \-s "actor\&.property.color = (1,0,0)" \\ \fP
+ \f(CW \-s "scene.save('test\&.png', size=(800, 800))"\fP
+.RE
+
+.B WARNING:
+Note that this uses `exec`, so please note that this can be dangerous!
 
 .SH "MAYAVI2 MODULES"
 

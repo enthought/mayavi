@@ -7,6 +7,14 @@ URL:
 -----------------------------------------------------------------------------
 
 
+7 September, 2008 (PR):
+    - ENH: The mayavi2 application now ([21713], [21714]) supports
+      command line args like the following::
+     
+        mayavi2 -d ParametricSurface -s "function='dini'" -m Surface \
+        -s "module_manager.scalar_lut_manager.show_scalar_bar = True" \
+        -s "scene.isometric_view()" -s "scene.save('snapshot.png')"
+
 6 September, 2008 (PR):
     - ENH/API: Cleaned up the enthought.mayavi.core.traits to remove
       buggy, and unused DRange and SimpleDRange traits. [21705]

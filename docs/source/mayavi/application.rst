@@ -534,23 +534,28 @@ The options are:
 
 -h
       This prints all the available command line options and exits.
-      Also available through --help.
+      Also available through ``--help``.
 
 -V
       This prints the Mayavi version on the command line and exits.
-      Also available through --version.
+      Also available through ``--version``.
 
 -z file_name
       This loads a previously saved Mayavi2 visualization.  Also
-      available through --viz file_name or --visualization
-      file_name.
+      available through ``--viz file_name`` or ``--visualization
+      file_name``.
 
 -d data_file
+      Opens any of the supported data file formats or non-file
+      associated data source objects.  This includes VTK file formats
+      (*.vtk, *.xml, *.vt[i,p,r,s,u], *.pvt[i,p,r,s,u]), VRML2 (*.wrl),
+      3D Studio (*.3ds), PLOT3D (*.xyz) and various others that are
+      supported.
 
-    Opens any of the supported data file formats.  This includes VTK
-    file formats (*.vtk, *.xml, *.vt[i,p,r,s,u], *.pvt[i,p,r,s,u]),
-    VRML2 (*.wrl), 3D Studio (*.3ds), PLOT3D (*.xyz) and various others
-    that are supported. Also available through --data.
+      ``data_file`` can also be a source object not associated with a file,
+      for example ``ParametricSurface`` or ``PointLoad`` will load the
+      corresponding data sources into Mayavi.  Also available through
+      ``--data``.
 
 -m module-name
       A module is an object that actually visualizes the data.  The
@@ -568,7 +573,7 @@ The options are:
 
       In this example ``Outline`` is a standard module and
       ``user_modules.AModule`` is some user defined module.
-      Also available through --module.
+      Also available through ``--module``.
 
 -f filter-name
       A filter is an object that filters out the data in some way or
@@ -586,35 +591,46 @@ The options are:
 
       In this example ``ExtractVectorNorm`` is a standard filter and
       ``user_filters.AFilter`` is some user defined filter.
-      Also available through --filter.
+      Also available through ``--filter``.
 
 -M
       Starts up a new module manager on the Mayavi pipeline. Also
-      available through --module-mgr.
+      available through ``--module-mgr``.
 
 -n
       Creates a new window/scene. Any options passed after this will
-       apply to this newly created scene.  Also available through
-       --new-window.
+      apply to this newly created scene.  Also available through
+      ``--new-window``.
 
 -o
---offscreen
-
       Run Mayavi in offscreen mode without any graphical user interface.
       This is most useful for scripts that need to render images
       offscreen (for an animation say) in the background without an
       intrusive user interface popping up.  Mayavi scripts (run via the
-      -x argument) should typically work fine in this mode. 
+      ``-x`` argument) should typically work fine in this mode.  Also
+      available through, ``--offscreen``.
 
 -x script-file
       This executes the given script in a namespace where we guarantee
       that the name 'mayavi' is Mayavi's script instance -- just like
       in the embedded Python interpreter.  Also available through
-      --exec.
+      ``--exec``.
+
+-s python-expression
+      Execute the python-expression on the last created object.  For
+      example, lets say the previous object was a module.  If you want
+      to set the color of that object and save the scene, you may do::
+
+       $ mayavi2 [...] -m Outline -s"actor.property.color = (1,0,0)" \
+        -s "scene.save('test.png', size=(800, 800))"
+
+      You should use quotes for the expression.  This is also available
+      through ``--set``.
 
 .. warning::
  Note that ``-x`` or ``--exec`` uses `execfile`, so this can be
- dangerous if the script does something nasty!
+ dangerous if the script does something nasty!  Similarly, ``-s`` or
+ ``--set`` uses `exec`, which can also be dangerous if abused.
 
 It is important to note that mayavi's **command line arguments are
 processed sequentially** in the same order they are given.  This
@@ -622,11 +638,15 @@ allows users to do interesting things.
 
 Here are a few examples of the command line arguments::
 
+  $ mayavi2 -d ParametricSurface -s "function='dini'" -m Surface \
+    -s "module_manager.scalar_lut_manager.show_scalar_bar = True" \
+    -s "scene.isometric_view()" -s "scene.save('snapshot.png')"
+
   $ mayavi2 -d heart.vtk -m Axes -m Outline -m GridPlane \
-  > -m ContourGridPlane -m IsoSurface
+    -m ContourGridPlane -m IsoSurface
 
   $ mayavi2 -d fire_ug.vtu -m Axes -m Outline -m VectorCutPlane \
-  > -f MaskPoints -m Glyph
+    -f MaskPoints -m Glyph
 
 In the above examples, ``heart.vtk`` and ``fire_ug.vtu`` VTK files can
 be found in the ``examples/data`` directory in the source.  They may
