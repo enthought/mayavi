@@ -1,11 +1,11 @@
 #!/usr/bin/env python
-"""The MayaVi application standalone script.
+"""The Mayavi application standalone script.
 
-This script parses the command line arguments and launches MayaVi2
-suitably.  It is meant to be used by those using MayaVi2 as a
+This script parses the command line arguments and launches Mayavi2
+suitably.  It is meant to be used by those using Mayavi2 as a
 standalone application.
 
-MayaVi2 wiki page: http://svn.enthought.com/enthought/wiki/MayaVi
+Mayavi2 wiki page: http://svn.enthought.com/enthought/wiki/MayaVi
 
 Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
 
@@ -39,7 +39,7 @@ def usage ():
     msg="""Usage:\n\nmayavi2 [options] ... [arg1] [arg2] ...
 
 Where arg1, arg2 ... are optional file names that correspond to saved
-MayaVi2 visualizations (file.mv2) or MayaVi2 scripts (file.py) or any
+Mayavi2 visualizations (file.mv2) or Mayavi2 scripts (file.py) or any
 data files supported by Mayavi.  Valid options are one or more of the
 following:
 
@@ -49,7 +49,10 @@ following:
      datafile.ext can be any of the supported data file formats.  This
      includes VTK file formats (*.vtk, *.xml, *.vt[i,p,r,s,u],
      *.pvt[i,p,r,s,u]), VRML2 (*.wrl), 3D Studio (*.3ds), PLOT3D (*.xyz)
-     and various others that are supported.
+     and various others that are supported.  datafile.ext can also be a
+     source object not associated with a file, for example
+     ParametricSource or PointLoad will load the corresponding data
+     sources into Mayavi.
 
 --filter filter-name
 -f filter-name
@@ -90,7 +93,7 @@ following:
 -M
 --module-mgr
 
-     Starts up a new module manager on the MayaVi pipeline.
+     Starts up a new module manager on the Mayavi pipeline.
 
 -n
 --new-scene
@@ -109,7 +112,7 @@ following:
 --exec script-file
 
      This executes the given script in a namespace where we guarantee
-     that the name 'mayavi' is MayaVi's script instance -- just like
+     that the name 'mayavi' is Mayavi's script instance -- just like
      in the embedded Python interpreter.
 
      **WARNING**: Note that this uses `execfile`, so please note that
@@ -135,7 +138,7 @@ following:
 --viz saved-visualization-file
 --visualization saved-visualization-file
 
-     Loads a previously saved MayaVi2 visualization file passed as the
+     Loads a previously saved Mayavi2 visualization file passed as the
      argument.
 
 -v
@@ -146,7 +149,7 @@ following:
 -V 
 --version
 
-     Prints the MayaVi version.
+     Prints the Mayavi version.
 
 -h
 --help
@@ -206,11 +209,24 @@ def parse_cmd_line(arguments):
     return opts, args
 
 
+def _get_non_file_sources():
+    """Returns a dict indexed on the name of non-file related sources
+    ids with the value being the corresponding metadata object.  
+    """
+    from enthought.mayavi.core.registry import registry
+    data = {}
+    for src in registry.sources:
+        if len(src.extensions) == 0:
+            name = src.id[:-6]
+            data[name] = src
+    return data
+
+
 def process_cmd_line(app, opts, args):
     """ Processes the passed command line arguments.
 
     Input Arguments:
-      app -- A MayaVi application instance.
+      app -- A Mayavi application instance.
 
       opts -- The list of options returned by getopt.
 
@@ -220,6 +236,7 @@ def process_cmd_line(app, opts, args):
     from enthought.mayavi.core.common import error, exception
     from enthought.tvtk.common import camel2enthought
 
+    sources = _get_non_file_sources()
     script = app.script
     last_obj = None
 
@@ -240,10 +257,16 @@ def process_cmd_line(app, opts, args):
     for o, a in opts:
         if o in ('-d', '--data'):
             base, ext = splitext(a)
-            if not exists(a):
-                error("File %s does not exist!"%a)
+            if exists(a):
+                last_obj = script.open(a)
+            elif a in sources:
+                md = sources[a]
+                src = md.get_callable()()
+                script.add_source(src)
+                last_obj = src
+            else:
+                error("File/Source %s does not exist!"%a)
                 return
-            last_obj = script.open(a)
 
         if o in ('-m', '--module'):
             if '.' in a:
@@ -326,7 +349,7 @@ def process_cmd_line(app, opts, args):
         if o in ('-s', '--set'):
             try:
                 stmt = 'last_obj.' + a
-                exec stmt
+                exec stmt in locals(), globals()
             except Exception, msg:
                 exception(str(msg))
 
@@ -381,7 +404,7 @@ if ('-h' in sys.argv[1:]) or ('--help' in sys.argv[1:]):
     sys.exit(0)
 
 if ('-V' in sys.argv[1:]) or ('--version' in sys.argv[1:]):
-    print 'MayaVi %s'%__version__
+    print 'Mayavi %s'%__version__
     sys.exit(0)
 
 for opt, arg in parse_cmd_line(sys.argv[1:])[0]:
