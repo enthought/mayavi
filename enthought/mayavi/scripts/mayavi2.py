@@ -51,7 +51,7 @@ following:
      *.pvt[i,p,r,s,u]), VRML2 (*.wrl), 3D Studio (*.3ds), PLOT3D (*.xyz)
      and various others that are supported.  datafile.ext can also be a
      source object not associated with a file, for example
-     ParametricSource or PointLoad will load the corresponding data
+     ParametricSurface or PointLoad will load the corresponding data
      sources into Mayavi.
 
 --filter filter-name
@@ -124,7 +124,7 @@ following:
 
      Execute the expression on the last created object.  For example,
      lets say the previous object was a module.  If you want to set the
-     color of that object you may do::
+     color of that object and save the scene you may do::
 
       $ mayavi2 [...] -m Outline -s"actor.property.color = (1,0,0)" \
         -s "scene.save('test.png', size=(800, 800))"
