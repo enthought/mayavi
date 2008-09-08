@@ -32,7 +32,7 @@ class Vorticity(Optional):
     """
 
     # This is used just for the UI.
-    vorticity_component = Instance(Optional)
+    vorticity_component = Instance(Optional, record=True)
 
     input_info = PipelineInfo(datasets=['any'],
                               attribute_types=['any'],

@@ -101,17 +101,17 @@ class LUTManager(Base):
     __version__ = 0
 
     # The lookup table.
-    lut = Instance(tvtk.LookupTable, ())
+    lut = Instance(tvtk.LookupTable, (), listen=True)
     # The scalar bar.
-    scalar_bar = Instance(tvtk.ScalarBarActor, ())
+    scalar_bar = Instance(tvtk.ScalarBarActor, (), listen=True)
     # The scalar_bar_widget
     scalar_bar_widget = Instance(tvtk.ScalarBarWidget, ())
 
     # The title text property of the axes.
-    title_text_property = Property
+    title_text_property = Property(listen=True)
     
     # The label text property of the axes.
-    label_text_property = Property
+    label_text_property = Property(listen=True)
 
     # The current mode of the LUT.
     lut_mode = Enum('blue-red', lut_mode_list(),

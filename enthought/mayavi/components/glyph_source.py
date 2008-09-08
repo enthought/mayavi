@@ -36,10 +36,10 @@ class GlyphSource(Component):
 
     # The Source to use for the glyph.  This is chosen from
     # `self._glyph_list` or `self.glyph_dict`.
-    glyph_source = Instance(tvtk.Object, allow_none=False)
+    glyph_source = Instance(tvtk.Object, allow_none=False, listen=True)
 
     # A list of predefined glyph sources that can be used.
-    glyph_list = List(tvtk.Object)
+    glyph_list = List(tvtk.Object, record=False)
 
     ########################################
     # Private traits.
@@ -143,6 +143,8 @@ class GlyphSource(Component):
     def _glyph_source_changed(self, value):
         if self._updating == True:
             return
+
+        recorder = self.recorder
         if value not in self.glyph_list:
             classes = [o.__class__ for o in self.glyph_list]
             vc = value.__class__
@@ -153,6 +155,13 @@ class GlyphSource(Component):
 
         # Now change the glyph's source trait.
         self._updating = True
+        if recorder is not None:
+            idx = self.glyph_list.index(value)
+            name = self._script_id
+            lhs = '%s.glyph_source'%name
+            rhs = '%s.glyph_list[%d]'%(name, idx)
+            recorder.record('%s = %s'%(lhs, rhs))
+
         name = value.__class__.__name__
         if name == 'GlyphSource2D':       
             self.outputs = [value.output]

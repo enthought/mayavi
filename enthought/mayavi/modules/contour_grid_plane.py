@@ -28,16 +28,16 @@ class ContourGridPlane(Module):
     __version__ = 0
 
     # The grid plane component.
-    grid_plane = Instance(GridPlane, allow_none=False)
+    grid_plane = Instance(GridPlane, allow_none=False, record=True)
 
     # Specifies if contouring is to be done or not.
     enable_contours = Bool(True, desc='if contours are generated')
 
     # The contour component that contours the data.
-    contour = Instance(Contour, allow_none=False)
+    contour = Instance(Contour, allow_none=False, record=True)
 
     # The actor component that represents the visualization.
-    actor = Instance(Actor, allow_none=False)
+    actor = Instance(Actor, allow_none=False, record=True)
 
     input_info = PipelineInfo(datasets=['image_data', 
                                         'structured_grid',

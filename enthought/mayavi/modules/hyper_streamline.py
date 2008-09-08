@@ -27,10 +27,11 @@ class HyperStreamline(Module):
     __version__ = 0
 
     # The hyper streamline object.
-    streamline = Instance(tvtk.HyperStreamline, allow_none=False)
+    streamline = Instance(tvtk.HyperStreamline, allow_none=False,
+                          listen=True)
 
     # The actor for the streamlines.
-    actor = Instance(Actor, allow_none=False)
+    actor = Instance(Actor, allow_none=False, record=True)
 
     # A point widget
     widget = Instance(tvtk.PointWidget, args=(), 

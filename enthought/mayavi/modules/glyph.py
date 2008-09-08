@@ -27,10 +27,10 @@ class Glyph(Module):
     __version__ = 0
 
     # The Glyph component.
-    glyph = Instance(glyph.Glyph, allow_none=False)
+    glyph = Instance(glyph.Glyph, allow_none=False, record=True)
 
     # The Glyph component.
-    actor = Instance(Actor, allow_none=False)
+    actor = Instance(Actor, allow_none=False, record=True)
 
     input_info = PipelineInfo(datasets=['any'],
                               attribute_types=['any'],

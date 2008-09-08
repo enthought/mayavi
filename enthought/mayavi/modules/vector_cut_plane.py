@@ -31,16 +31,17 @@ class VectorCutPlane(Module):
     __version__ = 0
 
     # The implicit plane widget used to place the implicit function.
-    implicit_plane = Instance(ImplicitPlane, allow_none=False)
+    implicit_plane = Instance(ImplicitPlane, allow_none=False,
+                              record=True)
 
     # The cutter.  Takes a cut of the data on the implicit plane.
-    cutter = Instance(Cutter, allow_none=False)
+    cutter = Instance(Cutter, allow_none=False, record=True)
 
     # The Glyph component.
-    glyph = Instance(Glyph, allow_none=False)
+    glyph = Instance(Glyph, allow_none=False, record=True)
 
     # The Glyph component.
-    actor = Instance(Actor, allow_none=False)
+    actor = Instance(Actor, allow_none=False, record=True)
 
     input_info = PipelineInfo(datasets=['any'],
                               attribute_types=['any'],

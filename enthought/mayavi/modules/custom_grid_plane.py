@@ -25,7 +25,7 @@ from enthought.mayavi.modules.contour_grid_plane import \
 class CustomGridPlane(ContourGridPlane):
 
     grid_plane = Instance(custom_grid_plane.Component,
-                          allow_none=False)
+                          allow_none=False, record=True)
 
     # Overriding the ContourGridPlane's default view.
     view = View(Group(Item(name='grid_plane', style='custom'),

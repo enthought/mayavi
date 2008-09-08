@@ -28,7 +28,7 @@ class Wrapper(Filter):
     """
 
     # The filter we wrap.
-    filter = Instance(PipelineBase, allow_none=False)
+    filter = Instance(PipelineBase, allow_none=False, record=True)
 
     # The text to show in the UI of form "Enable SomeFilter"
     label_text = Str('Enable Filter')

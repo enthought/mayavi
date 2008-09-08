@@ -24,9 +24,10 @@ class GridPlane(Module):
     # The version of this class.  Used for persistence.
     __version__ = 0
 
-    grid_plane = Instance(grid_plane.GridPlane, allow_none=False)
+    grid_plane = Instance(grid_plane.GridPlane, allow_none=False,
+                          record=True)
 
-    actor = Instance(Actor, allow_non=False)
+    actor = Instance(Actor, allow_non=False, record=True)
 
     input_info = PipelineInfo(datasets=['image_data', 
                                         'structured_grid',

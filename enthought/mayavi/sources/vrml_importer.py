@@ -30,7 +30,8 @@ class VRMLImporter(Source):
     file_name = Str('', desc='the VRML file name')
 
     # The VRML importer.
-    reader = Instance(tvtk.VRMLImporter, args=(), allow_none=False)
+    reader = Instance(tvtk.VRMLImporter, args=(), allow_none=False,
+                      listen=True)
 
     output_info = PipelineInfo(datasets=['none'])
 

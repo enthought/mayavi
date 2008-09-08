@@ -25,10 +25,10 @@ class Text(Module):
     __version__ = 0
 
     # The tvtk TextActor.
-    actor = Instance(tvtk.TextActor, allow_none=False)
+    actor = Instance(tvtk.TextActor, allow_none=False, listen=True)
 
     # The property of the axes (color etc.).
-    property = Property
+    property = Property(listen=True)
 
     # The text to be displayed.  Note that this should really be `Str`
     # but wxGTK only returns unicode.

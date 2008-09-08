@@ -30,32 +30,33 @@ class ScalarCutPlane(Module):
     __version__ = 0
     
     # The implicit plane widget used to place the implicit function.
-    implicit_plane = Instance(ImplicitPlane, allow_none=False)
+    implicit_plane = Instance(ImplicitPlane, allow_none=False,
+                              record=True)
     
     # The cutter.  Takes a cut of the data on the implicit plane.
-    cutter = Instance(Cutter, allow_none=False)
+    cutter = Instance(Cutter, allow_none=False, record=True)
     
     # Specifies if contouring is to be done or not.
     enable_contours = Bool(False, desc='if contours are generated')
     
     # The Contour component that contours the data.
-    contour = Instance(Contour, allow_none=False)
+    contour = Instance(Contour, allow_none=False, record=True)
     
     # Specifies if scalar warping is to be done or not.
     enable_warp_scalar = Bool(False, desc='if scalar warping is enabled')
     
     # The WarpScalarCutPlane component that warps the data.
-    warp_scalar = Instance(WarpScalar, allow_none=False)
+    warp_scalar = Instance(WarpScalar, allow_none=False, record=True)
     
     # Specify if scalar normals are to be computed to make a smoother surface.
     compute_normals = Bool(False, desc='if normals are to be computed '\
                            'to make the warped scalar surface smoother')
     
     # The component that computes the scalar normals.
-    normals = Instance(PolyDataNormals, allow_none=False)
+    normals = Instance(PolyDataNormals, allow_none=False, record=True)
     
     # The actor component that represents the visualization.
-    actor = Instance(Actor, allow_none=False)
+    actor = Instance(Actor, allow_none=False, record=True)
 
     input_info = PipelineInfo(datasets=['any'],
                               attribute_types=['any'],

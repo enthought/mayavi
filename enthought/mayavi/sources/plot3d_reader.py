@@ -63,7 +63,8 @@ class PLOT3DReader(Source):
                          desc='vector data attribute to show')
 
     # The VTK data file reader.
-    reader = Instance(tvtk.PLOT3DReader, args=(), allow_none=False)
+    reader = Instance(tvtk.PLOT3DReader, args=(), allow_none=False,
+                      listen=True)
 
     # Information about what this object can produce.
     output_info = PipelineInfo(datasets=['structured_grid'])

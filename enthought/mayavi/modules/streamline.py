@@ -33,10 +33,11 @@ class Streamline(Module):
     __version__ = 0
 
     # The streamline generator.
-    stream_tracer = Instance(tvtk.StreamTracer, allow_none=False)
+    stream_tracer = Instance(tvtk.StreamTracer, allow_none=False,
+                             listen=True)
 
     # The seed for the streamlines.
-    seed = Instance(SourceWidget, allow_none=False)
+    seed = Instance(SourceWidget, allow_none=False, record=True)
 
     # The update mode of the seed -- this is delegated to the
     # SourceWidget.
@@ -49,13 +50,15 @@ class Streamline(Module):
                             desc='draw streamlines as lines/ribbons/tubes')
 
     # The ribbon filter.
-    ribbon_filter = Instance(tvtk.RibbonFilter, allow_none=False)
+    ribbon_filter = Instance(tvtk.RibbonFilter, allow_none=False,
+                             listen=True)
 
     # The tube filter.
-    tube_filter = Instance(tvtk.TubeFilter, allow_none=False)
+    tube_filter = Instance(tvtk.TubeFilter, allow_none=False,
+                           listen=True)
 
     # The actor component that represents the visualization.
-    actor = Instance(Actor, allow_none=False)
+    actor = Instance(Actor, allow_none=False, record=True)
 
     input_info = PipelineInfo(datasets=['any'],
                               attribute_types=['any'],

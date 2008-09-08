@@ -36,7 +36,7 @@ class Labels(Module):
     __version__ = 0
 
     # The object which we are labeling.
-    object = Instance(PipelineBase)
+    object = Instance(PipelineBase, record=False)
 
     # The label format string.
     label_format = Str('', desc='the label format string')
@@ -45,19 +45,19 @@ class Labels(Module):
     number_of_labels = Int(25, desc='the number of points to label')
 
     # The filter used for masking of the points.
-    mask = Instance(MaskPoints)
+    mask = Instance(MaskPoints, record=True)
 
     # Filter to select visible points.
-    visible_points = Instance(Optional)
+    visible_points = Instance(Optional, record=True)
 
     # The 2D actor for the labels.
-    actor = Instance(Actor2D)
+    actor = Instance(Actor2D, record=True)
 
     # The text property of the labels.
-    property = Instance(tvtk.TextProperty)
+    property = Instance(tvtk.TextProperty, listen=True)
 
     # The mapper for the labels.
-    mapper = Instance(tvtk.LabeledDataMapper, args=())
+    mapper = Instance(tvtk.LabeledDataMapper, args=(), listen=True)
 
     input_info = PipelineInfo(datasets=['any'],
                               attribute_types=['any'],

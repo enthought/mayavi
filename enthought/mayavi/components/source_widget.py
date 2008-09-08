@@ -26,7 +26,7 @@ class SourceWidget(Component):
     __version__ = 0
 
     # The actual poly data source widget.
-    widget = Instance(tvtk.ThreeDWidget)
+    widget = Instance(tvtk.ThreeDWidget, listen=True)
 
     # Specifies the updation mode of the poly_data attribute.  There
     # are three modes: 1) 'interactive' -- the poly_data attribute is
@@ -41,7 +41,7 @@ class SourceWidget(Component):
                         desc='the speed at which the poly data is updated')
 
     # A list of predefined glyph sources that can be used.
-    widget_list = List(tvtk.Object)
+    widget_list = List(tvtk.Object, record=False)
 
     # The poly data that the widget manages.
     poly_data = Instance(tvtk.PolyData, args=())
@@ -210,6 +210,14 @@ class SourceWidget(Component):
                 self.widget_list[classes.index(vc)] = value
             else:
                 self.widget_list.append(value)
+
+        recorder = self.recorder
+        if recorder is not None:
+            idx = self.widget_list.index(value)
+            name = self._script_id
+            lhs = '%s.widget'%name
+            rhs = '%s.widget_list[%d]'%(name, idx)
+            recorder.record('%s = %s'%(lhs, rhs))
 
         if len(self.inputs) > 0:
             value.input = self.inputs[0].outputs[0]

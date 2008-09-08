@@ -23,7 +23,7 @@ class GreedyTerrainDecimation(FilterBase):
 
     # The actual TVTK filter that this class manages.
     filter = Instance(tvtk.GreedyTerrainDecimation, args=(), 
-                      allow_none=False)
+                      allow_none=False, listen=True)
 
     input_info = PipelineInfo(datasets=['any'],
                               attribute_types=['any'],

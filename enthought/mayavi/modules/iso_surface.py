@@ -28,17 +28,17 @@ class IsoSurface(Module):
     __version__ = 0
 
     # The contour component.
-    contour = Instance(Contour)
+    contour = Instance(Contour, record=True)
 
     # Specify if normals are to be computed to make a smoother surface.
     compute_normals = Bool(False, desc='if normals are to be computed '\
                            'to make the iso-surface smoother')
 
     # The component that computes the normals.
-    normals = Instance(PolyDataNormals)
+    normals = Instance(PolyDataNormals, record=True)
 
     # The actor component that represents the iso-surface.
-    actor = Instance(Actor)
+    actor = Instance(Actor, record=True)
 
     input_info = PipelineInfo(datasets=['any'],
                               attribute_types=['any'],

@@ -108,10 +108,10 @@ class ModuleManager(Base):
                           )
 
     # The scalar lookup table manager.
-    scalar_lut_manager = Instance(LUTManager, args=())
+    scalar_lut_manager = Instance(LUTManager, args=(), record=True)
     
     # The vector lookup table manager.
-    vector_lut_manager = Instance(LUTManager, args=())
+    vector_lut_manager = Instance(LUTManager, args=(), record=True)
 
     # The name of the ModuleManager.
     name = Str('Modules')

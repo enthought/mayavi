@@ -26,7 +26,8 @@ class Module(PipelineBase):
     # always a child of a ModuleManager.  When the module is added to
     # the mayavi pipeline (as a child of the module manager), the
     # module manager automatically sets this trait.
-    module_manager = Instance('enthought.mayavi.core.module_manager.ModuleManager')
+    module_manager = Instance('enthought.mayavi.core.module_manager.ModuleManager',
+                               record=False)
 
     # The (optional) components used by this module.  NOTE: This is
     # not pickled.  It is the developers responsibility to setup the

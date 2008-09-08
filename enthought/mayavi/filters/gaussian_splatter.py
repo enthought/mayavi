@@ -22,7 +22,7 @@ class GaussianSplatter(FilterBase):
 
     # The actual TVTK filter that this class manages.
     filter = Instance(tvtk.GaussianSplatter, args=(),
-                      allow_none=False)
+                      allow_none=False, listen=True)
 
     input_info = PipelineInfo(datasets=['any'],
                               attribute_types=['any'],

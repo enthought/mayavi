@@ -297,7 +297,8 @@ def setup_recording(recordable, recorder, ignore=None):
         # Wire up all sub-objects that specify a record=True.
         for name in sub_recordables:
             obj = getattr(recordable, name)
-            obj.set(recorder = recorder, _script_id='')
+            if obj is not None:
+                obj.set(recorder = recorder, _script_id='')
     else:
         # First set our _script_id if needed.
         sid = recordable._script_id
@@ -310,8 +311,9 @@ def setup_recording(recordable, recorder, ignore=None):
         # Wire up all sub-objects that specify a record=True.
         for name in sub_recordables:
             obj = getattr(recordable, name)
-            obj._script_id = '%s.%s'%(recordable._script_id, name)
-            obj.recorder = recorder
+            if obj is not None:
+                obj._script_id = '%s.%s'%(recordable._script_id, name)
+                obj.recorder = recorder
         recordable.on_trait_change(recordable.record, tnames)
 
 def start_recording(object, ui=True):

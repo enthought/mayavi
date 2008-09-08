@@ -84,16 +84,16 @@ class Axes(Module):
     __version__ = 0
 
     # The tvtk axes actor.
-    axes = Instance(CubeAxesActor2D, allow_none=False)
+    axes = Instance(CubeAxesActor2D, allow_none=False, listen=True)
 
     # The property of the axes (color etc.).
-    property = Property
+    property = Property(listen=True)
     
     # The title text property of the axes.
-    title_text_property = Property
+    title_text_property = Property(listen=True)
     
     # The label text property of the axes.
-    label_text_property = Property
+    label_text_property = Property(listen=True)
 
     ########################################
     # Private traits.

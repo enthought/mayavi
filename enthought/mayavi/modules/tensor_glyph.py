@@ -24,10 +24,10 @@ class TensorGlyph(Module):
     __version__ = 0
 
     # The glyph component we use to do the actual glyphing.
-    glyph = Instance(glyph.Glyph, allow_none=False)
+    glyph = Instance(glyph.Glyph, allow_none=False, record=True)
 
     # The actor.
-    actor = Instance(Actor, allow_none=False)
+    actor = Instance(Actor, allow_none=False, record=True)
 
     input_info = PipelineInfo(datasets=['any'],
                               attribute_types=['any'],

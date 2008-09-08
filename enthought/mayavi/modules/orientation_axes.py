@@ -34,10 +34,10 @@ class OrientationAxes(Module):
     marker = Instance(tvtk.OrientationMarkerWidget, allow_none=False)
 
     # The tvtk axes that will be shown.
-    axes = Instance(tvtk.AxesActor, allow_none=False)
+    axes = Instance(tvtk.AxesActor, allow_none=False, listen=True)
 
     # The property of the axes (color etc.).
-    text_property = Property
+    text_property = Property(listen=True)
 
     input_info = PipelineInfo(datasets=['any'],
                               attribute_types=['any'],

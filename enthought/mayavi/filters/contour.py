@@ -22,7 +22,7 @@ class Contour(Wrapper):
     __version__ = 0
 
     # The contour component this wraps.
-    filter = Instance(ContourComponent, args=())
+    filter = Instance(ContourComponent, args=(), record=True)
 
     input_info = PipelineInfo(datasets=['any'],
                               attribute_types=['point'],

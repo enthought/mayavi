@@ -23,7 +23,8 @@ class PointLoad(Source):
     # The version of this class.  Used for persistence.
     __version__ = 0
 
-    point_load = Instance(tvtk.PointLoad, args=(), allow_none=False)
+    point_load = Instance(tvtk.PointLoad, args=(), allow_none=False,
+                          listen=True)
 
 
     # Information about what this object can produce.

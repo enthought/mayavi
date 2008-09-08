@@ -25,16 +25,19 @@ class SliceUnstructuredGrid(Module):
     __version__ = 0
 
     # The implicit plane widget.
-    implicit_plane = Instance(ImplicitPlane, allow_none=False)
+    implicit_plane = Instance(ImplicitPlane, allow_none=False,
+                              record=True)
 
     # Extract the cells to display.
-    extract_geometry = Instance(tvtk.ExtractGeometry, allow_none=False)
+    extract_geometry = Instance(tvtk.ExtractGeometry, allow_none=False,
+                                listen=True)
 
     # The geometry filter.
-    geom_filter = Instance(tvtk.GeometryFilter, allow_none=False)
+    geom_filter = Instance(tvtk.GeometryFilter, allow_none=False,
+                           listen=True)
 
     # The actor component that represents the visualization.
-    actor = Instance(Actor, allow_none=False)
+    actor = Instance(Actor, allow_none=False, record=True)
 
     input_info = PipelineInfo(datasets=['unstructured_grid'],
                               attribute_types=['any'],

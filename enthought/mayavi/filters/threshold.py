@@ -25,7 +25,7 @@ class Threshold(Filter):
     __version__ = 0
 
     # The threshold filter used.
-    threshold_filter = Property(Instance(tvtk.Object, allow_none=False))
+    threshold_filter = Property(Instance(tvtk.Object, allow_none=False), listen=True)
 
     # The filter type to use, specifies if the cells or the points are
     # cells filtered via a threshold.

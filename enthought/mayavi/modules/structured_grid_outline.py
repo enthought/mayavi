@@ -23,7 +23,7 @@ class StructuredGridOutline(Outline):
 
     # The outline filter.
     outline_filter = Instance(tvtk.StructuredGridOutlineFilter,
-                              allow_none = False)
+                              allow_none = False, listen=True)
 
     def setup_pipeline(self):
         self.outline_filter = tvtk.StructuredGridOutlineFilter()

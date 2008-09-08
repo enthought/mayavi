@@ -174,3 +174,7 @@ class Collection(Filter):
             filter.visible = value
         super(Collection, self)._visible_changed(value)
 
+    def _recorder_changed(self, old, new):
+        super(Collection, self)._recorder_changed(old, new)
+        for filter in self.filters:
+            filter.recorder = new

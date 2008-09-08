@@ -33,23 +33,24 @@ class WarpVectorCutPlane(Module):
     __version__ = 0
     
     # The implicit plane widget used to place the implicit function.
-    implicit_plane = Instance(ImplicitPlane, allow_none=False)
+    implicit_plane = Instance(ImplicitPlane, allow_none=False,
+                              record=True)
     
     # The cutter.  Takes a cut of the data on the implicit plane.
-    cutter = Instance(Cutter, allow_none=False)
+    cutter = Instance(Cutter, allow_none=False, record=True)
     
     # The WarpVectorCutPlane component that warps the data.
-    warp_vector = Instance(WarpVector, allow_none=False)
+    warp_vector = Instance(WarpVector, allow_none=False, record=True)
     
     # Specify if vector normals are to be computed to make a smoother surface.
     compute_normals = Bool(False, desc='if normals are to be computed '\
                            'to make the warped surface smoother')
 
     # The component that computes the normals.
-    normals = Instance(PolyDataNormals)
+    normals = Instance(PolyDataNormals, record=True)
     
     # The Actor component.
-    actor = Instance(Actor, allow_none=False)
+    actor = Instance(Actor, allow_none=False, record=True)
 
     input_info = PipelineInfo(datasets=['any'],
                               attribute_types=['any'],

@@ -25,7 +25,8 @@ class CellDerivatives(FilterBase):
     __version__ = 0
 
     # The actual TVTK filter that this class manages.
-    filter = Instance(tvtk.CellDerivatives, args=(), allow_none=False)
+    filter = Instance(tvtk.CellDerivatives, args=(), 
+                      allow_none=False, listen=True)
 
     # Information about what this object can consume.
     input_info = PipelineInfo(datasets=['any'],

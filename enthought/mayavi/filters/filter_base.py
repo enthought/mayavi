@@ -25,7 +25,7 @@ class FilterBase(Filter):
     __version__ = 0
 
     # The actual TVTK filter that this class manages.
-    filter = Instance(tvtk.Object, allow_none=False)
+    filter = Instance(tvtk.Object, allow_none=False, listen=True)
 
     # The view of these filters.
 
