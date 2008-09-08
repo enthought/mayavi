@@ -57,6 +57,48 @@ def exception(msg='Exception', parent=None):
     finally:
         type = value = tb = None # clean up
 
+
+def get_engine(obj):
+    """Try and return the engine given an object in the mayavi
+    pipeline.  This basically walks up the parent's of the object till
+    the engine is found.
+    """
+    from enthought.mayavi.core.engine import Engine
+    if obj is not None:
+        if isinstance(obj, Engine):
+            return obj
+        else:
+            return get_engine(obj.parent)
+    return None
+
+
+def get_object_path(object, parent, path='engine'):
+    """Given a mayavi object on the tree view, this should find its
+    "path" with respect to the parent object that contains it.
+    """
+    def _get_child_trait(obj):
+        if hasattr(obj, 'scenes'):
+            return 'scenes'
+        elif hasattr(obj, 'children'):
+            return 'children'
+        return ''
+
+    def _finder(obj, to_find, path):
+        if obj is to_find:
+            return path
+        else:
+            child_t = _get_child_trait(obj)
+            if child_t == '':
+                return ''
+            for i, o in enumerate(getattr(obj, child_t)):
+                pth = _finder(o, to_find, '%s.%s[%d]'%(path, child_t, i))
+                if len(pth) > 0:
+                    return pth
+        return ''
+
+    return _finder(parent, object, path)
+
+
 def handle_children_state(children, kids):
     """Given a list of children (as `children`) of a particular object
     and their states in the `kids` argument, this function sets up the

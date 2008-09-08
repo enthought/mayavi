@@ -27,11 +27,12 @@ from enthought.persistence import state_pickler
 # Local imports.
 from enthought.mayavi.core.base import Base
 from enthought.mayavi.core.scene import Scene
-from enthought.mayavi.core.common import error
+from enthought.mayavi.core.common import error, get_object_path
 from enthought.mayavi.core.registry import registry
 from enthought.mayavi.core.adder_node import AdderNode, SceneAdderNode
 from enthought.mayavi.preferences.api import preference_manager
 from enthought.mayavi.core.ui.mayavi_scene import viewer_factory
+from enthought.mayavi.core.recorder import Recorder
 
 
 ######################################################################
@@ -99,6 +100,9 @@ class Engine(HasStrictTraits):
     # Are we running?
     running = Bool(False)
 
+    # The recorder for script recording.
+    recorder = Instance(Recorder)
+
     ########################################
     # Private traits.
     
@@ -106,6 +110,8 @@ class Engine(HasStrictTraits):
     _current_object = Instance(HasTraits)
     _current_selection = Instance(HasTraits)
     _viewer_ref = Dict
+
+    _known_script_ids = List(Str, transient=True)
 
     # View related traits.
     current_selection_view = View(Item(name='_current_selection',
@@ -178,6 +184,7 @@ class Engine(HasStrictTraits):
     def add_source(self, src, scene=None):
         """Adds a source to the pipeline. Uses the current scene unless a
         scene is given in the scene keyword argument."""
+        passed_scene = scene
         if scene is not None:
             tvtk_scene = scene.scene
             for sc in self.scenes:
@@ -195,6 +202,7 @@ class Engine(HasStrictTraits):
             self.new_scene()
             scene = self.current_scene
         scene.add_child(src)
+        self._record_new_source(src, passed_scene)
         self.current_object = src
 
     def add_filter(self, fil, obj=None):
@@ -202,7 +210,8 @@ class Engine(HasStrictTraits):
         to the selected object, or to an object passed as the 
         kwarg `obj`.
         """
-        if obj == None:
+        passed_obj = obj
+        if obj is None:
             obj = self.current_object
         if not isinstance(obj, Base):
             msg = 'No valid current object, '\
@@ -212,6 +221,7 @@ class Engine(HasStrictTraits):
         if (obj is not None) and (not isinstance(obj, Scene)):
             if obj.running:
                 obj.add_child(fil)
+                self._record_new_object(fil, parent=passed_obj)
                 self.current_object = fil
             else:
                 msg = 'Current object is not active, '\
@@ -270,9 +280,11 @@ class Engine(HasStrictTraits):
             # Reset the warning state.
             o.SetGlobalWarningDisplay(w)
 
-    def open(self, filename):
-        """Open a file given a filename if possible.
+    def open(self, filename, scene=None):
+        """Open a file given a filename if possible in either the
+        current scene or the passed `scene`.
         """
+        passed_scene = scene
         base, ext = splitext(filename)
         readers = registry.get_file_reader(ext)
         if len(readers) == 0:
@@ -280,11 +292,12 @@ class Engine(HasStrictTraits):
             error(msg)
         else:
             src = None
-            cs = self.current_scene
-            if cs is None:
-                cs = self.new_scene()
+            if scene is None:
+                scene = self.current_scene
+            if scene is None:
+                scene = self.new_scene()
             try:
-                cs.scene.busy = True
+                scene.scene.busy = True
                 reader = readers[-1]
                 callable = reader.get_callable()
                 if reader.factory is None:
@@ -295,11 +308,23 @@ class Engine(HasStrictTraits):
                     # reference to the engine. 
                     src = callable(filename, self)
                 if src is not None:
-                    self.add_source(src)
+                    self.add_source(src, passed_scene)
+                    src_name = src._script_id
+                    self.record("%s = engine.open('%s')"%\
+                                 (src_name, filename))
+                    self._known_script_ids.append(src_name)
             finally:
-                cs.scene.busy = False
+                scene.scene.busy = False
             if src is not None:
                 return src
+
+    def record(self, msg):
+        """This is merely a convenience method to record messages to the
+        script recorder.
+        """
+        r = self.recorder
+        if r is not None:
+            r.record(msg)
 
     ######################################################################
     # Scene creation/deletion related methods.
@@ -332,9 +357,15 @@ class Engine(HasStrictTraits):
         
         s = Scene(scene=scene, name=name, parent=self)
         s.start()
+        # We don't want the startup setup to be recorded.
+        recorder = self.recorder
+        s.recorder = recorder
         self.scenes.append(s)
         self.current_scene = s
-
+        if recorder is not None:
+            s_name = s._script_id
+            self.record("%s = engine.new_scene()"%s_name)
+            self._known_script_ids.append(s_name)
     
     def remove_scene(self, scene, **kwargs):
         """Remove a given `scene` (a `pyface.tvtk.scene.Scene`
@@ -351,21 +382,23 @@ class Engine(HasStrictTraits):
           The scene that needs to be removed from mayavi.
         """
         s = None
-        for x in self.scenes:
+        for index, x in enumerate(self.scenes):
             if x.scene is scene:
                 s = x
                 break
         if s is not None:
             s.stop()
             self.scenes.remove(s)
+            self.record("engine.close_scene(engine.scenes[%d])"%index)
         # Remove the reference to the viewer if any.
         if scene in self._viewer_ref:
             del self._viewer_ref[scene]
+
         
     def new_scene(self, viewer=None, name=None, **kwargs):
         """Create or manage a new VTK scene window.  If no `viewer`
         argument is provided, the method creates a new viewer using
-        `self.scene_factory`.  If `self.scene_factor` is `None` then
+        `self.scene_factory`.  If `self.scene_factory` is `None` then
         it creates an `ivtk` viewer.  This code requires that the
         `viewer` has a `scene` attribute/trait that is a
         `pyface.tvtk.scene.Scene`.  It also works best if the viewer
@@ -502,6 +535,8 @@ class Engine(HasStrictTraits):
         if not isinstance(object, (Base, AdderNode)):
             object = None
         self._current_selection = object
+        if object is not None:
+            self._record_active_object(object)
         self.trait_property_changed('current_selection', old, object)
 
     def _on_scene_closed(self, obj, name, old, new):
@@ -528,4 +563,77 @@ class Engine(HasStrictTraits):
         """
         self.trait_property_changed('children_ui_list', old, new)
 
-    
+    def _recorder_changed(self, old, new):
+        self._known_script_ids[:] = []
+        if new is not None:
+            new.record('engine = mayavi.engine')
+            new.record('if len(engine.scenes) == 0: mayavi.new_scene()')
+        # Pass the change down to the scenes.
+        for scene in self.scenes:
+            scene.recorder = new
+
+    def _record_new_object(self, obj, parent=None):
+        """Records the creation of a new module or filter."""
+        r = self.recorder
+        if r is not None:
+            obj.recorder = r
+            obj_name = obj._script_id
+            mname = obj.__module__
+            cname = obj.__class__.__name__
+            r.record("from %s import %s"%(mname, cname))
+            r.record("%s = %s()"%(obj_name, cname))
+            self._known_script_ids.append(obj_name)
+            if parent is not None:
+                self._record_active_object(parent)
+                parent_name = parent._script_id
+                r.record('%s.add_child(%s)'%(parent_name, obj_name))
+            else:
+                method = 'add_filter'
+                if hasattr(obj, 'module_manager'):
+                    method = 'add_module'
+                r.record("engine.%s(%s)"%(method, obj_name))
+
+    def _record_new_source(self, src, parent=None):
+        """Records the creation of a new source."""
+        r = self.recorder
+        if r is not None:
+            src.recorder = r
+            mname = src.__module__
+            cname = src.__class__.__name__
+            cmname = '%s.%s'%(mname, cname)
+            # Look in list of non-open related sources and see if we are
+            # one of them, if so record if not don't since the open call
+            # is recorded.
+            record = False
+            sources = [s for s in registry.sources 
+                       if len(s.extensions) == 0]
+            for s in sources:
+                if cmname == s.class_name:
+                    record = True
+                    break
+            if record:
+                r.record("from %s import %s"%(mname, cname))
+                src_name = src._script_id 
+                r.record("%s = %s()"%(src_name, cname))
+                self._known_script_ids.append(src_name)
+                if parent is None:
+                    r.record("engine.add_source(%s)"%src_name)
+                else:
+                    self._record_active_object(parent)
+                    parent_name = parent._script_id
+                    r.record('engine.add_source(%s, %s)'%(src_name, parent_name))
+
+    def _record_active_object(self, obj):
+        """Make the object given the active one in the script"""
+        r = self.recorder
+        if r is not None:
+            if not hasattr(obj, '_script_id'):
+                return
+            obj_name = obj._script_id
+            known_ids = self._known_script_ids
+            if obj_name not in known_ids:
+                path = get_object_path(obj, self, 'engine')
+                if len(path) > 0:
+                    r.record('%s = %s'%(obj_name, path))
+                    known_ids.append(obj_name)
+

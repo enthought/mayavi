@@ -87,6 +87,7 @@ class Source(PipelineBase):
             if self.running:
                 mm.start()
             self.children.append(mm)
+            mm.recorder = self.recorder
         mm.children.append(module)
 
     def save_output(self, fname):

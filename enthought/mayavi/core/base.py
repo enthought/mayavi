@@ -13,8 +13,8 @@ import logging
 import imp
 
 # Enthought library imports.
-from enthought.traits.api import Instance, Property, Bool, Str, Python, \
-    HasTraits, WeakRef, on_trait_change
+from enthought.traits.api import (Instance, Property, Bool, Str, Python, 
+    HasTraits, WeakRef, on_trait_change, List, implements)
 from enthought.traits.ui.api import TreeNodeObject
 from enthought.tvtk.pyface.tvtk_scene import TVTKScene
 from enthought.persistence import state_pickler
@@ -25,6 +25,8 @@ from enthought.traits.ui.api import View
 
 # Local imports.
 from enthought.mayavi.preferences.api import preference_manager
+from enthought.mayavi.core.recorder import (Recorder, IRecordable,
+        do_record, setup_recording)
 
 # Setup a logger for this module.
 logger = logging.getLogger(__name__)
@@ -64,6 +66,13 @@ standard_menu_actions = [Separator(), CutAction, CopyAction, PasteAction,
 class Base(TreeNodeObject):
     # The version of this class.  Used for persistence.
     __version__ = 0
+    
+    ########################################
+    # Interface specification.
+    implements(IRecordable)
+
+    ########################################
+    # Traits
 
     # The scene (RenderWindow) associated with this component.
     scene = Instance(TVTKScene)
@@ -93,6 +102,9 @@ class Base(TreeNodeObject):
 
     # A helper for the right click menus, context sensitivity etc.
     menu_helper = Instance(HasTraits)
+
+    # The recorder for script recording.
+    recorder = Instance(Recorder, transient=True)
 
     ##################################################
     # Private traits
@@ -124,6 +136,12 @@ class Base(TreeNodeObject):
 
     # Hand crafted view.
     _module_view = Instance(View)
+
+    # The ID of this object in the script.
+    _script_id = Str('', transient=True)
+
+    # List of any listners added for script recording.
+    _listners = List(transient=True)
 
     # Work around problem with HasPrivateTraits.
     __ = Python
@@ -218,6 +236,12 @@ class Base(TreeNodeObject):
         s = self.scene
         if s is not None:
             s.render()
+
+    def record(self, obj, name, old, new):
+        """This is called by child listners or when any of our traits
+        change when recording to a script is enabled.
+        """
+        do_record(self, obj, name, old, new)
 
     def dialog_view(self):
         """ Returns a view with an icon and a title.
@@ -407,6 +431,17 @@ class Base(TreeNodeObject):
                 state_pickler.set_state(self, state)
             self._saved_state = ''
 
+    def _recorder_changed(self, old, new):
+        ignore = ['running', 'parent', 'data_changed', 'pipeline_changed',
+                  'inputs', 'outputs', 'children', 'components',
+                  'widgets', 'actors', 'children_ui_list'
+                  ]
+        setup_recording(self, new, ignore)
+
+        # Pass on recorder to any children.
+        if hasattr(self, 'children'):
+            for child in self.children:
+                child.recorder = new
 
     def __view_filename_default(self):
         """ The name of the file that will host the view.

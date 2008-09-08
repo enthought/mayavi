@@ -30,13 +30,14 @@ class Outline(Module):
     # `OutlineFilter` or `OutlineCornerFilter`. The `ObjectBase` class
     # is the superclass of both the `OutlineFilter` and the
     # `OutlineCornerFilter`.
-    outline_filter = Property(Instance(tvtk.ObjectBase, allow_none=False))
+    outline_filter = Property(Instance(tvtk.ObjectBase,
+                                        allow_none=False), listen=True)
 
     # Enum to set the outline type.
     outline_mode = Enum('full', 'cornered',
                         desc='if outline mode is "full" or "cornered"')
 
-    actor = Instance(Actor, allow_none=False)
+    actor = Instance(Actor, allow_none=False, record=True)
 
     input_info = PipelineInfo(datasets=['any'],
                               attribute_types=['any'],

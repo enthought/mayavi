@@ -27,10 +27,10 @@ class Surface(Module):
     enable_contours = Bool(False, desc='if contours are generated')
 
     # The contour component that contours the data.
-    contour = Instance(Contour, allow_none=False)
+    contour = Instance(Contour, allow_none=False, record=True)
 
     # The actor component that represents the visualization.
-    actor = Instance(Actor, allow_none=False)
+    actor = Instance(Actor, allow_none=False, record=True)
 
     input_info = PipelineInfo(datasets=['any'],
                               attribute_types=['any'],

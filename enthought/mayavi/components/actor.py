@@ -23,13 +23,13 @@ class Actor(Component):
     __version__ = 0
 
     # The mapper.
-    mapper = Instance(tvtk.Mapper)
+    mapper = Instance(tvtk.Mapper, listen=True)
 
     # The actor.
-    actor = Instance(tvtk.Actor)
+    actor = Instance(tvtk.Actor, listen=True)
 
     # The actor's property.
-    property = Instance(tvtk.Property)
+    property = Instance(tvtk.Property, listen=True)
 
     # If texturing is enabled for the actor or not
     enable_texture = Bool(False, desc='if texturing is enabled')

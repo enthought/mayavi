@@ -15,24 +15,7 @@ from enthought.pyface.api import FileDialog, OK, GUI
 
 # Local imports.
 from enthought.mayavi.core.registry import registry
-from enthought.mayavi.core.common import error
-
-
-################################################################################
-# Utility functions.
-################################################################################
-def get_engine(obj):
-    """Try and return the engine given an object in the mayavi
-    pipeline.  This basically walks up the parent's of the object till
-    the engine is found.
-    """
-    from enthought.mayavi.core.engine import Engine
-    if obj is not None:
-        if isinstance(obj, Engine):
-            return obj
-        else:
-            return get_engine(obj.parent)
-    return None
+from enthought.mayavi.core.common import error, get_engine
 
 
 ################################################################################
@@ -87,28 +70,9 @@ class MenuHelper(HasTraits):
                 return
             # FIXME: Ask for user input if a filetype is unknown and
             # choose appropriate reader.
-            # FIXME: This is repeated in the engine and here and should
-            # be fixed.
-            filename = dialog.path
-            base, ext = splitext(filename)
-            readers = registry.get_file_reader(ext)
-            if len(readers) == 0:
-                msg = 'No readers found for the extension %s'%ext
-                error(msg)
-            else:
-                object = self.object
-                try:
-                    object.scene.busy = True
-                    reader = readers[-1]
-                    callable = reader.get_callable()
-                    if reader.factory is None:
-                        src = callable()
-                        src.initialize(filename)
-                    else:
-                        src = callable(filename)
-                    object.add_child(src)
-                finally:
-                    object.scene.busy = False
+            object = self.object
+            engine = get_engine(object)
+            engine.open(dialog.path, object)
 
     ######################################################################
     # Non-public interface.
@@ -119,7 +83,9 @@ class MenuHelper(HasTraits):
         """
         callable = metadata.get_callable()
         obj = callable()
-        self.object.add_child(obj)
+        parent = self.object
+        engine = get_engine(parent)
+        engine.add_source(obj, parent)
         if select:
             self._make_active(obj)
 
@@ -129,7 +95,9 @@ class MenuHelper(HasTraits):
         """
         callable = metadata.get_callable()
         obj = callable()
-        self.object.add_child(obj)
+        parent = self.object
+        engine = get_engine(parent)
+        engine.add_filter(obj, parent)
         if select:
             self._make_active(obj)
 

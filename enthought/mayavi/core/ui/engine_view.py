@@ -9,8 +9,7 @@
 from os.path import join
 
 # Enthought library imports.
-from enthought.traits.api import Instance, HasTraits, Any, Delegate, \
-        on_trait_change
+from enthought.traits.api import Instance, HasTraits, Any, Delegate
 from enthought.traits.ui.api import (Group, Item, TreeEditor, TreeNode,
         ObjectTreeNode, View, Handler, UIInfo)
 from enthought.traits.ui.menu import ToolBar, Action, Separator
@@ -20,11 +19,11 @@ from enthought.pyface.image_resource import ImageResource
 # Local imports.
 from enthought.mayavi.core.engine import Engine
 from enthought.mayavi.core.base import Base
-from enthought.mayavi.core.pipeline_base import PipelineBase
 from enthought.mayavi.core.adder_node import ModuleFilterAdderNode, \
         SourceAdderNode, ModuleAdderNode, FilterAdderNode, \
         SceneAdderNode, AdderNode
 from enthought.mayavi.action.help import open_help_index
+from enthought.mayavi.core.recorder import start_recording, stop_recording
 
 class EngineViewHandler(Handler):
     """ A handler for the EngineView object. 
@@ -235,6 +234,17 @@ class EngineView(HasTraits):
                 enabled_when='True',
                 perform=open_help_index,
             )
+        record = \
+            Action(
+                image=ImageResource('record.png',
+                                     search_path=self._image_path),
+                tooltip="Start/Stop script recording",
+                style='toggle',
+                checked=False,
+                defined_when='True',
+                enabled_when='engine is not None',
+                perform=self._perform_record,
+            )
 
         return ToolBar(
             add_scene,
@@ -243,6 +253,7 @@ class EngineView(HasTraits):
             add_filter,
             Separator(),
             help,
+            record,
             image_size = (16, 16),
             show_tool_names = False,
             show_divider = False,
@@ -276,5 +287,13 @@ class EngineView(HasTraits):
             object = object.object
         adder = FilterAdderNode(object=object)
         adder.edit_traits(view=adder.dialog_view())
+
+    def _perform_record(self):
+        e = self.engine
+        if e.recorder is None:
+            start_recording(e)
+        else:
+            stop_recording(e)
+
 
 ### EOF ######################################################################
