@@ -64,11 +64,11 @@ def get_engine(obj):
     the engine is found.
     """
     from enthought.mayavi.core.engine import Engine
-    if obj is not None:
+    while obj is not None:
         if isinstance(obj, Engine):
             return obj
         else:
-            return get_engine(obj.parent)
+            obj = obj.parent
     return None
 
 
