@@ -22,13 +22,13 @@ class Actor2D(Component):
     __version__ = 0
 
     # The mapper.
-    mapper = Instance(tvtk.AbstractMapper, listen=True)
+    mapper = Instance(tvtk.AbstractMapper, record=True)
 
     # The actor.
-    actor = Instance(tvtk.Prop, listen=True)
+    actor = Instance(tvtk.Prop, record=True)
 
     # The actor's property.
-    property = Instance(tvtk.Property2D, listen=True)
+    property = Instance(tvtk.Property2D, record=True)
 
 
     ########################################

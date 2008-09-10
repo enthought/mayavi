@@ -20,10 +20,10 @@ class Component(PipelineBase):
     __version__ = 0
 
     # A list of inputs for this component.
-    inputs = List
+    inputs = List(record=False)
 
     # A list of sources for this component.
-    sources = List
+    sources = List(record=False)
 
 
     ######################################################################

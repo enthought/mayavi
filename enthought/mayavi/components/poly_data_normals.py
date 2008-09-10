@@ -23,7 +23,7 @@ class PolyDataNormals(Component):
 
     # The filter that generates the normals.
     filter = Instance(tvtk.PolyDataNormals, args=(),
-                      kw={'feature_angle': 45.0}, listen=True)
+                      kw={'feature_angle': 45.0}, record=True)
 
     ########################################
     # The component's view

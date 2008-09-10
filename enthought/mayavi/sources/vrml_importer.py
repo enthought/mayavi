@@ -31,7 +31,7 @@ class VRMLImporter(Source):
 
     # The VRML importer.
     reader = Instance(tvtk.VRMLImporter, args=(), allow_none=False,
-                      listen=True)
+                      record=True)
 
     output_info = PipelineInfo(datasets=['none'])
 

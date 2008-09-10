@@ -28,7 +28,7 @@ class HyperStreamline(Module):
 
     # The hyper streamline object.
     streamline = Instance(tvtk.HyperStreamline, allow_none=False,
-                          listen=True)
+                          record=True)
 
     # The actor for the streamlines.
     actor = Instance(Actor, allow_none=False, record=True)

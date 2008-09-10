@@ -24,7 +24,7 @@ class Delaunay2D(FilterBase):
     __version__ = 0
 
     # The actual TVTK filter that this class manages.
-    filter = Instance(tvtk.Delaunay2D, args=(), allow_none=False, listen=True)
+    filter = Instance(tvtk.Delaunay2D, args=(), allow_none=False, record=True)
 
     input_info = PipelineInfo(datasets=['structured_grid', 'poly_data',
                                         'unstructured_grid'],

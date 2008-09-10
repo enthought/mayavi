@@ -24,7 +24,7 @@ class PointLoad(Source):
     __version__ = 0
 
     point_load = Instance(tvtk.PointLoad, args=(), allow_none=False,
-                          listen=True)
+                          record=True)
 
 
     # Information about what this object can produce.

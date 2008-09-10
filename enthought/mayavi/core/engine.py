@@ -62,24 +62,24 @@ class Engine(HasStrictTraits):
     __version__ = 0
 
     # The scenes associated with this project.
-    scenes = List(Scene)
+    scenes = List(Scene, record=True)
 
     # The list to provide to a TreeEditor.  Always add on a AdderNode.
     # TODO: It makes more sense to put the modification of the list 
     # in some other UI module, and not here.
-    children_ui_list = Property
+    children_ui_list = Property(record=False)
 
     # Our name.
     name = Str('Mayavi Engine')
 
     # Current scene.
-    current_scene = Property(Instance(Scene))
+    current_scene = Property(Instance(Scene), record=False)
 
     # Current object.
-    current_object = Property
+    current_object = Property(record=False)
 
     # Current selection -- the currently selected object on the tree.
-    current_selection = Property
+    current_selection = Property(record=False)
 
     # Has the Engine started?  Use this event to do something after
     # the engine has been started.
@@ -98,10 +98,10 @@ class Engine(HasStrictTraits):
     scene_factory = Callable(viewer_factory)
    
     # Are we running?
-    running = Bool(False)
+    running = Bool(False, record=False)
 
     # The recorder for script recording.
-    recorder = Instance(Recorder)
+    recorder = Instance(Recorder, record=False)
 
     ########################################
     # Private traits.
@@ -110,8 +110,6 @@ class Engine(HasStrictTraits):
     _current_object = Instance(HasTraits)
     _current_selection = Instance(HasTraits)
     _viewer_ref = Dict
-
-    _known_script_ids = List(Str, transient=True)
 
     # View related traits.
     current_selection_view = View(Item(name='_current_selection',
@@ -312,7 +310,6 @@ class Engine(HasStrictTraits):
                     src_name = src._script_id
                     self.record("%s = engine.open('%s')"%\
                                  (src_name, filename))
-                    self._known_script_ids.append(src_name)
             finally:
                 scene.scene.busy = False
             if src is not None:
@@ -359,13 +356,12 @@ class Engine(HasStrictTraits):
         s.start()
         # We don't want the startup setup to be recorded.
         recorder = self.recorder
-        s.recorder = recorder
         self.scenes.append(s)
         self.current_scene = s
         if recorder is not None:
-            s_name = s._script_id
+            recorder.register(s, known=True)
+            s_name = recorder.get_script_id(s)
             self.record("%s = engine.new_scene()"%s_name)
-            self._known_script_ids.append(s_name)
     
     def remove_scene(self, scene, **kwargs):
         """Remove a given `scene` (a `pyface.tvtk.scene.Scene`
@@ -535,8 +531,6 @@ class Engine(HasStrictTraits):
         if not isinstance(object, (Base, AdderNode)):
             object = None
         self._current_selection = object
-        if object is not None:
-            self._record_active_object(object)
         self.trait_property_changed('current_selection', old, object)
 
     def _on_scene_closed(self, obj, name, old, new):
@@ -564,40 +558,42 @@ class Engine(HasStrictTraits):
         self.trait_property_changed('children_ui_list', old, new)
 
     def _recorder_changed(self, old, new):
-        self._known_script_ids[:] = []
         if new is not None:
-            new.record('engine = mayavi.engine')
-            new.record('if len(engine.scenes) == 0: mayavi.new_scene()')
-        # Pass the change down to the scenes.
-        for scene in self.scenes:
-            scene.recorder = new
+            new.record('# Recorded script from Mayavi2')
+            new.record('from numpy import array')
+            new.record('try:')
+            new.record('    engine = mayavi.engine')
+            new.record('except NameError:')
+            new.record('    from enthought.mayavi.api import Engine')    
+            new.record('    engine = Engine()')
+            new.record('if len(engine.scenes) == 0: engine.new_scene()')
+            script_id = new.get_script_id(self)
+            new.record('%s = engine'%script_id)
 
     def _record_new_object(self, obj, parent=None):
         """Records the creation of a new module or filter."""
         r = self.recorder
         if r is not None:
-            obj.recorder = r
-            obj_name = obj._script_id
+            r.register(obj, known=True)
+            obj_name = r.get_script_id(obj)
             mname = obj.__module__
             cname = obj.__class__.__name__
             r.record("from %s import %s"%(mname, cname))
             r.record("%s = %s()"%(obj_name, cname))
-            self._known_script_ids.append(obj_name)
-            if parent is not None:
-                self._record_active_object(parent)
-                parent_name = parent._script_id
-                r.record('%s.add_child(%s)'%(parent_name, obj_name))
-            else:
+            if parent is None:
                 method = 'add_filter'
                 if hasattr(obj, 'module_manager'):
                     method = 'add_module'
                 r.record("engine.%s(%s)"%(method, obj_name))
+            else:
+                parent_name = r.get_script_id(parent)
+                r.record('%s.add_child(%s)'%(parent_name, obj_name))
 
     def _record_new_source(self, src, parent=None):
         """Records the creation of a new source."""
         r = self.recorder
         if r is not None:
-            src.recorder = r
+            r.register(src, known=True)
             mname = src.__module__
             cname = src.__class__.__name__
             cmname = '%s.%s'%(mname, cname)
@@ -613,27 +609,12 @@ class Engine(HasStrictTraits):
                     break
             if record:
                 r.record("from %s import %s"%(mname, cname))
-                src_name = src._script_id 
+                src_name = r.get_script_id(src)
                 r.record("%s = %s()"%(src_name, cname))
-                self._known_script_ids.append(src_name)
                 if parent is None:
                     r.record("engine.add_source(%s)"%src_name)
                 else:
-                    self._record_active_object(parent)
-                    parent_name = parent._script_id
+                    parent_name = r.get_script_id(parent)
+                    r.write_script_id_in_namespace(parent_name)
                     r.record('engine.add_source(%s, %s)'%(src_name, parent_name))
-
-    def _record_active_object(self, obj):
-        """Make the object given the active one in the script"""
-        r = self.recorder
-        if r is not None:
-            if not hasattr(obj, '_script_id'):
-                return
-            obj_name = obj._script_id
-            known_ids = self._known_script_ids
-            if obj_name not in known_ids:
-                path = get_object_path(obj, self, 'engine')
-                if len(path) > 0:
-                    r.record('%s = %s'%(obj_name, path))
-                    known_ids.append(obj_name)
 

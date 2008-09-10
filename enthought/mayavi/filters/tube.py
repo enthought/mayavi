@@ -23,7 +23,7 @@ class Tube(FilterBase):
     __version__ = 0
 
     # The actual TVTK filter that this class manages.
-    filter = Instance(tvtk.TubeFilter, args=(), allow_none=False, listen=True)
+    filter = Instance(tvtk.TubeFilter, args=(), allow_none=False, record=True)
 
     input_info = PipelineInfo(datasets=['poly_data'],
                               attribute_types=['any'],

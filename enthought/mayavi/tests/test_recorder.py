@@ -8,124 +8,87 @@ Unit tests for the script recorder.
 import unittest
 
 from enthought.traits.api import (HasTraits, Int, Float, Instance, 
-        Str, List, Bool, implements)
+        Str, List, Bool)
 from enthought.tvtk.api import tvtk
-from enthought.mayavi.core.recorder import (Recorder, Listner,
-        IRecordable, setup_recording, do_record)
+from enthought.mayavi.core.recorder import Recorder 
 
 
-class Recordable(HasTraits):
-
-    implements(IRecordable)
-
-    recorder = Instance(Recorder, transient=True)
-
-    _script_id = Str(transient=True)
-
-    _listners = List(transient=True)
-
-    def record(self, obj, name, old, new):
-        do_record(self, obj, name, old, new)
-
-
+######################################################################
+# Test classes.
 class Toy(HasTraits):
     color = Str
     type = Str
     ignore = Bool(False, record=False)
 
 
-class Child(Recordable):
+class Child(HasTraits):
     name = Str('child')
     age = Float(10.0)
-    property = Instance(tvtk.Property, (), listen=True)
-    _script_id = ''
-    toy = Instance(Toy, listen=True)
-
-    def _recorder_changed(self, old, new):
-        setup_recording(self, new)
+    property = Instance(tvtk.Property, (), record=True)
+    toy = Instance(Toy, record=True)
 
 
 class Parent(HasTraits):
-    children = List(Child)
-
-    recorder = Instance(Recorder)
-
-    # We assume that the active child is settable always.
-    active_child = Int
-
-    def _recorder_changed(self, old, new):
-        for child in self.children:
-            child.recorder = new
-        if new is not None:
-            self._active_child_changed(self.active_child)
-
-    def _active_child_changed(self, new):
-        if self.recorder is not None:
-            child_name = self.children[new]._script_id
-            self.recorder.record('%s = parent.children[%d]'%(child_name,
-                new))
-
-
-class TestListner(unittest.TestCase):
-    def test_listner(self):
-        "Test the Listner class."
-        class A(HasTraits):
-            toy = Instance(Toy)
-            test = List
-            def record(self, obj, name, old, new):
-                self.test = [obj, name, old, new]
-
-        toy = Toy(color='blue', type='bunny')
-        a = A(toy=toy)
-        l = Listner(a, 'toy')
-        toy.color = 'black'
-        self.assertEqual(a.test, [toy, 'toy.color', 'blue', 'black'])
-        # Should not listen to traits marked with record=False.
-        toy.ignore = True
-        self.assertEqual(a.test, [toy, 'toy.color', 'blue', 'black'])
-        self.assertEqual(a.test, [toy, 'toy.color', 'blue', 'black'])
-        l.stop()
-        toy.color = 'red'
-        self.assertEqual(a.test, [toy, 'toy.color', 'blue', 'black'])
+    children = List(Child, record=True)
+    recorder = Instance(Recorder, record=False)
 
 
 class TestRecorder(unittest.TestCase):
     def setUp(self):
         self.tape = Recorder()
-        return
-    def tearDown(self):
-        self.tape.clear()
-        return
-
-    def test_unique_id(self):
-        "Does the get_unique_id method work."
-        t = tvtk.XMLUnstructuredGridWriter()
-        tape = self.tape
-        self.assertEqual(tape.get_unique_id(t),
-                         'xml_unstructured_grid_writer')
-        self.assertEqual(tape.get_unique_id(t),
-                         'xml_unstructured_grid_writer1')
-        t = Toy()
-        self.assertEqual(tape.get_unique_id(t),
-                         'toy')
-
-    def test_record(self):
-        "Does recording work correctly."
-        tape = self.tape
-
         p = Parent()
         c = Child()
         toy = Toy(color='blue', type='bunny')
         c.toy = toy
         p.children.append(c)
+        self.p = p
+        return
+
+    def tearDown(self):
+        self.tape.clear()
+        return
+
+    def test_unique_name(self):
+        "Does the get_unique_id method work."
+        t = tvtk.XMLUnstructuredGridWriter()
+        tape = self.tape
+        self.assertEqual(tape._get_unique_name(t),
+                         'xml_unstructured_grid_writer')
+        self.assertEqual(tape._get_unique_name(t),
+                         'xml_unstructured_grid_writer1')
+        t = Toy()
+        self.assertEqual(tape._get_unique_name(t),
+                         'toy')
+
+    def test_record(self):
+        "Does recording work correctly."
+        tape = self.tape
+        p = self.p
+        c = p.children[0]
+        toy = c.toy
         # start recording.
-        p.recorder = tape
-        # Check that the script ids are set.
-        self.assertEqual(c._script_id, 'child')
-        p.active_child = 0
-        self.assertEqual(tape.lines[-1], 
-                         "child = parent.children[0]")
+        tape.recording = True
+        tape.register(p)
+
+        # Test if p's recorder attribute is set.
+        self.assertEqual(tape, p.recorder)
+
+        # Test script ids and object path.
+        self.assertEqual(tape.get_script_id(p), 'parent')
+        self.assertEqual(tape.get_object_path(p), '')
+
+        self.assertEqual(tape.get_script_id(c), 'child')
+        self.assertEqual(tape.get_object_path(c), 'parent.children[0]')
+
+        self.assertEqual(tape.get_script_id(toy), 'child.toy')
+        self.assertEqual(tape.get_object_path(toy),
+                         'parent.children[0].toy')
+
         c.name = 'Ram'
+        # The child should first be instantiated.
+        self.assertEqual(tape.lines[-2], 
+                         "child = parent.children[0]")
+        # Then its trait set.
         self.assertEqual(tape.lines[-1], "child.name = 'Ram'")
         c.age = 10.5
         self.assertEqual(tape.lines[-1], "child.age = 10.5")
@@ -139,31 +102,106 @@ class TestRecorder(unittest.TestCase):
         self.assertEqual(tape.lines[-1], "child.toy.color = 'red'")
         toy.type = 'teddy'
         self.assertEqual(tape.lines[-1], "child.toy.type = 'teddy'")
+        # This trait should be ignored.
+        toy.ignore = True  
+        self.assertEqual(tape.lines[-1], "child.toy.type = 'teddy'")
+
+        # Turn of recording and test.
+        tape.recording = False
+        toy.type = 'rat'
+        self.assertEqual(tape.lines[-1], "child.toy.type = 'teddy'")
+
+        #print tape.script
 
         # Stop recording.
         n = len(tape.lines)
-        p.recorder = None
+        tape.unregister(p)
         c.property.representation = 'points'
         toy.type = 'bunny'
         self.assertEqual(tape.lines[-1], "child.toy.type = 'teddy'")
         self.assertEqual(n, len(tape.lines))
-        # The script ids should be reset to ''
-        self.assertEqual(c._script_id, '')
 
+        # Make sure the internal data of the recorder is cleared.
+        self.assertEqual(0, len(tape._registry))
+        self.assertEqual(0, len(tape._reverse_registry))
+        self.assertEqual(0, len(tape._known_ids))
+
+    def test_recorded_trait_replaced(self):
+        "Does recording work right when a trait is replaced."
+        tape = self.tape
+        p = self.p
+        c = p.children[0]
+        toy = c.toy
+        # start recording.
+        tape.recording = True
+        tape.register(p)
+
+        # Test the original trait.
+        toy.color = 'red'
+        self.assertEqual(tape.lines[-1], "child.toy.color = 'red'")
+
+        # Now reassign the toy.
+        t1 = Toy(name='ball')
+        c.toy = t1
+        t1.color = 'yellow'
+        self.assertEqual(tape.lines[-1], "child.toy.color = 'yellow'")
+
+    def test_clear(self):
+        "Test the clear method."
+        p = self.p
+        tape = self.tape
+
+        tape.register(p)
+        tape.clear()
+        # Everything should be unregistered.
+        self.assertEqual(p.recorder, None)
+        # Internal data should be wiped clean.
+        self.assertEqual(0, len(tape._registry))
+        self.assertEqual(0, len(tape._reverse_registry))
+        self.assertEqual(0, len(tape._known_ids))
+        self.assertEqual(0, len(tape._name_map))
+
+    def test_create_object(self):
+        tape = self.tape
+        tape.recording = True
+        t = Toy()
+        tape.register(t)
+        t.type = 'computer'
+
+        # Since the name Toy is unknown, there should be a commented
+        # line to create it.
+        self.assertEqual(tape.lines[-3][-10:], 
+                         "import Toy")
+        self.assertEqual(tape.lines[-2], 
+                         "#toy = Toy()")
+        self.assertEqual(tape.lines[-1], 
+                         "toy.type = 'computer'")
+
+        # Since this one is known, there should be no imports or
+        # anything.
+        t1 = Toy()
+        tape.register(t1, known=True)
+        t1.type = 'ball'
+        self.assertEqual(tape.lines[-2], 
+                         "toy.type = 'computer'")
+        self.assertEqual(tape.lines[-1], 
+                         "toy1.type = 'ball'")
 
     def test_save(self):
         "Test if saving tape to file works."
         tape = self.tape
-        p = Parent()
-        c = Child()
-        toy = Toy(color='blue', type='bunny')
-        c.toy = toy
-        p.children.append(c)
+        p = self.p
+        c = p.children[0]
+        toy = c.toy
+
         # Start recording
-        p.recorder = tape
-        p.active_child = 0
+        tape.register(p)
+        tape.recording = True
         toy.type = 'teddy'
-        p.recorder = None
+        # Now stop.
+        tape.recording = False
+        tape.unregister(p)
+
         import StringIO
         f = StringIO.StringIO()
         tape.save(f)

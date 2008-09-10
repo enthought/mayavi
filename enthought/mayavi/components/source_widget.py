@@ -16,7 +16,6 @@ from enthought.persistence.state_pickler import set_state
 from enthought.mayavi.core.common import handle_children_state
 from enthought.mayavi.core.component import Component
 
-
 ######################################################################
 # `SourceWidget` class.
 ######################################################################
@@ -26,7 +25,7 @@ class SourceWidget(Component):
     __version__ = 0
 
     # The actual poly data source widget.
-    widget = Instance(tvtk.ThreeDWidget, listen=True)
+    widget = Instance(tvtk.ThreeDWidget, record=True)
 
     # Specifies the updation mode of the poly_data attribute.  There
     # are three modes: 1) 'interactive' -- the poly_data attribute is
@@ -214,7 +213,7 @@ class SourceWidget(Component):
         recorder = self.recorder
         if recorder is not None:
             idx = self.widget_list.index(value)
-            name = self._script_id
+            name = recorder.get_script_id(self)
             lhs = '%s.widget'%name
             rhs = '%s.widget_list[%d]'%(name, idx)
             recorder.record('%s = %s'%(lhs, rhs))

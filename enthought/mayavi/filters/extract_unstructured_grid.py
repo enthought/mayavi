@@ -22,7 +22,7 @@ class ExtractUnstructuredGrid(FilterBase):
 
     # The actual TVTK filter that this class manages.
     filter = Instance(tvtk.ExtractUnstructuredGrid, args=(),
-                      allow_none=False, listen=True)
+                      allow_none=False, record=True)
 
     input_info = PipelineInfo(datasets=['unstructured_grid'],
                               attribute_types=['any'],

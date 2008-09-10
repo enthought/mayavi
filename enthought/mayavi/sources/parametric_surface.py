@@ -32,12 +32,12 @@ class ParametricSurface(Source):
     # Define the trait 'parametric_function' whose value must be an instance of
     # type ParametricFunction
     parametric_function = Instance(tvtk.ParametricFunction,
-                                   allow_none=False, listen=True)
+                                   allow_none=False, record=True)
 
     # The Parametric function source which generates the data.
     source = Instance(tvtk.ParametricFunctionSource, args=(),
                       kw={'scalar_mode': 'distance'},
-                      allow_none=False, listen=True)
+                      allow_none=False, record=True)
 
     # Information about what this object can produce.
     output_info = PipelineInfo(datasets=['poly_data'], 

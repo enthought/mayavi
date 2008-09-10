@@ -93,7 +93,7 @@ class ModuleManager(Base):
     source = Instance(Base)
 
     # The modules contained by this manager.
-    children = List(Module)
+    children = List(Module, record=True)
 
     # The data type to use for the LUTs.  Changing this setting will
     # change the data range and name of the lookup table/legend bar.

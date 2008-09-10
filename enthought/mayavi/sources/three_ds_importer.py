@@ -24,7 +24,7 @@ class ThreeDSImporter(VRMLImporter):
     # The 3DS importer.
     reader = Instance(tvtk.ThreeDSImporter, args=(),
                       kw={'compute_normals':True},
-                      allow_none=False, listen=True)
+                      allow_none=False, record=True)
 
     ######################################################################
     # Non-public interface

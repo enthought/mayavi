@@ -31,7 +31,8 @@ class TestScriptRecording(unittest.TestCase):
         e = Engine()
         e.start()
         # Start recording.
-        e.recorder = tape
+        tape.recording = True
+        tape.register(e, known=True)
         v = DummyViewer()
         e.new_scene(v)
         self.assertEqual(tape.lines[-1], 
@@ -87,9 +88,11 @@ class TestScriptRecording(unittest.TestCase):
         self.assertEqual(tape.lines[-1], 
                          "surface.actor.mapper.scalar_visibility = False")
 
+        print tape.script
+
         # Stop recording and test.
         tape.record('#end') # Placeholder
-        e.recorder = None
+        tape.unregister(e)
         o.actor.property.opacity = 0.5
         self.assertEqual(tape.lines[-1], '#end')
         s.actor.property.color = (1,0,0)

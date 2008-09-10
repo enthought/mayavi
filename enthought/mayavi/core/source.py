@@ -6,7 +6,7 @@
 # License: BSD Style.
 
 # Enthought library imports.
-from enthought.traits.api import List, Str
+from enthought.traits.api import List, Str 
 from enthought.persistence.state_pickler import set_state
 from enthought.traits.ui.menu import Action
 from enthought.tvtk.api import write_data
@@ -20,7 +20,6 @@ from enthought.mayavi.core.common import handle_children_state, \
                                          exception, error
 from enthought.mayavi.core.pipeline_info import PipelineInfo
 from enthought.mayavi.core.adder_node import ModuleFilterAdderNode
-from enthought.mayavi.preferences.api import preference_manager
 
 ######################################################################
 # Utility functions.
@@ -40,7 +39,7 @@ class Source(PipelineBase):
 
     # The children of this source in the tree view.  These objects all
     # get the output of this source.
-    children = List(Base)
+    children = List(Base, record=True)
 
     # The icon
     icon = 'source.ico'
@@ -87,7 +86,8 @@ class Source(PipelineBase):
             if self.running:
                 mm.start()
             self.children.append(mm)
-            mm.recorder = self.recorder
+            if self.recorder is not None:
+                self.recorder.register(mm)
         mm.children.append(module)
 
     def save_output(self, fname):

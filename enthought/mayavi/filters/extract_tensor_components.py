@@ -26,7 +26,7 @@ class ExtractTensorComponents(FilterBase):
                       kw={'pass_tensors_to_output':True,
                           'scalar_mode': 'effective_stress',
                           'extract_scalars': True},
-                      allow_none=False, listen=True)
+                      allow_none=False, record=True)
 
     input_info = PipelineInfo(datasets=['any'],
                               attribute_types=['any'],

@@ -67,10 +67,10 @@ class Glyph(Component):
 
     # The MaskPoints filter.
     mask_points = Instance(tvtk.MaskPoints, args=(), 
-                           kw={'random_mode': True}, listen=True)
+                           kw={'random_mode': True}, record=True)
 
     # The Glyph3D instance.
-    glyph = Instance(tvtk.Object, allow_none=False, listen=True)
+    glyph = Instance(tvtk.Object, allow_none=False, record=True)
 
     # The Source to use for the glyph.  This is chosen from
     # `self._glyph_list` or `self.glyph_dict`.

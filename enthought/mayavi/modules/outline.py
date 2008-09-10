@@ -31,7 +31,7 @@ class Outline(Module):
     # is the superclass of both the `OutlineFilter` and the
     # `OutlineCornerFilter`.
     outline_filter = Property(Instance(tvtk.ObjectBase,
-                                        allow_none=False), listen=True)
+                                        allow_none=False), record=True)
 
     # Enum to set the outline type.
     outline_mode = Enum('full', 'cornered',

@@ -54,10 +54,10 @@ class Labels(Module):
     actor = Instance(Actor2D, record=True)
 
     # The text property of the labels.
-    property = Instance(tvtk.TextProperty, listen=True)
+    property = Instance(tvtk.TextProperty, record=True)
 
     # The mapper for the labels.
-    mapper = Instance(tvtk.LabeledDataMapper, args=(), listen=True)
+    mapper = Instance(tvtk.LabeledDataMapper, args=(), record=True)
 
     input_info = PipelineInfo(datasets=['any'],
                               attribute_types=['any'],

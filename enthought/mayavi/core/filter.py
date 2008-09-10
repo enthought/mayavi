@@ -24,7 +24,7 @@ class Filter(Source):
     __version__ = 0
 
     # The inputs for this filter.
-    inputs = List(PipelineBase)
+    inputs = List(PipelineBase, record=False)
 
     # The icon
     icon = Str('filter.ico')

@@ -188,11 +188,11 @@ class Volume(Module):
     
     volume = ReadOnly
 
-    volume_mapper = Property(listen=True)
+    volume_mapper = Property(record=True)
 
-    volume_property = Property(listen=True)
+    volume_property = Property(record=True)
 
-    ray_cast_function = Property(listen=True)
+    ray_cast_function = Property(record=True)
 
     lut_manager = Instance(VolumeLUTManager, args=(), allow_none=False,
                            record=True)

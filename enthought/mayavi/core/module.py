@@ -32,7 +32,7 @@ class Module(PipelineBase):
     # The (optional) components used by this module.  NOTE: This is
     # not pickled.  It is the developers responsibility to setup the
     # components when the component traits are set in the handler.
-    components = List
+    components = List(record=False)
 
     # The icon
     icon = Str('module.ico')

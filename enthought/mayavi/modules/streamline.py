@@ -34,7 +34,7 @@ class Streamline(Module):
 
     # The streamline generator.
     stream_tracer = Instance(tvtk.StreamTracer, allow_none=False,
-                             listen=True)
+                             record=True)
 
     # The seed for the streamlines.
     seed = Instance(SourceWidget, allow_none=False, record=True)
@@ -51,11 +51,11 @@ class Streamline(Module):
 
     # The ribbon filter.
     ribbon_filter = Instance(tvtk.RibbonFilter, allow_none=False,
-                             listen=True)
+                             record=True)
 
     # The tube filter.
     tube_filter = Instance(tvtk.TubeFilter, allow_none=False,
-                           listen=True)
+                           record=True)
 
     # The actor component that represents the visualization.
     actor = Instance(Actor, allow_none=False, record=True)

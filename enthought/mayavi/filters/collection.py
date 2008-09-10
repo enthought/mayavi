@@ -26,7 +26,7 @@ class Collection(Filter):
     """
 
     # The filters we manage.
-    filters = List(Instance(PipelineBase))
+    filters = List(Instance(PipelineBase), record=True)
 
     ########################################
     # Private traits.

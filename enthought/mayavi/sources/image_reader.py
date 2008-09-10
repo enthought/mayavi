@@ -31,7 +31,7 @@ class ImageReader(FileDataSource):
     __version__ = 0
 
     # The Image data file reader.
-    reader = Instance(tvtk.Object, allow_none=False, listen=True)    
+    reader = Instance(tvtk.Object, allow_none=False, record=True)    
 
     # Information about what this object can produce.
     output_info = PipelineInfo(datasets=['image_data'])

@@ -25,7 +25,7 @@ class Scene(Base):
     __version__ = 0
 
     # The source objects associated with this object.
-    children = List(Source)
+    children = List(Source, record=True)
 
     # The name of this scene.
     name = Str('TVTK Scene')

@@ -30,11 +30,11 @@ class SliceUnstructuredGrid(Module):
 
     # Extract the cells to display.
     extract_geometry = Instance(tvtk.ExtractGeometry, allow_none=False,
-                                listen=True)
+                                record=True)
 
     # The geometry filter.
     geom_filter = Instance(tvtk.GeometryFilter, allow_none=False,
-                           listen=True)
+                           record=True)
 
     # The actor component that represents the visualization.
     actor = Instance(Actor, allow_none=False, record=True)
