@@ -539,7 +539,7 @@ def stop_recording(object, recorder=None):
             recorder = object.recorder
         else:
             raise RecorderError('Unable to find recorder to stop!')
-    recorder.recording = False
     recorder.unregister(object)
+    recorder.recording = False
     recorder.ui_save()
 

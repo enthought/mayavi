@@ -572,6 +572,9 @@ class Engine(HasStrictTraits):
             script_id = new.get_script_id(self)
             new.write_script_id_in_namespace('engine')
             new.record('%s = engine'%script_id)
+        elif old is not None:
+            old.record('from enthought.mayavi.tools.show import show')
+            old.record('show()')
 
     def _record_new_object(self, obj, parent=None):
         """Records the creation of a new module or filter."""
