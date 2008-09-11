@@ -162,6 +162,7 @@ class TestRecorder(unittest.TestCase):
         self.assertEqual(0, len(tape._name_map))
 
     def test_create_object(self):
+        "Is the object imported and created if unknown?"
         tape = self.tape
         tape.recording = True
         t = Toy()
@@ -205,6 +206,13 @@ class TestRecorder(unittest.TestCase):
         self.assertEqual(tape.lines[-1], 
                          "child.friends[1] = 'Hari'")
 
+    def test_write_script_id_in_namespace(self):
+        "Test the write_script_id_in_namespace method."
+        tape = self.tape
+        tape.recording = True
+        # This should not cause an error but insert the name 'foo' in the
+        # namespace.
+        tape.write_script_id_in_namespace('foo')
 
     def test_save(self):
         "Test if saving tape to file works."

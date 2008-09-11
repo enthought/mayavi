@@ -338,27 +338,33 @@ class Recorder(HasTraits):
     def write_script_id_in_namespace(self, script_id):
         """If a script_id is not known in the current script's namespace,
         this sets it using the path of the object or actually
-        instantiating it.
+        instantiating it.  If this is not possible (since the script_id
+        matches no existing object), nothing is recorded but the
+        framework is notified that the particular script_id is available
+        in the namespace.  This is useful when you want to inject code
+        in the namespace to create a particular object.
         """
         if not self.recording:
             return
         known_ids = self._known_ids
         if script_id not in known_ids:
             obj = self._reverse_registry.get(script_id)
-            data = self._registry.get(obj)
-            if len(data.path) > 0:
-                # Record code for instantiation of object.
-                result = '%s = %s'%(script_id, data.path)
-            else:
-                # This is not the best thing to do but better than
-                # nothing.
-                mod, cls = obj.__module__, obj.__class__.__name__
-                result = '#from %s import %s\n'%(mod, cls)
-                result += '#%s = %s()'%(script_id, cls)
+            # Add the ID to the known_ids.
             known_ids.append(script_id)
+            if obj is not None:
+                data = self._registry.get(obj)
+                if len(data.path) > 0:
+                    # Record code for instantiation of object.
+                    result = '%s = %s'%(script_id, data.path)
+                else:
+                    # This is not the best thing to do but better than
+                    # nothing.
+                    mod, cls = obj.__module__, obj.__class__.__name__
+                    result = '#from %s import %s\n'%(mod, cls)
+                    result += '#%s = %s()'%(script_id, cls)
 
-            if len(result) > 0:
-                self.lines.extend(result.split('\n'))
+                if len(result) > 0:
+                    self.lines.extend(result.split('\n'))
 
     ######################################################################
     # Non-public interface.

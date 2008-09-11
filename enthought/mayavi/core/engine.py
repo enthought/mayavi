@@ -570,8 +570,7 @@ class Engine(HasStrictTraits):
             new.record('    engine = Engine()')
             new.record('if len(engine.scenes) == 0: engine.new_scene()')
             script_id = new.get_script_id(self)
-            # FIXME: this is a hack.
-            new._known_ids.append('engine')
+            new.write_script_id_in_namespace('engine')
             new.record('%s = engine'%script_id)
 
     def _record_new_object(self, obj, parent=None):
