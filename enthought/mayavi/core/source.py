@@ -87,7 +87,9 @@ class Source(PipelineBase):
                 mm.start()
             self.children.append(mm)
             if self.recorder is not None:
-                self.recorder.register(mm)
+                index = len(self.children) - 1
+                self.recorder.register(mm, parent=self,
+                                       trait_name_on_parent='children[%d]'%index)
         mm.children.append(module)
 
     def save_output(self, fname):

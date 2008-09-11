@@ -3,8 +3,7 @@ Code to support recording to a runnable Python script.
 
 TODO:
     - Add support for recording decorated functions.
-    - Listen to lists changing values.
-
+    - Support for dictionaries?
 """
 # Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
 # Copyright (c) 2008, Enthought, Inc.
@@ -38,6 +37,9 @@ class _RegistryData(HasTraits):
 
     # Nested recordable instances on the object.
     sub_recordables = List(Str)
+
+    # List of traits that are lists.
+    list_names = List(Str)
 
 
 ################################################################################
@@ -143,9 +145,9 @@ class Recorder(HasTraits):
             code to define/create an object.
         """
         registry = self._registry
-        logger.info('Registering object %s', object)
+        #logger.info('Registering object %r', object)
         if object in registry:
-            logger.warning('Object %s already registered: ignoring', object)
+            logger.warning('Object %r already registered: ignoring', object)
             return
 
         # When parent is specified the trait_name_on_parent must also be.
@@ -165,6 +167,14 @@ class Recorder(HasTraits):
         tnames = [t for t in object.trait_names() 
                   if not t.startswith('_') and not t.endswith('_') \
                      and t not in ignore]
+        # Find all list traits.
+        trts = object.traits()
+        list_names = []
+        for t in tnames:
+            tt = trts[t].trait_type
+            if hasattr(tt, 'default_value_type') and \
+                    tt.default_value_type == 5:
+                list_names.append(t)
 
         # Setup the registry data.
         if parent is None:
@@ -190,7 +200,8 @@ class Recorder(HasTraits):
 
         # Register the object with the data.
         data = _RegistryData(script_id=sid, path=path, names=tnames,
-                             sub_recordables=sub_recordables)
+                             sub_recordables=sub_recordables, 
+                             list_names=list_names)
         registry[object] = data
         self._reverse_registry[sid] = object
         if known:
@@ -201,8 +212,13 @@ class Recorder(HasTraits):
             try:
                 object.recorder = self
             except TraitError, e:
-                msg = "Cannot set 'recorder' trait of object %s: %s"
+                msg = "Cannot set 'recorder' trait of object %r: %s"
                 logger.warning(msg, object, e)
+
+        # Add handler for lists.
+        for name in list_names:
+            object.on_trait_change(self._list_items_listner,
+                                   '%s_items'%name)
 
         # Register all sub-recordables.
         for name in sub_recordables:
@@ -228,9 +244,9 @@ class Recorder(HasTraits):
         the logic of the `register(...)` method.
         """
         registry = self._registry
-        logger.info('Unregistering object %s', object)
+        #logger.info('Unregistering object %r', object)
         if object not in registry:
-            logger.warning('Object %s not registered: ignoring', object)
+            logger.warning('Object %r not registered: ignoring', object)
             return
 
         data = registry[object]
@@ -240,10 +256,15 @@ class Recorder(HasTraits):
             try:
                 object.recorder = None
             except TraitError, e:
-                msg = "Cannot set 'recorder' trait of object %s: %s"
+                msg = "Cannot unset 'recorder' trait of object %r: %s"
                 logger.warning(msg, object, e)
 
-        # Register all sub-recordables.
+        # Remove all list_items handlers.
+        for name in data.list_names:
+            object.on_trait_change(self._list_items_listner,
+                                   '%s_items'%name, remove=True)
+
+        # Unregister all sub-recordables.
         for name in data.sub_recordables:
             obj = getattr(object, name)
             if isinstance(obj, list):
@@ -327,7 +348,6 @@ class Recorder(HasTraits):
             data = self._registry.get(obj)
             if len(data.path) > 0:
                 # Record code for instantiation of object.
-                known_ids.append(script_id)
                 result = '%s = %s'%(script_id, data.path)
             else:
                 # This is not the best thing to do but better than
@@ -335,6 +355,8 @@ class Recorder(HasTraits):
                 mod, cls = obj.__module__, obj.__class__.__name__
                 result = '#from %s import %s\n'%(mod, cls)
                 result += '#%s = %s()'%(script_id, cls)
+            known_ids.append(script_id)
+
             if len(result) > 0:
                 self.lines.extend(result.split('\n'))
 
@@ -398,6 +420,32 @@ class Recorder(HasTraits):
             else:
                 self.record(msg)
 
+    def _list_items_listner(self, object, name, old, event):
+        """The listner for *_items on list traits of the object.
+        """
+        if self.recording:
+            sid = self._get_registry_data(object).script_id
+            index = event.index
+            removed = event.removed
+            nr = len(removed)
+            if nr > 1:
+                # A slice.
+                slice = '[%d:%d]'%(index, index + nr)
+            else:
+                slice = '[%d]'%index
+            added = event.added
+            na = len(added)
+            if nr > 1:
+                rhs = '%r'%added
+            elif nr == 1:
+                rhs = '%r'%added[0]
+            else:
+                rhs = '[]'
+                
+            obj = '%s.%s'%(sid, name[:-6])
+            msg = '%s%s = %s'%(obj, slice, rhs)
+            self.record(msg)
+
     def _object_changed_handler(self, object, name, old, new):
         """Called when a child recordable object has been reassigned."""
         registry = self._registry
@@ -440,7 +488,7 @@ class RecorderWithUI(Recorder):
 
     view = View(Group(Item('code'), Item('save_script'),
                       show_labels=False),
-                width=600,
+                width=600, height=400,
                 buttons=['OK'], resizable=True)
 
     def _lines_items_changed(self):

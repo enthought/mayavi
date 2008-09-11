@@ -307,9 +307,11 @@ class Engine(HasStrictTraits):
                     src = callable(filename, self)
                 if src is not None:
                     self.add_source(src, passed_scene)
-                    src_name = src._script_id
-                    self.record("%s = engine.open('%s')"%\
-                                 (src_name, filename))
+                    recorder = self.recorder
+                    if recorder is not None:
+                        src_name = recorder.get_script_id(src)
+                        recorder.record("%s = engine.open('%s')"%\
+                                       (src_name, filename))
             finally:
                 scene.scene.busy = False
             if src is not None:
@@ -361,7 +363,7 @@ class Engine(HasStrictTraits):
         if recorder is not None:
             recorder.register(s, known=True)
             s_name = recorder.get_script_id(s)
-            self.record("%s = engine.new_scene()"%s_name)
+            self.record("%s = engine.new_scene()"%(s_name))
     
     def remove_scene(self, scene, **kwargs):
         """Remove a given `scene` (a `pyface.tvtk.scene.Scene`
@@ -385,7 +387,7 @@ class Engine(HasStrictTraits):
         if s is not None:
             s.stop()
             self.scenes.remove(s)
-            self.record("engine.close_scene(engine.scenes[%d])"%index)
+            self.record("engine.close_scene(engine.scenes[%d])"%(index))
         # Remove the reference to the viewer if any.
         if scene in self._viewer_ref:
             del self._viewer_ref[scene]
@@ -568,6 +570,8 @@ class Engine(HasStrictTraits):
             new.record('    engine = Engine()')
             new.record('if len(engine.scenes) == 0: engine.new_scene()')
             script_id = new.get_script_id(self)
+            # FIXME: this is a hack.
+            new._known_ids.append('engine')
             new.record('%s = engine'%script_id)
 
     def _record_new_object(self, obj, parent=None):

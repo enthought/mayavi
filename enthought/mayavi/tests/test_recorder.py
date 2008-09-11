@@ -7,7 +7,7 @@ Unit tests for the script recorder.
 
 import unittest
 
-from enthought.traits.api import (HasTraits, Int, Float, Instance, 
+from enthought.traits.api import (HasTraits, Float, Instance, 
         Str, List, Bool)
 from enthought.tvtk.api import tvtk
 from enthought.mayavi.core.recorder import Recorder 
@@ -26,7 +26,7 @@ class Child(HasTraits):
     age = Float(10.0)
     property = Instance(tvtk.Property, (), record=True)
     toy = Instance(Toy, record=True)
-
+    friends = List(Str)
 
 class Parent(HasTraits):
     children = List(Child, record=True)
@@ -186,6 +186,25 @@ class TestRecorder(unittest.TestCase):
                          "toy.type = 'computer'")
         self.assertEqual(tape.lines[-1], 
                          "toy1.type = 'ball'")
+
+    def test_list_items_changed(self):
+        "Test if a list item is changed does the change get recorded."
+        p = self.p
+        tape = self.tape
+        child = p.children[0]
+        tape.register(p)
+        tape.recording = True
+
+        child.friends = ['Krishna', 'Ajay', 'Ali']
+        self.assertEqual(tape.lines[-1], 
+                         "child.friends = ['Krishna', 'Ajay', 'Ali']")
+        child.friends[1:] = ['Sam', 'Frodo']
+        self.assertEqual(tape.lines[-1], 
+                         "child.friends[1:3] = ['Sam', 'Frodo']")
+        child.friends[1] = 'Hari'
+        self.assertEqual(tape.lines[-1], 
+                         "child.friends[1] = 'Hari'")
+
 
     def test_save(self):
         "Test if saving tape to file works."
