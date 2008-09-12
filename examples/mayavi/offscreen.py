@@ -16,30 +16,18 @@ It can be run as:
 
 from os.path import join, abspath
 
-# The core Engine.
-from enthought.mayavi.core.engine import Engine
+# The offscreen Engine.
+from enthought.mayavi.api import OffScreenEngine
 
 # Usual MayaVi imports
 from enthought.mayavi.scripts.util import get_data_dir
 from enthought.mayavi.sources.api import VTKXMLFileReader
 from enthought.mayavi.modules.api import Outline, ScalarCutPlane, Streamline
 
-# The TVTK window.
-from enthought.tvtk.pyface.tvtk_scene import TVTKWindow
 
-def off_screen_viewer():
-    """A factory that creates an offscreen viewer."""
-    win = TVTKWindow(off_screen_rendering=True)
-    # Need to set some non-zero size for the off screen window.  If
-    # not we get VTK errors on Linux.
-    win.scene.set_size((100,100))
-    return win
-
-                        
 def main():
-    # Create the MayaVi engine and start it.  Set the scene_factory to
-    # use an off screen viewer defined above.
-    e = Engine(scene_factory=off_screen_viewer)
+    # Create the MayaVi offscreen engine and start it.
+    e = OffScreenEngine()
     # Starting the engine registers the engine with the registry and
     # notifies others that the engine is ready.
     e.start()

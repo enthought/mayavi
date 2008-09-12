@@ -487,8 +487,8 @@ class MayaviOffscreen(MayaviApp):
 
     def _script_default(self):
         from enthought.mayavi.plugins.script import Script
-        from enthought.mayavi.core.engine import Engine
-        engine = Engine(scene_factory=off_screen_viewer)
+        from enthought.mayavi.core.off_screen_engine import OffScreenEngine
+        engine = OffScreenEngine()
         engine.start()
         s = Script(engine=engine)
         return s
@@ -513,15 +513,6 @@ class MayaviOffscreen(MayaviApp):
 ##########################################################################
 # Helper functions
 ##########################################################################
-def off_screen_viewer():
-    """A factory that creates an offscreen viewer."""
-    from enthought.tvtk.pyface.tvtk_scene import TVTKWindow
-    win = TVTKWindow(off_screen_rendering=True)
-    # Need to set some non-zero size for the off screen window.  If
-    # not we get VTK errors on Linux.
-    win.scene.set_size((300,300))
-    return win
-
 def get_mayavi_script_instance():
     """Return the mayavi Script instance from the first available set of
     envisage engines registered in the registry.

@@ -10,23 +10,12 @@ from enthought.pyface.api import GUI
 from enthought.mayavi.preferences.api import preference_manager
 from enthought.mayavi.core.registry import registry
 from enthought.mayavi.core.engine import Engine
+from enthought.mayavi.core.off_screen_engine import OffScreenEngine
 from preferences_mirror import PreferencesMirror
 
 # The mlab options.
 options = PreferencesMirror()
 options.preferences = preference_manager.mlab
-
-
-################################################################################
-# Utility functions.
-def off_screen_viewer():
-    """A factory that creates an offscreen viewer."""
-    from enthought.tvtk.pyface.tvtk_scene import TVTKWindow
-    win = TVTKWindow(off_screen_rendering=True)
-    # Need to set some non-zero size for the off screen window.  If
-    # not we get VTK errors on Linux.
-    win.scene.set_size((400, 400))
-    return win
 
 
 ################################################################################
@@ -92,8 +81,7 @@ class EngineManager(HasTraits):
             engine = m.script.engine
         else:
             if options.offscreen:
-                engine = Engine(name='Mlab offscreen Engine',
-                                scene_factory=off_screen_viewer)
+                engine = OffScreenEngine(name='Mlab offscreen Engine')
                 engine.start()
             else:
                 engine = Engine(name='Mlab Engine')
