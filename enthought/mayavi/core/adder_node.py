@@ -200,7 +200,7 @@ class ListAdderNode(AdderNode):
                             editor=tree_editor,
                             resizable=True,
                             springy=True,
-                            height=0.5),
+                            height=-200),
                     Item('selected_item', style='custom', show_label=False,
                             height=0.5),
                     resizable=True)
