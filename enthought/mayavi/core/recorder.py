@@ -13,8 +13,10 @@ import logging
 from os.path import isfile
 
 from enthought.traits.api import (HasTraits, List, Str, Code, Button,
-        Dict, Bool, Unicode, Property, TraitError)
-from enthought.traits.ui.api import View, Group, Item
+        Dict, Bool, Unicode, Property, TraitError, Int, on_trait_change)
+from enthought.traits.ui.api import CodeEditor
+
+from enthought.traits.ui.api import View, Item
 from enthought.tvtk.common import camel2enthought
 from common import error
 
@@ -489,19 +491,24 @@ class RecorderWithUI(Recorder):
     This class represents a Recorder but with a simple user interface.
     """
 
-    code = Code
+    # The code to display
+    code = Code(editor=CodeEditor(line='current_line'))
+
+    # Button to save script to file.
     save_script = Button('Save Script')
 
-    view = View(Group(Item('code'), Item('save_script'),
-                      show_labels=False),
+    # The current line to show, used by the editor.
+    current_line = Int
+
+    view = View(Item('code', show_label=False), 
+                Item('save_script', show_label=False),
                 width=600, height=400,
                 buttons=['OK'], resizable=True)
 
-    def _lines_items_changed(self):
+    @on_trait_change('lines[]')
+    def _update_code(self):
         self.code = self.get_code()
-
-    def _lines_changed(self):
-        self.code = self.get_code()
+        self.current_line = len(self.lines) + 1
 
     def _save_script_fired(self):
         self.ui_save()
