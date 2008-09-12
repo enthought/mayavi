@@ -7,20 +7,13 @@ A simple test for script recording in Mayavi.
 
 import unittest
 
-from enthought.traits.api import HasTraits, Any, Event
-
 from enthought.mayavi.core.recorder import Recorder
-from enthought.mayavi.core.engine import Engine
 from enthought.mayavi.sources.parametric_surface import \
     ParametricSurface
 from enthought.mayavi.modules.outline import Outline
 from enthought.mayavi.modules.surface import Surface
 
-
-class DummyViewer(HasTraits):
-    scene = Any
-    closing = Event
-    activated = Event
+from common import TestEngine
 
 
 class TestScriptRecording(unittest.TestCase):
@@ -28,13 +21,12 @@ class TestScriptRecording(unittest.TestCase):
         "Does script recording work correctly."
         # Create a mayavi pipeline and record it.
         tape = Recorder()
-        e = Engine()
+        e = TestEngine()
         e.start()
         # Start recording.
         tape.recording = True
         tape.register(e, known=True)
-        v = DummyViewer()
-        e.new_scene(v)
+        e.new_scene()
         self.assertEqual(tape.lines[-1], 
                          "scene = engine.new_scene()")
 
@@ -88,11 +80,11 @@ class TestScriptRecording(unittest.TestCase):
         self.assertEqual(tape.lines[-1], 
                          "surface.actor.mapper.scalar_visibility = False")
 
-        print tape.script
+        #print tape.script
 
         # Stop recording and test.
-        tape.record('#end') # Placeholder
         tape.unregister(e)
+        tape.record('#end') # Placeholder
         o.actor.property.opacity = 0.5
         self.assertEqual(tape.lines[-1], '#end')
         s.actor.property.color = (1,0,0)
