@@ -128,10 +128,10 @@ class TVTKScene(HasPrivateTraits):
     jpeg_progressive = Bool(True, desc='if the generated JPEG should be progressive')
 
     # The light manager.
-    light_manager = Instance(light_manager.LightManager)
+    light_manager = Instance(light_manager.LightManager, record=True)
 
     # Is the scene busy or not.
-    busy = Property(Bool)
+    busy = Property(Bool, record=False)
 
     ########################################
     # Events
@@ -140,15 +140,15 @@ class TVTKScene(HasPrivateTraits):
     # control is actually created in __init__.
 
     # The control is going to be closed.
-    closing = Event
+    closing = Event(record=False)
 
     # The control has been closed.
-    closed = Event
+    closed = Event(record=False)
 
     # Event fired when an actor is added to the scene.
-    actor_added = Event
+    actor_added = Event(record=False)
     # Event fired when any actor is removed from the scene.
-    actor_removed = Event
+    actor_removed = Event(record=False)
 
     ########################################
     # Properties.

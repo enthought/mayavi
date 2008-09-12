@@ -5,11 +5,12 @@
 # License: BSD Style.
 
 # Enthought library imports.
-from enthought.traits.api import List, Str
+from enthought.traits.api import List, Str, Instance
 from enthought.traits.ui.api import View, Group, Item
 from enthought.persistence.state_pickler import set_state
 
 # Local imports.
+from enthought.tvtk.pyface.tvtk_scene import TVTKScene
 from enthought.mayavi.core.base import Base
 from enthought.mayavi.core.source import Source
 from enthought.mayavi.core.common import handle_children_state, exception
@@ -23,6 +24,13 @@ class Scene(Base):
 
     # The version of this class.  Used for persistence.
     __version__ = 0
+    
+    # The scene (RenderWindow) associated with this component -- we
+    # redeclare it here just to be able to record this scene, we don't
+    # want it recorded on all objects since the scene is shared
+    # (although it isn't an error to register an object twice with the
+    # recorder).
+    scene = Instance(TVTKScene, record=True)
 
     # The source objects associated with this object.
     children = List(Source, record=True)
