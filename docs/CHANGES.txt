@@ -7,6 +7,25 @@ URL:
 -----------------------------------------------------------------------------
 
 
+12 September, 2008 (PR)
+    - NEW: Create a separate OffScreenEngine for use to reduce code
+      duplication.  This is also available as part of
+      enthought.mayavi.api. [21880]
+    - TEST: Creating a common.py that contains a TestEngine mayavi
+      engine subclass for easily testing mayavi. [21881]
+
+8-12 September, 2008 (PR)
+    - NEW: Adding full support for script recording.  With this you can
+      pretty much record all UI actions performed on the Mayavi UI (both
+      standalone and application) to human-readable and runnable Python
+      scripts.  It also serves as a nice learning tool since it shows
+      the lines of code as the UI actions are performed.  Note that
+      interacting with the camera is also recorded which is very
+      convenient.  This has been implemented in a pretty general fashion
+      (using TDD) so is reusable in other traits based applications
+      also.   Major checkins [21722], [21728], [21776], [21812], [21865]
+      [21878].
+
 7 September, 2008 (PR):
     - ENH: The mayavi2 application now ([21713], [21714]) supports
       command line args like the following::
