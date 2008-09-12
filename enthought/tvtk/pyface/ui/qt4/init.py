@@ -2,11 +2,16 @@
 # Copyright (c) 2007, Riverbank Computing Limited
 # All rights reserved.
 # 
-# This software is provided without warranty under the terms of the GPL v2
+# This software is provided without warranty under the terms of the BSD
 # license.
 # 
 # Author: Riverbank Computing Limited
 # Description: <Enthought pyface package component>
+#
+# In an e-mail to enthought-dev on 2008.09.12 at 2:49 AM CDT, Phil Thompson said:
+# The advantage is that all of the PyQt code in ETS can now be re-licensed to
+# use the BSD - and I hereby give my permission for that to be done. It's
+# been on my list of things to do.
 #------------------------------------------------------------------------------
 
 
