@@ -94,17 +94,23 @@ class _VTKRenderWindowInteractor(QVTKRenderWindowInteractor):
         if key in [QtCore.Qt.Key_Minus]:
             camera.zoom(0.8)
             scene.render()
+            scene._record_methods('camera.zoom(0.8)\nrender()')
             return
 
         if key in [QtCore.Qt.Key_Equal, QtCore.Qt.Key_Plus]:
             camera.zoom(1.25)
             scene.render()
+            scene._record_methods('camera.zoom(1.25)\nrender()')
             return
 
         if key in [QtCore.Qt.Key_E, QtCore.Qt.Key_Q, QtCore.Qt.Key_Escape]:
             return
 
         if key in [QtCore.Qt.Key_W]:
+            return
+
+        if key in [QtCore.Qt.Key_R]:
+            scene._record_methods('reset_zoom()')
             return
 
         if key in [QtCore.Qt.Key_P] and modifiers == QtCore.Qt.NoModifier:
@@ -123,6 +129,8 @@ class _VTKRenderWindowInteractor(QVTKRenderWindowInteractor):
             if coord is not None:
                 camera.focal_point = coord
                 scene.render()
+                scene._record_methods('camera.focal_point = %r\n'\
+                                      'render()'%list(coord))
             return
 
         if key in [QtCore.Qt.Key_L] and modifiers == QtCore.Qt.NoModifier:
@@ -140,39 +148,51 @@ class _VTKRenderWindowInteractor(QVTKRenderWindowInteractor):
         if key == QtCore.Qt.Key_Left:
             if shift:
                 camera.yaw(-5)
+                scene._record_methods('camera.yaw(-5)')
             else:
                 camera.azimuth(5)
+                scene._record_methods('camera.azimuth(5)')
 
             scene.render()
+            scene._record_methods('render()')
             return
 
         if key == QtCore.Qt.Key_Right:
             if shift:
                 camera.yaw(5)
+                scene._record_methods('camera.yaw(5)')
             else:
                 camera.azimuth(-5)
+                scene._record_methods('camera.azimuth(-5)')
 
             scene.render()
+            scene._record_methods('render()')
             return
 
         if key == QtCore.Qt.Key_Up:
             if shift:
                 camera.pitch(-5)
+                scene._record_methods('camera.pitch(-5)')
             else:
                 camera.elevation(-5)
+                scene._record_methods('camera.elevation(-5)')
 
             camera.orthogonalize_view_up()
             scene.render()
+            scene._record_methods('camera.orthogonalize_view_up()\nrender()')
             return
 
         if key == QtCore.Qt.Key_Down:
             if shift:
                 camera.pitch(5)
+                scene._record_methods('camera.pitch(5)')
             else:
                 camera.elevation(5)
+                scene._record_methods('camera.elevation(5)')
 
             camera.orthogonalize_view_up()
             scene.render()
+            scene._record_methods('camera.orthogonalize_view_up()\nrender()')
             return
 
         QVTKRenderWindowInteractor.keyPressEvent(self, e)

@@ -371,16 +371,20 @@ class Scene(TVTKScene, Widget):
             if key == '-':
                 camera.zoom(0.8)
                 self.render()
+                self._record_methods('camera.zoom(0.8)\nrender()')
                 return
             if key in ['=', '+']:
                 camera.zoom(1.25)
                 self.render()
+                self._record_methods('camera.zoom(1.25)\nrender()')
                 return
             if key.lower() in ['q', 'e'] or keycode == wx.WXK_ESCAPE:
                 self._disable_fullscreen()
             if key.lower() in ['w']:
                 event.Skip()
                 return
+            if key.lower() in ['r']:
+                self._record_methods('reset_zoom()')
             # Handle picking.
             if key.lower() in ['p']:
                 # In wxPython-2.6, there appears to be a bug in
@@ -408,32 +412,44 @@ class Scene(TVTKScene, Widget):
         if keycode == wx.WXK_LEFT:
             if shift:
                 camera.yaw(-5)
+                self._record_methods('camera.yaw(-5)')
             else:
                 camera.azimuth(5)
+                self._record_methods('camera.azimuth(5)')
             self.render()
+            self._record_methods('render()')
             return
         elif keycode == wx.WXK_RIGHT:
             if shift:
                 camera.yaw(5)
+                self._record_methods('camera.yaw(5)')
             else:
                 camera.azimuth(-5)
+                self._record_methods('camera.azimuth(-5)')
             self.render()
+            self._record_methods('render()')
             return
         elif keycode == wx.WXK_UP:
             if shift:
                 camera.pitch(-5)
+                self._record_methods('camera.pitch(-5)')
             else:
                 camera.elevation(-5)
+                self._record_methods('camera.elevation(-5)')
             camera.orthogonalize_view_up()
             self.render()
+            self._record_methods('camera.orthogonalize_view_up()\nrender()')
             return
         elif keycode == wx.WXK_DOWN:
             if shift:
                 camera.pitch(5)
+                self._record_methods('camera.pitch(5)')
             else:
                 camera.elevation(5)
+                self._record_methods('camera.elevation(5)')
             camera.orthogonalize_view_up()
             self.render()
+            self._record_methods('camera.orthogonalize_view_up()\nrender()')
             return
 
         self._vtk_control.OnKeyDown(event)
@@ -470,6 +486,8 @@ class Scene(TVTKScene, Widget):
                     if coord is not None:                  
                         self.camera.focal_point = coord
                         self.render()
+                        self._record_methods('camera.focal_point = %r\n'\
+                                             'render()'%list(coord))
                         return
             # Handle picking.
             if key.lower() in ['p']:

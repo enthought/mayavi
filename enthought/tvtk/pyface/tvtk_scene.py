@@ -15,10 +15,11 @@ import os.path
 
 from enthought.persistence import state_pickler
 from enthought.tvtk.api import tvtk
+from enthought.tvtk import messenger
 from enthought.tvtk.tvtk_base import vtk_color_trait
 
 from enthought.traits.api import HasPrivateTraits, HasTraits, Any, Int, \
-     Property, Instance, Event, Range, Bool, Trait
+     Property, Instance, Event, Range, Bool, Trait, Str
 
 from enthought.tvtk.pyface import light_manager
 
@@ -171,6 +172,13 @@ class TVTKScene(HasPrivateTraits):
     ########################################
     # Private traits.
 
+    # A recorder for script recording.
+    recorder = Instance(HasTraits, record=False, transient=True)
+    # Cached last camera state.
+    _last_camera_state = Any(transient=True)
+    _camera_observer_id = Int(transient=True)
+    _script_id = Str(transient=True)
+
     # The renderer instance.
     _renderer = Instance(tvtk.Renderer)
     _renwin = Instance(tvtk.RenderWindow)
@@ -318,36 +326,44 @@ class TVTKScene(HasPrivateTraits):
     def x_plus_view(self):
         """View scene down the +X axis. """
         self._update_view(self._def_pos, 0, 0, 0, 0, 1)
+        self._record_methods('x_plus_view()')
 
     def x_minus_view(self):
         """View scene down the -X axis. """
         self._update_view(-self._def_pos, 0, 0, 0, 0, 1)
+        self._record_methods('x_minus_view()')
 
     def z_plus_view(self):
         """View scene down the +Z axis. """
         self._update_view(0, 0, self._def_pos, 0, 1, 0)
+        self._record_methods('z_plus_view()')
 
     def z_minus_view(self):
         """View scene down the -Z axis. """
         self._update_view(0, 0, -self._def_pos, 0, 1, 0)
+        self._record_methods('z_minus_view()')
 
     def y_plus_view(self):
         """View scene down the +Y axis. """
         self._update_view(0, self._def_pos, 0, 1, 0, 0)
+        self._record_methods('y_plus_view()')
 
     def y_minus_view(self):
         """View scene down the -Y axis. """
         self._update_view(0, -self._def_pos, 0, 1, 0, 0)
+        self._record_methods('y_minus_view()')
 
     def isometric_view(self):
         """Set the view to an iso-metric view. """
         self._update_view(self._def_pos, self._def_pos, self._def_pos,
                           0, 0, 1)
+        self._record_methods('isometric_view()')
 
     def reset_zoom(self):
         """Reset the camera so everything in the scene fits."""
         self._renderer.reset_camera()
         self.render()
+        self._record_methods('reset_zoom()')
 
     def save(self, file_name, size=None, **kw_args):
         """Saves rendered scene to one of several image formats
@@ -379,8 +395,10 @@ class TVTKScene(HasPrivateTraits):
             self.set_size(size)
             meth(file_name, **kw_args)
             self.set_size(orig_size)
+            self._record_methods('save(%r, %r)'%(file_name, size))
         else:
             meth(file_name, **kw_args)
+            self._record_methods('save(%r)'%(file_name))
 
     def save_ps(self, file_name):
         """Saves the rendered scene to a rasterized PostScript image.
@@ -824,7 +842,61 @@ class TVTKScene(HasPrivateTraits):
         if not val and self._renwin is not None:
             self.render()
 
+    def _record_methods(self, calls):
+        """A method to record a simple method called on self.  We need a
+        more powerful and less intrusive way like decorators to do this.
+        Note that calls can be a string with new lines in which case we
+        interpret this as multiple calls.
+        """
+        r = self.recorder
+        if r is not None:
+            sid = self._script_id
+            for call in calls.split('\n'):
+                r.record('%s.%s'%(sid, call))
 
+    def _record_camera_position(self, vtk_obj=None, event=None):
+        """Callback to record the camera position."""
+        r = self.recorder
+        if r is not None:
+            state = self._get_camera_state()
+            lcs = self._last_camera_state
+            if state != lcs:
+                self._last_camera_state = state
+                sid = self._script_id
+                for key, value in state:
+                    r.record('%s.camera.%s = %r'%(sid, key, value))
+                r.record('%s.camera.compute_view_plane_normal()'%sid)
+                r.record('%s.render()'%sid)
+
+    def _get_camera_state(self):
+        c = self.camera
+        state = [] 
+        state.append(('position', list(c.position)))
+        state.append(('focal_point', list(c.focal_point)))
+        state.append(('view_angle', c.view_angle))
+        state.append(('view_up', list(c.view_up)))
+        state.append(('clipping_range', list(c.clipping_range)))
+        return state
+
+    def _recorder_changed(self, r):
+        """When the recorder is set we add an event handler so we can
+        record the change to the camera position after the interaction.
+        """
+        iren = self._interactor 
+        if r is not None:
+            self._script_id = r.get_script_id(self)
+            id = iren.add_observer('EndInteractionEvent', 
+                                   messenger.send)
+            self._camera_observer_id = id
+            i_vtk = tvtk.to_vtk(iren)
+            messenger.connect(i_vtk, 'EndInteractionEvent', 
+                              self._record_camera_position)
+        else:
+            self._script_id = ''
+            iren.remove_observer(self._camera_observer_id)
+            i_vtk = tvtk.to_vtk(iren)
+            messenger.disconnect(i_vtk, 'EndInteractionEvent', 
+                                 self._record_camera_position)
 
 ######################################################################
 # `TVTKScene` class.
