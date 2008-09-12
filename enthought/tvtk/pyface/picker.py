@@ -21,7 +21,7 @@ probe for the data at that point.
 # Copyright (c) 2004, Enthought, Inc.
 # License: BSD Style.
 
-from enthought.traits.api import HasTraits, Trait, Int, Array, Any, Float, \
+from enthought.traits.api import HasTraits, Trait, Long, Array, Any, Float, \
                                  Instance, Range, true
 from enthought.traits.ui.api import View, Group, Item, Handler
 from enthought.tvtk.api import tvtk
