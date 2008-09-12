@@ -56,9 +56,9 @@ class PickedData(HasTraits):
     valid = Trait(false_bool_trait,
                   desc='specifies the validity of the pick event')
     # Id of picked point (-1 implies none was picked)
-    point_id = Int(-1, desc='the picked point ID')
+    point_id = Long(-1, desc='the picked point ID')
     # Id of picked cell (-1 implies none was picked)
-    cell_id = Int(-1, desc='the picked cell ID')
+    cell_id = Long(-1, desc='the picked cell ID')
     # World pick -- this has no ID.
     world_pick = Trait(false_bool_trait,
                        desc='specifies if the pick is a world pick.')
@@ -98,7 +98,7 @@ class DefaultPickHandler(PickHandler):
     """The default handler for the picked data."""
 
     # Traits.
-    ID = Trait(None, None, Int, desc='the picked ID')
+    ID = Trait(None, None, Long, desc='the picked ID')
     
     coordinate = Trait(None, None, Array('d', (3,)),
                        desc='the coordinate of the picked point')
