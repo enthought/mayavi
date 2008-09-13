@@ -10,13 +10,12 @@ Data sources classes and their associated functions for mlab.
 import numpy
 
 from enthought.traits.api import (HasTraits, Instance, Array, Either,
-            Bool, on_trait_change)
+            Bool, on_trait_change, NO_COMPARE)
 from enthought.tvtk.api import tvtk
 from enthought.tvtk.common import camel2enthought
 
 from enthought.mayavi.sources.array_source import ArraySource
 from enthought.mayavi.core.registry import registry
-from enthought.mayavi.core.traits import ShadowProperty
 
 import tools
 from engine_manager import engine_manager
@@ -112,7 +111,7 @@ class MlabSource(HasTraits):
         ds.mlab_source = self
 
 
-ArrayOrNone = ShadowProperty(Either(None, Array), smart_notify=False)
+ArrayOrNone = Either(None, Array, comparison_mode=NO_COMPARE)
 
 ################################################################################
 # `MGlyphSource` class.
@@ -611,9 +610,6 @@ class MGridSource(MlabSource):
         self.dataset.point_data.scalars.name = 'scalars'
         self.update()
 
-
-
-# FIXME: Add tests for new sources.
 
 
 ############################################################################
