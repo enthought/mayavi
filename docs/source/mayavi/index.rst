@@ -10,6 +10,7 @@ Mayavi2 Users Guide
     examples.rst
     application.rst
     mlab.rst
+    automatic_scripting.rst
     advanced_scripting.rst
     data.rst
     tips.rst
