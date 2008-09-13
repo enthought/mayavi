@@ -32,6 +32,14 @@ class Parent(HasTraits):
     children = List(Child, record=True)
     recorder = Instance(Recorder, record=False)
 
+class Test(HasTraits):
+    # This should be set.
+    recorder = Instance(HasTraits)
+
+    # These should be ignored.
+    _ignore = Bool(False)
+    ignore_ = Bool(False)
+
 
 class TestRecorder(unittest.TestCase):
     def setUp(self):
@@ -213,6 +221,21 @@ class TestRecorder(unittest.TestCase):
         # This should not cause an error but insert the name 'foo' in the
         # namespace.
         tape.write_script_id_in_namespace('foo')
+
+    def test_recorder_and_ignored(self):
+        "Test if recorder trait is set and private traits are ignored."
+        t = Test()
+        self.assertEqual(t.recorder, None)
+        self.assertEqual(t._ignore, False)
+        self.assertEqual(t.ignore_, False)
+        tape = Recorder()
+        tape.register(t)
+        tape.recording = True
+
+        self.assertEqual(t.recorder, tape)
+        t._ignore = True
+        t.ignore_ = True
+        self.assertEqual(len(tape.script.strip()), 0)
 
     def test_save(self):
         "Test if saving tape to file works."
