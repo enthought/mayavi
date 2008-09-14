@@ -10,7 +10,7 @@ import unittest
 from enthought.traits.api import (HasTraits, Float, Instance, 
         Str, List, Bool)
 from enthought.tvtk.api import tvtk
-from enthought.mayavi.core.recorder import Recorder 
+from enthought.mayavi.core.recorder import Recorder, recordable, set_recorder
 
 
 ######################################################################
@@ -28,6 +28,20 @@ class Child(HasTraits):
     toy = Instance(Toy, record=True)
     friends = List(Str)
 
+    @recordable
+    def grow(self, x):
+        """Increase age by x years."""
+        self.age += x
+        self.f(1)
+
+    @recordable
+    def f(self, args):
+        """Function f."""
+        return args
+
+    def not_recordable(self):
+        pass
+
 class Parent(HasTraits):
     children = List(Child, record=True)
     recorder = Instance(Recorder, record=False)
@@ -44,6 +58,7 @@ class Test(HasTraits):
 class TestRecorder(unittest.TestCase):
     def setUp(self):
         self.tape = Recorder()
+        set_recorder(self.tape)
         p = Parent()
         c = Child()
         toy = Toy(color='blue', type='bunny')
@@ -54,6 +69,7 @@ class TestRecorder(unittest.TestCase):
 
     def tearDown(self):
         self.tape.clear()
+        set_recorder(None)
         return
 
     def test_unique_name(self):
@@ -67,6 +83,19 @@ class TestRecorder(unittest.TestCase):
         t = Toy()
         self.assertEqual(tape._get_unique_name(t),
                          'toy')
+        t = (1, 2)
+        self.assertEqual(tape._get_unique_name(t),
+                         'tuple0')
+        l = [1, 2]
+        self.assertEqual(tape._get_unique_name(l),
+                         'list0')
+        d = {'a': 1}
+        self.assertEqual(tape._get_unique_name(d),
+                         'dict0')
+
+        self.assertEqual(tape._get_unique_name(1),
+                         'int0')
+        
 
     def test_record(self):
         "Does recording work correctly."
@@ -182,7 +211,7 @@ class TestRecorder(unittest.TestCase):
         self.assertEqual(tape.lines[-3][-10:], 
                          "import Toy")
         self.assertEqual(tape.lines[-2], 
-                         "#toy = Toy()")
+                         "toy = Toy()")
         self.assertEqual(tape.lines[-1], 
                          "toy.type = 'computer'")
 
@@ -201,7 +230,7 @@ class TestRecorder(unittest.TestCase):
         p = self.p
         tape = self.tape
         child = p.children[0]
-        tape.register(p)
+        tape.register(p, known=True)
         tape.recording = True
 
         child.friends = ['Krishna', 'Ajay', 'Ali']
@@ -212,7 +241,24 @@ class TestRecorder(unittest.TestCase):
                          "child.friends[1:3] = ['Sam', 'Frodo']")
         child.friends[1] = 'Hari'
         self.assertEqual(tape.lines[-1], 
-                         "child.friends[1] = 'Hari'")
+                    "child.friends[1:2] = ['Hari']")
+
+        return
+        # FIXME: Remove this when mayavi is fixed to support this new
+        # feature.
+        # What if we change a list where record=True.
+        child1 = Child()
+        tape.register(child1)
+        p.children.append(child1)
+        self.assertEqual(tape.lines[-1], 
+                         "parent.children[1:1] = [child1]")
+        del p.children[1]
+        self.assertEqual(tape.lines[-1], 
+                         "parent.children[1:2] = []")
+        p.children[0] = child1
+        self.assertEqual(tape.lines[-1], 
+                         "parent.children[0:1] = [child1]")
+
 
     def test_write_script_id_in_namespace(self):
         "Test the write_script_id_in_namespace method."
@@ -236,6 +282,94 @@ class TestRecorder(unittest.TestCase):
         t._ignore = True
         t.ignore_ = True
         self.assertEqual(len(tape.script.strip()), 0)
+
+    def test_record_function(self):
+        "See if recordable function calls are handled correctly."
+        # Note that the global recorder is set in setUp and removed in
+        # tearDown.
+        tape = self.tape
+        c = self.p.children[0]
+        tape.register(c)
+        tape.recording = True
+
+        # Setting the age should be recorded.
+        c.age = 11
+        self.assertEqual(tape.lines[-1], "child.age = 11.0")
+
+        # Calling f should be recorded.
+        c.f(1)
+        self.assertEqual(tape.lines[-1], "child.f(1)")
+
+        # This should not record the call to f or the change to the age
+        # trait inside grow.
+        c.grow(1)
+        self.assertEqual(c.age, 12.0)
+        self.assertEqual(tape.lines[-2], "child.f(1)")
+        self.assertEqual(tape.lines[-1], "child.grow(1)")
+
+        # Non-recordable functions shouldn't be.
+        c.not_recordable()
+        self.assertEqual(tape.lines[-1], "child.grow(1)")
+
+        # Test a simple recordable function.
+        @recordable
+        def func(x, y):
+            return x, y
+
+        result = func(1, 2)
+        self.assertEqual(tape.lines[-1], "tuple0 = func(1, 2)")
+
+
+    def test_non_has_traits(self):
+        "Can classes not using traits be handled?"
+        tape = self.tape
+        p = self.p
+        c = p.children[0]
+        class A(object):
+            @recordable
+            def __init__(self, x, y=1):
+                self.x = x
+                self.y = y
+
+            @recordable
+            def f(self, x, y):
+                return x, y
+
+            @recordable
+            def g(self, x):
+                return x
+
+            def not_recordable(self):
+                pass
+
+        tape.register(p)
+        tape.recording = True
+        # Test if __init__ is recorded correctly.
+        a = A(x=1)
+
+        # Should record.
+        a.f(1, 'asd')
+        self.assertEqual(tape.lines[-3][-8:], 
+                         "import A")
+        self.assertEqual(tape.lines[-2], 
+                         "a = A(x=1)")
+        self.assertEqual(tape.lines[-1], "tuple0 = a.f(1, 'asd')")
+
+        result = a.f(p, c)
+        # This should instantiate the parent first, get the child from
+        # that and then record the call itself.
+        self.assertEqual(tape.lines[-3], "parent = Parent()")
+        self.assertEqual(tape.lines[-2], "child = parent.children[0]")
+        self.assertEqual(tape.lines[-1], "tuple1 = a.f(parent, child)")
+
+        # This should simply refer to the child.
+        result = a.g(c)
+        self.assertEqual(tape.lines[-1], "child = a.g(child)")
+
+        # Should do nothing.
+        a.not_recordable()
+        self.assertEqual(tape.lines[-1], "child = a.g(child)")
+
 
     def test_save(self):
         "Test if saving tape to file works."
