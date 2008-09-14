@@ -89,9 +89,9 @@ def structured_grid():
 
 
 def unstructured_grid():
-    points = array([[0,0,-0.2], [1,0,0], [0,1,0], [1,1,1], # tetra
+    points = array([[0,1.2,0.6], [1,0,0], [0,1,0], [1,1,1], # tetra
                     [1,0,-0.5], [2,0,0], [2,1.5,0], [0,1,0],
-                    [1,0,0], [2,-0.2,1], [2,1,1.5], [1,1,1], # Hex
+                    [1,0,0], [1.5,-0.2,1], [1.6,1,1.5], [1,1,1], # Hex
                     ], 'f')
     # The cells
     cells = array([4, 0, 1, 2, 3, # tetra
@@ -110,7 +110,7 @@ def unstructured_grid():
     ug = tvtk.UnstructuredGrid(points=points)
     # Now just set the cell types and reuse the ug locations and cells.
     ug.set_cells(cell_types, offset, cell_array)
-    scalars = random.random(points.shape) 
+    scalars = random.random(points.shape[0]) 
     ug.point_data.scalars = scalars
     ug.point_data.scalars.name = 'scalars'
     return ug
@@ -146,7 +146,7 @@ def view(dataset):
                             color=(0, 0, 0), )
 
 
-@mayavi2.standalone
+@mlab.show
 def main():
     view(image_data())
     view(rectilinear_grid())
