@@ -19,6 +19,12 @@ from enthought.traits.ui.api import CodeEditor
 from enthought.traits.ui.api import View, Item
 from enthought.tvtk.common import camel2enthought
 
+# The global recorder.
+_recorder = None
+
+# Guard to ensure that only the outermost recordable call is recorded
+# and nested calls ignored.
+_outermost_call = True
 
 ################################################################################
 # `_RegistryData` class.
@@ -73,8 +79,17 @@ class Recorder(HasTraits):
     # Reverse registry with keys as script_id and object as value.
     _reverse_registry = Dict
 
-    # A mapping to generate unique names for objects.
-    _name_map = Dict(Str, int)
+    # A mapping to generate unique names for objects.  The key is the
+    # name used (which is something derived from the class name of the
+    # object) and the value is an integer describing the number of times
+    # that variable name has been used earlier.
+    _name_map = Dict(Str, Int)
+
+    # A list of special reserved script IDs.  This is handy when you
+    # want a particular object to have an easy to read script ID and not
+    # the default one based on its class name.  This leads to slightly
+    # easier to read scripts.
+    _special_ids = List
 
     # What are the known names in the script?  By known names we mean
     # names which are actually bound to objects.
@@ -106,7 +121,7 @@ class Recorder(HasTraits):
             lines.append(code)
 
     def register(self, object, parent=None, trait_name_on_parent='',
-                 ignore=None, known=False):
+                 ignore=None, known=False, script_id=None):
         """Register an object with the recorder.  This sets up the
         object for recording.  
         
@@ -148,6 +163,11 @@ class Recorder(HasTraits):
             Optional specification if the `object` id is known on the
             interpreter.  This is needed if you are manually injecting
             code to define/create an object.
+
+        script_id : str
+            Optionally specify a script_id to use for this object.  It
+            is not guaranteed that this ID will be used since it may
+            already be in use.
         """
         registry = self._registry
 
@@ -169,9 +189,6 @@ class Recorder(HasTraits):
             sub_recordables = object.traits(record=True).keys()
             # Find all the trait names we must ignore.
             ignore.extend(object.traits(record=False).keys())
-            # FIXME: Remove the next line when mayavi is fixed to use
-            # new code.
-            ignore.extend(sub_recordables)
             # The traits to listen for.
             tnames = [t for t in object.trait_names() 
                       if not t.startswith('_') and not t.endswith('_') \
@@ -192,7 +209,16 @@ class Recorder(HasTraits):
 
         # Setup the registry data.
         if parent is None:
-            sid = self._get_unique_name(object)
+            # If a script id is supplied try and use it.
+            if script_id is not None:
+                r_registry = self._reverse_registry
+                while script_id in r_registry:
+                    script_id = '%s1'%script_id
+                sid = script_id
+                # Add the chosen id to special_id list. 
+                self._special_ids.append(sid)
+            else:
+                sid = self._get_unique_name(object)
             path = ''
         else:
             pdata = self._get_registry_data(parent)
@@ -369,6 +395,8 @@ class Recorder(HasTraits):
         self._known_ids[:] = []
         self._name_map.clear()
         self._reverse_registry.clear()
+        self._known_types[:] = []
+        self._special_ids[:] = []
 
     def get_code(self):
         """Returns the recorded lines as a string of printable code."""
@@ -441,17 +469,19 @@ class Recorder(HasTraits):
         else:
             cname = camel2enthought(cname)
 
-        if cname in nm:
-            id = nm[cname] + 1
-            nm[cname] = id
-            result = '%s%d'%(cname, id)
-        else:
-            nm[cname] = 0
-            # The first id doesn't need a number if it isn't builtin.
-            if builtin:
-                result = '%s0'%(cname)
+        special_ids = self._special_ids
+        while len(result) == 0 or result in special_ids:
+            if cname in nm:
+                id = nm[cname] + 1
+                nm[cname] = id
+                result = '%s%d'%(cname, id)
             else:
-                result = cname
+                nm[cname] = 0
+                # The first id doesn't need a number if it isn't builtin.
+                if builtin:
+                    result = '%s0'%(cname)
+                else:
+                    result = cname
         return result
 
     def _get_registry_data(self, object):
@@ -593,8 +623,10 @@ class Recorder(HasTraits):
             if hex(ob_id) not in orepr:
                 return orepr
 
-        # FIXME: Should we instead just create the object here?
-        raise ValueError('Unable to represent object %r in script'%object)
+        # If we get here, we just register the object and call ourselves
+        # again to do the needful.
+        self.register(object)
+        return self._object_as_string(object)
 
     def _return_as_string(self, object):
         """Return a string given a returned object from a function.
@@ -662,13 +694,11 @@ class RecorderWithUI(Recorder):
 # Utility functions. 
 ################################################################################
 
-# The global recorder.
-_recorder = None
-
 def get_recorder():
     """Return the global recorder.  Does not create a new one if none
     exists.
     """
+    global _recorder
     return _recorder
 
 def set_recorder(rec):
@@ -677,9 +707,6 @@ def set_recorder(rec):
     global _recorder
     _recorder = rec
 
-# Guard to ensure that only the outermost recordable call is recorded
-# and nested calls ignored.
-_outermost_call = True
 
 def recordable(func):
     """A decorator that wraps a function into one that is recordable.
@@ -698,10 +725,10 @@ def recordable(func):
         # Boolean to specify if the method was recorded or not.
         record = False
         if _outermost_call:
-            _outermost_call = False
             # Get the recorder.
             rec = get_recorder()
             if rec is not None:
+                _outermost_call = False
                 # Record the method if recorder is available.
                 record = True
                 try:
@@ -721,37 +748,39 @@ def recordable(func):
 
     return _wrapper
 
-
-def start_recording(object, ui=True, known=True):
+def start_recording(object, ui=True, **kw):
     """Convenience function to start recording.  Returns the recorder.
 
     Parameters:
+    -----------
 
     object :  object to record.
+
     ui : bool specifying if a UI is to be shown or not
-    known : bool specifying if the object is known in the script
-    namespace.
+
+    kw : Keyword arguments to pass to the register function of the
+    recorder.
     """
     if ui:
         r = RecorderWithUI()
         r.edit_traits(kind='live')
     else:
         r = Recorder()
+    # Set the global recorder.
+    set_recorder(r)
     r.recording = True
-    r.register(object, known=known)
+    r.register(object, **kw)
     return r
 
-def stop_recording(object, recorder=None):
-    """Stop recording the object given the recorder.  This will pop up a
-    UI to ask where to save the script.  If recorder is not passed it
-    will try to get it assuming that the object has a recorder trait.
+def stop_recording(object):
+    """Stop recording the object.  This will pop up a
+    UI to ask where to save the script.
     """
-    if recorder is None:
-        if hasattr(object, 'recorder'):
-            recorder = object.recorder
-        else:
-            raise RecorderError('Unable to find recorder to stop!')
+    recorder = get_recorder()
     recorder.unregister(object)
     recorder.recording = False
+    # Set the global recorder back to None
+    set_recorder(None)
+    # Save the script.
     recorder.ui_save()
 

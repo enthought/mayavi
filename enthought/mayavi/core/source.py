@@ -20,6 +20,7 @@ from enthought.mayavi.core.common import handle_children_state, \
                                          exception, error
 from enthought.mayavi.core.pipeline_info import PipelineInfo
 from enthought.mayavi.core.adder_node import ModuleFilterAdderNode
+from enthought.mayavi.core.recorder import recordable
 
 ######################################################################
 # Utility functions.
@@ -92,6 +93,7 @@ class Source(PipelineBase):
                                        trait_name_on_parent='children[%d]'%index)
         mm.children.append(module)
 
+    @recordable
     def save_output(self, fname):
         """Save our output (by default the first of our outputs) to the
         specified filename as a VTK file.  Both old style and new style

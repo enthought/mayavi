@@ -10,7 +10,8 @@ import unittest
 from enthought.traits.api import (HasTraits, Float, Instance, 
         Str, List, Bool)
 from enthought.tvtk.api import tvtk
-from enthought.mayavi.core.recorder import Recorder, recordable, set_recorder
+from enthought.mayavi.core.recorder import (Recorder, recordable,
+    set_recorder)
 
 
 ######################################################################
@@ -95,7 +96,6 @@ class TestRecorder(unittest.TestCase):
 
         self.assertEqual(tape._get_unique_name(1),
                          'int0')
-        
 
     def test_record(self):
         "Does recording work correctly."
@@ -206,7 +206,7 @@ class TestRecorder(unittest.TestCase):
         tape.register(t)
         t.type = 'computer'
 
-        # Since the name Toy is unknown, there should be a commented
+        # Since the name toy is unknown, there should be a 
         # line to create it.
         self.assertEqual(tape.lines[-3][-10:], 
                          "import Toy")
@@ -243,9 +243,6 @@ class TestRecorder(unittest.TestCase):
         self.assertEqual(tape.lines[-1], 
                     "child.friends[1:2] = ['Hari']")
 
-        return
-        # FIXME: Remove this when mayavi is fixed to support this new
-        # feature.
         # What if we change a list where record=True.
         child1 = Child()
         tape.register(child1)
@@ -287,6 +284,7 @@ class TestRecorder(unittest.TestCase):
         "See if recordable function calls are handled correctly."
         # Note that the global recorder is set in setUp and removed in
         # tearDown.
+
         tape = self.tape
         c = self.p.children[0]
         tape.register(c)
@@ -318,7 +316,6 @@ class TestRecorder(unittest.TestCase):
 
         result = func(1, 2)
         self.assertEqual(tape.lines[-1], "tuple0 = func(1, 2)")
-
 
     def test_non_has_traits(self):
         "Can classes not using traits be handled?"
@@ -369,6 +366,33 @@ class TestRecorder(unittest.TestCase):
         # Should do nothing.
         a.not_recordable()
         self.assertEqual(tape.lines[-1], "child = a.g(child)")
+
+        # When a function is called with unknown args it should attempt
+        # to create the objects.
+        r = a.g(Toy())
+        self.assertEqual(tape.lines[-3][-10:], "import Toy")
+        self.assertEqual(tape.lines[-2], "toy = Toy()")
+        self.assertEqual(tape.lines[-1], "toy = a.g(toy)")
+
+    def test_set_script_id(self):
+        "Test if setting script_id at registration time works."
+        tape = self.tape
+        p = self.p
+        c = p.children[0]
+        tape.register(p, script_id='child')
+        tape.recording = True
+        # Ask to be called child.
+        self.assertEqual(tape.get_script_id(p), 'child')
+        # Register another Child.
+        c1 = Child()
+        tape.register(c1)
+        # Will be child2 since child1 is taken.
+        self.assertEqual(tape.get_script_id(c1), 'child2')
+
+        # Test if recording works correctly with the changed script_id.
+        p.children.append(c1)
+        self.assertEqual(tape.lines[-1], 
+                         "child.children[1:1] = [child2]")
 
 
     def test_save(self):

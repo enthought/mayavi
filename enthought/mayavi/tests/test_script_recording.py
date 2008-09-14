@@ -7,7 +7,7 @@ A simple test for script recording in Mayavi.
 
 import unittest
 
-from enthought.mayavi.core.recorder import Recorder
+from enthought.mayavi.core.recorder import Recorder, set_recorder
 from enthought.mayavi.sources.parametric_surface import \
     ParametricSurface
 from enthought.mayavi.modules.outline import Outline
@@ -17,18 +17,29 @@ from common import TestEngine
 
 
 class TestScriptRecording(unittest.TestCase):
+    def setUp(self):
+        tape = Recorder()
+        # Set the global recorder.
+        set_recorder(tape)
+        self.tape = tape
+
+    def tearDown(self):
+        self.tape.clear()
+        set_recorder(None)
+
     def test_script_recording(self):
         "Does script recording work correctly."
         # Create a mayavi pipeline and record it.
-        tape = Recorder()
+        tape = self.tape
         e = TestEngine()
         e.start()
         # Start recording.
         tape.recording = True
-        tape.register(e, known=True)
+        tape.register(e, known=True, script_id='engine')
         e.new_scene()
+        #print tape.script
         self.assertEqual(tape.lines[-1], 
-                         "scene = engine.new_scene()")
+                         "dummy_viewer = engine.new_scene()")
 
         src = ParametricSurface()
         e.add_source(src)

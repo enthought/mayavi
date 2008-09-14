@@ -291,7 +291,7 @@ class EngineView(HasTraits):
     def _perform_record(self):
         e = self.engine
         if e.recorder is None:
-            start_recording(e, known=True)
+            start_recording(e, known=True, script_id='engine')
         else:
             stop_recording(e)
 
