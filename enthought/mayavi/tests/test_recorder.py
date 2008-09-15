@@ -256,6 +256,26 @@ class TestRecorder(unittest.TestCase):
         self.assertEqual(tape.lines[-1], 
                          "parent.children[0:1] = [child1]")
 
+    def test_path_change_on_list(self):
+        "Does the object path update when a list has changed?"
+        # Test the case where we have a hierarchy and we change the
+        # list.
+        tape = self.tape
+        p = self.p
+        child1 = Child()
+        p.children.append(child1)
+        tape.register(p)
+        tape.recording = True
+        self.assertEqual(tape.get_object_path(child1),
+                         'parent.children[1]')
+        self.assertEqual(tape.get_script_id(child1),
+                         'child1')
+        del p.children[0]
+        self.assertEqual(tape.get_object_path(child1),
+                         'parent.children[0]')
+        self.assertEqual(tape.get_script_id(child1),
+                         'child1')
+
 
     def test_write_script_id_in_namespace(self):
         "Test the write_script_id_in_namespace method."

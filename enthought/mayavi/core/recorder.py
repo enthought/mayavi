@@ -1,8 +1,9 @@
 """
-Code to support recording to a runnable Python script.
+Code to support recording to a readable and executable Python script.
 
 TODO:
     - Support for dictionaries?
+
 """
 # Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
 # Copyright (c) 2008, Enthought, Inc.
@@ -13,7 +14,7 @@ import types
 import __builtin__
 
 from enthought.traits.api import (HasTraits, List, Str, Code, Button,
-        Dict, Bool, Unicode, Property, Int, on_trait_change)
+        Dict, Bool, Unicode, Property, Int, Instance, on_trait_change)
 from enthought.traits.ui.api import CodeEditor
 
 from enthought.traits.ui.api import View, Item
@@ -31,10 +32,16 @@ _outermost_call = True
 ################################################################################ 
 class _RegistryData(HasTraits):
     # Object's script ID
-    script_id = Str
+    script_id = Property(Str)
 
     # Path to object in object hierarchy.
-    path = Str
+    path = Property(Str)
+
+    # Parent data for this object if any.
+    parent_data = Instance('_RegistryData', allow_none=True)
+
+    # The name of the trait on the parent which is this object.
+    trait_name_on_parent = Str('')
 
     # List of traits we are listening for on this object.
     names = List(Str)
@@ -44,6 +51,42 @@ class _RegistryData(HasTraits):
 
     # List of traits that are lists.
     list_names = List(Str)
+
+    _script_id = Str('')
+
+    ######################################################################
+    # Non-public interface.
+    ######################################################################
+    def _get_path(self):
+        pdata = self.parent_data
+        path = ''
+        if pdata is not None:
+            pid = pdata.script_id
+            ppath = pdata.path 
+            tnop = self.trait_name_on_parent
+            if '[' in tnop:
+                # If the object is a nested object through an iterator,
+                # we instantiate it and don't refer to it through the
+                # path, this makes scripting convenient.
+                if len(ppath) == 0:
+                    path = pid + '.' + tnop
+                else:
+                    path = ppath + '.' + tnop
+            else:
+                path = ppath + '.' + tnop
+
+        return path
+
+    def _get_script_id(self):
+        sid = self._script_id
+        if len(sid) == 0:
+            pdata = self.parent_data
+            sid = pdata.script_id + '.' + self.trait_name_on_parent
+        return sid
+
+    def _set_script_id(self, id):
+        self._script_id = id
+
 
 
 ################################################################################
@@ -208,41 +251,44 @@ class Recorder(HasTraits):
             list_names = []
 
         # Setup the registry data.
+
+        # If a script id is supplied try and use it.
+        sid = ''
+        if script_id is not None:
+            r_registry = self._reverse_registry
+            while script_id in r_registry:
+                script_id = '%s1'%script_id
+            sid = script_id
+            # Add the chosen id to special_id list.
+            self._special_ids.append(sid)
+
         if parent is None:
-            # If a script id is supplied try and use it.
-            if script_id is not None:
-                r_registry = self._reverse_registry
-                while script_id in r_registry:
-                    script_id = '%s1'%script_id
-                sid = script_id
-                # Add the chosen id to special_id list. 
-                self._special_ids.append(sid)
-            else:
+            pdata = None
+            if len(sid) == 0:
                 sid = self._get_unique_name(object)
-            path = ''
         else:
             pdata = self._get_registry_data(parent)
-            pid = pdata.script_id
-            ppath = pdata.path 
             tnop = trait_name_on_parent
             if '[' in tnop:
                 # If the object is a nested object through an iterator,
                 # we instantiate it and don't refer to it through the
                 # path, this makes scripting convenient.
                 sid = self._get_unique_name(object)
-                if len(ppath) == 0:
-                    path = pid + '.' + tnop
-                else:
-                    path = ppath + '.' + tnop
-            else:
-                sid = pid + '.' + tnop
-                path = ppath + '.' + tnop
 
         # Register the object with the data.
-        data = _RegistryData(script_id=sid, path=path, names=tnames,
+        data = _RegistryData(script_id=sid, 
+                             parent_data=pdata,
+                             trait_name_on_parent=trait_name_on_parent, 
+                             names=tnames,
                              sub_recordables=sub_recordables, 
                              list_names=list_names)
         registry[object] = data
+
+        # Now get the script id of the object -- note that if sid is ''
+        # above then the script_id is computed from that of the parent.
+        sid = data.script_id
+        # Setup reverse registry so we can get the object from the
+        # script_id.
         self._reverse_registry[sid] = object
 
         # Record the script_id if the known argument is explicitly set to
@@ -527,13 +573,27 @@ class Recorder(HasTraits):
     def _list_items_listner(self, object, name, old, event):
         """The listner for *_items on list traits of the object.
         """
+        # Set the path of registered objects in the modified list and
+        # all their children.  This is done by unregistering the object
+        # and re-registering them.  This is slow but.
+        registry = self._registry
+        sid = registry.get(object).script_id
+        trait_name = name[:-6]
+        items = getattr(object, trait_name)
+        for (i, item) in enumerate(items):
+            if item in registry:
+                data = registry.get(item)
+                tnop = data.trait_name_on_parent
+                if len(tnop) > 0:
+                    data.trait_name_on_parent = '%s[%d]'%(trait_name, i)
+
+        # Record the change.
         if self.recording and not self._in_function:
-            sid = self._get_registry_data(object).script_id
             index = event.index
             removed = event.removed
+            added = event.added
             nr = len(removed)
             slice = '[%d:%d]'%(index, index + nr)
-            added = event.added
             na = len(added)
             rhs = [self._object_as_string(item) for item in added]
             rhs = ', '.join(rhs)
