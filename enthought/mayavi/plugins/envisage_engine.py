@@ -19,6 +19,7 @@ from enthought.pyface.workbench.api import WorkbenchWindow
 # Local imports.
 from enthought.mayavi.core.scene import Scene
 from enthought.mayavi.core.engine import Engine
+from enthought.mayavi.core.recorder import recordable
 
 logger = logging.getLogger()
 
@@ -75,6 +76,7 @@ class EnvisageEngine(Engine):
         # Call the parent stop method.
         super(EnvisageEngine, self).stop()
 
+    @recordable
     def new_scene(self, name=None, **kwargs):
         """ Creates a new VTK scene window.
 
@@ -90,6 +92,7 @@ class EnvisageEngine(Engine):
         GUI.process_events()
         return self.scenes[-1]
 
+    @recordable
     def close_scene(self, scene):
         """Given a VTK scene instance, this method closes it.
         """

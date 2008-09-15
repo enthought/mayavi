@@ -385,6 +385,12 @@ class Engine(HasStrictTraits):
         if s is not None:
             s.stop()
             self.scenes.remove(s)
+            # Don't record it shutting down.  To do this we must
+            # unregister it here so we don't record unnecessary calls.
+            recorder = self.recorder
+            if recorder is not None:
+                recorder.unregister(s)
+
         # Remove the reference to the viewer if any.
         if scene in self._viewer_ref:
             del self._viewer_ref[scene]
@@ -567,8 +573,12 @@ class Engine(HasStrictTraits):
             new.record('except NameError:')
             new.record('    from enthought.mayavi.api import Engine')    
             new.record('    engine = Engine()')
-            new.record('if len(engine.scenes) == 0: engine.new_scene()')
+            new.record('    engine.start()')
+            new.record('if len(engine.scenes) == 0:')
+            new.record('    engine.new_scene()')
+            new.record('# ------------------------------------------- ')
         elif old is not None:
+            old.record('# ------------------------------------------- ')
             old.record('from enthought.mayavi.tools.show import show')
             old.record('show()')
 
