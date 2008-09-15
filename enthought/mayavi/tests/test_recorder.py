@@ -314,6 +314,11 @@ class TestRecorder(unittest.TestCase):
         c.age = 11
         self.assertEqual(tape.lines[-1], "child.age = 11.0")
 
+        # This should also work without problems.
+        c.f(c.toy)
+        self.assertEqual(tape.lines[-2], "child.age = 11.0")
+        self.assertEqual(tape.lines[-1], 'child.toy = child.f(child.toy)')
+
         # Calling f should be recorded.
         c.f(1)
         self.assertEqual(tape.lines[-1], "child.f(1)")
