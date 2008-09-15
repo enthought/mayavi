@@ -31,10 +31,8 @@ Here is how you can use this feature:
     you'll see the code needed to perform those actions.  For example,
     create a new source (either via the adder node dialog/view, the file
     menu or right click, i.e. any normal option), then add a
-    module/filter etc.  Modify objects on the tree view.  **Note:**
-    Don't move tree nodes around by drag/drop, for that is unlikely to
-    work and is currently not supported.
-
+    module/filter etc.  Modify objects on the tree view.  
+ 
  4. Move the camera on the UI, rotate the camera, zoom, pan.  All of
     these will generate suitable Python code.  For the camera only the
     end position is stored (otherwise you'll see millions of useless
@@ -60,10 +58,9 @@ Here is how you can use this feature:
 
       $ python script.py
 
-    These should run all the code to get you where you left (unless you
-    did something usupported or found a bug).  You can feel free to edit
-    this generated script -- in fact that is the whole point of
-    automatic script generation!
+    These should run all the code to get you where you left.  You can
+    feel free to edit this generated script -- in fact that is the whole
+    point of automatic script generation!
 
 It is important to understand that it is possible to script an existing
 session of Mayavi too.  So, if after starting mayavi you did a few
@@ -72,6 +69,12 @@ actions, that is certainly possible.  Follow the same procedure as
 before.  The only gotcha you have to remember in this case is that the
 script recorder will not create the objects you already have setup on
 the session.
+
+.. note::
+
+    You should also be able to delete/drag drop objects on the mayavi
+    tree view.  However, these probably aren't things you'd want to do
+    in an automatic script.
 
 As noted earlier, script recording will work for an ``mlab`` session or
 anywhere else where mayavi is used.  It will not generate any ``mlab``
@@ -85,24 +88,18 @@ Limitations
 The script recorder works for most important actions.  At this point it
 does not support the following actions:
 
-  - Deleting a node on the tree via a right-click and delete.
-
-  - Dragging and dropping nodes on the tree view.
-
   - On the scene, the 'c'/'t'/'j'/'a'/'p' keys are not recorded
     correctly since this is much more complicated to implement and
     typically not necessary for basic scripting.
 
-  - Arbitrary scripting of the interface is obviously not going to work.
+  - Arbitrary scripting of the interface is obviously not going to work
+    as you may expect.
 
-  - None of the methods are explicitly recorded, only trait changes and
-    specific calls are recorded explicitly in the code.  So calling
-    arbitrary methods on arbitrary mayavi objects will not record
-    anything typically.  Only the mayavi engine is specially wired up to
-    record specific methods.
+  - Only trait changes and specific calls are recorded explicitly in the
+    code.  So calling arbitrary methods on arbitrary mayavi objects will
+    not record anything typically.  Only the mayavi engine is specially
+    wired up to record specific methods.
 
-The first couple of these are likely to be supported sometime in the
-future.
 
 .. _recorder-api:
 
@@ -131,7 +128,7 @@ simple objects organized in a hierarchy::
     from enthought.traits.api import (HasTraits, Float, Instance,
             Str, List, Bool)
     from enthought.tvtk.api import tvtk
-    from enthought.mayavi.core.recorder import Recorder
+    from enthought.mayavi.core.recorder import recordable
 
     class Toy(HasTraits):
         color = Str
@@ -148,29 +145,52 @@ simple objects organized in a hierarchy::
         toy = Instance(Toy, record=True)
         friends = List(Str)
 
+        # The decorator records the method.
+        @recordable
+        def grow(self, x):
+            """Increase age by x years."""
+            self.age += x
+
     class Parent(HasTraits):
         children = List(Child, record=True)
         recorder = Instance(Recorder, record=False)
 
-    # Lets first create the object hierarchy
+Using these simple classes we first create a simple object hierarchy as
+follows::
+
     p = Parent()
     c = Child()
     t = Toy()
     c.toy = t 
     p.children.append(c)
 
-    # Now lets setup the recording.
+Given this hierarchy, we'd like to be able to record a script.  To do
+this we setup the recording infrastructure::
+
+    from enthought.mayavi.core.recorder import Recorder, set_recorder
+    # Create a recorder.
     r = Recorder()
+    # Set the global recorder so the decorator works.
+    set_recorder(r)     
     r.register(p)
     r.recording = True
 
-    # Thats it!
-    # The following calls will be recorded.
+The key method here is the ``r.register(p)`` call above.  It looks at
+the traits of ``p`` and finds all traits and nested objects that specify
+a ``record=True`` in their trait metadata (all methods starting and
+ending with ``_`` are ignored).  All sub-objects are in turn registered
+with the recorder and so on.  Callbacks are attached to traits changes
+and these are wired up to produce readable and executable code.  
+
+Now lets test this out like so::
+
+    # The following will be recorded.
     c.name = 'Shiva'
     c.property.representation = 'w'
     c.property.opacity = 0.4
+    c.grow(1)
 
-At this point to see what's been recorded do this::
+To see what's been recorded do this::
 
     print r.script
 
@@ -180,24 +200,7 @@ This prints::
     child.name = 'Shiva'
     child.property.representation = 'wireframe'
     child.property.opacity = 0.40000000000000002
-
-To stop recording do this::
-
-    r.unregister(p)
-    r.recording = False
-
-The key method here is the ``r.register(p)`` call above.  It looks at
-the traits of ``p`` and finds all recordable traits and nested objects
-that specify a ``record=True`` in their trait metadata (all methods
-starting and ending with ``_`` are ignored).  All sub-objects are in
-turn registered with the recorder and so on.  Callbacks are attached to
-traits changes and these are wired up to produce readable and executable
-code.  The ``r.unregister(p)`` reverses the ``r.register(p)`` call and
-unregisters all nested objects as well.
-
-To ignore specific traits one must specify either a ``record=False``
-metadata to the trait definition or specify a list of strings to
-the ``register`` method in the ``ignore`` keyword argument.
+    child.grow(1)
 
 The recorder internally maintains a mapping between objects and unique
 names for each object.  It also stores the information about the
@@ -211,14 +214,52 @@ tedious, the recorder first instantiates the ``child``::
 Subsequent lines use the ``child`` attribute.  The recorder always tries
 to instantiate the object referred to using its path information in this
 manner.
-    
-Sometimes it is not enough to just record trait changes, one may want to
-pass an arbitrary string or command when recording is occuring.  To
-allow for this, if one defines a ``recorder`` trait on the object, it is
-set to the current recorder.  One can then use this recorder to do
-whatever one wants.  This is very convenient.  The module therefore
-makes the easy things easy and the complex tasks possible.
 
-For more details on the recorder itself we suggest reading the module.
-It is fairly well documented and with the above background should be
-enough to get you going.
+To record a function or method call one must simply decorate the
+function/method with the ``recordable`` decorator.  Nested recordable
+functions are not recorded and trait changes are also not recorded if
+done inside a recordable function.  
+
+.. note::
+
+    1. It is very important to note that the global recorder must be set
+       via the ``set_recorder`` method.  The ``recordable`` decorator
+       relies on this being set to work.  
+    
+    2. The ``recordable`` decorator will work with plain Python classes
+       and with functions too.
+
+To stop recording do this::
+
+    r.unregister(p)
+    r.recording = False
+
+The ``r.unregister(p)`` reverses the ``r.register(p)`` call and
+unregisters all nested objects as well.
+
+
+.. _recorder-advanced-uses:
+
+Advanced use cases
+~~~~~~~~~~~~~~~~~~~~
+
+Here are a few advanced use cases.
+
+ - Sometimes it is not enough to just record trait changes, one may want
+   to pass an arbitrary string or command when recording is occuring.
+   To allow for this, if one defines a ``recorder`` trait on the object,
+   it is set to the current recorder.  One can then use this recorder to
+   do whatever one wants.  This is very convenient.
+
+ - To ignore specific traits one must specify either a ``record=False``
+   metadata to the trait definition or specify a list of strings to the
+   ``register`` method in the ``ignore`` keyword argument.
+
+ - If you want to use a specific name for an object on the script you
+   can pass the ``script_id`` parameter to the register function.
+
+
+For more details on the recorder itself we suggest reading the module
+source code.  It is fairly well documented and with the above background
+should be enough to get you going.
+
