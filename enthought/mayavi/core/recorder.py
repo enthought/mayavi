@@ -671,7 +671,8 @@ class Recorder(HasTraits):
             # Return script id if the object is known; create the script
             # id on the namespace if needed before that.
             sid = registry.get(object).script_id
-            self.write_script_id_in_namespace(sid)
+            base_id = sid.split('.')[0]
+            self.write_script_id_in_namespace(base_id)
             return sid
         else:
             # Try and return the object.
