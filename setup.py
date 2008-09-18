@@ -65,19 +65,16 @@ project:
 # NOTE: Setuptools must be imported BEFORE numpy.distutils or else
 # numpy.distutils does the Wrong(TM) thing.
 import setuptools
+from setuptools import Command
 
-
-from make_docs import HtmlBuild#, DEFAULT_HTML_ZIP, DEFAULT_HTML_TARGET_DIR, \
-    #DEFAULT_INPUT_DIR
 from numpy.distutils import log
 from numpy.distutils.command import build, install_data
-from pkg_resources import DistributionNotFound, parse_version, require, \
-    VersionConflict
 from setuptools.command import develop, install_scripts
 from traceback import print_exc
 import distutils
 import numpy
 import os
+import re
 import sys
 import shutil
 import zipfile
@@ -90,15 +87,108 @@ setup_data = dict(__name__='', __file__='setup_data.py')
 execfile('setup_data.py', setup_data)
 INFO = setup_data['INFO']
 
+DEFAULT_HTML_TARGET_DIR = os.path.join('build', 'docs', 'html')
+DEFAULT_INPUT_DIR = os.path.join('docs', 'source',)
+DEFAULT_HTML_ZIP = os.path.abspath(os.path.join('docs', 'html.zip'))
 
-# FIXME: Same issue as above, for importing from make_docs.py.
-# Uncomment imports from make_docs when fixed.
-make_docs_data = dict(__name__='', __file__='make_docs.py')
-execfile('make_docs.py', make_docs_data)
-DEFAULT_HTML_ZIP = make_docs_data['DEFAULT_HTML_ZIP']
-DEFAULT_HTML_TARGET_DIR = make_docs_data['DEFAULT_HTML_TARGET_DIR']
-DEFAULT_INPUT_DIR = make_docs_data['DEFAULT_INPUT_DIR']
+class MlabRef(Command):
+    
+    description = "This command generates the mlab reference documentation " \
+        "when needed. It's run automatically before a build_docs, and that's " \
+        "the only time it needs to be run."
+    
+    user_options = [
+        ('None', None, 'this command has no options'),
+        ]
+    
+    def latest_modified(self, the_path, filetypes='', ignore_dirs=''):
+        """Traverses a path looking for the most recently modified file
+        
+        Parameters
+        ----------
+        the_path : string
+            Contains path to be traversed or filename to be inspected.
+        filetypes : string
+            Regular expression pattern of files to examine. If specified, other 
+            files are ignored. Otherwise, all files are examined.
+        ignore_dirs : string
+            Regular expression pattern of directories to be ignored. If ignore
+            specified, all directories are walked. 
+            
+        Returns
+        -------
+        latest_time : float
+            Modification time of latest_path.
+        latest_path : string
+            Most recently modified file.
+        
+        Description
+        -----------
+        
+        """
+        
+        file_re = re.compile(filetypes)
+        dir_re = re.compile(ignore_dirs)
+        
+        if os.path.isdir(the_path):
+            latest_time = 0
+            latest_path = the_path
+            for root, dirs, files in os.walk(the_path):
+                if ignore_dirs != '':
+                    # This needs to iterate over a copy of the list. Otherwise,
+                    # as things get removed from the original list, the indices
+                    # become invalid.
+                    for dir in dirs[:]:
+                        if dir_re.search(dir):
+                            dirs.remove(dir)
+                for file in files:
+                    if filetypes != '':
+                        if not file_re.search(file):
+                            continue
+                    current_file_time = os.path.getmtime(os.path.join(root,
+                        file))
+                    if current_file_time > latest_time:
+                        latest_time = current_file_time
+                        latest_path = os.path.join(root, file)
+            return latest_time, latest_path
+        
+        else:
+            return os.path.getmtime(the_path), the_path
+    
+    def mlab_reference(self):
+        """ If mayavi is installed, run the mlab_reference generator.
+        """
+        # XXX: This is really a hack: the script is not made to be used
+        # for different projects, but it ended up being. This part is
+        # mayavi-specific.
+    
+        mlab_ref_dir = os.path.join(DEFAULT_INPUT_DIR, 'mayavi','auto')
+        
+        source_path = os.path.join('enthought', 'mayavi')
+        sources = '\.py$'
+        excluded_dirs = '^\.'
+        target_path = mlab_ref_dir
+        target_time = self.latest_modified(target_path, ignore_dirs=excluded_dirs)[0]
+        
+        if self.latest_modified(source_path, filetypes=sources,
+            ignore_dirs=excluded_dirs)[0] > target_time or \
+            self.latest_modified('mlab_reference.py')[0] > target_time:
+            try:
+                from enthought.mayavi import mlab
+                from enthought.mayavi.tools import auto_doc
+                print "Generating the mlab reference documentation"
+                os.system('python mlab_reference.py')
+            except:
+                pass
 
+    def run(self):
+        self.mlab_reference()
+    
+    def initialize_options(self):
+        pass
+    
+    def finalize_options(self):
+        pass
 
 # Functions to generate the docs
 def list_doc_projects():
@@ -114,84 +204,10 @@ def list_doc_projects():
         and not listing.startswith('.')]
     return source_dirs
 
-def generate_docs(project):
-    """ Generate the documentation, whether that be using
-        Sphinx or by unzipping it.
-    """
-    project_target_dir = os.path.join(DEFAULT_HTML_TARGET_DIR, project)
-
-    required_sphinx_version = "0.4.1"
-    sphinx_installed = False
-    try:
-        require("Sphinx>=%s" % required_sphinx_version)
-        sphinx_installed = True
-    except (DistributionNotFound, VersionConflict):
-        log.warn('Sphinx install of version %s could not be verified.'
-            ' Trying simple import...' % required_sphinx_version)
-        try:
-            import sphinx
-            if parse_version(sphinx.__version__) < parse_version(
-                required_sphinx_version):
-                log.error("Sphinx version must be >=%s." %\
-                    required_sphinx_version)
-            if False:
-                pass
-            else:
-                sphinx_installed = True
-        except ImportError:
-            log.error("Sphinx install not found.")
-
-    if sphinx_installed:
-        log.info("Generating %s documentation..." % project)
-
-        try:
-            build = HtmlBuild()
-            build.start({
-                'commit_message': None,
-                'preserve_temp': True,
-                'subversion': False,
-                'verbose': True,
-                'versioned': False,
-                'target':
-                    os.path.join(DEFAULT_HTML_TARGET_DIR, project),
-                'doc_source':
-                    os.path.join(DEFAULT_INPUT_DIR, project),
-                }, [])
-            del build
-
-        except:
-            print_exc()
-            log.error("The documentation generation failed.  Falling back to "
-                "the zip file.")
-
-            # Unzip the docs into the 'html' folder.
-            unzip_html_docs(DEFAULT_HTML_ZIP % project,
-                os.path.join(DEFAULT_HTML_TARGET_DIR, project))
-    else:
-        # Unzip the docs into the 'html' folder.
-        log.info("Installing %s documentation from zip file.\n" % project)
-        unzip_html_docs(DEFAULT_HTML_ZIP % project, project_target_dir)
-
-def unzip_html_docs(src_path, dest_dir):
-    """ Given a path to a zipfile, extract its contents to a given 'dest_dir'.
-    """
-    file = zipfile.ZipFile(src_path)
-    for name in file.namelist():
-        cur_name = os.path.join(dest_dir, name)
-        cur_name = cur_name.replace('/', os.sep)
-        if not os.path.exists(os.path.dirname(cur_name)):
-            os.makedirs(os.path.dirname(cur_name))
-        if not cur_name.endswith(os.sep):
-            out = open(cur_name, 'wb')
-            out.write(file.read(name))
-            out.flush()
-            out.close()
-    file.close()
-
 def list_docs_data_files(project):
     """ List the files to add to a project by inspecting the
         documentation directory. This works only if called after the
-        build step, as the files have to be builts.
+        build step, as the files have to be built.
 
         returns a list of (install_dir, [data_files, ]) tuples.
     """
@@ -229,24 +245,8 @@ class MyBuild(build.build):
     def run(self):
         build_tvtk_classes_zip()
         build.build.run(self)
-        for project in list_doc_projects():
-            generate_docs(project)
-
-
-class MyClean(distutils.command.clean.clean):
-    """ A hook to remove the generated documentation when cleaning.
-
-        We subclass distutils' clean command because neither numpy.distutils
-        nor setuptools has an implementation.
-
-    """
-
-    def run(self):
-        distutils.command.clean.clean.run(self)
-        if os.path.exists(DEFAULT_HTML_TARGET_DIR):
-            log.info("Removing '%s' (and everything under it)" %
-                                            DEFAULT_HTML_TARGET_DIR)
-            shutil.rmtree(DEFAULT_HTML_TARGET_DIR)
+        self.run_command('mlab_ref')
+        self.run_command('build_docs')
 
 
 class MyDevelop(develop.develop):
@@ -258,8 +258,8 @@ class MyDevelop(develop.develop):
     """
 
     def run(self):
-        for project in list_doc_projects():
-            generate_docs(project)
+        self.run_command('mlab_ref')
+        self.run_command('build_docs')
 
         # Make sure that the 'build_src' command will
         # always be inplace when we do a 'develop'.
@@ -347,7 +347,7 @@ def configuration(parent_package='', top_path=None):
 
     # The mayavi documentation.
     # Take a peak at the zip file to know which path to add:
-    zip = zipfile.ZipFile(DEFAULT_HTML_ZIP % 'mayavi')
+    zip = zipfile.ZipFile(DEFAULT_HTML_ZIP)
     return config
 
 
@@ -384,17 +384,18 @@ numpy.distutils.core.setup(
         # Work around a numpy distutils bug by forcing the use of the
         # setuptools' sdist command.
         'sdist': setuptools.command.sdist.sdist,
-
         'build': MyBuild,
-        'clean': MyClean,
         'develop': MyDevelop,
         'install_scripts': MyInstallScripts,
         'install_data': MyInstallData,
+        'mlab_ref': MlabRef,
         },
     dependency_links = [
         'http://code.enthought.com/enstaller/eggs/source',
         ],
     description = DOCLINES[1],
+    docs_in_egg = True,
+    docs_in_egg_location = 'enthought/docs',
     entry_points = {
         'console_scripts': [
             'mayavi2 = enthought.mayavi.scripts.mayavi2:main',
@@ -410,6 +411,7 @@ numpy.distutils.core.setup(
             ],
         },
     extras_require = INFO['extras_require'],
+    html_doc_repo = 'https://svn.enthought.com/svn/cec/trunk/projects/mayavi/docs/development/',
     include_package_data = True,
     install_requires = INFO['install_requires'],
     license = "BSD",
@@ -421,6 +423,9 @@ numpy.distutils.core.setup(
         "enthought",
         ],
     platforms = ["Windows", "Linux", "Mac OS-X", "Unix", "Solaris"],
+    setup_requires = 'setupdocs',
+    ssh_server = 'code.enthought.com',
+    ssh_remote_dir = '/www/htdocs/code.enthought.com/projects/mayavi/',
     tests_require = [
         'nose >= 0.10.3',
         ],
