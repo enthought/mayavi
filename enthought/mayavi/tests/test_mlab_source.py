@@ -202,6 +202,394 @@ class TestMArraySource(unittest.TestCase):
 
 
 
+################################################################################
+# `TestMLineSource`
+################################################################################ 
+class TestMLineSource(unittest.TestCase):
+    def setUp(self):
+        self.x = x = N.ones(10, float)
+        self.y = y = N.ones(10, float)*2.0
+        self.z = z = N.linspace(0, 10, 10)
+        self.s = s = N.ones(10, float)
+        src = sources.MLineSource()
+        src.reset(x=x, y=y, z=z, scalars=s)
+        self.src = src
+
+    def tearDown(self):
+        return
+
+    def get_data(self):
+        return self.x, self.y, self.z, self.s, self.src
+
+    def check_traits(self):
+        """Check if the sources traits are set correctly."""
+        x, y, z, s, src = self.get_data()
+        # Check if points are set correctly.
+        self.assertEqual(N.alltrue(src.points[:,0].ravel() == x), True)
+        self.assertEqual(N.alltrue(src.points[:,1].ravel() == y), True)
+        self.assertEqual(N.alltrue(src.points[:,2].ravel() == z), True)
+        # Check the scalars.
+        self.assertEqual(N.alltrue(src.scalars == s), True)
+
+    def check_dataset(self):
+        """Check the TVTK dataset."""
+        x, y, z, s, src = self.get_data()
+        # Check if the dataset is setup right.
+        pts = src.dataset.points.to_array()
+        self.assertEqual(N.alltrue(pts[:,0].ravel() == x), True)
+        self.assertEqual(N.alltrue(pts[:,1].ravel() == y), True)
+        self.assertEqual(N.alltrue(pts[:,2].ravel() == z), True)
+        sc = src.dataset.point_data.scalars.to_array()
+        self.assertEqual(N.alltrue(sc == s), True)
+
+    def test_reset(self):
+        "Test the reset method."
+        x, y, z, s, src = self.get_data()
+        self.check_traits()
+        self.check_dataset()
+
+        # Call reset again with just a few things changed to see if it
+        # works correctly.
+        x *= 5.0
+        s *= 10
+        src.reset(x=x, scalars=s)
+
+        self.check_traits()
+        self.check_dataset()
+
+        y *= 6.0
+        x *= 4
+        src.reset(x=x, y=y)
+
+        self.check_traits()
+        self.check_dataset()
+
+        s *= 4.5
+        y /= 4
+        src.reset(y=y, s=s)
+
+        self.check_traits()
+        self.check_dataset()
+        
+    def test_handlers(self):
+        "Test if the various static handlers work correctly."
+        x, y, z, s, src = self.get_data()
+        x *= 2.0
+        y *= 2.0
+        z *= 2.0
+        s *= 2.0
+        src.x = x
+        src.y = y
+        src.z = z 
+        src.scalars = s
+        self.check_traits()
+        self.check_dataset()
+
+    def test_set(self):
+        "Test if the set method works correctly."
+        x, y, z, s, src = self.get_data()
+        x *= 2.0
+        z *= 2.0
+        s *= 2.0
+        src.set(x=x, z=z, scalars=s)
+        self.check_traits()
+        self.check_dataset()
+        
+        y *= 2.0
+        s *= 2.0
+        src.set(y=y, scalars=s)
+        self.check_traits()
+        self.check_dataset()
+
+
+
+################################################################################
+# `TestMArray2DSource`
+################################################################################ 
+class TestMArray2DSource(unittest.TestCase):
+    def setUp(self):
+        x, y = N.mgrid[-10:10:11j, 
+                          -10:10:12j]          
+       
+        self.x, self.y  = x, y
+        dims = (x.shape[0], y.shape[1])        
+        self.s = s = N.ones(dims, float)
+        src = sources.MArray2DSource()
+        src.reset(x=x, y=y,scalars=s)
+        self.src = src
+
+    def tearDown(self):
+        return
+
+    def get_data(self):
+        return self.x, self.y, self.s, self.src
+
+    def check_traits(self):
+        """Check if the sources traits are set correctly."""
+        x, y, s, src = self.get_data()
+       
+        # Check if points are set correctly.        
+        self.assertEqual(N.alltrue(src.x == x), True)
+        self.assertEqual(N.alltrue(src.y == y), True)
+        # Check the scalars.       
+        self.assertEqual(N.alltrue(src.scalars == s), True)
+
+    def check_dataset(self):
+        """Check the TVTK dataset."""
+        x, y, s, src = self.get_data()
+        # Check if the dataset is setup right.
+        x = N.atleast_2d(x.squeeze().T)[0, :].squeeze()
+        y = N.atleast_2d(y.squeeze())[0, :].squeeze()
+        dx = x[1] - x[0]
+        dy = y[1] - y[0]
+       
+        origin = [x.min(), y.min(),0 ]
+        spacing = [dx, dy, 1]
+        ds = src.dataset
+        self.assertEqual(N.all(ds.origin == origin), True)
+        self.assertEqual(N.allclose(ds.spacing, spacing), True)
+              
+        sc = src.dataset.point_data.scalars.to_array()      
+        s1 = s.transpose()
+        self.assertEqual(N.alltrue(sc.ravel() == s1.ravel()), True)
+
+    def test_reset(self):
+        "Test the reset method."
+        
+        x, y, s, src = self.get_data()
+        self.check_traits()
+        self.check_dataset()
+
+        # Call reset again with just a few things changed to see if it
+        # works correctly.
+        x *= 5.0
+        s *= 10       
+        src.reset(x=x,y=y, scalars=s)     
+
+        self.check_traits()
+        self.check_dataset()
+
+    def test_handlers(self):
+        "Test if the various static handlers work correctly."
+        x, y, s, src = self.get_data()
+        x *= 2.0
+        y *= 2.0
+        s *= 2.0
+        src.x = x
+        src.y = y       
+        src.scalars = s
+       
+        self.check_traits()
+        self.check_dataset()
+
+   
+    def test_set(self):
+        "Test if the set method works correctly."
+        x, y, s, src  = self.get_data()
+        x *= 2.0        
+        s *= 2.0
+        src.set(x=x,scalars=s) 
+     
+        self.check_traits()
+        self.check_dataset()
+
+        y *= 9.0
+        s *= 2.0
+        src.set(y=y, scalars=s)
+
+        self.check_traits()
+        self.check_dataset()
+
+################################################################################
+# `TestMGridSource`
+################################################################################ 
+class TestMGridSource(unittest.TestCase):
+    def setUp(self):
+        self.x = x = N.ones([10,10], float)
+        self.y = y = N.ones([10,10], float)*2.0
+        self.z = z = N.ones([10,10], float)*3.0
+        self.s = s = N.ones([10,10], float)
+        src = sources.MGridSource()
+        src.reset(x=x, y=y, z=z, scalars=s)
+        self.src = src
+
+    def tearDown(self):
+        return
+
+    def get_data(self):
+        return self.x, self.y, self.z, self.s, self.src
+
+    def check_traits(self):
+        """Check if the sources traits are set correctly."""
+        x, y, z, s, src = self.get_data()
+       
+        # Check if points are set correctly.
+        self.assertEqual(N.alltrue(src.points[:,0].ravel() == x.ravel()), True)
+        self.assertEqual(N.alltrue(src.points[:,1].ravel() == y.ravel()), True)
+        self.assertEqual(N.alltrue(src.points[:,2].ravel() == z.ravel()), True)
+        # Check the  scalars.
+        
+        self.assertEqual(N.alltrue(src.scalars == s), True)
+
+    def check_dataset(self):
+        """Check the TVTK dataset."""
+        x, y, z, s, src = self.get_data()
+        # Check if the dataset is setup right.
+       
+        pts = src.dataset.points.to_array()
+        self.assertEqual(N.alltrue(pts[:,0].ravel() == x.ravel()), True)
+        self.assertEqual(N.alltrue(pts[:,1].ravel() == y.ravel()), True)
+        self.assertEqual(N.alltrue(pts[:,2].ravel() == z.ravel()), True)
+        sc = src.dataset.point_data.scalars.to_array()
+        self.assertEqual(N.alltrue(sc == s.ravel()), True)
+
+    def test_reset(self):
+        "Test the reset method."
+        
+        x, y, z, s, src = self.get_data()
+        self.check_traits()
+        self.check_dataset()
+
+        # Call reset again with just a few things changed to see if it
+        # works correctly.
+        x *= 5.0
+        s *= 10       
+        src.reset(x=x, scalars=s)
+
+        self.check_traits()
+        self.check_dataset()
+
+    def test_handlers(self):
+        "Test if the various static handlers work correctly."
+        x, y, z, s, src = self.get_data()
+        x *= 2.0
+        y *= 2.0
+        z *= 2.0
+        s *= 2.0
+        src.x = x
+        src.y = y
+        src.z = z 
+        src.scalars = s
+        self.check_traits()
+        self.check_dataset()
+
+    def test_set(self):
+        "Test if the set method works correctly."
+        x, y, z, s, src = self.get_data()
+        x *= 2.0
+        z *= 2.0
+        s *= 2.0
+        src.set(x=x, z=z, scalars=s)
+        self.check_traits()
+        self.check_dataset()
+
+################################################################################
+# `TestMArray2DSourceNoArgs`
+################################################################################ 
+class TestMArray2DSourceNoArgs(unittest.TestCase):
+    """Special Test Case for MArray2DSource when both x and y are specified as None"""
+    def setUp(self):      
+                     
+        x=None
+        y=None       
+        self.x, self.y  = x, y
+        
+        if x is not None and y is not None:
+            dims = (x.shape[0], y.shape[1])
+        else:
+            dims=(10,10)
+
+        self.s = s = N.ones(dims, float)
+        src = sources.MArray2DSource()
+        src.reset(x=x, y=y,scalars=s)
+        self.src = src
+
+    def tearDown(self):
+        return
+
+    def get_data(self):
+        return self.x, self.y, self.s, self.src
+
+    def check_traits(self):
+        """Check if the sources traits are set correctly."""
+        x, y, s, src = self.get_data()
+        # Check if points are set correctly.
+
+        if x is not None and y is not None:
+            self.assertEqual(N.alltrue(src.x == x), True)
+            self.assertEqual(N.alltrue(src.y == y), True)
+        
+        else:
+            nx, ny = s.shape        
+            x1, y1 = N.mgrid[-nx/2.:nx/2, -ny/2.:ny/2]                   
+            self.assertEqual(N.alltrue(src.x == x1), True)
+            self.assertEqual(N.alltrue(src.y == y1), True)
+    
+        # Check the scalars.       
+        self.assertEqual(N.alltrue(src.scalars == s), True)
+
+    def check_dataset(self):
+        """Check the TVTK dataset."""
+        x, y, s, src = self.get_data()
+        # Check if the dataset is setup right.
+
+        nx, ny = src.scalars.shape
+
+        if x is None and y is None:
+            x, y = N.mgrid[-nx/2.:nx/2, -ny/2.:ny/2]
+
+        x = N.atleast_2d(x.squeeze().T)[0, :].squeeze()
+        y = N.atleast_2d(y.squeeze())[0, :].squeeze()
+        dx = x[1] - x[0]
+        dy = y[1] - y[0]        
+        origin = [x.min(), y.min(),0 ]
+        spacing = [dx, dy, 1]      
+        ds = src.dataset
+        self.assertEqual(N.all(ds.origin == origin), True)
+        self.assertEqual(N.allclose(ds.spacing, spacing), True)
+       
+        sc = src.dataset.point_data.scalars.to_array()      
+        s1 = s.transpose()
+        self.assertEqual(N.alltrue(sc.ravel() == s1.ravel()), True)
+
+    def test_reset(self):
+        "Test the reset method."       
+        x, y, s, src = self.get_data()  
+
+        self.check_traits()
+        self.check_dataset()
+
+        # Call reset again with just a few things changed to see if it
+        # works correctly.
+      
+        s *= 10       
+        src.reset(x=x,y=y, scalars=s)        
+
+        self.check_traits()
+        self.check_dataset()
+
+    def test_handlers(self):
+        "Test if the various static handlers work correctly."       
+        x, y, s, src = self.get_data()       
+        s *= 2.0         
+        src.scalars = s
+       
+        self.check_traits()
+        self.check_dataset()
+
+   
+    def test_set(self):
+        "Test if the set method works correctly."       
+        x, y, s, src = self.get_data()             
+        s *= 2.0
+        src.set(x=x,y=y,scalars=s)
+      
+        self.check_traits()
+        self.check_dataset()
+
+
+
+
 if __name__ == '__main__':
     unittest.main()
 

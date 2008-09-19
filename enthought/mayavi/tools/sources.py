@@ -428,6 +428,8 @@ class MArray2DSource(MlabSource):
     """
 
     # The x, y values.
+    # Values of X and Y as None are accepted, in that case we would build 
+    # values of X and Y automatically from the shape of scalars
     x = ArrayOrNone
     y = ArrayOrNone
 
@@ -445,10 +447,17 @@ class MArray2DSource(MlabSource):
 
         # First set the attributes without really doing anything since
         # the notification handlers are not called.
-        self.set(trait_change_notify=False, **traits)
-
+        self.set(trait_change_notify=False, **traits)    
         x, y, mask = self.x, self.y, self.mask
-        scalars = self.scalars
+        scalars = self.scalars 
+        
+        # We may have used this without specifying x and y at all in
+        # which case we set them from the shape of scalars.
+        nx, ny = scalars.shape       
+        
+        #Build X and Y from shape of Scalars if they are none
+        if x is None and y is None:           
+            x, y = numpy.mgrid[-nx/2.:nx/2, -ny/2.:ny/2]           
 
         if mask is not None and len(mask) > 0:
             scalars[mask.astype('bool')] = numpy.nan
@@ -456,19 +465,17 @@ class MArray2DSource(MlabSource):
             scalars = scalars.astype('float')
             self.set(scalars=scalars, trait_change_notify=False)
 
-        nx, ny = scalars.shape
-        x, y = numpy.mgrid[-nx/2.:nx/2, -ny/2.:ny/2]
-        z = numpy.array([0])
+        z = numpy.array([0])     
+              
         self.set(x=x, y=y, z=z, trait_change_notify=False)
-
         # Do some magic to extract the first row/column, independently of
         # the shape of x and y
+
         x = numpy.atleast_2d(x.squeeze().T)[0, :].squeeze()
-        y = numpy.atleast_2d(y.squeeze())[0, :].squeeze()
-
-        dx = x[1] - x[0]
+        y = numpy.atleast_2d(y.squeeze())[0, :].squeeze()    
+        
+        dx = x[1] - x[0]    
         dy = y[1] - y[0]
-
         if self.m_data is None:
             ds = ArraySource(transpose_input_array=True)
         else:
@@ -488,10 +495,19 @@ class MArray2DSource(MlabSource):
     # Non-public interface.
     ######################################################################
     @on_trait_change('[x, y]')
-    def _xyz_changed(self):
-        x, y = self.x, self.y
-        dx = x[1, 0] - x[0, 0]
-        dy = y[0, 1] - y[0, 0]
+    def _xy_changed(self):
+        x, y,scalars = self.x, self.y, self.scalars
+        
+        nx, ny = scalars.shape
+
+        if x is None or y is None:
+            x, y = numpy.mgrid[-nx/2.:nx/2, -ny/2.:ny/2]
+        
+        self.trait_setq(x=x,y=y)
+        x = numpy.atleast_2d(x.squeeze().T)[0, :].squeeze()
+        y = numpy.atleast_2d(y.squeeze())[0, :].squeeze()                
+        dx = x[1] - x[0]
+        dy = y[1] - y[0]
         ds = self.dataset
         ds.origin = [x.min(), y.min(), 0]
         ds.spacing = [dx, dy, 1] 
@@ -583,24 +599,21 @@ class MGridSource(MlabSource):
     ######################################################################
     # Non-public interface.
     ######################################################################
-    def _x_changed(self, x):
-        nx, ny = self.x.shape
-        x.shape = (nx*ny,)
-        self.points[:,0] = x
+    def _x_changed(self, x):       
+        self.trait_setq(x=x);
+        self.points[:,0] = x.ravel()
         self.update()
-
+       
     def _y_changed(self, y):
-        nx, ny = self.x.shape
-        y.shape = (nx*ny,)
-        self.points[:,1] = y
-        self.update()
-    
-    def _z_changed(self, z):
-        nx, ny = self.x.shape
-        z.shape = (nx*ny,)
-        self.points[:,2] = z
-        self.update()
-
+        self.trait_setq(y=y)
+        self.points[:,1] = y.ravel()
+        self.update()    
+          
+    def _z_changed(self, z):       
+        self.trait_setq(z=z)
+        self.points[:,2] = z.ravel()
+        self.update()      
+       
     def _points_changed(self, p):
         self.dataset.points = p
         self.update()
