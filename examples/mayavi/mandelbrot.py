@@ -9,7 +9,7 @@ License: BSD Style.
 print "This script is numerically intensive and requires a lot of memory."
 print "Please be patient..."
 
-import hashlib
+import md5
 
 from numpy import ogrid, log
 try:
@@ -75,7 +75,7 @@ static char f_types[] = {
 ufunc_info = weave.base_info.custom_info()
 ufunc_info.add_header('"numpy/ufuncobject.h"')
 
-mandel = weave.inline('/*' + hashlib.md5(support_code).hexdigest() + '''*/
+mandel = weave.inline('/*' + md5.md5(support_code).hexdigest() + '''*/
 import_ufunc();
 
 return_val = PyUFunc_FromFuncAndData(
