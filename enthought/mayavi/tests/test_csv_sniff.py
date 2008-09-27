@@ -17,8 +17,6 @@ from numpy import array, ndarray
 from enthought.mayavi.tools.data_wizards.csv_sniff import \
      Sniff, loadtxt, loadtxt_unknown, array2dict
 
-from enthought.util.resource import find_resource, store_resource
-
 
 class Util(object):
 
@@ -145,23 +143,17 @@ class Test_csv_py_files(unittest.TestCase, Util):
             (which is of unkown format)
             is the same as the array in csv_files/<name>.py
         """
-        store_resource('Mayavi',
-                       os.path.join('enthought', 'mayavi', 'tests',
-                                    'csv_files', name + '.csv'),
-                       TESTFN)
-        
         if skip_if_win and sys.platform.startswith('win'):
             raise nose.SkipTest
         
-        s = Sniff(TESTFN)
+        s = Sniff(os.path.join(os.path.dirname(__file__),
+                               'csv_files', name + '.csv'))
 
-        
-        f_py = find_resource('Mayavi',
-                             os.path.join('enthought', 'mayavi', 'tests',
-                                          'csv_files', name + '.py'))
-        
+        f_py = os.path.join(os.path.dirname(__file__),
+                            'csv_files', name + '.py')
+
         nan = float('nan') # must be in namespace for some .py files
-        d = eval(f_py.read())
+        d = eval(open(f_py).read())
         
         self.assertEqual(d['kwds'], s.kwds())
         self.assertNamedClose(d['array'], s.loadtxt())
@@ -215,10 +207,6 @@ class Test_csv_py_files(unittest.TestCase, Util):
         
     def test_webaccess(self):
         self.check('webaccess')
-        
-
-    def tearDown(self):
-        os.unlink(TESTFN)
 
 
 if __name__ == '__main__':
