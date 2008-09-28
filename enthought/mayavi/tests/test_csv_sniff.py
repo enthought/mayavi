@@ -145,6 +145,13 @@ class Test_csv_py_files(unittest.TestCase, Util):
         """
         if skip_if_win and sys.platform.startswith('win'):
             raise nose.SkipTest
+
+        # Note: The files needed for the test are currently accessed directly.
+        #       This assumes that the files are present, and not in a zipped
+        #       egg.  enthought.util.resource as supposed to always work, but
+        #       when it ran the striped the tests in the EPD installer tests,
+        #       it was broken.  Since we define zip_safe = False in setup.py
+        #       it is safe to assume the files are always present.
         
         s = Sniff(os.path.join(os.path.dirname(__file__),
                                'csv_files', name + '.csv'))
