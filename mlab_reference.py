@@ -8,7 +8,7 @@ Script to generate the function reference for mlab.
 
 import os
 
-from make_docs import DEFAULT_INPUT_DIR
+DEFAULT_INPUT_DIR = os.path.join('docs', 'source')
 OUT_DIR = os.sep.join(
         [os.path.dirname(os.path.abspath(__file__)), DEFAULT_INPUT_DIR, 
                 'mayavi','auto']

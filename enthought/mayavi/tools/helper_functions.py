@@ -16,7 +16,8 @@ both for testing and to ilustrate its use.
 from modules import VectorsFactory, StreamlineFactory, GlyphFactory, \
             IsoSurfaceFactory, SurfaceFactory, ContourSurfaceFactory
 from sources import vector_scatter, vector_field, scalar_scatter, \
-            scalar_field, line_source, array2d_source, grid_source
+            scalar_field, line_source, array2d_source, grid_source, \
+            triangular_mesh_source
 from filters import ExtractVectorNormFactory, WarpScalarFactory, \
             TubeFactory, ExtractEdgesFactory, PolyDataNormalsFactory
 from auto_doc import traits_doc, dedent
@@ -513,6 +514,8 @@ imshow = document_pipeline(ImShow())
 
 
 def test_imshow():
+    """ Use imshow to visualize a 2D 10x10 random array.
+    """
     return imshow(numpy.random.random((10,10)), colormap='gist_earth')
 
 
@@ -825,4 +828,49 @@ def test_contour_surf():
     x, y = numpy.mgrid[-7.:7.05:0.1, -5.:5.05:0.05]
     s = contour_surf(x, y, f)
     return s
+
+
+############################################################################# 
+class TriangularMesh(Mesh):
+    """
+    Plots a surface using a mesh defined by the position of its vertices
+    and the triangles connecting them.
+
+    **Function signatures**::
+
+        mesh(x, y, z, triangles ...)
+    
+    x, y, z are arrays giving the positions of the vertices of the surface.
+    triangles is a list of triplets (or an array) list the vertices in
+    each triangle. Vertices are indexes by their appearance number in the
+    position arrays.
+
+    For simple structures (such as rectangular grids) prefer the surf or
+    mesh functions, as they will create more efficient data structures.
+    """
+
+    _source_function = Callable(triangular_mesh_source)
+
+triangular_mesh = document_pipeline(TriangularMesh())
+
+
+def test_triangular_mesh():
+    """An example of a cone, ie a non-regular mesh defined by its
+        triangles.
+    """
+    n = 8
+    t = numpy.linspace(0, 2*numpy.pi, n)
+    z = numpy.exp(1j*t)
+    x = z.real.copy()
+    y = z.imag.copy()
+    z = numpy.zeros_like(x)
+
+    triangles = [(0, i, i+1) for i in range(n)]
+    x = numpy.r_[0, x]
+    y = numpy.r_[0, y]
+    z = numpy.r_[1, z]
+    t = numpy.r_[0, t]
+
+    return triangular_mesh(x, y, z, triangles, scalars=t)
+
 

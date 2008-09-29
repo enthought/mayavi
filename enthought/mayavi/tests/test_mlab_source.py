@@ -588,6 +588,80 @@ class TestMArray2DSourceNoArgs(unittest.TestCase):
         self.check_dataset()
 
 
+################################################################################
+# `TestMTriangularMeshSource`
+################################################################################ 
+class TestMTriangularMeshSource(unittest.TestCase):
+    def setUp(self):
+        x, y, z = N.array([0, 0, 0]), N.array([0, 0, 1]), N.array([0, 1, 1])
+        s = N.array([0.1, 0.2, 0.3])
+        self.x, self.y, self.z, self.s = x, y, z, s
+        self.triangles = triangles = N.array([[0, 1, 2]])
+      
+        src = sources.MTriangularMeshSource()
+        src.reset(x=x, y=y, z=z, triangles=triangles, scalars=s)
+        self.src = src
+
+    def tearDown(self):
+        return
+
+    def get_data(self):
+        return self.x, self.y, self.z, self.triangles, self.s, self.src
+
+    def check_traits(self):
+        """Check if the sources traits are set correctly."""
+        x, y, z, triangles, s, src = self.get_data()
+       
+        # Check if points are set correctly.        
+        self.assertEqual(N.alltrue(src.x == x), True)
+        self.assertEqual(N.alltrue(src.y == y), True)
+        self.assertEqual(N.alltrue(src.z == z), True)
+        # Check the scalars.       
+        self.assertEqual(N.alltrue(src.scalars == s), True)
+
+    def test_reset(self):
+        "Test the reset method."
+        
+        x, y, z, triangles, s, src = self.get_data()
+        self.check_traits()
+
+        # Call reset again with just a few things changed to see if it
+        # works correctly.
+        x *= 5.0
+        s *= 10       
+        src.reset(x=x,y=y,z=z, triangles=triangles, scalars=s)     
+
+        self.check_traits()
+
+    def test_handlers(self):
+        "Test if the various static handlers work correctly."
+        x, y, z, triangles, s, src = self.get_data()
+        x *= 2.0
+        y *= 2.0
+        s *= 2.0
+        src.x = x
+        src.y = y       
+        src.scalars = s
+        src.triangles = triangles
+       
+        self.check_traits()
+
+   
+    def test_set(self):
+        "Test if the set method works correctly."
+        x, y, z, triangles, s, src = self.get_data()
+        x *= 2.0        
+        s *= 2.0
+        src.set(x=x,scalars=s) 
+     
+        self.check_traits()
+
+        y *= 9.0
+        s *= 2.0
+        src.set(y=y, scalars=s)
+
+        self.check_traits()
+
 
 
 if __name__ == '__main__':

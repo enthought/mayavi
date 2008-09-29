@@ -69,6 +69,8 @@ see :ref:`running-mlab-scripts` for more info)::
     from enthought.mayavi.mlab import *
     
     def test_imshow():
+        """ Use imshow to visualize a 2D 10x10 random array.
+        """
         return imshow(numpy.random.random((10,10)), colormap='gist_earth')
     
                 
@@ -806,6 +808,120 @@ see :ref:`running-mlab-scripts` for more info)::
         x, y = numpy.mgrid[-7.:7.05:0.1, -5.:5.05:0.05]
         s = contour_surf(x, y, f)
         return s
+    
+                
+
+
+
+triangular_mesh
+~~~~~~~~~~~~~~~
+
+.. function:: triangular_mesh(*args, **kwargs)
+
+    
+    Plots a surface using a mesh defined by the position of its vertices
+    and the triangles connecting them.
+    
+    **Function signatures**::
+    
+        mesh(x, y, z, triangles ...)
+    
+    x, y, z are arrays giving the positions of the vertices of the surface.
+    triangles is a list of triplets (or an array) list the vertices in
+    each triangle. Vertices are indexes by their appearance number in the
+    position arrays.
+    
+    For simple structures (such as rectangular grids) prefer the surf or
+    mesh functions, as they will create more efficient data structures.
+    
+    
+    **Keyword arguments:**
+    
+        :opacity: The overall opacity of the vtk object.
+    
+        :scale_factor: scale factor of the glyphs used to represent
+                       the vertices, in fancy_mesh mode. Must be a float.
+                       Default: 0.05
+    
+        :colormap: type of colormap to use.
+    
+        :color: the color of the vtk object. Overides the colormap,
+                if any, when specified.
+    
+        :extent: [xmin, xmax, ymin, ymax, zmin, zmax]
+                 Default is the x, y, z arrays extents.
+    
+        :vmax: vmax is used to scale the colormap
+               If None, the max of the data will be used
+    
+        :tube_radius: radius of the tubes used to represent the
+                      lines, in mesh mode. If None, simple lines are used.
+    
+        :transparent: make the opacity of the actor depend on the
+                      scalar.
+    
+        :figure: Figure to populate.
+    
+        :name: the name of the vtk object created.
+    
+        :vmin: vmin is used to scale the colormap
+               If None, the min of the data will be used
+    
+        :scale_mode: the scaling mode for the glyphs
+                     ('vector', 'scalar', or 'none').
+    
+        :mask: boolean mask array to suppress some data points.
+    
+        :scalars: optional scalar data.
+    
+        :mode: the mode of the glyphs. Must be '2darrow' or '2dcircle' or
+               '2dcross' or '2ddash' or '2ddiamond' or '2dhooked_arrow' or
+               '2dsquare' or '2dthick_arrow' or '2dthick_cross' or
+               '2dtriangle' or '2dvertex' or 'arrow' or 'cone' or 'cube' or
+               'cylinder' or 'point' or 'sphere'. Default: sphere
+    
+        :representation: the representation type used for the surface. Must be
+                         'surface' or 'wireframe' or 'points' or 'mesh' or
+                         'fancymesh'. Default: surface
+    
+        :resolution: The resolution of the glyph created. For spheres, for
+                     instance, this is the number of divisions along theta and
+                     phi.
+    
+        :tube_sides: number of sides of the tubes used to
+                     represent the lines. Must be an integer. Default: 6
+    
+
+    
+
+.. image:: ../images/enthought_mayavi_mlab_triangular_mesh.jpg
+
+
+**Example** (run in ``ipython -wthread`` or in the mayavi2 interactive shell,
+see :ref:`running-mlab-scripts` for more info)::
+
+    
+    import numpy
+    from enthought.mayavi.mlab import *
+    
+    def test_triangular_mesh():
+        """An example of a cone, ie a non-regular mesh defined by its
+            triangles.
+        """
+        n = 8
+        t = numpy.linspace(0, 2*numpy.pi, n)
+        z = numpy.exp(1j*t)
+        x = z.real.copy()
+        y = z.imag.copy()
+        z = numpy.zeros_like(x)
+    
+        triangles = [(0, i, i+1) for i in range(n)]
+        x = numpy.r_[0, x]
+        y = numpy.r_[0, y]
+        z = numpy.r_[1, z]
+        t = numpy.r_[0, t]
+    
+        return triangular_mesh(x, y, z, triangles, scalars=t)
     
                 
 

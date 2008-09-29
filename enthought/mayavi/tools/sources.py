@@ -21,7 +21,8 @@ import tools
 from engine_manager import engine_manager
 
 __all__ = [ 'vector_scatter', 'vector_field', 'scalar_scatter',
-    'scalar_field', 'line_source', 'array2d_source', 'grid_source', 'open'
+    'scalar_field', 'line_source', 'array2d_source', 'grid_source',
+    'open', 'triangular_mesh_source',
 ]
 
 
@@ -624,6 +625,94 @@ class MGridSource(MlabSource):
         self.update()
 
 
+################################################################################
+# `MTriangularMeshSource` class.
+################################################################################ 
+class MTriangularMeshSource(MlabSource):
+    """
+    This class represents a triangular mesh source for Mlab objects and
+    allows the user to set the x, y, scalar attributes.
+    """
+
+    # The x, y, z and points of the grid.
+    x = ArrayOrNone
+    y = ArrayOrNone
+    z = ArrayOrNone
+    points = ArrayOrNone
+    triangles = ArrayOrNone
+
+    # The scalars shown on the glyphs.
+    scalars = ArrayOrNone
+
+    ######################################################################
+    # `MlabSource` interface.
+    ######################################################################
+    def reset(self, **traits):
+        """Creates the dataset afresh or resets existing data source."""
+        
+        # First set the attributes without really doing anything since
+        # the notification handlers are not called.
+        self.set(trait_change_notify=False, **traits)
+
+        points = self.points
+        scalars = self.scalars
+
+        x, y, z = self.x, self.y, self.z
+        points = numpy.c_[x.ravel(), y.ravel(), z.ravel()].ravel()
+        points.shape = (points.size/3, 3)
+        self.set(points=points, trait_change_notify=False)
+    
+        triangles = self.triangles
+        assert triangles.shape[1] == 3, \
+            "The shape of the triangles array must be (X, 3)"
+
+        if self.dataset is None:
+            pd = tvtk.PolyData()
+        else:
+            pd = self.dataset
+        pd.set(points=points, polys=triangles)
+
+        if scalars is not None and len(scalars) > 0:
+            if not scalars.flags.contiguous:
+                scalars = scalars.copy()
+                self.set(scalars=scalars, trait_change_notify=False)
+            assert x.shape == scalars.shape
+            pd.point_data.scalars = scalars.ravel() 
+            pd.point_data.scalars.name = 'scalars'
+
+        self.dataset = pd
+
+    ######################################################################
+    # Non-public interface.
+    ######################################################################
+    def _x_changed(self, x):       
+        self.trait_setq(x=x);
+        self.points[:,0] = x.ravel()
+        self.update()
+       
+    def _y_changed(self, y):
+        self.trait_setq(y=y)
+        self.points[:,1] = y.ravel()
+        self.update()    
+          
+    def _z_changed(self, z):       
+        self.trait_setq(z=z)
+        self.points[:,2] = z.ravel()
+        self.update()      
+       
+    def _points_changed(self, p):
+        self.dataset.points = p
+        self.update()
+
+    def _scalars_changed(self, s):
+        self.dataset.point_data.scalars = s.ravel()
+        self.dataset.point_data.scalars.name = 'scalars'
+        self.update()
+
+    def _triangles_changed(self, triangles):
+        self.dataset.polys = triangles
+        self.update()    
+          
 
 ############################################################################
 # Argument processing
@@ -967,6 +1056,39 @@ def grid_source(x, y, z, **kwargs):
     data_source.reset(x=x, y=y, z=z, scalars=scalars)
 
     name = kwargs.pop('name', 'GridSource')
+    figure = kwargs.pop('figure', None)
+    ds = tools._add_data(data_source.dataset, name, figure=figure)
+    data_source.m_data = ds
+    return ds
+
+
+def triangular_mesh_source(x, y, z, triangles, **kwargs):
+    """
+    Creates 2D mesh by specifying points and triangle connectivity.
+
+    x, y, z are 2D arrays giving the positions of the vertices of the surface.
+    The connectivity between these points is given by listing triplets of
+    vertices inter-connected. These vertices are designed by there
+    position index.
+    
+    **Keyword arguments**:
+    
+        :name: the name of the vtk object created.
+        
+        :scalars: optional scalar data.
+       
+        :figure: optionally, the figure on which to add the data source.
+        """
+    x, y, z, triangles = convert_to_arrays((x, y, z, triangles))
+
+    scalars = kwargs.pop('scalars', None)
+    if scalars is None:
+        scalars = z
+
+    data_source = MTriangularMeshSource()
+    data_source.reset(x=x, y=y, z=z, triangles=triangles, scalars=scalars)
+
+    name = kwargs.pop('name', 'TriangularMeshSource')
     figure = kwargs.pop('figure', None)
     ds = tools._add_data(data_source.dataset, name, figure=figure)
     data_source.m_data = ds

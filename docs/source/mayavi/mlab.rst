@@ -111,6 +111,9 @@ module.
     coordinates, and more complex surfaces can be created, as in the 
     above example.
 
+    Finally, the :func:`triangular_mesh` function creates a mesh with 
+    arbitrary topology, given position of the vertices and the triangles.
+
 3D data
 ~~~~~~~~
 

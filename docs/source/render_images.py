@@ -48,8 +48,10 @@ def illustrate_module(module, directory=IMAGE_DIR):
 @mlab.show
 def main():
     mlab.figure(bgcolor=(1, 1, 1), fgcolor=(0, 0, 0), size=(400, 400))
+    print "Generating the mlab images..."
     illustrate_module(mlab)
     mayavi2.close()
+    print "Done generating the mlab images"
 
 if __name__ == '__main__':
     main()

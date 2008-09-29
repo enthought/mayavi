@@ -55,7 +55,9 @@ from tools.helper_functions import contour3d, test_contour3d, \
     contour_surf, test_contour_surf, \
     plot3d, test_plot3d, \
     test_plot3d_anim, test_points3d_anim, test_contour3d_anim,\
-    test_simple_surf_anim, test_flow_anim, test_mesh_sphere_anim
+    test_simple_surf_anim, test_flow_anim, test_mesh_sphere_anim, \
+    triangular_mesh, test_triangular_mesh
+
 
 from tools.decorations import colorbar, scalarbar, vectorbar, \
     outline, axes, xlabel, ylabel, zlabel, text, title, \
