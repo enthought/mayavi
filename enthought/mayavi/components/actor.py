@@ -166,7 +166,7 @@ class Actor(Component):
     def _can_object_give_image_data(self, source):
         if source is None:
             return False
-        if not issubclass(source, Source):
+        if not isinstance(source, Source):
             return False
         if source.outputs[0].is_a('vtkImageData'):
             return True
