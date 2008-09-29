@@ -53,6 +53,9 @@ class TestMlab(TestCase):
         x, y, z = numpy.mgrid[-10:10, -10:10, -3:2]
         mlab.flow(x, y, z)
 
+        # Test glyphs with number-only coordinnates
+        mlab.points3d(0, 0, 0, resolution=50)
+
 if __name__ == "__main__":
     t = TestMlab()
     t.test()

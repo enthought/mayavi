@@ -725,7 +725,7 @@ def convert_to_arrays(args):
     args = list(args)
     for index, arg in enumerate(args):
         if not hasattr(arg, 'shape') and not callable(arg):
-            args[index] = numpy.array(arg)
+            args[index] = numpy.atleast_1d(numpy.array(arg))
     return args
 
 def process_regular_vectors(*args):
