@@ -6,6 +6,24 @@ URL:
     https://svn.enthought.com/enthought/changeset/18702
 -----------------------------------------------------------------------------
 
+30 September, 2008 (GV):
+    - ENH: mlab: Expose pipeline.add_dataset (former private function 
+      tools._data) [22162].
+    - ENH: Sort keyword arguments by alphabetical order in automatic
+      documentations [22162].
+    - TEST: Add tests for the different mlab source functions. The tests
+      explore the different possible input arguments [22161].
+    - ENH: The mlab source functions can now optionaly work without creating
+      a figure (using figure=None) [22161].
+    - ENH: The mlab source functions are more  robust to various 
+      input-argument shape [22161].
+
+29 September, 2008 (GV):
+    - NEW: Add a mlab.triangular_mesh function to create meshes with
+      arbitrary triangular connectivity. Also add a corresponding
+      triangular_mesh_source mlab source. [22155]
+    - ENH: Make mlab.points3d and other mlab functions accept scalars as
+      coordinnates, in addition to arrays. [22156]
 
 12 September, 2008 (PR)
     - NEW: Create a separate OffScreenEngine for use to reduce code
