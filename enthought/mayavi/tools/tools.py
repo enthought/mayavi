@@ -24,9 +24,15 @@ from figure import gcf
 ######################################################################
 # Utility functions.
 
-def _add_data(tvtk_data, name='', figure=None):
+def _add_data(tvtk_data, name='', **kwargs):
     """Add a TVTK data object `tvtk_data` to the mayavi pipleine.
     Give the object a name of `name`.
+
+    If no `figure` keyword argument is given, the data is added to the
+    current figure, and a new figure if created if necessary.
+    
+    If a `figure` keyword argument is given, it should either be None, in 
+    which case the data is not added to the pipeline.
     """
     if isinstance(tvtk_data, tvtk.Object):
         d = VTKDataSource()
@@ -40,12 +46,17 @@ def _add_data(tvtk_data, name='', figure=None):
 
     if len(name) > 0:
         d.name = name
-    if figure is None:
+    if not 'figure' in kwargs:
+        # No figure has been specified, retrieve the default one.
         gcf()
         engine = get_engine()
-    else:
+    elif kwargs['figure'] is not None:
+        figure = kwargs['figure']
         engine = engine_manager.find_figure_engine(figure)
         engine.current_scene = figure
+    else:
+        # Return early, as we don't want to add the source to an engine.
+        return d
     engine.add_source(d)
     return d
 

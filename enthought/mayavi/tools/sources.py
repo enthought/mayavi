@@ -265,7 +265,7 @@ class MArraySource(MlabSource):
 
         vectors = self.vectors
         scalars = self.scalars
-        x, y, z = self.x, self.y, self.z
+        x, y, z = [numpy.atleast_3d(a) for a in self.x, self.y, self.z]
     
         u, v, w = self.u, self.v, self.w
         if u is not None and len(u) > 0:
@@ -283,9 +283,18 @@ class MArraySource(MlabSource):
         if scalars is not None and len(scalars) > 0:
             assert len(x) == len(scalars)
 
-        dx = x[1, 0, 0] - x[0, 0, 0]
-        dy = y[0, 1, 0] - y[0, 0, 0]
-        dz = z[0, 0, 1] - z[0, 0, 0]
+        if x.shape[0] <= 1:
+            dx = 1
+        else:
+            dx = x[1, 0, 0] - x[0, 0, 0]
+        if y.shape[1] <= 1:
+            dy = 1
+        else:
+            dy = y[0, 1, 0] - y[0, 0, 0]
+        if z.shape[2] <= 1:
+            dz = 1
+        else:
+            dz = z[0, 0, 1] - z[0, 0, 0]
         
         if self.m_data is None:
             ds = ArraySource(transpose_input_array=True)
@@ -475,8 +484,14 @@ class MArray2DSource(MlabSource):
         x = numpy.atleast_2d(x.squeeze().T)[0, :].squeeze()
         y = numpy.atleast_2d(y.squeeze())[0, :].squeeze()    
         
-        dx = x[1] - x[0]    
-        dy = y[1] - y[0]
+        if x.ndim == 0:
+            dx = 1
+        else:
+            dx = x[1] - x[0]
+        if y.ndim == 0:
+            dy = 1
+        else:
+            dy = y[1] - y[0]
         if self.m_data is None:
             ds = ArraySource(transpose_input_array=True)
         else:
@@ -732,7 +747,7 @@ def process_regular_vectors(*args):
     """ Converts different signatures to (x, y, z, u, v, w). """
     args = convert_to_arrays(args)
     if len(args)==3:
-        u, v, w = args
+        u, v, w = [numpy.atleast_3d(a) for a in args]
         assert len(u.shape)==3, "3D array required"
         x, y, z = numpy.indices(u.shape)
     elif len(args)==6:
@@ -757,7 +772,7 @@ def process_regular_scalars(*args):
     """ Converts different signatures to (x, y, z, s). """
     args = convert_to_arrays(args)
     if len(args)==1:
-        s = args[0]
+        s = numpy.atleast_3d(args[0])
         assert len(s.shape)==3, "3D array required"
         x, y, z = numpy.indices(s.shape)
     elif len(args)==3:
@@ -780,6 +795,9 @@ def process_regular_scalars(*args):
 def process_regular_2d_scalars(*args, **kwargs):
     """ Converts different signatures to (x, y, s). """
     args = convert_to_arrays(args)
+    for index, arg in enumerate(args):
+        if not callable(arg):
+            args[index] = numpy.atleast_2d(arg)
     if len(args)==1:
         s = args[0]
         assert len(s.shape)==2, "2D array required"
@@ -837,8 +855,7 @@ def vector_scatter(*args, **kwargs):
     data_source = MGlyphSource()
     data_source.reset(x=x, y=y, z=z, u=u, v=v, w=w, scalars=scalars) 
 
-    figure = kwargs.pop('figure', None)
-    ds = tools._add_data(data_source.dataset, name, figure=figure)
+    ds = tools._add_data(data_source.dataset, name, **kwargs)
     data_source.m_data = ds
     return ds
 
@@ -869,14 +886,14 @@ def vector_field(*args, **kwargs):
         :scalars: optional scalar data.
        
         :figure: optionally, the figure on which to add the data source."""
-    x, y, z, u, v, w = process_regular_vectors(*args)
+    x, y, z, u, v, w = [numpy.atleast_3d(a) 
+                        for a in process_regular_vectors(*args)]
 
     scalars = kwargs.pop('scalars', None)
     data_source = MArraySource()
     data_source.reset(x=x, y=y, z=z, u=u, v=v, w=w, scalars=scalars)
     name = kwargs.pop('name', 'VectorField')
-    figure = kwargs.pop('figure', None)
-    return tools._add_data(data_source.m_data, name, figure=figure)
+    return tools._add_data(data_source.m_data, name, **kwargs)
 
 
 def scalar_scatter(*args, **kwargs):
@@ -910,8 +927,7 @@ def scalar_scatter(*args, **kwargs):
     data_source.reset(x=x, y=y, z=z, scalars=s)
 
     name = kwargs.pop('name', 'ScalarScatter')
-    figure = kwargs.pop('figure', None)
-    ds = tools._add_data(data_source.dataset, name, figure=figure)
+    ds = tools._add_data(data_source.dataset, name, **kwargs)
     data_source.m_data = ds
     return ds
 
@@ -947,8 +963,7 @@ def scalar_field(*args, **kwargs):
     data_source.reset(x=x, y=y, z=z, scalars=s)
 
     name = kwargs.pop('name', 'ScalarField')
-    figure = kwargs.pop('figure', None)
-    return tools._add_data(data_source.m_data, name, figure=figure)
+    return tools._add_data(data_source.m_data, name, **kwargs)
 
 
 def line_source(*args, **kwargs):
@@ -977,8 +992,7 @@ def line_source(*args, **kwargs):
     data_source.reset(x=x, y=y, z=z, scalars=s)
 
     name = kwargs.pop('name', 'LineSource')
-    figure = kwargs.pop('figure', None)
-    ds = tools._add_data(data_source.dataset, name, figure=figure)
+    ds = tools._add_data(data_source.dataset, name, **kwargs)
     data_source.m_data = ds
     return ds
 
@@ -1018,15 +1032,14 @@ def array2d_source(*args, **kwargs):
     mask = kwargs.pop('mask', None)
     if len(args) == 1 :
         args = convert_to_arrays(args)
-        s = args[0]
+        s = numpy.atleast_2d(args[0])
         data_source.reset(scalars=s, mask=mask)
     else:
         x, y, s = process_regular_2d_scalars(*args, **kwargs)
         data_source.reset(x=x, y=y, scalars=s, mask=mask)
 
     name = kwargs.pop('name', 'Array2DSource')
-    figure = kwargs.pop('figure', None)
-    return tools._add_data(data_source.m_data, name, figure=figure)
+    return tools._add_data(data_source.m_data, name, **kwargs)
 
 
 def grid_source(x, y, z, **kwargs):
@@ -1056,8 +1069,7 @@ def grid_source(x, y, z, **kwargs):
     data_source.reset(x=x, y=y, z=z, scalars=scalars)
 
     name = kwargs.pop('name', 'GridSource')
-    figure = kwargs.pop('figure', None)
-    ds = tools._add_data(data_source.dataset, name, figure=figure)
+    ds = tools._add_data(data_source.dataset, name, **kwargs)
     data_source.m_data = ds
     return ds
 
@@ -1089,8 +1101,7 @@ def triangular_mesh_source(x, y, z, triangles, **kwargs):
     data_source.reset(x=x, y=y, z=z, triangles=triangles, scalars=scalars)
 
     name = kwargs.pop('name', 'TriangularMeshSource')
-    figure = kwargs.pop('figure', None)
-    ds = tools._add_data(data_source.dataset, name, figure=figure)
+    ds = tools._add_data(data_source.dataset, name, **kwargs)
     data_source.m_data = ds
     return ds
 
