@@ -203,7 +203,7 @@ class SpecialGenerator:
                     yield tuple([obj.GetComponent(i, x) for x in range(nc)])
 
         def _check_key(self, key, n):
-            if type(key) != type(1):
+            if type(key) not in [int, long]:
                 raise TypeError, "Only integers are valid keys."
             if key < 0:
                 key =  n + key
