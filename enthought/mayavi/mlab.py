@@ -12,6 +12,7 @@ application with the WxWidget mainloop running.
 # Before anything else, check that we have a traits backend installed
 from enthought.traits.ui.toolkit import toolkit
 toolkit() # This forces the selection of a toolkit.
+del toolkit # We don't want to expose the toolkit function to the user.
 from enthought.etsconfig.api import ETSConfig
 
 if ETSConfig.toolkit in ('null', ''):

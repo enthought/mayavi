@@ -11,4 +11,5 @@ pipeline.
 from modules import *
 from sources import *
 from filters import *
+from tools import add_dataset
 

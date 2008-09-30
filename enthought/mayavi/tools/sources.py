@@ -855,7 +855,7 @@ def vector_scatter(*args, **kwargs):
     data_source = MGlyphSource()
     data_source.reset(x=x, y=y, z=z, u=u, v=v, w=w, scalars=scalars) 
 
-    ds = tools._add_data(data_source.dataset, name, **kwargs)
+    ds = tools.add_dataset(data_source.dataset, name, **kwargs)
     data_source.m_data = ds
     return ds
 
@@ -893,7 +893,7 @@ def vector_field(*args, **kwargs):
     data_source = MArraySource()
     data_source.reset(x=x, y=y, z=z, u=u, v=v, w=w, scalars=scalars)
     name = kwargs.pop('name', 'VectorField')
-    return tools._add_data(data_source.m_data, name, **kwargs)
+    return tools.add_dataset(data_source.m_data, name, **kwargs)
 
 
 def scalar_scatter(*args, **kwargs):
@@ -927,7 +927,7 @@ def scalar_scatter(*args, **kwargs):
     data_source.reset(x=x, y=y, z=z, scalars=s)
 
     name = kwargs.pop('name', 'ScalarScatter')
-    ds = tools._add_data(data_source.dataset, name, **kwargs)
+    ds = tools.add_dataset(data_source.dataset, name, **kwargs)
     data_source.m_data = ds
     return ds
 
@@ -963,7 +963,7 @@ def scalar_field(*args, **kwargs):
     data_source.reset(x=x, y=y, z=z, scalars=s)
 
     name = kwargs.pop('name', 'ScalarField')
-    return tools._add_data(data_source.m_data, name, **kwargs)
+    return tools.add_dataset(data_source.m_data, name, **kwargs)
 
 
 def line_source(*args, **kwargs):
@@ -992,7 +992,7 @@ def line_source(*args, **kwargs):
     data_source.reset(x=x, y=y, z=z, scalars=s)
 
     name = kwargs.pop('name', 'LineSource')
-    ds = tools._add_data(data_source.dataset, name, **kwargs)
+    ds = tools.add_dataset(data_source.dataset, name, **kwargs)
     data_source.m_data = ds
     return ds
 
@@ -1039,7 +1039,7 @@ def array2d_source(*args, **kwargs):
         data_source.reset(x=x, y=y, scalars=s, mask=mask)
 
     name = kwargs.pop('name', 'Array2DSource')
-    return tools._add_data(data_source.m_data, name, **kwargs)
+    return tools.add_dataset(data_source.m_data, name, **kwargs)
 
 
 def grid_source(x, y, z, **kwargs):
@@ -1069,7 +1069,7 @@ def grid_source(x, y, z, **kwargs):
     data_source.reset(x=x, y=y, z=z, scalars=scalars)
 
     name = kwargs.pop('name', 'GridSource')
-    ds = tools._add_data(data_source.dataset, name, **kwargs)
+    ds = tools.add_dataset(data_source.dataset, name, **kwargs)
     data_source.m_data = ds
     return ds
 
@@ -1101,7 +1101,7 @@ def triangular_mesh_source(x, y, z, triangles, **kwargs):
     data_source.reset(x=x, y=y, z=z, triangles=triangles, scalars=scalars)
 
     name = kwargs.pop('name', 'TriangularMeshSource')
-    ds = tools._add_data(data_source.dataset, name, **kwargs)
+    ds = tools.add_dataset(data_source.dataset, name, **kwargs)
     data_source.m_data = ds
     return ds
 

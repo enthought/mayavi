@@ -39,7 +39,10 @@ def make_doc(klass):
 
 def traits_doc(traits):
     doc = ""
-    for trait_name, trait_obj in traits.iteritems():
+    traits_names = traits.keys()
+    traits_names.sort()
+    for trait_name in traits_names:
+        trait_obj = traits[trait_name]
         if not trait_name[0] == '_':
             doc += format_argument(trait_name, trait_obj)
     return doc

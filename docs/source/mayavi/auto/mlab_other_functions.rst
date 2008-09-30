@@ -22,14 +22,15 @@ axes
     
     **Keyword arguments:**
     
-        :opacity: The overall opacity of the vtk object.
-    
-        :name: the name of the vtk object created.
-    
         :color: the color of the vtk object. Overides the colormap,
                 if any, when specified.
     
-        :zlabel: the label of the z axis
+        :extent: [xmin, xmax, ymin, ymax, zmin, zmax]
+                 Default is the object's extents.
+    
+        :name: the name of the vtk object created.
+    
+        :opacity: The overall opacity of the vtk object.
     
         :ranges: [xmin, xmax, ymin, ymax, zmin, zmax]
                  Ranges of the labels displayed on the axes.
@@ -37,16 +38,15 @@ axes
     
         :x_axis_visibility: Whether or not the x axis is visible (boolean)
     
-        :y_axis_visibility: Whether or not the y axis is visible (boolean)
-    
         :xlabel: the label of the x axis
     
-        :extent: [xmin, xmax, ymin, ymax, zmin, zmax]
-                 Default is the object's extents.
+        :y_axis_visibility: Whether or not the y axis is visible (boolean)
     
         :ylabel: the label of the y axis
     
         :z_axis_visibility: Whether or not the z axis is visible (boolean)
+    
+        :zlabel: the label of the z axis
     
 
     
@@ -89,12 +89,12 @@ text
     
     **Keyword arguments:**
     
-        :opacity: The overall opacity of the vtk object.
+        :color: the color of the vtk object. Overides the colormap,
+                if any, when specified.
     
         :name: the name of the vtk object created.
     
-        :color: the color of the vtk object. Overides the colormap,
-                if any, when specified.
+        :opacity: The overall opacity of the vtk object.
     
         :width: width of the text.
     
@@ -108,19 +108,6 @@ set_engine
 .. function:: set_engine(self, engine)
 
     Sets the mlab engine.
-    
-
-    
-
-
-toolkit
-~~~~~~~
-
-.. function:: toolkit(*toolkits)
-
-    Selects and returns a low-level GUI toolkit.
-    
-    Use this function to get a reference to the current toolkit.
     
 
     
@@ -157,15 +144,15 @@ outline
     
     **Keyword arguments:**
     
-        :opacity: The overall opacity of the vtk object.
-    
-        :name: the name of the vtk object created.
-    
         :color: the color of the vtk object. Overides the colormap,
                 if any, when specified.
     
         :extent: [xmin, xmax, ymin, ymax, zmin, zmax]
                  Default is the object's extents.
+    
+        :name: the name of the vtk object created.
+    
+        :opacity: The overall opacity of the vtk object.
     
 
     
@@ -198,15 +185,15 @@ title
     
     **Keyword arguments:**
     
-        :opacity: The overall opacity of the vtk object.
-    
-        :name: the name of the vtk object created.
-    
         :color: the color of the vtk object. Overides the colormap,
                 if any, when specified.
     
         :height: height of the title, in portion of the
                  figure height
+    
+        :name: the name of the vtk object created.
+    
+        :opacity: The overall opacity of the vtk object.
     
         :size: the size of the title
     
@@ -223,18 +210,18 @@ orientationaxes
     
     **Keyword arguments:**
     
-        :opacity: The overall opacity of the vtk object.
-    
-        :name: the name of the vtk object created.
-    
         :color: the color of the vtk object. Overides the colormap,
                 if any, when specified.
     
-        :zlabel: the label of the z axis
+        :name: the name of the vtk object created.
+    
+        :opacity: The overall opacity of the vtk object.
     
         :xlabel: the label of the x axis
     
         :ylabel: the label of the y axis
+    
+        :zlabel: the label of the z axis
     
 
     

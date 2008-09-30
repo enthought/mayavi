@@ -24,21 +24,25 @@ from figure import gcf
 ######################################################################
 # Utility functions.
 
-def _add_data(tvtk_data, name='', **kwargs):
-    """Add a TVTK data object `tvtk_data` to the mayavi pipleine.
-    Give the object a name of `name`.
+def add_dataset(dataset, name='', **kwargs):
+    """Add a dataset object to the Mayavi pipeline.
+
+    The dataset can be either a tvtk dataset, or a mayavi source.
 
     If no `figure` keyword argument is given, the data is added to the
-    current figure, and a new figure if created if necessary.
+    current figure (a new figure if created if necessary).
     
-    If a `figure` keyword argument is given, it should either be None, in 
-    which case the data is not added to the pipeline.
+    If a `figure` keyword argument is given, it should either the name
+    name or the number of the figure the dataset should be added to, or None, 
+    in which case the data is not added to the pipeline.
+
+    The corresponding Mayavi source is returned.
     """
-    if isinstance(tvtk_data, tvtk.Object):
+    if isinstance(dataset, tvtk.Object):
         d = VTKDataSource()
-        d.data = tvtk_data
-    elif isinstance(tvtk_data, Source):
-        d = tvtk_data
+        d.data = dataset
+    elif isinstance(dataset, Source):
+        d = dataset
     else:
         raise TypeError, \
               "first argument should be either a TVTK object"\
