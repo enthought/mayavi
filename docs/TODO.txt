@@ -4,15 +4,15 @@ MayaVi2:
 
     - Sources:
         - Multiblock data support.
-        - DataObjectManager to abstract what SetActiveAttribute does.
-          It should also support using expressions to add new
-          scalars/vectors etc.
 
     - Modules/Filters:
         
     - UI:
         - Easier access to the LUT editor.
         - Transfer editor for images. (g)
+        - Enter_set/auto_set should be setup correctly for all entry
+          dialogs so the user can control if things change on each
+          keystroke.
 
     - Misc:
         - Support for animation.

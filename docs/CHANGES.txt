@@ -6,6 +6,11 @@ URL:
     https://svn.enthought.com/enthought/changeset/18702
 -----------------------------------------------------------------------------
 
+4 October, 2008 (PR):
+    - TEST: Added a 'test' backend to mlab so you can run mlab tests
+      without a display. Fixing core code so that all the unittests run
+      when the ETS_TOOLKIT env var is set to 'null'. [22198]
+
 30 September, 2008 (GV):
     - ENH: mlab: Expose pipeline.add_dataset (former private function 
       tools._data) [22162].
