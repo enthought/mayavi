@@ -4,13 +4,13 @@ Central registry for figures with mlab.
 
 # Enthought librairies imports
 from enthought.traits.api import HasTraits, Instance
-from enthought.pyface.api import GUI
 
 # Local imports
 from enthought.mayavi.preferences.api import preference_manager
 from enthought.mayavi.core.registry import registry
 from enthought.mayavi.core.engine import Engine
 from enthought.mayavi.core.off_screen_engine import OffScreenEngine
+from enthought.mayavi.core.common import process_ui_events
 from preferences_mirror import PreferencesMirror
 
 # The mlab options.
@@ -54,6 +54,9 @@ class EngineManager(HasTraits):
         elif options.backend == 'envisage':
             suitable = [e for e in engines 
                                 if e.__class__.__name__ == 'EnvisageEngine']
+        elif options.backend == 'test':
+            suitable = [e for e in engines 
+                                if e.__class__.__name__ == 'TestEngine']
         else:
             suitable = [e for e in engines 
                                 if e.__class__.__name__ == 'Engine']
@@ -77,8 +80,12 @@ class EngineManager(HasTraits):
             from enthought.mayavi.plugins.app import Mayavi
             m = Mayavi()
             m.main()
-            GUI.process_events()
+            process_ui_events()
             engine = m.script.engine
+        elif options.backend == 'test':
+            from enthought.mayavi.tests.common import TestEngine
+            engine = TestEngine(name='Test Mlab Engine')
+            engine.start()
         else:
             if options.offscreen:
                 engine = OffScreenEngine(name='Mlab offscreen Engine')

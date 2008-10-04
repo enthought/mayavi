@@ -133,7 +133,9 @@ class DataModuleFactory(ModuleFactory):
     def __init__(self, *args, **kwargs):
         super(DataModuleFactory, self).__init__(*args, **kwargs)
         # We are adding data to the scene, reset the zoom:
-        self._scene.scene.reset_zoom()
+        scene = self._scene.scene
+        if scene is not None:
+            scene.reset_zoom()
 
 
 class ContourModuleFactory(DataModuleFactory):

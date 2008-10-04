@@ -52,12 +52,14 @@ def figure(name=None, bgcolor=None, fgcolor=None, engine=None,
         engine.new_scene(size=size)
     view(40, 50)
     fig = engine.current_scene
-    if bgcolor is None:
-        bgcolor = options.background_color
-    fig.scene.background = bgcolor
-    if fgcolor is None:
-        fgcolor = options.foreground_color
-    fig.scene.foreground = fgcolor
+    scene = fig.scene
+    if scene is not None:
+        if bgcolor is None:
+            bgcolor = options.background_color
+        scene.background = bgcolor
+        if fgcolor is None:
+            fgcolor = options.foreground_color
+        scene.foreground = fgcolor
     return fig
 
 

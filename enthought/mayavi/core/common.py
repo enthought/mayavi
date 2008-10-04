@@ -3,7 +3,7 @@ messages etc.
 
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2005, Enthought, Inc.
+# Copyright (c) 2005-2008, Enthought, Inc.
 # License: BSD Style.
 
 # Standard library imports.
@@ -13,7 +13,11 @@ import logging
 
 # Enthought library imports.
 from enthought.persistence.state_pickler import create_instance
-from enthought.pyface import api as pyface
+from enthought.etsconfig.api import ETSConfig
+if ETSConfig.toolkit in ('null', ''):
+    pyface = None
+else:
+    from enthought.pyface import api as pyface
 
 # Setup a logger for this module.
 logger = logging.getLogger(__name__)
@@ -30,13 +34,15 @@ def warning(msg, parent=None):
     """Handle a warning message.
     """
     logger.warn(msg)
-    pyface.warning(parent, msg)
+    if pyface is not None:
+        pyface.warning(parent, msg)
 
 def error(msg, parent=None):
     """Handle an error message.
     """
     logger.error(msg)
-    pyface.error(parent, msg)
+    if pyface is not None:
+        pyface.error(parent, msg)
 
 def exception(msg='Exception', parent=None):
     """This function handles any exception derived from Exception and
@@ -53,10 +59,19 @@ def exception(msg='Exception', parent=None):
                    function)
         # Log and display the message.
         logger.exception(msg)
-        pyface.error(parent, exc_msg, title='Exception')
+        if pyface is not None:
+            pyface.error(parent, exc_msg, title='Exception')
     finally:
         type = value = tb = None # clean up
 
+def process_ui_events():
+    """Process GUI events. 
+
+    This function merely abstracts the function so nothing is done when
+    no UI is running.
+    """
+    if pyface is not None:
+        pyface.GUI.process_events()
 
 def get_engine(obj):
     """Try and return the engine given an object in the mayavi

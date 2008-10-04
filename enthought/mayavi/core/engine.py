@@ -27,7 +27,7 @@ from enthought.persistence import state_pickler
 # Local imports.
 from enthought.mayavi.core.base import Base
 from enthought.mayavi.core.scene import Scene
-from enthought.mayavi.core.common import error, get_object_path
+from enthought.mayavi.core.common import error, process_ui_events 
 from enthought.mayavi.core.registry import registry
 from enthought.mayavi.core.adder_node import AdderNode, SceneAdderNode
 from enthought.mayavi.preferences.api import preference_manager
@@ -419,7 +419,6 @@ class Engine(HasStrictTraits):
 
         """
         if viewer is None:
-            from enthought.pyface.api import GUI
             factory_kwargs = {}
             factory_kwargs_names = get_args(self.scene_factory)
             for arg, value in kwargs.iteritems():
@@ -427,7 +426,7 @@ class Engine(HasStrictTraits):
                     factory_kwargs[arg] = value
                 
             viewer = self.scene_factory(**factory_kwargs)
-            GUI.process_events()
+            process_ui_events()
             
         if name is not None:
             viewer.name = name

@@ -48,7 +48,9 @@ class PipeFactory(HasPrivateTraits):
         super(PipeFactory, self).__init__()
         self._scene = tools.gcf()
         self._engine = get_engine()
-        self._scene.scene.disable_render = True
+        scene = self._scene.scene
+        if scene is not None:
+            scene.disable_render = True
         if issubclass(self._target.__class__, Filter):
             self._engine.add_filter(self._target, obj=parent)
         else:
@@ -60,7 +62,8 @@ class PipeFactory(HasPrivateTraits):
         # Now calling the traits setter, so that traits handlers are
         # called
         self.set(**traits)
-        self._scene.scene.disable_render = False
+        if scene is not None:
+            scene.disable_render = False
 
     def set(self, trait_change_notify=True, **traits):
         """ Same as HasTraits.set except that notification is forced,

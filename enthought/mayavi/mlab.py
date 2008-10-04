@@ -15,7 +15,10 @@ toolkit() # This forces the selection of a toolkit.
 del toolkit # We don't want to expose the toolkit function to the user.
 from enthought.etsconfig.api import ETSConfig
 
-if ETSConfig.toolkit in ('null', ''):
+# FIXME: This breaks if we are running mlab for unit tests where the
+# toolkit is explicitly set to 'null'.  Disabling this allows us to run
+# mlab tests without a display.
+if False and ETSConfig.toolkit in ('null', ''):
     raise ImportError, '''Could not import backend for traits
 ________________________________________________________________________________
 Make sure that you have either the TraitsBackendWx or the TraitsBackendQt

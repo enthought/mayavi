@@ -64,7 +64,7 @@ class MlabPreferencesHelper(PreferencesHelper):
     # Our preferences.
 
     # The mlab backend to use.  
-    backend = Enum('auto', 'envisage', 'simple', 
+    backend = Enum('auto', 'envisage', 'simple', 'test', 
                    desc='the mlab backend to use')
 
     # The background color of the renderer.

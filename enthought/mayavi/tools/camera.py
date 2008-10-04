@@ -109,7 +109,10 @@ def view(azimuth=None, elevation=None, distance=None, focalpoint=None):
     see also: roll."""
     # XXX: It might be more sensible to have elevation = 90+theta
     # Currently theta = - elevation
-    cam = get_engine().current_scene.scene._renderer.active_camera
+    scene = get_engine().current_scene.scene
+    if scene is None:
+        return
+    cam = scene._renderer.active_camera
     if focalpoint is not None:
         cam.focal_point = focalpoint
     vec = cam.position - cam.focal_point
