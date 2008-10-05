@@ -17,6 +17,31 @@ from preferences_mirror import PreferencesMirror
 options = PreferencesMirror()
 options.preferences = preference_manager.mlab
 
+######################################################################
+def check_backend():
+    """ Check if either we are in test mode, or if there is a 
+        suitable traits backend installed.
+    """
+    from enthought.traits.ui.toolkit import toolkit
+    from enthought.etsconfig.api import ETSConfig
+    from enthought.mayavi.tools.engine_manager import options
+    
+    toolkit() # This forces the selection of a toolkit.
+    if options.backend != 'test' and ETSConfig.toolkit in ('null', ''):
+        raise ImportError, '''Could not import backend for traits
+________________________________________________________________________________
+Make sure that you have either the TraitsBackendWx or the TraitsBackendQt
+projects installed. If you installed Mayavi with easy_install, try easy_install 
+<pkg_name>. easy_install Mayavi[app] will also work.
+
+If you performed a source checkout, be sure to run 'python setup.py install'
+in Traits, TraitsGUI, and the Traits backend of your choice.
+
+Also make sure that either wxPython or PyQT is installed.
+wxPython: http://www.wxpython.org/
+PyQT: http://www.riverbankcomputing.co.uk/software/pyqt/intro
+'''
+
 
 ################################################################################
 # `EngineManager` class.
@@ -76,6 +101,7 @@ class EngineManager(HasTraits):
         """ Creates a new engine, envisage or not depending on the
             options.
         """
+        check_backend()
         if options.backend == 'envisage':
             from enthought.mayavi.plugins.app import Mayavi
             m = Mayavi()
@@ -114,7 +140,8 @@ class EngineManager(HasTraits):
         """
         if engine is None:
             engine = self.get_engine()
-        if engine.__class__.__name__ == 'EnvisageEngine':
+        if engine.__class__.__name__ == 'EnvisageEngine' or \
+                                            options.backend == 'test':
             # FIXME: This should pop up the relevent envisage view
             pass
         else:
