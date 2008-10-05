@@ -143,7 +143,8 @@ class SingletonModuleFactory(ModuleFactory):
             self._engine = engine_manager.find_figure_engine(figure)
             self._engine.current_scene = figure
             kwargs.pop('figure')
-        self._scene.scene.disable_render = True
+        if self._scene.scene is not None:
+            self._scene.scene.disable_render = True
         # Process the arguments
         if len(args)==1:
             (parent, ) = args
@@ -171,8 +172,8 @@ class SingletonModuleFactory(ModuleFactory):
         # Now calling the traits setter, so that traits handlers are
         # called
         self.set(**kwargs)
-        #self._scene.scene.reset_zoom()
-        self._scene.scene.disable_render = False
+        if self._scene.scene is not None:
+            self._scene.scene.disable_render = False
 
 
 #############################################################################
