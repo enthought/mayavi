@@ -422,20 +422,19 @@ del opt, arg
 # error message
 try:
     import vtk
-except ImportError, e:
-    e.message = '%s\n%s\nDo you have vtk installed properly?\n' \
+except ImportError, m:
+    msg = '%s\n%s\nDo you have vtk installed properly?\n' \
         'VTK (and build instructions) can be obtained from http://www.vtk.org\n' \
-        % (e.message, '_'*80)
-    e.args = tuple((e.message, ) + e.args[1:])
-    raise e
+        % (m, '_'*80)
+    raise ImportError(msg)
 
 
 # Importing here to avoid time-consuming import when user only wanted
 # version/help information.
 try:
     from enthought.mayavi.plugins.app import Mayavi, setup_logger
-except ImportError, e:
-    e.message = '''%s\n%s\nCould not load envisage. Do you have the EnvisageCore and EnvisagePlugins installed?
+except ImportError, m:
+    msg = '''%s\n%s\nCould not load envisage. Do you have the EnvisageCore and EnvisagePlugins installed?
 
 If you installed Mayavi with easy_install, try 'easy_install <pkg_name>'.
 'easy_install Mayavi[app]' will also work.
@@ -446,9 +445,8 @@ be sure to run the same command in the EnvisageCore and EnvisagePlugins folders.
 If these packages appear to be installed, check your numpy installation. If you
 need numpy, 'easy_install numpy' will install numpy.
 http://numpy.scipy.org
-        ''' % (e.message, '_'*80)
-    e.args = tuple((e.message, ) + e.args[1:])
-    raise e
+        ''' % (m, '_'*80)
+    raise ImportError(msg)
 
 
 

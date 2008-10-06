@@ -9,13 +9,13 @@ Controlling the camera.
 # Standard library imports.
 try:
     import numpy
-except ImportError, e:
-    e.message = '''%s\n%s\nPlease check your numpy installation. If you need numpy,
+except ImportError, m:
+    msg = '''%s\n%s\nPlease check your numpy installation. If you need numpy,
 'easy_install numpy' will install it.
 http://numpy.scipy.org
-        ''' % (e.message, '_'*80)
-    e.args = tuple((e.message, ) + e.args[1:])
-    raise e
+        ''' % (m, '_'*80)
+    raise ImportError(msg)
+
 # Enthought library imports.
 from enthought.tvtk.api import tvtk
 

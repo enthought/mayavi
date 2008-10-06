@@ -10,11 +10,10 @@ highest level.
 # VTK is used to just shut off the warnings temporarily.
 try:
     import vtk
-except ImportError, e:
-    e.message = '%s\n%s\nDo you have vtk installed properly?' % (
-                e.message, '_'*80)
-    e.args = tuple((e.message, ) + e.args[1:])
-    raise e
+except ImportError, m: 
+    msg = '%s\n%s\nDo you have vtk installed properly?'%(m, '_'*80)
+    raise ImportError(msg)
+
 from os.path import splitext
 
 # Enthought library imports.
