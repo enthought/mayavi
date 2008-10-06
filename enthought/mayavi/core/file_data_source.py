@@ -160,7 +160,7 @@ class FileDataSource(Source):
         # Change the range of the timestep suitably to reflect new list.
         n_files = len(self.file_list)
         timestep = min(self.timestep, n_files)
-        self._max_timestep = n_files -1
+        self._max_timestep = max(n_files -1, 0)
         if self.timestep == timestep:
             self._timestep_changed(timestep)
         else:
