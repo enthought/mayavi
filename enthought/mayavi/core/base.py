@@ -118,7 +118,7 @@ class Base(TreeNodeObject):
                                    'action': 'object._hideshow'}, )
 
     # The menu shown on right-click for this.
-    _menu = Instance(Menu)
+    _menu = Instance(Menu, transient=True)
 
     # Path to the icon for this object.
     _icon_path = Str()
@@ -127,10 +127,10 @@ class Base(TreeNodeObject):
     _adder_node_class = None
 
     # Name of the file that may host the hand-crafted view
-    _view_filename = Str
+    _view_filename = Str(transient=True)
 
     # Hand crafted view.
-    _module_view = Instance(View)
+    _module_view = Instance(View, transient=True)
 
     # Work around problem with HasPrivateTraits.
     __ = Python
@@ -146,7 +146,8 @@ class Base(TreeNodeObject):
         for attr in ('scene', '_is_running', '__sync_trait__',
                      '__traits_listener__', '_icon_path',
                      '_menu', '_HideShowAction', 'menu_helper',
-                     'parent', 'parent_'):
+                     'parent', 'parent_', '_module_view',
+                     '_view_filename'):
             d.pop(attr, None)
         return d
 
