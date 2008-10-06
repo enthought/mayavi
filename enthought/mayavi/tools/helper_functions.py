@@ -161,7 +161,7 @@ def test_quiver3d():
     obj = quiver3d(x, y, z, u, v, w, mode='cone', extent=(0,1, 0,1, 0,1),
                    scale_factor=0.9)
 
-    return u, v, w, obj
+    return obj
 
 def test_quiver3d_2d_data():
     dims = [32, 32]
@@ -241,7 +241,7 @@ def test_flow():
     w = sin(x*z/4.)
 
     obj = flow(x, y, z, u, v, w, linetype='tube')
-    return u, v, w, obj
+    return obj
 
 def test_flow_anim():
     dims = [32, 32, 32]
@@ -290,7 +290,7 @@ def test_flow_scalars():
     obj = flow(u, v, w, scalars=t, seedtype='plane',
                     linetype='tube', colormap='Spectral')
 
-    return u, v, w, obj
+    return obj
 
 
 ############################################################################# 
@@ -401,7 +401,7 @@ def test_contour3d():
     scalars = x*x*0.5 + y*y + z*z*2.0
 
     obj = contour3d(scalars, contours=4, transparent=True)
-    return obj, scalars
+    return obj
 
 def test_contour3d_anim():
     dims = [64, 64, 64]
@@ -646,17 +646,17 @@ def test_surf():
 
 
 def test_surf_wigner():
-    def cat(x,y, alpha, eta = 1, purity = 1):
+    def cat(x, y, alpha=2, eta=1, purity=1):
         """ Multiphoton shrodinger cat. eta is the fidelity, alpha the number
             of photons"""
         cos = numpy.cos
         exp = numpy.exp
-        return (1 + eta*(exp(-x**2 -(y-alpha)**2)  + exp(-x**2 -
-        (y+alpha)**2) + 2 * purity * exp(-x**2 - y**2) * cos(2* alpha * x))/(2
-        *
-        (1 + exp(- alpha**2))))/2
+        return (1 + eta*(exp(-x**2 -(y-alpha)**2)  
+                + exp(-x**2 - (y+alpha)**2) 
+                + 2 * purity * exp(-x**2 - y**2) * 
+                        cos(2* alpha * x))/(2 * (1 + exp(- alpha**2))))/2
     x, y = numpy.mgrid[-5:5:0.1, -5:5:0.1]
-
+    return surf(x, y, cat)
 
 
 ############################################################################# 
@@ -793,7 +793,7 @@ def test_fancy_mesh():
 
     m = mesh(x, y, z, representation='fancymesh',
                    tube_radius=0.0075, colormap="RdYlGn")
-
+    return m
 
 ############################################################################# 
 class ContourSurf(Pipeline):
