@@ -271,7 +271,7 @@ class WrapperGenerator:
             'style = "custom", show_label=False)')
         junk = 'traitsui.View((%s, %s),'% (viewtype_contents, view_contents)
         code = "\ntraits_view = \\" + \
-               "\n%s\ntitle=\'%s\', scrollable=True, resizable=True,"\
+               "\n%s\ntitle=\'%s\', resizable=True,"\
                "\nhandler=TVTKBaseHandler,"\
                "\nbuttons=['OK', 'Cancel'])\n\n"%(junk, title)
         out.write(self.indent.format(code))
