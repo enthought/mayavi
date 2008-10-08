@@ -6,6 +6,13 @@ URL:
     https://svn.enthought.com/enthought/changeset/18702
 -----------------------------------------------------------------------------
 
+9 October, 2008 (GV):
+    - ENH: Use the IPython shell plugin only if the ipython, envisage and
+      pyface versions are recent-enough.
+      Mayavi now uses an ipython widget instead of the pyshell one if you
+      have the right components installed, but should fall back to
+      pyshell gracefully.
+
 4 October, 2008 (PR):
     - TEST: Added a 'test' backend to mlab so you can run mlab tests
       without a display. Fixing core code so that all the unittests run
