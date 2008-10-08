@@ -99,7 +99,10 @@ def get_plugin_classes():
     use_ipython = False
     if ETSConfig.toolkit == 'wx':
         try:
-            from IPython.frontend.wx.wx_frontend import WxController
+            # If the right versions of IPython, EnvisagePlugins and
+            # Pyface are not installed, this import will fail.
+            from enthought.plugins.ipython_shell.view.ipython_shell_view \
+                    import IPythonShellView
             use_ipython = True
         except: pass
 
