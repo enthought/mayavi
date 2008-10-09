@@ -174,7 +174,51 @@ def _typical_distance(data_obj):
     else:
         return 0.4*distance
 
-def _set_extent(module, extents):
+def _min_distance(x, y, z):
+    """ Return the minimum interparticle distance in a cloud of points.
+        This is done by brute force calculation of all the distances
+        between particle couples.
+    """
+    distances = numpy.sqrt(  (x.reshape((-1,)) - x.reshape((1, -1)))**2
+                           + (y.reshape((-1,)) - y.reshape((1, -1)))**2
+                           + (z.reshape((-1,)) - z.reshape((1, -1)))**2
+                          )
+    return distances[distance!=0].min()
+
+
+def _min_axis_distance(x, y, z):
+    """ Return the minimum interparticle distance in a cloud of points
+        along one of the axis.
+        This is done by brute force calculation of all the distances with
+        norm infinity between particle couples.
+    """
+    def axis_min(a):
+        a = numpy.abs(a.reshape((-1,)) - a.reshape((-1, 1)))
+        a = a[a>0]
+        if a.size == 0:
+            return numpy.inf
+        return a.min()
+    distances = min(axis_min(x), axis_min(y), axis_min(z))
+    if distances == numpy.inf:
+        return 1
+    else:
+        return distances
+
+def set_extent(module, extents):
+    """ Attempts to set the physical extents of the given module.
+
+        The extents are given as (xmin, xmax, ymin, ymax, zmin, zmax).
+        This does not work on an image plane widget, as this module does
+        not have an actor.
+
+        Once you use this function on a module, be aware that other
+        modules applied on the same data source will not share the same
+        scale. Thus for instance an outline module will not respect the
+        outline of the actors whose extent you modified. You should pass
+        in the same "extents" parameter for this to work.You can have a
+        look at the wigner.py example for a heavy use of this
+        functionnality.
+    """
     if numpy.all(extents == 0.):
         # That the default setting.
         return

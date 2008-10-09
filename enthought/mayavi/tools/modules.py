@@ -73,7 +73,7 @@ class DataModuleFactory(ModuleFactory):
                             Default is the x, y, z arrays extents.""", )
 
     def _extent_changed(self):
-        tools._set_extent(self._target, self.extent)
+        tools.set_extent(self._target, self.extent)
 
     transparent = false(help="""make the opacity of the actor depend on the 
                                scalar.""")

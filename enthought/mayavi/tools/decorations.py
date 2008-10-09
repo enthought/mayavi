@@ -220,7 +220,7 @@ class Outline(AxesLikeModuleFactory):
     _target = Instance(modules.Outline, ())
 
     def _extent_changed(self):
-        tools._set_extent(self._target, self.extent)
+        tools.set_extent(self._target, self.extent)
 
 
 outline = make_function(Outline)
