@@ -65,7 +65,7 @@ class Contour(Component):
     # explicitly and are used when `auto_contours` is turned off.  The
     # traits of the items in the list are dynamically generated based
     # on input data.
-    contours = List(Range(value=0.0,
+    contours = List(Range(value='_default_contour',
                           low='_data_min',
                           high='_data_max'),
                     rows=3,
@@ -122,6 +122,12 @@ class Contour(Component):
     # tree.
     _data_max = Float(1e20, enter_set=True, auto_set=False)
 
+    # The default value of the contour to add, this property is computed
+    # from the _data_min and _data_max traits and used when the user
+    # adds a contour manually from the UI when auto_contours are turned
+    # off.
+    _default_contour = Property(Float)
+
     # The contour filter.
     _cont_filt = Instance(tvtk.ContourFilter, args=())
 
@@ -135,7 +141,7 @@ class Contour(Component):
     def __get_pure_state__(self):
         d = super(Contour, self).__get_pure_state__()
         # These traits are dynamically created.
-        for name in ('_data_min', '_data_max'):
+        for name in ('_data_min', '_data_max', '_default_contour'):
             d.pop(name, None)
         
         return d
@@ -310,4 +316,6 @@ class Contour(Component):
                      trait_change_notify=False)
             self._do_auto_contours()
 
-        
+    def _get__default_contour(self):
+        return (self._data_min + self._data_max)*0.5
+
