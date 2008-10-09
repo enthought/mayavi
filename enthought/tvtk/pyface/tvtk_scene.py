@@ -207,8 +207,9 @@ class TVTKScene(HasPrivateTraits):
         # object so we remove it.
         d = self.__dict__.copy()
         for x in ['control', '_renwin', '_interactor', '_camera',
-                  '_busy_count', '__sync_trait__',
-                  '__traits_listener__']:
+                  '_busy_count', '__sync_trait__', 'recorder',
+                  '_last_camera_state', '_camera_observer_id',
+                  '_script_id', '__traits_listener__']:
             d.pop(x, None)
         # Additionally pickle these.
         d['camera'] = self.camera

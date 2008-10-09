@@ -74,7 +74,7 @@ class DecoratedScene(Scene):
         # The control attribute is not picklable since it is a VTK
         # object so we remove it.
         d = super(DecoratedScene, self).__get_pure_state__()
-        for x in ['_content', '_panel', '_sizer', '_tool_bar']:
+        for x in ['_content', '_panel', '_sizer', '_tool_bar', 'actions']:
             d.pop(x, None)
         return d
 
