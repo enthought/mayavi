@@ -105,6 +105,10 @@ class RunScript(Action):
             # Get the globals.
             # The following code is taken from scripts/mayavi2.py.
             g = sys.modules['__main__'].__dict__
+            if 'mayavi' not in g:
+                mv = get_imayavi(self.window)
+                g['mayavi'] = mv
+                g['engine'] = mv.engine
             # Do execfile
             try:
                 # If we don't pass globals twice we get NameErrors and nope,
