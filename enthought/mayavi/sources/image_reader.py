@@ -8,9 +8,11 @@
 # Copyright (c) 2007, Enthought, Inc.
 # License: BSD Style.
 
+from os.path import basename
+
 # Enthought library imports.
 from enthought.traits.api import Instance, Str, Dict
-from enthought.traits.ui.api import View, Group, Item
+from enthought.traits.ui.api import View, Group, Item, Include
 from enthought.tvtk.api import tvtk
 
 # Local imports.
@@ -37,7 +39,8 @@ class ImageReader(FileDataSource):
     output_info = PipelineInfo(datasets=['image_data'])
 
     # Our view.
-    view = View(Group(Item(name='base_file_name'),
+    view = View(Group(Include('time_step_group'),
+                      Item(name='base_file_name'),
                       Item(name='reader',
                            style='custom',
                            resizable=True),
@@ -105,4 +108,20 @@ class ImageReader(FileDataSource):
         self.reader.on_trait_change(self.render)
 
         self.outputs = [self.reader.output]
+
+        # Change our name on the tree view
+        self.name = self._get_name()
+
+    def _get_name(self):
+        """ Returns the name to display on the tree view.  Note that
+        this is not a property getter.  
+        """
+        fname = basename(self.file_path.get())
+        ret = "%s"%fname
+        if len(self.file_list) > 1:
+            ret += " (timeseries)"
+        if '[Hidden]' in self.name:
+            ret += ' [Hidden]'
+
+        return ret
 
