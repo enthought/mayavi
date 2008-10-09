@@ -384,6 +384,7 @@ def run_script(mayavi, script_name):
     g = sys.modules['__main__'].__dict__
     if 'mayavi' not in g:
         g['mayavi'] = mayavi
+        g['engine'] = mayavi.engine
     error = False
     # Do execfile
     try:
