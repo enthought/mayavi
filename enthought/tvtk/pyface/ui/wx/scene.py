@@ -607,10 +607,12 @@ class Scene(TVTKScene, Widget):
         self._camera = self.camera
 
         # Sync various traits.
+        self._renderer.background = self.background
         self.sync_trait('background', self._renderer)
         self.renderer.on_trait_change(self.render, 'background')
         self._camera.parallel_projection = self.parallel_projection
         self.sync_trait('parallel_projection', self._camera)
+        renwin.off_screen_rendering = self.off_screen_rendering
         self.sync_trait('off_screen_rendering', self._renwin)
         self.render_window.on_trait_change(self.render, 'off_screen_rendering')
         self.render_window.on_trait_change(self.render, 'stereo_render')

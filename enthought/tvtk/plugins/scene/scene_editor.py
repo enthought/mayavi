@@ -96,12 +96,13 @@ class SceneEditor(Editor):
            scene, 'foreground', 'enthought.tvtk.scene.foreground_color'
         )
 
-        # fixme: This preference is bound to the renderer not the scene! Why
-        # doesn't the scene expose this trait too (especially since it exposes
-        # the foreground colour!)?
         bind_preference(
-            scene.renderer,'background','enthought.tvtk.scene.background_color'
+            scene, 'background', 'enthought.tvtk.scene.background_color'
         )
+        # FIXME: This seems necessary for some strange reason, if not
+        # the actual background of the renderer never gets set even
+        # though the renderer and the scene's background are synced. 
+        scene.renderer.background = scene.background
 
         return scene
         
