@@ -423,7 +423,7 @@ numpy.distutils.core.setup(
         "enthought",
         ],
     platforms = ["Windows", "Linux", "Mac OS-X", "Unix", "Solaris"],
-    setup_requires = 'setupdocs',
+    setup_requires = 'setupdocs>=1.0',
     ssh_server = 'code.enthought.com',
     ssh_remote_dir = '/www/htdocs/code.enthought.com/projects/mayavi/',
     tests_require = [
