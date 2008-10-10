@@ -216,27 +216,35 @@ class SetView(SceneAction):
     
 # These are all specific subclasses that invoke particular views.
 class ResetZoom(SetView):
+    name = '&Reset Zoom'
     view_method = 'reset_zoom'
 
 class IsometricView(SetView):
+    name = '&Isometric View'
     view_method = 'isometric_view'
 
 class XPlusView(SetView):
+    name = '&X+ View'
     view_method = 'x_plus_view'
 
 class XMinusView(SetView):
+    name = '&X- View'
     view_method = 'x_minus_view'
     
 class YPlusView(SetView):
+    name = '&Y+ View'
     view_method = 'y_plus_view'
 
 class YMinusView(SetView):
+    name = '&Y- View'
     view_method = 'y_minus_view'
 
 class ZPlusView(SetView):
+    name = '&Z+ View'
     view_method = 'z_plus_view'
 
 class ZMinusView(SetView):
+    name = '&Z- View'
     view_method = 'z_minus_view'
 
 #### EOF ######################################################################
