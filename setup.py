@@ -363,7 +363,7 @@ config['packages'] += packages
 DOCLINES = __doc__.split("\n")
 numpy.distutils.core.setup(
     author = "Prabhu Ramachandran, et. al.",
-    author_email = "prabhu_r@users.sf.net",
+    author_email = "prabhu@aero.iitb.ac.in",
     classifiers = [c.strip() for c in """\
         Development Status :: 5 - Production/Stable
         Intended Audience :: Developers
