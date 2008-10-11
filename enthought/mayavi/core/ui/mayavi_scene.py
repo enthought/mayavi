@@ -18,6 +18,7 @@ from enthought.resource.api import resource_path
 
 # Local imports
 from enthought.mayavi.core.common import error
+from enthought.mayavi.preferences.api import bind_scene_preferences 
 
 ###############################################################################
 # A decorated scene with an additional button.
@@ -74,6 +75,7 @@ def viewer_factory(size=(400, 350)):
     viewer.menu_bar_manager = None
     viewer.size=size
     viewer.open()
+    bind_scene_preferences(viewer.scene)
     return viewer
 
 if __name__ == '__main__':

@@ -8,10 +8,15 @@ An off-screen mayavi engine.
 from enthought.traits.api import Callable, Str
 from enthought.tvtk.pyface.tvtk_scene import TVTKWindow
 from enthought.mayavi.core.engine import Engine
+from enthought.mayavi.preferences.api import bind_scene_preferences 
+
 
 def off_screen_viewer_factory(size=(400, 350)):
     """A factory that creates an offscreen viewer."""
     win = TVTKWindow(off_screen_rendering=True)
+    # Bind all preferences.
+    bind_scene_preferences(win.scene)
+    # Set the size.
     win.scene.set_size(size)
     return win
 
