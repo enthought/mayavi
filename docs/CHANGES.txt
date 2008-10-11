@@ -6,6 +6,15 @@ URL:
     https://svn.enthought.com/enthought/changeset/18702
 -----------------------------------------------------------------------------
 
+11 October, 2008 (PR):
+    - API: Adding a `enthought.mayavi.preferences.bindings` module that
+      abstracts out setting of preferences for common objects.
+      Currently it exposes a `bind_scene_preferences` so the
+      non-envisage and off screen scenes have the right preferences.
+    - REFACTOR/API: The script recording code is now in
+      `enthought.scripting`,  the `enthought.mayavi.core.recorder` was
+      only a temporary solution.
+
 10 October, 2008 (GV):
     - API: mlab: Expose pipeline.set_extent (former private function
       tools._set_extent) [22251]
