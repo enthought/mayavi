@@ -48,6 +48,6 @@ view = View(Group(
                     label='Texturing',
                     show_labels=False,
                 ),       
-                
+            resizable=True 
             )
 
