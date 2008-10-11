@@ -70,6 +70,26 @@ class TestMGlyphSource(unittest.TestCase):
         self.check_traits()
         self.check_dataset()
 
+    def test_reset1(self):
+
+        "Test the reset method."
+        x, y, z, v, s, src = self.get_data()
+        self.check_traits()
+        self.check_dataset()
+        # Call reset again with just a few things changed to see if it
+        # works correctly.
+        
+        self.x = x = N.ones(20, float)*30.0
+        self.y = y = N.ones(20, float)*30.0
+        self.z = z = N.ones(20, float)*30.0
+        points = N.ones((20, 3), float)*30.0
+        self.s = s = N.ones(20, float)
+        self.v = v = N.ones((20, 3), float)*30.0  
+       
+        src.reset(x=x,y=y,z=z, u=v[:,0], v=v[:,1], w=v[:,2], scalars=s,points=points,vectors=v)       
+        self.check_traits()
+        self.check_dataset()
+
     def test_handlers(self):
         "Test if the various static handlers work correctly."
         x, y, z, v, s, src = self.get_data()
@@ -172,6 +192,29 @@ class TestMArraySource(unittest.TestCase):
         self.check_traits()
         self.check_dataset()
 
+    def test_reset1(self):
+        "Test the reset method."
+        x, y, z, v, s, src = self.get_data()
+        self.check_traits()
+        self.check_dataset()
+        # Call reset again with just a few things changed to see if it
+        # works correctly.
+
+        x, y, z = N.ogrid[-10:10:11j, 
+                          -10:10:12j, 
+                          -10:10:20j]
+        self.x, self.y, self.z = x, y, z
+        
+        dims = (x.shape[0], y.shape[1], z.shape[2])
+        self.v = v = N.ones(dims + (3,), float)
+        v[...,2] = 2
+        v[...,2] = 3 
+        self.s = s = N.ones(dims, float)
+        src = sources.MArraySource()
+        src.reset(x=x, y=y, z=z, u=v[...,0], v=v[...,1], w=v[...,2], scalars=s,vectors=v)      
+        self.check_traits()
+        self.check_dataset()
+        
     def test_handlers(self):
         "Test if the various static handlers work correctly."
         x, y, z, v, s, src = self.get_data()
@@ -270,7 +313,28 @@ class TestMLineSource(unittest.TestCase):
 
         self.check_traits()
         self.check_dataset()
+
+    def test_reset1(self):
+
+        "Test the reset method."
+        x, y, z, s, src = self.get_data()
+        self.check_traits()
+        self.check_dataset()
+        # Call reset again with just a few things changed to see if it
+        # works correctly.
         
+        self.x = x = N.ones(20, float)*30.0
+        self.y = y = N.ones(20, float)*30.0
+        self.z = z = N.ones(20, float)*30.0
+        points = N.ones((20, 3), float)*30.0
+        self.s = s = N.ones(20, float)                 
+        src.reset(x=x,y=y,z=z,scalars=s,points=points)       
+        self.check_traits()
+        self.check_dataset()
+
+
+        
+
     def test_handlers(self):
         "Test if the various static handlers work correctly."
         x, y, z, s, src = self.get_data()
@@ -294,6 +358,7 @@ class TestMLineSource(unittest.TestCase):
         src.set(x=x, z=z, scalars=s)
         self.check_traits()
         self.check_dataset()
+
         
         y *= 2.0
         s *= 2.0
@@ -327,7 +392,7 @@ class TestMArray2DSource(unittest.TestCase):
     def check_traits(self):
         """Check if the sources traits are set correctly."""
         x, y, s, src = self.get_data()
-       
+
         # Check if points are set correctly.        
         self.assertEqual(N.alltrue(src.x == x), True)
         self.assertEqual(N.alltrue(src.y == y), True)
@@ -357,6 +422,7 @@ class TestMArray2DSource(unittest.TestCase):
         "Test the reset method."
         
         x, y, s, src = self.get_data()
+
         self.check_traits()
         self.check_dataset()
 
@@ -364,7 +430,8 @@ class TestMArray2DSource(unittest.TestCase):
         # works correctly.
         x *= 5.0
         s *= 10       
-        src.reset(x=x,y=y, scalars=s)     
+        src.reset(x=x,y=y, scalars=s)
+       
 
         self.check_traits()
         self.check_dataset()
@@ -388,15 +455,15 @@ class TestMArray2DSource(unittest.TestCase):
         x, y, s, src  = self.get_data()
         x *= 2.0        
         s *= 2.0
-        src.set(x=x,scalars=s) 
-     
+        src.set(x=x,scalars=s)
+
+      
         self.check_traits()
         self.check_dataset()
 
         y *= 9.0
         s *= 2.0
         src.set(y=y, scalars=s)
-
         self.check_traits()
         self.check_dataset()
 
@@ -453,9 +520,9 @@ class TestMGridSource(unittest.TestCase):
         # Call reset again with just a few things changed to see if it
         # works correctly.
         x *= 5.0
-        s *= 10       
+        s *= 10
+       
         src.reset(x=x, scalars=s)
-
         self.check_traits()
         self.check_dataset()
 
@@ -488,10 +555,11 @@ class TestMGridSource(unittest.TestCase):
 ################################################################################ 
 class TestMArray2DSourceNoArgs(unittest.TestCase):
     """Special Test Case for MArray2DSource when both x and y are specified as None"""
-    def setUp(self):      
-                     
+    def setUp(self):
+        
         x=None
-        y=None       
+        y=None
+       
         self.x, self.y  = x, y
         
         if x is not None and y is not None:
@@ -521,7 +589,7 @@ class TestMArray2DSourceNoArgs(unittest.TestCase):
         
         else:
             nx, ny = s.shape        
-            x1, y1 = N.mgrid[-nx/2.:nx/2, -ny/2.:ny/2]                   
+            x1, y1 = N.mgrid[-nx/2.:nx/2, -ny/2.:ny/2]            
             self.assertEqual(N.alltrue(src.x == x1), True)
             self.assertEqual(N.alltrue(src.y == y1), True)
     
@@ -563,7 +631,7 @@ class TestMArray2DSourceNoArgs(unittest.TestCase):
         # works correctly.
       
         s *= 10       
-        src.reset(x=x,y=y, scalars=s)        
+        src.reset(x=x,y=y, scalars=s)           
 
         self.check_traits()
         self.check_dataset()
@@ -666,4 +734,3 @@ class TestMTriangularMeshSource(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-

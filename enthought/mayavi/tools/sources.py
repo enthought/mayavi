@@ -148,13 +148,22 @@ class MGlyphSource(MlabSource):
         # the notification handlers are not called.
         self.set(trait_change_notify=False, **traits)
 
-        vectors = self.vectors
+        vectors = self.vectors   
         scalars = self.scalars
         points = self.points
         x, y, z = self.x, self.y, self.z
-        points = numpy.c_[x.ravel(), y.ravel(), z.ravel()].ravel()
-        points.shape = (points.size/3, 3)
-        self.set(points=points, trait_change_notify=False)
+      
+        if 'points' in traits: 
+            x=points[:,0].ravel()
+            y=points[:,1].ravel()
+            z=points[:,2].ravel()
+            self.set(x=x,y=y,z=z,trait_change_notify=False)
+           
+        else:
+            points = numpy.c_[x.ravel(), y.ravel(), z.ravel()].ravel()
+            points.shape = (points.size/3, 3) 
+            self.set(points=points, trait_change_notify=False)
+            
     
         u, v, w = self.u, self.v, self.w
         if u is not None and len(u) > 0:
@@ -163,8 +172,22 @@ class MGlyphSource(MlabSource):
             vectors.shape = (vectors.size/3, 3)
             self.set(vectors=vectors, trait_change_notify=False)
 
-        if vectors is not None and len(vectors) > 0:
-            assert len(points) == len(vectors)
+        if 'vectors' in traits:
+            u=vectors[:,0].ravel()
+            v=vectors[:,1].ravel()
+            w=vectors[:,2].ravel()
+            self.set(u=u,v=v,w=w,trait_change_notify=False)
+
+        else:   
+            if u is not None and len(u) > 0:
+                vectors = numpy.c_[u.ravel(), v.ravel(),
+                                   w.ravel()].ravel()
+                vectors.shape = (vectors.size/3, 3)
+                self.set(vectors=vectors, trait_change_notify=False)
+           
+
+        if vectors is not None and len(vectors) > 0:         
+            assert len(points) == len(vectors)           
         if scalars is not None and len(scalars) > 0:
             assert len(points) == len(scalars)
         
@@ -268,15 +291,22 @@ class MArraySource(MlabSource):
         x, y, z = [numpy.atleast_3d(a) for a in self.x, self.y, self.z]
     
         u, v, w = self.u, self.v, self.w
-        if u is not None and len(u) > 0:
-            #vectors = numpy.concatenate([u[..., numpy.newaxis],
-            #                             v[..., numpy.newaxis],
-            #                             w[..., numpy.newaxis] ],
-            #                axis=3)
-            vectors = numpy.c_[u.ravel(), v.ravel(),
-                               w.ravel()].ravel()
-            vectors.shape = (u.shape[0] , u.shape[1], w.shape[2], 3)
-            self.set(vectors=vectors, trait_change_notify=False)
+        if 'vectors' in traits:
+            u=vectors[:,0].ravel()
+            v=vectors[:,1].ravel()
+            w=vectors[:,2].ravel()
+            self.set(u=u,v=v,w=w,trait_change_notify=False)
+
+        else:
+            if u is not None and len(u) > 0:
+                #vectors = numpy.concatenate([u[..., numpy.newaxis],
+                #                             v[..., numpy.newaxis],
+                #                             w[..., numpy.newaxis] ],
+                #                axis=3)
+                vectors = numpy.c_[u.ravel(), v.ravel(),
+                                   w.ravel()].ravel()
+                vectors.shape = (u.shape[0] , u.shape[1], w.shape[2], 3)
+                self.set(vectors=vectors, trait_change_notify=False)
 
         if vectors is not None and len(vectors) > 0:
             assert len(x) == len(vectors)
@@ -381,11 +411,19 @@ class MLineSource(MlabSource):
         points = self.points
         scalars = self.scalars
         x, y, z = self.x, self.y, self.z
-    
-        points = numpy.c_[x.ravel(), y.ravel(), z.ravel()].ravel()
-        points.shape = (len(x), 3)
-        self.set(points=points, trait_change_notify=False)
 
+        if 'points' in traits: 
+            x=points[:,0].ravel()
+            y=points[:,1].ravel()
+            z=points[:,2].ravel()
+            self.set(x=x,y=y,z=z,trait_change_notify=False)
+           
+        else:
+            points = numpy.c_[x.ravel(), y.ravel(), z.ravel()].ravel()
+            points.shape = (len(x), 3) 
+            self.set(points=points, trait_change_notify=False)         
+    
+        
         # Create the dataset.
         np = len(points) - 1
         lines  = numpy.zeros((np, 2), 'l')
@@ -581,6 +619,8 @@ class MGridSource(MlabSource):
         assert len(z.shape) == 2, "Array z must be 2 dimensional."
         assert x.shape == y.shape, "Arrays x and y must have same shape."
         assert y.shape == z.shape, "Arrays y and z must have same shape."
+        #Points in the grid source will always be created using x,y,z
+        #Changing of points is not allowed because it cannot be used to modify values of x,y,z 
     
         nx, ny = x.shape
         points = numpy.c_[x.ravel(), y.ravel(), z.ravel()].ravel()
@@ -726,8 +766,8 @@ class MTriangularMeshSource(MlabSource):
 
     def _triangles_changed(self, triangles):
         self.dataset.polys = triangles
-        self.update()    
-          
+        self.update() 
+   
 
 ############################################################################
 # Argument processing
