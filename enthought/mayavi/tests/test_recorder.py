@@ -1,5 +1,7 @@
 """
-Unit tests for the script recorder.
+Unit tests for the script recorder -- the script recorder has been
+refactored to move to AppTools however we repeat the tests here with a
+TVTK object to ensure that the test works with TVTK objects.
 """
 # Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
 # Copyright (c) 2008, Enthought, Inc.
@@ -10,7 +12,7 @@ import unittest
 from enthought.traits.api import (HasTraits, Float, Instance, 
         Str, List, Bool)
 from enthought.tvtk.api import tvtk
-from enthought.mayavi.core.recorder import (Recorder, recordable,
+from enthought.scripting.api import (Recorder, recordable,
     set_recorder)
 
 

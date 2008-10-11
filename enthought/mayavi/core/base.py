@@ -22,10 +22,10 @@ from enthought.resource.api import resource_path
 from enthought.pyface.image_resource import ImageResource
 from enthought.traits.ui.menu import Menu, Action, Separator
 from enthought.traits.ui.api import View
+from enthought.scripting.api import Recorder
 
 # Local imports.
 from enthought.mayavi.preferences.api import preference_manager
-from enthought.mayavi.core.recorder import Recorder
 
 # Setup a logger for this module.
 logger = logging.getLogger(__name__)

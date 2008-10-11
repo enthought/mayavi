@@ -10,6 +10,7 @@ from enthought.traits.api import List, Str
 from enthought.persistence.state_pickler import set_state
 from enthought.traits.ui.menu import Action
 from enthought.tvtk.api import write_data
+from enthought.scripting.api import recordable
 
 # Local imports
 from enthought.mayavi.core.base import Base
@@ -20,7 +21,6 @@ from enthought.mayavi.core.common import handle_children_state, \
                                          exception, error
 from enthought.mayavi.core.pipeline_info import PipelineInfo
 from enthought.mayavi.core.adder_node import ModuleFilterAdderNode
-from enthought.mayavi.core.recorder import recordable
 
 ######################################################################
 # Utility functions.

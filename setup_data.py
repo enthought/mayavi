@@ -14,7 +14,8 @@ def etsdep(p, min, max=None, literal=False):
 
 
 # Declare our ETS project dependencies.
-APPTOOLS = etsdep('AppTools', '3.0.1')  # -- imports of persistence and resource in many places
+APPTOOLS = etsdep('AppTools', '3.1.0')  # -- imports of persistence,
+                                        # resource and scripting in many places
 ENTHOUGHTBASE = etsdep('EnthoughtBase', '3.0.1')    # The 'plugin' extra is required by loose-coupling in the mayavi ui plugin definition's default pespective.
 ENVISAGECORE = etsdep('EnvisageCore', '3.0.1')
 ENVISAGEPLUGINS = etsdep('EnvisagePlugins', '3.0.1')

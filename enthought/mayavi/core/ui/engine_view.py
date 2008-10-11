@@ -15,6 +15,7 @@ from enthought.traits.ui.api import (Group, Item, TreeEditor, TreeNode,
 from enthought.traits.ui.menu import ToolBar, Action, Separator
 from enthought.resource.resource_path import resource_path
 from enthought.pyface.image_resource import ImageResource
+from enthought.scripting.api import start_recording, stop_recording
 
 # Local imports.
 from enthought.mayavi.core.engine import Engine
@@ -23,7 +24,6 @@ from enthought.mayavi.core.adder_node import ModuleFilterAdderNode, \
         SourceAdderNode, ModuleAdderNode, FilterAdderNode, \
         SceneAdderNode, AdderNode
 from enthought.mayavi.action.help import open_help_index
-from enthought.mayavi.core.recorder import start_recording, stop_recording
 
 class EngineViewHandler(Handler):
     """ A handler for the EngineView object. 

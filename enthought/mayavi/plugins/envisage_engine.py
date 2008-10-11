@@ -15,11 +15,11 @@ from enthought.tvtk.plugins.scene.ui.actions import NewScene
 from enthought.tvtk.plugins.scene import scene_editor 
 from enthought.pyface.api import GUI
 from enthought.pyface.workbench.api import WorkbenchWindow
+from enthought.scripting.api import recordable
 
 # Local imports.
 from enthought.mayavi.core.scene import Scene
 from enthought.mayavi.core.engine import Engine
-from enthought.mayavi.core.recorder import recordable
 
 logger = logging.getLogger()
 

@@ -22,6 +22,7 @@ from enthought.traits.api import (HasStrictTraits, List, Str,
         Bool, on_trait_change)
 from enthought.traits.ui.api import View, Item
 from enthought.persistence import state_pickler
+from enthought.scripting.api import Recorder, recordable
 
 # Local imports.
 from enthought.mayavi.core.base import Base
@@ -31,7 +32,6 @@ from enthought.mayavi.core.registry import registry
 from enthought.mayavi.core.adder_node import AdderNode, SceneAdderNode
 from enthought.mayavi.preferences.api import preference_manager
 from enthought.mayavi.core.ui.mayavi_scene import viewer_factory
-from enthought.mayavi.core.recorder import Recorder, recordable
 
 
 ######################################################################
