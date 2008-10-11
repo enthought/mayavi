@@ -41,15 +41,14 @@ class Actor(Component):
     texture_source_object = Instance(Source)
 
     # The actors texture
-    texture = Instance(tvtk.Texture)
+    texture = Instance(tvtk.Texture, record=True)
 
     # The texture coord generation mode.
     tcoord_generator_mode = Enum('none', 'cylinder', 'sphere', 'plane', 
                                  desc='the mode for texture coord generation')
 
     # Texture coord generator.
-    tcoord_generator = Instance(tvtk.Object, allow_none=True,
-                                record=True)
+    tcoord_generator = Instance(tvtk.Object, allow_none=True)
 
     ######################################################################
     # `object` interface
@@ -224,7 +223,7 @@ class Actor(Component):
             return
         input = inp[0].outputs[0]
         old_tg = self.tcoord_generator
-        if old_tg != None:
+        if old_tg is not None:
             old_tg.on_trait_change(self.render, remove=True)
         if value == 'none':
             self.tcoord_generator = None
@@ -238,7 +237,7 @@ class Actor(Component):
             tg.input = input
             self.mapper.input = tg.output
         tg = self.tcoord_generator
-        if tg != None:
+        if tg is not None:
             tg.on_trait_change(self.render)
         self.render()
 
