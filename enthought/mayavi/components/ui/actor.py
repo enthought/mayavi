@@ -12,7 +12,8 @@ importing.
 # Copyright (c) 2005-2008, Enthought, Inc.
 # License: BSD Style.
 
-from enthought.traits.ui.api import View, Group, Item, InstanceEditor, DropEditor
+from enthought.traits.ui.api import (View, Group, Item, InstanceEditor,
+        DropEditor, Tabbed)
 from enthought.tvtk.api import tvtk
 
 VTK_VER = tvtk.Version().vtk_version
@@ -58,9 +59,19 @@ actor_group = Group(Item(name='actor', style='custom',
                     )
 
 texture_group = Group(Item(name='enable_texture'),
-                  Group(Item(name='texture_source_object' , style='custom',editor=DropEditor()),
-                        Item(name='texture',style='custom',
-                             editor=InstanceEditor(view=View(_texture_group))),
+                  Group(Item(name='texture_source_object',
+                             editor=DropEditor()),
+                        Item(name='tcoord_generator_mode'),
+                    Tabbed(Item(name='texture',
+                                style='custom',
+                                show_label=False,
+                                editor=InstanceEditor(view=View(_texture_group))),
+                           Item(name='tcoord_generator',
+                                style='custom',
+                                show_label=False,
+                                resizable=True,
+                                visible_when='texture_mode != "none"'),
+                           ),
                         show_labels=True,
                         label='Texture Properties',
                         enabled_when='object.enable_texture',

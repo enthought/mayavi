@@ -6,8 +6,7 @@
 # License: BSD Style.
 
 # Enthought library imports.
-from enthought.traits.api import Instance
-from enthought.traits.api import Bool
+from enthought.traits.api import Instance, Bool, Enum
 from enthought.tvtk.api import tvtk
 
 # Local imports.
@@ -31,22 +30,35 @@ class Actor(Component):
     # The actor's property.
     property = Instance(tvtk.Property, record=True)
 
+    # FIXME: None of the texture stuff is picklable.  This will NOT be
+    # supported till the pickling infrastructure is cleaned up and
+    # fixed.
+
     # If texturing is enabled for the actor or not
     enable_texture = Bool(False, desc='if texturing is enabled')
 
-    # the source of the texture's image
+    # The source of the texture's image
     texture_source_object = Instance(Source)
 
-    # the actors texture
+    # The actors texture
     texture = Instance(tvtk.Texture)
 
-    
+    # The texture coord generation mode.
+    tcoord_generator_mode = Enum('none', 'cylinder', 'sphere', 'plane', 
+                                 desc='the mode for texture coord generation')
+
+    # Texture coord generator.
+    tcoord_generator = Instance(tvtk.Object, allow_none=True,
+                                record=True)
+
     ######################################################################
     # `object` interface
     ######################################################################
     def __get_pure_state__(self):
         d = super(Actor, self).__get_pure_state__()
-        for attr in ('texture', 'texture_source_object', 'enable_texture'):
+        for attr in ('texture', 'texture_source_object',
+                     'enable_texture', 'tcoord_generator_mode', 
+                     'tcoord_generator'):
             d.pop(attr,None)
         return d            
     
@@ -80,7 +92,8 @@ class Actor(Component):
         if (len(self.inputs) == 0) or \
                (len(self.inputs[0].outputs) == 0):
             return
-        self.mapper.input = self.inputs[0].outputs[0]
+
+        self._tcoord_generator_mode_changed(self.tcoord_generator_mode)
         self.render()
 
     def update_data(self):
@@ -203,3 +216,29 @@ class Actor(Component):
             self.texture.on_trait_change(self.render)
 
         self.render()
+
+    def _tcoord_generator_mode_changed(self, value):
+        inp = self.inputs
+        if (len(inp) == 0) or \
+               (len(inp[0].outputs) == 0):
+            return
+        input = inp[0].outputs[0]
+        old_tg = self.tcoord_generator
+        if old_tg != None:
+            old_tg.on_trait_change(self.render, remove=True)
+        if value == 'none':
+            self.tcoord_generator = None
+            self.mapper.input = input
+        else:
+            tg_dict = {'cylinder': tvtk.TextureMapToCylinder,
+                       'sphere': tvtk.TextureMapToSphere,
+                       'plane': tvtk.TextureMapToPlane}
+            tg = tg_dict[value]()
+            self.tcoord_generator = tg
+            tg.input = input
+            self.mapper.input = tg.output
+        tg = self.tcoord_generator
+        if tg != None:
+            tg.on_trait_change(self.render)
+        self.render()
+
