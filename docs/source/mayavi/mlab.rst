@@ -123,7 +123,7 @@ module.
 +----------------+------------------+-----------------------------+
 | |mesh.jpg|     | |barchart.jpg|   | |triangular_mesh.jpg|       |
 +----------------+------------------+-----------------------------+
-| :func:`mesh`   | :func:`barchart` | :func:`triangular_mesh.jpg` |
+| :func:`mesh`   | :func:`barchart` | :func:`triangular_mesh.`    |
 +----------------+------------------+-----------------------------+
 
     A 2D array can be shown as a image using :func:`imshow`, or as a surface 
