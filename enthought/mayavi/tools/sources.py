@@ -22,7 +22,7 @@ from engine_manager import engine_manager
 
 __all__ = [ 'vector_scatter', 'vector_field', 'scalar_scatter',
     'scalar_field', 'line_source', 'array2d_source', 'grid_source',
-    'open', 'triangular_mesh_source',
+    'open', 'triangular_mesh_source', 'vertical_vectors_source',
 ]
 
 
@@ -1112,6 +1112,57 @@ def grid_source(x, y, z, **kwargs):
     ds = tools.add_dataset(data_source.dataset, name, **kwargs)
     data_source.m_data = ds
     return ds
+
+
+def vertical_vectors_source(*args, **kwargs):
+    """
+    Creates a set of vectors pointing upward, useful eg for bar graphs.
+    
+    **Function signatures**::
+
+        vertical_vectors_source(s, ...)
+        vertical_vectors_source(x, y, s, ...)
+        vertical_vectors_source(x, y, f, ...)
+        vertical_vectors_source(x, y, z, s, ...)
+        vertical_vectors_source(x, y, z, f, ...)
+
+    If only one positional argument is passed, it can be a 1D, 2D, or 3D
+    array giving the length of the vectors. The positions of the data
+    points are deducted from the indices of array, and an
+    uniformly-spaced data set is created.
+
+    If 3 positional arguments (x, y, s) are passed the last one must be
+    an array s, or a callable, f, that returns an array. x and y give the
+    2D coordinates of positions corresponding to the s values. The
+    vertical position is assumed to be 0. 
+    
+    If 4 positional arguments (x, y, z, s) are passed, the 3 first are
+    arrays giving the 3D coordinates of the data points, and the last one
+    is an array s, or a callable, f, that returns an array giving the
+    data value.
+
+    **Keyword arguments**:
+    
+        :name: the name of the vtk object created.
+
+        :figure: optionally, the figure on which to add the data source.
+    """
+    if len(args) == 3:
+        x, y, data = args
+        if numpy.isscalar(x):
+            z = 0
+        else:
+            z = numpy.zeros_like(x)
+        args = (x, y, z, data)
+
+    # Tranform the signature from a scalar_scatter-like one to a 
+    # vector_scatter-like one.
+    x, y, z, s = process_regular_scalars(*args)
+    args = (x, y, z, numpy.ones_like(s), numpy.ones_like(s), s)
+    kwargs['scalars'] = s
+    if not 'name' in kwargs:
+        kwargs['name'] = 'VerticalVectorsSource'
+    return vector_scatter(*args, **kwargs)
 
 
 def triangular_mesh_source(x, y, z, triangles, **kwargs):

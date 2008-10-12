@@ -339,7 +339,47 @@ class TestLineSource(BaseTestSource):
         f = lambda x, y, z: x + y + z
         ss = sources.line_source(x, y, z, f, figure=None)
         self.check_positions(ss, x, y, z)
-        self.check_scalars(ss, f)
+        self.check_scalars(ss, f(x, y, z))
+
+################################################################################
+# `TestVerticalVectorsSource`
+################################################################################ 
+class TestVerticalVectorsSource(BaseTestSource):
+
+    def test_input_args(self):
+        """ Check that vector_field can take different input arguments """
+
+        # Check for numbers as position vectors
+        ss = sources.vertical_vectors_source(0, 0, 1, figure=None)
+        self.check_positions(ss, 0, 0, 0)
+        self.check_scalars(ss, 1)
+        self.check_vectors(ss, 0, 0, 1)
+
+        ss = sources.vertical_vectors_source(0, 0, 1, 1, figure=None)
+        self.check_positions(ss, 0, 0, 1)
+        self.check_scalars(ss, 1)
+        self.check_vectors(ss, 0, 0, 1)
+
+        # Check for lists as position vectors and as data
+        ss = sources.vertical_vectors_source([0, 1], [0, 1], [0, 1], [2, 3], 
+                                                                figure=None)
+        self.check_positions(ss, [0, 1], [0, 1], [0, 1])
+        self.check_scalars(ss, [2, 3])
+        self.check_vectors(ss, [0, 0], [0, 0], [2, 3])
+
+        # Check for arrays as position vectors and a function as data
+        x, y, z = N.random.random((3, 10))
+        zeros = N.zeros_like(x)
+        f = lambda x, y, z: x + y + z
+        ss = sources.vertical_vectors_source(x, y, z, f, figure=None)
+        self.check_positions(ss, x, y, z)
+        self.check_scalars(ss, f(x, y, z))
+        self.check_vectors(ss, zeros, zeros, z)
+
+        ss = sources.vertical_vectors_source(x, y, z, figure=None)
+        self.check_positions(ss, x, y, zeros)
+        self.check_scalars(ss, z)
+        self.check_vectors(ss, zeros, zeros, z)
 
 
 if __name__ == '__main__':

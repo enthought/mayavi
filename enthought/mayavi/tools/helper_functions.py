@@ -14,16 +14,17 @@ both for testing and to ilustrate its use.
 # License: BSD Style.
 
 from modules import VectorsFactory, StreamlineFactory, GlyphFactory, \
-            IsoSurfaceFactory, SurfaceFactory, ContourSurfaceFactory
+            IsoSurfaceFactory, SurfaceFactory, ContourSurfaceFactory, \
+            glyph_mode_dict
 from sources import vector_scatter, vector_field, scalar_scatter, \
             scalar_field, line_source, array2d_source, grid_source, \
-            triangular_mesh_source
+            triangular_mesh_source, vertical_vectors_source
 from filters import ExtractVectorNormFactory, WarpScalarFactory, \
             TubeFactory, ExtractEdgesFactory, PolyDataNormalsFactory
 from auto_doc import traits_doc, dedent
 import tools
 from enthought.traits.api import Array, Callable, CFloat, HasTraits, \
-    List, Trait, Any, Instance
+    List, Trait, Any, Instance, Trait, TraitError
 import numpy
 
 def document_pipeline(pipeline):
@@ -516,7 +517,8 @@ imshow = document_pipeline(ImShow())
 def test_imshow():
     """ Use imshow to visualize a 2D 10x10 random array.
     """
-    return imshow(numpy.random.random((10,10)), colormap='gist_earth')
+    s = numpy.random.random((10,10))
+    return imshow(s, colormap='gist_earth')
 
 
 ############################################################################# 
@@ -828,6 +830,93 @@ def test_contour_surf():
     x, y = numpy.mgrid[-7.:7.05:0.1, -5.:5.05:0.05]
     s = contour_surf(x, y, f)
     return s
+
+############################################################################# 
+# Expose only the glyphs that make (more or less) sens for a barchart.
+bar_mode_dict = dict()
+for item in ('cube', '2dtriangle', '2dsquare', '2dvertex', '2dthick_cross', 
+             '2ddiamond', '2dcross', '2dcircle'):
+    bar_mode_dict[item] = glyph_mode_dict[item]
+
+class BarChart(Pipeline):
+    """
+    Plots vertical glyphs (like bars) scaled vertical, to do
+    histogram-like plots.
+
+    This functions accepts a wide variety of inputs, with positions given
+    in 2D or in 3D.
+
+    **Function signatures**::
+
+        barchart(s, ...)
+        barchart(x, y, s, ...)
+        barchart(x, y, f, ...)
+        barchart(x, y, z, s, ...)
+        barchart(x, y, z, f, ...)
+
+    If only one positional argument is passed, it can be a 1D, 2D, or 3D
+    array giving the length of the vectors. The positions of the data
+    points are deducted from the indices of array, and an
+    uniformly-spaced data set is created.
+
+    If 3 positional arguments (x, y, s) are passed the last one must be
+    an array s, or a callable, f, that returns an array. x and y give the
+    2D coordinates of positions corresponding to the s values. 
+    
+    If 4 positional arguments (x, y, z, s) are passed, the 3 first are
+    arrays giving the 3D coordinates of the data points, and the last one
+    is an array s, or a callable, f, that returns an array giving the
+    data value.
+    """
+
+    _source_function = Callable(vertical_vectors_source)
+
+    _pipeline = [VectorsFactory, ]
+
+    mode = Trait('cube', bar_mode_dict,
+                    desc='The glyph used to represent the bars.')
+
+    lateral_scale = CFloat(0.9, desc='The lateral scale of the glyph, '
+                'in units of the distance between nearest points')
+
+    def __call__(self, *args, **kwargs):
+        """ Override the call to be able to scale automaticaly the axis.
+        """
+        g = Pipeline.__call__(self, *args, **kwargs)
+        gs = g.glyph.glyph_source
+        # Use a cube source for glyphs.
+        if not 'mode' in kwargs:
+            gs.glyph_source = gs.glyph_list[-1]
+        # Position the glyph tail on the point.
+        gs.glyph_position = 'tail'
+        gs.glyph_source.center = (0.5, 0.0, 0.5)
+        g.glyph.glyph.orient = False
+        if not 'color' in kwargs:
+            g.glyph.color_mode = 'color_by_scalar'
+        if not 'scale_mode' in kwargs:
+            g.glyph.glyph.scale_mode = 'scale_by_vector_components'
+        g.glyph.glyph.clamping = False
+        x, y, z = g.mlab_source.x, g.mlab_source.y, g.mlab_source.z
+        scale_factor = g.glyph.glyph.scale_factor* \
+                    tools._min_axis_distance(x, y, z)
+        lateral_scale = kwargs.pop('lateral_scale', self.lateral_scale)
+        try:
+            g.glyph.glyph_source.glyph_source.y_length = \
+                    lateral_scale/(scale_factor)
+            g.glyph.glyph_source.glyph_source.x_length = \
+                    lateral_scale/(scale_factor)
+        except TraitError:
+            " Not all types of glyphs have controlable y_length and x_length"
+
+        return g
+
+barchart = document_pipeline(BarChart())
+
+def test_barchart():
+    """ Demo the bar chart plot with a 2D array.
+    """
+    s = numpy.abs(numpy.random.random((3, 3)))
+    return barchart(s)
 
 
 ############################################################################# 

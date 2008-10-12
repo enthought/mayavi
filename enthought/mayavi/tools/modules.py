@@ -170,6 +170,16 @@ class ContourModuleFactory(DataModuleFactory):
 # Concrete module classes
 ##############################################################################
 
+# The list of possible glyph modes
+glyph_mode_dict = {'2darrow': 0, '2dcircle':0, '2dcross':0,
+                            '2ddash': 0, '2ddiamond':0,
+                            '2dhooked_arrow':0, '2dsquare':0,
+                            '2dthick_arrow':0, '2dthick_cross':0,
+                            '2dtriangle':0, '2dvertex':0,
+                            'arrow': 1, 'cone': 2, 'cylinder': 3,
+                            'sphere': 4, 'cube': 5, 'point': 6}
+
+
 ##############################################################################
 class VectorsFactory(DataModuleFactory):
     """Applies the Vectors mayavi module to the given VTK data object."""
@@ -209,13 +219,7 @@ class VectorsFactory(DataModuleFactory):
     def _scale_mode_changed(self):
         self._target.glyph.glyph.scale_mode = self.scale_mode_
 
-    mode = Trait('2darrow', {'2darrow': 0, '2dcircle':0, '2dcross':0,
-                            '2ddash': 0, '2ddiamond':0,
-                            '2dhooked_arrow':0, '2dsquare':0,
-                            '2dthick_arrow':0, '2dthick_cross':0,
-                            '2dtriangle':0, '2dvertex':0,
-                            'arrow': 1, 'cone': 2, 'cylinder': 3,
-                            'sphere': 4, 'cube': 5, 'point': 6},
+    mode = Trait('2darrow', glyph_mode_dict,
                     desc="""the mode of the glyphs.""")
 
     def _mode_changed(self):
@@ -248,13 +252,7 @@ class GlyphFactory(VectorsFactory):
                             help="""the scaling mode for the glyphs
                             ('vector', 'scalar', or 'none').""")
 
-    mode = Trait('sphere', {'2darrow': 0, '2dcircle':0, '2dcross':0,
-                            '2ddash': 0, '2ddiamond':0,
-                            '2dhooked_arrow':0, '2dsquare':0,
-                            '2dthick_arrow':0, '2dthick_cross':0,
-                            '2dtriangle':0, '2dvertex':0,
-                            'arrow': 1, 'cone': 2, 'cylinder': 3,
-                            'sphere': 4, 'cube': 5, 'point': 6},
+    mode = Trait('sphere', glyph_mode_dict,
                     desc="""the mode of the glyphs.""")
 
 
