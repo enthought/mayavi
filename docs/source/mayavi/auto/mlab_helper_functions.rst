@@ -71,7 +71,8 @@ see :ref:`running-mlab-scripts` for more info)::
     def test_imshow():
         """ Use imshow to visualize a 2D 10x10 random array.
         """
-        return imshow(numpy.random.random((10,10)), colormap='gist_earth')
+        s = numpy.random.random((10,10))
+        return imshow(s, colormap='gist_earth')
     
                 
 
@@ -174,7 +175,7 @@ see :ref:`running-mlab-scripts` for more info)::
         obj = quiver3d(x, y, z, u, v, w, mode='cone', extent=(0,1, 0,1, 0,1),
                        scale_factor=0.9)
     
-        return u, v, w, obj
+        return obj
     
                 
 
@@ -540,7 +541,7 @@ see :ref:`running-mlab-scripts` for more info)::
         scalars = x*x*0.5 + y*y + z*z*2.0
     
         obj = contour3d(scalars, contours=4, transparent=True)
-        return obj, scalars
+        return obj
     
                 
 
@@ -729,7 +730,7 @@ see :ref:`running-mlab-scripts` for more info)::
         w = sin(x*z/4.)
     
         obj = flow(x, y, z, u, v, w, linetype='tube')
-        return u, v, w, obj
+        return obj
     
                 
 
@@ -808,6 +809,108 @@ see :ref:`running-mlab-scripts` for more info)::
         x, y = numpy.mgrid[-7.:7.05:0.1, -5.:5.05:0.05]
         s = contour_surf(x, y, f)
         return s
+    
+                
+
+
+
+barchart
+~~~~~~~~
+
+.. function:: barchart(*args, **kwargs)
+
+    
+    Plots vertical glyphs (like bars) scaled vertical, to do
+    histogram-like plots.
+    
+    This functions accepts a wide variety of inputs, with positions given
+    in 2D or in 3D.
+    
+    **Function signatures**::
+    
+        barchart(s, ...)
+        barchart(x, y, s, ...)
+        barchart(x, y, f, ...)
+        barchart(x, y, z, s, ...)
+        barchart(x, y, z, f, ...)
+    
+    If only one positional argument is passed, it can be a 1D, 2D, or 3D
+    array giving the length of the vectors. The positions of the data
+    points are deducted from the indices of array, and an
+    uniformly-spaced data set is created.
+    
+    If 3 positional arguments (x, y, s) are passed the last one must be
+    an array s, or a callable, f, that returns an array. x and y give the
+    2D coordinates of positions corresponding to the s values.
+    
+    If 4 positional arguments (x, y, z, s) are passed, the 3 first are
+    arrays giving the 3D coordinates of the data points, and the last one
+    is an array s, or a callable, f, that returns an array giving the
+    data value.
+    
+    
+    **Keyword arguments:**
+    
+        :color: the color of the vtk object. Overides the colormap,
+                if any, when specified.
+    
+        :colormap: type of colormap to use.
+    
+        :extent: [xmin, xmax, ymin, ymax, zmin, zmax]
+                 Default is the x, y, z arrays extents.
+    
+        :figure: Figure to populate.
+    
+        :lateral_scale: The lateral scale of the glyph, in units of the
+                        distance between nearest points Must be a float.
+                        Default: 0.9
+    
+        :mode: The glyph used to represent the bars. Must be '2dcircle' or
+               '2dcross' or '2ddiamond' or '2dsquare' or '2dthick_cross' or
+               '2dtriangle' or '2dvertex' or 'cube'. Default: cube
+    
+        :name: the name of the vtk object created.
+    
+        :opacity: The overall opacity of the vtk object.
+    
+        :resolution: The resolution of the glyph created. For spheres, for
+                     instance, this is the number of divisions along theta and
+                     phi.
+    
+        :scale_factor: the scaling applied to the glyphs. The
+                       size of the glyph is by default in drawing
+                       units. Must be a float. Default: 1.0
+    
+        :scale_mode: the scaling mode for the glyphs
+                     ('vector', 'scalar', or 'none').
+    
+        :transparent: make the opacity of the actor depend on the
+                      scalar.
+    
+        :vmax: vmax is used to scale the colormap
+               If None, the max of the data will be used
+    
+        :vmin: vmin is used to scale the colormap
+               If None, the min of the data will be used
+    
+
+    
+
+.. image:: ../images/enthought_mayavi_mlab_barchart.jpg
+
+
+**Example** (run in ``ipython -wthread`` or in the mayavi2 interactive shell,
+see :ref:`running-mlab-scripts` for more info)::
+
+    
+    import numpy
+    from enthought.mayavi.mlab import *
+    
+    def test_barchart():
+        """ Demo the bar chart plot with a 2D array.
+        """
+        s = numpy.abs(numpy.random.random((3, 3)))
+        return barchart(s)
     
                 
 

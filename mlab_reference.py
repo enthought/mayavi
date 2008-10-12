@@ -7,6 +7,7 @@ Script to generate the function reference for mlab.
 # License: BSD Style.
 
 import os
+import sys
 
 DEFAULT_INPUT_DIR = os.path.join('docs', 'source')
 OUT_DIR = os.sep.join(
@@ -192,6 +193,8 @@ class ModuleReference(object):
             automatic discovery of the example and image.
         """
         func = getattr(self.module, func_name)
+
+        print >>sys.stderr, "Documenting function %s" % func_name
 
         if hasattr(self.module, 'test_' + func_name):
             example_code = getsource(

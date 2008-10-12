@@ -81,7 +81,8 @@ numpy arrays.
 
     In this section, we only list the different functions. Each function
     is described in details in the :ref:`mlab-reference`, the next 
-    section of the user guide, with figures and example.
+    section of the user guide, with figures and examples. Please follow
+    the links.
 
 The mlab plotting functions take numpy arrays as input, describing the
 ``x``, ``y``, and ``z`` coordinates of the data. They build full-blown
@@ -92,19 +93,46 @@ In addition, they all return the visualization module created, thus
 visualization can also be modified by changing the attributes of this
 module.
 
+
 0D and 1D data
 ~~~~~~~~~~~~~~~
+
++----------------+----------------------+
+| |plot3d.jpg|   | |points3d.jpg|       |
++----------------+----------------------+
+| :func:`plot3d` | :func:`points3d`     |
++----------------+----------------------+
 
     The :func:`plot3d` and :func:`points3d` functions are respectively used 
     to draw lines, and sets of points, specifying the ``x``, ``y`` and 
     ``z`` coordinates as numpy arrays.
 
+.. |plot3d.jpg| image:: images/enthought_mayavi_mlab_plot3d.jpg
+     :scale: 50
+
+.. |points3d.jpg| image:: images/enthought_mayavi_mlab_points3d.jpg
+     :scale: 50
+
 2D data
 ~~~~~~~~
+
++----------------+------------------+-----------------------------+
+| |imshow.jpg|   | |surf.jpg|       |  |contour_surf.jpg|         |
++----------------+------------------+-----------------------------+
+| :func:`imshow` | :func:`surf`     | :func:`contour_surf`        |
++----------------+------------------+-----------------------------+
+| |mesh.jpg|     | |barchart.jpg|   | |triangular_mesh.jpg|       |
++----------------+------------------+-----------------------------+
+| :func:`mesh`   | :func:`barchart` | :func:`triangular_mesh.jpg` |
++----------------+------------------+-----------------------------+
 
     A 2D array can be shown as a image using :func:`imshow`, or as a surface 
     with the elevation given by its values using :func:`surf`. The contours 
     (lines) of same values can be plotted using :func:`contour_surf`.
+
+    Bar charts can be created with the :func:`barchart` function. This
+    function is very versatile and will accept 2D or 3D arrays, but also
+    clouds of points, to position the bars.
 
     The :func:`mesh` function also creates surfaces, however, unlike 
     :func:`surf`, the surface is defined by its ``x``, ``y`` and ``z`` 
@@ -114,12 +142,45 @@ module.
     Finally, the :func:`triangular_mesh` function creates a mesh with 
     arbitrary topology, given position of the vertices and the triangles.
 
+.. |imshow.jpg| image:: images/enthought_mayavi_mlab_imshow.jpg
+     :scale: 50
+
+.. |contour_surf.jpg| image:: images/enthought_mayavi_mlab_contour_surf.jpg
+     :scale: 50
+
+.. |triangular_mesh.jpg| image:: images/enthought_mayavi_mlab_triangular_mesh.jpg
+     :scale: 50
+
+.. |surf.jpg| image:: images/enthought_mayavi_mlab_surf.jpg
+     :scale: 50
+
+.. |mesh.jpg| image:: images/enthought_mayavi_mlab_mesh.jpg
+     :scale: 50
+
+.. |barchart.jpg| image:: images/enthought_mayavi_mlab_barchart.jpg
+     :scale: 50
+
 3D data
 ~~~~~~~~
+
++-------------------+------------------+---------------------+
+| |contour3d.jpg|   | |quiver3d.jpg|   |  |flow.jpg|         |
++-------------------+------------------+---------------------+
+| :func:`contour3d` | :func:`quiver3d` | :func:`flow`        |
++-------------------+------------------+---------------------+
 
     To plot isosurfaces of a 3D scalar field use :func:`contour3d`. A
     vector field can be represented using :func:`quiver3d`, and the
     trajectories of particles along this field can plotted using :func:`flow`. 
+
+.. |contour3d.jpg| image:: images/enthought_mayavi_mlab_contour3d.jpg
+     :scale: 50
+
+.. |quiver3d.jpg| image:: images/enthought_mayavi_mlab_quiver3d.jpg
+     :scale: 50
+
+.. |flow.jpg| image:: images/enthought_mayavi_mlab_flow.jpg
+     :scale: 50
 
 
 Handling figures
