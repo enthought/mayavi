@@ -6,6 +6,15 @@ URL:
     https://svn.enthought.com/enthought/changeset/18702
 -----------------------------------------------------------------------------
 
+13 October, 2008 (GV):
+    - ENH: mlab: axes and outline now find the extents from the objects
+           they are given, if any. [22305]
+
+12 October, 2008 (GV):
+    - API: mlab: Add a barchart function, with the corresponding pipeline 
+      source function. [22286]
+
+
 11 October, 2008 (PR):
     - ENH/API: Improving texture map support, you can now generate the
       texture coords on an arbitrary actor.  This adds to the API of the
@@ -95,12 +104,20 @@ URL:
       this prevents the window from showing up prominently -- it still
       does show up though. [21519]
 
-21-16 August, 2008 (PR):
+21 August, 2008 (PR):
     - ENH: Adding the logger plugin to the mayavi2 app. [21487]
+
+3.0.1 Release
+--------------
+
+16 August, 2008 (PR):
     - BUG: fixed various miscellaneous bugs including a testing
       error[21304], a long standing Mac bug with picking [21310], a
       segfault [21453] and a bug in tvtk when wrapping certain methods
       [21475].
+
+3.0.0 Release
+--------------
 
 15 August, 2008 (PR):
     - NEW: Adding a fully tested data set manager that lets users
@@ -424,3 +441,5 @@ URL:
       plugin API completely!*
     - Got the mlab envisage_engine_manager working with new changes
       [18599].
+
+Before this changeset, the code was that of the 2.x series.
