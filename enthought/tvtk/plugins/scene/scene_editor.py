@@ -6,7 +6,7 @@
 
 
 # Enthought library imports.
-from enthought.preferences.api import bind_preference
+from enthought.preferences.api import get_default_preferences
 from enthought.tvtk.pyface.tvtk_scene import TVTKScene
 from enthought.tvtk.pyface.api import DecoratedScene
 from enthought.pyface.workbench.api import Editor
@@ -83,22 +83,17 @@ class SceneEditor(Editor):
 
         scene = DecoratedScene(parent)
 
-        # Bind the scene's traits to preferences.
-        bind_preference(
-            scene, 'stereo', 'enthought.tvtk.scene.stereo'
-        )
+        pref = get_default_preferences()
 
-        bind_preference(
-            scene, 'magnification', 'enthought.tvtk.scene.magnification'
-        )
+        # Set the scene's traits to preference values.
+        scene.stereo = eval(pref.get('enthought.tvtk.scene.stereo'))
+        scene.magnification = \
+                eval(pref.get('enthought.tvtk.scene.magnification'))
 
-        bind_preference(
-           scene, 'foreground', 'enthought.tvtk.scene.foreground_color'
-        )
-
-        bind_preference(
-            scene, 'background', 'enthought.tvtk.scene.background_color'
-        )
+        fg = eval(pref.get('enthought.tvtk.scene.foreground_color'))
+        bg = eval(pref.get('enthought.tvtk.scene.background_color'))
+        scene.foreground = fg
+        scene.background = bg
         # FIXME: This seems necessary for some strange reason, if not
         # the actual background of the renderer never gets set even
         # though the renderer and the scene's background are synced. 

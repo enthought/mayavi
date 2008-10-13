@@ -96,14 +96,15 @@ class PreferenceManager(HasTraits):
         path = join(ETSConfig.application_data, ID)
         ETSConfig.application_home = path
         try:
-            pkg = 'enthought.mayavi.preferences'
-            pref = 'preferences.ini'
-            pref_file = pkg_resources.resource_stream(pkg, pref)
+            for pkg in ('enthought.mayavi.preferences',
+                        'enthought.tvtk.plugins.scene'):
+                pref = 'preferences.ini'
+                pref_file = pkg_resources.resource_stream(pkg, pref)
 
-            preferences = self.preferences
-            default = preferences.node('default/')
-            default.load(pref_file)
-            pref_file.close()
+                preferences = self.preferences
+                default = preferences.node('default/')
+                default.load(pref_file)
+                pref_file.close()
         finally:
             # Set back the application home.
             ETSConfig.application_home = app_home
