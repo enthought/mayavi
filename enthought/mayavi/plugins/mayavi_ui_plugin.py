@@ -175,6 +175,8 @@ class MayaviUIPlugin(Plugin):
         try:
             py.bind('mayavi', script)
             py.bind('engine', script.engine)
+            from enthought.naming.ui.api import explore
+            py.bind('explore', explore)
         except AttributeError, msg:
             # This can happen when the shell is not visible.
             # FIXME: fix this when the shell plugin is improved.
