@@ -11,7 +11,7 @@ pipeline in a procedural way.
 # Enthought library imports.
 import enthought.mayavi.modules.api as modules
 from enthought.traits.api import String, CFloat, Instance, HasTraits, \
-            Trait, CArray, true
+            Trait, CArray, true, Any
 import tools
 from figure import draw, gcf
 
@@ -130,6 +130,9 @@ class SingletonModuleFactory(ModuleFactory):
     """ Base classe for factories that can find an existing object
     matching certain criteria instead of building a new one"""
 
+    # The parent object on which this module is going to be added.
+    _parent = Any
+
     def __init__(self, *args, **kwargs):
         """ Try to find an module actor with the same name, on the given 
         parent (if any) and use it rather than building a new module."""
@@ -167,6 +170,8 @@ class SingletonModuleFactory(ModuleFactory):
                 self._target = obj
                 break
         else:
+            # Keep a reference to the parent
+            self._parent = parent
             self._engine.add_module(self._target, obj=parent)
 
         # Now calling the traits setter, so that traits handlers are
@@ -212,6 +217,18 @@ class AxesLikeModuleFactory(SingletonModuleFactory):
             except AttributeError:
                 pass
 
+    def __init__(self, *args, **kwargs):
+        """ Overide the call method to be able to catch the extents of
+            the object, if any.
+        """
+        SingletonModuleFactory.__init__(self, *args, **kwargs)
+        if not 'extent' in kwargs:
+            try:
+                # XXX: Do not use tools.set_extent, as it does not work
+                # on axes.
+                self.extent = self._parent.actor.actor.bounds
+            except AttributeError:
+                """ Either this is not a module, or it has no actors"""
 
 #############################################################################
 class Outline(AxesLikeModuleFactory):
