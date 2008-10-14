@@ -14,16 +14,15 @@ URL:
     - API: mlab: Add a barchart function, with the corresponding pipeline 
       source function. [22286]
 
-
 11 October, 2008 (PR):
     - ENH/API: Improving texture map support, you can now generate the
       texture coords on an arbitrary actor.  This adds to the API of the
       actor component.  [22283]
     - API: Adding a `enthought.mayavi.preferences.bindings` module that
       abstracts out setting of preferences for common objects.
-      Currently it exposes a `bind_scene_preferences` so the
+      Currently it exposes a `set_scene_preferences` so the
       non-envisage and off screen scenes have the right preferences.
-      See [22280].
+      See [22280] and [22295].
     - REFACTOR/API: The script recording code is now in
       `enthought.scripting`,  the `enthought.mayavi.core.recorder` was
       only a temporary solution. See [22277] and [22279].
@@ -79,6 +78,9 @@ URL:
       also.   Major checkins [21722], [21728], [21776], [21812], [21865]
       [21878].
 
+3.0.3 Release
+--------------
+
 7 September, 2008 (PR):
     - ENH: The mayavi2 application now ([21713], [21714]) supports
       command line args like the following::
@@ -107,8 +109,8 @@ URL:
 21 August, 2008 (PR):
     - ENH: Adding the logger plugin to the mayavi2 app. [21487]
 
-3.0.1 Release
---------------
+3.0.1 and 3.0.2 Releases
+-------------------------
 
 16 August, 2008 (PR):
     - BUG: fixed various miscellaneous bugs including a testing
