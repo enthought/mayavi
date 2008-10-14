@@ -1,0 +1,23 @@
+
+Making a release
+-----------------
+
+Updating the docs for the release
+..................................
+
+* Update the docs images (you need a _working_ version of Mayavi for
+  this):
+
+    cd docs/source
+    python render_images.py
+
+* Update the docs themselves (this will also check them in svn)
+
+    python setup.py dist_docs -c
+
+* Publish the docs for this release on the web (Be careful to change the
+  release number at the end of the URL)
+
+   python setup.py dist_docs -u -t https://svn.enthought.com/svn/cec/trunk/projects/Mayavi/docs/3.0.3
+
+
