@@ -388,7 +388,8 @@ class VTKMethodParser:
         klass_name = klass.__name__
         problem_methods = ['CopyVectors', 'CopyTensors',
                            'CopyTCoords', 'CopyScalars',
-                           'CopyNormals', 'CopyGlobalIds']
+                           'CopyNormals', 'CopyGlobalIds',
+                           'CopyPedigreeIds']
         for method in meths[:]:
             if klass_name == 'vtkDataSetAttributes' and \
                method[:-2] in problem_methods:
