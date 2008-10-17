@@ -449,21 +449,26 @@ class WrapperGenerator:
                 self._write_trait(out, name, t_def, vtk_set_meth, mapped=False)
             elif rng is None:
                 typ = type(default)
-                if typ in (types.IntType, types.FloatType,
-                           types.LongType):
-                    t_def = 'traits.Trait(%(default)s)'%locals()
+                number_map = {types.IntType: 'traits.Int',
+                              types.FloatType: 'traits.Float',
+                              types.LongType: 'traits.Long'}
+                if typ in number_map:
+                    t_name = number_map[typ]
+                    t_def = '%(t_name)s(%(default)s, enter_set=True, '\
+                            'auto_set=False)'%locals()
                     self._write_trait(out, name, t_def, vtk_set_meth,
                                       mapped=False)
                 elif typ in types.StringTypes:
                     if default == '\x00':
                         default = ''
-                        t_def = 'traits.Trait("%(default)s")'%locals()
+                        t_def = 'traits.String("%(default)s", '%locals()
                     elif default == '"':
-                        t_def = "traits.Trait('%(default)s')"%locals()
+                        t_def = "traits.String('%(default)s', "%locals()
                     elif default == "'":
-                        t_def = '''traits.Trait("%(default)s")'''%locals()
+                        t_def = '''traits.String("%(default)s", '''%locals()
                     else:
-                        t_def = 'traits.Trait(r"%(default)s")'%locals()
+                        t_def = 'traits.String(r"%(default)s", '%locals()
+                    t_def += 'enter_set=True, auto_set=False)'
                     self._write_trait(out, name, t_def, vtk_set_meth,
                                       mapped=False)
                 elif typ in (types.TupleType,):
@@ -489,9 +494,10 @@ class WrapperGenerator:
                             dtype = 'int'
                         else:
                             dtype = 'float'
-                        t_def = 'traits.Trait(traits.Array('\
+                        t_def = 'traits.Array('\
                                 'shape=%(shape)s, value=%(default)s, '\
-                                'dtype=%(dtype)s), '\
+                                'dtype=%(dtype)s, '\
+                                'enter_set=True, auto_set=False, '\
                                 'cols=3)'%locals()
                         self._write_trait(out, name, t_def, vtk_set_meth,
                                           mapped=False)
@@ -507,7 +513,10 @@ class WrapperGenerator:
                     else: # Get has args or Set needs many args.
                         self._write_tvtk_method(out, vtk_get_meth, g_sig)
                         self._write_tvtk_method(out, vtk_set_meth, s_sig)
-                    
+                elif typ is types.BooleanType:
+                    t_def = 'traits.Bool(%(default)s)'%locals()
+                    self._write_trait(out, name, t_def, vtk_set_meth,
+                                      mapped=False)
                 else:
                     print "%s:"%klass.__name__,
                     print "Ignoring method: Get/Set%s"%m
