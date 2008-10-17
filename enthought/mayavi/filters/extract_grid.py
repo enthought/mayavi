@@ -55,15 +55,15 @@ class ExtractGrid(FilterBase):
                   desc='maximum z value of the domain')
 
     # Sample rate in x.
-    x_ratio = Range(value=1, low='_min_sample', high='_x_high',
+    x_ratio = Range(value=1, low='_min_sample', high='_x_s_high',
                     desc='sample rate along x')
 
     # Sample rate in y.
-    y_ratio = Range(value=1, low='_min_sample', high='_y_high',
+    y_ratio = Range(value=1, low='_min_sample', high='_y_s_high',
                     desc='sample rate along y')
 
     # Sample rate in z.
-    z_ratio = Range(value=1, low='_min_sample', high='_z_high',
+    z_ratio = Range(value=1, low='_min_sample', high='_z_s_high',
                     desc='sample rate along z')
 
     # The actual TVTK filter that this class manages.
@@ -88,10 +88,13 @@ class ExtractGrid(FilterBase):
     _min_sample = Int(1)
     _x_low = Int(0)
     _x_high = Int(10000)
+    _x_s_high = Int(100)
     _y_low = Int(0)
     _y_high = Int(10000)
+    _y_s_high = Int(100)
     _z_low = Int(0)
     _z_high = Int(10000)
+    _z_s_high = Int(100)
 
     ########################################
     # View related traits.
@@ -128,6 +131,7 @@ class ExtractGrid(FilterBase):
                 d.pop(axis + name, None)
             d.pop('_' + axis + '_low', None)
             d.pop('_' + axis + '_high', None)
+            d.pop('_' + axis + '_s_high', None)
             d.pop(axis + '_ratio', None)
         return d
 
@@ -181,6 +185,9 @@ class ExtractGrid(FilterBase):
         self._x_low, self._x_high = extents[:2]
         self._y_low, self._y_high = extents[2:4]
         self._z_low, self._z_high = extents[4:]
+        self._x_s_high = max(1, self._x_high)
+        self._y_s_high = max(1, self._y_high)
+        self._z_s_high = max(1, self._z_high)
         
     def _x_min_changed(self, val):
         if val > self.x_max:
