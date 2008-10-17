@@ -19,23 +19,35 @@ from enthought.tvtk.api import tvtk
 VTK_VER = tvtk.Version().vtk_version
 
 # The properties view group.
-_prop_group = Group(Item(name='representation'),
+_prop_base_group = Group(Item(name='representation'),
                     Item(name='color'),
                     Item(name='line_width'),
                     Item(name='point_size'),
                     Item(name='opacity'),
-                    show_border=True,
-                    label='Property'
                     )
+
+_prop_group = Group(Item(name='property', style='custom', show_label=False,
+                         editor=InstanceEditor(view=View(_prop_base_group))),
+                     Item(name='property',
+                          show_label=False,
+                          editor=InstanceEditor(label='More options ...')),
+                     show_border=True, label='Property')
+
 
 # The mapper's view group.
 if VTK_VER[:3] in ['4.2', '4.4']:
-    _mapper_group = Group(Item(name='scalar_visibility'),
-                          show_border=True, label='Mapper')
+    _mapper_base_group = Group(Item(name='scalar_visibility'))
 else:
-    _mapper_group = Group(Item(name='scalar_visibility'),
-                          Item(name='interpolate_scalars_before_mapping'),
-                          show_border=True, label='Mapper')
+    _mapper_base_group = Group(Item(name='scalar_visibility'),
+                            Item(name='interpolate_scalars_before_mapping'),
+                          )
+
+_mapper_group = Group(Item(name='mapper', style='custom', show_label=False,
+                         editor=InstanceEditor(view=View(_mapper_base_group))),
+                     Item(name='mapper',
+                          show_label=False,
+                          editor=InstanceEditor(label='More options ...')),
+                     show_border=True, label='Mapper')
 
 # The Texture's view group
 _texture_group = Group(Item(name='interpolate'),
@@ -46,15 +58,20 @@ _texture_group = Group(Item(name='interpolate'),
                        )
    
 # The Actor's view group.
-_actor_group = Group(Item(name='visibility'),
+_actor_base_group = Group(Item(name='visibility'))#,
+_actor_group = Group(Item(name='actor', style='custom', show_label=False,
+                         editor=InstanceEditor(view=View(_actor_base_group))),
+                     Item(name='actor',
+                          show_label=False,
+                          editor=InstanceEditor(label='More options ...')),
                      show_border=True, label='Actor')
+                    
 
-actor_group = Group(Item(name='actor', style='custom',
-                       editor=InstanceEditor(view=View(_actor_group))),
-                    Item(name='mapper', style='custom',
-                       editor=InstanceEditor(view=View(_mapper_group))),
-                    Item(name='property', style='custom',
-                       editor=InstanceEditor(view=View(_prop_group))),
+
+actor_group = Group(_actor_group, 
+                    _mapper_group, 
+                    _prop_group,
+                    label='Actor',
                     show_labels=False,
                     )
 
