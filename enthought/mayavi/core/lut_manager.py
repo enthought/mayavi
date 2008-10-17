@@ -144,10 +144,12 @@ class LUTManager(Base):
                             desc='if the default data name is to be used')
 
     # The default data name -- set by the module manager.
-    default_data_name = Str('data', desc='the default data name')
+    default_data_name = Str('data', enter_set=True, auto_set=False, 
+                            desc='the default data name')
 
     # The optionally user specified name of the data.
-    data_name = Str('', desc='the title of the legend')
+    data_name = Str('', enter_set=True, auto_set=False,
+                    desc='the title of the legend')
 
     # Use the default range or user specified one.
     use_default_range = Bool(True,
@@ -155,12 +157,12 @@ class LUTManager(Base):
     # The default data range -- this is computed and set by the
     # module manager.
     default_data_range = Array(shape=(2,), value=[0.0, 1.0],
-                               dtype=float,
+                               dtype=float, enter_set=True, auto_set=False,
                                desc='the default range of the data mapped')
 
     # The optionally user defined range of the data.
     data_range = Array(shape=(2,), value=[0.0, 1.0],
-                       dtype=float,
+                       dtype=float, enter_set=True, auto_set=False,
                        desc='the range of the data mapped')
 
 

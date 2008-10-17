@@ -45,6 +45,8 @@ class ImageDataProbe(Filter):
                     shape=(3,),
                     cols=1,
                     dtype=float,
+                    enter_set=True,
+                    auto_set=False,
                     labels=['sx', 'sy', 'sz'],
                     desc='the spacing of points')
 
@@ -53,6 +55,8 @@ class ImageDataProbe(Filter):
                        shape=(3,),
                        cols=1,
                        dtype=int,
+                       enter_set=True,
+                       auto_set=False,
                        labels=['nx', 'ny', 'nz'],
                        desc='the dimensions of the image data')
 

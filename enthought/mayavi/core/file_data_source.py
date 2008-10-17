@@ -97,7 +97,8 @@ class FileDataSource(Source):
                      high='_max_timestep',
                      desc='the current time step')
     
-    base_file_name=Str('', desc="the base name of the file" , 
+    base_file_name=Str('', desc="the base name of the file", 
+                       enter_set=True, auto_set=False,
                        editor=FileEditor())
 
     # A timestep view group that may be included by subclasses.

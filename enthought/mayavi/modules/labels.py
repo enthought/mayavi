@@ -39,10 +39,12 @@ class Labels(Module):
     object = Instance(PipelineBase, record=False)
 
     # The label format string.
-    label_format = Str('', desc='the label format string')
+    label_format = Str('', enter_set=True, auto_set=False,
+                       desc='the label format string')
 
     # Number of points to label.
-    number_of_labels = Int(25, desc='the number of points to label')
+    number_of_labels = Int(25, enter_set=True, auto_set=False,
+                           desc='the number of points to label')
 
     # The filter used for masking of the points.
     mask = Instance(MaskPoints, record=True)

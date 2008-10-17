@@ -8,9 +8,6 @@ MayaVi2:
     - Modules/Filters:
         
     - UI:
-        - Enter_set/auto_set should be setup correctly for all entry
-          dialogs so the user can control if things change on each
-          keystroke.
         - Option to make slicing and other operations less interactive
           (like the streamline module) for larger data.
         - Easier access to the LUT editor.

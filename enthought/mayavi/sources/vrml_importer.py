@@ -27,7 +27,8 @@ class VRMLImporter(Source):
     __version__ = 0
 
     # The file name.
-    file_name = Str('', desc='the VRML file name')
+    file_name = Str('', enter_set=True, auto_set=False,
+                    desc='the VRML file name')
 
     # The VRML importer.
     reader = Instance(tvtk.VRMLImporter, args=(), allow_none=False,
