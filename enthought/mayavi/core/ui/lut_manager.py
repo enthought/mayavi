@@ -29,6 +29,9 @@ view = View(Group(Item(name='lut_mode',
                   Item(name='file_name', visible_when="lut_mode=='file'"), 
                   Item(name='number_of_colors'),
                   Item(name='reverse_lut'),
+                  Item(name='lut',
+                       show_label=False,
+                       editor=InstanceEditor(label='Edit LUT properties')),
                   
                   Group(Item(name='show_scalar_bar'),
                       Group(   
@@ -52,6 +55,17 @@ view = View(Group(Item(name='lut_mode',
                                    show_label=False,
                                    editor=InstanceEditor(label='Edit bar Text'),
                                    label='Edit bar Text'),
+                          ),
+
+                          HGroup(
+                              Item(name='scalar_bar',
+                                   show_label=False,
+                                   editor=InstanceEditor(label='Edit bar Actor'),
+                                   ),
+                              Item(name='scalar_bar_widget',
+                                   show_label=False,
+                                   editor=InstanceEditor(label='Edit bar Widget'),
+                                  ),
                           ),
                                
                           enabled_when='show_scalar_bar==True',
