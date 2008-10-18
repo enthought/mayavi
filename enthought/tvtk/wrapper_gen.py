@@ -353,7 +353,7 @@ class WrapperGenerator:
                 extra_val = 2
             if vtk_val == 0 and klass.__name__ == 'vtkImageData' \
                    and m == 'ScalarType':
-                extra_val = 0
+                extra_val = range(0, 22) 
             if vtk_val == 0 and klass.__name__ == 'vtkImagePlaneWidget' \
                    and m == 'PlaneOrientation':
                 extra_val = 3
@@ -369,6 +369,11 @@ class WrapperGenerator:
                 default = self._reform_name(meths[m][0][0])
                 if extra_val is None:
                     t_def = """traits.Trait('%(default)s',
+                                       tvtk_base.TraitRevPrefixMap(%(d)s))"""\
+                    %locals()
+                elif hasattr(extra_val, '__iter__'):
+                    extra_val = str(extra_val)[1:-1]
+                    t_def = """traits.Trait('%(default)s', %(extra_val)s,
                                        tvtk_base.TraitRevPrefixMap(%(d)s))"""\
                     %locals()
                 else:                    

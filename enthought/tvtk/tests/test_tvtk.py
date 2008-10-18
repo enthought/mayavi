@@ -504,6 +504,14 @@ class TestTVTK(unittest.TestCase):
 
         spw = tvtk.StructuredPointsWriter()
         spw.input = None
+
+    def test_image_data_scalar_type(self):
+        "Does ImageData support all scalar types?"
+        img = tvtk.ImageData()
+        # There are 22 scalar types in VTK-5.2.  We should be able to
+        # use them all.
+        for i in range(0, 22):
+            img.scalar_type = i
         
         
 # This separates out any tests for the entire module that would affect
