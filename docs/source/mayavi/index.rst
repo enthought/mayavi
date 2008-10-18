@@ -15,6 +15,7 @@ Mayavi2 Users Guide
     data.rst
     tips.rst
     misc.rst
+    cookbook.rst
     auto/mlab_reference.rst
 
 Indices and tables
