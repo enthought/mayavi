@@ -18,15 +18,17 @@ custom plugins.
 
 """
 # Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
-# Copyright (c) 2008, Prabhu Ramachandran Enthought, Inc.
+# Copyright (c) 2008, Prabhu Ramachandran, Enthought, Inc.
 # License: BSD Style.
 
 # Standard library imports.
 import sys
+import traceback
 from os.path import join, exists
 
 # Enthought library imports.
 from enthought.util.home_directory import get_home_directory
+from enthought.mayavi.preferences.api import preference_manager
 
 # The functions that return the plugins.
 _get_global_plugins = lambda: []
@@ -66,10 +68,41 @@ if exists(user_module):
         # user_mayavi may not be adding any new plugins.
         pass
 
+#  Now handle any contributions that the user has chosen via the
+#  preferences.
+
+def _import_contrib(pkg):
+    mod = None
+    try:
+        mod = __import__(pkg, level=0)
+    except Exception:
+        print "*"*80
+        traceback.print_exc(file=sys.stdout)
+        print "*"*80
+    return mod
+
+def add_contributions():
+    """Import any contributions that the user has selected via
+    preferences."""
+    for pkg in preference_manager.root.contrib_packages:
+        _import_contrib(pkg + '.user_mayavi')
+
+def get_contrib_plugins():
+    """Get plugins requested by different contributions."""
+    plugins = []
+    for pkg in preference_manager.root.contrib_packages:
+        mod = _import_contrib(pkg + '.user_mayavi')
+        if mod is not None and hasattr(mod, 'get_plugins'):
+            plugins.extend(mod.get_plugins())
+    return plugins
+
+# Import the contributions.
+add_contributions()
 
 def get_custom_plugins():
     """Convenience function that returns all customization plugins as a
     list.
     """
-    return _get_global_plugins() + _get_user_plugins()
+    return _get_global_plugins() + _get_user_plugins() + \
+           get_contrib_plugins()
 

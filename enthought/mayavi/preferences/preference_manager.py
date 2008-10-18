@@ -58,9 +58,16 @@ class PreferenceManager(HasTraits):
     # Traits UI view.
 
     traits_view = View(Group(
-                             Item(name='root', style='custom'),
-                             Item(name='mlab', style='custom'),
-                             ),
+                           Group(Item(name='root', style='custom'),
+                                 show_labels=False, label='Root',
+                                 show_border=True
+                                ),
+                           Group(Item(name='mlab', style='custom'),
+                                 show_labels=False, label='Mlab',
+                                 show_border=True,
+                                ),
+                           ),
+                       buttons=['OK', 'Cancel'],
                        resizable=True
                       )
 

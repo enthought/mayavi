@@ -5,8 +5,9 @@
 # License: BSD Style.
 
 # Enthought library imports.
-from enthought.traits.api import Bool, Enum, Tuple, Range
-from enthought.traits.ui.api import View, Group, Item, RGBColorEditor
+from enthought.traits.api import (Bool, Enum, Tuple, Range, List,
+        Str, Instance, HasTraits)
+from enthought.traits.ui.api import View, Group, Item, RGBColorEditor 
 from enthought.preferences.ui.api import PreferencesPage
 
 ################################################################################
@@ -53,14 +54,46 @@ class MayaviRootPreferencesPage(PreferencesPage):
                     desc='if the help pages are opened in a chromeless'
                              'browser window (only works with Firefox')
 
+    # Contrib directories to load on startup.
+    contrib_packages = List(Str, desc='contrib packages to load on startup')
+
+    ########################################
+    # Private traits.
+    _contrib_finder = Instance(HasTraits)
+
     #### Traits UI views ######################################################
 
-    traits_view = View(Group(Item(name='confirm_delete'),
-                             Item(name='show_splash_screen'),
-                             Item(name='show_helper_nodes'),
-                             Item(name='open_help_in_light_browser'),
-                            )
-                       )
+    traits_view = View(
+                    Group(
+                        Group(
+                            Item(name='confirm_delete'),
+                            Item(name='show_splash_screen'),
+                            Item(name='show_helper_nodes'),
+                            Item(name='open_help_in_light_browser'),
+                            label='General settings',
+                            show_border=True,
+                            ),
+                        Group(
+                            Group(
+                                Item('_contrib_finder',
+                                     style='custom',
+                                     show_label=False,
+                                     resizable=True,
+                                     ),
+                                ),
+                            label='Contribution settings',
+                            show_border=True,
+                            ),
+                        ),
+                    resizable=True
+                    )
+
+    ######################################################################
+    # Non-public interface.
+    ###################################################################### 
+    def __contrib_finder_default(self):
+        from contrib_finder import ContribFinder
+        return ContribFinder()
 
 
 ################################################################################
