@@ -57,6 +57,10 @@ class MayaviRootPreferencesPage(PreferencesPage):
     # Contrib directories to load on startup.
     contrib_packages = List(Str, desc='contrib packages to load on startup')
 
+    # Whether or not to use IPython for the Shell.
+    use_ipython = Bool(desc='use IPython for the embedded shell '
+                            '(if available)')
+
     ########################################
     # Private traits.
     _contrib_finder = Instance(HasTraits)
@@ -70,6 +74,7 @@ class MayaviRootPreferencesPage(PreferencesPage):
                             Item(name='show_splash_screen'),
                             Item(name='show_helper_nodes'),
                             Item(name='open_help_in_light_browser'),
+                            Item(name='use_ipython'),
                             label='General settings',
                             show_border=True,
                             ),

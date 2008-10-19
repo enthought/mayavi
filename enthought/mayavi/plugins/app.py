@@ -96,8 +96,9 @@ def get_plugin_classes():
     from enthought.traits.ui.api import toolkit
     toolkit()
     from enthought.etsconfig.api import ETSConfig
+    try_use_ipython = preference_manager.root.use_ipython
     use_ipython = False
-    if ETSConfig.toolkit == 'wx':
+    if ETSConfig.toolkit == 'wx' and try_use_ipython:
         try:
             # If the right versions of IPython, EnvisagePlugins and
             # Pyface are not installed, this import will fail.

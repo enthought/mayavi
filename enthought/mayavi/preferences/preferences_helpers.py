@@ -45,6 +45,11 @@ class RootPreferencesHelper(PreferencesHelper):
     # Contrib directories to load on startup.
     contrib_packages = List(Str, desc='contrib packages to load on startup')
 
+
+    # Whether or not to use IPython for the Shell.
+    use_ipython = Bool(desc='use IPython for the embedded shell '
+                            '(if available)')
+
     ########################################
     # Private traits.
     _contrib_finder = Instance(HasTraits)
