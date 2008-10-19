@@ -6,6 +6,18 @@ URL:
     https://svn.enthought.com/enthought/changeset/18702
 -----------------------------------------------------------------------------
 
+
+17-20 October, 2008 (PR)
+    - ENH: Modified TVTK and Mayavi UI editors so that text entry boxes
+      are only set when the user hits <enter> or <tab> rather than on
+      each keystroke.  [22321], [22323]
+    - ENH/BUG/WARN: Fixed warnings at TVTK build time, fixed bugs with
+      ImageData's scalar_type trait. [22320], [22321], [22325].
+    - NEW/API: Adding preference option to ease task of loading contrib
+      packages (via a pkg/user_mayavi.py) in mayavi.  Also added a
+      contrib finder that trawls sys.path to find contributions.  This
+      can be set from the preferences UI. [22324], [22326], [22327].
+
 13 October, 2008 (GV):
     - ENH: mlab: axes and outline now find the extents from the objects
            they are given, if any. [22305]
