@@ -84,8 +84,9 @@ text
     
         text(x, y, text, ...)
     
-    x, and y are the position of the origin of
-    the text on the 2D projection of the figure.
+    x, and y are the position of the origin of the text on the 2D
+    projection of the figure. If a z keyword argument is given, the
+    text is positionned in 3D, in figure coordinnates.
     
     **Keyword arguments:**
     
@@ -97,6 +98,9 @@ text
         :opacity: The overall opacity of the vtk object.
     
         :width: width of the text.
+    
+        :z: Optional z position. When specified, the
+            text is positioned in 3D
     
 
     

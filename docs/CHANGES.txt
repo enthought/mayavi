@@ -6,6 +6,9 @@ URL:
     https://svn.enthought.com/enthought/changeset/18702
 -----------------------------------------------------------------------------
 
+19 October, 2008 (GV)
+    -ENH: mlab.text can now take 3D positioning [22331].
+
 
 17-20 October, 2008 (PR)
     - ENH: Modified TVTK and Mayavi UI editors so that text entry boxes
@@ -19,6 +22,7 @@ URL:
       can be set from the preferences UI. [22324], [22326], [22327].
 
 13 October, 2008 (GV):
+    - ENH: Bind the 'explore' function in the python shell [22307]
     - ENH: mlab: axes and outline now find the extents from the objects
            they are given, if any. [22305]
 
