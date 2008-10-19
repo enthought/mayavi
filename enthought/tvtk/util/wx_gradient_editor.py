@@ -577,7 +577,7 @@ class wxGradientEditorWidget(wx.Panel, AbstractGradEditor):
         if self.vtk_table_is_lut:
             return vtk_table.table_range
         else:
-            return vtk_table.rgb_transfer_function.range
+            return vtk_table.get_scalar_opacity().range
 
     def load(self, file_name):
         """Set the state of the color table using the given file.
@@ -634,9 +634,8 @@ class wxGradientEditorWidget(wx.Panel, AbstractGradEditor):
         """
         Load a ``*.grad`` lookuptable file using wxpython dialog
         """
-
-        dlg = wx.FileDialog(self, "Open a file")
-        dlg.SetStyle(wx.OPEN)
+        style = wx.OPEN | wx.HIDE_READONLY
+        dlg = wx.FileDialog(self, "Open a file", style=style)
         wildcard = "Gradient Files (.grad)|*.grad|"   \
                    "All files (*.*)|*.*"
         dlg.SetWildcard(wildcard)
@@ -758,6 +757,7 @@ def make_test_table(lut=False):
         ctf = ColorTransferFunction()
         mins, maxs = 255, 355
         ds = (maxs-mins)/4.0
+        ctf.range = (mins, maxs)
         ctf.add_rgb_point(mins,      0.00, 0.0, 1.00)
         ctf.add_rgb_point(mins+ds,   0.25, 0.5, 0.75)
         ctf.add_rgb_point(mins+2*ds, 0.50, 1.0, 0.50)
@@ -772,16 +772,17 @@ def make_test_table(lut=False):
 
 
 def test_trait_ui():
-    from enthought.traits.api import HasTraits, Instance
+    from enthought.traits.api import HasTraits, Instance, Button
     from enthought.traits.ui.api import View, Item, CustomEditor
-    from enthought.traits.ui.wx.api import view_application
-    view_application.redirect_filename = ''
 
     class Test(HasTraits):
         p = Instance(tvtk.VolumeProperty, ())
+        b = Button('Click me')
 
-        view = View(Item(name='p',
-                         editor=CustomEditor(gradient_editor_factory))
+        view = View(Item(name='p', style='custom',
+                         resizable=True,
+                         editor=CustomEditor(gradient_editor_factory)),
+                    Item('b')
                     )
 
     table, otf, ctf = make_test_table(False)

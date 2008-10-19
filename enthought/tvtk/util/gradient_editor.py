@@ -603,6 +603,7 @@ class GradientTable:
     def __init__( self, num_entries ):
         self.size = num_entries
         self.table = tvtk.ColorTransferFunction()
+        self.table.range = (0.0, 1.0)
         self.alpha = tvtk.PiecewiseFunction()
         # These VTK classes perform the interpolation for us.
 
@@ -726,6 +727,7 @@ class GradientTable:
         otf = volume_prop.get_scalar_opacity()
         otf.remove_all_points()
         s1, s2 = scalar_range
+        ctf.range = s1, s2
         size = s2 - s1
         for point in self.control_points:
             x = s1 + point.pos*size
