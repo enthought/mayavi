@@ -356,21 +356,30 @@ class Text(ModuleFactory):
         
             text(x, y, text, ...) 
 
-        x, and y are the position of the origin of
-        the text on the 2D projection of the figure.
+        x, and y are the position of the origin of the text on the 2D 
+        projection of the figure. If a z keyword argument is given, the
+        text is positionned in 3D, in figure coordinnates.
         """
 
     width = Trait(None, None, CFloat, adapts='width',
                         help="""width of the text.""")
 
+    z     = Trait(None, None, CFloat,
+                        help="""Optional z position. When specified, the
+                        text is positioned in 3D""")
+
     _target = Instance(modules.Text, ())
 
     def __init__(self, x, y, text, **kwargs):
-        """ Override init as for diffreent positional arguments."""
+        """ Override init as for different positional arguments."""
+        if 'z' in kwargs and kwargs['z'] is not None:
+            self._target.z_position = kwargs['z']
+            self._target.position_in_3d = True
         super(Text, self).__init__(None, **kwargs)
         self._target.text       = text
         self._target.x_position = x
         self._target.y_position = y
+
 
 text = make_function(Text)
 
@@ -408,6 +417,10 @@ class Title(SingletonModuleFactory):
 
     def __init__(self, text, **kwargs):
         self._text = text # This will be used by _size_changed 
+        if not 'name' in kwargs:
+            # The name is used as au unique marker to identify the
+            # title. We need to set it ASAP.
+            self.name = kwargs['name'] = 'Title'
         super(Title, self).__init__(**kwargs)
         self._target.text = self._text
 

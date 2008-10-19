@@ -56,15 +56,21 @@ mlab.axes(surf_cat1, color=(.7, .7, .7), extent=cat1_extent,
             zlabel='Probability',
             x_axis_visibility=False, z_axis_visibility=False)
 
+mlab.text(-18, -4, '1 photon', z=-4, width=0.13)
+
 cat2_extent = (-4,4, -4,4, 0,5)
 surf_cat2 = mlab.surf(x, y, cat2, colormap='Spectral', warp_scale=5, 
             extent=cat2_extent, vmin=-0.5, vmax=0.5)
 mlab.outline(surf_cat2, color=(0.7, .7, .7), extent=cat2_extent)
 
+mlab.text(-4, -3, '2 photons', z=-4, width=0.14)
+
 cat3_extent = (6,14, -4,4, 0,5)
 surf_cat3 = mlab.surf(x+10, y, cat3, colormap='Spectral', warp_scale=5, 
             extent=cat3_extent, vmin=-0.5, vmax=0.5)
 mlab.outline(surf_cat3, color=(.7, .7, .7), extent=cat3_extent)
+
+mlab.text(6, -2.5, '3 photons', z=-4, width=0.14)
 
 mlab.title('Multi-photons cats Wigner function')
 
