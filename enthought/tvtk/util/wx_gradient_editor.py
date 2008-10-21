@@ -757,7 +757,11 @@ def make_test_table(lut=False):
         ctf = ColorTransferFunction()
         mins, maxs = 255, 355
         ds = (maxs-mins)/4.0
-        ctf.range = (mins, maxs)
+        try:
+            ctf.range = (mins, maxs)
+        except Exception:
+            # VTK versions < 5.2 don't seem to need this.
+            pass
         ctf.add_rgb_point(mins,      0.00, 0.0, 1.00)
         ctf.add_rgb_point(mins+ds,   0.25, 0.5, 0.75)
         ctf.add_rgb_point(mins+2*ds, 0.50, 1.0, 0.50)

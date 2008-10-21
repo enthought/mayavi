@@ -727,7 +727,11 @@ class GradientTable:
         otf = volume_prop.get_scalar_opacity()
         otf.remove_all_points()
         s1, s2 = scalar_range
-        ctf.range = s1, s2
+        try:
+            ctf.range = s1, s2
+        except Exception:
+            # VTK versions < 5.2 don't seem to need this.
+            pass
         size = s2 - s1
         for point in self.control_points:
             x = s1 + point.pos*size

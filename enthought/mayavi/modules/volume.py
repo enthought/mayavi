@@ -87,7 +87,11 @@ def make_CTF(x1, x2, hue_range=(2.0/3.0, 0.0),
     dsat = sat_range[1] - sat_range[0]
     dval = val_range[1] - val_range[0]
     ctf = ColorTransferFunction()
-    ctf.range = (mins, maxs)
+    try:
+        ctf.range = (mins, maxs)
+    except Exception:
+        # VTK versions < 5.2 don't seem to need this.
+        pass
     if mode == 'sqrt':
         for i in range(n+1):
             # Generate x in [0, 1]
