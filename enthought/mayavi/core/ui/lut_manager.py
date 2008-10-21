@@ -43,10 +43,6 @@ view = View(Group(Item(name='lut_mode',
                           Item(name='use_default_name'),
                           Item(name='data_name',
                                enabled_when='not object.use_default_name'),
-                          Item(name='use_default_range'),
-                          Item(name='data_range',
-                               enabled_when='not object.use_default_range'),
-                          
                           HGroup(
                               Item(name='_title_text_property',
                                    show_label=False,
@@ -56,7 +52,6 @@ view = View(Group(Item(name='lut_mode',
                                    editor=InstanceEditor(label='Edit bar Text'),
                                    label='Edit bar Text'),
                           ),
-
                           HGroup(
                               Item(name='scalar_bar',
                                    show_label=False,
@@ -67,12 +62,16 @@ view = View(Group(Item(name='lut_mode',
                                    editor=InstanceEditor(label='Edit bar Widget'),
                                   ),
                           ),
-                               
                           enabled_when='show_scalar_bar==True',
                       ),    
                       show_border=True,
                   ),
-                       
+                  Group(
+                      Item(name='use_default_range'),
+                      Item(name='data_range',
+                          enabled_when='not object.use_default_range'),
+                      show_border=True,
+                  ),
                   label='LUT (Look Up Table) Manager',
              ),
 
