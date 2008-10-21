@@ -553,20 +553,5 @@ class TestTVTKModule(unittest.TestCase):
                   "Errors occured during this test, see printed messages."
 
 
-def test_suite():
-    """Collects all the tests to be run."""
-    suites = []
-    suites.append(unittest.makeSuite(TestTVTK, 'test_'))
-    suites.append(unittest.makeSuite(TestTVTKModule, 'test_'))
-    total_suite = unittest.TestSuite(suites)
-    return total_suite
-
-def test(verbose=2):
-    """Useful when you need to run the tests interactively."""
-    all_tests = test_suite()
-    runner = unittest.TextTestRunner(verbosity=verbose)
-    result = runner.run(all_tests)
-    return result, runner
-
 if __name__ == "__main__":
     unittest.main()

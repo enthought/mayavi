@@ -226,18 +226,5 @@ class TestVTKParser(unittest.TestCase):
         #print time.clock() - t1, 'seconds'
 
 
-def test_suite():
-    suites = []
-    suites.append(unittest.makeSuite(TestVTKParser, 'test_'))
-    total_suite = unittest.TestSuite(suites)
-    return total_suite
-
-def test(verbose=2):
-    """Useful when you need to run the tests interactively."""
-    all_tests = test_suite()
-    runner = unittest.TextTestRunner(verbosity=verbose)
-    result = runner.run(all_tests)
-    return result, runner
-
 if __name__ == "__main__":
     unittest.main()
