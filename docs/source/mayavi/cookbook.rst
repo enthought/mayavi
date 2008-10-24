@@ -89,3 +89,29 @@ of the above.  The image reader is the first child of the current scene
 and we set it as the ``texture_source_object`` of the isosurface actor.
 
 
+Shifting data and plotting
+---------------------------
+
+Sometimes you need to shift/transform your input data in space and
+visualize that in addition to the original data.  This is useful when
+you'd like to do different things to the same data and see them on the
+same plot.  This can be done with Mayavi using the ``TransformData`` filter
+for ``StructuredGrid``, ``PolyData`` and ``UnstructuredGrid`` datasets.
+Here is an example using the ``ParametricSurface`` data source::
+
+   $ mayavi2 -d ParametricSurface \
+     -m Outline -m Surface \
+     -f TransformData -s "transform.translate(1,1,1)" \
+     -s "widget.set_transform(last_obj.transform)" \
+     -m Outline -m Surface
+
+If you have an ``ImageData`` dataset then you can change the origin,
+spacing and extents alone by using the ``ImageChangeInformation``
+filter.  Here is a simple example with the standard mayavi image data::
+
+    $ mayavi2 -d examples/mayavi/heart.vti -m Outline \
+    -m ImagePlaneWidget \
+    -f ImageChangeInformation \ 
+    -s "filter.origin_translation=(20,20,20)" \
+    -m Outline -m ImagePlaneWidget
+
