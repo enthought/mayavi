@@ -284,6 +284,11 @@ Here is a list of the Mayavi Filters.
           Approximates a height field (image data) with a triangle mesh,
           keeping the number of triangles minimum.
 
+   ImageChangeInformation
+          A filter that can be used to change the origin, spacing and
+          extents of an input image data dataset without changing the
+          data itself.
+
    ImageDataProbe
           A filter that can be used to probe any dataset using a
           Structured Points dataset.  The filter also allows one to

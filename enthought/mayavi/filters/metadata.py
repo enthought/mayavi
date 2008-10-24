@@ -273,6 +273,21 @@ greedy_terrain_decimation_filter = FilterMetadata(
                                attributes=['any'])
 )
 
+image_change_information_filter = FilterMetadata(
+    id            = "ImageChangeInformationFilter",
+    menu_name          = "Change &ImageData information",
+    class_name = BASE + '.image_change_information.ImageChangeInformation',
+    tooltip = "Change the origin, spacing and extents of an image dataset",
+    desc = "Change the origin, spacing and extents of an image dataset",
+    help = "Change the origin, spacing and extents of an image dataset",
+    input_info = PipelineInfo(datasets=['image_data'],
+                              attribute_types=['any'],
+                              attributes=['any']), 
+    output_info = PipelineInfo(datasets=['image_data'],
+                               attribute_types=['any'],
+                               attributes=['any'])
+)
+
 image_data_probe_filter = FilterMetadata(
     id            = "ImageDataProbeFilter",
     menu_name          = "&Probe data onto image data",
@@ -520,6 +535,7 @@ filters = [cell_derivatives_filter,
            extract_vector_components_filter,
            gaussian_splatter_filter,
            greedy_terrain_decimation_filter,
+           image_change_information_filter,
            image_data_probe_filter,
            mask_points_filter,
            point_to_cell_data_filter,
