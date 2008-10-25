@@ -2,15 +2,15 @@
 
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2005, Enthought, Inc.
+# Copyright (c) 2005-2008, Enthought, Inc.
 # License: BSD Style.
 
+import os.path
+
 # Enthought library imports.
-from enthought.traits.api import Instance, Int, Range, Bool, Trait, Array, \
-     Str, Property, List, Enum
-from enthought.traits.ui.api import View, Group, Item, FileEditor, \
-    ImageEnumEditor
-from enthought.tvtk.pyface.api import Scene
+from enthought.traits.api import Instance, Range, Bool, Array, \
+     Str, Property, Enum
+from enthought.traits.ui.api import FileEditor
 from enthought.tvtk.api import tvtk
 
 # Local imports.
@@ -19,7 +19,6 @@ from enthought.mayavi.core.common import error
 from enthought.mayavi.core.lut.pylab_luts import lut_dic as pylab_luts
 
 from enthought.mayavi.core import lut 
-import os
 lut_image_dir = os.path.dirname(lut.__file__)
 
 #################################################################
@@ -37,7 +36,7 @@ def set_lut(vtk_lut, lut_lst):
 
     return vtk_lut
 
-def check_lut_first_line(line):
+def check_lut_first_line(line, file_name=''):
     """Check the line to see if this is a valid LUT file."""
     first = line.split()
     if first[0] != "LOOKUP_TABLE":
@@ -60,7 +59,7 @@ def parse_lut_file(file_name):
     input = open(file_name, "r")
 
     line = input.readline()
-    n_color = check_lut_first_line(line)
+    n_color = check_lut_first_line(line, file_name)
 
     lut = []
     for line in input.readlines():
@@ -164,7 +163,6 @@ class LUTManager(Base):
     data_range = Array(shape=(2,), value=[0.0, 1.0],
                        dtype=float, enter_set=True, auto_set=False,
                        desc='the range of the data mapped')
-
 
     ########################################
     ## Private traits.
@@ -403,12 +401,12 @@ class LUTManager(Base):
                     self.render()
 
     def load_lut_from_list(self, list):
-            self.lut = set_lut(self.lut, list)
-            self.render()
-    
+        self.lut = set_lut(self.lut, list)
+        self.render()
 
     def _get_title_text_property(self):
         return self._title_text_property
 
     def _get_label_text_property(self):
         return self._label_text_property
+
