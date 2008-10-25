@@ -76,14 +76,16 @@ def generate_annulus(r=None, theta=None, z=None):
     return points
 
 # Make the data.
-dims = (25, 51, 25)
-r = linspace(1, 10, dims[0])
-theta = linspace(0, 2*numpy.pi, dims[1])
+dims = (51, 25, 25)
+# Note here that the 'x' axis corresponds to 'theta'
+theta = linspace(0, 2*numpy.pi, dims[0])
+# 'y' corresponds to varying 'r'
+r = linspace(1, 10, dims[1])
 z = linspace(0, 5, dims[2])
 pts = generate_annulus(r, theta, z)
 # Uncomment the following if you want to add some noise to the data.
-#pts += numpy.random.randn(dims[1]*dims[0]*dims[2], 3)*0.04
-sgrid = tvtk.StructuredGrid(dimensions=(dims[1], dims[0], dims[2]))
+#pts += numpy.random.randn(dims[0]*dims[1]*dims[2], 3)*0.04
+sgrid = tvtk.StructuredGrid(dimensions=dims)
 sgrid.points = pts
 s = sqrt(pts[:,0]**2 + pts[:,1]**2 + pts[:,2]**2)
 sgrid.point_data.scalars = numpy.ravel(s.copy())
