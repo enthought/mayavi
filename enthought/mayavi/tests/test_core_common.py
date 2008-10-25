@@ -70,6 +70,20 @@ class TestCoreCommon(unittest.TestCase):
         self.assertEqual(e, get_engine(o.module_manager))
         self.assertEqual(e, get_engine(o1.module_manager))
 
+    def test_remove(self):
+        "Does obj.remove() work correctly"
+        # Fails only when the current object is the one that is removed.
+        self.e.current_object = self.o1
+        mm = self.o1.module_manager
+        # Remove the object.
+        self.o1.remove()
+        # Now add another object.
+        o1 = Outline()
+        self.e.add_module(o1)
+        # Is it really added?
+        self.assertEqual(o1.module_manager, mm)
+        self.assertEqual(o1.parent, mm)
+
 
 if __name__ == '__main__':
     unittest.main()

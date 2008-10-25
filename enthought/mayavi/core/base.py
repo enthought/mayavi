@@ -26,6 +26,7 @@ from enthought.scripting.api import Recorder
 
 # Local imports.
 from enthought.mayavi.preferences.api import preference_manager
+from enthought.mayavi.core.common import get_engine
 
 # Setup a logger for this module.
 logger = logging.getLogger(__name__)
@@ -217,7 +218,10 @@ class Base(TreeNodeObject):
         """Remove ourselves from the mayavi pipeline.
         """
         if self.parent is not None:
+            e = get_engine(self)
             self.parent.remove_child(self)
+            if e.current_object is self:
+                e.current_object = self.parent
     
     def render(self):
         """Invokes render on the scene, this in turn invokes Render on
