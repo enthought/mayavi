@@ -83,6 +83,14 @@ def _create_viewer():
     v.scene.background = (0,0,0)
     GUI.process_events()
     return v
+
+def set_viewer(viewer):
+    """Set the global viewer.  Handy if you need to use visual from your
+    own viewer.  Pass an object that has a `scene` trait containing a
+    tvtk scene instance.
+    """
+    global _viewer
+    _viewer = viewer
         
 def get_viewer():
     """ Creates and returns an ivtk viewer. If the fuction is called
@@ -299,7 +307,7 @@ class VTimer(Timer):
     def Notify(self):
         """Overridden to call the given callable.
         """
-        if self.viewer.control is None:
+        if hasattr(self.viewer, 'control') and self.viewer.control is None:
             # The viewer has been closed stopping iterations.
             print "Stopping iterations since the viewer has been closed."
             self.Stop()
@@ -448,7 +456,9 @@ class Frame(HasTraits):
                              Item(name = 'z', label = 'Pos Z'),                             
                              Item(name = 'visibility'),
                              label = 'Frame Properties',
-                             show_border = True))
+                             show_border = True),
+                             buttons=['OK'],
+                             )
 
     def __init__(self, *arguments, **traits):
         self.arg = list(arguments)
@@ -558,7 +568,9 @@ class Curve(HasTraits):
                              Item(name = 'z', label = 'Pos Z'),
                              Item(name = 'representation'),
                              label = 'Curve Properties',
-                             show_border = True))
+                             show_border = True),
+                             buttons=['OK'],
+                             )
     
     def __init__(self, **traits):
         self.property = self.actor.property
@@ -727,7 +739,9 @@ class Ring(HasTraits):
                              Item(name = 'visibility'),
                              Item(name = 'representation'), 
                              label = 'Ring Properties',
-                             show_border = True))
+                             show_border = True),
+                             buttons=['OK'],
+                        )
 
     def __init__(self, **traits):
         self.property = self.actor.property
@@ -902,7 +916,9 @@ class Cone(HasTraits):
                              Item(name = 'visibility'),
                              Item(name = 'representation'), 
                              label = 'Cone Properties',
-                             show_border = True))
+                             show_border = True),
+                             buttons=['OK'],
+                             )
 
     def __init__(self, **traits):
         self.property = self.actor.property
@@ -1048,7 +1064,9 @@ class Sphere(HasTraits):
                              Item(name = 'visibility'),
                              Item(name = 'representation'), 
                              label = 'Sphere Properties',
-                             show_border = True))
+                             show_border = True),
+                             buttons=['OK'],
+                             )
 
     def __init__(self, **traits):
         self.property = self.actor.property
@@ -1191,7 +1209,9 @@ class Cylinder(HasTraits):
                              Item(name = 'visibility'),
                              Item(name = 'representation'), 
                              label = 'Cylinder Properties',
-                             show_border = True))
+                             show_border = True),
+                             buttons=['OK'],
+                             )
 
     def __init__(self, **traits):
         self.property = self.actor.property
@@ -1348,7 +1368,9 @@ class Box(HasTraits):
                              Item(name = 'visibility'),
                              Item(name = 'representation'),
                              label = 'Box Properties',
-                             show_border = True))
+                             show_border = True),
+                             buttons = ['OK'], 
+                             )
 
     def __init__(self, **traits):
         self.property = self.actor.property        
@@ -1509,7 +1531,7 @@ class Arrow(HasTraits):
                              Item(name = 'visibility'),
                              Item(name = 'representation'),
                              label = 'Arrow Properties',
-                             show_border = True))
+                             show_border = True), buttons=['OK'])
 
     def __init__(self, **traits):
         self.property = self.actor.property
@@ -1671,7 +1693,7 @@ class Helix(HasTraits):
                              Item(name = 'visibility'),
                              Item(name = 'representation'), 
                              label = 'Helix Properties',
-                             show_border = True))
+                             show_border = True), buttons=['OK'])
 
     def __init__(self, **traits):
         self.property = self.actor.property
@@ -1885,7 +1907,7 @@ class Ellipsoid(HasTraits):
                              Item(name = 'visibility'),
                              Item(name = 'representation'),
                              label = 'Ellipsoid Properties',
-                             show_border = True))
+                             show_border = True), buttons=['OK'])
 
     def __init__(self, **traits):
         self.property = self.actor.property
