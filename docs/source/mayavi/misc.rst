@@ -5,20 +5,38 @@ Miscellaneous
 Tests for Mayavi2
 -----------------
 
-Mayavi features a few simple tests.  These are in the ``tests``
-directory.  The testing is performed using the same technique that
-VTK_ employs.  Basically, a visualization is scripted and the
-resulting visualization window is captured and compared with an
-existing test image.  If there are differences in the images then
-there is an error, if not the test passes.  The test cases are
-themselves relatively simple and the magic of the actual generation of
-test images etc. is all in the ``tests/common.py`` module.
+Mayavi consists of two main packages, ``enthought.tvtk`` and
+``enthought.mayavi``.  ETS uses nose_ to gather and run tests.  To run
+the unit tests of both packages simply do the following from the root of
+the mayavi source directory::
 
-To run a test you may do something like the following::
+  $ nosetests
+  ----------------------------------------------------------------------
+  Ran 170 tests in 39.254s
 
- $ cd tests
- $ python test_array_source.py
+  OK (SKIP=1)
 
+If you get an "ERROR" regarding the unavailability of coverage you may
+safely ignore it.  If for some reason nose is having difficulty running
+the tests, the tests may be found inside ``enthought/tvtk/tests`` and
+``enthought/mayavi/tests``.  You can run each of the ``test_*.py`` files
+in these directories manually, or change your current directory to these
+directories and run ``nosetests`` there.
+
+In addition to these unittests mayavi also has several integration
+tests.  These are in the ``integrationtests/mayavi`` directory.  You may
+run the tests there like so::
+
+ $ ./run.py
+
+These tests are intrusive and will create several mayavi windows and
+also take a while to complete.  Some of them may fail on your machine
+for various reasons.
+
+
+.. _nose: http://somethingaboutorange.com/mrl/projects/nose/
+
+.. _getting-help:
 
 Getting help
 ------------
@@ -33,13 +51,13 @@ Discussion and bug reports are also sometimes sent to the mayavi-users
 mailing list (Mayavi-users@lists.sourceforge.net).  We recommend
 sending messages to the enthought-dev list though.
 
-The Mayavi web page: https://svn.enthought.com/enthought/wiki/MayaVi
+The Mayavi wiki page: https://svn.enthought.com/enthought/wiki/MayaVi
 
 is a trac page where one can also enter bug reports and feature
 requests.
 
-If this manual, the mayavi web page and google are of no help feel
-free to post on the enthought-dev mailing list for help.
+If this manual, the mayavi web page, the wiki page and google are of no
+help feel free to post on the enthought-dev mailing list for help.
 
 
 Helping out
@@ -49,7 +67,6 @@ We are always on the lookout for people to help this project grow.
 Feel free to send us patches -- these are best sent to the mailing
 list.  Thanks!
 
-.. _VTK: http://www.vtk.org
 
 ..
    Local Variables:

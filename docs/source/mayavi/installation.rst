@@ -3,10 +3,10 @@
 Installation
 ============
 
-Up-to-date install instructions are always available at the Mayavi2_
-web page.  The following instructions are likely not up-to-date but
-should give you a good idea of the general installation procedure and
-a start on where to look.
+Up-to-date install instructions for the latest version of mayavi are
+always available from links at the Mayavi2_ wiki page.  The following
+will give you a good idea of the general installation procedure and a
+start on where to look for more information.
 
 .. _Mayavi2: https://svn.enthought.com/enthought/wiki/MayaVi
 
@@ -14,22 +14,30 @@ Installing ready-made distributions
 ------------------------------------
 
 :Windows:
-     Under Window the best way to install Mayavi is to
-     install a full Python distribution, such as EPD_ or Pythonxy_. Note
-     that Pythonxy has a `special download
+     Under Window the best way to install Mayavi is to install a full
+     Python distribution, such as EPD_ or Pythonxy_. Note that Pythonxy
+     has a `special download
      <http://www.pythonxy.com/dl.php?file=windows/Python(x,y)-ETS-3.0.2.2.zip>`_
-     with only the requirement for Mayavi and the rest of ETS that can be
-     seen as an installer.
+     which provides a complete installer for Mayavi and all its
+     dependencies and is a much smaller download than EPD or the full
+     Pythonxy install.
 
 :MacOSX:
     The full Python distribution EPD_ (that includes Mayavi) is also
-    available for MacOSX. unless you really enjoy the intricacies of
+    available for MacOSX.  Unless you really enjoy the intricacies of
     compilation, this is the best solution to install Mayavi.
 
 :Ubuntu or Debian:
-     Mayavi is packaged in debian and Ubuntu. In addition, packages of
+     Mayavi is packaged in Debian and Ubuntu. In addition, packages of
      the latest Mayavi release for the stable version of Ubuntu are
-     available at https://launchpad.net/~gael-varoquaux/+archive
+     available at https://launchpad.net/~gael-varoquaux/+archive .
+     Experimental Debian packages are also available at
+     http://newpeople.debian.org/~varun/ .
+
+:RedHat EL3 and EL4:
+    The full Python distribution EPD_ (that includes Mayavi) is also
+    available for RHEL3 and 4.
+
 
 Requirements
 ------------
@@ -46,22 +54,23 @@ The following requirements are really optional but strongly recommended,
 especially if you are new to mayavi:
 
     * Envisage_ == 3.x (`EnvisageCore` and `EnvisagePlugins`)
-    * wxPython_ 2.6.x or 2.8.x
+    * wxPython_ 2.8.x
+    * configobj_
 
 One can install the requirements in several ways.  
 
-   * Windows and MacOSX: even if you want to buid, a good way to install
-     the requirements is to install one of the distributions indicated
-     above. Note that under Windows, EPD_ comes with a compiler (mingw)
-     and facilitates building Mayavi.
+   * Windows and MacOSX: even if you want to build from source, a good
+     way to install the requirements is to install one of the
+     distributions indicated above. Note that under Windows, EPD_ comes
+     with a compiler (mingw) and facilitates building Mayavi.
 
    * Linux: Most Linux distributions will have installable binaries
      available for the some of the above.  For example, under Debian_ or
      Ubuntu_ you would need ``python-vtk``, ``python-wxgtk2.6``,
-     ``python-setuptools``, ``python-numpy``.  More information on
-     specific distributions and how you can get the requirements for
-     each of these should be available from the list of distributions
-     here:
+     ``python-setuptools``, ``python-numpy``, ``python-configobj``.
+     More information on specific distributions and how you can get the
+     requirements for each of these should be available from the list of
+     distributions here:
 
         https://svn.enthought.com/enthought/wiki/Install
 
@@ -85,9 +94,21 @@ are described in the following.
 .. _numpy: http://numpy.scipy.org
 .. _EPD: http://www.enthought.com/products/epd.php
 .. _Pythonxy: http://www.pythonxy.com
+.. _configobj: http://pypi.python.org/pypi/ConfigObj/
 
 Python packages: Eggs
 -----------------------
+
+First make sure you have the prerequisites for Mayavi installed, i.e.
+the following packages:
+
+    * VTK_ >= 4.4 (5.x is ideal)
+    * numpy_ >= 1.0.1
+    * wxPython_ >= 2.8.0
+    * configobj_
+    * setuptools_ (for installation and egg builds; later the better)
+
+More details are in the previous section.
 
 Mayavi2_ is part of the Enthought Tool Suite (ETS_).  As such, it is
 distributed as part of ETS and therefore binary packages and source
@@ -109,8 +130,7 @@ There are primarily two ways to use ETS eggs.
   2. The second is to build the eggs from the source tarballs.  This is
      also fairly easy to do if you have a proper build environment.
 
-
-To install easy eggs, first make sure the requirements are installed, and
+To install eggs, first make sure the requirements are installed, and
 then build and install the eggs like so::
 
  $ easy_install "Mayavi[app]" 
@@ -118,13 +138,14 @@ then build and install the eggs like so::
 This one command will download, build and install all the required
 ETS related modules that mayavi needs for the latest ETS release.
 If you run into trouble please check the `Enthought Install`_ pages.
-Amongst the common sources of problems during an instal, there is the
-presence of older versions of packages such as traits, mayavi, envisage
-or tvtk. Make sure that you clean you site-packages before installing a
-new version of Mayavi. Another problem often encountered is running into
+
+One common sources of problems during an install, is the presence of
+older versions of packages such as traits, mayavi, envisage or tvtk.
+Make sure that you clean you ``site-packages`` before installing a new
+version of Mayavi. Another problem often encountered is running into
 what is probably a bug of the build system that appears as a "sandbox
-violation". In this case, it can be useful to try the download and instal
-command a few times.
+violation". In this case, it can be useful to try the download and
+install command a few times.
 
 Given this background please see the following:
 
@@ -160,7 +181,8 @@ get the latest development sources.
      $ cd ETSProjectTools
      $ python setup.py install
 
-    This will give you the useful scripts ``ets``.
+    This will give you the useful scripts ``ets``.  For more details on
+    the tool and various options check the ETSProjectTools_ wiki page.
 
  2. To get just the sources for mayavi and all its dependencies do this::
 
@@ -189,21 +211,16 @@ get the latest development sources.
     develop`` applied to each package.  
  
  4. Alternatively, you may want to build binary eggs, of the sources.
-    At this time ETSProjectTools does not provide a build script,
-    however you can use the ``egg_builder.py`` script from here::
+    The ``ets bdist`` command can be used to build eggs like so (here we
+    assume that ``ets co`` checked out the sources into ``ets-3.0.3``)::
 
-      $ svn cat https://svn.enthought.com/svn/enthought/sandbox/egg_builder.py \
-            > egg_builder.py
-
-    This script can be used to build eggs like so (here we assume that
-    ``ets co`` checked out the sources into ``ets-3.0.3``)::
-
-      $ cd ets-3.0.2
-      $ python ../egg_builder.py
+      $ cd ets-3.0.3
+      $ ets bdist
 
     This will build all the eggs and put them inside a ``dist``
-    subdirectory.  The mayavi development egg and its dependencies  may
-    be installed via::
+    subdirectory.  Run ``ets bdist -h`` for more bdist related options.
+    The mayavi development egg and its dependencies  may be installed
+    via::
 
       $ easy_install -f dist "Mayavi[app]"
 
@@ -248,6 +265,12 @@ illustrating various features.  Tests are available in the
 ``enthought.mayavi*/tests`` sub-directory.
 
 
+Troubleshooting
+----------------
+
+If you are having trouble with the installation you may want to check
+the :ref:`getting-help` page for more details on how you can search for
+information or email the mailing list.
 
 ..
    Local Variables:
