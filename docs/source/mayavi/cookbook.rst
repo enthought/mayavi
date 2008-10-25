@@ -109,7 +109,7 @@ If you have an ``ImageData`` dataset then you can change the origin,
 spacing and extents alone by using the ``ImageChangeInformation``
 filter.  Here is a simple example with the standard mayavi image data::
 
-    $ mayavi2 -d examples/mayavi/heart.vti -m Outline \
+    $ mayavi2 -d examples/mayavi/data/heart.vti -m Outline \
     -m ImagePlaneWidget \
     -f ImageChangeInformation \ 
     -s "filter.origin_translation=(20,20,20)" \
