@@ -57,6 +57,17 @@ from a Python script::
    []
    >>> preference_manager.configure_traits() # Pop up a UI.
 
+For more details on how best to write ``user_mayavi.py`` files and what
+you can do in them, please refer to the
+`examples/mayavi/user_mayavi.py`_ example.  Please pay particular
+attention to the warnings in that file.  It is a very good idea to
+ensure that the ``user_mayavi.py`` does not implement any
+sources/modules/filters and only registers the metadata.  This will
+avoid issues with circular imports. 
+
+
+.. _`examples/mayavi/user_mayavi.py`: https://svn.enthought.com/enthought/browser/Mayavi/trunk/examples/mayavi/user_mayavi.py
+
 
 Customizing Mayavi2
 --------------------
