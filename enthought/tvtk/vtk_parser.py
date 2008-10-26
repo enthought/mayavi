@@ -208,6 +208,10 @@ class VTKMethodParser:
             ignore.extend(['GetProp', 'SetProp'])
         if 'GetViewProps' in methods and 'GetProps' in methods:
             ignore.extend(['GetProps', 'SetProps'])
+        # Remove any deprecated traits.
+        if 'GetScaledText' in methods and 'GetTextScaleMode' in methods:
+            ignore.extend(['GetScaledText', 'SetScaledText',
+                           'ScaledTextOn', 'ScaledTextOff'])
 
         # Now we can safely remove the methods.
         for m in methods[:]:

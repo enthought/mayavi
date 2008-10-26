@@ -16,6 +16,8 @@ from enthought.persistence import state_pickler
 from enthought.mayavi.core.module import Module
 from enthought.mayavi.core.pipeline_info import PipelineInfo
 
+VTK_VER = float(tvtk.Version().vtk_version[:3])
+
 
 ######################################################################
 # `Text` class.
@@ -64,13 +66,22 @@ class Text(Module):
     ########################################
     # The view of this object.
 
-    _text_actor_group = Group(Item(name='visibility'),
-                              Item(name='scaled_text'),
-                              Item(name='alignment_point'),
-                              Item(name='minimum_size'),
-                              Item(name='maximum_line_height'),
-                              show_border=True,
-                              label='Text Actor')
+    if VTK_VER > 5.1:
+        _text_actor_group = Group(Item(name='visibility'),
+                                  Item(name='text_scale_mode'),
+                                  Item(name='alignment_point'),
+                                  Item(name='minimum_size'),
+                                  Item(name='maximum_line_height'),
+                                  show_border=True,
+                                  label='Text Actor')
+    else:
+        _text_actor_group = Group(Item(name='visibility'),
+                                  Item(name='scaled_text'),
+                                  Item(name='alignment_point'),
+                                  Item(name='minimum_size'),
+                                  Item(name='maximum_line_height'),
+                                  show_border=True,
+                                  label='Text Actor')
 
     _position_group_2d = Group(Item(name='_x_position_2d', 
                                     label='X position'),
@@ -138,9 +149,11 @@ class Text(Module):
         dependent on upstream sources and filters.  You should also
         set the `actors` attribute up at this point.
         """
-        actor = self.actor = tvtk.TextActor(scaled_text=True,
-                                            width=0.4,
-                                            height=1.0)
+        actor = self.actor = tvtk.TextActor(input=str(self.text))
+        if VTK_VER > 5.1:
+            actor.set(text_scale_mode='prop', width=0.4, height=1.0)
+        else:
+            actor.set(scaled_text=True, width=0.4, height=1.0)
 
         c = actor.position_coordinate
         c.set(coordinate_system='normalized_viewport',

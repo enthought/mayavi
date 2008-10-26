@@ -107,6 +107,7 @@ from enthought.tvtk.tools import ivtk
 # Set this to False to not use LOD Actors.
 USE_LOD_ACTOR = True
 
+VTK_VER = float(tvtk.Version().vtk_version[:3])
 
 ######################################################################
 # Utility functions.
@@ -638,7 +639,10 @@ class Title(MLabBase):
         super(Title, self).__init__(**traits)
 
         ta = self.text_actor
-        ta.set(scaled_text=True, height=0.05, input=self.text)
+        if VTK_VER > 5.1:
+            ta.set(text_scale_mode='prop', height=0.05, input=self.text)
+        else:
+            ta.set(scaled_text=True, height=0.05, input=self.text)
         pc = ta.position_coordinate
         pc.coordinate_system = 'normalized_viewport'
         pc.value = 0.25, 0.925, 0.0
