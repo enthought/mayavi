@@ -70,6 +70,35 @@ cdef c_set_id_type_array(ndarray id_array, ndarray out_array):
         for j from 0 <= j < cell_length:
             out_data[out_idx + j + 1] = id_data[in_idx + j*stride1]
 
+cdef c_set_id_type_array_long(ndarray id_array, ndarray out_array):
+    # This function sets the data of the passed 2D `id_array` into the
+    # passed out_array such that out_array can be used as a
+    # `vtkIdTypeArray`.
+    #
+    # `id_array` need not be contiguous.
+    #
+    # No type or size checking is done here.  All that is done in the
+    # Python function upstream that calls this.
+    
+    cdef int cell_length, dim0
+    cdef long *id_data
+    cdef long *out_data
+    cdef long stride0, stride1
+
+    cell_length = id_array.dimensions[1];
+    dim0 = id_array.dimensions[0]
+    id_data = <long*> id_array.data
+    out_data = <long*> out_array.data
+    stride0 = id_array.strides[0]/sizeof(long)
+    stride1 = id_array.strides[1]/sizeof(long)
+
+    cdef int i, j, in_idx, out_idx
+    for i from 0 <= i < dim0:
+        in_idx = i*stride0
+        out_idx = i*cell_length + i
+        out_data[out_idx] = cell_length
+        for j from 0 <= j < cell_length:
+            out_data[out_idx + j + 1] = id_data[in_idx + j*stride1]
 
 ######################################################################
 # Exported (externally visible) functions.
@@ -103,5 +132,12 @@ def set_id_type_array(id_array, out_array):
     e_sz = shp[0]*(shp[1]+1)
     assert sz == e_sz, \
            "out_array size is incorrect, expected: %s, given: %s"%(e_sz, sz)
-       
-    c_set_id_type_array(id_array, out_array)
+    
+    if VTK_ID_TYPE_SIZE == 4:
+        c_set_id_type_array(id_array, out_array)
+    elif VTK_ID_TYPE_SIZE == 8:
+        c_set_id_type_array_long(id_array, out_array)
+    else:
+        raise ValueError('Unsupported VTK_ID_TYPE_SIZE=%d'\
+                         %VTK_ID_TYPE_SIZE)
+

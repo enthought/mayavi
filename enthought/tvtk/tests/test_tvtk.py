@@ -399,7 +399,10 @@ class TestTVTK(unittest.TestCase):
             self.assertEqual(i, j)
         self.assertEqual(f[-1], 3)
         self.assertEqual(f[0], 0)
-        self.assertEqual(repr(f), '[0, 1, 2, 3]')
+        if type(f[0]) is long:
+            self.assertEqual(repr(f), '[0L, 1L, 2L, 3L]')
+        else:
+            self.assertEqual(repr(f), '[0, 1, 2, 3]')
         f.append(4)
         f.extend([5, 6])
         self.assertEqual(len(f), 7)
