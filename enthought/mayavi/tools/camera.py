@@ -173,29 +173,24 @@ def view(azimuth=None, elevation=None, distance=None, focalpoint=None):
     will give you a typical x-y plot with x varying from left to right
     and y from bottom to top. 
 
-    Parameters
-    -----------
+    **Keyword arguments**:
 
-    azimuth : float, optional
-        The azimuthal angle (in degrees, 0-360), i.e. the angle
-        subtended by the position vector on a sphere projected on to the
-        x-y plane with the x-axis.
+     :azimuth: float, optional. The azimuthal angle (in degrees, 0-360),
+        i.e. the angle subtended by the position vector on a sphere
+        projected on to the x-y plane with the x-axis.
 
-    elevation : float, optional
-        The zenith angle (in degrees, 0-180), i.e. the angle subtended
-        by the position vector and the z-axis. 
+     :elevation: float, optional. The zenith angle (in degrees, 0-180),
+        i.e. the angle subtended by the position vector and the z-axis. 
 
-    distance : float, optional
-        A positive floating point number representing the distance from
-        the focal point to place the camera
-
-    focalpoint : array_like, optional
-        An array of 3 floating point numbers representing the focal
-        point of the camera. 
+     :distance: float, optional. A positive floating point number
+        representing the distance from the focal point to place the
+        camera.
+ 
+     :focalpoint: array_like, optional.  An array of 3 floating point
+        numbers representing the focal point of the camera. 
 
 
-    Returns
-    --------
+    **Returns**:
 
     If no arguments are supplied it returns a tuple of 4 values
     ``(azimuth, elevation, distance, focalpoint)``, representing the
@@ -203,8 +198,7 @@ def view(azimuth=None, elevation=None, distance=None, focalpoint=None):
     
     If arguments are supplied it returns `None`.
 
-    Examples
-    ---------
+    **Examples**:
 
     Get the current view::
 
