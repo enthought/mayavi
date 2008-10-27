@@ -6,9 +6,21 @@ URL:
     https://svn.enthought.com/enthought/changeset/18702
 -----------------------------------------------------------------------------
 
-19 October, 2008 (GV)
-    -ENH: mlab.text can now take 3D positioning [22331].
 
+24-27 October, 2008 (PR)
+    - NEW: Adding an ImageChangeInformation filter to let users change
+      the origin, spacing and extents of input image data, [22351].
+    - API: Adding a `set_viewer` function to
+      `enthought.tvtk.tools.visual` so one may specify a viewer to
+      render into.  This lets us use visual with a mayavi scene. [22363]
+    - BUG: Fix a major bug with TVTK when VTK is built with 64 bit ids
+      (VTK_USE_64BIT_IDS is on).  The examples and tests should all run
+      in this case now. [22365]
+    - ENH: [mlab] Added an `mlab.view` method that actually works
+      [22366].
+
+19 October, 2008 (GV)
+    - ENH: mlab.text can now take 3D positioning [22331].
 
 17-20 October, 2008 (PR)
     - ENH: Modified TVTK and Mayavi UI editors so that text entry boxes
@@ -20,6 +32,9 @@ URL:
       packages (via a pkg/user_mayavi.py) in mayavi.  Also added a
       contrib finder that trawls sys.path to find contributions.  This
       can be set from the preferences UI. [22324], [22326], [22327].
+    - BUG: Fixing problems with the gradient_editor and newer VTK
+      versions.  This is required for the Volume module to work
+      correctly. [22329], [22341]
 
 13 October, 2008 (GV):
     - ENH: Bind the 'explore' function in the python shell [22307]
