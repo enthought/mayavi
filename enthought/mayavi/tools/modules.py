@@ -183,7 +183,9 @@ glyph_mode_dict = {'2darrow': 0, '2dcircle':0, '2dcross':0,
 
 ##############################################################################
 class VectorsFactory(DataModuleFactory):
-    """Applies the Vectors mayavi module to the given VTK data object."""
+    """Applies the Vectors mayavi module to the given data object
+        source (Mayavi source, or VTK dataset).
+    """ 
 
     _target = Instance(modules.Vectors, ())
 
@@ -243,7 +245,9 @@ vectors = make_function(VectorsFactory)
 
 ##############################################################################
 class GlyphFactory(VectorsFactory):
-    """Applies the Glyph mayavi module to the given VTK data object."""
+    """Applies the Glyph mayavi module to the given VTK data
+        source (Mayavi source, or VTK dataset).
+    """ 
 
     _target = Instance(modules.Glyph, ())
 
@@ -284,7 +288,9 @@ streamline = make_function(StreamlineFactory)
 
 ##############################################################################
 class SurfaceFactory(DataModuleFactory):
-    """Applies the Surface mayavi module to the given VTK data object."""
+    """Applies the Surface mayavi module to the given data 
+        source (Mayavi source, or VTK dataset).
+    """ 
     _target = Instance(modules.Surface, ())
 
     representation = Trait('surface', 'wireframe', 'points',
@@ -297,7 +303,9 @@ surface = make_function(SurfaceFactory)
 
 ##############################################################################
 class IsoSurfaceFactory(ContourModuleFactory):
-    """Applies the IsoSurface mayavi module to the given VTK data object."""
+    """Applies the IsoSurface mayavi module to the given data
+        source (Mayavi source, or VTK dataset).
+    """ 
     _target = Instance(modules.IsoSurface, ())
 
 
@@ -306,8 +314,9 @@ iso_surface = make_function(IsoSurfaceFactory)
 
 ##############################################################################
 class ContourSurfaceFactory(ContourModuleFactory):
-    """Applies the Surface mayavi module to the given VTK data object, 
-       and turns contours on."""
+    """Applies the Surface mayavi module to the given data
+       source (Mayavi source, or VTK dataset) and turns contours on.
+    """
     _target = Instance(modules.Surface, ())
 
     def __init__(self, *args, **kwargs):
@@ -337,7 +346,7 @@ image_actor = make_function(ImageActorFactory)
 ##############################################################################
 class ImagePlaneWidgetFactory(DataModuleFactory):
     """ Applies the ImagePlaneWidget mayavi module to the given data
-        source. 
+        source (Mayavi source, or VTK dataset). 
     """
     _target = Instance(modules.ImagePlaneWidget, ())
 
@@ -358,7 +367,7 @@ image_plane_widget = make_function(ImagePlaneWidgetFactory)
 ##############################################################################
 class ScalarCutPlaneFactory(DataModuleFactory):
     """ Applies the ScalarCutPlane mayavi module to the given data
-        source. 
+        source (Mayavi source, or VTK dataset). 
     """
     _target = Instance(modules.ScalarCutPlane, ())
 
@@ -382,8 +391,9 @@ scalar_cut_plane = make_function(ScalarCutPlaneFactory)
 
 ##############################################################################
 class ContourGridPlaneFactory(ContourModuleFactory):
-    """Applies the ContourGridPlane mayavi module to the given VTK data
-    object."""
+    """ Applies the ContourGridPlane mayavi module to the given data
+        source (Mayavi source, or VTK dataset).
+    """
     _target = Instance(modules.ContourGridPlane, ())
 
 contour_grid_plane = make_function(ContourGridPlaneFactory)
@@ -391,8 +401,9 @@ contour_grid_plane = make_function(ContourGridPlaneFactory)
 
 ##############################################################################
 class CustomGridPlaneFactory(ContourModuleFactory):
-    """Applies the CustomGridPlane mayavi module to the given VTK data
-    object."""
+    """ Applies the CustomGridPlane mayavi module to the given VTK data
+        source (Mayavi source, or VTK dataset).
+    """
     _target = Instance(modules.CustomGridPlane, ())
 
 custom_grid_plane = make_function(CustomGridPlaneFactory)

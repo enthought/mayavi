@@ -6,6 +6,14 @@ URL:
     https://svn.enthought.com/enthought/changeset/18702
 -----------------------------------------------------------------------------
 
+27 October, 2008 (GV)
+    - ENH: [mlab] If a module or filter is added to the pipeline usingng
+      the mlab.pipeline functions, the source on which it is added
+      onto is automatically added to the scene if not alread present. It 
+      is also automatically converted from a tvtk dataset to a mayavi
+      source, if needed. [22375]
+    - ENH: [mlab] Make mlab.axes and mlab.outline use the extents of the 
+      current object when none specified explicitely. [22372]
 
 24-27 October, 2008 (PR)
     - NEW: Adding an ImageChangeInformation filter to let users change
