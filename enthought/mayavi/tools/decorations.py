@@ -152,7 +152,7 @@ class SingletonModuleFactory(ModuleFactory):
         if len(args)==1:
             (parent, ) = args
         elif len(args)==0:
-            parent = None
+            parent = self._engine.current_object
         else:
             raise ValueError, "Wrong number of arguments"
 
