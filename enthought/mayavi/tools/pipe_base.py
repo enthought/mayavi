@@ -12,6 +12,7 @@ from enthought.traits.api import HasPrivateTraits, Str, TraitError,\
             Instance
 from enthought.mayavi.core.filter import Filter
 from enthought.mayavi.core.engine import Engine
+from enthought.mayavi.core.source import Source
 
 import tools
 from engine_manager import get_engine
@@ -49,6 +50,12 @@ class PipeFactory(HasPrivateTraits):
         self._scene = tools.gcf()
         self._engine = get_engine()
         scene = self._scene.scene
+        if isinstance(parent, Source):
+            # Search the current scene to see if the source is already
+            # in it, if not add it.
+            if not parent in self._scene.children:
+                parent = tools.add_dataset(parent)
+        
         if scene is not None:
             scene.disable_render = True
         if issubclass(self._target.__class__, Filter):
