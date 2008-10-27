@@ -302,16 +302,16 @@ class VTimer(Timer):
     def __init__(self, millisecs, callable, *args, **kw_args):
         #Initializing the init method of parent class Timer
         Timer.__init__(self, millisecs, callable, *args, **kw_args)
-        self.viewer = get_viewer()        
+        self.viewer = get_viewer()
+        self.viewer.on_trait_change(self._close, 'closing')
+
+    def _close(self):
+        self.Stop()
+        print "Stopping iterations since the viewer has been closed."
         
     def Notify(self):
         """Overridden to call the given callable.
         """
-        if hasattr(self.viewer, 'control') and self.viewer.control is None:
-            # The viewer has been closed stopping iterations.
-            print "Stopping iterations since the viewer has been closed."
-            self.Stop()
-            return
         try:
             self.callable(*self.args, **self.kw_args)
         except StopIteration:
