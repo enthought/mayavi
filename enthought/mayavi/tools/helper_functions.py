@@ -593,22 +593,23 @@ class Surf(Pipeline):
             zi = zo + si * kwargs['warp_scale'] 
             zf = zi + z_span
             kwargs['extent'] = (xi, xf, yi, yf, zi, zf)
+            kwargs['warp_scale'] = 1
+        elif self.warp_scale == 'auto' \
+                        and kwargs.get('warp_scale', 'auto') == 'auto':
+            if 'extent' in kwargs:
+                if 'warp_scale' in kwargs:
+                    print "Warning: extent specified, warp_scale='auto' " \
+                    "ignored."
+            else:
+                try:
+                    xi, xf, yi, yf, _, _ = self.source.data.bounds
+                    zi, zf = self.source.data.scalar_range
+                except AttributeError:
+                    xi, xf, yi, yf, _, _ = self.source.image_data.bounds
+                    zi, zf = self.source.image_data.scalar_range
+                zf = 0.3*((xf - xi) + (yf - yi))
+                kwargs['extent'] = (xi, xf, yi, yf, zi, zf)
             kwargs['warp_scale'] = 1.
-        elif self.warp_scale == 'auto':
-                if 'extent' in kwargs:
-                    if 'warp_scale' in kwargs:
-                        print "Warning: extent specified, warp_scale='auto' " \
-                        "ignored."
-                else:
-                    try:
-                        xi, xf, yi, yf, _, _ = self.source.data.bounds
-                        zi, zf = self.source.data.scalar_range
-                    except AttributeError:
-                        xi, xf, yi, yf, _, _ = self.source.image_data.bounds
-                        zi, zf = self.source.image_data.scalar_range
-                    zf = 0.3*((xf - xi) + (yf - yi))
-                    kwargs['extent'] = (xi, xf, yi, yf, zi, zf)
-                kwargs['warp_scale'] = 1.
         self.store_kwargs(kwargs)
 
         # Copy the pipeline so as not to modify it for the next call
