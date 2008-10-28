@@ -16,7 +16,7 @@ Mayavi's mlab is designed to be used in a manner well suited to
 scripting and does not present a fully object-oriented API.
 It is can be used interactively with IPython_.
 
-.. note:: 
+.. warning:: 
 
     IPython must be invoked with the ``-wthread`` command line option like so::
 
@@ -80,9 +80,8 @@ numpy arrays.
 .. note:: 
 
     In this section, we only list the different functions. Each function
-    is described in details in the :ref:`mlab-reference`, the next 
-    section of the user guide, with figures and examples. Please follow
-    the links.
+    is described in details in the :ref:`mlab-reference`, at the end of
+    the user guide, with figures and examples. Please follow the links.
 
 The mlab plotting functions take numpy arrays as input, describing the
 ``x``, ``y``, and ``z`` coordinates of the data. They build full-blown
@@ -142,6 +141,14 @@ module.
     Finally, the :func:`triangular_mesh` function creates a mesh with 
     arbitrary topology, given position of the vertices and the triangles.
 
+    .. note::
+    
+        :func:`surf`, :func:`contour_surf` and :func:`barchart` are 3D
+        representation of 2D data. By default the z-axis is supposed to
+        be in different units as the x and y axis, and it is auto-scaled
+        to give a 2/3 aspect ratio. This behavior can be controlled
+        through the functions keyword arguments.
+
 .. |imshow.jpg| image:: images/enthought_mayavi_mlab_imshow.jpg
      :scale: 50
 
@@ -173,6 +180,13 @@ module.
     vector field can be represented using :func:`quiver3d`, and the
     trajectories of particles along this field can plotted using :func:`flow`. 
 
+    .. note:: 
+       
+        :func:`contour3d` and :func:`flow` require ordered data (to
+        be able to interpolate between the points), whereas :func:`quiver3d`
+        works with any set of points. The required structure is detailed
+        in the functions' documentation.
+
 .. |contour3d.jpg| image:: images/enthought_mayavi_mlab_contour3d.jpg
      :scale: 50
 
@@ -182,6 +196,57 @@ module.
 .. |flow.jpg| image:: images/enthought_mayavi_mlab_flow.jpg
      :scale: 50
 
+Changing the looks of the visual objects created
+-------------------------------------------------
+
+Adding color or size variations
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* The color of the objects created by a plotting function can be specified
+  explicitly using the 'color' keyword argument of the function. This color
+  is than applied uniformly to all the objects created. 
+
+  If you want to vary the color across your visualization, you need to
+  specify scalar information for each data point. Some functions try to
+  guess this information: these scalars default to the norm of the vectors,
+  for functions with vectors, or to the z elevation for functions where is
+  meaningful, such as :func:`surf` or :func:`barchart`.
+
+  This scalar information is converted into colors using the colormap, or
+  also called LUT, for Look Up Table. The list of possible colormaps is::
+
+      accent       flag          hot      pubu     set2
+      autumn       gist_earth    hsv      pubugn   set3
+      black-white  gist_gray     jet      puor     spectral
+      blue-red     gist_heat     oranges  purd     spring
+      blues        gist_ncar     orrd     purples  summer
+      bone         gist_rainbow  paired   rdbu     winter
+      brbg         gist_stern    pastel1  rdgy     ylgnbu
+      bugn         gist_yarg     pastel2  rdpu     ylgn
+      bupu         gnbu          pink     rdylbu   ylorbr
+      cool         gray          piyg     rdylgn   ylorrd
+      copper       greens        prgn     reds
+      dark2        greys         prism    set1
+
+  The easiest way to choose the colormap most adapted to your visualization
+  is to use the GUI (as described in the 
+  `Interacting graphically with the visualization`_ paragraph). The dialog
+  to set the colormap can be found by double-clicking on the `Modules`
+  node.
+
+* The scalar information can also be displayed in many different ways.
+  For instance it can be used to adjust the size of glyphs positioned at 
+  the data points, or it can be 'warped' into a displacement.
+
+Changing the scale and position of objects
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Each mlab function takes an `extent` keyword argument, that allows to set
+its (x, y, z) extents. This give both control on the scaling in the
+different directions and the displacement of the center. Beware that when
+you are using this functionality, it can be useful to pass the same
+extents to other modules visualizing the same data. If you don't, they
+will not share the same displacement and scale.
 
 Handling figures
 -----------------
@@ -269,10 +334,34 @@ with `EPD`_, the `pylab` start-menu link does this for you).
 
 .. _EPD: http://www.enthought.com/products/epd.php
 
+
 Mlab can also be used interactively in the Python shell of the mayavi2
 application, or in any interactive Python shell of wxPython-based
 application (such as other Envisage-based applications, or SPE, Stani's
 Python Editor).
+
+Using together with Matplotlib's pylab
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you want to use Matplotlib's pylab with Mayavi's mlab in IPython you
+should:
+
+    * if your IPython version is greater than 0.8.4: start IPython with
+      the following options::
+
+        $ ipython -pylab -wthread
+
+    * elsewhere, start IPython with the `-wthread` option::
+
+        $ ipython -wthread
+
+      and **before** importing pylab, enter the following Python
+      commands::
+
+        >>> import matplotlib
+        >>> matplotlib.use('WxAgg')
+        >>> matplotlib.interactive(True)
+
 
 In scripts
 ~~~~~~~~~~~~~~~~~
