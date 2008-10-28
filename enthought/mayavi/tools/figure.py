@@ -50,7 +50,6 @@ def figure(name=None, bgcolor=None, fgcolor=None, engine=None,
             engine.current_scene.name = name
     else:
         engine.new_scene(size=size)
-    view(40, 50)
     fig = engine.current_scene
     scene = fig.scene
     if scene is not None:
@@ -60,6 +59,11 @@ def figure(name=None, bgcolor=None, fgcolor=None, engine=None,
         if fgcolor is None:
             fgcolor = options.foreground_color
         scene.foreground = fgcolor
+        if hasattr(scene, 'isometric_view'):
+            scene.isometric_view()
+        else:
+            # Not every viewer might implement this method
+            view(40, 50)
     return fig
 
 

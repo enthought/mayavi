@@ -104,6 +104,8 @@ def view(azimuth=None, elevation=None, distance=None, focalpoint=None):
     """
 
     f = get_engine().current_scene
+    if f is None:
+        return
     scene = f.scene
     if scene is None:
         return
