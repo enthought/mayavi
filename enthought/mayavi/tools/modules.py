@@ -374,7 +374,7 @@ class ScalarCutPlaneFactory(DataModuleFactory):
     plane_orientation = Enum('x_axes', 'y_axes', 'z_axes',
                         desc="""the orientation of the plane""")
 
-    view_controls = Bool(adapts='implicit_plane.visible',
+    view_controls = Bool(True, adapts='implicit_plane.visible',
                      desc=("Whether or not the controls of the "
                            "cut plane are shown."))
 
@@ -384,6 +384,14 @@ class ScalarCutPlaneFactory(DataModuleFactory):
                        z_axes=numpy.array([ 0.,  0.,  1.]))
         self._target.implicit_plane.normal = \
                                 choices[self.plane_orientation]
+
+    def __init__(self, *args, **kwargs):
+        """ Subclass the constructor to change the interaction mode on
+            the outline, as it confuses new users.
+        """
+        DataModuleFactory.__init__(self, *args, **kwargs)
+        self._target.implicit_plane.widget.outline_translation = False
+
 
 scalar_cut_plane = make_function(ScalarCutPlaneFactory)
 
