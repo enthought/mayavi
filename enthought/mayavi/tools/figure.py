@@ -37,7 +37,7 @@ def figure(name=None, bgcolor=None, fgcolor=None, engine=None,
     if engine is None:
         engine = get_engine()
     if type(name) == IntType:
-        name = 'TVTK Scene %d' % name
+        name = 'Mayavi Scene %d' % name
     if name is not None:
         # Go looking in the engine see if the scene is not already
         # running
