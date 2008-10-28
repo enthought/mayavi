@@ -14,6 +14,8 @@ from enthought.mayavi.core.filter import Filter
 from enthought.mayavi.core.engine import Engine
 from enthought.mayavi.core.source import Source
 
+from enthought.tvtk.api import tvtk
+
 import tools
 from engine_manager import get_engine
 
@@ -50,8 +52,8 @@ class PipeFactory(HasPrivateTraits):
         self._scene = tools.gcf()
         self._engine = get_engine()
         scene = self._scene.scene
-        if isinstance(parent, Source):
-            # Search the current scene to see if the source is already
+        if isinstance(parent, (Source, tvtk.DataSet)): 
+            # Search the current scene to see if the  source is already
             # in it, if not add it.
             if not parent in self._scene.children:
                 parent = tools.add_dataset(parent)
