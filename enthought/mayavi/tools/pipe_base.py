@@ -52,7 +52,8 @@ class PipeFactory(HasPrivateTraits):
         self._scene = tools.gcf()
         self._engine = get_engine()
         scene = self._scene.scene
-        if isinstance(parent, (Source, tvtk.DataSet)): 
+        if isinstance(parent, (Source, tvtk.DataSet)) \
+                and not isinstance(parent, Filter): 
             # Search the current scene to see if the  source is already
             # in it, if not add it.
             if not parent in self._scene.children:
