@@ -16,6 +16,10 @@ from engine_manager import get_engine, options
 
 ######################################################################
 
+# A list to store the allocated scene numbers
+__scene_number_list = set((0,))
+
+
 def figure(name=None, bgcolor=None, fgcolor=None, engine=None,
                 size=(400, 350)):
     """ Creates a new scene or retrieves an existing scene. If the mayavi
@@ -36,9 +40,16 @@ def figure(name=None, bgcolor=None, fgcolor=None, engine=None,
     """
     if engine is None:
         engine = get_engine()
-    if type(name) == IntType:
+    if name is None:
+        name = max(__scene_number_list) + 1
+        __scene_number_list.update((name,))
         name = 'Mayavi Scene %d' % name
-    if name is not None:
+        engine.new_scene(name=name, size=size)
+        engine.current_scene.name = name
+    else:
+        if type(name) == IntType:
+            __scene_number_list.update((name,))
+            name = 'Mayavi Scene %d' % name
         # Go looking in the engine see if the scene is not already
         # running
         for scene in engine.scenes:
@@ -48,8 +59,6 @@ def figure(name=None, bgcolor=None, fgcolor=None, engine=None,
         else:
             engine.new_scene(name=name, size=size)
             engine.current_scene.name = name
-    else:
-        engine.new_scene(size=size)
     fig = engine.current_scene
     scene = fig.scene
     if scene is not None:
