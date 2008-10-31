@@ -516,6 +516,11 @@ class TestTVTK(unittest.TestCase):
         for i in range(0, 22):
             img.scalar_type = i
         
+    def test_null_string_wrapper(self):
+        "Check if a null string default is wrapped as a String trait."
+        cap = tvtk.CaptionActor2D()
+        self.assertEqual(('caption', 'GetCaption') in cap._updateable_traits_, True)
+        self.assertEqual('caption' in cap._full_traitnames_list_, True)
         
 # This separates out any tests for the entire module that would affect
 # the functioning of the other tests.

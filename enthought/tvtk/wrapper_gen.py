@@ -508,16 +508,24 @@ class WrapperGenerator:
                                           mapped=False)
                 elif default is None or \
                          isinstance(default, vtk.vtkObjectBase):
-                    del updateable_traits[name]
                     g_sig = parser.get_method_signature(vtk_get_meth)
                     s_sig = parser.get_method_signature(vtk_set_meth)
-                    if (g_sig[0][1] is None) and (len(s_sig[0][1]) == 1):
-                        # Get needs no args and Set needs one arg
-                        self._write_property(out, name, vtk_get_meth,
-                                             vtk_set_meth)
-                    else: # Get has args or Set needs many args.
-                        self._write_tvtk_method(out, vtk_get_meth, g_sig)
-                        self._write_tvtk_method(out, vtk_set_meth, s_sig)
+                    if g_sig[0][0][0] == 'string':
+                        # If the get method really returns a string
+                        # wrap it as such.
+                        t_def = 'traits.Trait(None, None, '\
+                                'traits.String(enter_set=True, auto_set=False))'
+                        self._write_trait(out, name, t_def, vtk_set_meth,
+                                          mapped=False)
+                    else:
+                        if (g_sig[0][1] is None) and (len(s_sig[0][1]) == 1):
+                            # Get needs no args and Set needs one arg
+                            self._write_property(out, name, vtk_get_meth,
+                                                 vtk_set_meth)
+                        else: # Get has args or Set needs many args.
+                            self._write_tvtk_method(out, vtk_get_meth, g_sig)
+                            self._write_tvtk_method(out, vtk_set_meth, s_sig)
+                        del updateable_traits[name]
                 elif typ is types.BooleanType:
                     t_def = 'traits.Bool(%(default)s)'%locals()
                     self._write_trait(out, name, t_def, vtk_set_meth,
