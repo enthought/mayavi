@@ -14,7 +14,7 @@ helper functions.
 import new
 
 from enthought.traits.api import Instance, CFloat, CInt, CArray, Trait, \
-            Enum, Property, Any
+            Enum, Property, Any, String
 from enthought.tvtk.common import camel2enthought
 import enthought.mayavi.filters.api as filters
 from enthought.mayavi.core.registry import registry
@@ -22,6 +22,7 @@ from pipe_base import PipeFactory, make_function
 
 # This the list is dynamically populated further down below at the end.
 __all__ = [ 'tube', 'warp_scalar', 'threshold', 'elevation_filter', 
+            'set_active_attribute',
           ]
 
 
@@ -100,6 +101,41 @@ class ElevationFilterFactory(PipeFactory):
     _target = Instance(filters.ElevationFilter, ())
 
 elevation_filter = make_function(ElevationFilterFactory)
+
+
+##############################################################################
+class SetActiveAttributeFactory(PipeFactory):
+    """ Applies the SetActiveAttribute Filter mayavi filter to the given 
+        VTK object.
+    """
+
+    point_scalars = String(
+                    adapts="point_scalars_name",
+                    help="The name of the active point scalars")
+
+    point_vectors = String(
+                    adapts="point_vectors_name",
+                    help="The name of the active point vectors")
+
+    point_tensors = String(
+                    adapts="point_tensors_name",
+                    help="The name of the active point tensors")
+
+    cell_scalars = String(
+                    adapts="cell_scalars_name",
+                    help="The name of the active cell scalars")
+
+    cell_vectors = String(
+                    adapts="cell_vectors_name",
+                    help="The name of the active cell vectors")
+
+    cell_tensors = String(
+                    adapts="cell_tensors_name",
+                    help="The name of the active cell tensors")
+
+    _target = Instance(filters.SetActiveAttribute, ())
+
+set_active_attribute = make_function(SetActiveAttributeFactory)
 
 
 ############################################################################
