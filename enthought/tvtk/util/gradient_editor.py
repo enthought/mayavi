@@ -603,7 +603,12 @@ class GradientTable:
     def __init__( self, num_entries ):
         self.size = num_entries
         self.table = tvtk.ColorTransferFunction()
-        self.table.range = (0.0, 1.0)
+        try:
+            self.table.range = (0.0, 1.0)
+        except Exception:
+            # VTK versions < 5.2 don't seem to need this.
+            pass
+
         self.alpha = tvtk.PiecewiseFunction()
         # These VTK classes perform the interpolation for us.
 
