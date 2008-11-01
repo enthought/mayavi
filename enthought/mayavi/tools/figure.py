@@ -9,6 +9,7 @@ Functions related to creating the engine or the figures.
 
 # Standard library imports.
 from types import IntType
+import gc
 
 # Mayavi imports
 from camera import view
@@ -105,6 +106,7 @@ def clf(figure=None):
         scene.scene.disable_render = False
     except AttributeError:
         pass
+    gc.collect()
 
 
 def draw(figure=None):
