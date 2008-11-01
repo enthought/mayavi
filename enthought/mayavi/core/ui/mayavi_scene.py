@@ -13,7 +13,7 @@ from enthought.tvtk.tools.ivtk import IVTK
 from enthought.tvtk.pyface.api import DecoratedScene
 from enthought.traits.api import Callable
 from enthought.pyface.api import ImageResource
-from enthought.pyface.action.api import Action
+from enthought.pyface.action.api import Action, Group
 from enthought.resource.api import resource_path
 
 # Local imports
@@ -48,14 +48,16 @@ class MayaviScene(DecoratedScene):
     # Trait handlers.
     ######################################################################
     def _actions_default(self):
-        actions = DecoratedScene._actions_default(self)
-        actions.extend([
+        actions = [ Group(
                     Action(tooltip="View the Mayavi pipeline",
                         image=ImageResource('m2', 
                                 search_path=self.image_search_path),
                         on_perform=self.show_engine,
                         ),
-                        ])
+                        ),
+                        ]
+        actions.extend(DecoratedScene._actions_default(self))
+        print actions
         return actions
 
 
