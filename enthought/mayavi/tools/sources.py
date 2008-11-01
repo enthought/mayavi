@@ -308,10 +308,8 @@ class MArraySource(MlabSource):
                 vectors.shape = (u.shape[0] , u.shape[1], w.shape[2], 3)
                 self.set(vectors=vectors, trait_change_notify=False)
 
-        if vectors is not None and len(vectors) > 0:
-            assert len(x) == len(vectors)
-        if scalars is not None and len(scalars) > 0:
-            assert len(x) == len(scalars)
+        if vectors is not None and len(vectors) > 0 and scalars is not None:
+            assert len(scalars) == len(vectors)
 
         if x.shape[0] <= 1:
             dx = 1
@@ -572,10 +570,10 @@ class MArray2DSource(MlabSource):
     def _scalars_changed(self, s):
         mask = self.mask
         if mask is not None and len(mask) > 0:
-            scalars[mask.astype('bool')] = numpy.nan
+            s[mask.astype('bool')] = numpy.nan
             # The NaN tric only works with floats.
-            scalars = scalars.astype('float')
-            self.set(scalars=scalars, trait_change_notify=False)
+            s = s.astype('float')
+            self.set(scalars=s, trait_change_notify=False)
         old = self.m_data.scalar_data
         self.m_data.scalar_data = s
         if s is old:
@@ -926,7 +924,11 @@ def vector_field(*args, **kwargs):
         :scalars: optional scalar data.
        
         :figure: optionally, the figure on which to add the data source."""
-    x, y, z, u, v, w = [numpy.atleast_3d(a) 
+    if len(args) == 3:
+        x = y = z = numpy.atleast_3d(1)
+        u, v, w = [numpy.atleast_3d(a) for a in args]
+    else:
+        x, y, z, u, v, w = [numpy.atleast_3d(a) 
                         for a in process_regular_vectors(*args)]
 
     scalars = kwargs.pop('scalars', None)
@@ -996,8 +998,15 @@ def scalar_field(*args, **kwargs):
 
         :name: the name of the vtk object created.
 
-        :figure: optionally, the figure on which to add the data source."""
-    x, y, z, s = process_regular_scalars(*args)
+        :figure: optionally, the figure on which to add the data source.
+    """
+    if len(args) == 1:
+        # Be lazy, don't create three big arrays for 1 input array. The
+        # MArraySource is clever-enough to handle flat arrays
+        x = y = z = numpy.atleast_1d(1)
+        s = args[0]
+    else:
+        x, y, z, s = process_regular_scalars(*args)
 
     data_source = MArraySource()
     data_source.reset(x=x, y=y, z=z, scalars=s)
