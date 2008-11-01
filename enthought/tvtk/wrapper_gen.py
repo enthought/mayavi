@@ -247,6 +247,7 @@ class WrapperGenerator:
 
         # Next, we write a compact traits_view (which we call 'view'), which 
         # removes some generally unused items.	
+        _safe_remove(get_set, ['progress_text'])
         _safe_remove(toggle, ['abort_execute', 'release_data_flag',
                               'dragable', 'pickable',
                               'debug', 'global_warning_display'])
