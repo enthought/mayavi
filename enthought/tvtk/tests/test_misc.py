@@ -56,6 +56,21 @@ class TestMisc(unittest.TestCase):
             self.assertEqual(os.path.exists(fname), True)
             os.remove(fname)
 
+    def test_write_data_xml_kwargs(self):
+        "XML file writing with extra keyword arguments"
+        datasets = self.datasets
+        exts = self.exts
+
+        for d, ext in zip(datasets, exts):
+            fh, fname = tempfile.mkstemp(ext)
+            fbase = os.path.splitext(fname)[0]
+            os.close(fh)
+            os.remove(fname)
+            # Test if passing extra keyword args is supported.
+            write_data(d, fbase, compressor=None, data_mode='ascii')
+            self.assertEqual(os.path.exists(fname), True)
+            os.remove(fname)
+
     def test_write_data_vtk(self):
         "Old-style VTK file writing with specified extension"
         datasets = self.datasets

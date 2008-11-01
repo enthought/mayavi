@@ -12,7 +12,7 @@ from enthought.tvtk.tvtk import tvtk
 ######################################################################
 # Utility functions.
 ######################################################################
-def write_data(dataset, fname):
+def write_data(dataset, fname, **kwargs):
     """Given a TVTK `dataset` this writes the `dataset` to a VTK XML
     file having file name `fname`.
 
@@ -21,6 +21,8 @@ def write_data(dataset, fname):
     filename has a '.vtk' extension an old style VTK file is written.
     If any other extension is specified, an XML file is written out with
     the given extension.
+
+    Any additional keyword arguments are passed to the writer used.
     """
 
     err_msg = "Can only write tvtk.DataSet instances "\
@@ -51,6 +53,6 @@ def write_data(dataset, fname):
         file_name = fname
         writer = tvtk.XMLDataSetWriter
 
-    w = writer(file_name=file_name, input=dataset)
+    w = writer(file_name=file_name, input=dataset, **kwargs)
     w.write()
     
