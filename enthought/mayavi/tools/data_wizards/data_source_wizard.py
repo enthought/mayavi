@@ -1,5 +1,5 @@
 
-from numpy import ones, resize, linspace
+from numpy import ones, resize, linspace, atleast_3d
 
 from enthought.traits.api import Property, Str, Button, Trait, \
     Any, Instance, HasStrictTraits, false, Dict, HasTraits, \
@@ -29,7 +29,13 @@ class DataSourceWizard(HasTraits):
     _data_sources_names = Property(depends_on='data_sources')
 
     def _get__data_sources_names(self):
-        names = self.data_sources.keys()
+        names = []
+        for name in self.data_sources:
+            try:
+                self.data_sources[name] + 1
+                names.append(name)
+            except TypeError:
+                pass
         names.sort()
         return names
 
@@ -64,8 +70,7 @@ class DataSourceWizard(HasTraits):
     def _get_grid_shape_source(self):
         if self.grid_shape_source_ == '':
             # catter for improperly initialized view
-            keys = self.data_sources.keys()
-            keys.sort()
+            keys = self._data_sources_names
             if not self.grid_shape.any():
                 self.grid_shape = \
                         self.data_sources[keys[0]].shape
@@ -81,7 +86,7 @@ class DataSourceWizard(HasTraits):
     def _grid_shape_source_changed(self):
         if not self.grid_shape_source == '':
             array_shape = \
-                    self.data_sources[self.grid_shape_source].shape
+                    atleast_3d(self.data_sources[self.grid_shape_source]).shape
             grid_shape = ones((3, ))
             grid_shape[:len(array_shape)] = array_shape
             self.grid_shape = grid_shape 
@@ -150,7 +155,7 @@ class DataSourceWizard(HasTraits):
     def guess_arrays(self):
         """ Do some guess work on the arrays to find sensible default.
         """
-        array_names = set(self.data_sources.keys())
+        array_names = set(self._data_sources_names)
         found_some = False
         if set(('x', 'y', 'z')).issubset(array_names):
             self.position_x = 'x'

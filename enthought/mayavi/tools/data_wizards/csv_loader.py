@@ -13,7 +13,7 @@ from enthought.traits.ui.api import View, Item, HGroup, Group, \
 
 from enthought.traits.ui.tabular_adapter import TabularAdapter
 
-from enthought.mayavi.tools.wizards.csv_sniff import Sniff, loadtxt, \
+from enthought.mayavi.tools.data_wizards.csv_sniff import Sniff, loadtxt, \
         array2dict
 
 ##############################################################################
