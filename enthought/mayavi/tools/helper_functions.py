@@ -555,12 +555,14 @@ class Surf(Pipeline):
     _pipeline = [WarpScalarFactory, PolyDataNormalsFactory, SurfaceFactory]
 
 
-    warp_scale = Any('auto', help="""scale of the z axis (warped from
+    warp_scale = Any(1, help="""scale of the z axis (warped from
                         the value of the scalar). By default this scale
-                        is calculated to give a pleasant aspect ratio to
-                        the plot. You can overright this behavior by
-                        specifying a float value. 
+                        is a float value.
                         
+                        If you specify 'auto', the scale is calculated to 
+                        give a pleasant aspect ratio to the plot,
+                        whatever the bounds of the data.
+
                         If you specify a value for warp_scale in
                         addition to an extent, the warp scale will be
                         determined by the warp_scale, and the plot be
@@ -594,8 +596,7 @@ class Surf(Pipeline):
             zf = zi + z_span
             kwargs['extent'] = (xi, xf, yi, yf, zi, zf)
             kwargs['warp_scale'] = 1
-        elif self.warp_scale == 'auto' \
-                        and kwargs.get('warp_scale', 'auto') == 'auto':
+        elif kwargs.get('warp_scale', 1) == 'auto':
             if 'extent' in kwargs:
                 if 'warp_scale' in kwargs:
                     print "Warning: extent specified, warp_scale='auto' " \

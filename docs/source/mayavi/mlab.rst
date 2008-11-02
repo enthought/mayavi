@@ -143,11 +143,11 @@ module.
 
     .. note::
     
-        :func:`surf`, :func:`contour_surf` and :func:`barchart` are 3D
+        :func:`surf`, :func:`contour_surf` can be used as 3D
         representation of 2D data. By default the z-axis is supposed to
-        be in different units as the x and y axis, and it is auto-scaled
-        to give a 2/3 aspect ratio. This behavior can be controlled
-        through the functions keyword arguments.
+        be in the same units as the x and y axis, but it can be 
+        auto-scaled to give a 2/3 aspect ratio. This behavior can be 
+        controlled by specifying the "warp_scale='auto'".
 
 .. |imshow.jpg| image:: images/enthought_mayavi_mlab_imshow.jpg
      :scale: 50
