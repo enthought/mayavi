@@ -219,7 +219,9 @@ class EngineView(HasTraits):
                 defined_when='True',
                 enabled_when=\
                     'current_selection is not None and'
-                    '( hasattr(current_selection, "output_info")'
+                    '( ( hasattr(current_selection, "output_info")'
+                    ' and not current_selection.type in (" module", '
+                    ' " module manager"))'
                     'or current_selection.__class__.__name__ =='
                     '"ModuleFilterAdderNode")',
                 perform=self._perform_add_filter,
