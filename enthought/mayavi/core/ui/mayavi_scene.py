@@ -57,7 +57,6 @@ class MayaviScene(DecoratedScene):
                         ),
                         ]
         actions.extend(DecoratedScene._actions_default(self))
-        print actions
         return actions
 
 
