@@ -567,7 +567,9 @@ class Surf(Pipeline):
                         addition to an extent, the warp scale will be
                         determined by the warp_scale, and the plot be
                         positioned along the z axis with the zero of the
-                        data centered on the center of the extent.
+                        data centered on the center of the extent. If you
+                        are using explicit extents, this is the best way
+                        to control the vertical scale of your plots.
                         """)
 
     mask = Array(help="boolean mask array to suppress some data points.")
