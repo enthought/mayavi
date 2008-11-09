@@ -390,7 +390,6 @@ class IVTK(ApplicationWindow):
         """ Create the contents of the window. """
 
         self.scene = self._scene_factory(parent)
-        self.scene.renderer.background = 0.5, 0.5, 0.5
 
         return self.scene.control
     

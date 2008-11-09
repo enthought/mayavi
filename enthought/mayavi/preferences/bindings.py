@@ -8,19 +8,25 @@ Code to setup the preferences for common objects.
 from preference_manager import preference_manager
 
 
-def set_scene_preferences(scene):
-    """Setup the preferences for a scene given a scene and an optional
-    preferences.
-    """
+def get_scene_preferences():
+    """Return a dictionary of the scene's default preferences."""
     pref = preference_manager.preferences
-    scene.stereo = eval(pref.get('enthought.tvtk.scene.stereo'))
-    scene.magnification = \
+    res = {}
+    res['stereo'] = eval(pref.get('enthought.tvtk.scene.stereo'))
+    res['magnification'] = \
             eval(pref.get('enthought.tvtk.scene.magnification'))
+    res['foreground'] = eval(pref.get('enthought.tvtk.scene.foreground_color'))
+    res['background'] = eval(pref.get('enthought.tvtk.scene.background_color'))
+    return res
 
-    fg = eval(pref.get('enthought.tvtk.scene.foreground_color'))
-    bg = eval(pref.get('enthought.tvtk.scene.background_color'))
-    scene.foreground = fg
-    scene.background = bg
+def set_scene_preferences(scene, prefs_dict=None):
+    """Setup the preferences for a scene given a scene and an optional
+    dictionary with the preferences.
+    """
+    if prefs_dict is None:
+        prefs_dict = get_scene_preferences()
+    # Set the preferences.
+    scene.set(**prefs_dict)
     # If this isn't done the background isn't set.
     scene.renderer.background = scene.background
 

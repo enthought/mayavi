@@ -18,7 +18,8 @@ from enthought.resource.api import resource_path
 
 # Local imports
 from enthought.mayavi.core.common import error
-from enthought.mayavi.preferences.api import set_scene_preferences 
+from enthought.mayavi.preferences.api import set_scene_preferences, \
+        get_scene_preferences
 
 ###############################################################################
 # A decorated scene with an additional button.
@@ -60,6 +61,14 @@ class MayaviScene(DecoratedScene):
         return actions
 
 
+def mayavi_scene_factory(parent):
+    """A mayavi scene factory that creates a scene with preferences
+    appropriately set."""
+    p = get_scene_preferences()
+    s = MayaviScene(parent, stereo=p['stereo'])
+    set_scene_preferences(s, p)
+    return s
+
 ###############################################################################
 # A viewer making use of the MayaviScene 
 ###############################################################################
@@ -68,7 +77,7 @@ class MayaviViewer(IVTK):
     """
     size=(400, 350)
 
-    _scene_factory = Callable(MayaviScene)
+    _scene_factory = Callable(mayavi_scene_factory)
 
 
 def viewer_factory(size=(400, 350)):
@@ -76,7 +85,6 @@ def viewer_factory(size=(400, 350)):
     viewer.menu_bar_manager = None
     viewer.size=size
     viewer.open()
-    set_scene_preferences(viewer.scene)
     return viewer
 
 if __name__ == '__main__':

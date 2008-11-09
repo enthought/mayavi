@@ -81,12 +81,12 @@ class SceneEditor(Editor):
     def _create_decorated_scene(self, parent):
         """ Create a new decorated scene. """
 
-        scene = DecoratedScene(parent)
-
         pref = get_default_preferences()
+        stereo = eval(pref.get('enthought.tvtk.scene.stereo'))
+
+        scene = DecoratedScene(parent, stereo=stereo)
 
         # Set the scene's traits to preference values.
-        scene.stereo = eval(pref.get('enthought.tvtk.scene.stereo'))
         scene.magnification = \
                 eval(pref.get('enthought.tvtk.scene.magnification'))
 
