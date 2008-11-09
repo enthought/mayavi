@@ -5,7 +5,7 @@
 # Standard library imports.
 
 # Enthought library imports.
-from enthought.traits.api import Int, Instance, Str
+from enthought.traits.api import Int, Instance, Str, TraitError
 from enthought.traits.ui.api import View, Group, Item
 from enthought.tvtk.api import tvtk
 from enthought.persistence import state_pickler
@@ -189,7 +189,9 @@ class Labels(Module):
         if self.input is None:
             return
         f = self.mask.filter
-        npts = self.input.outputs[0].number_of_points
+        inp = self.input.outputs[0]
+        inp.update()
+        npts = inp.number_of_points
         f.on_ratio = max(npts/value, 1)
         if self.mask.running:
             f.update()
@@ -200,7 +202,10 @@ class Labels(Module):
             self.mapper.label_format = value
             self.render()
         else:
-            self.mapper.label_format = None
+            try:
+                self.mapper.label_format = None
+            except TraitError:
+                self.mapper.label_format = '%g'
             self.render()
 
     def _object_changed(self, value):
