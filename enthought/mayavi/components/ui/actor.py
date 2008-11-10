@@ -93,6 +93,7 @@ texture_group = Group(Item(name='enable_texture'),
                         label='Texture Properties',
                         enabled_when='object.enable_texture',
                         show_border=True),
+                    label='Texture',
                 )
 
 
