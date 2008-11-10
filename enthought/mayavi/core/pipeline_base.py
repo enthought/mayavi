@@ -122,7 +122,10 @@ class PipelineBase(Base):
                     input = widget.input
                     if input is not None:
                         input.update()
-
+	    if hasattr(self, 'components'):
+	        for component in self.components:
+                    component.render()
+ 
     ######################################################################
     # `PipelineBase` interface.
     ######################################################################

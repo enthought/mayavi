@@ -18,10 +18,12 @@ from enthought.mayavi.modules.surface import Surface
 
 class TestArraySource(unittest.TestCase):
     def setUp(self):
+	"""Initial setting up of test fixture, automatically called by TestCase before any other test method is invoked"""
         d = ArraySource() 
         self.data = d
 
     def tearDown(self):
+	"""For necessary clean up, automatically called by TestCase after the test methods have been invoked"""
         return
 
     def make_2d_data(self):

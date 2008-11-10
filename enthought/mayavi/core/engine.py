@@ -269,7 +269,8 @@ class Engine(HasStrictTraits):
                 self.new_scene()
                 scene = self.scenes[-1]
                 # Disable rendering initially.
-                scene.scene.disable_render = True
+                if scene.scene is not None:
+                    scene.scene.disable_render = True
                 # Update the state.
                 state_pickler.update_state(scene_state)
                 scene.__set_pure_state__(scene_state)
@@ -460,7 +461,7 @@ class Engine(HasStrictTraits):
         self.remove_scene(scene.scene)
         if hasattr(scene, 'close'):
             scene.close()
-        else:
+        elif scene.scene is not None:
             scene.scene.close()
         if viewer is not None and hasattr(viewer, 'close'):
             viewer.close()

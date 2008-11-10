@@ -156,7 +156,10 @@ class VTKDataSource(Source):
             d = gunzip_string(z)
             r = tvtk.DataSetReader(read_from_input_string=1,
                                    input_string=d)
+            warn = r.global_warning_display
+            r.global_warning_display = 0
             r.update()
+            r.global_warning_display = warn
             self.data = r.output
         # Now set the remaining state without touching the children.
         set_state(self, state, ignore=['children', 'data'])
