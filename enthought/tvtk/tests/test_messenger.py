@@ -54,6 +54,8 @@ class B:
 class TestMessenger(unittest.TestCase):
     def test_basic(self):
         """Test basic functionality of the messenger."""
+        m = messenger.Messenger()
+        orig_len = len(m._signals)
         b = B()
         b.send(1, test=1)
         self.assertEqual(b.a.event, 'method')
@@ -64,16 +66,18 @@ class TestMessenger(unittest.TestCase):
         self.assertEqual(ret[2], {'test':1})
         # Ensures that disconnect works and also that there are no
         # reference cycles.        
+        self.assertEqual(len(m._signals) > orig_len, True)
         del b
-        m = messenger.Messenger()
-        self.assertEqual(len(m._signals), 0)
+        self.assertEqual(len(m._signals), orig_len)
         
     def test_reload(self):
         """Tests if module is reload safe."""
         b = B()
+        m = messenger.Messenger()
+        orig_len = len(m._signals)
         reload(messenger)
         m = messenger.Messenger()
-        self.assertEqual(len(m._signals), 1)
+        self.assertEqual(len(m._signals), orig_len)
         b.send(1, test=1)
         self.assertEqual(b.a.event, 'method')
         self.assertEqual(ret[0], 'function')
