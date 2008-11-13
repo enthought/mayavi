@@ -40,7 +40,41 @@ def _orient_colorbar(colorbar, orientation):
         print "Unknown orientation"
     draw()
 
-def scalarbar(object=None, title=None, orientation=None):
+def _colobar_properties(colorbar, **props):
+    """ Internal function used to apply properties to a colorbar.
+    """
+    need_redraw = False
+    orientation = props.get('orientation', None)
+    if orientation is not None:
+        _orient_colorbar(colorbar, orientation)
+
+    title = props.get('title', None)
+    if title is not None:
+        colorbar.title = title
+        need_redraw = True
+
+    label_fmt = props.get('label_fmt', None)
+    if label_fmt is not None:
+        colorbar.label_format = label_fmt
+        need_redraw = True
+
+    nb_labels = props.get('nb_labels', None)
+    if nb_labels is not None:
+        colorbar.number_of_labels = nb_labels
+        need_redraw = True
+
+    nb_colors = props.get('nb_colors', None)
+    if nb_colors is not None:
+        colorbar.maximum_number_of_colors = nb_colors
+        need_redraw = True
+
+    if need_redraw:
+        draw()
+    
+
+def scalarbar(object=None, title=None, orientation=None, 
+                           nb_labels=None, nb_colors=None,
+                           label_fmt=None):
     """Adds a colorbar for the scalar color mapping of the given object.
 
     If no object is specified, the first object with scalar data in the scene 
@@ -53,6 +87,14 @@ def scalarbar(object=None, title=None, orientation=None):
         :title: The title string 
 
         :orientation: Can be 'horizontal' or 'vertical'
+
+        :nb_labels: The number of labels to display on the colorbar.
+
+        :label_fmt: The string formater for the labels. This needs to be
+                    a formater for float number, eg '%.1f'.
+
+        :nb_colors: The maximum number of colors displayed on the
+                    colorbar.
     """
     module_manager = tools._find_module_manager(object=object, 
                                                     data_type="scalar")
@@ -64,15 +106,16 @@ def scalarbar(object=None, title=None, orientation=None):
         if orientation is None:
             orientation = 'horizontal'
     colorbar = module_manager.scalar_lut_manager.scalar_bar
-    if orientation is not None:
-        _orient_colorbar(colorbar, orientation)
     module_manager.scalar_lut_manager.show_scalar_bar = True
-    if title is not None:
-        colorbar.title = title
-        draw()
+    _colobar_properties(colorbar, title=title, orientation=orientation, 
+                        nb_labels=nb_labels, nb_colors=nb_colors,
+                        label_fmt=label_fmt)
     return colorbar
 
-def vectorbar(object=None, title=None, orientation=None):
+
+def vectorbar(object=None, title=None, orientation=None,
+                           nb_labels=None, nb_colors=None,
+                           label_fmt=None):
     """Adds a colorbar for the vector color mapping of the given object.
 
     If no object is specified, the first object with vector data in the scene 
@@ -85,6 +128,14 @@ def vectorbar(object=None, title=None, orientation=None):
         :title: The title string 
 
         :orientation: Can be 'horizontal' or 'vertical'
+
+        :nb_labels: The number of labels to display on the colorbar.
+
+        :label_fmt: The string formater for the labels. This needs to be
+                    a formater for float number, eg '%.1f'.
+
+        :nb_colors: The maximum number of colors displayed on the
+                    colorbar.
     """
     module_manager = tools._find_module_manager(object=object, 
                                                     data_type="vector")
@@ -96,14 +147,15 @@ def vectorbar(object=None, title=None, orientation=None):
         orientation = 'horizontal'
     colorbar = module_manager.vector_lut_manager.scalar_bar
     module_manager.vector_lut_manager.show_scalar_bar = True
-    if orientation is not None:
-        _orient_colorbar(colorbar, orientation)
-    if title is not None:
-        colorbar.title = title
-        draw()
+    _colobar_properties(colorbar, title=title, orientation=orientation, 
+                        nb_labels=nb_labels, nb_colors=nb_colors,
+                        label_fmt=label_fmt)
     return colorbar
 
-def colorbar(object=None, title=None, orientation=None):
+
+def colorbar(object=None, title=None, orientation=None,
+                           nb_labels=None, nb_colors=None,
+                           label_fmt=None):
     """Adds a colorbar for the color mapping of the given object. 
     
     If the object has scalar data, the scalar color mapping is 
@@ -119,10 +171,23 @@ def colorbar(object=None, title=None, orientation=None):
         :title: The title string 
 
         :orientation: Can be 'horizontal' or 'vertical'
+
+        :nb_labels: The number of labels to display on the colorbar.
+
+        :label_fmt: The string formater for the labels. This needs to be
+                    a formater for float number, eg '%.1f'.
+
+        :nb_colors: The maximum number of colors displayed on the
+                    colorbar.
     """
-    colorbar = scalarbar(object=object, title=title, orientation=orientation)
+    colorbar = scalarbar(object=object, title=title, orientation=orientation,
+                            nb_labels=nb_labels, nb_colors=nb_colors,
+                            label_fmt=label_fmt)
     if colorbar is None:
-        colorbar = vectorbar(object=object, title=title, orientation=orientation)
+        colorbar = vectorbar(object=object, title=title, 
+                                orientation=orientation, 
+                                nb_labels=nb_labels, nb_colors=nb_colors,
+                                label_fmt=label_fmt)
     return colorbar
 
 #############################################################################
