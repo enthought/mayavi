@@ -24,7 +24,7 @@ from filters import ExtractVectorNormFactory, WarpScalarFactory, \
 from auto_doc import traits_doc, dedent
 import tools
 from enthought.traits.api import Array, Callable, CFloat, HasTraits, \
-    List, Trait, Any, Instance, Trait, TraitError
+    List, Trait, Any, Instance, TraitError
 import numpy
 
 def document_pipeline(pipeline):
@@ -435,9 +435,11 @@ class Plot3d(Pipeline):
         plot3d(x, y, z, ...)
         plot3d(x, y, z, s, ...)"""
 
-    tube_radius = CFloat(0.025, adapts='filter.radius',
-                        desc = """radius of the tubes used to represent the
-                        lines""")
+    tube_radius = Trait(0.025, CFloat, None,
+                        adapts='filter.radius',
+                        help = """radius of the tubes used to represent the
+                        lines, If None, simple lines are used.
+                        """)
 
     _source_function = Callable(line_source)
 
