@@ -325,14 +325,17 @@ surf
     
         :warp_scale: scale of the z axis (warped from
                      the value of the scalar). By default this scale
-                     is calculated to give a pleasant aspect ratio to
-                     the plot. You can overright this behavior by
-                     specifying a float value.
+                     is a float value.
+                     If you specify 'auto', the scale is calculated to
+                     give a pleasant aspect ratio to the plot,
+                     whatever the bounds of the data.
                      If you specify a value for warp_scale in
                      addition to an extent, the warp scale will be
                      determined by the warp_scale, and the plot be
                      positioned along the z axis with the zero of the
-                     data centered on the center of the extent.
+                     data centered on the center of the extent. If you
+                     are using explicit extents, this is the best way
+                     to control the vertical scale of your plots.
     
 
     

@@ -37,6 +37,26 @@ To use this script do this::
     $ mayavi2 -d your_image000.png -m ImageActor -x img_movie.py
 
 
+Making movies from a stack of images
+-------------------------------------
+
+This isn't really related to mayavi but is a useful trick nonetheless.
+Lets say you generate a stack of images using mayavi say of the form
+``anim%03d.png`` (i.e. ``anim000.png``, ``anim001.png`` and so on), you
+can make this into a movie.  If you have ``mencoder`` installed try
+this::
+
+  $ mencoder "mf://anim%03d.png" -mf fps=10 -o anim.avi \
+    -ovc lavc -lavcopts vcodec=msmpeg4v2:vbitrate=500
+
+If you have ffmpeg installed you may try this::
+
+  $ ffmpeg -f image2 -r 10 -i anim%03d.png -sameq anim.mov -pass 2
+
+.. _mencoder: http://www.mplayerhq.hu/
+.. _ffmpeg: http://ffmpeg.mplayerhq.hu/
+
+
 Scripting from the command line
 --------------------------------
 
@@ -114,4 +134,25 @@ filter.  Here is a simple example with the standard mayavi image data::
     -f ImageChangeInformation \ 
     -s "filter.origin_translation=(20,20,20)" \
     -m Outline -m ImagePlaneWidget
+
+
+Using the ``UserDefined`` filter
+---------------------------------
+
+The ``UserDefined`` filter in mayavi lets you wrap around existing VTK
+filters easily.  Here are a few examples::
+
+    $ mayavi2 -d ParametricSurface -s "function='dini'" \
+    -f UserDefined:GeometryFilter \
+    -s "filter.extent_clipping=True" \
+    -s "filter.extent = [-1,1,-1,1,0,5]" \
+    -f UserDefined:CleanPolyData \
+    -m Surface \
+    -s "actor.property.representation = 'p'" \
+    -s "actor.property.point_size=2"
+
+This one uses a ``tvtk.GeometryFilter`` to perform extent based clipping of
+the parametric surface generated.  Note the specification of the ``-f
+UserDefined:GeometryFilter``.  This data is then cleaned using the
+``tvtk.CleanPolyData`` filter.
 

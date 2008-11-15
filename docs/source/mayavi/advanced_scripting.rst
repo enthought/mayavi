@@ -10,14 +10,18 @@ from the user interface can be achieved using Python scripts.
 
 If you are not looking to script mayavi itself but looking for quick
 ways to get your visualization done with simple code you may want to
-check out mayavi's mlab module.  This is described in more detail in
-the :ref:`simple-scripting-with-mlab` section.
+check out mayavi's mlab module.  This is described in more detail in the
+:ref:`simple-scripting-with-mlab` section.  In addition to this mayavi
+features an automatic script recording feature that automatically writes
+Python scripts for you as you use the GUI.  This is described in more
+detail in the :ref:`automatic-script-generation` chapter.  This is
+probably the easiest and most powerful way to script mayavi.
 
-To best understand how to script mayavi, a reasonable understanding of
-the mayavi internals is necessary.  The following sections provides an
-overview of the basic design and objects in the mayavi pipeline.
-Subsequent sections consider specific example scripts that are
-included with the mayavi sources that illustrate the ideas.
+However, to best understand how to script mayavi, a reasonable
+understanding of the mayavi internals is necessary.  The following
+sections provides an overview of the basic design and objects in the
+mayavi pipeline.  Subsequent sections consider specific example scripts
+that are included with the mayavi sources that illustrate the ideas.
 
 Mayavi2 uses Traits_ and TVTK_ internally.  Traits_ in many ways
 changes the way we program.  So it is important to have a good idea of
@@ -25,8 +29,8 @@ Traits in order to understand mayavi's internals.  If you are unsure
 of traits it is a good idea to get a general idea about traits now.
 Trust me, your efforts learning Traits will not be wasted!
 
-.. _Traits: https://svn.enthought.com/enthought/wiki/Traits
-.. _TVTK: https://svn.enthought.com/enthought/wiki/TVTK
+.. _Traits: http://code.enthought.com/projects/traits
+.. _TVTK: http://code.enthought.com/projects/mayavi
 
 Design Overview
 ---------------
@@ -70,11 +74,22 @@ is completely useless.  It is usable only when it is added to the
 mayavi pipeline.  When an object is added to the pipeline, its inputs
 are setup and its ``start`` method is called automatically.  When the
 object is removed from the pipeline its ``stop`` method is called
-automatically.
+automatically.  Note that if you are looking to remove an object from
+the mayavi pipeline, you can use the ``remove`` method to do so.  For
+example (the following will require that you use ``ipython -wthread``)::
+
+  >>> from enthought.mayavi.api import Engine
+  >>> e = Engine()
+  >>> e.start()
+  >>> s = e.new_scene()
+  >>> from enthought.mayavi.sources.api import ParametricSurface
+  >>> p = ParametricSurface()
+  >>> e.add_source(p) # calls p.start internally.
+  >>> p.remove() # Removes p from the engine. 
 
 Apart from the ``Engine`` object, all other objects in the mayavi
 pipeline feature a ``scene`` trait which refers to the current
-``enthought.pyface.tvtk.tvtk_scene.TVTKScene`` instance that the
+``enthought.tvtk.pyface.tvtk_scene.TVTKScene`` instance that the
 object is associated with.  The objects also feature an ``add_child``
 method that lets one build up the pipeline by adding "children"
 objects.  The ``add_child`` method is "intelligent" and will try to
@@ -105,7 +120,7 @@ Here is a brief description of the key objects in the mayavi pipeline.
     Defined in the ``enthought.mayavi.core.scene`` module.
 
      * ``scene`` attribute: manages a ``TVTKScene``
-       (``enthought.pyface.tvtk.tvtk_scene``) object which is where
+       (``enthought.tvtk.pyface.tvtk_scene``) object which is where
        all the rendering occurs.
 
      * The ``children`` attribute is a ``List`` trait that manages a
@@ -134,7 +149,9 @@ Here is a brief description of the key objects in the mayavi pipeline.
 
      * The ``outputs`` attribute is a trait ``List`` of outputs
        produced by the object.
- 
+
+     * The ``remove`` method can be used to remove the object (if added)
+       from the mayavi pipeline.
 
  ``Source``
     Defined in the ``enthought.mayavi.core.source`` module.  All the
@@ -274,48 +291,50 @@ handles the command line argument parsing and runs the application.
 
 ``mayavi2`` is an Envisage_ application.  It starts the Envisage
 application in its ``main`` method.  The code for this is in the
-``enthought.mayavi.app`` module.  Mayavi uses several envisage plugins
+``enthought.mayavi.plugins.app`` module.  Mayavi uses several envisage plugins
 to build up its functionality.  These plugins are defined in the
-``enthought.mayavi.plugin_definitions`` module.  In this module there
-are two lists of plugins defined, ``PLUGIN_DEFINITIONS`` and the
-``NONGUI_PLUGIN_DEFINITIONS``.  The default application uses the
+``enthought.mayavi.plugins.app`` module.  In this module there
+are two functions that return a list of default plugins, ``get_plugins`` and the
+``get_non_gui_plugins``.  The default application uses the
 former which produces a GUI that the user can use.  If one uses the
-latter (``NONGUI_PLUGIN_DEFINITIONS``) then the mayavi tree view,
+latter (``get_non_gui_plugins``) then the mayavi tree view,
 object editor and menu items will not be available when the
 application is run.  This allows a developer to create an application
 that uses mayavi but does not show its user interface.  An example of
-how this may be done is provided in ``examples/nongui.py``.
+how this may be done is provided in ``examples/mayavi/nongui.py``.
 
-.. _envisage: https://svn.enthought.com/enthought/wiki/Envisage
+.. _Envisage: http://code.enthought.com/projects/envisage
 
 
 Scripting from the UI
 ~~~~~~~~~~~~~~~~~~~~~
 
 When using the ``mayavi2`` application, it is possible to script from
-the embedded Python interpreter on the UI.  On the interpreter the
-name ``mayavi`` is automatically bound to an
-``enthought.mayavi.script.Script`` instance that may be used to easily
-script mayavi.  This instance is a simple wrapper object that merely
-provides some nice conveniences while scripting from the UI.  It has
-an ``engine`` trait that is a reference to the running mayavi engine.
+the embedded Python interpreter on the UI.  On the interpreter the name
+``mayavi`` is automatically bound to an
+``enthought.mayavi.plugins.script.Script`` instance that may be used to
+easily script mayavi.  This instance is a simple wrapper object that
+merely provides some nice conveniences while scripting from the UI.  It
+has an ``engine`` trait that is a reference to the running mayavi
+engine.  Note that it is just as convenient to use an
+``Engine`` instance itself to script mayavi.
 
 As described in :ref:`the-embedded-python-interpreter` section, one can
-always drag a mayavi object from the tree and drop it on the
+always drag a mayavi pipeline object from the tree and drop it on the
 interpreter to script it directly.
 
-One may select the `File->Open File...` menu to open an existing
-Python file in the text editor, or choose the `File->New File` menu to
-create a new file.  The text editor is Python-aware and one may write
+One may select the `File->Open Text File...` menu to open an existing
+Python file in the text editor, or choose the `File->New Text File` menu
+to create a new file.  The text editor is Python-aware and one may write
 a script assuming that the ``mayavi`` name is bound to the ``Script``
 instance as it is on the shell.  To execute this script one can press
-``Control-r`` as described earlier.  ``Control-s`` will save the
-script.
+``Control-r`` as described earlier.  ``Control-s`` will save the script.
+``Control-b`` increases the font size and ``Control-n`` reduces it.
 
 The nice thing about this kind of scripting is that if one scripts
 something on the interpreter or on the editor, one may save the
-contents to a file, say ``script.py`` and then the next time mayavi
-run it like so::
+contents to a file, say ``script.py`` and then the next time this script
+can be run like so::
 
   $ mayavi2 -x script.py
 
@@ -353,9 +372,9 @@ To start a visualization do the following::
 It is also possible to use mlab (see :ref:`simple-scripting-with-mlab`) for
 this purpose::
 
- from enthought.mayavi.tools import mlab
+ from enthought.mayavi import mlab
  f = mlab.figure() # Returns the current scene.
- mayavi = mlab.get_mayavi() # Returns the Script instance.
+ engine = mlab.get_engine() # Returns the running mayavi engine.
 
 With this it should be possible to script mayavi just the way it is
 done on the embedded interpreter or on the text editor.
@@ -365,8 +384,10 @@ done on the embedded interpreter or on the text editor.
 An example
 ~~~~~~~~~~
 
-Here is an example script that illustrates various features of
-scripting mayavi::
+Here is an example script that illustrates various features of scripting
+mayavi (note that this will work if you execute the following from the
+embedded Python shell inside Mayavi or if you run it as ``mayavi2 -x
+script.py``)::
 
   # Create a new mayavi scene.
   mayavi.new_scene()
@@ -375,11 +396,7 @@ scripting mayavi::
   s = mayavi.engine.current_scene
 
   # Read a data file.
-  from enthought.mayavi.sources.api import VTKXMLFileReader
-  d = VTKXMLFileReader()
-  # You must specify the full path to the data here.
-  d.initialize('fire_ug.vtu')
-  mayavi.add_source(d)
+  d = mayavi.open('fire_ug.vtu')
 
   # Import a few modules.
   from enthought.mayavi.modules.api import Outline, IsoSurface, Streamline
@@ -395,7 +412,7 @@ scripting mayavi::
   iso.contour.contours = [450, 570]
   # Make them translucent.
   iso.actor.property.opacity = 0.4
-  # Show the colormapping.
+  # Show the scalar bar (legend).
   iso.module_manager.scalar_lut_manager.show_scalar_bar = True
 
   # A streamline.
@@ -405,7 +422,7 @@ scripting mayavi::
   st.seed.widget.center = 3.5, 0.625, 1.25
   st.streamline_type = 'tube'
 
-  # Save the resulting image.
+  # Save the resulting image to a PNG file.
   s.scene.save('test.png')
 
   # Make an animation:
@@ -431,7 +448,7 @@ In this case ``x`` will be set to the ``Streamline`` instance that we
 just created.
 
 There are plenty of examples illustrating various things in the
-``examples`` directory.  These are all fairly well documented.  
+``examples/mayavi`` directory.  These are all fairly well documented.  
 
 In particular, the ``standalone.py`` example illustrates how one can
 script mayavi without using the envisage application at all.  The
@@ -448,34 +465,31 @@ Using the mayavi envisage plugins
 
 The mayavi related plugin definitions to use are:
 
-  * ``mayavi_plugin_definition.py``
-  * ``mayavi_ui_plugin_definition.py``
+  * ``mayavi_plugin.py``
+  * ``mayavi_ui_plugin.py``
 
-These are in the ``enthought.mayavi`` package.  To see an example of
-how to use this see the ``enthought.mayavi.plugin_definitions``
-module and the ``enthought.mayavi.app`` module.
+These are in the ``enthought.mayavi.plugins`` package.  To see an
+example of how to use this see the ``enthought.mayavi.plugins.app``
+module.  The explorer3D example in ``examples/mayavi/explorer`` also
+demonstrates how to use mayavi as an envisage plugin.
 
-If you are writing Envisage plugins for an application and desire to
-use the mayavi plugins from your plugins/applications then it is
-important to note that mayavi creates three application objects for
-your convenience.  These are:
+If you are writing Envisage plugins for an application and desire to use
+the mayavi plugins from your plugins/applications then it is important
+to note that mayavi creates three workbench service offers for your
+convenience.  These are:
 
-  * ``enthought.mayavi.services.IMAYAVI``: This is an
-    ``enthought.mayavi.script.Script`` instance that may be used to
-    easily script mayavi.  It is a simple wrapper object that merely
-    provides some nice conveniences while scripting from the UI.  It
-    has an ``engine`` trait that is a reference to the running mayavi
+  * ``enthought.mayavi.plugins.script.Script``: This is an
+    ``enthought.mayavi.plugins.script.Script`` instance that may be used
+    to easily script mayavi.  It is a simple wrapper object that merely
+    provides some nice conveniences while scripting from the UI.  It has
+    an ``engine`` trait that is a reference to the running mayavi
     engine.
 
-  * ``enthought.mayavi.services.IMAYAVI_ENGINE``: This is the running
+  * ``enthought.mayavi.core.engine.Engine``: This is the running
     mayavi engine instance.
 
-  * ``enthought.mayavi.services.IMAYAVI_ENGINE_VIEW``:  This is the
-    view of the engine and is only exposed if the
-    ``mayavi_ui_plugin_definition.py`` is used.
-
 A simple example that demonstrates the use of the mayavi plugin in an
-envisage application is included in the ``examples/explorer``
+envisage application is included in the ``examples/mayavi/explorer``
 directory.  This may be studied to understand how you may do the same
 in your envisage applications.
 

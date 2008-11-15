@@ -14,7 +14,7 @@ to script mayavi2.
     The advantages with this approach are:
 
       A. You can actually edit this script from inside mayavi2 (via
-         File->Open File...) and then run it (by pressing Ctrl-r on
+         File->Open Text File...) and then run it (by pressing Ctrl-r on
          the editor window).
 
       B. You can experiment on the embedded interpreter and cut/paste
@@ -35,7 +35,7 @@ to script mayavi2.
     Apart from the nongui.py and test.py scripts all the scripts in
     this directory use this approach.
 
- 2. Subclass the `enthought.mayavi.app.Mayavi` application and
+ 2. Subclass the `enthought.mayavi.plugins.app.Mayavi` application and
     override the `run` method.  While this is obviously very flexible
     it does involve quite a bit more work.  The only major benefit of
     this is that you can choose to use the non-GUI mayavi plugin as

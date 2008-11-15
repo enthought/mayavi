@@ -51,7 +51,7 @@ ylabel
 scalarbar
 ~~~~~~~~~
 
-.. function:: scalarbar(object=None, title=None, orientation=None)
+.. function:: scalarbar(object=None, title=None, orientation=None, nb_labels=None, nb_colors=None, label_fmt=None)
 
     Adds a colorbar for the scalar color mapping of the given object.
     
@@ -66,6 +66,14 @@ scalarbar
     
         :orientation: Can be 'horizontal' or 'vertical'
     
+        :nb_labels: The number of labels to display on the colorbar.
+    
+        :label_fmt: The string formater for the labels. This needs to be
+                    a formater for float number, eg '%.1f'.
+    
+        :nb_colors: The maximum number of colors displayed on the
+                    colorbar.
+    
 
     
 
@@ -73,7 +81,7 @@ scalarbar
 colorbar
 ~~~~~~~~
 
-.. function:: colorbar(object=None, title=None, orientation=None)
+.. function:: colorbar(object=None, title=None, orientation=None, nb_labels=None, nb_colors=None, label_fmt=None)
 
     Adds a colorbar for the color mapping of the given object.
     
@@ -90,6 +98,14 @@ colorbar
         :title: The title string
     
         :orientation: Can be 'horizontal' or 'vertical'
+    
+        :nb_labels: The number of labels to display on the colorbar.
+    
+        :label_fmt: The string formater for the labels. This needs to be
+                    a formater for float number, eg '%.1f'.
+    
+        :nb_colors: The maximum number of colors displayed on the
+                    colorbar.
     
 
     
@@ -115,7 +131,7 @@ xlabel
 vectorbar
 ~~~~~~~~~
 
-.. function:: vectorbar(object=None, title=None, orientation=None)
+.. function:: vectorbar(object=None, title=None, orientation=None, nb_labels=None, nb_colors=None, label_fmt=None)
 
     Adds a colorbar for the vector color mapping of the given object.
     
@@ -129,6 +145,14 @@ vectorbar
         :title: The title string
     
         :orientation: Can be 'horizontal' or 'vertical'
+    
+        :nb_labels: The number of labels to display on the colorbar.
+    
+        :label_fmt: The string formater for the labels. This needs to be
+                    a formater for float number, eg '%.1f'.
+    
+        :nb_colors: The maximum number of colors displayed on the
+                    colorbar.
     
 
     
