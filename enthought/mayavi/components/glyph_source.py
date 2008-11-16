@@ -6,9 +6,11 @@ handle transformation.
 #         Prabhu Ramachandran <prabhu_r@users.sf.net>
 
 # Enthought library imports.
-from enthought.traits.api import Instance, List, Trait, Bool, TraitPrefixList
+from enthought.traits.api import (Instance, List, Trait, Bool, 
+    TraitPrefixList, Property, Dict)
 from enthought.traits.ui.api import View, Group, Item, InstanceEditor
 from enthought.tvtk.api import tvtk
+from enthought.tvtk.common import camel2enthought
 from enthought.persistence.state_pickler import set_state
 
 # Local imports.
@@ -22,7 +24,7 @@ from enthought.mayavi.core.component import Component
 class GlyphSource(Component):
 
     # The version of this class.  Used for persistence.
-    __version__ = 0
+    __version__ = 1 
 
     # Glyph position.  This can be one of ['head', 'tail', 'center'],
     # and indicates the position of the glyph with respect to the
@@ -38,8 +40,12 @@ class GlyphSource(Component):
     # `self._glyph_list` or `self.glyph_dict`.
     glyph_source = Instance(tvtk.Object, allow_none=False, record=True)
 
+    # A dict of glyphs to use.
+    glyph_dict = Dict(desc='the glyph sources to select from',
+                      record=False)
+
     # A list of predefined glyph sources that can be used.
-    glyph_list = List(tvtk.Object, record=False)
+    glyph_list = Property(List(tvtk.Object), record=False)
 
     ########################################
     # Private traits.
@@ -69,22 +75,32 @@ class GlyphSource(Component):
     ######################################################################
     def __get_pure_state__(self):
         d = super(GlyphSource, self).__get_pure_state__()
-        for attr in ('_updating'):
+        for attr in ('_updating', 'glyph_list'):
             d.pop(attr, None)
         return d
 
     def __set_pure_state__(self, state):
-        # Setup the glyph_list attribute by creating any new ones if
-        # needed.
-        handle_children_state(self.glyph_list, state.glyph_list)
-        # Set their state.
-        set_state(self, state, first=['glyph_list'], ignore=['*'])
-        glyph_names = [x.__class__.__name__ for x in self.glyph_list]
+        if 'glyph_dict' in state:
+            # Set their state.
+            set_state(self, state, first=['glyph_dict'], ignore=['*'])
+            ignore = ['glyph_dict']
+        else:
+            # Set the dict state using the persisted list.
+            gd = self.glyph_dict
+            gl = self.glyph_list
+            handle_children_state(gl, state.glyph_list)
+            for g, gs in zip(gl, state.glyph_list):
+                name = camel2enthought(g.__class__.__name__)
+                if name not in gd:
+                    gd[name] = g
+                # Set the glyph source's state.
+                set_state(g, gs)
+            ignore = ['glyph_list']
         g_name = state.glyph_source.__metadata__['class_name']
+        name = camel2enthought(g_name)
         # Set the correct glyph_source.
-        self.glyph_source = self.glyph_list[glyph_names.index(g_name)]
-        set_state(self, state, ignore=['glyph_list'])
-        #self._glyph_position_changed(self.glyph_position)
+        self.glyph_source = self.glyph_dict[name]
+        set_state(self, state, ignore=ignore)
 
     ######################################################################
     # `Component` interface
@@ -104,15 +120,7 @@ class GlyphSource(Component):
         
         self._trfm.transform = tvtk.Transform()
         # Setup the glyphs.
-        glyphs = [tvtk.GlyphSource2D(glyph_type='arrow', filled=False),
-                  tvtk.ArrowSource(),
-                  tvtk.ConeSource(height=1.0, radius=0.2, resolution=15),
-                  tvtk.CylinderSource(height=1.0, radius=0.15, resolution=10),
-                  tvtk.SphereSource(),
-                  tvtk.CubeSource(),
-                  ]
-        self.glyph_list = glyphs
-        self.glyph_source = glyphs[0]
+        self.glyph_source = self.glyph_dict['glyph_source2d']
 
     def update_pipeline(self):
         """Override this method so that it *updates* the tvtk pipeline
@@ -144,22 +152,18 @@ class GlyphSource(Component):
         if self._updating == True:
             return
 
-        if value not in self.glyph_list:
-            classes = [o.__class__ for o in self.glyph_list]
-            vc = value.__class__
-            if vc in classes:
-                self.glyph_list[classes.index(vc)] = value
-            else:
-                self.glyph_list.append(value)
+        gd = self.glyph_dict
+        value_cls = camel2enthought(value.__class__.__name__)
+        if value not in gd.values():
+            gd[value_cls] = value
 
         # Now change the glyph's source trait.
         self._updating = True
         recorder = self.recorder
         if recorder is not None:
-            idx = self.glyph_list.index(value)
             name = recorder.get_script_id(self)
             lhs = '%s.glyph_source'%name
-            rhs = '%s.glyph_list[%d]'%(name, idx)
+            rhs = '%s.glyph_dict[%r]'%(name, value_cls)
             recorder.record('%s = %s'%(lhs, rhs))
 
         name = value.__class__.__name__
@@ -225,4 +229,26 @@ class GlyphSource(Component):
             tr.rotate_z(90)
 
         self._updating = False
-        self.render()            
+        self.render()
+
+    def _get_glyph_list(self):
+        # Return the glyph list as per the original order in earlier
+        # implementation.
+        order = ['glyph_source2d', 'arrow_source', 'cone_source', 
+                 'cylinder_source', 'sphere_source', 'cube_source']
+        gd = self.glyph_dict
+        for key in gd:
+            if key not in order:
+                order.append(key)
+        return [gd[key] for key in order]
+
+    def _glyph_dict_default(self):
+        g = {'glyph_source2d': tvtk.GlyphSource2D(glyph_type='arrow', filled=False),
+             'arrow_source': tvtk.ArrowSource(),
+             'cone_source': tvtk.ConeSource(height=1.0, radius=0.2, resolution=15),
+             'cylinder_source': tvtk.CylinderSource(height=1.0, radius=0.15, 
+                                                    resolution=10),
+             'sphere_source': tvtk.SphereSource(),
+             'cube_source': tvtk.CubeSource()}
+        return g
+

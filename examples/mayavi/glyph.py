@@ -53,7 +53,7 @@ def glyph():
     g.glyph.scale_mode = 'scale_by_vector'
     # Use arrows to view the scalars.
     gs = g.glyph.glyph_source
-    gs.glyph_source = gs.glyph_list[1]
+    gs.glyph_source = gs.glyph_dict['arrow_source']
 
 
 if __name__ == '__main__':
