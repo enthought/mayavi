@@ -6,11 +6,13 @@
 # License: BSD Style.
 
 import os.path
+import sys
+import subprocess
 
 # Enthought library imports.
 from enthought.traits.api import Instance, Range, Bool, Array, \
-     Str, Property, Enum
-from enthought.traits.ui.api import FileEditor
+     Str, Property, Enum, Button
+from enthought.traits.ui.api import FileEditor, auto_close_message
 from enthought.tvtk.api import tvtk
 
 # Local imports.
@@ -163,6 +165,11 @@ class LUTManager(Base):
     data_range = Array(shape=(2,), value=[0.0, 1.0],
                        dtype=float, enter_set=True, auto_set=False,
                        desc='the range of the data mapped')
+
+    # Create a new LUT.
+    create_lut = Button('Launch LUT editor', 
+                        desc='if we launch a Lookup table editor in'
+                             ' a separate process')
 
     ########################################
     ## Private traits.
@@ -409,4 +416,11 @@ class LUTManager(Base):
 
     def _get_label_text_property(self):
         return self._label_text_property
+
+    def _create_lut_fired(self):
+        from enthought.tvtk import util
+        script = os.path.join(os.path.dirname(util.__file__),
+                              'wx_gradient_editor.py')
+        subprocess.Popen([sys.executable, script])
+        auto_close_message('Launching LUT editor in separate process ...')
 

@@ -10,7 +10,6 @@ MayaVi2:
     - UI:
         - Option to make slicing and other operations less interactive
           (like the streamline module) for larger data.
-        - Easier access to the LUT editor.
         - Transfer editor for images. (g)
 
     - Misc:

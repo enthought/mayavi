@@ -32,7 +32,8 @@ view = View(Group(Item(name='lut_mode',
                   Item(name='lut',
                        show_label=False,
                        editor=InstanceEditor(label='Edit LUT properties')),
-                  
+                  Item(name='create_lut', show_label=False),
+
                   Group(Item(name='show_scalar_bar'),
                       Group(   
                           Item(name='number_of_labels'),
