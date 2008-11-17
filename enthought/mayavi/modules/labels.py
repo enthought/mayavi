@@ -192,7 +192,8 @@ class Labels(Module):
         inp = self.input.outputs[0]
         inp.update()
         npts = inp.number_of_points
-        f.on_ratio = max(npts/value, 1)
+        typ = type(f.on_ratio)
+        f.on_ratio = typ(max(npts/value, 1))
         if self.mask.running:
             f.update()
             self.mask.data_changed = True
