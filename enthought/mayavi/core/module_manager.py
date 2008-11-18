@@ -114,13 +114,13 @@ class ModuleManager(Base):
     vector_lut_manager = Instance(LUTManager, args=(), record=True)
 
     # The name of the ModuleManager.
-    name = Str('Modules')
+    name = Str('Colors and legends')
 
     # The icon
     icon = Str('modulemanager.ico')
 
     # The human-readable type for this object
-    type = Str(' module manager')
+    type = Str(' colors and legends')
 
 
     # Information about what this object can consume.
