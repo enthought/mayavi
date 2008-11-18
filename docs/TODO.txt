@@ -1,6 +1,8 @@
 MayaVi2:
     - Core:
         - Better and correct persistence. (p)
+	- Double-clicking on objects in the scene to open there
+	  properties.
 
     - Sources:
         - Multiblock data support.

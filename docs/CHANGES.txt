@@ -6,12 +6,24 @@ URL:
     https://svn.enthought.com/enthought/changeset/18702
 -----------------------------------------------------------------------------
 
+19 November, 2008 (GV):
+    - UI: Rename 'Modules' to 'Colors and legends' [22512]
+    - API: Change defaults [22513]: 
+	- CellToPointData and PointToCellData filters to pass the existing
+	  dataset.
+	- The ouline of the implicite plane is no longer draggable by
+	  default.
+
+13 November, 2008 (GV)
+    - ENH: [mlab]  Add keyword arguments to colobars to control label
+      number and format, as well as colors number. [22489]
+
 27 October, 2008 (GV)
-    - ENH: [mlab] If a module or filter is added to the pipeline usingng
+    - ENH: [mlab] If a module or filter is added to the pipeline using
       the mlab.pipeline functions, the source on which it is added
       onto is automatically added to the scene if not alread present. It 
       is also automatically converted from a tvtk dataset to a mayavi
-      source, if needed. [22375]
+      source, if needed. [22375], [22377]
     - ENH: [mlab] Make mlab.axes and mlab.outline use the extents of the 
       current object when none specified explicitely. [22372]
 
