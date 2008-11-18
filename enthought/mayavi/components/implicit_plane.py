@@ -26,7 +26,8 @@ class ImplicitPlane(Component):
     widget = Instance(tvtk.ImplicitPlaneWidget, args=(),
                       kw={'key_press_activation': False,
                           'place_factor':1.2,
-                          'draw_plane':False})
+                          'draw_plane':False,
+                          'outline_translation':False})
 
     # The plane that the widget controls.  Do not change the
     # attributes of the plane, do it via the widget.
