@@ -46,6 +46,7 @@ class TestUserDefined(unittest.TestCase):
         ud = UserDefined(filter=cd)
         e.add_filter(ud)
         ctp = CellToPointData()
+        ctp.filter.pass_cell_data = False
         e.add_filter(ctp)
         evn = ExtractVectorNorm()
         e.add_filter(evn)
