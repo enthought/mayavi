@@ -341,6 +341,9 @@ def vtk2array(vtk_array):
 
     shape = vtk_array.GetNumberOfTuples(), \
             vtk_array.GetNumberOfComponents()
+    if shape[0] == 0:
+        dtype = get_numeric_array_type(typ)
+        return numpy.array([], dtype)
 
     # First check if this array already has a numpy array cached, if
     # it does, reshape that and return it.
