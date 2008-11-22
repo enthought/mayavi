@@ -364,7 +364,7 @@ one to interactively script the mayavi application::
 
 To start a visualization do the following::
 
- from enthought.mayavi.app import main
+ from enthought.mayavi.plugins.app import main
  # Note, this does not process any command line arguments.
  mayavi = main()
  # 'mayavi' is the mayavi Script instance.
