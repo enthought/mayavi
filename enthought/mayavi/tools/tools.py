@@ -64,6 +64,12 @@ def add_dataset(dataset, name='', **kwargs):
     engine.add_source(d)
     return d
 
+def add_module_manager(object): 
+    """ Add a module-manager, to control colors and legend bars to the
+        given object.
+    """
+    return get_engine().add_module(ModuleManager(), object)
+
 def _traverse(node):
     """Traverse a tree accessing the nodes children attribute.
     """

@@ -11,5 +11,5 @@ pipeline.
 from modules import *
 from sources import *
 from filters import *
-from tools import add_dataset, set_extent
+from tools import add_dataset, set_extent, add_module_manager
 
