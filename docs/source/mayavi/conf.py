@@ -11,17 +11,42 @@
 # All configuration values have a default value; values that are commented out
 # serve to show the default value.
 
-import sys
 
-# If your extensions are in another directory, add it here.
-#sys.path.append('some/directory')
+# Adding the current directory to the path, so that sphinx finds the
+# extensions.
+#import sys
+#sys.path.append('.')
 
 # General configuration
 # ---------------------
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-#extensions = []
+extensions = ['sphinx.ext.autodoc']
+
+## An autodocumentation processor, to insert title of functions before
+## the auto-documented functions:
+#def add_title(app, what, name, obj, options, signature, return_annotation):
+#    """ Add a section title with the name of the function before the 
+#        docstring.
+#    """
+#    if what is not 'function':
+#        return
+#    short_name = name.split('.')[-1]
+#    extra_lines = """
+#
+#%s
+#...........................................
+#
+#    """ % short_name
+#    return extra_lines + signature, return_annotation 
+#
+#
+#def setup(app):
+#    """ Register our docstring processor.
+#    """
+#    app.connect('autodoc-process-signature', add_title)
+
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['.templates']

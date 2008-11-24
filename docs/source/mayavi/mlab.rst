@@ -293,7 +293,7 @@ explicitly sets the roll angle of the camera.
 Interacting graphically with the visualization
 -----------------------------------------------
 
-Mayavi, and thus mlab, allow you to interactively modify your
+Mayavi, and thus mlab, allows you to interactively modify your
 visualization.
 
 The Mayavi pipeline tree can be displayed by clicking on the mayavi icon
@@ -479,6 +479,66 @@ ends with an `_anim` to see how these work and run.
     Use `reset` when the arrays are changing shape and size.  Reset
     usually regenerates all the data and can be inefficient when
     compared to `set` or directly setting the traits.
+
+Controlling the pipeline with `mlab` scripts
+---------------------------------------------
+
+The plotting functions reviewed above explore only a small fraction of
+the visualization possibilities of Mayavi. The full power of Mayavi can
+only be unleashed through the control of the pipeline itself. As
+described in the :ref:`an-overview-of-mayavi` section, a visualization in
+Mayavi is created by loading the data in Mayavi with `data source`
+object, optionally transforming the data through :ref:`filters`, and
+visualizing it with :ref:`modules`. The mlab functions build complex
+pipelines for you in one function, making the right choice of sources,
+filters, and modules, but they cannot explore all the possible
+combinations.
+
+Mlab provides a submodule `pipeline` which contains functions to populate
+the pipeline easily from scripts. This module is accessible in `mlab`:
+`mlab.pipeline`, or can be imported from
+`enthought.mayavi.tools.pipeline`.
+
+When using an `mlab` plotting function, a pipeline is created: first a
+source is created from `numpy` arrays, then modules, and possibly
+filters, are added. The resulting pipeline can be seen for instance with
+the `mlab.show_pipeline` command. This information can be used to create
+the very same pipeline using directly the `pipeline` scripting module, as
+the names of the functions required to create each step of the pipeline
+are directly linked to the default names of the objects created by `mlab`
+on the pipeline. As an example, let us create a visualization using
+`surf`::
+
+    import numpy as np
+    a = np.random.random((4, 4))
+    from enthought.mayavi import mlab
+    mlab.surf(a)
+    mlab.show_pipeline()
+
+The following pipeline is created::
+
+    Array2DSource
+        \__ WarpScalar
+                \__ PolyDataNormals
+                        \__ Colors and legends
+                                \__ Surface
+
+The same pipeline can be created using the following code::
+
+    src = mlab.pipeline.array2d_source(a)
+    warp = mlab.pipeline.warp_scalar(src)
+    normals = mlab.pipeline.poly_data_normals(warp)
+    surf = mlab.pipeline.surface(normals)
+
+Sources
+~~~~~~~~
+
+The `pipeline` module contains functions for creating various data
+sources from arrays. They are documented in details in the
+:ref:`mlab-pipeline-refrence`. We give a small summary of the
+possibilities here...
+
+XXX: To be done.
 
 ..
    Local Variables:

@@ -218,7 +218,7 @@ plot3d
                       scalar.
     
         :tube_radius: radius of the tubes used to represent the
-                      lines Must be a float. Default: 0.025
+                      lines, If None, simple lines are used.
     
         :tube_sides: number of sides of the tubes used to
                      represent the lines. Must be an integer. Default: 6

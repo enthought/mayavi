@@ -25,5 +25,6 @@ with documentation and examples.
 	mlab_decorations.rst
 	mlab_camera.rst
 	mlab_other_functions.rst
+	../mlab_pipeline_reference.rst
 
 
