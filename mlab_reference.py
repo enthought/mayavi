@@ -177,6 +177,9 @@ class ModuleReference(object):
     # Header for the main file 
     header = '' 
 
+    # Footer for the main file
+    footer = ''
+
     # Misc entries that are in no submodules. 
     # If this is None, no separate page will be created
     misc_title = None
@@ -279,6 +282,7 @@ from enthought.mayavi.mlab import *
         else:
             outfile.write('\t%s\n' % misc_filename)
 
+        outfile.write(self.footer)
         outfile.write('\n\n')
 
 
@@ -336,12 +340,15 @@ if __name__ == '__main__':
         pass
 
 
+    #########################################################################
+    # The main mlab module.
     from enthought.mayavi.tools import helper_functions, camera, \
             decorations, figure
 
     sub_modules = [helper_functions, figure, decorations, camera]
 
     mlab_reference = ModuleReference(
+            filename = 'mlab_reference.rst',
             module  = mlab,
             header  = """
 
@@ -360,6 +367,7 @@ with documentation and examples.
     and how to run the examples.
 
 """, 
+            footer = """\t../mlab_pipeline_reference.rst\n""",
             sub_modules = [module.__name__ for module in sub_modules],
             sub_filenames = ['mlab_%s.rst' % module.__name__.split('.')[-1] 
                                 for module in sub_modules],
@@ -374,4 +382,31 @@ with documentation and examples.
     
     mlab_reference.write_doc()
 
+    #########################################################################
+    # The mlab.pipeline module, sources functions.
+    from enthought.mayavi.tools import pipeline, sources, tools
+
+    pipeline_reference = ModuleReference(
+            filename = 'mlab_pipeline_reference.rst',
+            module  = pipeline,
+            header  = """
+
+.. _mlab-pipeline-reference: 
+
+MLab pipeline reference
+========================
+
+Reference list of all the main functions of
+``pipeline`` sub module of ``mlab``.
+
+""", 
+            sub_modules = [sources.__name__, tools.__name__],
+            sub_filenames = ['mlab_pipeline_sources.rst', 
+                             'mlab_pipeline_tools.rst'], 
+            sub_modules_titles = ['Sources', 'Tools'], 
+            misc_title = 'Filters, modules, other functions',
+            misc_filename = 'mlab_pipeline_other_functions.rst',
+            )
+
+    pipeline_reference.write_doc()
 
