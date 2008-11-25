@@ -582,6 +582,112 @@ be thus easier to use the keyword arguments, when available, than to set
 the attributes of the objects created. For more information, please check
 out the docstrings.
 
+
+Case studies of some visualizations
+-------------------------------------
+
+Visualizing volumetric scalar data
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+There are three main ways of visualizing a 3D scalar field. Given the
+following field::
+
+    import numpy as np
+    x, y, z = np.ogrid[-10:10:20j, -10:10:20j, -10:10:20j]
+    s = np.sin(x*y*z)/(x*y*z)
+
+
+
+:IsoSurfaces:
+    To display iso surfaces of the field, the simplest solution is
+    simply to use the `mlab` :func:`contour3d` function:: 
+
+        mlab.contour3d(s)
+
+    |volumetric_contour3d|
+
+    The problem with this method that outer iso-surfaces tend to hide inner 
+    ones. As a result, quite often only one iso-surface can be visible.
+
+:Volume rendering:
+    Volume rendering is an advanced technique in which each voxel is
+    given a partly transparent color. This can be achieved with
+    `mlab.pipeline` using the :run:`scalar_field` source, and the 
+    `volume` module::
+
+        mlab.pipeline.volume(mlab.pipeline.scalar_field(s))
+
+    |volumetric_volume|
+
+    It is useful to open the module's dialog (eg through the pipeline
+    interface, or using it's `edit_traits()` method) and tweak the color
+    transfert function to render transparent the low-intensities regions
+    of the image. **For this module, the LUT as defined in the `Colors and
+    legends` node are not used**
+
+    |volumetric_volume_tweaked|
+
+    The limitations of volume rendering is that, while it is often very
+    pretty, it can be difficult to analysis the details of the field with
+    it.
+
+:Cut planes:
+    While less impressive, cut planes are a very informative way of
+    visualising the details of a scalar field::
+
+        mlab.pipeline.image_plane_widget(mlab.pipeline.scalar_field(s),
+                                    plane_orientation='x_axes',
+                                    slice_index=10,
+                                )
+        mlab.pipeline.image_plane_widget(mlab.pipeline.scalar_field(s),
+                                    plane_orientation='y_axes',
+                                    slice_index=10,
+                                )
+        mlab.outline()
+
+
+    |volumetric_cut_plane|
+
+    The image plane widget can only be used on regular-spaced data, as
+    created by `mlab.pipeline.scalar_field`, but it is very fast. It
+    should thus be prefered to the scalar cut plane, when possible.
+
+    Clicking and dragging the cut plane is an excellent way of exploring
+    the field.
+
+:A combination of techniques:
+    Finally, it can be interesting to combine cut planes with
+    iso-surfaces and thresholding to give a view of the peak areas using
+    the iso-surfaces, visualize the details of the field with the cut
+    plane, and the global mass with a large iso-surface::
+
+        src = mlab.pipeline.scalar_field(s)
+        mlab.pipeline.iso_surface(src, contours=[s.min()+0.1*s.ptp(), ], opacity=0.1)
+        mlab.pipeline.iso_surface(src, contours=[s.max()-0.1*s.ptp(), ],)
+        mlab.pipeline.image_plane_widget(src,
+                                    plane_orientation='z_axes',
+                                    slice_index=10,
+                                )
+        
+
+    |volumetric_combination|
+
+    In some cases, thought not in our example, it might be usable to
+    insert a threshold filter before the cut plane, eg to remove area
+    with values below 's.min()+0.1*s.ptp()'. In this case, the cut plane
+    needs to be implemented with `mlab.pipeline.scalar_cut_plane` as the data
+    looses its structure after thresholding.
+
+.. |volumetric_contour3d| image:: volumetric_contour3d.jpg
+
+.. |volumetric_volume| image:: volumetric_volume.jpg
+
+.. |volumetric_volume_tweaked| image:: volumetric_volume_tweaked.jpg
+
+.. |volumetric_cut_plane| image:: volumetric_cut_plane.jpg
+
+.. |volumetric_combination| image:: volumetric_combination.jpg
+
 ..
    Local Variables:
    mode: rst
