@@ -3,7 +3,7 @@
 Mlab pipeline-control reference
 --------------------------------
 
-.. module:: enthought.mayavi.mlab.pipeline
+.. module:: enthought.mayavi.tools.pipeline
 
 
 Reference list of all the main functions of ``pipeline`` sub-module of

@@ -32,6 +32,7 @@ Trust me, your efforts learning Traits will not be wasted!
 .. _Traits: http://code.enthought.com/projects/traits
 .. _TVTK: http://code.enthought.com/projects/mayavi
 
+
 Design Overview
 ---------------
 
@@ -52,26 +53,69 @@ object can further contain any number of ``Filters``
 shows this hierarchy in a graphical form.
 
 .. image:: images/m2_big_picture.png
-   :alt: Illustration of the various objects in the mayavi pipeline.
+   :alt: Illustration of the various objects in the Mayavi pipeline.
 
-*Illustration of the various objects in the mayavi pipeline.*
+*Illustration of the various objects in the Mayavi pipeline.*
 
 This hierarchy is precisely what is seen in the Mayavi tree view on
 the UI.  The UI is therefore merely a graphical representation of this
 internal world-view.  A little more detail on these objects is given
-below.  For even more details please refer to the sources.
+below.  For even more details please refer to the source code (hint: the
+source code of a class can be view in IPython by entering `Class??`).
 
-All objects in the mayavi pipeline feature ``start`` and ``stop``
-methods.  The reasoning for this is that any object in mayavi is not
+
+A quick example
+~~~~~~~~~~~~~~~~
+
+When scripting Mayavi to create or modify a visualization, one mainly
+deals with adding or removing objects to the engine, or modifying their
+properties. We can thus rewrite the example of building a pipeline with
+mlab visited in :ref:`controlling-the-pipeline-with-mlab-scripts` by
+explicit calls to the engine::
+
+    import numpy as np
+    a = np.random.random((4, 4))
+    from enthought.mayavi.api import Engine
+    e = Engine()
+    e.start()
+    s = e.new_scene()
+    from enthought.mayavi.sources.api import ArraySource
+    src = ArraySource(scalar_data=a)
+    e.add_source(src)
+    from enthought.mayavi.filters.api import WarpScalar, PolyDataNormals
+    warp = WarpScalar()
+    e.add_filter(warp, obj=src)
+    normals = PolyDataNormals()
+    e.add_filter(normals, obj=warp)
+    from enthought.mayavi.modules.api import Surface
+    surf = Surface()
+    e.add_module(surf, obj=normals)
+
+
+As with all Mayavi code, you need to have the GUI mainloop running to
+have the visualization go live. Typing this code in `ipython -wthread`
+will do this for you.
+
+This explicit, object-oriented, code thus mirrors the `mlab.pipeline`
+code. It is more fine-grained, and gives you more control. For instance
+it separate initialization of the objects, and their addition or removal
+to an engine. In general, it is more suited to developing an application,
+as opposed to a script.
+
+Life-cycle of the different objects
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+All objects in the Mayavi pipeline feature ``start`` and ``stop``
+methods.  The reasoning for this is that any object in Mayavi is not
 usable (i.e. it may not provide any outputs) unless it has been
 started.  Similarly the ``stop`` method "deactivates" the object.
-This is done because mayavi is essentially driving VTK objects
+This is done because Mayavi is essentially driving VTK objects
 underneath.  These objects require inputs in order to do anything
 useful.  Thus, an object that is not connected to the pipeline cannot
 be used.  For example, consider an ``IsoSurface`` module.  It requires
 some data in order to contour anything.  Thus, the module in isolation
 is completely useless.  It is usable only when it is added to the
-mayavi pipeline.  When an object is added to the pipeline, its inputs
+Mayavi pipeline.  When an object is added to the pipeline, its inputs
 are setup and its ``start`` method is called automatically.  When the
 object is removed from the pipeline its ``stop`` method is called
 automatically.  Note that if you are looking to remove an object from
@@ -87,7 +131,7 @@ example (the following will require that you use ``ipython -wthread``)::
   >>> e.add_source(p) # calls p.start internally.
   >>> p.remove() # Removes p from the engine. 
 
-Apart from the ``Engine`` object, all other objects in the mayavi
+Apart from the ``Engine`` object, all other objects in the Mayavi
 pipeline feature a ``scene`` trait which refers to the current
 ``enthought.tvtk.pyface.tvtk_scene.TVTKScene`` instance that the
 object is associated with.  The objects also feature an ``add_child``
@@ -95,7 +139,11 @@ method that lets one build up the pipeline by adding "children"
 objects.  The ``add_child`` method is "intelligent" and will try to
 appropriately add the child in the right place.
 
-Here is a brief description of the key objects in the mayavi pipeline.
+
+Objects populating the Mayavi pipeline
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Here is a brief description of the key objects in the Mayavi pipeline.
 
  ``Engine``
     The Mayavi engine is defined in the ``enthought.mayavi.engine``
@@ -262,7 +310,6 @@ Here is a brief description of the key objects in the mayavi pipeline.
 The following figures show the class hierarchy of the various objects
 involved.
 
-
 .. image:: images/design2c.png
    :alt: The ``Engine`` object.
 
@@ -369,14 +416,14 @@ To start a visualization do the following::
  mayavi = main()
  # 'mayavi' is the mayavi Script instance.
 
-It is also possible to use mlab (see :ref:`simple-scripting-with-mlab`) for
+It is also possible to use `mlab` (see :ref:`simple-scripting-with-mlab`) for
 this purpose::
 
  from enthought.mayavi import mlab
  f = mlab.figure() # Returns the current scene.
  engine = mlab.get_engine() # Returns the running mayavi engine.
 
-With this it should be possible to script mayavi just the way it is
+With this it should be possible to script Mayavi just the way it is
 done on the embedded interpreter or on the text editor.
 
 .. _IPython: http://ipython.scipy.org
@@ -385,7 +432,7 @@ An example
 ~~~~~~~~~~
 
 Here is an example script that illustrates various features of scripting
-mayavi (note that this will work if you execute the following from the
+Mayavi (note that this will work if you execute the following from the
 embedded Python shell inside Mayavi or if you run it as ``mayavi2 -x
 script.py``)::
 
@@ -437,7 +484,7 @@ script.py``)::
       # Save the scene.
       s.scene.save_png('anim%d.png'%i)
 
-Sometimes, given a mayavi ``Script`` instance or ``Engine``, it is
+Sometimes, given a Mayavi ``Script`` instance or ``Engine``, it is
 handy to be able to navigate to a particular module/object.  In the
 above this could be achieved as follows::
 
@@ -460,10 +507,10 @@ ways to script and some additional information.
 
 
 
-Using the mayavi envisage plugins
+Using the Mayavi envisage plugins
 ---------------------------------
 
-The mayavi related plugin definitions to use are:
+The Mayavi-related plugin definitions to use are:
 
   * ``mayavi_plugin.py``
   * ``mayavi_ui_plugin.py``
@@ -471,24 +518,24 @@ The mayavi related plugin definitions to use are:
 These are in the ``enthought.mayavi.plugins`` package.  To see an
 example of how to use this see the ``enthought.mayavi.plugins.app``
 module.  The explorer3D example in ``examples/mayavi/explorer`` also
-demonstrates how to use mayavi as an envisage plugin.
+demonstrates how to use Mayavi as an envisage plugin.
 
 If you are writing Envisage plugins for an application and desire to use
-the mayavi plugins from your plugins/applications then it is important
-to note that mayavi creates three workbench service offers for your
+the Mayavi plugins from your plugins/applications then it is important
+to note that Mayavi creates three workbench service offers for your
 convenience.  These are:
 
   * ``enthought.mayavi.plugins.script.Script``: This is an
     ``enthought.mayavi.plugins.script.Script`` instance that may be used
     to easily script mayavi.  It is a simple wrapper object that merely
     provides some nice conveniences while scripting from the UI.  It has
-    an ``engine`` trait that is a reference to the running mayavi
+    an ``engine`` trait that is a reference to the running Mayavi
     engine.
 
   * ``enthought.mayavi.core.engine.Engine``: This is the running
-    mayavi engine instance.
+    Mayavi engine instance.
 
-A simple example that demonstrates the use of the mayavi plugin in an
+A simple example that demonstrates the use of the Mayavi plugin in an
 envisage application is included in the ``examples/mayavi/explorer``
 directory.  This may be studied to understand how you may do the same
 in your envisage applications.

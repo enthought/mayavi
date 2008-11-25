@@ -480,8 +480,12 @@ ends with an `_anim` to see how these work and run.
     usually regenerates all the data and can be inefficient when
     compared to `set` or directly setting the traits.
 
+..  _controlling-the-pipeline-with-mlab-scripts:
+
 Controlling the pipeline with `mlab` scripts
 ---------------------------------------------
+
+.. currentmodule:: enthought.mayavi.tools.pipeline
 
 The plotting functions reviewed above explore only a small fraction of
 the visualization possibilities of Mayavi. The full power of Mayavi can
@@ -530,15 +534,53 @@ The same pipeline can be created using the following code::
     normals = mlab.pipeline.poly_data_normals(warp)
     surf = mlab.pipeline.surface(normals)
 
-Sources
-~~~~~~~~
+Data sources
+~~~~~~~~~~~~~
 
 The `pipeline` module contains functions for creating various data
 sources from arrays. They are documented in details in the
-:ref:`mlab-pipeline-refrence`. We give a small summary of the
-possibilities here...
+:ref:`mlab-pipeline-reference`. We give a small summary of the
+possibilities here. 
 
-XXX: To be done.
+`mlab` distinguishes sources with scalar data, and sources with vector
+data, but more important, it has different functions to create sets of
+unconnected points, with data attached to them, or connected data
+points describing continuously varying quantities that can be
+interpolated between data points, often called `fields` in physics or
+engineering.
+
+:Unconnected sources:
+    :func:`scalar_scatter`, :func:`vector_scatter`
+
+:Implicitely-connected sources:
+    :func:`scalar_field`, :func:`vector_field`, :func:`array2d_source`
+
+:Explicitly-connected sources:
+    :func:`line_source`, :func:`triangular_mesh_source`
+
+
+The implicitely-connected sources require well-shaped arguments: the data
+is supposed to lie on a regular, orthogonal, grid of the same shape as
+the shape of the input array.
+
+Modules and filters
+~~~~~~~~~~~~~~~~~~~~
+
+For each Mayavi module or filter, there is a corresponding
+`mlab.pipeline` function. The name of this function is created by
+replacing the alternating capitals in the module or filter name by
+underscores. Thus `ScalarCutPlane` corresponds to `scalar_cut_plane`.
+
+In general, the `mlab.pipeline` module and filter factory functions
+simply create and connect the corresponding object. However they can also
+contain addition logic, exposed as keyword arguments. For instance they
+allow to set up easily a colormap, or to specify the color of the module,
+when relevant. In accordance with the goal of the `mlab` interface to
+make frequent operations simple, they use the keyword arguments to choose 
+the properties of the create object to best suit the requirements. It can
+be thus easier to use the keyword arguments, when available, than to set
+the attributes of the objects created. For more information, please check
+out the docstrings.
 
 ..
    Local Variables:
