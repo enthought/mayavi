@@ -15,7 +15,7 @@ import numpy
 import new
 
 from enthought.traits.api import Trait, CArray, Instance, CFloat, \
-    Any, false, TraitTuple, Range, Bool, Property, CInt, Enum
+    Any, false, TraitTuple, Range, Bool, Property, CInt, Enum, Either
 from enthought.tvtk.api import tvtk
 from enthought.tvtk.common import camel2enthought
 
@@ -219,10 +219,15 @@ class VectorsFactory(DataModuleFactory):
                             help="""the scaling mode for the glyphs
                             ('vector', 'scalar', or 'none').""")
 
-    resolution = CInt(8, help="The resolution of the glyph created. For "
+    resolution = CInt(8, desc="The resolution of the glyph created. For "
                         "spheres, for instance, this is the number of "
                         "divisions along theta and phi.")
 
+    mask_points = Either(None, CInt, 
+                        desc="If supplied, only one out of 'mask_points' "
+                        "data point is displayed. This option is usefull "
+                        "to reduce the number of points displayed "
+                        "on large datasets")
 
     def _resolution_changed(self):
         glyph = self._target.glyph.glyph_source.glyph_source
@@ -237,6 +242,10 @@ class VectorsFactory(DataModuleFactory):
         if hasattr(glyph, 'tip_resolution'):
             glyph.tip_resolution = self.resolution
 
+    def _mask_points_changed(self):
+        if self.mask_points is not None:
+            self._target.glyph.mask_input_points = True
+            self._target.glyph.mask_points.on_ratio = self.mask_points
 
     def _scale_mode_changed(self):
         self._target.glyph.glyph.scale_mode = self.scale_mode_
