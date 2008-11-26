@@ -30,7 +30,7 @@ from pipe_base import PipeFactory, make_function
 __all__ = [ 'vectors', 'glyph', 'streamline', 'surface', 'iso_surface',
             'image_actor', 'contour_surface', 'contour_grid_plane',
             'custom_grid_plane', 'image_plane_widget',
-            'scalar_cut_plane',
+            'scalar_cut_plane', 'vector_cut_plane',
             ]
 
 ##############################################################################
@@ -166,6 +166,25 @@ class ContourModuleFactory(DataModuleFactory):
             self._target.enable_contours = True
 
  
+##############################################################################
+class CutPlaneFactory(DataModuleFactory):
+    """ Base class for modules with a cut plane.
+    """
+
+    plane_orientation = Enum('x_axes', 'y_axes', 'z_axes',
+                        desc="""the orientation of the plane""")
+
+    view_controls = Bool(True, adapts='implicit_plane.visible',
+                     desc=("Whether or not the controls of the "
+                           "cut plane are shown."))
+
+    def _plane_orientation_changed(self):
+        choices = dict(x_axes=numpy.array([ 1.,  0.,  0.]),
+                       y_axes=numpy.array([ 0.,  1.,  0.]),
+                       z_axes=numpy.array([ 0.,  0.,  1.]))
+        self._target.implicit_plane.normal = \
+                                choices[self.plane_orientation]
+
 
 ##############################################################################
 # Concrete module classes
@@ -364,41 +383,30 @@ class ImagePlaneWidgetFactory(DataModuleFactory):
 image_plane_widget = make_function(ImagePlaneWidgetFactory)
 
 
+
 ##############################################################################
-class ScalarCutPlaneFactory(DataModuleFactory):
+class ScalarCutPlaneFactory(CutPlaneFactory):
     """ Applies the ScalarCutPlane mayavi module to the given data
         source (Mayavi source, or VTK dataset). 
     """
     _target = Instance(modules.ScalarCutPlane, ())
 
-    plane_orientation = Enum('x_axes', 'y_axes', 'z_axes',
-                        desc="""the orientation of the plane""")
-
-    view_controls = Bool(True, adapts='implicit_plane.visible',
-                     desc=("Whether or not the controls of the "
-                           "cut plane are shown."))
-
-    def _plane_orientation_changed(self):
-        choices = dict(x_axes=numpy.array([ 1.,  0.,  0.]),
-                       y_axes=numpy.array([ 0.,  1.,  0.]),
-                       z_axes=numpy.array([ 0.,  0.,  1.]))
-        self._target.implicit_plane.normal = \
-                                choices[self.plane_orientation]
-
-    def __init__(self, *args, **kwargs):
-        """ Subclass the constructor to change the interaction mode on
-            the outline, as it confuses new users.
-        """
-        DataModuleFactory.__init__(self, *args, **kwargs)
-        self._target.implicit_plane.widget.outline_translation = False
-
-
 scalar_cut_plane = make_function(ScalarCutPlaneFactory)
+
+
+##############################################################################
+class VectorCutPlaneFactory(CutPlaneFactory, VectorsFactory):
+    """ Applies the VectorCutPlane mayavi module to the given data
+        source (Mayavi source, or VTK dataset). 
+    """
+    _target = Instance(modules.VectorCutPlane, ())
+
+vector_cut_plane = make_function(VectorCutPlaneFactory)
 
 
 
 ##############################################################################
-class ContourGridPlaneFactory(ContourModuleFactory):
+class ContourGridPlaneFactory(ContourModuleFactory, CutPlaneFactory):
     """ Applies the ContourGridPlane mayavi module to the given data
         source (Mayavi source, or VTK dataset).
     """
