@@ -111,6 +111,11 @@ quiver3d
     
         :figure: Figure to populate.
     
+        :mask_points: If supplied, only one out of 'mask_points' data point is
+                      displayed. This option is usefull to reduce the number
+                      of points displayed on large datasets Must be an integer
+                      or None.
+    
         :mode: the mode of the glyphs. Must be '2darrow' or '2dcircle' or
                '2dcross' or '2ddash' or '2ddiamond' or '2dhooked_arrow' or
                '2dsquare' or '2dthick_arrow' or '2dthick_cross' or
@@ -123,7 +128,7 @@ quiver3d
     
         :resolution: The resolution of the glyph created. For spheres, for
                      instance, this is the number of divisions along theta and
-                     phi.
+                     phi. Must be an integer. Default: 8
     
         :scalars: optional scalar data.
     
@@ -399,6 +404,11 @@ mesh
     
         :mask: boolean mask array to suppress some data points.
     
+        :mask_points: If supplied, only one out of 'mask_points' data point is
+                      displayed. This option is usefull to reduce the number
+                      of points displayed on large datasets Must be an integer
+                      or None.
+    
         :mode: the mode of the glyphs. Must be '2darrow' or '2dcircle' or
                '2dcross' or '2ddash' or '2ddiamond' or '2dhooked_arrow' or
                '2dsquare' or '2dthick_arrow' or '2dthick_cross' or
@@ -415,7 +425,7 @@ mesh
     
         :resolution: The resolution of the glyph created. For spheres, for
                      instance, this is the number of divisions along theta and
-                     phi.
+                     phi. Must be an integer. Default: 8
     
         :scalars: optional scalar data.
     
@@ -586,6 +596,11 @@ points3d
     
         :figure: Figure to populate.
     
+        :mask_points: If supplied, only one out of 'mask_points' data point is
+                      displayed. This option is usefull to reduce the number
+                      of points displayed on large datasets Must be an integer
+                      or None.
+    
         :mode: the mode of the glyphs. Must be '2darrow' or '2dcircle' or
                '2dcross' or '2ddash' or '2ddiamond' or '2dhooked_arrow' or
                '2dsquare' or '2dthick_arrow' or '2dthick_cross' or
@@ -598,7 +613,7 @@ points3d
     
         :resolution: The resolution of the glyph created. For spheres, for
                      instance, this is the number of divisions along theta and
-                     phi.
+                     phi. Must be an integer. Default: 8
     
         :scale_factor: the scaling applied to the glyphs. The
                        size of the glyph is by default in drawing
@@ -868,6 +883,11 @@ barchart
                         distance between nearest points Must be a float.
                         Default: 0.9
     
+        :mask_points: If supplied, only one out of 'mask_points' data point is
+                      displayed. This option is usefull to reduce the number
+                      of points displayed on large datasets Must be an integer
+                      or None.
+    
         :mode: The glyph used to represent the bars. Must be '2dcircle' or
                '2dcross' or '2ddiamond' or '2dsquare' or '2dthick_cross' or
                '2dtriangle' or '2dvertex' or 'cube'. Default: cube
@@ -878,7 +898,7 @@ barchart
     
         :resolution: The resolution of the glyph created. For spheres, for
                      instance, this is the number of divisions along theta and
-                     phi.
+                     phi. Must be an integer. Default: 8
     
         :scale_factor: the scaling applied to the glyphs. The
                        size of the glyph is by default in drawing
@@ -955,6 +975,11 @@ triangular_mesh
     
         :mask: boolean mask array to suppress some data points.
     
+        :mask_points: If supplied, only one out of 'mask_points' data point is
+                      displayed. This option is usefull to reduce the number
+                      of points displayed on large datasets Must be an integer
+                      or None.
+    
         :mode: the mode of the glyphs. Must be '2darrow' or '2dcircle' or
                '2dcross' or '2ddash' or '2ddiamond' or '2dhooked_arrow' or
                '2dsquare' or '2dthick_arrow' or '2dthick_cross' or
@@ -971,7 +996,7 @@ triangular_mesh
     
         :resolution: The resolution of the glyph created. For spheres, for
                      instance, this is the number of divisions along theta and
-                     phi.
+                     phi. Must be an integer. Default: 8
     
         :scalars: optional scalar data.
     

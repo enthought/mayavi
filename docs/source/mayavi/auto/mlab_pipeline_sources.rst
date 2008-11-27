@@ -16,7 +16,7 @@ Sources
 parametric_surface
 ~~~~~~~~~~~~~~~~~~
 
-.. function:: parametric_surface(metadata=<enthought.mayavi.core.metadata.SourceMetadata object at 0x1e88290>)
+.. function:: parametric_surface(metadata=<enthought.mayavi.core.metadata.SourceMetadata object at 0x1eafef0>)
 
     Create a parametric surface source
     
@@ -257,7 +257,7 @@ scalar_scatter
 point_load
 ~~~~~~~~~~
 
-.. function:: point_load(metadata=<enthought.mayavi.core.metadata.SourceMetadata object at 0x1e88350>)
+.. function:: point_load(metadata=<enthought.mayavi.core.metadata.SourceMetadata object at 0x1eaffb0>)
 
     Simulates a point load on a cube of data (for tensors)
     
