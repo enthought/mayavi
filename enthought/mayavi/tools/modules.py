@@ -306,9 +306,71 @@ class StreamlineFactory(DataModuleFactory):
             {'sphere':0, 'line':1, 'plane':2, 'point':3},
             desc="""the widget used as a seed for the streamlines.""")
 
+    seed_visible = Bool(True,
+            adapts='seed.widget.enabled',
+            desc="Control the visibility of the seed.",
+            )
+
+    seed_scale = CFloat(1.,
+            desc="Scales the seed around its default center",
+            )
+
+    seed_resolution = Either(None, CInt,
+            desc='The resolution of the seed. Determines the number of '
+                 'seed points')
+
+    integration_direction = Enum('forward', 'backward', 'both',
+            adapts='stream_tracer.integration_direction',
+            desc="The direction of the integration.",
+            )
+
+
     def _seedtype_changed(self):
-        self._target.seed.widget = \
+        # XXX: this also acts for seed_scale and seed_resolution, but no
+        # need to define explicit callbacks, as all the callbacks are
+        # being called anyhow.
+        self._target.seed.widget = widget = \
                             self._target.seed.widget_list[self.seedtype_]
+        
+        if  not self.seed_scale==1.:
+            widget.enabled = True
+            if self.seedtype == 'line':
+                p1 = widget.point1
+                p2 = widget.point2
+                center = (p1 + p2)/2.
+                widget.point1 = center + self.seed_scale*(p1 - center)
+                widget.point2 = center + self.seed_scale*(p2 - center)
+            elif self.seedtype == 'plane':
+                p1 = widget.point1
+                p2 = widget.point2
+                center = (p1 + p2)/2.
+                o = widget.origin
+                widget.point1 = center + self.seed_scale*(p1 - center)
+                widget.point2 = center + self.seed_scale*(p2 - center)
+                widget.origin = center + self.seed_scale*(o - center)
+            elif self.seedtype == 'sphere':
+                widget.radius *= self.seed_scale
+            
+            # XXX: Very ugly, but this is only way I have found to
+            # propagate changes.
+            self._target.seed.stop()
+            self._target.seed.start()
+            widget.enabled = self.seed_visible
+
+        if self.seed_resolution is not None:
+            widget.enabled = True
+            if self.seedtype in ('plane', 'line'):
+                widget.resolution = self.seed_resolution
+            elif self.seedtype == 'sphere':
+                widget.phi_resolution = widget.theta_resolution = \
+                        self.seed_resolution
+
+            # XXX: Very ugly, but this is only way I have found to
+            # propagate changes.
+            self._target.seed.stop()
+            self._target.seed.start()
+            widget.enabled = self.seed_visible
+
 
 
 streamline = make_function(StreamlineFactory)
