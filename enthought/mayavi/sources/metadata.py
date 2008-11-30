@@ -138,6 +138,34 @@ point_load = SourceMetadata(
                                attributes=['any'])
 )
 
+vtk_poly_data = SourceMetadata(
+    id            = "VTKPolyDataSource",
+    class_name    = BASE + ".vtk_poly_data.VTKPolyData",
+    menu_name     = "&Create VTK PolyData source",
+    tooltip = "Create a vtk poly data source",
+    desc    = "Create a vtk poly data source",
+    help    = "Create a vtk poly data source",
+    extensions = [],
+    wildcard = '',
+    output_info = PipelineInfo(datasets=['poly_data'],
+                               attribute_types=['any'],
+                               attributes=['any'])
+)
+
+vtk_image_data = SourceMetadata(
+    id            = "VTKImageDataSource",
+    class_name    = BASE + ".vtk_image_data.VTKImageData",
+    menu_name     = "&Create VTK ImageData source",
+    tooltip = "Create a vtk image data source",
+    desc    = "Create a vtk image data source",
+    help    = "Create a vtk image data source",
+    extensions = [],
+    wildcard = '',
+    output_info = PipelineInfo(datasets=['image_data'],
+                               attribute_types=['any'],
+                               attributes=['any'])
+)
+
 # Now collect all the sources for the mayavi registry.
 sources = [open_3ds, 
            open_image, 
@@ -146,6 +174,8 @@ sources = [open_3ds,
            open_vtk,
            open_vtk_xml,
            parametric_surface,
-           point_load
+           point_load,
+           vtk_poly_data,
+           vtk_image_data
           ]
 
