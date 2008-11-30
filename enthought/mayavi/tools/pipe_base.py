@@ -67,37 +67,38 @@ class PipeFactory(HasPrivateTraits):
         """
         # We check to see if the module-manager-related option require to 
         # add a new module manager:
-        module_manager = get_module_manager(parent)
-        if (module_manager is not None and 
-                    len(module_manager.children) > 0):
-            scalar_lut = module_manager.scalar_lut_manager
-            vector_lut = module_manager.vector_lut_manager
-            if 'vmin' in kwargs:
-                if not scalar_lut.use_default_range and \
-                        kwargs['vmin'] != scalar_lut.data_range[0]:
-                    parent = self._engine.add_module(ModuleManager(), 
-                                                    module_manager.parent)
-                elif not scalar_lut.use_default_range and \
-                        kwargs['vmin'] != scalar_lut.data_range[0]:
-                    parent = self._engine.add_module(ModuleManager(), 
-                                                    module_manager.parent)
+        if parent is not None:
+            module_manager = get_module_manager(parent)
+            if (module_manager is not None and 
+                        len(module_manager.children) > 0):
+                scalar_lut = module_manager.scalar_lut_manager
+                vector_lut = module_manager.vector_lut_manager
+                if 'vmin' in kwargs:
+                    if not scalar_lut.use_default_range and \
+                            kwargs['vmin'] != scalar_lut.data_range[0]:
+                        parent = self._engine.add_module(ModuleManager(), 
+                                                        module_manager.parent)
+                    elif not scalar_lut.use_default_range and \
+                            kwargs['vmin'] != scalar_lut.data_range[0]:
+                        parent = self._engine.add_module(ModuleManager(), 
+                                                        module_manager.parent)
 
-            elif 'vmax' in kwargs:
-                if not scalar_lut.use_default_range and \
-                        kwargs['vmax'] != scalar_lut.data_range[1]:
-                    parent = self._engine.add_module(ModuleManager(), 
-                                                    module_manager.parent)
-                elif not scalar_lut.use_default_range and \
-                        kwargs['vmax'] != scalar_lut.data_range[1]:
-                    parent = self._engine.add_module(ModuleManager(), 
-                                                    module_manager.parent)
+                elif 'vmax' in kwargs:
+                    if not scalar_lut.use_default_range and \
+                            kwargs['vmax'] != scalar_lut.data_range[1]:
+                        parent = self._engine.add_module(ModuleManager(), 
+                                                        module_manager.parent)
+                    elif not scalar_lut.use_default_range and \
+                            kwargs['vmax'] != scalar_lut.data_range[1]:
+                        parent = self._engine.add_module(ModuleManager(), 
+                                                        module_manager.parent)
 
-            elif 'colormap' in kwargs:
-                cmap = kwargs['colormap']
-                if ( scalar_lut.lut_mode != cmap
-                                    or vector_lut.lut_mode != cmap):
-                    parent = self._engine.add_module(ModuleManager(), 
-                                           module_manager.parent)
+                elif 'colormap' in kwargs:
+                    cmap = kwargs['colormap']
+                    if ( scalar_lut.lut_mode != cmap
+                                        or vector_lut.lut_mode != cmap):
+                        parent = self._engine.add_module(ModuleManager(), 
+                                            module_manager.parent)
             
         self._engine.add_module(self._target, obj=parent)
         
