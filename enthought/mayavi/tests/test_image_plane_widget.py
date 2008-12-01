@@ -11,10 +11,10 @@ import numpy
 import unittest
 import pickle
 
-# Local imports.
-from common import TestEngine,Engine
   
 # Enthought library imports
+from enthought.mayavi.core.engine import Engine
+from enthought.mayavi.core.null_engine import NullEngine
 from enthought.mayavi.sources.array_source import ArraySource
 from enthought.mayavi.modules.outline import Outline
 from enthought.mayavi.modules.image_plane_widget import ImagePlaneWidget
@@ -39,7 +39,7 @@ class TestImagePlaneWidget(unittest.TestCase):
 
     def setUp(self):
         """Initial setting up of test fixture, automatically called by TestCase before any other test method is invoked"""
-        e = TestEngine()
+        e = NullEngine()
         # Uncomment to see visualization for debugging etc.
         #e = Engine()
         e.start()

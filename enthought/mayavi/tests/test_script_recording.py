@@ -13,7 +13,7 @@ from enthought.mayavi.sources.parametric_surface import \
 from enthought.mayavi.modules.outline import Outline
 from enthought.mayavi.modules.surface import Surface
 
-from common import TestEngine
+from enthought.mayavi.core.null_engine import NullEngine
 
 
 class TestScriptRecording(unittest.TestCase):
@@ -31,7 +31,7 @@ class TestScriptRecording(unittest.TestCase):
         "Does script recording work correctly."
         # Create a mayavi pipeline and record it.
         tape = self.tape
-        e = TestEngine()
+        e = NullEngine()
         e.start()
         # Start recording.
         tape.recording = True

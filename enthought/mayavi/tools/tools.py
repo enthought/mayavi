@@ -54,6 +54,10 @@ def add_dataset(dataset, name='', **kwargs):
         # No figure has been specified, retrieve the default one.
         gcf()
         engine = get_engine()
+    elif kwargs['figure'] is False:
+        from enthought.mayavi.core.null_engine import NullEngine
+        engine = NullEngine()
+        engine.start()
     elif kwargs['figure'] is not None:
         figure = kwargs['figure']
         engine = engine_manager.find_figure_engine(figure)

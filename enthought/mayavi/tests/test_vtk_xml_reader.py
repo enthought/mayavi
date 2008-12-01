@@ -14,9 +14,11 @@ import datasets
 from numpy import linspace, cos, sin, pi, empty, sqrt
 
 # Local imports.
-from common import TestEngine,Engine,get_example_data
+from common import get_example_data
 
 # Enthought library imports
+from enthought.mayavi.core.engine import Engine
+from enthought.mayavi.core.null_engine import NullEngine
 from enthought.mayavi.sources.vtk_xml_file_reader import VTKXMLFileReader
 from enthought.mayavi.modules.outline import Outline
 from enthought.mayavi.modules.iso_surface import IsoSurface
@@ -28,7 +30,7 @@ class TestVTKXMLReader(unittest.TestCase):
        
     def setUp(self):
         
-        e = TestEngine()
+        e = NullEngine()
         # Uncomment to see visualization for debugging etc.
         #e = Engine()
         e.start()

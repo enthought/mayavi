@@ -2,6 +2,9 @@
 Central registry for figures with mlab.
 """
 
+# Standard library imports
+import warnings
+
 # Enthought librairies imports
 from enthought.traits.api import HasTraits, Instance
 
@@ -60,7 +63,8 @@ class EngineManager(HasTraits):
     current_engine = Instance(Engine)
 
     def get_engine(self):
-        """ Returns an engine in agreement with the options."""
+        """ Returns an engine in agreement with the options.
+        """
 
         # First check if the current engine is running and if it is in
         # the registered engines.
@@ -75,13 +79,14 @@ class EngineManager(HasTraits):
             engines = list()
         engines.extend(registry.engines.values())
         if options.backend == 'auto':
-            suitable = engines
+            suitable = [e for e in engines 
+                                if e.__class__.__name__ != 'NullEngine']
         elif options.backend == 'envisage':
             suitable = [e for e in engines 
                                 if e.__class__.__name__ == 'EnvisageEngine']
-        elif options.backend == 'test':
+        elif options.backend in ('test', 'null'):
             suitable = [e for e in engines 
-                                if e.__class__.__name__ == 'TestEngine']
+                                if e.__class__.__name__ == 'NullEngine']
         else:
             suitable = [e for e in engines 
                                 if e.__class__.__name__ == 'Engine']
@@ -89,11 +94,14 @@ class EngineManager(HasTraits):
             return self.new_engine()
         else:
             # Return the most engine add to the list most recently.
+            self.current_engine = suitable[-1]
             return suitable[-1]
 
     def set_engine(self, engine):
         """ Sets the mlab engine.
         """
+        if not engine.running:
+            warnings.warn('Engine is not running', stacklevel=2)
         self.current_engine = engine
 
 
@@ -108,9 +116,9 @@ class EngineManager(HasTraits):
             m.main()
             process_ui_events()
             engine = m.script.engine
-        elif options.backend == 'test':
-            from enthought.mayavi.tests.common import TestEngine
-            engine = TestEngine(name='Test Mlab Engine')
+        elif options.backend in ('test', 'null'):
+            from enthought.mayavi.tests.common import NullEngine
+            engine = NullEngine(name='Null Mlab Engine')
             engine.start()
         else:
             if options.offscreen:

@@ -12,12 +12,13 @@ from enthought.mayavi.sources.parametric_surface import \
     ParametricSurface
 from enthought.mayavi.modules.outline import Outline
 
-from common import TestEngine
+from enthought.mayavi.core.engine import Engine
+from enthought.mayavi.core.null_engine import NullEngine
 
 
 class TestCoreCommon(unittest.TestCase):
     def setUp(self):
-        e = TestEngine()
+        e = NullEngine()
         e.start()
         e.new_scene()
         scene = e.scenes[-1]

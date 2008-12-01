@@ -13,6 +13,7 @@ from enthought.traits.api import HasPrivateTraits, Str, TraitError,\
 from enthought.mayavi.core.filter import Filter
 from enthought.mayavi.core.engine import Engine
 from enthought.mayavi.core.source import Source
+from enthought.mayavi.core.scene import Scene
 from enthought.mayavi.core.module_manager import ModuleManager
 
 from enthought.tvtk.api import tvtk
@@ -106,11 +107,20 @@ class PipeFactory(HasPrivateTraits):
     def __init__(self, parent, **kwargs):
         # We are not passing the traits to the parent class
         super(PipeFactory, self).__init__()
-        self._scene = tools.gcf()
-        self._engine = get_engine()
+        # Try to find the right engine and scene to work with 
+        ancester = parent
+        while hasattr(ancester, 'parent'):
+            ancester = getattr(ancester, 'parent')
+            if isinstance(ancester, Scene):
+                self._scene = ancester
+                self._engine = ancester.parent
+                break
+        else:
+            self._scene = tools.gcf()
+            self._engine = get_engine()
         scene = self._scene.scene
         if isinstance(parent, (Source, tvtk.DataSet)) \
-                and not isinstance(parent, Filter): 
+                and not isinstance(parent, Filter) and scene is not None: 
             # Search the current scene to see if the  source is already
             # in it, if not add it.
             if not parent in self._scene.children:

@@ -14,7 +14,8 @@ import datasets
 from numpy import linspace, cos, sin, pi, empty, sqrt
 
 # Local imports.
-from common import TestEngine,Engine
+from enthought.mayavi.core.engine import Engine
+from enthought.mayavi.core.null_engine import NullEngine
 
 # Enthought library imports
 from enthought.mayavi.sources.vtk_data_source import VTKDataSource
@@ -28,7 +29,7 @@ class TestGridPlane(unittest.TestCase):
        
     def setUp(self):
         """Initial setting up of test fixture, automatically called by TestCase before any other test method is invoked"""
-        e = TestEngine()
+        e = NullEngine()
         # Uncomment to see visualization for debugging etc.
         #e = Engine()
         e.start()

@@ -14,9 +14,11 @@ import datasets
 from numpy import linspace, cos, sin, pi, empty, sqrt
 
 # Local imports.
-from common import TestEngine,Engine,get_example_data
+from common import get_example_data
 
 # Enthought library imports
+from enthought.mayavi.core.engine import Engine
+from enthought.mayavi.core.null_engine import NullEngine
 from enthought.mayavi.filters.optional import Optional
 from enthought.mayavi.filters.user_defined import UserDefined
 from enthought.mayavi.filters.api import (CellToPointData, ExtractVectorNorm, ExtractVectorComponents)
@@ -28,7 +30,7 @@ class TestUserDefined(unittest.TestCase):
        
     def setUp(self):
         """Initial setting up of test fixture, automatically called by TestCase before any other test method is invoked"""
-        e = TestEngine()
+        e = NullEngine()
         # Uncomment to see visualization for debugging etc.
         #e = Engine()
         e.start()
