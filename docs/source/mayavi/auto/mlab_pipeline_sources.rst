@@ -13,12 +13,34 @@
 Sources
 =======
 
+builtin_image
+~~~~~~~~~~~~~
+
+.. function:: builtin_image(metadata=<enthought.mayavi.core.metadata.SourceMetadata object at 0x1eb8230>)
+
+    Create a vtk image data source
+    
+
+    
+
+
 parametric_surface
 ~~~~~~~~~~~~~~~~~~
 
-.. function:: parametric_surface(metadata=<enthought.mayavi.core.metadata.SourceMetadata object at 0x1eafef0>)
+.. function:: parametric_surface(metadata=<enthought.mayavi.core.metadata.SourceMetadata object at 0x1eaeef0>)
 
     Create a parametric surface source
+    
+
+    
+
+
+builtin_surface
+~~~~~~~~~~~~~~~
+
+.. function:: builtin_surface(metadata=<enthought.mayavi.core.metadata.SourceMetadata object at 0x1eb8110>)
+
+    Create a vtk poly data source
     
 
     
@@ -60,6 +82,10 @@ vertical_vectors_source
         :name: the name of the vtk object created.
     
         :figure: optionally, the figure on which to add the data source.
+                 If None, the source is not added to any figure, and will
+                 be added automatically by the modules or
+                 filters. If False, no figure will be created by modules
+                 or filters applied to the source.
     
 
     
@@ -87,6 +113,10 @@ grid_source
         :scalars: optional scalar data.
     
         :figure: optionally, the figure on which to add the data source.
+                 If None, the source is not added to any figure, and will
+                 be added automatically by the modules or
+                 filters. If False, no figure will be created by modules
+                 or filters applied to the source.
     
 
     
@@ -124,6 +154,10 @@ triangular_mesh_source
         :scalars: optional scalar data.
     
         :figure: optionally, the figure on which to add the data source.
+                 If None, the source is not added to any figure, and will
+                 be added automatically by the modules or
+                 filters. If False, no figure will be created by modules
+                 or filters applied to the source.
     
 
     
@@ -155,6 +189,10 @@ vector_scatter
         :scalars: optional scalar data.
     
         :figure: optionally, the figure on which to add the data source.
+                 If None, the source is not added to any figure, and will
+                 be added automatically by the modules or
+                 filters. If False, no figure will be created by modules
+                 or filters applied to the source.
 
     
 
@@ -191,6 +229,10 @@ array2d_source
         :name: the name of the vtk object created.
     
         :figure: optionally, the figure on which to add the data source.
+                 If None, the source is not added to any figure, and will
+                 be added automatically by the modules or
+                 filters. If False, no figure will be created by modules
+                 or filters applied to the source.
     
         :mask: Mask points specified in a boolean masking array.
     
@@ -220,6 +262,10 @@ line_source
         :name: the name of the vtk object created.
     
         :figure: optionally, the figure on which to add the data source.
+                 If None, the source is not added to any figure, and will
+                 be added automatically by the modules or
+                 filters. If False, no figure will be created by modules
+                 or filters applied to the source.
 
     
 
@@ -250,6 +296,10 @@ scalar_scatter
         :name: the name of the vtk object created.
     
         :figure: optionally, the figure on which to add the data source.
+                 If None, the source is not added to any figure, and will
+                 be added automatically by the modules or
+                 filters. If False, no figure will be created by modules
+                 or filters applied to the source.
 
     
 
@@ -257,7 +307,7 @@ scalar_scatter
 point_load
 ~~~~~~~~~~
 
-.. function:: point_load(metadata=<enthought.mayavi.core.metadata.SourceMetadata object at 0x1eaffb0>)
+.. function:: point_load(metadata=<enthought.mayavi.core.metadata.SourceMetadata object at 0x1eaefb0>)
 
     Simulates a point load on a cube of data (for tensors)
     
@@ -294,7 +344,10 @@ scalar_field
         :name: the name of the vtk object created.
     
         :figure: optionally, the figure on which to add the data source.
-    
+                 If None, the source is not added to any figure, and will
+                 be added automatically by the modules or
+                 filters. If False, no figure will be created by modules
+                 or filters applied to the source.
 
     
 
@@ -329,6 +382,10 @@ vector_field
         :scalars: optional scalar data.
     
         :figure: optionally, the figure on which to add the data source.
+                 If None, the source is not added to any figure, and will
+                 be added automatically by the modules or
+                 filters. If False, no figure will be created by modules
+                 or filters applied to the source.
 
     
 

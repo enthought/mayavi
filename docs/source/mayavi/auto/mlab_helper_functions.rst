@@ -696,6 +696,9 @@ flow
     
         :figure: Figure to populate.
     
+        :integration_direction: The direction of the integration. Must be a
+                                legal value. Default: forward
+    
         :linetype: the type of line-like object used to display the
                    streamline. Must be 'line' or 'ribbon' or 'tube'. Default:
                    line
@@ -705,6 +708,15 @@ flow
         :opacity: The overall opacity of the vtk object.
     
         :scalars: optional scalar data.
+    
+        :seed_resolution: The resolution of the seed. Determines the number of
+                          seed points Must be an integer or None.
+    
+        :seed_scale: Scales the seed around its default center Must be a
+                     float. Default: 1.0
+    
+        :seed_visible: Control the visibility of the seed. Must be a boolean.
+                       Default: True
     
         :seedtype: the widget used as a seed for the streamlines. Must be
                    'line' or 'plane' or 'point' or 'sphere'. Default: sphere
