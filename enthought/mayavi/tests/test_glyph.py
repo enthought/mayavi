@@ -89,7 +89,7 @@ class TestGlyph(unittest.TestCase):
         return
         
     def tearDown(self):
-	"""For necessary clean up, automatically called by TestCase after the test methods have been invoked"""
+        """For necessary clean up, automatically called by TestCase after the test methods have been invoked"""
         self.e.stop()
         return
 
@@ -110,7 +110,7 @@ class TestGlyph(unittest.TestCase):
         self.assertEqual(gs.glyph_position,'tail')
         self.assertEqual(gs.glyph_source,gs.glyph_list[1])
         self.assertEqual(numpy.allclose(v.implicit_plane.normal,
-			 (0., 1., 0.)),True)
+                                                    (0., 1., 0.)),True)
         
         v = src.children[0].children[3] 
         glyph = v.glyph
@@ -122,7 +122,7 @@ class TestGlyph(unittest.TestCase):
         
 
     def test_glyph(self):  
-	"Test if the test fixture works"                      
+        "Test if the test fixture works"                      
         self.check()
     
 
@@ -170,7 +170,7 @@ class TestGlyph(unittest.TestCase):
         self.check()
     
     def test_deepcopied(self):
-	"""Test if the MayaVi2 visualization can be deep-copied."""
+        """Test if the MayaVi2 visualization can be deep-copied."""
         ############################################################
         # Test if the MayaVi2 visualization can be deep-copied.
 

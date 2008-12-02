@@ -7,11 +7,7 @@
 from os.path import abspath
 from StringIO import StringIO
 import copy
-import numpy
 import unittest
-import pickle
-import datasets
-from numpy import linspace, cos, sin, pi, empty, sqrt
 
 # Local imports.
 from common import get_example_data
@@ -22,7 +18,6 @@ from enthought.mayavi.core.null_engine import NullEngine
 from enthought.mayavi.sources.plot3d_reader import PLOT3DReader
 from enthought.mayavi.filters.select_output import SelectOutput
 from enthought.mayavi.modules.outline import Outline
-from enthought.tvtk.api import tvtk
 
 class TestPlot3dMbReader(unittest.TestCase):   
        
@@ -59,17 +54,17 @@ class TestPlot3dMbReader(unittest.TestCase):
         return
         
     def tearDown(self):
-	"""For necessary clean up, automatically called by TestCase after the test methods have been invoked"""
+        """For necessary clean up, automatically called by TestCase after the test methods have been invoked"""
         self.e.stop()
         return
 
     def test_plot3d_mb_reader(self):   
-	"Test if the test fixture works"  
+        "Test if the test fixture works"  
         s=self.scene
         o=self.o
         #Check the bounds of the outline.
         self.assertEqual(o.outline_filter.output.bounds,
-			 (1.0, 2.0, 1.0, 2.0, 1.0, 2.0)) 
+                                    (1.0, 2.0, 1.0, 2.0, 1.0, 2.0)) 
 
         #from enthought.mayavi.tools.show import show
         #show()
@@ -96,11 +91,11 @@ class TestPlot3dMbReader(unittest.TestCase):
         
         o = s.children[0].children[0].children[0].children[0]
         self.assertEqual(o.outline_filter.output.bounds, 
-			 (1.0, 2.0, 1.0, 2.0, 1.0, 2.0)) 
+                                (1.0, 2.0, 1.0, 2.0, 1.0, 2.0)) 
            
 
     def test_deepcopied(self):
-	"""Test if the MayaVi2 visualization can be deep-copied."""
+        """Test if the MayaVi2 visualization can be deep-copied."""
         ############################################################
         # Copy the reader to see if it does not pop up the UI.
 
@@ -112,10 +107,10 @@ class TestPlot3dMbReader(unittest.TestCase):
 
         o1 = r1.children[0].children[0].children[0]
         self.assertEqual(o1.outline_filter.output.bounds,
-			 (1.0, 2.0, 1.0, 2.0, 1.0, 2.0)) 
+                                    (1.0, 2.0, 1.0, 2.0, 1.0, 2.0)) 
         r1.children[0].output_index = 1
         self.assertEqual(o1.outline_filter.output.bounds,
-			 (2.0, 3.0, 1.0, 2.0, 1.0, 2.0))                
+                                    (2.0, 3.0, 1.0, 2.0, 1.0, 2.0))                
        
 if __name__ == '__main__':
     unittest.main()

@@ -61,7 +61,7 @@ class TestUserDefined(unittest.TestCase):
         return
         
     def tearDown(self):
-	"""For necessary clean up, automatically called by TestCase after the test methods have been invoked"""
+        """For necessary clean up, automatically called by TestCase after the test methods have been invoked"""
         self.e.stop()
         return
 
@@ -105,7 +105,7 @@ class TestUserDefined(unittest.TestCase):
         
 
     def test_user_defined(self):      
-	"Test if the test fixture works"                  
+        "Test if the test fixture works"                  
         #Now test.
         s = self.scene
         self.check()
@@ -139,7 +139,7 @@ class TestUserDefined(unittest.TestCase):
     
 
     def test_deepcopied(self):
-	"""Test if the MayaVi2 visualization can be deep-copied."""
+        """Test if the MayaVi2 visualization can be deep-copied."""
         ############################################################
         # Test if the MayaVi2 visualization can be deep-copied.
 

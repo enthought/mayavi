@@ -7,11 +7,7 @@
 from os.path import abspath
 from StringIO import StringIO
 import copy
-import numpy
 import unittest
-import pickle
-import datasets
-from numpy import linspace, cos, sin, pi, empty, sqrt
 
 # Local imports.
 from common import get_example_data
@@ -22,7 +18,6 @@ from enthought.mayavi.core.null_engine import NullEngine
 from enthought.mayavi.sources.vtk_xml_file_reader import VTKXMLFileReader
 from enthought.mayavi.modules.api import ContourGridPlane
 from enthought.mayavi.filters.image_data_probe import ImageDataProbe
-from enthought.tvtk.api import tvtk
 
 class TestImageDataProbe(unittest.TestCase):   
        
@@ -52,7 +47,7 @@ class TestImageDataProbe(unittest.TestCase):
         return
         
     def tearDown(self):
-	"""For necessary clean up, automatically called by TestCase after the test methods have been invoked"""
+        """For necessary clean up, automatically called by TestCase after the test methods have been invoked"""
         self.e.stop()
         return
 
@@ -70,7 +65,7 @@ class TestImageDataProbe(unittest.TestCase):
         self.assertEqual(sc.name,idp.rescaled_scalar_name)
         self.assertEqual(vc.name,'velocity')
         self.assertEqual(mm.scalar_lut_manager.data_name,
-			 idp.rescaled_scalar_name)
+                                                idp.rescaled_scalar_name)
         self.assertEqual((abs(sc.range[0]) < 1e-2),True)
         self.assertEqual( abs(sc.range[1] - 65535.0) < 1.e-2,True)
         self.assertEqual((idp.outputs[0].dimensions == (3, 3, 2)).all(),True)
@@ -78,7 +73,7 @@ class TestImageDataProbe(unittest.TestCase):
         
 
     def test_image_data_probe(self):    
-	"Test if the test fixture works"                    
+        "Test if the test fixture works"                    
         #Now test.
         self.check()
         
@@ -109,7 +104,7 @@ class TestImageDataProbe(unittest.TestCase):
     
     
     def test_deepcopied(self):
-	"""Test if the MayaVi2 visualization can be deep-copied."""
+        """Test if the MayaVi2 visualization can be deep-copied."""
         ############################################################
         # Test if the MayaVi2 visualization can be deep-copied.
 

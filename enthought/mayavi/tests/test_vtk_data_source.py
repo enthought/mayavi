@@ -9,9 +9,7 @@ from StringIO import StringIO
 import copy
 import numpy
 import unittest
-import pickle
 import datasets
-from numpy import linspace, cos, sin, pi, empty, sqrt
 
 # Enthought library imports
 from enthought.mayavi.core.engine import Engine
@@ -21,7 +19,6 @@ from enthought.mayavi.modules.outline import Outline
 from enthought.mayavi.modules.iso_surface import IsoSurface
 from enthought.mayavi.modules.contour_grid_plane import ContourGridPlane
 from enthought.mayavi.modules.scalar_cut_plane import ScalarCutPlane
-from enthought.tvtk.api import tvtk
 
 class TestVTKDataSource(unittest.TestCase):   
        
@@ -77,7 +74,7 @@ class TestVTKDataSource(unittest.TestCase):
         return
         
     def tearDown(self):
-	"""For necessary clean up, automatically called by TestCase after the test methods have been invoked"""
+        """For necessary clean up, automatically called by TestCase after the test methods have been invoked"""
         self.e.stop()
         return
 
@@ -112,7 +109,7 @@ class TestVTKDataSource(unittest.TestCase):
         
 
     def test_vtk_data_source(self):                    
-	"Test if the test fixture works"    
+        "Test if the test fixture works"    
         #Now test.
         self.check()
         
@@ -142,7 +139,7 @@ class TestVTKDataSource(unittest.TestCase):
     
 
     def test_deepcopied(self):
-	"""Test if the MayaVi2 visualization can be deep-copied."""
+        """Test if the MayaVi2 visualization can be deep-copied."""
         ############################################################
         # Test if the MayaVi2 visualization can be deep-copied.
 

@@ -29,7 +29,7 @@ from enthought.tvtk.api import tvtk
 class TestContour(unittest.TestCase):   
        
     def setUp(self):
-	"""Initial setting up of test fixture, automatically called by TestCase before any other test method is invoked"""
+        """Initial setting up of test fixture, automatically called by TestCase before any other test method is invoked"""
         
         e = NullEngine()
         # Uncomment to see visualization for debugging etc.
@@ -81,7 +81,7 @@ class TestContour(unittest.TestCase):
         return
         
     def tearDown(self):
-	"""For necessary clean up, automatically called by TestCase after the test methods have been invoked"""
+        """For necessary clean up, automatically called by TestCase after the test methods have been invoked"""
         self.e.stop()
         return
 
@@ -115,7 +115,7 @@ class TestContour(unittest.TestCase):
         
 
     def test_contour(self):   
-	"Test if the test fixture works"                 
+        "Test if the test fixture works"                 
         #Now test.
         self.check()
         
@@ -172,7 +172,7 @@ class TestContour(unittest.TestCase):
     
 
     def test_deepcopied(self):
-	"""Test if the MayaVi2 visualization can be deep-copied."""
+        """Test if the MayaVi2 visualization can be deep-copied."""
         ############################################################
         # Test if the MayaVi2 visualization can be deep-copied.
 

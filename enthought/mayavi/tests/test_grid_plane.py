@@ -7,11 +7,8 @@
 from os.path import abspath
 from StringIO import StringIO
 import copy
-import numpy
 import unittest
-import pickle
 import datasets
-from numpy import linspace, cos, sin, pi, empty, sqrt
 
 # Local imports.
 from enthought.mayavi.core.engine import Engine
@@ -21,8 +18,6 @@ from enthought.mayavi.core.null_engine import NullEngine
 from enthought.mayavi.sources.vtk_data_source import VTKDataSource
 from enthought.mayavi.modules.outline import Outline
 from enthought.mayavi.modules.grid_plane import GridPlane
-
-from enthought.tvtk.api import tvtk
 
 
 class TestGridPlane(unittest.TestCase):   
@@ -36,7 +31,7 @@ class TestGridPlane(unittest.TestCase):
         e.new_scene()
         self.e=e
 
-        sgrid=datasets.generateStructuredGrid()
+        sgrid = datasets.generateStructuredGrid()
         src = VTKDataSource(data = sgrid)
         e.add_source(src)
 
@@ -67,7 +62,7 @@ class TestGridPlane(unittest.TestCase):
         return
         
     def tearDown(self):
-	"""For necessary clean up, automatically called by TestCase after the test methods have been invoked"""
+        """For necessary clean up, automatically called by TestCase after the test methods have been invoked"""
         self.e.stop()
         return
 
@@ -90,7 +85,7 @@ class TestGridPlane(unittest.TestCase):
         self.assertEqual(gp3.actor.property.ambient,1.0)          
 
     def test_grid_plane(self):  
-	"Test if the test fixture works"                      
+        "Test if the test fixture works"                      
         self.check()
         
         #from enthought.mayavi.tools.show import show
@@ -120,7 +115,7 @@ class TestGridPlane(unittest.TestCase):
     
 
     def test_deepcopied(self):
-	"""Test if the MayaVi2 visualization can be deep-copied."""
+        """Test if the MayaVi2 visualization can be deep-copied."""
         ############################################################
         # Test if the MayaVi2 visualization can be deep-copied.
 

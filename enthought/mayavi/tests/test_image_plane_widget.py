@@ -9,7 +9,6 @@ from StringIO import StringIO
 import copy
 import numpy
 import unittest
-import pickle
 
   
 # Enthought library imports
@@ -75,7 +74,7 @@ class TestImagePlaneWidget(unittest.TestCase):
         return
         
     def tearDown(self):
-	"""For necessary clean up, automatically called by TestCase after the test methods have been invoked"""
+        """For necessary clean up, automatically called by TestCase after the test methods have been invoked"""
         self.e.stop()
         return
 
@@ -94,7 +93,7 @@ class TestImagePlaneWidget(unittest.TestCase):
        
 
     def test_image_plane_widget(self):         
-	"Test if the test fixture works"               
+        "Test if the test fixture works"               
         self.check()
     
     def test_save_and_restore(self):
@@ -118,7 +117,7 @@ class TestImagePlaneWidget(unittest.TestCase):
         self.check()
     
     def test_deepcopied(self):
-	"""Test if the MayaVi2 visualization can be deep-copied."""
+        """Test if the MayaVi2 visualization can be deep-copied."""
         ############################################################
         # Test if the MayaVi2 visualization can be deep-copied.
 

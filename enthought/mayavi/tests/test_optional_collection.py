@@ -53,7 +53,7 @@ class TestOptionalCollection(unittest.TestCase):
         return
         
     def tearDown(self):
-	"""For necessary clean up, automatically called by TestCase after the test methods have been invoked"""
+        """For necessary clean up, automatically called by TestCase after the test methods have been invoked"""
         self.e.stop()
         return
 
@@ -64,8 +64,8 @@ class TestOptionalCollection(unittest.TestCase):
         c, o = coll.filters
         c = c.filter
         n = o.filter
-	
-	r = coll.outputs[0].point_data.scalars.range
+        
+        r = coll.outputs[0].point_data.scalars.range
         
         self.assertEqual(allclose(r, (6.09,6.09),atol=1.01e-03),True)
         # Adding a contour should create the appropriate output in
@@ -86,7 +86,7 @@ class TestOptionalCollection(unittest.TestCase):
         self.assertEqual('disabled' not in o.name,True)
 
     def test_optional_collection(self):
-	"Test if the test fixture works"                        
+        "Test if the test fixture works"                        
         #Now test.
         coll = self.coll
         self.check(coll)
@@ -118,7 +118,7 @@ class TestOptionalCollection(unittest.TestCase):
     
 
     def test_deepcopied(self):
-	"""Test if the MayaVi2 visualization can be deep-copied."""
+        """Test if the MayaVi2 visualization can be deep-copied."""
         ############################################################
         # Test if the MayaVi2 visualization can be deep-copied.
 

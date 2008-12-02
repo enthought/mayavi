@@ -7,11 +7,7 @@
 from os.path import abspath
 from StringIO import StringIO
 import copy
-import numpy
 import unittest
-import pickle
-import datasets
-from numpy import linspace, cos, sin, pi, empty, sqrt
 
 # Local imports.
 from common import get_example_data
@@ -24,7 +20,6 @@ from enthought.mayavi.filters.contour import Contour
 from enthought.mayavi.filters.api import PolyDataNormals
 from enthought.mayavi.filters.set_active_attribute import SetActiveAttribute
 from enthought.mayavi.modules.api import Surface, Outline
-from enthought.tvtk.api import tvtk
 
 class TestSetActiveAttribute(unittest.TestCase):   
        
@@ -56,7 +51,7 @@ class TestSetActiveAttribute(unittest.TestCase):
         return
         
     def tearDown(self):
-	"""For necessary clean up, automatically called by TestCase after the test methods have been invoked"""
+        """For necessary clean up, automatically called by TestCase after the test methods have been invoked"""
         self.e.stop()
         return
 
@@ -80,7 +75,7 @@ class TestSetActiveAttribute(unittest.TestCase):
         
 
     def test_set_active_attribute(self):         
-	"Test if the test fixture works"               
+        "Test if the test fixture works"               
         #Now test.
         self.check()
         
@@ -111,7 +106,7 @@ class TestSetActiveAttribute(unittest.TestCase):
     
 
     def test_deepcopied(self):
-	"""Test if the MayaVi2 visualization can be deep-copied."""
+        """Test if the MayaVi2 visualization can be deep-copied."""
         ############################################################
         # Test if the MayaVi2 visualization can be deep-copied.
 

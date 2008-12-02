@@ -90,7 +90,7 @@ class TestStreamline(unittest.TestCase):
         return
         
     def tearDown(self):
-	"""For necessary clean up, automatically called by TestCase after the test methods have been invoked"""
+        """For necessary clean up, automatically called by TestCase after the test methods have been invoked"""
         self.e.stop()
         return
 
@@ -105,32 +105,32 @@ class TestStreamline(unittest.TestCase):
         self.assertEqual(st.ribbon_filter.width,0.25)
         self.assertEqual(st.seed.widget,st.seed.widget_list[1])
         self.assertEqual(numpy.allclose(st.seed.widget.point1,
-			 (-5.0, -4.5, -4.0)),True)
+                            (-5.0, -4.5, -4.0)),True)
         self.assertEqual(numpy.allclose(st.seed.widget.point2,
-			 (-5.0, -4.5, 4.0)),True)
+                            (-5.0, -4.5, 4.0)),True)
         
         st = src.children[0].children[3]
         self.assertEqual(st.streamline_type,'tube')
         self.assertEqual(st.tube_filter.radius,0.15)
         self.assertEqual(st.seed.widget,st.seed.widget_list[2])
         self.assertEqual(numpy.allclose(st.seed.widget.center,
-			 (-5.0, 1.5, -2.5)),True)
+                            (-5.0, 1.5, -2.5)),True)
       
         st = src.children[0].children[4] 
         self.assertEqual(st.streamline_type,'tube')
         self.assertEqual(st.tube_filter.radius,0.2)
         self.assertEqual(st.seed.widget,st.seed.widget_list[3])
         self.assertEqual(numpy.allclose(st.seed.widget.position,
-			 (-5.0, 3.75, 3.75)),True)
+                            (-5.0, 3.75, 3.75)),True)
      
 
     def test_streamline(self):    
-	"Test if the test fixture works"                    
+        "Test if the test fixture works"                    
         self.check()        
         
     def test_components_changed(self):
         """Test if the modules respond correctly when the components
-           are changed.	"""
+           are changed."""
         st = self.st
         tf = st.tube_filter
         st.tube_filter = tf.__class__()
@@ -168,7 +168,7 @@ class TestStreamline(unittest.TestCase):
         self.check()
     
     def test_deepcopied(self):
-	"""Test if the MayaVi2 visualization can be deep-copied."""
+        """Test if the MayaVi2 visualization can be deep-copied."""
         ############################################################
         # Test if the MayaVi2 visualization can be deep-copied.
 
