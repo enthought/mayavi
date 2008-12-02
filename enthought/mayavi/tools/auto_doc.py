@@ -6,7 +6,7 @@ Automatic documentation from traited objects.
 # Copyright (c) 2007, Enthought, Inc. 
 # License: BSD Style.
 
-from textwrap import wrap, dedent, fill
+from textwrap import wrap, dedent
 import types
 
 old_dedent = dedent

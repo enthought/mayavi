@@ -7,11 +7,7 @@
 from os.path import abspath
 from StringIO import StringIO
 import copy
-import numpy
 import unittest
-import pickle
-import datasets
-from numpy import linspace, cos, sin, pi, empty, sqrt
 
 # Local imports.
 from common import get_example_data

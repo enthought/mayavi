@@ -6,14 +6,14 @@
 # License: BSD Style.
 
 # Enthought library imports.
-from enthought.traits.api import Instance, Enum, Int, Range
+from enthought.traits.api import Instance, Int, Range
 from enthought.traits.ui.api import View, Group, Item
 from enthought.tvtk.api import tvtk
-from enthought.persistence import state_pickler
 
 # Local imports.
 from enthought.mayavi.core.component import Component
 from enthought.mayavi.core.common import error
+
 
 
 ######################################################################
@@ -81,7 +81,7 @@ class CustomGridPlane(Component):
     # `object` interface
     ######################################################################
     def __get_pure_state__(self):
-        d = super(GridPlane, self).__get_pure_state__()
+        d = super(CustomGridPlane, self).__get_pure_state__()
         # These traits are dynamically created.
         for axis in ('x', 'y', 'z'):
             for name in ('_min', '_max'):

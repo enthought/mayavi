@@ -193,7 +193,7 @@ def _min_distance(x, y, z):
                            + (y.reshape((-1,)) - y.reshape((1, -1)))**2
                            + (z.reshape((-1,)) - z.reshape((1, -1)))**2
                           )
-    return distances[distance!=0].min()
+    return distances[distances!=0].min()
 
 
 def _min_axis_distance(x, y, z):

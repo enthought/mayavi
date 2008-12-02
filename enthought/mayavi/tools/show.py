@@ -3,8 +3,6 @@
 # License: BSD Style.
 
 from enthought.pyface.api import GUI, ApplicationWindow
-from enthought.traits.api import HasTraits, Int
-from enthought.traits.ui.api import toolkit
 from enthought.etsconfig.api import ETSConfig
 
 # Globals.
