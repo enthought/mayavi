@@ -22,7 +22,7 @@ probe for the data at that point.
 # License: BSD Style.
 
 from enthought.traits.api import HasTraits, Trait, Long, Array, Any, Float, \
-                                 Instance, Range, true
+                                 Instance, Range, true, Str
 from enthought.traits.ui.api import View, Group, Item, Handler
 from enthought.tvtk.api import tvtk
 from enthought.tvtk.tvtk_base import TraitRevPrefixMap, false_bool_trait
@@ -111,11 +111,16 @@ class DefaultPickHandler(PickHandler):
     tensor = Trait(None, None, Array('d', (3,3)),
                    desc='the tensor at picked point')
 
+    # History of picked data.
+    history = Str
+
     default_view = View(Item(name='ID', style='readonly'),
                         Item(name='coordinate', style='readonly'),
                         Item(name='scalar', style='readonly'),
                         Item(name='vector', style='readonly'),
-                        Item(name='tensor', style='readonly'))
+                        Item(name='tensor', style='readonly'),
+                        Item(name='history', style='custom'),
+                        )
 
     def __init__(self, **traits):
         super(DefaultPickHandler, self).__init__(**traits)
@@ -159,7 +164,9 @@ class DefaultPickHandler(PickHandler):
     #################################################################   
     def _update_data(self):
         for name in ['ID', 'coordinate', 'scalar', 'vector', 'tensor']:
+            value = getattr(self, name)
             self.data.get(name).append(getattr(self, name))
+            self.history += '%s: %r\n'%(name, value)
 
 
 
@@ -222,6 +229,8 @@ class Picker(HasTraits):
                               Group(Item(name='show_gui'),
                                     Item(name='auto_raise'), show_border=True),
                               ),
+                        resizable=True,
+                        buttons=['OK'],
                         handler=CloseHandler())
 
     #################################################################

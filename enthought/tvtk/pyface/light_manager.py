@@ -324,7 +324,8 @@ class LightManager(HasTraits):
     view = View( Group( 'light_mode', 
                         'number_of_lights', ),
                 Item('lights', style='custom', show_label=False),
-                resizable=True)
+                resizable=True,
+                buttons=['OK'])
 
     
     #################################################################
@@ -391,6 +392,8 @@ class LightManager(HasTraits):
                         Group(Item(name='lights', style='custom'),
                               label='Lights',
                               selected=True, show_labels=False),
+                        resizable=True,
+                        buttons=['OK'],
                         handler=CloseHandler())
             self.ui = view.ui(self)
         else:
