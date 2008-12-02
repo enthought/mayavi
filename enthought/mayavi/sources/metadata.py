@@ -138,10 +138,10 @@ point_load = SourceMetadata(
                                attributes=['any'])
 )
 
-vtk_poly_data = SourceMetadata(
-    id            = "VTKPolyDataSource",
-    class_name    = BASE + ".vtk_poly_data.VTKPolyData",
-    menu_name     = "&Create VTK PolyData source",
+builtin_surface = SourceMetadata(
+    id            = "BuiltinSurfaceSource",
+    class_name    = BASE + ".builtin_surface.BuiltinSurface",
+    menu_name     = "Create built-in &surface",
     tooltip = "Create a vtk poly data source",
     desc    = "Create a vtk poly data source",
     help    = "Create a vtk poly data source",
@@ -152,10 +152,10 @@ vtk_poly_data = SourceMetadata(
                                attributes=['any'])
 )
 
-vtk_image_data = SourceMetadata(
-    id            = "VTKImageDataSource",
-    class_name    = BASE + ".vtk_image_data.VTKImageData",
-    menu_name     = "&Create VTK ImageData source",
+builtin_image = SourceMetadata(
+    id            = "BuiltinImageSource",
+    class_name    = BASE + ".builtin_image.BuiltinImage",
+    menu_name     = "Create built-in &image",
     tooltip = "Create a vtk image data source",
     desc    = "Create a vtk image data source",
     help    = "Create a vtk image data source",
@@ -175,7 +175,7 @@ sources = [open_3ds,
            open_vtk_xml,
            parametric_surface,
            point_load,
-           vtk_poly_data,
-           vtk_image_data
+           builtin_surface,
+           builtin_image,
           ]
 
