@@ -9,7 +9,8 @@
 # License: BSD Style.
 
 # Enthought library imports.
-from enthought.traits.api import Instance, Enum, Property
+from enthought.traits.api import Instance, Enum, Property, Bool, \
+    DelegatesTo
 from enthought.traits.ui.api import View, Group, Item
 from enthought.tvtk.api import tvtk
 
@@ -43,19 +44,39 @@ class Outline(Module):
                               attribute_types=['any'],
                               attributes=['any'])    
 
+    # An outline source, optionally used to choose the bounds of the
+    # outline.
+    outline_source = Instance(tvtk.OutlineSource, ())
+
+    bounds = DelegatesTo('outline_source',
+                desc="the bounds of the outline: xmin, xmax, ymin, ymax")
+
+    manual_bounds = Bool(
+                desc="whether the bounds are automatically inferred from "
+                     "the data source")
+
     # Create the UI for the traits.
 
     # The controls for the outline_filter should be enabled only when the
     # Cornered Outline Filter is selected.
-    view = View(Group(Item(name='outline_mode'),
-                      Item(name='outline_filter',
-                           style='custom',
-                           enabled_when='outline_mode == "cornered"',
-                           visible_when='outline_mode == "cornered"',
-                           resizable=True,
-                           show_label=False),
-                      Item(name='actor', style='custom'),
-                      show_labels=False),
+    view = View(Group(
+                    Group(
+                        Item(name='outline_mode'),
+                        Item(name='outline_filter',
+                                style='custom',
+                                enabled_when='outline_mode == "cornered"',
+                                visible_when='outline_mode == "cornered"',
+                                resizable=True,
+                                show_label=False),
+                    label='Outline',
+                    show_labels=False),
+                    Group('manual_bounds',
+                            Item('bounds', enabled_when='manual_bounds'),
+                            label='Bounds',
+                            ),
+                    Item(name='actor', style='custom'),
+                    layout='tabbed',
+                    show_labels=False),
                 resizable=True)
 
     ########################################
@@ -134,7 +155,7 @@ class Outline(Module):
             return
 
         # Set the input of the filter.
-        self.outline_filter.input = mm.source.outputs[0]
+        self._manual_bounds_changed()
 
         # The module has a list of outputs, but at this stage,
         # the output of the newly instantiated filter will be its only output.
@@ -150,3 +171,15 @@ class Outline(Module):
         new.scene = self.scene
         new.inputs = [self]
         self._change_components(old, new)
+
+    def _manual_bounds_changed(self):
+        if self.manual_bounds:
+            self.outline_filter.input = self.outline_source.output 
+        else:
+            # Set the input of the filter.
+            mm = self.module_manager
+            self.outline_filter.input = mm.source.outputs[0]
+
+    def _bounds_changed(self):
+        self.pipeline_changed = True
+
