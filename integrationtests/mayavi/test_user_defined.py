@@ -91,6 +91,7 @@ class TestUserDefined(TestCase):
         ud = UserDefined(filter=cd)
         script.add_filter(ud)
         ctp = CellToPointData()
+        ctp.filter.pass_cell_data = False
         script.add_filter(ctp)
         evn = ExtractVectorNorm()
         script.add_filter(evn)
