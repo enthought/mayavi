@@ -11,6 +11,8 @@ Functions related to creating the engine or the figures.
 from types import IntType
 import gc
 
+import numpy as np
+
 # Mayavi imports
 from camera import view
 from engine_manager import get_engine, options
@@ -48,12 +50,15 @@ def figure(name=None, bgcolor=None, fgcolor=None, engine=None,
         engine.new_scene(name=name, size=size)
         engine.current_scene.name = name
     else:
-        if type(name) == IntType:
+        if type(name) in (IntType, np.int, np.int0, np.int8,
+                        np.int16, np.int32, np.int64):
+            name = int(name)
             __scene_number_list.update((name,))
             name = 'Mayavi Scene %d' % name
         # Go looking in the engine see if the scene is not already
         # running
         for scene in engine.scenes:
+            name = str(name)
             if scene.name == name:
                 engine.current_scene = scene
                 return scene
