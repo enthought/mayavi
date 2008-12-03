@@ -102,8 +102,11 @@ class BuiltinImage(Source):
               'mandelbrot':tvtk.ImageMandelbrotSource(),
               'noise':tvtk.ImageNoiseSource(),
               'sinusoid':tvtk.ImageSinusoidSource(),
-              'rt_analytic':tvtk.RTAnalyticSource()
              }
+        if hasattr(tvtk, 'RTAnalyticSource'):
+            sd['rt_analytic'] = tvtk.RTAnalyticSource()
+        else:
+            sd['rt_analytic'] = tvtk.ImageNoiseSource()
         return sd
     
 
