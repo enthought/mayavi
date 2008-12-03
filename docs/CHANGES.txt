@@ -6,10 +6,23 @@ URL:
     https://svn.enthought.com/enthought/changeset/18702
 -----------------------------------------------------------------------------
 
+3.1.0 Release
+--------------
+
+3 December, 2008 (PR)
+    - BUG: Fixing bugs with persistence of VTKDataSource objects
+      wrapping a structured grid in VTK-5.2.  This resulted in hard to
+      debug test errors.  [22624]
+
 1 December, 2008 (GV):
     - API: Promote the TestEngine to a first-class citizen NullEngine and 
 	   make mlab use it when a source has a keyword argument
 	   "figure=False". [22594]
+
+30 November, 2008 (PR)
+    - NEW: New sources called BuiltinSurface and BuiltinImage that let
+      users create simple polygonal data and images using basic VTK
+      sources.  Thanks to Suyog Jain for this code. [22586], [22597].
 
 27 November, 2008 (GV):
     - ENH: Add control of the seed size and resolution to
@@ -29,9 +42,21 @@ URL:
 	- The ouline of the implicite plane is no longer draggable by
 	  default.
 
+15-16 November, 2008 (PR)
+    - ENH/API: Exposing the glyph source choices via a dictionary rather
+      than having the user remember the index in a list. [22497]
+    - ENH: Adding a button to the LUT UI so the LUT editor can be
+      launched from the UI. [22498]
+    - DOC: Updating advanced scripting chapter. [22495].
+
 13 November, 2008 (GV)
     - ENH: [mlab]  Add keyword arguments to colobars to control label
       number and format, as well as colors number. [22489]
+
+10 November, 2008 (PR)
+    - TEST: Adding 43 new mayavi tests.  These are based on the
+      integration tests but don't pop up a user interface.   Thanks to
+      Suyog Jain for doing bulk of the work. [22465]
 
 27 October, 2008 (GV)
     - ENH: [mlab] If a module or filter is added to the pipeline using
