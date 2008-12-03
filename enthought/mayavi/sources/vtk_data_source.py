@@ -6,6 +6,9 @@ gzipped string.
 # Copyright (c) 2005-2008, Enthought, Inc.
 # License: BSD Style.
 
+import os
+import tempfile
+
 # Enthought library imports.
 from enthought.traits.api import Instance, List, Str, Bool, Int
 from enthought.traits.ui.api import View, Group, Item
@@ -26,6 +29,32 @@ from vtk_xml_file_reader import get_all_attributes
 ######################################################################
 # Utility functions.
 ######################################################################
+def write_dataset_to_string(data):
+    """Given a dataset, convert the dataset to an ASCII string that can
+    be stored for persistence.
+    """
+    w = tvtk.DataSetWriter(write_to_output_string=1)
+    warn = w.global_warning_display
+    w.set_input(data)
+    w.global_warning_display = 0
+    w.update()
+    if w.output_string_length == 0:
+        # Some VTK versions (5.2) have a bug when writing structured
+        # grid datasets and produce empty output.  We work around this
+        # by writing to a file and then reading that output.
+        w.write_to_output_string = 0
+        fh, fname = tempfile.mkstemp('.vtk')
+        os.close(fh); os.remove(fname)
+        w.file_name = fname
+        w.write()
+        # Read the data and delete the file.
+        sdata = open(fname).read()
+        os.remove(fname)
+    else:
+        sdata = w.output_string
+    w.global_warning_display = warn
+    return sdata
+
 def has_attributes(dataset):
     """Returns `True` when the given TVTK `dataset` has any attribute
     arrays in point and cell data and `False` otherwise.  
@@ -140,13 +169,8 @@ class VTKDataSource(Source):
             d.pop('_' + name + '_name', None)
         data = self.data
         if data is not None:
-            w = tvtk.DataSetWriter(write_to_output_string=1)
-            warn = w.global_warning_display
-            w.set_input(data)
-            w.global_warning_display = 0
-            w.update()
-            w.global_warning_display = warn
-            z = gzip_string(w.output_string)
+            sdata = write_dataset_to_string(data)
+            z = gzip_string(sdata)
             d['data'] = z
         return d
 
