@@ -24,6 +24,9 @@ class MayaviPlugin(Plugin):
     # The plugins name.
     name = 'Mayavi plugin'
 
+    # Our ID.
+    id = ID
+
     ###### Contributions to extension points made by this plugin ######
 
     # Services we contribute.

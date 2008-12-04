@@ -59,6 +59,9 @@ class MayaviUIPlugin(Plugin):
     # The plugins name.
     name = 'Mayavi UI plugin'
 
+    # Our ID.
+    id = 'enthought.mayavi_ui'
+
     ###### Contributions to extension points made by this plugin ######
 
     # Views.
