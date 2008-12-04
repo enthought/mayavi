@@ -403,11 +403,11 @@ numpy.distutils.core.setup(
             ],
 
         'enthought.envisage.plugins': [
-            'scene = enthought.tvtk.plugins.scene.scene_plugin:ScenePlugin',
-            'scene_ui = enthought.tvtk.plugins.scene.ui.scene_ui_plugin:SceneUIPlugin',
-            'browser = enthought.tvtk.plugins.browser.browser_plugin:BrowserPlugin',
-            'mayavi = enthought.mayavi.plugins.mayavi_plugin:MayaviPlugin',
-            'mayavi_ui = enthought.mayavi.plugins.mayavi_ui_plugin:MayaviUIPlugin'
+            'enthought.tvtk.scene = enthought.tvtk.plugins.scene.scene_plugin:ScenePlugin',
+            'enthought.tvtk.scene_ui = enthought.tvtk.plugins.scene.ui.scene_ui_plugin:SceneUIPlugin',
+            'enthought.tvtk.browser = enthought.tvtk.plugins.browser.browser_plugin:BrowserPlugin',
+            'enthought.mayavi = enthought.mayavi.plugins.mayavi_plugin:MayaviPlugin',
+            'enthought.mayavi_ui = enthought.mayavi.plugins.mayavi_ui_plugin:MayaviUIPlugin'
             ],
         },
     extras_require = INFO['extras_require'],
