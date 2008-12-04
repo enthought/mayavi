@@ -17,6 +17,9 @@ class BrowserPlugin(Plugin):
     # The plugin's name (suitable for displaying to the user).
     name = 'TVTK Pipeline Browser'
 
+    # Our ID.
+    id = 'enthought.tvtk.browser'
+
     #### Extension points offered by this plugin ##############################
 
     # None.

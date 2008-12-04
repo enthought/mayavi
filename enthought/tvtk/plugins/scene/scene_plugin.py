@@ -22,6 +22,9 @@ class ScenePlugin(Plugin):
     # The plugin's name (suitable for displaying to the user).
     name = 'TVTK Scene Plugin'
 
+    # Our ID.
+    id = 'enthought.tvtk.scene'
+
     #### Extension points offered by this plugin ##############################
 
     # None.
