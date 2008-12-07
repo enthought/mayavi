@@ -130,11 +130,12 @@ class LUTManager(Base):
                            desc='if scalar bar is shown or not')
 
     # The number of labels to use for the scalar bar.
-    number_of_labels = Range(0, 64, 8,
+    number_of_labels = Range(0, 64, 8, enter_set=True, auto_set=False,
                              desc='the number of labels to display')
 
     # Number of colors for the LUT.
-    number_of_colors = Range(2, 2147483647, 256,
+    number_of_colors = Range(2, 2147483647, 256, enter_set=True,
+                             auto_set=False,
                              desc='the number of colors for the LUT')
 
     # Enable shadowing of the labels and text.
