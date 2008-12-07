@@ -29,7 +29,9 @@ imshow
     **Keyword arguments:**
     
         :color: the color of the vtk object. Overides the colormap,
-                if any, when specified.
+                if any, when specified. This is specified as a
+                triplet of float ranging from 0 to 1, eg (1, 1,
+                1) for white.
     
         :colormap: type of colormap to use.
     
@@ -38,9 +40,13 @@ imshow
     
         :figure: Figure to populate.
     
+        :line_width:  The with of the lines, if any used. Must be a float.
+                     Default: 2.0
+    
         :name: the name of the vtk object created.
     
-        :opacity: The overall opacity of the vtk object.
+        :opacity: The overall opacity of the vtk object. Must be a float.
+                  Default: 1.0
     
         :representation: the representation type used for the surface. Must be
                          'surface' or 'wireframe' or 'points'. Default:
@@ -102,7 +108,9 @@ quiver3d
     **Keyword arguments:**
     
         :color: the color of the vtk object. Overides the colormap,
-                if any, when specified.
+                if any, when specified. This is specified as a
+                triplet of float ranging from 0 to 1, eg (1, 1,
+                1) for white.
     
         :colormap: type of colormap to use.
     
@@ -110,6 +118,9 @@ quiver3d
                  Default is the x, y, z arrays extents.
     
         :figure: Figure to populate.
+    
+        :line_width:  The with of the lines, if any used. Must be a float.
+                     Default: 2.0
     
         :mask_points: If supplied, only one out of 'mask_points' data point is
                       displayed. This option is usefull to reduce the number
@@ -124,7 +135,8 @@ quiver3d
     
         :name: the name of the vtk object created.
     
-        :opacity: The overall opacity of the vtk object.
+        :opacity: The overall opacity of the vtk object. Must be a float.
+                  Default: 1.0
     
         :resolution: The resolution of the glyph created. For spheres, for
                      instance, this is the number of divisions along theta and
@@ -202,7 +214,9 @@ plot3d
     **Keyword arguments:**
     
         :color: the color of the vtk object. Overides the colormap,
-                if any, when specified.
+                if any, when specified. This is specified as a
+                triplet of float ranging from 0 to 1, eg (1, 1,
+                1) for white.
     
         :colormap: type of colormap to use.
     
@@ -211,9 +225,13 @@ plot3d
     
         :figure: Figure to populate.
     
+        :line_width:  The with of the lines, if any used. Must be a float.
+                     Default: 2.0
+    
         :name: the name of the vtk object created.
     
-        :opacity: The overall opacity of the vtk object.
+        :opacity: The overall opacity of the vtk object. Must be a float.
+                  Default: 1.0
     
         :representation: the representation type used for the surface. Must be
                          'surface' or 'wireframe' or 'points'. Default:
@@ -300,7 +318,9 @@ surf
     **Keyword arguments:**
     
         :color: the color of the vtk object. Overides the colormap,
-                if any, when specified.
+                if any, when specified. This is specified as a
+                triplet of float ranging from 0 to 1, eg (1, 1,
+                1) for white.
     
         :colormap: type of colormap to use.
     
@@ -309,11 +329,15 @@ surf
     
         :figure: Figure to populate.
     
+        :line_width:  The with of the lines, if any used. Must be a float.
+                     Default: 2.0
+    
         :mask: boolean mask array to suppress some data points.
     
         :name: the name of the vtk object created.
     
-        :opacity: The overall opacity of the vtk object.
+        :opacity: The overall opacity of the vtk object. Must be a float.
+                  Default: 1.0
     
         :representation: the representation type used for the surface. Must be
                          'surface' or 'wireframe' or 'points'. Default:
@@ -393,7 +417,9 @@ mesh
     **Keyword arguments:**
     
         :color: the color of the vtk object. Overides the colormap,
-                if any, when specified.
+                if any, when specified. This is specified as a
+                triplet of float ranging from 0 to 1, eg (1, 1,
+                1) for white.
     
         :colormap: type of colormap to use.
     
@@ -401,6 +427,9 @@ mesh
                  Default is the x, y, z arrays extents.
     
         :figure: Figure to populate.
+    
+        :line_width:  The with of the lines, if any used. Must be a float.
+                     Default: 2.0
     
         :mask: boolean mask array to suppress some data points.
     
@@ -417,7 +446,8 @@ mesh
     
         :name: the name of the vtk object created.
     
-        :opacity: The overall opacity of the vtk object.
+        :opacity: The overall opacity of the vtk object. Must be a float.
+                  Default: 1.0
     
         :representation: the representation type used for the surface. Must be
                          'surface' or 'wireframe' or 'points' or 'mesh' or
@@ -500,7 +530,9 @@ contour3d
     **Keyword arguments:**
     
         :color: the color of the vtk object. Overides the colormap,
-                if any, when specified.
+                if any, when specified. This is specified as a
+                triplet of float ranging from 0 to 1, eg (1, 1,
+                1) for white.
     
         :colormap: type of colormap to use.
     
@@ -514,9 +546,13 @@ contour3d
     
         :figure: Figure to populate.
     
+        :line_width:  The with of the lines, if any used. Must be a float.
+                     Default: 2.0
+    
         :name: the name of the vtk object created.
     
-        :opacity: The overall opacity of the vtk object.
+        :opacity: The overall opacity of the vtk object. Must be a float.
+                  Default: 1.0
     
         :transparent: make the opacity of the actor depend on the
                       scalar.
@@ -587,7 +623,9 @@ points3d
     **Keyword arguments:**
     
         :color: the color of the vtk object. Overides the colormap,
-                if any, when specified.
+                if any, when specified. This is specified as a
+                triplet of float ranging from 0 to 1, eg (1, 1,
+                1) for white.
     
         :colormap: type of colormap to use.
     
@@ -595,6 +633,9 @@ points3d
                  Default is the x, y, z arrays extents.
     
         :figure: Figure to populate.
+    
+        :line_width:  The with of the lines, if any used. Must be a float.
+                     Default: 2.0
     
         :mask_points: If supplied, only one out of 'mask_points' data point is
                       displayed. This option is usefull to reduce the number
@@ -609,7 +650,8 @@ points3d
     
         :name: the name of the vtk object created.
     
-        :opacity: The overall opacity of the vtk object.
+        :opacity: The overall opacity of the vtk object. Must be a float.
+                  Default: 1.0
     
         :resolution: The resolution of the glyph created. For spheres, for
                      instance, this is the number of divisions along theta and
@@ -687,7 +729,9 @@ flow
     **Keyword arguments:**
     
         :color: the color of the vtk object. Overides the colormap,
-                if any, when specified.
+                if any, when specified. This is specified as a
+                triplet of float ranging from 0 to 1, eg (1, 1,
+                1) for white.
     
         :colormap: type of colormap to use.
     
@@ -696,8 +740,12 @@ flow
     
         :figure: Figure to populate.
     
-        :integration_direction: The direction of the integration. Must be a
-                                legal value. Default: forward
+        :integration_direction: The direction of the integration. Must be
+                                'forward' or 'backward' or 'both'. Default:
+                                forward
+    
+        :line_width:  The with of the lines, if any used. Must be a float.
+                     Default: 2.0
     
         :linetype: the type of line-like object used to display the
                    streamline. Must be 'line' or 'ribbon' or 'tube'. Default:
@@ -705,7 +753,8 @@ flow
     
         :name: the name of the vtk object created.
     
-        :opacity: The overall opacity of the vtk object.
+        :opacity: The overall opacity of the vtk object. Must be a float.
+                  Default: 1.0
     
         :scalars: optional scalar data.
     
@@ -788,7 +837,9 @@ contour_surf
     **Keyword arguments:**
     
         :color: the color of the vtk object. Overides the colormap,
-                if any, when specified.
+                if any, when specified. This is specified as a
+                triplet of float ranging from 0 to 1, eg (1, 1,
+                1) for white.
     
         :colormap: type of colormap to use.
     
@@ -802,9 +853,13 @@ contour_surf
     
         :figure: Figure to populate.
     
+        :line_width:  The with of the lines, if any used. Must be a float.
+                     Default: 2.0
+    
         :name: the name of the vtk object created.
     
-        :opacity: The overall opacity of the vtk object.
+        :opacity: The overall opacity of the vtk object. Must be a float.
+                  Default: 1.0
     
         :transparent: make the opacity of the actor depend on the
                       scalar.
@@ -882,7 +937,9 @@ barchart
     **Keyword arguments:**
     
         :color: the color of the vtk object. Overides the colormap,
-                if any, when specified.
+                if any, when specified. This is specified as a
+                triplet of float ranging from 0 to 1, eg (1, 1,
+                1) for white.
     
         :colormap: type of colormap to use.
     
@@ -895,6 +952,9 @@ barchart
                         distance between nearest points Must be a float.
                         Default: 0.9
     
+        :line_width:  The with of the lines, if any used. Must be a float.
+                     Default: 2.0
+    
         :mask_points: If supplied, only one out of 'mask_points' data point is
                       displayed. This option is usefull to reduce the number
                       of points displayed on large datasets Must be an integer
@@ -906,7 +966,8 @@ barchart
     
         :name: the name of the vtk object created.
     
-        :opacity: The overall opacity of the vtk object.
+        :opacity: The overall opacity of the vtk object. Must be a float.
+                  Default: 1.0
     
         :resolution: The resolution of the glyph created. For spheres, for
                      instance, this is the number of divisions along theta and
@@ -976,7 +1037,9 @@ triangular_mesh
     **Keyword arguments:**
     
         :color: the color of the vtk object. Overides the colormap,
-                if any, when specified.
+                if any, when specified. This is specified as a
+                triplet of float ranging from 0 to 1, eg (1, 1,
+                1) for white.
     
         :colormap: type of colormap to use.
     
@@ -984,6 +1047,9 @@ triangular_mesh
                  Default is the x, y, z arrays extents.
     
         :figure: Figure to populate.
+    
+        :line_width:  The with of the lines, if any used. Must be a float.
+                     Default: 2.0
     
         :mask: boolean mask array to suppress some data points.
     
@@ -1000,7 +1066,8 @@ triangular_mesh
     
         :name: the name of the vtk object created.
     
-        :opacity: The overall opacity of the vtk object.
+        :opacity: The overall opacity of the vtk object. Must be a float.
+                  Default: 1.0
     
         :representation: the representation type used for the surface. Must be
                          'surface' or 'wireframe' or 'points' or 'mesh' or

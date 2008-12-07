@@ -23,14 +23,20 @@ axes
     **Keyword arguments:**
     
         :color: the color of the vtk object. Overides the colormap,
-                if any, when specified.
+                if any, when specified. This is specified as a
+                triplet of float ranging from 0 to 1, eg (1, 1,
+                1) for white.
     
         :extent: [xmin, xmax, ymin, ymax, zmin, zmax]
                  Default is the object's extents.
     
+        :line_width:  The with of the lines, if any used. Must be a float.
+                     Default: 2.0
+    
         :name: the name of the vtk object created.
     
-        :opacity: The overall opacity of the vtk object.
+        :opacity: The overall opacity of the vtk object. Must be a float.
+                  Default: 1.0
     
         :ranges: [xmin, xmax, ymin, ymax, zmin, zmax]
                  Ranges of the labels displayed on the axes.
@@ -91,11 +97,17 @@ text
     **Keyword arguments:**
     
         :color: the color of the vtk object. Overides the colormap,
-                if any, when specified.
+                if any, when specified. This is specified as a
+                triplet of float ranging from 0 to 1, eg (1, 1,
+                1) for white.
+    
+        :line_width:  The with of the lines, if any used. Must be a float.
+                     Default: 2.0
     
         :name: the name of the vtk object created.
     
-        :opacity: The overall opacity of the vtk object.
+        :opacity: The overall opacity of the vtk object. Must be a float.
+                  Default: 1.0
     
         :width: width of the text.
     
@@ -149,14 +161,20 @@ outline
     **Keyword arguments:**
     
         :color: the color of the vtk object. Overides the colormap,
-                if any, when specified.
+                if any, when specified. This is specified as a
+                triplet of float ranging from 0 to 1, eg (1, 1,
+                1) for white.
     
         :extent: [xmin, xmax, ymin, ymax, zmin, zmax]
                  Default is the object's extents.
     
+        :line_width:  The with of the lines, if any used. Must be a float.
+                     Default: 2.0
+    
         :name: the name of the vtk object created.
     
-        :opacity: The overall opacity of the vtk object.
+        :opacity: The overall opacity of the vtk object. Must be a float.
+                  Default: 1.0
     
 
     
@@ -190,14 +208,20 @@ title
     **Keyword arguments:**
     
         :color: the color of the vtk object. Overides the colormap,
-                if any, when specified.
+                if any, when specified. This is specified as a
+                triplet of float ranging from 0 to 1, eg (1, 1,
+                1) for white.
     
         :height: height of the title, in portion of the
                  figure height
     
+        :line_width:  The with of the lines, if any used. Must be a float.
+                     Default: 2.0
+    
         :name: the name of the vtk object created.
     
-        :opacity: The overall opacity of the vtk object.
+        :opacity: The overall opacity of the vtk object. Must be a float.
+                  Default: 1.0
     
         :size: the size of the title
     
@@ -215,11 +239,17 @@ orientationaxes
     **Keyword arguments:**
     
         :color: the color of the vtk object. Overides the colormap,
-                if any, when specified.
+                if any, when specified. This is specified as a
+                triplet of float ranging from 0 to 1, eg (1, 1,
+                1) for white.
+    
+        :line_width:  The with of the lines, if any used. Must be a float.
+                     Default: 2.0
     
         :name: the name of the vtk object created.
     
-        :opacity: The overall opacity of the vtk object.
+        :opacity: The overall opacity of the vtk object. Must be a float.
+                  Default: 1.0
     
         :xlabel: the label of the x axis
     

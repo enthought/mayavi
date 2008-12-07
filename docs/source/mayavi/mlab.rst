@@ -612,7 +612,7 @@ following field::
 :Volume rendering:
     Volume rendering is an advanced technique in which each voxel is
     given a partly transparent color. This can be achieved with
-    `mlab.pipeline` using the :run:`scalar_field` source, and the 
+    `mlab.pipeline` using the :func:`scalar_field` source, and the 
     `volume` module::
 
         mlab.pipeline.volume(mlab.pipeline.scalar_field(s))
@@ -687,6 +687,133 @@ following field::
 .. |volumetric_cut_plane| image:: volumetric_cut_plane.jpg
 
 .. |volumetric_combination| image:: volumetric_combination.jpg
+
+Visualizing a vector field
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. Parameters used for the images:
+    mlab.figure(1, fgcolor=(0., 0., 0.), bgcolor=(1, 1, 1), size=(349, 349))
+    mlab.view(60, 90, 45.8, (9.5, 11.1, 10.4))
+
+A vector field, ie vectors continuously defined in a volume, can be
+difficult to visualize, as it contains a lot of information. Let us
+explore different visualizations for the velocity field of a multi-axis
+convection cell [1]_, in hydrodynamics, as defined by its components
+sampled on a grid, `u`, `v`, `w`::
+
+    import numpy as np
+    x, y, z = np.mgrid[0:1:20j, 0:1:20j, 0:1:20j]
+
+    u =    np.sin(np.pi*x) * np.cos(np.pi*z)
+    v = -2*np.sin(np.pi*y) * np.cos(2*np.pi*z)
+    w = np.cos(np.pi*x)*np.sin(np.pi*z) + np.cos(np.pi*y)*np.sin(2*np.pi*z)
+
+
+
+:Quiver:
+    The simplest visualization of a set of vectors, is using the `mlab`
+    function `quiver3d`::
+
+        mlab.quiver3d(u, v, w)
+        mlab.outline()
+
+    .. image:: vector_field_quiver.jpg
+
+    The main limitation of this visualization is that it positions an
+    arrow for each sampling point on the grid. As a result the
+    visualization is very busy.
+
+:Masking vectors:
+    We can use the fact that we are visualizing a vector field, and not
+    just a bunch of vectors, to reduce the amount of arrows displayed. For
+    this we need to build a `vector_field` source, and apply to it the
+    `vectors` module, with some masking parameters (here we keep only one
+    point out of 20)::
+
+        src = mlab.pipeline.vector_field(u, v, w)
+        mlab.pipeline.vectors(src, mask_points=20, scale_factor=3.)
+
+    .. image:: vector_field_vectors.jpg
+
+:A cut plane:
+    If we are interested in displaying the vectors along a cut, we can
+    use a cut plane. In particular, we can inspect interactively the
+    vector field by moving the cut plane along: clicking on it and
+    dragging it can give a very clear understanding of the vector field::
+
+        mlab.pipeline.vector_cut_plane(src, mask_points=2, scale_factor=3)
+
+    .. image:: vector_field_cut_plane.jpg
+
+:IsoSurfaces of the magnitude:
+    An important parameter of the vector field is its magnitude. It can
+    be interesting to display iso-surfaces of the norm of the vectors.
+    For this we can create a scalar field from the vector field using the 
+    ExtractVectorNorm filter, and use the IsoSurface module on it. When
+    working interactively, a good understanding of the magnitude of the
+    field can be gained by changing the values of the contours in the
+    object's property dialog. ::
+
+        magnitude = mlab.pipeline.extract_vector_norm(src)
+        mlab.pipeline.iso_surface(magnitude, contours=[1.9, 0.5])
+
+    .. image:: vector_field_isosurface.jpg
+
+:The Flow, or the field lines:
+    For certain vector fields, the line of flow of along the field can
+    have an interesting meaning. For instance the can be interpreted as
+    trajectories in hydrodynamics, or field lines in electro-magnetism.
+    We can display the flow lines originating for a certain seed surface
+    using the `streamline` module, or the mlab `flow` function, which
+    calls it::
+
+        flow = mlab.flow(u, v, w, seed_scale=1,
+                                  seed_resolution=5,
+                                  integration_direction='both')
+
+
+    .. image:: vector_field_flow.jpg
+
+:A combination of techniques:
+
+    Giving a meaningful visualization of a vector field is a hard task,
+    and one must use all the tools at hand to illustrate his purposes. It
+    is important to choose the message conveyed. No one visualization
+    will tell all about a vector field. Here is an example of a
+    visualization made by combining the different tools above::
+
+        mlab.figure(fgcolor=(0., 0., 0.), bgcolor=(1, 1, 1))
+        src = mlab.pipeline.vector_field(u, v, w)
+        magnitude = mlab.pipeline.extract_vector_norm(src)
+
+        # We apply the following modules on the magnitude object, in order to
+        # be able to display the norm of the vectors, eg as the color.
+        iso = mlab.pipeline.iso_surface(magnitude, contours=[1.9, ], opacity=0.3)
+
+        vec = mlab.pipeline.vectors(magnitude, mask_points=40,
+                                            line_width=1,
+                                            color=(.8, .8, .8),
+                                            scale_factor=4.)
+
+        flow = mlab.pipeline.streamline(magnitude, seedtype='plane',
+                                                seed_visible=False,
+                                                seed_scale=0.5,
+                                                seed_resolution=1,
+                                                linetype='ribbon',)
+
+        vcp = mlab.pipeline.vector_cut_plane(magnitude, mask_points=2,
+                                                scale_factor=4,
+                                                colormap='jet',
+                                                plane_orientation='x_axes')
+
+
+    .. image:: vector_field_combination.jpg
+
+
+____
+
+.. [1] Toussaint, V.; Carriere, P. & Raynal, F. A numerical Eulerian
+   approach to mixing by chaotic advection Phys. Fluids, 1995, 7, 2587
 
 ..
    Local Variables:
