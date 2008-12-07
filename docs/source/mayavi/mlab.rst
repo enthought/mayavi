@@ -810,6 +810,28 @@ sampled on a grid, `u`, `v`, `w`::
     .. image:: vector_field_combination.jpg
 
 
+.. note::
+
+    Although most of this section has been centered on snippets of code
+    to create visualization objects, it is important to remember that
+    Mayavi is an interactive program, and that the properties of these
+    objects can be modified interactively, as described in 
+    `Interacting graphically with the visualization`_. It is often
+    impossible to choose the best parameters for a visualization before
+    hand. Colors, contour values, colormap, view angle, etc... should be
+    chosen interactively. If reproducibility is required, the chosen
+    values can be added in the original script.
+
+    Moreover, the `mlab` functions expose only a small fraction of the
+    possibilities of the visualization objects. The dialogs expose more
+    of these functionalities, that are entirely controlled by the
+    attributes of the objects returned by the mlab functions. These
+    objects are very rich, as they are built from VTK objects. It can be
+    hard to find the right attribute to modify when exploring them, or in
+    the VTK documentation. The following chapter shows how to go from a
+    modification made interactively in a dialog, to the corresponding lines 
+    of code.
+
 ____
 
 .. [1] Toussaint, V.; Carriere, P. & Raynal, F. A numerical Eulerian
