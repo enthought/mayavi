@@ -42,7 +42,9 @@ class ModuleFactory(PipeFactory):
     color = Trait(None, None,
                 TraitTuple(Range(0., 1.),Range(0., 1.),Range(0., 1.)),
                 help="""the color of the vtk object. Overides the colormap,
-                        if any, when specified.""", )
+                        if any, when specified. This is specified as a 
+                        triplet of float ranging from 0 to 1, eg (1, 1,
+                        1) for white.""", )
 
     def _color_changed(self):
         if self.color:
@@ -53,7 +55,7 @@ class ModuleFactory(PipeFactory):
                 self._target.property.color = self.color
     
     opacity = CFloat(1.,
-                help="""The overall opacity of the vtk object.""")
+                desc="""The overall opacity of the vtk object.""")
 
     def _opacity_changed(self):
         try:
@@ -61,6 +63,18 @@ class ModuleFactory(PipeFactory):
         except AttributeError:
             try:
                 self._target.property.opacity = self.opacity
+            except AttributeError:
+                pass
+
+    line_width = CFloat(2.,
+                desc=""" The with of the lines, if any used.""")
+
+    def _line_width_changed(self):
+        try:
+            self._target.actor.property.line_width = self.line_width
+        except AttributeError:
+            try:
+                self._target.property.line_width = self.line_width
             except AttributeError:
                 pass
 
@@ -319,7 +333,7 @@ class StreamlineFactory(DataModuleFactory):
             desc='The resolution of the seed. Determines the number of '
                  'seed points')
 
-    integration_direction = Enum('forward', 'backward', 'both',
+    integration_direction = Trait('forward', 'backward', 'both',
             adapts='stream_tracer.integration_direction',
             desc="The direction of the integration.",
             )
