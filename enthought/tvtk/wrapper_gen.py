@@ -552,10 +552,12 @@ class WrapperGenerator:
                 # perhaps indicate that the class is not initialized
                 if (default < rng[0]) or (default > rng[1]):
                     t_def = 'traits.Trait(%(default)s, %(default)s, '\
-                            'traits.Range%(rng)s)'%locals()
+                            'traits.Range%(rng)s'%locals()
+                    t_def = t_def[:-1] + ', enter_set=True, auto_set=False))'
                 else:
                     t_def = 'traits.Trait(%(default)s, '\
-                            'traits.Range%(rng)s)'%locals()
+                            'traits.Range%(rng)s'%locals()
+                    t_def = t_def[:-1] + ', enter_set=True, auto_set=False))'
                 self._write_trait(out, name, t_def, vtk_set_meth,
                                   mapped=False)
 

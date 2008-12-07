@@ -95,6 +95,7 @@ class FileDataSource(Source):
     timestep = Range(value=0,
                      low='_min_timestep',
                      high='_max_timestep',
+                     enter_set=True, auto_set=False,
                      desc='the current time step')
     
     base_file_name=Str('', desc="the base name of the file", 
