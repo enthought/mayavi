@@ -170,11 +170,11 @@ class TraitRevPrefixMap(traits.TraitPrefixMap):
                            break
                         match = key
                 if match is None:
-                    self.error( object, name, self.repr( value ) )
+                    self.error( object, name, value )
                 self._map[ value ] = match
             return self._map[ value ]
         except:
-            self.error( object, name, self.repr( value ) )
+            self.error( object, name, value )
         
     def info(self):
         keys = [repr(x) for x in self._rmap.keys()]
