@@ -44,7 +44,7 @@ class Contour(Component):
                          'given explicitly or automatically computed')
 
     # Number of contours, used when `auto_contours` are chosen.
-    number_of_contours = Range(1, 100000,
+    number_of_contours = Range(1, 100000, enter_set=True, auto_set=False,
                                desc='number of contours to generate')
 
     # Minimum contour, this is the starting value when `auto_contours`
@@ -52,6 +52,8 @@ class Contour(Component):
     minimum_contour = Range(value=0.0,
                             low='_data_min',
                             high='_data_max',
+                            enter_set=True,
+                            auto_set=False,
                             desc='the starting contour value')
     
     # Maximum contour, this is the last contour when `auto_contours`
@@ -59,6 +61,8 @@ class Contour(Component):
     maximum_contour = Range(value=0.0,
                             low='_data_min',
                             high='_data_max',
+                            enter_set=True,
+                            auto_set=False,
                             desc='the ending contour value')
     
     # The explicit contours to create.  These specify the contours
@@ -67,7 +71,10 @@ class Contour(Component):
     # on input data.
     contours = List(Range(value='_default_contour',
                           low='_data_min',
-                          high='_data_max'),
+                          high='_data_max',
+                          enter_set=True,
+                          auto_set=False,
+                          ),
                     rows=3,
                     desc='explicitly the contours to be generated')
     

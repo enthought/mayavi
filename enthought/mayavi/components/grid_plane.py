@@ -43,7 +43,8 @@ class GridPlane(Component):
                 desc='specifies the axis normal to the grid plane')
 
     # The position of the grid plane.
-    position = Range(value=0, low='_low', high='_high')
+    position = Range(value=0, low='_low', high='_high',
+                     enter_set=True, auto_set=False)
     
     ########################################
     # Private traits.

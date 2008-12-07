@@ -37,6 +37,8 @@ class Threshold(Filter):
     lower_threshold = Range(value=-1.0e20,
                             low='_data_min',
                             high='_data_max',
+                            enter_set=True,
+                            auto_set=False,
                             desc='the lower threshold of the filter')
 
     # Upper threshold (this is a dynamic trait that is changed when
@@ -44,6 +46,8 @@ class Threshold(Filter):
     upper_threshold = Range(value=1.0e20,
                             low='_data_min',
                             high='_data_max',
+                            enter_set=True,
+                            auto_set=False,
                             desc='the upper threshold of the filter')
 
     # Automatically reset the lower threshold when the upstream data

@@ -26,6 +26,8 @@ class SelectOutput(Filter):
 
     # The output index in the input to choose from.
     output_index = Range(value=0,
+                         enter_set=True, 
+                         auto_set=False,
                          low='_min_index',
                          high='_max_index')
     

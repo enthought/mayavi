@@ -48,15 +48,17 @@ class Text(Module):
     # Shadow the positions as ranges for 2D. Simply using a RangeEditor
     # does not work as it resets the 3D positions to 1 when the dialog is
     # loaded.
-    _x_position_2d = Range(0., 1., 0., desc='the x-coordinate of the text')
-    _y_position_2d = Range(0., 1., 0., desc='the y-coordinate of the text')
+    _x_position_2d = Range(0., 1., 0., enter_set=True, auto_set=False,
+                           desc='the x-coordinate of the text')
+    _y_position_2d = Range(0., 1., 0., enter_set=True, auto_set=False,
+                           desc='the y-coordinate of the text')
 
     # 3D position
     position_in_3d = Bool(False, 
                     desc='whether the position of the object is given in 2D or in 3D')
 
     # The width of the text.
-    width = Range(0.0, 1.0, 0.4,
+    width = Range(0.0, 1.0, 0.4, enter_set=True, auto_set=False,
                   desc='the width of the text as a fraction of the viewport')
 
     input_info = PipelineInfo(datasets=['any'],
