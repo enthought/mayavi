@@ -1,12 +1,20 @@
 """
 This example uses the streamline module to display field lines of a
-magnetic dipole (a current loop)
+magnetic dipole (a current loop).
 
 This example requires scipy.
 
 The magnetic field from an arbitrary current loop is calculated from 
 eqns (1) and (2) in Phys Rev A Vol. 35, N 4, pp. 1535-1546; 1987. 
+
+To get a prettier result, we use a fairly large grid to sample the
+field. As a consequence, we need to clear temporary arrays as soon as
+possible.
 """
+# Author: Gael Varoquaux <gael.varoquaux@normalesup.org> 
+# Copyright (c) 2007, Enthought, Inc.
+# License: BSD Style.
+
 import numpy as np
 from scipy import special
 
@@ -34,7 +42,7 @@ Brho = z/(rho*np.sqrt((radius + rho)**2 + z**2)) * (
                 + E * (radius**2 + rho**2 + z**2)/((radius - rho)**2 + z**2) 
             )
 del E, K, z, rho
-# On the axis of the coil we get a divided by zero here. This returns a
+# On the axis of the coil we get a divided by zero. This returns a
 # NaN, where the field is actually zero :
 Brho[np.isnan(Brho)] = 0
 
@@ -45,7 +53,6 @@ del x_proj, y_proj, Brho
 #### Visualize the field #####################################################
 from enthought.mayavi import mlab
 fig = mlab.figure(1, size=(400, 400), bgcolor=(1, 1, 1), fgcolor=(0, 0, 0))
-mlab.clf()
 
 field = mlab.pipeline.vector_field(Bx, By, Bz)
 # Unfortunately, the above call makes a copy of the arrays, so we delete
@@ -65,6 +72,7 @@ field_lines = mlab.pipeline.streamline(magnitude, seedtype='line',
                                         colormap='bone',
                                         vmin=0, vmax=1)
 
+# Tweak a bit the streamline.
 field_lines.stream_tracer.integration_direction = 'both'
 field_lines.stream_tracer.maximum_propagation = 100.
 field_lines.seed.widget.point1 = [69, 75.5, 75.5]
@@ -72,7 +80,6 @@ field_lines.seed.widget.point2 = [82, 75.5, 75.5]
 field_lines.seed.widget.resolution = 50
 field_lines.seed.widget.enabled = False
 
-#mlab.view(-84, 67, 88.7)
 mlab.view(42, 73, 104, [ 79,  75,  76])
    
 mlab.show()

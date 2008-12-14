@@ -1,5 +1,15 @@
-"""Simple example illustrating the creation of a structured grid data
-set from numpy arrays using TVTK and visualized using mlab.
+"""
+An example creating a structured grid data set from numpy arrays using TVTK 
+and visualizing it using mlab.
+
+In this example, we create a structured-grid data set: we describe
+data, both scalar and vector, lying on a structured-grid, ie a grid where
+each vertex has 6 neighboors. For this we directly create a
+StructuredGrid tvtk object, rather than using the mlab.pipeline source
+functions, as it gives us more control. 
+
+To visualize the resulting dataset, we apply several modules, using the
+mlab.pipeline interface.
 """
 # Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
 # Copyright (c) 2008, Prabhu Ramachandran.
