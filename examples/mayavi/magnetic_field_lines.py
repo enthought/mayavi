@@ -61,11 +61,11 @@ del Bx, By, Bz
 
 magnitude = mlab.pipeline.extract_vector_norm(field)
 contours = mlab.pipeline.iso_surface(magnitude, 
-        contours=[0.01, 0.8, 3.8, ],
-        transparent=True,
-        opacity=0.4,
-        colormap='YlGnBu',
-        vmin=0, vmax=2)
+                                        contours=[0.01, 0.8, 3.8, ],
+                                        transparent=True,
+                                        opacity=0.4,
+                                        colormap='YlGnBu',
+                                        vmin=0, vmax=2)
 
 
 field_lines = mlab.pipeline.streamline(magnitude, seedtype='line',
