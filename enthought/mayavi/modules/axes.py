@@ -119,7 +119,8 @@ class Axes(Module):
                            resizable=True),
                       label='Label Text',
                       show_labels=False),
-                resizable=True, width=500, height=600
+                scrollable=True, resizable=True, 
+                width=500, height=600
                 )
 
     ######################################################################
