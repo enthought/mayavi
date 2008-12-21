@@ -34,6 +34,7 @@ except:
 tar_file.extractall('mri_data')
 tar_file.close()
 
+
 ### Read the data in a numpy 3D array ##########################################
 import numpy as np
 data = np.array([np.fromfile(os.path.join('mri_data', 'MRbrain.%i' % i),
@@ -105,3 +106,6 @@ mlab.view(-125, 54, 326, (145.5, 138, 66.5))
 mlab.roll(-175)
 
 mlab.show()
+
+import shutil
+shutil.rmtree('mri_data')

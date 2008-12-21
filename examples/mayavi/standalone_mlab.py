@@ -16,7 +16,7 @@ Z = sin(R)/R
 
 # Plot it.
 mlab.figure(fgcolor=(0, 0, 0), bgcolor=(1, 1, 1))
-mlab.surf(X, Y, Z, colormap='gist_earth')
+mlab.surf(X, Y, Z, colormap='jet')
 
 # Display the MayaVi tree view UI.
 ui = mlab.show_pipeline()
