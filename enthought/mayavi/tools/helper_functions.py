@@ -838,7 +838,8 @@ def test_contour_surf():
     return s
 
 ############################################################################# 
-# Expose only the glyphs that make (more or less) sens for a barchart.
+
+# Expose only the glyphs that make (more or less) sense for a barchart.
 bar_mode_dict = dict()
 for item in ('cube', '2dtriangle', '2dsquare', '2dvertex', '2dthick_cross', 
              '2ddiamond', '2dcross', '2dcircle'):
@@ -850,7 +851,7 @@ class BarChart(Pipeline):
     histogram-like plots.
 
     This functions accepts a wide variety of inputs, with positions given
-    in 2D or in 3D.
+    in 2-D or in 3-D.
 
     **Function signatures**::
 
@@ -860,7 +861,7 @@ class BarChart(Pipeline):
         barchart(x, y, z, s, ...)
         barchart(x, y, z, f, ...)
 
-    If only one positional argument is passed, it can be a 1D, 2D, or 3D
+    If only one positional argument is passed, it can be a 1-D, 2-D, or 3-D
     array giving the length of the vectors. The positions of the data
     points are deducted from the indices of array, and an
     uniformly-spaced data set is created.
