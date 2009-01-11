@@ -15,7 +15,7 @@ both for testing and to ilustrate its use.
 
 from modules import VectorsFactory, StreamlineFactory, GlyphFactory, \
             IsoSurfaceFactory, SurfaceFactory, ContourSurfaceFactory, \
-            glyph_mode_dict
+            ImageActorFactory, glyph_mode_dict
 from sources import vector_scatter, vector_field, scalar_scatter, \
             scalar_field, line_source, array2d_source, grid_source, \
             triangular_mesh_source, vertical_vectors_source
@@ -510,7 +510,7 @@ class ImShow(Pipeline):
 
     _source_function = Callable(array2d_source)
 
-    _pipeline = [SurfaceFactory, ]
+    _pipeline = [ImageActorFactory, ]
 
 
 imshow = document_pipeline(ImShow())

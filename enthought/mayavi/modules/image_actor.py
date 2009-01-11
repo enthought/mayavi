@@ -6,7 +6,8 @@
 
 
 # Enthought library imports.
-from enthought.traits.api import Instance
+from enthought.traits.api import Instance, Bool, on_trait_change, \
+        Property
 from enthought.traits.ui.api import View, Group, Item
 from enthought.tvtk.api import tvtk
 
@@ -27,14 +28,31 @@ class ImageActor(Module):
                               attribute_types=['any'],
                               attributes=['any'])    
 
+    # An ImageMapToColors TVTK filter to adapt datasets without color
+    # information
+    image_map_to_color = Instance(tvtk.ImageMapToColors, (),
+                                            allow_none=False, record=True)
+
+    map_scalars_to_color = Bool
+
+    _force_map_scalars_to_color = Property(depends_on='module_manager.source')
+
     ########################################
     # The view of this module.
 
     view = View(Group(Item(name='actor', style='custom',
                            resizable=True),
-                      show_labels=False),
+                      show_labels=False, label='Actor'),
+                Group(
+                      Group(Item('map_scalars_to_color',
+                            enabled_when='not _force_map_scalars_to_color')),
+                      Item('image_map_to_color', style='custom',
+                            enabled_when='map_scalars_to_color',
+                            show_label=False),
+                      label='Map Scalars',
+                     ),
                 width=500,
-                height=500,
+                height=600,
                 resizable=True)
 
     ######################################################################
@@ -43,6 +61,7 @@ class ImageActor(Module):
     def setup_pipeline(self):
         self.actor = tvtk.ImageActor()
         
+    @on_trait_change('map_scalars_to_color,image_map_to_color.[output_format,pass_alpha_to_output]')
     def update_pipeline(self):
         """Override this method so that it *updates* the tvtk pipeline
         when data upstream is known to have changed.
@@ -51,7 +70,14 @@ class ImageActor(Module):
         if mm is None:
             return
         src = mm.source
-        self.actor.input = src.outputs[0]
+        if self._force_map_scalars_to_color:
+            self.set(map_scalars_to_color=True, trait_change_notify=False)
+        if self.map_scalars_to_color: 
+            self.image_map_to_color.input = src.outputs[0]
+            self.image_map_to_color.lookup_table = mm.scalar_lut_manager.lut
+            self.actor.input = self.image_map_to_color.output
+        else:
+            self.actor.input = src.outputs[0]
         self.pipeline_changed = True
 
     def update_data(self):
@@ -71,4 +97,11 @@ class ImageActor(Module):
         self.actors.append(new)
         new.on_trait_change(self.render)
 
+    def _get__force_map_scalars_to_color(self):
+        mm = self.module_manager
+        if mm is None:
+            return False
+        src = mm.source
+        return not isinstance(src.outputs[0].point_data.scalars, 
+                                                    tvtk.UnsignedCharArray)
 
