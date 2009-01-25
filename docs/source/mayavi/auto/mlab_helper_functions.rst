@@ -40,17 +40,16 @@ imshow
     
         :figure: Figure to populate.
     
+        :interpolate: if the pixels in the image are to be
+                      interpolated or not. Must be a boolean. Default: True
+    
         :line_width:  The with of the lines, if any used. Must be a float.
                      Default: 2.0
     
         :name: the name of the vtk object created.
     
-        :opacity: The overall opacity of the vtk object. Must be a float.
-                  Default: 1.0
-    
-        :representation: the representation type used for the surface. Must be
-                         'surface' or 'wireframe' or 'points'. Default:
-                         surface
+        :opacity: the opacity of the image. Must be a legal value. Default:
+                  1.0
     
         :transparent: make the opacity of the actor depend on the
                       scalar.
@@ -909,7 +908,7 @@ barchart
     histogram-like plots.
     
     This functions accepts a wide variety of inputs, with positions given
-    in 2D or in 3D.
+    in 2-D or in 3-D.
     
     **Function signatures**::
     
@@ -919,7 +918,7 @@ barchart
         barchart(x, y, z, s, ...)
         barchart(x, y, z, f, ...)
     
-    If only one positional argument is passed, it can be a 1D, 2D, or 3D
+    If only one positional argument is passed, it can be a 1-D, 2-D, or 3-D
     array giving the length of the vectors. The positions of the data
     points are deducted from the indices of array, and an
     uniformly-spaced data set is created.
@@ -1023,7 +1022,7 @@ triangular_mesh
     
     **Function signatures**::
     
-        mesh(x, y, z, triangles ...)
+        triangular_mesh(x, y, z, triangles ...)
     
     x, y, z are arrays giving the positions of the vertices of the surface.
     triangles is a list of triplets (or an array) list the vertices in
