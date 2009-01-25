@@ -119,7 +119,7 @@ class _SceneEditor(Editor):
         model = self.value
         scene = self._scene
         if not remove:
-            scene.set(model.get(traits_to_sync))
+            scene.set(**model.get(traits_to_sync))
         for trait in traits_to_sync:
             scene.sync_trait(trait, model, mutual=True, remove=remove)
 
