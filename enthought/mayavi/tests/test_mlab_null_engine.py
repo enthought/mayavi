@@ -11,6 +11,7 @@ import numpy as np
 from enthought.mayavi import mlab
 from enthought.mayavi.core.engine import Engine
 
+from enthought.tvtk.api import tvtk
 
 class TestMlabNullEngine(unittest.TestCase):
 
@@ -37,6 +38,14 @@ class TestMlabNullEngine(unittest.TestCase):
         # Check that the filter was not added to a live scene:
         if filter.scene is not None:
             raise AssertionError, "The NullEngine seems not to work"
+
+    def test_user_defined_filter(self):
+        x, y, z = np.random.random((3, 100))
+        src = mlab.pipeline.scalar_scatter(x, y, z, figure=False)
+        density = mlab.pipeline.user_defined(src, filter='GaussianSplatter')
+
+        self.assertEqual(len(density.outputs), 1)
+        self.assert_(isinstance(density.outputs[0], tvtk.ImageData))
 
     def tearDown(self):
         # Check that the NullEngine was not set as the default mlab engine.

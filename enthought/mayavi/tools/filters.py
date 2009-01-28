@@ -146,11 +146,26 @@ class UserDefinedFactory(PipeFactory):
     _target = Instance(filters.UserDefined, ())
 
     filter = Instance(tvtk.Object, adapts="filter",
-                      help="the tvtk filter to adapt")
+                      help="the tvtk filter to adapt. This"
+                           "be either an instance of the filter, or the"
+                           "name of this filter.")
 
     def __init__(self, parent, **kwargs):
         if 'filter' in kwargs:
-            self._target.filter = kwargs['filter']
+            filter = kwargs['filter']
+            if not isinstance(filter, tvtk.Object):
+                try:
+                    filter = getattr(tvtk, filter)
+                except AttributeError, e:
+                    raise 'Filter %s unknown to TVTK' % filter 
+                kwargs['filter'] = filter()
+                self._target.filter = kwargs['filter']
+                self._target.setup_filter()
+            else:
+                self._target.filter = kwargs['filter']
+            if not 'name' in kwargs:
+                kwargs['name'] = 'UserDefined(%s)' % \
+                        kwargs['filter'].__class__.__name__
         super(UserDefinedFactory, self).__init__(parent, **kwargs)
 
 user_defined = make_function(UserDefinedFactory)
