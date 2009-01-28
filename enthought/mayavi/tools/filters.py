@@ -16,13 +16,14 @@ import new
 from enthought.traits.api import Instance, CFloat, CInt, CArray, Trait, \
             Enum, Property, Any, String
 from enthought.tvtk.common import camel2enthought
+from enthought.tvtk.api import tvtk
 import enthought.mayavi.filters.api as filters
 from enthought.mayavi.core.registry import registry
 from pipe_base import PipeFactory, make_function
 
 # This the list is dynamically populated further down below at the end.
 __all__ = [ 'tube', 'warp_scalar', 'threshold', 'elevation_filter', 
-            'set_active_attribute',
+            'set_active_attribute', 'user_defined'
           ]
 
 
@@ -136,6 +137,23 @@ class SetActiveAttributeFactory(PipeFactory):
     _target = Instance(filters.SetActiveAttribute, ())
 
 set_active_attribute = make_function(SetActiveAttributeFactory)
+
+
+##############################################################################
+class UserDefinedFactory(PipeFactory):
+    """Applies the UserDefined mayavi filter to the given TVTK object."""
+    
+    _target = Instance(filters.UserDefined, ())
+
+    filter = Instance(tvtk.Object, adapts="filter",
+                      help="the tvtk filter to adapt")
+
+    def __init__(self, parent, **kwargs):
+        if 'filter' in kwargs:
+            self._target.filter = kwargs['filter']
+        super(UserDefinedFactory, self).__init__(parent, **kwargs)
+
+user_defined = make_function(UserDefinedFactory)
 
 
 ############################################################################
