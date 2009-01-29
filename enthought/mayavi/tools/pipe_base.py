@@ -9,7 +9,7 @@ Base class for factories for adding objects to the pipeline.
 
 from auto_doc import make_doc
 from enthought.traits.api import HasPrivateTraits, Str, TraitError,\
-            Instance, Any
+            Instance, Any, Bool
 from enthought.mayavi.core.filter import Filter
 from enthought.mayavi.core.engine import Engine
 from enthought.mayavi.core.source import Source
@@ -62,6 +62,8 @@ class PipeFactory(HasPrivateTraits):
     _engine = Instance(Engine)
 
     _target = Any
+
+    _do_redraw = Bool
 
     def add_module(self, parent, kwargs=dict()):
         """ Add the target module to the given object.
@@ -127,6 +129,7 @@ class PipeFactory(HasPrivateTraits):
                 parent = tools.add_dataset(parent)
         
         if scene is not None:
+            self._do_redraw = not scene.disable_render
             scene.disable_render = True
         if issubclass(self._target.__class__, Filter):
             self._engine.add_filter(self._target, obj=parent)
@@ -140,7 +143,7 @@ class PipeFactory(HasPrivateTraits):
         # called
         self.set(**traits)
         if scene is not None:
-            scene.disable_render = False
+            scene.disable_render = not self._do_redraw
 
     def set(self, trait_change_notify=True, **traits):
         """ Same as HasTraits.set except that notification is forced,
