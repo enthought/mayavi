@@ -39,8 +39,11 @@ Installing ready-made distributions
     available for RHEL3 and 4.
 
 
-Requirements
-------------
+Requirements for hand installs
+--------------------------------
+
+If you are not using full, ready-made, scientific Python distribution,
+you need to satistify Mayavi's requirements.
 
 Mayavi requires at the very minimum the following packages:
 
@@ -96,8 +99,8 @@ are described in the following.
 .. _Pythonxy: http://www.pythonxy.com
 .. _configobj: http://pypi.python.org/pypi/ConfigObj/
 
-Python packages: Eggs
------------------------
+Doing it yourself: Python packages: Eggs
+-----------------------------------------
 
 First make sure you have the prerequisites for Mayavi installed, i.e.
 the following packages:
@@ -154,6 +157,56 @@ Given this background please see the following:
     the prebuilt binary eggs for various platforms along with any
     dependencies.
 
+Step-by-step instructions to install with eggs under Windows
+...............................................................
+
+If you do not whish to install a ready-made distribution under Windows,
+these instructions (provided by Guillaume Duclaux) will guide you through
+the necessary steps to configure a Windows environment in which Mayavi
+will run.
+
+1. Install Python 2.5. Add 'C:\Python25;` to the PATH environment
+   variables.
+
+2. Install Mingw32, from the Download section of http://www.mingw.org/ ,
+   use the MinGW5.1.4 installer. Add 'C:\MinGW\bin;' to the PATH
+   environment variables.
+
+3. Create a 'c:\documents and settings\USERNAME\pydistutils.cfg' file(where 
+   USERNAME is the login) with the following contents::
+
+               [build]
+               compiler=mingw32
+
+4. Create the new environment variable HOME and set it to the value:
+   'c:\docume~1\USERNAME;' (where USERNAME is the login name)
+
+5 Install Setuptools (0.6c9 binary) from its webpage, and
+  'C:\Python25\Scripts;' to the PATH environment variables
+
+
+6. Install VTK 5.2 (using Dr Charl P. Botha Windows binary
+   http://cpbotha.net/2008/09/23/python-25-enabled-vtk-52-windows-binaries/
+   )
+
+    * Unzip the folder content in {C:\Program Files\VTK5.2_cpbotha'
+    * add 'C:\Program Files\VTK5.2_cpbotha\bin;' to the PATH environment
+      variables
+    * create a new environment variable PYTHONPATH and set it to the
+      value 'C:\Program Files\VTK5.2_cpbotha\lib\site-packages;'
+
+
+7. Install Numpy (1.2.1 binary from http://numpy.scipy.org/ )
+
+8. Installing wxPython (2.8 binary from http://www.wxpython.org/ )
+
+9. Run in cmd.exe::
+
+   easy_install Sphinx EnvisageCore EnvisagePlugins configobj
+
+10. Finally, run in cmd.exe::
+
+     easy_install Mayavi[app]
 
 
 .. _Eggs: http://peak.telecommunity.com/DevCenter/PythonEggs
