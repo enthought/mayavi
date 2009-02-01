@@ -378,7 +378,7 @@ class Contour3d(Pipeline):
     **Function signatures**::
 
         contour3d(scalars, ...)
-        contour3d(scalarfield, ...)"""
+        contour3d(x, y, z, scalars, ...)"""
 
     _source_function = Callable(scalar_field)
 
