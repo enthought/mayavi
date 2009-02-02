@@ -3,38 +3,44 @@
 Advanced Scripting with Mayavi
 ===============================
 
-As elaborated in the :ref:`an-overview-of-mayavi` section, mayavi can be
-scripted from Python in order to visualize data.  Mayavi2 was designed
-from the ground up to be highly scriptable.  Everything that can be done
-from the user interface can be achieved using Python scripts. 
+As elaborated in the :ref:`an-overview-of-mayavi` section, the Mayavi2
+can be scripted from Python in order to visualize data.  Mayavi2 was
+designed from the ground up to be highly scriptable.  Everything that can
+be done from the user interface can be achieved using Python scripts. 
 
-If you are not looking to script mayavi itself but looking for quick
-ways to get your visualization done with simple code you may want to
-check out mayavi's mlab module.  This is described in more detail in the
-:ref:`simple-scripting-with-mlab` section.  In addition to this mayavi
-features an automatic script recording feature that automatically writes
-Python scripts for you as you use the GUI.  This is described in more
-detail in the :ref:`automatic-script-generation` chapter.  This is
-probably the easiest and most powerful way to script mayavi.
+Scripting the Mayavi2 application is a great way to add domain-specific
+functionality to the existing framework. In addition, understanding this 
+application can help you design your own applications using Mayavi as 
+powerful visualization library.
 
-However, to best understand how to script mayavi, a reasonable
+If you are not looking to script mayavi itself or to build an
+application, but looking for quick ways to get your visualization done
+with simple code you may want to check out Mayavi's `mlab` module.  This
+is described in more detail in the :ref:`simple-scripting-with-mlab`
+section.  In addition to this Mayavi features an automatic script
+recording feature that automatically writes Python scripts for you as you
+use the GUI.  This is described in more detail in the
+:ref:`automatic-script-generation` chapter.  This is probably the easiest
+and most powerful way to script Mayavi.
+
+However, to best understand how to script Mayavi, a reasonable
 understanding of the mayavi internals is necessary.  The following
 sections provides an overview of the basic design and objects in the
-mayavi pipeline.  Subsequent sections consider specific example scripts
+Mayavi pipeline.  Subsequent sections consider specific example scripts
 that are included with the mayavi sources that illustrate the ideas.
 
 Mayavi2 uses Traits_ and TVTK_ internally.  Traits_ in many ways
 changes the way we program.  So it is important to have a good idea of
-Traits in order to understand mayavi's internals.  If you are unsure
-of traits it is a good idea to get a general idea about traits now.
+Traits in order to understand Mayavi's internals.  If you are unsure
+of Traits it is a good idea to get a general idea about Traits now.
 Trust me, your efforts learning Traits will not be wasted!
 
 .. _Traits: http://code.enthought.com/projects/traits
 .. _TVTK: http://code.enthought.com/projects/mayavi
 
 
-Design Overview
----------------
+Design Overview: Mayavi as a visualization framework
+-----------------------------------------------------
 
 This section provides a brief introduction to mayavi's internal
 architecture.
