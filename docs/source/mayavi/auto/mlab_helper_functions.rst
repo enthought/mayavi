@@ -524,7 +524,7 @@ contour3d
     **Function signatures**::
     
         contour3d(scalars, ...)
-        contour3d(scalarfield, ...)
+        contour3d(x, y, z, scalars, ...)
     
     **Keyword arguments:**
     
@@ -1022,7 +1022,7 @@ triangular_mesh
     
     **Function signatures**::
     
-        triangular_mesh(x, y, z, triangles ...)
+        mesh(x, y, z, triangles ...)
     
     x, y, z are arrays giving the positions of the vertices of the surface.
     triangles is a list of triplets (or an array) list the vertices in

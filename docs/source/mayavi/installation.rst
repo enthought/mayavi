@@ -3,10 +3,18 @@
 Installation
 ============
 
+.. topic:: Section summary
+
+    This section detais the various ways of installing and compiling
+    Mayavi.
+
+    If you already have Mayavi up and running, you can skip this section.
+
 Up-to-date install instructions for the latest version of mayavi are
 always available from links at the Mayavi2_ wiki page.  The following
 will give you a good idea of the general installation procedure and a
 start on where to look for more information.
+
 
 .. _Mayavi2: https://svn.enthought.com/enthought/wiki/MayaVi
 
@@ -202,7 +210,7 @@ will run.
 
 9. Run in cmd.exe::
 
-   easy_install Sphinx EnvisageCore EnvisagePlugins configobj
+     easy_install Sphinx EnvisageCore EnvisagePlugins configobj
 
 10. Finally, run in cmd.exe::
 

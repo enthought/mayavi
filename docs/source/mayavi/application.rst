@@ -3,10 +3,13 @@
 Using the Mayavi application
 =============================
 
-This chapter primarily concerns using the ``mayavi2`` application.
-Some of the things mentioned here also apply when mayavi is scripted.
-We recommend that new users read this chapter before going to the more
-advanced ones.
+.. topic:: Section summary
+
+
+    This section primarily concerns using the ``mayavi2`` application.
+    Some of the things mentioned here also apply when mayavi is scripted.
+    We recommend that new users read this chapter to get a better
+    knowledge of the interactive use of the library.
 
 .. _general-layout-of-ui:
 
@@ -87,276 +90,30 @@ shell is activated by default.
 Visualizing data
 ----------------
 
-Mayavi modules can be used to visualize the data as described in the 
-:ref:`an-overview-of-mayavi` section and the :ref:`learning-mayavi-by-example`
-section.  One needs to have some data or the other loaded before a
-`Module` or `Filter` may be used.  Mayavi supports several data file
-formats most notably VTK data file formats.  More information on this is
-available here in the :ref:`creating-data-for-mayavi` section.
+Visualization data in Mayavi is performed by loading some data as `data
+sources`, and applying visualization modules to these sources to
+visualize the data as described in the :ref:`an-overview-of-mayavi`
+section and the :ref:`learning-mayavi-by-example` section.  
 
-Once data is loaded one can optionally use a variety of `Filters`_ to
+One needs to have some data or the other loaded before a `Module` or
+`Filter` may be used.  Mayavi supports several data file formats most
+notably VTK data file formats. Alternatively, :ref:`mlab
+<simple-scripting-with-mlab>` can be used to load data from `numpy`
+arrays. For advanced information on data structures, refer to the
+:ref:`data-structures-used-by-mayavi` section.
+
+Once data is loaded one can optionally use a variety of :ref:`filters` to
 filter or modify the data in some way or the other and then visualize
-the data using several `Modules`_. 
+the data using several :ref:`modules`. 
 
-.. _modules:
+Here we list all the Mayavi `modules` and `filters`. This list is useful
+as a reference:
 
-Modules
-~~~~~~~
+.. toctree::
 
-Modules are the objects that perform the visualization itself: they use
-data to create the visual elements on the scene.
+    modules.rst
+    filters.rst
 
-Here is a list of the Mayavi modules along with a brief description.
-
-   Axes   
-         Draws simple axes.
-
-   ContourGridPlane
-          A contour grid plane module. This module lets one take a
-          slice of input grid data and view contours of the data.
-
-   CustomGridPlane
-          A custom grid plane with a lot more flexibility than
-          GridPlane module.
-
-   Glyph  
-          Displays different types of glyphs oriented and colored
-          as per scalar or vector data at the input points.
-
-   GridPlane
-          A simple grid plane module.
-
-   HyperStreamline
-          A  module that integrates through a tensor field to generate a
-          hyperstreamline. The integration is along the maximum
-          eigenvector and the cross section of the hyperstreamline is
-          defined by the two other eigenvectors. Thus the shape of the
-          hyperstreamline is "tube-like", with the cross  section being
-          elliptical. Hyperstreamlines are used to visualize tensor
-          fields.
-
-   ImageActor
-          A simple module to view image data efficiently.
-
-   ImagePlaneWidget
-          A simple module to view image data.
-
-   IsoSurface
-          A module that allows the user to make contours of input
-          point data.
-
-   Labels
-          Allows a user to label the current dataset or the current
-          actor of the active module.
-
-   OrientationAxes
-          Creates a small axes on the side that indicates the
-          position of the co-ordinate axes and thereby marks the
-          orientation of the scene. Requires VTK-4.5 and above.
-
-   Outline
-          A module that draws an outline for the given data.
-
-   ScalarCutPlane
-          Takes a cut plane of any input data set using an
-          implicit plane and plots the data with optional
-          contouring and scalar warping.
-
-   SliceUnstructuredGrid
-          This module takes a slice of the unstructured grid data
-          and shows the cells that intersect or touch the slice.
-
-   Streamline
-          Allows the user to draw streamlines for given vector
-          data. This supports various types of seed objects (line,
-          sphere, plane and point seeds). It also allows the user
-          to draw ribbons or tubes and further supports different
-          types of interactive modes of calculating the
-          streamlines.
-
-   StructuredGridOutline
-          Draws a grid-conforming outline for structured grids.
-
-   Surface
-          Draws a surface for any input dataset with optional contouring.
-
-   TensorGlyph
-          Displays tensor glyphs oriented and colored as per scalar or
-          vector data at the input points.
-
-   Text   
-          This module allows the user to place text on the screen.
-
-   VectorCutPlane
-          Takes an arbitrary slice of the input data using an
-          implicit cut plane and places glyphs according to the
-          vector field data. The glyphs may be colored using
-          either the vector magnitude or the scalar attributes.
-
-   Vectors
-          Displays different types of glyphs oriented and colored
-          as per vector data at the input points. This is merely a
-          convenience module that is entirely based on the Glyph
-          module.
-
-   Volume 
-          The Volume module visualizes scalar fields using
-          volumetric visualization techniques.
-
-   WarpVectorCutPlane
-          Takes an arbitrary slice of the input data using an
-          implicit cut plane and warps it according to the vector
-          field data. The scalars are displayed on the warped
-          surface as colors.
-
-
-.. _filters:
-
-
-Filters
-~~~~~~~
-Filters transform the data, but do not display it. They are used as an
-intermediate between the data sources and the modules.
-
-Here is a list of the Mayavi Filters.
-
-   CellDerivatives
-          Computes derivatives from input point scalar and vector data
-          and produces cell data on the gradients.  Can be used to
-          approximately calcuate the vorticity for example.
-
-   CellToPointData
-          Transforms cell attribute data to point data by
-          averaging the cell data from the cells at the point.
-
-   Contour
-          A contour filter that wraps around the Contour component to
-          generate iso-surfaces on any input dataset.
-    
-   CutPlane
-          This class represents a cut plane that can be used to slice
-          through any dataset.  It also provides a 3D widget interface
-          to position and move the slice interactively.
-
-   DecimatePro
-          Reduces the number of triangles in a triangular mesh by
-          approximating the original mesh.
-
-   Delaunay2D
-          Performs a 2D Delaunay triangulation.
-
-   Delaunay3D
-          Performs a 3D Delaunay triangulation.
-
-   ElevationFilter
-          Creates scalar data corresponding to the elevation of the
-          points along a line.
-
-   ExtractEdges
-          This filter extracts cell edges from any input data.
-
-   ExtractGrid
-          Allows a user to select a part of a structured grid.
-
-   ExtractTensorComponents
-          Wraps the TVTK ``ExtractTensorComponents`` filter to extract
-          components from a tensor field.
-
-   ExtractUnstructuredGrid
-          Allows a user to select a part of an unstructured grid.
-
-   ExtractVectorNorm
-          Computes the norm (Euclidean) of the input vector data
-          (with optional scaling between [0, 1]). This is useful
-          when the input data has vector input but no scalar data
-          for the magnitude of the vectors.
-	  
-   ExtractVectorComponents
-	  Wraps the TVTK ExtractVectorComponents filter to extract
-	  components of a vector. This is useful for analysing
-	  individual components of a vector data.
-
-   GaussianSplatter
-          This filter splat points into a volume with an elliptical,
-          Gaussian distribution.
-
-   GreedyTerrainDecimation
-          Approximates a height field (image data) with a triangle mesh,
-          keeping the number of triangles minimum.
-
-   ImageChangeInformation
-          A filter that can be used to change the origin, spacing and
-          extents of an input image data dataset without changing the
-          data itself.
-
-   ImageDataProbe
-          A filter that can be used to probe any dataset using a
-          Structured Points dataset.  The filter also allows one to
-          convert the scalar data to an unsigned short array so that the
-          scalars can be used for volume visualization.
-
-   MaskPoints
-          Selectively passes the input points downstream. This can
-          be used to subsample the input points.  Note that this
-          does not pass geometry data, this means all grid
-          information is lost.
-
-   PointToCellData
-          Does the inverse of the CellToPointData filter.
-
-   PolyDataNormals
-          Computes normals from input data. This gives meshes a
-          smoother appearance. This should work for any input
-          dataset. Note: this filter is called "Compute Normals"
-          in Mayavi2 GUI (Visualize/Filters/Compute Normals).
-
-   QuadricDecimation
-          Reduce triangles in a mesh, forming a good approximation of the
-          original mesh.
-
-   SelectOutput
-          A filter that allows a user to select one among several of the
-          outputs of a given input.  This is typically very useful for a
-          multi-block data source.
-
-   SetActiveAttribute
-          This filter lets a user set the active data attribute
-          (scalars, vectors and tensors) on a VTK dataset.  This is
-          particularly useful if you need to do something like compute
-          contours of one scalar on the contour of another scalar.
-
-   Threshold
-          A simple filter that thresholds on input data.
-
-   TransformData
-          Performs a linear transformation to input data.
-
-   Tube
-          Turns lines into tubes.
-
-   UserDefined
-          This filter lets the user define their own filter
-          dynamically/interactively.  It is like `FilterBase` but allows
-          a user to specify the class without writing any code.
-    
-   Vorticity
-          This filter computes the vorticity of an input vector field.
-          For convenience, the filter allows one to optionally
-          pass-through the given input vector field.  The filter also
-          allows the user to show the component of the vorticity along a
-          particular cartesian co-ordinate axes.  It produces point data
-          on output which is ready to visualize.
-    
-   WarpScalar
-          Warps the input data along a particular direction
-          (either the normals or a specified direction) with a
-          scale specified by the local scalar value. Useful for
-          making carpet plots.
-
-   WarpVector
-          Warps the input data along a the point vector attribute
-          scaled as per a scale factor.  Useful for showing flow
-          profiles or displacements.
 
 .. _interaction-with-the-scene:
 

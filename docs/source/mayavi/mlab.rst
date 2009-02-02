@@ -3,6 +3,13 @@
 Simple Scripting with ``mlab``
 ===============================
 
+.. topic:: Section summary
+
+    This section describes the `mab` API, for use of Mayavi as a simple
+    plotting in scripts or interactive sessions. This is the main entry
+    point for people interested in doing 3D plotting à la Matlab or IDL
+    in Python.
+
 .. currentmodule:: enthought.mayavi.mlab
 
 The :mod:`enthought.mayavi.mlab` module, that we call mlab, provides an easy
@@ -70,6 +77,7 @@ demo is available as `test_mesh`.  Under IPython these may be found by
 tab completing on `mlab.test`.  You can also inspect the source in
 IPython via the handy `mlab.test_contour3d??`.
 
+.. _mlab_plotting_functions:
 
 Plotting functions
 -------------------
@@ -534,11 +542,13 @@ The same pipeline can be created using the following code::
     normals = mlab.pipeline.poly_data_normals(warp)
     surf = mlab.pipeline.surface(normals)
 
+.. _mlab_data_source:
+
 Data sources
 ~~~~~~~~~~~~~
 
 The `pipeline` module contains functions for creating various data
-sources from arrays. They are documented in details in the
+sources from arrays. They are fully documented in details in the
 :ref:`mlab-pipeline-reference`. We give a small summary of the
 possibilities here. 
 
@@ -558,10 +568,12 @@ engineering.
 :Explicitly-connected sources:
     :func:`line_source`, :func:`triangular_mesh_source`
 
-
-The implicitely-connected sources require well-shaped arguments: the data
-is supposed to lie on a regular, orthogonal, grid of the same shape as
-the shape of the input array.
+All the `mab` source factories are functions that take numpy arrays and
+return the Mayavi source object that was added to the pipeline. However,
+the implicitely-connected sources require well-shaped arrays as
+arguments: the data is supposed to lie on a regular, orthogonal, grid of
+the same shape as the shape of the input array, in other words, the array
+describes an image, possibly 3 dimensional.
 
 Modules and filters
 ~~~~~~~~~~~~~~~~~~~~

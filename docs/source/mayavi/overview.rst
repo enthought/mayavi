@@ -15,7 +15,8 @@ As a user there are three primary ways to use Mayavi:
      information on this is in the :ref:`using-the-mayavi-application` 
      section.
 
-  2. Use Mayavi as a plotting engine from simple Python scripts.  The
+  2. Use Mayavi as a plotting engine from simple Python scripts, for
+     example from Ipython, in combination with numpy.  The
      ``mlab`` scripting API provides a simple way of using Mayavi in
      batch-processing scripts, see :ref:`simple-scripting-with-mlab` for
      more information on this.
@@ -36,41 +37,48 @@ As a user there are three primary ways to use Mayavi:
      :ref:`advanced-scripting-with-mayavi` chapter.
 
 
-Scenes and visualization objects
---------------------------------- 
+Scenes and visualization objects: the pipeline model
+------------------------------------------------------
 
 Mayavi uses a pipeline architecture like VTK_.  As far as a user is
 concerned this basically boils down to a simple hierarchy.
 
-  * The user visualizes data on a `TVTK Scene` -- this is an area
-    where the 3D visualization is performed.  New scenes may be
-    created by using the `File->New->VTK Scene` menu.
+  * The user visualizes data on a `Scene` -- this is an area
+    where the 3D visualization is performed.  In the interactive
+    application, new scenes may be created by using the 
+    `File->New->VTK Scene` menu.
 
   * On each scene the user loads data (either using a file or created
-    from a script).  Any number of data files or data objects may be
+    from a script). Any number of data files or data objects may be
     opened; these objects are called **data sources**.
 
   * This data is optionally processed using :ref:`filters` that operate on
     the data and visualized using visualization :ref:`modules`.  The
-    Filters and Modules are accessible via the `Visualize` menu on the
-    UI or may be instantiated as Python objects.
+    Filters and Modules are accessible in the application via the 
+    `Visualize` menu on the UI or context menus on the pipeline. They may 
+    also be instantiated as Python objects when scripting Mayavi.
 
 
 Loading data into Mayavi
 -------------------------
 
-Mayavi is a scientific data visualizer.  There are two primary ways to
-make your data available to it.
+Mayavi is a scientific data visualizer. There are two primary ways to
+make your data available to it:
 
-  1. Use a supported file format like VTK legacy or VTK XML files
-     etc. See `VTK file formats`_ for more information on the VTK
-     formats.
+  1. Store your data in a supported file format like VTK legacy or 
+     VTK XML files etc. See `VTK file formats`_ for more information on the 
+     VTK formats. These files can be loaded in the interactive application 
+     using the menus.
 
   2. Generate a TVTK dataset via numpy_ arrays or any other sequence.
+     This is easiest done by using the scripting APIs, for instance `mlab`
+     (see the paragraph on 
+     :ref:`creating data sources with mlab <mlab_data_source>`, or simply
+     the 3D plotting functions: :ref:`mlab_plotting_functions`).
 
-More information on datasets in general and how to create VTK files or
-create them from numpy arrays is available in the 
-:ref:`creating-data-for-mayavi` section.
+Aternatively, if you whish to gain a deeper understanding by
+creating VTK data structures or files, more information on datasets in general
+is available in the :ref:`data-structures-used-by-mayavi` section.
 
 .. _VTK file formats: http://www.vtk.org/pdf/file-formats.pdf
 .. _numpy: http://numpy.scipy.org

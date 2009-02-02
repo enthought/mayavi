@@ -28,10 +28,11 @@ chosen in the isosurfaces.
 We want to take the gradient of the scalar field, to create a vector
 field. To do this we are going to use the `CellDerivatives` filter, that
 takes derivatives of the data located in the cells (that is, between the
-points, see :ref:`creating-data-for-mayavi`). For this, we first need to
-interpolate the data from the points where it is located to the cells,
-using a `PointToCellData` filter. We can then apply our `CellDerivatives`
-filter, and then a `CellToPointData` filter to get point data back.
+points, see :ref:`data-structures-used-by-mayavi`). For this, we first
+need to interpolate the data from the points where it is located to the
+cells, using a `PointToCellData` filter. We can then apply our
+`CellDerivatives` filter, and then a `CellToPointData` filter to get
+point data back.
 
 To visualize the vector field, we can use a `VectorCutPlane` module. The
 resulting vectors are too large, and we can go to the `Glyph` tab,

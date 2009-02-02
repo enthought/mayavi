@@ -1,6 +1,12 @@
 Introduction
 ============
 
+.. topic:: Section summary
+
+    This section gives a quick summary of what is Mayavi, and should help
+    you understand where, in this manual, find relevent information to
+    your use case.
+
 Mayavi2_ seeks to provide easy and interactive visualization of 3D
 data.  It does this by the following:
 
