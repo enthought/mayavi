@@ -19,7 +19,7 @@ General layout of UI
 When the `mayavi2` application is started it will provide a user
 interface that looks something like the figure shown below.
 
-.. image:: images/mayavi_ui_first.png
+.. image:: images/mayavi_ui_first.jpg
    :alt: Figure of Mayavi's initial UI window.
 
 *Figure of Mayavi's initial UI window.*
@@ -57,9 +57,13 @@ The UI features several sections described below.
     drop them on the interpreter and then script the object represented
     by the node!
 
+    If you have version of IPython_ above 0.9.1 installed, this Python
+    interpreter will use IPython.
+
   Logger
     Application log messages may be seen here.
 
+.. _IPython: http://ipython.scipy.org/
 
 Mayavi's UI layout is highly configurable:
 
@@ -78,10 +82,9 @@ In addition, you can save different layouts into different
 "perspectives" using the `View->Perspectives` menu item.
 
 Shown below is a specifically configured mayavi user interface view.
-In this view the size of the various parts are changed.  The Python
-shell is activated by default.
+In this view the size of the various parts are changed. 
 
-.. image:: images/mayavi_ui_second.png
+.. image:: images/mayavi_ui_second.jpg
    :alt: Figure of Mayavi's UI after being configured by a user.
 
 *Figure of Mayavi's UI after being configured by a user.*

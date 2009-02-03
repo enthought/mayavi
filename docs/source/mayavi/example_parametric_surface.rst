@@ -22,9 +22,11 @@ Maclean's `Parametric Surfaces`_ document.
 
   2. To see an outline (a box) of the data, navigate to the
      `Visualize->Modules` menu item and select the `Outline` module.
+     You can also right-click on the `ParametricSurface` node to bring up
+     a context menu and select `Add Module->Surface`.
      You will immediately see a wireframe cube on the TVTK scene. 
      You should also see two new nodes on the tree view, one called
-     `Modules` and one underneath that called `Outline`.
+     `Colors and legends` and one underneath that called `Outline`.
 
   3. You can change properties of the outline displayed by clicking on
      the `Outline` node on the left.  This will create an object editor
@@ -85,7 +87,7 @@ effected by moving the actors on screen using the actor mode of the
 scene via the 'a' key.  For more details on this see the section on
 :ref:`interaction-with-the-scene`.
 
-.. image:: images/param.png
+.. image:: images/param.jpg
    :alt: Sample visualization using parametric surfaces.
 
 
