@@ -153,26 +153,43 @@ As a user there are three primary ways to use Mayavi:
      :ref:`advanced-scripting-with-mayavi` chapter.
 
 
-Scenes and visualization objects: the pipeline model
-------------------------------------------------------
+Scenes, data sources, and visualization modules: the pipeline model
+--------------------------------------------------------------------
 
 Mayavi uses a pipeline architecture like VTK_.  As far as a user is
 concerned this basically boils down to a simple hierarchy.
 
-  * The user visualizes data on a `Scene` -- this is an area
+  * Data is loaded into Mayavi and stored in a **data source** 
+    (either using a file or created from a script). Any number of data 
+    files or data objects may be opened. Data sources are rich objects
+    that describe the data, but not how to visualize it.
+
+  * This data is optionally processed using :ref:`filters` that operate on
+    the data and visualized using visualization :ref:`modules`.  The
+    filters and **modules** are accessible in the application via the 
+    `Visualize` menu on the UI or context menus on the pipeline. They may 
+    also be instantiated as Python objects when scripting Mayavi.
+
+    The reasons for separation between `data source`, the data container,
+    and the visualizations tools used to look at it, the `modules`, is
+    that there are many different ways of looking at the same data. For
+    instance the following images are all made by applying different
+    `modules` to the same data source:
+
+    |volumetric_cut_plane| |volumetric_contour3d| |volumetric_volume_tweaked| 
+
+
+  * All objects belong to a `Scene` -- this is an area
     where the 3D visualization is performed.  In the interactive
     application, new scenes may be created by using the 
     `File->New->VTK Scene` menu.
 
-  * On each scene the user loads data (either using a file or created
-    from a script). Any number of data files or data objects may be
-    opened; these objects are called **data sources**.
+.. |volumetric_contour3d| image:: volumetric_contour3d.jpg
 
-  * This data is optionally processed using :ref:`filters` that operate on
-    the data and visualized using visualization :ref:`modules`.  The
-    Filters and Modules are accessible in the application via the 
-    `Visualize` menu on the UI or context menus on the pipeline. They may 
-    also be instantiated as Python objects when scripting Mayavi.
+.. |volumetric_volume_tweaked| image:: volumetric_volume_tweaked.jpg
+
+.. |volumetric_cut_plane| image:: volumetric_cut_plane.jpg
+
 
 
 Loading data into Mayavi

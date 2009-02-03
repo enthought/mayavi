@@ -888,10 +888,9 @@ sampled on a grid, `u`, `v`, `w`::
     attributes of the objects returned by the mlab functions. These
     objects are very rich, as they are built from VTK objects. It can be
     hard to find the right attribute to modify when exploring them, or in
-    the VTK documentation. The following chapter shows how to go from a
-    modification made interactively in a dialog, to the corresponding lines 
-    of code.
-
+    the VTK documentation, thus using the interactive dialog and
+    recording to a script, as described in :ref:`recording-python-script`
+    is the prefered way of tweaking a visualization.
 ____
 
 .. [1] Toussaint, V.; Carriere, P. & Raynal, F. A numerical Eulerian
