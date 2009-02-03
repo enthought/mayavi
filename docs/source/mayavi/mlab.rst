@@ -210,7 +210,7 @@ Changing the looks of the visual objects created
 Adding color or size variations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* The color of the objects created by a plotting function can be specified
+* **The color** of the objects created by a plotting function can be specified
   explicitly using the 'color' keyword argument of the function. This color
   is than applied uniformly to all the objects created. 
 
@@ -243,8 +243,56 @@ Adding color or size variations
   node.
 
 * The scalar information can also be displayed in many different ways.
-  For instance it can be used to adjust the size of glyphs positioned at 
-  the data points, or it can be 'warped' into a displacement.
+  For instance it can be used to adjust the **size** of glyphs positioned at 
+  the data points, or it can be 'warped' into a displacement, e.g. using a
+  `WarpScalar` filter.
+
+  **A caveat: Clamping: relative or absolute scaling**
+  Given six points positionned on a line with interpoint spacing 1::
+
+    x = [1, 2, 3, 4, 5, 6]
+    y = [0, 0, 0, 0, 0, 0]
+    z = y
+
+  If we represent a scalar varying from 0.5 to 1 on this dataset::
+
+    s = [.5, .6, .7, .8, .9, 1]
+
+  We represent the dataset as spheres, using :func:`points3d`, and the 
+  scalar is mapped to diameter of the spheres::
+
+    from enthought.mayavi import mlab
+    pts = mlab.points3d(x, y, z, s)
+
+  By default the diameter of the spheres is not 'clamped', in other
+  words, the smallest value of the scalar data is represented as a null
+  diameter, and the largest is proportional to inter-point distance. 
+  The scaling is only relative, as can be seen on the resulting
+  figure:
+
+  .. image:: clamping_on.jpg
+
+  This behavior gives visible points for all datasets, but may not be
+  desired if the scalar represents the size of the glyphs in the same
+  unit as the positions specified.
+
+  In this case, you shoud turn auto-scaling off by specifying the desired
+  scale factor::
+
+    pts = mlab.points3d(x, y, z, s, scale_factor=1)
+
+  .. image:: clamping_off.jpg
+
+  .. warning:: 
+    
+    In earlier versions of Mayavi (up to 3.1.0 included), the glyphs are
+    not auto-scaled, and as a result the visualization can seem empty
+    due to the glyphs being very small. In addition the minimum diameter of 
+    the glyphs is clamped to zero, and thus the glyph are not scaled
+    absolutely, unless you specifie::
+
+        pts.glyph.glyph.clamping = False
+
 
 Changing the scale and position of objects
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

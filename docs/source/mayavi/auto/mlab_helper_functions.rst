@@ -143,9 +143,10 @@ quiver3d
     
         :scalars: optional scalar data.
     
-        :scale_factor: the scaling applied to the glyphs. The
-                       size of the glyph is by default in drawing
-                       units. Must be a float. Default: 1.0
+        :scale_factor: The scaling applied to the glyphs. the simple of the
+                       glyph is by default calculated from the inter-glyph
+                       spacing. Specify a float to give the maximum glyph size
+                       in drawing units
     
         :scale_mode: the scaling mode for the glyphs
                      ('vector', 'scalar', or 'none').
@@ -656,9 +657,10 @@ points3d
                      instance, this is the number of divisions along theta and
                      phi. Must be an integer. Default: 8
     
-        :scale_factor: the scaling applied to the glyphs. The
-                       size of the glyph is by default in drawing
-                       units. Must be a float. Default: 1.0
+        :scale_factor: The scaling applied to the glyphs. the simple of the
+                       glyph is by default calculated from the inter-glyph
+                       spacing. Specify a float to give the maximum glyph size
+                       in drawing units
     
         :scale_mode: the scaling mode for the glyphs
                      ('vector', 'scalar', or 'none').
