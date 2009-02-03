@@ -28,8 +28,8 @@ which the fire is taking place.
 
   3. Show the scalar bar that represents the color mapping (via a Look
      up table that maps scalar values to colors) by clicking on the
-     `Modules` and enabling the `Show scalar bar`.  Experiment with
-     the different color maps provided by default.
+     `Colors and legends` node and enabling the `Show scalar bar`.  
+     Experiment with the different color maps provided by default.
 
   4. Now click on the `VTK XML file ...` and select different scalar
      values to see how the data has changed.  Your legend should
@@ -43,12 +43,12 @@ which the fire is taking place.
      Vector Norm` menu.
 
   6. If you now create a `ScalarCutPlane`, you will see a new
-     `Modules` node under the `ExtractVectorNorm` node.  This scalar
+     `Colors and legends` node under the `ExtractVectorNorm` node.  This scalar
      cut plane is displaying colors for the velocity magnitude that
      the filter has created.  You can drag the iso-surface module from
-     the other `Modules` node and drop it on this `Modules` node so
-     that the IsoSurface generated is for the velocity magnitude and
-     not for the scalars chosen in the data.
+     the other `Colors and legends` node and drop it on this 
+     `Colors and legends` node so that the IsoSurface generated is for 
+     the velocity magnitude and not for the scalars chosen in the data.
 
      Note that the view on the left represents a pipeline of the flow
      of the data from `source -> filter -> modules`. Essentially the
@@ -115,7 +115,7 @@ As can be seen from the example, it is quite easy to script mayavi to
 visualize data.  An image of a resulting visualization generated from
 this script is shown below.
 
-.. image:: images/streamline.png
+.. image:: images/streamline.jpg
    :alt: Sample visualization of the ``fire_ug.vtu`` dataset.
 
 

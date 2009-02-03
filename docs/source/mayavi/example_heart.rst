@@ -26,7 +26,7 @@ if you'd like to.
      `Visualize->Modules` menu item and select the `Outline` module.
      You will immediately see a white box on the TVTK scene.  You
      should also see two new nodes on the tree view, one called
-     `Modules` and one underneath that called `Outline`.  
+     `Colors and legends` and one underneath that called `Outline`.  
 
   3. You can change properties of the outline displayed by clicking on
      the `Outline` node on the left.  This will create an object editor
@@ -60,9 +60,9 @@ if you'd like to.
 
   6. To produce meaningful visualizations you need to know what each
      color represents.  To display this legend on the scene, click on the
-     `Modules` node on the tree view and on the object editor activate
-     the `Show scalar bar` check-box.  This will show you a legend on
-     the TVTK scene.  The legend can be moved around on the scene by
+     `Colors and legends` node on the tree view and on the object editor 
+     activate the `Show scalar bar` check-box.  This will show you a legend 
+     on the TVTK scene.  The legend can be moved around on the scene by
      clicking on it and dragging on it.  It can also be resized by
      clicking and dragging on its edges.  You can change the nature of
      the color-mapping by choosing various options on the object
@@ -96,13 +96,14 @@ if you'd like to.
 You should have a visualization that looks something like the one
 shown below.
 
-.. image:: images/heart.png
+.. image:: images/heart.jpg
    :alt: Sample visualization of the ``heart.vtk`` dataset.
 
 The nice thing about mayavi is that although in this case all of the
 above was done using the user interface, all of it can be done using
 pure Python scripts as well.  More details on this are available in
-the :ref:`advanced-scripting-with-mayavi` section.  
+the :ref:`simple-scripting-with-mlab` section (see also 
+:ref:`advanced-scripting-with-mayavi` for a more in-depth coverage).
 
 Opening data files and starting up modules can also be done from the
 command line.  For example we could simply have done::
