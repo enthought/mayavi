@@ -83,6 +83,12 @@ class ImagePlaneWidget(Module):
         self.ipw.input = input
         # Set the LUT for the IPW.
         self.ipw.lookup_table = mod_mgr.scalar_lut_manager.lut
+
+        # We need to call the callbacks updating the LUT again, so that
+        # the LUT of the image plane widget gets updated to the values
+        # chosen for the existing modules.
+        mod_mgr.scalar_lut_manager._data_range_changed(
+                            mod_mgr.scalar_lut_manager.data_range)
         
         self.pipeline_changed = True
 
