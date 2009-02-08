@@ -916,7 +916,7 @@ class BarChart(Pipeline):
             gs.glyph_source = gs.glyph_list[-1]
         # Position the glyph tail on the point.
         gs.glyph_position = 'tail'
-        gs.glyph_source.center = (0.5, 0.0, 0.5)
+        gs.glyph_source.center = (0.0, 0.0, 0.5)
         g.glyph.glyph.orient = False
         if not 'color' in kwargs:
             g.glyph.color_mode = 'color_by_scalar'
