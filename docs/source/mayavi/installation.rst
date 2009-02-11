@@ -189,7 +189,7 @@ will run.
 4. Create the new environment variable HOME and set it to the value:
    'c:\docume~1\USERNAME;' (where USERNAME is the login name)
 
-5 Install Setuptools (0.6c9 binary) from its webpage, and
+5. Install Setuptools (0.6c9 binary) from its webpage, and
   'C:\Python25\Scripts;' to the PATH environment variables
 
 
@@ -197,12 +197,14 @@ will run.
    http://cpbotha.net/2008/09/23/python-25-enabled-vtk-52-windows-binaries/
    )
 
-    * Unzip the folder content in {C:\Program Files\VTK5.2_cpbotha'
-    * add 'C:\Program Files\VTK5.2_cpbotha\bin;' to the PATH environment
+    * Unzip the folder content in 'C:\\Program Files\\VTK5.2_cpbotha'
+    * add 'C:\\Program Files\\VTK5.2_cpbotha\\bin;' to the PATH environment
       variables
     * create a new environment variable PYTHONPATH and set it to the
-      value 'C:\Program Files\VTK5.2_cpbotha\lib\site-packages;'
-
+      value 'C:\\Program Files\\VTK5.2_cpbotha\\lib\\site-packages;'
+    * If you are running an old version of windows (older than XP)
+      download msvcr80.dll and msvcp80.dll from the www.dll-files.com
+      website and copy them into C:\\winnt\\system32.
 
 7. Install Numpy (1.2.1 binary from http://numpy.scipy.org/ )
 
