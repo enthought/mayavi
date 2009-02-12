@@ -16,4 +16,6 @@ from vrml_importer import VRMLImporter
 from vtk_data_source import VTKDataSource
 from vtk_file_reader import VTKFileReader
 from vtk_xml_file_reader import VTKXMLFileReader
+from builtin_image import BuiltinImage
+from builtin_surface import BuiltinSurface
 
