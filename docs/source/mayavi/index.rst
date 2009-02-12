@@ -30,10 +30,12 @@ ____
     application.rst
     mlab.rst
     advanced_use.rst
+    building_applications.rst
     tips.rst
     misc.rst
     cookbook.rst
     auto/mlab_reference.rst
+    auto/changes.rst
 
 Indices and tables
 ==================

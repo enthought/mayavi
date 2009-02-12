@@ -161,14 +161,14 @@ that supports X11.  This option should work irrespective of the
 version of VTK you are using.  The idea is to use the virtual
 framebuffer X server for X11 like so:
 
-  * Make sure you have the ``xvfb`` package installed.
+  * Make sure you have the ``Xvfb`` package installed.
 
   * Create the virtual framebuffer X server like so::
 
-      xvfb :1 -screen 0 1280x1024x24
+      Xvfb :1 -screen 0 1280x1024x24 -auth localhost
 
     This creates the display ":1" and creates a screen of size
-    1280x1024 with 24 bpp.  For more options check your ``xvfb`` man
+    1280x1024 with 24 bpp.  For more options check your ``Xvfb`` man
     page.
 
   * Export display to :1 like so (on bash)::

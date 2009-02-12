@@ -165,3 +165,10 @@ latex_logo = 'mayavi-banner.jpg'
 
 # If false, no module index is generated.
 #latex_use_modindex = True
+
+################################################################################
+# A hack:
+import shutil
+shutil.copyfile('../../CHANGES.txt', './auto/changes.rst')
+
+

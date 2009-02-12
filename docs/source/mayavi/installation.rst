@@ -51,7 +51,8 @@ Requirements for hand installs
 --------------------------------
 
 If you are not using full, ready-made, scientific Python distribution,
-you need to satistify Mayavi's requirements.
+you need to satistify Mayavi's requirements (for a step-by-step guide on
+installing all these under windows, see :ref:`below <step-by-step-window-installation>`.
 
 Mayavi requires at the very minimum the following packages:
 
@@ -164,6 +165,8 @@ Given this background please see the following:
     Check this page first.  It contains information on how to install
     the prebuilt binary eggs for various platforms along with any
     dependencies.
+
+.. _step-by-step-window-installation:
 
 Step-by-step instructions to install with eggs under Windows
 ...............................................................

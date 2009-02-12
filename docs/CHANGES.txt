@@ -1,10 +1,23 @@
------------------------------------------------------------------------------
-This file contains a log of significant changes made to the package
-especially API changes.  The log refers to changesets in the trac format
-[#revno], for example to view the changeset [18702] use the following
-URL: 
-    https://svn.enthought.com/enthought/changeset/18702
------------------------------------------------------------------------------
+Changes in Mayavi
+==================
+
+A log of significant changes made to the package especially API changes.
+The log refers to changesets in the trac format [#revno], for example to
+view the changeset [18702] use the following URL:
+https://svn.enthought.com/enthought/changeset/18702
+
+
+
+Unreleased changes (trunk)
+----------------------------
+
+08 February, 2009 (GV)
+    - Center the glyphs created by barchart on the data points, as
+      mentioned by Rauli Ruohonen [22906]
+
+29 January, 2009 (GV)
+    - Make it possible to avoid redraws with mlab by using
+      `mlab.gcf().scene.disable_render = True` [22869]
 
 28 January, 2009 (PR and GV)
     - ENH: Make the mlab.pipeline.user_defined factory function usable to
@@ -278,6 +291,7 @@ URL:
     - TEST/API: The mayavi tests are now split into integration and unit
       tests.  Unit tests go into enthought/mayavi/tests.  Integration
       tests are in integrationtests/mayavi. Major changes: 
+
         - Removed most of the image based tests except one
           (test_streamline.py) for reference.
         - Modified the testing code so the standalone mode is the
@@ -285,6 +299,7 @@ URL:
         - Modified so nose picks up the integrationtests.  However,
           there are problems running the test via nosetests on Linux
           that need investigating.
+
     - ENH: Creating a new object on the pipeline via envisage or right
       click now sets the active selection to the created object so it is
       easy to edit.
@@ -521,8 +536,10 @@ URL:
       is gone since it is no longer needed [18635].
     - API: Removed config directory, integrated all mlab preferences
       into the the mayavi preferences framework, see [18632].
-      To get the preferences just do:
+      To get the preferences just do::
+
         from enthought.mayavi.preferences.api import preference_manager
+
       This is the preference manager that manages all prefs.  To see the
       code look in enthought.mayavi.preferences.preference_manager.  It
       is also a good idea to read the enthought.preferences
