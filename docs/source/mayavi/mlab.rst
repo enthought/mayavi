@@ -451,6 +451,8 @@ makes sure an interactive environment is running before executing the
 `image` function. If an interactive environment is not running, `mlab`
 will start one and the image function will not return until it is closed.
 
+.. _mlab-animating-data:
+
 Animating the data
 ------------------
 

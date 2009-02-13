@@ -59,8 +59,8 @@ widget for scene by specifying for it the `SceneEditor`::
 
     MyModel().configure_traits()
     
-A `Mayavi` icon can be added on the by specifying a different scene view
-to the `SceneEditor`::
+A `Mayavi` button to pop up the pipeline dialog can be added on the
+toolbar by specifying a different scene view to the `SceneEditor`::
 
     from enthought.mayavi.core.ui.mayavi_scene import MayaviScene
 
@@ -72,14 +72,50 @@ A scene, with `mlab` embedded
 ..............................
 
 An object representing a scene is interesting only if you can visualize
-data with the scene.
+data with the scene. For this we can instanciate an `Engine` and assign
+it to the scene. Having an `Engine` only for one scene allows us to
+confine action and visualization objects only to this scene. 
+
+We can also use an `MlabSceneModel` instance, rather than a `SceneModel`,
+imported from `enthought.mayavi.tools.mlab_scene_model`. This scene model
+has an embedded `mlab` attribute, that exposes all the mlab commands (see
+:ref:`mlab_plotting_functions`) as attributes, applying on the scene. For
+instance plotting 3D points can be achieved with
+`self.scene.mlab.points3d(x, y, z, s)`.
 
 Making the visualization live
 ..............................
 
-The code::
+Having an interactive application is interesting only if you can do
+custom, domain-specific, interaction with the visualization. 
+
+An important use case is modifying the data visualized as a parameter is
+changed interactively. For this we can use the inplace modification of
+the data of an mlab object, as for animation of an mlab plot (see
+:ref:`mlab-animating-data`). Suppose we are plotting a line curve defined
+by a function of two parameters::
     
     from numpy import linspace, pi, cos, sin
+
+    def curve(n_mer, n_long):
+        phi = linspace(0, 2*pi, 2000)
+        return [ cos(phi*n_mer) * (1 + 0.5*cos(n_long*phi)),
+                sin(phi*n_mer) * (1 + 0.5*cos(n_long*phi)),
+                0.5*sin(n_long*phi),
+                sin(phi*n_mer)]
+
+Using `mlab`, we could plot the curve with `plot3d`:
+
+    x, y, z, s = curve(4, 6)
+    from enthought.mayavi import mlab
+    plot = mlab.plot3d(x, y, z, s)
+
+Modifying the plot for new parameters could be written::
+
+    x, y, z, t = curve(4, 8)
+    plot.mlab_source.set(x=x, y=y, z=z, scalars=t)
+
+In a dialog, this would be::
 
     from enthought.traits.api import HasTraits, Range, Instance, \
                         on_trait_change
@@ -89,13 +125,6 @@ The code::
                         MlabSceneModel
     from enthought.mayavi.core.ui.mayavi_scene import MayaviScene
 
-    def curve(n_mer, n_long):
-        phi = linspace(0, 2*pi, 2000)
-        return [ cos(phi*n_mer) * (1 + 0.5*cos(n_long*phi)),
-                sin(phi*n_mer) * (1 + 0.5*cos(n_long*phi)),
-                0.5*sin(n_long*phi),
-                sin(phi*n_mer)]
-
 
     class Visualization(HasTraits):
         meridional = Range(1, 30,  6)
@@ -103,6 +132,7 @@ The code::
         scene      = Instance(MlabSceneModel, ())
 
         def __init__(self):
+            # Do not forget to call the parent's __init__
             HasTraits.__init__(self)
             x, y, z, t = curve(self.meridional, self.transverse)
             self.plot = self.scene.mlab.plot3d(x, y, z, t, 
