@@ -21,7 +21,7 @@ ____
 
 **Table of contents**
 
-.. toctree::
+.. toctree:: 
     :maxdepth: 3
 
     overview.rst

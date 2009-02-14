@@ -19,13 +19,14 @@ emphasis on 3D visualization using Mayavi2. This allows users to perform
 quick 3D visualization while being able to use Mayavi's powerful
 features.
 
-Mayavi's mlab is designed to be used in a manner well suited to
+Mayavi's mlab is designed to be used in a manner well-suited to
 scripting and does not present a fully object-oriented API.
 It is can be used interactively with IPython_.
 
 .. warning:: 
 
-    IPython must be invoked with the ``-wthread`` command line option like so::
+    When using IPython with mlab, as in the following examples, IPython must 
+    be invoked with the ``-wthread`` command line option like so::
 
          $ ipython -wthread
 
@@ -42,12 +43,27 @@ It is can be used interactively with IPython_.
 
 .. _IPython: http://ipython.scipy.org
 
+In this section, we first introduce simple plotting functions, to create
+3D objects as representations of `numpy` arrays. Then we explain how
+properties such as color or glyph size can be modified or used to
+represent data, we show how the visualization created throught `mlab` can
+be modified interactively with dialogs, we show how scripts and
+animations can be ran. Finally, we expose a more advanced use of `mlab`
+in which full visualization pipeline are built in scripts, and we give
+some detailled examples of applying these tools to visualizing volumetric
+scalar and vector data.
+
+.. contents:: Section contents
+    :depth: 1
+    :local:
+
 A demo
 -------
 
-Once started, here is a pretty example showing a spherical harmonic::
+To get you started, here is a pretty example showing a spherical harmonic
+as a surface::
 
- from numpy import *
+ from numpy import pi, sin, cos, mgrid
  from enthought.mayavi import mlab
 
  # Create the data.
@@ -110,9 +126,9 @@ module.
 | :func:`plot3d` | :func:`points3d`     |
 +----------------+----------------------+
 
-    The :func:`plot3d` and :func:`points3d` functions are respectively used 
-    to draw lines, and sets of points, specifying the ``x``, ``y`` and 
-    ``z`` coordinates as numpy arrays.
+The :func:`plot3d` and :func:`points3d` functions are respectively used
+to draw lines, and sets of points, specifying the ``x``, ``y`` and ``z``
+coordinates as numpy arrays.
 
 .. |plot3d.jpg| image:: images/enthought_mayavi_mlab_plot3d.jpg
      :scale: 50
@@ -133,21 +149,21 @@ module.
 | :func:`mesh`   | :func:`barchart` | :func:`triangular_mesh`     |
 +----------------+------------------+-----------------------------+
 
-    A 2D array can be shown as a image using :func:`imshow`, or as a surface 
-    with the elevation given by its values using :func:`surf`. The contours 
-    (lines) of same values can be plotted using :func:`contour_surf`.
+A 2D array can be shown as a image using :func:`imshow`, or as a surface
+with the elevation given by its values using :func:`surf`. The contours
+(lines) of same values can be plotted using :func:`contour_surf`.
 
-    Bar charts can be created with the :func:`barchart` function. This
-    function is very versatile and will accept 2D or 3D arrays, but also
-    clouds of points, to position the bars.
+Bar charts can be created with the :func:`barchart` function. This
+function is very versatile and will accept 2D or 3D arrays, but also
+clouds of points, to position the bars.
 
-    The :func:`mesh` function also creates surfaces, however, unlike 
-    :func:`surf`, the surface is defined by its ``x``, ``y`` and ``z`` 
-    coordinates, and more complex surfaces can be created, as in the 
-    above example.
+The :func:`mesh` function also creates surfaces, however, unlike
+:func:`surf`, the surface is defined by its ``x``, ``y`` and ``z``
+coordinates, and more complex surfaces can be created, as in the above
+example.
 
-    Finally, the :func:`triangular_mesh` function creates a mesh with 
-    arbitrary topology, given position of the vertices and the triangles.
+Finally, the :func:`triangular_mesh` function creates a mesh with
+arbitrary topology, given position of the vertices and the triangles.
 
 .. topic:: Vertical scale of  :func:`surf` and :func:`contour_surf`
 
@@ -200,16 +216,16 @@ module.
 | :func:`contour3d` | :func:`quiver3d` | :func:`flow`        |
 +-------------------+------------------+---------------------+
 
-    To plot isosurfaces of a 3D scalar field use :func:`contour3d`. A
-    vector field can be represented using :func:`quiver3d`, and the
-    trajectories of particles along this field can plotted using :func:`flow`. 
+To plot isosurfaces of a 3D scalar field use :func:`contour3d`. A
+vector field can be represented using :func:`quiver3d`, and the
+trajectories of particles along this field can plotted using :func:`flow`. 
 
-    .. note:: 
-       
-        :func:`contour3d` and :func:`flow` require ordered data (to
-        be able to interpolate between the points), whereas :func:`quiver3d`
-        works with any set of points. The required structure is detailed
-        in the functions' documentation.
+.. topic:: Structured or unstructured data
+    
+    :func:`contour3d` and :func:`flow` require ordered data (to
+    be able to interpolate between the points), whereas :func:`quiver3d`
+    works with any set of points. The required structure is detailed
+    in the functions' documentation.
 
 .. |contour3d.jpg| image:: images/enthought_mayavi_mlab_contour3d.jpg
      :scale: 50
@@ -226,7 +242,8 @@ Changing the looks of the visual objects created
 Adding color or size variations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* **The color** of the objects created by a plotting function can be specified
+:Color:
+  The color of the objects created by a plotting function can be specified
   explicitly using the 'color' keyword argument of the function. This color
   is than applied uniformly to all the objects created. 
 
@@ -255,13 +272,13 @@ Adding color or size variations
   The easiest way to choose the colormap most adapted to your visualization
   is to use the GUI (as described in the 
   `Interacting graphically with the visualization`_ paragraph). The dialog
-  to set the colormap can be found by double-clicking on the `Modules`
-  node.
+  to set the colormap can be found by double-clicking on the `Colors and
+  legends` node.
 
-* The scalar information can also be displayed in many different ways.
-  For instance it can be used to adjust the **size** of glyphs positioned at 
-  the data points, or it can be 'warped' into a displacement, e.g. using a
-  `WarpScalar` filter.
+:Size of the glyph:
+  The scalar information can also be displayed in many different ways.
+  For instance it can be used to adjust the size of glyphs positioned at 
+  the data points. 
 
   **A caveat: Clamping: relative or absolute scaling**
   Given six points positionned on a line with interpoint spacing 1::
@@ -309,6 +326,13 @@ Adding color or size variations
 
         pts.glyph.glyph.clamping = False
 
+:More representations of the attached scalars or vectors:
+  There are many more ways to represent the scalar or vector information
+  attached to the data. For instance, scalar data can be 'warped' into a 
+  displacement, e.g. using a `WarpScalar` filter, or the norm of scalar
+  data can be extract to a scalar component that can be visualized using
+  iso-surfaces with the `ExtractVectorNorm` filter.
+
 
 Changing the scale and position of objects
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -320,8 +344,11 @@ you are using this functionality, it can be useful to pass the same
 extents to other modules visualizing the same data. If you don't, they
 will not share the same displacement and scale.
 
-Handling figures
------------------
+Figures, legends, camera and decorations
+-----------------------------------------
+
+Handling several figures
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 All mlab functions operate on the current scene, that we also call
 :func:`figure`, for compatibility with matlab and pylab. The different
@@ -334,7 +361,7 @@ cleared using :func:`clf`.
 
 
 Figure decorations
--------------------
+~~~~~~~~~~~~~~~~~~~~
 
 Axes can be added around a visualization object with the :func:`axes`
 function, and the labels can be set using the :func:`xlabel`, :func:`ylabel`
@@ -353,7 +380,7 @@ A small *xyz* triad can be added to the figure using
 
 
 Moving the camera
--------------------
+~~~~~~~~~~~~~~~~~~~~
 
 The position and direction of the camera can be set using the :func:`view`
 function. They are described in terms of Euler angles and distance to a
@@ -434,6 +461,11 @@ should:
         >>> matplotlib.use('WxAgg')
         >>> matplotlib.interactive(True)
 
+If you want matplotlib and mlab to work together by default in IPython,
+you can change you default matplotlib backend, by editing the
+`~/.matplotlib/matplotlibrc` to add the following line::
+
+    backend     : WXAgg
 
 In scripts
 ~~~~~~~~~~~~~~~~~
@@ -556,7 +588,7 @@ ends with an `_anim` to see how these work and run.
 
 ..  _controlling-the-pipeline-with-mlab-scripts:
 
-Controlling the pipeline with `mlab` scripts
+Full control of pipeline with `mlab`
 ---------------------------------------------
 
 .. currentmodule:: enthought.mayavi.tools.pipeline
