@@ -435,7 +435,10 @@ except ImportError, m:
 try:
     from enthought.mayavi.plugins.app import Mayavi, setup_logger
 except ImportError, m:
-    msg = '''%s\n%s\nCould not load envisage. Do you have the EnvisageCore and EnvisagePlugins installed?
+    msg = '''%s
+%s
+Could not load envisage. You might have a missing dependency.
+Do you have the EnvisageCore and EnvisagePlugins installed?
 
 If you installed Mayavi with easy_install, try 'easy_install <pkg_name>'.
 'easy_install Mayavi[app]' will also work.
@@ -443,9 +446,10 @@ If you installed Mayavi with easy_install, try 'easy_install <pkg_name>'.
 If you performed a source checkout and installed via 'python setup.py develop',
 be sure to run the same command in the EnvisageCore and EnvisagePlugins folders.
 
-If these packages appear to be installed, check your numpy installation. If you
-need numpy, 'easy_install numpy' will install numpy.
-http://numpy.scipy.org
+If these packages appear to be installed, check that your numpy and
+configobj are installed and working. If you need numpy, 'easy_install numpy' 
+will install numpy. Similarly, 'easy_install configobj' will install 
+configobj.
         ''' % (m, '_'*80)
     raise ImportError(msg)
 

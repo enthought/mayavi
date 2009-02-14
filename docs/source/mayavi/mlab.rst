@@ -149,13 +149,29 @@ module.
     Finally, the :func:`triangular_mesh` function creates a mesh with 
     arbitrary topology, given position of the vertices and the triangles.
 
-    .. note::
-    
-        :func:`surf`, :func:`contour_surf` can be used as 3D
-        representation of 2D data. By default the z-axis is supposed to
-        be in the same units as the x and y axis, but it can be 
-        auto-scaled to give a 2/3 aspect ratio. This behavior can be 
-        controlled by specifying the "warp_scale='auto'".
+.. topic:: Vertical scale of  :func:`surf` and :func:`contour_surf`
+
+    :func:`surf` and :func:`contour_surf` can be used as 3D
+    representation of 2D data. By default the z-axis is supposed to
+    be in the same units as the x and y axis, but it can be 
+    auto-scaled to give a 2/3 aspect ratio. This behavior can be 
+    controlled by specifying the "warp_scale='auto'".
+
+.. topic:: From data points to surfaces.
+
+    Knowing the positions of data points is not enough to define a
+    surface, connectivity information is also required. With the 
+    functions :func:`surf` and :func:`mesh`, this connectivity
+    information is implicitely extracted from the shape of the input
+    arrays: neighbooring data points in the 2D input arrays are
+    connected, and the data lies on a grid. With the function 
+    :func:`triangular_mesh`, connectivity is explicitely specified.
+    Quite often, the connectivity is not regular, but is not known in
+    advance either. The data points lie on a surface, and we want to
+    plot the surface implicitely defined. The `delaunay2d` filter does
+    the required nearest-neighboor matching, and interpolation, as
+    shown in the `surface_from_irregular_data` example.
+
 
 .. |imshow.jpg| image:: images/enthought_mayavi_mlab_imshow.jpg
      :scale: 50
