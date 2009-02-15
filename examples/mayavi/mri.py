@@ -65,8 +65,8 @@ def user_defined(parent, filter_name):
 # fibers. We define a VOI (volume of interest) that restricts the
 # iso-surfaces to the inner of the brain.
 blur = user_defined(src, 'ImageGaussianSmooth')
-voi = user_defined(blur, 'ExtractVOI')
-voi.filter.voi = [125, 193, 92, 125, 34, 75]
+voi = mlab.pipeline.extract_grid(blur)
+voi.set(x_min=125, x_max=193, y_min=92, y_max=125, z_min=34, z_max=75)
 
 mlab.pipeline.iso_surface(voi, contours=[1610, 2480], colormap='Spectral')
 
@@ -91,13 +91,13 @@ cut_plane2.implicit_plane.widget.enabled = False
 
 # Extract two views of the outside surface. We need to define VOIs in
 # order to leave out a cut in the head.
-voi2 = user_defined(src, 'ExtractVOI')
-voi2.filter.voi = [0, 300, 112, 200, 0, 200]
+voi2 = mlab.pipeline.extract_grid(src)
+voi2.set(y_min=112)
 outer = mlab.pipeline.iso_surface(voi2, contours=[1776, ], 
                                         color=(0.8, 0.7, 0.6))
 
-voi3 = user_defined(src, 'ExtractVOI')
-voi3.filter.voi = [0, 300, 0, 112, 0, 53]
+voi3 = mlab.pipeline.extract_grid(src)
+voi3.set(y_max=112, z_max=53)
 outer3 = mlab.pipeline.iso_surface(voi3, contours=[1776, ],
                                          color=(0.8, 0.7, 0.6))
 
