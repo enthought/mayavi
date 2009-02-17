@@ -5,7 +5,7 @@ operation. They should always return the module object created, for
 consistency, and because retrieving the data_source from a module object
 is possible via tools._find_data
 
-Each helper function should have a test function assoiciated with it,
+Each helper function should have a test function associated with it,
 both for testing and to ilustrate its use.
 """
 
@@ -121,19 +121,21 @@ class Points3d(Pipeline):
 
     **Function signatures**::
 
-        points3d(scalardata, ...)
         points3d(x, y, z...)
         points3d(x, y, z, s, ...)
         points3d(x, y, z, f, ...)
 
-    If only one positional argument is passed, it should be VTK data
-    object with scalar data.
+    x, y and z are numpy arrays or lists of the same shape giving the
+    positions of the points.
 
     If only 3 arrays x, y, z all the points are drawn with the same size
-    and color
-
-    If 4 positional arguments are passed the last one can be an array s
-    or a callable f that gives the size and color of the glyph."""
+    and color. 
+    
+    In addition, you can pass a fourth array s of the same
+    shape as x, y, and z giving an associated scalar value for each
+    point, or a function f(x, y, z) returning the scalar value. This
+    scalar value can be used to modulate the color and the size of the
+    points."""
 
     _source_function = Callable(scalar_scatter)
 
@@ -453,7 +455,11 @@ class Plot3d(Pipeline):
     **Function signatures**::
 
         plot3d(x, y, z, ...)
-        plot3d(x, y, z, s, ...)"""
+        plot3d(x, y, z, s, ...)
+        
+    x, y, z and s are numpy arrays or lists of the same shape. x, y and z
+    give the positions of the successive points of the line. s is an
+    optional scalar value associated with each point."""
 
     tube_radius = Trait(0.025, CFloat, None,
                         adapts='filter.radius',
@@ -555,11 +561,7 @@ class Surf(Pipeline):
         surf(x, y, s, ...)
         surf(x, y, f, ...)        
     
-    If 3 positional arguments are passed the last one must be an array s,
-    or a callable, f, that returns an array. x and y give the
-    coordinnates of positions corresponding to the s values. 
-    
-    z is the elevation matrix.
+    s is the elevation matrix, a 2D array.
     
     x and y can be 1D or 2D arrays (such as returned by numpy.ogrid or
     numpy.mgrid), but the points should be located on an orthogonal grid
@@ -570,7 +572,11 @@ class Surf(Pipeline):
 
     If only 1 array s is passed the x and y arrays are assumed to be
     made from the indices of arrays, and an uniformly-spaced data set is 
-    created."""
+    created.
+    
+    If 3 positional arguments are passed the last one must be an array s,
+    or a callable, f, that returns an array. x and y give the
+    coordinnates of positions corresponding to the s values."""
 
     _source_function = Callable(array2d_source)
 
@@ -696,9 +702,9 @@ class Mesh(Pipeline):
 
         mesh(x, y, z, ...)
     
-    x, y, z are 2D arrays giving the positions of the vertices of the surface.
-    The connectivity between these points is implied by the connectivity on 
-    the arrays. 
+    x, y, z are 2D arrays of the same shape giving the positions of the 
+    vertices of the surface. The connectivity between these points is implied 
+    by the connectivity on the arrays. 
 
     For simple structures (such as orthogonal grids) prefer the surf function,
     as it will create more efficient data structures.
