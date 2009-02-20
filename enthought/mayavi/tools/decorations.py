@@ -11,7 +11,7 @@ pipeline in a procedural way.
 # Enthought library imports.
 import enthought.mayavi.modules.api as modules
 from enthought.traits.api import String, CFloat, Instance, HasTraits, \
-            Trait, CArray, true, Any
+            Trait, CArray, true, Any, Range
 import tools
 from figure import draw, gcf
 
@@ -321,6 +321,9 @@ class Axes(AxesLikeModuleFactory):
 
     zlabel = String(None, adapts='axes.z_label',
                 help='the label of the z axis')
+
+    nb_labels = Range(0, 50, 2, adapts='axes.number_of_labels',
+                desc='The number of labels along each direction') 
 
     ranges = Trait(None, None, CArray(shape=(6,)),
                     help="""[xmin, xmax, ymin, ymax, zmin, zmax]
