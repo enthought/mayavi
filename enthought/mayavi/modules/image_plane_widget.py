@@ -24,7 +24,7 @@ class ImagePlaneWidget(Module):
     # The version of this class.  Used for persistence.
     __version__ = 0
 
-    ipw = Instance(tvtk.ImagePlaneWidget, allow_none=False)
+    ipw = Instance(tvtk.ImagePlaneWidget, allow_none=False, record=True)
 
     input_info = PipelineInfo(datasets=['image_data'],
                               attribute_types=['any'],
@@ -58,7 +58,8 @@ class ImagePlaneWidget(Module):
         self.ipw = tvtk.ImagePlaneWidget(display_text=1,
                                          key_press_activation=0,
                                          left_button_action=1,
-                                         middle_button_action=0)
+                                         middle_button_action=0,
+                                         user_controlled_lookup_table=True)
 
     def update_pipeline(self):
         """Override this method so that it *updates* the tvtk pipeline
@@ -83,12 +84,6 @@ class ImagePlaneWidget(Module):
         self.ipw.input = input
         # Set the LUT for the IPW.
         self.ipw.lookup_table = mod_mgr.scalar_lut_manager.lut
-
-        # We need to call the callbacks updating the LUT again, so that
-        # the LUT of the image plane widget gets updated to the values
-        # chosen for the existing modules.
-        mod_mgr.scalar_lut_manager._data_range_changed(
-                            mod_mgr.scalar_lut_manager.data_range)
         
         self.pipeline_changed = True
 
