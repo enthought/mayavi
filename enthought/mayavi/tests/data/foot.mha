@@ -1,0 +1,6 @@
+NDims = 2
+DimSize = 256 256 
+ElementType = MET_UCHAR
+ElementSpacing = 1.0 1.0 1.0
+ElementByteOrderMSB = False
+ElementDataFile = foot.raw

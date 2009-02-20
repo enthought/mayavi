@@ -28,20 +28,68 @@ open_3ds = SourceMetadata(
 open_image = SourceMetadata(
     id            = "ImageFile",
     class_name    = BASE + ".image_reader.ImageReader",
-    menu_name     = "&Image file (PNG/JPG/BMP/PNM/TIFF)",
-    tooltip       = "Import a PNG/JPG/BMP/PNM/TIFF image",
-    desc   = "Import a PNG/JPG/BMP/PNM/TIFF image",
-    extensions = ['png', 'jpg', 'jpeg', 'bmp', 'pnm', 'tiff'],
+    menu_name     = "&Image file (PNG/JPG/BMP/PNM/TIFF/DEM/DCM/XIMG/MHA/MHD/MINC)",
+    tooltip       = "Import a PNG/JPG/BMP/PNM/TIFF/DCM/DEM/XIMG/MHA/MHD/MINC image",
+    desc   = "Import a PNG/JPG/BMP/PNM/TIFF/DCM/DEM/XIMG/MHA/MHD/MINC image",
+    extensions = ['png', 'jpg', 'jpeg', 'bmp', 'pnm', 'tiff', 'dcm', 'dem', 
+                  'ximg', 'mha', 'mhd', 'mnc'],
     wildcard = 'PNG files (*.png)|*.png|'\
                'JPEG files (*.jpg)|*.jpg|'\
                'JPEG files (*.jpeg)|*.jpeg|'\
                'BMP files (*.bmp)|*.bmp|'\
                'PNM files (*.pnm)|*.pnm|'\
+               'DCM files (*.dcm)|*.dcm|'\
+               'DEM files (*.dem)|*.dem|'\
+               'Meta mha files (*.mha)|*.mha|'\
+               'Meta mhd files (*.mhd)|*.mhd|'\
+               'MINC files (*.mnc)|*.mnc|'\
+               'XIMG files (*.ximg)|*.ximg|'\
                'TIFF files (*.tiff)|*.tiff',
     output_info = PipelineInfo(datasets=['image_data'],
                                attribute_types=['any'],
                                attributes=['any'])
 )
+open_poly_data = SourceMetadata(
+    id            = "PolyDataFile",
+    class_name    = BASE + ".poly_data_reader.PolyDataReader",
+    menu_name     = "&PolyData file (STL/STLA/STLB/TXT/RAW/PLY/PDB/SLC/FACET/OBJ/BYU)",
+    tooltip       = "Import a STL/STLA/STLB/TXT/RAW/PLY/PDB/SLC/FACET/OBJ/BYU Poly Data",
+    desc   = "Import a STL/STLA/STLB/TXT/RAWPLY/PDB/SLC/FACET/OBJ/BYU Poly Data",
+    extensions = ['stl', 'stla', 'stlb', 'txt', 'raw', 'ply', 'pdb', 'slc', 
+                  'facet', 'xyz', 'cube', 'obj', 'g'],
+    wildcard = 'STL files (*.stl)|*.stl|'\
+               'STLA files (*.stla)|*.stla|'\
+               'STLB files (*.stlb)|*.stlb|'\
+               'BYU files (*.g)|*.g|'\
+               'TXT files (*.txt)|*.txt|'\
+               'RAW files (*.raw)|*.raw|'\
+               'PLY files (*.ply)|*.ply|'\
+               'PDB files (*.pdb)|*.pdb|'\
+               'SLC files (*.slc)|*.slc|'\
+               'FACET files (*.facet)|*.facet|'\
+               'OBJ files (*.obj)|*.obj',
+    output_info = PipelineInfo(datasets=['poly_data'],
+                               attribute_types=['any'],
+                               attributes=['any'])
+)
+
+open_ugrid_data = SourceMetadata(
+
+    id            = "VTKUnstructuredFile",
+    class_name    = BASE + ".unstructured_grid_reader.UnstructuredGridReader",
+    menu_name     = "&Unstrucured Grid fil  (INP/NEU/EXII)",
+    tooltip = "Open a Unstrucured Grid file",
+    desc    = "Open a Unstrucured Grid file",
+    help    = "Open a Unstrucured Grid file",
+    extensions = ['inp', 'neu', 'exii'],
+    wildcard = 'AVSUCD INP files (*.inp)|*.inp|'\
+               'GAMBIT NEU (*.neu)|*.neu|'\
+               'EXODUS EXII (*.exii)|*.exii|',
+    output_info = PipelineInfo(datasets=['any'],
+                               attribute_types=['any'],
+                               attributes=['any'])
+)
+
 
 open_plot3d = SourceMetadata(
     id            = "PLOT3DFile",
@@ -177,5 +225,7 @@ sources = [open_3ds,
            point_load,
            builtin_surface,
            builtin_image,
-          ]
+           open_poly_data,
+           open_ugrid_data,
+           ]
 

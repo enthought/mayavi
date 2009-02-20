@@ -1,0 +1,45 @@
+        CONTROL INFO 1.2.1
+** GAMBIT NEUTRAL FILE
+Example
+PROGRAM:                Gambit     VERSION:  1.2.1
+ 4 Jan 2000    13:07:49 
+     NUMNP     NELEM     NGRPS    NBSETS     NDFCD     NDFVL
+        10         4         2         1         3         3
+ENDOFSECTION
+   NODAL COORDINATES 1.2.1
+         1    0.0000000000e+00    0.0000000000e+00    0.0000000000e+00
+         2    1.0000000000e+00    0.0000000000e+00    0.0000000000e+00
+         3    0.0000000000e+00    1.0000000000e+00    0.0000000000e+00
+         4   -1.0000000000e+00    0.0000000000e+00    0.0000000000e+00
+         5    0.0000000000e+00   -1.0000000000e+00    0.0000000000e+00
+         6    0.0000000000e+00    0.0000000000e+00    1.0000000000e+00
+         7    1.0000000000e+00    0.0000000000e+00    1.0000000000e+00
+         8    0.0000000000e+00    1.0000000000e+00    1.0000000000e+00
+         9   -1.0000000000e+00    0.0000000000e+00    1.0000000000e+00
+        10    0.0000000000e+00   -1.0000000000e+00    1.0000000000e+00
+ENDOFSECTION
+      ELEMENTS/CELLS 1.2.1
+       1  5  6 9       6      10      4      1      5
+       2  5  6 10      6      7       5      1      2
+       3  5  6 8       6      9      3      1      4
+       4  5  6 7      6      8       2      1      3
+ENDOFSECTION
+       ELEMENT GROUP 1.2.1
+GROUP:          1 ELEMENTS:        2 MATERIAL:          2 NFLAGS:          1
+                           fluid
+       0
+       1       2
+ENDOFSECTION
+       ELEMENT GROUP 1.2.1
+GROUP:          2 ELEMENTS:        2 MATERIAL:          4 NFLAGS:          1
+                           solid
+       0
+       3       4
+ENDOFSECTION
+ BOUNDARY CONDITIONS 1.2.1
+                          node.2       0      4       0      24
+        2
+        5
+        7
+        10
+ENDOFSECTION

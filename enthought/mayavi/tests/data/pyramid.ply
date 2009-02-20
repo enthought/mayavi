@@ -1,0 +1,21 @@
+ply
+format ascii 1.0
+comment created by MATLAB ply_write
+element vertex 5
+property float x
+property float y
+property float z
+element face 6
+property list uchar char vertex_indices
+end_header
+0.000000 0.000000 0.000000 
+1.000000 0.000000 0.000000 
+1.000000 1.000000 0.000000 
+0.000000 1.000000 0.000000 
+0.500000 0.500000 1.600000 
+3 2 1 4 
+3 2 4 3 
+3 1 2 5 
+3 1 5 4 
+3 4 5 3 
+3 2 3 5 
