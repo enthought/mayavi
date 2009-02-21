@@ -180,15 +180,27 @@ framebuffer X server for X11 like so:
   
 This probably will have to be fine tuned to suit your taste.
 
-Note that if you want to use mayavi without the envisage UI or even a
-traits UI (i.e. with a pure TVTK window) and do off screen rendering
-with Python scripts you may be interested in the
-``examples/offscreen.py`` example.  This simple example shows how you
-can use MayaVi without using Envisage or the MayaVi envisage
-application and still do off screen rendering.
+Many Linux systems (including Ubuntu and Debian) ship with a helper
+script `xvfb-run` for running headless. The following command can run a
+Python script with Mayavi2 visualizations headless::
+
+    xvfb-run --server-args="-screen 0 1024x768x24" python my_script.py
+
+Beware that you shouldn't call `mlab.show` or start the mainloop in the
+script, elsewhere the script will run enlessly, waiting for interaction
+in a hidden window.
+
+.. note:: 
+
+    If you want to use mayavi without the envisage UI or even a
+    traits UI (i.e. with a pure TVTK window) and do off screen rendering
+    with Python scripts you may be interested in the
+    ``examples/offscreen.py`` example.  This simple example shows how you
+    can use Mayavi without using Envisage or the Mayavi envisage
+    application and still do off screen rendering.
 
 
-Using ``mlab`` with the full envisage UI
+Using ``mlab`` with the full Envisage UI
 ----------------------------------------
 
 Sometimes it is convenient to write an mlab script but still use the

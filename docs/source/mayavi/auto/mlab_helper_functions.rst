@@ -211,6 +211,10 @@ plot3d
         plot3d(x, y, z, ...)
         plot3d(x, y, z, s, ...)
     
+    x, y, z and s are numpy arrays or lists of the same shape. x, y and z
+    give the positions of the successive points of the line. s is an
+    optional scalar value associated with each point.
+    
     **Keyword arguments:**
     
         :color: the color of the vtk object. Overides the colormap,
@@ -298,11 +302,7 @@ surf
         surf(x, y, s, ...)
         surf(x, y, f, ...)
     
-    If 3 positional arguments are passed the last one must be an array s,
-    or a callable, f, that returns an array. x and y give the
-    coordinnates of positions corresponding to the s values.
-    
-    z is the elevation matrix.
+    s is the elevation matrix, a 2D array.
     
     x and y can be 1D or 2D arrays (such as returned by numpy.ogrid or
     numpy.mgrid), but the points should be located on an orthogonal grid
@@ -314,6 +314,10 @@ surf
     If only 1 array s is passed the x and y arrays are assumed to be
     made from the indices of arrays, and an uniformly-spaced data set is
     created.
+    
+    If 3 positional arguments are passed the last one must be an array s,
+    or a callable, f, that returns an array. x and y give the
+    coordinnates of positions corresponding to the s values.
     
     **Keyword arguments:**
     
@@ -406,9 +410,9 @@ mesh
     
         mesh(x, y, z, ...)
     
-    x, y, z are 2D arrays giving the positions of the vertices of the surface.
-    The connectivity between these points is implied by the connectivity on
-    the arrays.
+    x, y, z are 2D arrays of the same shape giving the positions of the
+    vertices of the surface. The connectivity between these points is implied
+    by the connectivity on the arrays.
     
     For simple structures (such as orthogonal grids) prefer the surf function,
     as it will create more efficient data structures.
@@ -606,19 +610,21 @@ points3d
     
     **Function signatures**::
     
-        points3d(scalardata, ...)
         points3d(x, y, z...)
         points3d(x, y, z, s, ...)
         points3d(x, y, z, f, ...)
     
-    If only one positional argument is passed, it should be VTK data
-    object with scalar data.
+    x, y and z are numpy arrays or lists of the same shape giving the
+    positions of the points.
     
     If only 3 arrays x, y, z all the points are drawn with the same size
-    and color
+    and color.
     
-    If 4 positional arguments are passed the last one can be an array s
-    or a callable f that gives the size and color of the glyph.
+    In addition, you can pass a fourth array s of the same
+    shape as x, y, and z giving an associated scalar value for each
+    point, or a function f(x, y, z) returning the scalar value. This
+    scalar value can be used to modulate the color and the size of the
+    points.
     
     **Keyword arguments:**
     

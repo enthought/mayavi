@@ -35,6 +35,9 @@ axes
     
         :name: the name of the vtk object created.
     
+        :nb_labels: The number of labels along each direction Must be a legal
+                    value. Default: 2
+    
         :opacity: The overall opacity of the vtk object. Must be a float.
                   Default: 1.0
     

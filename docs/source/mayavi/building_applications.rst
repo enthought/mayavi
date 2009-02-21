@@ -104,7 +104,7 @@ by a function of two parameters::
                 0.5*sin(n_long*phi),
                 sin(phi*n_mer)]
 
-Using `mlab`, we could plot the curve with `plot3d`:
+Using `mlab`, we could plot the curve with `plot3d`::
 
     x, y, z, s = curve(4, 6)
     from enthought.mayavi import mlab

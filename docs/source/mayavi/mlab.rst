@@ -63,10 +63,8 @@ A demo
 To get you started, here is a pretty example showing a spherical harmonic
 as a surface::
 
- from numpy import pi, sin, cos, mgrid
- from enthought.mayavi import mlab
-
  # Create the data.
+ from numpy import pi, sin, cos, mgrid
  dphi, dtheta = pi/250.0, pi/250.0
  [phi,theta] = mgrid[0:pi+dphi*1.5:dphi,0:2*pi+dtheta*1.5:dtheta]
  m0 = 4; m1 = 3; m2 = 2; m3 = 3; m4 = 6; m5 = 2; m6 = 6; m7 = 4;
@@ -76,8 +74,8 @@ as a surface::
  z = r*sin(phi)*sin(theta)
 
  # View it.
+ from enthought.mayavi import mlab
  s = mlab.mesh(x, y, z)
-
  mlab.show()
 
 Bulk of the code in the above example is to create the data.  One line
@@ -85,7 +83,7 @@ suffices to visualize it.  This produces the following visualization:
 
 .. image:: images/mlab_surf_example.jpg
 
-The visualization is created by the single command ``mesh`` in the above.
+The visualization is created by the single function :func:`mesh` in the above.
 
 Several examples of this kind are provided with mlab (see
 `test_contour3d`, `test_points3d`, `test_plot3d_anim` etc.).  The above
@@ -95,17 +93,11 @@ IPython via the handy `mlab.test_contour3d??`.
 
 .. _mlab_plotting_functions:
 
-Plotting functions
--------------------
+3D Plotting functions for numpy arrays
+---------------------------------------
 
-Visualization can be created in mlab by a set of functions operating on
+Visualization can be created in `mlab` by a set of functions operating on
 numpy arrays. 
-
-.. note:: 
-
-    In this section, we only list the different functions. Each function
-    is described in details in the :ref:`mlab-reference`, at the end of
-    the user guide, with figures and examples. Please follow the links.
 
 The mlab plotting functions take numpy arrays as input, describing the
 ``x``, ``y``, and ``z`` coordinates of the data. They build full-blown
@@ -116,54 +108,85 @@ In addition, they all return the visualization module created, thus
 visualization can also be modified by changing the attributes of this
 module.
 
+.. note:: 
+
+    In this section, we only list the different functions. Each function
+    is described in details in the :ref:`mlab-reference`, at the end of
+    the user guide, with figures and examples. Please follow the links.
+
 
 0D and 1D data
 ~~~~~~~~~~~~~~~
 
-+----------------+----------------------+
-| |plot3d.jpg|   | |points3d.jpg|       |
-+----------------+----------------------+
-| :func:`plot3d` | :func:`points3d`     |
-+----------------+----------------------+
+================= =========================================================
+================= =========================================================
+|points3d|        :func:`points3d`
 
-The :func:`plot3d` and :func:`points3d` functions are respectively used
-to draw lines, and sets of points, specifying the ``x``, ``y`` and ``z``
-coordinates as numpy arrays.
+                  Plots glyphs (like points) at the position of the
+                  supplied data, described by ``x``, ``y``, ``z`` 
+                  numpy arrays of the same shape.
 
-.. |plot3d.jpg| image:: images/enthought_mayavi_mlab_plot3d.jpg
+|plot3d|          :func:`plot3d`
+
+                  Plots line between the supplied data, described by ``x``, 
+                  ``y``, ``z`` 1D numpy arrays of the same length.
+
+================= =========================================================
+
+.. |plot3d| image:: images/enthought_mayavi_mlab_plot3d.jpg
      :scale: 50
 
-.. |points3d.jpg| image:: images/enthought_mayavi_mlab_points3d.jpg
+.. |points3d| image:: images/enthought_mayavi_mlab_points3d.jpg
      :scale: 50
 
 2D data
 ~~~~~~~~
 
-+----------------+------------------+-----------------------------+
-| |imshow.jpg|   | |surf.jpg|       |  |contour_surf.jpg|         |
-+----------------+------------------+-----------------------------+
-| :func:`imshow` | :func:`surf`     | :func:`contour_surf`        |
-+----------------+------------------+-----------------------------+
-| |mesh.jpg|     | |barchart.jpg|   | |triangular_mesh.jpg|       |
-+----------------+------------------+-----------------------------+
-| :func:`mesh`   | :func:`barchart` | :func:`triangular_mesh`     |
-+----------------+------------------+-----------------------------+
+================= =========================================================
+================= =========================================================
+|imshow|          :func:`imshow`
 
-A 2D array can be shown as a image using :func:`imshow`, or as a surface
-with the elevation given by its values using :func:`surf`. The contours
-(lines) of same values can be plotted using :func:`contour_surf`.
+                  View a 2D array as an image.
 
-Bar charts can be created with the :func:`barchart` function. This
-function is very versatile and will accept 2D or 3D arrays, but also
-clouds of points, to position the bars.
+|surf|            :func:`surf`
 
-The :func:`mesh` function also creates surfaces, however, unlike
-:func:`surf`, the surface is defined by its ``x``, ``y`` and ``z``
-coordinates, and more complex surfaces can be created, as in the above
-example.
+                      View a 2D array as a carpet plot, with the z axis
+                      representation through elevation the value of the
+                      array points.
 
-Finally, the :func:`triangular_mesh` function creates a mesh with
-arbitrary topology, given position of the vertices and the triangles.
+|contour_surf|    :func:`contour_surf`
+
+                  View a 2D array as line contours, elevated
+                  according to the value of the array points.
+
+|mesh|            :func:`mesh`
+
+                  Plot a surface described by three 2D arrays, ``x``, 
+                  ``y``, ``z`` giving the coordinnates of the data points 
+                  as a grid.
+
+                  Unlike :func:`surf`, the surface is defined by its 
+                  ``x``, ``y`` and ``z`` coordinates with no privileged
+                  direction. More complex surfaces can be created.
+
+|barchart|        :func:`barchart`
+
+                  Plot an array ``s``, or a set of points with
+                  explicite coordinnates arrays, ``x``, ``y`` and ``z``,
+                  as a bar chart, eg for histograms.
+    
+                  This function is very versatile and will accept 2D or 
+                  3D arrays, but also clouds of points, to position the 
+                  bars.
+
+|triangular_mesh| :func:`triangular_mesh`
+
+                  Plot a triangular mesh, fully specified by
+                  ``x``, ``y`` and ``z`` coordinnates of its
+                  vertices, and the (n, 3) array of the indices of
+                  the triangles.
+
+================= =========================================================
 
 .. topic:: Vertical scale of  :func:`surf` and :func:`contour_surf`
 
@@ -189,36 +212,48 @@ arbitrary topology, given position of the vertices and the triangles.
     shown in the `surface_from_irregular_data` example.
 
 
-.. |imshow.jpg| image:: images/enthought_mayavi_mlab_imshow.jpg
+.. |imshow| image:: images/enthought_mayavi_mlab_imshow.jpg
      :scale: 50
 
-.. |contour_surf.jpg| image:: images/enthought_mayavi_mlab_contour_surf.jpg
+.. |contour_surf| image:: images/enthought_mayavi_mlab_contour_surf.jpg
      :scale: 50
 
-.. |triangular_mesh.jpg| image:: images/enthought_mayavi_mlab_triangular_mesh.jpg
+.. |triangular_mesh| image:: images/enthought_mayavi_mlab_triangular_mesh.jpg
      :scale: 50
 
-.. |surf.jpg| image:: images/enthought_mayavi_mlab_surf.jpg
+.. |surf| image:: images/enthought_mayavi_mlab_surf.jpg
      :scale: 50
 
-.. |mesh.jpg| image:: images/enthought_mayavi_mlab_mesh.jpg
+.. |mesh| image:: images/enthought_mayavi_mlab_mesh.jpg
      :scale: 50
 
-.. |barchart.jpg| image:: images/enthought_mayavi_mlab_barchart.jpg
+.. |barchart| image:: images/enthought_mayavi_mlab_barchart.jpg
      :scale: 50
 
 3D data
 ~~~~~~~~
 
-+-------------------+------------------+---------------------+
-| |contour3d.jpg|   | |quiver3d.jpg|   |  |flow.jpg|         |
-+-------------------+------------------+---------------------+
-| :func:`contour3d` | :func:`quiver3d` | :func:`flow`        |
-+-------------------+------------------+---------------------+
+================= =========================================================
+================= =========================================================
+|contour3d|       :func:`contour3d`
 
-To plot isosurfaces of a 3D scalar field use :func:`contour3d`. A
-vector field can be represented using :func:`quiver3d`, and the
-trajectories of particles along this field can plotted using :func:`flow`. 
+                  Plot isosurfaces of volumetric data defined as a 3D
+                  array.
+
+|quiver3d|        :func:`quiver3d`
+
+                  Plot arrows to represent vectors at data points.
+                  The ``x``, ``y``, ``z`` position are specified by
+                  numpy arrays, as well as the ``u``, ``v``, ``w``
+                  components of the vectors.
+
+|flow|            :func:`flow`
+
+                  Plot trajectories of particles along a vector field 
+                  described by three 3D arrays giving the ``u``,
+                  ``v``, ``w`` components on a grid.
+
+================= =========================================================
 
 .. topic:: Structured or unstructured data
     
@@ -227,14 +262,21 @@ trajectories of particles along this field can plotted using :func:`flow`.
     works with any set of points. The required structure is detailed
     in the functions' documentation.
 
-.. |contour3d.jpg| image:: images/enthought_mayavi_mlab_contour3d.jpg
+.. |contour3d| image:: images/enthought_mayavi_mlab_contour3d.jpg
      :scale: 50
 
-.. |quiver3d.jpg| image:: images/enthought_mayavi_mlab_quiver3d.jpg
+.. |quiver3d| image:: images/enthought_mayavi_mlab_quiver3d.jpg
      :scale: 50
 
-.. |flow.jpg| image:: images/enthought_mayavi_mlab_flow.jpg
+.. |flow| image:: images/enthought_mayavi_mlab_flow.jpg
      :scale: 50
+
+.. note::
+
+    Many richer visualisations can be created by assembling data sources
+    filters and modules. See the
+    :ref:`controlling-the-pipeline-with-mlab-scripts` and the 
+    :ref:`mlab-case-studies` sections.
 
 Changing the looks of the visual objects created
 -------------------------------------------------
@@ -270,10 +312,8 @@ Adding color or size variations
       dark2        greys         prism    set1
 
   The easiest way to choose the colormap most adapted to your visualization
-  is to use the GUI (as described in the 
-  `Interacting graphically with the visualization`_ paragraph). The dialog
-  to set the colormap can be found by double-clicking on the `Colors and
-  legends` node.
+  is to use the GUI (as described in the next paragraph). The dialog
+  to set the colormap can be found in the `Colors and legends` node.
 
 :Size of the glyph:
   The scalar information can also be displayed in many different ways.
@@ -344,6 +384,28 @@ you are using this functionality, it can be useful to pass the same
 extents to other modules visualizing the same data. If you don't, they
 will not share the same displacement and scale.
 
+Changing object properties interactively
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Mayavi, and thus mlab, allows you to interactively modify your
+visualization.
+
+The Mayavi pipeline tree can be displayed by clicking on the mayavi icon
+in the figure's toolbar, or by using :func:`show_pipeline` mlab command.
+One can now change the visualization using this dialog by double-clicking
+on each object to edit its properties, as described in other parts of
+this manual, or add new modules or filters by using this icons on the
+pipeline, or through the right-click menus on the objects in the
+pipeline.
+
+.. image:: images/pipeline_and_scene.png
+
+In addition, for every object returned by a mlab function,
+``this_object.edit_traits()`` brings up a dialog that can be used to
+interactively edit the object's properties. If the dialog doesn't show up
+when you enter this command, please see :ref:`running-mlab-scripts`.
+
+
 Figures, legends, camera and decorations
 -----------------------------------------
 
@@ -387,28 +449,6 @@ function. They are described in terms of Euler angles and distance to a
 focal point. The :func:`view` function tries to guess the right roll angle 
 of the camera for a pleasing view, but it sometimes fails. The :func:`roll`
 explicitly sets the roll angle of the camera.
-
-
-Interacting graphically with the visualization
------------------------------------------------
-
-Mayavi, and thus mlab, allows you to interactively modify your
-visualization.
-
-The Mayavi pipeline tree can be displayed by clicking on the mayavi icon
-in the figure's toolbar, or by using :func:`show_pipeline` mlab command.
-One can now change the visualization using this dialog by double-clicking
-on each object to edit its properties, as described in other parts of
-this manual, or add new modules or filters by using this icons on the
-pipeline, or through the right-click menus on the objects in the
-pipeline.
-
-.. image:: images/pipeline_and_scene.png
-
-In addition, for every object returned by a mlab function,
-``this_object.edit_traits()`` brings up a dialog that can be used to
-interactively edit the object's properties. If the dialog doesn't show up
-when you enter this command, please see the next paragraph.
 
 .. _running-mlab-scripts:
 
@@ -588,10 +628,9 @@ ends with an `_anim` to see how these work and run.
 
 ..  _controlling-the-pipeline-with-mlab-scripts:
 
-Full control of pipeline with `mlab`
+Assembling pipelines with `mlab`
 ---------------------------------------------
 
-.. currentmodule:: enthought.mayavi.tools.pipeline
 
 The plotting functions reviewed above explore only a small fraction of
 the visualization possibilities of Mayavi. The full power of Mayavi can
@@ -617,7 +656,7 @@ the very same pipeline using directly the `pipeline` scripting module, as
 the names of the functions required to create each step of the pipeline
 are directly linked to the default names of the objects created by `mlab`
 on the pipeline. As an example, let us create a visualization using
-`surf`::
+:func:`surf`::
 
     import numpy as np
     a = np.random.random((4, 4))
@@ -644,6 +683,8 @@ The same pipeline can be created using the following code::
 
 Data sources
 ~~~~~~~~~~~~~
+
+.. currentmodule:: enthought.mayavi.tools.pipeline
 
 The `pipeline` module contains functions for creating various data
 sources from arrays. They are fully documented in details in the
@@ -692,6 +733,7 @@ be thus easier to use the keyword arguments, when available, than to set
 the attributes of the objects created. For more information, please check
 out the docstrings.
 
+.. _mlab-case-studies:
 
 Case studies of some visualizations
 -------------------------------------
@@ -926,7 +968,7 @@ sampled on a grid, `u`, `v`, `w`::
     to create visualization objects, it is important to remember that
     Mayavi is an interactive program, and that the properties of these
     objects can be modified interactively, as described in 
-    `Interacting graphically with the visualization`_. It is often
+    `Changing object properties interactively`_. It is often
     impossible to choose the best parameters for a visualization before
     hand. Colors, contour values, colormap, view angle, etc... should be
     chosen interactively. If reproducibility is required, the chosen
@@ -941,6 +983,7 @@ sampled on a grid, `u`, `v`, `w`::
     the VTK documentation, thus using the interactive dialog and
     recording to a script, as described in :ref:`recording-python-script`
     is the prefered way of tweaking a visualization.
+
 ____
 
 .. [1] Toussaint, V.; Carriere, P. & Raynal, F. A numerical Eulerian
