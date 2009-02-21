@@ -11,6 +11,7 @@ Attempts to contact him at certain addresses results in bounced emails.
 Particles.raw   - VTKData
 caffeine.pdb    - VTKData
 cellsnd.ascii.inp - http://people.sc.fsu.edu/~burkardt/data/data.html
+clown.facet - VTKData
 cow.g - VTKData
 cube.vti - Self made.
 edgeFaceElem.exii - VTKData
@@ -24,7 +25,6 @@ prism.neu - VTKData
 pyramid.ply - http://people.sc.fsu.edu/~burkardt/data/data.html
 pyramid_ug.vtu - Self made.
 shuttle.obj - http://people.sc.fsu.edu/~burkardt/data/data.html
-simple_airplane.facet - http://www.engineering.wright.edu/~brigling/RaiderTracer
 tiny.q - Contributed by Francesco Poli
 tiny.xyz - Contributed by Francesco Poli
 

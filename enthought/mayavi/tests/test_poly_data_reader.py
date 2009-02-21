@@ -257,9 +257,9 @@ class TestFacetReader(DataReaderTestBase):
         """
         # Read a Facet data file.
         r = PolyDataReader()
-        r.initialize(get_example_data('simple_airplane.facet'))
+        r.initialize(get_example_data('clown.facet'))
         self.e.add_source(r)
-        self.bounds = (0.0, 158.17, -48.39, 48.39, -15.30, 42.22)
+        self.bounds = (-0.5, 0.69, -0.49, 0.49, -1.09, 0.5)
     
     def test_facet_data_reader(self): 
         "Test if the test fixture works"                       
@@ -314,3 +314,4 @@ class TestSLCReader(DataReaderTestBase):
         
 if __name__ == '__main__':
     unittest.main()
+
