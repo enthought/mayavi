@@ -20,3 +20,4 @@ Files and orginal authors:
 		    help_action.png | GV
                              m2.png | GV
                             mv2.ico | GV
+		    preferences.png | Crystal

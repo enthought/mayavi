@@ -1,4 +1,4 @@
-""" A viewer for mlab scene. Adds a open to open up the engine.
+""" A viewer for mlab scene. Adds a button to open up the engine.
 """
 
 # Author: Gael Varoquaux <gael dot varoquaux at normalesup dot org> 
@@ -38,12 +38,12 @@ class MayaviScene(DecoratedScene):
             scene.
         """
         from enthought.mayavi.core.registry import registry
-        from enthought.mayavi.core.ui.engine_view import EngineView
+        from enthought.mayavi.core.ui.engine_rich_view import EngineRichView
         try:
             engine = registry.find_scene_engine(self)
-            return EngineView(engine=engine).edit_traits()
         except TypeError:
             error('This scene is not managed by Mayavi')
+        return EngineRichView(engine=engine).scene_editing_view(scene=self)
 
     ######################################################################
     # Trait handlers.

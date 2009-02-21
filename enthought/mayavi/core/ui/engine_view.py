@@ -9,8 +9,9 @@
 from os.path import join
 
 # Enthought library imports.
-from enthought.traits.api import Instance, HasTraits, Any, Delegate
-from enthought.traits.ui.api import (Group, Item, TreeEditor, TreeNode,
+from enthought.traits.api import Instance, HasTraits, Any, Delegate, \
+        List, Either
+from enthought.traits.ui.api import (Item, TreeEditor, TreeNode,
         ObjectTreeNode, View, Handler, UIInfo)
 from enthought.traits.ui.menu import ToolBar, Action, Separator
 from enthought.resource.resource_path import resource_path
@@ -34,10 +35,10 @@ class EngineViewHandler(Handler):
     def init_info(self, info):
         """ Informs the handler what the UIInfo object for a View will be.
         Overridden here to save a reference to the info object.
-        
         """
         self.info = info
         return
+
 
     def _on_dclick(self, object):
         """ Called when a node in the tree editor is double-clicked.
@@ -46,7 +47,7 @@ class EngineViewHandler(Handler):
             self.info.object._perform_new_scene()
         else:
             object.edit_traits(view=object.dialog_view(), 
-                           parent=self.info.ui.control )
+                               parent=self.info.ui.control)
 
     def _on_select(self, object):
         """ Called when a node in the tree editor is selected.
@@ -87,8 +88,14 @@ class EngineView(HasTraits):
     # Nodes on the tree.
     nodes = Any
 
+    # TreeEditor 
+    tree_editor = Instance(TreeEditor)
+
     # Toolbar
     toolbar = Instance(ToolBar)
+
+    # Toolbar actions.
+    actions = List(Either(Action, Separator))
 
     # Some delegates, for the toolbar to update
     scenes = Delegate('engine')
@@ -107,39 +114,26 @@ class EngineView(HasTraits):
     def default_traits_view(self):
         """The default traits view of the Engine View.
         """
-        
-        tree_editor = TreeEditor(editable=False,
-                                 hide_root=True,
-                                 on_dclick='handler._on_dclick',
-                                 on_select='handler._on_select',
-                                 orientation='vertical',
-                                 selected='object.engine.current_selection',
-                                 nodes=self.nodes
-                                 )
-
-
-        view = View(Group(Item(name='engine',
+       
+        view = View(Item(name='engine',
                                id='engine',
-                               editor=tree_editor,
-                               resizable=True ),
-                          show_labels=False,
-                          show_border=False,
-                          orientation='vertical'),
+                               editor=self.tree_editor,
+                               resizable=True,
+                               show_label=False),
                     id='enthought.mayavi.engine',
                     help=False,
                     resizable=True,
+                    scrollable=True,
                     undo=False,
                     revert=False,
                     ok=False,
                     cancel=False,
-                    title='Mayavi pipeline',
                     icon=self.icon,
-                    width=0.3,
-                    height=0.3,
+                    title = 'Mayavi pipeline',
                     toolbar=self.toolbar,
-                    handler = EngineViewHandler)
+                    handler=EngineViewHandler)
         return view
-    
+
 
     def _nodes_default(self):
         """ The default value of the cached nodes list.
@@ -175,7 +169,24 @@ class EngineView(HasTraits):
         return nodes
 
 
-    def _toolbar_default(self): 
+    def _tree_editor_default(self):
+        return TreeEditor(editable=False,
+                                 hide_root=True,
+                                 on_dclick='handler._on_dclick',
+                                 on_select='handler._on_select',
+                                 orientation='vertical',
+                                 selected='object.engine.current_selection',
+                                 nodes=self.nodes
+                        )
+
+    def _toolbar_default(self):
+        toolbar = ToolBar(*self.actions)
+        toolbar.image_size = (16, 16)
+        toolbar.show_tool_names = False
+        toolbar.show_divider = False
+        return toolbar
+ 
+    def _actions_default(self):
         add_scene = \
             Action(
                 image=ImageResource('add_scene.png',
@@ -236,6 +247,7 @@ class EngineView(HasTraits):
                 enabled_when='True',
                 perform=open_help_index,
             )
+
         record = \
             Action(
                 image=ImageResource('record.png',
@@ -248,18 +260,8 @@ class EngineView(HasTraits):
                 perform=self._perform_record,
             )
 
-        return ToolBar(
-            add_scene,
-            add_source,
-            add_module,
-            add_filter,
-            Separator(),
-            help,
-            record,
-            image_size = (16, 16),
-            show_tool_names = False,
-            show_divider = False,
-        )
+        return [add_scene, add_source, add_module, add_filter, 
+                Separator(), help, record,]
 
 
     ###########################################################################
