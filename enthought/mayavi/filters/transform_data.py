@@ -36,7 +36,7 @@ class TransformData(Filter):
     __version__ = 0
 
     # The widget that we use to perform the transformation.
-    widget = Instance(tvtk.ThreeDWidget, allow_none=False)
+    widget = Instance(tvtk.ThreeDWidget, allow_none=False, record=True)
 
     # The filter we manage.
     filter = Instance(tvtk.Object, allow_none=False)
@@ -162,6 +162,16 @@ class TransformData(Filter):
         f.transform = tfm
         f.update()
         self.render()
+        recorder = self.recorder
+        if recorder is not None:
+            state = {}
+            state['elements'] = tfm.matrix.__getstate__()['elements']
+            name = recorder.get_script_id(self)
+            recorder.record('%s.transform.matrix.__setstate__(%s)'\
+                            %(name, state))
+            recorder.record('%s.widget.set_transform(%s.transform)'\
+                            %(name, name))
+            recorder.record('%s.filter.update()'%name)
     
     def _widget_changed(self, old, new):
         if old is not None:
