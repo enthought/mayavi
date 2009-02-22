@@ -763,6 +763,11 @@ class MTriangularMeshSource(MlabSource):
         self.update()
 
     def _triangles_changed(self, triangles):
+        if triangles.min() < 0:
+            raise ValueError, 'The triangles array has negative values'
+        if triangles.max() > self.x.size:
+            raise ValueError, 'The triangles array has values larger than' \
+                                        'the number of points'
         self.dataset.polys = triangles
         self.update() 
    
@@ -1228,6 +1233,11 @@ def triangular_mesh_source(x, y, z, triangles, **kwargs):
         """
     x, y, z, triangles = convert_to_arrays((x, y, z, triangles))
 
+    if triangles.min() < 0:
+        raise ValueError, 'The triangles array has negative values'
+    if triangles.max() > x.size:
+        raise ValueError, 'The triangles array has values larger than' \
+                                    'the number of points'
     scalars = kwargs.pop('scalars', None)
     if scalars is None:
         scalars = z
