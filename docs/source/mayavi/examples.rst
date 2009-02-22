@@ -36,13 +36,13 @@ with the mayavi sources ship.  These may be found in the
 these are not installed, the sources may be downloaded from here:
 http://code.enthought.com/enstaller/eggs/source/
 
-**Examples**:
+.. topic:: **Examples**:
 
-.. toctree::
+    .. toctree::
 
-    example_parametric_surface.rst
-    example_heart.rst
-    example_fire.rst
-    example_using_with_scipy.rst  
-    example_exploring_a_vector_field.rst
+        example_parametric_surface.rst
+        example_heart.rst
+        example_fire.rst
+        example_using_with_scipy.rst  
+        example_exploring_a_vector_field.rst
 

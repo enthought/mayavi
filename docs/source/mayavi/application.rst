@@ -112,10 +112,12 @@ the data using several :ref:`modules`.
 Here we list all the Mayavi `modules` and `filters`. This list is useful
 as a reference:
 
-.. toctree::
+.. topic:: **List of modules and filters**
 
-    modules.rst
-    filters.rst
+    .. toctree::
+
+        modules.rst
+        filters.rst
 
 
 .. _interaction-with-the-scene:

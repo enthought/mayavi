@@ -16,7 +16,7 @@ Sources
 builtin_image
 ~~~~~~~~~~~~~
 
-.. function:: builtin_image(metadata=<enthought.mayavi.core.metadata.SourceMetadata object at 0x2bf46b0>)
+.. function:: builtin_image(metadata=<enthought.mayavi.core.metadata.SourceMetadata object at 0xa51aecc>)
 
     Create a vtk image data source
     
@@ -27,7 +27,7 @@ builtin_image
 parametric_surface
 ~~~~~~~~~~~~~~~~~~
 
-.. function:: parametric_surface(metadata=<enthought.mayavi.core.metadata.SourceMetadata object at 0x2bf43b0>)
+.. function:: parametric_surface(metadata=<enthought.mayavi.core.metadata.SourceMetadata object at 0xa51ad1c>)
 
     Create a parametric surface source
     
@@ -38,7 +38,7 @@ parametric_surface
 builtin_surface
 ~~~~~~~~~~~~~~~
 
-.. function:: builtin_surface(metadata=<enthought.mayavi.core.metadata.SourceMetadata object at 0x2bf4590>)
+.. function:: builtin_surface(metadata=<enthought.mayavi.core.metadata.SourceMetadata object at 0xa51ae3c>)
 
     Create a vtk poly data source
     
@@ -307,7 +307,7 @@ scalar_scatter
 point_load
 ~~~~~~~~~~
 
-.. function:: point_load(metadata=<enthought.mayavi.core.metadata.SourceMetadata object at 0x2bf4470>)
+.. function:: point_load(metadata=<enthought.mayavi.core.metadata.SourceMetadata object at 0xa51adac>)
 
     Simulates a point load on a cube of data (for tensors)
     

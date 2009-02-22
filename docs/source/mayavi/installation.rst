@@ -193,8 +193,7 @@ will run.
    'c:\docume~1\USERNAME;' (where USERNAME is the login name)
 
 5. Install Setuptools (0.6c9 binary) from its webpage, and
-  'C:\Python25\Scripts;' to the PATH environment variables
-
+   'C:\Python25\Scripts;' to the PATH environment variables
 
 6. Install VTK 5.2 (using Dr Charl P. Botha Windows binary
    http://cpbotha.net/2008/09/23/python-25-enabled-vtk-52-windows-binaries/
