@@ -13,6 +13,11 @@ MayaVi2:
         - Option to make slicing and other operations less interactive
           (like the streamline module) for larger data.
         - Transfer editor for images. (g)
+	- Improve the recorder UI:
+	    * Integrate the dialog in Envisage, when using Envisage.
+	    * Remove the 'save dialog' that pops up when the recording
+	      mode is turned off.
+	    * Stop recording when the recording dialog is closed.
 
     - Misc:
         - Support for animation.
