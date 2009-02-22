@@ -5,6 +5,8 @@ Simple utility code for animations.
 # Copyright (c) 2009, Enthought, Inc.
 # License: BSD Style.
 
+import types
+
 from enthought.pyface.timer.api import Timer
 from enthought.traits.api import HasTraits, Button, Instance, Range
 from enthought.traits.ui.api import View, Group, Item
@@ -19,14 +21,14 @@ class Animator(HasTraits):
     Here is a simple example of using this class::
 
         >>> from enthought.mayavi import mlab
-        >>> def animate():
+        >>> def anim():
         ...     f = mlab.gcf()
         ...     while 1:
         ...         f.scene.azimuth(10)
         ...         f.scene.render()
         ...         yield
         ...
-        >>> anim = animate()
+        >>> anim = anim()
         >>> t = Animator(500, anim.next)
         >>> t.edit_traits()
 
@@ -83,7 +85,7 @@ class Animator(HasTraits):
     ######################################################################
     # Non-public methods, Event handlers
     def _start_fired(self):
-        self.timer.Start()        
+        self.timer.Start(self.delay) 
         
     def _stop_fired(self):
         self.timer.Stop()
@@ -95,4 +97,91 @@ class Animator(HasTraits):
         if t.IsRunning():
             t.Stop()
             t.Start(value)
+
+
+
+################################################################################ 
+# Decorators.
+
+def animate(func=None, delay=500, ui=True):
+    """A convenient decorator to animate a generator that performs an
+    animation.  The `delay` parameter specifies the delay (in
+    milliseconds) between calls to the decorated function. If `ui` is
+    True, then a simple UI for the animator is also popped up.  The
+    decorated function will return the `Animator` instance used and a
+    user may call its `Stop` method to stop the animation.  
+    
+    If an ordinary function is decorated a `TypeError` will be raised.
+
+
+    **Parameters**
+
+      delay : int -- Time interval in milliseconds between calls to the
+                     function.
+
+      ui : bool : -- Specifies if a UI controlling the animation is to
+                     be provided.
+
+    **Returns**
+
+      The decorated function returns an `Animator` instance.
+
+
+    **Examples**
+
+    Here is the example provided in the Animator class documentation::
+
+        >>> from enthought.mayavi import mlab
+        >>> @animate
+        ... def anim():
+        ...     f = mlab.gcf()
+        ...     while 1:
+        ...         f.scene.azimuth(10)
+        ...         f.scene.render()
+        ...         yield
+        ...
+        >>> a = anim() # Starts the animation.
+    
+    For more specialized use you can pass arguments to the decorator::
+
+        >>> from enthought.mayavi import mlab
+        >>> @animate(delay=500, ui=False)
+        ... def anim():
+        ...     f = mlab.gcf()
+        ...     while 1:
+        ...         f.scene.azimuth(10)
+        ...         f.scene.render()
+        ...         yield
+        ...
+        >>> a = anim() # Starts the animation without a UI.
+
+    """
+
+    class Wrapper(object):
+        # The wrapper which calls the decorated function.
+        def __init__(self, function):
+            self.func = function
+            self.ui = ui
+            self.delay = delay
+        def __call__(self, *args, **kw):
+            f = self.func(*args, **kw)
+            if isinstance(f, types.GeneratorType):
+                a = Animator(self.delay, f.next)
+                if self.ui:
+                    a.edit_traits()
+                return a
+            else:
+                msg = 'The function "%s" must be a generator '\
+                      '(use yield)!'%(self.func.__name__)
+                raise TypeError(msg)
+
+    def _wrapper1(function):
+        # Needed to create the Wrapper in the right scope.
+        w = Wrapper(function)
+        return w
+        
+    if func is None:
+        return _wrapper1
+    else:
+        return _wrapper1(func)
 
