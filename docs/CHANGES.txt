@@ -11,12 +11,37 @@ https://svn.enthought.com/enthought/changeset/18702
 Unreleased changes (trunk)
 ----------------------------
 
+21 February, 2009 (GV)
+    - ENH: Add a richer view for the pipeline to the MayaviScene? [23035]
+    - ENH: Add safegards to capture wrong triangle array sizes in
+      mlab.triangular_mesh_source. [23037]
+
+21 February, 2009 (PR)
+    - ENH: Making the transform data filter recordable. [23033]
+    - NEW: A simple animator class to make it relatively to create 
+      animations. [23036]
+
+20 February, 2009 (PR)
+    - ENH: Added readers for various image file formats, poly data
+      readers and unstructured grid readers. These include DICOM,
+      GESigna, DEM, MetaImage? (mha,mhd) MINC, AVSucd, GAMBIT, Exodus, STL,
+      Points, Particle, PLY, PDF, SLC, OBJ, Facet and BYU files. Also added
+      several tests for most of this functionality along with small data files.
+      These are additions from PR's project staff, Suyog Jain and Sreekanth
+      Ravindran.  [23013]   	
+    - ENH: We now change the default so the ImagePlaneWidget does not
+      control the LUT. Also made the IPW recordable. [23011]
+
+18 February, 2009 (GV)
+    - ENH: Add a preference manager view for editing preferences outside
+      envisage [22998]
+
 08 February, 2009 (GV)
-    - Center the glyphs created by barchart on the data points, as
+    - ENH: Center the glyphs created by barchart on the data points, as
       mentioned by Rauli Ruohonen [22906]
 
 29 January, 2009 (GV)
-    - Make it possible to avoid redraws with mlab by using
+    - ENH: Make it possible to avoid redraws with mlab by using
       `mlab.gcf().scene.disable_render = True` [22869]
 
 28 January, 2009 (PR and GV)
