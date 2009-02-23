@@ -132,7 +132,7 @@ def animate(func=None, delay=500, ui=True):
     Here is the example provided in the Animator class documentation::
 
         >>> from enthought.mayavi import mlab
-        >>> @animate
+        >>> @mlab.animate
         ... def anim():
         ...     f = mlab.gcf()
         ...     while 1:
