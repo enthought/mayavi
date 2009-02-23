@@ -15,7 +15,7 @@ from enthought.mayavi.tools.figure import figure, clf, gcf, savefig, draw
 from enthought.mayavi.tools.engine_manager import get_engine, show_pipeline, \
         options, set_engine
 from enthought.mayavi.tools.show import show
-
+from enthought.mayavi.tools.animator import animate
 
 def show_engine():
     """ This function is depreciated, please use show_pipeline.
