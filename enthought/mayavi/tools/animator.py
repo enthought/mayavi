@@ -146,7 +146,7 @@ def animate(func=None, delay=500, ui=True):
 
         >>> from enthought.mayavi import mlab
         >>> @animate(delay=500, ui=False)
-        ... def anim():
+        ... def mlab.anim():
         ...     f = mlab.gcf()
         ...     while 1:
         ...         f.scene.azimuth(10)
