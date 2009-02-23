@@ -145,8 +145,8 @@ def animate(func=None, delay=500, ui=True):
     For more specialized use you can pass arguments to the decorator::
 
         >>> from enthought.mayavi import mlab
-        >>> @animate(delay=500, ui=False)
-        ... def mlab.anim():
+        >>> @mlab.animate(delay=500, ui=False)
+        ... def anim():
         ...     f = mlab.gcf()
         ...     while 1:
         ...         f.scene.azimuth(10)
