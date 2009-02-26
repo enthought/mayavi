@@ -124,6 +124,9 @@ the example and it should print out the directory.
 Off screen rendering
 --------------------
 
+Avoiding the rendering window
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 Often you write Mayavi scripts to render a whole batch of images to make
 an animation or so and find that each time you save an image, Mayavi
 "raises" the window to make it the active window thus disrupting your
@@ -156,10 +159,21 @@ you are using win32 then off screen rendering should work well out of
 the box.  On Linux and the Mac you will need VTK-5.2  to get this
 working properly.
 
-If upgrading VTK is a problem there is another approach for any OS
-that supports X11.  This option should work irrespective of the
-version of VTK you are using.  The idea is to use the virtual
-framebuffer X server for X11 like so:
+If upgrading VTK is a problem there is another approach for any OS that
+supports X11 detailed in the next paragraph. This option should work
+irrespective of the version of VTK you are using.
+
+Rendering without an X server 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+VTK uses openGL for all its rendering. Under any conventional Unix
+(including Linux), you need an Xserver running to open a GL context. This
+might be a problem when rendering on a headless server. As mentionned in
+the above paragraph, on a desktop, using the default server may also be a
+problem as it interferes with your ongoing work.
+
+A good workaround is to use the virtual framebuffer X server for X11 like
+so:
 
   * Make sure you have the ``Xvfb`` package installed.
 
