@@ -1561,9 +1561,9 @@ class Arrow(HasTraits):
     ######################################################################
     # Non-public methods, Event handlers  
     def _create_points(self, rc, lc, rs, ps):
-        as = tvtk.ArrowSource(tip_radius = rc, tip_length = lc, shaft_radius = rs)
-        as.update()
-        ps = as.output
+        asrc = tvtk.ArrowSource(tip_radius = rc, tip_length = lc, shaft_radius = rs)
+        asrc.update()
+        ps = asrc.output
         points = ps.points.to_array()
         points = translate(numpy.array([0.0, 0.0, 0.0]), self.pos, points)
         self.points = points
