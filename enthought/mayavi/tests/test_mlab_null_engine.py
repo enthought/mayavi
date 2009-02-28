@@ -8,9 +8,11 @@ import unittest
 
 import numpy as np
 
+from enthought.etsconfig.api import ETSConfig
 from enthought.mayavi import mlab
 from enthought.mayavi.core.engine import Engine
-
+from enthought.mayavi.tools.engine_manager import engine_manager
+from enthought.mayavi.core.registry import registry
 from enthought.tvtk.api import tvtk
 
 class TestMlabNullEngine(unittest.TestCase):
@@ -52,7 +54,30 @@ class TestMlabNullEngine(unittest.TestCase):
         if not mlab.get_engine() is self._non_null_engine:
             raise AssertionError, \
                     "The NullEngine has overridden the default one"
+        engine_manager.current_engine = None
+        # Unregistering all unused engines.
+        registry.unregister_engine(self._non_null_engine)
+        for engine in registry.engines.keys():
+            registry.unregister_engine(engine)
  
+
+class TestRealMlabNullEngine(unittest.TestCase):
+    """Tests if the mlab settings via the options.backend and offscreen
+    options work correctly."""
+
+    def setUp(self):
+        self.backend = mlab.options.backend
+
+    def tearDown(self):
+        mlab.options.backend = self.backend
+        for engine in registry.engines.keys():
+            registry.unregister_engine(engine)
+
+    def test_test_backend(self):
+        """Test if setting the backend to 'test' works."""
+        mlab.options.backend = 'test'
+        mlab.test_contour3d()
+        mlab.clf()
 
 if __name__ == '__main__':
     unittest.main()

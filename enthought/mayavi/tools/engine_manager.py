@@ -13,6 +13,7 @@ from enthought.mayavi.preferences.api import preference_manager
 from enthought.mayavi.core.registry import registry
 from enthought.mayavi.core.engine import Engine
 from enthought.mayavi.core.off_screen_engine import OffScreenEngine
+from enthought.mayavi.core.null_engine import NullEngine
 from enthought.mayavi.core.common import process_ui_events
 from preferences_mirror import PreferencesMirror
 
@@ -30,7 +31,8 @@ def check_backend():
     from enthought.mayavi.tools.engine_manager import options
     
     toolkit() # This forces the selection of a toolkit.
-    if options.backend != 'test' and ETSConfig.toolkit in ('null', ''):
+    if (options.backend != 'test' and options.offscreen != True) and \
+            ETSConfig.toolkit in ('null', ''):
         raise ImportError, '''Could not import backend for traits
 ________________________________________________________________________________
 Make sure that you have either the TraitsBackendWx or the TraitsBackendQt
@@ -84,7 +86,7 @@ class EngineManager(HasTraits):
         elif options.backend == 'envisage':
             suitable = [e for e in engines 
                                 if e.__class__.__name__ == 'EnvisageEngine']
-        elif options.backend in ('test', 'null'):
+        elif options.backend == 'test':
             suitable = [e for e in engines 
                                 if e.__class__.__name__ == 'NullEngine']
         else:
@@ -96,6 +98,33 @@ class EngineManager(HasTraits):
             # Return the most engine add to the list most recently.
             self.current_engine = suitable[-1]
             return suitable[-1]
+
+    def get_null_engine(self):
+        """Return a suitable null engine and make that the current
+        engine.
+        """
+        # First check if the current engine is running and if it is in
+        # the registered engines.
+        ce = self.current_engine
+        if ce is not None:
+            if not ce.running or ce not in registry.engines.values():
+                self.current_engine = None
+
+        if self.current_engine is not None:
+            engines = list((self.current_engine,))
+        else:
+            engines = list()
+        engines.extend(registry.engines.values())
+        engine = None
+        for e in engines:
+            if e.__class__.__name__ == 'NullEngine':
+                engine = e
+                break
+        else:
+            engine = NullEngine(name='Null Mlab Engine')
+            engine.start()
+        self.current_engine = engine
+        return engine
 
     def set_engine(self, engine):
         """ Sets the mlab engine.
@@ -116,8 +145,7 @@ class EngineManager(HasTraits):
             m.main()
             process_ui_events()
             engine = m.script.engine
-        elif options.backend in ('test', 'null'):
-            from enthought.mayavi.tests.common import NullEngine
+        elif options.backend == 'test':
             engine = NullEngine(name='Null Mlab Engine')
             engine.start()
         else:
@@ -160,6 +188,8 @@ class EngineManager(HasTraits):
 engine_manager = EngineManager()
 
 get_engine = engine_manager.get_engine
+
+get_null_engine = engine_manager.get_null_engine
 
 set_engine = engine_manager.set_engine
 

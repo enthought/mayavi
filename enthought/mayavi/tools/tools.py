@@ -18,7 +18,7 @@ from enthought.mayavi.core.module_manager import ModuleManager
 from enthought.mayavi.sources.array_source import ArraySource
 from enthought.mayavi.core.source import Source
 
-from engine_manager import get_engine, engine_manager
+from engine_manager import get_engine, engine_manager, get_null_engine
 from figure import gcf
 
 ######################################################################
@@ -55,9 +55,8 @@ def add_dataset(dataset, name='', **kwargs):
         gcf()
         engine = get_engine()
     elif kwargs['figure'] is False:
-        from enthought.mayavi.core.null_engine import NullEngine
-        engine = NullEngine()
-        engine.start()
+        # Get a null engine that we can use.
+        engine = get_null_engine()
     elif kwargs['figure'] is not None:
         figure = kwargs['figure']
         engine = engine_manager.find_figure_engine(figure)
