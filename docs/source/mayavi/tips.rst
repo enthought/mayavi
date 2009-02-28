@@ -124,6 +124,7 @@ the example and it should print out the directory.
 Off screen rendering
 --------------------
 
+
 Avoiding the rendering window
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -131,7 +132,8 @@ Often you write Mayavi scripts to render a whole batch of images to make
 an animation or so and find that each time you save an image, Mayavi
 "raises" the window to make it the active window thus disrupting your
 work.  This is needed since VTK internally grabs the window to make a
-picture. 
+picture.  Occluding the window will also produce either blank or
+incorrect images. 
 
 If you already have a Python script, say ``script.py`` that sets up your
 visualization that you run like so::
@@ -148,42 +150,71 @@ this works best with VTK-5.2 and above.  For more details on the command
 line arguments supported by the ``mayavi2`` application, see the
 :ref:`command-line-arguments` section.
 
+When using ``mlab`` you will want to do this::
+
+   mlab.options.offscreen = True
+
+before you create a figure and it will use an offscreen window for the
+rendering.
 
 Another option for offscreen rendering would be to click on the scene
 and set the "Off screen rendering" option on.  Or from a script::
 
   mayavi.engine.current_scene.scene.off_screen_rendering = True
 
-This will stop raising the window.  However, this may not be enough.  If
-you are using win32 then off screen rendering should work well out of
-the box.  On Linux and the Mac you will need VTK-5.2  to get this
-working properly.
+This will stop raising the window.  However, this may not be enough.
+Please see below on the situation on different platforms.
 
-If upgrading VTK is a problem there is another approach for any OS that
-supports X11 detailed in the next paragraph. This option should work
-irrespective of the version of VTK you are using.
+Platform Summary
+~~~~~~~~~~~~~~~~~
 
-Rendering without an X server 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* **Windows**: If you are using win32 then off screen rendering should work
+  well out of the box.  All you will need to do is what is given above.
+
+* **Linux and the Mac**: there are several options to get this working
+  correctly and some major issues to consider:
+
+  If you have VTK-5.2 the offscreen rendering option should let you
+  generate the pictures without worrying about occluding the window.
+  However, you will need VTK-5.2 to get this working properly.  There
+  are also situations when this does not always work -- try it and if
+  you get blank windows, you have a problem.  For example::
+
+      from enthought.mayavi import mlab
+      mlab.options.offscreen = True
+      mlab.test_contour3d()
+      mlab.savefig('example.png')
+
+  If this produces a clean image (even if you switch desktops or cover
+  any windows produced), you should be golden.  If not you should
+  consider either using a virtual framebuffer or building VTK with Mesa
+  + OSMesa to give you a pure software rendering approach.
+
+
+
+Rendering using the virtual framebuffer
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 VTK uses openGL for all its rendering. Under any conventional Unix
-(including Linux), you need an Xserver running to open a GL context. This
-might be a problem when rendering on a headless server. As mentionned in
-the above paragraph, on a desktop, using the default server may also be a
-problem as it interferes with your ongoing work.
+(including Linux), you need an Xserver running to open a GL context
+(especially if you want hardware acceleration). This might be a problem
+when rendering on a headless server. As mentioned in the above
+paragraph, on a desktop, using the default server may also be a problem
+as it interferes with your ongoing work.
 
 A good workaround is to use the virtual framebuffer X server for X11 like
 so:
 
-  * Make sure you have the ``Xvfb`` package installed.
+  * Make sure you have the ``Xvfb`` package installed.  For example
+    under Debian and derivatives this is called the ``xvfb`` package.
 
   * Create the virtual framebuffer X server like so::
 
       Xvfb :1 -screen 0 1280x1024x24 -auth localhost
 
-    This creates the display ":1" and creates a screen of size
-    1280x1024 with 24 bpp.  For more options check your ``Xvfb`` man
-    page.
+    This creates the display ":1" and creates a screen of size 1280x1024
+    with 24 bpp (the 24bpp is important).  For more options check your
+    ``Xvfb`` man page.
 
   * Export display to :1 like so (on bash)::
 
@@ -201,17 +232,97 @@ Python script with Mayavi2 visualizations headless::
     xvfb-run --server-args="-screen 0 1024x768x24" python my_script.py
 
 Beware that you shouldn't call `mlab.show` or start the mainloop in the
-script, elsewhere the script will run enlessly, waiting for interaction
+script, elsewhere the script will run endlessly, waiting for interaction
 in a hidden window.
 
 .. note:: 
 
-    If you want to use mayavi without the envisage UI or even a
-    traits UI (i.e. with a pure TVTK window) and do off screen rendering
-    with Python scripts you may be interested in the
-    ``examples/offscreen.py`` example.  This simple example shows how you
-    can use Mayavi without using Envisage or the Mayavi envisage
-    application and still do off screen rendering.
+    If you want to use mayavi without the envisage UI or even a traits
+    UI (i.e. with a pure TVTK window) and do off screen rendering with
+    Python scripts you may be interested in the
+    ``examples/offscreen.py`` or the ``examples/offscreen_mlab.py``
+    example.  This simple example shows how you can use Mayavi without
+    using Envisage or the Mayavi envisage application and still do off
+    screen rendering.
+
+
+Using VTK with Mesa for pure software rendering
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Sometimes you might want to run Mayavi/VTK completely headless on a
+machine with no X server at all and are interested in pure offscreen
+rendering (for example for usage on the Sage_ notebook interface).  In
+these cases one could use Mesa's OSMesa library to render offscreen.
+The downside is that you will not get any hardware acceleration in this
+case.  Here are brief instructions on how to build VTK to do this.
+
+ * Build a recent version of mesa.  7.0.4 (as of this time) should work
+   as would 7.2.  We assume you download MesaLib-7.0.4.tar.bz2.
+
+ * Untar, and change directory to the new directory created. We call
+   this directory ``$MESA`` henceforth.
+
+ * Run ``make configs/linux-x86``,  change file as per your
+   configuration. Run ``make`` to see list of options.  Note: 7.2 has a
+   ``./configure`` script that you can run.
+
+ * Get VTK-5.2 or later (CVS will also work)..
+
+ * Run ``ccmake path/to/VTK``.
+
+   * Now select advanced options 't'.
+
+   * Set ``VTK_OPENGL_HAS_OSMESA ON``
+
+   * Configure: press 'c'
+
+   * Set the ``OSMESA_INCLUDE_DIR`` to the ``$MESA/include dir``
+
+   * Set ``OSMESA_LIBRARY`` to ``$MESA/lib/libOSMesa.so``
+
+   * Similarly set the ``OPENGL_INCLUDE_DIR``,
+     ``OPENGL_gl_LIBRARY=$MESA/lib/libGL.so``,
+     ``OPENGL_glu_LIBRARY``, and ``OPENGL_xmesa_INCLUDE_DIR``.
+
+   * Set ``VTK_USE_OFFSCREEN`` to ``ON`` if you want offscreen all the
+     time, this will never produce an actual mapped VTK window since the
+     default value of the render window's offscreen rendering ivar will
+     be set to True in this case.
+
+   * Any other settings like ``VTK_USE_GL2PS, USE_RPATH`` etc.
+
+   * Configure again (press 'c') and then generate 'g'.
+
+ * Run ``make`` and wait till VTK has built.  Let us say the build is in
+   ``$VTK_BUILD``.
+
+ * Now install VTK or set the ``PYTHONPATH`` and ``LD_LIBRARY_PATH``
+   suitably.  Also ensure that ``LD_LIBRARY_PATH`` points to
+   ``$MESA/lib`` (if the mesa libs are not installed on the system) this
+   ensures that VTK links to the right GL libs.  For example::
+        $ export PYTHONPATH=$VTK_BUILD/bin:$VTK_BUILD/Wrapping/Python``
+        $ export LD_LIBRARY_PATH=$VTK_BUILD/bin:$MESA/lib
+        
+   Now, you should be all set.  
+
+Once this is done you should be able to run mlab examples offscreen.
+This will work without an X display even.
+
+With such a VTK built and running, one could simply build and install
+mayavi2.  To use it in a Sage notebook for example you'd want to set
+``ETS_TOOLKIT='null'`` and set ``mlab.options.offscreen = True``.  Thats
+it.  Everything should now work offscreen.
+
+Note that if you set ``VTK_USE_OFFSCREEN`` to ``ON`` then you'll by
+default only get offscreen contexts.  If you do want a UI you will want
+to explicitly set the render window's ``off_screen_rendering`` ivar to
+``False`` to force a mapped window.  For this reason if you might need
+to popup a full UI, it might be better to *not set*
+``VTK_USE_OFFSCREEN=ON``.  
+
+
+
+.. _Sage: http://www.sagemath.org
 
 
 Using ``mlab`` with the full Envisage UI
