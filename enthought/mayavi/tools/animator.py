@@ -24,7 +24,7 @@ class Animator(HasTraits):
         >>> def anim():
         ...     f = mlab.gcf()
         ...     while 1:
-        ...         f.scene.azimuth(10)
+        ...         f.scene.camera.azimuth(10)
         ...         f.scene.render()
         ...         yield
         ...
@@ -136,7 +136,7 @@ def animate(func=None, delay=500, ui=True):
         ... def anim():
         ...     f = mlab.gcf()
         ...     while 1:
-        ...         f.scene.azimuth(10)
+        ...         f.scene.camera.azimuth(10)
         ...         f.scene.render()
         ...         yield
         ...
@@ -149,7 +149,7 @@ def animate(func=None, delay=500, ui=True):
         ... def anim():
         ...     f = mlab.gcf()
         ...     while 1:
-        ...         f.scene.azimuth(10)
+        ...         f.scene.camera.azimuth(10)
         ...         f.scene.render()
         ...         yield
         ...
