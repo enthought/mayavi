@@ -138,8 +138,7 @@ class EngineManager(HasTraits):
         """ Creates a new engine, envisage or not depending on the
             options.
         """
-        if not options.offscreen:
-            check_backend()
+        check_backend()
         if options.backend == 'envisage':
             from enthought.mayavi.plugins.app import Mayavi
             m = Mayavi()
