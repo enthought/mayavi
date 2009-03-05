@@ -64,7 +64,7 @@ axes
 show
 ~~~~
 
-.. function:: show(func=None)
+.. function:: show(func=None, stop=False)
 
     Start interacting with the figure.
     
@@ -76,6 +76,44 @@ show
     running it simply runs the function.  If not the event loop is
     started and function is run in the toolkit's event loop.  The choice
     of UI is via `ETSConfig.toolkit`.
+    
+    If the argument stop is set to True then it pops up a UI where the
+    user can stop the event loop.  Subsequent calls to `show` will
+    restart the event loop.
+    
+    **Parameters**
+    
+     stop : bool -- Specifies if a UI dialog is displayed which allows
+                    the event loop to be stopped.
+    
+    **Examples**
+    
+    Here is a simple example demonstrating the use of show::
+    
+      >>> from enthought.mayavi import mlab
+      >>> mlab.test_contour3d()
+      >>> mlab.show()
+    
+    You can stop interaction via a simple pop up UI like so::
+    
+      >>> mlab.test_contour3d()
+      >>> mlab.show(stop=True)
+    
+    The decorator can be used like so::
+    
+      >>> @mlab.show
+      ... def do():
+      ...    mlab.test_contour3d()
+      ...
+      >>> do()
+    
+    The decorator can also be passed the stop argument::
+    
+      >>> @mlab.show(stop=True)
+      ... def do():
+      ...    mlab.test_contour3d()
+      ...
+      >>> do()
     
     
 
@@ -127,6 +165,67 @@ set_engine
 .. function:: set_engine(self, engine)
 
     Sets the mlab engine.
+    
+
+    
+
+
+animate
+~~~~~~~
+
+.. function:: animate(func=None, delay=500, ui=True)
+
+    A convenient decorator to animate a generator that performs an
+    animation.  The `delay` parameter specifies the delay (in
+    milliseconds) between calls to the decorated function. If `ui` is
+    True, then a simple UI for the animator is also popped up.  The
+    decorated function will return the `Animator` instance used and a
+    user may call its `Stop` method to stop the animation.
+    
+    If an ordinary function is decorated a `TypeError` will be raised.
+    
+    
+    **Parameters**
+    
+      delay : int -- Time interval in milliseconds between calls to the
+                     function.
+    
+      ui : bool : -- Specifies if a UI controlling the animation is to
+                     be provided.
+    
+    **Returns**
+    
+      The decorated function returns an `Animator` instance.
+    
+    
+    **Examples**
+    
+    Here is the example provided in the Animator class documentation::
+    
+        >>> from enthought.mayavi import mlab
+        >>> @mlab.animate
+        ... def anim():
+        ...     f = mlab.gcf()
+        ...     while 1:
+        ...         f.scene.azimuth(10)
+        ...         f.scene.render()
+        ...         yield
+        ...
+        >>> a = anim() # Starts the animation.
+    
+    For more specialized use you can pass arguments to the decorator::
+    
+        >>> from enthought.mayavi import mlab
+        >>> @mlab.animate(delay=500, ui=False)
+        ... def anim():
+        ...     f = mlab.gcf()
+        ...     while 1:
+        ...         f.scene.azimuth(10)
+        ...         f.scene.render()
+        ...         yield
+        ...
+        >>> a = anim() # Starts the animation without a UI.
+    
     
 
     

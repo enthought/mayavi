@@ -293,6 +293,26 @@ case.  Here are brief instructions on how to build VTK to do this.
 
    * Configure again (press 'c') and then generate 'g'.
 
+
+   * Note that if you do not want to use ``ccmake`` and would like to do
+     this from the command line you may also do (for example)::
+
+        cmake \
+        -DVTK_OPENGL_HAS_OSMESA=ON \
+        -DVTK_USE_OFFSCREEN=ON \
+        -DCMAKE_INSTALL_PREFIX=/path/to/vtk-offscreen \
+        -DVTK_WRAP_PYTHON=ON \
+        -DPYTHON_EXECUTABLE=/usr/bin/python2.5 \
+        -DPYTHON_LIBRARY=/usr/lib/libpython2.5.so \
+        -DBUILD_SHARED_LIBS=ON \
+        -DVTK_USE_GL2PS=ON \
+        -DOSMESA_INCLUDE_DIR=/path/to/Mesa-7.2/include/ \
+        -DOSMESA_LIBRARY=/home/path/to/Mesa-7.2/lib64/libOSMesa.so \
+        -DOPENGL_INCLUDE_DIR=/path/to/Mesa-7.2/include \
+        -DOPENGL_gl_LIBRARY=/path/to/Mesa-7.2/lib64/libGL.so \
+        -DOPENGL_glu_LIBRARY=/path/to/Mesa-7.2/lib64/libGLU.so \
+        path/to/VTK/
+
  * Run ``make`` and wait till VTK has built.  Let us say the build is in
    ``$VTK_BUILD``.
 
