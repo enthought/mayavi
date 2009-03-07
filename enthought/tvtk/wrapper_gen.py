@@ -464,6 +464,17 @@ class WrapperGenerator:
                             'auto_set=False)'%locals()
                     self._write_trait(out, name, t_def, vtk_set_meth,
                                       mapped=False)
+                elif m in ['AreaLabelArrayName'] and \
+                        klass.__name__ == 'vtkTreeAreaView':
+                    # A special case for the vtkTreeAreaView which
+                    # returns a default None value for what ought to be
+                    # a string.  This is perhaps best fixed in the VTK
+                    # Python wrapper but thats just too much work.
+                    t_def = "traits.Trait('%(default)s', None, "\
+                            "traits.String('%(default)s', enter_set=True, "\
+                            "auto_set=False))"%locals()
+                    self._write_trait(out, name, t_def, vtk_set_meth,
+                                      mapped=False)
                 elif typ in types.StringTypes:
                     if default == '\x00':
                         default = ''

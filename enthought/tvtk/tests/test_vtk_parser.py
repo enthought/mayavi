@@ -62,7 +62,11 @@ class TestVTKParser(unittest.TestCase):
                'FrontfaceCulling': 0}
         if p.get_toggle_methods().has_key('Shading'):
             res['Shading'] = 0
-        self.assertEqual(p.get_toggle_methods(), res)
+
+        result = p.get_toggle_methods()
+        for key in res:
+            self.assertEqual(key in result, True)
+            self.assertEqual(result[key], res[key])
 
         res = {'Interpolation': [['Gouraud', 1], ['Flat', 0],
                                  ['Gouraud', 1], ['Phong', 2]],
