@@ -250,12 +250,14 @@ class ExtractGrid(FilterBase):
                  self.z_min, self.z_max)
         f.update_whole_extent()
         f.update()
+        self.data_changed = True
 
     def _update_sample_rate(self):
         f = self.filter
         f.sample_rate = (self.x_ratio, self.y_ratio, self.z_ratio)
         f.update_whole_extent()
         f.update()
+        self.data_changed = True
 
     def _filter_changed(self, old, new):
         if old is not None:

@@ -17,14 +17,10 @@ from enthought.mayavi.core.common import error
 
 
 def _get_extent(inp):
-    # Simple function to get a suitable extent.  This wierdness is
-    # necessary since sometimes whole_extent may not be set but extent
-    # by itself may be inaccurate.
-    we = inp.whole_extent
-    e = inp.extent
-    return (min(we[0], e[0]), max(we[1], e[1]),
-            min(we[2], e[2]), max(we[3], e[3]),
-            min(we[4], e[4]), max(we[5], e[5]),)
+    """Get the extents from the given input.
+    """
+    d = inp.dimensions
+    return [0, d[0]-1, 0, d[1]-1, 0, d[2]-1]
 
 
 ######################################################################
