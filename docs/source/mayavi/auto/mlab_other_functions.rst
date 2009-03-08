@@ -207,7 +207,7 @@ animate
         ... def anim():
         ...     f = mlab.gcf()
         ...     while 1:
-        ...         f.scene.azimuth(10)
+        ...         f.scene.camera.azimuth(10)
         ...         f.scene.render()
         ...         yield
         ...
@@ -220,7 +220,7 @@ animate
         ... def anim():
         ...     f = mlab.gcf()
         ...     while 1:
-        ...         f.scene.azimuth(10)
+        ...         f.scene.camera.azimuth(10)
         ...         f.scene.render()
         ...         yield
         ...
