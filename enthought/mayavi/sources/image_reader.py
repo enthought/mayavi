@@ -66,8 +66,10 @@ class ImageReader(FileDataSource):
              'dem':tvtk.DEMReader(),          
              'mha':tvtk.MetaImageReader(),
              'mhd':tvtk.MetaImageReader(),
-             'mnc':tvtk.MINCImageReader()
             }
+        # Account for pre 5.2 VTk versions, without MINC reader
+        if hasattr(tvtk, 'MINCImageReader'):
+            d['mnc'] = tvtk.MINCImageReader()
         d['jpeg'] = d['jpg']
         self._image_reader_dict = d
         # Call parent class' init.
