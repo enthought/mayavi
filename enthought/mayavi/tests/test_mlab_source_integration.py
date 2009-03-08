@@ -10,7 +10,7 @@ of the input arguments.
 # License: BSD Style.
 
 import unittest
-import numpy as N
+import numpy as np
 
 from enthought.mayavi.tools import sources
 
@@ -32,16 +32,16 @@ class BaseTestSource(unittest.TestCase):
         if None in (a, b):
             self.assert_(a==b)
         else:
-            self.assert_(N.allclose(a, a))
+            self.assert_(np.allclose(a, a))
 
 
     def check_positions(self, source, x, y, z):
         """ Check that the position vectors of the source do correspond
             to the given input positions 
         """
-        self.assert_(N.allclose(source.mlab_source.x, x))
-        self.assert_(N.allclose(source.mlab_source.y, y))
-        self.assert_(N.allclose(source.mlab_source.z, z))
+        self.assert_(np.allclose(source.mlab_source.x, x))
+        self.assert_(np.allclose(source.mlab_source.y, y))
+        self.assert_(np.allclose(source.mlab_source.z, z))
 
 
     def check_vectors(self, source, u, v, w):
@@ -91,7 +91,7 @@ class TestScalarScatter(BaseTestSource):
         self.check_vectors(ss, None, None, None)
 
         # Check for a 1D array as position vectors.
-        a = N.array([0, 1])
+        a = np.array([0, 1])
         ss = sources.scalar_scatter(a, a, a, figure=None)
         self.check_positions(ss, a, a, a)
         self.check_scalars(ss, None)
@@ -103,7 +103,7 @@ class TestScalarScatter(BaseTestSource):
         self.check_vectors(ss, None, None, None)
 
         # Check for a 2D array as position vectors.
-        a = N.array([[0, 1], [2, 3]])
+        a = np.array([[0, 1], [2, 3]])
         ss = sources.scalar_scatter(a, a, a, figure=None)
         self.check_positions(ss, a, a, a)
         self.check_scalars(ss, None)
@@ -154,7 +154,7 @@ class TestVectorScatter(BaseTestSource):
         self.check_vectors(ss, [0, 1], [0, 1], [0, 1])
 
         # Check for a 1D array as a position vector.
-        a = N.array([0, 1])
+        a = np.array([0, 1])
         ss = sources.vector_scatter(a, a, a, a, a, a, figure=None)
         self.check_positions(ss, a, a, a)
         self.check_scalars(ss, None)
@@ -166,7 +166,7 @@ class TestVectorScatter(BaseTestSource):
         self.check_vectors(ss, a, a, a)
 
         # Check for a 2D array as a position vector.
-        a = N.array([[0, 1], [2, 3]])
+        a = np.array([[0, 1], [2, 3]])
         ss = sources.vector_scatter(a, a, a, a, a, a, figure=None)
         self.check_positions(ss, a, a, a)
         self.check_scalars(ss, None)
@@ -178,17 +178,17 @@ class TestVectorScatter(BaseTestSource):
         self.check_vectors(ss, a, a, a)
 
         # Check for a 3D array as a position vector.
-        x, y, z = N.mgrid[0:3, 0:3, 0:3]
+        x, y, z = np.mgrid[0:3, 0:3, 0:3]
         ss = sources.vector_scatter(x, y, z, x, y, z, figure=None)
         self.check_positions(ss, x, y, z)
         self.check_scalars(ss, None)
         self.check_vectors(ss, x, y, z)
 
         # Check for a 3D array as vector data, and no position vectors.
-        x, y, z = N.mgrid[0:3, 0:3, 0:3]
+        x, y, z = np.mgrid[0:3, 0:3, 0:3]
         ss = sources.scalar_scatter(z, figure=None)
         self.check_scalars(ss, z)
-        X, Y, Z = N.indices(z.shape)
+        X, Y, Z = np.indices(z.shape)
         self.check_positions(ss, X, Y, Z)
 
 
@@ -209,12 +209,12 @@ class TestArray2DSource(BaseTestSource):
         self.check_scalars(ss, [0, 1])
 
         # Check for a 1D array as data, and no position arrays.
-        a = N.array([0, 1])
+        a = np.array([0, 1])
         ss = sources.array2d_source(a, figure=None)
         self.check_scalars(ss, a)
 
         # Check for a 2D array as data, and no position arrays.
-        a = N.array([[0, 1], [2, 3]])
+        a = np.array([[0, 1], [2, 3]])
         ss = sources.array2d_source(a, figure=None)
         self.check_scalars(ss, a)
 
@@ -227,15 +227,15 @@ class TestArray2DSource(BaseTestSource):
 
         # Check for an ogrid as position vectors, and a function for the
         # scalars
-        x, y = N.ogrid[-3:3, -3:3]
+        x, y = np.ogrid[-3:3, -3:3]
         f = lambda x, y: x**2 + y**2
         ss = sources.array2d_source(x, y, f, figure=None)
         self.check_scalars(ss, f(x, y))
 
         # Check for an mgrid as position vectors, and a 2D array for the
         # scalars
-        x, y = N.mgrid[-3:3, -3:3]
-        s = N.zeros_like(x)
+        x, y = np.mgrid[-3:3, -3:3]
+        s = np.zeros_like(x)
         ss = sources.array2d_source(x, y, x, figure=None)
         self.check_scalars(ss, s)
 
@@ -251,25 +251,25 @@ class TestScalarField(BaseTestSource):
         # Check for 2D arrays as positions vectors, and a function for
         # the data
         f = lambda x, y, z: x**2 + y**2
-        x, y = N.mgrid[-3:3, -3:3]
-        z = N.zeros_like(x)
+        x, y = np.mgrid[-3:3, -3:3]
+        z = np.zeros_like(x)
         ss = sources.scalar_field(x, y, z, f, figure=None)
         self.check_positions(ss, x, y, z)
         s = f(x, y, z)
         self.check_scalars(ss, s)
 
         # Check for a 2D array as data, and no position vectors
-        s = N.random.random((10, 10))
+        s = np.random.random((10, 10))
         ss = sources.scalar_field(s, figure=None)
         self.check_scalars(ss, s)
 
         # Check for a 3D array as data, and no position vectors
-        s = N.random.random((10, 10, 10))
+        s = np.random.random((10, 10, 10))
         ss = sources.scalar_field(s, figure=None)
         self.check_scalars(ss, s)
 
         # Check for a 3D array as data, and 3D arrays as position
-        x, y, z = N.mgrid[-3:3, -3:3, -3:3]
+        x, y, z = np.mgrid[-3:3, -3:3, -3:3]
         ss = sources.scalar_field(x, y, z, z, figure=None)
         self.check_positions(ss, x, y, z)
         self.check_scalars(ss, z)
@@ -285,8 +285,8 @@ class TestVectorField(BaseTestSource):
         
         # Check for 2D arrays as positions vectors, and a function for
         # the data
-        x, y = N.mgrid[-3:3, -3:3]
-        z = N.zeros_like(x)
+        x, y = np.mgrid[-3:3, -3:3]
+        z = np.zeros_like(x)
         def f(x, y, z):
             return y, z, x
         ss = sources.vector_field(x, y, z, f, figure=None)
@@ -294,23 +294,23 @@ class TestVectorField(BaseTestSource):
         self.check_vectors(ss, y, z, x)
 
         # Check for a 2D array as data, and no position vectors
-        u = N.random.random((10, 10))
-        v = N.random.random((10, 10))
-        w = N.random.random((10, 10))
+        u = np.random.random((10, 10))
+        v = np.random.random((10, 10))
+        w = np.random.random((10, 10))
         ss = sources.vector_field(u, v, w, figure=None)
         self.check_scalars(ss, None)
         self.check_vectors(ss, u, v, w)
 
         # Check for a 3D array as data, and no position vectors
-        u = N.random.random((10, 10, 10))
-        v = N.random.random((10, 10, 10))
-        w = N.random.random((10, 10, 10))
+        u = np.random.random((10, 10, 10))
+        v = np.random.random((10, 10, 10))
+        w = np.random.random((10, 10, 10))
         ss = sources.vector_field(u, v, w, figure=None)
         self.check_scalars(ss, None)
         self.check_vectors(ss, u, v, w)
 
         # Check for a 3D array as data, and 3D arrays as position
-        x, y, z = N.mgrid[-3:3, -3:3, -3:3]
+        x, y, z = np.mgrid[-3:3, -3:3, -3:3]
         ss = sources.vector_field(x, y, z, y, z, x, figure=None)
         self.check_scalars(ss, None)
         self.check_positions(ss, x, y, z)
@@ -335,7 +335,7 @@ class TestLineSource(BaseTestSource):
         self.check_scalars(ss, [2, 3])
 
         # Check for arrays as position vectors and a function as data
-        x, y, z = N.random.random((3, 10))
+        x, y, z = np.random.random((3, 10))
         f = lambda x, y, z: x + y + z
         ss = sources.line_source(x, y, z, f, figure=None)
         self.check_positions(ss, x, y, z)
@@ -368,8 +368,8 @@ class TestVerticalVectorsSource(BaseTestSource):
         self.check_vectors(ss, [0, 0], [0, 0], [2, 3])
 
         # Check for arrays as position vectors and a function as data
-        x, y, z = N.random.random((3, 10))
-        zeros = N.zeros_like(x)
+        x, y, z = np.random.random((3, 10))
+        zeros = np.zeros_like(x)
         f = lambda x, y, z: x + y + z
         ss = sources.vertical_vectors_source(x, y, z, f, figure=None)
         self.check_positions(ss, x, y, z)
@@ -380,6 +380,62 @@ class TestVerticalVectorsSource(BaseTestSource):
         self.check_positions(ss, x, y, zeros)
         self.check_scalars(ss, z)
         self.check_vectors(ss, zeros, zeros, z)
+
+
+################################################################################
+# `TestSourceInfinite`
+################################################################################ 
+class TestVerticalVectorsSource(unittest.TestCase):
+
+    def test_infinite(self):
+        """ Check that passing in arrays with infinite values raises
+            errors """
+        # Some arrays
+        x = np.random.random((10, 3, 4))
+        y = np.random.random((10, 3, 4))
+        z = np.random.random((10, 3, 4))
+        u = np.random.random((10, 3, 4))
+        v = np.random.random((10, 3, 4))
+        w = np.random.random((10, 3, 4))
+        s = np.random.random((10, 3, 4))
+
+        # Add a few infinite values:
+        u[2, 2, 1] = np.inf
+        s[0, 0, 0] = -np.inf
+
+        # Check value errors are raised because of the infinite values
+        self.assertRaises(ValueError, 
+                    sources.grid_source, x[0], y[0], z[0], scalars=s[0],
+                    figure=None)
+
+        self.assertRaises(ValueError, 
+                    sources.vertical_vectors_source, x, y, z, s,
+                    figure=None)
+
+        self.assertRaises(ValueError, 
+                    sources.array2d_source, x[0], y[0], s[0],
+                    figure=None)
+
+        self.assertRaises(ValueError, 
+                    sources.scalar_field, x, y, z, s,
+                    figure=None)
+
+        self.assertRaises(ValueError, 
+                    sources.scalar_scatter, x, y, z, s,
+                    figure=None)
+
+        self.assertRaises(ValueError, 
+                    sources.vector_scatter, x, y, z, u, v, w,
+                    figure=None)
+
+        self.assertRaises(ValueError, 
+                    sources.vector_field, x, y, z, u, v, w,
+                    figure=None)
+
+        self.assertRaises(ValueError, 
+                    sources.line_source, x[0, 0], y[0, 0], z[0, 0], s[0, 0],
+                    figure=None)
+
 
 
 if __name__ == '__main__':

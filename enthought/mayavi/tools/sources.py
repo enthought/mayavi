@@ -782,8 +782,14 @@ def convert_to_arrays(args):
     """
     args = list(args)
     for index, arg in enumerate(args):
-        if not hasattr(arg, 'shape') and not callable(arg):
-            args[index] = numpy.atleast_1d(numpy.array(arg))
+        if not callable(arg):
+            if not hasattr(arg, 'shape'):
+                arg = numpy.atleast_1d(numpy.array(arg))
+            if numpy.any(numpy.isinf(arg)):
+                raise ValueError("""Input array contains infinite values
+                You can remove them using: a[numpy.isinf(a)] = numpy.nan
+                """)
+            args[index] = arg
     return args
 
 def process_regular_vectors(*args):
@@ -1146,6 +1152,7 @@ def grid_source(x, y, z, **kwargs):
     if scalars is None:
         scalars = z
 
+    x, y, z, scalars = convert_to_arrays((x, y, z, scalars))
     data_source = MGridSource()
     data_source.reset(x=x, y=y, z=z, scalars=scalars)
 
