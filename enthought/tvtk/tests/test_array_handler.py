@@ -397,6 +397,16 @@ class TestArrayHandler(unittest.TestCase):
         del varr
         self.assertEqual(len(cache), 0)
 
+    def test_id_array(self):
+        """Test if a vtkIdTypeArray is converted correctly."""
+        arr = vtk.vtkIdTypeArray()
+        arr.SetNumberOfTuples(10)
+        for i in range(10):
+            arr.SetValue(i, i)
+
+        np = array_handler.vtk2array(arr)
+        self.assertEqual(numpy.all(np == range(10)), True)
+
 
 if __name__ == "__main__":
     unittest.main()

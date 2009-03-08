@@ -386,17 +386,20 @@ def vtk2array(vtk_array):
     if typ == vtkConstants.VTK_ID_TYPE:
         # Hack necessary because vtkImageData can't handle VTK_ID_TYPE.
         img_data.SetScalarType(vtkConstants.VTK_LONG)
+        r_dtype = get_numeric_array_type(vtkConstants.VTK_LONG)
     elif typ == vtkConstants.VTK_BIT:
         img_data.SetScalarType(vtkConstants.VTK_CHAR)
+        r_dtype = get_numeric_array_type(vtkConstants.VTK_CHAR)
     else:
         img_data.SetScalarType(typ)
+        r_dtype = get_numeric_array_type(typ)
     img_data.Update()
 
     exp = vtk.vtkImageExport()
     exp.SetInput(img_data)
 
     # Create an array of the right size and export the image into it.
-    im_arr = numpy.empty((shape[0]*shape[1],), get_numeric_array_type(typ))
+    im_arr = numpy.empty((shape[0]*shape[1],), r_dtype)
     exp.Export(im_arr)
 
     # Now reshape it.
