@@ -213,7 +213,7 @@ Aternatively, if you whish to gain a deeper understanding by
 creating VTK data structures or files, more information on datasets in general
 is available in the :ref:`data-structures-used-by-mayavi` section.
 
-.. _VTK file formats: http://www.vtk.org/pdf/file-formats.pdf
+.. _VTK file formats: http://www.vtk.org/VTK/img/file-formats.pdf 
 .. _numpy: http://numpy.scipy.org
 .. _VTK: http://www.vtk.org
 .. _envisage: https://svn.enthought.com/enthought/wiki/Envisage
