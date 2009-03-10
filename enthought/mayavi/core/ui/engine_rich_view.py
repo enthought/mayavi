@@ -129,7 +129,7 @@ class EngineRichView(EngineView):
     def _actions_default(self):
         """ Append a preferences action to the toolbar: this view of the
             engine is meant to be a powerful view giving access to
-            all of Mayavi's functionnality.
+            all of Mayavi's functionality.
         """
         preferences_action = \
             Action(
@@ -153,7 +153,11 @@ class EngineRichView(EngineView):
         # Selecting an object if good, because it forces the HSplit to 
         # choose a sensible split ratio
         for mayavi_scene in self.engine.scenes:
-            if mayavi_scene.scene is scene:
+            sc = mayavi_scene.scene
+            # Support for the `MlabSceneModel` where the `scene_editor`
+            # trait contains the scene.
+            s = getattr(sc, 'scene_editor', sc)
+            if s is scene:
                 self.engine.current_selection = mayavi_scene
 
         return self.edit_traits()

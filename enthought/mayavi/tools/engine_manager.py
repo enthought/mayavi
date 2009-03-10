@@ -181,8 +181,11 @@ class EngineManager(HasTraits):
             # FIXME: This should pop up the relevent envisage view
             pass
         else:
-            from enthought.mayavi.core.ui.engine_view import EngineView
-            return EngineView(engine=engine).edit_traits()
+            from enthought.mayavi.core.ui.engine_rich_view import \
+                    EngineRichView
+            scene = engine.current_scene
+            view = EngineRichView(engine=engine)
+            return view.scene_editing_view(scene=scene.scene)
 
 
 engine_manager = EngineManager()
