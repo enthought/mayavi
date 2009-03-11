@@ -74,7 +74,15 @@ def add_module_manager(object):
     return get_engine().add_module(ModuleManager(), object)
 
 def _traverse(node):
-    """Traverse a tree accessing the nodes children attribute.
+    """ Generator to traverse a tree accessing the nodes children
+        attribute.
+
+        Example
+        --------
+        ::
+            for obj in mlab.pipeline.traverse(mlab.gcf()):
+                print obj.name
+
     """
     try:
         for leaf in node.children:
