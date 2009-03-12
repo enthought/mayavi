@@ -149,7 +149,7 @@ class Source(PipelineBase):
         elif isinstance(child, Source):
             # A non-filter source object.  This should be added to the
             # scene.            
-            self.scene.add_child(child)
+            self.parent.add_child(child)
         elif isinstance(child, Module):
             # Modules should be added carefully via add_module.
             self.add_module(child)
