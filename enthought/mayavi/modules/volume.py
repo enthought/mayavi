@@ -21,7 +21,6 @@ from enthought.tvtk.api import tvtk
 from enthought.tvtk.util.gradient_editor import hsva_to_rgba, GradientTable
 from enthought.tvtk.util.ctf import save_ctfs, load_ctfs, \
      rescale_ctfs, set_lut, PiecewiseFunction, ColorTransferFunction
-from enthought.tvtk.util.wx_gradient_editor import gradient_editor_factory
 from enthought.persistence import state_pickler
 
 # Local imports
@@ -34,6 +33,14 @@ from enthought.mayavi.core.lut_manager import LUTManager
 ######################################################################
 # Utility functions.
 ######################################################################
+def gradient_editor_factory(wx_parent, trait_editor):
+    """A simple wrapper to the wx specific function to avoid any UI
+    toolkit imports.
+    """
+    from enthought.tvtk.util import wx_gradient_editor as wxge
+    return wxge.gradient_editor_factory(wx_parent, trait_editor)
+
+
 def is_volume_pro_available():
     """Returns `True` if there is a volume pro card available.
     """
