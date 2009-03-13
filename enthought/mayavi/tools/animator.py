@@ -67,15 +67,15 @@ class Animator(HasTraits):
 
         **Parameters**
 
-            -- millisec : int specifying the delay in milliseconds
-               between calls to the callable.
+          :millisec: int specifying the delay in milliseconds
+                     between calls to the callable.
 
-            -- callable : callable function to call after the specified
-               delay.
+          :callable: callable function to call after the specified
+                     delay.
 
-            -- *args : optional arguments to be passed to the callable.
+          :*args: optional arguments to be passed to the callable.
 
-            -- **kwargs : optional keyword arguments to be passed to the callable.
+          :**kwargs: optional keyword arguments to be passed to the callable.
 
         """
         HasTraits.__init__(self)
@@ -116,11 +116,11 @@ def animate(func=None, delay=500, ui=True):
 
     **Parameters**
 
-      delay : int -- Time interval in milliseconds between calls to the
-                     function.
+      :delay: int specifying the time interval in milliseconds between
+              calls to the function.
 
-      ui : bool : -- Specifies if a UI controlling the animation is to
-                     be provided.
+      :ui: bool specifying if a UI controlling the animation is to be
+           provided.
 
     **Returns**
 

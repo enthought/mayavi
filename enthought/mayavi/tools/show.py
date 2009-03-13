@@ -87,8 +87,8 @@ def show(func=None, stop=False):
 
     **Parameters**
 
-     stop : bool -- Specifies if a UI dialog is displayed which allows
-                    the event loop to be stopped.
+      :stop:  A boolean which specifies if a UI dialog is displayed which
+              allows the event loop to be stopped.
 
     **Examples**
 
