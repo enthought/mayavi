@@ -31,8 +31,10 @@ data or the scalar data color maps. The :func:`scalarbar` and
 for scalar or vector data. 
 
 A small *xyz* triad can be added to the figure using 
-:func:`orientationaxes`. 
+:func:`orientation_axes`. 
 
+.. warning:: The :func:`orientation_axes` was named `orientatedaxes`
+   before release 3.2.
 
 Moving the camera
 ~~~~~~~~~~~~~~~~~~~~

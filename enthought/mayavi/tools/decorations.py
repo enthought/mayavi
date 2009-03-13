@@ -414,7 +414,7 @@ class OrientationAxesFactory(SingletonModuleFactory):
 
     _target = Instance(modules.OrientationAxes, ())
 
-orientationaxes = make_function(OrientationAxesFactory)
+orientation_axes = make_function(OrientationAxesFactory)
 
 
 ###############################################################################

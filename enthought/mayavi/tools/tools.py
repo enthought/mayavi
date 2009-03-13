@@ -77,8 +77,8 @@ def _traverse(node):
     """ Generator to traverse a tree accessing the nodes children
         attribute.
 
-        Example
-        --------
+        **Example**
+        
         ::
             for obj in mlab.pipeline.traverse(mlab.gcf()):
                 print obj.name

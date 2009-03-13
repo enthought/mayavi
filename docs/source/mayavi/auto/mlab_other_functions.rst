@@ -159,6 +159,38 @@ text
     
 
 
+orientation_axes
+~~~~~~~~~~~~~~~~
+
+.. function:: orientation_axes(*args, **kwargs)
+
+    Applies the OrientationAxes mayavi module to the given VTK data object.
+    
+    **Keyword arguments:**
+    
+        :color: the color of the vtk object. Overides the colormap,
+                if any, when specified. This is specified as a
+                triplet of float ranging from 0 to 1, eg (1, 1,
+                1) for white.
+    
+        :line_width:  The with of the lines, if any used. Must be a float.
+                     Default: 2.0
+    
+        :name: the name of the vtk object created.
+    
+        :opacity: The overall opacity of the vtk object. Must be a float.
+                  Default: 1.0
+    
+        :xlabel: the label of the x axis
+    
+        :ylabel: the label of the y axis
+    
+        :zlabel: the label of the z axis
+    
+
+    
+
+
 set_engine
 ~~~~~~~~~~
 
@@ -326,38 +358,6 @@ title
                   Default: 1.0
     
         :size: the size of the title
-    
-
-    
-
-
-orientationaxes
-~~~~~~~~~~~~~~~
-
-.. function:: orientationaxes(*args, **kwargs)
-
-    Applies the OrientationAxes mayavi module to the given VTK data object.
-    
-    **Keyword arguments:**
-    
-        :color: the color of the vtk object. Overides the colormap,
-                if any, when specified. This is specified as a
-                triplet of float ranging from 0 to 1, eg (1, 1,
-                1) for white.
-    
-        :line_width:  The with of the lines, if any used. Must be a float.
-                     Default: 2.0
-    
-        :name: the name of the vtk object created.
-    
-        :opacity: The overall opacity of the vtk object. Must be a float.
-                  Default: 1.0
-    
-        :xlabel: the label of the x axis
-    
-        :ylabel: the label of the y axis
-    
-        :zlabel: the label of the z axis
     
 
     
