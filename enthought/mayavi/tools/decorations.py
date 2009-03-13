@@ -439,6 +439,9 @@ class Text(ModuleFactory):
 
     _target = Instance(modules.Text, ())
 
+    opacity = CFloat(1, adapts="property.opacity",
+                        help="""The opacity of the text.""")
+
     def __init__(self, x, y, text, **kwargs):
         """ Override init as for different positional arguments."""
         if 'z' in kwargs and kwargs['z'] is not None:
