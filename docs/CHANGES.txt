@@ -11,6 +11,51 @@ https://svn.enthought.com/enthought/changeset/18702
 Unreleased changes (trunk)
 ----------------------------
 
+13 March, 2009 (GV)
+    - API: rename mlab.orientationaxes to mlab.orientation_axes [23184]
+
+11 March, 2009 (GV)
+    - API: Expose 'traverse' in mlab.pipeline [23181]
+
+10 March, 2009 (PR)
+    - BUG: Fixed a subtle bug that affected the ImagePlaneWidget. This
+      happened because the scalar_type of the output data from the
+      VTKDataSource was not being set correctly. Getting the range of any
+      input scalars also seems to silence warnings from VTK. This should
+      hopefully fix issues with the use of the IPW with multiple scalars.
+      I've added two tests for this, one is an integration test since those
+      errors really show up only when the display is used. The other is a
+      traditional unittest. [23166]
+
+08 March, 2009 (GV)
+    - ENH: Raises an error when the user passes to mlab an array with 
+      infinite values [23150]
+
+07 March, 2009 (PR)
+    - BUG: A subtle bug with a really gross error in the GridPlane
+      component, I was using the extents when I should really have been
+      looking at the dimensions. The extract grid filter was also not
+      flushing the data changes downstream leading to errors that are also
+      fixed now. These errors would manifest when you use an ExtractGrid? to
+      select a VOI or a sample rate and then used a grid plane down stream
+      causing very wierd and incorrect rendering of the grid plane (thanks to
+      conflation of extents and dimensions). This bug was seen at NAL for a
+      while and also reported by Fred with a nice CME. The CME was then
+      converted to a nice unittest by Suyog and then improved. Thanks to
+      them all. [23146]
+
+28 February, 2009 (PR)
+    - BUG: Fixed some issues reported by Ondrej Certik regarding the use
+      Of mlab.options.offscreen, mlab.options.backend = 'test', removed cruft
+      from earlier 'null' backend, fixed bug with incorrect imports,
+      add_dataset set no longer adds one new null engine each time figure=False
+      is passed, added test case for the options.backend test. [23088]
+
+23 February, 2009 (PR)
+    - ENH: Updating show so that it supports a stop keyword argument that
+      pops up a little UI that lets the user stop the mainloop
+      temporarily and continue using Python [23049]
+
 21 February, 2009 (GV)
     - ENH: Add a richer view for the pipeline to the MayaviScene? [23035]
     - ENH: Add safegards to capture wrong triangle array sizes in
@@ -19,7 +64,7 @@ Unreleased changes (trunk)
 21 February, 2009 (PR)
     - ENH: Making the transform data filter recordable. [23033]
     - NEW: A simple animator class to make it relatively to create 
-      animations. [23036]
+      animations. [23036] [23039]
 
 20 February, 2009 (PR)
     - ENH: Added readers for various image file formats, poly data
