@@ -495,6 +495,11 @@ class Title(SingletonModuleFactory):
             self.name = kwargs['name'] = 'Title'
         super(Title, self).__init__(**kwargs)
         self._target.text = self._text
+        # We need to set position after Text is initiated, as text will 
+        # override these positions
+        self._target.y_position = self.height
+        self._size_changed()
+
 
 title = make_function(Title)
 
