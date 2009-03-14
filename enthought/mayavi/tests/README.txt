@@ -10,9 +10,9 @@ Running the tests
 
 The best way to run the tests in this directory is to do::
 
- $ ./run.py .
+ $ ./runtests.py .
 
-Try ``run.py --help`` to see all help options.
+Try ``runtests.py --help`` to see all help options.
 
 You may also run each test individually.  For example::
 
