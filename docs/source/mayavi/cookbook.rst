@@ -4,6 +4,50 @@ Mayavi2 Cookbook
 These are a collection of useful hints and recipes for various tasks.
 
 
+Animating a visualization
+--------------------------
+
+Often users like to animate a visualization without affecting the
+interactive capabilities of the view.  For example you may want to
+rotate the camera continuously, take a snapshot while continuing to
+interact with the Mayavi UI.  To do this one can use the very convenient
+:func:`animate` decorator provided with Mayavi.  Here is a simple
+example::
+
+    from enthought.mayavi import mlab
+    @mlab.animate
+    def anim():
+        f = mlab.gcf()
+        while 1:
+            f.scene.camera.azimuth(10)
+            f.scene.render()
+            yield
+    
+    a = anim() # Starts the animation.
+
+Notice the use of ``yield`` in the above, this is *very* crucial to this
+working.  This example will continuously rotate the camera without
+affecting the UI's interactivity.  It also pops up a little UI that lets
+you start and stop the animation and change the time interval between
+calls to your function.  For more specialized use you can pass arguments
+to the decorator::
+
+    from enthought.mayavi import mlab
+    @mlab.animate(delay=500, ui=False)
+    def anim():
+        # ...
+    
+    a = anim() # Starts the animation without a UI.
+
+Note that if you don't want to import all of ``mlab``, the animate
+decorator is available from::
+
+    from enthought.mayavi.tools.animator import animate
+
+For more details check the documentation of the :func:`animate`
+decorator available in the :ref:`mlab-reference`.
+
+
 Animating a series of images
 -----------------------------
 

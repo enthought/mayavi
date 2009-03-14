@@ -405,6 +405,51 @@ checking if it has been modified.  The ``examples/poll_file.py``
 demonstrates this.  To see it in action will require that you edit the
 scalar data in the ``examples/data/heart.vtk`` data file.  
 
+
+Serving mayavi on the network
+-------------------------------
+
+Say you have a little visualization script and you'd like to run some
+kind of server where you can script the running mayavi UI from a TCP/UDP
+connection.  It turns out there is a simple way to do this  if you have
+Twisted_ installed.  Here is a trivial example::
+
+    from enthought.mayavi import mlab
+    from enthought.mayavi.tools import server
+    mlab.test_plot3d()
+    server.serve_tcp()
+
+There is no need to call ``mlab.show()`` in the above.  The TCP server
+will listen on port 8007 by default in the above (this can be changed
+with suitable arguments to ``serve_tcp``).  Any data sent to the server
+is simply exec'd, meaning you can do pretty much anything you want.  The
+names ``engine``, ``scene``, ``camera`` and ``mlab`` are all available
+and can be scripted with Python code.  For example after running the
+above you can do this::
+
+    $ telnet localhost 8007
+    Trying 127.0.0.1...
+    Connected to localhost.
+    Escape character is '^]'.
+    scene.camera.azimuth(45)
+    mlab.clf()
+    mlab.test_contour3d()
+    scene.camera.zoom(1.5)
+
+The nice thing about this is that you do not loose any interactivity of
+the application and can continue to use its UI as before, any network
+commands will be simply run on top of this.  To serve on a UDP port use
+the ``serve_udp`` function.  For more details on the ``server`` module
+please look at the source code -- it is thoroughly documented.
+
+.. warning:: 
+    While this is very powerful it is also a huge security hole
+    since the remote user can do pretty much anything they want once
+    connected to the server.
+
+
+.. _Twisted: http://www.twistedmatrix.com
+
 Common problems
 ----------------
 
