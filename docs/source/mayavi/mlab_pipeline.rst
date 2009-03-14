@@ -89,10 +89,11 @@ describes an image, possibly 3 dimensional.
 Modules and filters
 ~~~~~~~~~~~~~~~~~~~~
 
-For each Mayavi module or filter, there is a corresponding
-`mlab.pipeline` function. The name of this function is created by
-replacing the alternating capitals in the module or filter name by
-underscores. Thus `ScalarCutPlane` corresponds to `scalar_cut_plane`.
+For each Mayavi module or filter (see :ref:`modules` and :ref:`filters`),
+there is a corresponding `mlab.pipeline` function. The name of this
+function is created by replacing the alternating capitals in the module
+or filter name by underscores. Thus `ScalarCutPlane` corresponds to
+`scalar_cut_plane`.
 
 In general, the `mlab.pipeline` module and filter factory functions
 simply create and connect the corresponding object. However they can also

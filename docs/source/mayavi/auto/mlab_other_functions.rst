@@ -83,8 +83,8 @@ show
     
     **Parameters**
     
-     stop : bool -- Specifies if a UI dialog is displayed which allows
-                    the event loop to be stopped.
+      :stop:  A boolean which specifies if a UI dialog is displayed which
+              allows the event loop to be stopped.
     
     **Examples**
     
@@ -147,8 +147,7 @@ text
     
         :name: the name of the vtk object created.
     
-        :opacity: The overall opacity of the vtk object. Must be a float.
-                  Default: 1.0
+        :opacity: The opacity of the text.
     
         :width: width of the text.
     
@@ -219,11 +218,11 @@ animate
     
     **Parameters**
     
-      delay : int -- Time interval in milliseconds between calls to the
-                     function.
+      :delay: int specifying the time interval in milliseconds between
+              calls to the function.
     
-      ui : bool : -- Specifies if a UI controlling the animation is to
-                     be provided.
+      :ui: bool specifying if a UI controlling the animation is to be
+           provided.
     
     **Returns**
     

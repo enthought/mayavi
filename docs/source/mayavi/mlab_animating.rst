@@ -85,6 +85,12 @@ ends with an `_anim` to see how these work and run.
     usually regenerates all the data and can be inefficient when
     compared to `set` or directly setting the traits.
 
+When creating a Mayavi pipeline, as explained in the following
+subsection, instead of using ready-made plotting
+function, the `mlab_source` attribute is created only on sources created
+via `mlab`. Only pipeline created entirely using `mlab` will present this
+attribute.
+
 ..
    Local Variables:
    mode: rst

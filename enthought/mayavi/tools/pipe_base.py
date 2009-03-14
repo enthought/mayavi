@@ -104,7 +104,12 @@ class PipeFactory(HasPrivateTraits):
                                             module_manager.parent)
             
         self._engine.add_module(self._target, obj=parent)
-        
+        # Inject the magical mlab source trait.
+        if hasattr(parent, 'mlab_source'):
+            ms = parent.mlab_source
+            self._target.add_trait('mlab_source', Instance(ms.__class__))
+            self._target.mlab_source = ms
+
 
     def __init__(self, parent, **kwargs):
         # We are not passing the traits to the parent class

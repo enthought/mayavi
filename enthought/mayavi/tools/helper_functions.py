@@ -95,11 +95,6 @@ class Pipeline(HasTraits):
                 if key in keywords:
                     this_kwargs[key] = value
             object = pipe(object, **this_kwargs)._target
-        # Inject the magical mlab source trait.
-        if hasattr(self.source, 'mlab_source'):
-            ms = self.source.mlab_source
-            object.add_trait('mlab_source', Instance(ms.__class__))
-            object.mlab_source = ms
         return object
 
     def get_all_traits(self):
