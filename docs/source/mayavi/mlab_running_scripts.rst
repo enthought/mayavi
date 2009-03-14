@@ -14,10 +14,15 @@ Using mlab interactively
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Using `IPython`_ mlab instructions can be run interactively, or in
-scripts using `IPython`_'s ``%run`` command, as soon as they are
-executed, alleviating the need to use the :func:`show` function. For this
-you need to start `Ipython`_ with the `-wthread` option (when installed
-with `EPD`_, the `pylab` start-menu link does this for you).
+scripts using `IPython`_'s ``%run`` command::
+
+    In [1]: %run my_script
+
+You need to start `IPython`_ with the `-wthread` option (when installed
+with `EPD`_, the `pylab` start-menu link does this for you). In this
+environment, the plotting commands are interactive: they have an
+immediate effect on the figure, alleviating the need to use the
+:func:`show` function. 
 
 .. _EPD: http://www.enthought.com/products/epd.php
 .. _IPython: http://ipython.scipy.org/

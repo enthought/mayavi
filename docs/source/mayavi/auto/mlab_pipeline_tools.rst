@@ -43,14 +43,25 @@ add_dataset
 
     Add a dataset object to the Mayavi pipeline.
     
-    The dataset can be either a tvtk dataset, or a mayavi source.
+    **Parameters**
     
-    If no `figure` keyword argument is given, the data is added to the
-    current figure (a new figure if created if necessary).
+    :dataset: a tvtk dataset, or a Mayavi source.
+              The dataset added to the Mayavi pipeline
+    :figure: a figure identifier number or string, None or False, optionnal.
     
-    If a `figure` keyword argument is given, it should either the name
-    name or the number of the figure the dataset should be added to, or None,
-    in which case the data is not added to the pipeline.
+            If no `figure` keyword argument is given, the data
+            is added to the current figure (a new figure if created if
+            necessary).
+    
+            If a `figure` keyword argument is given, it should either the name
+            the number of the figure the dataset should be added to, or None,
+            in which case the data is not added to the pipeline.
+    
+            If figure is False, a null engine is created. This null
+            engine does not create figures, and is mainly usefull for
+            tensting, or using the VTK algorithms without visualization.
+    
+    **Returns**
     
     The corresponding Mayavi source is returned.
     
@@ -63,16 +74,16 @@ traverse
 
 .. function:: traverse(node)
 
+    Generator to traverse a tree accessing the nodes' children
+    attribute.
     
-    ::
-     Generator to traverse a tree accessing the nodes children
-            attribute.
+    **Example**
     
-            **Example**
+    Here is a simple example printing the names of all the objects in
+    the pipeline::
     
-            ::
-                for obj in mlab.pipeline.traverse(mlab.gcf()):
-                    print obj.name
+        for obj in mlab.pipeline.traverse(mlab.gcf()):
+            print obj.name
     
     
 
