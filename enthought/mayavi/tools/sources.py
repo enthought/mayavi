@@ -897,7 +897,9 @@ def vector_scatter(*args, **kwargs):
                  If None, the source is not added to any figure, and will 
                  be added automatically by the modules or
                  filters. If False, no figure will be created by modules
-                 or filters applied to the source."""
+                 or filters applied to the source: the source can only
+                 be used for testing, or numerical algorithms, not
+                 visualization."""
     x, y, z, u, v, w = process_regular_vectors(*args)
 
     scalars = kwargs.pop('scalars', None)
@@ -942,7 +944,9 @@ def vector_field(*args, **kwargs):
                  If None, the source is not added to any figure, and will 
                  be added automatically by the modules or
                  filters. If False, no figure will be created by modules
-                 or filters applied to the source."""
+                 or filters applied to the source: the source can only
+                 be used for testing, or numerical algorithms, not
+                 visualization."""
     if len(args) == 3:
         x = y = z = numpy.atleast_3d(1)
         u, v, w = [numpy.atleast_3d(a) for a in args]
@@ -982,7 +986,9 @@ def scalar_scatter(*args, **kwargs):
                  If None, the source is not added to any figure, and will 
                  be added automatically by the modules or
                  filters. If False, no figure will be created by modules
-                 or filters applied to the source."""
+                 or filters applied to the source: the source can only
+                 be used for testing, or numerical algorithms, not
+                 visualization."""
     x, y, z, s = process_regular_scalars(*args)
 
     if s is not None:
@@ -1025,7 +1031,9 @@ def scalar_field(*args, **kwargs):
                  If None, the source is not added to any figure, and will 
                  be added automatically by the modules or
                  filters. If False, no figure will be created by modules
-                 or filters applied to the source."""
+                 or filters applied to the source: the source can only
+                 be used for testing, or numerical algorithms, not
+                 visualization."""
     if len(args) == 1:
         # Be lazy, don't create three big arrays for 1 input array. The
         # MArraySource is clever-enough to handle flat arrays
@@ -1062,7 +1070,9 @@ def line_source(*args, **kwargs):
                  If None, the source is not added to any figure, and will 
                  be added automatically by the modules or
                  filters. If False, no figure will be created by modules
-                 or filters applied to the source."""
+                 or filters applied to the source: the source can only
+                 be used for testing, or numerical algorithms, not
+                 visualization."""
     if len(args)==1:
         raise ValueError, "wrong number of arguments"    
     x, y, z, s = process_regular_scalars(*args)
@@ -1107,7 +1117,9 @@ def array2d_source(*args, **kwargs):
                  If None, the source is not added to any figure, and will 
                  be added automatically by the modules or
                  filters. If False, no figure will be created by modules
-                 or filters applied to the source.
+                 or filters applied to the source: the source can only
+                 be used for testing, or numerical algorithms, not
+                 visualization.
         
         :mask: Mask points specified in a boolean masking array.
     """
@@ -1146,7 +1158,9 @@ def grid_source(x, y, z, **kwargs):
                  If None, the source is not added to any figure, and will 
                  be added automatically by the modules or
                  filters. If False, no figure will be created by modules
-                 or filters applied to the source.
+                 or filters applied to the source: the source can only
+                 be used for testing, or numerical algorithms, not
+                 visualization.
         """
     scalars = kwargs.pop('scalars', None)
     if scalars is None:
@@ -1197,7 +1211,9 @@ def vertical_vectors_source(*args, **kwargs):
                  If None, the source is not added to any figure, and will 
                  be added automatically by the modules or
                  filters. If False, no figure will be created by modules
-                 or filters applied to the source.
+                 or filters applied to the source: the source can only
+                 be used for testing, or numerical algorithms, not
+                 visualization.
     """
     if len(args) == 3:
         x, y, data = args
@@ -1236,7 +1252,9 @@ def triangular_mesh_source(x, y, z, triangles, **kwargs):
                  If None, the source is not added to any figure, and will 
                  be added automatically by the modules or
                  filters. If False, no figure will be created by modules
-                 or filters applied to the source.
+                 or filters applied to the source: the source can only
+                 be used for testing, or numerical algorithms, not
+                 visualization.
         """
     x, y, z, triangles = convert_to_arrays((x, y, z, triangles))
 

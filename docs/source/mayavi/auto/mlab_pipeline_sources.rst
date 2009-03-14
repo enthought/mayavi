@@ -16,7 +16,7 @@ Sources
 builtin_image
 ~~~~~~~~~~~~~
 
-.. function:: builtin_image(metadata=<enthought.mayavi.core.metadata.SourceMetadata object at 0xa8befbc>)
+.. function:: builtin_image(metadata=<enthought.mayavi.core.metadata.SourceMetadata object at 0x8c3bfbc>)
 
     Create a vtk image data source
     
@@ -27,7 +27,7 @@ builtin_image
 parametric_surface
 ~~~~~~~~~~~~~~~~~~
 
-.. function:: parametric_surface(metadata=<enthought.mayavi.core.metadata.SourceMetadata object at 0xa8bee0c>)
+.. function:: parametric_surface(metadata=<enthought.mayavi.core.metadata.SourceMetadata object at 0x8c3be0c>)
 
     Create a parametric surface source
     
@@ -38,7 +38,7 @@ parametric_surface
 builtin_surface
 ~~~~~~~~~~~~~~~
 
-.. function:: builtin_surface(metadata=<enthought.mayavi.core.metadata.SourceMetadata object at 0xa8bef2c>)
+.. function:: builtin_surface(metadata=<enthought.mayavi.core.metadata.SourceMetadata object at 0x8c3bf2c>)
 
     Create a vtk poly data source
     
@@ -85,7 +85,9 @@ vertical_vectors_source
                  If None, the source is not added to any figure, and will
                  be added automatically by the modules or
                  filters. If False, no figure will be created by modules
-                 or filters applied to the source.
+                 or filters applied to the source: the source can only
+                 be used for testing, or numerical algorithms, not
+                 visualization.
     
 
     
@@ -116,7 +118,9 @@ grid_source
                  If None, the source is not added to any figure, and will
                  be added automatically by the modules or
                  filters. If False, no figure will be created by modules
-                 or filters applied to the source.
+                 or filters applied to the source: the source can only
+                 be used for testing, or numerical algorithms, not
+                 visualization.
     
 
     
@@ -157,7 +161,9 @@ triangular_mesh_source
                  If None, the source is not added to any figure, and will
                  be added automatically by the modules or
                  filters. If False, no figure will be created by modules
-                 or filters applied to the source.
+                 or filters applied to the source: the source can only
+                 be used for testing, or numerical algorithms, not
+                 visualization.
     
 
     
@@ -192,7 +198,9 @@ vector_scatter
                  If None, the source is not added to any figure, and will
                  be added automatically by the modules or
                  filters. If False, no figure will be created by modules
-                 or filters applied to the source.
+                 or filters applied to the source: the source can only
+                 be used for testing, or numerical algorithms, not
+                 visualization.
 
     
 
@@ -232,7 +240,9 @@ array2d_source
                  If None, the source is not added to any figure, and will
                  be added automatically by the modules or
                  filters. If False, no figure will be created by modules
-                 or filters applied to the source.
+                 or filters applied to the source: the source can only
+                 be used for testing, or numerical algorithms, not
+                 visualization.
     
         :mask: Mask points specified in a boolean masking array.
     
@@ -265,7 +275,9 @@ line_source
                  If None, the source is not added to any figure, and will
                  be added automatically by the modules or
                  filters. If False, no figure will be created by modules
-                 or filters applied to the source.
+                 or filters applied to the source: the source can only
+                 be used for testing, or numerical algorithms, not
+                 visualization.
 
     
 
@@ -299,7 +311,9 @@ scalar_scatter
                  If None, the source is not added to any figure, and will
                  be added automatically by the modules or
                  filters. If False, no figure will be created by modules
-                 or filters applied to the source.
+                 or filters applied to the source: the source can only
+                 be used for testing, or numerical algorithms, not
+                 visualization.
 
     
 
@@ -307,7 +321,7 @@ scalar_scatter
 point_load
 ~~~~~~~~~~
 
-.. function:: point_load(metadata=<enthought.mayavi.core.metadata.SourceMetadata object at 0xa8bee9c>)
+.. function:: point_load(metadata=<enthought.mayavi.core.metadata.SourceMetadata object at 0x8c3be9c>)
 
     Simulates a point load on a cube of data (for tensors)
     
@@ -347,7 +361,9 @@ scalar_field
                  If None, the source is not added to any figure, and will
                  be added automatically by the modules or
                  filters. If False, no figure will be created by modules
-                 or filters applied to the source.
+                 or filters applied to the source: the source can only
+                 be used for testing, or numerical algorithms, not
+                 visualization.
 
     
 
@@ -385,7 +401,9 @@ vector_field
                  If None, the source is not added to any figure, and will
                  be added automatically by the modules or
                  filters. If False, no figure will be created by modules
-                 or filters applied to the source.
+                 or filters applied to the source: the source can only
+                 be used for testing, or numerical algorithms, not
+                 visualization.
 
     
 
