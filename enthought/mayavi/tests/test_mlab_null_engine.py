@@ -49,6 +49,42 @@ class TestMlabNullEngine(unittest.TestCase):
         self.assertEqual(len(density.outputs), 1)
         self.assert_(isinstance(density.outputs[0], tvtk.ImageData))
 
+    def test_mlab_source(self):
+        """ Check that the different objects created by mlab have an 
+            'mlab_source' attribute.
+        """
+        # Test for functions taking 3D scalar data
+        pipelines = (
+            (mlab.pipeline.scalar_scatter, ),
+            (mlab.pipeline.scalar_field, ),
+            (mlab.pipeline.scalar_field, mlab.pipeline.image_plane_widget),
+            (mlab.contour3d, ),
+            (mlab.points3d, ), )
+        data = np.random.random((3, 3, 3))
+        for pipeline in pipelines:
+            obj = pipeline[0](data, figure=False)
+            for factory in pipeline[1:]:
+                obj = factory(obj)
+            self.assertTrue(hasattr(obj, 'mlab_source'))
+        # Test for functions taking x, y, z 2d arrays.
+        x, y, z = np.random.random((3, 3, 3))
+        pipelines = (
+            (mlab.mesh, ),
+            (mlab.surf, ),
+            (mlab.quiver3d, ),
+            (mlab.pipeline.vector_scatter, ),
+            (mlab.pipeline.vector_scatter,
+                            mlab.pipeline.extract_vector_components),
+            (mlab.pipeline.vector_scatter,
+                            mlab.pipeline.extract_vector_norm),
+            (mlab.pipeline.array2d_source, ), )
+        for pipeline in pipelines:
+            obj = pipeline[0](x, y, z, figure=False)
+            for factory in pipeline[1:]:
+                obj = factory(obj)
+            self.assertTrue(hasattr(obj, 'mlab_source'))
+
+
     def tearDown(self):
         # Check that the NullEngine was not set as the default mlab engine.
         if not mlab.get_engine() is self._non_null_engine:
