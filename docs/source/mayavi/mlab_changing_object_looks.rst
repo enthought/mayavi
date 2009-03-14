@@ -128,11 +128,6 @@ interactively edit the object's properties. If the dialog doesn't show up
 when you enter this command, please see :ref:`running-mlab-scripts`.
 
 
-____
-
-.. [1] Toussaint, V.; Carriere, P. & Raynal, F. A numerical Eulerian
-   approach to mixing by chaotic advection Phys. Fluids, 1995, 7, 2587
-
 ..
    Local Variables:
    mode: rst
