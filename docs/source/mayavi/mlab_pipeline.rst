@@ -104,7 +104,8 @@ make frequent operations simple, they use the keyword arguments to choose
 the properties of the create object to best suit the requirements. It can
 be thus easier to use the keyword arguments, when available, than to set
 the attributes of the objects created. For more information, please check
-out the docstrings.
+out the docstrings. Full, detailed, usage examples are given in the next
+subsection.
 
 ..
    Local Variables:
