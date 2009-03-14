@@ -55,6 +55,8 @@ class MayaviUIPlugin(Plugin):
     PERSPECTIVES      = 'enthought.envisage.ui.workbench.perspectives'
     PREFERENCES_PAGES = 'enthought.envisage.ui.workbench.preferences_pages'
     ACTION_SETS       = 'enthought.envisage.ui.workbench.action_sets'
+    BANNER            = 'enthought.plugins.ipython_shell.banner'
+
 
     # The plugins name.
     name = 'Mayavi UI plugin'
@@ -75,6 +77,9 @@ class MayaviUIPlugin(Plugin):
 
     # Our action sets.
     action_sets = List(contributes_to=ACTION_SETS)
+
+    # IPython banner
+    banner = List(contributes_to=BANNER)
 
     def _views_default(self):
         """ Trait initializer. """
@@ -98,6 +103,13 @@ class MayaviUIPlugin(Plugin):
         )
         return [MayaviUIActionSet]
 
+    def _banner_default(self):
+        """Trait initializer """
+        return ["""Welcome to Mayavi, this is the interactive IPython shell.
+
+If this is your first time using Mayavi, take a quick look at the tutorial examples section of the user guide, accessible in the help menu.
+To use Mayavi, you need to load your data in "data sources" and apply "visualization modules" to it. 
+"""]
 
     ######################################################################
     # Private methods.
