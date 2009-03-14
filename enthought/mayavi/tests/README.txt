@@ -10,40 +10,44 @@ Running the tests
 
 The best way to run the tests in this directory is to do::
 
- $ nosetests
+ $ ./run.py .
+
+Try ``run.py --help`` to see all help options.
 
 You may also run each test individually.  For example::
 
  $ python test_contour.py
 
-===================================
-DEBUGGING USING ON SCREEN RENDERING
+You can also use nosetests but nosetests runs everything in the same
+process often tripping up on valid tests.
+
+
+Debugging using on-screen rendering
 ===================================
 
-These unit tests run off screen and make use of TestEngine.
+Many of these unit tests run off screen and make use of TestEngine.
 
 TestEngine can be replaced by Engine to allow for scene creation
-which may be useful in debuggine.
+which may be useful in debugging.
 
-This can be easily done by uncommenting the following line from the setUp() functions
+This can be easily done by uncommenting the following line from the
+setUp() functions::
 
-	e = Engine() // THis is commented by default
+	e = Engine() # This is commented by default
 
 It must be followed by the commenting of :
 	
-	e = TestEngine() // This is uncommented by default
+	e = TestEngine() # This is uncommented by default
 
-===================================
-DEBUGGING USING IPython Shell
+Debugging using an IPython Shell
 ===================================
 
 The IPython Shell can be embedded anywhere in the program.
 
-You need to import IPython module and then add the following lines wherver you want to embed the shell:
+You need to import the  `IPython` module and then add the following
+lines wherver you want to embed the shell::
 
 	embedshell = IPython.Shell.IPShellEmbed()
 	embedshell()
-	
-
 
 
