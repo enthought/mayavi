@@ -8,6 +8,7 @@
 import os.path
 import sys
 import logging
+import traceback
 from optparse import OptionParser
 
 # Enthought library imports
@@ -366,13 +367,19 @@ class TestCase(Mayavi):
         try:
             self.do()
         except Exception, e:
-            errcode = 1
             # To mimic behavior of unittest.
-            sys.stderr.write('failures=1')
-            sys.stderr.write('%s'%e)
-            logger.error(e)
+            sys.stderr.write('\nfailures=1\n')
+            type, value, tb = sys.exc_info()
+            info = traceback.extract_tb(tb)
+            filename, lineno, function, text = info[-1] # last line only
+            exc_msg = "%s\nIn %s:%d\n%s: %s (in %s)" %\
+                      ('Exception', filename, lineno, type.__name__, str(value),
+                       function)
+            sys.stderr.write(exc_msg + '\n')
+            # Log the message.
+            logger.exception(exc_msg)
             if not self.interact:
-                sys.exit(errcode)
+                sys.exit(1)
 
         if not self.interact:
             if self.standalone:
