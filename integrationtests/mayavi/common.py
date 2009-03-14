@@ -363,7 +363,17 @@ class TestCase(Mayavi):
         run the test."""
 
         # Calls the users test code.
-        self.do()
+        try:
+            self.do()
+        except Exception, e:
+            errcode = 1
+            # To mimic behavior of unittest.
+            sys.stderr.write('failures=1')
+            sys.stderr.write('%s'%e)
+            logger.error(e)
+            if not self.interact:
+                sys.exit(errcode)
+
         if not self.interact:
             if self.standalone:
                 # Close all existing viewers.
