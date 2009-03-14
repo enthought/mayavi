@@ -18,15 +18,20 @@ import time
 import re
 import optparse
 
+# Use nosetests when it is available
+USE_NOSE = False
 
 def get_test_runner():
     """Get a test runner for the tests.  Uses nose if available."""
-    try:
-        import nose
-    except ImportError:
-        return [sys.executable]
-    else:
-        return ['nosetests']
+    result = [sys.executable]
+    if USE_NOSE:
+        try:
+            import nose
+        except ImportError:
+            result = [sys.executable]
+        else:
+            result = ['nosetests']
+    return result
 
 def get_tests_in_dir(pth):
     """Get all tests in given directory `pth`."""
@@ -85,9 +90,9 @@ def run(tests, verbose=1):
     tot_fail = 0
     total_time = 0.0
     cmd_base = get_test_runner()
+    has_nose = 'nosetests' in cmd_base
     for test in tests:
-        # Note we could also use nose to run each individual test file.
-        if verbose > 1:
+        if verbose > 1 and has_nose:
             cmd = cmd_base + ['-v', test]
         else:
             cmd = cmd_base + [test]
@@ -182,6 +187,11 @@ def main():
                       default=False,
                       dest="quiet",
                       help="run tests in quiet mode")
+    parser.add_option("-n", "--nose",
+                      action="store_true",
+                      default=False,
+                      dest="nose",
+                      help="run tests using nose if it is available")
 
     options, args = parser.parse_args()
     if len(args) == 0:
@@ -189,6 +199,9 @@ def main():
 
     tests = find_tests(args)
     verbose = 1
+    global USE_NOSE
+    if options.nose:
+        USE_NOSE = True
     if options.verbose:
         verbose = 2
     if options.quiet:
