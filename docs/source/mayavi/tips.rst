@@ -320,6 +320,7 @@ case.  Here are brief instructions on how to build VTK to do this.
    suitably.  Also ensure that ``LD_LIBRARY_PATH`` points to
    ``$MESA/lib`` (if the mesa libs are not installed on the system) this
    ensures that VTK links to the right GL libs.  For example::
+
         $ export PYTHONPATH=$VTK_BUILD/bin:$VTK_BUILD/Wrapping/Python``
         $ export LD_LIBRARY_PATH=$VTK_BUILD/bin:$MESA/lib
         

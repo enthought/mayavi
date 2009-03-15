@@ -7,6 +7,8 @@ These are a collection of useful hints and recipes for various tasks.
 Animating a visualization
 --------------------------
 
+.. currentmodule:: enthought.mayavi.mlab
+
 Often users like to animate a visualization without affecting the
 interactive capabilities of the view.  For example you may want to
 rotate the camera continuously, take a snapshot while continuing to
