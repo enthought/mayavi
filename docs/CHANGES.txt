@@ -2,8 +2,9 @@ Changes in Mayavi
 ==================
 
 A log of significant changes made to the package especially API changes.
-The log refers to changesets in the trac format [#revno], for example to
-view the changeset [18702] use the following URL:
+This is only partial and only covers the developments after the 2.x
+series.  The log refers to changesets in the trac format [#revno], for
+example to view the changeset [18702] use the following URL:
 https://svn.enthought.com/enthought/changeset/18702
 
 
@@ -36,7 +37,7 @@ Unreleased changes (trunk)
       component, I was using the extents when I should really have been
       looking at the dimensions. The extract grid filter was also not
       flushing the data changes downstream leading to errors that are also
-      fixed now. These errors would manifest when you use an ExtractGrid? to
+      fixed now. These errors would manifest when you use an ExtractGrid to
       select a VOI or a sample rate and then used a grid plane down stream
       causing very wierd and incorrect rendering of the grid plane (thanks to
       conflation of extents and dimensions). This bug was seen at NAL for a
@@ -57,7 +58,7 @@ Unreleased changes (trunk)
       temporarily and continue using Python [23049]
 
 21 February, 2009 (GV)
-    - ENH: Add a richer view for the pipeline to the MayaviScene? [23035]
+    - ENH: Add a richer view for the pipeline to the MayaviScene [23035]
     - ENH: Add safegards to capture wrong triangle array sizes in
       mlab.triangular_mesh_source. [23037]
 
@@ -69,8 +70,8 @@ Unreleased changes (trunk)
 20 February, 2009 (PR)
     - ENH: Added readers for various image file formats, poly data
       readers and unstructured grid readers. These include DICOM,
-      GESigna, DEM, MetaImage? (mha,mhd) MINC, AVSucd, GAMBIT, Exodus, STL,
-      Points, Particle, PLY, PDF, SLC, OBJ, Facet and BYU files. Also added
+      GESigna, DEM, MetaImage (mha,mhd) MINC, AVSucd, GAMBIT, Exodus, STL,
+      Points, Particle, PLY, PDB, SLC, OBJ, Facet and BYU files. Also added
       several tests for most of this functionality along with small data files.
       These are additions from PR's project staff, Suyog Jain and Sreekanth
       Ravindran.  [23013]   	
