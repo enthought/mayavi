@@ -371,19 +371,6 @@ dependencies.  ``examples/offscreen.py`` demonstrates how to use mayavi
 without the envisage UI or even a traits UI (i.e. with a pure TVTK
 window) and do off screen rendering.  
 
-
-Embedding mayavi in your own traits UI
----------------------------------------
-
-You've written your traits based application complete with a nice UI and
-now you want to do some 3D plotting and embed that UI inside your own
-UI.   This can be easily done.  ``examples/mayavi_traits_ui.py`` is a
-fairly comprehensive example that demonstrates how you can embed almost
-the entire mayavi UI into your traits based UI.
-``examples/mlab_traits_ui.py`` demonstrates how you can do some simple
-mlab based visualization.
-
-
 Computing in a thread
 ----------------------
 

@@ -68,6 +68,10 @@ toolbar by specifying a different scene view to the `SceneEditor`::
     editor=SceneEditor(scene_class=MayaviScene)
     #...
 
+The ``mayavi_traits_ui.py`` example is a fairly comprehensive example that
+demonstrates how you can embed almost the entire mayavi UI into your traits
+based UI. mlab based visualization.
+
 A scene, with `mlab` embedded
 ..............................
 
@@ -149,6 +153,9 @@ In a dialog, this would be::
 
     visualization = Visualization()
     visualization.configure_traits()
+
+A complete, runnable, code based on the above comments is given by the 
+``mlab_traits_ui.py`` example.
 
 
 Integrating in a WxPython application
