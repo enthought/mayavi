@@ -410,6 +410,8 @@ scalar data in the ``examples/data/heart.vtk`` data file.
 Serving mayavi on the network
 -------------------------------
 
+.. currentmodule:: enthought.mayavi.tools.server
+
 Say you have a little visualization script and you'd like to run some
 kind of server where you can script the running mayavi UI from a TCP/UDP
 connection.  It turns out there is a simple way to do this  if you have
@@ -422,7 +424,7 @@ Twisted_ installed.  Here is a trivial example::
 
 There is no need to call ``mlab.show()`` in the above.  The TCP server
 will listen on port 8007 by default in the above (this can be changed
-with suitable arguments to ``serve_tcp``).  Any data sent to the server
+with suitable arguments to :func:`serve_tcp`).  Any data sent to the server
 is simply exec'd, meaning you can do pretty much anything you want.  The
 names ``engine``, ``scene``, ``camera`` and ``mlab`` are all available
 and can be scripted with Python code.  For example after running the
@@ -440,7 +442,7 @@ above you can do this::
 The nice thing about this is that you do not loose any interactivity of
 the application and can continue to use its UI as before, any network
 commands will be simply run on top of this.  To serve on a UDP port use
-the ``serve_udp`` function.  For more details on the ``server`` module
+the :func:`serve_udp` function.  For more details on the ``server`` module
 please look at the source code -- it is thoroughly documented.
 
 .. warning:: 
@@ -450,6 +452,30 @@ please look at the source code -- it is thoroughly documented.
 
 
 .. _Twisted: http://www.twistedmatrix.com
+
+TCP serving: the `serve_tcp` function
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. autofunction:: serve_tcp
+
+..
+ _____
+ 
+ .. autoclass:: M2TCP
+    :members:
+
+
+UDP serving: the `serve_udp` function
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. autofunction:: serve_udp
+
+..
+ _____
+ 
+ .. autoclass:: M2UDP
+    :members:
+
 
 Common problems
 ----------------
