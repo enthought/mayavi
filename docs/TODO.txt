@@ -29,3 +29,4 @@ MayaVi2:
 
     - Mlab:
 	- add texture support to Mlab 
+	- find a good way to make graphs with color/scalar on the edges.
