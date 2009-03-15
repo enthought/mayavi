@@ -107,7 +107,7 @@ class MayaviUIPlugin(Plugin):
         """Trait initializer """
         return ["""Welcome to Mayavi, this is the interactive IPython shell.
 
-If this is your first time using Mayavi, take a quick look at the tutorial examples section of the user guide, accessible in the help menu.
+If this is your first time using Mayavi, take a quick look at the tutorial examples section of the user guide, accessible via the help menu.
 To use Mayavi, you need to load your data in "data sources" and apply "visualization modules" to it. 
 """]
 

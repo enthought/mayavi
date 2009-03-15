@@ -34,7 +34,7 @@ class MayaviWorkbenchApplication(WorkbenchApplication):
     icon = ImageResource('m2.ico', search_path=[IMG_DIR])
 
     # The name of the application (also used on window title bars etc).
-    name = 'Mayavi2'
+    name = 'Mayavi2 - The 3D data visualizer'
 
     ###########################################################################
     # 'WorkbenchApplication' interface.
