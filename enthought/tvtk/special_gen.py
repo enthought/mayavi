@@ -485,6 +485,9 @@ class HelperGenerator:
                 mod = __import__('enthought.tvtk.custom.%%s'%%fname,
                                  globals(), locals(), [fname])
             except ImportError:
+                # This is a local import since the tvtk modules are all
+                # inside the tvtk_classes ZIP file and are local to the
+                # current module: tvtk_helper.py
                 mod = __import__('%%s'%%fname, globals(), locals(), [fname])
             return mod
         
