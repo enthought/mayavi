@@ -146,8 +146,20 @@ following:
 -t
 --test
     
-    Runs the mayavi2 test suite and exits.  This runs both the TVTK and
-    Mayavi2 unittests.
+     Runs the mayavi2 test suite and exits.  If run as such, this runs
+     both the TVTK and Mayavi2 unittests.  If any additional arguments
+     are passed they are passed along to the test runner.  So this may
+     be used to run other tests as well.  For example::
+
+        mayavi2 -t enthought.persistence
+
+     This will run just the tests inside the enthought.persistence
+     package.  You can also specify a directory with test files to run
+     with this, for example::
+
+        mayavi2 -t relative_path_to/integrationtests/mayavi
+
+     will run the integration tests from the mayavi sources.
 
 -v
 --verbose
@@ -405,16 +417,18 @@ def run_script(mayavi, script_name):
 
     return error
 
+# This runs the runtests script and sends any args to it.
+if ('-t' in sys.argv[1:]) or ('--test' in sys.argv[1:]):
+    from enthought.mayavi.tests import runtests
+    for arg in ('-t', '--test'):
+        if arg in sys.argv[1:]:
+            sys.argv.remove(arg)
+    runtests.main()
 
 # If the user just wants help messages.  Print them before importing
 # any of the big modules.
 if ('-h' in sys.argv[1:]) or ('--help' in sys.argv[1:]):
     print usage()
-    sys.exit(0)
-
-if ('-t' in sys.argv[1:]) or ('--test' in sys.argv[1:]):
-    from enthought.mayavi.tests.runtests import m2_tests
-    m2_tests()
     sys.exit(0)
 
 if ('-V' in sys.argv[1:]) or ('--version' in sys.argv[1:]):

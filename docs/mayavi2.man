@@ -128,8 +128,25 @@ to this newly created scene\&.  Also available through \fB\-\-new\-window\fP\&.
 .PP
 .B -t
 
-Runs the mayavi2 test suite and exits\&.  This runs both the TVTK and
-Mayavi2 unittests\&. Also available through \fB\-\-test\fP\&.
+Runs the mayavi2 test suite and exits\&.  If run as such, this runs
+both the TVTK and Mayavi2 unittests\&.  If any additional arguments
+are passed they are passed along to the test runner\&.  So this may be
+used to run other tests as well\&.  For example:
+.PP
+.RS
+\f(CWmayavi2 \-t enthought\&.persistence\fP
+.RE
+
+This will run just the tests inside the enthought\&.persistence
+package\&.  You can also specify a directory with test files to run
+with this, for example:
+.PP
+.RS
+\f(CWmayavi2 \-t relative_path_to/integrationtests/mayavi\fP
+.RE
+
+will run the integration tests from the mayavi sources.   Also available
+through \fB\-\-test\fP\&.
 
 .PP
 .B -x

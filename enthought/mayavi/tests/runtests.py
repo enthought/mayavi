@@ -36,12 +36,12 @@ def get_test_runner():
 def get_tests_in_dir(pth):
     """Get all tests in given directory `pth`."""
     files = []
-    t = glob(join(pth, 'test*.py'))
-    files.extend(t)
-    t = glob(join(pth, 'test', 'test*.py'))
-    files.extend(t)
-    t = glob(join(pth, 'tests', 'test*.py'))
-    files.extend(t)
+    files.extend(glob(join(pth, 'test*.py')))
+    files.extend(glob(join(pth, '*_test_case.py')))
+    files.extend(glob(join(pth, 'test', 'test*.py')))
+    files.extend(glob(join(pth, 'test', '*_test_case.py')))
+    files.extend(glob(join(pth, 'tests', 'test*.py')))
+    files.extend(glob(join(pth, 'tests', '*_test_case.py')))
     return files
 
 def find_tests(tests):
@@ -81,6 +81,11 @@ def run(tests, verbose=1):
 
      :verbose: An integer in (0, 1, 2).  0 specifies no output.  1
                specifies moderate output and 2 very verbose output.
+
+    **Returns**
+
+    The error code is returned.  If there are errors this is 1 if
+    everything ran fine it returns 0.
 
     """
     PIPE = subprocess.PIPE
@@ -142,6 +147,7 @@ def run(tests, verbose=1):
     print '\n' + '-'*70
     print "Ran %d tests in %.4g seconds\n"%(total, total_time)
 
+    errorcode = 0
     if len(errors) > 0:
         print 'FAILED: there were %d failures and %d errors'\
                 %(tot_fail, tot_err)
@@ -150,8 +156,10 @@ def run(tests, verbose=1):
             print 'File:', test
             print out
             print err
+        errorcode = 1
     else:
         print 'OK'
+    return errorcode
 
 def m2_tests(verbose=1):
     """Run all the TVTK and mayavi tests.
@@ -160,12 +168,13 @@ def m2_tests(verbose=1):
         print "-"*70
         print "Running TVTK tests."
     tests = find_tests(['enthought.tvtk'])
-    run(tests, verbose)
+    err = run(tests, verbose)
     if verbose > 0:
         print "-"*70
         print "Running Mayavi tests."
     tests = find_tests(['enthought.mayavi'])
-    run(tests, verbose)
+    err += run(tests, verbose)
+    return err
 
 def main():
     usage = """%prog [options] directories/files/modules
@@ -194,10 +203,6 @@ def main():
                       help="run tests using nose if it is available")
 
     options, args = parser.parse_args()
-    if len(args) == 0:
-        parser.error("error: no directories/files/modules specified")
-
-    tests = find_tests(args)
     verbose = 1
     global USE_NOSE
     if options.nose:
@@ -206,8 +211,15 @@ def main():
         verbose = 2
     if options.quiet:
         verbose = 0
-    if len(tests) > 0:
-        run(tests, verbose=verbose)
+
+    status = 0
+    if len(args) == 0:
+        status = m2_tests(verbose)
+    else:
+        tests = find_tests(args)
+        if len(tests) > 0:
+            status = run(tests, verbose=verbose)
+    sys.exit(status)
 
 if __name__ == "__main__":
     main()

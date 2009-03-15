@@ -493,8 +493,21 @@ The options are:
       ``--exec``.
 
 -t
-    Runs the mayavi2 test suite and exits.  This runs both the TVTK and
-    Mayavi2 unittests. Also available as ``--test``.
+      Runs the mayavi2 test suite and exits.  If run as such, this runs
+      both the TVTK and Mayavi2 unittests.  If any additional arguments
+      are passed they are passed along to the test runner.  So this may
+      be used to run other tests as well.  For example::
+
+         mayavi2 -t enthought.persistence
+
+      This will run just the tests inside the ``enthought.persistence``
+      package.  You can also specify a directory with test files to run
+      with this, for example::
+
+        mayavi2 -t relative_path_to/integrationtests/mayavi
+
+      will run the integration tests from the mayavi sources.  Also
+      available as ``--test``.
 
 -s python-expression
       Execute the python-expression on the last created object.  For
