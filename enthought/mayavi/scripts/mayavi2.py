@@ -48,11 +48,13 @@ following:
 
      datafile.ext can be any of the supported data file formats.  This
      includes VTK file formats (*.vtk, *.xml, *.vt[i,p,r,s,u],
-     *.pvt[i,p,r,s,u]), VRML2 (*.wrl), 3D Studio (*.3ds), PLOT3D (*.xyz)
-     and various others that are supported.  datafile.ext can also be a
-     source object not associated with a file, for example
-     ParametricSurface or PointLoad will load the corresponding data
-     sources into Mayavi.
+     *.pvt[i,p,r,s,u]), VRML2 (*.wrl), 3D Studio (*.3ds), PLOT3D
+     (*.xyz), STL, BYU, RAW, PLY,  PDB,  SLC,  FACET,  OBJ,  AVSUCD
+     (*.inp),  GAMBIT (*.neu),  Exodus  (*.exii),  PNG,  JPEG,  BMP,
+     PNM, DCM, DEM, MHA, MHD, MINC, XIMG, TIFF, and various others that
+     are supported.  datafile.ext can also be a source object not
+     associated with a file, for example ParametricSurface or PointLoad
+     will load the corresponding data sources into Mayavi.
 
 --filter filter-name
 -f filter-name
@@ -140,6 +142,12 @@ following:
 
      Loads a previously saved Mayavi2 visualization file passed as the
      argument.
+
+-t
+--test
+    
+    Runs the mayavi2 test suite and exits.  This runs both the TVTK and
+    Mayavi2 unittests.
 
 -v
 --verbose
@@ -402,6 +410,11 @@ def run_script(mayavi, script_name):
 # any of the big modules.
 if ('-h' in sys.argv[1:]) or ('--help' in sys.argv[1:]):
     print usage()
+    sys.exit(0)
+
+if ('-t' in sys.argv[1:]) or ('--test' in sys.argv[1:]):
+    from enthought.mayavi.tests.runtests import m2_tests
+    m2_tests()
     sys.exit(0)
 
 if ('-V' in sys.argv[1:]) or ('--version' in sys.argv[1:]):

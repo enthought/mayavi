@@ -56,10 +56,13 @@ datafile\&.*
 Opens any of the supported data file formats or a non-file related data
 source\&.  This includes VTK file formats (*\&.vtk, *\&.xml,
 *\&.vt[i,p,r,s,u], *\&.pvt[i,p,r,s,u]), VRML2 (*\&.wrl), 3D Studio
-(*\&.3ds), PLOT3D (*\&.xyz) and various others that are supported\&.
-datafile\&.* can also be a source object not associated with a file, for
-example ParametricSurface or PointLoad will load the corresponding data 
-sources into Mayavi\&.  Also available through \fB\-\-data\fP\&.
+(*\&.3ds), PLOT3D (*\&.xyz), STL, BYU, RAW, PLY, PDB, SLC, FACET, OBJ,
+AVSUCD (*\&.inp), GAMBIT (*\&.neu), Exodus (*\&.exii), PNG, JPEG, BMP,
+PNM, DCM, DEM, MHA, MHD, MINC, XIMG, TIFF, and various others that are
+supported\&.  datafile\&.* can also be a source object not associated
+with a file, for example ParametricSurface or PointLoad will load the
+corresponding data sources into Mayavi\&.  Also available through
+\fB\-\-data\fP\&.
 
 .PP
 .B -m
@@ -121,6 +124,12 @@ through \fB\-\-module\-mgr\fP\&.
 
 Creates a new window/scene\&. Any options passed after this will apply
 to this newly created scene\&.  Also available through \fB\-\-new\-window\fP\&.
+
+.PP
+.B -t
+
+Runs the mayavi2 test suite and exits\&.  This runs both the TVTK and
+Mayavi2 unittests\&. Also available through \fB\-\-test\fP\&.
 
 .PP
 .B -x

@@ -421,14 +421,17 @@ The options are:
 -d data_file
       Opens any of the supported data file formats or non-file
       associated data source objects.  This includes VTK file formats
-      (*.vtk, *.xml, *.vt[i,p,r,s,u], *.pvt[i,p,r,s,u]), VRML2 (*.wrl),
-      3D Studio (*.3ds), PLOT3D (*.xyz) and various others that are
+      (``*.vtk``, ``*.xml``, ``*.vt[i,p,r,s,u]``, ``*.pvt[i,p,r,s,u]``),
+      VRML2 (``*.wrl``), 3D Studio (``*.3ds``), PLOT3D (``*.xyz``),
+      STL, BYU, RAW, PLY, PDB, SLC, FACET, OBJ, AVSUCD (``*.inp``),
+      GAMBIT (``*.neu``), Exodus (``*.exii``), PNG, JPEG, BMP, PNM, DCM,
+      DEM, MHA, MHD, MINC, XIMG, TIFF, and various others that are
       supported.
 
-      ``data_file`` can also be a source object not associated with a file,
-      for example ``ParametricSurface`` or ``PointLoad`` will load the
-      corresponding data sources into Mayavi.  Also available through
-      ``--data``.
+      Note that ``data_file`` can also be a source object not associated
+      with a file, for example ``ParametricSurface`` or ``PointLoad``
+      will load the corresponding data sources into Mayavi.  Also
+      available through ``--data``.
 
 -m module-name
       A module is an object that actually visualizes the data.  The
@@ -488,6 +491,10 @@ The options are:
       that the name 'mayavi' is Mayavi's script instance -- just like
       in the embedded Python interpreter.  Also available through
       ``--exec``.
+
+-t
+    Runs the mayavi2 test suite and exits.  This runs both the TVTK and
+    Mayavi2 unittests. Also available as ``--test``.
 
 -s python-expression
       Execute the python-expression on the last created object.  For
