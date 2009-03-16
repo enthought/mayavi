@@ -248,6 +248,13 @@ def set_extent(module, extents):
         in the same "extents" parameter for this to work.You can have a
         look at the wigner.py example for a heavy use of this
         functionnality.
+
+        **Note**
+
+        This function does not work on some specific modules, such as
+        Outline, Axes, or ImagePlaneWidget. For Outline and Axes, use the 
+        extent keyword argument of mlab.pipeline.outline and
+        mlab.pipeline.axes.
     """
     if numpy.all(extents == 0.):
         # That the default setting.
