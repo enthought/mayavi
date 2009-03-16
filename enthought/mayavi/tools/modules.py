@@ -30,7 +30,7 @@ from pipe_base import PipeFactory, make_function
 __all__ = [ 'vectors', 'glyph', 'streamline', 'surface', 'iso_surface',
             'image_actor', 'contour_surface', 'contour_grid_plane',
             'custom_grid_plane', 'image_plane_widget',
-            'scalar_cut_plane', 'vector_cut_plane',
+            'scalar_cut_plane', 'vector_cut_plane', 'volume',
             ]
 
 ##############################################################################
@@ -508,6 +508,138 @@ class CustomGridPlaneFactory(ContourModuleFactory):
     _target = Instance(modules.CustomGridPlane, ())
 
 custom_grid_plane = make_function(CustomGridPlaneFactory)
+
+
+##############################################################################
+class VolumeFactory(PipeFactory):
+    """ Applies the Volume mayavi module to the given VTK data
+        source (Mayavi source, or VTK dataset).
+
+        **Note**
+
+        The range of the colormap can be changed simply using the
+        vmin/vmax parameters (see below). For more complex modifications of 
+        the colormap, here is some pseudo code to change the ctf (color 
+        transfert function), or the otf (opacity transfert function)::
+
+            vol = mlab.pipeline.volume(src)
+
+            # Changing the ctf:
+            from enthought.tvtk.util.ctf import ColorTransferFunction
+            ctf = ColorTransferFunction()
+            ctf.add_rgb_point(value, r, g, b)
+            ctf.add_hsv_point(value, h, s, v)
+            # ...
+            vol._volume_property.set_color(ctf)
+            vol._ctf = ctf
+            vol.update_ctf = True
+
+            # Changing the otf:
+            from enthought.tvtk.util.ctf import PiecewiseFunction
+            otf = PiecewiseFunction()
+            otf.add_point(value, opacity)
+            self._target._otf = otf
+            self._target._volume_property.set_scalar_opacity(otf)
+
+    """
+    color = Trait(None, None,
+                TraitTuple(Range(0., 1.),Range(0., 1.),Range(0., 1.)),
+                help="""the color of the vtk object. Overides the colormap,
+                        if any, when specified. This is specified as a 
+                        triplet of float ranging from 0 to 1, eg (1, 1,
+                        1) for white.""", )
+
+    def _color_changed(self):
+        if not self.color:
+            return
+        range_min, range_max = self._target.current_range
+        from enthought.tvtk.util.ctf import ColorTransferFunction
+        ctf = ColorTransferFunction()
+        r, g, b = self.color
+        ctf.add_rgb_point(range_min, r, g, b)
+        ctf.add_rgb_point(range_max, r, g, b)
+
+        self._target._ctf = ctf
+        self._target._volume_property.set_color(ctf)
+        self._target.update_ctf = True
+
+
+    vmin = Trait(None, None, CFloat,
+                    help="""vmin is used to scale the transparency
+                            gradient. If None, the min of the data will be 
+                            used""")
+
+    vmax = Trait(None, None, CFloat,
+                    help="""vmax is used to scale the transparency
+                            gradient. If None, the max of the data will be 
+                            used""")
+
+    __ctf_rescaled = Bool(False)
+
+    def _vmin_changed(self):
+        vmin = self.vmin
+        vmax = self.vmax
+        range_min, range_max = self._target.current_range
+        if vmin is None:
+            vmin = range_min
+        if vmax is None:
+            vmax = range_max
+
+        # Change the opacity function
+        from enthought.tvtk.util.ctf import PiecewiseFunction, save_ctfs
+        otf = PiecewiseFunction()
+        if range_min < vmin:
+            otf.add_point(range_min, 0.)
+        if range_max > vmax:
+            otf.add_point(range_max, 0.2)
+        otf.add_point(vmin, 0.)
+        otf.add_point(vmax, 0.2)
+        self._target._otf = otf
+        self._target._volume_property.set_scalar_opacity(otf)
+        if self.color is None and not self.__ctf_rescaled and \
+                        ( (self.vmin is not None) or (self.vmax is not None) ):
+            # We don't use 'rescale_ctfs' because it screws up the nodes.
+            def _rescale_value(x):
+                nx = (x - range_min)/(range_max - range_min)
+                return vmin + nx*(vmax - vmin)
+            # The range of the existing ctf can vary. 
+            scale_min, scale_max = self._target._ctf.range
+            def _rescale_node(x):
+                nx = (x - scale_min)/(scale_max - scale_min)
+                return range_min + nx*(range_max - range_min)
+            if hasattr(self._target._ctf, 'nodes'):
+                rgb = list()
+                for value in self._target._ctf.nodes:
+                    r, g, b = \
+                            self._target._ctf.get_color(value)
+                    rgb.append((_rescale_node(value), r, g, b))
+            else:
+                rgb = save_ctfs(self._target.volume_property)['rgb']
+            from enthought.tvtk.util.ctf import ColorTransferFunction
+            ctf = ColorTransferFunction()
+            rgb.sort()
+            v = rgb[0]
+            ctf.add_rgb_point(range_min, v[1], v[2], v[3])
+            for v in rgb:
+                ctf.add_rgb_point(_rescale_value(v[0]), v[1], v[2], v[3])
+            ctf.add_rgb_point(range_max, v[1], v[2], v[3])
+
+            self._target._ctf = ctf
+            self._target._volume_property.set_color(ctf)
+            self.__ctf_rescaled = True
+
+        self._target.update_ctf = True
+
+    # This is not necessary: the job is already done by _vmin_changed
+    #_vmax_changed = _vmin_changed
+
+
+    _target = Instance(modules.Volume, ())
+
+
+
+volume = make_function(VolumeFactory)
+
 
 
 ############################################################################

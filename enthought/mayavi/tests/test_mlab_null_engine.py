@@ -15,14 +15,36 @@ from enthought.mayavi.tools.engine_manager import engine_manager
 from enthought.mayavi.core.registry import registry
 from enthought.tvtk.api import tvtk
 
-class TestMlabNullEngine(unittest.TestCase):
-
+################################################################################
+# class `TestMlabNullEngineBase`
+################################################################################
+class TestMlabNullEngineBase(unittest.TestCase):
+    """ Base class to test mlab with the null engine
+    """
     def setUp(self):
         e = Engine()
         e.start()
         self._non_null_engine = e
         mlab.set_engine(e)
 
+    def tearDown(self):
+        # Check that the NullEngine was not set as the default mlab engine.
+        if not mlab.get_engine() is self._non_null_engine:
+            raise AssertionError, \
+                    "The NullEngine has overridden the default one"
+        engine_manager.current_engine = None
+        # Unregistering all unused engines.
+        registry.unregister_engine(self._non_null_engine)
+        for engine in registry.engines.keys():
+            registry.unregister_engine(engine)
+ 
+
+################################################################################
+# class `TestMlabNullEngine`
+################################################################################
+class TestMlabNullEngine(TestMlabNullEngineBase):
+    """ Misc tests for mlab with the null engine
+    """
     def test_contour_filter(self):
         a = np.zeros((3, 3, 3))
         a[1, 1, 1] = 1
@@ -85,18 +107,57 @@ class TestMlabNullEngine(unittest.TestCase):
             self.assertTrue(hasattr(obj, 'mlab_source'))
 
 
-    def tearDown(self):
-        # Check that the NullEngine was not set as the default mlab engine.
-        if not mlab.get_engine() is self._non_null_engine:
-            raise AssertionError, \
-                    "The NullEngine has overridden the default one"
-        engine_manager.current_engine = None
-        # Unregistering all unused engines.
-        registry.unregister_engine(self._non_null_engine)
-        for engine in registry.engines.keys():
-            registry.unregister_engine(engine)
- 
+################################################################################
+# class `TestMlabModules`
+################################################################################
+class TestMlabModules(TestMlabNullEngineBase):
+    """ Test the mlab modules.
+    """
+    def test_volume(self):
+        """ Test the mlab volume factory.
+        """
+        scalars = np.zeros((3, 3, 3))
+        scalars[0] = 1
+        src = mlab.pipeline.scalar_field(scalars, figure=False)
+        color = (1, 0.1, 0.314)
+        vol = mlab.pipeline.volume(src, vmin=0.5, vmax=0.9, color=color)
+        # Test the color feature
+        for value in np.random.random(10):
+            np.testing.assert_array_equal(vol._ctf.get_color(value),
+                                            color)
+        # Test the vmin and vmax features
+        for value in 0.5*np.random.random(10):
+            self.assertEqual(vol._otf.get_value(value), 0)
+        for value in (0.9+0.1*np.random.random(10)):
+            self.assertEqual(vol._otf.get_value(value), 0.2)
+        # Test the rescaling of the colormap when using vmin and vmax
+        # Rmq: we have to be careful: the range of the ctf can change
+        vol1 = mlab.pipeline.volume(src)
+        range1 = vol1._ctf.range[1] - vol1._ctf.range[0]
+        vol2 = mlab.pipeline.volume(src, vmin=0.25, vmax=0.75)
+        range2 = vol2._ctf.range[1] - vol2._ctf.range[0]
+        for value in 0.5*np.random.random(10):
+            np.testing.assert_array_almost_equal(
+                        vol1._ctf.get_color(2*range1*value),
+                        vol2._ctf.get_color(0.25+range2*value))
+        # Test outside the special [0, 1] range        
+        src = mlab.pipeline.scalar_field(2*scalars, figure=False)
+        vol1 = mlab.pipeline.volume(src)
+        range1 = vol1._ctf.range[1] - vol1._ctf.range[0]
+        vol2 = mlab.pipeline.volume(src, vmin=0.5, vmax=1.5)
+        range2 = vol2._ctf.range[1] - vol2._ctf.range[0]
+        for value in np.random.random(10):
+            np.testing.assert_array_almost_equal(
+                        vol1._ctf.get_color(2*range1*value),
+                        vol2._ctf.get_color(0.5+range2*value))
+        
 
+
+
+
+################################################################################
+# class `TestRealMlabNullEngine`
+################################################################################
 class TestRealMlabNullEngine(unittest.TestCase):
     """Tests if the mlab settings via the options.backend and offscreen
     options work correctly."""

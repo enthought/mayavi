@@ -70,20 +70,10 @@ data = np.fromstring(str, sep=' ')
 data.shape = (40, 40, 40)
 
 source = mlab.pipeline.scalar_field(data)
-vol = mlab.pipeline.volume(source)
-
-# Change the opacity function
-from enthought.tvtk.util.ctf import PiecewiseFunction
-
 min = data.min()
 max = data.max()
-otf = PiecewiseFunction()
-otf.add_point(min, 0)
-otf.add_point(min+0.6*(max-min), 0.005)
-otf.add_point(min+0.9*(max-min), 0.05)
-otf.add_point(max, 0.3)
-vol._volume_property.set_scalar_opacity(otf)
-vol.update_ctf = True
+vol = mlab.pipeline.volume(source, vmin=min+0.65*(max-min), 
+                                   vmax=min+0.9*(max-min))
 
 mlab.view(132, 54, 45, [21, 20, 21.5])
 
