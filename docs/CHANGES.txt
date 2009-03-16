@@ -12,6 +12,27 @@ https://svn.enthought.com/enthought/changeset/18702
 Unreleased changes (trunk)
 ----------------------------
 
+15 March, 2009 (GV):
+    - ENH: Add a volume factory to mlab that knows how to set color, vmin and 
+      vmax for the volume module [23221].
+
+14 March, 2009 (PR):
+    - API/TEST: Added a new testing entry point: 'mayavi -t' now runs
+      tests in separate process, for isolation. [23195]...[23200], 
+      [23213], [23214]
+    - BUG: The volume module was directly importing the
+      wx_gradient_editor leading to an import errorsror when no wxPython is 
+      available. This has been tested and fixed. Thanks to Christoph Bohme 
+      for reporting this issue. [23191]
+
+14 March, 2009 (GV):
+    - BUG: [mlab]: fix positioning for titles [23194], and opacity for titles 
+      and text [23193].
+    - ENH: Add the mlab_source attribute on all objects created by mlab,
+      when possible [23201], [23209].
+    - ENH: Add a message to help the first-time user, using the new banner 
+      feature of the IPython shell view [23208].
+
 13 March, 2009 (GV)
     - API: rename mlab.orientationaxes to mlab.orientation_axes [23184]
 

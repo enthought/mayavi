@@ -25,16 +25,21 @@ module.
 0D and 1D data
 ~~~~~~~~~~~~~~~
 
+.. A temporary hack to avoid a sphinx bug
+.. |hack| raw:: html
+
+   <br>
+
 ================= =========================================================
 ================= =========================================================
 |points3d|        :func:`points3d`
-
+                  |hack|
                   Plots glyphs (like points) at the position of the
                   supplied data, described by ``x``, ``y``, ``z`` 
                   numpy arrays of the same shape.
 
 |plot3d|          :func:`plot3d`
-
+                  |hack|
                   Plots line between the supplied data, described by ``x``, 
                   ``y``, ``z`` 1D numpy arrays of the same length.
 
@@ -52,42 +57,42 @@ module.
 ================= =========================================================
 ================= =========================================================
 |imshow|          :func:`imshow`
-
+                  |hack|
                   View a 2D array as an image.
 
 |surf|            :func:`surf`
-
-                      View a 2D array as a carpet plot, with the z axis
-                      representation through elevation the value of the
-                      array points.
+                  |hack|
+                  View a 2D array as a carpet plot, with the z axis
+                  representation through elevation the value of the
+                  array points.
 
 |contour_surf|    :func:`contour_surf`
-
+                  |hack|
                   View a 2D array as line contours, elevated
                   according to the value of the array points.
 
 |mesh|            :func:`mesh`
-
+                  |hack|
                   Plot a surface described by three 2D arrays, ``x``, 
                   ``y``, ``z`` giving the coordinnates of the data points 
                   as a grid.
-
+                  |hack|
                   Unlike :func:`surf`, the surface is defined by its 
                   ``x``, ``y`` and ``z`` coordinates with no privileged
                   direction. More complex surfaces can be created.
 
 |barchart|        :func:`barchart`
-
+                  |hack|
                   Plot an array ``s``, or a set of points with
                   explicite coordinnates arrays, ``x``, ``y`` and ``z``,
                   as a bar chart, eg for histograms.
-    
+                  |hack|
                   This function is very versatile and will accept 2D or 
                   3D arrays, but also clouds of points, to position the 
                   bars.
 
 |triangular_mesh| :func:`triangular_mesh`
-
+                  |hack|
                   Plot a triangular mesh, fully specified by
                   ``x``, ``y`` and ``z`` coordinnates of its
                   vertices, and the (n, 3) array of the indices of
@@ -143,19 +148,19 @@ module.
 ================= =========================================================
 ================= =========================================================
 |contour3d|       :func:`contour3d`
-
+                  |hack|
                   Plot isosurfaces of volumetric data defined as a 3D
                   array.
 
 |quiver3d|        :func:`quiver3d`
-
+                  |hack|
                   Plot arrows to represent vectors at data points.
                   The ``x``, ``y``, ``z`` position are specified by
                   numpy arrays, as well as the ``u``, ``v``, ``w``
                   components of the vectors.
 
 |flow|            :func:`flow`
-
+                  |hack|
                   Plot trajectories of particles along a vector field 
                   described by three 3D arrays giving the ``u``,
                   ``v``, ``w`` components on a grid.
