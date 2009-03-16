@@ -151,6 +151,13 @@ class TestMlabModules(TestMlabNullEngineBase):
                         vol1._ctf.get_color(2*range1*value),
                         vol2._ctf.get_color(0.5+range2*value))
         
+    def test_text(self):
+        """ Test the text module.
+        """
+        data = np.random.random((3, 3, 3))
+        src = mlab.pipeline.scalar_field(data, figure=False)
+        self.assertRaises(ValueError, mlab.text, 0, 1.5, 'test')
+
 
 
 
