@@ -440,8 +440,8 @@ please look at the source code -- it is thoroughly documented.
 
 .. _Twisted: http://www.twistedmatrix.com
 
-TCP serving: the `serve_tcp` function
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+TCP server: the `serve_tcp` function
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. autofunction:: serve_tcp
 
@@ -452,8 +452,8 @@ TCP serving: the `serve_tcp` function
     :members:
 
 
-UDP serving: the `serve_udp` function
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+UDP server: the `serve_udp` function
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. autofunction:: serve_udp
 
