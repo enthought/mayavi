@@ -351,7 +351,6 @@ class Axes(AxesLikeModuleFactory):
         if self.ranges is None:
             axes.axes.ranges = \
                 axes.module_manager.source.outputs[0].bounds
-            axes.axes.use_ranges = True
 
     def _ranges_changed(self):
         if self.ranges is not None:
