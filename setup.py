@@ -332,6 +332,7 @@ def configuration(parent_package='', top_path=None):
     config.add_subpackage('enthought')
     config.add_data_dir('enthought/mayavi/core/lut')
     config.add_data_dir('enthought/mayavi/tests/data')
+    config.add_data_dir('enthought/mayavi/tests/csv_files')
 
     # Image files.
     for root, dirs, files in os.walk('enthought'):
