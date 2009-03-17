@@ -67,16 +67,12 @@ project:
 import setuptools
 from setuptools import Command
 
-from numpy.distutils import log
 from numpy.distutils.command import build, install_data
 from setuptools.command import develop, install_scripts
-from traceback import print_exc
-import distutils
 import numpy
 import os
 import re
 import sys
-import shutil
 import zipfile
 
 
@@ -335,6 +331,7 @@ def configuration(parent_package='', top_path=None):
     config.add_subpackage('enthought.tvtk')
     config.add_subpackage('enthought')
     config.add_data_dir('enthought/mayavi/core/lut')
+    config.add_data_dir('enthought/mayavi/tests/data')
 
     # Image files.
     for root, dirs, files in os.walk('enthought'):
