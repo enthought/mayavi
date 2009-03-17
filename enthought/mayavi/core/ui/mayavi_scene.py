@@ -75,9 +75,11 @@ def mayavi_scene_factory(parent):
 class MayaviViewer(IVTK):
     """ A viewer window for mlab.
     """
-    size=(400, 350)
 
     _scene_factory = Callable(mayavi_scene_factory)
+
+    def _size_default(self):
+        return (400, 300)
 
 
 def viewer_factory(size=(400, 350)):
