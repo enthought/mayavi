@@ -33,7 +33,7 @@ for scalar or vector data.
 A small *xyz* triad can be added to the figure using 
 :func:`orientation_axes`. 
 
-.. warning:: The :func:`orientation_axes` was named `orientatedaxes`
+.. warning:: The :func:`orientation_axes` was named `orientationaxes`
    before release 3.2.
 
 Moving the camera

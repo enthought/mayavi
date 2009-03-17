@@ -131,8 +131,9 @@ text
     
         text(x, y, text, ...)
     
-    x, and y are the position of the origin of the text on the 2D
-    projection of the figure. If a z keyword argument is given, the
+    x, and y are the position of the origin of the text. If no z
+    keyword argument is given, x and y are the 2D projection of the
+    figure, they belong to [0, 1]. If a z keyword  argument is given, the
     text is positionned in 3D, in figure coordinnates.
     
     **Keyword arguments:**

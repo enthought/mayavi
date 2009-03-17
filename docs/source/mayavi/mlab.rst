@@ -53,15 +53,15 @@ in which full visualization pipeline are built in scripts, and we give
 some detailled examples of applying these tools to visualizing volumetric
 scalar and vector data.
 
-..
- .. contents:: Section contents
+.. contents:: Section contents
     :depth: 1
     :local:
 
-.. topic:: **Section contents**
-
+..
+ .. topic:: **Section contents**
+ 
     .. toctree::
-
+ 
         mlab_demo
         mlab_3d_plotting_functions
         mlab_changing_object_looks
@@ -70,6 +70,22 @@ scalar and vector data.
         mlab_animating
         mlab_pipeline
         mlab_case_studies
+
+.. include:: mlab_demo.rst
+
+.. include:: mlab_3d_plotting_functions.rst
+
+.. include:: mlab_changing_object_looks.rst
+
+.. include:: mlab_figures_decorations.rst
+
+.. include:: mlab_running_scripts.rst
+
+.. include:: mlab_animating.rst
+
+.. include:: mlab_pipeline.rst
+
+.. include:: mlab_case_studies.rst
 
 ..
    Local Variables:
