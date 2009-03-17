@@ -262,7 +262,7 @@ class VectorsFactory(DataModuleFactory):
             self._target.glyph.mask_points.on_ratio = self.mask_points
 
     def _scale_mode_changed(self):
-        self._target.glyph.glyph.scale_mode = self.scale_mode_
+        self._target.glyph.scale_mode = self.scale_mode_
 
     mode = Trait('2darrow', glyph_mode_dict,
                     desc="""the mode of the glyphs.""")
