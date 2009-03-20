@@ -520,7 +520,7 @@ class VolumeFactory(PipeFactory):
         The range of the colormap can be changed simply using the
         vmin/vmax parameters (see below). For more complex modifications of 
         the colormap, here is some pseudo code to change the ctf (color 
-        transfert function), or the otf (opacity transfert function)::
+        transfer function), or the otf (opacity transfer function)::
 
             vol = mlab.pipeline.volume(src)
 
@@ -542,27 +542,13 @@ class VolumeFactory(PipeFactory):
             self._target._volume_property.set_scalar_opacity(otf)
 
     """
+
     color = Trait(None, None,
                 TraitTuple(Range(0., 1.),Range(0., 1.),Range(0., 1.)),
                 help="""the color of the vtk object. Overides the colormap,
                         if any, when specified. This is specified as a 
                         triplet of float ranging from 0 to 1, eg (1, 1,
                         1) for white.""", )
-
-    def _color_changed(self):
-        if not self.color:
-            return
-        range_min, range_max = self._target.current_range
-        from enthought.tvtk.util.ctf import ColorTransferFunction
-        ctf = ColorTransferFunction()
-        r, g, b = self.color
-        ctf.add_rgb_point(range_min, r, g, b)
-        ctf.add_rgb_point(range_max, r, g, b)
-
-        self._target._ctf = ctf
-        self._target._volume_property.set_color(ctf)
-        self._target.update_ctf = True
-
 
     vmin = Trait(None, None, CFloat,
                     help="""vmin is used to scale the transparency
@@ -574,7 +560,32 @@ class VolumeFactory(PipeFactory):
                             gradient. If None, the max of the data will be 
                             used""")
 
+    _target = Instance(modules.Volume, ())
+
     __ctf_rescaled = Bool(False)
+
+    ######################################################################
+    # Non-public interface.
+    ###################################################################### 
+    def _color_changed(self):
+        if not self.color:
+            return
+        range_min, range_max = self._target.current_range
+        from enthought.tvtk.util.ctf import ColorTransferFunction
+        ctf = ColorTransferFunction()
+        try:
+            ctf.range = (range_min, range_max)
+        except Exception:
+            # VTK versions < 5.2 don't seem to need this.
+            pass
+        
+        r, g, b = self.color
+        ctf.add_rgb_point(range_min, r, g, b)
+        ctf.add_rgb_point(range_max, r, g, b)
+
+        self._target._ctf = ctf
+        self._target._volume_property.set_color(ctf)
+        self._target.update_ctf = True
 
     def _vmin_changed(self):
         vmin = self.vmin
@@ -587,6 +598,7 @@ class VolumeFactory(PipeFactory):
 
         # Change the opacity function
         from enthought.tvtk.util.ctf import PiecewiseFunction, save_ctfs
+       
         otf = PiecewiseFunction()
         if range_min < vmin:
             otf.add_point(range_min, 0.)
@@ -598,7 +610,7 @@ class VolumeFactory(PipeFactory):
         self._target._volume_property.set_scalar_opacity(otf)
         if self.color is None and not self.__ctf_rescaled and \
                         ( (self.vmin is not None) or (self.vmax is not None) ):
-            # We don't use 'rescale_ctfs' because it screws up the nodes.
+            # FIXME: We don't use 'rescale_ctfs' because it screws up the nodes.
             def _rescale_value(x):
                 nx = (x - range_min)/(range_max - range_min)
                 return vmin + nx*(vmax - vmin)
@@ -615,8 +627,14 @@ class VolumeFactory(PipeFactory):
                     rgb.append((_rescale_node(value), r, g, b))
             else:
                 rgb = save_ctfs(self._target.volume_property)['rgb']
+
             from enthought.tvtk.util.ctf import ColorTransferFunction
             ctf = ColorTransferFunction()
+            try:
+                ctf.range = (range_min, range_max)
+            except Exception:
+                # VTK versions < 5.2 don't seem to need this.
+                pass
             rgb.sort()
             v = rgb[0]
             ctf.add_rgb_point(range_min, v[1], v[2], v[3])
@@ -633,13 +651,7 @@ class VolumeFactory(PipeFactory):
     # This is not necessary: the job is already done by _vmin_changed
     #_vmax_changed = _vmin_changed
 
-
-    _target = Instance(modules.Volume, ())
-
-
-
 volume = make_function(VolumeFactory)
-
 
 
 ############################################################################

@@ -8,7 +8,6 @@ import unittest
 
 import numpy as np
 
-from enthought.etsconfig.api import ETSConfig
 from enthought.mayavi import mlab
 from enthought.mayavi.core.engine import Engine
 from enthought.mayavi.tools.engine_manager import engine_manager
