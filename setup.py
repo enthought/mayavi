@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 #
-# Copyright (c) 2008 by Enthought, Inc.
+# Copyright (c) 2008-2009 by Enthought, Inc.
 # All rights reserved.
-#
+
 
 """
 The Mayavi scientific data 3-dimensional visualizer.
@@ -67,13 +67,14 @@ project:
 import setuptools
 from setuptools import Command
 
-from numpy.distutils.command import build, install_data
-from setuptools.command import develop, install_scripts
 import numpy
 import os
 import re
 import sys
 import zipfile
+
+from numpy.distutils.command import build, install_data
+from setuptools.command import develop, install_scripts
 
 
 # FIXME: This works around a setuptools bug which gets setup_data.py metadata
@@ -388,9 +389,6 @@ numpy.distutils.core.setup(
         'install_data': MyInstallData,
         'mlab_ref': MlabRef,
         },
-    dependency_links = [
-        'http://code.enthought.com/enstaller/eggs/source',
-        ],
     description = DOCLINES[1],
     docs_in_egg = True,
     docs_in_egg_location = 'enthought/docs',
