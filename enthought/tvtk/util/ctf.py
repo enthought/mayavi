@@ -2,7 +2,7 @@
 
 """
 # Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
-# Copyright (c) 2006, Enthought, Inc.
+# Copyright (c) 2006-2009, Enthought, Inc.
 # License: BSD Style.
 
 # Enthought library imports.
@@ -88,7 +88,11 @@ def load_ctfs(saved_data, volume_property):
         ctf.add_rgb_point(rgb[i][0], *(rgb[i][1:]))
     if new_ctf:
         volume_property.set_color(ctf)
-        
+    try:
+        ctf.range = saved_data['range']
+    except Exception:
+        # VTK versions < 5.2 don't seem to need this.
+        pass
     # and then the alpha values.
     na = len(a)
     new_otf = True
