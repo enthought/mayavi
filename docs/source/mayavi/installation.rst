@@ -60,14 +60,19 @@ Mayavi requires at the very minimum the following packages:
     * numpy_ >= 1.0.1
     * setuptools_ (for installation and egg builds)
     * Traits_ >= 3.0 (`Traits`, `TraitsGUI` and `TraitsBackendWX` or
-      `TraitsBackendQt`) 
+      `TraitsBackendQt`, `EnthoughtBase`, `AppTools`)
+      **Note** Depending on your installation
+      procedure, you might not need to instal manually these
+      requirements.
 
 The following requirements are really optional but strongly recommended,
 especially if you are new to mayavi:
 
-    * Envisage_ == 3.x (`EnvisageCore` and `EnvisagePlugins`)
     * wxPython_ 2.8.x
     * configobj_
+    * Envisage_ == 3.x (`EnvisageCore` and `EnvisagePlugins`) 
+      **Note** These last requirements can be automatically installed,
+      see below.
 
 One can install the requirements in several ways.  
 
@@ -142,13 +147,15 @@ There are primarily two ways to use ETS eggs.
   2. The second is to build the eggs from the source tarballs.  This is
      also fairly easy to do if you have a proper build environment.
 
-To install eggs, first make sure the requirements are installed, and
-then build and install the eggs like so::
+To install eggs, first make sure the essential requirements are
+installed, and then build and install the eggs like so::
 
  $ easy_install "Mayavi[app]" 
 
 This one command will download, build and install all the required
-ETS related modules that mayavi needs for the latest ETS release.
+ETS related modules that mayavi needs for the latest ETS release, this
+means that the `Traits` dependencies and the `Envisage` dependencies will
+be installed automatically.
 If you run into trouble please check the `Enthought Install`_ pages.
 
 One common sources of problems during an install, is the presence of

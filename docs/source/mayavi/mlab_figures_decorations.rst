@@ -43,7 +43,9 @@ The position and direction of the camera can be set using the :func:`view`
 function. They are described in terms of Euler angles and distance to a
 focal point. The :func:`view` function tries to guess the right roll angle 
 of the camera for a pleasing view, but it sometimes fails. The :func:`roll`
-explicitly sets the roll angle of the camera.
+explicitly sets the roll angle of the camera (this can be achieve
+intercactively in the scene by pressing down the control key, while
+dragging the mouse, see :ref:`interaction-with-the-scene`).
 
 The :func:`view` and :func:`roll` functions return the current values of
 the different angles and distances they take as arguments. As a result, the
@@ -56,6 +58,18 @@ view point obtained interactively can be stored an reset using::
     # Reposition the camera
     mlab.view(*view)
     mlab.roll(roll)
+
+.. topic:: Rotating the camera around itself
+
+    You can also rotate the camera around itself using the `roll`, `yawl`
+    and `pitch` methods of the camera object. This moves the focal point::
+
+        f = mlab.gcf()
+        camera = f.scene.camera
+        camera.yawl(45)
+
+   Unlike the :func:`mlab.view` and :func:`mlab.roll` function, the angles
+   are incremental, and not absolute.
 
 ..
    Local Variables:

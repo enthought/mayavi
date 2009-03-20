@@ -174,8 +174,8 @@ dragging.
         - Holding down "SHIFT" when doing this will pan the scene --
           just like the middle button.
 
-        - Holding down "CONTROL" will rotate about the camera's focal
-          point.
+        - Holding down "CONTROL" will rotate around the camera's axis
+          (roll).
 
         - Holding down "SHIFT" and "CONTROL" and dragging up will zoom
           in and dragging down will zoom out.  This is like the right
