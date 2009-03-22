@@ -9,8 +9,8 @@ https://svn.enthought.com/enthought/changeset/18702
 
 
 
-Unreleased changes (trunk)
-----------------------------
+3.2.1 Release
+--------------
 
 15 March, 2009 (GV):
     - ENH: Add a volume factory to mlab that knows how to set color, vmin and 
