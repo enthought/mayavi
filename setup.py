@@ -392,6 +392,8 @@ numpy.distutils.core.setup(
     description = DOCLINES[1],
     docs_in_egg = True,
     docs_in_egg_location = 'enthought/docs',
+    download_url = ('http://www.enthought.com/repo/ETS/Mayavi-%s.tar.gz' %
+        INFO['version']),
     entry_points = {
         'console_scripts': [
             'mayavi2 = enthought.mayavi.scripts.mayavi2:main',
