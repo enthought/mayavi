@@ -9,8 +9,14 @@ https://svn.enthought.com/enthought/changeset/18702
 
 
 
-3.2.1 Release
+3.2.0 Release
 --------------
+
+17, 18 March, 2009 (PR):
+    - NEW: A simple example to show how one can use TVTK's visual module
+      with mlab. [23250]
+    - BUG: The size trait was being overridden and was different from
+      the parent causing a bug with resizing the viewer. [23243]
 
 15 March, 2009 (GV):
     - ENH: Add a volume factory to mlab that knows how to set color, vmin and 
@@ -18,12 +24,13 @@ https://svn.enthought.com/enthought/changeset/18702
 
 14 March, 2009 (PR):
     - API/TEST: Added a new testing entry point: 'mayavi -t' now runs
-      tests in separate process, for isolation. [23195]...[23200], 
-      [23213], [23214]
+      tests in separate process, for isolation.  Added
+      ``enthought.mayavi.api.test`` to allow for simple testing from the
+      interpreter [23195]...[23200], [23213], [23214], [23223].
     - BUG: The volume module was directly importing the
-      wx_gradient_editor leading to an import errorsror when no wxPython is 
-      available. This has been tested and fixed. Thanks to Christoph Bohme 
-      for reporting this issue. [23191]
+      wx_gradient_editor leading to an import error when no wxPython is
+      available. This has been tested and fixed. Thanks to Christoph
+      Bohme for reporting this issue. [23191]
 
 14 March, 2009 (GV):
     - BUG: [mlab]: fix positioning for titles [23194], and opacity for titles 
@@ -32,6 +39,14 @@ https://svn.enthought.com/enthought/changeset/18702
       when possible [23201], [23209].
     - ENH: Add a message to help the first-time user, using the new banner 
       feature of the IPython shell view [23208].
+
+13 March, 2009 (PR):
+    - NEW/API: Adding a powerful TCP/UDP server for scripting mayavi via
+      the network. This is available in
+      ``enthought.mayavi.tools.server`` and is fully documented. It uses
+      twisted and currently only works with wxPython. It is completely
+      insecure though since it allows a remote user to do practically
+      *anything* from mayavi.
 
 13 March, 2009 (GV)
     - API: rename mlab.orientationaxes to mlab.orientation_axes [23184]
