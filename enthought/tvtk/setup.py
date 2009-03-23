@@ -52,6 +52,9 @@ def gen_tvtk_classes_zip():
     except:
         pass
     print '-'*70
+    if os.path.exists(target):
+        print 'Deleting possibly old TVTK classes'
+        os.unlink(target)
     print "Building TVTK classes...",
     sys.stdout.flush()
     cwd = os.getcwd()
