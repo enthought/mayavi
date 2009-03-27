@@ -74,7 +74,11 @@ if exists(user_module):
 def _import_contrib(pkg):
     mod = None
     try:
-        mod = __import__(pkg, level=0)
+        components = pkg.split('.')
+        mod_name = '.'.join(components[:-1])
+        sym_name = components[-1]
+        m = __import__(mod_name, globals(), locals(), [sym_name], level=0)
+        mod = getattr(m, sym_name)
     except Exception:
         print "*"*80
         traceback.print_exc(file=sys.stdout)
