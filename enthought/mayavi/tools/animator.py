@@ -73,9 +73,9 @@ class Animator(HasTraits):
           :callable: callable function to call after the specified
                      delay.
 
-          :*args: optional arguments to be passed to the callable.
+          :\*args: optional arguments to be passed to the callable.
 
-          :**kwargs: optional keyword arguments to be passed to the callable.
+          :\*\*kwargs: optional keyword arguments to be passed to the callable.
 
         """
         HasTraits.__init__(self)

@@ -43,6 +43,7 @@ class StopShow(HasTraits):
 
     ########################################
     # Traits
+
     stop = Button('Stop interaction', 
                   desc='if the UI interaction is to be stopped')
 
