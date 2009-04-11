@@ -17,9 +17,7 @@ What you should get:
 
 """
 
-from enthought.mayavi.core.registry import registry
-from enthought.mayavi.core.metadata import SourceMetadata
-from enthought.mayavi.core.pipeline_info import PipelineInfo
+from enthought.mayavi.core.api import registry, SourceMetadata, PipelineInfo
 
 def zzz_reader(fname, engine):
     """Reader for .zzz files.

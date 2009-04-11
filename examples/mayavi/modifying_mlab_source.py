@@ -19,7 +19,7 @@ from enthought.traits.api import HasTraits, Range, Instance, \
 from enthought.traits.ui.api import View, Item, HGroup, spring
 from enthought.tvtk.pyface.scene_editor import SceneEditor
 from enthought.mayavi.tools.mlab_scene_model import MlabSceneModel
-from enthought.mayavi.core.pipeline_base import PipelineBase
+from enthought.mayavi.core.api import PipelineBase
 from enthought.mayavi.core.ui.mayavi_scene import MayaviScene
 
 

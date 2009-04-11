@@ -32,9 +32,7 @@ The file may also be placed anywhere on sys.path and called
 # Copyright (c) 2006-2008, Enthought, Inc.
 # License: BSD Style.
 
-from enthought.mayavi.core.registry import registry
-from enthought.mayavi.core.pipeline_info import PipelineInfo
-from enthought.mayavi.core.metadata import ModuleMetadata
+from enthought.mayavi.core.api import registry, PipelineInfo, ModuleMetadata
 
 # Metadata for the new module we want to add -- notice that we use a
 # factory function here for convenience, we could also use a class but
