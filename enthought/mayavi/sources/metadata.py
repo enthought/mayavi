@@ -84,7 +84,7 @@ open_ugrid_data = SourceMetadata(
     extensions = ['inp', 'neu', 'exii'],
     wildcard = 'AVSUCD INP files (*.inp)|*.inp|'\
                'GAMBIT NEU (*.neu)|*.neu|'\
-               'EXODUS EXII (*.exii)|*.exii|',
+               'EXODUS EXII (*.exii)|*.exii',
     output_info = PipelineInfo(datasets=['any'],
                                attribute_types=['any'],
                                attributes=['any'])
