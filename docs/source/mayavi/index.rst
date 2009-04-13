@@ -1,7 +1,7 @@
-Mayavi2 Users Guide
+Mayavi Users Guide
 ===================================
 
-This is the User Guide for Mayavi2, the scientific data visualization and
+This is the User Guide for Mayavi, the scientific data visualization and
 3D plotting tool in Python.
 
 If you already have Mayavi installed and want a quick tour of its

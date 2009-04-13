@@ -1,4 +1,4 @@
-Mayavi2 Cookbook
+Mayavi Cookbook
 =================
 
 These are a collection of useful hints and recipes for various tasks.

@@ -58,16 +58,16 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General substitutions.
-project = 'Mayavi2'
-copyright = u'2008, Prabhu Ramachandran, Gaël Varoquaux'
+project = 'Mayavi'
+copyright = u'2008-2009, Prabhu Ramachandran, Gaël Varoquaux'
 
 # The default replacements for |version| and |release|, also used in various
 # other places throughout the built documents.
 #
 # The short X.Y version.
-version = '3.0.0a1'
+version = '3.2.1'
 # The full version, including alpha/beta/rc tags.
-release = '3.0.0a1'
+release = '3.2.1'
 
 # There are two options for replacing |today|: either, you set today to some
 # non-false value, then it is used:
@@ -131,7 +131,7 @@ html_last_updated_fmt = '%b %d, %Y'
 #html_copy_source = True
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'Mayavi2doc'
+htmlhelp_basename = 'Mayavidoc'
 
 # A logo displayed in the html sidebar.
 html_logo = 'mayavi-logo.png'
@@ -147,7 +147,7 @@ html_logo = 'mayavi-logo.png'
 
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, document class [howto/manual]).
-latex_documents = [('index', 'mayavi_user_guide.tex', 'Mayavi2 User Guide',
+latex_documents = [('index', 'mayavi_user_guide.tex', 'Mayavi User Guide',
                         'Prabhu Ramachandran, Gael Varoquaux', 'manual')]
 
 # Additional stuff for the LaTeX preamble.
