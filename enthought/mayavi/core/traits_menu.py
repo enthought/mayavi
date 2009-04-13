@@ -58,7 +58,11 @@ class MenuHelper(HasTraits):
         wildcard = 'All files (*.*)|*.*'
         for src in registry.sources:
             if len(src.extensions) > 0:
-                wildcard += '|' + src.wildcard
+                if wildcard.endswith('|') or \
+                   src.wildcard.startswith('|'):
+                       wildcard += src.wildcard
+                else:
+                    wildcard += '|' + src.wildcard
 
         dialog = FileDialog(parent=None,
                             title='Open supported data file',

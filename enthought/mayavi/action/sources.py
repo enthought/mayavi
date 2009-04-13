@@ -62,7 +62,11 @@ class OpenFile(Action):
         wildcard = 'All files (*.*)|*.*'
         for src in registry.sources:
             if len(src.extensions) > 0:
-                wildcard += '|' + src.wildcard
+                if wildcard.endswith('|') or \
+                   src.wildcard.startswith('|'):
+                       wildcard += src.wildcard
+                else:
+                    wildcard += '|' + src.wildcard
                    
         parent = self.window.control
         dialog = FileDialog(parent=parent,
