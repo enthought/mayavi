@@ -1,7 +1,17 @@
+This directory contains lookup tables imported from pylab automaticaly by
+"cm2lut" script. Do not modify manually
 
-pylab_luts.py:
---------------
-    This large file is important data for the TVTK lookup colormap.
-    Also, zipping the file would be not be convenient, and unnecessary
-    since in the distribution the file is compressed anyway.
+These colormaps are borrowed from matplotlib. See matplotlib license
+for license agreement (http://matplotlib.sourceforge.net/license.html)
+
+34 of the colormaps are based on color specifications and designs
+developed by Cynthia Brewer (http://colorbrewer.org). The ColorBrewer
+palettes have been included under the terms of an Apache-stype license
+(for details, see the file LICENSE_COLORBREWER in the base directory of
+enthought.mayavi source).
+
+7 palettes are from the Yorick scientific visalisation package, an
+evolution of the GIST package, both by David H. Munro. They are
+released under a BSD-like license (see LICENSE_YORICK in the base
+directory of enthought.mayavi source).
 

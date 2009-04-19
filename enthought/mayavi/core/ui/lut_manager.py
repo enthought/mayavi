@@ -14,11 +14,8 @@ importing.
 
 from enthought.traits.ui.api \
     import Item, Group, View, ImageEnumEditor, InstanceEditor, HGroup
-from enthought.mayavi.core import lut 
-from enthought.mayavi.core.lut_manager import lut_mode_list
-import os
-lut_image_dir = os.path.dirname(lut.__file__)
-
+from enthought.mayavi.core.lut_manager import lut_mode_list, \
+            lut_image_dir
 
 
 # The view of the LUT Manager object.
