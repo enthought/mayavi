@@ -1,4 +1,7 @@
-"""This code is not to be executed as `mayavi2 -x user_mayavi.py` or
+"""
+Sample Mayavi customization file.
+
+This code is not to be executed as `mayavi2 -x user_mayavi.py` or
 `python user_mayavi.py`.  
 
 Put this file in ~/.mayavi2/user_mayavi.py and rerun mayavi2 to see what
@@ -8,14 +11,14 @@ Mayavi2 View".
 
 The added modules should show up in the menus (Look for UserOutline in
 the Modules)
-"""
 
-"""
-This module demonstrates how to extend Mayavi2.  It extends the  modules
-provided by mayavi by adding these to the mayavi registry.  Note that
+____
+
+This module demonstrates how to extend Mayavi.  It extends the  modules
+provided by mayavi by adding these to the Mayavi registry.  Note that
 the registry imports customize which in turn imports this file.
 
-It also defines an envisage plugin that is added to the default list of
+It also defines an Envisage plugin that is added to the default list of
 plugins to extend the running mayavi application.  This plugin is
 returned by the `get_plugins()` function.
 

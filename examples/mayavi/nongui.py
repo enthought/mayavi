@@ -1,13 +1,17 @@
 #!/usr/bin/env python
+"""
+This script demonstrates how one can use the Mayavi application framework
+without displaying Mayavi's UI. 
 
-"""This script demonstrates how one can use the MayaVi framework
-without displaying MayaVi's UI.  Note: look at the end of this file to
-see how the non gui plugin is chosen instead of the default gui
-mayavi plugin. This should be run as:
+Note: look at the end of this file to see how the non gui plugin is
+chosen instead of the default gui mayavi plugin. 
+
+This should be run as::
 
   $ python nongui.py
 
-Or:
+Or::
+
   $ mayavi2 script.py
 
 """

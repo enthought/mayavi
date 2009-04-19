@@ -4,126 +4,10 @@ Tips and Tricks
 Below are a few tips and tricks that you may find useful when you use
 Mayavi2.
 
-
-Extending Mayavi with customizations
--------------------------------------
-
-A developer may wish to customize mayavi by adding new sources, filters
-or modules.  These can be done by writing the respective filters and
-exposing them via a ``user_mayavi.py`` or a ``site_mayavi.py`` as
-described in `Customizing Mayavi2`_.   A more flexible and
-reusable mechanism for doing this is to create a full fledged Mayavi
-contrib package in the following manner.
-
-  1. Create a Python package, lets call it ``mv_iitb`` (for IIT Bombay
-     specific extensions/customizations).  The directory structure of
-     this package can be something like so::
-
-        mv_iitb/
-                __init__.py
-                user_mayavi.py
-                sources/
-                        ...
-                filters/
-                        ...
-                modules/
-                        ...
-                docs/
-                    ...
-
-     The two key points to note in the above are the fact that
-     ``mv_iitb`` is a proper Python package (notice the ``__init__.py``)
-     and the ``user_mayavi.py`` is the file that adds whatever new
-     sources/filters/modules etc. to mayavi.  The other part of the
-     structure is really up to the developer.  At the moment these
-     packages can add new sources, filters, modules and contribute any
-     Envisage plugins that the ``mayavi2`` application will load.
-
-  2. This package should then be installed somewhere on ``sys.path``.
-     Once this is done, users can find these packages and enable them
-     from the Tools->Preferences (the UI will automatically detect the
-     package).  The ``user_mayavi.py`` of each selected package will
-     then be imported next time mayavi is started, note that this will
-     be usable even from ``mlab``.
-         
-Any number of such packages may be created and distributed.  If they are
-installed, users can choose to enable them.  Internally, the list of
-selected packages is stored as the ``enthought.mayavi.contrib_packages``
-preference option.  The following code shows how this may be accessed
-from a Python script::
-
-   >>> from enthought.mayavi.preferences.api import preference_manager
-   >>> print preference_manager.root.contrib_packages
-   []
-   >>> preference_manager.configure_traits() # Pop up a UI.
-
-For more details on how best to write ``user_mayavi.py`` files and what
-you can do in them, please refer to the
-`examples/mayavi/user_mayavi.py`_ example.  Please pay particular
-attention to the warnings in that file.  It is a very good idea to
-ensure that the ``user_mayavi.py`` does not implement any
-sources/modules/filters and only registers the metadata.  This will
-avoid issues with circular imports. 
-
-
-.. _`examples/mayavi/user_mayavi.py`: https://svn.enthought.com/enthought/browser/Mayavi/trunk/examples/mayavi/user_mayavi.py
-
-
-Customizing Mayavi2
---------------------
-
-There are three ways a user can customize mayavi:
-
-  1. Via mayavi contributions installed on the system.  This may be done
-     by enabling any found contributions from the Tools->Preferences
-     menu on the Mayavi component, look for the "contribution settings".
-     Any selected contributions will be imported the next time mayavi
-     starts.  For more details see the `Extending Mayavi with
-     customizations`_ section.
-
-  2. At a global, system wide level via a ``site_mayavi.py``.  This file
-     is to be placed anywhere on ``sys.path``.
-
-  3. At a local, user level.  This is achieved by placing a
-     ``user_mayavi.py`` in the users ``~/.mayavi2/`` directory.  If a 
-     ``~/.mayavi2/user_mayavi.py`` is found, the directory is placed in
-     ``sys.path``.
-
-The files are similar in their content.  Two things may be done in this
-file:
-
-  1. Registering new sources, modules or filters in the mayavi registry
-     (``enthought.mayavi.core.registry.registry``).  This is done by
-     registering metadata for the new class in the registry.  See
-     ``examples/mayavi/user_mayavi.py`` to see an example.
-
-  2. Adding additional envisage plugins to the mayavi2 application.
-     This is done by defining a function called ``get_plugins()`` that
-     returns a list of plugins that you wish to add to the mayavi2
-     application.
-
-
-The ``examples/mayavi/user_mayavi.py`` example documents and shows how
-this can be done.  To see it, copy the file to the ``~/.mayavi2``
-directory.  If you are unsure where ``~`` is on your platform, just run
-the example and it should print out the directory.
-
-.. warning::
-
- In the ``user_mayavi.py`` or ``site_mayavi.py``, avoid mayavi imports
- like  ``from enthought.mayavi.modules.outline import Outline`` etc.
- This is because ``user_mayavi`` is imported at a time when many of the
- imports are not complete and this will cause hard-to-debug circular
- import problems.  The ``registry`` is given only metadata mostly in the
- form of strings and this will cause no problem.  Therefore to define
- new modules, we strongly recommend that the modules be defined in
- another module or be defined in a factory function as done in the
- example ``user_mayavi.py`` provided.
-
+.. _offscreen_rendering:
 
 Off screen rendering
 --------------------
-
 
 Avoiding the rendering window
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -220,7 +104,7 @@ so:
 
       $ export DISPLAY=:1
 
-  * Now run your mayavi script.  It should run uninterrupted on this X
+  * Now run your Mayavi script.  It should run uninterrupted on this X
     server and produce your saved images.
   
 This probably will have to be fine tuned to suit your taste.
@@ -237,13 +121,16 @@ in a hidden window.
 
 .. note:: 
 
-    If you want to use mayavi without the envisage UI or even a traits
-    UI (i.e. with a pure TVTK window) and do off screen rendering with
+    If you want to use Mayavi without the envisage UI or even a traits UI
+    (i.e. with a pure TVTK window) and do off screen rendering with
     Python scripts you may be interested in the
-    ``examples/offscreen.py`` or the ``examples/offscreen_mlab.py``
-    example.  This simple example shows how you can use Mayavi without
-    using Envisage or the Mayavi envisage application and still do off
-    screen rendering.
+    :ref:`examples_offscreen`. This simple example shows how you can use
+    Mayavi without using Envisage or the Mayavi envisage application and
+    still do off screen rendering. 
+    
+    If you are using mlab, outside of the Mayavi2 application, simply set::
+
+        mlab.options.offscreen = True
 
 
 Using VTK with Mesa for pure software rendering
@@ -346,28 +233,129 @@ to popup a full UI, it might be better to *not set*
 .. _Sage: http://www.sagemath.org
 
 
-Using ``mlab`` with the full Envisage UI
-----------------------------------------
 
-Sometimes it is convenient to write an mlab script but still use the
-full envisage application so you can click on the menus and use other
-modules etc.  To do this you may do the following before you create an
-mlab figure::
+Extending Mayavi with customizations
+-------------------------------------
 
-    from enthought.mayavi import mlab
-    mlab.options.backend = 'envisage'
-    f = mlab.figure()
-    # ...
+A developer may wish to customize Mayavi by adding new sources, filters
+or modules.  These can be done by writing the respective filters and
+exposing them via a ``user_mayavi.py`` or a ``site_mayavi.py`` as
+described in `Customizing Mayavi2`_.   A more flexible and
+reusable mechanism for doing this is to create a full fledged Mayavi
+contrib package in the following manner.
 
-This will give you the full-fledged UI instead of the default simple
-window.
+  1. Create a Python package, lets call it ``mv_iitb`` (for IIT Bombay
+     specific extensions/customizations).  The directory structure of
+     this package can be something like so::
 
-Scripting mayavi without using Envisage
+        mv_iitb/
+                __init__.py
+                user_mayavi.py
+                sources/
+                        ...
+                filters/
+                        ...
+                modules/
+                        ...
+                docs/
+                    ...
+
+     The two key points to note in the above are the fact that
+     ``mv_iitb`` is a proper Python package (notice the ``__init__.py``)
+     and the ``user_mayavi.py`` is the file that adds whatever new
+     sources/filters/modules etc. to Mayavi.  The other part of the
+     structure is really up to the developer.  At the moment these
+     packages can add new sources, filters, modules and contribute any
+     Envisage plugins that the ``mayavi2`` application will load.
+
+  2. This package should then be installed somewhere on ``sys.path``.
+     Once this is done, users can find these packages and enable them
+     from the Tools->Preferences (the UI will automatically detect the
+     package).  The ``user_mayavi.py`` of each selected package will
+     then be imported next time Mayavi is started, note that this will
+     be usable even from ``mlab``.
+         
+Any number of such packages may be created and distributed.  If they are
+installed, users can choose to enable them.  Internally, the list of
+selected packages is stored as the ``enthought.mayavi.contrib_packages``
+preference option.  The following code shows how this may be accessed
+from a Python script::
+
+   >>> from enthought.mayavi.preferences.api import preference_manager
+   >>> print preference_manager.root.contrib_packages
+   []
+   >>> preference_manager.configure_traits() # Pop up a UI.
+
+For more details on how best to write ``user_mayavi.py`` files and what
+you can do in them, please refer to the
+`examples/mayavi/user_mayavi.py`_ example.  Please pay particular
+attention to the warnings in that file.  It is a very good idea to
+ensure that the ``user_mayavi.py`` does not implement any
+sources/modules/filters and only registers the metadata.  This will
+avoid issues with circular imports. 
+
+
+.. _`examples/mayavi/user_mayavi.py`: https://svn.enthought.com/enthought/browser/Mayavi/trunk/examples/mayavi/user_mayavi.py
+
+
+Customizing Mayavi2
+--------------------
+
+There are three ways a user can customize Mayavi:
+
+  1. Via Mayavi contributions installed on the system.  This may be done
+     by enabling any found contributions from the Tools->Preferences
+     menu on the Mayavi component, look for the "contribution settings".
+     Any selected contributions will be imported the next time Mayavi
+     starts.  For more details see the `Extending Mayavi with
+     customizations`_ section.
+
+  2. At a global, system wide level via a ``site_mayavi.py``.  This file
+     is to be placed anywhere on ``sys.path``.
+
+  3. At a local, user level.  This is achieved by placing a
+     ``user_mayavi.py`` in the users ``~/.mayavi2/`` directory.  If a 
+     ``~/.mayavi2/user_mayavi.py`` is found, the directory is placed in
+     ``sys.path``.
+
+The files are similar in their content.  Two things may be done in this
+file:
+
+  1. Registering new sources, modules or filters in the Mayavi registry
+     (``enthought.mayavi.core.registry.registry``).  This is done by
+     registering metadata for the new class in the registry.  See
+     ``examples/mayavi/user_mayavi.py`` to see an example.
+
+  2. Adding additional envisage plugins to the mayavi2 application.
+     This is done by defining a function called ``get_plugins()`` that
+     returns a list of plugins that you wish to add to the mayavi2
+     application.
+
+
+The ``examples/mayavi/user_mayavi.py`` example documents and shows how
+this can be done.  To see it, copy the file to the ``~/.mayavi2``
+directory.  If you are unsure where ``~`` is on your platform, just run
+the example and it should print out the directory.
+
+.. warning::
+
+ In the ``user_mayavi.py`` or ``site_mayavi.py``, avoid Mayavi imports
+ like  ``from enthought.mayavi.modules.outline import Outline`` etc.
+ This is because ``user_mayavi`` is imported at a time when many of the
+ imports are not complete and this will cause hard-to-debug circular
+ import problems.  The ``registry`` is given only metadata mostly in the
+ form of strings and this will cause no problem.  Therefore to define
+ new modules, we strongly recommend that the modules be defined in
+ another module or be defined in a factory function as done in the
+ example ``user_mayavi.py`` provided.
+
+
+Scripting Mayavi without using Envisage
 ----------------------------------------
 
 The example ``examples/standalone.py`` demonstrates how one can use
 Mayavi without using Envisage.  This is useful when you want to minimize
-dependencies.  ``examples/offscreen.py`` demonstrates how to use mayavi
+dependencies.  ``examples/offscreen.py`` demonstrates how to use Mayavi
 without the envisage UI or even a traits UI (i.e. with a pure TVTK
 window) and do off screen rendering.  
 
@@ -377,16 +365,16 @@ Computing in a thread
 ``examples/compute_in_thread.py`` demonstrates how to visualize a 2D
 numpy array and visualize it as image data using a few modules.  It also
 shows how one can do a computation in another thread and update the
-mayavi pipeline once the computation is done.  This allows a user to
+Mayavi pipeline once the computation is done.  This allows a user to
 interact with  the user interface when the computation is performed in
 another thread.
 
 
-Polling a file and auto-updating mayavi
+Polling a file and auto-updating Mayavi
 ----------------------------------------
 
 Sometimes you have a separate computational process that generates data
-suitable for visualization.  You'd like mayavi to visualize the data but
+suitable for visualization.  You'd like Mayavi to visualize the data but
 automatically update the data when the data file is updated by the
 computation.  This is easily achieved by polling the data file and
 checking if it has been modified.  The ``examples/poll_file.py``
@@ -394,13 +382,13 @@ demonstrates this.  To see it in action will require that you edit the
 scalar data in the ``examples/data/heart.vtk`` data file.  
 
 
-Serving mayavi on the network
+Serving Mayavi on the network
 -------------------------------
 
 .. currentmodule:: enthought.mayavi.tools.server
 
 Say you have a little visualization script and you'd like to run some
-kind of server where you can script the running mayavi UI from a TCP/UDP
+kind of server where you can script the running Mayavi UI from a TCP/UDP
 connection.  It turns out there is a simple way to do this  if you have
 Twisted_ installed.  Here is a trivial example::
 
@@ -462,6 +450,215 @@ UDP server: the `serve_udp` function
  
  .. autoclass:: M2UDP
     :members:
+
+
+
+.. _animating_a_visualization:
+
+Animating a visualization
+--------------------------
+
+.. currentmodule:: enthought.mayavi.mlab
+
+Often users like to animate a visualization without affecting the
+interactive capabilities of the view.  For example you may want to
+rotate the camera continuously, take a snapshot while continuing to
+interact with the Mayavi UI.  To do this one can use the very convenient
+:func:`animate` decorator provided with Mayavi.  Here is a simple
+example::
+
+    from enthought.mayavi import mlab
+    @mlab.animate
+    def anim():
+        f = mlab.gcf()
+        while 1:
+            f.scene.camera.azimuth(10)
+            f.scene.render()
+            yield
+    
+    a = anim() # Starts the animation.
+
+Notice the use of ``yield`` in the above, this is *very* crucial to this
+working.  This example will continuously rotate the camera without
+affecting the UI's interactivity.  It also pops up a little UI that lets
+you start and stop the animation and change the time interval between
+calls to your function.  For more specialized use you can pass arguments
+to the decorator::
+
+    from enthought.mayavi import mlab
+    @mlab.animate(delay=500, ui=False)
+    def anim():
+        # ...
+    
+    a = anim() # Starts the animation without a UI.
+
+Note that if you don't want to import all of ``mlab``, the animate
+decorator is available from::
+
+    from enthought.mayavi.tools.animator import animate
+
+For more details check the documentation of the :func:`animate` decorator
+available in the :ref:`mlab-reference`. For an example using it,
+alongside with the `visual` handy for object-movement animation, see
+:ref:`example_mlab_visual`.
+
+
+Animating a series of images
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Lets say you have a stack of PNG or JPEG files that are numbered
+serially that you want to animate on a Mayavi scene.  Here is a simple
+script (called ``img_movie.py``)::
+    
+    # img_movie.py
+    from enthought.pyface.timer.api import Timer
+
+    def animate(src, N=10):
+        for j in range(N):
+            for i in range(len(src.file_list)):
+                src.timestep = i
+                yield
+
+    if __name__ == '__main__':
+        src = mayavi.engine.scenes[0].children[0]
+        animator = animate(src)
+        t = Timer(250, animator.next)
+
+The ``Timer`` class lets you call a function without blocking the
+running user interface.  The first argument is the time after which the
+function is to be called again in milliseconds.  The ``animate``
+function is a generator and changes the timestep of the source.  This
+script will animate the stack of images 10 times.  The script animates
+the first data source by default.  This may be changed easily.
+
+To use this script do this::
+    
+    $ mayavi2 -d your_image000.png -m ImageActor -x img_movie.py
+
+
+Making movies from a stack of images
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This isn't really related to Mayavi but is a useful trick nonetheless.
+Lets say you generate a stack of images using Mayavi say of the form
+``anim%03d.png`` (i.e. ``anim000.png``, ``anim001.png`` and so on), you
+can make this into a movie.  If you have ``mencoder`` installed try
+this::
+
+  $ mencoder "mf://anim%03d.png" -mf fps=10 -o anim.avi \
+    -ovc lavc -lavcopts vcodec=msmpeg4v2:vbitrate=500
+
+If you have ffmpeg installed you may try this::
+
+  $ ffmpeg -f image2 -r 10 -i anim%03d.png -sameq anim.mov -pass 2
+
+.. _mencoder: http://www.mplayerhq.hu/
+.. _ffmpeg: http://ffmpeg.mplayerhq.hu/
+
+
+Scripting from the command line
+--------------------------------
+
+The Mayavi application allows for very powerful
+:ref:`command-line-arguments` that lets you build a complex
+visualization from your shell.  What follow is a bunch of simple
+examples illustrating these.
+
+The following example creates a ``ParametricSurface`` source and then
+visualizes glyphs on its surface colored red::
+
+    $ mayavi2 -d ParametricSurface -m Glyph \
+    -s"glyph.glyph.scale_factor=0.1" \
+    -s"glyph.color_mode='no_coloring'" \
+    -s"actor.property.color = (1,0,0)"
+
+Note that ``-s"string"`` applies the string on the last object (also
+available as ``last_obj``), which is the glyph. 
+
+This example turns off coloring of the glyph and changes the glyph to
+display::
+
+    $ mayavi2 -d ParametricSurface -m Glyph\
+    -s"glyph.glyph.scale_factor=0.1" \
+    -s"glyph.color_mode='no_coloring'" \
+    -s"glyph.glyph_source.glyph_source = last_obj.glyph.glyph_source.glyph_list[-1]"
+
+Note the use of ``last_obj`` in the above.
+
+
+Texture mapping actors
+-----------------------
+
+Here is a simple example showing how to texture map an iso-surface with
+the data that ships with the Mayavi sources (the data files are in the
+examples directory)::
+
+    $ mayavi2 -d examples/tvtk/images/masonry.jpg \
+     -d examples/mayavi/data/heart.vti \
+     -m IsoSurface \
+     -s"actor.mapper.scalar_visibility=False" \
+     -s"actor.enable_texture=True"\
+     -s"actor.tcoord_generator_mode='cylinder'"\
+     -s"actor.texture_source_object=script.engine.current_scene.children[0]"
+
+It should be relatively straightforward to change this example to use a
+``ParametricSurface`` instead and any other image of your choice.
+Notice how the texture image (``masonry.jpg``) is set in the last line
+of the above.  The image reader is the first child of the current scene
+and we set it as the ``texture_source_object`` of the isosurface actor.
+
+
+Shifting data and plotting
+---------------------------
+
+Sometimes you need to shift/transform your input data in space and
+visualize that in addition to the original data.  This is useful when
+you'd like to do different things to the same data and see them on the
+same plot.  This can be done with Mayavi using the ``TransformData`` filter
+for ``StructuredGrid``, ``PolyData`` and ``UnstructuredGrid`` datasets.
+Here is an example using the ``ParametricSurface`` data source::
+
+   $ mayavi2 -d ParametricSurface \
+     -m Outline -m Surface \
+     -f TransformData -s "transform.translate(1,1,1)" \
+     -s "widget.set_transform(last_obj.transform)" \
+     -m Outline -m Surface
+
+If you have an ``ImageData`` dataset then you can change the origin,
+spacing and extents alone by using the ``ImageChangeInformation``
+filter.  Here is a simple example with the standard Mayavi image data::
+
+    $ mayavi2 -d examples/mayavi/data/heart.vti -m Outline \
+    -m ImagePlaneWidget \
+    -f ImageChangeInformation \ 
+    -s "filter.origin_translation=(20,20,20)" \
+    -m Outline -m ImagePlaneWidget
+
+
+Using the ``UserDefined`` filter
+---------------------------------
+
+The ``UserDefined`` filter in Mayavi lets you wrap around existing VTK
+filters easily.  Here are a few examples::
+
+    $ mayavi2 -d ParametricSurface -s "function='dini'" \
+    -f UserDefined:GeometryFilter \
+    -s "filter.extent_clipping=True" \
+    -s "filter.extent = [-1,1,-1,1,0,5]" \
+    -f UserDefined:CleanPolyData \
+    -m Surface \
+    -s "actor.property.representation = 'p'" \
+    -s "actor.property.point_size=2"
+
+This one uses a ``tvtk.GeometryFilter`` to perform extent based clipping of
+the parametric surface generated.  Note the specification of the ``-f
+UserDefined:GeometryFilter``.  This data is then cleaned using the
+``tvtk.CleanPolyData`` filter.
+
+Under mlab, the `Userdefined` can be used to wrap eg a `GeometryFilter`
+VTK filter with::
+
+    filtered_obj = mlab.pipeline.user_defined(obj, filter='GeometryFilter')
 
 
 Common problems

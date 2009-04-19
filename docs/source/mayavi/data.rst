@@ -8,7 +8,7 @@ problem. Mayavi helps you focus on your visualization work and not worry
 too much about the underlying data structures, for instance using mlab
 (see :ref:`simple-scripting-with-mlab`). We suggest you create sources
 for Mayavi using `mlab` or Mayavi sources when possible. However, if you
-want to create data with a very specific structure for a more efficient
+want to create data with a specific structure for a more efficient
 visualization, it helps to understand the VTK data structures that Mayavi
 uses.
 
@@ -26,7 +26,7 @@ Caracteristics of a dataset
 
 A dataset is defined by many different characteristics:
 
-.. image:: images/dataset_diagram/dataset_diagram.jpg
+.. image:: images/dataset_diagram.jpg
 
 :Connectivity:
 
@@ -96,7 +96,7 @@ UnstructuredGrid    Explicit      Volumes and surfaces        x, y, z positions 
   `mlab.pipeline.vector_field` factory functions, if the `x`, `y` and 
   `z` arrays are not explicitely specified.
 
-  .. image:: image_data.png
+  .. image:: image_data.jpg
 
   Creating a `tvtk.ImageData` object from numpy arrays::
   
@@ -115,7 +115,7 @@ UnstructuredGrid    Explicit      Volumes and surfaces        x, y, z positions 
   points are inferred from their position on the data array, an
   origin and the list of spacings of each axis.
 
-  .. image:: rectilinear_grid.png
+  .. image:: rectilinear_grid.jpg
 
   Creating a `tvtk.RectilinearGrid` object from numpy arrays::
 
@@ -141,7 +141,7 @@ UnstructuredGrid    Explicit      Volumes and surfaces        x, y, z positions 
   `z` arrays are explicitely specified.
  
 
-  .. image:: structured_grid.png
+  .. image:: structured_grid.jpg
 
   Creating a `tvtk.StructuredGrid` object from numpy arrays::
 
@@ -201,7 +201,7 @@ UnstructuredGrid    Explicit      Volumes and surfaces        x, y, z positions 
   created by the `mlab.pipeline.scalar_scatter` and
   `mlab.pipeline.vector_scatter` functions.
 
-  .. image:: poly_data.png
+  .. image:: poly_data.jpg
 
   Creating a `tvtk.PolyData` object from numpy arrays::
 
@@ -230,7 +230,7 @@ UnstructuredGrid    Explicit      Volumes and surfaces        x, y, z positions 
   specifying connectivity, defining volumetric cells made of adjacent 
   data points.
 
-  .. image:: unstructured_grid.png
+  .. image:: unstructured_grid.jpg
 
   Creating a `tvtk.UnstructuredGrid` object from numpy arrays::
 
@@ -291,28 +291,29 @@ Datasets creation examples
 ---------------------------
 
 There are several examples in the mayavi sources that highlight the
-creation of the most important datasets from numpy arrays.  These may
-be found in the ``examples`` directory.  Specifically they are:
+creation of the most important datasets from numpy arrays. Specifically
+they are:
 
-   * ``datasets.py`` : Generate a simple example for each type of VTK dataset.
+   * :ref:`example_datasets`: Generate a simple example for each type of 
+     VTK dataset.
 
-   * ``polydata.py``:  Demonstrates how to create Polydata datasets
+   * :ref:`example_polydata`:  Demonstrates how to create Polydata datasets
      from numpy arrays and visualize them in mayavi.
 
-   * ``structured_points2d.py``: Demonstrates how to create a 2D
+   * :ref:`example_structured_points2d`: Demonstrates how to create a 2D
      structured points (an ImageData) dataset from numpy arrays and
      visualize them in mayavi.  This is basically a square of
      equispaced points.
 
-   * ``structured_points3d.py``: Demonstrates how to create a 3D
+   * :ref:`example_structured_points3d`: Demonstrates how to create a 3D
      structured points (an ImageData) dataset from numpy arrays and
-     visualize them in mayavi.  This is a cube of points that are
+     visualize them in Mayavi.  This is a cube of points that are
      regularly spaced.
 
-   * ``structured_grid.py``: Demonstrates the creation and
+   * :ref:`example_structured_grid`: Demonstrates the creation and
      visualization of a 3D structured grid.
 
-   * ``unstructured_grid.py``: Demonstrates the creation and
+   * :ref:`example_unstructured_grid`: Demonstrates the creation and
      visualization of an unstructured grid.
 
 These scripts may be run like so::

@@ -6,7 +6,7 @@ To use this:
     - put this in ~/.mayavi2/
     - then import this module in your ~/.mayavi2/user_mayavi.py.
 
-thats it.
+that's it.
 
 What you should get:
 

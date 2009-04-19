@@ -47,7 +47,7 @@ Installing ready-made distributions
     available for RHEL3 and 4.
 
 
-Requirements for hand installs
+Requirements for manual installs
 --------------------------------
 
 If you are not using full, ready-made, scientific Python distribution,
@@ -231,6 +231,8 @@ will run.
 .. _Eggs: http://peak.telecommunity.com/DevCenter/PythonEggs
 .. _Enthought Install: https://svn.enthought.com/enthought/wiki/Install
 .. _ETS: http://code.enthought.com/ets
+
+.. _installing_svn:
 
 The bleeding edge: SVN
 ----------------------

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-"""A simple example of how you can use MayaVi without
-using Envisage or the MayaVi envisage application.
+"""A simple example of how you can use Mayavi without
+using Envisage or the Mayavi Envisage application.
 
 """
 # Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>

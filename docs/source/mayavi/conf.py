@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Mayavi2 documentation build configuration file, created by
+# Mayavi documentation build configuration file, created by
 # sphinx-quickstart on Sat Apr 12 23:25:24 2008.
 #
 # This file is execfile()d with the current directory set to its containing dir.
@@ -125,7 +125,7 @@ html_last_updated_fmt = '%b %d, %Y'
 #html_additional_pages = {}
 
 # If false, no module index is generated.
-#html_use_modindex = True
+html_use_modindex = False
 
 # If true, the reST sources are included in the HTML build as _sources/<name>.
 #html_copy_source = True
@@ -157,7 +157,7 @@ latex_preamble = """
 """
 
 # A logo displayed on the cover page.
-latex_logo = 'mayavi-banner.jpg'
+latex_logo = 'm2_about.jpg'
 
 
 # Documents to append as an appendix to all manuals.

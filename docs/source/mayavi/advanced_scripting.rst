@@ -316,12 +316,12 @@ Here is a brief description of the key objects in the Mayavi pipeline.
 The following figures show the class hierarchy of the various objects
 involved.
 
-.. image:: images/design2c.png
+.. image:: images/design2c.jpg
    :alt: The ``Engine`` object.
 
 *The ``Engine`` object and its important attributes and methods.*
 
-.. image:: images/design2a.png
+.. image:: images/design2a.jpg
    :alt: Basic object hierarchy
 
 *This hierarchy depicts the ``Base`` object, the ``Scene``,

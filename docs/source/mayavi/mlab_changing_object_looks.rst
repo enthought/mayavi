@@ -120,12 +120,28 @@ this manual, or add new modules or filters by using this icons on the
 pipeline, or through the right-click menus on the objects in the
 pipeline.
 
-.. image:: images/pipeline_and_scene.png
+.. image:: images/pipeline_and_scene.jpg
 
 In addition, for every object returned by a mlab function,
 ``this_object.edit_traits()`` brings up a dialog that can be used to
 interactively edit the object's properties. If the dialog doesn't show up
 when you enter this command, please see :ref:`running-mlab-scripts`.
+
+.. topic:: Using ``mlab`` with the full Envisage UI
+    
+    Sometimes it is convenient to write an mlab script but still use the
+    full envisage application so you can click on the menus and use other
+    modules etc.  To do this you may do the following before you create an
+    mlab figure::
+    
+        from enthought.mayavi import mlab
+        mlab.options.backend = 'envisage'
+        f = mlab.figure()
+        # ...
+    
+    This will give you the full-fledged UI instead of the default simple
+    window.
+
 
 
 ..

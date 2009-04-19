@@ -7,7 +7,7 @@ Using the Mayavi application
 
 
     This section primarily concerns using the ``mayavi2`` application.
-    Some of the things mentioned here also apply when mayavi is scripted.
+    Some of the things mentioned here also apply when Mayavi is scripted.
     We recommend that new users read this chapter to get a better
     knowledge of the interactive use of the library.
 
@@ -31,7 +31,7 @@ The UI features several sections described below.
     The menus let you open files, load modules, set preferences etc.
 
   The Mayavi engine tree view
-    This is a tree view of the mayavi pipeline.
+    This is a tree view of the Mayavi pipeline.
       * Right click a tree node to rename, delete, copy the objects.
 
       * Left click on a node to edit its properties on the object
@@ -43,7 +43,7 @@ The UI features several sections described below.
         scene to another.
 
   The object editor 
-    This is where the properties of mayavi pipeline objects can be
+    This is where the properties of Mayavi pipeline objects can be
     changed when an object on the engine's pipeline is clicked.
 
   TVTK scenes
@@ -52,8 +52,8 @@ The UI features several sections described below.
     details are in the following sections.
 
   Python interpreter
-    The built-in Python interpreter that can be used to script mayavi
-    and do other things.  You can drag nodes from the mayavi tree and
+    The built-in Python interpreter that can be used to script Mayavi
+    and do other things.  You can drag nodes from the Mayavi tree and
     drop them on the interpreter and then script the object represented
     by the node!
 
@@ -73,15 +73,15 @@ Mayavi's UI layout is highly configurable:
  * most of the "tabs" on the widgets can be dragged around to move
    them anywhere in the application.
 
- * Each view area (the mayavi engine view, object editor, python shell
+ * Each view area (the Mayavi engine view, object editor, python shell
    and logger) can be enabled and disabled in the 'View' menu.
 
-Each time you change the appearance of mayavi it is saved and the next
+Each time you change the appearance of Mayavi it is saved and the next
 time you start up the application it will have the same configuration.
 In addition, you can save different layouts into different
 "perspectives" using the `View->Perspectives` menu item.
 
-Shown below is a specifically configured mayavi user interface view.
+Shown below is a specifically configured Mayavi user interface view.
 In this view the size of the various parts are changed. 
 
 .. image:: images/mayavi_ui_second.jpg
@@ -253,7 +253,7 @@ supports the following features:
 
  * The name ``mayavi`` is automatically bound to the
    ``enthought.mayavi.script.Script`` instance.  This may be used to
-   easily script mayavi.
+   easily script Mayavi.
 
  * The name ``application`` is bound to the envisage application.
 
@@ -262,7 +262,7 @@ supports the following features:
    this script in the embedded Python interpreter, the user may type
    ``Control-r`` on the editor window.  To save the file press
    ``Control-s``.  This is a very handy feature when developing simple
-   mayavi scripts. You can also increase and decrease the font size using
+   Mayavi scripts. You can also increase and decrease the font size using
    ``Control-n`` and ``Control-s``.
 
  * As mentioned earlier, one may drag and drop nodes from the Mayavi
@@ -295,7 +295,7 @@ This can be used to:
 
 .. _recording-python-script:
 
-Recording mayavi actions to a script
+Recording Mayavi actions to a script
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Here is how you can use this feature:
@@ -323,7 +323,7 @@ Here is how you can use this feature:
     it will record any left/right/up/down arrows the '+'/'-' keys etc.
 
     Since the code is updated as the actions are performed, this is a
-    nice way to learn the mayavi API. 
+    nice way to learn the Mayavi API. 
 
  5. Once you are done, click on the record icon again, it will ask you
     to save the recorded script to a Python file.  Save it to some file,
@@ -345,8 +345,8 @@ Here is how you can use this feature:
     point of automatic script generation!
 
 It is important to understand that it is possible to script an existing
-session of Mayavi too.  So, if after starting mayavi you did a few
-things or ran a mayavi script and then want to record any further
+session of Mayavi too.  So, if after starting Mayavi you did a few
+things or ran a Mayavi script and then want to record any further
 actions, that is certainly possible.  Follow the same procedure as
 before.  The only gotcha you have to remember in this case is that the
 script recorder will not create the objects you already have setup on
@@ -354,12 +354,12 @@ the session.
 
 .. note::
 
-    You should also be able to delete/drag drop objects on the mayavi
+    You should also be able to delete/drag drop objects on the Mayavi
     tree view.  However, these probably aren't things you'd want to do
     in an automatic script.
 
 As noted earlier, script recording will work for an ``mlab`` session or
-anywhere else where mayavi is used.  It will not generate any ``mlab``
+anywhere else where Mayavi is used.  It will not generate any ``mlab``
 specific code but write generic Mayavi code using the OO Mayavi API.
 
 .. _recording-limitations:
@@ -378,8 +378,8 @@ does not support the following actions:
     as you may expect.
 
   - Only trait changes and specific calls are recorded explicitly in the
-    code.  So calling arbitrary methods on arbitrary mayavi objects will
-    not record anything typically.  Only the mayavi engine is specially
+    code.  So calling arbitrary methods on arbitrary Mayavi objects will
+    not record anything typically.  Only the Mayavi engine is specially
     wired up to record specific methods.
 
 .. _command-line-arguments:
@@ -401,7 +401,7 @@ Mayavi can be run like so::
 Where ``arg1``, ``arg2`` etc.  are optional file names that correspond
 to saved Mayavi2 visualizations (``filename.mv2``),  Mayavi2 scripts
 (``filename.py``) or any datafile supported by Mayavi.  If no options or
-arguments are provided mayavi will start up with a default blank scene.
+arguments are provided Mayavi will start up with a default blank scene.
 
 The options are:
 
@@ -493,7 +493,7 @@ The options are:
       ``--exec``.
 
 -t
-      Runs the mayavi2 test suite and exits.  If run as such, this runs
+      Runs the Mayavi test suite and exits.  If run as such, this runs
       both the TVTK and Mayavi2 unittests.  If any additional arguments
       are passed they are passed along to the test runner.  So this may
       be used to run other tests as well.  For example::
@@ -506,7 +506,7 @@ The options are:
 
         mayavi2 -t relative_path_to/integrationtests/mayavi
 
-      will run the integration tests from the mayavi sources.  Also
+      will run the integration tests from the Mayavi sources.  Also
       available as ``--test``.
 
 -s python-expression
@@ -525,7 +525,7 @@ The options are:
  dangerous if the script does something nasty!  Similarly, ``-s`` or
  ``--set`` uses `exec`, which can also be dangerous if abused.
 
-It is important to note that mayavi's **command line arguments are
+It is important to note that Mayavi's **command line arguments are
 processed sequentially** in the same order they are given.  This
 allows users to do interesting things.
 

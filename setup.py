@@ -69,6 +69,8 @@ from setuptools import Command
 
 import numpy
 import os
+import subprocess
+import shutil
 import re
 import sys
 import zipfile
@@ -88,9 +90,10 @@ DEFAULT_HTML_TARGET_DIR = os.path.join('build', 'docs', 'html')
 DEFAULT_INPUT_DIR = os.path.join('docs', 'source',)
 DEFAULT_HTML_ZIP = os.path.abspath(os.path.join('docs', 'html.zip'))
 
-class MlabRef(Command):
+class GenDocs(Command):
     
-    description = "This command generates the mlab reference documentation " \
+    description = \
+        "This command generates generated part of the documentation " \
         "when needed. It's run automatically before a build_docs, and that's " \
         "the only time it needs to be run."
     
@@ -162,14 +165,17 @@ class MlabRef(Command):
         mlab_ref_dir = os.path.join(DEFAULT_INPUT_DIR, 'mayavi','auto')
         
         source_path = os.path.join('enthought', 'mayavi')
-        sources = '\.py$'
+        sources = '(\.py)|(\.rst)$'
         excluded_dirs = '^\.'
         target_path = mlab_ref_dir
         target_time = self.latest_modified(target_path, ignore_dirs=excluded_dirs)[0]
         
         if self.latest_modified(source_path, filetypes=sources,
             ignore_dirs=excluded_dirs)[0] > target_time or \
-            self.latest_modified('mlab_reference.py')[0] > target_time:
+            self.latest_modified('mlab_reference.py')[0] > target_time or\
+            not os.path.exists(
+                os.path.join('docs', 'source', 'mayavi', 'auto',
+                'mlab_reference.rst')):
             try:
                 from enthought.mayavi import mlab
                 from enthought.mayavi.tools import auto_doc
@@ -178,8 +184,37 @@ class MlabRef(Command):
             except:
                 pass
 
+    def example_files(self):
+        """ Generate the documentation files for the examples.
+        """
+        mlab_ref_dir = os.path.join(DEFAULT_INPUT_DIR, 'mayavi','auto')
+
+        source_path = os.path.join('examples', 'mayavi')
+        sources = '(\.py)|(\.rst)$'
+        excluded_dirs = '^\.'
+        target_path = mlab_ref_dir
+        target_time = self.latest_modified(target_path, ignore_dirs=excluded_dirs)[0]
+
+        script_file_name = os.path.join('docs', 'source', 'render_examples.py')
+
+        if self.latest_modified(source_path, filetypes=sources,
+            ignore_dirs=excluded_dirs)[0] > target_time or \
+            self.latest_modified(script_file_name)[0] > target_time or\
+            not os.path.exists(
+                os.path.join('docs', 'source', 'mayavi', 'auto',
+                'examples.rst')):
+            try:
+                print "Generating the example list"
+                subprocess.call('python %s' %
+                            os.path.basename(script_file_name), shell=True,
+                            cwd=os.path.dirname(script_file_name))
+            except:
+                pass
+
+
     def run(self):
         self.mlab_reference()
+        self.example_files()
     
     def initialize_options(self):
         pass
@@ -242,7 +277,7 @@ class MyBuild(build.build):
     def run(self):
         build_tvtk_classes_zip()
         build.build.run(self)
-        self.run_command('mlab_ref')
+        self.run_command('gen_docs')
         self.run_command('build_docs')
 
 
@@ -255,7 +290,7 @@ class MyDevelop(develop.develop):
     """
 
     def run(self):
-        self.run_command('mlab_ref')
+        self.run_command('gen_docs')
         self.run_command('build_docs')
 
         # Make sure that the 'build_src' command will
@@ -349,6 +384,18 @@ def configuration(parent_package='', top_path=None):
     zip = zipfile.ZipFile(DEFAULT_HTML_ZIP)
     return config
 
+################################################################################
+# Similar to package_data, but installed before build
+build_package_data = {'enthought.mayavi.images':
+                            ['docs/source/mayavi/m2_about.jpg']}
+
+# Instal our data files at build time. This is iffy,
+# but we need to do this before distutils kick in. 
+for package, files in build_package_data.iteritems():
+    target_path = package.replace('.', os.sep)
+    for filename in files:
+        shutil.copy(filename, target_path)
+################################################################################
 
 # Build the full set of packages by appending any found by setuptools'
 # find_packages to those discovered by numpy.distutils.
@@ -387,7 +434,7 @@ numpy.distutils.core.setup(
         'develop': MyDevelop,
         'install_scripts': MyInstallScripts,
         'install_data': MyInstallData,
-        'mlab_ref': MlabRef,
+        'gen_docs': GenDocs,
         },
     description = DOCLINES[1],
     docs_in_egg = True,

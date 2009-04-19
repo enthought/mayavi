@@ -16,7 +16,7 @@ from enthought.mayavi.scripts import mayavi2
 from inspect import getmembers
 
 IMAGE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                                        'mayavi', 'images')
+                                    'mayavi', 'generated_images')
 
 #############################################################################
 def capture_image(func, filename):
@@ -36,7 +36,9 @@ def illustrate_module(module, directory=IMAGE_DIR):
         create images for each function tested. 
     """
     for name, func in getmembers(module):
-        if not callable(func) or not name[:4] in ('test', 'Test'):
+        if not callable(func) or not name.lower().startswith('test'):
+            continue
+        if name.lower().endswith('anim'):
             continue
         # LaTeX doesn't like '.' in filename (sucks), so we replace them.
         filename = directory + os.sep + module.__name__.replace('.', '_') \
@@ -52,6 +54,10 @@ def main():
     illustrate_module(mlab)
     mayavi2.close()
     print "Done generating the mlab images"
+    print "Generating the example pages"
+    from render_examples import render_examples
+    render_examples(render_images=True)
+    print "Done generating the example pages"
 
 if __name__ == '__main__':
     main()
