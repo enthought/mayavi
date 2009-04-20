@@ -17,7 +17,7 @@ It can be run as::
 # Copyright (c) 2007, Enthought, Inc.
 # License: BSD Style.
 
-from os.path import join, abspath
+from os.path import join, abspath, dirname
 
 # The offscreen Engine.
 from enthought.mayavi.api import OffScreenEngine
@@ -40,7 +40,7 @@ def main():
 
     # Now setup a normal MayaVi pipeline.
     src = VTKXMLFileReader()
-    src.initialize(join(get_data_dir(abspath(__file__)),
+    src.initialize(join(get_data_dir(dirname(abspath(__file__))),
                         'fire_ug.vtu'))
     e.add_source(src)
     e.add_module(Outline())

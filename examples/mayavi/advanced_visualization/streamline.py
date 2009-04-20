@@ -7,7 +7,7 @@ streamlines and an iso surface.
 # License: BSD Style.
 
 # Standard library imports
-from os.path import join, abspath
+from os.path import join, abspath, dirname
 
 # Enthought library imports
 from enthought.mayavi.scripts import mayavi2
@@ -57,7 +57,7 @@ def streamline():
 def main():
     mayavi.new_scene()
 
-    data_dir = mayavi2.get_data_dir(abspath(__file__))
+    data_dir = mayavi2.get_data_dir(dirname(abspath(__file__)))
     vrml_fname = join(data_dir, 'room_vis.wrl')
     r = show_vrml(vrml_fname)
 

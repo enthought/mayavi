@@ -9,7 +9,7 @@ with the Glyph module.
 # License: BSD Style.
 
 # Standard library imports
-from os.path import join, abspath
+from os.path import join, abspath, dirname
 
 # Enthought library imports
 from enthought.mayavi.scripts import mayavi2
@@ -30,7 +30,7 @@ def glyph():
 
     # Read a VTK (old style) data file.
     r = VTKXMLFileReader()
-    r.initialize(join(mayavi2.get_data_dir(abspath(__file__)),
+    r.initialize(join(mayavi2.get_data_dir(dirname(abspath(__file__))),
                       'fire_ug.vtu'))
     mayavi.add_source(r)
 

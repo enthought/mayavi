@@ -9,7 +9,7 @@ contour related modules.
 # License: BSD Style.
 
 # Standard library imports
-from os.path import join, abspath
+from os.path import join, abspath, dirname
 
 # Enthought library imports
 from enthought.mayavi.scripts import mayavi2
@@ -31,7 +31,7 @@ def contour():
 
     # Read a VTK (old style) data file.
     r = VTKFileReader()
-    filename = join(mayavi2.get_data_dir(abspath(__file__)),
+    filename = join(mayavi2.get_data_dir(dirname(abspath(__file__))),
                     'heart.vtk')
     r.initialize(filename)
     mayavi.add_source(r)

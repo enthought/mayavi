@@ -6,7 +6,7 @@
 # License: BSD Style.
 
 # Standard library imports
-from os.path import join, abspath
+from os.path import join, abspath, dirname
 
 # Mayavi imports.
 from enthought.mayavi.scripts import mayavi2
@@ -22,7 +22,7 @@ def main():
 
     # Read the example data: fire_ug.vtu.
     r = VTKXMLFileReader()
-    filename = join(mayavi2.get_data_dir(abspath(__file__)),
+    filename = join(mayavi2.get_data_dir(dirname(abspath(__file__))),
                     'fire_ug.vtu')
     r.initialize(filename)
     mayavi.add_source(r)
