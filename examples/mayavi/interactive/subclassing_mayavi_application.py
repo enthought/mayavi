@@ -13,7 +13,7 @@ This should be run as::
 # License: BSD Style.
 
 # Standard library imports
-from os.path import join, abspath
+from os.path import join, abspath, dirname
 
 # Enthought library imports
 from enthought.mayavi.plugins.app import Mayavi
@@ -38,7 +38,7 @@ class MyApp(Mayavi):
 
         # Read a VTK (old style) data file.
         r = VTKFileReader()
-        r.initialize(join(get_data_dir(abspath(__file__)), 'heart.vtk'))
+        r.initialize(join(get_data_dir(dirname(abspath(__file__))), 'heart.vtk'))
         script.add_source(r)
 
         # Put up some text.
