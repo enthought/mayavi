@@ -13,6 +13,9 @@ on rigid object movement.
 The `@animate` decorator ( :func:`enthought.mayavi.mlab.animate` ) is
 detailed on section :ref:`animating_a_visualization`.
 """
+# Author: Prabhu Ramachandran <prabhu [at] aero.iitb.ac.in>
+# Copyright (c) 2009, Enthought, Inc.
+# License: BSD Style.
 
 from enthought.mayavi import mlab
 from enthought.tvtk.tools import visual
