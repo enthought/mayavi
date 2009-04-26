@@ -3,33 +3,32 @@
 Advanced Scripting with Mayavi
 ===============================
 
-As elaborated in the :ref:`an-overview-of-mayavi` section, the Mayavi2
-can be scripted from Python in order to visualize data.  Mayavi2 was
-designed from the ground up to be highly scriptable.  Everything that can
-be done from the user interface can be achieved using Python scripts. 
-
-Scripting the Mayavi2 application is a great way to add domain-specific
-functionality to the existing framework. In addition, understanding this 
-application can help you design your own applications using Mayavi as 
+As elaborated in the :ref:`an-overview-of-mayavi` section, Mayavi can be
+scripted from Python in order to visualize data.  Mayavi was designed
+from the ground up to be highly scriptable.  Everything that can be done
+from the user interface can be achieved using Python scripts. Scripting
+the Mayavi2 application is a great way to add domain-specific
+functionality to the existing framework. In addition, understanding this
+application can help you design your own applications using Mayavi as
 powerful visualization library.
 
-If you are not looking to script mayavi itself or to build an
-application, but looking for quick ways to get your visualization done
-with simple code you may want to check out Mayavi's `mlab` module.  This
-is described in more detail in the :ref:`simple-scripting-with-mlab`
-section.  In addition to this Mayavi features an automatic script
-recording feature that automatically writes Python scripts for you as you
-use the GUI.  This is described in more detail in the
-:ref:`automatic-script-generation` chapter.  This is probably the easiest
-and most powerful way to script Mayavi.
+If you are not looking to script the Mayavi2 application itself or to
+build an application, but looking for quick ways to get your
+visualization done with simple code you may want to check out Mayavi's
+`mlab` module.  This is described in more detail in the
+:ref:`simple-scripting-with-mlab` section.  In addition to this Mayavi
+features an automatic script recording feature that automatically writes
+Python scripts for you as you use the GUI.  This is described in more
+detail in the :ref:`automatic-script-generation` chapter.  This is
+probably the easiest and most powerful way to script Mayavi.
 
 However, to best understand how to script Mayavi, a reasonable
-understanding of the mayavi internals is necessary.  The following
+understanding of the Mayavi internals is necessary.  The following
 sections provides an overview of the basic design and objects in the
 Mayavi pipeline.  Subsequent sections consider specific example scripts
-that are included with the mayavi sources that illustrate the ideas.
+that are included with the Mayavi sources that illustrate the ideas.
 
-Mayavi2 uses Traits_ and TVTK_ internally.  Traits_ in many ways
+Mayavi uses Traits_ and TVTK_ internally.  Traits_ in many ways
 changes the way we program.  So it is important to have a good idea of
 Traits in order to understand Mayavi's internals.  If you are unsure
 of Traits it is a good idea to get a general idea about Traits now.
@@ -42,10 +41,10 @@ Trust me, your efforts learning Traits will not be wasted!
 Design Overview: Mayavi as a visualization framework
 -----------------------------------------------------
 
-This section provides a brief introduction to mayavi's internal
+This section provides a brief introduction to Mayavi's internal
 architecture.
 
-The "big picture" of a visualization in mayavi is that an ``Engine``
+The "big picture" of a visualization in Mayavi is that an ``Engine``
 (``enthought.mayavi.engine.Engine``) object manages the entire
 visualization.  The ``Engine`` manages a collection of ``Scene``
 (``enthought.mayavi.core.scene.Scene``) objects.  In each ``Scene``, a
@@ -143,7 +142,7 @@ pipeline feature a ``scene`` trait which refers to the current
 object is associated with.  The objects also feature an ``add_child``
 method that lets one build up the pipeline by adding "children"
 objects.  The ``add_child`` method is "intelligent" and will try to
-appropriately add the child in the right place.
+appropriately add the child in the right place based on the context.
 
 
 Objects populating the Mayavi pipeline
@@ -151,9 +150,11 @@ Objects populating the Mayavi pipeline
 
 Here is a brief description of the key objects in the Mayavi pipeline.
 
- ``Engine``
+ :Engine:
     The Mayavi engine is defined in the ``enthought.mayavi.engine``
-    module.
+    module. It is the central object dealing with life-cycle of
+    visualization objects and scene, as well as connecting and updating
+    the pipeline.
 
      * It possesses a ``scenes`` trait which is a Trait ``List`` of
        ``Scene`` objects.
@@ -163,14 +164,23 @@ Here is a brief description of the key objects in the Mayavi pipeline.
        create new scenes and delete them.  Also has methods to load
        and save the entire visualization.
 
-     * The ``EnvisageEngine`` defined in the
-       ``enthought.mayavi.envisage_engine`` module is a subclass of
+     * The ``EnvisageEngine``, defined in the
+       ``enthought.mayavi.plugins.envisage_engine`` module, is a subclass of
        ``Engine`` and is the one used in the ``mayavi2`` application.
-       The ``Engine`` object is not abstract and itself perfectly
-       usable.  It is useful when users do not want to use Envisage_
-       but still desire to use mayavi for visualization.
 
- ``Scene``
+     * The ``OffScreenEngine``, defined in the
+       ``enthought.mayavi.core.off_screen_engine`` module, is another
+       subclass of ``Engine``. It creates scenes that are not displayed on
+       screen by default.
+
+     * The ``NullEngine``, defined in the
+       ``enthought.mayavi.core.null_engine`` module, is yet another
+       subclass of ``Engine``. With this engine, visualization objects are
+       not added to a scene, and thus cannot be rendered. This engine is
+       useful for testing and pure-data handling use of Mayavi's data
+       structures.
+
+ :Scene:
     Defined in the ``enthought.mayavi.core.scene`` module.
 
      * ``scene`` attribute: manages a ``TVTKScene``
@@ -180,7 +190,7 @@ Here is a brief description of the key objects in the Mayavi pipeline.
      * The ``children`` attribute is a ``List`` trait that manages a
        list of ``Source`` objects.
 
- ``PipelineBase``   
+ :PipelineBase:
     Defined in the ``enthought.mayavi.core.pipeline_base`` module.
     Derives from ``Base`` which merely abstracts out common
     functionality.  The ``PipelineBase`` is the base class for all
@@ -207,7 +217,7 @@ Here is a brief description of the key objects in the Mayavi pipeline.
      * The ``remove`` method can be used to remove the object (if added)
        from the mayavi pipeline.
 
- ``Source``
+ :Source:
     Defined in the ``enthought.mayavi.core.source`` module.  All the
     file readers, Parametric surface etc. are subclasses of the
     ``Source`` class.
@@ -218,7 +228,7 @@ Here is a brief description of the key objects in the Mayavi pipeline.
      * The ``outputs`` attribute is a trait ``List`` of outputs
        produced by the source.
  
- ``Filter``
+ :Filter:
     Defined in the ``enthought.mayavi.core.filter`` module.  All the
     ``Filters`` described in the :ref:`filters` section are subclasses of
     this.
@@ -246,7 +256,7 @@ Here is a brief description of the key objects in the Mayavi pipeline.
          pipeline has been changed.  This happens when the upstream
          object fires a ``data_changed`` event.
 
- ``ModuleManager``
+ :ModuleManager:
     Defined in the ``enthought.mayavi.core.module_manager`` module.
     This object is the one called *Modules* in the tree view on the
     UI.  The main purpose of this object is to manage ``Modules`` and
@@ -279,7 +289,7 @@ Here is a brief description of the key objects in the Mayavi pipeline.
        If set to 'point data' it uses the input point data for the LUT
        and if set to 'cell data' it uses the input cell data.
 
- ``Module`` 
+ :Module:
     Defined in the ``enthought.mayavi.core.module`` module.
     These objects are the ones that typically produce a visualization
     on the TVTK scene.  All the modules defined in the :ref:`modules`
