@@ -34,10 +34,12 @@ def run_mlab_file(filename, image_file):
     def my_show(func=None):
         pass
     mlab.show = my_show
+    mlab.clf()
+    e = mlab.get_engine()
+    e.close_scene(mlab.gcf())
     execfile(filename, {'__name__': '__main__'})
     mlab.savefig(image_file)
     size = mlab.gcf().scene.get_size()
-    e = mlab.get_engine()
     for scene in e.scenes:
         e.close_scene(scene)
     mlab.show = old_show
