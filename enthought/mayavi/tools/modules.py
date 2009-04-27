@@ -538,8 +538,8 @@ class VolumeFactory(PipeFactory):
             from enthought.tvtk.util.ctf import PiecewiseFunction
             otf = PiecewiseFunction()
             otf.add_point(value, opacity)
-            self._target._otf = otf
-            self._target._volume_property.set_scalar_opacity(otf)
+            vol._otf = otf
+            vol._volume_property.set_scalar_opacity(otf)
 
     """
 
