@@ -27,13 +27,15 @@ class ImplicitPlane(Component):
                       kw={'key_press_activation': False,
                           'place_factor':1.2,
                           'draw_plane':False,
-                          'outline_translation':False})
+                          'outline_translation':False}, 
+                      record=True)
 
     # The plane that the widget controls.  Do not change the
     # attributes of the plane, do it via the widget.
     plane = Instance(tvtk.Plane, args=(),
                      kw={'origin':(0.0, 0.0, 0.0),
-                         'normal':(0,0,1)})
+                         'normal':(0,0,1)}, 
+                     record=True)
 
     # Convenience property for the normal delegated to the widget.
     normal = Property
