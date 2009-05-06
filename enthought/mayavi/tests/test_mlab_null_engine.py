@@ -157,8 +157,14 @@ class TestMlabModules(TestMlabNullEngineBase):
         src = mlab.pipeline.scalar_field(data, figure=False)
         self.assertRaises(ValueError, mlab.text, 0, 1.5, 'test')
 
-
-
+    def test_contour_grid_plane(self):
+        """Test the contour_grid_plane.
+        """
+        data = np.random.random((10, 10, 10))
+        src = mlab.pipeline.scalar_field(data, figure=False)
+        mlab.pipeline.outline(src)
+        mlab.pipeline.grid_plane(src)
+        mlab.pipeline.contour_grid_plane(src)
 
 
 ################################################################################

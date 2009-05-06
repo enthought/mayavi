@@ -491,7 +491,7 @@ vector_cut_plane = make_function(VectorCutPlaneFactory)
 
 
 ##############################################################################
-class ContourGridPlaneFactory(ContourModuleFactory, CutPlaneFactory):
+class ContourGridPlaneFactory(ContourModuleFactory):
     """ Applies the ContourGridPlane mayavi module to the given data
         source (Mayavi source, or VTK dataset).
     """
