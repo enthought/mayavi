@@ -35,12 +35,12 @@ General Build and Installation instructions for ETS are available here:
 Documentation
 --------------
 
-The TVTK home page is: https://svn.enthought.com/enthought/wiki/TVTK
+The TVTK home page is: http://code.enthought.com/projects/mayavi
 
 More detailed information on TVTK is available in `docs/README.txt` which
 covers installation, requirements, examples of usage etc.  This document is
 also available on the web from 
-https://svn.enthought.com/enthought/wiki/TVTKIntroduction
+http://code.enthought.com/projects/mayavi/docs/development/html/tvtk/
 
 
 Examples
@@ -80,6 +80,7 @@ Authors and Contributors
 ------------------------
 
 Prabhu Ramachandran: main author.
+
 Gerald Knizia: Initial version of Tkinter based gradient editor.
 Pete Schmitt: wxPython version of gradient editor.
 Raashid Baig: `visual` module.
