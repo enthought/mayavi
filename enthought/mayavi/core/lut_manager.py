@@ -130,6 +130,9 @@ class LUTManager(Base):
     show_scalar_bar = Bool(False,
                            desc='if scalar bar is shown or not')
 
+    # This is an alias for show_scalar_bar.
+    show_legend = Property(Bool, desc='if legend is shown or not')
+
     # The number of labels to use for the scalar bar.
     number_of_labels = Range(0, 64, 8, enter_set=True, auto_set=False,
                              desc='the number of labels to display')
@@ -346,6 +349,15 @@ class LUTManager(Base):
         if self.scene is not None:
             self.scalar_bar_widget.enabled = value
             self.render()
+
+    def _get_show_legend(self):
+        return self.show_scalar_bar
+
+    def _set_show_legend(self, value):
+        old = self.show_scalar_bar
+        if value != old:
+            self.show_scalar_bar = value
+            self.trait_property_changed('show_legend', old, value)
 
     def _shadow_changed(self, value):
         sc_bar = self.scalar_bar
