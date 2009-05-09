@@ -109,6 +109,11 @@ class LUTManager(Base):
     # The scalar_bar_widget
     scalar_bar_widget = Instance(tvtk.ScalarBarWidget, ())
 
+    # The representation associated with the scalar_bar_widget.  This
+    # only exists in VTK versions about around 5.2.
+    scalar_bar_representation = Instance(tvtk.Object, allow_none=True,
+                                         record=True)
+
     # The title text property of the axes.
     title_text_property = Property(record=True)
     
@@ -439,3 +444,11 @@ class LUTManager(Base):
         subprocess.Popen([sys.executable, script])
         auto_close_message('Launching LUT editor in separate process ...')
 
+    def _scalar_bar_representation_default(self):
+        w = self.scalar_bar_widget
+        if hasattr(w, 'representation'):
+            r = w.representation
+            r.on_trait_change(self.render)
+            return r
+        else:
+            return None
