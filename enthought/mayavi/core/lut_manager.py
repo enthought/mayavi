@@ -15,6 +15,7 @@ import numpy as np
 from enthought.traits.api import Instance, Range, Bool, Array, \
      Str, Property, Enum, Button
 from enthought.traits.ui.api import FileEditor, auto_close_message
+from enthought.persistence import state_pickler
 from enthought.tvtk.api import tvtk
 
 # Local imports.
@@ -23,7 +24,8 @@ from enthought.mayavi.core.common import error
 
 from enthought.mayavi.core import lut 
 lut_image_dir = os.path.dirname(lut.__file__)
-pylab_luts = np.load(os.path.join(lut_image_dir, 'pylab_luts.npz'))
+pylab_luts = state_pickler.load_state(os.path.join(lut_image_dir, 
+                                                'pylab_luts.pkl'))
 
 #################################################################
 # Utility functions.
@@ -89,7 +91,7 @@ def lut_mode_list():
     """ Function to generate the list of acceptable lut_mode values.
     """
     lut_mode_list = ( ['blue-red', 'black-white', 'file', ] 
-                            + pylab_luts.files )
+                            + pylab_luts.keys() )
     lut_mode_list.sort()
     return lut_mode_list
 
@@ -267,7 +269,7 @@ class LUTManager(Base):
             return
         
         reverse = self.reverse_lut
-        if value in pylab_luts.files:
+        if value in pylab_luts:
             lut = pylab_luts[value]
             if reverse:
                 lut = lut[::-1, :]
@@ -320,7 +322,7 @@ class LUTManager(Base):
         self.render()
 
     def _number_of_colors_changed(self, value):
-        if self.lut_mode == 'file' or self.lut_mode in pylab_luts.files:
+        if self.lut_mode == 'file' or self.lut_mode in pylab_luts:
             return
         else:
             lut = self.lut
