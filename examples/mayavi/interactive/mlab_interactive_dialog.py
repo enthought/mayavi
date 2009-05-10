@@ -12,10 +12,13 @@ A curve is plotted in the embedded scene using the associated
 mlab.points3d function. The visualization object created is stored
 as an attribute on the main MyModel object, to modify it inplace later.
 
-When the n_meridional and n_longitudinal attributes are modified, eg via
+When the `n_meridional` and `n_longitudinal` attributes are modified, eg via
 the slide bars on the dialog, the curve is recomputed, and the
 visualization is updated by modifying inplace the stored plot
 object (see :ref:`mlab-animating-data`).
+
+This example is discussed in details in the section
+:ref:`embedding_mayavi_traits`.
 """
 # Author: Gael Varoquaux <gael.varoquaux@normalesup.org> 
 # Copyright (c) 2008, Enthought, Inc.
@@ -27,7 +30,7 @@ from enthought.mayavi.mlab import plot3d
 
 from enthought.traits.api import HasTraits, Range, Instance, \
         on_trait_change
-from enthought.traits.ui.api import View, Item, HGroup, spring
+from enthought.traits.ui.api import View, Item, Group
 from enthought.tvtk.pyface.scene_editor import SceneEditor
 from enthought.mayavi.tools.mlab_scene_model import MlabSceneModel
 from enthought.mayavi.core.api import PipelineBase
@@ -54,24 +57,26 @@ class MyModel(HasTraits):
 
     plot = Instance(PipelineBase)
 
-    def _plot_default(self):
-        x, y, z, t = curve(self.n_meridional, self.n_longitudinal)
-        return self.scene.mlab.plot3d(x, y, z, t,
-                            tube_radius=0.025, colormap='Spectral')
 
-
-    @on_trait_change('n_meridional,n_longitudinal')
+    # When the scene is activated, or when the parameters are changed, we
+    # update the plot.
+    @on_trait_change('n_meridional,n_longitudinal,scene.activated')
     def update_plot(self):
         x, y, z, t = curve(self.n_meridional, self.n_longitudinal)
-        self.plot.mlab_source.set(x=x, y=y, z=z, scalars=t)
+        if self.plot is None:
+            self.plot = self.scene.mlab.plot3d(x, y, z, t,
+                                tube_radius=0.025, colormap='Spectral')
+        else:
+            self.plot.mlab_source.set(x=x, y=y, z=z, scalars=t)
+
 
     # The layout of the dialog created
     view = View(Item('scene', editor=SceneEditor(scene_class=MayaviScene), 
-                     height=500, width=500, show_label=False), 
-                '_', 
-                HGroup('n_meridional', spring, 'n_longitudinal'))
+                     height=250, width=300, show_label=False), 
+                Group(
+                        '_', 'n_meridional', 'n_longitudinal',
+                     ),
+                )
 
 my_model = MyModel()
-# We call the update_plot routine after a view has been opened.
-my_model.update_plot()
 my_model.configure_traits()

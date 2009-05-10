@@ -75,8 +75,7 @@ scientific data visualization and 3D plotting tool in Python.
    :ref:`learning-mayavi-by-example` is also an excellent introduction.
 
  * To use Mayavi as a Matlab or pylab replacement for scripting 3D plots
-   with `numpy`, get started with the :ref:`simple-scripting-with-mlab`
-   section before jumping to the other sections.
+   with `numpy`, get started with the :ref:`simple-scripting-with-mlab`.
 
  * Sources of inspiration may be found in the :ref:`example_gallery`,
    with example code.

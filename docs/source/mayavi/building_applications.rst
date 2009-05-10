@@ -32,6 +32,8 @@ for more details, and to the
 `tutorial <http://code.enthought.com/projects/traits/docs/html/tutorials/traits_ui_scientific_app.html>`_
 for a quick introduction.
 
+.. _embedding_mayavi_traits:
+
 Embedding a Mayavi scene in a Traits dialog
 ............................................
 
@@ -147,16 +149,46 @@ In a dialog, this would be::
             x, y, z, t = curve(self.meridional, self.transverse)
             self.plot.mlab_source.set(x=x, y=y, z=z, scalars=t)
 
-        view = View(Item('scene', height=400, show_label=False,
-                    editor=SceneEditor(scene_class=MayaviScene)),
-                    HGroup('meridional', 'transverse'))
+
+        # the layout of the dialog created
+        view = view(item('scene', editor=sceneeditor(scene_class=mayaviscene), 
+                        height=250, width=300, show_label=false), 
+                    group(
+                            '_', 'n_meridional', 'n_longitudinal',
+                        ),
+                    )
 
     visualization = Visualization()
     visualization.configure_traits()
 
+This code creates the following dialog:
+
+.. image:: images/example_mlab_interactive_dialog.jpg
+    :align: center
+
 A complete, runnable, code based on the above comments is given in the
 :ref:`example_mlab_interactive_dialog`.
 
+.. warning:: Visualization objects and properties created before a scene is available
+
+    When creating a traited object with an embedded scene, the scene can
+    be created and populated before a view on it is actually open.
+    However, some VTK objects or properties require a scene with a camera
+    and interaction to be open to work properly, mainly because either
+    they orient themselves to the camera, or deal with interaction with
+    keyboard or mouse (such as interactors, eg an implicit plane). As a
+    result some property changes on VTK objects will raise warnings or
+    simply not work when applied without a dialog opened. When embedding
+    a scene in a Traits object, the best option is to create and modify
+    these objects only when the scene is activated, by listening to
+    changes on the 'scene.activated' traits::
+
+        @on_trait_change('scene.activated')
+        def create_plot(self):
+            # Do the plotting here
+            # ...
+
+    The :ref:`example_lorenz_ui` shows a good example of this situation.
 
 Integrating in a WxPython application
 --------------------------------------
