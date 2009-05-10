@@ -6,13 +6,15 @@ user, but only once in a while to synchronize with MPL developpement.
 """
 # Authors: Frederic Petit <fredmfp@gmail.com>, 
 #          Gael Varoquaux <gael.varoquaux@normalesup.org>
-# Copyright (c) 2007, Enthought, Inc.
+# Copyright (c) 2007-2009, Enthought, Inc.
 # License: BSD Style.
 
-from matplotlib.cm import datad, get_cmap
-import numpy as np 
-from enthought.mayavi.core import lut as destination_module
 import os
+import numpy as np 
+
+from matplotlib.cm import datad, get_cmap
+from enthought.mayavi.core import lut as destination_module
+from enthought.persistence import state_pickler
 target_dir = os.path.dirname(destination_module.__file__)
 
 values = np.linspace(0., 1., 256)
@@ -24,6 +26,6 @@ for name in datad.keys():
         continue
     lut_dic[name] = get_cmap(name)(values.copy())
 
-out_name = os.path.join(target_dir, 'pylab_luts.npz')
-np.savez(out_name, **lut_dic)
+out_name = os.path.join(target_dir, 'pylab_luts.pkl')
+state_pickler.dump(lut_dic, out_name)
 
