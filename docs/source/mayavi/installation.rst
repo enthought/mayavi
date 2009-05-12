@@ -116,8 +116,11 @@ are described in the following.
 Doing it yourself: Python packages: Eggs
 -----------------------------------------
 
-First make sure you have the prerequisites for Mayavi installed, i.e.
-the following packages:
+Installing with `easy_install`
+...............................
+
+First make sure you have the prerequisites for Mayavi installed, as
+indicated in the previous section, i.e. the following packages:
 
     * VTK_ >= 4.4 (5.x is ideal)
     * numpy_ >= 1.0.1
@@ -125,13 +128,11 @@ the following packages:
     * configobj_
     * setuptools_ (for installation and egg builds; later the better)
 
-More details are in the previous section.
-
-Mayavi2_ is part of the Enthought Tool Suite (ETS_).  As such, it is
+Mayavi_ is part of the Enthought Tool Suite (ETS_).  As such, it is
 distributed as part of ETS and therefore binary packages and source
-packages of ETS will contain Mayavi2. Mayavi releases are almost always
+packages of ETS will contain Mayavi. Mayavi releases are almost always
 made along with an ETS release.  You may choose to install all of ETS or
-just Mayavi2 alone from a release. 
+just Mayavi alone from a release. 
 
 ETS has been organized into several different Python packages.  These
 packages are distributed as Python Eggs_.  Python eggs are fairly
@@ -139,24 +140,21 @@ sophisticated and carry information on dependencies with other eggs.  As
 such they are rapidly becoming the standard for distributing Python
 packages.
 
-There are primarily two ways to use ETS eggs.
- 
-  1. The first and easiest is to use pre-built eggs built for your
-     particular platform.  More instructions on this are below. 
-
-  2. The second is to build the eggs from the source tarballs.  This is
-     also fairly easy to do if you have a proper build environment.
+The easiest way to install Mayavi with eggs is to use pre-built eggs 
+built for your particular platform and downloaded by `easy_install`. 
+Alternatively `easy_install` can build the eggs from the source tarballs.
+This is also fairly easy to do if you have a proper build environment.
 
 To install eggs, first make sure the essential requirements are
 installed, and then build and install the eggs like so::
 
  $ easy_install "Mayavi[app]" 
 
-This one command will download, build and install all the required
-ETS related modules that mayavi needs for the latest ETS release, this
-means that the `Traits` dependencies and the `Envisage` dependencies will
-be installed automatically.
-If you run into trouble please check the `Enthought Install`_ pages.
+This one command will download, build and install all the required ETS
+related modules that Mayavi needs for the latest ETS release, this means
+that the `Traits` dependencies and the `Envisage` dependencies will be
+installed automatically. If you run into trouble please check the
+`Enthought Install`_ pages.
 
 One common sources of problems during an install, is the presence of
 older versions of packages such as traits, mayavi, envisage or tvtk.
@@ -172,6 +170,20 @@ Given this background please see the following:
     Check this page first.  It contains information on how to install
     the prebuilt binary eggs for various platforms along with any
     dependencies.
+
+
+.. note:: Automatic downloading of required eggs
+
+    If you whish to download all the eggs fetched by `easy_install`, for
+    instance to propagate to an offline PC, you can use virtualenv to
+    create an empty site-packages, and install to it::
+
+        virtualenv --no-site-packages temp
+        cd temp
+        source bin/activate
+        mkdir temp_subdir
+        easy_install -zmaxd temp_subdir "Mayavi[app,nonets]"
+
 
 .. _step-by-step-window-installation:
 
