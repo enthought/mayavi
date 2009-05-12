@@ -164,12 +164,11 @@ what is probably a bug of the build system that appears as a "sandbox
 violation". In this case, it can be useful to try the download and
 install command a few times.
 
-Given this background please see the following:
-
-  * `Enthought Install`_ describes how ETS can be installed with eggs.
-    Check this page first.  It contains information on how to install
-    the prebuilt binary eggs for various platforms along with any
-    dependencies.
+If you still have problems, given this background, please see the
+following `Enthought Install`_ describes how ETS can be installed
+with eggs. Check this page first.  It contains information on how to
+install the prebuilt binary eggs for various platforms along with any
+dependencies.
 
 
 .. note:: Automatic downloading of required eggs
