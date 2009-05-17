@@ -11,8 +11,9 @@ highest level.
 try:
     import vtk
 except ImportError, m: 
-    msg = '%s\n%s\nDo you have vtk installed properly?'%(m, '_'*80)
-    raise ImportError(msg)
+    m.args = ('%s\n%s\nDo you have vtk and its Python bindings installed properly?' %
+                    (m.args[0], '_'*80),)
+    raise 
 
 from os.path import splitext
 
