@@ -61,12 +61,12 @@ view point obtained interactively can be stored an reset using::
 
 .. topic:: Rotating the camera around itself
 
-    You can also rotate the camera around itself using the `roll`, `yawl`
+    You can also rotate the camera around itself using the `roll`, `yaw`
     and `pitch` methods of the camera object. This moves the focal point::
 
         f = mlab.gcf()
         camera = f.scene.camera
-        camera.yawl(45)
+        camera.yaw(45)
 
    Unlike the :func:`mlab.view` and :func:`mlab.roll` function, the angles
    are incremental, and not absolute.
