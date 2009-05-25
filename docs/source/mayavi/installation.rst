@@ -40,7 +40,7 @@ Installing ready-made distributions
      the latest Mayavi release for the stable version of Ubuntu are
      available at https://launchpad.net/~gael-varoquaux/+archive .
      Experimental Debian packages are also available at
-     http://newpeople.debian.org/~varun/ .
+     http://people.debian.org/~varun/ .
 
 :RedHat EL3 and EL4:
     The full Python distribution EPD_ (that includes Mayavi) is also
