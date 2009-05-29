@@ -25,7 +25,7 @@ from enthought.mayavi.scripts import mayavi2
 
 def generate_annulus(r=None, theta=None, z=None):
     """ Generate points for structured grid for a cylindrical annular
-        volume.  This method is useful for generating a unstructured
+        volume.  This method is useful for generating a structured
         cylindrical mesh for VTK (and perhaps other tools).
         
         Parameters
