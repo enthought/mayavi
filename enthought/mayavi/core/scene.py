@@ -59,8 +59,6 @@ class Scene(Base):
         # Base removes the scene, but we need to save it!
         d = super(Scene, self).__get_pure_state__()
         d['scene'] = self.scene
-        # Don't pickle the name.
-        d.pop('name', None)
         return d
 
     def __set_pure_state__(self, state):
