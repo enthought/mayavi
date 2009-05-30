@@ -100,6 +100,7 @@ scientific data visualization and 3D plotting tool in Python.
     misc.rst
     auto/examples.rst
     auto/mlab_reference.rst
+    bugs.rst
     auto/changes.rst
 
 

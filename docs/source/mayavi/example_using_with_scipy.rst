@@ -50,7 +50,13 @@ the values of the contours used. A good view of the potential can be
 achieved by turning off auto contours and choosing -0.5 as a first
 contour value (eg by entering it in the text box on the right, and
 pressing `tab`). A second contour can be added by clicking on the blue
-arrow and selecting "Add after". Using a value of 15 gives a nice result.
+arrow and selecting "Add after". Using a value of 15 gives a nice result.  
+
+.. warning:: 
+    Note that the "Add after" UI is known to crash on Linux with the
+    wxPython backend.  See ticket 1813 for details:
+    https://svn.enthought.com/enthought/ticket/1813
+
 
 We can now click on the `Colors and legends` on the pipeline and change
 the colors used, by selecting a different LUT (Look Up Table). Let us

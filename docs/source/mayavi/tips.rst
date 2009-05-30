@@ -693,21 +693,6 @@ acceptable (try it) this is a mechanism to speed up the generation of
 images.
 
 
-Common problems
-----------------
-
-:Display bugs:
-    Mayavi, and VTK, uses heavily hardware rendering, as a result it is
-    very sensitive on hardware rendering bugs. Common issues include
-    surfaces showing up as black instead of colored (mostly on windows or
-    in virtual machines, I believe), z-ordering bugs where hidden triangles 
-    are displayed in front of the triangles that should hide them (a
-    common bug on Linux with intel graphics cards), or the rendering
-    windows becomming grey when the focus is moved out (often seen on
-    Linux, when compiz is enabled). The solution is most often simply to
-    turn off hardware rendering in the system settings (turn off compiz
-    under Linux) or change graphics-card drivers (under Linux, try
-    switching between the open source one, and the proprietary one).
 
 ..
    Local Variables:
