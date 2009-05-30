@@ -463,11 +463,20 @@ class VTKMethodParser:
                 for key, values in sm.items():
                     default = getattr(obj, 'Get%s'%key)()
                     for x in values[:]:
-                        getattr(obj, 'Set%sTo%s'%(key, x[0]))()
-                        val = getattr(obj, 'Get%s'%key)()
-                        x[1] = val
-                        if val == default:
-                            values.insert(0, [x[0], val])
+                        try:
+                            getattr(obj, 'Set%sTo%s'%(key, x[0]))()
+                        except TypeError:
+                            # vtkRenderedGraphRepresentation has some of
+                            # its SetIvarToState methods that have
+                            # non-standard arguments, this throws off
+                            # the parser and we ignore these.
+                            #print klass.__name__, key
+                            pass
+                        else:
+                            val = getattr(obj, 'Get%s'%key)()
+                            x[1] = val
+                            if val == default:
+                                values.insert(0, [x[0], val])
         return meths
 
     def _find_get_set_methods(self, klass, methods):
