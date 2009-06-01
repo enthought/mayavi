@@ -34,7 +34,10 @@ def figure(name=None, bgcolor=None, fgcolor=None, engine=None,
 
         :bgcolor: The color of the background (None is default).
 
-        :fgcolor: The color of the foreground (None is default).
+        :fgcolor: The color of the foreground, that is the color of all text
+                  annotation labels (axes, orientation axes, scalar bar 
+                  labels). It should be sufficiently far from `bgcolor` 
+                  to see the annotation texts. (None is default).
 
         :engine: The mayavi engine that controls the figure.
 

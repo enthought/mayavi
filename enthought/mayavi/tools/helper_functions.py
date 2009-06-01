@@ -635,6 +635,10 @@ class Surf(Pipeline):
                         data centered on the center of the extent. If you
                         are using explicit extents, this is the best way
                         to control the vertical scale of your plots.
+
+                        If you want to control the extent (or range)
+                        of the surface object, rather than its scale,
+                        see the `extent` keyword argument.
                         """)
 
     mask = Array(help="boolean mask array to suppress some data points.")
