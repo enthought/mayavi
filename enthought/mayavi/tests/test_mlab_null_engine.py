@@ -12,6 +12,7 @@ from enthought.mayavi import mlab
 from enthought.mayavi.core.engine import Engine
 from enthought.mayavi.tools.engine_manager import engine_manager
 from enthought.mayavi.core.registry import registry
+from enthought.mayavi.tests.common import get_example_data
 from enthought.tvtk.api import tvtk
 
 ################################################################################
@@ -186,6 +187,8 @@ class TestRealMlabNullEngine(unittest.TestCase):
         """Test if setting the backend to 'test' works."""
         mlab.options.backend = 'test'
         mlab.test_contour3d()
+        mlab.clf()
+        mlab.pipeline.open(get_example_data('cube.vti'))
         mlab.clf()
 
 if __name__ == '__main__':

@@ -300,7 +300,9 @@ class Engine(HasStrictTraits):
             if scene is None:
                 scene = self.new_scene()
             try:
-                scene.scene.busy = True
+                sc = scene.scene
+                if sc is not None:
+                    sc.busy = True
                 reader = readers[-1]
                 callable = reader.get_callable()
                 if reader.factory is None:
@@ -313,7 +315,8 @@ class Engine(HasStrictTraits):
                 if src is not None:
                     self.add_source(src, passed_scene)
             finally:
-                scene.scene.busy = False
+                if sc is not None:
+                    sc.busy = False 
             if src is not None:
                 return src
 
