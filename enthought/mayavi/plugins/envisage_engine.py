@@ -139,3 +139,18 @@ class EnvisageEngine(Engine):
         sm = new.get_service(ISceneManager)
         if sm is not None:
             self.start()
+
+    @on_trait_change('window:editors[]')
+    def _sync_scene_editor_name(self, obj, trait_name, old, new):
+        """Synchronize the Mayavi scene's name trait with that of the
+        editor's name."""
+        if trait_name.startswith('editors'):
+            scenes = list(self.scenes)
+            scenes.reverse()
+            for editor in new:
+                for scene in scenes:
+                    if id(editor.scene) == id(scene.scene):
+                        editor.name = scene.name
+                        scene.sync_trait('name', editor, 'name')
+                        break
+

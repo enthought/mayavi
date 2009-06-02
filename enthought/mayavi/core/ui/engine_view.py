@@ -145,7 +145,7 @@ class EngineView(HasTraits):
                           auto_open=False,
                           copy=False,
                           delete=False,
-                          rename=False,
+                          rename=True,
                           ),
                  ObjectTreeNode(node_for=[Base],
                                 children='children_ui_list',
