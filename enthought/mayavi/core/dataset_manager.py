@@ -198,7 +198,21 @@ class DatasetManager(HasTraits):
             for name in values:
                 va = data.get_array(name)
                 npa = va.to_array()
-                va.from_array(npa)
+                # Now test if changes to the numpy array are reflected
+                # in the VTK array, if they are we are set, else we
+                # have to set the VTK array back to the numpy array.
+                if len(npa.shape) > 1:
+                    old = npa[0,0]
+                    npa[0][0] = old - 1
+                    if abs(va[0][0] - npa[0,0]) > 1e-8:
+                        va.from_array(npa)
+                    npa[0][0] = old
+                else:
+                    old = npa[0]
+                    npa[0] = old - 1
+                    if abs(va[0] - npa[0]) > 1e-8:
+                        va.from_array(npa)
+                    npa[0] = old
                 arrays[name] = npa
 
             setattr(self, '%s_%s'%(d_type, attr), arrays)
