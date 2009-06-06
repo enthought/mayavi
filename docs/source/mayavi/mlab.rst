@@ -32,7 +32,7 @@ It is can be used interactively with IPython_.
 
     If you are using the `Enthought Python Distribution
     <www.enthought.com/products/epd.php>`_, or the latest 
-    `Python(x,y) <http://www.pythonxy>`_ distribution, the Pylab menu
+    `Python(x,y) <http://www.pythonxy.com>`_ distribution, the Pylab menu
     entry will start ipython with the right switch. In older release of
     Python(x,y) you need to start "Interactive Console (wxPython)".
 
