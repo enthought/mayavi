@@ -104,6 +104,10 @@ you are using this functionality, it can be useful to pass the same
 extents to other modules visualizing the same data. If you don't, they
 will not share the same displacement and scale.
 
+The :func:`surf`, :func:`contour_surf`, and `bar_chart` functions, which
+display 2D arrays by converting the values in height, also take a
+`warp_scale` parameter, to control the vertical scaling.
+
 .. _mlab-changing-objects-interactively:
 
 Changing object properties interactively

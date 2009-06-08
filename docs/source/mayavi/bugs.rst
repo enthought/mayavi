@@ -1,3 +1,5 @@
+.. _known_bugs:
+
 Known bugs and issues
 ======================
 
@@ -18,6 +20,8 @@ appropriate tickets.
     graphics-card drivers (under Linux, try switching between the open
     source one, and the proprietary one).
 
-  * https://svn.enthought.com/enthought/ticket/1813 : Crashing list
-    editor on Linux with wx backend.
+  * **Crash when adding list items**
+    https://svn.enthought.com/enthought/ticket/1813 : Crashing list
+    editor on Linux with wx backend when adding or removing list items.
+    In Mayavi this happens for instance when adding or removing contours.
 
