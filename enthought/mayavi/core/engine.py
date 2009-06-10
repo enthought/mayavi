@@ -348,14 +348,14 @@ class Engine(HasStrictTraits):
          name - `str` 
           The name assigned to the scene.  It tries to determine the
           name of the scene from the passed scene instance.  If this
-          is not possible it defaults to 'TVTK Scene'.
+          is not possible it defaults to 'Mayavi Scene'.
           
         """
         if name is None:
             if hasattr(scene, 'name'):
                 name = scene.name
             else:
-                name = 'TVTK Scene %d'%scene_id_generator.next()
+                name = 'Mayavi Scene %d'%scene_id_generator.next()
         
         s = Scene(scene=scene, name=name, parent=self)
         s.start()
