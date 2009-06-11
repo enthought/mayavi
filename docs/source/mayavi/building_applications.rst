@@ -70,6 +70,15 @@ toolbar by specifying a different scene view to the `SceneEditor`::
     editor=SceneEditor(scene_class=MayaviScene)
     #...
 
+If, on the contrary, you want a view with no toolbar, you can replace the
+`MayaviView` by a raw tvtk view::
+
+    from enthought.tvtk.pyface.api import Scene
+
+    #...
+    editor=SceneEditor(scene_class=Scene)
+    #...
+
 The :ref:`example_mayavi_traits_ui` is a fairly comprehensive example that
 demonstrates how you can embed almost the entire Mayavi UI into your traits
 based UI.
