@@ -249,6 +249,18 @@ text_module = ModuleMetadata(
                               attributes=['any'])    
 )
 
+text3d_module = ModuleMetadata(
+    id            = "Text3DModule",
+    menu_name          = "&Text3D",
+    class_name = BASE + '.text3d.Text3D',
+    desc   = "Displays user-specified text at a 3D location in the scene",
+    tooltip    = "Displays user-specified text at a 3D location in the scene",
+    help       = "Displays user-specified text at a 3D location in the scene",
+    input_info = PipelineInfo(datasets=['any'],
+                              attribute_types=['any'],
+                              attributes=['any'])    
+)
+
 vector_cut_plane_module = ModuleMetadata(
     id            = "VectorCutPlaneModule",
     menu_name          = "&VectorCutPlane",
@@ -319,6 +331,7 @@ modules = [axes_module,
            surface_module,
            tensor_glyph_module,
            text_module,
+           text3d_module,
            vector_cut_plane_module,
            vectors_module,
            volume_module,

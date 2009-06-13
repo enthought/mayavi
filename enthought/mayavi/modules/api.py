@@ -26,6 +26,7 @@ from streamline import Streamline
 from structured_grid_outline import StructuredGridOutline
 from surface import Surface
 from text import Text
+from text3d import Text3D
 from tensor_glyph import TensorGlyph
 from vector_cut_plane import VectorCutPlane
 from vectors import Vectors
