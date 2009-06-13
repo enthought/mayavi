@@ -134,7 +134,8 @@ class ExampleLister(object):
         for index, file_details in enumerate(files_details):
             filename, short_file_name, short_desc, title, docstring, \
                                                     end_row = file_details
-            self.render_example_page(file('mayavi/auto/example_%s.rst' %
+            self.render_example_page(file(os.path.join(self.out_dir, 
+                                            'example_%s.rst') %
                                      short_file_name, 'w'), index, file_details)
             self.gallery_entry(index, file_details)
 
@@ -150,7 +151,9 @@ class ExampleLister(object):
             short_file_name = os.path.basename(filename)[:-3]
             title = short_file_name.replace('_', ' ')
             title = title[0].upper() + title[1:]
-            shutil.copy(filename, 'mayavi/auto/%s' % os.path.basename(filename))
+            shutil.copy(filename, 
+                        os.path.join(self.out_dir, os.path.basename(filename)))
+
 
             toctree.append("""   example_%s.rst""" % short_file_name)
             files_details.append((filename, short_file_name, short_desc,
@@ -225,7 +228,8 @@ class ImagesExampleLister(ExampleLister):
         for index, file_details in enumerate(files_details):
             filename, short_file_name, short_desc, title, docstring, end_row = \
                                                                 file_details
-            self.render_example_page(file('mayavi/auto/example_%s.rst' %
+            self.render_example_page(file(os.path.join(self.out_dir, 
+                                        'example_%s.rst') %
                                      short_file_name, 'w'), index, file_details)
             self.gallery_entry(index, file_details)
 
@@ -386,8 +390,10 @@ Advanced mlab examples
 
 ################################################################################
 # Main entry point
-def render_examples(render_images=False):
-    example_gallery_file = file('mayavi/auto/examples.rst', 'w')
+def render_examples(render_images=False, out_dir='mayavi/auto'):
+    if not os.path.exists(out_dir):
+        os.makedirs(out_dir)
+    example_gallery_file = file(os.path.join(out_dir, 'examples.rst'), 'w')
 
     example_gallery_file.write("""
 
@@ -397,8 +403,6 @@ Example gallery
 =================
 
 """)
-    if not os.path.exists('mayavi/auto'):
-        os.makedirs('mayavi/auto')
     
     ##########################################################################
     # Mlab examples
@@ -411,6 +415,7 @@ Example gallery
     example_files.sort(key=lambda name: len(file(name, 'r').readlines()))
 
     mlab_example_lister = MlabExampleLister(render_images=render_images,
+                                        out_dir=out_dir,
                                         images_dir='mayavi/generated_images')
     if render_images:
         pass
@@ -428,6 +433,7 @@ Example gallery
     example_files.sort(key=lambda name: len(file(name, 'r').readlines()))
     example_lister = ImagesExampleLister(
             title="Interactive examples",
+            out_dir=out_dir,
             intro="""
 
 Examples showing how to use the interactive features of Mayavi, either
@@ -446,6 +452,7 @@ applications.
     example_files.sort(key=lambda name: len(file(name, 'r').readlines()))
     example_lister = ExampleLister(
             title="Advanced visualization examples",
+            out_dir=out_dir,
             intro="""
 Data visualization using the core Mayavi API, object-oriented, and with
 more fine control than mlab.     
@@ -461,7 +468,8 @@ more fine control than mlab.
     # Sort by file length (gives a measure of the complexity of the
     # example)
     example_files.sort(key=lambda name: len(file(name, 'r').readlines()))
-    example_lister = ExampleLister(title="Misc examples")
+    example_lister = ExampleLister(title="Misc examples",
+                                   out_dir=out_dir)
     example_lister.render_all(example_gallery_file, example_files)
 
 
