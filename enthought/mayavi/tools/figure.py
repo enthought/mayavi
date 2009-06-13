@@ -13,9 +13,12 @@ import gc
 
 import numpy as np
 
-# Mayavi imports
-from camera import view
-from engine_manager import get_engine, options
+# Enthought imports
+from enthought.pyface.timer.api import do_later
+
+#  imports
+from .camera import view
+from .engine_manager import get_engine, options
 
 ######################################################################
 
@@ -125,23 +128,55 @@ def draw(figure=None):
     figure.render()
 
 
-def savefig(filename, size=None, figure=None, **kwargs):
+def savefig(filename, size=None, figure=None, magnification='auto',
+                    **kwargs):
     """ Save the current scene.
         The output format are deduced by the extension to filename.
         Possibilities are png, jpg, bmp, tiff, ps, eps, pdf, rib (renderman),
         oogl (geomview), iv (OpenInventor), vrml, obj (wavefront)
 
-        If an additional size (2-tuple) argument is passed the window
-        is resized to the specified size in order to produce a
-        suitably sized output image.  Please note that when the window
-        is resized, the window may be obscured by other widgets and
-        the camera zoom is not reset which is likely to produce an
-        image that does not reflect what is seen on screen.
+        **Parameters**
+
+        :size: the size of the image created (unless magnification is 
+               set, in which case it is the size of the window used
+               for rendering).
+
+        :figure: the figure instance to save to a file.
+
+        :magnification: the magnification is the scaling between the
+                        pixels on the screen, and the pixels in the
+                        file saved. If you do not specify it, it will be
+                        calculated so that the file is saved with the
+                        specified size. If you specify a magnification,
+                        Mayavi will use the given size as a screen size,
+                        and the file size will be 'magnification * size'.
+
+        **Notes**
+
+        If the size specified is larger than the window size, and no
+        magnification parameter is passed, the magnification of the scene
+        is changed so that the image created has the requested size.
+        Please note that if you are trying to save images with sizes
+        larger than the window size, there will be additional computation
+        cost.
 
         Any extra keyword arguments are passed along to the respective
         image format's save method.
     """
     if figure is None:
         figure = gcf()
-    figure.scene.save(filename, size=size, **kwargs)
+    current_x, current_y = tuple(figure.scene.get_size())
+    target_x, target_y = size
+    current_mag = figure.scene.magnification
+    if magnification is 'auto':
+        magnification = max(target_x//current_x,
+                                     target_y//current_y) + 1
+        target_x = int(target_x/magnification)
+        target_y = int(target_y/magnification)
+    figure.scene.magnification = magnification
+    figure.scene.save(filename, 
+                        size=(target_x, target_y),
+                        **kwargs)
+    figure.scene.magnification = current_mag 
+
 
