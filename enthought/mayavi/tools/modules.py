@@ -85,7 +85,9 @@ class DataModuleFactory(ModuleFactory):
     
     extent = CArray(shape=(6,),
                     help="""[xmin, xmax, ymin, ymax, zmin, zmax]
-                            Default is the x, y, z arrays extents.""", )
+                            Default is the x, y, z arrays extents. Use
+                            this to change the extent of the object
+                            created.""", )
 
     def _extent_changed(self):
         tools.set_extent(self._target, self.extent)
