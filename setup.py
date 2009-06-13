@@ -130,6 +130,8 @@ class GenDocs(Command):
         file_re = re.compile(filetypes)
         dir_re = re.compile(ignore_dirs)
         
+        if not os.path.exists(the_path):
+            return 0, the_path
         if os.path.isdir(the_path):
             latest_time = 0
             latest_path = the_path
