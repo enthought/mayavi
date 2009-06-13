@@ -180,3 +180,14 @@ def savefig(filename, size=None, figure=None, magnification='auto',
     figure.scene.magnification = current_mag 
 
 
+def sync_camera(reference_figure, target_figure):
+    """ Synchronise the camera of the target_figure on the camera of the
+        reference_figure.
+    """
+    reference_figure.scene._renderer.sync_trait('active_camera', 
+                        target_figure.scene._renderer)
+    target_figure.scene._renderer.active_camera.on_trait_change(
+            lambda: do_later(target_figure.scene.render))
+
+
+

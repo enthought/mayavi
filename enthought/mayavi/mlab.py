@@ -11,7 +11,8 @@ application with the WxWidget mainloop running.
 
 # Mayavi imports
 from enthought.mayavi.tools.camera import view, roll
-from enthought.mayavi.tools.figure import figure, clf, gcf, savefig, draw
+from enthought.mayavi.tools.figure import figure, clf, gcf, savefig, \
+    draw, sync_camera
 from enthought.mayavi.tools.engine_manager import get_engine, show_pipeline, \
         options, set_engine
 from enthought.mayavi.tools.show import show
