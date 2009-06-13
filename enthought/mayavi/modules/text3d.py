@@ -36,22 +36,22 @@ class Text3D(Module):
 
     # The text to be displayed.
     text = Str('Text', desc='the text to be displayed',
-                       entry_set=True, auto_set=False)
+                       enter_set=True, auto_set=False)
 
     # The position of the actor
-    position = CArray(value=(0., 0., 0.), 
+    position = CArray(value=(0., 0., 0.), cols=3,
                       desc='the world coordinates of the text',
-                      entry_set=True, auto_set=False)
+                      enter_set=True, auto_set=False)
 
     # The scale of the actor
-    scale = CArray(value=(1., 1., 1.), 
+    scale = CArray(value=(1., 1., 1.), cols=3,
                       desc='the scale of the text',
-                      entry_set=True, auto_set=False)
+                      enter_set=True, auto_set=False)
 
     # The orientation of the actor
-    orientation = CArray(value=(0., 0., 0.), 
+    orientation = CArray(value=(0., 0., 0.), cols=3,
                       desc='the orientation angles of the text',
-                      entry_set=True, auto_set=False)
+                      enter_set=True, auto_set=False)
 
     # Orient actor to camera
     orient_to_camera = Bool(True,
