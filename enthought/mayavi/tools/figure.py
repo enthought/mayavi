@@ -166,6 +166,8 @@ def savefig(filename, size=None, figure=None, magnification='auto',
     if figure is None:
         figure = gcf()
     current_x, current_y = tuple(figure.scene.get_size())
+    if size is None:
+        size = current_x, current_y
     target_x, target_y = size
     current_mag = figure.scene.magnification
     if magnification is 'auto':
