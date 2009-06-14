@@ -316,7 +316,7 @@ from enthought.mayavi.mlab import *
 
         documented = set()
 
-        for func_name in self.to_document:
+        for func_name in sorted(self.to_document):
             func = getattr(self.module, func_name)
             
             if (    submodulename is not None 
