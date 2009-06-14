@@ -7,11 +7,14 @@ pipeline in a procedural way.
 # Copyright (c) 2007, Enthought, Inc.
 # License: BSD Style.
 
+import operator
+
+import numpy as np
 
 # Enthought library imports.
 import enthought.mayavi.modules.api as modules
 from enthought.traits.api import String, CFloat, Instance, HasTraits, \
-            Trait, CArray, true, Any, Range
+            Trait, CArray, true, Any, Range, Either
 import tools
 from figure import draw, gcf
 
@@ -457,6 +460,54 @@ class Text(ModuleFactory):
 
 
 text = make_function(Text)
+
+
+###############################################################################
+class Text3D(ModuleFactory):
+    """ Positions text at a 3D location in the scene.
+    
+        **Function signature**::
+        
+            text3d(x, y, z, text, ...) 
+
+        x, y, and z are the position of the origin of the text. The 
+        text is positionned in 3D, in figure coordinnates.
+        """
+
+    _target = Instance(modules.Text3D, ())
+
+    scale = Either(CFloat(1), CArray(shape=(3,)),
+                        help="""The scale of the text, in figure units.
+                                Either a float, or 3-tuple of floats.""")
+
+    orientation = CArray(shape=(3,), adapts='orientation',
+                        desc="""the angles giving the orientation of the
+                        text. If the text is oriented to the camera,
+                        these angles are referenced to the axis of the
+                        camera. If not, these angles are referenced to
+                        the z axis.""")
+
+    orient_to_camera = true(adapts='orient_to_camera',
+                        desc="""if the text is kept oriented to the
+                        camera, or is pointing in a specific direction,
+                        regardless of the camera position.""")
+    
+    def __init__(self, x, y, z, text, **kwargs):
+        """ Override init as for different positional arguments."""
+        if not 'scale' in kwargs:
+            kwargs['scale'] = 1
+        super(Text3D, self).__init__(None, **kwargs)
+        self._target.text       = text
+        self._target.position = (x, y, z)
+        
+
+    def _scale_changed(self):
+        scale = self.scale
+        if operator.isNumberType(scale):
+            scale = scale*np.ones((3,))
+        self._target.scale = scale
+
+text3d = make_function(Text3D)
 
 
 #############################################################################

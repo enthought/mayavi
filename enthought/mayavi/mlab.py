@@ -43,7 +43,7 @@ from tools.helper_functions import contour3d, test_contour3d, \
 
 from tools.decorations import colorbar, scalarbar, vectorbar, \
     outline, axes, xlabel, ylabel, zlabel, text, title, \
-    orientation_axes
+    orientation_axes, text3d
 
 import tools.pipeline as pipeline
 
