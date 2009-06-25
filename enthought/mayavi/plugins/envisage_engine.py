@@ -148,6 +148,8 @@ class EnvisageEngine(Engine):
             scenes = list(self.scenes)
             scenes.reverse()
             for editor in new:
+                if not hasattr(editor, 'scene'):
+                    continue
                 for scene in scenes:
                     if id(editor.scene) == id(scene.scene):
                         editor.name = scene.name
