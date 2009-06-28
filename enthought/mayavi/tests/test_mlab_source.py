@@ -120,6 +120,110 @@ class TestMGlyphSource(unittest.TestCase):
 
 
 ################################################################################
+# `TestMGlyphSource`
+################################################################################ 
+class TestMVerticalSource(unittest.TestCase):
+    def setUp(self):
+        self.x = x = N.ones(10, float)
+        self.y = y = N.ones(10, float)*2.0
+        self.z = z = N.linspace(0, 10, 10)
+        self.s = s = N.ones(10, float)
+        src = sources.MVerticalGlyphSource()
+        src.reset(x=x, y=y, z=z, scalars=s)
+        self.src = src
+
+    def tearDown(self):
+        return
+
+    def get_data(self):
+        return self.x, self.y, self.z, self.s, self.src
+
+    def check_traits(self):
+        """Check if the sources traits are set correctly."""
+        x, y, z, s, src = self.get_data()
+        # Check if points are set correctly.
+        self.assertEqual(N.alltrue(src.points[:,0].ravel() == x), True)
+        self.assertEqual(N.alltrue(src.points[:,1].ravel() == y), True)
+        self.assertEqual(N.alltrue(src.points[:,2].ravel() == z), True)
+        # Check the vectors and scalars.
+        self.assertEqual(N.alltrue(src.vectors[:, -1] == s), True)
+        self.assertEqual(N.alltrue(src.vectors[:, :-1] == 1), True)
+        self.assertEqual(N.alltrue(src.scalars == s), True)
+
+    def check_dataset(self):
+        """Check the TVTK dataset."""
+        x, y, z, s, src = self.get_data()
+        # Check if the dataset is setup right.
+        pts = src.dataset.points.to_array()
+        self.assertEqual(N.alltrue(pts[:,0].ravel() == x), True)
+        self.assertEqual(N.alltrue(pts[:,1].ravel() == y), True)
+        self.assertEqual(N.alltrue(pts[:,2].ravel() == z), True)
+        vec = src.dataset.point_data.vectors.to_array()
+        sc = src.dataset.point_data.scalars.to_array()
+        self.assertEqual(N.alltrue(vec[:, -1] == s), True)
+        self.assertEqual(N.alltrue(vec[:, :-1] == 1), True)
+        self.assertEqual(N.alltrue(sc == s), True)
+
+    def test_reset(self):
+        "Test the reset method."
+        x, y, z, s, src = self.get_data()
+        self.check_traits()
+        self.check_dataset()
+
+        # Call reset again with just a few things changed to see if it
+        # works correctly.
+        x *= 5.0
+        s *= 10
+        src.reset(x=x, scalars=s)
+
+        self.check_traits()
+        self.check_dataset()
+
+    def test_reset1(self):
+
+        "Test the reset method."
+        x, y, z, s, src = self.get_data()
+        self.check_traits()
+        self.check_dataset()
+        # Call reset again with just a few things changed to see if it
+        # works correctly.
+        
+        self.x = x = N.ones(20, float)*30.0
+        self.y = y = N.ones(20, float)*30.0
+        self.z = z = N.ones(20, float)*30.0
+        points = N.ones((20, 3), float)*30.0
+        self.s = s = N.ones(20, float)
+       
+        src.reset(x=x, y=y, z=z, scalars=s, points=points)
+        self.check_traits()
+        self.check_dataset()
+
+    def test_handlers(self):
+        "Test if the various static handlers work correctly."
+        x, y, z, s, src = self.get_data()
+        x *= 2.0
+        y *= 2.0
+        z *= 2.0
+        s *= 2.0
+        src.x = x
+        src.y = y
+        src.z = z 
+        src.scalars = s
+        self.check_traits()
+        self.check_dataset()
+
+    def test_set(self):
+        "Test if the set method works correctly."
+        x, y, z, s, src = self.get_data()
+        x *= 2.0
+        z *= 2.0
+        s *= 2.0
+        src.set(x=x, z=z, scalars=s)
+        self.check_traits()
+        self.check_dataset()
+
+
+################################################################################
 # `TestMArraySource`
 ################################################################################ 
 class TestMArraySource(unittest.TestCase):

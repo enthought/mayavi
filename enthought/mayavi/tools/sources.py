@@ -254,6 +254,36 @@ class MGlyphSource(MlabSource):
 
 
 ################################################################################
+# `MVerticalGlyphSource` class.
+################################################################################ 
+class MVerticalGlyphSource(MGlyphSource):
+    """
+    This class represents a vertical glyph data source for Mlab objects 
+    and allows the user to set the x, y, z, scalar attributes. The
+    vectors are created from the scalars to represent them in the
+    vertical direction.
+    """
+
+    def reset(self, **traits):
+        """Creates the dataset afresh or resets existing data source."""
+        if 'scalars' in traits:
+            s = traits['scalars']
+            if s is not None:
+                traits['u'] = traits['v'] = numpy.ones_like(s), 
+                traits['w'] = s
+        super(MVerticalGlyphSource, self).reset(**traits)
+
+
+    def _scalars_changed(self, s):
+        self.dataset.point_data.scalars = s
+        self.dataset.point_data.scalars.name = 'scalars'
+        self.set(vectors=numpy.c_[numpy.ones_like(s), 
+                                  numpy.ones_like(s),
+                                  s])
+        self.update()
+
+
+################################################################################
 # `MArraySource` class.
 ################################################################################ 
 class MArraySource(MlabSource):
@@ -1223,15 +1253,18 @@ def vertical_vectors_source(*args, **kwargs):
             z = numpy.zeros_like(x)
         args = (x, y, z, data)
 
-    # Tranform the signature from a scalar_scatter-like one to a 
-    # vector_scatter-like one.
     x, y, z, s = process_regular_scalars(*args)
-    args = (x, y, z, numpy.ones_like(s), numpy.ones_like(s), s)
-    kwargs['scalars'] = s
-    if not 'name' in kwargs:
-        kwargs['name'] = 'VerticalVectorsSource'
-    return vector_scatter(*args, **kwargs)
 
+    if s is not None:
+        s = s.ravel()
+
+    data_source = MVerticalGlyphSource()
+    data_source.reset(x=x, y=y, z=z, scalars=s)
+
+    name = kwargs.pop('name', 'VerticalVectorsSource')
+    ds = tools.add_dataset(data_source.dataset, name, **kwargs)
+    data_source.m_data = ds
+    return ds
 
 def triangular_mesh_source(x, y, z, triangles, **kwargs):
     """
