@@ -985,7 +985,7 @@ class BarChart(Pipeline):
         if not 'color' in kwargs:
             g.glyph.color_mode = 'color_by_scalar'
         if not 'scale_mode' in kwargs:
-            g.glyph.glyph.scale_mode = 'scale_by_vector_components'
+            g.glyph.scale_mode = 'scale_by_vector_components'
         g.glyph.glyph.clamping = False
         x, y, z = g.mlab_source.x, g.mlab_source.y, g.mlab_source.z
         scale_factor = g.glyph.glyph.scale_factor* \

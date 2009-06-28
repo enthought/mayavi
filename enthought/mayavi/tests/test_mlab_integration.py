@@ -184,6 +184,18 @@ class TestMlabModules(TestMlabNullEngine):
         mlab.pipeline.grid_plane(src)
         mlab.pipeline.contour_grid_plane(src)
 
+    def test_barchart(self):
+        """Test the barchart function."""
+            
+        from numpy import random, abs
+        s = np.abs(np.random.random((3,3)))
+        b = mlab.barchart(s)
+        self.assertEqual(b.glyph.glyph.scale_mode,
+                         'scale_by_vector_components')
+        s += 1
+        b.mlab_source.update()
+        self.assertEqual(b.glyph.glyph.scale_mode,
+                         'scale_by_vector_components')
 
 
 if __name__ == '__main__':

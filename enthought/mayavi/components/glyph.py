@@ -39,6 +39,7 @@ class Glyph(Component):
     # disallow.
     scale_mode = Trait('scale_by_scalar',
                        TraitRevPrefixMap({'scale_by_vector': 1,
+                                          'scale_by_vector_components': 2,
                                           'data_scaling_off': 3,
                                           'scale_by_scalar': 0}),
                        desc="if scaling is done using scalar or vector/normal magnitude"
