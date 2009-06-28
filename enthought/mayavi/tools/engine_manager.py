@@ -170,7 +170,7 @@ class EngineManager(HasTraits):
             raise TypeError, "Figure not attached to a mayavi engine."
 
 
-    def show_engine(self, engine=None):
+    def show_engine(self, engine=None, rich_view=True):
         """ Show a dialog with the mayavi pipeline. This dialog allows to
             edit graphicaly the properties of the different objects on
             the scenes.
@@ -181,12 +181,18 @@ class EngineManager(HasTraits):
                                             options.backend == 'test':
             # FIXME: This should pop up the relevent envisage view
             pass
-        else:
+        elif rich_view:
             from enthought.mayavi.core.ui.engine_rich_view import \
                     EngineRichView
             scene = engine.current_scene
             view = EngineRichView(engine=engine)
             return view.scene_editing_view(scene=scene.scene)
+        else:
+            from enthought.mayavi.core.ui.engine_view import \
+                    EngineView
+            scene = engine.current_scene
+            view = EngineView(engine=engine)
+            return view.edit_traits()
 
 
 engine_manager = EngineManager()
