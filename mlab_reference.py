@@ -397,7 +397,14 @@ MLab pipeline reference
 ========================
 
 Reference list of all the main functions of
-``pipeline`` sub module of ``mlab``.
+``pipeline`` sub module of ``mlab``. You can access these functions
+using::
+
+    mlab.pipeline.function(...)
+
+These functions can be used for finer control of the Mayavi
+pipeline than the main mlab interface. For usage examples, see
+:ref:`ontrolling-the-pipeline-with-mlab-scripts`.
 
 """, 
             sub_modules = [sources.__name__, tools.__name__],

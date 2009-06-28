@@ -1,16 +1,19 @@
-.. _mlab-pipeline-refrence:
+.. _mlab-pipeline-reference: 
 
 Mlab pipeline-control reference
 --------------------------------
 
 .. module:: enthought.mayavi.tools.pipeline
 
+Reference list of all the main functions of
+``pipeline`` sub module of ``mlab``. You can access these functions
+using::
 
-Reference list of all the main functions of ``pipeline`` sub-module of
-``mlab``.
+    mlab.pipeline.function(...)
 
-This modules gives functions (factories) to populate directly the Mayavi
-pipeline in scripts.
+These functions can be used for finer control of the Mayavi
+pipeline than the main mlab interface. For usage examples, see
+:ref:`controlling-the-pipeline-with-mlab-scripts`.
 
 .. toctree::
 

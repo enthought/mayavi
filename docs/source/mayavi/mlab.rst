@@ -8,7 +8,8 @@
     This section describes the `mab` API, for use of Mayavi as a simple
     plotting in scripts or interactive sessions. This is the main entry
     point for people interested in doing 3D plotting à la Matlab or IDL
-    in Python.
+    in Python. If you are interested in a list of all the
+    functions exposed in mlab, see the :ref:`mlab-reference`.
 
 .. currentmodule:: enthought.mayavi.mlab
 
