@@ -52,9 +52,12 @@ open_image = SourceMetadata(
 open_poly_data = SourceMetadata(
     id            = "PolyDataFile",
     class_name    = BASE + ".poly_data_reader.PolyDataReader",
-    menu_name     = "&PolyData file (STL/STLA/STLB/TXT/RAW/PLY/PDB/SLC/FACET/OBJ/BYU)",
-    tooltip       = "Import a STL/STLA/STLB/TXT/RAW/PLY/PDB/SLC/FACET/OBJ/BYU Poly Data",
-    desc   = "Import a STL/STLA/STLB/TXT/RAWPLY/PDB/SLC/FACET/OBJ/BYU Poly Data",
+    menu_name     = "&PolyData file (STL/STLA/STLB/TXT/RAW/PLY/PDB/SLC/FACET\
+                     /OBJ/BYU/XYZ/CUBE)",
+    tooltip       = "Import a STL/STLA/STLB/TXT/RAW/PLY/PDB/SLC/FACET/OBJ/\
+                     BYU/XYZ/CUBE Poly Data",
+    desc   = "Import a STL/STLA/STLB/TXT/RAWPLY/PDB/SLC/FACET/OBJ/BYU/XYZ/\
+              CUBE Poly Data",
     extensions = ['stl', 'stla', 'stlb', 'txt', 'raw', 'ply', 'pdb', 'slc', 
                   'facet', 'xyz', 'cube', 'obj', 'g'],
     wildcard = 'STL files (*.stl)|*.stl|'\
@@ -66,8 +69,11 @@ open_poly_data = SourceMetadata(
                'PLY files (*.ply)|*.ply|'\
                'PDB files (*.pdb)|*.pdb|'\
                'SLC files (*.slc)|*.slc|'\
+               'XYZ files (*.xyz)|*.xyz|'\
+               'CUBE files (*.cube)|*.cube|'\
                'FACET files (*.facet)|*.facet|'\
                'OBJ files (*.obj)|*.obj',
+    can_read_test = 'enthought.mayavi.sources.poly_data_reader:PolyDataReader.can_read',
     output_info = PipelineInfo(datasets=['poly_data'],
                                attribute_types=['any'],
                                attributes=['any'])
@@ -214,6 +220,36 @@ builtin_image = SourceMetadata(
                                attributes=['any'])
 )
 
+open_volume = SourceMetadata(
+    id            = "VolumeFile",
+    class_name    = BASE + ".volume_reader.VolumeReader",
+    menu_name     = "&Volume file",
+    tooltip       = "Open a Volume file",
+    desc        = "Open a Volume file",
+    help        = "Open a Volume file",
+    extensions = [],
+    wildcard = '',    
+    output_info = PipelineInfo(datasets=['image_data'],
+                               attribute_types=['any'],
+                               attributes=['any'])
+)
+
+open_chaco = SourceMetadata(
+    id            = "ChacoFile",
+    class_name    = BASE + ".chaco_reader.ChacoReader",
+    menu_name     = "&Chaco file",
+    tooltip       = "Open a Chaco file",
+    desc        = "Open a Chaco file",
+    help        = "Open a Chaco file",
+    extensions = [],
+    wildcard = '',
+    output_info = PipelineInfo(datasets=['unstructured_grid'],
+                               attribute_types=['any'],
+                               attributes=['any'])
+)
+
+
+
 # Now collect all the sources for the mayavi registry.
 sources = [open_3ds, 
            open_image, 
@@ -227,5 +263,7 @@ sources = [open_3ds,
            builtin_image,
            open_poly_data,
            open_ugrid_data,
+           open_volume,
+           open_chaco,
            ]
 

@@ -139,3 +139,8 @@ class SourceMetadata(Metadata):
 
     # Wildcard for the file dialog.
     wildcard = Str
+    
+    # `Callable` to check if the reader can actually read the file
+    # `Callable` must accept the filename to be read and it should 
+    # return `True` if its possible to read the file else 'False'
+    can_read_test = Str

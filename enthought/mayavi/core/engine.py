@@ -15,8 +15,6 @@ except ImportError, m:
                     (m.args[0], '_'*80),)
     raise 
 
-from os.path import splitext
-
 # Enthought library imports.
 from enthought.traits.api import (HasStrictTraits, List, Str, 
         Property, Instance, Event, HasTraits, Callable, Dict,
@@ -288,10 +286,9 @@ class Engine(HasStrictTraits):
         current scene or the passed `scene`.
         """
         passed_scene = scene
-        base, ext = splitext(filename)
-        readers = registry.get_file_reader(ext)
-        if len(readers) == 0:
-            msg = 'No readers found for the extension %s'%ext
+        reader = registry.get_file_reader(filename)        
+        if reader is None:
+            msg = 'No suitable reader found for the file %s'%filename
             error(msg)
         else:
             src = None
@@ -303,7 +300,6 @@ class Engine(HasStrictTraits):
                 sc = scene.scene
                 if sc is not None:
                     sc.busy = True
-                reader = readers[-1]
                 callable = reader.get_callable()
                 if reader.factory is None:
                     src = callable()

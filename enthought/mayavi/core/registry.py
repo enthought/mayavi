@@ -6,13 +6,14 @@
 # License: BSD Style.
 
 # Standard library imports.
+from os.path import splitext
 import logging
 
 # Enthought library imports.
 from enthought.traits.api import HasTraits, List, Instance, Dict, Str
 
 # Local imports.
-from enthought.mayavi.core.metadata import Metadata
+from enthought.mayavi.core.metadata import Metadata, import_symbol
 
 # A logger for this module.
 logger = logging.getLogger(__name__)
@@ -74,23 +75,49 @@ class Registry(HasTraits):
         del engines[name]
         logger.debug('Engine named %s unregistered', name)
 
-    def get_file_reader(self, ext):
+    def get_file_reader(self, filename):
 
-        """Given a file exension `ext` (of the form 'ext' without the
-        leading dot), find a suitable source metadata that will read the file.
+        """Given a filename, find a suitable source metadata that will 
+        read the file.
 
-        Returns a list of all suitable source metadata objects that will
+        Returns a suitable source metadata object that will
         handle this.
         """
-
+        base, ext = splitext(filename)
         result = []
         if len(ext) > 0:
-            if ext[0] == '.':
-                ext = ext[1:]
+            ext = ext[1:]
             result = [src for src in self.sources \
-                      if ext in src.extensions]
-        return result
+                      if ext in src.extensions]        
+       
+        # 'result' contains list of all source metadata that can handle
+        # the file. 
+        
+        # If there is only single source metadata available to handle
+        # the file, we simply return it. 
+        
+        # If there is a conflict i.e. more then one source metadata objects 
+        # capable of handling the file then we check if they are capable of 
+        # actually reading it using 'can_read_function' which may be a class 
+        # method or a simple function which returns whether the object is 
+        # capable of reading the file or not. 
 
+        # Finally returns the most suitable source metadata object to the engine. If
+        # multiple objects are still present we return the last one in the list.
+
+        if len(result) > 1:
+            for res in result[:]:
+                if len(res.can_read_test) > 0:
+                    can_read = import_symbol(res.can_read_test)(filename)
+                    if can_read:
+                        return res
+                    else:
+                        result.remove(res)
+                        
+        if len(result) == 0:    
+            return None
+
+        return result[-1]
 
     def find_scene_engine(self, scene):
         """ Find the engine corresponding to a given tvtk scene.

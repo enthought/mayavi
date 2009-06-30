@@ -129,10 +129,39 @@ class PolyDataReader(FileDataSource):
              'ply':tvtk.PLYReader(),
              'pdb':tvtk.PDBReader(),
              'slc':tvtk.SLCReader(),
+             'xyz':tvtk.XYZMolReader(),
              'obj':tvtk.OBJReader(),
-             'facet':tvtk.FacetReader(),           
+             'facet':tvtk.FacetReader(),      
+             'cube':tvtk.GaussianCubeReader(),      
              'g':tvtk.BYUReader(),
             }        
         return rd
-   
 
+    # Callable to check if the reader can actually read the file
+    def can_read(cls,filename):
+        """ Class method to check if the reader can actually
+        read the file. Returns 'True' if it can read it succesfully
+        else 'False'
+        """
+        # Extract the file extension
+        splitname = filename.strip().split('.')
+        extension = splitname[-1].lower()
+
+        if extension == 'xyz':
+            from vtk import vtkObject
+            o = vtkObject
+            w = o.GetGlobalWarningDisplay()
+            o.SetGlobalWarningDisplay(0) # Turn it off.
+
+            r = tvtk.XYZMolReader()
+            r.file_name = filename
+            r.update()
+            o.SetGlobalWarningDisplay(w)
+            
+            if len(r.output.points) != 0:
+                return True            
+            return False
+
+        return None
+        
+    can_read = classmethod(can_read)
