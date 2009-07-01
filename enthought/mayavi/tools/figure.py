@@ -10,6 +10,8 @@ Functions related to creating the engine or the figures.
 # Standard library imports.
 from types import IntType
 import gc
+import warnings
+import copy
 
 import numpy as np
 
@@ -17,6 +19,8 @@ import numpy as np
 from enthought.pyface.timer.api import do_later
 
 #  imports
+from enthought.mayavi.core.scene import Scene
+from enthought.mayavi.core.registry import registry
 from .camera import view
 from .engine_manager import get_engine, options
 
@@ -118,6 +122,50 @@ def clf(figure=None):
     except AttributeError:
         pass
     gc.collect()
+
+
+def close(scene=None, all=False):
+    """ Close a figure window
+
+        close() by itself closes the current figure. 
+        
+        close(num) closes figure number num.
+
+        close(name) closes figure named name.
+
+        close(figure), where figure is a scene instance, closes that
+        figure.
+
+        close(all=True) closes all figures controlled by mlab
+    """
+    if all is True:
+        engine = get_engine()
+        # We need the copy, as the list gets pruned as we close scenes
+        for scene in copy.copy(engine.scenes):
+            engine.close_scene(scene)
+        return
+    if not isinstance(scene, Scene):
+        engine = get_engine()
+        if scene is None:
+            scene = engine.current_scene
+        else:
+            if type(scene) in (IntType, np.int, np.int0, np.int8,
+                            np.int16, np.int32, np.int64):
+                scene = int(scene)
+                name = 'Mayavi Scene %d' % scene
+            else:
+                name = str(scene)
+            # Go looking in the engine see if the scene is not already
+            # running
+            for scene in engine.scenes:
+                if scene.name == name:
+                    break
+            else:
+                warnings.warn('Scene %s not managed by mlab' % name)
+                return
+    else:
+        engine = registry.find_scene_engine(scene.scene)
+    engine.close_scene(scene)
 
 
 def draw(figure=None):

@@ -108,6 +108,36 @@ class TestMlabNullEngineMisc(TestMlabNullEngine):
                 obj = factory(obj)
             self.assertTrue(hasattr(obj, 'mlab_source'))
 
+    def test_close(self):
+        """ Various tests for mlab.close().
+        """
+        f = mlab.figure()
+        self.assert_(f.running)
+        mlab.close(f)
+        self.assertFalse(f.running)
+
+        f = mlab.figure(314)
+        self.assert_(f.running)
+        mlab.close(314)
+        self.assertFalse(f.running)
+
+        f = mlab.figure('test_figure')
+        self.assert_(f.running)
+        mlab.close('test_figure')
+        self.assertFalse(f.running)
+
+        f = mlab.figure()
+        self.assert_(f.running)
+        mlab.close()
+        self.assertFalse(f.running)
+
+        figs = [mlab.figure() for i in range(5)]
+        for f in figs:
+            self.assert_(f.running)
+        mlab.close(all=True)
+        for f in figs:
+            self.assertFalse(f.running)
+
 
 ################################################################################
 # class `TestMlabModules`
