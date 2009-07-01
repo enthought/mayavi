@@ -23,7 +23,12 @@ from numpy import pi
 from engine_manager import get_engine
 
 def roll(roll=None):
-    """ Sets or returns the absolute roll angle of the camera """
+    """ Sets or returns the absolute roll angle of the camera.
+    
+    **See also**
+
+    :mlab.view: control the position and direction of the camera
+    """
     cam = get_engine().current_scene.scene._renderer.active_camera
     if roll is not None:
         cam.set_roll(roll)
@@ -101,6 +106,11 @@ def view(azimuth=None, elevation=None, distance=None, focalpoint=None):
     Set the view to that saved in `v` above::
 
       >>> view(*v)
+    
+    **See also**
+
+    :mlab.roll: control the roll angle of the camera, ie the direction
+               pointing up
     """
 
     f = get_engine().current_scene
