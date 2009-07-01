@@ -54,6 +54,22 @@ cell_to_point_data_filter = FilterMetadata(
                                attributes=['any'])
 )
 
+clip_filter = FilterMetadata(
+    id            = "DataSetClipperFilter",
+    menu_name          = "&DataSet Clipper",
+    class_name = BASE + '.data_set_clipper.DataSetClipper',
+    tooltip = "Clip the input dataset",
+    desc = "Clip the input dataset",
+    help = "Clip the input dataset",
+    input_info = PipelineInfo(datasets=['any'],
+                              attribute_types=['any'],
+                              attributes=['any']), 
+    output_info = PipelineInfo(datasets=['unstructured_grid'],
+                               attribute_types=['any'],
+                               attributes=['any'])
+)
+
+
 contour_filter = FilterMetadata(
     id            = "ContourFilter",
     menu_name          = "&Contour",
@@ -521,6 +537,7 @@ warp_vector_filter = FilterMetadata(
 # Now collect all the filters for the mayavi registry.
 filters = [cell_derivatives_filter,
            cell_to_point_data_filter,
+           clip_filter,
            contour_filter,
            cut_plane_filter,
            decimatepro_filter,

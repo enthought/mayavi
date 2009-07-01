@@ -8,6 +8,7 @@
 from cell_derivatives import CellDerivatives
 from cell_to_point_data import CellToPointData
 from collection import Collection
+from data_set_clipper import DataSetClipper
 from contour import Contour
 from cut_plane import CutPlane
 from decimatepro import DecimatePro
