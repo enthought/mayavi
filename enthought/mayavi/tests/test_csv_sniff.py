@@ -159,7 +159,9 @@ class Test_csv_py_files(unittest.TestCase, Util):
         f_py = os.path.join(os.path.dirname(__file__),
                             'csv_files', name + '.py')
 
-        nan = float('nan') # must be in namespace for some .py files
+        if not sys.platform.startswith('win'):
+            nan = float('nan') # must be in namespace for some .py files
+
         d = eval(open(f_py).read())
         
         self.assertEqual(d['kwds'], s.kwds())
