@@ -2,7 +2,7 @@
 
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2005-2008, Enthought, Inc.
+# Copyright (c) 2005-2009, Enthought, Inc.
 # License: BSD Style.
 
 # Standard library imports.
@@ -260,14 +260,18 @@ class EngineView(HasTraits):
                 perform=self._perform_record,
             )
 
+        # Check the record icon if the engine already has a recorder
+        # set.
+        if self.engine is not None and self.engine.recorder is not None:
+            record.checked = True
+
         return [add_scene, add_source, add_module, add_filter, 
                 Separator(), help, record,]
 
 
     ###########################################################################
-    # private interface.
+    # Private interface.
     ###########################################################################
-
     def _perform_new_scene(self):
         self.engine.new_scene()
         self.engine.current_selection = self.engine.current_scene
@@ -284,7 +288,6 @@ class EngineView(HasTraits):
         adder = ModuleAdderNode(object=object)
         adder.edit_traits(view=adder.dialog_view())
 
-
     def _perform_add_filter(self):
         object = self.engine.current_selection
         if isinstance(object, AdderNode):
@@ -298,6 +301,26 @@ class EngineView(HasTraits):
             start_recording(e, known=True, script_id='engine')
         else:
             stop_recording(e)
+
+    def _recorder_changed_for_engine(self, recorder):
+        """Called when the recorder trait on the engine trait of this
+        object changes.
+
+        This basically toggles the recording action when someone
+        attaches a recorder to the engine.
+        """
+        record_action = None
+        for action in self.actions:
+            if hasattr(action, 'tooltip') and \
+               action.tooltip.endswith('recording'):
+                record_action = action
+                break
+
+        if record_action is not None:
+            if recorder is not None:
+                record_action.checked = True
+            else:
+                record_action.checked = False
 
 
 ### EOF ######################################################################
