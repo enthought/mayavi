@@ -157,6 +157,8 @@ class TVTKGenerator:
                 z.write(x, 'tvtk_classes/%s'%fname)
         z.writepy('tvtk_classes')
         z.close()
+        if os.path.exists(cwd + "/" + self.zip_name): 
+            os.unlink(cwd + "/" + self.zip_name) 
         shutil.move(self.zip_name, cwd)
         os.chdir(cwd)
 
