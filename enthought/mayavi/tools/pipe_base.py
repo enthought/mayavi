@@ -7,6 +7,8 @@ Base class for factories for adding objects to the pipeline.
 # Copyright (c) 2007, Enthought, Inc. 
 # License: BSD Style.
 
+import warnings
+
 from auto_doc import make_doc
 from enthought.traits.api import HasPrivateTraits, Str, TraitError,\
             Instance, Any, Bool
@@ -59,7 +61,10 @@ class PipeFactory(HasPrivateTraits):
         
     name = Str(adapts='name', help='the name of the vtk object created.')
 
-    _engine = Instance(Engine)
+    figure = Instance(Scene)
+
+    _engine = Instance(Engine, help=('the figure on which the object '
+                'should be added'))
 
     _target = Any
 
@@ -117,15 +122,21 @@ class PipeFactory(HasPrivateTraits):
                 self._engine = ancester.parent
                 break
         else:
-            self._scene = tools.gcf()
-            self._engine = get_engine()
+            if self.figure is not None:
+                self._scene = self.figure
+            else:
+                self._scene = tools.gcf()
+                self._engine = get_engine()
         scene = self._scene.scene
+        if self.figure is not None and self.figure is not self._scene:
+            warnings.warn('Trying to add a module on the wrong scene')
         if isinstance(parent, (Source, tvtk.DataSet)) \
                 and not isinstance(parent, Filter) and scene is not None: 
             # Search the current scene to see if the  source is already
             # in it, if not add it.
             if not parent in self._scene.children:
-                parent = tools.add_dataset(parent)
+                parent = tools.add_dataset(parent, figure=self._scene)
+            
         
         if scene is not None:
             self._do_redraw = not scene.disable_render
