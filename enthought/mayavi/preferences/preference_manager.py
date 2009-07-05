@@ -98,9 +98,9 @@ class PreferenceManager(HasTraits):
     def _load_preferences(self):
         """Load the default preferences."""
         # Save current application_home.
-        app_home = ETSConfig.application_home
+        app_home = ETSConfig.get_application_home()
         # Set it to where the mayavi preferences are temporarily.
-        path = join(ETSConfig.application_data, ID)
+        path = join(ETSConfig.get_application_data(), ID)
         ETSConfig.application_home = path
         try:
             for pkg in ('enthought.mayavi.preferences',
