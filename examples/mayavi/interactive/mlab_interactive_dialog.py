@@ -26,7 +26,6 @@ This example is discussed in details in the section
 
 
 from numpy import arange, pi, cos, sin
-from enthought.mayavi.mlab import plot3d
 
 from enthought.traits.api import HasTraits, Range, Instance, \
         on_trait_change
