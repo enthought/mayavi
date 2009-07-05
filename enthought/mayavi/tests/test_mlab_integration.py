@@ -108,6 +108,37 @@ class TestMlabNullEngineMisc(TestMlabNullEngine):
                 obj = factory(obj)
             self.assertTrue(hasattr(obj, 'mlab_source'))
 
+    def test_figure(self):
+        """ Various tests for mlab.figure().
+        """
+        # Test when specifying figure instances
+        f1 = mlab.figure()
+        e = mlab.get_engine()
+        self.assert_(e.current_scene is f1)
+        f2 = mlab.figure()
+        self.assert_(e.current_scene is f2)
+        mlab.figure(f1)
+        self.assert_(e.current_scene is f1)
+
+        # Test when specifying figure numbers
+        f1 = mlab.figure(3)
+        self.assert_(e.current_scene is f1)
+        f2 = mlab.figure(4)
+        self.assert_(e.current_scene is f2)
+        mlab.figure(3)
+        self.assert_(e.current_scene is f1)
+
+        # Test when specifying figure names
+        f1 = mlab.figure('Test 1')
+        self.assert_(e.current_scene is f1)
+        f2 = mlab.figure('Test 2')
+        self.assert_(e.current_scene is f2)
+        mlab.figure('Test 1')
+        self.assert_(e.current_scene is f1)
+
+
+
+
     def test_close(self):
         """ Various tests for mlab.close().
         """
@@ -217,7 +248,6 @@ class TestMlabModules(TestMlabNullEngine):
     def test_barchart(self):
         """Test the barchart function."""
             
-        from numpy import random, abs
         s = np.abs(np.random.random((3,3)))
         b = mlab.barchart(s)
         self.assertEqual(b.glyph.glyph.scale_mode,

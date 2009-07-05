@@ -22,7 +22,7 @@ from enthought.pyface.timer.api import do_later
 from enthought.mayavi.core.scene import Scene
 from enthought.mayavi.core.registry import registry
 from .camera import view
-from .engine_manager import get_engine, options
+from .engine_manager import get_engine, options, set_engine
 
 ######################################################################
 
@@ -30,14 +30,14 @@ from .engine_manager import get_engine, options
 __scene_number_list = set((0,))
 
 
-def figure(name=None, bgcolor=None, fgcolor=None, engine=None,
+def figure(figure=None, bgcolor=None, fgcolor=None, engine=None,
                 size=(400, 350)):
     """ Creates a new scene or retrieves an existing scene. If the mayavi
     engine is not running this also starts it.
 
     **Keyword arguments**
 
-        :name: The name of the scene.
+        :figure: The name of the figure, or handle to it.
 
         :bgcolor: The color of the background (None is default).
 
@@ -51,32 +51,45 @@ def figure(name=None, bgcolor=None, fgcolor=None, engine=None,
         :size: The size of the scene created, in pixels. May not apply
                for certain scene viewer.
     """
-    if engine is None:
-        engine = get_engine()
-    if name is None:
-        name = max(__scene_number_list) + 1
-        __scene_number_list.update((name,))
-        name = 'Mayavi Scene %d' % name
-        engine.new_scene(name=name, size=size)
-        engine.current_scene.name = name
+    if isinstance(figure, Scene):
+        engine = registry.find_scene_engine(figure.scene)
+        set_engine(engine)
+        engine.current_scene = figure
     else:
-        if type(name) in (IntType, np.int, np.int0, np.int8,
-                        np.int16, np.int32, np.int64):
-            name = int(name)
+        if engine is None:
+            engine = get_engine()
+        if figure is None:
+            name = max(__scene_number_list) + 1
             __scene_number_list.update((name,))
             name = 'Mayavi Scene %d' % name
-        # Go looking in the engine see if the scene is not already
-        # running
-        for scene in engine.scenes:
-            name = str(name)
-            if scene.name == name:
-                engine.current_scene = scene
-                return scene
-        else:
             engine.new_scene(name=name, size=size)
             engine.current_scene.name = name
-    fig = engine.current_scene
-    scene = fig.scene
+        else:
+            if type(figure) in (IntType, np.int, np.int0, np.int8,
+                            np.int16, np.int32, np.int64):
+                name = int(figure)
+                __scene_number_list.update((name,))
+                name = 'Mayavi Scene %d' % name
+            else:
+                name = str(figure)
+            # Go looking in the engine see if the scene is not already
+            # running
+            for scene in engine.scenes:
+                if scene.name == name:
+                    engine.current_scene = scene
+                    return scene
+            else:
+                engine.new_scene(name=name, size=size)
+                engine.current_scene.name = name
+        figure = engine.current_scene
+        scene = figure.scene
+        if scene is not None:
+            if hasattr(scene, 'isometric_view'):
+                scene.isometric_view()
+            else:
+                # Not every viewer might implement this method
+                view(40, 50)
+    scene = figure.scene
     if scene is not None:
         if bgcolor is None:
             bgcolor = options.background_color
@@ -84,12 +97,7 @@ def figure(name=None, bgcolor=None, fgcolor=None, engine=None,
         if fgcolor is None:
             fgcolor = options.foreground_color
         scene.foreground = fgcolor
-        if hasattr(scene, 'isometric_view'):
-            scene.isometric_view()
-        else:
-            # Not every viewer might implement this method
-            view(40, 50)
-    return fig
+    return figure
 
 
 def gcf(engine=None):
