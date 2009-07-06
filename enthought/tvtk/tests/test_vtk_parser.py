@@ -94,7 +94,7 @@ class TestVTKParser(unittest.TestCase):
         result = p.get_get_set_methods().keys()
         if hasattr(obj, 'GetTexture'):
             result.remove('Texture')
-        self.assertEqual(res.keys(), result)
+        self.assertEqual(sorted(res.keys()), sorted(result))
         self.assertEqual(p.get_set_meths, p.get_get_set_methods())
         for x in res:
             if res[x][1]:
