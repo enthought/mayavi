@@ -183,8 +183,9 @@ class TestMlabModules(TestMlabNullEngine):
         vol = mlab.pipeline.volume(src, vmin=0.5, vmax=0.9, color=color)
         # Test the color feature
         for value in np.random.random(10):
-            np.testing.assert_array_equal(vol._ctf.get_color(value),
-                                            color)
+            # get_color() will sometimes return .314 as .313999...9995, so we
+            # use allclose() to match the tuples.
+            np.allclose(vol._ctf.get_color(value), color)
         # Test the vmin and vmax features
         for value in 0.5*np.random.random(10):
             self.assertEqual(vol._otf.get_value(value), 0)
