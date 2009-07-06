@@ -124,6 +124,8 @@ class Registry(HasTraits):
         """
         for engine in self.engines.values():
             for s in engine.scenes:
+                if scene is s:
+                    return engine
                 sc = s.scene
                 if scene is sc:
                     return engine
@@ -133,8 +135,6 @@ class Registry(HasTraits):
                     return engine
         else:
             raise TypeError, "Scene not attached to a mayavi engine."
-
-
  
 
 

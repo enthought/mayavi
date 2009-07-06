@@ -52,7 +52,10 @@ def figure(figure=None, bgcolor=None, fgcolor=None, engine=None,
                for certain scene viewer.
     """
     if isinstance(figure, Scene):
-        engine = registry.find_scene_engine(figure.scene)
+        if figure.scene is None:
+            engine = registry.find_scene_engine(figure)
+        else:
+            engine = registry.find_scene_engine(figure.scene)
         set_engine(engine)
         engine.current_scene = figure
     else:

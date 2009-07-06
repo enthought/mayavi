@@ -136,9 +136,6 @@ class TestMlabNullEngineMisc(TestMlabNullEngine):
         mlab.figure('Test 1')
         self.assert_(e.current_scene is f1)
 
-
-
-
     def test_close(self):
         """ Various tests for mlab.close().
         """
