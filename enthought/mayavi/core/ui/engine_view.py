@@ -300,7 +300,7 @@ class EngineView(HasTraits):
         if e.recorder is None:
             start_recording(e, known=True, script_id='engine')
         else:
-            stop_recording(e)
+            stop_recording(e, save=False)
 
     def _recorder_changed_for_engine(self, recorder):
         """Called when the recorder trait on the engine trait of this

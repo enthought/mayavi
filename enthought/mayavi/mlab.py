@@ -47,6 +47,8 @@ from tools.decorations import colorbar, scalarbar, vectorbar, \
 
 import tools.pipeline as pipeline
 
+from tools.tools import start_recording, stop_recording
+
 if __name__ == "__main__":
     import numpy
 

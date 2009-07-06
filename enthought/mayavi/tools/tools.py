@@ -8,6 +8,7 @@ The general purpose tools to manipulate the pipeline with the mlab interface.
 
 # Standard library imports.
 import numpy
+import types
 
 # Enthought library imports.
 from enthought.tvtk.api import tvtk
@@ -298,4 +299,40 @@ def set_extent(module, extents):
     module.actor.actor.position = (xpos + xo -xcenter, ypos + yo - ycenter,
                                             zpos + zo -zcenter)
 
+
+def start_recording(ui=True):
+    """Start automatic script recording.  If the `ui` parameter is
+    `True`, it creates a recorder with a user interface, if not it
+    creates a vanilla recorder without a UI.
+
+    **Returns**
+        The `Recorder` instance created.
+    """
+    from enthought.scripting.api import start_recording as start
+    e = get_engine()
+    msg = "Current engine, %s, is already being recorded."%(e)
+    assert e.recorder is None, msg
+    r = start(e, ui=ui)
+    return r
+
+def stop_recording(file=None):
+    """Stop the automatic script recording.
+
+    **Parameters**
+
+     :file: An open file or a filename or `None`.  If this is `None`,
+            nothing is saved.
+
+    """
+    from enthought.scripting.api import stop_recording as stop
+    e = get_engine()
+    r = e.recorder
+    if r is not None:
+        stop(e, save=False)
+        if type(file) in types.StringTypes:
+            f = open(file, 'w')
+            r.save(f)
+            f.close()
+        elif hasattr(file, 'write') and hasattr(file, 'flush'):
+            r.save(file)
 
