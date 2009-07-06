@@ -660,8 +660,68 @@ VTK filter with::
 
     filtered_obj = mlab.pipeline.user_defined(obj, filter='GeometryFilter')
 
+Sharing the same data between scenes
+-------------------------------------
 
-Accelerating a mayavi script
+If you want to display different views of the same data on different, you
+will have to create different Mayavi data sources, as a data source can
+belong on to one scene. However, this does not mean that you need to copy
+the data, or recreat the source from scratch. The trick is to create a
+second Mayavi data source pointing to the same underlying VTK dataset,
+and attach it to another scene. 
+
+.. current-module:: enthought.mayavi
+
+Using mlab
+~~~~~~~~~~~~
+
+Every visualization object returned by mlab as a `mlab_source` attribute,
+which exposes the VTK data source as `dataset`. In addition, the pipeline
+functions for adding modules know how to use raw VTK datasets. Thus
+exposing the dataset in a new figure can simply by done by feeding the
+`mlab_source.dataset` attribute of a visualization object created by
+mlab to an :mod:`mlab.pipeline` function::
+
+    from enthought.mayavi import mlab
+    ctr = mlab.test_contour3d()
+    mlab.figure()
+    ipw = mlab.pipeline.image_plane_widget(ctr.mlab_source.dataset)
+    
+The above example creates two figures displaying the same data, one with
+iso-surfaces, the other with an image plane widget.
+
+Alternatively, it can be useful to be explicit about the figure that the
+new module is added onto, rather than using the `mlab` current figure.
+This is important to make the code easier to read in situations where the
+current figure is not clear, for instance in an interactive application,
+rather than a script::
+
+    new_fig = mlab.figure()
+    ipw = mlab.pipeline.image_plane_widget(ctr.mlab_source.dataset, figure=new_fig)
+
+The :ref:`example_volume_slicer` shows a complex dialog exposing the same
+data through different views via `mlab.pipeline`.
+
+Using the core Mayavi API
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+You can also do this fully explicitly by creating the objects yourself
+through the Mayavi core api, and adding them to the pipeline, rather than
+using factories::
+
+    import numpy as np
+    a = np.random.random((3, 3, 3))
+    from enthought.mayavi.sources.api import ArraySource, VTKDataSource
+    src1 = ArraySource(scalar_data=a)
+    engine.add_source(src1)
+    engine.new_scene()
+    scene2 = engine.current_scene
+
+    # Now create a second data source viewing the same data:
+    src2 = VTKDataSource(data=src1.image_data)
+    scene2.add_child(src2)
+
+Accelerating a Mayavi script
 ------------------------------
 
 You've just created a nice Mayavi/mlab script and now want to generate
