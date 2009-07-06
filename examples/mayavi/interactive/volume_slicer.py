@@ -146,6 +146,7 @@ class VolumeSlicer(HasTraits):
                 ipw3d.ipw.slice_position = position[axis_number]
 
         ipw.ipw.add_observer('InteractionEvent', move_view)
+        ipw.ipw.add_observer('StartInteractionEvent', move_view)
 
         # Center the image plane widget
         ipw.ipw.slice_position = 0.5*self.data.shape[
