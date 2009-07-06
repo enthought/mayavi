@@ -20,7 +20,6 @@ class MyDialog(HasTraits):
     def redraw_scene1(self):
         self.redraw_scene(self.scene1)
 
-
     @on_trait_change('button2')
     def redraw_scene2(self):
         self.redraw_scene(self.scene2)
