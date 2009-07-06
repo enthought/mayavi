@@ -175,7 +175,10 @@ def close(scene=None, all=False):
                 warnings.warn('Scene %s not managed by mlab' % name)
                 return
     else:
-        engine = registry.find_scene_engine(scene.scene)
+        if scene.scene is None:
+            engine = registry.find_scene_engine(scene)
+        else:
+            engine = registry.find_scene_engine(scene.scene)
     engine.close_scene(scene)
 
 
