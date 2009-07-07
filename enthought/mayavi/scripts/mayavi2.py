@@ -456,6 +456,16 @@ except ImportError, m:
         % (m, '_'*80)
     raise ImportError(msg)
 
+try:
+    # Try forcing the use of wx 2.8
+    from enthought.etsconfig.api import ETSConfig
+    if ETSConfig.toolkit in ('wx', ''):
+        import wxversion
+        if wxversion.checkInstalled('2.8'):
+            wxversion.select('2.8')
+except ImportError:
+    """ wxversion not installed """
+
 
 # Importing here to avoid time-consuming import when user only wanted
 # version/help information.
@@ -614,10 +624,10 @@ def main():
     if OFFSCREEN:
         mayavi = MayaviOffscreen()
     else:
+        from enthought.etsconfig.api import ETSConfig
         # Check that we have a traits backend installed
         from enthought.traits.ui.toolkit import toolkit
         toolkit() # This forces the selection of a toolkit.
-        from enthought.etsconfig.api import ETSConfig
         if ETSConfig.toolkit in ('null', ''):
             raise ImportError, '''Could not import backend for traits
 ________________________________________________________________________________

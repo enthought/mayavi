@@ -11,6 +11,7 @@ import logging
 from enthought.traits.api import List, on_trait_change
 from enthought.envisage.api import Plugin
 from enthought.pyface.workbench.api import Perspective, PerspectiveItem
+from enthought.etsconfig.api import ETSConfig
 
 logger = logging.getLogger()
 
@@ -18,6 +19,7 @@ logger = logging.getLogger()
 ENGINE_VIEW = 'enthought.mayavi.core.ui.engine_view.EngineView'
 CURRENT_SELECTION_VIEW = 'enthought.mayavi.core.engine.Engine.current_selection'
 SHELL_VIEW = 'enthought.plugins.python_shell_view'
+LOGGER_VIEW = 'enthought.logger.plugin.view.logger_view.LoggerView' 
 
 ###############################################################################
 # `MayaviPerspective` class.
@@ -35,12 +37,27 @@ class MayaviPerspective(Perspective):
     show_editor_area = True
 
     # The contents of the perspective.
-    contents = [
-        PerspectiveItem(id=ENGINE_VIEW, position='left'),
-        PerspectiveItem(id=CURRENT_SELECTION_VIEW, position='bottom',
-                        relative_to=ENGINE_VIEW),
-        PerspectiveItem(id=SHELL_VIEW, position='bottom'),
-    ]
+    contents = List()
+
+    def _contents_default(self):
+        contents = [
+            PerspectiveItem(id=ENGINE_VIEW, position='left'),
+            PerspectiveItem(id=CURRENT_SELECTION_VIEW, position='bottom',
+                            relative_to=ENGINE_VIEW),
+            PerspectiveItem(id=SHELL_VIEW, position='bottom'),
+        ]
+        show_logger = True
+        if ETSConfig.toolkit == 'wx':
+            # XXX: Bugware: avoid a crash in Wx with the logger
+            import wx
+            if wx.__version__.split('.')[:2] == ['2', '6']:
+                show_logger = False
+
+        if show_logger:
+            contents.append(PerspectiveItem(id=LOGGER_VIEW, position='with', 
+                                            relative_to=SHELL_VIEW))
+        return contents
+    
 
 ###############################################################################
 # `MayaviUIPlugin` class.
