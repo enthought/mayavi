@@ -660,6 +660,8 @@ VTK filter with::
 
     filtered_obj = mlab.pipeline.user_defined(obj, filter='GeometryFilter')
 
+.. _sharing_data_between_scenes:
+
 Sharing the same data between scenes
 -------------------------------------
 
@@ -670,8 +672,6 @@ the data, or recreat the source from scratch. The trick is to create a
 second Mayavi data source pointing to the same underlying VTK dataset,
 and attach it to another scene. 
 
-.. current-module:: enthought.mayavi
-
 Using mlab
 ~~~~~~~~~~~~
 
@@ -680,12 +680,13 @@ which exposes the VTK data source as `dataset`. In addition, the pipeline
 functions for adding modules know how to use raw VTK datasets. Thus
 exposing the dataset in a new figure can simply by done by feeding the
 `mlab_source.dataset` attribute of a visualization object created by
-mlab to an :mod:`mlab.pipeline` function::
+mlab to an `mlab.pipeline` function::
 
     from enthought.mayavi import mlab
     ctr = mlab.test_contour3d()
     mlab.figure()
     ipw = mlab.pipeline.image_plane_widget(ctr.mlab_source.dataset)
+    mlab.show()
     
 The above example creates two figures displaying the same data, one with
 iso-surfaces, the other with an image plane widget.
@@ -720,6 +721,41 @@ using factories::
     # Now create a second data source viewing the same data:
     src2 = VTKDataSource(data=src1.image_data)
     scene2.add_child(src2)
+
+Changing the interaction with a scene
+--------------------------------------
+
+The default 3D interaction with the scene (left click on the background
+rotates the scene, right click scales, middle click pans) is not suited
+for every visualization. For instance, in can be interesting to restrict
+the movement to 2D, e.g. when viewing an object in the 'x' direction.
+This is done by changing the `interactor_style` of a scene. Here is an
+example to use Mayavi as a 2D image viewer::
+
+    from enthought.mayavi import mlab
+    mlab.test_imshow()
+    mlab.view(0, 0)
+    fig = mlab.gcf()
+    from enthought.tvtk.api import tvtk
+    fig.scene.interactor.interactor_style = tvtk.InteractorStyleImage()
+    mlab.show()
+
+Another useful interactor is the 'terrain' interactor, handy to have
+natural movement in scenes where you want the 'up' vector to be always
+pointing in the 'z' direction::
+    
+    from enthought.mayavi import mlab
+    mlab.test_surf()
+    fig = mlab.gcf()
+    from enthought.tvtk.api import tvtk
+    fig.scene.interactor.interactor_style = tvtk.InteractorStyleTerrain()
+    mlab.show()
+
+VTK has many different interactors. An easy way to list them is to
+display the VTK class browser (via the help menu, in the `mayavi2`
+application) and to search for "Interactor". Another option is to tab
+complete on Ipython, on `tvtk.InteractorStyle`.
+
 
 Accelerating a Mayavi script
 ------------------------------

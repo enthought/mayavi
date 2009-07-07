@@ -16,9 +16,17 @@ Second, default values created via the '_xxx_default' callback are created
 lazyly, that is, when the attributes are accessed. As the establishement
 of the VTK pipeline can depend on the order in which it is built, we
 trigger these access by explicitely calling the attributes.
-
 In particular, properties like scene background color, or interaction 
 properties cannot be set before the scene is activated.
+
+The same data is exposed in the different scenes by sharing the VTK
+dataset between different Mayavi data sources. See
+the :ref:`sharing_data_between_scenes` tip for more details.
+
+In this example, the interaction with the scene and the various elements
+on it is strongly simplified by turning off interaction, and choosing
+specific scene interactor styles. Indeed, non-technical users can be
+confused with too rich interaction.
 """
 import numpy as np
 
@@ -109,6 +117,9 @@ class VolumeSlicer(HasTraits):
             # Turn the interaction off
             ipw.ipw.interaction = 0
         self.scene3d.scene.background = (0, 0, 0)
+        # Keep the view always pointing up
+        self.scene3d.scene.interactor.interactor_style = \
+                                 tvtk.InteractorStyleTerrain()
 
 
     def make_side_view(self, axis_name):
