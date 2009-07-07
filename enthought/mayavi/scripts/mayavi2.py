@@ -462,7 +462,10 @@ try:
     if ETSConfig.toolkit in ('wx', ''):
         import wxversion
         if wxversion.checkInstalled('2.8'):
-            wxversion.select('2.8')
+            try:
+                wxversion.select('2.8')
+            except wxversion.VersionError:
+                """ Too late, wxPython has already been imported. """
 except ImportError:
     """ wxversion not installed """
 
