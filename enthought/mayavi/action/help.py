@@ -48,6 +48,8 @@ def browser_open(url):
 
 
 def open_help_index():
+    """ Open the mayavi user manual index in a browser. 
+    """
     # If the HTML_DIR was found, bring up the documentation in a
     # web browser.  Otherwise, bring up an error message.
     if HTML_DIR:
@@ -56,6 +58,13 @@ def open_help_index():
     else:
         error("Could not find the user guide in your installation " \
             "or the source tree.")
+
+
+def open_tvtk_docs():
+    """ Open the TVTK class browser. 
+    """
+    from enthought.tvtk.tools.tvtk_doc import TVTKClassChooser
+    TVTKClassChooser().edit_traits()
 
 ######################################################################
 # `HelpIndex` class.
@@ -74,4 +83,23 @@ class HelpIndex(Action):
     def perform(self, event):
         """ Performs the action. """
         open_help_index()
+
+
+######################################################################
+# `TVTKClassBrowser` class.
+######################################################################
+class TVTKClassBrowser(Action):
+    """ An action that opens the tvtk interactive class browser. """
+
+    tooltip       = "The TVTK interactive class browser"
+
+    description   = "The TVTK interactive class browser"
+
+    ###########################################################################
+    # 'Action' interface.
+    ###########################################################################
+
+    def perform(self, event):
+        """ Performs the action. """
+        open_tvtk_docs()
 

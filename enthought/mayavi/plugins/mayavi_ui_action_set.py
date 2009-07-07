@@ -163,6 +163,14 @@ help_index = Action(
 )
 
 
+tvtk_class_browser = Action(
+    id            = "TVTKClassBrowser",
+    class_name    = ID + ".action.help.TVTKClassBrowser",
+    name          = "&VTK Class Browser",
+    path          = "MenuBar/Help",
+)
+
+
 ################################################################################
 # `MayaviUIActionSet` class.
 ################################################################################
@@ -189,4 +197,5 @@ class MayaviUIActionSet(ActionSet):
               MODULE_ACTIONS + \
               FILTER_ACTIONS + \
               [help_index,
+               tvtk_class_browser,
               ]

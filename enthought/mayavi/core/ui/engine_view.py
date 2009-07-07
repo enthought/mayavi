@@ -24,7 +24,7 @@ from enthought.mayavi.core.base import Base
 from enthought.mayavi.core.adder_node import ModuleFilterAdderNode, \
         SourceAdderNode, ModuleAdderNode, FilterAdderNode, \
         SceneAdderNode, AdderNode
-from enthought.mayavi.action.help import open_help_index
+from enthought.mayavi.action.help import open_help_index, open_tvtk_docs
 
 class EngineViewHandler(Handler):
     """ A handler for the EngineView object. 
@@ -248,6 +248,16 @@ class EngineView(HasTraits):
                 perform=open_help_index,
             )
 
+        tvtk_docs = \
+            Action(
+                image=ImageResource('reader.png',
+                                            search_path=self._image_path),
+                tooltip="Search the VTK class browser",
+                defined_when='True',
+                enabled_when='True',
+                perform=open_tvtk_docs,
+            )
+
         record = \
             Action(
                 image=ImageResource('record.png',
@@ -265,8 +275,8 @@ class EngineView(HasTraits):
         if self.engine is not None and self.engine.recorder is not None:
             record.checked = True
 
-        return [add_scene, add_source, add_module, add_filter, 
-                Separator(), help, record,]
+        return [tvtk_docs, Separator(), add_scene, add_source, add_module, 
+                add_filter, Separator(), help, record]
 
 
     ###########################################################################
