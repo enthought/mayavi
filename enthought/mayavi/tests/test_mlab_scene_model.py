@@ -3,6 +3,8 @@ Testing the MlabSceneModel
 """
 import unittest
 
+import numpy as np
+
 from enthought.traits.api import HasTraits, Instance
 from enthought.mayavi.tools.mlab_scene_model import MlabSceneModel
 from enthought.mayavi import mlab
@@ -26,17 +28,16 @@ class TestMlabSceneModel(TestMlabNullEngine):
             scene1 = Instance(MlabSceneModel, ())
             scene2 = Instance(MlabSceneModel, ())
 
-        f = mlab.figure()
         test_object = TestObject()
-        plt = test_object.scene1.mlab.test_plot3d()
-        pts = test_object.scene2.mlab.test_points3d()
+        x, y, z = np.random.random((3, 10))
+        plt = mlab.plot3d(x, y, z, 
+                    figure=test_object.scene1.mayavi_scene)
+        pts = mlab.points3d(x, y, z,
+                    figure=test_object.scene2.mayavi_scene)
 
         # Check that each figure got the module it should have
         self.assertEqual(plt.scene, test_object.scene1)
         self.assertEqual(pts.scene, test_object.scene2)
-        # Check that the current figure was not upset by plotting to the
-        # object
-        self.assertEqual(mlab.gcf(), f)
 
 
 if __name__ == '__main__':
