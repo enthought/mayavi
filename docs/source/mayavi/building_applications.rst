@@ -93,10 +93,27 @@ confine action and visualization objects only to this scene.
 
 We can also use an `MlabSceneModel` instance, rather than a `SceneModel`,
 imported from `enthought.mayavi.tools.mlab_scene_model`. This scene model
-has an embedded `mlab` attribute, that exposes all the mlab commands (see
-:ref:`mlab_plotting_functions`) as attributes, applying on the scene. For
-instance plotting 3D points can be achieved with
-`self.scene.mlab.points3d(x, y, z, s)`.
+registers the figure in `mlab` (:ref:`simple-scripting-with-mlab`). It
+has an embedded mlab attribute, that exposes the mlab commands (see
+:ref:`mlab_plotting_functions`). For instance plotting 3D points can be
+achieved with `self.scene.mlab.points3d(x, y, z, s)`.
+
+.. warning:: Embedding several scenes in an application
+
+    When using several 'MlabSceneModel' in an application, there is an
+    ambiguity regarding which scene mlab should use to plot to. This is
+    why relying on using the current figure, as mlab most often does, is
+    dangerous.
+
+    The solution to this, is explicitely pass in the Mayavi figure to
+    mlab's figure keyword argument::
+
+	mlab.points3d(x, y, z, s, figure=self.scene.mayavi_scene)
+
+    However, this functionnality is new in Mayavi 3.2.1.
+
+    A full example with two embedded scenes is given on
+    :ref:`example_multiple_mlab_scene_models`.
 
 Making the visualization live
 ..............................
@@ -150,8 +167,7 @@ In a dialog, this would be::
             # Do not forget to call the parent's __init__
             HasTraits.__init__(self)
             x, y, z, t = curve(self.meridional, self.transverse)
-            self.plot = self.scene.mlab.plot3d(x, y, z, t, 
-                                            colormap='Spectral')
+            self.plot = self.scene.mlab.plot3d(x, y, z, t, colormap='Spectral')
 
         @on_trait_change('meridional,transverse')
         def update_plot(self):
@@ -160,10 +176,10 @@ In a dialog, this would be::
 
 
         # the layout of the dialog created
-        view = view(item('scene', editor=sceneeditor(scene_class=mayaviscene), 
-                        height=250, width=300, show_label=false), 
-                    group(
-                            '_', 'n_meridional', 'n_longitudinal',
+        view = View(Item('scene', editor=SceneEditor(scene_class=MayaviScene), 
+                        height=250, width=300, show_label=False), 
+                    HGroup(
+                            '_', 'meridional', 'transverse',
                         ),
                     )
 

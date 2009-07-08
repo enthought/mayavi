@@ -1,12 +1,28 @@
 """ Example showing a dialog with multiple embedded scenes.
+
+When using several embedded scenes with mlab, you should be very careful
+always to pass the scene you want to use for plotting to the mlab
+function used, elsewhere it uses the current scene. In this example,
+failing to do so would result in only one scene being used, the last
+one created.
+
+The trick is to use the 'mayavi_scene' attribute of the MlabSceneModel,
+and pass it as a keyword argument to the mlab functions.
+
+For more examples on embedding mlab scenes in dialog, see also:
+the examples :ref:`example_mlab_interactive_dialog`, and 
+:ref:`example_lorenz_ui`, as well as the section of the user manual 
+:ref:`embedding_mayavi_traits`.
 """
 import numpy as np
 
 from enthought.traits.api import HasTraits, Instance, Button, \
     on_trait_change
 from enthought.traits.ui.api import View, Item, HSplit, Group
-from enthought.tvtk.pyface.scene_editor import SceneEditor
+
+from enthought.mayavi import mlab
 from enthought.mayavi.tools.mlab_scene_model import MlabSceneModel
+from enthought.tvtk.pyface.scene_editor import SceneEditor
 
 class MyDialog(HasTraits):
 
@@ -25,9 +41,10 @@ class MyDialog(HasTraits):
         self.redraw_scene(self.scene2)
 
     def redraw_scene(self, scene):
-        scene.mlab.clf()
+        # Notice how each mlab 
+        mlab.clf(figure=scene.mayavi_scene)
         x, y, z, s = np.random.random((4, 100))
-        scene.mlab.points3d(x, y, z, s)
+        mlab.points3d(x, y, z, s, figure=scene.mayavi_scene)
 
     # The layout of the dialog created
     view = View(HSplit(

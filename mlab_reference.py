@@ -303,8 +303,9 @@ from enthought.mayavi.mlab import *
 
 .. note::
 
-    This section is only a reference, please see chapter on
-    :ref:`simple-scripting-with-mlab` for an introduction to mlab.
+    This section is only a reference describing the function, please see
+    the chapter on :ref:`simple-scripting-with-mlab` for an introduction to 
+    mlab and how to interact with and assemble the functions of `mlab`.
 
     Please see the section on :ref:`running-mlab-scripts` for
     instructions on running the examples.
@@ -362,9 +363,10 @@ with documentation and examples.
 
 .. note::
 
-    This section is only a reference, please see chapter on
-    :ref:`simple-scripting-with-mlab` for an introduction to mlab
-    and how to run the examples.
+    This section is only a reference describing the function, please see
+    the chapter on :ref:`simple-scripting-with-mlab` for an introduction to 
+    mlab and how to run the examples or interact with and assemble 
+    the functions of `mlab`.
 
 """, 
             footer = """\t../mlab_pipeline_reference.rst\n""",

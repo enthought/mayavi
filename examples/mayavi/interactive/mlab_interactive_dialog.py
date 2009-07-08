@@ -74,6 +74,7 @@ class MyModel(HasTraits):
                 Group(
                         '_', 'n_meridional', 'n_longitudinal',
                      ),
+                resizable=True,
                 )
 
 my_model = MyModel()

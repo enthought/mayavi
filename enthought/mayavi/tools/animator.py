@@ -16,25 +16,29 @@ from enthought.traits.ui.api import View, Group, Item
 ################################################################################ 
 class Animator(HasTraits):
 
-    """Convenience class to manage a timer and present a convenient
-    UI.  This is based on the code in `enthought.tvtk.tools.visual`.
-    Here is a simple example of using this class::
-
-        >>> from enthought.mayavi import mlab
-        >>> def anim():
-        ...     f = mlab.gcf()
-        ...     while 1:
-        ...         f.scene.camera.azimuth(10)
-        ...         f.scene.render()
-        ...         yield
-        ...
-        >>> anim = anim()
-        >>> t = Animator(500, anim.next)
-        >>> t.edit_traits()
-
-    This makes it very easy to animate your visualizations and control
-    it from a simple UI.
-
+    """ Convenience class to manage a timer and present a convenient
+        UI.  This is based on the code in `enthought.tvtk.tools.visual`.
+        Here is a simple example of using this class::
+        
+            >>> from enthought.mayavi import mlab
+            >>> def anim():
+            ...     f = mlab.gcf()
+            ...     while 1:
+            ...         f.scene.camera.azimuth(10)
+            ...         f.scene.render()
+            ...         yield
+            ...
+            >>> anim = anim()
+            >>> t = Animator(500, anim.next)
+            >>> t.edit_traits()
+        
+        This makes it very easy to animate your visualizations and control
+        it from a simple UI.
+        
+        **Notes**
+        
+        If you want to modify the data plotted by an `mlab` function call,
+        please refer to the section on: :ref:`mlab-animating-data`
     """
     
     ########################################
@@ -104,57 +108,59 @@ class Animator(HasTraits):
 # Decorators.
 
 def animate(func=None, delay=500, ui=True):
-    """A convenient decorator to animate a generator that performs an
-    animation.  The `delay` parameter specifies the delay (in
-    milliseconds) between calls to the decorated function. If `ui` is
-    True, then a simple UI for the animator is also popped up.  The
-    decorated function will return the `Animator` instance used and a
-    user may call its `Stop` method to stop the animation.  
-    
-    If an ordinary function is decorated a `TypeError` will be raised.
+    """ A convenient decorator to animate a generator that performs an
+        animation.  The `delay` parameter specifies the delay (in
+        milliseconds) between calls to the decorated function. If `ui` is
+        True, then a simple UI for the animator is also popped up.  The
+        decorated function will return the `Animator` instance used and a
+        user may call its `Stop` method to stop the animation.  
+        
+        If an ordinary function is decorated a `TypeError` will be raised.
+        
+        **Parameters**
+        
+        :delay: int specifying the time interval in milliseconds between
+                calls to the function.
+        
+        :ui: bool specifying if a UI controlling the animation is to be
+             provided.
+        
+        **Returns**
+        
+        The decorated function returns an `Animator` instance.
+        
+        **Examples**
+        
+        Here is the example provided in the Animator class documentation::
 
+            >>> from enthought.mayavi import mlab
+            >>> @mlab.animate
+            ... def anim():
+            ...     f = mlab.gcf()
+            ...     while 1:
+            ...         f.scene.camera.azimuth(10)
+            ...         f.scene.render()
+            ...         yield
+            ...
+            >>> a = anim() # Starts the animation.
+        
+        For more specialized use you can pass arguments to the decorator::
 
-    **Parameters**
+            >>> from enthought.mayavi import mlab
+            >>> @mlab.animate(delay=500, ui=False)
+            ... def anim():
+            ...     f = mlab.gcf()
+            ...     while 1:
+            ...         f.scene.camera.azimuth(10)
+            ...         f.scene.render()
+            ...         yield
+            ...
+            >>> a = anim() # Starts the animation without a UI.
+        
+        **Notes**
 
-      :delay: int specifying the time interval in milliseconds between
-              calls to the function.
-
-      :ui: bool specifying if a UI controlling the animation is to be
-           provided.
-
-    **Returns**
-
-      The decorated function returns an `Animator` instance.
-
-
-    **Examples**
-
-    Here is the example provided in the Animator class documentation::
-
-        >>> from enthought.mayavi import mlab
-        >>> @mlab.animate
-        ... def anim():
-        ...     f = mlab.gcf()
-        ...     while 1:
-        ...         f.scene.camera.azimuth(10)
-        ...         f.scene.render()
-        ...         yield
-        ...
-        >>> a = anim() # Starts the animation.
-    
-    For more specialized use you can pass arguments to the decorator::
-
-        >>> from enthought.mayavi import mlab
-        >>> @mlab.animate(delay=500, ui=False)
-        ... def anim():
-        ...     f = mlab.gcf()
-        ...     while 1:
-        ...         f.scene.camera.azimuth(10)
-        ...         f.scene.render()
-        ...         yield
-        ...
-        >>> a = anim() # Starts the animation without a UI.
-
+        If you want to modify the data plotted by an `mlab` function call,
+        please refer to the section on: :ref:`mlab-animating-data`.
     """
 
     class Wrapper(object):

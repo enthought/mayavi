@@ -12,6 +12,11 @@ on rigid object movement.
 
 The `@animate` decorator ( :func:`enthought.mayavi.mlab.animate` ) is
 detailed on section :ref:`animating_a_visualization`.
+
+If you want to modify the data plotted by the mlab (as in the
+`mlab.test_plot3d()` call) to create an animation, please see section
+:ref:`mlab-animating-data`.
+
 """
 # Author: Prabhu Ramachandran <prabhu [at] aero.iitb.ac.in>
 # Copyright (c) 2009, Enthought, Inc.
