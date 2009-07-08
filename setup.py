@@ -74,8 +74,10 @@ import shutil
 import re
 import sys
 import zipfile
+import traceback
 
 from numpy.distutils.command import build, install_data
+from distutils import log
 from setuptools.command import develop, install_scripts
 
 
@@ -280,7 +282,12 @@ class MyBuild(build.build):
         build_tvtk_classes_zip()
         build.build.run(self)
         self.run_command('gen_docs')
-        self.run_command('build_docs')
+        try:
+            self.run_command('build_docs')
+        except:
+            log.warn("Couldn't build documentation:\n%s" %
+                     traceback.format_exception(*sys.exc_info()))
+
 
 
 class MyDevelop(develop.develop):
@@ -293,7 +300,11 @@ class MyDevelop(develop.develop):
 
     def run(self):
         self.run_command('gen_docs')
-        self.run_command('build_docs')
+        try:
+            self.run_command('build_docs')
+        except:
+            log.warn("Couldn't build documentation:\n%s" %
+                     traceback.format_exception(*sys.exc_info()))
 
         # Make sure that the 'build_src' command will
         # always be inplace when we do a 'develop'.

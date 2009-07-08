@@ -11,6 +11,7 @@ pipeline.
 from modules import *
 from sources import *
 from filters import *
-from tools import add_dataset, set_extent, add_module_manager
+from tools import add_dataset, set_extent, add_module_manager, \
+    get_vtk_src
 from tools import _traverse as traverse
 

@@ -16,8 +16,8 @@ from enthought.tvtk.api import tvtk
 # MayaVi related imports.
 from enthought.mayavi.sources.vtk_data_source import VTKDataSource
 from enthought.mayavi.core.module_manager import ModuleManager
-from enthought.mayavi.sources.array_source import ArraySource
 from enthought.mayavi.core.source import Source
+from enthought.mayavi.core.filter import Filter
 
 from engine_manager import get_engine, engine_manager, get_null_engine
 from figure import gcf
@@ -106,37 +106,43 @@ def _traverse(node):
         pass
     yield node
 
-def _find_data(object):
-    """Goes up the vtk pipeline to find the data sources of a given
-    object.
+def get_vtk_src(mayavi_object, filter_ok=True):
+    """ Goes up the Mayavi pipeline to find the data sources of a given
+        object.
+
+        **Parameters**
+    
+        :object: any Mayavi visualization object
+       
+        :filter_ok: optionnal boolean flag: if True, the first object
+                    exposing data found going up the pipeline is
+                    returned. If False, only the source it self
+                    is returned
+
+        **Returns**
+
+        :sources: List of vtk data sources (vtk data sources, and not
+                  Mayavi source objects).
+
+        **Notes**
+
+        This function traverses the Mayavi pipeline. Thus the input
+        object should be added to the pipeline.
     """
-    if isinstance(object, ModuleManager):
-        inputs = [object.source]
-    elif hasattr(object, 'module_manager'):
-        inputs = [object.module_manager.source]
-    elif ( hasattr(object, 'data') or isinstance(object, ArraySource) 
-                or hasattr(object, 'inputs')):
-        inputs = [object]
-    else:
+    if not (   hasattr(mayavi_object, 'parent') 
+            or isinstance(mayavi_object, Source)):
         raise TypeError, 'Cannot find data source for given object'
-    data_sources = []
-    try:
-        while True:
-            input = inputs.pop()
-            if hasattr(input, 'inputs'):
-                inputs += input.inputs
-            elif hasattr(input, 'image_data'):
-                data_sources.append(input.image_data)
-            else:
-                data_sources.append(input.data)
-    except IndexError:
-        pass
-    return data_sources
+    while True:
+        # XXX: If the pipeline is not a DAG, this is an infinite loop
+        if isinstance(mayavi_object, Source):
+            if filter_ok or not isinstance(mayavi_object, Filter):
+                return mayavi_object.outputs
+        mayavi_object = mayavi_object.parent
 
 def _has_scalar_data(object):
     """Tests if an object has scalar data.
     """
-    data_sources = _find_data(object)
+    data_sources = get_vtk_src(object)
     for source in data_sources:
         if source.point_data.scalars is not None:
             return True
@@ -147,7 +153,7 @@ def _has_scalar_data(object):
 def _has_vector_data(object):
     """Tests if an object has vector data.
     """
-    data_sources = _find_data(object)
+    data_sources = get_vtk_src(object)
     for source in data_sources:
         if source.point_data.vectors is not None:
             return True
@@ -158,7 +164,7 @@ def _has_vector_data(object):
 def _has_tensor_data(object):
     """Tests if an object has tensor data.
     """
-    data_sources = _find_data(object)
+    data_sources = get_vtk_src(object)
     for source in data_sources:
         if source.point_data.tensors is not None:
             return True

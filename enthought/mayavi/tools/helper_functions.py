@@ -2,8 +2,8 @@
 Helper functions for mlab. These combine creation of the data sources,
 and applying the modules to them to make standard visualization
 operation. They should always return the module object created, for
-consistency, and because retrieving the data_source from a module object
-is possible via tools._find_data
+consistency, and because retrieving the vtk data source from a module object
+is possible via tools.get_vtk_src
 
 Each helper function should have a test function associated with it,
 both for testing and to ilustrate its use.
