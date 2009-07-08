@@ -106,7 +106,7 @@ def _traverse(node):
         pass
     yield node
 
-def get_vtk_src(mayavi_object, filter_ok=True):
+def get_vtk_src(mayavi_object, stop_at_filter=True):
     """ Goes up the Mayavi pipeline to find the data sources of a given
         object.
 
@@ -114,10 +114,10 @@ def get_vtk_src(mayavi_object, filter_ok=True):
     
         :object: any Mayavi visualization object
        
-        :filter_ok: optionnal boolean flag: if True, the first object
-                    exposing data found going up the pipeline is
-                    returned. If False, only the source it self
-                    is returned
+        :stop_at_filter: optional boolean flag: if True, the first object
+                         exposing data found going up the pipeline is
+                         returned. If False, only the source itself
+                         is returned.
 
         **Returns**
 
@@ -127,15 +127,16 @@ def get_vtk_src(mayavi_object, filter_ok=True):
         **Notes**
 
         This function traverses the Mayavi pipeline. Thus the input
-        object should be added to the pipeline.
+        object 'mayavi_object' should already be added to the pipeline.
     """
     if not (   hasattr(mayavi_object, 'parent') 
             or isinstance(mayavi_object, Source)):
-        raise TypeError, 'Cannot find data source for given object'
+        raise TypeError, 'Cannot find data source for given object %s' % (
+                                            mayavi_object)
     while True:
         # XXX: If the pipeline is not a DAG, this is an infinite loop
         if isinstance(mayavi_object, Source):
-            if filter_ok or not isinstance(mayavi_object, Filter):
+            if stop_at_filter or not isinstance(mayavi_object, Filter):
                 return mayavi_object.outputs
         mayavi_object = mayavi_object.parent
 
