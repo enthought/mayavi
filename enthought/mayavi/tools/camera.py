@@ -180,3 +180,173 @@ def view(azimuth=None, elevation=None, distance=None, focalpoint=None):
     cam.compute_view_plane_normal()
     ren.reset_camera_clipping_range()
     scene.render()
+    
+def move(forward=None, right=None, up=None):
+    """ Translates the camera and focal point together. 
+    
+    The arguments specify the relative distance to translate the 
+    camera and focal point, so as to produce the appearence of 
+    moving the camera without changing the effective field of view.
+    If called with no arguments, the function returns the absolute
+    position of the camera and focal pointon a cartesian coordinate 
+    system.
+    
+    Note that the arguments specify relative motion, although the 
+    return value with no arguments is in an absolute coordinate system.
+    
+
+    **Keyword arguments**:
+
+     :forward: float, optional. The distance in space to translate the
+         camera forward (if positive) or backward (if negative)
+        
+
+     :right: float, optional.  The distance in space to translate the
+         camera to the right (if positive) or left (if negative)
+
+     :up: float, optional. The distance in space to translate the
+         camera up (if positive) or down (if negative)
+
+
+    **Returns**:
+
+    If no arguments are supplied (or all are None), returns a 
+    tuple (camera_position, focal_point_position)
+    
+    otherwise, returns None
+
+    **Examples**:
+
+    Get the current camera position::
+
+      >>> cam,foc = move()
+      >>> cam
+      array([-0.06317079, -0.52849738, -1.68316389])
+      >>> foc
+      array([ 1.25909623,  0.15692708, -0.37576693])
+
+    Translate the camera::
+
+      >>> move(3,-1,-1.2)
+      >>> move()
+      (array([ 2.93682921, -1.52849738, -2.88316389]), 
+       array([ 4.25909623, -0.84307292, -1.57576693]))
+       
+    Return to the starting position::
+     >>> move(-3,1,1.2)
+     >>> move()
+     (array([-0.06317079, -0.52849738, -1.68316389]), 
+      array([ 1.25909623,  0.15692708, -0.37576693]))
+       
+    
+    **See also**
+    :mlab.yaw: yaw the camera (tilt left-right)
+    :mlab.pitch: pitch the camera (tilt up-down)
+    :mlab.roll: control the absolute roll angle of the camera
+    :mlab.view: set the camera position relative to the focal point instead
+                of in absolute space
+    """
+    
+    f = get_engine().current_scene
+    if f is None:
+        return
+    scene = f.scene
+    if scene is None:
+        return
+
+    ren = scene.renderer
+    cam = scene.camera
+    
+    if forward is None and right is None and up is None:
+        return cam.position,cam.focal_point
+    
+    # vector to offset the camera loc and focal point
+    v = numpy.zeros(3) 
+    
+    # view plane vetor points behind viewing direction, so we invert it
+    yhat = -1*cam.view_plane_normal 
+    zhat = cam.view_up
+    
+    if forward is not None:
+        xhat = numpy.cross(yhat,zhat)
+        v += forward*yhat
+        
+    if right is not None:
+        v += right*xhat
+        
+    if up is not None:
+        v += up*zhat
+    
+    # Apply the offset and setup the view.
+    cam.position = cam.position + v
+    cam.focal_point = cam.focal_point + v
+    ren.reset_camera_clipping_range()
+    scene.render()
+    
+def yaw(degrees):
+    """ Rotates the camera about the  axis corresponding to the 
+    "up" direction of the current view. Note that this will
+    change the location of the focal point (although not the
+    camera location).
+    
+    This angle is relative to the current direction - the
+    angle is NOT an absolute angle in a fixed coordinate
+    system.
+    
+    **See also**
+
+    :mlab.pitch: relative rotation about the "right" direction
+    :mlab.roll: absolute roll angle (i.e. "up" direction)
+    :mlab.move: relative translation of the camera and focal 
+                point
+    """
+    
+    f = get_engine().current_scene
+    if f is None:
+        return
+    scene = f.scene
+    if scene is None:
+        return
+
+    ren = scene.renderer
+    cam = scene.camera
+    
+    cam.yaw(degrees)
+    
+    ren.reset_camera_clipping_range()
+    scene.render()
+
+def pitch(degrees):
+    """ Rotates the camera about the  axis corresponding to the 
+    "right" direction of the current view. Note that this will
+    change the location of the focal point (although not the
+    camera location).
+    
+    This angle is relative to the current direction - the
+    angle is NOT an absolute angle in a fixed coordinate
+    system.
+    
+    **See also**
+
+    :mlab.yaw: relative rotation about the "up" direction
+    :mlab.roll: absolute roll angle (i.e. "up" direction)
+    :mlab.move: relative  translation of the camera and focal 
+                point
+    """
+    
+    
+    f = get_engine().current_scene
+    if f is None:
+        return
+    scene = f.scene
+    if scene is None:
+        return
+
+    ren = scene.renderer
+    cam = scene.camera
+    
+    cam.pitch(degrees)
+    
+    ren.reset_camera_clipping_range()
+    scene.render()
+
