@@ -10,7 +10,7 @@ application with the WxWidget mainloop running.
 # License: BSD Style.
 
 # Mayavi imports
-from enthought.mayavi.tools.camera import view, roll
+from enthought.mayavi.tools.camera import view, roll, yaw, pitch, move
 from enthought.mayavi.tools.figure import figure, clf, gcf, savefig, \
     draw, sync_camera, close
 from enthought.mayavi.tools.engine_manager import get_engine, show_pipeline, \
@@ -19,10 +19,10 @@ from enthought.mayavi.tools.show import show
 from enthought.mayavi.tools.animator import animate
 
 def show_engine():
-    """ This function is depreciated, please use show_pipeline.
+    """ This function is deprecated, please use show_pipeline.
     """
     import warnings
-    warnings.warn('The show_engine function is depreciated, please use'
+    warnings.warn('The show_engine function is deprecated, please use'
                     'show_pipeline', stacklevel=2)
     return show_pipeline()
 
