@@ -465,7 +465,7 @@ class MLineSource(MlabSource):
 
         if scalars is not None and len(scalars) > 0:
             assert len(x) == len(scalars)
-            pd.point_data.scalars = scalars.ravel() 
+            pd.point_data.scalars = np.ravel(scalars)
             pd.point_data.scalars.name = 'scalars'
 
         self.dataset = pd
@@ -934,7 +934,7 @@ def vector_scatter(*args, **kwargs):
 
     scalars = kwargs.pop('scalars', None)
     if scalars is not None:
-        scalars = scalars.ravel()
+        scalars = np.ravel(scalars)
     name = kwargs.pop('name', 'VectorScatter')
 
     data_source = MGlyphSource()
@@ -1022,7 +1022,7 @@ def scalar_scatter(*args, **kwargs):
     x, y, z, s = process_regular_scalars(*args)
 
     if s is not None:
-        s = s.ravel()
+        s = np.ravel(s)
 
     data_source = MGlyphSource()
     data_source.reset(x=x, y=y, z=z, scalars=s)
@@ -1256,7 +1256,7 @@ def vertical_vectors_source(*args, **kwargs):
     x, y, z, s = process_regular_scalars(*args)
 
     if s is not None:
-        s = s.ravel()
+        s = np.ravel(s)
 
     data_source = MVerticalGlyphSource()
     data_source.reset(x=x, y=y, z=z, scalars=s)
