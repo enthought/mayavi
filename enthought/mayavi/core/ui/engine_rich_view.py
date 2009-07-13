@@ -111,6 +111,7 @@ class EngineRichView(EngineView):
                             resizable=True,
                             style='custom'),
                     show_labels=False,
+                    id='mayavi.engine_rich_view_group',
                     ),
                     id='enthought.mayavi.engine_rich_view',
                     help=False,
