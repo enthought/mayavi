@@ -23,7 +23,7 @@ implementation is considerably different.
 # License: BSD Style.
 
 import sys
-from math import sin, cos, atan2, pi
+from math import sin, cos, atan2, pi, sqrt
 
 from enthought.traits.api import HasTraits, Range, Delegate, true, false, \
                                  Instance, Trait, List
