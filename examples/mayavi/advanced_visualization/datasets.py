@@ -158,7 +158,7 @@ def view(dataset):
     """
     engine = mlab.get_engine()
     fig = mlab.figure(bgcolor=(1, 1, 1), fgcolor=(0, 0, 0), 
-                      name=dataset.class_name[3:])
+                      figure=dataset.class_name[3:])
     src = VTKDataSource(data=dataset)
     engine.add_source(src) 
     mlab.pipeline.surface(src, opacity=0.1)
