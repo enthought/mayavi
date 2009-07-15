@@ -6,7 +6,7 @@
 # License: BSD Style.
 
 # Enthought library imports.
-from enthought.traits.api import Instance
+from enthought.traits.api import Instance, Bool 
 from enthought.traits.ui.api import View, Group, Item
 from enthought.tvtk.api import tvtk
 
@@ -25,6 +25,9 @@ class ImagePlaneWidget(Module):
     __version__ = 0
 
     ipw = Instance(tvtk.ImagePlaneWidget, allow_none=False, record=True)
+
+    use_lookup_table = Bool(True, 
+            help='Use a lookup table to map input scalars to colors')
 
     input_info = PipelineInfo(datasets=['image_data'],
                               attribute_types=['any'],
@@ -83,7 +86,8 @@ class ImagePlaneWidget(Module):
             
         self.ipw.input = input
         # Set the LUT for the IPW.
-        self.ipw.lookup_table = mod_mgr.scalar_lut_manager.lut
+        if self.use_lookup_table:
+            self.ipw.lookup_table = mod_mgr.scalar_lut_manager.lut
         
         self.pipeline_changed = True
 
