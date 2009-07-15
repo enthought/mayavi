@@ -142,10 +142,11 @@ class EngineManager(HasTraits):
         check_backend()
         if options.backend == 'envisage':
             from enthought.mayavi.plugins.app import Mayavi
-            m = Mayavi()
+            m = Mayavi(start_gui_event_loop=False)
             m.main()
             process_ui_events()
-            engine = m.script.engine
+            window = m.application.workbench.active_window
+            engine = window.get_service(Engine)
         elif options.backend == 'test':
             engine = NullEngine(name='Null Mlab Engine')
             engine.start()

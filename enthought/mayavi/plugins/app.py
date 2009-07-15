@@ -13,7 +13,7 @@ import logging
 from enthought.logger.api import LogFileHandler, FORMATTER
 from enthought.etsconfig.api import ETSConfig
 from enthought.traits.api import (HasTraits, Instance, Int,
-    on_trait_change)
+    on_trait_change, Bool)
 
 # Local imports.
 from mayavi_workbench_application import MayaviWorkbenchApplication
@@ -145,6 +145,10 @@ class Mayavi(HasTraits):
     # The main envisage application.
     application = Instance('enthought.envisage.ui.workbench.api.WorkbenchApplication')
 
+    # Turn this off if you don't want the workbench to start the GUI
+    # event loop.
+    start_gui_event_loop = Bool(True, desc='start a GUI event loop')
+
     # The MayaVi Script instance.
     script = Instance('enthought.mayavi.plugins.script.Script')
 
@@ -180,7 +184,8 @@ class Mayavi(HasTraits):
         # Create the application
         prefs = preference_manager.preferences
         app = MayaviWorkbenchApplication(plugins=plugins,
-                                         preferences=prefs)
+                                         preferences=prefs,
+                                         start_gui_event_loop=self.start_gui_event_loop)
         self.application = app
 
         # Setup the logger.
