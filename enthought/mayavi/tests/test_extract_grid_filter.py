@@ -105,6 +105,7 @@ class TestExtractGridFilter(unittest.TestCase):
         return
     
     def test_extract_grid_filter_sample(self):
+        import sys
         if sys.platform != "darwin":
             from nose import SkipTest
             raise SkipTest("actor.bounds returns incorrect values")
@@ -141,6 +142,7 @@ class TestExtractGridFilter(unittest.TestCase):
         return
     
     def test_voi(self):
+        import sys
         if sys.platform != "darwin":
             from nose import SkipTest
             raise SkipTest("actor.bounds returns incorrect values")
