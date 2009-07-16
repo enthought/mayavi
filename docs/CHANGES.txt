@@ -1,5 +1,33 @@
-Changes in Mayavi
-==================
+Mayavi 3.3.1 (not yet released)
+===============================
+
+Enhancements
+------------
+
+
+Fixes
+-----
+
+
+
+Mayavi 3.3.0 (July 15, 2009)
+============================
+
+Enhancements
+------------
+
+(not collated yet, sorry)
+
+
+Fixes
+-----
+
+(not collated yet, sorry)
+
+
+
+Mayavi 3.2.0 (March 23, 2009)
+=============================
 
 A log of significant changes made to the package especially API changes.
 This is only partial and only covers the developments after the 2.x
@@ -7,10 +35,6 @@ series.  The log refers to changesets in the trac format [#revno], for
 example to view the changeset [18702] use the following URL:
 https://svn.enthought.com/enthought/changeset/18702
 
-
-
-3.2.0 Release
---------------
 
 17, 18 March, 2009 (PR):
     - NEW: A simple example to show how one can use TVTK's visual module
@@ -134,8 +158,10 @@ https://svn.enthought.com/enthought/changeset/18702
     - ENH: Make mlab.imshow use the ImageActor. Enhance the ImageActor to
       map scalars to colors when needed. [22816]
 
-3.1.0 Release
---------------
+
+
+Mayavi 3.1.0
+============
 
 3 December, 2008 (PR)
     - BUG: Fixing bugs with persistence of VTKDataSource objects
@@ -297,8 +323,11 @@ https://svn.enthought.com/enthought/changeset/18702
       also.   Major checkins [21722], [21728], [21776], [21812], [21865]
       [21878].
 
-3.0.3 Release
---------------
+
+
+
+Mayavi 3.0.3
+============
 
 7 September, 2008 (PR):
     - ENH: The mayavi2 application now ([21713], [21714]) supports
@@ -328,8 +357,10 @@ https://svn.enthought.com/enthought/changeset/18702
 21 August, 2008 (PR):
     - ENH: Adding the logger plugin to the mayavi2 app. [21487]
 
-3.0.1 and 3.0.2 Releases
--------------------------
+
+
+Mayavi 3.0.1 and 3.0.2
+======================
 
 16 August, 2008 (PR):
     - BUG: fixed various miscellaneous bugs including a testing
@@ -337,8 +368,10 @@ https://svn.enthought.com/enthought/changeset/18702
       segfault [21453] and a bug in tvtk when wrapping certain methods
       [21475].
 
-3.0.0 Release
---------------
+
+
+Mayavi 3.0.0
+============
 
 15 August, 2008 (PR):
     - NEW: Adding a fully tested data set manager that lets users
