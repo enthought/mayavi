@@ -305,7 +305,11 @@ class QVTKRenderWindowInteractor(QtGui.QWidget):
     def keyPressEvent(self, ev):
         ctrl, shift = self._GetCtrlShift(ev)
         if ev.key() < 256:
-            key = str(ev.text())
+            if ev.text():
+                key = str(ev.text())
+            else:
+                # Has modifiers, but an ASCII key code.
+                key = chr(ev.key())
         else:
             key = chr(0)
 
