@@ -227,21 +227,22 @@ def savefig(filename, size=None, figure=None, magnification='auto',
     """
     if figure is None:
         figure = gcf()
-    current_x, current_y = tuple(figure.scene.get_size())
-    if size is None:
+    if size is not None:
+        current_x, current_y = tuple(figure.scene.get_size())
         size = current_x, current_y
-    target_x, target_y = size
-    current_mag = figure.scene.magnification
-    if magnification is 'auto':
-        magnification = max(target_x//current_x,
-                                     target_y//current_y) + 1
-        target_x = int(target_x/magnification)
-        target_y = int(target_y/magnification)
-    figure.scene.magnification = magnification
+        target_x, target_y = size
+        current_mag = figure.scene.magnification
+        if magnification is 'auto':
+            magnification = max(target_x//current_x,
+                                        target_y//current_y) + 1
+            target_x = int(target_x/magnification)
+            target_y = int(target_y/magnification)
+        figure.scene.magnification = magnification
     figure.scene.save(filename, 
-                        size=(target_x, target_y),
+                        size=size,
                         **kwargs)
-    figure.scene.magnification = current_mag 
+    if size is not None:
+        figure.scene.magnification = current_mag 
 
 
 def sync_camera(reference_figure, target_figure):
