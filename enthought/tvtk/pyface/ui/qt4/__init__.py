@@ -12,3 +12,11 @@
 # Description: <Enthought pyface package component>
 #------------------------------------------------------------------------------
 __import__('pkg_resources').declare_namespace(__name__)
+
+# For py2app / py2exe support
+try:
+    import modulefinder
+    for p in __path__:
+        modulefinder.AddPackagePath(__name__, p)
+except:
+    pass
