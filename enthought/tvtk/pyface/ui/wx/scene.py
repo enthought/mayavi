@@ -161,7 +161,7 @@ class PopupScene(object):
             rw.SetNextWindowInfo(str(widget.GetHandle()))
             rw.WindowRemap()
         vc.Reparent(widget)
-        wx.Yield()
+        wx.GetApp().Yield(True)
         # Restore the original render.
         vc.Render = orig_render
         vc.Render()
@@ -629,7 +629,7 @@ class Scene(TVTKScene, Widget):
             window.SetSize(parent.GetSize())
             # This is necessary on slow machines in order to force the
             # wx events to be handled.
-            wx.Yield()
+            wx.GetApp().Yield(True)
             window.Render()
 
         if wx.Platform == '__WXMSW__':
@@ -676,7 +676,7 @@ class Scene(TVTKScene, Widget):
             w = w.GetParent()
         if w:
             w.Raise()
-            wx.Yield()
+            wx.GetApp().Yield(True)
             self.render()
 
     def _start_event_callback(self, obj, event):
