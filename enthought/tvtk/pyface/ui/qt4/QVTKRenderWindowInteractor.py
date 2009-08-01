@@ -27,6 +27,7 @@ Changes by Phil Thompson, Mar. 2008
  Added cursor support.
 """
 
+import sys
 
 from PyQt4 import QtCore, QtGui
 import vtk
@@ -150,6 +151,7 @@ class QVTKRenderWindowInteractor(QtGui.QWidget):
             self._RenderWindow = vtk.vtkRenderWindow()
 
         self._RenderWindow.SetWindowInfo(str(int(self.winId())))
+        self._should_set_parent_info = (sys.platform == 'win32')
 
         if stereo: # stereo mode
             self._RenderWindow.StereoCapableWindowOn()
@@ -220,6 +222,18 @@ class QVTKRenderWindowInteractor(QtGui.QWidget):
         self._RenderWindow.Render()
 
     def resizeEvent(self, ev):
+        if self._should_set_parent_info:
+            # Set the window info and parent info on every resize.
+            # vtkWin32OpenGLRenderWindow will render using incorrect offsets if
+            # the parent info is not given to it because it assumes that it
+            # needs to make room for the title bar.
+            self._RenderWindow.SetWindowInfo(str(int(self.winId())))
+            parent = self.parent()
+            if parent is not None:
+                self._RenderWindow.SetParentInfo(str(int(parent.winId())))
+            else:
+                self._RenderWindow.SetParentInfo('')
+
         w = self.width()
         h = self.height()
 
