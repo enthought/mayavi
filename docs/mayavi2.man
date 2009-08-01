@@ -196,6 +196,11 @@ input grid data and view contours of the data\&.
 A custom grid plane with a lot more flexibility than GridPlane module\&.
 
 .TP
+.B DataSetClipper
+This filter clips the dataset in a area.  The area can be
+defined interactively as a box, a sphere...
+
+.TP
 .B Glyph
 Displays different types of glyphs oriented and colored as per scalar 
 or vector data at the input points\&.

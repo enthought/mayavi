@@ -22,9 +22,13 @@ Here is a list of the Mayavi Filters.
           generate iso-surfaces on any input dataset.
     
    :CutPlane:
-          This class represents a cut plane that can be used to slice
+          This filter represents a cut plane that can be used to slice
           through any dataset.  It also provides a 3D widget interface
           to position and move the slice interactively.
+
+   :DataSetClipper:
+	  This filter clips the dataset in a area.  The area can be
+	  defined interactively as a box, a sphere...
 
    :DecimatePro:
           Reduces the number of triangles in a triangular mesh by
