@@ -248,7 +248,8 @@ will run.
 The bleeding edge: SVN
 ----------------------
 
-If you want to get the latest development version of Mayavi, we
+If you want to get the latest development version of Mayavi (e.g. for
+developing Mayavi or contributing to the documentation), we
 recommend that you check it out from SVN.  Mayavi depends on several
 packages that are part of ETS.  It is highly likely that the
 in-development mayavi version may depend on some feature of an as yet
@@ -259,7 +260,26 @@ package called ETSProjectTools_.  This must first be installed and then
 any of ETS related repositories may be checked out.  Here is how you can
 get the latest development sources.
 
- 1. Install ETSProjectTools_ like so::
+ #. Make sure there is no other ETS package installed in your pythonpath::
+
+     $ python
+     >>> import enthought
+     Traceback (most recent call last):
+       File "<stdin>", line 1, in <module>
+     ImportError: No module named enthought
+
+    If you *don't* get the ImportError (e.g. importing ``enthought`` succeeds),
+    then there is no way to install the svn Mayavi version over it (even if you
+    put it first in your PYTHONPATH), because the older (setuptools managed)
+    ETS packages will get picked up too and they will mess up things. This
+    behavior might be surprising if you are new to setuptools.
+
+    So for example if you use Ubuntu or Debian, you need to first remove all ETS 
+    packages (in Ubuntu 9.04, you need to remove all of these: ``mayavi2 python-apptools
+    python-enthoughtbase python-envisagecore python-envisageplugins
+    python-traits python-traitsbackendwx python-traitsgui``).
+
+ #. Install ETSProjectTools_ like so::
 
      $ svn co https://svn.enthought.com/svn/enthought/ETSProjectTools/trunk \
             ETSProjectTools
@@ -269,7 +289,7 @@ get the latest development sources.
     This will give you the useful scripts ``ets``.  For more details on
     the tool and various options check the ETSProjectTools_ wiki page.
 
- 2. To get just the sources for mayavi and all its dependencies do this::
+ #. To get just the sources for mayavi and all its dependencies do this::
 
       $ ets co "Mayavi[app]"
 
@@ -288,14 +308,14 @@ get the latest development sources.
     this will take a while.  More options for the ``ets`` tool are
     available in the ETSProjectTools_ page.
 
- 3. Once the sources are checked out you may either do an::
-    
+ #. Once the sources are checked out you may either do an::
+
         $ ets develop
 
     This will  install all the checked out sources via a ``setup.py
     develop`` applied to each package.  
- 
- 4. Alternatively, you may want to build binary eggs, of the sources.
+
+ #. Alternatively, you may want to build binary eggs, of the sources.
     The ``ets bdist`` command can be used to build eggs like so (here we
     assume that ``ets co`` checked out the sources into ``ets-3.0.3``)::
 
