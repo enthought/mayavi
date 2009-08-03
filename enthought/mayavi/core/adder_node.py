@@ -44,7 +44,7 @@ class AdderNode(HasTraits):
         """ View shown by double-clicking on the node.  Same as in Base().
         """
         view = self.trait_view()    
-        view.buttons = ['OK', ]
+        view.buttons = [ ]
         view.title = self.label
         view.icon = ImageResource('add.ico')
         view.resizable = True
