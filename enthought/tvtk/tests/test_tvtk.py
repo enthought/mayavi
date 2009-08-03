@@ -233,6 +233,14 @@ class TestTVTK(unittest.TestCase):
         for i in range(4):
             for j in range(4):
                 self.assertEqual(m.get_element(i, j), i*4 + j)
+        # Test the from/to_array functions.
+        a = numpy.array(range(16), dtype=float)
+        a.shape = 4,4
+        m = tvtk.Matrix4x4()
+        m.from_array(a)
+        b = m.to_array()
+        self.assertEqual(numpy.allclose(a, b), True)
+        
 
     def test_property(self):
         """Test if Property's color works ok in all circumstances."""

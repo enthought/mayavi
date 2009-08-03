@@ -100,6 +100,21 @@ class SpecialGenerator:
             [obj.SetElement(i, j, e[4*i+j]) for i in range(4) for j in range(4)]
             self._in_set = 0
             self.update_traits()
+
+        def from_array(self, arr):
+            '''Set the value of the matrix using the passed
+            Numeric array or Python list.
+            '''
+            obj = self._vtk_obj
+            [obj.SetElement(i, j, arr[i,j]) for i in range(4) for j in range(4)]
+
+        def to_array(self):
+            '''Return the object as a numpy array.'''
+            obj = self._vtk_obj
+            e = [obj.GetElement(i, j) for i in range(4) for j in range(4)]
+            arr = array_handler.numpy.array(e, dtype=float)
+            arr.shape = (4,4)
+            return arr
             
         """
         out.write(self.indent.format(code))
