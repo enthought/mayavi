@@ -13,6 +13,8 @@ both for testing and to ilustrate its use.
 # Copyright (c) 2007, Enthought, Inc. 
 # License: BSD Style.
 
+from enthought.tvtk.api import tvtk
+
 from modules import VectorsFactory, StreamlineFactory, GlyphFactory, \
             IsoSurfaceFactory, SurfaceFactory, ContourSurfaceFactory, \
             ImageActorFactory, glyph_mode_dict
@@ -20,11 +22,12 @@ from sources import vector_scatter, vector_field, scalar_scatter, \
             scalar_field, line_source, array2d_source, grid_source, \
             triangular_mesh_source, vertical_vectors_source
 from filters import ExtractVectorNormFactory, WarpScalarFactory, \
-            TubeFactory, ExtractEdgesFactory, PolyDataNormalsFactory
+            TubeFactory, ExtractEdgesFactory, PolyDataNormalsFactory, \
+            UserDefinedFactory
 from auto_doc import traits_doc, dedent
 import tools
 from enthought.traits.api import Array, Callable, CFloat, HasTraits, \
-    List, Trait, Any, Instance, TraitError
+    List, Trait, Any, Instance, TraitError, CStr
 import numpy
 
 def document_pipeline(pipeline):
@@ -502,9 +505,17 @@ class Plot3d(Pipeline):
                         lines, If None, simple lines are used.
                         """)
 
+    # Override the UserDefinedFactory's filter to create a
+    # tvtk.Stripper instance.
+    filter = Trait("Stripper", CStr, tvtk.Object, 
+                   adapts="filter",
+                   help="the tvtk filter to adapt. This can "
+                        "be either an instance of the filter, or the "
+                        "name of this filter.")
+
     _source_function = Callable(line_source)
 
-    _pipeline = [TubeFactory, SurfaceFactory, ]
+    _pipeline = [UserDefinedFactory, TubeFactory, SurfaceFactory, ]
 
     def __call__(self, *args, **kwargs):
         """ Override the call to be able to choose whether to apply
