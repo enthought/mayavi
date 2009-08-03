@@ -60,6 +60,12 @@ you can change you default matplotlib backend, by editing the
 
     backend     : WXAgg
 
+.. note:: Capturing mlab plots to integrate in pylab
+
+    Starting from Mayavi version 3.4.0, the mlab :func:`screenshot` can
+    be used to take a screenshot of the current figure, to integrate in a
+    matplotlib plot.
+
 In scripts
 ~~~~~~~~~~~~~~~~~
 

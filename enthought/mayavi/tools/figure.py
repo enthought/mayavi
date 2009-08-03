@@ -19,6 +19,7 @@ import numpy as np
 from enthought.pyface.timer.api import do_later
 
 #  imports
+from enthought.tvtk.api import tvtk
 from enthought.mayavi.core.scene import Scene
 from enthought.mayavi.core.registry import registry
 from .camera import view
@@ -255,4 +256,37 @@ def sync_camera(reference_figure, target_figure):
             lambda: do_later(target_figure.scene.render))
 
 
+def screenshot(figure=None):
+    """ Return the current figure pixmap as a (n_x, n_y, 4) array.
+
+        **Notes**
+
+        On most systems, this works similarly to taking a screenshot of
+        the rendering window. Thus if it is hidden by another window, you
+        will capture the other window. This limitation is due to the
+        heavy use of the hardware graphics system.
+
+        **Examples**
+
+        This function can be useful for integrating 3D plotting with
+        Mayavi in a 2D plot created by matplotlib.
+
+        >>> from enthought.mayavi import mlab
+        >>> mlab.test_plot3d()
+        >>> arr = mlab.screenshot()
+        >>> import pylab as pl
+        >>> pl.imshow(arr)
+        >>> pl.axis('off')
+
+    """
+    if figure is None: 
+        figure = gcf()
+    x, y = tuple(figure.scene.get_size())
+    out = tvtk.FloatArray()
+    figure.scene.render_window.get_rgba_pixel_data(0, 0, x, y, 1, out)
+    out = out.to_array()
+    out.shape = (y+1, x+1, 4)
+    # Return the array in a way that pylab.imshow plots it right:
+    out = np.flipud(out)
+    return out
 
