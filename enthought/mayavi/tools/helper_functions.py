@@ -23,11 +23,11 @@ from sources import vector_scatter, vector_field, scalar_scatter, \
             triangular_mesh_source, vertical_vectors_source
 from filters import ExtractVectorNormFactory, WarpScalarFactory, \
             TubeFactory, ExtractEdgesFactory, PolyDataNormalsFactory, \
-            UserDefinedFactory
+            StripperFactory
 from auto_doc import traits_doc, dedent
 import tools
 from enthought.traits.api import Array, Callable, CFloat, HasTraits, \
-    List, Trait, Any, Instance, TraitError, CStr
+    List, Trait, Any, Instance, TraitError
 import numpy
 
 def document_pipeline(pipeline):
@@ -484,7 +484,6 @@ def test_contour3d_anim():
         ms.scalars = x*x*0.5 + y*x*0.1*(i+1) + z*z*0.25
     return obj
 
-
 ############################################################################# 
 class Plot3d(Pipeline):
     """
@@ -505,17 +504,9 @@ class Plot3d(Pipeline):
                         lines, If None, simple lines are used.
                         """)
 
-    # Override the UserDefinedFactory's filter to create a
-    # tvtk.Stripper instance.
-    filter = Trait("Stripper", CStr, tvtk.Object, 
-                   adapts="filter",
-                   help="the tvtk filter to adapt. This can "
-                        "be either an instance of the filter, or the "
-                        "name of this filter.")
-
     _source_function = Callable(line_source)
 
-    _pipeline = [UserDefinedFactory, TubeFactory, SurfaceFactory, ]
+    _pipeline = [StripperFactory, TubeFactory, SurfaceFactory, ]
 
     def __call__(self, *args, **kwargs):
         """ Override the call to be able to choose whether to apply
@@ -528,6 +519,7 @@ class Plot3d(Pipeline):
         self.pipeline = self._pipeline[:]
         if self.kwargs['tube_radius'] == None:
             self.pipeline.remove(TubeFactory)
+            self.pipeline.remove(Stripper)
         return self.build_pipeline()
 
 

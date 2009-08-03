@@ -119,6 +119,10 @@ Here is a list of the Mayavi Filters.
           particularly useful if you need to do something like compute
           contours of one scalar on the contour of another scalar.
 
+   :Stripper:
+	  Create triangle strips and/or poly-lines. Useful for regularizing
+	  broken up surfaces, such as those created by the Tube filter.
+
    :Threshold:
           A simple filter that thresholds on input data.
 

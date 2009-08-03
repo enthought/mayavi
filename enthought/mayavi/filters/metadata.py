@@ -409,6 +409,21 @@ set_active_attribute_filter = FilterMetadata(
                                attributes=['any'])
 )
 
+stripper = FilterMetadata(
+    id            = "Stripper",
+    menu_name          = "Stripper",
+    class_name = BASE + '.stripper.Stripper',
+    tooltip = "Regularizes surfaces by creating triangle strips",
+    desc =    "Regularizes surfaces by creating triangle strips",
+    help =    "Regularizes surfaces by creating triangle strips",
+    input_info = PipelineInfo(datasets=['poly_data'],
+                              attribute_types=['any'],
+                              attributes=['any']), 
+    output_info = PipelineInfo(datasets=['poly_data'],
+                               attribute_types=['any'],
+                               attributes=['any'])
+)
+
 transform_data_filter = FilterMetadata(
     id            = "TransformDataFilter",
     menu_name          = "T&ransform Data",
@@ -560,6 +575,7 @@ filters = [cell_derivatives_filter,
            quadric_decimation_filter,
            select_output_filter,
            set_active_attribute_filter,
+           stripper,
            transform_data_filter,
            threshold_filter,
            triangle_filter,

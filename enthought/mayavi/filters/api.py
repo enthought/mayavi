@@ -2,7 +2,7 @@
 """
 
 # Authors: Frederic Petit, Prabhu Ramachandran and Gael Varoquaux
-# Copyright (c) 2007, Enthought, Inc. 
+# Copyright (c) 2007-2009, Enthought, Inc. 
 # License: BSD Style.
 
 from cell_derivatives import CellDerivatives
@@ -32,6 +32,7 @@ from poly_data_normals import PolyDataNormals
 from quadric_decimation import QuadricDecimation
 from select_output import SelectOutput
 from set_active_attribute import SetActiveAttribute
+from stripper import Stripper
 from threshold import Threshold
 from transform_data import TransformData
 from triangle_filter import TriangleFilter
