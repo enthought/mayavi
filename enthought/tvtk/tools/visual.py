@@ -550,10 +550,11 @@ class Curve(HasTraits):
     representation = Enum('s', 'w', 'p')
     visibility = Bool(True)
     
-    polydata = Instance(tvtk.PolyData, ())
+    polydata = Instance(tvtk.PolyData, args=())
     property = Instance(tvtk.Property)
-    tube = Instance(tvtk.TubeFilter, ())
-    actor = Instance(tvtk.Actor, ()) # tvtk Actor, for the usual pipeline architecture.
+    stripper = Instance(tvtk.Stripper, args=())
+    tube = Instance(tvtk.TubeFilter, args=())
+    actor = Instance(tvtk.Actor, args=()) # tvtk Actor, for the usual pipeline architecture.
     
     viewer = Any
 
@@ -582,8 +583,9 @@ class Curve(HasTraits):
         self._visibility_changed(self.visibility)
         self._radius_changed(self.radius)
         self._axis_changed(numpy.array((1.0, 0.0, 0.0)), self.axis)
-                
-        self.tube.input = self.polydata
+
+        self.stripper.input = self.polydata
+        self.tube.input = self.stripper.output
         self.tube.number_of_sides = 4
         self.tube.capping = 1
         
