@@ -111,6 +111,14 @@ Now that the prelimenaries are out of the way, lets get started.
 # Copyright (c) 2009, S. Chris Colbert
 # License: BSD Style
 
+# this import is here because we need to ensure that matplotlib uses the
+# wx backend and having regular code outside the main block is PyTaboo. 
+# It needs to be imported first, so that matplotlib can impose the
+# version of Wx it requires.
+import matplotlib
+matplotlib.use('WXAgg')
+import pylab as pl
+
  
 import numpy as np 
 from enthought.mayavi import mlab
@@ -135,13 +143,8 @@ def get_world_to_view_matrix(mlab_scene):
     vtk_comb_trans_mat = mlab_scene.camera.get_composite_perspective_transform_matrix(
                                 aspect_ratio, clip_range[0], clip_range[1])
     
-    # allocate a numpy array for the vtk matrix
-    np_comb_trans_mat = np.zeros((4,4))
-    
-    # dump the elements of the vtk mat into the numpy mat
-    for i in range(4):
-        for j in range(4):
-            np_comb_trans_mat[i,j] = vtk_comb_trans_mat.get_element(i, j)
+     # get the vtk mat as a numpy array
+    np_comb_trans_mat = vtk_comb_trans_mat.to_array()
             
     return np_comb_trans_mat
     
@@ -183,7 +186,6 @@ def apply_transform_to_points(points, trans_mat):
     
 
 if __name__ == '__main__':
-	
     f = mlab.figure()
 
     N = 4
@@ -220,12 +222,16 @@ if __name__ == '__main__':
 
     # at this point disp_coords is an Nx4 array of homogenous coordinates
     # where X and Y are the pixel coordinates of the X and Y 3D world
-    # coordinates, so lets print those and check our work. we can save the
-    # current image to disk so you can open it in GIMP or something else
-    # that shows the pixel coordinates on mouseover (you can also make a
-    # chaco app that does this)
-    #mlab.savefig('threeD_to_2D.bmp')
-    print  disp_coords[:,0:2]
+    # coordinates, so lets take a screenshot of mlab view and open it
+    # with matplotlib so we can check the accuracy
+    img = mlab.screenshot()
+    pl.imshow(img)
+
+    for i in range(N):
+        print  'Point %d:  (x, y) ' % i, disp_coords[:, 0:2][i]
+        pl.plot([disp_coords[:, 0][i]], [disp_coords[:, 1][i]], 'ro')
+     
+    pl.show()
 
     # you should check that the printed coordinates correspond to the
     # proper points on the screen 
@@ -233,13 +239,3 @@ if __name__ == '__main__':
     mlab.show()
 
 #EOF
-
-
-
-
-
-
-
-
-
-
