@@ -257,7 +257,7 @@ def sync_camera(reference_figure, target_figure):
 
 
 def screenshot(figure=None, mode='rgb'):
-    """ Return the current figure pixmap as a (n_x, n_y, 4) array.
+    """ Return the current figure pixmap as an array.
 
         **Parameters**
 
@@ -292,15 +292,15 @@ def screenshot(figure=None, mode='rgb'):
 
     if mode == 'rgb':
         out = tvtk.UnsignedCharArray()
-        figure.scene.render_window.get_pixel_data(0, 0, x, y, 1, out)
+        figure.scene.render_window.get_pixel_data(0, 0, x-1, y-1, 1, out)
         out = out.to_array()
-        out.shape = (y+1, x+1, 3)
+        out.shape = (y, x, 3)
 
     elif mode == 'rgba':
         out = tvtk.FloatArray()
-        figure.scene.render_window.get_rgba_pixel_data(0, 0, x, y, 1, out)
+        figure.scene.render_window.get_rgba_pixel_data(0, 0, x-1, y-1, 1, out)
         out = out.to_array()
-        out.shape = (y+1, x+1, 4)
+        out.shape = (y, x, 4)
 
     else:
         raise ValueError('mode type not understood')
