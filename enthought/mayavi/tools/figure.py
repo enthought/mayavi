@@ -256,8 +256,15 @@ def sync_camera(reference_figure, target_figure):
             lambda: do_later(target_figure.scene.render))
 
 
-def screenshot(figure=None):
+def screenshot(figure=None, mode='rgb'):
     """ Return the current figure pixmap as a (n_x, n_y, 4) array.
+
+        **Parameters**
+
+        :figure: a figure instance or None, optional
+            If specified, the figure instance to capture the view of.
+        :mode: {'rgb', 'rgba'}
+            The color mode of the array captured.
 
         **Notes**
 
@@ -282,10 +289,23 @@ def screenshot(figure=None):
     if figure is None: 
         figure = gcf()
     x, y = tuple(figure.scene.get_size())
-    out = tvtk.FloatArray()
-    figure.scene.render_window.get_rgba_pixel_data(0, 0, x, y, 1, out)
-    out = out.to_array()
-    out.shape = (y+1, x+1, 4)
+
+    if mode == 'rgb':
+        out = tvtk.UnsignedCharArray()
+        figure.scene.render_window.get_pixel_data(0, 0, x, y, 1, out)
+        out = out.to_array()
+        out.shape = (y+1, x+1, 3)
+
+    elif mode == 'rgba':
+        out = tvtk.FloatArray()
+        figure.scene.render_window.get_rgba_pixel_data(0, 0, x, y, 1, out)
+        out = out.to_array()
+        out.shape = (y+1, x+1, 4)
+
+    else:
+        raise ValueError('mode type not understood')
+
+    
     # Return the array in a way that pylab.imshow plots it right:
     out = np.flipud(out)
     return out
