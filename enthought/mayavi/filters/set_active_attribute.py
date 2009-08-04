@@ -144,6 +144,8 @@ class SetActiveAttribute(Filter):
             return
 
         input = self.inputs[0].outputs[0]
+        # Force all attributes to be defined and computed
+        input.update()
         pnt_attr, cell_attr = get_all_attributes(input)
 
         self._setup_data_traits(cell_attr, 'cell')
