@@ -48,6 +48,8 @@ src = mlab.pipeline.scalar_field(np.abs(Phi))
 src.image_data.point_data.add_array(np.angle(Phi).T.ravel())
 # We need to give a name to our new dataset.
 src.image_data.point_data.get_array(1).name = 'angle'
+# Make sure that the dataset is up to date with the different arrays:
+src.image_data.point_data.update()
 
 # We select the 'scalar' attribute, ie the norm of Phi
 src2 = mlab.pipeline.set_active_attribute(src,
