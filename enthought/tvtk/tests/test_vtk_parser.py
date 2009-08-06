@@ -127,6 +127,13 @@ class TestVTKParser(unittest.TestCase):
         self.assertEqual(p.get_other_methods(), res)
         self.assertEqual(p.other_meths, p.get_other_methods())
 
+    def test_parse_image_reslice(self):
+        """Check if the vtkImageReslice is parsed correctly."""
+        p = self.p
+        p.parse(vtk.vtkImageReslice)
+        state_meths = p.get_state_methods()
+        self.assertEqual('OutputSpacing' not in state_meths, True)
+
     def test_method_signature(self):
         """Check if VTK method signatures are parsed correctly."""
         p = self.p

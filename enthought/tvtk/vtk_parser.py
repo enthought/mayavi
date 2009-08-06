@@ -427,7 +427,9 @@ class VTKMethodParser:
         """
         # These ignored ones are really not state methods.
         ignore = ['SetUpdateExtentToWholeExtent',
-                  'SetDataExtentToWholeExtent']
+                  'SetDataExtentToWholeExtent',
+                  'SetOutputSpacingToDefault' # In vtkImageReslice.
+                  ]
         meths = methods[:]
         sm = self.state_meths
         for method in meths[:]:
