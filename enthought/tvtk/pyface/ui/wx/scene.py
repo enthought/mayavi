@@ -526,6 +526,11 @@ class Scene(TVTKScene, Widget):
 
         # Call the original handler (this will Show the widget)
         self._vtk_control.OnPaint(event)
+        if len(self.renderer.lights) == 0:
+            # The renderer is not ready yet, we do not do anything, and
+            # we do not remove this callback, so that it will be called
+            # later.
+            return
         # Now create the light manager.
         self.light_manager = light_manager.LightManager(self)
 
