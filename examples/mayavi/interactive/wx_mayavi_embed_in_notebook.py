@@ -9,6 +9,11 @@ In this example, we embed one single Mayavi scene in a Wx notebook, with
 2 tabs, each one of them hosting a different view of the scene.
 """
 
+# First thing, we need to make sure that we are importing a
+# recent-enough version of wx
+import wxversion
+wxversion.ensureMinimal('2.8')
+
 from numpy import ogrid, sin
 
 from enthought.traits.api import HasTraits, Instance
@@ -17,24 +22,25 @@ from enthought.traits.ui.api import View, Item
 from enthought.mayavi.sources.api import ArraySource
 from enthought.mayavi.modules.api import IsoSurface
 
-from enthought.tvtk.pyface.scene_editor import SceneEditor
-from enthought.mayavi.tools.mlab_scene_model import MlabSceneModel
+from enthought.mayavi.core.ui.api import MlabSceneModel, SceneEditor
 
+#-------------------------------------------------------------------------------
 class MayaviView(HasTraits):
 
     scene = Instance(MlabSceneModel, ())
     
     # The layout of the panel created by traits.
-    view = View(Item('scene', editor=SceneEditor(), resizable=True,
+    view = View(Item('scene', editor=SceneEditor(), 
+                    resizable=True,
                     show_label=False),
-                    resizable=True)
+                resizable=True)
 
     def __init__(self):
         HasTraits.__init__(self)
         x, y, z = ogrid[-10:10:100j, -10:10:100j, -10:10:100j]
         scalars = sin(x*y*z)/(x*y*z)
         src = ArraySource(scalar_data=scalars)
-        self.scene.engine.add_source(src)
+        self.scene.mayavi_scene.add_child(src)
         src.add_module(IsoSurface())
 
 
