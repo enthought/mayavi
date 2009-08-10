@@ -33,10 +33,6 @@ class ImageActor(Module):
     image_map_to_color = Instance(tvtk.ImageMapToColors, (),
                                             allow_none=False, record=True)
 
-    # The vtkImageMapToColors doesn't always preserve spacing, so we need to 
-    # copy the information from the source.
-    copy_information = Instance(tvtk.ImageChangeInformation, ())
-
     map_scalars_to_color = Bool
 
     _force_map_scalars_to_color = Property(depends_on='module_manager.source')
@@ -79,10 +75,7 @@ class ImageActor(Module):
         if self.map_scalars_to_color: 
             self.image_map_to_color.input = src.outputs[0]
             self.image_map_to_color.lookup_table = mm.scalar_lut_manager.lut
-            # Copy the information (spacing, etc) from the original image
-            self.copy_information.information_input = src.outputs[0]
-            self.copy_information.input = self.image_map_to_color.output
-            self.actor.input = self.copy_information.output
+            self.actor.input = self.image_map_to_color.output
         else:
             self.actor.input = src.outputs[0]
         self.pipeline_changed = True
