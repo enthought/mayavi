@@ -305,7 +305,7 @@ def screenshot(figure=None, mode='rgb', antialiased=False):
         out = tvtk.FloatArray()
         shape = (y, x, 4)
         pixel_getter = figure.scene.render_window.get_rgba_pixel_data
-        pg_args = (0, 0, x-1, y-1, out)        
+        pg_args = (0, 0, x-1, y-1, 1, out)        
 
     else:
         raise ValueError('mode type not understood')
