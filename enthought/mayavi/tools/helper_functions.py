@@ -990,9 +990,16 @@ class BarChart(Pipeline):
         if not 'scale_mode' in kwargs:
             g.glyph.scale_mode = 'scale_by_vector_components'
         g.glyph.glyph.clamping = False
-        x, y, z = g.mlab_source.x, g.mlab_source.y, g.mlab_source.z
-        scale_factor = g.glyph.glyph.scale_factor* \
+        # The auto-scaling code. It involves finding the minimum
+        # distance between points, which can be very expensive. We
+        # shortcut this calculation for structured data
+        if len(args) == 1:
+            min_axis_distance = 1
+        else:
+            x, y, z = g.mlab_source.x, g.mlab_source.y, g.mlab_source.z
+            min_axis_distance = \
                     tools._min_axis_distance(x, y, z)
+        scale_factor = g.glyph.glyph.scale_factor * min_axis_distance
         lateral_scale = kwargs.pop('lateral_scale', self.lateral_scale)
         try:
             g.glyph.glyph_source.glyph_source.y_length = \
