@@ -256,7 +256,7 @@ def sync_camera(reference_figure, target_figure):
             lambda: do_later(target_figure.scene.render))
 
 
-def screenshot(figure=None, mode='rgb'):
+def screenshot(figure=None, mode='rgb', antialiased=False):
     """ Return the current figure pixmap as an array.
 
         **Parameters**
@@ -265,6 +265,10 @@ def screenshot(figure=None, mode='rgb'):
             If specified, the figure instance to capture the view of.
         :mode: {'rgb', 'rgba'}
             The color mode of the array captured.
+        :antialiased: {True, False}
+            Use anti-aliasing for rendering the screenshot.
+            Uses the number of aa frames set by 
+            figure.scene.anti_aliasing_frames
 
         **Notes**
 
@@ -284,6 +288,7 @@ def screenshot(figure=None, mode='rgb'):
         >>> import pylab as pl
         >>> pl.imshow(arr)
         >>> pl.axis('off')
+        >>> pl.show()
 
     """
     if figure is None: 
@@ -292,21 +297,35 @@ def screenshot(figure=None, mode='rgb'):
 
     if mode == 'rgb':
         out = tvtk.UnsignedCharArray()
-        figure.scene.render_window.get_pixel_data(0, 0, x-1, y-1, 1, out)
-        out = out.to_array()
-        out.shape = (y, x, 3)
-
+        shape = (y, x, 3)
+        pixel_getter = figure.scene.render_window.get_pixel_data 
+        pg_args = (0, 0, x-1, y-1, 1, out)
+        
     elif mode == 'rgba':
         out = tvtk.FloatArray()
-        figure.scene.render_window.get_rgba_pixel_data(0, 0, x-1, y-1, 1, out)
-        out = out.to_array()
-        out.shape = (y, x, 4)
+        shape = (y, x, 4)
+        pixel_getter = figure.scene.render_window.get_rgba_pixel_data
+        pg_args = (0, 0, x-1, y-1, out)        
 
     else:
         raise ValueError('mode type not understood')
 
+    if antialiased:
+        # save the current aa value to restore it later
+        old_aa = figure.scene.render_window.aa_frames
+
+        figure.scene.render_window.aa_frames = figure.scene.anti_aliasing_frames
+        figure.scene.render()
+        pixel_getter(*pg_args)
+        figure.scene.render_window.aa_frames = old_aa
+        figure.scene.render()
+
+    else:
+        pixel_getter(*pg_args)
     
     # Return the array in a way that pylab.imshow plots it right:
+    out = out.to_array()
+    out.shape = shape
     out = np.flipud(out)
     return out
 
