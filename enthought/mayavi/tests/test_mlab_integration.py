@@ -168,6 +168,27 @@ class TestMlabNullEngineMisc(TestMlabNullEngine):
 
 
 ################################################################################
+# class `TestMlabHelperFunctions`
+################################################################################
+class TestMlabHelperFunctions(TestMlabNullEngine):
+    """ Test various behaviors of the mlab helper functions.
+    """
+ 
+    def test_barchart(self):
+        s = np.random.random((10, 10))
+        x, y = np.indices(s.shape)
+        bar1 = mlab.barchart(x, y, s)
+        bar2 = mlab.barchart(s)
+        bar3 = mlab.barchart(s, auto_scale=False)
+
+        # Check that auto scaling worked well in the different
+        # configurations
+        for bar in bar1, bar2, bar3:
+            self.assertEqual(bar.glyph.glyph_source.glyph_source.y_length, 0.9)
+        
+
+
+################################################################################
 # class `TestMlabModules`
 ################################################################################
 class TestMlabModules(TestMlabNullEngine):
