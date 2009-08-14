@@ -4,10 +4,10 @@ Data sources classes and their associated functions for mlab.
 
 # Author: Gael Varoquaux <gael.varoquaux@normalesup.org>
 #         Prabhu Ramachandran
-# Copyright (c) 2007-2008, Enthought, Inc. 
+# Copyright (c) 2007-2009, Enthought, Inc. 
 # License: BSD Style.
 
-import numpy
+import numpy as np
 
 from enthought.traits.api import (HasTraits, Instance, Array, Either,
             Bool, on_trait_change, NO_COMPARE)
@@ -160,14 +160,14 @@ class MGlyphSource(MlabSource):
             self.set(x=x,y=y,z=z,trait_change_notify=False)
            
         else:
-            points = numpy.c_[x.ravel(), y.ravel(), z.ravel()].ravel()
+            points = np.c_[x.ravel(), y.ravel(), z.ravel()].ravel()
             points.shape = (points.size/3, 3) 
             self.set(points=points, trait_change_notify=False)
             
     
         u, v, w = self.u, self.v, self.w
         if u is not None and len(u) > 0:
-            vectors = numpy.c_[u.ravel(), v.ravel(),
+            vectors = np.c_[u.ravel(), v.ravel(),
                                w.ravel()].ravel()
             vectors.shape = (vectors.size/3, 3)
             self.set(vectors=vectors, trait_change_notify=False)
@@ -180,7 +180,7 @@ class MGlyphSource(MlabSource):
 
         else:   
             if u is not None and len(u) > 0:
-                vectors = numpy.c_[u.ravel(), v.ravel(),
+                vectors = np.c_[u.ravel(), v.ravel(),
                                    w.ravel()].ravel()
                 vectors.shape = (vectors.size/3, 3)
                 self.set(vectors=vectors, trait_change_notify=False)
@@ -192,8 +192,8 @@ class MGlyphSource(MlabSource):
             assert len(points) == len(scalars)
         
         # Create the dataset.
-        polys = numpy.arange(0, len(points), 1, 'l')
-        polys = numpy.reshape(polys, (len(points), 1))
+        polys = np.arange(0, len(points), 1, 'l')
+        polys = np.reshape(polys, (len(points), 1))
         if self.dataset is None:
             # Create new dataset if none exists
             pd = tvtk.PolyData()
@@ -269,7 +269,7 @@ class MVerticalGlyphSource(MGlyphSource):
         if 'scalars' in traits:
             s = traits['scalars']
             if s is not None:
-                traits['u'] = traits['v'] = numpy.ones_like(s), 
+                traits['u'] = traits['v'] = np.ones_like(s), 
                 traits['w'] = s
         super(MVerticalGlyphSource, self).reset(**traits)
 
@@ -277,8 +277,8 @@ class MVerticalGlyphSource(MGlyphSource):
     def _scalars_changed(self, s):
         self.dataset.point_data.scalars = s
         self.dataset.point_data.scalars.name = 'scalars'
-        self.set(vectors=numpy.c_[numpy.ones_like(s), 
-                                  numpy.ones_like(s),
+        self.set(vectors=np.c_[np.ones_like(s), 
+                                  np.ones_like(s),
                                   s])
         self.update()
 
@@ -318,7 +318,7 @@ class MArraySource(MlabSource):
 
         vectors = self.vectors
         scalars = self.scalars
-        x, y, z = [numpy.atleast_3d(a) for a in self.x, self.y, self.z]
+        x, y, z = [np.atleast_3d(a) for a in self.x, self.y, self.z]
     
         u, v, w = self.u, self.v, self.w
         if 'vectors' in traits:
@@ -329,11 +329,11 @@ class MArraySource(MlabSource):
 
         else:
             if u is not None and len(u) > 0:
-                #vectors = numpy.concatenate([u[..., numpy.newaxis],
-                #                             v[..., numpy.newaxis],
-                #                             w[..., numpy.newaxis] ],
+                #vectors = np.concatenate([u[..., np.newaxis],
+                #                             v[..., np.newaxis],
+                #                             w[..., np.newaxis] ],
                 #                axis=3)
-                vectors = numpy.c_[u.ravel(), v.ravel(),
+                vectors = np.c_[u.ravel(), v.ravel(),
                                    w.ravel()].ravel()
                 vectors.shape = (u.shape[0] , u.shape[1], w.shape[2], 3)
                 self.set(vectors=vectors, trait_change_notify=False)
@@ -447,16 +447,16 @@ class MLineSource(MlabSource):
             self.set(x=x,y=y,z=z,trait_change_notify=False)
            
         else:
-            points = numpy.c_[x.ravel(), y.ravel(), z.ravel()].ravel()
+            points = np.c_[x.ravel(), y.ravel(), z.ravel()].ravel()
             points.shape = (len(x), 3) 
             self.set(points=points, trait_change_notify=False)         
     
         
         # Create the dataset.
-        np = len(points) - 1
-        lines  = numpy.zeros((np, 2), 'l')
-        lines[:,0] = numpy.arange(0, np-0.5, 1, 'l')
-        lines[:,1] = numpy.arange(1, np+0.5, 1, 'l')
+        n_pts = len(points) - 1
+        lines  = np.zeros((n_pts, 2), 'l')
+        lines[:,0] = np.arange(0, n_pts-0.5, 1, 'l')
+        lines[:,1] = np.arange(1, n_pts+0.5, 1, 'l')
         if self.dataset is None:
             pd = tvtk.PolyData()
         else:
@@ -465,7 +465,7 @@ class MLineSource(MlabSource):
 
         if scalars is not None and len(scalars) > 0:
             assert len(x) == len(scalars)
-            pd.point_data.scalars = numpy.ravel(scalars)
+            pd.point_data.scalars = np.ravel(scalars)
             pd.point_data.scalars.name = 'scalars'
 
         self.dataset = pd
@@ -533,22 +533,22 @@ class MArray2DSource(MlabSource):
         
         #Build X and Y from shape of Scalars if they are none
         if x is None and y is None:           
-            x, y = numpy.mgrid[-nx/2.:nx/2, -ny/2.:ny/2]           
+            x, y = np.mgrid[-nx/2.:nx/2, -ny/2.:ny/2]           
 
         if mask is not None and len(mask) > 0:
-            scalars[mask.astype('bool')] = numpy.nan
+            scalars[mask.astype('bool')] = np.nan
             # The NaN trick only works with floats.
             scalars = scalars.astype('float')
             self.set(scalars=scalars, trait_change_notify=False)
 
-        z = numpy.array([0])     
+        z = np.array([0])     
               
         self.set(x=x, y=y, z=z, trait_change_notify=False)
         # Do some magic to extract the first row/column, independently of
         # the shape of x and y
 
-        x = numpy.atleast_2d(x.squeeze().T)[0, :].squeeze()
-        y = numpy.atleast_2d(y.squeeze())[0, :].squeeze()    
+        x = np.atleast_2d(x.squeeze().T)[0, :].squeeze()
+        y = np.atleast_2d(y.squeeze())[0, :].squeeze()    
         
         if x.ndim == 0:
             dx = 1
@@ -583,11 +583,11 @@ class MArray2DSource(MlabSource):
         nx, ny = scalars.shape
 
         if x is None or y is None:
-            x, y = numpy.mgrid[-nx/2.:nx/2, -ny/2.:ny/2]
+            x, y = np.mgrid[-nx/2.:nx/2, -ny/2.:ny/2]
         
         self.trait_setq(x=x,y=y)
-        x = numpy.atleast_2d(x.squeeze().T)[0, :].squeeze()
-        y = numpy.atleast_2d(y.squeeze())[0, :].squeeze()                
+        x = np.atleast_2d(x.squeeze().T)[0, :].squeeze()
+        y = np.atleast_2d(y.squeeze())[0, :].squeeze()                
         dx = x[1] - x[0]
         dy = y[1] - y[0]
         ds = self.dataset
@@ -600,7 +600,7 @@ class MArray2DSource(MlabSource):
     def _scalars_changed(self, s):
         mask = self.mask
         if mask is not None and len(mask) > 0:
-            s[mask.astype('bool')] = numpy.nan
+            s[mask.astype('bool')] = np.nan
             # The NaN tric only works with floats.
             s = s.astype('float')
             self.set(scalars=s, trait_change_notify=False)
@@ -651,16 +651,16 @@ class MGridSource(MlabSource):
         #Changing of points is not allowed because it cannot be used to modify values of x,y,z 
     
         nx, ny = x.shape
-        points = numpy.c_[x.ravel(), y.ravel(), z.ravel()].ravel()
+        points = np.c_[x.ravel(), y.ravel(), z.ravel()].ravel()
         points.shape = (nx*ny, 3)
         self.set(points=points, trait_change_notify=False)
 
-        i, j = numpy.mgrid[0:nx-1,0:ny-1]
-        i, j = numpy.ravel(i), numpy.ravel(j)
+        i, j = np.mgrid[0:nx-1,0:ny-1]
+        i, j = np.ravel(i), np.ravel(j)
         t1 = i*ny+j, (i+1)*ny+j, (i+1)*ny+(j+1)
         t2 = (i+1)*ny+(j+1), i*ny+(j+1), i*ny+j
         nt = len(t1[0])
-        triangles = numpy.zeros((nt*2, 3), 'l')
+        triangles = np.zeros((nt*2, 3), 'l')
         triangles[0:nt,0], triangles[0:nt,1], triangles[0:nt,2] = t1
         triangles[nt:,0], triangles[nt:,1], triangles[nt:,2] = t2
 
@@ -741,7 +741,7 @@ class MTriangularMeshSource(MlabSource):
         scalars = self.scalars
 
         x, y, z = self.x, self.y, self.z
-        points = numpy.c_[x.ravel(), y.ravel(), z.ravel()].ravel()
+        points = np.c_[x.ravel(), y.ravel(), z.ravel()].ravel()
         points.shape = (points.size/3, 3)
         self.set(points=points, trait_change_notify=False)
     
@@ -814,10 +814,10 @@ def convert_to_arrays(args):
     for index, arg in enumerate(args):
         if not callable(arg):
             if not hasattr(arg, 'shape'):
-                arg = numpy.atleast_1d(numpy.array(arg))
-            if numpy.any(numpy.isinf(arg)):
+                arg = np.atleast_1d(np.array(arg))
+            if np.any(np.isinf(arg)):
                 raise ValueError("""Input array contains infinite values
-                You can remove them using: a[numpy.isinf(a)] = numpy.nan
+                You can remove them using: a[np.isinf(a)] = np.nan
                 """)
             args[index] = arg
     return args
@@ -826,9 +826,9 @@ def process_regular_vectors(*args):
     """ Converts different signatures to (x, y, z, u, v, w). """
     args = convert_to_arrays(args)
     if len(args)==3:
-        u, v, w = [numpy.atleast_3d(a) for a in args]
+        u, v, w = [np.atleast_3d(a) for a in args]
         assert len(u.shape)==3, "3D array required"
-        x, y, z = numpy.indices(u.shape)
+        x, y, z = np.indices(u.shape)
     elif len(args)==6:
         x, y, z, u, v, w = args
     elif len(args)==4:
@@ -851,9 +851,9 @@ def process_regular_scalars(*args):
     """ Converts different signatures to (x, y, z, s). """
     args = convert_to_arrays(args)
     if len(args)==1:
-        s = numpy.atleast_3d(args[0])
+        s = np.atleast_3d(args[0])
         assert len(s.shape)==3, "3D array required"
-        x, y, z = numpy.indices(s.shape)
+        x, y, z = np.indices(s.shape)
     elif len(args)==3:
         x, y, z = args
         s = None 
@@ -876,11 +876,11 @@ def process_regular_2d_scalars(*args, **kwargs):
     args = convert_to_arrays(args)
     for index, arg in enumerate(args):
         if not callable(arg):
-            args[index] = numpy.atleast_2d(arg)
+            args[index] = np.atleast_2d(arg)
     if len(args)==1:
         s = args[0]
         assert len(s.shape)==2, "2D array required"
-        x, y = numpy.indices(s.shape)
+        x, y = np.indices(s.shape)
     elif len(args)==3:
         x, y, s = args
         if callable(s):
@@ -891,7 +891,7 @@ def process_regular_2d_scalars(*args, **kwargs):
 
     if 'mask' in kwargs:
         mask = kwargs['mask']
-        s[mask.astype('bool')] = numpy.nan
+        s[mask.astype('bool')] = np.nan
         # The NaN tric only works with floats.
         s = s.astype('float')
 
@@ -934,7 +934,7 @@ def vector_scatter(*args, **kwargs):
 
     scalars = kwargs.pop('scalars', None)
     if scalars is not None:
-        scalars = numpy.ravel(scalars)
+        scalars = np.ravel(scalars)
     name = kwargs.pop('name', 'VectorScatter')
 
     data_source = MGlyphSource()
@@ -978,13 +978,15 @@ def vector_field(*args, **kwargs):
                  be used for testing, or numerical algorithms, not
                  visualization."""
     if len(args) == 3:
-        x = y = z = numpy.atleast_3d(1)
-        u, v, w = [numpy.atleast_3d(a) for a in args]
+        x = y = z = np.atleast_3d(1)
+        u, v, w = [np.atleast_3d(a) for a in args]
     else:
-        x, y, z, u, v, w = [numpy.atleast_3d(a) 
+        x, y, z, u, v, w = [np.atleast_3d(a) 
                         for a in process_regular_vectors(*args)]
 
     scalars = kwargs.pop('scalars', None)
+    if scalars is not None:
+        scalars = np.atleast_3d(scalars)
     data_source = MArraySource()
     data_source.reset(x=x, y=y, z=z, u=u, v=v, w=w, scalars=scalars)
     name = kwargs.pop('name', 'VectorField')
@@ -1022,7 +1024,7 @@ def scalar_scatter(*args, **kwargs):
     x, y, z, s = process_regular_scalars(*args)
 
     if s is not None:
-        s = numpy.ravel(s)
+        s = np.ravel(s)
 
     data_source = MGlyphSource()
     data_source.reset(x=x, y=y, z=z, scalars=s)
@@ -1067,7 +1069,7 @@ def scalar_field(*args, **kwargs):
     if len(args) == 1:
         # Be lazy, don't create three big arrays for 1 input array. The
         # MArraySource is clever-enough to handle flat arrays
-        x = y = z = numpy.atleast_1d(1)
+        x = y = z = np.atleast_1d(1)
         s = args[0]
     else:
         x, y, z, s = process_regular_scalars(*args)
@@ -1157,7 +1159,7 @@ def array2d_source(*args, **kwargs):
     mask = kwargs.pop('mask', None)
     if len(args) == 1 :
         args = convert_to_arrays(args)
-        s = numpy.atleast_2d(args[0])
+        s = np.atleast_2d(args[0])
         data_source.reset(scalars=s, mask=mask)
     else:
         x, y, s = process_regular_2d_scalars(*args, **kwargs)
@@ -1247,16 +1249,16 @@ def vertical_vectors_source(*args, **kwargs):
     """
     if len(args) == 3:
         x, y, data = args
-        if numpy.isscalar(x):
+        if np.isscalar(x):
             z = 0
         else:
-            z = numpy.zeros_like(x)
+            z = np.zeros_like(x)
         args = (x, y, z, data)
 
     x, y, z, s = process_regular_scalars(*args)
 
     if s is not None:
-        s = numpy.ravel(s)
+        s = np.ravel(s)
 
     data_source = MVerticalGlyphSource()
     data_source.reset(x=x, y=y, z=z, scalars=s)
