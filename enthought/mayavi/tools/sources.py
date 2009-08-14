@@ -748,13 +748,27 @@ class MTriangularMeshSource(MlabSource):
         triangles = self.triangles
         assert triangles.shape[1] == 3, \
             "The shape of the triangles array must be (X, 3)"
+        assert triangles.max() < len(points), \
+            "The triangles indices must be smaller that the number of points"
+        assert triangles.min() >= 0, \
+            "The triangles indices must be positive or null"
 
         if self.dataset is None:
             pd = tvtk.PolyData()
         else:
             pd = self.dataset
-        pd.set(points=points, polys=triangles)
+        # Set the points first, and the triangles after: so that the
+        # polygone can refer to the right points, in the polydata.
+        pd.set(points=points)
+        pd.set(polys=triangles)
 
+        if (not 'scalars' in traits 
+                    and scalars is not None
+                    and scalars.shape != x.shape):
+            # The scalars where set probably automatically to z, by the 
+            # factory. We need to reset them, as the size has changed.
+            scalars = z
+            
         if scalars is not None and len(scalars) > 0:
             if not scalars.flags.contiguous:
                 scalars = scalars.copy()

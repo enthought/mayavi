@@ -805,6 +805,20 @@ class TestMTriangularMeshSource(unittest.TestCase):
 
         self.check_traits()
 
+    def test_changed_size(self):
+        """ Change the number of the points, and establish
+            to new points, to check that we don't get errors with the
+            dimensions of the scalars.
+        """
+        n = 100
+        _, _, _, _, _, src = self.get_data()
+        triangles = N.c_[N.arange(n-3),
+                            N.arange(n-3)+1,
+                            n-1-N.arange(n-3)]
+        x, y, z = N.random.random((3, n))
+        src.reset(x=x, y=y, z=z, triangles=triangles)
+
+
     def test_handlers(self):
         "Test if the various static handlers work correctly."
         x, y, z, triangles, s, src = self.get_data()

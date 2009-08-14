@@ -166,6 +166,29 @@ class TestMlabNullEngineMisc(TestMlabNullEngine):
         for f in figs:
             self.assertFalse(f.running)
 
+    def test_triangular_mesh_reset(self):
+        """ When reseting the triangular mesh (ie polydata), if we are
+            not careful, we can create a segfault by passing triangules 
+            between points that do not exist.
+        """
+        # We need to run this as a full test of mlab, rather than only a  
+        # test of the source, as to get a segfault, we need a module
+        # opened on the source.
+        n = 100
+        triangles = np.c_[np.arange(n-3),
+                            np.arange(n-3)+1,
+                            n-1-np.arange(n-3)]
+        x, y, z = np.random.random((3, n))
+        src = mlab.triangular_mesh(x, y, z, triangles)
+
+        # Now grow the mesh
+        n = 1000
+        triangles = np.c_[np.arange(n-3),
+                            np.arange(n-3)+1,
+                            n-1-np.arange(n-3)]
+        x, y, z = np.random.random((3, n))
+        src.mlab_source.reset(x=x, y=y, z=z, triangles=triangles)
+
 
 ################################################################################
 # class `TestMlabHelperFunctions`
