@@ -26,7 +26,7 @@ from enthought.mayavi.core.scene import Scene
 from auto_doc import traits_doc, dedent
 import tools
 from enthought.traits.api import Array, Callable, CFloat, HasTraits, \
-    List, Trait, Any, Instance, TraitError
+    List, Trait, Any, Instance, TraitError, true
 import numpy
 
 def document_pipeline(pipeline):
@@ -994,6 +994,10 @@ class BarChart(Pipeline):
     lateral_scale = CFloat(0.9, desc='The lateral scale of the glyph, '
                 'in units of the distance between nearest points')
 
+    auto_scale = true(desc='whether to compute automaticaly the '
+                           'lateral scaling of the glyphs. This might be '
+                           'computationaly expensive.')
+
     def __call_internal__(self, *args, **kwargs):
         """ Override the call to be able to scale automaticaly the axis.
         """
@@ -1014,7 +1018,7 @@ class BarChart(Pipeline):
         # The auto-scaling code. It involves finding the minimum
         # distance between points, which can be very expensive. We
         # shortcut this calculation for structured data
-        if len(args) == 1:
+        if len(args) == 1 or self.auto_scale:
             min_axis_distance = 1
         else:
             x, y, z = g.mlab_source.x, g.mlab_source.y, g.mlab_source.z
