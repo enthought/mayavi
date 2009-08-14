@@ -13,8 +13,6 @@ both for testing and to ilustrate its use.
 # Copyright (c) 2007, Enthought, Inc. 
 # License: BSD Style.
 
-from enthought.tvtk.api import tvtk
-
 from modules import VectorsFactory, StreamlineFactory, GlyphFactory, \
             IsoSurfaceFactory, SurfaceFactory, ContourSurfaceFactory, \
             ImageActorFactory, glyph_mode_dict
@@ -24,6 +22,7 @@ from sources import vector_scatter, vector_field, scalar_scatter, \
 from filters import ExtractVectorNormFactory, WarpScalarFactory, \
             TubeFactory, ExtractEdgesFactory, PolyDataNormalsFactory, \
             StripperFactory
+from enthought.mayavi.core.scene import Scene
 from auto_doc import traits_doc, dedent
 import tools
 from enthought.traits.api import Array, Callable, CFloat, HasTraits, \
@@ -63,6 +62,28 @@ class Pipeline(HasTraits):
                 help='Figure to populate.')
 
     def __call__(self, *args, **kwargs):
+        """ Calls the logics of the factory, but only after disabling 
+            rendering, if needed.
+        """
+        # First retrieve the scene, if any.
+        if 'figure' in kwargs:
+            figure = kwargs['figure']
+            assert isinstance(figure, (Scene, None))
+            scene = figure.scene
+        else:
+            scene = tools.gcf().scene
+        if scene is not None:
+            self._do_redraw = not scene.disable_render
+            scene.disable_render = True
+        # Then call the real logic
+        output = self.__call_internal__(*args, **kwargs)
+        # And re-enable the rendering, if needed.
+        if scene is not None:
+            scene.disable_render = not self._do_redraw
+        return output
+
+
+    def __call_internal__(self, *args, **kwargs):
         """ Builds the source and runs through the pipeline, returning
         the last object created by the pipeline."""
         self.store_kwargs(kwargs)
@@ -145,13 +166,13 @@ class Points3d(Pipeline):
                         'give the maximum glyph size in drawing units'
                         )
     
-    def __call__(self, *args, **kwargs):
+    def __call_internal__(self, *args, **kwargs):
         """ Override the call to be able to scale automaticaly the glyphs.
         """
         scale_factor =  kwargs.get('scale_factor', 'auto')
         if scale_factor == 'auto':
             kwargs['scale_factor'] = 1
-        g = Pipeline.__call__(self, *args, **kwargs)
+        g = Pipeline.__call_internal__(self, *args, **kwargs)
         if scale_factor == 'auto':
             g.glyph.glyph.scale_factor = \
                              tools._typical_distance(g.mlab_source.dataset)
@@ -329,7 +350,7 @@ class Flow(Pipeline):
 
     _pipeline = [ExtractVectorNormFactory, StreamlineFactory, ] 
 
-    def __call__(self, *args, **kwargs):
+    def __call_internal__(self, *args, **kwargs):
         """ Override the call to be able to choose whether to apply an
         ExtractVectorNorm filter.
         """
@@ -508,7 +529,7 @@ class Plot3d(Pipeline):
 
     _pipeline = [StripperFactory, TubeFactory, SurfaceFactory, ]
 
-    def __call__(self, *args, **kwargs):
+    def __call_internal__(self, *args, **kwargs):
         """ Override the call to be able to choose whether to apply
         filters.
         """
@@ -519,7 +540,7 @@ class Plot3d(Pipeline):
         self.pipeline = self._pipeline[:]
         if self.kwargs['tube_radius'] == None:
             self.pipeline.remove(TubeFactory)
-            self.pipeline.remove(Stripper)
+            self.pipeline.remove(StripperFactory)
         return self.build_pipeline()
 
 
@@ -646,7 +667,7 @@ class Surf(Pipeline):
 
     mask = Array(help="boolean mask array to suppress some data points.")
 
-    def __call__(self, *args, **kwargs):
+    def __call_internal__(self, *args, **kwargs):
         """ Override the call to be able to scale automaticaly the axis.
         """
         self.source = self._source_function(*args, **kwargs)
@@ -784,7 +805,7 @@ class Mesh(Pipeline):
     _pipeline = [ExtractEdgesFactory, GlyphFactory, TubeFactory, 
                         SurfaceFactory]
     
-    def __call__(self, *args, **kwargs):
+    def __call_internal__(self, *args, **kwargs):
         """ Override the call to be able to choose whether to apply
         filters.
         """
@@ -973,10 +994,10 @@ class BarChart(Pipeline):
     lateral_scale = CFloat(0.9, desc='The lateral scale of the glyph, '
                 'in units of the distance between nearest points')
 
-    def __call__(self, *args, **kwargs):
+    def __call_internal__(self, *args, **kwargs):
         """ Override the call to be able to scale automaticaly the axis.
         """
-        g = Pipeline.__call__(self, *args, **kwargs)
+        g = Pipeline.__call_internal__(self, *args, **kwargs)
         gs = g.glyph.glyph_source
         # Use a cube source for glyphs.
         if not 'mode' in kwargs:

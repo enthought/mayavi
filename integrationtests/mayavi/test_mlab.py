@@ -6,6 +6,7 @@
 
 # Standard library imports.
 from inspect import getmembers
+from time import sleep
 
 # Local imports.
 from common import TestCase
@@ -32,7 +33,10 @@ class TestMlab(TestCase):
                 continue
             mlab.clf()
             func()
-       
+            # Mayavi has become too fast: the operator cannot see if the
+            # Test function was succesful.
+            sleep(0.1)
+     
         ############################################################
         # Test some specific corner-cases
         import numpy
