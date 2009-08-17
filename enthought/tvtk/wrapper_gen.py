@@ -426,6 +426,10 @@ class WrapperGenerator:
                         default, rng = 0, None
                     elif ret == 'float':
                         default, rng = 0.0, None
+                    elif ret == 'string':
+                        default, rng = '', None
+                    else:
+                        default, rng = None, None
                 else:
                     self._write_tvtk_method(out, vtk_get_meth, sig)
                     self._write_tvtk_method(out, vtk_set_meth)
