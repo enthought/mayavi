@@ -23,13 +23,12 @@ Installing ready-made distributions
 
 :Windows:
      Under Window the best way to install Mayavi is to install a full
-     Python distribution, such as EPD_ or Pythonxy_. Note that Pythonxy
-     has a `special download
-     <http://www.pythonxy.com/dl.php?file=windows/Python(x,y)-ETS-3.0.2.2.zip>`_
-     which provides a complete installer for Mayavi and all its
-     dependencies and is a much smaller download than EPD or the full
-     Pythonxy install.
+     Python distribution, such as EPD_ or Pythonxy_. Note that for 
+     Pythonxy, you need to check in 'ETS' in the installer, when
+     selecting components. If you want to reduce the disk used by the
+     Pythonxy, you can uncheck other components.
 
+     
 :MacOSX:
     The full Python distribution EPD_ (that includes Mayavi) is also
     available for MacOSX.  Unless you really enjoy the intricacies of
