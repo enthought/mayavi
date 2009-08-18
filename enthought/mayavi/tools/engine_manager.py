@@ -185,9 +185,13 @@ class EngineManager(HasTraits):
         elif rich_view:
             from enthought.mayavi.core.ui.engine_rich_view import \
                     EngineRichView
-            scene = engine.current_scene
+            figure = engine.current_scene
             view = EngineRichView(engine=engine)
-            return view.scene_editing_view(scene=scene.scene)
+            if figure is None:
+                scene = None
+            else:
+                scene = figure.scene
+            return view.scene_editing_view(scene=scene)
         else:
             from enthought.mayavi.core.ui.engine_view import \
                     EngineView
