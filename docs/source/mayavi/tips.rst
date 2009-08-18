@@ -757,6 +757,8 @@ application) and to search for "Interactor". Another option is to tab
 complete on Ipython, on `tvtk.InteractorStyle`.
 
 
+.. _acceleration_mayavi_scripts:
+
 Accelerating a Mayavi script
 ------------------------------
 
