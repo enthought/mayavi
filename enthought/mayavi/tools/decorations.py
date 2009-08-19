@@ -26,16 +26,24 @@ from engine_manager import get_engine, engine_manager
 #############################################################################
 # Colorbar related functions
 
-def _orient_colorbar(colorbar, orientation):
-    """Orients the given colorbar (make it horizontal or vertical).
+def _orient_colorbar(lut_mgr, orientation):
+    """Orients the given LUTManager (make it horizontal or vertical).
     """
+    rep = lut_mgr.scalar_bar_representation
+    colorbar = lut_mgr.scalar_bar
     if orientation == "vertical":
-        colorbar.orientation = "vertical"
+        if rep is None:
+            colorbar.orientation = "vertical"
+        else:
+            rep.orientation = 1
         colorbar.width = 0.1
         colorbar.height = 0.8
         colorbar.position = (0.01, 0.15)
     elif orientation == "horizontal":
-        colorbar.orientation = "horizontal"
+        if rep is None:
+            colorbar.orientation = "horizontal"
+        else:
+            rep.orientation = 0
         colorbar.width = 0.8
         colorbar.height = 0.17
         colorbar.position = (0.1, 0.01)
@@ -43,14 +51,15 @@ def _orient_colorbar(colorbar, orientation):
         print "Unknown orientation"
     draw()
 
-def _colobar_properties(colorbar, **props):
+def _lut_manager_properties(lut_manager, **props):
     """ Internal function used to apply properties to a colorbar.
     """
     need_redraw = False
     orientation = props.get('orientation', None)
     if orientation is not None:
-        _orient_colorbar(colorbar, orientation)
+        _orient_colorbar(lut_manager, orientation)
 
+    colorbar = lut_manager.scalar_bar
     title = props.get('title', None)
     if title is not None:
         colorbar.title = title
@@ -108,12 +117,12 @@ def scalarbar(object=None, title=None, orientation=None,
             title = ''
         if orientation is None:
             orientation = 'horizontal'
-    colorbar = module_manager.scalar_lut_manager.scalar_bar
+    lut_mgr = module_manager.scalar_lut_manager
     module_manager.scalar_lut_manager.show_scalar_bar = True
-    _colobar_properties(colorbar, title=title, orientation=orientation, 
+    _lut_manager_properties(lut_mgr, title=title, orientation=orientation, 
                         nb_labels=nb_labels, nb_colors=nb_colors,
                         label_fmt=label_fmt)
-    return colorbar
+    return lut_mgr
 
 
 def vectorbar(object=None, title=None, orientation=None,
@@ -148,12 +157,12 @@ def vectorbar(object=None, title=None, orientation=None,
         if title is None:
             title = ''
         orientation = 'horizontal'
-    colorbar = module_manager.vector_lut_manager.scalar_bar
-    module_manager.vector_lut_manager.show_scalar_bar = True
-    _colobar_properties(colorbar, title=title, orientation=orientation, 
+    lut_mgr = module_manager.vector_lut_manager
+    lut_mgr.show_scalar_bar = True
+    _lut_manager_properties(lut_mgr, title=title, orientation=orientation, 
                         nb_labels=nb_labels, nb_colors=nb_colors,
                         label_fmt=label_fmt)
-    return colorbar
+    return lut_mgr
 
 
 def colorbar(object=None, title=None, orientation=None,
