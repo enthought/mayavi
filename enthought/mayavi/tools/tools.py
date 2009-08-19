@@ -180,9 +180,17 @@ def _find_module_manager(object=None, data_type=None):
     if object is None:
         for object in _traverse(gcf()):
             if isinstance(object, ModuleManager):
-                if ((data_type == 'scalar' and not _has_scalar_data(object))    
-                  or (data_type == 'vector' and not _has_vector_data(object))
-                  or (data_type == 'tensor' and not _has_tensor_data(object))):
+                if data_type == 'scalar':
+                    if not _has_scalar_data(object):
+                        continue
+                    try:
+                        if not object.actor.mapper.scalar_visibility:
+                            continue
+                    except AttributeError:
+                        pass
+                if data_type == 'vector' and not _has_vector_data(object):
+                    continue
+                if data_type == 'tensor' and not _has_tensor_data(object):
                     continue
                 return object
     else:

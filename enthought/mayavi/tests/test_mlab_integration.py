@@ -189,6 +189,20 @@ class TestMlabNullEngineMisc(TestMlabNullEngine):
         x, y, z = np.random.random((3, n))
         src.mlab_source.reset(x=x, y=y, z=z, triangles=triangles)
 
+    def test_colorbar(self):
+        """ Test that when an object with scalars hidden is created, it
+            does not get a colorbar, unless no other is avalaible.
+        """
+        a = np.random.random((5, 5))
+        s1 = mlab.surf(a, colormap='gist_earth')
+        s2 = mlab.surf(a, color=(0, 0, 0))
+        mlab.colorbar()
+        self.assertEqual(
+                    s2.module_manager.scalar_lut_manager.show_scalar_bar,
+                    False)
+        self.assertEqual(
+                    s1.module_manager.scalar_lut_manager.show_scalar_bar,
+                    True)
 
 ################################################################################
 # class `TestMlabHelperFunctions`
