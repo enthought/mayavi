@@ -148,7 +148,7 @@ class Base(TreeNodeObject):
                      '__traits_listener__', '_icon_path',
                      '_menu', '_HideShowAction', 'menu_helper',
                      'parent', 'parent_', '_module_view',
-                     '_view_filename'):
+                     '_view_filename', 'mlab_source'):
             d.pop(attr, None)
         return d
 
