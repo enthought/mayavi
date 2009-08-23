@@ -29,6 +29,7 @@ from enthought.mayavi import mlab
 ################################################################################
 # Disable the rendering, to get bring up the figure quicker:
 figure = mlab.gcf()
+mlab.clf()
 figure.scene.disable_render = True
 
 # Creates two set of points using mlab.points3d: red point and
@@ -56,7 +57,8 @@ figure.scene.disable_render = False
 
 # Here, we grab the points describing the individual glyph, to figure
 # out how many points are in an individual glyph.
-glyph_points = red_glyphs.glyph.glyph_source.glyph_source.output.points.to_array()
+n_glyph_src = \
+    red_glyphs.glyph.glyph_source.glyph_source.output.points.to_array().shape[0]
 
 picker = figure.scene.picker
 
@@ -71,9 +73,9 @@ def picker_callback(vtk_picker, event):
         # Find which data point corresponds to the point picked:
         # we have to account for the fact that each data point is
         # represented by a glyph with several points 
-        point_id = picker.pointpicker.point_id/glyph_points.shape[0]
+        point_id = picker.pointpicker.point_id/n_glyph_src
         # If the no points have been selected, we have '-1'
-        if not point_id == -1:
+        if point_id != -1:
             # Retrieve the coordinnates coorresponding to that data
             # point
             x, y, z = x1[point_id], y1[point_id], z1[point_id]
@@ -99,7 +101,7 @@ class MvtPicker(object):
                                         self.on_mouse_move)
         figure.scene.interactor.add_observer('LeftButtonReleaseEvent', 
                                         self.on_button_release)
-        self.picker.pointpicker.add_observer("EndPickEvent", callback)
+        self.picker.add_observer("EndPickEvent", callback)
 
     def on_button_press(self, vtk_picker, event):
         self.mouse_mvt = False
@@ -109,7 +111,7 @@ class MvtPicker(object):
 
     def on_button_release(self, vtk_picker, event):
         if not self.mouse_mvt:
-            x, y = obj.GetEventPosition()
+            x, y = vtk_picker.GetEventPosition()
             self.picker.pick((x, y, 0), figure.scene.renderer)
         self.mouse_mvt = False
         
