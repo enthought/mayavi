@@ -13,8 +13,8 @@ the picker when the mouse button is pressed, but there is no movement.
 The picker is called, and triggers the picker callback.
 
 The trick to act only on specific visualization objects is to test that
-the actors of the objects we are interested in are in the list of actors
-selected by the picker.
+the actor of the objects we are interested in is the actor selected by
+the picker.
 
 Finally, we need to find the specific data point corresponding to the
 glyph selected. For this we find out how many points each individual
@@ -69,7 +69,7 @@ def picker_callback(vtk_picker, event):
     # could also retrieve it doing:
     # picker = tvtk.to_vtk(tvtk_picker)
 
-    if picker.pointpicker.actor in red_glyphs.actor.actors:
+    if picker.pointpicker.actor == red_glyphs.actor.actor:
         # Find which data point corresponds to the point picked:
         # we have to account for the fact that each data point is
         # represented by a glyph with several points 
