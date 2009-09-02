@@ -307,7 +307,12 @@ get the latest development sources.
     this will take a while.  More options for the ``ets`` tool are
     available in the ETSProjectTools_ page.
 
- #. Once the sources are checked out you may either do an::
+ #. Once the sources are checked out you may enter the checked-out
+    directory, for example:: 
+
+	$ cd Mayavi_3.3.1/
+
+    and either do an::
 
         $ ets develop
 

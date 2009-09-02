@@ -303,17 +303,20 @@ Here is how you can use this feature:
  1. When you start the ``mayavi2`` application, on the Engine View (the
     tree view) toolbar you will find a red record icon next to the
     question mark icon.  Click it.  Note that this will also work from a
-    standalone mlab session.
+    standalone mlab session, on the toolbar of the ``Mayavi pipeline`` 
+    window.
 
  2. You'll see a window popup with a few lines of boilerplate code so
     you can run your script standalone/with ``mayavi2 -x script.py ``or
-    ``python script.py``.
+    ``python script.py``. Keep this window open and ignore for now the 
+    ``Save script`` button, that will be used when you are finished.
 
  3. Now do anything you please on the UI.  As you perform those actions,
-    you'll see the code needed to perform those actions.  For example,
-    create a new source (either via the adder node dialog/view, the file
-    menu or right click, i.e. any normal option), then add a
-    module/filter etc.  Modify objects on the tree view.  
+    the code needed to perform those actions is added to the code listing
+    and displayed in the popup window.  For example, create a new source
+    (either via the adder node dialog/view, the file menu or right click,
+    i.e. any normal option), then add a module/filter etc.  Modify objects on
+    the tree view.  
  
  4. Move the camera on the UI, rotate the camera, zoom, pan.  All of
     these will generate suitable Python code.  For the camera only the
@@ -325,10 +328,13 @@ Here is how you can use this feature:
     Since the code is updated as the actions are performed, this is a
     nice way to learn the Mayavi API. 
 
- 5. Once you are done, click on the record icon again, it will ask you
-    to save the recorded script to a Python file.  Save it to some file,
-    say ``script.py``.  If you are only interested in the code and not
-    saving a file you may click cancel at this point.
+ 5. Once you are done, clicking on the record icon again will stop the
+    recording: in the pop-up window, the ``Recording`` box will be ticked
+    off and no code corresponding to new actions will be displayed any 
+    more. If you want to save the recorded script to a Python file, click 
+    on the ``Save script`` button at the bottom of the window. Save the script
+    to some file, say ``script.py``.  If you are only interested in the code
+    and not saving a file you may click cancel at this point.
 
  6. Close the recorder window and quit Mayavi (if you want to).
 
