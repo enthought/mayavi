@@ -634,6 +634,7 @@ filter.  Here is a simple example with the standard Mayavi image data::
     -s "filter.origin_translation=(20,20,20)" \
     -m Outline -m ImagePlaneWidget
 
+.. _using_userdefined_filter:
 
 Using the ``UserDefined`` filter
 ---------------------------------
@@ -659,6 +660,9 @@ Under mlab, the `Userdefined` can be used to wrap eg a `GeometryFilter`
 VTK filter with::
 
     filtered_obj = mlab.pipeline.user_defined(obj, filter='GeometryFilter')
+
+The :ref:`example_cursor` gives a full example of using the UserDefined
+curser.
 
 .. _sharing_data_between_scenes:
 
