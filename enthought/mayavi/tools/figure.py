@@ -296,6 +296,8 @@ def screenshot(figure=None, mode='rgb', antialiased=False):
         figure = gcf()
     x, y = tuple(figure.scene.get_size())
 
+    # Try to lift the window
+    figure.scene._lift()
     if mode == 'rgb':
         out = tvtk.UnsignedCharArray()
         shape = (y, x, 3)

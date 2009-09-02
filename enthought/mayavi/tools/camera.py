@@ -43,7 +43,8 @@ def deg2rad(deg):
     """Converts degrees to radians."""
     return deg*pi/180.
 
-def view(azimuth=None, elevation=None, distance=None, focalpoint=None):
+def view(azimuth=None, elevation=None, distance=None, focalpoint=None,
+            figure=None):
     """ Sets/Gets the view point for the camera. 
     
      view(azimuth=None, elevation=None, distance=None, focalpoint=None)
@@ -51,7 +52,7 @@ def view(azimuth=None, elevation=None, distance=None, focalpoint=None):
     If called with no arguments this returns the current view of the
     camera.  To understand how this function works imagine the surface
     of a sphere centered around the visualization.  The `azimuth`
-    argument specifies the the angle "phi" on the x-y plane which varies
+    argument specifies the angle "phi" on the x-y plane which varies
     from 0-360 degrees.  The `elevation` argument specifies the angle
     "theta" from the z axis and varies from 0-180 degrees.  The
     `distance` argument is the radius of the sphere and the
@@ -112,8 +113,10 @@ def view(azimuth=None, elevation=None, distance=None, focalpoint=None):
     :mlab.roll: control the roll angle of the camera, ie the direction
                pointing up
     """
-
-    f = get_engine().current_scene
+    if figure is None:
+        f = get_engine().current_scene
+    else:
+        f = figure
     if f is None:
         return
     scene = f.scene
