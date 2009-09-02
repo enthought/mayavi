@@ -213,7 +213,7 @@ glyph_mode_dict = {'2darrow': 0, '2dcircle':0, '2dcross':0,
                             '2dthick_arrow':0, '2dthick_cross':0,
                             '2dtriangle':0, '2dvertex':0,
                             'arrow': 1, 'cone': 2, 'cylinder': 3,
-                            'sphere': 4, 'cube': 5, 'point': 6}
+                            'sphere': 4, 'cube': 5, 'axes': 6, 'point': 7}
 
 
 ##############################################################################

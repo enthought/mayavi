@@ -218,11 +218,9 @@ class GlyphSource(Component):
             else:
                 g.center = -tr_factor, 0.0, 0.0
         else:
-            if name == 'GlyphSource2D':
-                g.center = 0.0, 0.0, 0.0
-            elif name == 'ArrowSource':
+            if name == 'ArrowSource':
                 tr.translate(-0.5, 0, 0)
-            else:
+            elif name != 'Axes':
                 g.center = 0.0, 0.0, 0.0
 
         if name == 'CylinderSource':
@@ -235,7 +233,8 @@ class GlyphSource(Component):
         # Return the glyph list as per the original order in earlier
         # implementation.
         order = ['glyph_source2d', 'arrow_source', 'cone_source', 
-                 'cylinder_source', 'sphere_source', 'cube_source']
+                 'cylinder_source', 'sphere_source', 'cube_source',
+                 'axes']
         gd = self.glyph_dict
         for key in gd:
             if key not in order:
@@ -249,6 +248,7 @@ class GlyphSource(Component):
              'cylinder_source': tvtk.CylinderSource(height=1.0, radius=0.15, 
                                                     resolution=10),
              'sphere_source': tvtk.SphereSource(),
-             'cube_source': tvtk.CubeSource()}
+             'cube_source': tvtk.CubeSource(),
+             'axes': tvtk.Axes(symmetric=1)}
         return g
 
