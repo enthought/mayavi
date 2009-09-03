@@ -35,8 +35,8 @@ Installing ready-made distributions
     compilation, this is the best solution to install Mayavi.
 
 :Ubuntu or Debian:
-     Mayavi is packaged in Debian and Ubuntu. In addition, packages of
-     the latest Mayavi release for the stable version of Ubuntu are
+     Mayavi is packaged in Debian and Ubuntu. In addition, more up to
+     date packages of Mayavi releases for old versions of Ubuntu are
      available at https://launchpad.net/~gael-varoquaux/+archive .
      Experimental Debian packages are also available at
      http://people.debian.org/~varun/ .
@@ -310,36 +310,48 @@ get the latest development sources.
  #. Once the sources are checked out you may enter the checked-out
     directory, for example:: 
 
-	$ cd Mayavi_3.3.1/
+       $ cd Mayavi_3.3.1/
 
-    and either do an::
+    and either:
+
+    #. Install a development version, to track changes to SVN easily
+       (recommended)::
 
         $ ets develop
 
-    This will  install all the checked out sources via a ``setup.py
-    develop`` applied to each package.  
+       This will  install all the checked out sources via a ``setup.py
+       develop`` applied to each package.  
 
- #. Alternatively, you may want to build binary eggs, of the sources.
-    The ``ets bdist`` command can be used to build eggs like so (here we
-    assume that ``ets co`` checked out the sources into ``ets-3.0.3``)::
+       ..  note::
 
-      $ cd ets-3.0.3
-      $ ets bdist
+        To install of the packages in a different location than the
+        default one, eg '~/usr/', use the following syntax::
 
-    This will build all the eggs and put them inside a ``dist``
-    subdirectory.  Run ``ets bdist -h`` for more bdist related options.
-    The mayavi development egg and its dependencies  may be installed
-    via::
+            ets develop -c"--prefix ~/usr"
 
-      $ easy_install -f dist "Mayavi[app]"
+        make sure that the corresponding site-packages folder is in your 
+        PYTHONPATH environment variable (for the above example it would
+        be: '~/usr/lib/python2.x/site-packages/'
 
-    Alternatively, if you'd like just ``Mayavi`` installed via
-    ``setup.py develop`` with the rest as binary eggs you may do::
+    #. Or build binary eggs of the sources to install localy::
 
-      $ cd Mayavi_x.y.z
-      $ python setup.py develop -f ../dist
+        $ cd Mayavi_3.3.1
+        $ ets bdist
 
-    This will pull in any dependencies from the built eggs.
+       This will build all the eggs and put them inside a ``dist``
+       subdirectory.  Run ``ets bdist -h`` for more bdist related options.
+       The mayavi development egg and its dependencies  may be installed
+       via::
+
+        $ easy_install -f dist "Mayavi[app]"
+
+    #. Alternatively, if you'd like just ``Mayavi`` installed via
+       ``setup.py develop`` with the rest as binary eggs you may do::
+
+        $ cd Mayavi_x.y.z
+        $ python setup.py develop -f ../dist
+
+       This will pull in any dependencies from the built eggs.
 
 You should now have the latest version of Mayavi installed and usable.
 
