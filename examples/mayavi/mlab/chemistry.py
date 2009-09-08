@@ -10,8 +10,7 @@ Good use of the `vmin` and `vmax` argument to
 `mlab.pipeline.volume` is critical to achieve a good visualization: the 
 `vmin` threshold should placed high-enough for features to stand out.
 
-The electron localization function is downloaded from Axel Kohlmeyer's
-molecule visualization page.
+The original is an electron localization function from Axel Kohlmeyer.
 """
 # Author: Gael Varoquaux <gael.varoquaux@normalesup.org> 
 # Copyright (c) 2008, Enthought, Inc.
@@ -24,7 +23,7 @@ if not os.path.exists('h2o-elf.cube'):
     import urllib
     print 'Downloading data, please wait'
     opener = urllib.urlopen(
-        'http://www.theochem.rub.de/~axel.kohlmeyer/cpmd-vmd/files/h2o-elf.cube'
+        'http://code.enthought.com/projects/mayavi/data/h2o-elf.cube'
         )
     open('h2o-elf.cube', 'w').write(opener.read())
 
