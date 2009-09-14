@@ -239,6 +239,8 @@ def savefig(filename, size=None, figure=None, magnification='auto',
                 target_x = int(target_x/magnification)
                 target_y = int(target_y/magnification)
                 size = target_x, target_y
+        elif magnification is 'auto':
+            magnification = 1
         figure.scene.magnification = magnification
         figure.scene.save(filename, 
                             size=size,
