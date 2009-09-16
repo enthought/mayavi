@@ -193,21 +193,21 @@ these instructions (provided by Guillaume Duclaux) will guide you through
 the necessary steps to configure a Windows environment in which Mayavi
 will run.
 
-1. Install Python 2.5. Add 'C:\Python25;` to the PATH environment
+1. Install Python 2.5. Add 'C:\\Python25;` to the PATH environment
    variables.
 
 2. Install Mingw32, from the Download section of http://www.mingw.org/ ,
-   use the MinGW5.1.4 installer. Add 'C:\MinGW\bin;' to the PATH
+   use the MinGW5.1.4 installer. Add 'C:\\MinGW\\bin;' to the PATH
    environment variables.
 
-3. Create a 'c:\documents and settings\USERNAME\pydistutils.cfg' file(where 
+3. Create a 'c:\\documents and settings\\USERNAME\\pydistutils.cfg' file(where 
    USERNAME is the login) with the following contents::
 
                [build]
                compiler=mingw32
 
 4. Create the new environment variable HOME and set it to the value:
-   'c:\docume~1\USERNAME;' (where USERNAME is the login name)
+   'c:\\docume~1\\USERNAME;' (where USERNAME is the login name)
 
 5. Install Setuptools (0.6c9 binary) from its webpage, and
    'C:\Python25\Scripts;' to the PATH environment variables
@@ -225,7 +225,7 @@ will run.
       download msvcr80.dll and msvcp80.dll from the www.dll-files.com
       website and copy them into C:\\winnt\\system32.
 
-7. Install Numpy (1.2.1 binary from http://numpy.scipy.org/ )
+7. Install Numpy (binary from http://numpy.scipy.org/ )
 
 8. Installing wxPython (2.8 binary from http://www.wxpython.org/ )
 
