@@ -27,7 +27,7 @@ class DataSetClipper(Filter):
     __version__ = 0
     
     # The widgets to be used for the Clipping Filter.
-    widget = Instance(ImplicitWidgets, allow_none=False)
+    widget = Instance(ImplicitWidgets, allow_none=False, record=True)
 
     # The clipping filter.
     filter = Instance(tvtk.Object, allow_none=False)
