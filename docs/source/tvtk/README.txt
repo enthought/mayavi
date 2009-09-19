@@ -258,10 +258,8 @@ tvtk wrapper object is created.  The following illustrates this::
 
 Thus, after `o` is garbage collected `m.input` no longer refers to the
 original tvtk object and a new one is created.  This is very similar
-to VTK's behaviour.  The reason that this is difficult to do correctly
-is that VTK objects cannot be weakly referenced.  In the future, when
-VTK supports weak references (possibly in version 5.0), this can be
-fixed.
+to VTK's behaviour.  Changing this behaviour is tricky and there are no
+plans currently to change this.
 
 
 tvtk and traits
