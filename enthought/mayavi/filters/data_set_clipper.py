@@ -6,9 +6,13 @@ using various Implicit Widgets.
 # Copyright (c) 2009, Enthought, Inc.
 # License: BSD Style.
 
+# Standard library imports.
+import cPickle
+
 # Enthought library imports.
 from enthought.traits.api import Instance, Button, Delegate
 from enthought.traits.ui.api import View, Group, Item
+from enthought.persistence import state_pickler
 
 from enthought.tvtk.api import tvtk
 
@@ -30,7 +34,7 @@ class DataSetClipper(Filter):
     widget = Instance(ImplicitWidgets, allow_none=False, record=True)
 
     # The clipping filter.
-    filter = Instance(tvtk.Object, allow_none=False)
+    filter = Instance(tvtk.Object, allow_none=False, record=True)
 
     # The update mode of the widget-- this is delegated to the
     # ImplicitWidgets.
@@ -64,12 +68,35 @@ class DataSetClipper(Filter):
                 resizable=True
                 )
 
+    ########################################
+    # Private traits.
+    _transform = Instance(tvtk.Transform, allow_none=False)
+
+
+    ######################################################################
+    # `object` interface.
+    ######################################################################
+    def __get_pure_state__(self):
+        d = super(DataSetClipper, self).__get_pure_state__()
+        for name in ('_first', '_observer_id'):
+            d.pop(name, None)
+        d['matrix'] = cPickle.dumps(self._transform.matrix)
+        return d
+
+    def __set_pure_state__(self, state):
+        mat = state.pop('matrix')
+        super(DataSetClipper, self).__set_pure_state__(state)
+        state_pickler.set_state(self, state)
+        self._transform.set_matrix(cPickle.loads(mat))
+        self.widget.set_transform(self._transform)
+
        
     ######################################################################
     # `Filter` interface
     ######################################################################
     def setup_pipeline(self):
         self.widget = ImplicitWidgets()
+        self._transform = tvtk.Transform()
         self.filter = tvtk.ClipDataSet()
         self.widget.on_trait_change(self._handle_widget, 'widget')
         super(DataSetClipper, self).setup_pipeline()
@@ -104,12 +131,30 @@ class DataSetClipper(Filter):
     ######################################################################
     # Non-public methods.
     ######################################################################    
+    def _on_interaction_event(self, obj, event):
+        tfm = self._transform
+        self.widget.widget.get_transform(tfm)
+        recorder = self.recorder
+        if recorder is not None:
+            state = {}
+            state['elements'] = tfm.matrix.__getstate__()['elements']
+            name = recorder.get_script_id(self)
+            recorder.record('%s._transform.matrix.__setstate__(%s)'\
+                            %(name, state))
+            recorder.record('%s.widget.widget.set_transform(%s._transform)'\
+                            %(name, name))
+            recorder.record('%s.widget.update_implicit_function()' % name)
+            recorder.record('%s.render()' % name)
+ 
     def _widget_changed(self, old, new):
         self.widgets = self.widget.widgets
 
         if len(self.inputs) > 0:
             new.inputs = self.inputs
             new.update_pipeline()      
+        self._observer_id = new.widget.add_observer(self.update_mode_,
+                                             self._on_interaction_event)
+
 
     def _filter_changed(self, old, new):
         if old is not None:
