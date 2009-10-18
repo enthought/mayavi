@@ -84,6 +84,7 @@ PolyData            Explicit      Points, lines and surfaces  x, y, z, positions
 UnstructuredGrid    Explicit      Volumes and surfaces        x, y, z positions of vertices and arrays of volume Cells
 ================== ============= =========================== ============================================================
 
+.. _image_data: ImageData 
 
 :ImageData:
   This dataset is made of data points positioned on an orthogonal grid,
@@ -108,6 +109,7 @@ UnstructuredGrid    Explicit      Volumes and surfaces        x, y, z positions 
     i.point_data.scalars.name = 'scalars'
     i.dimensions = data.shape
 
+.. _rectilinear_grid: RectilinearGrid
 
 :RectilinearGrid:
   This dataset is made of data points positioned on an orthogonal grid, 
@@ -130,6 +132,7 @@ UnstructuredGrid    Explicit      Volumes and surfaces        x, y, z positions 
     r.y_coordinates = array((0, 1, 3))
     r.z_coordinates = array((0, .5, 2))
 
+.. _structured_grid: StructuredGrid
 
 :StructuredGrid:
   This dataset is made of data points positioned on arbitrary grid: each
@@ -192,6 +195,7 @@ UnstructuredGrid    Explicit      Volumes and surfaces        x, y, z positions 
 
 
 
+.. _poly_data: 
 
 :PolyData:
   This dataset is made of arbitrarily positioned data points that can
@@ -222,6 +226,7 @@ UnstructuredGrid    Explicit      Volumes and surfaces        x, y, z positions 
     mesh.point_data.scalars = scalars
     mesh.point_data.scalars.name = 'scalars'
 
+.. _unstructured_grid: UnstructuredGrid
 
 :UnstructuredGrid:
   This dataset is the most general dataset of all. It is made of data 
