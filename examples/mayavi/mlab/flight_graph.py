@@ -7,10 +7,13 @@ This graph displays the longest fligh routes operated by Boing
 build a graph of arbitrary connectivity, and that it shows how to
 position data on the surface of the Earth.
 
-The graph is created by first building a scalar scatter dataset with
-the mlab.points3d command, and adding line information to it. One of
-the difficulties is that the lines are specified using the indexing
-number of the points, so we must 'massage' our data when loading it.
+The graph is created by first building a scalar scatter dataset with the
+mlab.points3d command, and adding line information to it. One of the
+difficulties is that the lines are specified using the indexing number of
+the points, so we must 'massage' our data when loading it. A similar
+technique to plot the graph is done in the :ref:`example_protein`.
+Another example of graph plotting, showing a different technique to plot
+the graph, can be seen on :ref:`example_delaunay_graph`.
 
 To simplify things we do not plot the connection on the surface of the
 Earth, but as straight lines going throught the Earth. As a result

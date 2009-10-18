@@ -17,12 +17,15 @@ chemicaly-significant.
 The atoms are plotted using mlab.points3d, and connections between atoms
 are added to the dataset, and visualized using a surface module.
 
-The graph is created by adding connection information to points. For
-this, each point is designated by its number (in the order of the array
-passed to mlab.points3d), and the connection array, made of pairs of
-these numbers, is constructed. There is some slightly tedious data
-manipulation to go from the named-node graph representation as stored
-in the pdb file, to the index-based connection pairs.
+The graph is created by adding connection information to points. For this, each
+point is designated by its number (in the order of the array passed to
+mlab.points3d), and the connection array, made of pairs of these numbers, is
+constructed. There is some slightly tedious data manipulation to go from the
+named-node graph representation as stored in the pdb file, to the index-based
+connection pairs. A similar technique to plot the graph is done in the
+:ref:`example_flight_graph`. Another example of graph plotting, showing a
+different technique to plot the graph, can be seen on
+:ref:`example_delaunay_graph`.
 
 To visualize the local atomic density, we use a gaussian splatter filter
 that builds a kernel density estimation of the continuous density field:
