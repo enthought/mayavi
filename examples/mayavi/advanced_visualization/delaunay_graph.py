@@ -218,7 +218,7 @@ if __name__ == '__main__':
 
     # Plot this with Mayavi
     graph_plot(x, y, z, start_idx, end_idx,
-                edge_data=z[start_idx],
+                edge_scalars=z[start_idx],
                 opacity=0.8,
                 colormap='summer',
                 line_width=4,
