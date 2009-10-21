@@ -22,6 +22,10 @@ glyph contains, and we look at the point id of vertex selected. Dividing
 the later by the former gives us the corresponding data point
 id.
 """
+# Author: Gael Varoquaux <gael dot varoquaux at normalesup.org> 
+# Copyright (c) 2009, Enthought, Inc.
+# License: BSD style.
+
 
 import numpy as np
 from enthought.mayavi import mlab 
@@ -123,5 +127,7 @@ mvt_picker = MvtPicker(figure, picker_callback)
 # Decrease the tolerance, so that we can more easily select a precise
 # point.
 picker.pointpicker.tolerance = 0.01
+
+mlab.title('Click on the red balls')
 
 mlab.show()
