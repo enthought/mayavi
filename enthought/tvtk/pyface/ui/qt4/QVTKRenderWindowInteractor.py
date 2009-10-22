@@ -395,10 +395,3 @@ def QVTKRenderWidgetConeExample():
 
 if __name__ == "__main__":
     QVTKRenderWidgetConeExample()
-
-    import gc
-    gc.collect()
-    gc.collect()
-    for obj in gc.get_objects():
-        if isinstance(obj, QVTKRenderWindowInteractor):
-            print obj
