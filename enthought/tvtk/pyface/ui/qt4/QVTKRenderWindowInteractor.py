@@ -32,6 +32,8 @@ import sys
 from PyQt4 import QtCore, QtGui
 import vtk
 
+from enthought.tvtk import messenger
+
 
 class QVTKRenderWindowInteractor(QtGui.QWidget):
 
@@ -169,11 +171,14 @@ class QVTKRenderWindowInteractor(QtGui.QWidget):
 
         self._Timer = QtCore.QTimer(self)
         self.connect(self._Timer, QtCore.SIGNAL('timeout()'), self.TimerEvent)
-
-        self._Iren.AddObserver('CreateTimerEvent', self.CreateTimer)
-        self._Iren.AddObserver('DestroyTimerEvent', self.DestroyTimer)
-        self._Iren.GetRenderWindow().AddObserver('CursorChangedEvent',
-                                                 self.CursorChangedEvent)
+        
+        self._Iren.AddObserver('CreateTimerEvent', messenger.send)
+        messenger.connect(self._Iren, 'CreateTimerEvent', self.CreateTimer)
+        self._Iren.AddObserver('DestroyTimerEvent', messenger.send)
+        messenger.connect(self._Iren, 'DestroyTimerEvent', self.DestroyTimer)
+        render_window = self._Iren.GetRenderWindow()
+        render_window.AddObserver('CursorChangedEvent', messenger.send)
+        messenger.connect(render_window, 'CursorChangedEvent', self.CursorChangedEvent)
 
     def __getattr__(self, attr):
         """Makes the object behave like a vtkGenericRenderWindowInteractor"""
@@ -390,3 +395,10 @@ def QVTKRenderWidgetConeExample():
 
 if __name__ == "__main__":
     QVTKRenderWidgetConeExample()
+
+    import gc
+    gc.collect()
+    gc.collect()
+    for obj in gc.get_objects():
+        if isinstance(obj, QVTKRenderWindowInteractor):
+            print obj
