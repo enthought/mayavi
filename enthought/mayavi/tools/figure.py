@@ -128,9 +128,10 @@ def clf(figure=None):
             scene = gcf()
         else:
             scene = figure
+        disable_render = scene.scene.disable_render
         scene.scene.disable_render = True
         scene.children[:] = []
-        scene.scene.disable_render = False
+        scene.scene.disable_render = disable_render
     except AttributeError:
         pass
     gc.collect()
