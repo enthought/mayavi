@@ -239,7 +239,7 @@ class TVTKScene(HasPrivateTraits):
         """ Adds a single actor or a tuple or list of actors to the
         renderer."""
         # Reset the zoom if this is the first actor.
-        reset_zoom = (len(self._renderer.actors) == 0)
+        reset_zoom = (len(self._renderer.actors) == 0 and len(self._renderer.volumes)==0)
         if hasattr(actors, '__iter__'):
             for actor in actors:
                 self._renderer.add_actor(actor)
