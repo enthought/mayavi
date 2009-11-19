@@ -774,8 +774,11 @@ class Mesh(Pipeline):
     the vertices of the surface. The connectivity between these points is
     implied by the connectivity on the arrays. 
 
-    For simple structures (such as orthogonal grids) prefer the surf function,
-    as it will create more efficient data structures."""
+    For simple structures (such as orthogonal grids) prefer the `surf` function,
+    as it will create more efficient data structures. For mesh defined by
+    triangles rather than regular implicit connectivity, see the 
+    `triangular_mesh` function.
+    """
 
     scale_mode = Trait('none', {'none':'data_scaling_off',
                                 'scalar':'scale_by_scalar',
