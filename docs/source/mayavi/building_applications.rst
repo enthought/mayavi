@@ -117,6 +117,10 @@ achieved with `self.scene.mlab.points3d(x, y, z, s)`.
     A full example with two embedded scenes is given on
     :ref:`example_multiple_mlab_scene_models`.
 
+    Another way of creating isolation between scene is to explicitely
+    insert them in different engines. This is demonstrated in 
+    :ref:`example_multiple_engines`
+
 Making the visualization live
 ..............................
 
@@ -217,6 +221,28 @@ A complete, runnable, code based on the above comments is given in the
 
     The :ref:`example_lorenz_ui` shows a good example of this situation.
 
+.. topic:: Learning by examples
+
+ Several full-featured examples can be used to learn more about how to
+ develop an application with visualization and data processing with Traits
+ and Mayavi:
+
+ * :ref:`example_lorenz_ui`: A didactic and simple example that shows 
+   how the Lorentz model can be integrated and visualized interactively 
+   while changing the model parameters.
+
+ * :ref:`example_mayavi_traits_ui`: An example showing how you can mimic
+   the UI of the Mayavi application with simple code using Traits.
+
+ * :ref:`example_multiple_engines`: An example showing how you can
+   isolate different scenes by affecting them to different engines.
+
+ * :ref:`example_coil_design_application`: A full-blown and elaborate
+   application enabling specification of a current-loop description for
+   a coil, and integration of the resulting magnetic field with real-time 
+   visualization of the field and the coil structure.
+
+
 Integrating in a WxPython application
 --------------------------------------
 
@@ -243,6 +269,8 @@ given:
     * :ref:`example_wx_mayavi_embed_in_notebook`: a more complexe example, 
       showing 2 different Mayavi views embedded in a Wx notebook.
 
+.. _integrating_pyqt:
+
 Integrating in a PyQt application
 ----------------------------------
 
@@ -267,5 +295,17 @@ And using this class::
     QtGui.qApp.exec_()
 
 
+For a full-blown example of embedding in Qt, see
+:ref:`example_qt_embedding`.
+
+.. warning::
+
+    On definition of the model (and thus previous to the start of the
+    event loop), Traits sets up some hooks on the main QApplication. As a
+    result if you instanciate a new one, using for instance::
+
+	app = QtGui.QApplication()
+
+    Your Traits application will not work.
 
 
