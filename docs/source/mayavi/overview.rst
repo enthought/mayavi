@@ -13,7 +13,7 @@ Introduction
 -------------
 
 Mayavi2_ seeks to provide easy and interactive visualization of 3D
-data.  It does this by the following:
+data, or 3D plotting.  It does this by the following:
 
     * an (optional) rich user interface with dialogs to interact with
       all data and objects in the visualization.
