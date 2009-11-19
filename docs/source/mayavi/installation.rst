@@ -278,6 +278,8 @@ providing the instructions):
       //Arguments passed to "python setup.py install ..." during installation.
       VTK_PYTHON_SETUP_ARGS:STRING=
 
+#. Run "cmake ../VTK" again.
+
 #. Run "export MACOSX_DEPLOYMENT_TARGET=10.6"
 
 #. Run "make -j 2"
