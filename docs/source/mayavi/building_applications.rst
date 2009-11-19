@@ -1,4 +1,6 @@
 
+.. _builing_applications:
+
 Building applications using Mayavi
 ===================================
 

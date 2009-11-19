@@ -244,6 +244,49 @@ will run.
 
 .. _installing_svn:
 
+Under Mac OSX Snow Leopard
+-------------------------------
+
+Under Mac OSX Snow Leopard, you may need to build VTK yourself. Here are
+instructions specific to Snow Leopard (thanks to Darren Dale for
+providing the instructions):
+
+#. Download the VTK tarball, unzip it, and make a build directory
+   (vtkbuild) next to the resulting VTK directory
+
+#. Then cd into vtkbuild and run "cmake ../VTK". Next, edit CMakeCache.txt 
+   (in vtkbuild) and set::
+
+      //Build Verdict with shared libraries.
+      BUILD_SHARED_LIBS:BOOL=ON
+
+      //Build architectures for OSX
+      CMAKE_OSX_ARCHITECTURES:STRING=x86_64
+
+      //Minimum OS X version to target for deployment (at runtime); newer
+      // APIs weak linked. Set to empty string for default value.
+      CMAKE_OSX_DEPLOYMENT_TARGET:STRING=10.6
+
+      //Build shared libraries with rpath.  This makes it easy to run
+      // executables from the build tree when using shared libraries,
+      // but removes install support.
+      VTK_USE_RPATH:BOOL=ON
+
+      //Wrap VTK classes into the Python language.
+      VTK_WRAP_PYTHON:BOOL=ON
+
+      //Arguments passed to "python setup.py install ..." during installation.
+      VTK_PYTHON_SETUP_ARGS:STRING=
+
+#. Run "export MACOSX_DEPLOYMENT_TARGET=10.6"
+
+#. Run "make -j 2"
+
+#. Run "sudo make install"
+
+#. After that, install Mayavi in the usual way.
+
+
 The bleeding edge: SVN
 ----------------------
 

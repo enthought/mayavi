@@ -86,7 +86,35 @@ following command in the root of the Mayavi source::
 
     svn diff > my_patch.patch
 
-Feel free to send us patches via the mailing list.  Thanks!
+Feel free to send us patches via the `mailing list <https://mail.enthought.com/mailman/listinfo/enthought-dev>`__.  Thanks!
+
+Improving the documentation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Documentation of a project is incredibly important. It also takes a lot
+of time to write and improve. You can easily help us with documentation.
+
+For that, you can check out only the subversion tree of Mayavi, using::
+
+  svn co http://svn.enthought.com/svn/enthought/Mayavi/trunk/ mayavi
+
+You will find the documentation sources in `docs/sources/mayavi`. The
+documentation is writen in `sphinx <http://sphinx.pocoo.org/>`__. It is
+easy to edit the `.rst` files to modify or extend the text. Once you have
+done your modifications, you can build the documentation using by
+running::
+
+    python setup.py build_docs
+
+in the base directory of your checkout. You will need 
+`sphinx <http://sphinx.pocoo.org/>`__ installed for that. The
+documentation is then built as an HTML documentation that you can find
+in the sub directory `build/docs/html/mayavi`. Once you are confortable
+with the modifications, just generate an SVN patch using::
+
+    svn diff > my_patch.patch 
+
+And send us the patch via the `mailing list <https://mail.enthought.com/mailman/listinfo/enthought-dev>`__.  Thanks!
 
 
 ..
