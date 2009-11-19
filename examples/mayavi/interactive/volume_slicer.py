@@ -28,6 +28,10 @@ on it is strongly simplified by turning off interaction, and choosing
 specific scene interactor styles. Indeed, non-technical users can be
 confused with too rich interaction.
 """
+# Author: Gael Varoquaux <gael.varoquaux@normalesup.org> 
+# Copyright (c) 2009, Enthought, Inc.
+# License: BSD Style.
+
 import numpy as np
 
 from enthought.traits.api import HasTraits, Instance, Array, \

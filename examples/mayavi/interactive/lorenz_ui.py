@@ -4,11 +4,14 @@ equations using mlab along with the z-nullcline.  It provides a simple
 UI where a user can change the parameters and the system of equations on
 the fly.  This primarily demonstrates how one can build powerful tools
 with a UI using Traits and Mayavi.
+
+For explanations and more examples of interactive application building
+with Mayavi, please refer to section :ref:`builing_applications`.
 """
 # Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
 # Copyright (c) 2008-2009, Enthought, Inc.
 # License: BSD Style.
-#from numpy import *
+
 import numpy
 import scipy
 
