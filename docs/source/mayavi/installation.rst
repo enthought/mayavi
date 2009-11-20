@@ -267,11 +267,6 @@ providing the instructions):
       // APIs weak linked. Set to empty string for default value.
       CMAKE_OSX_DEPLOYMENT_TARGET:STRING=10.6
 
-      //Build shared libraries with rpath.  This makes it easy to run
-      // executables from the build tree when using shared libraries,
-      // but removes install support.
-      VTK_USE_RPATH:BOOL=ON
-
       //Wrap VTK classes into the Python language.
       VTK_WRAP_PYTHON:BOOL=ON
 
@@ -280,11 +275,17 @@ providing the instructions):
 
 #. Run "cmake ../VTK" again.
 
-#. Run "export MACOSX_DEPLOYMENT_TARGET=10.6"
-
-#. Run "make -j 2"
+#. Run "make -j 2" for a single cpu system. "make -j 9" will compile
+   faster on an 8-core system.
 
 #. Run "sudo make install"
+
+#. Edit your ~/.profile and add the following line::
+
+      export DYLD_LIBRARY_PATH=${DYLD_LIBRARY_PATH}:/usr/local/lib/vtk-5.4
+
+#. Run "source ~/.profile" or open a new terminal so the DYLD_LIBRARY_PATH
+   environment variable is available.
 
 #. After that, install Mayavi in the usual way.
 
