@@ -126,6 +126,13 @@ pipeline.
 
 .. image:: images/pipeline_and_scene.jpg
 
+.. note::
+
+    A very useful feature of this dialog can be found by pressing the red
+    round button of the toolbar. This opens up a recorded that tracks the
+    changes made interactively to the visualization via the dialogs, and
+    generates valid lines of Python code.
+
 In addition, for every object returned by a mlab function,
 ``this_object.edit_traits()`` brings up a dialog that can be used to
 interactively edit the object's properties. If the dialog doesn't show up
