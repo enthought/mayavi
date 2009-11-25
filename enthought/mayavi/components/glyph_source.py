@@ -198,6 +198,8 @@ class GlyphSource(Component):
             tr_factor = g.height/2.0
         elif name == 'SphereSource':
             tr_factor = g.radius
+        else:
+            tr_factor = 1.
         # Translate the glyph
         if value == 'tail':
             if name == 'GlyphSource2D':
@@ -205,8 +207,8 @@ class GlyphSource(Component):
             elif name == 'ArrowSource':
                 pass
             elif name == 'CylinderSource':
-                g.center = 0,tr_factor, 0.0
-            else:
+                g.center = 0, tr_factor, 0.0
+            elif hasattr(g, 'center'):
                 g.center = tr_factor, 0.0, 0.0
         elif value == 'head':
             if name == 'GlyphSource2D':

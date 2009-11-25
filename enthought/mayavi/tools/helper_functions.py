@@ -1008,7 +1008,7 @@ class BarChart(Pipeline):
         gs = g.glyph.glyph_source
         # Use a cube source for glyphs.
         if not 'mode' in kwargs:
-            gs.glyph_source = gs.glyph_list[-1]
+            gs.glyph_source = gs.glyph_dict['cube_source']
         # Position the glyph tail on the point.
         gs.glyph_position = 'tail'
         gs.glyph_source.center = (0.0, 0.0, 0.5)
