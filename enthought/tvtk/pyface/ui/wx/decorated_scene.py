@@ -163,7 +163,7 @@ class DecoratedScene(Scene):
         determines what image type is saved.  The default is PNG.
         """
         if self._panel is not None:
-            wildcard = "PNG images (*.png)|*.png|All files (*.*)|*.*"
+            wildcard = "PNG images (*.png)|*.png|Determine by extension (*.*)|*.*"
             dialog = FileDialog(
                 parent = self._panel,
                 title = 'Save scene to image',
