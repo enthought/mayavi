@@ -1,28 +1,52 @@
 .. _data-structures-used-by-mayavi:
 
-Data structures used by Mayavi
+Data representation in Mayavi
 ==============================
 
 Describing data in three dimension in the general case is a complex
 problem. Mayavi helps you focus on your visualization work and not worry
 too much about the underlying data structures, for instance using mlab
 (see :ref:`simple-scripting-with-mlab`). We suggest you create sources
-for Mayavi using `mlab` or Mayavi sources when possible. However, if you
-want to create data with a specific structure for a more efficient
-visualization, it helps to understand the VTK data structures that Mayavi
-uses.
+for Mayavi using `mlab` or Mayavi sources when possible. However, it
+helps to understand the VTK data structures that Mayavi uses if you want
+to create data with a specific structure for a more efficient
+visualization, or if you want to extract the data from the Mayavi
+pipeline.
 
-VTK data structures
---------------------
+.. contents:: Outline 
+    :depth: 1
+    :local:
 
-Mayavi uses the VTK library for all its visualization needs. The data is
-exposed internally, by the sources, or at the output of the filters, as
-VTK datasets, described below. Understanding these structures is useful
-not only to manipulate them, but also to understand what happens when
-using filters to transform the data in the pipeline.
+____
 
-Caracteristics of a dataset
-.............................
+.. topic:: Mayavi data sources and VTK datasets
+
+    * When you load a file, or you expose data in Mayavi using one of the 
+      `mlab.pipeline` source functions (see :ref:`mlab_data_source`), you
+      create an object in the Mayavi pipeline that is attached to a
+      scene. This object is a Mayavi source, and serves to describe the
+      data and its properties to the Mayavi pipeline.
+
+    * The internal structures use to represent to data in 3D all across
+      Mayavi are VTK datasets, as described below.
+
+    One should not confuse VTK (or TVTK) `datasets` and Mayavi `data
+    sources`. There is a finite and small number of datasets. However,
+    many pipeline objects could be constructed to fit in the pipeline
+    below a scene and providing datasets to the pipeline.
+
+
+    
+
+Introduction to TVTK datasets
+-----------------------------
+
+Mayavi uses the VTK library for all its visualization needs, via TVTK
+(Traited VTK). The data is exposed internally, by the sources, or at the
+output of the filters, as VTK datasets, described below. Understanding
+these structures is useful not only to manipulate them, but also to
+understand what happens when using filters to transform the data in the
+pipeline.
 
 A dataset is defined by many different characteristics:
 
@@ -68,38 +92,232 @@ the operation is::
 
     vtk_array = numpy_array.T.ravel()
 
-Description of the different datasets
-......................................
 
-The 5 VTK structures used are the following (ordered by the cost of
+An complete list of the VTK datasets used by Mayavi is given `below
+<dissection_vtk_datasets>`_, after a tour of the Mayavi pipeline.
+
+The flow of data
+------------------
+
+As described :ref:`earlier <pipeline_model>`, Mayavi builds visualization by
+assembling pipelines, where the data is loaded in Mayavi by a `data
+source`, and it can be transformed by `filters` and visualized by
+`modules`.
+
+To retrieve the data displayed by Mayavi, to modify it via Python code,
+or to benefit from the data processing steps performed by the Mayavi
+filters, it can be useful to "open up" the Mayavi pipeline and understand
+how the data flows in it.
+
+Inside the Mayavi pipeline, the 3D data flowing between sources filters
+and modules is stored in VTK datasets. Each source or filter has an
+`outputs` attribute, which is a list of VTK `datasets` describing the
+data output by the object. 
+
+For example:
+  ::
+
+    >>> import numpy as np
+    >>> from enthought.mayavi import mlab
+    >>> data = np.random.random((10, 10, 10))
+    >>> iso = mlab.contour3d(data) 
+    
+  The parent of `iso` is its 'Colors and legend' node, the parent of 
+  which is the source feeding into `iso`::
+
+    >>> iso.parent.parent.outputs
+    [<tvtk_classes.image_data.ImageData object at 0xf08220c>]
+
+  Thus we can see that the Mayavi source created by `mlab.surf` exposes
+  an ImageData_ VTK dataset.
+
+.. currentmodule:: enthought.mayavi.tools
+
+.. note::
+
+    To retrieve the VTK datasets feeding in an arbitrary object, the mlab
+    function :func:`pipeline.get_vtk_src` may be useful. In the above
+    example::
+
+	>>> mlab.pipeline.get_vtk_src(iso)
+	[<tvtk_classes.image_data.ImageData object at 0xf08220c>]
+
+
+.. _retrieving_data:
+
+Retrieving the data from Mayavi pipelines
+------------------------------------------
+
+Probing data at given positions
+................................
+
+.. currentmodule:: enthought.mayavi.tools
+
+If you simply want to retrieve the data values described by a Mayavi
+object a given position in space, you can use the
+:func:`pipeline.probe_data` function (**warning** the `probe_data`
+function is new in Mayavi 3.4.0)
+
+For example, if you have a set of irregularly spaced data points with no
+connectivity information::
+
+    >>> x, y, z = np.random.random((3, 100))
+    >>> data = x**2 + y**2 + z**2
+    
+You can expose them as a Mayavi source of unconnected points::
+
+    >>> src = mlab.pipeline.scalar_scatter(x, y, z, data)
+
+and visualize these points for debugging::
+
+    >>> pts = mlab.pipeline.glyph(src, scale_mode='none',
+    ...					scale_factor=.1)
+
+The resulting data is not defined in the volume, but only at the given
+position: as there is no connectivity information, Mayavi cannot
+interpolate between the points::
+
+    >>> mlab.pipeline.probe_data(pts, .5, .5, .5)
+    array([ 0. ])
+
+To define volumetric data, you can use a Delaunay3D filter::
+
+    >>> field = mlab.pipeline.delaunay3d(src)
+
+Now you can probe the value of the volumetric data anywhere. It will be
+non zero in the convex hull of the points::
+
+    >>> # Probe in the center of the cloud of points
+    >>> mlab.pipeline.probe_data(field, .5, .5, .5)
+    array([ 0.78386768])
+    >>> # Probe on the initial points
+    >>> data_probed = mlab.pipeline.probe_data(field, x, y, z)
+    >>> np.allclose(data, data_probed)
+    True
+    >>> # Probe outside the cloud
+    >>> mlab.pipeline.probe_data(field, -.5, -.5, -.5)
+    array([ 0.])
+
+Inspecting the internals of the data structures
+................................................
+
+You may be interested in the data carried by the TVTK datasets themselves,
+rather than the values they represent, for instance to replicate them.
+For this, you can retrieve the TVTK datasets, and inspect them. 
+
+Extracting data points and values
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ The positions of all the points of a TVTK dataset can be accessed via its 
+ `points` attribute. Retrieving the dataset from the `field` object of
+ the previous example, we can view the data points::
+
+    >>> dataset = field.outputs[0]
+    >>> dataset.points
+    [(0.72227946564137335, 0.23729151639368518, 0.24443798107195291), ..., 
+    (0.13398528550831601, 0.80368395047618579, 0.31098842991116804)], length = 100
+
+ This is a TVTK array. For us, it is more useful to convert it to a numpy
+ array::
+
+    >>> points = dataset.points.to_array()
+    >>> points.shape
+    (100, 3)
+ 
+ To retrieve the original `x`, `y`, `z` positions of the data points
+ specified, we can transpose the array::
+
+    >>> x, y, z = points.T
+
+ The corresponding data values can be found in the `point_data.scalars`
+ attribute of the dataset, as the data is located on the points, and not 
+ in the cells, and it is scalar data::
+
+    >>> dataset.point_data.scalars.to_array().shape
+    >>> (100,)
+
+
+Extracting lines
+~~~~~~~~~~~~~~~~~
+
+ If we want to extract the edges of the Delaunay tessellation, we can
+ apply the ExtractEdges filter to the `field` from the previous example
+ and inspect its output::
+
+    >>> edges = mlab.pipeline.extract_edges(field)
+    >>> edges.outputs
+    [<tvtk_classes.poly_data.PolyData object at 0xf34e5fc>]
+
+ We can see that the output is a PolyData_ dataset. Looking at how these
+ are build (see PolyData_), we see that the connectivity information is
+ help in the `lines` attribute (that we convert to a numpy array using its
+ `.to_array()` method)::
+
+    >>> pd = edges.outputs[0]
+    >>> pd.lines.to_array()
+    array([ 2,  0,  1, ...,  2, 97, 18])
+
+ The way this array is build is a sequence of a length descriptor,
+ followed by the indices of the data points connected together in the
+ points array retrieved earlier. Here we have only sets of pairs of points
+ connected together: the array is an alternation of `2` followed by a pair
+ of indices.
+
+ A full example illustrating how to use the VTK Delaunay filter to extract
+ a graph is given in :ref:`example_delaunay_graph`.
+
+
+Headless use of Mayavi for the algorithms, without visualization
+..................................................................
+
+As you can see from the above example, it can be interesting to use 
+Mayavi just for the numerical algorithm operating on 3D data, as the
+Delaunay tessellation and interpolation demoed.
+
+To run such examples headless, simply create the source with the 
+keyword argument `figure=False`. As a result the sources will not be
+attached to any engine, but you will still be able to use filters, and to
+probe the data::
+
+    >>> src = mlab.pipeline.scalar_scatter(x, y, z, data, figure=False)
+
+
+.. _dissection_vtk_datasets:
+
+Dissection of the different TVTK datasets
+------------------------------------------
+
+The 5 TVTK structures used are the following (ordered by the cost of
 visualizing them).:
 
-================== ============= =========================== ============================================================
-VTK name            Connectivity  Suitable for                Required information
-================== ============= =========================== ============================================================
-ImageData           Implicit      Volumes and surfaces        3D data array and spacing along each axis
-RectilinearGrid     Implicit      Volumes and surfaces        3D data array and 1D array of spacing for each axis
-StructuredGrid      Implicit      Volumes and surfaces        3D data array and 3D position arrays for each axis
-PolyData            Explicit      Points, lines and surfaces  x, y, z, positions of vertices and arrays of surface Cells
-UnstructuredGrid    Explicit      Volumes and surfaces        x, y, z positions of vertices and arrays of volume Cells
-================== ============= =========================== ============================================================
+===================== ============= =========================== ============================================================
+VTK name              Connectivity  Suitable for                Required information
+===================== ============= =========================== ============================================================
+ImageData_            Implicit      Volumes and surfaces        3D data array and spacing along each axis
+RectilinearGrid_      Implicit      Volumes and surfaces        3D data array and 1D array of spacing for each axis
+StructuredGrid_       Implicit      Volumes and surfaces        3D data array and 3D position arrays for each axis
+PolyData_             Explicit      Points, lines and surfaces  x, y, z, positions of vertices and arrays of surface Cells
+UnstructuredGrid_     Explicit      Volumes and surfaces        x, y, z positions of vertices and arrays of volume Cells
+===================== ============= =========================== ============================================================
 
 .. _image_data: ImageData 
 
-:ImageData:
-  This dataset is made of data points positioned on an orthogonal grid,
-  with constant spacing along each axis. The position of the data points
-  are inferred from their position on the data array (implicit
-  positioning), an origin and a spacing between 2 slices along each axis.
-  In 2D, this can be understood as a raster image. This is the data
-  structure created by the `ArraySource` mayavi source, from a 3D numpy
-  array, as well as the `mlab.pipeline.scalar_field` and 
-  `mlab.pipeline.vector_field` factory functions, if the `x`, `y` and 
-  `z` arrays are not explicitely specified.
+ImageData
+..........
 
-  .. image:: image_data.jpg
+This dataset is made of data points positioned on an orthogonal grid,
+with constant spacing along each axis. The position of the data points
+are inferred from their position on the data array (implicit
+positioning), an origin and a spacing between 2 slices along each axis.
+In 2D, this can be understood as a raster image. This is the data
+structure created by the `ArraySource` mayavi source, from a 3D numpy
+array, as well as the `mlab.pipeline.scalar_field` and 
+`mlab.pipeline.vector_field` factory functions, if the `x`, `y` and 
+`z` arrays are not explicitely specified.
 
-  Creating a `tvtk.ImageData` object from numpy arrays::
+.. image:: image_data.jpg
+
+Creating a `tvtk.ImageData` object from numpy arrays::
   
     from enthought.tvtk.api import tvtk
     from numpy import random
@@ -111,15 +329,17 @@ UnstructuredGrid    Explicit      Volumes and surfaces        x, y, z positions 
 
 .. _rectilinear_grid: RectilinearGrid
 
-:RectilinearGrid:
-  This dataset is made of data points positioned on an orthogonal grid, 
-  with arbitrary spacing along the various axis. The position of the data
-  points are inferred from their position on the data array, an
-  origin and the list of spacings of each axis.
+RectilinearGrid
+................
 
-  .. image:: rectilinear_grid.jpg
+This dataset is made of data points positioned on an orthogonal grid, 
+with arbitrary spacing along the various axis. The position of the data
+points are inferred from their position on the data array, an
+origin and the list of spacings of each axis.
 
-  Creating a `tvtk.RectilinearGrid` object from numpy arrays::
+.. image:: rectilinear_grid.jpg
+
+Creating a `tvtk.RectilinearGrid` object from numpy arrays::
 
     from enthought.tvtk.api import tvtk
     from numpy import random, array
@@ -134,19 +354,21 @@ UnstructuredGrid    Explicit      Volumes and surfaces        x, y, z positions 
 
 .. _structured_grid: StructuredGrid
 
-:StructuredGrid:
-  This dataset is made of data points positioned on arbitrary grid: each
-  point is connected to its nearest neighbors on the data array. The
-  position of the data points are fully described by 1 coordinate
-  arrays, specifying x, y and z for each point. This is the dataset
-  created by the `mlab.pipeline.scalar_field` and 
-  `mlab.pipeline.vector_field` factory functions, if the `x`, `y` and 
-  `z` arrays are explicitely specified.
- 
+StructuredGrid
+...............
 
-  .. image:: structured_grid.jpg
+This dataset is made of data points positioned on arbitrary grid: each
+point is connected to its nearest neighbors on the data array. The
+position of the data points are fully described by 1 coordinate
+arrays, specifying x, y and z for each point. This is the dataset
+created by the `mlab.pipeline.scalar_field` and 
+`mlab.pipeline.vector_field` factory functions, if the `x`, `y` and 
+`z` arrays are explicitely specified.
 
-  Creating a `tvtk.StructuredGrid` object from numpy arrays::
+
+.. image:: structured_grid.jpg
+
+Creating a `tvtk.StructuredGrid` object from numpy arrays::
 
     from numpy import pi, cos, sin, empty, linspace, random
     from enthought.tvtk.api import tvtk
@@ -197,17 +419,19 @@ UnstructuredGrid    Explicit      Volumes and surfaces        x, y, z positions 
 
 .. _poly_data: 
 
-:PolyData:
-  This dataset is made of arbitrarily positioned data points that can
-  be connected to form lines, or grouped in polygons to from surfaces
-  (the polygons are broken up in triangles). Unlike the other datasets, 
-  this one cannot be used to describe volumetric data. The is the dataset
-  created by the `mlab.pipeline.scalar_scatter` and
-  `mlab.pipeline.vector_scatter` functions.
+PolyData
+.........
 
-  .. image:: poly_data.jpg
+This dataset is made of arbitrarily positioned data points that can
+be connected to form lines, or grouped in polygons to from surfaces
+(the polygons are broken up in triangles). Unlike the other datasets, 
+this one cannot be used to describe volumetric data. The is the dataset
+created by the `mlab.pipeline.scalar_scatter` and
+`mlab.pipeline.vector_scatter` functions.
 
-  Creating a `tvtk.PolyData` object from numpy arrays::
+.. image:: poly_data.jpg
+
+Creating a `tvtk.PolyData` object from numpy arrays::
 
     from numpy import array, random
     from enthought.tvtk.api import tvtk
@@ -228,16 +452,18 @@ UnstructuredGrid    Explicit      Volumes and surfaces        x, y, z positions 
 
 .. _unstructured_grid: UnstructuredGrid
 
-:UnstructuredGrid:
-  This dataset is the most general dataset of all. It is made of data 
-  points positioned arbitrarily. The connectivity between data points 
-  can be arbitrary (any number of neighbors). It is described by
-  specifying connectivity, defining volumetric cells made of adjacent 
-  data points.
+UnstructuredGrid
+..................
 
-  .. image:: unstructured_grid.jpg
+This dataset is the most general dataset of all. It is made of data 
+points positioned arbitrarily. The connectivity between data points 
+can be arbitrary (any number of neighbors). It is described by
+specifying connectivity, defining volumetric cells made of adjacent 
+data points.
 
-  Creating a `tvtk.UnstructuredGrid` object from numpy arrays::
+.. image:: unstructured_grid.jpg
+
+Creating a `tvtk.UnstructuredGrid` object from numpy arrays::
 
     from numpy import array, random
     from enthought.tvtk.api import tvtk
@@ -270,7 +496,7 @@ UnstructuredGrid    Explicit      Volumes and surfaces        x, y, z positions 
 
 
 External references
---------------------
+......................
 
 This section of the user guide will be improved later.  For now, the
 following two presentations best describe how one can create data
@@ -293,7 +519,7 @@ objects or data files for Mayavi and TVTK.
 
 
 Datasets creation examples
----------------------------
+...........................
 
 There are several examples in the mayavi sources that highlight the
 creation of the most important datasets from numpy arrays. Specifically
@@ -369,11 +595,12 @@ such::
     s = e.new_scene()
     e.add_source(src)
 
-In addition, if you are scripting using `mlab`, the `mlab.pipeline`
-factory functions creating filters and modules accept VTK datasets, in
-which case they are automatically inserted on the pipeline. A surface
-module could have been used to visualize the `ImageData` dataset as
-such::
+In addition, if you are scripting using :ref:`mlab
+<simple-scripting-with-mlab>`, the :ref:`mlab.pipeline
+<controlling-the-pipeline-with-mlab-scripts>` factory functions
+creating filters and modules accept VTK datasets, in which case they are
+automatically inserted on the pipeline. A surface module could have been
+used to visualize the `ImageData` dataset as such::
 
     from enthgouth.mayavi import mlab
     mlab.pipeline.surface(i)
@@ -385,6 +612,7 @@ advised. The `ArraySource` Mayavi will actually create an `ImageData`,
 but make sure you don't get the shape wrong, which can lead to a
 segmentation fault. An even easier way to create a data source for an
 `ImageData` is to use the `mlab.pipeline.scalar_field` function.
+
 
 
 ..

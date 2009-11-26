@@ -386,7 +386,8 @@ with documentation and examples.
 
     #########################################################################
     # The mlab.pipeline module, sources functions.
-    from enthought.mayavi.tools import pipeline, sources, tools
+    from enthought.mayavi.tools import pipeline, sources, tools, \
+                    probe_data
 
     pipeline_reference = ModuleReference(
             filename = 'mlab_pipeline_reference.rst',
@@ -409,10 +410,12 @@ pipeline than the main mlab interface. For usage examples, see
 :ref:`ontrolling-the-pipeline-with-mlab-scripts`.
 
 """, 
-            sub_modules = [sources.__name__, tools.__name__],
+            sub_modules = [sources.__name__, tools.__name__,
+                           probe_data.__name__],
             sub_filenames = ['mlab_pipeline_sources.rst', 
-                             'mlab_pipeline_tools.rst'], 
-            sub_modules_titles = ['Sources', 'Tools'], 
+                             'mlab_pipeline_tools.rst',
+                             'mlab_pipeline_data.rst'], 
+            sub_modules_titles = ['Sources', 'Tools', 'Data'], 
             misc_title = 'Filters, modules, other functions',
             misc_filename = 'mlab_pipeline_other_functions.rst',
             )

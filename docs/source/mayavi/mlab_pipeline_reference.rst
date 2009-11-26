@@ -19,5 +19,6 @@ pipeline than the main mlab interface. For usage examples, see
 
     auto/mlab_pipeline_sources.rst
     auto/mlab_pipeline_tools.rst
+    auto/mlab_pipeline_data.rst
     mlab_pipeline_modules.rst
 

@@ -152,6 +152,7 @@ As a user there are three primary ways to use Mayavi:
      More details on this are available in the 
      :ref:`advanced-scripting-with-mayavi` chapter.
 
+.. _pipeline_model:
 
 Scenes, data sources, and visualization modules: the pipeline model
 --------------------------------------------------------------------
