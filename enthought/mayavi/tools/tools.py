@@ -129,6 +129,10 @@ def get_vtk_src(mayavi_object, stop_at_filter=True):
         This function traverses the Mayavi pipeline. Thus the input
         object 'mayavi_object' should already be added to the pipeline.
     """
+    if isinstance(mayavi_object, tvtk.Object) \
+                        and hasattr(mayavi_object, 'output'):
+        # We have been passed a tvtk source
+        return mayavi_object
     if not (   hasattr(mayavi_object, 'parent') 
             or isinstance(mayavi_object, Source)):
         raise TypeError, 'Cannot find data source for given object %s' % (

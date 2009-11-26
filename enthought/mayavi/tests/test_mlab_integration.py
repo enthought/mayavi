@@ -204,6 +204,36 @@ class TestMlabNullEngineMisc(TestMlabNullEngine):
                     s1.module_manager.scalar_lut_manager.show_scalar_bar,
                     True)
 
+
+################################################################################
+# class `TestMlabPipeline`
+################################################################################
+class TestMlabPipeline(TestMlabNullEngine):
+    """ Test the pipeline functions.
+    """
+
+    def test_probe_data(self):
+        """ Test probe_data
+        """
+        x, y, z = np.mgrid[0:1:10j, 0:1:10j, 0:1:10j]
+        r = np.sqrt(x**2 + y**2 + z**2)
+        iso = mlab.contour3d(x, y, z, r)
+        x_, y_, z_ = np.random.random((3, 10, 4, 2))
+        r_ = mlab.pipeline.probe_data(iso, x_, y_, z_)
+        np.testing.assert_array_almost_equal(r_, 
+                                             np.sqrt(x_**2 + y_**2 + z_**2),
+                                             decimal=2)
+        flow = mlab.flow(x, y, z, x, y, z)
+        u_, v_, w_ = mlab.pipeline.probe_data(flow, x_, y_, z_,
+                                              type='vectors')
+        np.testing.assert_array_almost_equal(u_, x_,
+                                             decimal=2)
+        np.testing.assert_array_almost_equal(v_, y_,
+                                             decimal=2)
+        np.testing.assert_array_almost_equal(w_, z_,
+                                             decimal=3)
+
+
 ################################################################################
 # class `TestMlabHelperFunctions`
 ################################################################################
