@@ -10,13 +10,13 @@ Installation
 
     If you already have Mayavi up and running, you can skip this section.
 
-Up-to-date install instructions for the latest version of mayavi are
-always available from links at the Mayavi2_ wiki page.  The following
-will give you a good idea of the general installation procedure and a
-start on where to look for more information.
-
-
-.. _Mayavi2: https://svn.enthought.com/enthought/wiki/MayaVi
+..
+ Up-to-date install instructions for the latest version of Mayavi are
+ always available from links at the Mayavi2_ wiki page.  The following
+ will give you a good idea of the general installation procedure and a
+ start on where to look for more information.
+ 
+ .. _Mayavi2: https://svn.enthought.com/enthought/wiki/MayaVi
 
 Installing ready-made distributions
 ------------------------------------
@@ -27,7 +27,6 @@ Installing ready-made distributions
      Pythonxy, you need to check in 'ETS' in the installer, when
      selecting components. If you want to reduce the disk used by the
      Pythonxy, you can uncheck other components.
-
      
 :MacOSX:
     The full Python distribution EPD_ (that includes Mayavi) is also
@@ -51,7 +50,8 @@ Requirements for manual installs
 
 If you are not using full, ready-made, scientific Python distribution,
 you need to satistify Mayavi's requirements (for a step-by-step guide on
-installing all these under windows, see :ref:`below <step-by-step-window-installation>`.
+installing all these under windows, see :ref:`below
+<step-by-step-window-installation>`).
 
 Mayavi requires at the very minimum the following packages:
 
@@ -65,7 +65,7 @@ Mayavi requires at the very minimum the following packages:
       requirements.
 
 The following requirements are really optional but strongly recommended,
-especially if you are new to mayavi:
+especially if you are new to Mayavi:
 
     * wxPython_ 2.8.x
     * configobj_
@@ -156,8 +156,8 @@ installed automatically. If you run into trouble please check the
 `Enthought Install`_ pages.
 
 One common sources of problems during an install, is the presence of
-older versions of packages such as traits, mayavi, envisage or tvtk.
-Make sure that you clean you ``site-packages`` before installing a new
+older versions of packages such as Traits, Mayavi, Envisage or TVTK.
+Make sure that you clean your ``site-packages`` before installing a new
 version of Mayavi. Another problem often encountered is running into
 what is probably a bug of the build system that appears as a "sandbox
 violation". In this case, it can be useful to try the download and
@@ -188,7 +188,7 @@ dependencies.
 Step-by-step instructions to install with eggs under Windows
 ...............................................................
 
-If you do not whish to install a ready-made distribution under Windows,
+If you do not wish to install a ready-made distribution under Windows,
 these instructions (provided by Guillaume Duclaux) will guide you through
 the necessary steps to configure a Windows environment in which Mayavi
 will run.
