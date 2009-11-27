@@ -8,7 +8,7 @@ Controlling the camera.
 
 # Standard library imports.
 try:
-    import numpy
+    import numpy as np
 except ImportError, m:
     msg = '''%s\n%s\nPlease check your numpy installation. If you need numpy,
 'easy_install numpy' will install it.
@@ -21,6 +21,40 @@ from numpy import pi
 # We can't use gcf, as it creates a circular import in camera management
 # routines.
 from engine_manager import get_engine
+
+def world_to_display(x, y, z, figure=None):
+    """ Converts 3D world coordinates to screenshot pixel coordinates.
+
+        **Parameters**
+
+        :x: float
+            World x coordinate
+        :y: float
+            World y coordinate
+        :z: float
+            World z coordinate
+        :figure: Mayavi figure or None
+            The figure to use for the conversion. If None, the
+            current one is used.
+
+        **Output**
+        :x: float
+            Screenshot x coordinate
+        :y: float
+            Screenshot y coordinate
+    """
+    if figure is None:
+        f = get_engine().current_scene
+    else:
+        f = figure
+    if f is None or f.scene is None:
+        return 0, 0
+
+    f.scene._renderer.world_point = [x, y, z, 1]
+    f.scene._renderer.world_to_display()
+    x, y, _ = f.scene._renderer.display_point
+    return x, y
+
 
 def roll(roll=None):
     """ Sets or returns the absolute roll angle of the camera.
@@ -35,19 +69,81 @@ def roll(roll=None):
         get_engine().current_scene.render()
     return cam.get_roll()
 
+
 def rad2deg(rad):
     """Converts radians to degrees."""
     return rad*180./pi
+
 
 def deg2rad(deg):
     """Converts degrees to radians."""
     return deg*pi/180.
 
+
+def get_camera_direction(cam):
+    """ Return the polar coordinates for the camera position:
+        r, theta, phi, as well as the focal point.
+    """
+    fp = cam.focal_point
+    pos = cam.position
+    x, y, z = pos - fp
+    r = np.sqrt(x*x + y*y + z*z)
+    theta = np.arccos(z/r)
+    phi = np.arctan2(y, x)
+    return r, theta, phi, fp
+
+
+def get_outline_bounds(figure=None):
+    """ Return the pixel bounds of the objects visible on the figure.
+    """
+    if figure is None:
+        f = get_engine().current_scene
+    else:
+        f = figure
+    if f is None:
+        return
+    scene = f.scene
+    if scene is None:
+        return 1, 1, 1, 1
+
+    # Lazy import, to avoid circular imports
+    from figure import screenshot
+    red, green, blue = scene.background
+
+    # Use mode='rgba' to have float values, as with fig.scene.background
+    outline = screenshot(mode='rgba')
+    outline =  ( (outline[..., 0] != red)
+                +(outline[..., 1] != green)
+                +(outline[..., 2] != blue)
+                )
+    outline_x = outline.sum(axis=0)
+    outline_y = outline.sum(axis=1)
+    height, width = outline.shape
+    width = float(width)
+    height = float(height)
+
+    outline_x = np.where(outline_x)[0]
+    outline_y = np.where(outline_y)[0]
+
+    if len(outline_x) == 0:
+        x_min = x_max = .5*width
+    else:
+        x_min = outline_x.min()
+        x_max = outline_x.max()
+    if len(outline_y) == 0:
+        y_min = y_max = .5*height
+    else:
+        y_min = outline_y.min()
+        y_max = outline_y.max()
+    return x_min, x_max, y_min, y_max, width, height
+
+
 def view(azimuth=None, elevation=None, distance=None, focalpoint=None,
-            figure=None):
+            reset_roll=True, figure=None):
     """ Sets/Gets the view point for the camera. 
     
-     view(azimuth=None, elevation=None, distance=None, focalpoint=None)
+     view(azimuth=None, elevation=None, distance=None, focalpoint=None,
+          figure=None)
 
     If called with no arguments this returns the current view of the
     camera.  To understand how this function works imagine the surface
@@ -73,13 +169,23 @@ def view(azimuth=None, elevation=None, distance=None, focalpoint=None,
      :elevation: float, optional. The zenith angle (in degrees, 0-180),
         i.e. the angle subtended by the position vector and the z-axis. 
 
-     :distance: float, optional. A positive floating point number
-        representing the distance from the focal point to place the
-        camera.
+     :distance: float or 'auto', optional.
+        A positive floating point number representing the distance from 
+        the focal point to place the camera. New in Mayavi 3.4.0: if 
+        'auto' is passed, the distance is computed to have a best fit of
+        objects in the frame.
  
-     :focalpoint: array_like, optional.  An array of 3 floating point
-        numbers representing the focal point of the camera. 
+     :focalpoint: array_like or 'auto', optional.  
+        An array of 3 floating point numbers representing the focal point 
+        of the camera. New in Mayavi 3.4.0: if 'auto' is passed, the 
+        focal point is positioned at the center of all objects in the
+        scene.
 
+     :reset_roll: boolean, optional.
+        If True, the roll orientation of the camera is reset.
+
+     :figure: The Mayavi figure to operate on. If None is passed, the
+        current one is used.
 
     **Returns**:
 
@@ -125,16 +231,11 @@ def view(azimuth=None, elevation=None, distance=None, focalpoint=None,
 
     ren = scene.renderer
     cam = scene.camera
-    cos = numpy.cos
-    sin = numpy.sin
+    cos = np.cos
+    sin = np.sin
 
     # First compute the current state of the camera.
-    fp = cam.focal_point
-    pos = cam.position
-    x, y, z = pos - fp
-    r = numpy.sqrt(x*x + y*y + z*z)
-    theta = numpy.arccos(z/r)
-    phi = numpy.arctan2(y, x)
+    r, theta, phi, fp = get_camera_direction(cam)
 
     # If no arguments were specified, just return the current view.
     if azimuth is None and elevation is None and distance is None \
@@ -154,22 +255,15 @@ def view(azimuth=None, elevation=None, distance=None, focalpoint=None,
     # We compute the position of the camera on the surface of a sphere
     # centered at the center of the bounds, with radius chosen from the
     # bounds.
-    bounds = numpy.array(ren.compute_visible_prop_bounds())
-    if distance is not None:
+    bounds = np.array(ren.compute_visible_prop_bounds())
+    if distance is not None and not distance == 'auto':
         r = distance
     else:
         r = max(bounds[1::2] - bounds[::2])*2.0
 
     cen = (bounds[1::2] + bounds[::2])*0.5
-    if focalpoint is not None:
-        cen = numpy.asarray(focalpoint)
-
-    # Now calculate the view_up vector of the camera.  If the view up is
-    # close to the 'z' axis, the view plane normal is parallel to the
-    # camera which is unacceptable, so we use a different view up.
-    view_up = [0, 0, 1]
-    if abs(elevation) < 5. or abs(elevation) > 175.:
-        view_up = [sin(phi), cos(phi), 0]
+    if focalpoint is not None and not focalpoint == 'auto':
+        cen = np.asarray(focalpoint)
 
     # Find camera position.
     x = r*cos(phi)*sin(theta)
@@ -178,12 +272,47 @@ def view(azimuth=None, elevation=None, distance=None, focalpoint=None,
 
     # Now setup the view.
     cam.focal_point = cen
-    cam.view_up = view_up
     cam.position = cen + [x,y,z]
     cam.compute_view_plane_normal()
     ren.reset_camera_clipping_range()
+
+    if reset_roll:
+        # Now calculate the view_up vector of the camera.  If the view up is
+        # close to the 'z' axis, the view plane normal is parallel to the
+        # camera which is unacceptable, so we use a different view up.
+        view_up = [0, 0, 1]
+        if abs(elevation) < 5. or abs(elevation) > 175.:
+            view_up = [sin(phi), cos(phi), 0]
+        cam.view_up = view_up
+
+    if distance == 'auto':
+        # Reset the zoom, to have the full extents:
+        scene.reset_zoom()
+        x_min, x_max, y_min, y_max, w, h = get_outline_bounds(figure=figure)
+        x_focus, y_focus = world_to_display(cen[0], cen[1], cen[2],
+                                            figure=figure)
+
+        ratio = 1.1*max((x_focus - x_min)/x_focus,
+                        (x_max - x_focus)/(w - x_focus),
+                        (y_focus - y_min)/y_focus,
+                        (y_max - y_focus)/(h - y_focus),
+                       )
+
+        distance = get_camera_direction(cam)[0]
+        r = distance*ratio
+        # Reset the camera position.
+        x = r*cos(phi)*sin(theta)
+        y = r*sin(phi)*sin(theta)
+        z = r*cos(theta)
+
+        # Now setup the view.
+        cam.position = cen + [x,y,z]
+        cam.compute_view_plane_normal()
+        ren.reset_camera_clipping_range()
+
     scene.render()
     
+
 def move(forward=None, right=None, up=None):
     """ Translates the camera and focal point together. 
     
@@ -264,14 +393,14 @@ def move(forward=None, right=None, up=None):
         return cam.position,cam.focal_point
     
     # vector to offset the camera loc and focal point
-    v = numpy.zeros(3) 
+    v = np.zeros(3) 
     
     # view plane vetor points behind viewing direction, so we invert it
     yhat = -1*cam.view_plane_normal 
     zhat = cam.view_up
     
     if forward is not None:
-        xhat = numpy.cross(yhat,zhat)
+        xhat = np.cross(yhat,zhat)
         v += forward*yhat
         
     if right is not None:
