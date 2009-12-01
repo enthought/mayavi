@@ -1,7 +1,7 @@
 .. _simple-scripting-with-mlab:
 
-``mlab``: scripting for 3D plotting
-=====================================
+``mlab``: Python scripting for 3D plotting
+============================================
 
 .. topic:: Section summary
 
