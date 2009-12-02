@@ -6,6 +6,8 @@ Case studies of some visualizations
 Visualizing volumetric scalar data
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+.. currentmodule:: enthought.mayavi.mlab
+
 There are three main ways of visualizing a 3D scalar field. Given the
 following field::
 
@@ -26,6 +28,8 @@ following field::
     The problem with this method that outer iso-surfaces tend to hide inner 
     ones. As a result, quite often only one iso-surface can be visible.
 
+    .. currentmodule:: enthought.mayavi.tools.pipeline
+
 :Volume rendering:
     Volume rendering is an advanced technique in which each voxel is
     given a partly transparent color. This can be achieved with
@@ -36,13 +40,21 @@ following field::
 
     |volumetric_volume|
 
+    For such a visualization, tweaking the opacity transfer function is
+    critical to achieving a good effect. Typically, it can be useful to
+    limit the lower and upper values to the 20 and 80 percentiles of the
+    data, in order to have a reasonnable fraction of the volume
+    transparent::
+
+	mlab.pipeline.volume(mlab.pipeline.scalar_field(s), vmin=0, vmax=0.8)
+
+    |volumetric_volume_tweaked|
+
     It is useful to open the module's dialog (eg through the pipeline
     interface, or using it's `edit_traits()` method) and tweak the color
     transfert function to render transparent the low-intensities regions
     of the image. **For this module, the LUT as defined in the `Colors and
     legends` node are not used**
-
-    |volumetric_volume_tweaked|
 
     The limitations of volume rendering is that, while it is often very
     pretty, it can be difficult to analysis the details of the field with
@@ -111,6 +123,8 @@ Visualizing a vector field
 .. Parameters used for the images:
     mlab.figure(1, fgcolor=(0., 0., 0.), bgcolor=(1, 1, 1), size=(349, 349))
     mlab.view(60, 90, 45.8, (9.5, 11.1, 10.4))
+
+.. currentmodule:: enthought.mayavi.mlab
 
 A vector field, ie vectors continuously defined in a volume, can be
 difficult to visualize, as it contains a lot of information. Let us
@@ -181,8 +195,8 @@ sampled on a grid, `u`, `v`, `w`::
     have an interesting meaning. For instance the can be interpreted as
     trajectories in hydrodynamics, or field lines in electro-magnetism.
     We can display the flow lines originating for a certain seed surface
-    using the `streamline` module, or the mlab `flow` function, which
-    calls it::
+    using the `streamline` module, or the mlab :func:`flow` function, 
+    which relies on `streamline` internally::
 
         flow = mlab.flow(u, v, w, seed_scale=1,
                                   seed_resolution=5,

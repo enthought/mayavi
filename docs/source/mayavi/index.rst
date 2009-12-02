@@ -53,7 +53,7 @@ scientific data visualization and 3D plotting tool in Python.
                 understanding and using the Mayavi application</span></p>
     </td></tr><tr><td width="50%">
       <p class="biglink"><a class="biglink" href="mlab.html">
-        Scripting for 3D plotting</a><br/>
+        Python scripting for 3D plotting</a><br/>
          <span class="linkdescr">the simple scripting API to Mayavi</span></p>
     </td></tr><tr><td width="50%">
       <p class="biglink"><a class="biglink" href="auto/examples.html">
