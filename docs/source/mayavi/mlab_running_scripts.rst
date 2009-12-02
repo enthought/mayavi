@@ -13,19 +13,18 @@ or more figures and allow the user to interact with them.
 Using mlab interactively
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Using `IPython`_ mlab instructions can be run interactively, or in
-scripts using `IPython`_'s ``%run`` command::
+Using IPython_, mlab instructions can be run interactively, or in
+scripts using IPython_'s ``%run`` command::
 
     In [1]: %run my_script
 
-You need to start `IPython`_ with the `-wthread` option (when installed
+You need to start IPython_ with the `-wthread` option (when installed
 with `EPD`_, the `pylab` start-menu link does this for you). In this
 environment, the plotting commands are interactive: they have an
 immediate effect on the figure, alleviating the need to use the
 :func:`show` function. 
 
 .. _EPD: http://www.enthought.com/products/epd.php
-.. _IPython: http://ipython.scipy.org/
 
 Mlab can also be used interactively in the Python shell of the mayavi2
 application, or in any interactive Python shell of wxPython-based
@@ -60,7 +59,7 @@ you can change you default matplotlib backend, by editing the
 
     backend     : WXAgg
 
-.. note:: Capturing mlab plots to integrate in pylab
+.. topic:: Capturing mlab plots to integrate in pylab
 
     Starting from Mayavi version 3.4.0, the mlab :func:`screenshot` can
     be used to take a screenshot of the current figure, to integrate in a

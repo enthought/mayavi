@@ -68,7 +68,7 @@ view point obtained interactively can be stored an reset using::
         camera = f.scene.camera
         camera.yaw(45)
 
-   Unlike the :func:`mlab.view` and :func:`mlab.roll` function, the angles
+   Unlike the :func:`view` and :func:`roll` function, the angles
    are incremental, and not absolute.
 
 .. topic:: Modifying zoom and view angle
@@ -77,7 +77,8 @@ view point obtained interactively can be stored an reset using::
    its view angle (attributes 'position', 'focal_point', 'view_angle').
    The camera method 'zoom' changes the view angle incrementally by the 
    specify ratio, where as the method 'dolly' translates the camera along
-   its axis while keeping the focal point constant.
+   its axis while keeping the focal point constant. The :func:`move`
+   function can also be useful in these regards.
 
 ..
    Local Variables:

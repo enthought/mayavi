@@ -93,6 +93,21 @@ Adding color or size variations
   data can be extract to a scalar component that can be visualized using
   iso-surfaces with the `ExtractVectorNorm` filter.
 
+:Displaying more than one quantity:
+  You may want to display color related to one scalar quantity while
+  using a second for the iso-contours, or the elevation. This is possible 
+  but requires a bit of work: see :ref:`example_atomic_orbital`.
+
+  If you simply want to display points with a size given by one quantity,
+  and a color by a second, you can use a simple trick: add the size
+  information using the norm of vectors, add the color information using
+  scalars, create a :func:`quiver3d` plot choosing the glyphs to symetrix
+  glyphs, and use scalars to represent the color::
+
+    x, y, z, s, c = np.random.random((5, 10))
+    pts = mlab.quiver3d(x, y, z, s, s, s, scalars=c, mode='sphere')
+    pts.glyph.color_mode = 'color_by_scalar'
+
 
 Changing the scale and position of objects
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -104,7 +119,7 @@ you are using this functionality, it can be useful to pass the same
 extents to other modules visualizing the same data. If you don't, they
 will not share the same displacement and scale.
 
-The :func:`surf`, :func:`contour_surf`, and `bar_chart` functions, which
+The :func:`surf`, :func:`contour_surf`, and :func:`barchart` functions, which
 display 2D arrays by converting the values in height, also take a
 `warp_scale` parameter, to control the vertical scaling.
 
@@ -129,7 +144,7 @@ pipeline.
 .. note::
 
     A very useful feature of this dialog can be found by pressing the red
-    round button of the toolbar. This opens up a recorded that tracks the
+    round button of the toolbar. This opens up a recorder that tracks the
     changes made interactively to the visualization via the dialogs, and
     generates valid lines of Python code.
 

@@ -44,6 +44,8 @@ e = mlab.pipeline.extract_vector_components(src)
 e.component = 'z-component'
 zc = mlab.pipeline.iso_surface(e, opacity=0.5, contours=[0,],
             color=(0.6, 1, 0.2))
+# When using transparency, hiding 'backface' triangles often gives better
+# results
 zc.actor.property.backface_culling = True
 
 # A nice view of the plot.

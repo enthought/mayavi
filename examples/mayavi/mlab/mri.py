@@ -12,6 +12,8 @@ Then we display two cut planes to show the raw MRI data itself.
 Finally we display the outer surface, but we restrict it to volume of
 interest to leave a cut for the cut planes.
 
+For an example of feature extraction from MRI data using Mayavi and vtk,
+see :ref:`example_tvtk_segmentation`.
 """
 
 ### Download the data, if not already on disk ##################################
