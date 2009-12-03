@@ -8,8 +8,8 @@ ImagePlaneWIdget module.
 
 ImageCursor3D is one example among many of the use of the UserDefined, which
 allows to use TVTK filters that are not. See :ref:`using_userdefined_filter`
-for more details. Also, another example using the UserDefined filter is
-provided in :ref:`example_mri`. 
+for more details. Also, other examples using the UserDefined filter are
+provided in :ref:`example_mri` and :ref:`example_tvtk_segmentation`.
 
 Selecting the UserDefined filter in the Mayavi pipeline is a convenient
 way to look for additional filters. This pops up a dialog called `TVTK

@@ -353,16 +353,16 @@ the example and it should print out the directory.
 Scripting Mayavi without using Envisage
 ----------------------------------------
 
-The example ``examples/standalone.py`` demonstrates how one can use
-Mayavi without using Envisage.  This is useful when you want to minimize
-dependencies.  ``examples/offscreen.py`` demonstrates how to use Mayavi
-without the envisage UI or even a traits UI (i.e. with a pure TVTK
+The :ref:`example_standalone` demonstrates how one can use the core
+Mayavi API without using Envisage.  This is useful when you want to
+minimize dependencies.  :ref:`example_offscreen` demonstrates how to use
+Mayavi without the envisage UI or even a traits UI (i.e. with a pure TVTK
 window) and do off screen rendering.  
 
 Computing in a thread
 ----------------------
 
-``examples/compute_in_thread.py`` demonstrates how to visualize a 2D
+:ref:`example_compute_in_thread` demonstrates how to visualize a 2D
 numpy array and visualize it as image data using a few modules.  It also
 shows how one can do a computation in another thread and update the
 Mayavi pipeline once the computation is done.  This allows a user to
@@ -377,7 +377,7 @@ Sometimes you have a separate computational process that generates data
 suitable for visualization.  You'd like Mayavi to visualize the data but
 automatically update the data when the data file is updated by the
 computation.  This is easily achieved by polling the data file and
-checking if it has been modified.  The ``examples/poll_file.py``
+checking if it has been modified.  The :ref:`example_poll_file`
 demonstrates this.  To see it in action will require that you edit the
 scalar data in the ``examples/data/heart.vtk`` data file.  
 
@@ -501,6 +501,11 @@ For more details check the documentation of the :func:`animate` decorator
 available in the :ref:`mlab-reference`. For an example using it,
 alongside with the `visual` handy for object-movement animation, see
 :ref:`example_mlab_visual`.
+
+.. note::
+
+    If you want to change the data of an object in an animation, see
+    :ref:`mlab-animating-data`
 
 
 Animating a series of images
@@ -656,13 +661,25 @@ the parametric surface generated.  Note the specification of the ``-f
 UserDefined:GeometryFilter``.  This data is then cleaned using the
 ``tvtk.CleanPolyData`` filter.
 
-Under mlab, the `Userdefined` can be used to wrap eg a `GeometryFilter`
-VTK filter with::
+Under :ref:`mlab <simple-scripting-with-mlab>`, the `Userdefined` can be
+used to wrap eg a `GeometryFilter` VTK filter with::
 
     filtered_obj = mlab.pipeline.user_defined(obj, filter='GeometryFilter')
 
-The :ref:`example_cursor` gives a full example of using the UserDefined
-curser.
+With :ref:`mlab <simple-scripting-with-mlab>`, the `user_defined`
+function can either take as a filter argument the name of the VTK filter
+to be used, or an already-instanciated instance of the filter.
+
+.. note::
+
+    With the `UserDefined` filter, as with most Mayavi filter, the raw
+    TVTK object can be accessed as the `filter` attribute of the Mayavi
+    filter object.
+
+The :ref:`example_image_cursor_filter` gives a full example of using the
+UserDefined filter. The :ref:`example_tvtk_segmentation` is a full
+example of building a complex VTK pipeline with a heavy use of the
+UserDefined filter.
 
 .. _sharing_data_between_scenes:
 
@@ -674,17 +691,20 @@ will have to create different Mayavi data sources, as a data source can
 belong on to one scene. However, this does not mean that you need to copy
 the data, or recreat the source from scratch. The trick is to create a
 second Mayavi data source pointing to the same underlying VTK dataset,
-and attach it to another scene. 
+and attach it to another scene (see :ref:`data-structures-used-by-mayavi`
+for the difference between a Mayavi source and a VTK dataset).
 
 Using mlab
 ~~~~~~~~~~~~
 
-Every visualization object returned by mlab as a `mlab_source` attribute,
-which exposes the VTK data source as `dataset`. In addition, the pipeline
-functions for adding modules know how to use raw VTK datasets. Thus
-exposing the dataset in a new figure can simply by done by feeding the
-`mlab_source.dataset` attribute of a visualization object created by
-mlab to an `mlab.pipeline` function::
+Every visualization object returned by :ref:`mlab
+<simple-scripting-with-mlab>` has a `mlab_source` attribute, which
+exposes the VTK dataset as `dataset`. In addition, the :ref:`mlab
+pipeline <controlling-the-pipeline-with-mlab-scripts>` functions for
+adding modules know how to use raw VTK datasets. Thus exposing the
+dataset in a new figure can simply by done by feeding the
+`mlab_source.dataset` attribute of a visualization object created by mlab
+to an `mlab.pipeline` function::
 
     from enthought.mayavi import mlab
     ctr = mlab.test_contour3d()
