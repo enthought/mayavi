@@ -79,7 +79,7 @@ engineering.
 :Explicitly-connected sources:
     :func:`line_source`, :func:`triangular_mesh_source`
 
-All the `mab` source factories are functions that take numpy arrays and
+All the `mlab` source factories are functions that take numpy arrays and
 return the Mayavi source object that was added to the pipeline. However,
 the implicitely-connected sources require well-shaped arrays as
 arguments: the data is supposed to lie on a regular, orthogonal, grid of
