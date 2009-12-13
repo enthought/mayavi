@@ -131,6 +131,7 @@ def clf(figure=None):
         disable_render = scene.scene.disable_render
         scene.scene.disable_render = True
         scene.children[:] = []
+        scene._mouse_pick_dispatcher.clear_callbacks()
         scene.scene.disable_render = disable_render
     except AttributeError:
         pass

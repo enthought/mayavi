@@ -15,7 +15,6 @@ from enthought.mayavi.core.base import Base
 from enthought.mayavi.core.source import Source
 from enthought.mayavi.core.common import handle_children_state, exception
 from enthought.mayavi.core.adder_node import SourceAdderNode
-from enthought.mayavi.preferences.api import preference_manager
 
 ######################################################################
 # `Scene` class.
@@ -52,6 +51,11 @@ class Scene(Base):
     # The adder node dialog class
     _adder_node_class = SourceAdderNode
 
+    # The dispatch, to register callbacks on mouse pick
+    _mouse_pick_dispatcher = Instance(
+        'enthought.mayavi.core.mouse_pick_dispatcher.MousePickDispatcher', 
+        record=False)
+
     ######################################################################
     # `object` interface
     ######################################################################
@@ -59,6 +63,7 @@ class Scene(Base):
         # Base removes the scene, but we need to save it!
         d = super(Scene, self).__get_pure_state__()
         d['scene'] = self.scene
+        d.pop('_mouse_pick_dispatcher', None)
         return d
 
     def __set_pure_state__(self, state):
@@ -66,6 +71,46 @@ class Scene(Base):
         # Now set our complete state.  Doing the scene last ensures
         # that the camera view is set right.
         set_state(self, state, last=['scene'])
+
+    ######################################################################
+    # `Scene` interface
+    ######################################################################
+
+    def on_mouse_pick(self, callback, type='point', button='Left', 
+                            remove=False):
+        """ Add a picking callback on mouse click.
+
+            When the mouse button is press, object picking is called, and
+            the given callback is invoked with the resulting pick
+            as an argument.
+
+            **Keyword arguments**
+
+            :type: 'point', 'cell', or 'world'
+                The picker type used for picking.
+            :button: 'Left', 'Middle', or 'Right'
+                The mouse button triggering the picking event.
+            :remove: boolean
+                If remove is True, the callback is removed from the
+                list of callbacks.
+
+            **Returns**
+            picker: a tvtk picker
+                The picker that will be used to do the picking.
+
+            **Notes**
+
+            The callback must accept one argument: the TVTK picker.
+
+            The same callback can be added multiple times.
+        """
+        key = (callback, type, button)
+        if remove:
+            self._mouse_pick_dispatcher.callbacks.remove(key)
+        else:
+            self._mouse_pick_dispatcher.callbacks.append(key)
+        return self._mouse_pick_dispatcher._active_pickers[type]
+
 
     ######################################################################
     # `Base` interface
@@ -174,3 +219,7 @@ class Scene(Base):
         from enthought.mayavi.core.traits_menu import SourceMenuHelper
         return SourceMenuHelper(object=self)
 
+    def __mouse_pick_dispatcher_default(self):
+        from enthought.mayavi.core.mouse_pick_dispatcher import \
+                        MousePickDispatcher
+        return MousePickDispatcher(scene=self)
