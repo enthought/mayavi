@@ -29,7 +29,7 @@ def probe_data(mayavi_object, x, y, z, type='scalars', location='points'):
 
         **Returns**
         
-        The values of the scalar data at the given point, as an ndarray
+        The values of the data at the given point, as an ndarray
         (or multiple arrays, in the case of vectors or tensors) of the 
         same shape as x, y, and z.
     """
