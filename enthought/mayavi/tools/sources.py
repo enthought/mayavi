@@ -7,9 +7,11 @@ Data sources classes and their associated functions for mlab.
 # Copyright (c) 2007-2009, Enthought, Inc. 
 # License: BSD Style.
 
+import operator
+
 import numpy as np
 
-from enthought.traits.api import (HasTraits, Instance, Array, Either,
+from enthought.traits.api import (HasTraits, Instance, CArray, Either,
             Bool, on_trait_change, NO_COMPARE)
 from enthought.tvtk.api import tvtk
 from enthought.tvtk.common import camel2enthought
@@ -24,6 +26,16 @@ __all__ = [ 'vector_scatter', 'vector_field', 'scalar_scatter',
     'scalar_field', 'line_source', 'array2d_source', 'grid_source',
     'open', 'triangular_mesh_source', 'vertical_vectors_source',
 ]
+
+################################################################################
+# A subclass of CArray that will accept floats and do a np.atleast_1d
+################################################################################
+class CArrayOrNumber(CArray):
+
+    def validate( self, object, name, value):
+        if operator.isNumberType(value):
+            value = np.atleast_1d(value)
+        return CArray.validate(self, object, name, value)
 
 
 ################################################################################
@@ -112,7 +124,9 @@ class MlabSource(HasTraits):
         ds.mlab_source = self
 
 
-ArrayOrNone = Either(None, Array, comparison_mode=NO_COMPARE)
+ArrayOrNone = Either(None, CArray, comparison_mode=NO_COMPARE)
+ArrayNumberOrNone = Either(None, CArrayOrNumber, comparison_mode=NO_COMPARE)
+
 
 ################################################################################
 # `MGlyphSource` class.
@@ -124,18 +138,18 @@ class MGlyphSource(MlabSource):
     """
 
     # The x, y, z and points of the glyphs.
-    x = ArrayOrNone
-    y = ArrayOrNone
-    z = ArrayOrNone
-    points = ArrayOrNone
+    x       = ArrayNumberOrNone
+    y       = ArrayNumberOrNone
+    z       = ArrayNumberOrNone
+    points  = ArrayOrNone
 
     # The scalars shown on the glyphs.
-    scalars = ArrayOrNone
+    scalars = ArrayNumberOrNone
 
     # The u, v, w components of the vector and the vectors.
-    u = ArrayOrNone
-    v = ArrayOrNone
-    w = ArrayOrNone
+    u = ArrayNumberOrNone
+    v = ArrayNumberOrNone
+    w = ArrayNumberOrNone
     vectors = ArrayOrNone
 
     ######################################################################
@@ -143,6 +157,10 @@ class MGlyphSource(MlabSource):
     ######################################################################
     def reset(self, **traits):
         """Creates the dataset afresh or resets existing data source."""
+        # First convert numbers to arrays.
+        for name in ('x', 'y', 'z', 'u', 'v', 'w', 'scalars'):
+            if name in traits and traits[name] is not None:
+                traits[name] = np.atleast_1d(traits[name])
 
         # First set the attributes without really doing anything since
         # the notification handlers are not called.
@@ -152,6 +170,9 @@ class MGlyphSource(MlabSource):
         scalars = self.scalars
         points = self.points
         x, y, z = self.x, self.y, self.z
+        x = np.atleast_1d(x)
+        y = np.atleast_1d(y)
+        z = np.atleast_1d(z)
       
         if 'points' in traits: 
             x=points[:,0].ravel()
@@ -166,11 +187,15 @@ class MGlyphSource(MlabSource):
             
     
         u, v, w = self.u, self.v, self.w
-        if u is not None and len(u) > 0:
-            vectors = np.c_[u.ravel(), v.ravel(),
-                               w.ravel()].ravel()
-            vectors.shape = (vectors.size/3, 3)
-            self.set(vectors=vectors, trait_change_notify=False)
+        if u is not None: 
+            u = np.atleast_1d(u)
+            v = np.atleast_1d(v)
+            w = np.atleast_1d(w)
+            if len(u) > 0:
+                vectors = np.c_[u.ravel(), v.ravel(),
+                                w.ravel()].ravel()
+                vectors.shape = (vectors.size/3, 3)
+                self.set(vectors=vectors, trait_change_notify=False)
 
         if 'vectors' in traits:
             u=vectors[:,0].ravel()
@@ -188,8 +213,10 @@ class MGlyphSource(MlabSource):
 
         if vectors is not None and len(vectors) > 0:         
             assert len(points) == len(vectors)           
-        if scalars is not None and len(scalars) > 0:
-            assert len(points) == len(scalars)
+        if scalars is not None:
+            scalars = np.atleast_1d(scalars)
+            if len(scalars) > 0:
+                assert len(points) == len(scalars)
         
         # Create the dataset.
         polys = np.arange(0, len(points), 1, 'l')
@@ -215,36 +242,48 @@ class MGlyphSource(MlabSource):
     # Non-public interface.
     ######################################################################
     def _x_changed(self, x):
+        x = np.atleast_1d(x)
         self.points[:,0] = x
         self.update()
 
     def _y_changed(self, y):
+        y = np.atleast_1d(y)
         self.points[:,1] = y
         self.update()
     
     def _z_changed(self, z):
+        z = np.atleast_1d(z)
         self.points[:,2] = z
         self.update()
 
     def _u_changed(self, u):
+        u = np.atleast_1d(u)
         self.vectors[:,0] = u
         self.update()
 
     def _v_changed(self, v):
+        v = np.atleast_1d(v)
         self.vectors[:,1] = v
         self.update()
     
     def _w_changed(self, w):
+        w = np.atleast_1d(w)
         self.vectors[:,2] = w 
         self.update()
 
     def _points_changed(self, p):
+        p = np.atleast_2d(p)
         self.dataset.points = p
         self.update()
 
     def _scalars_changed(self, s):
-        self.dataset.point_data.scalars = s
-        self.dataset.point_data.scalars.name = 'scalars'
+        if s is None:
+            self.dataset.point_data.scalars = None
+            self.dataset.point_data.remove_array('scalars')
+        else:
+            s = np.atleast_1d(s)
+            self.dataset.point_data.scalars = s
+            self.dataset.point_data.scalars.name = 'scalars'
         self.update()
 
     def _vectors_changed(self, v):
