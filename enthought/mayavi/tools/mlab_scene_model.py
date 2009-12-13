@@ -4,8 +4,6 @@
 # Copyright (c) 2007, Enthought, Inc.
 # License: BSD Style.
 
-import functools
-
 from enthought.traits.api import Instance, Property
 from enthought.tvtk.pyface.scene_model import SceneModel
 from enthought.mayavi.core.engine import Engine
