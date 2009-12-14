@@ -71,18 +71,6 @@ class TestMousePickerDispatcher(unittest.TestCase):
         self.assertTrue(dispatcher._mouse_mvt_callback_nb)
         self.assertTrue('Left' in dispatcher._mouse_press_callback_nbs)
         self.assertTrue('Left' in dispatcher._mouse_release_callback_nbs)
-        interactor_callbacks = frozenset([i for i in range(100)
-                                    if self.s.scene.interactor.has_observer(i)
-                                ])
-
-        # Check that only those observers were established
-        self.assertEquals(interactor_callbacks,
-                    initial_interactor_callbacks.union((
-                                dispatcher._mouse_press_callback_nbs['Left'],
-                                dispatcher._mouse_release_callback_nbs['Left'],
-                                dispatcher._mouse_mvt_callback_nb,
-                            ))
-                        )
 
         # Check that we are back to no observers
         dispatcher.callbacks[:] = []
