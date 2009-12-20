@@ -177,3 +177,10 @@ class OrientationAxes(Module):
     def _scene_changed(self, old, new):
         super(OrientationAxes, self)._scene_changed(old, new)
         self._foreground_changed_for_scene(None, new.foreground)
+        self._visible_changed(self.visible)
+
+    def _visible_changed(self, value):
+        if self.scene is not None:
+            # Enabling an OrientationAxes without an interactor will
+            # lead to a segfault
+            super(OrientationAxes, self)._visible_changed(value)

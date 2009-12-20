@@ -211,7 +211,7 @@ class PipelineBase(Base):
             # someone has played with the widgets
             # we just enable all of them
             for w in self.widgets:
-                w.enable = True
+                w.enabled = True
         else:
             for i in range(len(self.widgets)):
                 self.widgets[i].enabled = self._widget_state[i]
