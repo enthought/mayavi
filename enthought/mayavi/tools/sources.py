@@ -404,7 +404,6 @@ class MArraySource(MlabSource):
                scalar_data=scalars)
         if scalars is old_scalar:
             ds._scalar_data_changed(scalars)
-        ds.image_data.set(origin=ds.origin, spacing=ds.spacing)
 
         self.dataset = ds.image_data
         self.m_data = ds 
@@ -607,7 +606,6 @@ class MArray2DSource(MlabSource):
                scalar_data=scalars)
         if old_scalar is scalars:
             ds._scalar_data_changed(scalars)
-        ds.image_data.set(origin=ds.origin, spacing=ds.spacing)
         
         self.dataset = ds.image_data
         self.m_data = ds 

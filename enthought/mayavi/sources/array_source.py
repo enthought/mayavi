@@ -9,7 +9,7 @@ array as ImageData.  This supports both scalar and vector data.
 import numpy
 
 # Enthought library imports
-from enthought.traits.api import Instance, Array, Trait, Str, Bool, Button
+from enthought.traits.api import Instance, Array, Trait, Str, Bool, Button, DelegatesTo
 from enthought.traits.ui.api import View, Group, Item
 from enthought.tvtk.api import tvtk
 from enthought.tvtk import array_handler
@@ -75,19 +75,26 @@ class ArraySource(Source):
     vector_name = Str('vector')
 
     # The spacing of the points in the array.
-    spacing = Array(dtype=float, shape=(3,), value=(1.0, 1.0, 1.0),
-                    desc='the spacing between points in array')
+    spacing = DelegatesTo('change_information_filter', 'output_spacing',
+                          desc='the spacing between points in array')
 
     # The origin of the points in the array.
-    origin = Array(dtype=float, shape=(3,), value=(0.0, 0.0, 0.0),
-                    desc='the origin of the points in array')
+    origin = DelegatesTo('change_information_filter', 'output_origin',
+                         desc='the origin of the points in array')
 
-    # Fire an event to update the spacing and origin - this reflushes
-    # the pipeline.
+    # Fire an event to update the spacing and origin. This
+    # is here for backwards compatability. Firing this is no
+    # longer needed.
     update_image_data = Button('Update spacing and origin')
 
     # The image data stored by this instance.
     image_data = Instance(tvtk.ImageData, allow_none=False)
+
+    # Use an ImageChangeInformation filter to reliably set the 
+    # spacing and origin on the output
+    change_information_filter = Instance(tvtk.ImageChangeInformation, args=(),
+                                         kw={'output_spacing' : (1.0, 1.0, 1.0),
+                                             'output_origin' : (0.0, 0.0, 0.0)})
 
     # Should we transpose the input data or not.  Transposing is
     # necessary to make the numpy array compatible with the way VTK
@@ -107,7 +114,6 @@ class ArraySource(Source):
                       Item(name='vector_name'),
                       Item(name='spacing'),
                       Item(name='origin'),
-                      Item(name='update_image_data', show_label=False),
                       show_labels=True)
                 )
     
@@ -126,9 +132,10 @@ class ArraySource(Source):
         if vd is not None:
             self.vector_data = vd
 
-        # Setup the mayavi pipeline by sticking the image data into
-        # our outputs.
-        self.outputs = [self.image_data]
+        # Setup the mayavi pipeline
+        self.change_information_filter.input = self.image_data
+        self.outputs = [ self.change_information_filter.output ]
+        self.on_trait_change(self._information_changed, 'spacing,origin')
 
     def __get_pure_state__(self):
         d = super(ArraySource, self).__get_pure_state__()
@@ -153,25 +160,18 @@ class ArraySource(Source):
     ######################################################################
     # Non-public interface.
     ######################################################################
+
     def _image_data_default(self):
-        s = tuple(self.spacing)
-        o = tuple(self.origin)
-        return tvtk.ImageData(spacing=s, origin=o)
+        result = tvtk.ImageData()
+        if self.scalar_data is not None:
+            result.point_data.scalars = self.scalar_data
+        if self.vector_data is not None:
+            result.point_data.vectors = self.vector_data
+        return result
 
     def _image_data_changed(self, value):
-        self.outputs = [value]
+        self.change_information_filter.input = value
 
-    def _update_image_data_fired(self):
-        sp = tuple(self.spacing)
-        o = tuple(self.origin)
-        self.image_data = tvtk.ImageData(spacing=sp, origin=o)
-        sd = self.scalar_data
-        if sd is not None:
-            self._scalar_data_changed(sd)
-        vd = self.vector_data
-        if vd is not None:
-            self._vector_data_changed(vd)
-    
     def _scalar_data_changed(self, data):
         img_data = self.image_data
         if data is None:
@@ -196,6 +196,7 @@ class ArraySource(Source):
         img_data.scalar_type = array_handler.get_vtk_array_type(typecode)
         img_data.update() # This sets up the extents correctly.
         img_data.update_traits()
+        self.change_information_filter.update()
 
         # Now flush the mayavi pipeline.
         self.data_changed = True
@@ -224,6 +225,7 @@ class ArraySource(Source):
         img_data.point_data.vectors.name = self.vector_name
         img_data.update() # This sets up the extents correctly.
         img_data.update_traits()
+        self.change_information_filter.update()
 
         # Now flush the mayavi pipeline.
         self.data_changed = True
@@ -243,3 +245,7 @@ class ArraySource(Source):
             self._scalar_data_changed(self.scalar_data)
         if self.vector_data is not None:
             self._vector_data_changed(self.vector_data)
+
+    def _information_changed(self):
+        self.data_changed = True
+

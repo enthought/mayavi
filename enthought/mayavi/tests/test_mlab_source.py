@@ -279,8 +279,8 @@ class TestMArraySource(unittest.TestCase):
         spacing = [dx, dy, dz]
         dimensions = (x.shape[0], y.shape[1], z.shape[2])
         ds = src.dataset
-        self.assertEqual(N.all(ds.origin == origin), True)
-        self.assertEqual(N.allclose(ds.spacing, spacing), True)
+        self.assertEqual(N.all(src.m_data.origin == origin), True)
+        self.assertEqual(N.allclose(src.m_data.spacing, spacing), True)
         self.assertEqual(N.allclose(ds.dimensions, dimensions), True)
 
         vec = src.dataset.point_data.vectors.to_array()
@@ -526,7 +526,7 @@ class TestMArray2DSource(unittest.TestCase):
         spacing = [dx, dy, 1]
         ds = src.dataset
         self.assertEqual(N.all(ds.origin == origin), True)
-        self.assertEqual(N.allclose(ds.spacing, spacing), True)
+        self.assertEqual(N.allclose(src.m_data.spacing, spacing), True)
               
         sc = src.dataset.point_data.scalars.to_array()      
         s1 = s.transpose()

@@ -148,6 +148,8 @@ class TestArraySource(unittest.TestCase):
         sc, vec = self.make_3d_data()
         d.scalar_data = sc
         d.vector_data = vec
+        d.spacing = [1, 2, 3]
+        d.origin  = [4, 5, 6]
         d.start()  # Start the object so it flushes the pipeline etc.
 
         # Create an outline for the data.
@@ -168,10 +170,12 @@ class TestArraySource(unittest.TestCase):
 
         # Test the unpciked state.
         self.assertEqual(tuple(o.actor.actor.bounds), 
-                         (0, 1., 0., 1., 0., 1.))
+                         (4., 5., 5., 7., 6., 9.))
         self.assertEqual(surf.running, True)
         self.assertEqual(o.running, True)
         self.assertEqual(d.running, True)
+        self.assertEqual(numpy.allclose(d.spacing, [1, 2, 3]), True)
+        self.assertEqual(numpy.allclose(d.origin,  [4, 5, 6]), True)
 
         tps = numpy.transpose
         expect = [tps(sc),  tps(vec, (2,1,0,3))]
@@ -181,6 +185,7 @@ class TestArraySource(unittest.TestCase):
         vec2 = surf.actor.mapper.input.point_data.vectors.to_array()
         self.assertEqual(numpy.allclose(vec2.flatten(), 
                          expect[1].flatten()), True)
+
 
 
 if __name__ == '__main__':
