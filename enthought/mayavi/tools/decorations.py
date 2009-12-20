@@ -4,7 +4,7 @@ pipeline in a procedural way.
 """
 
 # Author: Gael Varoquaux 
-# Copyright (c) 2007, Enthought, Inc.
+# Copyright (c) 2007, 2008, 2009, Enthought, Inc.
 # License: BSD Style.
 
 import operator
@@ -12,16 +12,16 @@ import operator
 import numpy as np
 
 # Enthought library imports.
-import enthought.mayavi.modules.api as modules
 from enthought.traits.api import String, CFloat, Instance, HasTraits, \
             Trait, CArray, true, Any, Range, Either
 import tools
 from figure import draw, gcf
 
 # Mayavi imports
-from pipe_base import make_function
-from modules import ModuleFactory
-from engine_manager import get_engine, engine_manager
+import enthought.mayavi.modules.api as modules
+from .pipe_base import make_function
+from .modules import ModuleFactory
+from .engine_manager import get_engine, engine_manager
 
 #############################################################################
 # Colorbar related functions
@@ -33,9 +33,12 @@ def _orient_colorbar(lut_mgr, orientation):
     colorbar = lut_mgr.scalar_bar
     if orientation == "vertical":
         if rep is None:
+            # VTK < 5.2
             colorbar.orientation = "vertical"
         else:
             rep.orientation = 1
+            rep.position = (0.01, 0.15)
+            rep.position2 = (0.1, 0.8)
         colorbar.width = 0.1
         colorbar.height = 0.8
         colorbar.position = (0.01, 0.15)
@@ -44,11 +47,13 @@ def _orient_colorbar(lut_mgr, orientation):
             colorbar.orientation = "horizontal"
         else:
             rep.orientation = 0
+            rep.position  = (0.1, 0.01)
+            rep.position2 = (0.8, 0.17)
         colorbar.width = 0.8
         colorbar.height = 0.17
         colorbar.position = (0.1, 0.01)
     else:
-        print "Unknown orientation"
+        raise ValueError("Unknown orientation: %s" % orientation)
     draw()
 
 def _lut_manager_properties(lut_manager, **props):
