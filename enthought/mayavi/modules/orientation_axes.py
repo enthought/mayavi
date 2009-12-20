@@ -180,7 +180,7 @@ class OrientationAxes(Module):
         self._visible_changed(self.visible)
 
     def _visible_changed(self, value):
-        if self.scene is not None:
+        if self.scene is not None and self.marker.interactor:
             # Enabling an OrientationAxes without an interactor will
             # lead to a segfault
             super(OrientationAxes, self)._visible_changed(value)
