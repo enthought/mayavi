@@ -88,7 +88,7 @@ class ArraySource(Source):
     update_image_data = Button('Update spacing and origin')
 
     # The image data stored by this instance.
-    image_data = Instance(tvtk.ImageData, allow_none=False)
+    image_data = Instance(tvtk.ImageData, (), allow_none=False)
 
     # Use an ImageChangeInformation filter to reliably set the 
     # spacing and origin on the output
@@ -126,14 +126,13 @@ class ArraySource(Source):
         vd = traits.pop('vector_data', None)
         # Now set the other traits.
         super(ArraySource, self).__init__(**traits)
+        self.change_information_filter.input = self.image_data
         # And finally set the scalar and vector data.
         if sd is not None:
             self.scalar_data = sd
         if vd is not None:
             self.vector_data = vd
 
-        # Setup the mayavi pipeline
-        self.change_information_filter.input = self.image_data
         self.outputs = [ self.change_information_filter.output ]
         self.on_trait_change(self._information_changed, 'spacing,origin')
 
@@ -160,14 +159,6 @@ class ArraySource(Source):
     ######################################################################
     # Non-public interface.
     ######################################################################
-
-    def _image_data_default(self):
-        result = tvtk.ImageData()
-        if self.scalar_data is not None:
-            result.point_data.scalars = self.scalar_data
-        if self.vector_data is not None:
-            result.point_data.vectors = self.vector_data
-        return result
 
     def _image_data_changed(self, value):
         self.change_information_filter.input = value
