@@ -166,7 +166,7 @@ python-expression
 
 Execute the expression on the last created object\&.  For example, if
 the previous object was a module, and we want to set the color of that
-object one can do -s "actor\&.property\&.color = (1,0,0)".  One should
+object one can do \-s "actor\&.property\&.color = (1,0,0)".  One should
 use quotes for the expression. Also available with \fB\-\-set\fP\&.  For
 example: 
 
