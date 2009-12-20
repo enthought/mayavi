@@ -196,7 +196,6 @@ class VolumeSlicer(HasTraits):
         views = dict(x=(0, 0), y=(90, 180), z=(0, 0))
         mlab.view(views[axis_name][0],
                   views[axis_name][1],
-                  views[axis_name][2],
                   focalpoint=0.5*np.array(self.data.shape),
                   figure=scene.mayavi_scene)
         scene.scene.camera.parallel_scale = 0.52*np.mean(self.data.shape)

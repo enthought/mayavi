@@ -9,7 +9,6 @@
 
 # Standard library imports.
 import numpy
-import scipy
 
 # Enthought library imports
 from enthought.traits.api import HasTraits, Button, Instance, \
@@ -110,7 +109,7 @@ class Explorer3D(HasTraits):
         dims = self.dimensions.tolist()
         np = dims[0]*dims[1]*dims[2]
         xmin, xmax, ymin, ymax, zmin, zmax = self.volume
-        x, y, z = scipy.ogrid[xmin:xmax:dims[0]*1j,
+        x, y, z = numpy.ogrid[xmin:xmax:dims[0]*1j,
                               ymin:ymax:dims[1]*1j,
                               zmin:zmax:dims[2]*1j]
         self._x = x.astype('f')
@@ -160,7 +159,7 @@ class Explorer3D(HasTraits):
     ######################################################################
     def _equation_changed(self, old, new):
         try:
-            g = scipy.__dict__
+            g = numpy.__dict__
             s = eval(new, g, {'x':self._x,
                               'y':self._y,
                               'z':self._z})
