@@ -476,3 +476,5 @@ more fine control than mlab.
 
 if __name__ == '__main__':
     render_examples()
+    import shutil
+    shutil.copyfile('../CHANGES.txt', './mayavi/auto/changes.rst')

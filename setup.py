@@ -208,6 +208,8 @@ class GenDocs(Command):
                 os.path.join('docs', 'source', 'mayavi', 'auto',
                 'examples.rst')):
             try:
+                from enthought.mayavi import mlab
+                from enthought.mayavi.tools import auto_doc
                 print "Generating the example list"
                 subprocess.call('python %s' %
                             os.path.basename(script_file_name), shell=True,
