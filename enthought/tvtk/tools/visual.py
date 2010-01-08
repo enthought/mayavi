@@ -1182,8 +1182,9 @@ class Cylinder(HasTraits):
     #####################################################################
     # Traits definitions
 
-    radius = Range(0.0, 100.0, value = 1.0, desc = 'the cylinder radius') 
-    length = Range(0.0, 100.0, value = 1.0, desc = 'the cylinder length')
+    # XXX: These should really not be ranges, but positive numbers.
+    radius = Range(0.0, 1e299, value = 1.0, desc = 'the cylinder radius') 
+    length = Range(0.0, 1e299, value = 1.0, desc = 'the cylinder length')
     pos = Array(value = (0.0, 0.0, 0.0), desc = 'the cylinder pos')
     axis = Array(value = (1.0, 0.0, 0.0), desc = 'the cylinder axis')
     points = Array('d', shape = (60,3))
