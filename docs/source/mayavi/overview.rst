@@ -6,7 +6,7 @@ An overview of Mayavi
 .. topic:: Section summary
 
     This section gives a quick summary of what is Mayavi, and should help
-    you understand where, in this manual, find relevent information to
+    you understand where, in this manual, find relevant information to
     your use case.
 
 Introduction
@@ -210,7 +210,7 @@ make your data available to it:
      :ref:`creating data sources with mlab <mlab_data_source>`, or simply
      the 3D plotting functions: :ref:`mlab_plotting_functions`).
 
-Aternatively, if you whish to gain a deeper understanding by
+Alternatively, if you wish to gain a deeper understanding by
 creating VTK data structures or files, more information on datasets in general
 is available in the :ref:`data-structures-used-by-mayavi` section.
 
