@@ -107,6 +107,9 @@ Adding color or size variations
     x, y, z, s, c = np.random.random((5, 10))
     pts = mlab.quiver3d(x, y, z, s, s, s, scalars=c, mode='sphere')
     pts.glyph.color_mode = 'color_by_scalar'
+    # Finally, center the glyphs on the data point
+    pts.glyph.glyph_source.glyph_source.center = [0, 0, 0]
+
 
 
 Changing the scale and position of objects
