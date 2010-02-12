@@ -395,6 +395,10 @@ class Engine(HasStrictTraits):
         if scene in self._viewer_ref:
             del self._viewer_ref[scene]
 
+        # Clear the current scene if it has been removed.
+        if scene is self._current_scene:
+            self._current_scene = None
+
     @recordable
     def new_scene(self, viewer=None, name=None, **kwargs):
         """Create or manage a new VTK scene window.  If no `viewer`
