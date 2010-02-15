@@ -631,7 +631,12 @@ class WrapperGenerator:
             # All upper case names should remain the same since they
             # are usually special methods.
             return name
-        return camel2enthought(name)
+
+        res = camel2enthought(name)
+        if keyword.iskeyword(res):
+            return res + '_'
+        else:
+            return res
 
     def _get_class_name(self, klasses):
         """Returns renamed VTK classes as per TVTK naming style."""
