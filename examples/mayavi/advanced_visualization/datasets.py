@@ -34,6 +34,7 @@ The following images are created:
 from numpy import array, random, linspace, pi, ravel, cos, sin, empty 
 from enthought.tvtk.api import tvtk
 
+from enthought.mayavi.scripts import mayavi2
 from enthought.mayavi.sources.vtk_data_source import VTKDataSource
 
 from enthought.mayavi import mlab
