@@ -3,7 +3,11 @@
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
 # Copyright (c) 2005, Enthought, Inc.
+# Author: Gael Varoquaux <gael.varoquaux@normalesup.org>
+# Copyright (c) 2010, Enthought, Inc.
 # License: BSD Style.
+
+import numpy as np
 
 # Enthought library imports.
 from enthought.traits.api import Instance, Range, Float, Bool, \
@@ -202,9 +206,17 @@ class Threshold(Filter):
         # FIXME: need to be able to handle cell and point data
         # together.        
         if ps is not None:
-            data_range = ps.range
+            data_range = list(ps.range)
+            if np.isnan(data_range[0]):
+                data_range[0] = float(np.nanmin(ps.to_array()))
+            if np.isnan(data_range[1]):
+                data_range[1] = float(np.nanmax(ps.to_array()))
         elif cs is not None:
             data_range = cs.range            
+            if np.isnan(data_range[0]):
+                data_range[0] = float(np.nanmin(cs.to_array()))
+            if np.isnan(data_range[1]):
+                data_range[1] = float(np.nanmax(cs.to_array()))
         return data_range
         
     def _auto_reset_lower_changed(self, value):
