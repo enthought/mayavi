@@ -160,6 +160,16 @@ class OrientationAxes(Module):
         new.y_axis_caption_actor2d.caption_text_property = p
         new.z_axis_caption_actor2d.caption_text_property = p
         self._text_property = p
+
+        # XXX: The line of code below is a stop-gap solution. Without it, 
+        # Some observers in the AxesActor trigger a modification of the
+        # font_size each time the mouse is moved over the OrientationAxes
+        # (this can be seen when running the record mode, for instance),
+        # and thus a render, which is very slow. On the other hand, font
+        # size does not work for the AxesActor, with or without the
+        # line of code below. So we probably haven't found the true
+        # cause of the problem.
+        p.teardown_observers()
             
         new.on_trait_change(self.render)
         p.on_trait_change(self.render)
