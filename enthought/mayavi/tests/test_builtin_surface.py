@@ -10,7 +10,6 @@ import numpy
 import unittest
 
 # Enthought library imports.
-from enthought.mayavi.core.engine import Engine
 from enthought.mayavi.core.null_engine import NullEngine
 from enthought.mayavi.sources.builtin_surface import BuiltinSurface
 from enthought.mayavi.modules.surface import Surface

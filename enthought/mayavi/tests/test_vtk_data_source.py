@@ -12,7 +12,6 @@ import unittest
 import datasets
 
 # Enthought library imports
-from enthought.mayavi.core.engine import Engine
 from enthought.mayavi.core.null_engine import NullEngine
 from enthought.mayavi.sources.vtk_data_source import VTKDataSource
 from enthought.mayavi.modules.outline import Outline

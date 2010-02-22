@@ -13,7 +13,6 @@ import unittest
 from common import get_example_data
 
 # Enthought library imports
-from enthought.mayavi.core.engine import Engine
 from enthought.mayavi.core.null_engine import NullEngine
 from enthought.mayavi.sources.plot3d_reader import PLOT3DReader
 from enthought.mayavi.filters.select_output import SelectOutput

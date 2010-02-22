@@ -9,7 +9,6 @@ import os.path
 import sys
 import subprocess
 
-import numpy as np
 
 # Enthought library imports.
 from enthought.traits.api import Instance, Range, Bool, Array, \

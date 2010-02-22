@@ -17,7 +17,6 @@ from enthought.traits.ui.api import View, Group, Item
 from enthought.tvtk.api import tvtk
 from enthought.mayavi.core.module import Module
 from enthought.mayavi.core.pipeline_info import PipelineInfo
-from enthought.mayavi.core.component import Component
 from enthought.mayavi.components.actor import Actor
 
 ######################################################################

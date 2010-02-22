@@ -15,7 +15,6 @@ import numpy
 from common import get_example_data
 
 # Enthought library imports
-from enthought.mayavi.core.engine import Engine
 from enthought.mayavi.core.null_engine import NullEngine
 from enthought.mayavi.sources.vtk_xml_file_reader import VTKXMLFileReader
 from enthought.mayavi.modules.outline import Outline

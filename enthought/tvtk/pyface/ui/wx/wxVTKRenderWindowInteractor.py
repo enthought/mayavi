@@ -34,7 +34,6 @@ Behaviour:
 """
 
 # import usual libraries
-import math, os, sys
 import wx
 import vtk
 

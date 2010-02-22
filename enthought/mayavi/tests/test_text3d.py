@@ -10,7 +10,6 @@ from os.path import abspath
 import numpy as np
 
 # Local imports.
-from enthought.mayavi.core.engine import Engine
 from enthought.mayavi.core.null_engine import NullEngine
 from enthought.tvtk.api import tvtk
 

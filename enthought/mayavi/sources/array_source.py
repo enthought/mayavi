@@ -9,7 +9,7 @@ array as ImageData.  This supports both scalar and vector data.
 import numpy
 
 # Enthought library imports
-from enthought.traits.api import Instance, Array, Trait, Str, Bool, Button, DelegatesTo
+from enthought.traits.api import Instance, Trait, Str, Bool, Button, DelegatesTo
 from enthought.traits.ui.api import View, Group, Item
 from enthought.tvtk.api import tvtk
 from enthought.tvtk import array_handler

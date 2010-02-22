@@ -10,11 +10,8 @@ import numpy
 from common import get_example_data
 
 # Enthought library imports
-from enthought.mayavi.core.engine import Engine
-from enthought.mayavi.core.null_engine import NullEngine
 from enthought.mayavi.sources.image_reader import ImageReader
 from enthought.mayavi.tests.data_reader_test_base import DataReaderTestBase
-from enthought.mayavi.modules.outline import Outline
 
 class TestDEMImageReader(DataReaderTestBase):
     

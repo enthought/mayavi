@@ -22,10 +22,9 @@ implementation is considerably different.
 # Copyright (c) 2005, Enthought, Inc.
 # License: BSD Style.
 
-import sys
 from math import sin, cos, atan2, pi, sqrt
 
-from enthought.traits.api import HasTraits, Range, Delegate, true, false, \
+from enthought.traits.api import HasTraits, Range, false, \
                                  Instance, Trait, List
 from enthought.traits.ui.api import View, Group, Handler, ListEditor, Item
 from enthought.tvtk.api import tvtk

@@ -9,8 +9,6 @@ import unittest
 from common import get_example_data
 
 # Enthought library imports
-from enthought.mayavi.core.engine import Engine
-from enthought.mayavi.core.null_engine import NullEngine
 from enthought.mayavi.sources.poly_data_reader import PolyDataReader
 from enthought.mayavi.tests.data_reader_test_base import DataReaderTestBase
 

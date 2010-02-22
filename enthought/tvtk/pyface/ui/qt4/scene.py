@@ -21,7 +21,6 @@ docs for more details.
 # License: BSD Style.
 
 
-import sys
 import os
 import tempfile
 
@@ -29,7 +28,7 @@ from PyQt4 import QtCore, QtGui
 
 from enthought.tvtk.api import tvtk
 from enthought.tvtk import messenger
-from enthought.traits.api import Instance, Button, Any, Bool
+from enthought.traits.api import Instance, Button, Any
 from enthought.traits.ui.api import View, Group, Item, InstanceEditor
 
 from enthought.pyface.api import Widget, GUI, FileDialog, OK

@@ -9,10 +9,8 @@ from StringIO import StringIO
 import copy
 import numpy
 import unittest
-import pickle
 
 # Enthought library imports
-from enthought.mayavi.core.engine import Engine
 from enthought.mayavi.core.null_engine import NullEngine
 from enthought.mayavi.sources.array_source import ArraySource
 from enthought.mayavi.modules.outline import Outline

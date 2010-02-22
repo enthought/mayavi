@@ -7,14 +7,11 @@
 from os.path import abspath
 from StringIO import StringIO
 import copy
-import numpy
+import numpy as np
 import unittest
-import pickle
-from numpy import linspace, cos, sin, pi, empty, sqrt, allclose
 import datasets
 
 # Enthought library imports
-from enthought.mayavi.core.engine import Engine
 from enthought.mayavi.core.null_engine import NullEngine
 from enthought.mayavi.filters.contour import Contour
 from enthought.mayavi.filters.optional import Optional
@@ -22,7 +19,6 @@ from enthought.mayavi.filters.collection import Collection
 from enthought.mayavi.filters.api import PolyDataNormals
 from enthought.mayavi.modules.api import Surface
 from enthought.mayavi.sources.vtk_data_source import VTKDataSource
-from enthought.tvtk.api import tvtk
 
 
 class TestOptionalCollection(unittest.TestCase):   
@@ -67,11 +63,11 @@ class TestOptionalCollection(unittest.TestCase):
         
         r = coll.outputs[0].point_data.scalars.range
         
-        self.assertEqual(allclose(r, (6.09,6.09),atol=1.01e-03),True)
+        self.assertEqual(np.allclose(r, (6.09,6.09), atol=1.01e-03), True)
         # Adding a contour should create the appropriate output in
         # the collection.
         c.contours.append(200)
-        self.assertEqual(allclose(r, [6.09,6.09],atol=1.01e-03),True)
+        self.assertEqual(np.allclose(r, [6.09,6.09], atol=1.01e-03), True)
         # the collection's output should be that of the normals.
         self.assertEqual(coll.outputs[0] is n.outputs[0],True)
         # disable the optional filter and check.
@@ -81,9 +77,9 @@ class TestOptionalCollection(unittest.TestCase):
         # Set back everything to original state.
         c.contours.pop()
         o.enabled = True
-        self.assertEqual(allclose(r,(6.09,6.09),atol=1.01e-03),True)
-        self.assertEqual(coll.outputs[0] is n.outputs[0],True)
-        self.assertEqual('disabled' not in o.name,True)
+        self.assertEqual(np.allclose(r, (6.09,6.09), atol=1.01e-03), True)
+        self.assertEqual(coll.outputs[0] is n.outputs[0], True)
+        self.assertEqual('disabled' not in o.name, True)
 
     def test_optional_collection(self):
         "Test if the test fixture works"                        

@@ -11,7 +11,6 @@ import unittest
 from numpy import array
 
 # Enthought library imports.
-from enthought.mayavi.core.engine import Engine
 from enthought.mayavi.core.null_engine import NullEngine
 from enthought.mayavi.sources.builtin_image import BuiltinImage
 from enthought.mayavi.modules.surface import Surface

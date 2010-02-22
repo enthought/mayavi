@@ -13,7 +13,6 @@ import unittest
 from common import get_example_data
 
 # Enthought library imports
-from enthought.mayavi.core.engine import Engine
 from enthought.mayavi.core.null_engine import NullEngine
 from enthought.mayavi.filters.optional import Optional
 from enthought.mayavi.filters.user_defined import UserDefined

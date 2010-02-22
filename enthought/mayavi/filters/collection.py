@@ -8,7 +8,6 @@ filters/components bundled into one.
 # Enthought library imports.
 from enthought.traits.api import Instance, Bool, List
 from enthought.traits.ui.api import Item, Group, View, ListEditor
-from enthought.persistence import state_pickler
 
 # Local imports.
 from enthought.mayavi.core.pipeline_base import PipelineBase

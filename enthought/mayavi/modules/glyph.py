@@ -9,7 +9,6 @@
 # Enthought library imports.
 from enthought.traits.api import Instance
 from enthought.traits.ui.api import View, Group, Item
-from enthought.tvtk.api import tvtk
 
 # Local imports
 from enthought.mayavi.core.module import Module

@@ -8,7 +8,6 @@ import unittest
 from numpy import random, allclose, arange
 
 # Local imports.
-from enthought.mayavi.core.engine import Engine
 from enthought.mayavi.core.null_engine import NullEngine
 
 # Enthought library imports

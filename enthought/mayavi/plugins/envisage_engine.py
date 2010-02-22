@@ -8,7 +8,7 @@
 import logging
 
 # Enthought library imports.
-from enthought.traits.api import Instance, Bool, on_trait_change, Str
+from enthought.traits.api import Instance, on_trait_change, Str
 from enthought.tvtk.plugins.scene.i_scene_manager import \
             ISceneManager
 from enthought.tvtk.plugins.scene.ui.actions import NewScene
@@ -18,7 +18,6 @@ from enthought.pyface.workbench.api import WorkbenchWindow
 from enthought.scripting.api import recordable
 
 # Local imports.
-from enthought.mayavi.core.scene import Scene
 from enthought.mayavi.core.engine import Engine
 
 logger = logging.getLogger()

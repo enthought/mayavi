@@ -8,9 +8,6 @@
 import unittest
 
 import numpy
-import vtk
-import weakref
-import gc
 
 from enthought.tvtk.array_handler import ID_TYPE_CODE
 from enthought.tvtk.array_ext import set_id_type_array

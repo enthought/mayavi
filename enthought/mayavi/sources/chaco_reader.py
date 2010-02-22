@@ -6,9 +6,8 @@
 
 # Enthought library imports.
 from enthought.traits.api import Instance, Str
-from enthought.traits.ui.api import View, Group, Item, Include
+from enthought.traits.ui.api import View, Group, Item
 from enthought.tvtk.api import tvtk
-from enthought.persistence.state_pickler import set_state
 
 # Local imports.
 from enthought.mayavi.core.source import Source

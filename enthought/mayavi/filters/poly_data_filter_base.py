@@ -2,10 +2,6 @@
 # Copyright (c) 2008, Enthought, Inc.
 # License: BSD Style.
 
-# Enthought library imports.
-from enthought.traits.api import Instance
-from enthought.tvtk.api import tvtk
-
 # Local imports
 from enthought.mayavi.filters.filter_base import FilterBase
 from enthought.mayavi.components.common import convert_to_poly_data
