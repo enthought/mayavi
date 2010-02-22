@@ -19,7 +19,8 @@ if not os.path.exists('N36W113.hgt.zip'):
     import urllib
     print 'Downloading data, please wait (10M)'
     opener = urllib.urlopen(
-    'ftp://e0srp01u.ecs.nasa.gov/srtm/version2/SRTM1/Region_04/N36W113.hgt.zip'
+    'http://staging.enthought.com/projects/mayavi/N36W113.hgt.zip'
+    #'ftp://e0srp01u.ecs.nasa.gov/srtm/version2/SRTM1/Region_04/N36W113.hgt.zip'
         )
     open('N36W113.hgt.zip', 'w').write(opener.read())
 
