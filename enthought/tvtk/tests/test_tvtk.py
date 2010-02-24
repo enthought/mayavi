@@ -36,7 +36,7 @@ To generate tvtk_classes.zip you must do the following::
     raise ImportError, msg
 
 # Only used for testing.
-from enthought.tvtk.tvtk_classes import tvtk_helper
+from tvtk_classes import tvtk_helper
 
 def mysum(arr):
     val = arr
