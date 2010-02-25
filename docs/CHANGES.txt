@@ -3,7 +3,7 @@ example to view the changeset [18702] use the following URL:
 https://svn.enthought.com/enthought/changeset/18702
 
 Mayavi 3.3.1 (Feb 24, 2010)
-===============================
+===========================
 
 Enhancements
 ------------
