@@ -18,9 +18,9 @@ APPTOOLS = etsdep('AppTools', '3.3.1')  # -- imports of persistence, resource an
 ENTHOUGHTBASE = etsdep('EnthoughtBase', '3.0.4')    # The 'plugin' extra is required by loose-coupling in the mayavi ui plugin definition's default pespective.
 ENVISAGECORE = etsdep('EnvisageCore', '3.1.2')
 ENVISAGEPLUGINS = etsdep('EnvisagePlugins', '3.1.2')
-TRAITSBACKENDWX = etsdep('TraitsBackendWX', '3.2.1')
-TRAITSGUI = etsdep('TraitsGUI', '3.1.1')
-TRAITS_UI = etsdep('Traits[ui]', '3.2.1')
+TRAITSBACKENDWX = etsdep('TraitsBackendWX', '3.3.0')
+TRAITSGUI = etsdep('TraitsGUI', '3.3.0')
+TRAITS_UI = etsdep('Traits[ui]', '3.3.0')
 
 
 # A dictionary of the pre_setup information.
