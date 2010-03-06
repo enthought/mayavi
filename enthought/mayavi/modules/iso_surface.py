@@ -29,7 +29,7 @@ class IsoSurface(Module):
     contour = Instance(Contour, record=True)
 
     # Specify if normals are to be computed to make a smoother surface.
-    compute_normals = Bool(False, desc='if normals are to be computed '\
+    compute_normals = Bool(True, desc='if normals are to be computed '\
                            'to make the iso-surface smoother')
 
     # The component that computes the normals.
