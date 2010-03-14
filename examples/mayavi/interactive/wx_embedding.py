@@ -23,8 +23,8 @@ from enthought.traits.ui.api import View, Item
 from enthought.mayavi.sources.api import ArraySource
 from enthought.mayavi.modules.api import IsoSurface
 
-from enthought.tvtk.pyface.scene_editor import SceneEditor
-from enthought.mayavi.tools.mlab_scene_model import MlabSceneModel
+from enthought.mayavi.core.ui.api import SceneEditor, MlabSceneModel
+
 
 class MayaviView(HasTraits):
 

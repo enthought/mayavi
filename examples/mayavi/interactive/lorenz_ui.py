@@ -12,16 +12,16 @@ with Mayavi, please refer to section :ref:`builing_applications`.
 # Copyright (c) 2008-2009, Enthought, Inc.
 # License: BSD Style.
 
-import numpy
+import numpy as np
 import scipy
 
-from enthought.mayavi import mlab
 from enthought.traits.api import HasTraits, Range, Instance, \
         on_trait_change, Array, Tuple, Str
 from enthought.traits.ui.api import View, Item, HSplit, Group 
-from enthought.tvtk.pyface.scene_editor import SceneEditor
-from enthought.mayavi.tools.mlab_scene_model import MlabSceneModel
-from enthought.mayavi.core.ui.mayavi_scene import MayaviScene
+
+from enthought.mayavi import mlab
+from enthought.mayavi.core.ui.api import MayaviScene, MlabSceneModel, \
+    SceneEditor
 
 ################################################################################
 # `Lorenz` class.
@@ -120,7 +120,7 @@ class Lorenz(HasTraits):
     # Private interface.
     ###################################################################### 
     def _points_default(self):
-        x, y, z = numpy.mgrid[-50:50:100j,-50:50:100j,-10:60:70j]
+        x, y, z = np.mgrid[-50:50:100j,-50:50:100j,-10:60:70j]
         return x, y, z
 
     def _flow_default(self):

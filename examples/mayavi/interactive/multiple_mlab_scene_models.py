@@ -21,8 +21,8 @@ from enthought.traits.api import HasTraits, Instance, Button, \
 from enthought.traits.ui.api import View, Item, HSplit, Group
 
 from enthought.mayavi import mlab
-from enthought.mayavi.tools.mlab_scene_model import MlabSceneModel
-from enthought.tvtk.pyface.scene_editor import SceneEditor
+from enthought.mayavi.core.ui.api import MlabSceneModel, SceneEditor
+
 
 class MyDialog(HasTraits):
 
@@ -41,7 +41,8 @@ class MyDialog(HasTraits):
         self.redraw_scene(self.scene2)
 
     def redraw_scene(self, scene):
-        # Notice how each mlab 
+        # Notice how each mlab call points explicitely to the figure it
+        # applies to.
         mlab.clf(figure=scene.mayavi_scene)
         x, y, z, s = np.random.random((4, 100))
         mlab.points3d(x, y, z, s, figure=scene.mayavi_scene)
@@ -66,6 +67,6 @@ class MyDialog(HasTraits):
                 resizable=True,
                 )
 
+
 m = MyDialog()
 m.configure_traits()
-                                

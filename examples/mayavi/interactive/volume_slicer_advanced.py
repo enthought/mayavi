@@ -40,8 +40,7 @@ from enthought.tvtk.pyface.scene import Scene
 
 from enthought.mayavi import mlab
 from enthought.mayavi.core.api import PipelineBase, Source
-from enthought.mayavi.core.ui.api import SceneEditor
-from enthought.mayavi.tools.mlab_scene_model import MlabSceneModel
+from enthought.mayavi.core.ui.api import SceneEditor, MlabSceneModel
 
 
 ################################################################################

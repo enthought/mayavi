@@ -30,9 +30,10 @@ from numpy import arange, pi, cos, sin
 from enthought.traits.api import HasTraits, Range, Instance, \
         on_trait_change
 from enthought.traits.ui.api import View, Item, Group
-from enthought.mayavi.tools.mlab_scene_model import MlabSceneModel
+
 from enthought.mayavi.core.api import PipelineBase
-from enthought.mayavi.core.ui.api import MayaviScene, SceneEditor
+from enthought.mayavi.core.ui.api import MayaviScene, SceneEditor, \
+                MlabSceneModel
 
 
 dphi = pi/1000.

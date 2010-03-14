@@ -18,9 +18,8 @@ from enthought.traits.api import HasTraits, Instance, on_trait_change
 from enthought.traits.ui.api import View, Group, Item
 
 from enthought.mayavi.core.api import Engine
-from enthought.mayavi.tools.mlab_scene_model import MlabSceneModel
-from enthought.mayavi.core.ui.mayavi_scene import MayaviScene
-from enthought.tvtk.pyface.scene_editor import SceneEditor
+from enthought.mayavi.core.ui.api import MayaviScene, MlabSceneModel, \
+            SceneEditor
 
 ################################################################################
 class MyApp(HasTraits):
