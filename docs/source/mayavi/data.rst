@@ -494,6 +494,18 @@ Creating a `tvtk.UnstructuredGrid` object from numpy arrays::
     ug.point_data.scalars.name = 'scalars'
 
 
+.. topic:: Modifying the data
+
+    If you want to modify the data of any of these low-level data
+    structures, you need to reasign data to the corresponding arrays, but
+    also reasign them a name. Once this is done, you should call the
+    'modified()' method of the object, to tell the pipeline that the data
+    has been modified::
+
+	ug.point_data.scalars = new_scalars
+	ug.point_data.scalars.name = 'scalars'
+	ug.modified()
+
 
 External references
 ......................
