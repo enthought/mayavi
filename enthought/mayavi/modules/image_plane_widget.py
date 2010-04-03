@@ -6,7 +6,7 @@
 # License: BSD Style.
 
 # Enthought library imports.
-from enthought.traits.api import Instance, Bool 
+from enthought.traits.api import Instance, Bool, on_trait_change 
 from enthought.traits.ui.api import View, Group, Item
 from enthought.tvtk.api import tvtk
 
@@ -63,6 +63,8 @@ class ImagePlaneWidget(Module):
                                          left_button_action=1,
                                          middle_button_action=0,
                                          user_controlled_lookup_table=True)
+        self.setup_lut()
+
 
     def update_pipeline(self):
         """Override this method so that it *updates* the tvtk pipeline
@@ -85,11 +87,7 @@ class ImagePlaneWidget(Module):
             raise TypeError, msg
             
         self.ipw.input = input
-        # Set the LUT for the IPW.
-        if self.use_lookup_table:
-            self.ipw.lookup_table = mod_mgr.scalar_lut_manager.lut
-        
-        self.pipeline_changed = True
+        self.setup_lut()
 
     def update_data(self):
         """Override this method so that it flushes the vtk pipeline if
@@ -101,6 +99,18 @@ class ImagePlaneWidget(Module):
         # Just set data_changed, the component should do the rest.
         self.data_changed = True
 
+
+    @on_trait_change('use_lookup_table')
+    def setup_lut(self): 
+        # Set the LUT for the IPW.
+        if self.use_lookup_table:
+            if self.module_manager is not None:
+                self.ipw.lookup_table = \
+                                self.module_manager.scalar_lut_manager.lut
+        else:
+            self.ipw.color_map.lookup_table = None
+        self.render()
+        
     ######################################################################
     # Non-public methods.
     ######################################################################
@@ -112,3 +122,7 @@ class ImagePlaneWidget(Module):
         self.widgets.append(new)
         if old is not None:
             self.update_pipeline()
+        self.pipeline_changed = True
+
+
+
