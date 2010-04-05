@@ -52,9 +52,14 @@ def get_attribute_list(data):
         n = data.number_of_arrays
         for i in range(n):
             name = data.get_array_name(i)
-            t = get_array_type(data.get_array(i))
-            if len(t) > 0 and name is not None:
-                attr[t].extend([name])
+            arr = data.get_array(i)
+            if arr is not None:
+                # Some VTK datasets claim they have n arrays, but
+                # actually some of these are None (eg the output of a
+                # tvtk.GraphToPolyData())
+                t = get_array_type(arr)
+                if len(t) > 0 and name is not None:
+                    attr[t].extend([name])
     
     def _mk_first(lst, value):
         """Makes the specified `value` the first item in `lst`."""
