@@ -56,17 +56,28 @@ def world_to_display(x, y, z, figure=None):
     return x, y
 
 
-def roll(roll=None):
+def roll(roll=None, figure=None):
     """ Sets or returns the absolute roll angle of the camera.
     
     **See also**
 
     :mlab.view: control the position and direction of the camera
     """
-    cam = get_engine().current_scene.scene._renderer.active_camera
+    if figure is None:
+        f = get_engine().current_scene
+    else:
+        f = figure
+    if f is None:
+        return
+    scene = f.scene
+    if scene is None:
+        return
+    cam = scene.camera
+
     if roll is not None:
         cam.set_roll(roll)
-        get_engine().current_scene.render()
+        if not scene.disable_render:
+            scene.render()
     return cam.get_roll()
 
 
@@ -310,7 +321,9 @@ def view(azimuth=None, elevation=None, distance=None, focalpoint=None,
         cam.compute_view_plane_normal()
         ren.reset_camera_clipping_range()
 
-    scene.render()
+    if not scene.disable_render:
+        scene.render()
+    return rad2deg(phi), rad2deg(theta), r, fp
     
 
 def move(forward=None, right=None, up=None):
