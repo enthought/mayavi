@@ -461,11 +461,7 @@ try:
     from enthought.etsconfig.api import ETSConfig
     if ETSConfig.toolkit in ('wx', ''):
         import wxversion
-        if wxversion.checkInstalled('2.8'):
-            try:
-                wxversion.select('2.8')
-            except wxversion.VersionError:
-                """ Too late, wxPython has already been imported. """
+        wxversion.ensureMinimal('2.8')
 except ImportError:
     """ wxversion not installed """
 

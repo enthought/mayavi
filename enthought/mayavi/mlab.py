@@ -9,6 +9,16 @@ application with the WxWidget mainloop running.
 # Copyright (c) 2007, Enthought, Inc. 
 # License: BSD Style.
 
+try:
+    # Try forcing the use of wx 2.8 before any other import.
+    from enthought.etsconfig.api import ETSConfig
+    if ETSConfig.toolkit in ('wx', ''):
+        import wxversion
+        wxversion.ensureMinimal('2.8')
+except ImportError:
+    """ wxversion not installed """
+
+
 # Mayavi imports
 from enthought.mayavi.tools.camera import view, roll, yaw, pitch, move
 from enthought.mayavi.tools.figure import figure, clf, gcf, savefig, \
