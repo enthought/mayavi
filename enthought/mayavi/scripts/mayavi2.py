@@ -456,14 +456,17 @@ except ImportError, m:
         % (m, '_'*80)
     raise ImportError(msg)
 
-try:
-    # Try forcing the use of wx 2.8
-    from enthought.etsconfig.api import ETSConfig
-    if ETSConfig.toolkit in ('wx', ''):
-        import wxversion
-        wxversion.ensureMinimal('2.8')
-except ImportError:
-    """ wxversion not installed """
+# Try forcing the use of wx 2.8 before any other import.
+import sys
+if not 'wx' in sys.modules:
+    try:
+        # Try forcing the use of wx 2.8
+        from enthought.etsconfig.api import ETSConfig
+        if ETSConfig.toolkit in ('wx', ''):
+            import wxversion
+            wxversion.ensureMinimal('2.8')
+    except ImportError:
+        """ wxversion not installed """
 
 
 # Importing here to avoid time-consuming import when user only wanted

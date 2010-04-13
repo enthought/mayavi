@@ -6,17 +6,21 @@ application with the WxWidget mainloop running.
 """
 
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net> 
-# Copyright (c) 2007, Enthought, Inc. 
+#         Gael Varoquaux <gael dot varoquaux at normalesup dot org>
+# Copyright (c) 2007-2010, Enthought, Inc. 
 # License: BSD Style.
 
-try:
-    # Try forcing the use of wx 2.8 before any other import.
-    from enthought.etsconfig.api import ETSConfig
-    if ETSConfig.toolkit in ('wx', ''):
-        import wxversion
-        wxversion.ensureMinimal('2.8')
-except ImportError:
-    """ wxversion not installed """
+
+# Try forcing the use of wx 2.8 before any other import.
+import sys
+if not 'wx' in sys.modules:
+    try:
+        from enthought.etsconfig.api import ETSConfig
+        if ETSConfig.toolkit in ('wx', ''):
+            import wxversion
+            wxversion.ensureMinimal('2.8')
+    except ImportError:
+        """ wxversion not installed """
 
 
 # Mayavi imports
