@@ -243,12 +243,12 @@ def savefig(filename, size=None, figure=None, magnification='auto',
                 size = target_x, target_y
         elif magnification is 'auto':
             magnification = 1
-        figure.scene.magnification = magnification
+        figure.scene.magnification = int(magnification)
         figure.scene.save(filename, 
                             size=size,
                             **kwargs)
     finally:
-        figure.scene.magnification = current_mag 
+        figure.scene.magnification = int(current_mag)
 
 
 def sync_camera(reference_figure, target_figure):
