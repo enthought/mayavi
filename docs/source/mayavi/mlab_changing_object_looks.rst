@@ -35,6 +35,9 @@ Adding color or size variations
   is to use the GUI (as described in the next paragraph). The dialog
   to set the colormap can be found in the `Colors and legends` node.
 
+  To use a custom-defined colormap, for the time being you need to write
+  specific code, as show in :ref:`example_custom_colormap`.
+
 :Size of the glyph:
   The scalar information can also be displayed in many different ways.
   For instance it can be used to adjust the size of glyphs positioned at 
