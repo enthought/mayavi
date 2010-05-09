@@ -1,3 +1,5 @@
+.. include:: inline-css.rst
+
 
 .. _advanced-use-of-mayavi:
 
@@ -9,11 +11,14 @@ Advanced use of Mayavi
     This section give details on the working principles Mayavi. Read it
     to gain a better understanding, in order to use Mayavi's full power.
 
-    * First we describe data structures, how they are defined and how you
+    * First we describe the organisation of the pipeline that defines a
+      Mayavi visualization.
+
+    * Second we describe data structures, how they are defined and how you
       can build them. This information is useful for a better
       understanding of how to build efficient pipelines.
 
-    * Second we describe the object-oriented structure behind Mayavi and
+    * Finally we describe the object-oriented structure behind Mayavi and
       the pipeline. This information opens the door to advanced scripting
       of the Mayavi application, and is especially useful if you whish
       to develop custom tools with Mayavi.
@@ -21,6 +26,7 @@ Advanced use of Mayavi
 
 .. toctree::
 
+    pipeline.rst
     data.rst
     advanced_scripting.rst
 

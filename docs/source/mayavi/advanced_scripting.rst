@@ -68,9 +68,10 @@ internal world-view.  A little more detail on these objects is given
 below.  For even more details please refer to the source code (hint: the
 source code of a class can be view in IPython by entering `Class??`).
 
+.. _oo_construction_visualization:
 
-A quick example
-~~~~~~~~~~~~~~~~
+Object-oriented construction of a visualization
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 When scripting Mayavi to create or modify a visualization, one mainly
 deals with adding or removing objects to the engine, or modifying their

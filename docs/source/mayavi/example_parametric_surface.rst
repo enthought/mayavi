@@ -1,3 +1,4 @@
+.. _parametric_surfaces_example:
 
 Parametric surfaces: a simple introduction to visualization
 ------------------------------------------------------------

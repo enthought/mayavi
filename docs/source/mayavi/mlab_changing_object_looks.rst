@@ -147,17 +147,22 @@ pipeline.
 
 .. image:: images/pipeline_and_scene.jpg
 
-.. note::
+.. _record_feature:
 
-    A very useful feature of this dialog can be found by pressing the red
-    round button of the toolbar. This opens up a recorder that tracks the
-    changes made interactively to the visualization via the dialogs, and
-    generates valid lines of Python code.
+.. topic:: The record feature
+
+    A **very useful feature** of this dialog can be found by pressing the
+    red round button of the toolbar of the pipeline view. This opens up a
+    recorder that tracks the changes made interactively to the
+    visualization via the dialogs, and generates valid lines of Python
+    code. To find out about navigating programmatically in pipeline, see 
+    :ref:`organisation_mayavi_visualisations`.
 
 In addition, for every object returned by a mlab function,
 ``this_object.edit_traits()`` brings up a dialog that can be used to
 interactively edit the object's properties. If the dialog doesn't show up
 when you enter this command, please see :ref:`running-mlab-scripts`.
+
 
 .. topic:: Using ``mlab`` with the full Envisage UI
     
