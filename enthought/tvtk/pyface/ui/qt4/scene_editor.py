@@ -247,7 +247,7 @@ class _SceneEditor(Editor):
 # `SceneEditor` class
 #####################################################################
 class SceneEditor(BasicEditorFactory):
-    """ An editor factory for SceneModel instances.
+    """ A TraitsUI editor factory for SceneModel instances.
     """
 
     # The class of the editor object to be constructed.
