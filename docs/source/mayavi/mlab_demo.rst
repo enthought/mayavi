@@ -25,6 +25,7 @@ Bulk of the code in the above example is to create the data.  One line
 suffices to visualize it.  This produces the following visualization:
 
 .. image:: images/mlab_surf_example.jpg
+    :align: center
 
 The visualization is created by the single function :func:`mesh` in the above.
 

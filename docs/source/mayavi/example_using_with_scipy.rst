@@ -53,10 +53,9 @@ pressing `tab`). A second contour can be added by clicking on the blue
 arrow and selecting "Add after". Using a value of 15 gives a nice result.
 
 .. warning:: 
-    Note that the "Add after" UI is known to crash on Linux with the
-    wxPython backend (see :ref:`known_bugs` for all the know bugs). 
-    See ticket 1813 for details:
-    https://svn.enthought.com/enthought/ticket/1813
+    Note that the "Add after" UI used to crash on Linux with the
+    wxPython backend for versions of Mayavi up to 3.2.0 (see 
+    :ref:`known_bugs` for all the know bugs). 
 
 
 We can now click on the `Colors and legends` on the pipeline and change

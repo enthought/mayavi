@@ -19,8 +19,8 @@
 Mayavi User Guide
 ==================
 
-Welcome. This is the User Guide for Mayavi (version |version|), the
-scientific data visualization and 3D plotting tool in Python.
+Mayavi is a Python application and library for interactive scientific
+data visualization and 3D plotting tool in Python.
 
 
 .. raw:: html
@@ -32,24 +32,19 @@ scientific data visualization and 3D plotting tool in Python.
     </td>
     <td width="5%" rowspan="4"></td>
     <td width="50%">
-      <p class="biglink"><a class="biglink" href="examples.html">
-                Interactive usage examples</a><br/>
-         <span class="linkdescr">
-                learning by example; how to use Mayavi interactively</span></p>
-    </td></tr><tr><td width="50%">
       <p class="biglink"><a class="biglink" href="application.html">
                 Using the Mayavi application</a><br/>
          <span class="linkdescr">
-                understanding and using the Mayavi application</span></p>
+                Understanding and using the Mayavi interactive application</span></p>
     </td></tr><tr><td width="50%">
       <p class="biglink"><a class="biglink" href="mlab.html">
         Python scripting for 3D plotting</a><br/>
-         <span class="linkdescr">the simple scripting API to Mayavi</span></p>
+         <span class="linkdescr">The simple scripting API to Mayavi</span></p>
     </td></tr><tr><td width="50%">
       <p class="biglink"><a class="biglink" href="auto/examples.html">
         Gallery and examples</a><br/>
          <span class="linkdescr">
-            example gallery of visualizations, 
+            Example gallery of visualizations, 
             with the code that generates them</span></p>
     </td></tr>
   </table>
@@ -57,15 +52,13 @@ scientific data visualization and 3D plotting tool in Python.
 
 .. topic:: Getting started
 
- * To quick tour the functionalities of Mayavi, read the
-   :ref:`learning-mayavi-by-example` section as a start.
- 
- * To learn how to use the interactive Mayavi2 application, see the
-   :ref:`using-the-mayavi-application` section, although
-   :ref:`learning-mayavi-by-example` is also an excellent introduction.
+ * You want to use an interactive application to visualize your data?
+   Read the 
+   :ref:`Mayavi application section <using-the-mayavi-application>`.
 
- * To use Mayavi as a Matlab or pylab replacement for scripting 3D plots
-   with `numpy`, get started with the :ref:`simple-scripting-with-mlab`.
+ * You know Python and want to use Mayavi as a Matlab or pylab replacement for 
+   3D plotting and data visualization with `numpy`? Get started with the 
+   :ref:`mlab section <simple-scripting-with-mlab>`.
 
  * Sources of inspiration may be found in the :ref:`example_gallery`,
    with example code.
@@ -81,7 +74,6 @@ scientific data visualization and 3D plotting tool in Python.
 
     overview.rst
     installation.rst
-    examples.rst
     application.rst
     mlab.rst
     advanced_use.rst
@@ -91,7 +83,7 @@ scientific data visualization and 3D plotting tool in Python.
     auto/examples.rst
     auto/mlab_reference.rst
     bugs.rst
-    auto/changes.rst
+    changes.rst
 
 
 .. raw:: html

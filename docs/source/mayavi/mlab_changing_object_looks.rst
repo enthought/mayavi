@@ -146,6 +146,7 @@ pipeline, or through the right-click menus on the objects in the
 pipeline.
 
 .. image:: images/pipeline_and_scene.jpg
+    :align: center
 
 .. _record_feature:
 
