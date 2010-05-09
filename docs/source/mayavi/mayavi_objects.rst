@@ -2,6 +2,8 @@
 Objects populating the Mayavi pipeline
 ========================================
 
+.. currentmodule:: enthought.mayavi.core.api
+
 Here we give a brief description of the key objects in the Mayavi pipeline.
 
 .. image:: images/pipeline_and_scene.jpg
@@ -29,6 +31,10 @@ Key attributes
 
 The ``Scene`` class is defined in the ``enthought.mayavi.core.scene`` module.
 
+.. seealso:: 
+
+    API reference for the :class:`Scene` class. 
+
 Source
 --------
 
@@ -47,6 +53,10 @@ Key attributes
 
 The ``Source`` class is defined in the ``enthought.mayavi.core.source`` 
 module.  
+
+.. seealso:: 
+
+    API reference for the :class:`Source` class.
 
 Filter
 --------
@@ -85,6 +95,10 @@ Key methods
 ====================== ========================================================
 
 The filter class is defined in the ``enthought.mayavi.core.filter`` module.
+
+.. seealso:: 
+
+    API reference for the :class:`Filter` class.
 
 ModuleManager: Colors and legends node
 ---------------------------------------
@@ -126,6 +140,10 @@ Key attributes
 
 This class is defined in the ``enthought.mayavi.core.module_manager``
 module.
+
+.. seealso:: 
+
+    API reference for the :class:`ModuleManager` class.
 
 Module
 -------
@@ -180,6 +198,10 @@ Key methods
 
 Defined in the ``enthought.mayavi.core.module`` module.
 
+.. seealso:: 
+
+    API reference for the :class:`Module` class.
+
 Engine
 --------
 
@@ -200,6 +222,8 @@ load and save the entire visualization.
 
 When using mlab, the engine used by mlab can be retrieved using
 :func:`mlab.get_engine`.
+
+.. currentmodule:: enthought.mayavi.core.api
 
 ====================== ========================================================
 Key attributes
@@ -250,6 +274,10 @@ Important sub-classes
 
 The `Engine` base class is defined in the ``enthought.mayavi.engine`` module.
 
+.. seealso:: 
+
+    API reference for the :class:`Engine` class.
+
 Base class: PipelineBase
 --------------------------
 
@@ -293,6 +321,10 @@ Key methods
 ``remove()``		can be used to remove the object (if added)
 			from the mayavi pipeline.
 ====================== ========================================================
+
+.. seealso:: 
+
+    API reference for the :class:`PipelineBase` class.
 
 Class hierarchy
 ---------------------

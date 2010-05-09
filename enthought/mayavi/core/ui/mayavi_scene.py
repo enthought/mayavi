@@ -25,7 +25,7 @@ from enthought.mayavi.preferences.api import set_scene_preferences, \
 # A decorated scene with an additional button.
 ###############################################################################
 class MayaviScene(DecoratedScene):
-    """ Like a decorated scene, but with more buttons.
+    """ A scene UI, similar to a decorated scene, but with more buttons.
     """
 
     image_search_path = [join(resource_path(), 'images'), ]

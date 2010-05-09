@@ -14,6 +14,9 @@ from enthought.mayavi import mlab as m2_mlab
 # `MlabSceneModel` class
 ######################################################################
 class MlabSceneModel(SceneModel):
+    """ An container for an mlab model, that can be exposed using a Mayavi
+        scene in a TraitsUI view.
+    """
 
     # The mayavi engine.
     engine = Instance(Engine)

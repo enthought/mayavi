@@ -14,15 +14,16 @@
 
 # Adding the current directory to the path, so that sphinx finds the
 # extensions.
-#import sys
-#sys.path.append('.')
+import sys, os 
+sys.path.append(os.path.abspath('sphinxext'))
+
 
 # General configuration
 # ---------------------
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = ['sphinx.ext.autodoc']
+extensions = ['sphinx.ext.autodoc', 'traitsdoc']
 
 ## An autodocumentation processor, to insert title of functions before
 ## the auto-documented functions:
@@ -59,7 +60,7 @@ master_doc = 'index'
 
 # General substitutions.
 project = 'Mayavi'
-copyright = u'2008-2009, Prabhu Ramachandran, Gaël Varoquaux'
+copyright = u'2008-2010, Prabhu Ramachandran, Gaël Varoquaux'
 
 # The default replacements for |version| and |release|, also used in various
 # other places throughout the built documents.

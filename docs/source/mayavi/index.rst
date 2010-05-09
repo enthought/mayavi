@@ -82,6 +82,7 @@ data visualization and 3D plotting tool in Python.
     misc.rst
     auto/examples.rst
     auto/mlab_reference.rst
+    api/index.rst
     bugs.rst
     changes.rst
 
