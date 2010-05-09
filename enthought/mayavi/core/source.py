@@ -34,6 +34,8 @@ def is_filter(object):
 # `Source` class.
 ######################################################################
 class Source(PipelineBase):
+    """ Base class for the sources objects in the pipeline.
+    """
 
     # The version of this class.  Used for persistence.
     __version__ = 0

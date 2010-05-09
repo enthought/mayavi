@@ -18,6 +18,10 @@ from enthought.mayavi.core.pipeline_info import PipelineInfo
 # `PipelineBase` class.
 ######################################################################
 class PipelineBase(Base):
+    """ Base class for all the Source, Filters and Modules in the
+        pipeline.
+    """
+
     # The version of this class.  Used for persistence.
     __version__ = 0
 

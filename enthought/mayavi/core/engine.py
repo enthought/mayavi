@@ -55,6 +55,8 @@ def get_args(function):
 # `Engine` class
 ######################################################################
 class Engine(HasStrictTraits):
+    """ The Mayavi engine base class.
+    """
 
     # The version of this class.  Used for persistence.
     __version__ = 0

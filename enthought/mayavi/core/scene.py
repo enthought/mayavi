@@ -20,6 +20,8 @@ from enthought.mayavi.core.adder_node import SourceAdderNode
 # `Scene` class.
 ######################################################################
 class Scene(Base):
+    """ The Mayavi scene class.
+    """
 
     # The version of this class.  Used for persistence.
     __version__ = 0

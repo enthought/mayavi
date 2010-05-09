@@ -19,6 +19,8 @@ from enthought.mayavi.core.pipeline_info import (PipelineInfo,
 # `Filter` class.
 ######################################################################
 class Filter(Source):
+    """ Base class for all the Mayavi filters.
+    """
 
     # The version of this class.  Used for persistence.
     __version__ = 0

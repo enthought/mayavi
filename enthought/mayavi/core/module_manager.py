@@ -88,6 +88,8 @@ LUT_DATA_MODE_TYPES = ['auto', 'point data', 'cell data']
 # `ModuleManager` class.
 ######################################################################
 class ModuleManager(Base):
+    """ The module manager node (represented as 'Colors and Legends').
+    """
 
     # The source object this is connected to.
     source = Instance(Base)

@@ -18,6 +18,8 @@ from enthought.mayavi.core.common import exception
 # `Module` class.
 ######################################################################
 class Module(PipelineBase):
+    """ Base class for the Mayavi modules.
+    """
 
     # The version of this class.  Used for persistence.
     __version__ = 0
