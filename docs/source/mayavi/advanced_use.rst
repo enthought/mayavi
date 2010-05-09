@@ -28,6 +28,7 @@ Advanced use of Mayavi
 
     pipeline.rst
     data.rst
+    mayavi_objects.rst
     advanced_scripting.rst
 
 ..
