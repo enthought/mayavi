@@ -19,8 +19,8 @@
 Mayavi User Guide
 ==================
 
-Mayavi is a Python application and library for interactive scientific
-data visualization and 3D plotting tool in Python.
+Mayavi is a Python application and library for **interactive scientific
+data visualization** and **3D plotting in Python**.
 
 
 .. raw:: html

@@ -1,5 +1,25 @@
 {% extends '!layout.html' %}
 
+{%- block sidebarsearch %}
+{{ super() }}
+    <div id="searchbox">
+	<h3>Google Search</h3>
+    <form method="get" action="http://www.google.com/search">
+
+    <table border="0" cellpadding="0">
+    <tr><td>
+    <input type="text"   name="q" size="20"
+    maxlength="255" value="" />
+    <input type="submit" value="Go" /></td></tr>
+    <tr><td align="center" style="font-size:75%; color: #FFFFFF;">
+    <input type="checkbox"  name="sitesearch"
+    value="http://code.enthought.com/projects/mayavi/docs/development/html/mayavi/" checked /> only search Mayavi documentation<br />
+    </td></tr></table>
+
+</form>
+    </div>
+{% endblock %}
+
 {% block extrahead %}
 <style type="text/css">
   body {
