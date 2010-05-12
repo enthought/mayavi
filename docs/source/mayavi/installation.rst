@@ -159,16 +159,25 @@ installed, and then build and install the eggs like so::
 This one command will download, build and install all the required ETS
 related modules that Mayavi needs for the latest ETS release, this means
 that the `Traits` dependencies and the `Envisage` dependencies will be
-installed automatically. If you run into trouble please check the
-`Enthought Install`_ pages.
+installed automatically (more details on the `Enthought Install`_ pages).
 
-One common sources of problems during an install, is the presence of
-older versions of packages such as Traits, Mayavi, Envisage or TVTK.
-Make sure that you clean your ``site-packages`` before installing a new
-version of Mayavi. Another problem often encountered is running into
-what is probably a bug of the build system that appears as a "sandbox
-violation". In this case, it can be useful to try the download and
-install command a few times.
+If you are running a unix system (such as Linux) we advice you not to
+install the files in the system directories (`/usr`). An easy way to
+avoid this is to run::
+
+ $ easy_install --prefix "Mayavi[app]"
+
+.. warning:: **Known issues**
+
+  * One common sources of problems during an install, is the presence of
+    older versions of packages such as Traits, Mayavi, Envisage or TVTK.
+    Make sure that you clean your ``site-packages`` before installing a new
+    version of Mayavi. 
+    
+  * Another problem often encountered is running into
+    what is probably a bug of the build system that appears as a "sandbox
+    violation". In this case, it can be useful to try the download and
+    install command a few times.
 
 If you still have problems, given this background, please see the
 following `Enthought Install`_ describes how ETS can be installed
