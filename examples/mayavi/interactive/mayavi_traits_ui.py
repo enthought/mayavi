@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
-An example of how to create an almost complete Mayavi UI inside a Traits UI
-view.
+An example of how to create a UI similar to the complete Mayavi application 
+inside a Traits UI view.
 
 This does not use Envisage and provides a similar UI as seen in the full
 Mayavi application. 
