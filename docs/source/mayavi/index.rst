@@ -6,7 +6,7 @@
   <style type="text/css">
     div.bodywrapper h1 {
         text-align: center;
-        font-size: 300% ;
+        font-size: 200% ;
     }
   
   </style>
@@ -16,12 +16,8 @@
 
 .. include:: inline-css.rst
 
-Mayavi User Guide
-==================
-
-Mayavi is a Python application and library for **interactive scientific
-data visualization** and **3D plotting in Python**.
-
+Mayavi: 3D scientific data visualization and plotting in Python
+=================================================================
 
 .. raw:: html
 
@@ -45,15 +41,19 @@ data visualization** and **3D plotting in Python**.
         Gallery and examples</a><br/>
          <span class="linkdescr">
             Example gallery of visualizations, 
-            with the code that generates them</span></p>
+            with the Python code that generates them</span></p>
     </td></tr>
   </table>
   
+Welcome, this is the user guide for Mayavi, a application and library for
+**interactive scientific data visualization** and **3D plotting in
+Python**.
+
 
 .. topic:: Getting started
 
- * You want to use an interactive application to visualize your data?
-   Read the 
+ * You want to use an interactive application to visualize your data in
+   3D? Read the 
    :ref:`Mayavi application section <using-the-mayavi-application>`.
 
  * You know Python and want to use Mayavi as a Matlab or pylab replacement for 
@@ -61,13 +61,13 @@ data visualization** and **3D plotting in Python**.
    :ref:`mlab section <simple-scripting-with-mlab>`.
 
  * Sources of inspiration may be found in the :ref:`example_gallery`,
-   with example code.
+   with example Python code.
 
 .. use raw html to avoid creating a TOC in the sidebar for this page.
 
 .. raw:: html
    
-   <h2>Full table of contents</h2>
+   <h2>User guide: full table of contents</h2>
 
 .. toctree:: 
     :maxdepth: 3
