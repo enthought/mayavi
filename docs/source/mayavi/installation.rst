@@ -223,7 +223,7 @@ will run.
                compiler=mingw32
 
 4. Create the new environment variable HOME and set it to the value:
-   'c:\\docume~1\\USERNAME;' (where USERNAME is the login name)
+   'c:\\docume~1\\USERNAME' (where USERNAME is the login name)
 
 5. Install Setuptools (0.6c9 binary) from its webpage, and
    'C:\Python25\Scripts;' to the PATH environment variables
