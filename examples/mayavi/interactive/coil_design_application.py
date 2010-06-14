@@ -153,7 +153,7 @@ class Loop(HasTraits):
         y = r[:, 1]
         z = r[:, 2]
         rho = np.sqrt(x**2 + y**2)
-        theta = np.arctan(x/y)
+        theta = np.arctan2(x, y)
 
         E = special.ellipe((4 * R * rho)/( (R + rho)**2 + z**2))
         K = special.ellipk((4 * R * rho)/( (R + rho)**2 + z**2))
@@ -240,10 +240,11 @@ class Application(HasTraits):
         self.Bnorm = np.zeros_like(X)
         self.scene.scene.disable_render = True
         for coil in self.coils:
-            self.Bnorm += coil.Bnorm
             self.Bx += coil.Bx
             self.By += coil.By
             self.Bz += coil.Bz
+
+        self.Bnorm = np.sqrt(self.Bx**2 + self.By**2 + self.Bz**2)
 
         if self.vector_field is None:
             self.vector_field = self.scene.mlab.pipeline.vector_field(
