@@ -461,6 +461,23 @@ more fine control than mlab.
     example_lister.render_all(example_gallery_file, example_files)
 
     ##########################################################################
+    # Data interaction examples
+    example_files = [ filename 
+                    for filename in glob.glob(os.path.join(EXAMPLE_DIR, 
+                        'data_interaction', '*.py'))]
+    # Sort by file length (gives a measure of the complexity of the
+    # example)
+    example_files.sort(key=lambda name: len(file(name, 'r').readlines()))
+    example_lister = ExampleLister(
+            title="Data interaction examples",
+            out_dir=out_dir,
+            intro="""
+Examples showing how you can query and interact with the data.
+
+    """)
+    example_lister.render_all(example_gallery_file, example_files)
+
+    ##########################################################################
     # The remaining files 
     example_files = [ filename 
                     for filename in glob.glob(os.path.join(EXAMPLE_DIR, 
