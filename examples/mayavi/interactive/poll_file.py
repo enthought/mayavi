@@ -110,6 +110,8 @@ def main():
     # Poll the file.
     p = Pollster(fname, data)
     timer = Timer(1000, p.poll_file)
+    # Keep a reference on the timer
+    mayavi2.savedtimerbug = timer
 
     # To stop polling the file do:
     #timer.Stop()
