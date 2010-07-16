@@ -272,6 +272,10 @@ class LUTManager(Base):
             lut = pylab_luts[value]
             if reverse:
                 lut = lut[::-1, :]
+            n_total = len(lut)
+            n_color = self.number_of_colors
+            if not n_color >= n_total:
+                lut = lut[::round(n_total/float(n_color))]
             self.load_lut_from_list(lut.tolist())
             #self.lut.force_build()
             return
