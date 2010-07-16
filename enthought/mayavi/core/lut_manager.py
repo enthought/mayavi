@@ -321,18 +321,30 @@ class LUTManager(Base):
         self.render()
 
     def _number_of_colors_changed(self, value):
-        if self.lut_mode == 'file' or self.lut_mode in pylab_luts:
+        if self.lut_mode == 'file':
             return
+        elif self.lut_mode in pylab_luts:
+            # We can't interpolate these LUTs, as they are defined from a 
+            # table. We hack around this limitation
+            reverse = self.reverse_lut
+            lut = pylab_luts[self.lut_mode]
+            if reverse:
+                lut = lut[::-1, :]
+            n_total = len(lut)
+            if value > n_total:
+                return
+            lut = lut[::round(n_total/float(value))]
+            self.load_lut_from_list(lut.tolist())
         else:
             lut = self.lut
             lut.number_of_table_values = value
             lut.modified()
             lut.build()
             self.render() # necessary to flush.
-            sc_bar = self.scalar_bar
-            sc_bar.maximum_number_of_colors = value
-            sc_bar.modified()
-            self.render()
+        sc_bar = self.scalar_bar
+        sc_bar.maximum_number_of_colors = value
+        sc_bar.modified()
+        self.render()
 
     def _number_of_labels_changed(self, value):
         sc_bar = self.scalar_bar
