@@ -622,11 +622,15 @@ class Surf(Pipeline):
         surf(x, y, s, ...)
         surf(x, y, f, ...)        
     
-    s is the elevation matrix, a 2D array.
+    s is the elevation matrix, a 2D array, where indices along the first
+    array axis represent x locations, and indices along the second array
+    axis represent y locations. 
     
-    x and y can be 1D or 2D arrays (such as returned by numpy.ogrid or
-    numpy.mgrid), but the points should be located on an orthogonal grid
-    (possibly non-uniform). In other words, all the points sharing a same
+    x and y can be 1D or 2D arrays such as returned by numpy.ogrid or
+    numpy.mgrid. Arrays returned by numpy.meshgrid require a transpose
+    first to obtain correct indexing order.
+    The points should be located on an orthogonal grid (possibly 
+    non-uniform). In other words, all the points sharing a same
     index in the s array need to have the same x or y value. For 
     arbitrary-shaped position arrays (non-orthogonal grids), see the mesh 
     function.
