@@ -2,8 +2,9 @@
 The general purpose tools to manipulate the pipeline with the mlab interface.
 """
 
-# Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2007, Enthought, Inc.
+# Author: Prabhu Ramachandran <prabhu_r@users.sf.net>,
+#         Gael Varoquaux      <gael dot varoquaux at normalesup dot org>
+# Copyright (c) 2007, 2010 Enthought, Inc.
 # License: BSD Style.
 
 # Standard library imports.
@@ -276,6 +277,9 @@ def set_extent(module, extents):
         extent keyword argument of mlab.pipeline.outline and
         mlab.pipeline.axes.
     """
+    if not hasattr(module, 'actor'):
+        print 'Cannot set extents for %s' % module
+        return
     if numpy.all(extents == 0.):
         # That the default setting.
         return
