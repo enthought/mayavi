@@ -300,7 +300,7 @@ PolyData_             Explicit      Points, lines and surfaces  x, y, z, positio
 UnstructuredGrid_     Explicit      Volumes and surfaces        x, y, z positions of vertices and arrays of volume Cells
 ===================== ============= =========================== ============================================================
 
-.. _image_data: ImageData 
+.. _image_data:
 
 ImageData
 ..........
@@ -580,7 +580,7 @@ or better yet, all in one go like so::
 
    Add content here from the presentations.
 
-Inserting TVTK datasets in the Mayavi pipeline.
+Inserting TVTK datasets in the Mayavi pipeline
 -----------------------------------------------
 
 TVTK datasets can be created using directly TVTK, as illustrated in the
@@ -596,8 +596,20 @@ dataset::
     i.point_data.scalars.name = 'scalars'
     i.dimensions = a.shape
 
-Inserting this dataset on the pipeline with `VTKDataSource` is done as
-such::
+* If you are scripting using :ref:`mlab <simple-scripting-with-mlab>`, the
+  simplest way to visualize your data is to use the :ref:`mlab.pipeline
+  <controlling-the-pipeline-with-mlab-scripts>` to apply filters and
+  modules to your data. Indeed these functions creating filters and
+  modules accept VTK datasets and automatically insert them on the
+  pipeline. A surface module could have been used to visualize the
+  `ImageData` dataset created above as such::
+
+    from enthgouth.mayavi import mlab
+    mlab.pipeline.surface(i)
+
+
+* In addition, inserting this dataset on the Mayavi pipeline with direct
+  control on the `Engine` is done as suchwith `VTKDataSource`::
 
     from enthought.mayavi.sources.api import VTKDataSource
     src = VTKDataSource(data=i)
@@ -607,24 +619,15 @@ such::
     s = e.new_scene()
     e.add_source(src)
 
-In addition, if you are scripting using :ref:`mlab
-<simple-scripting-with-mlab>`, the :ref:`mlab.pipeline
-<controlling-the-pipeline-with-mlab-scripts>` factory functions
-creating filters and modules accept VTK datasets, in which case they are
-automatically inserted on the pipeline. A surface module could have been
-used to visualize the `ImageData` dataset as such::
-
-    from enthgouth.mayavi import mlab
-    mlab.pipeline.surface(i)
-
 Of course, unless you want specific control on the attributes of the VTK
 dataset, or you are using Mayavi in the context of existing code
 manipulating TVTK objects, creating an `ImageData` TVTK object is not
-advised. The `ArraySource` Mayavi will actually create an `ImageData`,
-but make sure you don't get the shape wrong, which can lead to a
-segmentation fault. An even easier way to create a data source for an
-`ImageData` is to use the `mlab.pipeline.scalar_field` function.
-
+advised. The `ArraySource` object of Mayavi will actually create an
+`ImageData`, but make sure you don't get the shape wrong, which can lead
+to a segmentation fault. An even easier way to create a data source for
+an `ImageData` is to use the `mlab.pipeline.scalar_field` function, as
+explained in the :ref:`section on creating 
+data sources with mlab <mlab_data_source>`.
 
 
 ..

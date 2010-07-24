@@ -58,33 +58,78 @@ Data sources
 
 .. currentmodule:: enthought.mayavi.tools.pipeline
 
-The `pipeline` module contains functions for creating various data
+The `mlab.pipeline` module contains functions for creating various data
 sources from arrays. They are fully documented in details in the
 :ref:`mlab-pipeline-reference`. We give a small summary of the
 possibilities here. 
 
-`mlab` distinguishes sources with scalar data, and sources with vector
-data, but more important, it has different functions to create sets of
-unconnected points, with data attached to them, or connected data
-points describing continuously varying quantities that can be
-interpolated between data points, often called `fields` in physics or
-engineering.
+Mayavi distinguishes sources with **scalar data**, and sources with
+**vector data**, but more important, it has different functions to create
+sets of **unconnected points**, with data attached to them, or
+**connected data points** describing continuously varying quantities that
+can be interpolated between data points, often called `fields` in physics
+or engineering.
 
 :Unconnected sources:
-    :func:`scalar_scatter`, :func:`vector_scatter`
 
+  .. hlist::
+
+    * :func:`scalar_scatter` (creates a :ref:`poly_data`)
+    
+      .. image:: generated_images/enthought_mayavi_mlab_points3d.jpg 
+	:scale: 38
+
+    * :func:`vector_scatter` (creates an :ref:`poly_data`)
+
+      .. image:: generated_images/enthought_mayavi_mlab_quiver3d.jpg 
+	:scale: 40
+    
 :Implicitely-connected sources:
-    :func:`scalar_field`, :func:`vector_field`, :func:`array2d_source`
+
+  .. hlist::
+
+    * :func:`scalar_field` (creates an :ref:`image_data`)
+    
+      .. image:: generated_images/enthought_mayavi_mlab_contour3d.jpg 
+	:scale: 38
+ 
+    * :func:`vector_field` (creates an :ref:`image_data`)
+
+      .. image:: generated_images/enthought_mayavi_mlab_flow.jpg 
+	:scale: 50
+    
+    * :func:`array2d_source` (creates an :ref:`image_data`)
+
+      .. image:: generated_images/enthought_mayavi_mlab_imshow.jpg 
+	:scale: 45
 
 :Explicitly-connected sources:
-    :func:`line_source`, :func:`triangular_mesh_source`
 
-All the `mlab` source factories are functions that take numpy arrays and
-return the Mayavi source object that was added to the pipeline. However,
-the implicitely-connected sources require well-shaped arrays as
-arguments: the data is supposed to lie on a regular, orthogonal, grid of
-the same shape as the shape of the input array, in other words, the array
-describes an image, possibly 3 dimensional.
+  .. hlist::
+
+    * :func:`line_source` (creates an :ref:`poly_data`)
+
+      .. image:: generated_images/enthought_mayavi_mlab_plot3d.jpg 
+	:scale: 50
+    
+    * :func:`triangular_mesh_source` (creates an :ref:`poly_data`)
+
+      .. image:: poly_data.jpg
+	:scale: 38
+
+All the `mlab.pipline` source factories are functions that take numpy
+arrays and return the Mayavi source object that was added to the
+pipeline. However, the implicitely-connected sources require well-shaped
+arrays as arguments: the data is supposed to lie on a regular,
+orthogonal, grid of the same shape as the shape of the input array, in
+other words, the array describes an image, possibly 3 dimensional.
+
+.. note:: 
+
+    More complicated data structures can be created, such as irregular
+    grids or non-orthogonal grid. See 
+    :ref:`the section on data structures <data-structures-used-by-mayavi>`.
+    
 
 Modules and filters
 ~~~~~~~~~~~~~~~~~~~~
