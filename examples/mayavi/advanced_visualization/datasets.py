@@ -155,13 +155,10 @@ def polydata():
 def view(dataset):
     """ Open up a mayavi scene and display the dataset in it.
     """
-    engine = mlab.get_engine()
     fig = mlab.figure(bgcolor=(1, 1, 1), fgcolor=(0, 0, 0), 
                       figure=dataset.class_name[3:])
-    src = VTKDataSource(data=dataset)
-    engine.add_source(src) 
-    mlab.pipeline.surface(src, opacity=0.1)
-    mlab.pipeline.surface(mlab.pipeline.extract_edges(src),
+    surf = mlab.pipeline.surface(dataset, opacity=0.1)
+    mlab.pipeline.surface(mlab.pipeline.extract_edges(surf),
                             color=(0, 0, 0), )
 
 
