@@ -34,7 +34,7 @@ TODO:
 import re
 
 # Enthought library imports.
-from enthought.traits.api import HasTraits, Property, Any, Float, Instance, \
+from enthought.traits.api import HasTraits, Property, Any, Instance, \
                              Trait, List, Str, Dict, Python
 from enthought.traits.ui.api import \
      TreeEditor, TreeNodeObject, ObjectTreeNode, View, Item, Group
@@ -259,7 +259,13 @@ class FullTreeGenerator(SimpleTreeGenerator):
                     if x1:
                         kids[key] = x1
                 elif isinstance(x, TVTKBase):
-                    kids[key] = x
+                    if hasattr(x, '__iter__'):
+                        # Don't add iterable objects that contain non
+                        # acceptable nodes
+                        if isinstance(list(x)[0], TVTKBase):
+                            kids[key] = x
+                    else:
+                        kids[key] = x
 
         for method in methods:
             attr = camel2enthought(method[0])
@@ -278,8 +284,17 @@ class FullTreeGenerator(SimpleTreeGenerator):
             inputs = []
             if hasattr(obj, 'number_of_input_ports'):
                 if obj.number_of_input_ports:
-                    inputs = [obj.get_input(i) \
-                              for i in range(obj.number_of_input_ports)]
+                    # Sometimes not all the inputs can be retrieved using
+                    # 'get_input', as they may be sources (for instance
+                    # the ProbeFilter). 
+                    inputs = list()
+                    for i in range(obj.number_of_input_ports):
+                        try:
+                            inputs.append(obj.get_input(i))
+                        except TypeError:
+                            pass
+                    if not inputs:
+                        inputs = [obj.get_input()]
             else:
                 inputs = [obj.get_input(i) \
                           for i in range(obj.number_of_inputs)]
@@ -289,7 +304,7 @@ class FullTreeGenerator(SimpleTreeGenerator):
 
         if hasattr(obj, 'producer_port'):
             _add_kid('producer_port', obj.producer_port)
-            
+
         return kids
 
     def has_children(self, obj):
