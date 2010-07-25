@@ -361,7 +361,7 @@ Advanced mlab examples
 
 %(docstring)s
 
-**Source code:** :download:`%(short_file_name)s.py`
+**Python source code:** :download:`%(short_file_name)s.py`
 
 .. literalinclude:: %(short_file_name)s.py
     :lines: %(end_row)s-
