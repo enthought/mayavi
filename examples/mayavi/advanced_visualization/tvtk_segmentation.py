@@ -135,4 +135,12 @@ mlab.roll(180)
 
 fig.scene.disable_render = False
 
+#----------------------------------------------------------------------
+# To make the link between the Mayavi pipeline and the much more
+# complex VTK pipeline, we display both:
+mlab.show_pipeline(rich_view=False)
+from enthought.tvtk.pipeline.browser import PipelineBrowser
+browser = PipelineBrowser(fig.scene)
+browser.show()
+
 mlab.show()
