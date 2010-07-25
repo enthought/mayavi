@@ -262,7 +262,7 @@ class FullTreeGenerator(SimpleTreeGenerator):
                     if hasattr(x, '__iter__'):
                         # Don't add iterable objects that contain non
                         # acceptable nodes
-                        if isinstance(list(x)[0], TVTKBase):
+                        if len(list(x)) and isinstance(list(x)[0], TVTKBase):
                             kids[key] = x
                     else:
                         kids[key] = x
