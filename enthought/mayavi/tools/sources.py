@@ -4,7 +4,7 @@ Data sources classes and their associated functions for mlab.
 
 # Author: Gael Varoquaux <gael.varoquaux@normalesup.org>
 #         Prabhu Ramachandran
-# Copyright (c) 2007-2009, Enthought, Inc. 
+# Copyright (c) 2007-2010, Enthought, Inc. 
 # License: BSD Style.
 
 import operator
@@ -501,7 +501,12 @@ class MLineSource(MlabSource):
             pd = tvtk.PolyData()
         else:
             pd = self.dataset
-        pd.set(points=points, lines=lines)
+        # Avoid lines refering to non existing points: First set the 
+        # lines to None, then set the points, then set the lines
+        # refering to the new points.
+        pd.set(lines=None)
+        pd.set(points=points)
+        pd.set(lines=lines)
 
         if scalars is not None and len(scalars) > 0:
             assert len(x) == len(scalars)
