@@ -3,9 +3,80 @@ example to view the changeset [18702] use the following URL:
 https://svn.enthought.com/enthought/changeset/18702
 
 
-Mayavi 3.3.2 (not yet released)
+Mayavi 3.3.3 (not yet released)
 ===============================
 
+Enhancements
+------------
+
+22 July 2010 (GV)
+  - ENH: Add error management for extents in mlab: some module cannot be
+    scaled [25683].
+
+16 July 2010 (GV)
+
+  - ENH: Enable LUT defined by tables to have their number of colors
+    adjusted [25663].
+
+Fixes
+------
+
+
+2 August 2010 (GV)
+  - BUG: Fix a segfault when updating lines on a MLineSource using 'reset'
+    and reducing the number of points [25700].
+
+1 August 2010 (GV)
+  - BUG: Fix updating scalar scatters using mlab_source.set: a race condition
+    under Qt prevented the scalar range to be updated in time [25699].
+
+25 July 2010 (GV)
+  - BUG: Fix corner cases in the pipeline browser: objects for which the
+    number of inputs is misreported, and iterable objects to do not contain
+    TVTKBase entries [25685,25686].
+
+14 July 2010 (GV)
+  - BUG: Fix a bug in the poll_file example. Thanks to Jonathan Guyer for
+    pointing out the solution [25660].
+
+Mayavi 3.3.2 (May 25, 2010)
+===============================
+
+Enhancements
+------------
+
+DOCs: many docs and example improvements (GV).
+
+13 April 2010 (GV)
+  - API: Enforces wx >= 2.8 [25465,25471,25529]
+
+11 April 2010 (GV)
+  - ENH: Add figure management to mlab.roll [25464].
+
+6 March 2010 (GV)
+  - MISC: Change the default in iso_surface to compute normals, as with
+    recent VTK versions colors look ugly when normals are not computed
+    [25400].
+
+Fixes
+------
+
+17 May 2010 (PR)
+  - BUG: Fixing wrapping for VTK-5.6 and above where one of the string
+    traits default to a value with a special character like "\n" "\r"
+    [25546].
+
+17 April 2010 (GV)
+  - BUG: Fix integer casting in magnification for mlab.savefig [25483]
+
+5 April 2010 (GV)
+  - BUG: A slight modification to enable inserting graph objects
+    in the Mayavi pipeline: the polydata created by the GraphToPolyData
+    filter had some 'None' arrays in their point_data [25434].
+
+3 April 2010 (GV)
+  - BUG: Make the 'use_lookup_table' traits of the image_plane_widget
+    work. [25430]
 
 
 Mayavi 3.3.1 (Feb 24, 2010)
@@ -19,7 +90,7 @@ Enhancements
     filter to ArraySource, with additional work to get the tests to pass
     [25036], [25043]
 
-14 Dec, 2009 (GC)
+14 Dec, 2009 (GV)
   - ENH: Add helper functions to interact with object via callbacks by
     clicking on them. The core function is the scene.on_mouse_pick, that is
     demoed in the new example 'on_mouse_pick' [25016], [25019]
@@ -131,6 +202,12 @@ Enhancements
 
 Fixes
 -----
+
+21 Feb, 2010 (GV)
+   - BUG: Make the threshold filter better behaved when there are nans in
+     the data [25280]
+   - BUG: Remove callbacks on OrientationAxis that where triggering
+     useless redraws [25279]
 
 15 Feb, 2010 (PR):
   - BUG: Fix issue when an automatically generated trait name was actually 
@@ -333,7 +410,8 @@ Enhancements
 
 20 Apr, 2009 (GV):
 ENH [23545]: 
-    - Add an example gallery to the documentation
+     - Add an example gallery to the documentation
+
      - Rewamp the documentation-generation code, and its packaging. Th
        generation code was made more robust, and as a result n
        generated test files are checked in svn. The images for th
