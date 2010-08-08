@@ -141,8 +141,9 @@ class VolumeSlicer(HasTraits):
         # VTK dataset pointing to the data on the corresponding
         # image_plane_widget in the 3D view (it is returned by 
         # ipw_3d._get_reslice_output())
+        side_src = ipw_3d.ipw._get_reslice_output()
         ipw = mlab.pipeline.image_plane_widget(
-                            ipw_3d.ipw._get_reslice_output(),
+                            side_src,
                             plane_orientation='z_axes',
                             vmin=self.data.min(),
                             vmax=self.data.max(),
@@ -150,6 +151,10 @@ class VolumeSlicer(HasTraits):
                             name='Cut view %s' % axis_name,
                             )
         setattr(self, 'ipw_%s' % axis_name, ipw)
+
+        # Extract the spacing of the side_src to convert coordinates
+        # into indices
+        spacing = side_src.spacing
 
         # Make left-clicking create a crosshair
         ipw.ipw.left_button_action = 0
@@ -169,7 +174,7 @@ class VolumeSlicer(HasTraits):
         this_axis_number = self._axis_names[axis_name]
         def move_view(obj, evt):
             # Disable rendering on all scene
-            position = list(obj.GetCurrentCursorPosition())[:2]
+            position = list(obj.GetCurrentCursorPosition()*spacing)[:2]
             position.insert(this_axis_number, self.position[this_axis_number])
             # We need to special case y, as the view has been rotated.
             if axis_name is 'y':
@@ -285,7 +290,7 @@ class VolumeSlicer(HasTraits):
 ################################################################################
 if __name__ == '__main__':
     # Create some data
-    x, y, z = np.ogrid[-5:5:64j, -5:5:64j, -5:5:64j]
+    x, y, z = np.ogrid[-5:5:100j, -5:5:100j, -5:5:100j]
     data = np.sin(3*x)/x + 0.05*z**2 + np.cos(3*y) 
 
     m = VolumeSlicer(data=data)
