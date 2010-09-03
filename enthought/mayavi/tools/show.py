@@ -2,10 +2,11 @@
 # Copyright (c) 2008, Enthought, Inc.
 # License: BSD Style.
 
-from enthought.pyface.api import GUI, ApplicationWindow
 from enthought.etsconfig.api import ETSConfig
+from enthought.pyface.api import GUI, ApplicationWindow
 from enthought.traits.api import HasTraits, Button, Any
 from enthought.traits.ui.api import View, Group, Item
+from enthought.util import guisupport
 
 # Globals.
 # The GUI instance.
@@ -14,27 +15,17 @@ _gui = None
 _stop_show = None
 
 def is_ui_running():
-    """Returns True if the UI event loop is running."""
-    tk = ETSConfig.toolkit
+    """ Returns True if the UI event loop is running.
+    """
     from engine_manager import options
     if options.offscreen:
-        return True 
-
-    if tk == 'wx':
-        import wx
-        return wx.App.IsMainLoopRunning()
-    elif tk == 'qt4':
-        from PyQt4 import QtGui
-        app = QtGui.QApplication.instance()
-        if app is not None:
-            # Hack gleaned from enthought.traits.ui.qt4.view_application
-            if hasattr(app, '_in_event_loop'):
-                if _gui is None:
-                    return app._in_event_loop
-                else:
-                    return _gui.started
-
-    return False
+        return True
+    elif ETSConfig.toolkit == 'wx':
+        return guisupport.is_event_loop_running_wx()
+    elif ETSConfig.toolkit == 'qt4':
+        return guisupport.is_event_loop_running_qt4()
+    else:
+        return False
 
 ################################################################################
 # `StopShow` class.
