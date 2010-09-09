@@ -145,7 +145,6 @@ Gaël Varoquaux: new mlab, icons, many general improvements and suggestions.
 
 K K Rai and R A Ambareesha: Patches for tensor support, parametric source and image data. 
 
-
 Many thanks to all those who have submitted bug reports and suggestions for
 further enhancements.
 
