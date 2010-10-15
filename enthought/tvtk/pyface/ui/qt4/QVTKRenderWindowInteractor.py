@@ -118,6 +118,46 @@ class QVTKRenderWindowInteractor(QtGui.QWidget):
         9:  QtCore.Qt.PointingHandCursor,   # VTK_CURSOR_HAND
         10: QtCore.Qt.CrossCursor,          # VTK_CURSOR_CROSSHAIR
     }
+    
+    # Map from Qt key codes to VTK key names
+    _KEY_MAP = {
+        QtCore.Qt.Key_Escape: "Esc",
+        QtCore.Qt.Key_Tab: "Tab",
+        QtCore.Qt.Key_Backtab: "Backtab",
+        QtCore.Qt.Key_Backspace: "Backspace",
+        QtCore.Qt.Key_Return: "Return",
+        QtCore.Qt.Key_Enter: "Enter",
+        QtCore.Qt.Key_Insert: "Insert",
+        QtCore.Qt.Key_Delete: "Delete",
+        QtCore.Qt.Key_Pause: "Pause",
+        QtCore.Qt.Key_Print: "Print",
+        QtCore.Qt.Key_SysReq: "Sysreq",
+        QtCore.Qt.Key_Clear: "Clear",
+        QtCore.Qt.Key_Home: "Home",
+        QtCore.Qt.Key_End: "End",
+        QtCore.Qt.Key_Left: "Left",
+        QtCore.Qt.Key_Up: "Up",
+        QtCore.Qt.Key_Right: "Right",
+        QtCore.Qt.Key_Down: "Down",
+        QtCore.Qt.Key_PageUp: "Prior",
+        QtCore.Qt.Key_PageDown: "Next",
+        QtCore.Qt.Key_Meta: "Meta",
+        QtCore.Qt.Key_CapsLock: "Caps_Lock",
+        QtCore.Qt.Key_NumLock: "Num_Lock",
+        QtCore.Qt.Key_ScrollLock: "Scroll_Lock",
+        QtCore.Qt.Key_F1: "F1",
+        QtCore.Qt.Key_F2: "F2",
+        QtCore.Qt.Key_F3: "F3",
+        QtCore.Qt.Key_F4: "F4",
+        QtCore.Qt.Key_F5: "F5",
+        QtCore.Qt.Key_F6: "F6",
+        QtCore.Qt.Key_F7: "F7",
+        QtCore.Qt.Key_F8: "F8",
+        QtCore.Qt.Key_F9: "F9",
+        QtCore.Qt.Key_F10: "F10",
+        QtCore.Qt.Key_F11: "F11",
+        QtCore.Qt.Key_F12: "F12",
+    }
 
     def __init__(self, parent=None, wflags=QtCore.Qt.WindowFlags(), **kw):
         # the current button
@@ -323,6 +363,7 @@ class QVTKRenderWindowInteractor(QtGui.QWidget):
 
     def keyPressEvent(self, ev):
         ctrl, shift = self._GetCtrlShift(ev)
+        key_sym = self._KEY_MAP.get(ev.key(), None)
         if ev.key() < 256:
             if ev.text():
                 key = str(ev.text())
@@ -331,21 +372,22 @@ class QVTKRenderWindowInteractor(QtGui.QWidget):
                 key = chr(ev.key())
         else:
             key = chr(0)
-
+        
         self._Iren.SetEventInformationFlipY(self.__saveX, self.__saveY,
-                                            ctrl, shift, key, 0, None)
+                                            ctrl, shift, key, 0, key_sym)
         self._Iren.KeyPressEvent()
         self._Iren.CharEvent()
 
     def keyReleaseEvent(self, ev):
         ctrl, shift = self._GetCtrlShift(ev)
+        key_sym = self._KEY_MAP.get(ev.key(), None)
         if ev.key() < 256:
             key = chr(ev.key())
         else:
             key = chr(0)
-
+        
         self._Iren.SetEventInformationFlipY(self.__saveX, self.__saveY,
-                                            ctrl, shift, key, 0, None)
+                                            ctrl, shift, key, 0, key_sym)
         self._Iren.KeyReleaseEvent()
 
     def wheelEvent(self, ev):
