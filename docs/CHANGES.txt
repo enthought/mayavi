@@ -3,8 +3,8 @@ example to view the changeset [18702] use the following URL:
 https://svn.enthought.com/enthought/changeset/18702
 
 
-Mayavi 3.3.3 (not yet released)
-===============================
+Mayavi 3.4.0 (Oct 15, 2010)
+===========================
 
 Enhancements
 ------------
