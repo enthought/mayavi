@@ -14,13 +14,13 @@ def etsdep(p, min, max=None, literal=False):
 
 
 # Declare our ETS project dependencies.
-APPTOOLS = etsdep('AppTools', '3.3.2')  # -- imports of persistence, resource and scripting in many places
-ENTHOUGHTBASE = etsdep('EnthoughtBase', '3.0.5')    # The 'plugin' extra is required by loose-coupling in the mayavi ui plugin definition's default pespective.
-ENVISAGECORE = etsdep('EnvisageCore', '3.1.2')
-ENVISAGEPLUGINS = etsdep('EnvisagePlugins', '3.1.2')
-TRAITSBACKENDWX = etsdep('TraitsBackendWX', '3.4.0')
-TRAITSGUI = etsdep('TraitsGUI', '3.4.0')
-TRAITS_UI = etsdep('Traits[ui]', '3.4.0')
+APPTOOLS = etsdep('AppTools', '3.4.0')  # -- imports of persistence, resource and scripting in many places
+ENTHOUGHTBASE = etsdep('EnthoughtBase', '3.0.6')    # The 'plugin' extra is required by loose-coupling in the mayavi ui plugin definition's default pespective.
+ENVISAGECORE = etsdep('EnvisageCore', '3.1.3')
+ENVISAGEPLUGINS = etsdep('EnvisagePlugins', '3.1.3')
+TRAITSBACKENDWX = etsdep('TraitsBackendWX', '3.5.0')
+TRAITSGUI = etsdep('TraitsGUI', '3.5.0')
+TRAITS_UI = etsdep('Traits[ui]', '3.5.0')
 
 
 # A dictionary of the pre_setup information.
@@ -43,7 +43,6 @@ INFO = {
         # decide whether to require them or not.
         'nonets': [
             'numpy >= 1.1.0',
-            'setuptools',
             #'VTK',  # fixme: VTK is not available as an egg on all platforms.
             #'wxPython',  # Not everyone uses WX.
             ],
@@ -55,5 +54,5 @@ INFO = {
         TRAITS_UI,
         ],
     'name': 'Mayavi',
-    'version': '3.3.3',
-    }
+    'version': '3.4.0',
+}
