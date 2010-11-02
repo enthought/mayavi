@@ -87,6 +87,181 @@ setup_data = dict(__name__='', __file__='setup_data.py')
 execfile('setup_data.py', setup_data)
 INFO = setup_data['INFO']
 
+DEFAULT_HTML_TARGET_DIR = os.path.join('build', 'docs', 'html')
+DEFAULT_INPUT_DIR = os.path.join('docs', 'source',)
+DEFAULT_HTML_ZIP = os.path.abspath(os.path.join('docs', 'html.zip'))
+
+class GenDocs(Command):
+
+    description = \
+        "This command generates generated part of the documentation " \
+        "when needed. It's run automatically before a build_docs, and that's " \
+        "the only time it needs to be run."
+
+    user_options = [
+        ('None', None, 'this command has no options'),
+        ]
+
+    def latest_modified(self, the_path, filetypes='', ignore_dirs=''):
+        """Traverses a path looking for the most recently modified file
+
+        Parameters
+        ----------
+        the_path : string
+            Contains path to be traversed or filename to be inspected.
+        filetypes : string
+            Regular expression pattern of files to examine. If specified, other
+            files are ignored. Otherwise, all files are examined.
+        ignore_dirs : string
+            Regular expression pattern of directories to be ignored. If ignore
+            specified, all directories are walked.
+
+        Returns
+        -------
+        latest_time : float
+            Modification time of latest_path.
+        latest_path : string
+            Most recently modified file.
+
+        Description
+        -----------
+
+        """
+
+        file_re = re.compile(filetypes)
+        dir_re = re.compile(ignore_dirs)
+
+        if not os.path.exists(the_path):
+            return 0, the_path
+        if os.path.isdir(the_path):
+            latest_time = 0
+            latest_path = the_path
+            for root, dirs, files in os.walk(the_path):
+                if ignore_dirs != '':
+                    # This needs to iterate over a copy of the list. Otherwise,
+                    # as things get removed from the original list, the indices
+                    # become invalid.
+                    for dir in dirs[:]:
+                        if dir_re.search(dir):
+                            dirs.remove(dir)
+                for file in files:
+                    if filetypes != '':
+                        if not file_re.search(file):
+                            continue
+                    current_file_time = os.path.getmtime(os.path.join(root,
+                        file))
+                    if current_file_time > latest_time:
+                        latest_time = current_file_time
+                        latest_path = os.path.join(root, file)
+            return latest_time, latest_path
+
+        else:
+            return os.path.getmtime(the_path), the_path
+
+    def mlab_reference(self):
+        """ If mayavi is installed, run the mlab_reference generator.
+        """
+        # XXX: This is really a hack: the script is not made to be used
+        # for different projects, but it ended up being. This part is
+        # mayavi-specific.
+
+        mlab_ref_dir = os.path.join(DEFAULT_INPUT_DIR, 'mayavi','auto')
+
+        source_path = os.path.join('enthought', 'mayavi')
+        sources = '(\.py)|(\.rst)$'
+        excluded_dirs = '^\.'
+        target_path = mlab_ref_dir
+        target_time = self.latest_modified(target_path, ignore_dirs=excluded_dirs)[0]
+
+        if self.latest_modified(source_path, filetypes=sources,
+            ignore_dirs=excluded_dirs)[0] > target_time or \
+            self.latest_modified('mlab_reference.py')[0] > target_time or\
+            not os.path.exists(
+                os.path.join('docs', 'source', 'mayavi', 'auto',
+                'mlab_reference.rst')):
+            try:
+                from enthought.mayavi import mlab
+                from enthought.mayavi.tools import auto_doc
+                print "Generating the mlab reference documentation"
+                os.system('python mlab_reference.py')
+            except:
+                pass
+
+    def example_files(self):
+        """ Generate the documentation files for the examples.
+        """
+        mlab_ref_dir = os.path.join(DEFAULT_INPUT_DIR, 'mayavi','auto')
+
+        source_path = os.path.join('examples', 'mayavi')
+        sources = '(\.py)|(\.rst)$'
+        excluded_dirs = '^\.'
+        target_path = mlab_ref_dir
+        target_time = self.latest_modified(target_path, ignore_dirs=excluded_dirs)[0]
+
+        script_file_name = os.path.join('docs', 'source', 'render_examples.py')
+
+        if self.latest_modified(source_path, filetypes=sources,
+            ignore_dirs=excluded_dirs)[0] > target_time or \
+            self.latest_modified(script_file_name)[0] > target_time or\
+            not os.path.exists(
+                os.path.join('docs', 'source', 'mayavi', 'auto',
+                'examples.rst')):
+            try:
+                from enthought.mayavi import mlab
+                from enthought.mayavi.tools import auto_doc
+                print "Generating the example list"
+                subprocess.call('python %s' %
+                            os.path.basename(script_file_name), shell=True,
+                            cwd=os.path.dirname(script_file_name))
+            except:
+                pass
+
+
+    def run(self):
+        self.mlab_reference()
+        self.example_files()
+
+    def initialize_options(self):
+        pass
+
+    def finalize_options(self):
+        pass
+
+# Functions to generate the docs
+def list_doc_projects():
+    """ List the different source directories under DEFAULT_INPUT_DIR
+        for which we have docs.
+    """
+    source_dir = os.path.join(os.path.abspath(os.path.dirname(__file__)),
+        DEFAULT_INPUT_DIR)
+    source_list = os.listdir(source_dir)
+    # Check to make sure we're using non-hidden directories.
+    source_dirs = [listing for listing in source_list
+        if os.path.isdir(os.path.join(source_dir, listing))
+        and not listing.startswith('.')]
+    return source_dirs
+
+def list_docs_data_files(project):
+    """ List the files to add to a project by inspecting the
+        documentation directory. This works only if called after the
+        build step, as the files have to be built.
+
+        returns a list of (install_dir, [data_files, ]) tuples.
+    """
+    project_target_dir = os.path.join(DEFAULT_HTML_TARGET_DIR, project)
+    return_list = []
+    for root, dirs, files in os.walk(project_target_dir, topdown=True):
+        # Modify inplace the list of directories to walk
+        dirs[:] = [d for d in dirs if not d.startswith('.')]
+        if len(files) == 0:
+            continue
+        install_dir = root.replace(project_target_dir,
+            os.path.join('enthought', project, 'html'))
+        return_list.append(
+            (install_dir, [os.path.join(root, f) for f in files]))
+    return return_list
+
+
 # Our custom distutils hooks
 def build_tvtk_classes_zip():
     tvtk_dir = os.path.join('enthought', 'tvtk')
@@ -107,6 +282,13 @@ class MyBuild(build.build):
     def run(self):
         build_tvtk_classes_zip()
         build.build.run(self)
+        self.run_command('gen_docs')
+        try:
+            self.run_command('build_docs')
+        except:
+            log.warn("Couldn't build documentation:\n%s" %
+                     traceback.format_exception(*sys.exc_info()))
+
 
 
 class MyDevelop(develop.develop):
@@ -118,6 +300,13 @@ class MyDevelop(develop.develop):
     """
 
     def run(self):
+        self.run_command('gen_docs')
+        try:
+            self.run_command('build_docs')
+        except:
+            log.warn("Couldn't build documentation:\n%s" %
+                     traceback.format_exception(*sys.exc_info()))
+
         # Make sure that the 'build_src' command will
         # always be inplace when we do a 'develop'.
         self.reinitialize_command('build_src', inplace=1)
@@ -138,6 +327,9 @@ class MyInstallData(install_data.install_data):
 
     def run(self):
         install_data_command = self.get_finalized_command('install_data')
+        for project in list_doc_projects():
+            install_data_command.data_files.extend(
+                                    list_docs_data_files(project))
 
         # make sure tvtk_classes.zip always get created before putting it
         # in the install data.
@@ -201,6 +393,9 @@ def configuration(parent_package='', top_path=None):
     config.add_data_dir('enthought/tvtk/plugins/scene')
     config.add_data_dir('enthought/mayavi/preferences')
 
+    # The mayavi documentation.
+    # Take a peak at the zip file to know which path to add:
+    zip = zipfile.ZipFile(DEFAULT_HTML_ZIP)
     return config
 
 ################################################################################
@@ -253,6 +448,7 @@ numpy.distutils.core.setup(
         'develop': MyDevelop,
         'install_scripts': MyInstallScripts,
         'install_data': MyInstallData,
+        'gen_docs': GenDocs,
         },
     description = DOCLINES[1],
     docs_in_egg = True,
