@@ -138,9 +138,6 @@ class MyInstallData(install_data.install_data):
 
     def run(self):
         install_data_command = self.get_finalized_command('install_data')
-        for project in list_doc_projects():
-            install_data_command.data_files.extend(
-                                    list_docs_data_files(project))
 
         # make sure tvtk_classes.zip always get created before putting it
         # in the install data.
