@@ -227,6 +227,48 @@ class GenDocs(Command):
     def finalize_options(self):
         pass
 
+class BuildDocs(Command):
+
+    description = \
+        "This command generates the documentation by running Sphinx. " \
+        "It then zips the docs into an html.zip file."
+
+    user_options = [
+        ('None', None, 'this command has no options'),
+        ]
+
+
+    def make_docs(self):
+        if os.name == 'nt':
+            print "Please impelemnt sphinx building on windows here."
+        else:
+            subprocess.call(['make', 'html'], cwd='docs')
+
+    def zip_docs(self):
+        zf = zipfile.ZipFile(DEFAULT_HTML_ZIP, 'w')
+
+        for project in list_doc_projects():
+            project_dir = os.path.join('docs', 'build', project, 'html')
+            for root, dirs, files in os.walk(project_dir):
+                relative_root = root[len(project_dir)+1:]
+                for name in files:
+                    src = os.path.join(root, name)
+                    dest = os.path.join('html', project, relative_root, name)
+                    zf.write(src, dest)
+
+        zf.close()
+
+    def run(self):
+        self.make_docs()
+        self.zip_docs()
+
+    def initialize_options(self):
+        pass
+
+    def finalize_options(self):
+        pass
+
+
 # Functions to generate the docs
 def list_doc_projects():
     """ List the different source directories under DEFAULT_INPUT_DIR
@@ -240,6 +282,7 @@ def list_doc_projects():
         if os.path.isdir(os.path.join(source_dir, listing))
         and not listing.startswith('.')]
     return source_dirs
+
 
 def list_docs_data_files(project):
     """ List the files to add to a project by inspecting the
@@ -449,6 +492,7 @@ numpy.distutils.core.setup(
         'install_scripts': MyInstallScripts,
         'install_data': MyInstallData,
         'gen_docs': GenDocs,
+        'build_docs': BuildDocs,
         },
     description = DOCLINES[1],
     docs_in_egg = True,
@@ -482,7 +526,6 @@ numpy.distutils.core.setup(
         "enthought",
         ],
     platforms = ["Windows", "Linux", "Mac OS-X", "Unix", "Solaris"],
-    setup_requires = 'setupdocs>=1.0',
     ssh_server = 'code.enthought.com',
     ssh_remote_dir = '/www/htdocs/code.enthought.com/projects/mayavi/',
     tests_require = [
