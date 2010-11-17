@@ -41,10 +41,11 @@ copyright = '2008, tvtk'
 # The default replacements for |version| and |release|, also used in various
 # other places throughout the built documents.
 #
-# The short X.Y version.
-version = '.'
-# The full version, including alpha/beta/rc tags.
-release = '.'
+# Pull from the actual release number in setup_data
+sys.path.insert(0, os.path.join('..', '..', '..'))
+from setup_data import INFO
+version = release = INFO['version']
+
 
 # There are two options for replacing |today|: either, you set today to some
 # non-false value, then it is used:
