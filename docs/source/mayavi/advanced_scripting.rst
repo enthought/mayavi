@@ -24,7 +24,7 @@ probably the easiest and most powerful way to script Mayavi.
 
 However, to best understand how to script Mayavi, a reasonable
 understanding of the Mayavi internals is necessary.  The following
-sections provides an overview of the basic design and objects in the
+sections provide an overview of the basic design and objects in the
 Mayavi pipeline.  Subsequent sections consider specific example scripts
 that are included with the Mayavi sources that illustrate the ideas.
 
@@ -50,10 +50,10 @@ visualization.  The ``Engine`` manages a collection of ``Scene``
 (``enthought.mayavi.core.scene.Scene``) objects.  In each ``Scene``, a
 user may have created any number of ``Source``
 (``enthought.mayavi.core.source.Source``) objects.  A ``Source``
-object can further contain any number of ``Filters``
+object can further contain any number of ``Filter``
 (``enthought.mayavi.core.filter.Filter``) or ``ModuleManager``
 (``enthought.mayavi.core.module_manager.ModuleManager``) objects.  A
-``Filter`` may contain either other filters or ``ModuleManagers``.  A
+``Filter`` may contain either other ``filters`` or ``ModuleManagers``.  A
 ``ModuleManager`` manages any number of ``Modules``.  The figure below
 shows this hierarchy in a graphical form.
 
@@ -104,7 +104,7 @@ will do this for you.
 
 This explicit, object-oriented, code thus mirrors the `mlab.pipeline`
 code. It is more fine-grained, and gives you more control. For instance
-it separate initialization of the objects, and their addition or removal
+it separates initialization of the objects, and their addition or removal
 to an engine. In general, it is more suited to developing an application,
 as opposed to a script.
 
@@ -366,4 +366,3 @@ in your envisage applications.
    sentence-end-double-space: t
    fill-column: 70
    End:
-

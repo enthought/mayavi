@@ -18,7 +18,7 @@ module.
 .. note:: 
 
     In this section, we only list the different functions. Each function
-    is described in details in the :ref:`mlab-reference`, at the end of
+    is described in detail in the :ref:`mlab-reference`, at the end of
     the user guide, with figures and examples. Please follow the links.
 
 
@@ -74,7 +74,7 @@ module.
 |mesh|            :func:`mesh`
                   |hack|
                   Plot a surface described by three 2D arrays, ``x``, 
-                  ``y``, ``z`` giving the coordinnates of the data points 
+                  ``y``, ``z`` giving the coordinates of the data points 
                   as a grid.
                   |hack|
                   Unlike :func:`surf`, the surface is defined by its 
@@ -84,7 +84,7 @@ module.
 |barchart|        :func:`barchart`
                   |hack|
                   Plot an array ``s``, or a set of points with
-                  explicite coordinnates arrays, ``x``, ``y`` and ``z``,
+                  explicit coordinates arrays, ``x``, ``y`` and ``z``,
                   as a bar chart, eg for histograms.
                   |hack|
                   This function is very versatile and will accept 2D or 
@@ -94,7 +94,7 @@ module.
 |triangular_mesh| :func:`triangular_mesh`
                   |hack|
                   Plot a triangular mesh, fully specified by
-                  ``x``, ``y`` and ``z`` coordinnates of its
+                  ``x``, ``y`` and ``z`` coordinates of its
                   vertices, and the (n, 3) array of the indices of
                   the triangles.
 
@@ -113,14 +113,14 @@ module.
     Knowing the positions of data points is not enough to define a
     surface, connectivity information is also required. With the 
     functions :func:`surf` and :func:`mesh`, this connectivity
-    information is implicitely extracted from the shape of the input
-    arrays: neighbooring data points in the 2D input arrays are
+    information is implicitly extracted from the shape of the input
+    arrays: neighboring data points in the 2D input arrays are
     connected, and the data lies on a grid. With the function 
-    :func:`triangular_mesh`, connectivity is explicitely specified.
+    :func:`triangular_mesh`, connectivity is explicitly specified.
     Quite often, the connectivity is not regular, but is not known in
     advance either. The data points lie on a surface, and we want to
-    plot the surface implicitely defined. The `delaunay2d` filter does
-    the required nearest-neighboor matching, and interpolation, as
+    plot the surface implicitly defined. The `delaunay2d` filter does
+    the required nearest-neighbor matching, and interpolation, as
     shown in the (:ref:`example_surface_from_irregular_data`).
 
 
@@ -149,7 +149,7 @@ module.
 ================= =========================================================
 |contour3d|       :func:`contour3d`
                   |hack|
-                  Plot isosurfaces of volumetric data defined as a 3D
+                  Plot iso-surfaces of volumetric data defined as a 3D
                   array.
 
 |quiver3d|        :func:`quiver3d`
@@ -161,7 +161,7 @@ module.
 
 |flow|            :func:`flow`
                   |hack|
-                  Plot trajectories of particles along a vector field 
+                  Plot a trajectory of particles along a vector field 
                   described by three 3D arrays giving the ``u``,
                   ``v``, ``w`` components on a grid.
 
@@ -185,7 +185,7 @@ module.
 
 .. note::
 
-    Many richer visualisations can be created by assembling data sources
+    Many richer visualizations can be created by assembling data sources
     filters and modules. See the
     :ref:`controlling-the-pipeline-with-mlab-scripts` and the 
     :ref:`mlab-case-studies` sections.

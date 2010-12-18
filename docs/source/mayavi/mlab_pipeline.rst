@@ -15,7 +15,7 @@ pipelines for you in one function, making the right choice of sources,
 filters, and modules, but they cannot explore all the possible
 combinations.
 
-Mlab provides a submodule `pipeline` which contains functions to populate
+Mlab provides a sub-module `pipeline` which contains functions to populate
 the pipeline easily from scripts. This module is accessible in `mlab`:
 `mlab.pipeline`, or can be imported from
 `enthought.mayavi.tools.pipeline`.
@@ -24,7 +24,7 @@ When using an `mlab` plotting function, a pipeline is created: first a
 source is created from `numpy` arrays, then modules, and possibly
 filters, are added. The resulting pipeline can be seen for instance with
 the `mlab.show_pipeline` command. This information can be used to create
-the very same pipeline using directly the `pipeline` scripting module, as
+the very same pipeline directly using the `pipeline` scripting module, as
 the names of the functions required to create each step of the pipeline
 are directly linked to the default names of the objects created by `mlab`
 on the pipeline. As an example, let us create a visualization using
@@ -84,7 +84,7 @@ or engineering.
       .. image:: generated_images/enthought_mayavi_mlab_quiver3d.jpg 
 	:scale: 40
     
-:Implicitely-connected sources:
+:implicitly-connected sources:
 
   .. hlist::
 
@@ -119,7 +119,7 @@ or engineering.
 
 All the `mlab.pipline` source factories are functions that take numpy
 arrays and return the Mayavi source object that was added to the
-pipeline. However, the implicitely-connected sources require well-shaped
+pipeline. However, the implicitly-connected sources require well-shaped
 arrays as arguments: the data is supposed to lie on a regular,
 orthogonal, grid of the same shape as the shape of the input array, in
 other words, the array describes an image, possibly 3 dimensional.
@@ -146,7 +146,7 @@ contain addition logic, exposed as keyword arguments. For instance they
 allow to set up easily a colormap, or to specify the color of the module,
 when relevant. In accordance with the goal of the `mlab` interface to
 make frequent operations simple, they use the keyword arguments to choose 
-the properties of the create object to best suit the requirements. It can
+the properties of the created object to suit the requirements. It can
 be thus easier to use the keyword arguments, when available, than to set
 the attributes of the objects created. For more information, please check
 out the docstrings. Full, detailed, usage examples are given in the next

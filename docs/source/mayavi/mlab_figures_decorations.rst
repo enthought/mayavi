@@ -44,12 +44,12 @@ function. They are described in terms of Euler angles and distance to a
 focal point. The :func:`view` function tries to guess the right roll angle 
 of the camera for a pleasing view, but it sometimes fails. The :func:`roll`
 explicitly sets the roll angle of the camera (this can be achieve
-intercactively in the scene by pressing down the control key, while
+interactively in the scene by pressing down the control key, while
 dragging the mouse, see :ref:`interaction-with-the-scene`).
 
 The :func:`view` and :func:`roll` functions return the current values of
 the different angles and distances they take as arguments. As a result, the
-view point obtained interactively can be stored an reset using::
+view point obtained interactively can be stored and reset using::
 
     # Store the information
     view = mlab.view()

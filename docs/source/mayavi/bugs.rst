@@ -13,7 +13,7 @@ appropriate tickets.
     (mostly on windows or in virtual machines, I believe), z-ordering
     bugs where hidden triangles are displayed in front of the triangles
     that should hide them (a common bug on Linux with intel graphics
-    cards), or the rendering windows becomming grey when the focus is
+    cards), or the rendering windows becoming grey when the focus is
     moved out (often seen on Linux, when compiz is enabled). The
     solution is most often simply to turn off hardware rendering in the
     system settings (turn off compiz under Linux) or change

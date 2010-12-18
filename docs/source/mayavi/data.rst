@@ -3,7 +3,7 @@
 Data representation in Mayavi
 ==============================
 
-Describing data in three dimension in the general case is a complex
+Describing data in three dimensions in the general case is a complex
 problem. Mayavi helps you focus on your visualization work and not worry
 too much about the underlying data structures, for instance using mlab
 (see :ref:`simple-scripting-with-mlab`). We suggest you create sources
@@ -81,8 +81,8 @@ A dataset is defined by many different characteristics:
     and the cell data is stored in the `.cell_data` attribute.
 
     In addition the data arrays have an associated name, which is used in
-    Mayavi to specify on which data component module or filter apply (eg
-    using the`SetActiveAttribute` filter.
+    Mayavi to specify on which data component module or filter apply (eg:
+    using the`SetActiveAttribute` filter).
 
 All VTK arrays, whether it be for data or position, are exposed as (n, 3)
 numpy arrays for 3D components, and flat (n, ) array for 1D components.
@@ -180,7 +180,7 @@ interpolate between the points::
     >>> mlab.pipeline.probe_data(pts, .5, .5, .5)
     array([ 0. ])
 
-To define volumetric data, you can use a Delaunay3D filter::
+To define volumetric data, you can use a ``delaunay3d`` filter::
 
     >>> field = mlab.pipeline.delaunay3d(src)
 

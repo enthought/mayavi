@@ -221,7 +221,7 @@ def serve_tcp(engine=None, port=8007, logto=sys.stdout, max_connect=1):
      :logto: file: File like object to log messages to.  If this is
                    `None` it disables logging.
 
-     :max_connect: int: Maximum number of simulataneous connections to
+     :max_connect: int: Maximum number of simultaneous connections to
                         support.
 
     **Examples**

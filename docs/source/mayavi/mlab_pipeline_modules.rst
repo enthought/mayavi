@@ -3,7 +3,7 @@ Modules and Filters
 --------------------
 
 For each Mayavi module or filter, there is a corresponding
-`mlab.pipeline` factory function that takes as an input argument the
+`mlab.pipeline` factory function that takes as an input argument, the
 source on which the new module or filter will be added, and returns the 
 created module object. The name of the function corresponds to the name
 of the module, but with words separated by underscores `_`, rather than

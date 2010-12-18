@@ -17,7 +17,7 @@ following field::
 
 
 
-:IsoSurfaces:
+:Iso-Surfaces:
     To display iso surfaces of the field, the simplest solution is
     simply to use the `mlab` :func:`contour3d` function:: 
 
@@ -25,7 +25,7 @@ following field::
 
     |volumetric_contour3d|
 
-    The problem with this method that outer iso-surfaces tend to hide inner 
+    The problem with this method is that the outer iso-surfaces tend to hide inner 
     ones. As a result, quite often only one iso-surface can be visible.
 
     .. currentmodule:: enthought.mayavi.tools.pipeline
@@ -41,9 +41,9 @@ following field::
     |volumetric_volume|
 
     For such a visualization, tweaking the opacity transfer function is
-    critical to achieving a good effect. Typically, it can be useful to
+    critical to achieve a good effect. Typically, it can be useful to
     limit the lower and upper values to the 20 and 80 percentiles of the
-    data, in order to have a reasonnable fraction of the volume
+    data, in order to have a reasonable fraction of the volume
     transparent::
 
 	mlab.pipeline.volume(mlab.pipeline.scalar_field(s), vmin=0, vmax=0.8)
@@ -52,17 +52,17 @@ following field::
 
     It is useful to open the module's dialog (eg through the pipeline
     interface, or using it's `edit_traits()` method) and tweak the color
-    transfert function to render transparent the low-intensities regions
+    transfer function to render the transparent low-intensity regions
     of the image. **For this module, the LUT as defined in the `Colors and
     legends` node are not used**
 
     The limitations of volume rendering is that, while it is often very
-    pretty, it can be difficult to analysis the details of the field with
+    pretty, it can be difficult to analyze the details of the field with
     it.
 
 :Cut planes:
     While less impressive, cut planes are a very informative way of
-    visualising the details of a scalar field::
+    visualizing the details of a scalar field::
 
         mlab.pipeline.image_plane_widget(mlab.pipeline.scalar_field(s),
                                     plane_orientation='x_axes',
@@ -101,8 +101,8 @@ following field::
 
     |volumetric_combination|
 
-    In some cases, thought not in our example, it might be usable to
-    insert a threshold filter before the cut plane, eg to remove area
+    In some cases, though not in our example, it might be usable to
+    insert a threshold filter before the cut plane, eg:to remove area
     with values below 's.min()+0.1*s.ptp()'. In this case, the cut plane
     needs to be implemented with `mlab.pipeline.scalar_cut_plane` as the data
     looses its structure after thresholding.
@@ -126,7 +126,7 @@ Visualizing a vector field
 
 .. currentmodule:: enthought.mayavi.mlab
 
-A vector field, ie vectors continuously defined in a volume, can be
+A vector field, i.e., vectors continuously defined in a volume, can be
 difficult to visualize, as it contains a lot of information. Let us
 explore different visualizations for the velocity field of a multi-axis
 convection cell [1]_, in hydrodynamics, as defined by its components
@@ -176,11 +176,11 @@ sampled on a grid, `u`, `v`, `w`::
 
     .. image:: vector_field_cut_plane.jpg
 
-:IsoSurfaces of the magnitude:
+:Iso-Surfaces of the magnitude:
     An important parameter of the vector field is its magnitude. It can
-    be interesting to display iso-surfaces of the norm of the vectors.
+    be interesting to display iso-surfaces of the normal of the vectors.
     For this we can create a scalar field from the vector field using the 
-    ExtractVectorNorm filter, and use the IsoSurface module on it. When
+    ExtractVectorNorm filter, and use the Iso-Surface module on it. When
     working interactively, a good understanding of the magnitude of the
     field can be gained by changing the values of the contours in the
     object's property dialog. ::
@@ -191,9 +191,9 @@ sampled on a grid, `u`, `v`, `w`::
     .. image:: vector_field_isosurface.jpg
 
 :The Flow, or the field lines:
-    For certain vector fields, the line of flow of along the field can
-    have an interesting meaning. For instance the can be interpreted as
-    trajectories in hydrodynamics, or field lines in electro-magnetism.
+    For certain vector fields, the line of flow along the field can
+    have an interesting meaning. For instance this can be interpreted as a
+    trajectory in hydrodynamics, or field lines in electro-magnetism.
     We can display the flow lines originating for a certain seed surface
     using the `streamline` module, or the mlab :func:`flow` function, 
     which relies on `streamline` internally::
@@ -250,7 +250,7 @@ sampled on a grid, `u`, `v`, `w`::
     :ref:`mlab-changing-objects-interactively`. It is often
     impossible to choose the best parameters for a visualization before
     hand. Colors, contour values, colormap, view angle, etc... should be
-    chosen interactively. If reproducibility is required, the chosen
+    chosen interactively. If reproducibiles are required, the chosen
     values can be added in the original script.
 
     Moreover, the `mlab` functions expose only a small fraction of the

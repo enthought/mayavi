@@ -31,7 +31,7 @@ Tests for Mayavi
 You can easily run the Mayavi test suite using `mayavi2 -t` from the
 command line. Running tests is useful to find out if Mayavi works well on
 your particular system. Indeed, the systems can vary from one to another:
-in addition to the variety of existing operative system, different
+in addition to the variety of existing operating systems, different
 versions of the libraries can be installed. The Mayavi developers do
 their best to support many different configuration, but you can help them
 by running the test suite and reporting any errors.
@@ -53,7 +53,7 @@ the tests, the tests may be found inside ``enthought/tvtk/tests`` and
 in these directories manually, or change your current directory to these
 directories and run ``nosetests`` there.
 
-In addition to these unittests mayavi also has several integration tests.
+In addition to these unit tests mayavi also has several integration tests.
 These are in the ``integrationtests/mayavi`` directory of the source
 distribution.  You may run the tests there like so::
 
@@ -69,7 +69,7 @@ Helping out
 -----------
 
 We are always on the lookout for people to help this project grow.
-If you need a functionnality added to Mayavi, just pitch in on the
+If you need a functionality added to Mayavi, just pitch in on the
 enthought-dev mailing and we'll help you code it.
 
 Development quick start
@@ -81,7 +81,7 @@ of Mayavi to add the functionality you are interested in (make sure the
 tests still run after your modifications). To keep track of your changes,
 you need to use subversion, if you have never used it, see
 http://svnbook.red-bean.com/en/1.1/ch01s07.html. Once you are done, you
-can generate a path that sums up your changes via by executing the
+can generate a path that sums up your changes by executing the
 following command in the root of the Mayavi source::
 
     svn diff > my_patch.patch
@@ -99,7 +99,7 @@ For that, you can check out only the subversion tree of Mayavi, using::
   svn co http://svn.enthought.com/svn/enthought/Mayavi/trunk/ mayavi
 
 You will find the documentation sources in `docs/sources/mayavi`. The
-documentation is writen in `sphinx <http://sphinx.pocoo.org/>`__. It is
+documentation is written in `sphinx <http://sphinx.pocoo.org/>`__. It is
 easy to edit the `.rst` files to modify or extend the text. Once you have
 done your modifications, you can build the documentation using by
 running::
@@ -109,7 +109,7 @@ running::
 in the base directory of your checkout. You will need 
 `sphinx <http://sphinx.pocoo.org/>`__ installed for that. The
 documentation is then built as an HTML documentation that you can find
-in the sub directory `build/docs/html/mayavi`. Once you are confortable
+in the sub directory `build/docs/html/mayavi`. Once you are comfortable
 with the modifications, just generate an SVN patch using::
 
     svn diff > my_patch.patch 

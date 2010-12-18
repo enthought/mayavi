@@ -90,7 +90,7 @@ ends with an `_anim` to see how these work and run.
     When creating a Mayavi pipeline, as explained in the following
     subsection, instead of using ready-made plotting function, the
     `mlab_source` attribute is created only on sources created via
-    `mlab`. Only pipeline created entirely using `mlab` will present this
+    `mlab`. Pipeline created entirely using `mlab` will present this
     attribute.
 
 .. note::

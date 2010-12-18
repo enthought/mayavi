@@ -5,7 +5,7 @@ Installation
 
 .. topic:: Section summary
 
-    This section detais the various ways of installing and compiling
+    This section details the various ways of installing and compiling
     Mayavi.
 
     If you already have Mayavi up and running, you can skip this section.
@@ -31,7 +31,7 @@ Installing ready-made distributions
 :MacOSX:
     The full Python distribution EPD_ (that includes Mayavi) is also
     available for MacOSX.  Unless you really enjoy the intricacies of
-    compilation, this is the best solution to install Mayavi.
+    compilation; this is the best solution to install Mayavi.
 
 :Ubuntu or Debian:
      Mayavi is packaged in Debian and Ubuntu. In addition, more up to
@@ -49,7 +49,7 @@ Requirements for manual installs
 --------------------------------
 
 If you are not using full, ready-made, scientific Python distribution,
-you need to satistify Mayavi's requirements (for a step-by-step guide on
+you need to satisfy Mayavi's requirements (for a step-by-step guide on
 installing all these under windows, see :ref:`below
 <step-by-step-window-installation>`).
 
@@ -61,7 +61,7 @@ Mayavi requires at the very minimum the following packages:
     * Traits_ >= 3.0 (`Traits`, `TraitsGUI` and `TraitsBackendWX` or
       `TraitsBackendQt`, `EnthoughtBase`, `AppTools`)
       **Note** Depending on your installation
-      procedure, you might not need to instal manually these
+      procedure, you might not need to install manually these
       requirements.
 
 The following requirements are really optional but strongly recommended,
@@ -395,7 +395,7 @@ get the latest development sources.
         PYTHONPATH environment variable (for the above example it would
         be: '~/usr/lib/python2.x/site-packages/'
 
-    #. Or build binary eggs of the sources to install localy::
+    #. Or build binary eggs of the sources to install locally::
 
         $ cd Mayavi_3.3.1
         $ ets bdist

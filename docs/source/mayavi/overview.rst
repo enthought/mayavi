@@ -48,7 +48,7 @@ data visualization. Its features include:
 
     * Easy scriptability using Python.
 
-    * Easy extendability via custom sources, modules, and data filters.
+    * Easy extendibility via custom sources, modules, and data filters.
 
     * Reading several file formats: VTK_ (legacy and XML), PLOT3D,
       etc.
@@ -66,7 +66,7 @@ provides a ``mayavi2`` application which is usable by itself.  However,
 Mayavi2 may also be used as a plotting engine, in scripts, like with
 matplotlib or gnuplot, as well as a library for interactive
 visualizations in any other application.  It may also be used as an
-`Envisage`_ plugin which allows it to be embedded in other `Envisage`_
+`Envisage`_ plug-in which allows it to be embedded in other `Envisage`_
 based applications natively.
 
 .. _Mayavi1: http://mayavi.sourceforge.net
@@ -75,8 +75,7 @@ based applications natively.
 Technical details
 ...................
 
-Mayavi2 provides a general purpose visualization engine based on a
-pipeline architecture similar to that used in VTK.  Mayavi2 also provides
+Mayavi2 provides a general purpose visualization engine based on pipeline architecture similar to that used in VTK.  Mayavi2 also provides
 an `Envisage`_ plug-in for 2D/3D scientific data visualization. Mayavi2
 uses the Enthought Tool Suite (ETS_) in the form of Traits_, TVTK_ and
 Envisage_. Here are some of its features:
@@ -91,16 +90,16 @@ Envisage_. Here are some of its features:
     * Easy to extend with added sources, components, modules and data
       filters.
 
-    * Provides an `Envisage`_ plugin. This implies that it is:
+    * Provides an `Envisage`_ plug-in. This implies that it is:
 
           - easy to use other Envisage plugins in Mayavi.  For
             example, Mayavi provides an embedded Python shell.  This
-            is an Envisage plugin and requires one line of code to
+            is an Envisage plug-in and requires one line of code to
             include in Mayavi.
 
           - easy to use Mayavi inside Envisage based applications.
             Thus, any envisage based application can readily use
-            the mayavi plugin and script it to visualize data.
+            the mayavi plug-in and script it to visualize data.
 
     * wxPython/Qt4 based GUI (thanks entirely to Traits, PyFace and
       Envisage).  It is important to note that there is no wxPython or
@@ -157,7 +156,7 @@ As a user there are three primary ways to use Mayavi:
 Scenes, data sources, and visualization modules: the pipeline model
 --------------------------------------------------------------------
 
-Mayavi uses a pipeline architecture like VTK_.  As far as a user is
+Mayavi uses pipeline architecture like VTK_.  As far as a user is
 concerned this basically boils down to a simple hierarchy.
 
   * Data is loaded into Mayavi and stored in a **data source** 

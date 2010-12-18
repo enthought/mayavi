@@ -82,9 +82,8 @@ Maclean's `Parametric Surfaces`_ document.
       `File->Save Visualization` menu and reloaded using the `Load
       visualization` menu.
 
-Shown below is an example visualization made using the parametric
-source.  Note that the positioning of the different surfaces was
-effected by moving the actors on screen using the actor mode of the
+Shown below is example visualization made using the parametric
+source.  Note that the positioning of the different surfaces were effected by moving the actors on screen using the actor mode of the
 scene via the 'a' key.  For more details on this see the section on
 :ref:`interaction-with-the-scene`.
 

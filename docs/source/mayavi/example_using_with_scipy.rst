@@ -2,7 +2,7 @@
 Using Mayavi with scipy
 -------------------------
 
-This tutorial example shows you how how you can use Mayavi interactively
+This tutorial example shows you how you can use Mayavi interactively
 to visualize `numpy`_ arrays while doing numerical work with `scipy`_. It
 assumes that you are familiar with numerical Python tools, and shows you
 how to use Mayavi in combination with these tools.
@@ -71,7 +71,7 @@ their interior. On solution is to use a cut plane. Right-click on the
 menu. You can move the cut plane by clicking on it and dragging.
 
 To make the link between our numpy arrays and the visualization, we can
-use the same menu to add a Axes and an Outline. Finally, let us add a
+use the same menu to add an Axes and an Outline. Finally, let us add a
 colorbar. We can do this by typing::
 
     mlab.colorbar(title='Potential', orientation='vertical')
@@ -110,8 +110,8 @@ define a dynamical flow, the function that returns the derivative of the
 different parameters as a function of these parameters and of time. The
 flow is used by every ODE_ (ordinary differential equation) solver, it
 give the dynamic of the system. The dynamics we are interested in is made
-of the force deriving from the potential, that we shake with time in the
-three direction, as well as a damping force. The damping coefficient and
+of the force deriving from the potential, which we shake with time in the
+three directions, as well as a damping force. The damping coefficient and
 the amount and frequency of shaking have been tuned to give an
 interesting dynamic. ::
 
@@ -134,7 +134,7 @@ Now we can integrate the trajectory::
 And we can now plot the trajectories, after removing the cut plane and
 the vector field by right-clicking on the corresponding pipeline node and
 selecting delete. We also turn the first color bar off in the
-corresponding `Colors and legends` node. We plot the trajectories with an
+corresponding `Colors and legends` node. We plot the trajectories with
 extra scalar information attached to it, to display the time via the
 colormap::
 

@@ -36,9 +36,9 @@ which the fire is taking place.
      automatically update when the scalar value is changed.
   
   5. This data also features vectors.  The scalar data has `u`, `v`
-     and `w` but not the magnitude of the velocity.  Lets say we'd
+     and `w` but not the magnitude of the velocity.  Let's say we'd
      like to be able to view iso-contours of the magnitude of the
-     velocity.  To do this lets use the `ExtractVectorNorm` filter.
+     velocity.  To do this let's use the `ExtractVectorNorm` filter.
      This is created by choosing the `Visualize->Filters->Extract
      Vector Norm` menu.
 
@@ -56,7 +56,7 @@ which the fire is taking place.
      it.
 
      Now if you want to visualize something on a different "branch" of
-     the pipeline, lets say you want to view iso-surfaces of the
+     the pipeline, let's say you want to view iso-surfaces of the
      temperature data you must first click on the modules or the
      source object (the `VTK XML File ...` node) itself and then
      select the menu item.  When you select an item on the tree, it
@@ -102,7 +102,7 @@ Once again, the visualization in this case was created by using the
 user interface.  It is possible to script this entirely using Python
 scripts.  A simple script demonstrating several of the above modules
 is available in ``examples/streamline.py``.  This file may be studied.
-It can be run either like so::
+It can be run either likes so::
 
  $ cd examples
  $ python streamline.py

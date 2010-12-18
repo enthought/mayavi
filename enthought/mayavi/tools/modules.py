@@ -67,7 +67,7 @@ class ModuleFactory(PipeFactory):
                 pass
 
     line_width = CFloat(2.,
-                desc=""" The with of the lines, if any used.""")
+                desc=""" The width of the lines, if any used.""")
 
     def _line_width_changed(self):
         try:
@@ -85,7 +85,7 @@ class DataModuleFactory(ModuleFactory):
     
     extent = CArray(shape=(6,),
                     help="""[xmin, xmax, ymin, ymax, zmin, zmax]
-                            Default is the x, y, z arrays extents. Use
+                            Default is the x, y, z arrays extent. Use
                             this to change the extent of the object
                             created.""", )
 
@@ -121,11 +121,11 @@ class DataModuleFactory(ModuleFactory):
     
 
     vmin = Trait(None, None, CFloat,
-                    help="""vmin is used to scale the colormap
+                    help="""vmin is used to scale the colormap.
                             If None, the min of the data will be used""")
 
     vmax = Trait(None, None, CFloat,
-                    help="""vmax is used to scale the colormap
+                    help="""vmax is used to scale the colormap.
                             If None, the max of the data will be used""")
 
     def _vmin_changed(self):
@@ -241,7 +241,7 @@ class VectorsFactory(DataModuleFactory):
 
     mask_points = Either(None, CInt, 
                         desc="If supplied, only one out of 'mask_points' "
-                        "data point is displayed. This option is usefull "
+                        "data point is displayed. This option is useful "
                         "to reduce the number of points displayed "
                         "on large datasets")
 
@@ -426,7 +426,7 @@ class ContourSurfaceFactory(ContourModuleFactory):
     _target = Instance(modules.Surface, ())
 
     def __init__(self, *args, **kwargs):
-        """ Overridding the __init__ to turn contours on."""
+        """ Overriding the __init__ to turn contours on."""
         super(ContourSurfaceFactory, self).__init__(*args, **kwargs)
         self._contours_changed()
 
@@ -662,7 +662,7 @@ volume = make_function(VolumeFactory)
 class _AutomaticModuleFactory(DataModuleFactory):
     """The base class for any auto-generated factory classes.
     
-    NOTE: This class requires that the `_metadata` trait be set to
+    NOTE: This class requires the `_metadata` trait be set to
     the metadata object for the object for which this is a factory.
     """
 

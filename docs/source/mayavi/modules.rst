@@ -50,7 +50,7 @@ Here is a list of the Mayavi modules along with a brief description.
           actor of the active module.
 
    :OrientationAxes:
-          Creates a small axes on the side that indicates the
+          Creates small axes on the side that indicates the
           position of the co-ordinate axes and thereby marks the
           orientation of the scene. Requires VTK-4.5 and above.
 

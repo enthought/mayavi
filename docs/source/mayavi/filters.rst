@@ -11,7 +11,7 @@ Here is a list of the Mayavi Filters.
    :CellDerivatives:
           Computes derivatives from input point scalar and vector data
           and produces cell data on the gradients.  Can be used to
-          approximately calcuate the vorticity for example.
+          approximately calculate the vorticity for example.
 
    :CellToPointData:
           Transforms cell attribute data to point data by
@@ -27,7 +27,7 @@ Here is a list of the Mayavi Filters.
           to position and move the slice interactively.
 
    :DataSetClipper:
-	  This filter clips the dataset in a area.  The area can be
+	  This filter clips the dataset in an area.  The area can be
 	  defined interactively as a box, a sphere...
 
    :DecimatePro:
@@ -65,7 +65,7 @@ Here is a list of the Mayavi Filters.
 	  
    :ExtractVectorComponents:
 	  Wraps the TVTK ExtractVectorComponents filter to extract
-	  components of a vector. This is useful for analysing
+	  components of a vector. This is useful for analyzing
 	  individual components of a vector data.
 
    :GaussianSplatter:
@@ -96,7 +96,7 @@ Here is a list of the Mayavi Filters.
 
    :PointToCellData:
           Does the inverse of the CellToPointData filter: converts data
-          located on the points to data locaed on the cells.
+          located on the points to data located on the cells.
 
    :PolyDataNormals:
           Computes normals from input data. This gives meshes a
@@ -152,7 +152,7 @@ Here is a list of the Mayavi Filters.
           instance, converted in elevation.
 
    :WarpVector:
-          Warps the input data along a the point vector attribute
+          Warps the input data along the point vector attribute
           scaled as per a scale factor.  Useful for showing flow
           profiles or displacements.
 

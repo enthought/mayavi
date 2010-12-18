@@ -49,7 +49,7 @@ The UI features several sections described below.
 
       * It is possible to drag the nodes around on the tree.  For
         example it is possible to drag and move a module from one set
-        of Modules to another, or to move a visualization from one
+        of Modules to another, or to move visualization from one
         scene to another.
 
 :The object editor:
@@ -104,7 +104,7 @@ Visualizing data
 Visualization data in Mayavi is performed by loading some data as `data
 sources`, and applying visualization modules to these sources to
 visualize the data as described in the :ref:`an-overview-of-mayavi`
-section. To get a fealing of how this work, going throught the
+section. To get a feeling of how this work, going through the
 :ref:`Parametric surfaces example <parametric_surfaces_example>` can be
 helpful.
 
@@ -336,7 +336,7 @@ Here is how you can use this feature:
  2. You'll see a window popup with a few lines of boilerplate code so
     you can run your script standalone/with ``mayavi2 -x script.py ``or
     ``python script.py``. Keep this window open and ignore for now the 
-    ``Save script`` button, that will be used when you are finished.
+    ``Save script`` button, which will be used when you are finished.
 
  3. Now do anything you please on the UI.  As you perform those actions,
     the code needed to perform those actions is added to the code listing
@@ -380,7 +380,7 @@ Here is how you can use this feature:
 It is important to understand that it is possible to script an existing
 session of Mayavi too.  So, if after starting Mayavi you did a few
 things or ran a Mayavi script and then want to record any further
-actions, that is certainly possible.  Follow the same procedure as
+actions, that are certainly possible.  Follow the same procedure as
 before.  The only gotcha you have to remember in this case is that the
 script recorder will not create the objects you already have setup on
 the session.
@@ -391,7 +391,7 @@ the session.
     tree view.  However, these probably aren't things you'd want to do
     in an automatic script.
 
-As noted earlier, script recording will work for an ``mlab`` session or
+As noted earlier, script recording will work for a ``mlab`` session or
 anywhere else where Mayavi is used.  It will not generate any ``mlab``
 specific code but write generic Mayavi code using the OO Mayavi API.
 
@@ -510,12 +510,12 @@ The options are:
       ``--new-window``.
 
 -o
-      Run Mayavi in offscreen mode without any graphical user interface.
+      Run Mayavi in off-screen mode without any graphical user interface.
       This is most useful for scripts that need to render images
-      offscreen (for an animation say) in the background without an
+      off-screen (for an animation say) in the background without an
       intrusive user interface popping up.  Mayavi scripts (run via the
       ``-x`` argument) should typically work fine in this mode.  Also
-      available through, ``--offscreen``.
+      available through, ``--off-screen``.
 
 -x script-file
       This executes the given script in a namespace where we guarantee
@@ -525,7 +525,7 @@ The options are:
 
 -t
       Runs the Mayavi test suite and exits.  If run as such, this runs
-      both the TVTK and Mayavi2 unittests.  If any additional arguments
+      both the TVTK and Mayavi2 unit tests.  If any additional arguments
       are passed they are passed along to the test runner.  So this may
       be used to run other tests as well.  For example::
 
@@ -542,7 +542,7 @@ The options are:
 
 -s python-expression
       Execute the python-expression on the last created object.  For
-      example, lets say the previous object was a module.  If you want
+      example, let's say the previous object was a module.  If you want
       to set the color of that object and save the scene, you may do::
 
        $ mayavi2 [...] -m Outline -s"actor.property.color = (1,0,0)" \

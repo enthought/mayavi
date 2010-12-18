@@ -7,12 +7,12 @@ Adding color or size variations
 :Color:
   The color of the objects created by a plotting function can be specified
   explicitly using the 'color' keyword argument of the function. This color
-  is than applied uniformly to all the objects created. 
+  is then applied uniformly to all the objects created. 
 
   If you want to vary the color across your visualization, you need to
   specify scalar information for each data point. Some functions try to
   guess this information: these scalars default to the norm of the vectors,
-  for functions with vectors, or to the z elevation for functions where is
+  for functions with vectors, or to the z elevation for functions where it is
   meaningful, such as :func:`surf` or :func:`barchart`.
 
   This scalar information is converted into colors using the colormap, or
@@ -31,11 +31,11 @@ Adding color or size variations
       copper       greens        prgn     reds
       dark2        greys         prism    set1
 
-  The easiest way to choose the colormap most adapted to your visualization
+  The easiest way to choose the colormap, most adapted to your visualization
   is to use the GUI (as described in the next paragraph). The dialog
   to set the colormap can be found in the `Colors and legends` node.
 
-  To use a custom-defined colormap, for the time being you need to write
+  To use a custom-defined colormap, for the time being, you need to write
   specific code, as show in :ref:`example_custom_colormap`.
 
 :Size of the glyph:
@@ -85,7 +85,7 @@ Adding color or size variations
     not auto-scaled, and as a result the visualization can seem empty
     due to the glyphs being very small. In addition the minimum diameter of 
     the glyphs is clamped to zero, and thus the glyph are not scaled
-    absolutely, unless you specifie::
+    absolutely, unless you specify::
 
         pts.glyph.glyph.clamping = False
 
@@ -93,7 +93,7 @@ Adding color or size variations
   There are many more ways to represent the scalar or vector information
   attached to the data. For instance, scalar data can be 'warped' into a 
   displacement, e.g. using a `WarpScalar` filter, or the norm of scalar
-  data can be extract to a scalar component that can be visualized using
+  data can be extracted to a scalar component that can be visualized using
   iso-surfaces with the `ExtractVectorNorm` filter.
 
 :Displaying more than one quantity:
@@ -104,7 +104,7 @@ Adding color or size variations
   If you simply want to display points with a size given by one quantity,
   and a color by a second, you can use a simple trick: add the size
   information using the norm of vectors, add the color information using
-  scalars, create a :func:`quiver3d` plot choosing the glyphs to symetrix
+  scalars, create a :func:`quiver3d` plot choosing the glyphs to symmetric
   glyphs, and use scalars to represent the color::
 
     x, y, z, s, c = np.random.random((5, 10))
@@ -156,7 +156,7 @@ pipeline.
     red round button of the toolbar of the pipeline view. This opens up a
     recorder that tracks the changes made interactively to the
     visualization via the dialogs, and generates valid lines of Python
-    code. To find out about navigating programmatically in pipeline, see 
+    code. To find out about navigating through a program in the pipeline, see 
     :ref:`organisation_mayavi_visualisations`.
 
 In addition, for every object returned by a mlab function,

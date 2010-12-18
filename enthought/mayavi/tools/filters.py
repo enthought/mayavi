@@ -65,7 +65,7 @@ class ThresholdFactory(PipeFactory):
     _target = Instance(filters.Threshold, ())
 
     filter_type = Enum('cells', 'points', adapts='filter_type',
-                    help="If thresholding is done on cells or points")
+                    help="If threshold is put on cells or points")
 
     low  = Trait(None, None, CFloat, help="The lower threshold")
 

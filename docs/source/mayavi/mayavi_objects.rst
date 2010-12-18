@@ -13,7 +13,7 @@ Here we give a brief description of the key objects in the Mayavi pipeline.
 .. note::
 
     Given a Mayavi object, a simple way to see what important attribute
-    is displays it to call it's ``print_traits()``. Note that, for
+    is, display it to call it's ``print_traits()``. Note that, for
     certain objects, when used in IPython, this can cause a segfault, due
     to threading problems in IPython.
 
@@ -128,7 +128,7 @@ Key attributes
 
 ``lut_data_mode``      'auto', 'point data' and 'cell data'.
 			Specifies the data type to use for the LUTs.  This can 
-			be changed between .  Changing this setting will 
+			be changed inbetween .  Changing this setting will 
 			change the data range and name of the lookup
 			table/legend bar.  If set to 'auto' (the default), 
 			it automatically looks for cell and point data with 
@@ -163,7 +163,7 @@ Key attributes
 
 ``actor``		The TVTK actor of the modules, in other words
 			the object displayed in the scene. This is where
-			you will the properties such as scaling, or
+			you will have the properties such as scaling, or
 			GL material properties.
 
 ``components``		a list of various reusable components that are used 

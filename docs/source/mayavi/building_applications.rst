@@ -21,11 +21,11 @@ this dialog in a WxPython or a PyQt application.
 Custom interactive dialogs
 --------------------------
 
-Mayavi and TVTK are entirely built using the Traits library which provide
+Mayavi and TVTK are entirely built using the Traits library which provides
 easy callbacks and visualization for objects attribute. All the different
 properties of the pipeline and pipeline objects are expressed as Traits,
-ie special attributes that can be visualized in dialogs, and that fire
-callbacks when they are modified. In particuler this means that when a
+i.e. special attributes that can be visualized in dialogs and that fire
+callbacks when they are modified. In particular this means that when a
 visualization object is modified, the scene can update automatically.
 
 We strongly suggest that you refer to the `Traits` 
@@ -42,7 +42,7 @@ Embedding a Mayavi scene in a Traits dialog
 To build a custom dialog with a Mayavi scene, the best option is to
 create a class deriving from the base `Traits` class. A special
 attribute, called SceneModel can be used as an attribute to represent a
-Mayavi scene that can accept objects. This defines the `model`, ie the
+Mayavi scene that can accept objects. This defines the `model`, i.e. the
 main `HasTraits` object in which the application logics is contained.
 
 A view of this object, as a dialog, can be created using the
@@ -107,17 +107,17 @@ achieved with `self.scene.mlab.points3d(x, y, z, s)`.
     why relying on using the current figure, as mlab most often does, is
     dangerous.
 
-    The solution to this, is explicitely pass in the Mayavi figure to
+    The solution to this, is explicitly pass in the Mayavi figure to
     mlab's figure keyword argument::
 
 	mlab.points3d(x, y, z, s, figure=self.scene.mayavi_scene)
 
-    However, this functionnality is new in Mayavi 3.2.1.
+    However, this functionality is new in Mayavi 3.2.1.
 
     A full example with two embedded scenes is given on
     :ref:`example_multiple_mlab_scene_models`.
 
-    Another way of creating isolation between scene is to explicitely
+    Another way of creating isolation between scene is to explicitly
     insert them in different engines. This is demonstrated in 
     :ref:`example_multiple_engines`
 
@@ -228,7 +228,7 @@ A complete, runnable, code based on the above comments is given in the
  and Mayavi:
 
  * :ref:`example_lorenz_ui`: A didactic and simple example that shows 
-   how the Lorentz model can be integrated and visualized interactively 
+   how the lorenz model can be integrated and visualized interactively 
    while changing the model parameters.
 
  * :ref:`example_mayavi_traits_ui`: An example showing how you can mimic

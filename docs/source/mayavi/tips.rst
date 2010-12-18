@@ -20,7 +20,7 @@ picture.  Occluding the window will also produce either blank or
 incorrect images. 
 
 If you already have a Python script, say ``script.py`` that sets up your
-visualization that you run like so::
+visualization that you run likes so::
 
     $ mayavi2 -x script.py
 
@@ -244,7 +244,7 @@ described in `Customizing Mayavi2`_.   A more flexible and
 reusable mechanism for doing this is to create a full fledged Mayavi
 contrib package in the following manner.
 
-  1. Create a Python package, lets call it ``mv_iitb`` (for IIT Bombay
+  1. Create a Python package, let's call it ``mv_iitb`` (for IIT Bombay
      specific extensions/customizations).  The directory structure of
      this package can be something like so::
 
@@ -460,7 +460,7 @@ Animating a visualization
 
 .. currentmodule:: enthought.mayavi.mlab
 
-Often users like to animate a visualization without affecting the
+Often users like to animate visualization without affecting the
 interactive capabilities of the view.  For example you may want to
 rotate the camera continuously, take a snapshot while continuing to
 interact with the Mayavi UI.  To do this one can use the very convenient
@@ -511,7 +511,7 @@ alongside with the `visual` handy for object-movement animation, see
 Animating a series of images
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Lets say you have a stack of PNG or JPEG files that are numbered
+Let's say you have a stack of PNG or JPEG files that are numbered
 serially that you want to animate on a Mayavi scene.  Here is a simple
 script (called ``img_movie.py``)::
     
@@ -545,7 +545,7 @@ Making movies from a stack of images
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This isn't really related to Mayavi but is a useful trick nonetheless.
-Lets say you generate a stack of images using Mayavi say of the form
+Let's say you generate a stack of images using Mayavi say of the form
 ``anim%03d.png`` (i.e. ``anim000.png``, ``anim001.png`` and so on), you
 can make this into a movie.  If you have ``mencoder`` installed try
 this::
@@ -689,7 +689,7 @@ Sharing the same data between scenes
 If you want to display different views of the same data on different, you
 will have to create different Mayavi data sources, as a data source can
 belong on to one scene. However, this does not mean that you need to copy
-the data, or recreat the source from scratch. The trick is to create a
+the data, or recreate the source from scratch. The trick is to create a
 second Mayavi data source pointing to the same underlying VTK dataset,
 and attach it to another scene (see :ref:`data-structures-used-by-mayavi`
 for the difference between a Mayavi source and a VTK dataset).
@@ -713,7 +713,7 @@ to an `mlab.pipeline` function::
     mlab.show()
     
 The above example creates two figures displaying the same data, one with
-iso-surfaces, the other with an image plane widget.
+iso-surfaces, and the other with an image plane widget.
 
 Alternatively, it can be useful to be explicit about the figure that the
 new module is added onto, rather than using the `mlab` current figure.
@@ -789,7 +789,7 @@ Accelerating a Mayavi script
 You've just created a nice Mayavi/mlab script and now want to generate
 an animation or a series of images.  You realize that it is way too slow
 rendering the images and takes ages to finish.  There are two simple
-ways to speed up the rendering.  Lets assume that ``obj`` is any Mayavi
+ways to speed up the rendering.  Let's assume that ``obj`` is any Mayavi
 pipeline object that has a ``scene`` attribute::
 
     obj.scene.disable_render = True

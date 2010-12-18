@@ -8,7 +8,7 @@ Advanced use of Mayavi
 
 .. topic:: Section summary
 
-    This section give details on the working principles Mayavi. Read it
+    This section gives details on the working principles of Mayavi. Read it
     to gain a better understanding, in order to use Mayavi's full power.
 
     * First we describe the organisation of the pipeline that defines a
