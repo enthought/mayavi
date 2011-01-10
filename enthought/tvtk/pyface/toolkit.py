@@ -20,49 +20,52 @@ _toolkit = None
 
 def _init_toolkit():
     """ Initialise the current toolkit. """
-
-    global _toolkit
-    if _toolkit is not None:
-        return
     
-    # Toolkits to check for if none is explicitly specified.
-    known_toolkits = ('wx', 'qt4', 'null')
-
-    # Get the toolkit.
-    toolkit = ETSConfig.toolkit
-
-    if toolkit:
-        toolkits = (toolkit, )
-    else:
-        toolkits = known_toolkits
-
-    for tk in toolkits:
-        # Try and import the toolkit's pyface backend init module.
-        be = 'enthought.tvtk.pyface.ui.%s.' % tk
-
+    def import_toolkit(tk):
         try:
-            __import__(be + 'init')
-            # In case we have just decided on a toolkit, tell everybody else.
-            ETSConfig.toolkit = tk
-            break
-        except ImportError:
-            pass
-    else:
-        # Try to import the null toolkit but don't set the ETSConfig toolkit
-        try:
-            tk = 'null'
-            be = 'enthought.tvtk.pyface.ui.%s.' % tk
-            __import__(be + 'init')
-            import warnings
-            warnings.warn("Unable to import the %s backend for pyface; using the 'null' toolkit instead." % ", ".join(toolkits))
+            # Try and import the toolkit's pyface backend init module.
+            __import__('enthought.tvtk.pyface.ui.%s.init' % tk)
         except:
-            if toolkit:
-                raise ImportError("unable to import a pyface backend for the %s toolkit" % toolkit)
-            else:
-                raise ImportError("unable to import a pyface backend for any of the %s toolkits" % ", ".join(known_toolkits))
+            raise
+
+    if ETSConfig.toolkit:
+        # If the toolkit has been explicitly specified, just import it and
+        # allow failure if an exception is thrown.
+        import_toolkit(ETSConfig.toolkit)
+        tk = ETSConfig.toolkit
+    else:
+        # Toolkits to check for if none is explicitly specified.
+        known_toolkits = ('wx', 'qt4', 'null')
+    
+        for tk in known_toolkits:
+            try:
+                import_toolkit(tk)
+                
+                # In case we have just decided on a toolkit, tell everybody else.
+                ETSConfig.toolkit = tk
+                break
+            except ImportError:
+                pass
+        else:
+            # Try to import the null toolkit but don't set the ETSConfig toolkit
+            try:
+                tk = 'null'
+                import_toolkit(tk)
+                
+                import warnings
+                warnings.warn("Unable to import the %s backend for pyface;"\
+                              " using the 'null' toolkit instead." % ", ".join(toolkits))
+            except:
+                raise ImportError("unable to import a pyface backend for any of the %s toolkits" \
+                                  % ", ".join(known_toolkits))
 
     # Save the imported toolkit name.
+    global _toolkit
     _toolkit = tk
+
+# Do this once then disappear.
+_init_toolkit()
+del _init_toolkit
 
 
 def toolkit_object(name):
@@ -70,10 +73,6 @@ def toolkit_object(name):
     consists of the relative module path and the object name separated by a
     colon.
     """
-
-    # Set the value of the _toolkit variable. Nothing is done if it is already
-    # set.
-    _init_toolkit()
 
     mname, oname = name.split(':')
     be = 'enthought.tvtk.pyface.ui.%s.' % _toolkit
