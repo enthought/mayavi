@@ -84,13 +84,15 @@ A dataset is defined by many different characteristics:
     Mayavi to specify on which data component module or filter apply (eg:
     using the`SetActiveAttribute` filter).
 
-All VTK arrays, whether it be for data or position, are exposed as (n, 3)
-numpy arrays for 3D components, and flat (n, ) array for 1D components.
-The index vary in the opposite order as numpy: z first, y and then x.
-Thus to go from a 3D numpy array to the corresponding flatten VTK array,
-the operation is::
+.. note:: **VTK array ordering**
 
-    vtk_array = numpy_array.T.ravel()
+    All VTK arrays, whether it be for data or position, are exposed as (n, 3)
+    numpy arrays for 3D components, and flat (n, ) array for 1D components.
+    The index vary in the opposite order as numpy: z first, y and then x.
+    Thus to go from a 3D numpy array to the corresponding flatten VTK array,
+    the operation is::
+
+        vtk_array = numpy_array.T.ravel()
 
 
 An complete list of the VTK datasets used by Mayavi is given `below
