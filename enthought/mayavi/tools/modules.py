@@ -15,7 +15,7 @@ import numpy
 import new
 
 from enthought.traits.api import Trait, CArray, Instance, CFloat, \
-    Any, false, TraitTuple, Range, Bool, Property, CInt, Enum, Either
+    Any, false, true, TraitTuple, Range, Bool, Property, CInt, Enum, Either
 from enthought.tvtk.api import tvtk
 from enthought.tvtk.common import camel2enthought
 
@@ -82,6 +82,9 @@ class ModuleFactory(PipeFactory):
 class DataModuleFactory(ModuleFactory):
     """ Base class for all the module factories operating on data (ie not 
         text and outline) """
+
+    reset_zoom = true(help="""Reset the zoom to accomodate the data newly
+                        added to the scene. Defaults to True.""")
     
     extent = CArray(shape=(6,),
                     help="""[xmin, xmax, ymin, ymax, zmin, zmax]
@@ -151,7 +154,7 @@ class DataModuleFactory(ModuleFactory):
         super(DataModuleFactory, self).__init__(*args, **kwargs)
         # We are adding data to the scene, reset the zoom:
         scene = self._scene.scene
-        if scene is not None:
+        if scene is not None and self.reset_zoom:
             scene.reset_zoom()
 
 
