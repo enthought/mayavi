@@ -9,33 +9,28 @@ this see the devel.txt in the TVTK documentation directory.
 
 
 from os.path import exists, join, dirname, isdir
-import sys
 
 # The tvtk wrapper code is all typically inside one zip file.  We try to
-# find this file and put it in sys.path and then create the 'tvtk'
-# module wrapper from that.  If the ZIP file is extracted into a
-# tvtk_classes directory the ZIP file is not used and the tvtk_classes
-# directory is inserted into sys.path and the directory contents are
-# used for the tvtk classes -- note that you must have the following
-# structure tvtk_classes/tvtk_classes/__init__.py.  This is handy for
-# tools like pydev (Eclipse). If neither the tvtk_classes directory or
-# the zip file is found an error is raised.
+# find this file and then create the 'tvtk' module wrapper from that.  If
+# the ZIP file is extracted into a tvtk_classes directory the ZIP file is
+# not used and the tvtk_classes directory is inserted into sys.path and
+# the directory contents are used for the tvtk classes -- note that you
+# must have the following structure
+# tvtk_classes/tvtk_classes/__init__.py.  This is handy for tools like
+# pydev (Eclipse). If neither the tvtk_classes directory or the zip file
+# is found an error is raised.
 
 _zip = join(dirname(__file__), 'tvtk_classes.zip')
 tvtk_class_dir = join(dirname(__file__), 'tvtk_classes')
 
-if exists(tvtk_class_dir) and isdir(tvtk_class_dir):
-    sys.path.append(tvtk_class_dir)
-elif exists(_zip):
-    if _zip not in sys.path:
-        sys.path.append(_zip)
-else:
+if not ( exists(tvtk_class_dir) and isdir(tvtk_class_dir) 
+         or exists(_zip)):
     raise ImportError("TVTK not built properly. " 
         "Unable to find either a directory: %s or a file: %s "
         "with the TVTK classes." % (tvtk_class_dir, _zip) )
 
 # Check if the VTK version is the same as that used to build TVTK.
-from tvtk_classes.vtk_version import vtk_build_version
+from enthought.tvtk.tvtk_classes.vtk_version import vtk_build_version
 
 # Make sure VTK is installed.
 try:
@@ -56,6 +51,6 @@ if vtk_version != vtk_build_version:
     print msg
 
 # Now setup TVTK itself.
-from tvtk_classes import tvtk_helper
+from enthought.tvtk.tvtk_classes import tvtk_helper
 tvtk = tvtk_helper.TVTK()
 

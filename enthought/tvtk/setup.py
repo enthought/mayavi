@@ -6,7 +6,6 @@ import os, sys
 
 
 def configuration(parent_package='enthought',top_path=None):
-    import numpy
     from os.path import join
     from numpy.distutils.misc_util import Configuration
     config = Configuration('tvtk',parent_package,top_path)

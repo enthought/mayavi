@@ -503,7 +503,7 @@ class HelperGenerator:
                 # This is a local import since the tvtk modules are all
                 # inside the tvtk_classes ZIP file and are local to the
                 # current module: tvtk_helper.py
-                mod = __import__('%%s'%%fname, globals(), locals(), [fname])
+                mod = __import__('enthought.tvtk.tvtk_classes.%%s'%%fname, globals(), locals(), [fname])
             return mod
         
         def get_class(name):
