@@ -679,10 +679,23 @@ class Surf(Pipeline):
         # Deal with both explicit warp scale and extent, this is 
         # slightly hairy. The wigner example is a good test case for
         # this.
+        if not 'warp_scale' in kwargs and not 'extent' in kwargs:
+            try:
+                xi, xf, yi, yf, _, _ = self.source.data.bounds
+                zi, zf = self.source.data.scalar_range
+            except AttributeError:
+                xi, xf, yi, yf, _, _ = self.source.image_data.bounds
+                zi, zf = self.source.image_data.scalar_range
+            aspect_ratios = [(zf - zi)/(xf - xi), (zf - zi)/(yf - yi)]
+            if min(aspect_ratios) < 0.01 or max(aspect_ratios) > 100:
+                print 'Warning: the range of your scalar values differs by ' \
+                'more than a factor 100 than the range of the grid values ' \
+                'and you did not '\
+                'specify a warp_scale. You could try warp_scale="auto".'
         if 'warp_scale' in kwargs and not kwargs['warp_scale']=='auto' \
                 and 'extent' in kwargs:
             # XXX: I should use the logging module.
-            print 'Warning: both warp_scale and extent keyword argument' \
+            print 'Warning: both warp_scale and extent keyword argument ' \
             'specified, the z bounds of the extents will be overridden'
             xi, xf, yi, yf, zi, zf = kwargs['extent']
             zo = 0.5*(zi + zf)
