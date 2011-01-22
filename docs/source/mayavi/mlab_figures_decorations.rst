@@ -80,6 +80,17 @@ view point obtained interactively can be stored and reset using::
    its axis while keeping the focal point constant. The :func:`move`
    function can also be useful in these regards.
 
+.. note:: Camera parallel scale
+
+    In addition to the information returned and set by mlab.view and
+    mlab.roll, a last parameter is needed to fully define the view point:
+    the parallel scale of the camera, that control its view angle. It can
+    be read (or set) with the following code::
+
+        f = mlab.gcf()
+        camera = f.scene.camera
+        cam.parallel_scale = 9
+
 ..
    Local Variables:
    mode: rst
