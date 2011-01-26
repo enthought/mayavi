@@ -513,7 +513,6 @@ numpy.distutils.core.setup(
             'enthought.mayavi_ui = enthought.mayavi.plugins.mayavi_ui_plugin:MayaviUIPlugin'
             ],
         },
-    extras_require = INFO['extras_require'],
     html_doc_repo = 'https://svn.enthought.com/svn/cec/trunk/projects/mayavi/docs/development/',
     include_package_data = True,
     install_requires = INFO['install_requires'],
