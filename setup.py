@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# Copyright (c) 2008-2010 by Enthought, Inc.
+# Copyright (c) 2008-2011 by Enthought, Inc.
 # All rights reserved.
 
 """
@@ -536,4 +536,4 @@ numpy.distutils.core.setup(
     version = INFO['version'],
     zip_safe = False,
     **config
-    )
+)
