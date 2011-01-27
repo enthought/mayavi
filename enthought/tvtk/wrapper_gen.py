@@ -105,7 +105,7 @@ class WrapperGenerator:
         from enthought.tvtk.tvtk_base import deref_vtk
         from enthought.tvtk import array_handler
         from enthought.tvtk.array_handler import deref_array
-        from tvtk_classes.tvtk_helper import wrap_vtk
+        from enthought.tvtk.tvtk_classes.tvtk_helper import wrap_vtk
 
         """
         out.write(self.indent.format(prelim))
@@ -121,7 +121,7 @@ class WrapperGenerator:
             base_name = self._get_class_name(klass.__bases__)[0]
             # Import the base class.
             base_fname = camel2enthought(base_name)
-            _imp = "from tvtk_classes.%(base_fname)s import %(base_name)s"%locals()
+            _imp = "from enthought.tvtk.tvtk_classes.%(base_fname)s import %(base_name)s"%locals()
             out.write(indent.format(_imp))
             out.write('\n\n')
 
@@ -243,19 +243,38 @@ class WrapperGenerator:
         junk = textwrap.fill("(%s)" % (t_g + s_g + gs_g))
         code = "\n_full_traitnames_list_ = \\" + "\n%s\n\n"%junk
         out.write(self.indent.format(code))
-          
+
+        # Start the trait_view() method.
+        code = "\ndef trait_view(self, name=None, view_element=None):"
+        out.write(self.indent.format(code))
+        self.indent.incr()
+        code = "\nif view_element is not None or name not in ('traits_view', 'full_traits_view', 'view'):"
+        out.write(self.indent.format(code))
+        self.indent.incr()
+        code = "\nreturn super(%s, self).trait_view(name, view_element)" % class_name
+        out.write(self.indent.format(code))
+        self.indent.decr()
+
         # Now write the full traits view.
+        code = "\nif name == 'full_traits_view':"
+        out.write(self.indent.format(code))
+        self.indent.incr()
         item_contents = (
               'traitsui.Item("handler._full_traits_list",show_label=False)')
         junk = 'traitsui.View((%s),'% item_contents
         code = "\nfull_traits_view = \\" + \
                "\n%s\ntitle=\'%s\', scrollable=True, resizable=True,"\
                "\nhandler=TVTKBaseHandler,"\
-               "\nbuttons=['OK', 'Cancel'])\n\n"%(junk, title)
+               "\nbuttons=['OK', 'Cancel'])"\
+               "\nreturn full_traits_view"%(junk, title)
         out.write(self.indent.format(code))
+        self.indent.decr()
 
         # Next, we write a compact traits_view (which we call 'view'), which 
         # removes some generally unused items.	
+        code = "\nelif name == 'view':"
+        out.write(self.indent.format(code))
+        self.indent.incr()
         _safe_remove(get_set, ['progress_text'])
         _safe_remove(toggle, ['abort_execute', 'release_data_flag',
                               'dragable', 'pickable',
@@ -267,11 +286,16 @@ class WrapperGenerator:
         code = "\nview = \\" + \
                "\n%s\ntitle=\'%s\', scrollable=True, resizable=True,"\
                "\nhandler=TVTKBaseHandler,"\
-               "\nbuttons=['OK', 'Cancel'])\n\n"%(junk, title)
+               "\nbuttons=['OK', 'Cancel'])"\
+               "\nreturn view"%(junk, title)
         out.write(self.indent.format(code))
+        self.indent.decr()
 
         # Finally, we write the default traits_view which includes a field
         # for specifying the view type (basic or advanced) and the                     # corresponding view (basic->view and advanced->full_traits_view)
+        code = "\nelif name == 'traits_view':"
+        out.write(self.indent.format(code))
+        self.indent.incr()
         viewtype_contents = (
             'traitsui.HGroup(traitsui.spring, "handler.view_type", ' +\
                              'show_border=True)')
@@ -283,8 +307,12 @@ class WrapperGenerator:
         code = "\ntraits_view = \\" + \
                "\n%s\ntitle=\'%s\', scrollable=True, resizable=True,"\
                "\nhandler=TVTKBaseHandler,"\
-               "\nbuttons=['OK', 'Cancel'])\n\n"%(junk, title)
+               "\nbuttons=['OK', 'Cancel'])"\
+               "\nreturn traits_view\n\n"%(junk, title)
         out.write(self.indent.format(code))
+        self.indent.decr()
+
+        self.indent.decr()
 
     def _generate_delegates(self, node, n_data, out):
         """This method generates delegates for specific classes.  It
