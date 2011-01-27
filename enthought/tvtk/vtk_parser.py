@@ -344,7 +344,7 @@ class VTKMethodParser:
             n_arg = 0
             arg_map = {'unsigned int': 'int', 'unsigned char': 'int', 
                     'unsigned long': 'long', 'unsigned short': 'int'}
-            if arg is not None:
+            if arg is not None and c_sig:
                 n_arg = arg.count(',') + 1
                 # The carguments have parenthesis like: (int, int)
                 carg = c_sig[sig_idx][1:-1].split(',')
