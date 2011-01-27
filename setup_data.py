@@ -1,6 +1,6 @@
 INFO = {
     'name': 'Mayavi',
-    'version': '3.4.1',
+    'version': '3.4.2',
     'install_requires': [
         'AppTools >= 3.4.1.dev',
         'Traits >= 3.6.0.dev',
