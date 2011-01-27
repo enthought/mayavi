@@ -16,7 +16,7 @@ including the data visualized itself.
 
 In this section, we first show how an interactive dialog embedding a
 Mayavi scene can be built, using `Traits`. Then we show how to integrate
-this dialog in a WxPython or a PyQt application.
+this dialog in a WxPython or a PyQt (or PySide) application.
 
 Custom interactive dialogs
 --------------------------
@@ -271,15 +271,26 @@ given:
 
 .. _integrating_pyqt:
 
-Integrating in a PyQt application
+Integrating in a Qt application
 ----------------------------------
 
-Before defining the `Visualization` class::
+Mayavi dialogs can also be integrated in a PyQt or PySide application.
+
+Before defining the `Visualization` class, you should set the toolkit
+used by Traits to the Qt backend::
 
     import os
     os.environ['ETS_TOOLKIT'] = 'qt4'
 
-And using this class::
+Also, as Traits runs with PyQt and PySide, if you use PyQt, you must make
+sure that you swith its binding in a mode that is compatible with PySide
+(internal string representation mode), **before you import any PyQt
+code**::
+
+    import sip
+    sip.setapi('QString', 2)
+
+Then using the visualization class defined above::
 
     from PyQt4 import QtGui
 
