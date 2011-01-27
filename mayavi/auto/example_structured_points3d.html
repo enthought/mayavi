@@ -1,0 +1,232 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Structured points3d example &mdash; Mayavi v3.4.2 documentation</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.4.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Mayavi v3.4.2 documentation" href="../index.html" />
+    <link rel="up" title="Example gallery" href="examples.html" />
+    <link rel="next" title="Streamline example" href="example_streamline.html" />
+    <link rel="prev" title="Scatter plot example" href="example_scatter_plot.html" />
+<style type="text/css">
+  body {
+    /* Very bottom copyright, etc. info */
+    background: #4d598d;
+  }
+
+  .documentwrapper {
+    /* Blank area on left bar */
+    background: #24326e;
+  }
+
+  .related {
+    /* Long horizontal nav bars */
+    background: #3c4b8a!important;
+  }
+
+  .sphinxsidebarwrapper {
+    /* Filled part of left sidebar */
+    background: #24326e;
+  }
+
+  a {
+    color: #253370;
+  }
+
+  .sphinxsidebarwrapper a {
+    color: #f2f2f2!important;
+  }
+</style>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="example_streamline.html" title="Streamline example"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="example_scatter_plot.html" title="Scatter plot example"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+          <li><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="structured-points3d-example">
+<span id="example-structured-points3d"></span><h1>Structured points3d example<a class="headerlink" href="#structured-points3d-example" title="Permalink to this headline">¶</a></h1>
+<p>An example of how to generate a 3D structured points dataset
+using numpy arrays.  Also shown is a way to visualize this data with
+the mayavi2 application.</p>
+<p>The script can be run like so:</p>
+<div class="highlight-python"><pre>$ mayavi2 -x structured_points3d.py</pre>
+</div>
+<p>Alternatively, it can be run as:</p>
+<div class="highlight-python"><pre>$ python structured_points3d.py</pre>
+</div>
+<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/structured_points3d.py"><tt class="xref download docutils literal"><span class="pre">structured_points3d.py</span></tt></a></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Author: Prabhu Ramachandran &lt;prabhu at aero dot iitb dot ac dot in&gt;</span>
+<span class="c"># Copyright (c) 2007, Enthought, Inc.</span>
+<span class="c"># License: BSD style.</span>
+
+<span class="kn">from</span> <span class="nn">enthought.tvtk.api</span> <span class="kn">import</span> <span class="n">tvtk</span>
+<span class="kn">from</span> <span class="nn">enthought.tvtk.array_handler</span> <span class="kn">import</span> <span class="n">get_vtk_array_type</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">array</span><span class="p">,</span> <span class="n">ogrid</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">ravel</span>
+<span class="kn">from</span> <span class="nn">enthought.mayavi.scripts</span> <span class="kn">import</span> <span class="n">mayavi2</span>
+
+<span class="c"># Make the data.</span>
+<span class="n">dims</span> <span class="o">=</span> <span class="n">array</span><span class="p">((</span><span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">))</span>
+<span class="n">vol</span> <span class="o">=</span> <span class="n">array</span><span class="p">((</span><span class="o">-</span><span class="mf">5.</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">origin</span> <span class="o">=</span> <span class="n">vol</span><span class="p">[::</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">spacing</span> <span class="o">=</span> <span class="p">(</span><span class="n">vol</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">origin</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">dims</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">,</span> <span class="n">zmin</span><span class="p">,</span> <span class="n">zmax</span> <span class="o">=</span> <span class="n">vol</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">ogrid</span><span class="p">[</span><span class="n">xmin</span><span class="p">:</span><span class="n">xmax</span><span class="p">:</span><span class="n">dims</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">1</span><span class="n">j</span><span class="p">,</span>
+                <span class="n">ymin</span><span class="p">:</span><span class="n">ymax</span><span class="p">:</span><span class="n">dims</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="mi">1</span><span class="n">j</span><span class="p">,</span>
+                <span class="n">zmin</span><span class="p">:</span><span class="n">zmax</span><span class="p">:</span><span class="n">dims</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="mi">1</span><span class="n">j</span><span class="p">]</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s">&#39;f&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)]</span>
+<span class="n">scalars</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="o">*</span><span class="n">z</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="o">*</span><span class="n">z</span><span class="p">)</span>
+
+<span class="c"># Make the tvtk dataset.</span>
+<span class="n">spoints</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">StructuredPoints</span><span class="p">(</span><span class="n">origin</span><span class="o">=</span><span class="n">origin</span><span class="p">,</span> <span class="n">spacing</span><span class="o">=</span><span class="n">spacing</span><span class="p">,</span>
+                                <span class="n">dimensions</span><span class="o">=</span><span class="n">dims</span><span class="p">)</span>
+<span class="c"># The copy makes the data contiguous and the transpose makes it</span>
+<span class="c"># suitable for display via tvtk.  Note that it is not necessary to</span>
+<span class="c"># make the data contiguous since in that case the array is copied</span>
+<span class="c"># internally.</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">scalars</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">spoints</span><span class="o">.</span><span class="n">point_data</span><span class="o">.</span><span class="n">scalars</span> <span class="o">=</span> <span class="n">ravel</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="n">spoints</span><span class="o">.</span><span class="n">point_data</span><span class="o">.</span><span class="n">scalars</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">&#39;scalars&#39;</span>
+
+<span class="c"># This is needed in slightly older versions of VTK (like the 5.0.2</span>
+<span class="c"># release) to prevent a segfault.  VTK does not detect the correct</span>
+<span class="c"># data type.</span>
+<span class="n">spoints</span><span class="o">.</span><span class="n">scalar_type</span> <span class="o">=</span> <span class="n">get_vtk_array_type</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+
+<span class="c"># Uncomment the next two lines to save the dataset to a VTK XML file.</span>
+<span class="c">#w = tvtk.XMLImageDataWriter(input=spoints, file_name=&#39;spoints3d.vti&#39;)</span>
+<span class="c">#w.write()</span>
+
+<span class="c"># Now view the data.</span>
+<span class="nd">@mayavi2.standalone</span>
+<span class="k">def</span> <span class="nf">view</span><span class="p">():</span>
+    <span class="kn">from</span> <span class="nn">enthought.mayavi.sources.vtk_data_source</span> <span class="kn">import</span> <span class="n">VTKDataSource</span>
+    <span class="kn">from</span> <span class="nn">enthought.mayavi.modules.outline</span> <span class="kn">import</span> <span class="n">Outline</span>
+    <span class="kn">from</span> <span class="nn">enthought.mayavi.modules.image_plane_widget</span> <span class="kn">import</span> <span class="n">ImagePlaneWidget</span>
+
+    <span class="n">mayavi</span><span class="o">.</span><span class="n">new_scene</span><span class="p">()</span>
+    <span class="n">src</span> <span class="o">=</span> <span class="n">VTKDataSource</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">spoints</span><span class="p">)</span>
+    <span class="n">mayavi</span><span class="o">.</span><span class="n">add_source</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+    <span class="n">mayavi</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">Outline</span><span class="p">())</span>
+    <span class="n">mayavi</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">ImagePlaneWidget</span><span class="p">())</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">view</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/mayavi-logo.png" alt="Logo"/>
+            </a></p>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="example_scatter_plot.html"
+                        title="previous chapter">Scatter plot example</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="example_streamline.html"
+                        title="next chapter">Streamline example</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/auto/example_structured_points3d.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+    <div id="searchbox">
+	<h3>Google Search</h3>
+    <form method="get" action="http://www.google.com/search">
+
+    <table border="0" cellpadding="0">
+    <tr><td>
+    <input type="text"   name="q" size="20"
+    maxlength="255" value="" />
+    <input type="submit" value="Go" /></td></tr>
+    <tr><td align="center" style="font-size:75%; color: #FFFFFF;">
+    <input type="checkbox"  name="sitesearch"
+    value="http://code.enthought.com/projects/mayavi/docs/development/html/mayavi/" checked /> only search Mayavi documentation<br />
+    </td></tr></table>
+
+</form>
+    </div>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="example_streamline.html" title="Streamline example"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="example_scatter_plot.html" title="Scatter plot example"
+             >previous</a> |</li>
+        <li><a href="../index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+          <li><a href="examples.html" >Example gallery</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
+      Last updated on Jan 27, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
+    </div>
+  </body>
+</html>

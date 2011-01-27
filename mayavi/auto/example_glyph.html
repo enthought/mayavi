@@ -1,0 +1,224 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Glyph example &mdash; Mayavi v3.4.2 documentation</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.4.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Mayavi v3.4.2 documentation" href="../index.html" />
+    <link rel="up" title="Example gallery" href="examples.html" />
+    <link rel="next" title="Structured points2d example" href="example_structured_points2d.html" />
+    <link rel="prev" title="Surf regular mlab example" href="example_surf_regular_mlab.html" />
+<style type="text/css">
+  body {
+    /* Very bottom copyright, etc. info */
+    background: #4d598d;
+  }
+
+  .documentwrapper {
+    /* Blank area on left bar */
+    background: #24326e;
+  }
+
+  .related {
+    /* Long horizontal nav bars */
+    background: #3c4b8a!important;
+  }
+
+  .sphinxsidebarwrapper {
+    /* Filled part of left sidebar */
+    background: #24326e;
+  }
+
+  a {
+    color: #253370;
+  }
+
+  .sphinxsidebarwrapper a {
+    color: #f2f2f2!important;
+  }
+</style>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="example_structured_points2d.html" title="Structured points2d example"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="example_surf_regular_mlab.html" title="Surf regular mlab example"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+          <li><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="glyph-example">
+<span id="example-glyph"></span><h1>Glyph example<a class="headerlink" href="#glyph-example" title="Permalink to this headline">¶</a></h1>
+<p>This script demonstrates using the Mayavi core API to add a VectorCutPlane,
+split the pipeline using a MaskPoints filter and then view the filtered data
+with the Glyph module.</p>
+<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/glyph.py"><tt class="xref download docutils literal"><span class="pre">glyph.py</span></tt></a></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Author: Prabhu Ramachandran &lt;prabhu_r@users.sf.net&gt;</span>
+<span class="c"># Copyright (c) 2005-2008, Enthought, Inc.</span>
+<span class="c"># License: BSD Style.</span>
+
+<span class="c"># Standard library imports</span>
+<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">join</span><span class="p">,</span> <span class="n">abspath</span><span class="p">,</span> <span class="n">dirname</span>
+
+<span class="c"># Enthought library imports</span>
+<span class="kn">from</span> <span class="nn">enthought.mayavi.scripts</span> <span class="kn">import</span> <span class="n">mayavi2</span>
+<span class="kn">from</span> <span class="nn">enthought.mayavi.sources.vtk_xml_file_reader</span> <span class="kn">import</span> <span class="n">VTKXMLFileReader</span>
+<span class="kn">from</span> <span class="nn">enthought.mayavi.modules.outline</span> <span class="kn">import</span> <span class="n">Outline</span>
+<span class="kn">from</span> <span class="nn">enthought.mayavi.modules.glyph</span> <span class="kn">import</span> <span class="n">Glyph</span>
+<span class="kn">from</span> <span class="nn">enthought.mayavi.modules.vector_cut_plane</span> <span class="kn">import</span> <span class="n">VectorCutPlane</span>
+<span class="kn">from</span> <span class="nn">enthought.mayavi.filters.mask_points</span> <span class="kn">import</span> <span class="n">MaskPoints</span>
+    
+<span class="nd">@mayavi2.standalone</span>
+<span class="k">def</span> <span class="nf">glyph</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;The script itself.  We needn&#39;t have defined a function but</span>
+<span class="sd">    having a function makes this more reusable.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># &#39;mayavi&#39; is always defined on the interpreter.</span>
+    <span class="c"># Create a new VTK scene.</span>
+    <span class="n">mayavi</span><span class="o">.</span><span class="n">new_scene</span><span class="p">()</span>
+
+    <span class="c"># Read a VTK (old style) data file.</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">VTKXMLFileReader</span><span class="p">()</span>
+    <span class="n">r</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">join</span><span class="p">(</span><span class="n">mayavi2</span><span class="o">.</span><span class="n">get_data_dir</span><span class="p">(</span><span class="n">dirname</span><span class="p">(</span><span class="n">abspath</span><span class="p">(</span><span class="n">__file__</span><span class="p">))),</span>
+                      <span class="s">&#39;fire_ug.vtu&#39;</span><span class="p">))</span>
+    <span class="n">mayavi</span><span class="o">.</span><span class="n">add_source</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+
+    <span class="c"># Create an outline and a vector cut plane.</span>
+    <span class="n">mayavi</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">Outline</span><span class="p">())</span>
+
+    <span class="n">v</span> <span class="o">=</span> <span class="n">VectorCutPlane</span><span class="p">()</span>
+    <span class="n">mayavi</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+    <span class="n">v</span><span class="o">.</span><span class="n">glyph</span><span class="o">.</span><span class="n">color_mode</span> <span class="o">=</span> <span class="s">&#39;color_by_scalar&#39;</span>
+
+    <span class="c"># Now mask the points and show glyphs (we could also use</span>
+    <span class="c"># Vectors but glyphs are a bit more generic)</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">MaskPoints</span><span class="p">()</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">on_ratio</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">random_mode</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">mayavi</span><span class="o">.</span><span class="n">add_filter</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+
+    <span class="n">g</span> <span class="o">=</span> <span class="n">Glyph</span><span class="p">()</span>
+    <span class="n">mayavi</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+    <span class="c"># Note that this adds the module to the filtered output.</span>
+    <span class="n">g</span><span class="o">.</span><span class="n">glyph</span><span class="o">.</span><span class="n">scale_mode</span> <span class="o">=</span> <span class="s">&#39;scale_by_vector&#39;</span>
+    <span class="c"># Use arrows to view the scalars.</span>
+    <span class="n">gs</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">glyph</span><span class="o">.</span><span class="n">glyph_source</span>
+    <span class="n">gs</span><span class="o">.</span><span class="n">glyph_source</span> <span class="o">=</span> <span class="n">gs</span><span class="o">.</span><span class="n">glyph_dict</span><span class="p">[</span><span class="s">&#39;arrow_source&#39;</span><span class="p">]</span>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">glyph</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/mayavi-logo.png" alt="Logo"/>
+            </a></p>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="example_surf_regular_mlab.html"
+                        title="previous chapter">Surf regular mlab example</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="example_structured_points2d.html"
+                        title="next chapter">Structured points2d example</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/auto/example_glyph.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+    <div id="searchbox">
+	<h3>Google Search</h3>
+    <form method="get" action="http://www.google.com/search">
+
+    <table border="0" cellpadding="0">
+    <tr><td>
+    <input type="text"   name="q" size="20"
+    maxlength="255" value="" />
+    <input type="submit" value="Go" /></td></tr>
+    <tr><td align="center" style="font-size:75%; color: #FFFFFF;">
+    <input type="checkbox"  name="sitesearch"
+    value="http://code.enthought.com/projects/mayavi/docs/development/html/mayavi/" checked /> only search Mayavi documentation<br />
+    </td></tr></table>
+
+</form>
+    </div>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="example_structured_points2d.html" title="Structured points2d example"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="example_surf_regular_mlab.html" title="Surf regular mlab example"
+             >previous</a> |</li>
+        <li><a href="../index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+          <li><a href="examples.html" >Example gallery</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
+      Last updated on Jan 27, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,307 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Tvtk segmentation example &mdash; Mayavi v3.4.2 documentation</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.4.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Mayavi v3.4.2 documentation" href="../index.html" />
+    <link rel="up" title="Example gallery" href="examples.html" />
+    <link rel="next" title="Datasets example" href="example_datasets.html" />
+    <link rel="prev" title="Structured grid example" href="example_structured_grid.html" />
+<style type="text/css">
+  body {
+    /* Very bottom copyright, etc. info */
+    background: #4d598d;
+  }
+
+  .documentwrapper {
+    /* Blank area on left bar */
+    background: #24326e;
+  }
+
+  .related {
+    /* Long horizontal nav bars */
+    background: #3c4b8a!important;
+  }
+
+  .sphinxsidebarwrapper {
+    /* Filled part of left sidebar */
+    background: #24326e;
+  }
+
+  a {
+    color: #253370;
+  }
+
+  .sphinxsidebarwrapper a {
+    color: #f2f2f2!important;
+  }
+</style>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="example_datasets.html" title="Datasets example"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="example_structured_grid.html" title="Structured grid example"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+          <li><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="tvtk-segmentation-example">
+<span id="example-tvtk-segmentation"></span><h1>Tvtk segmentation example<a class="headerlink" href="#tvtk-segmentation-example" title="Permalink to this headline">¶</a></h1>
+<p>Using VTK to assemble a pipeline for segmenting MRI images. This example
+shows how to insert well-controled custom VTK filters in Mayavi.</p>
+<p>This example downloads an MRI scan, turns it into a 3D numpy array,
+applies a segmentation procedure made of VTK filters to extract the
+gray-matter/white-matter boundary.</p>
+<p>The segmentation algorithm used here is very naive and should, of course,
+not be used as an example of segmentation.</p>
+<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/tvtk_segmentation.py"><tt class="xref download docutils literal"><span class="pre">tvtk_segmentation.py</span></tt></a></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c">### Download the data, if not already on disk ##################################</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s">&#39;mri_data.tar.gz&#39;</span><span class="p">):</span>
+    <span class="c"># Download the data</span>
+    <span class="kn">import</span> <span class="nn">urllib</span>
+    <span class="k">print</span> <span class="s">&quot;Downloading data, Please Wait (7.8MB)&quot;</span>
+    <span class="n">opener</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span>
+                <span class="s">&#39;http://www-graphics.stanford.edu/data/voldata/MRbrain.tar.gz&#39;</span><span class="p">)</span>
+    <span class="nb">open</span><span class="p">(</span><span class="s">&#39;mri_data.tar.gz&#39;</span><span class="p">,</span> <span class="s">&#39;wb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">opener</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+
+<span class="c"># Extract the data</span>
+<span class="kn">import</span> <span class="nn">tarfile</span>
+<span class="n">tar_file</span> <span class="o">=</span> <span class="n">tarfile</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s">&#39;mri_data.tar.gz&#39;</span><span class="p">)</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="s">&#39;mri_data&#39;</span><span class="p">)</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="k">pass</span>
+<span class="n">tar_file</span><span class="o">.</span><span class="n">extractall</span><span class="p">(</span><span class="s">&#39;mri_data&#39;</span><span class="p">)</span>
+<span class="n">tar_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+
+<span class="c">### Read the data in a numpy 3D array ##########################################</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">fromfile</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s">&#39;mri_data&#39;</span><span class="p">,</span> <span class="s">&#39;MRbrain.</span><span class="si">%i</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">i</span><span class="p">),</span>
+                                        <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;&gt;u2&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">110</span><span class="p">)])</span>
+<span class="n">data</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="mi">109</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">256</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">T</span>
+
+<span class="c">################################################################################</span>
+<span class="c"># Heuristic for finding the threshold for the brain</span>
+
+<span class="c"># Exctract the percentile 20 and 80 (without using</span>
+<span class="c"># scipy.stats.scoreatpercentile)</span>
+<span class="n">sorted_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span>
+<span class="n">l</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">sorted_data</span><span class="p">)</span>
+<span class="n">lower_thr</span> <span class="o">=</span> <span class="n">sorted_data</span><span class="p">[</span><span class="mf">0.2</span><span class="o">*</span><span class="n">l</span><span class="p">]</span>
+<span class="n">upper_thr</span> <span class="o">=</span> <span class="n">sorted_data</span><span class="p">[</span><span class="mf">0.8</span><span class="o">*</span><span class="n">l</span><span class="p">]</span>
+
+<span class="c"># The white matter boundary: find the densest part of the upper half</span>
+<span class="c"># of histogram, and take a value 10% higher, to cut _in_ the white matter</span>
+<span class="n">hist</span><span class="p">,</span> <span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">data</span> <span class="o">&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">data</span><span class="p">)],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="n">brain_thr_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">hist</span><span class="p">)</span>
+<span class="n">brain_thr</span> <span class="o">=</span>  <span class="n">bins</span><span class="p">[</span><span class="n">brain_thr_idx</span> <span class="o">+</span> <span class="mi">4</span><span class="p">]</span>
+
+<span class="k">del</span> <span class="n">hist</span><span class="p">,</span> <span class="n">bins</span><span class="p">,</span> <span class="n">brain_thr_idx</span>
+
+<span class="c"># Display the data #############################################################</span>
+<span class="kn">from</span> <span class="nn">enthought.mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
+<span class="kn">from</span> <span class="nn">enthought.tvtk.api</span> <span class="kn">import</span> <span class="n">tvtk</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">bgcolor</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">500</span><span class="p">))</span>
+<span class="c"># to speed things up</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">disable_render</span> <span class="o">=</span> <span class="bp">True</span>
+
+<span class="n">src</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">scalar_field</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="c"># Our data is not equally spaced in all directions:</span>
+<span class="n">src</span><span class="o">.</span><span class="n">spacing</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">]</span>
+<span class="n">src</span><span class="o">.</span><span class="n">update_image_data</span> <span class="o">=</span> <span class="bp">True</span>
+
+<span class="c">#----------------------------------------------------------------------</span>
+<span class="c"># Brain extraction pipeline</span>
+
+<span class="c"># In the following, we create a Mayavi pipeline that strongly</span>
+<span class="c"># relies on VTK filters. For this, we make heavy use of the </span>
+<span class="c"># mlab.pipeline.user_defined function, to include VTK filters in</span>
+<span class="c"># the Mayavi pipeline.</span>
+
+<span class="c"># Apply image-based filters to clean up noise</span>
+<span class="n">thresh_filter</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">ImageThreshold</span><span class="p">()</span>
+<span class="n">thresh_filter</span><span class="o">.</span><span class="n">threshold_between</span><span class="p">(</span><span class="n">lower_thr</span><span class="p">,</span> <span class="n">upper_thr</span><span class="p">)</span>
+<span class="n">thresh</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">user_defined</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="n">thresh_filter</span><span class="p">)</span>
+
+<span class="n">median_filter</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">ImageMedian3D</span><span class="p">()</span>
+<span class="n">median_filter</span><span class="o">.</span><span class="n">set_kernel_size</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">median</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">user_defined</span><span class="p">(</span><span class="n">thresh</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="n">median_filter</span><span class="p">)</span>
+
+<span class="n">diffuse_filter</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">ImageAnisotropicDiffusion3D</span><span class="p">(</span>
+                                    <span class="n">diffusion_factor</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+                                    <span class="n">diffusion_threshold</span><span class="o">=</span><span class="mf">100.0</span><span class="p">,</span>
+                                    <span class="n">number_of_iterations</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="p">)</span>
+
+<span class="n">diffuse</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">user_defined</span><span class="p">(</span><span class="n">median</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="n">diffuse_filter</span><span class="p">)</span>
+
+<span class="c"># Extract brain surface</span>
+<span class="n">contour</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">diffuse</span><span class="p">,</span> <span class="p">)</span>
+<span class="n">contour</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">contours</span> <span class="o">=</span> <span class="p">[</span><span class="n">brain_thr</span><span class="p">,</span> <span class="p">]</span>
+
+<span class="c"># Apply mesh filter to clean up the mesh (decimation and smoothing)</span>
+<span class="n">dec</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">decimate_pro</span><span class="p">(</span><span class="n">contour</span><span class="p">)</span>
+<span class="n">dec</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">feature_angle</span> <span class="o">=</span> <span class="mf">60.</span>
+<span class="n">dec</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">target_reduction</span> <span class="o">=</span> <span class="mf">0.7</span>
+
+<span class="n">smooth_</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">SmoothPolyDataFilter</span><span class="p">(</span>
+                    <span class="n">number_of_iterations</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+                    <span class="n">relaxation_factor</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+                    <span class="n">feature_angle</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span>
+                    <span class="n">feature_edge_smoothing</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+                    <span class="n">boundary_smoothing</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+                    <span class="n">convergence</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span>
+                <span class="p">)</span>
+<span class="n">smooth</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">user_defined</span><span class="p">(</span><span class="n">dec</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="n">smooth_</span><span class="p">)</span>
+
+<span class="c"># Get the largest connected region</span>
+<span class="n">connect_</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">PolyDataConnectivityFilter</span><span class="p">(</span><span class="n">extraction_mode</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">connect</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">user_defined</span><span class="p">(</span><span class="n">smooth</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="n">connect_</span><span class="p">)</span>
+
+<span class="c"># Compute normals for shading the surface</span>
+<span class="n">compute_normals</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">poly_data_normals</span><span class="p">(</span><span class="n">connect</span><span class="p">)</span>
+<span class="n">compute_normals</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">feature_angle</span> <span class="o">=</span> <span class="mi">80</span>
+
+<span class="n">surf</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">surface</span><span class="p">(</span><span class="n">compute_normals</span><span class="p">,</span>
+                                        <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.72</span><span class="p">,</span> <span class="mf">0.62</span><span class="p">))</span>
+
+<span class="c">#----------------------------------------------------------------------</span>
+<span class="c"># Display a cut plane of the raw data</span>
+<span class="n">ipw</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">image_plane_widget</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s">&#39;bone&#39;</span><span class="p">,</span> 
+                <span class="n">plane_orientation</span><span class="o">=</span><span class="s">&#39;z_axes&#39;</span><span class="p">,</span>
+                <span class="n">slice_index</span><span class="o">=</span><span class="mi">55</span><span class="p">)</span>
+
+<span class="n">mlab</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">165</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">350</span><span class="p">,</span> <span class="p">[</span><span class="mi">143</span><span class="p">,</span> <span class="mi">133</span><span class="p">,</span> <span class="mi">73</span><span class="p">])</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="mi">180</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">disable_render</span> <span class="o">=</span> <span class="bp">False</span>
+
+<span class="c">#----------------------------------------------------------------------</span>
+<span class="c"># To make the link between the Mayavi pipeline and the much more</span>
+<span class="c"># complex VTK pipeline, we display both:</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">show_pipeline</span><span class="p">(</span><span class="n">rich_view</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">enthought.tvtk.pipeline.browser</span> <span class="kn">import</span> <span class="n">PipelineBrowser</span>
+<span class="n">browser</span> <span class="o">=</span> <span class="n">PipelineBrowser</span><span class="p">(</span><span class="n">fig</span><span class="o">.</span><span class="n">scene</span><span class="p">)</span>
+<span class="n">browser</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="n">mlab</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/mayavi-logo.png" alt="Logo"/>
+            </a></p>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="example_structured_grid.html"
+                        title="previous chapter">Structured grid example</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="example_datasets.html"
+                        title="next chapter">Datasets example</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/auto/example_tvtk_segmentation.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+    <div id="searchbox">
+	<h3>Google Search</h3>
+    <form method="get" action="http://www.google.com/search">
+
+    <table border="0" cellpadding="0">
+    <tr><td>
+    <input type="text"   name="q" size="20"
+    maxlength="255" value="" />
+    <input type="submit" value="Go" /></td></tr>
+    <tr><td align="center" style="font-size:75%; color: #FFFFFF;">
+    <input type="checkbox"  name="sitesearch"
+    value="http://code.enthought.com/projects/mayavi/docs/development/html/mayavi/" checked /> only search Mayavi documentation<br />
+    </td></tr></table>
+
+</form>
+    </div>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="example_datasets.html" title="Datasets example"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="example_structured_grid.html" title="Structured grid example"
+             >previous</a> |</li>
+        <li><a href="../index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+          <li><a href="examples.html" >Example gallery</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
+      Last updated on Jan 27, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
+    </div>
+  </body>
+</html>

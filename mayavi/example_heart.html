@@ -1,0 +1,269 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Loading scalar data: the heart.vtk example &mdash; Mayavi v3.4.2 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '3.4.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Mayavi v3.4.2 documentation" href="index.html" />
+    <link rel="up" title="Using the Mayavi application" href="application.html" />
+    <link rel="next" title="Visualizing rich datasets: the fire_ug.vtu example" href="example_fire.html" />
+    <link rel="prev" title="Parametric surfaces: a simple introduction to visualization" href="example_parametric_surface.html" />
+<style type="text/css">
+  body {
+    /* Very bottom copyright, etc. info */
+    background: #4d598d;
+  }
+
+  .documentwrapper {
+    /* Blank area on left bar */
+    background: #24326e;
+  }
+
+  .related {
+    /* Long horizontal nav bars */
+    background: #3c4b8a!important;
+  }
+
+  .sphinxsidebarwrapper {
+    /* Filled part of left sidebar */
+    background: #24326e;
+  }
+
+  a {
+    color: #253370;
+  }
+
+  .sphinxsidebarwrapper a {
+    color: #f2f2f2!important;
+  }
+</style>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="example_fire.html" title="Visualizing rich datasets: the fire_ug.vtu example"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="example_parametric_surface.html" title="Parametric surfaces: a simple introduction to visualization"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+          <li><a href="application.html" accesskey="U">Using the Mayavi application</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="loading-scalar-data-the-heart-vtk-example">
+<h1>Loading scalar data: the <tt class="docutils literal"><span class="pre">heart.vtk</span></tt> example<a class="headerlink" href="#loading-scalar-data-the-heart-vtk-example" title="Permalink to this headline">¶</a></h1>
+<p>This section describes a simple example with the <tt class="docutils literal"><span class="pre">heart.vtk</span></tt> file.
+This is a simple volume of 3D data (32 x 32 x 12 points) with scalars
+at each point (the points are equally spaced).  The data is a
+structured dataset (an <cite>ImageData</cite> in fact), we&#8217;ll read more about
+these later but you can think of it as a cube of points regularly
+spaced with some scalar data associated with each point.  The data
+apparently represents a CT scan of a heart.  I have no idea whose
+heart!  The file is a readable text file, look at it in a text editor
+if you&#8217;d like to.</p>
+<blockquote>
+<ol class="arabic">
+<li><p class="first">With <tt class="docutils literal"><span class="pre">mayavi2</span></tt> started, we start by opening the data file.  Go
+to the <cite>File-&gt;Load data-&gt;Open file</cite> menu item and then in the file
+dialog, navigate to the directory that contains the sample data.
+There select the <tt class="docutils literal"><span class="pre">heart.vtk</span></tt> file.</p>
+<p>Once you choose the data, you will see a new node on the Mayavi
+tree view on the left that says <cite>VTK file (heart.vtk)</cite>.  Note
+that you <strong>will not</strong> see anything visualized on the TVTK scene
+yet.</p>
+</li>
+<li><p class="first">To see an outline (a box) of the data, navigate to the
+<cite>Visualize-&gt;Modules</cite> menu item and select the <cite>Outline</cite> module.
+You will immediately see a white box on the TVTK scene.  You
+should also see two new nodes on the tree view, one called
+<cite>Colors and legends</cite> and one underneath that called <cite>Outline</cite>.</p>
+</li>
+<li><p class="first">You can change properties of the outline displayed by clicking on
+the <cite>Outline</cite> node on the left.  This will create an object editor
+window on left bottom of the window (the object editor tab) below
+the tree view.  Play with the settings here and look at the
+results.  If you double-click a node on the tree view it will pop
+up an editor dialog rather than show it in the embedded object
+editor.</p>
+<p>Note that in general, the editor window for a <cite>Module</cite> will have
+a section for the <cite>Actor</cite>, one for the <cite>Mapper</cite> and one for
+<cite>Property</cite>.  These refer to TVTK/VTK terminology.  You may think
+of Properties as those related to the color, representation
+(surface, wireframe, etc.), line size etc.  Things grouped under
+<cite>Actor</cite> are related to the object that is rendered on screen and
+typically the editor will let you toggle its visibility.  In VTK
+parlance, the word <cite>Mapper</cite> refers to an object that converts the
+data to graphics primitives.  Properties related to it will be
+grouped under the <cite>Mapper</cite> head.</p>
+</li>
+<li><p class="first">To interact with the TVTK scene window, look at the section on
+<a class="reference internal" href="application.html#interaction-with-the-scene"><em>Interaction with the scene</em></a> for more details.  Experiment with
+these options till you are comfortable.</p>
+</li>
+<li><p class="first">Now, with the Outline node selected, create an iso-surface by selecting the
+<cite>Visualize-&gt;Modules-&gt;IsoSurface</cite> menu item.  You will see a new
+<cite>IsoSurface</cite> node on the left and an iso-contour of the scalar
+data on the scene.  The iso-surface is colored as per the
+particular iso-value chosen.  Experiment with the settings of
+this module.</p>
+</li>
+<li><p class="first">To produce meaningful visualizations you need to know what each
+color represents.  To display this legend on the scene, click on the
+<cite>Colors and legends</cite> node on the tree view and on the object editor
+activate the <cite>Show scalar bar</cite> check-box.  This will show you a legend
+on the TVTK scene.  The legend can be moved around on the scene by
+clicking on it and dragging on it.  It can also be resized by
+clicking and dragging on its edges.  You can change the nature of
+the color-mapping by choosing various options on the object
+editor.</p>
+</li>
+<li><p class="first">Create a simple &#8220;grid plane&#8221; to obtain an idea of the actual
+points on the grid.  This can be done using the <cite>GridPlane</cite>
+module, and created via the <cite>Visualize-&gt;Modules-&gt;GridPlane</cite> menu
+item.</p>
+</li>
+<li><p class="first">You can delete a particular module by right clicking on it and
+choosing delete.  Try this on the <cite>GridPlane</cite> module.  Try the
+other right click menu options as well.</p>
+</li>
+<li><p class="first">Experiment with the <cite>ContourGridPlane</cite> module and also the
+<cite>ScalarCutPlane</cite> module a little.</p>
+<p>The <cite>ScalarCutPlane</cite> module features a very powerful feature
+called <em>3D widgets</em>.  On the TVTK scene window you will see a cut
+plane that slices through your data showing you colors
+representing your data.  This cut plane will have a red outline
+and an arrow sticking out of it.  You can click directly on the
+cut plane and move it by dragging it.  Click on the arrow head to
+rotate the plane.  You can also reset its position by using the
+editor window for the scalar cut plane.</p>
+</li>
+<li><p class="first">You can save the visualization to an image produced by clicking
+on the little save icon on the TVTK scene or via any of the
+options on the <cite>File-&gt;Save Scene As</cite> menu.</p>
+</li>
+</ol>
+</blockquote>
+<p>You should have a visualization that looks something like the one
+shown below.</p>
+<img alt="Sample visualization of the ``heart.vtk`` dataset." src="_images/heart.jpg" />
+<p>The nice thing about mayavi is that although in this case all of the
+above was done using the user interface, all of it can be done using
+pure Python scripts as well.  More details on this are available in
+the <a class="reference internal" href="mlab.html#simple-scripting-with-mlab"><em>mlab: Python scripting for 3D plotting</em></a> section (see also
+<a class="reference internal" href="advanced_scripting.html#advanced-scripting-with-mayavi"><em>Advanced Scripting with Mayavi</em></a> for a more in-depth coverage).</p>
+<p>Opening data files and starting up modules can also be done from the
+command line.  For example we could simply have done:</p>
+<div class="highlight-python"><pre>$ mayavi2 -d /path/to/heart.vtk -m Outline -m IsoSurface \
+&gt; -m GridPlane -m ScalarCutPlane</pre>
+</div>
+<p>More details are available in the <a class="reference internal" href="application.html#command-line-arguments"><em>Command line arguments</em></a> section.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/mayavi-logo.png" alt="Logo"/>
+            </a></p>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="example_parametric_surface.html"
+                        title="previous chapter">Parametric surfaces: a simple introduction to visualization</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="example_fire.html"
+                        title="next chapter">Visualizing rich datasets: the <tt class="docutils literal docutils literal"><span class="pre">fire_ug.vtu</span></tt> example</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/example_heart.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+    <div id="searchbox">
+	<h3>Google Search</h3>
+    <form method="get" action="http://www.google.com/search">
+
+    <table border="0" cellpadding="0">
+    <tr><td>
+    <input type="text"   name="q" size="20"
+    maxlength="255" value="" />
+    <input type="submit" value="Go" /></td></tr>
+    <tr><td align="center" style="font-size:75%; color: #FFFFFF;">
+    <input type="checkbox"  name="sitesearch"
+    value="http://code.enthought.com/projects/mayavi/docs/development/html/mayavi/" checked /> only search Mayavi documentation<br />
+    </td></tr></table>
+
+</form>
+    </div>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="example_fire.html" title="Visualizing rich datasets: the fire_ug.vtu example"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="example_parametric_surface.html" title="Parametric surfaces: a simple introduction to visualization"
+             >previous</a> |</li>
+        <li><a href="index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+          <li><a href="application.html" >Using the Mayavi application</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
+      Last updated on Jan 27, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
+    </div>
+  </body>
+</html>

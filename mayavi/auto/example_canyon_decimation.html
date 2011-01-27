@@ -1,0 +1,244 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Canyon decimation example &mdash; Mayavi v3.4.2 documentation</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.4.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Mayavi v3.4.2 documentation" href="../index.html" />
+    <link rel="up" title="Example gallery" href="examples.html" />
+    <link rel="next" title="Plotting many lines example" href="example_plotting_many_lines.html" />
+    <link rel="prev" title="Wigner example" href="example_wigner.html" />
+<style type="text/css">
+  body {
+    /* Very bottom copyright, etc. info */
+    background: #4d598d;
+  }
+
+  .documentwrapper {
+    /* Blank area on left bar */
+    background: #24326e;
+  }
+
+  .related {
+    /* Long horizontal nav bars */
+    background: #3c4b8a!important;
+  }
+
+  .sphinxsidebarwrapper {
+    /* Filled part of left sidebar */
+    background: #24326e;
+  }
+
+  a {
+    color: #253370;
+  }
+
+  .sphinxsidebarwrapper a {
+    color: #f2f2f2!important;
+  }
+</style>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="example_plotting_many_lines.html" title="Plotting many lines example"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="example_wigner.html" title="Wigner example"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+          <li><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="canyon-decimation-example">
+<span id="example-canyon-decimation"></span><h1>Canyon decimation example<a class="headerlink" href="#canyon-decimation-example" title="Permalink to this headline">¶</a></h1>
+<p>Use the greedy-terrain-decimator to display a decimated terrain view.</p>
+<p>This example illustrates decimating a terrain. We use the
+greedy-terrain-decimator to create a reduced mesh with an optimized grid that
+approximates the initial regular grid.</p>
+<p>The initial grid is displayed in white, and the optimized grid is displayed in
+black, with the surface it creates. The initial grid can be seen
+disappearing as it goes under the surface of the approximated grid:
+although the decimated mesh follows closely the orginal, it is not
+exactly the same.</p>
+<p>One can see that the reduction in number of polygons is huge: the white
+grid is much finer than the black grid. It is interesting to note that
+the decimated mesh follows closely the original mesh, including in number
+of polygons, in spots where the terrain changes most quickly.</p>
+<p>This example uses the Grand Canyon topological radar data, from NASA.</p>
+<p>The greedy-terrain-decimator is only useful to decimate a surface
+warped from 2D data. To decimated more general meshes, you can use the
+less-efficient decimate-pro filter (see <a class="reference internal" href="example_julia_set_decimation.html#example-julia-set-decimation"><em>Julia set decimation example</em></a>).</p>
+<img alt="../_images/example_canyon_decimation.jpg" class="align-center" src="../_images/example_canyon_decimation.jpg" />
+<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/canyon_decimation.py"><tt class="xref download docutils literal"><span class="pre">canyon_decimation.py</span></tt></a></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Author: Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt; </span>
+<span class="c"># Copyright (c) 2008, Enthought, Inc.</span>
+<span class="c"># License: BSD Style.</span>
+
+<span class="c"># Retrieve the grand Canyon topological data ###################################</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s">&#39;N36W113.hgt.zip&#39;</span><span class="p">):</span>
+    <span class="c"># Download the data</span>
+    <span class="kn">import</span> <span class="nn">urllib</span>
+    <span class="k">print</span> <span class="s">&#39;Downloading data, please wait (10M)&#39;</span>
+    <span class="n">opener</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span>
+    <span class="s">&#39;http://staging.enthought.com/projects/mayavi/N36W113.hgt.zip&#39;</span>
+    <span class="c">#&#39;ftp://e0srp01u.ecs.nasa.gov/srtm/version2/SRTM1/Region_04/N36W113.hgt.zip&#39;</span>
+        <span class="p">)</span>
+    <span class="nb">open</span><span class="p">(</span><span class="s">&#39;N36W113.hgt.zip&#39;</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">opener</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+
+<span class="c"># Load the data (signed 2 byte integers, big endian) ###########################</span>
+<span class="kn">import</span> <span class="nn">zipfile</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fromstring</span><span class="p">(</span><span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="s">&#39;N36W113.hgt.zip&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s">&#39;N36W113.hgt&#39;</span><span class="p">),</span> 
+                    <span class="s">&#39;&gt;i2&#39;</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="mi">3601</span><span class="p">,</span> <span class="mi">3601</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">200</span><span class="p">:</span><span class="mi">400</span><span class="p">,</span> <span class="mi">1200</span><span class="p">:</span><span class="mi">1400</span><span class="p">]</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+<span class="c"># Plot an interecting section ##################################################</span>
+<span class="kn">from</span> <span class="nn">enthought.mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">450</span><span class="p">,</span> <span class="mi">390</span><span class="p">))</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">array2d_source</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="c"># Use a greedy_terrain_decimation to created a decimated mesh</span>
+<span class="n">terrain</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">greedy_terrain_decimation</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">terrain</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">error_measure</span> <span class="o">=</span> <span class="s">&#39;number_of_triangles&#39;</span>
+<span class="n">terrain</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">number_of_triangles</span> <span class="o">=</span> <span class="mi">5000</span>
+<span class="n">terrain</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">compute_normals</span> <span class="o">=</span> <span class="bp">True</span>
+
+<span class="c"># Plot it black the lines of the mesh</span>
+<span class="n">lines</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">surface</span><span class="p">(</span><span class="n">terrain</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+                                      <span class="n">representation</span><span class="o">=</span><span class="s">&#39;wireframe&#39;</span><span class="p">)</span>
+<span class="c"># The terrain decimator has done the warping. We control the warping</span>
+<span class="c"># scale via the actor&#39;s scale.</span>
+<span class="n">lines</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">scale</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">]</span>
+
+<span class="c"># Display the surface itself.</span>
+<span class="n">surf</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">surface</span><span class="p">(</span><span class="n">terrain</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s">&#39;gist_earth&#39;</span><span class="p">,</span>
+                                      <span class="n">vmin</span><span class="o">=</span><span class="mi">1450</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1650</span><span class="p">)</span>
+<span class="n">surf</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">scale</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">]</span>
+
+<span class="c"># Display the original regular grid. This time we have to use a</span>
+<span class="c"># warp_scalar filter.</span>
+<span class="n">warp</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">warp_scalar</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">warp_scale</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">grid</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">surface</span><span class="p">(</span><span class="n">warp</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+                                      <span class="n">representation</span><span class="o">=</span><span class="s">&#39;wireframe&#39;</span><span class="p">)</span>
+
+<span class="n">mlab</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">17</span><span class="p">,</span> <span class="mi">46</span><span class="p">,</span> <span class="mi">143</span><span class="p">,</span> <span class="p">[</span><span class="mf">1.46</span><span class="p">,</span> <span class="mf">8.46</span><span class="p">,</span> <span class="mf">269.4</span><span class="p">])</span>
+
+<span class="n">mlab</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/mayavi-logo.png" alt="Logo"/>
+            </a></p>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="example_wigner.html"
+                        title="previous chapter">Wigner example</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="example_plotting_many_lines.html"
+                        title="next chapter">Plotting many lines example</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/auto/example_canyon_decimation.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+    <div id="searchbox">
+	<h3>Google Search</h3>
+    <form method="get" action="http://www.google.com/search">
+
+    <table border="0" cellpadding="0">
+    <tr><td>
+    <input type="text"   name="q" size="20"
+    maxlength="255" value="" />
+    <input type="submit" value="Go" /></td></tr>
+    <tr><td align="center" style="font-size:75%; color: #FFFFFF;">
+    <input type="checkbox"  name="sitesearch"
+    value="http://code.enthought.com/projects/mayavi/docs/development/html/mayavi/" checked /> only search Mayavi documentation<br />
+    </td></tr></table>
+
+</form>
+    </div>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="example_plotting_many_lines.html" title="Plotting many lines example"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="example_wigner.html" title="Wigner example"
+             >previous</a> |</li>
+        <li><a href="../index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+          <li><a href="examples.html" >Example gallery</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
+      Last updated on Jan 27, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
+    </div>
+  </body>
+</html>

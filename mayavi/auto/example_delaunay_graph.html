@@ -1,0 +1,385 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Delaunay graph example &mdash; Mayavi v3.4.2 documentation</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.4.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Mayavi v3.4.2 documentation" href="../index.html" />
+    <link rel="up" title="Example gallery" href="examples.html" />
+    <link rel="next" title="Mlab 3D to 2D example" href="example_mlab_3D_to_2D.html" />
+    <link rel="prev" title="Datasets example" href="example_datasets.html" />
+<style type="text/css">
+  body {
+    /* Very bottom copyright, etc. info */
+    background: #4d598d;
+  }
+
+  .documentwrapper {
+    /* Blank area on left bar */
+    background: #24326e;
+  }
+
+  .related {
+    /* Long horizontal nav bars */
+    background: #3c4b8a!important;
+  }
+
+  .sphinxsidebarwrapper {
+    /* Filled part of left sidebar */
+    background: #24326e;
+  }
+
+  a {
+    color: #253370;
+  }
+
+  .sphinxsidebarwrapper a {
+    color: #f2f2f2!important;
+  }
+</style>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="example_mlab_3D_to_2D.html" title="Mlab 3D to 2D example"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="example_datasets.html" title="Datasets example"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+          <li><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="delaunay-graph-example">
+<span id="example-delaunay-graph"></span><h1>Delaunay graph example<a class="headerlink" href="#delaunay-graph-example" title="Permalink to this headline">¶</a></h1>
+<p>An example illustrating graph manipulation and display with Mayavi
+and NetworkX.</p>
+<p>This example shows how to use Mayavi in a purely algorithmic way, to
+compute a Delaunay from data points, extract it and pass it to networkx.
+It also shows how to plot a graph using quiver.</p>
+<p>Starting from points positioned regularly on a sphere, we first use VTK
+to create the Delaunay graph, and also to plot it. We then create a
+matching NetworkX graph, calling it&#8217;s minimum spanning tree function. We
+display it using Mayavi.</p>
+<p>The visualization clearly shows that the minimum spanning tree of the
+points, considering all possible connections, is included in the Delaunay
+graph.</p>
+<hr class="docutils" />
+<p>The function <cite>compute_delaunay_edges</cite> uses VTK to retrieve the Delaunay
+graph of a set of points. First a structure of unconnected points is
+created using <cite>mlab.points3d</cite>. The Delaunay filter applied to it builds
+an unstructured grid (see <a class="reference internal" href="../data.html#data-structures-used-by-mayavi"><em>Data representation in Mayavi</em></a>). We
+apply an ExtractEdges filter to it, which returns a structure of points
+connected by edges: the <a class="reference internal" href="../data.html#poly-data"><em>PolyData structure</em></a>. The
+dataset structure can be retrieved as the first item of the <cite>outputs</cite>
+list of the ExtractEdges filter object, returned by the
+<cite>mlab.pipeline.extract_edges</cite> factory function. Once we have this object,
+we extract the points and edge list from it. This graph-plotting
+technique differs from the technique used in the examples
+<a class="reference internal" href="example_protein.html#example-protein"><em>Protein example</em></a> and <a class="reference internal" href="example_flight_graph.html#example-flight-graph"><em>Flight graph example</em></a> where points are
+created and connected by lines. Unlike these techniques, it enables
+storing scalar data on each line.</p>
+<hr class="docutils" />
+<p>To visualize the graph (function <cite>graph_plot</cite>), we build a list of
+vectors giving the edges, and use <cite>mlab.quiver3d</cite> to display them. To
+display an unoriented graph, it is best to use the <cite>2ddash</cite> mode of
+<cite>quiver3d</cite>.</p>
+<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/delaunay_graph.py"><tt class="xref download docutils literal"><span class="pre">delaunay_graph.py</span></tt></a></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Author: Gary Ruben</span>
+<span class="c">#         Gael Varoquaux &lt;gael dot varoquaux at normalesup dot org&gt;</span>
+<span class="c"># Copyright (c) 2009, Enthought, Inc.</span>
+<span class="c"># License: BSD style.</span>
+
+<span class="kn">from</span> <span class="nn">enthought.mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">networkx</span> <span class="kn">as</span> <span class="nn">nx</span>
+
+<span class="k">def</span> <span class="nf">compute_delaunay_edges</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">visualize</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Given 3-D points, returns the edges of their </span>
+<span class="sd">        Delaunay triangulation.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        -----------</span>
+<span class="sd">        x: ndarray</span>
+<span class="sd">            x coordinates of the points</span>
+<span class="sd">        y: ndarray</span>
+<span class="sd">            y coordinates of the points</span>
+<span class="sd">        z: ndarray</span>
+<span class="sd">            z coordinates of the points</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        ---------</span>
+<span class="sd">        new_x: ndarray</span>
+<span class="sd">            new x coordinates of the points (same coords but different </span>
+<span class="sd">            assignment of points)</span>
+<span class="sd">        new_y: ndarray</span>
+<span class="sd">            new y coordinates of the points (same coords but different </span>
+<span class="sd">            assignment of points)</span>
+<span class="sd">        new_z: ndarray</span>
+<span class="sd">            new z coordinates of the points (same coords but different </span>
+<span class="sd">            assignment of points)</span>
+<span class="sd">        edges: 2D ndarray.</span>
+<span class="sd">            The indices of the edges of the Delaunay triangulation as a</span>
+<span class="sd">            (N, 2) array [[pair1_index1, pair1_index2],</span>
+<span class="sd">                          [pair2_index1, pair2_index2], </span>
+<span class="sd">                          ...                         ]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">visualize</span><span class="p">:</span>
+        <span class="n">vtk_source</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">points3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">&#39;2dvertex&#39;</span><span class="p">)</span>
+        <span class="n">vtk_source</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">property</span><span class="o">.</span><span class="n">point_size</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">vtk_source</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">points3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">figure</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+    <span class="n">delaunay</span> <span class="o">=</span>  <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">delaunay3d</span><span class="p">(</span><span class="n">vtk_source</span><span class="p">)</span>
+    <span class="n">delaunay</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">offset</span> <span class="o">=</span> <span class="mi">999</span>    <span class="c"># seems more reliable than the default</span>
+    <span class="n">edges</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">extract_edges</span><span class="p">(</span><span class="n">delaunay</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">visualize</span><span class="p">:</span>
+        <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">surface</span><span class="p">(</span><span class="n">edges</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+    <span class="c"># We extract the output array. the &#39;points&#39; attribute itself</span>
+    <span class="c"># is a TVTK array, that we convert to a numpy array using</span>
+    <span class="c"># its &#39;to_array&#39; method.</span>
+    <span class="n">new_x</span><span class="p">,</span> <span class="n">new_y</span><span class="p">,</span> <span class="n">new_z</span> <span class="o">=</span> <span class="n">edges</span><span class="o">.</span><span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">points</span><span class="o">.</span><span class="n">to_array</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">lines</span> <span class="o">=</span> <span class="n">edges</span><span class="o">.</span><span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lines</span><span class="o">.</span><span class="n">to_array</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">new_x</span><span class="p">,</span> <span class="n">new_y</span><span class="p">,</span> <span class="n">new_z</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">lines</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">3</span><span class="p">],</span> <span class="n">lines</span><span class="p">[</span><span class="mi">2</span><span class="p">::</span><span class="mi">3</span><span class="p">]])</span><span class="o">.</span><span class="n">T</span>
+
+
+<span class="k">def</span> <span class="nf">graph_plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">start_idx</span><span class="p">,</span> <span class="n">end_idx</span><span class="p">,</span> <span class="n">edge_scalars</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Show the graph edges using Mayavi</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        -----------</span>
+<span class="sd">        x: ndarray</span>
+<span class="sd">            x coordinates of the points</span>
+<span class="sd">        y: ndarray</span>
+<span class="sd">            y coordinates of the points</span>
+<span class="sd">        z: ndarray</span>
+<span class="sd">            z coordinates of the points</span>
+<span class="sd">        edge_scalars: ndarray, optional</span>
+<span class="sd">            optional data to give the color of the edges.</span>
+<span class="sd">        kwargs:</span>
+<span class="sd">            extra keyword arguments are passed to quiver3d.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">vec</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">quiver3d</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">start_idx</span><span class="p">],</span> 
+                        <span class="n">y</span><span class="p">[</span><span class="n">start_idx</span><span class="p">],</span>
+                        <span class="n">z</span><span class="p">[</span><span class="n">start_idx</span><span class="p">],</span>
+                        <span class="n">x</span><span class="p">[</span><span class="n">end_idx</span><span class="p">]</span> <span class="o">-</span> <span class="n">x</span><span class="p">[</span><span class="n">start_idx</span><span class="p">],</span>
+                        <span class="n">y</span><span class="p">[</span><span class="n">end_idx</span><span class="p">]</span> <span class="o">-</span> <span class="n">y</span><span class="p">[</span><span class="n">start_idx</span><span class="p">],</span>
+                        <span class="n">z</span><span class="p">[</span><span class="n">end_idx</span><span class="p">]</span> <span class="o">-</span> <span class="n">z</span><span class="p">[</span><span class="n">start_idx</span><span class="p">],</span>
+                        <span class="n">scalars</span><span class="o">=</span><span class="n">edge_scalars</span><span class="p">,</span>
+                        <span class="n">mode</span><span class="o">=</span><span class="s">&#39;2ddash&#39;</span><span class="p">,</span> 
+                        <span class="n">scale_factor</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                        <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">edge_scalars</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">vec</span><span class="o">.</span><span class="n">glyph</span><span class="o">.</span><span class="n">color_mode</span> <span class="o">=</span> <span class="s">&#39;color_by_scalar&#39;</span>
+    <span class="k">return</span> <span class="n">vec</span>
+
+
+<span class="k">def</span> <span class="nf">build_geometric_graph</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">edges</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Build a NetworkX graph with xyz node coordinates and the node indices</span>
+<span class="sd">        of the end nodes.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        -----------</span>
+<span class="sd">        x: ndarray</span>
+<span class="sd">            x coordinates of the points</span>
+<span class="sd">        y: ndarray</span>
+<span class="sd">            y coordinates of the points</span>
+<span class="sd">        z: ndarray</span>
+<span class="sd">            z coordinates of the points</span>
+<span class="sd">        edges: the (2, N) array returned by compute_delaunay_edges()</span>
+<span class="sd">            containing node indices of the end nodes. Weights are applied to</span>
+<span class="sd">            the edges based on their euclidean length for use by the MST</span>
+<span class="sd">            algorithm.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        ---------</span>
+<span class="sd">        g: A NetworkX undirected graph</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        ------</span>
+<span class="sd">        We don&#39;t bother putting the coordinates into the NX graph.</span>
+<span class="sd">        Instead the graph node is an index to the column.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">xyz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">))</span>
+    <span class="k">def</span> <span class="nf">euclidean_dist</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">):</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">xyz</span><span class="p">[:,</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">xyz</span><span class="p">[:,</span><span class="n">j</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">d</span><span class="p">))</span>
+
+    <span class="n">g</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">edges</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">nx</span><span class="o">.</span><span class="n">__version__</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="s">&#39;0&#39;</span><span class="p">:</span>
+            <span class="n">g</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="n">euclidean_dist</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">g</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">euclidean_dist</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">g</span>
+
+
+<span class="k">def</span> <span class="nf">points_on_sphere</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Generate N evenly distributed points on the unit sphere centered at</span>
+<span class="sd">        the origin. Uses the &#39;Golden Spiral&#39;.</span>
+<span class="sd">        Code by Chris Colbert from the numpy-discussion list.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">phi</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span> <span class="o">/</span> <span class="mi">2</span>  <span class="c"># the golden ratio</span>
+    <span class="n">long_incr</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="n">phi</span>   <span class="c"># how much to increment the longitude</span>
+
+    <span class="n">dz</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>         <span class="c"># a unit sphere has diameter 2</span>
+    <span class="n">bands</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>        <span class="c"># each band will have one point placed on it</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">bands</span> <span class="o">*</span> <span class="n">dz</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">+</span> <span class="p">(</span><span class="n">dz</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="c"># the height z of each band/point</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">z</span><span class="o">*</span><span class="n">z</span><span class="p">)</span>        <span class="c"># project onto xy-plane</span>
+    <span class="n">az</span> <span class="o">=</span> <span class="n">bands</span> <span class="o">*</span> <span class="n">long_incr</span>      <span class="c"># azimuthal angle of point modulo 2 pi</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">r</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">az</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">r</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">az</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span>
+
+
+<span class="c">################################################################################</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="c"># generate some points</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">points_on_sphere</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+    <span class="c"># Avoid triangulation problems on the sphere</span>
+    <span class="n">z</span> <span class="o">*=</span> <span class="mf">1.01</span>
+
+    <span class="n">mlab</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">bgcolor</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+    <span class="n">mlab</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
+
+    <span class="c"># Now get the Delaunay Triangulation from vtk via mayavi mlab. Vtk stores</span>
+    <span class="c"># its points in a different order so overwrite ours to match the edges</span>
+    <span class="n">new_x</span><span class="p">,</span> <span class="n">new_y</span><span class="p">,</span> <span class="n">new_z</span><span class="p">,</span> <span class="n">edges</span> <span class="o">=</span> <span class="n">compute_delaunay_edges</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">visualize</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="k">assert</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">new_x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>   <span class="c"># check triangulation got everything</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">new_x</span><span class="p">,</span> <span class="n">new_y</span><span class="p">,</span> <span class="n">new_z</span>
+
+    <span class="k">if</span> <span class="n">nx</span><span class="o">.</span><span class="n">__version__</span> <span class="o">&lt;</span> <span class="s">&#39;0.99&#39;</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s">&#39;The version of NetworkX must be at least &#39;</span>
+                    <span class="s">&#39;0.99 to run this example&#39;</span><span class="p">)</span>
+
+    <span class="c"># Make a NetworkX graph out of our point and edge data</span>
+    <span class="n">g</span> <span class="o">=</span> <span class="n">build_geometric_graph</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">edges</span><span class="p">)</span>
+
+    <span class="c"># Compute minimum spanning tree using networkx</span>
+    <span class="c"># nx.mst returns an edge generator</span>
+    <span class="n">start_idx</span><span class="p">,</span> <span class="n">end_idx</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">nx</span><span class="o">.</span><span class="n">mst</span><span class="p">(</span><span class="n">g</span><span class="p">)))</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">start_idx</span> <span class="o">=</span> <span class="n">start_idx</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">)</span>
+    <span class="n">end_idx</span>   <span class="o">=</span> <span class="n">end_idx</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">)</span>
+
+    <span class="c"># Plot this with Mayavi</span>
+    <span class="n">graph_plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">start_idx</span><span class="p">,</span> <span class="n">end_idx</span><span class="p">,</span>
+                <span class="n">edge_scalars</span><span class="o">=</span><span class="n">z</span><span class="p">[</span><span class="n">start_idx</span><span class="p">],</span>
+                <span class="n">opacity</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
+                <span class="n">colormap</span><span class="o">=</span><span class="s">&#39;summer&#39;</span><span class="p">,</span>
+                <span class="n">line_width</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+                <span class="p">)</span>
+
+    <span class="n">mlab</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="mi">60</span><span class="p">,</span> <span class="mi">46</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+    <span class="n">mlab</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/mayavi-logo.png" alt="Logo"/>
+            </a></p>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="example_datasets.html"
+                        title="previous chapter">Datasets example</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="example_mlab_3D_to_2D.html"
+                        title="next chapter">Mlab 3D to 2D example</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/auto/example_delaunay_graph.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+    <div id="searchbox">
+	<h3>Google Search</h3>
+    <form method="get" action="http://www.google.com/search">
+
+    <table border="0" cellpadding="0">
+    <tr><td>
+    <input type="text"   name="q" size="20"
+    maxlength="255" value="" />
+    <input type="submit" value="Go" /></td></tr>
+    <tr><td align="center" style="font-size:75%; color: #FFFFFF;">
+    <input type="checkbox"  name="sitesearch"
+    value="http://code.enthought.com/projects/mayavi/docs/development/html/mayavi/" checked /> only search Mayavi documentation<br />
+    </td></tr></table>
+
+</form>
+    </div>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="example_mlab_3D_to_2D.html" title="Mlab 3D to 2D example"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="example_datasets.html" title="Datasets example"
+             >previous</a> |</li>
+        <li><a href="../index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+          <li><a href="examples.html" >Example gallery</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
+      Last updated on Jan 27, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
+    </div>
+  </body>
+</html>

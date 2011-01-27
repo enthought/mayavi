@@ -1,0 +1,250 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Parametric surfaces: a simple introduction to visualization &mdash; Mayavi v3.4.2 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '3.4.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Mayavi v3.4.2 documentation" href="index.html" />
+    <link rel="up" title="Using the Mayavi application" href="application.html" />
+    <link rel="next" title="Loading scalar data: the heart.vtk example" href="example_heart.html" />
+    <link rel="prev" title="Using the Mayavi application" href="application.html" />
+<style type="text/css">
+  body {
+    /* Very bottom copyright, etc. info */
+    background: #4d598d;
+  }
+
+  .documentwrapper {
+    /* Blank area on left bar */
+    background: #24326e;
+  }
+
+  .related {
+    /* Long horizontal nav bars */
+    background: #3c4b8a!important;
+  }
+
+  .sphinxsidebarwrapper {
+    /* Filled part of left sidebar */
+    background: #24326e;
+  }
+
+  a {
+    color: #253370;
+  }
+
+  .sphinxsidebarwrapper a {
+    color: #f2f2f2!important;
+  }
+</style>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="example_heart.html" title="Loading scalar data: the heart.vtk example"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="application.html" title="Using the Mayavi application"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+          <li><a href="application.html" accesskey="U">Using the Mayavi application</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="parametric-surfaces-a-simple-introduction-to-visualization">
+<span id="parametric-surfaces-example"></span><h1>Parametric surfaces: a simple introduction to visualization<a class="headerlink" href="#parametric-surfaces-a-simple-introduction-to-visualization" title="Permalink to this headline">¶</a></h1>
+<p>Parametric surfaces are particularly handy if you are unable to find
+any data to play with right away.  Parametric surfaces are surfaces
+parametrized typically by 2 variables, u and v.  VTK has a bunch of
+classes that let users explore Parametric surfaces.  This
+functionality is also available in Mayavi.  The data is a 2D
+surface embedded in 3D. Scalar data is also available on the surface.
+More details on parametric surfaces in VTK may be obtained from Andrew
+Maclean&#8217;s <a class="reference external" href="http://www.vtk.org/pdf/ParametricSurfaces.pdf">Parametric Surfaces</a> document.</p>
+<blockquote>
+<ol class="arabic">
+<li><p class="first">After starting mayavi2, create a simple Parametric surface source
+by selecting <cite>File-&gt;Load data-&gt;Create Parametric Surface source</cite>.
+Once you create the data, you will see a new node on the Mayavi
+tree view on the left that says <cite>ParametricSurface</cite>.  Note that
+you <strong>will not</strong> see anything visualized on the TVTK scene yet.</p>
+<p>You can modify the nature of the parametric surface by clicking
+on the node for the <cite>ParametricSurface</cite> source object.</p>
+</li>
+<li><p class="first">To see an outline (a box) of the data, navigate to the
+<cite>Visualize-&gt;Modules</cite> menu item and select the <cite>Outline</cite> module.
+You can also right-click on the <cite>ParametricSurface</cite> node to bring up
+a context menu and select <cite>Add Module-&gt;Surface</cite>.
+You will immediately see a wireframe cube on the TVTK scene.
+You should also see two new nodes on the tree view, one called
+<cite>Colors and legends</cite> and one underneath that called <cite>Outline</cite>.</p>
+</li>
+<li><p class="first">You can change properties of the outline displayed by clicking on
+the <cite>Outline</cite> node on the left.  This will create an object editor
+window on left bottom of the window (the object editor tab) below
+the tree view.  Play with the settings here and look at the
+results.  For example, to change the color of the outline box
+modify the value in the color field.  If you double-click a node on
+the left it will pop up an editor dialog rather than show it in the
+embedded object editor.</p>
+</li>
+<li><p class="first">To navigate the scene look at the section on
+<a class="reference internal" href="application.html#interaction-with-the-scene"><em>Interaction with the scene</em></a> section for more details.  Experiment
+with these.</p>
+</li>
+<li><p class="first">To view the actual surface create a <cite>Surface</cite> module by selecting
+<cite>Visualize-&gt;Modules-&gt;Surface</cite>.  You can show contours of the
+scalar data on this surface by clicking on the <cite>Surface</cite> node on
+the left and switching on the <cite>Enable contours</cite> check-box.</p>
+</li>
+<li><p class="first">To view the color legend (used to map scalar values to colors),
+click on the <cite>Modules</cite> node on the tree view. Then, on the &#8216;Scalar LUT&#8217;
+tab, activate the <cite>Show scalar bar</cite> check-box.  This will show
+you a legend on the TVTK scene.  The legend can be moved around on
+the scene by clicking on it and dragging it.  It can also be
+resized by clicking and dragging on its edges.  You can change the
+nature of the color-mapping by choosing among different lookup
+tables on the object editor.</p>
+</li>
+<li><p class="first">You can add as many modules as you like.  Not all modules make
+sense for all data.  Mayavi does not yet grey out (or disable) menu
+items and options if they are invalid for the particular data
+chosen.  This will be implemented in the future.  However making a
+mistake should not in general be disastrous, so go ahead and
+experiment.</p>
+</li>
+<li><p class="first">You may add as many data sources as you like.  It is possible to
+view two different parametric surfaces on the same scene by selecting
+the scene node and then loading another parametric surface source.
+Whether this makes sense or not is up to the user.  You may also
+create as many scenes you want to and view anything in those.
+You can cut/paste/copy sources and modules between any nodes on
+the tree view using the right click options.</p>
+</li>
+<li><p class="first">To delete the <cite>Outline</cite> module say, right click on the <cite>Outline</cite>
+node and select the Delete option.  You may also want to
+experiment with the other options.</p>
+</li>
+<li><p class="first">You can save the rendered visualization to a variety of file
+formats using the <cite>File-&gt;Save Scene As</cite> menu.</p>
+</li>
+<li><p class="first">The visualization may itself be saved out to a file via the
+<cite>File-&gt;Save Visualization</cite> menu and reloaded using the <cite>Load
+visualization</cite> menu.</p>
+</li>
+</ol>
+</blockquote>
+<p>Shown below is example visualization made using the parametric
+source.  Note that the positioning of the different surfaces were effected by moving the actors on screen using the actor mode of the
+scene via the &#8216;a&#8217; key.  For more details on this see the section on
+<a class="reference internal" href="application.html#interaction-with-the-scene"><em>Interaction with the scene</em></a>.</p>
+<img alt="Sample visualization using parametric surfaces." src="_images/param.jpg" />
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/mayavi-logo.png" alt="Logo"/>
+            </a></p>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="application.html"
+                        title="previous chapter">Using the Mayavi application</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="example_heart.html"
+                        title="next chapter">Loading scalar data: the <tt class="docutils literal docutils literal docutils literal"><span class="pre">heart.vtk</span></tt> example</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/example_parametric_surface.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+    <div id="searchbox">
+	<h3>Google Search</h3>
+    <form method="get" action="http://www.google.com/search">
+
+    <table border="0" cellpadding="0">
+    <tr><td>
+    <input type="text"   name="q" size="20"
+    maxlength="255" value="" />
+    <input type="submit" value="Go" /></td></tr>
+    <tr><td align="center" style="font-size:75%; color: #FFFFFF;">
+    <input type="checkbox"  name="sitesearch"
+    value="http://code.enthought.com/projects/mayavi/docs/development/html/mayavi/" checked /> only search Mayavi documentation<br />
+    </td></tr></table>
+
+</form>
+    </div>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="example_heart.html" title="Loading scalar data: the heart.vtk example"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="application.html" title="Using the Mayavi application"
+             >previous</a> |</li>
+        <li><a href="index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+          <li><a href="application.html" >Using the Mayavi application</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
+      Last updated on Jan 27, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
+    </div>
+  </body>
+</html>

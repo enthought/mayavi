@@ -1,0 +1,249 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Plotting many lines example &mdash; Mayavi v3.4.2 documentation</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.4.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Mayavi v3.4.2 documentation" href="../index.html" />
+    <link rel="up" title="Example gallery" href="examples.html" />
+    <link rel="next" title="Magnetic field lines example" href="example_magnetic_field_lines.html" />
+    <link rel="prev" title="Canyon decimation example" href="example_canyon_decimation.html" />
+<style type="text/css">
+  body {
+    /* Very bottom copyright, etc. info */
+    background: #4d598d;
+  }
+
+  .documentwrapper {
+    /* Blank area on left bar */
+    background: #24326e;
+  }
+
+  .related {
+    /* Long horizontal nav bars */
+    background: #3c4b8a!important;
+  }
+
+  .sphinxsidebarwrapper {
+    /* Filled part of left sidebar */
+    background: #24326e;
+  }
+
+  a {
+    color: #253370;
+  }
+
+  .sphinxsidebarwrapper a {
+    color: #f2f2f2!important;
+  }
+</style>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="example_magnetic_field_lines.html" title="Magnetic field lines example"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="example_canyon_decimation.html" title="Canyon decimation example"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+          <li><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="plotting-many-lines-example">
+<span id="example-plotting-many-lines"></span><h1>Plotting many lines example<a class="headerlink" href="#plotting-many-lines-example" title="Permalink to this headline">¶</a></h1>
+<p>This examples shows how many lines can be grouped together in a single
+object, for convenience and efficiency.</p>
+<p>We want to plot a large number of lines. We could use mlab.plot3d for
+this, but it will create an object for each line, this will be
+inefficient. This example shows how to create one object comprised of
+many lines.</p>
+<p>The underlying idea is the same as that used to plot graphes (see for
+instance <a class="reference internal" href="example_flight_graph.html#example-flight-graph"><em>Flight graph example</em></a>): create a set of points, and
+specify explicitely the connectivity between them. First we create the
+set of unconnected point (the underlying data structure is a
+<a class="reference internal" href="../data.html#poly-data"><em>PolyData</em></a>) using <cite>mlab.pipeline.scalar_scatter</cite>. To add the
+connections, we need to keep track of which point is connected to which.
+As we only have lines, this is fairly easy: in a line, each point is
+connected to the following one.</p>
+<img alt="../_images/example_plotting_many_lines.jpg" class="align-center" src="../_images/example_plotting_many_lines.jpg" />
+<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/plotting_many_lines.py"><tt class="xref download docutils literal"><span class="pre">plotting_many_lines.py</span></tt></a></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Author: Gael Varoquaux &lt;gael dot varoquaux at normalesup dot org&gt;</span>
+<span class="c"># Copyright (c) 2010, Enthought</span>
+<span class="c"># License: BSD style</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+
+<span class="c"># The number of points per line</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">300</span>
+
+<span class="c"># The scalar parameter for each line</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">enthought.mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">400</span><span class="p">),</span> <span class="n">bgcolor</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
+
+<span class="c"># We create a list of positions and connections, each describing a line.</span>
+<span class="c"># We will collapse them in one array before plotting.</span>
+<span class="n">x</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+<span class="n">y</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+<span class="n">z</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+<span class="n">s</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+<span class="n">connections</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+
+<span class="c"># The index of the current point in the total amount of points </span>
+<span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="c"># Create each line one after the other in a loop</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">50</span><span class="p">):</span>
+    <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">t</span><span class="p">))</span>
+    <span class="n">y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">((</span><span class="mi">2</span><span class="o">+.</span><span class="mo">02</span><span class="o">*</span><span class="n">i</span><span class="p">)</span><span class="o">*</span><span class="n">t</span><span class="p">))</span>
+    <span class="n">z</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">((</span><span class="mi">3</span><span class="o">+.</span><span class="mo">02</span><span class="o">*</span><span class="n">i</span><span class="p">)</span><span class="o">*</span><span class="n">t</span><span class="p">))</span>
+    <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+    <span class="c"># This is the tricky part: in a line, each point is connected</span>
+    <span class="c"># to the one following it. We have to express this with the indices</span>
+    <span class="c"># of the final set of points once all lines have been combined</span>
+    <span class="c"># together, this is why we need to keep track of the total number of </span>
+    <span class="c"># points already created (index)</span>
+    <span class="n">connections</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span>
+                       <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">index</span><span class="p">,</span>   <span class="n">index</span> <span class="o">+</span> <span class="n">N</span> <span class="o">-</span> <span class="mf">1.5</span><span class="p">),</span>
+                        <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">index</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">index</span> <span class="o">+</span> <span class="n">N</span> <span class="o">-</span> <span class="o">.</span><span class="mi">5</span><span class="p">)]</span>
+                            <span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>    
+    <span class="n">index</span> <span class="o">+=</span> <span class="n">N</span>
+
+<span class="c"># Now collapse all positions, scalars and connections in big arrays</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="n">connections</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">connections</span><span class="p">)</span>
+
+<span class="c"># Create the points</span>
+<span class="n">src</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">scalar_scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
+
+<span class="c"># Connect them</span>
+<span class="n">src</span><span class="o">.</span><span class="n">mlab_source</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">lines</span> <span class="o">=</span> <span class="n">connections</span>
+
+<span class="c"># The stripper filter cleans up connected lines</span>
+<span class="n">lines</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">stripper</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+
+<span class="c"># Finally, display the set of lines</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">surface</span><span class="p">(</span><span class="n">lines</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s">&#39;Accent&#39;</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=.</span><span class="mi">4</span><span class="p">)</span>
+
+<span class="c"># And choose a nice view</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="mf">33.6</span><span class="p">,</span> <span class="mi">106</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">.</span><span class="mo">05</span><span class="p">])</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="mi">125</span><span class="p">)</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/mayavi-logo.png" alt="Logo"/>
+            </a></p>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="example_canyon_decimation.html"
+                        title="previous chapter">Canyon decimation example</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="example_magnetic_field_lines.html"
+                        title="next chapter">Magnetic field lines example</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/auto/example_plotting_many_lines.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+    <div id="searchbox">
+	<h3>Google Search</h3>
+    <form method="get" action="http://www.google.com/search">
+
+    <table border="0" cellpadding="0">
+    <tr><td>
+    <input type="text"   name="q" size="20"
+    maxlength="255" value="" />
+    <input type="submit" value="Go" /></td></tr>
+    <tr><td align="center" style="font-size:75%; color: #FFFFFF;">
+    <input type="checkbox"  name="sitesearch"
+    value="http://code.enthought.com/projects/mayavi/docs/development/html/mayavi/" checked /> only search Mayavi documentation<br />
+    </td></tr></table>
+
+</form>
+    </div>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="example_magnetic_field_lines.html" title="Magnetic field lines example"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="example_canyon_decimation.html" title="Canyon decimation example"
+             >previous</a> |</li>
+        <li><a href="../index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+          <li><a href="examples.html" >Example gallery</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
+      Last updated on Jan 27, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
+    </div>
+  </body>
+</html>

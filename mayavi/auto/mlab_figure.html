@@ -1,0 +1,361 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Figure handling functions &mdash; Mayavi v3.4.2 documentation</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.4.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Mayavi v3.4.2 documentation" href="../index.html" />
+    <link rel="up" title="MLab reference" href="mlab_reference.html" />
+    <link rel="next" title="Figure decoration functions" href="mlab_decorations.html" />
+    <link rel="prev" title="Plotting functions" href="mlab_helper_functions.html" />
+<style type="text/css">
+  body {
+    /* Very bottom copyright, etc. info */
+    background: #4d598d;
+  }
+
+  .documentwrapper {
+    /* Blank area on left bar */
+    background: #24326e;
+  }
+
+  .related {
+    /* Long horizontal nav bars */
+    background: #3c4b8a!important;
+  }
+
+  .sphinxsidebarwrapper {
+    /* Filled part of left sidebar */
+    background: #24326e;
+  }
+
+  a {
+    color: #253370;
+  }
+
+  .sphinxsidebarwrapper a {
+    color: #f2f2f2!important;
+  }
+</style>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="mlab_decorations.html" title="Figure decoration functions"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="mlab_helper_functions.html" title="Plotting functions"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+          <li><a href="mlab_reference.html" accesskey="U">MLab reference</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>This section is only a reference describing the function, please see
+the chapter on <a class="reference internal" href="../mlab.html#simple-scripting-with-mlab"><em>mlab: Python scripting for 3D plotting</em></a> for an introduction to
+mlab and how to interact with and assemble the functions of <cite>mlab</cite>.</p>
+<p class="last">Please see the section on <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><em>Running mlab scripts</em></a> for
+instructions on running the examples.</p>
+</div>
+<div class="section" id="figure-handling-functions">
+<h1>Figure handling functions<a class="headerlink" href="#figure-handling-functions" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="clf">
+<h2>clf<a class="headerlink" href="#clf" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="enthought.mayavi.mlab.clf">
+<tt class="descclassname">enthought.mayavi.mlab.</tt><tt class="descname">clf</tt><big>(</big><em>figure=None</em><big>)</big><a class="headerlink" href="#enthought.mayavi.mlab.clf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clear the current figure.</p>
+<p>You can also supply the figure that you want to clear.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="close">
+<h2>close<a class="headerlink" href="#close" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="enthought.mayavi.mlab.close">
+<tt class="descclassname">enthought.mayavi.mlab.</tt><tt class="descname">close</tt><big>(</big><em>scene=None</em>, <em>all=False</em><big>)</big><a class="headerlink" href="#enthought.mayavi.mlab.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Close a figure window</p>
+<p>close() by itself closes the current figure.</p>
+<p>close(num) closes figure number num.</p>
+<p>close(name) closes figure named name.</p>
+<p>close(figure), where figure is a scene instance, closes that
+figure.</p>
+<p>close(all=True) closes all figures controlled by mlab</p>
+</dd></dl>
+
+</div>
+<div class="section" id="draw">
+<h2>draw<a class="headerlink" href="#draw" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="enthought.mayavi.mlab.draw">
+<tt class="descclassname">enthought.mayavi.mlab.</tt><tt class="descname">draw</tt><big>(</big><em>figure=None</em><big>)</big><a class="headerlink" href="#enthought.mayavi.mlab.draw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Forces a redraw of the current figure.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="figure">
+<h2>figure<a class="headerlink" href="#figure" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="enthought.mayavi.mlab.figure">
+<tt class="descclassname">enthought.mayavi.mlab.</tt><tt class="descname">figure</tt><big>(</big><em>figure=None</em>, <em>bgcolor=None</em>, <em>fgcolor=None</em>, <em>engine=None</em>, <em>size=(400</em>, <em>350)</em><big>)</big><a class="headerlink" href="#enthought.mayavi.mlab.figure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a new scene or retrieves an existing scene. If the mayavi
+engine is not running this also starts it.</p>
+<p><strong>Keyword arguments</strong></p>
+<blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">The name of the figure, or handle to it.</td>
+</tr>
+<tr class="field"><th class="field-name">bgcolor:</th><td class="field-body">The color of the background (None is default).</td>
+</tr>
+<tr class="field"><th class="field-name">fgcolor:</th><td class="field-body">The color of the foreground, that is the color of all text
+annotation labels (axes, orientation axes, scalar bar
+labels). It should be sufficiently far from <cite>bgcolor</cite>
+to see the annotation texts. (None is default).</td>
+</tr>
+<tr class="field"><th class="field-name">engine:</th><td class="field-body">The mayavi engine that controls the figure.</td>
+</tr>
+<tr class="field"><th class="field-name">size:</th><td class="field-body">The size of the scene created, in pixels. May not apply
+for certain scene viewer.</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+</dd></dl>
+
+</div>
+<div class="section" id="gcf">
+<h2>gcf<a class="headerlink" href="#gcf" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="enthought.mayavi.mlab.gcf">
+<tt class="descclassname">enthought.mayavi.mlab.</tt><tt class="descname">gcf</tt><big>(</big><em>engine=None</em><big>)</big><a class="headerlink" href="#enthought.mayavi.mlab.gcf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a handle to the current figure.</p>
+<p>You can supply the engine from which you want to retrieve the
+current figure, if you have several mayavi engines.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="savefig">
+<h2>savefig<a class="headerlink" href="#savefig" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="enthought.mayavi.mlab.savefig">
+<tt class="descclassname">enthought.mayavi.mlab.</tt><tt class="descname">savefig</tt><big>(</big><em>filename</em>, <em>size=None</em>, <em>figure=None</em>, <em>magnification='auto'</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.mlab.savefig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save the current scene.
+The output format are deduced by the extension to filename.
+Possibilities are png, jpg, bmp, tiff, ps, eps, pdf, rib (renderman),
+oogl (geomview), iv (OpenInventor), vrml, obj (wavefront)</p>
+<p><strong>Parameters</strong></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Size :</th><td class="field-body">the size of the image created (unless magnification is
+set, in which case it is the size of the window used
+for rendering).</td>
+</tr>
+<tr class="field"><th class="field-name">Figure :</th><td class="field-body">the figure instance to save to a file.</td>
+</tr>
+<tr class="field"><th class="field-name">Magnification :</th><td class="field-body">the magnification is the scaling between the
+pixels on the screen, and the pixels in the
+file saved. If you do not specify it, it will be
+calculated so that the file is saved with the
+specified size. If you specify a magnification,
+Mayavi will use the given size as a screen size,
+and the file size will be &#8216;magnification * size&#8217;.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Notes</strong></p>
+<p>If the size specified is larger than the window size, and no
+magnification parameter is passed, the magnification of the scene
+is changed so that the image created has the requested size.
+Please note that if you are trying to save images with sizes
+larger than the window size, there will be additional computation
+cost.</p>
+<p>Any extra keyword arguments are passed along to the respective
+image format&#8217;s save method.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="screenshot">
+<h2>screenshot<a class="headerlink" href="#screenshot" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="enthought.mayavi.mlab.screenshot">
+<tt class="descclassname">enthought.mayavi.mlab.</tt><tt class="descname">screenshot</tt><big>(</big><em>figure=None</em>, <em>mode='rgb'</em>, <em>antialiased=False</em><big>)</big><a class="headerlink" href="#enthought.mayavi.mlab.screenshot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the current figure pixmap as an array.</p>
+<p><strong>Parameters</strong></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Figure :</th><td class="field-body">a figure instance or None, optional
+If specified, the figure instance to capture the view of.</td>
+</tr>
+<tr class="field"><th class="field-name">Mode :</th><td class="field-body">{&#8216;rgb&#8217;, &#8216;rgba&#8217;}
+The color mode of the array captured.</td>
+</tr>
+<tr class="field"><th class="field-name">Antialiased :</th><td class="field-body">{True, False}
+Use anti-aliasing for rendering the screenshot.
+Uses the number of aa frames set by
+figure.scene.anti_aliasing_frames</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Notes</strong></p>
+<p>On most systems, this works similarly to taking a screenshot of
+the rendering window. Thus if it is hidden by another window, you
+will capture the other window. This limitation is due to the
+heavy use of the hardware graphics system.</p>
+<p><strong>Examples</strong></p>
+<p>This function can be useful for integrating 3D plotting with
+Mayavi in a 2D plot created by matplotlib.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">enthought.mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mlab</span><span class="o">.</span><span class="n">test_plot3d</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">arr</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">screenshot</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pylab</span> <span class="kn">as</span> <span class="nn">pl</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pl</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pl</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s">&#39;off&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pl</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="sync-camera">
+<h2>sync_camera<a class="headerlink" href="#sync-camera" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="enthought.mayavi.mlab.sync_camera">
+<tt class="descclassname">enthought.mayavi.mlab.</tt><tt class="descname">sync_camera</tt><big>(</big><em>reference_figure</em>, <em>target_figure</em><big>)</big><a class="headerlink" href="#enthought.mayavi.mlab.sync_camera" title="Permalink to this definition">¶</a></dt>
+<dd><p>Synchronise the camera of the target_figure on the camera of the
+reference_figure.</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/mayavi-logo.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Figure handling functions</a><ul>
+<li><a class="reference internal" href="#clf">clf</a></li>
+<li><a class="reference internal" href="#close">close</a></li>
+<li><a class="reference internal" href="#draw">draw</a></li>
+<li><a class="reference internal" href="#figure">figure</a></li>
+<li><a class="reference internal" href="#gcf">gcf</a></li>
+<li><a class="reference internal" href="#savefig">savefig</a></li>
+<li><a class="reference internal" href="#screenshot">screenshot</a></li>
+<li><a class="reference internal" href="#sync-camera">sync_camera</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="mlab_helper_functions.html"
+                        title="previous chapter">Plotting functions</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="mlab_decorations.html"
+                        title="next chapter">Figure decoration functions</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/auto/mlab_figure.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+    <div id="searchbox">
+	<h3>Google Search</h3>
+    <form method="get" action="http://www.google.com/search">
+
+    <table border="0" cellpadding="0">
+    <tr><td>
+    <input type="text"   name="q" size="20"
+    maxlength="255" value="" />
+    <input type="submit" value="Go" /></td></tr>
+    <tr><td align="center" style="font-size:75%; color: #FFFFFF;">
+    <input type="checkbox"  name="sitesearch"
+    value="http://code.enthought.com/projects/mayavi/docs/development/html/mayavi/" checked /> only search Mayavi documentation<br />
+    </td></tr></table>
+
+</form>
+    </div>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="mlab_decorations.html" title="Figure decoration functions"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="mlab_helper_functions.html" title="Plotting functions"
+             >previous</a> |</li>
+        <li><a href="../index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+          <li><a href="mlab_reference.html" >MLab reference</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
+      Last updated on Jan 27, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
+    </div>
+  </body>
+</html>

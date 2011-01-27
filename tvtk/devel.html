@@ -1,0 +1,427 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Development guide for TVTK &mdash; tvtk v3.4.2 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '3.4.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="tvtk v3.4.2 documentation" href="index.html" />
+    <link rel="prev" title="An Introduction to Traited VTK (tvtk)" href="README.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="README.html" title="An Introduction to Traited VTK (tvtk)"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">tvtk v3.4.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="development-guide-for-tvtk">
+<h1><a class="toc-backref" href="#id1">Development guide for TVTK</a><a class="headerlink" href="#development-guide-for-tvtk" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Prabhu Ramachandran</td>
+</tr>
+<tr class="field"><th class="field-name">Contact:</th><td class="field-body"><a class="reference external" href="mailto:prabhu_r&#37;&#52;&#48;users&#46;sourceforge&#46;net">prabhu_r<span>&#64;</span>users<span>&#46;</span>sourceforge<span>&#46;</span>net</a></td>
+</tr>
+<tr class="field"><th class="field-name">Copyright:</th><td class="field-body">2004, Enthought, Inc.</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#development-guide-for-tvtk" id="id1">Development guide for TVTK</a><ul>
+<li><a class="reference internal" href="#introduction" id="id2">Introduction</a></li>
+<li><a class="reference internal" href="#how-tvtk-works" id="id3">How tvtk works</a><ul>
+<li><a class="reference internal" href="#automatic-trait-updation" id="id4">Automatic trait updation</a></li>
+<li><a class="reference internal" href="#messaging" id="id5">Messaging</a></li>
+<li><a class="reference internal" href="#pickling" id="id6">Pickling</a></li>
+<li><a class="reference internal" href="#array-handling" id="id7">Array handling</a></li>
+<li><a class="reference internal" href="#the-magical-tvtk-instance" id="id8">The magical <cite>tvtk</cite> instance</a></li>
+<li><a class="reference internal" href="#miscellaneous-details" id="id9">Miscellaneous details</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#code-generation" id="id10">Code Generation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="introduction">
+<h2><a class="toc-backref" href="#id2">Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>This document provides some details on how TVTK works and how it is
+implemented.  Basic documentation on the installation, features and
+usage of tvtk is provided in the README.txt file that should be in the
+same directory as this file.</p>
+</div>
+<div class="section" id="how-tvtk-works">
+<h2><a class="toc-backref" href="#id3">How tvtk works</a><a class="headerlink" href="#how-tvtk-works" title="Permalink to this headline">¶</a></h2>
+<p>All tvtk classes derive from <cite>TVTKBase</cite>.  This is defined in
+<cite>tvtk_base.py</cite>.  <cite>TVTKBase</cite> provides basic functionality common to all
+tvtk classes.  Most importantly it provides for the following:</p>
+<blockquote>
+<ul class="simple">
+<li>Allows one to wrap an existing VTK object or create a new one.
+<cite>TVTKBase.__init__</cite> accepts an optional VTK object, that can be
+used to wrap an existing VTK object.  Read the method docstring for
+more details.</li>
+<li>Sets up the event handlers that allow us to listen to any changes
+made to the underlying VTK object.</li>
+<li>Basic support for pickling the object.</li>
+<li>The <cite>update_traits</cite> automatically updates the traits of the tvtk
+class such that they reflect the state of the underlying VTK
+object.</li>
+<li>Common code to change the underlying VTK object when the trait is
+changed.</li>
+</ul>
+</blockquote>
+<p>As mentioned above, tvtk classes can either wrap an existing VTK
+object or create a new one and manage the new object.</p>
+<div class="section" id="automatic-trait-updation">
+<h3><a class="toc-backref" href="#id4">Automatic trait updation</a><a class="headerlink" href="#automatic-trait-updation" title="Permalink to this headline">¶</a></h3>
+<p>One very important feature of tvtk objects is that any VTK related
+traits of object are dynamically updated if the underlying VTK object
+is changed.  This is achieved by adding an observer to the VTK object
+that effectively calls TVTKBase.update_traits when the &#8216;ModifiedEvent&#8217;
+is invoked.  Here is an example of a VTK observer callback:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">vtk</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkProperty</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">cb</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">evt</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">print</span> <span class="n">obj</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="n">evt</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">AddObserver</span><span class="p">(</span><span class="s">&quot;ModifiedEvent&quot;</span><span class="p">,</span> <span class="n">cb</span><span class="p">)</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">SetRepresentationToWireframe</span><span class="p">()</span>
+<span class="go">vtkOpenGLProperty ModifiedEvent</span>
+</pre></div>
+</div>
+<p>As can be seen, when the property is modified, the callback is called.
+The trouble with this approach is that <cite>p</cite> now holds a reference to
+<cite>cb</cite>.  Thus if <cite>cb</cite> were the <cite>update_traits</cite> method of the tvtk class
+that manages the VTK object, we run into a non-garbage-collectable
+reference cycle issue and a huge memory leak.  To get around this we
+use the functionality provided by <cite>messenger.py</cite>.  Effectively,
+<cite>TVTKBase.__init__</cite> tells messenger to call <cite>self.update_traits</cite> when
+it is called back from the VTK object.  Messenger itself uses
+<cite>weakrefs</cite> so the reference cycle problem does not exist.  The VTK
+object basically calls <cite>messenger.send</cite> and <cite>messenger</cite> takes care of
+the rest.  This allows the tvtk class to be safely used and also
+allows for automatic trait updation.</p>
+<p>Each tvtk class has an attribute called <cite>_updateable_traits_</cite>.  This
+is a tuple of tuples.  Each tuple contains a pair of strings like so:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">Property</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">_updateable_traits_</span><span class="p">[:</span><span class="mi">4</span><span class="p">]</span>
+<span class="go">((&#39;opacity&#39;, &#39;GetOpacity&#39;),</span>
+<span class="go"> (&#39;frontface_culling&#39;, &#39;GetFrontfaceCulling&#39;),</span>
+<span class="go"> (&#39;point_size&#39;, &#39;GetPointSize&#39;),</span>
+<span class="go"> (&#39;specular_color&#39;, &#39;GetSpecularColor&#39;))</span>
+</pre></div>
+</div>
+<p>The first string is the name of the trait and the second the name of
+the function used to obtain the value of the trait from the VTK
+object. <cite>TVTKBase.update_traits</cite> uses this tuple and for each trait it
+calls the relevant VTK &#8216;get&#8217; function and updates the value of the
+trait.</p>
+<p>While this whole process seems to be inefficient, it actually works
+quite well in practice and does not appear to be slow at all.</p>
+</div>
+<div class="section" id="messaging">
+<h3><a class="toc-backref" href="#id5">Messaging</a><a class="headerlink" href="#messaging" title="Permalink to this headline">¶</a></h3>
+<p>The messaging functionality is defined in <cite>tvtk/messenger.py</cite>.  Unit
+tests are in the &#8216;tests/&#8217; directory.  As described in the previous
+section, tvtk objects use the messenger functionality to ensure that
+the traits are always up to date.  <cite>messenger.py</cite> is well documented
+and tested.  So please read the docstrings for more details.  Here is
+some basic information from the documentation.</p>
+<p><cite>messenger.py</cite> implements a simple, robust, safe, <cite>Messenger</cite> class
+that allows one to register callbacks for a signal/slot (or
+event/handler) kind of messaging system.  One can basically register a
+callback function/method to be called when an object sends a
+particular event.  The Messenger class is Borg.  So it is easy to
+instantiate and use.  This module is also reload-safe, so if the
+module is reloaded the callback information is not lost.  Method
+callbacks do not have a reference counting problem since weak
+references are used.  The main functionality is provided by three
+functions, <cite>connect</cite>, <cite>disconnect</cite> and <cite>send</cite>.</p>
+<p><cite>connect</cite> basically allows one to connect an object, <cite>obj</cite>, that emits
+an event, <cite>event</cite> to a callback function, <cite>callback</cite>.</p>
+<p>When an object calls <cite>send</cite>, it passes itself, the event it wishes to
+emit along with any optional arguments and keyword arguments to send.
+All registered <cite>callback</cite> for the particular event are called with the
+the object that called it (<cite>obj</cite>), the event (<cite>event</cite>) and the
+optional arguments.</p>
+<p><cite>disconnect</cite> allows one to disconnect either a particular callback, or
+all callbacks for a particular event or the entire object.</p>
+<p>The messenger class thus provides a simple observer pattern
+implementation that makes it easy to do inter-object communication.
+For further details please read the code and docstrings.  Also look at
+the test suite in <cite>tests/test_messenger.py</cite>.</p>
+</div>
+<div class="section" id="pickling">
+<h3><a class="toc-backref" href="#id6">Pickling</a><a class="headerlink" href="#pickling" title="Permalink to this headline">¶</a></h3>
+<p><cite>TVTKBase</cite> provides the basic functionality for pickling.
+Essentially, the dictionary (<cite>self.__dict__</cite>) of the tvtk object is
+pickled.  The <cite>_vtk_obj</cite> attribute is not pickled since VTK objects
+are not picklable.  Other irrelevant attributes are also removed.
+<cite>__setstate__</cite> works even on a live object by checking to see if
+<cite>self._vtk_obj</cite> exists.  Some of the tvtk classes override these
+methods to implement them better.  For example look at the code for
+the <cite>Matrix4x4</cite> class.</p>
+</div>
+<div class="section" id="array-handling">
+<h3><a class="toc-backref" href="#id7">Array handling</a><a class="headerlink" href="#array-handling" title="Permalink to this headline">¶</a></h3>
+<p>TVTK lets the user pass Numeric arrays/Python lists in place of the
+<cite>DataArray</cite>, <cite>CellArray</cite>, <cite>Points</cite> etc. classes.  This is done by
+finding the call signature of the wrapped VTK method, checking to see
+if it has an array and then intelligently generating the appropriate
+VTK array data using the signature information.  This generated VTK
+data array is then passed to the wrapped function under the covers.
+This functionality also works if the method has multiple call
+signatures (overloaded VTK method) and one of them involves arrays.
+The main functions to do this conversion magic are in the
+<cite>array_handler.py</cite> module.  The <cite>wrapper_gen.py</cite> module generates the
+appropriate wrapper code depending on the call signature.  So if a
+method has no VTK objects in its signature, no wrapping is necessary.
+If it only has non-array VTK objects, then array handling is
+unnecessary but one must dereference the VTK object from the passed
+tvtk wrapper object.  If the call signature involves VTK array
+objects, then any Numeric arrays or Python lists are converted to the
+correct VTK data array and passed to the wrapped VTK object.</p>
+<p>For the efficient conversion to <cite>CellArray</cite> objects, an extension
+module is required.  The sources for this extension module are in
+<cite>src/array_ext.*</cite>.  The <a class="reference external" href="http://www.cosc.canterbury.ac.nz/~greg/python/Pyrex/">Pyrex</a> source file can be used to generate the
+<cite>src/array_ext.c</cite> file like so:</p>
+<div class="highlight-python"><pre>$ cd src
+$ pyrexc array_ext.pyx</pre>
+</div>
+<p>The sources ship with the generated source file so that folks without
+Pyrex can build it.</p>
+<p><cite>special_gen.py</cite> defines all the additional methods for the
+<cite>DataArray</cite> and other classes that allow these objects to support
+iteration, <cite>__repr__</cite>, <cite>__getitem__</cite> etc.</p>
+</div>
+<div class="section" id="the-magical-tvtk-instance">
+<h3><a class="toc-backref" href="#id8">The magical <cite>tvtk</cite> instance</a><a class="headerlink" href="#the-magical-tvtk-instance" title="Permalink to this headline">¶</a></h3>
+<p>When one does the following:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">enthought.tvtk.api</span> <span class="kn">import</span> <span class="n">tvtk</span>
+</pre></div>
+</div>
+<p>The imported <cite>tvtk</cite> is really an instance of a class and not a module!
+This is so because, the tvtk classes are almost 800 in number and they
+wrap around the <em>entire</em> VTK API.  VTK itself allows one to import all
+the defined classes in one go.  That is, if one does <cite>import vtk</cite>, one
+can instantiate all VTK related classes.  This is very useful
+functionality.  However, importing 800 wrapper classes in one go is
+<em>extremely</em> slow.  Thus, <cite>tvtk</cite> provides a convenient solution to get
+around the problem.  While <cite>tvtk</cite> is a class instance, it behaves just
+like you&#8217;d expect of a module.</p>
+<blockquote>
+<ul class="simple">
+<li>It supports tab-completion on class names.</li>
+<li>Allows one to access all the tvtk classes.</li>
+<li>Imports extremely fast.  Any slowness in the import is really
+because tvtk needs to import VTK.  Thus importing tvtk should not
+be much slower than importing vtk itself.</li>
+<li>Imports the tvtk classes <em>only</em> on demand.</li>
+</ul>
+</blockquote>
+<p>All the tvtk related code is generated and saved into the
+<cite>tvtk_classes.zip</cite> file.  The <cite>tvtk</cite> instance is basically an instance
+of the TVTK class.  This is defined in <cite>tvtk_helper.py</cite>.  This file is
+inside the ZIP file.  For each wrapped VTK class, TVTK defines a
+property having the name of the wrapper tvtk class.  The <cite>get</cite> method
+of the property basically returns the class after importing it
+dynamically from the ZIP file.  This is done in the <cite>get_class</cite>
+function.  Each class thus imported is cached (in <cite>_cache</cite>) and if a
+cached copy exists the class is not re-imported.  Note that in the
+implementation, the class and its parent classes need to be imported.
+These parent classes are also cached.</p>
+<p><cite>enthought/tvtk/__init__.py</cite> adds the <cite>tvtk_classes.zip</cite> file into
+<cite>sys.path</cite> and instantiates the TVTK class to provide the <cite>tvtk</cite>
+instance.</p>
+<p>Note that any files inside the <cite>tvtk_classes.zip</cite> are automatically
+generated.</p>
+</div>
+<div class="section" id="miscellaneous-details">
+<h3><a class="toc-backref" href="#id9">Miscellaneous details</a><a class="headerlink" href="#miscellaneous-details" title="Permalink to this headline">¶</a></h3>
+<p><cite>tvtk_base.py</cite> defines some important and frequently used traits that
+are used in tvtk.  It is used by all the tvtk classes.  It provides a
+couple of useful functions (<cite>get_tvtk_name</cite> and <cite>camel2enthought</cite>) to
+perform name mangling so one can change the VTK method name to an
+enthought style name.  The module also provides the function
+<cite>deref_vtk</cite>, that lets one obtain the underlying VTK object from the
+tvtk object.</p>
+</div>
+</div>
+<div class="section" id="code-generation">
+<h2><a class="toc-backref" href="#id10">Code Generation</a><a class="headerlink" href="#code-generation" title="Permalink to this headline">¶</a></h2>
+<p>All the tvtk classes are dynamically generated.  <cite>code_gen.py</cite> is the
+main driver module that is responsible for this.  Code generation
+works involves the following steps.</p>
+<blockquote>
+<ul class="simple">
+<li>Listing and sorting all the VTK classes into a class hierarchy.
+This is done by <cite>class_tree.py</cite>.  <cite>ClassTree</cite> basically organizes
+all the VTK classes into a tree structure.  The tree is organized
+into &#8220;levels&#8221;.  The classes with no bases are at the lowest level
+(the root) and the higher levels represent classes that have one or
+more bases.  Each class in the tree is represented as a <cite>Node</cite>.
+Each node has references to its children and parents.  Thus one can
+walk the entire class hierarchy given a single node.  This is
+fairly generic code and will work with any class hierarchy.  Its
+main function is to allow us to generate the classes in the right
+order and also allows us to easily find the parents and children of
+a class in a class hierarchy.  More details are in the file
+<cite>class_tree.py</cite>.  UTSL.</li>
+<li>Parsing the methods of each VTK class and categorizing them.  This
+step also involves finding the default values of the state of the
+VTK objects, the valid range of values etc.  This entire
+functionality is provided by <cite>vtk_parser.py</cite>.  VTK parser module is
+completely self documenting and the public interface is fairly
+simple.  The <cite>VTKMethodParser</cite> by default uses an instance of the
+<cite>ClassTree</cite> class to do some of its work (the use of the
+<cite>ClassTree</cite> can be turned off though).</li>
+<li>Formatting the output code correctly (indentation).  This is
+handled by the <cite>indenter.Indent</cite> class.  The <cite>Indent</cite> class lets us
+format a code-string suitably so that the code is formatted at the
+current indentation level.</li>
+<li>Massaging VTK documentation suitably.  This is done by
+<cite>indenter.VTKDocMassager</cite>.</li>
+<li>Generating the tvtk code.  Done mainly by <cite>code_gen.py</cite>.</li>
+<li>Generating a ZIP file of the code, also done by <cite>code_gen.py</cite>.</li>
+</ul>
+</blockquote>
+<p>The <cite>code_gen</cite> module defines a <cite>TVTKGenerator</cite> class that drives the
+code generation.  The module uses the <cite>wrapper_gen</cite> module to generate
+the wrapper classes.</p>
+<p>The <cite>wrapper_gen</cite> defines a <cite>WrapperGenerator</cite> class.  An instance of
+this class creates an instance of the <cite>VTKMethodParser</cite> (and uses its
+internal <cite>ClassTree</cite> instance).  <cite>TVTKGenerator</cite> uses this class tree.</p>
+<p>For each class in the VTK hierarchy (starting from classes at the root
+of the tree), the class is parsed, and a suitable tvtk wrapper class
+(with the name of the class and file name of the module suitably
+modified) is generated using the functionality provided by
+<cite>WrapperGenerator</cite>.  A separate <cite>tvtk_helper</cite> module (described in the
+<a class="reference internal" href="#the-magical-tvtk-instance">The magical tvtk instance</a> section) is also simultaneously updated
+with the class for which the wrapper is generated.  All of these
+classes are dumped into a temporary directory.  These classes are then
+put into a ZIP file.</p>
+<p>The <cite>tvtk_helper.py</cite> code is generated by the <cite>HelperGenerator</cite> class.
+The other tvtk classes are generated by the <cite>WrapperGenerator</cite> class.
+&#8216;WrapperGenerator` also makes use of the <cite>SpecialGenerator</cite> to write
+special code for some of the VTK classes.</p>
+<p><cite>TVTKGenerator</cite> uses the other code generators and drives the entire
+code generation process, builds a ZIP file and optionally cleans up
+the temporary directory where the wrapper code was written.</p>
+<p>Please run the following:</p>
+<div class="highlight-python"><pre>$ python code_gen.py -h</pre>
+</div>
+<p>To see a list of options to the code generator.  Some of the options
+are extremely useful during development.  For example do this to
+generate the code for a few classes alone:</p>
+<div class="highlight-python"><pre>$ python code_gen.py -n -z -o /tmp/tvtk_tmp vtkCollection \
+  vtkProperty vtkConeSource</pre>
+</div>
+<p>The <cite>-n</cite> option ensures that &#8216;/tmp/tvtk_tmp&#8217; is not removed.  <cite>-z</cite>
+inhibits ZIP file generation.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Development guide for TVTK</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#how-tvtk-works">How tvtk works</a><ul>
+<li><a class="reference internal" href="#automatic-trait-updation">Automatic trait updation</a></li>
+<li><a class="reference internal" href="#messaging">Messaging</a></li>
+<li><a class="reference internal" href="#pickling">Pickling</a></li>
+<li><a class="reference internal" href="#array-handling">Array handling</a></li>
+<li><a class="reference internal" href="#the-magical-tvtk-instance">The magical <cite>tvtk</cite> instance</a></li>
+<li><a class="reference internal" href="#miscellaneous-details">Miscellaneous details</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#code-generation">Code Generation</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="README.html"
+                        title="previous chapter">An Introduction to Traited VTK (tvtk)</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/devel.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="README.html" title="An Introduction to Traited VTK (tvtk)"
+             >previous</a> |</li>
+        <li><a href="index.html">tvtk v3.4.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008, tvtk.
+      Last updated on Jan 27, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
+    </div>
+  </body>
+</html>

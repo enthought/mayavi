@@ -1,0 +1,245 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Contour example &mdash; Mayavi v3.4.2 documentation</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.4.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Mayavi v3.4.2 documentation" href="../index.html" />
+    <link rel="up" title="Example gallery" href="examples.html" />
+    <link rel="next" title="Unstructured grid example" href="example_unstructured_grid.html" />
+    <link rel="prev" title="Probe filter example" href="example_probe_filter.html" />
+<style type="text/css">
+  body {
+    /* Very bottom copyright, etc. info */
+    background: #4d598d;
+  }
+
+  .documentwrapper {
+    /* Blank area on left bar */
+    background: #24326e;
+  }
+
+  .related {
+    /* Long horizontal nav bars */
+    background: #3c4b8a!important;
+  }
+
+  .sphinxsidebarwrapper {
+    /* Filled part of left sidebar */
+    background: #24326e;
+  }
+
+  a {
+    color: #253370;
+  }
+
+  .sphinxsidebarwrapper a {
+    color: #f2f2f2!important;
+  }
+</style>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="example_unstructured_grid.html" title="Unstructured grid example"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="example_probe_filter.html" title="Probe filter example"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+          <li><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="contour-example">
+<span id="example-contour"></span><h1>Contour example<a class="headerlink" href="#contour-example" title="Permalink to this headline">¶</a></h1>
+<p>This script demonstrates how one can script Mayavi and use its
+contour related modules.</p>
+<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/contour.py"><tt class="xref download docutils literal"><span class="pre">contour.py</span></tt></a></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Author: Prabhu Ramachandran &lt;prabhu_r@users.sf.net&gt;</span>
+<span class="c"># Copyright (c) 2005-2008, Enthought, Inc.</span>
+<span class="c"># License: BSD Style.</span>
+
+<span class="c"># Standard library imports</span>
+<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">join</span><span class="p">,</span> <span class="n">abspath</span><span class="p">,</span> <span class="n">dirname</span>
+
+<span class="c"># Enthought library imports</span>
+<span class="kn">from</span> <span class="nn">enthought.mayavi.scripts</span> <span class="kn">import</span> <span class="n">mayavi2</span>
+<span class="kn">from</span> <span class="nn">enthought.mayavi.sources.vtk_file_reader</span> <span class="kn">import</span> <span class="n">VTKFileReader</span>
+<span class="kn">from</span> <span class="nn">enthought.mayavi.modules.outline</span> <span class="kn">import</span> <span class="n">Outline</span>
+<span class="kn">from</span> <span class="nn">enthought.mayavi.modules.grid_plane</span> <span class="kn">import</span> <span class="n">GridPlane</span>
+<span class="kn">from</span> <span class="nn">enthought.mayavi.modules.contour_grid_plane</span> <span class="kn">import</span> <span class="n">ContourGridPlane</span>
+<span class="kn">from</span> <span class="nn">enthought.mayavi.modules.iso_surface</span> <span class="kn">import</span> <span class="n">IsoSurface</span>
+<span class="kn">from</span> <span class="nn">enthought.mayavi.modules.scalar_cut_plane</span> <span class="kn">import</span> <span class="n">ScalarCutPlane</span>
+
+<span class="nd">@mayavi2.standalone</span>                        
+<span class="k">def</span> <span class="nf">contour</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;The script itself.  We needn&#39;t have defined a function but</span>
+<span class="sd">    having a function makes this more reusable.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># &#39;mayavi&#39; is always defined on the interpreter.</span>
+    <span class="c"># Create a new scene.</span>
+    <span class="n">mayavi</span><span class="o">.</span><span class="n">new_scene</span><span class="p">()</span>
+
+    <span class="c"># Read a VTK (old style) data file.</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">VTKFileReader</span><span class="p">()</span>
+    <span class="n">filename</span> <span class="o">=</span> <span class="n">join</span><span class="p">(</span><span class="n">mayavi2</span><span class="o">.</span><span class="n">get_data_dir</span><span class="p">(</span><span class="n">dirname</span><span class="p">(</span><span class="n">abspath</span><span class="p">(</span><span class="n">__file__</span><span class="p">))),</span>
+                    <span class="s">&#39;heart.vtk&#39;</span><span class="p">)</span>
+    <span class="n">r</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    <span class="n">mayavi</span><span class="o">.</span><span class="n">add_source</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+
+    <span class="c"># Create an outline for the data.</span>
+    <span class="n">o</span> <span class="o">=</span> <span class="n">Outline</span><span class="p">()</span>
+    <span class="n">mayavi</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
+
+    <span class="c"># Create three simple grid plane modules.</span>
+    <span class="c"># First normal to &#39;x&#39; axis.</span>
+    <span class="n">gp</span> <span class="o">=</span> <span class="n">GridPlane</span><span class="p">()</span>
+    <span class="n">mayavi</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">gp</span><span class="p">)</span>
+    <span class="c"># Second normal to &#39;y&#39; axis.</span>
+    <span class="n">gp</span> <span class="o">=</span> <span class="n">GridPlane</span><span class="p">()</span>
+    <span class="n">mayavi</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">gp</span><span class="p">)</span>
+    <span class="n">gp</span><span class="o">.</span><span class="n">grid_plane</span><span class="o">.</span><span class="n">axis</span> <span class="o">=</span> <span class="s">&#39;y&#39;</span>
+    <span class="c"># Third normal to &#39;z&#39; axis.</span>
+    <span class="n">gp</span> <span class="o">=</span> <span class="n">GridPlane</span><span class="p">()</span>
+    <span class="n">mayavi</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">gp</span><span class="p">)</span>
+    <span class="n">gp</span><span class="o">.</span><span class="n">grid_plane</span><span class="o">.</span><span class="n">axis</span> <span class="o">=</span> <span class="s">&#39;z&#39;</span>
+
+    <span class="c"># Create one ContourGridPlane normal to the &#39;x&#39; axis.</span>
+    <span class="n">cgp</span> <span class="o">=</span> <span class="n">ContourGridPlane</span><span class="p">()</span>
+    <span class="n">mayavi</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">cgp</span><span class="p">)</span>
+    <span class="c"># Set the position to the middle of the data.</span>
+    <span class="n">cgp</span><span class="o">.</span><span class="n">grid_plane</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="mi">15</span>
+
+    <span class="c"># Another with filled contours normal to &#39;y&#39; axis.</span>
+    <span class="n">cgp</span> <span class="o">=</span> <span class="n">ContourGridPlane</span><span class="p">()</span>
+    <span class="n">mayavi</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">cgp</span><span class="p">)</span>
+    <span class="c"># Set the axis and position to the middle of the data.</span>
+    <span class="n">cgp</span><span class="o">.</span><span class="n">grid_plane</span><span class="o">.</span><span class="n">axis</span> <span class="o">=</span> <span class="s">&#39;y&#39;</span>
+    <span class="n">cgp</span><span class="o">.</span><span class="n">grid_plane</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="mi">15</span>
+    <span class="n">cgp</span><span class="o">.</span><span class="n">contour</span><span class="o">.</span><span class="n">filled_contours</span> <span class="o">=</span> <span class="bp">True</span>
+
+    <span class="c"># An isosurface module.</span>
+    <span class="n">iso</span> <span class="o">=</span> <span class="n">IsoSurface</span><span class="p">(</span><span class="n">compute_normals</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">mayavi</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">iso</span><span class="p">)</span>
+    <span class="n">iso</span><span class="o">.</span><span class="n">contour</span><span class="o">.</span><span class="n">contours</span> <span class="o">=</span> <span class="p">[</span><span class="mf">220.0</span><span class="p">]</span>
+
+    <span class="c"># An interactive scalar cut plane.</span>
+    <span class="n">cp</span> <span class="o">=</span> <span class="n">ScalarCutPlane</span><span class="p">()</span>
+    <span class="n">mayavi</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">cp</span><span class="p">)</span>
+    <span class="n">cp</span><span class="o">.</span><span class="n">implicit_plane</span><span class="o">.</span><span class="n">normal</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">contour</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/mayavi-logo.png" alt="Logo"/>
+            </a></p>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="example_probe_filter.html"
+                        title="previous chapter">Probe filter example</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="example_unstructured_grid.html"
+                        title="next chapter">Unstructured grid example</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/auto/example_contour.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+    <div id="searchbox">
+	<h3>Google Search</h3>
+    <form method="get" action="http://www.google.com/search">
+
+    <table border="0" cellpadding="0">
+    <tr><td>
+    <input type="text"   name="q" size="20"
+    maxlength="255" value="" />
+    <input type="submit" value="Go" /></td></tr>
+    <tr><td align="center" style="font-size:75%; color: #FFFFFF;">
+    <input type="checkbox"  name="sitesearch"
+    value="http://code.enthought.com/projects/mayavi/docs/development/html/mayavi/" checked /> only search Mayavi documentation<br />
+    </td></tr></table>
+
+</form>
+    </div>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="example_unstructured_grid.html" title="Unstructured grid example"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="example_probe_filter.html" title="Probe filter example"
+             >previous</a> |</li>
+        <li><a href="../index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+          <li><a href="examples.html" >Example gallery</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
+      Last updated on Jan 27, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
+    </div>
+  </body>
+</html>

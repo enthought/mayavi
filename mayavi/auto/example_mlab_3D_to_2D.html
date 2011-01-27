@@ -1,0 +1,397 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Mlab 3D to 2D example &mdash; Mayavi v3.4.2 documentation</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.4.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Mayavi v3.4.2 documentation" href="../index.html" />
+    <link rel="up" title="Example gallery" href="examples.html" />
+    <link rel="next" title="Magnetic field example" href="example_magnetic_field.html" />
+    <link rel="prev" title="Delaunay graph example" href="example_delaunay_graph.html" />
+<style type="text/css">
+  body {
+    /* Very bottom copyright, etc. info */
+    background: #4d598d;
+  }
+
+  .documentwrapper {
+    /* Blank area on left bar */
+    background: #24326e;
+  }
+
+  .related {
+    /* Long horizontal nav bars */
+    background: #3c4b8a!important;
+  }
+
+  .sphinxsidebarwrapper {
+    /* Filled part of left sidebar */
+    background: #24326e;
+  }
+
+  a {
+    color: #253370;
+  }
+
+  .sphinxsidebarwrapper a {
+    color: #f2f2f2!important;
+  }
+</style>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="example_magnetic_field.html" title="Magnetic field example"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="example_delaunay_graph.html" title="Delaunay graph example"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+          <li><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="mlab-3d-to-2d-example">
+<span id="example-mlab-3d-to-2d"></span><h1>Mlab 3D to 2D example<a class="headerlink" href="#mlab-3d-to-2d-example" title="Permalink to this headline">¶</a></h1>
+<p>A script to calculate the projection of 3D world coordinates to
+2D display coordinates (pixel coordinates) for a given scene.</p>
+<p>The 2D pixel locations of objects in the image plane are related to their
+3D world coordinates by a series of linear transformations. The specific
+transformations fall under the group known as projective transformations.
+This set includes pure projectivities, affine transformations,
+perspective transformations, and euclidean transformations. In the case
+of mlab (and most other computer visualization software), we deal with
+only the perspective and euclidean cases. An overview of Projective space
+can be found here: <a class="reference external" href="http://en.wikipedia.org/wiki/Projective_space">http://en.wikipedia.org/wiki/Projective_space</a> and a
+thorough treatment of projective geometry can be had in the book
+&#8220;Multiple View Geometry in Computer Vision&#8221; by Richard Hartley.</p>
+<p>The essential thing to know for this example is that points in 3-space
+are related to points in 2-space through a series of multiplications of
+4x4 matrices which are the perspective and euclidean transformations. The
+4x4 matrices predicate the use of length 4 vectors to represent points.
+This representation is known as homogeneous coordinates, and while they
+appear foriegn at first, they truly simplify all the mathematics
+involved. In short, homogeneous coordinates are your friend, and you
+should read about them here:
+<a class="reference external" href="http://en.wikipedia.org/wiki/Homogeneous_coordinates">http://en.wikipedia.org/wiki/Homogeneous_coordinates</a></p>
+<p>In the normal pinhole camera model (the ideal real world model), 3D world
+points are related to 2D image points by the matrix termed the
+&#8216;essential&#8217; matrix which is a combination of a perspective transformation
+and a euclidean transformation. The perspective transformation is defined
+by the camera intrinsics (focal length, imaging sensor offset, etc...)
+and the euclidean transformation is defined by the cameras position and
+orientation. In computer graphics, things are not so simple. This is
+because computer graphics have the benefit of being able to do things
+which are not possible in the real world: adding clipping planes, offset
+projection centers, arbitrary distortions, etc... Thus, a slightly
+different model is used.</p>
+<p>What follows is the camera/view model for OpenGL and thus, VTK. I can not
+guarantee that other packages follow this model.</p>
+<p>There are 4 different transformations that are applied 3D world
+coordinates to map them to 2D pixel coordinates. They are: the model
+transform, the view transform, the perspective transform, and the
+viewport or display transform.</p>
+<p>In OpenGL the first two transformations are concatenated to yield the
+modelview transform (called simply the view transform in VTK). The
+modelview transformation applies arbitrary scaling and distortions to the
+model (if they are specified) and transforms them so that the orientation
+is the equivalent of looking down the negative Z axis. Imagine its as if
+you relocate your camera to look down the negative Z axis, and then move
+everything in the world so that you see it now as you did before you
+moved the camera. The resulting coordinates are termed &#8220;eye&#8221; coordinates
+in OpenGL (I don&#8217;t know that they have a name in VTK).</p>
+<p>The perspective transformation applies the camera perspective to the eye
+coordinates. This transform is what makes objects in the foreground look
+bigger than equivalent objects in the background. In the pinhole camera
+model, this transform is determined uniquely by the focal length of the
+camera and its position in 3-space. In Vtk/OpenGL it is determined by the
+frustum. A frustum is simply a pyramid with the top lopped off. The top
+of the pyramid (a point) is the camera location, the base of the pyramid
+is a plane (the far clipping plane) defined as normal to principle camera
+ray at distance termed the far clipping distance, the top of the frustum
+(where it&#8217;s lopped off) is the near clipping plane, with a definition
+similar to that of the far clipping plane. The sides of the frustum are
+determined by the aspect ratio of the camera (width/height) and its
+field-of-view. Any points not lying within the frustum are not mapped to
+the screen (as they would lie outside the viewable area). The
+perpspective transformation has the effect of scaling everything within
+the frustum to fit within a cube defined in the range (-1,1)(-1,1)(-1,1)
+as represented by homogeneous coordinates. The last phrase there is
+important, the first 3 coordinates will not, in general, be within the
+unity range until we divide through by the last coordinate (See the
+wikipedia on homogeneous coordinates if this is confusing). The resulting
+coordinates are termed (appropriately enough) normalized view
+coordinates.</p>
+<p>The last transformation (the viewport transformation) takes us from
+normalized view coordinates to display coordinates. At this point, you
+may be asking yourself &#8216;why not just go directly to display coordinates,
+why need normalized view coordinates at all?&#8217;, the answer is that we may
+want to embed more than one view in a particular window, there will
+therefore be different transformations to take each view to an
+appropriate position an size in the window. The normalized view
+coordinates provide a nice common ground so-to-speak. At any rate, the
+viewport transformation simply scales and translates the X and Y
+coordinates of the normalized view coordinates to the appropriate pixel
+coordinates. We don&#8217;t use the Z value in our example because we don&#8217;t
+care about it. It is used for other various things however.</p>
+<p>That&#8217;s all there is to it, pretty simple right? Right. Here is an overview:</p>
+<dl class="docutils">
+<dt>Given a set of 3D world coordinates:</dt>
+<dd><ul class="first last simple">
+<li>Apply the modelview transformation (view transform in VTK) to get eye
+coordinates</li>
+<li>Apply the perspective transformation to get normalized view coordinates</li>
+<li>Apply the viewport transformation to get display coordinates</li>
+</ul>
+</dd>
+</dl>
+<p>VTK provides a nice method to retrieve a 4x4 matrix that combines the
+first two operations. As far as I can tell, VTK does not export a method
+to retrieve the 4x4 matrix representing the viewport transformation, so
+we are on our there to create one (no worries though, its not hard, as
+you will see).</p>
+<p>Now that the prelimenaries are out of the way, lets get started.</p>
+<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/mlab_3D_to_2D.py"><tt class="xref download docutils literal"><span class="pre">mlab_3D_to_2D.py</span></tt></a></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Author: S. Chris Colbert &lt;sccolbert@gmail.com&gt;</span>
+<span class="c"># Copyright (c) 2009, S. Chris Colbert</span>
+<span class="c"># License: BSD Style</span>
+
+<span class="c"># this import is here because we need to ensure that matplotlib uses the</span>
+<span class="c"># wx backend and having regular code outside the main block is PyTaboo. </span>
+<span class="c"># It needs to be imported first, so that matplotlib can impose the</span>
+<span class="c"># version of Wx it requires.</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span>
+<span class="n">matplotlib</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s">&#39;WXAgg&#39;</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">pylab</span> <span class="kn">as</span> <span class="nn">pl</span>
+
+ 
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span> 
+<span class="kn">from</span> <span class="nn">enthought.mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
+<span class="kn">from</span> <span class="nn">enthought.mayavi.core.ui.mayavi_scene</span> <span class="kn">import</span> <span class="n">MayaviScene</span>
+
+<span class="k">def</span> <span class="nf">get_world_to_view_matrix</span><span class="p">(</span><span class="n">mlab_scene</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;returns the 4x4 matrix that is a concatenation of the modelview transform and </span>
+<span class="sd">    perspective transform. Takes as input an mlab scene object.&quot;&quot;&quot;</span>
+    
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">mlab_scene</span><span class="p">,</span> <span class="n">MayaviScene</span><span class="p">):</span>
+	<span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&#39;argument must be an instance of MayaviScene&#39;</span><span class="p">)</span>
+
+	
+    <span class="c"># The VTK method needs the aspect ratio and near and far clipping planes</span>
+    <span class="c"># in order to return the proper transform. So we query the current scene</span>
+    <span class="c"># object to get the parameters we need.</span>
+    <span class="n">scene_size</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">mlab_scene</span><span class="o">.</span><span class="n">get_size</span><span class="p">())</span>
+    <span class="n">clip_range</span> <span class="o">=</span> <span class="n">mlab_scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">clipping_range</span>
+    <span class="n">aspect_ratio</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">scene_size</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="n">scene_size</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    
+    <span class="c"># this actually just gets a vtk matrix object, we can&#39;t really do anything with it yet</span>
+    <span class="n">vtk_comb_trans_mat</span> <span class="o">=</span> <span class="n">mlab_scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">get_composite_perspective_transform_matrix</span><span class="p">(</span>
+                                <span class="n">aspect_ratio</span><span class="p">,</span> <span class="n">clip_range</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">clip_range</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    
+     <span class="c"># get the vtk mat as a numpy array</span>
+    <span class="n">np_comb_trans_mat</span> <span class="o">=</span> <span class="n">vtk_comb_trans_mat</span><span class="o">.</span><span class="n">to_array</span><span class="p">()</span>
+            
+    <span class="k">return</span> <span class="n">np_comb_trans_mat</span>
+    
+
+<span class="k">def</span> <span class="nf">get_view_to_display_matrix</span><span class="p">(</span><span class="n">mlab_scene</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; this function returns a 4x4 matrix that will convert normalized</span>
+<span class="sd">	view coordinates to display coordinates. It&#39;s assumed that the view should </span>
+<span class="sd">	take up the entire window and that the origin of the window is in the </span>
+<span class="sd">	upper left corner&quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">mlab_scene</span><span class="p">,</span> <span class="n">MayaviScene</span><span class="p">)):</span>
+	<span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&#39;argument must be an instance of MayaviScene&#39;</span><span class="p">)</span>  
+ 	
+    <span class="c"># this gets the client size of the window</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">mlab_scene</span><span class="o">.</span><span class="n">get_size</span><span class="p">())</span>
+    
+    <span class="c"># normalized view coordinates have the origin in the middle of the space</span>
+    <span class="c"># so we need to scale by width and height of the display window and shift</span>
+    <span class="c"># by half width and half height. The matrix accomplishes that.</span>
+    <span class="n">view_to_disp_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">x</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span>      <span class="mf">0.</span><span class="p">,</span>   <span class="mf">0.</span><span class="p">,</span>   <span class="n">x</span><span class="o">/</span><span class="mf">2.0</span><span class="p">],</span>
+                                 <span class="p">[</span>   <span class="mf">0.</span><span class="p">,</span>  <span class="o">-</span><span class="n">y</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span>   <span class="mf">0.</span><span class="p">,</span>   <span class="n">y</span><span class="o">/</span><span class="mf">2.0</span><span class="p">],</span>
+                                 <span class="p">[</span>   <span class="mf">0.</span><span class="p">,</span>      <span class="mf">0.</span><span class="p">,</span>   <span class="mf">1.</span><span class="p">,</span>      <span class="mf">0.</span><span class="p">],</span>
+                                 <span class="p">[</span>   <span class="mf">0.</span><span class="p">,</span>      <span class="mf">0.</span><span class="p">,</span>   <span class="mf">0.</span><span class="p">,</span>      <span class="mf">1.</span><span class="p">]])</span>    
+        
+    <span class="k">return</span> <span class="n">view_to_disp_mat</span>
+
+
+<span class="k">def</span> <span class="nf">apply_transform_to_points</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">trans_mat</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;a function that applies a 4x4 transformation matrix to an of </span>
+<span class="sd">	homogeneous points. The array of points should have shape Nx4&quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">trans_mat</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">):</span>
+	<span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;transform matrix must be 4x4&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">points</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+	<span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;point array must have shape Nx4&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">trans_mat</span><span class="p">,</span> <span class="n">points</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+    
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+
+    <span class="n">N</span> <span class="o">=</span> <span class="mi">4</span>
+
+    <span class="c"># create a few points in 3-space</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random_integers</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+    <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random_integers</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+    <span class="n">Z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random_integers</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+
+    <span class="c"># plot the points with mlab </span>
+    <span class="n">pts</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">points3d</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">)</span> 
+
+    <span class="c"># now were going to create a single N x 4 array of our points </span>
+    <span class="c"># adding a fourth column of ones expresses the world points in </span>
+    <span class="c"># homogenous coordinates</span>
+    <span class="n">W</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="n">hmgns_world_coords</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">((</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">W</span><span class="p">))</span>
+
+    <span class="c"># applying the first transform will give us &#39;unnormalized&#39; view</span>
+    <span class="c"># coordinates we also have to get the transform matrix for the</span>
+    <span class="c"># current scene view</span>
+    <span class="n">comb_trans_mat</span> <span class="o">=</span> <span class="n">get_world_to_view_matrix</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">scene</span><span class="p">)</span> 
+    <span class="n">view_coords</span> <span class="o">=</span> \
+            <span class="n">apply_transform_to_points</span><span class="p">(</span><span class="n">hmgns_world_coords</span><span class="p">,</span> <span class="n">comb_trans_mat</span><span class="p">)</span>
+
+    <span class="c"># to get normalized view coordinates, we divide through by the fourth</span>
+    <span class="c"># element</span>
+    <span class="n">norm_view_coords</span> <span class="o">=</span> <span class="n">view_coords</span> <span class="o">/</span> <span class="p">(</span><span class="n">view_coords</span><span class="p">[:,</span> <span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+    
+    <span class="c"># the last step is to transform from normalized view coordinates to</span>
+    <span class="c"># display coordinates.</span>
+    <span class="n">view_to_disp_mat</span> <span class="o">=</span> <span class="n">get_view_to_display_matrix</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">scene</span><span class="p">)</span>
+    <span class="n">disp_coords</span> <span class="o">=</span> <span class="n">apply_transform_to_points</span><span class="p">(</span><span class="n">norm_view_coords</span><span class="p">,</span> <span class="n">view_to_disp_mat</span><span class="p">)</span>
+
+    <span class="c"># at this point disp_coords is an Nx4 array of homogenous coordinates</span>
+    <span class="c"># where X and Y are the pixel coordinates of the X and Y 3D world</span>
+    <span class="c"># coordinates, so lets take a screenshot of mlab view and open it</span>
+    <span class="c"># with matplotlib so we can check the accuracy</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">screenshot</span><span class="p">()</span>
+    <span class="n">pl</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+        <span class="k">print</span>  <span class="s">&#39;Point </span><span class="si">%d</span><span class="s">:  (x, y) &#39;</span> <span class="o">%</span> <span class="n">i</span><span class="p">,</span> <span class="n">disp_coords</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">pl</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">disp_coords</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">][</span><span class="n">i</span><span class="p">]],</span> <span class="p">[</span><span class="n">disp_coords</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">][</span><span class="n">i</span><span class="p">]],</span> <span class="s">&#39;ro&#39;</span><span class="p">)</span>
+     
+    <span class="n">pl</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+    <span class="c"># you should check that the printed coordinates correspond to the</span>
+    <span class="c"># proper points on the screen </span>
+
+    <span class="n">mlab</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c">#EOF</span>
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/mayavi-logo.png" alt="Logo"/>
+            </a></p>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="example_delaunay_graph.html"
+                        title="previous chapter">Delaunay graph example</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="example_magnetic_field.html"
+                        title="next chapter">Magnetic field example</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/auto/example_mlab_3D_to_2D.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+    <div id="searchbox">
+	<h3>Google Search</h3>
+    <form method="get" action="http://www.google.com/search">
+
+    <table border="0" cellpadding="0">
+    <tr><td>
+    <input type="text"   name="q" size="20"
+    maxlength="255" value="" />
+    <input type="submit" value="Go" /></td></tr>
+    <tr><td align="center" style="font-size:75%; color: #FFFFFF;">
+    <input type="checkbox"  name="sitesearch"
+    value="http://code.enthought.com/projects/mayavi/docs/development/html/mayavi/" checked /> only search Mayavi documentation<br />
+    </td></tr></table>
+
+</form>
+    </div>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="example_magnetic_field.html" title="Magnetic field example"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="example_delaunay_graph.html" title="Delaunay graph example"
+             >previous</a> |</li>
+        <li><a href="../index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+          <li><a href="examples.html" >Example gallery</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
+      Last updated on Jan 27, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
+    </div>
+  </body>
+</html>

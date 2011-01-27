@@ -1,0 +1,231 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Zzz reader example &mdash; Mayavi v3.4.2 documentation</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.4.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Mayavi v3.4.2 documentation" href="../index.html" />
+    <link rel="up" title="Example gallery" href="examples.html" />
+    <link rel="next" title="Nongui example" href="example_nongui.html" />
+    <link rel="prev" title="Standalone example" href="example_standalone.html" />
+<style type="text/css">
+  body {
+    /* Very bottom copyright, etc. info */
+    background: #4d598d;
+  }
+
+  .documentwrapper {
+    /* Blank area on left bar */
+    background: #24326e;
+  }
+
+  .related {
+    /* Long horizontal nav bars */
+    background: #3c4b8a!important;
+  }
+
+  .sphinxsidebarwrapper {
+    /* Filled part of left sidebar */
+    background: #24326e;
+  }
+
+  a {
+    color: #253370;
+  }
+
+  .sphinxsidebarwrapper a {
+    color: #f2f2f2!important;
+  }
+</style>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="example_nongui.html" title="Nongui example"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="example_standalone.html" title="Standalone example"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+          <li><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="zzz-reader-example">
+<span id="example-zzz-reader"></span><h1>Zzz reader example<a class="headerlink" href="#zzz-reader-example" title="Permalink to this headline">¶</a></h1>
+<p>This is a simple example that shows how to create a reader factory
+and register that reader with mayavi.</p>
+<p>To use this:</p>
+<blockquote>
+<ul class="simple">
+<li>put this in ~/.mayavi2/</li>
+<li>then import this module in your ~/.mayavi2/user_mayavi.py.</li>
+</ul>
+</blockquote>
+<p>that&#8217;s it.</p>
+<p>What you should get:</p>
+<blockquote>
+<ul class="simple">
+<li>Options to open .zzz files from the file-&gt;open menu.</li>
+<li>Open .zzz files via right click.</li>
+<li>Open .zzz files from the engine or mlab (via open)</li>
+<li>do mayavi2 -d foo.zzz.</li>
+</ul>
+</blockquote>
+<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/zzz_reader.py"><tt class="xref download docutils literal"><span class="pre">zzz_reader.py</span></tt></a></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">enthought.mayavi.core.api</span> <span class="kn">import</span> <span class="n">registry</span><span class="p">,</span> <span class="n">SourceMetadata</span><span class="p">,</span> <span class="n">PipelineInfo</span>
+
+<span class="k">def</span> <span class="nf">zzz_reader</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">engine</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Reader for .zzz files.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters:</span>
+<span class="sd">    -----------</span>
+
+<span class="sd">    fname -- Filename to be read.</span>
+
+<span class="sd">    engine -- The engine the source will be associated with.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">enthought.tvtk.api</span> <span class="kn">import</span> <span class="n">tvtk</span>
+    <span class="kn">from</span> <span class="nn">enthought.mayavi.sources.vtk_data_source</span> <span class="kn">import</span> <span class="n">VTKDataSource</span>
+    <span class="c"># Do your own reader stuff here, I&#39;m just reading a VTK file with a</span>
+    <span class="c"># different extension here.</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">StructuredPointsReader</span><span class="p">(</span><span class="n">file_name</span><span class="o">=</span><span class="n">fname</span><span class="p">)</span>
+    <span class="n">r</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+
+    <span class="n">src</span> <span class="o">=</span> <span class="n">VTKDataSource</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">r</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">src</span>
+
+<span class="n">zzz_reader_info</span> <span class="o">=</span> <span class="n">SourceMetadata</span><span class="p">(</span>
+    <span class="nb">id</span>            <span class="o">=</span> <span class="s">&quot;ZZZReader&quot;</span><span class="p">,</span>
+    <span class="n">factory</span> <span class="o">=</span> <span class="s">&#39;zzz_reader.zzz_reader&#39;</span><span class="p">,</span>
+    <span class="n">tooltip</span>       <span class="o">=</span> <span class="s">&quot;Load a ZZZ file&quot;</span><span class="p">,</span>
+    <span class="n">desc</span>   <span class="o">=</span> <span class="s">&quot;Load a ZZZ file&quot;</span><span class="p">,</span>
+    <span class="n">help</span>   <span class="o">=</span> <span class="s">&quot;Load a ZZZ file&quot;</span><span class="p">,</span>
+    <span class="n">menu_name</span>        <span class="o">=</span> <span class="s">&quot;&amp;ZZZ file&quot;</span><span class="p">,</span>
+    <span class="n">extensions</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;zzz&#39;</span><span class="p">],</span>
+    <span class="n">wildcard</span> <span class="o">=</span> <span class="s">&#39;ZZZ files (*.zzz)|*.zzz&#39;</span><span class="p">,</span>
+    <span class="n">output_info</span> <span class="o">=</span> <span class="n">PipelineInfo</span><span class="p">(</span><span class="n">datasets</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;unstructured_grid&#39;</span><span class="p">],</span>
+                               <span class="n">attribute_types</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;any&#39;</span><span class="p">],</span>
+                               <span class="n">attributes</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;any&#39;</span><span class="p">])</span>
+<span class="p">)</span>
+<span class="c"># Inject this information in the mayavi registry</span>
+<span class="n">registry</span><span class="o">.</span><span class="n">sources</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">zzz_reader_info</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">sys</span>
+    <span class="k">print</span> <span class="s">&quot;*&quot;</span><span class="o">*</span><span class="mi">80</span>
+    <span class="k">print</span> <span class="s">&quot;ERROR: This script isn&#39;t supposed to be executed.&quot;</span>
+    <span class="k">print</span> <span class="n">__doc__</span>
+    <span class="k">print</span> <span class="s">&quot;*&quot;</span><span class="o">*</span><span class="mi">80</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/mayavi-logo.png" alt="Logo"/>
+            </a></p>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="example_standalone.html"
+                        title="previous chapter">Standalone example</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="example_nongui.html"
+                        title="next chapter">Nongui example</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/auto/example_zzz_reader.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+    <div id="searchbox">
+	<h3>Google Search</h3>
+    <form method="get" action="http://www.google.com/search">
+
+    <table border="0" cellpadding="0">
+    <tr><td>
+    <input type="text"   name="q" size="20"
+    maxlength="255" value="" />
+    <input type="submit" value="Go" /></td></tr>
+    <tr><td align="center" style="font-size:75%; color: #FFFFFF;">
+    <input type="checkbox"  name="sitesearch"
+    value="http://code.enthought.com/projects/mayavi/docs/development/html/mayavi/" checked /> only search Mayavi documentation<br />
+    </td></tr></table>
+
+</form>
+    </div>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="example_nongui.html" title="Nongui example"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="example_standalone.html" title="Standalone example"
+             >previous</a> |</li>
+        <li><a href="../index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+          <li><a href="examples.html" >Example gallery</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
+      Last updated on Jan 27, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
+    </div>
+  </body>
+</html>

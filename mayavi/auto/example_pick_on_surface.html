@@ -1,0 +1,233 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Pick on surface example &mdash; Mayavi v3.4.2 documentation</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.4.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Mayavi v3.4.2 documentation" href="../index.html" />
+    <link rel="up" title="Example gallery" href="examples.html" />
+    <link rel="next" title="Select red balls example" href="example_select_red_balls.html" />
+    <link rel="prev" title="Magnetic field example" href="example_magnetic_field.html" />
+<style type="text/css">
+  body {
+    /* Very bottom copyright, etc. info */
+    background: #4d598d;
+  }
+
+  .documentwrapper {
+    /* Blank area on left bar */
+    background: #24326e;
+  }
+
+  .related {
+    /* Long horizontal nav bars */
+    background: #3c4b8a!important;
+  }
+
+  .sphinxsidebarwrapper {
+    /* Filled part of left sidebar */
+    background: #24326e;
+  }
+
+  a {
+    color: #253370;
+  }
+
+  .sphinxsidebarwrapper a {
+    color: #f2f2f2!important;
+  }
+</style>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="example_select_red_balls.html" title="Select red balls example"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="example_magnetic_field.html" title="Magnetic field example"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+          <li><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="pick-on-surface-example">
+<span id="example-pick-on-surface"></span><h1>Pick on surface example<a class="headerlink" href="#pick-on-surface-example" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+Example showing how to pick data on a surface, going all the way back</blockquote>
+<p>to the index in the numpy arrays.</p>
+<p>In this example, two views of the same data are shown. One with the data
+on a sphere, the other with the data flat.</p>
+<p>We use the &#8216;on_mouse_pick&#8217; method of the scene to register a callback on
+clicking on the sphere. The callback is called with a picker object as
+andan argument. We use the point_id of the point that has been picked,
+andand  go back to the 2D index on the data matrix to find its position.</p>
+<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/pick_on_surface.py"><tt class="xref download docutils literal"><span class="pre">pick_on_surface.py</span></tt></a></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c">################################################################################</span>
+<span class="c"># Create some data</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="n">pi</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+<span class="n">cos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span>
+<span class="n">sin</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span>
+
+<span class="n">phi</span><span class="p">,</span> <span class="n">theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">pi</span><span class="p">:</span><span class="mi">180</span><span class="n">j</span><span class="p">,</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="p">:</span><span class="mi">180</span><span class="n">j</span><span class="p">]</span>
+<span class="n">m0</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span> <span class="n">m1</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span> <span class="n">m2</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">m3</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span> <span class="n">m4</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">m5</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">m6</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">m7</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">m0</span><span class="o">*</span><span class="n">phi</span><span class="p">)</span><span class="o">**</span><span class="n">m1</span> <span class="o">+</span> <span class="n">cos</span><span class="p">(</span><span class="n">m2</span><span class="o">*</span><span class="n">phi</span><span class="p">)</span><span class="o">**</span><span class="n">m3</span> <span class="o">+</span> <span class="n">sin</span><span class="p">(</span><span class="n">m4</span><span class="o">*</span><span class="n">theta</span><span class="p">)</span><span class="o">**</span><span class="n">m5</span> <span class="o">+</span> <span class="n">cos</span><span class="p">(</span><span class="n">m6</span><span class="o">*</span><span class="n">theta</span><span class="p">)</span><span class="o">**</span><span class="n">m7</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">cos</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+
+<span class="c">################################################################################</span>
+<span class="c"># Plot the data</span>
+<span class="kn">from</span> <span class="nn">enthought.mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
+
+<span class="c"># A first plot in 3D</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
+<span class="n">mesh</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">mesh</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">scalars</span><span class="o">=</span><span class="n">s</span><span class="p">)</span>
+<span class="n">cursor3d</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">points3d</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">&#39;axes&#39;</span><span class="p">,</span>
+                                <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+                                <span class="n">scale_factor</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">&#39;Click on the ball&#39;</span><span class="p">)</span>
+
+<span class="c"># A second plot, flat</span>
+<span class="n">fig2d</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
+<span class="n">im</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="n">cursor</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">points3d</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">&#39;2dthick_cross&#39;</span><span class="p">,</span>
+                                <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+                                <span class="n">scale_factor</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="mi">90</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="c">################################################################################</span>
+<span class="c"># Some logic to select &#39;mesh&#39; and the data index when picking.</span>
+
+<span class="k">def</span> <span class="nf">picker_callback</span><span class="p">(</span><span class="n">picker_obj</span><span class="p">):</span>
+    <span class="n">picked</span> <span class="o">=</span> <span class="n">picker_obj</span><span class="o">.</span><span class="n">actors</span>
+    <span class="k">if</span> <span class="n">mesh</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">_vtk_obj</span> <span class="ow">in</span> <span class="p">[</span><span class="n">o</span><span class="o">.</span><span class="n">_vtk_obj</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">picked</span><span class="p">]:</span>
+        <span class="c"># m.mlab_source.points is the points array underlying the vtk</span>
+        <span class="c"># dataset. GetPointId return the index in this array.</span>
+        <span class="n">x_</span><span class="p">,</span> <span class="n">y_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">lib</span><span class="o">.</span><span class="n">index_tricks</span><span class="o">.</span><span class="n">unravel_index</span><span class="p">(</span><span class="n">picker_obj</span><span class="o">.</span><span class="n">point_id</span><span class="p">,</span>
+                                                                <span class="n">s</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="k">print</span> <span class="s">&quot;Data indices: </span><span class="si">%i</span><span class="s">, </span><span class="si">%i</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">x_</span><span class="p">,</span> <span class="n">y_</span><span class="p">)</span>
+        <span class="n">n_x</span><span class="p">,</span> <span class="n">n_y</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">shape</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">mlab_source</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x_</span> <span class="o">-</span> <span class="n">n_x</span><span class="o">/</span><span class="mf">2.</span><span class="p">,</span> 
+                               <span class="n">y</span><span class="o">=</span><span class="n">y_</span> <span class="o">-</span> <span class="n">n_y</span><span class="o">/</span><span class="mf">2.</span><span class="p">)</span>
+        <span class="n">cursor3d</span><span class="o">.</span><span class="n">mlab_source</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">[</span><span class="n">x_</span><span class="p">,</span> <span class="n">y_</span><span class="p">],</span> 
+                                 <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">[</span><span class="n">x_</span><span class="p">,</span> <span class="n">y_</span><span class="p">],</span>
+                                 <span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">[</span><span class="n">x_</span><span class="p">,</span> <span class="n">y_</span><span class="p">])</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">on_mouse_pick</span><span class="p">(</span><span class="n">picker_callback</span><span class="p">)</span>
+
+<span class="n">mlab</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/mayavi-logo.png" alt="Logo"/>
+            </a></p>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="example_magnetic_field.html"
+                        title="previous chapter">Magnetic field example</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="example_select_red_balls.html"
+                        title="next chapter">Select red balls example</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/auto/example_pick_on_surface.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+    <div id="searchbox">
+	<h3>Google Search</h3>
+    <form method="get" action="http://www.google.com/search">
+
+    <table border="0" cellpadding="0">
+    <tr><td>
+    <input type="text"   name="q" size="20"
+    maxlength="255" value="" />
+    <input type="submit" value="Go" /></td></tr>
+    <tr><td align="center" style="font-size:75%; color: #FFFFFF;">
+    <input type="checkbox"  name="sitesearch"
+    value="http://code.enthought.com/projects/mayavi/docs/development/html/mayavi/" checked /> only search Mayavi documentation<br />
+    </td></tr></table>
+
+</form>
+    </div>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="example_select_red_balls.html" title="Select red balls example"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="example_magnetic_field.html" title="Magnetic field example"
+             >previous</a> |</li>
+        <li><a href="../index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+          <li><a href="examples.html" >Example gallery</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
+      Last updated on Jan 27, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
+    </div>
+  </body>
+</html>

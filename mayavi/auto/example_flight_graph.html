@@ -1,0 +1,341 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Flight graph example &mdash; Mayavi v3.4.2 documentation</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.4.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Mayavi v3.4.2 documentation" href="../index.html" />
+    <link rel="up" title="Example gallery" href="examples.html" />
+    <link rel="next" title="Mlab visual example" href="example_mlab_visual.html" />
+    <link rel="prev" title="Protein example" href="example_protein.html" />
+<style type="text/css">
+  body {
+    /* Very bottom copyright, etc. info */
+    background: #4d598d;
+  }
+
+  .documentwrapper {
+    /* Blank area on left bar */
+    background: #24326e;
+  }
+
+  .related {
+    /* Long horizontal nav bars */
+    background: #3c4b8a!important;
+  }
+
+  .sphinxsidebarwrapper {
+    /* Filled part of left sidebar */
+    background: #24326e;
+  }
+
+  a {
+    color: #253370;
+  }
+
+  .sphinxsidebarwrapper a {
+    color: #f2f2f2!important;
+  }
+</style>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="example_mlab_visual.html" title="Mlab visual example"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="example_protein.html" title="Protein example"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+          <li><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="flight-graph-example">
+<span id="example-flight-graph"></span><h1>Flight graph example<a class="headerlink" href="#flight-graph-example" title="Permalink to this headline">¶</a></h1>
+<p>An example showing a graph display between cities positionned on the
+Earth surface.</p>
+<p>This graph displays the longest fligh routes operated by Boing
+777. The two main interests of this example are that it shows how to
+build a graph of arbitrary connectivity, and that it shows how to
+position data on the surface of the Earth.</p>
+<p>The graph is created by first building a scalar scatter dataset with the
+mlab.points3d command, and adding line information to it. One of the
+difficulties is that the lines are specified using the indexing number of
+the points, so we must &#8216;massage&#8217; our data when loading it. A similar
+technique to plot the graph is done in the <a class="reference internal" href="example_protein.html#example-protein"><em>Protein example</em></a>.
+Another example of graph plotting, showing a different technique to plot
+the graph, can be seen on <a class="reference internal" href="example_delaunay_graph.html#example-delaunay-graph"><em>Delaunay graph example</em></a>.</p>
+<p>To simplify things we do not plot the connection on the surface of the
+Earth, but as straight lines going throught the Earth. As a result
+must use transparency to show the connection.</p>
+<p>Data source: <a class="reference external" href="http://www.777fleetpage.com/777fleetpage3.htm">http://www.777fleetpage.com/777fleetpage3.htm</a></p>
+<img alt="../_images/example_flight_graph.jpg" class="align-center" src="../_images/example_flight_graph.jpg" />
+<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/flight_graph.py"><tt class="xref download docutils literal"><span class="pre">flight_graph.py</span></tt></a></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c">###############################################################################</span>
+<span class="c"># The data. This could be loaded from a file, or scraped from a website</span>
+
+<span class="n">routes_data</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">Bombay	Atlanta</span>
+<span class="s">Johannesburg	Atlanta</span>
+<span class="s">Dubai	Los Angeles</span>
+<span class="s">Dubai	Houston</span>
+<span class="s">Dubai	San Francisco</span>
+<span class="s">New York	Hong Kong</span>
+<span class="s">Newark	Hong Kong</span>
+<span class="s">Doha	Houston</span>
+<span class="s">Toronto	Hong Kong</span>
+<span class="s">Bombay	Newark</span>
+<span class="s">Bombay	New York</span>
+<span class="s">Vancouver	Hong Kong</span>
+<span class="s">Dubai	Sao Paulo</span>
+<span class="s">Los Angeles	Sydney</span>
+<span class="s">Chicago	Delhi</span>
+<span class="s">&quot;&quot;&quot;</span>
+
+<span class="n">cities_data</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">Toronto	-79.38	43.65</span>
+<span class="s">Chicago	-87.68	41.84</span>
+<span class="s">Houston	-95.39	29.77</span>
+<span class="s">New York	-73.94	40.67</span>
+<span class="s">Vancouver	-123.13	49.28</span>
+<span class="s">Los Angeles	-118.41	34.11</span>
+<span class="s">San Francisco	-122.45	37.77</span>
+<span class="s">Atlanta	-84.42	33.76</span>
+<span class="s">Dubai	55.33	25.27</span>
+<span class="s">Sydney	151.21	-33.87</span>
+<span class="s">Hong Kong	114.19	22.38</span>
+<span class="s">Bombay	72.82	18.96</span>
+<span class="s">Delhi	77.21	28.67</span>
+<span class="s">Newark	-82.43	40.04</span>
+<span class="s">Johannesburg	28.04	-26.19</span>
+<span class="s">Doha	51.53	25.29</span>
+<span class="s">Sao Paulo	-46.63	-23.53</span>
+<span class="s">&quot;&quot;&quot;</span>
+
+<span class="c">###############################################################################</span>
+<span class="c"># Load the data, and put it in data structures we can use</span>
+<span class="kn">import</span> <span class="nn">csv</span>
+<span class="n">routes_table</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">csv</span><span class="o">.</span><span class="n">reader</span><span class="p">(</span><span class="n">routes_data</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">),</span> <span class="n">dialect</span><span class="o">=</span><span class="s">&#39;excel-tab&#39;</span><span class="p">))</span>
+
+<span class="c"># Build a dictionnary returning GPS coordinates for each city</span>
+<span class="n">cities_coord</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">csv</span><span class="o">.</span><span class="n">reader</span><span class="p">(</span><span class="n">cities_data</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">),</span> 
+                    <span class="n">dialect</span><span class="o">=</span><span class="s">&#39;excel-tab&#39;</span><span class="p">))[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+    <span class="n">name</span><span class="p">,</span> <span class="nb">long</span><span class="p">,</span> <span class="n">lat</span> <span class="o">=</span> <span class="n">line</span>
+    <span class="n">cities_coord</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="nb">long</span><span class="p">),</span> <span class="nb">float</span><span class="p">(</span><span class="n">lat</span><span class="p">))</span>
+
+<span class="c"># Store all the coordinates of connected cities in a list also keep</span>
+<span class="c"># track of which city corresponds to a given index in the list. The</span>
+<span class="c"># connectivity information is specified as connecting the i-th point</span>
+<span class="c"># with the j-th.</span>
+<span class="n">cities</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+<span class="n">coords</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+<span class="n">connections</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">city1</span><span class="p">,</span> <span class="n">city2</span> <span class="ow">in</span> <span class="n">routes_table</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">city1</span> <span class="ow">in</span> <span class="n">cities</span><span class="p">:</span>
+        <span class="n">cities</span><span class="p">[</span><span class="n">city1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">coords</span><span class="p">)</span>
+        <span class="n">coords</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cities_coord</span><span class="p">[</span><span class="n">city1</span><span class="p">])</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">city2</span> <span class="ow">in</span> <span class="n">cities</span><span class="p">:</span>
+        <span class="n">cities</span><span class="p">[</span><span class="n">city2</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">coords</span><span class="p">)</span>
+        <span class="n">coords</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cities_coord</span><span class="p">[</span><span class="n">city2</span><span class="p">])</span>
+    <span class="n">connections</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">cities</span><span class="p">[</span><span class="n">city1</span><span class="p">],</span> <span class="n">cities</span><span class="p">[</span><span class="n">city2</span><span class="p">]))</span>
+
+
+<span class="c">###############################################################################</span>
+<span class="kn">from</span> <span class="nn">enthought.mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">bgcolor</span><span class="o">=</span><span class="p">(</span><span class="mf">0.48</span><span class="p">,</span> <span class="mf">0.48</span><span class="p">,</span> <span class="mf">0.48</span><span class="p">),</span> <span class="n">fgcolor</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+               <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">400</span><span class="p">))</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
+
+<span class="c">###############################################################################</span>
+<span class="c"># Display points at city positions</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="n">coords</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">coords</span><span class="p">)</span>
+<span class="c"># First we have to convert latitude/longitude information to 3D</span>
+<span class="c"># positioning.</span>
+<span class="n">lat</span><span class="p">,</span> <span class="nb">long</span> <span class="o">=</span> <span class="n">coords</span><span class="o">.</span><span class="n">T</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">180</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="nb">long</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">lat</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="nb">long</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">lat</span><span class="p">)</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="nb">long</span><span class="p">)</span>
+
+<span class="n">points</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">points3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span>
+                     <span class="n">scale_mode</span><span class="o">=</span><span class="s">&#39;none&#39;</span><span class="p">,</span>
+                     <span class="n">scale_factor</span><span class="o">=</span><span class="mf">0.03</span><span class="p">,</span>
+                     <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+<span class="c">###############################################################################</span>
+<span class="c"># Display connections between cities</span>
+<span class="n">connections</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">connections</span><span class="p">)</span>
+<span class="c"># We add lines between the points that we have previously created by</span>
+<span class="c"># directly modifying the VTK dataset.</span>
+<span class="n">points</span><span class="o">.</span><span class="n">mlab_source</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">lines</span> <span class="o">=</span> <span class="n">connections</span>
+<span class="n">points</span><span class="o">.</span><span class="n">mlab_source</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+<span class="c"># To represent the lines, we use the surface module. Using a wireframe</span>
+<span class="c"># representation allows to control the line-width.</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">surface</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+                              <span class="n">representation</span><span class="o">=</span><span class="s">&#39;wireframe&#39;</span><span class="p">,</span>
+                              <span class="n">line_width</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+                              <span class="n">name</span><span class="o">=</span><span class="s">&#39;Connections&#39;</span><span class="p">)</span>
+
+<span class="c">###############################################################################</span>
+<span class="c"># Display city names </span>
+<span class="k">for</span> <span class="n">city</span><span class="p">,</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">cities</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">index</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">index</span><span class="p">],</span> <span class="n">city</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">[</span><span class="n">index</span><span class="p">],</span> 
+                      <span class="n">width</span><span class="o">=</span><span class="mf">0.016</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">city</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="n">city</span><span class="p">)</span>
+    <span class="n">label</span><span class="o">.</span><span class="n">property</span><span class="o">.</span><span class="n">shadow</span> <span class="o">=</span> <span class="bp">True</span>
+
+<span class="c">###############################################################################</span>
+<span class="c"># Display continents outline, using the VTK Builtin surface &#39;Earth&#39;</span>
+<span class="kn">from</span> <span class="nn">enthought.mayavi.sources.builtin_surface</span> <span class="kn">import</span> <span class="n">BuiltinSurface</span>
+<span class="n">continents_src</span> <span class="o">=</span> <span class="n">BuiltinSurface</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="s">&#39;earth&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;Continents&#39;</span><span class="p">)</span>
+<span class="c"># The on_ratio of the Earth source controls the level of detail of the </span>
+<span class="c"># continents outline.</span>
+<span class="n">continents_src</span><span class="o">.</span><span class="n">data_source</span><span class="o">.</span><span class="n">on_ratio</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">continents</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">surface</span><span class="p">(</span><span class="n">continents_src</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+
+<span class="c">###############################################################################</span>
+<span class="c"># Display a semi-transparent sphere, for the surface of the Earth</span>
+
+<span class="c"># We use a sphere Glyph, throught the points3d mlab function, rather than</span>
+<span class="c"># building the mesh ourselves, because it gives a better transparent</span>
+<span class="c"># rendering.</span>
+<span class="n">sphere</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">points3d</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">scale_mode</span><span class="o">=</span><span class="s">&#39;none&#39;</span><span class="p">,</span>
+                                <span class="n">scale_factor</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                                <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mf">0.67</span><span class="p">,</span> <span class="mf">0.77</span><span class="p">,</span> <span class="mf">0.93</span><span class="p">),</span>
+                                <span class="n">resolution</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+                                <span class="n">opacity</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span>
+                                <span class="n">name</span><span class="o">=</span><span class="s">&#39;Earth&#39;</span><span class="p">)</span>
+
+<span class="c"># These parameters, as well as the color, where tweaked through the GUI,</span>
+<span class="c"># with the record mode to produce lines of code usable in a script.</span>
+<span class="n">sphere</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">property</span><span class="o">.</span><span class="n">specular</span> <span class="o">=</span> <span class="mf">0.45</span>
+<span class="n">sphere</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">property</span><span class="o">.</span><span class="n">specular_power</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="c"># Backface culling is necessary for more a beautiful transparent</span>
+<span class="c"># rendering.</span>
+<span class="n">sphere</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">property</span><span class="o">.</span><span class="n">backface_culling</span> <span class="o">=</span> <span class="bp">True</span>
+
+<span class="c">###############################################################################</span>
+<span class="c"># Plot the equator and the tropiques</span>
+<span class="n">theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">angle</span> <span class="ow">in</span> <span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">6</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">6</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
+
+    <span class="n">mlab</span><span class="o">.</span><span class="n">plot3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> 
+                        <span class="n">opacity</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">tube_radius</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+
+<span class="n">mlab</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="mf">63.4</span><span class="p">,</span> <span class="mf">73.8</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.05</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/mayavi-logo.png" alt="Logo"/>
+            </a></p>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="example_protein.html"
+                        title="previous chapter">Protein example</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="example_mlab_visual.html"
+                        title="next chapter">Mlab visual example</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/auto/example_flight_graph.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+    <div id="searchbox">
+	<h3>Google Search</h3>
+    <form method="get" action="http://www.google.com/search">
+
+    <table border="0" cellpadding="0">
+    <tr><td>
+    <input type="text"   name="q" size="20"
+    maxlength="255" value="" />
+    <input type="submit" value="Go" /></td></tr>
+    <tr><td align="center" style="font-size:75%; color: #FFFFFF;">
+    <input type="checkbox"  name="sitesearch"
+    value="http://code.enthought.com/projects/mayavi/docs/development/html/mayavi/" checked /> only search Mayavi documentation<br />
+    </td></tr></table>
+
+</form>
+    </div>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="example_mlab_visual.html" title="Mlab visual example"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="example_protein.html" title="Protein example"
+             >previous</a> |</li>
+        <li><a href="../index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+          <li><a href="examples.html" >Example gallery</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
+      Last updated on Jan 27, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,293 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Organisation of Mayavi visualizations: the pipeline &mdash; Mayavi v3.4.2 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '3.4.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Mayavi v3.4.2 documentation" href="index.html" />
+    <link rel="up" title="Advanced use of Mayavi" href="advanced_use.html" />
+    <link rel="next" title="Data representation in Mayavi" href="data.html" />
+    <link rel="prev" title="Advanced use of Mayavi" href="advanced_use.html" />
+<style type="text/css">
+  body {
+    /* Very bottom copyright, etc. info */
+    background: #4d598d;
+  }
+
+  .documentwrapper {
+    /* Blank area on left bar */
+    background: #24326e;
+  }
+
+  .related {
+    /* Long horizontal nav bars */
+    background: #3c4b8a!important;
+  }
+
+  .sphinxsidebarwrapper {
+    /* Filled part of left sidebar */
+    background: #24326e;
+  }
+
+  a {
+    color: #253370;
+  }
+
+  .sphinxsidebarwrapper a {
+    color: #f2f2f2!important;
+  }
+</style>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="data.html" title="Data representation in Mayavi"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="advanced_use.html" title="Advanced use of Mayavi"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+          <li><a href="advanced_use.html" accesskey="U">Advanced use of Mayavi</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="organisation-of-mayavi-visualizations-the-pipeline">
+<span id="organisation-mayavi-visualisations"></span><h1>Organisation of Mayavi visualizations: the pipeline<a class="headerlink" href="#organisation-of-mayavi-visualizations-the-pipeline" title="Permalink to this headline">¶</a></h1>
+<div class="topic">
+<p class="topic-title first">Mayavi and VTK pipelines</p>
+<p>Mayavi uses <a class="reference external" href="http://www.vtk.org">VTK</a> for all its visualization needs.
+A pipeline concept underlies all the visualization in VTK. However,
+it is important to note that the pipeline used by Mayavi does not
+correspond to the VTK pipeline creating the visualization: the layout
+is different, the objects are not the same, and there are more nodes
+in a VTK pipeline. The two pipelines share some similarities, but in
+this section, we are only concerned by the Mayavi pipeline.</p>
+</div>
+<div class="section" id="anatomy-of-a-mayavi-pipeline">
+<h2>Anatomy of a Mayavi pipeline<a class="headerlink" href="#anatomy-of-a-mayavi-pipeline" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="layout-of-a-pipeline">
+<h3>Layout of a pipeline<a class="headerlink" href="#layout-of-a-pipeline" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>The top node of a Mayavi pipeline is called the <cite>Engine</cite>. It is
+responsible of the creation and destruction of the scenes. It is not
+displayed in the pipeline view.</li>
+<li>Below the <cite>Engine</cite>, you find <cite>Scenes</cite>.</li>
+<li>Each <cite>Scene</cite> has a set of data <cite>Sources</cite>: they expose the data to
+visualize to Mayavi.</li>
+<li><cite>Filters</cite> can be applied to the <cite>Sources</cite> to transform the data they
+wrap.</li>
+<li>A <cite>Module Manager</cite> controls the colors used to represent the scalar or
+vector data. It is represented in the pipeline view as the node called
+<cite>Colors and legends</cite>.</li>
+<li>Visualization <cite>Modules</cite> finally display a reprensation of the data in
+the Scene, such as a surface, or lines.</li>
+</ul>
+</div>
+<div class="section" id="navigating-in-the-pipeline">
+<h3>Navigating in the pipeline<a class="headerlink" href="#navigating-in-the-pipeline" title="Permalink to this headline">¶</a></h3>
+<p>Each object in the pipeline has a <cite>parent</cite> attribute that points to its
+parent in the pipeline, as well as a <cite>children</cite> attribute, giving the
+list of its children. The <cite>name</cite> attribute of the objects gives the name
+of the node as it appears in the pipeline view. The edition dialog to
+modify graphicaly the properties of an object can be displayed by calling
+the <cite>edit_traits()</cite> method of this object.</p>
+<p>In addition, Mayavi pipeline objects can only be in one scene, and their
+<cite>.scene</cite> attribute point to this scene (see the
+<a class="reference internal" href="auto/example_volume_slicer.html#example-volume-slicer"><em>Volume slicer example</em></a> for an example of how the data can be shared
+between scenes).</p>
+</div>
+</div>
+<div class="section" id="the-link-between-different-mayavi-entry-points">
+<h2>The link between different Mayavi entry points<a class="headerlink" href="#the-link-between-different-mayavi-entry-points" title="Permalink to this headline">¶</a></h2>
+<p>Every visualization created in Mayavi is constructed with a pipeline,
+although the construction of the pipeline may be hidden from the user:</p>
+<ul class="simple">
+<li>The easiest way to make a Mayavi visualization is to create a pipeline
+via the user interface, as, for instance, exposed in the
+<a class="reference internal" href="example_parametric_surface.html#parametric-surfaces-example"><em>Parametric surfaces examples</em></a>.</li>
+<li>The <a class="reference internal" href="mlab_3d_plotting_functions.html#mlab-plotting-functions"><em>mlab 3d plotting functions</em></a>,
+create full piplelines, comprising sources, modules, and possibly
+filters, to visualize numpy arrays. Displaying the
+<a class="reference internal" href="mlab_changing_object_looks.html#mlab-changing-objects-interactively"><em>pipeline view</em></a> is the
+easiest way to understand what pipeline was built.</li>
+<li>Pipelines can also be built node-by-node with mlab, using the
+<a class="reference internal" href="mlab_pipeline.html#controlling-the-pipeline-with-mlab-scripts"><em>mlab.pipeline functions</em></a>.
+The name of the functions to call can simply be deduced
+from the names of the pipeline nodes as they appear in the pipeline
+view.</li>
+<li>The objects composing a pipeline can be instantiated and added to the
+pipeline manually, as exposed
+<a class="reference internal" href="advanced_scripting.html#oo-construction-visualization"><em>further below</em></a>.</li>
+</ul>
+</div>
+<div class="section" id="a-pipeline-example-examined">
+<h2>A pipeline example examined<a class="headerlink" href="#a-pipeline-example-examined" title="Permalink to this headline">¶</a></h2>
+<p>Let us study the pipeline created by the <cite>mlab.plot3d</cite> function to
+represent lines:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="n">phi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="n">x</span>   <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">6</span><span class="o">*</span><span class="n">phi</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="o">.</span><span class="mi">5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">11</span><span class="o">*</span><span class="n">phi</span><span class="p">))</span>
+<span class="n">y</span>   <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">6</span><span class="o">*</span><span class="n">phi</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="o">.</span><span class="mi">5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">11</span><span class="o">*</span><span class="n">phi</span><span class="p">))</span>
+<span class="n">z</span>   <span class="o">=</span> <span class="o">.</span><span class="mi">5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">11</span><span class="o">*</span><span class="n">phi</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">enthought.mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
+<span class="n">surface</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">plot3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">6</span><span class="o">*</span><span class="n">phi</span><span class="p">),</span> <span class="n">tube_radius</span><span class="o">=</span><span class="mf">0.025</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s">&#39;Spectral&#39;</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=.</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="figure align-center">
+<img alt="_images/pipeline_and_scene.jpg" src="_images/pipeline_and_scene.jpg" />
+</div>
+<p>The <cite>mlab.plot3d</cite> function first creates a source made of points
+connected by lines. Then it applies the <cite>Stripper</cite> filter, which
+transforms this succession of lines in a &#8216;strip&#8217;. Second, a <cite>Stripper</cite>
+filter is applied: from the &#8216;strip&#8217; it creates tubes with a given radius.
+Finally, the <cite>Surface</cite> module is applied to display the surface of the
+tubes. The <cite>surface</cite> object returned by the <cite>mlab.plot3d</cite> function is
+that final <cite>Surface</cite> module.</p>
+<p>Let us have a look at the data in the pipeline before the tube filter was
+applied. First we retrive the <cite>Stripper</cite> filter:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">stripper</span> <span class="o">=</span> <span class="n">surface</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span>
+</pre></div>
+</div>
+<p>Then we apply on it a <cite>Surface</cite> module to represent the <cite>strip</cite>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">lines</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">surface</span><span class="p">(</span><span class="n">stripper</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="figure align-center">
+<img alt="_images/pipeline_and_scene2.jpg" src="_images/pipeline_and_scene2.jpg" />
+</div>
+<p>All the properties of the different steps can be adjusted in the pipeline
+view. In addition, they correspond to attributes on the various objects:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">tubes</span> <span class="o">=</span> <span class="n">surface</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tubes</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">radius</span>
+<span class="go">0.025000000000000001</span>
+</pre></div>
+</div>
+<p>The names in the dialogs of the various properties gives hints to which
+attributes in the objects they correspond to. However, it can be fairly
+challenging to find this correspondance. We suggest to use the
+<a class="reference internal" href="mlab_changing_object_looks.html#record-feature"><em>record feature</em></a> for this purpose.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/mayavi-logo.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Organisation of Mayavi visualizations: the pipeline</a><ul>
+<li><a class="reference internal" href="#anatomy-of-a-mayavi-pipeline">Anatomy of a Mayavi pipeline</a><ul>
+<li><a class="reference internal" href="#layout-of-a-pipeline">Layout of a pipeline</a></li>
+<li><a class="reference internal" href="#navigating-in-the-pipeline">Navigating in the pipeline</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#the-link-between-different-mayavi-entry-points">The link between different Mayavi entry points</a></li>
+<li><a class="reference internal" href="#a-pipeline-example-examined">A pipeline example examined</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="advanced_use.html"
+                        title="previous chapter">Advanced use of Mayavi</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="data.html"
+                        title="next chapter">Data representation in Mayavi</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/pipeline.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+    <div id="searchbox">
+	<h3>Google Search</h3>
+    <form method="get" action="http://www.google.com/search">
+
+    <table border="0" cellpadding="0">
+    <tr><td>
+    <input type="text"   name="q" size="20"
+    maxlength="255" value="" />
+    <input type="submit" value="Go" /></td></tr>
+    <tr><td align="center" style="font-size:75%; color: #FFFFFF;">
+    <input type="checkbox"  name="sitesearch"
+    value="http://code.enthought.com/projects/mayavi/docs/development/html/mayavi/" checked /> only search Mayavi documentation<br />
+    </td></tr></table>
+
+</form>
+    </div>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="data.html" title="Data representation in Mayavi"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="advanced_use.html" title="Advanced use of Mayavi"
+             >previous</a> |</li>
+        <li><a href="index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+          <li><a href="advanced_use.html" >Advanced use of Mayavi</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
+      Last updated on Jan 27, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
+    </div>
+  </body>
+</html>

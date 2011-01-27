@@ -1,0 +1,245 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>MLab pipeline reference &mdash; Mayavi v3.4.2 documentation</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.4.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Mayavi v3.4.2 documentation" href="../index.html" />
+<style type="text/css">
+  body {
+    /* Very bottom copyright, etc. info */
+    background: #4d598d;
+  }
+
+  .documentwrapper {
+    /* Blank area on left bar */
+    background: #24326e;
+  }
+
+  .related {
+    /* Long horizontal nav bars */
+    background: #3c4b8a!important;
+  }
+
+  .sphinxsidebarwrapper {
+    /* Filled part of left sidebar */
+    background: #24326e;
+  }
+
+  a {
+    color: #253370;
+  }
+
+  .sphinxsidebarwrapper a {
+    color: #f2f2f2!important;
+  }
+</style>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li><a href="../index.html">Mayavi v3.4.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="mlab-pipeline-reference">
+<span id="id1"></span><h1>MLab pipeline reference<a class="headerlink" href="#mlab-pipeline-reference" title="Permalink to this headline">¶</a></h1>
+<p>Reference list of all the main functions of
+<tt class="docutils literal"><span class="pre">pipeline</span></tt> sub module of <tt class="docutils literal"><span class="pre">mlab</span></tt>. You can access these functions
+using:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">function</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>These functions can be used for finer control of the Mayavi
+pipeline than the main mlab interface. For usage examples, see
+<em class="xref std std-ref">ontrolling-the-pipeline-with-mlab-scripts</em>.</p>
+<span class="target" id="module-enthought.mayavi.tools.pipeline"></span><div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="mlab_pipeline_sources.html">Sources</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_sources.html#array2d-source">array2d_source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_sources.html#builtin-image">builtin_image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_sources.html#builtin-surface">builtin_surface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_sources.html#chaco-file">chaco_file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_sources.html#grid-source">grid_source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_sources.html#line-source">line_source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_sources.html#open">open</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_sources.html#parametric-surface">parametric_surface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_sources.html#point-load">point_load</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_sources.html#scalar-field">scalar_field</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_sources.html#scalar-scatter">scalar_scatter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_sources.html#triangular-mesh-source">triangular_mesh_source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_sources.html#vector-field">vector_field</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_sources.html#vector-scatter">vector_scatter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_sources.html#vertical-vectors-source">vertical_vectors_source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_sources.html#volume-file">volume_file</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="mlab_pipeline_tools.html">Tools</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_tools.html#add-dataset">add_dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_tools.html#add-module-manager">add_module_manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_tools.html#get-vtk-src">get_vtk_src</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_tools.html#set-extent">set_extent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_tools.html#traverse">traverse</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="mlab_pipeline_data.html">Data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_data.html#probe-data">probe_data</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="mlab_pipeline_other_functions.html">Filters, modules, other functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#cell-derivatives">cell_derivatives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#cell-to-point-data">cell_to_point_data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#contour">contour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#contour-grid-plane">contour_grid_plane</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#contour-surface">contour_surface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#custom-grid-plane">custom_grid_plane</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#cut-plane">cut_plane</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#data-set-clipper">data_set_clipper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#decimate-pro">decimate_pro</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#delaunay2d">delaunay2d</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#delaunay3d">delaunay3d</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#elevation">elevation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#elevation-filter">elevation_filter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#extract-edges">extract_edges</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#extract-grid">extract_grid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#extract-tensor-components">extract_tensor_components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#extract-unstructured-grid">extract_unstructured_grid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#extract-vector-components">extract_vector_components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#extract-vector-norm">extract_vector_norm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#gaussian-splatter">gaussian_splatter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#glyph">glyph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#greedy-terrain-decimation">greedy_terrain_decimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#grid-plane">grid_plane</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#hyper-streamline">hyper_streamline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#image-actor">image_actor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#image-change-information">image_change_information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#image-data-probe">image_data_probe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#image-plane-widget">image_plane_widget</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#iso-surface">iso_surface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#labels">labels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#mask-points">mask_points</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#outline">outline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#point-to-cell-data">point_to_cell_data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#poly-data-normals">poly_data_normals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#quadric-decimation">quadric_decimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#scalar-cut-plane">scalar_cut_plane</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#select-output">select_output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#set-active-attribute">set_active_attribute</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#slice-unstructured-grid">slice_unstructured_grid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#streamline">streamline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#stripper">stripper</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#structured-grid-outline">structured_grid_outline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#surface">surface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#tensor-glyph">tensor_glyph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#text3d">text3d</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#threshold">threshold</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#transform-data">transform_data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#triangle-filter">triangle_filter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#tube">tube</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#user-defined">user_defined</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#vector-cut-plane">vector_cut_plane</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#vectors">vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#volume">volume</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#vorticity">vorticity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#warp-scalar">warp_scalar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#warp-vector">warp_vector</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_other_functions.html#warp-vector-cut-plane">warp_vector_cut_plane</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/mayavi-logo.png" alt="Logo"/>
+            </a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/auto/mlab_pipeline_reference.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+    <div id="searchbox">
+	<h3>Google Search</h3>
+    <form method="get" action="http://www.google.com/search">
+
+    <table border="0" cellpadding="0">
+    <tr><td>
+    <input type="text"   name="q" size="20"
+    maxlength="255" value="" />
+    <input type="submit" value="Go" /></td></tr>
+    <tr><td align="center" style="font-size:75%; color: #FFFFFF;">
+    <input type="checkbox"  name="sitesearch"
+    value="http://code.enthought.com/projects/mayavi/docs/development/html/mayavi/" checked /> only search Mayavi documentation<br />
+    </td></tr></table>
+
+</form>
+    </div>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li><a href="../index.html">Mayavi v3.4.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
+      Last updated on Jan 27, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
+    </div>
+  </body>
+</html>

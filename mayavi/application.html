@@ -1,0 +1,793 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Using the Mayavi application &mdash; Mayavi v3.4.2 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '3.4.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Mayavi v3.4.2 documentation" href="index.html" />
+    <link rel="next" title="Parametric surfaces: a simple introduction to visualization" href="example_parametric_surface.html" />
+    <link rel="prev" title="Installation" href="installation.html" />
+<style type="text/css">
+  body {
+    /* Very bottom copyright, etc. info */
+    background: #4d598d;
+  }
+
+  .documentwrapper {
+    /* Blank area on left bar */
+    background: #24326e;
+  }
+
+  .related {
+    /* Long horizontal nav bars */
+    background: #3c4b8a!important;
+  }
+
+  .sphinxsidebarwrapper {
+    /* Filled part of left sidebar */
+    background: #24326e;
+  }
+
+  a {
+    color: #253370;
+  }
+
+  .sphinxsidebarwrapper a {
+    color: #f2f2f2!important;
+  }
+</style>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="example_parametric_surface.html" title="Parametric surfaces: a simple introduction to visualization"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="installation.html" title="Installation"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Mayavi v3.4.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="using-the-mayavi-application">
+<span id="id1"></span><h1>Using the Mayavi application<a class="headerlink" href="#using-the-mayavi-application" title="Permalink to this headline">¶</a></h1>
+<div class="topic">
+<p class="topic-title first">Section summary</p>
+<p>This section primarily concerns interactive usage of the <tt class="docutils literal"><span class="pre">mayavi2</span></tt>
+application.
+Some of the things mentioned here also apply when Mayavi is scripted.</p>
+<p>However, if you are only interested in a quick start to use Mayavi as
+a simple, Matlab-like, plotting library, you can jump directly to the
+<a class="reference internal" href="mlab.html#simple-scripting-with-mlab"><em>mlab: Python scripting for 3D plotting</em></a> section, and come back later for a
+deeper understanding.</p>
+</div>
+<div class="contents local topic" id="section-contents">
+<p class="topic-title first">Section contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#tutorial-examples-to-learn-mayavi" id="id6">Tutorial examples to learn Mayavi</a></li>
+<li><a class="reference internal" href="#general-layout-of-ui" id="id7">General layout of UI</a></li>
+<li><a class="reference internal" href="#visualizing-data" id="id8">Visualizing data</a></li>
+<li><a class="reference internal" href="#interaction-with-the-scene" id="id9">Interaction with the scene</a></li>
+<li><a class="reference internal" href="#from-interactive-usage-to-scripting" id="id10">From interactive usage to scripting</a></li>
+<li><a class="reference internal" href="#command-line-arguments" id="id11">Command line arguments</a></li>
+</ul>
+</div>
+<div class="section" id="tutorial-examples-to-learn-mayavi">
+<span id="learning-mayavi-by-example"></span><h2><a class="toc-backref" href="#id6">Tutorial examples to learn Mayavi</a><a class="headerlink" href="#tutorial-examples-to-learn-mayavi" title="Permalink to this headline">¶</a></h2>
+<p>To get acquainted with mayavi you may start up the Mayavi2 application,
+<tt class="docutils literal"><span class="pre">mayavi2</span></tt> in the command line, like so:</p>
+<div class="highlight-python"><pre>$ mayavi2</pre>
+</div>
+<p>On Windows you can double click on the installed <tt class="docutils literal"><span class="pre">mayavi2.exe</span></tt>
+executable (usually in the <tt class="docutils literal"><span class="pre">Python2X\Scripts</span></tt> directory), or use the
+start menu entry, if you installed python(x,y) or EPD.</p>
+<p>Once Mayavi starts, you may resize the various panes of the user
+interface to get a comfortable layout.  These settings will become the
+default &#8220;perspective&#8221; of the mayavi application.  More details on the
+UI are available in the <a class="reference internal" href="#general-layout-of-ui"><em>General layout of UI</em></a> section.</p>
+<p>We give a few detailed examples of how you can use the Mayavi application
+to tour some of its features. Before proceeding to the examples, it can
+be useful to locate some data to experiment with. Two of the examples
+below make use of data shipped with the mayavi sources ship.  These may
+be found in the <tt class="docutils literal"><span class="pre">examples/data</span></tt> directory inside the root of the mayavi
+source tree. If these are not installed, the sources may be downloaded
+from here: <a class="reference external" href="http://code.enthought.com/enstaller/eggs/source/">http://code.enthought.com/enstaller/eggs/source/</a></p>
+<div class="topic">
+<p class="topic-title first"><strong>Examples</strong>:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="example_parametric_surface.html">Parametric surfaces: a simple introduction to visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example_heart.html">Loading scalar data: the <tt class="docutils literal"><span class="pre">heart.vtk</span></tt> example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example_fire.html">Visualizing rich datasets: the <tt class="docutils literal"><span class="pre">fire_ug.vtu</span></tt> example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example_using_with_scipy.html">Using Mayavi with scipy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example_exploring_a_vector_field.html">Exploring a vector field</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="general-layout-of-ui">
+<span id="id2"></span><h2><a class="toc-backref" href="#id7">General layout of UI</a><a class="headerlink" href="#general-layout-of-ui" title="Permalink to this headline">¶</a></h2>
+<p>When the <cite>mayavi2</cite> application is started it will provide a user
+interface that looks something like the figure shown below.</p>
+<img alt="Figure of Mayavi's initial UI window." class="align-center" src="_images/mayavi_ui_first.jpg" />
+<p>The UI features several sections described below.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Menus:</th><td class="field-body"><p class="first">The menus let you open files, load modules, set preferences etc.</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">The Mayavi pipeline tree view:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body"><dl class="first docutils">
+<dt>This is a tree view of the Mayavi pipeline.</dt>
+<dd><ul class="first last simple">
+<li>Right click a tree node to rename, delete, copy the objects.</li>
+<li>Left click on a node to edit its properties on the object
+editor below the tree.</li>
+<li>It is possible to drag the nodes around on the tree.  For
+example it is possible to drag and move a module from one set
+of Modules to another, or to move visualization from one
+scene to another.</li>
+</ul>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">The object editor:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body"><p class="first">This is where the properties of Mayavi pipeline objects can be
+changed when an object on the pipeline is clicked.</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Mayavi scenes:</th><td class="field-body"><p class="first">This is where the visualization of the data happens.  One can
+interact with this scene via the mouse and the keyboard.  More
+details are in the following sections.</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">Python interpreter:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body"><p class="first">The built-in Python interpreter that can be used to script Mayavi
+and do other things.  You can drag nodes from the Mayavi tree and
+drop them on the interpreter and then script the object represented
+by the node!</p>
+<p>If you have version of <a class="reference external" href="http://ipython.scipy.org/">IPython</a> above 0.9.1 installed, this Python
+interpreter will use IPython.</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Logger:</th><td class="field-body"><p class="first last">Application log messages may be seen here.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Mayavi&#8217;s UI layout is highly configurable:</p>
+<blockquote>
+<ul class="simple">
+<li>the line in-between the sections can be dragged to resize
+particular views.</li>
+<li>most of the &#8220;tabs&#8221; on the widgets can be dragged around to move
+them anywhere in the application.</li>
+<li>Each view area (the Mayavi pipeline view, object editor, python shell
+and logger) can be enabled and disabled in the &#8216;View&#8217; menu.</li>
+</ul>
+</blockquote>
+<p>Each time you change the appearance of Mayavi it is saved and the next
+time you start up the application it will have the same configuration.
+In addition, you can save different layouts into different
+&#8220;perspectives&#8221; using the <cite>View-&gt;Perspectives</cite> menu item.</p>
+<p>Shown below is a specifically configured Mayavi user interface view.
+In this view the size of the various parts are changed.</p>
+<img alt="Figure of Mayavi's UI after being configured by a user." class="align-center" src="_images/mayavi_ui_second.jpg" />
+</div>
+<div class="section" id="visualizing-data">
+<h2><a class="toc-backref" href="#id8">Visualizing data</a><a class="headerlink" href="#visualizing-data" title="Permalink to this headline">¶</a></h2>
+<p>Visualization data in Mayavi is performed by loading some data as <cite>data
+sources</cite>, and applying visualization modules to these sources to
+visualize the data as described in the <a class="reference internal" href="overview.html#an-overview-of-mayavi"><em>An overview of Mayavi</em></a>
+section. To get a feeling of how this work, going through the
+<a class="reference internal" href="example_parametric_surface.html#parametric-surfaces-example"><em>Parametric surfaces example</em></a> can be
+helpful.</p>
+<p>One needs to have some data or the other loaded before a <cite>Module</cite> or
+<cite>Filter</cite> may be used.  Mayavi supports several data file formats most
+notably VTK data file formats. Alternatively, <a class="reference internal" href="mlab.html#simple-scripting-with-mlab"><em>mlab</em></a> can be used to load data from <cite>numpy</cite>
+arrays. For advanced information on data structures, refer to the
+<a class="reference internal" href="data.html#data-structures-used-by-mayavi"><em>Data representation in Mayavi</em></a> section.</p>
+<p>Once data is loaded one can optionally use a variety of <a class="reference internal" href="filters.html#filters"><em>Filters</em></a> to
+filter or modify the data in some way or the other and then visualize
+the data using several <a class="reference internal" href="modules.html#modules"><em>Modules</em></a>.</p>
+<p>Here we list all the Mayavi <cite>modules</cite> and <cite>filters</cite>. This list is useful
+as a reference:</p>
+<div class="topic">
+<p class="topic-title first"><strong>List of modules and filters</strong></p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="filters.html">Filters</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="interaction-with-the-scene">
+<span id="id3"></span><h2><a class="toc-backref" href="#id9">Interaction with the scene</a><a class="headerlink" href="#interaction-with-the-scene" title="Permalink to this headline">¶</a></h2>
+<p>The Mayavi scenes on the UI can be closed by clicking on the little &#8216;x&#8217;
+icon on the tab.  Each scene features a toolbar that supports various
+features:</p>
+<blockquote>
+<ul class="simple">
+<li>Buttons to set the view to view along the positive or negative X,
+Y and Z axes or obtain an isometric view.</li>
+<li>A button to turn on parallel projection instead of the default
+perspective projection.  This is particularly useful when one is
+looking at 2D plots.</li>
+<li>A button to turn on an axes to indicate the x, y and z axes.</li>
+<li>A button to turn on full-screen viewing.  Note that once
+full-screen mode is entered one must press &#8216;q&#8217; or &#8216;e&#8217; to get back
+a normal window.</li>
+<li>A button to save the scene to a variety of image formats.  The
+image format to use is determined by the extension provided for
+the file.</li>
+<li>A button that provides a UI to configure the scene properties.</li>
+</ul>
+</blockquote>
+<p>The primary means to interact with the scene is to use the mouse and
+keyboard.</p>
+<div class="section" id="mouse-interaction">
+<h3>Mouse interaction<a class="headerlink" href="#mouse-interaction" title="Permalink to this headline">¶</a></h3>
+<p>There are two modes of mouse interaction:</p>
+<blockquote>
+<ul class="simple">
+<li>Camera mode: the default, where the camera is operated on with
+mouse moves.  This mode is activated by pressing the &#8216;c&#8217; key.</li>
+<li>Actor mode: in this mode the mouse actions operate on the actor
+the mouse is currently above.  This mode is activated by pressing
+the &#8216;a&#8217; key.</li>
+</ul>
+</blockquote>
+<p>The view on the scene can be changed by using various mouse actions.
+Usually these are accomplished by holding down a mouse button and
+dragging.</p>
+<blockquote>
+<ul>
+<li><p class="first">holding the left mouse button down and dragging will rotate the
+camera/actor in the direction moved.</p>
+<blockquote>
+<ul class="simple">
+<li>Holding down &#8220;SHIFT&#8221; when doing this will pan the scene &#8211;
+just like the middle button.</li>
+<li>Holding down &#8220;CONTROL&#8221; will rotate around the camera&#8217;s axis
+(roll).</li>
+<li>Holding down &#8220;SHIFT&#8221; and &#8220;CONTROL&#8221; and dragging up will zoom
+in and dragging down will zoom out.  This is like the right
+button.</li>
+</ul>
+</blockquote>
+</li>
+<li><p class="first">holding the right mouse button down and dragging upwards will zoom
+in (or increase the actors scale) and dragging downwards will zoom
+out (or reduce scale).</p>
+</li>
+<li><p class="first">holding the middle mouse button down and dragging will pan the
+scene or translate the object.</p>
+</li>
+<li><p class="first">Rotating the mouse wheel upwards will zoom in and downwards will
+zoom out.</p>
+</li>
+</ul>
+</blockquote>
+</div>
+<div class="section" id="keyboard-interaction">
+<h3>Keyboard interaction<a class="headerlink" href="#keyboard-interaction" title="Permalink to this headline">¶</a></h3>
+<p>The scene supports several features activated via keystrokes.  These
+are:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">&#8216;3&#8217;:</th><td class="field-body"><blockquote class="first">
+<p>Turn on/off stereo rendering.  This may not work if the</p>
+</blockquote>
+<p>&#8216;stereo&#8217; preference item is not set to True.</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">&#8216;a&#8217;:</th><td class="field-body"><p class="first">Use actor mode for mouse interaction instead of camera mode.</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">&#8216;c&#8217;:</th><td class="field-body"><p class="first">Use camera mode for mouse interaction instead of actor mode.</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">&#8216;e&#8217;/&#8217;q&#8217;/&#8217;Esc&#8217;:</th><td class="field-body"><p class="first">Exit full-screen mode.</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">&#8216;f&#8217;:</th><td class="field-body"><p class="first">Move camera&#8217;s focal point to current mouse location.  This
+will move the camera focus to center the view at the current mouse
+position.</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">&#8216;j&#8217;:</th><td class="field-body"><p class="first">Use joystick mode for the mouse interaction.  In joystick mode
+the mouse somewhat mimics a joystick.  For example, holding the
+mouse left button down when away from the center will rotate the
+scene.</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">&#8216;l&#8217;:</th><td class="field-body"><p class="first">Configure the lights that are illumining the scene.  This will
+pop-up a window to change the light configuration.</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">&#8216;p&#8217;:</th><td class="field-body"><p class="first">Pick the data at the current mouse point.  This will pop-up a
+window with information on the current pick.  The UI will also
+allow one to change the behavior of the picker to pick cells,
+points or arbitrary points.</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">&#8216;r&#8217;:</th><td class="field-body"><p class="first">Reset the camera focal point and position.  This is very handy.</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">&#8216;s&#8217;:</th><td class="field-body"><p class="first">Save the scene to an image, this will first popup a file
+selection dialog box so you can choose the filename, the extension of
+the filename determines the image type.</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">&#8216;t&#8217;:</th><td class="field-body"><p class="first">Use trackball mode for the mouse interaction.  This is the
+default mode for the mouse interaction.</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">&#8216;=&#8217;/&#8217;+&#8217;:</th><td class="field-body"><p class="first">Zoom in.</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">&#8216;-&#8216;:</th><td class="field-body"><p class="first">Zoom out.</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">&#8216;left&#8217;/&#8217;right&#8217;/&#8217;up&#8217;/&#8217;down&#8217; arrows:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body"><p class="first last">Pressing the left, right, up and
+down arrow let you rotate the camera in those directions.  When
+&#8220;SHIFT&#8221; modifier is also held down the camera is panned.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="from-interactive-usage-to-scripting">
+<h2><a class="toc-backref" href="#id10">From interactive usage to scripting</a><a class="headerlink" href="#from-interactive-usage-to-scripting" title="Permalink to this headline">¶</a></h2>
+<p>It is easy to learn how to script Mayavi when using the interactive application.
+In this sub-section, we give a few tips for this purpose.</p>
+<div class="section" id="the-embedded-python-interpreter">
+<span id="id4"></span><h3>The embedded Python interpreter<a class="headerlink" href="#the-embedded-python-interpreter" title="Permalink to this headline">¶</a></h3>
+<p>The embedded Python interpreter offers extremely powerful
+possibilities.  The interpreter features command completion, automatic
+documentation, tooltips and some multi-line editing.  In addition it
+supports the following features:</p>
+<blockquote>
+<ul>
+<li><p class="first">The name <tt class="docutils literal"><span class="pre">mayavi</span></tt> is automatically bound to the
+<tt class="docutils literal"><span class="pre">enthought.mayavi.script.Script</span></tt> instance.  This may be used to
+easily script Mayavi.</p>
+</li>
+<li><p class="first">The name <tt class="docutils literal"><span class="pre">application</span></tt> is bound to the envisage application.</p>
+</li>
+<li><p class="first">If a Python file is opened via the <tt class="docutils literal"><span class="pre">File-&gt;Open</span> <span class="pre">File...</span></tt> menu item
+one can edit it with a color syntax capable editor.  To execute
+this script in the embedded Python interpreter, the user may type
+<tt class="docutils literal"><span class="pre">Control-r</span></tt> on the editor window.  To save the file press
+<tt class="docutils literal"><span class="pre">Control-s</span></tt>.  This is a very handy feature when developing simple
+Mayavi scripts. You can also increase and decrease the font size using
+<tt class="docutils literal"><span class="pre">Control-n</span></tt> and <tt class="docutils literal"><span class="pre">Control-s</span></tt>.</p>
+</li>
+<li><p class="first">As mentioned earlier, one may drag and drop nodes from the Mayavi
+pipeline tree view onto the Python shell.  The object may then be
+scripted as one normally would.  A commonly used pattern when this
+is done is the following:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">tvtk_scene_1</span>
+<span class="go">&lt;enthought.mayavi.core.scene.Scene object at 0x9f4cbe3c&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">_</span>
+</pre></div>
+</div>
+<p>In this case the name <tt class="docutils literal"><span class="pre">s</span></tt> is bound to the dropped tvtk_scene
+object.  The <tt class="docutils literal"><span class="pre">_</span></tt> variable stores the last evaluated expression
+which is the dropped object.  Using <tt class="docutils literal"><span class="pre">tvtk_scene_1</span></tt> will also work
+but is a mouthful.</p>
+</li>
+</ul>
+</blockquote>
+</div>
+<div class="section" id="recording-mayavi-actions-to-a-script">
+<span id="automatic-script-generation"></span><h3>Recording Mayavi actions to a script<a class="headerlink" href="#recording-mayavi-actions-to-a-script" title="Permalink to this headline">¶</a></h3>
+<p>Mayavi features a very handy and powerful script recording facility.
+This can be used to:</p>
+<blockquote>
+<ul class="simple">
+<li>record all actions performed on the Mayavi UI into a <em>human readable</em>,
+Python script that should be able to recreate your visualization.</li>
+<li>learn how to script the Mayavi objects, in combination with
+<a class="reference internal" href="mlab.html#simple-scripting-with-mlab"><em>mlab</em></a>.</li>
+</ul>
+</blockquote>
+<p>Here is how you can use this feature:</p>
+<blockquote>
+<ol class="arabic">
+<li><p class="first">When you start the <tt class="docutils literal"><span class="pre">mayavi2</span></tt> application, on the pipeline tree view
+toolbar you will find a red record icon next to the
+question mark icon.  Click it.  Note that this will also work from a
+standalone mlab session, on the toolbar of the
+<a class="reference internal" href="mlab_changing_object_looks.html#mlab-changing-objects-interactively"><em>Mayavi pipeline window</em></a>.</p>
+</li>
+<li><p class="first">You&#8217;ll see a window popup with a few lines of boilerplate code so
+you can run your script standalone/with <tt class="docutils literal"><span class="pre">mayavi2</span> <span class="pre">-x</span> <span class="pre">script.py</span> <span class="pre">``or</span>
+<span class="pre">``python</span> <span class="pre">script.py</span></tt>. Keep this window open and ignore for now the
+<tt class="docutils literal"><span class="pre">Save</span> <span class="pre">script</span></tt> button, which will be used when you are finished.</p>
+</li>
+<li><p class="first">Now do anything you please on the UI.  As you perform those actions,
+the code needed to perform those actions is added to the code listing
+and displayed in the popup window.  For example, create a new source
+(either via the adder node dialog/view, the file menu or right click,
+i.e. any normal option), then add a module/filter etc.  Modify objects on
+the tree view.</p>
+</li>
+<li><p class="first">Move the camera on the UI, rotate the camera, zoom, pan.  All of
+these will generate suitable Python code.  For the camera only the
+end position is stored (otherwise you&#8217;ll see millions of useless
+lines of code).  The major keyboard actions on the scene are
+recorded (except for the &#8216;c&#8217;/&#8217;t&#8217;/&#8217;j&#8217;/&#8217;a&#8217; keys).  This implies that
+it will record any left/right/up/down arrows the &#8216;+&#8217;/&#8217;-&#8216; keys etc.</p>
+<p>Since the code is updated as the actions are performed, this is a
+nice way to learn the Mayavi API.</p>
+</li>
+<li><p class="first">Once you are done, clicking on the record icon again will stop the
+recording: in the pop-up window, the <tt class="docutils literal"><span class="pre">Recording</span></tt> box will be ticked
+off and no code corresponding to new actions will be displayed any
+more. If you want to save the recorded script to a Python file, click
+on the <tt class="docutils literal"><span class="pre">Save</span> <span class="pre">script</span></tt> button at the bottom of the window. Save the script
+to some file, say <tt class="docutils literal"><span class="pre">script.py</span></tt>.  If you are only interested in the code
+and not saving a file you may click cancel at this point.</p>
+</li>
+<li><p class="first">Close the recorder window. You can quit Mayavi, if you want to.</p>
+</li>
+<li><p class="first">Now from the shell do:</p>
+<div class="highlight-python"><pre>$  mayavi2 -x script.py</pre>
+</div>
+<p>or even:</p>
+<div class="highlight-python"><pre>$ python script.py</pre>
+</div>
+<p>These should run all the code to get you where you left.  You can
+feel free to edit this generated script &#8211; in fact that is the whole
+point of automatic script generation!</p>
+</li>
+</ol>
+</blockquote>
+<p>It is important to understand that it is possible to script an existing
+session of Mayavi too.  So, if after starting Mayavi you did a few
+things or ran a Mayavi script and then want to record any further
+actions, that are certainly possible.  Follow the same procedure as
+before.  The only gotcha you have to remember in this case is that the
+script recorder will not create the objects you already have setup on
+the session.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You should also be able to delete/drag drop objects on the Mayavi
+tree view.  However, these probably aren&#8217;t things you&#8217;d want to do
+in an automatic script.</p>
+</div>
+<p>As noted earlier, script recording will work for a <tt class="docutils literal"><span class="pre">mlab</span></tt> session or
+anywhere else where Mayavi is used.  It will not generate any <tt class="docutils literal"><span class="pre">mlab</span></tt>
+specific code but write generic Mayavi code using the OO Mayavi API.</p>
+<div class="admonition warning" id="recording-limitations">
+<p class="first admonition-title">Warning</p>
+<p>Limitations</p>
+<p>The script recorder works for some important actions.  At this point it
+does not support the following actions:</p>
+<ul class="last">
+<li><dl class="first docutils">
+<dt>On the scene, the &#8216;c&#8217;/&#8217;t&#8217;/&#8217;j&#8217;/&#8217;a&#8217;/&#8217;p&#8217; keys are not recorded</dt>
+<dd><p class="first last">correctly since this is much more complicated to implement and
+typically not necessary for basic scripting.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Arbitrary scripting of the interface is obviously not going to work</dt>
+<dd><p class="first last">as you may expect.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Only trait changes and specific calls are recorded explicitly in the</dt>
+<dd><p class="first last">code.  So calling arbitrary methods on arbitrary Mayavi objects will
+not record anything typically.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="command-line-arguments">
+<span id="id5"></span><h2><a class="toc-backref" href="#id11">Command line arguments</a><a class="headerlink" href="#command-line-arguments" title="Permalink to this headline">¶</a></h2>
+<p>The <tt class="docutils literal"><span class="pre">mayavi2</span></tt> application features several useful command line
+arguments that are described in the following section.  These options
+are described in the <tt class="docutils literal"><span class="pre">mayavi2</span></tt> man page as well.</p>
+<p>A complete pipeline may be built from the command line, so that Mayavi
+can be integrated in shell scripts to provide useful visualizations.</p>
+<p>Mayavi can be run like so:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">mayavi2</span> <span class="p">[</span><span class="n">options</span><span class="p">]</span> <span class="p">[</span><span class="n">args</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Where <tt class="docutils literal"><span class="pre">arg1</span></tt>, <tt class="docutils literal"><span class="pre">arg2</span></tt> etc.  are optional file names that correspond
+to saved Mayavi2 visualizations (<tt class="docutils literal"><span class="pre">filename.mv2</span></tt>),  Mayavi2 scripts
+(<tt class="docutils literal"><span class="pre">filename.py</span></tt>) or any datafile supported by Mayavi.  If no options or
+arguments are provided Mayavi will start up with a default blank scene.</p>
+<p>The options are:</p>
+<table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">-h</span></kbd></td>
+<td>This prints all the available command line options and exits.
+Also available through <tt class="docutils literal"><span class="pre">--help</span></tt>.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-V</span></kbd></td>
+<td>This prints the Mayavi version on the command line and exits.
+Also available through <tt class="docutils literal"><span class="pre">--version</span></tt>.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-z <var>file_name</var></span></kbd></td>
+<td>This loads a previously saved Mayavi2 visualization.  Also
+available through <tt class="docutils literal"><span class="pre">--viz</span> <span class="pre">file_name</span></tt> or <tt class="docutils literal"><span class="pre">--visualization</span>
+<span class="pre">file_name</span></tt>.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-d <var>data_file</var></span></kbd></td>
+<td><p class="first">Opens any of the supported data file formats or non-file
+associated data source objects.  This includes VTK file formats
+(<tt class="docutils literal"><span class="pre">*.vtk</span></tt>, <tt class="docutils literal"><span class="pre">*.xml</span></tt>, <tt class="docutils literal"><span class="pre">*.vt[i,p,r,s,u]</span></tt>, <tt class="docutils literal"><span class="pre">*.pvt[i,p,r,s,u]</span></tt>),
+VRML2 (<tt class="docutils literal"><span class="pre">*.wrl</span></tt>), 3D Studio (<tt class="docutils literal"><span class="pre">*.3ds</span></tt>), PLOT3D (<tt class="docutils literal"><span class="pre">*.xyz</span></tt>),
+STL, BYU, RAW, PLY, PDB, SLC, FACET, OBJ, AVSUCD (<tt class="docutils literal"><span class="pre">*.inp</span></tt>),
+GAMBIT (<tt class="docutils literal"><span class="pre">*.neu</span></tt>), Exodus (<tt class="docutils literal"><span class="pre">*.exii</span></tt>), PNG, JPEG, BMP, PNM, DCM,
+DEM, MHA, MHD, MINC, XIMG, TIFF, and various others that are
+supported.</p>
+<p class="last">Note that <tt class="docutils literal"><span class="pre">data_file</span></tt> can also be a source object not associated
+with a file, for example <tt class="docutils literal"><span class="pre">ParametricSurface</span></tt> or <tt class="docutils literal"><span class="pre">PointLoad</span></tt>
+will load the corresponding data sources into Mayavi.  Also
+available through <tt class="docutils literal"><span class="pre">--data</span></tt>.</p>
+</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-m <var>module-name</var></span></kbd></td>
+<td><p class="first">A module is an object that actually visualizes the data.  The
+given <tt class="docutils literal"><span class="pre">module-name</span></tt> is loaded in the current <tt class="docutils literal"><span class="pre">ModuleManager</span></tt>.
+The module name must be a valid one if not you will get an error
+message.</p>
+<p>If a module is specified as <tt class="docutils literal"><span class="pre">package.sub.module.SomeModule</span></tt>
+then the module (<tt class="docutils literal"><span class="pre">SomeModule</span></tt>) is imported from
+<tt class="docutils literal"><span class="pre">package.sub.module</span></tt>.  Standard modules provided with
+<tt class="docutils literal"><span class="pre">mayavi2</span></tt> do not need the full path specification.  For
+example:</p>
+<div class="highlight-python"><pre>mayavi2 -d data.vtk -m Outline -m user_modules.AModule</pre>
+</div>
+<p class="last">In this example <tt class="docutils literal"><span class="pre">Outline</span></tt> is a standard module and
+<tt class="docutils literal"><span class="pre">user_modules.AModule</span></tt> is some user defined module.
+Also available through <tt class="docutils literal"><span class="pre">--module</span></tt>.</p>
+</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-f <var>filter-name</var></span></kbd></td>
+<td><p class="first">A filter is an object that filters out the data in some way or
+the other.  The given <tt class="docutils literal"><span class="pre">filter-name</span></tt> is loaded with respect to
+the current source/filter object.  The filter name must be a
+valid one if not you will get an error message.</p>
+<p>If the filter is specified as <tt class="docutils literal"><span class="pre">package.sub.filter.SomeFilter</span></tt>
+then the filter (<tt class="docutils literal"><span class="pre">SomeFilter</span></tt>) is imported from
+<tt class="docutils literal"><span class="pre">package.sub.filter</span></tt>.  Standard modules provided with
+<tt class="docutils literal"><span class="pre">mayavi2</span></tt> do not need the full path specification.  For
+example:</p>
+<div class="highlight-python"><pre>mayavi2 -d data.vtk -f ExtractVectorNorm -f user_filters.AFilter</pre>
+</div>
+<p class="last">In this example <tt class="docutils literal"><span class="pre">ExtractVectorNorm</span></tt> is a standard filter and
+<tt class="docutils literal"><span class="pre">user_filters.AFilter</span></tt> is some user defined filter.
+Also available through <tt class="docutils literal"><span class="pre">--filter</span></tt>.</p>
+</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-M</span></kbd></td>
+<td>Starts up a new module manager on the Mayavi pipeline. Also
+available through <tt class="docutils literal"><span class="pre">--module-mgr</span></tt>.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-n</span></kbd></td>
+<td>Creates a new window/scene. Any options passed after this will
+apply to this newly created scene.  Also available through
+<tt class="docutils literal"><span class="pre">--new-window</span></tt>.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-o</span></kbd></td>
+<td>Run Mayavi in off-screen mode without any graphical user interface.
+This is most useful for scripts that need to render images
+off-screen (for an animation say) in the background without an
+intrusive user interface popping up.  Mayavi scripts (run via the
+<tt class="docutils literal"><span class="pre">-x</span></tt> argument) should typically work fine in this mode.  Also
+available through, <tt class="docutils literal"><span class="pre">--off-screen</span></tt>.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-x <var>script-file</var></span></kbd></td>
+<td>This executes the given script in a namespace where we guarantee
+that the name &#8216;mayavi&#8217; is Mayavi&#8217;s script instance &#8211; just like
+in the embedded Python interpreter.  Also available through
+<tt class="docutils literal"><span class="pre">--exec</span></tt>.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-t</span></kbd></td>
+<td><p class="first">Runs the Mayavi test suite and exits.  If run as such, this runs
+both the TVTK and Mayavi2 unit tests.  If any additional arguments
+are passed they are passed along to the test runner.  So this may
+be used to run other tests as well.  For example:</p>
+<div class="highlight-python"><pre>mayavi2 -t enthought.persistence</pre>
+</div>
+<p>This will run just the tests inside the <tt class="docutils literal"><span class="pre">enthought.persistence</span></tt>
+package.  You can also specify a directory with test files to run
+with this, for example:</p>
+<div class="highlight-python"><pre>mayavi2 -t relative_path_to/integrationtests/mayavi</pre>
+</div>
+<p class="last">will run the integration tests from the Mayavi sources.  Also
+available as <tt class="docutils literal"><span class="pre">--test</span></tt>.</p>
+</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">-s <var>python-expression</var></span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td><p class="first">Execute the python-expression on the last created object.  For
+example, let&#8217;s say the previous object was a module.  If you want
+to set the color of that object and save the scene, you may do:</p>
+<div class="highlight-python"><pre>$ mayavi2 [...] -m Outline -s"actor.property.color = (1,0,0)" \
+ -s "scene.save('test.png', size=(800, 800))"</pre>
+</div>
+<p class="last">You should use quotes for the expression.  This is also available
+through <tt class="docutils literal"><span class="pre">--set</span></tt>.</p>
+</td></tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Note that <tt class="docutils literal"><span class="pre">-x</span></tt> or <tt class="docutils literal"><span class="pre">--exec</span></tt> uses <cite>execfile</cite>, so this can be
+dangerous if the script does something nasty!  Similarly, <tt class="docutils literal"><span class="pre">-s</span></tt> or
+<tt class="docutils literal"><span class="pre">--set</span></tt> uses <cite>exec</cite>, which can also be dangerous if abused.</p>
+</div>
+<p>It is important to note that Mayavi&#8217;s <strong>command line arguments are
+processed sequentially</strong> in the same order they are given.  This
+allows users to do interesting things.</p>
+<p>Here are a few examples of the command line arguments:</p>
+<div class="highlight-python"><pre>$ mayavi2 -d ParametricSurface -s "function='dini'" -m Surface \
+  -s "module_manager.scalar_lut_manager.show_scalar_bar = True" \
+  -s "scene.isometric_view()" -s "scene.save('snapshot.png')"
+
+$ mayavi2 -d heart.vtk -m Axes -m Outline -m GridPlane \
+  -m ContourGridPlane -m IsoSurface
+
+$ mayavi2 -d fire_ug.vtu -m Axes -m Outline -m VectorCutPlane \
+  -f MaskPoints -m Glyph</pre>
+</div>
+<p>In the above examples, <tt class="docutils literal"><span class="pre">heart.vtk</span></tt> and <tt class="docutils literal"><span class="pre">fire_ug.vtu</span></tt> VTK files can
+be found in the <tt class="docutils literal"><span class="pre">examples/data</span></tt> directory in the source.  They may
+also be installed on your computer depending on your particular
+platform.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/mayavi-logo.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Using the Mayavi application</a><ul>
+<li><a class="reference internal" href="#tutorial-examples-to-learn-mayavi">Tutorial examples to learn Mayavi</a><ul>
+</ul>
+</li>
+<li><a class="reference internal" href="#general-layout-of-ui">General layout of UI</a></li>
+<li><a class="reference internal" href="#visualizing-data">Visualizing data</a><ul>
+</ul>
+</li>
+<li><a class="reference internal" href="#interaction-with-the-scene">Interaction with the scene</a><ul>
+<li><a class="reference internal" href="#mouse-interaction">Mouse interaction</a></li>
+<li><a class="reference internal" href="#keyboard-interaction">Keyboard interaction</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#from-interactive-usage-to-scripting">From interactive usage to scripting</a><ul>
+<li><a class="reference internal" href="#the-embedded-python-interpreter">The embedded Python interpreter</a></li>
+<li><a class="reference internal" href="#recording-mayavi-actions-to-a-script">Recording Mayavi actions to a script</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#command-line-arguments">Command line arguments</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="installation.html"
+                        title="previous chapter">Installation</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="example_parametric_surface.html"
+                        title="next chapter">Parametric surfaces: a simple introduction to visualization</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/application.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+    <div id="searchbox">
+	<h3>Google Search</h3>
+    <form method="get" action="http://www.google.com/search">
+
+    <table border="0" cellpadding="0">
+    <tr><td>
+    <input type="text"   name="q" size="20"
+    maxlength="255" value="" />
+    <input type="submit" value="Go" /></td></tr>
+    <tr><td align="center" style="font-size:75%; color: #FFFFFF;">
+    <input type="checkbox"  name="sitesearch"
+    value="http://code.enthought.com/projects/mayavi/docs/development/html/mayavi/" checked /> only search Mayavi documentation<br />
+    </td></tr></table>
+
+</form>
+    </div>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="example_parametric_surface.html" title="Parametric surfaces: a simple introduction to visualization"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="installation.html" title="Installation"
+             >previous</a> |</li>
+        <li><a href="index.html">Mayavi v3.4.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
+      Last updated on Jan 27, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
+    </div>
+  </body>
+</html>

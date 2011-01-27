@@ -1,0 +1,230 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Tvtk in mayavi example &mdash; Mayavi v3.4.2 documentation</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.4.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Mayavi v3.4.2 documentation" href="../index.html" />
+    <link rel="up" title="Example gallery" href="examples.html" />
+    <link rel="next" title="Julia set decimation example" href="example_julia_set_decimation.html" />
+    <link rel="prev" title="Lorenz example" href="example_lorenz.html" />
+<style type="text/css">
+  body {
+    /* Very bottom copyright, etc. info */
+    background: #4d598d;
+  }
+
+  .documentwrapper {
+    /* Blank area on left bar */
+    background: #24326e;
+  }
+
+  .related {
+    /* Long horizontal nav bars */
+    background: #3c4b8a!important;
+  }
+
+  .sphinxsidebarwrapper {
+    /* Filled part of left sidebar */
+    background: #24326e;
+  }
+
+  a {
+    color: #253370;
+  }
+
+  .sphinxsidebarwrapper a {
+    color: #f2f2f2!important;
+  }
+</style>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="example_julia_set_decimation.html" title="Julia set decimation example"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="example_lorenz.html" title="Lorenz example"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+          <li><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="tvtk-in-mayavi-example">
+<span id="example-tvtk-in-mayavi"></span><h1>Tvtk in mayavi example<a class="headerlink" href="#tvtk-in-mayavi-example" title="Permalink to this headline">¶</a></h1>
+<p>An example of pure TVTK programming to build TVTK objects, which are then
+added to a Mayavi scene.</p>
+<p>This example show how pure TVTK objects can be added to a Mayavi scene.</p>
+<p>This programming style does not allow to benefit from the data-management
+facilities of Mayavi (the pipeline, the data-oriented mlab functions),
+but it allows to easily reuse VTK code together with Mayavi or mlab code.</p>
+<p>If you want to use arbritrary VTK filters with Mayavi, it is best to use
+the UserDefined Mayavi filter, which enables the user to insert any VTK
+filter in the Mayavi pipeline. See, for instance, the <a class="reference internal" href="example_mri.html#example-mri"><em>Mri example</em></a>
+for example of the UserDefined filter. For a full-blown example of a
+complex VTK pipeline built with Mayavi, see
+<a class="reference internal" href="example_tvtk_segmentation.html#example-tvtk-segmentation"><em>Tvtk segmentation example</em></a>.</p>
+<img alt="../_images/example_tvtk_in_mayavi.jpg" class="align-center" src="../_images/example_tvtk_in_mayavi.jpg" />
+<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/tvtk_in_mayavi.py"><tt class="xref download docutils literal"><span class="pre">tvtk_in_mayavi.py</span></tt></a></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Author: Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt; </span>
+<span class="c"># Copyright (c) 2008, Enthought, Inc.</span>
+<span class="c"># License: BSD Style.</span>
+
+<span class="kn">from</span> <span class="nn">enthought.mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
+
+<span class="c"># To access any VTK object, we use &#39;tvtk&#39;, which is a Python wrapping of</span>
+<span class="c"># VTK replacing C++ setters and getters by Python properties and</span>
+<span class="c"># converting numpy arrays to VTK arrays when setting data.</span>
+<span class="kn">from</span> <span class="nn">enthought.tvtk.api</span> <span class="kn">import</span> <span class="n">tvtk</span>
+
+<span class="n">v</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+
+<span class="c"># Create a first sphere</span>
+<span class="c"># The source generates data points</span>
+<span class="n">sphere</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">SphereSource</span><span class="p">(</span><span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="c"># The mapper converts them into position in, 3D with optionally color (if </span>
+<span class="c"># scalar information is available).</span>
+<span class="n">sphere_mapper</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">PolyDataMapper</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="n">sphere</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+<span class="c"># The Property will give the parameters of the material.</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">Property</span><span class="p">(</span><span class="n">opacity</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+<span class="c"># The actor is the actually object in the scene.</span>
+<span class="n">sphere_actor</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">Actor</span><span class="p">(</span><span class="n">mapper</span><span class="o">=</span><span class="n">sphere_mapper</span><span class="p">,</span> <span class="nb">property</span><span class="o">=</span><span class="n">p</span><span class="p">)</span>
+<span class="n">v</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">add_actor</span><span class="p">(</span><span class="n">sphere_actor</span><span class="p">)</span>
+
+<span class="c"># Create a second sphere</span>
+<span class="n">sphere2</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">SphereSource</span><span class="p">(</span><span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">sphere_mapper2</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">PolyDataMapper</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="n">sphere2</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">Property</span><span class="p">(</span><span class="n">opacity</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+<span class="n">sphere_actor2</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">Actor</span><span class="p">(</span><span class="n">mapper</span><span class="o">=</span><span class="n">sphere_mapper2</span><span class="p">,</span> <span class="nb">property</span><span class="o">=</span><span class="n">p</span><span class="p">)</span>
+<span class="n">v</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">add_actor</span><span class="p">(</span><span class="n">sphere_actor2</span><span class="p">)</span>
+
+<span class="c"># Create a line between the two spheres</span>
+<span class="n">line</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">LineSource</span><span class="p">(</span><span class="n">point1</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">point2</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">line_mapper</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">PolyDataMapper</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="n">line</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+<span class="n">line_actor</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">Actor</span><span class="p">(</span><span class="n">mapper</span><span class="o">=</span><span class="n">line_mapper</span><span class="p">)</span>
+<span class="n">v</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">add_actor</span><span class="p">(</span><span class="n">line_actor</span><span class="p">)</span>
+
+<span class="c"># And display text</span>
+<span class="n">vtext</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">VectorText</span><span class="p">()</span>
+<span class="n">vtext</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s">&#39;Mayavi&#39;</span>
+<span class="n">text_mapper</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">PolyDataMapper</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="n">vtext</span><span class="o">.</span><span class="n">get_output</span><span class="p">())</span>
+<span class="n">p2</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">Property</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">))</span>
+<span class="n">text_actor</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">Follower</span><span class="p">(</span><span class="n">mapper</span><span class="o">=</span><span class="n">text_mapper</span><span class="p">,</span> <span class="nb">property</span><span class="o">=</span><span class="n">p2</span><span class="p">)</span>
+<span class="n">text_actor</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">v</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">add_actor</span><span class="p">(</span><span class="n">text_actor</span><span class="p">)</span>
+
+<span class="c"># Choose a view angle, and display the figure</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="mi">85</span><span class="p">,</span> <span class="o">-</span><span class="mi">17</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="p">[</span> <span class="mf">3.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.3</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.8</span><span class="p">])</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/mayavi-logo.png" alt="Logo"/>
+            </a></p>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="example_lorenz.html"
+                        title="previous chapter">Lorenz example</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="example_julia_set_decimation.html"
+                        title="next chapter">Julia set decimation example</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/auto/example_tvtk_in_mayavi.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+    <div id="searchbox">
+	<h3>Google Search</h3>
+    <form method="get" action="http://www.google.com/search">
+
+    <table border="0" cellpadding="0">
+    <tr><td>
+    <input type="text"   name="q" size="20"
+    maxlength="255" value="" />
+    <input type="submit" value="Go" /></td></tr>
+    <tr><td align="center" style="font-size:75%; color: #FFFFFF;">
+    <input type="checkbox"  name="sitesearch"
+    value="http://code.enthought.com/projects/mayavi/docs/development/html/mayavi/" checked /> only search Mayavi documentation<br />
+    </td></tr></table>
+
+</form>
+    </div>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="example_julia_set_decimation.html" title="Julia set decimation example"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="example_lorenz.html" title="Lorenz example"
+             >previous</a> |</li>
+        <li><a href="../index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+          <li><a href="examples.html" >Example gallery</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
+      Last updated on Jan 27, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
+    </div>
+  </body>
+</html>

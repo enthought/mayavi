@@ -1,0 +1,247 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Wx mayavi embed in notebook example &mdash; Mayavi v3.4.2 documentation</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.4.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Mayavi v3.4.2 documentation" href="../index.html" />
+    <link rel="up" title="Example gallery" href="examples.html" />
+    <link rel="next" title="Subclassing mayavi application example" href="example_subclassing_mayavi_application.html" />
+    <link rel="prev" title="Mlab interactive dialog example" href="example_mlab_interactive_dialog.html" />
+<style type="text/css">
+  body {
+    /* Very bottom copyright, etc. info */
+    background: #4d598d;
+  }
+
+  .documentwrapper {
+    /* Blank area on left bar */
+    background: #24326e;
+  }
+
+  .related {
+    /* Long horizontal nav bars */
+    background: #3c4b8a!important;
+  }
+
+  .sphinxsidebarwrapper {
+    /* Filled part of left sidebar */
+    background: #24326e;
+  }
+
+  a {
+    color: #253370;
+  }
+
+  .sphinxsidebarwrapper a {
+    color: #f2f2f2!important;
+  }
+</style>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="example_subclassing_mayavi_application.html" title="Subclassing mayavi application example"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="example_mlab_interactive_dialog.html" title="Mlab interactive dialog example"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+          <li><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="wx-mayavi-embed-in-notebook-example">
+<span id="example-wx-mayavi-embed-in-notebook"></span><h1>Wx mayavi embed in notebook example<a class="headerlink" href="#wx-mayavi-embed-in-notebook-example" title="Permalink to this headline">¶</a></h1>
+<p>This example show how to embedded Mayavi in a wx notebook.</p>
+<p>This is a slightly more complex example than the <cite>wx_embedding</cite> example (
+<a class="reference internal" href="example_wx_embedding.html#example-wx-embedding"><em>Wx embedding example</em></a>), and can be used to see how a large wx
+application can use different Mayavi views.</p>
+<p>In this example, we embed one single Mayavi scene in a Wx notebook, with
+2 tabs, each one of them hosting a different view of the scene.</p>
+<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/wx_mayavi_embed_in_notebook.py"><tt class="xref download docutils literal"><span class="pre">wx_mayavi_embed_in_notebook.py</span></tt></a></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># First thing, we need to make sure that we are importing a</span>
+<span class="c"># recent-enough version of wx</span>
+<span class="kn">import</span> <span class="nn">wxversion</span>
+<span class="n">wxversion</span><span class="o">.</span><span class="n">ensureMinimal</span><span class="p">(</span><span class="s">&#39;2.8&#39;</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">ogrid</span><span class="p">,</span> <span class="n">sin</span>
+
+<span class="kn">from</span> <span class="nn">enthought.traits.api</span> <span class="kn">import</span> <span class="n">HasTraits</span><span class="p">,</span> <span class="n">Instance</span>
+<span class="kn">from</span> <span class="nn">enthought.traits.ui.api</span> <span class="kn">import</span> <span class="n">View</span><span class="p">,</span> <span class="n">Item</span>
+
+<span class="kn">from</span> <span class="nn">enthought.mayavi.sources.api</span> <span class="kn">import</span> <span class="n">ArraySource</span>
+<span class="kn">from</span> <span class="nn">enthought.mayavi.modules.api</span> <span class="kn">import</span> <span class="n">IsoSurface</span>
+
+<span class="kn">from</span> <span class="nn">enthought.mayavi.core.ui.api</span> <span class="kn">import</span> <span class="n">MlabSceneModel</span><span class="p">,</span> <span class="n">SceneEditor</span>
+
+<span class="c">#-------------------------------------------------------------------------------</span>
+<span class="k">class</span> <span class="nc">MayaviView</span><span class="p">(</span><span class="n">HasTraits</span><span class="p">):</span>
+
+    <span class="n">scene</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">MlabSceneModel</span><span class="p">,</span> <span class="p">())</span>
+    
+    <span class="c"># The layout of the panel created by traits.</span>
+    <span class="n">view</span> <span class="o">=</span> <span class="n">View</span><span class="p">(</span><span class="n">Item</span><span class="p">(</span><span class="s">&#39;scene&#39;</span><span class="p">,</span> <span class="n">editor</span><span class="o">=</span><span class="n">SceneEditor</span><span class="p">(),</span> 
+                    <span class="n">resizable</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                    <span class="n">show_label</span><span class="o">=</span><span class="bp">False</span><span class="p">),</span>
+                <span class="n">resizable</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">HasTraits</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">ogrid</span><span class="p">[</span><span class="o">-</span><span class="mi">10</span><span class="p">:</span><span class="mi">10</span><span class="p">:</span><span class="mi">100</span><span class="n">j</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">:</span><span class="mi">10</span><span class="p">:</span><span class="mi">100</span><span class="n">j</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">:</span><span class="mi">10</span><span class="p">:</span><span class="mi">100</span><span class="n">j</span><span class="p">]</span>
+        <span class="n">scalars</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="o">*</span><span class="n">z</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="o">*</span><span class="n">z</span><span class="p">)</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="n">ArraySource</span><span class="p">(</span><span class="n">scalar_data</span><span class="o">=</span><span class="n">scalars</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">mayavi_scene</span><span class="o">.</span><span class="n">add_child</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+        <span class="n">src</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">IsoSurface</span><span class="p">())</span>
+
+
+<span class="c">#-------------------------------------------------------------------------------</span>
+<span class="c"># Wx Code</span>
+<span class="kn">import</span> <span class="nn">wx</span>
+
+<span class="k">class</span> <span class="nc">MainWindow</span><span class="p">(</span><span class="n">wx</span><span class="o">.</span><span class="n">Frame</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
+        <span class="n">wx</span><span class="o">.</span><span class="n">Frame</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="s">&#39;Mayavi in a Wx notebook&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">notebook</span> <span class="o">=</span> <span class="n">wx</span><span class="o">.</span><span class="n">aui</span><span class="o">.</span><span class="n">AuiNotebook</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> 
+                <span class="n">style</span><span class="o">=</span><span class="n">wx</span><span class="o">.</span><span class="n">aui</span><span class="o">.</span><span class="n">AUI_NB_TAB_SPLIT</span> <span class="o">|</span> <span class="n">wx</span><span class="o">.</span><span class="n">aui</span><span class="o">.</span><span class="n">AUI_NB_CLOSE_ON_ALL_TABS</span>
+                        <span class="o">|</span> <span class="n">wx</span><span class="o">.</span><span class="n">aui</span><span class="o">.</span><span class="n">AUI_NB_LEFT</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">mayavi_view</span> <span class="o">=</span> <span class="n">MayaviView</span><span class="p">()</span>
+
+        <span class="c"># The edit_traits method opens a first view of our &#39;MayaviView&#39;</span>
+        <span class="c"># object</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">control</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mayavi_view</span><span class="o">.</span><span class="n">edit_traits</span><span class="p">(</span>
+                        <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
+                        <span class="n">kind</span><span class="o">=</span><span class="s">&#39;subpanel&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">control</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">notebook</span><span class="o">.</span><span class="n">AddPage</span><span class="p">(</span><span class="n">page</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">control</span><span class="p">,</span> <span class="n">caption</span><span class="o">=</span><span class="s">&#39;Display 1&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">mayavi_view2</span> <span class="o">=</span> <span class="n">MayaviView</span><span class="p">()</span>
+
+        <span class="c"># The second call to edit_traits opens a second view</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">control2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mayavi_view2</span><span class="o">.</span><span class="n">edit_traits</span><span class="p">(</span>
+                        <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
+                        <span class="n">kind</span><span class="o">=</span><span class="s">&#39;subpanel&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">control</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">notebook</span><span class="o">.</span><span class="n">AddPage</span><span class="p">(</span><span class="n">page</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">control2</span><span class="p">,</span> <span class="n">caption</span><span class="o">=</span><span class="s">&#39;Display 2&#39;</span><span class="p">)</span>
+
+        <span class="n">sizer</span> <span class="o">=</span> <span class="n">wx</span><span class="o">.</span><span class="n">BoxSizer</span><span class="p">()</span>
+        <span class="n">sizer</span><span class="o">.</span><span class="n">Add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">notebook</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="n">wx</span><span class="o">.</span><span class="n">EXPAND</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">SetSizer</span><span class="p">(</span><span class="n">sizer</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">Show</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">wx</span><span class="o">.</span><span class="n">PySimpleApp</span><span class="p">()</span>
+    <span class="n">frame</span> <span class="o">=</span> <span class="n">MainWindow</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="n">wx</span><span class="o">.</span><span class="n">ID_ANY</span><span class="p">)</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">MainLoop</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/mayavi-logo.png" alt="Logo"/>
+            </a></p>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="example_mlab_interactive_dialog.html"
+                        title="previous chapter">Mlab interactive dialog example</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="example_subclassing_mayavi_application.html"
+                        title="next chapter">Subclassing mayavi application example</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/auto/example_wx_mayavi_embed_in_notebook.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+    <div id="searchbox">
+	<h3>Google Search</h3>
+    <form method="get" action="http://www.google.com/search">
+
+    <table border="0" cellpadding="0">
+    <tr><td>
+    <input type="text"   name="q" size="20"
+    maxlength="255" value="" />
+    <input type="submit" value="Go" /></td></tr>
+    <tr><td align="center" style="font-size:75%; color: #FFFFFF;">
+    <input type="checkbox"  name="sitesearch"
+    value="http://code.enthought.com/projects/mayavi/docs/development/html/mayavi/" checked /> only search Mayavi documentation<br />
+    </td></tr></table>
+
+</form>
+    </div>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="example_subclassing_mayavi_application.html" title="Subclassing mayavi application example"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="example_mlab_interactive_dialog.html" title="Mlab interactive dialog example"
+             >previous</a> |</li>
+        <li><a href="../index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+          <li><a href="examples.html" >Example gallery</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
+      Last updated on Jan 27, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
+    </div>
+  </body>
+</html>

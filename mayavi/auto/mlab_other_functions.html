@@ -1,0 +1,667 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Other functions &mdash; Mayavi v3.4.2 documentation</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.4.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Mayavi v3.4.2 documentation" href="../index.html" />
+    <link rel="up" title="MLab reference" href="mlab_reference.html" />
+    <link rel="next" title="Mlab pipeline-control reference" href="../mlab_pipeline_reference.html" />
+    <link rel="prev" title="Camera handling functions" href="mlab_camera.html" />
+<style type="text/css">
+  body {
+    /* Very bottom copyright, etc. info */
+    background: #4d598d;
+  }
+
+  .documentwrapper {
+    /* Blank area on left bar */
+    background: #24326e;
+  }
+
+  .related {
+    /* Long horizontal nav bars */
+    background: #3c4b8a!important;
+  }
+
+  .sphinxsidebarwrapper {
+    /* Filled part of left sidebar */
+    background: #24326e;
+  }
+
+  a {
+    color: #253370;
+  }
+
+  .sphinxsidebarwrapper a {
+    color: #f2f2f2!important;
+  }
+</style>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../mlab_pipeline_reference.html" title="Mlab pipeline-control reference"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="mlab_camera.html" title="Camera handling functions"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+          <li><a href="mlab_reference.html" accesskey="U">MLab reference</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>This section is only a reference describing the function, please see
+the chapter on <a class="reference internal" href="../mlab.html#simple-scripting-with-mlab"><em>mlab: Python scripting for 3D plotting</em></a> for an introduction to
+mlab and how to interact with and assemble the functions of <cite>mlab</cite>.</p>
+<p class="last">Please see the section on <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><em>Running mlab scripts</em></a> for
+instructions on running the examples.</p>
+</div>
+<div class="section" id="other-functions">
+<h1>Other functions<a class="headerlink" href="#other-functions" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="animate">
+<h2>animate<a class="headerlink" href="#animate" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="enthought.mayavi.mlab.animate">
+<tt class="descclassname">enthought.mayavi.mlab.</tt><tt class="descname">animate</tt><big>(</big><em>func=None</em>, <em>delay=500</em>, <em>ui=True</em><big>)</big><a class="headerlink" href="#enthought.mayavi.mlab.animate" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>::</dt>
+<dd><dl class="first last docutils">
+<dt>A convenient decorator to animate a generator that performs an</dt>
+<dd><p class="first">animation.  The <cite>delay</cite> parameter specifies the delay (in
+milliseconds) between calls to the decorated function. If <cite>ui</cite> is
+True, then a simple UI for the animator is also popped up.  The
+decorated function will return the <cite>Animator</cite> instance used and a
+user may call its <cite>Stop</cite> method to stop the animation.</p>
+<p>If an ordinary function is decorated a <cite>TypeError</cite> will be raised.</p>
+<p><strong>Parameters</strong></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">delay:</th><td class="field-body">int specifying the time interval in milliseconds between
+calls to the function.</td>
+</tr>
+<tr class="field"><th class="field-name">ui:</th><td class="field-body">bool specifying if a UI controlling the animation is to be
+provided.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns</strong></p>
+<p>The decorated function returns an <cite>Animator</cite> instance.</p>
+<p><strong>Examples</strong></p>
+<p>Here is the example provided in the Animator class documentation:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">enthought.mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@mlab.animate</span>
+<span class="gp">... </span><span class="k">def</span> <span class="nf">anim</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="n">f</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span>
+<span class="gp">... </span>    <span class="k">while</span> <span class="mi">1</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="n">f</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">azimuth</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="n">f</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">render</span><span class="p">()</span>
+<span class="gp">... </span>        <span class="k">yield</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">anim</span><span class="p">()</span> <span class="c"># Starts the animation.</span>
+</pre></div>
+</div>
+<p>For more specialized use you can pass arguments to the decorator:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">enthought.mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@mlab.animate</span><span class="p">(</span><span class="n">delay</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">ui</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="gp">... </span><span class="k">def</span> <span class="nf">anim</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="n">f</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span>
+<span class="gp">... </span>    <span class="k">while</span> <span class="mi">1</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="n">f</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">azimuth</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">... </span>        <span class="n">f</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">render</span><span class="p">()</span>
+<span class="gp">... </span>        <span class="k">yield</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">anim</span><span class="p">()</span> <span class="c"># Starts the animation without a UI.</span>
+</pre></div>
+</div>
+<p><strong>Notes</strong></p>
+<p class="last">If you want to modify the data plotted by an <cite>mlab</cite> function call,
+please refer to the section on: <a class="reference internal" href="../mlab_animating.html#mlab-animating-data"><em>Animating the data</em></a>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="axes">
+<h2>axes<a class="headerlink" href="#axes" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="enthought.mayavi.mlab.axes">
+<tt class="descclassname">enthought.mayavi.mlab.</tt><tt class="descname">axes</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.mlab.axes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates axes for the current (or given) object.</p>
+<p><strong>Keyword arguments:</strong></p>
+<blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+if any, when specified. This is specified as a
+triplet of float ranging from 0 to 1, eg (1, 1,
+1) for white.</td>
+</tr>
+<tr class="field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+Default is the object&#8217;s extents.</td>
+</tr>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+</tr>
+<tr class="field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
+Default: 2.0</td>
+</tr>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+</tr>
+<tr class="field"><th class="field-name">nb_labels:</th><td class="field-body">The number of labels along each direction Must be a legal
+value. Default: 2</td>
+</tr>
+<tr class="field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
+Default: 1.0</td>
+</tr>
+<tr class="field"><th class="field-name">ranges:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+Ranges of the labels displayed on the axes.
+Default is the object&#8217;s extents.</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">x_axis_visibility:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">Whether or not the x axis is visible (boolean)</td>
+</tr>
+<tr class="field"><th class="field-name">xlabel:</th><td class="field-body">the label of the x axis</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">y_axis_visibility:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">Whether or not the y axis is visible (boolean)</td>
+</tr>
+<tr class="field"><th class="field-name">ylabel:</th><td class="field-body">the label of the y axis</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">z_axis_visibility:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">Whether or not the z axis is visible (boolean)</td>
+</tr>
+<tr class="field"><th class="field-name">zlabel:</th><td class="field-body">the label of the z axis</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+</dd></dl>
+
+</div>
+<div class="section" id="get-engine">
+<h2>get_engine<a class="headerlink" href="#get-engine" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="enthought.mayavi.mlab.get_engine">
+<tt class="descclassname">enthought.mayavi.mlab.</tt><tt class="descname">get_engine</tt><big>(</big><em>self</em><big>)</big><a class="headerlink" href="#enthought.mayavi.mlab.get_engine" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an engine in agreement with the options.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="orientation-axes">
+<h2>orientation_axes<a class="headerlink" href="#orientation-axes" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="enthought.mayavi.mlab.orientation_axes">
+<tt class="descclassname">enthought.mayavi.mlab.</tt><tt class="descname">orientation_axes</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.mlab.orientation_axes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Applies the OrientationAxes mayavi module to the given VTK data object.</p>
+<p><strong>Keyword arguments:</strong></p>
+<blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+if any, when specified. This is specified as a
+triplet of float ranging from 0 to 1, eg (1, 1,
+1) for white.</td>
+</tr>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+</tr>
+<tr class="field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
+Default: 2.0</td>
+</tr>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+</tr>
+<tr class="field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
+Default: 1.0</td>
+</tr>
+<tr class="field"><th class="field-name">xlabel:</th><td class="field-body">the label of the x axis</td>
+</tr>
+<tr class="field"><th class="field-name">ylabel:</th><td class="field-body">the label of the y axis</td>
+</tr>
+<tr class="field"><th class="field-name">zlabel:</th><td class="field-body">the label of the z axis</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+</dd></dl>
+
+</div>
+<div class="section" id="outline">
+<h2>outline<a class="headerlink" href="#outline" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="enthought.mayavi.mlab.outline">
+<tt class="descclassname">enthought.mayavi.mlab.</tt><tt class="descname">outline</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.mlab.outline" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates an outline for the current (or given) object.</p>
+<p><strong>Keyword arguments:</strong></p>
+<blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+if any, when specified. This is specified as a
+triplet of float ranging from 0 to 1, eg (1, 1,
+1) for white.</td>
+</tr>
+<tr class="field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+Default is the object&#8217;s extents.</td>
+</tr>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+</tr>
+<tr class="field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
+Default: 2.0</td>
+</tr>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+</tr>
+<tr class="field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
+Default: 1.0</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+</dd></dl>
+
+</div>
+<div class="section" id="set-engine">
+<h2>set_engine<a class="headerlink" href="#set-engine" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="enthought.mayavi.mlab.set_engine">
+<tt class="descclassname">enthought.mayavi.mlab.</tt><tt class="descname">set_engine</tt><big>(</big><em>self</em>, <em>engine</em><big>)</big><a class="headerlink" href="#enthought.mayavi.mlab.set_engine" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the mlab engine.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="show">
+<h2>show<a class="headerlink" href="#show" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="enthought.mayavi.mlab.show">
+<tt class="descclassname">enthought.mayavi.mlab.</tt><tt class="descname">show</tt><big>(</big><em>func=None</em>, <em>stop=False</em><big>)</big><a class="headerlink" href="#enthought.mayavi.mlab.show" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start interacting with the figure.</p>
+<p>By default, this function simply creates a GUI and starts its
+event loop if needed.</p>
+<p>If it is used as a decorator, then it may be used to decorate a
+function which requires a UI.   If the GUI event loop is already
+running it simply runs the function.  If not the event loop is
+started and function is run in the toolkit&#8217;s event loop.  The choice
+of UI is via <cite>ETSConfig.toolkit</cite>.</p>
+<p>If the argument stop is set to True then it pops up a UI where the
+user can stop the event loop.  Subsequent calls to <cite>show</cite> will
+restart the event loop.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">stop:</th><td class="field-body">A boolean which specifies if a UI dialog is displayed which
+allows the event loop to be stopped.</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p><strong>Examples</strong></p>
+<p>Here is a simple example demonstrating the use of show:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">enthought.mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mlab</span><span class="o">.</span><span class="n">test_contour3d</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mlab</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>You can stop interaction via a simple pop up UI like so:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">mlab</span><span class="o">.</span><span class="n">test_contour3d</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mlab</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">stop</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The decorator can be used like so:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="nd">@mlab.show</span>
+<span class="gp">... </span><span class="k">def</span> <span class="nf">do</span><span class="p">():</span>
+<span class="gp">... </span>   <span class="n">mlab</span><span class="o">.</span><span class="n">test_contour3d</span><span class="p">()</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">do</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The decorator can also be passed the stop argument:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="nd">@mlab.show</span><span class="p">(</span><span class="n">stop</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="gp">... </span><span class="k">def</span> <span class="nf">do</span><span class="p">():</span>
+<span class="gp">... </span>   <span class="n">mlab</span><span class="o">.</span><span class="n">test_contour3d</span><span class="p">()</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">do</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="show-engine">
+<h2>show_engine<a class="headerlink" href="#show-engine" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="enthought.mayavi.mlab.show_engine">
+<tt class="descclassname">enthought.mayavi.mlab.</tt><tt class="descname">show_engine</tt><big>(</big><big>)</big><a class="headerlink" href="#enthought.mayavi.mlab.show_engine" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function is deprecated, please use show_pipeline.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="show-pipeline">
+<h2>show_pipeline<a class="headerlink" href="#show-pipeline" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="enthought.mayavi.mlab.show_pipeline">
+<tt class="descclassname">enthought.mayavi.mlab.</tt><tt class="descname">show_pipeline</tt><big>(</big><em>self</em>, <em>engine=None</em>, <em>rich_view=True</em><big>)</big><a class="headerlink" href="#enthought.mayavi.mlab.show_pipeline" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show a dialog with the mayavi pipeline. This dialog allows to
+edit graphicaly the properties of the different objects on
+the scenes.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="start-recording">
+<h2>start_recording<a class="headerlink" href="#start-recording" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="enthought.mayavi.mlab.start_recording">
+<tt class="descclassname">enthought.mayavi.mlab.</tt><tt class="descname">start_recording</tt><big>(</big><em>ui=True</em><big>)</big><a class="headerlink" href="#enthought.mayavi.mlab.start_recording" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start automatic script recording.  If the <cite>ui</cite> parameter is
+<cite>True</cite>, it creates a recorder with a user interface, if not it
+creates a vanilla recorder without a UI.</p>
+<dl class="docutils">
+<dt><strong>Returns</strong></dt>
+<dd>The <cite>Recorder</cite> instance created.</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="stop-recording">
+<h2>stop_recording<a class="headerlink" href="#stop-recording" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="enthought.mayavi.mlab.stop_recording">
+<tt class="descclassname">enthought.mayavi.mlab.</tt><tt class="descname">stop_recording</tt><big>(</big><em>file=None</em><big>)</big><a class="headerlink" href="#enthought.mayavi.mlab.stop_recording" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stop the automatic script recording.</p>
+<p><strong>Parameters</strong></p>
+<blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">file:</th><td class="field-body">An open file or a filename or <cite>None</cite>.  If this is <cite>None</cite>,
+nothing is saved.</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+</dd></dl>
+
+</div>
+<div class="section" id="text">
+<h2>text<a class="headerlink" href="#text" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="enthought.mayavi.mlab.text">
+<tt class="descclassname">enthought.mayavi.mlab.</tt><tt class="descname">text</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.mlab.text" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a text on the figure.</p>
+<p><strong>Function signature</strong>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">text</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>x, and y are the position of the origin of the text. If no z
+keyword argument is given, x and y are the 2D projection of the
+figure, they belong to [0, 1]. If a z keyword  argument is given, the
+text is positionned in 3D, in figure coordinnates.</p>
+<p><strong>Keyword arguments:</strong></p>
+<blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+if any, when specified. This is specified as a
+triplet of float ranging from 0 to 1, eg (1, 1,
+1) for white.</td>
+</tr>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+</tr>
+<tr class="field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
+Default: 2.0</td>
+</tr>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+</tr>
+<tr class="field"><th class="field-name">opacity:</th><td class="field-body">The opacity of the text.</td>
+</tr>
+<tr class="field"><th class="field-name">width:</th><td class="field-body">width of the text.</td>
+</tr>
+<tr class="field"><th class="field-name">z:</th><td class="field-body">Optional z position. When specified, the
+text is positioned in 3D</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+</dd></dl>
+
+</div>
+<div class="section" id="text3d">
+<h2>text3d<a class="headerlink" href="#text3d" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="enthought.mayavi.mlab.text3d">
+<tt class="descclassname">enthought.mayavi.mlab.</tt><tt class="descname">text3d</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.mlab.text3d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Positions text at a 3D location in the scene.</p>
+<p><strong>Function signature</strong>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">text3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>x, y, and z are the position of the origin of the text. The
+text is positionned in 3D, in figure coordinnates.</p>
+<p><strong>Keyword arguments:</strong></p>
+<blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+if any, when specified. This is specified as a
+triplet of float ranging from 0 to 1, eg (1, 1,
+1) for white.</td>
+</tr>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+</tr>
+<tr class="field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
+Default: 2.0</td>
+</tr>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+</tr>
+<tr class="field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
+Default: 1.0</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">orient_to_camera:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">if the text is kept oriented to the
+camera, or is pointing in a specific direction,
+regardless of the camera position. Must be a
+boolean. Default: True</td>
+</tr>
+<tr class="field"><th class="field-name">orientation:</th><td class="field-body">the angles giving the orientation of the
+text. If the text is oriented to the camera,
+these angles are referenced to the axis of the
+camera. If not, these angles are referenced to
+the z axis. Must be an array with shape (3,).</td>
+</tr>
+<tr class="field"><th class="field-name">scale:</th><td class="field-body">The scale of the text, in figure units.
+Either a float, or 3-tuple of floats.</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+</dd></dl>
+
+</div>
+<div class="section" id="title">
+<h2>title<a class="headerlink" href="#title" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="enthought.mayavi.mlab.title">
+<tt class="descclassname">enthought.mayavi.mlab.</tt><tt class="descname">title</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.mlab.title" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a title for the figure.</p>
+<p><strong>Function signature</strong>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">title</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Keyword arguments:</strong></p>
+<blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+if any, when specified. This is specified as a
+triplet of float ranging from 0 to 1, eg (1, 1,
+1) for white.</td>
+</tr>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+</tr>
+<tr class="field"><th class="field-name">height:</th><td class="field-body">height of the title, in portion of the
+figure height</td>
+</tr>
+<tr class="field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
+Default: 2.0</td>
+</tr>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+</tr>
+<tr class="field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
+Default: 1.0</td>
+</tr>
+<tr class="field"><th class="field-name">size:</th><td class="field-body">the size of the title</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/mayavi-logo.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Other functions</a><ul>
+<li><a class="reference internal" href="#animate">animate</a></li>
+<li><a class="reference internal" href="#axes">axes</a></li>
+<li><a class="reference internal" href="#get-engine">get_engine</a></li>
+<li><a class="reference internal" href="#orientation-axes">orientation_axes</a></li>
+<li><a class="reference internal" href="#outline">outline</a></li>
+<li><a class="reference internal" href="#set-engine">set_engine</a></li>
+<li><a class="reference internal" href="#show">show</a></li>
+<li><a class="reference internal" href="#show-engine">show_engine</a></li>
+<li><a class="reference internal" href="#show-pipeline">show_pipeline</a></li>
+<li><a class="reference internal" href="#start-recording">start_recording</a></li>
+<li><a class="reference internal" href="#stop-recording">stop_recording</a></li>
+<li><a class="reference internal" href="#text">text</a></li>
+<li><a class="reference internal" href="#text3d">text3d</a></li>
+<li><a class="reference internal" href="#title">title</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="mlab_camera.html"
+                        title="previous chapter">Camera handling functions</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../mlab_pipeline_reference.html"
+                        title="next chapter">Mlab pipeline-control reference</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/auto/mlab_other_functions.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+    <div id="searchbox">
+	<h3>Google Search</h3>
+    <form method="get" action="http://www.google.com/search">
+
+    <table border="0" cellpadding="0">
+    <tr><td>
+    <input type="text"   name="q" size="20"
+    maxlength="255" value="" />
+    <input type="submit" value="Go" /></td></tr>
+    <tr><td align="center" style="font-size:75%; color: #FFFFFF;">
+    <input type="checkbox"  name="sitesearch"
+    value="http://code.enthought.com/projects/mayavi/docs/development/html/mayavi/" checked /> only search Mayavi documentation<br />
+    </td></tr></table>
+
+</form>
+    </div>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../mlab_pipeline_reference.html" title="Mlab pipeline-control reference"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="mlab_camera.html" title="Camera handling functions"
+             >previous</a> |</li>
+        <li><a href="../index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+          <li><a href="mlab_reference.html" >MLab reference</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
+      Last updated on Jan 27, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
+    </div>
+  </body>
+</html>

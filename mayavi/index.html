@@ -1,0 +1,604 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Mayavi: 3D scientific data visualization and plotting in Python &mdash; Mayavi v3.4.2 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '3.4.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Mayavi v3.4.2 documentation" href="#" />
+    <link rel="next" title="An overview of Mayavi" href="overview.html" />
+<style type="text/css">
+  body {
+    /* Very bottom copyright, etc. info */
+    background: #4d598d;
+  }
+
+  .documentwrapper {
+    /* Blank area on left bar */
+    background: #24326e;
+  }
+
+  .related {
+    /* Long horizontal nav bars */
+    background: #3c4b8a!important;
+  }
+
+  .sphinxsidebarwrapper {
+    /* Filled part of left sidebar */
+    background: #24326e;
+  }
+
+  a {
+    color: #253370;
+  }
+
+  .sphinxsidebarwrapper a {
+    color: #f2f2f2!important;
+  }
+</style>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="overview.html" title="An overview of Mayavi"
+             accesskey="N">next</a> |</li>
+        <li><a href="#">Mayavi v3.4.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <style type="text/css">
+  div.bodywrapper h1 {
+      text-align: center;
+      font-size: 200% ;
+  }
+
+</style><style type="text/css">
+  li.toctree-l1 {
+      padding: 0.5em 0 1em 0 ;
+      list-style-type: none;
+      font-size: 150% ;
+      }
+
+  li.toctree-l2 {
+      font-size: 70% ;
+      list-style-type: square;
+      }
+
+  li.toctree-l3 {
+      font-size: 85% ;
+      list-style-type: circle;
+      }
+
+
+</style><div class="section" id="mayavi-3d-scientific-data-visualization-and-plotting-in-python">
+<h1>Mayavi: 3D scientific data visualization and plotting in Python<a class="headerlink" href="#mayavi-3d-scientific-data-visualization-and-plotting-in-python" title="Permalink to this headline">¶</a></h1>
+<table class="contentstable" align="center" style="margin-left: 30px"><tr>
+  <td width="45%" rowspan="4">
+    <img alt="Mayavi banner" src="_downloads/m2_about.jpg"
+          width="100%" />
+  </td>
+  <td width="5%" rowspan="4"></td>
+  <td width="50%">
+    <p class="biglink"><a class="biglink" href="application.html">
+              Using the Mayavi application</a><br/>
+       <span class="linkdescr">
+              Understanding and using the Mayavi interactive application</span></p>
+  </td></tr><tr><td width="50%">
+    <p class="biglink"><a class="biglink" href="mlab.html">
+      Python scripting for 3D plotting</a><br/>
+       <span class="linkdescr">The simple scripting API to Mayavi</span></p>
+  </td></tr><tr><td width="50%">
+    <p class="biglink"><a class="biglink" href="auto/examples.html">
+      Gallery and examples</a><br/>
+       <span class="linkdescr">
+          Example gallery of visualizations,
+          with the Python code that generates them</span></p>
+  </td></tr>
+</table><p>Welcome, this is the user guide for Mayavi, a application and library for
+<strong>interactive scientific data visualization</strong> and <strong>3D plotting in
+Python</strong>.</p>
+<div class="topic">
+<p class="topic-title first">Getting started</p>
+<ul class="simple">
+<li>You want to use an interactive application to visualize your data in
+3D? Read the
+<a class="reference internal" href="application.html#using-the-mayavi-application"><em>Mayavi application section</em></a>.</li>
+<li>You know Python and want to use Mayavi as a Matlab or pylab replacement for
+3D plotting and data visualization with <cite>numpy</cite>? Get started with the
+<a class="reference internal" href="mlab.html#simple-scripting-with-mlab"><em>mlab section</em></a>.</li>
+<li>Sources of inspiration may be found in the <a class="reference internal" href="auto/examples.html#example-gallery"><em>Example gallery</em></a>,
+with example Python code.</li>
+</ul>
+</div>
+<h2>User guide: full table of contents</h2><div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">An overview of Mayavi</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#introduction">Introduction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="overview.html#what-is-mayavi2">What is Mayavi2?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="overview.html#technical-details">Technical details</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#using-mayavi-as-an-application-or-a-library">Using Mayavi as an application, or a library?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#scenes-data-sources-and-visualization-modules-the-pipeline-model">Scenes, data sources, and visualization modules: the pipeline model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#loading-data-into-mayavi">Loading data into Mayavi</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#installing-ready-made-distributions">Installing ready-made distributions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#requirements-for-manual-installs">Requirements for manual installs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#doing-it-yourself-python-packages-eggs">Doing it yourself: Python packages: Eggs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#installing-with-easy-install">Installing with <cite>easy_install</cite></a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#step-by-step-instructions-to-install-with-eggs-under-windows">Step-by-step instructions to install with eggs under Windows</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#under-mac-osx-snow-leopard">Under Mac OSX Snow Leopard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#the-bleeding-edge-svn">The bleeding edge: SVN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#testing-your-installation">Testing your installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#troubleshooting">Troubleshooting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="application.html">Using the Mayavi application</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="application.html#tutorial-examples-to-learn-mayavi">Tutorial examples to learn Mayavi</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="example_parametric_surface.html">Parametric surfaces: a simple introduction to visualization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="example_heart.html">Loading scalar data: the <tt class="docutils literal"><span class="pre">heart.vtk</span></tt> example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="example_fire.html">Visualizing rich datasets: the <tt class="docutils literal"><span class="pre">fire_ug.vtu</span></tt> example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="example_using_with_scipy.html">Using Mayavi with scipy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="example_exploring_a_vector_field.html">Exploring a vector field</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.html#general-layout-of-ui">General layout of UI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application.html#visualizing-data">Visualizing data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="modules.html">Modules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="filters.html">Filters</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.html#interaction-with-the-scene">Interaction with the scene</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.html#mouse-interaction">Mouse interaction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.html#keyboard-interaction">Keyboard interaction</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.html#from-interactive-usage-to-scripting">From interactive usage to scripting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="application.html#the-embedded-python-interpreter">The embedded Python interpreter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="application.html#recording-mayavi-actions-to-a-script">Recording Mayavi actions to a script</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="application.html#command-line-arguments">Command line arguments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="mlab.html"><tt class="docutils literal"><span class="pre">mlab</span></tt>: Python scripting for 3D plotting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="mlab.html#a-demo">A demo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab.html#d-plotting-functions-for-numpy-arrays">3D Plotting functions for numpy arrays</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab.html#d-and-1d-data">0D and 1D data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mlab.html#d-data">2D data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mlab.html#id1">3D data</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab.html#changing-the-looks-of-the-visual-objects-created">Changing the looks of the visual objects created</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab.html#adding-color-or-size-variations">Adding color or size variations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mlab.html#changing-the-scale-and-position-of-objects">Changing the scale and position of objects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mlab.html#changing-object-properties-interactively">Changing object properties interactively</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab.html#figures-legends-camera-and-decorations">Figures, legends, camera and decorations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab.html#handling-several-figures">Handling several figures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mlab.html#figure-decorations">Figure decorations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mlab.html#moving-the-camera">Moving the camera</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab.html#running-mlab-scripts">Running mlab scripts</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab.html#using-mlab-interactively">Using mlab interactively</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mlab.html#using-together-with-matplotlib-s-pylab">Using together with Matplotlib&#8217;s pylab</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mlab.html#in-scripts">In scripts</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab.html#animating-the-data">Animating the data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mlab.html#assembling-pipelines-with-mlab">Assembling pipelines with <cite>mlab</cite></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab.html#data-sources">Data sources</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mlab.html#modules-and-filters">Modules and filters</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab.html#case-studies-of-some-visualizations">Case studies of some visualizations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mlab.html#visualizing-volumetric-scalar-data">Visualizing volumetric scalar data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mlab.html#visualizing-a-vector-field">Visualizing a vector field</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_use.html">Advanced use of Mayavi</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pipeline.html">Organisation of Mayavi visualizations: the pipeline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pipeline.html#anatomy-of-a-mayavi-pipeline">Anatomy of a Mayavi pipeline</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pipeline.html#the-link-between-different-mayavi-entry-points">The link between different Mayavi entry points</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pipeline.html#a-pipeline-example-examined">A pipeline example examined</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="data.html">Data representation in Mayavi</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="data.html#introduction-to-tvtk-datasets">Introduction to TVTK datasets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="data.html#the-flow-of-data">The flow of data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="data.html#retrieving-the-data-from-mayavi-pipelines">Retrieving the data from Mayavi pipelines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="data.html#dissection-of-the-different-tvtk-datasets">Dissection of the different TVTK datasets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="data.html#inserting-tvtk-datasets-in-the-mayavi-pipeline">Inserting TVTK datasets in the Mayavi pipeline</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mayavi_objects.html">Objects populating the Mayavi pipeline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mayavi_objects.html#scene">Scene</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mayavi_objects.html#source">Source</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mayavi_objects.html#filter">Filter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mayavi_objects.html#modulemanager-colors-and-legends-node">ModuleManager: Colors and legends node</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mayavi_objects.html#module">Module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mayavi_objects.html#engine">Engine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mayavi_objects.html#base-class-pipelinebase">Base class: PipelineBase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mayavi_objects.html#class-hierarchy">Class hierarchy</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="advanced_scripting.html">Advanced Scripting with Mayavi</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="advanced_scripting.html#design-overview-mayavi-as-a-visualization-framework">Design Overview: Mayavi as a visualization framework</a></li>
+<li class="toctree-l3"><a class="reference internal" href="advanced_scripting.html#scripting-the-mayavi2-application">Scripting the <tt class="docutils literal"><span class="pre">mayavi2</span></tt> application</a></li>
+<li class="toctree-l3"><a class="reference internal" href="advanced_scripting.html#using-the-mayavi-envisage-plugins">Using the Mayavi envisage plugins</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="building_applications.html">Building applications using Mayavi</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="building_applications.html#custom-interactive-dialogs">Custom interactive dialogs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="building_applications.html#embedding-a-mayavi-scene-in-a-traits-dialog">Embedding a Mayavi scene in a Traits dialog</a></li>
+<li class="toctree-l3"><a class="reference internal" href="building_applications.html#a-scene-with-mlab-embedded">A scene, with <cite>mlab</cite> embedded</a></li>
+<li class="toctree-l3"><a class="reference internal" href="building_applications.html#making-the-visualization-live">Making the visualization live</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="building_applications.html#integrating-in-a-wxpython-application">Integrating in a WxPython application</a></li>
+<li class="toctree-l2"><a class="reference internal" href="building_applications.html#integrating-in-a-qt-application">Integrating in a Qt application</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tips.html">Tips and Tricks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tips.html#off-screen-rendering">Off screen rendering</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tips.html#avoiding-the-rendering-window">Avoiding the rendering window</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tips.html#platform-summary">Platform Summary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tips.html#rendering-using-the-virtual-framebuffer">Rendering using the virtual framebuffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tips.html#using-vtk-with-mesa-for-pure-software-rendering">Using VTK with Mesa for pure software rendering</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tips.html#extending-mayavi-with-customizations">Extending Mayavi with customizations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tips.html#customizing-mayavi2">Customizing Mayavi2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tips.html#scripting-mayavi-without-using-envisage">Scripting Mayavi without using Envisage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tips.html#computing-in-a-thread">Computing in a thread</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tips.html#polling-a-file-and-auto-updating-mayavi">Polling a file and auto-updating Mayavi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tips.html#serving-mayavi-on-the-network">Serving Mayavi on the network</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tips.html#tcp-server-the-serve-tcp-function">TCP server: the <cite>serve_tcp</cite> function</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tips.html#udp-server-the-serve-udp-function">UDP server: the <cite>serve_udp</cite> function</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tips.html#animating-a-visualization">Animating a visualization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tips.html#animating-a-series-of-images">Animating a series of images</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tips.html#making-movies-from-a-stack-of-images">Making movies from a stack of images</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tips.html#scripting-from-the-command-line">Scripting from the command line</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tips.html#texture-mapping-actors">Texture mapping actors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tips.html#shifting-data-and-plotting">Shifting data and plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tips.html#using-the-userdefined-filter">Using the <tt class="docutils literal"><span class="pre">UserDefined</span></tt> filter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tips.html#sharing-the-same-data-between-scenes">Sharing the same data between scenes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tips.html#using-mlab">Using mlab</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tips.html#using-the-core-mayavi-api">Using the core Mayavi API</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tips.html#changing-the-interaction-with-a-scene">Changing the interaction with a scene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tips.html#accelerating-a-mayavi-script">Accelerating a Mayavi script</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="misc.html">Miscellaneous</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#getting-help">Getting help</a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#tests-for-mayavi">Tests for Mayavi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc.html#helping-out">Helping out</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="misc.html#development-quick-start">Development quick start</a></li>
+<li class="toctree-l3"><a class="reference internal" href="misc.html#improving-the-documentation">Improving the documentation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="auto/examples.html">Example gallery</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="auto/examples.html#mlab-functions-gallery">Mlab functions gallery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="auto/examples.html#advanced-mlab-examples">Advanced mlab examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="auto/example_boy.html">Boy example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/example_julia_set.html">Julia set example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/example_custom_colormap.html">Custom colormap example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/example_surface_from_irregular_data.html">Surface from irregular data example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/example_canyon.html">Canyon example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/example_spherical_harmonics.html">Spherical harmonics example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/example_lorenz.html">Lorenz example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/example_tvtk_in_mayavi.html">Tvtk in mayavi example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/example_julia_set_decimation.html">Julia set decimation example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/example_simple_structured_grid.html">Simple structured grid example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/example_atomic_orbital.html">Atomic orbital example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/example_chemistry.html">Chemistry example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/example_wigner.html">Wigner example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/example_canyon_decimation.html">Canyon decimation example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/example_plotting_many_lines.html">Plotting many lines example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/example_magnetic_field_lines.html">Magnetic field lines example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/example_mri.html">Mri example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/example_protein.html">Protein example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/example_flight_graph.html">Flight graph example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="auto/examples.html#interactive-examples">Interactive examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="auto/example_mlab_visual.html">Mlab visual example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/example_mlab_traits_ui.html">Mlab traits ui example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/example_wx_embedding.html">Wx embedding example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/example_multiple_engines.html">Multiple engines example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/example_multiple_mlab_scene_models.html">Multiple mlab scene models example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/example_mlab_interactive_dialog.html">Mlab interactive dialog example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/example_wx_mayavi_embed_in_notebook.html">Wx mayavi embed in notebook example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/example_subclassing_mayavi_application.html">Subclassing mayavi application example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/example_mayavi_traits_ui.html">Mayavi traits ui example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/example_qt_embedding.html">Qt embedding example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/example_compute_in_thread.html">Compute in thread example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/example_adjust_cropping_extents.html">Adjust cropping extents example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/example_poll_file.html">Poll file example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/example_lorenz_ui.html">Lorenz ui example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/example_volume_slicer.html">Volume slicer example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/example_coil_design_application.html">Coil design application example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/example_volume_slicer_advanced.html">Volume slicer advanced example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="auto/examples.html#advanced-visualization-examples">Advanced visualization examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="auto/example_polydata.html">Polydata example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/example_offscreen.html">Offscreen example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/example_surf_regular_mlab.html">Surf regular mlab example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/example_glyph.html">Glyph example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/example_structured_points2d.html">Structured points2d example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/example_contour_contour.html">Contour contour example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/example_scatter_plot.html">Scatter plot example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/example_structured_points3d.html">Structured points3d example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/example_streamline.html">Streamline example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/example_numeric_source.html">Numeric source example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/example_image_cursor_filter.html">Image cursor filter example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/example_probe_filter.html">Probe filter example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/example_contour.html">Contour example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/example_unstructured_grid.html">Unstructured grid example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/example_structured_grid.html">Structured grid example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/example_tvtk_segmentation.html">Tvtk segmentation example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/example_datasets.html">Datasets example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/example_delaunay_graph.html">Delaunay graph example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/example_mlab_3D_to_2D.html">Mlab 3D to 2D example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/example_magnetic_field.html">Magnetic field example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="auto/examples.html#data-interaction-examples">Data interaction examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="auto/example_pick_on_surface.html">Pick on surface example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/example_select_red_balls.html">Select red balls example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="auto/examples.html#misc-examples">Misc examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="auto/example_standalone.html">Standalone example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/example_zzz_reader.html">Zzz reader example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/example_nongui.html">Nongui example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/example_user_mayavi.html">User mayavi example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="auto/mlab_reference.html">MLab reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="auto/mlab_helper_functions.html">Plotting functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="auto/mlab_helper_functions.html#barchart">barchart</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/mlab_helper_functions.html#contour3d">contour3d</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/mlab_helper_functions.html#contour-surf">contour_surf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/mlab_helper_functions.html#flow">flow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/mlab_helper_functions.html#imshow">imshow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/mlab_helper_functions.html#mesh">mesh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/mlab_helper_functions.html#plot3d">plot3d</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/mlab_helper_functions.html#points3d">points3d</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/mlab_helper_functions.html#quiver3d">quiver3d</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/mlab_helper_functions.html#surf">surf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/mlab_helper_functions.html#triangular-mesh">triangular_mesh</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="auto/mlab_figure.html">Figure handling functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="auto/mlab_figure.html#clf">clf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/mlab_figure.html#close">close</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/mlab_figure.html#draw">draw</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/mlab_figure.html#figure">figure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/mlab_figure.html#gcf">gcf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/mlab_figure.html#savefig">savefig</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/mlab_figure.html#screenshot">screenshot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/mlab_figure.html#sync-camera">sync_camera</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="auto/mlab_decorations.html">Figure decoration functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="auto/mlab_decorations.html#colorbar">colorbar</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/mlab_decorations.html#scalarbar">scalarbar</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/mlab_decorations.html#vectorbar">vectorbar</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/mlab_decorations.html#xlabel">xlabel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/mlab_decorations.html#ylabel">ylabel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/mlab_decorations.html#zlabel">zlabel</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="auto/mlab_camera.html">Camera handling functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="auto/mlab_camera.html#move">move</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/mlab_camera.html#pitch">pitch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/mlab_camera.html#roll">roll</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/mlab_camera.html#view">view</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/mlab_camera.html#yaw">yaw</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="auto/mlab_other_functions.html">Other functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="auto/mlab_other_functions.html#animate">animate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/mlab_other_functions.html#axes">axes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/mlab_other_functions.html#get-engine">get_engine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/mlab_other_functions.html#orientation-axes">orientation_axes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/mlab_other_functions.html#outline">outline</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/mlab_other_functions.html#set-engine">set_engine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/mlab_other_functions.html#show">show</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/mlab_other_functions.html#show-engine">show_engine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/mlab_other_functions.html#show-pipeline">show_pipeline</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/mlab_other_functions.html#start-recording">start_recording</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/mlab_other_functions.html#stop-recording">stop_recording</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/mlab_other_functions.html#text">text</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/mlab_other_functions.html#text3d">text3d</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/mlab_other_functions.html#title">title</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mlab_pipeline_reference.html">Mlab pipeline-control reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="auto/mlab_pipeline_sources.html">Sources</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/mlab_pipeline_tools.html">Tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/mlab_pipeline_data.html">Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mlab_pipeline_modules.html">Modules and Filters</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">Mayavi API reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/pipeline_objects.html">Pipeline base objects</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/pipeline_objects.html#scene"><tt class="docutils literal"><span class="pre">Scene</span></tt></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/pipeline_objects.html#source"><tt class="docutils literal"><span class="pre">Source</span></tt></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/pipeline_objects.html#filter"><tt class="docutils literal"><span class="pre">Filter</span></tt></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/pipeline_objects.html#modulemanager"><tt class="docutils literal"><span class="pre">ModuleManager</span></tt></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/pipeline_objects.html#module"><tt class="docutils literal"><span class="pre">Module</span></tt></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/pipeline_objects.html#pipelinebase"><tt class="docutils literal"><span class="pre">PipelineBase</span></tt></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/pipeline_objects.html#engine"><tt class="docutils literal"><span class="pre">Engine</span></tt></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/core_view_objects.html">Main view and UI objects</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/core_view_objects.html#scene-uis-decoratedscene-and-mayaviscene">Scene UIs: <tt class="docutils literal"><span class="pre">DecoratedScene</span></tt> and <tt class="docutils literal"><span class="pre">MayaviScene</span></tt></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/core_view_objects.html#sceneeditor"><tt class="docutils literal"><span class="pre">SceneEditor</span></tt></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/core_view_objects.html#mlabscenemodel"><tt class="docutils literal"><span class="pre">MlabSceneModel</span></tt></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/core_view_objects.html#engineview-and-enginerichview"><tt class="docutils literal"><span class="pre">EngineView</span></tt> and  <tt class="docutils literal"><span class="pre">EngineRichView</span></tt></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bugs.html">Known bugs and issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="auto/changes.html">Mayavi 3.4.0 (Oct 15, 2010)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="auto/changes.html#enhancements">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/changes.html#fixes">Fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="auto/changes.html#mayavi-3-3-2-may-25-2010">Mayavi 3.3.2 (May 25, 2010)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="auto/changes.html#id1">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/changes.html#id2">Fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="auto/changes.html#mayavi-3-3-1-feb-24-2010">Mayavi 3.3.1 (Feb 24, 2010)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="auto/changes.html#id3">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/changes.html#id4">Fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="auto/changes.html#mayavi-3-3-0-july-15-2009">Mayavi 3.3.0 (July 15, 2009)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="auto/changes.html#id5">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="auto/changes.html#id6">Fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="auto/changes.html#mayavi-3-2-0-march-23-2009">Mayavi 3.2.0 (March 23, 2009)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="auto/changes.html#mayavi-3-1-0">Mayavi 3.1.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="auto/changes.html#mayavi-3-0-3">Mayavi 3.0.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="auto/changes.html#mayavi-3-0-1-and-3-0-2">Mayavi 3.0.1 and 3.0.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="auto/changes.html#mayavi-3-0-0">Mayavi 3.0.0</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h2> Index and search </h2><ul class="simple">
+<li><a class="reference internal" href="genindex.html"><em>Index</em></a></li>
+<li><a class="reference internal" href="search.html"><em>Search Page</em></a></li>
+</ul>
+<div style='visibility: hidden'><p><a class="reference download internal" href="_downloads/m2_about.jpg"><tt class="xref download docutils literal"><span class="pre">m2_about.jpg</span></tt></a></p>
+</div></div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="#">
+              <img class="logo" src="_static/mayavi-logo.png" alt="Logo"/>
+            </a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="overview.html"
+                        title="next chapter">An overview of Mayavi</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/index.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+    <div id="searchbox">
+	<h3>Google Search</h3>
+    <form method="get" action="http://www.google.com/search">
+
+    <table border="0" cellpadding="0">
+    <tr><td>
+    <input type="text"   name="q" size="20"
+    maxlength="255" value="" />
+    <input type="submit" value="Go" /></td></tr>
+    <tr><td align="center" style="font-size:75%; color: #FFFFFF;">
+    <input type="checkbox"  name="sitesearch"
+    value="http://code.enthought.com/projects/mayavi/docs/development/html/mayavi/" checked /> only search Mayavi documentation<br />
+    </td></tr></table>
+
+</form>
+    </div>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="overview.html" title="An overview of Mayavi"
+             >next</a> |</li>
+        <li><a href="#">Mayavi v3.4.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
+      Last updated on Jan 27, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
+    </div>
+  </body>
+</html>

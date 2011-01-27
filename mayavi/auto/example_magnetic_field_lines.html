@@ -1,0 +1,251 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Magnetic field lines example &mdash; Mayavi v3.4.2 documentation</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.4.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Mayavi v3.4.2 documentation" href="../index.html" />
+    <link rel="up" title="Example gallery" href="examples.html" />
+    <link rel="next" title="Mri example" href="example_mri.html" />
+    <link rel="prev" title="Plotting many lines example" href="example_plotting_many_lines.html" />
+<style type="text/css">
+  body {
+    /* Very bottom copyright, etc. info */
+    background: #4d598d;
+  }
+
+  .documentwrapper {
+    /* Blank area on left bar */
+    background: #24326e;
+  }
+
+  .related {
+    /* Long horizontal nav bars */
+    background: #3c4b8a!important;
+  }
+
+  .sphinxsidebarwrapper {
+    /* Filled part of left sidebar */
+    background: #24326e;
+  }
+
+  a {
+    color: #253370;
+  }
+
+  .sphinxsidebarwrapper a {
+    color: #f2f2f2!important;
+  }
+</style>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="example_mri.html" title="Mri example"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="example_plotting_many_lines.html" title="Plotting many lines example"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+          <li><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="magnetic-field-lines-example">
+<span id="example-magnetic-field-lines"></span><h1>Magnetic field lines example<a class="headerlink" href="#magnetic-field-lines-example" title="Permalink to this headline">¶</a></h1>
+<p>This example uses the streamline module to display field lines of a
+magnetic dipole (a current loop).</p>
+<p>This example requires scipy.</p>
+<p>The magnetic field from an arbitrary current loop is calculated from
+eqns (1) and (2) in Phys Rev A Vol. 35, N 4, pp. 1535-1546; 1987.</p>
+<p>To get a prettier result, we use a fairly large grid to sample the
+field. As a consequence, we need to clear temporary arrays as soon as
+possible.</p>
+<p>For a more thorough example of magnetic field calculation and
+visualization with Mayavi and scipy, see
+<a class="reference internal" href="example_magnetic_field.html#example-magnetic-field"><em>Magnetic field example</em></a>.</p>
+<img alt="../_images/example_magnetic_field_lines.jpg" class="align-center" src="../_images/example_magnetic_field_lines.jpg" />
+<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/magnetic_field_lines.py"><tt class="xref download docutils literal"><span class="pre">magnetic_field_lines.py</span></tt></a></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Author: Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt; </span>
+<span class="c"># Copyright (c) 2007, Enthought, Inc.</span>
+<span class="c"># License: BSD Style.</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">special</span>
+
+<span class="c">#### Calculate the field #####################################################</span>
+<span class="n">radius</span> <span class="o">=</span> <span class="mi">1</span> <span class="c"># Radius of the coils</span>
+
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> 
+            <span class="n">np</span><span class="o">.</span><span class="n">ogrid</span><span class="p">[</span><span class="o">-</span><span class="mi">10</span><span class="p">:</span><span class="mi">10</span><span class="p">:</span><span class="mi">150</span><span class="n">j</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">:</span><span class="mi">10</span><span class="p">:</span><span class="mi">150</span><span class="n">j</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">:</span><span class="mi">10</span><span class="p">:</span><span class="mi">150</span><span class="n">j</span><span class="p">]</span> <span class="p">]</span>
+
+<span class="c"># express the coordinates in polar form</span>
+<span class="n">rho</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">y</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">x_proj</span> <span class="o">=</span> <span class="n">x</span><span class="o">/</span><span class="n">rho</span>
+<span class="n">y_proj</span> <span class="o">=</span> <span class="n">y</span><span class="o">/</span><span class="n">rho</span>
+<span class="c"># Free memory early</span>
+<span class="k">del</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
+
+<span class="n">E</span> <span class="o">=</span> <span class="n">special</span><span class="o">.</span><span class="n">ellipe</span><span class="p">((</span><span class="mi">4</span> <span class="o">*</span> <span class="n">radius</span> <span class="o">*</span> <span class="n">rho</span><span class="p">)</span><span class="o">/</span><span class="p">(</span> <span class="p">(</span><span class="n">radius</span> <span class="o">+</span> <span class="n">rho</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">K</span> <span class="o">=</span> <span class="n">special</span><span class="o">.</span><span class="n">ellipk</span><span class="p">((</span><span class="mi">4</span> <span class="o">*</span> <span class="n">radius</span> <span class="o">*</span> <span class="n">rho</span><span class="p">)</span><span class="o">/</span><span class="p">(</span> <span class="p">(</span><span class="n">radius</span> <span class="o">+</span> <span class="n">rho</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">Bz</span> <span class="o">=</span>  <span class="mi">1</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">radius</span> <span class="o">+</span> <span class="n">rho</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span> 
+                <span class="n">K</span> 
+                <span class="o">+</span> <span class="n">E</span> <span class="o">*</span> <span class="p">(</span><span class="n">radius</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">rho</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="p">((</span><span class="n">radius</span> <span class="o">-</span> <span class="n">rho</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> 
+            <span class="p">)</span>
+<span class="n">Brho</span> <span class="o">=</span> <span class="n">z</span><span class="o">/</span><span class="p">(</span><span class="n">rho</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">radius</span> <span class="o">+</span> <span class="n">rho</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span> 
+                <span class="o">-</span><span class="n">K</span> 
+                <span class="o">+</span> <span class="n">E</span> <span class="o">*</span> <span class="p">(</span><span class="n">radius</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">rho</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="p">((</span><span class="n">radius</span> <span class="o">-</span> <span class="n">rho</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> 
+            <span class="p">)</span>
+<span class="k">del</span> <span class="n">E</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">rho</span>
+<span class="c"># On the axis of the coil we get a divided by zero. This returns a</span>
+<span class="c"># NaN, where the field is actually zero :</span>
+<span class="n">Brho</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">Brho</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="n">Bx</span><span class="p">,</span> <span class="n">By</span> <span class="o">=</span> <span class="n">x_proj</span><span class="o">*</span><span class="n">Brho</span><span class="p">,</span> <span class="n">y_proj</span><span class="o">*</span><span class="n">Brho</span>
+
+<span class="k">del</span> <span class="n">x_proj</span><span class="p">,</span> <span class="n">y_proj</span><span class="p">,</span> <span class="n">Brho</span>
+
+<span class="c">#### Visualize the field #####################################################</span>
+<span class="kn">from</span> <span class="nn">enthought.mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">400</span><span class="p">),</span> <span class="n">bgcolor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">fgcolor</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+
+<span class="n">field</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">vector_field</span><span class="p">(</span><span class="n">Bx</span><span class="p">,</span> <span class="n">By</span><span class="p">,</span> <span class="n">Bz</span><span class="p">)</span>
+<span class="c"># Unfortunately, the above call makes a copy of the arrays, so we delete</span>
+<span class="c"># this copy to free memory.</span>
+<span class="k">del</span> <span class="n">Bx</span><span class="p">,</span> <span class="n">By</span><span class="p">,</span> <span class="n">Bz</span>
+
+<span class="n">magnitude</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">extract_vector_norm</span><span class="p">(</span><span class="n">field</span><span class="p">)</span>
+<span class="n">contours</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">iso_surface</span><span class="p">(</span><span class="n">magnitude</span><span class="p">,</span> 
+                                        <span class="n">contours</span><span class="o">=</span><span class="p">[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">3.8</span><span class="p">,</span> <span class="p">],</span>
+                                        <span class="n">transparent</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                                        <span class="n">opacity</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span>
+                                        <span class="n">colormap</span><span class="o">=</span><span class="s">&#39;YlGnBu&#39;</span><span class="p">,</span>
+                                        <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+
+<span class="n">field_lines</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">streamline</span><span class="p">(</span><span class="n">magnitude</span><span class="p">,</span> <span class="n">seedtype</span><span class="o">=</span><span class="s">&#39;line&#39;</span><span class="p">,</span>
+                                        <span class="n">integration_direction</span><span class="o">=</span><span class="s">&#39;both&#39;</span><span class="p">,</span>
+                                        <span class="n">colormap</span><span class="o">=</span><span class="s">&#39;bone&#39;</span><span class="p">,</span>
+                                        <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c"># Tweak a bit the streamline.</span>
+<span class="n">field_lines</span><span class="o">.</span><span class="n">stream_tracer</span><span class="o">.</span><span class="n">maximum_propagation</span> <span class="o">=</span> <span class="mf">100.</span>
+<span class="n">field_lines</span><span class="o">.</span><span class="n">seed</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">point1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">69</span><span class="p">,</span> <span class="mf">75.5</span><span class="p">,</span> <span class="mf">75.5</span><span class="p">]</span>
+<span class="n">field_lines</span><span class="o">.</span><span class="n">seed</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">point2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">82</span><span class="p">,</span> <span class="mf">75.5</span><span class="p">,</span> <span class="mf">75.5</span><span class="p">]</span>
+<span class="n">field_lines</span><span class="o">.</span><span class="n">seed</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">resolution</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">field_lines</span><span class="o">.</span><span class="n">seed</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="bp">False</span>
+
+<span class="n">mlab</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="mi">42</span><span class="p">,</span> <span class="mi">73</span><span class="p">,</span> <span class="mi">104</span><span class="p">,</span> <span class="p">[</span> <span class="mi">79</span><span class="p">,</span>  <span class="mi">75</span><span class="p">,</span>  <span class="mi">76</span><span class="p">])</span>
+   
+<span class="n">mlab</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/mayavi-logo.png" alt="Logo"/>
+            </a></p>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="example_plotting_many_lines.html"
+                        title="previous chapter">Plotting many lines example</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="example_mri.html"
+                        title="next chapter">Mri example</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/auto/example_magnetic_field_lines.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+    <div id="searchbox">
+	<h3>Google Search</h3>
+    <form method="get" action="http://www.google.com/search">
+
+    <table border="0" cellpadding="0">
+    <tr><td>
+    <input type="text"   name="q" size="20"
+    maxlength="255" value="" />
+    <input type="submit" value="Go" /></td></tr>
+    <tr><td align="center" style="font-size:75%; color: #FFFFFF;">
+    <input type="checkbox"  name="sitesearch"
+    value="http://code.enthought.com/projects/mayavi/docs/development/html/mayavi/" checked /> only search Mayavi documentation<br />
+    </td></tr></table>
+
+</form>
+    </div>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="example_mri.html" title="Mri example"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="example_plotting_many_lines.html" title="Plotting many lines example"
+             >previous</a> |</li>
+        <li><a href="../index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+          <li><a href="examples.html" >Example gallery</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
+      Last updated on Jan 27, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
+    </div>
+  </body>
+</html>

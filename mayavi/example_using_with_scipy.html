@@ -1,0 +1,297 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Using Mayavi with scipy &mdash; Mayavi v3.4.2 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '3.4.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Mayavi v3.4.2 documentation" href="index.html" />
+    <link rel="up" title="Using the Mayavi application" href="application.html" />
+    <link rel="next" title="Exploring a vector field" href="example_exploring_a_vector_field.html" />
+    <link rel="prev" title="Visualizing rich datasets: the fire_ug.vtu example" href="example_fire.html" />
+<style type="text/css">
+  body {
+    /* Very bottom copyright, etc. info */
+    background: #4d598d;
+  }
+
+  .documentwrapper {
+    /* Blank area on left bar */
+    background: #24326e;
+  }
+
+  .related {
+    /* Long horizontal nav bars */
+    background: #3c4b8a!important;
+  }
+
+  .sphinxsidebarwrapper {
+    /* Filled part of left sidebar */
+    background: #24326e;
+  }
+
+  a {
+    color: #253370;
+  }
+
+  .sphinxsidebarwrapper a {
+    color: #f2f2f2!important;
+  }
+</style>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="example_exploring_a_vector_field.html" title="Exploring a vector field"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="example_fire.html" title="Visualizing rich datasets: the fire_ug.vtu example"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+          <li><a href="application.html" accesskey="U">Using the Mayavi application</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="using-mayavi-with-scipy">
+<h1>Using Mayavi with scipy<a class="headerlink" href="#using-mayavi-with-scipy" title="Permalink to this headline">¶</a></h1>
+<p>This tutorial example shows you how you can use Mayavi interactively
+to visualize <a class="reference external" href="http://www.scipy.org">numpy</a> arrays while doing numerical work with <a class="reference external" href="http://www.scipy.org">scipy</a>. It
+assumes that you are familiar with numerical Python tools, and shows you
+how to use Mayavi in combination with these tools.</p>
+<p>Let us study the trajectories of a particle in a potential. This is a
+very common problem in physics and engineering, and visualization of the
+potential and the trajectories is key to developing an understanding of
+the problem.</p>
+<p>The potential we are interested is a periodic lattice, immersed in a
+parabolic confinement. We will shake this potential and see how the
+particle jumps from a hole of the lattice to another. The parabolic
+confinement is there to limit the excursions of the particle:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+
+<span class="k">def</span> <span class="nf">V</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; A 3D sinusoidal lattice with a parabolic confinement. &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">10</span><span class="o">*</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">10</span><span class="o">*</span><span class="n">y</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">10</span><span class="o">*</span><span class="n">z</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">y</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now that we have defined the potential, we would like to see what it
+looks like in 3D. To do this we can create a 3D grid of points, and
+sample it on these points:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:</span><span class="mi">2</span><span class="p">:</span><span class="mi">100</span><span class="n">j</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">:</span><span class="mi">2</span><span class="p">:</span><span class="mi">100</span><span class="n">j</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">:</span><span class="mi">2</span><span class="p">:</span><span class="mi">100</span><span class="n">j</span><span class="p">]</span>
+<span class="n">V</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We are going to use the <cite>mlab</cite> module (see
+<a class="reference internal" href="mlab.html#simple-scripting-with-mlab"><em>mlab: Python scripting for 3D plotting</em></a>) to interactively visualize this
+volumetric data. For this it is best to type the commands in an
+interactive Python shell, either using the built-in shell of the Mayavi2
+application, on in <cite>ipython -wthread</cite>. Let us visualize the 3D
+isosurfaces of the potential:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">enthought.mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">contour3d</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">V</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We can interact with the visualization created by the above command by
+rotating the view, but to get a good understanding of the structure of
+the potential, it is useful to vary the iso-surfaces. We can do this by
+double-clicking on the <cite>IsoSurface</cite> in the Mayavi pipeline tree (if you
+are running from <cite>ipython</cite>, you need to click on the Mayavi icon on the
+scene to pop up the pipeline). This opens a dialog which lets us select
+the values of the contours used. A good view of the potential can be
+achieved by turning off auto contours and choosing -0.5 as a first
+contour value (eg by entering it in the text box on the right, and
+pressing <cite>tab</cite>). A second contour can be added by clicking on the blue
+arrow and selecting &#8220;Add after&#8221;. Using a value of 15 gives a nice result.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Note that the &#8220;Add after&#8221; UI used to crash on Linux with the
+wxPython backend for versions of Mayavi up to 3.2.0 (see
+<a class="reference internal" href="bugs.html#known-bugs"><em>Known bugs and issues</em></a> for all the know bugs).</p>
+</div>
+<p>We can now click on the <cite>Colors and legends</cite> on the pipeline and change
+the colors used, by selecting a different LUT (Look Up Table). Let us
+select &#8216;Paired&#8217; as it separates well levels.</p>
+<img alt="_images/example_potential_ipython.jpg" src="_images/example_potential_ipython.jpg" />
+<p>To get a better view of the potential, we would like to display more
+contours, but the problem with this approach is that closed contours hide
+their interior. On solution is to use a cut plane. Right-click on the
+<cite>IsoSurface</cite> node and add a <cite>ScalarCutPlane</cite> through the &#8220;Add module&#8221; sub
+menu. You can move the cut plane by clicking on it and dragging.</p>
+<p>To make the link between our numpy arrays and the visualization, we can
+use the same menu to add an Axes and an Outline. Finally, let us add a
+colorbar. We can do this by typing:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">mlab</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s">&#39;Potential&#39;</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s">&#39;vertical&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Or using the options in the LUT dialog visited earlier.</p>
+<img alt="_images/example_potential.jpg" src="_images/example_potential.jpg" />
+<p>We want to study the motion of a particle in this potential. For this we
+need to derive the corresponding force, given by the gradient of the
+potential. We create a gradient function:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">gradient</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mf">0.01</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Return the gradient of f in (x, y, z). &quot;&quot;&quot;</span>
+    <span class="n">fx</span>  <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="n">d</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
+    <span class="n">fx_</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">d</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
+    <span class="n">fy</span>  <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">+</span><span class="n">d</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
+    <span class="n">fy_</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">-</span><span class="n">d</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
+    <span class="n">fz</span>  <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="o">+</span><span class="n">d</span><span class="p">)</span>
+    <span class="n">fz_</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="o">-</span><span class="n">d</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">fx</span><span class="o">-</span><span class="n">fx_</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">d</span><span class="p">),</span> <span class="p">(</span><span class="n">fy</span><span class="o">-</span><span class="n">fy_</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">d</span><span class="p">),</span> <span class="p">(</span><span class="n">fz</span><span class="o">-</span><span class="n">fz_</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">d</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To check that our gradient function works well, let us visualize the
+vector field it creates. To avoid displaying too many vectors, we will
+evaluate the gradient only along a cut for X=50, and every three points
+on our grid:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">Vx</span><span class="p">,</span> <span class="n">Vy</span><span class="p">,</span> <span class="n">Vz</span> <span class="o">=</span> <span class="n">gradient</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">X</span><span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="p">::</span><span class="mi">3</span><span class="p">,</span> <span class="p">::</span><span class="mi">3</span><span class="p">],</span> <span class="n">Y</span><span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="p">::</span><span class="mi">3</span><span class="p">,</span> <span class="p">::</span><span class="mi">3</span><span class="p">],</span> <span class="n">Z</span><span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="p">::</span><span class="mi">3</span><span class="p">,</span> <span class="p">::</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">quiver3d</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="p">::</span><span class="mi">3</span><span class="p">,</span> <span class="p">::</span><span class="mi">3</span><span class="p">],</span> <span class="n">Y</span><span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="p">::</span><span class="mi">3</span><span class="p">,</span> <span class="p">::</span><span class="mi">3</span><span class="p">],</span> <span class="n">Z</span><span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="p">::</span><span class="mi">3</span><span class="p">,</span> <span class="p">::</span><span class="mi">3</span><span class="p">],</span>
+                     <span class="n">Vx</span><span class="p">,</span> <span class="n">Vy</span><span class="p">,</span> <span class="n">Vz</span><span class="p">,</span> <span class="n">scale_factor</span><span class="o">=-</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+<img alt="_images/example_gradient.jpg" src="_images/example_gradient.jpg" />
+<p>Now we can use <cite>scipy</cite> to integrate the trajectories. We first have to
+define a dynamical flow, the function that returns the derivative of the
+different parameters as a function of these parameters and of time. The
+flow is used by every <a class="reference external" href="http://en.wikipedia.org/wiki/Ordinary_differential_equation">ODE</a> (ordinary differential equation) solver, it
+give the dynamic of the system. The dynamics we are interested in is made
+of the force deriving from the potential, which we shake with time in the
+three directions, as well as a damping force. The damping coefficient and
+the amount and frequency of shaking have been tuned to give an
+interesting dynamic.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">flow</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; The dynamical flow of the system &quot;&quot;&quot;</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">vx</span><span class="p">,</span> <span class="n">vy</span><span class="p">,</span> <span class="n">vz</span> <span class="o">=</span> <span class="n">r</span>
+    <span class="n">fx</span><span class="p">,</span> <span class="n">fy</span><span class="p">,</span> <span class="n">fz</span> <span class="o">=</span> <span class="n">gradient</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">x</span><span class="o">-.</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">6</span><span class="o">*</span><span class="n">t</span><span class="p">),</span> <span class="n">y</span><span class="o">-.</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">6</span><span class="o">*</span><span class="n">t</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">z</span><span class="o">-.</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">6</span><span class="o">*</span><span class="n">t</span><span class="o">+</span><span class="mi">2</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="n">vx</span><span class="p">,</span> <span class="n">vy</span><span class="p">,</span> <span class="n">vz</span><span class="p">,</span> <span class="o">-</span><span class="n">fx</span> <span class="o">-</span> <span class="mf">0.3</span><span class="o">*</span><span class="n">vx</span><span class="p">,</span> <span class="o">-</span><span class="n">fy</span> <span class="o">-</span> <span class="mf">0.3</span><span class="o">*</span><span class="n">vy</span><span class="p">,</span> <span class="o">-</span><span class="n">fz</span> <span class="o">-</span> <span class="mf">0.3</span><span class="o">*</span><span class="n">vz</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Now we can integrate the trajectory:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">scipy.integrate</span> <span class="kn">import</span> <span class="n">odeint</span>
+
+<span class="c"># Initial conditions</span>
+<span class="n">R0</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="c"># Times at which we want the integrator to return the positions:</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
+<span class="n">R</span> <span class="o">=</span> <span class="n">odeint</span><span class="p">(</span><span class="n">flow</span><span class="p">,</span> <span class="n">R0</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>And we can now plot the trajectories, after removing the cut plane and
+the vector field by right-clicking on the corresponding pipeline node and
+selecting delete. We also turn the first color bar off in the
+corresponding <cite>Colors and legends</cite> node. We plot the trajectories with
+extra scalar information attached to it, to display the time via the
+colormap:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">vx</span><span class="p">,</span> <span class="n">vy</span><span class="p">,</span> <span class="n">vz</span> <span class="o">=</span> <span class="n">R</span><span class="o">.</span><span class="n">T</span>
+<span class="n">trajectory</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">plot3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s">&#39;hot&#39;</span><span class="p">,</span>
+                    <span class="n">tube_radius</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">trajectory</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s">&#39;Time&#39;</span><span class="p">,</span> <span class="n">orientation</span><span class="o">=</span><span class="s">&#39;vertical&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/example_trajectories.jpg" src="_images/example_trajectories.jpg" />
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/mayavi-logo.png" alt="Logo"/>
+            </a></p>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="example_fire.html"
+                        title="previous chapter">Visualizing rich datasets: the <tt class="docutils literal docutils literal docutils literal"><span class="pre">fire_ug.vtu</span></tt> example</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="example_exploring_a_vector_field.html"
+                        title="next chapter">Exploring a vector field</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/example_using_with_scipy.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+    <div id="searchbox">
+	<h3>Google Search</h3>
+    <form method="get" action="http://www.google.com/search">
+
+    <table border="0" cellpadding="0">
+    <tr><td>
+    <input type="text"   name="q" size="20"
+    maxlength="255" value="" />
+    <input type="submit" value="Go" /></td></tr>
+    <tr><td align="center" style="font-size:75%; color: #FFFFFF;">
+    <input type="checkbox"  name="sitesearch"
+    value="http://code.enthought.com/projects/mayavi/docs/development/html/mayavi/" checked /> only search Mayavi documentation<br />
+    </td></tr></table>
+
+</form>
+    </div>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="example_exploring_a_vector_field.html" title="Exploring a vector field"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="example_fire.html" title="Visualizing rich datasets: the fire_ug.vtu example"
+             >previous</a> |</li>
+        <li><a href="index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+          <li><a href="application.html" >Using the Mayavi application</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
+      Last updated on Jan 27, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
+    </div>
+  </body>
+</html>

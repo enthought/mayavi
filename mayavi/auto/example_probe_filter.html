@@ -1,0 +1,237 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Probe filter example &mdash; Mayavi v3.4.2 documentation</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.4.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Mayavi v3.4.2 documentation" href="../index.html" />
+    <link rel="up" title="Example gallery" href="examples.html" />
+    <link rel="next" title="Contour example" href="example_contour.html" />
+    <link rel="prev" title="Image cursor filter example" href="example_image_cursor_filter.html" />
+<style type="text/css">
+  body {
+    /* Very bottom copyright, etc. info */
+    background: #4d598d;
+  }
+
+  .documentwrapper {
+    /* Blank area on left bar */
+    background: #24326e;
+  }
+
+  .related {
+    /* Long horizontal nav bars */
+    background: #3c4b8a!important;
+  }
+
+  .sphinxsidebarwrapper {
+    /* Filled part of left sidebar */
+    background: #24326e;
+  }
+
+  a {
+    color: #253370;
+  }
+
+  .sphinxsidebarwrapper a {
+    color: #f2f2f2!important;
+  }
+</style>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="example_contour.html" title="Contour example"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="example_image_cursor_filter.html" title="Image cursor filter example"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+          <li><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="probe-filter-example">
+<span id="example-probe-filter"></span><h1>Probe filter example<a class="headerlink" href="#probe-filter-example" title="Permalink to this headline">¶</a></h1>
+<p>Using the probe filter to visualize a scalar field along an arbitrary
+surface.</p>
+<p>This example shows how a data set can be &#8216;projected&#8217; (or interpolated) on
+another given source using the probe filter. It is also an example of a
+complex VTK pipeline and shows how to inspect it with the
+PipelineBrowser.</p>
+<p>In this example, a function is sampled on a regular grid and can be
+visualized using an ImagePlaneWidget. The function we are interested is
+independent of the distance to the origin and a function only of the
+angle. This is why it may be interesting to visualize its value sampled
+on a sphere center at the origin, but we have the data sampled throughout
+the volume on a regular grid.</p>
+<p>We create a sphere with the BuiltinSurface source and use the VTK
+ProbeFilter to sample the data on this surface. The ProbeFilter takes one
+input, which is the data structure to project the data on, and a
+&#8216;source&#8217;, which is where the data values come from.</p>
+<p>We need to use the UserDefined filter to insert this VTK filter in the
+Mayavi pipeline (see <a class="reference internal" href="../tips.html#using-userdefined-filter"><em>Using the UserDefined filter</em></a> as well as
+<a class="reference internal" href="example_image_cursor_filter.html#example-image-cursor-filter"><em>Image cursor filter example</em></a> and <a class="reference internal" href="example_tvtk_segmentation.html#example-tvtk-segmentation"><em>Tvtk segmentation example</em></a>).
+Specifying its input is done automatical when it is inserted on the
+pipeline, be its source needs to be specified explicitely. As it is a VTK
+filter, the source is the VTK dataset output by the Mayavi object: we can
+find it in <cite>.outputs[0]</cite>.</p>
+<p>Note that this filter violates slightly the simple pipeline model that
+Mayavi tries to expose to the users: it has two entries. As a result,
+the Mayavi pipeline is not longer really a tree. However, if you open up
+the Mayavi <a class="reference internal" href="../mlab_changing_object_looks.html#mlab-changing-objects-interactively"><em>pipeline view</em></a>,
+you can see that the ProbeFilter has only one parent in the view. To
+inspect the actually VTK pipeline underlying this visualization, we
+use the TVTK PipelineBrowser at the end of the example. You can see that
+the VTK pipeline is much more complex that the pipeline represented
+in Mayavi: actors, data mappers, and other elements of the VTK pipeline
+are collapsed in the Mayavi filters and modules.</p>
+<p>Note that, as we know the expression of the function, it would be simpler
+and more efficient to directly sample it on the sphere.</p>
+<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/probe_filter.py"><tt class="xref download docutils literal"><span class="pre">probe_filter.py</span></tt></a></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">enthought.mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
+<span class="kn">from</span> <span class="nn">enthought.tvtk.api</span> <span class="kn">import</span> <span class="n">tvtk</span>
+
+<span class="c"># The angular par of the spherical harmonic (3, 2)</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="o">-.</span><span class="mi">5</span><span class="p">:</span><span class="o">.</span><span class="mi">5</span><span class="p">:</span><span class="mi">100</span><span class="n">j</span><span class="p">,</span> <span class="o">-.</span><span class="mi">5</span><span class="p">:</span><span class="o">.</span><span class="mi">5</span><span class="p">:</span><span class="mi">100</span><span class="n">j</span><span class="p">,</span> <span class="o">-.</span><span class="mi">5</span><span class="p">:</span><span class="o">.</span><span class="mi">5</span><span class="p">:</span><span class="mi">100</span><span class="n">j</span><span class="p">]</span>
+<span class="n">Phi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">angle</span><span class="p">((</span><span class="n">x</span><span class="o">+</span><span class="n">y</span><span class="o">*</span><span class="mi">1</span><span class="n">j</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="n">z</span><span class="p">)</span>
+
+<span class="n">field</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">scalar_field</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">Phi</span><span class="p">)</span>
+<span class="n">ipw</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">image_plane_widget</span><span class="p">(</span><span class="n">field</span><span class="p">)</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">outline</span><span class="p">(</span><span class="n">field</span><span class="p">)</span>
+
+<span class="n">surface</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">builtin_surface</span><span class="p">()</span>
+<span class="n">surface</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="s">&#39;sphere&#39;</span>
+<span class="n">surface</span><span class="o">.</span><span class="n">data_source</span><span class="o">.</span><span class="n">radius</span> <span class="o">=</span> <span class="o">.</span><span class="mi">4</span>
+<span class="n">surface</span><span class="o">.</span><span class="n">data_source</span><span class="o">.</span><span class="n">phi_resolution</span> <span class="o">=</span> <span class="mi">200</span>
+<span class="n">surface</span><span class="o">.</span><span class="n">data_source</span><span class="o">.</span><span class="n">theta_resolution</span> <span class="o">=</span> <span class="mi">200</span>
+<span class="n">probe_filter</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">ProbeFilter</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="n">field</span><span class="o">.</span><span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">probe</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">user_defined</span><span class="p">(</span><span class="n">surface</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="n">probe_filter</span><span class="p">)</span>
+
+<span class="n">surf</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">surface</span><span class="p">(</span><span class="n">probe</span><span class="p">)</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span>
+
+<span class="c">################################################################################</span>
+<span class="c"># Finally, to inspect the VTK Pipeline (and not the Mayavi one, we</span>
+<span class="c"># use the TVTK pipeline browser)</span>
+<span class="c"># Note that for Mayavi version &lt; 3.4.1, there is a bug in the</span>
+<span class="c"># PipelineBrowser preventing a good display of this pipeline.</span>
+<span class="kn">from</span> <span class="nn">enthought.tvtk.pipeline.browser</span> <span class="kn">import</span> <span class="n">PipelineBrowser</span>
+<span class="n">browser</span> <span class="o">=</span> <span class="n">PipelineBrowser</span><span class="p">(</span><span class="n">fig</span><span class="o">.</span><span class="n">scene</span><span class="p">)</span>
+<span class="n">browser</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="n">mlab</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/mayavi-logo.png" alt="Logo"/>
+            </a></p>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="example_image_cursor_filter.html"
+                        title="previous chapter">Image cursor filter example</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="example_contour.html"
+                        title="next chapter">Contour example</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/auto/example_probe_filter.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+    <div id="searchbox">
+	<h3>Google Search</h3>
+    <form method="get" action="http://www.google.com/search">
+
+    <table border="0" cellpadding="0">
+    <tr><td>
+    <input type="text"   name="q" size="20"
+    maxlength="255" value="" />
+    <input type="submit" value="Go" /></td></tr>
+    <tr><td align="center" style="font-size:75%; color: #FFFFFF;">
+    <input type="checkbox"  name="sitesearch"
+    value="http://code.enthought.com/projects/mayavi/docs/development/html/mayavi/" checked /> only search Mayavi documentation<br />
+    </td></tr></table>
+
+</form>
+    </div>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="example_contour.html" title="Contour example"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="example_image_cursor_filter.html" title="Image cursor filter example"
+             >previous</a> |</li>
+        <li><a href="../index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+          <li><a href="examples.html" >Example gallery</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
+      Last updated on Jan 27, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,259 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Mayavi traits ui example &mdash; Mayavi v3.4.2 documentation</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.4.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Mayavi v3.4.2 documentation" href="../index.html" />
+    <link rel="up" title="Example gallery" href="examples.html" />
+    <link rel="next" title="Qt embedding example" href="example_qt_embedding.html" />
+    <link rel="prev" title="Subclassing mayavi application example" href="example_subclassing_mayavi_application.html" />
+<style type="text/css">
+  body {
+    /* Very bottom copyright, etc. info */
+    background: #4d598d;
+  }
+
+  .documentwrapper {
+    /* Blank area on left bar */
+    background: #24326e;
+  }
+
+  .related {
+    /* Long horizontal nav bars */
+    background: #3c4b8a!important;
+  }
+
+  .sphinxsidebarwrapper {
+    /* Filled part of left sidebar */
+    background: #24326e;
+  }
+
+  a {
+    color: #253370;
+  }
+
+  .sphinxsidebarwrapper a {
+    color: #f2f2f2!important;
+  }
+</style>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="example_qt_embedding.html" title="Qt embedding example"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="example_subclassing_mayavi_application.html" title="Subclassing mayavi application example"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+          <li><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="mayavi-traits-ui-example">
+<span id="example-mayavi-traits-ui"></span><h1>Mayavi traits ui example<a class="headerlink" href="#mayavi-traits-ui-example" title="Permalink to this headline">¶</a></h1>
+<p>An example of how to create a UI similar to the complete Mayavi application
+inside a Traits UI view.</p>
+<p>This does not use Envisage and provides a similar UI as seen in the full
+Mayavi application.</p>
+<p>This example uses <a class="reference external" href="http://code.enthought.com/projects/traits/">traitsUI</a>
+to create a dialog mimicking the mayavi2 application: a scene on the
+right, and on the left a pipeline tree view, and below it a panel to
+edit the currently-selected object.</p>
+<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/mayavi_traits_ui.py"><tt class="xref download docutils literal"><span class="pre">mayavi_traits_ui.py</span></tt></a></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Authors: Prabhu Ramachandran &lt;prabhu [at] aero.iitb.ac.in&gt;</span>
+<span class="c"># Copyright (c) 2007, Enthought, Inc.</span>
+<span class="c"># License: BSD Style.</span>
+
+<span class="c"># Standard imports.</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">sqrt</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">mgrid</span>
+
+<span class="c"># Enthought imports.</span>
+<span class="kn">from</span> <span class="nn">enthought.traits.api</span> <span class="kn">import</span> <span class="n">HasTraits</span><span class="p">,</span> <span class="n">Instance</span><span class="p">,</span> <span class="n">Property</span><span class="p">,</span> <span class="n">Enum</span>
+<span class="kn">from</span> <span class="nn">enthought.traits.ui.api</span> <span class="kn">import</span> <span class="n">View</span><span class="p">,</span> <span class="n">Item</span><span class="p">,</span> <span class="n">HSplit</span><span class="p">,</span> <span class="n">VSplit</span><span class="p">,</span> <span class="n">InstanceEditor</span>
+<span class="kn">from</span> <span class="nn">enthought.tvtk.pyface.scene_editor</span> <span class="kn">import</span> <span class="n">SceneEditor</span> 
+<span class="kn">from</span> <span class="nn">enthought.mayavi.core.ui.engine_view</span> <span class="kn">import</span> <span class="n">EngineView</span>
+<span class="kn">from</span> <span class="nn">enthought.mayavi.tools.mlab_scene_model</span> <span class="kn">import</span> <span class="n">MlabSceneModel</span>
+
+
+<span class="c">######################################################################</span>
+<span class="k">class</span> <span class="nc">Mayavi</span><span class="p">(</span><span class="n">HasTraits</span><span class="p">):</span>
+
+    <span class="c"># The scene model.</span>
+    <span class="n">scene</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">MlabSceneModel</span><span class="p">,</span> <span class="p">())</span>
+
+    <span class="c"># The mayavi engine view.</span>
+    <span class="n">engine_view</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">EngineView</span><span class="p">)</span>
+
+    <span class="c"># The current selection in the engine tree view.</span>
+    <span class="n">current_selection</span> <span class="o">=</span> <span class="n">Property</span>
+
+
+    <span class="c">######################</span>
+    <span class="n">view</span> <span class="o">=</span> <span class="n">View</span><span class="p">(</span><span class="n">HSplit</span><span class="p">(</span><span class="n">VSplit</span><span class="p">(</span><span class="n">Item</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&#39;engine_view&#39;</span><span class="p">,</span>
+                                   <span class="n">style</span><span class="o">=</span><span class="s">&#39;custom&#39;</span><span class="p">,</span>
+                                   <span class="n">resizable</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                                   <span class="n">show_label</span><span class="o">=</span><span class="bp">False</span>
+                                   <span class="p">),</span>
+                              <span class="n">Item</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&#39;current_selection&#39;</span><span class="p">,</span>
+                                   <span class="n">editor</span><span class="o">=</span><span class="n">InstanceEditor</span><span class="p">(),</span>
+                                   <span class="n">enabled_when</span><span class="o">=</span><span class="s">&#39;current_selection is not None&#39;</span><span class="p">,</span>
+                                   <span class="n">style</span><span class="o">=</span><span class="s">&#39;custom&#39;</span><span class="p">,</span> 
+                                   <span class="n">springy</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                                   <span class="n">show_label</span><span class="o">=</span><span class="bp">False</span><span class="p">),</span>
+                                   <span class="p">),</span>
+                               <span class="n">Item</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&#39;scene&#39;</span><span class="p">,</span> 
+                                    <span class="n">editor</span><span class="o">=</span><span class="n">SceneEditor</span><span class="p">(),</span>
+                                    <span class="n">show_label</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+                                    <span class="n">resizable</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                                    <span class="n">height</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
+                                    <span class="n">width</span><span class="o">=</span><span class="mi">500</span><span class="p">),</span>
+                        <span class="p">),</span>
+                <span class="n">resizable</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                <span class="n">scrollable</span><span class="o">=</span><span class="bp">True</span>
+                <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">traits</span><span class="p">):</span>
+        <span class="n">HasTraits</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">traits</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">engine_view</span> <span class="o">=</span> <span class="n">EngineView</span><span class="p">(</span><span class="n">engine</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">engine</span><span class="p">)</span>
+
+        <span class="c"># Hook up the current_selection to change when the one in the engine</span>
+        <span class="c"># changes.  This is probably unnecessary in Traits3 since you can show</span>
+        <span class="c"># the UI of a sub-object in T3.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">on_trait_change</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_selection_change</span><span class="p">,</span>
+                                          <span class="s">&#39;current_selection&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">generate_data_mayavi</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">generate_data_mayavi</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Shows how you can generate data using mayavi instead of mlab.&quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">enthought.mayavi.sources.api</span> <span class="kn">import</span> <span class="n">ParametricSurface</span>
+        <span class="kn">from</span> <span class="nn">enthought.mayavi.modules.api</span> <span class="kn">import</span> <span class="n">Outline</span><span class="p">,</span> <span class="n">Surface</span>
+        <span class="n">e</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">engine</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">ParametricSurface</span><span class="p">()</span>
+        <span class="n">e</span><span class="o">.</span><span class="n">add_source</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+        <span class="n">e</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">Outline</span><span class="p">())</span>
+        <span class="n">e</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">Surface</span><span class="p">())</span>
+        
+    <span class="k">def</span> <span class="nf">_selection_change</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">old</span><span class="p">,</span> <span class="n">new</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">trait_property_changed</span><span class="p">(</span><span class="s">&#39;current_selection&#39;</span><span class="p">,</span> <span class="n">old</span><span class="p">,</span> <span class="n">new</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_get_current_selection</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">current_selection</span>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">Mayavi</span><span class="p">()</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">configure_traits</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/mayavi-logo.png" alt="Logo"/>
+            </a></p>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="example_subclassing_mayavi_application.html"
+                        title="previous chapter">Subclassing mayavi application example</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="example_qt_embedding.html"
+                        title="next chapter">Qt embedding example</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/auto/example_mayavi_traits_ui.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+    <div id="searchbox">
+	<h3>Google Search</h3>
+    <form method="get" action="http://www.google.com/search">
+
+    <table border="0" cellpadding="0">
+    <tr><td>
+    <input type="text"   name="q" size="20"
+    maxlength="255" value="" />
+    <input type="submit" value="Go" /></td></tr>
+    <tr><td align="center" style="font-size:75%; color: #FFFFFF;">
+    <input type="checkbox"  name="sitesearch"
+    value="http://code.enthought.com/projects/mayavi/docs/development/html/mayavi/" checked /> only search Mayavi documentation<br />
+    </td></tr></table>
+
+</form>
+    </div>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="example_qt_embedding.html" title="Qt embedding example"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="example_subclassing_mayavi_application.html" title="Subclassing mayavi application example"
+             >previous</a> |</li>
+        <li><a href="../index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+          <li><a href="examples.html" >Example gallery</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
+      Last updated on Jan 27, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
+    </div>
+  </body>
+</html>

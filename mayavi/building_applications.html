@@ -1,0 +1,468 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Building applications using Mayavi &mdash; Mayavi v3.4.2 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '3.4.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Mayavi v3.4.2 documentation" href="index.html" />
+    <link rel="next" title="Tips and Tricks" href="tips.html" />
+    <link rel="prev" title="Advanced Scripting with Mayavi" href="advanced_scripting.html" />
+<style type="text/css">
+  body {
+    /* Very bottom copyright, etc. info */
+    background: #4d598d;
+  }
+
+  .documentwrapper {
+    /* Blank area on left bar */
+    background: #24326e;
+  }
+
+  .related {
+    /* Long horizontal nav bars */
+    background: #3c4b8a!important;
+  }
+
+  .sphinxsidebarwrapper {
+    /* Filled part of left sidebar */
+    background: #24326e;
+  }
+
+  a {
+    color: #253370;
+  }
+
+  .sphinxsidebarwrapper a {
+    color: #f2f2f2!important;
+  }
+</style>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="tips.html" title="Tips and Tricks"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="advanced_scripting.html" title="Advanced Scripting with Mayavi"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Mayavi v3.4.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="building-applications-using-mayavi">
+<span id="builing-applications"></span><h1>Building applications using Mayavi<a class="headerlink" href="#building-applications-using-mayavi" title="Permalink to this headline">¶</a></h1>
+<div class="topic">
+<p class="topic-title first">Section summary</p>
+<p>This section describes how Mayavi can be used as a scientific data
+visualization and 3D plotting tool in interactive application.</p>
+</div>
+<p>Mayavi can be used as a fully integrated and interactive 3D plotting tool
+in a GUI application. Using the event model behind Traits and TVTK, all
+the different properties of a visualization can be changed dynamically,
+including the data visualized itself.</p>
+<p>In this section, we first show how an interactive dialog embedding a
+Mayavi scene can be built, using <cite>Traits</cite>. Then we show how to integrate
+this dialog in a WxPython or a PyQt (or PySide) application.</p>
+<div class="section" id="custom-interactive-dialogs">
+<h2>Custom interactive dialogs<a class="headerlink" href="#custom-interactive-dialogs" title="Permalink to this headline">¶</a></h2>
+<p>Mayavi and TVTK are entirely built using the Traits library which provides
+easy callbacks and visualization for objects attribute. All the different
+properties of the pipeline and pipeline objects are expressed as Traits,
+i.e. special attributes that can be visualized in dialogs and that fire
+callbacks when they are modified. In particular this means that when a
+visualization object is modified, the scene can update automatically.</p>
+<p>We strongly suggest that you refer to the <cite>Traits</cite>
+<a class="reference external" href="http://code.enthought.com/projects/traits.documentation.php">documentation</a>
+for more details, and to the
+<a class="reference external" href="http://code.enthought.com/projects/traits/docs/html/tutorials/traits_ui_scientific_app.html">tutorial</a>
+for a quick introduction.</p>
+<div class="section" id="embedding-a-mayavi-scene-in-a-traits-dialog">
+<span id="embedding-mayavi-traits"></span><h3>Embedding a Mayavi scene in a Traits dialog<a class="headerlink" href="#embedding-a-mayavi-scene-in-a-traits-dialog" title="Permalink to this headline">¶</a></h3>
+<p>To build a custom dialog with a Mayavi scene, the best option is to
+create a class deriving from the base <cite>Traits</cite> class. A special
+attribute, called SceneModel can be used as an attribute to represent a
+Mayavi scene that can accept objects. This defines the <cite>model</cite>, i.e. the
+main <cite>HasTraits</cite> object in which the application logics is contained.</p>
+<p>A view of this object, as a dialog, can be created using the
+<cite>.configure_traits</cite> method of this object. If a view is explicitely
+specified the embedded Mayavi scene can be represented with the usual
+widget for scene by specifying for it the <cite>SceneEditor</cite>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">enthought.traits.api</span> <span class="kn">import</span> <span class="n">HasTraits</span><span class="p">,</span> <span class="n">Instance</span>
+<span class="kn">from</span> <span class="nn">enthought.traits.ui.api</span> <span class="kn">import</span> <span class="n">View</span><span class="p">,</span> <span class="n">Item</span>
+<span class="kn">from</span> <span class="nn">enthought.tvtk.pyface.scene_model</span> <span class="kn">import</span> <span class="n">SceneModel</span>
+<span class="kn">from</span> <span class="nn">enthought.tvtk.pyface.scene_editor</span> <span class="kn">import</span> <span class="n">SceneEditor</span>
+
+<span class="k">class</span> <span class="nc">MyModel</span><span class="p">(</span><span class="n">HasTraits</span><span class="p">):</span>
+    <span class="n">scene</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">SceneModel</span><span class="p">,</span> <span class="p">())</span>
+
+    <span class="n">view</span> <span class="o">=</span> <span class="n">View</span><span class="p">(</span><span class="n">Item</span><span class="p">(</span><span class="s">&#39;scene&#39;</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span> <span class="n">show_label</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+                    <span class="n">editor</span><span class="o">=</span><span class="n">SceneEditor</span><span class="p">()))</span>
+
+<span class="n">MyModel</span><span class="p">()</span><span class="o">.</span><span class="n">configure_traits</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>A <cite>Mayavi</cite> button to pop up the pipeline dialog can be added on the
+toolbar by specifying a different scene view to the <cite>SceneEditor</cite>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">enthought.mayavi.core.ui.mayavi_scene</span> <span class="kn">import</span> <span class="n">MayaviScene</span>
+
+<span class="c">#...</span>
+<span class="n">editor</span><span class="o">=</span><span class="n">SceneEditor</span><span class="p">(</span><span class="n">scene_class</span><span class="o">=</span><span class="n">MayaviScene</span><span class="p">)</span>
+<span class="c">#...</span>
+</pre></div>
+</div>
+<p>If, on the contrary, you want a view with no toolbar, you can replace the
+<cite>MayaviView</cite> by a raw tvtk view:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">enthought.tvtk.pyface.api</span> <span class="kn">import</span> <span class="n">Scene</span>
+
+<span class="c">#...</span>
+<span class="n">editor</span><span class="o">=</span><span class="n">SceneEditor</span><span class="p">(</span><span class="n">scene_class</span><span class="o">=</span><span class="n">Scene</span><span class="p">)</span>
+<span class="c">#...</span>
+</pre></div>
+</div>
+<p>The <a class="reference internal" href="auto/example_mayavi_traits_ui.html#example-mayavi-traits-ui"><em>Mayavi traits ui example</em></a> is a fairly comprehensive example that
+demonstrates how you can embed almost the entire Mayavi UI into your traits
+based UI.</p>
+</div>
+<div class="section" id="a-scene-with-mlab-embedded">
+<h3>A scene, with <cite>mlab</cite> embedded<a class="headerlink" href="#a-scene-with-mlab-embedded" title="Permalink to this headline">¶</a></h3>
+<p>An object representing a scene is interesting only if you can visualize
+data with the scene. For this we can instanciate an <cite>Engine</cite> and assign
+it to the scene. Having an <cite>Engine</cite> only for one scene allows us to
+confine action and visualization objects only to this scene.</p>
+<p>We can also use an <cite>MlabSceneModel</cite> instance, rather than a <cite>SceneModel</cite>,
+imported from <cite>enthought.mayavi.tools.mlab_scene_model</cite>. This scene model
+registers the figure in <cite>mlab</cite> (<a class="reference internal" href="mlab.html#simple-scripting-with-mlab"><em>mlab: Python scripting for 3D plotting</em></a>). It
+has an embedded mlab attribute, that exposes the mlab commands (see
+<a class="reference internal" href="mlab_3d_plotting_functions.html#mlab-plotting-functions"><em>3D Plotting functions for numpy arrays</em></a>). For instance plotting 3D points can be
+achieved with <cite>self.scene.mlab.points3d(x, y, z, s)</cite>.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p>Embedding several scenes in an application</p>
+<p>When using several &#8216;MlabSceneModel&#8217; in an application, there is an
+ambiguity regarding which scene mlab should use to plot to. This is
+why relying on using the current figure, as mlab most often does, is
+dangerous.</p>
+<p>The solution to this, is explicitly pass in the Mayavi figure to
+mlab&#8217;s figure keyword argument:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">mlab</span><span class="o">.</span><span class="n">points3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">figure</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">mayavi_scene</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>However, this functionality is new in Mayavi 3.2.1.</p>
+<p>A full example with two embedded scenes is given on
+<a class="reference internal" href="auto/example_multiple_mlab_scene_models.html#example-multiple-mlab-scene-models"><em>Multiple mlab scene models example</em></a>.</p>
+<p class="last">Another way of creating isolation between scene is to explicitly
+insert them in different engines. This is demonstrated in
+<a class="reference internal" href="auto/example_multiple_engines.html#example-multiple-engines"><em>Multiple engines example</em></a></p>
+</div>
+</div>
+<div class="section" id="making-the-visualization-live">
+<h3>Making the visualization live<a class="headerlink" href="#making-the-visualization-live" title="Permalink to this headline">¶</a></h3>
+<p>Having an interactive application is interesting only if you can do
+custom, domain-specific, interaction with the visualization.</p>
+<p>An important use case is modifying the data visualized as a parameter is
+changed interactively. For this we can use the inplace modification of
+the data of an mlab object, as for animation of an mlab plot (see
+<a class="reference internal" href="mlab_animating.html#mlab-animating-data"><em>Animating the data</em></a>). Suppose we are plotting a line curve defined
+by a function of two parameters:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">linspace</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="n">sin</span>
+
+<span class="k">def</span> <span class="nf">curve</span><span class="p">(</span><span class="n">n_mer</span><span class="p">,</span> <span class="n">n_long</span><span class="p">):</span>
+    <span class="n">phi</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="p">,</span> <span class="mi">2000</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">[</span> <span class="n">cos</span><span class="p">(</span><span class="n">phi</span><span class="o">*</span><span class="n">n_mer</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="n">n_long</span><span class="o">*</span><span class="n">phi</span><span class="p">)),</span>
+            <span class="n">sin</span><span class="p">(</span><span class="n">phi</span><span class="o">*</span><span class="n">n_mer</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="n">n_long</span><span class="o">*</span><span class="n">phi</span><span class="p">)),</span>
+            <span class="mf">0.5</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">n_long</span><span class="o">*</span><span class="n">phi</span><span class="p">),</span>
+            <span class="n">sin</span><span class="p">(</span><span class="n">phi</span><span class="o">*</span><span class="n">n_mer</span><span class="p">)]</span>
+</pre></div>
+</div>
+<p>Using <cite>mlab</cite>, we could plot the curve with <cite>plot3d</cite>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="n">curve</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">enthought.mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
+<span class="n">plot</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">plot3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Modifying the plot for new parameters could be written:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">curve</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+<span class="n">plot</span><span class="o">.</span><span class="n">mlab_source</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">,</span> <span class="n">scalars</span><span class="o">=</span><span class="n">t</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In a dialog, this would be:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">enthought.traits.api</span> <span class="kn">import</span> <span class="n">HasTraits</span><span class="p">,</span> <span class="n">Range</span><span class="p">,</span> <span class="n">Instance</span><span class="p">,</span> \
+                    <span class="n">on_trait_change</span>
+<span class="kn">from</span> <span class="nn">enthought.traits.ui.api</span> <span class="kn">import</span> <span class="n">View</span><span class="p">,</span> <span class="n">Item</span><span class="p">,</span> <span class="n">HGroup</span>
+<span class="kn">from</span> <span class="nn">enthought.tvtk.pyface.scene_editor</span> <span class="kn">import</span> <span class="n">SceneEditor</span>
+<span class="kn">from</span> <span class="nn">enthought.mayavi.tools.mlab_scene_model</span> <span class="kn">import</span> \
+                    <span class="n">MlabSceneModel</span>
+<span class="kn">from</span> <span class="nn">enthought.mayavi.core.ui.mayavi_scene</span> <span class="kn">import</span> <span class="n">MayaviScene</span>
+
+
+<span class="k">class</span> <span class="nc">Visualization</span><span class="p">(</span><span class="n">HasTraits</span><span class="p">):</span>
+    <span class="n">meridional</span> <span class="o">=</span> <span class="n">Range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span>  <span class="mi">6</span><span class="p">)</span>
+    <span class="n">transverse</span> <span class="o">=</span> <span class="n">Range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span>
+    <span class="n">scene</span>      <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">MlabSceneModel</span><span class="p">,</span> <span class="p">())</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c"># Do not forget to call the parent&#39;s __init__</span>
+        <span class="n">HasTraits</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">curve</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">meridional</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">transverse</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plot</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">mlab</span><span class="o">.</span><span class="n">plot3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s">&#39;Spectral&#39;</span><span class="p">)</span>
+
+    <span class="nd">@on_trait_change</span><span class="p">(</span><span class="s">&#39;meridional,transverse&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">update_plot</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">curve</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">meridional</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">transverse</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">mlab_source</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">,</span> <span class="n">scalars</span><span class="o">=</span><span class="n">t</span><span class="p">)</span>
+
+
+    <span class="c"># the layout of the dialog created</span>
+    <span class="n">view</span> <span class="o">=</span> <span class="n">View</span><span class="p">(</span><span class="n">Item</span><span class="p">(</span><span class="s">&#39;scene&#39;</span><span class="p">,</span> <span class="n">editor</span><span class="o">=</span><span class="n">SceneEditor</span><span class="p">(</span><span class="n">scene_class</span><span class="o">=</span><span class="n">MayaviScene</span><span class="p">),</span>
+                    <span class="n">height</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">show_label</span><span class="o">=</span><span class="bp">False</span><span class="p">),</span>
+                <span class="n">HGroup</span><span class="p">(</span>
+                        <span class="s">&#39;_&#39;</span><span class="p">,</span> <span class="s">&#39;meridional&#39;</span><span class="p">,</span> <span class="s">&#39;transverse&#39;</span><span class="p">,</span>
+                    <span class="p">),</span>
+                <span class="p">)</span>
+
+<span class="n">visualization</span> <span class="o">=</span> <span class="n">Visualization</span><span class="p">()</span>
+<span class="n">visualization</span><span class="o">.</span><span class="n">configure_traits</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>This code creates the following dialog:</p>
+<img alt="_images/example_mlab_interactive_dialog.jpg" class="align-center" src="_images/example_mlab_interactive_dialog.jpg" />
+<p>A complete, runnable, code based on the above comments is given in the
+<a class="reference internal" href="auto/example_mlab_interactive_dialog.html#example-mlab-interactive-dialog"><em>Mlab interactive dialog example</em></a>.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p>Visualization objects and properties created before a scene is available</p>
+<p>When creating a traited object with an embedded scene, the scene can
+be created and populated before a view on it is actually open.
+However, some VTK objects or properties require a scene with a camera
+and interaction to be open to work properly, mainly because either
+they orient themselves to the camera, or deal with interaction with
+keyboard or mouse (such as interactors, eg an implicit plane). As a
+result some property changes on VTK objects will raise warnings or
+simply not work when applied without a dialog opened. When embedding
+a scene in a Traits object, the best option is to create and modify
+these objects only when the scene is activated, by listening to
+changes on the &#8216;scene.activated&#8217; traits:</p>
+<div class="highlight-python"><pre>@on_trait_change('scene.activated')
+def create_plot(self):
+    # Do the plotting here
+    # ...</pre>
+</div>
+<p class="last">The <a class="reference internal" href="auto/example_lorenz_ui.html#example-lorenz-ui"><em>Lorenz ui example</em></a> shows a good example of this situation.</p>
+</div>
+<div class="topic">
+<p class="topic-title first">Learning by examples</p>
+<p>Several full-featured examples can be used to learn more about how to
+develop an application with visualization and data processing with Traits
+and Mayavi:</p>
+<ul class="simple">
+<li><a class="reference internal" href="auto/example_lorenz_ui.html#example-lorenz-ui"><em>Lorenz ui example</em></a>: A didactic and simple example that shows
+how the lorenz model can be integrated and visualized interactively
+while changing the model parameters.</li>
+<li><a class="reference internal" href="auto/example_mayavi_traits_ui.html#example-mayavi-traits-ui"><em>Mayavi traits ui example</em></a>: An example showing how you can mimic
+the UI of the Mayavi application with simple code using Traits.</li>
+<li><a class="reference internal" href="auto/example_multiple_engines.html#example-multiple-engines"><em>Multiple engines example</em></a>: An example showing how you can
+isolate different scenes by affecting them to different engines.</li>
+<li><a class="reference internal" href="auto/example_coil_design_application.html#example-coil-design-application"><em>Coil design application example</em></a>: A full-blown and elaborate
+application enabling specification of a current-loop description for
+a coil, and integration of the resulting magnetic field with real-time
+visualization of the field and the coil structure.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="integrating-in-a-wxpython-application">
+<h2>Integrating in a WxPython application<a class="headerlink" href="#integrating-in-a-wxpython-application" title="Permalink to this headline">¶</a></h2>
+<p>Using the <cite>Visualization</cite> class defined above:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">wx</span>
+
+<span class="k">class</span> <span class="nc">MainWindow</span><span class="p">(</span><span class="n">wx</span><span class="o">.</span><span class="n">Frame</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
+        <span class="n">wx</span><span class="o">.</span><span class="n">Frame</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="s">&#39;Mayavi in Wx&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">visualization</span> <span class="o">=</span> <span class="n">Visualization</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">control</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">edit_traits</span><span class="p">(</span><span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
+                                <span class="n">kind</span><span class="o">=</span><span class="s">&#39;subpanel&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">control</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Show</span><span class="p">()</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">wx</span><span class="o">.</span><span class="n">PySimpleApp</span><span class="p">()</span>
+<span class="n">frame</span> <span class="o">=</span> <span class="n">MainWindow</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="n">wx</span><span class="o">.</span><span class="n">ID_ANY</span><span class="p">)</span>
+<span class="n">app</span><span class="o">.</span><span class="n">MainLoop</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Two examples of integrating Mayavi visualization with Wx applications are
+given:</p>
+<blockquote>
+<ul class="simple">
+<li><a class="reference internal" href="auto/example_wx_embedding.html#example-wx-embedding"><em>Wx embedding example</em></a>: a simple example, as above.</li>
+<li><a class="reference internal" href="auto/example_wx_mayavi_embed_in_notebook.html#example-wx-mayavi-embed-in-notebook"><em>Wx mayavi embed in notebook example</em></a>: a more complexe example,
+showing 2 different Mayavi views embedded in a Wx notebook.</li>
+</ul>
+</blockquote>
+</div>
+<div class="section" id="integrating-in-a-qt-application">
+<span id="integrating-pyqt"></span><h2>Integrating in a Qt application<a class="headerlink" href="#integrating-in-a-qt-application" title="Permalink to this headline">¶</a></h2>
+<p>Mayavi dialogs can also be integrated in a PyQt or PySide application.</p>
+<p>Before defining the <cite>Visualization</cite> class, you should set the toolkit
+used by Traits to the Qt backend:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">os</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s">&#39;ETS_TOOLKIT&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;qt4&#39;</span>
+</pre></div>
+</div>
+<p>Also, as Traits runs with PyQt and PySide, if you use PyQt, you must make
+sure that you swith its binding in a mode that is compatible with PySide
+(internal string representation mode), <strong>before you import any PyQt
+code</strong>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">sip</span>
+<span class="n">sip</span><span class="o">.</span><span class="n">setapi</span><span class="p">(</span><span class="s">&#39;QString&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Then using the visualization class defined above:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">PyQt4</span> <span class="kn">import</span> <span class="n">QtGui</span>
+
+<span class="k">class</span> <span class="nc">MainWindow</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QMainWindow</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="n">QtGui</span><span class="o">.</span><span class="n">QWidget</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">visualization</span> <span class="o">=</span> <span class="n">Visualization</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">edit_traits</span><span class="p">()</span><span class="o">.</span><span class="n">control</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setCentralWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="p">)</span>
+
+<span class="n">window</span> <span class="o">=</span> <span class="n">MainWindow</span><span class="p">()</span>
+<span class="n">window</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">QtGui</span><span class="o">.</span><span class="n">qApp</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>For a full-blown example of embedding in Qt, see
+<a class="reference internal" href="auto/example_qt_embedding.html#example-qt-embedding"><em>Qt embedding example</em></a>.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p>On definition of the model (and thus previous to the start of the
+event loop), Traits sets up some hooks on the main QApplication. As a
+result if you instanciate a new one, using for instance:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">app</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QApplication</span><span class="p">()</span>
+</pre></div>
+</div>
+<p class="last">Your Traits application will not work.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/mayavi-logo.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Building applications using Mayavi</a><ul>
+<li><a class="reference internal" href="#custom-interactive-dialogs">Custom interactive dialogs</a><ul>
+<li><a class="reference internal" href="#embedding-a-mayavi-scene-in-a-traits-dialog">Embedding a Mayavi scene in a Traits dialog</a></li>
+<li><a class="reference internal" href="#a-scene-with-mlab-embedded">A scene, with <cite>mlab</cite> embedded</a></li>
+<li><a class="reference internal" href="#making-the-visualization-live">Making the visualization live</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#integrating-in-a-wxpython-application">Integrating in a WxPython application</a></li>
+<li><a class="reference internal" href="#integrating-in-a-qt-application">Integrating in a Qt application</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="advanced_scripting.html"
+                        title="previous chapter">Advanced Scripting with Mayavi</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="tips.html"
+                        title="next chapter">Tips and Tricks</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/building_applications.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+    <div id="searchbox">
+	<h3>Google Search</h3>
+    <form method="get" action="http://www.google.com/search">
+
+    <table border="0" cellpadding="0">
+    <tr><td>
+    <input type="text"   name="q" size="20"
+    maxlength="255" value="" />
+    <input type="submit" value="Go" /></td></tr>
+    <tr><td align="center" style="font-size:75%; color: #FFFFFF;">
+    <input type="checkbox"  name="sitesearch"
+    value="http://code.enthought.com/projects/mayavi/docs/development/html/mayavi/" checked /> only search Mayavi documentation<br />
+    </td></tr></table>
+
+</form>
+    </div>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="tips.html" title="Tips and Tricks"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="advanced_scripting.html" title="Advanced Scripting with Mayavi"
+             >previous</a> |</li>
+        <li><a href="index.html">Mayavi v3.4.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
+      Last updated on Jan 27, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
+    </div>
+  </body>
+</html>

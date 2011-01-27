@@ -1,0 +1,240 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Figures, legends, camera and decorations &mdash; Mayavi v3.4.2 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '3.4.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Mayavi v3.4.2 documentation" href="index.html" />
+<style type="text/css">
+  body {
+    /* Very bottom copyright, etc. info */
+    background: #4d598d;
+  }
+
+  .documentwrapper {
+    /* Blank area on left bar */
+    background: #24326e;
+  }
+
+  .related {
+    /* Long horizontal nav bars */
+    background: #3c4b8a!important;
+  }
+
+  .sphinxsidebarwrapper {
+    /* Filled part of left sidebar */
+    background: #24326e;
+  }
+
+  a {
+    color: #253370;
+  }
+
+  .sphinxsidebarwrapper a {
+    color: #f2f2f2!important;
+  }
+</style>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li><a href="index.html">Mayavi v3.4.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="figures-legends-camera-and-decorations">
+<h1>Figures, legends, camera and decorations<a class="headerlink" href="#figures-legends-camera-and-decorations" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="handling-several-figures">
+<h2>Handling several figures<a class="headerlink" href="#handling-several-figures" title="Permalink to this headline">¶</a></h2>
+<p>All mlab functions operate on the current scene, that we also call
+<tt class="xref py py-func docutils literal"><span class="pre">figure()</span></tt>, for compatibility with matlab and pylab. The different
+figures are indexed by key that can be an integer or a string. A call to
+the <tt class="xref py py-func docutils literal"><span class="pre">figure()</span></tt> function giving a key will either return the corresponding
+figure, if it exists, or create a new one. The current figure can be
+retrieved with the <tt class="xref py py-func docutils literal"><span class="pre">gcf()</span></tt> function. It can be refreshed using the
+<tt class="xref py py-func docutils literal"><span class="pre">draw()</span></tt> function, saved to a picture file using <tt class="xref py py-func docutils literal"><span class="pre">savefig()</span></tt> and
+cleared using <tt class="xref py py-func docutils literal"><span class="pre">clf()</span></tt>.</p>
+</div>
+<div class="section" id="figure-decorations">
+<h2>Figure decorations<a class="headerlink" href="#figure-decorations" title="Permalink to this headline">¶</a></h2>
+<p>Axes can be added around a visualization object with the <tt class="xref py py-func docutils literal"><span class="pre">axes()</span></tt>
+function, and the labels can be set using the <tt class="xref py py-func docutils literal"><span class="pre">xlabel()</span></tt>, <tt class="xref py py-func docutils literal"><span class="pre">ylabel()</span></tt>
+and <tt class="xref py py-func docutils literal"><span class="pre">zlabel()</span></tt> functions. Similarly, <tt class="xref py py-func docutils literal"><span class="pre">outline()</span></tt> creates an
+outline around an object. <tt class="xref py py-func docutils literal"><span class="pre">title()</span></tt> adds a title to the figure.</p>
+<p>Color bars can be used to reflect the color maps used to display values
+(LUT, or lookup tables, in VTK parlance). <tt class="xref py py-func docutils literal"><span class="pre">colorbar()</span></tt> creates a color
+bar for the last object created, trying to guess whether to use the vector
+data or the scalar data color maps. The <tt class="xref py py-func docutils literal"><span class="pre">scalarbar()</span></tt> and
+<tt class="xref py py-func docutils literal"><span class="pre">vectorbar()</span></tt> function scan be used to create color bars specifically
+for scalar or vector data.</p>
+<p>A small <em>xyz</em> triad can be added to the figure using
+<tt class="xref py py-func docutils literal"><span class="pre">orientation_axes()</span></tt>.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">The <tt class="xref py py-func docutils literal"><span class="pre">orientation_axes()</span></tt> was named <cite>orientationaxes</cite>
+before release 3.2.</p>
+</div>
+</div>
+<div class="section" id="moving-the-camera">
+<h2>Moving the camera<a class="headerlink" href="#moving-the-camera" title="Permalink to this headline">¶</a></h2>
+<p>The position and direction of the camera can be set using the <tt class="xref py py-func docutils literal"><span class="pre">view()</span></tt>
+function. They are described in terms of Euler angles and distance to a
+focal point. The <tt class="xref py py-func docutils literal"><span class="pre">view()</span></tt> function tries to guess the right roll angle
+of the camera for a pleasing view, but it sometimes fails. The <tt class="xref py py-func docutils literal"><span class="pre">roll()</span></tt>
+explicitly sets the roll angle of the camera (this can be achieve
+interactively in the scene by pressing down the control key, while
+dragging the mouse, see <a class="reference internal" href="application.html#interaction-with-the-scene"><em>Interaction with the scene</em></a>).</p>
+<p>The <tt class="xref py py-func docutils literal"><span class="pre">view()</span></tt> and <tt class="xref py py-func docutils literal"><span class="pre">roll()</span></tt> functions return the current values of
+the different angles and distances they take as arguments. As a result, the
+view point obtained interactively can be stored and reset using:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Store the information</span>
+<span class="n">view</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
+<span class="n">roll</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">roll</span><span class="p">()</span>
+
+<span class="c"># Reposition the camera</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">*</span><span class="n">view</span><span class="p">)</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">roll</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="topic">
+<p class="topic-title first">Rotating the camera around itself</p>
+<blockquote>
+<p>You can also rotate the camera around itself using the <cite>roll</cite>, <cite>yaw</cite>
+and <cite>pitch</cite> methods of the camera object. This moves the focal point:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">f</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span>
+<span class="n">camera</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span>
+<span class="n">camera</span><span class="o">.</span><span class="n">yaw</span><span class="p">(</span><span class="mi">45</span><span class="p">)</span>
+</pre></div>
+</div>
+</blockquote>
+<p>Unlike the <tt class="xref py py-func docutils literal"><span class="pre">view()</span></tt> and <tt class="xref py py-func docutils literal"><span class="pre">roll()</span></tt> function, the angles
+are incremental, and not absolute.</p>
+</div>
+<div class="topic">
+<p class="topic-title first">Modifying zoom and view angle</p>
+<p>The camera is entirely defined by its position, its focal point, and
+its view angle (attributes &#8216;position&#8217;, &#8216;focal_point&#8217;, &#8216;view_angle&#8217;).
+The camera method &#8216;zoom&#8217; changes the view angle incrementally by the
+specify ratio, where as the method &#8216;dolly&#8217; translates the camera along
+its axis while keeping the focal point constant. The <tt class="xref py py-func docutils literal"><span class="pre">move()</span></tt>
+function can also be useful in these regards.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Camera parallel scale</p>
+<p>In addition to the information returned and set by mlab.view and
+mlab.roll, a last parameter is needed to fully define the view point:
+the parallel scale of the camera, that control its view angle. It can
+be read (or set) with the following code:</p>
+<div class="last highlight-python"><div class="highlight"><pre><span class="n">f</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span>
+<span class="n">camera</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span>
+<span class="n">cam</span><span class="o">.</span><span class="n">parallel_scale</span> <span class="o">=</span> <span class="mi">9</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/mayavi-logo.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Figures, legends, camera and decorations</a><ul>
+<li><a class="reference internal" href="#handling-several-figures">Handling several figures</a></li>
+<li><a class="reference internal" href="#figure-decorations">Figure decorations</a></li>
+<li><a class="reference internal" href="#moving-the-camera">Moving the camera</a></li>
+</ul>
+</li>
+</ul>
+
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/mlab_figures_decorations.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+    <div id="searchbox">
+	<h3>Google Search</h3>
+    <form method="get" action="http://www.google.com/search">
+
+    <table border="0" cellpadding="0">
+    <tr><td>
+    <input type="text"   name="q" size="20"
+    maxlength="255" value="" />
+    <input type="submit" value="Go" /></td></tr>
+    <tr><td align="center" style="font-size:75%; color: #FFFFFF;">
+    <input type="checkbox"  name="sitesearch"
+    value="http://code.enthought.com/projects/mayavi/docs/development/html/mayavi/" checked /> only search Mayavi documentation<br />
+    </td></tr></table>
+
+</form>
+    </div>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li><a href="index.html">Mayavi v3.4.2 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
+      Last updated on Jan 27, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
+    </div>
+  </body>
+</html>

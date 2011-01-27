@@ -1,0 +1,269 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Adjust cropping extents example &mdash; Mayavi v3.4.2 documentation</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.4.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Mayavi v3.4.2 documentation" href="../index.html" />
+    <link rel="up" title="Example gallery" href="examples.html" />
+    <link rel="next" title="Poll file example" href="example_poll_file.html" />
+    <link rel="prev" title="Compute in thread example" href="example_compute_in_thread.html" />
+<style type="text/css">
+  body {
+    /* Very bottom copyright, etc. info */
+    background: #4d598d;
+  }
+
+  .documentwrapper {
+    /* Blank area on left bar */
+    background: #24326e;
+  }
+
+  .related {
+    /* Long horizontal nav bars */
+    background: #3c4b8a!important;
+  }
+
+  .sphinxsidebarwrapper {
+    /* Filled part of left sidebar */
+    background: #24326e;
+  }
+
+  a {
+    color: #253370;
+  }
+
+  .sphinxsidebarwrapper a {
+    color: #f2f2f2!important;
+  }
+</style>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="example_poll_file.html" title="Poll file example"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="example_compute_in_thread.html" title="Compute in thread example"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+          <li><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="adjust-cropping-extents-example">
+<span id="example-adjust-cropping-extents"></span><h1>Adjust cropping extents example<a class="headerlink" href="#adjust-cropping-extents-example" title="Permalink to this headline">¶</a></h1>
+<p>A custom dialog to adjust the parameters of a GeometryFilter to crop
+data points.</p>
+<p>This example shows how to use a GeometryFilter to crop data points, but
+also how to build a custom dialog to easily set interactively parameters
+of a filter, or any other Mayavi object.</p>
+<p>The GeometryFilter crops all data within a bounding box specified by
+&#8216;extents&#8217;. In this example, we want to be able to tweak these extents
+interactively. For this, we build a Traits object that has &#8216;x_min&#8217;,
+&#8216;x_max&#8217;, &#8216;y_min&#8217;, ... attributes. Traits enables us to represent this
+object as a dialog box. We use a callback called when these attributes
+are modified to propagate them to the filter. For more information
+on creating GUIs with Traits:</p>
+<blockquote>
+<p><a class="reference external" href="http://code.enthought.com/projects/traits/docs/html/tutorials/traits_ui_scientific_app.html">http://code.enthought.com/projects/traits/docs/html/tutorials/traits_ui_scientific_app.html</a></p>
+<p><a class="reference external" href="http://code.enthought.com/projects/traits/documentation.php">http://code.enthought.com/projects/traits/documentation.php</a></p>
+</blockquote>
+<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/adjust_cropping_extents.py"><tt class="xref download docutils literal"><span class="pre">adjust_cropping_extents.py</span></tt></a></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Author: Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt; </span>
+<span class="c"># Copyright (c) 2010, Enthought, Inc.</span>
+<span class="c"># License: BSD Style.</span>
+
+
+<span class="c">################################################################################</span>
+<span class="c"># Create a set of points, with given density</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">4</span><span class="p">,</span> <span class="mi">500</span><span class="p">))</span>
+
+<span class="c">################################################################################</span>
+<span class="c"># A dialog to edit a range interactively and propagate it to the filter</span>
+<span class="kn">from</span> <span class="nn">enthought.traits.api</span> <span class="kn">import</span> <span class="n">HasTraits</span><span class="p">,</span> <span class="n">Range</span><span class="p">,</span> <span class="n">Float</span><span class="p">,</span> <span class="n">Instance</span><span class="p">,</span> \
+    <span class="n">on_trait_change</span>
+<span class="kn">from</span> <span class="nn">enthought.traits.ui.api</span> <span class="kn">import</span> <span class="n">View</span>
+
+<span class="k">class</span> <span class="nc">ExtentDialog</span><span class="p">(</span><span class="n">HasTraits</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; A dialog to graphical adjust the extents of a filter.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c"># Data extents</span>
+    <span class="n">data_x_min</span> <span class="o">=</span> <span class="n">Float</span>
+    <span class="n">data_x_max</span> <span class="o">=</span> <span class="n">Float</span>
+    <span class="n">data_y_min</span> <span class="o">=</span> <span class="n">Float</span>
+    <span class="n">data_y_max</span> <span class="o">=</span> <span class="n">Float</span>
+    <span class="n">data_z_min</span> <span class="o">=</span> <span class="n">Float</span>
+    <span class="n">data_z_max</span> <span class="o">=</span> <span class="n">Float</span>
+
+    <span class="n">x_min</span> <span class="o">=</span> <span class="n">Range</span><span class="p">(</span><span class="s">&#39;data_x_min&#39;</span><span class="p">,</span> <span class="s">&#39;data_x_max&#39;</span><span class="p">,</span> <span class="s">&#39;data_x_min&#39;</span><span class="p">)</span>
+    <span class="n">x_max</span> <span class="o">=</span> <span class="n">Range</span><span class="p">(</span><span class="s">&#39;data_x_min&#39;</span><span class="p">,</span> <span class="s">&#39;data_x_max&#39;</span><span class="p">,</span> <span class="s">&#39;data_x_max&#39;</span><span class="p">)</span>
+    <span class="n">y_min</span> <span class="o">=</span> <span class="n">Range</span><span class="p">(</span><span class="s">&#39;data_y_min&#39;</span><span class="p">,</span> <span class="s">&#39;data_y_max&#39;</span><span class="p">,</span> <span class="s">&#39;data_y_min&#39;</span><span class="p">)</span>
+    <span class="n">y_max</span> <span class="o">=</span> <span class="n">Range</span><span class="p">(</span><span class="s">&#39;data_y_min&#39;</span><span class="p">,</span> <span class="s">&#39;data_y_max&#39;</span><span class="p">,</span> <span class="s">&#39;data_y_max&#39;</span><span class="p">)</span>
+    <span class="n">z_min</span> <span class="o">=</span> <span class="n">Range</span><span class="p">(</span><span class="s">&#39;data_z_min&#39;</span><span class="p">,</span> <span class="s">&#39;data_z_max&#39;</span><span class="p">,</span> <span class="s">&#39;data_z_min&#39;</span><span class="p">)</span>
+    <span class="n">z_max</span> <span class="o">=</span> <span class="n">Range</span><span class="p">(</span><span class="s">&#39;data_z_min&#39;</span><span class="p">,</span> <span class="s">&#39;data_z_max&#39;</span><span class="p">,</span> <span class="s">&#39;data_z_max&#39;</span><span class="p">)</span>
+
+    <span class="nb">filter</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">HasTraits</span><span class="p">,</span> <span class="n">allow_none</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+    <span class="nd">@on_trait_change</span><span class="p">(</span><span class="s">&#39;x_min,x_max,y_min,y_max,z_min,z_max&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">update_extent</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filter</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span>
+                    <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_min</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_max</span> 
+                    <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_min</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_max</span> 
+                    <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">z_min</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">z_max</span>
+                            <span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">extent</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x_min</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_max</span><span class="p">,</span>
+                                  <span class="bp">self</span><span class="o">.</span><span class="n">y_min</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_max</span><span class="p">,</span>
+                                  <span class="bp">self</span><span class="o">.</span><span class="n">z_min</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">z_max</span><span class="p">)</span>
+
+    <span class="n">view</span> <span class="o">=</span> <span class="n">View</span><span class="p">(</span><span class="s">&#39;x_min&#39;</span><span class="p">,</span> <span class="s">&#39;x_max&#39;</span><span class="p">,</span> <span class="s">&#39;y_min&#39;</span><span class="p">,</span> <span class="s">&#39;y_max&#39;</span><span class="p">,</span> <span class="s">&#39;z_min&#39;</span><span class="p">,</span> <span class="s">&#39;z_max&#39;</span><span class="p">,</span>
+                <span class="n">title</span><span class="o">=</span><span class="s">&#39;Edit extent&#39;</span><span class="p">,</span> <span class="n">resizable</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+
+<span class="c">################################################################################</span>
+<span class="c"># Now build the visualization using mlab</span>
+<span class="kn">from</span> <span class="nn">enthought.mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">bgcolor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+<span class="c"># Create unconnected points</span>
+<span class="n">pts</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">scalar_scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">outline</span><span class="p">(</span><span class="n">pts</span><span class="p">)</span>
+
+<span class="c"># Use a geometry_filter to filter with a bounding box</span>
+<span class="n">geometry_filter</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">user_defined</span><span class="p">(</span><span class="n">pts</span><span class="p">,</span>
+                                   <span class="nb">filter</span><span class="o">=</span><span class="s">&#39;GeometryFilter&#39;</span><span class="p">)</span>
+<span class="n">geometry_filter</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">extent_clipping</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="c"># Connect our dialog to the filter</span>
+<span class="n">extent_dialog</span> <span class="o">=</span> <span class="n">ExtentDialog</span><span class="p">(</span>
+            <span class="n">data_x_min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">data_x_max</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">data_y_min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">data_y_max</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">data_z_min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">data_z_max</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="nb">filter</span><span class="o">=</span><span class="n">geometry_filter</span><span class="o">.</span><span class="n">filter</span><span class="p">)</span>
+<span class="c"># We need to use &#39;edit_traits&#39; and not &#39;configure_traits()&#39; as we do</span>
+<span class="c"># not want to start the GUI event loop (the call to mlab.show())</span>
+<span class="c"># at the end of the script will do it.</span>
+<span class="n">extent_dialog</span><span class="o">.</span><span class="n">edit_traits</span><span class="p">()</span>
+
+<span class="c"># The geometry_filter leaves hanging points, we need to add a</span>
+<span class="c"># CleanPolyData filter to get rid of these.</span>
+<span class="n">clip</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">user_defined</span><span class="p">(</span><span class="n">geometry_filter</span><span class="p">,</span>
+                                    <span class="nb">filter</span><span class="o">=</span><span class="s">&#39;CleanPolyData&#39;</span><span class="p">)</span>
+
+<span class="c"># Finally, visualize the remaining points with spheres using a glyph</span>
+<span class="c"># module</span>
+<span class="n">spheres</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">glyph</span><span class="p">(</span><span class="n">clip</span><span class="p">,</span> <span class="n">scale_factor</span><span class="o">=.</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">mlab</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/mayavi-logo.png" alt="Logo"/>
+            </a></p>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="example_compute_in_thread.html"
+                        title="previous chapter">Compute in thread example</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="example_poll_file.html"
+                        title="next chapter">Poll file example</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/auto/example_adjust_cropping_extents.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+    <div id="searchbox">
+	<h3>Google Search</h3>
+    <form method="get" action="http://www.google.com/search">
+
+    <table border="0" cellpadding="0">
+    <tr><td>
+    <input type="text"   name="q" size="20"
+    maxlength="255" value="" />
+    <input type="submit" value="Go" /></td></tr>
+    <tr><td align="center" style="font-size:75%; color: #FFFFFF;">
+    <input type="checkbox"  name="sitesearch"
+    value="http://code.enthought.com/projects/mayavi/docs/development/html/mayavi/" checked /> only search Mayavi documentation<br />
+    </td></tr></table>
+
+</form>
+    </div>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="example_poll_file.html" title="Poll file example"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="example_compute_in_thread.html" title="Compute in thread example"
+             >previous</a> |</li>
+        <li><a href="../index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+          <li><a href="examples.html" >Example gallery</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
+      Last updated on Jan 27, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
+    </div>
+  </body>
+</html>

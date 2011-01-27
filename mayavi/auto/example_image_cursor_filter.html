@@ -1,0 +1,238 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Image cursor filter example &mdash; Mayavi v3.4.2 documentation</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.4.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Mayavi v3.4.2 documentation" href="../index.html" />
+    <link rel="up" title="Example gallery" href="examples.html" />
+    <link rel="next" title="Probe filter example" href="example_probe_filter.html" />
+    <link rel="prev" title="Numeric source example" href="example_numeric_source.html" />
+<style type="text/css">
+  body {
+    /* Very bottom copyright, etc. info */
+    background: #4d598d;
+  }
+
+  .documentwrapper {
+    /* Blank area on left bar */
+    background: #24326e;
+  }
+
+  .related {
+    /* Long horizontal nav bars */
+    background: #3c4b8a!important;
+  }
+
+  .sphinxsidebarwrapper {
+    /* Filled part of left sidebar */
+    background: #24326e;
+  }
+
+  a {
+    color: #253370;
+  }
+
+  .sphinxsidebarwrapper a {
+    color: #f2f2f2!important;
+  }
+</style>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="example_probe_filter.html" title="Probe filter example"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="example_numeric_source.html" title="Numeric source example"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+          <li><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="image-cursor-filter-example">
+<span id="example-image-cursor-filter"></span><h1>Image cursor filter example<a class="headerlink" href="#image-cursor-filter-example" title="Permalink to this headline">¶</a></h1>
+<p>Excample using the UserDefined filter to paint a cross-shaped cursor on data,
+in order to point out a special position.</p>
+<p>We use the UserDefined filter <cite>ImageCursor3D</cite> to create the cursor. A Gaussian
+data field is painted with the cursor, and then visualized using the
+ImagePlaneWIdget module.</p>
+<p>ImageCursor3D is one example among many of the use of the UserDefined, which
+allows to use TVTK filters that are not. See <a class="reference internal" href="../tips.html#using-userdefined-filter"><em>Using the UserDefined filter</em></a>
+for more details. Also, other examples using the UserDefined filter are
+provided in <a class="reference internal" href="example_mri.html#example-mri"><em>Mri example</em></a> and <a class="reference internal" href="example_tvtk_segmentation.html#example-tvtk-segmentation"><em>Tvtk segmentation example</em></a>.</p>
+<p>Selecting the UserDefined filter in the Mayavi pipeline is a convenient
+way to look for additional filters. This pops up a dialog called <cite>TVTK
+class chooser</cite>, with a <cite>Search</cite> field that allows to search for desired
+actions or properties. For example, searching for <cite>cursor</cite> returns
+several filters, among which Cursor3D and ImageCursor3D. As a rule of
+thumb, the name of TVTK filters acting on TVTK ImageData dataset starts
+with <cite>Image</cite> (ImageData is the type of VTK data set created by e.g.
+mlab.pipeline.scalar_field. See <a class="reference internal" href="../data.html#data-structures-used-by-mayavi"><em>Data representation in Mayavi</em></a> for
+more details about VTK datasets). In the dialog used to interactively
+add the UserDefined filet, we can therefore select <cite>ImageCursor3D</cite>.
+The documentation of the filter is displayed when selecting its name
+within the <cite>Class name</cite> field of the dialog.</p>
+<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/image_cursor_filter.py"><tt class="xref download docutils literal"><span class="pre">image_cursor_filter.py</span></tt></a></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Authors: Emmanuelle Gouillart &lt;emmanuelle.gouillart@normalesup.org&gt; </span>
+<span class="c"># and Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt; </span>
+<span class="c"># Copyright (c) 2009, Enthought, Inc.</span>
+<span class="c"># License: BSD Style.</span>
+
+
+<span class="kn">from</span> <span class="nn">enthought.mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+
+<span class="c"># Define Gaussian data field</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ogrid</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span><span class="mi">40</span><span class="n">j</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span><span class="mi">40</span><span class="n">j</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span><span class="mi">40</span><span class="n">j</span><span class="p">]</span>
+<span class="n">sig</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">center</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">((</span><span class="n">x</span><span class="o">-</span><span class="n">center</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">y</span><span class="o">-</span><span class="n">center</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">z</span><span class="o">-</span><span class="n">center</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">sig</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+
+<span class="c">################################################################################</span>
+
+<span class="n">mlab</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">fgcolor</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">bgcolor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+<span class="c"># Define the cursor</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">scalar_field</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+<span class="n">cursor</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">user_defined</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="s">&#39;ImageCursor3D&#39;</span><span class="p">)</span>
+
+<span class="c"># The TVTK filter used by Mayavi is accessible as the &#39;.filter&#39;</span>
+<span class="c"># attribute of the Mayavi filtered returned by user_defined.</span>
+<span class="c"># We can set the graphical properties of the cross via attributes of</span>
+<span class="c"># cursor.filter, and not of cursor itself. Here cursor is a Mayavi filter,</span>
+<span class="c"># that is an object that inserts in the Mayavi pipeline, whereas </span>
+<span class="c"># cursor.filter is the TVTK filter that actually does the work.</span>
+
+<span class="c"># Put the cursor at the center of the field volume (default is (0, 0, 0))</span>
+<span class="n">cursor</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">cursor_position</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">])</span>
+<span class="c"># Define the value of the cursor (default is 255) so that there is</span>
+<span class="c"># enough contrast between the cursor and the data values in the neighbourhood</span>
+<span class="c"># of the cursor. The cursor value is within the data value range so that </span>
+<span class="c"># the contrast of the data is not altered.</span>
+<span class="n">cursor</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">cursor_value</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="c"># Define the radius of the cross (the extent of the cross is 2xcursor_radius)</span>
+<span class="n">cursor</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">cursor_radius</span> <span class="o">=</span> <span class="mi">10</span>
+
+
+<span class="c"># Display data and cursor using an image_plane_widget that intersects the</span>
+<span class="c"># cursor.</span>
+<span class="n">ipw</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">image_plane_widget</span><span class="p">(</span><span class="n">cursor</span><span class="p">,</span> <span class="n">plane_orientation</span><span class="o">=</span><span class="s">&#39;x_axes&#39;</span><span class="p">,</span> 
+            <span class="n">slice_index</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+
+<span class="c"># View</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">])</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/mayavi-logo.png" alt="Logo"/>
+            </a></p>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="example_numeric_source.html"
+                        title="previous chapter">Numeric source example</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="example_probe_filter.html"
+                        title="next chapter">Probe filter example</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/auto/example_image_cursor_filter.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+    <div id="searchbox">
+	<h3>Google Search</h3>
+    <form method="get" action="http://www.google.com/search">
+
+    <table border="0" cellpadding="0">
+    <tr><td>
+    <input type="text"   name="q" size="20"
+    maxlength="255" value="" />
+    <input type="submit" value="Go" /></td></tr>
+    <tr><td align="center" style="font-size:75%; color: #FFFFFF;">
+    <input type="checkbox"  name="sitesearch"
+    value="http://code.enthought.com/projects/mayavi/docs/development/html/mayavi/" checked /> only search Mayavi documentation<br />
+    </td></tr></table>
+
+</form>
+    </div>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="example_probe_filter.html" title="Probe filter example"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="example_numeric_source.html" title="Numeric source example"
+             >previous</a> |</li>
+        <li><a href="../index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+          <li><a href="examples.html" >Example gallery</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
+      Last updated on Jan 27, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
+    </div>
+  </body>
+</html>
