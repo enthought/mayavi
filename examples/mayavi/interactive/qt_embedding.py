@@ -11,7 +11,9 @@ example, please read section :ref:`builing-applications`.
 import os
 os.environ['ETS_TOOLKIT'] = 'qt4'
 
-from PyQt4 import QtGui, QtCore
+# To be able to use PySide or PyQt4 and not run in conflicts with traits,
+# we need to import QtGui and QtCore from enthought.qt
+from enthought.qt import QtGui, QtCore
 
 from enthought.traits.api import HasTraits, Instance, on_trait_change, \
     Int, Dict
