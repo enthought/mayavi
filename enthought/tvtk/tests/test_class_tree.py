@@ -36,8 +36,14 @@ class TestClassTree(unittest.TestCase):
         self.assertEqual(t.get_node('vtkObject').name, 'vtkObject')
         self.assertEqual(t.get_node('vtkObject').parents[0].name,
                          'vtkObjectBase')
-        self.assertEqual(len(t.tree[0]), 1)
-        self.assertEqual(t.tree[0][0].name, 'vtkObjectBase')
+        if issubclass(vtk.vtkArrayCoordinates, object):
+            self.assertEqual(len(t.tree[0]), 2)
+            names = [x.name for x in t.tree[0]]
+            names.sort()
+            self.assertEqual(names, ['object', 'vtkObjectBase'])
+        else:
+            self.assertEqual(len(t.tree[0]), 1)
+            self.assertEqual(t.tree[0][0].name, 'vtkObjectBase')
 
     def test_ancestors(self):
         """Check if get_ancestors is OK."""

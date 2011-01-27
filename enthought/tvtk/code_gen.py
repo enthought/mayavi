@@ -91,7 +91,8 @@ class TVTKGenerator:
 
         #classes = dir(vtk)
         classes = [x.name for x in wrap_gen.get_tree() \
-                   if x.name.startswith('vtk')]
+                   if x.name.startswith('vtk') and \
+                   not issubclass(getattr(vtk, x.name), object) ]
         for nodes in tree:
             for node in nodes:
                 if node.name in classes:

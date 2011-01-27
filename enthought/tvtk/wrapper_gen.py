@@ -119,11 +119,12 @@ class WrapperGenerator:
             base_name = 'tvtk_base.TVTKBase'
         else:
             base_name = self._get_class_name(klass.__bases__)[0]
-            # Import the base class.
-            base_fname = camel2enthought(base_name)
-            _imp = "from enthought.tvtk.tvtk_classes.%(base_fname)s import %(base_name)s"%locals()
-            out.write(indent.format(_imp))
-            out.write('\n\n')
+            if base_name != 'object':
+                # Import the base class.
+                base_fname = camel2enthought(base_name)
+                _imp = "from enthought.tvtk.tvtk_classes.%(base_fname)s import %(base_name)s"%locals()
+                out.write(indent.format(_imp))
+                out.write('\n\n')
 
         # Write the class declaration.
         cdef = """
@@ -187,7 +188,7 @@ class WrapperGenerator:
         # classes are generated in the reverse order of their depth in
         # the inheritance tree.
         data = {'toggle':toggle, 'state':state, 'get_set':get_set}
-        if node.level != 0:
+        if node.level != 0 and node.parents[0].name != 'object':
             pd = node.parents[0].data
             for i in data.keys():
                 data[i].update(pd[i])
@@ -566,6 +567,19 @@ class WrapperGenerator:
                          isinstance(default, vtk.vtkObjectBase):
                     g_sig = parser.get_method_signature(vtk_get_meth)
                     s_sig = parser.get_method_signature(vtk_set_meth)
+                    # Bunch of hacks to work around issues.
+                    #print g_sig, vtk_get_meth, klass.__name__
+                    if len(g_sig) == 0:
+                        g_sig = [([None], None)]
+
+                    if len(s_sig) == 0:
+                        s_sig = [([None], [None])]
+                        g_sig = [([None], None)]
+
+                    elif s_sig[0][1] is None or s_sig[0][1] == '':
+                        s_sig[0] = list(s_sig[0])
+                        s_sig[0][1] = [None]
+
                     if g_sig[0][0][0] == 'string':
                         # If the get method really returns a string
                         # wrap it as such.
@@ -960,7 +974,7 @@ class WrapperGenerator:
         # Figure out if we really need to wrap the return and deref
         # the args.
         ret_type, arg_type = self._find_sig_type(sig)
-        
+       
         vtk_m_name = vtk_meth.__name__
         name = self._reform_name(vtk_m_name, method=True)
         if keyword.iskeyword(name):

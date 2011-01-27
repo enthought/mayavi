@@ -124,6 +124,9 @@ class TestVTKParser(unittest.TestCase):
                    'LoadMaterial', 'LoadMaterialFromString', 
                    'ReleaseGraphicsResources', 'RemoveAllTextures', 'RemoveTexture',
                    'Render']
+        if hasattr(obj, 'PostRender'):
+            res.append('PostRender')
+            res.sort()
         self.assertEqual(p.get_other_methods(), res)
         self.assertEqual(p.other_meths, p.get_other_methods())
 
@@ -144,12 +147,24 @@ class TestVTKParser(unittest.TestCase):
         o = vtk.vtkProperty()
         self.assertEqual([(['string'], None)],
                          p.get_method_signature(o.GetClassName))
-        self.assertEqual([([('float', 'float', 'float')], None),
-                          ([None], (('float', 'float', 'float'),))],
-                         p.get_method_signature(o.GetColor))
-        self.assertEqual([([None], ('float', 'float', 'float')),
-                          ([None], (('float', 'float', 'float'),))],
-                         p.get_method_signature(o.SetColor))
+        if hasattr(vtk, 'vtkArrayCoordinates'):
+            self.assertEqual([([('float', 'float', 'float')], None),
+                              ([None], (['float', 'float', 'float'],)),
+                              ([None], ('float', 'float', 'float'))],
+                             p.get_method_signature(o.GetColor))
+        else:
+            self.assertEqual([([('float', 'float', 'float')], None),
+                              ([None], (('float', 'float', 'float'),))],
+                             p.get_method_signature(o.GetColor))
+        if hasattr(vtk, 'vtkArrayCoordinates'):
+            self.assertEqual([([None], ('float', 'float', 'float')),
+                ([None], (['float', 'float', 'float'],))],
+                             p.get_method_signature(o.SetColor))
+
+        else:
+            self.assertEqual([([None], ('float', 'float', 'float')),
+                              ([None], (('float', 'float', 'float'),))],
+                             p.get_method_signature(o.SetColor))
 
         # Get VTK version to handle changed APIs.
         vtk_ver = vtk.vtkVersion().GetVTKVersion()
@@ -230,11 +245,13 @@ class TestVTKParser(unittest.TestCase):
         p = self.p
         for obj in dir(vtk):
             k = getattr(vtk, obj)
-            if hasattr(k, '__bases__'):
+            ignore = ['mutable', 'exc', 'kits', 'util']
+            if hasattr(k, '__bases__') and obj not in ignore:
                 #print k.__name__,
                 #sys.stdout.flush()
                 p.parse(k)
                 for method in p.get_methods(k):
+                    #print method
                     p.get_method_signature(getattr(k, method))
         #print time.clock() - t1, 'seconds'
 

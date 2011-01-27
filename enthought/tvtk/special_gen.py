@@ -490,7 +490,8 @@ class HelperGenerator:
             # Assuming a single inheritance.
             tmp = tmp[0]
             name = tmp.__name__
-            while not _cache.has_key(name) and name != 'TVTKBase':
+            while not _cache.has_key(name) and \
+                    name not in ['TVTKBase', 'object']:
                 _cache[name] = tmp
                 tmp = tmp.__bases__[0]
                 name = tmp.__name__

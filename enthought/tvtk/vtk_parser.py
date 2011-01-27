@@ -283,25 +283,40 @@ class VTKMethodParser:
           A VTK method object.
 
         """
+        # Remove all the C++ function signatures.
         doc = method.__doc__
         doc = doc[:doc.find('\n\n')]
-        sig = doc.split('\n')
-        sig = [x.strip() for x in sig]
+        sig = []
+        c_sig = [] # The C++ signature
+        in_sig = False
+        in_c_sig = False
+        counter = 0
+        for line in doc.split('\n'):
+            if line.startswith('V.'):
+                in_sig = True
+                in_c_sig = False
+                sig.append(line.strip())
+            elif line.startswith('C++:'):
+                in_sig = False
+                in_c_sig = True
+                c_sig.append(line.strip())
+                counter += 1
+            elif in_sig:
+                sig[counter] = sig[counter] + line.strip()
+            elif in_c_sig:
+                c_sig[counter-1] = c_sig[counter-1] + line.strip()
 
-        # Remove all the C++ function signatures.
-        for i in sig[:]:
-            if i[:4] == 'C++:':
-                sig.remove(i)
-
+        
         # Remove the V.<method_name>
         sig = [x.replace('V.' + method.__name__, '') for x in sig]
+        c_sig = [x[x.find('('):] for x in c_sig]
 
         pat = re.compile(r'\b')
 
         # Split into [return_value, arguments] after processing them.
         tmp = list(sig)
         sig = []
-        for i in tmp:
+        for sig_idx, i in enumerate(tmp):
             # Split to get return values.
             x = i.split('->')
             # Strip each part.
@@ -318,18 +333,63 @@ class VTKMethodParser:
             arg = arg[1:-1]
             if not arg:
                 arg = None
-            if arg and arg[-1] == ')':
+            if arg and arg[-1] in [')', ']']:
                 arg = arg + ','
+    
+            # Check if we are able to parse all the arguments -- some 
+            # unstable versions of VTK have problems generating the 
+            # docstring and in this case we will try to use the C++ 
+            # docstring signature.
+
+            n_arg = 0
+            arg_map = {'unsigned int': 'int', 'unsigned char': 'int', 
+                    'unsigned long': 'long', 'unsigned short': 'int'}
+            if arg is not None:
+                n_arg = arg.count(',') + 1
+                # The carguments have parenthesis like: (int, int)
+                carg = c_sig[sig_idx][1:-1].split(',')
+                if n_arg > 0:
+                    args = []
+                    if len(carg) == n_arg:
+                        for idx, x in enumerate(arg.split(',')):
+                            if len(x.strip()) == 0:
+                                carg_val = carg[idx].strip()
+                                if 'unsigned' in carg_val and \
+                                    carg_val in arg_map:
+                                    args.append(arg_map[carg_val])
+                                elif 'void' in carg_val:
+                                    args.append("string")
+                                else:
+                                    args.append(x)
+                            else:
+                                args.append(x)
+                        arg = ', '.join(args)
+
+            if ret is not None and ret.startswith('(') and '...' in ret:
+                # A tuple (new in VTK-5.7)
+                ret = "tuple"
+
+            if arg is not None:
+                if '[float, ...]' in arg:
+                    arg = arg.replace('[float, ...]', 'tuple')
+                elif '(float, ...)' in arg:
+                    arg = arg.replace('(float, ...)', 'tuple')
+
+            if ret == '(, )':
+                ret = None
 
             # Now quote the args and eval them.  Easy!
-            if ret:
-                ret = eval(pat.sub('\"', ret))
-            if arg:
-                arg = eval(pat.sub('\"', arg))
-                if type(arg) == type('str'):
-                    arg = [arg]        
-
-            sig.append(([ret], arg))
+            try:
+                if ret:
+                    ret = eval(pat.sub('\"', ret))
+                if arg:
+                    arg = eval(pat.sub('\"', arg))
+                    if type(arg) == type('str'):
+                        arg = [arg]
+            except SyntaxError:
+                pass
+            else:
+                sig.append(([ret], arg))
 
         return sig
 
@@ -374,7 +434,8 @@ class VTKMethodParser:
         meths = self._find_state_methods(klass, meths)
         meths = self._find_get_set_methods(klass, meths)
         meths = self._find_get_methods(klass, meths)
-        self.other_meths = meths
+        self.other_meths = [x for x in meths \
+                            if callable(getattr(klass, x))]
 
     def _remove_method(self, meths, method):
         try:
@@ -519,8 +580,8 @@ class VTKMethodParser:
             if obj:
                 klass_name = klass.__name__
                 for key, value in gsm.items():
-                    if klass_name == 'vtkPolyData':
-                        # Evil hack, this class segfaults!
+                    if klass_name in ['vtkPolyData', 'vtkContext2D']:
+                        # Evil hack, these classes segfault!
                         default = None
                     elif klass_name == 'vtkHyperOctree' and \
                             key == 'Dimension':

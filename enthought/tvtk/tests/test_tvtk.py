@@ -542,7 +542,8 @@ class TestTVTKModule(unittest.TestCase):
         vtk.vtkObject.GlobalWarningDisplayOff()
         for name in dir(vtk):
             klass = getattr(vtk, name)
-            if hasattr(klass, '__bases__'):
+            if hasattr(klass, '__bases__') \
+                    and not issubclass(klass, object):
                 try:
                     obj = klass()
                 except TypeError:
