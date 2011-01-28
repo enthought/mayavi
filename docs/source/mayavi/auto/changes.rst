@@ -160,7 +160,7 @@ Enhancements
 03 Aug, 2009 (PR):
   - ENH: Adding to/from_array to the Matrix4x4 class for convenience
     [24437]
-  - ENH: Thanks to a suggestion from Gary Ruben, mlab.plot3d now uses 
+  - ENH: Thanks to a suggestion from Gary Ruben, mlab.plot3d now uses
     tvtk.Stripper in the pipeline to produce smooth tubes [24438] [24442]
     [24439]
 
@@ -210,7 +210,7 @@ Fixes
      useless redraws [25279]
 
 15 Feb, 2010 (PR):
-  - BUG: Fix issue when an automatically generated trait name was actually 
+  - BUG: Fix issue when an automatically generated trait name was actually
     Python keyword. In these cases the trait name is simply appended with a
     underscore (_). This should hopefully fix problems with building TVTK
     with VTK from CVS [25236]
@@ -220,7 +220,7 @@ Fixes
 
 08 Jan, 2010 (GV):
   - BUG: Radius and length of a cylinder had upper bounds to 100, where
-    they should really be confined only to positive numbers. Fix with 
+    they should really be confined only to positive numbers. Fix with
     kludge. Thanks to Michele Mattioni for pointing out the bug, and
     providing the patch [25097]
 
@@ -409,7 +409,7 @@ Enhancements
 
 
 20 Apr, 2009 (GV):
-ENH [23545]: 
+ENH [23545]:
      - Add an example gallery to the documentation
 
      - Rewamp the documentation-generation code, and its packaging. Th
@@ -513,7 +513,7 @@ Fixes
   - BUG: Fix TVTK possible build failure, reported by Andrew Straw
     https://bugs.launchpad.net/bugs/34693 [23371]
 
-    
+
 
 20 March, 2009 (PR):
   - TEST/BUG: Adding a new test for the `enthought.tvtk.util.ctf` utility
@@ -528,7 +528,7 @@ Mayavi 3.2.0 (March 23, 2009)
 
 A log of significant changes made to the package especially API changes.
 This is only partial and only covers the developments after the 2.x
-series.  
+series.
 
 17, 18 March, 2009 (PR):
     - NEW: A simple example to show how one can use TVTK's visual module
@@ -537,7 +537,7 @@ series.
       the parent causing a bug with resizing the viewer. [23243]
 
 15 March, 2009 (GV):
-    - ENH: Add a volume factory to mlab that knows how to set color, vmin and 
+    - ENH: Add a volume factory to mlab that knows how to set color, vmin and
       vmax for the volume module [23221].
 
 14 March, 2009 (PR):
@@ -551,11 +551,11 @@ series.
       Bohme for reporting this issue. [23191]
 
 14 March, 2009 (GV):
-    - BUG: [mlab]: fix positioning for titles [23194], and opacity for titles 
+    - BUG: [mlab]: fix positioning for titles [23194], and opacity for titles
       and text [23193].
     - ENH: Add the mlab_source attribute on all objects created by mlab,
       when possible [23201], [23209].
-    - ENH: Add a message to help the first-time user, using the new banner 
+    - ENH: Add a message to help the first-time user, using the new banner
       feature of the IPython shell view [23208].
 
 13 March, 2009 (PR):
@@ -583,7 +583,7 @@ series.
       traditional unittest. [23166]
 
 08 March, 2009 (GV)
-    - ENH: Raises an error when the user passes to mlab an array with 
+    - ENH: Raises an error when the user passes to mlab an array with
       infinite values [23150]
 
 07 March, 2009 (PR)
@@ -618,7 +618,7 @@ series.
 
 21 February, 2009 (PR)
     - ENH: Making the transform data filter recordable. [23033]
-    - NEW: A simple animator class to make it relatively to create 
+    - NEW: A simple animator class to make it relatively to create
       animations. [23036] [23039]
 
 20 February, 2009 (PR)
@@ -628,7 +628,7 @@ series.
       Points, Particle, PLY, PDB, SLC, OBJ, Facet and BYU files. Also added
       several tests for most of this functionality along with small data files.
       These are additions from PR's project staff, Suyog Jain and Sreekanth
-      Ravindran.  [23013]   	
+      Ravindran.  [23013]
     - ENH: We now change the default so the ImagePlaneWidget does not
       control the LUT. Also made the IPW recordable. [23011]
 
@@ -663,9 +663,9 @@ Mayavi 3.1.0
       debug test errors.  [22624]
 
 1 December, 2008 (GV):
-    - API: Promote the TestEngine to a first-class citizen NullEngine and 
-	   make mlab use it when a source has a keyword argument
-	   "figure=False". [22594]
+    - API: Promote the TestEngine to a first-class citizen NullEngine and
+           make mlab use it when a source has a keyword argument
+           "figure=False". [22594]
 
 30 November, 2008 (PR)
     - NEW: New sources called BuiltinSurface and BuiltinImage that let
@@ -674,21 +674,21 @@ Mayavi 3.1.0
 
 27 November, 2008 (GV):
     - ENH: Add control of the seed size and resolution to
-	   mlab.pipeline_basene.streamline [22573].
+           mlab.pipeline_basene.streamline [22573].
     - DOC: Documentation work, especially in the scripting parts of the
            docs. [22572], [22561], [22560], [22546], [22545]
 
 26 November, 2008 (GV):
     - ENH: Add keyword arguments to the cutplanes in mlab.pipeline. [22567]
-	   Also add masking to glyph-based mlab.pipeline factories [22568]
+           Also add masking to glyph-based mlab.pipeline factories [22568]
 
 19 November, 2008 (GV):
     - UI: Rename 'Modules' to 'Colors and legends' [22512]
-    - API: Change defaults [22513]: 
-	- CellToPointData and PointToCellData filters to pass the existing
-	  dataset.
-	- The ouline of the implicite plane is no longer draggable by
-	  default.
+    - API: Change defaults [22513]:
+        - CellToPointData and PointToCellData filters to pass the existing
+          dataset.
+        - The ouline of the implicite plane is no longer draggable by
+          default.
 
 15-16 November, 2008 (PR)
     - ENH/API: Exposing the glyph source choices via a dictionary rather
@@ -709,10 +709,10 @@ Mayavi 3.1.0
 27 October, 2008 (GV)
     - ENH: [mlab] If a module or filter is added to the pipeline using
       the mlab.pipeline functions, the source on which it is added
-      onto is automatically added to the scene if not alread present. It 
+      onto is automatically added to the scene if not alread present. It
       is also automatically converted from a tvtk dataset to a mayavi
       source, if needed. [22375], [22377]
-    - ENH: [mlab] Make mlab.axes and mlab.outline use the extents of the 
+    - ENH: [mlab] Make mlab.axes and mlab.outline use the extents of the
       current object when none specified explicitely. [22372]
 
 24-27 October, 2008 (PR)
@@ -750,7 +750,7 @@ Mayavi 3.1.0
            they are given, if any. [22305]
 
 12 October, 2008 (GV):
-    - API: mlab: Add a barchart function, with the corresponding pipeline 
+    - API: mlab: Add a barchart function, with the corresponding pipeline
       source function. [22286]
 
 11 October, 2008 (PR):
@@ -772,7 +772,7 @@ Mayavi 3.1.0
 
 9 October, 2008 (GV):
     - ENH: Use the IPython shell plugin only if the ipython, envisage and
-      pyface versions are recent-enough. 
+      pyface versions are recent-enough.
       Mayavi now uses an ipython widget instead of the pyshell one if you
       have the right components installed, but should fall back to
       pyshell gracefully. [21678], [22245]
@@ -783,11 +783,11 @@ Mayavi 3.1.0
       when the ETS_TOOLKIT env var is set to 'null'. [22198]
 
 30 September, 2008 (GV):
-    - API: mlab: Expose pipeline.add_dataset (former private function 
+    - API: mlab: Expose pipeline.add_dataset (former private function
       tools._data) [22162].
     - API: The mlab source functions can now optionaly work without creating
       a figure (using figure=None) [22161].
-    - API: The mlab source functions are more  robust to various 
+    - API: The mlab source functions are more  robust to various
       input-argument shape (they accept lists, and 1D or 2D arrays when
       possible) [22161].
 
@@ -826,7 +826,7 @@ Mayavi 3.0.3
 7 September, 2008 (PR):
     - ENH: The mayavi2 application now ([21713], [21714]) supports
       command line args like the following::
-     
+
         mayavi2 -d ParametricSurface -s "function='dini'" -m Surface \
         -s "module_manager.scalar_lut_manager.show_scalar_bar = True" \
         -s "scene.isometric_view()" -s "scene.save('snapshot.png')"
@@ -895,7 +895,7 @@ Mayavi 3.0.0
       [20461] [20460] [20458] [20452]
     - ENH: [mlab] add a resolution argument to glyphs [20465]
     - API: [mlab] API Breakage!
-	Make mlab source names compatible with ETS standards:
+        Make mlab source names compatible with ETS standards:
         grid_source rather than gridsource [20466]
     - NEW: Add image_plane_widget to mlab.pipeline, with helpful keyword
         arguments.
@@ -903,7 +903,7 @@ Mayavi 3.0.0
 23 July, 2008 (GV):
     - ENH: The mlab API can now take either engine or figure keyword
       arguments. This allows to avoid the use of the global sate set
-      in the mlab engine. Mlab also now exposes a set_engine function. 
+      in the mlab engine. Mlab also now exposes a set_engine function.
       [20245]
 
 23 July, 2008 (PR)
@@ -924,7 +924,7 @@ Mayavi 3.0.0
 18, 19 July, 2008 (PR)
     - TEST/API: The mayavi tests are now split into integration and unit
       tests.  Unit tests go into enthought/mayavi/tests.  Integration
-      tests are in integrationtests/mayavi. Major changes: 
+      tests are in integrationtests/mayavi. Major changes:
 
         - Removed most of the image based tests except one
           (test_streamline.py) for reference.
@@ -974,7 +974,7 @@ Mayavi 3.0.0
     - ENH: One can create objects on the pipeline using right-clicks
       [19469].
     - ENH: All the envisage menus and actions for sources, filters and
-      modules now are autogenerated from the metadata for these. 
+      modules now are autogenerated from the metadata for these.
     - NEW/API: [19458] adds the following features:
         - A Registry (enthought.mayavi.core.registry.Registry) to
           register engines, sources, filters and modules. Source, filter
@@ -996,10 +996,10 @@ Mayavi 3.0.0
           easy to open supported data files -- even if the new ones are
           added by users.
         - Fixed the PLOT3DReader so it opens the q file using the xyz
-          filenames basename. 
+          filenames basename.
 
-29 June, 2008 (GV): 
-    - ENH: Updated Sphinx docs [19318]. 
+29 June, 2008 (GV):
+    - ENH: Updated Sphinx docs [19318].
     - ENH: New splash screen [19319].
     - ENH: mlab now works with envisage, including in "mayavi2 -x"
       [19321] [19323]
@@ -1052,7 +1052,7 @@ Mayavi 3.0.0
       single Traits UI showing up with just a dummy blank window being
       used.  This demonstrates how mayavi scripts can work in completely
       different contexts.  [18881].
-      
+
 
 31 May, 2008 (PR):
     - PORT: Backported important additions to the 2.2.0 branch.
@@ -1139,7 +1139,7 @@ Mayavi 3.0.0
     - API: enthought.mayavi.plugins.app.Mayavi now defines a
       setup_logger method so this can be overridden by subclasses, see
       [18703].
-    
+
 13 May, 2008 (PR):
     - NEW: Adding an ExtractVectorComponents filter contributed by Varun
       Hiremath.
@@ -1149,7 +1149,7 @@ Mayavi 3.0.0
       the binding to the shell. Earlier this was done by the
       application.  This makes the plugins reusable. Also added a
       running trait to the engine to check on its status. [18672],
-      [18678]. 
+      [18678].
     - At this point all examples in trunk work save the mayavi_custom_ui
       plugin stuff.
 
@@ -1179,13 +1179,13 @@ Mayavi 3.0.0
       is also a good idea to read the enthought.preferences
       documentation.
     - BUG: [18627] Fixed bug number 478844 on the Debian BTS here:
-      http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=478844 
+      http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=478844
 
 4 May 2008 (PR):
     - API: Added to api.  Added a new preferences framework for mayavi2.
       This uses enthought.preferences and works well both standalone and
       with envisage3. It makes it easy to create/define/change
-      preferences at the application and library level. 
+      preferences at the application and library level.
 
 2 May, 2008 (PR):
     - API: Ported the mayavi2 application and plugin to work with Envisage3.
