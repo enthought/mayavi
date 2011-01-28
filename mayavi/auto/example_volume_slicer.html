@@ -107,7 +107,7 @@ on it is strongly simplified by turning off interaction, and choosing
 specific scene interactor styles. Indeed, non-technical users can be
 confused with too rich interaction.</p>
 <p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/volume_slicer.py"><tt class="xref download docutils literal"><span class="pre">volume_slicer.py</span></tt></a></p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># Author: Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt; </span>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Author: Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt;</span>
 <span class="c"># Copyright (c) 2009, Enthought, Inc.</span>
 <span class="c"># License: BSD Style.</span>
 
@@ -128,7 +128,7 @@ confused with too rich interaction.</p>
 <span class="c">################################################################################</span>
 <span class="c"># Create some data</span>
 <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ogrid</span><span class="p">[</span><span class="o">-</span><span class="mi">5</span><span class="p">:</span><span class="mi">5</span><span class="p">:</span><span class="mi">64</span><span class="n">j</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">:</span><span class="mi">5</span><span class="p">:</span><span class="mi">64</span><span class="n">j</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">:</span><span class="mi">5</span><span class="p">:</span><span class="mi">64</span><span class="n">j</span><span class="p">]</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">x</span><span class="p">)</span><span class="o">/</span><span class="n">x</span> <span class="o">+</span> <span class="mf">0.05</span><span class="o">*</span><span class="n">z</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">y</span><span class="p">)</span> 
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">x</span><span class="p">)</span><span class="o">/</span><span class="n">x</span> <span class="o">+</span> <span class="mf">0.05</span><span class="o">*</span><span class="n">z</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">y</span><span class="p">)</span>
 
 <span class="c">################################################################################</span>
 <span class="c"># The object implementing the dialog</span>
@@ -186,7 +186,7 @@ confused with too rich interaction.</p>
 
 
     <span class="c">#---------------------------------------------------------------------------</span>
-    <span class="c"># Scene activation callbaks </span>
+    <span class="c"># Scene activation callbaks</span>
     <span class="c">#---------------------------------------------------------------------------</span>
     <span class="nd">@on_trait_change</span><span class="p">(</span><span class="s">&#39;scene3d.activated&#39;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">display_scene3d</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -208,8 +208,8 @@ confused with too rich interaction.</p>
     <span class="k">def</span> <span class="nf">make_side_view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axis_name</span><span class="p">):</span>
         <span class="n">scene</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s">&#39;scene_</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">axis_name</span><span class="p">)</span>
 
-        <span class="c"># To avoid copying the data, we take a reference to the </span>
-        <span class="c"># raw VTK dataset, and pass it on to mlab. Mlab will create </span>
+        <span class="c"># To avoid copying the data, we take a reference to the</span>
+        <span class="c"># raw VTK dataset, and pass it on to mlab. Mlab will create</span>
         <span class="c"># a Mayavi source from the VTK without copying it.</span>
         <span class="c"># We have to specify the figure so that the data gets</span>
         <span class="c"># added on the figure we are interested in.</span>
@@ -224,7 +224,7 @@ confused with too rich interaction.</p>
 
         <span class="c"># Synchronize positions between the corresponding image plane</span>
         <span class="c"># widgets on different views.</span>
-        <span class="n">ipw</span><span class="o">.</span><span class="n">ipw</span><span class="o">.</span><span class="n">sync_trait</span><span class="p">(</span><span class="s">&#39;slice_position&#39;</span><span class="p">,</span> 
+        <span class="n">ipw</span><span class="o">.</span><span class="n">ipw</span><span class="o">.</span><span class="n">sync_trait</span><span class="p">(</span><span class="s">&#39;slice_position&#39;</span><span class="p">,</span>
                             <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s">&#39;ipw_3d_</span><span class="si">%s</span><span class="s">&#39;</span><span class="o">%</span> <span class="n">axis_name</span><span class="p">)</span><span class="o">.</span><span class="n">ipw</span><span class="p">)</span>
 
         <span class="c"># Make left-clicking create a crosshair</span>
@@ -236,7 +236,7 @@ confused with too rich interaction.</p>
             <span class="k">for</span> <span class="n">other_axis</span><span class="p">,</span> <span class="n">axis_number</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_axis_names</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
                 <span class="k">if</span> <span class="n">other_axis</span> <span class="o">==</span> <span class="n">axis_name</span><span class="p">:</span>
                     <span class="k">continue</span>
-                <span class="n">ipw3d</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s">&#39;ipw_3d_</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">other_axis</span><span class="p">)</span> 
+                <span class="n">ipw3d</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s">&#39;ipw_3d_</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">other_axis</span><span class="p">)</span>
                 <span class="n">ipw3d</span><span class="o">.</span><span class="n">ipw</span><span class="o">.</span><span class="n">slice_position</span> <span class="o">=</span> <span class="n">position</span><span class="p">[</span><span class="n">axis_number</span><span class="p">]</span>
 
         <span class="n">ipw</span><span class="o">.</span><span class="n">ipw</span><span class="o">.</span><span class="n">add_observer</span><span class="p">(</span><span class="s">&#39;InteractionEvent&#39;</span><span class="p">,</span> <span class="n">move_view</span><span class="p">)</span>
@@ -277,16 +277,16 @@ confused with too rich interaction.</p>
     <span class="n">view</span> <span class="o">=</span> <span class="n">View</span><span class="p">(</span><span class="n">HGroup</span><span class="p">(</span>
                   <span class="n">Group</span><span class="p">(</span>
                        <span class="n">Item</span><span class="p">(</span><span class="s">&#39;scene_y&#39;</span><span class="p">,</span>
-                            <span class="n">editor</span><span class="o">=</span><span class="n">SceneEditor</span><span class="p">(</span><span class="n">scene_class</span><span class="o">=</span><span class="n">Scene</span><span class="p">),</span> 
+                            <span class="n">editor</span><span class="o">=</span><span class="n">SceneEditor</span><span class="p">(</span><span class="n">scene_class</span><span class="o">=</span><span class="n">Scene</span><span class="p">),</span>
                             <span class="n">height</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">300</span><span class="p">),</span>
                        <span class="n">Item</span><span class="p">(</span><span class="s">&#39;scene_z&#39;</span><span class="p">,</span>
-                            <span class="n">editor</span><span class="o">=</span><span class="n">SceneEditor</span><span class="p">(</span><span class="n">scene_class</span><span class="o">=</span><span class="n">Scene</span><span class="p">),</span> 
+                            <span class="n">editor</span><span class="o">=</span><span class="n">SceneEditor</span><span class="p">(</span><span class="n">scene_class</span><span class="o">=</span><span class="n">Scene</span><span class="p">),</span>
                             <span class="n">height</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">300</span><span class="p">),</span>
                        <span class="n">show_labels</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
                   <span class="p">),</span>
                   <span class="n">Group</span><span class="p">(</span>
                        <span class="n">Item</span><span class="p">(</span><span class="s">&#39;scene_x&#39;</span><span class="p">,</span>
-                            <span class="n">editor</span><span class="o">=</span><span class="n">SceneEditor</span><span class="p">(</span><span class="n">scene_class</span><span class="o">=</span><span class="n">Scene</span><span class="p">),</span> 
+                            <span class="n">editor</span><span class="o">=</span><span class="n">SceneEditor</span><span class="p">(</span><span class="n">scene_class</span><span class="o">=</span><span class="n">Scene</span><span class="p">),</span>
                             <span class="n">height</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">300</span><span class="p">),</span>
                        <span class="n">Item</span><span class="p">(</span><span class="s">&#39;scene3d&#39;</span><span class="p">,</span>
                             <span class="n">editor</span><span class="o">=</span><span class="n">SceneEditor</span><span class="p">(</span><span class="n">scene_class</span><span class="o">=</span><span class="n">MayaviScene</span><span class="p">),</span>
@@ -378,7 +378,7 @@ confused with too rich interaction.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Jan 27, 2011.
+      Last updated on Jan 28, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
     </div>
   </body>

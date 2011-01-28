@@ -19,7 +19,7 @@ on creating GUIs with Traits:
     http://code.enthought.com/projects/traits/documentation.php
 
 """
-# Author: Gael Varoquaux <gael.varoquaux@normalesup.org> 
+# Author: Gael Varoquaux <gael.varoquaux@normalesup.org>
 # Copyright (c) 2010, Enthought, Inc.
 # License: BSD Style.
 
@@ -59,8 +59,8 @@ class ExtentDialog(HasTraits):
     @on_trait_change('x_min,x_max,y_min,y_max,z_min,z_max')
     def update_extent(self):
         if (self.filter is not None
-                    and self.x_min < self.x_max 
-                    and self.y_min < self.y_max 
+                    and self.x_min < self.x_max
+                    and self.y_min < self.y_max
                     and self.z_min < self.z_max
                             ):
             self.filter.extent = (self.x_min, self.x_max,

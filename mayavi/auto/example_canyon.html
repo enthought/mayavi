@@ -90,7 +90,7 @@ more, see the canyon decimation example.</p>
 and crop data completly foreign to Mayavi.</p>
 <img alt="../_images/example_canyon.jpg" class="align-center" src="../_images/example_canyon.jpg" />
 <p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/canyon.py"><tt class="xref download docutils literal"><span class="pre">canyon.py</span></tt></a></p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># Author: Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt; </span>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Author: Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt;</span>
 <span class="c"># Copyright (c) 2008, Enthought, Inc.</span>
 <span class="c"># License: BSD Style.</span>
 
@@ -110,7 +110,7 @@ and crop data completly foreign to Mayavi.</p>
 <span class="kn">import</span> <span class="nn">zipfile</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 
-<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fromstring</span><span class="p">(</span><span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="s">&#39;N36W113.hgt.zip&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s">&#39;N36W113.hgt&#39;</span><span class="p">),</span> 
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fromstring</span><span class="p">(</span><span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="s">&#39;N36W113.hgt.zip&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s">&#39;N36W113.hgt&#39;</span><span class="p">),</span>
                     <span class="s">&#39;&gt;i2&#39;</span><span class="p">)</span>
 <span class="n">data</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="mi">3601</span><span class="p">,</span> <span class="mi">3601</span><span class="p">)</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
@@ -122,7 +122,7 @@ and crop data completly foreign to Mayavi.</p>
 <span class="n">data</span><span class="p">[</span><span class="n">data</span><span class="o">==-</span><span class="mi">32768</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">data</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
 
 <span class="n">mlab</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">320</span><span class="p">),</span> <span class="n">bgcolor</span><span class="o">=</span><span class="p">(</span><span class="mf">0.16</span><span class="p">,</span> <span class="mf">0.28</span><span class="p">,</span> <span class="mf">0.46</span><span class="p">))</span>
-<span class="n">mlab</span><span class="o">.</span><span class="n">surf</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s">&#39;gist_earth&#39;</span><span class="p">,</span> <span class="n">warp_scale</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> 
+<span class="n">mlab</span><span class="o">.</span><span class="n">surf</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s">&#39;gist_earth&#39;</span><span class="p">,</span> <span class="n">warp_scale</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
             <span class="n">vmin</span><span class="o">=</span><span class="mi">1200</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1610</span><span class="p">)</span>
 <span class="c"># The data takes a lot of memory, and the surf command has created a</span>
 <span class="c"># copy. We free the inital memory.</span>
@@ -208,7 +208,7 @@ and crop data completly foreign to Mayavi.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Jan 27, 2011.
+      Last updated on Jan 28, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
     </div>
   </body>

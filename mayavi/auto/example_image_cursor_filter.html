@@ -104,8 +104,8 @@ add the UserDefined filet, we can therefore select <cite>ImageCursor3D</cite>.
 The documentation of the filter is displayed when selecting its name
 within the <cite>Class name</cite> field of the dialog.</p>
 <p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/image_cursor_filter.py"><tt class="xref download docutils literal"><span class="pre">image_cursor_filter.py</span></tt></a></p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># Authors: Emmanuelle Gouillart &lt;emmanuelle.gouillart@normalesup.org&gt; </span>
-<span class="c"># and Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt; </span>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Authors: Emmanuelle Gouillart &lt;emmanuelle.gouillart@normalesup.org&gt;</span>
+<span class="c"># and Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt;</span>
 <span class="c"># Copyright (c) 2009, Enthought, Inc.</span>
 <span class="c"># License: BSD Style.</span>
 
@@ -131,14 +131,14 @@ within the <cite>Class name</cite> field of the dialog.</p>
 <span class="c"># attribute of the Mayavi filtered returned by user_defined.</span>
 <span class="c"># We can set the graphical properties of the cross via attributes of</span>
 <span class="c"># cursor.filter, and not of cursor itself. Here cursor is a Mayavi filter,</span>
-<span class="c"># that is an object that inserts in the Mayavi pipeline, whereas </span>
+<span class="c"># that is an object that inserts in the Mayavi pipeline, whereas</span>
 <span class="c"># cursor.filter is the TVTK filter that actually does the work.</span>
 
 <span class="c"># Put the cursor at the center of the field volume (default is (0, 0, 0))</span>
 <span class="n">cursor</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">cursor_position</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">])</span>
 <span class="c"># Define the value of the cursor (default is 255) so that there is</span>
 <span class="c"># enough contrast between the cursor and the data values in the neighbourhood</span>
-<span class="c"># of the cursor. The cursor value is within the data value range so that </span>
+<span class="c"># of the cursor. The cursor value is within the data value range so that</span>
 <span class="c"># the contrast of the data is not altered.</span>
 <span class="n">cursor</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">cursor_value</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="c"># Define the radius of the cross (the extent of the cross is 2xcursor_radius)</span>
@@ -147,7 +147,7 @@ within the <cite>Class name</cite> field of the dialog.</p>
 
 <span class="c"># Display data and cursor using an image_plane_widget that intersects the</span>
 <span class="c"># cursor.</span>
-<span class="n">ipw</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">image_plane_widget</span><span class="p">(</span><span class="n">cursor</span><span class="p">,</span> <span class="n">plane_orientation</span><span class="o">=</span><span class="s">&#39;x_axes&#39;</span><span class="p">,</span> 
+<span class="n">ipw</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">image_plane_widget</span><span class="p">(</span><span class="n">cursor</span><span class="p">,</span> <span class="n">plane_orientation</span><span class="o">=</span><span class="s">&#39;x_axes&#39;</span><span class="p">,</span>
             <span class="n">slice_index</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 
 <span class="c"># View</span>
@@ -231,7 +231,7 @@ within the <cite>Class name</cite> field of the dialog.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Jan 27, 2011.
+      Last updated on Jan 28, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
     </div>
   </body>

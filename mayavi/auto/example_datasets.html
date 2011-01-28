@@ -103,11 +103,11 @@
 </ul>
 </td></tr></table>
 <p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/datasets.py"><tt class="xref download docutils literal"><span class="pre">datasets.py</span></tt></a></p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># Author: Gael Varoquaux &lt;gael dot varoquaux at normalesup.org&gt; </span>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Author: Gael Varoquaux &lt;gael dot varoquaux at normalesup.org&gt;</span>
 <span class="c"># Copyright (c) 2008, Enthought, Inc.</span>
 <span class="c"># License: BSD style.</span>
 
-<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">array</span><span class="p">,</span> <span class="n">random</span><span class="p">,</span> <span class="n">linspace</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">ravel</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">empty</span> 
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">array</span><span class="p">,</span> <span class="n">random</span><span class="p">,</span> <span class="n">linspace</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">ravel</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">empty</span>
 <span class="kn">from</span> <span class="nn">enthought.tvtk.api</span> <span class="kn">import</span> <span class="n">tvtk</span>
 
 <span class="kn">from</span> <span class="nn">enthought.mayavi.sources.vtk_data_source</span> <span class="kn">import</span> <span class="n">VTKDataSource</span>
@@ -122,7 +122,7 @@
     <span class="n">i</span><span class="o">.</span><span class="n">point_data</span><span class="o">.</span><span class="n">scalars</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">&#39;scalars&#39;</span>
     <span class="n">i</span><span class="o">.</span><span class="n">dimensions</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span>
     <span class="k">return</span> <span class="n">i</span>
-    
+
 
 <span class="k">def</span> <span class="nf">rectilinear_grid</span><span class="p">():</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
@@ -135,7 +135,7 @@
     <span class="n">r</span><span class="o">.</span><span class="n">z_coordinates</span> <span class="o">=</span> <span class="n">array</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">r</span>
 
- 
+
 <span class="k">def</span> <span class="nf">generate_annulus</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Generate points for structured grid for a cylindrical annular</span>
 <span class="sd">        volume.  This method is useful for generating a unstructured</span>
@@ -144,12 +144,12 @@
     <span class="c"># Find the x values and y values for each plane.</span>
     <span class="n">x_plane</span> <span class="o">=</span> <span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span><span class="o">*</span><span class="n">r</span><span class="p">[:,</span><span class="bp">None</span><span class="p">])</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
     <span class="n">y_plane</span> <span class="o">=</span> <span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span><span class="o">*</span><span class="n">r</span><span class="p">[:,</span><span class="bp">None</span><span class="p">])</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
-    
+
     <span class="c"># Allocate an array for all the points.  We&#39;ll have len(x_plane)</span>
     <span class="c"># points on each plane, and we have a plane for each z value, so</span>
     <span class="c"># we need len(x_plane)*len(z) points.</span>
     <span class="n">points</span> <span class="o">=</span> <span class="n">empty</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">x_plane</span><span class="p">)</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">z</span><span class="p">),</span><span class="mi">3</span><span class="p">])</span>
-    
+
     <span class="c"># Loop through the points for each plane and fill them with the</span>
     <span class="c"># correct x,y,z values.</span>
     <span class="n">start</span> <span class="o">=</span> <span class="mi">0</span>
@@ -158,13 +158,13 @@
         <span class="c"># slice out a plane of the output points and fill it</span>
         <span class="c"># with the x,y, and z values for this plane.  The x,y</span>
         <span class="c"># values are the same for every plane.  The z value</span>
-        <span class="c"># is set to the current z </span>
-        <span class="n">plane_points</span> <span class="o">=</span> <span class="n">points</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">]</span>    
+        <span class="c"># is set to the current z</span>
+        <span class="n">plane_points</span> <span class="o">=</span> <span class="n">points</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">]</span>
         <span class="n">plane_points</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">x_plane</span>
-        <span class="n">plane_points</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">y_plane</span> 
+        <span class="n">plane_points</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">y_plane</span>
         <span class="n">plane_points</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">z_plane</span>
         <span class="n">start</span> <span class="o">=</span> <span class="n">end</span>
-        
+
     <span class="k">return</span> <span class="n">points</span>
 
 
@@ -205,7 +205,7 @@
     <span class="n">ug</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">UnstructuredGrid</span><span class="p">(</span><span class="n">points</span><span class="o">=</span><span class="n">points</span><span class="p">)</span>
     <span class="c"># Now just set the cell types and reuse the ug locations and cells.</span>
     <span class="n">ug</span><span class="o">.</span><span class="n">set_cells</span><span class="p">(</span><span class="n">cell_types</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="n">cell_array</span><span class="p">)</span>
-    <span class="n">scalars</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">points</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> 
+    <span class="n">scalars</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">points</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
     <span class="n">ug</span><span class="o">.</span><span class="n">point_data</span><span class="o">.</span><span class="n">scalars</span> <span class="o">=</span> <span class="n">scalars</span>
     <span class="n">ug</span><span class="o">.</span><span class="n">point_data</span><span class="o">.</span><span class="n">scalars</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">&#39;scalars&#39;</span>
     <span class="k">return</span> <span class="n">ug</span>
@@ -216,10 +216,10 @@
     <span class="n">points</span> <span class="o">=</span> <span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.5</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.5</span><span class="p">],</span>
                     <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span><span class="mf">0.1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
                     <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.8</span><span class="p">,</span><span class="mi">0</span><span class="p">]],</span> <span class="s">&#39;f&#39;</span><span class="p">)</span>
-    <span class="n">triangles</span> <span class="o">=</span> <span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">],</span> 
+    <span class="n">triangles</span> <span class="o">=</span> <span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">],</span>
                        <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span>
                         <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">]])</span>
-    <span class="n">scalars</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">points</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> 
+    <span class="n">scalars</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">points</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 
     <span class="c"># The TVTK dataset.</span>
     <span class="n">mesh</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">PolyData</span><span class="p">(</span><span class="n">points</span><span class="o">=</span><span class="n">points</span><span class="p">,</span> <span class="n">polys</span><span class="o">=</span><span class="n">triangles</span><span class="p">)</span>
@@ -231,7 +231,7 @@
 <span class="k">def</span> <span class="nf">view</span><span class="p">(</span><span class="n">dataset</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Open up a mayavi scene and display the dataset in it.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">fig</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">bgcolor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">fgcolor</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> 
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">bgcolor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">fgcolor</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
                       <span class="n">figure</span><span class="o">=</span><span class="n">dataset</span><span class="o">.</span><span class="n">class_name</span><span class="p">[</span><span class="mi">3</span><span class="p">:])</span>
     <span class="n">surf</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">surface</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
     <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">surface</span><span class="p">(</span><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">extract_edges</span><span class="p">(</span><span class="n">surf</span><span class="p">),</span>
@@ -325,7 +325,7 @@
     </div>
     <div class="footer">
         &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Jan 27, 2011.
+      Last updated on Jan 28, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
     </div>
   </body>

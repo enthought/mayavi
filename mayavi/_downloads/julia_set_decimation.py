@@ -15,16 +15,16 @@ are degenerate, as the grid has subdivided flat parts of the Julia
 set.
 
 We have shown in white the decimated mesh, and in black the non-decimated
-one. The view is zoom to the center of the Julia set. If you turn of the 
+one. The view is zoom to the center of the Julia set. If you turn of the
 wireframes and zoom out, you can appreciate the quality of the
 decimation.
 
 In the specific case of decimating a surface warped from 2D data, it is
-more efficient to use the greedy-terrain-decimator, see the 
+more efficient to use the greedy-terrain-decimator, see the
 :ref:`example_canyon_decimation`.
 """
 
-# Author: Gael Varoquaux <gael.varoquaux@normalesup.org> 
+# Author: Gael Varoquaux <gael.varoquaux@normalesup.org>
 # Copyright (c) 2008, Enthought, Inc.
 # License: BSD Style.
 
@@ -49,15 +49,15 @@ mlab.figure(size=(400, 300))
 mesh = mlab.pipeline.warp_scalar(mlab.pipeline.array2d_source(julia),
                                  warp_scale=100)
 
-# The decimate_pro filter works only on triangles. We need to apply the 
+# The decimate_pro filter works only on triangles. We need to apply the
 # triangle_filter before applying decimate_pro.
 dec = mlab.pipeline.decimate_pro(mlab.pipeline.triangle_filter(mesh))
-# Set a very low feature_angle, so that the decimate_pro detects 
+# Set a very low feature_angle, so that the decimate_pro detects
 dec.filter.feature_angle = 1
 dec.filter.target_reduction = 0.5
 
 # We display the lines of decimated mesh in white
-mlab.pipeline.surface(dec, representation='wireframe', line_width=3, 
+mlab.pipeline.surface(dec, representation='wireframe', line_width=3,
                            color=(1, 1, 1))
 # The decimated mesh itself.
 mlab.pipeline.surface(dec, colormap='gist_earth', vmin=-0.1, vmax=0.4)

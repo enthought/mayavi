@@ -1,6 +1,6 @@
 """
-Example of an elaborate dialog showing a multiple views on the same data, with 
-3 cuts synchronized. 
+Example of an elaborate dialog showing a multiple views on the same data, with
+3 cuts synchronized.
 
 This example shows how to have multiple views on the same data, how to
 embedded multiple scenes in a dialog, and the caveat in populating them
@@ -16,7 +16,7 @@ Second, default values created via the '_xxx_default' callback are created
 lazyly, that is, when the attributes are accessed. As the establishement
 of the VTK pipeline can depend on the order in which it is built, we
 trigger these access by explicitely calling the attributes.
-In particular, properties like scene background color, or interaction 
+In particular, properties like scene background color, or interaction
 properties cannot be set before the scene is activated.
 
 The same data is exposed in the different scenes by sharing the VTK
@@ -28,7 +28,7 @@ on it is strongly simplified by turning off interaction, and choosing
 specific scene interactor styles. Indeed, non-technical users can be
 confused with too rich interaction.
 """
-# Author: Gael Varoquaux <gael.varoquaux@normalesup.org> 
+# Author: Gael Varoquaux <gael.varoquaux@normalesup.org>
 # Copyright (c) 2009, Enthought, Inc.
 # License: BSD Style.
 
@@ -49,7 +49,7 @@ from enthought.mayavi.core.ui.api import SceneEditor, MayaviScene, \
 ################################################################################
 # Create some data
 x, y, z = np.ogrid[-5:5:64j, -5:5:64j, -5:5:64j]
-data = np.sin(3*x)/x + 0.05*z**2 + np.cos(3*y) 
+data = np.sin(3*x)/x + 0.05*z**2 + np.cos(3*y)
 
 ################################################################################
 # The object implementing the dialog
@@ -107,7 +107,7 @@ class VolumeSlicer(HasTraits):
 
 
     #---------------------------------------------------------------------------
-    # Scene activation callbaks 
+    # Scene activation callbaks
     #---------------------------------------------------------------------------
     @on_trait_change('scene3d.activated')
     def display_scene3d(self):
@@ -129,8 +129,8 @@ class VolumeSlicer(HasTraits):
     def make_side_view(self, axis_name):
         scene = getattr(self, 'scene_%s' % axis_name)
 
-        # To avoid copying the data, we take a reference to the 
-        # raw VTK dataset, and pass it on to mlab. Mlab will create 
+        # To avoid copying the data, we take a reference to the
+        # raw VTK dataset, and pass it on to mlab. Mlab will create
         # a Mayavi source from the VTK without copying it.
         # We have to specify the figure so that the data gets
         # added on the figure we are interested in.
@@ -145,7 +145,7 @@ class VolumeSlicer(HasTraits):
 
         # Synchronize positions between the corresponding image plane
         # widgets on different views.
-        ipw.ipw.sync_trait('slice_position', 
+        ipw.ipw.sync_trait('slice_position',
                             getattr(self, 'ipw_3d_%s'% axis_name).ipw)
 
         # Make left-clicking create a crosshair
@@ -157,7 +157,7 @@ class VolumeSlicer(HasTraits):
             for other_axis, axis_number in self._axis_names.iteritems():
                 if other_axis == axis_name:
                     continue
-                ipw3d = getattr(self, 'ipw_3d_%s' % other_axis) 
+                ipw3d = getattr(self, 'ipw_3d_%s' % other_axis)
                 ipw3d.ipw.slice_position = position[axis_number]
 
         ipw.ipw.add_observer('InteractionEvent', move_view)
@@ -198,16 +198,16 @@ class VolumeSlicer(HasTraits):
     view = View(HGroup(
                   Group(
                        Item('scene_y',
-                            editor=SceneEditor(scene_class=Scene), 
+                            editor=SceneEditor(scene_class=Scene),
                             height=250, width=300),
                        Item('scene_z',
-                            editor=SceneEditor(scene_class=Scene), 
+                            editor=SceneEditor(scene_class=Scene),
                             height=250, width=300),
                        show_labels=False,
                   ),
                   Group(
                        Item('scene_x',
-                            editor=SceneEditor(scene_class=Scene), 
+                            editor=SceneEditor(scene_class=Scene),
                             height=250, width=300),
                        Item('scene3d',
                             editor=SceneEditor(scene_class=MayaviScene),

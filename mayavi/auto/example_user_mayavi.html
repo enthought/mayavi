@@ -109,9 +109,9 @@ carefully (so as not to override any common module names).</p>
 <span class="c"># Copyright (c) 2006-2008, Enthought, Inc.</span>
 <span class="c"># License: BSD Style.</span>
 
-<span class="kn">from</span> <span class="nn">enthought.mayavi.core.registry</span> <span class="kn">import</span> <span class="n">registry</span> 
-<span class="kn">from</span> <span class="nn">enthought.mayavi.core.pipeline_info</span> <span class="kn">import</span> <span class="n">PipelineInfo</span> 
-<span class="kn">from</span> <span class="nn">enthought.mayavi.core.metadata</span> <span class="kn">import</span> <span class="n">ModuleMetadata</span> 
+<span class="kn">from</span> <span class="nn">enthought.mayavi.core.registry</span> <span class="kn">import</span> <span class="n">registry</span>
+<span class="kn">from</span> <span class="nn">enthought.mayavi.core.pipeline_info</span> <span class="kn">import</span> <span class="n">PipelineInfo</span>
+<span class="kn">from</span> <span class="nn">enthought.mayavi.core.metadata</span> <span class="kn">import</span> <span class="n">ModuleMetadata</span>
 
 <span class="c"># Metadata for the new module we want to add -- notice that we use a</span>
 <span class="c"># factory function here for convenience, we could also use a class but</span>
@@ -142,7 +142,7 @@ carefully (so as not to override any common module names).</p>
 <span class="c"># Thats it, basically.  The rest of the code should really be in another</span>
 <span class="c"># module but is in the same module for convenience here.  There are</span>
 <span class="c"># problems with doing any significant non-core module imports in this</span>
-<span class="c"># module as documented below. </span>
+<span class="c"># module as documented below.</span>
 <span class="c">######################################################################</span>
 
 
@@ -200,7 +200,7 @@ carefully (so as not to override any common module names).</p>
 <span class="sd">    and modify the dataset.  This is a rather crude example but</span>
 <span class="sd">    demonstrates how things can be done.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    
+
     <span class="c"># Set by envisage when this is contributed as a ServiceOffer.</span>
     <span class="n">window</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="s">&#39;enthought.pyface.workbench.api.WorkbenchWindow&#39;</span><span class="p">)</span>
 
@@ -228,18 +228,18 @@ carefully (so as not to override any common module names).</p>
         <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ogrid</span><span class="p">[</span><span class="o">-</span><span class="mi">5</span><span class="p">:</span><span class="mi">5</span><span class="p">:</span><span class="n">dims</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">1</span><span class="n">j</span><span class="p">,</span><span class="o">-</span><span class="mi">5</span><span class="p">:</span><span class="mi">5</span><span class="p">:</span><span class="n">dims</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="mi">1</span><span class="n">j</span><span class="p">,</span><span class="o">-</span><span class="mi">5</span><span class="p">:</span><span class="mi">5</span><span class="p">:</span><span class="n">dims</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="mi">1</span><span class="n">j</span><span class="p">]</span>
         <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s">&#39;f&#39;</span><span class="p">)</span>
         <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s">&#39;f&#39;</span><span class="p">)</span>
-        <span class="n">z</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s">&#39;f&#39;</span><span class="p">)</span>        
+        <span class="n">z</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s">&#39;f&#39;</span><span class="p">)</span>
         <span class="n">s</span> <span class="o">=</span> <span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="o">*</span><span class="n">z</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="o">*</span><span class="n">z</span><span class="p">))</span>
         <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="c"># This makes the data contiguous.</span>
         <span class="k">return</span> <span class="n">s</span>
-    
+
     <span class="k">def</span> <span class="nf">_create_data_fired</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">mayavi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_mayavi</span><span class="p">()</span>
         <span class="kn">from</span> <span class="nn">enthought.mayavi.sources.array_source</span> <span class="kn">import</span> <span class="n">ArraySource</span>
         <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_data</span><span class="p">()</span>
         <span class="n">src</span> <span class="o">=</span> <span class="n">ArraySource</span><span class="p">(</span><span class="n">transpose_input_array</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">scalar_data</span><span class="o">=</span><span class="n">s</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="n">src</span>
-        <span class="n">mayavi</span><span class="o">.</span><span class="n">add_source</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>        
+        <span class="n">mayavi</span><span class="o">.</span><span class="n">add_source</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_reset_data_fired</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">source</span><span class="o">.</span><span class="n">scalar_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_data</span><span class="p">()</span>
@@ -257,8 +257,8 @@ carefully (so as not to override any common module names).</p>
 
         <span class="n">ipw_y</span> <span class="o">=</span> <span class="n">ImagePlaneWidget</span><span class="p">()</span>
         <span class="n">mayavi</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">ipw_y</span><span class="p">)</span>
-        <span class="n">ipw_y</span><span class="o">.</span><span class="n">ipw</span><span class="o">.</span><span class="n">plane_orientation</span> <span class="o">=</span> <span class="s">&#39;y_axes&#39;</span>        
-  
+        <span class="n">ipw_y</span><span class="o">.</span><span class="n">ipw</span><span class="o">.</span><span class="n">plane_orientation</span> <span class="o">=</span> <span class="s">&#39;y_axes&#39;</span>
+
     <span class="k">def</span> <span class="nf">_scale_changed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="n">src</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">source</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">scalar_data</span>
@@ -284,7 +284,7 @@ carefully (so as not to override any common module names).</p>
     <span class="n">service_offers</span> <span class="o">=</span> <span class="n">List</span><span class="p">(</span><span class="n">contributes_to</span><span class="o">=</span><span class="n">SERVICE_OFFERS</span><span class="p">)</span>
     <span class="c"># Views.</span>
     <span class="n">views</span> <span class="o">=</span> <span class="n">List</span><span class="p">(</span><span class="n">contributes_to</span><span class="o">=</span><span class="n">VIEWS</span><span class="p">)</span>
-    
+
     <span class="c">######################################################################</span>
     <span class="c"># Private methods.</span>
     <span class="k">def</span> <span class="nf">_service_offers_default</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -407,7 +407,7 @@ carefully (so as not to override any common module names).</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Jan 27, 2011.
+      Last updated on Jan 28, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
     </div>
   </body>

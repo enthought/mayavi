@@ -99,7 +99,7 @@ with Mayavi, please refer to section <a class="reference internal" href="../buil
 
 <span class="kn">from</span> <span class="nn">enthought.traits.api</span> <span class="kn">import</span> <span class="n">HasTraits</span><span class="p">,</span> <span class="n">Range</span><span class="p">,</span> <span class="n">Instance</span><span class="p">,</span> \
         <span class="n">on_trait_change</span><span class="p">,</span> <span class="n">Array</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Str</span>
-<span class="kn">from</span> <span class="nn">enthought.traits.ui.api</span> <span class="kn">import</span> <span class="n">View</span><span class="p">,</span> <span class="n">Item</span><span class="p">,</span> <span class="n">HSplit</span><span class="p">,</span> <span class="n">Group</span> 
+<span class="kn">from</span> <span class="nn">enthought.traits.ui.api</span> <span class="kn">import</span> <span class="n">View</span><span class="p">,</span> <span class="n">Item</span><span class="p">,</span> <span class="n">HSplit</span><span class="p">,</span> <span class="n">Group</span>
 
 <span class="kn">from</span> <span class="nn">enthought.mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
 <span class="kn">from</span> <span class="nn">enthought.mayavi.core.ui.api</span> <span class="kn">import</span> <span class="n">MayaviScene</span><span class="p">,</span> <span class="n">MlabSceneModel</span><span class="p">,</span> \
@@ -107,7 +107,7 @@ with Mayavi, please refer to section <a class="reference internal" href="../buil
 
 <span class="c">################################################################################</span>
 <span class="c"># `Lorenz` class.</span>
-<span class="c">################################################################################ </span>
+<span class="c">################################################################################</span>
 <span class="k">class</span> <span class="nc">Lorenz</span><span class="p">(</span><span class="n">HasTraits</span><span class="p">):</span>
 
     <span class="c"># The parameters for the Lorenz system, defaults to the standard ones.</span>
@@ -143,9 +143,9 @@ with Mayavi, please refer to section <a class="reference internal" href="../buil
                         <span class="n">Item</span><span class="p">(</span><span class="s">&#39;scene&#39;</span><span class="p">,</span> <span class="n">editor</span><span class="o">=</span><span class="n">SceneEditor</span><span class="p">(</span><span class="n">scene_class</span><span class="o">=</span><span class="n">MayaviScene</span><span class="p">),</span>
                              <span class="n">height</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">show_label</span><span class="o">=</span><span class="bp">False</span><span class="p">)),</span>
                     <span class="n">Group</span><span class="p">(</span>
-                        <span class="n">Item</span><span class="p">(</span><span class="s">&#39;s&#39;</span><span class="p">),</span> 
-                        <span class="n">Item</span><span class="p">(</span><span class="s">&#39;r&#39;</span><span class="p">),</span> 
-                        <span class="n">Item</span><span class="p">(</span><span class="s">&#39;b&#39;</span><span class="p">),</span> 
+                        <span class="n">Item</span><span class="p">(</span><span class="s">&#39;s&#39;</span><span class="p">),</span>
+                        <span class="n">Item</span><span class="p">(</span><span class="s">&#39;r&#39;</span><span class="p">),</span>
+                        <span class="n">Item</span><span class="p">(</span><span class="s">&#39;b&#39;</span><span class="p">),</span>
                         <span class="n">Item</span><span class="p">(</span><span class="s">&#39;u&#39;</span><span class="p">),</span> <span class="n">Item</span><span class="p">(</span><span class="s">&#39;v&#39;</span><span class="p">),</span> <span class="n">Item</span><span class="p">(</span><span class="s">&#39;w&#39;</span><span class="p">)),</span>
                     <span class="p">),</span>
                 <span class="n">resizable</span><span class="o">=</span><span class="bp">True</span>
@@ -153,7 +153,7 @@ with Mayavi, please refer to section <a class="reference internal" href="../buil
 
     <span class="c">######################################################################</span>
     <span class="c"># Trait handlers.</span>
-    <span class="c">###################################################################### </span>
+    <span class="c">######################################################################</span>
 
     <span class="c"># Note that in the `on_trait_change` call below we listen for the</span>
     <span class="c"># `scene.activated` trait.  This conveniently ensures that the flow</span>
@@ -169,7 +169,7 @@ with Mayavi, please refer to section <a class="reference internal" href="../buil
     <span class="nd">@on_trait_change</span><span class="p">(</span><span class="s">&#39;u&#39;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">update_u</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">flow</span><span class="o">.</span><span class="n">mlab_source</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">u</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">get_vel</span><span class="p">(</span><span class="s">&#39;u&#39;</span><span class="p">))</span>
-    
+
     <span class="nd">@on_trait_change</span><span class="p">(</span><span class="s">&#39;v&#39;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">update_v</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">flow</span><span class="o">.</span><span class="n">mlab_source</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">v</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">get_vel</span><span class="p">(</span><span class="s">&#39;v&#39;</span><span class="p">))</span>
@@ -190,7 +190,7 @@ with Mayavi, please refer to section <a class="reference internal" href="../buil
             <span class="n">g</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">__dict__</span>
             <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">points</span>
             <span class="n">s</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">r</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span>
-            <span class="n">val</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">func_str</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> 
+            <span class="n">val</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">func_str</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span>
                         <span class="p">{</span><span class="s">&#39;x&#39;</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span> <span class="s">&#39;y&#39;</span><span class="p">:</span> <span class="n">y</span><span class="p">,</span> <span class="s">&#39;z&#39;</span><span class="p">:</span> <span class="n">z</span><span class="p">,</span>
                          <span class="s">&#39;s&#39;</span><span class="p">:</span><span class="n">s</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">:</span><span class="n">r</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">:</span> <span class="n">b</span><span class="p">})</span>
         <span class="k">except</span><span class="p">:</span>
@@ -200,7 +200,7 @@ with Mayavi, please refer to section <a class="reference internal" href="../buil
 
     <span class="c">######################################################################</span>
     <span class="c"># Private interface.</span>
-    <span class="c">###################################################################### </span>
+    <span class="c">######################################################################</span>
     <span class="k">def</span> <span class="nf">_points_default</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="o">-</span><span class="mi">50</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">100</span><span class="n">j</span><span class="p">,</span><span class="o">-</span><span class="mi">50</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">100</span><span class="n">j</span><span class="p">,</span><span class="o">-</span><span class="mi">10</span><span class="p">:</span><span class="mi">60</span><span class="p">:</span><span class="mi">70</span><span class="n">j</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span>
@@ -298,7 +298,7 @@ with Mayavi, please refer to section <a class="reference internal" href="../buil
     </div>
     <div class="footer">
         &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Jan 27, 2011.
+      Last updated on Jan 28, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
     </div>
   </body>

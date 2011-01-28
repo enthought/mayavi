@@ -105,41 +105,41 @@ must use transparency to show the connection.</p>
 <span class="c"># The data. This could be loaded from a file, or scraped from a website</span>
 
 <span class="n">routes_data</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;</span>
-<span class="s">Bombay	Atlanta</span>
-<span class="s">Johannesburg	Atlanta</span>
-<span class="s">Dubai	Los Angeles</span>
-<span class="s">Dubai	Houston</span>
-<span class="s">Dubai	San Francisco</span>
-<span class="s">New York	Hong Kong</span>
-<span class="s">Newark	Hong Kong</span>
-<span class="s">Doha	Houston</span>
-<span class="s">Toronto	Hong Kong</span>
-<span class="s">Bombay	Newark</span>
-<span class="s">Bombay	New York</span>
-<span class="s">Vancouver	Hong Kong</span>
-<span class="s">Dubai	Sao Paulo</span>
-<span class="s">Los Angeles	Sydney</span>
-<span class="s">Chicago	Delhi</span>
+<span class="s">Bombay  Atlanta</span>
+<span class="s">Johannesburg    Atlanta</span>
+<span class="s">Dubai   Los Angeles</span>
+<span class="s">Dubai   Houston</span>
+<span class="s">Dubai   San Francisco</span>
+<span class="s">New York        Hong Kong</span>
+<span class="s">Newark  Hong Kong</span>
+<span class="s">Doha    Houston</span>
+<span class="s">Toronto Hong Kong</span>
+<span class="s">Bombay  Newark</span>
+<span class="s">Bombay  New York</span>
+<span class="s">Vancouver       Hong Kong</span>
+<span class="s">Dubai   Sao Paulo</span>
+<span class="s">Los Angeles     Sydney</span>
+<span class="s">Chicago Delhi</span>
 <span class="s">&quot;&quot;&quot;</span>
 
 <span class="n">cities_data</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;</span>
-<span class="s">Toronto	-79.38	43.65</span>
-<span class="s">Chicago	-87.68	41.84</span>
-<span class="s">Houston	-95.39	29.77</span>
-<span class="s">New York	-73.94	40.67</span>
-<span class="s">Vancouver	-123.13	49.28</span>
-<span class="s">Los Angeles	-118.41	34.11</span>
-<span class="s">San Francisco	-122.45	37.77</span>
-<span class="s">Atlanta	-84.42	33.76</span>
-<span class="s">Dubai	55.33	25.27</span>
-<span class="s">Sydney	151.21	-33.87</span>
-<span class="s">Hong Kong	114.19	22.38</span>
-<span class="s">Bombay	72.82	18.96</span>
-<span class="s">Delhi	77.21	28.67</span>
-<span class="s">Newark	-82.43	40.04</span>
-<span class="s">Johannesburg	28.04	-26.19</span>
-<span class="s">Doha	51.53	25.29</span>
-<span class="s">Sao Paulo	-46.63	-23.53</span>
+<span class="s">Toronto -79.38  43.65</span>
+<span class="s">Chicago -87.68  41.84</span>
+<span class="s">Houston -95.39  29.77</span>
+<span class="s">New York        -73.94  40.67</span>
+<span class="s">Vancouver       -123.13 49.28</span>
+<span class="s">Los Angeles     -118.41 34.11</span>
+<span class="s">San Francisco   -122.45 37.77</span>
+<span class="s">Atlanta -84.42  33.76</span>
+<span class="s">Dubai   55.33   25.27</span>
+<span class="s">Sydney  151.21  -33.87</span>
+<span class="s">Hong Kong       114.19  22.38</span>
+<span class="s">Bombay  72.82   18.96</span>
+<span class="s">Delhi   77.21   28.67</span>
+<span class="s">Newark  -82.43  40.04</span>
+<span class="s">Johannesburg    28.04   -26.19</span>
+<span class="s">Doha    51.53   25.29</span>
+<span class="s">Sao Paulo       -46.63  -23.53</span>
 <span class="s">&quot;&quot;&quot;</span>
 
 <span class="c">###############################################################################</span>
@@ -149,7 +149,7 @@ must use transparency to show the connection.</p>
 
 <span class="c"># Build a dictionnary returning GPS coordinates for each city</span>
 <span class="n">cities_coord</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
-<span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">csv</span><span class="o">.</span><span class="n">reader</span><span class="p">(</span><span class="n">cities_data</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">),</span> 
+<span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">csv</span><span class="o">.</span><span class="n">reader</span><span class="p">(</span><span class="n">cities_data</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">),</span>
                     <span class="n">dialect</span><span class="o">=</span><span class="s">&#39;excel-tab&#39;</span><span class="p">))[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
     <span class="n">name</span><span class="p">,</span> <span class="nb">long</span><span class="p">,</span> <span class="n">lat</span> <span class="o">=</span> <span class="n">line</span>
     <span class="n">cities_coord</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="nb">long</span><span class="p">),</span> <span class="nb">float</span><span class="p">(</span><span class="n">lat</span><span class="p">))</span>
@@ -208,9 +208,9 @@ must use transparency to show the connection.</p>
                               <span class="n">name</span><span class="o">=</span><span class="s">&#39;Connections&#39;</span><span class="p">)</span>
 
 <span class="c">###############################################################################</span>
-<span class="c"># Display city names </span>
+<span class="c"># Display city names</span>
 <span class="k">for</span> <span class="n">city</span><span class="p">,</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">cities</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
-    <span class="n">label</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">index</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">index</span><span class="p">],</span> <span class="n">city</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">[</span><span class="n">index</span><span class="p">],</span> 
+    <span class="n">label</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">index</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">index</span><span class="p">],</span> <span class="n">city</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">[</span><span class="n">index</span><span class="p">],</span>
                       <span class="n">width</span><span class="o">=</span><span class="mf">0.016</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">city</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="n">city</span><span class="p">)</span>
     <span class="n">label</span><span class="o">.</span><span class="n">property</span><span class="o">.</span><span class="n">shadow</span> <span class="o">=</span> <span class="bp">True</span>
 
@@ -218,7 +218,7 @@ must use transparency to show the connection.</p>
 <span class="c"># Display continents outline, using the VTK Builtin surface &#39;Earth&#39;</span>
 <span class="kn">from</span> <span class="nn">enthought.mayavi.sources.builtin_surface</span> <span class="kn">import</span> <span class="n">BuiltinSurface</span>
 <span class="n">continents_src</span> <span class="o">=</span> <span class="n">BuiltinSurface</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="s">&#39;earth&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;Continents&#39;</span><span class="p">)</span>
-<span class="c"># The on_ratio of the Earth source controls the level of detail of the </span>
+<span class="c"># The on_ratio of the Earth source controls the level of detail of the</span>
 <span class="c"># continents outline.</span>
 <span class="n">continents_src</span><span class="o">.</span><span class="n">data_source</span><span class="o">.</span><span class="n">on_ratio</span> <span class="o">=</span> <span class="mi">2</span>
 <span class="n">continents</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">surface</span><span class="p">(</span><span class="n">continents_src</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
@@ -252,7 +252,7 @@ must use transparency to show the connection.</p>
     <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
     <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
 
-    <span class="n">mlab</span><span class="o">.</span><span class="n">plot3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> 
+    <span class="n">mlab</span><span class="o">.</span><span class="n">plot3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
                         <span class="n">opacity</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">tube_radius</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
 
 <span class="n">mlab</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="mf">63.4</span><span class="p">,</span> <span class="mf">73.8</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.05</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
@@ -334,7 +334,7 @@ must use transparency to show the connection.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Jan 27, 2011.
+      Last updated on Jan 28, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
     </div>
   </body>

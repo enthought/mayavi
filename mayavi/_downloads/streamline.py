@@ -16,7 +16,7 @@ from enthought.mayavi.sources.vrml_importer import VRMLImporter
 from enthought.mayavi.modules.outline import Outline
 from enthought.mayavi.modules.streamline import Streamline
 from enthought.mayavi.modules.iso_surface import IsoSurface
-    
+
 def setup_data(fname):
     """Given a VTK XML file name `fname`, this creates a mayavi2
     reader for it and adds it to the pipeline.  It returns the reader

@@ -2,12 +2,12 @@
 """A simple example of how to use mayavi.mlab inside a traits UI dialog.
 
 This example uses traitsUI (
-`traitsUI <http://code.enthought.com/projects/traits/>`_ ) to create a 
+`traitsUI <http://code.enthought.com/projects/traits/>`_ ) to create a
 the simplest possible dialog: a single Mayavi scene in a window.
 """
 
 # Authors: Prabhu Ramachandran <prabhu [at] aero.iitb.ac.in>
-#          Gael Varoquaux 
+#          Gael Varoquaux
 # Copyright (c) 2007, Enthought, Inc.
 # License: BSD Style.
 
@@ -17,7 +17,7 @@ from numpy import sqrt, sin, mgrid
 # Enthought imports.
 from enthought.traits.api import HasTraits, Instance
 from enthought.traits.ui.api import View, Item
-from enthought.tvtk.pyface.scene_editor import SceneEditor 
+from enthought.tvtk.pyface.scene_editor import SceneEditor
 
 from enthought.mayavi.tools.mlab_scene_model import MlabSceneModel
 from enthought.mayavi.core.ui.mayavi_scene import MayaviScene
@@ -32,7 +32,7 @@ class ActorViewer(HasTraits):
     ######################
     # Using 'scene_class=MayaviScene' adds a Mayavi icon to the toolbar,
     # to pop up a dialog editing the pipeline.
-    view = View(Item(name='scene', 
+    view = View(Item(name='scene',
                      editor=SceneEditor(scene_class=MayaviScene),
                      show_label=False,
                      resizable=True,

@@ -101,7 +101,7 @@ edit the currently-selected object.</p>
 <span class="c"># Enthought imports.</span>
 <span class="kn">from</span> <span class="nn">enthought.traits.api</span> <span class="kn">import</span> <span class="n">HasTraits</span><span class="p">,</span> <span class="n">Instance</span><span class="p">,</span> <span class="n">Property</span><span class="p">,</span> <span class="n">Enum</span>
 <span class="kn">from</span> <span class="nn">enthought.traits.ui.api</span> <span class="kn">import</span> <span class="n">View</span><span class="p">,</span> <span class="n">Item</span><span class="p">,</span> <span class="n">HSplit</span><span class="p">,</span> <span class="n">VSplit</span><span class="p">,</span> <span class="n">InstanceEditor</span>
-<span class="kn">from</span> <span class="nn">enthought.tvtk.pyface.scene_editor</span> <span class="kn">import</span> <span class="n">SceneEditor</span> 
+<span class="kn">from</span> <span class="nn">enthought.tvtk.pyface.scene_editor</span> <span class="kn">import</span> <span class="n">SceneEditor</span>
 <span class="kn">from</span> <span class="nn">enthought.mayavi.core.ui.engine_view</span> <span class="kn">import</span> <span class="n">EngineView</span>
 <span class="kn">from</span> <span class="nn">enthought.mayavi.tools.mlab_scene_model</span> <span class="kn">import</span> <span class="n">MlabSceneModel</span>
 
@@ -128,11 +128,11 @@ edit the currently-selected object.</p>
                               <span class="n">Item</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&#39;current_selection&#39;</span><span class="p">,</span>
                                    <span class="n">editor</span><span class="o">=</span><span class="n">InstanceEditor</span><span class="p">(),</span>
                                    <span class="n">enabled_when</span><span class="o">=</span><span class="s">&#39;current_selection is not None&#39;</span><span class="p">,</span>
-                                   <span class="n">style</span><span class="o">=</span><span class="s">&#39;custom&#39;</span><span class="p">,</span> 
+                                   <span class="n">style</span><span class="o">=</span><span class="s">&#39;custom&#39;</span><span class="p">,</span>
                                    <span class="n">springy</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
                                    <span class="n">show_label</span><span class="o">=</span><span class="bp">False</span><span class="p">),</span>
                                    <span class="p">),</span>
-                               <span class="n">Item</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&#39;scene&#39;</span><span class="p">,</span> 
+                               <span class="n">Item</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&#39;scene&#39;</span><span class="p">,</span>
                                     <span class="n">editor</span><span class="o">=</span><span class="n">SceneEditor</span><span class="p">(),</span>
                                     <span class="n">show_label</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
                                     <span class="n">resizable</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
@@ -164,7 +164,7 @@ edit the currently-selected object.</p>
         <span class="n">e</span><span class="o">.</span><span class="n">add_source</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
         <span class="n">e</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">Outline</span><span class="p">())</span>
         <span class="n">e</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">Surface</span><span class="p">())</span>
-        
+
     <span class="k">def</span> <span class="nf">_selection_change</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">old</span><span class="p">,</span> <span class="n">new</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">trait_property_changed</span><span class="p">(</span><span class="s">&#39;current_selection&#39;</span><span class="p">,</span> <span class="n">old</span><span class="p">,</span> <span class="n">new</span><span class="p">)</span>
 
@@ -252,7 +252,7 @@ edit the currently-selected object.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Jan 27, 2011.
+      Last updated on Jan 28, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
     </div>
   </body>

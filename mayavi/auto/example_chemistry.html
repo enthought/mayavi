@@ -93,7 +93,7 @@ Good use of the <cite>vmin</cite> and <cite>vmax</cite> argument to
 <p>The original is an electron localization function from Axel Kohlmeyer.</p>
 <img alt="../_images/example_chemistry.jpg" class="align-center" src="../_images/example_chemistry.jpg" />
 <p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/chemistry.py"><tt class="xref download docutils literal"><span class="pre">chemistry.py</span></tt></a></p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># Author: Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt; </span>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Author: Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt;</span>
 <span class="c"># Copyright (c) 2008, Enthought, Inc.</span>
 <span class="c"># License: BSD Style.</span>
 
@@ -120,19 +120,19 @@ Good use of the <cite>vmin</cite> and <cite>vmax</cite> argument to
 <span class="n">atoms_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">])</span><span class="o">*</span><span class="mi">40</span><span class="o">/</span><span class="mf">5.5</span>
 <span class="n">atoms_z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">3.8</span><span class="p">,</span> <span class="mf">2.9</span><span class="p">,</span> <span class="mf">2.7</span><span class="p">])</span><span class="o">*</span><span class="mi">40</span><span class="o">/</span><span class="mf">5.5</span>
 
-<span class="n">O</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">points3d</span><span class="p">(</span><span class="n">atoms_x</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">atoms_y</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">atoms_z</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> 
+<span class="n">O</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">points3d</span><span class="p">(</span><span class="n">atoms_x</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">atoms_y</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">atoms_z</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
                   <span class="n">scale_factor</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
                   <span class="n">resolution</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
                   <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
                   <span class="n">scale_mode</span><span class="o">=</span><span class="s">&#39;none&#39;</span><span class="p">)</span>
 
-<span class="n">H1</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">points3d</span><span class="p">(</span><span class="n">atoms_x</span><span class="p">[:</span><span class="mi">1</span><span class="p">],</span> <span class="n">atoms_y</span><span class="p">[:</span><span class="mi">1</span><span class="p">],</span> <span class="n">atoms_z</span><span class="p">[:</span><span class="mi">1</span><span class="p">],</span> 
+<span class="n">H1</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">points3d</span><span class="p">(</span><span class="n">atoms_x</span><span class="p">[:</span><span class="mi">1</span><span class="p">],</span> <span class="n">atoms_y</span><span class="p">[:</span><span class="mi">1</span><span class="p">],</span> <span class="n">atoms_z</span><span class="p">[:</span><span class="mi">1</span><span class="p">],</span>
                    <span class="n">scale_factor</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
                    <span class="n">resolution</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
                    <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
                    <span class="n">scale_mode</span><span class="o">=</span><span class="s">&#39;none&#39;</span><span class="p">)</span>
 
-<span class="n">H2</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">points3d</span><span class="p">(</span><span class="n">atoms_x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:],</span> <span class="n">atoms_y</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:],</span> <span class="n">atoms_z</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:],</span> 
+<span class="n">H2</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">points3d</span><span class="p">(</span><span class="n">atoms_x</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:],</span> <span class="n">atoms_y</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:],</span> <span class="n">atoms_z</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:],</span>
                    <span class="n">scale_factor</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
                    <span class="n">resolution</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
                    <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
@@ -140,7 +140,7 @@ Good use of the <cite>vmin</cite> and <cite>vmax</cite> argument to
 
 <span class="c"># The bounds between the atoms, we use the scalar information to give</span>
 <span class="c"># color</span>
-<span class="n">mlab</span><span class="o">.</span><span class="n">plot3d</span><span class="p">(</span><span class="n">atoms_x</span><span class="p">,</span> <span class="n">atoms_y</span><span class="p">,</span> <span class="n">atoms_z</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> 
+<span class="n">mlab</span><span class="o">.</span><span class="n">plot3d</span><span class="p">(</span><span class="n">atoms_x</span><span class="p">,</span> <span class="n">atoms_y</span><span class="p">,</span> <span class="n">atoms_z</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
             <span class="n">tube_radius</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s">&#39;Reds&#39;</span><span class="p">)</span>
 
 <span class="c"># Display the electron localization function ###################################</span>
@@ -153,7 +153,7 @@ Good use of the <cite>vmin</cite> and <cite>vmax</cite> argument to
 <span class="n">source</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">scalar_field</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 <span class="nb">min</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
 <span class="nb">max</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
-<span class="n">vol</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">volume</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="nb">min</span><span class="o">+</span><span class="mf">0.65</span><span class="o">*</span><span class="p">(</span><span class="nb">max</span><span class="o">-</span><span class="nb">min</span><span class="p">),</span> 
+<span class="n">vol</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">volume</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="nb">min</span><span class="o">+</span><span class="mf">0.65</span><span class="o">*</span><span class="p">(</span><span class="nb">max</span><span class="o">-</span><span class="nb">min</span><span class="p">),</span>
                                    <span class="n">vmax</span><span class="o">=</span><span class="nb">min</span><span class="o">+</span><span class="mf">0.9</span><span class="o">*</span><span class="p">(</span><span class="nb">max</span><span class="o">-</span><span class="nb">min</span><span class="p">))</span>
 
 <span class="n">mlab</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="mi">132</span><span class="p">,</span> <span class="mi">54</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="p">[</span><span class="mi">21</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mf">21.5</span><span class="p">])</span>
@@ -236,7 +236,7 @@ Good use of the <cite>vmin</cite> and <cite>vmax</cite> argument to
     </div>
     <div class="footer">
         &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Jan 27, 2011.
+      Last updated on Jan 28, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
     </div>
   </body>

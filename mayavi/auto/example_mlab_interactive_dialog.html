@@ -98,7 +98,7 @@ object (see <a class="reference internal" href="../mlab_animating.html#mlab-anim
 <a class="reference internal" href="../building_applications.html#embedding-mayavi-traits"><em>Embedding a Mayavi scene in a Traits dialog</em></a>.</p>
 <img alt="../_images/example_mlab_interactive_dialog.jpg" class="align-center" src="../_images/example_mlab_interactive_dialog.jpg" />
 <p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/mlab_interactive_dialog.py"><tt class="xref download docutils literal"><span class="pre">mlab_interactive_dialog.py</span></tt></a></p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># Author: Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt; </span>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Author: Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt;</span>
 <span class="c"># Copyright (c) 2008, Enthought, Inc.</span>
 <span class="c"># License: BSD Style.</span>
 
@@ -123,7 +123,7 @@ object (see <a class="reference internal" href="../mlab_animating.html#mlab-anim
     <span class="n">y</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">mu</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">cos</span><span class="p">(</span><span class="n">n_long</span> <span class="o">*</span> <span class="n">mu</span><span class="o">/</span><span class="n">n_mer</span><span class="p">)</span><span class="o">*</span><span class="mf">0.5</span><span class="p">)</span>
     <span class="n">z</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">n_long</span><span class="o">*</span><span class="n">mu</span><span class="o">/</span><span class="n">n_mer</span><span class="p">)</span>
     <span class="n">t</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">mu</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">t</span>    
+    <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">t</span>
 
 
 <span class="k">class</span> <span class="nc">MyModel</span><span class="p">(</span><span class="n">HasTraits</span><span class="p">):</span>
@@ -148,8 +148,8 @@ object (see <a class="reference internal" href="../mlab_animating.html#mlab-anim
 
 
     <span class="c"># The layout of the dialog created</span>
-    <span class="n">view</span> <span class="o">=</span> <span class="n">View</span><span class="p">(</span><span class="n">Item</span><span class="p">(</span><span class="s">&#39;scene&#39;</span><span class="p">,</span> <span class="n">editor</span><span class="o">=</span><span class="n">SceneEditor</span><span class="p">(</span><span class="n">scene_class</span><span class="o">=</span><span class="n">MayaviScene</span><span class="p">),</span> 
-                     <span class="n">height</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">show_label</span><span class="o">=</span><span class="bp">False</span><span class="p">),</span> 
+    <span class="n">view</span> <span class="o">=</span> <span class="n">View</span><span class="p">(</span><span class="n">Item</span><span class="p">(</span><span class="s">&#39;scene&#39;</span><span class="p">,</span> <span class="n">editor</span><span class="o">=</span><span class="n">SceneEditor</span><span class="p">(</span><span class="n">scene_class</span><span class="o">=</span><span class="n">MayaviScene</span><span class="p">),</span>
+                     <span class="n">height</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">show_label</span><span class="o">=</span><span class="bp">False</span><span class="p">),</span>
                 <span class="n">Group</span><span class="p">(</span>
                         <span class="s">&#39;_&#39;</span><span class="p">,</span> <span class="s">&#39;n_meridional&#39;</span><span class="p">,</span> <span class="s">&#39;n_longitudinal&#39;</span><span class="p">,</span>
                      <span class="p">),</span>
@@ -235,7 +235,7 @@ object (see <a class="reference internal" href="../mlab_animating.html#mlab-anim
     </div>
     <div class="footer">
         &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Jan 27, 2011.
+      Last updated on Jan 28, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
     </div>
   </body>

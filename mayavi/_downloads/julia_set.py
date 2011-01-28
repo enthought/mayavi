@@ -6,7 +6,7 @@ The Julia set is a fractal (see http://en.wikipedia.org/wiki/Julia_set
 :func:`enthought.mayavi.mlab.surf`.
 """
 
-# Author: Gael Varoquaux <gael.varoquaux@normalesup.org> 
+# Author: Gael Varoquaux <gael.varoquaux@normalesup.org>
 # Copyright (c) 2008, Enthought, Inc.
 # License: BSD Style.
 

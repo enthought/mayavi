@@ -186,78 +186,78 @@ you will see).</p>
 <span class="c"># License: BSD Style</span>
 
 <span class="c"># this import is here because we need to ensure that matplotlib uses the</span>
-<span class="c"># wx backend and having regular code outside the main block is PyTaboo. </span>
+<span class="c"># wx backend and having regular code outside the main block is PyTaboo.</span>
 <span class="c"># It needs to be imported first, so that matplotlib can impose the</span>
 <span class="c"># version of Wx it requires.</span>
 <span class="kn">import</span> <span class="nn">matplotlib</span>
 <span class="n">matplotlib</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s">&#39;WXAgg&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">pylab</span> <span class="kn">as</span> <span class="nn">pl</span>
 
- 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span> 
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">enthought.mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
 <span class="kn">from</span> <span class="nn">enthought.mayavi.core.ui.mayavi_scene</span> <span class="kn">import</span> <span class="n">MayaviScene</span>
 
 <span class="k">def</span> <span class="nf">get_world_to_view_matrix</span><span class="p">(</span><span class="n">mlab_scene</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;returns the 4x4 matrix that is a concatenation of the modelview transform and </span>
+    <span class="sd">&quot;&quot;&quot;returns the 4x4 matrix that is a concatenation of the modelview transform and</span>
 <span class="sd">    perspective transform. Takes as input an mlab scene object.&quot;&quot;&quot;</span>
-    
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">mlab_scene</span><span class="p">,</span> <span class="n">MayaviScene</span><span class="p">):</span>
-	<span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&#39;argument must be an instance of MayaviScene&#39;</span><span class="p">)</span>
 
-	
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">mlab_scene</span><span class="p">,</span> <span class="n">MayaviScene</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&#39;argument must be an instance of MayaviScene&#39;</span><span class="p">)</span>
+
+
     <span class="c"># The VTK method needs the aspect ratio and near and far clipping planes</span>
     <span class="c"># in order to return the proper transform. So we query the current scene</span>
     <span class="c"># object to get the parameters we need.</span>
     <span class="n">scene_size</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">mlab_scene</span><span class="o">.</span><span class="n">get_size</span><span class="p">())</span>
     <span class="n">clip_range</span> <span class="o">=</span> <span class="n">mlab_scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">clipping_range</span>
     <span class="n">aspect_ratio</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">scene_size</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="n">scene_size</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-    
+
     <span class="c"># this actually just gets a vtk matrix object, we can&#39;t really do anything with it yet</span>
     <span class="n">vtk_comb_trans_mat</span> <span class="o">=</span> <span class="n">mlab_scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">get_composite_perspective_transform_matrix</span><span class="p">(</span>
                                 <span class="n">aspect_ratio</span><span class="p">,</span> <span class="n">clip_range</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">clip_range</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-    
+
      <span class="c"># get the vtk mat as a numpy array</span>
     <span class="n">np_comb_trans_mat</span> <span class="o">=</span> <span class="n">vtk_comb_trans_mat</span><span class="o">.</span><span class="n">to_array</span><span class="p">()</span>
-            
+
     <span class="k">return</span> <span class="n">np_comb_trans_mat</span>
-    
+
 
 <span class="k">def</span> <span class="nf">get_view_to_display_matrix</span><span class="p">(</span><span class="n">mlab_scene</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; this function returns a 4x4 matrix that will convert normalized</span>
-<span class="sd">	view coordinates to display coordinates. It&#39;s assumed that the view should </span>
-<span class="sd">	take up the entire window and that the origin of the window is in the </span>
-<span class="sd">	upper left corner&quot;&quot;&quot;</span>
+<span class="sd">        view coordinates to display coordinates. It&#39;s assumed that the view should</span>
+<span class="sd">        take up the entire window and that the origin of the window is in the</span>
+<span class="sd">        upper left corner&quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">mlab_scene</span><span class="p">,</span> <span class="n">MayaviScene</span><span class="p">)):</span>
-	<span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&#39;argument must be an instance of MayaviScene&#39;</span><span class="p">)</span>  
- 	
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&#39;argument must be an instance of MayaviScene&#39;</span><span class="p">)</span>
+
     <span class="c"># this gets the client size of the window</span>
     <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">mlab_scene</span><span class="o">.</span><span class="n">get_size</span><span class="p">())</span>
-    
+
     <span class="c"># normalized view coordinates have the origin in the middle of the space</span>
     <span class="c"># so we need to scale by width and height of the display window and shift</span>
     <span class="c"># by half width and half height. The matrix accomplishes that.</span>
     <span class="n">view_to_disp_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">x</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span>      <span class="mf">0.</span><span class="p">,</span>   <span class="mf">0.</span><span class="p">,</span>   <span class="n">x</span><span class="o">/</span><span class="mf">2.0</span><span class="p">],</span>
                                  <span class="p">[</span>   <span class="mf">0.</span><span class="p">,</span>  <span class="o">-</span><span class="n">y</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span>   <span class="mf">0.</span><span class="p">,</span>   <span class="n">y</span><span class="o">/</span><span class="mf">2.0</span><span class="p">],</span>
                                  <span class="p">[</span>   <span class="mf">0.</span><span class="p">,</span>      <span class="mf">0.</span><span class="p">,</span>   <span class="mf">1.</span><span class="p">,</span>      <span class="mf">0.</span><span class="p">],</span>
-                                 <span class="p">[</span>   <span class="mf">0.</span><span class="p">,</span>      <span class="mf">0.</span><span class="p">,</span>   <span class="mf">0.</span><span class="p">,</span>      <span class="mf">1.</span><span class="p">]])</span>    
-        
+                                 <span class="p">[</span>   <span class="mf">0.</span><span class="p">,</span>      <span class="mf">0.</span><span class="p">,</span>   <span class="mf">0.</span><span class="p">,</span>      <span class="mf">1.</span><span class="p">]])</span>
+
     <span class="k">return</span> <span class="n">view_to_disp_mat</span>
 
 
 <span class="k">def</span> <span class="nf">apply_transform_to_points</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">trans_mat</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;a function that applies a 4x4 transformation matrix to an of </span>
-<span class="sd">	homogeneous points. The array of points should have shape Nx4&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;a function that applies a 4x4 transformation matrix to an of</span>
+<span class="sd">        homogeneous points. The array of points should have shape Nx4&quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">trans_mat</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">):</span>
-	<span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;transform matrix must be 4x4&#39;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;transform matrix must be 4x4&#39;</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">points</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
-	<span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;point array must have shape Nx4&#39;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;point array must have shape Nx4&#39;</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">trans_mat</span><span class="p">,</span> <span class="n">points</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
-    
+
 
 <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">f</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
@@ -269,11 +269,11 @@ you will see).</p>
     <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random_integers</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
     <span class="n">Z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random_integers</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
 
-    <span class="c"># plot the points with mlab </span>
-    <span class="n">pts</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">points3d</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">)</span> 
+    <span class="c"># plot the points with mlab</span>
+    <span class="n">pts</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">points3d</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">)</span>
 
-    <span class="c"># now were going to create a single N x 4 array of our points </span>
-    <span class="c"># adding a fourth column of ones expresses the world points in </span>
+    <span class="c"># now were going to create a single N x 4 array of our points</span>
+    <span class="c"># adding a fourth column of ones expresses the world points in</span>
     <span class="c"># homogenous coordinates</span>
     <span class="n">W</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
     <span class="n">hmgns_world_coords</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">((</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">W</span><span class="p">))</span>
@@ -281,14 +281,14 @@ you will see).</p>
     <span class="c"># applying the first transform will give us &#39;unnormalized&#39; view</span>
     <span class="c"># coordinates we also have to get the transform matrix for the</span>
     <span class="c"># current scene view</span>
-    <span class="n">comb_trans_mat</span> <span class="o">=</span> <span class="n">get_world_to_view_matrix</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">scene</span><span class="p">)</span> 
+    <span class="n">comb_trans_mat</span> <span class="o">=</span> <span class="n">get_world_to_view_matrix</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">scene</span><span class="p">)</span>
     <span class="n">view_coords</span> <span class="o">=</span> \
             <span class="n">apply_transform_to_points</span><span class="p">(</span><span class="n">hmgns_world_coords</span><span class="p">,</span> <span class="n">comb_trans_mat</span><span class="p">)</span>
 
     <span class="c"># to get normalized view coordinates, we divide through by the fourth</span>
     <span class="c"># element</span>
     <span class="n">norm_view_coords</span> <span class="o">=</span> <span class="n">view_coords</span> <span class="o">/</span> <span class="p">(</span><span class="n">view_coords</span><span class="p">[:,</span> <span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-    
+
     <span class="c"># the last step is to transform from normalized view coordinates to</span>
     <span class="c"># display coordinates.</span>
     <span class="n">view_to_disp_mat</span> <span class="o">=</span> <span class="n">get_view_to_display_matrix</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">scene</span><span class="p">)</span>
@@ -304,11 +304,11 @@ you will see).</p>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
         <span class="k">print</span>  <span class="s">&#39;Point </span><span class="si">%d</span><span class="s">:  (x, y) &#39;</span> <span class="o">%</span> <span class="n">i</span><span class="p">,</span> <span class="n">disp_coords</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
         <span class="n">pl</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">disp_coords</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">][</span><span class="n">i</span><span class="p">]],</span> <span class="p">[</span><span class="n">disp_coords</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">][</span><span class="n">i</span><span class="p">]],</span> <span class="s">&#39;ro&#39;</span><span class="p">)</span>
-     
+
     <span class="n">pl</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
     <span class="c"># you should check that the printed coordinates correspond to the</span>
-    <span class="c"># proper points on the screen </span>
+    <span class="c"># proper points on the screen</span>
 
     <span class="n">mlab</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
@@ -390,7 +390,7 @@ you will see).</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Jan 27, 2011.
+      Last updated on Jan 28, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
     </div>
   </body>

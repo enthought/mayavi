@@ -14,7 +14,7 @@ set of unconnected point (the underlying data structure is a
 :ref:`poly_data`) using `mlab.pipeline.scalar_scatter`. To add the
 connections, we need to keep track of which point is connected to which.
 As we only have lines, this is fairly easy: in a line, each point is
-connected to the following one. 
+connected to the following one.
 
 """
 
@@ -42,7 +42,7 @@ z = list()
 s = list()
 connections = list()
 
-# The index of the current point in the total amount of points 
+# The index of the current point in the total amount of points
 index = 0
 
 # Create each line one after the other in a loop
@@ -54,12 +54,12 @@ for i in range(50):
     # This is the tricky part: in a line, each point is connected
     # to the one following it. We have to express this with the indices
     # of the final set of points once all lines have been combined
-    # together, this is why we need to keep track of the total number of 
+    # together, this is why we need to keep track of the total number of
     # points already created (index)
     connections.append(np.vstack(
                        [np.arange(index,   index + N - 1.5),
                         np.arange(index+1, index + N - .5)]
-                            ).T)    
+                            ).T)
     index += N
 
 # Now collapse all positions, scalars and connections in big arrays

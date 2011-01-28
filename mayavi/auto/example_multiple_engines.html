@@ -90,7 +90,7 @@ scene.</p>
 <p>To define default arguments, it makes use of the Traits initialization
 style, rather than overridding the __init__.</p>
 <p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/multiple_engines.py"><tt class="xref download docutils literal"><span class="pre">multiple_engines.py</span></tt></a></p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># Author:  Gael Varoquaux &lt;gael _dot_ varoquaux _at_ normalesup _dot_ org&gt; </span>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Author:  Gael Varoquaux &lt;gael _dot_ varoquaux _at_ normalesup _dot_ org&gt;</span>
 <span class="c"># Copyright (c) 2009, Enthought, Inc.</span>
 <span class="c"># License: BSD Style.</span>
 
@@ -104,7 +104,7 @@ style, rather than overridding the __init__.</p>
 <span class="c">################################################################################</span>
 <span class="k">class</span> <span class="nc">MyApp</span><span class="p">(</span><span class="n">HasTraits</span><span class="p">):</span>
 
-    <span class="c"># The first engine. As default arguments (an empty tuple) are given, </span>
+    <span class="c"># The first engine. As default arguments (an empty tuple) are given,</span>
     <span class="c"># traits initializes it.</span>
     <span class="n">engine1</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">Engine</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">())</span>
 
@@ -126,7 +126,7 @@ style, rather than overridding the __init__.</p>
         <span class="n">scene2</span> <span class="o">=</span> <span class="n">MlabSceneModel</span><span class="p">(</span><span class="n">engine</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">engine2</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">scene2</span>
 
-    <span class="c"># We populate the scenes only when it is activated, to avoid problems </span>
+    <span class="c"># We populate the scenes only when it is activated, to avoid problems</span>
     <span class="c"># with VTK objects that expect an active scene</span>
     <span class="nd">@on_trait_change</span><span class="p">(</span><span class="s">&#39;scene1.activated&#39;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">populate_scene1</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -138,17 +138,16 @@ style, rather than overridding the __init__.</p>
 
     <span class="c"># The layout of the view</span>
     <span class="n">view</span> <span class="o">=</span> <span class="n">View</span><span class="p">(</span><span class="n">Group</span><span class="p">(</span><span class="n">Item</span><span class="p">(</span><span class="s">&#39;scene1&#39;</span><span class="p">,</span>
-                        <span class="n">editor</span><span class="o">=</span><span class="n">SceneEditor</span><span class="p">(</span><span class="n">scene_class</span><span class="o">=</span><span class="n">MayaviScene</span><span class="p">),</span> 
+                        <span class="n">editor</span><span class="o">=</span><span class="n">SceneEditor</span><span class="p">(</span><span class="n">scene_class</span><span class="o">=</span><span class="n">MayaviScene</span><span class="p">),</span>
                         <span class="n">width</span><span class="o">=</span><span class="mi">480</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">480</span><span class="p">)),</span>
                 <span class="n">Group</span><span class="p">(</span><span class="n">Item</span><span class="p">(</span><span class="s">&#39;scene2&#39;</span><span class="p">,</span>
-                        <span class="n">editor</span><span class="o">=</span><span class="n">SceneEditor</span><span class="p">(</span><span class="n">scene_class</span><span class="o">=</span><span class="n">MayaviScene</span><span class="p">),</span> 
+                        <span class="n">editor</span><span class="o">=</span><span class="n">SceneEditor</span><span class="p">(</span><span class="n">scene_class</span><span class="o">=</span><span class="n">MayaviScene</span><span class="p">),</span>
                         <span class="n">width</span><span class="o">=</span><span class="mi">480</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">480</span><span class="p">)),</span>
                 <span class="n">resizable</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 
 
 <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">MyApp</span><span class="p">()</span><span class="o">.</span><span class="n">configure_traits</span><span class="p">()</span>
-                
 </pre></div>
 </div>
 </div>
@@ -226,7 +225,7 @@ style, rather than overridding the __init__.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Jan 27, 2011.
+      Last updated on Jan 28, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
     </div>
   </body>

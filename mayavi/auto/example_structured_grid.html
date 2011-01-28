@@ -106,7 +106,7 @@ the mayavi2 application.</p>
     <span class="sd">&quot;&quot;&quot; Generate points for structured grid for a cylindrical annular</span>
 <span class="sd">        volume.  This method is useful for generating a structured</span>
 <span class="sd">        cylindrical mesh for VTK (and perhaps other tools).</span>
-<span class="sd">        </span>
+
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        r : array : The radial values of the grid points.</span>
@@ -117,13 +117,13 @@ the mayavi2 application.</p>
 
 <span class="sd">        z: array : The values along the z axis of the grid points.</span>
 <span class="sd">                   It defaults to linspace(0,0,1.0, 11).</span>
-<span class="sd">        </span>
+
 <span class="sd">        Return</span>
 <span class="sd">        ------</span>
 <span class="sd">        points : array</span>
 <span class="sd">            Nx3 array of points that make up the volume of the annulus.</span>
 <span class="sd">            They are organized in planes starting with the first value</span>
-<span class="sd">            of z and with the inside &quot;ring&quot; of the plane as the first </span>
+<span class="sd">            of z and with the inside &quot;ring&quot; of the plane as the first</span>
 <span class="sd">            set of points.  The default point array will be 1331x3.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c"># Default values for the annular grid.</span>
@@ -134,12 +134,12 @@ the mayavi2 application.</p>
     <span class="c"># Find the x values and y values for each plane.</span>
     <span class="n">x_plane</span> <span class="o">=</span> <span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span><span class="o">*</span><span class="n">r</span><span class="p">[:,</span><span class="bp">None</span><span class="p">])</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
     <span class="n">y_plane</span> <span class="o">=</span> <span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span><span class="o">*</span><span class="n">r</span><span class="p">[:,</span><span class="bp">None</span><span class="p">])</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
-    
+
     <span class="c"># Allocate an array for all the points.  We&#39;ll have len(x_plane)</span>
     <span class="c"># points on each plane, and we have a plane for each z value, so</span>
     <span class="c"># we need len(x_plane)*len(z) points.</span>
     <span class="n">points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">x_plane</span><span class="p">)</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">z</span><span class="p">),</span><span class="mi">3</span><span class="p">])</span>
-    
+
     <span class="c"># Loop through the points for each plane and fill them with the</span>
     <span class="c"># correct x,y,z values.</span>
     <span class="n">start</span> <span class="o">=</span> <span class="mi">0</span>
@@ -148,13 +148,13 @@ the mayavi2 application.</p>
         <span class="c"># slice out a plane of the output points and fill it</span>
         <span class="c"># with the x,y, and z values for this plane.  The x,y</span>
         <span class="c"># values are the same for every plane.  The z value</span>
-        <span class="c"># is set to the current z </span>
-        <span class="n">plane_points</span> <span class="o">=</span> <span class="n">points</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">]</span>    
+        <span class="c"># is set to the current z</span>
+        <span class="n">plane_points</span> <span class="o">=</span> <span class="n">points</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">]</span>
         <span class="n">plane_points</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">x_plane</span>
-        <span class="n">plane_points</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">y_plane</span>    
+        <span class="n">plane_points</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">y_plane</span>
         <span class="n">plane_points</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">z_plane</span>
         <span class="n">start</span> <span class="o">=</span> <span class="n">end</span>
-        
+
     <span class="k">return</span> <span class="n">points</span>
 
 <span class="c"># Make the data.</span>
@@ -276,7 +276,7 @@ the mayavi2 application.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Jan 27, 2011.
+      Last updated on Jan 28, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
     </div>
   </body>

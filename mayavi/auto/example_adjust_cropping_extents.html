@@ -99,7 +99,7 @@ on creating GUIs with Traits:</p>
 <p><a class="reference external" href="http://code.enthought.com/projects/traits/documentation.php">http://code.enthought.com/projects/traits/documentation.php</a></p>
 </blockquote>
 <p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/adjust_cropping_extents.py"><tt class="xref download docutils literal"><span class="pre">adjust_cropping_extents.py</span></tt></a></p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># Author: Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt; </span>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Author: Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt;</span>
 <span class="c"># Copyright (c) 2010, Enthought, Inc.</span>
 <span class="c"># License: BSD Style.</span>
 
@@ -139,8 +139,8 @@ on creating GUIs with Traits:</p>
     <span class="nd">@on_trait_change</span><span class="p">(</span><span class="s">&#39;x_min,x_max,y_min,y_max,z_min,z_max&#39;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">update_extent</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filter</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span>
-                    <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_min</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_max</span> 
-                    <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_min</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_max</span> 
+                    <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_min</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_max</span>
+                    <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_min</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_max</span>
                     <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">z_min</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">z_max</span>
                             <span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">extent</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x_min</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">x_max</span><span class="p">,</span>
@@ -262,7 +262,7 @@ on creating GUIs with Traits:</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Jan 27, 2011.
+      Last updated on Jan 28, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
     </div>
   </body>

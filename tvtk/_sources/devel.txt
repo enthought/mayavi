@@ -58,7 +58,7 @@ is invoked.  Here is an example of a VTK observer callback::
     >>> p = vtk.vtkProperty()
     >>> def cb(obj, evt):
     ...     print obj.__class__.__name__, evt
-    ... 
+    ...
     >>> p.AddObserver("ModifiedEvent", cb)
     1
     >>> p.SetRepresentationToWireframe()
@@ -105,7 +105,7 @@ tests are in the 'tests/' directory.  As described in the previous
 section, tvtk objects use the messenger functionality to ensure that
 the traits are always up to date.  `messenger.py` is well documented
 and tested.  So please read the docstrings for more details.  Here is
-some basic information from the documentation.  
+some basic information from the documentation.
 
 `messenger.py` implements a simple, robust, safe, `Messenger` class
 that allows one to register callbacks for a signal/slot (or
@@ -119,7 +119,7 @@ references are used.  The main functionality is provided by three
 functions, `connect`, `disconnect` and `send`.
 
 `connect` basically allows one to connect an object, `obj`, that emits
-an event, `event` to a callback function, `callback`.  
+an event, `event` to a callback function, `callback`.
 
 When an object calls `send`, it passes itself, the event it wishes to
 emit along with any optional arguments and keyword arguments to send.
@@ -168,7 +168,7 @@ If it only has non-array VTK objects, then array handling is
 unnecessary but one must dereference the VTK object from the passed
 tvtk wrapper object.  If the call signature involves VTK array
 objects, then any Numeric arrays or Python lists are converted to the
-correct VTK data array and passed to the wrapped VTK object.  
+correct VTK data array and passed to the wrapped VTK object.
 
 For the efficient conversion to `CellArray` objects, an extension
 module is required.  The sources for this extension module are in

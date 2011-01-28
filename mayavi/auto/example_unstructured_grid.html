@@ -111,7 +111,7 @@ License: BSD style.</p>
     <span class="n">ug</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">UnstructuredGrid</span><span class="p">(</span><span class="n">points</span><span class="o">=</span><span class="n">points</span><span class="p">)</span>
     <span class="n">ug</span><span class="o">.</span><span class="n">set_cells</span><span class="p">(</span><span class="n">tet_type</span><span class="p">,</span> <span class="n">tets</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">ug</span>
-    
+
 <span class="k">def</span> <span class="nf">mixed_type_ug</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;A slightly more complex example of how to generate an</span>
 <span class="sd">    unstructured grid with different cell types.  Returns a created</span>
@@ -147,7 +147,7 @@ License: BSD style.</p>
 <span class="sd">    XML file.&quot;&quot;&quot;</span>
     <span class="n">w</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">XMLUnstructuredGridWriter</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="n">ug</span><span class="p">,</span> <span class="n">file_name</span><span class="o">=</span><span class="n">file_name</span><span class="p">)</span>
     <span class="n">w</span><span class="o">.</span><span class="n">write</span><span class="p">()</span>
-    
+
 <span class="c"># ----------------------------------------------------------------------</span>
 <span class="c"># Create the unstructured grids and assign scalars and vectors.</span>
 <span class="n">ug1</span> <span class="o">=</span> <span class="n">single_type_ug</span><span class="p">()</span>
@@ -175,14 +175,14 @@ License: BSD style.</p>
     <span class="n">mayavi</span><span class="o">.</span><span class="n">new_scene</span><span class="p">()</span>
     <span class="c"># The single type one</span>
     <span class="n">src</span> <span class="o">=</span> <span class="n">VTKDataSource</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">ug1</span><span class="p">)</span>
-    <span class="n">mayavi</span><span class="o">.</span><span class="n">add_source</span><span class="p">(</span><span class="n">src</span><span class="p">)</span> 
+    <span class="n">mayavi</span><span class="o">.</span><span class="n">add_source</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
     <span class="n">mayavi</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">Outline</span><span class="p">())</span>
     <span class="n">mayavi</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">Surface</span><span class="p">())</span>
     <span class="n">mayavi</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">Vectors</span><span class="p">())</span>
 
     <span class="c"># Mixed types.</span>
     <span class="n">src</span> <span class="o">=</span> <span class="n">VTKDataSource</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">ug2</span><span class="p">)</span>
-    <span class="n">mayavi</span><span class="o">.</span><span class="n">add_source</span><span class="p">(</span><span class="n">src</span><span class="p">)</span> 
+    <span class="n">mayavi</span><span class="o">.</span><span class="n">add_source</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
     <span class="n">mayavi</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">Outline</span><span class="p">())</span>
     <span class="n">mayavi</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">Surface</span><span class="p">())</span>
     <span class="n">mayavi</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">Vectors</span><span class="p">())</span>
@@ -266,7 +266,7 @@ License: BSD style.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Jan 27, 2011.
+      Last updated on Jan 28, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
     </div>
   </body>

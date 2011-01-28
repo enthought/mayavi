@@ -126,14 +126,14 @@ using Envisage or the Mayavi Envisage application.</p>
     <span class="n">e</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">ScalarCutPlane</span><span class="p">())</span>
     <span class="n">e</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">Streamline</span><span class="p">())</span>
     <span class="k">return</span> <span class="n">e</span><span class="p">,</span> <span class="n">ui</span>
-                   
+
 <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="c"># When main returns the ui to go out of scope and be gc&#39;d causing the view</span>
     <span class="c"># to disappear with qt4.</span>
     <span class="n">e</span><span class="p">,</span> <span class="n">ui</span> <span class="o">=</span> <span class="n">main</span><span class="p">()</span>
     <span class="c"># Create a GUI instance and start the event loop.  We do this here so that</span>
     <span class="c"># main can be run from IPython -wthread if needed.</span>
-    <span class="n">gui</span> <span class="o">=</span> <span class="n">GUI</span><span class="p">()</span> 
+    <span class="n">gui</span> <span class="o">=</span> <span class="n">GUI</span><span class="p">()</span>
     <span class="n">gui</span><span class="o">.</span><span class="n">start_event_loop</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -212,7 +212,7 @@ using Envisage or the Mayavi Envisage application.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Jan 27, 2011.
+      Last updated on Jan 28, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
     </div>
   </body>

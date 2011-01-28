@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 """
-This script demonstrates how one can script the Mayavi application by 
-subclassing the application, create a new scene and create a few 
-simple modules. 
+This script demonstrates how one can script the Mayavi application by
+subclassing the application, create a new scene and create a few
+simple modules.
 
 This should be run as::
 
@@ -19,7 +19,7 @@ from os.path import join, abspath, dirname
 # Enthought library imports
 from enthought.mayavi.plugins.app import Mayavi
 from enthought.mayavi.scripts.util import get_data_dir
-                       
+
 class MyApp(Mayavi):
     def run(self):
         """This is executed once the application GUI has started.
@@ -86,7 +86,7 @@ class MyApp(Mayavi):
         # Set the position to the middle of the data.
         ipw.ipw.slice_position = 16
 
-    
+
 
 if __name__ == '__main__':
     a = MyApp()

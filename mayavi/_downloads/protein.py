@@ -37,7 +37,7 @@ Reference for the pdb file standard:
 http://mmcif.pdb.org/dictionaries/pdb-correspondence/pdb2mmcif.html
 """
 
-# Author: Gael Varoquaux <gael.varoquaux@normalesup.org> 
+# Author: Gael Varoquaux <gael.varoquaux@normalesup.org>
 # Copyright (c) 2008, Enthought, Inc.
 # License: BSD Style.
 
@@ -122,7 +122,7 @@ pts = mlab.points3d(x, y, z, 1.5*scalars.max() - scalars,
                                     scale_factor=0.015, resolution=10)
 pts.mlab_source.dataset.lines = np.array(connections)
 
-# Use a tube fiter to plot tubes on the link, varying the radius with the 
+# Use a tube fiter to plot tubes on the link, varying the radius with the
 # scalar value
 tube = mlab.pipeline.tube(pts, tube_radius=0.15)
 tube.filter.radius_factor = 1.

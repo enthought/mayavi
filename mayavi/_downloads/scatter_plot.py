@@ -3,7 +3,7 @@ An example of plotting scatter points with Mayavi's core API.
 
 This script creates a bunch of random points with random scalar data
 and then shows these as a "scatter" plot of points.  The script
-illustrates how to 
+illustrates how to
 
  1. create a dataset easily using tvtk and numpy,
 

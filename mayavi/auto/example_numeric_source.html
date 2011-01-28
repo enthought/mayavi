@@ -120,7 +120,7 @@ visualize it as image data using a few modules.</p>
     <span class="c"># used internally by VTK so the dimension does not matter for the</span>
     <span class="c"># scalars.</span>
     <span class="n">s</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">shape</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-    
+
     <span class="k">return</span> <span class="n">s</span>
 
 
@@ -133,7 +133,7 @@ visualize it as image data using a few modules.</p>
     <span class="c"># Make the data and add it to the pipeline.</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">make_data</span><span class="p">()</span>
     <span class="n">src</span> <span class="o">=</span> <span class="n">ArraySource</span><span class="p">(</span><span class="n">transpose_input_array</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-    <span class="n">src</span><span class="o">.</span><span class="n">scalar_data</span> <span class="o">=</span> <span class="n">data</span>    
+    <span class="n">src</span><span class="o">.</span><span class="n">scalar_data</span> <span class="o">=</span> <span class="n">data</span>
     <span class="n">mayavi</span><span class="o">.</span><span class="n">add_source</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
     <span class="c"># Visualize the data.</span>
     <span class="n">o</span> <span class="o">=</span> <span class="n">Outline</span><span class="p">()</span>
@@ -146,10 +146,9 @@ visualize it as image data using a few modules.</p>
     <span class="n">mayavi</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">ipw_y</span><span class="p">)</span>
     <span class="n">ipw_y</span><span class="o">.</span><span class="n">ipw</span><span class="o">.</span><span class="n">plane_orientation</span> <span class="o">=</span> <span class="s">&#39;y_axes&#39;</span>
 
-    
+
 <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">view_numpy</span><span class="p">()</span>
-    
 </pre></div>
 </div>
 </div>
@@ -227,7 +226,7 @@ visualize it as image data using a few modules.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Jan 27, 2011.
+      Last updated on Jan 28, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
     </div>
   </body>

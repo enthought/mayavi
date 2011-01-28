@@ -9,7 +9,7 @@ This script is to be run like so::
 Or::
 
  $ python poll_file.py
- 
+
 The script currently defaults to using the example data in
 examples/data/heart.vtk.  You can try editing that data file or change
 this script to point to other data which you can edit.
@@ -71,7 +71,7 @@ class Pollster(object):
         d.data_changed = True
 
 
-                       
+
 def setup_data(fname):
     """Given a VTK file name `fname`, this creates a mayavi2 reader
     for it and adds it to the pipeline.  It returns the reader

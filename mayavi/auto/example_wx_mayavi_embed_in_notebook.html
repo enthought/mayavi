@@ -108,9 +108,9 @@ application can use different Mayavi views.</p>
 <span class="k">class</span> <span class="nc">MayaviView</span><span class="p">(</span><span class="n">HasTraits</span><span class="p">):</span>
 
     <span class="n">scene</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">MlabSceneModel</span><span class="p">,</span> <span class="p">())</span>
-    
+
     <span class="c"># The layout of the panel created by traits.</span>
-    <span class="n">view</span> <span class="o">=</span> <span class="n">View</span><span class="p">(</span><span class="n">Item</span><span class="p">(</span><span class="s">&#39;scene&#39;</span><span class="p">,</span> <span class="n">editor</span><span class="o">=</span><span class="n">SceneEditor</span><span class="p">(),</span> 
+    <span class="n">view</span> <span class="o">=</span> <span class="n">View</span><span class="p">(</span><span class="n">Item</span><span class="p">(</span><span class="s">&#39;scene&#39;</span><span class="p">,</span> <span class="n">editor</span><span class="o">=</span><span class="n">SceneEditor</span><span class="p">(),</span>
                     <span class="n">resizable</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
                     <span class="n">show_label</span><span class="o">=</span><span class="bp">False</span><span class="p">),</span>
                 <span class="n">resizable</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
@@ -132,7 +132,7 @@ application can use different Mayavi views.</p>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
         <span class="n">wx</span><span class="o">.</span><span class="n">Frame</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="s">&#39;Mayavi in a Wx notebook&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">notebook</span> <span class="o">=</span> <span class="n">wx</span><span class="o">.</span><span class="n">aui</span><span class="o">.</span><span class="n">AuiNotebook</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> 
+        <span class="bp">self</span><span class="o">.</span><span class="n">notebook</span> <span class="o">=</span> <span class="n">wx</span><span class="o">.</span><span class="n">aui</span><span class="o">.</span><span class="n">AuiNotebook</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
                 <span class="n">style</span><span class="o">=</span><span class="n">wx</span><span class="o">.</span><span class="n">aui</span><span class="o">.</span><span class="n">AUI_NB_TAB_SPLIT</span> <span class="o">|</span> <span class="n">wx</span><span class="o">.</span><span class="n">aui</span><span class="o">.</span><span class="n">AUI_NB_CLOSE_ON_ALL_TABS</span>
                         <span class="o">|</span> <span class="n">wx</span><span class="o">.</span><span class="n">aui</span><span class="o">.</span><span class="n">AUI_NB_LEFT</span><span class="p">)</span>
 
@@ -240,7 +240,7 @@ application can use different Mayavi views.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Jan 27, 2011.
+      Last updated on Jan 28, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
     </div>
   </body>

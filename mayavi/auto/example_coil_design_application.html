@@ -108,7 +108,7 @@ changed.</p>
 The material required to understand this example is covered in section
 <a class="reference internal" href="../building_applications.html#builing-applications"><em>Building applications using Mayavi</em></a>.</p>
 <p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/coil_design_application.py"><tt class="xref download docutils literal"><span class="pre">coil_design_application.py</span></tt></a></p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># Author: Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt; </span>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Author: Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt;</span>
 <span class="c"># Copyright (c) 2009, Enthought, Inc.</span>
 <span class="c"># License: BSD Style.</span>
 
@@ -172,7 +172,7 @@ The material required to understand this example is covered in section
         <span class="c"># normalize n</span>
         <span class="n">n</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">direction</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">direction</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
 
-        <span class="c"># choose two vectors perpendicular to n </span>
+        <span class="c"># choose two vectors perpendicular to n</span>
         <span class="c"># choice is arbitrary since the coil is symetric about n</span>
         <span class="k">if</span>  <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">n</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">==</span><span class="mi">1</span> <span class="p">:</span>
             <span class="n">l</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="n">n</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">n</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
@@ -201,7 +201,7 @@ The material required to understand this example is covered in section
         <span class="n">coil</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span>
         <span class="n">coil_x</span><span class="p">,</span> <span class="n">coil_y</span><span class="p">,</span> <span class="n">coil_z</span> <span class="o">=</span> <span class="n">coil</span><span class="o">.</span><span class="n">T</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plot</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_plot</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">mlab</span><span class="o">.</span><span class="n">plot3d</span><span class="p">(</span><span class="n">coil_x</span><span class="p">,</span> <span class="n">coil_y</span><span class="p">,</span> <span class="n">coil_z</span><span class="p">,</span> 
+            <span class="bp">self</span><span class="o">.</span><span class="n">_plot</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">mlab</span><span class="o">.</span><span class="n">plot3d</span><span class="p">(</span><span class="n">coil_x</span><span class="p">,</span> <span class="n">coil_y</span><span class="p">,</span> <span class="n">coil_z</span><span class="p">,</span>
                                     <span class="n">tube_radius</span><span class="o">=</span><span class="mf">0.007</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
                                     <span class="n">name</span><span class="o">=</span><span class="s">&#39;Coil&#39;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
@@ -210,8 +210,8 @@ The material required to understand this example is covered in section
 
     <span class="k">def</span> <span class="nf">_get_Bnorm</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        returns the magnetic field for the current loop calculated </span>
-<span class="sd">        from eqns (1) and (2) in Phys Rev A Vol. 35, N 4, pp. 1535-1546; 1987. </span>
+<span class="sd">        returns the magnetic field for the current loop calculated</span>
+<span class="sd">        from eqns (1) and (2) in Phys Rev A Vol. 35, N 4, pp. 1535-1546; 1987.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c">### Translate the coordinates in the coil&#39;s frame</span>
         <span class="n">n</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">m</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_vectors</span><span class="p">()</span>
@@ -222,8 +222,8 @@ The material required to understand this example is covered in section
         <span class="c"># transformation matrix coil frame to lab frame</span>
         <span class="n">trans</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">l</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
 
-        <span class="n">r</span> <span class="o">-=</span> <span class="n">r0</span>	  <span class="c">#point location from center of coil</span>
-        <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">trans</span><span class="p">)</span> <span class="p">)</span> 	    <span class="c">#transform vector to coil frame </span>
+        <span class="n">r</span> <span class="o">-=</span> <span class="n">r0</span>   <span class="c">#point location from center of coil</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">trans</span><span class="p">)</span> <span class="p">)</span>           <span class="c">#transform vector to coil frame</span>
 
         <span class="c">#### calculate field</span>
 
@@ -236,13 +236,13 @@ The material required to understand this example is covered in section
 
         <span class="n">E</span> <span class="o">=</span> <span class="n">special</span><span class="o">.</span><span class="n">ellipe</span><span class="p">((</span><span class="mi">4</span> <span class="o">*</span> <span class="n">R</span> <span class="o">*</span> <span class="n">rho</span><span class="p">)</span><span class="o">/</span><span class="p">(</span> <span class="p">(</span><span class="n">R</span> <span class="o">+</span> <span class="n">rho</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
         <span class="n">K</span> <span class="o">=</span> <span class="n">special</span><span class="o">.</span><span class="n">ellipk</span><span class="p">((</span><span class="mi">4</span> <span class="o">*</span> <span class="n">R</span> <span class="o">*</span> <span class="n">rho</span><span class="p">)</span><span class="o">/</span><span class="p">(</span> <span class="p">(</span><span class="n">R</span> <span class="o">+</span> <span class="n">rho</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
-        <span class="n">Bz</span> <span class="o">=</span>  <span class="mi">1</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">R</span> <span class="o">+</span> <span class="n">rho</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span> 
-                    <span class="n">K</span> 
-                  <span class="o">+</span> <span class="n">E</span> <span class="o">*</span> <span class="p">(</span><span class="n">R</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">rho</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="p">((</span><span class="n">R</span> <span class="o">-</span> <span class="n">rho</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> 
+        <span class="n">Bz</span> <span class="o">=</span>  <span class="mi">1</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">R</span> <span class="o">+</span> <span class="n">rho</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span>
+                    <span class="n">K</span>
+                  <span class="o">+</span> <span class="n">E</span> <span class="o">*</span> <span class="p">(</span><span class="n">R</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">rho</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="p">((</span><span class="n">R</span> <span class="o">-</span> <span class="n">rho</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
                 <span class="p">)</span>
-        <span class="n">Brho</span> <span class="o">=</span> <span class="n">z</span><span class="o">/</span><span class="p">(</span><span class="n">rho</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">R</span> <span class="o">+</span> <span class="n">rho</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span> 
-                <span class="o">-</span><span class="n">K</span> 
-                <span class="o">+</span> <span class="n">E</span> <span class="o">*</span> <span class="p">(</span><span class="n">R</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">rho</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="p">((</span><span class="n">R</span> <span class="o">-</span> <span class="n">rho</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> 
+        <span class="n">Brho</span> <span class="o">=</span> <span class="n">z</span><span class="o">/</span><span class="p">(</span><span class="n">rho</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">R</span> <span class="o">+</span> <span class="n">rho</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span>
+                <span class="o">-</span><span class="n">K</span>
+                <span class="o">+</span> <span class="n">E</span> <span class="o">*</span> <span class="p">(</span><span class="n">R</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">rho</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="p">((</span><span class="n">R</span> <span class="o">-</span> <span class="n">rho</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
                 <span class="p">)</span>
         <span class="c"># On the axis of the coil we get a divided by zero here. This returns a</span>
         <span class="c"># NaN, where the field is actually zero :</span>
@@ -260,11 +260,11 @@ The material required to understand this example is covered in section
 
         <span class="n">Bnorm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">Bx</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">By</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">Bz</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
 
-        <span class="c"># We need to threshold ourselves, rather than with VTK, to be able </span>
+        <span class="c"># We need to threshold ourselves, rather than with VTK, to be able</span>
         <span class="c"># to use an ImageData</span>
         <span class="n">Bmax</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">Bnorm</span><span class="p">)</span>
 
-        <span class="n">Bx</span><span class="p">[</span><span class="n">Bnorm</span> <span class="o">&gt;</span> <span class="n">Bmax</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">NAN</span> 
+        <span class="n">Bx</span><span class="p">[</span><span class="n">Bnorm</span> <span class="o">&gt;</span> <span class="n">Bmax</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">NAN</span>
         <span class="n">By</span><span class="p">[</span><span class="n">Bnorm</span> <span class="o">&gt;</span> <span class="n">Bmax</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">NAN</span>
         <span class="n">Bz</span><span class="p">[</span><span class="n">Bnorm</span> <span class="o">&gt;</span> <span class="n">Bmax</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">NAN</span>
         <span class="n">Bnorm</span><span class="p">[</span><span class="n">Bnorm</span> <span class="o">&gt;</span> <span class="n">Bmax</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">NAN</span>
@@ -280,10 +280,10 @@ The material required to understand this example is covered in section
 <span class="k">class</span> <span class="nc">Application</span><span class="p">(</span><span class="n">HasTraits</span><span class="p">):</span>
 
     <span class="n">scene</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">MlabSceneModel</span><span class="p">,</span> <span class="p">(),</span> <span class="n">editor</span><span class="o">=</span><span class="n">SceneEditor</span><span class="p">())</span>
- 
+
     <span class="c"># The mayavi engine view.</span>
     <span class="n">engine_view</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">EngineView</span><span class="p">)</span>
-   
+
     <span class="n">coils</span> <span class="o">=</span> <span class="n">List</span><span class="p">(</span><span class="n">Instance</span><span class="p">(</span><span class="n">Loop</span><span class="p">,</span> <span class="p">(),</span> <span class="n">allow_none</span><span class="o">=</span><span class="bp">False</span><span class="p">),</span>
                         <span class="n">editor</span><span class="o">=</span><span class="n">ListEditor</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s">&#39;custom&#39;</span><span class="p">),</span>
                         <span class="n">value</span><span class="o">=</span><span class="p">[</span> <span class="n">Loop</span><span class="p">(</span><span class="n">position</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.05</span><span class="p">),</span> <span class="p">),</span>
@@ -327,7 +327,7 @@ The material required to understand this example is covered in section
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">vector_field</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">vector_field</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">vector_field</span><span class="p">(</span>
-                                    <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Bx</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">By</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Bz</span><span class="p">,</span> 
+                                    <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Bx</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">By</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Bz</span><span class="p">,</span>
                                     <span class="n">scalars</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">Bnorm</span><span class="p">,</span>
                                     <span class="n">name</span><span class="o">=</span><span class="s">&#39;B field&#39;</span><span class="p">)</span>
             <span class="n">vectors</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">vectors</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vector_field</span><span class="p">,</span>
@@ -342,20 +342,20 @@ The material required to understand this example is covered in section
                                                       <span class="bp">self</span><span class="o">.</span><span class="n">vector_field</span><span class="p">,</span>
                                                       <span class="n">colormap</span><span class="o">=</span><span class="s">&#39;hot&#39;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="c"># Modify in place the data source. The visualization will </span>
+            <span class="c"># Modify in place the data source. The visualization will</span>
             <span class="c"># update automaticaly</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">vector_field</span><span class="o">.</span><span class="n">mlab_source</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">u</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">Bx</span><span class="p">,</span> <span class="n">v</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">By</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">Bz</span><span class="p">,</span>
                                               <span class="n">scalars</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">Bnorm</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">disable_render</span> <span class="o">=</span> <span class="bp">False</span>
-                
 
-    <span class="n">view</span> <span class="o">=</span> <span class="n">View</span><span class="p">(</span><span class="n">HSplit</span><span class="p">(</span> 
+
+    <span class="n">view</span> <span class="o">=</span> <span class="n">View</span><span class="p">(</span><span class="n">HSplit</span><span class="p">(</span>
                     <span class="n">VSplit</span><span class="p">(</span><span class="n">Item</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&#39;engine_view&#39;</span><span class="p">,</span>
                                    <span class="n">style</span><span class="o">=</span><span class="s">&#39;custom&#39;</span><span class="p">,</span>
                                    <span class="n">resizable</span><span class="o">=</span><span class="bp">True</span><span class="p">),</span>
-                            <span class="n">Item</span><span class="p">(</span><span class="s">&#39;coils&#39;</span><span class="p">,</span> <span class="n">springy</span><span class="o">=</span><span class="bp">True</span><span class="p">),</span> 
+                            <span class="n">Item</span><span class="p">(</span><span class="s">&#39;coils&#39;</span><span class="p">,</span> <span class="n">springy</span><span class="o">=</span><span class="bp">True</span><span class="p">),</span>
                         <span class="n">show_labels</span><span class="o">=</span><span class="bp">False</span><span class="p">),</span>
-                        <span class="s">&#39;scene&#39;</span><span class="p">,</span> 
+                        <span class="s">&#39;scene&#39;</span><span class="p">,</span>
                         <span class="n">show_labels</span><span class="o">=</span><span class="bp">False</span><span class="p">),</span>
                     <span class="n">resizable</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
                     <span class="n">title</span><span class="o">=</span><span class="s">&#39;Coils...&#39;</span><span class="p">,</span>
@@ -445,7 +445,7 @@ The material required to understand this example is covered in section
     </div>
     <div class="footer">
         &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Jan 27, 2011.
+      Last updated on Jan 28, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
     </div>
   </body>

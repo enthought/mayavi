@@ -5,10 +5,10 @@ move the other cuts.
 
 This is an example of complex callback interaction. It builds on the
 :ref:`example_volume_slicer` but has more complex logic. You should try
-to understand the :ref:`example_volume_slicer` first. 
+to understand the :ref:`example_volume_slicer` first.
 
 In this example, the VolumeSlicer object displays a position attribute
-giving the position of the cut in data coordinates. Traits callbacks are 
+giving the position of the cut in data coordinates. Traits callbacks are
 used to move the cut planes when this position attribute is modifed.
 
 In the 3D window, the 3D cuts are displayed using ImagePlaneWidgets
@@ -74,7 +74,7 @@ class VolumeSlicer(HasTraits):
     _axis_names = dict(x=0, y=1, z=2)
 
     #---------------------------------------------------------------------------
-    # Object interface 
+    # Object interface
     #---------------------------------------------------------------------------
     def __init__(self, **traits):
         super(VolumeSlicer, self).__init__(**traits)
@@ -113,7 +113,7 @@ class VolumeSlicer(HasTraits):
 
 
     #---------------------------------------------------------------------------
-    # Scene activation callbacks 
+    # Scene activation callbacks
     #---------------------------------------------------------------------------
     @on_trait_change('scene3d.activated')
     def display_scene3d(self):
@@ -139,7 +139,7 @@ class VolumeSlicer(HasTraits):
 
         # We create the image_plane_widgets in the side view using a
         # VTK dataset pointing to the data on the corresponding
-        # image_plane_widget in the 3D view (it is returned by 
+        # image_plane_widget in the 3D view (it is returned by
         # ipw_3d._get_reslice_output())
         side_src = ipw_3d.ipw._get_reslice_output()
         ipw = mlab.pipeline.image_plane_widget(
@@ -222,14 +222,14 @@ class VolumeSlicer(HasTraits):
     #---------------------------------------------------------------------------
     @on_trait_change('position')
     def update_position(self):
-        """ Update the position of the cursors on each side view, as well 
+        """ Update the position of the cursors on each side view, as well
             as the image_plane_widgets in the 3D view.
         """
         # First disable rendering in all scenes to avoid unecessary
         # renderings
         self.disable_render = True
 
-        # For each axis, move image_plane_widget and the cursor in the 
+        # For each axis, move image_plane_widget and the cursor in the
         # side view
         for axis_name, axis_number in self._axis_names.iteritems():
             ipw3d = getattr(self, 'ipw_3d_%s' % axis_name)
@@ -254,7 +254,7 @@ class VolumeSlicer(HasTraits):
 
     @on_trait_change('disable_render')
     def _render_enable(self):
-        for scene in (self.scene3d, self.scene_x, self.scene_y, 
+        for scene in (self.scene3d, self.scene_x, self.scene_y,
                                                   self.scene_z):
             scene.scene.disable_render = self.disable_render
 
@@ -265,16 +265,16 @@ class VolumeSlicer(HasTraits):
     view = View(HGroup(
                   Group(
                        Item('scene_y',
-                            editor=SceneEditor(scene_class=Scene), 
+                            editor=SceneEditor(scene_class=Scene),
                             height=250, width=300),
                        Item('scene_z',
-                            editor=SceneEditor(scene_class=Scene), 
+                            editor=SceneEditor(scene_class=Scene),
                             height=250, width=300),
                        show_labels=False,
                   ),
                   Group(
                        Item('scene_x',
-                            editor=SceneEditor(scene_class=Scene), 
+                            editor=SceneEditor(scene_class=Scene),
                             height=250, width=300),
                        Item('scene3d',
                             editor=SceneEditor(scene_class=Scene),
@@ -291,7 +291,7 @@ class VolumeSlicer(HasTraits):
 if __name__ == '__main__':
     # Create some data
     x, y, z = np.ogrid[-5:5:100j, -5:5:100j, -5:5:100j]
-    data = np.sin(3*x)/x + 0.05*z**2 + np.cos(3*y) 
+    data = np.sin(3*x)/x + 0.05*z**2 + np.cos(3*y)
 
     m = VolumeSlicer(data=data)
     m.configure_traits()

@@ -2,10 +2,10 @@
 An example mixing numerical caculation and 3D visualization of the
 magnetic field created by an arbitrary number of current loops.
 
-The goal of this example is to show how Mayavi can be used with scipy to 
+The goal of this example is to show how Mayavi can be used with scipy to
 debug and understand physics and electromagnetics computation.
 
-The field is caculated for an arbitrary number of current loops using the 
+The field is caculated for an arbitrary number of current loops using the
 corresponding exact formula. The coils are plotted in 3D with a synthetic
 view of the magnetic_field. A VectorCutPlane is used as it enables good
 inspection of the magnetic field.
@@ -17,7 +17,7 @@ G. Varoquaux, http://tel.archives-ouvertes.fr/tel-00265714/, page 148).
 For another visualization of magnetic field, see the
 :ref:`example_magnetic_field_lines`.
 """
-# Author: Gael Varoquaux <gael.varoquaux@normalesup.org> 
+# Author: Gael Varoquaux <gael.varoquaux@normalesup.org>
 # Copyright (c) 2009, Enthought, Inc.
 # License: BSD Style.
 
@@ -50,7 +50,7 @@ def base_vectors(n):
     # normalize n
     n = n / (n**2).sum(axis=-1)
 
-    # choose two vectors perpendicular to n 
+    # choose two vectors perpendicular to n
     # choice is arbitrary since the coil is symetric about n
     if  np.abs(n[0])==1 :
         l = np.r_[n[2], 0, -n[0]]
@@ -64,29 +64,29 @@ def base_vectors(n):
 
 def magnetic_field(r, n, r0, R):
     """
-    Returns the magnetic field from an arbitrary current loop calculated from 
-    eqns (1) and (2) in Phys Rev A Vol. 35, N 4, pp. 1535-1546; 1987. 
-    
+    Returns the magnetic field from an arbitrary current loop calculated from
+    eqns (1) and (2) in Phys Rev A Vol. 35, N 4, pp. 1535-1546; 1987.
+
     Arguments
     ----------
         n: ndarray, shape (3, )
-            The normal vector to the plane of the loop at the center, 
-            current is oriented by the right-hand-rule. 
+            The normal vector to the plane of the loop at the center,
+            current is oriented by the right-hand-rule.
         r: ndarray, shape (m, 3)
-            A position vector where the magnetic field is evaluated: 
-            [x1 y2 z3 ; x2 y2 z2 ; ... ] 
-            r is in units of d 
+            A position vector where the magnetic field is evaluated:
+            [x1 y2 z3 ; x2 y2 z2 ; ... ]
+            r is in units of d
         r0: ndarray, shape (3, )
-            The location of the center of the loop in units of d: [x y z] 
+            The location of the center of the loop in units of d: [x y z]
         R: float
-            The radius of the current loop 
-    
+            The radius of the current loop
+
     Returns
     --------
     B: ndarray, shape (m, 3)
-        a vector for the B field at each position specified in r 
-        in inverse units of (mu I) / (2 pi d) 
-        for I in amps and d in meters and mu = 4 pi * 10^-7 we get Tesla 
+        a vector for the B field at each position specified in r
+        in inverse units of (mu I) / (2 pi d)
+        for I in amps and d in meters and mu = 4 pi * 10^-7 we get Tesla
     """
     ### Translate the coordinates in the coil's frame
     n, l, m = base_vectors(n)
@@ -94,12 +94,12 @@ def magnetic_field(r, n, r0, R):
     # transformation matrix coil frame to lab frame
     trans = np.vstack((l, m, n))
     # transformation matrix to lab frame to coil frame
-    inv_trans = np.linalg.inv(trans) 
+    inv_trans = np.linalg.inv(trans)
 
     # point location from center of coil
-    r = r - r0	  
-    # transform vector to coil frame 
-    r = np.dot(r, inv_trans) 	    
+    r = r - r0
+    # transform vector to coil frame
+    r = np.dot(r, inv_trans)
 
     #### calculate field
 
@@ -113,13 +113,13 @@ def magnetic_field(r, n, r0, R):
 
     E = special.ellipe((4 * R * rho)/( (R + rho)**2 + z**2))
     K = special.ellipk((4 * R * rho)/( (R + rho)**2 + z**2))
-    Bz =  1/np.sqrt((R + rho)**2 + z**2) * ( 
-                K 
-              + E * (R**2 - rho**2 - z**2)/((R - rho)**2 + z**2) 
+    Bz =  1/np.sqrt((R + rho)**2 + z**2) * (
+                K
+              + E * (R**2 - rho**2 - z**2)/((R - rho)**2 + z**2)
               )
-    Brho = z/(rho*np.sqrt((R + rho)**2 + z**2)) * ( 
-               -K 
-              + E * (R**2 + rho**2 + z**2)/((R - rho)**2 + z**2) 
+    Brho = z/(rho*np.sqrt((R + rho)**2 + z**2)) * (
+               -K
+              + E * (R**2 + rho**2 + z**2)/((R - rho)**2 + z**2)
               )
     # On the axis of the coil we get a divided by zero here. This returns a
     # NaN, where the field is actually zero :
@@ -148,8 +148,8 @@ def display_coil(n, r0, R, half=False):
     coil_x = coil[:, 0]
     coil_y = coil[:, 1]
     coil_z = coil[:, 2]
-    mlab.plot3d(coil_x, coil_y, coil_z, 
-            tube_radius=0.01, 
+    mlab.plot3d(coil_x, coil_y, coil_z,
+            tube_radius=0.01,
             name='Coil %i' % display_coil.num,
             color=(0, 0, 0))
     display_coil.num += 1
@@ -181,7 +181,7 @@ R  = 0.1
 # Add the mirror image of this coils relatively to the xy plane :
 r0 = np.vstack((r0, -r0 ))
 R  = np.r_[R, R]
-n  = np.vstack((n, n))	    # Helmoltz like configuration
+n  = np.vstack((n, n))      # Helmoltz like configuration
 
 ##############################################################################
 # Calculate field
@@ -207,7 +207,7 @@ Bnorm = np.sqrt(Bx**2 + By**2 + Bz**2)
 ##############################################################################
 # Visualization
 
-# We threshold the data ourselves, as the threshold filter produce a 
+# We threshold the data ourselves, as the threshold filter produce a
 # data structure inefficient with IsoSurface
 Bmax = 100
 
@@ -216,14 +216,14 @@ By[Bnorm > Bmax] = 0
 Bz[Bnorm > Bmax] = 0
 Bnorm[Bnorm > Bmax] = Bmax
 
-mlab.figure(1, bgcolor=(1, 1, 1), fgcolor=(0.5, 0.5, 0.5), 
+mlab.figure(1, bgcolor=(1, 1, 1), fgcolor=(0.5, 0.5, 0.5),
                size=(480, 480))
 mlab.clf()
 
 for this_n, this_r0, this_R in zip(n, r0, R):
   display_coil(this_n, this_r0, this_R)
 
-field = mlab.pipeline.vector_field(X, Y, Z, Bx, By, Bz, 
+field = mlab.pipeline.vector_field(X, Y, Z, Bx, By, Bz,
                                   scalars=Bnorm, name='B field')
 vectors = mlab.pipeline.vectors(field,
                       scale_factor=(X[1, 0, 0] - X[0, 0, 0]),

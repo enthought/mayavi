@@ -1,5 +1,5 @@
 """
-This example show how to embedded Mayavi in a wx notebook. 
+This example show how to embedded Mayavi in a wx notebook.
 
 This is a slightly more complex example than the `wx_embedding` example (
 :ref:`example_wx_embedding`), and can be used to see how a large wx
@@ -28,9 +28,9 @@ from enthought.mayavi.core.ui.api import MlabSceneModel, SceneEditor
 class MayaviView(HasTraits):
 
     scene = Instance(MlabSceneModel, ())
-    
+
     # The layout of the panel created by traits.
-    view = View(Item('scene', editor=SceneEditor(), 
+    view = View(Item('scene', editor=SceneEditor(),
                     resizable=True,
                     show_label=False),
                 resizable=True)
@@ -52,7 +52,7 @@ class MainWindow(wx.Frame):
 
     def __init__(self, parent, id):
         wx.Frame.__init__(self, parent, id, 'Mayavi in a Wx notebook')
-        self.notebook = wx.aui.AuiNotebook(self, id=-1, 
+        self.notebook = wx.aui.AuiNotebook(self, id=-1,
                 style=wx.aui.AUI_NB_TAB_SPLIT | wx.aui.AUI_NB_CLOSE_ON_ALL_TABS
                         | wx.aui.AUI_NB_LEFT)
 

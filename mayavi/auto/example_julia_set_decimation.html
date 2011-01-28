@@ -102,7 +102,7 @@ more efficient to use the greedy-terrain-decimator, see the
 <a class="reference internal" href="example_canyon_decimation.html#example-canyon-decimation"><em>Canyon decimation example</em></a>.</p>
 <img alt="../_images/example_julia_set_decimation.jpg" class="align-center" src="../_images/example_julia_set_decimation.jpg" />
 <p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/julia_set_decimation.py"><tt class="xref download docutils literal"><span class="pre">julia_set_decimation.py</span></tt></a></p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># Author: Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt; </span>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Author: Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt;</span>
 <span class="c"># Copyright (c) 2008, Enthought, Inc.</span>
 <span class="c"># License: BSD Style.</span>
 
@@ -127,15 +127,15 @@ more efficient to use the greedy-terrain-decimator, see the
 <span class="n">mesh</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">warp_scalar</span><span class="p">(</span><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">array2d_source</span><span class="p">(</span><span class="n">julia</span><span class="p">),</span>
                                  <span class="n">warp_scale</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
 
-<span class="c"># The decimate_pro filter works only on triangles. We need to apply the </span>
+<span class="c"># The decimate_pro filter works only on triangles. We need to apply the</span>
 <span class="c"># triangle_filter before applying decimate_pro.</span>
 <span class="n">dec</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">decimate_pro</span><span class="p">(</span><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">triangle_filter</span><span class="p">(</span><span class="n">mesh</span><span class="p">))</span>
-<span class="c"># Set a very low feature_angle, so that the decimate_pro detects </span>
+<span class="c"># Set a very low feature_angle, so that the decimate_pro detects</span>
 <span class="n">dec</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">feature_angle</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="n">dec</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">target_reduction</span> <span class="o">=</span> <span class="mf">0.5</span>
 
 <span class="c"># We display the lines of decimated mesh in white</span>
-<span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">surface</span><span class="p">(</span><span class="n">dec</span><span class="p">,</span> <span class="n">representation</span><span class="o">=</span><span class="s">&#39;wireframe&#39;</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> 
+<span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">surface</span><span class="p">(</span><span class="n">dec</span><span class="p">,</span> <span class="n">representation</span><span class="o">=</span><span class="s">&#39;wireframe&#39;</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
                            <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
 <span class="c"># The decimated mesh itself.</span>
 <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">surface</span><span class="p">(</span><span class="n">dec</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s">&#39;gist_earth&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
@@ -223,7 +223,7 @@ more efficient to use the greedy-terrain-decimator, see the
     </div>
     <div class="footer">
         &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Jan 27, 2011.
+      Last updated on Jan 28, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
     </div>
   </body>

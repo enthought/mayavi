@@ -152,7 +152,7 @@ the cut. The Traits callbacks do the rest for the updating.</p>
     <span class="n">_axis_names</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 
     <span class="c">#---------------------------------------------------------------------------</span>
-    <span class="c"># Object interface </span>
+    <span class="c"># Object interface</span>
     <span class="c">#---------------------------------------------------------------------------</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">traits</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">VolumeSlicer</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">traits</span><span class="p">)</span>
@@ -191,7 +191,7 @@ the cut. The Traits callbacks do the rest for the updating.</p>
 
 
     <span class="c">#---------------------------------------------------------------------------</span>
-    <span class="c"># Scene activation callbacks </span>
+    <span class="c"># Scene activation callbacks</span>
     <span class="c">#---------------------------------------------------------------------------</span>
     <span class="nd">@on_trait_change</span><span class="p">(</span><span class="s">&#39;scene3d.activated&#39;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">display_scene3d</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -217,7 +217,7 @@ the cut. The Traits callbacks do the rest for the updating.</p>
 
         <span class="c"># We create the image_plane_widgets in the side view using a</span>
         <span class="c"># VTK dataset pointing to the data on the corresponding</span>
-        <span class="c"># image_plane_widget in the 3D view (it is returned by </span>
+        <span class="c"># image_plane_widget in the 3D view (it is returned by</span>
         <span class="c"># ipw_3d._get_reslice_output())</span>
         <span class="n">side_src</span> <span class="o">=</span> <span class="n">ipw_3d</span><span class="o">.</span><span class="n">ipw</span><span class="o">.</span><span class="n">_get_reslice_output</span><span class="p">()</span>
         <span class="n">ipw</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">image_plane_widget</span><span class="p">(</span>
@@ -300,14 +300,14 @@ the cut. The Traits callbacks do the rest for the updating.</p>
     <span class="c">#---------------------------------------------------------------------------</span>
     <span class="nd">@on_trait_change</span><span class="p">(</span><span class="s">&#39;position&#39;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">update_position</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Update the position of the cursors on each side view, as well </span>
+        <span class="sd">&quot;&quot;&quot; Update the position of the cursors on each side view, as well</span>
 <span class="sd">            as the image_plane_widgets in the 3D view.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c"># First disable rendering in all scenes to avoid unecessary</span>
         <span class="c"># renderings</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">disable_render</span> <span class="o">=</span> <span class="bp">True</span>
 
-        <span class="c"># For each axis, move image_plane_widget and the cursor in the </span>
+        <span class="c"># For each axis, move image_plane_widget and the cursor in the</span>
         <span class="c"># side view</span>
         <span class="k">for</span> <span class="n">axis_name</span><span class="p">,</span> <span class="n">axis_number</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_axis_names</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
             <span class="n">ipw3d</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s">&#39;ipw_3d_</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">axis_name</span><span class="p">)</span>
@@ -332,7 +332,7 @@ the cut. The Traits callbacks do the rest for the updating.</p>
 
     <span class="nd">@on_trait_change</span><span class="p">(</span><span class="s">&#39;disable_render&#39;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">_render_enable</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">scene</span> <span class="ow">in</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scene3d</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">scene_x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">scene_y</span><span class="p">,</span> 
+        <span class="k">for</span> <span class="n">scene</span> <span class="ow">in</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scene3d</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">scene_x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">scene_y</span><span class="p">,</span>
                                                   <span class="bp">self</span><span class="o">.</span><span class="n">scene_z</span><span class="p">):</span>
             <span class="n">scene</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">disable_render</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">disable_render</span>
 
@@ -343,16 +343,16 @@ the cut. The Traits callbacks do the rest for the updating.</p>
     <span class="n">view</span> <span class="o">=</span> <span class="n">View</span><span class="p">(</span><span class="n">HGroup</span><span class="p">(</span>
                   <span class="n">Group</span><span class="p">(</span>
                        <span class="n">Item</span><span class="p">(</span><span class="s">&#39;scene_y&#39;</span><span class="p">,</span>
-                            <span class="n">editor</span><span class="o">=</span><span class="n">SceneEditor</span><span class="p">(</span><span class="n">scene_class</span><span class="o">=</span><span class="n">Scene</span><span class="p">),</span> 
+                            <span class="n">editor</span><span class="o">=</span><span class="n">SceneEditor</span><span class="p">(</span><span class="n">scene_class</span><span class="o">=</span><span class="n">Scene</span><span class="p">),</span>
                             <span class="n">height</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">300</span><span class="p">),</span>
                        <span class="n">Item</span><span class="p">(</span><span class="s">&#39;scene_z&#39;</span><span class="p">,</span>
-                            <span class="n">editor</span><span class="o">=</span><span class="n">SceneEditor</span><span class="p">(</span><span class="n">scene_class</span><span class="o">=</span><span class="n">Scene</span><span class="p">),</span> 
+                            <span class="n">editor</span><span class="o">=</span><span class="n">SceneEditor</span><span class="p">(</span><span class="n">scene_class</span><span class="o">=</span><span class="n">Scene</span><span class="p">),</span>
                             <span class="n">height</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">300</span><span class="p">),</span>
                        <span class="n">show_labels</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
                   <span class="p">),</span>
                   <span class="n">Group</span><span class="p">(</span>
                        <span class="n">Item</span><span class="p">(</span><span class="s">&#39;scene_x&#39;</span><span class="p">,</span>
-                            <span class="n">editor</span><span class="o">=</span><span class="n">SceneEditor</span><span class="p">(</span><span class="n">scene_class</span><span class="o">=</span><span class="n">Scene</span><span class="p">),</span> 
+                            <span class="n">editor</span><span class="o">=</span><span class="n">SceneEditor</span><span class="p">(</span><span class="n">scene_class</span><span class="o">=</span><span class="n">Scene</span><span class="p">),</span>
                             <span class="n">height</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">300</span><span class="p">),</span>
                        <span class="n">Item</span><span class="p">(</span><span class="s">&#39;scene3d&#39;</span><span class="p">,</span>
                             <span class="n">editor</span><span class="o">=</span><span class="n">SceneEditor</span><span class="p">(</span><span class="n">scene_class</span><span class="o">=</span><span class="n">Scene</span><span class="p">),</span>
@@ -369,7 +369,7 @@ the cut. The Traits callbacks do the rest for the updating.</p>
 <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="c"># Create some data</span>
     <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ogrid</span><span class="p">[</span><span class="o">-</span><span class="mi">5</span><span class="p">:</span><span class="mi">5</span><span class="p">:</span><span class="mi">100</span><span class="n">j</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">:</span><span class="mi">5</span><span class="p">:</span><span class="mi">100</span><span class="n">j</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">:</span><span class="mi">5</span><span class="p">:</span><span class="mi">100</span><span class="n">j</span><span class="p">]</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">x</span><span class="p">)</span><span class="o">/</span><span class="n">x</span> <span class="o">+</span> <span class="mf">0.05</span><span class="o">*</span><span class="n">z</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">y</span><span class="p">)</span> 
+    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">x</span><span class="p">)</span><span class="o">/</span><span class="n">x</span> <span class="o">+</span> <span class="mf">0.05</span><span class="o">*</span><span class="n">z</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">y</span><span class="p">)</span>
 
     <span class="n">m</span> <span class="o">=</span> <span class="n">VolumeSlicer</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
     <span class="n">m</span><span class="o">.</span><span class="n">configure_traits</span><span class="p">()</span>
@@ -450,7 +450,7 @@ the cut. The Traits callbacks do the rest for the updating.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Jan 27, 2011.
+      Last updated on Jan 28, 2011.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
     </div>
   </body>
