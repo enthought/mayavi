@@ -29,7 +29,7 @@ class DataSetClipper(Filter):
 
     # The version of this class.  Used for persistence.
     __version__ = 0
-    
+
     # The widgets to be used for the Clipping Filter.
     widget = Instance(ImplicitWidgets, allow_none=False, record=True)
 
@@ -39,20 +39,20 @@ class DataSetClipper(Filter):
     # The update mode of the widget-- this is delegated to the
     # ImplicitWidgets.
     update_mode = Delegate('widget', modify=True)
-     
+
     input_info = PipelineInfo(datasets=['any'],
                               attribute_types=['any'],
                               attributes=['any'])
-    
+
     output_info = PipelineInfo(datasets=['any'],
                                attributes=['any'])
 
     ########################################
     # View related traits.
-    
+
     # Button to reset the boundaries of the implicit_widget.
     reset_button = Button('Reset Boundaries')
-                     
+
     view = View(Group(Group(Item('update_mode'),
                             ),
                       Group(Item('reset_button'),
@@ -61,7 +61,7 @@ class DataSetClipper(Filter):
                             ),
                       label='ImplicitWidget'
                       ),
-                Group(Group(Item('filter', style='custom'), 
+                Group(Group(Item('filter', style='custom'),
                             show_labels=False),
                       label='Clipper'
                      ),
@@ -90,7 +90,7 @@ class DataSetClipper(Filter):
         self._transform.set_matrix(cPickle.loads(mat))
         self.widget.set_transform(self._transform)
 
-       
+
     ######################################################################
     # `Filter` interface
     ######################################################################
@@ -100,37 +100,37 @@ class DataSetClipper(Filter):
         self.filter = tvtk.ClipDataSet()
         self.widget.on_trait_change(self._handle_widget, 'widget')
         super(DataSetClipper, self).setup_pipeline()
-    
+
     def update_pipeline(self):
         inputs = self.inputs
         if len(inputs) == 0:
             return
-        
+
         widget = self.widget
         widget.inputs = inputs
         widget.update_pipeline()
-        
+
         filter = self.filter
         filter.input = inputs[0].outputs[0]
         widget.update_implicit_function()
         filter.clip_function = widget.implicit_function
         filter.update()
         self._set_outputs([filter.output])
-        
+
         self.pipeline_changed = True
-    
+
     def update_data(self):
         # Do nothing if there is no input.
         if len(self.inputs) == 0:
             return
-        
+
         self.filter.update()
         # Propagate the data_changed event.
         self.data_changed = True
-     
+
     ######################################################################
     # Non-public methods.
-    ######################################################################    
+    ######################################################################
     def _on_interaction_event(self, obj, event):
         tfm = self._transform
         self.widget.widget.get_transform(tfm)
@@ -145,13 +145,13 @@ class DataSetClipper(Filter):
                             %(name, name))
             recorder.record('%s.widget.update_implicit_function()' % name)
             recorder.record('%s.render()' % name)
- 
+
     def _widget_changed(self, old, new):
         self.widgets = self.widget.widgets
 
         if len(self.inputs) > 0:
             new.inputs = self.inputs
-            new.update_pipeline()      
+            new.update_pipeline()
         self._observer_id = new.widget.add_observer(self.update_mode_,
                                              self._on_interaction_event)
 
@@ -164,17 +164,17 @@ class DataSetClipper(Filter):
             inp = self.inputs[0].outputs[0]
             new.input = inp
             self.outputs = [new.output]
-    
+
     def _reset_button_fired(self):
         self.widget.widget.place_widget()
         self.widget.update_implicit_function()
         self.filter.update()
         self.render()
 
-    def _handle_widget(self, value):  
+    def _handle_widget(self, value):
         self.widgets = self.widget.widgets
         f = self.filter
         f.clip_function = self.widget.implicit_function
         f.update()
         self.update_pipeline()
-    
+

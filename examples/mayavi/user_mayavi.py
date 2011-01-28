@@ -2,12 +2,12 @@
 Sample Mayavi customization file.
 
 This code is not to be executed as `mayavi2 -x user_mayavi.py` or
-`python user_mayavi.py`.  
+`python user_mayavi.py`.
 
 Put this file in ~/.mayavi2/user_mayavi.py and rerun mayavi2 to see what
 it does -- the worker view may not show up by default so you will have
 to go to View->Other and in the Show View dialog, activate the "Custom
-Mayavi2 View". 
+Mayavi2 View".
 
 The added modules should show up in the menus (Look for UserOutline in
 the Modules)
@@ -35,9 +35,9 @@ The file may also be placed anywhere on sys.path and called
 # Copyright (c) 2006-2008, Enthought, Inc.
 # License: BSD Style.
 
-from enthought.mayavi.core.registry import registry 
-from enthought.mayavi.core.pipeline_info import PipelineInfo 
-from enthought.mayavi.core.metadata import ModuleMetadata 
+from enthought.mayavi.core.registry import registry
+from enthought.mayavi.core.pipeline_info import PipelineInfo
+from enthought.mayavi.core.metadata import ModuleMetadata
 
 # Metadata for the new module we want to add -- notice that we use a
 # factory function here for convenience, we could also use a class but
@@ -68,7 +68,7 @@ def get_plugins():
 # Thats it, basically.  The rest of the code should really be in another
 # module but is in the same module for convenience here.  There are
 # problems with doing any significant non-core module imports in this
-# module as documented below. 
+# module as documented below.
 ######################################################################
 
 
@@ -126,7 +126,7 @@ class Worker(HasTraits):
     and modify the dataset.  This is a rather crude example but
     demonstrates how things can be done.
     """
-    
+
     # Set by envisage when this is contributed as a ServiceOffer.
     window = Instance('enthought.pyface.workbench.api.WorkbenchWindow')
 
@@ -154,18 +154,18 @@ class Worker(HasTraits):
         x, y, z = numpy.ogrid[-5:5:dims[0]*1j,-5:5:dims[1]*1j,-5:5:dims[2]*1j]
         x = x.astype('f')
         y = y.astype('f')
-        z = z.astype('f')        
+        z = z.astype('f')
         s = (numpy.sin(x*y*z)/(x*y*z))
         s = s.transpose().copy() # This makes the data contiguous.
         return s
-    
+
     def _create_data_fired(self):
         mayavi = self.get_mayavi()
         from enthought.mayavi.sources.array_source import ArraySource
         s = self._make_data()
         src = ArraySource(transpose_input_array=False, scalar_data=s)
         self.source = src
-        mayavi.add_source(src)        
+        mayavi.add_source(src)
 
     def _reset_data_fired(self):
         self.source.scalar_data = self._make_data()
@@ -183,8 +183,8 @@ class Worker(HasTraits):
 
         ipw_y = ImagePlaneWidget()
         mayavi.add_module(ipw_y)
-        ipw_y.ipw.plane_orientation = 'y_axes'        
-  
+        ipw_y.ipw.plane_orientation = 'y_axes'
+
     def _scale_changed(self, value):
         src = self.source
         data = src.scalar_data
@@ -210,7 +210,7 @@ class WorkerPlugin(Plugin):
     service_offers = List(contributes_to=SERVICE_OFFERS)
     # Views.
     views = List(contributes_to=VIEWS)
-    
+
     ######################################################################
     # Private methods.
     def _service_offers_default(self):

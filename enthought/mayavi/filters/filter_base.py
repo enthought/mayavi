@@ -54,7 +54,7 @@ class FilterBase(Filter):
             # Just hook up the filter so the update_data method is
             # called when the traits change.
             f.on_trait_change(self.update_data)
-    
+
     def update_pipeline(self):
         """Override this method so that it *updates* the tvtk pipeline
         when data upstream is known to have changed.
@@ -67,7 +67,7 @@ class FilterBase(Filter):
         fil = self.filter
         if len(inputs) == 0 or fil is None:
             return
-        
+
         # By default we set the input to the first output of the first
         # input.
         fil.input = inputs[0].outputs[0]
@@ -97,4 +97,4 @@ class FilterBase(Filter):
 
         if old is not None:
             self.update_pipeline()
-            
+

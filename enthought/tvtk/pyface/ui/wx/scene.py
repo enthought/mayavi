@@ -42,7 +42,7 @@ from wxVTKRenderWindowInteractor import wxVTKRenderWindowInteractor
 # Utility functions.
 ######################################################################
 def popup_save(parent=None):
-    """Popup a dialog asking for an image name to save the scene to. 
+    """Popup a dialog asking for an image name to save the scene to.
     This is used mainly to save a scene in full screen mode. Returns a
     filename, returns empty string if action was cancelled. `parent` is
     the parent widget over which the dialog will be popped up.
@@ -407,7 +407,7 @@ class Scene(TVTKScene, Widget):
                 if len(fname) != 0:
                     self.save(fname)
                 return
-                    
+
         shift = event.ShiftDown()
         if keycode == wx.WXK_LEFT:
             if shift:
@@ -483,7 +483,7 @@ class Scene(TVTKScene, Widget):
                         y = self._vtk_control.GetSize()[1] - event.GetY()
                     data = self.picker.pick_world(x, y)
                     coord = data.coordinate
-                    if coord is not None:                  
+                    if coord is not None:
                         self.camera.focal_point = coord
                         self.render()
                         self._record_methods('camera.focal_point = %r\n'\
@@ -563,7 +563,7 @@ class Scene(TVTKScene, Widget):
     def OnButtonUp(self, event):
         self._interacting = False
         self._vtk_control.OnButtonUp(event)
-        
+
     ###########################################################################
     # Non-public interface.
     ###########################################################################
@@ -698,7 +698,7 @@ class Scene(TVTKScene, Widget):
 
     def _busy_changed(self, val):
         GUI.set_busy(val)
-        
+
     def _full_screen_fired(self):
         fs = self._fullscreen
         if isinstance(fs, PopupScene):

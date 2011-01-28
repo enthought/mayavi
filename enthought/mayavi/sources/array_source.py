@@ -67,7 +67,7 @@ class ArraySource(Source):
 
     # The name of our scalar array.
     scalar_name = Str('scalar')
-    
+
     # The vector array data we manage.
     vector_data = Trait(None, _check_vector_array, rich_compare=False)
 
@@ -90,7 +90,7 @@ class ArraySource(Source):
     # The image data stored by this instance.
     image_data = Instance(tvtk.ImageData, (), allow_none=False)
 
-    # Use an ImageChangeInformation filter to reliably set the 
+    # Use an ImageChangeInformation filter to reliably set the
     # spacing and origin on the output
     change_information_filter = Instance(tvtk.ImageChangeInformation, args=(),
                                          kw={'output_spacing' : (1.0, 1.0, 1.0),
@@ -116,7 +116,7 @@ class ArraySource(Source):
                       Item(name='origin'),
                       show_labels=True)
                 )
-    
+
     ######################################################################
     # `object` interface.
     ######################################################################
@@ -140,7 +140,7 @@ class ArraySource(Source):
         d = super(ArraySource, self).__get_pure_state__()
         d.pop('image_data', None)
         return d
-    
+
     ######################################################################
     # ArraySource interface.
     ######################################################################
@@ -172,7 +172,7 @@ class ArraySource(Source):
         dims = list(data.shape)
         if len(dims) == 2:
             dims.append(1)
-      
+
         img_data.origin = tuple(self.origin)
         img_data.dimensions = tuple(dims)
         img_data.extent = 0, dims[0]-1, 0, dims[1]-1, 0, dims[2]-1
@@ -180,7 +180,7 @@ class ArraySource(Source):
         if self.transpose_input_array:
             img_data.point_data.scalars = numpy.ravel(numpy.transpose(data))
         else:
-            img_data.point_data.scalars = numpy.ravel(data)            
+            img_data.point_data.scalars = numpy.ravel(data)
         img_data.point_data.scalars.name = self.scalar_name
         # This is very important and if not done can lead to a segfault!
         typecode = data.dtype
@@ -202,7 +202,7 @@ class ArraySource(Source):
         if len(dims) == 3:
             dims.insert(2, 1)
             data = numpy.reshape(data, dims)
-        
+
         img_data.origin = tuple(self.origin)
         img_data.dimensions = tuple(dims[:-1])
         img_data.extent = 0, dims[0]-1, 0, dims[1]-1, 0, dims[2]-1
@@ -225,7 +225,7 @@ class ArraySource(Source):
         if self.scalar_data is not None:
             self.image_data.point_data.scalars.name = value
             self.data_changed = True
-            
+
     def _vector_name_changed(self, value):
         if self.vector_data is not None:
             self.image_data.point_data.vectors.name = value

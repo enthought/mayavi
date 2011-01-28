@@ -20,7 +20,7 @@ from common import TestCase
 class TestGlyph(TestCase):
     def make_data(self):
         """Trivial data -- creates an elementatry scalar field and a
-        constant vector field along the 'x' axis."""        
+        constant vector field along the 'x' axis."""
         s = numpy.arange(0.0, 10.0, 0.01)
         s = numpy.reshape(s, (10,10,10))
         s = numpy.transpose(s)
@@ -55,15 +55,15 @@ class TestGlyph(TestCase):
         assert gs.glyph_position == 'tail'
         assert gs.glyph_source == gs.glyph_list[1]
         assert numpy.allclose(v.implicit_plane.normal,  (0., 1., 0.))
-        
-        v = src.children[0].children[3] 
+
+        v = src.children[0].children[3]
         glyph = v.glyph
         gs = glyph.glyph_source
         assert gs.glyph_source == gs.glyph_list[2]
         assert gs.glyph_position == 'head'
         assert numpy.allclose(v.implicit_plane.normal,  (0., 1., 0.))
 
-    def test(self):       
+    def test(self):
         self.main()
 
     def do(self):
@@ -74,7 +74,7 @@ class TestGlyph(TestCase):
         from enthought.mayavi.modules.outline import Outline
         from enthought.mayavi.modules.glyph import Glyph
         from enthought.mayavi.modules.vector_cut_plane import VectorCutPlane
-        
+
         ############################################################
         # Create a new scene and set up the visualization.
         s = self.new_scene()
@@ -105,7 +105,7 @@ class TestGlyph(TestCase):
         gs.glyph_source = gs.glyph_list[1]
         script.add_module(v)
         v.implicit_plane.set(normal=(0, 1, 0), origin=(0, 3, 0))
-        
+
         v = VectorCutPlane()
         glyph = v.glyph
         gs = glyph.glyph_source
@@ -113,7 +113,7 @@ class TestGlyph(TestCase):
         gs.glyph_position = 'head'
         script.add_module(v)
         v.implicit_plane.set(normal=(0, 1, 0), origin=(0, -2, 0))
-        
+
         # Set the scene to a suitable view.
         self.set_view(s)
 
@@ -122,7 +122,7 @@ class TestGlyph(TestCase):
         ############################################################
         # Test if the modules respond correctly when the components
         # are changed.
-        
+
         g.actor = g.actor.__class__()
         glyph = g.glyph
         g.glyph = glyph.__class__()
@@ -153,7 +153,7 @@ class TestGlyph(TestCase):
         # Remove existing scene.
         engine = script.engine
         engine.close_scene(s)
-        
+
         # Load visualization
         script.load_visualization(f)
         s = engine.current_scene
@@ -184,9 +184,9 @@ class TestGlyph(TestCase):
 
         self.set_view(s)
         self.check()
-        
+
         # If we have come this far, we are golden!
-        
+
 
 if __name__ == "__main__":
     t = TestGlyph()

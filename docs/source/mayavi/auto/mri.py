@@ -88,7 +88,7 @@ cut_plane2.implicit_plane.widget.enabled = False
 # order to leave out a cut in the head.
 voi2 = mlab.pipeline.extract_grid(src)
 voi2.set(y_min=112)
-outer = mlab.pipeline.iso_surface(voi2, contours=[1776, ], 
+outer = mlab.pipeline.iso_surface(voi2, contours=[1776, ],
                                         color=(0.8, 0.7, 0.6))
 
 voi3 = mlab.pipeline.extract_grid(src)

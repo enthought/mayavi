@@ -19,7 +19,7 @@ from enthought.tvtk.api import tvtk
 
 
 class TestExtractGridFilter(unittest.TestCase):
-    
+
     def make_scatter(self):
         pd = tvtk.PolyData()
         pd.points = 100 + 100*random.random((1000, 3))
@@ -62,26 +62,26 @@ class TestExtractGridFilter(unittest.TestCase):
         #Make the grid
         grid = self.make_grid4scatter()
         e.add_source(grid)
-        
+
         eg = ExtractGrid()
         e.add_filter(eg)
-        
+
         nb_ticks = 6
-    
+
         eg.x_ratio = eg.y_ratio = eg.z_ratio = 100/(nb_ticks-1)/2
-    
+
         gpx = GridPlane()
         e.add_module(gpx)
         gpx.grid_plane.axis = 'x'
-    
+
         gpy = GridPlane()
         e.add_module(gpy)
         gpy.grid_plane.axis = 'y'
-    
+
         gpz = GridPlane()
         e.add_module(gpz)
         gpz.grid_plane.axis = 'z'
-        
+
         #Add the scatter
         d = VTKDataSource()
         d.data = self.make_scatter()
@@ -89,7 +89,7 @@ class TestExtractGridFilter(unittest.TestCase):
         a = Axes()
         e.add_module(a)
         a.axes.number_of_labels = nb_ticks
-    
+
         self.eg = eg
         self.gpx = gpx
         self.gpy = gpy
@@ -102,7 +102,7 @@ class TestExtractGridFilter(unittest.TestCase):
         after the test methods have been invoked"""
         self.e.stop()
         return
-    
+
     def test_extract_grid_filter_sample(self):
         import sys
         if sys.platform != "darwin":
@@ -113,16 +113,16 @@ class TestExtractGridFilter(unittest.TestCase):
         gpx = self.gpx
         gpy = self.gpy
         gpz = self.gpz
-        
+
         self.assertEqual(allclose(gpx.actor.actor.bounds,
                         (100.0, 100.0, 100.0, 200.0, 100.0, 200.0)), True)
         self.assertEqual(allclose(gpy.actor.actor.bounds,
                          (100.0, 200.0, 100.0, 100.0, 100.0, 200.0)), True)
         self.assertEqual(allclose(gpz.actor.actor.bounds,
                          (100.0, 200.0, 100.0, 200.0, 100.0, 100.0)), True)
-                                            
-        eg.x_ratio = eg.y_ratio = eg.z_ratio = 25       
-        
+
+        eg.x_ratio = eg.y_ratio = eg.z_ratio = 25
+
         self.assertEqual(allclose(gpx.actor.actor.bounds,
                          (100.0, 100.0, 100.0, 200.0, 100.0, 200.0)), True)
         self.assertEqual(allclose(gpy.actor.actor.bounds,
@@ -130,8 +130,8 @@ class TestExtractGridFilter(unittest.TestCase):
         self.assertEqual(allclose(gpz.actor.actor.bounds,
                          (100.0, 200.0, 100.0, 200.0, 100.0, 100.0)), True)
 
-        eg.x_ratio = eg.y_ratio = eg.z_ratio = 5       
-        
+        eg.x_ratio = eg.y_ratio = eg.z_ratio = 5
+
         self.assertEqual(allclose(gpx.actor.actor.bounds,
                          (100.0, 100.0, 100.0, 200.0, 100.0, 200.0)), True)
         self.assertEqual(allclose(gpy.actor.actor.bounds,
@@ -139,7 +139,7 @@ class TestExtractGridFilter(unittest.TestCase):
         self.assertEqual(allclose(gpz.actor.actor.bounds,
                          (100.0, 200.0, 100.0, 200.0, 100.0, 100.0)), True)
         return
-    
+
     def test_voi(self):
         import sys
         if sys.platform != "darwin":
@@ -150,21 +150,21 @@ class TestExtractGridFilter(unittest.TestCase):
         gpx = self.gpx
         gpy = self.gpy
         gpz = self.gpz
-        
+
         self.assertEqual(allclose(gpx.actor.actor.bounds,
                         (100.0, 100.0, 100.0, 200.0, 100.0, 200.0)), True)
         self.assertEqual(allclose(gpy.actor.actor.bounds,
                          (100.0, 200.0, 100.0, 100.0, 100.0, 200.0)), True)
         self.assertEqual(allclose(gpz.actor.actor.bounds,
                          (100.0, 200.0, 100.0, 200.0, 100.0, 100.0)), True)
-                                            
-        eg.x_ratio = eg.y_ratio = eg.z_ratio = 10 
+
+        eg.x_ratio = eg.y_ratio = eg.z_ratio = 10
 
         # Now changing the VOI and then setting the ratio used to
         # show a stupid bug in the grid plane so we test that here.
         eg.set(x_min=10, x_max=40)
         eg.x_ratio = 5
-        
+
         self.assertEqual(allclose(gpx.actor.actor.bounds,
                          (120.0, 120.0, 100.0, 200.0, 100.0, 200.0)), True)
         self.assertEqual(allclose(gpy.actor.actor.bounds,
@@ -189,6 +189,6 @@ class TestExtractGridFilter(unittest.TestCase):
         #show()
 
 
-    
+
 if __name__ == '__main__':
     unittest.main()

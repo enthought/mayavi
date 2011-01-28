@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """A simple example of how you can use Mayavi without using Envisage
-or the Mayavi Envisage application and do off screen rendering. 
+or the Mayavi Envisage application and do off screen rendering.
 
 On Linux/Mac, with VTK < 5.2, you should see a small black window popup
 and disappear, see the section :ref:`offscreen_rendering` to avoid this.

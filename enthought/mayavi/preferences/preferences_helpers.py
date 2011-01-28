@@ -73,7 +73,7 @@ class RootPreferencesHelper(PreferencesHelper):
 
     ######################################################################
     # Non-public interface.
-    ###################################################################### 
+    ######################################################################
     def __contrib_finder_default(self):
         from contrib_finder import ContribFinder
         return ContribFinder()
@@ -89,8 +89,8 @@ class MlabPreferencesHelper(PreferencesHelper):
     ######################################################################
     # Our preferences.
 
-    # The mlab backend to use.  
-    backend = Enum('auto', 'envisage', 'simple', 'test', 
+    # The mlab backend to use.
+    backend = Enum('auto', 'envisage', 'simple', 'test',
                    desc='the mlab backend to use')
 
     # The background color of the renderer.

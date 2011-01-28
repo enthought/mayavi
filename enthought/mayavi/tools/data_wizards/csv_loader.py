@@ -42,10 +42,10 @@ class ListItem(HasTraits):
 class CSVLoader(HasTraits):
     """ User interface to load CSV files.
     """
-    
+
     # The name of the file being loaded.
     filename  = Str
-    
+
     # The comment characters
     comments  = Str(desc="The comment characters")
 
@@ -122,7 +122,7 @@ class CSVLoaderController(Controller):
             font        = 'Courier 10'
             alignment   = 'right'
             format      = '%s'
-            
+
         return TabularEditor(adapter = ArrayAdapter())
 
     update_preview = Button('Update preview')
@@ -153,7 +153,7 @@ class CSVLoaderController(Controller):
                    HGroup(
                        Group(
                            spring,
-                           Item('delimiter', 
+                           Item('delimiter',
                                 label='Column delimiter character'),
                            Item('comments',
                                 label='Comment character'),
@@ -168,7 +168,7 @@ class CSVLoaderController(Controller):
                            Item('columns',
                                show_label=False,
                                style='readonly',
-                               editor=ListEditor(style='custom'), 
+                               editor=ListEditor(style='custom'),
                                springy=True,
                            ),
                            label="Column names",
@@ -198,9 +198,9 @@ class CSVLoaderController(Controller):
                height=580,
                title='CSV import - [%s]' % self.model.filename
            )
-        return view 
+        return view
 
-    
+
 
 if __name__ == '__main__':
     from enthought.pyface.api import GUI

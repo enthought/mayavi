@@ -1,10 +1,10 @@
 #------------------------------------------------------------------------------
 # Copyright (c) 2007, Riverbank Computing Limited
 # All rights reserved.
-# 
+#
 # This software is provided without warranty under the terms of the BSD
 # license.
-# 
+#
 # Author: Riverbank Computing Limited
 # Description: <Enthought pyface package component>
 #

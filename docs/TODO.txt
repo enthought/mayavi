@@ -1,23 +1,23 @@
 MayaVi2:
     - Core:
         - Better and correct persistence. (p)
-	- Double-clicking on objects in the scene to open there
-	  properties.
+        - Double-clicking on objects in the scene to open there
+          properties.
 
     - Sources:
         - Multiblock data support.
 
     - Modules/Filters:
-        
+
     - UI:
         - Option to make slicing and other operations less interactive
           (like the streamline module) for larger data.
         - Transfer editor for images. (g)
-	- Improve the recorder UI:
-	    * Integrate the dialog in Envisage, when using Envisage.
-	    * Remove the 'save dialog' that pops up when the recording
-	      mode is turned off.
-	    * Stop recording when the recording dialog is closed.
+        - Improve the recorder UI:
+            * Integrate the dialog in Envisage, when using Envisage.
+            * Remove the 'save dialog' that pops up when the recording
+              mode is turned off.
+            * Stop recording when the recording dialog is closed.
 
     - Misc:
         - Support for animation.
@@ -28,5 +28,5 @@ MayaVi2:
     - Documentation:
 
     - Mlab:
-	- add texture support to Mlab 
-	- find a good way to make graphs with color/scalar on the edges.
+        - add texture support to Mlab
+        - find a good way to make graphs with color/scalar on the edges.

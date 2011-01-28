@@ -14,7 +14,7 @@
 
 # Adding the current directory to the path, so that sphinx finds the
 # extensions.
-import sys, os 
+import sys, os
 sys.path.append(os.path.abspath('sphinxext'))
 
 
@@ -28,7 +28,7 @@ extensions = ['sphinx.ext.autodoc', 'traitsdoc']
 ## An autodocumentation processor, to insert title of functions before
 ## the auto-documented functions:
 #def add_title(app, what, name, obj, options, signature, return_annotation):
-#    """ Add a section title with the name of the function before the 
+#    """ Add a section title with the name of the function before the
 #        docstring.
 #    """
 #    if what is not 'function':
@@ -40,7 +40,7 @@ extensions = ['sphinx.ext.autodoc', 'traitsdoc']
 #...........................................
 #
 #    """ % short_name
-#    return extra_lines + signature, return_annotation 
+#    return extra_lines + signature, return_annotation
 #
 #
 #def setup(app):

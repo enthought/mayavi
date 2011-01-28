@@ -118,7 +118,7 @@ class _VTKRenderWindowInteractor(QVTKRenderWindowInteractor):
             y = self.height() - pos.y()
             scene.picker.pick(x, y)
             return
-        
+
         if key in [QtCore.Qt.Key_F] and modifiers == QtCore.Qt.NoModifier:
             pos = self.mapFromGlobal(QtGui.QCursor.pos())
             x = pos.x()
@@ -205,7 +205,7 @@ class _VTKRenderWindowInteractor(QVTKRenderWindowInteractor):
         """Override for mouse releases."""
         self._interacting = False
         QVTKRenderWindowInteractor.mouseReleaseEvent(self, ev)
-        
+
     def _start_event_callback(self, obj, event):
         if self._interacting:
             return

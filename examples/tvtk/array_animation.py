@@ -39,7 +39,7 @@ try:
     import scipy.special
     z = numpy.reshape(numpy.transpose(5.0*scipy.special.j0(r)), (-1,) )
 except ImportError:
-    z = numpy.reshape(numpy.transpose(5.0*numpy.sin(r)/r), (-1,) )    
+    z = numpy.reshape(numpy.transpose(5.0*numpy.sin(r)/r), (-1,) )
 
 # Now set the scalar data for the StructuredPoints object.  The
 # scalars of the structured points object will be a view into our
@@ -96,7 +96,7 @@ for i in numpy.arange(pi*0.5, 2.5*pi, 0.2):
     # to flush the pipeline.
     sp.modified()
     # Re-render the scene to actually flush the VTK pipeline.
-    rwi.render()    
+    rwi.render()
     old_scale = scale
     time.sleep(0.1) # Just in case your hardware is really fast.
 

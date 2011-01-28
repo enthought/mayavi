@@ -26,7 +26,7 @@ class ActorViewer(HasTraits):
 
     ######################
     view = View(Item(name='actor_type'),
-                Item(name='scene', 
+                Item(name='scene',
                      editor=SceneEditor(),
                      show_label=False,
                      resizable=True,

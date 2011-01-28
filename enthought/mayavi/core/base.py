@@ -13,7 +13,7 @@ import logging
 import imp
 
 # Enthought library imports.
-from enthought.traits.api import (Instance, Property, Bool, Str, Python, 
+from enthought.traits.api import (Instance, Property, Bool, Str, Python,
     HasTraits, WeakRef, on_trait_change)
 from enthought.traits.ui.api import TreeNodeObject
 from enthought.tvtk.pyface.tvtk_scene import TVTKScene
@@ -56,7 +56,7 @@ RenameAction = Action(name         = 'Rename',
                       enabled_when = 'editor._is_renameable(object)' )
 standard_menu_actions = [Separator(), CutAction, CopyAction, PasteAction,
                          Separator(),
-                         RenameAction, DeleteAction, Separator(), 
+                         RenameAction, DeleteAction, Separator(),
                         ]
 
 
@@ -66,7 +66,7 @@ standard_menu_actions = [Separator(), CutAction, CopyAction, PasteAction,
 class Base(TreeNodeObject):
     # The version of this class.  Used for persistence.
     __version__ = 0
-    
+
     ########################################
     # Traits
 
@@ -85,7 +85,7 @@ class Base(TreeNodeObject):
     # The human readable type for this object
     type = Str('', record=False)
 
-    # Is this object visible or not. 
+    # Is this object visible or not.
     visible = Bool(True, desc='if the object is visible')
 
     # Extend the children list with an AdderNode when a TreeEditor needs it.
@@ -114,8 +114,8 @@ class Base(TreeNodeObject):
     _saved_state = Str('')
 
     # Hide and show actions
-    _HideShowAction = Instance(Action,  
-                               kw={'name': 'Hide/Show', 
+    _HideShowAction = Instance(Action,
+                               kw={'name': 'Hide/Show',
                                    'action': 'object._hideshow'}, )
 
     # The menu shown on right-click for this.
@@ -205,7 +205,7 @@ class Base(TreeNodeObject):
 
     def add_child(self, child):
         """This method intelligently adds a child to this object in
-        the MayaVi pipeline.        
+        the MayaVi pipeline.
         """
         raise NotImplementedError
 
@@ -222,7 +222,7 @@ class Base(TreeNodeObject):
             self.parent.remove_child(self)
             if e.current_object is self:
                 e.current_object = self.parent
-    
+
     def render(self):
         """Invokes render on the scene, this in turn invokes Render on
         the VTK pipeline.
@@ -245,14 +245,14 @@ class Base(TreeNodeObject):
     def trait_view(self, name = None, view_element = None ):
         """ Gets or sets a ViewElement associated with an object's class.
 
-        Overridden here to search for a separate file in the same directory 
-        for the view to use for this object. The view should be declared in 
-        the file named <class name>_view. If a file with this name is not 
+        Overridden here to search for a separate file in the same directory
+        for the view to use for this object. The view should be declared in
+        the file named <class name>_view. If a file with this name is not
         found, the trait_view method on the base class will be called.
         """
 
         # If a name is specified, then call the HasTraits trait_view method
-        # which will return (or assign) the *view_element* associated with 
+        # which will return (or assign) the *view_element* associated with
         # *name*.
         if name:
             return super(Base, self).trait_view(name, view_element)
@@ -261,7 +261,7 @@ class Base(TreeNodeObject):
         # Uncomment this when developping views.
         #view = self._load_view_non_cached(name, view_element)
         return view
-        
+
     ######################################################################
     # `TreeNodeObject` interface
     ######################################################################
@@ -336,7 +336,7 @@ class Base(TreeNodeObject):
 
     def _get_children_ui_list(self):
         """ Getter for Traits Property children_ui_list.
-        
+
         For the base class, do not add anything to the children list.
         """
         if ((not preference_manager.root.show_helper_nodes or
@@ -380,7 +380,7 @@ class Base(TreeNodeObject):
             view = self._module_view
         else:
             logger.debug("No view found for [%s] in [%s]. "
-                         "Using the base class trait_view instead.", 
+                         "Using the base class trait_view instead.",
                              self, self._view_filename)
             view = super(Base, self).trait_view(name, view_element)
         return view
@@ -390,13 +390,13 @@ class Base(TreeNodeObject):
             views.
         """
         result = {}
-        view_filename = self._view_filename 
+        view_filename = self._view_filename
         try:
             execfile(view_filename, {}, result)
             view = result['view']
         except IOError:
             logger.debug("No view found for [%s] in [%s]. "
-                            "Using the base class trait_view instead.", 
+                            "Using the base class trait_view instead.",
                             self, view_filename)
             view = super(Base, self).trait_view(name, view_element)
         return view
@@ -426,7 +426,7 @@ class Base(TreeNodeObject):
         class_filename = module[-1] + '.py'
         module_dir_name = module[2:-1]
         base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        view_filename = reduce(os.path.join, 
+        view_filename = reduce(os.path.join,
                                [base_dir] + module_dir_name \
                                + UI_DIR_NAME + [class_filename])
         return view_filename

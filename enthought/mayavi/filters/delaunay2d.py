@@ -17,7 +17,7 @@ from enthought.mayavi.core.pipeline_info import PipelineInfo
 class Delaunay2D(FilterBase):
 
     """Performs a 2D Delaunay triangulation using the tvtk.Delaunay2D
-    class.    
+    class.
     """
 
     # The version of this class.  Used for persistence.

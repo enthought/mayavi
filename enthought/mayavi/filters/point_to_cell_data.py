@@ -19,10 +19,10 @@ class PointToCellData(CellToPointData):
     __version__ = 0
 
     # The actual TVTK filter that this class manages.
-    filter = Instance(tvtk.PointDataToCellData, 
+    filter = Instance(tvtk.PointDataToCellData,
                             args=(), kw={'pass_point_data':1},
                             allow_none=False, record=True)
-    
+
     input_info = PipelineInfo(datasets=['any'],
                               attribute_types=['point'],
                               attributes=['any'])

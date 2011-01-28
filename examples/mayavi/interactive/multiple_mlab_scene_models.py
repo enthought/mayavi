@@ -10,8 +10,8 @@ The trick is to use the 'mayavi_scene' attribute of the MlabSceneModel,
 and pass it as a keyword argument to the mlab functions.
 
 For more examples on embedding mlab scenes in dialog, see also:
-the examples :ref:`example_mlab_interactive_dialog`, and 
-:ref:`example_lorenz_ui`, as well as the section of the user manual 
+the examples :ref:`example_mlab_interactive_dialog`, and
+:ref:`example_lorenz_ui`, as well as the section of the user manual
 :ref:`embedding_mayavi_traits`.
 """
 import numpy as np
@@ -51,16 +51,16 @@ class MyDialog(HasTraits):
     view = View(HSplit(
                   Group(
                        Item('scene1',
-                            editor=SceneEditor(), height=250, 
+                            editor=SceneEditor(), height=250,
                             width=300),
-                       'button1', 
+                       'button1',
                        show_labels=False,
                   ),
                   Group(
                        Item('scene2',
-                            editor=SceneEditor(), height=250, 
+                            editor=SceneEditor(), height=250,
                             width=300, show_label=False),
-                       'button2', 
+                       'button2',
                        show_labels=False,
                   ),
                 ),

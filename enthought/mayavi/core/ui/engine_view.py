@@ -27,7 +27,7 @@ from enthought.mayavi.core.adder_node import ModuleFilterAdderNode, \
 from enthought.mayavi.action.help import open_help_index, open_tvtk_docs
 
 class EngineViewHandler(Handler):
-    """ A handler for the EngineView object. 
+    """ A handler for the EngineView object.
     """
 
     info = Instance(UIInfo)
@@ -46,7 +46,7 @@ class EngineViewHandler(Handler):
         if isinstance(object, SceneAdderNode):
             self.info.object._perform_new_scene()
         else:
-            object.edit_traits(view=object.dialog_view(), 
+            object.edit_traits(view=object.dialog_view(),
                                parent=self.info.ui.control)
 
     def _on_select(self, object):
@@ -68,7 +68,7 @@ class AdderTreeNode(TreeNode):
     tooltip='tooltip'
     icon_path=resource_path()
     icon_item='add.ico'
- 
+
 
 ##############################################################################
 # EngineView class.
@@ -78,7 +78,7 @@ class EngineView(HasTraits):
 
     # The MayaVi engine we are a view of.
     engine = Instance(Engine, allow_none=True)
-   
+
     # Path used to search for images
     _image_path = [join(resource_path(), 'images'), ]
 
@@ -88,7 +88,7 @@ class EngineView(HasTraits):
     # Nodes on the tree.
     nodes = Any
 
-    # TreeEditor 
+    # TreeEditor
     tree_editor = Instance(TreeEditor)
 
     # Toolbar
@@ -107,14 +107,14 @@ class EngineView(HasTraits):
     def __init__(self, **traits):
         super(EngineView, self).__init__(**traits)
 
-                
+
     ###########################################################################
     # `HasTraits` interface.
     ###########################################################################
     def default_traits_view(self):
         """The default traits view of the Engine View.
         """
-       
+
         view = View(Item(name='engine',
                                id='engine',
                                editor=self.tree_editor,
@@ -185,7 +185,7 @@ class EngineView(HasTraits):
         toolbar.show_tool_names = False
         toolbar.show_divider = False
         return toolbar
- 
+
     def _actions_default(self):
         add_scene = \
             Action(
@@ -206,7 +206,7 @@ class EngineView(HasTraits):
                 enabled_when='len(scenes) > 0',
                 perform=self._perform_add_source,
             )
-            
+
         add_module = \
             Action(
                 image=ImageResource('add_module.png',
@@ -275,7 +275,7 @@ class EngineView(HasTraits):
         if self.engine is not None and self.engine.recorder is not None:
             record.checked = True
 
-        return [tvtk_docs, Separator(), add_scene, add_source, add_module, 
+        return [tvtk_docs, Separator(), add_scene, add_source, add_module,
                 add_filter, Separator(), help, record]
 
 

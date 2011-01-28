@@ -46,12 +46,12 @@ class TestArrayHandler(unittest.TestCase):
             else:
                 for i in range(len(arr)):
                     self.assertEqual(vtk_arr.GetTuple1(i), arr[i])
-        
+
 
     def test_array2vtk(self):
         """Test Numeric array to VTK array conversion and vice-versa."""
         # Put all the test arrays here.
-        t_z = []        
+        t_z = []
 
         # Test the different types of arrays.
         t_z.append(numpy.array([-128, 0, 127], numpy.int8))
@@ -100,7 +100,7 @@ class TestArrayHandler(unittest.TestCase):
             else:
                 #print z1.astype('c')
                 self.assertEqual(z, z1.astype('c'))
-        
+
         # Check if type conversion works correctly.
         z = numpy.array([-128, 0, 127], numpy.int8)
         vtk_arr = vtk.vtkDoubleArray()
@@ -160,8 +160,8 @@ class TestArrayHandler(unittest.TestCase):
         self.assertEqual(vtk_arr.GetValue(1), 1)
         self.assertEqual(vtk_arr.GetValue(2), 0)
         self.assertEqual(vtk_arr.GetValue(3), 1)
-        
-        # Make sure the code at least runs for all the non-complex 
+
+        # Make sure the code at least runs for all the non-complex
         # numerical dtypes in numpy.
         for dtype in (numpy.sctypes['int'] + numpy.sctypes['uint'] +
                             numpy.sctypes['float']):
@@ -200,7 +200,7 @@ class TestArrayHandler(unittest.TestCase):
         a[:,2] = 2
         cells = array_handler.array2vtkCellArray(a)
         arr = array_handler.vtk2array(cells.GetData())
-        expect = numpy.array([3, 0, 1, 2]*3, numpy.int) 
+        expect = numpy.array([3, 0, 1, 2]*3, numpy.int)
         self.assertEqual(numpy.alltrue(numpy.equal(arr, expect)),
                          True)
         self.assertEqual(cells.GetNumberOfCells(), N)
@@ -239,21 +239,21 @@ class TestArrayHandler(unittest.TestCase):
                           [0.0, 1.0])
         self.assertRaises(AssertionError, array_handler.array2vtkPoints,
                           [0.0, 1.0, 1.0])
-        
+
 
     def test_arr2vtkIdList(self):
         """Test array to vtkIdList conversion."""
         a = [1, 2, 3, 4, 5]
         p = array_handler.array2vtkIdList(a)
-        for i, j in enumerate(a):            
+        for i, j in enumerate(a):
             self.assertEqual(p.GetId(i), j)
         p = vtk.vtkIdList()
         ident = id(p)
         p = array_handler.array2vtkIdList(numpy.array(a), p)
-        for i, j in enumerate(a):            
+        for i, j in enumerate(a):
             self.assertEqual(p.GetId(i), j)
         self.assertEqual(id(p), ident)
-        
+
         self.assertRaises(AssertionError, array_handler.array2vtkIdList,
                           [[1,2,3]])
 
@@ -317,7 +317,7 @@ class TestArrayHandler(unittest.TestCase):
                 s = array_handler.get_correct_sig(args[i], sigs[i])
                 #print s, res[i]
                 self.assertEqual(s, res[i])
-            
+
     def test_deref_array(self):
         """Test if dereferencing array args works correctly."""
         sigs = [[['vtkDataArray']],
@@ -345,20 +345,20 @@ class TestArrayHandler(unittest.TestCase):
 
         r = array_handler.deref_array(args[2], sigs[2])
         self.assertEqual(r[0].GetNumberOfCells(), 2)
-        
+
         r = array_handler.deref_array(args[3], sigs[3])
         self.assertEqual(mysum(array_handler.vtk2array(r[0].GetData()) -
                                      numpy.array(args[3], 'f')), 0)
-        
+
         r = array_handler.deref_array(args[4], sigs[4])
         self.assertEqual(r[0], 1)
         self.assertEqual(r[1].__class__.__name__, 'vtkIdList')
-                
+
         r = array_handler.deref_array(args[5], sigs[5])
         self.assertEqual(r[0], 1)
         self.assertEqual(r[1], (0.0, 0.0))
         self.assertEqual(mysum(array_handler.vtk2array(r[2]) -args[5][2]), 0)
-        
+
         r = array_handler.deref_array(args[6], sigs[6])
         self.assertEqual(r[0].IsA('vtkProperty'), True)
         self.assertEqual(r[1], 1)
@@ -389,7 +389,7 @@ class TestArrayHandler(unittest.TestCase):
         cache.add(varr, arr)
         self.assertEqual(len(cache), 1)
         self.assertEqual(varr in cache, True)
-       
+
         # Test the get method.
         self.assertEqual(cache.get(varr) is arr, True)
 

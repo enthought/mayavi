@@ -31,7 +31,7 @@ class TestGridPlane(TestCase):
         assert gp3.grid_plane.position == 6
         assert gp3.actor.property.ambient == 1.0
 
-    def test(self):       
+    def test(self):
         self.main()
 
     def do(self):
@@ -41,7 +41,7 @@ class TestGridPlane(TestCase):
         from enthought.mayavi.sources.vtk_file_reader import VTKFileReader
         from enthought.mayavi.modules.outline import Outline
         from enthought.mayavi.modules.grid_plane import GridPlane
-        
+
         ############################################################
         # Create a new scene and set up the visualization.
         s = self.new_scene()
@@ -106,7 +106,7 @@ class TestGridPlane(TestCase):
         source = s.children.pop()
         # Add it back to see if that works without error.
         s.children.append(source)
-        
+
         self.check()
 
         # Now deepcopy the source and replace the existing one with
@@ -115,11 +115,11 @@ class TestGridPlane(TestCase):
         # view, and pasting the copy back.
         source1 = copy.deepcopy(source)
         s.children[0] = source1
-        
+
         self.check()
-        
+
         # If we have come this far, we are golden!
-        
+
 
 if __name__ == "__main__":
     t = TestGridPlane()

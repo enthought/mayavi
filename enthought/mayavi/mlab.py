@@ -5,9 +5,9 @@ Can be used inside Mayavi2 itself, in "ipython -wthread", or in any
 application with the WxWidget mainloop running.
 """
 
-# Author: Prabhu Ramachandran <prabhu_r@users.sf.net> 
+# Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
 #         Gael Varoquaux <gael dot varoquaux at normalesup dot org>
-# Copyright (c) 2007-2010, Enthought, Inc. 
+# Copyright (c) 2007-2010, Enthought, Inc.
 # License: BSD Style.
 
 
@@ -68,7 +68,7 @@ if __name__ == "__main__":
 
     n_mer, n_long = 6, 11
     pi = numpy.pi
-    dphi = pi/1000.0 
+    dphi = pi/1000.0
     phi = numpy.arange(0.0, 2*pi + 0.5*dphi, dphi, 'd')
     mu = phi*n_mer
     x = numpy.cos(mu)*(1+numpy.cos(n_long*mu/n_mer)*0.5)

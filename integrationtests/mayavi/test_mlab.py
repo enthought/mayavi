@@ -14,14 +14,14 @@ from common import TestCase
 
 class TestMlab(TestCase):
 
-    def test(self):       
+    def test(self):
         self.main()
 
     def do(self):
         ############################################################
         # Imports.
         from enthought.mayavi import mlab
-              
+
         ############################################################
         # Create a new scene and set up the visualization.
         s = self.new_scene()
@@ -36,14 +36,14 @@ class TestMlab(TestCase):
             # Mayavi has become too fast: the operator cannot see if the
             # Test function was succesful.
             sleep(0.1)
-     
+
         ############################################################
         # Test some specific corner-cases
         import numpy
         x, y, z = numpy.mgrid[1:10, 1:10, 1:10]
         u, v, w = numpy.mgrid[1:10, 1:10, 1:10]
         s = numpy.sqrt(u**2 + v**2)
-        
+
         mlab.clf()
         # Test the extra argument "scalars"
         mlab.quiver3d(x, y, z, u, v, w, scalars=s)

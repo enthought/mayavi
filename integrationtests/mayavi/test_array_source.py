@@ -86,7 +86,7 @@ class TestArraySource(TestCase):
         assert numpy.allclose(sc1.flatten(), expect[0].flatten())
         vec1 = s1.actor.mapper.input.point_data.vectors.to_array()
         assert numpy.allclose(vec1.flatten(), expect[1].flatten())
-        
+
         s2, v2 = d2.children[0].children[1:]
         expect = list(self.make_3d_data())
         tps = numpy.transpose
@@ -97,7 +97,7 @@ class TestArraySource(TestCase):
         vec2 = s2.actor.mapper.input.point_data.vectors.to_array()
         assert numpy.allclose(vec2.flatten(), expect[1].flatten())
 
-    def test(self):       
+    def test(self):
         self.main()
 
     def do(self):
@@ -107,8 +107,8 @@ class TestArraySource(TestCase):
         from enthought.mayavi.sources.array_source import ArraySource
         from enthought.mayavi.modules.outline import Outline
         from enthought.mayavi.modules.surface import Surface
-        from enthought.mayavi.modules.vectors import Vectors        
-        
+        from enthought.mayavi.modules.vectors import Vectors
+
         ############################################################
         # Create a new scene and set up the visualization.
         s = self.new_scene()
@@ -127,9 +127,9 @@ class TestArraySource(TestCase):
         script.add_module(o)
         # View the data.
         s = Surface()
-        script.add_module(s)        
+        script.add_module(s)
         v = Vectors()
-        script.add_module(v)        
+        script.add_module(v)
 
         # Add a 3D data source
         d = ArraySource()
@@ -142,16 +142,16 @@ class TestArraySource(TestCase):
         script.add_module(o)
         # View a slice.
         s = Surface()
-        script.add_module(s)        
+        script.add_module(s)
         v = Vectors()
-        script.add_module(v)        
+        script.add_module(v)
 
         # Set the scene to a suitable view.
         s.scene.z_plus_view()
         c = s.scene.camera
         c.azimuth(-30)
         c.elevation(30)
-       
+
         self.check()
 
         ############################################################
@@ -191,7 +191,7 @@ class TestArraySource(TestCase):
         s.children.extend(sources)
 
         s.scene.reset_zoom()
-        
+
         self.check()
 
         # Now deepcopy the source and replace the existing one with
@@ -202,9 +202,9 @@ class TestArraySource(TestCase):
         s.children[:] = sources
         s.scene.reset_zoom()
         self.check()
-        
+
         # If we have come this far, we are golden!
-        
+
 
 if __name__ == "__main__":
     t = TestArraySource()

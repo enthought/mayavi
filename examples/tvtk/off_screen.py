@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 """ A simple example demonstrating TVTK for rendering to an off screen
-    buffer.  This is useful when you are rendering images to files 
+    buffer.  This is useful when you are rendering images to files
     and do not wish to display a graphics window at all.
-    
+
     Note: Tested to work on win32, Mac OS X and Linux.  Mac OS X and
     Linux require a VTK version released after Oct. 2005 (and ideally
     after March 2006).

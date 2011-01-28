@@ -1,10 +1,10 @@
 """
 Traits View definition file.
 
-The view trait of the parent class is extracted from the model definition 
-file.  This file can either be exec()ed or imported.  See 
-core/base.py:Base.trait_view() for what is currently used.  Using exec() 
-allows view changes without needing to restart Mayavi, but is slower than 
+The view trait of the parent class is extracted from the model definition
+file.  This file can either be exec()ed or imported.  See
+core/base.py:Base.trait_view() for what is currently used.  Using exec()
+allows view changes without needing to restart Mayavi, but is slower than
 importing.
 """
 # Authors: Prabhu Ramachandran <prabhu_r@users.sf.net>
@@ -56,7 +56,7 @@ _texture_group = Group(Item(name='interpolate'),
                        show_border=True,
                        #label='Texture',
                        )
-   
+
 # The Actor's view group.
 _actor_base_group = Group(Item(name='visibility'))#,
 _actor_group = Group(Item(name='actor', style='custom', show_label=False,
@@ -65,11 +65,11 @@ _actor_group = Group(Item(name='actor', style='custom', show_label=False,
                           show_label=False,
                           editor=InstanceEditor(label='More options ...')),
                      show_border=True, label='Actor')
-                    
 
 
-actor_group = Group(_actor_group, 
-                    _mapper_group, 
+
+actor_group = Group(_actor_group,
+                    _mapper_group,
                     _prop_group,
                     label='Actor',
                     show_labels=False,

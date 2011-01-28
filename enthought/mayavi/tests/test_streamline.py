@@ -16,12 +16,12 @@ from enthought.mayavi.sources.array_source import ArraySource
 from enthought.mayavi.modules.outline import Outline
 from enthought.mayavi.modules.streamline import Streamline
 
-class TestStreamline(unittest.TestCase):   
-    
-    
+class TestStreamline(unittest.TestCase):
+
+
     def make_data(self):
         """Trivial data -- creates an elementatry scalar field and a
-        constant vector field along the 'x' axis."""        
+        constant vector field along the 'x' axis."""
         s = numpy.arange(0.0, 10.0, 0.01)
         s = numpy.reshape(s, (10,10,10))
         s = numpy.transpose(s)
@@ -30,7 +30,7 @@ class TestStreamline(unittest.TestCase):
         v[1::3] = 1.0
         v = numpy.reshape(v, (10,10,10,3))
         return s, v
-       
+
     def setUp(self):
         """Initial setting up of test fixture, automatically called by TestCase before any other test method is invoked"""
         e = NullEngine()
@@ -55,7 +55,7 @@ class TestStreamline(unittest.TestCase):
         # Create an outline for the data.
         o = Outline()
         e.add_module(o)
-        
+
         # View the data.
         st = Streamline()
         e.add_module(st)
@@ -86,18 +86,18 @@ class TestStreamline(unittest.TestCase):
         self.st = st
         self.scene = e.current_scene
         return
-        
+
     def tearDown(self):
         """For necessary clean up, automatically called by TestCase after the test methods have been invoked"""
         self.e.stop()
         return
 
     def check(self):
-        """Do the actual testing."""  
+        """Do the actual testing."""
 
         s=self.scene
         src = s.children[0]
-        
+
         st = src.children[0].children[2]
         self.assertEqual(st.streamline_type,'ribbon')
         self.assertEqual(st.ribbon_filter.width,0.25)
@@ -106,26 +106,26 @@ class TestStreamline(unittest.TestCase):
                             (-5.0, -4.5, -4.0)),True)
         self.assertEqual(numpy.allclose(st.seed.widget.point2,
                             (-5.0, -4.5, 4.0)),True)
-        
+
         st = src.children[0].children[3]
         self.assertEqual(st.streamline_type,'tube')
         self.assertEqual(st.tube_filter.radius,0.15)
         self.assertEqual(st.seed.widget,st.seed.widget_list[2])
         self.assertEqual(numpy.allclose(st.seed.widget.center,
                             (-5.0, 1.5, -2.5)),True)
-      
-        st = src.children[0].children[4] 
+
+        st = src.children[0].children[4]
         self.assertEqual(st.streamline_type,'tube')
         self.assertEqual(st.tube_filter.radius,0.2)
         self.assertEqual(st.seed.widget,st.seed.widget_list[3])
         self.assertEqual(numpy.allclose(st.seed.widget.position,
                             (-5.0, 3.75, 3.75)),True)
-     
 
-    def test_streamline(self):    
-        "Test if the test fixture works"                    
-        self.check()        
-        
+
+    def test_streamline(self):
+        "Test if the test fixture works"
+        self.check()
+
     def test_components_changed(self):
         """Test if the modules respond correctly when the components
            are changed."""
@@ -142,9 +142,9 @@ class TestStreamline(unittest.TestCase):
         st.stream_tracer = tracer.__class__()
         st.stream_tracer = tracer
         self.check()
-        
-    
-    
+
+
+
     def test_save_and_restore(self):
         """Test if saving a visualization and restoring it works."""
         engine = self.e
@@ -156,7 +156,7 @@ class TestStreamline(unittest.TestCase):
         f.seek(0) # So we can read this saved data.
 
         # Remove existing scene.
-       
+
         engine.close_scene(scene)
 
         # Load visualization
@@ -164,7 +164,7 @@ class TestStreamline(unittest.TestCase):
         self.scene = engine.current_scene
 
         self.check()
-    
+
     def test_deepcopied(self):
         """Test if the MayaVi2 visualization can be deep-copied."""
         ############################################################
@@ -186,7 +186,7 @@ class TestStreamline(unittest.TestCase):
         sources1 = copy.deepcopy(sources)
         s.children[:] = sources1
         self.check()
-           
+
 
 if __name__ == '__main__':
     unittest.main()

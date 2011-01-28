@@ -62,11 +62,11 @@ class Streamline(Module):
 
     input_info = PipelineInfo(datasets=['any'],
                               attribute_types=['any'],
-                              attributes=['vectors'])    
+                              attributes=['vectors'])
 
     ########################################
     # Private traits.
-    
+
     _first = Bool(True)
 
     ########################################
@@ -84,7 +84,7 @@ class Streamline(Module):
                         Item(name='offset'),
                         Item(name='on_ratio')
                         )
-    
+
     _ribbon_group = Group(Item(name='vary_width'),
                           Item(name='width'),
                           Item(name='width_factor'),
@@ -119,7 +119,7 @@ class Streamline(Module):
                       show_labels=False),
                 resizable=True
                 )
-    
+
     ######################################################################
     # `Module` interface
     ######################################################################
@@ -144,7 +144,7 @@ class Streamline(Module):
                                                )
         self.ribbon_filter = tvtk.RibbonFilter()
         self.tube_filter = tvtk.TubeFilter()
-        
+
         self.actor = Actor()
         # Setup the actor suitably for this module.
         self.actor.property.line_width = 2.0
@@ -159,7 +159,7 @@ class Streamline(Module):
         mm = self.module_manager
         if mm is None:
             return
-        
+
         src = mm.source
         self.stream_tracer.input = src.outputs[0]
         self.seed.inputs = [src]
@@ -174,10 +174,10 @@ class Streamline(Module):
             self.tube_filter.radius = length*0.0075
             self._first = False
 
-        self._streamline_type_changed(self.streamline_type)        
+        self._streamline_type_changed(self.streamline_type)
         # Set the LUT for the mapper.
         self.actor.set_lut(mm.scalar_lut_manager.lut)
-        
+
         self.pipeline_changed = True
 
     def update_data(self):
@@ -213,7 +213,7 @@ class Streamline(Module):
     def _update_streamlines_fired(self):
         self.seed.update_poly_data()
         self.render()
-            
+
     def _stream_tracer_changed(self, old, new):
         if old is not None:
             old.on_trait_change(self.render, remove=True)
@@ -224,11 +224,11 @@ class Streamline(Module):
         mm = self.module_manager
         if mm is not None:
             new.input = mm.source.outputs[0]
-            
+
         # A default output so there are no pipeline errors.  The
         # update_pipeline call corrects this if needed.
         self.outputs = [new.output]
-        
+
         self.update_pipeline()
 
     def _seed_changed(self, old, new):
@@ -253,4 +253,4 @@ class Streamline(Module):
         new.scene = self.scene
         new.inputs = [self]
         self._change_components(old, new)
-        
+

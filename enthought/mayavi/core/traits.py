@@ -9,11 +9,11 @@
 #   set.  Thus if the acceptable list of values are changed before the
 #   listeners are activated then the value will be set correctly only
 #   when it is accessed and not when the values are set.
-#  
+#
 #  Written by: David C. Morrill and Prabhu Ramachandran
 #
 #  (c) Copyright 2006-2008 by Enthought, Inc.
-#  
+#
 #-------------------------------------------------------------------------------
 
 #-------------------------------------------------------------------------------
@@ -36,7 +36,7 @@ def super_getattr(object, name, *args):
 
     >>> class A:
     ... pass
-    ... 
+    ...
     >>> a = A()
     >>> a.b = A()
     >>> a.b.c = 1
@@ -61,7 +61,7 @@ def super_setattr(object, name, value):
 
     >>> class A:
     ... pass
-    ... 
+    ...
     >>> a = A()
     >>> a.b = A()
     >>> super_setattr(a, 'b.c', 1)
@@ -88,7 +88,7 @@ class DEnumHelper(object):
     """
 
     ######################################################################
-    # Get/Set functions for the property.    
+    # Get/Set functions for the property.
     def get_value ( object, name ):
         return super_getattr(object, DEnumHelper._init_listeners(object, name))
     get_value = staticmethod(get_value)
@@ -113,7 +113,7 @@ class DEnumHelper(object):
     make_editor = staticmethod(make_editor)
 
     ######################################################################
-    # Ensures that the listeners are initialized.    
+    # Ensures that the listeners are initialized.
     def _init_listeners ( object, name ):
         _name = '_' + name
         if not hasattr( object, _name ):
@@ -189,7 +189,7 @@ class ShadowProperty(TraitType):
         whether the value actually changed or not.  If `smart_notify` is
         set to `True` then the handler is called only if the value has
         actually changed.
-    
+
         Note that the validation uses the validation of the specified
         `trait_type` parameter.
         """

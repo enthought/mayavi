@@ -8,15 +8,15 @@ This programming style does not allow to benefit from the data-management
 facilities of Mayavi (the pipeline, the data-oriented mlab functions),
 but it allows to easily reuse VTK code together with Mayavi or mlab code.
 
-If you want to use arbritrary VTK filters with Mayavi, it is best to use 
+If you want to use arbritrary VTK filters with Mayavi, it is best to use
 the UserDefined Mayavi filter, which enables the user to insert any VTK
 filter in the Mayavi pipeline. See, for instance, the :ref:`example_mri`
 for example of the UserDefined filter. For a full-blown example of a
-complex VTK pipeline built with Mayavi, see 
+complex VTK pipeline built with Mayavi, see
 :ref:`example_tvtk_segmentation`.
 """
 
-# Author: Gael Varoquaux <gael.varoquaux@normalesup.org> 
+# Author: Gael Varoquaux <gael.varoquaux@normalesup.org>
 # Copyright (c) 2008, Enthought, Inc.
 # License: BSD Style.
 
@@ -32,7 +32,7 @@ v = mlab.figure()
 # Create a first sphere
 # The source generates data points
 sphere = tvtk.SphereSource(center=(0, 0, 0), radius=0.5)
-# The mapper converts them into position in, 3D with optionally color (if 
+# The mapper converts them into position in, 3D with optionally color (if
 # scalar information is available).
 sphere_mapper = tvtk.PolyDataMapper(input=sphere.output)
 # The Property will give the parameters of the material.

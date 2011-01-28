@@ -5,7 +5,7 @@ Notes on testing Mayavi
 
 This directory contains integration tests for mayavi.  The unit tests
 are in `enthought/mayavi/tests` and are distributed with the package.  The
-tvtk unit tests are in `enthought/tvtk/tests`.  
+tvtk unit tests are in `enthought/tvtk/tests`.
 
 
 Running the tests

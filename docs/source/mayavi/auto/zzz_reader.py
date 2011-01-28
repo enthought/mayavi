@@ -21,7 +21,7 @@ from enthought.mayavi.core.api import registry, SourceMetadata, PipelineInfo
 
 def zzz_reader(fname, engine):
     """Reader for .zzz files.
-    
+
     Parameters:
     -----------
 

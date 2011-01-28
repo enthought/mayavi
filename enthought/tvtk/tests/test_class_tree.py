@@ -29,14 +29,14 @@ def get_level(klass):
 class TestClassTree(unittest.TestCase):
     def setUp(self):
         self.t = _cache
-    
+
     def test_basic_vtk(self):
         """Basic tests for the VTK module."""
         t = self.t
         self.assertEqual(t.get_node('vtkObject').name, 'vtkObject')
         self.assertEqual(t.get_node('vtkObject').parents[0].name,
                          'vtkObjectBase')
-        if (hasattr(vtk, 'vtkArrayCoordinates') 
+        if (hasattr(vtk, 'vtkArrayCoordinates')
                         and issubclass(vtk.vtkArrayCoordinates, object)):
             self.assertEqual(len(t.tree[0]), 2)
             names = [x.name for x in t.tree[0]]
@@ -85,7 +85,7 @@ class TestClassTree(unittest.TestCase):
             parent_names = [x.name for x in node.parents]
             parent_names.sort()
             self.assertEqual(base_names, parent_names)
-            
+
             for c in node.children:
                 c_class = t.get_class(c.name)
                 base_names = [x.__name__ for x in c_class.__bases__]

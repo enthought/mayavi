@@ -18,7 +18,7 @@ class TestMlabSceneModel(TestMlabNullEngine):
     """ Testing the MlabSceneModel, in particular the magic
         mlab attribute.
     """
-    
+
     def test_several_scene_models(self):
         """ Check that plotting to scene attributes using their
             mlab attribute does create objects as children, and does not
@@ -30,7 +30,7 @@ class TestMlabSceneModel(TestMlabNullEngine):
 
         test_object = TestObject()
         x, y, z = np.random.random((3, 10))
-        plt = mlab.plot3d(x, y, z, 
+        plt = mlab.plot3d(x, y, z,
                     figure=test_object.scene1.mayavi_scene)
         pts = mlab.points3d(x, y, z,
                     figure=test_object.scene2.mayavi_scene)

@@ -57,7 +57,7 @@ class CustomGridPlane(Component):
                   enter_set=True, auto_set=False,
                   desc='maximum z value of the domain')
 
-    
+
     ########################################
     # Private traits.
 
@@ -71,7 +71,7 @@ class CustomGridPlane(Component):
 
     ########################################
     # View related traits.
-    
+
     # The View for this object.
     view = View(Group(Item(name='x_min'),
                       Item(name='x_max'),
@@ -96,7 +96,7 @@ class CustomGridPlane(Component):
             d.pop('_' + axis + '_high', None)
 
         d.pop('plane', None)
-        
+
         return d
 
     ######################################################################
@@ -151,7 +151,7 @@ class CustomGridPlane(Component):
         self._x_low, self._x_high = extents[:2]
         self._y_low, self._y_high = extents[2:4]
         self._z_low, self._z_high = extents[4:]
-        
+
     def _x_min_changed(self, val):
         if val > self.x_max:
             self.x_max = val

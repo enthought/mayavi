@@ -1,7 +1,7 @@
 """Mayavi action set for menus and actions etc.
 """
 # Author: Prabhu Ramachandran <prabhu [at] aero . iitb . ac . in>
-# Copyright (c) 2008, Enthought, Inc. 
+# Copyright (c) 2008, Enthought, Inc.
 # License: BSD Style.
 
 # Enthought library imports.
@@ -13,23 +13,23 @@ from enthought.mayavi.core.registry import registry
 
 file_group = Group(
     id='MayaviFileGroup',
-    path='MenuBar/File', 
+    path='MenuBar/File',
     before='ExitGroup'
 )
 
 visualize_group = Group(
     id='VisualizeGroup',
-    path='MenuBar/VisualizeMenu', 
+    path='MenuBar/VisualizeMenu',
 )
 
 modules_group = Group(
     id='ModulesGroup',
-    path='MenuBar/VisualizeMenu/ModulesMenu', 
+    path='MenuBar/VisualizeMenu/ModulesMenu',
 )
 
 filters_group = Group(
     id='FiltersGroup',
-    path='MenuBar/VisualizeMenu/FiltersMenu', 
+    path='MenuBar/VisualizeMenu/FiltersMenu',
 )
 ########################################
 # Menus
@@ -177,7 +177,7 @@ tvtk_class_browser = Action(
 class MayaviUIActionSet(ActionSet):
     """ The default action set for the mayavi UI plugin. """
 
-    groups  = [file_group, 
+    groups  = [file_group,
                visualize_group,
                modules_group,
                filters_group,

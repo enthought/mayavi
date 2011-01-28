@@ -11,7 +11,7 @@ from os.path import join
 # Enthought library imports.
 from enthought.traits.api import List
 from enthought.preferences.ui.api import PreferencesManager, \
-    PreferencesPage 
+    PreferencesPage
 from enthought.pyface.api import ImageResource
 from enthought.resource.api import resource_path
 from enthought.preferences.ui.preferences_node import PreferencesNode

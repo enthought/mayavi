@@ -16,7 +16,7 @@ from common import TestCase, get_example_data
 
 
 class TestPLOT3DReader(TestCase):
-    def test(self):       
+    def test(self):
         self.main()
 
     def do(self):
@@ -26,7 +26,7 @@ class TestPLOT3DReader(TestCase):
         from enthought.mayavi.sources.plot3d_reader import PLOT3DReader
         from enthought.mayavi.filters.select_output import SelectOutput
         from enthought.mayavi.modules.outline import Outline
-        
+
         ############################################################
         # Create a new scene and set up the visualization.
         s = self.new_scene()
@@ -36,7 +36,7 @@ class TestPLOT3DReader(TestCase):
         r.reader.set(has_byte_count=True, multi_grid=True,
                      byte_order='little_endian')
         r.initialize(get_example_data('tiny.xyz'),
-                     get_example_data('tiny.q'), 
+                     get_example_data('tiny.q'),
                      configure=False)
 
         script.add_source(r)
@@ -50,7 +50,7 @@ class TestPLOT3DReader(TestCase):
         script.add_module(o)
 
         # Check the bounds of the outline.
-        assert o.outline_filter.output.bounds == (1.0, 2.0, 1.0, 2.0, 1.0, 2.0) 
+        assert o.outline_filter.output.bounds == (1.0, 2.0, 1.0, 2.0, 1.0, 2.0)
 
         # Copy the reader to see if it does not pop up the UI.
         r1 = copy.deepcopy(r)
@@ -58,9 +58,9 @@ class TestPLOT3DReader(TestCase):
         s.render()
 
         o1 = r1.children[0].children[0].children[0]
-        assert o1.outline_filter.output.bounds == (1.0, 2.0, 1.0, 2.0, 1.0, 2.0) 
+        assert o1.outline_filter.output.bounds == (1.0, 2.0, 1.0, 2.0, 1.0, 2.0)
         r1.children[0].output_index = 1
-        assert o1.outline_filter.output.bounds == (2.0, 3.0, 1.0, 2.0, 1.0, 2.0) 
+        assert o1.outline_filter.output.bounds == (2.0, 3.0, 1.0, 2.0, 1.0, 2.0)
 
         ############################################################
         # Test if saving a visualization and restoring it works.
@@ -82,12 +82,12 @@ class TestPLOT3DReader(TestCase):
         o = s.children[0].children[0].children[0].children[0]
         o1 = s.children[1].children[0].children[0].children[0]
 
-        assert o.outline_filter.output.bounds == (1.0, 2.0, 1.0, 2.0, 1.0, 2.0) 
-        assert o1.outline_filter.output.bounds == (2.0, 3.0, 1.0, 2.0, 1.0, 2.0) 
+        assert o.outline_filter.output.bounds == (1.0, 2.0, 1.0, 2.0, 1.0, 2.0)
+        assert o1.outline_filter.output.bounds == (2.0, 3.0, 1.0, 2.0, 1.0, 2.0)
 
         # If we have come this far, we are golden!
         return
-        
+
 
 if __name__ == "__main__":
     t = TestPLOT3DReader()

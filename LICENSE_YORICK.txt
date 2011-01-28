@@ -3,7 +3,7 @@ BSD-style license for gist/yorick colormaps.
 Copyright:
 
   Copyright (c) 1996.  The Regents of the University of California.
-	     All rights reserved.
+             All rights reserved.
 
 Permission to use, copy, modify, and distribute this software for any
 purpose without fee is hereby granted, provided that this entire
@@ -17,7 +17,7 @@ the U.S. Department of Energy and The Regents of the University of
 California for the operation of UC LLNL.
 
 
-	          DISCLAIMER
+                  DISCLAIMER
 
 This software was prepared as an account of work sponsored by an
 agency of the United States Government.  Neither the United States
@@ -36,7 +36,7 @@ the United States Government or the University of California, and
 shall not be used for advertising or product endorsement purposes.
 
 
-		AUTHOR
+                AUTHOR
 
 David H. Munro wrote Yorick and Gist.  Berkeley Yacc (byacc) generated
 the Yorick parser.  The routines in Math are from LAPACK and FFTPACK;

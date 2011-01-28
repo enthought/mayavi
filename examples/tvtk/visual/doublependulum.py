@@ -38,33 +38,33 @@ tbase = 0.05 # thickness of base
 wbase = 8.*gap # width of base
 offset = 2.*gap # from center of pedestal to center of U-shaped upper assembly
 top = vector(0,0,0) # top of inner bar of U-shaped upper assembly
-   
+
 theta1 = 1.3*pi/2. # initial upper angle (from vertical)
 theta1dot = 0 # initial rate of change of theta1
 theta2 = 0 # initial lower angle (from vertical)
 theta2dot = 0 # initial rate of change of theta2
-   
+
 pedestal = box(pos = (top - vector(0, hpedestal/2.0, offset)),size = (wpedestal, 1.1*hpedestal, wpedestal), color = (0.4,0.4,0.5))
-    
+
 base = box(pos = (top - vector(0,hpedestal + tbase/2.0, offset)),size=(wbase, tbase, wbase),color = (0.4,0.4,0.5))
-    
-bar1 = box(pos=(L1display/2.0 - d/2.0, 0, -(gap+d)/2.0), size=(L1display, d, d), color=(1,0,0))    
+
+bar1 = box(pos=(L1display/2.0 - d/2.0, 0, -(gap+d)/2.0), size=(L1display, d, d), color=(1,0,0))
 bar1b = box(pos=(L1display/2.0 - d/2.0, 0, (gap+d)/2.0), size=(L1display, d, d), color=(1,0,0))
-    
+
 frame1 = frame(bar1, bar1b)
 frame1.pos = (0.0, 0.0, 0.0)
 frame1.axis = (0.0, -1.0, 0.0)
-frame1.rotate(axis=(0,0,1), angle = 180.0*theta1/pi)    
-        
+frame1.rotate(axis=(0,0,1), angle = 180.0*theta1/pi)
+
 bar2 = box(pos = (L2display/2.0 - d/2.0, 0, 0), size = (L2display, d, d), color = (0,1,0))
 
 frame2 = frame(bar2)
 frame2.pos = (0.0, -1.0*L1, 0.0)
 frame2.axis = (0.0, -1.0, 0.0)
 frame2.rotate(axis = (0,0,1), angle = 180.0*theta2/pi)
-    
+
 dt = 0.001
-    
+
 def anim():
     global theta1, theta2, theta1dot, theta2dot
     atheta1 = ((E*C/B)*sin(theta1)-F*sin(theta2))/(D-E*A/B)

@@ -9,7 +9,7 @@ from enthought.mayavi.filters.wrapper import Wrapper
 
 ################################################################################
 # `Optional` class.
-################################################################################ 
+################################################################################
 class Optional(Wrapper):
     """
     This class wraps around any mayavi filter or component and allows a

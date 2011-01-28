@@ -45,7 +45,7 @@ class VectorCutPlane(Module):
 
     input_info = PipelineInfo(datasets=['any'],
                               attribute_types=['any'],
-                              attributes=['vectors'])    
+                              attributes=['vectors'])
 
     ########################################
     # View related traits.
@@ -99,7 +99,7 @@ class VectorCutPlane(Module):
         mm = self.module_manager
         if mm is None:
             return
-        
+
         self.implicit_plane.inputs = [mm.source]
 
         # Set the LUT for the mapper.
@@ -125,7 +125,7 @@ class VectorCutPlane(Module):
         # so that the the lut can be changed when the a different
         # color mode is requested.
         actor = self.actor
-        if value == 'color_by_scalar': 
+        if value == 'color_by_scalar':
             actor.mapper.scalar_visibility = 1
             lut_mgr = self.module_manager.scalar_lut_manager
             actor.set_lut(lut_mgr.lut)
@@ -133,7 +133,7 @@ class VectorCutPlane(Module):
             lut_mgr = self.module_manager.vector_lut_manager
             actor.set_lut(lut_mgr.lut)
         else:
-            actor.mapper.scalar_visibility = 0            
+            actor.mapper.scalar_visibility = 0
 
         self.render()
 
@@ -153,12 +153,12 @@ class VectorCutPlane(Module):
         if g is not None:
             g.inputs = [new]
         self._change_components(old, new)
-        
+
     def _glyph_changed(self, old, new):
         if old is not None:
             old.on_trait_change(self._color_mode_changed,
                                 'color_mode',
-                                remove=True)        
+                                remove=True)
         new.module = self
         cutter = self.cutter
         if cutter:
@@ -166,11 +166,11 @@ class VectorCutPlane(Module):
         new.on_trait_change(self._color_mode_changed,
                             'color_mode')
         self._change_components(old, new)
-        
+
     def _actor_changed(self, old, new):
         new.scene = self.scene
         glyph = self.glyph
         if glyph is not None:
             new.inputs = [glyph]
         self._change_components(old, new)
-        
+

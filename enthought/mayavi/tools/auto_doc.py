@@ -3,7 +3,7 @@ Automatic documentation from traited objects.
 """
 
 # Author: Gael Varoquaux <gael.varoquaux@normalesup.org>
-# Copyright (c) 2007, Enthought, Inc. 
+# Copyright (c) 2007, Enthought, Inc.
 # License: BSD Style.
 
 from textwrap import wrap, dedent
@@ -23,7 +23,7 @@ def dedent(text):
         return text
 
 def make_doc(klass):
-    """ Builds a docstring from the object's docstring, and it's traits 
+    """ Builds a docstring from the object's docstring, and it's traits
     help.
     """
     if hasattr(klass, '__doc__'):

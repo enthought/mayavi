@@ -116,9 +116,9 @@ def make_CTF(x1, x2, hue_range=(2.0/3.0, 0.0),
             s = sat_range[0] + dsat*x
             v = val_range[0] + dval*x
             r, g, b, a = hsva_to_rgba(h, s, v, 1.0)
-            ctf.add_rgb_point(mins+x*ds, r, g, b)      
+            ctf.add_rgb_point(mins+x*ds, r, g, b)
     return ctf
-    
+
 
 def default_CTF(x1, x2):
     """Creates a default RGB color transfer function.  In this case we
@@ -176,7 +176,7 @@ class VolumeLUTManager(LUTManager):
                       label='Labels'),
                 resizable=True
                 )
-    
+
 
 ######################################################################
 # `Volume` class.
@@ -197,7 +197,7 @@ class Volume(Module):
 
     ray_cast_function_type = DEnum(values_name='_ray_cast_functions',
                                    desc='Ray cast function to use')
-    
+
     volume = ReadOnly
 
     volume_mapper = Property(record=True)
@@ -212,13 +212,13 @@ class Volume(Module):
     input_info = PipelineInfo(datasets=['image_data',
                                         'unstructured_grid'],
                               attribute_types=['any'],
-                              attributes=['scalars'])    
+                              attributes=['scalars'])
 
     ########################################
     # View related code.
 
     update_ctf = Button('Update CTF')
-    
+
     view = View(Group(Item(name='_volume_property', style='custom',
                            editor=CustomEditor(gradient_editor_factory),
                            resizable=True),
@@ -242,7 +242,7 @@ class Volume(Module):
                 Group(Item(name='_volume_property', style='custom',
                            resizable=True),
                       label='Property',
-                      show_labels=False),                
+                      show_labels=False),
                 Group(Item(name='volume', style='custom',
                            editor=InstanceEditor(),
                            resizable=True),
@@ -251,7 +251,7 @@ class Volume(Module):
                 Group(Item(name='lut_manager', style='custom',
                            resizable=True),
                       label='Legend',
-                      show_labels=False),                
+                      show_labels=False),
                 resizable=True
                 )
 
@@ -292,7 +292,7 @@ class Volume(Module):
         self._ctf = ctf
         self._otf = otf
         self._update_ctf_fired()
-        
+
     ######################################################################
     # `Module` interface
     ######################################################################
@@ -303,7 +303,7 @@ class Volume(Module):
     def stop(self):
         super(Volume, self).stop()
         self.lut_manager.stop()
-    
+
     def setup_pipeline(self):
         """Override this method so that it *creates* the tvtk
         pipeline.
@@ -330,9 +330,9 @@ class Volume(Module):
         self._available_mapper_types = available_mappers
         if 'FixedPointVolumeRayCastMapper' in available_mappers:
             self._mapper_types.append('FixedPointVolumeRayCastMapper')
-        
+
         self.actors.append(v)
-    
+
     def update_pipeline(self):
         """Override this method so that it *updates* the tvtk pipeline
         when data upstream is known to have changed.
@@ -357,7 +357,7 @@ class Volume(Module):
             error('Volume rendering only works with '\
                   'StructuredPoints/ImageData datasets')
             return
-    
+
         self._setup_mapper_types()
         self._setup_current_range()
         self._volume_mapper_type_changed(self.volume_mapper_type)
@@ -375,7 +375,7 @@ class Volume(Module):
         self._setup_current_range()
         self._update_ctf_fired()
         self.data_changed = True
-    
+
     ######################################################################
     # Non-public methods.
     ######################################################################
@@ -415,15 +415,15 @@ class Volume(Module):
                     if mapper in self._available_mapper_types:
                         mapper_types.append(mapper)
                 self._mapper_types = mapper_types
-        
+
     def _setup_current_range(self):
         mm = self.module_manager
         # Set the default name and range for our lut.
         lm = self.lut_manager
-        slm = mm.scalar_lut_manager 
+        slm = mm.scalar_lut_manager
         lm.set(default_data_name=slm.default_data_name,
                default_data_range=slm.default_data_range)
-        
+
         # Set the current range.
         input = mm.source.outputs[0]
         sc = input.point_data.scalars
@@ -435,13 +435,13 @@ class Volume(Module):
 
         if self.current_range != rng:
             self.current_range = rng
-            
+
     def _get_volume_mapper(self):
         return self._volume_mapper
 
     def _get_volume_property(self):
         return self._volume_property
-    
+
     def _get_ray_cast_function(self):
         return self._ray_cast_function
 
@@ -469,7 +469,7 @@ class Volume(Module):
             new_vm = tvtk.VolumeProMapper()
             self._volume_mapper = new_vm
             self._ray_cast_functions = ['']
-        elif value == 'FixedPointVolumeRayCastMapper':            
+        elif value == 'FixedPointVolumeRayCastMapper':
             new_vm = tvtk.FixedPointVolumeRayCastMapper()
             self._volume_mapper = new_vm
             self._ray_cast_functions = ['']
@@ -485,7 +485,7 @@ class Volume(Module):
         new_vm.input = mm.source.outputs[0]
         self.volume.mapper = new_vm
         new_vm.on_trait_change(self.render)
-        
+
     def _update_ctf_fired(self):
         set_lut(self.lut_manager.lut, self._volume_property)
         self.render()
@@ -493,7 +493,7 @@ class Volume(Module):
     def _current_range_changed(self, old, new):
         rescale_ctfs(self._volume_property, new)
         self.render()
-        
+
     def _ray_cast_function_type_changed(self, old, new):
         rcf = self.ray_cast_function
         if len(old) > 0:
@@ -509,6 +509,6 @@ class Volume(Module):
 
         self.render()
 
-    def _scene_changed(self, old, new):        
+    def _scene_changed(self, old, new):
         super(Volume, self)._scene_changed(old, new)
         self.lut_manager.scene = new

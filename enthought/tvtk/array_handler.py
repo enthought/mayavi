@@ -80,13 +80,13 @@ class ArrayCache(object):
         key = vtk_arr.__this__
         cache = self._cache
 
-        # Setup a callback so this cached array reference is removed 
-        # when the VTK array is destroyed.  Passing the key to the 
-        # `lambda` function is necessary because the callback will not 
-        # receive the object (it will receive `None`) and thus there 
-        # is no way to know which array reference one has to remove. 
+        # Setup a callback so this cached array reference is removed
+        # when the VTK array is destroyed.  Passing the key to the
+        # `lambda` function is necessary because the callback will not
+        # receive the object (it will receive `None`) and thus there
+        # is no way to know which array reference one has to remove.
         vtk_arr.AddObserver('DeleteEvent', lambda o, e, key=key: \
- 	                    self._remove_array(key)) 
+                            self._remove_array(key))
 
         # Cache the array
         cache[key] = np_arr
@@ -98,7 +98,7 @@ class ArrayCache(object):
 
     ######################################################################
     # Non-public interface.
-    ###################################################################### 
+    ######################################################################
     def _remove_array(self, key):
         """Private function that removes the cached array.  Do not
         call this unless you know what you are doing."""
@@ -128,7 +128,7 @@ for name in ['array_handler', 'enthought.tvtk.array_handler']:
 if _dummy:
     _array_cache = _dummy
 else:
-    _array_cache = ArrayCache() 
+    _array_cache = ArrayCache()
 del _dummy
 
 

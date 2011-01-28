@@ -19,7 +19,7 @@ logger = logging.getLogger()
 ENGINE_VIEW = 'enthought.mayavi.core.ui.engine_view.EngineView'
 CURRENT_SELECTION_VIEW = 'enthought.mayavi.core.engine.Engine.current_selection'
 SHELL_VIEW = 'enthought.plugins.python_shell_view'
-LOGGER_VIEW = 'enthought.logger.plugin.view.logger_view.LoggerView' 
+LOGGER_VIEW = 'enthought.logger.plugin.view.logger_view.LoggerView'
 
 ###############################################################################
 # `MayaviPerspective` class.
@@ -54,10 +54,10 @@ class MayaviPerspective(Perspective):
                 show_logger = False
 
         if show_logger:
-            contents.append(PerspectiveItem(id=LOGGER_VIEW, position='with', 
+            contents.append(PerspectiveItem(id=LOGGER_VIEW, position='with',
                                             relative_to=SHELL_VIEW))
         return contents
-    
+
 
 ###############################################################################
 # `MayaviUIPlugin` class.
@@ -122,7 +122,7 @@ class MayaviUIPlugin(Plugin):
         return ["""Welcome to Mayavi, this is the interactive IPython shell.
 
 If this is your first time using Mayavi, take a quick look at the tutorial examples section of the user guide, accessible via the help menu.
-To use Mayavi, you need to load your data in "data sources" and apply "visualization modules" to it. 
+To use Mayavi, you need to load your data in "data sources" and apply "visualization modules" to it.
 """]
 
     ######################################################################
@@ -143,7 +143,7 @@ To use Mayavi, you need to load your data in "data sources" and apply "visualiza
                                        **traits
                                        )
         return tui_engine_view
-    
+
     def _current_selection_view_factory(self, window, **traits):
         """ Factory method for the current selection of the engine. """
 

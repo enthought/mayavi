@@ -21,8 +21,8 @@ from enthought.mayavi.modules.api import ScalarCutPlane
 from enthought.mayavi.sources.vtk_xml_file_reader import VTKXMLFileReader
 from enthought.tvtk.api import tvtk
 
-class TestUserDefined(unittest.TestCase):   
-       
+class TestUserDefined(unittest.TestCase):
+
     def setUp(self):
         """Initial setting up of test fixture, automatically called by TestCase before any other test method is invoked"""
         e = NullEngine()
@@ -51,17 +51,17 @@ class TestUserDefined(unittest.TestCase):
         o = Optional(filter=evc)
         e.add_filter(o)
         e.add_module(ScalarCutPlane())
-        self.scene = e.current_scene   
+        self.scene = e.current_scene
         s = self.scene
         return
-        
+
     def tearDown(self):
         """For necessary clean up, automatically called by TestCase after the test methods have been invoked"""
         self.e.stop()
         return
 
     def check(self):
-        """Do the actual testing."""       
+        """Do the actual testing."""
         scene = self.scene
         src = scene.children[0]
         ud = src.children[0]
@@ -96,22 +96,22 @@ class TestUserDefined(unittest.TestCase):
         assert mm.scalar_lut_manager.data_name == 'Vorticity-y'
         # Turn off extraction.
         o.enabled = False
-        
-        
 
-    def test_user_defined(self):      
-        "Test if the test fixture works"                  
+
+
+    def test_user_defined(self):
+        "Test if the test fixture works"
         #Now test.
         s = self.scene
         self.check()
-        
+
         #from enthought.mayavi.tools.show import show
         #show()
 
-    
-    
-    
-    def test_save_and_restore(self):     
+
+
+
+    def test_save_and_restore(self):
         """Test if saving a visualization and restoring it works."""
         engine = self.e
         scene = self.scene
@@ -123,7 +123,7 @@ class TestUserDefined(unittest.TestCase):
         f.seek(0) # So we can read this saved data.
 
         # Remove existing scene.
-       
+
         engine.close_scene(scene)
 
         # Load visualization
@@ -131,7 +131,7 @@ class TestUserDefined(unittest.TestCase):
         self.scene = engine.current_scene
         s = self.scene
         self.check()
-    
+
 
     def test_deepcopied(self):
         """Test if the MayaVi2 visualization can be deep-copied."""
@@ -142,7 +142,7 @@ class TestUserDefined(unittest.TestCase):
         s =  self.scene
         source = s.children.pop()
         # Add it back to see if that works without error.
-        s.children.append(source)       
+        s.children.append(source)
         cp = source.children[0].children[-1]
         s = self.scene
 
@@ -159,9 +159,9 @@ class TestUserDefined(unittest.TestCase):
         #from enthought.mayavi.tools.show import show
         #show()
 
-    
 
-    
+
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -1,11 +1,11 @@
 """
-Test for the various mlab source functions. 
+Test for the various mlab source functions.
 
 These tests are higher level than the tests testing directly the
 MlabSource subclasses. They are meant to capture errors in the formatting
 of the input arguments.
 """
-# Author: Gael Varoquaux <gael dot varoquaux at normalesup dot org> 
+# Author: Gael Varoquaux <gael dot varoquaux at normalesup dot org>
 # Copyright (c) 2008, Enthought, Inc.
 # License: BSD Style.
 
@@ -16,7 +16,7 @@ from enthought.mayavi.tools import sources
 
 ################################################################################
 # `BaseTestSource`
-################################################################################ 
+################################################################################
 class BaseTestSource(unittest.TestCase):
     def setUp(self):
         return
@@ -37,7 +37,7 @@ class BaseTestSource(unittest.TestCase):
 
     def check_positions(self, source, x, y, z):
         """ Check that the position vectors of the source do correspond
-            to the given input positions 
+            to the given input positions
         """
         self.assert_(np.allclose(source.mlab_source.x, x))
         self.assert_(np.allclose(source.mlab_source.y, y))
@@ -60,7 +60,7 @@ class BaseTestSource(unittest.TestCase):
 
 ################################################################################
 # `TestScalarScatter`
-################################################################################ 
+################################################################################
 class TestScalarScatter(BaseTestSource):
 
     def test_input_args(self):
@@ -122,7 +122,7 @@ class TestScalarScatter(BaseTestSource):
 
 ################################################################################
 # `TestVectorScatter`
-################################################################################ 
+################################################################################
 class TestVectorScatter(BaseTestSource):
 
     def test_input_args(self):
@@ -142,7 +142,7 @@ class TestVectorScatter(BaseTestSource):
         self.check_vectors(ss, 0, 0, 0)
 
         # Check for a list as a position vector.
-        ss = sources.vector_scatter([0, 1], [0, 1], [0, 1], 
+        ss = sources.vector_scatter([0, 1], [0, 1], [0, 1],
                                     [0, 1], [0, 1], [0, 1], figure=None)
         self.check_positions(ss, [0, 1], [0, 1], [0, 1])
         self.check_scalars(ss, None)
@@ -194,12 +194,12 @@ class TestVectorScatter(BaseTestSource):
 
 ################################################################################
 # `TestArray2DSource`
-################################################################################ 
+################################################################################
 class TestArray2DSource(BaseTestSource):
 
     def test_input_args(self):
         """ Check that array2d_source can take different input arguments """
-        
+
         # Check for a single number as data and no position arrays.
         ss = sources.array2d_source(0, figure=None)
         self.check_scalars(ss, 0)
@@ -242,12 +242,12 @@ class TestArray2DSource(BaseTestSource):
 
 ################################################################################
 # `TestScalarField`
-################################################################################ 
+################################################################################
 class TestScalarField(BaseTestSource):
 
     def test_input_args(self):
         """ Check that scalar_field can take different input arguments """
-        
+
         # Check for 2D arrays as positions vectors, and a function for
         # the data
         f = lambda x, y, z: x**2 + y**2
@@ -277,12 +277,12 @@ class TestScalarField(BaseTestSource):
 
 ################################################################################
 # `TestVectorField`
-################################################################################ 
+################################################################################
 class TestVectorField(BaseTestSource):
 
     def test_input_args(self):
         """ Check that vector_field can take different input arguments """
-        
+
         # Check for 2D arrays as positions vectors, and a function for
         # the data
         x, y = np.mgrid[-3:3, -3:3]
@@ -318,7 +318,7 @@ class TestVectorField(BaseTestSource):
 
 ################################################################################
 # `TestLineSource`
-################################################################################ 
+################################################################################
 class TestLineSource(BaseTestSource):
 
     def test_input_args(self):
@@ -343,7 +343,7 @@ class TestLineSource(BaseTestSource):
 
 ################################################################################
 # `TestVerticalVectorsSource`
-################################################################################ 
+################################################################################
 class TestVerticalVectorsSource(BaseTestSource):
 
     def test_input_args(self):
@@ -361,7 +361,7 @@ class TestVerticalVectorsSource(BaseTestSource):
         self.check_vectors(ss, 0, 0, 1)
 
         # Check for lists as position vectors and as data
-        ss = sources.vertical_vectors_source([0, 1], [0, 1], [0, 1], [2, 3], 
+        ss = sources.vertical_vectors_source([0, 1], [0, 1], [0, 1], [2, 3],
                                                                 figure=None)
         self.check_positions(ss, [0, 1], [0, 1], [0, 1])
         self.check_scalars(ss, [2, 3])
@@ -384,7 +384,7 @@ class TestVerticalVectorsSource(BaseTestSource):
 
 ################################################################################
 # `TestSourceInfinite`
-################################################################################ 
+################################################################################
 class TestVerticalVectorsSource(unittest.TestCase):
 
     def test_infinite(self):
@@ -404,35 +404,35 @@ class TestVerticalVectorsSource(unittest.TestCase):
         s[0, 0, 0] = -np.inf
 
         # Check value errors are raised because of the infinite values
-        self.assertRaises(ValueError, 
+        self.assertRaises(ValueError,
                     sources.grid_source, x[0], y[0], z[0], scalars=s[0],
                     figure=None)
 
-        self.assertRaises(ValueError, 
+        self.assertRaises(ValueError,
                     sources.vertical_vectors_source, x, y, z, s,
                     figure=None)
 
-        self.assertRaises(ValueError, 
+        self.assertRaises(ValueError,
                     sources.array2d_source, x[0], y[0], s[0],
                     figure=None)
 
-        self.assertRaises(ValueError, 
+        self.assertRaises(ValueError,
                     sources.scalar_field, x, y, z, s,
                     figure=None)
 
-        self.assertRaises(ValueError, 
+        self.assertRaises(ValueError,
                     sources.scalar_scatter, x, y, z, s,
                     figure=None)
 
-        self.assertRaises(ValueError, 
+        self.assertRaises(ValueError,
                     sources.vector_scatter, x, y, z, u, v, w,
                     figure=None)
 
-        self.assertRaises(ValueError, 
+        self.assertRaises(ValueError,
                     sources.vector_field, x, y, z, u, v, w,
                     figure=None)
 
-        self.assertRaises(ValueError, 
+        self.assertRaises(ValueError,
                     sources.line_source, x[0, 0], y[0, 0], z[0, 0], s[0, 0],
                     figure=None)
 

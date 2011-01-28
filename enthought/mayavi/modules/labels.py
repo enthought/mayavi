@@ -24,7 +24,7 @@ from enthought.mayavi.core.common import handle_children_state
 
 ################################################################################
 # `Labels` class.
-################################################################################ 
+################################################################################
 class Labels(Module):
 
     """
@@ -63,7 +63,7 @@ class Labels(Module):
 
     input_info = PipelineInfo(datasets=['any'],
                               attribute_types=['any'],
-                              attributes=['any'])    
+                              attributes=['any'])
 
     ########################################
     # Private traits.
@@ -110,7 +110,7 @@ class Labels(Module):
 
     ######################################################################
     # `object` interface.
-    ###################################################################### 
+    ######################################################################
     def __get_pure_state__(self):
         self._compute_object_id()
         d = super(Labels, self).__get_pure_state__()
@@ -127,7 +127,7 @@ class Labels(Module):
 
     ######################################################################
     # `Module` interface.
-    ###################################################################### 
+    ######################################################################
     def setup_pipeline(self):
         mask = MaskPoints()
         mask.filter.set(generate_vertices=True, random_mode=True)
@@ -153,7 +153,7 @@ class Labels(Module):
         self.actor.inputs = [self.visible_points]
         self._number_of_labels_changed(self.number_of_labels)
         self._label_format_changed(self.label_format)
-    
+
     ######################################################################
     # Non-public interface.
     ######################################################################

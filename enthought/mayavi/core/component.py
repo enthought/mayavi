@@ -57,7 +57,7 @@ class Component(PipelineBase):
         dependent on upstream sources and filters.
         """
         pass
-    
+
     def update_pipeline(self):
         """Override this method so that it *updates* the tvtk pipeline
         when data upstream is known to have changed.
@@ -90,7 +90,7 @@ class Component(PipelineBase):
         # Do nothing if we are already running.
         if self.running:
             return
-        
+
         # Setup event handlers.
         self._setup_event_handlers()
 
@@ -120,7 +120,7 @@ class Component(PipelineBase):
         if self.running:
             self.update_pipeline()
             self._setup_events(old, new)
-            
+
     def _inputs_items_changed(self, list_event):
         if self.running:
             self.update_pipeline()
@@ -130,7 +130,7 @@ class Component(PipelineBase):
         if self.running:
             self.update_pipeline()
             self._setup_events(old, new)
-            
+
     def _sources_items_changed(self, list_event):
         if self.running:
             self.update_pipeline()
@@ -143,13 +143,13 @@ class Component(PipelineBase):
     def _teardown_event_handlers(self):
         self._setup_events(self.inputs, [])
         self._setup_events(self.sources, [])
-        
+
     def _setup_events(self, removed, added):
         for object in removed:
             object.on_trait_event(self.update_pipeline, 'pipeline_changed',
                                   remove=True)
             object.on_trait_event(self.update_data, 'data_changed',
-                                  remove=True)        
+                                  remove=True)
         for object in added:
             object.on_trait_event(self.update_pipeline, 'pipeline_changed')
-            object.on_trait_event(self.update_data, 'data_changed')    
+            object.on_trait_event(self.update_data, 'data_changed')

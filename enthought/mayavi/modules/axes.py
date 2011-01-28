@@ -19,7 +19,7 @@ from enthought.mayavi.core.pipeline_info import PipelineInfo
 # `CubeAxesActor2D` class.
 ######################################################################
 class CubeAxesActor2D(tvtk.CubeAxesActor2D):
-    """ Just has a different view than the tvtk.CubesAxesActor2D, with an 
+    """ Just has a different view than the tvtk.CubesAxesActor2D, with an
         additional tick box.
     """
 
@@ -28,7 +28,7 @@ class CubeAxesActor2D(tvtk.CubeAxesActor2D):
 
     input_info = PipelineInfo(datasets=['any'],
                               attribute_types=['any'],
-                              attributes=['any'])    
+                              attributes=['any'])
 
     ########################################
     # The view of this object.
@@ -51,11 +51,11 @@ class CubeAxesActor2D(tvtk.CubeAxesActor2D):
                         Group(
                             Item('use_data_bounds'),
                             HGroup(
-                                 Item('bounds', 
+                                 Item('bounds',
                                     enabled_when='not use_data_bounds'),
                                 ),
                             show_border=True),
-                        Group(   
+                        Group(
                             Item('x_label'),
                             Item('y_label'),
                             Item('z_label'),
@@ -63,7 +63,7 @@ class CubeAxesActor2D(tvtk.CubeAxesActor2D):
                             Item('number_of_labels'),
                             Item('font_factor'),
                             show_border=True),
-                        HGroup(Item('show_actual_bounds', 
+                        HGroup(Item('show_actual_bounds',
                                 label='Use size bigger than screen',
                                 editor=BooleanEditor())),
                         Item('fly_mode'),
@@ -88,10 +88,10 @@ class Axes(Module):
 
     # The property of the axes (color etc.).
     property = Property(record=True)
-    
+
     # The title text property of the axes.
     title_text_property = Property(record=True)
-    
+
     # The label text property of the axes.
     label_text_property = Property(record=True)
 
@@ -104,7 +104,7 @@ class Axes(Module):
     ########################################
     # The view of this object.
 
-    view = View(Group(Item(name='axes', style='custom', resizable=True), 
+    view = View(Group(Item(name='axes', style='custom', resizable=True),
                       label='Axes',
                       show_labels=False),
                 Group(Item(name='_property', style='custom',
@@ -119,7 +119,7 @@ class Axes(Module):
                            resizable=True),
                       label='Label Text',
                       show_labels=False),
-                scrollable=True, resizable=True, 
+                scrollable=True, resizable=True,
                 width=500, height=600
                 )
 

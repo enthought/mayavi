@@ -65,7 +65,7 @@ def exception(msg='Exception', parent=None):
         type = value = tb = None # clean up
 
 def process_ui_events():
-    """Process GUI events. 
+    """Process GUI events.
 
     This function merely abstracts the function so nothing is done when
     no UI is running.

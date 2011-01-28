@@ -21,13 +21,13 @@ from enthought.mayavi.core.ui.engine_view import EngineView, \
 
 
 class EngineRichViewHandler(EngineViewHandler):
-    """ A handler for the EngineRichView object. 
+    """ A handler for the EngineRichView object.
     """
 
     def init_info(self, info):
         """ Informs the handler what the UIInfo object for a View will be.
         Overridden here to add a callback on the creation of the view.
-        
+
         """
         super(EngineRichViewHandler, self).init_info(info)
         info.on_trait_change(self.select_selected, 'initialized')
@@ -39,7 +39,7 @@ class EngineRichViewHandler(EngineViewHandler):
             and eventually collapse other scenes.
         """
         # We need to explore the editors to find the one we are
-        # interested in, and to switch its selection to None, and then 
+        # interested in, and to switch its selection to None, and then
         # back to what we are interested in.
         editors = self.info.ui._editors
         if editors is not None:
@@ -67,7 +67,7 @@ class EngineRichViewHandler(EngineViewHandler):
                 if scene is not current_selection:
                     tree_editor._tree.Collapse(
                                             tree_editor._get_object_nid(scene))
-                        
+
 
     def _on_dclick(self, object):
         """ Called when a node in the tree editor is double-clicked.
@@ -96,15 +96,15 @@ class EngineRichView(EngineView):
         """The default traits view of the Engine View.
         """
         view = View(HSplit(
-                        Item('engine', 
-                            id='mayavi.engine_rich_view.pipeline_view', 
+                        Item('engine',
+                            id='mayavi.engine_rich_view.pipeline_view',
                             springy=True,
                             resizable=True,
-                            editor=self.tree_editor, 
+                            editor=self.tree_editor,
                             dock='tab',
-                            label='Pipeline'), 
+                            label='Pipeline'),
                         Item('engine',
-                            id='mayavi.engine_rich_view.current_selection', 
+                            id='mayavi.engine_rich_view.current_selection',
                             editor=InstanceEditor(
                                         view='current_selection_view'),
                             springy=True,
@@ -125,7 +125,7 @@ class EngineRichView(EngineView):
                     toolbar=self.toolbar,
                     handler=EngineRichViewHandler)
         return view
- 
+
 
     def _actions_default(self):
         """ Append a preferences action to the toolbar: this view of the
@@ -151,7 +151,7 @@ class EngineRichView(EngineView):
     ###########################################################################
 
     def scene_editing_view(self, scene):
-        # Selecting an object if good, because it forces the HSplit to 
+        # Selecting an object if good, because it forces the HSplit to
         # choose a sensible split ratio
         for mayavi_scene in self.engine.scenes:
             sc = mayavi_scene.scene

@@ -55,7 +55,7 @@ class Contour(Component):
                             enter_set=True,
                             auto_set=False,
                             desc='the starting contour value')
-    
+
     # Maximum contour, this is the last contour when `auto_contours`
     # is turned on.
     maximum_contour = Range(value=0.0,
@@ -64,7 +64,7 @@ class Contour(Component):
                             enter_set=True,
                             auto_set=False,
                             desc='the ending contour value')
-    
+
     # The explicit contours to create.  These specify the contours
     # explicitly and are used when `auto_contours` is turned off.  The
     # traits of the items in the list are dynamically generated based
@@ -77,7 +77,7 @@ class Contour(Component):
                           ),
                     rows=3,
                     desc='explicitly the contours to be generated')
-    
+
     # Specify if the filled contour option should be shown in the view
     # or not.  This is useful in situations like the iso_surface
     # module where it does not make sense to use filled contours at
@@ -86,7 +86,7 @@ class Contour(Component):
 
     # Specify if the lower and upper bound for the data is to be
     # automatically reset or not.
-    auto_update_range = Bool(True, 
+    auto_update_range = Bool(True,
                              desc='if the contour range is updated automatically')
 
     ########################################
@@ -116,7 +116,7 @@ class Contour(Component):
 
     ########################################
     # Private traits.
-    
+
     _current_range = Tuple
 
     # The minimum value of the input data.  Set to a very large negative value
@@ -150,7 +150,7 @@ class Contour(Component):
         # These traits are dynamically created.
         for name in ('_data_min', '_data_max', '_default_contour'):
             d.pop(name, None)
-        
+
         return d
 
     ######################################################################
@@ -238,7 +238,7 @@ class Contour(Component):
                      trait_change_notify=False)
             self._clip_contours(rng)
             self._current_range = rng
-        
+
     def _minimum_contour_changed(self, value):
         self._do_auto_contours()
 
@@ -247,7 +247,7 @@ class Contour(Component):
 
     def _number_of_contours_changed(self, value):
         self._do_auto_contours()
-            
+
     def _auto_contours_changed(self, value):
         if value:
             self._do_auto_contours()
@@ -265,11 +265,11 @@ class Contour(Component):
                                         self._data_max)
 
 
-    def _do_auto_contours(self):        
+    def _do_auto_contours(self):
         if not self._has_input():
             return
-        if self.auto_contours:            
-            minc, maxc = self.minimum_contour, self.maximum_contour            
+        if self.auto_contours:
+            minc, maxc = self.minimum_contour, self.maximum_contour
             self.contour_filter.generate_values(self.number_of_contours,
                                                 min(minc, maxc),
                                                 max(minc, maxc))
@@ -288,7 +288,7 @@ class Contour(Component):
             return self._fill_cont_filt
         else:
             return self._cont_filt
-        
+
     def _set_contour_input(self):
         """Sets the input to the appropriate contour filter and
         returns the currently used contour filter.

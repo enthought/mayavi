@@ -1,13 +1,13 @@
 #------------------------------------------------------------------------------
 # Copyright (c) 2005, Enthought, Inc.
 # All rights reserved.
-# 
+#
 # This software is provided without warranty under the terms of the BSD
 # license included in enthought/LICENSE.txt and may be redistributed only
 # under the conditions described in the aforementioned license.  The license
 # is also available online at http://www.enthought.com/licenses/BSD.txt
 # Thanks for using Enthought open source!
-# 
+#
 # Author: Enthought, Inc.
 # Description: <Enthought pyface package component>
 #------------------------------------------------------------------------------
@@ -28,7 +28,7 @@ from enthought.traits.api import HasTraits, Range, false, \
                                  Instance, Trait, List
 from enthought.traits.ui.api import View, Group, Handler, ListEditor, Item
 from enthought.tvtk.api import tvtk
-from enthought.tvtk.tvtk_base import vtk_color_trait, TraitRevPrefixMap 
+from enthought.tvtk.tvtk_base import vtk_color_trait, TraitRevPrefixMap
 from enthought.persistence import state_pickler
 
 
@@ -42,7 +42,7 @@ class LightGlyph(HasTraits):
     """
     # The version of this class.  Used for persistence.
     __version__ = 0
-    
+
     def __init__(self):
         self.el = 0.0
         self.az = 0.0
@@ -57,7 +57,7 @@ class LightGlyph(HasTraits):
         t.rotate_y(90.0)
         t.translate((-2, 0, 0))
         tf.input = arrow.output
-        
+
         mapper = tvtk.PolyDataMapper()
         mapper.input = tf.output
 
@@ -72,15 +72,15 @@ class LightGlyph(HasTraits):
         d = self.__dict__.copy()
         for name in ['__sync_trait__',  '__traits_listener__']:
             d.pop(name, None)
-        return d                
+        return d
 
     def __getstate__(self):
         return state_pickler.dumps(self)
-    
+
     def __setstate__(self, str_state):
         self.__init__()
         state_pickler.set_state(self, state_pickler.loads_state(str_state))
-        
+
     #################################################################
     # `LightGlyph` interface.
     #################################################################
@@ -98,7 +98,7 @@ class LightGlyph(HasTraits):
         """Removes the actors of the glyph from the given renderer
         (`ren`)."""
         ren.remove_actor(self.actor)
-        
+
     def move_to(self, elevation=None, azimuth = None):
         """Move the glyphs to the specified elevation and azimuth."""
         self.actor.rotate_x(-self.el)
@@ -122,7 +122,7 @@ class LightGlyph(HasTraits):
         """Change the glyphs color."""
         self.actor.property.color = clr
 
-    
+
 
 ######################################################################
 # `CameraLight` class.
@@ -146,7 +146,7 @@ class CameraLight(HasTraits):
     source = Instance(tvtk.Light, ())
 
     # FIXME: Traits Delegation does not work correctly and changes to
-    # this object are not reflected in the delegate nicely.    
+    # this object are not reflected in the delegate nicely.
     #color = Delegate('source', modify=True)
     #intensity = Delegate('source', modify=True)
 
@@ -159,7 +159,7 @@ class CameraLight(HasTraits):
     default_view = View(Item(name='activate'), Item(name='elevation'),
                         Item(name='azimuth'), Item(name='intensity'),
                         Item(name='color'))
-    
+
     #################################################################
     # `object` interface.
     #################################################################
@@ -170,7 +170,7 @@ class CameraLight(HasTraits):
         self._intensity_changed(self.intensity)
         self._activate_changed(self.activate)
         self._color_changed(self.color)
-        
+
         renwin.renderer.add_light(self.source)
         self.on_trait_change(renwin.render)
 
@@ -178,15 +178,15 @@ class CameraLight(HasTraits):
         d = self.__dict__.copy()
         for name in ['__sync_trait__', '__traits_listener__']:
             d.pop(name, None)
-        return d                
+        return d
 
     def __getstate__(self):
         return state_pickler.dumps(self)
-    
+
     def __setstate__(self, str_state):
         #self.__init__()
         state_pickler.set_state(self, state_pickler.loads_state(str_state))
-        
+
     #################################################################
     # `LightGlyph` interface.
     #################################################################
@@ -231,7 +231,7 @@ class CameraLight(HasTraits):
     def _color_changed(self, val):
         self.source.color = val
         self.glyph.set_color(val)
-        
+
     def _elevation_changed(self, val):
         self.glyph.move_to(val, self.azimuth)
         self.source.position = self._to_pos(val, self.azimuth)
@@ -242,7 +242,7 @@ class CameraLight(HasTraits):
 
     #################################################################
     # Non-public interface.
-    #################################################################    
+    #################################################################
     def _to_pos(self, elevation, azimuth):
         """Convert the given elevation and azimuth angles (degrees) to
         a position vector."""
@@ -269,7 +269,7 @@ class CameraLight(HasTraits):
 ######################################################################
 class CloseHandler(Handler):
     """This class cleans up after the UI for the Light Manager is
-    closed."""    
+    closed."""
     def close(self, info, is_ok):
         """This method is invoked when the user closes the UI."""
         light_manager = info.object
@@ -320,13 +320,13 @@ class LightManager(HasTraits):
                                                  page_name='Light'),
                   record=True)
 
-    view = View( Group( 'light_mode', 
+    view = View( Group( 'light_mode',
                         'number_of_lights', ),
                 Item('lights', style='custom', show_label=False),
                 resizable=True,
                 buttons=['OK'])
 
-    
+
     #################################################################
     # `object` interface.
     #################################################################
@@ -336,7 +336,7 @@ class LightManager(HasTraits):
         self.ui = None
         self.renwin = renwin
         ren = self.renwin.renderer
-        
+
         # VTK requires that there always be atleast one light turned
         # on (with SwitchOn).  The renderer already has one headlight
         # already enabled.  We merely set the intensity of this light
@@ -367,7 +367,7 @@ class LightManager(HasTraits):
 
     def __getstate__(self):
         return state_pickler.dumps(self)
-    
+
     def __setstate__(self, str_state):
         # This method is unnecessary since this object will almost
         # never be pickled by itself and only via the scene, therefore
@@ -377,12 +377,12 @@ class LightManager(HasTraits):
         state = state_pickler.loads_state(str_state)
         state_pickler.update_state(state)
         self.__set_pure_state__(state)
-        
+
     #################################################################
     # `LightManager` interface.
     #################################################################
     def configure(self):
-        """Pops up the GUI control widget."""        
+        """Pops up the GUI control widget."""
         if self.ui is None:
             self._show_glyphs()
             view = View(Group(Item(name='light_mode'),

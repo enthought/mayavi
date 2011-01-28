@@ -1,4 +1,4 @@
-"""MayaVi test related utilities. 
+"""MayaVi test related utilities.
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
 # Copyright (c) 2005-2008, Enthought, Inc.
@@ -46,7 +46,7 @@ class MayaviTestError(Exception):
 # Much of this code is translated from `vtk.test.Testing`.
 def _print_image_error(img_err, err_index, img_base):
     """Prints out image related error information."""
-    msg = """Failed image test with error: %(img_err)f 
+    msg = """Failed image test with error: %(img_err)f
              Baseline image, error index: %(img_base)s, %(err_index)s
              Test image:  %(img_base)s.test.small.jpg
              Difference image: %(img_base)s.diff.small.jpg
@@ -62,7 +62,7 @@ def _print_image_success(img_err, err_index):
     logger.debug(msg)
     if VERBOSE:
         print msg
-    
+
 
 def _handle_failed_image(idiff, src_img, pngr, img_fname):
     """Writes all the necessary images when an image comparison
@@ -73,7 +73,7 @@ def _handle_failed_image(idiff, src_img, pngr, img_fname):
     pngw = tvtk.PNGWriter(file_name=f_base + ".diff.png",
                           input=idiff.output)
     pngw.write()
-    
+
     # write the difference image scaled and gamma adjusted for the
     # dashboard.
     sz = pngr.output.dimensions
@@ -95,7 +95,7 @@ def _handle_failed_image(idiff, src_img, pngr, img_fname):
     # write out the image that was generated.
     pngw.set(input=src_img, file_name=f_base + ".test.png")
     pngw.write()
-    
+
     # write out a smaller version of the image that was generated.
     shrink.input = idiff.input
     jpegw.set(input=shrink.output, file_name=f_base + ".test.small.jpg")
@@ -145,14 +145,14 @@ def compare_image_with_saved_image(src_img, img_fname, threshold=10,
         pngw.write()
         if VERBOSE:
             print "Creating baseline image '%s'."%img_fname
-        return 
-        
+        return
+
     pngr = tvtk.PNGReader(file_name=img_fname)
     pngr.update()
 
     if allow_resize:
         src_resample = tvtk.ImageResample(input=src_img, interpolate=1,
-                                          interpolation_mode='cubic')    
+                                          interpolation_mode='cubic')
         img_resample = tvtk.ImageResample(input=pngr.output, interpolate=1,
                                           interpolation_mode='cubic')
         _set_scale(src_resample, img_resample)
@@ -224,7 +224,7 @@ def compare_image_raw(renwin, img_fname, threshold=10, allow_resize=True):
     """
     # If this is not done the window may not be parented correctly.
     GUI.process_events()
-    
+
     w2if = tvtk.WindowToImageFilter(read_front_buffer=False, input=renwin)
     w2if.update()
     return compare_image_with_saved_image(w2if.output, img_fname,
@@ -244,7 +244,7 @@ def compare_image_offscreen(scene, img_path):
     abs_img_path = img_path
     if not os.path.isabs(img_path):
         abs_img_path = fixpath(img_path)
-    
+
     s = scene.scene
     saved = s.off_screen_rendering
     s.off_screen_rendering = True
@@ -269,7 +269,7 @@ def compare_image(scene, img_path):
     abs_img_path = img_path
     if not os.path.isabs(img_path):
         abs_img_path = fixpath(img_path)
-    
+
     s = scene.scene
     s.disable_render = True
     ren = s.renderer
@@ -295,7 +295,7 @@ class TestCase(Mayavi):
     """
     This class is to be subclassed when you write a test.
     """
-    
+
     # Interact with the user after test is done?  Normally tests just
     # exit after completion, this prevents that.
     interact = Bool(False)
@@ -437,7 +437,7 @@ class TestCase(Mayavi):
 
         If you import MayaVi related code earlier you will run into
         difficulties.
-        """        
+        """
         raise NotImplementedError
 
     def new_scene(self):
@@ -465,7 +465,7 @@ class TestCase(Mayavi):
         a CVS checkout later than March 2006.
         """
         return compare_image_offscreen(scene, img_path)
-    
+
     def compare_image(self, scene, img_path):
         """Given a MayaVi scene and a path to a valid image, this
         compares the image rendered on the scene to that saved as the
@@ -511,10 +511,10 @@ def get_example_data(fname):
     """Given a relative path to data inside the examples directory,
     obtains the full path to the file.
     """
-    p = os.path.join(os.pardir, os.pardir, 
+    p = os.path.join(os.pardir, os.pardir,
                      'examples', 'mayavi', 'data', fname)
     return os.path.abspath(fixpath(p))
-   
+
 def test(function):
     """A decorator to make a simple mayavi2 script function into a
     test case.  Note that this will not work with nosetests.

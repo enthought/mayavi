@@ -42,15 +42,15 @@ ID = 'enthought.mayavi_e3'
 # `PreferenceManager` class
 ################################################################################
 class PreferenceManager(HasTraits):
-    
-    # The root preferences helper for preferences of the form 
+
+    # The root preferences helper for preferences of the form
     # 'enthought.mayavi.preference'.
     root = Instance(PreferencesHelper)
-    
-    # The mlab preferences helper for preferences of the form 
+
+    # The mlab preferences helper for preferences of the form
     # 'enthought.mayavi.mlab.preference'.
     mlab = Instance(PreferencesHelper)
-    
+
     # The preferences.
     preferences = Instance(IPreferences)
 

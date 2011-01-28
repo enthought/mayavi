@@ -3,7 +3,7 @@ the code in tvtk_base.  More tests for TVTK objects should be in
 test_tvtk.py.
 
 """
-# Author: Prabhu Ramachandran 
+# Author: Prabhu Ramachandran
 # Copyright (c) 2004, Enthought, Inc.
 # License: BSD Style.
 
@@ -23,32 +23,32 @@ from enthought.tvtk.common import get_tvtk_name, camel2enthought
 class Prop(tvtk_base.TVTKBase):
     def __init__(self, obj=None, update=1, **traits):
         tvtk_base.TVTKBase.__init__(self, vtk.vtkProperty, obj, update, **traits)
-    
+
     edge_visibility = tvtk_base.false_bool_trait
     def _edge_visibility_changed(self, old_val, new_val):
         self._do_change(self._vtk_obj.SetEdgeVisibility, self.edge_visibility_)
-    
+
     representation = traits.Trait('surface',
                             tvtk_base.TraitRevPrefixMap({'points': 0, 'wireframe': 1, 'surface': 2}))
     def _representation_changed(self, old_val, new_val):
         self._do_change(self._vtk_obj.SetRepresentation, self.representation_)
-    
+
     opacity = traits.Trait(1.0, traits.Range(0.0, 1.0))
     def _opacity_changed(self, old_val, new_val):
         self._do_change(self._vtk_obj.SetOpacity,
                         self.opacity)
-    
-    specular_color = tvtk_base.vtk_color_trait((1.0, 1.0, 1.0)) 
+
+    specular_color = tvtk_base.vtk_color_trait((1.0, 1.0, 1.0))
     def _specular_color_changed(self, old_val, new_val):
         self._do_change(self._vtk_obj.SetSpecularColor,
                         self.specular_color, 1)
-    
-    diffuse_color = tvtk_base.vtk_color_trait((1.0, 1.0, 1.0)) 
+
+    diffuse_color = tvtk_base.vtk_color_trait((1.0, 1.0, 1.0))
     def _diffuse_color_changed(self, old_val, new_val):
         self._do_change(self._vtk_obj.SetDiffuseColor,
                         self.diffuse_color, 1)
-    
-    color = tvtk_base.vtk_color_trait((1.0, 1.0, 1.0)) 
+
+    color = tvtk_base.vtk_color_trait((1.0, 1.0, 1.0))
     def _color_changed(self, old_val, new_val):
         self._do_change(self._vtk_obj.SetColor,
                         self.color)
@@ -57,10 +57,10 @@ class Prop(tvtk_base.TVTKBase):
                            ('opacity', 'GetOpacity'),
                            ('specular_color', 'GetSpecularColor'),
                            ('color', 'GetColor'),
-                           ('diffuse_color', 'GetDiffuseColor'), 
+                           ('diffuse_color', 'GetDiffuseColor'),
                            ('representation', 'GetRepresentation'))
 
-    
+
 
 class TestTVTKBase(unittest.TestCase):
     def test_tvtk_name(self):
@@ -132,7 +132,7 @@ class TestTVTKBase(unittest.TestCase):
         val = (1.0, 0.0, 0.0)
         obj.SetDiffuseColor(val)
         self.assertEqual(p.diffuse_color, val)
-        
+
         val = (0.0, 1.0, 0.0)
         obj.SetSpecularColor(val)
         self.assertEqual(p.specular_color, val)
@@ -168,7 +168,7 @@ class TestTVTKBase(unittest.TestCase):
 
         obj.SetRepresentationToSurface()
         self.assertEqual(p.representation, 'surface')
-        
+
     def test_pickle(self):
         """Test if pickling works."""
         p = Prop()
@@ -190,7 +190,7 @@ class TestTVTKBase(unittest.TestCase):
         val = (0.0, 1.0, 1.0)
         self.assertEqual(p.color, val)
         val = (0.0, 1.0, 1.0)
-        self.assertEqual(p.diffuse_color, val)        
+        self.assertEqual(p.diffuse_color, val)
         val = (1.0, 1.0, 0.0)
         self.assertEqual(p.specular_color, val)
 
@@ -221,7 +221,7 @@ class TestTVTKBase(unittest.TestCase):
                           'representation', 'points1')
         self.assertRaises(traits.TraitError, setattr , p,
                           'representation', 'POINTS')
-        
+
     def test_deref_vtk(self):
         """Test the `deref_vtk` function."""
         p = Prop()
@@ -229,7 +229,7 @@ class TestTVTKBase(unittest.TestCase):
         self.assertEqual(o.IsA('vtkProperty'), True)
         o1 = tvtk_base.deref_vtk(o)
         self.assertEqual(o1.IsA('vtkProperty'), True)
-        
+
         o = tvtk_base.deref_vtk(self)
         self.assertEqual(o.__class__.__name__, 'TestTVTKBase')
 
@@ -254,7 +254,7 @@ class TestTVTKBase(unittest.TestCase):
         self.assertEqual(p.opacity, 0.1)
         self.assertEqual(p.color, (1.0, 0.0, 0.0))
         self.assertEqual(p.representation, 'points')
-        
+
         # Test case where the object traits are wrong.
         self.assertRaises(traits.TraitError, Prop, foo='bar')
 
@@ -263,7 +263,7 @@ class TestTVTKBase(unittest.TestCase):
         # HACK!  The zz in the method name ensures that this is run
         # last.  The reloading messes up some of the other tests
         # because the Prop classes base class is different.
-        
+
         l1 = len(tvtk_base._object_cache)
         p = Prop()
         addr = p._vtk_obj.__this__
@@ -271,7 +271,7 @@ class TestTVTKBase(unittest.TestCase):
         self.assertEqual(p, tvtk_base._object_cache.get(addr))
 
         del p
-        gc.collect() # Force collection.        
+        gc.collect() # Force collection.
         self.assertEqual(l1, len(tvtk_base._object_cache))
         self.assertEqual(tvtk_base._object_cache.has_key(addr),
                          False)
@@ -281,7 +281,7 @@ class TestTVTKBase(unittest.TestCase):
         l1 = len(tvtk_base._object_cache)
         reload(tvtk_base)
         self.assertEqual(l1, len(tvtk_base._object_cache))
-       
+
     # Reloading causes havoc with nosetests based tests so we skip in
     # that case.  Unittest will see the test just fine.
     test_zz_object_cache.__test__ = False

@@ -101,7 +101,7 @@ class SaveToClipboardAction(Action):
     def perform(self):
         """ Performs the action. """
         self._window.scene.save_to_clipboard()
-        
+
 
 ######################################################################
 # `SpecialViewAction` class.
@@ -121,7 +121,7 @@ class SpecialViewAction(Action):
             meth = getattr(self._window.scene, self.view)
             meth()
         except AttributeError:
-            pass    
+            pass
 
 
 def create_ivtk_menu(obj):
@@ -134,7 +134,7 @@ def create_ivtk_menu(obj):
 
       This is the window which requires the menu items.
     """
-    
+
     menu_bar_manager = MenuBarManager(
         MenuManager(SaveImageAction(obj),
                     Separator(),
@@ -200,7 +200,7 @@ class SceneWithBrowser(SplitPanel):
         """ Creates the right hand side or bottom depending on the
         style.  's' and 'scene' are bound to the Scene instance."""
         self._create_scene(parent)
-        self.scene.renderer.background = 0.5, 0.5, 0.5        
+        self.scene.renderer.background = 0.5, 0.5, 0.5
         return self.scene.control
 
     ###########################################################################
@@ -258,7 +258,7 @@ class IVTKWithCrust(SplitApplicationWindow):
         """ Creates the left hand side or top depending on the style. """
 
         self.scene = DecoratedScene(parent)
-        self.scene.renderer.background = 0.5, 0.5, 0.5        
+        self.scene.renderer.background = 0.5, 0.5, 0.5
         return self.scene.control
 
     def _create_rhs(self, parent):
@@ -269,7 +269,7 @@ class IVTKWithCrust(SplitApplicationWindow):
         self.python_shell.bind('scene', self.scene)
         self.python_shell.bind('s', self.scene)
         self.python_shell.bind('tvtk', tvtk)
-        
+
         return self.python_shell.control
 
 
@@ -342,7 +342,7 @@ class IVTKWithCrustAndBrowser(SplitApplicationWindow):
         self.python_shell.bind('browser', self.browser)
         self.python_shell.bind('b', self.browser)
         self.python_shell.bind('tvtk', tvtk)
-        
+
         return self.python_shell.control
 
 
@@ -356,7 +356,7 @@ class IVTK(ApplicationWindow):
 
     # The `Scene` instance into which VTK renders.
     scene = Instance(Scene)
-    
+
     # The callable (or class) to create the scene instance
     _scene_factory = Callable(DecoratedScene)
 
@@ -392,7 +392,7 @@ class IVTK(ApplicationWindow):
         self.scene = self._scene_factory(parent)
 
         return self.scene.control
-    
+
 ######################################################################
 # `IVTKWithBrowser` class.
 ######################################################################
@@ -457,7 +457,7 @@ def viewer(browser=True, instantiate_gui=False):
     ----------
 
     - browser : `bool` (default, True)
-    
+
       If True, creates an IVTK scene with an embedded PipelineBrowser.
       If False, does not create it.
 
@@ -486,7 +486,7 @@ def main():
     window.open()
     # Start the GUI event loop!
     gui.start_event_loop()
-    
+
 
 if __name__ == '__main__':
     main()

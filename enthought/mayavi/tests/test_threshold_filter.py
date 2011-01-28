@@ -16,7 +16,7 @@ from enthought.mayavi.sources.array_source import ArraySource
 
 
 class TestThresholdFilter(unittest.TestCase):
-    
+
     def make_src(self, nan=False):
         data      = np.empty((3, 3, 3))
         if nan:
@@ -35,7 +35,7 @@ class TestThresholdFilter(unittest.TestCase):
         self.e = e
         self.s = s
 
-       
+
         self.scene = e.current_scene
         return
 
@@ -44,12 +44,12 @@ class TestThresholdFilter(unittest.TestCase):
         after the test methods have been invoked"""
         self.e.stop()
         return
-    
+
     def test_threshold_filter_nan(self):
         src = self.make_src(nan=True)
         self.e.add_source(src)
         threshold = Threshold()
-        self.e.add_filter(threshold) 
+        self.e.add_filter(threshold)
         self.assertEqual(np.nanmin(src.scalar_data),
                          np.nanmin(
                             threshold.outputs[0].point_data.scalars.to_array()
@@ -64,15 +64,15 @@ class TestThresholdFilter(unittest.TestCase):
         src = self.make_src()
         self.e.add_source(src)
         threshold = Threshold()
-        self.e.add_filter(threshold) 
+        self.e.add_filter(threshold)
         threshold.upper_threshold = 20.
         self.assertTrue(20 >=
                          np.nanmax(
                             threshold.outputs[0].point_data.scalars.to_array()
                          ))
         return
-    
 
-    
+
+
 if __name__ == '__main__':
     unittest.main()

@@ -21,17 +21,17 @@ from enthought.mayavi.modules.outline import Outline
 from enthought.mayavi.modules.contour_grid_plane import ContourGridPlane
 from enthought.mayavi.modules.scalar_cut_plane import ScalarCutPlane
 
-class TestVTKXMLReader(unittest.TestCase):   
-       
+class TestVTKXMLReader(unittest.TestCase):
+
     def setUp(self):
-        
+
         e = NullEngine()
         # Uncomment to see visualization for debugging etc.
         #e = Engine()
         e.start()
         e.new_scene()
         self.e=e
-        
+
         # Read a VTK XML data file.
         r = VTKXMLFileReader()
         r.initialize(get_example_data('cube.vti'))
@@ -60,7 +60,7 @@ class TestVTKXMLReader(unittest.TestCase):
         e.add_module(cp)
         ip = cp.implicit_plane
         ip.normal = 0,0,1
-        ip.origin = 0.5, 0.5, 1.0  
+        ip.origin = 0.5, 0.5, 1.0
         # Since this is running offscreen this seems necessary.
         ip.widget.origin = 0.5, 0.5, 1.0
         ip.widget.enabled = False
@@ -68,14 +68,14 @@ class TestVTKXMLReader(unittest.TestCase):
         self.cgp2=cgp2
         self.cp=cp
         return
-        
+
     def tearDown(self):
         """For necessary clean up, automatically called by TestCase after the test methods have been invoked"""
         self.e.stop()
         return
 
     def check(self):
-        """Do the actual testing."""             
+        """Do the actual testing."""
         scene = self.scene
         src = scene.children[0]
         mm = src.children[0]
@@ -93,17 +93,17 @@ class TestVTKXMLReader(unittest.TestCase):
         self.assertAlmostEqual(numpy.sum(ip.origin - (0.5, 0.5, 1.0)), 0.0)
         self.assertEqual(ip.widget.enabled,False)
 
-        
 
-    def test_vtk_xml_reader(self): 
-        "Test if the test fixture works"                       
+
+    def test_vtk_xml_reader(self):
+        "Test if the test fixture works"
         #Now test.
         self.check()
-        
+
         #from enthought.mayavi.tools.show import show
         #show()
-    
-    def test_save_and_restore(self):       
+
+    def test_save_and_restore(self):
         """Test if saving a visualization and restoring it works."""
         engine = self.e
         scene = self.scene
@@ -115,7 +115,7 @@ class TestVTKXMLReader(unittest.TestCase):
         f.seek(0) # So we can read this saved data.
 
         # Remove existing scene.
-       
+
         engine.close_scene(scene)
 
         # Load visualization
@@ -123,7 +123,7 @@ class TestVTKXMLReader(unittest.TestCase):
         self.scene = engine.current_scene
 
         self.check()
-    
+
 
     def test_deepcopied(self):
         """Test if the MayaVi2 visualization can be deep-copied."""
@@ -134,7 +134,7 @@ class TestVTKXMLReader(unittest.TestCase):
         s =  self.scene
         source = s.children.pop()
         # Add it back to see if that works without error.
-        s.children.append(source)       
+        s.children.append(source)
         cp = source.children[0].children[-1]
         cp.implicit_plane.widget.enabled = False
 
@@ -145,7 +145,7 @@ class TestVTKXMLReader(unittest.TestCase):
         # object from the UI via the right-click menu on the tree
         # view, and pasting the copy back.
         source1 = copy.deepcopy(source)
-        s.children[0] = source1 
+        s.children[0] = source1
         cp = source1.children[0].children[-1]
         cp.implicit_plane.widget.enabled = False
         self.check()

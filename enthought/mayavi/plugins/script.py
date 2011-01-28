@@ -61,7 +61,7 @@ class Script(HasTraits):
             exception()
 
     def add_module(self, mod, obj=None):
-        """Adds a given module to the MayaVi pipeline. Adds it to the selected 
+        """Adds a given module to the MayaVi pipeline. Adds it to the selected
         object, or to an object passed thought the kwarg `obj`.
         """
         try:
@@ -70,7 +70,7 @@ class Script(HasTraits):
             exception()
 
     def add_filter(self, fil, obj=None):
-        """Adds a given filter to the MayaVi pipeline. Adds it to the selected 
+        """Adds a given filter to the MayaVi pipeline. Adds it to the selected
         object, or to an object passed thought the kwarg `obj`.
         """
         try:
@@ -119,4 +119,4 @@ class Script(HasTraits):
         """Traits handler for changes to application.
         """
         self.engine = get_imayavi_engine(window)
-        
+

@@ -4,7 +4,7 @@ polar plot.
 
 This example requires scipy.
 
-In this example we use the mlab's mesh function: 
+In this example we use the mlab's mesh function:
 :func:`enthought.mayavi.mlab.mesh`.
 For plotting surfaces this is a very versatile function. The surfaces can
 be defined as functions of a 2D grid.
@@ -14,7 +14,7 @@ sphere, and then in polar. The polar plot is simply obtained by varying
 the radius of the previous sphere.
 """
 
-# Author: Gael Varoquaux <gael.varoquaux@normalesup.org> 
+# Author: Gael Varoquaux <gael.varoquaux@normalesup.org>
 # Copyright (c) 2008, Enthought, Inc.
 # License: BSD Style.
 

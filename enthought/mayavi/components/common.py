@@ -41,10 +41,10 @@ def convert_to_poly_data(data):
         if data.is_a(name):
             fil = fil_class()
             break
-        
+
     if fil is not None:
         fil.input = data
         return fil.output
     else:
         error('Given object is not a VTK dataset: %s'%data.__class__.__name__)
-    
+

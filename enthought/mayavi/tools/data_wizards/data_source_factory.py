@@ -16,7 +16,7 @@ ArrayOrNone = Trait(None, (None, CArray))
 # The DataSourceFactory class
 ############################################################################
 class DataSourceFactory(HasStrictTraits):
-    """ Factory for creating data sources. The information about the 
+    """ Factory for creating data sources. The information about the
         organisation of the data is given by setting the public traits.
     """
 
@@ -28,7 +28,7 @@ class DataSourceFactory(HasStrictTraits):
 
     # If the data is unstructured
     unstructured = false
-    
+
     # If the factory should attempt to connect the data points
     connected = true
 
@@ -37,7 +37,7 @@ class DataSourceFactory(HasStrictTraits):
     position_y = ArrayOrNone
     position_z = ArrayOrNone
 
-    # Connectivity array. If none, it is implicitely inferred from the array 
+    # Connectivity array. If none, it is implicitely inferred from the array
     # indices
     connectivity_triangles = ArrayOrNone
 
@@ -59,7 +59,7 @@ class DataSourceFactory(HasStrictTraits):
     #----------------------------------------------------------------------
     # Private traits
     #----------------------------------------------------------------------
-    
+
     _vtk_source = Instance(tvtk.DataSet)
 
     _mayavi_source = Instance(Source)
@@ -81,18 +81,18 @@ class DataSourceFactory(HasStrictTraits):
         """ Adds the vector data to the vtk source.
         """
         if self.has_vector_data:
-            vectors = c_[ self.vector_u.ravel(), 
+            vectors = c_[ self.vector_u.ravel(),
                           self.vector_v.ravel(),
                           self.vector_w.ravel(),
                         ]
             self._vtk_source.point_data.vectors = vectors
 
-    
+
     def _mk_polydata(self):
         """ Creates a PolyData vtk data set using the factory's
             attributes.
         """
-        points = c_[ self.position_x.ravel(), 
+        points = c_[ self.position_x.ravel(),
                      self.position_y.ravel(),
                      self.position_z.ravel(),
                    ]
@@ -112,7 +112,7 @@ class DataSourceFactory(HasStrictTraits):
 
 
     def _mk_image_data(self):
-        """ Creates an ImageData VTK data set and the associated ArraySource 
+        """ Creates an ImageData VTK data set and the associated ArraySource
             using the factory's attributes.
         """
         self._mayavi_source = ArraySource(  transpose_input_array=True,
@@ -123,7 +123,7 @@ class DataSourceFactory(HasStrictTraits):
 
 
     def _mk_rectilinear_grid(self):
-        """ Creates a RectilinearGrid VTK data set using the factory's 
+        """ Creates a RectilinearGrid VTK data set using the factory's
             attributes.
         """
         rg = tvtk.RectilinearGrid()
@@ -143,22 +143,22 @@ class DataSourceFactory(HasStrictTraits):
         rg.z_coordinates = z
         self._vtk_source = rg
         self._mayavi_source = VTKDataSource(data=self._vtk_source)
-        
+
 
     def _mk_structured_grid(self):
-        """ Creates a StructuredGrid VTK data set using the factory's 
+        """ Creates a StructuredGrid VTK data set using the factory's
             attributes.
         """
         # FIXME: We need to figure out the dimensions of the data
         # here, if any.
         sg = tvtk.StructuredGrid(dimensions=self.scalar_data.shape)
-        sg.points = c_[ self.position_x.ravel(), 
+        sg.points = c_[ self.position_x.ravel(),
                         self.position_y.ravel(),
                         self.position_z.ravel(),
                       ]
         self._vtk_source = sg
         self._mayavi_source = VTKDataSource(data=self._vtk_source)
- 
+
 
     #----------------------------------------------------------------------
     # Public interface
@@ -194,7 +194,7 @@ def view(src):
     from enthought.mayavi import mlab
     mayavi = mlab.get_engine()
     fig = mlab.figure(bgcolor=(1, 1, 1), fgcolor=(0, 0, 0),)
-    mayavi.add_source(src) 
+    mayavi.add_source(src)
 
     mlab.pipeline.surface(src, opacity=0.1)
     mlab.pipeline.surface(mlab.pipeline.extract_edges(src),
@@ -216,10 +216,10 @@ def test_rectilinear_grid():
     factory = DataSourceFactory()
 
     scalars = random.random((3, 3, 3))
-    x = arange(3)**2 
+    x = arange(3)**2
     y = 0.5*arange(3)**2
     z = arange(3)**2
-    
+
     rectilinear_grid = factory.build_data_source(scalar_data=scalars,
                                        position_implicit=False,
                                        orthogonal_grid=True,
@@ -244,7 +244,7 @@ def test_structured_grid():
                                        position_y=y,
                                        position_z=z)
     view(structured_grid)
-    
+
 
 
 if __name__ == '__main__':

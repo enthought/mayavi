@@ -21,9 +21,9 @@ from enthought.tvtk.api import tvtk
 from enthought.mayavi.core.base import Base
 from enthought.mayavi.core.common import error
 
-from enthought.mayavi.core import lut 
+from enthought.mayavi.core import lut
 lut_image_dir = os.path.dirname(lut.__file__)
-pylab_luts = state_pickler.load_state(os.path.join(lut_image_dir, 
+pylab_luts = state_pickler.load_state(os.path.join(lut_image_dir,
                                                 'pylab_luts.pkl'))
 
 #################################################################
@@ -52,7 +52,7 @@ def check_lut_first_line(line, file_name=''):
     try:
         n_color = first[2]
     except:
-        
+
         raise IOError, "Error: No size for LookupTable specified."
     else:
         return n_color
@@ -60,7 +60,7 @@ def check_lut_first_line(line, file_name=''):
 def parse_lut_file(file_name):
     """Parse the file specified by its name `file_name` for a LUT and
     return the list of parsed values."""
-    
+
     input = open(file_name, "r")
 
     line = input.readline()
@@ -89,7 +89,7 @@ def parse_lut_file(file_name):
 def lut_mode_list():
     """ Function to generate the list of acceptable lut_mode values.
     """
-    lut_mode_list = ( ['blue-red', 'black-white', 'file', ] 
+    lut_mode_list = ( ['blue-red', 'black-white', 'file', ]
                             + pylab_luts.keys() )
     lut_mode_list.sort()
     return lut_mode_list
@@ -99,7 +99,7 @@ def lut_mode_list():
 # `LUTManager` class.
 ######################################################################
 class LUTManager(Base):
-    
+
     # The version of this class.  Used for persistence.
     __version__ = 0
 
@@ -117,7 +117,7 @@ class LUTManager(Base):
 
     # The title text property of the axes.
     title_text_property = Property(record=True)
-    
+
     # The label text property of the axes.
     label_text_property = Property(record=True)
 
@@ -156,7 +156,7 @@ class LUTManager(Base):
                             desc='if the default data name is to be used')
 
     # The default data name -- set by the module manager.
-    default_data_name = Str('data', enter_set=True, auto_set=False, 
+    default_data_name = Str('data', enter_set=True, auto_set=False,
                             desc='the default data name')
 
     # The optionally user specified name of the data.
@@ -178,7 +178,7 @@ class LUTManager(Base):
                        desc='the range of the data mapped')
 
     # Create a new LUT.
-    create_lut = Button('Launch LUT editor', 
+    create_lut = Button('Launch LUT editor',
                         desc='if we launch a Lookup table editor in'
                              ' a separate process')
 
@@ -188,7 +188,7 @@ class LUTManager(Base):
     _orig_data_range = Array(shape=(2,), value=[0.0, 1.0], dtype=float)
     _title_text_property = Instance(tvtk.TextProperty)
     _label_text_property = Instance(tvtk.TextProperty)
-    
+
     ######################################################################
     # `object` interface
     ######################################################################
@@ -216,13 +216,13 @@ class LUTManager(Base):
 
         # Call render when the text properties are changed.
         ttp.on_trait_change(self.render)
-        ltp.on_trait_change(self.render)        
-        
+        ltp.on_trait_change(self.render)
+
         # Initialize the scalar_bar_widget
         self.scalar_bar_widget.set(scalar_bar_actor=self.scalar_bar,
                                    key_press_activation=False)
         self._number_of_colors_changed(self.number_of_colors)
-        
+
 
     ######################################################################
     # `Base` interface
@@ -237,10 +237,10 @@ class LUTManager(Base):
 
         # Show the legend if necessary.
         self._show_scalar_bar_changed(self.show_scalar_bar)
-        
+
         # Call parent method to set the running state.
         super(LUTManager, self).start()
-        
+
     def stop(self):
         """Invoked when this object is removed from the mayavi
         pipeline.
@@ -260,13 +260,13 @@ class LUTManager(Base):
     # Non-public interface
     ######################################################################
     def _lut_mode_changed(self, value):
-       
+
         if value == 'file':
             if self.file_name:
                 self.load_lut_from_file(self.file_name)
             #self.lut.force_build()
             return
-        
+
         reverse = self.reverse_lut
         if value in pylab_luts:
             lut = pylab_luts[value]
@@ -306,7 +306,7 @@ class LUTManager(Base):
         lut.force_build()
 
         self.render()
- 
+
     def _scene_changed(self, value):
         sbw = self.scalar_bar_widget
         if value is None:
@@ -328,7 +328,7 @@ class LUTManager(Base):
         if self.lut_mode == 'file':
             return
         elif self.lut_mode in pylab_luts:
-            # We can't interpolate these LUTs, as they are defined from a 
+            # We can't interpolate these LUTs, as they are defined from a
             # table. We hack around this limitation
             reverse = self.reverse_lut
             lut = pylab_luts[self.lut_mode]
@@ -389,7 +389,7 @@ class LUTManager(Base):
 
     def _use_default_name_changed(self, value):
         self._default_data_name_changed(self.default_data_name)
-    
+
     def _data_name_changed(self, value):
         sc_bar = self.scalar_bar
         sc_bar.title = value

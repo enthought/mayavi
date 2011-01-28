@@ -41,7 +41,7 @@ class SliceUnstructuredGrid(Module):
 
     input_info = PipelineInfo(datasets=['unstructured_grid'],
                               attribute_types=['any'],
-                              attributes=['any'])    
+                              attributes=['any'])
 
     ########################################
     # View related code.
@@ -61,7 +61,7 @@ class SliceUnstructuredGrid(Module):
                       label='Actor',
                       show_labels=False)
                 )
-    
+
     ######################################################################
     # `Module` interface
     ######################################################################
@@ -109,7 +109,7 @@ class SliceUnstructuredGrid(Module):
 
         # Set the LUT for the mapper.
         self.actor.set_lut(self.module_manager.scalar_lut_manager.lut)
-        
+
         # Now flush the pipeline
         self.pipeline_changed = True
 
@@ -136,11 +136,11 @@ class SliceUnstructuredGrid(Module):
     def _extract_geometry_changed(self, old, new):
         if old is not None:
             old.on_trait_change(self.render, remove=True)
-        
+
         mm = self.module_manager
         if mm is not None:
             new.input = mm.source.outputs[0]
-            
+
         ip = self.implicit_plane
         if ip is not None:
             new.implicit_function = ip.plane
@@ -166,4 +166,4 @@ class SliceUnstructuredGrid(Module):
         new.scene = self.scene
         new.inputs = [self]
         self._change_components(old, new)
-        
+

@@ -9,11 +9,11 @@ from enthought.tvtk.api import tvtk
 from . import tools
 
 def probe_data(mayavi_object, x, y, z, type='scalars', location='points'):
-    """ Retrieve the data from a described by Mayavi visualization object 
+    """ Retrieve the data from a described by Mayavi visualization object
         at points x, y, z.
 
         **Parameters**
-        
+
         :viz_obj: A Mayavi visualization object, or a VTK dataset
                   The object describing the data you are interested in.
         :x: float or ndarray.
@@ -28,9 +28,9 @@ def probe_data(mayavi_object, x, y, z, type='scalars', location='points'):
             The location of the data to retrieve.
 
         **Returns**
-        
+
         The values of the data at the given point, as an ndarray
-        (or multiple arrays, in the case of vectors or tensors) of the 
+        (or multiple arrays, in the case of vectors or tensors) of the
         same shape as x, y, and z.
     """
     dataset = tools.get_vtk_src(mayavi_object)[0]

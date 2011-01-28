@@ -1,11 +1,11 @@
 """
 Use the greedy-terrain-decimator to display a decimated terrain view.
 
-This example illustrates decimating a terrain. We use the 
-greedy-terrain-decimator to create a reduced mesh with an optimized grid that 
+This example illustrates decimating a terrain. We use the
+greedy-terrain-decimator to create a reduced mesh with an optimized grid that
 approximates the initial regular grid.
 
-The initial grid is displayed in white, and the optimized grid is displayed in 
+The initial grid is displayed in white, and the optimized grid is displayed in
 black, with the surface it creates. The initial grid can be seen
 disappearing as it goes under the surface of the approximated grid:
 although the decimated mesh follows closely the orginal, it is not
@@ -13,7 +13,7 @@ exactly the same.
 
 One can see that the reduction in number of polygons is huge: the white
 grid is much finer than the black grid. It is interesting to note that
-the decimated mesh follows closely the original mesh, including in number 
+the decimated mesh follows closely the original mesh, including in number
 of polygons, in spots where the terrain changes most quickly.
 
 This example uses the Grand Canyon topological radar data, from NASA.
@@ -22,7 +22,7 @@ The greedy-terrain-decimator is only useful to decimate a surface
 warped from 2D data. To decimated more general meshes, you can use the
 less-efficient decimate-pro filter (see :ref:`example_julia_set_decimation`).
 """
-# Author: Gael Varoquaux <gael.varoquaux@normalesup.org> 
+# Author: Gael Varoquaux <gael.varoquaux@normalesup.org>
 # Copyright (c) 2008, Enthought, Inc.
 # License: BSD Style.
 
@@ -42,7 +42,7 @@ if not os.path.exists('N36W113.hgt.zip'):
 import zipfile
 import numpy as np
 
-data = np.fromstring(zipfile.ZipFile('N36W113.hgt.zip').read('N36W113.hgt'), 
+data = np.fromstring(zipfile.ZipFile('N36W113.hgt.zip').read('N36W113.hgt'),
                     '>i2')
 data.shape = (3601, 3601)
 data = data[200:400, 1200:1400]

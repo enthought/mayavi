@@ -18,7 +18,7 @@ open_3ds = SourceMetadata(
     desc   = "Import a 3D Studio file",
     help   = "Import a 3D Studio file",
     menu_name        = "&3D Studio file",
-    extensions = ['3ds'], 
+    extensions = ['3ds'],
     wildcard = '3D Studio files (*.3ds)|*.3ds',
     output_info = PipelineInfo(datasets=['none'],
                                attribute_types=['any'],
@@ -31,7 +31,7 @@ open_image = SourceMetadata(
     menu_name     = "&Image file (PNG/JPG/BMP/PNM/TIFF/DEM/DCM/XIMG/MHA/MHD/MINC)",
     tooltip       = "Import a PNG/JPG/BMP/PNM/TIFF/DCM/DEM/XIMG/MHA/MHD/MINC image",
     desc   = "Import a PNG/JPG/BMP/PNM/TIFF/DCM/DEM/XIMG/MHA/MHD/MINC image",
-    extensions = ['png', 'jpg', 'jpeg', 'bmp', 'pnm', 'tiff', 'dcm', 'dem', 
+    extensions = ['png', 'jpg', 'jpeg', 'bmp', 'pnm', 'tiff', 'dcm', 'dem',
                   'ximg', 'mha', 'mhd', 'mnc'],
     wildcard = 'PNG files (*.png)|*.png|'\
                'JPEG files (*.jpg)|*.jpg|'\
@@ -58,7 +58,7 @@ open_poly_data = SourceMetadata(
                      BYU/XYZ/CUBE Poly Data",
     desc   = "Import a STL/STLA/STLB/TXT/RAWPLY/PDB/SLC/FACET/OBJ/BYU/XYZ/\
               CUBE Poly Data",
-    extensions = ['stl', 'stla', 'stlb', 'txt', 'raw', 'ply', 'pdb', 'slc', 
+    extensions = ['stl', 'stla', 'stlb', 'txt', 'raw', 'ply', 'pdb', 'slc',
                   'facet', 'xyz', 'cube', 'obj', 'g'],
     wildcard = 'STL files (*.stl)|*.stl|'\
                'STLA files (*.stla)|*.stla|'\
@@ -146,7 +146,7 @@ open_vtk_xml = SourceMetadata(
     tooltip = "Open a VTK XML data file",
     desc    = "Open a VTK XML data file",
     help    = "Open a VTK XML data file",
-    extensions = ['xml', 'vti', 'vtp', 'vtr', 'vts', 'vtu', 
+    extensions = ['xml', 'vti', 'vtp', 'vtr', 'vts', 'vtu',
                   'pvti', 'pvtp', 'pvtr', 'pvts', 'pvtu'],
     wildcard = 'VTK XML files (*.xml)|*.xml|'\
                'Image Data (*.vti)|*.vti|'\
@@ -228,7 +228,7 @@ open_volume = SourceMetadata(
     desc        = "Open a Volume file",
     help        = "Open a Volume file",
     extensions = [],
-    wildcard = '',    
+    wildcard = '',
     output_info = PipelineInfo(datasets=['image_data'],
                                attribute_types=['any'],
                                attributes=['any'])
@@ -251,8 +251,8 @@ open_chaco = SourceMetadata(
 
 
 # Now collect all the sources for the mayavi registry.
-sources = [open_3ds, 
-           open_image, 
+sources = [open_3ds,
+           open_image,
            open_plot3d,
            open_vrml,
            open_vtk,

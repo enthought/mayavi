@@ -8,7 +8,7 @@ more, see the canyon decimation example.
 This example is interesting as it shows how numpy can be used to load
 and crop data completly foreign to Mayavi.
 """
-# Author: Gael Varoquaux <gael.varoquaux@normalesup.org> 
+# Author: Gael Varoquaux <gael.varoquaux@normalesup.org>
 # Copyright (c) 2008, Enthought, Inc.
 # License: BSD Style.
 
@@ -28,7 +28,7 @@ if not os.path.exists('N36W113.hgt.zip'):
 import zipfile
 import numpy as np
 
-data = np.fromstring(zipfile.ZipFile('N36W113.hgt.zip').read('N36W113.hgt'), 
+data = np.fromstring(zipfile.ZipFile('N36W113.hgt.zip').read('N36W113.hgt'),
                     '>i2')
 data.shape = (3601, 3601)
 data = data.astype(np.float32)
@@ -40,7 +40,7 @@ data = data[:1000, 900:1900]
 data[data==-32768] = data[data>0].min()
 
 mlab.figure(size=(400, 320), bgcolor=(0.16, 0.28, 0.46))
-mlab.surf(data, colormap='gist_earth', warp_scale=0.2, 
+mlab.surf(data, colormap='gist_earth', warp_scale=0.2,
             vmin=1200, vmax=1610)
 # The data takes a lot of memory, and the surf command has created a
 # copy. We free the inital memory.

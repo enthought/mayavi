@@ -26,7 +26,7 @@ class ImageActor(Module):
 
     input_info = PipelineInfo(datasets=['image_data'],
                               attribute_types=['any'],
-                              attributes=['any'])    
+                              attributes=['any'])
 
     # An ImageMapToColors TVTK filter to adapt datasets without color
     # information
@@ -60,7 +60,7 @@ class ImageActor(Module):
     ######################################################################
     def setup_pipeline(self):
         self.actor = tvtk.ImageActor()
-        
+
     @on_trait_change('map_scalars_to_color,image_map_to_color.[output_format,pass_alpha_to_output]')
     def update_pipeline(self):
         """Override this method so that it *updates* the tvtk pipeline
@@ -72,7 +72,7 @@ class ImageActor(Module):
         src = mm.source
         if self._force_map_scalars_to_color:
             self.set(map_scalars_to_color=True, trait_change_notify=False)
-        if self.map_scalars_to_color: 
+        if self.map_scalars_to_color:
             self.image_map_to_color.input = src.outputs[0]
             self.image_map_to_color.lookup_table = mm.scalar_lut_manager.lut
             self.actor.input = self.image_map_to_color.output
@@ -102,6 +102,6 @@ class ImageActor(Module):
         if mm is None:
             return False
         src = mm.source
-        return not isinstance(src.outputs[0].point_data.scalars, 
+        return not isinstance(src.outputs[0].point_data.scalars,
                                                     tvtk.UnsignedCharArray)
 

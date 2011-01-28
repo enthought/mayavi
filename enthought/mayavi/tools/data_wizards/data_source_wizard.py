@@ -89,8 +89,8 @@ class DataSourceWizard(HasTraits):
                     atleast_3d(self.data_sources[self.grid_shape_source]).shape
             grid_shape = ones((3, ))
             grid_shape[:len(array_shape)] = array_shape
-            self.grid_shape = grid_shape 
-    
+            self.grid_shape = grid_shape
+
     _grid_shape_source_labels = Property(depends_on='_data_sources_names')
 
     def _get__grid_shape_source_labels(self):
@@ -112,10 +112,10 @@ class DataSourceWizard(HasTraits):
 
     position_x = Str(help="Select the array that gives the x "
                         "position of the data points")
-    
+
     position_y = Str(help="Select the array that gives the y "
                         "position of the data points")
-    
+
     position_z = Str(help="Select the array that gives the z "
                         "position of the data points")
 
@@ -202,18 +202,18 @@ class DataSourceWizard(HasTraits):
         # on other data.
         self._factory = factory
         if self.data_type_ == 'point':
-            # The user wants to explicitly position vector, 
+            # The user wants to explicitly position vector,
             # thus only sensible data structures for points is with
             # explicit positioning.
             self.position_type_ == 'explicit'
             # In addition, this view does not allow for
-            # connectivity. 
+            # connectivity.
             factory.unstructured = True
             factory.connected = False
         else:
             factory.connected = True
 
-        if (self.position_type_ == "image data" 
+        if (self.position_type_ == "image data"
                 and not self.data_type_=="point"):
             if not self.has_scalar_data and not self.vector_u=='':
                 # With image data we need a scalar array always:
@@ -232,15 +232,15 @@ class DataSourceWizard(HasTraits):
             factory.lines = True
 
         if self.has_vector_data or self.data_type_ == 'vector':
-            # In the vector view, the user is not explicitly asked to 
+            # In the vector view, the user is not explicitly asked to
             # Enable vectors.
             factory.has_vector_data = True
             factory.vector_u = self.get_sdata(self.vector_u)
             factory.vector_v = self.get_sdata(self.vector_v)
             factory.vector_w = self.get_sdata(self.vector_w)
-        
+
         if self.has_scalar_data or self.data_type_ == 'volumetric':
-            # In the volumetric view, the user is not explicitly asked to 
+            # In the volumetric view, the user is not explicitly asked to
             # Enable scalars.
             factory.scalar_data = self.get_sdata(self.scalar_data)
 
@@ -255,12 +255,12 @@ class DataSourceWizard(HasTraits):
             elif hasattr(self.data_source, 'point_scalar_name'):
                self.data_source.point_scalar_name = self.scalars
 
-        
+
     #----------------------------------------------------------------------
     # Private interface
     #----------------------------------------------------------------------
 
-    def get_data(self, name): 
+    def get_data(self, name):
         return self.data_sources[name]
 
 
@@ -292,15 +292,15 @@ class DataSourceWizard(HasTraits):
         if len(arrays_to_check)==0:
             return True
         size = self.get_data(getattr(self, arrays_to_check.pop())).size
-        for attr in arrays_to_check: 
+        for attr in arrays_to_check:
             if not self.get_data(getattr(self, attr)).size == size:
                 return False
-        if ( self.data_type_ == 'surface' 
+        if ( self.data_type_ == 'surface'
                 and self.position_type_ == "explicit"):
             if not self.connectivity_triangles.size/3 == size:
                 return False
         return True
- 
+
 
 
 ############################################################################
@@ -368,11 +368,11 @@ class DataSourceWizardView(DataSourceWizard):
 
     def _get__data_sources_wrappers(self):
          return [
-            ArrayColumnWrapper(name=name, 
+            ArrayColumnWrapper(name=name,
                 shape=repr(self.data_sources[name].shape))
                     for name in self._data_sources_names
                 ]
-            
+
 
     # A traits pointing to the object, to play well with traitsUI
     _self = Instance(DataSourceWizard)
@@ -415,10 +415,10 @@ class DataSourceWizardView(DataSourceWizard):
         if self.ui:
             self._is_ok =  self.check_arrays()
             self._is_not_ok = not self._is_ok
-    
+
     _preview_window = Instance(PreviewWindow, ())
 
-    _info_image = Instance(ImageResource, 
+    _info_image = Instance(ImageResource,
                     ImageLibrary.image_resource('@std:alert16',))
 
     #----------------------------------------------------------------------
@@ -429,13 +429,13 @@ class DataSourceWizardView(DataSourceWizard):
                         HGroup(
                            Item('position_x', label='x',
                                editor=EnumEditor(name='_data_sources_names',
-                                        invalid='_is_not_ok')), 
+                                        invalid='_is_not_ok')),
                            Item('position_y', label='y',
-                               editor=EnumEditor(name='_data_sources_names', 
-                                        invalid='_is_not_ok')), 
+                               editor=EnumEditor(name='_data_sources_names',
+                                        invalid='_is_not_ok')),
                            Item('position_z', label='z',
-                               editor=EnumEditor(name='_data_sources_names', 
-                                        invalid='_is_not_ok')), 
+                               editor=EnumEditor(name='_data_sources_names',
+                                        invalid='_is_not_ok')),
                        )
 
 
@@ -454,10 +454,10 @@ class DataSourceWizardView(DataSourceWizard):
                             label='Grid shape',
                             editor=EnumEditor(
                                 name='_grid_shape_source_labels',
-                                        invalid='_is_not_ok')), 
+                                        invalid='_is_not_ok')),
                            HGroup(
                             spring,
-                            Item('grid_shape', style='custom', 
+                            Item('grid_shape', style='custom',
                                     editor=ArrayEditor(width=-60),
                                     show_label=False),
                            enabled_when='grid_shape_source==""',
@@ -491,14 +491,14 @@ class DataSourceWizardView(DataSourceWizard):
 
     _scalar_data_group = \
                    Group(
-                       Item('_scalar_data_text', style='readonly', 
+                       Item('_scalar_data_text', style='readonly',
                            resizable=False,
                            show_label=False),
                        HGroup(
                            spring,
-                           Item('scalar_data', 
+                           Item('scalar_data',
                                editor=EnumEditor(name='_data_sources_names',
-                                        invalid='_is_not_ok')), 
+                                        invalid='_is_not_ok')),
                            show_labels=False,
                            ),
                        label='Scalar value',
@@ -516,15 +516,15 @@ class DataSourceWizardView(DataSourceWizard):
                             style='readonly'),
                        show_labels=False,
                        ),
-                       Item('_scalar_data_text', style='readonly', 
+                       Item('_scalar_data_text', style='readonly',
                             resizable=False,
                             enabled_when='has_scalar_data',
                            show_label=False),
                        HGroup(
-                           spring, 
-                           Item('scalar_data', 
+                           spring,
+                           Item('scalar_data',
                                editor=EnumEditor(name='_data_sources_names',
-                                        invalid='_is_not_ok'), 
+                                        invalid='_is_not_ok'),
                                enabled_when='has_scalar_data'),
                            show_labels=False,
                            ),
@@ -538,14 +538,14 @@ class DataSourceWizardView(DataSourceWizard):
                    VGroup(
                        HGroup(
                            Item('vector_u', label='u',
-                               editor=EnumEditor(name='_data_sources_names', 
-                                        invalid='_is_not_ok')), 
+                               editor=EnumEditor(name='_data_sources_names',
+                                        invalid='_is_not_ok')),
                            Item('vector_v', label='v',
-                               editor=EnumEditor(name='_data_sources_names', 
-                                        invalid='_is_not_ok')), 
+                               editor=EnumEditor(name='_data_sources_names',
+                                        invalid='_is_not_ok')),
                            Item('vector_w', label='w',
-                               editor=EnumEditor(name='_data_sources_names', 
-                                        invalid='_is_not_ok')), 
+                               editor=EnumEditor(name='_data_sources_names',
+                                        invalid='_is_not_ok')),
                        ),
                        label='Vector data',
                        show_border=True,
@@ -556,20 +556,20 @@ class DataSourceWizardView(DataSourceWizard):
                    VGroup(
                         HGroup(
                             Item('has_vector_data', show_label=False),
-                            Item('_vector_data_text', style='readonly', 
+                            Item('_vector_data_text', style='readonly',
                                 resizable=False,
                                 show_label=False),
                         ),
                        HGroup(
                            Item('vector_u', label='u',
-                               editor=EnumEditor(name='_data_sources_names', 
-                                        invalid='_is_not_ok')), 
+                               editor=EnumEditor(name='_data_sources_names',
+                                        invalid='_is_not_ok')),
                            Item('vector_v', label='v',
-                               editor=EnumEditor(name='_data_sources_names', 
-                                        invalid='_is_not_ok')), 
+                               editor=EnumEditor(name='_data_sources_names',
+                                        invalid='_is_not_ok')),
                            Item('vector_w', label='w',
-                               editor=EnumEditor(name='_data_sources_names', 
-                                        invalid='_is_not_ok')), 
+                               editor=EnumEditor(name='_data_sources_names',
+                                        invalid='_is_not_ok')),
                            enabled_when='has_vector_data',
                        ),
                        label='Vector data',
@@ -581,11 +581,11 @@ class DataSourceWizardView(DataSourceWizard):
                 View(
                     Item('_array_label', editor=TitleEditor(),
                         show_label=False),
-                    Group(    
-                    Item('_data_sources_wrappers', 
+                    Group(
+                    Item('_data_sources_wrappers',
                       editor=TabularEditor(
                           adapter = ArrayColumnAdapter(),
-                      ), 
+                      ),
                     ),
                     show_border=True,
                     show_labels=False
@@ -604,7 +604,7 @@ class DataSourceWizardView(DataSourceWizard):
                     show_labels=False,
                   ),
                 HGroup(
-                    Item('_self', style='custom', 
+                    Item('_self', style='custom',
                         editor=InstanceEditor(
                                     view_name='_suitable_traits_view'),
                         ),
@@ -612,7 +612,7 @@ class DataSourceWizardView(DataSourceWizard):
                         # FIXME: Giving up on context sensitive help
                         # because of lack of time.
                         #Group(
-                        #    Item('_shown_help_text', editor=HTMLEditor(), 
+                        #    Item('_shown_help_text', editor=HTMLEditor(),
                         #        width=300,
                         #        label='Help',
                         #        ),
@@ -620,7 +620,7 @@ class DataSourceWizardView(DataSourceWizard):
                         #    label='Help',
                         #),
                         #Group(
-                            Item('_preview_button', 
+                            Item('_preview_button',
                                     enabled_when='_is_ok'),
                             Item('_preview_window', style='custom',
                                     label='Preview structure'),
@@ -644,7 +644,7 @@ class DataSourceWizardView(DataSourceWizard):
                    HGroup(
                        'lines',
                        Item('_lines_text', style='readonly',
-                                        resizable=False), 
+                                        resizable=False),
                        label='Lines',
                        show_labels=False,
                        show_border=True,
@@ -700,8 +700,8 @@ class DataSourceWizardView(DataSourceWizard):
                     visible_when="_is_not_ok"),
                 Item('_info_text', style='readonly', resizable=False,
                     visible_when="_is_not_ok"),
-                spring, 
-                '_cancel_button', 
+                spring,
+                '_cancel_button',
                 Item('_ok_button', enabled_when='_is_ok'),
                 show_labels=False,
             ),

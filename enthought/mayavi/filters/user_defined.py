@@ -13,7 +13,7 @@ from enthought.mayavi.core.pipeline_info import PipelineInfo
 
 ################################################################################
 # `UserDefined` class.
-################################################################################ 
+################################################################################
 class UserDefined(FilterBase):
 
     """
@@ -47,7 +47,7 @@ class UserDefined(FilterBase):
 
     ######################################################################
     # `UserDefined` interface.
-    ###################################################################### 
+    ######################################################################
     def setup_filter(self):
         """Setup the filter if none has been set or check it if it
         already has been."""
@@ -61,7 +61,7 @@ class UserDefined(FilterBase):
 
     ######################################################################
     # Non-public interface.
-    ###################################################################### 
+    ######################################################################
     def _choose_filter(self):
         chooser = TVTKFilterChooser()
         chooser.edit_traits(kind='livemodal')
@@ -80,4 +80,4 @@ class UserDefined(FilterBase):
     def _filter_changed(self, old, new):
         self.name = 'UserDefined:%s'%new.__class__.__name__
         super(UserDefined, self)._filter_changed(old, new)
-    
+

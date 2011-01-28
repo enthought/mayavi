@@ -29,7 +29,7 @@ def find_object_given_state(needle, haystack, object):
 
     Parameters
     ----------
-    
+
     `needle` -- The `State` instance to find
     haystack -- The source State in which we are to find the state
     `object` -- the object corresponding to the `haystack`
@@ -37,8 +37,8 @@ def find_object_given_state(needle, haystack, object):
     if needle is haystack:
         return object
     if hasattr(object, 'filter'):
-        return find_object_given_state(needle, 
-                                       haystack.filter, 
+        return find_object_given_state(needle,
+                                       haystack.filter,
                                        object.filter)
     elif hasattr(object, 'filters'):
         for h, obj in zip(haystack.filters, object.filters):
@@ -75,7 +75,7 @@ class GenericModule(Module):
 
     # Should we use the scalar LUT or the vector LUT?
     lut_mode = Enum('scalar', 'vector')
-    
+
     ########################################
     # Private traits.
 
@@ -130,14 +130,14 @@ class GenericModule(Module):
 
     ######################################################################
     # `HasTraits` interface.
-    ###################################################################### 
+    ######################################################################
     def default_traits_view(self):
         """Returns the default traits view for this object."""
         le = ListEditor(use_notebook=True,
                         deletable=False,
                         export='DockWindowShell',
                         page_name='.name')
-        view = View(Group(Item(name='components', 
+        view = View(Group(Item(name='components',
                                style='custom',
                                show_label=False,
                                editor=le,
@@ -148,7 +148,7 @@ class GenericModule(Module):
 
     ######################################################################
     # `Module` interface.
-    ###################################################################### 
+    ######################################################################
     def setup_pipeline(self):
         """Setup the pipeline."""
         # Needed because a user may have setup the components by setting
@@ -185,7 +185,7 @@ class GenericModule(Module):
 
     ######################################################################
     # Private interface.
-    ###################################################################### 
+    ######################################################################
     def _setup_pipeline(self):
         """Sets up the objects in the pipeline."""
         mm = self.module_manager

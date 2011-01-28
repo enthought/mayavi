@@ -1,5 +1,5 @@
 """ A module that allows a user to create one of several standard VTK
-poly data sources.  
+poly data sources.
 """
 
 #Author: Suyog Dutt Jain <suyog.jain@aero.iitb.ac.in>
@@ -36,7 +36,7 @@ class BuiltinSurface(Source):
                                     record=True)
 
     # Information about what this object can produce.
-    output_info = PipelineInfo(datasets=['poly_data'], 
+    output_info = PipelineInfo(datasets=['poly_data'],
                                attribute_types=['any'],
                                attributes=['any'])
 
@@ -46,13 +46,13 @@ class BuiltinSurface(Source):
                        style='custom',
                        resizable=True),
                    label='Surface Source',
-                    show_labels=False),          
+                    show_labels=False),
              resizable=True)
-    
-    
+
+
     ########################################
     # Private traits.
-    
+
     # A dictionary that maps the source names to instances of the
     # poly data sources.
     _source_dict = Dict(Str,
@@ -74,7 +74,7 @@ class BuiltinSurface(Source):
     def __set_pure_state__(self, state):
         self.source = state.source
         super(BuiltinSurface, self).__set_pure_state__(state)
-        
+
     ######################################################################
     # Non-public methods.
     ######################################################################
@@ -83,21 +83,21 @@ class BuiltinSurface(Source):
         trait is changed.
         """
         self.data_source = self._source_dict[self.source]
-     
-    
+
+
     def _data_source_changed(self, old, new):
         """This method is invoked (automatically) when the
         poly data source is changed ."""
 
         self.outputs = [self.data_source.output]
-        
+
         if old is not None:
             old.on_trait_change(self.render, remove=True)
-        new.on_trait_change(self.render)        
-       
+        new.on_trait_change(self.render)
+
     def __source_dict_default(self):
         """Default value for source dict."""
-        sd = {'arrow':tvtk.ArrowSource(),             
+        sd = {'arrow':tvtk.ArrowSource(),
               'cone':tvtk.ConeSource(),
               'cube':tvtk.CubeSource(),
               'cylinder':tvtk.CylinderSource(),
@@ -113,4 +113,4 @@ class BuiltinSurface(Source):
               'textured sphere':tvtk.TexturedSphereSource(),
               'glyph2d': tvtk.GlyphSource2D()}
         return sd
-    
+

@@ -9,7 +9,7 @@ TVTK object to ensure that the test works with TVTK objects.
 
 import unittest
 
-from enthought.traits.api import (HasTraits, Float, Instance, 
+from enthought.traits.api import (HasTraits, Float, Instance,
         Str, List, Bool)
 from enthought.tvtk.api import tvtk
 from enthought.scripting.api import (Recorder, recordable,
@@ -125,24 +125,24 @@ class TestRecorder(unittest.TestCase):
 
         c.name = 'Ram'
         # The child should first be instantiated.
-        self.assertEqual(tape.lines[-2], 
+        self.assertEqual(tape.lines[-2],
                          "child = parent.children[0]")
         # Then its trait set.
         self.assertEqual(tape.lines[-1], "child.name = 'Ram'")
         c.age = 10.5
         self.assertEqual(tape.lines[-1], "child.age = 10.5")
         c.property.representation = 'w'
-        self.assertEqual(tape.lines[-1], 
+        self.assertEqual(tape.lines[-1],
                          "child.property.representation = 'wireframe'")
         c.property.color = (1, 0, 0)
-        self.assertEqual(tape.lines[-1], 
+        self.assertEqual(tape.lines[-1],
                          "child.property.color = (1.0, 0.0, 0.0)")
         toy.color = 'red'
         self.assertEqual(tape.lines[-1], "child.toy.color = 'red'")
         toy.type = 'teddy'
         self.assertEqual(tape.lines[-1], "child.toy.type = 'teddy'")
         # This trait should be ignored.
-        toy.ignore = True  
+        toy.ignore = True
         self.assertEqual(tape.lines[-1], "child.toy.type = 'teddy'")
 
         # Turn of recording and test.
@@ -208,13 +208,13 @@ class TestRecorder(unittest.TestCase):
         tape.register(t)
         t.type = 'computer'
 
-        # Since the name toy is unknown, there should be a 
+        # Since the name toy is unknown, there should be a
         # line to create it.
-        self.assertEqual(tape.lines[-3][-10:], 
+        self.assertEqual(tape.lines[-3][-10:],
                          "import Toy")
-        self.assertEqual(tape.lines[-2], 
+        self.assertEqual(tape.lines[-2],
                          "toy = Toy()")
-        self.assertEqual(tape.lines[-1], 
+        self.assertEqual(tape.lines[-1],
                          "toy.type = 'computer'")
 
         # Since this one is known, there should be no imports or
@@ -222,9 +222,9 @@ class TestRecorder(unittest.TestCase):
         t1 = Toy()
         tape.register(t1, known=True)
         t1.type = 'ball'
-        self.assertEqual(tape.lines[-2], 
+        self.assertEqual(tape.lines[-2],
                          "toy.type = 'computer'")
-        self.assertEqual(tape.lines[-1], 
+        self.assertEqual(tape.lines[-1],
                          "toy1.type = 'ball'")
 
     def test_list_items_changed(self):
@@ -236,26 +236,26 @@ class TestRecorder(unittest.TestCase):
         tape.recording = True
 
         child.friends = ['Krishna', 'Ajay', 'Ali']
-        self.assertEqual(tape.lines[-1], 
+        self.assertEqual(tape.lines[-1],
                          "child.friends = ['Krishna', 'Ajay', 'Ali']")
         child.friends[1:] = ['Sam', 'Frodo']
-        self.assertEqual(tape.lines[-1], 
+        self.assertEqual(tape.lines[-1],
                          "child.friends[1:3] = ['Sam', 'Frodo']")
         child.friends[1] = 'Hari'
-        self.assertEqual(tape.lines[-1], 
+        self.assertEqual(tape.lines[-1],
                     "child.friends[1:2] = ['Hari']")
 
         # What if we change a list where record=True.
         child1 = Child()
         tape.register(child1)
         p.children.append(child1)
-        self.assertEqual(tape.lines[-1], 
+        self.assertEqual(tape.lines[-1],
                          "parent.children[1:1] = [child1]")
         del p.children[1]
-        self.assertEqual(tape.lines[-1], 
+        self.assertEqual(tape.lines[-1],
                          "parent.children[1:2] = []")
         p.children[0] = child1
-        self.assertEqual(tape.lines[-1], 
+        self.assertEqual(tape.lines[-1],
                          "parent.children[0:1] = [child1]")
 
     def test_path_change_on_list(self):
@@ -373,9 +373,9 @@ class TestRecorder(unittest.TestCase):
 
         # Should record.
         a.f(1, 'asd')
-        self.assertEqual(tape.lines[-3][-8:], 
+        self.assertEqual(tape.lines[-3][-8:],
                          "import A")
-        self.assertEqual(tape.lines[-2], 
+        self.assertEqual(tape.lines[-2],
                          "a = A(x=1)")
         self.assertEqual(tape.lines[-1], "tuple0 = a.f(1, 'asd')")
 
@@ -418,7 +418,7 @@ class TestRecorder(unittest.TestCase):
 
         # Test if recording works correctly with the changed script_id.
         p.children.append(c1)
-        self.assertEqual(tape.lines[-1], 
+        self.assertEqual(tape.lines[-1],
                          "child.children[1:1] = [child2]")
 
 

@@ -38,7 +38,7 @@ class TestHideShow(TestCase):
             # Check if widget state is remembered.
             scp.implicit_plane.widget.enabled = False
             scp.visible = False
-            assert scp.actor.actor.visibility == False 
+            assert scp.actor.actor.visibility == False
             assert scp.implicit_plane.widget.enabled == False
             assert scp.name == 'ScalarCutPlane [Hidden]'
             # Reenable it and check widget state.
@@ -53,10 +53,10 @@ class TestHideShow(TestCase):
 
         # Check final state.
         for a in wrl.actors:
-            assert a.visibility == False 
+            assert a.visibility == False
         assert wrl.name.find('[Hidden]') > -1
 
-        assert scp.actor.actor.visibility == False 
+        assert scp.actor.actor.visibility == False
         assert scp.implicit_plane.widget.enabled == False
         assert scp.name == 'ScalarCutPlane [Hidden]'
         assert iso.name == 'IsoSurface [Hidden]'
@@ -65,7 +65,7 @@ class TestHideShow(TestCase):
 
     def test(self):
         self.main()
-    
+
     def do(self):
         ############################################################
         # Imports.
@@ -141,7 +141,7 @@ class TestHideShow(TestCase):
         # Now do the check.
         s.scene.isometric_view()
         self.check(saved=True)
-        
+
         # If we have come this far, we are golden!
 
 if __name__ == "__main__":

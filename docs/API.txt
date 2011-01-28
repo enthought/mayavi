@@ -26,4 +26,4 @@ Private API:
     - Implementation details of TVTK, like the array and object cache
       (these variables actually have leading underscores).
     - Internal implementation of persistence.
-    
+

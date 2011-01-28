@@ -20,7 +20,7 @@ class TreeNode:
     are there below this class).  This inheritance level is computed
     when the `get_level` method is called.  The `get_level` method
     works only when the parent information is complete.
-    
+
     """
 
     def __init__(self, klass):
@@ -118,7 +118,7 @@ class ClassTree:
         1
         >>> t.tree[0][0].name
         vtkObjectBase
-    
+
     """
 
     def __init__(self, modules):
@@ -132,7 +132,7 @@ class ClassTree:
           This is either a single module or a sequence of modules.
           The instance uses these list of modules to generate the
           class tree.
-          
+
         """
         self.nodes = {}
         self.tree = [[]]
@@ -240,14 +240,14 @@ class ClassTree:
 
           An optional list of names of the classes to generate the
           tree for.  Defaults to None where the class list is computed
-          from the modules.        
+          from the modules.
 
         """
         if class_names is None:
             class_names = []
-            for m in self.modules:            
+            for m in self.modules:
                 class_names.extend(dir(m))
-            
+
         # Generate the nodes.
         for name in class_names:
             klass = self.get_class(name)

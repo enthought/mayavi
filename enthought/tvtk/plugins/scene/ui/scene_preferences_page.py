@@ -24,7 +24,7 @@ class ScenePreferencesPage(PreferencesPage):
     # The page's help identifier (optional). If a help Id *is* provided then
     # there will be a 'Help' button shown on the preference page.
     help_id = ''
-    
+
     # The page name (this is what is shown in the preferences dialog.
     name = 'TVTK Scene'
 

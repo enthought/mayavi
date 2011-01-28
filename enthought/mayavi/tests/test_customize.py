@@ -12,7 +12,7 @@ from enthought.mayavi.core import customize
 class TestCustomize(unittest.TestCase):
     def test_import_contrib(self):
         """Test the import_contrib function."""
-        for mname in ('enthought.mayavi.api', 
+        for mname in ('enthought.mayavi.api',
                       'enthought.mayavi',
                       'enthought.mayavi.core',
                       'enthought.mayavi.core.base'):

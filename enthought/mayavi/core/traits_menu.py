@@ -20,9 +20,9 @@ from enthought.mayavi.core.common import error, get_engine
 
 ################################################################################
 # `MenuHelper` class.
-################################################################################ 
+################################################################################
 class MenuHelper(HasTraits):
-   
+
     # The object this menu generates the menus for.
     object = Any
 
@@ -125,7 +125,7 @@ class MenuHelper(HasTraits):
         for src in registry.sources:
             if len(src.extensions) == 0:
                 # The method that creates the source.
-                setattr(self, src.id, 
+                setattr(self, src.id,
                         lambda self=self, md=src, select=True:
                         self._create_source(md, select))
                 a = Action(name=src.menu_name,
@@ -138,12 +138,12 @@ class MenuHelper(HasTraits):
         actions = []
         for fil in registry.filters:
             # The method that creates the object.
-            setattr(self, fil.id, 
-                    lambda self=self, md=fil, select=True: 
+            setattr(self, fil.id,
+                    lambda self=self, md=fil, select=True:
                     self._create_object(md, select))
             # The method that checks if the menu can be activated or
             # not.
-            setattr(self, 'check_' + fil.id, 
+            setattr(self, 'check_' + fil.id,
                     lambda self=self, md=fil: self.check_active(md))
             a = Action(name=fil.menu_name,
                        action='object.menu_helper.' + fil.id,
@@ -156,12 +156,12 @@ class MenuHelper(HasTraits):
         actions = []
         for mod in registry.modules:
             # The method that creates the module.
-            setattr(self, mod.id, 
-                    lambda self=self, md=mod, select=True: 
+            setattr(self, mod.id,
+                    lambda self=self, md=mod, select=True:
                     self._create_object(md, select))
             # The method that checks if the menu can be activated or
             # not.
-            setattr(self, 'check_' + mod.id, 
+            setattr(self, 'check_' + mod.id,
                     lambda self=self, md=mod: self.check_active(md))
             a = Action(name=mod.menu_name,
                        action='object.menu_helper.' + mod.id,
@@ -173,9 +173,9 @@ class MenuHelper(HasTraits):
 
 ################################################################################
 # `SourceMenuHelper` class.
-################################################################################ 
+################################################################################
 class SourceMenuHelper(MenuHelper):
-  
+
     def _actions_default(self):
         actions = self._build_source_actions()
         return [Menu(name='Add Source', *actions)]
@@ -183,9 +183,9 @@ class SourceMenuHelper(MenuHelper):
 
 ################################################################################
 # `FilterMenuHelper` class.
-################################################################################ 
+################################################################################
 class FilterMenuHelper(MenuHelper):
-   
+
     def _actions_default(self):
         filter_actions = self._build_filter_actions()
         module_actions = self._build_module_actions()
@@ -194,9 +194,9 @@ class FilterMenuHelper(MenuHelper):
 
 ################################################################################
 # `ModuleMenuHelper` class.
-################################################################################ 
+################################################################################
 class ModuleMenuHelper(MenuHelper):
-   
+
     def _actions_default(self):
         module_actions = self._build_module_actions()
         return [Menu(name='Add Module', *module_actions)]

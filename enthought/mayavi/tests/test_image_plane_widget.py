@@ -10,7 +10,7 @@ import copy
 import numpy
 import unittest
 
-  
+
 # Enthought library imports
 from enthought.mayavi.core.engine import Engine
 from enthought.mayavi.core.null_engine import NullEngine
@@ -18,11 +18,11 @@ from enthought.mayavi.sources.array_source import ArraySource
 from enthought.mayavi.modules.outline import Outline
 from enthought.mayavi.modules.image_plane_widget import ImagePlaneWidget
 
-class TestImagePlaneWidget(unittest.TestCase):   
-    
-    
+class TestImagePlaneWidget(unittest.TestCase):
+
+
     def make_data(self):
-        """Creates suitable data for the test."""        
+        """Creates suitable data for the test."""
         dims = numpy.array((64, 64, 64), 'i')
 
         # Create some scalars to render.
@@ -50,7 +50,7 @@ class TestImagePlaneWidget(unittest.TestCase):
         # Create a new scene and set up the visualization.
 
         d = ArraySource()
-        
+
         sc = self.make_data()
         d.scalar_data = sc
 
@@ -72,14 +72,14 @@ class TestImagePlaneWidget(unittest.TestCase):
         ipw_z.ipw.plane_orientation = 'z_axes'
         self.scene = e.current_scene
         return
-        
+
     def tearDown(self):
         """For necessary clean up, automatically called by TestCase after the test methods have been invoked"""
         self.e.stop()
         return
 
     def check(self):
-        """Do the actual testing."""  
+        """Do the actual testing."""
 
         s=self.scene
         src = s.children[0]
@@ -90,12 +90,12 @@ class TestImagePlaneWidget(unittest.TestCase):
         self.assertEqual(numpy.allclose(i2.ipw.center, (31.5, 0, 31.5)),True)
         self.assertEqual(i3.ipw.plane_orientation,'z_axes')
         self.assertEqual( numpy.allclose(i3.ipw.center, (31.5, 31.5, 0)),True)
-       
 
-    def test_image_plane_widget(self):         
-        "Test if the test fixture works"               
+
+    def test_image_plane_widget(self):
+        "Test if the test fixture works"
         self.check()
-    
+
     def test_save_and_restore(self):
         """Test if saving a visualization and restoring it works."""
         engine = self.e
@@ -107,7 +107,7 @@ class TestImagePlaneWidget(unittest.TestCase):
         f.seek(0) # So we can read this saved data.
 
         # Remove existing scene.
-       
+
         engine.close_scene(scene)
 
         # Load visualization
@@ -115,7 +115,7 @@ class TestImagePlaneWidget(unittest.TestCase):
         self.scene = engine.current_scene
 
         self.check()
-    
+
     def test_deepcopied(self):
         """Test if the MayaVi2 visualization can be deep-copied."""
         ############################################################
@@ -137,7 +137,7 @@ class TestImagePlaneWidget(unittest.TestCase):
         sources1 = copy.deepcopy(sources)
         s.children[:] = sources1
         self.check()
-  
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -28,7 +28,7 @@ class SceneAction(Action):
         from enthought.tvtk.plugins.scene.i_scene_manager import (
             ISceneManager
         )
-        
+
         return self.window.get_service(ISceneManager)
 
 
@@ -45,7 +45,7 @@ class NewScene(Action):
         from enthought.tvtk.plugins.scene.scene_editor import SceneEditor
 
         editor = self.window.edit(object(), kind=SceneEditor)
-        
+
         return editor
 
 
@@ -57,7 +57,7 @@ class SaveScene(SceneAction):
     name = 'Save Scene'
 
     def perform(self, event):
-        """ Performs the action. """        
+        """ Performs the action. """
 
         extensions = [
             '*.png', '*.jpg', '*.jpeg', '*.tiff', '*.bmp', '*.ps', '*.eps',
@@ -79,18 +79,18 @@ class SaveScene(SceneAction):
                 scene.save(dialog.path)
 
         return
-    
+
 
 class SaveSceneToImage(SceneAction):
     """ An action that saves a scene to an image. """
 
     #### 'Action' interface ###################################################
-    
+
     # Name of the action.
     name = 'Image'
 
     #### 'SaveSceneToImage' interface #########################################
-    
+
     # The save method name.
     save_method = Str('save')
 
@@ -102,7 +102,7 @@ class SaveSceneToImage(SceneAction):
     ###########################################################################
 
     def perform(self, event):
-        """ Perform the action. """        
+        """ Perform the action. """
 
         dialog = FileDialog(
             parent   = self.window.control,
@@ -125,7 +125,7 @@ class SaveSceneToPNG(SaveSceneToImage):
     save_method = 'save_png'
     wildcard    = 'PNG images (*.png)|*.png|' \
                   'All files (*.*)|*.*'
-    
+
 class SaveSceneToJPEG(SaveSceneToImage):
     name        = 'JPEG Image'
     save_method = 'save_jpg'
@@ -196,10 +196,10 @@ class SetView(SceneAction):
     """ An action that sets the current scene to a particular view."""
 
     #### 'SetView' interface ##################################################
-    
+
     # The method to invoke on the scene that will set the view.
     view_method = Str
-    
+
     ###########################################################################
     # 'Action' interface.
     ###########################################################################
@@ -213,7 +213,7 @@ class SetView(SceneAction):
             method()
 
         return
-    
+
 # These are all specific subclasses that invoke particular views.
 class ResetZoom(SetView):
     name = '&Reset Zoom'
@@ -230,7 +230,7 @@ class XPlusView(SetView):
 class XMinusView(SetView):
     name = '&X- View'
     view_method = 'x_minus_view'
-    
+
 class YPlusView(SetView):
     name = '&Y+ View'
     view_method = 'y_plus_view'

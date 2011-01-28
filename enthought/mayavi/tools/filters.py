@@ -3,12 +3,12 @@ Filter factories and their associated functions for mlab.
 
 Module functions meant to be applied to a data source object should take
 only one positional argument, the data object, to be easily used in
-helper functions. 
+helper functions.
 """
 
 # Author: Gael Varoquaux <gael.varoquaux@normalesup.org>
 #         Prabhu Ramachandran
-# Copyright (c) 2007-2008, Enthought, Inc. 
+# Copyright (c) 2007-2008, Enthought, Inc.
 # License: BSD Style.
 
 import new
@@ -22,7 +22,7 @@ from enthought.mayavi.core.registry import registry
 from pipe_base import PipeFactory, make_function
 
 # This the list is dynamically populated further down below at the end.
-__all__ = [ 'tube', 'warp_scalar', 'threshold', 'elevation_filter', 
+__all__ = [ 'tube', 'warp_scalar', 'threshold', 'elevation_filter',
             'set_active_attribute', 'user_defined'
           ]
 
@@ -30,11 +30,11 @@ __all__ = [ 'tube', 'warp_scalar', 'threshold', 'elevation_filter',
 ##############################################################################
 class TubeFactory(PipeFactory):
     """Applies the Tube mayavi filter to the given VTK object."""
-    
+
     _target = Instance(filters.Tube, ())
 
     tube_sides = CInt(6, adapts='filter.number_of_sides',
-                        desc = """number of sides of the tubes used to 
+                        desc = """number of sides of the tubes used to
                         represent the lines.""")
 
 
@@ -49,7 +49,7 @@ tube = make_function(TubeFactory)
 ##############################################################################
 class WarpScalarFactory(PipeFactory):
     """Applies the WarpScalar mayavi filter to the given VTK object."""
-    
+
     _target = Instance(filters.WarpScalar, ())
 
     warp_scale = CFloat(1.0, adapts="filter.scale_factor",
@@ -61,7 +61,7 @@ warp_scalar = make_function(WarpScalarFactory)
 ##############################################################################
 class ThresholdFactory(PipeFactory):
     """Applies the Threshold mayavi filter to the given VTK object."""
-    
+
     _target = Instance(filters.Threshold, ())
 
     filter_type = Enum('cells', 'points', adapts='filter_type',
@@ -106,7 +106,7 @@ elevation_filter = make_function(ElevationFilterFactory)
 
 ##############################################################################
 class SetActiveAttributeFactory(PipeFactory):
-    """ Applies the SetActiveAttribute Filter mayavi filter to the given 
+    """ Applies the SetActiveAttribute Filter mayavi filter to the given
         VTK object.
     """
 
@@ -142,7 +142,7 @@ set_active_attribute = make_function(SetActiveAttributeFactory)
 ##############################################################################
 class UserDefinedFactory(PipeFactory):
     """Applies the UserDefined mayavi filter to the given TVTK object."""
-    
+
     _target = Instance(filters.UserDefined, ())
 
     filter = Instance(tvtk.Object, adapts="filter",
@@ -176,7 +176,7 @@ user_defined = make_function(UserDefinedFactory)
 ############################################################################
 class _AutomaticFilterFactory(PipeFactory):
     """The base class for any auto-generated factory classes.
-    
+
     NOTE: This class requires that the `_metadata` trait be set to
     the metadata object for the object for which this is a factory.
     """
@@ -191,7 +191,7 @@ class _AutomaticFilterFactory(PipeFactory):
         """Getter for the _target trait."""
         if self._saved_target is None:
             self._saved_target = self._metadata.get_callable()()
-        
+
         return self._saved_target
 
 
@@ -212,7 +212,7 @@ def _make_functions(namespace):
             continue
 
         # The class to wrap.
-        klass = new.classobj(class_name, 
+        klass = new.classobj(class_name,
                              (_AutomaticFilterFactory,),
                              {'__doc__': fil.help,}
                              )

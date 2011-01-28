@@ -21,16 +21,16 @@ class SelectOutput(Filter):
     """
     This filter lets a user select one among several of the outputs of a
     given input.  This is typically very useful for a multi-block data
-    source.  
+    source.
     """
 
     # The output index in the input to choose from.
     output_index = Range(value=0,
-                         enter_set=True, 
+                         enter_set=True,
                          auto_set=False,
                          low='_min_index',
                          high='_max_index')
-    
+
     input_info = PipelineInfo(datasets=['any'],
                               attribute_types=['any'],
                               attributes=['any'])
@@ -44,10 +44,10 @@ class SelectOutput(Filter):
     # The maximum output index of our input.
     _max_index = Int(0, desc='the maximum output index')
 
-    ######################################## 
+    ########################################
     # Traits View.
 
-    view = View(Group(Item('output_index', 
+    view = View(Group(Item('output_index',
                            enabled_when='_max_index > 0')),
                 resizable=True)
 
@@ -61,7 +61,7 @@ class SelectOutput(Filter):
     def __set_pure_state__(self, state):
         super(SelectOutput, self).__set_pure_state__(state)
         # Force an update of the output index -- if not this doesn't
-        # change. 
+        # change.
         self._output_index_changed(state.output_index)
 
     ######################################################################

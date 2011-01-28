@@ -19,7 +19,7 @@ _cache = wrapper_gen.WrapperGenerator()
 class TestWrapperGenerator(unittest.TestCase):
     def setUp(self):
         self.wg = _cache
-        
+
     def test_find_type(self):
         wg = self.wg
         sigs = ['int', 'vtkOpenGLVolumeMapper',
@@ -49,7 +49,7 @@ class TestWrapperGenerator(unittest.TestCase):
                   ('basic', 'array'),
                   ('basic', 'array'),
                   ('basic', 'array'),
-                  ('basic', 'vtk'),                  
+                  ('basic', 'vtk'),
                   ]
         for i, meth in enumerate(meths):
             sig = wg.parser.get_method_signature(meth)

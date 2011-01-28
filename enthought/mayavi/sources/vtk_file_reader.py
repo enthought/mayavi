@@ -13,9 +13,9 @@ from enthought.traits.api import Instance
 from enthought.tvtk.api import tvtk
 
 # Local imports.
-from enthought.mayavi.core.pipeline_info import (PipelineInfo, 
+from enthought.mayavi.core.pipeline_info import (PipelineInfo,
         get_tvtk_dataset_name)
-from vtk_xml_file_reader import VTKXMLFileReader 
+from vtk_xml_file_reader import VTKXMLFileReader
 
 
 ########################################################################
@@ -34,13 +34,13 @@ class VTKFileReader(VTKXMLFileReader):
 
     # The VTK data file reader.
     reader = Instance(tvtk.DataSetReader, args=(),
-                      kw={'read_all_scalars':True, 
+                      kw={'read_all_scalars':True,
                           'read_all_vectors': True,
                           'read_all_tensors': True,
-                          'read_all_fields': True} )    
+                          'read_all_fields': True} )
 
     # Information about what this object can produce.
-    output_info = PipelineInfo(datasets=['any'], 
+    output_info = PipelineInfo(datasets=['any'],
                                attribute_types=['any'],
                                attributes=['any'])
 
@@ -55,7 +55,7 @@ class VTKFileReader(VTKXMLFileReader):
         else:
             self.reader.file_name = value
             self.update()
-            
+
             # Setup the outputs by resetting self.outputs.  Changing
             # the outputs automatically fires a pipeline_changed
             # event.
@@ -71,7 +71,7 @@ class VTKFileReader(VTKXMLFileReader):
             # FIXME: Only the first output goes through the assign
             # attribute filter.
             aa = self._assign_attribute
-            aa.input = outputs[0]        
+            aa.input = outputs[0]
             outputs[0] = aa.output
             self.update_data()
 

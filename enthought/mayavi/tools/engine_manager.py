@@ -23,20 +23,20 @@ options.preferences = preference_manager.mlab
 
 ######################################################################
 def check_backend():
-    """ Check if either we are in test mode, or if there is a 
+    """ Check if either we are in test mode, or if there is a
         suitable traits backend installed.
     """
     from enthought.traits.ui.toolkit import toolkit
     from enthought.etsconfig.api import ETSConfig
     from enthought.mayavi.tools.engine_manager import options
-    
+
     toolkit() # This forces the selection of a toolkit.
     if (options.backend != 'test' and options.offscreen != True) and \
             ETSConfig.toolkit in ('null', ''):
         raise ImportError, '''Could not import backend for traits
 ________________________________________________________________________________
 Make sure that you have either the TraitsBackendWx or the TraitsBackendQt
-projects installed. If you installed Mayavi with easy_install, try easy_install 
+projects installed. If you installed Mayavi with easy_install, try easy_install
 <pkg_name>. easy_install Mayavi[app] will also work.
 
 If you performed a source checkout, be sure to run 'python setup.py install'
@@ -50,7 +50,7 @@ PyQT: http://www.riverbankcomputing.co.uk/software/pyqt/intro
 
 ################################################################################
 # `EngineManager` class.
-################################################################################ 
+################################################################################
 class EngineManager(HasTraits):
     """ Central registry for figures with mlab.
 
@@ -81,16 +81,16 @@ class EngineManager(HasTraits):
             engines = list()
         engines.extend(registry.engines.values())
         if options.backend == 'auto':
-            suitable = [e for e in engines 
+            suitable = [e for e in engines
                                 if e.__class__.__name__ != 'NullEngine']
         elif options.backend == 'envisage':
-            suitable = [e for e in engines 
+            suitable = [e for e in engines
                                 if e.__class__.__name__ == 'EnvisageEngine']
         elif options.backend == 'test':
-            suitable = [e for e in engines 
+            suitable = [e for e in engines
                                 if e.__class__.__name__ == 'NullEngine']
         else:
-            suitable = [e for e in engines 
+            suitable = [e for e in engines
                                 if e.__class__.__name__ == 'Engine']
         if len(suitable) == 0:
             return self.new_engine()

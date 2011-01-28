@@ -9,7 +9,7 @@ The script can be run like so::
 Alternatively, it can be run as::
 
   $ python structured_points2d.py
-  
+
 """
 # Author: Prabhu Ramachandran <prabhu at aero dot iitb dot ac dot in>
 # Copyright (c) 2007, Enthought, Inc.
@@ -23,7 +23,7 @@ from enthought.mayavi.scripts import mayavi2
 x = (arange(0.1, 50.0)-25)/2.0
 y = (arange(0.1, 50.0)-25)/2.0
 r = sqrt(x[:,None]**2+y**2)
-z = 5.0*sin(r)/r  # 
+z = 5.0*sin(r)/r  #
 
 # Make the tvtk dataset.
 # tvtk.ImageData is identical and could also be used here.

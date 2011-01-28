@@ -35,7 +35,7 @@ class Collection(Filter):
 
     ######################################################################
     # `object` interface.
-    ###################################################################### 
+    ######################################################################
     def __set_pure_state__(self, state):
         # Create and set the filters.
         handle_children_state(self.filters, state.filters)
@@ -44,14 +44,14 @@ class Collection(Filter):
 
     ######################################################################
     # HasTraits interface.
-    ###################################################################### 
+    ######################################################################
     def default_traits_view(self):
         """Returns the default traits view for this object."""
         le = ListEditor(use_notebook=True,
                         deletable=False,
                         export='DockWindowShell',
                         page_name='.name')
-        view = View(Group(Item(name='filters', 
+        view = View(Group(Item(name='filters',
                                style='custom',
                                show_label=False,
                                editor=le,
@@ -62,7 +62,7 @@ class Collection(Filter):
 
     ######################################################################
     # `Filter` interface.
-    ###################################################################### 
+    ######################################################################
     def setup_pipeline(self):
         """Setup the pipeline."""
         # Needed because a user may have defined the filters by setting
@@ -103,7 +103,7 @@ class Collection(Filter):
 
     ######################################################################
     # Private interface.
-    ###################################################################### 
+    ######################################################################
     def _setup_pipeline(self):
         """Sets up the objects in the pipeline."""
         if len(self.inputs) == 0 or len(self.filters) == 0:

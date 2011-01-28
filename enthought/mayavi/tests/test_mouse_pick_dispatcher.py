@@ -57,7 +57,7 @@ class TestMousePickerDispatcher(unittest.TestCase):
         # Unregistering the engine, to avoid side-effects between tests
         self.e.stop()
         registry.unregister_engine(self.e)
- 
+
     def test_callback_registering(self):
         def test(picker):
             pass

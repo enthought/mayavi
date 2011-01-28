@@ -6,7 +6,7 @@
 # License: BSD Style.
 
 # Standard library imports.
-import sys 
+import sys
 from os.path import isfile
 
 # Enthought library imports.
@@ -27,7 +27,7 @@ class SaveVisualization(Action):
     tooltip       = "Save current visualization"
 
     description   = "Save current visualization to a MayaVi2 file"
-    
+
     ###########################################################################
     # 'Action' interface.
     ###########################################################################
@@ -69,7 +69,7 @@ class LoadVisualization(Action):
             if not isfile(dialog.path):
                 error("File '%s' does not exist"%dialog.path, parent)
                 return
-            
+
             mv = get_imayavi(self.window)
             mv.load_visualization(dialog.path)
 
@@ -77,8 +77,8 @@ class LoadVisualization(Action):
 # `RunScript` class.
 ######################################################################
 class RunScript(Action):
-    """ An action that runs a mayavi script.  
-    
+    """ An action that runs a mayavi script.
+
     WARNING: this can be dangerous since the file runs execfile! """
 
     tooltip       = "Execute a Python script (typically a Mayavi script)"
@@ -101,7 +101,7 @@ class RunScript(Action):
             if not isfile(dialog.path):
                 error("File '%s' does not exist"%dialog.path, parent)
                 return
-            
+
             # Get the globals.
             # The following code is taken from scripts/mayavi2.py.
             g = sys.modules['__main__'].__dict__

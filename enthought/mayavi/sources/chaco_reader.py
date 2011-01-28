@@ -1,4 +1,4 @@
-"""A Chaco file reader. 
+"""A Chaco file reader.
 """
 # Author: Suyog Dutt Jain <suyog.jain@aero.iitb.ac.in>
 # Copyright (c) 2009, Enthought, Inc.
@@ -18,7 +18,7 @@ from enthought.mayavi.core.pipeline_info import PipelineInfo
 ########################################################################
 class ChacoReader(Source):
 
-    """A Chaco reader. 
+    """A Chaco reader.
     """
 
     # The version of this class.  Used for persistence.
@@ -29,7 +29,7 @@ class ChacoReader(Source):
     # The VTK data file reader.
     reader = Instance(tvtk.ChacoReader, args=(), allow_none=False,
                       record=True)
-    
+
     # Information about what this object can produce.
     output_info = PipelineInfo(datasets=['unstructured_grid'])
 
@@ -39,17 +39,17 @@ class ChacoReader(Source):
     view = View(Group(Item(name='reader', style='custom',
                            resizable=True),
                       show_labels=False),
-                resizable=True)                
-    
+                resizable=True)
+
     ######################################################################
     # `FileDataSource` interface
     ######################################################################
     def __init__(self, base_name='', configure=True, **traits):
-        super(ChacoReader, self).__init__(**traits)            
+        super(ChacoReader, self).__init__(**traits)
         if configure:
             self.reader.edit_traits(kind='livemodal')
         self.base_name = self.reader.base_name
-   
+
     def update(self):
         if len(self.base_name) == 0:
             return
@@ -65,7 +65,7 @@ class ChacoReader(Source):
         else:
             self.reader.base_name = value
             self._update_reader_output()
-        
+
     def _update_reader_output(self):
         self.reader.update()
         self.reader.update_information()

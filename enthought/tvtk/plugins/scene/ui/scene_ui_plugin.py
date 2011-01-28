@@ -17,7 +17,7 @@ class SceneUIPlugin(Plugin):
     # Extension point Ids.
     ACTION_SETS       = 'enthought.envisage.ui.workbench.action_sets'
     PREFERENCES_PAGES = 'enthought.envisage.ui.workbench.preferences_pages'
-    
+
     #### 'IPlugin' interface ##################################################
 
     # The plugin's name (suitable for displaying to the user).
@@ -40,14 +40,14 @@ class SceneUIPlugin(Plugin):
         from enthought.tvtk.plugins.scene.ui.scene_ui_action_set import (
             SceneUIActionSet
         )
-        
+
         return [SceneUIActionSet]
 
     preferences_pages = List(contributes_to=PREFERENCES_PAGES)
 
     def _preferences_pages_default(self):
         """ Trait initializer. """
-        
+
         from enthought.tvtk.plugins.scene.ui.scene_preferences_page import (
             ScenePreferencesPage
         )

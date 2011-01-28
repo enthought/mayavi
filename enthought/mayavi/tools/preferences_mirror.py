@@ -8,7 +8,7 @@ from enthought.preferences.api import PreferencesHelper
 
 ################################################################################
 # `PreferencesMirror` class.
-################################################################################ 
+################################################################################
 class PreferencesMirror(HasTraits):
     """
     This class mirrors preferences from a PreferencesHelper such that
@@ -25,7 +25,7 @@ class PreferencesMirror(HasTraits):
 
     ######################################################################
     # Public interface.
-    ###################################################################### 
+    ######################################################################
     def save(self):
         """Updates the actual preferences and thereby persists them to
         disk.
@@ -35,7 +35,7 @@ class PreferencesMirror(HasTraits):
 
     ######################################################################
     # Private interface.
-    ###################################################################### 
+    ######################################################################
     def _preferences_changed(self):
         """Setup traits of our own based on those of the mayavi
         preferences.

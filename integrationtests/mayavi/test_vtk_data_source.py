@@ -20,7 +20,7 @@ class TestVTKDataSource(TestContour):
         script = self.script
         from enthought.mayavi.sources.vtk_data_source import VTKDataSource
         from enthought.tvtk.api import tvtk
-        
+
         ############################################################
         # Create a new scene and set up the visualization.
         s = self.new_scene()
@@ -32,7 +32,7 @@ class TestVTKDataSource(TestContour):
         d = VTKDataSource(data=r.output)
         script.add_source(d)
 
-    def test(self):      
+    def test(self):
         self.main()
 
     def do(self):
@@ -74,7 +74,7 @@ class TestVTKDataSource(TestContour):
         script.add_module(cp)
         ip = cp.implicit_plane
         ip.normal = 0,0,1
-        ip.origin = 0,0,5        
+        ip.origin = 0,0,5
         ip.widget.enabled = False
 
         # Set the scene to an isometric view.
@@ -123,9 +123,9 @@ class TestVTKDataSource(TestContour):
         cp = source1.children[0].children[-1]
         cp.implicit_plane.widget.enabled = False
         self.check()
-        
+
         # If we have come this far, we are golden!
-        
+
 
 if __name__ == "__main__":
     t = TestVTKDataSource()

@@ -1,7 +1,7 @@
 """ Powerful utility for running a TCP/UDP server that is used to script
 Mayavi2 from the network.  This uses Twisted.  This particular version
 has been written for the wxPython, adding support for a Qt4 version
-should be trivial. 
+should be trivial.
 
 The key functions exposed are::
 
@@ -36,12 +36,12 @@ your app and can continue to use its UI as before, any network commands
 will be simply run on top of this.
 
 **Warning** while this is very powerful it is also a **huge security
-hole** since the remote user can do pretty much anything they want.  
+hole** since the remote user can do pretty much anything they want.
 
 """
 
 # Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
-# Copyright (c) 2009, Enthought, Inc. 
+# Copyright (c) 2009, Enthought, Inc.
 # License: BSD Style.
 
 import sys
@@ -57,7 +57,7 @@ from twisted.python import log
 
 
 ################################################################################
-# `M2UDP` protocol. 
+# `M2UDP` protocol.
 ################################################################################
 class M2UDP(DatagramProtocol):
 
@@ -73,7 +73,7 @@ class M2UDP(DatagramProtocol):
       scene.camera.zoom(1.5)
 
     And these will run just fine retaining the full interactivity of the
-    mayavi app.  
+    mayavi app.
     """
 
     def datagramReceived(self, data, (host, port)):
@@ -93,7 +93,7 @@ class M2UDP(DatagramProtocol):
 
 
 ################################################################################
-# `M2TCP` protocol 
+# `M2TCP` protocol
 ################################################################################
 class M2TCP(Protocol):
 
@@ -109,7 +109,7 @@ class M2TCP(Protocol):
       scene.camera.zoom(1.5)
 
     And these will run just fine retaining the full interactivity of the
-    mayavi app. 
+    mayavi app.
     """
 
     # Maximum number of concurrent connections allowed.
@@ -117,9 +117,9 @@ class M2TCP(Protocol):
 
     def connectionMade(self):
         log.msg('ConnectionMade')
-        self.factory.numConnect += 1 
+        self.factory.numConnect += 1
         if self.factory.numConnect > self.maxConnect:
-            self.transport.write("Server already in use, try later\n") 
+            self.transport.write("Server already in use, try later\n")
             self.transport.loseConnection()
 
     def connectionLost(self, reason):
@@ -184,7 +184,7 @@ def serve_udp(engine=None, port=9007, logto=sys.stdout):
     """
 
     from enthought.mayavi import mlab
-    e = engine or mlab.get_engine() 
+    e = engine or mlab.get_engine()
     # Setup the protocol with the right attributes.
     proto = M2UDP()
     proto.engine = e

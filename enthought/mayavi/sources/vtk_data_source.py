@@ -21,7 +21,7 @@ from enthought.tvtk import messenger
 from enthought.mayavi.core.source import Source
 from enthought.mayavi.core.common import handle_children_state
 from enthought.mayavi.core.traits import DEnum
-from enthought.mayavi.core.pipeline_info import (PipelineInfo, 
+from enthought.mayavi.core.pipeline_info import (PipelineInfo,
         get_tvtk_dataset_name)
 from vtk_xml_file_reader import get_all_attributes
 
@@ -57,7 +57,7 @@ def write_dataset_to_string(data):
 
 def has_attributes(dataset):
     """Returns `True` when the given TVTK `dataset` has any attribute
-    arrays in point and cell data and `False` otherwise.  
+    arrays in point and cell data and `False` otherwise.
     """
     pd = dataset.point_data
     if pd is not None and pd.number_of_arrays > 0:
@@ -88,9 +88,9 @@ class VTKDataSource(Source):
 
     # The VTK dataset to manage.
     data = Instance(tvtk.DataSet, allow_none=False)
-    
+
     # Information about what this object can produce.
-    output_info = PipelineInfo(datasets=['any'], 
+    output_info = PipelineInfo(datasets=['any'],
                                attribute_types=['any'],
                                attributes=['any'])
 
@@ -141,7 +141,7 @@ class VTKDataSource(Source):
     _cell_scalars_list = List(Str)
     _cell_vectors_list = List(Str)
     _cell_tensors_list = List(Str)
-    
+
     # This filter allows us to change the attributes of the data
     # object and will ensure that the pipeline is properly taken care
     # of.  Directly setting the array in the VTK object will not do
@@ -154,7 +154,7 @@ class VTKDataSource(Source):
 
     # The ID of the observer for the data.
     _observer_id = Int(-1)
-    
+
     ######################################################################
     # `object` interface
     ######################################################################
@@ -214,7 +214,7 @@ class VTKDataSource(Source):
         """Invoke this to flush data changes downstream.  This is
         typically used when you change the data object and want the
         mayavi pipeline to refresh.
-        """        
+        """
         # This tells the VTK pipeline that the data has changed.  This
         # will fire the data_changed event automatically.
         self.data.modified()
@@ -246,14 +246,14 @@ class VTKDataSource(Source):
         new_vtk = tvtk.to_vtk(new)
         messenger.connect(new_vtk, 'ModifiedEvent',
                           self._fire_data_changed)
-        
+
         # Change our name so that our label on the tree is updated.
         self.name = self._get_name()
 
     def _fire_data_changed(self, *args):
         """Simply fire the `data_changed` event."""
         self.data_changed = True
-    
+
     def _set_data_name(self, data_type, attr_type, value):
         if value is None:
             return
@@ -304,7 +304,7 @@ class VTKDataSource(Source):
 
     def _cell_tensors_name_changed(self, value):
         self._set_data_name('tensors', 'cell', value)
-    
+
     def _update_data(self):
         if self.data is None:
             return
@@ -319,7 +319,7 @@ class VTKDataSource(Source):
             r = scalars.range
             self._assign_attribute.output.scalar_type = scalars.data_type
             self.data.scalar_type = scalars.data_type
-        
+
         def _setup_data_traits(obj, attributes, d_type):
             """Given the object, the dict of the attributes from the
             `get_all_attributes` function and the data type
@@ -350,7 +350,7 @@ class VTKDataSource(Source):
             self._first = False
         # Propagate the data changed event.
         self.data_changed = True
-        
+
     def _get_name(self):
         """ Gets the name to display on the tree.
         """

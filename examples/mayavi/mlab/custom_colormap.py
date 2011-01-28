@@ -3,13 +3,13 @@ An example showing how a custom colormap (or look up table) can be used
 for a given object.
 
 Although the end user specifies colormaps by giving the name of a set of
-predefined colormaps, Mayavi (and VTK) deal with color internally using 
+predefined colormaps, Mayavi (and VTK) deal with color internally using
 'Look Up Tables' (LUT): a table that associate a scalar value to a
 color defined by its RGBA components.
 
 In this example, we show how the LUT of an object can be retrieved and
 modified. Specificaly, we start by giving a surf object the 'cool'
-colormap, but we modify add to add a transparency effect. 
+colormap, but we modify add to add a transparency effect.
 
 Notice in the resulting image how the surface becomes more transparent
 for its lower points.
@@ -38,7 +38,7 @@ lut = surf.module_manager.scalar_lut_manager.lut.table.to_array()
 
 # We modify the alpha channel to add a transparency gradient
 lut[:, -1] = np.linspace(0, 255, 256)
-# and finally we put this LUT back in the surface object. We could have 
+# and finally we put this LUT back in the surface object. We could have
 # added any 255*4 array rather than modifying an existing LUT.
 surf.module_manager.scalar_lut_manager.lut.table = lut
 

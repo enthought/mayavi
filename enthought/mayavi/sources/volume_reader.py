@@ -18,18 +18,18 @@ from enthought.mayavi.core.pipeline_info import PipelineInfo
 ########################################################################
 class VolumeReader(Source):
 
-    """A Volume reader. 
+    """A Volume reader.
     """
 
     # The version of this class.  Used for persistence.
     __version__ = 0
-    
+
     file_prefix = Str('', desc='File prefix for the volume files')
 
     # The VTK data file reader.
     reader = Instance(tvtk.Volume16Reader, args=(), allow_none=False,
                       record=True)
-    
+
     # Information about what this object can produce.
     output_info = PipelineInfo(datasets=['image_data'])
 
@@ -39,19 +39,19 @@ class VolumeReader(Source):
     view = View(Group(Item(name='reader', style='custom',
                             resizable=True),
                       show_labels=False),
-                resizable=True)                
+                resizable=True)
 
     ######################################################################
     # `Source` interface
     ######################################################################
-    
+
     def __init__(self, file_prefix='', configure=True, **traits):
-        super(VolumeReader, self).__init__(**traits)            
+        super(VolumeReader, self).__init__(**traits)
         if configure:
             self.reader.edit_traits(kind='livemodal')
-         
+
         self.file_prefix = self.reader.file_prefix
-            
+
     def update(self):
         if len(self.file_prefix) == 0:
             return
@@ -68,10 +68,10 @@ class VolumeReader(Source):
         else:
             self.reader.file_prefix = value
             self._update_reader_output()
-        
+
     def _update_reader_output(self):
         self.reader.update()
         self.reader.update_information()
         self.reader.on_trait_change(self.render)
         self.outputs = [self.reader.output]
-        self.data_changed = True   
+        self.data_changed = True

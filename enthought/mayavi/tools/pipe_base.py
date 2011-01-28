@@ -4,7 +4,7 @@ Base class for factories for adding objects to the pipeline.
 """
 
 # Author: Gael Varoquaux <gael.varoquaux@normalesup.org>
-# Copyright (c) 2007, Enthought, Inc. 
+# Copyright (c) 2007, Enthought, Inc.
 # License: BSD Style.
 
 import warnings
@@ -29,11 +29,11 @@ def get_obj(obj, components):
     for component in components:
         obj = getattr(obj, component)
 
-    return obj 
+    return obj
 
 
 def make_function(factory_class):
-    def the_function(*args, **kwargs): 
+    def the_function(*args, **kwargs):
         factory = factory_class(*args, **kwargs)
         return factory._target
 
@@ -58,7 +58,7 @@ def get_module_manager(obj):
 ##############################################################################
 class PipeFactory(HasPrivateTraits):
     """ Base class for all factories adding pipes on the pipeline """
-        
+
     name = Str(adapts='name', help='the name of the vtk object created.')
 
     figure = Instance(Scene)
@@ -73,47 +73,47 @@ class PipeFactory(HasPrivateTraits):
     def add_module(self, parent, kwargs=dict()):
         """ Add the target module to the given object.
         """
-        # We check to see if the module-manager-related option require to 
+        # We check to see if the module-manager-related option require to
         # add a new module manager:
         if parent is not None:
             module_manager = get_module_manager(parent)
-            if (module_manager is not None and 
+            if (module_manager is not None and
                         len(module_manager.children) > 0):
                 scalar_lut = module_manager.scalar_lut_manager
                 vector_lut = module_manager.vector_lut_manager
                 if 'vmin' in kwargs:
                     if not scalar_lut.use_default_range and \
                             kwargs['vmin'] != scalar_lut.data_range[0]:
-                        parent = self._engine.add_module(ModuleManager(), 
+                        parent = self._engine.add_module(ModuleManager(),
                                                         module_manager.parent)
                     elif not scalar_lut.use_default_range and \
                             kwargs['vmin'] != scalar_lut.data_range[0]:
-                        parent = self._engine.add_module(ModuleManager(), 
+                        parent = self._engine.add_module(ModuleManager(),
                                                         module_manager.parent)
 
                 elif 'vmax' in kwargs:
                     if not scalar_lut.use_default_range and \
                             kwargs['vmax'] != scalar_lut.data_range[1]:
-                        parent = self._engine.add_module(ModuleManager(), 
+                        parent = self._engine.add_module(ModuleManager(),
                                                         module_manager.parent)
                     elif not scalar_lut.use_default_range and \
                             kwargs['vmax'] != scalar_lut.data_range[1]:
-                        parent = self._engine.add_module(ModuleManager(), 
+                        parent = self._engine.add_module(ModuleManager(),
                                                         module_manager.parent)
 
                 elif 'colormap' in kwargs:
                     cmap = kwargs['colormap']
                     if ( scalar_lut.lut_mode != cmap
                                         or vector_lut.lut_mode != cmap):
-                        parent = self._engine.add_module(ModuleManager(), 
+                        parent = self._engine.add_module(ModuleManager(),
                                             module_manager.parent)
-            
+
         self._engine.add_module(self._target, obj=parent)
 
     def __init__(self, parent, **kwargs):
         # We are not passing the traits to the parent class
         super(PipeFactory, self).__init__()
-        # Try to find the right engine and scene to work with 
+        # Try to find the right engine and scene to work with
         ancester = parent
         while hasattr(ancester, 'parent'):
             ancester = getattr(ancester, 'parent')
@@ -131,13 +131,13 @@ class PipeFactory(HasPrivateTraits):
         if self.figure is not None and self.figure is not self._scene:
             warnings.warn('Trying to add a module on the wrong scene')
         if isinstance(parent, (Source, tvtk.DataSet)) \
-                and not isinstance(parent, Filter) and scene is not None: 
+                and not isinstance(parent, Filter) and scene is not None:
             # Search the current scene to see if the  source is already
             # in it, if not add it.
             if not parent in self._scene.children:
                 parent = tools.add_dataset(parent, figure=self._scene)
-            
-        
+
+
         if scene is not None:
             self._do_redraw = not scene.disable_render
             scene.disable_render = True
@@ -153,7 +153,7 @@ class PipeFactory(HasPrivateTraits):
             self._target.mlab_source = ms
 
         traits = self.get(self.class_trait_names())
-        [traits.pop(key) for key in traits.keys() 
+        [traits.pop(key) for key in traits.keys()
                                     if key[0]=='_' or key is None]
         traits.update(kwargs)
         # Now calling the traits setter, so that traits handlers are
@@ -168,7 +168,7 @@ class PipeFactory(HasPrivateTraits):
         HasPrivateTraits.set(self, trait_change_notify=trait_change_notify,
                                     **traits)
         if trait_change_notify==False:
-            return 
+            return
         for trait in traits.iterkeys():
             callback = getattr(self, '_%s_changed' % trait)
             value = getattr(self, trait)
@@ -182,7 +182,7 @@ class PipeFactory(HasPrivateTraits):
                     pass
                 else:
                     raise
-                
+
 
     def _anytrait_changed(self, name, value):
         """ This is where we implement the adaptation code. """

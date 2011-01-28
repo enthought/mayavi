@@ -105,16 +105,16 @@ class Optional(Component):
             return self.component.outputs
         else:
             return self.inputs[0].outputs
-        
+
     def _enabled_changed(self, value):
         # Force downstream modules to update.
         self.pipeline_changed = True
-        
+
     def _label_changed(self, value):
         # Change the displayed label for the enable trait in the view.
         item = self.trait_view_elements().content['enabled_item']
         item.label = value
-        
+
     def _component_changed(self, old, new):
         if old is not None:
             old.on_trait_change(self._fire_pipeline_changed,
@@ -127,8 +127,8 @@ class Optional(Component):
 
     def _fire_pipeline_changed(self):
         self.pipeline_changed = True
-        
+
     def _fire_data_changed(self):
         self.data_changed = True
 
-       
+

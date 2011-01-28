@@ -39,12 +39,12 @@ class ContourGridPlane(Module):
     # The actor component that represents the visualization.
     actor = Instance(Actor, allow_none=False, record=True)
 
-    input_info = PipelineInfo(datasets=['image_data', 
+    input_info = PipelineInfo(datasets=['image_data',
                                         'structured_grid',
                                         'rectilinear_grid'],
                               attribute_types=['any'],
                               attributes=['any'])
-    
+
     view = View([Group(Item(name='grid_plane', style='custom'),
                        show_labels=False),
                  Group(Item(name='enable_contours')),
@@ -54,7 +54,7 @@ class ContourGridPlane(Module):
                        show_labels=False)
                  ]
                 )
-    
+
     ######################################################################
     # `Module` interface
     ######################################################################
@@ -85,17 +85,17 @@ class ContourGridPlane(Module):
         mm = self.module_manager
         if mm is None:
             return
-        
+
         # Data is available, so set the input for the grid plane.
         self.grid_plane.inputs = [mm.source]
 
         # This makes sure that any changes made to enable_contours
         # when the module is not running are updated when it is
-        # started.        
+        # started.
         self._enable_contours_changed(self.enable_contours)
         # Set the LUT for the mapper.
         self.actor.set_lut(mm.scalar_lut_manager.lut)
-        
+
         self.pipeline_changed = True
 
     def update_data(self):
@@ -120,7 +120,7 @@ class ContourGridPlane(Module):
         if value:
             self.actor.mapper.scalar_mode = 'use_cell_data'
         else:
-            self.actor.mapper.scalar_mode = 'default'            
+            self.actor.mapper.scalar_mode = 'default'
         self.render()
 
     def _enable_contours_changed(self, value):
@@ -159,7 +159,7 @@ class ContourGridPlane(Module):
         if actor is not None:
             actor.inputs = [new]
         self._change_components(old, new)
-            
+
     def _actor_changed(self, old, new):
         if old is None:
             # First time this is set.

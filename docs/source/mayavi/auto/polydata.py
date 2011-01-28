@@ -1,5 +1,5 @@
-""" 
-An example of how to generate a polydata dataset using numpy arrays.  
+"""
+An example of how to generate a polydata dataset using numpy arrays.
 
 The example is similar to tvtk/examples/tiny_mesh.py.  Also shown is a
 way to visualize this data with mayavi2.  The script can be run like so::
@@ -9,7 +9,7 @@ way to visualize this data with mayavi2.  The script can be run like so::
 It can be alternatively run as::
 
   $ python polydata.py
-  
+
 """
 
 # Author: Prabhu Ramachandran <prabhu at aero dot iitb dot ac dot in>

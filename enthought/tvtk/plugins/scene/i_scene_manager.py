@@ -15,11 +15,11 @@ class ISceneManager(Interface):
 
     # A list of all open scenes.
     scenes = List(TVTKScene)
-    
+
     # The workbench window that the manager is in (there is one scene manager
     # per workbench window).
     window = Instance(WorkbenchWindow)
-    
+
 #### EOF ######################################################################
 
 

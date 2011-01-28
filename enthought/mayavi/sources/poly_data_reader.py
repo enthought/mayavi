@@ -30,14 +30,14 @@ class PolyDataReader(FileDataSource):
     # The version of this class.  Used for persistence.
     __version__ = 0
 
-    # The PolyData file reader                
+    # The PolyData file reader
     reader = Instance(tvtk.Object, allow_none=False,
                       record=True)
-                    
+
     ######################################################################
-    # Private Traits  
+    # Private Traits
     _reader_dict = Dict(Str, Instance(tvtk.Object))
-    
+
     # Our View.
     view = View(Group(Include('time_step_group'),
                       Item(name='base_file_name'),
@@ -46,13 +46,13 @@ class PolyDataReader(FileDataSource):
                            resizable=True),
                       show_labels=False),
                 resizable=True)
-    
+
     #output_info = PipelineInfo(datasets=['none'])
-    output_info = PipelineInfo(datasets=['poly_data'], 
+    output_info = PipelineInfo(datasets=['poly_data'],
                                attribute_types=['any'],
                                attributes=['any'])
 
-    
+
     ######################################################################
     # `object` interface
     ######################################################################
@@ -60,25 +60,25 @@ class PolyDataReader(FileDataSource):
         # The reader has its own file_name which needs to be fixed.
         state.reader.file_name = state.file_path.abs_pth
         # Now call the parent class to setup everything.
-        super(PolyDataReader, self).__set_pure_state__(state) 
-    
+        super(PolyDataReader, self).__set_pure_state__(state)
+
     ######################################################################
     # `FileDataSource` interface
     ######################################################################
     def update(self):
-        self.reader.update()       
+        self.reader.update()
         if len(self.file_path.get()) == 0:
             return
         self.render()
-  
+
     ######################################################################
     # Non-public interface
-    ######################################################################    
+    ######################################################################
     def _file_path_changed(self, fpath):
         value = fpath.get()
         if len(value) == 0:
             return
-        
+
         # Extract the file extension
         splitname = value.strip().split('.')
         extension = splitname[-1].lower()
@@ -89,11 +89,11 @@ class PolyDataReader(FileDataSource):
         else:
             error('Invalid extension for file: %s'%value)
             return
-        
+
         self.reader.file_name = value.strip()
         self.reader.update()
         self.reader.update_information()
-        
+
         if old_reader is not None:
             old_reader.on_trait_change(self.render, remove=True)
         self.reader.on_trait_change(self.render)
@@ -108,22 +108,22 @@ class PolyDataReader(FileDataSource):
 
     def _get_name(self):
         """ Returns the name to display on the tree view.  Note that
-        this is not a property getter.  
+        this is not a property getter.
         """
         fname = basename(self.file_path.get())
-        ret = "%s"%fname    
+        ret = "%s"%fname
         if len(self.file_list) > 1:
             ret += " (timeseries)"
         if '[Hidden]' in self.name:
             ret += ' [Hidden]'
 
         return ret
-    
+
     def __reader_dict_default(self):
         """Default value for reader dict."""
         rd = {'stl':tvtk.STLReader(),
              'stla':tvtk.STLReader(),
-             'stlb':tvtk.STLReader(),    
+             'stlb':tvtk.STLReader(),
              'txt':tvtk.SimplePointsReader(),
              'raw':tvtk.ParticleReader(),
              'ply':tvtk.PLYReader(),
@@ -131,10 +131,10 @@ class PolyDataReader(FileDataSource):
              'slc':tvtk.SLCReader(),
              'xyz':tvtk.XYZMolReader(),
              'obj':tvtk.OBJReader(),
-             'facet':tvtk.FacetReader(),      
-             'cube':tvtk.GaussianCubeReader(),      
+             'facet':tvtk.FacetReader(),
+             'cube':tvtk.GaussianCubeReader(),
              'g':tvtk.BYUReader(),
-            }        
+            }
         return rd
 
     # Callable to check if the reader can actually read the file
@@ -157,11 +157,11 @@ class PolyDataReader(FileDataSource):
             r.file_name = filename
             r.update()
             o.SetGlobalWarningDisplay(w)
-            
+
             if len(r.output.points) != 0:
-                return True            
+                return True
             return False
 
         return None
-        
+
     can_read = classmethod(can_read)

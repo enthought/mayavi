@@ -23,9 +23,9 @@ from os.path import exists, join, dirname, isdir
 _zip = join(dirname(__file__), 'tvtk_classes.zip')
 tvtk_class_dir = join(dirname(__file__), 'tvtk_classes')
 
-if not ( exists(tvtk_class_dir) and isdir(tvtk_class_dir) 
+if not ( exists(tvtk_class_dir) and isdir(tvtk_class_dir)
          or exists(_zip)):
-    raise ImportError("TVTK not built properly. " 
+    raise ImportError("TVTK not built properly. "
         "Unable to find either a directory: %s or a file: %s "
         "with the TVTK classes." % (tvtk_class_dir, _zip) )
 

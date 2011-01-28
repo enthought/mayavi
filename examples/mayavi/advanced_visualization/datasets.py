@@ -17,21 +17,21 @@ The following images are created:
             :scale: 50
 
     * **StructuredGrid**
-      
+
       .. image:: ../structured_grid.jpg
             :scale: 50
 
     * **UnstructuredGrid**
-    
+
       .. image:: ../unstructured_grid.jpg
             :scale: 50
 
 """
-# Author: Gael Varoquaux <gael dot varoquaux at normalesup.org> 
+# Author: Gael Varoquaux <gael dot varoquaux at normalesup.org>
 # Copyright (c) 2008, Enthought, Inc.
 # License: BSD style.
 
-from numpy import array, random, linspace, pi, ravel, cos, sin, empty 
+from numpy import array, random, linspace, pi, ravel, cos, sin, empty
 from enthought.tvtk.api import tvtk
 
 from enthought.mayavi.sources.vtk_data_source import VTKDataSource
@@ -46,7 +46,7 @@ def image_data():
     i.point_data.scalars.name = 'scalars'
     i.dimensions = data.shape
     return i
-    
+
 
 def rectilinear_grid():
     data = random.random((3, 3, 3))
@@ -59,7 +59,7 @@ def rectilinear_grid():
     r.z_coordinates = array((0, .5, 2))
     return r
 
- 
+
 def generate_annulus(r, theta, z):
     """ Generate points for structured grid for a cylindrical annular
         volume.  This method is useful for generating a unstructured
@@ -68,12 +68,12 @@ def generate_annulus(r, theta, z):
     # Find the x values and y values for each plane.
     x_plane = (cos(theta)*r[:,None]).ravel()
     y_plane = (sin(theta)*r[:,None]).ravel()
-    
+
     # Allocate an array for all the points.  We'll have len(x_plane)
     # points on each plane, and we have a plane for each z value, so
     # we need len(x_plane)*len(z) points.
     points = empty([len(x_plane)*len(z),3])
-    
+
     # Loop through the points for each plane and fill them with the
     # correct x,y,z values.
     start = 0
@@ -82,13 +82,13 @@ def generate_annulus(r, theta, z):
         # slice out a plane of the output points and fill it
         # with the x,y, and z values for this plane.  The x,y
         # values are the same for every plane.  The z value
-        # is set to the current z 
-        plane_points = points[start:end]    
+        # is set to the current z
+        plane_points = points[start:end]
         plane_points[:,0] = x_plane
-        plane_points[:,1] = y_plane 
+        plane_points[:,1] = y_plane
         plane_points[:,2] = z_plane
         start = end
-        
+
     return points
 
 
@@ -129,7 +129,7 @@ def unstructured_grid():
     ug = tvtk.UnstructuredGrid(points=points)
     # Now just set the cell types and reuse the ug locations and cells.
     ug.set_cells(cell_types, offset, cell_array)
-    scalars = random.random(points.shape[0]) 
+    scalars = random.random(points.shape[0])
     ug.point_data.scalars = scalars
     ug.point_data.scalars.name = 'scalars'
     return ug
@@ -140,10 +140,10 @@ def polydata():
     points = array([[0,-0.5,0], [1.5,0,0], [0,1,0], [0,0,0.5],
                     [-1,-1.5,0.1], [0,-1, 0.5], [-1, -0.5, 0],
                     [1,0.8,0]], 'f')
-    triangles = array([[0,1,3], [1,2,3], [1,0,5], 
+    triangles = array([[0,1,3], [1,2,3], [1,0,5],
                        [2,3,4], [3,0,4], [0,5,4], [2, 4, 6],
                         [2, 1, 7]])
-    scalars = random.random(points.shape) 
+    scalars = random.random(points.shape)
 
     # The TVTK dataset.
     mesh = tvtk.PolyData(points=points, polys=triangles)
@@ -155,7 +155,7 @@ def polydata():
 def view(dataset):
     """ Open up a mayavi scene and display the dataset in it.
     """
-    fig = mlab.figure(bgcolor=(1, 1, 1), fgcolor=(0, 0, 0), 
+    fig = mlab.figure(bgcolor=(1, 1, 1), fgcolor=(0, 0, 0),
                       figure=dataset.class_name[3:])
     surf = mlab.pipeline.surface(dataset, opacity=0.1)
     mlab.pipeline.surface(mlab.pipeline.extract_edges(surf),

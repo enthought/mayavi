@@ -193,7 +193,7 @@ Definition of the "basic state" of a tvtk object
 In tvtk the set of all properties of the VTK object that are
 represented as traits and have for their value a simple Python type
 (int/float/string) or a special value (like a tuple specifying color)
-define the state.  
+define the state.
 
 In terms of the implementation of tvtk, any property of a VTK object
 that can be set by using methods having the form `<Property>On` or
@@ -448,7 +448,7 @@ Here is a simple example demonstrating these::
 
     >>> ########################################
     >>> from enthought.tvtk.api import tvtk
-    >>> import numpy      
+    >>> import numpy
     >>> data = numpy.array([[0,0,0,10], [1,0,0,20],
     ...                      [0,1,0,20], [0,0,1,30]], 'f')
     >>> triangles = numpy.array([[0,1,3], [0,3,2],
@@ -523,9 +523,9 @@ An alternative way to use an arbitrary connectivity list having
 different numbers of points per cell is to use the following
 approach::
 
-    >>> ids = numpy.array([3, 0,1,3, 
-    ...                    3, 0,3,2, 
-    ...                    3, 1,2,3, 
+    >>> ids = numpy.array([3, 0,1,3,
+    ...                    3, 0,3,2,
+    ...                    3, 1,2,3,
     ...                    3, 0,2,1])
     >>> # The list is of form [npts,p0,p1,...p(npts-1), ...]
     >>> n_cell = 4
@@ -626,16 +626,16 @@ example::
     >>> triangles = numpy.array([[0,1,3], [0,3,2],
     ...                          [1,2,3], [0,2,1]])
     >>> ca.from_array(triangles)
-    
+
 This always makes a copy.  However, if one uses the `set_cells` method
 a copy is made in the same circumstances as specified above for
 `DataArray` and `Points` classes.  If no copy is made, the cell data
 is a "view" of the numpy array.  Thus, the following example does
 not make a copy::
 
-    >>> ids = numpy.array([3, 0,1,3, 
-    ...                    3, 0,3,2, 
-    ...                    3, 1,2,3, 
+    >>> ids = numpy.array([3, 0,1,3,
+    ...                    3, 0,3,2,
+    ...                    3, 1,2,3,
     ...                    3, 0,2,1], int)
     >>> ca.set_cells(4, ids)
 
@@ -653,7 +653,7 @@ The `IdList` also *always* makes a copy of the data passed to it.
 Another issue to keep in mind is that VTK's data arrays always
 re-allocate memory if they are resized.  This is illustrated in the
 following example::
- 
+
    >>> d = tvtk.DoubleArray()
    >>> a = numpy.array([1,2,3], 'd')
    >>> d.from_array(a)
@@ -661,7 +661,7 @@ following example::
    >>> d.append(4.0)
    >>> a[0] = 1
    >>> print a
-   [ 1.   2.   3.] 
+   [ 1.   2.   3.]
    >>> print d
    [10.0, 2.0, 3.0, 4.0]
    >>> # Notice that d[0] == 10.0
@@ -726,7 +726,7 @@ traits package is used to represent the view.  This pipeline browser
 is similar to but more sophisticated than MayaVi_'s (1.x) pipeline
 browser.  The browser will most often automatically update itself as
 you change the VTK pipeline.  When it does not you can right click on
-any node and click refresh.  
+any node and click refresh.
 
 The algorithm to generate the objects in the tree can be changed.  The
 user may subclass `TreeGenerator` and use that instead.  Please read
@@ -755,7 +755,7 @@ function.  For example::
     >>> # Now create the viewer.
     >>> v = ivtk.viewer()
     >>> v.scene.add_actors(a)  # or v.scene.add_actor(a)
-    
+
 
 ivtk provides several useful classes that you may use from either
 PyFace or wxPython -- `IVTK`, `IVTKWithCrust`, `IVTKWithBrowser` and
@@ -787,7 +787,7 @@ can be relaxed if necessary later on).
 
 This module offers the following broad class of functionality:
 
-`Figure` 
+`Figure`
   This basically manages all of the objects rendered.  Just like
   figure in any Matlab like environment.  A convenience function
   called `figure` may be used to create a nice Figure instance.
@@ -800,13 +800,13 @@ This module offers the following broad class of functionality:
 `Line3`
   Draws lines between the points specified at initialization time.
 
-`Outline` 
+`Outline`
   Draws an outline for the contained objects.
 
 `Title`
   Draws a title for the entire figure.
 
-`LUTBase` 
+`LUTBase`
   Manages a lookup table and a scalar bar (legend) for it.  This is
   subclassed by all classes that need a LUT.
 
@@ -829,16 +829,16 @@ This module offers the following broad class of functionality:
   connectivity (assuming that x, y are from `numpy.mgrid`) and builds
   a mesh and shows it.
 
-`FancyMesh` 
+`FancyMesh`
   Like mesh but shows the mesh using tubes and spheres.
 
-`Surf` 
+`Surf`
   This generates a surface mesh just like Mesh but renders the mesh as
   a surface.
 
-`Contour3` 
+`Contour3`
   Shows contour for a mesh.
- 
+
 `ImShow`
   Allows one to view large numpy arrays as image data using an image
   actor.  This is just like MayaVi1's `mayavi.tools.imv.viewi`.
@@ -884,7 +884,7 @@ Octaviz_ site.
 ---------
 
 TVTK ships with two Envisage plugins.  One for a TVTK scene and
-another for the pipeline browser.  
+another for the pipeline browser.
 
 The `scene` plugin allows one to create a new TVTK scene on the work
 area.  Any number of these may be created.  It provides useful menu's

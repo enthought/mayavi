@@ -1,6 +1,6 @@
 """A VTK interactor scene which provides a convenient toolbar that
 allows the user to set the camera view, turn on the axes indicator
-etc. 
+etc.
 """
 # Authors: Prabhu Ramachandran <prabhu_r@users.sf.net>,
 #          Dave Peterson <dpeterson@enthought.com>
@@ -90,13 +90,13 @@ class DecoratedScene(Scene):
         self._panel.setCentralWidget(self._content)
 
         return self._panel
-        
+
     def _setup_axes_marker(self):
         axes = self.axes
         if axes is None:
             # For VTK versions < 5.0.
             return
-        
+
         axes.set(
             normalized_tip_length=(0.4, 0.4, 0.4),
             normalized_shaft_length=(0.6, 0.6, 0.6),
@@ -118,7 +118,7 @@ class DecoratedScene(Scene):
         tbm = ToolBarManager( *self.actions )
         return tbm
 
-   
+
     def _get_image_path(self):
         """Returns the directory which contains the images used by the
         toolbar."""
@@ -295,4 +295,4 @@ class DecoratedScene(Scene):
                     ),
                 ),
             ]
- 
+

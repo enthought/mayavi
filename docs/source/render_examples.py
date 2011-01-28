@@ -22,13 +22,13 @@ def is_mlab_example(filename):
     tokens = tokenize.generate_tokens(file(filename).readline)
     code_only = ''.join([tok_content
                             for tok_type, tok_content, _, _, _  in tokens
-                            if not token.tok_name[tok_type] in ('COMMENT', 
+                            if not token.tok_name[tok_type] in ('COMMENT',
                                                                 'STRING')])
     return ('mlab.show()' in code_only)
 
 
 def run_mlab_file(filename, image_file):
-    ## XXX: Monkey-patch mlab.show, so that we keep control of the 
+    ## XXX: Monkey-patch mlab.show, so that we keep control of the
     ## the mainloop
     old_show = mlab.show
     def my_show(func=None):
@@ -57,14 +57,14 @@ def extract_docstring(filename):
     first_par = ''
     tokens = tokenize.generate_tokens(lines.__iter__().next)
     for tok_type, tok_content, _, (erow, _), _ in tokens:
-        tok_type = token.tok_name[tok_type]    
+        tok_type = token.tok_name[tok_type]
         if tok_type in ('NEWLINE', 'COMMENT', 'NL', 'INDENT', 'DEDENT'):
             continue
         elif tok_type == 'STRING':
             docstring = eval(tok_content)
             # If the docstring is formatted with several paragraphs, extract
             # the first one:
-            paragraphs = '\n'.join(line.rstrip() 
+            paragraphs = '\n'.join(line.rstrip()
                                 for line in docstring.split('\n')).split('\n\n')
             if len(paragraphs) > 0:
                 first_par = paragraphs[0]
@@ -87,7 +87,7 @@ class ExampleLister(object):
 
 .. toctree::
    :hidden:
-    
+
 %(toctree)s
 
 .. A comment to split paragraphs
@@ -134,13 +134,13 @@ class ExampleLister(object):
         for index, file_details in enumerate(files_details):
             filename, short_file_name, short_desc, title, docstring, \
                                                     end_row = file_details
-            self.render_example_page(file(os.path.join(self.out_dir, 
+            self.render_example_page(file(os.path.join(self.out_dir,
                                             'example_%s.rst') %
                                      short_file_name, 'w'), index, file_details)
             self.gallery_entry(index, file_details)
 
         del self._stream
- 
+
 
     def render_header(self, filenames):
         files_details = list()
@@ -151,7 +151,7 @@ class ExampleLister(object):
             short_file_name = os.path.basename(filename)[:-3]
             title = short_file_name.replace('_', ' ')
             title = title[0].upper() + title[1:]
-            shutil.copy(filename, 
+            shutil.copy(filename,
                         os.path.join(self.out_dir, os.path.basename(filename)))
 
 
@@ -166,7 +166,7 @@ class ExampleLister(object):
         self._stream.write(self.header_tpl % locals())
         return files_details
 
-       
+
     def render_example_page(self, stream, index, file_details):
         """ Render an individual example page.
         """
@@ -187,7 +187,7 @@ class ExampleLister(object):
         short_desc = short_desc.lstrip().rstrip()
         for line in short_desc.split('\n'):
             self._stream.write(4*" " + line.lstrip() + "\n")
-        
+
 
 ################################################################################
 # class `ImagesExampleLister`
@@ -205,9 +205,9 @@ class ImagesExampleLister(ExampleLister):
         unique_hash = self._unique_hash
         for index, (filename, short_file_name, _, _, _, _) in \
                                         enumerate(files_details):
-            image_file = os.path.join(self.images_dir, 
+            image_file = os.path.join(self.images_dir,
                         'example_%(short_file_name)s.jpg' % locals())
-            if os.path.exists(image_file): 
+            if os.path.exists(image_file):
                 short_image_file = os.path.join(*(
                                     image_file.split(os.sep)[1:]))
                 self._stream.write("""
@@ -218,7 +218,7 @@ class ImagesExampleLister(ExampleLister):
             else:
                 self._stream.write("""
 .. |%(unique_hash)02i%(index)02i| raw:: html
-    
+
     <br/>
 
             """ % locals())
@@ -228,7 +228,7 @@ class ImagesExampleLister(ExampleLister):
         for index, file_details in enumerate(files_details):
             filename, short_file_name, short_desc, title, docstring, end_row = \
                                                                 file_details
-            self.render_example_page(file(os.path.join(self.out_dir, 
+            self.render_example_page(file(os.path.join(self.out_dir,
                                         'example_%s.rst') %
                                      short_file_name, 'w'), index, file_details)
             self.gallery_entry(index, file_details)
@@ -244,7 +244,7 @@ class ImagesExampleLister(ExampleLister):
         # Jump one step up, and do not call ImagesExampleLister
         filename, short_file_name, short_desc, title, docstring, end_row = \
                                                                 file_details
-        image_file = os.path.join(self.images_dir, 
+        image_file = os.path.join(self.images_dir,
                         'example_%(short_file_name)s.jpg' % locals())
         if os.path.exists(image_file):
             docstring += """
@@ -252,7 +252,7 @@ class ImagesExampleLister(ExampleLister):
 .. image:: ../%s
     :align: center
 
-""" % os.path.join(*(image_file.split(os.sep)[1:])) 
+""" % os.path.join(*(image_file.split(os.sep)[1:]))
 
         file_details = \
             filename, short_file_name, short_desc, title, docstring, end_row
@@ -272,7 +272,7 @@ class ImagesExampleLister(ExampleLister):
             )
         for line in short_desc:
             self._stream.write(9*" " + line.lstrip() + "\n")
- 
+
 ################################################################################
 # class `MlabExampleLister`
 ################################################################################
@@ -347,7 +347,7 @@ Advanced mlab examples
 
 .. toctree::
    :hidden:
-    
+
 %(toctree)s
 
 """
@@ -378,12 +378,12 @@ Advanced mlab examples
         """
         filename, short_file_name, short_desc, title, docstring, end_row = \
                                                             file_details
-        if self.render_images: 
+        if self.render_images:
             print "Generating images for %s" % filename
             image_file = os.path.join(self.images_dir, 'example_%s.jpg' \
                                     % short_file_name)
             run_mlab_file(filename, image_file=image_file)
-        ImagesExampleLister.render_example_page(self, stream, 
+        ImagesExampleLister.render_example_page(self, stream,
                                                 index, file_details)
 
 
@@ -403,11 +403,11 @@ Example gallery
 =================
 
 """)
-    
+
     ##########################################################################
     # Mlab examples
-    example_files = [ filename 
-                    for filename in glob.glob(os.path.join(EXAMPLE_DIR, 
+    example_files = [ filename
+                    for filename in glob.glob(os.path.join(EXAMPLE_DIR,
                         'mlab', '*.py'))
                     if is_mlab_example(filename)]
     # Sort by file length (gives a measure of the complexity of the
@@ -425,8 +425,8 @@ Example gallery
 
     ##########################################################################
     # Interactive application examples
-    example_files = [ filename 
-                    for filename in glob.glob(os.path.join(EXAMPLE_DIR, 
+    example_files = [ filename
+                    for filename in glob.glob(os.path.join(EXAMPLE_DIR,
                         'interactive', '*.py'))]
     # Sort by file length (gives a measure of the complexity of the
     # example)
@@ -444,8 +444,8 @@ applications.
 
     ##########################################################################
     # Advanced visualization examples
-    example_files = [ filename 
-                    for filename in glob.glob(os.path.join(EXAMPLE_DIR, 
+    example_files = [ filename
+                    for filename in glob.glob(os.path.join(EXAMPLE_DIR,
                         'advanced_visualization', '*.py'))]
     # Sort by file length (gives a measure of the complexity of the
     # example)
@@ -455,15 +455,15 @@ applications.
             out_dir=out_dir,
             intro="""
 Data visualization using the core Mayavi API, object-oriented, and with
-more fine control than mlab.     
+more fine control than mlab.
 
     """)
     example_lister.render_all(example_gallery_file, example_files)
 
     ##########################################################################
     # Data interaction examples
-    example_files = [ filename 
-                    for filename in glob.glob(os.path.join(EXAMPLE_DIR, 
+    example_files = [ filename
+                    for filename in glob.glob(os.path.join(EXAMPLE_DIR,
                         'data_interaction', '*.py'))]
     # Sort by file length (gives a measure of the complexity of the
     # example)
@@ -478,9 +478,9 @@ Examples showing how you can query and interact with the data.
     example_lister.render_all(example_gallery_file, example_files)
 
     ##########################################################################
-    # The remaining files 
-    example_files = [ filename 
-                    for filename in glob.glob(os.path.join(EXAMPLE_DIR, 
+    # The remaining files
+    example_files = [ filename
+                    for filename in glob.glob(os.path.join(EXAMPLE_DIR,
                         '*.py'))]
     # Sort by file length (gives a measure of the complexity of the
     # example)

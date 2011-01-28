@@ -46,7 +46,7 @@ class TestImageDataProbe(TestCase):
 
     def test(self):
         self.main()
-    
+
     def do(self):
         ############################################################
         # Imports.
@@ -116,7 +116,7 @@ class TestImageDataProbe(TestCase):
         # Now do the check.
         s.scene.isometric_view()
         self.check(saved=True)
-        
+
         # If we have come this far, we are golden!
 
 if __name__ == "__main__":

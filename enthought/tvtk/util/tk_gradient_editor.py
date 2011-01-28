@@ -6,7 +6,7 @@ This code is distributed under the conditions of the BSD license.
 This code was originally written by Gerald Knizia <cgk.d@gmx.net> and
 later modified by Prabhu Ramachandran
 
-Copyright (c) 2005-2006, Gerald Knizia and Prabhu Ramachandran 
+Copyright (c) 2005-2006, Gerald Knizia and Prabhu Ramachandran
 """
 
 import Tkinter as tk
@@ -30,11 +30,11 @@ class GradientControl(tk.Frame):
         assert( gradient_table.size == width )
         # ^- currently only able to use gradient tables in the same
         # size as the canvas width
-        self.canvas = tk.Canvas(self, background="white", width=width, 
+        self.canvas = tk.Canvas(self, background="white", width=width,
                 height=height)
         self.canvas.pack()
         self.update()
-        
+
     def update(self):
         """Repaint the control."""
         self.canvas.delete(tk.ALL) # clears all lines contained.
@@ -51,7 +51,7 @@ class GradientControl(tk.Frame):
             # if a scaling transformation is provided, paint the original
             # gradient under the scaled gradient.
             start_y = self.height/2
-        
+
         # paint the original gradient as it stands in the table.
         width = self.width
         for x in range(width):
@@ -78,7 +78,7 @@ class FunctionControl(tk.Frame):
 
     # Radius around a control point center in which we'd still count a
     # click as "clicked the control point"
-    control_pt_click_tolerance = 4     
+    control_pt_click_tolerance = 4
 
     class Channel:
         def __init__(self, function_control, name, color_string,
@@ -91,16 +91,16 @@ class FunctionControl(tk.Frame):
             # paint this channel
             self.index = channel_index #0: r or h, 1: g or s, 2: b or v, 3: a
             self.mode = channel_mode #'hsv' or 'rgb'
-        
+
         def get_value(self, color):
-            """Return height value of the current channel for the given color. 
+            """Return height value of the current channel for the given color.
             Range: 0..1"""
             if ( self.mode == 'hsv' ):
                 return color.get_hsva()[self.index]
             else:
                 return color.get_rgba()[self.index]
         def get_value_index(self, color):
-            """Return height index of channel value of Color. 
+            """Return height index of channel value of Color.
             Range: [1..ControlHeight]"""
             return int( 1+(self.control.height-1)*(1.0 - self.get_value(color)) )
         def get_index_value(self, y):
@@ -126,23 +126,23 @@ class FunctionControl(tk.Frame):
                 rgba[self.index] = new_value_on_this_channel
                 color.set_rgba(rgba[0],rgba[1],rgba[2],rgba[3])
         def set_value_index( self, color, y ):
-            """Color will be modified: the value assigned to the height index 
+            """Color will be modified: the value assigned to the height index
             y will be set to the color channel of Color that ``*self`` represents."""
             self.set_value( color, self.get_index_value(y) )
 
         def get_pos_index(self,f):
             """Return x-index for gradient position f in [0..1]"""
             return int(f*(self.control.width-1))
-    
+
         def get_index_pos(self,idx):
-            """Return gradient position f in [0..1] for x-index Idx in 
+            """Return gradient position f in [0..1] for x-index Idx in
             [0..ControlWidth-1]"""
             return (1.0*idx)/(self.control.width-1)
-                
+
         def paint(self, canvas):
             """Paint current channel into Canvas (a canvas of a function control
-            object). 
-            
+            object).
+
             Contents of the canvas are not deleted prior to painting,
             so more than one channel can be painted into the same canvas."""
             table = self.control.table
@@ -173,9 +173,9 @@ class FunctionControl(tk.Frame):
             on_table_changed = None ):
         tk.Frame.__init__(self, master, borderwidth=2, relief='groove')
         """Initialize a function control widget on tkframe master.
-        
+
         input:
-        OnTableChanged: Callback function taking a bool argument of meaning 
+        OnTableChanged: Callback function taking a bool argument of meaning
             'FinalUpdate'. FinalUpdate is true if a control point is dropped,
             created or removed and false if the update is due to a control point
             currently beeing dragged (but not yet dropped)
@@ -227,7 +227,7 @@ class FunctionControl(tk.Frame):
             self.active_channels_string = 'a'
 
         self.update()
-        
+
         self.canvas.bind( "<ButtonRelease-1>", self.on_left_button_up )
         self.canvas.bind( "<Button-1>", self.on_left_button_down )
         self.canvas.bind( "<ButtonRelease-3>", self.on_right_button_up )
@@ -235,7 +235,7 @@ class FunctionControl(tk.Frame):
         self.canvas.bind( "<Motion>", self.on_mouse_move )
 
         self.cur_drag = None #<- [channel,control_point] while something is dragged.
-                        
+
     def update(self):
         """Repaint the control."""
         canvas = self.canvas # shortcut...
@@ -243,9 +243,9 @@ class FunctionControl(tk.Frame):
 
         for channel in self.channels:
             channel.paint(self.canvas)
-        
+
     def find_control_point(self, x, y):
-        """Check if a control point lies near (x,y) or near x if y == None. 
+        """Check if a control point lies near (x,y) or near x if y == None.
         returns [channel, control point] if found, None otherwise"""
         for channel in self.channels:
             for control_point in self.table.control_points:
@@ -264,26 +264,26 @@ class FunctionControl(tk.Frame):
 
     def on_left_button_down(self, event):
         self.cur_drag = self.find_control_point( event.x, event.y )
-        
+
     def on_left_button_up(self, event):
         if self.cur_drag:
             self.table_config_changed( final_update = True )
             self.cur_drag = None
-        
+
     def on_right_button_down(self, event):
         pass
 
     def table_config_changed(self, final_update):
         """Called internally in the control if the configuration of the attached
         gradient table has changed due to actions of this control.
-        
+
         Forwards the update/change notice."""
         self.table.update()
         if self.on_table_changed:
             self.on_table_changed(final_update)
         else:
             self.update()
-    
+
     def on_right_button_up(self, event):
         # toggle control point. check if there is a control point
         # under the mouse. If yes, delete it, if not, create one
@@ -302,14 +302,14 @@ class FunctionControl(tk.Frame):
             # that we should place one there
             new_control_point = ColorControlPoint(active_channels = self.active_channels_string)
             new_control_point.set_pos(self.channels[0].get_index_pos(event.x))
-    
+
             # set new control point color to the color currently present
             # at its designated position
             new_control_point.color = self.table.get_pos_color(new_control_point.pos)
-    
+
             self.table.insert_control_point( new_control_point )
             self.table_config_changed( final_update = True )
-        
+
     def on_mouse_move(self, event):
         # currently dragging a control point?
         if self.cur_drag:
@@ -331,25 +331,25 @@ class GradientEditor(tk.Toplevel):
     display, the function controls and the buttons."""
     def __init__(self, master, vtk_table, on_change_color_table = None):
         """Initialize the gradient editor window.
-        
+
         Parameters
         ----------
         master
             Owning widget, for example a tk root object.
-        VtkTable 
+        VtkTable
             Instance of vtkLookupTable, designating the table which is
             to be edited.
         OnChangeColorTable
             Callback function taking no arguments. Called
             when the color table was changed and rendering is requested."""
-        
+
         # Inner dimensions of the color control gui-elements in pixels.
         gradient_preview_width = 300
         gradient_preview_height = 50
         channel_function_width = gradient_preview_width
         channel_function_height = 80
-    
-        tk.Toplevel.__init__(self, master) 
+
+        tk.Toplevel.__init__(self, master)
         self.title("Color Gradient Editor")
         self.minsize( gradient_preview_width+4, gradient_preview_height + 5 * \
                       channel_function_height + 50 )
@@ -377,7 +377,7 @@ class GradientEditor(tk.Toplevel):
                 self.gradient_table.store_to_vtk_lookup_table( self.vtk_color_table )
                 on_change_color_table()
         self.on_gradient_table_changed = on_gradient_table_changed
-            
+
         self.function_control_rgb = FunctionControl(self, self.gradient_table,
                 "rgb", channel_function_width, channel_function_height,
                 on_gradient_table_changed)
@@ -441,7 +441,7 @@ class GradientEditor(tk.Toplevel):
         nonlinear_enabled_button.grid(column=9,row=1)
         nonlinear_enabled_button.configure(variable=self.nonlinear_scaling_enabled,
             command=self.nonlinear_scaling_option_changed)
-        
+
         # the controls for the nonlinear scaling also get into an own frame.
         # this one can be shown or hidden when the "nonlin"-button is pressed
         nonlin_frame = tk.Frame(self)
@@ -451,14 +451,14 @@ class GradientEditor(tk.Toplevel):
         label.grid(row=0, column=0)
         self.nonlinear_function_string = tk.StringVar()
         self.nonlinear_function_string.set( "x**(4*a)" )
-        function_edit = tk.Entry(nonlin_frame, width=35, 
+        function_edit = tk.Entry(nonlin_frame, width=35,
             textvariable=self.nonlinear_function_string)
         function_edit.bind("<Return>", self.nonlinear_function_string_changed )
         function_edit.grid(row=0, column=1)
 
         label = tk.Label(nonlin_frame, text="param a:")
         label.grid(row=1, column=0)
-        self.parameter_scale = tk.Scale(nonlin_frame, from_=0.0, to=1.0, 
+        self.parameter_scale = tk.Scale(nonlin_frame, from_=0.0, to=1.0,
             resolution=0.001, length=250, orient="horizontal")
         self.parameter_scale.bind("<ButtonRelease>",
             lambda event: self.nonlinear_parameter_scale_changed(final_update=True))
@@ -498,10 +498,10 @@ class GradientEditor(tk.Toplevel):
         """Invoked when Return is pressed in the nonlinear-function edit"""
         self.gradient_table.set_scaling_function(self.nonlinear_function_string.get())
         self.on_gradient_table_changed(final_update = True)
-        
+
     def ok(self):
         self.destroy()
-        
+
     def save_gradient(self):
         filetypes = [("Gradient Files","*.grad"),("All Files","*")]
         file_name = tkFileDialog.asksaveasfilename(defaultextension=".grad",
@@ -513,7 +513,7 @@ class GradientEditor(tk.Toplevel):
             if ( ".lut" == file_name[len(file_name)-4:] ):
                 self.gradient_table.save(file_name)
             self.gradient_table.save(file_name)
-        
+
     def load_gradient(self):
         filetypes = [("Gradient Files","*.grad"), ("All Files","*")]
         file_name = tkFileDialog.askopenfilename(defaultextension=".grad",
@@ -558,7 +558,7 @@ if __name__ == "__main__":
     try:
         method = image_data.SetScalarComponentFromFloat
     except AttributeError:
-        method = image_data.SetScalarComponentFromDouble        
+        method = image_data.SetScalarComponentFromDouble
     for i in range(N):
         for j in range(N):
             a = float(i)/N
@@ -578,7 +578,7 @@ if __name__ == "__main__":
     data_actor = vtk.vtkActor()
     data_actor.SetMapper(data_mapper)
     renderer.AddActor(data_actor)
-    
+
     table = vtk.vtkLookupTable()
     data_mapper.SetLookupTable(table)
 

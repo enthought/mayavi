@@ -7,7 +7,7 @@ mayavi2.  The script can be run like so:
 Alternatively, it can be run as:
 
   $ python unstructured_grid.py
-  
+
 Author: Prabhu Ramachandran <prabhu at aero dot iitb dot ac dot in>
 
 Copyright (c) 2007, Enthought, Inc.
@@ -31,7 +31,7 @@ def single_type_ug():
     ug = tvtk.UnstructuredGrid(points=points)
     ug.set_cells(tet_type, tets)
     return ug
-    
+
 def mixed_type_ug():
     """A slightly more complex example of how to generate an
     unstructured grid with different cell types.  Returns a created
@@ -67,7 +67,7 @@ def save_xml(ug, file_name):
     XML file."""
     w = tvtk.XMLUnstructuredGridWriter(input=ug, file_name=file_name)
     w.write()
-    
+
 # ----------------------------------------------------------------------
 # Create the unstructured grids and assign scalars and vectors.
 ug1 = single_type_ug()
@@ -95,14 +95,14 @@ def view():
     mayavi.new_scene()
     # The single type one
     src = VTKDataSource(data = ug1)
-    mayavi.add_source(src) 
+    mayavi.add_source(src)
     mayavi.add_module(Outline())
     mayavi.add_module(Surface())
     mayavi.add_module(Vectors())
 
     # Mixed types.
     src = VTKDataSource(data = ug2)
-    mayavi.add_source(src) 
+    mayavi.add_source(src)
     mayavi.add_module(Outline())
     mayavi.add_module(Surface())
     mayavi.add_module(Vectors())

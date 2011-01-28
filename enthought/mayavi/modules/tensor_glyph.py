@@ -7,7 +7,7 @@ the input points.
 #          Prabhu Ramachandran <prabhu_r@users.sf.net>
 
 # Enthought library imports.
-from enthought.traits.api import Instance 
+from enthought.traits.api import Instance
 from enthought.traits.ui.api import View, Group, Item
 
 # Local imports
@@ -19,7 +19,7 @@ from enthought.mayavi.components import glyph
 ######################################################################
 # `TensorGlyph` class.
 ######################################################################
-class TensorGlyph(Module):   
+class TensorGlyph(Module):
     # The version of this class.  Used for persistence.
     __version__ = 0
 
@@ -43,7 +43,7 @@ class TensorGlyph(Module):
                       selected=True,
                       show_labels=False
                       ))
-                
+
     ######################################################################
     # `Module` interface
     ######################################################################
@@ -63,7 +63,7 @@ class TensorGlyph(Module):
         self.glyph = glyph.Glyph(glyph_type='tensor')
         self.glyph.glyph_source.glyph_source = self.glyph.glyph_source.glyph_list[4]
         self.actor = Actor()
-        
+
     def update_pipeline(self):
         """Override this method so that it *updates* the tvtk pipeline
         when data upstream is known to have changed.
@@ -99,7 +99,7 @@ class TensorGlyph(Module):
         if actor is not None:
             actor.inputs = [new]
         self._change_components(old, new)
-        
+
 
     def _actor_changed(self, old, new):
         new.scene = self.scene

@@ -15,14 +15,14 @@ import datasets
 from enthought.mayavi.core.null_engine import NullEngine
 from enthought.mayavi.filters.contour import Contour
 from enthought.mayavi.filters.optional import Optional
-from enthought.mayavi.filters.collection import Collection 
+from enthought.mayavi.filters.collection import Collection
 from enthought.mayavi.filters.api import PolyDataNormals
 from enthought.mayavi.modules.api import Surface
 from enthought.mayavi.sources.vtk_data_source import VTKDataSource
 
 
-class TestOptionalCollection(unittest.TestCase):   
-       
+class TestOptionalCollection(unittest.TestCase):
+
     def setUp(self):
         """Initial setting up of test fixture, automatically called by TestCase before any other test method is invoked"""
         e = NullEngine()
@@ -35,10 +35,10 @@ class TestOptionalCollection(unittest.TestCase):
         sgrid=datasets.generateStructuredGrid()
         src = VTKDataSource(data = sgrid)
         e.add_source(src)
-        
-        c = Contour() 
+
+        c = Contour()
         # `name` is used for the notebook tabs.
-        n = PolyDataNormals(name='Normals') 
+        n = PolyDataNormals(name='Normals')
         o = Optional(filter=n, label_text='Compute normals')
         coll = Collection(filters=[c, o], name='IsoSurface')
         e.add_filter(coll)
@@ -47,22 +47,22 @@ class TestOptionalCollection(unittest.TestCase):
         self.coll = coll
         self.scene = e.current_scene
         return
-        
+
     def tearDown(self):
         """For necessary clean up, automatically called by TestCase after the test methods have been invoked"""
         self.e.stop()
         return
 
     def check(self,coll):
-        """Do the actual testing."""             
+        """Do the actual testing."""
         scene = self.scene
         """Check if test status is OK given the collection."""
         c, o = coll.filters
         c = c.filter
         n = o.filter
-        
+
         r = coll.outputs[0].point_data.scalars.range
-        
+
         self.assertEqual(np.allclose(r, (6.09,6.09), atol=1.01e-03), True)
         # Adding a contour should create the appropriate output in
         # the collection.
@@ -82,15 +82,15 @@ class TestOptionalCollection(unittest.TestCase):
         self.assertEqual('disabled' not in o.name, True)
 
     def test_optional_collection(self):
-        "Test if the test fixture works"                        
+        "Test if the test fixture works"
         #Now test.
         coll = self.coll
         self.check(coll)
-        
+
         #from enthought.mayavi.tools.show import show
-        #show() 
-    
-    def test_save_and_restore(self):       
+        #show()
+
+    def test_save_and_restore(self):
         """Test if saving a visualization and restoring it works."""
         engine = self.e
         scene = self.scene
@@ -102,7 +102,7 @@ class TestOptionalCollection(unittest.TestCase):
         f.seek(0) # So we can read this saved data.
 
         # Remove existing scene.
-       
+
         engine.close_scene(scene)
 
         # Load visualization
@@ -111,7 +111,7 @@ class TestOptionalCollection(unittest.TestCase):
         coll = self.scene.children[0].children[0]
 
         self.check(coll)
-    
+
 
     def test_deepcopied(self):
         """Test if the MayaVi2 visualization can be deep-copied."""
@@ -122,7 +122,7 @@ class TestOptionalCollection(unittest.TestCase):
         s =  self.scene
         source = s.children.pop()
         # Add it back to see if that works without error.
-        s.children.append(source)       
+        s.children.append(source)
         coll = s.children[0].children[0]
 
         self.check(coll)
@@ -132,13 +132,13 @@ class TestOptionalCollection(unittest.TestCase):
         # object from the UI via the right-click menu on the tree
         # view, and pasting the copy back.
         source1 = copy.deepcopy(source)
-        s.children[0] = source1 
+        s.children[0] = source1
         coll = s.children[0].children[0]
         self.check(coll)
         #from enthought.mayavi.tools.show import show
         #show()
 
-    
+
 
 if __name__ == '__main__':
     unittest.main()

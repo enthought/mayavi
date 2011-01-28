@@ -1,8 +1,8 @@
-""" A module that integrates through a tensor field to generate a 
-     hyperstreamline. The integration is along the maximum 
-     eigenvector and the cross section of the hyperstreamline is 
-     defined by the two other eigenvectors. Thus the shape of the 
-     hyperstreamline is "tube-like", with the cross section being 
+""" A module that integrates through a tensor field to generate a
+     hyperstreamline. The integration is along the maximum
+     eigenvector and the cross section of the hyperstreamline is
+     defined by the two other eigenvectors. Thus the shape of the
+     hyperstreamline is "tube-like", with the cross section being
      elliptical. Hyperstreamlines are used to visualize tensor fields.
 """
 # Authors: KK Rai (kk.rai [at] iitb.ac.in)
@@ -22,7 +22,7 @@ from enthought.mayavi.components.actor import Actor
 ######################################################################
 # `HyperStreamline` class.
 ######################################################################
-class HyperStreamline(Module):   
+class HyperStreamline(Module):
     # The version of this class.  Used for persistence.
     __version__ = 0
 
@@ -34,14 +34,14 @@ class HyperStreamline(Module):
     actor = Instance(Actor, allow_none=False, record=True)
 
     # A point widget
-    widget = Instance(tvtk.PointWidget, args=(), 
+    widget = Instance(tvtk.PointWidget, args=(),
                       kw={'outline': False, 'x_shadows': False,
                       'y_shadows': False, 'z_shadows': False},
                       allow_none=False)
 
     input_info = PipelineInfo(datasets=['any'],
                               attribute_types=['any'],
-                              attributes=['tensors'])    
+                              attributes=['tensors'])
 
     # Create the UI for the traits.
     view = View(Group(Item(name='actor', style='custom'),
@@ -56,7 +56,7 @@ class HyperStreamline(Module):
                       show_labels=False),
                resizable=True
                )
-                
+
     ######################################################################
     # `Module` interface
     ######################################################################
@@ -104,7 +104,7 @@ class HyperStreamline(Module):
         old_inp = w.input
         w.input = src
         if old_inp is None or src != old_inp:
-            w.place_widget()    
+            w.place_widget()
         self.streamline.update()
         self.outputs = [self.streamline.output]
         self.pipeline_changed = True
@@ -129,7 +129,7 @@ class HyperStreamline(Module):
         mm = self.module_manager
         if mm is not None:
             new.input = mm.source.outputs[0]
-            
+
         # A default output so there are no pipeline errors.  The
         # update_pipeline call corrects this if needed.
         self.outputs = [new.output]
@@ -137,7 +137,7 @@ class HyperStreamline(Module):
 
     def _start_position_changed(self, value):
         self.streamline.start_position = self.widget.position
-  
+
     def _actor_changed(self, old, new):
         new.scene = self.scene
         new.inputs = [self]

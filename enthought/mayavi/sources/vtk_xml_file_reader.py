@@ -16,7 +16,7 @@ from enthought.tvtk.api import tvtk
 from enthought.mayavi.core.file_data_source import FileDataSource
 from enthought.mayavi.core.common import error
 from enthought.mayavi.core.traits import DEnum
-from enthought.mayavi.core.pipeline_info import (PipelineInfo, 
+from enthought.mayavi.core.pipeline_info import (PipelineInfo,
         get_tvtk_dataset_name)
 
 
@@ -32,12 +32,12 @@ def find_file_data_type(file_name):
         error("File %s is not a valid VTK XML file!"%(file_name))
 
 
-def get_array_type(arr):    
+def get_array_type(arr):
     """Returns if the array is a scalar ('scalars'), vector
     ('vectors') or tensor ('tensors').  It looks at the number of
     components to decide.  If it has a wierd number of components it
     returns the empty string.
-    """    
+    """
     n = arr.number_of_components
     ret = {1: 'scalars', 3: 'vectors', 4: 'scalars', 9:'tensors'}
     return ret.get(n) or ''
@@ -46,7 +46,7 @@ def get_array_type(arr):
 def get_attribute_list(data):
     """ Gets scalar, vector and tensor information from the given data
     (either cell or point data).
-    """    
+    """
     attr = {'scalars':[], 'vectors':[], 'tensors':[]}
     if data is not None:
         n = data.number_of_arrays
@@ -60,12 +60,12 @@ def get_attribute_list(data):
                 t = get_array_type(arr)
                 if len(t) > 0 and name is not None:
                     attr[t].extend([name])
-    
+
     def _mk_first(lst, value):
         """Makes the specified `value` the first item in `lst`."""
         lst.remove(value)
         lst.insert(0, value)
-    
+
     attr1 = attr.copy()
     for a in attr:
         v = getattr(data, a)
@@ -86,8 +86,8 @@ def get_all_attributes(obj):
     """
     point_attr = get_attribute_list(obj.point_data)
     cell_attr = get_attribute_list(obj.cell_data)
-    return point_attr, cell_attr    
-    
+    return point_attr, cell_attr
+
 
 ######################################################################
 # `VTKXMLFileReader` class
@@ -130,12 +130,12 @@ class VTKXMLFileReader(FileDataSource):
     cell_tensors_name = DEnum(values_name='_cell_tensors_list',
                                desc='tensor cell data attribute to use')
     ########################################
-    
+
     # The VTK data file reader.
     reader = Instance(tvtk.XMLReader)
 
     # Information about what this object can produce.
-    output_info = PipelineInfo(datasets=['any'], 
+    output_info = PipelineInfo(datasets=['any'],
                                attribute_types=['any'],
                                attributes=['any'])
 
@@ -171,7 +171,7 @@ class VTKXMLFileReader(FileDataSource):
 
     # Toggles if this is the first time this object has been used.
     _first = Bool(True)
-    
+
     ######################################################################
     # `object` interface
     ######################################################################
@@ -191,7 +191,7 @@ class VTKXMLFileReader(FileDataSource):
             attr[x] = getattr(self, x)
         d.update(attr)
         return d
-    
+
     def __set_pure_state__(self, state):
         # The reader has its own file_name which needs to be fixed.
         state.reader.file_name = state.file_path.abs_pth
@@ -222,8 +222,8 @@ class VTKXMLFileReader(FileDataSource):
 
         # Call the parent method to do its thing.
         super(VTKXMLFileReader, self).stop()
-    
-    
+
+
     ######################################################################
     # `FileDataSource` interface
     ######################################################################
@@ -263,15 +263,15 @@ class VTKXMLFileReader(FileDataSource):
                     kw = {'%s_%s_name'%(d_type, attr): default,
                           'trait_change_notify': False}
                     obj.set(**kw)
-                    
-        
+
+
         _setup_data_traits(self, cell_attr, 'cell')
         _setup_data_traits(self, pnt_attr, 'point')
         if self._first:
             self._first = False
         # Propagate the data changed event.
         self.data_changed = True
-    
+
 
     ######################################################################
     # Non-public interface
@@ -302,7 +302,7 @@ class VTKXMLFileReader(FileDataSource):
             # FIXME: Only the first output goes through the assign
             # attribute filter.
             aa = self._assign_attribute
-            aa.input = outputs[0]        
+            aa.input = outputs[0]
             outputs[0] = aa.output
             self.update_data()
 
@@ -317,7 +317,7 @@ class VTKXMLFileReader(FileDataSource):
     def _set_data_name(self, data_type, attr_type, value):
         if value is None:
             return
-        
+
         reader_output = self.reader.output
         if len(value) == 0:
             # If the value is empty then we deactivate that attribute.
@@ -326,7 +326,7 @@ class VTKXMLFileReader(FileDataSource):
             method(None)
             self.data_changed = True
             return
-        
+
         aa = self._assign_attribute
         data = None
         if attr_type == 'point':

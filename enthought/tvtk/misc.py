@@ -36,7 +36,7 @@ def write_data(dataset, fname, **kwargs):
            'vtkPolyData': ('.vtp', tvtk.PolyDataWriter),
            'vtkUnstructuredGrid': ('.vtu', tvtk.UnstructuredGridWriter)
            }
-    
+
     for type in d2r:
         if dataset.is_a(type):
             datatype = d2r[type]
@@ -44,10 +44,10 @@ def write_data(dataset, fname, **kwargs):
 
     ext = splitext(fname)[1]
     if ext == '.vtk':
-        file_name = fname 
+        file_name = fname
         writer = datatype[1]
     elif len(ext) == 0:
-        file_name = fname + datatype[0] 
+        file_name = fname + datatype[0]
         writer = tvtk.XMLDataSetWriter
     else:
         file_name = fname
@@ -55,4 +55,4 @@ def write_data(dataset, fname, **kwargs):
 
     w = writer(file_name=file_name, input=dataset, **kwargs)
     w.write()
-    
+

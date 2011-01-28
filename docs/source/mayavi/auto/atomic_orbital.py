@@ -1,5 +1,5 @@
 """
-An example showing the norm and phase of an atomic orbital: isosurfaces of 
+An example showing the norm and phase of an atomic orbital: isosurfaces of
 the norm, with colors  displaying the phase.
 
 This example shows how you can apply a filter on one data set, and dislay
@@ -19,7 +19,7 @@ tricky, as it requires some understanding of the layout of the datasets
 in TVTK. The reader is referred to :ref:`data-structures-used-by-mayavi`
 for more details.
 """
-# Author: Gael Varoquaux <gael.varoquaux@normalesup.org> 
+# Author: Gael Varoquaux <gael.varoquaux@normalesup.org>
 # Copyright (c) 2008, Enthought, Inc.
 # License: BSD Style.
 
@@ -47,7 +47,7 @@ src = mlab.pipeline.scalar_field(np.abs(Phi))
 # And we add the phase of Phi as an additional array
 # This is a tricky part: the layout of the new array needs to be the same
 # as the existing dataset, and no checks are performed. The shape needs
-# to be the same, and so should the data. Failure to do so can result in 
+# to be the same, and so should the data. Failure to do so can result in
 # segfaults.
 src.image_data.point_data.add_array(np.angle(Phi).T.ravel())
 # We need to give a name to our new dataset.

@@ -17,7 +17,7 @@ can be relaxed if necessary later on).
 
 This module offers the following broad class of functionality:
 
-`Figure` 
+`Figure`
   This basically manages all of the objects rendered.  Just like
   figure in any Matlab like environment.  A convenience function
   called `figure` may be used to create a nice Figure instance.
@@ -30,13 +30,13 @@ This module offers the following broad class of functionality:
 `Line3`
   Draws lines between the points specified at initialization time.
 
-`Outline` 
+`Outline`
   Draws an outline for the contained objects.
 
 `Title`
   Draws a title for the entire figure.
 
-`LUTBase` 
+`LUTBase`
   Manages a lookup table and a scalar bar (legend) for it.  This is
   subclassed by all classes that need a LUT.
 
@@ -57,18 +57,18 @@ This module offers the following broad class of functionality:
   Given x, y generated from numpy.mgrid, and a z to go with it.  Along
   with optional scalars.  This class builds the triangle connectivity
   (assuming that x, y are from numpy.mgrid) and builds a mesh and
-  shows it. 
+  shows it.
 
-`FancyMesh` 
+`FancyMesh`
   Like mesh but shows the mesh using tubes and spheres.
 
-`Surf` 
+`Surf`
   This generates a surface mesh just like Mesh but renders the mesh as
   a surface.
 
-`Contour3` 
+`Contour3`
   Shows contour for a mesh.
- 
+
 `ImShow`
   Allows one to view large numeric arrays as image data using an image
   actor.  This is just like MayaVi1's `mayavi.tools.imv.viewi`.
@@ -122,7 +122,7 @@ def _make_actor(**kwargs):
         r.set(**kwargs)
         return r
     else:
-        return tvtk.Actor(**kwargs)    
+        return tvtk.Actor(**kwargs)
 
 
 def _create_structured_points_direct(x, y, z=None):
@@ -165,7 +165,7 @@ def sampler(xa, ya, func, *args, **kwargs):
     spacing) and returns an array of scalars as per VTK's requirements
     for a structured points data set, i.e. x varying fastest and y
     varying next.
-    
+
     Input Arguments:
         xa -- Array of x points.
 
@@ -192,7 +192,7 @@ def _check_sanity(x, y, z):
     msg = "Only ravelled or 2D arrays can be viewed! "\
           "This array has shape %s" % str(z.shape)
     assert len(z.shape) <= 2, msg
-    
+
     if len( z.shape ) == 2:
         msg = "len(x)*len(y) != len(z.flat).  You passed "\
               "nx=%d, ny=%d, shape of z=%s"%(len(x), len(y), z.shape)
@@ -201,7 +201,7 @@ def _check_sanity(x, y, z):
         msg = "length of y(%d) and x(%d) must match shape of z "\
               "%s. (Maybe you need to swap x and y?)"%(len(y), len(x),
                                                         str(z.shape))
-        assert z.shape == (len(y), len(x)), msg 
+        assert z.shape == (len(y), len(x)), msg
 
 
 def squeeze(a):
@@ -221,7 +221,7 @@ def make_surf_actor(x, y, z, warp=1, scale=[1.0, 1.0, 1.0],
 
     Parameters
     ----------
-    
+
         x -- Array of x points (regularly spaced)
 
         y -- Array if y points (regularly spaced)
@@ -231,7 +231,7 @@ def make_surf_actor(x, y, z, warp=1, scale=[1.0, 1.0, 1.0],
         x and y arrays as the arguments.
 
         warp -- If true, warp the data to show a 3D surface
-        (default = 1).        
+        (default = 1).
 
         scale -- Scale the x, y and z axis as per passed values.
         Defaults to [1.0, 1.0, 1.0].
@@ -261,12 +261,12 @@ def make_surf_actor(x, y, z, warp=1, scale=[1.0, 1.0, 1.0],
         return data
     if warp:
         geom_f = tvtk.ImageDataGeometryFilter(input=data)
-        
+
         warper = tvtk.WarpScalar(input=geom_f.output,
                                  scale_factor=scale[2])
         normals = tvtk.PolyDataNormals(input=warper.output,
                                        feature_angle=45)
-        
+
         mapper = tvtk.PolyDataMapper(input=normals.output,
                                      scalar_range=(min(zval),max(zval)))
     else:
@@ -282,7 +282,7 @@ def make_triangle_polydata(triangles, points, scalars=None):
 
     if scalars is not None:
         assert len(points) == len(numpy.ravel(scalars))
-    
+
     pd = tvtk.PolyData(points=points, polys=t)
     if scalars is not None:
         pd.point_data.scalars = numpy.ravel(scalars)
@@ -294,7 +294,7 @@ def make_triangles_points(x, y, z, scalars=None):
     """Given x, y, and z co-ordinates made using numpy.mgrid and
     optional scalars.  This function returns triangles and points
     corresponding to a mesh formed by them.
-    
+
     Parameters
     ----------
 
@@ -305,7 +305,7 @@ def make_triangles_points(x, y, z, scalars=None):
     - z : array
         A list of z coordinate values formed using numpy.mgrid.
     - scalars : array (optional)
-        Scalars to associate with the points.          
+        Scalars to associate with the points.
     """
     assert len(x.shape) == 2, "Array x must be 2 dimensional."
     assert len(y.shape) == 2, "Array y must be 2 dimensional."
@@ -367,7 +367,7 @@ class MLabBase(HasTraits):
             rw.remove_actors(removed)
             rw.add_actors(added)
             rw.render()
-        
+
 
 
 ######################################################################
@@ -378,13 +378,13 @@ class Glyphs(MLabBase):
     glyph_source = Any
 
     # A Glyph3D instance replicates the glyph_sources at various
-    # points.    
+    # points.
     glyph = Instance(tvtk.Glyph3D, (), {'vector_mode':'use_vector',
                                         'scale_mode':'data_scaling_off'})
 
     # Color of the glyphs.
     color = vtk_color_trait((1.0, 1.0, 1.0))
-    
+
     def __init__(self, points, vectors=None, scalars=None, **traits):
         super(Glyphs, self).__init__(**traits)
 
@@ -392,7 +392,7 @@ class Glyphs(MLabBase):
             assert len(points) == len(vectors)
         if scalars is not None:
             assert len(points) == len(scalars)
-        
+
         self.points = points
         self.vectors = vectors
         self.scalars = scalars
@@ -455,7 +455,7 @@ class Cones(Glyphs):
 
     def _radius_changed(self, val):
         self.glyph_source.radius = val
-        self.render()        
+        self.render()
 
 
 ######################################################################
@@ -477,7 +477,7 @@ class Cubes(Glyphs):
         self.glyph_source.z_length = val
         self.render()
 
-        
+
 ######################################################################
 # `Cylinders` class.
 ######################################################################
@@ -530,7 +530,7 @@ class Line3(MLabBase):
 
     # Color of the actor.
     color = vtk_color_trait((1.0, 1.0, 1.0))
-    
+
     def __init__(self, points, **traits):
         super(MLabBase, self).__init__(**traits)
 
@@ -560,7 +560,7 @@ class Line3(MLabBase):
     def _radius_changed(self, val):
         self.tube_filter.radius = val
         self.render()
-    
+
     def _use_tubes_changed(self, val):
         if val:
             tf = self.tube_filter
@@ -569,7 +569,7 @@ class Line3(MLabBase):
         else:
             self.mapper.input = self.poly_data
         self.render()
-        
+
     def _color_changed(self, val):
         if self.actors:
             self.actors[0].property.color = val
@@ -598,11 +598,11 @@ class Outline(MLabBase):
             axis.view_prop = out_actor
         else:
             axis.prop = out_actor
-            
+
         self.actors.extend([out_actor, axis])
 
     def update(self):
-        if self.renwin:            
+        if self.renwin:
             rw = self.renwin
             v1, v2 = [x.visibility for x in self.actors]
             self.actors[0].visibility = 0
@@ -614,7 +614,7 @@ class Outline(MLabBase):
             self.actors[0].visibility = v1
             self.actors[1].visibility = v2
 
-    def _renwin_changed(self, old, new):        
+    def _renwin_changed(self, old, new):
         super(Outline, self)._renwin_changed(old, new)
         if old:
             old.on_trait_change(self.update, 'actor_added', remove=True)
@@ -647,10 +647,10 @@ class Title(MLabBase):
         pc.coordinate_system = 'normalized_viewport'
         pc.value = 0.25, 0.925, 0.0
         self.actors.append(self.text_actor)
-    
+
     def _text_changed(self, val):
         self.text_actor.input = val
-        self.render()            
+        self.render()
 
 ######################################################################
 # `LUTBase` class.
@@ -670,7 +670,7 @@ class LUTBase(MLabBase):
                            'width':0.8, 'height':0.17})
 
     # The scalar_bar widget.
-    scalar_bar_widget = Instance(tvtk.ScalarBarWidget, ())    
+    scalar_bar_widget = Instance(tvtk.ScalarBarWidget, ())
 
     # The legend name for the scalar bar.
     legend_text = Str('Scalar', desc='the title of the legend')
@@ -708,7 +708,7 @@ class LUTBase(MLabBase):
             hue_range = 0.0, 0.0
             saturation_range = 0.0, 0.0
             value_range = 1.0, 0.0
-        lut = self.lut    
+        lut = self.lut
         lut.set(hue_range=hue_range, saturation_range=saturation_range,
                 value_range=value_range, number_of_table_values=256,
                 ramp='sqrt')
@@ -731,7 +731,7 @@ class LUTBase(MLabBase):
         if old:
             sbw.interactor = None
             old.render()
-        if new:            
+        if new:
             sbw.interactor = new.interactor
             sbw.enabled = self.show_scalar_bar
             new.render()
@@ -743,10 +743,10 @@ class LUTBase(MLabBase):
 # `SurfRegular` class.
 ######################################################################
 class SurfRegular(LUTBase):
-    
+
     def __init__(self, x, y, z, warp=1, scale=[1.0, 1.0, 1.0], f_args=(),
                  f_kwargs=None, **traits):
-        super(SurfRegular, self).__init__(**traits)            
+        super(SurfRegular, self).__init__(**traits)
 
         if f_kwargs is None:
             f_kwargs = {}
@@ -770,10 +770,10 @@ class SurfRegularC(LUTBase):
 
     # The contour filter.
     contour_filter = Instance(tvtk.ContourFilter, ())
-    
+
     def __init__(self, x, y, z, warp=1, scale=[1.0, 1.0, 1.0], f_args=(),
                  f_kwargs=None, **traits):
-        super(SurfRegularC, self).__init__(**traits)            
+        super(SurfRegularC, self).__init__(**traits)
 
         if f_kwargs is None:
             f_kwargs = {}
@@ -791,7 +791,7 @@ class SurfRegularC(LUTBase):
         cf.generate_values(self.number_of_contours, dr[0], dr[1])
         mapper = tvtk.PolyDataMapper(input=cf.output, lookup_table=self.lut)
         cont_actor = _make_actor(mapper=mapper)
-        
+
         self.actors.extend([actor, cont_actor])
 
     def _number_of_contours_changed(self, val):
@@ -812,7 +812,7 @@ class TriMesh(LUTBase):
 
     # Color of the mesh.
     color = vtk_color_trait((0.5, 1.0, 0.5))
-    
+
     def __init__(self, triangles, points, scalars=None, **traits):
         """
         Parameters
@@ -823,7 +823,7 @@ class TriMesh(LUTBase):
         - points : array
           Contains the list of points referred to in the triangle list.
         - scalars : array (optional)
-          Scalars to associate with the points.          
+          Scalars to associate with the points.
         """
         super(TriMesh, self).__init__(**traits)
 
@@ -836,7 +836,7 @@ class TriMesh(LUTBase):
             dr = min(rs), max(rs)
             mapper.scalar_range = dr
             self.lut.table_range = dr
-        
+
         actor = _make_actor(mapper=mapper)
         representation = 'w'
         if self.surface:
@@ -847,7 +847,7 @@ class TriMesh(LUTBase):
         else:
             actor.property.set(diffuse=1.0, ambient=0.0, color=self.color,
                                representation=representation)
-            
+
         self.actors.append(actor)
 
     def _scalar_visibility_changed(self, val):
@@ -855,7 +855,7 @@ class TriMesh(LUTBase):
             mapper = self.actors[0].mapper
             mapper.scalar_visibility = val
         self.render()
-        
+
     def _surface_changed(self, val):
         if self.actors:
             representation = 'w'
@@ -870,7 +870,7 @@ class TriMesh(LUTBase):
                 actor.property.set(diffuse=1.0, ambient=0.0,
                                    representation=representation)
         self.render()
-    
+
     def _color_changed(self, val):
         if self.actors:
             self.actors[0].property.color = val
@@ -885,7 +885,7 @@ class FancyTriMesh(LUTBase):
     points as balls."""
     # Disables/enables scalar visibility.
     scalar_visibility = Bool(False, desc='show scalar visibility')
-    
+
     # Color of the mesh.
     color = vtk_color_trait((0.5, 1.0, 0.5))
 
@@ -938,7 +938,7 @@ class FancyTriMesh(LUTBase):
         edge_actor = _make_actor(mapper=edge_mapper)
         edge_actor.property.color = self.color
 
-        # Create the spheres for the points.        
+        # Create the spheres for the points.
         self.sphere_source.radius = self.sphere_radius
         spheres = tvtk.Glyph3D(scaling=0, source=self.sphere_source.output,
                                input=extract_f.output)
@@ -962,7 +962,7 @@ class FancyTriMesh(LUTBase):
             for i in self.actors:
                 i.mapper.scalar_visibility = val
         self.render()
-        
+
     def _tube_radius_changed(self, val):
         points = self.points
         if val < 1.0e-9:
@@ -980,7 +980,7 @@ class FancyTriMesh(LUTBase):
         self.sphere_radius = val
         self.sphere_source.radius = val
         self.render()
-            
+
     def _color_changed(self, val):
         if self.actors:
             self.actors[0].property.color = val
@@ -1002,9 +1002,9 @@ class Mesh(TriMesh):
         - z : array
           A list of z coordinate values formed using numpy.mgrid.
         - scalars : array (optional)
-          Scalars to associate with the points.          
+          Scalars to associate with the points.
         """
-        triangles, points = make_triangles_points(x, y, z, scalars)        
+        triangles, points = make_triangles_points(x, y, z, scalars)
         super(Mesh, self).__init__(triangles, points, scalars, **traits)
 
 
@@ -1024,9 +1024,9 @@ class FancyMesh(FancyTriMesh):
         - z : array
           A list of z coordinate values formed using numpy.mgrid.
         - scalars : array (optional)
-          Scalars to associate with the points.          
+          Scalars to associate with the points.
         """
-        triangles, points = make_triangles_points(x, y, z, scalars)        
+        triangles, points = make_triangles_points(x, y, z, scalars)
         super(FancyMesh, self).__init__(triangles, points, scalars, **traits)
 
 
@@ -1039,7 +1039,7 @@ class Surf(LUTBase):
 
     # Color of the mesh.
     color = vtk_color_trait((0.5, 1.0, 0.5))
-    
+
     def __init__(self, x, y, z, scalars=None, **traits):
         """
         Parameters
@@ -1052,20 +1052,20 @@ class Surf(LUTBase):
         - z : array
           A list of z coordinate values formed using numpy.mgrid.
         - scalars : array (optional)
-          Scalars to associate with the points.          
+          Scalars to associate with the points.
         """
         super(Surf, self).__init__(**traits)
-        triangles, points = make_triangles_points(x, y, z, scalars)        
+        triangles, points = make_triangles_points(x, y, z, scalars)
         self.pd = make_triangle_polydata(triangles, points, scalars)
 
         mapper = tvtk.PolyDataMapper(input=self.pd, lookup_table=self.lut,
                                      scalar_visibility=self.scalar_visibility)
         if scalars is not None:
-            rs = numpy.ravel(scalars)            
+            rs = numpy.ravel(scalars)
             dr = min(rs), max(rs)
             mapper.scalar_range = dr
             self.lut.table_range = dr
-        
+
         actor = _make_actor(mapper=mapper)
         actor.property.set(color=self.color)
         self.actors.append(actor)
@@ -1075,7 +1075,7 @@ class Surf(LUTBase):
             mapper = self.actors[0].mapper
             mapper.scalar_visibility = val
         self.render()
-        
+
     def _surface_changed(self, val):
         if self.actors:
             representation = 'w'
@@ -1083,12 +1083,12 @@ class Surf(LUTBase):
                 representation = 's'
             self.actors[0].property.representation = representation
         self.render()
-    
+
     def _color_changed(self, val):
         if self.actors:
             self.actors[0].property.color = val
         self.render()
-        
+
 
 ######################################################################
 # `Contour3` class.
@@ -1112,7 +1112,7 @@ class Contour3(LUTBase):
         - z : array
           A list of z coordinate values formed using numpy.mgrid.
         - scalars : array
-          Scalars to associate with the points.          
+          Scalars to associate with the points.
         """
         super(Contour3, self).__init__(**traits)
         triangles, points = make_triangles_points(x, y, z, scalars)
@@ -1120,14 +1120,14 @@ class Contour3(LUTBase):
 
         dr = self.pd.point_data.scalars.range
         self.lut.table_range = dr
-        
+
         cf = self.contour_filter
         cf.input = self.pd
         cf.generate_values(self.number_of_contours, dr[0], dr[1])
         mapper = tvtk.PolyDataMapper(input=cf.output, lookup_table=self.lut,
                                      scalar_range=dr)
         cont_actor = _make_actor(mapper=mapper)
-        
+
         self.actors.append(cont_actor)
 
     def _number_of_contours_changed(self, val):
@@ -1146,18 +1146,18 @@ class ImShow(LUTBase):
 
     # Interpolate the image or not.
     interpolate = Bool(False, desc='specifies if image should be interpolated')
-    
+
     def __init__(self, arr, scale=[1.0, 1.0, 1.0], **traits):
         """
         Parameters
         ----------
         - arr : Array to be viewed.
-       
+
         - scale : Scale the x, y and z axis as per passed values.
           Defaults to [1.0, 1.0, 1.0].
         """
         super(ImShow, self).__init__(**traits)
-        
+
         assert len(arr.shape) == 2, "Only 2D arrays can be viewed!"
 
         ny, nx = arr.shape
@@ -1187,7 +1187,7 @@ class ImShow(LUTBase):
             ia = self.actors[0]
             ia.interpolate = val
         self.render()
-    
+
 
 ######################################################################
 # `Figure` class.
@@ -1195,14 +1195,14 @@ class ImShow(LUTBase):
 class Figure(HasTraits):
     """A Figure manages varuous MLabBase objects.  Each of these
     objects contains an actor and does something neat."""
-    
+
     # The various instances of MLabBase that populate this figure.
     objects = List(MLabBase)
 
     def __init__(self, renwin, **traits):
         super(Figure, self).__init__(**traits)
         self.renwin = renwin
-    
+
     def add(self, obj):
         """Add an object to the figure.  This adds the actors of the
         object to the renderwindow."""
@@ -1244,7 +1244,7 @@ def figure(outline=True, browser=True):
       marker for the scene.
 
     - browser : `bool` (default, True)
-    
+
       If True, creates an IVTK scene with an embedded PipelineBrowser.
       If False, does not create it.
     """
@@ -1255,8 +1255,8 @@ def figure(outline=True, browser=True):
         f.add(o)
     v.scene.reset_zoom()
     return f
-        
-    
+
+
 ######################################################################
 # Test functions.
 ######################################################################
@@ -1330,7 +1330,7 @@ def test_simple_surf(fig):
     x, y = numpy.mgrid[0:3:1,0:3:1]
     z = x
     s = Surf(x, y, z, numpy.asarray(z, 'd'))
-    fig.add(s)    
+    fig.add(s)
 
 def test_surf(fig):
     """A very pretty picture of spherical harmonics translated from
@@ -1339,7 +1339,7 @@ def test_surf(fig):
     cos = numpy.cos
     sin = numpy.sin
     dphi, dtheta = pi/250.0, pi/250.0
-    [phi,theta] = numpy.mgrid[0:pi+dphi*1.5:dphi,0:2*pi+dtheta*1.5:dtheta] 
+    [phi,theta] = numpy.mgrid[0:pi+dphi*1.5:dphi,0:2*pi+dtheta*1.5:dtheta]
     m0 = 4; m1 = 3; m2 = 2; m3 = 3; m4 = 6; m5 = 2; m6 = 6; m7 = 4;
     r = sin(m0*phi)**m1 + cos(m2*phi)**m3 + sin(m4*theta)**m5 + cos(m6*theta)**m7
     x = r*sin(phi)*cos(theta)
@@ -1353,7 +1353,7 @@ def test_mesh_sphere(fig):
     """Create a simple sphere and test the mesh."""
     pi = numpy.pi
     cos = numpy.cos
-    sin = numpy.sin    
+    sin = numpy.sin
     du, dv = pi/20.0, pi/20.0
     phi, theta = numpy.mgrid[0.01:pi+du*1.5:du, 0:2*pi+dv*1.5:dv]
     r = 1.0
@@ -1400,7 +1400,7 @@ def main():
     test_surf(f)
 
     window.scene.reset_zoom()
-    
+
     # Start the GUI event loop!
     gui.start_event_loop()
 

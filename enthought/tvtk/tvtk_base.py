@@ -149,7 +149,7 @@ class TraitRevPrefixMap(traits.TraitPrefixMap):
     That is, you can set the trait to the value itself.  If multiple
     keys map to the same value, one of the valid keys will be used.
 
-    """    
+    """
     def __init__(self, map):
         traits.TraitPrefixMap.__init__(self, map)
         self._rmap = {}
@@ -159,7 +159,7 @@ class TraitRevPrefixMap(traits.TraitPrefixMap):
     def validate(self, object, name, value):
         try:
             if self._rmap.has_key(value):
-                value = self._rmap[value]            
+                value = self._rmap[value]
             if not self._map.has_key( value ):
                 match = None
                 n     = len( value )
@@ -175,7 +175,7 @@ class TraitRevPrefixMap(traits.TraitPrefixMap):
             return self._map[ value ]
         except:
             self.error( object, name, value )
-        
+
     def info(self):
         keys = [repr(x) for x in self._rmap.keys()]
         keys.sort()
@@ -232,7 +232,7 @@ class TVTKBase(traits.HasStrictTraits):
     TVTK classes provide a trait wrapped VTK object.  They also
     primitively picklable.  Only the basic state of the object itself
     is pickled.  References to other VTK objects are NOT pickled.
-    
+
     """
 
     # This is just a dummy integer (MUST be > 1) that indicates that
@@ -302,7 +302,7 @@ class TVTKBase(traits.HasStrictTraits):
 
         # Call the Super class to update the traits.
         # Inhibit any updates at this point since we update in the end
-        # anyway.        
+        # anyway.
         self._in_set = 1
         super(TVTKBase, self).__init__(**traits)
         self._in_set = 0
@@ -315,11 +315,11 @@ class TVTKBase(traits.HasStrictTraits):
         self.setup_observers()
 
         _object_cache[self._vtk_obj.__this__] = self
-    
+
     def __getinitargs__(self):
         """This is merely a placeholder so that subclasses can
         override this if needed.  This is called by `__setstate__`
-        because `traits.HasTrait` is a newstyle class.        
+        because `traits.HasTrait` is a newstyle class.
 
         """
         # You usually don't want to call update when calling __init__
@@ -340,7 +340,7 @@ class TVTKBase(traits.HasStrictTraits):
     def __setstate__(self, dict):
         """Support for primitive pickling.  Only the basic state is
         pickled.
-        """        
+        """
         # This is a newstyle class so we need to call init here.
         if self._vtk_obj is None:
             self.__init__(*self.__getinitargs__())
@@ -366,7 +366,7 @@ class TVTKBase(traits.HasStrictTraits):
     #################################################################
     # `HasTraits` interface.
     #################################################################
-        
+
     def class_trait_view_elements ( cls ):
         """ Returns the ViewElements object associated with the class.
 
@@ -374,7 +374,7 @@ class TVTKBase(traits.HasStrictTraits):
         associated with the class.
 
         Overridden here to search through a particular directory for substitute
-        views to use for this tvtk object. The view should be declared in a 
+        views to use for this tvtk object. The view should be declared in a
         file named <class name>_view. We execute this file and replace any
         currently defined view elements with view elements declared in this
         file (that have the same name).
@@ -392,7 +392,7 @@ class TVTKBase(traits.HasStrictTraits):
         try:
             module_name = cls.__module__.split('.')[-1]
             view_filename = os.path.join(viewDir,
-                                      	 module_name + '_view.py')
+                                         module_name + '_view.py')
             result = {}
             execfile(view_filename, {}, result)
             for name in names:
@@ -403,7 +403,7 @@ class TVTKBase(traits.HasStrictTraits):
         return view_elements
 
     class_trait_view_elements = classmethod( class_trait_view_elements )
-        
+
     #################################################################
     # `TVTKBase` interface.
     #################################################################
@@ -411,8 +411,8 @@ class TVTKBase(traits.HasStrictTraits):
         """Add an observer for the ModifiedEvent so the traits are kept
         up-to-date with the wrapped VTK object and do it in a way that
         avoids reference cycles."""
-        _object_cache.setup_observers(self._vtk_obj, 
-                                      'ModifiedEvent', 
+        _object_cache.setup_observers(self._vtk_obj,
+                                      'ModifiedEvent',
                                       self.update_traits)
 
     def teardown_observers(self):
@@ -430,7 +430,7 @@ class TVTKBase(traits.HasStrictTraits):
         The `obj` and `event` parameters may be ignored and are not
         used in the function.  They exist only for compatibility with
         the VTK observer callback functions.
-        
+
         """
         if self._in_set:
             return
@@ -439,7 +439,7 @@ class TVTKBase(traits.HasStrictTraits):
 
         self._in_set = self.DOING_UPDATE
         vtk_obj = self._vtk_obj
-        
+
         # Save the warning state and turn it off!
         warn = vtk.vtkObject.GetGlobalWarningDisplay()
         vtk.vtkObject.GlobalWarningDisplayOff()
@@ -479,10 +479,10 @@ class TVTKBase(traits.HasStrictTraits):
         - force_update: `bool` (default: False)
 
           If True, `update_traits` is always called at the end.
-          
+
         """
         if self._in_set == self.DOING_UPDATE:
-            return        
+            return
         vtk_obj = self._vtk_obj
         self._in_set += 1
         mtime = self._wrapped_mtime(vtk_obj) + 1
@@ -496,7 +496,7 @@ class TVTKBase(traits.HasStrictTraits):
         self._in_set -= 1
         if force_update or self._wrapped_mtime(vtk_obj) > mtime:
             self.update_traits()
-       
+
 
     def _wrap_call(self, vtk_method, *args):
         """This method allows us to safely call a VTK method without

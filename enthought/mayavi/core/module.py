@@ -63,7 +63,7 @@ class Module(PipelineBase):
             d.pop(x, None)
         return d
 
-        
+
     ######################################################################
     # `Module` interface.
     ######################################################################
@@ -80,7 +80,7 @@ class Module(PipelineBase):
         set the `actors` attribute up at this point.
         """
         pass
-    
+
     def update_pipeline(self):
         """Override this method so that it *updates* the tvtk pipeline
         when data upstream is known to have changed.
@@ -116,7 +116,7 @@ class Module(PipelineBase):
         # Setup event handlers.
         self._setup_event_handlers()
 
-        # Setup the pipeline.        
+        # Setup the pipeline.
         self.update_pipeline()
 
         # Start the components.
@@ -148,7 +148,7 @@ class Module(PipelineBase):
 
     def add_child(self, child):
         """This method intelligently adds a child to this object in
-        the MayaVi pipeline.        
+        the MayaVi pipeline.
         """
         # Pass on the buck to our module_manager.
         self.module_manager.add_child(child)
@@ -191,8 +191,8 @@ class Module(PipelineBase):
             comp.remove(old)
         comp.append(new)
         if old is not None:
-            self.update_pipeline()            
-            
+            self.update_pipeline()
+
     def _setup_event_handlers(self):
         mm = self.module_manager
         src = mm.source
@@ -214,7 +214,7 @@ class Module(PipelineBase):
         for component in self.components:
             component.scene = new_scene
         super(Module, self)._scene_changed(old_scene, new_scene)
-        
+
     def _components_changed(self, old, new):
         self._handle_components(old, new)
 
@@ -232,10 +232,10 @@ class Module(PipelineBase):
             if self.running:
                 component.start()
 
-    def _visible_changed(self,value):              
-        for c in self.components:                  
-            c.visible = value                      
-                                                   
+    def _visible_changed(self,value):
+        for c in self.components:
+            c.visible = value
+
         super(Module,self)._visible_changed(value)
 
     def _menu_helper_default(self):

@@ -71,7 +71,7 @@ class ExtractVectorNorm(FilterBase):
 
     ######################################################################
     # Non-public interface.
-    ######################################################################    
+    ######################################################################
     def _set_array_name(self, filter):
         # Do nothing if there is no input.
         if len(self.inputs) == 0:

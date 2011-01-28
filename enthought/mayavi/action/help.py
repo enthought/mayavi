@@ -27,7 +27,7 @@ from enthought.mayavi.preferences.api import preference_manager
 local_dir = dirname(enthought.mayavi.api.__file__)
 HTML_DIR = join(local_dir, 'html')
 if not path.exists(HTML_DIR):
-    HTML_DIR = join(dirname(dirname(local_dir)), 
+    HTML_DIR = join(dirname(dirname(local_dir)),
                                     'build', 'docs', 'html', 'mayavi')
     if not path.exists(HTML_DIR):
         HTML_DIR = None
@@ -48,7 +48,7 @@ def browser_open(url):
 
 
 def open_help_index():
-    """ Open the mayavi user manual index in a browser. 
+    """ Open the mayavi user manual index in a browser.
     """
     # If the HTML_DIR was found, bring up the documentation in a
     # web browser.  Otherwise, bring up an error message.
@@ -61,7 +61,7 @@ def open_help_index():
 
 
 def open_tvtk_docs():
-    """ Open the TVTK class browser. 
+    """ Open the TVTK class browser.
     """
     from enthought.tvtk.tools.tvtk_doc import TVTKClassChooser
     TVTKClassChooser().edit_traits()

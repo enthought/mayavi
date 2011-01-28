@@ -8,8 +8,8 @@ to be used by various modules.
 
 import cPickle
 
-from enthought.traits.api import (Instance, Trait, Bool, TraitMap, Enum, Dict, 
-				  Str, Int)
+from enthought.traits.api import (Instance, Trait, Bool, TraitMap, Enum, Dict,
+                                  Str, Int)
 from enthought.traits.ui.api import View, Group, Item
 from enthought.tvtk.api import tvtk
 from enthought.persistence.state_pickler import set_state
@@ -25,7 +25,7 @@ class ImplicitWidgets(Component):
     __version__ = 0
 
     # The widget type to use.
-    widget_mode = Enum('Box', 'Sphere', 'Plane','ImplicitPlane', 
+    widget_mode = Enum('Box', 'Sphere', 'Plane','ImplicitPlane',
                        desc='the implicit widget to use')
 
     # The actual poly data source widget.
@@ -35,12 +35,12 @@ class ImplicitWidgets(Component):
                         TraitMap({'interactive':'InteractionEvent',
                                   'semi-interactive': 'EndInteractionEvent'}),
                         desc='speed at which the data should be updated')
-    
+
     implicit_function = Instance(tvtk.ImplicitFunction, allow_none=False)
-   
+
     ########################################
     # Private traits.
-    
+
     _first = Bool(True)
     _busy = Bool(False)
     _observer_id = Int(-1)
@@ -52,7 +52,7 @@ class ImplicitWidgets(Component):
     # The actual implicit functions.
     _implicit_function_dict = Dict(Str, Instance(tvtk.ImplicitFunction,
                                    allow_none=False))
-    
+
     ########################################
     # View related traits.
     ########################################
@@ -79,7 +79,7 @@ class ImplicitWidgets(Component):
     ######################################################################
     def __get_pure_state__(self):
         d = super(ImplicitWidgets, self).__get_pure_state__()
-        for attr in ('_first', '_busy', '_observer_id', 'widget', 
+        for attr in ('_first', '_busy', '_observer_id', 'widget',
                      'implicit_function'):
             d.pop(attr, None)
         # The box widget requires a transformation matrix to be pickled.
@@ -128,7 +128,7 @@ class ImplicitWidgets(Component):
         """
         # Setup the widgets.
         self.widgets = [self.widget]
-    
+
     def update_pipeline(self):
         """Override this method so that it *updates* the tvtk pipeline
         when data upstream is known to have changed.
@@ -151,7 +151,7 @@ class ImplicitWidgets(Component):
             self.outputs = [inp]
         else:
             self.data_changed = True
-        
+
         self.pipeline_changed = True
 
     def update_data(self):
@@ -173,7 +173,7 @@ class ImplicitWidgets(Component):
                     'Plane': 'get_plane', 'ImplicitPlane': 'get_plane'}
         method = getattr(self.widget, dispatch[self.widget_mode])
         method(self.implicit_function)
-        
+
     ######################################################################
     # Non-public traits.
     ######################################################################
@@ -200,9 +200,9 @@ class ImplicitWidgets(Component):
             isinstance(value, tvtk.ImplicitPlaneWidget):
             value.on_trait_change(self._on_alignment_set,
                                   'normal_to_x_axis', remove=remove)
-            value.on_trait_change(self._on_alignment_set, 
+            value.on_trait_change(self._on_alignment_set,
                                   'normal_to_y_axis', remove=remove)
-            value.on_trait_change(self._on_alignment_set, 
+            value.on_trait_change(self._on_alignment_set,
                                   'normal_to_z_axis', remove=remove)
 
         value.on_trait_change(self._on_widget_trait_changed,
@@ -212,14 +212,14 @@ class ImplicitWidgets(Component):
     def _on_interaction_event(self, obj, event):
         self.update_implicit_function()
 
-    def _update_mode_changed(self, old, new):        
+    def _update_mode_changed(self, old, new):
         w = self.widget
         if w is not None:
             w.remove_observer(self._observer_id)
             self._observer_id = w.add_observer(self.update_mode_,
                     self._on_interaction_event)
-            
-            w.on_trait_change(self.render)                
+
+            w.on_trait_change(self.render)
             self.render()
 
     def _on_widget_trait_changed(self):
@@ -228,7 +228,7 @@ class ImplicitWidgets(Component):
             self.implicit_function = self._implicit_function_dict[self.widget_mode]
             self.update_implicit_function()
             self.render()
-            self._busy = False 
+            self._busy = False
 
     def _on_alignment_set(self):
         """Event handler when the widget's normal is reset (if
@@ -251,9 +251,9 @@ class ImplicitWidgets(Component):
     def __widget_dict_default(self):
         """Default value for source dict."""
         w = {'Box':tvtk.BoxWidget(place_factor = 0.9),
-             'Sphere':tvtk.SphereWidget(place_factor = 0.9), 
+             'Sphere':tvtk.SphereWidget(place_factor = 0.9),
              'Plane':tvtk.PlaneWidget(place_factor = 0.9),
-             'ImplicitPlane': 
+             'ImplicitPlane':
                 tvtk.ImplicitPlaneWidget(place_factor=0.9,
                                          draw_plane=False)}
         return w

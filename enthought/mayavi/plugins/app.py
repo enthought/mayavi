@@ -41,7 +41,7 @@ def setup_logger(logger, fname, stream=True, mode=logging.ERROR):
     stream -- Add a stream handler.
 
     mode -- the logging mode of the stream handler.
-    
+
     """
     if not os.path.isabs(fname):
         path = os.path.join(ETSConfig.application_home, fname)
@@ -167,7 +167,7 @@ class Mayavi(HasTraits):
         plugins : list of Plugin objects
             List of plugins to start.  If none is provided it defaults to
             something meaningful.
-        log_mode : 
+        log_mode :
             The logging mode to use.
 
         """
@@ -232,7 +232,7 @@ class Mayavi(HasTraits):
     @on_trait_change('application.gui:started')
     def _on_application_gui_started(self, obj, trait_name, old, new):
         """This is called as soon as  the Envisage GUI starts up.  The
-        method is responsible for setting our script instance.   
+        method is responsible for setting our script instance.
         """
         if trait_name != 'started' or not new:
             return
@@ -243,7 +243,7 @@ class Mayavi(HasTraits):
         self.script = window.get_service(Script)
         # Call self.run from the GUI thread.
         app.gui.invoke_later(self.run)
-  
+
 
 def main(argv=None):
     """Simple helper to start up the mayavi application.  This returns

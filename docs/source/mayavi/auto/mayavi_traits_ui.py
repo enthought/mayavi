@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 """
-An example of how to create a UI similar to the complete Mayavi application 
+An example of how to create a UI similar to the complete Mayavi application
 inside a Traits UI view.
 
 This does not use Envisage and provides a similar UI as seen in the full
-Mayavi application. 
+Mayavi application.
 
 This example uses `traitsUI <http://code.enthought.com/projects/traits/>`_
 to create a dialog mimicking the mayavi2 application: a scene on the
@@ -22,7 +22,7 @@ from numpy import sqrt, sin, mgrid
 # Enthought imports.
 from enthought.traits.api import HasTraits, Instance, Property, Enum
 from enthought.traits.ui.api import View, Item, HSplit, VSplit, InstanceEditor
-from enthought.tvtk.pyface.scene_editor import SceneEditor 
+from enthought.tvtk.pyface.scene_editor import SceneEditor
 from enthought.mayavi.core.ui.engine_view import EngineView
 from enthought.mayavi.tools.mlab_scene_model import MlabSceneModel
 
@@ -49,11 +49,11 @@ class Mayavi(HasTraits):
                               Item(name='current_selection',
                                    editor=InstanceEditor(),
                                    enabled_when='current_selection is not None',
-                                   style='custom', 
+                                   style='custom',
                                    springy=True,
                                    show_label=False),
                                    ),
-                               Item(name='scene', 
+                               Item(name='scene',
                                     editor=SceneEditor(),
                                     show_label=False,
                                     resizable=True,
@@ -85,7 +85,7 @@ class Mayavi(HasTraits):
         e.add_source(s)
         e.add_module(Outline())
         e.add_module(Surface())
-        
+
     def _selection_change(self, old, new):
         self.trait_property_changed('current_selection', old, new)
 

@@ -18,8 +18,8 @@ from enthought.mayavi.sources.vtk_xml_file_reader import VTKXMLFileReader
 from enthought.mayavi.modules.api import ContourGridPlane
 from enthought.mayavi.filters.image_data_probe import ImageDataProbe
 
-class TestImageDataProbe(unittest.TestCase):   
-       
+class TestImageDataProbe(unittest.TestCase):
+
     def setUp(self):
         """Initial setting up of test fixture, automatically called by TestCase before any other test method is invoked"""
         e = NullEngine()
@@ -28,12 +28,12 @@ class TestImageDataProbe(unittest.TestCase):
         e.start()
         e.new_scene()
         self.e=e
-        
+
         # Read a VTK (old style) data file.
         r = VTKXMLFileReader()
         r.initialize(get_example_data('pyramid_ug.vtu'))
         e.add_source(r)
-        
+
         # Create the filters.
         idp = ImageDataProbe()
         idp.rescale_scalars = True
@@ -44,19 +44,19 @@ class TestImageDataProbe(unittest.TestCase):
         cgp.grid_plane.position = 1
         self.scene = e.current_scene
         return
-        
+
     def tearDown(self):
         """For necessary clean up, automatically called by TestCase after the test methods have been invoked"""
         self.e.stop()
         return
 
-    def check(self):             
+    def check(self):
         """Do the actual testing"""
         scene = self.scene
         src = scene.children[0]
         idp = src.children[0]
         mm = idp.children[0]
-          
+
         self.assertEqual(src.outputs[0].is_a('vtkUnstructuredGrid'),True)
         self.assertEqual(idp.outputs[0].is_a('vtkImageData'),True)
         sc = idp.outputs[0].point_data.scalars
@@ -68,18 +68,18 @@ class TestImageDataProbe(unittest.TestCase):
         self.assertEqual((abs(sc.range[0]) < 1e-2),True)
         self.assertEqual( abs(sc.range[1] - 65535.0) < 1.e-2,True)
         self.assertEqual((idp.outputs[0].dimensions == (3, 3, 2)).all(),True)
-        
-        
 
-    def test_image_data_probe(self):    
-        "Test if the test fixture works"                    
+
+
+    def test_image_data_probe(self):
+        "Test if the test fixture works"
         #Now test.
         self.check()
-        
+
         #from enthought.mayavi.tools.show import show
         #show()
-    
-    def test_save_and_restore(self):    
+
+    def test_save_and_restore(self):
         """Test if saving a visualization and restoring it works."""
         engine = self.e
         scene = self.scene
@@ -92,7 +92,7 @@ class TestImageDataProbe(unittest.TestCase):
         f.seek(0) # So we can read this saved data.
 
         # Remove existing scene.
-       
+
         engine.close_scene(scene)
 
         # Load visualization
@@ -100,8 +100,8 @@ class TestImageDataProbe(unittest.TestCase):
         self.scene = engine.current_scene
 
         self.check()
-    
-    
+
+
     def test_deepcopied(self):
         """Test if the MayaVi2 visualization can be deep-copied."""
         ############################################################
@@ -120,11 +120,11 @@ class TestImageDataProbe(unittest.TestCase):
         # object from the UI via the right-click menu on the tree
         # view, and pasting the copy back.
         source1 = copy.deepcopy(source)
-        s.children[0] = source1 
+        s.children[0] = source1
         self.check()
         #from enthought.mayavi.tools.show import show
         #show()
 
-    
+
 if __name__ == '__main__':
     unittest.main()

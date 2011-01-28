@@ -24,7 +24,7 @@ class CellToPointData(FilterBase):
     __version__ = 0
 
     # The actual TVTK filter that this class manages.
-    filter = Instance(tvtk.CellDataToPointData, 
+    filter = Instance(tvtk.CellDataToPointData,
                             args=(), kw={'pass_cell_data':1},
                             allow_none=False, record=True)
 

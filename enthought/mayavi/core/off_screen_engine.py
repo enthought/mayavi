@@ -8,7 +8,7 @@ An off-screen mayavi engine.
 from enthought.traits.api import Callable, Str
 from enthought.tvtk.pyface.tvtk_scene import TVTKWindow
 from enthought.mayavi.core.engine import Engine
-from enthought.mayavi.preferences.api import set_scene_preferences 
+from enthought.mayavi.preferences.api import set_scene_preferences
 
 
 def off_screen_viewer_factory(size=(400, 350)):
@@ -22,7 +22,7 @@ def off_screen_viewer_factory(size=(400, 350)):
 
 ################################################################################
 # `OffScreenEngine` class.
-################################################################################ 
+################################################################################
 class OffScreenEngine(Engine):
     # Overriding the scene factory trait of Engine.
     scene_factory = Callable(off_screen_viewer_factory)

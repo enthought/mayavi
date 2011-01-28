@@ -79,7 +79,7 @@ def get_icon(object_name):
 
     # Lower case the name.
     name = object_name.lower()
-    
+
     for key in icon_map:
         if name.endswith(key):
             return icon_map[key]
@@ -286,7 +286,7 @@ class FullTreeGenerator(SimpleTreeGenerator):
                 if obj.number_of_input_ports:
                     # Sometimes not all the inputs can be retrieved using
                     # 'get_input', as they may be sources (for instance
-                    # the ProbeFilter). 
+                    # the ProbeFilter).
                     inputs = list()
                     for i in range(obj.number_of_input_ports):
                         try:
@@ -348,7 +348,7 @@ class FullTreeGenerator(SimpleTreeGenerator):
         # Oops, this isn't a VTK object.
         if not hasattr(vtk_obj, 'GetClassName'):
             return []
-        
+
         methods = str(vtk_obj)
         methods = methods.split("\n")
         del methods[0]
@@ -399,7 +399,7 @@ class FullTreeGenerator(SimpleTreeGenerator):
 
         # Some of these object are removed because they arent useful in
         # the browser.  I check for Source and Input anyway so I dont need
-        # them.    
+        # them.
         for name in('Output', 'FieldData', 'CellData', 'PointData',
                     'Source', 'Input', 'ExtentTranslator',
                     'Interactor', 'Lights', 'Information', 'Executive'):
@@ -420,7 +420,7 @@ class CompositeIterable(HasTraits):
     """
 
     tree_generator = Instance(TreeGenerator)
-    
+
     def __init__(self, args, **traits):
         super(CompositeIterable, self).__init__(**traits)
         self.args = args
@@ -449,7 +449,7 @@ class CompositeIterable(HasTraits):
 ######################################################################
 class TVTKLeafNode(TreeNodeObject):
     """Represents a leaf in the tree view."""
-    
+
     # The tvtk object being wrapped.
     object = Instance(TVTKBase)
     # Name to show on the view.
@@ -460,7 +460,7 @@ class TVTKLeafNode(TreeNodeObject):
 
     def __hash__(self):
         return hash(tvtk.to_vtk(self.object))
-        
+
     def _get_name(self):
         return self.object.__class__.__name__
 
@@ -580,7 +580,7 @@ class TVTKCollectionNode(TreeNodeObject):
     # List of child nodes.
     object = List(TVTKBase)
     # Children of the object.
-    children = Property 
+    children = Property
     # Name to show on the view.
     name = Str
     # Tree generator to use.
@@ -604,12 +604,12 @@ class UICloseHandler(TVTKBaseHandler):
     """This class cleans up after the UI for the object is closed."""
     # The browser associated with this UI.
     browser = Any
-    
+
     def close(self, info, is_ok):
         """This method is invoked when the user closes the UI."""
         obj = info.object
         obj.on_trait_change(self.browser.render, remove=True)
-        return True    
+        return True
 
 
 ######################################################################
@@ -627,7 +627,7 @@ class PipelineBrowser(HasTraits):
     # root object is the render_window of the Scene instance passed at
     # object instantiation time.
     root_object = List(TVTKBase)
-    
+
     # Private traits.
     # The root of the tree to display.
     _root = Any
@@ -659,7 +659,7 @@ class PipelineBrowser(HasTraits):
         self.menu = menu
 
         nodes = self.tree_generator.get_nodes(menu)
-        
+
         self.tree_editor = TreeEditor(nodes=nodes,
                                       editable=False,
                                       orientation='vertical',
@@ -697,7 +697,7 @@ class PipelineBrowser(HasTraits):
                 self.ui = self.view.ui(self, parent=parent, kind='subpanel')
             else:
                 self.ui = self.view.ui(self, parent=parent)
-                
+
     def update(self):
         """Update the tree view."""
         # This is a hack.
@@ -737,7 +737,7 @@ class PipelineBrowser(HasTraits):
             ro = root_obj
             if not hasattr(root_obj, '__len__'):
                 ro = [root_obj]
-                
+
             self._root = TVTKCollectionNode(object=ro,
                                             name="Root",
                                             tree_generator=tree_gen)
@@ -761,7 +761,7 @@ class PipelineBrowser(HasTraits):
     def _root_object_items_changed(self, list_event):
         """Trait handler called when the items of the list change."""
         self._root_object_changed(self.root_object)
-    
+
     def _on_dclick(self, obj):
         """Callback that is called when nodes are double-clicked."""
         if hasattr(obj, 'object') and hasattr(obj.object, 'edit_traits'):
@@ -789,7 +789,7 @@ def main(instantiate_gui=True):
 
     b = PipelineBrowser(v.scene)
     b.show()
-    
+
     return v, b, a
 
 

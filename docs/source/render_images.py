@@ -32,8 +32,8 @@ def capture_image(func, filename):
 
 
 def illustrate_module(module, directory=IMAGE_DIR):
-    """ Uses the test functions of the modules (discovery ala nose) to 
-        create images for each function tested. 
+    """ Uses the test functions of the modules (discovery ala nose) to
+        create images for each function tested.
     """
     for name, func in getmembers(module):
         if not callable(func) or not name.lower().startswith('test'):

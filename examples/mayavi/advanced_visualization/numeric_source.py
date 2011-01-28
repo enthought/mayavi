@@ -39,7 +39,7 @@ def make_data(dims=(128, 128, 128)):
     # used internally by VTK so the dimension does not matter for the
     # scalars.
     s.shape = s.shape[::-1]
-    
+
     return s
 
 
@@ -52,7 +52,7 @@ def view_numpy():
     # Make the data and add it to the pipeline.
     data = make_data()
     src = ArraySource(transpose_input_array=False)
-    src.scalar_data = data    
+    src.scalar_data = data
     mayavi.add_source(src)
     # Visualize the data.
     o = Outline()
@@ -65,7 +65,7 @@ def view_numpy():
     mayavi.add_module(ipw_y)
     ipw_y.ipw.plane_orientation = 'y_axes'
 
-    
+
 if __name__ == '__main__':
     view_numpy()
-    
+

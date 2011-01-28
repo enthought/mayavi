@@ -33,16 +33,16 @@ def add_dataset(dataset, name='', **kwargs):
 
     :dataset: a tvtk dataset, or a Mayavi source.
               The dataset added to the Mayavi pipeline
-    :figure: a figure identifier number or string, None or False, optionnal. 
-            
-            If no `figure` keyword argument is given, the data 
-            is added to the current figure (a new figure if created if 
+    :figure: a figure identifier number or string, None or False, optionnal.
+
+            If no `figure` keyword argument is given, the data
+            is added to the current figure (a new figure if created if
             necessary).
 
             If a `figure` keyword argument is given, it should either the name
-            the number of the figure the dataset should be added to, or None, 
+            the number of the figure the dataset should be added to, or None,
             in which case the data is not added to the pipeline.
-            
+
             If figure is False, a null engine is created. This null
             engine does not create figures, and is mainly usefull for
             tensting, or using the VTK algorithms without visualization.
@@ -80,7 +80,7 @@ def add_dataset(dataset, name='', **kwargs):
     engine.add_source(d)
     return d
 
-def add_module_manager(object): 
+def add_module_manager(object):
     """ Add a module-manager, to control colors and legend bars to the
         given object.
     """
@@ -91,7 +91,7 @@ def _traverse(node):
         attribute.
 
         **Example**
-        
+
         Here is a simple example printing the names of all the objects in
         the pipeline::
 
@@ -112,9 +112,9 @@ def get_vtk_src(mayavi_object, stop_at_filter=True):
         object.
 
         **Parameters**
-    
+
         :object: any Mayavi visualization object
-       
+
         :stop_at_filter: optional boolean flag: if True, the first object
                          exposing data found going up the pipeline is
                          returned. If False, only the source itself
@@ -134,7 +134,7 @@ def get_vtk_src(mayavi_object, stop_at_filter=True):
                         and hasattr(mayavi_object, 'point_data'):
         # We have been passed a tvtk source
         return [mayavi_object]
-    if not (   hasattr(mayavi_object, 'parent') 
+    if not (   hasattr(mayavi_object, 'parent')
             or isinstance(mayavi_object, Source)):
         raise TypeError, 'Cannot find data source for given object %s' % (
                                             mayavi_object)
@@ -273,7 +273,7 @@ def set_extent(module, extents):
         **Note**
 
         This function does not work on some specific modules, such as
-        Outline, Axes, or ImagePlaneWidget. For Outline and Axes, use the 
+        Outline, Axes, or ImagePlaneWidget. For Outline and Axes, use the
         extent keyword argument of mlab.pipeline.outline and
         mlab.pipeline.axes.
     """
@@ -309,14 +309,14 @@ def set_extent(module, extents):
         scalez = zs*extentz/boundsz
     else:
         scalez = 1
-    
+
     module.actor.actor.scale = (scalex, scaley, scalez)
     ## Remeasure the bounds
     xmin, xmax, ymin, ymax, zmin, zmax = module.actor.actor.bounds
     xcenter = 0.5*(xmax + xmin)
     ycenter = 0.5*(ymax + ymin)
-    zcenter = 0.5*(zmax + zmin)         
-    # Center the object                 
+    zcenter = 0.5*(zmax + zmin)
+    # Center the object
     module.actor.actor.origin = (0.,  0.,  0.)
     xpos, ypos, zpos = module.actor.actor.position
     module.actor.actor.position = (xpos + xo -xcenter, ypos + yo - ycenter,

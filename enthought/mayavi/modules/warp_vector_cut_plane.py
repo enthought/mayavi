@@ -31,31 +31,31 @@ class WarpVectorCutPlane(Module):
 
     # The version of this class.  Used for persistence.
     __version__ = 0
-    
+
     # The implicit plane widget used to place the implicit function.
     implicit_plane = Instance(ImplicitPlane, allow_none=False,
                               record=True)
-    
+
     # The cutter.  Takes a cut of the data on the implicit plane.
     cutter = Instance(Cutter, allow_none=False, record=True)
-    
+
     # The WarpVectorCutPlane component that warps the data.
     warp_vector = Instance(WarpVector, allow_none=False, record=True)
-    
+
     # Specify if vector normals are to be computed to make a smoother surface.
     compute_normals = Bool(False, desc='if normals are to be computed '\
                            'to make the warped surface smoother')
 
     # The component that computes the normals.
     normals = Instance(PolyDataNormals, record=True)
-    
+
     # The Actor component.
     actor = Instance(Actor, allow_none=False, record=True)
 
     input_info = PipelineInfo(datasets=['any'],
                               attribute_types=['any'],
-                              attributes=['vectors'])    
-    
+                              attributes=['vectors'])
+
     ########################################
     # View related traits.
 
@@ -65,7 +65,7 @@ class WarpVectorCutPlane(Module):
                              InstanceEditor(view=
                                             View(Item('scale_factor')))),
                         show_labels=False)
-    
+
     view = View(Group(Item(name='implicit_plane', style='custom'),
                       label='ImplicitPlane',
                       show_labels=False),
@@ -90,7 +90,7 @@ class WarpVectorCutPlane(Module):
                       show_labels=False),
                 resizable=True,
                 )
-    
+
     ######################################################################
     # `Module` interface
     ######################################################################
@@ -113,7 +113,7 @@ class WarpVectorCutPlane(Module):
         self.normals = PolyDataNormals()
         actor = self.actor = Actor()
         actor.mapper.scalar_visibility = 1
-    
+
     def update_pipeline(self):
         """Override this method so that it *updates* the tvtk pipeline
         when data upstream is known to have changed.
@@ -124,17 +124,17 @@ class WarpVectorCutPlane(Module):
         mm = self.module_manager
         if mm is None:
             return
-        
+
         self.implicit_plane.inputs = [mm.source]
 
         # Force the vector normals setting to be noted.
         self._compute_normals_changed(self.compute_normals)
-        
+
         # Set the LUT for the mapper.
         self.actor.set_lut(mm.scalar_lut_manager.lut)
-        
+
         self.pipeline_changed = True
-    
+
     def update_data(self):
         """Override this method so that it flushes the vtk pipeline if
         that is necessary.
@@ -144,7 +144,7 @@ class WarpVectorCutPlane(Module):
         """
         # Just set data_changed, the other components should do the rest.
         self.data_changed = True
-    
+
     ######################################################################
     # Non-public traits.
     ######################################################################
@@ -158,7 +158,7 @@ class WarpVectorCutPlane(Module):
             else:
                 actor.inputs = [self.warp_vector]
         self.render()
-    
+
     def _normals_changed(self, old, new):
         warp_vector = self.warp_vector
         compute_normals = self.compute_normals
@@ -166,21 +166,21 @@ class WarpVectorCutPlane(Module):
             new.inputs = [warp_vector]
         self._compute_normals_changed(self.compute_normals)
         self._change_components(old, new)
-    
+
     def _implicit_plane_changed(self, old, new):
         cutter = self.cutter
         if cutter is not None:
             cutter.cut_function = new.plane
             cutter.inputs = [new]
         self._change_components(old, new)
-    
+
     def _warp_vector_changed(self, old, new):
         cutter = self.cutter
         if cutter is not None:
             new.inputs = [cutter]
         self._compute_normals_changed(self.compute_normals)
         self._change_components(old, new)
-    
+
     def _cutter_changed(self, old, new):
         ip = self.implicit_plane
         if ip is not None:
@@ -190,7 +190,7 @@ class WarpVectorCutPlane(Module):
         if w is not None:
             w.inputs = [new]
         self._change_components(old, new)
-    
+
     def _actor_changed(self, old, new):
         self._compute_normals_changed(self.compute_normals)
         self._change_components(old, new)

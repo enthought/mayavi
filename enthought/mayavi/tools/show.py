@@ -29,13 +29,13 @@ def is_ui_running():
 
 ################################################################################
 # `StopShow` class.
-################################################################################ 
+################################################################################
 class StopShow(HasTraits):
 
     ########################################
     # Traits
 
-    stop = Button('Stop interaction', 
+    stop = Button('Stop interaction',
                   desc='if the UI interaction is to be stopped')
 
     # Private traits.
@@ -48,14 +48,14 @@ class StopShow(HasTraits):
 
     ######################################################################
     # `object` interface.
-    ###################################################################### 
+    ######################################################################
     def __init__(self, **traits):
         super(StopShow, self).__init__(**traits)
         self._ui = self.edit_traits()
 
     ######################################################################
     # Non-public interface.
-    ###################################################################### 
+    ######################################################################
     def _stop_fired(self):
         _gui.stop_event_loop()
         self._ui.dispose()
@@ -63,15 +63,15 @@ class StopShow(HasTraits):
 
 def show(func=None, stop=False):
     """ Start interacting with the figure.
-    
+
     By default, this function simply creates a GUI and starts its
     event loop if needed.
-    
+
     If it is used as a decorator, then it may be used to decorate a
     function which requires a UI.   If the GUI event loop is already
     running it simply runs the function.  If not the event loop is
     started and function is run in the toolkit's event loop.  The choice
-    of UI is via `ETSConfig.toolkit`.  
+    of UI is via `ETSConfig.toolkit`.
 
     If the argument stop is set to True then it pops up a UI where the
     user can stop the event loop.  Subsequent calls to `show` will
@@ -102,7 +102,7 @@ def show(func=None, stop=False):
       ...    mlab.test_contour3d()
       ...
       >>> do()
-    
+
     The decorator can also be passed the stop argument::
 
       >>> @mlab.show(stop=True)

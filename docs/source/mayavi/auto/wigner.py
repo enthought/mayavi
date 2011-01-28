@@ -1,10 +1,10 @@
 """
-An example in which 3 functions of x and y  are displayed with a surf plot, 
+An example in which 3 functions of x and y  are displayed with a surf plot,
 while the z scaling is kept constant, to allow comparison between them.
 
 The important aspect of this example is that the 3 functions should not
 be displayed on top of each other, but side by side. For this we use the
-extent keyword argument. 
+extent keyword argument.
 
 In addition, the relative scale between the different plots is important.
 This is why we also use the `warp_scale` keyword argument, to have the same
@@ -16,7 +16,7 @@ the wigner function in the middle of our extents, we put this to zero.
 We add a set of axes and outlines to the plot. We have to play we extents
 and ranges in order to make them fit with the data.
 """
-# Author: Gael Varoquaux <gael.varoquaux@normalesup.org> 
+# Author: Gael Varoquaux <gael.varoquaux@normalesup.org>
 # Copyright (c) 2007, Enthought, Inc.
 # License: BSD Style.
 
@@ -35,7 +35,7 @@ def cat(x, y, alpha, eta=1, purity=1):
 
 x, y = numpy.mgrid[-4:4.15:0.1, -4:4.15:0.1]
 
-mlab.figure(1, size=(500, 250), fgcolor=(1, 1, 1), 
+mlab.figure(1, size=(500, 250), fgcolor=(1, 1, 1),
                                     bgcolor=(0.5, 0.5, 0.5))
 mlab.clf()
 
@@ -51,10 +51,10 @@ cat2 -= 0.5
 cat3 -= 0.5
 
 cat1_extent = (-14,-6, -4,4, 0,5)
-surf_cat1 = mlab.surf(x-10, y, cat1, colormap='Spectral', warp_scale=5, 
+surf_cat1 = mlab.surf(x-10, y, cat1, colormap='Spectral', warp_scale=5,
             extent=cat1_extent, vmin=-0.5, vmax=0.5)
 mlab.outline(surf_cat1, color=(.7, .7, .7))
-mlab.axes(surf_cat1, color=(.7, .7, .7), extent=cat1_extent, 
+mlab.axes(surf_cat1, color=(.7, .7, .7), extent=cat1_extent,
             ranges=(0,1, 0,1, 0,1), xlabel='', ylabel='',
             zlabel='Probability',
             x_axis_visibility=False, z_axis_visibility=False)
@@ -62,14 +62,14 @@ mlab.axes(surf_cat1, color=(.7, .7, .7), extent=cat1_extent,
 mlab.text(-18, -4, '1 photon', z=-4, width=0.13)
 
 cat2_extent = (-4,4, -4,4, 0,5)
-surf_cat2 = mlab.surf(x, y, cat2, colormap='Spectral', warp_scale=5, 
+surf_cat2 = mlab.surf(x, y, cat2, colormap='Spectral', warp_scale=5,
             extent=cat2_extent, vmin=-0.5, vmax=0.5)
 mlab.outline(surf_cat2, color=(0.7, .7, .7), extent=cat2_extent)
 
 mlab.text(-4, -3, '2 photons', z=-4, width=0.14)
 
 cat3_extent = (6,14, -4,4, 0,5)
-surf_cat3 = mlab.surf(x+10, y, cat3, colormap='Spectral', warp_scale=5, 
+surf_cat3 = mlab.surf(x+10, y, cat3, colormap='Spectral', warp_scale=5,
             extent=cat3_extent, vmin=-0.5, vmax=0.5)
 mlab.outline(surf_cat3, color=(.7, .7, .7), extent=cat3_extent)
 

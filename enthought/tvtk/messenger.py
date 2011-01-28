@@ -16,7 +16,7 @@ Here is example usage with VTK::
     >>> import messenger, vtk
     >>> def cb(obj, evt):
     ...  print obj.__class__.__name__, evt
-    ... 
+    ...
     >>> o = vtk.vtkProperty()
     >>> o.AddObserver('ModifiedEvent', messenger.send)
     1
@@ -34,7 +34,7 @@ Here is example usage with VTK::
     >>> messenger.disconnect(o, 'AnyEvent')
     >>> messenger.send(o, 'foo')
     >>>
-    
+
 This approach is necessary if you don't want to be bitten by reference
 cycles.  If you have a Python object holding a reference to a VTK
 object and pass a method of the object to the AddObserver call, you
@@ -86,7 +86,7 @@ class MessengerError(Exception):
 #################################################################
 
 class Messenger:
-    
+
     """Implements a messenger class which deals with something like
     signals and slots.  Basically, an object can register a signal
     that it plans to emit.  Any other object can decide to handle that
@@ -99,13 +99,13 @@ class Messenger:
     """
 
     _shared_data = _saved
-    
+
     def __init__(self):
         """Create the messenger.  This class is Borg.  So all
         instances are the same.
 
         """
-        
+
         self.__dict__ = self._shared_data
 
         if not hasattr(self, '_signals'):
@@ -116,14 +116,14 @@ class Messenger:
     #################################################################
     # 'Messenger' interface.
     #################################################################
-    
+
     def connect(self, obj, event, callback):
         """ Registers a slot given an object and its signal to slot
         into and also given a bound method in `callback` that should
         have two arguments.  `send` will call the callback
         with the object that emitted the signal and the actual
         event/signal as arguments.
-        
+
         Parameters
         ----------
 
@@ -151,9 +151,9 @@ class Messenger:
         signals = self._signals[key]
         if not signals.has_key(event):
             signals[event] = {}
-            
+
         slots = signals[event]
-        
+
         callback_key = hash(callback)
         if typ is types.FunctionType:
             slots[callback_key] = (None, callback)
@@ -165,7 +165,7 @@ class Messenger:
             raise MessengerError, \
                   "Callback must be a function or method. "\
                   "You passed a %s."%(str(callback))
-    
+
     def disconnect(self, obj, event=None, callback=None, obj_is_hash=False):
         """Disconnects the object and its event handlers.
 
@@ -179,7 +179,7 @@ class Messenger:
         - event : The event.  (defaults to None)
 
         - callback : `function` or `method`
-        
+
           The event handler.
 
          If `event` and `callback` are None (the default) all the
@@ -188,7 +188,7 @@ class Messenger:
          and 'event' alone are specified, all handlers for the event
          are removed.
 
-        - obj_is_hash : `bool` 
+        - obj_is_hash : `bool`
 
          Specifies if the object passed is a hash instead of the object itself.
          This is needed if the object is gc'd but only the hash exists and one
@@ -254,9 +254,9 @@ class Messenger:
                     else: # normal function
                         meth(source, event, *args, **kw_args)
                 for m in remove:
-                    del slots[m]                    
+                    del slots[m]
 
-    def is_registered(self, obj):        
+    def is_registered(self, obj):
         """Returns if the given object has registered itself with the
         messenger.
 

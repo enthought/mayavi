@@ -19,12 +19,12 @@ from enthought.mayavi.modules.outline import Outline
 from enthought.mayavi.modules.glyph import Glyph
 from enthought.mayavi.modules.vector_cut_plane import VectorCutPlane
 
-class TestGlyph(unittest.TestCase):   
-    
-    
+class TestGlyph(unittest.TestCase):
+
+
     def make_data(self):
         """Trivial data -- creates an elementatry scalar field and a
-        constant vector field along the 'x' axis."""        
+        constant vector field along the 'x' axis."""
         s = numpy.arange(0.0, 10.0, 0.01)
         s = numpy.reshape(s, (10,10,10))
         s = numpy.transpose(s)
@@ -33,7 +33,7 @@ class TestGlyph(unittest.TestCase):
         v[1::3] = 1.0
         v = numpy.reshape(v, (10,10,10,3))
         return s, v
-       
+
     def setUp(self):
         """Initial setting up of test fixture, automatically called by TestCase before any other test method is invoked"""
         e = NullEngine()
@@ -73,7 +73,7 @@ class TestGlyph(unittest.TestCase):
         gs.glyph_source = gs.glyph_list[1]
         e.add_module(v)
         v.implicit_plane.set(normal=(0, 1, 0), origin=(0, 3, 0))
-        
+
         v = VectorCutPlane()
         glyph = v.glyph
         gs = glyph.glyph_source
@@ -85,14 +85,14 @@ class TestGlyph(unittest.TestCase):
         self.v=v
         self.scene = e.current_scene
         return
-        
+
     def tearDown(self):
         """For necessary clean up, automatically called by TestCase after the test methods have been invoked"""
         self.e.stop()
         return
 
     def check(self):
-        """Do the actual testing."""  
+        """Do the actual testing."""
 
         s=self.scene
         src = s.children[0]
@@ -109,25 +109,25 @@ class TestGlyph(unittest.TestCase):
         self.assertEqual(gs.glyph_source,gs.glyph_list[1])
         self.assertEqual(numpy.allclose(v.implicit_plane.normal,
                                                     (0., 1., 0.)),True)
-        
-        v = src.children[0].children[3] 
+
+        v = src.children[0].children[3]
         glyph = v.glyph
         gs = glyph.glyph_source
         self.assertEqual(gs.glyph_source,gs.glyph_list[2])
         self.assertEqual(gs.glyph_position,'head')
         self.assertEqual(numpy.allclose(v.implicit_plane.normal,
                          (0., 1., 0.)),True)
-        
 
-    def test_glyph(self):  
-        "Test if the test fixture works"                      
+
+    def test_glyph(self):
+        "Test if the test fixture works"
         self.check()
-    
+
 
     def test_components_changed(self):
         """"Test if the modules respond correctly when the components
             are changed."""
-        
+
         g=self.g
         v=self.v
         g.actor = g.actor.__class__()
@@ -144,9 +144,9 @@ class TestGlyph(unittest.TestCase):
         v.implicit_plane = ip.__class__()
         v.implicit_plane = ip
         self.check()
-        
-    
-    
+
+
+
     def test_save_and_restore(self):
         """Test if saving a visualization and restoring it works."""
         engine = self.e
@@ -158,7 +158,7 @@ class TestGlyph(unittest.TestCase):
         f.seek(0) # So we can read this saved data.
 
         # Remove existing scene.
-       
+
         engine.close_scene(scene)
 
         # Load visualization
@@ -166,7 +166,7 @@ class TestGlyph(unittest.TestCase):
         self.scene = engine.current_scene
 
         self.check()
-    
+
     def test_deepcopied(self):
         """Test if the MayaVi2 visualization can be deep-copied."""
         ############################################################
@@ -186,7 +186,7 @@ class TestGlyph(unittest.TestCase):
         # object from the UI via the right-click menu on the tree
         # view, and pasting the copy back.
         sources1 = copy.deepcopy(sources)
-        s.children[:] = sources1 
+        s.children[:] = sources1
         self.check()
 
 if __name__ == '__main__':

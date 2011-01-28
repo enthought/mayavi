@@ -26,13 +26,13 @@ class UnstructuredGridReader(FileDataSource):
     __version__ = 0
 
     # The UnstructuredGridAlgorithm data file reader.
-    reader = Instance(tvtk.Object, allow_none=False, record=True)       
+    reader = Instance(tvtk.Object, allow_none=False, record=True)
 
     # Information about what this object can produce.
     output_info = PipelineInfo(datasets=['unstructured_grid'])
-    
+
     ######################################################################
-    # Private Traits   
+    # Private Traits
     _reader_dict = Dict(Str, Instance(tvtk.Object))
 
     # Our view.
@@ -44,7 +44,7 @@ class UnstructuredGridReader(FileDataSource):
                       show_labels=False),
                 resizable=True)
 
-    
+
     ######################################################################
     # `object` interface
     ######################################################################
@@ -52,8 +52,8 @@ class UnstructuredGridReader(FileDataSource):
         # The reader has its own file_name which needs to be fixed.
         state.reader.file_name = state.file_path.abs_pth
         # Now call the parent class to setup everything.
-        super(UnstructuredGridReader, self).__set_pure_state__(state) 
-    
+        super(UnstructuredGridReader, self).__set_pure_state__(state)
+
     ######################################################################
     # `FileDataSource` interface
     ######################################################################
@@ -62,7 +62,7 @@ class UnstructuredGridReader(FileDataSource):
         if len(self.file_path.get()) == 0:
             return
         self.render()
-  
+
     ######################################################################
     # Non-public interface
     ######################################################################
@@ -84,14 +84,14 @@ class UnstructuredGridReader(FileDataSource):
         self.reader.file_name = value.strip()
         self.reader.update()
         self.reader.update_information()
-        
+
         if old_reader is not None:
             old_reader.on_trait_change(self.render, remove=True)
         self.reader.on_trait_change(self.render)
-        
+
         old_outputs = self.outputs
         self.outputs = [self.reader.output]
-        
+
         if self.outputs == old_outputs:
             self.data_changed = True
 
@@ -100,7 +100,7 @@ class UnstructuredGridReader(FileDataSource):
 
     def _get_name(self):
         """ Returns the name to display on the tree view.  Note that
-        this is not a property getter.  
+        this is not a property getter.
         """
         fname = basename(self.file_path.get())
         ret = "%s"%fname
@@ -110,11 +110,11 @@ class UnstructuredGridReader(FileDataSource):
             ret += ' [Hidden]'
 
         return ret
-    
+
     def __reader_dict_default(self):
         """Default value for reader dict."""
         rd = {'inp':tvtk.AVSucdReader(),
              'neu':tvtk.GAMBITReader(),
-             'exii':tvtk.ExodusReader()	         	
+             'exii':tvtk.ExodusReader()
             }
         return rd

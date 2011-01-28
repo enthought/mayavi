@@ -2,7 +2,7 @@
 """
 
 # Author: Frederic Petit, Prabhu Ramachandran
-# Copyright (c) 2007-2008, Enthought, Inc. 
+# Copyright (c) 2007-2008, Enthought, Inc.
 # License: BSD Style.
 
 

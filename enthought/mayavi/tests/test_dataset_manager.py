@@ -66,7 +66,7 @@ class TestDataSetManager(unittest.TestCase):
         self.assertEqual(vec, ['v'])
         ten = dm.point_tensors.keys()
         self.assertEqual(ten, ['ten'])
-       
+
     def test_point_array_view(self):
         "Are the manager's point arrays views of the VTK data?"
         # Check that the array we have is really a view of the VTK data.
@@ -93,7 +93,7 @@ class TestDataSetManager(unittest.TestCase):
         self.assertEqual(vec, ['v'])
         ten = dm.cell_tensors.keys()
         self.assertEqual(ten, ['ten'])
-       
+
     def test_cell_array_view(self):
         "Are the manager's cell arrays views of the VTK data?"
         # Check that the array we have is really a view of the VTK data.

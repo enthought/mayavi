@@ -16,7 +16,7 @@ from enthought.mayavi.sources.vtk_xml_file_reader import \
 
 ################################################################################
 # `SetActiveAttribute` class.
-################################################################################ 
+################################################################################
 class SetActiveAttribute(Filter):
     """
     This filter lets a user set the active data attribute (scalars,
@@ -153,11 +153,11 @@ class SetActiveAttribute(Filter):
         self._setup_data_traits(pnt_attr, 'point')
         if self._first:
             self._first = False
-            
+
     def _setup_data_traits(self, attributes, d_type):
         """Given the dict of the attributes from the
         `get_all_attributes` function and the data type (point/cell)
-        data this will setup the object and the data.  
+        data this will setup the object and the data.
         """
         attrs = ['scalars', 'vectors', 'tensors']
         aa = self._assign_attribute

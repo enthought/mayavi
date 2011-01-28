@@ -22,12 +22,12 @@ def dummy_viewer_factory():
 
 ################################################################################
 # `NullEngine` class.
-################################################################################ 
+################################################################################
 class NullEngine(Engine):
     """
     This class represents a NullEngine which creates a DummyViewer with
     a scene set to None.  This allows us to write full mayavi scripts
-    without the need for a UI and this is perfect for testing, or to 
+    without the need for a UI and this is perfect for testing, or to
     use Mayavi (and VTK) as a numerical engine.
 
     This engine does not allow for rendring.
@@ -37,7 +37,7 @@ class NullEngine(Engine):
 
 ################################################################################
 # `DummyViewer` class.
-################################################################################ 
+################################################################################
 class DummyViewer(HasTraits):
     """Mimics the API of a viewer."""
 

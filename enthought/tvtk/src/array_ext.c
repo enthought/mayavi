@@ -11,7 +11,7 @@
   #define PY_SSIZE_T_MAX INT_MAX
   #define PY_SSIZE_T_MIN INT_MIN
   #define PyInt_FromSsize_t(z) PyInt_FromLong(z)
-  #define PyInt_AsSsize_t(o)	PyInt_AsLong(o)
+  #define PyInt_AsSsize_t(o)    PyInt_AsLong(o)
 #endif
 #if !defined(WIN32) && !defined(MS_WINDOWS)
   #ifndef __stdcall
@@ -645,12 +645,12 @@ static int __Pyx_InitStrings(__Pyx_StringTabEntry *t) {
 
 #ifndef __PYX_HAVE_RT_ImportType
 #define __PYX_HAVE_RT_ImportType
-static PyTypeObject *__Pyx_ImportType(char *module_name, char *class_name, 
-    long size) 
+static PyTypeObject *__Pyx_ImportType(char *module_name, char *class_name,
+    long size)
 {
     PyObject *py_module = 0;
     PyObject *result = 0;
-    
+
     py_module = __Pyx_ImportModule(module_name);
     if (!py_module)
         goto bad;
@@ -658,13 +658,13 @@ static PyTypeObject *__Pyx_ImportType(char *module_name, char *class_name,
     if (!result)
         goto bad;
     if (!PyType_Check(result)) {
-        PyErr_Format(PyExc_TypeError, 
+        PyErr_Format(PyExc_TypeError,
             "%s.%s is not a type object",
             module_name, class_name);
         goto bad;
     }
     if (((PyTypeObject *)result)->tp_basicsize != size) {
-        PyErr_Format(PyExc_ValueError, 
+        PyErr_Format(PyExc_ValueError,
             "%s.%s does not appear to be the correct type object",
             module_name, class_name);
         goto bad;
@@ -680,7 +680,7 @@ bad:
 #define __PYX_HAVE_RT_ImportModule
 static PyObject *__Pyx_ImportModule(char *name) {
     PyObject *py_name = 0;
-    
+
     py_name = PyString_FromString(name);
     if (!py_name)
         goto bad;
@@ -703,7 +703,7 @@ static void __Pyx_AddTraceback(char *funcname) {
     PyObject *empty_string = 0;
     PyCodeObject *py_code = 0;
     PyFrameObject *py_frame = 0;
-    
+
     py_srcfile = PyString_FromString(__pyx_filename);
     if (!py_srcfile) goto bad;
     py_funcname = PyString_FromString(funcname);

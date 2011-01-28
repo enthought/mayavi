@@ -31,7 +31,7 @@ class TestMlabNullEngine(unittest.TestCase):
         self.e = e
 
     def tearDown(self):
-        # Check that the NullEngine is still the mlab engine 
+        # Check that the NullEngine is still the mlab engine
         if not mlab.get_engine() is self.e:
             raise AssertionError, \
                     "The NullEngine has been overridden"
@@ -39,7 +39,7 @@ class TestMlabNullEngine(unittest.TestCase):
         # Unregistering the engine, to avoid side-effects between tests
         self.e.stop()
         registry.unregister_engine(self.e)
- 
+
 
 ################################################################################
 # class `TestMlabNullEngineMisc`
@@ -74,7 +74,7 @@ class TestMlabNullEngineMisc(TestMlabNullEngine):
         self.assert_(isinstance(density.outputs[0], tvtk.ImageData))
 
     def test_mlab_source(self):
-        """ Check that the different objects created by mlab have an 
+        """ Check that the different objects created by mlab have an
             'mlab_source' attribute.
         """
         # Test for functions taking 3D scalar data
@@ -168,10 +168,10 @@ class TestMlabNullEngineMisc(TestMlabNullEngine):
 
     def test_triangular_mesh_reset(self):
         """ When reseting the triangular mesh (ie polydata), if we are
-            not careful, we can create a segfault by passing triangules 
+            not careful, we can create a segfault by passing triangules
             between points that do not exist.
         """
-        # We need to run this as a full test of mlab, rather than only a  
+        # We need to run this as a full test of mlab, rather than only a
         # test of the source, as to get a segfault, we need a module
         # opened on the source.
         n = 100
@@ -220,7 +220,7 @@ class TestMlabPipeline(TestMlabNullEngine):
         iso = mlab.contour3d(x, y, z, r)
         x_, y_, z_ = np.random.random((3, 10, 4, 2))
         r_ = mlab.pipeline.probe_data(iso, x_, y_, z_)
-        np.testing.assert_array_almost_equal(r_, 
+        np.testing.assert_array_almost_equal(r_,
                                              np.sqrt(x_**2 + y_**2 + z_**2),
                                              decimal=2)
         flow = mlab.flow(x, y, z, x, y, z)
@@ -240,7 +240,7 @@ class TestMlabPipeline(TestMlabNullEngine):
 class TestMlabHelperFunctions(TestMlabNullEngine):
     """ Test various behaviors of the mlab helper functions.
     """
- 
+
     def test_barchart(self):
         s = np.random.random((10, 10))
         x, y = np.indices(s.shape)
@@ -252,7 +252,7 @@ class TestMlabHelperFunctions(TestMlabNullEngine):
         # configurations
         for bar in bar1, bar2, bar3:
             self.assertEqual(bar.glyph.glyph_source.glyph_source.y_length, 0.9)
-        
+
 
 
 ################################################################################
@@ -289,7 +289,7 @@ class TestMlabModules(TestMlabNullEngine):
             np.testing.assert_array_almost_equal(
                         vol1._ctf.get_color(2*range1*value),
                         vol2._ctf.get_color(0.25+range2*value))
-        # Test outside the special [0, 1] range        
+        # Test outside the special [0, 1] range
         src = mlab.pipeline.scalar_field(2*scalars)
         vol1 = mlab.pipeline.volume(src)
         range1 = vol1._ctf.range[1] - vol1._ctf.range[0]
@@ -299,7 +299,7 @@ class TestMlabModules(TestMlabNullEngine):
             np.testing.assert_array_almost_equal(
                         vol1._ctf.get_color(2*range1*value),
                         vol2._ctf.get_color(0.5+range2*value))
-        
+
     def test_text(self):
         """ Test the text module.
         """
@@ -333,7 +333,7 @@ class TestMlabModules(TestMlabNullEngine):
 
     def test_barchart(self):
         """Test the barchart function."""
-            
+
         s = np.abs(np.random.random((3,3)))
         b = mlab.barchart(s)
         self.assertEqual(b.glyph.glyph.scale_mode,

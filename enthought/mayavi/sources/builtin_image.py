@@ -30,12 +30,12 @@ class BuiltinImage(Source):
 
     # Define the trait 'data_source' whose value must be an instance of
     # type ImageAlgorithm
-    data_source = Instance(tvtk.ImageAlgorithm, allow_none=False, 
+    data_source = Instance(tvtk.ImageAlgorithm, allow_none=False,
                                      record=True)
 
 
     # Information about what this object can produce.
-    output_info = PipelineInfo(datasets=['image_data'], 
+    output_info = PipelineInfo(datasets=['image_data'],
                                attribute_types=['any'],
                                attributes=['any'])
 
@@ -45,14 +45,14 @@ class BuiltinImage(Source):
                        style='custom',
                        resizable=True),
                    label='Image Source',
-                    show_labels=False),          
+                    show_labels=False),
              resizable=True)
-    
+
     ########################################
     # Private traits.
-    
+
     # A dictionary that maps the source names to instances of the
-    # image data objects. 
+    # image data objects.
     _source_dict = Dict(Str,
                           Instance(tvtk.ImageAlgorithm,
                                    allow_none=False))
@@ -68,7 +68,7 @@ class BuiltinImage(Source):
         # the dictionary if needed.
         if 'source' not in traits:
             self._source_changed(self.source)
-        
+
     def __set_pure_state__(self, state):
         self.source = state.source
         super(BuiltinImage, self).__set_pure_state__(state)
@@ -81,18 +81,18 @@ class BuiltinImage(Source):
         trait is changed.
         """
         self.data_source = self._source_dict[self.source]
-     
-    
+
+
     def _data_source_changed(self, old, new):
         """This method is invoked (automatically) when the
         image data source is changed ."""
 
         self.outputs = [self.data_source.output]
-        
+
         if old is not None:
             old.on_trait_change(self.render, remove=True)
-        new.on_trait_change(self.render)        
-       
+        new.on_trait_change(self.render)
+
     def __source_dict_default(self):
         """The default _source_dict trait."""
         sd = {
@@ -108,6 +108,6 @@ class BuiltinImage(Source):
         else:
             sd['rt_analytic'] = tvtk.ImageNoiseSource()
         return sd
-    
 
-   
+
+

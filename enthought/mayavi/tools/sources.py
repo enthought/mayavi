@@ -4,7 +4,7 @@ Data sources classes and their associated functions for mlab.
 
 # Author: Gael Varoquaux <gael.varoquaux@normalesup.org>
 #         Prabhu Ramachandran
-# Copyright (c) 2007-2010, Enthought, Inc. 
+# Copyright (c) 2007-2010, Enthought, Inc.
 # License: BSD Style.
 
 import operator
@@ -40,7 +40,7 @@ class CArrayOrNumber(CArray):
 
 ################################################################################
 # `MlabSource` class.
-################################################################################ 
+################################################################################
 class MlabSource(HasTraits):
     """
     This class represents the base class for all mlab sources.  These
@@ -64,8 +64,8 @@ class MlabSource(HasTraits):
     # `MlabSource` interface.
     ######################################################################
     def reset(self, **traits):
-        """Function to create the data from input arrays etc.  
-        
+        """Function to create the data from input arrays etc.
+
         This is to be used when the size of the arrays change or the
         first time when the data is created.  This regenerates the data
         structures and will be slower in general.
@@ -93,16 +93,16 @@ class MlabSource(HasTraits):
         traits easier.  This method is to be called when the arrays have
         changed content but not in shape/size.  In that case one must
         call the `reset` method.
-    
+
         Parameters
         ----------
         trait_change_notify : Boolean
             If **True** (the default), then each value assigned may generate a
-            trait change notification. If **False**, then no trait change 
+            trait change notification. If **False**, then no trait change
             notifications will be generated. (see also: trait_setq)
         traits : list of key/value pairs
             Trait attributes and their values to be set
-        
+
         Returns
         -------
         self
@@ -132,7 +132,7 @@ ArrayNumberOrNone = Either(None, CArrayOrNumber, comparison_mode=NO_COMPARE)
 
 ################################################################################
 # `MGlyphSource` class.
-################################################################################ 
+################################################################################
 class MGlyphSource(MlabSource):
     """
     This class represents a glyph data source for Mlab objects and
@@ -168,28 +168,28 @@ class MGlyphSource(MlabSource):
         # the notification handlers are not called.
         self.set(trait_change_notify=False, **traits)
 
-        vectors = self.vectors   
+        vectors = self.vectors
         scalars = self.scalars
         points = self.points
         x, y, z = self.x, self.y, self.z
         x = np.atleast_1d(x)
         y = np.atleast_1d(y)
         z = np.atleast_1d(z)
-      
-        if 'points' in traits: 
+
+        if 'points' in traits:
             x=points[:,0].ravel()
             y=points[:,1].ravel()
             z=points[:,2].ravel()
             self.set(x=x,y=y,z=z,trait_change_notify=False)
-           
+
         else:
             points = np.c_[x.ravel(), y.ravel(), z.ravel()].ravel()
-            points.shape = (points.size/3, 3) 
+            points.shape = (points.size/3, 3)
             self.set(points=points, trait_change_notify=False)
-            
-    
+
+
         u, v, w = self.u, self.v, self.w
-        if u is not None: 
+        if u is not None:
             u = np.atleast_1d(u)
             v = np.atleast_1d(v)
             w = np.atleast_1d(w)
@@ -205,21 +205,21 @@ class MGlyphSource(MlabSource):
             w=vectors[:,2].ravel()
             self.set(u=u,v=v,w=w,trait_change_notify=False)
 
-        else:   
+        else:
             if u is not None and len(u) > 0:
                 vectors = np.c_[u.ravel(), v.ravel(),
                                    w.ravel()].ravel()
                 vectors.shape = (vectors.size/3, 3)
                 self.set(vectors=vectors, trait_change_notify=False)
-           
 
-        if vectors is not None and len(vectors) > 0:         
-            assert len(points) == len(vectors)           
+
+        if vectors is not None and len(vectors) > 0:
+            assert len(points) == len(vectors)
         if scalars is not None:
             scalars = np.atleast_1d(scalars)
             if len(scalars) > 0:
                 assert len(points) == len(scalars)
-        
+
         # Create the dataset.
         polys = np.arange(0, len(points), 1, 'l')
         polys = np.reshape(polys, (len(points), 1))
@@ -227,7 +227,7 @@ class MGlyphSource(MlabSource):
             # Create new dataset if none exists
             pd = tvtk.PolyData()
         else:
-            # Modify existing one. 
+            # Modify existing one.
             pd = self.dataset
         pd.set(points=points, polys=polys)
 
@@ -252,7 +252,7 @@ class MGlyphSource(MlabSource):
         y = np.atleast_1d(y)
         self.points[:,1] = y
         self.update()
-    
+
     def _z_changed(self, z):
         z = np.atleast_1d(z)
         self.points[:,2] = z
@@ -267,10 +267,10 @@ class MGlyphSource(MlabSource):
         v = np.atleast_1d(v)
         self.vectors[:,1] = v
         self.update()
-    
+
     def _w_changed(self, w):
         w = np.atleast_1d(w)
-        self.vectors[:,2] = w 
+        self.vectors[:,2] = w
         self.update()
 
     def _points_changed(self, p):
@@ -296,10 +296,10 @@ class MGlyphSource(MlabSource):
 
 ################################################################################
 # `MVerticalGlyphSource` class.
-################################################################################ 
+################################################################################
 class MVerticalGlyphSource(MGlyphSource):
     """
-    This class represents a vertical glyph data source for Mlab objects 
+    This class represents a vertical glyph data source for Mlab objects
     and allows the user to set the x, y, z, scalar attributes. The
     vectors are created from the scalars to represent them in the
     vertical direction.
@@ -310,7 +310,7 @@ class MVerticalGlyphSource(MGlyphSource):
         if 'scalars' in traits:
             s = traits['scalars']
             if s is not None:
-                traits['u'] = traits['v'] = np.ones_like(s), 
+                traits['u'] = traits['v'] = np.ones_like(s),
                 traits['w'] = s
         super(MVerticalGlyphSource, self).reset(**traits)
 
@@ -318,7 +318,7 @@ class MVerticalGlyphSource(MGlyphSource):
     def _scalars_changed(self, s):
         self.dataset.point_data.scalars = s
         self.dataset.point_data.scalars.name = 'scalars'
-        self.set(vectors=np.c_[np.ones_like(s), 
+        self.set(vectors=np.c_[np.ones_like(s),
                                   np.ones_like(s),
                                   s])
         self.update()
@@ -326,7 +326,7 @@ class MVerticalGlyphSource(MGlyphSource):
 
 ################################################################################
 # `MArraySource` class.
-################################################################################ 
+################################################################################
 class MArraySource(MlabSource):
     """
     This class represents an array data source for Mlab objects and
@@ -360,7 +360,7 @@ class MArraySource(MlabSource):
         vectors = self.vectors
         scalars = self.scalars
         x, y, z = [np.atleast_3d(a) for a in self.x, self.y, self.z]
-    
+
         u, v, w = self.u, self.v, self.w
         if 'vectors' in traits:
             u=vectors[:,0].ravel()
@@ -394,7 +394,7 @@ class MArraySource(MlabSource):
             dz = 1
         else:
             dz = z[0, 0, 1] - z[0, 0, 0]
-        
+
         if self.m_data is None:
             ds = ArraySource(transpose_input_array=True)
         else:
@@ -408,7 +408,7 @@ class MArraySource(MlabSource):
             ds._scalar_data_changed(scalars)
 
         self.dataset = ds.image_data
-        self.m_data = ds 
+        self.m_data = ds
 
     ######################################################################
     # Non-public interface.
@@ -433,7 +433,7 @@ class MArraySource(MlabSource):
     def _v_changed(self, v):
         self.vectors[...,1] = v
         self.m_data._vector_data_changed(self.vectors)
-    
+
     def _w_changed(self, w):
         self.vectors[...,2] = w
         self.m_data._vector_data_changed(self.vectors)
@@ -450,7 +450,7 @@ class MArraySource(MlabSource):
 
 ################################################################################
 # `MLineSource` class.
-################################################################################ 
+################################################################################
 class MLineSource(MlabSource):
     """
     This class represents a line data source for Mlab objects and
@@ -480,18 +480,18 @@ class MLineSource(MlabSource):
         scalars = self.scalars
         x, y, z = self.x, self.y, self.z
 
-        if 'points' in traits: 
+        if 'points' in traits:
             x=points[:,0].ravel()
             y=points[:,1].ravel()
             z=points[:,2].ravel()
             self.set(x=x,y=y,z=z,trait_change_notify=False)
-           
+
         else:
             points = np.c_[x.ravel(), y.ravel(), z.ravel()].ravel()
-            points.shape = (len(x), 3) 
-            self.set(points=points, trait_change_notify=False)         
-    
-        
+            points.shape = (len(x), 3)
+            self.set(points=points, trait_change_notify=False)
+
+
         # Create the dataset.
         n_pts = len(points) - 1
         lines  = np.zeros((n_pts, 2), 'l')
@@ -501,7 +501,7 @@ class MLineSource(MlabSource):
             pd = tvtk.PolyData()
         else:
             pd = self.dataset
-        # Avoid lines refering to non existing points: First set the 
+        # Avoid lines refering to non existing points: First set the
         # lines to None, then set the points, then set the lines
         # refering to the new points.
         pd.set(lines=None)
@@ -525,7 +525,7 @@ class MLineSource(MlabSource):
     def _y_changed(self, y):
         self.points[:,1] = y
         self.update()
-    
+
     def _z_changed(self, z):
         self.points[:,2] = z
         self.update()
@@ -541,7 +541,7 @@ class MLineSource(MlabSource):
 
 ################################################################################
 # `MArray2DSource` class.
-################################################################################ 
+################################################################################
 class MArray2DSource(MlabSource):
     """
     This class represents a 2D array data source for Mlab objects and
@@ -549,7 +549,7 @@ class MArray2DSource(MlabSource):
     """
 
     # The x, y values.
-    # Values of X and Y as None are accepted, in that case we would build 
+    # Values of X and Y as None are accepted, in that case we would build
     # values of X and Y automatically from the shape of scalars
     x = ArrayOrNone
     y = ArrayOrNone
@@ -568,17 +568,17 @@ class MArray2DSource(MlabSource):
 
         # First set the attributes without really doing anything since
         # the notification handlers are not called.
-        self.set(trait_change_notify=False, **traits)    
+        self.set(trait_change_notify=False, **traits)
         x, y, mask = self.x, self.y, self.mask
-        scalars = self.scalars 
-        
+        scalars = self.scalars
+
         # We may have used this without specifying x and y at all in
         # which case we set them from the shape of scalars.
-        nx, ny = scalars.shape       
-        
+        nx, ny = scalars.shape
+
         #Build X and Y from shape of Scalars if they are none
-        if x is None and y is None:           
-            x, y = np.mgrid[-nx/2.:nx/2, -ny/2.:ny/2]           
+        if x is None and y is None:
+            x, y = np.mgrid[-nx/2.:nx/2, -ny/2.:ny/2]
 
         if mask is not None and len(mask) > 0:
             scalars[mask.astype('bool')] = np.nan
@@ -586,15 +586,15 @@ class MArray2DSource(MlabSource):
             scalars = scalars.astype('float')
             self.set(scalars=scalars, trait_change_notify=False)
 
-        z = np.array([0])     
-              
+        z = np.array([0])
+
         self.set(x=x, y=y, z=z, trait_change_notify=False)
         # Do some magic to extract the first row/column, independently of
         # the shape of x and y
 
         x = np.atleast_2d(x.squeeze().T)[0, :].squeeze()
-        y = np.atleast_2d(y.squeeze())[0, :].squeeze()    
-        
+        y = np.atleast_2d(y.squeeze())[0, :].squeeze()
+
         if x.ndim == 0:
             dx = 1
         else:
@@ -613,9 +613,9 @@ class MArray2DSource(MlabSource):
                scalar_data=scalars)
         if old_scalar is scalars:
             ds._scalar_data_changed(scalars)
-        
+
         self.dataset = ds.image_data
-        self.m_data = ds 
+        self.m_data = ds
 
     ######################################################################
     # Non-public interface.
@@ -623,20 +623,20 @@ class MArray2DSource(MlabSource):
     @on_trait_change('[x, y]')
     def _xy_changed(self):
         x, y,scalars = self.x, self.y, self.scalars
-        
+
         nx, ny = scalars.shape
 
         if x is None or y is None:
             x, y = np.mgrid[-nx/2.:nx/2, -ny/2.:ny/2]
-        
+
         self.trait_setq(x=x,y=y)
         x = np.atleast_2d(x.squeeze().T)[0, :].squeeze()
-        y = np.atleast_2d(y.squeeze())[0, :].squeeze()                
+        y = np.atleast_2d(y.squeeze())[0, :].squeeze()
         dx = x[1] - x[0]
         dy = y[1] - y[0]
         ds = self.dataset
         ds.origin = [x.min(), y.min(), 0]
-        ds.spacing = [dx, dy, 1] 
+        ds.spacing = [dx, dy, 1]
         if self.m_data is not None:
             self.m_data.set(origin=ds.origin, spacing=ds.spacing)
         self.update()
@@ -656,7 +656,7 @@ class MArray2DSource(MlabSource):
 
 ################################################################################
 # `MGridSource` class.
-################################################################################ 
+################################################################################
 class MGridSource(MlabSource):
     """
     This class represents a grid source for Mlab objects and
@@ -677,7 +677,7 @@ class MGridSource(MlabSource):
     ######################################################################
     def reset(self, **traits):
         """Creates the dataset afresh or resets existing data source."""
-        
+
         # First set the attributes without really doing anything since
         # the notification handlers are not called.
         self.set(trait_change_notify=False, **traits)
@@ -692,8 +692,8 @@ class MGridSource(MlabSource):
         assert x.shape == y.shape, "Arrays x and y must have same shape."
         assert y.shape == z.shape, "Arrays y and z must have same shape."
         #Points in the grid source will always be created using x,y,z
-        #Changing of points is not allowed because it cannot be used to modify values of x,y,z 
-    
+        #Changing of points is not allowed because it cannot be used to modify values of x,y,z
+
         nx, ny = x.shape
         points = np.c_[x.ravel(), y.ravel(), z.ravel()].ravel()
         points.shape = (nx*ny, 3)
@@ -719,7 +719,7 @@ class MGridSource(MlabSource):
                 scalars = scalars.copy()
                 self.set(scalars=scalars, trait_change_notify=False)
             assert x.shape == scalars.shape
-            pd.point_data.scalars = scalars.ravel() 
+            pd.point_data.scalars = scalars.ravel()
             pd.point_data.scalars.name = 'scalars'
 
         self.dataset = pd
@@ -727,21 +727,21 @@ class MGridSource(MlabSource):
     ######################################################################
     # Non-public interface.
     ######################################################################
-    def _x_changed(self, x):       
+    def _x_changed(self, x):
         self.trait_setq(x=x);
         self.points[:,0] = x.ravel()
         self.update()
-       
+
     def _y_changed(self, y):
         self.trait_setq(y=y)
         self.points[:,1] = y.ravel()
-        self.update()    
-          
-    def _z_changed(self, z):       
+        self.update()
+
+    def _z_changed(self, z):
         self.trait_setq(z=z)
         self.points[:,2] = z.ravel()
-        self.update()      
-       
+        self.update()
+
     def _points_changed(self, p):
         self.dataset.points = p
         self.update()
@@ -754,7 +754,7 @@ class MGridSource(MlabSource):
 
 ################################################################################
 # `MTriangularMeshSource` class.
-################################################################################ 
+################################################################################
 class MTriangularMeshSource(MlabSource):
     """
     This class represents a triangular mesh source for Mlab objects and
@@ -776,7 +776,7 @@ class MTriangularMeshSource(MlabSource):
     ######################################################################
     def reset(self, **traits):
         """Creates the dataset afresh or resets existing data source."""
-        
+
         # First set the attributes without really doing anything since
         # the notification handlers are not called.
         self.set(trait_change_notify=False, **traits)
@@ -788,7 +788,7 @@ class MTriangularMeshSource(MlabSource):
         points = np.c_[x.ravel(), y.ravel(), z.ravel()].ravel()
         points.shape = (points.size/3, 3)
         self.set(points=points, trait_change_notify=False)
-    
+
         triangles = self.triangles
         assert triangles.shape[1] == 3, \
             "The shape of the triangles array must be (X, 3)"
@@ -806,19 +806,19 @@ class MTriangularMeshSource(MlabSource):
         pd.set(points=points)
         pd.set(polys=triangles)
 
-        if (not 'scalars' in traits 
+        if (not 'scalars' in traits
                     and scalars is not None
                     and scalars.shape != x.shape):
-            # The scalars where set probably automatically to z, by the 
+            # The scalars where set probably automatically to z, by the
             # factory. We need to reset them, as the size has changed.
             scalars = z
-            
+
         if scalars is not None and len(scalars) > 0:
             if not scalars.flags.contiguous:
                 scalars = scalars.copy()
                 self.set(scalars=scalars, trait_change_notify=False)
             assert x.shape == scalars.shape
-            pd.point_data.scalars = scalars.ravel() 
+            pd.point_data.scalars = scalars.ravel()
             pd.point_data.scalars.name = 'scalars'
 
         self.dataset = pd
@@ -826,21 +826,21 @@ class MTriangularMeshSource(MlabSource):
     ######################################################################
     # Non-public interface.
     ######################################################################
-    def _x_changed(self, x):       
+    def _x_changed(self, x):
         self.trait_setq(x=x);
         self.points[:,0] = x.ravel()
         self.update()
-       
+
     def _y_changed(self, y):
         self.trait_setq(y=y)
         self.points[:,1] = y.ravel()
-        self.update()    
-          
-    def _z_changed(self, z):       
+        self.update()
+
+    def _z_changed(self, z):
         self.trait_setq(z=z)
         self.points[:,2] = z.ravel()
-        self.update()      
-       
+        self.update()
+
     def _points_changed(self, p):
         self.dataset.points = p
         self.update()
@@ -857,15 +857,15 @@ class MTriangularMeshSource(MlabSource):
             raise ValueError, 'The triangles array has values larger than' \
                                         'the number of points'
         self.dataset.polys = triangles
-        self.update() 
-   
+        self.update()
+
 
 ############################################################################
 # Argument processing
 ############################################################################
 
 def convert_to_arrays(args):
-    """ Converts a list of iterables to a list of arrays or callables, 
+    """ Converts a list of iterables to a list of arrays or callables,
         if needed.
     """
     args = list(args)
@@ -914,7 +914,7 @@ def process_regular_scalars(*args):
         x, y, z = np.indices(s.shape)
     elif len(args)==3:
         x, y, z = args
-        s = None 
+        s = None
     elif len(args)==4:
         x, y, z, s = args
         if callable(s):
@@ -957,12 +957,12 @@ def process_regular_2d_scalars(*args, **kwargs):
 
 
 ############################################################################
-# Sources 
+# Sources
 ############################################################################
 
 def vector_scatter(*args, **kwargs):
-    """ Creates scattered vector data. 
-    
+    """ Creates scattered vector data.
+
     **Function signatures**::
 
         vector_scatter(u, v, w, ...)
@@ -972,17 +972,17 @@ def vector_scatter(*args, **kwargs):
     If only 3 arrays u, v, w are passed the x, y and z arrays are assumed to be
     made from the indices of vectors.
 
-    If 4 positional arguments are passed the last one must be a callable, f, 
+    If 4 positional arguments are passed the last one must be a callable, f,
     that returns vectors.
 
     **Keyword arguments**:
-    
+
         :name: the name of the vtk object created.
 
         :scalars: optional scalar data.
-       
+
         :figure: optionally, the figure on which to add the data source.
-                 If None, the source is not added to any figure, and will 
+                 If None, the source is not added to any figure, and will
                  be added automatically by the modules or
                  filters. If False, no figure will be created by modules
                  or filters applied to the source: the source can only
@@ -996,7 +996,7 @@ def vector_scatter(*args, **kwargs):
     name = kwargs.pop('name', 'VectorScatter')
 
     data_source = MGlyphSource()
-    data_source.reset(x=x, y=y, z=z, u=u, v=v, w=w, scalars=scalars) 
+    data_source.reset(x=x, y=y, z=z, u=u, v=v, w=w, scalars=scalars)
 
     ds = tools.add_dataset(data_source.dataset, name, **kwargs)
     data_source.m_data = ds
@@ -1004,8 +1004,8 @@ def vector_scatter(*args, **kwargs):
 
 
 def vector_field(*args, **kwargs):
-    """ Creates vector field data. 
-    
+    """ Creates vector field data.
+
     **Function signatures**::
 
         vector_field(u, v, w, ...)
@@ -1019,17 +1019,17 @@ def vector_field(*args, **kwargs):
     by `numpy.mgrid` or `numpy.ogrid`. The function builds a scalar field
     assuming the points are regularily spaced on an orthogonal grid.
 
-    If 4 positional arguments are passed the last one must be a callable, f, 
+    If 4 positional arguments are passed the last one must be a callable, f,
     that returns vectors.
 
     **Keyword arguments**:
-        
+
         :name: the name of the vtk object created.
 
         :scalars: optional scalar data.
-       
+
         :figure: optionally, the figure on which to add the data source.
-                 If None, the source is not added to any figure, and will 
+                 If None, the source is not added to any figure, and will
                  be added automatically by the modules or
                  filters. If False, no figure will be created by modules
                  or filters applied to the source: the source can only
@@ -1039,7 +1039,7 @@ def vector_field(*args, **kwargs):
         x = y = z = np.atleast_3d(1)
         u, v, w = [np.atleast_3d(a) for a in args]
     else:
-        x, y, z, u, v, w = [np.atleast_3d(a) 
+        x, y, z, u, v, w = [np.atleast_3d(a)
                         for a in process_regular_vectors(*args)]
 
     scalars = kwargs.pop('scalars', None)
@@ -1053,8 +1053,8 @@ def vector_field(*args, **kwargs):
 
 def scalar_scatter(*args, **kwargs):
     """
-    Creates scattered scalar data. 
-    
+    Creates scattered scalar data.
+
     **Function signatures**::
 
         scalar_scatter(s, ...)
@@ -1069,11 +1069,11 @@ def scalar_scatter(*args, **kwargs):
     a callable, f, that returns an array.
 
     **Keyword arguments**:
-    
+
         :name: the name of the vtk object created.
 
         :figure: optionally, the figure on which to add the data source.
-                 If None, the source is not added to any figure, and will 
+                 If None, the source is not added to any figure, and will
                  be added automatically by the modules or
                  filters. If False, no figure will be created by modules
                  or filters applied to the source: the source can only
@@ -1096,9 +1096,9 @@ def scalar_scatter(*args, **kwargs):
 def scalar_field(*args, **kwargs):
     """
     Creates a scalar field data.
-                      
+
     **Function signatures**::
-    
+
         scalar_field(s, ...)
         scalar_field(x, y, z, s, ...)
         scalar_field(x, y, z, f, ...)
@@ -1107,18 +1107,18 @@ def scalar_field(*args, **kwargs):
     made from the indices of arrays.
 
     If the x, y and z arrays are passed they are supposed to have been
-    generated by `numpy.mgrid`. The function builds a scalar field assuming 
+    generated by `numpy.mgrid`. The function builds a scalar field assuming
     the points are regularily spaced.
 
     If 4 positional arguments are passed the last one must be an array s, or
     a callable, f, that returns an array.
-    
+
     **Keyword arguments**:
 
         :name: the name of the vtk object created.
 
         :figure: optionally, the figure on which to add the data source.
-                 If None, the source is not added to any figure, and will 
+                 If None, the source is not added to any figure, and will
                  be added automatically by the modules or
                  filters. If False, no figure will be created by modules
                  or filters applied to the source: the source can only
@@ -1142,29 +1142,29 @@ def scalar_field(*args, **kwargs):
 def line_source(*args, **kwargs):
     """
     Creates line data.
-    
+
     **Function signatures**::
-    
+
         line_source(x, y, z, ...)
         line_source(x, y, z, s, ...)
         line_source(x, y, z, f, ...)
 
         If 4 positional arguments are passed the last one must be an array s, or
-        a callable, f, that returns an array. 
+        a callable, f, that returns an array.
 
     **Keyword arguments**:
-    
+
         :name: the name of the vtk object created.
 
         :figure: optionally, the figure on which to add the data source.
-                 If None, the source is not added to any figure, and will 
+                 If None, the source is not added to any figure, and will
                  be added automatically by the modules or
                  filters. If False, no figure will be created by modules
                  or filters applied to the source: the source can only
                  be used for testing, or numerical algorithms, not
                  visualization."""
     if len(args)==1:
-        raise ValueError, "wrong number of arguments"    
+        raise ValueError, "wrong number of arguments"
     x, y, z, s = process_regular_scalars(*args)
 
     data_source = MLineSource()
@@ -1179,7 +1179,7 @@ def line_source(*args, **kwargs):
 def array2d_source(*args, **kwargs):
     """
     Creates structured 2D data from a 2D array.
-    
+
     **Function signatures**::
 
         array2d_source(s, ...)
@@ -1188,8 +1188,8 @@ def array2d_source(*args, **kwargs):
 
     If 3 positional arguments are passed the last one must be an array s,
     or a callable, f, that returns an array. x and y give the
-    coordinnates of positions corresponding to the s values. 
-    
+    coordinnates of positions corresponding to the s values.
+
     x and y can be 1D or 2D arrays (such as returned by numpy.ogrid or
     numpy.mgrid), but the points should be located on an orthogonal grid
     (possibly non-uniform). In other words, all the points sharing a same
@@ -1200,17 +1200,17 @@ def array2d_source(*args, **kwargs):
     created.
 
     **Keyword arguments**:
-    
+
         :name: the name of the vtk object created.
 
         :figure: optionally, the figure on which to add the data source.
-                 If None, the source is not added to any figure, and will 
+                 If None, the source is not added to any figure, and will
                  be added automatically by the modules or
                  filters. If False, no figure will be created by modules
                  or filters applied to the source: the source can only
                  be used for testing, or numerical algorithms, not
                  visualization.
-        
+
         :mask: Mask points specified in a boolean masking array.
     """
     data_source = MArray2DSource()
@@ -1234,18 +1234,18 @@ def grid_source(x, y, z, **kwargs):
     x, y, z are 2D arrays giving the positions of the vertices of the surface.
     The connectivity between these points is implied by the connectivity on
     the arrays.
-    
+
     For simple structures (such as orthogonal grids) prefer the array2dsource
-    function, as it will create more efficient data structures. 
+    function, as it will create more efficient data structures.
 
     **Keyword arguments**:
-    
+
         :name: the name of the vtk object created.
-        
+
         :scalars: optional scalar data.
-       
+
         :figure: optionally, the figure on which to add the data source.
-                 If None, the source is not added to any figure, and will 
+                 If None, the source is not added to any figure, and will
                  be added automatically by the modules or
                  filters. If False, no figure will be created by modules
                  or filters applied to the source: the source can only
@@ -1269,7 +1269,7 @@ def grid_source(x, y, z, **kwargs):
 def vertical_vectors_source(*args, **kwargs):
     """
     Creates a set of vectors pointing upward, useful eg for bar graphs.
-    
+
     **Function signatures**::
 
         vertical_vectors_source(s, ...)
@@ -1286,19 +1286,19 @@ def vertical_vectors_source(*args, **kwargs):
     If 3 positional arguments (x, y, s) are passed the last one must be
     an array s, or a callable, f, that returns an array. x and y give the
     2D coordinates of positions corresponding to the s values. The
-    vertical position is assumed to be 0. 
-    
+    vertical position is assumed to be 0.
+
     If 4 positional arguments (x, y, z, s) are passed, the 3 first are
     arrays giving the 3D coordinates of the data points, and the last one
     is an array s, or a callable, f, that returns an array giving the
     data value.
 
     **Keyword arguments**:
-    
+
         :name: the name of the vtk object created.
 
         :figure: optionally, the figure on which to add the data source.
-                 If None, the source is not added to any figure, and will 
+                 If None, the source is not added to any figure, and will
                  be added automatically by the modules or
                  filters. If False, no figure will be created by modules
                  or filters applied to the source: the source can only
@@ -1334,15 +1334,15 @@ def triangular_mesh_source(x, y, z, triangles, **kwargs):
     The connectivity between these points is given by listing triplets of
     vertices inter-connected. These vertices are designed by there
     position index.
-    
+
     **Keyword arguments**:
-    
+
         :name: the name of the vtk object created.
-        
+
         :scalars: optional scalar data.
-       
+
         :figure: optionally, the figure on which to add the data source.
-                 If None, the source is not added to any figure, and will 
+                 If None, the source is not added to any figure, and will
                  be added automatically by the modules or
                  filters. If False, no figure will be created by modules
                  or filters applied to the source: the source can only
@@ -1380,13 +1380,13 @@ def open(filename, figure=None):
         engine.current_scene = figure
     src = engine.open(filename)
     return src
-    
+
 ############################################################################
 # Automatically generated sources from registry.
 ############################################################################
 def _create_data_source(metadata):
     """Creates a data source and adds it to the mayavi engine given
-    metadata of the source.  Returns the created source.  
+    metadata of the source.  Returns the created source.
     """
     factory = metadata.get_callable()
     src = factory()

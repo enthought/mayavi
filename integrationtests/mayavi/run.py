@@ -54,12 +54,12 @@ class RunAllTests(TestCase):
     def do(self):
         klasses = self.get_tests()
         for name, klass in klasses:
-            # Close existing scenes. 
+            # Close existing scenes.
             e = self.script.engine
             for scene in e.scenes:
                 e.close_scene(scene)
             print '*'*80
-            print name 
+            print name
             obj = klass()
             obj.set(script=self.script)
             obj.test()

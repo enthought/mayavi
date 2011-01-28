@@ -16,7 +16,7 @@ def generate_annulus(r=None, theta=None, z=None):
     """ Generate points for structured grid for a cylindrical annular
         volume.  This method is useful for generating a unstructured
         cylindrical mesh for VTK (and perhaps other tools).
-        
+
         Parameters
         ----------
         r : array : The radial values of the grid points.
@@ -27,13 +27,13 @@ def generate_annulus(r=None, theta=None, z=None):
 
         z: array : The values along the z axis of the grid points.
                    It defaults to linspace(0,0,1.0, 11).
-        
+
         Return
         ------
         points : array
             Nx3 array of points that make up the volume of the annulus.
             They are organized in planes starting with the first value
-            of z and with the inside "ring" of the plane as the first 
+            of z and with the inside "ring" of the plane as the first
             set of points.  The default point array will be 1331x3.
     """
     # Default values for the annular grid.
@@ -44,12 +44,12 @@ def generate_annulus(r=None, theta=None, z=None):
     # Find the x values and y values for each plane.
     x_plane = (cos(theta)*r[:,None]).ravel()
     y_plane = (sin(theta)*r[:,None]).ravel()
-    
+
     # Allocate an array for all the points.  We'll have len(x_plane)
     # points on each plane, and we have a plane for each z value, so
     # we need len(x_plane)*len(z) points.
     points = empty([len(x_plane)*len(z),3])
-    
+
     # Loop through the points for each plane and fill them with the
     # correct x,y,z values.
     start = 0
@@ -58,13 +58,13 @@ def generate_annulus(r=None, theta=None, z=None):
         # slice out a plane of the output points and fill it
         # with the x,y, and z values for this plane.  The x,y
         # values are the same for every plane.  The z value
-        # is set to the current z 
-        plane_points = points[start:end]    
+        # is set to the current z
+        plane_points = points[start:end]
         plane_points[:,0] = x_plane
-        plane_points[:,1] = y_plane    
+        plane_points[:,1] = y_plane
         plane_points[:,2] = z_plane
         start = end
-        
+
     return points
 
 
@@ -81,7 +81,7 @@ def single_type_ug():
     ug = tvtk.UnstructuredGrid(points=points)
     ug.set_cells(tet_type, tets)
     return ug
-    
+
 def mixed_type_ug():
     """A slightly more complex example of how to generate an
     unstructured grid with different cell types.  Returns a created

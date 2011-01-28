@@ -34,7 +34,7 @@ class CSVSourceFactory(HasTraits):
     """
 
     def csv_loaded_callback(self, object):
-        """ 
+        """
         """
         self.data_source_wizard = DataSourceWizardView(
                 data_sources=self.csv_loader.data_dict)

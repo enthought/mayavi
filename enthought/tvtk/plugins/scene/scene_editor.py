@@ -30,7 +30,7 @@ class SceneEditor(Editor):
     """ A TVTK scene editor. """
 
     #### 'SceneEditor' interface ##############################################
-    
+
     # The TVTK scene object.
     scene = Instance(TVTKScene)
 
@@ -39,7 +39,7 @@ class SceneEditor(Editor):
     ###########################################################################
 
     #### Trait initializers ###################################################
-    
+
     def _id_default(self):
         """ Trait initializer. """
 
@@ -51,7 +51,7 @@ class SceneEditor(Editor):
         return 'TVTK Scene %d' % (_id_generator.next())
 
     #### Methods ##############################################################
-    
+
     def create_control(self, parent):
         """ Create the toolkit-specific control that represents the editor. """
 
@@ -70,9 +70,9 @@ class SceneEditor(Editor):
         if self.scene is not None:
             # Close the scene to cleanly shut it down.
             self.scene.close()
-            
+
         # Call the parent method.
-        return super(SceneEditor, self).destroy_control() 
+        return super(SceneEditor, self).destroy_control()
 
     ###########################################################################
     # Private interface.
@@ -96,9 +96,9 @@ class SceneEditor(Editor):
         scene.background = bg
         # FIXME: This seems necessary for some strange reason, if not
         # the actual background of the renderer never gets set even
-        # though the renderer and the scene's background are synced. 
+        # though the renderer and the scene's background are synced.
         scene.renderer.background = scene.background
 
         return scene
-        
+
 #### EOF ######################################################################

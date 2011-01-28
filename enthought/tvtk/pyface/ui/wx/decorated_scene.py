@@ -2,21 +2,21 @@
 #
 #  Copyright (c) 2006, Enthought, Inc.
 #  All rights reserved.
-#  
+#
 #  This software is provided without warranty under the terms of the BSD
 #  license included in enthought/LICENSE.txt and may be redistributed only
 #  under the conditions described in the aforementioned license.  The license
 #  is also available online at http://www.enthought.com/licenses/BSD.txt
 #
 #  Thanks for using Enthought open source!
-#  
+#
 #  Authors: Prabhu Ramachandran <prabhu_r@users.sf.net>,
 #           Dave Peterson <dpeterson@enthought.com>
 #
 #------------------------------------------------------------------------------
 
-""" A VTK interactor scene which provides a convenient toolbar that allows the 
-    user to set the camera view, turn on the axes indicator, etc. 
+""" A VTK interactor scene which provides a convenient toolbar that allows the
+    user to set the camera view, turn on the axes indicator, etc.
 """
 
 # System imports.
@@ -107,13 +107,13 @@ class DecoratedScene(Scene):
         self._sizer.Layout()
 
         return self._panel
-        
+
     def _setup_axes_marker(self):
         axes = self.axes
         if axes is None:
             # For VTK versions < 5.0.
             return
-        
+
         axes.set(
             normalized_tip_length=(0.4, 0.4, 0.4),
             normalized_shaft_length=(0.6, 0.6, 0.6),
@@ -134,7 +134,7 @@ class DecoratedScene(Scene):
         """
         tbm = ToolBarManager( *self.actions )
         return tbm
-    
+
     def _get_image_path(self):
         """Returns the directory which contains the images used by the
         toolbar."""
@@ -312,4 +312,4 @@ class DecoratedScene(Scene):
                     ),
                 ),
             ]
- 
+

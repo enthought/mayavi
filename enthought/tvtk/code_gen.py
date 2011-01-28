@@ -29,7 +29,7 @@ from special_gen import HelperGenerator
 
 class TVTKGenerator:
     """Generates all the TVTK code."""
-    
+
     def __init__(self, out_dir=''):
         """Initializes the instance.
 
@@ -37,7 +37,7 @@ class TVTKGenerator:
         ----------
 
         - out_dir -  `string`
-        
+
           The output directory to generate code in.  The directory is
           created if it does not exist.  A directory called
           `tvtk_classes` is created inside this directory and all the
@@ -56,11 +56,11 @@ class TVTKGenerator:
 
         self.wrap_gen = WrapperGenerator()
         self.helper_gen = HelperGenerator()
-    
+
     #################################################################
     # `TVTKGenerator` interface.
     #################################################################
-    
+
     def generate_code(self):
         """Generate all the wrapper code in `self.out_dir`.
         """
@@ -111,7 +111,7 @@ class TVTKGenerator:
 
         """
         # Wrappers for the ancesors are generated in order to get the
-        # _updateable_traits_ information correctly.        
+        # _updateable_traits_ information correctly.
         nodes = []
         for name in names:
             node = self.wrap_gen.get_tree().get_node(name)
@@ -132,7 +132,7 @@ class TVTKGenerator:
         for node in nodes:
             tvtk_name = get_tvtk_name(node.name)
             self._write_wrapper_class(node, tvtk_name)
-        
+
     def build_zip(self, include_src=False):
         """Build the zip file (with name `self.zip_name`) in the
         current directory.
@@ -158,8 +158,8 @@ class TVTKGenerator:
                 z.write(x, 'tvtk_classes/%s'%fname)
         z.writepy('tvtk_classes')
         z.close()
-        if os.path.exists(cwd + "/" + self.zip_name): 
-            os.unlink(cwd + "/" + self.zip_name) 
+        if os.path.exists(cwd + "/" + self.zip_name):
+            os.unlink(cwd + "/" + self.zip_name)
         shutil.move(self.zip_name, cwd)
         os.chdir(cwd)
 
@@ -191,7 +191,7 @@ class TVTKGenerator:
         out.close()
 
 
-            
+
 ######################################################################
 # Utility functions.
 ######################################################################
@@ -216,9 +216,9 @@ code will be generated for all the VTK classes.
     parser.add_option("-s", "--source", action="store_true",
                       dest="src", default=False,
                       help="Include source files (*.py) in addition to *.pyc files in the ZIP file.")
-    
+
     (options, args) = parser.parse_args()
-    
+
     # Now do stuff.
     gen = TVTKGenerator(options.out_dir)
 
@@ -229,10 +229,10 @@ code will be generated for all the VTK classes.
 
     if options.zip:
         gen.build_zip(options.src)
-    
+
     if options.clean:
         gen.clean()
-    
+
 
 if __name__ == '__main__':
     main()

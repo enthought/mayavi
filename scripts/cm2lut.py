@@ -4,13 +4,13 @@ Script used to create lut lists used by mayavi from matplotlib colormaps.
 This requires matlplotlib to be installed and should not be ran by the
 user, but only once in a while to synchronize with MPL developpement.
 """
-# Authors: Frederic Petit <fredmfp@gmail.com>, 
+# Authors: Frederic Petit <fredmfp@gmail.com>,
 #          Gael Varoquaux <gael.varoquaux@normalesup.org>
 # Copyright (c) 2007-2009, Enthought, Inc.
 # License: BSD Style.
 
 import os
-import numpy as np 
+import numpy as np
 
 from matplotlib.cm import datad, get_cmap
 from enthought.mayavi.core import lut as destination_module

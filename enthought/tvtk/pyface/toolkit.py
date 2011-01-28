@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------
 # Copyright (c) 2007, Riverbank Computing Limited
 # All rights reserved.
-# 
+#
 # This software is provided without warranty under the terms of the BSD
 # license included in enthought/LICENSE.txt and may be redistributed only
 # under the conditions described in the aforementioned license.  The license
@@ -20,7 +20,7 @@ _toolkit = None
 
 def _init_toolkit():
     """ Initialise the current toolkit. """
-    
+
     def import_toolkit(tk):
         try:
             # Try and import the toolkit's pyface backend init module.
@@ -36,11 +36,11 @@ def _init_toolkit():
     else:
         # Toolkits to check for if none is explicitly specified.
         known_toolkits = ('wx', 'qt4', 'null')
-    
+
         for tk in known_toolkits:
             try:
                 import_toolkit(tk)
-                
+
                 # In case we have just decided on a toolkit, tell everybody else.
                 ETSConfig.toolkit = tk
                 break
@@ -51,7 +51,7 @@ def _init_toolkit():
             try:
                 tk = 'null'
                 import_toolkit(tk)
-                
+
                 import warnings
                 warnings.warn("Unable to import the %s backend for pyface;"\
                               " using the 'null' toolkit instead." % ", ".join(toolkits))

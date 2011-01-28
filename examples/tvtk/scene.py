@@ -1,13 +1,13 @@
 #------------------------------------------------------------------------------
 # Copyright (c) 2005, Enthought, Inc.
 # All rights reserved.
-# 
+#
 # This software is provided without warranty under the terms of the BSD
 # license included in enthought/LICENSE.txt and may be redistributed only
 # under the conditions described in the aforementioned license.  The license
 # is also available online at http://www.enthought.com/licenses/BSD.txt
 # Thanks for using Enthought open source!
-# 
+#
 # Author: Enthought, Inc.
 # Description: <Enthought pyface package component>
 #------------------------------------------------------------------------------
@@ -72,7 +72,7 @@ class SaveToClipboardAction(Action):
     def perform(self):
         """ Performs the action. """
         self._window.scene.save_to_clipboard()
-        
+
 
 class SpecialViewAction(Action):
     """Sets the scene to a particular view."""
@@ -89,8 +89,8 @@ class SpecialViewAction(Action):
             meth = getattr(self._window.scene, self.view)
             meth()
         except AttributeError:
-            pass    
-    
+            pass
+
 
 class ExampleWindow(SplitApplicationWindow):
     """ An example application window. """
@@ -100,7 +100,7 @@ class ExampleWindow(SplitApplicationWindow):
         arrow_actor, axes_actor, cone_actor, cube_actor, cylinder_actor,
         earth_actor, sphere_actor
     ]
-    
+
     # The ratio of the size of the left/top pane to the right/bottom pane.
     ratio = Float(0.75)
 
@@ -156,7 +156,7 @@ class ExampleWindow(SplitApplicationWindow):
 
         # Reset the zoom nicely.
         self.scene.reset_zoom()
-        
+
         return self.scene.control
 
     def _create_rhs(self, parent):
@@ -165,7 +165,7 @@ class ExampleWindow(SplitApplicationWindow):
         self.python_shell = PythonShell(parent)
         self.python_shell.bind('scene', self.scene)
         self.python_shell.bind('s', self.scene)
-        
+
         return self.python_shell.control
 
 
@@ -186,7 +186,7 @@ class ExampleWindow(SplitApplicationWindow):
             MenuManager(
                 SaveToClipboardAction(self),
                 name = '&Edit',
-            ),            
+            ),
             MenuManager(
                 SpecialViewAction(self, "&Reset Zoom", 'reset_zoom'),
                 Separator(),
@@ -198,7 +198,7 @@ class ExampleWindow(SplitApplicationWindow):
                 SpecialViewAction(self, "&Z positive", 'z_plus_view'),
                 SpecialViewAction(self, "Z negative", 'z_minus_view'),
                 name = '&View',
-            )            
+            )
         )
 
 

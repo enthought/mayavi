@@ -48,7 +48,7 @@ def get_file_list(file_name):
         base = split(f)[1]
         result = base.replace(head, '')
         return float(result.replace(tail, ''))
-        
+
     # Before sorting make sure the files in the globbed series are
     # really part of a timeseries.  This can happen in cases like so:
     # 5_2_1.vtk and 5_2_1s.vtk will be globbed but 5_2_1s.vtk is
@@ -61,7 +61,7 @@ def get_file_list(file_name):
             pass
         else:
             files.append(x)
-        
+
     # Sort the globbed files based on the index value.
     def file_sort(x, y):
         x1 = _get_index(x)
@@ -97,8 +97,8 @@ class FileDataSource(Source):
                      high='_max_timestep',
                      enter_set=True, auto_set=False,
                      desc='the current time step')
-    
-    base_file_name=Str('', desc="the base name of the file", 
+
+    base_file_name=Str('', desc="the base name of the file",
                        enter_set=True, auto_set=False,
                        editor=FileEditor())
 
@@ -107,13 +107,13 @@ class FileDataSource(Source):
                             Item(name='timestep',
                                  defined_when='len(object.file_list) > 1')
                             )
-    
+
     ##################################################
     # Private traits.
-    ##################################################    
+    ##################################################
 
     # The current file name.  This is not meant to be touched by the
-    # user.    
+    # user.
     file_path = Instance(FilePath, (), desc='the current file name')
 
     _min_timestep = Int(0)
@@ -128,7 +128,7 @@ class FileDataSource(Source):
         for x in ['file_list', 'timestep']:
             d.pop(x, None)
         return d
-    
+
     def __set_pure_state__(self, state):
         # Use the saved path to initialize the file_list and timestep.
         fname = state.file_path.abs_pth
@@ -136,7 +136,7 @@ class FileDataSource(Source):
             msg = 'Could not find file at %s\n'%fname
             msg += 'Please move the file there and try again.'
             raise IOError, msg
-        
+
         self.initialize(fname)
         # Now set the remaining state without touching the children.
         set_state(self, state, ignore=['children', 'file_path'])
@@ -154,10 +154,10 @@ class FileDataSource(Source):
         need not be called to initialize the data.
         """
         self.base_file_name = base_file_name
-    
+
     ######################################################################
     # Non-public interface
-    ######################################################################    
+    ######################################################################
     def _file_list_changed(self, value):
         # Change the range of the timestep suitably to reflect new list.
         n_files = len(self.file_list)
@@ -186,4 +186,4 @@ class FileDataSource(Source):
             self.timestep = self.file_list.index(value)
         except ValueError:
             self.timestep = 0
-            
+

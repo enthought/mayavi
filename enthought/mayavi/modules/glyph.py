@@ -33,7 +33,7 @@ class Glyph(Module):
 
     input_info = PipelineInfo(datasets=['any'],
                               attribute_types=['any'],
-                              attributes=['any'])    
+                              attributes=['any'])
 
     ########################################
     # View related traits.
@@ -84,7 +84,7 @@ class Glyph(Module):
         mm = self.module_manager
         if mm is None:
             return
-        
+
         self.glyph.inputs = [mm.source]
 
         # Set the LUT for the mapper.
@@ -112,7 +112,7 @@ class Glyph(Module):
         if self.module_manager is None:
             return
         actor = self.actor
-        if value == 'color_by_scalar': 
+        if value == 'color_by_scalar':
             actor.mapper.scalar_visibility = 1
             lut_mgr = self.module_manager.scalar_lut_manager
             actor.set_lut(lut_mgr.lut)
@@ -120,7 +120,7 @@ class Glyph(Module):
             lut_mgr = self.module_manager.vector_lut_manager
             actor.set_lut(lut_mgr.lut)
         else:
-            actor.mapper.scalar_visibility = 0            
+            actor.mapper.scalar_visibility = 0
 
         self.render()
 
@@ -148,5 +148,5 @@ class Glyph(Module):
         if g is not None:
             new.inputs = [g]
         self._change_components(old, new)
-            
-    
+
+

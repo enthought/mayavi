@@ -1,13 +1,13 @@
 #------------------------------------------------------------------------------
 # Copyright (c) 2005, Enthought, Inc.
 # All rights reserved.
-# 
+#
 # This software is provided without warranty under the terms of the BSD
 # license included in enthought/LICENSE.txt and may be redistributed only
 # under the conditions described in the aforementioned license.  The license
 # is also available online at http://www.enthought.com/licenses/BSD.txt
 # Thanks for using Enthought open source!
-# 
+#
 # Author: Enthought, Inc.
 # Description: <Enthought pyface package component>
 #------------------------------------------------------------------------------
@@ -51,7 +51,7 @@ def get_last_input(data):
 ######################################################################
 class PickedData(HasTraits):
     """This class stores the picked data."""
-    
+
     # Was there a valid picked point?
     valid = Trait(false_bool_trait,
                   desc='specifies the validity of the pick event')
@@ -99,15 +99,15 @@ class DefaultPickHandler(PickHandler):
 
     # Traits.
     ID = Trait(None, None, Long, desc='the picked ID')
-    
+
     coordinate = Trait(None, None, Array('d', (3,)),
                        desc='the coordinate of the picked point')
 
     scalar = Trait(None, None, Float, desc='the scalar at picked point')
-    
-    vector = Trait(None, None, Array('d', (3,)), 
+
+    vector = Trait(None, None, Array('d', (3,)),
                    desc='the vector at picked point')
-                   
+
     tensor = Trait(None, None, Array('d', (3,3)),
                    desc='the tensor at picked point')
 
@@ -130,11 +130,11 @@ class DefaultPickHandler(PickHandler):
 
     #################################################################
     # `DefaultPickHandler` interface.
-    #################################################################   
+    #################################################################
     def handle_pick(self, data):
         """Called when a pick event happens.
         """
-        if data.valid_:            
+        if data.valid_:
             if data.point_id > -1:
                 self.ID = data.point_id
             elif data.cell_id > -1:
@@ -158,10 +158,10 @@ class DefaultPickHandler(PickHandler):
             for name in ['ID', 'coordinate', 'scalar', 'vector', 'tensor']:
                 setattr(self, name, None)
         self._update_data()
-            
+
     #################################################################
     # Non-public interface.
-    #################################################################   
+    #################################################################
     def _update_data(self):
         for name in ['ID', 'coordinate', 'scalar', 'vector', 'tensor']:
             value = getattr(self, name)
@@ -174,7 +174,7 @@ class DefaultPickHandler(PickHandler):
 # `CloseHandler` class.
 ######################################################################
 class CloseHandler(Handler):
-    """This class cleans up after the UI for the Picker is closed."""    
+    """This class cleans up after the UI for the Picker is closed."""
     def close(self, info, is_ok):
         """This method is invoked when the user closes the UI."""
         picker = info.object
@@ -235,10 +235,10 @@ class Picker(HasTraits):
 
     #################################################################
     # `object` interface.
-    #################################################################    
+    #################################################################
     def __init__(self, renwin, **traits):
         super(Picker, self).__init__(**traits)
-        
+
         self.renwin = renwin
         self.pointpicker = tvtk.PointPicker()
         self.cellpicker = tvtk.CellPicker()
@@ -282,7 +282,7 @@ class Picker(HasTraits):
 
     #################################################################
     # `Picker` interface.
-    #################################################################   
+    #################################################################
     def pick(self, x, y):
         """Calls one of the current pickers and then passes the
         obtained data to the `self.pick_handler` object's
@@ -292,7 +292,7 @@ class Picker(HasTraits):
         ----------
 
         - x : X position of the mouse in the window.
-        
+
         - y : Y position of the mouse in the window.
 
           Note that the origin of x, y must be at the left bottom
@@ -316,21 +316,21 @@ class Picker(HasTraits):
     def pick_point(self, x, y):
         """ Picks the nearest point. Returns a `PickedData` instance."""
         self.pointpicker.pick((float(x), float(y), 0.0), self.renwin.renderer)
-        
+
         pp = self.pointpicker
         id = pp.point_id
         picked_data = PickedData()
         coord = pp.pick_position
         picked_data.coordinate = coord
-        
+
         if id > -1:
             data = pp.mapper.input.point_data
             bounds = pp.mapper.input.bounds
-            
+
             picked_data.valid = 1
             picked_data.point_id = id
             picked_data.data = data
-            
+
             self._update_actor(coord, bounds)
         else:
             self.p_actor.visibility = 0
@@ -347,15 +347,15 @@ class Picker(HasTraits):
         picked_data = PickedData()
         coord = cp.pick_position
         picked_data.coordinate = coord
-        
+
         if id > -1:
             data = cp.mapper.input.cell_data
             bounds = cp.mapper.input.bounds
-            
+
             picked_data.valid = 1
             picked_data.cell_id = id
             picked_data.data = data
-            
+
             self._update_actor(coord, bounds)
         else:
             self.p_actor.visibility = 0
@@ -373,7 +373,7 @@ class Picker(HasTraits):
 
         wp = self.worldpicker
         cp = self.cellpicker
-        coord = wp.pick_position        
+        coord = wp.pick_position
         self.probe_data.points = [list(coord)]
         picked_data = PickedData()
         picked_data.coordinate = coord
@@ -393,7 +393,7 @@ class Picker(HasTraits):
             picked_data.world_pick = 1
             picked_data.point_id = 0
             picked_data.data = data
-            
+
             self._update_actor(coord, bounds)
         else:
             self.p_actor.visibility = 0
@@ -410,7 +410,7 @@ class Picker(HasTraits):
 
     #################################################################
     # Non-public interface.
-    #################################################################        
+    #################################################################
     def _tolerance_changed(self, val):
         """ Trait handler for the tolerance trait."""
         self.pointpicker.tolerance = val
@@ -425,7 +425,7 @@ class Picker(HasTraits):
         self.p_source.origin = coordinate
         self.p_source.scale_factor = scale
         self.p_actor.visibility = 1
-        
+
     def _setup_gui(self):
         """Pops up the GUI control widget."""
         # Popup the GUI control.
@@ -439,5 +439,5 @@ class Picker(HasTraits):
             try:
                 self.ui.control.Raise()
             except AttributeError:
-                pass            
+                pass
 

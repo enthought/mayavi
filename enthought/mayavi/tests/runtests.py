@@ -72,7 +72,7 @@ def find_tests(tests):
 
 def run(tests, verbose=1):
     """Run the given tests.  Each test file is run as a unittest in a
-    subprocess. 
+    subprocess.
 
     **Parameters**
 
@@ -101,7 +101,7 @@ def run(tests, verbose=1):
             cmd = cmd_base + ['-v', test]
         else:
             cmd = cmd_base + [test]
-        
+
         # Run the test in a subprocess.
         if verbose > 1:
             print 'Running:', ' '.join(cmd)
@@ -143,7 +143,7 @@ def run(tests, verbose=1):
             print err
         sys.stdout.flush()
         total_time += t2 - t1
-   
+
     print '\n' + '-'*70
     print "Ran %d tests in %.4g seconds\n"%(total, total_time)
 
@@ -183,7 +183,7 @@ def main():
     also scans a module's directory for directories called 'tests' or
     'test' which contain 'test_*.py' files and runs them each in a
     separate subprocess.
-    
+
     """
     parser = optparse.OptionParser(usage)
     parser.add_option("-v", "--verbose",

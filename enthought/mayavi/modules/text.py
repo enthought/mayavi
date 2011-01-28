@@ -38,7 +38,7 @@ class Text(Module):
 
     # The x-position of this actor.
     x_position = Float(0.0, desc='the x-coordinate of the text')
-   
+
     # The y-position of this actor.
     y_position = Float(0.0, desc='the y-coordinate of the text')
 
@@ -54,7 +54,7 @@ class Text(Module):
                            desc='the y-coordinate of the text')
 
     # 3D position
-    position_in_3d = Bool(False, 
+    position_in_3d = Bool(False,
                     desc='whether the position of the object is given in 2D or in 3D')
 
     # The width of the text.
@@ -63,7 +63,7 @@ class Text(Module):
 
     input_info = PipelineInfo(datasets=['any'],
                               attribute_types=['any'],
-                              attributes=['any'])    
+                              attributes=['any'])
 
     ########################################
     # The view of this object.
@@ -85,7 +85,7 @@ class Text(Module):
                                   show_border=True,
                                   label='Text Actor')
 
-    _position_group_2d = Group(Item(name='_x_position_2d', 
+    _position_group_2d = Group(Item(name='_x_position_2d',
                                     label='X position'),
                                Item(name='_y_position_2d',
                                     label='Y position'),
@@ -96,7 +96,7 @@ class Text(Module):
                                Item(name='y_position', label='Y',
                                             springy=True),
                                Item(name='z_position', label='Z',
-                                            springy=True), 
+                                            springy=True),
                                show_border=True,
                                label='Position',
                                orientation='horizontal',
@@ -277,10 +277,10 @@ class Text(Module):
             self.width = actor.width
         finally:
             self._updating = False
-    
+
     def _get_property(self):
         return self._property
-    
+
     def _actor_changed(self, old, new):
         if old is not None:
             for obj in (old, self._property):
@@ -299,7 +299,7 @@ class Text(Module):
         # Change the default color for the actor.
         self.property.color = new
         self.render()
-        
+
     def _scene_changed(self, old, new):
         super(Text, self)._scene_changed(old, new)
         self._foreground_changed_for_scene(None, new.foreground)

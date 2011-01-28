@@ -107,7 +107,7 @@ class ExtractGrid(FilterBase):
 
     ########################################
     # View related traits.
-    
+
     # The View for this object.
     view = View(Group(Item(label='Select Volume Of Interest'),
                       Item(name='x_min'),
@@ -197,7 +197,7 @@ class ExtractGrid(FilterBase):
         self._x_s_high = max(1, self._x_high)
         self._y_s_high = max(1, self._y_high)
         self._z_s_high = max(1, self._z_high)
-        
+
     def _x_min_changed(self, val):
         if val > self.x_max:
             self.x_max = val

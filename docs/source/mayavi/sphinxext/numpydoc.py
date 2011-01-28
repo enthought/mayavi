@@ -113,7 +113,7 @@ def autosummary_directive(dirname, arguments, options, content, lineno,
     """
 
     # XXX: make the signatures and signature abbreviations optional
-    
+
     names = []
     names += [x for x in content if x.strip()]
 
@@ -160,7 +160,7 @@ def get_autosummary(names, document):
         Names of Python objects to be imported and added to the table.
     document : document
         Docutils document object
-    
+
     """
     result = ViewList()
     warnings = []
@@ -186,7 +186,7 @@ def get_autosummary(names, document):
             titles[real_name] = " ".join(doc['Summary'])
         else:
             titles[real_name] = ""
-        
+
         col1 = ":obj:`%s`" % name
         if doc['Signature']:
             sig = re.sub('^[a-zA-Z_0-9.-]*', '',
@@ -203,16 +203,16 @@ def get_autosummary(names, document):
                 sig = re.sub(r'(\(.{16,16}[^,)]*?),.*?\)', r'\1, ...)', sig)
             col1 += " " + sig
         col2 = titles[real_name]
-        
+
         rows.append((col1, col2))
 
     if not rows:
         return result, warnings, titles
-    
+
     max_name_len = max([len(x[0]) for x in rows])
     row_fmt = "%%-%ds  %%s" % max_name_len
     table_banner = ('='*max_name_len) + '  ' + '==============='
-    
+
     result.append(table_banner, '<autosummary>')
     for row in rows:
         result.append(row_fmt % row, '<autosummary>')
@@ -239,7 +239,7 @@ def import_by_name(name, prefixes=[None]):
         The imported object
     name
         Name of the imported object (useful if `prefixes` was used)
-    
+
     """
     for prefix in prefixes:
         try:
@@ -348,7 +348,7 @@ def import_phantom_module(xml_file):
     ----------
     xml_file : str
         Name of an XML file to read
-    
+
     """
     import lxml.etree as etree
 
@@ -361,7 +361,7 @@ def import_phantom_module(xml_file):
     # - Base classes come before classes inherited from them
     # - Modules come before their contents
     all_nodes = dict([(n.attrib['id'], n) for n in root])
-    
+
     def _get_bases(node, recurse=False):
         bases = [x.attrib['ref'] for x in node.findall('base')]
         if recurse:
@@ -376,7 +376,7 @@ def import_phantom_module(xml_file):
         return bases
 
     type_index = ['module', 'class', 'callable', 'object']
-    
+
     def base_cmp(a, b):
         x = cmp(type_index.index(a.tag), type_index.index(b.tag))
         if x != 0: return x
@@ -388,7 +388,7 @@ def import_phantom_module(xml_file):
             if x != 0: return x
             if a.attrib['id'] in b_bases: return -1
             if b.attrib['id'] in a_bases: return 1
-        
+
         return cmp(a.attrib['id'].count('.'), b.attrib['id'].count('.'))
 
     nodes = root.getchildren()

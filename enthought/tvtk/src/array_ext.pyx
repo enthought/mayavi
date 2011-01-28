@@ -17,8 +17,8 @@ import numpy
 
 # Expose various external interfaces needed subsequently.
 cdef extern from "numpy/arrayobject.h":
-    ctypedef int intp 
-    
+    ctypedef int intp
+
     struct PyArray_Descr:
         int type_num, elsize
         char type
@@ -49,7 +49,7 @@ cdef c_set_id_type_array(ndarray id_array, ndarray out_array):
     #
     # No type or size checking is done here.  All that is done in the
     # Python function upstream that calls this.
-    
+
     cdef int cell_length, dim0
     cdef int *id_data
     cdef int *out_data
@@ -79,7 +79,7 @@ cdef c_set_id_type_array_long(ndarray id_array, ndarray out_array):
     #
     # No type or size checking is done here.  All that is done in the
     # Python function upstream that calls this.
-    
+
     cdef int cell_length, dim0
     cdef long *id_data
     cdef long *out_data
@@ -121,10 +121,10 @@ def set_id_type_array(id_array, out_array):
     VTK_ID_TYPE_SIZE = vtk.vtkIdTypeArray().GetDataTypeSize()
     assert numpy.issubdtype(id_array.dtype, numpy.signedinteger) and \
        id_array.dtype.itemsize == VTK_ID_TYPE_SIZE
-    
+
     assert out_array.flags.contiguous == 1, \
            "out_array must be contiguous."
-    
+
     shp = id_array.shape
     assert len(shp) == 2, "id_array must be a two dimensional array."
 
@@ -132,7 +132,7 @@ def set_id_type_array(id_array, out_array):
     e_sz = shp[0]*(shp[1]+1)
     assert sz == e_sz, \
            "out_array size is incorrect, expected: %s, given: %s"%(e_sz, sz)
-    
+
     if VTK_ID_TYPE_SIZE == 4:
         c_set_id_type_array(id_array, out_array)
     elif VTK_ID_TYPE_SIZE == 8:

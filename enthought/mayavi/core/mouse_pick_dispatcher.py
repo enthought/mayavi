@@ -17,8 +17,8 @@ VTK_VERSION =        tvtk.Version().vtk_major_version \
 # class `MousePickDispatcher`
 ################################################################################
 class MousePickDispatcher(HasTraits):
-    """ An event dispatcher to send pick event on mouse clicks. 
-    
+    """ An event dispatcher to send pick event on mouse clicks.
+
         This objects wires VTK observers so that picking callbacks
         can be bound to mouse click without movement.
 
@@ -29,21 +29,21 @@ class MousePickDispatcher(HasTraits):
     # The scene events are wired to.
     scene = Instance(Scene)
 
-    # The list of callbacks, with the picker type they should be using, 
+    # The list of callbacks, with the picker type they should be using,
     # and the mouse button that triggers them.
     callbacks = List(Tuple(
                         Callable,
                         Enum('cell', 'point', 'world'),
                         Enum('Left', 'Middle', 'Right'),
                         ),
-                    help="The list of callbacks, with the picker type they " 
+                    help="The list of callbacks, with the picker type they "
                          "should be using, and the mouse button that "
                          "triggers them. The callback is passed "
                          "as an argument the tvtk picker."
                     )
 
     #--------------------------------------------------------------------------
-    # Private traits 
+    # Private traits
     #--------------------------------------------------------------------------
 
     # Whether the mouse has moved after the button press
@@ -58,12 +58,12 @@ class MousePickDispatcher(HasTraits):
     # The VTK callback numbers corresponding to our callbacks
     _picker_callback_nbs = Dict(value_trait=Int)
 
-    # The VTK callback numbers corresponding to mouse movement 
+    # The VTK callback numbers corresponding to mouse movement
     _mouse_mvt_callback_nb = Int
 
     # The VTK callback numbers corresponding to mouse press
     _mouse_press_callback_nbs = Dict
-    
+
     # The VTK callback numbers corresponding to mouse release
     _mouse_release_callback_nbs = Dict
 
@@ -80,7 +80,7 @@ class MousePickDispatcher(HasTraits):
 
 
     def callback_added(self, item):
-        """ Wire up the different VTK callbacks. 
+        """ Wire up the different VTK callbacks.
         """
         callback, type, button = item
         picker = getattr(self.scene.scene.picker, '%spicker' % type)
@@ -89,7 +89,7 @@ class MousePickDispatcher(HasTraits):
         # Register the pick callback
         if not type in self._picker_callback_nbs:
             self._picker_callback_nbs[type] = \
-                            picker.add_observer("EndPickEvent", 
+                            picker.add_observer("EndPickEvent",
                                                 self.on_pick)
 
         # Register the callbacks on the scene interactor
@@ -99,7 +99,7 @@ class MousePickDispatcher(HasTraits):
             move_event = 'MouseMoveEvent'
         if not self._mouse_mvt_callback_nb:
             self._mouse_mvt_callback_nb = \
-                self.scene.scene.interactor.add_observer(move_event, 
+                self.scene.scene.interactor.add_observer(move_event,
                                                 self.on_mouse_move)
         if not button in self._mouse_press_callback_nbs:
             self._mouse_press_callback_nbs[button] = \
@@ -146,7 +146,7 @@ class MousePickDispatcher(HasTraits):
             self.callbacks.pop()
 
     #--------------------------------------------------------------------------
-    # Mouse movement dispatch mechanism 
+    # Mouse movement dispatch mechanism
     #--------------------------------------------------------------------------
 
     def on_button_press(self, vtk_picker, event):
@@ -177,7 +177,7 @@ class MousePickDispatcher(HasTraits):
         for event_type, event_picker in self._active_pickers.iteritems():
             if picker is event_picker:
                 for callback, type, button in self.callbacks:
-                    if ( type == event_type 
+                    if ( type == event_type
                                     and button == self._current_button):
                         callback(picker)
             break

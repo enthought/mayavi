@@ -1,6 +1,6 @@
 """
 TODO:
- 
+
  * We need a cleaner way to manipulate the camera  and other things as a model.
    The current approach will be far from perfect but should work.
 
@@ -101,7 +101,7 @@ class SceneModel(TVTKScene):
     ###################################
     # Private traits.
 
-    # Used by the editor to determine if the widget was enabled or not.  
+    # Used by the editor to determine if the widget was enabled or not.
     enabled_info = Dict()
 
     def __init__(self, parent=None, **traits):
@@ -112,9 +112,9 @@ class SceneModel(TVTKScene):
         super(TVTKScene, self).__init__(**traits)
         self.control = None
 
-    ###################################################################### 
+    ######################################################################
     # TVTKScene API.
-    ###################################################################### 
+    ######################################################################
     def render(self):
         """ Force the scene to be rendered. Nothing is done if the
         `disable_render` trait is set to True."""
@@ -285,7 +285,7 @@ class SceneModel(TVTKScene):
         """Set the size of the window."""
         self._check_scene_editor()
         self.scene_editor.set_size(size)
-        
+
     def _update_view(self, x, y, z, vx, vy, vz):
         """Used internally to set the view."""
         if self.scene_editor is not None:
@@ -325,9 +325,9 @@ class SceneModel(TVTKScene):
             return se.light_manager
         return None
 
-    ###################################################################### 
+    ######################################################################
     # SceneModel API.
-    ###################################################################### 
+    ######################################################################
     def _get_scene(self):
         """Getter for the scene property."""
         return self

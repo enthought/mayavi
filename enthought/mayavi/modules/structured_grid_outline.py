@@ -28,4 +28,4 @@ class StructuredGridOutline(Outline):
     def setup_pipeline(self):
         self.outline_filter = tvtk.StructuredGridOutlineFilter()
         self.actor = Actor()
-        
+

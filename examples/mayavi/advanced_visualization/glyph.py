@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-This script demonstrates using the Mayavi core API to add a VectorCutPlane, 
+This script demonstrates using the Mayavi core API to add a VectorCutPlane,
 split the pipeline using a MaskPoints filter and then view the filtered data
 with the Glyph module.
 """
@@ -18,7 +18,7 @@ from enthought.mayavi.modules.outline import Outline
 from enthought.mayavi.modules.glyph import Glyph
 from enthought.mayavi.modules.vector_cut_plane import VectorCutPlane
 from enthought.mayavi.filters.mask_points import MaskPoints
-    
+
 @mayavi2.standalone
 def glyph():
     """The script itself.  We needn't have defined a function but

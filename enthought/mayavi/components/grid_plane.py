@@ -41,13 +41,13 @@ class GridPlane(Component):
     # The position of the grid plane.
     position = Range(value=0, low='_low', high='_high',
                      enter_set=True, auto_set=False)
-    
+
     ########################################
     # Private traits.
 
     # Determines the lower limit of the position trait and is always 0.
     _low = Int(0)
-    
+
     # Determines the upper limit of the position trait.  The value is
     # dynamically set depending on the input data and state of the
     # axis trait.  The default is some large value to avoid errors in
@@ -57,7 +57,7 @@ class GridPlane(Component):
 
     ########################################
     # View related traits.
-    
+
     # The View for this object.
     view = View(Group(Item(name='axis'),
                       Item(name='position', enabled_when='_high > 0'))
@@ -71,13 +71,13 @@ class GridPlane(Component):
         # These traits are dynamically created.
         for name in ('plane', '_low', '_high'):
             d.pop(name, None)
-        
+
         return d
 
     def __set_pure_state__(self, state):
         state_pickler.set_state(self, state)
         self._position_changed(self.position)
-        
+
     ######################################################################
     # `Component` interface
     ######################################################################
@@ -93,7 +93,7 @@ class GridPlane(Component):
         dependent on upstream sources and filters.
         """
         pass
-    
+
     def update_pipeline(self):
         """Override this method so that it *updates* the tvtk pipeline
         when data upstream is known to have changed.
@@ -128,7 +128,7 @@ class GridPlane(Component):
         diff = [y-x for x, y in zip(extents[::2], extents[1::2])]
         if diff.count(0) > 0:
             self.axis = ['x', 'y', 'z'][diff.index(0)]
-        
+
 
     def update_data(self):
         """Override this method to do what is necessary when upstream
@@ -147,7 +147,7 @@ class GridPlane(Component):
     ######################################################################
     def _get_axis_index(self):
         return {'x':0, 'y':1, 'z':2}[self.axis]
-    
+
     def _update_extents(self):
         inp = self.plane.input
         extents = list(_get_extent(inp))
@@ -166,7 +166,7 @@ class GridPlane(Component):
         pos = min(self.position, extents[2*axis+1])
         self._high = extents[2*axis+1]
         return pos
-        
+
     def _axis_changed(self, val):
         if len(self.inputs) == 0:
             return

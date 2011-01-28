@@ -6,7 +6,7 @@
 # License: BSD Style.
 
 # Enthought library imports.
-from enthought.traits.api import Instance, Bool, on_trait_change 
+from enthought.traits.api import Instance, Bool, on_trait_change
 from enthought.traits.ui.api import View, Group, Item
 from enthought.tvtk.api import tvtk
 
@@ -26,12 +26,12 @@ class ImagePlaneWidget(Module):
 
     ipw = Instance(tvtk.ImagePlaneWidget, allow_none=False, record=True)
 
-    use_lookup_table = Bool(True, 
+    use_lookup_table = Bool(True,
             help='Use a lookup table to map input scalars to colors')
 
     input_info = PipelineInfo(datasets=['image_data'],
                               attribute_types=['any'],
-                              attributes=['scalars'])    
+                              attributes=['scalars'])
 
     view = View(Group(Item(name='ipw', style='custom', resizable=True),
                       show_labels=False
@@ -85,7 +85,7 @@ class ImagePlaneWidget(Module):
                   'image data.'
             error(msg)
             raise TypeError, msg
-            
+
         self.ipw.input = input
         self.setup_lut()
 
@@ -101,7 +101,7 @@ class ImagePlaneWidget(Module):
 
 
     @on_trait_change('use_lookup_table')
-    def setup_lut(self): 
+    def setup_lut(self):
         # Set the LUT for the IPW.
         if self.use_lookup_table:
             if self.module_manager is not None:
@@ -110,14 +110,14 @@ class ImagePlaneWidget(Module):
         else:
             self.ipw.color_map.lookup_table = None
         self.render()
-        
+
     ######################################################################
     # Non-public methods.
     ######################################################################
     def _ipw_changed(self, old, new):
         if old is not None:
             old.on_trait_change(self.render, remove=True)
-            self.widgets.remove(old)            
+            self.widgets.remove(old)
         new.on_trait_change(self.render)
         self.widgets.append(new)
         if old is not None:

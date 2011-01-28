@@ -1,6 +1,6 @@
 """
 This example demonstrates using Mayavi as a component of a large Qt
-application. 
+application.
 
 For this use, Mayavi is embedded in a QWidget. To understand this
 example, please read section :ref:`builing-applications`.
@@ -34,7 +34,7 @@ class Visualization(HasTraits):
     @on_trait_change('scene.activated')
     def update_plot(self):
         # This function is called when the view is opened. We don't
-        # populate the scene when the view is not yet open, as some 
+        # populate the scene when the view is not yet open, as some
         # VTK features require a GLContext.
 
         # We can do normal mlab calls on the embedded scene.
@@ -64,7 +64,7 @@ class MayaviQWidget(QtGui.QWidget):
         #QtCore.pyqtRestoreInputHook()
 
         # The edit_traits call will generate the widget to embed.
-        self.ui = self.visualization.edit_traits(parent=self, 
+        self.ui = self.visualization.edit_traits(parent=self,
                                                  kind='subpanel').control
         layout.addWidget(self.ui)
         self.ui.setParent(self)

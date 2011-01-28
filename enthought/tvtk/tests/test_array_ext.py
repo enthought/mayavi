@@ -19,9 +19,9 @@ class TestArrayExt(unittest.TestCase):
         a[:,1] = 1
         a[:,2] = 2
         a[:,3] = 3
-        
+
         def diff_arr(x, y):
-            return numpy.sum(numpy.ravel(x) - numpy.ravel(y[:,1:]))                
+            return numpy.sum(numpy.ravel(x) - numpy.ravel(y[:,1:]))
 
         # Test contiguous arrays.
         b = numpy.zeros((N,5), ID_TYPE_CODE)
@@ -43,7 +43,7 @@ class TestArrayExt(unittest.TestCase):
         b = numpy.zeros((N, 5), ID_TYPE_CODE)
         self.assertRaises(AssertionError, set_id_type_array,
                           d, b)
-        
+
         # B should b contiguous.
         b = numpy.zeros((N, 10), ID_TYPE_CODE)
         self.assertRaises(AssertionError, set_id_type_array,
@@ -56,7 +56,7 @@ class TestArrayExt(unittest.TestCase):
         b = numpy.zeros((N, 4), ID_TYPE_CODE)
         self.assertRaises(AssertionError, set_id_type_array,
                           a, b)
-        
+
         b = numpy.zeros(N*6, ID_TYPE_CODE)
         self.assertRaises(AssertionError, set_id_type_array,
                           a, b)
@@ -64,7 +64,7 @@ class TestArrayExt(unittest.TestCase):
         # This should work!
         set_id_type_array(a, b[:N*5])
         self.assertEqual(diff_arr(a, numpy.reshape(b[:N*5], (N,5))), 0)
-        
+
 
 if __name__ == "__main__":
     unittest.main()

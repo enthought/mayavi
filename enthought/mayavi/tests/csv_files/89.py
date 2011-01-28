@@ -6,7 +6,7 @@ array([('MMMMDCLXXII',), ('MMDCCCLXXXIII',), ('MMMDLXVIIII',),
        ('MMCCCLXXXXIX',), ('MDCCCXXIIII',), ('MMCXCVI',), ('CCXCVIII',),
        ('MMMCCCXXXII',), ('MDCCXXX',), ('MMMDCCCL',), ('MMMMCCLXXXVI',),
        ('MMDCCCXCVI',), ('MMMDCII',), ('MMMCCXII',), ('MMMMDCCCCI',),
-       ('MMDCCCXCII',), ('MDCXX',)], 
+       ('MMDCCCXCII',), ('MDCXX',)],
       dtype=[('Column 1', 'S14')]),
 
   'kwds': { 'comments': '#',

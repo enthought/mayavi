@@ -47,7 +47,7 @@ class SourceWidget(Component):
 
     ########################################
     # Private traits.
-    
+
     _first = Bool(True)
     _busy = Bool(False)
     _unpickling = Bool(False)
@@ -156,7 +156,7 @@ class SourceWidget(Component):
         inp = self.inputs[0].outputs[0]
         w = self.widget
         w.input = inp
-        
+
         if self._first:
             w.place_widget()
             self._first = False
@@ -171,7 +171,7 @@ class SourceWidget(Component):
                 w = self.widget = self.widget_list[1]
                 w.clamp_to_bounds = True
                 w.align = ['z_axis', 'z_axis', 'y_axis'][i]
-                break            
+                break
 
         # Set our output.
         w.get_poly_data(self.poly_data)
@@ -244,7 +244,7 @@ class SourceWidget(Component):
             # sense.
             self.render()
             self.update_poly_data()
-            self._busy = False        
+            self._busy = False
 
     def _on_alignment_set(self):
         w = self.widget
@@ -267,7 +267,7 @@ class SourceWidget(Component):
         if self.scene is not None:
             fg = self.scene.foreground
         self._setup_widget_colors(obj, fg)
-            
+
         obj.on_trait_change(self._on_widget_trait_changed)
         obj.on_trait_change(self.render)
 
@@ -291,7 +291,7 @@ class SourceWidget(Component):
         for w in self.widget_list:
             self._setup_widget_colors(w, new)
         self.render()
-        
+
     def _scene_changed(self, old, new):
         super(SourceWidget, self)._scene_changed(old, new)
         self._foreground_changed_for_scene(None, new.foreground)

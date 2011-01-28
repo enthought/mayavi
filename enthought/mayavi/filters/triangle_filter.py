@@ -30,7 +30,7 @@ class TriangleFilter(FilterBase):
                               attribute_types=['any'],
                               attributes=['any'])
 
-    output_info = PipelineInfo(datasets=['poly_data', 
+    output_info = PipelineInfo(datasets=['poly_data',
                                          'unstructured_grid'],
                                attribute_types=['any'],
                                attributes=['any'])

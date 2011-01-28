@@ -7,7 +7,7 @@
 # Enthought library imports.
 from enthought.traits.api import (Bool, Enum, Tuple, Range, List,
         Str, Instance, HasTraits)
-from enthought.traits.ui.api import View, Group, Item, RGBColorEditor 
+from enthought.traits.ui.api import View, Group, Item, RGBColorEditor
 from enthought.preferences.ui.api import PreferencesPage
 
 ################################################################################
@@ -95,7 +95,7 @@ class MayaviRootPreferencesPage(PreferencesPage):
 
     ######################################################################
     # Non-public interface.
-    ###################################################################### 
+    ######################################################################
     def __contrib_finder_default(self):
         from contrib_finder import ContribFinder
         return ContribFinder()
@@ -125,8 +125,8 @@ class MayaviMlabPreferencesPage(PreferencesPage):
 
     #### Preferences ##########################################################
 
-    # The mlab backend to use.  
-    backend = Enum('auto', 'envisage', 'simple', 'test', 
+    # The mlab backend to use.
+    backend = Enum('auto', 'envisage', 'simple', 'test',
                    desc='the mlab backend to use')
 
     # The background color of the renderer.

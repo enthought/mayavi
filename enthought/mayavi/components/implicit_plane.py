@@ -27,14 +27,14 @@ class ImplicitPlane(Component):
                       kw={'key_press_activation': False,
                           'place_factor':1.2,
                           'draw_plane':False,
-                          'outline_translation':False}, 
+                          'outline_translation':False},
                       record=True)
 
     # The plane that the widget controls.  Do not change the
     # attributes of the plane, do it via the widget.
     plane = Instance(tvtk.Plane, args=(),
                      kw={'origin':(0.0, 0.0, 0.0),
-                         'normal':(0,0,1)}, 
+                         'normal':(0,0,1)},
                      record=True)
 
     # Convenience property for the normal delegated to the widget.
@@ -45,7 +45,7 @@ class ImplicitPlane(Component):
 
     ########################################
     # Private traits
-    
+
     _first = Bool(True)
     _busy = Bool(False)
 
@@ -98,7 +98,7 @@ class ImplicitPlane(Component):
         # Setup our widgets and hook up all handlers.
         self.widgets = [self.widget]
         self._connect()
-    
+
     def update_pipeline(self):
         """Override this method so that it *updates* the tvtk pipeline
         when data upstream is known to have changed.
@@ -121,14 +121,14 @@ class ImplicitPlane(Component):
             # This is perhaps a VTK bug, not sure.
             self.normal = n[0], n[1], n[2] + 0.001
             self.normal = n
-            
+
         # Just pass the inputs back out.  This may trigger a pipeline
         # changed downstream if it does not then fire a data_changed.
         if self.outputs != [inp]:
             self.outputs = [inp]
         else:
             self.data_changed = True
-        
+
     def update_data(self):
         """Override this method to do what is necessary when upstream
         data changes.
@@ -159,13 +159,13 @@ class ImplicitPlane(Component):
     def _get_origin(self):
         return self.widget.origin
     def _set_origin(self, value):
-        # Ugly, but needed.        
+        # Ugly, but needed.
         w = tvtk.to_vtk(self.widget)
         old = w.GetOrigin()
         w.SetOrigin(list(value))
         self.trait_property_changed('origin', old, value)
         self.update_plane()
-        
+
     def _on_interaction_event(self, obj, event):
         if not self._busy:
             self._busy = True
@@ -186,7 +186,7 @@ class ImplicitPlane(Component):
         w.on_trait_change(self._on_normal_set, 'normal_to_y_axis')
         w.on_trait_change(self._on_normal_set, 'normal_to_z_axis')
         w.on_trait_change(self._on_interaction_event)
-        
+
         for obj in (self.plane, w):
             obj.on_trait_change(self.render)
 

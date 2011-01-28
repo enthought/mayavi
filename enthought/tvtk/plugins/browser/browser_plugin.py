@@ -11,7 +11,7 @@ class BrowserPlugin(Plugin):
 
     # Extension point Ids.
     VIEWS = 'enthought.envisage.ui.workbench.views'
-    
+
     #### 'IPlugin' interface ##################################################
 
     # The plugin's name (suitable for displaying to the user).
@@ -30,7 +30,7 @@ class BrowserPlugin(Plugin):
 
     def _views_default(self):
         """ Trait initializer. """
-        
+
         return [self._browser_view_factory]
 
     ###########################################################################
@@ -62,5 +62,5 @@ class BrowserPlugin(Plugin):
         )
 
         return window.get_service(ISceneManager)
-        
+
 #### EOF ######################################################################

@@ -27,7 +27,7 @@ class Explorer3D(HasTraits):
 
     ########################################
     # Traits.
-    
+
     # Set by envisage when this is offered as a service offer.
     window = Instance('enthought.pyface.workbench.api.WorkbenchWindow')
 
@@ -148,7 +148,7 @@ class Explorer3D(HasTraits):
 
         self._ipw2 = ipw_y = ImagePlaneWidget()
         mayavi.add_module(ipw_y)
-        ipw_y.ipw.plane_orientation = 'y_axes'        
+        ipw_y.ipw.plane_orientation = 'y_axes'
 
         self._ipw3 = ipw_z = ImagePlaneWidget()
         mayavi.add_module(ipw_z)
@@ -196,7 +196,7 @@ class Explorer3D(HasTraits):
             # Update the sources data.
             src.update_image_data = True
             self._reset_ipw()
-            
+
     def _reset_ipw(self):
         ipw1, ipw2, ipw3 = self._ipw1, self._ipw2, self._ipw3
         if ipw1.running:
@@ -213,7 +213,7 @@ class Explorer3D(HasTraits):
         if self.source is None:
             return
         self.source.scalar_data = value
-        
+
     def _window_changed(self):
         m = self.get_mayavi()
         if m.engine.running:
@@ -225,4 +225,4 @@ class Explorer3D(HasTraits):
         else:
             # Show the data once the mayavi engine has started.
             m.engine.on_trait_change(self._show_data, 'started')
-        
+

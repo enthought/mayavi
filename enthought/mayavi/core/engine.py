@@ -10,13 +10,13 @@ highest level.
 # VTK is used to just shut off the warnings temporarily.
 try:
     import vtk
-except ImportError, m: 
+except ImportError, m:
     m.args = ('%s\n%s\nDo you have vtk and its Python bindings installed properly?' %
                     (m.args[0], '_'*80),)
-    raise 
+    raise
 
 # Enthought library imports.
-from enthought.traits.api import (HasStrictTraits, List, Str, 
+from enthought.traits.api import (HasStrictTraits, List, Str,
         Property, Instance, Event, HasTraits, Callable, Dict,
         Bool, on_trait_change)
 from enthought.traits.ui.api import View, Item
@@ -26,7 +26,7 @@ from enthought.scripting.api import Recorder, recordable
 # Local imports.
 from enthought.mayavi.core.base import Base
 from enthought.mayavi.core.scene import Scene
-from enthought.mayavi.core.common import error, process_ui_events 
+from enthought.mayavi.core.common import error, process_ui_events
 from enthought.mayavi.core.registry import registry
 from enthought.mayavi.core.adder_node import AdderNode, SceneAdderNode
 from enthought.mayavi.preferences.api import preference_manager
@@ -65,7 +65,7 @@ class Engine(HasStrictTraits):
     scenes = List(Scene, record=True)
 
     # The list to provide to a TreeEditor.  Always add on a AdderNode.
-    # TODO: It makes more sense to put the modification of the list 
+    # TODO: It makes more sense to put the modification of the list
     # in some other UI module, and not here.
     children_ui_list = Property(record=False)
 
@@ -96,7 +96,7 @@ class Engine(HasStrictTraits):
     # load saved visualizations using the new scene.  Handy for things
     # like off-screen rendering.
     scene_factory = Callable(viewer_factory)
-   
+
     # Are we running?
     running = Bool(False, record=False)
 
@@ -105,7 +105,7 @@ class Engine(HasStrictTraits):
 
     ########################################
     # Private traits.
-    
+
     _current_scene = Instance(Scene)
     _current_object = Instance(HasTraits)
     _current_selection = Instance(HasTraits)
@@ -119,7 +119,7 @@ class Engine(HasStrictTraits):
                                   resizable=True,
                                   scrollable=True
                                   )
-    
+
     ######################################################################
     # `object` interface
     ######################################################################
@@ -139,7 +139,7 @@ class Engine(HasStrictTraits):
                   '__sync_trait__', '_viewer_ref',
                   '__traits_listener__']:
             d.pop(x, None)
-        return d    
+        return d
 
     def __set_pure_state__(self, state):
         # Current number of scenes.
@@ -162,7 +162,7 @@ class Engine(HasStrictTraits):
         self.__init__()
         state = state_pickler.loads_state(str_state)
         state_pickler.update_state(state)
-        self.__set_pure_state__(state)        
+        self.__set_pure_state__(state)
 
     ######################################################################
     # `Engine` interface
@@ -205,8 +205,8 @@ class Engine(HasStrictTraits):
 
     @recordable
     def add_filter(self, fil, obj=None):
-        """Adds a filter to the pipeline at an appropriate point. Adds it 
-        to the selected object, or to an object passed as the 
+        """Adds a filter to the pipeline at an appropriate point. Adds it
+        to the selected object, or to an object passed as the
         kwarg `obj`.
         """
         passed_obj = obj
@@ -233,8 +233,8 @@ class Engine(HasStrictTraits):
 
     @recordable
     def add_module(self, mod, obj=None):
-        """Adds a module to the pipeline at an appropriate point. Adds it 
-        to the selected object, or to an object passed through the 
+        """Adds a module to the pipeline at an appropriate point. Adds it
+        to the selected object, or to an object passed through the
         kwarg `obj`.
         """
         self.add_filter(mod, obj=obj)
@@ -276,7 +276,7 @@ class Engine(HasStrictTraits):
                 state_pickler.update_state(scene_state)
                 scene.__set_pure_state__(scene_state)
                 # Setting the state will automatically reset the
-                # disable_render.                                
+                # disable_render.
                 scene.render()
         finally:
             # Reset the warning state.
@@ -288,7 +288,7 @@ class Engine(HasStrictTraits):
         current scene or the passed `scene`.
         """
         passed_scene = scene
-        reader = registry.get_file_reader(filename)        
+        reader = registry.get_file_reader(filename)
         if reader is None:
             msg = 'No suitable reader found for the file %s'%filename
             error(msg)
@@ -308,13 +308,13 @@ class Engine(HasStrictTraits):
                     src.initialize(filename)
                 else:
                     # Factory functions are passed the filename and a
-                    # reference to the engine. 
+                    # reference to the engine.
                     src = callable(filename, self)
                 if src is not None:
                     self.add_source(src, passed_scene)
             finally:
                 if sc is not None:
-                    sc.busy = False 
+                    sc.busy = False
             if src is not None:
                 return src
 
@@ -343,18 +343,18 @@ class Engine(HasStrictTraits):
 
           The scene that needs to be managed from mayavi.
 
-         name - `str` 
+         name - `str`
           The name assigned to the scene.  It tries to determine the
           name of the scene from the passed scene instance.  If this
           is not possible it defaults to 'Mayavi Scene'.
-          
+
         """
         if name is None:
             if hasattr(scene, 'name'):
                 name = scene.name
             else:
                 name = 'Mayavi Scene %d'%scene_id_generator.next()
-        
+
         s = Scene(scene=scene, name=name, parent=self)
         s.start()
         # We don't want the startup setup to be recorded.
@@ -412,7 +412,7 @@ class Engine(HasStrictTraits):
         supports `closing` and `activated` events.
 
         The method returns the created viewer.
-         
+
         Parameters:
         -----------
 
@@ -430,10 +430,10 @@ class Engine(HasStrictTraits):
             for arg, value in kwargs.iteritems():
                 if arg in factory_kwargs_names:
                     factory_kwargs[arg] = value
-                
+
             viewer = self.scene_factory(**factory_kwargs)
             process_ui_events()
-            
+
         if name is not None:
             viewer.name = name
         # Hang on to a reference to this viewer, if not done this will cause a
@@ -450,7 +450,7 @@ class Engine(HasStrictTraits):
                 self.current_scene.sync_trait('name', viewer, 'title')
         return viewer
 
-        
+
     @recordable
     def close_scene(self, scene):
         """Given a scene created from new_scene, this method closes it
@@ -463,7 +463,7 @@ class Engine(HasStrictTraits):
          reference to a `pyface.tvtk.scene.Scene` in a `scene`
          attribute.
         """
-        viewer = self.get_viewer(scene) 
+        viewer = self.get_viewer(scene)
         self.remove_scene(scene.scene)
         if hasattr(scene, 'close'):
             scene.close()
@@ -503,7 +503,7 @@ class Engine(HasStrictTraits):
                     break
         except AttributeError:
             pass
-            
+
     def _get_current_scene(self):
         n_scene = len(self.scenes)
         if n_scene == 0:
@@ -576,7 +576,7 @@ class Engine(HasStrictTraits):
             new.record('try:')
             new.record('    engine = mayavi.engine')
             new.record('except NameError:')
-            new.record('    from enthought.mayavi.api import Engine')    
+            new.record('    from enthought.mayavi.api import Engine')
             new.record('    engine = Engine()')
             new.record('    engine.start()')
             new.record('if len(engine.scenes) == 0:')

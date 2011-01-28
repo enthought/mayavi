@@ -14,13 +14,13 @@ from enthought.mayavi.filters.optional import Optional
 from enthought.mayavi.filters.collection import Collection
 from enthought.mayavi.filters.cell_derivatives import CellDerivatives
 from enthought.mayavi.filters.cell_to_point_data import CellToPointData
-from enthought.mayavi.filters.extract_vector_norm import ExtractVectorNorm 
+from enthought.mayavi.filters.extract_vector_norm import ExtractVectorNorm
 from enthought.mayavi.filters.extract_vector_components import ExtractVectorComponents
 
 
 ################################################################################
 # `Vorticity` class.
-################################################################################ 
+################################################################################
 class Vorticity(Optional):
     """
     This filter computes the vorticity of an input vector field.  For
@@ -44,16 +44,16 @@ class Vorticity(Optional):
 
     ######################################################################
     # `object` interface.
-    ###################################################################### 
+    ######################################################################
     def __get_pure_state__(self):
         d = super(Vorticity, self).__get_pure_state__()
         for name in ('vorticity_component'):
             d.pop(name, None)
         return d
-    
+
     ######################################################################
     # `HasTraits` interface.
-    ###################################################################### 
+    ######################################################################
     def default_traits_view(self):
         view = View(Group(Group(Item(name='enabled',
                                label='Compute Vorticity',
@@ -66,10 +66,10 @@ class Vorticity(Optional):
                         )
         return view
 
-    
+
     ######################################################################
     # `Filter` interface.
-    ###################################################################### 
+    ######################################################################
     def setup_pipeline(self):
         """Setup our pipeline"""
         cd = CellDerivatives()

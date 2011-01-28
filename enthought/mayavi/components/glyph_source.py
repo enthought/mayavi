@@ -6,7 +6,7 @@ handle transformation.
 #         Prabhu Ramachandran <prabhu_r@users.sf.net>
 
 # Enthought library imports.
-from enthought.traits.api import (Instance, List, Trait, Bool, 
+from enthought.traits.api import (Instance, List, Trait, Bool,
     TraitPrefixList, Property, Dict)
 from enthought.traits.ui.api import View, Group, Item, InstanceEditor
 from enthought.tvtk.api import tvtk
@@ -24,14 +24,14 @@ from enthought.mayavi.core.component import Component
 class GlyphSource(Component):
 
     # The version of this class.  Used for persistence.
-    __version__ = 1 
+    __version__ = 1
 
     # Glyph position.  This can be one of ['head', 'tail', 'center'],
     # and indicates the position of the glyph with respect to the
     # input point data.  Please note that this will work correctly
     # only if you do not mess with the source glyph's basic size.  For
     # example if you use a ConeSource and set its height != 1, then the
-    # 'head' and 'tail' options will not work correctly.    
+    # 'head' and 'tail' options will not work correctly.
     glyph_position = Trait('center', TraitPrefixList(['head', 'tail',
                                                       'center']),
                            desc='position of glyph w.r.t. data point')
@@ -55,12 +55,12 @@ class GlyphSource(Component):
 
     # Used for optimization.
     _updating = Bool(False)
-    
-    ########################################
-    # View related traits.            
 
-    view = View(Group(Group(Item(name='glyph_position')),                       
-                      Group(Item(name='glyph_source', 
+    ########################################
+    # View related traits.
+
+    view = View(Group(Group(Item(name='glyph_position')),
+                      Group(Item(name='glyph_source',
                                  style='custom',
                                  resizable=True,
                                  editor=InstanceEditor(name='glyph_list'),
@@ -117,7 +117,7 @@ class GlyphSource(Component):
         dependent on upstream sources and filters.  You should also
         set the `actors` attribute up at this point.
         """
-        
+
         self._trfm.transform = tvtk.Transform()
         # Setup the glyphs.
         self.glyph_source = self.glyph_dict['glyph_source2d']
@@ -128,7 +128,7 @@ class GlyphSource(Component):
 
         This method is invoked (automatically) when any of the inputs
         sends a `pipeline_changed` event.
-        """  
+        """
         self._glyph_position_changed(self.glyph_position)
         self.pipeline_changed = True
 
@@ -167,16 +167,16 @@ class GlyphSource(Component):
             recorder.record('%s = %s'%(lhs, rhs))
 
         name = value.__class__.__name__
-        if name == 'GlyphSource2D':       
+        if name == 'GlyphSource2D':
             self.outputs = [value.output]
         else:
             self._trfm.input = value.output
             self.outputs = [self._trfm.output]
         value.on_trait_change(self.render)
-        self._updating = False            
+        self._updating = False
 
         # Now update the glyph position since the transformation might
-        # be different.        
+        # be different.
         self._glyph_position_changed(self.glyph_position)
 
     def _glyph_position_changed(self, value):
@@ -186,7 +186,7 @@ class GlyphSource(Component):
         self._updating = True
         tr = self._trfm.transform
         tr.identity()
-        
+
         g = self.glyph_source
         name = g.__class__.__name__
         # Compute transformation factor
@@ -234,7 +234,7 @@ class GlyphSource(Component):
     def _get_glyph_list(self):
         # Return the glyph list as per the original order in earlier
         # implementation.
-        order = ['glyph_source2d', 'arrow_source', 'cone_source', 
+        order = ['glyph_source2d', 'arrow_source', 'cone_source',
                  'cylinder_source', 'sphere_source', 'cube_source',
                  'axes']
         gd = self.glyph_dict
@@ -247,7 +247,7 @@ class GlyphSource(Component):
         g = {'glyph_source2d': tvtk.GlyphSource2D(glyph_type='arrow', filled=False),
              'arrow_source': tvtk.ArrowSource(),
              'cone_source': tvtk.ConeSource(height=1.0, radius=0.2, resolution=15),
-             'cylinder_source': tvtk.CylinderSource(height=1.0, radius=0.15, 
+             'cylinder_source': tvtk.CylinderSource(height=1.0, radius=0.15,
                                                     resolution=10),
              'sphere_source': tvtk.SphereSource(),
              'cube_source': tvtk.CubeSource(),

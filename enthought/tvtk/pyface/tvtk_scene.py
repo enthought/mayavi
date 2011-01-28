@@ -279,7 +279,7 @@ class TVTKScene(HasPrivateTraits):
         self.render()
 
     def remove_widgets(self, widgets):
-        """Removes a single 3D widget or a sequence of widgets from the 
+        """Removes a single 3D widget or a sequence of widgets from the
         renderer."""
         if not hasattr(widgets, '__iter__'):
             widgets = [widgets]
@@ -310,12 +310,12 @@ class TVTKScene(HasPrivateTraits):
         # Remove sync trait listeners.
         self.sync_trait('background', self._renderer, remove=True)
         self.sync_trait('parallel_projection', self.camera, remove=True)
-        self.sync_trait('off_screen_rendering', self._renwin, remove=True) 
+        self.sync_trait('off_screen_rendering', self._renwin, remove=True)
 
         # Remove all the renderer's props.
         self._renderer.remove_all_view_props()
         # Set the renderwindow to release all resources and the OpenGL
-        # context. 
+        # context.
         self._renwin.finalize()
         # Disconnect the interactor from the renderwindow.
         self._interactor.render_window = None
@@ -716,7 +716,7 @@ class TVTKScene(HasPrivateTraits):
         """Set the size of the window."""
         self._interactor.size = size
         self._renwin.size = size
-        
+
 
     ###########################################################################
     # Properties.
@@ -803,7 +803,7 @@ class TVTKScene(HasPrivateTraits):
         self._interactor.initialize()
         self._interactor.render()
         self.light_manager = light_manager.LightManager(self)
-        
+
         if self.off_screen_rendering:
             # We want the default size to be the normal (300, 300).
             # Setting the size now should not resize the window if
@@ -871,7 +871,7 @@ class TVTKScene(HasPrivateTraits):
 
     def _get_camera_state(self):
         c = self.camera
-        state = [] 
+        state = []
         state.append(('position', list(c.position)))
         state.append(('focal_point', list(c.focal_point)))
         state.append(('view_angle', c.view_angle))
@@ -883,20 +883,20 @@ class TVTKScene(HasPrivateTraits):
         """When the recorder is set we add an event handler so we can
         record the change to the camera position after the interaction.
         """
-        iren = self._interactor 
+        iren = self._interactor
         if r is not None:
             self._script_id = r.get_script_id(self)
-            id = iren.add_observer('EndInteractionEvent', 
+            id = iren.add_observer('EndInteractionEvent',
                                    messenger.send)
             self._camera_observer_id = id
             i_vtk = tvtk.to_vtk(iren)
-            messenger.connect(i_vtk, 'EndInteractionEvent', 
+            messenger.connect(i_vtk, 'EndInteractionEvent',
                               self._record_camera_position)
         else:
             self._script_id = ''
             iren.remove_observer(self._camera_observer_id)
             i_vtk = tvtk.to_vtk(iren)
-            messenger.disconnect(i_vtk, 'EndInteractionEvent', 
+            messenger.disconnect(i_vtk, 'EndInteractionEvent',
                                  self._record_camera_position)
 
 ######################################################################
@@ -910,7 +910,7 @@ class TVTKWindow(HasTraits):
     MayaVi engine if the window is closed or activated.  In this case
     we do nothing but honour the interface.
     """
-    
+
     closing = Event
     activated = Event
     def __init__(self, **traits):

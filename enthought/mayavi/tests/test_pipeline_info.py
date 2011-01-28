@@ -12,11 +12,11 @@ from enthought.mayavi.core import pipeline_info
 
 
 class TestPipelineInfoTest(unittest.TestCase):
-    
+
     def test_tvtk_dataset_name(self):
         "Can tvtk datasets can be converted to names correctly."
-        datasets = [tvtk.ImageData(), 
-                    tvtk.StructuredPoints(),  
+        datasets = [tvtk.ImageData(),
+                    tvtk.StructuredPoints(),
                     tvtk.RectilinearGrid(),
                     tvtk.StructuredGrid(),
                     tvtk.PolyData(),

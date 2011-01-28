@@ -31,7 +31,7 @@ class Cutter(Component):
     ########################################
     # View related traits.
 
-    view = View(Group(Item(name='cutter', 
+    view = View(Group(Item(name='cutter',
                            style='custom',
                            resizable=True),
                       show_labels=False),
@@ -72,4 +72,4 @@ class Cutter(Component):
         old = self.cutter.cut_function
         self.cutter.cut_function = val
         self.trait_property_changed('cut_function', old, val)
-        
+

@@ -17,7 +17,7 @@ class TestOptionalCollection(TestCase):
 
     def test(self):
         self.main()
-    
+
     def do(self):
         ############################################################
         # Imports.
@@ -25,7 +25,7 @@ class TestOptionalCollection(TestCase):
         from enthought.mayavi.sources.vtk_file_reader import VTKFileReader
         from enthought.mayavi.filters.contour import Contour
         from enthought.mayavi.filters.optional import Optional
-        from enthought.mayavi.filters.collection import Collection 
+        from enthought.mayavi.filters.collection import Collection
         from enthought.mayavi.filters.api import PolyDataNormals
         from enthought.mayavi.modules.api import Surface
 
@@ -38,9 +38,9 @@ class TestOptionalCollection(TestCase):
         r.initialize(get_example_data('heart.vtk'))
         script.add_source(r)
 
-        c = Contour() 
+        c = Contour()
         # `name` is used for the notebook tabs.
-        n = PolyDataNormals(name='Normals') 
+        n = PolyDataNormals(name='Normals')
         o = Optional(filter=n, label_text='Compute normals')
         coll = Collection(filters=[c, o], name='IsoSurface')
         script.add_filter(coll)
@@ -115,7 +115,7 @@ class TestOptionalCollection(TestCase):
         # Now do the check.
         coll = s.children[0].children[0]
         check(coll)
-        
+
         # If we have come this far, we are golden!
 
 if __name__ == "__main__":

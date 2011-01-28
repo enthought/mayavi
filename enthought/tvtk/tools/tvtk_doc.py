@@ -2,7 +2,7 @@
 
 Utility code that provides classes helpful in choosing a suitable TVTK
 class.  It does this by providing a list of all the classes along with
-the option to be able to search for the documentation.  
+the option to be able to search for the documentation.
 
 The nice thing about the UI is that it performs some kind of completion
 on names typed by the user, plus it allows users to search through the
@@ -31,7 +31,7 @@ from enthought.tvtk.common import get_tvtk_name
 
 ################################################################################
 # Utility functions.
-################################################################################ 
+################################################################################
 def get_tvtk_class_names():
     """Returns 4 lists:
 
@@ -116,7 +116,7 @@ def get_tvtk_class_doc(obj):
     doc += '\nMethods:\n----------------------\n\n'
     traits = obj.trait_names()
     for name in dir(obj):
-        if name in traits or name.startswith('_'): 
+        if name in traits or name.startswith('_'):
             continue
         if name.find('trait') > -1 and name != 'update_traits':
             continue
@@ -131,12 +131,12 @@ TVTK_CLASSES, TVTK_SOURCES, TVTK_FILTERS, TVTK_SINKS = get_tvtk_class_names()
 
 ################################################################################
 # `DocSearch` class.
-################################################################################ 
+################################################################################
 class DocSearch(object):
 
     """A simple class that provides a method to search through class
     documentation.  This code is taken from mayavi-1.x's ivtk.VtkHelp
-    
+
     """
 
     # These are class attributes to prevent regenerating them everytime
@@ -223,7 +223,7 @@ class DocSearch(object):
                         stored_test = stored_test and test
                     elif do_test == 'or':
                         stored_test = stored_test or test
-                    elif do_test == '':              
+                    elif do_test == '':
                         stored_test = test
             if stored_test:
                 ret.append(vtk_classes[i])
@@ -257,7 +257,7 @@ the 'Clear search' button or erase the search string manually.
 
 ################################################################################
 # `TVTKClassChooser` class.
-################################################################################ 
+################################################################################
 class TVTKClassChooser(HasTraits):
 
     # The selected object, is None if no valid class_name was made.
@@ -310,7 +310,7 @@ class TVTKClassChooser(HasTraits):
                            editor=ListEditor(columns=3),
                            style='readonly'
                            ),
-                      Item(name='doc', 
+                      Item(name='doc',
                            resizable=True,
                            label='Documentation',
                            style='custom')
@@ -324,14 +324,14 @@ class TVTKClassChooser(HasTraits):
                 )
     ######################################################################
     # `object` interface.
-    ###################################################################### 
+    ######################################################################
     def __init__(self, **traits):
         super(TVTKClassChooser, self).__init__(**traits)
         self._orig_available = list(self.available)
 
     ######################################################################
     # Non-public interface.
-    ###################################################################### 
+    ######################################################################
     def _get_object(self):
         o = None
         if len(self.class_name) > 0:
@@ -378,19 +378,19 @@ class TVTKClassChooser(HasTraits):
 
 ################################################################################
 # `TVTKSourceChooser` class.
-################################################################################ 
+################################################################################
 class TVTKSourceChooser(TVTKClassChooser):
     available = List(TVTK_SOURCES)
 
 ################################################################################
 # `TVTKFilterChooser` class.
-################################################################################ 
+################################################################################
 class TVTKFilterChooser(TVTKClassChooser):
     available = List(TVTK_FILTERS)
 
 ################################################################################
 # `TVTKSinkChooser` class.
-################################################################################ 
+################################################################################
 class TVTKSinkChooser(TVTKClassChooser):
     available = List(TVTK_SINKS)
 

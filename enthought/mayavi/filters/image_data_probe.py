@@ -17,7 +17,7 @@ from enthought.mayavi.core.pipeline_info import PipelineInfo
 
 ################################################################################
 # `ImageDataProbe` class.
-################################################################################ 
+################################################################################
 class ImageDataProbe(Filter):
     """
     A filter that can be used to probe any dataset using a Structured
@@ -60,7 +60,7 @@ class ImageDataProbe(Filter):
                        labels=['nx', 'ny', 'nz'],
                        desc='the dimensions of the image data')
 
-    # Reset settings to defaults. 
+    # Reset settings to defaults.
     reset_defaults = Button(desc='if probe data is reset to defaults')
 
     # Name of rescaled scalar to generate.
@@ -98,7 +98,7 @@ class ImageDataProbe(Filter):
 
     ######################################################################
     # `Filter` interface.
-    ###################################################################### 
+    ######################################################################
     def setup_pipeline(self):
         """Creates the pipeline."""
         self.filter.input = self.probe_data
@@ -121,15 +121,15 @@ class ImageDataProbe(Filter):
 
     ######################################################################
     # Non-public interface.
-    ###################################################################### 
+    ######################################################################
     def _setup_probe_data(self, reset=False):
         pd = self.probe_data
         input = self.inputs[0].outputs[0]
         if input.is_a('vtkImageData'):
             self.allow_changes = False
-            self.set(spacing=input.spacing, 
+            self.set(spacing=input.spacing,
                      dimensions=input.dimensions)
-            pd.set(origin=input.origin, 
+            pd.set(origin=input.origin,
                    dimensions=input.dimensions,
                    spacing=input.spacing)
             pd.update()

@@ -38,7 +38,7 @@ class VRMLImporter(Source):
 
     ###############
     # Private traits.
-    
+
     # Our file path used for persistence
     _file_path = Instance(FilePath, args=())
 
@@ -54,7 +54,7 @@ class VRMLImporter(Source):
         for name in ('reader', 'file_name'):
             d.pop(name)
         return d
-        
+
     def __set_pure_state__(self, state):
         # The reader has its own file_name which needs to be fixed.
         fname = state._file_path.abs_pth
@@ -64,7 +64,7 @@ class VRMLImporter(Source):
         set_state(self, state, ignore=['_file_path'])
 
     def initialize(self, file_name):
-        self.file_name = file_name        
+        self.file_name = file_name
 
     ######################################################################
     # `PipelineBase` interface.
@@ -129,7 +129,7 @@ class VRMLImporter(Source):
             # The actors are added automatically when the importer
             # does a read.
             self.scene.render()
-            
+
     def _actors_items_changed(self, list_event):
         if self._actors_added:
             self.scene.remove_actors(list_event.removed)

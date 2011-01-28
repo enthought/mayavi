@@ -42,7 +42,7 @@ try:
 except ImportError:
     pass
 
-    
+
 # Now do any local user level customizations.
 #
 # The following code obtains any customizations and that are imported
@@ -59,7 +59,7 @@ user_module = join(m2dir, 'user_mayavi.py')
 if exists(user_module):
     # Add ~/.mayavi2 to sys.path.
     sys.path.append(m2dir)
-    # Doing an import gives user information on any errors. 
+    # Doing an import gives user information on any errors.
     import user_mayavi
     try:
         # Now try and import the user defined plugin extension.

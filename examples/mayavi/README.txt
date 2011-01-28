@@ -7,7 +7,7 @@ to script mayavi2.
 
        $ mayavi2 -x script.py
 
-    or 
+    or
 
        $ mayavi2 script.py
 

@@ -26,7 +26,7 @@ _cache = vtk_parser.VTKMethodParser()
 class TestVTKParser(unittest.TestCase):
     def setUp(self):
         self.p = _cache
-        
+
     def test_methods(self):
         """Check get_methods."""
         p = self.p
@@ -53,7 +53,7 @@ class TestVTKParser(unittest.TestCase):
                'SafeDownCast', 'UnRegister', 'RemoveAllObservers']
         for i in p.get_other_methods():
             self.assertEqual(i in res, True)
-        
+
         # Parse a fairly complex case of a vtkProperty with the same
         # parser object.
         p.parse(vtk.vtkProperty)
@@ -107,7 +107,7 @@ class TestVTKParser(unittest.TestCase):
                                  (default, val))
 
         if hasattr(obj, 'GetTexture'):
-            expect = ['GetMaterial', 'GetMaterialName', 
+            expect = ['GetMaterial', 'GetMaterialName',
                       'GetNumberOfTextures', 'GetShaderProgram']
             if hasattr(obj, 'GetMaterialName'):
                 self.assertEqual(p.get_get_methods(), expect)
@@ -121,7 +121,7 @@ class TestVTKParser(unittest.TestCase):
         res = ['BackfaceRender', 'DeepCopy', 'Render']
         if hasattr(obj, 'GetTexture'):
             res = ['AddShaderVariable', 'BackfaceRender', 'DeepCopy',
-                   'LoadMaterial', 'LoadMaterialFromString', 
+                   'LoadMaterial', 'LoadMaterialFromString',
                    'ReleaseGraphicsResources', 'RemoveAllTextures', 'RemoveTexture',
                    'Render']
         if hasattr(obj, 'PostRender'):
@@ -184,8 +184,8 @@ class TestVTKParser(unittest.TestCase):
         elif vtk_ver[:2] == '5.' or vtk_ver[:3] == '4.5':
             self.assertEqual([([None], ['vtkDataObject']),
                               ([None], ('int', 'vtkDataObject')),
-                              ], sig)            
-            
+                              ], sig)
+
         self.assertEqual([(['vtkPolyData'], None),
                           (['vtkPolyData'], ['int'])],
                          p.get_method_signature(o.GetOutput))

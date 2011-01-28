@@ -58,9 +58,9 @@ def picker_callback(picker_obj):
                                                                 s.shape)
         print "Data indices: %i, %i" % (x_, y_)
         n_x, n_y = s.shape
-        cursor.mlab_source.set(x=x_ - n_x/2., 
+        cursor.mlab_source.set(x=x_ - n_x/2.,
                                y=y_ - n_y/2.)
-        cursor3d.mlab_source.set(x=x[x_, y_], 
+        cursor3d.mlab_source.set(x=x[x_, y_],
                                  y=y[x_, y_],
                                  z=z[x_, y_])
 

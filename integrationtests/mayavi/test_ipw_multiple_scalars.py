@@ -16,7 +16,7 @@ class TestIPWMultipleScalars(TestCase):
 
     def test(self):
         self.main()
-    
+
     def do(self):
         ############################################################
         # Imports.

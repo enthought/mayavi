@@ -32,7 +32,7 @@ class TestMlabNullEngineBase(unittest.TestCase):
         registry.unregister_engine(self._non_null_engine)
         for engine in registry.engines.keys():
             registry.unregister_engine(engine)
- 
+
 
 ################################################################################
 # class `TestRealMlabNullEngine`

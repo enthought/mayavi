@@ -57,8 +57,8 @@ class TestTVTK(unittest.TestCase):
             pass
         a = A()
         w = tvtk_helper.wrap_vtk(a)
-        self.assertEqual(a, w)        
-    
+        self.assertEqual(a, w)
+
     def test_cache(self):
         """Test the caching of ancestor classes."""
         # Shut off pesky warnings.
@@ -149,10 +149,10 @@ class TestTVTK(unittest.TestCase):
         val = (1.0, 0.0, 0.0)
         obj.SetDiffuseColor(val)
         self.assertEqual(p.diffuse_color, val)
-        
+
         val = (0.0, 1.0, 0.0)
         obj.SetSpecularColor(val)
-        self.assertEqual(p.specular_color, val)        
+        self.assertEqual(p.specular_color, val)
 
     def test_obj_del(self):
         """Test object deletion and reference cycles."""
@@ -203,7 +203,7 @@ class TestTVTK(unittest.TestCase):
         del p1
         l2 = len(tvtk_base._object_cache)
         self.assertEqual(l1, l2)
-        
+
 
     def test_init_traits(self):
         """Test if the objects traits can be set in __init__."""
@@ -219,7 +219,7 @@ class TestTVTK(unittest.TestCase):
         self.assertEqual(cs.radius, 0.1)
         self.assertEqual(cs.height, 0.5)
         self.assertEqual(cs.resolution, 32)
-        
+
         # Test case where the object traits are wrong.
         self.assertRaises(TraitError, tvtk.ConeSource, foo=1)
 
@@ -240,7 +240,7 @@ class TestTVTK(unittest.TestCase):
         m.from_array(a)
         b = m.to_array()
         self.assertEqual(numpy.allclose(a, b), True)
-        
+
 
     def test_property(self):
         """Test if Property's color works ok in all circumstances."""
@@ -253,7 +253,7 @@ class TestTVTK(unittest.TestCase):
         self.assertEqual(p.ambient_color, val)
 
         sc = (1., 0., 1.)
-        p.specular_color = sc        
+        p.specular_color = sc
         self.assertEqual(p.specular_color, sc)
         self.assertEqual(p.diffuse_color, val)
         self.assertEqual(p.ambient_color, val)
@@ -276,7 +276,7 @@ class TestTVTK(unittest.TestCase):
         a_list = []
         a = tvtk.Actor()
         a_list.append(a)
-        ac.append(a)        
+        ac.append(a)
         self.assertRaises(TypeError, ac.__getitem__, 's')
         self.assertEqual(len(ac), 1)
         a = tvtk.Actor()
@@ -300,7 +300,7 @@ class TestTVTK(unittest.TestCase):
         # Test __delitem__.
         del ac[-2]
         self.assertEqual(ac[0]._vtk_obj, a_list[0]._vtk_obj)
-        self.assertEqual(len(ac), 1)        
+        self.assertEqual(len(ac), 1)
         self.assertRaises(TypeError, ac.__delitem__, 1.414)
         del ac[0]
         self.assertEqual(len(ac), 0)
@@ -336,7 +336,7 @@ class TestTVTK(unittest.TestCase):
         a = numpy.array([[0.,0,0],[1,1,1]])
         f.from_array(a)
         self.assertEqual(f.number_of_components, 3)
-        self.assertEqual(f.number_of_tuples, 2)        
+        self.assertEqual(f.number_of_tuples, 2)
         self.assertEqual(mysum(f.to_array() - a), 0)
         for i, j in zip(a, f):
             self.assertEqual(mysum(i-j), 0.0)
@@ -383,7 +383,7 @@ class TestTVTK(unittest.TestCase):
         for i, j in zip(a, f):
             self.assertEqual(mysum(i - j), 0)
 
-        a[0,0] = 1.0 # Should change the VTK data!        
+        a[0,0] = 1.0 # Should change the VTK data!
         # Make sure that everything works even when the original array
         # is deleted.
         del a
@@ -397,7 +397,7 @@ class TestTVTK(unittest.TestCase):
         self.assertEqual(f[1], (-1.0, -1.0, -1.0))
         self.assertRaises(IndexError, f.__getitem__, 100)
         self.assertRaises(IndexError, f.__setitem__, 100, 100)
-        
+
     def test_idlist(self):
         """Test if vtkIdList behaves in a Pythonic fashion."""
         f = tvtk.IdList()
@@ -483,7 +483,7 @@ class TestTVTK(unittest.TestCase):
         a.remove_all_inputs()
         old, new = None, None
         self.assertEqual(z.data, (a, 'input', old, new))
-        
+
     def test_tuple_array_handling(self):
         """Test if methods can take any sequence rather than only tuples."""
         sg = tvtk.StructuredGridGeometryFilter()
@@ -523,16 +523,16 @@ class TestTVTK(unittest.TestCase):
         # use them all.
         for i in range(0, 22):
             img.scalar_type = i
-        
+
     def test_null_string_wrapper(self):
         "Check if a null string default is wrapped as a String trait."
         cap = tvtk.CaptionActor2D()
         self.assertEqual(('caption', 'GetCaption') in cap._updateable_traits_, True)
         self.assertEqual('caption' in cap._full_traitnames_list_, True)
-        
+
 # This separates out any tests for the entire module that would affect
 # the functioning of the other tests.
-class TestTVTKModule(unittest.TestCase):        
+class TestTVTKModule(unittest.TestCase):
     def test_all_instantiable(self):
         """Test if all the TVTK classes are instantiable."""
         # This is a comprehensive test that instantiates every single

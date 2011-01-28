@@ -12,7 +12,7 @@ from enthought.mayavi.filters.wrapper import Wrapper
 
 ################################################################################
 # `Contour` class.
-################################################################################ 
+################################################################################
 class Contour(Wrapper):
     """
     A contour filter that wraps around the Contour component to generate

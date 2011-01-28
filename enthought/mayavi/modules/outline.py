@@ -23,7 +23,7 @@ from enthought.mayavi.core.pipeline_info import PipelineInfo
 ######################################################################
 # `Outline` class.
 ######################################################################
-class Outline(Module):   
+class Outline(Module):
     # The version of this class.  Used for persistence.
     __version__ = 0
 
@@ -42,7 +42,7 @@ class Outline(Module):
 
     input_info = PipelineInfo(datasets=['any'],
                               attribute_types=['any'],
-                              attributes=['any'])    
+                              attributes=['any'])
 
     # An outline source, optionally used to choose the bounds of the
     # outline.
@@ -111,7 +111,7 @@ class Outline(Module):
         self._cornered_outline.on_trait_change(self.render)
 
         self.actor = Actor()
-        
+
     def update_pipeline(self):
         """Override this method so that it *updates* the tvtk pipeline
         when data upstream is known to have changed.
@@ -174,7 +174,7 @@ class Outline(Module):
 
     def _manual_bounds_changed(self):
         if self.manual_bounds:
-            self.outline_filter.input = self.outline_source.output 
+            self.outline_filter.input = self.outline_source.output
         else:
             # Set the input of the filter.
             mm = self.module_manager

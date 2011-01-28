@@ -37,7 +37,7 @@ phi = 1./( ((I*abs(omega))/(M*Lshaft/2.))**2/(g*Lshaft/2.)-(Lspring+s)/(Lshaft/2
 pprecess = vector(0,0,M*precession*(Lshaft/2.+(Lspring+s)*sin(phi)))
 if omega < 0:
     pprecess = -pprecess
-    
+
 support = Box(pos = top+MVector(0,0.01,0), size = (0.2,0.02,0.2), color = (0,1,0))
 spring = Helix(pos = top, axis = vector(-0.161579, -0.98686, 0), radius = Rspring, color = (1,0.7,0.2))
 
@@ -74,7 +74,7 @@ c = 0
 def anim():
     global Lrot, p, cm, t
     Fspring = -ks*vector.norm(spring.axis)*(vector.mag(spring.axis)-Lspring)
-    # Calculate torque about center of mass:    
+    # Calculate torque about center of mass:
     torque = vector.cross(-0.5*Lshaft*gyro.axis,Fspring)
     Lrot = Lrot+torque*dt
     p = p+(Fgrav+Fspring)*dt
@@ -85,7 +85,7 @@ def anim():
         gyro.axis = vector.norm(Lrot)
     else:
         gyro.axis = -vector.norm(Lrot)
-        
+
     gyro.pos = cm-0.5*Lshaft*gyro.axis # shaft rotated, adjust connection to spring
     spring.axis = gyro.pos - top
     spring.length = vector.mag(spring.axis)
@@ -94,9 +94,9 @@ def anim():
     shaft.axis = Lshaft*gyro.axis
     rotor.pos = gyro.pos + 0.5*gyro.axis*(Lshaft-Drotor)
     rotor.axis = gyro.axis*Drotor
-    
+
     t = t+dt
-    
+
 a = iterate(40, anim)
-a.edit_traits()    
+a.edit_traits()
 show()

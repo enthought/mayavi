@@ -15,7 +15,7 @@ class BrowserView(View):
     """ The TVTK pipeline browser view. """
 
     #### 'IWorkbenchPart' interface ###########################################
-    
+
     # The part's name (displayed to the user).
     name = 'TVTK Pipeline Browser'
 
@@ -24,7 +24,7 @@ class BrowserView(View):
     # The position of the view relative to the item specified in the
     # 'relative_to' trait.
     position = 'left'
-    
+
     #### 'BrowserView' interface ##############################################
 
     # The pipeline browser instance that we are a view of.
@@ -43,10 +43,10 @@ class BrowserView(View):
         """ Create the toolkit-specific control that represents the view. """
 
         from enthought.tvtk.pipeline.browser import PipelineBrowser
-                
+
         self.browser = PipelineBrowser()
         self.browser.show(parent=parent)
-        
+
         return self.browser.ui.control
 
     ###########################################################################
@@ -54,7 +54,7 @@ class BrowserView(View):
     ###########################################################################
 
     #### Trait change handlers ################################################
-    
+
     @on_trait_change('scene_manager:scenes_items')
     def _on_scenes_changed(self, event):
         """ Dynamic trait change handler.
@@ -66,7 +66,7 @@ class BrowserView(View):
 
         # Scenes that were removed.
         map(self._remove_scene, event.removed)
-        
+
         # Scenes that were added.
         map(self._add_scene, event.added)
 

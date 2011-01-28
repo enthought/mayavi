@@ -90,7 +90,7 @@ def setup_logger(logger, fname, stream=True, mode=logging.ERROR):
     stream -- Add a stream handler.
 
     mode -- the logging mode.
-    
+
     """
     path = os.path.join(ETSConfig.application_home, fname)
     handler = LogFileHandler(path)
@@ -122,7 +122,7 @@ def bind_object(value, app):
 def main():
     """The main application is created and launched here."""
     # Setup the logger.
-    
+
     plugins = [CorePlugin(),
                WorkbenchPlugin(),
                MyPlugin(),
@@ -134,13 +134,13 @@ def main():
     # Create an Envisage application.
     id = 'enthought.tvtk.examples.plugins.test'
     application = WorkbenchApplication(id=id,
-                                       plugins = plugins 
+                                       plugins = plugins
                                        )
     # This needs to be done here since the ETSConfig.application_home is
     # not set correctly up to this point.
     setup_logger(logger, 'test.log', mode=logging.DEBUG)
 
-    application.gui.on_trait_change(lambda value: bind_object(value, application), 
+    application.gui.on_trait_change(lambda value: bind_object(value, application),
                                     'started')
     # Start the application.
     application.run()
@@ -148,4 +148,4 @@ def main():
 
 if __name__ == '__main__':
     main()
-    
+

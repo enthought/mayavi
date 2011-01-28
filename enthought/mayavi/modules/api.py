@@ -1,8 +1,8 @@
 """ Defines the publicly accessible MayaVi2 modules.
 """
 
-# Author: Frederic Petit 
-# Copyright (c) 2007, Enthought, Inc. 
+# Author: Frederic Petit
+# Copyright (c) 2007, Enthought, Inc.
 # License: BSD Style.
 
 

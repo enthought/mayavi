@@ -50,13 +50,13 @@ class TransformData(Filter):
                                   'semi-interactive': 'EndInteractionEvent'}),
                         desc='speed at which the data should be updated')
 
-    input_info = PipelineInfo(datasets=['poly_data', 
+    input_info = PipelineInfo(datasets=['poly_data',
                                         'structured_grid',
                                         'unstructured_grid'],
                               attribute_types=['any'],
                               attributes=['any'])
 
-    output_info = PipelineInfo(datasets=['poly_data', 
+    output_info = PipelineInfo(datasets=['poly_data',
                                          'structured_grid',
                                          'unstructured_grid'],
                                attribute_types=['any'],
@@ -109,7 +109,7 @@ class TransformData(Filter):
     def setup_pipeline(self):
         self._transform = tvtk.Transform()
         self.widget = tvtk.BoxWidget(place_factor=1.1)
-        self.filter = tvtk.TransformFilter()        
+        self.filter = tvtk.TransformFilter()
         super(TransformData, self).setup_pipeline()
 
     def update_pipeline(self):
@@ -123,7 +123,7 @@ class TransformData(Filter):
             error('Transformation not supported for '\
                   'ImageData/StructuredPoints/RectilinearGrid')
             return
-        
+
         # Set the input for the widget and place it if this hasn't
         # been done before.
         w = self.widget
@@ -131,7 +131,7 @@ class TransformData(Filter):
         if self._first:
             w.place_widget()
             self._first = False
-        
+
         # By default we set the input to the first output of the first
         # input.
         fil = self.filter
@@ -172,7 +172,7 @@ class TransformData(Filter):
             recorder.record('%s.widget.set_transform(%s.transform)'\
                             %(name, name))
             recorder.record('%s.filter.update()'%name)
-    
+
     def _widget_changed(self, old, new):
         if old is not None:
             old.on_trait_change(self.render, remove=True)
@@ -184,7 +184,7 @@ class TransformData(Filter):
         self.widgets.append(new)
         if len(self.inputs) > 0:
             new.input = self.inputs[0].output[0]
-        
+
     def _filter_changed(self, old, new):
         if old is not None:
             old.on_trait_change(self.render, remove=True)
@@ -203,7 +203,7 @@ class TransformData(Filter):
         self.filter.update()
         self.render()
 
-    def _update_mode_changed(self, old, new):        
+    def _update_mode_changed(self, old, new):
         w = self.widget
         if w is not None:
             w.remove_observer(self._observer_id)

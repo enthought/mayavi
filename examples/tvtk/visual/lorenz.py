@@ -27,7 +27,7 @@ for i in xrange(2000):
                           - 10*y[1] +   10*y[2],
                    - y[1]*y[0] + 28*y[1] - y[2])
     y = y + dydt * dt
-    
+
     pts.append(y)
     if len(pts) > 20:
         lorenz.extend(pts)

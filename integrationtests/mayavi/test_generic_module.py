@@ -17,7 +17,7 @@ class TestGenericModule(TestCase):
 
     def test(self):
         self.main()
-    
+
     def do(self):
         ############################################################
         # Imports.
@@ -47,7 +47,7 @@ class TestGenericModule(TestCase):
         warper = Optional(filter=w, label_text='Enable warping', enabled=False)
         c = Contour()
         ctr = Optional(filter=c, label_text='Enable contours', enabled=False)
-        p = PolyDataNormals(name='Normals') 
+        p = PolyDataNormals(name='Normals')
         normals = Optional(filter=p, label_text='Compute normals', enabled=False)
         a = Actor()
         components = [cp, warper, ctr, normals, a]
@@ -144,7 +144,7 @@ class TestGenericModule(TestCase):
         m = s.children[0].children[0].children[0]
         s.scene.isometric_view()
         check(m)
-        
+
         # If we have come this far, we are golden!
 
 if __name__ == "__main__":

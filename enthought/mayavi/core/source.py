@@ -6,7 +6,7 @@
 # License: BSD Style.
 
 # Enthought library imports.
-from enthought.traits.api import List, Str 
+from enthought.traits.api import List, Str
 from enthought.persistence.state_pickler import set_state
 from enthought.traits.ui.menu import Action
 from enthought.tvtk.api import write_data
@@ -69,7 +69,7 @@ class Source(PipelineBase):
         handle_children_state(self.children, state.children)
         # Now setup the children.
         set_state(self, state, first=['children'], ignore=['*'])
-    
+
 
     ######################################################################
     # `Source` interface
@@ -79,7 +79,7 @@ class Source(PipelineBase):
         children, it first creates a new ModuleManager and then adds
         the module to it.  If not it adds the module to the first
         available ModuleManager instance."""
-        
+
         mm = None
         for child in self.children:
             if isinstance(child, ModuleManager):
@@ -116,7 +116,7 @@ class Source(PipelineBase):
         # Do nothing if we are already running.
         if self.running:
             return
-        
+
         # Start all our children.
         for obj in self.children:
             try:
@@ -140,17 +140,17 @@ class Source(PipelineBase):
 
         # Call parent method to set the running state.
         super(Source, self).stop()
-        
+
     def add_child(self, child):
         """This method intelligently adds a child to this object in
-        the MayaVi pipeline.        
+        the MayaVi pipeline.
         """
         if is_filter(child):
             # It is a Filter, so append to children.
             self.children.append(child)
         elif isinstance(child, Source):
             # A non-filter source object.  This should be added to the
-            # scene.            
+            # scene.
             self.parent.add_child(child)
         elif isinstance(child, Module):
             # Modules should be added carefully via add_module.
@@ -197,7 +197,7 @@ class Source(PipelineBase):
         self._handle_children(old, new)
 
     def _children_items_changed(self, list_event):
-        self._handle_children(list_event.removed, list_event.added)        
+        self._handle_children(list_event.removed, list_event.added)
 
     def _handle_children(self, removed, added):
         # Stop all the removed children.
@@ -224,7 +224,7 @@ class Source(PipelineBase):
 
     def _visible_changed(self,value):
         for c in self.children:
-            c.visible = value           
+            c.visible = value
 
         super(Source,self)._visible_changed(value)
 
@@ -252,7 +252,7 @@ class Source(PipelineBase):
                    'Structured Grid (*.vts)|*.vts|'\
                    'Unstructured Grid (*.vtu)|*.vtu|'\
                    'Old-style VTK files (*.vtk)|*.vtk'
-                   
+
         dialog = FileDialog(title='Save output to file',
                             action='save as', wildcard=wildcard
                             )

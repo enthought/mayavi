@@ -1,4 +1,4 @@
-# Author: Gael Varoquaux <gael.varoquaux@normalesup.org> 
+# Author: Gael Varoquaux <gael.varoquaux@normalesup.org>
 # Copyright (c) 2007, Enthought, Inc.
 # License: BSD Style.
 

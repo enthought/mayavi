@@ -1,4 +1,4 @@
-# Author: Gael Varoquaux <gael _dot_ varoquaux _at_ normalesup _dot_ org> 
+# Author: Gael Varoquaux <gael _dot_ varoquaux _at_ normalesup _dot_ org>
 # Copyright (c) 2008, Enthought, Inc.
 # License: BSD Style.
 
@@ -18,7 +18,7 @@ class PolyDataFilterBase(FilterBase):
 
     ######################################################################
     # `Filter` interface.
-    ######################################################################    
+    ######################################################################
     def update_pipeline(self):
         # Do nothing if there is no input.
         inputs = self.inputs

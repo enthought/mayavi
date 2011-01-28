@@ -24,7 +24,7 @@ class ActorModel(ITVTKActorModel):
 
     ######################
     view = View(Item(name='actor_type'),
-                Item(name='actor_map', 
+                Item(name='actor_map',
                      editor=ActorEditor(scene_kwds={'background':(0.2,0.2,0.2)}),
                      show_label=False,
                      resizable=True,

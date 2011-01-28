@@ -25,7 +25,7 @@ class Scene(Base):
 
     # The version of this class.  Used for persistence.
     __version__ = 0
-    
+
     # The scene (RenderWindow) associated with this component -- we
     # redeclare it here just to be able to record this scene, we don't
     # want it recorded on all objects since the scene is shared
@@ -46,8 +46,8 @@ class Scene(Base):
     type = Str(' scene')
 
     # The objects view.
-    view = View(Group(Item(name='scene', style='custom'), 
-                           show_labels=False) 
+    view = View(Group(Item(name='scene', style='custom'),
+                           show_labels=False)
                )
 
     # The adder node dialog class
@@ -55,7 +55,7 @@ class Scene(Base):
 
     # The dispatch, to register callbacks on mouse pick
     _mouse_pick_dispatcher = Instance(
-        'enthought.mayavi.core.mouse_pick_dispatcher.MousePickDispatcher', 
+        'enthought.mayavi.core.mouse_pick_dispatcher.MousePickDispatcher',
         record=False)
 
     ######################################################################
@@ -78,7 +78,7 @@ class Scene(Base):
     # `Scene` interface
     ######################################################################
 
-    def on_mouse_pick(self, callback, type='point', button='Left', 
+    def on_mouse_pick(self, callback, type='point', button='Left',
                             remove=False):
         """ Add a picking callback on mouse click.
 
@@ -124,7 +124,7 @@ class Scene(Base):
         # Do nothing if we are already running.
         if self.running:
             return
-        
+
         # Start all our children.
         for obj in self.children:
             obj.start()
@@ -154,12 +154,12 @@ class Scene(Base):
             # Re-enable rendering.
             if scene is not None:
                 scene.disable_render = status
-            
+
         super(Scene, self).stop()
 
     def add_child(self, child):
         """This method intelligently adds a child to this object in
-        the MayaVi pipeline.        
+        the MayaVi pipeline.
         """
         self.children.append(child)
 
@@ -174,7 +174,7 @@ class Scene(Base):
         if self.parent is not None:
             self.stop()
             self.parent.close_scene(self)
-    
+
     ######################################################################
     # `TreeNodeObject` interface
     ######################################################################
@@ -194,7 +194,7 @@ class Scene(Base):
         """
         if isinstance(dropped_object, Source):
             return dropped_object
-   
+
     ######################################################################
     # Non-public interface
     ######################################################################
@@ -202,8 +202,8 @@ class Scene(Base):
         self._handle_children(old, new)
 
     def _children_items_changed(self, list_event):
-        self._handle_children(list_event.removed, list_event.added)            
-    
+        self._handle_children(list_event.removed, list_event.added)
+
     def _handle_children(self, removed, added):
         for obj in removed:
             obj.stop()
@@ -216,7 +216,7 @@ class Scene(Base):
                     obj.start()
                 except:
                     exception()
-     
+
     def _menu_helper_default(self):
         from enthought.mayavi.core.traits_menu import SourceMenuHelper
         return SourceMenuHelper(object=self)

@@ -1,4 +1,4 @@
-# Author: Gael Varoquaux <gael _dot_ varoquaux _at_ normalesup _dot_ org> 
+# Author: Gael Varoquaux <gael _dot_ varoquaux _at_ normalesup _dot_ org>
 # Copyright (c) 2008, Enthought, Inc.
 # License: BSD Style.
 
@@ -22,7 +22,7 @@ class GreedyTerrainDecimation(FilterBase):
     __version__ = 0
 
     # The actual TVTK filter that this class manages.
-    filter = Instance(tvtk.GreedyTerrainDecimation, args=(), 
+    filter = Instance(tvtk.GreedyTerrainDecimation, args=(),
                       allow_none=False, record=True)
 
     input_info = PipelineInfo(datasets=['any'],

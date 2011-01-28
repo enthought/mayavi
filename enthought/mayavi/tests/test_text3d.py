@@ -17,13 +17,13 @@ from enthought.tvtk.api import tvtk
 from enthought.mayavi.sources.array_source import ArraySource
 from enthought.mayavi.modules.text3d import Text3D
 
-class TestText3D(unittest.TestCase):   
-    
-    
+class TestText3D(unittest.TestCase):
+
+
     def make_data(self):
-        """Trivial data """        
+        """Trivial data """
         return np.zeros((10,10,10))
-       
+
     def setUp(self):
         """Initial setting up of test fixture, automatically called by TestCase before any other test method is invoked"""
         e = NullEngine()
@@ -47,7 +47,7 @@ class TestText3D(unittest.TestCase):
 
         self.scene = e.current_scene
         return
-        
+
 
     def save_and_reload(self):
         # Save visualization.
@@ -71,9 +71,9 @@ class TestText3D(unittest.TestCase):
 
 
 
-    def test_text3d(self):  
-        "Test if the text3d has been properly instanciated" 
-        self.assert_(isinstance(self.t, Text3D)) 
+    def test_text3d(self):
+        "Test if the text3d has been properly instanciated"
+        self.assert_(isinstance(self.t, Text3D))
 
 
     def test_follower(self):

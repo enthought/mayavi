@@ -39,7 +39,7 @@ The TVTK home page is: http://code.enthought.com/projects/mayavi
 
 More detailed information on TVTK is available in `docs/README.txt` which
 covers installation, requirements, examples of usage etc.  This document is
-also available on the web from 
+also available on the web from
 http://code.enthought.com/projects/mayavi/docs/development/html/tvtk/
 
 
@@ -47,7 +47,7 @@ Examples
 --------
 
 Examples are all in the `examples` directory of the source or the SVN checkout.
-The docs and examples do not ship with the binary eggs. 
+The docs and examples do not ship with the binary eggs.
 
 
 Test suite

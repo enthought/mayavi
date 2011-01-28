@@ -1,7 +1,7 @@
 """Mayavi specific workbench application.
 """
 # Author: Prabhu Ramachandran <prabhu [at] aero . iitb . ac . in>
-# Copyright (c) 2008, Enthought, Inc. 
+# Copyright (c) 2008, Enthought, Inc.
 # License: BSD Style.
 
 # Standard library imports.
@@ -93,7 +93,7 @@ class MayaviWorkbenchApplication(WorkbenchApplication):
 
     ######################################################################
     # Non-public interface.
-    ###################################################################### 
+    ######################################################################
     def _about_dialog_default(self):
         """ Trait initializer. """
         from enthought.mayavi import api
@@ -106,7 +106,7 @@ class MayaviWorkbenchApplication(WorkbenchApplication):
             additions = ['Authors: Prabhu Ramachandran',
                             'and Gael Varoquaux',
                             '',
-                            'Mayavi version %s \t - \t VTK version %s' % 
+                            'Mayavi version %s \t - \t VTK version %s' %
                             (api.__version__, vtk_version)],
         )
 

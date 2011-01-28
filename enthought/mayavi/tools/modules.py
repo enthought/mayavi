@@ -1,14 +1,14 @@
 """
 Modules factories and their associated functions for mlab.
 
-Module functions meant to be applied to a data source object or a filter 
+Module functions meant to be applied to a data source object or a filter
 should take only one positional argument, the input, to be easily used in
-helper functions. 
+helper functions.
 """
 
 # Author: Gael Varoquaux <gael.varoquaux@normalesup.org>
 #         Prabhu Ramachandran
-# Copyright (c) 2007-2008, Enthought, Inc. 
+# Copyright (c) 2007-2008, Enthought, Inc.
 # License: BSD Style.
 
 import numpy
@@ -42,7 +42,7 @@ class ModuleFactory(PipeFactory):
     color = Trait(None, None,
                 TraitTuple(Range(0., 1.),Range(0., 1.),Range(0., 1.)),
                 help="""the color of the vtk object. Overides the colormap,
-                        if any, when specified. This is specified as a 
+                        if any, when specified. This is specified as a
                         triplet of float ranging from 0 to 1, eg (1, 1,
                         1) for white.""", )
 
@@ -53,7 +53,7 @@ class ModuleFactory(PipeFactory):
                 self._target.actor.mapper.scalar_visibility = False
             if hasattr(self._target, "property"):
                 self._target.property.color = self.color
-    
+
     opacity = CFloat(1.,
                 desc="""The overall opacity of the vtk object.""")
 
@@ -80,12 +80,12 @@ class ModuleFactory(PipeFactory):
 
 ##############################################################################
 class DataModuleFactory(ModuleFactory):
-    """ Base class for all the module factories operating on data (ie not 
+    """ Base class for all the module factories operating on data (ie not
         text and outline) """
 
     reset_zoom = true(help="""Reset the zoom to accomodate the data newly
                         added to the scene. Defaults to True.""")
-    
+
     extent = CArray(shape=(6,),
                     help="""[xmin, xmax, ymin, ymax, zmin, zmax]
                             Default is the x, y, z arrays extent. Use
@@ -95,7 +95,7 @@ class DataModuleFactory(ModuleFactory):
     def _extent_changed(self):
         tools.set_extent(self._target, self.extent)
 
-    transparent = false(help="""make the opacity of the actor depend on the 
+    transparent = false(help="""make the opacity of the actor depend on the
                                scalar.""")
 
     def _transparent_changed(self):
@@ -121,7 +121,7 @@ class DataModuleFactory(ModuleFactory):
             self._target.module_manager.vector_lut_manager.reverse_lut = True
         self._target.module_manager.scalar_lut_manager.lut_mode = colormap
         self._target.module_manager.vector_lut_manager.lut_mode = colormap
-    
+
 
     vmin = Trait(None, None, CFloat,
                     help="""vmin is used to scale the colormap.
@@ -136,7 +136,7 @@ class DataModuleFactory(ModuleFactory):
             self._target.module_manager.scalar_lut_manager.use_default_range\
                     = True
             return
-        
+
         self._target.module_manager.scalar_lut_manager.use_default_range \
                     = False
         vmin, vmax = \
@@ -184,7 +184,7 @@ class ContourModuleFactory(DataModuleFactory):
         if hasattr(self._target, 'enable_contours'):
             self._target.enable_contours = True
 
- 
+
 ##############################################################################
 class CutPlaneFactory(DataModuleFactory):
     """ Base class for modules with a cut plane.
@@ -223,13 +223,13 @@ glyph_mode_dict = {'2darrow': 0, '2dcircle':0, '2dcross':0,
 class VectorsFactory(DataModuleFactory):
     """Applies the Vectors mayavi module to the given data object
         source (Mayavi source, or VTK dataset).
-    """ 
+    """
 
     _target = Instance(modules.Vectors, ())
 
     scale_factor = CFloat(1., adapts='glyph.glyph.scale_factor',
-                            desc="""the scaling applied to the glyphs. The 
-                                    size of the glyph is by default in drawing 
+                            desc="""the scaling applied to the glyphs. The
+                                    size of the glyph is by default in drawing
                                     units.""")
 
     scale_mode = Trait('vector', {'none':'data_scaling_off',
@@ -242,7 +242,7 @@ class VectorsFactory(DataModuleFactory):
                         "spheres, for instance, this is the number of "
                         "divisions along theta and phi.")
 
-    mask_points = Either(None, CInt, 
+    mask_points = Either(None, CInt,
                         desc="If supplied, only one out of 'mask_points' "
                         "data point is displayed. This option is useful "
                         "to reduce the number of points displayed "
@@ -294,7 +294,7 @@ vectors = make_function(VectorsFactory)
 class GlyphFactory(VectorsFactory):
     """Applies the Glyph mayavi module to the given VTK data
         source (Mayavi source, or VTK dataset).
-    """ 
+    """
 
     _target = Instance(modules.Glyph, ())
 
@@ -317,11 +317,11 @@ class StreamlineFactory(DataModuleFactory):
     _target = Instance(modules.Streamline, ())
 
     linetype = Trait('line', 'ribbon', 'tube',
-            adapts='streamline_type', 
+            adapts='streamline_type',
             desc="""the type of line-like object used to display the
                    streamline.""")
 
-    seedtype = Trait('sphere', 
+    seedtype = Trait('sphere',
             {'sphere':0, 'line':1, 'plane':2, 'point':3},
             desc="""the widget used as a seed for the streamlines.""")
 
@@ -350,7 +350,7 @@ class StreamlineFactory(DataModuleFactory):
         # being called anyhow.
         self._target.seed.widget = widget = \
                             self._target.seed.widget_list[self.seedtype_]
-        
+
         if  not self.seed_scale==1.:
             widget.enabled = True
             if self.seedtype == 'line':
@@ -369,7 +369,7 @@ class StreamlineFactory(DataModuleFactory):
                 widget.origin = center + self.seed_scale*(o - center)
             elif self.seedtype == 'sphere':
                 widget.radius *= self.seed_scale
-            
+
             # XXX: Very ugly, but this is only way I have found to
             # propagate changes.
             self._target.seed.stop()
@@ -397,9 +397,9 @@ streamline = make_function(StreamlineFactory)
 
 ##############################################################################
 class SurfaceFactory(DataModuleFactory):
-    """Applies the Surface mayavi module to the given data 
+    """Applies the Surface mayavi module to the given data
         source (Mayavi source, or VTK dataset).
-    """ 
+    """
     _target = Instance(modules.Surface, ())
 
     representation = Trait('surface', 'wireframe', 'points',
@@ -414,7 +414,7 @@ surface = make_function(SurfaceFactory)
 class IsoSurfaceFactory(ContourModuleFactory):
     """Applies the IsoSurface mayavi module to the given data
         source (Mayavi source, or VTK dataset).
-    """ 
+    """
     _target = Instance(modules.IsoSurface, ())
 
 
@@ -455,7 +455,7 @@ image_actor = make_function(ImageActorFactory)
 ##############################################################################
 class ImagePlaneWidgetFactory(DataModuleFactory):
     """ Applies the ImagePlaneWidget mayavi module to the given data
-        source (Mayavi source, or VTK dataset). 
+        source (Mayavi source, or VTK dataset).
     """
     _target = Instance(modules.ImagePlaneWidget, ())
 
@@ -477,7 +477,7 @@ image_plane_widget = make_function(ImagePlaneWidgetFactory)
 ##############################################################################
 class ScalarCutPlaneFactory(CutPlaneFactory):
     """ Applies the ScalarCutPlane mayavi module to the given data
-        source (Mayavi source, or VTK dataset). 
+        source (Mayavi source, or VTK dataset).
     """
     _target = Instance(modules.ScalarCutPlane, ())
 
@@ -487,7 +487,7 @@ scalar_cut_plane = make_function(ScalarCutPlaneFactory)
 ##############################################################################
 class VectorCutPlaneFactory(CutPlaneFactory, VectorsFactory):
     """ Applies the VectorCutPlane mayavi module to the given data
-        source (Mayavi source, or VTK dataset). 
+        source (Mayavi source, or VTK dataset).
     """
     _target = Instance(modules.VectorCutPlane, ())
 
@@ -523,8 +523,8 @@ class VolumeFactory(PipeFactory):
         **Note**
 
         The range of the colormap can be changed simply using the
-        vmin/vmax parameters (see below). For more complex modifications of 
-        the colormap, here is some pseudo code to change the ctf (color 
+        vmin/vmax parameters (see below). For more complex modifications of
+        the colormap, here is some pseudo code to change the ctf (color
         transfer function), or the otf (opacity transfer function)::
 
             vol = mlab.pipeline.volume(src)
@@ -551,18 +551,18 @@ class VolumeFactory(PipeFactory):
     color = Trait(None, None,
                 TraitTuple(Range(0., 1.),Range(0., 1.),Range(0., 1.)),
                 help="""the color of the vtk object. Overides the colormap,
-                        if any, when specified. This is specified as a 
+                        if any, when specified. This is specified as a
                         triplet of float ranging from 0 to 1, eg (1, 1,
                         1) for white.""", )
 
     vmin = Trait(None, None, CFloat,
                     help="""vmin is used to scale the transparency
-                            gradient. If None, the min of the data will be 
+                            gradient. If None, the min of the data will be
                             used""")
 
     vmax = Trait(None, None, CFloat,
                     help="""vmax is used to scale the transparency
-                            gradient. If None, the max of the data will be 
+                            gradient. If None, the max of the data will be
                             used""")
 
     _target = Instance(modules.Volume, ())
@@ -571,7 +571,7 @@ class VolumeFactory(PipeFactory):
 
     ######################################################################
     # Non-public interface.
-    ###################################################################### 
+    ######################################################################
     def _color_changed(self):
         if not self.color:
             return
@@ -583,7 +583,7 @@ class VolumeFactory(PipeFactory):
         except Exception:
             # VTK versions < 5.2 don't seem to need this.
             pass
-        
+
         r, g, b = self.color
         ctf.add_rgb_point(range_min, r, g, b)
         ctf.add_rgb_point(range_max, r, g, b)
@@ -603,7 +603,7 @@ class VolumeFactory(PipeFactory):
 
         # Change the opacity function
         from enthought.tvtk.util.ctf import PiecewiseFunction, save_ctfs
-       
+
         otf = PiecewiseFunction()
         if range_min < vmin:
             otf.add_point(range_min, 0.)
@@ -619,7 +619,7 @@ class VolumeFactory(PipeFactory):
             def _rescale_value(x):
                 nx = (x - range_min)/(range_max - range_min)
                 return vmin + nx*(vmax - vmin)
-            # The range of the existing ctf can vary. 
+            # The range of the existing ctf can vary.
             scale_min, scale_max = self._target._ctf.range
             def _rescale_node(x):
                 nx = (x - scale_min)/(scale_max - scale_min)
@@ -664,7 +664,7 @@ volume = make_function(VolumeFactory)
 ############################################################################
 class _AutomaticModuleFactory(DataModuleFactory):
     """The base class for any auto-generated factory classes.
-    
+
     NOTE: This class requires the `_metadata` trait be set to
     the metadata object for the object for which this is a factory.
     """
@@ -679,7 +679,7 @@ class _AutomaticModuleFactory(DataModuleFactory):
         """Getter for the _target trait."""
         if self._saved_target is None:
             self._saved_target = self._metadata.get_callable()()
-        
+
         return self._saved_target
 
 
@@ -702,7 +702,7 @@ def _make_functions(namespace):
             continue
 
         # The class to wrap.
-        klass = new.classobj(class_name, 
+        klass = new.classobj(class_name,
                              (_AutomaticModuleFactory,),
                              {'__doc__': mod.help,}
                              )

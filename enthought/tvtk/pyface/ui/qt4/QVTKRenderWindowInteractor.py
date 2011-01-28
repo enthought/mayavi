@@ -88,14 +88,14 @@ class QVTKRenderWindowInteractor(QtGui.QWidget):
     - Keypress f: fly to the picked point
 
     - Keypress p: perform a pick operation. The render window interactor
-      has an internal instance of vtkCellPicker that it uses to pick. 
+      has an internal instance of vtkCellPicker that it uses to pick.
 
     - Keypress r: reset the camera view along the current view
       direction. Centers the actors and moves the camera so that all actors
       are visible.
 
     - Keypress s: modify the representation of all actors so that they
-      are surfaces. 
+      are surfaces.
 
     - Keypress u: invoke the user-defined function. Typically, this
       keypress will bring up an interactor that you can type commands in.
@@ -118,7 +118,7 @@ class QVTKRenderWindowInteractor(QtGui.QWidget):
         9:  QtCore.Qt.PointingHandCursor,   # VTK_CURSOR_HAND
         10: QtCore.Qt.CrossCursor,          # VTK_CURSOR_CROSSHAIR
     }
-    
+
     # Map from Qt key codes to VTK key names
     _KEY_MAP = {
         QtCore.Qt.Key_Escape: "Esc",
@@ -211,7 +211,7 @@ class QVTKRenderWindowInteractor(QtGui.QWidget):
 
         self._Timer = QtCore.QTimer(self)
         self.connect(self._Timer, QtCore.SIGNAL('timeout()'), self.TimerEvent)
-        
+
         self._Iren.AddObserver('CreateTimerEvent', messenger.send)
         messenger.connect(self._Iren, 'CreateTimerEvent', self.CreateTimer)
         self._Iren.AddObserver('DestroyTimerEvent', messenger.send)
@@ -372,7 +372,7 @@ class QVTKRenderWindowInteractor(QtGui.QWidget):
                 key = chr(ev.key())
         else:
             key = chr(0)
-        
+
         self._Iren.SetEventInformationFlipY(self.__saveX, self.__saveY,
                                             ctrl, shift, key, 0, key_sym)
         self._Iren.KeyPressEvent()
@@ -385,7 +385,7 @@ class QVTKRenderWindowInteractor(QtGui.QWidget):
             key = chr(ev.key())
         else:
             key = chr(0)
-        
+
         self._Iren.SetEventInformationFlipY(self.__saveX, self.__saveY,
                                             ctrl, shift, key, 0, key_sym)
         self._Iren.KeyReleaseEvent()
@@ -403,7 +403,7 @@ class QVTKRenderWindowInteractor(QtGui.QWidget):
         self.update()
 
 
-def QVTKRenderWidgetConeExample():    
+def QVTKRenderWidgetConeExample():
     """A simple example that uses the QVTKRenderWindowInteractor class."""
 
     # every QT app needs an app

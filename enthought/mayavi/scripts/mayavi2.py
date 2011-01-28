@@ -61,7 +61,7 @@ following:
 
      The passed filter name is loaded with respect to the current
      source/filter object.  The filter name must be a valid one if not
-     you will get an error message.  
+     you will get an error message.
 
      If the filter is specified as 'package.sub.filter.SomeFilter'
      then the filter (`SomeFilter`) is imported from
@@ -145,7 +145,7 @@ following:
 
 -t
 --test
-    
+
      Runs the mayavi2 test suite and exits.  If run as such, this runs
      both the TVTK and Mayavi2 unittests.  If any additional arguments
      are passed they are passed along to the test runner.  So this may
@@ -166,7 +166,7 @@ following:
 
      Prints verbose logs on the console.
 
--V 
+-V
 --version
 
      Prints the Mayavi version.
@@ -186,7 +186,7 @@ Examples::
 
      mayavi2 -d test.vtk -m Axes -m GridPlane \\
      -f Threshold -m IsoSurface \\
-     -n -d heart.vtk -m Outline -m ContourGridPlane 
+     -n -d heart.vtk -m Outline -m ContourGridPlane
 """
     return msg
 
@@ -197,21 +197,21 @@ def parse_cmd_line(arguments):
     Due to the special needs (order of args is important and repeated
     options will be supplied) of this command line parser we must use
     getopts and not optparse.
-    
+
     Input Arguments:
-      arguments -- This can be either a list of arguments as in      
+      arguments -- This can be either a list of arguments as in
                    sys.argv[1:] or a string that is similar to the one
                    passed on the command line.  If it is a string the
                    string is split to create a list of arguments.
     """
     if type(arguments) in types.StringTypes:
         arguments = arguments.split()
-        
+
     options = "d:m:f:z:x:s:nMvo"
-    
+
     long_opts = ['data=',
                  'module=', 'filter=',
-                 'visualization=', 'viz=', 
+                 'visualization=', 'viz=',
                  'exec=',
                  'set=',
                  'verbose',
@@ -225,13 +225,13 @@ def parse_cmd_line(arguments):
         print '-'*70
         print msg
         sys.exit (1)
-        
+
     return opts, args
 
 
 def _get_non_file_sources():
     """Returns a dict indexed on the name of non-file related sources
-    ids with the value being the corresponding metadata object.  
+    ids with the value being the corresponding metadata object.
     """
     from enthought.mayavi.core.registry import registry
     data = {}
@@ -251,7 +251,7 @@ def process_cmd_line(app, opts, args):
       opts -- The list of options returned by getopt.
 
       args -- The remaining arguments returned by getopt.
-    """    
+    """
 
     from enthought.mayavi.core.common import error, exception
     from enthought.tvtk.common import camel2enthought
@@ -271,9 +271,9 @@ def process_cmd_line(app, opts, args):
                                  '--visualization', '--viz',
                                  '-x', '--exec')):
             new_scene = True
-        if new_scene:            
+        if new_scene:
             last_obj = script.new_scene()
-        
+
     for o, a in opts:
         if o in ('-d', '--data'):
             base, ext = splitext(a)
@@ -350,7 +350,7 @@ def process_cmd_line(app, opts, args):
         if o in ('-M', '--module-mgr'):
             from enthought.mayavi.core.module_manager \
                  import ModuleManager
-            mm = ModuleManager()            
+            mm = ModuleManager()
             script.add_filter(mm)
             last_obj = mm
 
@@ -445,7 +445,7 @@ opt, arg = None, None
 del opt, arg
 
 
-# The vtk module is imported by the engine, so mayavi is never going to 
+# The vtk module is imported by the engine, so mayavi is never going to
 # start without it. Let us capture the error early, and give a meaningful
 # error message
 try:
@@ -486,8 +486,8 @@ If you performed a source checkout and installed via 'python setup.py develop',
 be sure to run the same command in the EnvisageCore and EnvisagePlugins folders.
 
 If these packages appear to be installed, check that your numpy and
-configobj are installed and working. If you need numpy, 'easy_install numpy' 
-will install numpy. Similarly, 'easy_install configobj' will install 
+configobj are installed and working. If you need numpy, 'easy_install numpy'
+will install numpy. Similarly, 'easy_install configobj' will install
 configobj.
         ''' % (m, '_'*80)
     raise ImportError(msg)
@@ -521,7 +521,7 @@ class MayaviApp(Mayavi):
 
 ################################################################################
 # `MayaviOffscreen` class.
-################################################################################ 
+################################################################################
 class MayaviOffscreen(MayaviApp):
     """
     The mayavi application used for offscreen rendering.
@@ -537,11 +537,11 @@ class MayaviOffscreen(MayaviApp):
 
     def setup_logger(self):
         from enthought.etsconfig.api import ETSConfig
-        path = join(ETSConfig.application_data, 
+        path = join(ETSConfig.application_data,
                     'enthought.mayavi_e3', 'mayavi.log')
         path = abspath(path)
         logger = logging.getLogger()
-        setup_logger(logger, path, mode=self.log_mode)        
+        setup_logger(logger, path, mode=self.log_mode)
 
     def main(self, argv=None):
         if argv is None:
@@ -634,7 +634,7 @@ def main():
             raise ImportError, '''Could not import backend for traits
 ________________________________________________________________________________
 Make sure that you have either the TraitsBackendWx or the TraitsBackendQt
-projects installed. If you installed Mayavi with easy_install, try easy_install 
+projects installed. If you installed Mayavi with easy_install, try easy_install
 <pkg_name>. easy_install Mayavi[app] will also work.
 
 If you performed a source checkout, be sure to run 'python setup.py install'
@@ -644,7 +644,7 @@ Also make sure that either wxPython or PyQT is installed.
 wxPython: http://www.wxpython.org/
 PyQT: http://www.riverbankcomputing.co.uk/software/pyqt/intro
 '''
-            
+
         mayavi = MayaviApp()
     mayavi.main(sys.argv[1:])
 

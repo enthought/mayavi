@@ -12,7 +12,7 @@ TVTK sees a view of this array without doing any data transfers.
 
 from numpy import arange, zeros, float32, float64, uint8, \
                   atleast_3d, exp, sqrt, pi
-                  
+
 from enthought.tvtk.api import tvtk
 
 # Source for glyph.  Note that you need to pick a source that has
@@ -57,39 +57,39 @@ def image_from_array(ary):
         The array is either 2D or 3D with.  The last dimension
         is always the number of channels.  It is only tested
         with 3 (RGB) or 4 (RGBA) channel images.
-        
-        Note: This works no matter what the ary type is (accept 
-        probably complex...).  uint8 gives results that make since 
+
+        Note: This works no matter what the ary type is (accept
+        probably complex...).  uint8 gives results that make since
         to me.  Int32 and Float types give colors that I am not
         so sure about.  Need to look into this...
     """
-       
+
     sz = ary.shape
     dims = len(sz)
     # create the vtk image data
     img = tvtk.ImageData()
-    
+
     if dims == 2:
         # 1D array of pixels.
         img.whole_extent = (0, sz[0]-1, 0, 0, 0, 0)
-        img.dimensions = sz[0], 1, 1        
+        img.dimensions = sz[0], 1, 1
         img.point_data.scalars = ary
-        
+
     elif dims == 3:
         # 2D array of pixels.
         img.whole_extent = (0, sz[0]-1, 0, sz[1]-1, 0, 0)
         img.dimensions = sz[0], sz[1], 1
-        
+
         # create a 2d view of the array
-        ary_2d = ary[:]    
+        ary_2d = ary[:]
         ary_2d.shape = sz[0]*sz[1],sz[2]
         img.point_data.scalars = ary_2d
-        
+
     else:
         raise ValueError, "ary must be 3 dimensional."
-        
+
     return img
-        
+
 sz = (256, 256, 3)
 array_3d = zeros(sz, uint8)
 img = image_from_array(array_3d)
@@ -121,5 +121,5 @@ for i in range(N):
 t2 = time.time()
 print 'texture size:', array_3d.shape
 print 'fps:', N/(t2-t1)
-    
+
 rwi.start()

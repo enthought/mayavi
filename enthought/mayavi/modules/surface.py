@@ -34,7 +34,7 @@ class Surface(Module):
 
     input_info = PipelineInfo(datasets=['any'],
                               attribute_types=['any'],
-                              attributes=['any'])    
+                              attributes=['any'])
 
     ######################################################################
     # `Module` interface
@@ -67,14 +67,14 @@ class Surface(Module):
         mm = self.module_manager
         if mm is None:
             return
-        
+
         # This makes sure that any changes made to enable_contours
         # when the module is not running are updated when it is
         # started.  Also sets up the pipeline and inputs correctly.
         self._enable_contours_changed(self.enable_contours)
         # Set the LUT for the mapper.
         self.actor.set_lut(mm.scalar_lut_manager.lut)
-        
+
         self.pipeline_changed = True
 
     def update_data(self):
@@ -99,7 +99,7 @@ class Surface(Module):
         if value:
             self.actor.mapper.scalar_mode = 'use_cell_data'
         else:
-            self.actor.mapper.scalar_mode = 'default'            
+            self.actor.mapper.scalar_mode = 'default'
         self.render()
 
     def _enable_contours_changed(self, value):
@@ -107,7 +107,7 @@ class Surface(Module):
         if self.module_manager is None:
             return
         if value:
-            self.contour.inputs = [self.module_manager.source]            
+            self.contour.inputs = [self.module_manager.source]
             self.actor.inputs = [self.contour]
             if self.contour.filled_contours:
                 self.actor.mapper.scalar_mode = 'use_cell_data'
@@ -115,17 +115,17 @@ class Surface(Module):
             old_inputs = self.actor.inputs
             self.actor.inputs = [self.module_manager.source]
             self.actor.mapper.scalar_mode = 'default'
-        self.render()            
-            
+        self.render()
+
     def _contour_changed(self, old, new):
         if old is not None:
             old.on_trait_change(self._filled_contours_changed,
                                 'filled_contours',
-                                remove=True)        
+                                remove=True)
         new.on_trait_change(self._filled_contours_changed,
                             'filled_contours')
         self._change_components(old, new)
-        
+
     def _actor_changed(self, old, new):
         if old is None:
             # First time the actor is set.
@@ -135,4 +135,4 @@ class Surface(Module):
         if mm is not None:
             new.inputs = [mm.source]
         self._change_components(old, new)
-        
+

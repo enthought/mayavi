@@ -7,12 +7,12 @@ mlab.plot3d, with scalar information to control the color.
 
 The electron localization function is displayed using volume rendering.
 Good use of the `vmin` and `vmax` argument to
-`mlab.pipeline.volume` is critical to achieve a good visualization: the 
+`mlab.pipeline.volume` is critical to achieve a good visualization: the
 `vmin` threshold should placed high-enough for features to stand out.
 
 The original is an electron localization function from Axel Kohlmeyer.
 """
-# Author: Gael Varoquaux <gael.varoquaux@normalesup.org> 
+# Author: Gael Varoquaux <gael.varoquaux@normalesup.org>
 # Copyright (c) 2008, Enthought, Inc.
 # License: BSD Style.
 
@@ -39,19 +39,19 @@ atoms_x = np.array([2.9, 2.9, 3.8])*40/5.5
 atoms_y = np.array([3.0, 3.0, 3.0])*40/5.5
 atoms_z = np.array([3.8, 2.9, 2.7])*40/5.5
 
-O = mlab.points3d(atoms_x[1:-1], atoms_y[1:-1], atoms_z[1:-1], 
+O = mlab.points3d(atoms_x[1:-1], atoms_y[1:-1], atoms_z[1:-1],
                   scale_factor=3,
                   resolution=20,
                   color=(1, 0, 0),
                   scale_mode='none')
 
-H1 = mlab.points3d(atoms_x[:1], atoms_y[:1], atoms_z[:1], 
+H1 = mlab.points3d(atoms_x[:1], atoms_y[:1], atoms_z[:1],
                    scale_factor=2,
                    resolution=20,
                    color=(1, 1, 1),
                    scale_mode='none')
 
-H2 = mlab.points3d(atoms_x[-1:], atoms_y[-1:], atoms_z[-1:], 
+H2 = mlab.points3d(atoms_x[-1:], atoms_y[-1:], atoms_z[-1:],
                    scale_factor=2,
                    resolution=20,
                    color=(1, 1, 1),
@@ -59,7 +59,7 @@ H2 = mlab.points3d(atoms_x[-1:], atoms_y[-1:], atoms_z[-1:],
 
 # The bounds between the atoms, we use the scalar information to give
 # color
-mlab.plot3d(atoms_x, atoms_y, atoms_z, [1, 2, 1], 
+mlab.plot3d(atoms_x, atoms_y, atoms_z, [1, 2, 1],
             tube_radius=0.4, colormap='Reds')
 
 # Display the electron localization function ###################################
@@ -72,7 +72,7 @@ data.shape = (40, 40, 40)
 source = mlab.pipeline.scalar_field(data)
 min = data.min()
 max = data.max()
-vol = mlab.pipeline.volume(source, vmin=min+0.65*(max-min), 
+vol = mlab.pipeline.volume(source, vmin=min+0.65*(max-min),
                                    vmax=min+0.9*(max-min))
 
 mlab.view(132, 54, 45, [21, 20, 21.5])

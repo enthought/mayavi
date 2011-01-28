@@ -13,10 +13,10 @@ under a 3 clause BSD-like license.
 Files and orginal authors:
 ----------------------------------------------------------------
                             add.ico | GV
-		     add_module.png | Crystal
-		      add_scene.png | Crystal
-		     add_source.png | Crystal
-		           file.png | GV
+                     add_module.png | Crystal
+                      add_scene.png | Crystal
+                     add_source.png | Crystal
+                           file.png | GV
                          filter.ico | Nuvola
                          module.ico | Crystal
                   modulemanager.ico | Crystal

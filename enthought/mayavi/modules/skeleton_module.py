@@ -24,7 +24,7 @@ class MyModule(Module):
     ########################################
     # View related code.
 
-    
+
     ######################################################################
     # `Module` interface
     ######################################################################
@@ -47,7 +47,7 @@ class MyModule(Module):
         # Setup the components, actors and widgets. (sample code)
         #self.components.extend([your_components, ...])
         #self.actors.append(your_actor)
-        # Note that self.actor.actor need not be added.        
+        # Note that self.actor.actor need not be added.
         #self.widgets.append(your_widget)
 
     def update_pipeline(self):
@@ -59,7 +59,7 @@ class MyModule(Module):
         """
         # Data is available, so set the input for the grid plane.
         # Do your stuff here!
-        
+
         # Now flush the pipeline
         self.pipeline_changed = True
 

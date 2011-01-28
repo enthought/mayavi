@@ -9,9 +9,9 @@ import unittest
 
 from enthought.tvtk import messenger
 
-################################################################# 
+#################################################################
 # Support code.
-################################################################# 
+#################################################################
 
 class A:
     def __init__(self):
@@ -19,7 +19,7 @@ class A:
         self.args = None
         self.kw = None
         self.did_catch_all = 0
-        
+
     def callback(self, obj, event, *args, **kw):
         self.event = event
         self.args = args
@@ -41,15 +41,15 @@ class B:
         messenger.connect(self, 'function', callback)
     def __del__(self):
         messenger.disconnect(self)
-        
+
     def send(self, *args, **kw):
         messenger.send(self, 'method', *args, **kw)
         messenger.send(self, 'function', *args, **kw)
 
 
-################################################################# 
+#################################################################
 # The test case.
-################################################################# 
+#################################################################
 
 class TestMessenger(unittest.TestCase):
     def test_basic(self):
@@ -65,11 +65,11 @@ class TestMessenger(unittest.TestCase):
         self.assertEqual(b.a.kw, {'test':1})
         self.assertEqual(ret[2], {'test':1})
         # Ensures that disconnect works and also that there are no
-        # reference cycles.        
+        # reference cycles.
         self.assertEqual(len(m._signals) > orig_len, True)
         del b
         self.assertEqual(len(m._signals), orig_len)
-        
+
     def test_reload(self):
         """Tests if module is reload safe."""
         b = B()

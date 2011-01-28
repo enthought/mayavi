@@ -2,7 +2,7 @@
 """
 This script demonstrates how one can do a computation in another thread
 and update the mayavi pipeline. It also shows how to create a numpy array
-data and visualize it as image data using a few modules. 
+data and visualize it as image data using a few modules.
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
 # Copyright (c) 2007-2008, Enthought, Inc.
@@ -96,8 +96,8 @@ def view_numpy():
 
     computation = Controller(data=src)
     computation.edit_traits()
-    
-    
+
+
 if __name__ == '__main__':
     view_numpy()
-    
+

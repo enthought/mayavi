@@ -26,7 +26,7 @@ def main():
 
     ball.t = 0.0
     ball.dt = 0.5
-    
+
     def anim():
         #Creating the animation function which will be called at
         #uniform timeperiod through the iterate function
@@ -37,11 +37,11 @@ def main():
         if not (side > ball.y > -side):
             ball.vector.y = -ball.vector.y
         if not (side > ball.z > -side):
-            ball.vector.z =  -ball.vector.z    
+            ball.vector.z =  -ball.vector.z
 
     a = iterate(20, anim)
     show()
-    return a    
-    
+    return a
+
 if __name__ == '__main__':
     main()

@@ -1,10 +1,10 @@
 """
 Traits View definition file.
 
-The view trait of the parent class is extracted from the model definition 
-file.  This file can either be exec()ed or imported.  See 
-core/base.py:Base.trait_view() for what is currently used.  Using exec() 
-allows view changes without needing to restart Mayavi, but is slower than 
+The view trait of the parent class is extracted from the model definition
+file.  This file can either be exec()ed or imported.  See
+core/base.py:Base.trait_view() for what is currently used.  Using exec()
+allows view changes without needing to restart Mayavi, but is slower than
 importing.
 """
 # Authors: Prabhu Ramachandran <prabhu_r@users.sf.net>
@@ -20,10 +20,10 @@ from enthought.mayavi.core.lut_manager import lut_mode_list, \
 
 # The view of the LUT Manager object.
 view = View(Group(Item(name='lut_mode',
-                       editor=ImageEnumEditor(values=lut_mode_list(), 
+                       editor=ImageEnumEditor(values=lut_mode_list(),
                                               cols=6,
                                               path=lut_image_dir)),
-                  Item(name='file_name', visible_when="lut_mode=='file'"), 
+                  Item(name='file_name', visible_when="lut_mode=='file'"),
                   Item(name='number_of_colors'),
                   Item(name='reverse_lut'),
                   Item(name='lut',
@@ -38,11 +38,11 @@ view = View(Group(Item(name='lut_mode',
                   Item(name='create_lut', show_label=False),
 
                   Group(Item(name='show_legend'),
-                      Group(   
+                      Group(
                           Item(name='number_of_labels'),
                           enabled_when='show_scalar_bar==True',
                       ),
-                      Group(   
+                      Group(
                           Item(name='shadow'),
                           Item(name='use_default_name'),
                           Item(name='data_name',
@@ -71,7 +71,7 @@ view = View(Group(Item(name='lut_mode',
                                   ),
                           ),
                           enabled_when='show_scalar_bar==True',
-                      ),    
+                      ),
                       show_border=True,
                   ),
                   Group(
@@ -96,6 +96,6 @@ view = View(Group(Item(name='lut_mode',
 #                  enabled_when='show_scalar_bar==True',
 #                  show_labels=False,
 #                  label='Labels'),
-            
+
             resizable=True,
         )

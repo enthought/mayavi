@@ -47,11 +47,11 @@ class PLOT3DReader(Source):
                                           'pressure':110,
                                           'temperature': 120,
                                           'enthalpy': 130,
-                                          'internal energy': 140, 
+                                          'internal energy': 140,
                                           'kinetic energy': 144,
                                           'velocity magnitude': 153,
                                           'stagnation energy': 163,
-                                          'entropy': 170, 
+                                          'entropy': 170,
                                           'swirl': 184}),
                          desc='scalar data attribute to show')
     # The active vector name.
@@ -71,7 +71,7 @@ class PLOT3DReader(Source):
 
     ########################################
     # View related code.
-    
+
     update_reader = Button('Update Reader')
 
     # Our view.
@@ -86,7 +86,7 @@ class PLOT3DReader(Source):
                       ),
                 Group(Item(name='reader', style='custom',
                            resizable=True),
-                      show_labels=False,                      
+                      show_labels=False,
                       label='PLOT3DReader'
                       ),
                 resizable=True)
@@ -110,7 +110,7 @@ class PLOT3DReader(Source):
             d.pop(name, None)
 
         return d
-        
+
     def __set_pure_state__(self, state):
         xyz_fn = state.xyz_file_path.abs_pth
         q_fn = state.q_file_path.abs_pth
@@ -118,7 +118,7 @@ class PLOT3DReader(Source):
             msg = 'Could not find file at %s\n'%xyz_fn
             msg += 'Please move the file there and try again.'
             raise IOError, msg
-        
+
         # Setup the reader state.
         set_state(self, state, first=['reader'], ignore=['*'])
         # Initialize the files.
@@ -130,7 +130,7 @@ class PLOT3DReader(Source):
         # Setup the children's state.
         set_state(self, state, first=['children'], ignore=['*'])
 
-    
+
     ######################################################################
     # `FileDataSource` interface
     ######################################################################
@@ -157,7 +157,7 @@ class PLOT3DReader(Source):
         self.xyz_file_name = xyz_file_name
         if len(q_file_name) > 0:
             self.q_file_name = q_file_name
-    
+
     def update(self):
         if len(self.xyz_file_path.get()) == 0:
             return
@@ -175,7 +175,7 @@ class PLOT3DReader(Source):
             self.reader.xyz_file_name = value
             self.xyz_file_path.set(value)
             self._update_reader_output()
-            
+
     def _q_file_name_changed(self, value):
         if len(value) == 0:
             return
@@ -229,7 +229,7 @@ class PLOT3DReader(Source):
                   'Please check the settings of the reader '\
                   'on the UI and press the "Update Reader" button '\
                   'when done and try again!'
-            error(msg)            
+            error(msg)
             return
 
         # Now setup the outputs by resetting self.outputs.  Changing

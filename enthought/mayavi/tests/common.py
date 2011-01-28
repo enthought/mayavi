@@ -23,4 +23,4 @@ def get_example_data(fname):
     """
     p = os.path.join('data', fname)
     return os.path.abspath(fixpath(p))
-   
+

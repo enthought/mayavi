@@ -18,8 +18,8 @@ from enthought.mayavi.sources.plot3d_reader import PLOT3DReader
 from enthought.mayavi.filters.select_output import SelectOutput
 from enthought.mayavi.modules.outline import Outline
 
-class TestPlot3dMbReader(unittest.TestCase):   
-       
+class TestPlot3dMbReader(unittest.TestCase):
+
     def setUp(self):
         """Initial setting up of test fixture, automatically called by TestCase before any other test method is invoked"""
         e = NullEngine()
@@ -34,7 +34,7 @@ class TestPlot3dMbReader(unittest.TestCase):
         r.reader.set(has_byte_count=True, multi_grid=True,
                      byte_order='little_endian')
         r.initialize(get_example_data('tiny.xyz'),
-                     get_example_data('tiny.q'), 
+                     get_example_data('tiny.q'),
                      configure=False)
 
         e.add_source(r)
@@ -51,24 +51,24 @@ class TestPlot3dMbReader(unittest.TestCase):
         self.e=e
         self.scene = e.current_scene
         return
-        
+
     def tearDown(self):
         """For necessary clean up, automatically called by TestCase after the test methods have been invoked"""
         self.e.stop()
         return
 
-    def test_plot3d_mb_reader(self):   
-        "Test if the test fixture works"  
+    def test_plot3d_mb_reader(self):
+        "Test if the test fixture works"
         s=self.scene
         o=self.o
         #Check the bounds of the outline.
         self.assertEqual(o.outline_filter.output.bounds,
-                                    (1.0, 2.0, 1.0, 2.0, 1.0, 2.0)) 
+                                    (1.0, 2.0, 1.0, 2.0, 1.0, 2.0))
 
         #from enthought.mayavi.tools.show import show
         #show()
-        
-         
+
+
     def test_save_and_restore(self):
         """Test if saving a visualization and restoring it works."""
         engine = self.e
@@ -81,17 +81,17 @@ class TestPlot3dMbReader(unittest.TestCase):
         f.seek(0) # So we can read this saved data.
 
         # Remove existing scene.
-       
+
         engine.close_scene(scene)
 
         # Load visualization
         engine.load_visualization(f)
         s=self.scene = engine.current_scene
-        
+
         o = s.children[0].children[0].children[0].children[0]
-        self.assertEqual(o.outline_filter.output.bounds, 
-                                (1.0, 2.0, 1.0, 2.0, 1.0, 2.0)) 
-           
+        self.assertEqual(o.outline_filter.output.bounds,
+                                (1.0, 2.0, 1.0, 2.0, 1.0, 2.0))
+
 
     def test_deepcopied(self):
         """Test if the MayaVi2 visualization can be deep-copied."""
@@ -106,10 +106,10 @@ class TestPlot3dMbReader(unittest.TestCase):
 
         o1 = r1.children[0].children[0].children[0]
         self.assertEqual(o1.outline_filter.output.bounds,
-                                    (1.0, 2.0, 1.0, 2.0, 1.0, 2.0)) 
+                                    (1.0, 2.0, 1.0, 2.0, 1.0, 2.0))
         r1.children[0].output_index = 1
         self.assertEqual(o1.outline_filter.output.bounds,
-                                    (2.0, 3.0, 1.0, 2.0, 1.0, 2.0))                
-       
+                                    (2.0, 3.0, 1.0, 2.0, 1.0, 2.0))
+
 if __name__ == '__main__':
     unittest.main()

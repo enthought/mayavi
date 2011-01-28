@@ -28,40 +28,40 @@ class ScalarCutPlane(Module):
 
     # The version of this class.  Used for persistence.
     __version__ = 0
-    
+
     # The implicit plane widget used to place the implicit function.
     implicit_plane = Instance(ImplicitPlane, allow_none=False,
                               record=True)
-    
+
     # The cutter.  Takes a cut of the data on the implicit plane.
     cutter = Instance(Cutter, allow_none=False, record=True)
-    
+
     # Specifies if contouring is to be done or not.
     enable_contours = Bool(False, desc='if contours are generated')
-    
+
     # The Contour component that contours the data.
     contour = Instance(Contour, allow_none=False, record=True)
-    
+
     # Specifies if scalar warping is to be done or not.
     enable_warp_scalar = Bool(False, desc='if scalar warping is enabled')
-    
+
     # The WarpScalarCutPlane component that warps the data.
     warp_scalar = Instance(WarpScalar, allow_none=False, record=True)
-    
+
     # Specify if scalar normals are to be computed to make a smoother surface.
     compute_normals = Bool(False, desc='if normals are to be computed '\
                            'to make the warped scalar surface smoother')
-    
+
     # The component that computes the scalar normals.
     normals = Instance(PolyDataNormals, allow_none=False, record=True)
-    
+
     # The actor component that represents the visualization.
     actor = Instance(Actor, allow_none=False, record=True)
 
     input_info = PipelineInfo(datasets=['any'],
                               attribute_types=['any'],
-                              attributes=['scalars'])    
-    
+                              attributes=['scalars'])
+
     ########################################
     # View related code.
 
@@ -70,8 +70,8 @@ class ScalarCutPlane(Module):
                              editor=\
                              InstanceEditor(view=
                                             View(Item('scale_factor')))),
-                        show_labels=False)                               
-    
+                        show_labels=False)
+
     view = View(Group(Item(name='implicit_plane',
                            style='custom'),
                       label='ImplicitPlane',
@@ -106,7 +106,7 @@ class ScalarCutPlane(Module):
                       label='Actor',
                       show_labels=False)
                 )
-    
+
     ######################################################################
     # `Module` interface
     ######################################################################
@@ -124,16 +124,16 @@ class ScalarCutPlane(Module):
         """
         # Create the objects.
         self.implicit_plane = ImplicitPlane()
-        self.cutter = Cutter()        
+        self.cutter = Cutter()
         self.contour = Contour(auto_contours=True, number_of_contours=10)
         self.warp_scalar = WarpScalar()
         self.normals = PolyDataNormals()
         self.actor = Actor()
-        
+
         # Setup the actor suitably for this module.
         prop = self.actor.property
         prop.line_width = 2.0
-        
+
     def update_pipeline(self):
         """Override this method so that it *updates* the tvtk pipeline
         when data upstream is known to have changed.
@@ -144,24 +144,24 @@ class ScalarCutPlane(Module):
         mm = self.module_manager
         if mm is None:
             return
-        
+
         # Data is available, so set the input for the grid plane.
         self.implicit_plane.inputs = [mm.source]
-        
+
         # Ensure that the warped scalar surface's normal is setup right.
         self.warp_scalar.filter.normal = self.implicit_plane.normal
-        
+
         # This makes sure that any changes made to enable_warp when
         # the module is not running are updated when it is started --
         # this in turn calls the other functions (normals and
         # contours) internally.
         self._enable_warp_scalar_changed(self.enable_warp_scalar)
-        
+
         # Set the LUT for the mapper.
         self.actor.set_lut(mm.scalar_lut_manager.lut)
-        
+
         self.pipeline_changed = True
-        
+
     def update_data(self):
         """Override this method so that it flushes the vtk pipeline if
         that is necessary.
@@ -196,7 +196,7 @@ class ScalarCutPlane(Module):
             return self.contour
         else:
             return self._get_warp_output()
-        
+
     def _filled_contours_changed_for_contour(self, value):
         """When filled contours are enabled, the mapper should use the
         the cell data, otherwise it should use the default scalar
@@ -205,9 +205,9 @@ class ScalarCutPlane(Module):
         if value:
             self.actor.mapper.scalar_mode = 'use_cell_data'
         else:
-            self.actor.mapper.scalar_mode = 'default'            
+            self.actor.mapper.scalar_mode = 'default'
         self.render()
-    
+
     def _enable_warp_scalar_changed(self, value):
         """Turns on and off the scalar warping."""
         if self.module_manager is None:
@@ -219,7 +219,7 @@ class ScalarCutPlane(Module):
             self.warp_scalar.inputs = []
         self._compute_normals_changed(self.compute_normals)
         self.render()
-    
+
     def _compute_normals_changed(self, value):
         if self.module_manager is None:
             return
@@ -232,7 +232,7 @@ class ScalarCutPlane(Module):
                 normals.inputs = []
         self._enable_contours_changed(self.enable_contours)
         self.render()
-    
+
     def _enable_contours_changed(self, value):
         """Turns on and off the contours."""
         if self.module_manager is None:
@@ -249,14 +249,14 @@ class ScalarCutPlane(Module):
             actor.inputs = [self._get_warp_output()]
             actor.mapper.scalar_mode = 'default'
         self.render()
-    
+
     def _normals_changed(self, old, new):
         warp_scalar = self.warp_scalar
         if warp_scalar is not None:
             new.inputs = [warp_scalar]
             self._compute_normals_changed(self.compute_normals)
         self._change_components(old, new)
-    
+
     def _implicit_plane_changed(self, old, new):
         cutter = self.cutter
         if cutter is not None:
@@ -269,7 +269,7 @@ class ScalarCutPlane(Module):
             old.widget.on_trait_change(self._update_normal, 'normal', remove=True)
         new.widget.on_trait_change(self._update_normal, 'normal')
         self._change_components(old, new)
-    
+
     def _cutter_changed(self, old, new):
         ip = self.implicit_plane
         if ip is not None:
@@ -278,22 +278,22 @@ class ScalarCutPlane(Module):
             # Update the pipeline.
             self._enable_warp_scalar_changed(self.enable_warp_scalar)
         self._change_components(old, new)
-        
+
     def _contour_changed(self, old, new):
         # Update the pipeline.
         self._enable_contours_changed(self.enable_contours)
         self._change_components(old, new)
-    
+
     def _warp_scalar_changed(self, old, new):
         # Update the pipeline.
         self._enable_warp_scalar_changed(self.enable_warp_scalar)
         self._change_components(old, new)
-    
+
     def _actor_changed(self, old, new):
         # Update the pipeline.
         self._enable_contours_changed(self.enable_contours)
         self._change_components(old, new)
-    
+
     def _update_normal(self):
         """Invoked when the orientation of the implicit plane changes.
         """

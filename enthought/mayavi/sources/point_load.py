@@ -1,5 +1,5 @@
-"""A source object that computes stress tensors on a volume. 
-     The tensors are computed from the application of a point load on a 
+"""A source object that computes stress tensors on a volume.
+     The tensors are computed from the application of a point load on a
      semi-infinite domain.
 """
 # Authors: KK Rai (kk.rai [at] iitb.ac.in)
@@ -28,7 +28,7 @@ class PointLoad(Source):
 
 
     # Information about what this object can produce.
-    output_info = PipelineInfo(datasets=['image_data'], 
+    output_info = PipelineInfo(datasets=['image_data'],
                                attribute_types=['any'],
                                attributes=['any'])
 

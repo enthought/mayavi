@@ -24,5 +24,5 @@ for lut in lut_mode_list():
         image.module_manager.scalar_lut_manager.lut_mode = lut
         mlab.savefig(filebasename + '.png', size=(80, 20))
         #os.system('convert %s.png %s.gif &' %(filebasename, filebasename))
-        os.system('montage -geometry -0-0 -label "%s"  %s.png   %s.gif &' 
+        os.system('montage -geometry -0-0 -label "%s"  %s.png   %s.gif &'
                         % (lut, filebasename, filebasename) )

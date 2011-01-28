@@ -48,11 +48,11 @@ class WrapperGenerator:
     #################################################################
     # `WrapperGenerator` interface.
     #################################################################
-    
+
     def get_tree(self):
         """Returns the parser's class tree."""
         return self.parser.get_tree()
-        
+
     def generate_code(self, node, out):
         """Generates the code for the given node in the parse tree
         along with an opened file-like object.
@@ -87,12 +87,12 @@ class WrapperGenerator:
     #################################################################
     # Non-public interface.
     #################################################################
-    
+
     def _write_prelims(self, node, out):
         """Write preliminary information given the node in the class
         tree, `node`, and output file-like object, `out`.
 
-        """        
+        """
         prelim = """
         # Automatically generated code: EDIT AT YOUR OWN RISK
         from enthought.traits import api as traits
@@ -139,7 +139,7 @@ class WrapperGenerator:
         decl = """
         def __init__(self, obj=None, update=True, **traits):
             tvtk_base.TVTKBase.__init__(self, vtk.%(vtk_class_name)s, obj, update, **traits)
-            
+
         """%locals()
         out.write(indent.format(decl))
 
@@ -150,8 +150,8 @@ class WrapperGenerator:
             def setup_observers(self):
                 """Setup the observers for the object."""
                 super(%(class_name)s, self).setup_observers()
-                tvtk_base._object_cache.setup_observers(self._vtk_obj, 
-                                              'EndInteractionEvent', 
+                tvtk_base._object_cache.setup_observers(self._vtk_obj,
+                                              'EndInteractionEvent',
                                               self.update_traits)
             '''%locals()
             out.write(indent.format(decl))
@@ -181,7 +181,7 @@ class WrapperGenerator:
 
         # ----------------------------------------
         # Now write out the _updateable_traits_ and View related code.
-        
+
         # Store the data in the node after updating from parents.
         # Note that this data is generated and stored at run
         # time. This is the reason why the wrapper code for the
@@ -199,7 +199,7 @@ class WrapperGenerator:
         # the `update_traits` method.
         ut = {}
         for i in data.values():
-            ut.update(i)        
+            ut.update(i)
         junk = textwrap.fill(repr(tuple(ut.items())))
         code = "\n_updateable_traits_ = \\" + "\n%s\n\n"%junk
         out.write(self.indent.format(code))
@@ -207,17 +207,17 @@ class WrapperGenerator:
         # ----------------------------------------
         # Write out the full_traits_view and the more compact
         # traits_view
-        
+
         # First copy the data over (we're going to edit it and don't
         # want the node's version to be changed).
         d = copy.deepcopy(data)
-        
+
         # Add support for property trait delegation.
         #Commented out because of problems.
         #self._generate_delegates(node, d, out)
 
         toggle, state, get_set = d['toggle'], d['state'], d['get_set']
-        
+
         # Remove unwanted stuff.
         def _safe_remove(d, keys):
             for key in keys:
@@ -235,7 +235,7 @@ class WrapperGenerator:
         # Write the full_traits_view.
         # The full traits view displays all of the relevant traits in a table
         # editor. For this, we first write out the _full_traitnames_list: this
-        # is used by the TVTKBaseHandler to build a TableEditor for all of 
+        # is used by the TVTKBaseHandler to build a TableEditor for all of
         # the (relevant) traits in the tvtk object.
         t_g = toggle.keys(); t_g.sort()
         s_g = state.keys(); s_g.sort()
@@ -271,8 +271,8 @@ class WrapperGenerator:
         out.write(self.indent.format(code))
         self.indent.decr()
 
-        # Next, we write a compact traits_view (which we call 'view'), which 
-        # removes some generally unused items.	
+        # Next, we write a compact traits_view (which we call 'view'), which
+        # removes some generally unused items.
         code = "\nelif name == 'view':"
         out.write(self.indent.format(code))
         self.indent.incr()
@@ -352,18 +352,18 @@ class WrapperGenerator:
                 # PropOn/Off exist but no SetProp method is available.
                 vtk_get_meth = getattr(klass, 'Get' + m)
                 self._write_trait(out, name, t_def, vtk_get_meth,
-                                  mapped=True, broken_bool=True)                
+                                  mapped=True, broken_bool=True)
             else:
                 self._write_trait(out, name, t_def, vtk_set_meth,
                                   mapped=True)
         return updateable_traits
-    
+
     def _gen_state_methods(self, klass, out):
         parser = self.parser
         indent = self.indent
         meths = parser.get_state_methods()
         updateable_traits = {}
-            
+
         for m in meths.keys():
             name = self._reform_name(m)
             updateable_traits[name] = 'Get' + m
@@ -392,7 +392,7 @@ class WrapperGenerator:
                 extra_val = 2
             if vtk_val == 0 and klass.__name__ == 'vtkImageData' \
                    and m == 'ScalarType':
-                extra_val = range(0, 22) 
+                extra_val = range(0, 22)
             if vtk_val == 0 and klass.__name__ == 'vtkImagePlaneWidget' \
                    and m == 'PlaneOrientation':
                 extra_val = 3
@@ -403,7 +403,7 @@ class WrapperGenerator:
                    and (klass.__name__ == 'vtkRenderWindow') \
                    and (m == 'StereoType'):
                 extra_val = 0
-                
+
             if not vtk_val:
                 default = self._reform_name(meths[m][0][0])
                 if extra_val is None:
@@ -415,7 +415,7 @@ class WrapperGenerator:
                     t_def = """traits.Trait('%(default)s', %(extra_val)s,
                                        tvtk_base.TraitRevPrefixMap(%(d)s))"""\
                     %locals()
-                else:                    
+                else:
                     t_def = """traits.Trait('%(default)s', %(extra_val)s,
                                        tvtk_base.TraitRevPrefixMap(%(d)s))"""\
                     %locals()
@@ -428,7 +428,7 @@ class WrapperGenerator:
                 self._write_tvtk_method(out, vtk_meth)
                 if vtk_val == 2:
                     vtk_meth = getattr(klass, 'Set' + m)
-                    self._write_tvtk_method(out, vtk_meth)                    
+                    self._write_tvtk_method(out, vtk_meth)
                 for key, val in meths[m][1:]:
                     x = self._reform_name(key)
                     vtk_meth = getattr(klass, 'Set%sTo%s'%(m, key))
@@ -437,7 +437,7 @@ class WrapperGenerator:
                     self._write_generic_method(out, decl, vtk_meth, body)
 
         return updateable_traits
-    
+
     def _gen_get_set_methods(self, klass, out):
         parser = self.parser
         meths = parser.get_get_set_methods()
@@ -520,7 +520,7 @@ class WrapperGenerator:
                 elif typ in types.StringTypes:
                     if '\n' in default or '\r' in default:
                         default = clean_special_chars(default)
-                    
+
                     if default == '\x00':
                         default = ''
                         t_def = 'traits.String("%(default)s", '%locals()
@@ -605,7 +605,7 @@ class WrapperGenerator:
                     print "Ignoring method: Get/Set%s"%m
                     print "default: %s, range: None"%default
                     del updateable_traits[name]
-                     
+
             else: # Has a specified range of valid values.
                 if klass.__name__ == 'vtkCubeAxesActor2D' and \
                        name == 'inertia':
@@ -658,11 +658,11 @@ class WrapperGenerator:
                             break
                 if simple_get:
                     self._write_property(out, name, vtk_get_meth, None)
-                else: 
+                else:
                     # Cannot be represented as a simple property,
                     # so we wrap it as a plain old method.
                     self._write_tvtk_method(out, vtk_get_meth, sig)
-            
+
     def _gen_other_methods(self, klass, out):
         parser = self.parser
         meths = parser.get_other_methods()
@@ -724,7 +724,7 @@ class WrapperGenerator:
         If no arguments are present in *all* of the signatures, then
         it returns `None`.
 
-        """        
+        """
         if len(sig) == 1:
             if sig[0][1] is None:
                 return None
@@ -810,12 +810,12 @@ class WrapperGenerator:
             vtk_set_meth = getattr(klass, 'SetOutput')
             self._write_generic_method(out, decl,
                                        vtk_set_meth, body)
-        
+
     def _write_get_source_method(self, klass, out):
         """Write the set/get_source method.  This method needs special
         care.  `klass` is the class for which the method is being
         wrapped, `out` is the output file.
-        """        
+        """
         vtk_get_meth = getattr(klass, 'GetSource')
         vtk_set_meth = getattr(klass, 'SetSource')
         set_sig = self.parser.get_method_signature(vtk_set_meth)
@@ -844,7 +844,7 @@ class WrapperGenerator:
         """Handle the GetOutputPort method so that it does not print
         unnecessary warning messages.  `klass` is the class for which
         the method is being wrapped, `out` is the output file.
-        """        
+        """
         vtk_get_meth = getattr(klass, 'GetOutputPort')
         t_def = """
         def _get_output_port(self):
@@ -861,13 +861,13 @@ class WrapperGenerator:
         self.dm.write_trait_doc(doc, out, indent)
         # Close the function definition.
         out.write(indent.format(')'))
-        out.write('\n')        
+        out.write('\n')
 
     def _write_pure_get_input_method(self, klass, out):
         """Write the get_input method when the class only has the
         getter and no setter.  `klass` is the class for which the
         method is being wrapped, `out` is the output file.
-        """        
+        """
         vtk_get_meth = getattr(klass, 'GetInput')
         get_sig = self.parser.get_method_signature(vtk_get_meth)
         if len(get_sig) > 1:
@@ -893,7 +893,7 @@ class WrapperGenerator:
         """Write the set/get_input method.  This method needs special
         care.  `klass` is the class for which the method is being
         wrapped, `out` is the output file.
-        """        
+        """
         vtk_get_meth = getattr(klass, 'GetInput')
         vtk_set_meth = getattr(klass, 'SetInput')
         set_sig = self.parser.get_method_signature(vtk_set_meth)
@@ -926,7 +926,7 @@ class WrapperGenerator:
         needs needs to be wrapped as a property and a method for
         convenience.  `klass` is the class for which the method is
         being wrapped, `out` is the output file.
-        """        
+        """
         vtk_get_meth = getattr(klass, 'GetInputConnection')
         vtk_set_meth = getattr(klass, 'SetInputConnection')
         doc = "The first input connection for this object, i.e. the result of `get_input_connection(0, 0)`."
@@ -956,7 +956,7 @@ class WrapperGenerator:
         Parameters
         ----------
 
-        - out : file like object         
+        - out : file like object
 
         - vtk_meth : VTK method
 
@@ -974,7 +974,7 @@ class WrapperGenerator:
         # Figure out if we really need to wrap the return and deref
         # the args.
         ret_type, arg_type = self._find_sig_type(sig)
-       
+
         vtk_m_name = vtk_meth.__name__
         name = self._reform_name(vtk_m_name, method=True)
         if keyword.iskeyword(name):
@@ -982,7 +982,7 @@ class WrapperGenerator:
         method_affects_input = vtk_m_name in ['AddInput', 'RemoveInput',
                                               'RemoveAllInputs',
                                               'SetInputByNumber']
-        
+
         if arg_type is None:
             decl = 'def %s(self):'%name
             body = ""
@@ -1022,7 +1022,7 @@ class WrapperGenerator:
                 body += "return wrap_vtk(ret)\n"
             else:
                 body += "return ret\n"
-                
+
         self._write_generic_method(out, decl, vtk_meth, body)
 
     def _write_generic_method(self, out, decl, vtk_doc_meth, body):
@@ -1072,7 +1072,7 @@ class WrapperGenerator:
           If `True` the bool method does not have a 'Set' method and
           must be handled specially.  In this case make sure that the
           vtk_set_meth points to the 'Get' method.
-          
+
         """
         changed = '_%s_changed'%t_name
         vtk_m_name = vtk_set_meth.__name__
@@ -1088,7 +1088,7 @@ class WrapperGenerator:
             t_def = t_def[:-1] + ', help=\\'
         else:
             t_def += '(help=\\'
-        trait_def = '%(t_name)s = %(t_def)s'%locals()        
+        trait_def = '%(t_name)s = %(t_def)s'%locals()
 
         if broken_bool:
             msg = "If broken_bool is true, make sure vtk_set_meth "\
@@ -1102,7 +1102,7 @@ class WrapperGenerator:
                     if val:
                         obj.%(vtk_on_name)s()
                     else:
-                        obj.%(vtk_off_name)s()                       
+                        obj.%(vtk_off_name)s()
                 self._do_change(_bool_change, self.%(t_name)s%(map_str)s%(force_str)s)
             """%locals()
         else:
@@ -1134,7 +1134,7 @@ class WrapperGenerator:
         not the setter is treated as if it accepts a single parameter.
         """
         indent = self.indent
-        getter = '_get_%s'%t_name        
+        getter = '_get_%s'%t_name
         vtk_get_name = vtk_get_meth.__name__
         sig = self.parser.get_method_signature(vtk_get_meth)
         ret_type = self._find_return_type(sig)
@@ -1176,7 +1176,7 @@ class WrapperGenerator:
                                         *my_args)
                         self.trait_property_changed('%(t_name)s', old_val, args)
                     """%locals()
-                
+
                 else:
                     trait_def = """
                     def %(setter)s(self, *args):
@@ -1204,7 +1204,7 @@ class WrapperGenerator:
                                         my_arg[0])
                         self.trait_property_changed('%(t_name)s', old_val, arg)
                     """%locals()
-                    
+
                 else:
                     trait_def = """
                     def %(setter)s(self, arg):

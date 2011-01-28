@@ -33,7 +33,7 @@ class Actor2D(Component):
 
     ########################################
     # View related traits.
-    
+
     # The Actor's view group.
     _actor_group = Group(Item(name='visibility'),
                          Item(name='height'),
@@ -46,12 +46,12 @@ class Actor2D(Component):
                       show_labels=False,
                       label='Actor'
                       ),
-                Group(Item(name='mapper', 
+                Group(Item(name='mapper',
                            style='custom',
                            resizable=True),
                       show_labels=False,
                       label='Mapper'),
-                Group(Item(name='property', 
+                Group(Item(name='property',
                            style='custom',
                            resizable=True),
                       show_labels=False,
@@ -77,7 +77,7 @@ class Actor2D(Component):
             self.mapper = tvtk.TextMapper()
         self.actor = tvtk.Actor2D()
         self.property = self.actor.property
-    
+
     def update_pipeline(self):
         """Override this method so that it *updates* the tvtk pipeline
         when data upstream is known to have changed.
@@ -134,7 +134,7 @@ class Actor2D(Component):
             new.property = prop
         # Setup the `actors` trait.
         self.actors = [new]
-        
+
     def _property_changed(self, old, new):
         # Setup the handlers.
         self._setup_handlers(old, new)
@@ -147,7 +147,7 @@ class Actor2D(Component):
         # Change the default color for the actor.
         self.property.color = new
         self.render()
-        
+
     def _scene_changed(self, old, new):
         super(Actor2D, self)._scene_changed(old, new)
         self._foreground_changed_for_scene(None, new.foreground)

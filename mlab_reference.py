@@ -11,7 +11,7 @@ import sys
 
 DEFAULT_INPUT_DIR = os.path.join('docs', 'source')
 OUT_DIR = os.sep.join(
-        [os.path.dirname(os.path.abspath(__file__)), DEFAULT_INPUT_DIR, 
+        [os.path.dirname(os.path.abspath(__file__)), DEFAULT_INPUT_DIR,
                 'mayavi','auto']
             )
 
@@ -25,7 +25,7 @@ from docutils import core as docCore
 
 # We need to exec render_image, as we can't import it, because it is not
 # in a python package.
-render_images = dict(__name__='', 
+render_images = dict(__name__='',
    __file__=os.path.abspath(os.path.join('docs', 'source', 'render_images.py')))
 execfile(render_images['__file__'], render_images)
 IMAGE_DIR = render_images['IMAGE_DIR']
@@ -47,7 +47,7 @@ def indent(lines):
 def relpath(target, base=os.curdir):
     """
     Return a relative path to the target from either the current dir or an
-    optional base dir. Base can be a directory specified either as absolute 
+    optional base dir. Base can be a directory specified either as absolute
     or relative to current dir.
 
     Adapted from
@@ -62,10 +62,10 @@ def relpath(target, base=os.curdir):
     for i in range(min(len(base_list), len(target_list))):
         if base_list[i] <> target_list[i]: break
     else:
-        # If we broke out of the loop, i is pointing to the first 
-        # differing path elements. If we didn't break out of the loop, i 
+        # If we broke out of the loop, i is pointing to the first
+        # differing path elements. If we didn't break out of the loop, i
         # is pointing to identical path elements.
-        # Increment i so that in all cases it points to the first 
+        # Increment i so that in all cases it points to the first
         # differing path elements.
         i+=1
 
@@ -74,7 +74,7 @@ def relpath(target, base=os.curdir):
 
 
 def is_valid_rst(string):
-    """ Check if the given string can be compiled to rst. 
+    """ Check if the given string can be compiled to rst.
     """
     publisher = docCore.Publisher( source_class = docIO.StringInput,
                         destination_class = docIO.StringOutput )
@@ -121,7 +121,7 @@ def document_function(func, func_name=None, example_code=None,
 %(func_doc)s
 
     """ % {
-            'func_name' : func_name, 
+            'func_name' : func_name,
             'title_line': '~'*len(func_name),
             'func_signature': func_signature,
             'func_doc'  : indent(dedent(func_doc))
@@ -174,13 +174,13 @@ class ModuleReference(object):
     # Titles for the sub modules pages
     sub_modules_titles = None
 
-    # Header for the main file 
-    header = '' 
+    # Header for the main file
+    header = ''
 
     # Footer for the main file
     footer = ''
 
-    # Misc entries that are in no submodules. 
+    # Misc entries that are in no submodules.
     # If this is None, no separate page will be created
     misc_title = None
 
@@ -210,35 +210,35 @@ from enthought.mayavi.mlab import *
             """ % example_code
         else:
             example_code = None
-        
+
         image_file = self.image_dir + os.sep + \
                         self.module.__name__.replace('.', '_') + '_' \
                         + func_name + '.jpg'
-        
+
         if not os.path.exists(image_file):
             image_file = None
         else:
             image_file = relpath(image_file, self.out_dir)
-        
-        documentation = document_function(func, 
+
+        documentation = document_function(func,
                                 func_name=func_name,
                                 example_code=example_code,
                                 image_file=image_file)
 
         return documentation
 
-        
+
     def write_doc(self):
         """ Entry point of the object: goes throught the module and
             writes the docs to the disk.
         """
-        self.to_document = set([name 
+        self.to_document = set([name
                             for name, func in getmembers(self.module)
                             if not ( name[:5] == 'test_' or name[0] == '_')
                                                      and callable(func)])
 
         outfile = file(os.sep.join([self.out_dir, self.filename]), 'w')
-        
+
         outfile.write(self.header)
 
         outfile.write("""
@@ -255,21 +255,21 @@ from enthought.mayavi.mlab import *
             self.sub_headers = ['' for submodule in self.sub_modules]
         if self.sub_filenames is None:
             self.sub_filenames = ['%s.rst' for submodule in self.sub_modules]
-       
+
         # Document the functions imported from a submodule
         for submodule, header, filename, title in zip(
                     self.sub_modules, self.sub_headers,
                     self.sub_filenames, self.sub_modules_titles):
-            
+
             self.write_doc_submodule(filename, title=title,
-                                    header=header, 
+                                    header=header,
                                     submodulename=submodule)
             outfile.write('\t%s\n' % filename)
 
         # And now the rest
         if self.misc_filename is None:
             misc_filename = self.module.__name__ + '.misc'
-        else: 
+        else:
             misc_filename = self.misc_filename
         self.write_doc_submodule(misc_filename, title=self.misc_title)
 
@@ -293,7 +293,7 @@ from enthought.mayavi.mlab import *
             functions are processed.
         """
         outfile = file(os.sep.join([self.out_dir, filename]), 'w')
-        
+
         if header is not None:
             outfile.write(header)
 
@@ -304,7 +304,7 @@ from enthought.mayavi.mlab import *
 .. note::
 
     This section is only a reference describing the function, please see
-    the chapter on :ref:`simple-scripting-with-mlab` for an introduction to 
+    the chapter on :ref:`simple-scripting-with-mlab` for an introduction to
     mlab and how to interact with and assemble the functions of `mlab`.
 
     Please see the section on :ref:`running-mlab-scripts` for
@@ -319,11 +319,11 @@ from enthought.mayavi.mlab import *
 
         for func_name in sorted(self.to_document):
             func = getattr(self.module, func_name)
-            
-            if (    submodulename is not None 
+
+            if (    submodulename is not None
                     and not func.__module__ == submodulename ):
                 continue
-        
+
             outfile.write(self.document_function(func_name))
             outfile.write("\n\n")
             documented.add(func_name)
@@ -353,7 +353,7 @@ if __name__ == '__main__':
             module  = mlab,
             header  = """
 
-.. _mlab-reference: 
+.. _mlab-reference:
 
 MLab reference
 =================
@@ -364,16 +364,16 @@ with documentation and examples.
 .. note::
 
     This section is only a reference describing the function, please see
-    the chapter on :ref:`simple-scripting-with-mlab` for an introduction to 
-    mlab and how to run the examples or interact with and assemble 
+    the chapter on :ref:`simple-scripting-with-mlab` for an introduction to
+    mlab and how to run the examples or interact with and assemble
     the functions of `mlab`.
 
-""", 
+""",
             footer = """\t../mlab_pipeline_reference.rst\n""",
             sub_modules = [module.__name__ for module in sub_modules],
-            sub_filenames = ['mlab_%s.rst' % module.__name__.split('.')[-1] 
+            sub_filenames = ['mlab_%s.rst' % module.__name__.split('.')[-1]
                                 for module in sub_modules],
-            sub_modules_titles = ['Plotting functions', 
+            sub_modules_titles = ['Plotting functions',
                                  'Figure handling functions',
                                  'Figure decoration functions',
                                  'Camera handling functions'],
@@ -381,7 +381,7 @@ with documentation and examples.
             misc_filename = 'mlab_other_functions.rst',
             )
 
-    
+
     mlab_reference.write_doc()
 
     #########################################################################
@@ -394,7 +394,7 @@ with documentation and examples.
             module  = pipeline,
             header  = """
 
-.. _mlab-pipeline-reference: 
+.. _mlab-pipeline-reference:
 
 MLab pipeline reference
 ========================
@@ -409,13 +409,13 @@ These functions can be used for finer control of the Mayavi
 pipeline than the main mlab interface. For usage examples, see
 :ref:`ontrolling-the-pipeline-with-mlab-scripts`.
 
-""", 
+""",
             sub_modules = [sources.__name__, tools.__name__,
                            probe_data.__name__],
-            sub_filenames = ['mlab_pipeline_sources.rst', 
+            sub_filenames = ['mlab_pipeline_sources.rst',
                              'mlab_pipeline_tools.rst',
-                             'mlab_pipeline_data.rst'], 
-            sub_modules_titles = ['Sources', 'Tools', 'Data'], 
+                             'mlab_pipeline_data.rst'],
+            sub_modules_titles = ['Sources', 'Tools', 'Data'],
             misc_title = 'Filters, modules, other functions',
             misc_filename = 'mlab_pipeline_other_functions.rst',
             )

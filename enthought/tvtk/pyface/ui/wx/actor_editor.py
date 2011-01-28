@@ -2,14 +2,14 @@
 #
 #  Copyright (c) 2007, Enthought, Inc.
 #  All rights reserved.
-#  
+#
 #  This software is provided without warranty under the terms of the BSD
 #  license included in enthought/LICENSE.txt and may be redistributed only
 #  under the conditions described in the aforementioned license.  The license
 #  is also available online at http://www.enthought.com/licenses/BSD.txt
 #
 #  Thanks for using Enthought open source!
-#  
+#
 #  Authors: Robert Kern <robert.kern [at] gmail.com>
 #           Prabhu Ramachandran <prabhu [at] aero.iitb.ac.in>
 #
@@ -73,7 +73,7 @@ class _ActorEditor(Editor):
 
         # Remove notifications.
         self._setup_scene_notifications(remove=True)
-        
+
         # Remove the current scene.
         if self._scene is not None:
             self._scene.close()
@@ -196,7 +196,7 @@ class _ActorEditor(Editor):
 
     def _separate_actors_widgets(self, actors_widgets):
         """Given a sequence (or single) of actors or widgets, this returns a
-        list of just the actors and another of just the widgets.  
+        list of just the actors and another of just the widgets.
         """
         if not hasattr(actors_widgets, '__getitem__'):
             actors_widgets = [actors_widgets]

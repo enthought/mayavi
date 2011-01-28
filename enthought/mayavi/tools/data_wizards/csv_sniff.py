@@ -19,12 +19,12 @@ class Sniff(object):
         numpy.loadtxt
 
         Example::
-            
+
             s = Sniff('mydata.csv')
             print repr(s.delimiter())     # ','
             print s.skiprows()            # 2
             a = s.loadtxt()               # a is now the array
-            
+
             from numpy import loadtxt     # make sure it's numpy 1.1.0 or higher
             b = loadtxt('mydata.csv', **s.kwds())
     """
@@ -34,16 +34,16 @@ class Sniff(object):
         self._reallines = [line for line in self._lines if line.strip()]
         self._dialect = csv.Sniffer().sniff(self._reallines[-1])
         self._get_comment()
-        
+
         if self._dialect.delimiter.isalnum():
             self._usePySplit = True
             self._numcols = 1
         else:
             self._usePySplit = not self._dialect.delimiter.strip()
             self._numcols = len(self._split(self._reallines[-1]))
-            
+
         self._datatypes = self._datatypes_of_line(self._reallines[-1])
-        
+
     def _get_comment(self):
         self._comment = '#'
         line0 = self._reallines[0]
@@ -53,7 +53,7 @@ class Sniff(object):
             for i in xrange(1, len(self._reallines)):
                 self._reallines[i] = \
                     self._reallines[i].split(self._comment)[0]
-    
+
     def _read_few_lines(self):
         res = []
         f = open(self._filename, 'rb')
@@ -64,13 +64,13 @@ class Sniff(object):
                 break
         f.close()
         return res
-    
+
     def _split(self, line):
         if self._usePySplit:
             return line.split()
         else:
             return csv.reader([line], self._dialect).next()
-    
+
     def _names(self):
         if self._datatypes != self._numcols * (str,):
             for line in self._reallines:
@@ -79,9 +79,9 @@ class Sniff(object):
                 if self._datatypes_of_line(line) != self._numcols * (str,):
                     continue
                 return tuple(t.strip('"\' \t') for t in self._split(line))
-        
+
         return tuple('Column %i' % (i+1) for i in xrange(self._numcols))
-    
+
     def _formats(self):
         res = []
         for c, t in enumerate(self._datatypes):
@@ -90,15 +90,15 @@ class Sniff(object):
                          if self._datatypes_of_line(l) == self._datatypes]
                 items.append(1)
                 res.append('S%i' % max(items))
-                
+
             elif t == float:
                 res.append(t)
 
             else:
                 raise TypeError("Hmm, did not expect: %r" % t)
-                
+
         return tuple(res)
-    
+
     def _datatypes_of_line(self, line):
 
         def isFloat(s):
@@ -107,14 +107,14 @@ class Sniff(object):
                 return True
             except ValueError:
                 return False
-            
+
         res = []
         for s in self._split(line):
             if isFloat(s):
                 res.append(float)
             else:
                 res.append(str)
-                
+
         return tuple(res)
 
     def _debug(self):
@@ -127,12 +127,12 @@ class Sniff(object):
     #-----------------------------------------------------------------------
     # Public API:
     #-----------------------------------------------------------------------
-    
+
     def comments(self):
         """ Return the character used for comments (usually '#').
         """
         return self._comment
-    
+
     def delimiter(self):
         """ Return the delimiter string.
             When whitespace is used as the delimiter, None is returned.
@@ -141,7 +141,7 @@ class Sniff(object):
             return None
         else:
             return self._dialect.delimiter
-    
+
     def skiprows(self):
         """ The number (int) of rows from the top to skip.
         """
@@ -149,7 +149,7 @@ class Sniff(object):
             if self._datatypes == self._datatypes_of_line(line):
                 return n
         return 0
-    
+
     def dtype(self):
         """ Return a dict suitable to be used as the dtype keyword
             argument of loadtxt.
@@ -178,7 +178,7 @@ def loadtxt_unknown(filename, verbose=0):
         Sniff first to determine the necessary keyword arguments for loadtxt.
     """
     s = Sniff(filename)
-    
+
     if verbose:
         s._debug()
 
@@ -193,5 +193,5 @@ def array2dict(arr):
     res = {}
     for k in arr.dtype.names:
         res[k] = arr[k]
-        
+
     return res

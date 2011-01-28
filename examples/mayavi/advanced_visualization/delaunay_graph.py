@@ -4,7 +4,7 @@ and NetworkX.
 
 This example shows how to use Mayavi in a purely algorithmic way, to
 compute a Delaunay from data points, extract it and pass it to networkx.
-It also shows how to plot a graph using quiver. 
+It also shows how to plot a graph using quiver.
 
 Starting from points positioned regularly on a sphere, we first use VTK
 to create the Delaunay graph, and also to plot it. We then create a
@@ -28,7 +28,7 @@ list of the ExtractEdges filter object, returned by the
 `mlab.pipeline.extract_edges` factory function. Once we have this object,
 we extract the points and edge list from it. This graph-plotting
 technique differs from the technique used in the examples
-:ref:`example_protein` and :ref:`example_flight_graph` where points are 
+:ref:`example_protein` and :ref:`example_flight_graph` where points are
 created and connected by lines. Unlike these techniques, it enables
 storing scalar data on each line.
 
@@ -50,7 +50,7 @@ import numpy as np
 import networkx as nx
 
 def compute_delaunay_edges(x, y, z, visualize=False):
-    """ Given 3-D points, returns the edges of their 
+    """ Given 3-D points, returns the edges of their
         Delaunay triangulation.
 
         Parameters
@@ -65,18 +65,18 @@ def compute_delaunay_edges(x, y, z, visualize=False):
         Returns
         ---------
         new_x: ndarray
-            new x coordinates of the points (same coords but different 
+            new x coordinates of the points (same coords but different
             assignment of points)
         new_y: ndarray
-            new y coordinates of the points (same coords but different 
+            new y coordinates of the points (same coords but different
             assignment of points)
         new_z: ndarray
-            new z coordinates of the points (same coords but different 
+            new z coordinates of the points (same coords but different
             assignment of points)
         edges: 2D ndarray.
             The indices of the edges of the Delaunay triangulation as a
             (N, 2) array [[pair1_index1, pair1_index2],
-                          [pair2_index1, pair2_index2], 
+                          [pair2_index1, pair2_index2],
                           ...                         ]
     """
     if visualize:
@@ -114,14 +114,14 @@ def graph_plot(x, y, z, start_idx, end_idx, edge_scalars=None, **kwargs):
         kwargs:
             extra keyword arguments are passed to quiver3d.
     """
-    vec = mlab.quiver3d(x[start_idx], 
+    vec = mlab.quiver3d(x[start_idx],
                         y[start_idx],
                         z[start_idx],
                         x[end_idx] - x[start_idx],
                         y[end_idx] - y[start_idx],
                         z[end_idx] - z[start_idx],
                         scalars=edge_scalars,
-                        mode='2ddash', 
+                        mode='2ddash',
                         scale_factor=1,
                         **kwargs)
     if edge_scalars is not None:

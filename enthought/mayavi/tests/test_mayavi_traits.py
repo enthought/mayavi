@@ -32,7 +32,7 @@ class Simple(HasTraits):
     # Test attribute.
     _test = Int(0)
     def _x_changed(self, value):
-        self._test += 1 
+        self._test += 1
 
 
 class TestShadowProperty(unittest.TestCase):

@@ -66,7 +66,7 @@ class Glyph(Component):
     mask_input_points = Bool(False, desc="if input points are masked")
 
     # The MaskPoints filter.
-    mask_points = Instance(tvtk.MaskPoints, args=(), 
+    mask_points = Instance(tvtk.MaskPoints, args=(),
                            kw={'random_mode': True}, record=True)
 
     # The Glyph3D instance.
@@ -74,7 +74,7 @@ class Glyph(Component):
 
     # The Source to use for the glyph.  This is chosen from
     # `self._glyph_list` or `self.glyph_dict`.
-    glyph_source = Instance(glyph_source.GlyphSource,  
+    glyph_source = Instance(glyph_source.GlyphSource,
                             allow_none=False, record=True)
 
     # The module associated with this component.  This is used to get
@@ -92,9 +92,9 @@ class Glyph(Component):
 
     # Used for optimization.
     _updating = Bool(False)
-    
+
     ########################################
-    # View related traits.            
+    # View related traits.
 
     view = View(Group(Item(name='mask_input_points'),
                       Group(Item(name='mask_points',
@@ -175,7 +175,7 @@ class Glyph(Component):
             self._color_mode_changed(self.color_mode)
         else:
             self._color_mode_tensor_changed(self.color_mode_tensor)
-        self._scale_mode_changed(self.scale_mode)        
+        self._scale_mode_changed(self.scale_mode)
 
         # Set our output.
         self.outputs = [self.glyph.output]
@@ -245,7 +245,7 @@ class Glyph(Component):
         try:
             glyph = self.glyph
             glyph.scale_mode = value
-            
+
             mm = self.module.module_manager
             if glyph.scale_mode == 'scale_by_scalar':
                 glyph.range = tuple(mm.scalar_lut_manager.data_range)

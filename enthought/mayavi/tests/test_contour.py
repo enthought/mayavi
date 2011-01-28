@@ -22,11 +22,11 @@ from enthought.mayavi.modules.contour_grid_plane import ContourGridPlane
 from enthought.mayavi.modules.scalar_cut_plane import ScalarCutPlane
 
 
-class TestContour(unittest.TestCase):   
-       
+class TestContour(unittest.TestCase):
+
     def setUp(self):
         """Initial setting up of test fixture, automatically called by TestCase before any other test method is invoked"""
-        
+
         e = NullEngine()
         # Uncomment to see visualization for debugging etc.
         #e = Engine()
@@ -66,7 +66,7 @@ class TestContour(unittest.TestCase):
         e.add_module(cp)
         ip = cp.implicit_plane
         ip.normal = 0,0,1
-        ip.origin = 0.5, 0.5, 1.0  
+        ip.origin = 0.5, 0.5, 1.0
         # Since this is running offscreen this seems necessary.
         ip.widget.origin = 0.5, 0.5, 1.0
         ip.widget.enabled = False
@@ -75,14 +75,14 @@ class TestContour(unittest.TestCase):
         self.iso=iso
         self.cp=cp
         return
-        
+
     def tearDown(self):
         """For necessary clean up, automatically called by TestCase after the test methods have been invoked"""
         self.e.stop()
         return
 
     def check(self):
-        """Do the actual testing."""             
+        """Do the actual testing."""
         scene = self.scene
         src = scene.children[0]
         mm = src.children[0]
@@ -100,21 +100,21 @@ class TestContour(unittest.TestCase):
         self.assertEqual(ctr, [5.0])
         rng = iso.actor.mapper.input.point_data.scalars.range
         self.assertEqual(rng[0],5.0)
-        self.assertEqual(rng[1],5.0)   
+        self.assertEqual(rng[1],5.0)
 
         cp = mm.children[4]
         ip = cp.implicit_plane
-        self.assertAlmostEqual(numpy.sum(ip.normal - (0,0,1)) , 1e-16)        
+        self.assertAlmostEqual(numpy.sum(ip.normal - (0,0,1)) , 1e-16)
         self.assertAlmostEqual(numpy.sum(ip.origin - (0.5, 0.5, 1.0)), 0.0)
         self.assertEqual(ip.widget.enabled,False)
 
-        
 
-    def test_contour(self):   
-        "Test if the test fixture works"                 
+
+    def test_contour(self):
+        "Test if the test fixture works"
         #Now test.
         self.check()
-        
+
         #from enthought.mayavi.tools.show import show
         #show()
 
@@ -140,11 +140,11 @@ class TestContour(unittest.TestCase):
         ip.widget.enabled = False
         cp.contour = cp.contour.__class__()
         cp.cutter = cp.cutter.__class__()
-        cp.actor = cp.actor.__class__() 
+        cp.actor = cp.actor.__class__()
         # Now check.
         self.check()
-    
-    
+
+
     def test_save_and_restore(self):
         """Test if saving a visualization and restoring it works."""
         engine = self.e
@@ -157,7 +157,7 @@ class TestContour(unittest.TestCase):
         f.seek(0) # So we can read this saved data.
 
         # Remove existing scene.
-       
+
         engine.close_scene(scene)
 
         # Load visualization
@@ -165,7 +165,7 @@ class TestContour(unittest.TestCase):
         self.scene = engine.current_scene
 
         self.check()
-    
+
 
     def test_deepcopied(self):
         """Test if the MayaVi2 visualization can be deep-copied."""
@@ -176,7 +176,7 @@ class TestContour(unittest.TestCase):
         s =  self.scene
         source = s.children.pop()
         # Add it back to see if that works without error.
-        s.children.append(source)       
+        s.children.append(source)
         cp = source.children[0].children[-1]
         cp.implicit_plane.widget.enabled = False
 
@@ -187,7 +187,7 @@ class TestContour(unittest.TestCase):
         # object from the UI via the right-click menu on the tree
         # view, and pasting the copy back.
         source1 = copy.deepcopy(source)
-        s.children[0] = source1 
+        s.children[0] = source1
         cp = source1.children[0].children[-1]
         cp.implicit_plane.widget.enabled = False
         self.check()

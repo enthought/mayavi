@@ -1,5 +1,5 @@
 """
-HasTraits class providing window with a mayavi engine, to preview pipeline 
+HasTraits class providing window with a mayavi engine, to preview pipeline
 elements.
 """
 
@@ -23,14 +23,14 @@ class PreviewWindow(HasTraits):
 
     _scene = Instance(SceneModel, ())
 
-    view = View(Item('_scene', editor=SceneEditor(scene_class=Scene), 
+    view = View(Item('_scene', editor=SceneEditor(scene_class=Scene),
                         show_label=False),
                 width=500, height=500)
 
     #-----------------------------------------------------------------------
     # Public API
     #-----------------------------------------------------------------------
-    
+
 
     def add_source(self, src):
         self._engine.add_source(src)
@@ -49,11 +49,11 @@ class PreviewWindow(HasTraits):
         self._engine.current_scene.children[:] = []
         self._engine.current_scene.scene.disable_render = False
 
-    
+
     #-----------------------------------------------------------------------
     # Private API
     #-----------------------------------------------------------------------
-    
+
     def __engine_default(self):
         e = Engine()
         e.start()

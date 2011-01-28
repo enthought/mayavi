@@ -1,6 +1,6 @@
 """
-Excample using the UserDefined filter to paint a cross-shaped cursor on data, 
-in order to point out a special position. 
+Excample using the UserDefined filter to paint a cross-shaped cursor on data,
+in order to point out a special position.
 
 We use the UserDefined filter `ImageCursor3D` to create the cursor. A Gaussian
 data field is painted with the cursor, and then visualized using the
@@ -25,8 +25,8 @@ The documentation of the filter is displayed when selecting its name
 within the `Class name` field of the dialog.
 """
 
-# Authors: Emmanuelle Gouillart <emmanuelle.gouillart@normalesup.org> 
-# and Gael Varoquaux <gael.varoquaux@normalesup.org> 
+# Authors: Emmanuelle Gouillart <emmanuelle.gouillart@normalesup.org>
+# and Gael Varoquaux <gael.varoquaux@normalesup.org>
 # Copyright (c) 2009, Enthought, Inc.
 # License: BSD Style.
 
@@ -52,14 +52,14 @@ cursor = mlab.pipeline.user_defined(s, filter='ImageCursor3D')
 # attribute of the Mayavi filtered returned by user_defined.
 # We can set the graphical properties of the cross via attributes of
 # cursor.filter, and not of cursor itself. Here cursor is a Mayavi filter,
-# that is an object that inserts in the Mayavi pipeline, whereas 
+# that is an object that inserts in the Mayavi pipeline, whereas
 # cursor.filter is the TVTK filter that actually does the work.
 
 # Put the cursor at the center of the field volume (default is (0, 0, 0))
 cursor.filter.cursor_position = np.array([20, 20, 20])
 # Define the value of the cursor (default is 255) so that there is
 # enough contrast between the cursor and the data values in the neighbourhood
-# of the cursor. The cursor value is within the data value range so that 
+# of the cursor. The cursor value is within the data value range so that
 # the contrast of the data is not altered.
 cursor.filter.cursor_value = 0
 # Define the radius of the cross (the extent of the cross is 2xcursor_radius)
@@ -68,7 +68,7 @@ cursor.filter.cursor_radius = 10
 
 # Display data and cursor using an image_plane_widget that intersects the
 # cursor.
-ipw = mlab.pipeline.image_plane_widget(cursor, plane_orientation='x_axes', 
+ipw = mlab.pipeline.image_plane_widget(cursor, plane_orientation='x_axes',
             slice_index=20)
 
 # View

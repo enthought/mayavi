@@ -74,7 +74,7 @@ src.update_image_data = True
 # Brain extraction pipeline
 
 # In the following, we create a Mayavi pipeline that strongly
-# relies on VTK filters. For this, we make heavy use of the 
+# relies on VTK filters. For this, we make heavy use of the
 # mlab.pipeline.user_defined function, to include VTK filters in
 # the Mayavi pipeline.
 
@@ -126,7 +126,7 @@ surf = mlab.pipeline.surface(compute_normals,
 
 #----------------------------------------------------------------------
 # Display a cut plane of the raw data
-ipw = mlab.pipeline.image_plane_widget(src, colormap='bone', 
+ipw = mlab.pipeline.image_plane_widget(src, colormap='bone',
                 plane_orientation='z_axes',
                 slice_index=55)
 

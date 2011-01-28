@@ -56,7 +56,7 @@ class AddModuleManager(ModuleAction):
         mm = ModuleManager()
         mv = self.mayavi
         mv.add_module(mm)
-        mv.engine.current_selection = mm 
+        mv.engine.current_selection = mm
 
 
 ######################################################################

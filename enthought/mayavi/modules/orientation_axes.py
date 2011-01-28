@@ -41,12 +41,12 @@ class OrientationAxes(Module):
 
     input_info = PipelineInfo(datasets=['any'],
                               attribute_types=['any'],
-                              attributes=['any'])    
+                              attributes=['any'])
 
     ########################################
     # Private traits.
     _text_property = Instance(tvtk.TextProperty)
-    
+
     ########################################
     # The view of this object.
 
@@ -89,7 +89,7 @@ class OrientationAxes(Module):
         for prop in ['axes', 'marker', '_text_property']:
             obj = getattr(self, prop)
             state_pickler.set_state(obj, state[prop])
-            
+
 
     ######################################################################
     # `Module` interface
@@ -111,7 +111,7 @@ class OrientationAxes(Module):
                                    normalized_shaft_length=(0.6, 0.6, 0.6),
                                    shaft_type='cylinder')
         self.text_property.set(color=(1,1,1), shadow=False, italic=False)
-        
+
         self.marker = tvtk.OrientationMarkerWidget(key_press_activation=False)
 
     def update_pipeline(self):
@@ -142,7 +142,7 @@ class OrientationAxes(Module):
             self.widgets.remove(old)
         axes = self.axes
         if axes is not None:
-            new.orientation_marker = axes            
+            new.orientation_marker = axes
         new.on_trait_change(self.render)
 
         self.widgets.append(new)
@@ -161,7 +161,7 @@ class OrientationAxes(Module):
         new.z_axis_caption_actor2d.caption_text_property = p
         self._text_property = p
 
-        # XXX: The line of code below is a stop-gap solution. Without it, 
+        # XXX: The line of code below is a stop-gap solution. Without it,
         # Some observers in the AxesActor trigger a modification of the
         # font_size each time the mouse is moved over the OrientationAxes
         # (this can be seen when running the record mode, for instance),
@@ -170,20 +170,20 @@ class OrientationAxes(Module):
         # line of code below. So we probably haven't found the true
         # cause of the problem.
         p.teardown_observers()
-            
+
         new.on_trait_change(self.render)
         p.on_trait_change(self.render)
-        
+
         self.render()
-        
+
     def _get_text_property(self):
         return self._text_property
-    
+
     def _foreground_changed_for_scene(self, old, new):
         # Change the default color for the actor.
         self.text_property.color = new
         self.render()
-        
+
     def _scene_changed(self, old, new):
         super(OrientationAxes, self)._scene_changed(old, new)
         self._foreground_changed_for_scene(None, new.foreground)

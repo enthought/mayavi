@@ -51,7 +51,7 @@ class Filter(Source):
         # Inputs are setup dynamically, don't pickle them.
         d.pop('inputs', None)
         return d
-    
+
     ######################################################################
     # `Filter` interface.
     ######################################################################
@@ -67,7 +67,7 @@ class Filter(Source):
         dependent on upstream sources and filters.
         """
         pass
-    
+
     def update_pipeline(self):
         """Override this method so that it *updates* the tvtk pipeline
         when data upstream is known to have changed.
@@ -100,7 +100,7 @@ class Filter(Source):
         # Do nothing if we are already running.
         if self.running:
             return
-        
+
         # Setup event handlers.
         self._setup_event_handlers()
 
@@ -140,12 +140,12 @@ class Filter(Source):
             # Even if the outputs don't change we want to propagate a
             # data_changed event since the data could have changed.
             self.data_changed = True
-    
+
     def _inputs_changed(self, old, new):
         if self.running:
             self.update_pipeline()
             self._setup_input_events(old, new)
-            
+
     def _inputs_items_changed(self, list_event):
         if self.running:
             self.update_pipeline()
@@ -156,14 +156,14 @@ class Filter(Source):
 
     def _teardown_event_handlers(self):
         self._setup_input_events(self.inputs, [])
-        
+
     def _setup_input_events(self, removed, added):
         for input in removed:
             input.on_trait_event(self.update_pipeline, 'pipeline_changed',
                                  remove=True)
             input.on_trait_event(self.update_data, 'data_changed',
-                                 remove=True)        
+                                 remove=True)
         for input in added:
             input.on_trait_event(self.update_pipeline, 'pipeline_changed')
             input.on_trait_event(self.update_data, 'data_changed')
-    
+

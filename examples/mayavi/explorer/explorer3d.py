@@ -31,7 +31,7 @@ class ExplorerPerspective(Perspective):
     show_editor_area = True
 
     # View IDs.
-    EXPLORER_VIEW = 'explorer3d.Explorer3D' 
+    EXPLORER_VIEW = 'explorer3d.Explorer3D'
 
     # The contents of the perspective.
     contents = [
@@ -56,10 +56,10 @@ class ExplorerPlugin(Plugin):
 
     # Perspectives.
     perspectives = List(contributes_to=PERSPECTIVES)
-    
+
     # Services we contribute.
     service_offers = List(contributes_to=SERVICE_OFFERS)
-    
+
     # Views.
     views = List(contributes_to=VIEWS)
 
@@ -114,7 +114,7 @@ def main():
     # Create an Envisage application.
     id = 'explorer3d.Explorer3D'
     application = WorkbenchApplication(id=id,
-                                       plugins = plugins 
+                                       plugins = plugins
                                        )
     # This needs to be done here since the ETSConfig.application_home is
     # not set correctly up to this point.

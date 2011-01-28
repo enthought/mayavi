@@ -66,17 +66,17 @@ class DataAttributes(HasTraits):
             data_array, data_has_nan = self._get_np_arr(data)
             if data_has_nan:
                 d_mag = numpy.sqrt((data_array*data_array).sum(axis=1))
-                self.range = [float(numpy.nanmin(d_mag)), 
+                self.range = [float(numpy.nanmin(d_mag)),
                               float(numpy.nanmax(d_mag))]
             else:
                 self.range = [0.0, data.max_norm]
 
     def config_lut(self, lut_mgr):
         """Set the attributes of the LUTManager."""
-        rng = [0.0, 1.0]        
+        rng = [0.0, 1.0]
         if len(self.range) > 0:
             rng = self.range
-            
+
         lut_mgr.default_data_range = list(rng)
         lut_mgr.default_data_name = self.name
 
@@ -111,7 +111,7 @@ class ModuleManager(Base):
 
     # The scalar lookup table manager.
     scalar_lut_manager = Instance(LUTManager, args=(), record=True)
-    
+
     # The vector lookup table manager.
     vector_lut_manager = Instance(LUTManager, args=(), record=True)
 
@@ -172,7 +172,7 @@ class ModuleManager(Base):
         # Do nothing if we are already running.
         if self.running:
             return
-        
+
         # Setup event handlers.
         self._setup_event_handlers()
 
@@ -200,13 +200,13 @@ class ModuleManager(Base):
             obj.stop()
         for obj in (self.scalar_lut_manager, self.vector_lut_manager):
             obj.stop()
-        
+
         # Call parent method to set the running state.
         super(ModuleManager, self).stop()
 
     def add_child(self, child):
         """This method intelligently adds a child to this object in
-        the MayaVi pipeline.        
+        the MayaVi pipeline.
         """
         if isinstance(child, Module):
             self.children.append(child)
@@ -266,7 +266,7 @@ class ModuleManager(Base):
     def _source_changed(self):
         self.output_info.copy_traits(self.source.output_info)
         self.update()
-        
+
     def _setup_event_handlers(self):
         src = self.source
         src.on_trait_event(self.update, 'pipeline_changed')
@@ -277,9 +277,9 @@ class ModuleManager(Base):
         src.on_trait_event(self.update, 'pipeline_changed', remove=True)
         src.on_trait_event(self.update, 'data_changed', remove=True)
 
-    def _scene_changed(self, value):        
+    def _scene_changed(self, value):
         for obj in self.children:
-            obj.scene = value        
+            obj.scene = value
         for obj in (self.scalar_lut_manager, self.vector_lut_manager):
             obj.scene = value
 
@@ -298,7 +298,7 @@ class ModuleManager(Base):
         point_data_attr.compute_scalar(ps, 'point')
         cell_data_attr = DataAttributes(name='No scalars')
         cell_data_attr.compute_scalar(cs, 'cell')
-        
+
         if self.lut_data_mode == 'auto':
             if len(point_data_attr.range) > 0:
                 data_attr.copy_traits(point_data_attr)
@@ -311,7 +311,7 @@ class ModuleManager(Base):
 
         data_attr.config_lut(self.scalar_lut_manager)
 
-    def _setup_vector_data(self):        
+    def _setup_vector_data(self):
         input = self.source.outputs[0]
         pv = input.point_data.vectors
         cv = input.cell_data.vectors
@@ -321,7 +321,7 @@ class ModuleManager(Base):
         point_data_attr.compute_vector(pv, 'point')
         cell_data_attr = DataAttributes(name='No vectors')
         cell_data_attr.compute_vector(cv, 'cell')
-        
+
         if self.lut_data_mode == 'auto':
             if len(point_data_attr.range) > 0:
                 data_attr.copy_traits(point_data_attr)
@@ -339,7 +339,7 @@ class ModuleManager(Base):
             c.visible = value
         self.scalar_lut_manager.visible = value
         self.vector_lut_manager.visible = value
-    
+
         super(ModuleManager,self)._visible_changed(value)
 
     def _menu_helper_default(self):

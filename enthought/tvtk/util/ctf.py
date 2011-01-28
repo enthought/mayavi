@@ -16,7 +16,7 @@ from enthought.tvtk.api import tvtk
 def _err_msg(obj, cls_name):
     return '%s %s does not have either a "nodes" attribute or a '\
            '"get_node_value" method'%(cls_name, str(obj))
-    
+
 def save_ctfs(volume_property):
     """Given a `tvtk.VolumeProperty` it saves the state of the RGB and
     opacity CTF to a dictionary and returns that.
@@ -34,7 +34,7 @@ def save_ctfs(volume_property):
     if hasattr(ctf, 'nodes'):
         for i in range(nc):
             x = ctf.nodes[i]
-            r, g, b = ctf.get_color(x) 
+            r, g, b = ctf.get_color(x)
             rgb.append([x, r, g, b])
     elif hasattr(ctf, 'get_node_value'):
         val = [0]*6
@@ -42,8 +42,8 @@ def save_ctfs(volume_property):
             ctf.get_node_value(i, val)
             rgb.append(val[:4])
     else:
-        raise TypeError, _err_msg(ctf, 'ColorTransferFunction')            
-                         
+        raise TypeError, _err_msg(ctf, 'ColorTransferFunction')
+
     # The Alpha values.
     na = otf.size
     a = []
@@ -59,7 +59,7 @@ def save_ctfs(volume_property):
             a.append(val[:2])
     else:
         raise TypeError, _err_msg(otf, 'PiecewiseFunction')
-    
+
     return {'range': (s1, s2), 'rgb':rgb, 'alpha':a}
 
 def load_ctfs(saved_data, volume_property):
@@ -77,7 +77,7 @@ def load_ctfs(saved_data, volume_property):
 
     # First do the RGB values ...
     new_ctf = True
-    ctf = volume_property.rgb_transfer_function    
+    ctf = volume_property.rgb_transfer_function
     if isinstance(ctf, ColorTransferFunction):
         new_ctf = False
         ctf.remove_all_points()
@@ -114,7 +114,7 @@ def rescale_ctfs(volume_property, new_range):
     CTF's so that everything works OK.
 
     It returns the CTF and OTF.
-    """    
+    """
     ctf = volume_property.rgb_transfer_function
     otf = volume_property.get_scalar_opacity()
     old_range = ctf.range
@@ -146,7 +146,7 @@ def set_lut(lut, volume_property):
     the state of the RGB and opacity CTF from the volume property to
     the LUT.  The number of colors to use is obtained from the LUT and
     not the CTF.
-    """    
+    """
     vp = volume_property
     ctf = vp.rgb_transfer_function
     otf = vp.get_scalar_opacity()
@@ -163,7 +163,7 @@ def set_ctf_from_lut(lut, volume_property):
     the state of the RGB and opacity CTF from the lookup table to the
     CTF.  The CTF range is obtained from the volume property and the
     number of colors to use is obtained from the LUT.
-    """    
+    """
     vp = volume_property
     ctf = vp.rgb_transfer_function
     s1, s2 = ctf.range
@@ -178,7 +178,7 @@ def set_ctf_from_lut(lut, volume_property):
         otf.add_point(v, a)
     volume_property.set_color(ctf)
     volume_property.set_scalar_opacity(otf)
-    
+
 
 ##########################################################################
 # `ColorTransferFunction` class.
@@ -231,7 +231,7 @@ class ColorTransferFunction(tvtk.ColorTransferFunction):
         """
         super(ColorTransferFunction, self).remove_all_points()
         self.nodes = []
-        
+
 
 ##########################################################################
 # `PiecewiseFunction` class.
@@ -241,7 +241,7 @@ class PiecewiseFunction(tvtk.PiecewiseFunction):
     information.  This is useful in cases where the super class does
     not have methods to get the nodes.
     """
-    
+
     # Stores the nodes used by the function.  Note that this is not a
     # proper trait and modifying this will not change the underlying
     # VTK object.
@@ -249,7 +249,7 @@ class PiecewiseFunction(tvtk.PiecewiseFunction):
 
     def initialize(self):
         """V.initialize()
-    
+
         Clears out the current function. A newly created
         PiecewiseFunction is alreay initialized, so there is no need
         to call this method which in turn simply calls
@@ -261,7 +261,7 @@ class PiecewiseFunction(tvtk.PiecewiseFunction):
     def add_point(self, x, val):
         """V.add_point(float, float) -> int
         V.add_point(float, float, float, float) -> int
-    
+
         Add/Remove points to/from the function. If a duplicate point
         is added then the function value is changed at that location.
         Return the index of the point (0 based), or -1 on error.
@@ -273,7 +273,7 @@ class PiecewiseFunction(tvtk.PiecewiseFunction):
 
     def remove_point(self, x):
         """V.remove_point(float) -> int
-    
+
         Add/Remove points to/from the function. If a duplicate point
         is added then the function value is changed at that location.
         Return the index of the point (0 based), or -1 on error.
@@ -281,11 +281,11 @@ class PiecewiseFunction(tvtk.PiecewiseFunction):
         ret = super(PiecewiseFunction, self).remove_point(x)
         self.nodes.remove(x)
         self.nodes.sort()
-        return ret    
+        return ret
 
     def remove_all_points(self):
         """Remove all the points.
         """
         super(PiecewiseFunction, self).remove_all_points()
         self.nodes = []
-    
+

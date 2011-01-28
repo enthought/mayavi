@@ -17,9 +17,9 @@ from enthought.mayavi.core.pipeline_info import PipelineInfo
 class Delaunay3D(FilterBase):
 
     """Performs a 3D Delaunay triangulation using the tvtk.Delaunay3D
-    class.    
+    class.
     """
-    
+
     # The version of this class.  Used for persistence.
     __version__ = 0
 

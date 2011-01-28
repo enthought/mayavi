@@ -23,11 +23,11 @@ class SceneManager(HasTraits):
 
     # A list of all open scenes.
     scenes = List(TVTKScene)
-    
+
     # The workbench window that the manager is in (there is one scene manager
     # per workbench window).
     window = Instance(WorkbenchWindow)
-    
+
     #### Private interface ####################################################
 
     # Shadow trait for the 'current_scene' property.
@@ -38,7 +38,7 @@ class SceneManager(HasTraits):
     ###########################################################################
 
     #### Trait properties #####################################################
-    
+
     def _get_current_scene(self):
         """ Property getter. """
 
@@ -56,11 +56,11 @@ class SceneManager(HasTraits):
 
     def _set_current_scene(self, scene):
         """ Property setter. """
-        
+
         self._current_scene = scene
 
         return
-    
+
     #### Trait change handlers ################################################
 
     @on_trait_change('window:editor_opened')
@@ -69,7 +69,7 @@ class SceneManager(HasTraits):
 
         if isinstance(new, SceneEditor):
             self.scenes.append(new.scene)
-            
+
         return
 
     @on_trait_change('window:editor_closing')
@@ -78,7 +78,7 @@ class SceneManager(HasTraits):
 
         if isinstance(new, SceneEditor):
             self.scenes.remove(new.scene)
-            
+
         return
 
     @on_trait_change('window:active_editor')
@@ -90,9 +90,9 @@ class SceneManager(HasTraits):
 
         else:
             self.current_scene = None
-            
+
         return
-    
+
 #### EOF ######################################################################
 
 

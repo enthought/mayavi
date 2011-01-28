@@ -6,7 +6,7 @@ Code to help with managing a TVTK data set in Pythonic ways.
 # Copyright (c) 2008, Enthought, Inc.
 # License: BSD Style.
 
-from enthought.traits.api import (HasTraits, Instance, Array, Str, 
+from enthought.traits.api import (HasTraits, Instance, Array, Str,
                         Property, Dict)
 from enthought.tvtk.api import tvtk
 from enthought.tvtk.array_handler import array2vtk
@@ -15,12 +15,12 @@ from enthought.tvtk.array_handler import array2vtk
 ######################################################################
 # Utility functions.
 ######################################################################
-def get_array_type(arr):    
+def get_array_type(arr):
     """Returns if the array is a scalar ('scalars'), vector
     ('vectors') or tensor ('tensors').  It looks at the number of
     components to decide.  If it has a wierd number of components it
     returns the empty string.
-    """    
+    """
     n = arr.number_of_components
     ret = {1: 'scalars', 3: 'vectors', 4: 'scalars', 9:'tensors'}
     return ret.get(n) or ''
@@ -29,7 +29,7 @@ def get_array_type(arr):
 def get_attribute_list(data):
     """ Gets scalar, vector and tensor information from the given data
     (either cell or point data).
-    """    
+    """
     attr = {'scalars':[], 'vectors':[], 'tensors':[]}
     if data is not None:
         n = data.number_of_arrays
@@ -38,12 +38,12 @@ def get_attribute_list(data):
             t = get_array_type(data.get_array(i))
             if len(t) > 0 and name is not None:
                 attr[t].extend([name])
-    
+
     def _mk_first(lst, value):
         """Makes the specified `value` the first item in `lst`."""
         lst.remove(value)
         lst.insert(0, value)
-    
+
     attr1 = attr.copy()
     for a in attr:
         v = getattr(data, a)
@@ -64,12 +64,12 @@ def get_all_attributes(obj):
     """
     point_attr = get_attribute_list(obj.point_data)
     cell_attr = get_attribute_list(obj.cell_data)
-    return point_attr, cell_attr    
-    
+    return point_attr, cell_attr
+
 
 ################################################################################
 # `DatasetManager` class.
-################################################################################ 
+################################################################################
 class DatasetManager(HasTraits):
 
     # The TVTK dataset we manage.
@@ -118,7 +118,7 @@ class DatasetManager(HasTraits):
             va = tvtk.to_tvtk(array2vtk(array))
             va.name = name
             data.add_array(va)
-            mapping = {1:'scalars', 3: 'vectors', 4: 'scalars', 
+            mapping = {1:'scalars', 3: 'vectors', 4: 'scalars',
                        9: 'tensors'}
             dict = getattr(self, '%s_%s'%(category,
                                           mapping[array.shape[1]]))
@@ -180,11 +180,11 @@ class DatasetManager(HasTraits):
 
         self._setup_data_arrays(cell_attr, 'cell')
         self._setup_data_arrays(pnt_attr, 'point')
-     
+
     def _setup_data_arrays(self, attributes, d_type):
         """Given the dict of the attributes from the
         `get_all_attributes` function and the data type (point/cell)
-        data this will setup the object and the data.  
+        data this will setup the object and the data.
         """
         attrs = ['scalars', 'vectors', 'tensors']
         aa = self._assign_attribute

@@ -49,10 +49,10 @@ class FilterAction(Action):
     def _update_enabled(self, obj):
         if isinstance(obj, PipelineBase):
             e = obj.menu_helper.check_active(self.metadata)
-            self.enabled = e 
+            self.enabled = e
         else:
             self.enabled = False
-        
+
     def _mayavi_default(self):
         return get_imayavi(self.window)
 

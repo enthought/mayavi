@@ -29,7 +29,7 @@ class GridPlane(Module):
 
     actor = Instance(Actor, allow_non=False, record=True)
 
-    input_info = PipelineInfo(datasets=['image_data', 
+    input_info = PipelineInfo(datasets=['image_data',
                                         'structured_grid',
                                         'rectilinear_grid'],
                               attribute_types=['any'],
@@ -75,12 +75,12 @@ class GridPlane(Module):
         mm = self.module_manager
         if mm is None:
             return
-        
+
         # Data is available, so set the input for the grid plane.
         self.grid_plane.inputs = [mm.source]
         # Set the LUT for the mapper.
         self.actor.set_lut(mm.scalar_lut_manager.lut)
-        
+
         self.pipeline_changed = True
 
     def update_data(self):
@@ -108,4 +108,4 @@ class GridPlane(Module):
         if gp is not None:
             new.inputs = [gp]
         self._change_components(old, new)
-        
+

@@ -13,7 +13,7 @@ under a 3 clause BSD-like license.
 Files and orginal authors:
 ----------------------------------------------------------------
                           actor.png | Nuvola
-			 camera.png | GV
+                         camera.png | GV
                      coordinate.png | Crystal
                          filter.png | Nuvola
                     lookuptable.png | OOo
@@ -23,7 +23,7 @@ Files and orginal authors:
                          reader.png | Crystal
                        renderer.png | Crystal
        rendererwindowinteractor.png | Nuvola
-		 rendererwindow.png | Crystal
+                 rendererwindow.png | Crystal
                          source.png | OOo
                         texture.png | Eclipse
                          window.png | Eclipse

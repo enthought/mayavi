@@ -34,7 +34,7 @@ GNU General Public License.
       program is covered only if its contents constitute a work based on the
       Library (independent  of the use of the Library in a tool for writing
       it). Whether that is true depends on what the Library does and what the
-      program that uses the Library does. 
+      program that uses the Library does.
 
 
    1. You may copy and distribute verbatim copies of the Library's complete
@@ -56,7 +56,7 @@ GNU General Public License.
          a. The modified work must itself be a software library.
 
          b. You must cause the files modified to carry prominent notices
-            stating that you changed the files and the date of any change. 
+            stating that you changed the files and the date of any change.
 
          c. You must cause the whole of the work to be licensed at no charge
             to all third parties under the terms of this License.
@@ -64,7 +64,7 @@ GNU General Public License.
          d. If a facility in the modified Library refers to a function or a
             table of data to be supplied by an application program that uses the
             facility, other than as an argument passed when the facility is
-	    invoked, then you must make a good faith effort to ensure that, in
+            invoked, then you must make a good faith effort to ensure that, in
             the event an application does not supply such function or table,
             the facility still operates, and performs whatever part of its
             purpose remains meaningful.
@@ -201,7 +201,7 @@ GNU General Public License.
 
          d. If distribution of the work is made by offering access to copy
             from a designated place, offer equivalent access to copy the above
-            specified materials from the same place. 
+            specified materials from the same place.
 
          e. Verify that the user has already received a copy of these
             materials or that you have already sent this user a copy.
@@ -233,7 +233,7 @@ GNU General Public License.
 
          b. Give prominent notice with the combined library of the fact that
             part of it is a work based on the Library, and explaining where to
-            find the accompanying uncombined form of the same work. 
+            find the accompanying uncombined form of the same work.
 
 
    8. You may not copy, modify, sublicense, link with, or distribute the
@@ -261,7 +261,7 @@ GNU General Public License.
       subject to these terms and conditions. You may not impose any further
       restrictions on the recipients' exercise of the rights granted
       herein. You are not responsible for enforcing compliance by third
-      parties with this License. 
+      parties with this License.
 
 
   11. If, as a consequence of a court judgment or allegation of patent
@@ -275,7 +275,7 @@ GNU General Public License.
       not permit royalty-free redistribution of the Library by all those who
       receive copies directly or indirectly through you, then the only way you
       could satisfy both it and this License would be to refrain entirely from
-      distribution of the Library. 
+      distribution of the Library.
 
       If any portion of this section is held invalid or unenforceable under
       any particular circumstance, the balance of the section is intended to
@@ -348,4 +348,4 @@ GNU General Public License.
       (including but not limited to loss of data or data being rendered
       inaccurate or losses sustained by you or third parties or a failure of
       the library to operate with any other software), even if such holder or
-      other party has been advised of the possibility of such damages. 
+      other party has been advised of the possibility of such damages.

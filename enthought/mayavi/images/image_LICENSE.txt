@@ -5,6 +5,6 @@ Icon original authors and license
 
 Files and original authors:
 -----------------------------------
-m2.png	     | GV
+m2.png       | GV
 m2_about.jpg | GV
 

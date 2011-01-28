@@ -1,6 +1,6 @@
 """ Code that looks for mayavi contributions on sys.path or other
 standard places, making it easy for users to add contributions to load
-on startup. 
+on startup.
 """
 
 # Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
@@ -18,7 +18,7 @@ from enthought.traits.ui.api import View, Item, SetEditor
 
 ################################################################################
 # `ContribFinder` class.
-################################################################################ 
+################################################################################
 class ContribFinder(HasTraits):
     """
     This class helps find installed mayavi contributions.
@@ -42,7 +42,7 @@ class ContribFinder(HasTraits):
     ########################################
     # View related code.
 
-    view = View(Item('contrib_packages', 
+    view = View(Item('contrib_packages',
                      show_label=False,
                      editor=SetEditor(name='found_contrib',
                                       left_column_title='Available '\
@@ -58,7 +58,7 @@ class ContribFinder(HasTraits):
 
     ######################################################################
     # `object` interface.
-    ###################################################################### 
+    ######################################################################
     def __init__(self, **traits):
         super(ContribFinder, self).__init__(**traits)
         # Find the contributions by default.
@@ -66,7 +66,7 @@ class ContribFinder(HasTraits):
 
     ######################################################################
     # `ContribFinder` interface.
-    ###################################################################### 
+    ######################################################################
     def find(self):
         """Find the contrib directories from sys.path."""
         found = []
@@ -79,7 +79,7 @@ class ContribFinder(HasTraits):
 
     ######################################################################
     # Non-public interface.
-    ###################################################################### 
+    ######################################################################
     def _preference_helper_default(self):
         from preference_manager import preference_manager
         return preference_manager.root

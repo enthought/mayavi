@@ -21,14 +21,14 @@ logger = logging.getLogger(__name__)
 
 ################################################################################
 # `Registry` class.
-################################################################################ 
+################################################################################
 class Registry(HasTraits):
 
     """
     This class is a registry for various engines, and metadata from
     sources, filters and modules
     """
-    
+
     # The mayavi engines used.
     engines = Dict(Str, Instance('enthought.mayavi.core.engine.Engine'))
 
@@ -52,7 +52,7 @@ class Registry(HasTraits):
 
         engines = self.engines
         if len(name) == 0:
-            name = '%s%d'%(engine.__class__.__name__, 
+            name = '%s%d'%(engine.__class__.__name__,
                            len(engines) + 1)
 
         logger.debug('Engine [%s] named %s registered', engine, name)
@@ -77,7 +77,7 @@ class Registry(HasTraits):
 
     def get_file_reader(self, filename):
 
-        """Given a filename, find a suitable source metadata that will 
+        """Given a filename, find a suitable source metadata that will
         read the file.
 
         Returns a suitable source metadata object that will
@@ -88,19 +88,19 @@ class Registry(HasTraits):
         if len(ext) > 0:
             ext = ext[1:]
             result = [src for src in self.sources \
-                      if ext in src.extensions]        
-       
+                      if ext in src.extensions]
+
         # 'result' contains list of all source metadata that can handle
-        # the file. 
-        
+        # the file.
+
         # If there is only single source metadata available to handle
-        # the file, we simply return it. 
-        
-        # If there is a conflict i.e. more then one source metadata objects 
-        # capable of handling the file then we check if they are capable of 
-        # actually reading it using 'can_read_function' which may be a class 
-        # method or a simple function which returns whether the object is 
-        # capable of reading the file or not. 
+        # the file, we simply return it.
+
+        # If there is a conflict i.e. more then one source metadata objects
+        # capable of handling the file then we check if they are capable of
+        # actually reading it using 'can_read_function' which may be a class
+        # method or a simple function which returns whether the object is
+        # capable of reading the file or not.
 
         # Finally returns the most suitable source metadata object to the engine. If
         # multiple objects are still present we return the last one in the list.
@@ -113,8 +113,8 @@ class Registry(HasTraits):
                         return res
                     else:
                         result.remove(res)
-                        
-        if len(result) == 0:    
+
+        if len(result) == 0:
             return None
 
         return result[-1]
@@ -135,7 +135,7 @@ class Registry(HasTraits):
                     return engine
         else:
             raise TypeError, "Scene not attached to a mayavi engine."
- 
+
 
 
 # The global registry instance.

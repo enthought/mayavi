@@ -47,7 +47,7 @@ class PipelineBase(Base):
 
     ########################################
     # Events.
-    
+
     # This event is fired when the pipeline has changed.
     pipeline_changed = Event(record=False)
 
@@ -102,7 +102,7 @@ class PipelineBase(Base):
 
         # Remove any of our actors from the scene.
         self.remove_actors()
-        
+
         # Call parent method to set the running state.
         super(PipelineBase, self).stop()
 
@@ -129,7 +129,7 @@ class PipelineBase(Base):
         if hasattr(self, 'components'):
             for component in self.components:
                     component.render()
- 
+
     ######################################################################
     # `PipelineBase` interface.
     ######################################################################
@@ -174,7 +174,7 @@ class PipelineBase(Base):
             self.scene.remove_actors(old)
             self.scene.add_actors(new)
             self.scene.render()
-            
+
     def _actors_items_changed(self, list_event):
         if self._actors_added:
             self.scene.remove_actors(list_event.removed)
@@ -193,7 +193,7 @@ class PipelineBase(Base):
             scene.remove_widgets(removed)
             scene.add_widgets(added)
             self._set_widget_visibility(added)
-        
+
     def _scene_changed(self, old_scene, new_scene):
         if self._actors_added:
             old_scene.remove_actors(self.actors)
@@ -201,7 +201,7 @@ class PipelineBase(Base):
             new_scene.add_actors(self.actors)
             new_scene.add_widgets(self.widgets)
             self._set_widget_visibility(self.widgets)
-    
+
     def _backup_widget_state(self):
         # store the enabled trait of the widgets
         # in the _widget_state list
@@ -209,7 +209,7 @@ class PipelineBase(Base):
         for w in self.widgets:
             state.append(w.enabled)
             self._widget_state[:] = state
-        
+
     def _restore_widget_state(self):
         if len(self._widget_state) != len(self.widgets):
             # someone has played with the widgets
@@ -219,10 +219,10 @@ class PipelineBase(Base):
         else:
             for i in range(len(self.widgets)):
                 self.widgets[i].enabled = self._widget_state[i]
-            
+
     def _visible_changed(self,value):
         if value:
-            # restore the state of the widgets from the 
+            # restore the state of the widgets from the
             # backed up values.
             self._restore_widget_state()
         else:
@@ -233,10 +233,10 @@ class PipelineBase(Base):
         # hide all actors
         for a in self.actors:
             a.visibility = value
-       
+
         self.render()
         super(PipelineBase , self)._visible_changed(value)
-        
+
     def _set_widget_visibility(self, widgets):
         if not self.visible:
             for widget in widgets:

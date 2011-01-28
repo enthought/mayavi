@@ -17,7 +17,7 @@ import scipy
 
 from enthought.traits.api import HasTraits, Range, Instance, \
         on_trait_change, Array, Tuple, Str
-from enthought.traits.ui.api import View, Item, HSplit, Group 
+from enthought.traits.ui.api import View, Item, HSplit, Group
 
 from enthought.mayavi import mlab
 from enthought.mayavi.core.ui.api import MayaviScene, MlabSceneModel, \
@@ -25,7 +25,7 @@ from enthought.mayavi.core.ui.api import MayaviScene, MlabSceneModel, \
 
 ################################################################################
 # `Lorenz` class.
-################################################################################ 
+################################################################################
 class Lorenz(HasTraits):
 
     # The parameters for the Lorenz system, defaults to the standard ones.
@@ -61,9 +61,9 @@ class Lorenz(HasTraits):
                         Item('scene', editor=SceneEditor(scene_class=MayaviScene),
                              height=500, width=500, show_label=False)),
                     Group(
-                        Item('s'), 
-                        Item('r'), 
-                        Item('b'), 
+                        Item('s'),
+                        Item('r'),
+                        Item('b'),
                         Item('u'), Item('v'), Item('w')),
                     ),
                 resizable=True
@@ -71,7 +71,7 @@ class Lorenz(HasTraits):
 
     ######################################################################
     # Trait handlers.
-    ###################################################################### 
+    ######################################################################
 
     # Note that in the `on_trait_change` call below we listen for the
     # `scene.activated` trait.  This conveniently ensures that the flow
@@ -87,7 +87,7 @@ class Lorenz(HasTraits):
     @on_trait_change('u')
     def update_u(self):
         self.flow.mlab_source.set(u=self.get_vel('u'))
-    
+
     @on_trait_change('v')
     def update_v(self):
         self.flow.mlab_source.set(v=self.get_vel('v'))
@@ -108,7 +108,7 @@ class Lorenz(HasTraits):
             g = scipy.__dict__
             x, y, z = self.points
             s, r, b = self.s, self.r, self.b
-            val = eval(func_str, g, 
+            val = eval(func_str, g,
                         {'x': x, 'y': y, 'z': z,
                          's':s, 'r':r, 'b': b})
         except:
@@ -118,7 +118,7 @@ class Lorenz(HasTraits):
 
     ######################################################################
     # Private interface.
-    ###################################################################### 
+    ######################################################################
     def _points_default(self):
         x, y, z = np.mgrid[-50:50:100j,-50:50:100j,-10:60:70j]
         return x, y, z

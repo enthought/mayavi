@@ -19,7 +19,7 @@ from enthought.mayavi.modules.surface import Surface
 class TestArraySource(unittest.TestCase):
     def setUp(self):
         """Initial setting up of test fixture, automatically called by TestCase before any other test method is invoked"""
-        d = ArraySource() 
+        d = ArraySource()
         self.data = d
 
     def tearDown(self):
@@ -95,7 +95,7 @@ class TestArraySource(unittest.TestCase):
         o = Outline()
         d.add_child(o)
         o.start()
-        self.assertEqual(tuple(o.actor.actor.bounds), 
+        self.assertEqual(tuple(o.actor.actor.bounds),
                          (-1., 0., -1., 0., 0., 0.))
         # Create a surface module.
         surf = Surface()
@@ -124,7 +124,7 @@ class TestArraySource(unittest.TestCase):
         o = Outline()
         d.add_child(o)
         o.start()
-        self.assertEqual(tuple(o.actor.actor.bounds), 
+        self.assertEqual(tuple(o.actor.actor.bounds),
                          (0, 1., 0., 1., 0., 1.))
         # Create a surface module.
         surf = Surface()
@@ -137,7 +137,7 @@ class TestArraySource(unittest.TestCase):
         self.assertEqual(numpy.allclose(sc2.flatten(),
                          expect[0].flatten()), True)
         vec2 = surf.actor.mapper.input.point_data.vectors.to_array()
-        self.assertEqual(numpy.allclose(vec2.flatten(), 
+        self.assertEqual(numpy.allclose(vec2.flatten(),
                          expect[1].flatten()), True)
 
     def test_pickle(self):
@@ -169,7 +169,7 @@ class TestArraySource(unittest.TestCase):
         o, surf = mm.children
 
         # Test the unpciked state.
-        self.assertEqual(tuple(o.actor.actor.bounds), 
+        self.assertEqual(tuple(o.actor.actor.bounds),
                          (4., 5., 5., 7., 6., 9.))
         self.assertEqual(surf.running, True)
         self.assertEqual(o.running, True)
@@ -183,7 +183,7 @@ class TestArraySource(unittest.TestCase):
         self.assertEqual(numpy.allclose(sc2.flatten(),
                          expect[0].flatten()), True)
         vec2 = surf.actor.mapper.input.point_data.vectors.to_array()
-        self.assertEqual(numpy.allclose(vec2.flatten(), 
+        self.assertEqual(numpy.allclose(vec2.flatten(),
                          expect[1].flatten()), True)
 
 

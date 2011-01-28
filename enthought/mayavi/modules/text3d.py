@@ -1,11 +1,11 @@
-""" This module allows the user to place text in 3D at a location on the 
+""" This module allows the user to place text in 3D at a location on the
 scene.
 
 Unlike the 'Text' module, this module positions text in 3D in the scene,
 and in 2D on the screen. As a result the text resizes with the figure,
 and can be masked by objects in the foreground.
 """
-# Author: Gael Varoquaux <gael dot varoquaux at normalesup dot org> 
+# Author: Gael Varoquaux <gael dot varoquaux at normalesup dot org>
 # Copyright (c) 2009, Enthought, Inc.
 # License: BSD Style.
 
@@ -26,7 +26,7 @@ from enthought.mayavi.components.actor import Actor
 class Text3D(Module):
     # The version of this class.  Used for persistence.
     __version__ = 0
-        
+
     # The Mayavi Actor.
     actor = Instance(Actor, allow_none=False, record=True)
 
@@ -58,7 +58,7 @@ class Text3D(Module):
 
     input_info = PipelineInfo(datasets=['any'],
                               attribute_types=['any'],
-                              attributes=['any'])    
+                              attributes=['any'])
 
     ########################################
     # The view of this object.

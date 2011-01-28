@@ -43,8 +43,8 @@ def figure(figure=None, bgcolor=None, fgcolor=None, engine=None,
         :bgcolor: The color of the background (None is default).
 
         :fgcolor: The color of the foreground, that is the color of all text
-                  annotation labels (axes, orientation axes, scalar bar 
-                  labels). It should be sufficiently far from `bgcolor` 
+                  annotation labels (axes, orientation axes, scalar bar
+                  labels). It should be sufficiently far from `bgcolor`
                   to see the annotation texts. (None is default).
 
         :engine: The mayavi engine that controls the figure.
@@ -141,8 +141,8 @@ def clf(figure=None):
 def close(scene=None, all=False):
     """ Close a figure window
 
-        close() by itself closes the current figure. 
-        
+        close() by itself closes the current figure.
+
         close(num) closes figure number num.
 
         close(name) closes figure named name.
@@ -188,7 +188,7 @@ def close(scene=None, all=False):
 def draw(figure=None):
     """ Forces a redraw of the current figure.
     """
-    if figure is None: 
+    if figure is None:
         figure = gcf()
     figure.render()
 
@@ -202,7 +202,7 @@ def savefig(filename, size=None, figure=None, magnification='auto',
 
         **Parameters**
 
-        :size: the size of the image created (unless magnification is 
+        :size: the size of the image created (unless magnification is
                set, in which case it is the size of the window used
                for rendering).
 
@@ -244,7 +244,7 @@ def savefig(filename, size=None, figure=None, magnification='auto',
         elif magnification is 'auto':
             magnification = 1
         figure.scene.magnification = int(magnification)
-        figure.scene.save(filename, 
+        figure.scene.save(filename,
                             size=size,
                             **kwargs)
     finally:
@@ -255,7 +255,7 @@ def sync_camera(reference_figure, target_figure):
     """ Synchronise the camera of the target_figure on the camera of the
         reference_figure.
     """
-    reference_figure.scene._renderer.sync_trait('active_camera', 
+    reference_figure.scene._renderer.sync_trait('active_camera',
                         target_figure.scene._renderer)
     target_figure.scene._renderer.active_camera.on_trait_change(
             lambda: do_later(target_figure.scene.render))
@@ -272,7 +272,7 @@ def screenshot(figure=None, mode='rgb', antialiased=False):
             The color mode of the array captured.
         :antialiased: {True, False}
             Use anti-aliasing for rendering the screenshot.
-            Uses the number of aa frames set by 
+            Uses the number of aa frames set by
             figure.scene.anti_aliasing_frames
 
         **Notes**
@@ -296,7 +296,7 @@ def screenshot(figure=None, mode='rgb', antialiased=False):
         >>> pl.show()
 
     """
-    if figure is None: 
+    if figure is None:
         figure = gcf()
     x, y = tuple(figure.scene.get_size())
 
@@ -305,14 +305,14 @@ def screenshot(figure=None, mode='rgb', antialiased=False):
     if mode == 'rgb':
         out = tvtk.UnsignedCharArray()
         shape = (y, x, 3)
-        pixel_getter = figure.scene.render_window.get_pixel_data 
+        pixel_getter = figure.scene.render_window.get_pixel_data
         pg_args = (0, 0, x-1, y-1, 1, out)
-        
+
     elif mode == 'rgba':
         out = tvtk.FloatArray()
         shape = (y, x, 4)
         pixel_getter = figure.scene.render_window.get_rgba_pixel_data
-        pg_args = (0, 0, x-1, y-1, 1, out)        
+        pg_args = (0, 0, x-1, y-1, 1, out)
 
     else:
         raise ValueError('mode type not understood')
@@ -329,7 +329,7 @@ def screenshot(figure=None, mode='rgb', antialiased=False):
 
     else:
         pixel_getter(*pg_args)
-    
+
     # Return the array in a way that pylab.imshow plots it right:
     out = out.to_array()
     out.shape = shape

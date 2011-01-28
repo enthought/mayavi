@@ -29,7 +29,7 @@ class PolyDataNormals(Component):
     # The component's view
 
     _filter_group = Group(Item(name='feature_angle'))
-    
+
     view = View(Group(Item(name='filter', style='custom',
                            editor=InstanceEditor(view=View(_filter_group))),
                       show_labels=False
@@ -51,7 +51,7 @@ class PolyDataNormals(Component):
         dependent on upstream sources and filters.
         """
         self.filter.on_trait_change(self.update_data)
-    
+
     def update_pipeline(self):
         """Override this method so that it *updates* the tvtk pipeline
         when data upstream is known to have changed.
@@ -67,7 +67,7 @@ class PolyDataNormals(Component):
         f.input = convert_to_poly_data(input)
         f.update()
         self.outputs = [f.output]
-    
+
     def update_data(self):
         """Override this method to do what is necessary when upstream
         data changes.

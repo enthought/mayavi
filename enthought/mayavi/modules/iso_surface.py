@@ -40,28 +40,28 @@ class IsoSurface(Module):
 
     input_info = PipelineInfo(datasets=['any'],
                               attribute_types=['any'],
-                              attributes=['scalars'])    
+                              attributes=['scalars'])
 
     ########################################
     # The view of this object.
     # Commented out, since we are now using the iso_surface_view.py version.
     #view = View([Group(
-    #                 Item( name  = 'contour', 
+    #                 Item( name  = 'contour',
     #                       style = 'custom' ),
     #                 show_labels = False,
     #                 show_border = True,
     #                 label       = 'Contours' ),
-    #             Group( 
-    #                 Item( name = 'compute_normals' ), 
+    #             Group(
+    #                 Item( name = 'compute_normals' ),
     #                 '_',
-    #                 Item( name         = 'normals', 
+    #                 Item( name         = 'normals',
     #                       style        = 'custom',
     #                       show_label   = False,
     #                       enabled_when = 'compute_normals' ),
     #                 show_border = True,
     #                 label       = 'Normals' ),
     #             Group(
-    #                 Item( name  = 'actor', 
+    #                 Item( name  = 'actor',
     #                       style = 'custom' ),
     #                 show_labels = False )
     #             ]
@@ -107,7 +107,7 @@ class IsoSurface(Module):
         self._compute_normals_changed(self.compute_normals)
         # Set the LUT for the mapper.
         self.actor.set_lut(mm.scalar_lut_manager.lut)
-        
+
         self.pipeline_changed = True
 
     def update_data(self):
@@ -134,7 +134,7 @@ class IsoSurface(Module):
             if actor:
                 actor.inputs = [self.contour]
         self.render()
-            
+
     def _contour_changed(self, old, new):
         normals = self.normals
         if normals is not None:
@@ -155,4 +155,4 @@ class IsoSurface(Module):
         if contour is not None:
             new.inputs = [contour]
         self._change_components(old, new)
-    
+

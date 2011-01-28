@@ -25,7 +25,7 @@ class TestNoUIToolkit(unittest.TestCase):
         # imports ImageResource and this seems to trigger some UI
         # toolkit import and this makes life difficult as far as the
         # testing goes.  Forcing the issue here should let us test
-        # safely since the Pyface imports will be done. 
+        # safely since the Pyface imports will be done.
         from enthought.pyface.api import GUI
 
         # Remove any references to wx and PyQt4
@@ -55,7 +55,7 @@ class TestNoUIToolkit(unittest.TestCase):
         # Should not have triggered an import wx or PyQt4.
         self.assertEqual(sys.modules.has_key('wx'), False)
         self.assertEqual(sys.modules.has_key('PyQt4'), False)
-        
+
 
 if __name__ == '__main__':
     unittest.main()

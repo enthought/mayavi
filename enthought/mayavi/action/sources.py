@@ -67,7 +67,7 @@ class OpenFile(Action):
                        wildcard += src.wildcard
                 else:
                     wildcard += '|' + src.wildcard
-                   
+
         parent = self.window.control
         dialog = FileDialog(parent=parent,
                             title='Open supported data file',
@@ -112,4 +112,4 @@ for src in registry.sources:
              'metadata': src}
         action = new.classobj(src.id, (SourceAction,), d)
         globals()[src.id] = action
-    
+

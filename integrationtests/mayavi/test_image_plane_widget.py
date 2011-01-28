@@ -19,7 +19,7 @@ from common import TestCase
 
 class TestImagePlaneWidget(TestCase):
     def make_data(self):
-        """Creates suitable data for the test."""        
+        """Creates suitable data for the test."""
         dims = numpy.array((64, 64, 64), 'i')
 
         # Create some scalars to render.
@@ -62,14 +62,14 @@ class TestImagePlaneWidget(TestCase):
     def test(self):
         self.main()
 
-    def do(self):        
+    def do(self):
         ############################################################
         # Imports.
         script = self.script
         from enthought.mayavi.sources.array_source import ArraySource
         from enthought.mayavi.modules.outline import Outline
         from enthought.mayavi.modules.image_plane_widget import ImagePlaneWidget
-        
+
         ############################################################
         # Create a new scene and set up the visualization.
         s = self.new_scene()
@@ -94,7 +94,7 @@ class TestImagePlaneWidget(TestCase):
         ipw_z = ImagePlaneWidget()
         script.add_module(ipw_z)
         ipw_z.ipw.plane_orientation = 'z_axes'
-        
+
         # Set the scene to a suitable view.
         self.set_view(s)
 
@@ -144,9 +144,9 @@ class TestImagePlaneWidget(TestCase):
         self.set_view(s)
 
         self.check()
-        
+
         # If we have come this far, we are golden!
-        
+
 
 if __name__ == "__main__":
     t = TestImagePlaneWidget()

@@ -20,7 +20,7 @@ object (see :ref:`mlab-animating-data`).
 This example is discussed in details in the section
 :ref:`embedding_mayavi_traits`.
 """
-# Author: Gael Varoquaux <gael.varoquaux@normalesup.org> 
+# Author: Gael Varoquaux <gael.varoquaux@normalesup.org>
 # Copyright (c) 2008, Enthought, Inc.
 # License: BSD Style.
 
@@ -45,7 +45,7 @@ def curve(n_mer, n_long):
     y = sin(mu) * (1 + cos(n_long * mu/n_mer)*0.5)
     z = 0.5 * sin(n_long*mu/n_mer)
     t = sin(mu)
-    return x, y, z, t    
+    return x, y, z, t
 
 
 class MyModel(HasTraits):
@@ -70,8 +70,8 @@ class MyModel(HasTraits):
 
 
     # The layout of the dialog created
-    view = View(Item('scene', editor=SceneEditor(scene_class=MayaviScene), 
-                     height=250, width=300, show_label=False), 
+    view = View(Item('scene', editor=SceneEditor(scene_class=MayaviScene),
+                     height=250, width=300, show_label=False),
                 Group(
                         '_', 'n_meridional', 'n_longitudinal',
                      ),

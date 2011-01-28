@@ -31,8 +31,8 @@ def get_tvtk_name(vtk_name):
         name = vtk_name[3:]
         dig2name = {'1':'One', '2':'Two', '3':'Three', '4':'Four',
                     '5':'Five', '6': 'Six', '7':'Seven', '8':'Eight',
-                    '9': 'Nine', '0':'Zero'}             
-        
+                    '9': 'Nine', '0':'Zero'}
+
         if name[0] in string.digits:
             return dig2name[name[0]] + name[1:]
         else:
@@ -50,9 +50,9 @@ class _Camel2Enthought:
       >>> camel2enthought = _Camel2Enthought()
       >>> camel2enthought('XMLActor2DToSGML')
       'xml_actor2d_to_sgml'
-      
+
     """
-    
+
     def __init__(self):
         self.patn = re.compile(r'([A-Z0-9]+)([a-z0-9]*)')
         self.nd_patn = re.compile(r'(\D[123])_D')
@@ -61,7 +61,7 @@ class _Camel2Enthought:
         ret = self.nd_patn.sub(r'\1d', ret)
         if ret[0] == '_':
             ret = ret[1:]
-        return ret.lower()    
+        return ret.lower()
     def _repl(self, m):
         g1 = m.group(1)
         g2 = m.group(2)

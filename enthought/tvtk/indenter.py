@@ -26,15 +26,15 @@ class Indent:
     """
     def __init__(self, nspace=4):
         """Initializes the object.
-        
+
         Parameters
         ----------
 
         - nspace : `int`
-        
+
           Specifies the number of spaces to use for each indentation
           level. Defaults to 4.
-          
+
         """
         self.tab = ''
         self.txt = ''
@@ -76,7 +76,7 @@ class Indent:
         - txt : `string`
 
           Input text string to be formatted.  Can contain newlines.
-        
+
           If the input text is a single line of text then leading
           space is stripped and the current indentation is added to
           the left along with a newline and the resulting string is
@@ -85,7 +85,7 @@ class Indent:
           If the input text is multi-line input the indentation of the
           first line is ignored, and the second line is considered.
           All subsequent lines have the current indentation followed
-          by any extra space from the default indentation.  
+          by any extra space from the default indentation.
 
         """
         space_re = self.space_re
@@ -100,13 +100,13 @@ class Indent:
                     break
         elif len(d) == 0:
             return '\n'
-        
+
         if one_liner:
             return '%s%s\n'%(repr(self), d[0].strip())
         else:
             strip_idx = 0
             m = find_space_re.match(d[1])
-            
+
             try:
                 strip_idx = m.start(1)
             except AttributeError:
@@ -125,8 +125,8 @@ class Indent:
             else:
                 ret.append('')
             return '\n'.join(ret)
-        
-                
+
+
 ######################################################################
 # `VTKDocMassager` class.
 ######################################################################
@@ -209,7 +209,7 @@ class VTKDocMassager:
         - indent : `Indent`
         """
         orig_name = doc[2:doc.find('(')]
-        name = camel2enthought(orig_name)   
+        name = camel2enthought(orig_name)
         my_sig = self._rename_class(doc[:doc.find('\n\n')])
         my_sig = self.cpp_method_re.sub('', my_sig)
         my_sig = my_sig.replace('V.'+orig_name, 'V.'+name)
@@ -235,7 +235,7 @@ class VTKDocMassager:
           The documentation string.
         """
         orig_name = doc[2:doc.find('(')]
-        name = camel2enthought(orig_name)   
+        name = camel2enthought(orig_name)
         my_sig = self._rename_class(doc[:doc.find('\n\n')])
         my_sig = self.cpp_method_re.sub('', my_sig)
         my_sig = my_sig.replace('V.'+orig_name, 'V.'+name)
@@ -244,7 +244,7 @@ class VTKDocMassager:
             return my_sig + '\n' + ret
         else:
             return my_sig
-        
+
     def massage(self, doc):
         """Returns massaged documentation string from passed
         docstring, `doc`.  This method basically renames the methods
@@ -257,7 +257,7 @@ class VTKDocMassager:
     #################################################################
     # Non-public interface.
     #################################################################
-    
+
     def _rename_class(self, doc):
         return self.renamer.sub(self.ren_func, doc)
 
@@ -284,4 +284,4 @@ class VTKDocMassager:
                         nw.append(word)
             nl.append(' '.join(nw))
         return '\n'.join(nl)
-            
+

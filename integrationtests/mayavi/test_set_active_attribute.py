@@ -24,7 +24,7 @@ class TestSetActiveAttribute(TestCase):
         sc = c.outputs[0].point_data.scalars
         assert sc.name == 'u'
         # It is an iso-contour!
-        assert sc.range[0] == sc.range[1] 
+        assert sc.range[0] == sc.range[1]
         aa = c.children[0].children[0]
         assert aa.point_scalars_name == 't'
         sc = aa.outputs[0].point_data.scalars
@@ -35,7 +35,7 @@ class TestSetActiveAttribute(TestCase):
 
     def test(self):
         self.main()
-    
+
     def do(self):
         """Test for the SetActiveAttribute filter.
         """
@@ -108,7 +108,7 @@ class TestSetActiveAttribute(TestCase):
         # Now do the check.
         s.scene.isometric_view()
         self.check()
-        
+
         # If we have come this far, we are golden!
 
 if __name__ == '__main__':

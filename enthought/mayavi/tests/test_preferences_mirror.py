@@ -51,8 +51,8 @@ class ClassNameTest(unittest.TestCase):
         self.assertEqual(pref.width, mirror.width)
         self.assertEqual(pref.show, mirror.show)
         # Reset preferences back to defaults.
-        pref.set(saved) 
-    
+        pref.set(saved)
+
     def test_no_reverse_sync(self):
         """mirror must not sync changes back to the original preferences."""
         pref = self.pref
@@ -77,7 +77,7 @@ class ClassNameTest(unittest.TestCase):
         self.assertEqual(pref.width, mirror.width)
         self.assertEqual(pref.show, mirror.show)
         # Reset preferences back to defaults.
-        pref.set(saved) 
+        pref.set(saved)
 
 if __name__ == '__main__':
     unittest.main()

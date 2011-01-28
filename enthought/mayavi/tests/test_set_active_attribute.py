@@ -20,8 +20,8 @@ from enthought.mayavi.filters.api import PolyDataNormals
 from enthought.mayavi.filters.set_active_attribute import SetActiveAttribute
 from enthought.mayavi.modules.api import Surface, Outline
 
-class TestSetActiveAttribute(unittest.TestCase):   
-       
+class TestSetActiveAttribute(unittest.TestCase):
+
     def setUp(self):
         """Initial setting up of test fixture, automatically called by TestCase before any other test method is invoked"""
         e = NullEngine()
@@ -48,7 +48,7 @@ class TestSetActiveAttribute(unittest.TestCase):
         e.add_module(s)
         self.scene = e.current_scene
         return
-        
+
     def tearDown(self):
         """For necessary clean up, automatically called by TestCase after the test methods have been invoked"""
         self.e.stop()
@@ -63,7 +63,7 @@ class TestSetActiveAttribute(unittest.TestCase):
         sc = c.outputs[0].point_data.scalars
         self.assertEqual(sc.name,'temperature')
         # It is an iso-contour!
-        self.assertEqual(sc.range[0],sc.range[1]) 
+        self.assertEqual(sc.range[0],sc.range[1])
         aa = c.children[0].children[0]
         self.assertEqual(aa.point_scalars_name,'pressure')
         sc = aa.outputs[0].point_data.scalars
@@ -71,18 +71,18 @@ class TestSetActiveAttribute(unittest.TestCase):
         self.assertEqual((abs(sc.range[0] - 70) < 1.0),True)
         self.assertEqual((abs(sc.range[1] - 70) < 1.0),True)
         s = aa.children[0].children[0]
-        
 
-    def test_set_active_attribute(self):         
-        "Test if the test fixture works"               
+
+    def test_set_active_attribute(self):
+        "Test if the test fixture works"
         #Now test.
         self.check()
-        
+
         #from enthought.mayavi.tools.show import show
         #show()
 
-        
-    def test_save_and_restore(self):    
+
+    def test_save_and_restore(self):
         """Test if saving a visualization and restoring it works."""
         engine = self.e
         scene = self.scene
@@ -94,7 +94,7 @@ class TestSetActiveAttribute(unittest.TestCase):
         f.seek(0) # So we can read this saved data.
 
         # Remove existing scene.
-       
+
         engine.close_scene(scene)
 
         # Load visualization
@@ -102,7 +102,7 @@ class TestSetActiveAttribute(unittest.TestCase):
         self.scene = engine.current_scene
 
         self.check()
-    
+
 
     def test_deepcopied(self):
         """Test if the MayaVi2 visualization can be deep-copied."""
@@ -121,12 +121,12 @@ class TestSetActiveAttribute(unittest.TestCase):
         # object from the UI via the right-click menu on the tree
         # view, and pasting the copy back.
         source1 = copy.deepcopy(source)
-        s.children[0] = source1 
+        s.children[0] = source1
         self.check()
         #from enthought.mayavi.tools.show import show
         #show()
 
-        
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -16,7 +16,7 @@ class ScenePlugin(Plugin):
     # Extension point Ids.
     PREFERENCES    = 'enthought.envisage.preferences'
     SERVICE_OFFERS = 'enthought.envisage.ui.workbench.service_offers'
-    
+
     #### 'IPlugin' interface ##################################################
 
     # The plugin's name (suitable for displaying to the user).
@@ -32,7 +32,7 @@ class ScenePlugin(Plugin):
     #### Contributions to extension points made by this plugin ################
 
     preferences = List(contributes_to=PREFERENCES)
-        
+
     def _preferences_default(self):
         """ Trait initializer. """
 

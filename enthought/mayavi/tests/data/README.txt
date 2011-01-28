@@ -1,6 +1,6 @@
-Here are the sources of the various files in this directory. 
+Here are the sources of the various files in this directory.
 
-VTKData is distributed under a BSD license.  
+VTKData is distributed under a BSD license.
 
 John Burkardt's pages
 (http://people.sc.fsu.edu/~burkardt/data/data.html) list some of the
@@ -15,7 +15,7 @@ clown.facet - VTKData
 cow.g - VTKData
 cube.vti - Self made.
 edgeFaceElem.exii - VTKData
-example.dem - Self made from VTKData. 
+example.dem - Self made from VTKData.
 foot.mha - VTKData
 foot.raw - VTKData
 humanoid_tri.stla - http://people.sc.fsu.edu/~burkardt/data/data.html

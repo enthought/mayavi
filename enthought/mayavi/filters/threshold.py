@@ -70,7 +70,7 @@ class Threshold(Filter):
                               attribute_types=['any'],
                               attributes=['any'])
 
-    output_info = PipelineInfo(datasets=['poly_data', 
+    output_info = PipelineInfo(datasets=['poly_data',
                                          'unstructured_grid'],
                                attribute_types=['any'],
                                attributes=['any'])
@@ -106,7 +106,7 @@ class Threshold(Filter):
 
     # Internal data to
     _first = Bool(True)
-    
+
     ######################################################################
     # `object` interface.
     ######################################################################
@@ -116,7 +116,7 @@ class Threshold(Filter):
         for name in ('_first', '_data_min', '_data_max'):
             d.pop(name, None)
 
-        return d    
+        return d
 
     ######################################################################
     # `Filter` interface.
@@ -126,7 +126,7 @@ class Threshold(Filter):
                  'component_mode', 'selected_component']
         self._threshold.on_trait_change(self._threshold_filter_edited,
                                         attrs)
-        
+
     def update_pipeline(self):
         """Override this method so that it *updates* the tvtk pipeline
         when data upstream is known to have changed.
@@ -136,7 +136,7 @@ class Threshold(Filter):
         """
         if len(self.inputs) == 0:
             return
-        
+
         # By default we set the input to the first output of the first
         # input.
         fil = self.threshold_filter
@@ -174,7 +174,7 @@ class Threshold(Filter):
         fil.threshold_between(self.lower_threshold, new_value)
         fil.update()
         self.data_changed = True
-    
+
     def _update_ranges(self):
         """Updates the ranges of the input.
         """
@@ -204,7 +204,7 @@ class Threshold(Filter):
         cs = input.cell_data.scalars
 
         # FIXME: need to be able to handle cell and point data
-        # together.        
+        # together.
         if ps is not None:
             data_range = list(ps.range)
             if np.isnan(data_range[0]):
@@ -212,13 +212,13 @@ class Threshold(Filter):
             if np.isnan(data_range[1]):
                 data_range[1] = float(np.nanmax(ps.to_array()))
         elif cs is not None:
-            data_range = cs.range            
+            data_range = cs.range
             if np.isnan(data_range[0]):
                 data_range[0] = float(np.nanmin(cs.to_array()))
             if np.isnan(data_range[1]):
                 data_range[1] = float(np.nanmax(cs.to_array()))
         return data_range
-        
+
     def _auto_reset_lower_changed(self, value):
         if len(self.inputs) == 0:
             return
@@ -226,7 +226,7 @@ class Threshold(Filter):
             dr = self._get_data_range()
             self._data_min = dr[0]
             self.lower_threshold = dr[0]
-    
+
     def _auto_reset_upper_changed(self, value):
         if len(self.inputs) == 0:
             return
@@ -248,7 +248,7 @@ class Threshold(Filter):
         else:
             old = self._threshold
             new = self._threshold_points
-        self.trait_property_changed('threshold_filter', old, new) 
+        self.trait_property_changed('threshold_filter', old, new)
 
     def _threshold_filter_changed(self, old, new):
         if len(self.inputs) == 0:

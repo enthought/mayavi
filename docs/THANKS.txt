@@ -9,7 +9,7 @@ Patches:
     - Fredéric Petit
         - Extensive testing, wiki and cookbook pages.  Patch for NaN
           support.
-    - Varun Hiremath 
+    - Varun Hiremath
         - Debian package maintainer, ExtractVectorComponents
           filter.
     - K. K. Rai and R. A. Ambareesha

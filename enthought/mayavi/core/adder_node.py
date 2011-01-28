@@ -9,7 +9,7 @@ to the tree.
 
 # Enthought library imports.
 from enthought.traits.api import (HasTraits, Str, Property, Any, Button,
-                                  List, Instance, 
+                                  List, Instance,
                                   ToolbarButton)
 from enthought.traits.ui.api import View, Item, Group, \
         TextEditor, TreeEditor, TreeNode, ListEditor
@@ -24,26 +24,26 @@ from enthought.mayavi.core.registry import registry
 class AdderNode(HasTraits):
     """ Base class that will display a TreeNode to add items to the tree.
     """
-    
+
     # String to be shown in the TreeEditor.
     label = Str('Base AdderNode')
-    
+
     # Default tooltip for this class.
     tooltip = Str('Add an item')
-    
+
     # The parent object that should be manipulated for adding children.
     object =  Any
-    
+
     # Duck-typing is necessary since Mayavi assumes nodes always have scenes.
     scene = Property
 
     # Trait view to show in the Mayavi current object panel.
-    view = View(Group(label='AdderNode'))   
+    view = View(Group(label='AdderNode'))
 
     def dialog_view(self):
         """ View shown by double-clicking on the node.  Same as in Base().
         """
-        view = self.trait_view()    
+        view = self.trait_view()
         view.buttons = [ ]
         view.title = self.label
         view.icon = ImageResource('add.ico')
@@ -51,7 +51,7 @@ class AdderNode(HasTraits):
         view.width = 350
         view.height = 650
         return view
-    
+
     def _get_scene(self):
         """ Trait Property getter for 'scene'.
         """
@@ -70,19 +70,19 @@ class AdderNode(HasTraits):
 class SceneAdderNode(AdderNode):
     """ Subclass for adding Scene nodes to a Mayavi Engine node.
     """
-    
+
     # String to be shown in the TreeEditor.
     label = Str('Add a new scene')
-    
+
     # Button for the View.
-    add_scene = Button('Add a new scene', 
-                      image=ImageResource('add_scene.png'))  
-    
+    add_scene = Button('Add a new scene',
+                      image=ImageResource('add_scene.png'))
+
     # Trait view to show in the Mayavi current object panel.
-    view = View(Group(Item('add_scene', show_label=False, style='custom'), 
+    view = View(Group(Item('add_scene', show_label=False, style='custom'),
                       label='Add a scene'))
-    
-    
+
+
     def _add_scene_fired(self):
         """ Trait handler for when the add_scene button is clicked.
         """
@@ -125,7 +125,7 @@ class DocumentedItem(HasTraits):
         action()
 
 
-def documented_item_factory(name='', documentation='', 
+def documented_item_factory(name='', documentation='',
                 id='', object=None):
     """ Factory for creating a DocumentedItem with the right button
         label.
@@ -177,14 +177,14 @@ class ListAdderNode(AdderNode):
                           delete=False,
                           rename=False,
                           children='items_list',
-                          ), 
+                          ),
                  TreeNode(node_for=[DocumentedItem],
                           label='name',
                           copy=False,
                           delete=False,
                           rename=False,
                           icon_item=self.icon_name,
-                          ), 
+                          ),
                  ]
 
         tree_editor = TreeEditor(editable=False,
@@ -256,7 +256,7 @@ class SourceAdderNode(ListAdderNode):
     open_file = ToolbarButton('Load data from file',
                                 orientation='horizontal',
                                 image=ImageResource('file.png'))
-    
+
     # A reference to the registry, to generate this list.
     items_list_source = [source for source in registry.sources
                          if len(source.extensions) == 0]
@@ -266,7 +266,7 @@ class SourceAdderNode(ListAdderNode):
 
     # The icon of the displayed objects
     icon_name = Str('source.ico')
-    
+
     # Trait view to show in the Mayavi current object panel.
     def default_traits_view(self):
         return View(Group(Group(Item('open_file', style='custom'),
@@ -275,7 +275,7 @@ class SourceAdderNode(ListAdderNode):
                             editor=ListEditor(style='custom')),
                       show_labels=False,
                       label='Add a data source'))
-   
+
     def _open_file_fired(self):
         """ Trait handler for when the open_file button is clicked.
         """
@@ -284,40 +284,40 @@ class SourceAdderNode(ListAdderNode):
     def _is_action_suitable(self, object, src):
         return True
 
-    
+
 ###############################################################################
 # ModuleAdderNode class
 ###############################################################################
-class ModuleAdderNode(ListAdderNode):  
+class ModuleAdderNode(ListAdderNode):
     """ Tree node that presents a view to the user to add modules.
     """
     # String to be shown in the TreeEditor.
     label = Str('Add a visualization module')
-   
+
     # The icon of the displayed objects
     icon_name = Str('module.ico')
-    
+
     # A reference to the registry, to generate this list.
     items_list_source = registry.modules
 
     def _object_changed(self, value):
         if value is not None:
             value.menu_helper._build_filter_actions()
-        ListAdderNode._object_changed(self, value) 
+        ListAdderNode._object_changed(self, value)
 
 
 ###############################################################################
 # FilterAdderNode class
 ###############################################################################
-class FilterAdderNode(ListAdderNode):  
+class FilterAdderNode(ListAdderNode):
     """ Tree node that presents a view to the user to add filters.
     """
     # String to be shown in the TreeEditor.
     label = Str('Add a processing filter')
-    
+
     # The icon of the displayed objects
     icon_name = Str('filter.ico')
-    
+
     # A reference to the registry, to generate this list.
     items_list_source = registry.filters
 
@@ -325,11 +325,11 @@ class FilterAdderNode(ListAdderNode):
 ###############################################################################
 # ModuleFilterAdderNode class
 ###############################################################################
-class ModuleFilterAdderNode(AdderNode):  
+class ModuleFilterAdderNode(AdderNode):
     """ Tree node that presents a view to the user to add filter and
         modules.
     """
-    
+
     # The string to display on the icon in the TreeEditor.
     label = 'Add module or filter'
 
@@ -350,13 +350,13 @@ class ModuleFilterAdderNode(AdderNode):
                 Group(Item('modules', style='custom', springy=True,
                             resizable=True,
                             height=1.,
-                            ), 
+                            ),
                     show_labels=False,
                     label='Visualization modules'),
-                Group(Item('filters', style='custom', springy=True, 
+                Group(Item('filters', style='custom', springy=True,
                             resizable=True,
                             height=1.,
-                            ), 
+                            ),
                     show_labels=False,
                     label='Processing filters'),
                 )

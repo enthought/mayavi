@@ -16,7 +16,7 @@ from enthought.mayavi.core.pipeline_info import PipelineInfo
 ################################################################################
 def import_symbol(symbol_path):
 
-    """ Import the symbol defined by the specified symbol path. 
+    """ Import the symbol defined by the specified symbol path.
     Copied from envisage's import manager.
     """
 
@@ -59,13 +59,13 @@ def import_module(module_name):
 
 ################################################################################
 # `Metadata` class.
-################################################################################ 
+################################################################################
 class Metadata(HasTraits):
     """
     This class allows us to define metadata related to mayavi's sources,
     filters and modules.
     """
-    
+
     # Our ID.
     id = Str
 
@@ -83,7 +83,7 @@ class Metadata(HasTraits):
     # Help string for the object.
     help = Str
 
-    # The name of this object in a menu. 
+    # The name of this object in a menu.
     menu_name = Str
 
     # The optional tooltip to display for this object.
@@ -100,7 +100,7 @@ class Metadata(HasTraits):
     ######################################################################
     def get_callable(self):
         """Return the callable that will create a new instance of the
-        object implementing this metadata.  
+        object implementing this metadata.
         """
         factory = self.factory
         if factory is not None:
@@ -118,19 +118,19 @@ class Metadata(HasTraits):
 
 ################################################################################
 # `ModuleMetadata` class.
-################################################################################ 
+################################################################################
 class ModuleMetadata(Metadata):
     pass
 
 ################################################################################
 # `FilterMetadata` class.
-################################################################################ 
+################################################################################
 class FilterMetadata(Metadata):
     pass
 
 ################################################################################
 # `SourceMetadata` class.
-################################################################################ 
+################################################################################
 class SourceMetadata(Metadata):
 
     # The file name extension that this reader/source handles.  Empty if
@@ -139,8 +139,8 @@ class SourceMetadata(Metadata):
 
     # Wildcard for the file dialog.
     wildcard = Str
-    
+
     # `Callable` to check if the reader can actually read the file
-    # `Callable` must accept the filename to be read and it should 
+    # `Callable` must accept the filename to be read and it should
     # return `True` if its possible to read the file else 'False'
     can_read_test = Str

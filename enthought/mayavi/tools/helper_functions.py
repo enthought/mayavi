@@ -10,7 +10,7 @@ both for testing and to ilustrate its use.
 """
 
 # Author: Gael Varoquaux <gael.varoquaux@normalesup.org>
-# Copyright (c) 2007, Enthought, Inc. 
+# Copyright (c) 2007, Enthought, Inc.
 # License: BSD Style.
 
 from modules import VectorsFactory, StreamlineFactory, GlyphFactory, \
@@ -30,9 +30,9 @@ from enthought.traits.api import Array, Callable, CFloat, HasTraits, \
 import numpy
 
 def document_pipeline(pipeline):
-    def the_function(*args, **kwargs): 
+    def the_function(*args, **kwargs):
         return pipeline(*args, **kwargs)
-    
+
     if hasattr(pipeline, 'doc'):
         doc = pipeline.doc
     elif pipeline.__doc__ is not None:
@@ -45,11 +45,11 @@ def document_pipeline(pipeline):
     **Keyword arguments:**
     %s""") % ( dedent(doc),
                 traits_doc(pipeline.get_all_traits()), )
-    
+
     return the_function
 
 
-############################################################################# 
+#############################################################################
 class Pipeline(HasTraits):
     """ Function used to build pipelines for helper functions """
     #doc = ''
@@ -62,7 +62,7 @@ class Pipeline(HasTraits):
                 help='Figure to populate.')
 
     def __call__(self, *args, **kwargs):
-        """ Calls the logics of the factory, but only after disabling 
+        """ Calls the logics of the factory, but only after disabling
             rendering, if needed.
         """
         # First retrieve the scene, if any.
@@ -100,7 +100,7 @@ class Pipeline(HasTraits):
         all_traits = self.get_all_traits()
         if not set(kwargs.keys()).issubset(all_traits.keys()):
             raise ValueError, "Invalid keyword arguments : %s" % \
-                    ', '.join(str(k) for k in 
+                    ', '.join(str(k) for k in
                               set(kwargs.keys()).difference(all_traits.keys()) )
         traits = self.get(self.class_trait_names())
         [traits.pop(key) for key in traits.keys() if key[0]=='_' ]
@@ -133,9 +133,9 @@ class Pipeline(HasTraits):
         return traits
 
 
-############################################################################# 
+#############################################################################
 class Points3d(Pipeline):
-    """ 
+    """
     Plots glyphs (like points) at the position of the supplied data.
 
     **Function signatures**::
@@ -144,12 +144,12 @@ class Points3d(Pipeline):
         points3d(x, y, z, s, ...)
         points3d(x, y, z, f, ...)
 
-    x, y and z are numpy arrays, or lists, all of the same shape, giving 
+    x, y and z are numpy arrays, or lists, all of the same shape, giving
     the positions of the points.
 
-    If only 3 arrays x, y, z are given, all the points are drawn with the 
-    same size and color. 
-    
+    If only 3 arrays x, y, z are given, all the points are drawn with the
+    same size and color.
+
     In addition, you can pass a fourth array s of the same
     shape as x, y, and z giving an associated scalar value for each
     point, or a function f(x, y, z) returning the scalar value. This
@@ -165,7 +165,7 @@ class Points3d(Pipeline):
                         'from the inter-glyph spacing. Specify a float to '
                         'give the maximum glyph size in drawing units'
                         )
-    
+
     def __call_internal__(self, *args, **kwargs):
         """ Override the call to be able to scale automatically the glyphs.
         """
@@ -222,16 +222,16 @@ def test_molecule():
 
     oxygen = points3d(ox, oy, oz, scale_factor=16, scale_mode='none',
                                 resolution=20, color=(1,0,0), name='Oxygen')
-    nitrogen = points3d(nx, ny, nz, scale_factor=20, scale_mode='none', 
+    nitrogen = points3d(nx, ny, nz, scale_factor=20, scale_mode='none',
                                 resolution=20, color=(0,0,1), name='Nitrogen')
-    carbon = points3d(cx, cy, cz, scale_factor=20, scale_mode='none', 
+    carbon = points3d(cx, cy, cz, scale_factor=20, scale_mode='none',
                                 resolution=20, color=(0,1,0), name='Carbon')
-    hydrogen = points3d(hx, hy, hz, scale_factor=10, scale_mode='none', 
+    hydrogen = points3d(hx, hy, hz, scale_factor=10, scale_mode='none',
                                 resolution=20, color=(1,1,1), name='Hydrogen')
 
     return oxygen, nitrogen, carbon, hydrogen
 
-############################################################################# 
+#############################################################################
 
 class Quiver3D(Points3d):
     """
@@ -239,14 +239,14 @@ class Quiver3D(Points3d):
     at the positions supplied.
 
     **Function signatures**::
-    
+
         quiver3d(u, v, w, ...)
         quiver3d(x, y, z, u, v, w, ...)
         quiver3d(x, y, z, f, ...)
-    
+
     u, v, w are numpy arrays giving the components of the vectors.
 
-    If only 3 arrays, u, v, and w are passed, they must be 3D arrays, and 
+    If only 3 arrays, u, v, and w are passed, they must be 3D arrays, and
     the positions of the arrows are assumed to be the indices of the
     corresponding points in the (u, v, w) arrays.
 
@@ -254,7 +254,7 @@ class Quiver3D(Points3d):
     the position of the arrows, and the 3 last the components. They
     can be of any shape.
 
-    If 4 positional arguments, (x, y, z, f) are passed, the last one must be 
+    If 4 positional arguments, (x, y, z, f) are passed, the last one must be
     a callable, f, that returns vectors components (u, v, w) given the
     positions (x, y, z)."""
 
@@ -314,20 +314,20 @@ def test_quiver3d_2d_data():
                                 scale_factor=0.5, mode="2dthick_arrow")
 
 
-############################################################################# 
+#############################################################################
 class Flow(Pipeline):
     """
-    Creates a trajectory of particles following the flow of a vector field. 
-                      
+    Creates a trajectory of particles following the flow of a vector field.
+
     **Function signatures**::
-    
+
         flow(u, v, w, ...)
         flow(x, y, z, u, v, w, ...)
         flow(x, y, z, f, ...)
 
     u, v, w are numpy arrays giving the components of the vectors.
 
-    If only 3 arrays, u, v, and w are passed, they must be 3D arrays, and 
+    If only 3 arrays, u, v, and w are passed, they must be 3D arrays, and
     the positions of the arrows are assumed to be the indices of the
     corresponding points in the (u, v, w) arrays.
 
@@ -340,7 +340,7 @@ class Flow(Pipeline):
     function builds a vector field assuming  the points are regularly
     spaced.
 
-    If 4 positional arguments, (x, y, z, f) are passed, the last one must be 
+    If 4 positional arguments, (x, y, z, f) are passed, the last one must be
     a callable, f, that returns vectors components (u, v, w) given the
     positions (x, y, z)."""
 
@@ -348,7 +348,7 @@ class Flow(Pipeline):
 
     _source_function = Callable(vector_field)
 
-    _pipeline = [ExtractVectorNormFactory, StreamlineFactory, ] 
+    _pipeline = [ExtractVectorNormFactory, StreamlineFactory, ]
 
     def __call_internal__(self, *args, **kwargs):
         """ Override the call to be able to choose whether to apply an
@@ -444,7 +444,7 @@ def test_flow_scalars():
     return obj
 
 
-############################################################################# 
+#############################################################################
 class Contour3d(Pipeline):
     """
     Plots iso-surfaces for a 3D volume of data suplied as arguments.
@@ -466,7 +466,7 @@ class Contour3d(Pipeline):
     spaced.
 
     If 4 positional arguments, (x, y, z, f) are passed, the last one
-    can also be a callable, f, that returns vectors components (u, v, w) 
+    can also be a callable, f, that returns vectors components (u, v, w)
     given the positions (x, y, z)."""
 
     _source_function = Callable(scalar_field)
@@ -479,7 +479,7 @@ contour3d = document_pipeline(Contour3d())
 
 def test_contour3d():
     x, y, z = numpy.ogrid[-5:5:64j, -5:5:64j, -5:5:64j]
-    
+
     scalars = x*x*0.5 + y*y + z*z*2.0
 
     obj = contour3d(scalars, contours=4, transparent=True)
@@ -505,7 +505,7 @@ def test_contour3d_anim():
         ms.scalars = x*x*0.5 + y*x*0.1*(i+1) + z*z*0.25
     return obj
 
-############################################################################# 
+#############################################################################
 class Plot3d(Pipeline):
     """
     Draws lines between points.
@@ -514,7 +514,7 @@ class Plot3d(Pipeline):
 
         plot3d(x, y, z, ...)
         plot3d(x, y, z, s, ...)
-        
+
     x, y, z and s are numpy arrays or lists of the same shape. x, y and z
     give the positions of the successive points of the line. s is an
     optional scalar value associated with each point."""
@@ -551,7 +551,7 @@ def test_plot3d():
     """Generates a pretty set of lines."""
     n_mer, n_long = 6, 11
     pi = numpy.pi
-    dphi = pi/1000.0 
+    dphi = pi/1000.0
     phi = numpy.arange(0.0, 2*pi + 0.5*dphi, dphi)
     mu = phi*n_mer
     x = numpy.cos(mu)*(1+numpy.cos(n_long*mu/n_mer)*0.5)
@@ -577,21 +577,21 @@ def test_plot3d_anim():
     # Now animate the data.
     ms = l.mlab_source
     for i in range(10):
-        x = numpy.cos(mu)*(1+numpy.cos(n_long*mu/n_mer + 
+        x = numpy.cos(mu)*(1+numpy.cos(n_long*mu/n_mer +
                                           numpy.pi*(i+1)/5.)*0.5)
         scalars = numpy.sin(mu + numpy.pi*(i+1)/5)
         ms.set(x=x, scalars=scalars)
     return l
 
-############################################################################# 
+#############################################################################
 class ImShow(Pipeline):
     """
-    View a 2D array as an image. 
+    View a 2D array as an image.
 
     **Function signatures**::
 
         imshow(s, ...)
-    
+
     s is a 2 dimension array. The values of s are mapped to a color using
     the colormap."""
 
@@ -610,35 +610,35 @@ def test_imshow():
     return imshow(s, colormap='gist_earth')
 
 
-############################################################################# 
+#############################################################################
 class Surf(Pipeline):
     """
-    Plots a surface using regularly-spaced elevation data supplied as a 2D 
+    Plots a surface using regularly-spaced elevation data supplied as a 2D
     array.
 
     **Function signatures**::
 
         surf(s, ...)
         surf(x, y, s, ...)
-        surf(x, y, f, ...)        
-    
+        surf(x, y, f, ...)
+
     s is the elevation matrix, a 2D array, where indices along the first
     array axis represent x locations, and indices along the second array
-    axis represent y locations. 
-    
+    axis represent y locations.
+
     x and y can be 1D or 2D arrays such as returned by numpy.ogrid or
     numpy.mgrid. Arrays returned by numpy.meshgrid require a transpose
     first to obtain correct indexing order.
-    The points should be located on an orthogonal grid (possibly 
+    The points should be located on an orthogonal grid (possibly
     non-uniform). In other words, all the points sharing a same
-    index in the s array need to have the same x or y value. For 
-    arbitrary-shaped position arrays (non-orthogonal grids), see the mesh 
+    index in the s array need to have the same x or y value. For
+    arbitrary-shaped position arrays (non-orthogonal grids), see the mesh
     function.
 
     If only 1 array s is passed, the x and y arrays are assumed to be
-    made from the indices of arrays, and an uniformly-spaced data set is 
+    made from the indices of arrays, and an uniformly-spaced data set is
     created.
-    
+
     If 3 positional arguments are passed the last one must be an array s,
     or a callable, f, that returns an array. x and y give the
     coordinates of positions corresponding to the s values."""
@@ -651,8 +651,8 @@ class Surf(Pipeline):
     warp_scale = Any(1, help="""scale of the z axis (warped from
                         the value of the scalar). By default this scale
                         is a float value.
-                        
-                        If you specify 'auto', the scale is calculated to 
+
+                        If you specify 'auto', the scale is calculated to
                         give a pleasant aspect ratio to the plot,
                         whatever the bounds of the data.
 
@@ -676,7 +676,7 @@ class Surf(Pipeline):
         """
         self.source = self._source_function(*args, **kwargs)
         kwargs.pop('name', None)
-        # Deal with both explicit warp scale and extent, this is 
+        # Deal with both explicit warp scale and extent, this is
         # slightly hairy. The wigner example is a good test case for
         # this.
         if not 'warp_scale' in kwargs and not 'extent' in kwargs:
@@ -704,7 +704,7 @@ class Surf(Pipeline):
             except AttributeError:
                 si, sf = self.source.image_data.scalar_range
             z_span = kwargs['warp_scale'] * abs(sf - si)
-            zi = zo + si * kwargs['warp_scale'] 
+            zi = zo + si * kwargs['warp_scale']
             zf = zi + z_span
             kwargs['extent'] = (xi, xf, yi, yf, zi, zf)
             kwargs['warp_scale'] = 1
@@ -770,15 +770,15 @@ def test_surf_wigner():
             of photons"""
         cos = numpy.cos
         exp = numpy.exp
-        return (1 + eta*(exp(-x**2 -(y-alpha)**2)  
-                + exp(-x**2 - (y+alpha)**2) 
-                + 2 * purity * exp(-x**2 - y**2) * 
+        return (1 + eta*(exp(-x**2 -(y-alpha)**2)
+                + exp(-x**2 - (y+alpha)**2)
+                + 2 * purity * exp(-x**2 - y**2) *
                         cos(2* alpha * x))/(2 * (1 + exp(- alpha**2))))/2
     x, y = numpy.mgrid[-5:5:0.1, -5:5:0.1]
     return surf(x, y, cat)
 
 
-############################################################################# 
+#############################################################################
 class Mesh(Pipeline):
     """
     Plots a surface using grid-spaced data supplied as 2D arrays.
@@ -786,14 +786,14 @@ class Mesh(Pipeline):
     **Function signatures**::
 
         mesh(x, y, z, ...)
-    
+
     x, y, z are 2D arrays, all of the same shape, giving the positions of
     the vertices of the surface. The connectivity between these points is
-    implied by the connectivity on the arrays. 
+    implied by the connectivity on the arrays.
 
     For simple structures (such as orthogonal grids) prefer the `surf` function,
     as it will create more efficient data structures. For mesh defined by
-    triangles rather than regular implicit connectivity, see the 
+    triangles rather than regular implicit connectivity, see the
     `triangular_mesh` function.
     """
 
@@ -804,7 +804,7 @@ class Mesh(Pipeline):
                             ('vector', 'scalar', or 'none').""")
 
     scale_factor = CFloat(0.05,
-                        desc = """scale factor of the glyphs used to represent 
+                        desc = """scale factor of the glyphs used to represent
                         the vertices, in fancy_mesh mode. """)
 
     tube_radius = Trait(0.025, CFloat, None,
@@ -822,9 +822,9 @@ class Mesh(Pipeline):
 
     _source_function = Callable(grid_source)
 
-    _pipeline = [ExtractEdgesFactory, GlyphFactory, TubeFactory, 
+    _pipeline = [ExtractEdgesFactory, GlyphFactory, TubeFactory,
                         SurfaceFactory]
-    
+
     def __call_internal__(self, *args, **kwargs):
         """ Override the call to be able to choose whether to apply
         filters.
@@ -916,7 +916,7 @@ def test_fancy_mesh():
                    tube_radius=0.0075, colormap="RdYlGn")
     return m
 
-############################################################################# 
+#############################################################################
 class ContourSurf(Pipeline):
     """
     Plots a the contours of a surface using grid-spaced data for
@@ -926,22 +926,22 @@ class ContourSurf(Pipeline):
 
         contour_surf(s, ...)
         contour_surf(x, y, s, ...)
-        contour_surf(x, y, f, ...)        
+        contour_surf(x, y, f, ...)
 
     s is the elevation matrix, a 2D array. The contour lines plotted
     are lines of equal s value.
-    
+
     x and y can be 1D or 2D arrays (such as returned by numpy.ogrid or
     numpy.mgrid), but the points should be located on an orthogonal grid
     (possibly non-uniform). In other words, all the points sharing a same
-    index in the s array need to have the same x or y value. For 
-    arbitrary-shaped position arrays (non-orthogonal grids), see the mesh 
+    index in the s array need to have the same x or y value. For
+    arbitrary-shaped position arrays (non-orthogonal grids), see the mesh
     function.
 
     If only 1 array s is passed, the x and y arrays are assumed to be
-    made from the indices of arrays, and an uniformly-spaced data set is 
+    made from the indices of arrays, and an uniformly-spaced data set is
     created.
-    
+
     If 3 positional arguments are passed the last one must be an array s,
     or a callable, f, that returns an array. x and y give the
     coordinates of positions corresponding to the s values."""
@@ -965,11 +965,11 @@ def test_contour_surf():
     s = contour_surf(x, y, f)
     return s
 
-############################################################################# 
+#############################################################################
 
 # Expose only the glyphs that make (more or less) sense for a barchart.
 bar_mode_dict = dict()
-for item in ('cube', '2dtriangle', '2dsquare', '2dvertex', '2dthick_cross', 
+for item in ('cube', '2dtriangle', '2dsquare', '2dvertex', '2dthick_cross',
              '2ddiamond', '2dcross', '2dcircle'):
     bar_mode_dict[item] = glyph_mode_dict[item]
 
@@ -996,8 +996,8 @@ class BarChart(Pipeline):
 
     If 3 positional arguments (x, y, s) are passed the last one must be
     an array s, or a callable, f, that returns an array. x and y give the
-    2D coordinates of positions corresponding to the s values. 
-    
+    2D coordinates of positions corresponding to the s values.
+
     If 4 positional arguments (x, y, z, s) are passed, the 3 first are
     arrays giving the 3D coordinates of the data points, and the last one
     is an array s, or a callable, f, that returns an array giving the
@@ -1065,7 +1065,7 @@ def test_barchart():
     return barchart(s)
 
 
-############################################################################# 
+#############################################################################
 class TriangularMesh(Mesh):
     """
     Plots a surface using a mesh defined by the position of its vertices
@@ -1074,7 +1074,7 @@ class TriangularMesh(Mesh):
     **Function signatures**::
 
         triangular_mesh(x, y, z, triangles ...)
-    
+
     x, y, z are arrays giving the positions of the vertices of the surface.
     triangles is a list of triplets (or an array) list the vertices in
     each triangle. Vertices are indexes by their appearance number in the

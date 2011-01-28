@@ -12,7 +12,7 @@ from enthought.mayavi.tools import sources
 
 ################################################################################
 # `TestMGlyphSource`
-################################################################################ 
+################################################################################
 class TestMGlyphSource(unittest.TestCase):
     def setUp(self):
         self.x = x = N.ones(10, float)
@@ -78,15 +78,15 @@ class TestMGlyphSource(unittest.TestCase):
         self.check_dataset()
         # Call reset again with just a few things changed to see if it
         # works correctly.
-        
+
         self.x = x = N.ones(20, float)*30.0
         self.y = y = N.ones(20, float)*30.0
         self.z = z = N.ones(20, float)*30.0
         points = N.ones((20, 3), float)*30.0
         self.s = s = N.ones(20, float)
-        self.v = v = N.ones((20, 3), float)*30.0  
-       
-        src.reset(x=x,y=y,z=z, u=v[:,0], v=v[:,1], w=v[:,2], scalars=s,points=points,vectors=v)       
+        self.v = v = N.ones((20, 3), float)*30.0
+
+        src.reset(x=x,y=y,z=z, u=v[:,0], v=v[:,1], w=v[:,2], scalars=s,points=points,vectors=v)
         self.check_traits()
         self.check_dataset()
 
@@ -100,7 +100,7 @@ class TestMGlyphSource(unittest.TestCase):
         s *= 2.0
         src.x = x
         src.y = y
-        src.z = z 
+        src.z = z
         src.u = v[:,0]
         src.v = v[:,1]
         src.w = v[:,2]
@@ -123,15 +123,15 @@ class TestMGlyphSource(unittest.TestCase):
         x, y, z, v, s, src = self.get_data()
         x = y = z = v = s = 0
         src.reset(x=x, y=y, z=z, u=v, v=v, w=v, scalars=None)
-        src.reset(x=x, y=y, z=z, u=v, v=v, w=v, scalars=s)       
+        src.reset(x=x, y=y, z=z, u=v, v=v, w=v, scalars=s)
         x = y = z = v = s = 1
-        src.set(x=x, y=y, z=z, u=v, v=v, w=v, scalars=None) 
-        src.set(x=x, y=y, z=z, u=v, v=v, w=v, scalars=s)       
+        src.set(x=x, y=y, z=z, u=v, v=v, w=v, scalars=None)
+        src.set(x=x, y=y, z=z, u=v, v=v, w=v, scalars=s)
 
 
 ################################################################################
 # `TestMGlyphSource`
-################################################################################ 
+################################################################################
 class TestMVerticalSource(unittest.TestCase):
     def setUp(self):
         self.x = x = N.ones(10, float)
@@ -197,13 +197,13 @@ class TestMVerticalSource(unittest.TestCase):
         self.check_dataset()
         # Call reset again with just a few things changed to see if it
         # works correctly.
-        
+
         self.x = x = N.ones(20, float)*30.0
         self.y = y = N.ones(20, float)*30.0
         self.z = z = N.ones(20, float)*30.0
         points = N.ones((20, 3), float)*30.0
         self.s = s = N.ones(20, float)
-       
+
         src.reset(x=x, y=y, z=z, scalars=s, points=points)
         self.check_traits()
         self.check_dataset()
@@ -217,7 +217,7 @@ class TestMVerticalSource(unittest.TestCase):
         s *= 2.0
         src.x = x
         src.y = y
-        src.z = z 
+        src.z = z
         src.scalars = s
         self.check_traits()
         self.check_dataset()
@@ -235,17 +235,17 @@ class TestMVerticalSource(unittest.TestCase):
 
 ################################################################################
 # `TestMArraySource`
-################################################################################ 
+################################################################################
 class TestMArraySource(unittest.TestCase):
     def setUp(self):
-        x, y, z = N.ogrid[-10:10:11j, 
-                          -10:10:12j, 
+        x, y, z = N.ogrid[-10:10:11j,
+                          -10:10:12j,
                           -10:10:20j]
         self.x, self.y, self.z = x, y, z
         dims = (x.shape[0], y.shape[1], z.shape[2])
         self.v = v = N.ones(dims + (3,), float)
         v[...,2] = 2
-        v[...,2] = 3 
+        v[...,2] = 3
         self.s = s = N.ones(dims, float)
         src = sources.MArraySource()
         src.reset(x=x, y=y, z=z, u=v[...,0], v=v[...,1], w=v[...,2], scalars=s)
@@ -314,21 +314,21 @@ class TestMArraySource(unittest.TestCase):
         # Call reset again with just a few things changed to see if it
         # works correctly.
 
-        x, y, z = N.ogrid[-10:10:11j, 
-                          -10:10:12j, 
+        x, y, z = N.ogrid[-10:10:11j,
+                          -10:10:12j,
                           -10:10:20j]
         self.x, self.y, self.z = x, y, z
-        
+
         dims = (x.shape[0], y.shape[1], z.shape[2])
         self.v = v = N.ones(dims + (3,), float)
         v[...,2] = 2
-        v[...,2] = 3 
+        v[...,2] = 3
         self.s = s = N.ones(dims, float)
         src = sources.MArraySource()
-        src.reset(x=x, y=y, z=z, u=v[...,0], v=v[...,1], w=v[...,2], scalars=s,vectors=v)      
+        src.reset(x=x, y=y, z=z, u=v[...,0], v=v[...,1], w=v[...,2], scalars=s,vectors=v)
         self.check_traits()
         self.check_dataset()
-        
+
     def test_handlers(self):
         "Test if the various static handlers work correctly."
         x, y, z, v, s, src = self.get_data()
@@ -339,7 +339,7 @@ class TestMArraySource(unittest.TestCase):
         s *= 2.0
         src.x = x
         src.y = y
-        src.z = z 
+        src.z = z
         src.u = v[...,0]
         src.v = v[...,1]
         src.w = v[...,2]
@@ -361,7 +361,7 @@ class TestMArraySource(unittest.TestCase):
 
 ################################################################################
 # `TestMLineSource`
-################################################################################ 
+################################################################################
 class TestMLineSource(unittest.TestCase):
     def setUp(self):
         self.x = x = N.ones(10, float)
@@ -436,18 +436,18 @@ class TestMLineSource(unittest.TestCase):
         self.check_dataset()
         # Call reset again with just a few things changed to see if it
         # works correctly.
-        
+
         self.x = x = N.ones(20, float)*30.0
         self.y = y = N.ones(20, float)*30.0
         self.z = z = N.ones(20, float)*30.0
         points = N.ones((20, 3), float)*30.0
-        self.s = s = N.ones(20, float)                 
-        src.reset(x=x,y=y,z=z,scalars=s,points=points)       
+        self.s = s = N.ones(20, float)
+        src.reset(x=x,y=y,z=z,scalars=s,points=points)
         self.check_traits()
         self.check_dataset()
 
 
-        
+
 
     def test_handlers(self):
         "Test if the various static handlers work correctly."
@@ -458,7 +458,7 @@ class TestMLineSource(unittest.TestCase):
         s *= 2.0
         src.x = x
         src.y = y
-        src.z = z 
+        src.z = z
         src.scalars = s
         self.check_traits()
         self.check_dataset()
@@ -473,7 +473,7 @@ class TestMLineSource(unittest.TestCase):
         self.check_traits()
         self.check_dataset()
 
-        
+
         y *= 2.0
         s *= 2.0
         src.set(y=y, scalars=s)
@@ -484,14 +484,14 @@ class TestMLineSource(unittest.TestCase):
 
 ################################################################################
 # `TestMArray2DSource`
-################################################################################ 
+################################################################################
 class TestMArray2DSource(unittest.TestCase):
     def setUp(self):
-        x, y = N.mgrid[-10:10:11j, 
-                          -10:10:12j]          
-       
+        x, y = N.mgrid[-10:10:11j,
+                          -10:10:12j]
+
         self.x, self.y  = x, y
-        dims = (x.shape[0], y.shape[1])        
+        dims = (x.shape[0], y.shape[1])
         self.s = s = N.ones(dims, float)
         src = sources.MArray2DSource()
         src.reset(x=x, y=y,scalars=s)
@@ -507,10 +507,10 @@ class TestMArray2DSource(unittest.TestCase):
         """Check if the sources traits are set correctly."""
         x, y, s, src = self.get_data()
 
-        # Check if points are set correctly.        
+        # Check if points are set correctly.
         self.assertEqual(N.alltrue(src.x == x), True)
         self.assertEqual(N.alltrue(src.y == y), True)
-        # Check the scalars.       
+        # Check the scalars.
         self.assertEqual(N.alltrue(src.scalars == s), True)
 
     def check_dataset(self):
@@ -521,20 +521,20 @@ class TestMArray2DSource(unittest.TestCase):
         y = N.atleast_2d(y.squeeze())[0, :].squeeze()
         dx = x[1] - x[0]
         dy = y[1] - y[0]
-       
+
         origin = [x.min(), y.min(),0 ]
         spacing = [dx, dy, 1]
         ds = src.dataset
         self.assertEqual(N.all(ds.origin == origin), True)
         self.assertEqual(N.allclose(src.m_data.spacing, spacing), True)
-              
-        sc = src.dataset.point_data.scalars.to_array()      
+
+        sc = src.dataset.point_data.scalars.to_array()
         s1 = s.transpose()
         self.assertEqual(N.alltrue(sc.ravel() == s1.ravel()), True)
 
     def test_reset(self):
         "Test the reset method."
-        
+
         x, y, s, src = self.get_data()
 
         self.check_traits()
@@ -543,9 +543,9 @@ class TestMArray2DSource(unittest.TestCase):
         # Call reset again with just a few things changed to see if it
         # works correctly.
         x *= 5.0
-        s *= 10       
+        s *= 10
         src.reset(x=x,y=y, scalars=s)
-       
+
 
         self.check_traits()
         self.check_dataset()
@@ -557,21 +557,21 @@ class TestMArray2DSource(unittest.TestCase):
         y *= 2.0
         s *= 2.0
         src.x = x
-        src.y = y       
+        src.y = y
         src.scalars = s
-       
+
         self.check_traits()
         self.check_dataset()
 
-   
+
     def test_set(self):
         "Test if the set method works correctly."
         x, y, s, src  = self.get_data()
-        x *= 2.0        
+        x *= 2.0
         s *= 2.0
         src.set(x=x,scalars=s)
 
-      
+
         self.check_traits()
         self.check_dataset()
 
@@ -583,7 +583,7 @@ class TestMArray2DSource(unittest.TestCase):
 
 ################################################################################
 # `TestMGridSource`
-################################################################################ 
+################################################################################
 class TestMGridSource(unittest.TestCase):
     def setUp(self):
         self.x = x = N.ones([10,10], float)
@@ -603,20 +603,20 @@ class TestMGridSource(unittest.TestCase):
     def check_traits(self):
         """Check if the sources traits are set correctly."""
         x, y, z, s, src = self.get_data()
-       
+
         # Check if points are set correctly.
         self.assertEqual(N.alltrue(src.points[:,0].ravel() == x.ravel()), True)
         self.assertEqual(N.alltrue(src.points[:,1].ravel() == y.ravel()), True)
         self.assertEqual(N.alltrue(src.points[:,2].ravel() == z.ravel()), True)
         # Check the  scalars.
-        
+
         self.assertEqual(N.alltrue(src.scalars == s), True)
 
     def check_dataset(self):
         """Check the TVTK dataset."""
         x, y, z, s, src = self.get_data()
         # Check if the dataset is setup right.
-       
+
         pts = src.dataset.points.to_array()
         self.assertEqual(N.alltrue(pts[:,0].ravel() == x.ravel()), True)
         self.assertEqual(N.alltrue(pts[:,1].ravel() == y.ravel()), True)
@@ -626,7 +626,7 @@ class TestMGridSource(unittest.TestCase):
 
     def test_reset(self):
         "Test the reset method."
-        
+
         x, y, z, s, src = self.get_data()
         self.check_traits()
         self.check_dataset()
@@ -635,7 +635,7 @@ class TestMGridSource(unittest.TestCase):
         # works correctly.
         x *= 5.0
         s *= 10
-       
+
         src.reset(x=x, scalars=s)
         self.check_traits()
         self.check_dataset()
@@ -649,7 +649,7 @@ class TestMGridSource(unittest.TestCase):
         s *= 2.0
         src.x = x
         src.y = y
-        src.z = z 
+        src.z = z
         src.scalars = s
         self.check_traits()
         self.check_dataset()
@@ -666,16 +666,16 @@ class TestMGridSource(unittest.TestCase):
 
 ################################################################################
 # `TestMArray2DSourceNoArgs`
-################################################################################ 
+################################################################################
 class TestMArray2DSourceNoArgs(unittest.TestCase):
     """Special Test Case for MArray2DSource when both x and y are specified as None"""
     def setUp(self):
-        
+
         x=None
         y=None
-       
+
         self.x, self.y  = x, y
-        
+
         if x is not None and y is not None:
             dims = (x.shape[0], y.shape[1])
         else:
@@ -700,14 +700,14 @@ class TestMArray2DSourceNoArgs(unittest.TestCase):
         if x is not None and y is not None:
             self.assertEqual(N.alltrue(src.x == x), True)
             self.assertEqual(N.alltrue(src.y == y), True)
-        
+
         else:
-            nx, ny = s.shape        
-            x1, y1 = N.mgrid[-nx/2.:nx/2, -ny/2.:ny/2]            
+            nx, ny = s.shape
+            x1, y1 = N.mgrid[-nx/2.:nx/2, -ny/2.:ny/2]
             self.assertEqual(N.alltrue(src.x == x1), True)
             self.assertEqual(N.alltrue(src.y == y1), True)
-    
-        # Check the scalars.       
+
+        # Check the scalars.
         self.assertEqual(N.alltrue(src.scalars == s), True)
 
     def check_dataset(self):
@@ -723,63 +723,63 @@ class TestMArray2DSourceNoArgs(unittest.TestCase):
         x = N.atleast_2d(x.squeeze().T)[0, :].squeeze()
         y = N.atleast_2d(y.squeeze())[0, :].squeeze()
         dx = x[1] - x[0]
-        dy = y[1] - y[0]        
+        dy = y[1] - y[0]
         origin = [x.min(), y.min(),0 ]
-        spacing = [dx, dy, 1]      
+        spacing = [dx, dy, 1]
         ds = src.dataset
         self.assertEqual(N.all(ds.origin == origin), True)
         self.assertEqual(N.allclose(ds.spacing, spacing), True)
-       
-        sc = src.dataset.point_data.scalars.to_array()      
+
+        sc = src.dataset.point_data.scalars.to_array()
         s1 = s.transpose()
         self.assertEqual(N.alltrue(sc.ravel() == s1.ravel()), True)
 
     def test_reset(self):
-        "Test the reset method."       
-        x, y, s, src = self.get_data()  
+        "Test the reset method."
+        x, y, s, src = self.get_data()
 
         self.check_traits()
         self.check_dataset()
 
         # Call reset again with just a few things changed to see if it
         # works correctly.
-      
-        s *= 10       
-        src.reset(x=x,y=y, scalars=s)           
+
+        s *= 10
+        src.reset(x=x,y=y, scalars=s)
 
         self.check_traits()
         self.check_dataset()
 
     def test_handlers(self):
-        "Test if the various static handlers work correctly."       
-        x, y, s, src = self.get_data()       
-        s *= 2.0         
+        "Test if the various static handlers work correctly."
+        x, y, s, src = self.get_data()
+        s *= 2.0
         src.scalars = s
-       
+
         self.check_traits()
         self.check_dataset()
 
-   
+
     def test_set(self):
-        "Test if the set method works correctly."       
-        x, y, s, src = self.get_data()             
+        "Test if the set method works correctly."
+        x, y, s, src = self.get_data()
         s *= 2.0
         src.set(x=x,y=y,scalars=s)
-      
+
         self.check_traits()
         self.check_dataset()
 
 
 ################################################################################
 # `TestMTriangularMeshSource`
-################################################################################ 
+################################################################################
 class TestMTriangularMeshSource(unittest.TestCase):
     def setUp(self):
         x, y, z = N.array([0, 0, 0]), N.array([0, 0, 1]), N.array([0, 1, 1])
         s = N.array([0.1, 0.2, 0.3])
         self.x, self.y, self.z, self.s = x, y, z, s
         self.triangles = triangles = N.array([[0, 1, 2]])
-      
+
         src = sources.MTriangularMeshSource()
         src.reset(x=x, y=y, z=z, triangles=triangles, scalars=s)
         self.src = src
@@ -793,25 +793,25 @@ class TestMTriangularMeshSource(unittest.TestCase):
     def check_traits(self):
         """Check if the sources traits are set correctly."""
         x, y, z, triangles, s, src = self.get_data()
-       
-        # Check if points are set correctly.        
+
+        # Check if points are set correctly.
         self.assertEqual(N.alltrue(src.x == x), True)
         self.assertEqual(N.alltrue(src.y == y), True)
         self.assertEqual(N.alltrue(src.z == z), True)
-        # Check the scalars.       
+        # Check the scalars.
         self.assertEqual(N.alltrue(src.scalars == s), True)
 
     def test_reset(self):
         "Test the reset method."
-        
+
         x, y, z, triangles, s, src = self.get_data()
         self.check_traits()
 
         # Call reset again with just a few things changed to see if it
         # works correctly.
         x *= 5.0
-        s *= 10       
-        src.reset(x=x,y=y,z=z, triangles=triangles, scalars=s)     
+        s *= 10
+        src.reset(x=x,y=y,z=z, triangles=triangles, scalars=s)
 
         self.check_traits()
 
@@ -836,20 +836,20 @@ class TestMTriangularMeshSource(unittest.TestCase):
         y *= 2.0
         s *= 2.0
         src.x = x
-        src.y = y       
+        src.y = y
         src.scalars = s
         src.triangles = triangles
-       
+
         self.check_traits()
 
-   
+
     def test_set(self):
         "Test if the set method works correctly."
         x, y, z, triangles, s, src = self.get_data()
-        x *= 2.0        
+        x *= 2.0
         s *= 2.0
-        src.set(x=x,scalars=s) 
-     
+        src.set(x=x,scalars=s)
+
         self.check_traits()
 
         y *= 9.0

@@ -14,7 +14,7 @@ from os.path import exists, join, dirname, isdir
 # inserted into sys.path and the directory contents are used for the tvtk
 # classes -- note that you must have the following structure
 # tvtk_classes/tvtk_classes/__init__.py.  This is handy for tools like
-# pydev (Eclipse). 
+# pydev (Eclipse).
 
 # We add the path to the local __path__ here, in the __init__, so that
 # the unpickler can directly unpickle the TVTK classes.

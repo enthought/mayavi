@@ -24,7 +24,7 @@ axes_module = ModuleMetadata(
     help       = "Draw axes on the outline of input data",
     input_info = PipelineInfo(datasets=['any'],
                               attribute_types=['any'],
-                              attributes=['any'])    
+                              attributes=['any'])
 )
 
 contour_grid_plane_module = ModuleMetadata(
@@ -38,7 +38,7 @@ contour_grid_plane_module = ModuleMetadata(
                                         'structured_grid',
                                         'rectilinear_grid'],
                               attribute_types=['any'],
-                              attributes=['any'])    
+                              attributes=['any'])
 )
 
 custom_grid_plane_module = ModuleMetadata(
@@ -52,7 +52,7 @@ custom_grid_plane_module = ModuleMetadata(
                                         'structured_grid',
                                         'rectilinear_grid'],
                               attribute_types=['any'],
-                              attributes=['any'])    
+                              attributes=['any'])
 )
 
 glyph_module = ModuleMetadata(
@@ -64,7 +64,7 @@ glyph_module = ModuleMetadata(
     help       = "Creates colored and scaled glyphs at at input points",
     input_info = PipelineInfo(datasets=['any'],
                               attribute_types=['any'],
-                              attributes=['any'])    
+                              attributes=['any'])
 )
 
 grid_plane_module = ModuleMetadata(
@@ -78,7 +78,7 @@ grid_plane_module = ModuleMetadata(
                                         'structured_grid',
                                         'rectilinear_grid'],
                               attribute_types=['any'],
-                              attributes=['any'])    
+                              attributes=['any'])
 )
 
 hyper_streamline_module = ModuleMetadata(
@@ -90,7 +90,7 @@ hyper_streamline_module = ModuleMetadata(
     help       = "Shows hyper streamlines for tensor data",
     input_info = PipelineInfo(datasets=['any'],
                               attribute_types=['any'],
-                              attributes=['tensors'])    
+                              attributes=['tensors'])
 )
 
 image_actor_module = ModuleMetadata(
@@ -102,7 +102,7 @@ image_actor_module = ModuleMetadata(
     help       = "Shows an image actor for image data",
     input_info = PipelineInfo(datasets=['image_data'],
                               attribute_types=['any'],
-                              attributes=['any'])    
+                              attributes=['any'])
 )
 
 image_plane_widget_module = ModuleMetadata(
@@ -114,7 +114,7 @@ image_plane_widget_module = ModuleMetadata(
     help       = "Shows an image plane widget for image data",
     input_info = PipelineInfo(datasets=['image_data'],
                               attribute_types=['any'],
-                              attributes=['scalars'])    
+                              attributes=['scalars'])
 )
 
 isosurface_module = ModuleMetadata(
@@ -126,7 +126,7 @@ isosurface_module = ModuleMetadata(
     help       = "Creates an iso-surface for the given input",
     input_info = PipelineInfo(datasets=['any'],
                               attribute_types=['any'],
-                              attributes=['scalars'])    
+                              attributes=['scalars'])
 )
 
 labels_module = ModuleMetadata(
@@ -138,7 +138,7 @@ labels_module = ModuleMetadata(
     help       = "Display labels for active dataset or active module",
     input_info = PipelineInfo(datasets=['any'],
                               attribute_types=['any'],
-                              attributes=['any'])    
+                              attributes=['any'])
 )
 
 orientation_axes_module = ModuleMetadata(
@@ -150,7 +150,7 @@ orientation_axes_module = ModuleMetadata(
     help       = "Show an axes indicating the current orientation",
     input_info = PipelineInfo(datasets=['any'],
                               attribute_types=['any'],
-                              attributes=['any'])    
+                              attributes=['any'])
 )
 
 outline_module = ModuleMetadata(
@@ -162,7 +162,7 @@ outline_module = ModuleMetadata(
     help       = "Draw an outline for given input",
     input_info = PipelineInfo(datasets=['any'],
                               attribute_types=['any'],
-                              attributes=['any'])    
+                              attributes=['any'])
 )
 
 scalar_cut_plane_module = ModuleMetadata(
@@ -174,7 +174,7 @@ scalar_cut_plane_module = ModuleMetadata(
     help       = "Slice through the data with optional contours",
     input_info = PipelineInfo(datasets=['any'],
                               attribute_types=['any'],
-                              attributes=['scalars'])    
+                              attributes=['scalars'])
 )
 
 slice_ug_module = ModuleMetadata(
@@ -186,7 +186,7 @@ slice_ug_module = ModuleMetadata(
     help       = "Slice an unstructured grid to show cells",
     input_info = PipelineInfo(datasets=['unstructured_grid'],
                               attribute_types=['any'],
-                              attributes=['any'])    
+                              attributes=['any'])
 )
 
 sgrid_outline_module = ModuleMetadata(
@@ -198,7 +198,7 @@ sgrid_outline_module = ModuleMetadata(
     help       = "Draw a grid-conforming outline for structured grids",
     input_info = PipelineInfo(datasets=['any'],
                               attribute_types=['any'],
-                              attributes=['any'])    
+                              attributes=['any'])
 )
 
 streamline_module = ModuleMetadata(
@@ -210,7 +210,7 @@ streamline_module = ModuleMetadata(
     help       = "Generate streamlines for the vectors",
     input_info = PipelineInfo(datasets=['any'],
                               attribute_types=['any'],
-                              attributes=['vectors'])    
+                              attributes=['vectors'])
 )
 
 surface_module = ModuleMetadata(
@@ -222,7 +222,7 @@ surface_module = ModuleMetadata(
     help       = "Creates a surface for the given input",
     input_info = PipelineInfo(datasets=['any'],
                               attribute_types=['any'],
-                              attributes=['any'])    
+                              attributes=['any'])
 )
 
 tensor_glyph_module = ModuleMetadata(
@@ -234,7 +234,7 @@ tensor_glyph_module = ModuleMetadata(
     help       = "Displays glyphs scaled and oriented as per tensor data",
     input_info = PipelineInfo(datasets=['any'],
                               attribute_types=['any'],
-                              attributes=['tensors'])    
+                              attributes=['tensors'])
 )
 
 text_module = ModuleMetadata(
@@ -246,7 +246,7 @@ text_module = ModuleMetadata(
     help       = "Displays text on screen",
     input_info = PipelineInfo(datasets=['any'],
                               attribute_types=['any'],
-                              attributes=['any'])    
+                              attributes=['any'])
 )
 
 text3d_module = ModuleMetadata(
@@ -258,7 +258,7 @@ text3d_module = ModuleMetadata(
     help       = "Displays user-specified text at a 3D location in the scene",
     input_info = PipelineInfo(datasets=['any'],
                               attribute_types=['any'],
-                              attributes=['any'])    
+                              attributes=['any'])
 )
 
 vector_cut_plane_module = ModuleMetadata(
@@ -270,7 +270,7 @@ vector_cut_plane_module = ModuleMetadata(
     help       = "Display vectors along a cut plane",
     input_info = PipelineInfo(datasets=['any'],
                               attribute_types=['any'],
-                              attributes=['vectors'])    
+                              attributes=['vectors'])
 )
 
 vectors_module = ModuleMetadata(
@@ -282,7 +282,7 @@ vectors_module = ModuleMetadata(
     help       = "Display input vectors using arrows or other glyphs",
     input_info = PipelineInfo(datasets=['any'],
                               attribute_types=['any'],
-                              attributes=['any'])    
+                              attributes=['any'])
 )
 
 volume_module = ModuleMetadata(
@@ -295,7 +295,7 @@ volume_module = ModuleMetadata(
     input_info = PipelineInfo(datasets=['image_data',
                                         'unstructured_grid'],
                               attribute_types=['any'],
-                              attributes=['scalars'])    
+                              attributes=['scalars'])
 )
 
 warp_vector_cut_plane_module = ModuleMetadata(
@@ -307,7 +307,7 @@ warp_vector_cut_plane_module = ModuleMetadata(
     help       = "Warp cut plane along scaled input vectors",
     input_info = PipelineInfo(datasets=['any'],
                               attribute_types=['any'],
-                              attributes=['vectors'])    
+                              attributes=['vectors'])
 )
 
 

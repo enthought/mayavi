@@ -33,19 +33,19 @@ class SpecialGenerator:
         """`indent` is a reference to the `Indenter` instance of the
         WrapperGenerator.
 
-        """        
+        """
         self.indent = indent
 
     #################################################################
     # `SpecialGenerator` interface.
     #################################################################
-    
+
     def generate_code(self, node, out):
         """Write the code given the node in the class tree, `node`,
         and output file-like object, `out`.
         """
         self._write_special(node.name, out)
-        
+
     #################################################################
     # Non-public interface.
     #################################################################
@@ -79,7 +79,7 @@ class SpecialGenerator:
             changing the priority does not effect event processing. You will have
             to set_interactor(_null), change priority, and then set_interactor(iren)
             to have the priority take effect.)
-            """            
+            """
         '''
         out.write(self.indent.format(code))
 
@@ -91,7 +91,7 @@ class SpecialGenerator:
             e = [obj.GetElement(i, j) for i in range(4) for j in range(4)]
             d['elements'] = e
             return d
-        
+
         def __setstate__(self, dict):
             e = dict.pop('elements')
             tvtk_base.TVTKBase.__setstate__(self, dict)
@@ -115,7 +115,7 @@ class SpecialGenerator:
             arr = array_handler.numpy.array(e, dtype=float)
             arr.shape = (4,4)
             return arr
-            
+
         """
         out.write(self.indent.format(code))
 
@@ -199,7 +199,7 @@ class SpecialGenerator:
                 obj.AddItem(deref_vtk(i))
         """
         out.write(self.indent.format(code))
-    
+
     def _write_DataArray(self, out):
         code = """
         def __len__(self):
@@ -250,7 +250,7 @@ class SpecialGenerator:
                        'length of %s != %s.'%(val, nc)
                 for x in range(nc):
                     obj.SetComponent(key, x, val[x])
-        
+
         def __repr__(self):
             obj = self._vtk_obj
             n = obj.GetNumberOfTuples()
@@ -281,7 +281,7 @@ class SpecialGenerator:
                 for i in arr:
                     obj.InsertNextTuple1(i)
             elif nc in [2,3,4,9]:
-                meth = getattr(obj, 'InsertNextTuple%d'%nc)            
+                meth = getattr(obj, 'InsertNextTuple%d'%nc)
                 for i in arr:
                     meth(*i)
             else:
@@ -302,7 +302,7 @@ class SpecialGenerator:
         def to_array(self):
             '''Return the object as a Numeric array.'''
             return array_handler.vtk2array(self._vtk_obj)
-        
+
         """
         out.write(self.indent.format(code))
 
@@ -323,7 +323,7 @@ class SpecialGenerator:
             if key < 0:
                 key =  n + key
             if key < 0 or key >= n:
-                raise IndexError, "Index out of range."            
+                raise IndexError, "Index out of range."
             return key
 
         def __getitem__(self, key):
@@ -369,7 +369,7 @@ class SpecialGenerator:
         def to_array(self):
             '''Return the object as a Numeric array.'''
             return array_handler.vtk2array(self._vtk_obj.GetData())
-        
+
         """
         out.write(self.indent.format(code))
 
@@ -390,7 +390,7 @@ class SpecialGenerator:
             if key < 0:
                 key =  n + key
             if key < 0 or key >= n:
-                raise IndexError, "Index out of range."            
+                raise IndexError, "Index out of range."
             return key
 
         def __getitem__(self, key):
@@ -461,14 +461,14 @@ class HelperGenerator:
     tvtk objects efficiently.
 
     """
-    
+
     def __init__(self):
         self.indent = indenter.Indent()
-        
+
     #################################################################
     # `HelperGenerator` interface.
     #################################################################
-    
+
     def write_prelims(self, out):
         """ Write out the preliminary data."""
         indent = self.indent
@@ -506,7 +506,7 @@ class HelperGenerator:
                 # current module: tvtk_helper.py
                 mod = __import__('enthought.tvtk.tvtk_classes.%%s'%%fname, globals(), locals(), [fname])
             return mod
-        
+
         def get_class(name):
             if _cache.has_key(name):
                 return _cache[name]
@@ -535,11 +535,11 @@ class HelperGenerator:
         class TVTK(object):
             to_tvtk = staticmethod(wrap_vtk)
             to_vtk = staticmethod(tvtk_base.deref_vtk)
-            
+
         """%locals()
         out.write(indent.format(code))
         indent.incr()
-        
+
     def add_class(self, name, out):
         """Add a tvtk class with name, `name` as a property to the
         helper class output file-like object, `out`.

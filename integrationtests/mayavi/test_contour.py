@@ -44,7 +44,7 @@ class TestContour(TestCase):
         assert abs(numpy.sum(ip.origin - (0,0,5))) < 1e-16
         assert ip.widget.enabled == False
 
-    def test(self):       
+    def test(self):
         self.main()
 
     def do(self):
@@ -57,7 +57,7 @@ class TestContour(TestCase):
         from enthought.mayavi.modules.contour_grid_plane \
              import ContourGridPlane
         from enthought.mayavi.modules.scalar_cut_plane import ScalarCutPlane
-        
+
         ############################################################
         # Create a new scene and set up the visualization.
         s = self.new_scene()
@@ -96,7 +96,7 @@ class TestContour(TestCase):
         script.add_module(cp)
         ip = cp.implicit_plane
         ip.normal = 0,0,1
-        ip.origin = 0,0,5        
+        ip.origin = 0,0,5
         ip.widget.enabled = False
 
         # Set the scene to an isometric view.
@@ -130,7 +130,7 @@ class TestContour(TestCase):
 
         # Now check.
         self.check()
-        
+
 
         ############################################################
         # Test if saving a visualization and restoring it works.
@@ -150,7 +150,7 @@ class TestContour(TestCase):
         s = engine.current_scene
 
         self.check()
-    
+
         ############################################################
         # Test if the MayaVi2 visualization can be deep-copied.
 
@@ -174,9 +174,9 @@ class TestContour(TestCase):
         cp = source1.children[0].children[-1]
         cp.implicit_plane.widget.enabled = False
         self.check()
-        
+
         # If we have come this far, we are golden!
-        
+
 
 if __name__ == "__main__":
     t = TestContour()

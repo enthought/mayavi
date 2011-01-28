@@ -1,6 +1,6 @@
 """The `Wrapper` filter is one which wraps around any mayavi filter or
 component.  By default it does not allow the user to set it on and off
-from the UI, for that see the `Optional` filter.  
+from the UI, for that see the `Optional` filter.
 """
 
 # Author: Prabhu Ramachandran <prabhu [at] aero . iitb . ac . in>
@@ -24,7 +24,7 @@ class Wrapper(Filter):
     """
     The `Wrapper` filter is one which wraps around any mayavi filter or
     component.  By default it does not allow the user to set it on and
-    off from the UI, for that see the `Optional` filter.  
+    off from the UI, for that see the `Optional` filter.
     """
 
     # The filter we wrap.
@@ -46,7 +46,7 @@ class Wrapper(Filter):
 
     ######################################################################
     # `object` interface.
-    ###################################################################### 
+    ######################################################################
     def __set_pure_state__(self, state):
         # Create and set the filter.
         children = [f for f in [self.filter] if f is not None]
@@ -57,20 +57,20 @@ class Wrapper(Filter):
 
     ######################################################################
     # HasTraits interface.
-    ###################################################################### 
+    ######################################################################
     def default_traits_view(self):
         """Returns the default traits view for this object."""
         if self._show_enabled:
             view = View(Group(Group(Item(name='enabled',
                                          label=self.label_text)),
-                            Group(Item(name='filter', 
+                            Group(Item(name='filter',
                                        style='custom',
                                        enabled_when='enabled',
                                        resizable=True),
                                   show_labels=False)),
                         resizable=True)
         else:
-            view = View(Group(Item(name='filter', 
+            view = View(Group(Item(name='filter',
                                    style='custom',
                                    enabled_when='enabled',
                                    resizable=True),
@@ -120,7 +120,7 @@ class Wrapper(Filter):
 
     ######################################################################
     # Private interface.
-    ###################################################################### 
+    ######################################################################
     def _enabled_changed(self, value):
         """Static traits handler."""
         if len(self.inputs) == 0 or self.filter is None:
@@ -164,10 +164,10 @@ class Wrapper(Filter):
 
     def _setup_events(self, obj, remove=False):
         obj.on_trait_change(self._filter_pipeline_changed,
-                            'pipeline_changed', 
+                            'pipeline_changed',
                             remove=remove)
         obj.on_trait_change(self.update_data,
-                            'data_changed', 
+                            'data_changed',
                             remove=remove)
 
     def _visible_changed(self, value):

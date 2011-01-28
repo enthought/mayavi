@@ -1,7 +1,7 @@
 """ A viewer for mlab scene. Adds a button to open up the engine.
 """
 
-# Author: Gael Varoquaux <gael dot varoquaux at normalesup dot org> 
+# Author: Gael Varoquaux <gael dot varoquaux at normalesup dot org>
 # Copyright (c) 2008, Enthought, Inc.
 # License: BSD Style.
 
@@ -51,7 +51,7 @@ class MayaviScene(DecoratedScene):
     def _actions_default(self):
         actions = [ Group(
                     Action(tooltip="View the Mayavi pipeline",
-                        image=ImageResource('m2', 
+                        image=ImageResource('m2',
                                 search_path=self.image_search_path),
                         on_perform=self.show_engine,
                         ),
@@ -70,7 +70,7 @@ def mayavi_scene_factory(parent):
     return s
 
 ###############################################################################
-# A viewer making use of the MayaviScene 
+# A viewer making use of the MayaviScene
 ###############################################################################
 class MayaviViewer(IVTK):
     """ A viewer window for mlab.

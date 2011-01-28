@@ -44,7 +44,7 @@ class Actor(Component):
     texture = Instance(tvtk.Texture, record=True)
 
     # The texture coord generation mode.
-    tcoord_generator_mode = Enum('none', 'cylinder', 'sphere', 'plane', 
+    tcoord_generator_mode = Enum('none', 'cylinder', 'sphere', 'plane',
                                  desc='the mode for texture coord generation')
 
     # Texture coord generator.
@@ -56,11 +56,11 @@ class Actor(Component):
     def __get_pure_state__(self):
         d = super(Actor, self).__get_pure_state__()
         for attr in ('texture', 'texture_source_object',
-                     'enable_texture', 'tcoord_generator_mode', 
+                     'enable_texture', 'tcoord_generator_mode',
                      'tcoord_generator'):
             d.pop(attr,None)
-        return d            
-    
+        return d
+
 
     ######################################################################
     # `Component` interface
@@ -80,7 +80,7 @@ class Actor(Component):
         self.actor = tvtk.Actor()
         self.property = self.actor.property
         self.texture = tvtk.Texture()
-    
+
     def update_pipeline(self):
         """Override this method so that it *updates* the tvtk pipeline
         when data upstream is known to have changed.
@@ -111,7 +111,7 @@ class Actor(Component):
     def set_lut(self, lut):
         """Set the Lookup table to use."""
         self.mapper.lookup_table = lut
-    
+
     ######################################################################
     # Non-public interface.
     ######################################################################
@@ -148,7 +148,7 @@ class Actor(Component):
             new.property = prop
         # Setup the `actors` trait.
         self.actors = [new]
-        
+
     def _property_changed(self, old, new):
         # Setup the handlers.
         self._setup_handlers(old, new)
@@ -161,11 +161,11 @@ class Actor(Component):
         # Change the default color for the actor.
         self.property.color = new
         self.render()
-        
+
     def _scene_changed(self, old, new):
         super(Actor, self)._scene_changed(old, new)
         self._foreground_changed_for_scene(None, new.foreground)
-        
+
     def _enable_texture_changed(self, value):
         if self.texture_source_object is None :
             self.actor.texture = None
@@ -194,11 +194,11 @@ class Actor(Component):
 
     def _texture_source_object_changed(self,old,new):
         if old is not None :
-            old.on_trait_change(self._change_texture_input, 
-                                'pipeline_changed', 
+            old.on_trait_change(self._change_texture_input,
+                                'pipeline_changed',
                                 remove=True)
         if new is not None :
-            new.on_trait_change(self._change_texture_input, 
+            new.on_trait_change(self._change_texture_input,
                                 'pipeline_changed' )
 
         if new is not None:
@@ -206,7 +206,7 @@ class Actor(Component):
         else:
             self.actor.texture = None
             self.texture.input = None
-    
+
     def _texture_changed(self,value):
         # Setup the actor's texture.
         actor = self.actor

@@ -20,7 +20,7 @@ from enthought.mayavi.modules.surface import Surface
 def make_data():
     """Make some test numpy data and create a TVTK data object from it
     that we will visualize.
-    """    
+    """
     def f(x, y):
         """Some test function.
         """

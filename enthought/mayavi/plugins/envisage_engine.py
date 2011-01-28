@@ -12,7 +12,7 @@ from enthought.traits.api import Instance, on_trait_change, Str
 from enthought.tvtk.plugins.scene.i_scene_manager import \
             ISceneManager
 from enthought.tvtk.plugins.scene.ui.actions import NewScene
-from enthought.tvtk.plugins.scene import scene_editor 
+from enthought.tvtk.plugins.scene import scene_editor
 from enthought.pyface.api import GUI
 from enthought.pyface.workbench.api import WorkbenchWindow
 from enthought.scripting.api import recordable
@@ -43,7 +43,7 @@ class EnvisageEngine(Engine):
         d = super(EnvisageEngine, self).__get_pure_state__()
         for x in ['window',]:
             d.pop(x, None)
-        return d    
+        return d
 
     ######################################################################
     # `Engine` interface
@@ -55,7 +55,7 @@ class EnvisageEngine(Engine):
 
         if self.running:
             return
-        
+
         # Add all the existing scenes from the scene plugin.
         scene_manager = self.window.get_service(ISceneManager)
         for scene in scene_manager.scenes:
@@ -86,7 +86,7 @@ class EnvisageEngine(Engine):
         editor = action.perform(None)
         if name is not None:
             editor.name = name
-        
+
         # Flush the UI.
         GUI.process_events()
         return self.scenes[-1]
@@ -95,7 +95,7 @@ class EnvisageEngine(Engine):
     def close_scene(self, scene):
         """Given a VTK scene instance, this method closes it.
         """
-        active_window = self.window 
+        active_window = self.window
         s = scene.scene
         for editor in active_window.editors[:]:
             if isinstance(editor, scene_editor.SceneEditor):

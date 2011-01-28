@@ -22,7 +22,7 @@ def random_box():
     blue = random()
     box (pos = (xx,yy,zz), length=x, height=y, width=z,
          color=(red,green,blue))
-    
+
 def wirecube(s):
     c = curve(color = (1,1,1), radius=1)
     pts = [(-s, -s, -s),(-s, -s, s), (-s, s, s),

@@ -38,7 +38,7 @@ class TestUserDefined(TestCase):
             expect2 = [x + ' magnitude' for x in expect]
             # FIXME: This is really a bug in VTK, the name of the scalar
             # should really be ScalarGradient-y.  This is fixed in
-            # 5.2 but earlier versions fail. 
+            # 5.2 but earlier versions fail.
             assert o.outputs[0].point_data.scalars.name in expect1
             assert o.outputs[0].point_data.vectors.name in expect
             assert mm.scalar_lut_manager.data_name in expect1
@@ -60,11 +60,11 @@ class TestUserDefined(TestCase):
         assert mm.scalar_lut_manager.data_name == 'Vorticity-y'
         # Turn off extraction.
         o.enabled = False
-        
+
 
     def test(self):
         self.main()
-    
+
     def do(self):
         ############################################################
         # Imports.
@@ -145,7 +145,7 @@ class TestUserDefined(TestCase):
         # Now do the check.
         s.scene.isometric_view()
         self.check(saved=True)
-        
+
         # If we have come this far, we are golden!
 
 if __name__ == "__main__":

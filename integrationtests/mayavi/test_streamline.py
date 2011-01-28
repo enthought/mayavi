@@ -25,7 +25,7 @@ from common import TestCase
 class TestStreamline(TestCase):
     def make_data(self):
         """Trivial data -- creates an elementatry scalar field and a
-        constant vector field along the 'x' axis."""        
+        constant vector field along the 'x' axis."""
         s = numpy.arange(0.0, 10.0, 0.01)
         s = numpy.reshape(s, (10,10,10))
         s = numpy.transpose(s)
@@ -36,7 +36,7 @@ class TestStreamline(TestCase):
         return s, v
 
 
-    def test(self):       
+    def test(self):
         self.main()
 
     def do(self):
@@ -46,7 +46,7 @@ class TestStreamline(TestCase):
         from enthought.mayavi.sources.array_source import ArraySource
         from enthought.mayavi.modules.outline import Outline
         from enthought.mayavi.modules.streamline import Streamline
-        
+
         ############################################################
         # Create a new scene and set up the visualization.
         s = self.new_scene()
@@ -171,9 +171,9 @@ class TestStreamline(TestCase):
         s.children[:] = sources
         s.scene.reset_zoom()
         self.compare_image(s, 'images/test_streamline.png')
-        
+
         # If we have come this far, we are golden!
-        
+
 
 if __name__ == "__main__":
     t = TestStreamline()

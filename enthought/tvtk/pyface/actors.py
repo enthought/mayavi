@@ -1,13 +1,13 @@
 #------------------------------------------------------------------------------
 # Copyright (c) 2005, Enthought, Inc.
 # All rights reserved.
-# 
+#
 # This software is provided without warranty under the terms of the BSD
 # license included in enthought/LICENSE.txt and may be redistributed only
 # under the conditions described in the aforementioned license.  The license
 # is also available online at http://www.enthought.com/licenses/BSD.txt
 # Thanks for using Enthought open source!
-# 
+#
 # Author: Enthought, Inc.
 # Description: <Enthought pyface package component>
 #------------------------------------------------------------------------------
@@ -52,7 +52,7 @@ def cone_actor(center=(0, 0, 0), height=1.0, radius=0.5,
 def cube_actor(center=(0, 0, 0), color=colors.blue, opacity=1.0):
     """ Creates a cube and returns the tvtk.Actor. """
 
-    source = tvtk.CubeSource(center=center)    
+    source = tvtk.CubeSource(center=center)
     mapper = tvtk.PolyDataMapper(input=source.output)
     p = tvtk.Property(opacity=opacity, color=color)
     actor = tvtk.Actor(mapper=mapper, property=p)

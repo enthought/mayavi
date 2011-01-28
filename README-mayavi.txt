@@ -10,16 +10,16 @@ MayaVi2_ seeks to provide easy and interactive visualization of 3D data. It does
 this by the following:
 
     - an (optional) rich user interface with dialogs to interact with all data
-      and objects in the visualization. 
+      and objects in the visualization.
 
     - a simple and clean scripting interface in Python, including one-liners,
-      a-la mlab, or object-oriented programming interface. 
+      a-la mlab, or object-oriented programming interface.
 
-    - harnesses the power of the VTK toolkit without forcing you to learn it. 
+    - harnesses the power of the VTK toolkit without forcing you to learn it.
 
 Additionally Mayavi2 strives to be a reusable tool that can be embedded in your
 applications in different ways or combined with the envisage
-application-building framework to assemble domain-specific tools. 
+application-building framework to assemble domain-specific tools.
 
 Mayavi is part of the Enthought Tool Suite (ETS).  The mayavi home page is:
 https://svn.enthought.com/enthought/wiki/MayaVi
@@ -39,23 +39,23 @@ data visualization. Its features include:
     * Easy scriptability using Python
 
     * Easy extendability via custom sources, modules, and data filters
-    
+
     * Reading several file formats: VTK (legacy and XML), PLOT3D, etc.
-    
+
     * Saving of visualizations
-    
+
     * Saving rendered visualization in a variety of image formats
-    
+
     * Convenient functionality for rapid scientific plotting via mlab (see mlab
       documentation)
-    
-    * See the MayaVi2 Users Guide for more information. 
+
+    * See the MayaVi2 Users Guide for more information.
 
 Unlike its predecessor MayaVi1_, MayaVi2 has been designed with scriptability
 and extensibility in mind from the ground up.  While the mayavi2 application is
 usable by itself, it may be used as an Envisage plugin which allows it to be
 embedded in user applications natively. Alternatively, it may be used as a
-visualization engine for any application. 
+visualization engine for any application.
 
 More information is available at the mayavi home page:
 https://svn.enthought.com/enthought/wiki/MayaVi
@@ -97,7 +97,7 @@ Documentation
 
 More documentation is available in the `docs` directory of the sources.  This
 includes a man page for the `mayavi2` application, a users guide in HTML and
-PDF format and documentation for `mlab`. 
+PDF format and documentation for `mlab`.
 
 The documentation is also available from the mayavi home page.
 
@@ -143,7 +143,7 @@ Prabhu Ramachandran: primary author.
 
 Gaël Varoquaux: new mlab, icons, many general improvements and suggestions.
 
-K K Rai and R A Ambareesha: Patches for tensor support, parametric source and image data. 
+K K Rai and R A Ambareesha: Patches for tensor support, parametric source and image data.
 
 Many thanks to all those who have submitted bug reports and suggestions for
 further enhancements.

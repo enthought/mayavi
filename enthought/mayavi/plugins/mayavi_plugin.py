@@ -1,7 +1,7 @@
 """The Mayavi plugin.
 """
 # Author: Prabhu Ramachandran <prabhu [at] aero . iitb . ac . in>
-# Copyright (c) 2008,  Enthought, Inc. 
+# Copyright (c) 2008,  Enthought, Inc.
 # License: BSD Style.
 
 from enthought.traits.api import List
