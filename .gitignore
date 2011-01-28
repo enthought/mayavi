@@ -1,5 +1,11 @@
-# File types to ignore
+# file types to ignore
 *.pyc
+*.so
 
-# Ignore the built documentation.
+enthought/tvtk/tvtk_classes.zip
+enthought/mayavi/images/m2_about.jpg
+
+# ignore the build directories
+build/
+dist/
 docs/build/
