@@ -1100,7 +1100,7 @@ def test_triangular_mesh():
     y = z.imag.copy()
     z = numpy.zeros_like(x)
 
-    triangles = [(0, i, i+1) for i in range(n)]
+    triangles = [(0, i, i+1) for i in range(1, n)]
     x = numpy.r_[0, x]
     y = numpy.r_[0, y]
     z = numpy.r_[1, z]
