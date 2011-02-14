@@ -79,18 +79,17 @@ cdef c_set_id_type_array_long(ndarray id_array, ndarray out_array):
     #
     # No type or size checking is done here.  All that is done in the
     # Python function upstream that calls this.
-
-    cdef int cell_length, dim0
-    cdef long *id_data
-    cdef long *out_data
-    cdef long stride0, stride1
+    cdef Py_ssize_t cell_length, dim0
+    cdef Py_ssize_t *id_data
+    cdef Py_ssize_t *out_data
+    cdef Py_ssize_t stride0, stride1
 
     cell_length = id_array.dimensions[1];
     dim0 = id_array.dimensions[0]
-    id_data = <long*> id_array.data
-    out_data = <long*> out_array.data
-    stride0 = id_array.strides[0]/sizeof(long)
-    stride1 = id_array.strides[1]/sizeof(long)
+    id_data = <Py_ssize_t*> id_array.data
+    out_data = <Py_ssize_t*> out_array.data
+    stride0 = id_array.strides[0]/sizeof(Py_ssize_t)
+    stride1 = id_array.strides[1]/sizeof(Py_ssize_t)
 
     cdef int i, j, in_idx, out_idx
     for i from 0 <= i < dim0:
