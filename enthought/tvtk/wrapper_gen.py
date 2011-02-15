@@ -249,7 +249,7 @@ class WrapperGenerator:
         code = "\ndef trait_view(self, name=None, view_element=None):"
         out.write(self.indent.format(code))
         self.indent.incr()
-        code = "\nif view_element is not None or name not in ('traits_view', 'full_traits_view', 'view'):"
+        code = "\nif view_element is not None or name not in (None, 'traits_view', 'full_traits_view', 'view'):"
         out.write(self.indent.format(code))
         self.indent.incr()
         code = "\nreturn super(%s, self).trait_view(name, view_element)" % class_name
@@ -294,7 +294,7 @@ class WrapperGenerator:
 
         # Finally, we write the default traits_view which includes a field
         # for specifying the view type (basic or advanced) and the                     # corresponding view (basic->view and advanced->full_traits_view)
-        code = "\nelif name == 'traits_view':"
+        code = "\nelif name in (None, 'traits_view'):"
         out.write(self.indent.format(code))
         self.indent.incr()
         viewtype_contents = (
