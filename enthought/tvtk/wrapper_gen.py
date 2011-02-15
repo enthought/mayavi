@@ -249,7 +249,7 @@ class WrapperGenerator:
         code = "\ndef trait_view(self, name=None, view_element=None):"
         out.write(self.indent.format(code))
         self.indent.incr()
-        code = "\nif view_element is not None or name not in (None, 'traits_view', 'full_traits_view', 'view'):"
+        code = "\nif view_element is not None or name not in (None, '', 'traits_view', 'full_traits_view', 'view'):"
         out.write(self.indent.format(code))
         self.indent.incr()
         code = "\nreturn super(%s, self).trait_view(name, view_element)" % class_name
