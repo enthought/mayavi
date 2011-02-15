@@ -212,7 +212,8 @@ if __name__ == '__main__':
 
     # Compute minimum spanning tree using networkx
     # nx.mst returns an edge generator
-    start_idx, end_idx, _ = np.array(list(nx.mst(g))).T
+    edges = nx.minimum_spanning_tree(g).edges(data=True)
+    start_idx, end_idx, _ = np.array(list(edges)).T
     start_idx = start_idx.astype(np.int)
     end_idx   = end_idx.astype(np.int)
 

@@ -26,41 +26,41 @@ Data source: http://www.777fleetpage.com/777fleetpage3.htm
 # The data. This could be loaded from a file, or scraped from a website
 
 routes_data = """
-Bombay  Atlanta
-Johannesburg    Atlanta
-Dubai   Los Angeles
-Dubai   Houston
-Dubai   San Francisco
-New York        Hong Kong
-Newark  Hong Kong
-Doha    Houston
-Toronto Hong Kong
-Bombay  Newark
-Bombay  New York
-Vancouver       Hong Kong
-Dubai   Sao Paulo
-Los Angeles     Sydney
-Chicago Delhi
+Bombay	Atlanta
+Johannesburg	Atlanta
+Dubai	Los Angeles
+Dubai	Houston
+Dubai	San Francisco
+New York	Hong Kong
+Newark	Hong Kong
+Doha	Houston
+Toronto	Hong Kong
+Bombay	Newark
+Bombay	New York
+Vancouver	Hong Kong
+Dubai	Sao Paulo
+Los Angeles	Sydney
+Chicago	Delhi
 """
 
 cities_data = """
-Toronto -79.38  43.65
-Chicago -87.68  41.84
-Houston -95.39  29.77
-New York        -73.94  40.67
-Vancouver       -123.13 49.28
-Los Angeles     -118.41 34.11
-San Francisco   -122.45 37.77
-Atlanta -84.42  33.76
-Dubai   55.33   25.27
-Sydney  151.21  -33.87
-Hong Kong       114.19  22.38
-Bombay  72.82   18.96
-Delhi   77.21   28.67
-Newark  -82.43  40.04
-Johannesburg    28.04   -26.19
-Doha    51.53   25.29
-Sao Paulo       -46.63  -23.53
+Toronto	-79.38	43.65
+Chicago	-87.68	41.84
+Houston	-95.39	29.77
+New York	-73.94	40.67
+Vancouver	-123.13	49.28
+Los Angeles	-118.41	34.11
+San Francisco	-122.45	37.77
+Atlanta	-84.42	33.76
+Dubai	55.33	25.27
+Sydney	151.21	-33.87
+Hong Kong	114.19	22.38
+Bombay	72.82	18.96
+Delhi	77.21	28.67
+Newark	-82.43	40.04
+Johannesburg	28.04	-26.19
+Doha	51.53	25.29
+Sao Paulo	-46.63	-23.53
 """
 
 ###############################################################################
