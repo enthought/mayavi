@@ -8,6 +8,7 @@
 # Enthought library imports.
 from enthought.traits.api import Instance, Bool, Enum
 from enthought.tvtk.api import tvtk
+from enthought.traits.api import DelegatesTo
 
 # Local imports.
 from enthought.mayavi.core.component import Component
@@ -111,6 +112,10 @@ class Actor(Component):
     def set_lut(self, lut):
         """Set the Lookup table to use."""
         self.mapper.lookup_table = lut
+        # A hack to avoid a problem with the VRML output that seems to 
+        # ignore the use_lookup_table_scalar_range setting
+        # on the mapping
+        self.mapper.scalar_range = lut.table_range
 
     ######################################################################
     # Non-public interface.
