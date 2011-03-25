@@ -306,20 +306,20 @@ providing the instructions):
 #. After that, install Mayavi in the usual way.
 
 
-The bleeding edge: SVN
+The bleeding edge: Git
 ----------------------
 
 If you want to get the latest development version of Mayavi (e.g. for
 developing Mayavi or contributing to the documentation), we
-recommend that you check it out from SVN.  Mayavi depends on several
-packages that are part of ETS.  It is highly likely that the
-in-development mayavi version may depend on some feature of an as yet
-unreleased component.  Therefore, it is very convenient to get all the
-relevant ETS projects that mayavi recursively depends on in one single
-checkout.  In order to do this easily, Dave Peterson has created a
-package called ETSProjectTools_.  This must first be installed and then
-any of ETS related repositories may be checked out.  Here is how you can
-get the latest development sources.
+recommend that you check it out from github: Mayavi is hosted on github,
+with the rest of the Enthought open source packages: the 'ETS' (Enthought
+Tool Suite): https://github.com/enthought
+
+Mayavi depends on several packages that are part of ETS.  It is highly
+likely that the in-development mayavi version may depend on some feature
+of an as yet unreleased component.  Therefore, it is very convenient to
+get all the relevant ETS projects that Mayavi recursively depends on in
+one single checkout. For this purpose a script `ets.py` is available.
 
  #. Make sure there is no other ETS package installed in your pythonpath::
 
@@ -330,7 +330,7 @@ get the latest development sources.
      ImportError: No module named enthought
 
     If you *don't* get the ImportError (e.g. importing ``enthought`` succeeds),
-    then there is no way to install the svn Mayavi version over it (even if you
+    then there is no way to install the git Mayavi version over it (even if you
     put it first in your PYTHONPATH), because the older (setuptools managed)
     ETS packages will get picked up too and they will mess up things. This
     behavior might be surprising if you are new to setuptools.
@@ -340,84 +340,51 @@ get the latest development sources.
     python-enthoughtbase python-envisagecore python-envisageplugins
     python-traits python-traitsbackendwx python-traitsgui``).
 
- #. Install ETSProjectTools_ like so::
-
-     $ svn co https://svn.enthought.com/svn/enthought/ETSProjectTools/trunk \
-            ETSProjectTools
-     $ cd ETSProjectTools
-     $ python setup.py install
-
-    This will give you the useful scripts ``ets``.  For more details on
-    the tool and various options check the ETSProjectTools_ wiki page.
+ #. Create an empty directory and download in it the `ets.py` script from
+    `https://github.com/enthought/ets/raw/master/ets.py <https://github.com/enthought/ets/raw/master/ets.py>`_
 
  #. To get just the sources for mayavi and all its dependencies do this::
 
-      $ ets co "Mayavi[app]"
+      $ python ets.py clone
 
-    This will look at the latest available mayavi, parse its ETS
-    dependencies and check out the relevant sources.  If you want a
-    particular mayavi release you may do::
+    This will download from github the source code for the entire ETS.
 
-      $ ets co "Mayavi[app]==3.0.1"
+    .. note:: 
 
-    If you'd like to get the sources for an entire ETS release do this
-    for example::
+       The `ets.py` downloads the entire ETS, which is more than you need
+       to build Mayavi. As the extra packages have additional
+       dependencies, they may render the build harder. You can remove
+       safely the following directories::
 
-      $ ets co "ets==3.0.2"
+            blockcanvas chaco codetools enable graphcanvas scimath 
 
-    This will checkout all the relevant sources from SVN.  Be patient,
-    this will take a while.  More options for the ``ets`` tool are
-    available in the ETSProjectTools_ page.
+ #. Once the sources are checked out you may either:
 
- #. Once the sources are checked out you may enter the checked-out
-    directory, for example:: 
-
-       $ cd Mayavi_3.3.1/
-
-    and either:
-
-    #. Install a development version, to track changes to SVN easily
+    #. Install a development version, to track changes to github easily
        (recommended)::
 
-        $ ets develop
+        $ python ets.py develop
 
-       This will  install all the checked out sources via a ``setup.py
-       develop`` applied to each package.  
+       This will install all the checked out sources by executing a ``python 
+       setup.py develop`` in each sub directory.
 
        ..  note::
 
         To install of the packages in a different location than the
         default one, eg '~/usr/', use the following syntax::
 
-            ets develop -c"--prefix ~/usr"
+            $ python ets.py develop --prefix ~/usr
 
         make sure that the corresponding site-packages folder is in your 
         PYTHONPATH environment variable (for the above example it would
         be: '~/usr/lib/python2.x/site-packages/'
 
-    #. Or build binary eggs of the sources to install locally::
+    #. Alternatively, if you'd like just ``Mayavi`` installed via a
+       standard  ``python setup.py install`` you may do::
 
-        $ cd Mayavi_3.3.1
-        $ ets bdist
-
-       This will build all the eggs and put them inside a ``dist``
-       subdirectory.  Run ``ets bdist -h`` for more bdist related options.
-       The mayavi development egg and its dependencies  may be installed
-       via::
-
-        $ easy_install -f dist "Mayavi[app]"
-
-    #. Alternatively, if you'd like just ``Mayavi`` installed via
-       ``setup.py develop`` with the rest as binary eggs you may do::
-
-        $ cd Mayavi_x.y.z
-        $ python setup.py develop -f ../dist
-
-       This will pull in any dependencies from the built eggs.
+        $ python ets.py develop -f ../dist
 
 You should now have the latest version of Mayavi installed and usable.
-
-.. _ETSProjectTools: https://svn.enthought.com/enthought/wiki/SVNScripts 
 
 
 Testing your installation
@@ -442,7 +409,7 @@ path.
   application is the easiest to start with.
 
 If you have the source tarball of mayavi or have checked out the sources
-from the SVN repository, you can run the examples in
+from the github repository, you can run the examples in
 ``enthought.mayavi*/examples``.  There are plenty of example scripts
 illustrating various features.  Tests are available in the
 ``enthought.mayavi*/tests`` sub-directory.
