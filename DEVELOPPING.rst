@@ -18,8 +18,9 @@ from the root of the project here is what you do::
    # Copy to other branch
    cd ..
    git checkout gh-pages
-   cp -r docs/build/tvtk/html/ tvtk/
-   cp -r docs/build/mayavi/html/ mayavi/
+   cp -r docs/build/tvtk/html/* tvtk/
+   cp -r docs/build/mayavi/html/* mayavi/
+   git add tvtk mayavi
    # Commit and push new docs
    git commit -a -m "Updated docs"
    git push
