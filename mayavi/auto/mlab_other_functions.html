@@ -3,13 +3,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Other functions &mdash; Mayavi v3.4.2 documentation</title>
+    <title>Other functions &mdash; Mayavi 3.4.2 documentation</title>
+    
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
@@ -22,7 +25,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="Mayavi v3.4.2 documentation" href="../index.html" />
+    <link rel="top" title="Mayavi 3.4.2 documentation" href="../index.html" />
     <link rel="up" title="MLab reference" href="mlab_reference.html" />
     <link rel="next" title="Mlab pipeline-control reference" href="../mlab_pipeline_reference.html" />
     <link rel="prev" title="Camera handling functions" href="mlab_camera.html" />
@@ -70,7 +73,7 @@
         <li class="right" >
           <a href="mlab_camera.html" title="Camera handling functions"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+        <li><a href="../index.html">Mayavi 3.4.2 documentation</a> &raquo;</li>
           <li><a href="mlab_reference.html" accesskey="U">MLab reference</a> &raquo;</li> 
       </ul>
     </div>  
@@ -110,10 +113,10 @@ user may call its <cite>Stop</cite> method to stop the animation.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">delay:</th><td class="field-body">int specifying the time interval in milliseconds between
+<tr class="field-odd field"><th class="field-name">delay:</th><td class="field-body">int specifying the time interval in milliseconds between
 calls to the function.</td>
 </tr>
-<tr class="field"><th class="field-name">ui:</th><td class="field-body">bool specifying if a UI controlling the animation is to be
+<tr class="field-even field"><th class="field-name">ui:</th><td class="field-body">bool specifying if a UI controlling the animation is to be
 provided.</td>
 </tr>
 </tbody>
@@ -165,53 +168,53 @@ please refer to the section on: <a class="reference internal" href="../mlab_anim
 <dd><p>Creates axes for the current (or given) object.</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<table class="docutils field-list" frame="void" rules="none">
+<div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</td>
 </tr>
-<tr class="field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+<tr class="field-even field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
 Default is the object&#8217;s extents.</td>
 </tr>
-<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field-odd field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
+<tr class="field-even field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
 Default: 2.0</td>
 </tr>
-<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field-odd field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field"><th class="field-name">nb_labels:</th><td class="field-body">The number of labels along each direction Must be a legal
+<tr class="field-even field"><th class="field-name">nb_labels:</th><td class="field-body">The number of labels along each direction Must be a legal
 value. Default: 2</td>
 </tr>
-<tr class="field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
+<tr class="field-odd field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
 Default: 1.0</td>
 </tr>
-<tr class="field"><th class="field-name">ranges:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+<tr class="field-even field"><th class="field-name">ranges:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
 Ranges of the labels displayed on the axes.
 Default is the object&#8217;s extents.</td>
 </tr>
-<tr class="field"><th class="field-name" colspan="2">x_axis_visibility:</th></tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">x_axis_visibility:</th></tr>
 <tr><td>&nbsp;</td><td class="field-body">Whether or not the x axis is visible (boolean)</td>
 </tr>
-<tr class="field"><th class="field-name">xlabel:</th><td class="field-body">the label of the x axis</td>
+<tr class="field-even field"><th class="field-name">xlabel:</th><td class="field-body">the label of the x axis</td>
 </tr>
-<tr class="field"><th class="field-name" colspan="2">y_axis_visibility:</th></tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">y_axis_visibility:</th></tr>
 <tr><td>&nbsp;</td><td class="field-body">Whether or not the y axis is visible (boolean)</td>
 </tr>
-<tr class="field"><th class="field-name">ylabel:</th><td class="field-body">the label of the y axis</td>
+<tr class="field-even field"><th class="field-name">ylabel:</th><td class="field-body">the label of the y axis</td>
 </tr>
-<tr class="field"><th class="field-name" colspan="2">z_axis_visibility:</th></tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">z_axis_visibility:</th></tr>
 <tr><td>&nbsp;</td><td class="field-body">Whether or not the z axis is visible (boolean)</td>
 </tr>
-<tr class="field"><th class="field-name">zlabel:</th><td class="field-body">the label of the z axis</td>
+<tr class="field-even field"><th class="field-name">zlabel:</th><td class="field-body">the label of the z axis</td>
 </tr>
 </tbody>
 </table>
-</blockquote>
+</div></blockquote>
 </dd></dl>
 
 </div>
@@ -232,34 +235,34 @@ Default is the object&#8217;s extents.</td>
 <dd><p>Applies the OrientationAxes mayavi module to the given VTK data object.</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<table class="docutils field-list" frame="void" rules="none">
+<div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</td>
 </tr>
-<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
+<tr class="field-odd field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
 Default: 2.0</td>
 </tr>
-<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
+<tr class="field-odd field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
 Default: 1.0</td>
 </tr>
-<tr class="field"><th class="field-name">xlabel:</th><td class="field-body">the label of the x axis</td>
+<tr class="field-even field"><th class="field-name">xlabel:</th><td class="field-body">the label of the x axis</td>
 </tr>
-<tr class="field"><th class="field-name">ylabel:</th><td class="field-body">the label of the y axis</td>
+<tr class="field-odd field"><th class="field-name">ylabel:</th><td class="field-body">the label of the y axis</td>
 </tr>
-<tr class="field"><th class="field-name">zlabel:</th><td class="field-body">the label of the z axis</td>
+<tr class="field-even field"><th class="field-name">zlabel:</th><td class="field-body">the label of the z axis</td>
 </tr>
 </tbody>
 </table>
-</blockquote>
+</div></blockquote>
 </dd></dl>
 
 </div>
@@ -271,31 +274,31 @@ Default: 1.0</td>
 <dd><p>Creates an outline for the current (or given) object.</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<table class="docutils field-list" frame="void" rules="none">
+<div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</td>
 </tr>
-<tr class="field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+<tr class="field-even field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
 Default is the object&#8217;s extents.</td>
 </tr>
-<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field-odd field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
+<tr class="field-even field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
 Default: 2.0</td>
 </tr>
-<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field-odd field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
+<tr class="field-even field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
 Default: 1.0</td>
 </tr>
 </tbody>
 </table>
-</blockquote>
+</div></blockquote>
 </dd></dl>
 
 </div>
@@ -326,16 +329,16 @@ user can stop the event loop.  Subsequent calls to <cite>show</cite> will
 restart the event loop.</p>
 <p><strong>Parameters</strong></p>
 <blockquote>
-<table class="docutils field-list" frame="void" rules="none">
+<div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">stop:</th><td class="field-body">A boolean which specifies if a UI dialog is displayed which
+<tr class="field-odd field"><th class="field-name">stop:</th><td class="field-body">A boolean which specifies if a UI dialog is displayed which
 allows the event loop to be stopped.</td>
 </tr>
 </tbody>
 </table>
-</blockquote>
+</div></blockquote>
 <p><strong>Examples</strong></p>
 <p>Here is a simple example demonstrating the use of show:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">enthought.mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
@@ -410,16 +413,16 @@ creates a vanilla recorder without a UI.</p>
 <dd><p>Stop the automatic script recording.</p>
 <p><strong>Parameters</strong></p>
 <blockquote>
-<table class="docutils field-list" frame="void" rules="none">
+<div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">file:</th><td class="field-body">An open file or a filename or <cite>None</cite>.  If this is <cite>None</cite>,
+<tr class="field-odd field"><th class="field-name">file:</th><td class="field-body">An open file or a filename or <cite>None</cite>.  If this is <cite>None</cite>,
 nothing is saved.</td>
 </tr>
 </tbody>
 </table>
-</blockquote>
+</div></blockquote>
 </dd></dl>
 
 </div>
@@ -439,32 +442,32 @@ figure, they belong to [0, 1]. If a z keyword  argument is given, the
 text is positionned in 3D, in figure coordinnates.</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<table class="docutils field-list" frame="void" rules="none">
+<div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</td>
 </tr>
-<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
+<tr class="field-odd field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
 Default: 2.0</td>
 </tr>
-<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field"><th class="field-name">opacity:</th><td class="field-body">The opacity of the text.</td>
+<tr class="field-odd field"><th class="field-name">opacity:</th><td class="field-body">The opacity of the text.</td>
 </tr>
-<tr class="field"><th class="field-name">width:</th><td class="field-body">width of the text.</td>
+<tr class="field-even field"><th class="field-name">width:</th><td class="field-body">width of the text.</td>
 </tr>
-<tr class="field"><th class="field-name">z:</th><td class="field-body">Optional z position. When specified, the
+<tr class="field-odd field"><th class="field-name">z:</th><td class="field-body">Optional z position. When specified, the
 text is positioned in 3D</td>
 </tr>
 </tbody>
 </table>
-</blockquote>
+</div></blockquote>
 </dd></dl>
 
 </div>
@@ -482,43 +485,43 @@ text is positioned in 3D</td>
 text is positionned in 3D, in figure coordinnates.</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<table class="docutils field-list" frame="void" rules="none">
+<div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</td>
 </tr>
-<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
+<tr class="field-odd field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
 Default: 2.0</td>
 </tr>
-<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
+<tr class="field-odd field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
 Default: 1.0</td>
 </tr>
-<tr class="field"><th class="field-name" colspan="2">orient_to_camera:</th></tr>
+<tr class="field-even field"><th class="field-name" colspan="2">orient_to_camera:</th></tr>
 <tr><td>&nbsp;</td><td class="field-body">if the text is kept oriented to the
 camera, or is pointing in a specific direction,
 regardless of the camera position. Must be a
 boolean. Default: True</td>
 </tr>
-<tr class="field"><th class="field-name">orientation:</th><td class="field-body">the angles giving the orientation of the
+<tr class="field-odd field"><th class="field-name">orientation:</th><td class="field-body">the angles giving the orientation of the
 text. If the text is oriented to the camera,
 these angles are referenced to the axis of the
 camera. If not, these angles are referenced to
 the z axis. Must be an array with shape (3,).</td>
 </tr>
-<tr class="field"><th class="field-name">scale:</th><td class="field-body">The scale of the text, in figure units.
+<tr class="field-even field"><th class="field-name">scale:</th><td class="field-body">The scale of the text, in figure units.
 Either a float, or 3-tuple of floats.</td>
 </tr>
 </tbody>
 </table>
-</blockquote>
+</div></blockquote>
 </dd></dl>
 
 </div>
@@ -534,33 +537,33 @@ Either a float, or 3-tuple of floats.</td>
 </div>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<table class="docutils field-list" frame="void" rules="none">
+<div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</td>
 </tr>
-<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field"><th class="field-name">height:</th><td class="field-body">height of the title, in portion of the
+<tr class="field-odd field"><th class="field-name">height:</th><td class="field-body">height of the title, in portion of the
 figure height</td>
 </tr>
-<tr class="field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
+<tr class="field-even field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
 Default: 2.0</td>
 </tr>
-<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field-odd field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
+<tr class="field-even field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
 Default: 1.0</td>
 </tr>
-<tr class="field"><th class="field-name">size:</th><td class="field-body">the size of the title</td>
+<tr class="field-odd field"><th class="field-name">size:</th><td class="field-body">the size of the title</td>
 </tr>
 </tbody>
 </table>
-</blockquote>
+</div></blockquote>
 </dd></dl>
 
 </div>
@@ -632,10 +635,21 @@ Default: 1.0</td>
     <input type="submit" value="Go" /></td></tr>
     <tr><td align="center" style="font-size:75%; color: #FFFFFF;">
     <input type="checkbox"  name="sitesearch"
-    value="http://code.enthought.com/projects/mayavi/docs/development/html/mayavi/" checked /> only search Mayavi documentation<br />
+    value="http://github.enthought.com/mayavi/mayavi/" checked /> only search Mayavi documentation<br />
     </td></tr></table>
 
-</form>
+    </form>
+    </div>
+    <hr/>
+    <div id="searchbox">
+	<a href="misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
+
+	<p style="font-size:85%; color: #FFFFFF;">
+    	If you publish articles using Mayavi, please 
+	<strong><a href="misc.html#citing-mayavi">cite
+	Mayavi</a></strong>. We need
+	these citations to justify time and resources on the software.
+	</p>
     </div>
 
         </div>
@@ -654,14 +668,14 @@ Default: 1.0</td>
         <li class="right" >
           <a href="mlab_camera.html" title="Camera handling functions"
              >previous</a> |</li>
-        <li><a href="../index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+        <li><a href="../index.html">Mayavi 3.4.2 documentation</a> &raquo;</li>
           <li><a href="mlab_reference.html" >MLab reference</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Jan 28, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
+      Last updated on Mar 26, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1pre/ce4bb37a1409.
     </div>
   </body>
 </html>

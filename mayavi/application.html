@@ -3,13 +3,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Using the Mayavi application &mdash; Mayavi v3.4.2 documentation</title>
+    <title>Using the Mayavi application &mdash; Mayavi 3.4.2 documentation</title>
+    
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
@@ -22,7 +25,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="Mayavi v3.4.2 documentation" href="index.html" />
+    <link rel="top" title="Mayavi 3.4.2 documentation" href="index.html" />
     <link rel="next" title="Parametric surfaces: a simple introduction to visualization" href="example_parametric_surface.html" />
     <link rel="prev" title="Installation" href="installation.html" />
 <style type="text/css">
@@ -69,7 +72,7 @@
         <li class="right" >
           <a href="installation.html" title="Installation"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">Mayavi v3.4.2 documentation</a> &raquo;</li> 
+        <li><a href="index.html">Mayavi 3.4.2 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -138,16 +141,16 @@ from here: <a class="reference external" href="http://code.enthought.com/enstall
 <span id="id2"></span><h2><a class="toc-backref" href="#id7">General layout of UI</a><a class="headerlink" href="#general-layout-of-ui" title="Permalink to this headline">¶</a></h2>
 <p>When the <cite>mayavi2</cite> application is started it will provide a user
 interface that looks something like the figure shown below.</p>
-<img alt="Figure of Mayavi's initial UI window." class="align-center" src="_images/mayavi_ui_first.jpg" />
+<div align="center" class="align-center"><img alt="Figure of Mayavi's initial UI window." class="align-center" src="_images/mayavi_ui_first2.jpg" /></div>
 <p>The UI features several sections described below.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Menus:</th><td class="field-body"><p class="first">The menus let you open files, load modules, set preferences etc.</p>
+<tr class="field-odd field"><th class="field-name">Menus:</th><td class="field-body"><p class="first">The menus let you open files, load modules, set preferences etc.</p>
 </td>
 </tr>
-<tr class="field"><th class="field-name" colspan="2">The Mayavi pipeline tree view:</th></tr>
+<tr class="field-even field"><th class="field-name" colspan="2">The Mayavi pipeline tree view:</th></tr>
 <tr><td>&nbsp;</td><td class="field-body"><dl class="first docutils">
 <dt>This is a tree view of the Mayavi pipeline.</dt>
 <dd><ul class="first last simple">
@@ -163,17 +166,17 @@ scene to another.</li>
 </dl>
 </td>
 </tr>
-<tr class="field"><th class="field-name" colspan="2">The object editor:</th></tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">The object editor:</th></tr>
 <tr><td>&nbsp;</td><td class="field-body"><p class="first">This is where the properties of Mayavi pipeline objects can be
 changed when an object on the pipeline is clicked.</p>
 </td>
 </tr>
-<tr class="field"><th class="field-name">Mayavi scenes:</th><td class="field-body"><p class="first">This is where the visualization of the data happens.  One can
+<tr class="field-even field"><th class="field-name">Mayavi scenes:</th><td class="field-body"><p class="first">This is where the visualization of the data happens.  One can
 interact with this scene via the mouse and the keyboard.  More
 details are in the following sections.</p>
 </td>
 </tr>
-<tr class="field"><th class="field-name" colspan="2">Python interpreter:</th></tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">Python interpreter:</th></tr>
 <tr><td>&nbsp;</td><td class="field-body"><p class="first">The built-in Python interpreter that can be used to script Mayavi
 and do other things.  You can drag nodes from the Mayavi tree and
 drop them on the interpreter and then script the object represented
@@ -182,14 +185,14 @@ by the node!</p>
 interpreter will use IPython.</p>
 </td>
 </tr>
-<tr class="field"><th class="field-name">Logger:</th><td class="field-body"><p class="first last">Application log messages may be seen here.</p>
+<tr class="field-even field"><th class="field-name">Logger:</th><td class="field-body"><p class="first last">Application log messages may be seen here.</p>
 </td>
 </tr>
 </tbody>
 </table>
 <p>Mayavi&#8217;s UI layout is highly configurable:</p>
 <blockquote>
-<ul class="simple">
+<div><ul class="simple">
 <li>the line in-between the sections can be dragged to resize
 particular views.</li>
 <li>most of the &#8220;tabs&#8221; on the widgets can be dragged around to move
@@ -197,14 +200,14 @@ them anywhere in the application.</li>
 <li>Each view area (the Mayavi pipeline view, object editor, python shell
 and logger) can be enabled and disabled in the &#8216;View&#8217; menu.</li>
 </ul>
-</blockquote>
+</div></blockquote>
 <p>Each time you change the appearance of Mayavi it is saved and the next
 time you start up the application it will have the same configuration.
 In addition, you can save different layouts into different
 &#8220;perspectives&#8221; using the <cite>View-&gt;Perspectives</cite> menu item.</p>
 <p>Shown below is a specifically configured Mayavi user interface view.
 In this view the size of the various parts are changed.</p>
-<img alt="Figure of Mayavi's UI after being configured by a user." class="align-center" src="_images/mayavi_ui_second.jpg" />
+<div align="center" class="align-center"><img alt="Figure of Mayavi's UI after being configured by a user." class="align-center" src="_images/mayavi_ui_second2.jpg" /></div>
 </div>
 <div class="section" id="visualizing-data">
 <h2><a class="toc-backref" href="#id8">Visualizing data</a><a class="headerlink" href="#visualizing-data" title="Permalink to this headline">¶</a></h2>
@@ -240,7 +243,7 @@ as a reference:</p>
 icon on the tab.  Each scene features a toolbar that supports various
 features:</p>
 <blockquote>
-<ul class="simple">
+<div><ul class="simple">
 <li>Buttons to set the view to view along the positive or negative X,
 Y and Z axes or obtain an isometric view.</li>
 <li>A button to turn on parallel projection instead of the default
@@ -255,30 +258,30 @@ image format to use is determined by the extension provided for
 the file.</li>
 <li>A button that provides a UI to configure the scene properties.</li>
 </ul>
-</blockquote>
+</div></blockquote>
 <p>The primary means to interact with the scene is to use the mouse and
 keyboard.</p>
 <div class="section" id="mouse-interaction">
 <h3>Mouse interaction<a class="headerlink" href="#mouse-interaction" title="Permalink to this headline">¶</a></h3>
 <p>There are two modes of mouse interaction:</p>
 <blockquote>
-<ul class="simple">
+<div><ul class="simple">
 <li>Camera mode: the default, where the camera is operated on with
 mouse moves.  This mode is activated by pressing the &#8216;c&#8217; key.</li>
 <li>Actor mode: in this mode the mouse actions operate on the actor
 the mouse is currently above.  This mode is activated by pressing
 the &#8216;a&#8217; key.</li>
 </ul>
-</blockquote>
+</div></blockquote>
 <p>The view on the scene can be changed by using various mouse actions.
 Usually these are accomplished by holding down a mouse button and
 dragging.</p>
 <blockquote>
-<ul>
+<div><ul>
 <li><p class="first">holding the left mouse button down and dragging will rotate the
 camera/actor in the direction moved.</p>
 <blockquote>
-<ul class="simple">
+<div><ul class="simple">
 <li>Holding down &#8220;SHIFT&#8221; when doing this will pan the scene &#8211;
 just like the middle button.</li>
 <li>Holding down &#8220;CONTROL&#8221; will rotate around the camera&#8217;s axis
@@ -287,7 +290,7 @@ just like the middle button.</li>
 in and dragging down will zoom out.  This is like the right
 button.</li>
 </ul>
-</blockquote>
+</div></blockquote>
 </li>
 <li><p class="first">holding the right mouse button down and dragging upwards will zoom
 in (or increase the actors scale) and dragging downwards will zoom
@@ -300,7 +303,7 @@ scene or translate the object.</p>
 zoom out.</p>
 </li>
 </ul>
-</blockquote>
+</div></blockquote>
 </div>
 <div class="section" id="keyboard-interaction">
 <h3>Keyboard interaction<a class="headerlink" href="#keyboard-interaction" title="Permalink to this headline">¶</a></h3>
@@ -310,61 +313,61 @@ are:</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">&#8216;3&#8217;:</th><td class="field-body"><blockquote class="first">
-<p>Turn on/off stereo rendering.  This may not work if the</p>
-</blockquote>
+<tr class="field-odd field"><th class="field-name">&#8216;3&#8217;:</th><td class="field-body"><blockquote class="first">
+<div><p>Turn on/off stereo rendering.  This may not work if the</p>
+</div></blockquote>
 <p>&#8216;stereo&#8217; preference item is not set to True.</p>
 </td>
 </tr>
-<tr class="field"><th class="field-name">&#8216;a&#8217;:</th><td class="field-body"><p class="first">Use actor mode for mouse interaction instead of camera mode.</p>
+<tr class="field-even field"><th class="field-name">&#8216;a&#8217;:</th><td class="field-body"><p class="first">Use actor mode for mouse interaction instead of camera mode.</p>
 </td>
 </tr>
-<tr class="field"><th class="field-name">&#8216;c&#8217;:</th><td class="field-body"><p class="first">Use camera mode for mouse interaction instead of actor mode.</p>
+<tr class="field-odd field"><th class="field-name">&#8216;c&#8217;:</th><td class="field-body"><p class="first">Use camera mode for mouse interaction instead of actor mode.</p>
 </td>
 </tr>
-<tr class="field"><th class="field-name">&#8216;e&#8217;/&#8217;q&#8217;/&#8217;Esc&#8217;:</th><td class="field-body"><p class="first">Exit full-screen mode.</p>
+<tr class="field-even field"><th class="field-name">&#8216;e&#8217;/&#8217;q&#8217;/&#8217;Esc&#8217;:</th><td class="field-body"><p class="first">Exit full-screen mode.</p>
 </td>
 </tr>
-<tr class="field"><th class="field-name">&#8216;f&#8217;:</th><td class="field-body"><p class="first">Move camera&#8217;s focal point to current mouse location.  This
+<tr class="field-odd field"><th class="field-name">&#8216;f&#8217;:</th><td class="field-body"><p class="first">Move camera&#8217;s focal point to current mouse location.  This
 will move the camera focus to center the view at the current mouse
 position.</p>
 </td>
 </tr>
-<tr class="field"><th class="field-name">&#8216;j&#8217;:</th><td class="field-body"><p class="first">Use joystick mode for the mouse interaction.  In joystick mode
+<tr class="field-even field"><th class="field-name">&#8216;j&#8217;:</th><td class="field-body"><p class="first">Use joystick mode for the mouse interaction.  In joystick mode
 the mouse somewhat mimics a joystick.  For example, holding the
 mouse left button down when away from the center will rotate the
 scene.</p>
 </td>
 </tr>
-<tr class="field"><th class="field-name">&#8216;l&#8217;:</th><td class="field-body"><p class="first">Configure the lights that are illumining the scene.  This will
+<tr class="field-odd field"><th class="field-name">&#8216;l&#8217;:</th><td class="field-body"><p class="first">Configure the lights that are illumining the scene.  This will
 pop-up a window to change the light configuration.</p>
 </td>
 </tr>
-<tr class="field"><th class="field-name">&#8216;p&#8217;:</th><td class="field-body"><p class="first">Pick the data at the current mouse point.  This will pop-up a
+<tr class="field-even field"><th class="field-name">&#8216;p&#8217;:</th><td class="field-body"><p class="first">Pick the data at the current mouse point.  This will pop-up a
 window with information on the current pick.  The UI will also
 allow one to change the behavior of the picker to pick cells,
 points or arbitrary points.</p>
 </td>
 </tr>
-<tr class="field"><th class="field-name">&#8216;r&#8217;:</th><td class="field-body"><p class="first">Reset the camera focal point and position.  This is very handy.</p>
+<tr class="field-odd field"><th class="field-name">&#8216;r&#8217;:</th><td class="field-body"><p class="first">Reset the camera focal point and position.  This is very handy.</p>
 </td>
 </tr>
-<tr class="field"><th class="field-name">&#8216;s&#8217;:</th><td class="field-body"><p class="first">Save the scene to an image, this will first popup a file
+<tr class="field-even field"><th class="field-name">&#8216;s&#8217;:</th><td class="field-body"><p class="first">Save the scene to an image, this will first popup a file
 selection dialog box so you can choose the filename, the extension of
 the filename determines the image type.</p>
 </td>
 </tr>
-<tr class="field"><th class="field-name">&#8216;t&#8217;:</th><td class="field-body"><p class="first">Use trackball mode for the mouse interaction.  This is the
+<tr class="field-odd field"><th class="field-name">&#8216;t&#8217;:</th><td class="field-body"><p class="first">Use trackball mode for the mouse interaction.  This is the
 default mode for the mouse interaction.</p>
 </td>
 </tr>
-<tr class="field"><th class="field-name">&#8216;=&#8217;/&#8217;+&#8217;:</th><td class="field-body"><p class="first">Zoom in.</p>
+<tr class="field-even field"><th class="field-name">&#8216;=&#8217;/&#8217;+&#8217;:</th><td class="field-body"><p class="first">Zoom in.</p>
 </td>
 </tr>
-<tr class="field"><th class="field-name">&#8216;-&#8216;:</th><td class="field-body"><p class="first">Zoom out.</p>
+<tr class="field-odd field"><th class="field-name">&#8216;-&#8216;:</th><td class="field-body"><p class="first">Zoom out.</p>
 </td>
 </tr>
-<tr class="field"><th class="field-name" colspan="2">&#8216;left&#8217;/&#8217;right&#8217;/&#8217;up&#8217;/&#8217;down&#8217; arrows:</th></tr>
+<tr class="field-even field"><th class="field-name" colspan="2">&#8216;left&#8217;/&#8217;right&#8217;/&#8217;up&#8217;/&#8217;down&#8217; arrows:</th></tr>
 <tr><td>&nbsp;</td><td class="field-body"><p class="first last">Pressing the left, right, up and
 down arrow let you rotate the camera in those directions.  When
 &#8220;SHIFT&#8221; modifier is also held down the camera is panned.</p>
@@ -385,7 +388,7 @@ possibilities.  The interpreter features command completion, automatic
 documentation, tooltips and some multi-line editing.  In addition it
 supports the following features:</p>
 <blockquote>
-<ul>
+<div><ul>
 <li><p class="first">The name <tt class="docutils literal"><span class="pre">mayavi</span></tt> is automatically bound to the
 <tt class="docutils literal"><span class="pre">enthought.mayavi.script.Script</span></tt> instance.  This may be used to
 easily script Mayavi.</p>
@@ -415,23 +418,23 @@ which is the dropped object.  Using <tt class="docutils literal"><span class="pr
 but is a mouthful.</p>
 </li>
 </ul>
-</blockquote>
+</div></blockquote>
 </div>
 <div class="section" id="recording-mayavi-actions-to-a-script">
 <span id="automatic-script-generation"></span><h3>Recording Mayavi actions to a script<a class="headerlink" href="#recording-mayavi-actions-to-a-script" title="Permalink to this headline">¶</a></h3>
 <p>Mayavi features a very handy and powerful script recording facility.
 This can be used to:</p>
 <blockquote>
-<ul class="simple">
+<div><ul class="simple">
 <li>record all actions performed on the Mayavi UI into a <em>human readable</em>,
 Python script that should be able to recreate your visualization.</li>
 <li>learn how to script the Mayavi objects, in combination with
 <a class="reference internal" href="mlab.html#simple-scripting-with-mlab"><em>mlab</em></a>.</li>
 </ul>
-</blockquote>
+</div></blockquote>
 <p>Here is how you can use this feature:</p>
 <blockquote>
-<ol class="arabic">
+<div><ol class="arabic">
 <li><p class="first">When you start the <tt class="docutils literal"><span class="pre">mayavi2</span></tt> application, on the pipeline tree view
 toolbar you will find a red record icon next to the
 question mark icon.  Click it.  Note that this will also work from a
@@ -480,7 +483,7 @@ feel free to edit this generated script &#8211; in fact that is the whole
 point of automatic script generation!</p>
 </li>
 </ol>
-</blockquote>
+</div></blockquote>
 <p>It is important to understand that it is possible to script an existing
 session of Mayavi too.  So, if after starting Mayavi you did a few
 things or ran a Mayavi script and then want to record any further
@@ -759,10 +762,21 @@ platform.</p>
     <input type="submit" value="Go" /></td></tr>
     <tr><td align="center" style="font-size:75%; color: #FFFFFF;">
     <input type="checkbox"  name="sitesearch"
-    value="http://code.enthought.com/projects/mayavi/docs/development/html/mayavi/" checked /> only search Mayavi documentation<br />
+    value="http://github.enthought.com/mayavi/mayavi/" checked /> only search Mayavi documentation<br />
     </td></tr></table>
 
-</form>
+    </form>
+    </div>
+    <hr/>
+    <div id="searchbox">
+	<a href="misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
+
+	<p style="font-size:85%; color: #FFFFFF;">
+    	If you publish articles using Mayavi, please 
+	<strong><a href="misc.html#citing-mayavi">cite
+	Mayavi</a></strong>. We need
+	these citations to justify time and resources on the software.
+	</p>
     </div>
 
         </div>
@@ -781,13 +795,13 @@ platform.</p>
         <li class="right" >
           <a href="installation.html" title="Installation"
              >previous</a> |</li>
-        <li><a href="index.html">Mayavi v3.4.2 documentation</a> &raquo;</li> 
+        <li><a href="index.html">Mayavi 3.4.2 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Jan 28, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
+      Last updated on Mar 26, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1pre/ce4bb37a1409.
     </div>
   </body>
 </html>

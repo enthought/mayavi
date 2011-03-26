@@ -3,13 +3,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Advanced Scripting with Mayavi &mdash; Mayavi v3.4.2 documentation</title>
+    <title>Advanced Scripting with Mayavi &mdash; Mayavi 3.4.2 documentation</title>
+    
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
@@ -22,7 +25,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="Mayavi v3.4.2 documentation" href="index.html" />
+    <link rel="top" title="Mayavi 3.4.2 documentation" href="index.html" />
     <link rel="up" title="Advanced use of Mayavi" href="advanced_use.html" />
     <link rel="next" title="Building applications using Mayavi" href="building_applications.html" />
     <link rel="prev" title="Objects populating the Mayavi pipeline" href="mayavi_objects.html" />
@@ -70,7 +73,7 @@
         <li class="right" >
           <a href="mayavi_objects.html" title="Objects populating the Mayavi pipeline"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+        <li><a href="index.html">Mayavi 3.4.2 documentation</a> &raquo;</li>
           <li><a href="advanced_use.html" accesskey="U">Advanced use of Mayavi</a> &raquo;</li> 
       </ul>
     </div>  
@@ -125,7 +128,7 @@ object can further contain any number of <tt class="docutils literal"><span clas
 <tt class="docutils literal"><span class="pre">Filter</span></tt> may contain either other <tt class="docutils literal"><span class="pre">filters</span></tt> or <tt class="docutils literal"><span class="pre">ModuleManagers</span></tt>.  A
 <tt class="docutils literal"><span class="pre">ModuleManager</span></tt> manages any number of <tt class="docutils literal"><span class="pre">Modules</span></tt>.  The figure below
 shows this hierarchy in a graphical form.</p>
-<img alt="Illustration of the various objects in the Mayavi pipeline." src="_images/m2_big_picture.png" />
+<img alt="Illustration of the various objects in the Mayavi pipeline." src="_images/m2_big_picture2.png" />
 <p><em>Illustration of the various objects in the Mayavi pipeline.</em></p>
 <p>This hierarchy is precisely what is seen in the Mayavi tree view on
 the UI.  The UI is therefore merely a graphical representation of this
@@ -364,11 +367,11 @@ ways to script and some additional information.</p>
 <h2>Using the Mayavi envisage plugins<a class="headerlink" href="#using-the-mayavi-envisage-plugins" title="Permalink to this headline">¶</a></h2>
 <p>The Mayavi-related plugin definitions to use are:</p>
 <blockquote>
-<ul class="simple">
+<div><ul class="simple">
 <li><tt class="docutils literal"><span class="pre">mayavi_plugin.py</span></tt></li>
 <li><tt class="docutils literal"><span class="pre">mayavi_ui_plugin.py</span></tt></li>
 </ul>
-</blockquote>
+</div></blockquote>
 <p>These are in the <tt class="docutils literal"><span class="pre">enthought.mayavi.plugins</span></tt> package.  To see an
 example of how to use this see the <tt class="docutils literal"><span class="pre">enthought.mayavi.plugins.app</span></tt>
 module.  The explorer3D example in <tt class="docutils literal"><span class="pre">examples/mayavi/explorer</span></tt> also
@@ -378,7 +381,7 @@ the Mayavi plugins from your plugins/applications then it is important
 to note that Mayavi creates three workbench service offers for your
 convenience.  These are:</p>
 <blockquote>
-<ul class="simple">
+<div><ul class="simple">
 <li><tt class="docutils literal"><span class="pre">enthought.mayavi.plugins.script.Script</span></tt>: This is an
 <tt class="docutils literal"><span class="pre">enthought.mayavi.plugins.script.Script</span></tt> instance that may be used
 to easily script mayavi.  It is a simple wrapper object that merely
@@ -388,7 +391,7 @@ engine.</li>
 <li><tt class="docutils literal"><span class="pre">enthought.mayavi.core.engine.Engine</span></tt>: This is the running
 Mayavi engine instance.</li>
 </ul>
-</blockquote>
+</div></blockquote>
 <p>A simple example that demonstrates the use of the Mayavi plugin in an
 envisage application is included in the <tt class="docutils literal"><span class="pre">examples/mayavi/explorer</span></tt>
 directory.  This may be studied to understand how you may do the same
@@ -460,10 +463,21 @@ in your envisage applications.</p>
     <input type="submit" value="Go" /></td></tr>
     <tr><td align="center" style="font-size:75%; color: #FFFFFF;">
     <input type="checkbox"  name="sitesearch"
-    value="http://code.enthought.com/projects/mayavi/docs/development/html/mayavi/" checked /> only search Mayavi documentation<br />
+    value="http://github.enthought.com/mayavi/mayavi/" checked /> only search Mayavi documentation<br />
     </td></tr></table>
 
-</form>
+    </form>
+    </div>
+    <hr/>
+    <div id="searchbox">
+	<a href="misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
+
+	<p style="font-size:85%; color: #FFFFFF;">
+    	If you publish articles using Mayavi, please 
+	<strong><a href="misc.html#citing-mayavi">cite
+	Mayavi</a></strong>. We need
+	these citations to justify time and resources on the software.
+	</p>
     </div>
 
         </div>
@@ -482,14 +496,14 @@ in your envisage applications.</p>
         <li class="right" >
           <a href="mayavi_objects.html" title="Objects populating the Mayavi pipeline"
              >previous</a> |</li>
-        <li><a href="index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+        <li><a href="index.html">Mayavi 3.4.2 documentation</a> &raquo;</li>
           <li><a href="advanced_use.html" >Advanced use of Mayavi</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Jan 28, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
+      Last updated on Mar 26, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1pre/ce4bb37a1409.
     </div>
   </body>
 </html>

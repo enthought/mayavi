@@ -16,7 +16,7 @@
  * Once the browser is closed the cookie is deleted and the position
  * reset to the default (expanded).
  *
- * :copyright: Copyright 2007-2010 by the Sphinx team, see AUTHORS.
+ * :copyright: Copyright 2007-2011 by the Sphinx team, see AUTHORS.
  * :license: BSD, see LICENSE for details.
  *
  */
@@ -28,6 +28,9 @@ $(function() {
   var bodywrapper = $('.bodywrapper');
   var sidebar = $('.sphinxsidebar');
   var sidebarwrapper = $('.sphinxsidebarwrapper');
+
+  // for some reason, the document has no sidebar; do not run into errors
+  if (!sidebar.length) return;
 
   // original margin-left of the bodywrapper and width of the sidebar
   // with the sidebar expanded

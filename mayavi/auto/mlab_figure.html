@@ -3,13 +3,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Figure handling functions &mdash; Mayavi v3.4.2 documentation</title>
+    <title>Figure handling functions &mdash; Mayavi 3.4.2 documentation</title>
+    
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
@@ -22,7 +25,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="Mayavi v3.4.2 documentation" href="../index.html" />
+    <link rel="top" title="Mayavi 3.4.2 documentation" href="../index.html" />
     <link rel="up" title="MLab reference" href="mlab_reference.html" />
     <link rel="next" title="Figure decoration functions" href="mlab_decorations.html" />
     <link rel="prev" title="Plotting functions" href="mlab_helper_functions.html" />
@@ -70,7 +73,7 @@
         <li class="right" >
           <a href="mlab_helper_functions.html" title="Plotting functions"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+        <li><a href="../index.html">Mayavi 3.4.2 documentation</a> &raquo;</li>
           <li><a href="mlab_reference.html" accesskey="U">MLab reference</a> &raquo;</li> 
       </ul>
     </div>  
@@ -133,27 +136,27 @@ figure.</p>
 engine is not running this also starts it.</p>
 <p><strong>Keyword arguments</strong></p>
 <blockquote>
-<table class="docutils field-list" frame="void" rules="none">
+<div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">figure:</th><td class="field-body">The name of the figure, or handle to it.</td>
+<tr class="field-odd field"><th class="field-name">figure:</th><td class="field-body">The name of the figure, or handle to it.</td>
 </tr>
-<tr class="field"><th class="field-name">bgcolor:</th><td class="field-body">The color of the background (None is default).</td>
+<tr class="field-even field"><th class="field-name">bgcolor:</th><td class="field-body">The color of the background (None is default).</td>
 </tr>
-<tr class="field"><th class="field-name">fgcolor:</th><td class="field-body">The color of the foreground, that is the color of all text
+<tr class="field-odd field"><th class="field-name">fgcolor:</th><td class="field-body">The color of the foreground, that is the color of all text
 annotation labels (axes, orientation axes, scalar bar
 labels). It should be sufficiently far from <cite>bgcolor</cite>
 to see the annotation texts. (None is default).</td>
 </tr>
-<tr class="field"><th class="field-name">engine:</th><td class="field-body">The mayavi engine that controls the figure.</td>
+<tr class="field-even field"><th class="field-name">engine:</th><td class="field-body">The mayavi engine that controls the figure.</td>
 </tr>
-<tr class="field"><th class="field-name">size:</th><td class="field-body">The size of the scene created, in pixels. May not apply
+<tr class="field-odd field"><th class="field-name">size:</th><td class="field-body">The size of the scene created, in pixels. May not apply
 for certain scene viewer.</td>
 </tr>
 </tbody>
 </table>
-</blockquote>
+</div></blockquote>
 </dd></dl>
 
 </div>
@@ -182,13 +185,13 @@ oogl (geomview), iv (OpenInventor), vrml, obj (wavefront)</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Size :</th><td class="field-body">the size of the image created (unless magnification is
+<tr class="field-odd field"><th class="field-name">Size :</th><td class="field-body">the size of the image created (unless magnification is
 set, in which case it is the size of the window used
 for rendering).</td>
 </tr>
-<tr class="field"><th class="field-name">Figure :</th><td class="field-body">the figure instance to save to a file.</td>
+<tr class="field-even field"><th class="field-name">Figure :</th><td class="field-body">the figure instance to save to a file.</td>
 </tr>
-<tr class="field"><th class="field-name">Magnification :</th><td class="field-body">the magnification is the scaling between the
+<tr class="field-odd field"><th class="field-name">Magnification :</th><td class="field-body">the magnification is the scaling between the
 pixels on the screen, and the pixels in the
 file saved. If you do not specify it, it will be
 calculated so that the file is saved with the
@@ -221,13 +224,13 @@ image format&#8217;s save method.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Figure :</th><td class="field-body">a figure instance or None, optional
+<tr class="field-odd field"><th class="field-name">Figure :</th><td class="field-body">a figure instance or None, optional
 If specified, the figure instance to capture the view of.</td>
 </tr>
-<tr class="field"><th class="field-name">Mode :</th><td class="field-body">{&#8216;rgb&#8217;, &#8216;rgba&#8217;}
+<tr class="field-even field"><th class="field-name">Mode :</th><td class="field-body">{&#8216;rgb&#8217;, &#8216;rgba&#8217;}
 The color mode of the array captured.</td>
 </tr>
-<tr class="field"><th class="field-name">Antialiased :</th><td class="field-body">{True, False}
+<tr class="field-odd field"><th class="field-name">Antialiased :</th><td class="field-body">{True, False}
 Use anti-aliasing for rendering the screenshot.
 Uses the number of aa frames set by
 figure.scene.anti_aliasing_frames</td>
@@ -326,10 +329,21 @@ reference_figure.</p>
     <input type="submit" value="Go" /></td></tr>
     <tr><td align="center" style="font-size:75%; color: #FFFFFF;">
     <input type="checkbox"  name="sitesearch"
-    value="http://code.enthought.com/projects/mayavi/docs/development/html/mayavi/" checked /> only search Mayavi documentation<br />
+    value="http://github.enthought.com/mayavi/mayavi/" checked /> only search Mayavi documentation<br />
     </td></tr></table>
 
-</form>
+    </form>
+    </div>
+    <hr/>
+    <div id="searchbox">
+	<a href="misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
+
+	<p style="font-size:85%; color: #FFFFFF;">
+    	If you publish articles using Mayavi, please 
+	<strong><a href="misc.html#citing-mayavi">cite
+	Mayavi</a></strong>. We need
+	these citations to justify time and resources on the software.
+	</p>
     </div>
 
         </div>
@@ -348,14 +362,14 @@ reference_figure.</p>
         <li class="right" >
           <a href="mlab_helper_functions.html" title="Plotting functions"
              >previous</a> |</li>
-        <li><a href="../index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+        <li><a href="../index.html">Mayavi 3.4.2 documentation</a> &raquo;</li>
           <li><a href="mlab_reference.html" >MLab reference</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Jan 28, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
+      Last updated on Mar 26, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1pre/ce4bb37a1409.
     </div>
   </body>
 </html>

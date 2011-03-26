@@ -3,13 +3,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Plotting functions &mdash; Mayavi v3.4.2 documentation</title>
+    <title>Plotting functions &mdash; Mayavi 3.4.2 documentation</title>
+    
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
@@ -22,7 +25,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="Mayavi v3.4.2 documentation" href="../index.html" />
+    <link rel="top" title="Mayavi 3.4.2 documentation" href="../index.html" />
     <link rel="up" title="MLab reference" href="mlab_reference.html" />
     <link rel="next" title="Figure handling functions" href="mlab_figure.html" />
     <link rel="prev" title="MLab reference" href="mlab_reference.html" />
@@ -70,7 +73,7 @@
         <li class="right" >
           <a href="mlab_reference.html" title="MLab reference"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+        <li><a href="../index.html">Mayavi 3.4.2 documentation</a> &raquo;</li>
           <li><a href="mlab_reference.html" accesskey="U">MLab reference</a> &raquo;</li> 
       </ul>
     </div>  
@@ -120,72 +123,72 @@ is an array s, or a callable, f, that returns an array giving the
 data value.</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<table class="docutils field-list" frame="void" rules="none">
+<div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">auto_scale:</th><td class="field-body">whether to compute automaticaly the lateral scaling of
+<tr class="field-odd field"><th class="field-name">auto_scale:</th><td class="field-body">whether to compute automaticaly the lateral scaling of
 the glyphs. This might be computationaly expensive. Must
 be a boolean. Default: True</td>
 </tr>
-<tr class="field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<tr class="field-even field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</td>
 </tr>
-<tr class="field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
+<tr class="field-odd field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
 </tr>
-<tr class="field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+<tr class="field-even field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
 Default is the x, y, z arrays extents. Use
 this to change the extent of the object
 created.</td>
 </tr>
-<tr class="field"><th class="field-name">figure:</th><td class="field-body">Figure to populate.</td>
+<tr class="field-odd field"><th class="field-name">figure:</th><td class="field-body">Figure to populate.</td>
 </tr>
-<tr class="field"><th class="field-name">lateral_scale:</th><td class="field-body">The lateral scale of the glyph, in units of the
+<tr class="field-even field"><th class="field-name">lateral_scale:</th><td class="field-body">The lateral scale of the glyph, in units of the
 distance between nearest points Must be a float.
 Default: 0.9</td>
 </tr>
-<tr class="field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
+<tr class="field-odd field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
 Default: 2.0</td>
 </tr>
-<tr class="field"><th class="field-name">mask_points:</th><td class="field-body">If supplied, only one out of &#8216;mask_points&#8217; data point is
+<tr class="field-even field"><th class="field-name">mask_points:</th><td class="field-body">If supplied, only one out of &#8216;mask_points&#8217; data point is
 displayed. This option is usefull to reduce the number
 of points displayed on large datasets Must be an integer
 or None.</td>
 </tr>
-<tr class="field"><th class="field-name">mode:</th><td class="field-body">The glyph used to represent the bars. Must be &#8216;2dcircle&#8217; or
+<tr class="field-odd field"><th class="field-name">mode:</th><td class="field-body">The glyph used to represent the bars. Must be &#8216;2dcircle&#8217; or
 &#8216;2dcross&#8217; or &#8216;2ddiamond&#8217; or &#8216;2dsquare&#8217; or &#8216;2dthick_cross&#8217; or
 &#8216;2dtriangle&#8217; or &#8216;2dvertex&#8217; or &#8216;cube&#8217;. Default: cube</td>
 </tr>
-<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
+<tr class="field-odd field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
 Default: 1.0</td>
 </tr>
-<tr class="field"><th class="field-name">resolution:</th><td class="field-body">The resolution of the glyph created. For spheres, for
+<tr class="field-even field"><th class="field-name">resolution:</th><td class="field-body">The resolution of the glyph created. For spheres, for
 instance, this is the number of divisions along theta and
 phi. Must be an integer. Default: 8</td>
 </tr>
-<tr class="field"><th class="field-name">scale_factor:</th><td class="field-body">the scaling applied to the glyphs. The
+<tr class="field-odd field"><th class="field-name">scale_factor:</th><td class="field-body">the scaling applied to the glyphs. The
 size of the glyph is by default in drawing
 units. Must be a float. Default: 1.0</td>
 </tr>
-<tr class="field"><th class="field-name">scale_mode:</th><td class="field-body">the scaling mode for the glyphs
+<tr class="field-even field"><th class="field-name">scale_mode:</th><td class="field-body">the scaling mode for the glyphs
 (&#8216;vector&#8217;, &#8216;scalar&#8217;, or &#8216;none&#8217;).</td>
 </tr>
-<tr class="field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
+<tr class="field-odd field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
 scalar.</td>
 </tr>
-<tr class="field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap
+<tr class="field-even field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap
 If None, the max of the data will be used</td>
 </tr>
-<tr class="field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap
+<tr class="field-odd field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap
 If None, the min of the data will be used</td>
 </tr>
 </tbody>
 </table>
-</blockquote>
+</div></blockquote>
 </dd></dl>
 
 <img alt="../_images/enthought_mayavi_mlab_barchart.jpg" src="../_images/enthought_mayavi_mlab_barchart.jpg" />
@@ -227,49 +230,49 @@ can also be a callable, f, that returns vectors components (u, v, w)
 given the positions (x, y, z).</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<table class="docutils field-list" frame="void" rules="none">
+<div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</td>
 </tr>
-<tr class="field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
+<tr class="field-even field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
 </tr>
-<tr class="field"><th class="field-name">contours:</th><td class="field-body">Integer/list specifying number/list of
+<tr class="field-odd field"><th class="field-name">contours:</th><td class="field-body">Integer/list specifying number/list of
 contours. Specifying 0 shows no contours.
 Specifying a list of values will only give the
 requested contours asked for.</td>
 </tr>
-<tr class="field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+<tr class="field-even field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
 Default is the x, y, z arrays extents. Use
 this to change the extent of the object
 created.</td>
 </tr>
-<tr class="field"><th class="field-name">figure:</th><td class="field-body">Figure to populate.</td>
+<tr class="field-odd field"><th class="field-name">figure:</th><td class="field-body">Figure to populate.</td>
 </tr>
-<tr class="field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
+<tr class="field-even field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
 Default: 2.0</td>
 </tr>
-<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field-odd field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
+<tr class="field-even field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
 Default: 1.0</td>
 </tr>
-<tr class="field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
+<tr class="field-odd field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
 scalar.</td>
 </tr>
-<tr class="field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap
+<tr class="field-even field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap
 If None, the max of the data will be used</td>
 </tr>
-<tr class="field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap
+<tr class="field-odd field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap
 If None, the min of the data will be used</td>
 </tr>
 </tbody>
 </table>
-</blockquote>
+</div></blockquote>
 </dd></dl>
 
 <img alt="../_images/enthought_mayavi_mlab_contour3d.jpg" src="../_images/enthought_mayavi_mlab_contour3d.jpg" />
@@ -317,51 +320,51 @@ or a callable, f, that returns an array. x and y give the
 coordinnates of positions corresponding to the s values.</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<table class="docutils field-list" frame="void" rules="none">
+<div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</td>
 </tr>
-<tr class="field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
+<tr class="field-even field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
 </tr>
-<tr class="field"><th class="field-name">contours:</th><td class="field-body">Integer/list specifying number/list of
+<tr class="field-odd field"><th class="field-name">contours:</th><td class="field-body">Integer/list specifying number/list of
 contours. Specifying 0 shows no contours.
 Specifying a list of values will only give the
 requested contours asked for.</td>
 </tr>
-<tr class="field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+<tr class="field-even field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
 Default is the x, y, z arrays extents. Use
 this to change the extent of the object
 created.</td>
 </tr>
-<tr class="field"><th class="field-name">figure:</th><td class="field-body">Figure to populate.</td>
+<tr class="field-odd field"><th class="field-name">figure:</th><td class="field-body">Figure to populate.</td>
 </tr>
-<tr class="field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
+<tr class="field-even field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
 Default: 2.0</td>
 </tr>
-<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field-odd field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
+<tr class="field-even field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
 Default: 1.0</td>
 </tr>
-<tr class="field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
+<tr class="field-odd field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
 scalar.</td>
 </tr>
-<tr class="field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap
+<tr class="field-even field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap
 If None, the max of the data will be used</td>
 </tr>
-<tr class="field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap
+<tr class="field-odd field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap
 If None, the min of the data will be used</td>
 </tr>
-<tr class="field"><th class="field-name">warp_scale:</th><td class="field-body">scale of the warp scalar</td>
+<tr class="field-even field"><th class="field-name">warp_scale:</th><td class="field-body">scale of the warp scalar</td>
 </tr>
 </tbody>
 </table>
-</blockquote>
+</div></blockquote>
 </dd></dl>
 
 <img alt="../_images/enthought_mayavi_mlab_contour_surf.jpg" src="../_images/enthought_mayavi_mlab_contour_surf.jpg" />
@@ -411,68 +414,68 @@ a callable, f, that returns vectors components (u, v, w) given the
 positions (x, y, z).</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<table class="docutils field-list" frame="void" rules="none">
+<div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</td>
 </tr>
-<tr class="field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
+<tr class="field-even field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
 </tr>
-<tr class="field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+<tr class="field-odd field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
 Default is the x, y, z arrays extents. Use
 this to change the extent of the object
 created.</td>
 </tr>
-<tr class="field"><th class="field-name">figure:</th><td class="field-body">Figure to populate.</td>
+<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">Figure to populate.</td>
 </tr>
-<tr class="field"><th class="field-name" colspan="2">integration_direction:</th></tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">integration_direction:</th></tr>
 <tr><td>&nbsp;</td><td class="field-body">The direction of the integration. Must be
 &#8216;forward&#8217; or &#8216;backward&#8217; or &#8216;both&#8217;. Default:
 forward</td>
 </tr>
-<tr class="field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
+<tr class="field-even field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
 Default: 2.0</td>
 </tr>
-<tr class="field"><th class="field-name">linetype:</th><td class="field-body">the type of line-like object used to display the
+<tr class="field-odd field"><th class="field-name">linetype:</th><td class="field-body">the type of line-like object used to display the
 streamline. Must be &#8216;line&#8217; or &#8216;ribbon&#8217; or &#8216;tube&#8217;. Default:
 line</td>
 </tr>
-<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
+<tr class="field-odd field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
 Default: 1.0</td>
 </tr>
-<tr class="field"><th class="field-name">scalars:</th><td class="field-body">optional scalar data.</td>
+<tr class="field-even field"><th class="field-name">scalars:</th><td class="field-body">optional scalar data.</td>
 </tr>
-<tr class="field"><th class="field-name" colspan="2">seed_resolution:</th></tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">seed_resolution:</th></tr>
 <tr><td>&nbsp;</td><td class="field-body">The resolution of the seed. Determines the number of
 seed points Must be an integer or None.</td>
 </tr>
-<tr class="field"><th class="field-name">seed_scale:</th><td class="field-body">Scales the seed around its default center Must be a
+<tr class="field-even field"><th class="field-name">seed_scale:</th><td class="field-body">Scales the seed around its default center Must be a
 float. Default: 1.0</td>
 </tr>
-<tr class="field"><th class="field-name">seed_visible:</th><td class="field-body">Control the visibility of the seed. Must be a boolean.
+<tr class="field-odd field"><th class="field-name">seed_visible:</th><td class="field-body">Control the visibility of the seed. Must be a boolean.
 Default: True</td>
 </tr>
-<tr class="field"><th class="field-name">seedtype:</th><td class="field-body">the widget used as a seed for the streamlines. Must be
+<tr class="field-even field"><th class="field-name">seedtype:</th><td class="field-body">the widget used as a seed for the streamlines. Must be
 &#8216;line&#8217; or &#8216;plane&#8217; or &#8216;point&#8217; or &#8216;sphere&#8217;. Default: sphere</td>
 </tr>
-<tr class="field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
+<tr class="field-odd field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
 scalar.</td>
 </tr>
-<tr class="field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap
+<tr class="field-even field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap
 If None, the max of the data will be used</td>
 </tr>
-<tr class="field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap
+<tr class="field-odd field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap
 If None, the min of the data will be used</td>
 </tr>
 </tbody>
 </table>
-</blockquote>
+</div></blockquote>
 </dd></dl>
 
 <img alt="../_images/enthought_mayavi_mlab_flow.jpg" src="../_images/enthought_mayavi_mlab_flow.jpg" />
@@ -506,47 +509,47 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
 the colormap.</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<table class="docutils field-list" frame="void" rules="none">
+<div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</td>
 </tr>
-<tr class="field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
+<tr class="field-even field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
 </tr>
-<tr class="field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+<tr class="field-odd field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
 Default is the x, y, z arrays extents. Use
 this to change the extent of the object
 created.</td>
 </tr>
-<tr class="field"><th class="field-name">figure:</th><td class="field-body">Figure to populate.</td>
+<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">Figure to populate.</td>
 </tr>
-<tr class="field"><th class="field-name">interpolate:</th><td class="field-body">if the pixels in the image are to be
+<tr class="field-odd field"><th class="field-name">interpolate:</th><td class="field-body">if the pixels in the image are to be
 interpolated or not. Must be a boolean. Default: True</td>
 </tr>
-<tr class="field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
+<tr class="field-even field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
 Default: 2.0</td>
 </tr>
-<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field-odd field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field"><th class="field-name">opacity:</th><td class="field-body">the opacity of the image. Must be a legal value. Default:
+<tr class="field-even field"><th class="field-name">opacity:</th><td class="field-body">the opacity of the image. Must be a legal value. Default:
 1.0</td>
 </tr>
-<tr class="field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
+<tr class="field-odd field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
 scalar.</td>
 </tr>
-<tr class="field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap
+<tr class="field-even field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap
 If None, the max of the data will be used</td>
 </tr>
-<tr class="field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap
+<tr class="field-odd field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap
 If None, the min of the data will be used</td>
 </tr>
 </tbody>
 </table>
-</blockquote>
+</div></blockquote>
 </dd></dl>
 
 <img alt="../_images/enthought_mayavi_mlab_imshow.jpg" src="../_images/enthought_mayavi_mlab_imshow.jpg" />
@@ -582,80 +585,80 @@ triangles rather than regular implicit connectivity, see the
 <cite>triangular_mesh</cite> function.</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<table class="docutils field-list" frame="void" rules="none">
+<div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</td>
 </tr>
-<tr class="field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
+<tr class="field-even field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
 </tr>
-<tr class="field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+<tr class="field-odd field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
 Default is the x, y, z arrays extents. Use
 this to change the extent of the object
 created.</td>
 </tr>
-<tr class="field"><th class="field-name">figure:</th><td class="field-body">Figure to populate.</td>
+<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">Figure to populate.</td>
 </tr>
-<tr class="field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
+<tr class="field-odd field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
 Default: 2.0</td>
 </tr>
-<tr class="field"><th class="field-name">mask:</th><td class="field-body">boolean mask array to suppress some data points.</td>
+<tr class="field-even field"><th class="field-name">mask:</th><td class="field-body">boolean mask array to suppress some data points.</td>
 </tr>
-<tr class="field"><th class="field-name">mask_points:</th><td class="field-body">If supplied, only one out of &#8216;mask_points&#8217; data point is
+<tr class="field-odd field"><th class="field-name">mask_points:</th><td class="field-body">If supplied, only one out of &#8216;mask_points&#8217; data point is
 displayed. This option is usefull to reduce the number
 of points displayed on large datasets Must be an integer
 or None.</td>
 </tr>
-<tr class="field"><th class="field-name">mode:</th><td class="field-body">the mode of the glyphs. Must be &#8216;2darrow&#8217; or &#8216;2dcircle&#8217; or
+<tr class="field-even field"><th class="field-name">mode:</th><td class="field-body">the mode of the glyphs. Must be &#8216;2darrow&#8217; or &#8216;2dcircle&#8217; or
 &#8216;2dcross&#8217; or &#8216;2ddash&#8217; or &#8216;2ddiamond&#8217; or &#8216;2dhooked_arrow&#8217; or
 &#8216;2dsquare&#8217; or &#8216;2dthick_arrow&#8217; or &#8216;2dthick_cross&#8217; or
 &#8216;2dtriangle&#8217; or &#8216;2dvertex&#8217; or &#8216;arrow&#8217; or &#8216;axes&#8217; or &#8216;cone&#8217; or
 &#8216;cube&#8217; or &#8216;cylinder&#8217; or &#8216;point&#8217; or &#8216;sphere&#8217;. Default: sphere</td>
 </tr>
-<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field-odd field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
+<tr class="field-even field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
 Default: 1.0</td>
 </tr>
-<tr class="field"><th class="field-name">representation:</th><td class="field-body">the representation type used for the surface. Must be
+<tr class="field-odd field"><th class="field-name">representation:</th><td class="field-body">the representation type used for the surface. Must be
 &#8216;surface&#8217; or &#8216;wireframe&#8217; or &#8216;points&#8217; or &#8216;mesh&#8217; or
 &#8216;fancymesh&#8217;. Default: surface</td>
 </tr>
-<tr class="field"><th class="field-name">resolution:</th><td class="field-body">The resolution of the glyph created. For spheres, for
+<tr class="field-even field"><th class="field-name">resolution:</th><td class="field-body">The resolution of the glyph created. For spheres, for
 instance, this is the number of divisions along theta and
 phi. Must be an integer. Default: 8</td>
 </tr>
-<tr class="field"><th class="field-name">scalars:</th><td class="field-body">optional scalar data.</td>
+<tr class="field-odd field"><th class="field-name">scalars:</th><td class="field-body">optional scalar data.</td>
 </tr>
-<tr class="field"><th class="field-name">scale_factor:</th><td class="field-body">scale factor of the glyphs used to represent
+<tr class="field-even field"><th class="field-name">scale_factor:</th><td class="field-body">scale factor of the glyphs used to represent
 the vertices, in fancy_mesh mode. Must be a float.
 Default: 0.05</td>
 </tr>
-<tr class="field"><th class="field-name">scale_mode:</th><td class="field-body">the scaling mode for the glyphs
+<tr class="field-odd field"><th class="field-name">scale_mode:</th><td class="field-body">the scaling mode for the glyphs
 (&#8216;vector&#8217;, &#8216;scalar&#8217;, or &#8216;none&#8217;).</td>
 </tr>
-<tr class="field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
+<tr class="field-even field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
 scalar.</td>
 </tr>
-<tr class="field"><th class="field-name">tube_radius:</th><td class="field-body">radius of the tubes used to represent the
+<tr class="field-odd field"><th class="field-name">tube_radius:</th><td class="field-body">radius of the tubes used to represent the
 lines, in mesh mode. If None, simple lines are used.</td>
 </tr>
-<tr class="field"><th class="field-name">tube_sides:</th><td class="field-body">number of sides of the tubes used to
+<tr class="field-even field"><th class="field-name">tube_sides:</th><td class="field-body">number of sides of the tubes used to
 represent the lines. Must be an integer. Default: 6</td>
 </tr>
-<tr class="field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap
+<tr class="field-odd field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap
 If None, the max of the data will be used</td>
 </tr>
-<tr class="field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap
+<tr class="field-even field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap
 If None, the min of the data will be used</td>
 </tr>
 </tbody>
 </table>
-</blockquote>
+</div></blockquote>
 </dd></dl>
 
 <img alt="../_images/enthought_mayavi_mlab_mesh.jpg" src="../_images/enthought_mayavi_mlab_mesh.jpg" />
@@ -698,54 +701,54 @@ give the positions of the successive points of the line. s is an
 optional scalar value associated with each point.</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<table class="docutils field-list" frame="void" rules="none">
+<div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</td>
 </tr>
-<tr class="field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
+<tr class="field-even field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
 </tr>
-<tr class="field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+<tr class="field-odd field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
 Default is the x, y, z arrays extents. Use
 this to change the extent of the object
 created.</td>
 </tr>
-<tr class="field"><th class="field-name">figure:</th><td class="field-body">Figure to populate.</td>
+<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">Figure to populate.</td>
 </tr>
-<tr class="field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
+<tr class="field-odd field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
 Default: 2.0</td>
 </tr>
-<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
+<tr class="field-odd field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
 Default: 1.0</td>
 </tr>
-<tr class="field"><th class="field-name">representation:</th><td class="field-body">the representation type used for the surface. Must be
+<tr class="field-even field"><th class="field-name">representation:</th><td class="field-body">the representation type used for the surface. Must be
 &#8216;surface&#8217; or &#8216;wireframe&#8217; or &#8216;points&#8217;. Default:
 surface</td>
 </tr>
-<tr class="field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
+<tr class="field-odd field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
 scalar.</td>
 </tr>
-<tr class="field"><th class="field-name">tube_radius:</th><td class="field-body">radius of the tubes used to represent the
+<tr class="field-even field"><th class="field-name">tube_radius:</th><td class="field-body">radius of the tubes used to represent the
 lines, If None, simple lines are used.</td>
 </tr>
-<tr class="field"><th class="field-name">tube_sides:</th><td class="field-body">number of sides of the tubes used to
+<tr class="field-odd field"><th class="field-name">tube_sides:</th><td class="field-body">number of sides of the tubes used to
 represent the lines. Must be an integer. Default: 6</td>
 </tr>
-<tr class="field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap
+<tr class="field-even field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap
 If None, the max of the data will be used</td>
 </tr>
-<tr class="field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap
+<tr class="field-odd field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap
 If None, the min of the data will be used</td>
 </tr>
 </tbody>
 </table>
-</blockquote>
+</div></blockquote>
 </dd></dl>
 
 <img alt="../_images/enthought_mayavi_mlab_plot3d.jpg" src="../_images/enthought_mayavi_mlab_plot3d.jpg" />
@@ -793,67 +796,67 @@ scalar value can be used to modulate the color and the size of the
 points.</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<table class="docutils field-list" frame="void" rules="none">
+<div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</td>
 </tr>
-<tr class="field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
+<tr class="field-even field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
 </tr>
-<tr class="field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+<tr class="field-odd field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
 Default is the x, y, z arrays extents. Use
 this to change the extent of the object
 created.</td>
 </tr>
-<tr class="field"><th class="field-name">figure:</th><td class="field-body">Figure to populate.</td>
+<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">Figure to populate.</td>
 </tr>
-<tr class="field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
+<tr class="field-odd field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
 Default: 2.0</td>
 </tr>
-<tr class="field"><th class="field-name">mask_points:</th><td class="field-body">If supplied, only one out of &#8216;mask_points&#8217; data point is
+<tr class="field-even field"><th class="field-name">mask_points:</th><td class="field-body">If supplied, only one out of &#8216;mask_points&#8217; data point is
 displayed. This option is usefull to reduce the number
 of points displayed on large datasets Must be an integer
 or None.</td>
 </tr>
-<tr class="field"><th class="field-name">mode:</th><td class="field-body">the mode of the glyphs. Must be &#8216;2darrow&#8217; or &#8216;2dcircle&#8217; or
+<tr class="field-odd field"><th class="field-name">mode:</th><td class="field-body">the mode of the glyphs. Must be &#8216;2darrow&#8217; or &#8216;2dcircle&#8217; or
 &#8216;2dcross&#8217; or &#8216;2ddash&#8217; or &#8216;2ddiamond&#8217; or &#8216;2dhooked_arrow&#8217; or
 &#8216;2dsquare&#8217; or &#8216;2dthick_arrow&#8217; or &#8216;2dthick_cross&#8217; or
 &#8216;2dtriangle&#8217; or &#8216;2dvertex&#8217; or &#8216;arrow&#8217; or &#8216;axes&#8217; or &#8216;cone&#8217; or
 &#8216;cube&#8217; or &#8216;cylinder&#8217; or &#8216;point&#8217; or &#8216;sphere&#8217;. Default: sphere</td>
 </tr>
-<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
+<tr class="field-odd field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
 Default: 1.0</td>
 </tr>
-<tr class="field"><th class="field-name">resolution:</th><td class="field-body">The resolution of the glyph created. For spheres, for
+<tr class="field-even field"><th class="field-name">resolution:</th><td class="field-body">The resolution of the glyph created. For spheres, for
 instance, this is the number of divisions along theta and
 phi. Must be an integer. Default: 8</td>
 </tr>
-<tr class="field"><th class="field-name">scale_factor:</th><td class="field-body">The scaling applied to the glyphs. the simple of the
+<tr class="field-odd field"><th class="field-name">scale_factor:</th><td class="field-body">The scaling applied to the glyphs. the simple of the
 glyph is by default calculated from the inter-glyph
 spacing. Specify a float to give the maximum glyph size
 in drawing units</td>
 </tr>
-<tr class="field"><th class="field-name">scale_mode:</th><td class="field-body">the scaling mode for the glyphs
+<tr class="field-even field"><th class="field-name">scale_mode:</th><td class="field-body">the scaling mode for the glyphs
 (&#8216;vector&#8217;, &#8216;scalar&#8217;, or &#8216;none&#8217;).</td>
 </tr>
-<tr class="field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
+<tr class="field-odd field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
 scalar.</td>
 </tr>
-<tr class="field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap
+<tr class="field-even field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap
 If None, the max of the data will be used</td>
 </tr>
-<tr class="field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap
+<tr class="field-odd field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap
 If None, the min of the data will be used</td>
 </tr>
 </tbody>
 </table>
-</blockquote>
+</div></blockquote>
 </dd></dl>
 
 <img alt="../_images/enthought_mayavi_mlab_points3d.jpg" src="../_images/enthought_mayavi_mlab_points3d.jpg" />
@@ -901,69 +904,69 @@ a callable, f, that returns vectors components (u, v, w) given the
 positions (x, y, z).</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<table class="docutils field-list" frame="void" rules="none">
+<div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</td>
 </tr>
-<tr class="field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
+<tr class="field-even field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
 </tr>
-<tr class="field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+<tr class="field-odd field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
 Default is the x, y, z arrays extents. Use
 this to change the extent of the object
 created.</td>
 </tr>
-<tr class="field"><th class="field-name">figure:</th><td class="field-body">Figure to populate.</td>
+<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">Figure to populate.</td>
 </tr>
-<tr class="field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
+<tr class="field-odd field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
 Default: 2.0</td>
 </tr>
-<tr class="field"><th class="field-name">mask_points:</th><td class="field-body">If supplied, only one out of &#8216;mask_points&#8217; data point is
+<tr class="field-even field"><th class="field-name">mask_points:</th><td class="field-body">If supplied, only one out of &#8216;mask_points&#8217; data point is
 displayed. This option is usefull to reduce the number
 of points displayed on large datasets Must be an integer
 or None.</td>
 </tr>
-<tr class="field"><th class="field-name">mode:</th><td class="field-body">the mode of the glyphs. Must be &#8216;2darrow&#8217; or &#8216;2dcircle&#8217; or
+<tr class="field-odd field"><th class="field-name">mode:</th><td class="field-body">the mode of the glyphs. Must be &#8216;2darrow&#8217; or &#8216;2dcircle&#8217; or
 &#8216;2dcross&#8217; or &#8216;2ddash&#8217; or &#8216;2ddiamond&#8217; or &#8216;2dhooked_arrow&#8217; or
 &#8216;2dsquare&#8217; or &#8216;2dthick_arrow&#8217; or &#8216;2dthick_cross&#8217; or
 &#8216;2dtriangle&#8217; or &#8216;2dvertex&#8217; or &#8216;arrow&#8217; or &#8216;axes&#8217; or &#8216;cone&#8217; or
 &#8216;cube&#8217; or &#8216;cylinder&#8217; or &#8216;point&#8217; or &#8216;sphere&#8217;. Default: 2darrow</td>
 </tr>
-<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
+<tr class="field-odd field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
 Default: 1.0</td>
 </tr>
-<tr class="field"><th class="field-name">resolution:</th><td class="field-body">The resolution of the glyph created. For spheres, for
+<tr class="field-even field"><th class="field-name">resolution:</th><td class="field-body">The resolution of the glyph created. For spheres, for
 instance, this is the number of divisions along theta and
 phi. Must be an integer. Default: 8</td>
 </tr>
-<tr class="field"><th class="field-name">scalars:</th><td class="field-body">optional scalar data.</td>
+<tr class="field-odd field"><th class="field-name">scalars:</th><td class="field-body">optional scalar data.</td>
 </tr>
-<tr class="field"><th class="field-name">scale_factor:</th><td class="field-body">The scaling applied to the glyphs. the simple of the
+<tr class="field-even field"><th class="field-name">scale_factor:</th><td class="field-body">The scaling applied to the glyphs. the simple of the
 glyph is by default calculated from the inter-glyph
 spacing. Specify a float to give the maximum glyph size
 in drawing units</td>
 </tr>
-<tr class="field"><th class="field-name">scale_mode:</th><td class="field-body">the scaling mode for the glyphs
+<tr class="field-odd field"><th class="field-name">scale_mode:</th><td class="field-body">the scaling mode for the glyphs
 (&#8216;vector&#8217;, &#8216;scalar&#8217;, or &#8216;none&#8217;).</td>
 </tr>
-<tr class="field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
+<tr class="field-even field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
 scalar.</td>
 </tr>
-<tr class="field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap
+<tr class="field-odd field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap
 If None, the max of the data will be used</td>
 </tr>
-<tr class="field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap
+<tr class="field-even field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap
 If None, the min of the data will be used</td>
 </tr>
 </tbody>
 </table>
-</blockquote>
+</div></blockquote>
 </dd></dl>
 
 <img alt="../_images/enthought_mayavi_mlab_quiver3d.jpg" src="../_images/enthought_mayavi_mlab_quiver3d.jpg" />
@@ -1015,48 +1018,48 @@ or a callable, f, that returns an array. x and y give the
 coordinnates of positions corresponding to the s values.</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<table class="docutils field-list" frame="void" rules="none">
+<div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</td>
 </tr>
-<tr class="field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
+<tr class="field-even field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
 </tr>
-<tr class="field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+<tr class="field-odd field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
 Default is the x, y, z arrays extents. Use
 this to change the extent of the object
 created.</td>
 </tr>
-<tr class="field"><th class="field-name">figure:</th><td class="field-body">Figure to populate.</td>
+<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">Figure to populate.</td>
 </tr>
-<tr class="field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
+<tr class="field-odd field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
 Default: 2.0</td>
 </tr>
-<tr class="field"><th class="field-name">mask:</th><td class="field-body">boolean mask array to suppress some data points.</td>
+<tr class="field-even field"><th class="field-name">mask:</th><td class="field-body">boolean mask array to suppress some data points.</td>
 </tr>
-<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field-odd field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
+<tr class="field-even field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
 Default: 1.0</td>
 </tr>
-<tr class="field"><th class="field-name">representation:</th><td class="field-body">the representation type used for the surface. Must be
+<tr class="field-odd field"><th class="field-name">representation:</th><td class="field-body">the representation type used for the surface. Must be
 &#8216;surface&#8217; or &#8216;wireframe&#8217; or &#8216;points&#8217;. Default:
 surface</td>
 </tr>
-<tr class="field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
+<tr class="field-even field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
 scalar.</td>
 </tr>
-<tr class="field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap
+<tr class="field-odd field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap
 If None, the max of the data will be used</td>
 </tr>
-<tr class="field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap
+<tr class="field-even field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap
 If None, the min of the data will be used</td>
 </tr>
-<tr class="field"><th class="field-name">warp_scale:</th><td class="field-body">scale of the z axis (warped from
+<tr class="field-odd field"><th class="field-name">warp_scale:</th><td class="field-body">scale of the z axis (warped from
 the value of the scalar). By default this scale
 is a float value.
 If you specify &#8216;auto&#8217;, the scale is calculated to
@@ -1075,7 +1078,7 @@ see the <cite>extent</cite> keyword argument.</td>
 </tr>
 </tbody>
 </table>
-</blockquote>
+</div></blockquote>
 </dd></dl>
 
 <img alt="../_images/enthought_mayavi_mlab_surf.jpg" src="../_images/enthought_mayavi_mlab_surf.jpg" />
@@ -1115,80 +1118,80 @@ position arrays.</p>
 mesh functions, as they will create more efficient data structures.</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<table class="docutils field-list" frame="void" rules="none">
+<div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</td>
 </tr>
-<tr class="field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
+<tr class="field-even field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
 </tr>
-<tr class="field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+<tr class="field-odd field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
 Default is the x, y, z arrays extents. Use
 this to change the extent of the object
 created.</td>
 </tr>
-<tr class="field"><th class="field-name">figure:</th><td class="field-body">Figure to populate.</td>
+<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">Figure to populate.</td>
 </tr>
-<tr class="field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
+<tr class="field-odd field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
 Default: 2.0</td>
 </tr>
-<tr class="field"><th class="field-name">mask:</th><td class="field-body">boolean mask array to suppress some data points.</td>
+<tr class="field-even field"><th class="field-name">mask:</th><td class="field-body">boolean mask array to suppress some data points.</td>
 </tr>
-<tr class="field"><th class="field-name">mask_points:</th><td class="field-body">If supplied, only one out of &#8216;mask_points&#8217; data point is
+<tr class="field-odd field"><th class="field-name">mask_points:</th><td class="field-body">If supplied, only one out of &#8216;mask_points&#8217; data point is
 displayed. This option is usefull to reduce the number
 of points displayed on large datasets Must be an integer
 or None.</td>
 </tr>
-<tr class="field"><th class="field-name">mode:</th><td class="field-body">the mode of the glyphs. Must be &#8216;2darrow&#8217; or &#8216;2dcircle&#8217; or
+<tr class="field-even field"><th class="field-name">mode:</th><td class="field-body">the mode of the glyphs. Must be &#8216;2darrow&#8217; or &#8216;2dcircle&#8217; or
 &#8216;2dcross&#8217; or &#8216;2ddash&#8217; or &#8216;2ddiamond&#8217; or &#8216;2dhooked_arrow&#8217; or
 &#8216;2dsquare&#8217; or &#8216;2dthick_arrow&#8217; or &#8216;2dthick_cross&#8217; or
 &#8216;2dtriangle&#8217; or &#8216;2dvertex&#8217; or &#8216;arrow&#8217; or &#8216;axes&#8217; or &#8216;cone&#8217; or
 &#8216;cube&#8217; or &#8216;cylinder&#8217; or &#8216;point&#8217; or &#8216;sphere&#8217;. Default: sphere</td>
 </tr>
-<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field-odd field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
+<tr class="field-even field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
 Default: 1.0</td>
 </tr>
-<tr class="field"><th class="field-name">representation:</th><td class="field-body">the representation type used for the surface. Must be
+<tr class="field-odd field"><th class="field-name">representation:</th><td class="field-body">the representation type used for the surface. Must be
 &#8216;surface&#8217; or &#8216;wireframe&#8217; or &#8216;points&#8217; or &#8216;mesh&#8217; or
 &#8216;fancymesh&#8217;. Default: surface</td>
 </tr>
-<tr class="field"><th class="field-name">resolution:</th><td class="field-body">The resolution of the glyph created. For spheres, for
+<tr class="field-even field"><th class="field-name">resolution:</th><td class="field-body">The resolution of the glyph created. For spheres, for
 instance, this is the number of divisions along theta and
 phi. Must be an integer. Default: 8</td>
 </tr>
-<tr class="field"><th class="field-name">scalars:</th><td class="field-body">optional scalar data.</td>
+<tr class="field-odd field"><th class="field-name">scalars:</th><td class="field-body">optional scalar data.</td>
 </tr>
-<tr class="field"><th class="field-name">scale_factor:</th><td class="field-body">scale factor of the glyphs used to represent
+<tr class="field-even field"><th class="field-name">scale_factor:</th><td class="field-body">scale factor of the glyphs used to represent
 the vertices, in fancy_mesh mode. Must be a float.
 Default: 0.05</td>
 </tr>
-<tr class="field"><th class="field-name">scale_mode:</th><td class="field-body">the scaling mode for the glyphs
+<tr class="field-odd field"><th class="field-name">scale_mode:</th><td class="field-body">the scaling mode for the glyphs
 (&#8216;vector&#8217;, &#8216;scalar&#8217;, or &#8216;none&#8217;).</td>
 </tr>
-<tr class="field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
+<tr class="field-even field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
 scalar.</td>
 </tr>
-<tr class="field"><th class="field-name">tube_radius:</th><td class="field-body">radius of the tubes used to represent the
+<tr class="field-odd field"><th class="field-name">tube_radius:</th><td class="field-body">radius of the tubes used to represent the
 lines, in mesh mode. If None, simple lines are used.</td>
 </tr>
-<tr class="field"><th class="field-name">tube_sides:</th><td class="field-body">number of sides of the tubes used to
+<tr class="field-even field"><th class="field-name">tube_sides:</th><td class="field-body">number of sides of the tubes used to
 represent the lines. Must be an integer. Default: 6</td>
 </tr>
-<tr class="field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap
+<tr class="field-odd field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap
 If None, the max of the data will be used</td>
 </tr>
-<tr class="field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap
+<tr class="field-even field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap
 If None, the min of the data will be used</td>
 </tr>
 </tbody>
 </table>
-</blockquote>
+</div></blockquote>
 </dd></dl>
 
 <img alt="../_images/enthought_mayavi_mlab_triangular_mesh.jpg" src="../_images/enthought_mayavi_mlab_triangular_mesh.jpg" />
@@ -1283,10 +1286,21 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
     <input type="submit" value="Go" /></td></tr>
     <tr><td align="center" style="font-size:75%; color: #FFFFFF;">
     <input type="checkbox"  name="sitesearch"
-    value="http://code.enthought.com/projects/mayavi/docs/development/html/mayavi/" checked /> only search Mayavi documentation<br />
+    value="http://github.enthought.com/mayavi/mayavi/" checked /> only search Mayavi documentation<br />
     </td></tr></table>
 
-</form>
+    </form>
+    </div>
+    <hr/>
+    <div id="searchbox">
+	<a href="misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
+
+	<p style="font-size:85%; color: #FFFFFF;">
+    	If you publish articles using Mayavi, please 
+	<strong><a href="misc.html#citing-mayavi">cite
+	Mayavi</a></strong>. We need
+	these citations to justify time and resources on the software.
+	</p>
     </div>
 
         </div>
@@ -1305,14 +1319,14 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
         <li class="right" >
           <a href="mlab_reference.html" title="MLab reference"
              >previous</a> |</li>
-        <li><a href="../index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+        <li><a href="../index.html">Mayavi 3.4.2 documentation</a> &raquo;</li>
           <li><a href="mlab_reference.html" >MLab reference</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Jan 28, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
+      Last updated on Mar 26, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1pre/ce4bb37a1409.
     </div>
   </body>
 </html>

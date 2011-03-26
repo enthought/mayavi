@@ -3,13 +3,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Tools &mdash; Mayavi v3.4.2 documentation</title>
+    <title>Tools &mdash; Mayavi 3.4.2 documentation</title>
+    
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
@@ -22,7 +25,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="Mayavi v3.4.2 documentation" href="../index.html" />
+    <link rel="top" title="Mayavi 3.4.2 documentation" href="../index.html" />
     <link rel="up" title="Mlab pipeline-control reference" href="../mlab_pipeline_reference.html" />
     <link rel="next" title="Data" href="mlab_pipeline_data.html" />
     <link rel="prev" title="Sources" href="mlab_pipeline_sources.html" />
@@ -70,7 +73,7 @@
         <li class="right" >
           <a href="mlab_pipeline_sources.html" title="Sources"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+        <li><a href="../index.html">Mayavi 3.4.2 documentation</a> &raquo;</li>
           <li><a href="mlab_reference.html" >MLab reference</a> &raquo;</li>
           <li><a href="../mlab_pipeline_reference.html" accesskey="U">Mlab pipeline-control reference</a> &raquo;</li> 
       </ul>
@@ -102,11 +105,11 @@ instructions on running the examples.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Dataset :</th><td class="field-body"><p class="first">a tvtk dataset, or a Mayavi source.
+<tr class="field-odd field"><th class="field-name">Dataset :</th><td class="field-body"><p class="first">a tvtk dataset, or a Mayavi source.
 The dataset added to the Mayavi pipeline</p>
 </td>
 </tr>
-<tr class="field"><th class="field-name">Figure :</th><td class="field-body"><p class="first">a figure identifier number or string, None or False, optionnal.</p>
+<tr class="field-even field"><th class="field-name">Figure :</th><td class="field-body"><p class="first">a figure identifier number or string, None or False, optionnal.</p>
 <p>If no <cite>figure</cite> keyword argument is given, the data
 is added to the current figure (a new figure if created if
 necessary).</p>
@@ -147,9 +150,9 @@ object.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Object :</th><td class="field-body">any Mayavi visualization object</td>
+<tr class="field-odd field"><th class="field-name">Object :</th><td class="field-body">any Mayavi visualization object</td>
 </tr>
-<tr class="field"><th class="field-name" colspan="2">Stop_at_filter :</th></tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Stop_at_filter :</th></tr>
 <tr><td>&nbsp;</td><td class="field-body">optional boolean flag: if True, the first object
 exposing data found going up the pipeline is
 returned. If False, only the source itself
@@ -162,7 +165,7 @@ is returned.</td>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Sources :</th><td class="field-body">List of vtk data sources (vtk data sources, and not
+<tr class="field-odd field"><th class="field-name">Sources :</th><td class="field-body">List of vtk data sources (vtk data sources, and not
 Mayavi source objects).</td>
 </tr>
 </tbody>
@@ -273,10 +276,21 @@ the pipeline:</p>
     <input type="submit" value="Go" /></td></tr>
     <tr><td align="center" style="font-size:75%; color: #FFFFFF;">
     <input type="checkbox"  name="sitesearch"
-    value="http://code.enthought.com/projects/mayavi/docs/development/html/mayavi/" checked /> only search Mayavi documentation<br />
+    value="http://github.enthought.com/mayavi/mayavi/" checked /> only search Mayavi documentation<br />
     </td></tr></table>
 
-</form>
+    </form>
+    </div>
+    <hr/>
+    <div id="searchbox">
+	<a href="misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
+
+	<p style="font-size:85%; color: #FFFFFF;">
+    	If you publish articles using Mayavi, please 
+	<strong><a href="misc.html#citing-mayavi">cite
+	Mayavi</a></strong>. We need
+	these citations to justify time and resources on the software.
+	</p>
     </div>
 
         </div>
@@ -295,15 +309,15 @@ the pipeline:</p>
         <li class="right" >
           <a href="mlab_pipeline_sources.html" title="Sources"
              >previous</a> |</li>
-        <li><a href="../index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+        <li><a href="../index.html">Mayavi 3.4.2 documentation</a> &raquo;</li>
           <li><a href="mlab_reference.html" >MLab reference</a> &raquo;</li>
           <li><a href="../mlab_pipeline_reference.html" >Mlab pipeline-control reference</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Jan 28, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
+      Last updated on Mar 26, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1pre/ce4bb37a1409.
     </div>
   </body>
 </html>

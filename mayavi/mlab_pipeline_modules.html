@@ -3,13 +3,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Modules and Filters &mdash; Mayavi v3.4.2 documentation</title>
+    <title>Modules and Filters &mdash; Mayavi 3.4.2 documentation</title>
+    
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
@@ -22,7 +25,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="Mayavi v3.4.2 documentation" href="index.html" />
+    <link rel="top" title="Mayavi 3.4.2 documentation" href="index.html" />
     <link rel="up" title="Mlab pipeline-control reference" href="mlab_pipeline_reference.html" />
     <link rel="next" title="Mayavi API reference" href="api/index.html" />
     <link rel="prev" title="Data" href="auto/mlab_pipeline_data.html" />
@@ -70,7 +73,7 @@
         <li class="right" >
           <a href="auto/mlab_pipeline_data.html" title="Data"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+        <li><a href="index.html">Mayavi 3.4.2 documentation</a> &raquo;</li>
           <li><a href="auto/mlab_reference.html" >MLab reference</a> &raquo;</li>
           <li><a href="mlab_pipeline_reference.html" accesskey="U">Mlab pipeline-control reference</a> &raquo;</li> 
       </ul>
@@ -96,6 +99,63 @@ automatically added if necessary.</p>
 the object added to the pipeline.</p>
 <p>For instance, the <cite>ScalarCutPlane</cite> module can be added with the following
 function:</p>
+<dl class="function">
+<dt id="enthought.mayavi.tools.modules.scalar_cut_plane">
+<tt class="descclassname">enthought.mayavi.tools.modules.</tt><tt class="descname">scalar_cut_plane</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.modules.scalar_cut_plane" title="Permalink to this definition">¶</a></dt>
+<dd><p>Applies the ScalarCutPlane mayavi module to the given data
+source (Mayavi source, or VTK dataset).</p>
+<p><strong>Keyword arguments:</strong></p>
+<blockquote>
+<div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+if any, when specified. This is specified as a
+triplet of float ranging from 0 to 1, eg (1, 1,
+1) for white.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+Default is the x, y, z arrays extent. Use
+this to change the extent of the object
+created.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">line_width:</th><td class="field-body">The width of the lines, if any used. Must be a float.
+Default: 2.0</td>
+</tr>
+<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
+Default: 1.0</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">plane_orientation:</th></tr>
+<tr><td>&nbsp;</td><td class="field-body">the orientation of the plane Must be a legal
+value. Default: x_axes</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
+added to the scene. Defaults to True.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
+scalar.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">view_controls:</th><td class="field-body">Whether or not the controls of the cut plane are
+shown. Must be a boolean. Default: True</td>
+</tr>
+<tr class="field-even field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
+If None, the max of the data will be used</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap.
+If None, the min of the data will be used</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
 <p>As the list is long, we shall not enumerate here all the factory function
 for adding modules or filters. You are invited to refer to their
 docstring for information on the keyword arguments they accept.</p>
@@ -146,10 +206,21 @@ docstring for information on the keyword arguments they accept.</p>
     <input type="submit" value="Go" /></td></tr>
     <tr><td align="center" style="font-size:75%; color: #FFFFFF;">
     <input type="checkbox"  name="sitesearch"
-    value="http://code.enthought.com/projects/mayavi/docs/development/html/mayavi/" checked /> only search Mayavi documentation<br />
+    value="http://github.enthought.com/mayavi/mayavi/" checked /> only search Mayavi documentation<br />
     </td></tr></table>
 
-</form>
+    </form>
+    </div>
+    <hr/>
+    <div id="searchbox">
+	<a href="misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
+
+	<p style="font-size:85%; color: #FFFFFF;">
+    	If you publish articles using Mayavi, please 
+	<strong><a href="misc.html#citing-mayavi">cite
+	Mayavi</a></strong>. We need
+	these citations to justify time and resources on the software.
+	</p>
     </div>
 
         </div>
@@ -168,15 +239,15 @@ docstring for information on the keyword arguments they accept.</p>
         <li class="right" >
           <a href="auto/mlab_pipeline_data.html" title="Data"
              >previous</a> |</li>
-        <li><a href="index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+        <li><a href="index.html">Mayavi 3.4.2 documentation</a> &raquo;</li>
           <li><a href="auto/mlab_reference.html" >MLab reference</a> &raquo;</li>
           <li><a href="mlab_pipeline_reference.html" >Mlab pipeline-control reference</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Jan 28, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
+      Last updated on Mar 26, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1pre/ce4bb37a1409.
     </div>
   </body>
 </html>

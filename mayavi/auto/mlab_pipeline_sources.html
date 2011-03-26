@@ -3,13 +3,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Sources &mdash; Mayavi v3.4.2 documentation</title>
+    <title>Sources &mdash; Mayavi 3.4.2 documentation</title>
+    
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
@@ -22,7 +25,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="Mayavi v3.4.2 documentation" href="../index.html" />
+    <link rel="top" title="Mayavi 3.4.2 documentation" href="../index.html" />
     <link rel="up" title="Mlab pipeline-control reference" href="../mlab_pipeline_reference.html" />
     <link rel="next" title="Tools" href="mlab_pipeline_tools.html" />
     <link rel="prev" title="Mlab pipeline-control reference" href="../mlab_pipeline_reference.html" />
@@ -70,7 +73,7 @@
         <li class="right" >
           <a href="../mlab_pipeline_reference.html" title="Mlab pipeline-control reference"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+        <li><a href="../index.html">Mayavi 3.4.2 documentation</a> &raquo;</li>
           <li><a href="mlab_reference.html" >MLab reference</a> &raquo;</li>
           <li><a href="../mlab_pipeline_reference.html" accesskey="U">Mlab pipeline-control reference</a> &raquo;</li> 
       </ul>
@@ -115,13 +118,13 @@ made from the indices of arrays, and an uniformly-spaced data set is
 created.</p>
 <p><strong>Keyword arguments</strong>:</p>
 <blockquote>
-<table class="docutils field-list" frame="void" rules="none">
+<div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field-odd field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field"><th class="field-name">figure:</th><td class="field-body">optionally, the figure on which to add the data source.
+<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">optionally, the figure on which to add the data source.
 If None, the source is not added to any figure, and will
 be added automatically by the modules or
 filters. If False, no figure will be created by modules
@@ -129,11 +132,11 @@ or filters applied to the source: the source can only
 be used for testing, or numerical algorithms, not
 visualization.</td>
 </tr>
-<tr class="field"><th class="field-name">mask:</th><td class="field-body">Mask points specified in a boolean masking array.</td>
+<tr class="field-odd field"><th class="field-name">mask:</th><td class="field-body">Mask points specified in a boolean masking array.</td>
 </tr>
 </tbody>
 </table>
-</blockquote>
+</div></blockquote>
 </dd></dl>
 
 </div>
@@ -177,15 +180,15 @@ the arrays.</p>
 function, as it will create more efficient data structures.</p>
 <p><strong>Keyword arguments</strong>:</p>
 <blockquote>
-<table class="docutils field-list" frame="void" rules="none">
+<div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field-odd field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field"><th class="field-name">scalars:</th><td class="field-body">optional scalar data.</td>
+<tr class="field-even field"><th class="field-name">scalars:</th><td class="field-body">optional scalar data.</td>
 </tr>
-<tr class="field"><th class="field-name">figure:</th><td class="field-body">optionally, the figure on which to add the data source.
+<tr class="field-odd field"><th class="field-name">figure:</th><td class="field-body">optionally, the figure on which to add the data source.
 If None, the source is not added to any figure, and will
 be added automatically by the modules or
 filters. If False, no figure will be created by modules
@@ -195,7 +198,7 @@ visualization.</td>
 </tr>
 </tbody>
 </table>
-</blockquote>
+</div></blockquote>
 </dd></dl>
 
 </div>
@@ -215,13 +218,13 @@ a callable, f, that returns an array.</pre>
 </div>
 <p><strong>Keyword arguments</strong>:</p>
 <blockquote>
-<table class="docutils field-list" frame="void" rules="none">
+<div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field-odd field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field"><th class="field-name">figure:</th><td class="field-body">optionally, the figure on which to add the data source.
+<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">optionally, the figure on which to add the data source.
 If None, the source is not added to any figure, and will
 be added automatically by the modules or
 filters. If False, no figure will be created by modules
@@ -231,7 +234,7 @@ visualization.</td>
 </tr>
 </tbody>
 </table>
-</blockquote>
+</div></blockquote>
 </dd></dl>
 
 </div>
@@ -284,13 +287,13 @@ the points are regularily spaced.</p>
 a callable, f, that returns an array.</p>
 <p><strong>Keyword arguments</strong>:</p>
 <blockquote>
-<table class="docutils field-list" frame="void" rules="none">
+<div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field-odd field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field"><th class="field-name">figure:</th><td class="field-body">optionally, the figure on which to add the data source.
+<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">optionally, the figure on which to add the data source.
 If None, the source is not added to any figure, and will
 be added automatically by the modules or
 filters. If False, no figure will be created by modules
@@ -300,7 +303,7 @@ visualization.</td>
 </tr>
 </tbody>
 </table>
-</blockquote>
+</div></blockquote>
 </dd></dl>
 
 </div>
@@ -323,13 +326,13 @@ made from the indices of vectors.</p>
 a callable, f, that returns an array.</p>
 <p><strong>Keyword arguments</strong>:</p>
 <blockquote>
-<table class="docutils field-list" frame="void" rules="none">
+<div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field-odd field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field"><th class="field-name">figure:</th><td class="field-body">optionally, the figure on which to add the data source.
+<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">optionally, the figure on which to add the data source.
 If None, the source is not added to any figure, and will
 be added automatically by the modules or
 filters. If False, no figure will be created by modules
@@ -339,7 +342,7 @@ visualization.</td>
 </tr>
 </tbody>
 </table>
-</blockquote>
+</div></blockquote>
 </dd></dl>
 
 </div>
@@ -355,15 +358,15 @@ vertices inter-connected. These vertices are designed by there
 position index.</p>
 <p><strong>Keyword arguments</strong>:</p>
 <blockquote>
-<table class="docutils field-list" frame="void" rules="none">
+<div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field-odd field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field"><th class="field-name">scalars:</th><td class="field-body">optional scalar data.</td>
+<tr class="field-even field"><th class="field-name">scalars:</th><td class="field-body">optional scalar data.</td>
 </tr>
-<tr class="field"><th class="field-name">figure:</th><td class="field-body">optionally, the figure on which to add the data source.
+<tr class="field-odd field"><th class="field-name">figure:</th><td class="field-body">optionally, the figure on which to add the data source.
 If None, the source is not added to any figure, and will
 be added automatically by the modules or
 filters. If False, no figure will be created by modules
@@ -373,7 +376,7 @@ visualization.</td>
 </tr>
 </tbody>
 </table>
-</blockquote>
+</div></blockquote>
 </dd></dl>
 
 </div>
@@ -398,15 +401,15 @@ assuming the points are regularily spaced on an orthogonal grid.</p>
 that returns vectors.</p>
 <p><strong>Keyword arguments</strong>:</p>
 <blockquote>
-<table class="docutils field-list" frame="void" rules="none">
+<div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field-odd field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field"><th class="field-name">scalars:</th><td class="field-body">optional scalar data.</td>
+<tr class="field-even field"><th class="field-name">scalars:</th><td class="field-body">optional scalar data.</td>
 </tr>
-<tr class="field"><th class="field-name">figure:</th><td class="field-body">optionally, the figure on which to add the data source.
+<tr class="field-odd field"><th class="field-name">figure:</th><td class="field-body">optionally, the figure on which to add the data source.
 If None, the source is not added to any figure, and will
 be added automatically by the modules or
 filters. If False, no figure will be created by modules
@@ -416,7 +419,7 @@ visualization.</td>
 </tr>
 </tbody>
 </table>
-</blockquote>
+</div></blockquote>
 </dd></dl>
 
 </div>
@@ -438,15 +441,15 @@ made from the indices of vectors.</p>
 that returns vectors.</p>
 <p><strong>Keyword arguments</strong>:</p>
 <blockquote>
-<table class="docutils field-list" frame="void" rules="none">
+<div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field-odd field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field"><th class="field-name">scalars:</th><td class="field-body">optional scalar data.</td>
+<tr class="field-even field"><th class="field-name">scalars:</th><td class="field-body">optional scalar data.</td>
 </tr>
-<tr class="field"><th class="field-name">figure:</th><td class="field-body">optionally, the figure on which to add the data source.
+<tr class="field-odd field"><th class="field-name">figure:</th><td class="field-body">optionally, the figure on which to add the data source.
 If None, the source is not added to any figure, and will
 be added automatically by the modules or
 filters. If False, no figure will be created by modules
@@ -456,7 +459,7 @@ visualization.</td>
 </tr>
 </tbody>
 </table>
-</blockquote>
+</div></blockquote>
 </dd></dl>
 
 </div>
@@ -488,13 +491,13 @@ is an array s, or a callable, f, that returns an array giving the
 data value.</p>
 <p><strong>Keyword arguments</strong>:</p>
 <blockquote>
-<table class="docutils field-list" frame="void" rules="none">
+<div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field-odd field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field"><th class="field-name">figure:</th><td class="field-body">optionally, the figure on which to add the data source.
+<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">optionally, the figure on which to add the data source.
 If None, the source is not added to any figure, and will
 be added automatically by the modules or
 filters. If False, no figure will be created by modules
@@ -504,7 +507,7 @@ visualization.</td>
 </tr>
 </tbody>
 </table>
-</blockquote>
+</div></blockquote>
 </dd></dl>
 
 </div>
@@ -587,10 +590,21 @@ visualization.</td>
     <input type="submit" value="Go" /></td></tr>
     <tr><td align="center" style="font-size:75%; color: #FFFFFF;">
     <input type="checkbox"  name="sitesearch"
-    value="http://code.enthought.com/projects/mayavi/docs/development/html/mayavi/" checked /> only search Mayavi documentation<br />
+    value="http://github.enthought.com/mayavi/mayavi/" checked /> only search Mayavi documentation<br />
     </td></tr></table>
 
-</form>
+    </form>
+    </div>
+    <hr/>
+    <div id="searchbox">
+	<a href="misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
+
+	<p style="font-size:85%; color: #FFFFFF;">
+    	If you publish articles using Mayavi, please 
+	<strong><a href="misc.html#citing-mayavi">cite
+	Mayavi</a></strong>. We need
+	these citations to justify time and resources on the software.
+	</p>
     </div>
 
         </div>
@@ -609,15 +623,15 @@ visualization.</td>
         <li class="right" >
           <a href="../mlab_pipeline_reference.html" title="Mlab pipeline-control reference"
              >previous</a> |</li>
-        <li><a href="../index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+        <li><a href="../index.html">Mayavi 3.4.2 documentation</a> &raquo;</li>
           <li><a href="mlab_reference.html" >MLab reference</a> &raquo;</li>
           <li><a href="../mlab_pipeline_reference.html" >Mlab pipeline-control reference</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Jan 28, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
+      Last updated on Mar 26, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1pre/ce4bb37a1409.
     </div>
   </body>
 </html>

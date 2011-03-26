@@ -3,13 +3,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Development guide for TVTK &mdash; tvtk v3.4.2 documentation</title>
+    <title>Development guide for TVTK &mdash; tvtk 3.4.2 documentation</title>
+    
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
@@ -22,7 +25,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="tvtk v3.4.2 documentation" href="index.html" />
+    <link rel="top" title="tvtk 3.4.2 documentation" href="index.html" />
     <link rel="prev" title="An Introduction to Traited VTK (tvtk)" href="README.html" /> 
   </head>
   <body>
@@ -35,7 +38,7 @@
         <li class="right" >
           <a href="README.html" title="An Introduction to Traited VTK (tvtk)"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">tvtk v3.4.2 documentation</a> &raquo;</li> 
+        <li><a href="index.html">tvtk 3.4.2 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -50,11 +53,11 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Author:</th><td class="field-body">Prabhu Ramachandran</td>
+<tr class="field-odd field"><th class="field-name">Author:</th><td class="field-body">Prabhu Ramachandran</td>
 </tr>
-<tr class="field"><th class="field-name">Contact:</th><td class="field-body"><a class="reference external" href="mailto:prabhu_r&#37;&#52;&#48;users&#46;sourceforge&#46;net">prabhu_r<span>&#64;</span>users<span>&#46;</span>sourceforge<span>&#46;</span>net</a></td>
+<tr class="field-even field"><th class="field-name">Contact:</th><td class="field-body"><a class="reference external" href="mailto:prabhu_r&#37;&#52;&#48;users&#46;sourceforge&#46;net">prabhu_r<span>&#64;</span>users<span>&#46;</span>sourceforge<span>&#46;</span>net</a></td>
 </tr>
-<tr class="field"><th class="field-name">Copyright:</th><td class="field-body">2004, Enthought, Inc.</td>
+<tr class="field-odd field"><th class="field-name">Copyright:</th><td class="field-body">2004-2011, Enthought, Inc.</td>
 </tr>
 </tbody>
 </table>
@@ -90,7 +93,7 @@ same directory as this file.</p>
 <cite>tvtk_base.py</cite>.  <cite>TVTKBase</cite> provides basic functionality common to all
 tvtk classes.  Most importantly it provides for the following:</p>
 <blockquote>
-<ul class="simple">
+<div><ul class="simple">
 <li>Allows one to wrap an existing VTK object or create a new one.
 <cite>TVTKBase.__init__</cite> accepts an optional VTK object, that can be
 used to wrap an existing VTK object.  Read the method docstring for
@@ -104,7 +107,7 @@ object.</li>
 <li>Common code to change the underlying VTK object when the trait is
 changed.</li>
 </ul>
-</blockquote>
+</div></blockquote>
 <p>As mentioned above, tvtk classes can either wrap an existing VTK
 object or create a new one and manage the new object.</p>
 <div class="section" id="automatic-trait-updation">
@@ -219,13 +222,13 @@ objects, then any Numeric arrays or Python lists are converted to the
 correct VTK data array and passed to the wrapped VTK object.</p>
 <p>For the efficient conversion to <cite>CellArray</cite> objects, an extension
 module is required.  The sources for this extension module are in
-<cite>src/array_ext.*</cite>.  The <a class="reference external" href="http://www.cosc.canterbury.ac.nz/~greg/python/Pyrex/">Pyrex</a> source file can be used to generate the
+<cite>src/array_ext.*</cite>.  The <a class="reference external" href="http://cython.org/">Cython</a> file can be used to generate the
 <cite>src/array_ext.c</cite> file like so:</p>
 <div class="highlight-python"><pre>$ cd src
-$ pyrexc array_ext.pyx</pre>
+$ cython array_ext.pyx</pre>
 </div>
 <p>The sources ship with the generated source file so that folks without
-Pyrex can build it.</p>
+Cython can build it.</p>
 <p><cite>special_gen.py</cite> defines all the additional methods for the
 <cite>DataArray</cite> and other classes that allow these objects to support
 iteration, <cite>__repr__</cite>, <cite>__getitem__</cite> etc.</p>
@@ -246,7 +249,7 @@ functionality.  However, importing 800 wrapper classes in one go is
 around the problem.  While <cite>tvtk</cite> is a class instance, it behaves just
 like you&#8217;d expect of a module.</p>
 <blockquote>
-<ul class="simple">
+<div><ul class="simple">
 <li>It supports tab-completion on class names.</li>
 <li>Allows one to access all the tvtk classes.</li>
 <li>Imports extremely fast.  Any slowness in the import is really
@@ -254,7 +257,7 @@ because tvtk needs to import VTK.  Thus importing tvtk should not
 be much slower than importing vtk itself.</li>
 <li>Imports the tvtk classes <em>only</em> on demand.</li>
 </ul>
-</blockquote>
+</div></blockquote>
 <p>All the tvtk related code is generated and saved into the
 <cite>tvtk_classes.zip</cite> file.  The <cite>tvtk</cite> instance is basically an instance
 of the TVTK class.  This is defined in <cite>tvtk_helper.py</cite>.  This file is
@@ -289,7 +292,7 @@ tvtk object.</p>
 main driver module that is responsible for this.  Code generation
 works involves the following steps.</p>
 <blockquote>
-<ul class="simple">
+<div><ul class="simple">
 <li>Listing and sorting all the VTK classes into a class hierarchy.
 This is done by <cite>class_tree.py</cite>.  <cite>ClassTree</cite> basically organizes
 all the VTK classes into a tree structure.  The tree is organized
@@ -320,7 +323,7 @@ current indentation level.</li>
 <li>Generating the tvtk code.  Done mainly by <cite>code_gen.py</cite>.</li>
 <li>Generating a ZIP file of the code, also done by <cite>code_gen.py</cite>.</li>
 </ul>
-</blockquote>
+</div></blockquote>
 <p>The <cite>code_gen</cite> module defines a <cite>TVTKGenerator</cite> class that drives the
 code generation.  The module uses the <cite>wrapper_gen</cite> module to generate
 the wrapper classes.</p>
@@ -415,13 +418,13 @@ inhibits ZIP file generation.</p>
         <li class="right" >
           <a href="README.html" title="An Introduction to Traited VTK (tvtk)"
              >previous</a> |</li>
-        <li><a href="index.html">tvtk v3.4.2 documentation</a> &raquo;</li> 
+        <li><a href="index.html">tvtk 3.4.2 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2008, tvtk.
-      Last updated on Jan 28, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
+      Last updated on Mar 26, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1pre/ce4bb37a1409.
     </div>
   </body>
 </html>

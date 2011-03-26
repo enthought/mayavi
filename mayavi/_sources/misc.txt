@@ -1,6 +1,18 @@
 Miscellaneous
 =============
 
+Citing Mayavi
+---------------
+
+The core developers of Mayavi are academics. Thus justify time and
+resources spent developing Mayavi by the number of citations of the
+software. If you publish scientific articles using Mayavi, please cite
+the following article (bibtex entry :download:`citation.bib`):
+
+  Ramachandran, P. and Varoquaux, G., *`Mayavi: 3D Visualization of 
+  Scientific Data`* IEEE Computing in Science & Engineering, **13**
+  (2), pp. 40-51 (2011)
+
 .. _getting-help:
 
 Getting help

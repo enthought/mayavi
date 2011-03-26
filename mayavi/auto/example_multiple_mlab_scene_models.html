@@ -3,13 +3,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Multiple mlab scene models example &mdash; Mayavi v3.4.2 documentation</title>
+    <title>Multiple mlab scene models example &mdash; Mayavi 3.4.2 documentation</title>
+    
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
@@ -22,7 +25,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="Mayavi v3.4.2 documentation" href="../index.html" />
+    <link rel="top" title="Mayavi 3.4.2 documentation" href="../index.html" />
     <link rel="up" title="Example gallery" href="examples.html" />
     <link rel="next" title="Mlab interactive dialog example" href="example_mlab_interactive_dialog.html" />
     <link rel="prev" title="Multiple engines example" href="example_multiple_engines.html" />
@@ -70,7 +73,7 @@
         <li class="right" >
           <a href="example_multiple_engines.html" title="Multiple engines example"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+        <li><a href="../index.html">Mayavi 3.4.2 documentation</a> &raquo;</li>
           <li><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
       </ul>
     </div>  
@@ -83,7 +86,7 @@
   <div class="section" id="multiple-mlab-scene-models-example">
 <span id="example-multiple-mlab-scene-models"></span><h1>Multiple mlab scene models example<a class="headerlink" href="#multiple-mlab-scene-models-example" title="Permalink to this headline">¶</a></h1>
 <blockquote>
-Example showing a dialog with multiple embedded scenes.</blockquote>
+<div>Example showing a dialog with multiple embedded scenes.</div></blockquote>
 <p>When using several embedded scenes with mlab, you should be very careful
 always to pass the scene you want to use for plotting to the mlab
 function used, elsewhere it uses the current scene. In this example,
@@ -95,7 +98,7 @@ and pass it as a keyword argument to the mlab functions.</p>
 the examples <a class="reference internal" href="example_mlab_interactive_dialog.html#example-mlab-interactive-dialog"><em>Mlab interactive dialog example</em></a>, and
 <a class="reference internal" href="example_lorenz_ui.html#example-lorenz-ui"><em>Lorenz ui example</em></a>, as well as the section of the user manual
 <a class="reference internal" href="../building_applications.html#embedding-mayavi-traits"><em>Embedding a Mayavi scene in a Traits dialog</em></a>.</p>
-<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/multiple_mlab_scene_models.py"><tt class="xref download docutils literal"><span class="pre">multiple_mlab_scene_models.py</span></tt></a></p>
+<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/multiple_mlab_scene_models2.py"><tt class="xref download docutils literal"><span class="pre">multiple_mlab_scene_models.py</span></tt></a></p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 
 <span class="kn">from</span> <span class="nn">enthought.traits.api</span> <span class="kn">import</span> <span class="n">HasTraits</span><span class="p">,</span> <span class="n">Instance</span><span class="p">,</span> <span class="n">Button</span><span class="p">,</span> \
@@ -201,10 +204,21 @@ the examples <a class="reference internal" href="example_mlab_interactive_dialog
     <input type="submit" value="Go" /></td></tr>
     <tr><td align="center" style="font-size:75%; color: #FFFFFF;">
     <input type="checkbox"  name="sitesearch"
-    value="http://code.enthought.com/projects/mayavi/docs/development/html/mayavi/" checked /> only search Mayavi documentation<br />
+    value="http://github.enthought.com/mayavi/mayavi/" checked /> only search Mayavi documentation<br />
     </td></tr></table>
 
-</form>
+    </form>
+    </div>
+    <hr/>
+    <div id="searchbox">
+	<a href="misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
+
+	<p style="font-size:85%; color: #FFFFFF;">
+    	If you publish articles using Mayavi, please 
+	<strong><a href="misc.html#citing-mayavi">cite
+	Mayavi</a></strong>. We need
+	these citations to justify time and resources on the software.
+	</p>
     </div>
 
         </div>
@@ -223,14 +237,14 @@ the examples <a class="reference internal" href="example_mlab_interactive_dialog
         <li class="right" >
           <a href="example_multiple_engines.html" title="Multiple engines example"
              >previous</a> |</li>
-        <li><a href="../index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+        <li><a href="../index.html">Mayavi 3.4.2 documentation</a> &raquo;</li>
           <li><a href="examples.html" >Example gallery</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Jan 28, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
+      Last updated on Mar 26, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1pre/ce4bb37a1409.
     </div>
   </body>
 </html>

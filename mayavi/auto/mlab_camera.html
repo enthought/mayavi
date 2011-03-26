@@ -3,13 +3,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Camera handling functions &mdash; Mayavi v3.4.2 documentation</title>
+    <title>Camera handling functions &mdash; Mayavi 3.4.2 documentation</title>
+    
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
@@ -22,7 +25,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="Mayavi v3.4.2 documentation" href="../index.html" />
+    <link rel="top" title="Mayavi 3.4.2 documentation" href="../index.html" />
     <link rel="up" title="MLab reference" href="mlab_reference.html" />
     <link rel="next" title="Other functions" href="mlab_other_functions.html" />
     <link rel="prev" title="Figure decoration functions" href="mlab_decorations.html" />
@@ -70,7 +73,7 @@
         <li class="right" >
           <a href="mlab_decorations.html" title="Figure decoration functions"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+        <li><a href="../index.html">Mayavi 3.4.2 documentation</a> &raquo;</li>
           <li><a href="mlab_reference.html" accesskey="U">MLab reference</a> &raquo;</li> 
       </ul>
     </div>  
@@ -99,7 +102,7 @@ instructions on running the examples.</p>
 <dt>::</dt>
 <dd><p class="first">Translates the camera and focal point together.</p>
 <blockquote class="last">
-<p>The arguments specify the relative distance to translate the
+<div><p>The arguments specify the relative distance to translate the
 camera and focal point, so as to produce the appearence of
 moving the camera without changing the effective field of view.
 If called with no arguments, the function returns the absolute
@@ -109,22 +112,22 @@ system.</p>
 return value with no arguments is in an absolute coordinate system.</p>
 <p><strong>Keyword arguments</strong>:</p>
 <blockquote>
-<table class="docutils field-list" frame="void" rules="none">
+<div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">forward:</th><td class="field-body">float, optional. The distance in space to translate the
+<tr class="field-odd field"><th class="field-name">forward:</th><td class="field-body">float, optional. The distance in space to translate the
 camera forward (if positive) or backward (if negative)</td>
 </tr>
-<tr class="field"><th class="field-name">right:</th><td class="field-body">float, optional.  The distance in space to translate the
+<tr class="field-even field"><th class="field-name">right:</th><td class="field-body">float, optional.  The distance in space to translate the
 camera to the right (if positive) or left (if negative)</td>
 </tr>
-<tr class="field"><th class="field-name">up:</th><td class="field-body">float, optional. The distance in space to translate the
+<tr class="field-odd field"><th class="field-name">up:</th><td class="field-body">float, optional. The distance in space to translate the
 camera up (if positive) or down (if negative)</td>
 </tr>
 </tbody>
 </table>
-</blockquote>
+</div></blockquote>
 <p><strong>Returns</strong>:</p>
 <p>If no arguments are supplied (or all are None), returns a
 tuple (camera_position, focal_point_position)</p>
@@ -161,8 +164,8 @@ tuple (camera_position, focal_point_position)</p>
 :mlab.roll: control the absolute roll angle of the camera
 :mlab.view: set the camera position relative to the focal point instead</p>
 <blockquote>
-of in absolute space</blockquote>
-</blockquote>
+<div>of in absolute space</div></blockquote>
+</div></blockquote>
 </dd>
 </dl>
 </dd></dl>
@@ -185,11 +188,11 @@ system.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Mlab.yaw :</th><td class="field-body">relative rotation about the &#8220;up&#8221; direction</td>
+<tr class="field-odd field"><th class="field-name">Mlab.yaw :</th><td class="field-body">relative rotation about the &#8220;up&#8221; direction</td>
 </tr>
-<tr class="field"><th class="field-name">Mlab.roll :</th><td class="field-body">absolute roll angle (i.e. &#8220;up&#8221; direction)</td>
+<tr class="field-even field"><th class="field-name">Mlab.roll :</th><td class="field-body">absolute roll angle (i.e. &#8220;up&#8221; direction)</td>
 </tr>
-<tr class="field"><th class="field-name">Mlab.move :</th><td class="field-body">relative  translation of the camera and focal
+<tr class="field-odd field"><th class="field-name">Mlab.move :</th><td class="field-body">relative  translation of the camera and focal
 point</td>
 </tr>
 </tbody>
@@ -208,7 +211,7 @@ point</td>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Mlab.view :</th><td class="field-body">control the position and direction of the camera</td>
+<tr class="field-odd field"><th class="field-name">Mlab.view :</th><td class="field-body">control the position and direction of the camera</td>
 </tr>
 </tbody>
 </table>
@@ -222,11 +225,11 @@ point</td>
 <tt class="descclassname">enthought.mayavi.mlab.</tt><tt class="descname">view</tt><big>(</big><em>azimuth=None</em>, <em>elevation=None</em>, <em>distance=None</em>, <em>focalpoint=None</em>, <em>reset_roll=True</em>, <em>figure=None</em><big>)</big><a class="headerlink" href="#enthought.mayavi.mlab.view" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets/Gets the view point for the camera.</p>
 <blockquote>
-<dl class="docutils">
+<div><dl class="docutils">
 <dt>view(azimuth=None, elevation=None, distance=None, focalpoint=None,</dt>
 <dd>figure=None)</dd>
 </dl>
-</blockquote>
+</div></blockquote>
 <p>If called with no arguments this returns the current view of the
 camera.  To understand how this function works imagine the surface
 of a sphere centered around the visualization.  The <cite>azimuth</cite>
@@ -242,38 +245,38 @@ will give you a typical x-y plot with x varying from left to right
 and y from bottom to top.</p>
 <p><strong>Keyword arguments</strong>:</p>
 <blockquote>
-<table class="docutils field-list" frame="void" rules="none">
+<div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">azimuth:</th><td class="field-body">float, optional. The azimuthal angle (in degrees, 0-360),
+<tr class="field-odd field"><th class="field-name">azimuth:</th><td class="field-body">float, optional. The azimuthal angle (in degrees, 0-360),
 i.e. the angle subtended by the position vector on a sphere
 projected on to the x-y plane with the x-axis.</td>
 </tr>
-<tr class="field"><th class="field-name">elevation:</th><td class="field-body">float, optional. The zenith angle (in degrees, 0-180),
+<tr class="field-even field"><th class="field-name">elevation:</th><td class="field-body">float, optional. The zenith angle (in degrees, 0-180),
 i.e. the angle subtended by the position vector and the z-axis.</td>
 </tr>
-<tr class="field"><th class="field-name">distance:</th><td class="field-body">float or &#8216;auto&#8217;, optional.
+<tr class="field-odd field"><th class="field-name">distance:</th><td class="field-body">float or &#8216;auto&#8217;, optional.
 A positive floating point number representing the distance from
 the focal point to place the camera. New in Mayavi 3.4.0: if
 &#8216;auto&#8217; is passed, the distance is computed to have a best fit of
 objects in the frame.</td>
 </tr>
-<tr class="field"><th class="field-name">focalpoint:</th><td class="field-body">array_like or &#8216;auto&#8217;, optional.
+<tr class="field-even field"><th class="field-name">focalpoint:</th><td class="field-body">array_like or &#8216;auto&#8217;, optional.
 An array of 3 floating point numbers representing the focal point
 of the camera. New in Mayavi 3.4.0: if &#8216;auto&#8217; is passed, the
 focal point is positioned at the center of all objects in the
 scene.</td>
 </tr>
-<tr class="field"><th class="field-name">reset_roll:</th><td class="field-body">boolean, optional.
+<tr class="field-odd field"><th class="field-name">reset_roll:</th><td class="field-body">boolean, optional.
 If True, the roll orientation of the camera is reset.</td>
 </tr>
-<tr class="field"><th class="field-name">figure:</th><td class="field-body">The Mayavi figure to operate on. If None is passed, the
+<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">The Mayavi figure to operate on. If None is passed, the
 current one is used.</td>
 </tr>
 </tbody>
 </table>
-</blockquote>
+</div></blockquote>
 <p><strong>Returns</strong>:</p>
 <p>If no arguments are supplied it returns a tuple of 4 values
 <tt class="docutils literal"><span class="pre">(azimuth,</span> <span class="pre">elevation,</span> <span class="pre">distance,</span> <span class="pre">focalpoint)</span></tt>, representing the
@@ -301,7 +304,7 @@ current view.  Note that these can be used later on to set the view.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Mlab.roll :</th><td class="field-body">control the roll angle of the camera, ie the direction
+<tr class="field-odd field"><th class="field-name">Mlab.roll :</th><td class="field-body">control the roll angle of the camera, ie the direction
 pointing up</td>
 </tr>
 </tbody>
@@ -326,11 +329,11 @@ system.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Mlab.pitch :</th><td class="field-body">relative rotation about the &#8220;right&#8221; direction</td>
+<tr class="field-odd field"><th class="field-name">Mlab.pitch :</th><td class="field-body">relative rotation about the &#8220;right&#8221; direction</td>
 </tr>
-<tr class="field"><th class="field-name">Mlab.roll :</th><td class="field-body">absolute roll angle (i.e. &#8220;up&#8221; direction)</td>
+<tr class="field-even field"><th class="field-name">Mlab.roll :</th><td class="field-body">absolute roll angle (i.e. &#8220;up&#8221; direction)</td>
 </tr>
-<tr class="field"><th class="field-name">Mlab.move :</th><td class="field-body">relative translation of the camera and focal
+<tr class="field-odd field"><th class="field-name">Mlab.move :</th><td class="field-body">relative translation of the camera and focal
 point</td>
 </tr>
 </tbody>
@@ -397,10 +400,21 @@ point</td>
     <input type="submit" value="Go" /></td></tr>
     <tr><td align="center" style="font-size:75%; color: #FFFFFF;">
     <input type="checkbox"  name="sitesearch"
-    value="http://code.enthought.com/projects/mayavi/docs/development/html/mayavi/" checked /> only search Mayavi documentation<br />
+    value="http://github.enthought.com/mayavi/mayavi/" checked /> only search Mayavi documentation<br />
     </td></tr></table>
 
-</form>
+    </form>
+    </div>
+    <hr/>
+    <div id="searchbox">
+	<a href="misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
+
+	<p style="font-size:85%; color: #FFFFFF;">
+    	If you publish articles using Mayavi, please 
+	<strong><a href="misc.html#citing-mayavi">cite
+	Mayavi</a></strong>. We need
+	these citations to justify time and resources on the software.
+	</p>
     </div>
 
         </div>
@@ -419,14 +433,14 @@ point</td>
         <li class="right" >
           <a href="mlab_decorations.html" title="Figure decoration functions"
              >previous</a> |</li>
-        <li><a href="../index.html">Mayavi v3.4.2 documentation</a> &raquo;</li>
+        <li><a href="../index.html">Mayavi 3.4.2 documentation</a> &raquo;</li>
           <li><a href="mlab_reference.html" >MLab reference</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Jan 28, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.5.
+      Last updated on Mar 26, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1pre/ce4bb37a1409.
     </div>
   </body>
 </html>

@@ -3,7 +3,7 @@ Development guide for TVTK
 ===========================
 :Author: Prabhu Ramachandran
 :Contact: prabhu_r@users.sourceforge.net
-:Copyright: 2004, Enthought, Inc.
+:Copyright: 2004-2011, Enthought, Inc.
 
 .. contents::
 
@@ -172,21 +172,21 @@ correct VTK data array and passed to the wrapped VTK object.
 
 For the efficient conversion to `CellArray` objects, an extension
 module is required.  The sources for this extension module are in
-`src/array_ext.*`.  The Pyrex_ source file can be used to generate the
+`src/array_ext.*`.  The Cython_ file can be used to generate the
 `src/array_ext.c` file like so::
 
   $ cd src
-  $ pyrexc array_ext.pyx
+  $ cython array_ext.pyx
 
 The sources ship with the generated source file so that folks without
-Pyrex can build it.
+Cython can build it.
 
 `special_gen.py` defines all the additional methods for the
 `DataArray` and other classes that allow these objects to support
 iteration, `__repr__`, `__getitem__` etc.
 
 
-.. _Pyrex: http://www.cosc.canterbury.ac.nz/~greg/python/Pyrex/
+.. _Cython: http://cython.org/
 
 
 The magical `tvtk` instance
