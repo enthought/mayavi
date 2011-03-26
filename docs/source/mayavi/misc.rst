@@ -4,7 +4,7 @@ Miscellaneous
 Citing Mayavi
 ---------------
 
-The core developers of Mayavi are academics. Thus justify time and
+The core developers of Mayavi are academics. Therefore they justify time and
 resources spent developing Mayavi by the number of citations of the
 software. If you publish scientific articles using Mayavi, please cite
 the following article (bibtex entry :download:`citation.bib`):
