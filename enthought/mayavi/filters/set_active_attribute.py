@@ -10,9 +10,8 @@ from enthought.tvtk.api import tvtk
 # Local imports.
 from enthought.mayavi.core.pipeline_info import PipelineInfo
 from enthought.mayavi.core.filter import Filter
-from enthought.mayavi.core.traits_inter import DEnum
-from enthought.mayavi.sources.vtk_xml_file_reader import \
-        get_all_attributes
+from enthought.mayavi.core.trait_defs import DEnum
+from enthought.mayavi.sources.vtk_xml_file_reader import get_all_attributes
 
 ################################################################################
 # `SetActiveAttribute` class.

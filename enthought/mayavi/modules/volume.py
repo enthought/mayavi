@@ -27,7 +27,7 @@ from enthought.persistence import state_pickler
 from enthought.mayavi.core.pipeline_info import PipelineInfo
 from enthought.mayavi.core.module import Module
 from enthought.mayavi.core.common import error
-from enthought.mayavi.core.traits_inter import DEnum
+from enthought.mayavi.core.trait_defs import DEnum
 from enthought.mayavi.core.lut_manager import LUTManager
 
 ######################################################################
