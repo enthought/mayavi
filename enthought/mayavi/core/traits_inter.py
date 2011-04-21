@@ -20,10 +20,9 @@
 #  Imports:
 #-------------------------------------------------------------------------------
 
-from enthought.traits.api import (Property, TraitFactory, TraitError,
-        TraitType, Int)
-from enthought.traits.ui.api import EnumEditor
-from enthought.traits.traits import trait_cast
+from traits.api import Property, TraitFactory, TraitError, TraitType, Int
+from traitsui.api import EnumEditor
+from traits.traits import trait_cast
 
 
 #-------------------------------------------------------------------------------

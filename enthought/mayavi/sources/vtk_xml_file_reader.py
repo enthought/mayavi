@@ -15,7 +15,7 @@ from enthought.tvtk.api import tvtk
 # Local imports.
 from enthought.mayavi.core.file_data_source import FileDataSource
 from enthought.mayavi.core.common import error
-from enthought.mayavi.core.traits import DEnum
+from enthought.mayavi.core.traits_inter import DEnum
 from enthought.mayavi.core.pipeline_info import (PipelineInfo,
         get_tvtk_dataset_name)
 
