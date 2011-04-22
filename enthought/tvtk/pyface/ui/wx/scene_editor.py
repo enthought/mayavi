@@ -21,9 +21,9 @@
 import wx
 
 # Enthought library imports.
-from enthought.traits.api import Any, Bool, Callable
-from enthought.traits.ui.wx.editor import Editor
-from enthought.traits.ui.basic_editor_factory import BasicEditorFactory
+from traits.api import Any, Bool, Callable
+from traitsui.wx.editor import Editor
+from traitsui.basic_editor_factory import BasicEditorFactory
 from decorated_scene import DecoratedScene
 
 #####################################################################

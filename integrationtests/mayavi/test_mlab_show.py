@@ -2,7 +2,7 @@
 
 from inspect import getmembers
 from enthought.mayavi import mlab
-from enthought.pyface.api import GUI
+from pyface.api import GUI
 
 def do_mlab():
     ############################################################

@@ -115,8 +115,8 @@ def user_outline():
 
 import numpy
 
-from enthought.traits.api import HasTraits, Range, Button, Instance, List
-from enthought.traits.ui.api import Item, View
+from traits.api import HasTraits, Range, Button, Instance, List
+from traitsui.api import Item, View
 
 ######################################################################
 # `Worker` class
@@ -128,7 +128,7 @@ class Worker(HasTraits):
     """
 
     # Set by envisage when this is contributed as a ServiceOffer.
-    window = Instance('enthought.pyface.workbench.api.WorkbenchWindow')
+    window = Instance('pyface.workbench.api.WorkbenchWindow')
 
     create_data = Button('Create data')
     reset_data = Button('Reset data')
@@ -228,7 +228,7 @@ class WorkerPlugin(Plugin):
     def _worker_view_factory(self, window, **traits):
         """ Factory method for the current selection of the engine. """
 
-        from enthought.pyface.workbench.traits_ui_view import \
+        from pyface.workbench.traits_ui_view import \
                 TraitsUIView
 
         worker = window.get_service(Worker)
@@ -252,7 +252,7 @@ if __name__ == '__main__':
     print __doc__
     print "*"*80
 
-    from enthought.util.home_directory import get_home_directory
+    from traits.util.home_directory import get_home_directory
     print "Your .mayavi2 directory should be in %s"%get_home_directory()
     print "*"*80
     sys.exit(1)

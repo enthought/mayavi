@@ -7,8 +7,8 @@ to be used by various modules.
 # License: BSD Style.
 
 # Enthought library imports.
-from enthought.traits.api import Instance, List, Trait, Bool, TraitPrefixList
-from enthought.traits.ui.api import View, Group, Item, InstanceEditor
+from traits.api import Instance, List, Trait, Bool, TraitPrefixList
+from traitsui.api import View, Group, Item, InstanceEditor
 from enthought.tvtk.api import tvtk
 from enthought.persistence.state_pickler import set_state
 

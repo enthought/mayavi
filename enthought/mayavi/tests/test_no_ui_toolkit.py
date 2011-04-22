@@ -8,7 +8,7 @@ Tests to try and ensure that important mayavi imports work with no UI.
 import sys
 import unittest
 
-from enthought.etsconfig.api import ETSConfig
+from traits.etsconfig.api import ETSConfig
 
 
 class TestNoUIToolkit(unittest.TestCase):
@@ -26,7 +26,7 @@ class TestNoUIToolkit(unittest.TestCase):
         # toolkit import and this makes life difficult as far as the
         # testing goes.  Forcing the issue here should let us test
         # safely since the Pyface imports will be done.
-        from enthought.pyface.api import GUI
+        from pyface.api import GUI
 
         # Remove any references to wx and PyQt4
         saved = {}

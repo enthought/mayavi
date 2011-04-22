@@ -2,9 +2,9 @@
 
 # Enthought library imports.
 from enthought.tvtk.pyface.tvtk_scene import TVTKScene
-from enthought.pyface.workbench.api import WorkbenchWindow
-from enthought.traits.api import HasTraits, List, Instance, Property
-from enthought.traits.api import implements, on_trait_change
+from pyface.workbench.api import WorkbenchWindow
+from traits.api import HasTraits, List, Instance, Property
+from traits.api import implements, on_trait_change
 from enthought.tvtk.plugins.scene.scene_editor import SceneEditor
 
 # Local imports.

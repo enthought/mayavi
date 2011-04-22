@@ -16,10 +16,10 @@ except ImportError, m:
     raise
 
 # Enthought library imports.
-from enthought.traits.api import (HasStrictTraits, List, Str,
+from traits.api import (HasStrictTraits, List, Str,
         Property, Instance, Event, HasTraits, Callable, Dict,
         Bool, on_trait_change)
-from enthought.traits.ui.api import View, Item
+from traitsui.api import View, Item
 from enthought.persistence import state_pickler
 from enthought.scripting.api import Recorder, recordable
 

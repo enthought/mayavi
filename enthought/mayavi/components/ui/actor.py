@@ -12,7 +12,7 @@ importing.
 # Copyright (c) 2005-2008, Enthought, Inc.
 # License: BSD Style.
 
-from enthought.traits.ui.api import (View, Group, Item, InstanceEditor,
+from traitsui.api import (View, Group, Item, InstanceEditor,
         DropEditor, Tabbed)
 from enthought.tvtk.api import tvtk
 

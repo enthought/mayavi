@@ -516,7 +516,7 @@ serially that you want to animate on a Mayavi scene.  Here is a simple
 script (called ``img_movie.py``)::
     
     # img_movie.py
-    from enthought.pyface.timer.api import Timer
+    from pyface.timer.api import Timer
 
     def animate(src, N=10):
         for j in range(N):

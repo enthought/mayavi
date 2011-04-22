@@ -12,7 +12,7 @@ importing.
 # Copyright (c) 2005-2008, Enthought, Inc.
 # License: BSD Style.
 
-from enthought.traits.ui.api \
+from traitsui.api \
     import Item, Group, View, ImageEnumEditor, InstanceEditor, HGroup
 from enthought.mayavi.core.lut_manager import lut_mode_list, \
             lut_image_dir

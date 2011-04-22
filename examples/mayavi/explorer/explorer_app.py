@@ -11,9 +11,9 @@
 import numpy
 
 # Enthought library imports
-from enthought.traits.api import HasTraits, Button, Instance, \
+from traits.api import HasTraits, Button, Instance, \
      Any, Str, Array
-from enthought.traits.ui.api import Item, View, TextEditor
+from traitsui.api import Item, View, TextEditor
 
 
 ######################################################################
@@ -29,7 +29,7 @@ class Explorer3D(HasTraits):
     # Traits.
 
     # Set by envisage when this is offered as a service offer.
-    window = Instance('enthought.pyface.workbench.api.WorkbenchWindow')
+    window = Instance('pyface.workbench.api.WorkbenchWindow')
 
     # The equation that generates the scalar field.
     equation = Str('sin(x*y*z)/(x*y*z)',

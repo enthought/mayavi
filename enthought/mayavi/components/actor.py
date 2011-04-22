@@ -6,9 +6,9 @@
 # License: BSD Style.
 
 # Enthought library imports.
-from enthought.traits.api import Instance, Bool, Enum
+from traits.api import Instance, Bool, Enum
 from enthought.tvtk.api import tvtk
-from enthought.traits.api import DelegatesTo
+from traits.api import DelegatesTo
 
 # Local imports.
 from enthought.mayavi.core.component import Component

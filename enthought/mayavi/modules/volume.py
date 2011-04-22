@@ -14,9 +14,9 @@ from math import cos, sqrt, pi
 from vtk.util import vtkConstants
 
 # Enthought library imports.
-from enthought.traits.api import Instance, Property, List, ReadOnly, \
+from traits.api import Instance, Property, List, ReadOnly, \
      Str, Button, Tuple
-from enthought.traits.ui.api import View, Group, Item, InstanceEditor, CustomEditor
+from traitsui.api import View, Group, Item, InstanceEditor, CustomEditor
 from enthought.tvtk.api import tvtk
 from enthought.tvtk.util.gradient_editor import hsva_to_rgba, GradientTable
 from enthought.tvtk.util.ctf import save_ctfs, load_ctfs, \

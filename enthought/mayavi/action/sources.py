@@ -10,9 +10,9 @@ from os.path import isfile
 import new
 
 # Enthought library imports.
-from enthought.traits.api import Instance, Str
-from enthought.pyface.api import FileDialog, OK
-from enthought.pyface.action.api import Action
+from traits.api import Instance, Str
+from pyface.api import FileDialog, OK
+from pyface.action.api import Action
 
 # Local imports
 from enthought.mayavi.plugins.script import get_imayavi

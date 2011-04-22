@@ -7,7 +7,7 @@ Tests for traits defined in enthought.mayavi.core.traits
 
 import unittest
 import numpy
-from enthought.traits.api import (HasTraits, Either, Array, Any,
+from traits.api import (HasTraits, Either, Array, Any,
                 TraitError, Float, Int)
 from enthought.mayavi.core.traits import ShadowProperty
 

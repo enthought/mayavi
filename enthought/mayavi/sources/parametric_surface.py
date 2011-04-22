@@ -7,7 +7,7 @@ the surface.
 #          Prabhu Ramachandran (prabhu [at] aero.iitb.ac.in)
 
 # Enthought library imports.
-from enthought.traits.api import Instance, Enum, Dict, Str
+from traits.api import Instance, Enum, Dict, Str
 from enthought.tvtk.api import tvtk
 
 # Local imports

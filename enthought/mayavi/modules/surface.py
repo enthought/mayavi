@@ -6,7 +6,7 @@
 
 
 # Enthought library imports.
-from enthought.traits.api import Instance, Bool
+from traits.api import Instance, Bool
 from enthought.tvtk.api import tvtk
 
 # Local imports

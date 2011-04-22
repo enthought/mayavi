@@ -13,11 +13,11 @@ import logging
 
 # Enthought library imports.
 from enthought.persistence.state_pickler import create_instance
-from enthought.etsconfig.api import ETSConfig
+from traits.etsconfig.api import ETSConfig
 if ETSConfig.toolkit in ('null', ''):
     pyface = None
 else:
-    from enthought.pyface import api as pyface
+    from pyface import api as pyface
 
 # Setup a logger for this module.
 logger = logging.getLogger(__name__)

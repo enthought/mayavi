@@ -4,7 +4,7 @@
 # Copyright (c) 2008,  Enthought, Inc.
 # License: BSD Style.
 
-from enthought.traits.api import List
+from traits.api import List
 from enthought.envisage.api import Plugin, ServiceOffer
 
 # This module's package.

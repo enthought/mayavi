@@ -5,7 +5,7 @@
 .. note::
 
     This section is only a reference describing the function, please see
-    the chapter on :ref:`simple-scripting-with-mlab` for an introduction to 
+    the chapter on :ref:`simple-scripting-with-mlab` for an introduction to
     mlab and how to interact with and assemble the functions of `mlab`.
 
     Please see the section on :ref:`running-mlab-scripts` for
@@ -98,7 +98,7 @@ axes
     
         :figure:  Must be a Scene or None.
     
-        :line_width:  The with of the lines, if any used. Must be a float.
+        :line_width:  The width of the lines, if any used. Must be a float.
                      Default: 2.0
     
         :name: the name of the vtk object created.
@@ -156,7 +156,7 @@ orientation_axes
     
         :figure:  Must be a Scene or None.
     
-        :line_width:  The with of the lines, if any used. Must be a float.
+        :line_width:  The width of the lines, if any used. Must be a float.
                      Default: 2.0
     
         :name: the name of the vtk object created.
@@ -193,7 +193,7 @@ outline
     
         :figure:  Must be a Scene or None.
     
-        :line_width:  The with of the lines, if any used. Must be a float.
+        :line_width:  The width of the lines, if any used. Must be a float.
                      Default: 2.0
     
         :name: the name of the vtk object created.
@@ -357,7 +357,7 @@ text
     
         :figure:  Must be a Scene or None.
     
-        :line_width:  The with of the lines, if any used. Must be a float.
+        :line_width:  The width of the lines, if any used. Must be a float.
                      Default: 2.0
     
         :name: the name of the vtk object created.
@@ -396,7 +396,7 @@ text3d
     
         :figure:  Must be a Scene or None.
     
-        :line_width:  The with of the lines, if any used. Must be a float.
+        :line_width:  The width of the lines, if any used. Must be a float.
                      Default: 2.0
     
         :name: the name of the vtk object created.
@@ -446,7 +446,7 @@ title
         :height: height of the title, in portion of the
                  figure height
     
-        :line_width:  The with of the lines, if any used. Must be a float.
+        :line_width:  The width of the lines, if any used. Must be a float.
                      Default: 2.0
     
         :name: the name of the vtk object created.

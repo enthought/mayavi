@@ -13,8 +13,8 @@ import logging
 
 import vtk
 
-from enthought.traits import api as traits
-from enthought.traits.ui.api import BooleanEditor, RGBColorEditor, FileEditor
+from traits import api as traits
+from traitsui.api import BooleanEditor, RGBColorEditor, FileEditor
 import messenger
 
 # Setup a logger for this module.

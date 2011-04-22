@@ -9,9 +9,9 @@
 from os.path import splitext, isfile
 
 # Enthought library imports.
-from enthought.traits.api import HasTraits, Any, List
-from enthought.traits.ui.menu import Action, Menu
-from enthought.pyface.api import FileDialog, OK, GUI
+from traits.api import HasTraits, Any, List
+from traitsui.menu import Action, Menu
+from pyface.api import FileDialog, OK, GUI
 
 # Local imports.
 from enthought.mayavi.core.registry import registry

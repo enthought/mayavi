@@ -11,9 +11,9 @@ ImageData/StructuredPoints/RectilinearGrid.
 import cPickle
 
 # Enthought library imports.
-from enthought.traits.api import Instance, Property, Bool, Int, \
+from traits.api import Instance, Property, Bool, Int, \
      Trait, TraitMap, Button
-from enthought.traits.ui.api import View, Group, Item
+from traitsui.api import View, Group, Item
 from enthought.tvtk.api import tvtk
 from enthought.persistence import state_pickler
 

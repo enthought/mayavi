@@ -3,8 +3,8 @@
 # License: BSD Style.
 
 # Enthought library imports.
-from enthought.traits.api import Instance, List, Str, Bool
-from enthought.traits.ui.api import View, Group, Item
+from traits.api import Instance, List, Str, Bool
+from traitsui.api import View, Group, Item
 from enthought.tvtk.api import tvtk
 
 # Local imports.

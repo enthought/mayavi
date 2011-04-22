@@ -16,7 +16,7 @@ import copy
 import numpy as np
 
 # Enthought imports
-from enthought.pyface.timer.api import do_later
+from pyface.timer.api import do_later
 
 #  imports
 from enthought.tvtk.api import tvtk

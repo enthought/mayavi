@@ -14,7 +14,7 @@ a convenient option to create "filled contours".
 import numpy
 
 # Enthought library imports.
-from enthought.traits.api import Instance, List, Tuple, Bool, Range, \
+from traits.api import Instance, List, Tuple, Bool, Range, \
                                  Float, Property
 from enthought.tvtk.api import tvtk
 

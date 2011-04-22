@@ -9,8 +9,8 @@
 from enthought.preferences.api import get_default_preferences
 from enthought.tvtk.pyface.tvtk_scene import TVTKScene
 from enthought.tvtk.pyface.api import DecoratedScene
-from enthought.pyface.workbench.api import Editor
-from enthought.traits.api import Instance
+from pyface.workbench.api import Editor
+from traits.api import Instance
 
 
 #### Handy functions ##########################################################

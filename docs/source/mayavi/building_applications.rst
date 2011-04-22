@@ -50,8 +50,8 @@ A view of this object, as a dialog, can be created using the
 specified the embedded Mayavi scene can be represented with the usual
 widget for scene by specifying for it the `SceneEditor`::
 
-    from enthought.traits.api import HasTraits, Instance
-    from enthought.traits.ui.api import View, Item
+    from traits.api import HasTraits, Instance
+    from traitsui.api import View, Item
     from enthought.tvtk.pyface.scene_model import SceneModel
     from enthought.tvtk.pyface.scene_editor import SceneEditor
 
@@ -155,9 +155,9 @@ Modifying the plot for new parameters could be written::
 
 In a dialog, this would be::
 
-    from enthought.traits.api import HasTraits, Range, Instance, \
+    from traits.api import HasTraits, Range, Instance, \
                         on_trait_change
-    from enthought.traits.ui.api import View, Item, HGroup
+    from traitsui.api import View, Item, HGroup
     from enthought.tvtk.pyface.scene_editor import SceneEditor
     from enthought.mayavi.tools.mlab_scene_model import \
                         MlabSceneModel

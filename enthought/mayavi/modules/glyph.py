@@ -7,8 +7,8 @@
 
 
 # Enthought library imports.
-from enthought.traits.api import Instance
-from enthought.traits.ui.api import View, Group, Item
+from traits.api import Instance
+from traitsui.api import View, Group, Item
 
 # Local imports
 from enthought.mayavi.core.module import Module

@@ -7,8 +7,8 @@ plots the data with optional contouring and scalar warping.
 # License: BSD Style.
 
 # Enthought library imports.
-from enthought.traits.api import Instance, Bool
-from enthought.traits.ui.api import View, Group, Item, InstanceEditor
+from traits.api import Instance, Bool
+from traitsui.api import View, Group, Item, InstanceEditor
 
 # Local imports
 from enthought.mayavi.core.module import Module

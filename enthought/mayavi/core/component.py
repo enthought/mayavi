@@ -6,7 +6,7 @@
 # License: BSD Style.
 
 # Enthought library imports.
-from enthought.traits.api import List
+from traits.api import List
 
 # Local imports.
 from enthought.mayavi.core.pipeline_base import PipelineBase

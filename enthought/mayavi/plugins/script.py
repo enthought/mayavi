@@ -10,7 +10,7 @@ safe to instantiate as many Script instances as desired.
 # License: BSD Style.
 
 # Enthought imports
-from enthought.traits.api import HasTraits, Instance
+from traits.api import HasTraits, Instance
 
 # Local imports
 from enthought.mayavi.core.engine import Engine
@@ -44,7 +44,7 @@ class Script(HasTraits):
     """
 
     # The workbench window we are associated with.
-    window = Instance('enthought.pyface.workbench.api.WorkbenchWindow')
+    window = Instance('pyface.workbench.api.WorkbenchWindow')
 
     # The MayaVi engine that we are managing.
     engine = Instance(Engine)

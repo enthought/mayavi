@@ -18,19 +18,19 @@
 import random
 
 # Enthought library imports.
-from enthought.pyface.api import FileDialog
-from enthought.pyface.api import GUI
-from enthought.pyface.api import OK
-from enthought.pyface.api import PythonShell
-from enthought.pyface.api import SplitApplicationWindow
+from pyface.api import FileDialog
+from pyface.api import GUI
+from pyface.api import OK
+from pyface.api import PythonShell
+from pyface.api import SplitApplicationWindow
 from enthought.tvtk.pyface.api import Scene
 from enthought.tvtk.pyface.actors import arrow_actor, axes_actor, cone_actor, \
                                          cube_actor, cylinder_actor, \
                                          earth_actor, sphere_actor
-from enthought.pyface.action.api import Action, Group, MenuBarManager, \
+from pyface.action.api import Action, Group, MenuBarManager, \
                                         MenuManager, Separator
 
-from enthought.traits.api import Float, Str, Instance
+from traits.api import Float, Str, Instance
 
 
 class ExitAction(Action):

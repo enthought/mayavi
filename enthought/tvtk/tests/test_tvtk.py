@@ -20,7 +20,7 @@ import numpy
 from enthought.tvtk import tvtk_base
 from enthought.tvtk.common import get_tvtk_name
 
-from enthought.traits.api import TraitError
+from traits.api import TraitError
 
 
 try:

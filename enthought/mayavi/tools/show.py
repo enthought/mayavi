@@ -2,11 +2,11 @@
 # Copyright (c) 2008, Enthought, Inc.
 # License: BSD Style.
 
-from enthought.etsconfig.api import ETSConfig
-from enthought.pyface.api import GUI, ApplicationWindow
-from enthought.traits.api import HasTraits, Button, Any
-from enthought.traits.ui.api import View, Group, Item
-from enthought.util import guisupport
+from traits.etsconfig.api import ETSConfig
+from pyface.api import GUI, ApplicationWindow
+from traits.api import HasTraits, Button, Any
+from traitsui.api import View, Group, Item
+from traits.util import guisupport
 
 # Globals.
 # The GUI instance.

@@ -7,9 +7,9 @@ Simple utility code for animations.
 
 import types
 
-from enthought.pyface.timer.api import Timer
-from enthought.traits.api import HasTraits, Button, Instance, Range
-from enthought.traits.ui.api import View, Group, Item
+from pyface.timer.api import Timer
+from traits.api import HasTraits, Button, Instance, Range
+from traitsui.api import View, Group, Item
 
 ################################################################################
 # `Animator` class.

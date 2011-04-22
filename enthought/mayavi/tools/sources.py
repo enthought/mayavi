@@ -11,7 +11,7 @@ import operator
 
 import numpy as np
 
-from enthought.traits.api import (HasTraits, Instance, CArray, Either,
+from traits.api import (HasTraits, Instance, CArray, Either,
             Bool, on_trait_change, NO_COMPARE)
 from enthought.tvtk.api import tvtk
 from enthought.tvtk.common import camel2enthought

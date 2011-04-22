@@ -1,6 +1,6 @@
 
 
-.. _mlab-pipeline-reference: 
+.. _mlab-pipeline-reference:
 
 MLab pipeline reference
 ========================

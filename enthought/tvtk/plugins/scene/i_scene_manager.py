@@ -3,8 +3,8 @@
 
 # Enthought library imports.
 from enthought.tvtk.pyface.tvtk_scene import TVTKScene
-from enthought.pyface.workbench.api import WorkbenchWindow
-from enthought.traits.api import Interface, List, Instance
+from pyface.workbench.api import WorkbenchWindow
+from traits.api import Interface, List, Instance
 
 
 class ISceneManager(Interface):

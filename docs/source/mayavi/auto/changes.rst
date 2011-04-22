@@ -1123,7 +1123,7 @@ Mayavi 3.0.0
     - Added a menu item to allow a user to run a Python script from the
       UI.
     - API: Added a close method to
-      `enthought.pyface.tvtk.tvtk_scene.TVTKScene`.  This class is
+      `pyface.tvtk.tvtk_scene.TVTKScene`.  This class is
       inherited by all Scenes (DecoratedScene and Scene).  The close
       method shuts down the scene properly.  This should hopefully
       prevent async errors when closing editors/windows containing

@@ -9,7 +9,7 @@ TVTK object to ensure that the test works with TVTK objects.
 
 import unittest
 
-from enthought.traits.api import (HasTraits, Float, Instance,
+from traits.api import (HasTraits, Float, Instance,
         Str, List, Bool)
 from enthought.tvtk.api import tvtk
 from enthought.scripting.api import (Recorder, recordable,

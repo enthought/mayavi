@@ -11,10 +11,10 @@ from os.path import join
 # Enthought library imports
 from enthought.tvtk.tools.ivtk import IVTK
 from enthought.tvtk.pyface.api import DecoratedScene
-from enthought.traits.api import Callable
-from enthought.pyface.api import ImageResource
-from enthought.pyface.action.api import Action, Group
-from enthought.resource.api import resource_path
+from traits.api import Callable
+from pyface.api import ImageResource
+from pyface.action.api import Action, Group
+from pyface.resource.api import resource_path
 
 # Local imports
 from enthought.mayavi.core.common import error

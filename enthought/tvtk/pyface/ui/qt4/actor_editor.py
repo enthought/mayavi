@@ -10,9 +10,9 @@
 from PyQt4 import QtGui
 
 # Enthought library imports.
-from enthought.traits.api import Any, Bool, Callable, Dict, Str
-from enthought.traits.ui.qt4.editor import Editor
-from enthought.traits.ui.basic_editor_factory import BasicEditorFactory
+from traits.api import Any, Bool, Callable, Dict, Str
+from traitsui.qt4.editor import Editor
+from traitsui.basic_editor_factory import BasicEditorFactory
 from decorated_scene import DecoratedScene
 
 #####################################################################

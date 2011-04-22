@@ -12,8 +12,8 @@ from os.path import split, join, isfile
 from glob import glob
 
 # Enthought library imports.
-from enthought.traits.api import List, Str, Instance, Int, Range
-from enthought.traits.ui.api import Group, Item, FileEditor
+from traits.api import List, Str, Instance, Int, Range
+from traitsui.api import Group, Item, FileEditor
 from enthought.persistence.state_pickler import set_state
 from enthought.persistence.file_path import FilePath
 

@@ -13,7 +13,7 @@
 import sys
 
 # Enthought library imports.
-from enthought.etsconfig.api import ETSConfig
+from traits.etsconfig.api import ETSConfig
 
 # This is set to the toolkit selection.
 _toolkit = None

@@ -8,9 +8,9 @@ input point data.
 # License: BSD Style.
 
 # Enthought library imports.
-from enthought.traits.api import Instance, Trait, Bool
-from enthought.traits.api import Enum
-from enthought.traits.ui.api import View, Group, Item
+from traits.api import Instance, Trait, Bool
+from traits.api import Enum
+from traitsui.api import View, Group, Item
 from enthought.tvtk.api import tvtk
 from enthought.tvtk.tvtk_base import TraitRevPrefixMap
 

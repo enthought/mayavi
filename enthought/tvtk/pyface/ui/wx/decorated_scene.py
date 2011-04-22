@@ -24,10 +24,10 @@ from os.path import dirname
 import wx
 
 # Enthought library imports.
-from enthought.pyface.api import ImageResource, FileDialog, OK
-from enthought.pyface.action.api import ToolBarManager, Group, Action
+from pyface.api import ImageResource, FileDialog, OK
+from pyface.action.api import ToolBarManager, Group, Action
 from enthought.tvtk.api import tvtk
-from enthought.traits.api import Instance, false, List, Either
+from traits.api import Instance, false, List, Either
 
 # Local imports.
 from scene import Scene

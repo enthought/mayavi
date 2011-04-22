@@ -13,15 +13,15 @@ import logging
 import imp
 
 # Enthought library imports.
-from enthought.traits.api import (Instance, Property, Bool, Str, Python,
+from traits.api import (Instance, Property, Bool, Str, Python,
     HasTraits, WeakRef, on_trait_change)
-from enthought.traits.ui.api import TreeNodeObject
+from traitsui.api import TreeNodeObject
 from enthought.tvtk.pyface.tvtk_scene import TVTKScene
 from enthought.persistence import state_pickler
-from enthought.resource.api import resource_path
-from enthought.pyface.image_resource import ImageResource
-from enthought.traits.ui.menu import Menu, Action, Separator
-from enthought.traits.ui.api import View
+from pyface.resource.api import resource_path
+from pyface.image_resource import ImageResource
+from traitsui.menu import Menu, Action, Separator
+from traitsui.api import View
 from enthought.scripting.api import Recorder
 
 # Local imports.

@@ -10,7 +10,7 @@ from os.path import splitext
 import logging
 
 # Enthought library imports.
-from enthought.traits.api import HasTraits, List, Instance, Dict, Str
+from traits.api import HasTraits, List, Instance, Dict, Str
 
 # Local imports.
 from enthought.mayavi.core.metadata import Metadata, import_symbol

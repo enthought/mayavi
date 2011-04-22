@@ -12,7 +12,7 @@ importing.
 # Copyright (c) 2005-2008, Enthought, Inc.
 # License: BSD Style.
 
-from enthought.traits.ui.api import Item, Group, View
+from traitsui.api import Item, Group, View
 
 view = View(Group(Item(name='filled_contours',
                        defined_when='show_filled_contours'),

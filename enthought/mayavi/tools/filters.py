@@ -13,7 +13,7 @@ helper functions.
 
 import new
 
-from enthought.traits.api import Instance, CFloat, CInt, CArray, Trait, \
+from traits.api import Instance, CFloat, CInt, CArray, Trait, \
             Enum, Property, Any, String
 from enthought.tvtk.common import camel2enthought
 from enthought.tvtk.api import tvtk

@@ -6,8 +6,8 @@ filters/components bundled into one.
 # License: BSD Style.
 
 # Enthought library imports.
-from enthought.traits.api import Instance, Bool, List
-from enthought.traits.ui.api import Item, Group, View, ListEditor
+from traits.api import Instance, Bool, List
+from traitsui.api import Item, Group, View, ListEditor
 
 # Local imports.
 from enthought.mayavi.core.pipeline_base import PipelineBase

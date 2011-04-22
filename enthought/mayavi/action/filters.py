@@ -6,8 +6,8 @@
 
 import new
 
-from enthought.pyface.action.api import Action
-from enthought.traits.api import Instance
+from pyface.action.api import Action
+from traits.api import Instance
 
 from enthought.mayavi.plugins.script import get_imayavi
 from enthought.mayavi.core.registry import registry

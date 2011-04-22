@@ -10,8 +10,8 @@ from os.path import basename
 
 # Enthought imports.
 from enthought.tvtk.api import tvtk
-from enthought.traits.api import Instance, Str
-from enthought.traits.ui.api import View, Item, FileEditor
+from traits.api import Instance, Str
+from traitsui.api import View, Item, FileEditor
 from enthought.persistence.file_path import FilePath
 from enthought.persistence.state_pickler import set_state
 

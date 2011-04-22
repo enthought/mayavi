@@ -25,8 +25,8 @@ from enthought.envisage import get_application
 from enthought.tvtk.api import tvtk
 from enthought.tvtk.tools import mlab
 from enthought.mayavi.modules.axes import Axes
-from enthought.traits.api import HasTraits, Instance
-from enthought.traits.ui.api import View, Item, Group
+from traits.api import HasTraits, Instance
+from traitsui.api import View, Item, Group
 
 # MayaVi related imports.
 from enthought.mayavi.services import IMAYAVI

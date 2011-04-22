@@ -12,7 +12,7 @@ import operator
 import numpy as np
 
 # Enthought library imports.
-from enthought.traits.api import String, CFloat, Instance, HasTraits, \
+from traits.api import String, CFloat, Instance, HasTraits, \
             Trait, CArray, true, Any, Range, Either
 import tools
 from figure import draw, gcf

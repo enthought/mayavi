@@ -1,7 +1,7 @@
 
 from numpy import c_, zeros, arange
 
-from enthought.traits.api import HasStrictTraits, \
+from traits.api import HasStrictTraits, \
     true, false, CArray, Trait, Instance
 
 from enthought.mayavi.sources.vtk_data_source import VTKDataSource
@@ -248,7 +248,7 @@ def test_structured_grid():
 
 
 if __name__ == '__main__':
-    from enthought.pyface.api import GUI
+    from pyface.api import GUI
     test_image_data()
     test_rectilinear_grid()
     test_structured_grid()

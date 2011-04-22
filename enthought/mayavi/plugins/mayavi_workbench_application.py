@@ -9,9 +9,9 @@ from os.path import dirname
 import logging
 
 # Enthought library imports.
-from enthought.traits.api import Bool
+from traits.api import Bool
 from enthought.envisage.ui.workbench.api import WorkbenchApplication
-from enthought.pyface.api import AboutDialog, ImageResource, SplashScreen
+from pyface.api import AboutDialog, ImageResource, SplashScreen
 
 # Local imports.
 import enthought.mayavi.api

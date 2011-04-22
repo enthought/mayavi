@@ -1,5 +1,5 @@
 from enthought.mayavi import mlab
-from enthought.pyface.api import GUI
+from pyface.api import GUI
 
 def close():
     """Close the scene."""

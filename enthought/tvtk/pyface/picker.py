@@ -21,9 +21,9 @@ probe for the data at that point.
 # Copyright (c) 2004, Enthought, Inc.
 # License: BSD Style.
 
-from enthought.traits.api import HasTraits, Trait, Long, Array, Any, Float, \
+from traits.api import HasTraits, Trait, Long, Array, Any, Float, \
                                  Instance, Range, true, Str
-from enthought.traits.ui.api import View, Group, Item, Handler
+from traitsui.api import View, Group, Item, Handler
 from enthought.tvtk.api import tvtk
 from enthought.tvtk.tvtk_base import TraitRevPrefixMap, false_bool_trait
 from enthought.persistence import state_pickler

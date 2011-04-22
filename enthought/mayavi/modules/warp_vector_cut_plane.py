@@ -10,8 +10,8 @@ are displayed on the warped surface as colors.
 
 
 # Enthought library imports.
-from enthought.traits.api import Instance, Bool
-from enthought.traits.ui.api import View, Group, Item, InstanceEditor
+from traits.api import Instance, Bool
+from traitsui.api import View, Group, Item, InstanceEditor
 from enthought.tvtk.api import tvtk
 
 # Local imports

@@ -7,7 +7,7 @@
 # License: BSD Style.
 
 # Enthought library imports.
-from enthought.traits.api import Dict, Event, HasTraits, Bool
+from traits.api import Dict, Event, HasTraits, Bool
 
 #####################################################################
 # `ITVTKActorModel` class

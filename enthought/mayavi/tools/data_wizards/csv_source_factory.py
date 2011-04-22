@@ -6,8 +6,8 @@ Factory used by mayavi to import csv-like files into datasets.
 # Copyright (c) 2008, Enthought, Inc.
 # License: BSD Style.
 
-from enthought.traits.api import HasTraits, Callable
-from enthought.traits.ui.api import Handler
+from traits.api import HasTraits, Callable
+from traitsui.api import Handler
 
 from enthought.mayavi.tools.data_wizards.data_source_wizard import \
         DataSourceWizardView
@@ -52,7 +52,7 @@ class CSVSourceFactory(HasTraits):
         controller.edit_traits()
 
 if __name__ == '__main__':
-    from enthought.pyface.api import GUI
+    from pyface.api import GUI
     source_factory = CSVSourceFactory()
     source_factory('mydata.csv')
     GUI().start_event_loop()

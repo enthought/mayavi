@@ -6,8 +6,8 @@
 # License: BSD Style.
 
 # Enthought library imports.
-from enthought.traits.api import Instance
-from enthought.traits.ui.api import View, Group, Item, InstanceEditor
+from traits.api import Instance
+from traitsui.api import View, Group, Item, InstanceEditor
 from enthought.tvtk.api import tvtk
 
 # Local imports.

@@ -13,7 +13,7 @@ import weakref
 import vtk
 import gc
 
-from enthought.traits import api as traits
+from traits import api as traits
 from enthought.tvtk import tvtk_base
 from enthought.tvtk.common import get_tvtk_name, camel2enthought
 

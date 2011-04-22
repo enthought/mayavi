@@ -10,8 +10,8 @@ using various Implicit Widgets.
 import cPickle
 
 # Enthought library imports.
-from enthought.traits.api import Instance, Button, Delegate
-from enthought.traits.ui.api import View, Group, Item
+from traits.api import Instance, Button, Delegate
+from traitsui.api import View, Group, Item
 from enthought.persistence import state_pickler
 
 from enthought.tvtk.api import tvtk

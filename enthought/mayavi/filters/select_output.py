@@ -7,8 +7,8 @@ source.  """
 # License: BSD Style.
 
 # Enthought library imports.
-from enthought.traits.api import Int, Range
-from enthought.traits.ui.api import View, Group, Item
+from traits.api import Int, Range
+from traitsui.api import View, Group, Item
 
 from enthought.mayavi.core.filter import Filter
 from enthought.mayavi.core.pipeline_info import PipelineInfo

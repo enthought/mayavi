@@ -16,7 +16,7 @@ import copy
 import numpy
 
 # Enthought library imports.
-from enthought.traits.api import TraitError
+from traits.api import TraitError
 
 # Local imports.
 from common import TestCase

@@ -8,10 +8,10 @@ import logging
 
 # Enthought library imports.
 from enthought.mayavi.plugins.app import get_plugins, setup_logger
-from enthought.traits.api import List
+from traits.api import List
 from enthought.envisage.api import Plugin, ServiceOffer
 from enthought.envisage.ui.workbench.api import WorkbenchApplication
-from enthought.pyface.workbench.api import Perspective, PerspectiveItem
+from pyface.workbench.api import Perspective, PerspectiveItem
 
 logger = logging.getLogger()
 
@@ -85,7 +85,7 @@ class ExplorerPlugin(Plugin):
 
     def _explorer_view_factory(self, window, **traits):
         """ Factory method for explorer views. """
-        from enthought.pyface.workbench.traits_ui_view import \
+        from pyface.workbench.traits_ui_view import \
                 TraitsUIView
 
         explorer = self._get_explorer(window)

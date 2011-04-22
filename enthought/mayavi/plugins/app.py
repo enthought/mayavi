@@ -10,9 +10,9 @@ import os.path
 import logging
 
 # Enthought library imports.
-from enthought.logger.api import LogFileHandler, FORMATTER
-from enthought.etsconfig.api import ETSConfig
-from enthought.traits.api import (HasTraits, Instance, Int,
+from traits.logger.api import LogFileHandler, FORMATTER
+from traits.etsconfig.api import ETSConfig
+from traits.api import (HasTraits, Instance, Int,
     on_trait_change, Bool)
 
 # Local imports.
@@ -93,9 +93,9 @@ def get_plugin_classes():
     """Get list of default plugin classes to use for Mayavi."""
 
     # Force the selection of a toolkit:
-    from enthought.traits.ui.api import toolkit
+    from traitsui.api import toolkit
     toolkit()
-    from enthought.etsconfig.api import ETSConfig
+    from traits.etsconfig.api import ETSConfig
     try_use_ipython = preference_manager.root.use_ipython
     use_ipython = False
     if ETSConfig.toolkit == 'wx' and try_use_ipython:
@@ -114,7 +114,7 @@ def get_plugin_classes():
     else:
         from enthought.plugins.python_shell.python_shell_plugin import PythonShellPlugin
     from enthought.plugins.text_editor.text_editor_plugin import TextEditorPlugin
-    from enthought.logger.plugin.logger_plugin import LoggerPlugin
+    from traits.logger.plugin.logger_plugin import LoggerPlugin
     from enthought.tvtk.plugins.scene.ui.scene_ui_plugin import SceneUIPlugin
     from enthought.mayavi.plugins.mayavi_ui_plugin import MayaviUIPlugin
     plugins = get_non_gui_plugin_classes()

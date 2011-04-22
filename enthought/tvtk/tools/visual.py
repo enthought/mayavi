@@ -57,14 +57,14 @@ from math import sin, cos, pi, sqrt, acos, asin
 from vtk.util import colors as color
 
 # Enthought library imports.
-from enthought.traits.api import HasTraits, Trait, Instance, Tuple, Int, \
+from traits.api import HasTraits, Trait, Instance, Tuple, Int, \
      Float, Range, Button, Array, Color, Bool, Any, List, Enum
-from enthought.traits.ui.api import View, Item, Group, RGBColorEditor, RangeEditor
-from enthought.traits.ui.message import message
+from traitsui.api import View, Item, Group, RGBColorEditor, RangeEditor
+from traitsui.message import message
 from enthought.tvtk.api import tvtk
 from enthought.tvtk.tools import ivtk
-from enthought.pyface.api import GUI
-from enthought.pyface.timer.api import Timer
+from pyface.api import GUI
+from pyface.timer.api import Timer
 from enthought.tvtk.tvtk_base import TVTKBase, vtk_color_trait
 
 

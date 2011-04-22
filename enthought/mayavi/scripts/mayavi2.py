@@ -461,7 +461,7 @@ import sys
 if not 'wx' in sys.modules:
     try:
         # Try forcing the use of wx 2.8
-        from enthought.etsconfig.api import ETSConfig
+        from traits.etsconfig.api import ETSConfig
         if ETSConfig.toolkit in ('wx', ''):
             import wxversion
             wxversion.ensureMinimal('2.8')
@@ -536,7 +536,7 @@ class MayaviOffscreen(MayaviApp):
         return s
 
     def setup_logger(self):
-        from enthought.etsconfig.api import ETSConfig
+        from traits.etsconfig.api import ETSConfig
         path = join(ETSConfig.application_data,
                     'enthought.mayavi_e3', 'mayavi.log')
         path = abspath(path)
@@ -626,9 +626,9 @@ def main():
     if OFFSCREEN:
         mayavi = MayaviOffscreen()
     else:
-        from enthought.etsconfig.api import ETSConfig
+        from traits.etsconfig.api import ETSConfig
         # Check that we have a traits backend installed
-        from enthought.traits.ui.toolkit import toolkit
+        from traitsui.toolkit import toolkit
         toolkit() # This forces the selection of a toolkit.
         if ETSConfig.toolkit in ('null', ''):
             raise ImportError, '''Could not import backend for traits

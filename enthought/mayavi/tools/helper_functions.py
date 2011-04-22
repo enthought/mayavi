@@ -25,7 +25,7 @@ from filters import ExtractVectorNormFactory, WarpScalarFactory, \
 from enthought.mayavi.core.scene import Scene
 from auto_doc import traits_doc, dedent
 import tools
-from enthought.traits.api import Array, Callable, CFloat, HasTraits, \
+from traits.api import Array, Callable, CFloat, HasTraits, \
     List, Trait, Any, Instance, TraitError, true
 import numpy
 

@@ -7,7 +7,7 @@
 # License: BSD Style.
 
 # Enthought library imports.
-from enthought.traits.api import HasTraits, Enum, List
+from traits.api import HasTraits, Enum, List
 
 # The list of datasets supported.
 DataSet = Enum('none', 'any', 'image_data', 'rectilinear_grid',

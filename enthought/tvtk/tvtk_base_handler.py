@@ -4,10 +4,10 @@
 # Copyright (c) 2008,  Enthought, Inc.
 # License: BSD Style.
 
-from enthought.traits.api import HasTraits, Str, Instance, Property, Button, List, Enum
-from enthought.traits.ui.api import Handler, UIInfo, TableEditor, View, Item
-from enthought.traits.ui.table_column import ObjectColumn
-from enthought.traits.trait_base \
+from traits.api import HasTraits, Str, Instance, Property, Button, List, Enum
+from traitsui.api import Handler, UIInfo, TableEditor, View, Item
+from traitsui.table_column import ObjectColumn
+from traits.trait_base \
     import user_name_for, xgetattr
 
 class TraitsViewObject(HasTraits):

@@ -6,9 +6,9 @@ handle transformation.
 #         Prabhu Ramachandran <prabhu_r@users.sf.net>
 
 # Enthought library imports.
-from enthought.traits.api import (Instance, List, Trait, Bool,
+from traits.api import (Instance, List, Trait, Bool,
     TraitPrefixList, Property, Dict)
-from enthought.traits.ui.api import View, Group, Item, InstanceEditor
+from traitsui.api import View, Group, Item, InstanceEditor
 from enthought.tvtk.api import tvtk
 from enthought.tvtk.common import camel2enthought
 from enthought.persistence.state_pickler import set_state

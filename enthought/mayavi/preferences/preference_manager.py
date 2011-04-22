@@ -24,9 +24,9 @@ from os.path import join
 import pkg_resources
 
 # Enthought library imports.
-from enthought.etsconfig.api import ETSConfig
-from enthought.traits.api import HasTraits, Instance
-from enthought.traits.ui.api import View, Group, Item
+from traits.etsconfig.api import ETSConfig
+from traits.api import HasTraits, Instance
+from traitsui.api import View, Group, Item
 from enthought.preferences.api import (ScopedPreferences, IPreferences,
         PreferencesHelper)
 

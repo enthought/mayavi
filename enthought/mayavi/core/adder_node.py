@@ -8,12 +8,12 @@ to the tree.
 # License: BSD Style.
 
 # Enthought library imports.
-from enthought.traits.api import (HasTraits, Str, Property, Any, Button,
+from traits.api import (HasTraits, Str, Property, Any, Button,
                                   List, Instance,
                                   ToolbarButton)
-from enthought.traits.ui.api import View, Item, Group, \
+from traitsui.api import View, Item, Group, \
         TextEditor, TreeEditor, TreeNode, ListEditor
-from enthought.pyface.api import ImageResource
+from pyface.api import ImageResource
 
 # Local imports.
 from enthought.mayavi.core.registry import registry

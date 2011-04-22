@@ -6,9 +6,9 @@
 
 
 # Enthought library imports.
-from enthought.traits.api import Instance, Bool, on_trait_change, \
+from traits.api import Instance, Bool, on_trait_change, \
         Property
-from enthought.traits.ui.api import View, Group, Item
+from traitsui.api import View, Group, Item
 from enthought.tvtk.api import tvtk
 
 # Local imports

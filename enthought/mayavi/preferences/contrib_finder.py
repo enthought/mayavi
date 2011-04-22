@@ -11,9 +11,9 @@ import sys
 from os.path import isdir, exists, join, basename
 from os import listdir
 
-from enthought.traits.api import (HasTraits, List, Str, Instance,
+from traits.api import (HasTraits, List, Str, Instance,
     DelegatesTo, Button)
-from enthought.traits.ui.api import View, Item, SetEditor
+from traitsui.api import View, Item, SetEditor
 
 
 ################################################################################

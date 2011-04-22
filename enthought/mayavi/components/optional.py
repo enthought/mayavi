@@ -9,8 +9,8 @@ add a trait in the module to enable/disable a particular component.
 # License: BSD Style.
 
 # Enthought library imports.
-from enthought.traits.api import Instance, Bool, Str, Property
-from enthought.traits.ui.api import View, Group, Item
+from traits.api import Instance, Bool, Str, Property
+from traitsui.api import View, Group, Item
 
 # Local imports.
 from enthought.mayavi.core.component import Component

@@ -1,6 +1,6 @@
 
 
-.. _mlab-reference: 
+.. _mlab-reference:
 
 MLab reference
 =================
@@ -11,8 +11,8 @@ with documentation and examples.
 .. note::
 
     This section is only a reference describing the function, please see
-    the chapter on :ref:`simple-scripting-with-mlab` for an introduction to 
-    mlab and how to run the examples or interact with and assemble 
+    the chapter on :ref:`simple-scripting-with-mlab` for an introduction to
+    mlab and how to run the examples or interact with and assemble
     the functions of `mlab`.
 
 

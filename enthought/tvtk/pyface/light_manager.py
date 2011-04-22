@@ -24,9 +24,9 @@ implementation is considerably different.
 
 from math import sin, cos, atan2, pi, sqrt
 
-from enthought.traits.api import HasTraits, Range, false, \
+from traits.api import HasTraits, Range, false, \
                                  Instance, Trait, List
-from enthought.traits.ui.api import View, Group, Handler, ListEditor, Item
+from traitsui.api import View, Group, Handler, ListEditor, Item
 from enthought.tvtk.api import tvtk
 from enthought.tvtk.tvtk_base import vtk_color_trait, TraitRevPrefixMap
 from enthought.persistence import state_pickler

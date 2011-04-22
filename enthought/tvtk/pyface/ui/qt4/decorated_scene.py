@@ -13,10 +13,10 @@ from os.path import dirname
 from PyQt4 import QtGui
 
 # Enthought library imports.
-from enthought.pyface.api import ImageResource, FileDialog, OK
-from enthought.pyface.action.api import ToolBarManager, Group, Action
+from pyface.api import ImageResource, FileDialog, OK
+from pyface.action.api import ToolBarManager, Group, Action
 from enthought.tvtk.api import tvtk
-from enthought.traits.api import Instance, false, Either, List
+from traits.api import Instance, false, Either, List
 
 # Local imports.
 from scene import Scene

@@ -1,17 +1,17 @@
 
 from numpy import ones, resize, linspace, atleast_3d
 
-from enthought.traits.api import Property, Str, Button, Trait, \
+from traits.api import Property, Str, Button, Trait, \
     Any, Instance, HasStrictTraits, false, Dict, HasTraits, \
     CArray, Bool
-from enthought.traits.ui.api import EnumEditor, View, Item, HGroup, \
+from traitsui.api import EnumEditor, View, Item, HGroup, \
     VGroup, spring, Group, TextEditor, HTMLEditor, InstanceEditor, \
     TabularEditor, TitleEditor, Label, ArrayEditor, ImageEditor
 
-from enthought.traits.ui.tabular_adapter import TabularAdapter
-from enthought.traits.ui.image.image import ImageLibrary
+from traitsui.tabular_adapter import TabularAdapter
+from traitsui.image.image import ImageLibrary
 
-from enthought.pyface.api import ImageResource
+from pyface.api import ImageResource
 
 from data_source_factory import DataSourceFactory
 from preview_window import PreviewWindow

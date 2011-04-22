@@ -10,7 +10,7 @@ Base class for factories for adding objects to the pipeline.
 import warnings
 
 from auto_doc import make_doc
-from enthought.traits.api import HasPrivateTraits, Str, TraitError,\
+from traits.api import HasPrivateTraits, Str, TraitError,\
             Instance, Any, Bool
 from enthought.mayavi.core.filter import Filter
 from enthought.mayavi.core.engine import Engine

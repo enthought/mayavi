@@ -5,7 +5,7 @@ import unittest
 
 import numpy as np
 
-from enthought.traits.api import HasTraits, Instance
+from traits.api import HasTraits, Instance
 from enthought.mayavi.tools.mlab_scene_model import MlabSceneModel
 from enthought.mayavi import mlab
 

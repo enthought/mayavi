@@ -8,9 +8,9 @@ to be used by various modules.
 
 import cPickle
 
-from enthought.traits.api import (Instance, Trait, Bool, TraitMap, Enum, Dict,
+from traits.api import (Instance, Trait, Bool, TraitMap, Enum, Dict,
                                   Str, Int)
-from enthought.traits.ui.api import View, Group, Item
+from traitsui.api import View, Group, Item
 from enthought.tvtk.api import tvtk
 from enthought.persistence.state_pickler import set_state
 

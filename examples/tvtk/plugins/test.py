@@ -13,9 +13,9 @@ import os.path
 import logging
 
 # Enthought library imports.
-from enthought.logger.api import LogFileHandler, FORMATTER
-from enthought.etsconfig.api import ETSConfig
-from enthought.traits.api import List
+from traits.logger.api import LogFileHandler, FORMATTER
+from traits.etsconfig.api import ETSConfig
+from traits.api import List
 from enthought.envisage.api import Plugin
 from enthought.envisage.ui.workbench.api import WorkbenchApplication
 from enthought.envisage.core_plugin import CorePlugin
@@ -24,7 +24,7 @@ from enthought.plugins.python_shell.python_shell_plugin import PythonShellPlugin
 from enthought.tvtk.plugins.scene.scene_plugin import ScenePlugin
 from enthought.tvtk.plugins.scene.ui.scene_ui_plugin import SceneUIPlugin
 from enthought.tvtk.plugins.browser.browser_plugin import BrowserPlugin
-from enthought.pyface.workbench.api import Perspective, PerspectiveItem
+from pyface.workbench.api import Perspective, PerspectiveItem
 
 
 logger = logging.getLogger()

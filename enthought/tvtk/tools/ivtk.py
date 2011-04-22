@@ -29,16 +29,16 @@ Here is example usage of the viewer along with tvtk under IPython:
 import os.path
 
 # Enthought library imports.
-from enthought.pyface.api import FileDialog, GUI, OK, PythonShell
-from enthought.pyface.api import SplitApplicationWindow, ApplicationWindow
-from enthought.pyface.api import SplitPanel
+from pyface.api import FileDialog, GUI, OK, PythonShell
+from pyface.api import SplitApplicationWindow, ApplicationWindow
+from pyface.api import SplitPanel
 from enthought.tvtk.pyface.api import Scene, DecoratedScene
-from enthought.pyface.action.api import Action, MenuBarManager,\
+from pyface.action.api import Action, MenuBarManager,\
      MenuManager, Separator
-from enthought.pyface.image_resource import ImageResource
-from enthought.resource.api import resource_path
+from pyface.image_resource import ImageResource
+from pyface.resource.api import resource_path
 
-from enthought.traits.api import Float, Str, Instance, Callable
+from traits.api import Float, Str, Instance, Callable
 
 from enthought.tvtk.api import tvtk
 

@@ -9,8 +9,8 @@
 from os.path import basename
 
 # Enthought imports.
-from enthought.traits.api import Instance, Str,Dict
-from enthought.traits.ui.api import View, Item, Group, Include
+from traits.api import Instance, Str,Dict
+from traitsui.api import View, Item, Group, Include
 from enthought.tvtk.api import tvtk
 
 # Local imports

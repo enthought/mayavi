@@ -8,8 +8,8 @@ poly data sources.
 # License: BSD Style.
 
 # Enthought library imports.
-from enthought.traits.api import Instance, Enum, Dict, Str
-from enthought.traits.ui.api import View, Item, Group
+from traits.api import Instance, Enum, Dict, Str
+from traitsui.api import View, Item, Group
 from enthought.tvtk.api import tvtk
 
 # Local imports

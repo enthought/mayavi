@@ -27,7 +27,7 @@ import traceback
 from os.path import join, exists
 
 # Enthought library imports.
-from enthought.util.home_directory import get_home_directory
+from traits.util.home_directory import get_home_directory
 from enthought.mayavi.preferences.api import preference_manager
 
 # The functions that return the plugins.

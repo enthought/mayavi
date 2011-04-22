@@ -6,9 +6,9 @@
 # License: BSD Style.
 
 # Enthought library imports.
-from enthought.traits.api import List, Str
+from traits.api import List, Str
 from enthought.persistence.state_pickler import set_state
-from enthought.traits.ui.menu import Action
+from traitsui.menu import Action
 from enthought.tvtk.api import write_data
 from enthought.scripting.api import recordable
 
@@ -243,7 +243,7 @@ class Source(PipelineBase):
         """Pops up a dialog box for the action to ask for a file."""
         # FIXME: in a refactor this should all go in a separate view
         # related object.
-        from enthought.pyface.api import FileDialog, OK
+        from pyface.api import FileDialog, OK
         wildcard = 'All files (*.*)|*.*|'\
                    'VTK XML files (*.xml)|*.xml|'\
                    'Image Data (*.vti)|*.vti|'\

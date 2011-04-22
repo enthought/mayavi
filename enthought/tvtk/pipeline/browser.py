@@ -34,11 +34,11 @@ TODO:
 import re
 
 # Enthought library imports.
-from enthought.traits.api import HasTraits, Property, Any, Instance, \
+from traits.api import HasTraits, Property, Any, Instance, \
                              Trait, List, Str, Dict, Python
-from enthought.traits.ui.api import \
+from traitsui.api import \
      TreeEditor, TreeNodeObject, ObjectTreeNode, View, Item, Group
-from enthought.traits.ui.menu import Menu, Action
+from traitsui.menu import Menu, Action
 
 from enthought.tvtk.api import tvtk
 from enthought.tvtk import messenger
@@ -794,7 +794,7 @@ def main(instantiate_gui=True):
 
 
 if __name__ == '__main__':
-    from enthought.pyface.api import GUI
+    from pyface.api import GUI
     gui = GUI()
     main(instantiate_gui=False)
     gui.start_event_loop()

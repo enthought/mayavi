@@ -10,7 +10,7 @@ from os.path import basename
 
 # Enthought imports.
 from enthought.tvtk.api import tvtk
-from enthought.traits.api import Instance
+from traits.api import Instance
 
 # Local imports
 from enthought.mayavi.sources.vrml_importer import VRMLImporter

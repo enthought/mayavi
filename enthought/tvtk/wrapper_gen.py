@@ -95,8 +95,8 @@ class WrapperGenerator:
         """
         prelim = """
         # Automatically generated code: EDIT AT YOUR OWN RISK
-        from enthought.traits import api as traits
-        from enthought.traits.ui import api as traitsui
+        from traits import api as traits
+        from traitsui import api as traitsui
 
         from enthought.tvtk import vtk_module as vtk
         from enthought.tvtk import tvtk_base

@@ -11,9 +11,9 @@ import subprocess
 
 
 # Enthought library imports.
-from enthought.traits.api import Instance, Range, Bool, Array, \
+from traits.api import Instance, Range, Bool, Array, \
      Str, Property, Enum, Button
-from enthought.traits.ui.api import FileEditor, auto_close_message
+from traitsui.api import FileEditor, auto_close_message
 from enthought.persistence import state_pickler
 from enthought.tvtk.api import tvtk
 

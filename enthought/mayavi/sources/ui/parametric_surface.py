@@ -12,7 +12,7 @@ importing.
 #          Judah De Paula <judah@enthought.com>
 # Copyright (c) 2005-2008, Enthought, Inc.
 # License: BSD Style.
-from enthought.traits.ui.api import Item, Group, View
+from traitsui.api import Item, Group, View
 
 view = View(Group(Item(name='function'),
                   Item(name='parametric_function',

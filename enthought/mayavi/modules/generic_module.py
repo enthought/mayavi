@@ -9,8 +9,8 @@ create new modules.
 # License: BSD Style.
 
 # Enthought library imports.
-from enthought.traits.api import Bool, Enum, Instance
-from enthought.traits.ui.api import Item, Group, View, ListEditor
+from traits.api import Bool, Enum, Instance
+from traitsui.api import Item, Group, View, ListEditor
 from enthought.persistence import state_pickler
 
 # Local imports.

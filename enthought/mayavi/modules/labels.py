@@ -5,8 +5,8 @@
 # Standard library imports.
 
 # Enthought library imports.
-from enthought.traits.api import Int, Instance, Str, TraitError
-from enthought.traits.ui.api import View, Group, Item
+from traits.api import Int, Instance, Str, TraitError
+from traitsui.api import View, Group, Item
 from enthought.tvtk.api import tvtk
 from enthought.persistence import state_pickler
 

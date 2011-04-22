@@ -8,8 +8,8 @@ from the UI, for that see the `Optional` filter.
 # License: BSD Style.
 
 # Enthought library imports.
-from enthought.traits.api import Instance, Bool, Str
-from enthought.traits.ui.api import Item, Group, View
+from traits.api import Instance, Bool, Str
+from traitsui.api import Item, Group, View
 from enthought.persistence import state_pickler
 
 # Local imports.

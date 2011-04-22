@@ -5,8 +5,8 @@
 # License: BSD Style.
 
 # Enthought library imports.
-from enthought.traits.api import Instance, Property, true
-from enthought.traits.ui.api import View, Group, HGroup, \
+from traits.api import Instance, Property, true
+from traitsui.api import View, Group, HGroup, \
         Item, BooleanEditor
 from enthought.tvtk.api import tvtk
 from enthought.persistence import state_pickler

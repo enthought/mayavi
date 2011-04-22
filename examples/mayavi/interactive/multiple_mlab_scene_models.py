@@ -16,9 +16,9 @@ the examples :ref:`example_mlab_interactive_dialog`, and
 """
 import numpy as np
 
-from enthought.traits.api import HasTraits, Instance, Button, \
+from traits.api import HasTraits, Instance, Button, \
     on_trait_change
-from enthought.traits.ui.api import View, Item, HSplit, Group
+from traitsui.api import View, Item, HSplit, Group
 
 from enthought.mayavi import mlab
 from enthought.mayavi.core.ui.api import MlabSceneModel, SceneEditor

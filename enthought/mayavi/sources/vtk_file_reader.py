@@ -9,7 +9,7 @@
 from os.path import basename
 
 # Enthought library imports.
-from enthought.traits.api import Instance
+from traits.api import Instance
 from enthought.tvtk.api import tvtk
 
 # Local imports.

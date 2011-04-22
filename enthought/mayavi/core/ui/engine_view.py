@@ -9,13 +9,13 @@
 from os.path import join
 
 # Enthought library imports.
-from enthought.traits.api import Instance, HasTraits, Any, Delegate, \
+from traits.api import Instance, HasTraits, Any, Delegate, \
         List, Either
-from enthought.traits.ui.api import (Item, TreeEditor, TreeNode,
+from traitsui.api import (Item, TreeEditor, TreeNode,
         ObjectTreeNode, View, Handler, UIInfo)
-from enthought.traits.ui.menu import ToolBar, Action, Separator
-from enthought.resource.resource_path import resource_path
-from enthought.pyface.image_resource import ImageResource
+from traitsui.menu import ToolBar, Action, Separator
+from pyface.resource.resource_path import resource_path
+from pyface.image_resource import ImageResource
 from enthought.scripting.api import start_recording, stop_recording
 
 # Local imports.

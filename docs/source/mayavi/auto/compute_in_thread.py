@@ -15,12 +15,12 @@ from time import sleep
 
 # Enthought library imports
 from enthought.mayavi.scripts import mayavi2
-from enthought.traits.api import HasTraits, Button, Instance
-from enthought.traits.ui.api import View, Item
+from traits.api import HasTraits, Button, Instance
+from traitsui.api import View, Item
 from enthought.mayavi.sources.array_source import ArraySource
 from enthought.mayavi.modules.outline import Outline
 from enthought.mayavi.modules.image_plane_widget import ImagePlaneWidget
-from enthought.pyface.api import GUI
+from pyface.api import GUI
 
 
 def make_data(dims=(128, 128, 128)):

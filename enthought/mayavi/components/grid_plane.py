@@ -6,8 +6,8 @@
 # License: BSD Style.
 
 # Enthought library imports.
-from enthought.traits.api import Instance, Enum, Int, Range
-from enthought.traits.ui.api import View, Group, Item
+from traits.api import Instance, Enum, Int, Range
+from traitsui.api import View, Group, Item
 from enthought.tvtk.api import tvtk
 from enthought.persistence import state_pickler
 

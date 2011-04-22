@@ -34,9 +34,9 @@ confused with too rich interaction.
 
 import numpy as np
 
-from enthought.traits.api import HasTraits, Instance, Array, \
+from traits.api import HasTraits, Instance, Array, \
     on_trait_change
-from enthought.traits.ui.api import View, Item, HGroup, Group
+from traitsui.api import View, Item, HGroup, Group
 
 from enthought.tvtk.api import tvtk
 from enthought.tvtk.pyface.scene import Scene

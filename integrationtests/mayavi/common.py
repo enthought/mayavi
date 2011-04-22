@@ -12,10 +12,10 @@ import traceback
 from optparse import OptionParser
 
 # Enthought library imports
-from enthought.etsconfig.api import ETSConfig
-from enthought.traits.api import  Bool, Instance
-from enthought.pyface.api import GUI
-from enthought.pyface.timer.api import do_later
+from traits.etsconfig.api import ETSConfig
+from traits.api import  Bool, Instance
+from pyface.api import GUI
+from pyface.timer.api import do_later
 from enthought.tvtk.api import tvtk
 from enthought.mayavi.plugins.app import Mayavi, setup_logger
 
@@ -307,9 +307,9 @@ class TestCase(Mayavi):
     # Use the standalone mode.
     standalone = Bool(True)
 
-    app_window = Instance('enthought.pyface.api.ApplicationWindow')
+    app_window = Instance('pyface.api.ApplicationWindow')
 
-    gui = Instance('enthought.pyface.gui.GUI')
+    gui = Instance('pyface.gui.GUI')
 
     ######################################################################
     # `Mayavi` interface.
@@ -342,7 +342,7 @@ class TestCase(Mayavi):
     def run_standalone(self):
         from enthought.mayavi.core.engine import Engine
         from enthought.mayavi.plugins.script import Script
-        from enthought.pyface.api import ApplicationWindow, GUI
+        from pyface.api import ApplicationWindow, GUI
 
         self.setup_logger()
         if self.offscreen:

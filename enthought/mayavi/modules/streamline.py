@@ -12,9 +12,9 @@ streamlines.
 from math import sqrt
 
 # Enthought library imports.
-from enthought.traits.api import Instance, Bool, TraitPrefixList, Trait, \
+from traits.api import Instance, Bool, TraitPrefixList, Trait, \
                              Delegate, Button
-from enthought.traits.ui.api import View, Group, Item, InstanceEditor
+from traitsui.api import View, Group, Item, InstanceEditor
 from enthought.tvtk.api import tvtk
 
 # Local imports

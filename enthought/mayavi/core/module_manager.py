@@ -9,7 +9,7 @@ tables.
 import numpy
 
 # Enthought library imports.
-from enthought.traits.api import List, Instance, Trait, TraitPrefixList, \
+from traits.api import List, Instance, Trait, TraitPrefixList, \
                                  HasTraits, Str
 from enthought.persistence.state_pickler import set_state
 

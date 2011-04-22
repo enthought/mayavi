@@ -7,7 +7,7 @@ mayavi registry
 # License: BSD Style.
 
 # Enthought library imports.
-from enthought.traits.api import HasTraits, Str, Callable, Either, List, Instance
+from traits.api import HasTraits, Str, Callable, Either, List, Instance
 from enthought.mayavi.core.pipeline_info import PipelineInfo
 
 

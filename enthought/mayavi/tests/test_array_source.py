@@ -10,7 +10,7 @@ import pickle
 import numpy
 
 # Enthought library imports.
-from enthought.traits.api import TraitError
+from traits.api import TraitError
 from enthought.mayavi.sources.array_source import ArraySource
 from enthought.mayavi.modules.outline import Outline
 from enthought.mayavi.modules.surface import Surface

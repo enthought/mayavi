@@ -733,7 +733,7 @@ class wxGradientEditor(wx.Frame):
 ##########################################################################
 def gradient_editor_factory(wx_parent, trait_editor):
     """This is a factory function for
-    `enthought.traits.ui.CustomEditor` and allows us to use the
+    `traitsui.CustomEditor` and allows us to use the
     `wxGradientEditorWidget` as a traits UI editor.  This currently
     assumes that the user is using TVTK.  The `wxGradientEditorWidget`
     works with VTK directly.
@@ -776,8 +776,8 @@ def make_test_table(lut=False):
 
 
 def test_trait_ui():
-    from enthought.traits.api import HasTraits, Instance, Button
-    from enthought.traits.ui.api import View, Item, CustomEditor
+    from traits.api import HasTraits, Instance, Button
+    from traitsui.api import View, Item, CustomEditor
 
     class Test(HasTraits):
         p = Instance(tvtk.VolumeProperty, ())

@@ -3,7 +3,7 @@
 
 # Enthought library imports.
 from enthought.envisage.api import Plugin
-from enthought.traits.api import List
+from traits.api import List
 
 
 class SceneUIPlugin(Plugin):

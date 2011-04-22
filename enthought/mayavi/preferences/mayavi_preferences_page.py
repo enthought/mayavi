@@ -5,9 +5,9 @@
 # License: BSD Style.
 
 # Enthought library imports.
-from enthought.traits.api import (Bool, Enum, Tuple, Range, List,
+from traits.api import (Bool, Enum, Tuple, Range, List,
         Str, Instance, HasTraits)
-from enthought.traits.ui.api import View, Group, Item, RGBColorEditor
+from traitsui.api import View, Group, Item, RGBColorEditor
 from enthought.preferences.ui.api import PreferencesPage
 
 ################################################################################

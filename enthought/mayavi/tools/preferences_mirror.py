@@ -3,7 +3,7 @@
 # License: BSD Style.
 
 # Enthought library imports.
-from enthought.traits.api import HasTraits, List, Str, Instance
+from traits.api import HasTraits, List, Str, Instance
 from enthought.preferences.api import PreferencesHelper
 
 ################################################################################

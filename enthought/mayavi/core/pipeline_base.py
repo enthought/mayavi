@@ -7,7 +7,7 @@ basically abstracts out the common parts of the pipeline interface.
 # License: BSD Style.
 
 # Enthought library imports.
-from enthought.traits.api import List, Event, Bool, Instance
+from traits.api import List, Event, Bool, Instance
 
 # Local imports.
 from enthought.mayavi.core.base import Base

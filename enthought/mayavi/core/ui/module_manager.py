@@ -12,7 +12,7 @@ importing.
 # Copyright (c) 2005-2008, Enthought, Inc.
 # License: BSD Style.
 
-from enthought.traits.ui.api import Item, Group, View, EnumEditor
+from traitsui.api import Item, Group, View, EnumEditor
 from enthought.mayavi.core.module_manager import LUT_DATA_MODE_TYPES
 
 view = View(Group(Item('scalar_lut_manager', style='custom'),

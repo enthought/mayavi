@@ -8,10 +8,10 @@
 import logging
 
 # Enthought library imports.
-from enthought.traits.api import List, on_trait_change
+from traits.api import List, on_trait_change
 from enthought.envisage.api import Plugin
-from enthought.pyface.workbench.api import Perspective, PerspectiveItem
-from enthought.etsconfig.api import ETSConfig
+from pyface.workbench.api import Perspective, PerspectiveItem
+from traits.etsconfig.api import ETSConfig
 
 logger = logging.getLogger()
 
@@ -19,7 +19,7 @@ logger = logging.getLogger()
 ENGINE_VIEW = 'enthought.mayavi.core.ui.engine_view.EngineView'
 CURRENT_SELECTION_VIEW = 'enthought.mayavi.core.engine.Engine.current_selection'
 SHELL_VIEW = 'enthought.plugins.python_shell_view'
-LOGGER_VIEW = 'enthought.logger.plugin.view.logger_view.LoggerView'
+LOGGER_VIEW = 'traits.logger.plugin.view.logger_view.LoggerView'
 
 ###############################################################################
 # `MayaviPerspective` class.
@@ -129,7 +129,7 @@ To use Mayavi, you need to load your data in "data sources" and apply "visualiza
     # Private methods.
     def _engine_view_factory(self, window, **traits):
         """ Factory method for engine views. """
-        from enthought.pyface.workbench.traits_ui_view import \
+        from pyface.workbench.traits_ui_view import \
                 TraitsUIView
         from enthought.mayavi.core.ui.engine_view import \
                             EngineView
@@ -147,7 +147,7 @@ To use Mayavi, you need to load your data in "data sources" and apply "visualiza
     def _current_selection_view_factory(self, window, **traits):
         """ Factory method for the current selection of the engine. """
 
-        from enthought.pyface.workbench.traits_ui_view import \
+        from pyface.workbench.traits_ui_view import \
                 TraitsUIView
 
         engine = self._get_engine(window)

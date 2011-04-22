@@ -31,9 +31,9 @@ the cut. The Traits callbacks do the rest for the updating.
 """
 import numpy as np
 
-from enthought.traits.api import HasTraits, Instance, Array, \
+from traits.api import HasTraits, Instance, Array, \
     Bool, Dict, on_trait_change
-from enthought.traits.ui.api import View, Item, HGroup, Group
+from traitsui.api import View, Item, HGroup, Group
 
 from enthought.tvtk.api import tvtk
 from enthought.tvtk.pyface.scene import Scene

@@ -13,7 +13,7 @@ importing.
 # License: BSD Style.
 
 
-from enthought.traits.ui.api import Item, Group, View, InstanceEditor
+from traitsui.api import Item, Group, View, InstanceEditor
 from enthought.mayavi.components.ui.actor import actor_view, texture_view
 
 view = View(

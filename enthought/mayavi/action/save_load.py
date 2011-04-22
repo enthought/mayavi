@@ -10,8 +10,8 @@ import sys
 from os.path import isfile
 
 # Enthought library imports.
-from enthought.pyface.api import FileDialog, OK
-from enthought.pyface.action.api import Action
+from pyface.api import FileDialog, OK
+from pyface.action.api import Action
 
 # Local imports
 from enthought.mayavi.plugins.script import get_imayavi

@@ -12,7 +12,7 @@ not allow for rendering.
 # Copyright (c) 2008, Enthought, Inc.
 # License: BSD Style.
 
-from enthought.traits.api import HasTraits, Any, Event, Callable
+from traits.api import HasTraits, Any, Event, Callable
 
 from enthought.mayavi.core.engine import Engine
 

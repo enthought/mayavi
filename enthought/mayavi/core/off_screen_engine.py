@@ -5,7 +5,7 @@ An off-screen mayavi engine.
 # Copyright (c) 2008, Enthought, Inc.
 # License: BSD Style.
 
-from enthought.traits.api import Callable, Str
+from traits.api import Callable, Str
 from enthought.tvtk.pyface.tvtk_scene import TVTKWindow
 from enthought.mayavi.core.engine import Engine
 from enthought.mayavi.preferences.api import set_scene_preferences

@@ -5,8 +5,8 @@ available in mayavi.  """
 # Copyright (c) 2007, Enthought, Inc.
 # License: BSD Style.
 
-from enthought.traits.api import HasTraits, Enum, Instance, Any
-from enthought.traits.ui.api import View, Item
+from traits.api import HasTraits, Enum, Instance, Any
+from traitsui.api import View, Item
 from enthought.tvtk.pyface.scene_model import SceneModel
 from enthought.tvtk.pyface.scene_editor import SceneEditor
 from enthought.tvtk.pyface import actors

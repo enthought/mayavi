@@ -7,8 +7,8 @@
 
 
 # Enthought library imports.
-from enthought.pyface.workbench.api import View
-from enthought.traits.api import Instance, on_trait_change
+from pyface.workbench.api import View
+from traits.api import Instance, on_trait_change
 
 
 class BrowserView(View):

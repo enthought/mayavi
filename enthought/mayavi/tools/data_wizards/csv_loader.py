@@ -3,15 +3,15 @@
 # License: BSD Style.
 
 
-from enthought.traits.api import HasTraits, Str, Int, Array, List, \
+from traits.api import HasTraits, Str, Int, Array, List, \
     Instance, on_trait_change, Property, Button
 
-from enthought.pyface.api import GUI
+from pyface.api import GUI
 
-from enthought.traits.ui.api import View, Item, HGroup, Group, \
+from traitsui.api import View, Item, HGroup, Group, \
     ListEditor, TabularEditor, spring, TextEditor, Controller, VSplit
 
-from enthought.traits.ui.tabular_adapter import TabularAdapter
+from traitsui.tabular_adapter import TabularAdapter
 
 from enthought.mayavi.tools.data_wizards.csv_sniff import Sniff, loadtxt, \
         array2dict
@@ -203,7 +203,7 @@ class CSVLoaderController(Controller):
 
 
 if __name__ == '__main__':
-    from enthought.pyface.api import GUI
+    from pyface.api import GUI
     csv_loader = CSVLoader(filename='mydata.csv')
     csv_loader.guess_defaults()
     controller = CSVLoaderController(model=csv_loader)

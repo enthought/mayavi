@@ -10,8 +10,8 @@ and can be masked by objects in the foreground.
 # License: BSD Style.
 
 # Enthought library imports.
-from enthought.traits.api import Instance, Str, CArray, Bool
-from enthought.traits.ui.api import View, Group, Item
+from traits.api import Instance, Str, CArray, Bool
+from traitsui.api import View, Group, Item
 
 # Local imports
 from enthought.tvtk.api import tvtk

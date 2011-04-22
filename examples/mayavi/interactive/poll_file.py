@@ -28,7 +28,7 @@ from enthought.mayavi.scripts import mayavi2
 from enthought.mayavi.sources.vtk_file_reader import VTKFileReader
 from enthought.mayavi.modules.outline import Outline
 from enthought.mayavi.modules.contour_grid_plane import ContourGridPlane
-from enthought.pyface.timer.api import Timer
+from pyface.timer.api import Timer
 
 
 ######################################################################

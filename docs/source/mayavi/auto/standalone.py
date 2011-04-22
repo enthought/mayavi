@@ -9,7 +9,7 @@ using Envisage or the Mayavi Envisage application.
 
 from os.path import join, abspath
 
-from enthought.pyface.api import GUI
+from pyface.api import GUI
 # The core Engine.
 from enthought.mayavi.core.api import Engine
 from enthought.mayavi.core.ui.engine_view import EngineView

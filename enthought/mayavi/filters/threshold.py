@@ -10,9 +10,9 @@
 import numpy as np
 
 # Enthought library imports.
-from enthought.traits.api import Instance, Range, Float, Bool, \
+from traits.api import Instance, Range, Float, Bool, \
                                  Property, Enum
-from enthought.traits.ui.api import View, Group, Item
+from traitsui.api import View, Group, Item
 from enthought.tvtk.api import tvtk
 
 # Local imports

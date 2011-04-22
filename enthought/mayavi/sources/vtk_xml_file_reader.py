@@ -8,8 +8,8 @@
 from os.path import basename
 
 # Enthought library imports.
-from enthought.traits.api import Instance, List, Str, Bool
-from enthought.traits.ui.api import View, Group, Item, Include
+from traits.api import Instance, List, Str, Bool
+from traitsui.api import View, Group, Item, Include
 from enthought.tvtk.api import tvtk
 
 # Local imports.

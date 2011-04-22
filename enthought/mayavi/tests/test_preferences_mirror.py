@@ -5,7 +5,7 @@
 import unittest
 from pkg_resources import resource_filename
 
-from enthought.traits.api import Str, Int, Bool
+from traits.api import Str, Int, Bool
 from enthought.preferences.api import set_default_preferences
 from enthought.preferences.api import Preferences, PreferencesHelper
 from enthought.mayavi.tools.preferences_mirror import PreferencesMirror

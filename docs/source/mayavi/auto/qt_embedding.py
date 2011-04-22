@@ -13,9 +13,9 @@ os.environ['ETS_TOOLKIT'] = 'qt4'
 
 from PyQt4 import QtGui, QtCore
 
-from enthought.traits.api import HasTraits, Instance, on_trait_change, \
+from traits.api import HasTraits, Instance, on_trait_change, \
     Int, Dict
-from enthought.traits.ui.api import View, Item
+from traitsui.api import View, Item
 from enthought.mayavi.core.ui.api import MayaviScene, MlabSceneModel, \
         SceneEditor
 

@@ -13,8 +13,8 @@ pipeline browser and a Python shell!
 import random
 
 # The GUI class lets us start a PyFace GUI.
-from enthought.pyface.api import GUI
-from enthought.traits.api import HasTraits, Tuple
+from pyface.api import GUI
+from traits.api import HasTraits, Tuple
 
 # The IVTK module.
 from enthought.tvtk.tools import ivtk

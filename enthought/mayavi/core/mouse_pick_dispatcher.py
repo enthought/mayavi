@@ -4,7 +4,7 @@ on a scene to picking.
 """
 
 # ETS imports
-from enthought.traits.api import HasTraits, Dict, Instance, \
+from traits.api import HasTraits, Dict, Instance, \
         Enum, Int, Callable, on_trait_change, List, Tuple
 
 from enthought.mayavi.core.scene import Scene

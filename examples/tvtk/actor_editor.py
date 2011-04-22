@@ -1,5 +1,5 @@
-from enthought.traits.api import HasTraits, Instance, Enum, Dict
-from enthought.traits.ui.api import View, Item
+from traits.api import HasTraits, Instance, Enum, Dict
+from traitsui.api import View, Item
 from enthought.tvtk.pyface.actor_model import ITVTKActorModel
 from enthought.tvtk.pyface.actor_editor import ActorEditor
 from enthought.tvtk.pyface import actors

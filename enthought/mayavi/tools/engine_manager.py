@@ -6,7 +6,7 @@ Central registry for figures with mlab.
 import warnings
 
 # Enthought librairies imports
-from enthought.traits.api import HasTraits, Instance
+from traits.api import HasTraits, Instance
 
 # Local imports
 from enthought.mayavi.preferences.api import preference_manager
@@ -26,8 +26,8 @@ def check_backend():
     """ Check if either we are in test mode, or if there is a
         suitable traits backend installed.
     """
-    from enthought.traits.ui.toolkit import toolkit
-    from enthought.etsconfig.api import ETSConfig
+    from traitsui.toolkit import toolkit
+    from traits.etsconfig.api import ETSConfig
     from enthought.mayavi.tools.engine_manager import options
 
     toolkit() # This forces the selection of a toolkit.

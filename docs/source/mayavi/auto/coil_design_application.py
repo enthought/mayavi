@@ -38,9 +38,9 @@ import numpy as np
 from scipy import linalg, special
 
 # Enthought library imports:
-from enthought.traits.api import HasTraits, Array, CFloat, List, \
+from traits.api import HasTraits, Array, CFloat, List, \
    Instance, on_trait_change, Property
-from enthought.traits.ui.api import Item, View, ListEditor, \
+from traitsui.api import Item, View, ListEditor, \
         HSplit, VSplit
 from enthought.mayavi.core.ui.api import EngineView, MlabSceneModel, \
         SceneEditor

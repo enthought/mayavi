@@ -95,9 +95,9 @@ functions::
 
 import numpy
 
-from enthought.traits.api import HasTraits, List, Instance, Any, Float, Bool, \
+from traits.api import HasTraits, List, Instance, Any, Float, Bool, \
                                  Str, Trait, Int
-from enthought.pyface.api import GUI
+from pyface.api import GUI
 
 from enthought.tvtk.api import tvtk
 from enthought.tvtk.tvtk_base import TVTKBase, vtk_color_trait

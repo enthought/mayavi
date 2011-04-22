@@ -3,8 +3,8 @@ HasTraits class providing window with a mayavi engine, to preview pipeline
 elements.
 """
 
-from enthought.traits.api import HasTraits, Instance
-from enthought.traits.ui.api import View, Item
+from traits.api import HasTraits, Instance
+from traitsui.api import View, Item
 from enthought.tvtk.pyface.scene_editor import SceneEditor
 from enthought.tvtk.pyface.scene_model import SceneModel
 from enthought.tvtk.pyface.scene import Scene
@@ -62,7 +62,7 @@ class PreviewWindow(HasTraits):
 
 
 if __name__ == '__main__':
-    from enthought.pyface.api import GUI
+    from pyface.api import GUI
     from enthought.mayavi.sources.api import ParametricSurface
     from enthought.mayavi.modules.api import Outline, Surface
     pw = PreviewWindow()

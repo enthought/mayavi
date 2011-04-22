@@ -22,9 +22,9 @@ import types
 import inspect
 
 # Enthought library imports.
-from enthought.traits.api import HasTraits, Property, List, Str, \
+from traits.api import HasTraits, Property, List, Str, \
                                  Instance, Button, Int
-from enthought.traits.ui.api import View, Group, Item, EnumEditor,\
+from traitsui.api import View, Group, Item, EnumEditor,\
                                     ListEditor, TextEditor
 from enthought.tvtk.api import tvtk
 from enthought.tvtk.common import get_tvtk_name

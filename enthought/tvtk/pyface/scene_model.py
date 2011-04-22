@@ -14,9 +14,9 @@ Caveats:
 # License: BSD Style.
 
 # Enthought library imports.
-from enthought.traits.api import Dict, Event, \
+from traits.api import Dict, Event, \
                                  Instance, List, Property
-from enthought.traits.ui.api import View, Group, Item, InstanceEditor
+from traitsui.api import View, Group, Item, InstanceEditor
 from enthought.tvtk.pyface.tvtk_scene import TVTKScene
 
 

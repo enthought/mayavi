@@ -4,7 +4,7 @@ Test the MousePickDispatcher.
 
 import unittest
 
-from enthought.traits.api import HasTraits, Instance
+from traits.api import HasTraits, Instance
 
 from enthought.mayavi.core.null_engine import NullEngine, DummyViewer
 from enthought.tvtk.api import tvtk

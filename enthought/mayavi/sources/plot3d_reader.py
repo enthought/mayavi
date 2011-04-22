@@ -11,8 +11,8 @@ files.
 from os.path import basename, isfile, exists, splitext
 
 # Enthought library imports.
-from enthought.traits.api import Trait, Instance, Str, TraitPrefixMap, Button
-from enthought.traits.ui.api import View, Group, Item, FileEditor
+from traits.api import Trait, Instance, Str, TraitPrefixMap, Button
+from traitsui.api import View, Group, Item, FileEditor
 from enthought.tvtk.api import tvtk
 from enthought.persistence.state_pickler import set_state
 from enthought.persistence.file_path import FilePath

@@ -7,7 +7,7 @@ point data.
 
 
 # Enthought library imports.
-from enthought.traits.api import Instance, Bool
+from traits.api import Instance, Bool
 
 # Local imports
 from enthought.mayavi.core.module import Module

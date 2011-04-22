@@ -18,7 +18,7 @@ from enthought.tvtk.api import tvtk
 from enthought.tvtk import messenger
 from enthought.tvtk.tvtk_base import vtk_color_trait
 
-from enthought.traits.api import HasPrivateTraits, HasTraits, Any, Int, \
+from traits.api import HasPrivateTraits, HasTraits, Any, Int, \
      Property, Instance, Event, Range, Bool, Trait, Str
 
 from enthought.tvtk.pyface import light_manager

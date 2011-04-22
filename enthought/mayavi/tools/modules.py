@@ -14,7 +14,7 @@ helper functions.
 import numpy
 import new
 
-from enthought.traits.api import Trait, CArray, Instance, CFloat, \
+from traits.api import Trait, CArray, Instance, CFloat, \
     Any, false, true, TraitTuple, Range, Bool, Property, CInt, Enum, Either
 from enthought.tvtk.api import tvtk
 from enthought.tvtk.common import camel2enthought

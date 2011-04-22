@@ -10,8 +10,8 @@ import os
 import tempfile
 
 # Enthought library imports.
-from enthought.traits.api import Instance, List, Str, Bool, Int
-from enthought.traits.ui.api import View, Group, Item
+from traits.api import Instance, List, Str, Bool, Int
+from traitsui.api import View, Group, Item
 from enthought.persistence.state_pickler \
      import gzip_string, gunzip_string, set_state
 from enthought.tvtk.api import tvtk

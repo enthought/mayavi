@@ -8,8 +8,8 @@ uses the OrientationMarkerWidget which requires VTK-4.5 and above.
 
 
 # Enthought library imports.
-from enthought.traits.api import Instance, Property
-from enthought.traits.ui.api import View, Group, Item, InstanceEditor
+from traits.api import Instance, Property
+from traitsui.api import View, Group, Item, InstanceEditor
 from enthought.tvtk.api import tvtk
 from enthought.persistence import state_pickler
 

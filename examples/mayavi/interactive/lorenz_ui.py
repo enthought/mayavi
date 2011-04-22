@@ -15,9 +15,9 @@ with Mayavi, please refer to section :ref:`builing_applications`.
 import numpy as np
 import scipy
 
-from enthought.traits.api import HasTraits, Range, Instance, \
+from traits.api import HasTraits, Range, Instance, \
         on_trait_change, Array, Tuple, Str
-from enthought.traits.ui.api import View, Item, HSplit, Group
+from traitsui.api import View, Item, HSplit, Group
 
 from enthought.mayavi import mlab
 from enthought.mayavi.core.ui.api import MayaviScene, MlabSceneModel, \

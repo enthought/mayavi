@@ -6,10 +6,10 @@
 # License: BSD Style.
 
 # Enthought library imports.
-from enthought.traits.ui.api import Item, View, HSplit, InstanceEditor
-from enthought.traits.ui.menu import Action, Separator
-from enthought.pyface.image_resource import ImageResource
-from enthought.pyface.api import GUI
+from traitsui.api import Item, View, HSplit, InstanceEditor
+from traitsui.menu import Action, Separator
+from pyface.image_resource import ImageResource
+from pyface.api import GUI
 from enthought.mayavi.core.adder_node import SceneAdderNode
 
 # Local imports.

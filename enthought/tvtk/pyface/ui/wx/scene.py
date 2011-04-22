@@ -27,10 +27,10 @@ import wx
 
 from enthought.tvtk.api import tvtk
 from enthought.tvtk import messenger
-from enthought.traits.api import Instance, Button, Any, Bool
-from enthought.traits.ui.api import View, Group, Item, InstanceEditor
+from traits.api import Instance, Button, Any, Bool
+from traitsui.api import View, Group, Item, InstanceEditor
 
-from enthought.pyface.api import Widget, GUI, FileDialog, OK
+from pyface.api import Widget, GUI, FileDialog, OK
 from enthought.tvtk.pyface import picker
 from enthought.tvtk.pyface import light_manager
 from enthought.tvtk.pyface.tvtk_scene import TVTKScene

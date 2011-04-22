@@ -9,11 +9,11 @@ A view for the Mayavi preferences outside of Envisage.
 from os.path import join
 
 # Enthought library imports.
-from enthought.traits.api import List
+from traits.api import List
 from enthought.preferences.ui.api import PreferencesManager, \
     PreferencesPage
-from enthought.pyface.api import ImageResource
-from enthought.resource.api import resource_path
+from pyface.api import ImageResource
+from pyface.resource.api import resource_path
 from enthought.preferences.ui.preferences_node import PreferencesNode
 
 # Local imports.

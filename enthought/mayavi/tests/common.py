@@ -7,7 +7,7 @@ Common code for mayavi tests.
 # License: BSD Style.
 import os.path
 
-from enthought.traits.api import HasTraits, Any, Event, Callable
+from traits.api import HasTraits, Any, Event, Callable
 
 def fixpath(filename):
     """Given a relative file path it sets the path relative to this

@@ -13,8 +13,8 @@ import sys
 from os.path import join, dirname
 
 # Enthought library imports.
-from enthought.pyface.action.api import Action
-from enthought.traits.ui.api import auto_close_message
+from pyface.action.api import Action
+from traitsui.api import auto_close_message
 
 # Local imports
 import enthought.mayavi.api
