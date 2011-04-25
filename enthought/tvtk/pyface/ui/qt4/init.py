@@ -20,7 +20,9 @@ import sys
 
 # Major package imports.
 import os
-qt_api = os.environ.get('QT_API', 'pyqt') 
+qt_api = os.environ.get('QT_API', 'pyqt')
+
+# PyQt4 version check crash PySide toolkit
 if qt_api == 'pyqt':
     from PyQt4 import QtGui, QtCore
     

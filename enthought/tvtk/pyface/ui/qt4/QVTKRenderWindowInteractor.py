@@ -204,7 +204,10 @@ class QVTKRenderWindowInteractor(QtGui.QWidget):
         if qt_api == 'pyqt':
             self._RenderWindow.SetWindowInfo(str(int(self.winId())))
         else:
-            self._RenderWindow.SetWindowInfo(str(int(pythonapi.PyCObject_AsVoidPtr(self.winId()))))
+            
+            # On Windows PySide has a bug with winID() function, so this is fix:
+            if sys.platform == "win32":
+                self._RenderWindow.SetWindowInfo(str(int(pythonapi.PyCObject_AsVoidPtr(self.winId()))))
         self._should_set_parent_info = (sys.platform == 'win32')
 
         if stereo: # stereo mode
@@ -287,13 +290,19 @@ class QVTKRenderWindowInteractor(QtGui.QWidget):
             if qt_api == 'pyqt':
                 self._RenderWindow.SetWindowInfo(str(int(self.winId())))
             else:
-                self._RenderWindow.SetWindowInfo(str(int(pythonapi.PyCObject_AsVoidPtr(self.winId()))))
+            
+                # On Windows PySide has a bug with winID() function, so this is fix:
+                if sys.platform == "win32":
+                    self._RenderWindow.SetWindowInfo(str(int(pythonapi.PyCObject_AsVoidPtr(self.winId()))))
             parent = self.parent()
             if parent is not None:
                 if qt_api == 'pyqt':
                     self._RenderWindow.SetParentInfo(str(int(self.winId())))
                 else:
-                    self._RenderWindow.SetParentInfo(str(int(pythonapi.PyCObject_AsVoidPtr(self.winId()))))
+                    
+                    # On Windows PySide has a bug with winID() function, so this is fix:
+                    if sys.platform == "win32":
+                        self._RenderWindow.SetParentInfo(str(int(pythonapi.PyCObject_AsVoidPtr(self.winId()))))
             else:
                 self._RenderWindow.SetParentInfo('')
 
