@@ -24,7 +24,12 @@ docs for more details.
 import os
 import tempfile
 
-from PyQt4 import QtCore, QtGui
+import os
+qt_api = os.environ.get('QT_API', 'pyqt') 
+if qt_api == 'pyqt':
+    from PyQt4 import QtGui, QtCore
+else:
+    from PySide import QtGui, QtCore
 
 from enthought.tvtk.api import tvtk
 from enthought.tvtk import messenger

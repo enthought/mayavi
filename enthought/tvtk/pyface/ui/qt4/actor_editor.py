@@ -7,7 +7,12 @@
 # License: BSD Style.
 
 # Major library imports.
-from PyQt4 import QtGui
+import os
+qt_api = os.environ.get('QT_API', 'pyqt') 
+if qt_api == 'pyqt':
+    from PyQt4 import QtGui
+else:
+    from PySide import QtGui
 
 # Enthought library imports.
 from traits.api import Any, Bool, Callable, Dict, Str
