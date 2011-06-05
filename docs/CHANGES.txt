@@ -923,7 +923,7 @@ Mayavi 3.0.0
 
 18, 19 July, 2008 (PR)
     - TEST/API: The mayavi tests are now split into integration and unit
-      tests.  Unit tests go into enthought/mayavi/tests.  Integration
+      tests.  Unit tests go into mayavi/tests.  Integration
       tests are in integrationtests/mayavi. Major changes:
 
         - Removed most of the image based tests except one
@@ -937,8 +937,8 @@ Mayavi 3.0.0
     - ENH: Creating a new object on the pipeline via envisage or right
       click now sets the active selection to the created object so it is
       easy to edit.
-    - API: Moving enthought/mayavi/view/engine_view.py to
-      enthought/mayavi/core/ui. [20098]
+    - API: Moving mayavi/view/engine_view.py to
+      mayavi/core/ui. [20098]
     - API: Added method to engine (get_viewer) so it gets the viewer
       associated with a particular scene. [20101]
 
@@ -1154,8 +1154,8 @@ Mayavi 3.0.0
       plugin stuff.
 
 10 May 2008 (PR):
-    - API: Moving enthought/mayavi/engine.py ->
-      enthought/mayavi/core/engine.py where it really belongs; see
+    - API: Moving mayavi/engine.py ->
+      mayavi/core/engine.py where it really belongs; see
       [18667].
 
 7,8 May 2008 (PR):

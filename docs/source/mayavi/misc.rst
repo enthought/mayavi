@@ -61,7 +61,7 @@ source directory::
 If you get an "ERROR" regarding the unavailability of coverage you may
 safely ignore it.  If for some reason nose is having difficulty running
 the tests, the tests may be found inside ``enthought/tvtk/tests`` and
-``enthought/mayavi/tests``.  You can run each of the ``test_*.py`` files
+``mayavi/tests``.  You can run each of the ``test_*.py`` files
 in these directories manually, or change your current directory to these
 directories and run ``nosetests`` there.
 
