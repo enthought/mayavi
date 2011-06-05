@@ -17,14 +17,14 @@ import sys
 import gc
 import numpy
 
-from enthought.tvtk import tvtk_base
-from enthought.tvtk.common import get_tvtk_name
+from tvtk import tvtk_base
+from tvtk.common import get_tvtk_name
 
 from traits.api import TraitError
 
 
 try:
-    from enthought.tvtk.api import tvtk
+    from tvtk.api import tvtk
 except ImportError:
     msg = """
 You need to build the tvtk_classes.zip file to run this test.
@@ -36,7 +36,7 @@ To generate tvtk_classes.zip you must do the following::
     raise ImportError, msg
 
 # Only used for testing.
-from enthought.tvtk.tvtk_classes import tvtk_helper
+from tvtk.tvtk_classes import tvtk_helper
 
 def mysum(arr):
     val = arr
@@ -83,13 +83,13 @@ class TestTVTK(unittest.TestCase):
     def test_custom(self):
         """Test if custom modules can be imported."""
 
-        # Hack to simulate a module inside enthought.tvtk.custom.
+        # Hack to simulate a module inside tvtk.custom.
         mod = new.module('xml_data_reader')
         class XMLDataReader:
             def f(self):
                 return 'f'
         setattr(mod, 'XMLDataReader', XMLDataReader)
-        sys.modules['enthought.tvtk.custom.xml_data_reader'] = mod
+        sys.modules['tvtk.custom.xml_data_reader'] = mod
 
         # Now test if this is the one imported.
         r = tvtk.XMLDataReader()
@@ -97,7 +97,7 @@ class TestTVTK(unittest.TestCase):
         self.assertEqual(r.__class__.__bases__, ())
 
         # Clean up.
-        del sys.modules['enthought.tvtk.custom.xml_data_reader']
+        del sys.modules['tvtk.custom.xml_data_reader']
 
     def test_basic(self):
         """Test a simple tvtk pipeline."""

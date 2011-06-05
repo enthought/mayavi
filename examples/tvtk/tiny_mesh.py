@@ -9,7 +9,7 @@ transparently with TVTK.
 # Copyright (c) 2004-2007, Enthought, Inc.
 # License: BSD Style.
 
-from enthought.tvtk.api import tvtk
+from tvtk.api import tvtk
 from numpy import array
 
 ### DATA

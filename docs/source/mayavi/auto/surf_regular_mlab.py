@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""Shows how to view data created by `enthought.tvtk.tools.mlab` with
+"""Shows how to view data created by `tvtk.tools.mlab` with
 mayavi2.
 """
 
@@ -10,7 +10,7 @@ mayavi2.
 import numpy
 
 from mayavi.scripts import mayavi2
-from enthought.tvtk.tools import mlab
+from tvtk.tools import mlab
 from mayavi.sources.vtk_data_source import VTKDataSource
 from mayavi.filters.warp_scalar import WarpScalar
 from mayavi.modules.outline import Outline

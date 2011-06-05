@@ -7,10 +7,10 @@ available in mayavi.  """
 
 from traits.api import HasTraits, Enum, Instance, Any
 from traitsui.api import View, Item
-from enthought.tvtk.pyface.scene_model import SceneModel
-from enthought.tvtk.pyface.scene_editor import SceneEditor
-from enthought.tvtk.pyface import actors
-from enthought.tvtk.api import tvtk
+from tvtk.pyface.scene_model import SceneModel
+from tvtk.pyface.scene_editor import SceneEditor
+from tvtk.pyface import actors
+from tvtk.api import tvtk
 
 
 ######################################################################

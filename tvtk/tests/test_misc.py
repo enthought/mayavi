@@ -10,7 +10,7 @@ import tempfile
 import os.path
 import os
 
-from enthought.tvtk.api import tvtk, write_data
+from tvtk.api import tvtk, write_data
 
 class TestMisc(unittest.TestCase):
     def setUp(self):

@@ -5,7 +5,7 @@
 # License: BSD Style.
 
 # Enthought library imports.
-from enthought.tvtk.api import tvtk
+from tvtk.api import tvtk
 
 # Local imports.
 from mayavi.core.component import Component

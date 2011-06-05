@@ -8,7 +8,7 @@
 # Enthought library imports.
 from traits.api import Instance, Enum, Int, Range
 from traitsui.api import View, Group, Item
-from enthought.tvtk.api import tvtk
+from tvtk.api import tvtk
 from apptools.persistence import state_pickler
 
 # Local imports.

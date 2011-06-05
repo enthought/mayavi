@@ -15,8 +15,8 @@ import new
 
 from traits.api import Instance, CFloat, CInt, CArray, Trait, \
             Enum, Property, Any, String
-from enthought.tvtk.common import camel2enthought
-from enthought.tvtk.api import tvtk
+from tvtk.common import camel2enthought
+from tvtk.api import tvtk
 import mayavi.filters.api as filters
 from mayavi.core.registry import registry
 from pipe_base import PipeFactory, make_function

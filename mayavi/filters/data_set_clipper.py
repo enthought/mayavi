@@ -14,7 +14,7 @@ from traits.api import Instance, Button, Delegate
 from traitsui.api import View, Group, Item
 from apptools.persistence import state_pickler
 
-from enthought.tvtk.api import tvtk
+from tvtk.api import tvtk
 
 # Local imports
 from mayavi.core.filter import Filter

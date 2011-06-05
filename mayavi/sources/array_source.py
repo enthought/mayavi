@@ -11,8 +11,8 @@ import numpy
 # Enthought library imports
 from traits.api import Instance, Trait, Str, Bool, Button, DelegatesTo
 from traitsui.api import View, Group, Item
-from enthought.tvtk.api import tvtk
-from enthought.tvtk import array_handler
+from tvtk.api import tvtk
+from tvtk import array_handler
 
 # Local imports
 from mayavi.core.source import Source

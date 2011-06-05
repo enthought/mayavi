@@ -23,7 +23,7 @@ Scene
 ====================== ========================================================
 Key attributes
 ====================== ========================================================
-``scene``		a ``TVTKScene`` (``enthought.tvtk.pyface.tvtk_scene``) 
+``scene``		a ``TVTKScene`` (``tvtk.pyface.tvtk_scene``) 
 			object which is where all the rendering occurs.
 
  ``children``		a list of ``Source`` objects.

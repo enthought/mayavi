@@ -98,14 +98,14 @@ class WrapperGenerator:
         from traits import api as traits
         from traitsui import api as traitsui
 
-        from enthought.tvtk import vtk_module as vtk
-        from enthought.tvtk import tvtk_base
-        from enthought.tvtk.tvtk_base_handler import TVTKBaseHandler
-        from enthought.tvtk import messenger
-        from enthought.tvtk.tvtk_base import deref_vtk
-        from enthought.tvtk import array_handler
-        from enthought.tvtk.array_handler import deref_array
-        from enthought.tvtk.tvtk_classes.tvtk_helper import wrap_vtk
+        from tvtk import vtk_module as vtk
+        from tvtk import tvtk_base
+        from tvtk.tvtk_base_handler import TVTKBaseHandler
+        from tvtk import messenger
+        from tvtk.tvtk_base import deref_vtk
+        from tvtk import array_handler
+        from tvtk.array_handler import deref_array
+        from tvtk.tvtk_classes.tvtk_helper import wrap_vtk
 
         """
         out.write(self.indent.format(prelim))
@@ -122,7 +122,7 @@ class WrapperGenerator:
             if base_name != 'object':
                 # Import the base class.
                 base_fname = camel2enthought(base_name)
-                _imp = "from enthought.tvtk.tvtk_classes.%(base_fname)s import %(base_name)s"%locals()
+                _imp = "from tvtk.tvtk_classes.%(base_fname)s import %(base_name)s"%locals()
                 out.write(indent.format(_imp))
                 out.write('\n\n')
 

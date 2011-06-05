@@ -477,8 +477,8 @@ class HelperGenerator:
         vtk_src_version = v.GetVTKSourceVersion()
         code = """
         import vtk
-        from enthought.tvtk import tvtk_base
-        from enthought.tvtk.common import get_tvtk_name, camel2enthought
+        from tvtk import tvtk_base
+        from tvtk.common import get_tvtk_name, camel2enthought
 
         # Caches all the classes.
         _cache = {}
@@ -498,13 +498,13 @@ class HelperGenerator:
 
         def get_module(fname):
             try:
-                mod = __import__('enthought.tvtk.custom.%%s'%%fname,
+                mod = __import__('tvtk.custom.%%s'%%fname,
                                  globals(), locals(), [fname])
             except ImportError:
                 # This is a local import since the tvtk modules are all
                 # inside the tvtk_classes ZIP file and are local to the
                 # current module: tvtk_helper.py
-                mod = __import__('enthought.tvtk.tvtk_classes.%%s'%%fname, globals(), locals(), [fname])
+                mod = __import__('tvtk.tvtk_classes.%%s'%%fname, globals(), locals(), [fname])
             return mod
 
         def get_class(name):

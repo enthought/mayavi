@@ -25,15 +25,15 @@ import os
 import tempfile
 import wx
 
-from enthought.tvtk.api import tvtk
-from enthought.tvtk import messenger
+from tvtk.api import tvtk
+from tvtk import messenger
 from traits.api import Instance, Button, Any, Bool
 from traitsui.api import View, Group, Item, InstanceEditor
 
 from pyface.api import Widget, GUI, FileDialog, OK
-from enthought.tvtk.pyface import picker
-from enthought.tvtk.pyface import light_manager
-from enthought.tvtk.pyface.tvtk_scene import TVTKScene
+from tvtk.pyface import picker
+from tvtk.pyface import light_manager
+from tvtk.pyface.tvtk_scene import TVTKScene
 
 from wxVTKRenderWindowInteractor import wxVTKRenderWindowInteractor
 

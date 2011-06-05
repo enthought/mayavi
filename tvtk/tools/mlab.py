@@ -77,7 +77,7 @@ To see nice examples of all of these look at the `test_*` functions at
 the end of this file.  Here is a quick example that uses these test
 functions::
 
- >>> from enthought.tvtk.tools import mlab
+ >>> from tvtk.tools import mlab
  >>> f = mlab.figure()
  >>> mlab.test_surf(f) # Create a spherical harmonic.
  >>> f.pop() # Remove it.
@@ -99,10 +99,10 @@ from traits.api import HasTraits, List, Instance, Any, Float, Bool, \
                                  Str, Trait, Int
 from pyface.api import GUI
 
-from enthought.tvtk.api import tvtk
-from enthought.tvtk.tvtk_base import TVTKBase, vtk_color_trait
+from tvtk.api import tvtk
+from tvtk.tvtk_base import TVTKBase, vtk_color_trait
 
-from enthought.tvtk.tools import ivtk
+from tvtk.tools import ivtk
 
 # Set this to False to not use LOD Actors.
 USE_LOD_ACTOR = True

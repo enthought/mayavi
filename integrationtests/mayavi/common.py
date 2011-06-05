@@ -16,11 +16,11 @@ from traits.etsconfig.api import ETSConfig
 from traits.api import  Bool, Instance
 from pyface.api import GUI
 from pyface.timer.api import do_later
-from enthought.tvtk.api import tvtk
+from tvtk.api import tvtk
 from mayavi.plugins.app import Mayavi, setup_logger
 
 # The TVTK window.
-from enthought.tvtk.pyface.tvtk_scene import TVTKWindow
+from tvtk.pyface.tvtk_scene import TVTKWindow
 
 # Global variables.
 VERBOSE = False

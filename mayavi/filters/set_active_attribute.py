@@ -5,7 +5,7 @@
 # Enthought library imports.
 from traits.api import Instance, List, Str, Bool
 from traitsui.api import View, Group, Item
-from enthought.tvtk.api import tvtk
+from tvtk.api import tvtk
 
 # Local imports.
 from mayavi.core.pipeline_info import PipelineInfo

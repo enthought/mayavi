@@ -4,7 +4,7 @@ the cells that intersect or touch the slice."""
 # Enthought library imports.
 from traits.api import Instance
 from traitsui.api import View, Group, Item
-from enthought.tvtk.api import tvtk
+from tvtk.api import tvtk
 
 # Local imports
 from mayavi.core.module import Module

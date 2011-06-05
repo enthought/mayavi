@@ -14,8 +14,8 @@ import vtk
 import gc
 
 from traits import api as traits
-from enthought.tvtk import tvtk_base
-from enthought.tvtk.common import get_tvtk_name, camel2enthought
+from tvtk import tvtk_base
+from tvtk.common import get_tvtk_name, camel2enthought
 
 
 # An elementary class based on vtkProperty that is used only for

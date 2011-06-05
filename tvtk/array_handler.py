@@ -26,7 +26,7 @@ except ImportError:
 import numpy
 
 # Enthought library imports.
-from enthought.tvtk.array_ext import set_id_type_array
+from tvtk.array_ext import set_id_type_array
 
 # Useful constants for VTK arrays.
 VTK_ID_TYPE_SIZE = vtk.vtkIdTypeArray().GetDataTypeSize()
@@ -117,7 +117,7 @@ class ArrayCache(object):
 
 _dummy = None
 # This makes the cache work even when the module is reloaded.
-for name in ['array_handler', 'enthought.tvtk.array_handler']:
+for name in ['array_handler', 'tvtk.array_handler']:
     if sys.modules.has_key(name):
         mod = sys.modules[name]
         if hasattr(mod, '_array_cache'):

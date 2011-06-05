@@ -15,7 +15,7 @@ from math import sqrt
 from traits.api import Instance, Bool, TraitPrefixList, Trait, \
                              Delegate, Button
 from traitsui.api import View, Group, Item, InstanceEditor
-from enthought.tvtk.api import tvtk
+from tvtk.api import tvtk
 
 # Local imports
 from mayavi.core.module import Module

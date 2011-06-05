@@ -8,7 +8,7 @@ from mayavi.sources.vtk_data_source import VTKDataSource
 from mayavi.sources.array_source import ArraySource
 from mayavi.core.source import Source
 
-from enthought.tvtk.api import tvtk
+from tvtk.api import tvtk
 
 ArrayOrNone = Trait(None, (None, CArray))
 

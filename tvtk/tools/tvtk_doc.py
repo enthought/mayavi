@@ -26,8 +26,8 @@ from traits.api import HasTraits, Property, List, Str, \
                                  Instance, Button, Int
 from traitsui.api import View, Group, Item, EnumEditor,\
                                     ListEditor, TextEditor
-from enthought.tvtk.api import tvtk
-from enthought.tvtk.common import get_tvtk_name
+from tvtk.api import tvtk
+from tvtk.common import get_tvtk_name
 
 ################################################################################
 # Utility functions.

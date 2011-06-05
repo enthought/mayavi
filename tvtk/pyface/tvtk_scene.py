@@ -14,14 +14,14 @@ functionality. See the class docs for more details.
 import os.path
 
 from apptools.persistence import state_pickler
-from enthought.tvtk.api import tvtk
-from enthought.tvtk import messenger
-from enthought.tvtk.tvtk_base import vtk_color_trait
+from tvtk.api import tvtk
+from tvtk import messenger
+from tvtk.tvtk_base import vtk_color_trait
 
 from traits.api import HasPrivateTraits, HasTraits, Any, Int, \
      Property, Instance, Event, Range, Bool, Trait, Str
 
-from enthought.tvtk.pyface import light_manager
+from tvtk.pyface import light_manager
 
 VTK_VER = tvtk.Version().vtk_version
 

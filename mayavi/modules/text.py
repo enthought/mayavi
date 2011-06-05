@@ -9,7 +9,7 @@
 from traits.api import Instance, Range, Str, Bool, Property, \
                                     Float
 from traitsui.api import View, Group, Item, InstanceEditor
-from enthought.tvtk.api import tvtk
+from tvtk.api import tvtk
 from apptools.persistence import state_pickler
 
 # Local imports

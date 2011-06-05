@@ -63,7 +63,7 @@ import weakref
 #################################################################
 _saved = {}
 
-for name in ['messenger', 'enthought.tvtk.messenger']:
+for name in ['messenger', 'tvtk.messenger']:
     if sys.modules.has_key(name):
         mod = sys.modules[name]
         if hasattr(mod, 'Messenger'):

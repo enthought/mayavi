@@ -18,7 +18,7 @@ from mayavi.modules.outline import Outline
 from mayavi.modules.iso_surface import IsoSurface
 from mayavi.modules.contour_grid_plane import ContourGridPlane
 from mayavi.modules.scalar_cut_plane import ScalarCutPlane
-from enthought.tvtk.api import tvtk
+from tvtk.api import tvtk
 
 class TestVTKDataSource(unittest.TestCase):
 

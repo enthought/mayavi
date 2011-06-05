@@ -28,11 +28,11 @@ class BrowserView(View):
     #### 'BrowserView' interface ##############################################
 
     # The pipeline browser instance that we are a view of.
-    browser = Instance('enthought.tvtk.pipeline.browser.PipelineBrowser')
+    browser = Instance('tvtk.pipeline.browser.PipelineBrowser')
 
     # The scene manager.
     scene_manager = Instance(
-        'enthought.tvtk.plugins.scene.i_scene_manager.ISceneManager'
+        'tvtk.plugins.scene.i_scene_manager.ISceneManager'
     )
 
     ###########################################################################
@@ -42,7 +42,7 @@ class BrowserView(View):
     def create_control(self, parent):
         """ Create the toolkit-specific control that represents the view. """
 
-        from enthought.tvtk.pipeline.browser import PipelineBrowser
+        from tvtk.pipeline.browser import PipelineBrowser
 
         self.browser = PipelineBrowser()
         self.browser.show(parent=parent)

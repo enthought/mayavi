@@ -10,7 +10,7 @@ from traitsui.api import View, Group, Item
 from apptools.persistence.state_pickler import set_state
 
 # Local imports.
-from enthought.tvtk.pyface.tvtk_scene import TVTKScene
+from tvtk.pyface.tvtk_scene import TVTKScene
 from mayavi.core.base import Base
 from mayavi.core.source import Source
 from mayavi.core.common import handle_children_state, exception

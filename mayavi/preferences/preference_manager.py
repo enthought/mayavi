@@ -104,7 +104,7 @@ class PreferenceManager(HasTraits):
         ETSConfig.application_home = path
         try:
             for pkg in ('mayavi.preferences',
-                        'enthought.tvtk.plugins.scene'):
+                        'tvtk.plugins.scene'):
                 pref = 'preferences.ini'
                 pref_file = pkg_resources.resource_stream(pkg, pref)
 

@@ -10,7 +10,7 @@ from StringIO import StringIO
 import copy
 
 # Enthought library imports.
-from enthought.tvtk.api import tvtk
+from tvtk.api import tvtk
 
 # Local imports.
 from common import TestCase, get_example_data

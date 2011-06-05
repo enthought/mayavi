@@ -5,9 +5,9 @@ elements.
 
 from traits.api import HasTraits, Instance
 from traitsui.api import View, Item
-from enthought.tvtk.pyface.scene_editor import SceneEditor
-from enthought.tvtk.pyface.scene_model import SceneModel
-from enthought.tvtk.pyface.scene import Scene
+from tvtk.pyface.scene_editor import SceneEditor
+from tvtk.pyface.scene_model import SceneModel
+from tvtk.pyface.scene import Scene
 
 from mayavi.core.engine import Engine
 

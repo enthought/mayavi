@@ -29,7 +29,7 @@ def zzz_reader(fname, engine):
 
     engine -- The engine the source will be associated with.
     """
-    from enthought.tvtk.api import tvtk
+    from tvtk.api import tvtk
     from mayavi.sources.vtk_data_source import VTKDataSource
     # Do your own reader stuff here, I'm just reading a VTK file with a
     # different extension here.

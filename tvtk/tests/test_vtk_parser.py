@@ -14,7 +14,7 @@ error messages but they are usually harmless.
 """
 
 import unittest
-from enthought.tvtk import vtk_parser
+from tvtk import vtk_parser
 
 import time # Only used when timing.
 import sys  # Only used when debugging.

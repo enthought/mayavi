@@ -41,7 +41,7 @@ else:
 
 import vtk
 
-from enthought.tvtk import messenger
+from tvtk import messenger
 
 
 class QVTKRenderWindowInteractor(QtGui.QWidget):

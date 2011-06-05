@@ -7,7 +7,7 @@
 
 # Enthought library imports.
 from traits.api import Instance, Bool, Enum
-from enthought.tvtk.api import tvtk
+from tvtk.api import tvtk
 from traits.api import DelegatesTo
 
 # Local imports.

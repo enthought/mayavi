@@ -23,8 +23,8 @@ from pyface.api import GUI
 from pyface.api import OK
 from pyface.api import PythonShell
 from pyface.api import SplitApplicationWindow
-from enthought.tvtk.pyface.api import DecoratedScene
-from enthought.tvtk.pyface.actors import sphere_actor, cylinder_actor, \
+from tvtk.pyface.api import DecoratedScene
+from tvtk.pyface.actors import sphere_actor, cylinder_actor, \
                                          arrow_actor, axes_actor, cone_actor, \
                                          cube_actor, earth_actor
 from pyface.action.api import Action, Group, MenuBarManager, \

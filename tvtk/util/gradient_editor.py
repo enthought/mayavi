@@ -13,7 +13,7 @@ Copyright (c) 2005-2006, Gerald Knizia and Prabhu Ramachandran
 
 from os.path import splitext
 
-from enthought.tvtk.api import tvtk
+from tvtk.api import tvtk
 
 
 ##########################################################################

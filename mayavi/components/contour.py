@@ -16,7 +16,7 @@ import numpy
 # Enthought library imports.
 from traits.api import Instance, List, Tuple, Bool, Range, \
                                  Float, Property
-from enthought.tvtk.api import tvtk
+from tvtk.api import tvtk
 
 # Local imports.
 from mayavi.core.component import Component

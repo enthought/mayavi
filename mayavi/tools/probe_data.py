@@ -5,7 +5,7 @@ arbitrary points.
 
 import numpy as np
 
-from enthought.tvtk.api import tvtk
+from tvtk.api import tvtk
 from . import tools
 
 def probe_data(mayavi_object, x, y, z, type='scalars', location='points'):

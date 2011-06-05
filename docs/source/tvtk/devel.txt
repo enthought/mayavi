@@ -194,7 +194,7 @@ The magical `tvtk` instance
 
 When one does the following::
 
-    >>> from enthought.tvtk.api import tvtk
+    >>> from tvtk.api import tvtk
 
 The imported `tvtk` is really an instance of a class and not a module!
 This is so because, the tvtk classes are almost 800 in number and they

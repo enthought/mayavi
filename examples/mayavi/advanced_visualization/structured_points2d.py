@@ -16,7 +16,7 @@ Alternatively, it can be run as::
 # License: BSD style.
 
 from numpy import arange, sqrt, sin
-from enthought.tvtk.api import tvtk
+from tvtk.api import tvtk
 from mayavi.scripts import mayavi2
 
 # Generate the scalar values.

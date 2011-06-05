@@ -10,7 +10,7 @@ from os.path import basename
 
 # Enthought library imports.
 from traits.api import Instance
-from enthought.tvtk.api import tvtk
+from tvtk.api import tvtk
 
 # Local imports.
 from mayavi.core.pipeline_info import (PipelineInfo,

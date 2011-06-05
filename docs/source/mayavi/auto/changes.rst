@@ -516,7 +516,7 @@ Fixes
 
 
 20 March, 2009 (PR):
-  - TEST/BUG: Adding a new test for the `enthought.tvtk.util.ctf` utility
+  - TEST/BUG: Adding a new test for the `tvtk.util.ctf` utility
     functions.  Also fixed a bug that affects VTK-5.2 and above where the
     range of the CTF must be set [23267]
   - BUG/CLEAN: Fixing a 5.2 specific bug in the volume module mlab function
@@ -719,7 +719,7 @@ Mayavi 3.1.0
     - NEW: Adding an ImageChangeInformation filter to let users change
       the origin, spacing and extents of input image data, [22351].
     - API: Adding a `set_viewer` function to
-      `enthought.tvtk.tools.visual` so one may specify a viewer to
+      `tvtk.tools.visual` so one may specify a viewer to
       render into.  This lets us use visual with a mayavi scene. [22363]
     - BUG: Fix a major bug with TVTK when VTK is built with 64 bit ids
       (VTK_USE_64BIT_IDS is on).  The examples and tests should all run
@@ -1160,7 +1160,7 @@ Mayavi 3.0.0
 
 7,8 May 2008 (PR):
     - API: The plugins_e3 package is now moved into plugins.  This
-      breaks the enthought.tvtk.plugins API and also the
+      breaks the tvtk.plugins API and also the
       mayavi.mayavi_*_definition modules.  The older envisage2
       plugin code is all removed. See: [18649], [18650], [18651],
       [18652], [18655], [18657], [18662].

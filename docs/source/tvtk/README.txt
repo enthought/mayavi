@@ -61,7 +61,7 @@ suite`_.
 
 This document only covers building and using TVTK from inside a
 checkout of the the enthought SVN_ repository.  The tvtk module lives
-inside `enthought.tvtk`.  To build the tvtk module and use them from
+inside `tvtk`.  To build the tvtk module and use them from
 inside the `enthought` sources do the following from the base of the
 enthought source tree (we assume here that this is in
 `/home/svn/enthought/src/lib/enthought`)::
@@ -102,7 +102,7 @@ Basic Usage
 
 An example of how tvtk can be used follows::
 
-    >>> from enthought.tvtk.api import tvtk
+    >>> from tvtk.api import tvtk
     >>> cs = tvtk.ConeSource()
     >>> cs.resolution = 36
     >>> m = tvtk.PolyDataMapper()
@@ -116,7 +116,7 @@ An example of how tvtk can be used follows::
 
 Or equivalently::
 
-    >>> from enthought.tvtk.api import tvtk
+    >>> from tvtk.api import tvtk
     >>> cs = tvtk.ConeSource(resolution=36)
     >>> m = tvtk.PolyDataMapper(input=cs.output)
     >>> p = tvtk.Property(representation='w')
@@ -127,7 +127,7 @@ instantiation.
 
 To import tvtk please use::
 
-   from enthought.tvtk.api import tvtk
+   from tvtk.api import tvtk
 
 While this is perhaps a little inconvenient, note that tvtk provides
 access to all the VTK classes.  This is the same way that the `vtk`
@@ -447,7 +447,7 @@ instance, will transparently accept a numpy array or a Python list.
 Here is a simple example demonstrating these::
 
     >>> ########################################
-    >>> from enthought.tvtk.api import tvtk
+    >>> from tvtk.api import tvtk
     >>> import numpy
     >>> data = numpy.array([[0,0,0,10], [1,0,0,20],
     ...                      [0,1,0,20], [0,0,1,30]], 'f')
@@ -505,7 +505,7 @@ in one of several ways.
        having cells of different kinds.
 
 This conversion is most efficient if the passed numpy arrays have a
-typecode of `enthought.tvtk.array_handler.ID_TYPE_CODE`.  Otherwise a
+typecode of `tvtk.array_handler.ID_TYPE_CODE`.  Otherwise a
 typecast is necessary and this involves an extra copy.  The input data
 is *always copied* during the conversion.  Here is an example
 illustrating these different approaches::
@@ -643,7 +643,7 @@ not make a copy::
 Changing the values of the ids or changing the number of cells is
 *not* recommended and will lead to undefined behaviour.  It should
 also be noted that it is best to pass cell connectivity data in arrays
-having typecode `enthought.tvtk.array_handler.ID_TYPE_CODE` (this is
+having typecode `tvtk.array_handler.ID_TYPE_CODE` (this is
 actually computed dynamically depending on your VTK build and
 platform).
 
@@ -695,7 +695,7 @@ following are to be noted.
      connectivity ids and number of cells when this is done.  Also
      note that for the `CellArray` it is best to pass data in the form
      of numpy arrays having a typecode of
-     `enthought.tvtk.array_handler.ID_TYPE_CODE`).  Otherwise one
+     `tvtk.array_handler.ID_TYPE_CODE`).  Otherwise one
      incurs an extra copy due to a typecast.
 
   4. `IdList` always makes a copy of the data.  This class is very
@@ -748,8 +748,8 @@ For a stand-alone application one may simply run the module.  To use
 this under IPython_ (with -wthread) use the `viewer()` helper
 function.  For example::
 
-    >>> from enthought.tvtk.tools import ivtk
-    >>> from enthought.tvtk.api import tvtk
+    >>> from tvtk.tools import ivtk
+    >>> from tvtk.api import tvtk
     >>> # Create your actor ...
     >>> a = tvtk.Actor()
     >>> # Now create the viewer.
@@ -782,7 +782,7 @@ visualization capability is implemented as a class that has traits.
 So each of these may be configured.  Each visualization class derives
 (ultimately) from MLabBase which is responsible for adding/removing
 its actors into the render window.  The classes all require that the
-RenderWindow be a `enthought.tvtk.scene.Scene` instance (this constraint
+RenderWindow be a `tvtk.scene.Scene` instance (this constraint
 can be relaxed if necessary later on).
 
 This module offers the following broad class of functionality:
@@ -847,7 +847,7 @@ To see nice examples of all of these look at the `test_*` functions at
 the end of the mlab.py file.  Here is a quick example that uses some
 of these test functions::
 
- >>> from enthought.tvtk.tools import mlab
+ >>> from tvtk.tools import mlab
  >>> f = mlab.figure()
  >>> mlab.test_surf(f) # Create a spherical harmonic.
  >>> f.pop() # Remove it.
@@ -871,7 +871,7 @@ use `mlab`::
  >>> y = r*cos(phi)
  >>> z = r*sin(phi)*sin(theta)
  >>> # Now show the surface.
- >>> from enthought.tvtk.tools import mlab
+ >>> from tvtk.tools import mlab
  >>> fig = mlab.figure()
  >>> s = Surf(x, y, z, z)
  >>> fig.add(s)

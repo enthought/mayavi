@@ -14,8 +14,8 @@ from traits.api import Instance, List, Str, Bool, Int
 from traitsui.api import View, Group, Item
 from apptools.persistence.state_pickler \
      import gzip_string, gunzip_string, set_state
-from enthought.tvtk.api import tvtk
-from enthought.tvtk import messenger
+from tvtk.api import tvtk
+from tvtk import messenger
 
 # Local imports.
 from mayavi.core.source import Source
@@ -238,7 +238,7 @@ class VTKDataSource(Source):
         # Add an observer to the VTK dataset after removing the one
         # for the old dataset.  We use the messenger to avoid an
         # uncollectable reference cycle.  See the
-        # enthought.tvtk.messenger module documentation for details.
+        # tvtk.messenger module documentation for details.
         if old is not None:
             old.remove_observer(self._observer_id)
         self._observer_id = new.add_observer('ModifiedEvent',

@@ -29,7 +29,7 @@ Alternatively it can be run as::
 # License: BSD Style.
 
 import numpy as np
-from enthought.tvtk.api import tvtk
+from tvtk.api import tvtk
 from mayavi.scripts import mayavi2
 
 

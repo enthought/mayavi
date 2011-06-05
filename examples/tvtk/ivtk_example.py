@@ -17,12 +17,12 @@ from pyface.api import GUI
 from traits.api import HasTraits, Tuple
 
 # The IVTK module.
-from enthought.tvtk.tools import ivtk
+from tvtk.tools import ivtk
 
 # The actors module has a few helper functions that allow one to
 # create simple shapes easily.  These functions return TVTK Actor
 # instances.  We use it here for convenience.
-from enthought.tvtk.pyface import actors
+from tvtk.pyface import actors
 
 # Create a GUI instance.
 gui = GUI()

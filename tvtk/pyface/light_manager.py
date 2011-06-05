@@ -27,8 +27,8 @@ from math import sin, cos, atan2, pi, sqrt
 from traits.api import HasTraits, Range, false, \
                                  Instance, Trait, List
 from traitsui.api import View, Group, Handler, ListEditor, Item
-from enthought.tvtk.api import tvtk
-from enthought.tvtk.tvtk_base import vtk_color_trait, TraitRevPrefixMap
+from tvtk.api import tvtk
+from tvtk.tvtk_base import vtk_color_trait, TraitRevPrefixMap
 from apptools.persistence import state_pickler
 
 

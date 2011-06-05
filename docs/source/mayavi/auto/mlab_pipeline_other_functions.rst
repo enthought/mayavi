@@ -1707,7 +1707,7 @@ volume
         vol = mlab.pipeline.volume(src)
     
         # Changing the ctf:
-        from enthought.tvtk.util.ctf import ColorTransferFunction
+        from tvtk.util.ctf import ColorTransferFunction
         ctf = ColorTransferFunction()
         ctf.add_rgb_point(value, r, g, b)
         ctf.add_hsv_point(value, h, s, v)
@@ -1717,7 +1717,7 @@ volume
         vol.update_ctf = True
     
         # Changing the otf:
-        from enthought.tvtk.util.ctf import PiecewiseFunction
+        from tvtk.util.ctf import PiecewiseFunction
         otf = PiecewiseFunction()
         otf.add_point(value, opacity)
         vol._otf = otf

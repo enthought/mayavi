@@ -11,8 +11,8 @@ input point data.
 from traits.api import Instance, Trait, Bool
 from traits.api import Enum
 from traitsui.api import View, Group, Item
-from enthought.tvtk.api import tvtk
-from enthought.tvtk.tvtk_base import TraitRevPrefixMap
+from tvtk.api import tvtk
+from tvtk.tvtk_base import TraitRevPrefixMap
 
 # Local imports.
 from mayavi.core.component import Component

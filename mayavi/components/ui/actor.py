@@ -14,7 +14,7 @@ importing.
 
 from traitsui.api import (View, Group, Item, InstanceEditor,
         DropEditor, Tabbed)
-from enthought.tvtk.api import tvtk
+from tvtk.api import tvtk
 
 VTK_VER = tvtk.Version().vtk_version
 

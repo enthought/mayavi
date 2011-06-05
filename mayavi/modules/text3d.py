@@ -14,7 +14,7 @@ from traits.api import Instance, Str, CArray, Bool
 from traitsui.api import View, Group, Item
 
 # Local imports
-from enthought.tvtk.api import tvtk
+from tvtk.api import tvtk
 from mayavi.core.module import Module
 from mayavi.core.pipeline_info import PipelineInfo
 from mayavi.components.actor import Actor

@@ -525,7 +525,7 @@ more fine control than mlab.
     or the Mayavi Envisage application and do off screen rendering.
 
 * :ref:`example_surf_regular_mlab`
-    Shows how to view data created by `enthought.tvtk.tools.mlab` with
+    Shows how to view data created by `tvtk.tools.mlab` with
     mayavi2.
 
 * :ref:`example_glyph`

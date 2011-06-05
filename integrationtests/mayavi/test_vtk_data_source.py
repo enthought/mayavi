@@ -19,7 +19,7 @@ class TestVTKDataSource(TestContour):
     def make_data(self):
         script = self.script
         from mayavi.sources.vtk_data_source import VTKDataSource
-        from enthought.tvtk.api import tvtk
+        from tvtk.api import tvtk
 
         ############################################################
         # Create a new scene and set up the visualization.

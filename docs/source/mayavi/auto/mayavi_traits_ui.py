@@ -22,7 +22,7 @@ from numpy import sqrt, sin, mgrid
 # Enthought imports.
 from traits.api import HasTraits, Instance, Property, Enum
 from traitsui.api import View, Item, HSplit, VSplit, InstanceEditor
-from enthought.tvtk.pyface.scene_editor import SceneEditor
+from tvtk.pyface.scene_editor import SceneEditor
 from mayavi.core.ui.engine_view import EngineView
 from mayavi.tools.mlab_scene_model import MlabSceneModel
 

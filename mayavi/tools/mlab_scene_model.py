@@ -5,7 +5,7 @@
 # License: BSD Style.
 
 from traits.api import Instance, Property
-from enthought.tvtk.pyface.scene_model import SceneModel
+from tvtk.pyface.scene_model import SceneModel
 from mayavi.core.engine import Engine
 from mayavi.core.scene import Scene
 from mayavi import mlab as m2_mlab

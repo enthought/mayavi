@@ -17,7 +17,7 @@ It can be alternatively run as::
 # License: BSD style.
 
 from numpy import array
-from enthought.tvtk.api import tvtk
+from tvtk.api import tvtk
 from mayavi.scripts import mayavi2
 
 # The numpy array data.

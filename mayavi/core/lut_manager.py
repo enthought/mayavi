@@ -15,7 +15,7 @@ from traits.api import Instance, Range, Bool, Array, \
      Str, Property, Enum, Button
 from traitsui.api import FileEditor, auto_close_message
 from apptools.persistence import state_pickler
-from enthought.tvtk.api import tvtk
+from tvtk.api import tvtk
 
 # Local imports.
 from mayavi.core.base import Base
@@ -455,7 +455,7 @@ class LUTManager(Base):
         return self._label_text_property
 
     def _create_lut_fired(self):
-        from enthought.tvtk import util
+        from tvtk import util
         script = os.path.join(os.path.dirname(util.__file__),
                               'wx_gradient_editor.py')
         subprocess.Popen([sys.executable, script])

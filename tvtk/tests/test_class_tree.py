@@ -8,7 +8,7 @@ tests if the tree generation works for the __builtin__ module.
 """
 
 import unittest
-from enthought.tvtk import class_tree
+from tvtk import class_tree
 
 import vtk
 import __builtin__

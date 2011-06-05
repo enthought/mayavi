@@ -19,13 +19,13 @@ class SceneAction(Action):
 
     # The scene manager.
     scene_manager = Property(Instance(
-        'enthought.tvtk.plugins.scene.i_scene_manager import ISceneManager'
+        'tvtk.plugins.scene.i_scene_manager import ISceneManager'
     ))
 
     def _get_scene_manager(self):
         """ Trait property getter. """
 
-        from enthought.tvtk.plugins.scene.i_scene_manager import (
+        from tvtk.plugins.scene.i_scene_manager import (
             ISceneManager
         )
 
@@ -42,7 +42,7 @@ class NewScene(Action):
     def perform(self, event):
         """ Performs the action. """
 
-        from enthought.tvtk.plugins.scene.scene_editor import SceneEditor
+        from tvtk.plugins.scene.scene_editor import SceneEditor
 
         editor = self.window.edit(object(), kind=SceneEditor)
 

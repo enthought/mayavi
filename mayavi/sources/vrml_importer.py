@@ -9,7 +9,7 @@
 from os.path import basename
 
 # Enthought imports.
-from enthought.tvtk.api import tvtk
+from tvtk.api import tvtk
 from traits.api import Instance, Str
 from traitsui.api import View, Item, FileEditor
 from apptools.persistence.file_path import FilePath

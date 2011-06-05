@@ -19,7 +19,7 @@ import numpy as np
 from pyface.timer.api import do_later
 
 #  imports
-from enthought.tvtk.api import tvtk
+from tvtk.api import tvtk
 from mayavi.core.scene import Scene
 from mayavi.core.registry import registry
 from .camera import view

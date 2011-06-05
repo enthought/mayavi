@@ -9,7 +9,7 @@ the input of the Glyph using Python lists.
 # Copyright (c) 2004-2006, Enthought, Inc.
 # License: BSD Style.
 
-from enthought.tvtk.api import tvtk
+from tvtk.api import tvtk
 
 # Source for glyph.  Note that you need to pick a source that has
 # texture co-ords already set.  If not you'll have to generate them.

@@ -12,7 +12,7 @@ import numpy
 import types
 
 # Enthought library imports.
-from enthought.tvtk.api import tvtk
+from tvtk.api import tvtk
 
 # MayaVi related imports.
 from mayavi.sources.vtk_data_source import VTKDataSource

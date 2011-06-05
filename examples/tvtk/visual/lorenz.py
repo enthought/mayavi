@@ -3,7 +3,7 @@
 # Author: Raashid Baig <raashid@aero.iitb.ac.in>
 # License: BSD Style.
 
-from enthought.tvtk.tools.visual import curve, box, vector, show
+from tvtk.tools.visual import curve, box, vector, show
 from numpy import arange, array
 
 lorenz = curve( color = (1,1,1), radius=0.3 )

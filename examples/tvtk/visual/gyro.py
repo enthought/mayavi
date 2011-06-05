@@ -6,7 +6,7 @@
 # Gyroscope hanging from a spring
 from math import atan, cos, sin, pi
 
-from enthought.tvtk.tools.visual import vector, MVector, Box, Helix, Frame, \
+from tvtk.tools.visual import vector, MVector, Box, Helix, Frame, \
     Cylinder, curve, color, iterate, show
 
 

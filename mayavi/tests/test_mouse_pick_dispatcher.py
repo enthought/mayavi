@@ -7,12 +7,12 @@ import unittest
 from traits.api import HasTraits, Instance
 
 from mayavi.core.null_engine import NullEngine, DummyViewer
-from enthought.tvtk.api import tvtk
+from tvtk.api import tvtk
 from mayavi.tools.engine_manager import engine_manager
 from mayavi.core.registry import registry
 from mayavi.core.mouse_pick_dispatcher import \
                 MousePickDispatcher
-from enthought.tvtk.pyface.picker import Picker
+from tvtk.pyface.picker import Picker
 
 ################################################################################
 # class `DummyScene`

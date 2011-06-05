@@ -7,7 +7,7 @@ from math import sin, pi
 
 from numpy import zeros, float, arange
 
-from enthought.tvtk.tools.visual import show, Curve, iterate, MVector
+from tvtk.tools.visual import show, Curve, iterate, MVector
 
 
 def main():

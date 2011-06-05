@@ -1,9 +1,9 @@
 from traits.api import HasTraits, Instance, Enum, Dict
 from traitsui.api import View, Item
-from enthought.tvtk.pyface.actor_model import ITVTKActorModel
-from enthought.tvtk.pyface.actor_editor import ActorEditor
-from enthought.tvtk.pyface import actors
-from enthought.tvtk.api import tvtk
+from tvtk.pyface.actor_model import ITVTKActorModel
+from tvtk.pyface.actor_editor import ActorEditor
+from tvtk.pyface import actors
+from tvtk.api import tvtk
 
 
 ######################################################################

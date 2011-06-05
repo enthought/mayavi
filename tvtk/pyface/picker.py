@@ -24,8 +24,8 @@ probe for the data at that point.
 from traits.api import HasTraits, Trait, Long, Array, Any, Float, \
                                  Instance, Range, true, Str
 from traitsui.api import View, Group, Item, Handler
-from enthought.tvtk.api import tvtk
-from enthought.tvtk.tvtk_base import TraitRevPrefixMap, false_bool_trait
+from tvtk.api import tvtk
+from tvtk.tvtk_base import TraitRevPrefixMap, false_bool_trait
 from apptools.persistence import state_pickler
 
 

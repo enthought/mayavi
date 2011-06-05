@@ -9,7 +9,7 @@
 from traits.api import List, Str
 from apptools.persistence.state_pickler import set_state
 from traitsui.menu import Action
-from enthought.tvtk.api import write_data
+from tvtk.api import write_data
 from apptools.scripting.api import recordable
 
 # Local imports

@@ -40,11 +40,11 @@ from traitsui.api import \
      TreeEditor, TreeNodeObject, ObjectTreeNode, View, Item, Group
 from traitsui.menu import Menu, Action
 
-from enthought.tvtk.api import tvtk
-from enthought.tvtk import messenger
-from enthought.tvtk.tvtk_base import TVTKBase
-from enthought.tvtk.tvtk_base_handler import TVTKBaseHandler
-from enthought.tvtk.common import camel2enthought
+from tvtk.api import tvtk
+from tvtk import messenger
+from tvtk.tvtk_base import TVTKBase
+from tvtk.tvtk_base_handler import TVTKBaseHandler
+from tvtk.common import camel2enthought
 
 
 ######################################################################
@@ -778,7 +778,7 @@ class PipelineBrowser(HasTraits):
 ######################################################################
 def main(instantiate_gui=True):
     """Simple test case."""
-    from enthought.tvtk.tools import ivtk
+    from tvtk.tools import ivtk
 
     v = ivtk.viewer(browser=False, instantiate_gui=instantiate_gui)
     cs = tvtk.ConeSource()

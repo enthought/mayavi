@@ -8,7 +8,7 @@ VTK/Examples/Tutorial/Step6/Python/Cone6.py.
 # Copyright (c) 2004-2006, Enthought, Inc.
 # License: BSD Style.
 
-from enthought.tvtk.api import tvtk
+from tvtk.api import tvtk
 
 # Create a cone source and configure it.
 cs = tvtk.ConeSource(height=3.0, radius=1.0, resolution=36)

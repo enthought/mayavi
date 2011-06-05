@@ -36,7 +36,7 @@ vanilla python interpretor.
 
     $ ipython -wthread
 
-    In [1]: from enthought.tvtk.tools import visual
+    In [1]: from tvtk.tools import visual
     In [2]: visual.test_sphere()
     In [3]: s = visual.sphere() # Create a sphere actor
     In [4]: s.edit_traits() # Edit sphere actor's properties via GUI
@@ -61,11 +61,11 @@ from traits.api import HasTraits, Trait, Instance, Tuple, Int, \
      Float, Range, Button, Array, Color, Bool, Any, List, Enum
 from traitsui.api import View, Item, Group, RGBColorEditor, RangeEditor
 from traitsui.message import message
-from enthought.tvtk.api import tvtk
-from enthought.tvtk.tools import ivtk
+from tvtk.api import tvtk
+from tvtk.tools import ivtk
 from pyface.api import GUI
 from pyface.timer.api import Timer
-from enthought.tvtk.tvtk_base import TVTKBase, vtk_color_trait
+from tvtk.tvtk_base import TVTKBase, vtk_color_trait
 
 
 

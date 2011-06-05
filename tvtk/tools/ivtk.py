@@ -8,8 +8,8 @@ tvtk pipeline browser.
 
 Here is example usage of the viewer along with tvtk under IPython:
 
-    >>> from enthought.tvtk.tools import ivtk
-    >>> from enthought.tvtk.api import tvtk
+    >>> from tvtk.tools import ivtk
+    >>> from tvtk.api import tvtk
     >>> cs = tvtk.ConeSource()
     >>> m = tvtk.PolyDataMapper()
     >>> m.input = cs.output
@@ -32,7 +32,7 @@ import os.path
 from pyface.api import FileDialog, GUI, OK, PythonShell
 from pyface.api import SplitApplicationWindow, ApplicationWindow
 from pyface.api import SplitPanel
-from enthought.tvtk.pyface.api import Scene, DecoratedScene
+from tvtk.pyface.api import Scene, DecoratedScene
 from pyface.action.api import Action, MenuBarManager,\
      MenuManager, Separator
 from pyface.image_resource import ImageResource
@@ -40,9 +40,9 @@ from pyface.resource.api import resource_path
 
 from traits.api import Float, Str, Instance, Callable
 
-from enthought.tvtk.api import tvtk
+from tvtk.api import tvtk
 
-from enthought.tvtk.pipeline.browser import PipelineBrowser
+from tvtk.pipeline.browser import PipelineBrowser
 
 ######################################################################
 # The scene icon.

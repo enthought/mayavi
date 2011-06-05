@@ -11,7 +11,7 @@ import numpy as np
 
 # Local imports.
 from mayavi.core.null_engine import NullEngine
-from enthought.tvtk.api import tvtk
+from tvtk.api import tvtk
 
 # Enthought library imports
 from mayavi.sources.array_source import ArraySource

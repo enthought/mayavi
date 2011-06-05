@@ -13,7 +13,7 @@ import numpy as np
 from traits.api import Instance, Range, Float, Bool, \
                                  Property, Enum
 from traitsui.api import View, Group, Item
-from enthought.tvtk.api import tvtk
+from tvtk.api import tvtk
 
 # Local imports
 from mayavi.core.filter import Filter

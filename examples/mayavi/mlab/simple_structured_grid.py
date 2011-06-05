@@ -16,7 +16,7 @@ mlab.pipeline interface (see :ref:`controlling-the-pipeline-with-mlab-scripts`)
 # License: BSD Style.
 
 from numpy import mgrid, empty, sin, pi
-from enthought.tvtk.api import tvtk
+from tvtk.api import tvtk
 from mayavi import mlab
 
 # Generate some points.

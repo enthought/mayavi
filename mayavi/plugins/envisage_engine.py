@@ -9,10 +9,10 @@ import logging
 
 # Enthought library imports.
 from traits.api import Instance, on_trait_change, Str
-from enthought.tvtk.plugins.scene.i_scene_manager import \
+from tvtk.plugins.scene.i_scene_manager import \
             ISceneManager
-from enthought.tvtk.plugins.scene.ui.actions import NewScene
-from enthought.tvtk.plugins.scene import scene_editor
+from tvtk.plugins.scene.ui.actions import NewScene
+from tvtk.plugins.scene import scene_editor
 from pyface.api import GUI
 from pyface.workbench.api import WorkbenchWindow
 from apptools.scripting.api import recordable

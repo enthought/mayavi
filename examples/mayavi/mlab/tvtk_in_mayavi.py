@@ -25,7 +25,7 @@ from mayavi import mlab
 # To access any VTK object, we use 'tvtk', which is a Python wrapping of
 # VTK replacing C++ setters and getters by Python properties and
 # converting numpy arrays to VTK arrays when setting data.
-from enthought.tvtk.api import tvtk
+from tvtk.api import tvtk
 
 v = mlab.figure()
 

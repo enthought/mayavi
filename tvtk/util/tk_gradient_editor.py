@@ -536,7 +536,7 @@ if __name__ == "__main__":
     # prepare a vtk window with an actor for visible feedback. Don't be
     # be scared, the actual gradient editor code is only 3 lines long,
     # the rest is setup of the scene.
-    from enthought.tvtk.api import tvtk
+    from tvtk.api import tvtk
     import vtk
     from vtk.tk import vtkTkRenderWidget
     from math import cos

@@ -9,8 +9,8 @@ import unittest
 
 import numpy
 
-from enthought.tvtk.array_handler import ID_TYPE_CODE
-from enthought.tvtk.array_ext import set_id_type_array
+from tvtk.array_handler import ID_TYPE_CODE
+from tvtk.array_ext import set_id_type_array
 
 class TestArrayExt(unittest.TestCase):
     def test_set_id_type_array(self):

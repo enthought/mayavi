@@ -17,9 +17,9 @@ from vtk.util import vtkConstants
 from traits.api import Instance, Property, List, ReadOnly, \
      Str, Button, Tuple
 from traitsui.api import View, Group, Item, InstanceEditor, CustomEditor
-from enthought.tvtk.api import tvtk
-from enthought.tvtk.util.gradient_editor import hsva_to_rgba, GradientTable
-from enthought.tvtk.util.ctf import save_ctfs, load_ctfs, \
+from tvtk.api import tvtk
+from tvtk.util.gradient_editor import hsva_to_rgba, GradientTable
+from tvtk.util.ctf import save_ctfs, load_ctfs, \
      rescale_ctfs, set_lut, PiecewiseFunction, ColorTransferFunction
 from apptools.persistence import state_pickler
 
@@ -37,7 +37,7 @@ def gradient_editor_factory(wx_parent, trait_editor):
     """A simple wrapper to the wx specific function to avoid any UI
     toolkit imports.
     """
-    from enthought.tvtk.util import wx_gradient_editor as wxge
+    from tvtk.util import wx_gradient_editor as wxge
     return wxge.gradient_editor_factory(wx_parent, trait_editor)
 
 

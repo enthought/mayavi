@@ -9,8 +9,8 @@
 from os.path import join
 
 # Enthought library imports
-from enthought.tvtk.tools.ivtk import IVTK
-from enthought.tvtk.pyface.api import DecoratedScene
+from tvtk.tools.ivtk import IVTK
+from tvtk.pyface.api import DecoratedScene
 from traits.api import Callable
 from pyface.api import ImageResource
 from pyface.action.api import Action, Group

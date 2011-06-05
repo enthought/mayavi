@@ -13,8 +13,8 @@ import numpy as np
 
 from traits.api import (HasTraits, Instance, CArray, Either,
             Bool, on_trait_change, NO_COMPARE)
-from enthought.tvtk.api import tvtk
-from enthought.tvtk.common import camel2enthought
+from tvtk.api import tvtk
+from tvtk.common import camel2enthought
 
 from mayavi.sources.array_source import ArraySource
 from mayavi.core.registry import registry

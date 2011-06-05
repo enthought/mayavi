@@ -18,7 +18,7 @@ from mayavi.core.source import Source
 from mayavi.core.scene import Scene
 from mayavi.core.module_manager import ModuleManager
 
-from enthought.tvtk.api import tvtk
+from tvtk.api import tvtk
 
 import tools
 from engine_manager import get_engine

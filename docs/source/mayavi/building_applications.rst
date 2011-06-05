@@ -52,8 +52,8 @@ widget for scene by specifying for it the `SceneEditor`::
 
     from traits.api import HasTraits, Instance
     from traitsui.api import View, Item
-    from enthought.tvtk.pyface.scene_model import SceneModel
-    from enthought.tvtk.pyface.scene_editor import SceneEditor
+    from tvtk.pyface.scene_model import SceneModel
+    from tvtk.pyface.scene_editor import SceneEditor
 
     class MyModel(HasTraits):
         scene = Instance(SceneModel, ())
@@ -75,7 +75,7 @@ toolbar by specifying a different scene view to the `SceneEditor`::
 If, on the contrary, you want a view with no toolbar, you can replace the
 `MayaviView` by a raw tvtk view::
 
-    from enthought.tvtk.pyface.api import Scene
+    from tvtk.pyface.api import Scene
 
     #...
     editor=SceneEditor(scene_class=Scene)
@@ -158,7 +158,7 @@ In a dialog, this would be::
     from traits.api import HasTraits, Range, Instance, \
                         on_trait_change
     from traitsui.api import View, Item, HGroup
-    from enthought.tvtk.pyface.scene_editor import SceneEditor
+    from tvtk.pyface.scene_editor import SceneEditor
     from mayavi.tools.mlab_scene_model import \
                         MlabSceneModel
     from mayavi.core.ui.mayavi_scene import MayaviScene

@@ -7,7 +7,7 @@ the in a scene using visual modeule."""
 # License: BSD Style.
 from math import pi, cos, sin
 
-from enthought.tvtk.tools.visual import vector, box, cylinder, frame, curve, \
+from tvtk.tools.visual import vector, box, cylinder, frame, curve, \
     iterate, show
 
 # Gyroscope sitting on a pedestal

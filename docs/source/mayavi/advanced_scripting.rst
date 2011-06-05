@@ -139,7 +139,7 @@ example (the following will require that you use ``ipython -wthread``)::
 
 Apart from the ``Engine`` object, all other objects in the Mayavi
 pipeline feature a ``scene`` trait which refers to the current
-``enthought.tvtk.pyface.tvtk_scene.TVTKScene`` instance that the
+``tvtk.pyface.tvtk_scene.TVTKScene`` instance that the
 object is associated with.  The objects also feature an ``add_child``
 method that lets one build up the pipeline by adding "children"
 objects.  The ``add_child`` method is "intelligent" and will try to

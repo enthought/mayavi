@@ -9,7 +9,7 @@ import numpy
 from numpy import linspace, cos, sin, pi, empty, sqrt,array,arange,random
 
 # Enthought library imports
-from enthought.tvtk.api import tvtk
+from tvtk.api import tvtk
 
 
 def generate_annulus(r=None, theta=None, z=None):

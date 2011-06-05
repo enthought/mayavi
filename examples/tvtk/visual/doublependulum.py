@@ -12,7 +12,7 @@ the in a scene using visual modeule."""
 #variables are angle of upper bar, angle of lower bar,measured from
 #the vertical.
 
-from enthought.tvtk.tools.visual import box, vector, frame, iterate, show
+from tvtk.tools.visual import box, vector, frame, iterate, show
 from math import pi, sin
 
 g = 9.8

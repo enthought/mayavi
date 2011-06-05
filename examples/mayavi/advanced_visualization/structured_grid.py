@@ -20,7 +20,7 @@ Alternatively, it can be run as::
 
 import numpy as np
 from numpy import cos, sin, pi
-from enthought.tvtk.api import tvtk
+from tvtk.api import tvtk
 from mayavi.scripts import mayavi2
 
 def generate_annulus(r=None, theta=None, z=None):

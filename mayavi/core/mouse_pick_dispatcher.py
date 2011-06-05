@@ -8,7 +8,7 @@ from traits.api import HasTraits, Dict, Instance, \
         Enum, Int, Callable, on_trait_change, List, Tuple
 
 from mayavi.core.scene import Scene
-from enthought.tvtk.api import tvtk
+from tvtk.api import tvtk
 
 VTK_VERSION =        tvtk.Version().vtk_major_version \
                 + .1*tvtk.Version().vtk_minor_version

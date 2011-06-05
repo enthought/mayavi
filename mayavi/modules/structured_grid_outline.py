@@ -7,7 +7,7 @@
 
 # Enthought library imports.
 from traits.api import Instance
-from enthought.tvtk.api import tvtk
+from tvtk.api import tvtk
 
 # Local imports.
 from mayavi.components.actor import Actor

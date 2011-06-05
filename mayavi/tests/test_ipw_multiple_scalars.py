@@ -1,7 +1,7 @@
 import unittest
 
 from numpy import zeros, random
-from enthought.tvtk.api import tvtk
+from tvtk.api import tvtk
 from mayavi.sources.vtk_data_source import VTKDataSource
 from mayavi.core.null_engine import NullEngine
 from mayavi.modules.image_plane_widget import ImagePlaneWidget

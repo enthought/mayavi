@@ -10,7 +10,7 @@ uses the OrientationMarkerWidget which requires VTK-4.5 and above.
 # Enthought library imports.
 from traits.api import Instance, Property
 from traitsui.api import View, Group, Item, InstanceEditor
-from enthought.tvtk.api import tvtk
+from tvtk.api import tvtk
 from apptools.persistence import state_pickler
 
 # Local imports

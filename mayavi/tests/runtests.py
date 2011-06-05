@@ -167,7 +167,7 @@ def m2_tests(verbose=1):
     if verbose > 0:
         print "-"*70
         print "Running TVTK tests."
-    tests = find_tests(['enthought.tvtk'])
+    tests = find_tests(['tvtk'])
     err = run(tests, verbose)
     if verbose > 0:
         print "-"*70

@@ -254,7 +254,7 @@ def process_cmd_line(app, opts, args):
     """
 
     from mayavi.core.common import error, exception
-    from enthought.tvtk.common import camel2enthought
+    from tvtk.common import camel2enthought
 
     sources = _get_non_file_sources()
     script = app.script
@@ -319,7 +319,7 @@ def process_cmd_line(app, opts, args):
                     classname = 'UserDefined'
                     # Create the wrapped filter.
                     fname = a[12:]
-                    from enthought.tvtk.api import tvtk
+                    from tvtk.api import tvtk
                     try:
                         extra = getattr(tvtk, fname)()
                     except (AttributeError, TypeError):

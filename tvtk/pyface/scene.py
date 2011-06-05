@@ -21,5 +21,5 @@ the class docs for more details.
 
 
 # Import the toolkit specific version.
-from enthought.tvtk.pyface.toolkit import toolkit_object
+from tvtk.pyface.toolkit import toolkit_object
 Scene = toolkit_object('scene:Scene')

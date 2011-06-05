@@ -6,7 +6,7 @@ the in a scene using visual modeule."""
 
 from math import sqrt
 
-from enthought.tvtk.tools.visual import sphere, iterate, show, vector, curve
+from tvtk.tools.visual import sphere, iterate, show, vector, curve
 
 #Creating the actors for the scene
 giant = sphere(pos=(-1.0e11, 0, 0),

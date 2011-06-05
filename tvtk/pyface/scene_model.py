@@ -17,7 +17,7 @@ Caveats:
 from traits.api import Dict, Event, \
                                  Instance, List, Property
 from traitsui.api import View, Group, Item, InstanceEditor
-from enthought.tvtk.pyface.tvtk_scene import TVTKScene
+from tvtk.pyface.tvtk_scene import TVTKScene
 
 
 #####################################################################

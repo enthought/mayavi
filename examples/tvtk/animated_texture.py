@@ -13,7 +13,7 @@ TVTK sees a view of this array without doing any data transfers.
 from numpy import arange, zeros, float32, float64, uint8, \
                   atleast_3d, exp, sqrt, pi
 
-from enthought.tvtk.api import tvtk
+from tvtk.api import tvtk
 
 # Source for glyph.  Note that you need to pick a source that has
 # texture co-ords already set.  If not you'll have to generate them.

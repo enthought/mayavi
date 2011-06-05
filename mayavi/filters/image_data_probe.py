@@ -8,7 +8,7 @@ import numpy
 # Enthought library imports.
 from traits.api import Instance, Bool, Array, Button, Str
 from traitsui.api import View, Group, Item
-from enthought.tvtk.api import tvtk
+from tvtk.api import tvtk
 
 # Local imports.
 from mayavi.core.filter import Filter

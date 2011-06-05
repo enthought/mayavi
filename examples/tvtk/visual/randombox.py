@@ -7,7 +7,7 @@ from random import random, randrange
 from numpy import arange
 from math import pi, cos, sin
 
-from enthought.tvtk.tools.visual import curve, box, arrow, \
+from tvtk.tools.visual import curve, box, arrow, \
                                         sphere, cylinder, show
 
 def random_box():

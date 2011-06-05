@@ -3,7 +3,7 @@
 # License: BSD Style.
 
 # Enthought library imports.
-from enthought.tvtk.tools.tvtk_doc import TVTKFilterChooser, TVTK_FILTERS
+from tvtk.tools.tvtk_doc import TVTKFilterChooser, TVTK_FILTERS
 
 # Local imports.
 from mayavi.filters.filter_base import FilterBase

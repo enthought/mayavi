@@ -97,7 +97,7 @@ class TVTKObjectCache(weakref.WeakValueDictionary):
 
 _dummy = None
 # This makes the cache work even when the module is reloaded.
-for name in ['tvtk_base', 'enthought.tvtk.tvtk_base']:
+for name in ['tvtk_base', 'tvtk.tvtk_base']:
     if sys.modules.has_key(name):
         mod = sys.modules[name]
         if hasattr(mod, '_object_cache'):

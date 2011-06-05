@@ -21,7 +21,7 @@ Copyright (c) 2005-2006, Gerald Knizia, Pete Schmitt and Prabhu Ramachandran
 import wx
 
 # Enthought library imports
-from enthought.tvtk.api import tvtk
+from tvtk.api import tvtk
 
 # Local imports
 from gradient_editor import GradientTable, ColorControlPoint

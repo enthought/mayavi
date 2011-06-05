@@ -420,7 +420,7 @@ def configuration(parent_package='', top_path=None):
         quiet=True,
     )
 
-    config.add_subpackage('enthought.tvtk')
+    config.add_subpackage('tvtk')
     config.add_subpackage('enthought')
     config.add_data_dir('mayavi/core/lut')
     config.add_data_dir('mayavi/tests/data')
@@ -501,13 +501,13 @@ numpy.distutils.core.setup(
     entry_points = {
         'console_scripts': [
             'mayavi2 = mayavi.scripts.mayavi2:main',
-            'tvtk_doc = enthought.tvtk.tools.tvtk_doc:main'
+            'tvtk_doc = tvtk.tools.tvtk_doc:main'
             ],
 
         'envisage.plugins': [
-            'enthought.tvtk.scene = enthought.tvtk.plugins.scene.scene_plugin:ScenePlugin',
-            'enthought.tvtk.scene_ui = enthought.tvtk.plugins.scene.ui.scene_ui_plugin:SceneUIPlugin',
-            'enthought.tvtk.browser = enthought.tvtk.plugins.browser.browser_plugin:BrowserPlugin',
+            'tvtk.scene = tvtk.plugins.scene.scene_plugin:ScenePlugin',
+            'tvtk.scene_ui = tvtk.plugins.scene.ui.scene_ui_plugin:SceneUIPlugin',
+            'tvtk.browser = tvtk.plugins.browser.browser_plugin:BrowserPlugin',
             'mayavi = mayavi.plugins.mayavi_plugin:MayaviPlugin',
             'mayavi_ui = mayavi.plugins.mayavi_ui_plugin:MayaviUIPlugin'
             ],

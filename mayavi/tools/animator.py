@@ -17,7 +17,7 @@ from traitsui.api import View, Group, Item
 class Animator(HasTraits):
 
     """ Convenience class to manage a timer and present a convenient
-        UI.  This is based on the code in `enthought.tvtk.tools.visual`.
+        UI.  This is based on the code in `tvtk.tools.visual`.
         Here is a simple example of using this class::
 
             >>> from mayavi import mlab

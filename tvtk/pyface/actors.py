@@ -20,7 +20,7 @@ when writing demo/example code.
 # Copyright (c) 2005, Enthought, Inc.
 # License: BSD Style.
 
-from enthought.tvtk.api import tvtk
+from tvtk.api import tvtk
 from vtk.util import colors
 
 

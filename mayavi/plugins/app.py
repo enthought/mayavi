@@ -75,7 +75,7 @@ def get_non_gui_plugin_classes():
     actions."""
     from envisage.core_plugin import CorePlugin
     from envisage.ui.workbench.workbench_plugin import WorkbenchPlugin
-    from enthought.tvtk.plugins.scene.scene_plugin import ScenePlugin
+    from tvtk.plugins.scene.scene_plugin import ScenePlugin
     from mayavi.plugins.mayavi_plugin import MayaviPlugin
     plugins = [CorePlugin,
                WorkbenchPlugin,
@@ -115,7 +115,7 @@ def get_plugin_classes():
         from envisage.plugins.python_shell.python_shell_plugin import PythonShellPlugin
     from envisage.plugins.text_editor.text_editor_plugin import TextEditorPlugin
     from traits.logger.plugin.logger_plugin import LoggerPlugin
-    from enthought.tvtk.plugins.scene.ui.scene_ui_plugin import SceneUIPlugin
+    from tvtk.plugins.scene.ui.scene_ui_plugin import SceneUIPlugin
     from mayavi.plugins.mayavi_ui_plugin import MayaviUIPlugin
     plugins = get_non_gui_plugin_classes()
     plugins.extend([

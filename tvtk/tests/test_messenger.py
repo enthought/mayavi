@@ -7,7 +7,7 @@
 
 import unittest
 
-from enthought.tvtk import messenger
+from tvtk import messenger
 
 #################################################################
 # Support code.

@@ -24,7 +24,7 @@ def _init_toolkit():
     def import_toolkit(tk):
         try:
             # Try and import the toolkit's pyface backend init module.
-            __import__('enthought.tvtk.pyface.ui.%s.init' % tk)
+            __import__('tvtk.pyface.ui.%s.init' % tk)
         except:
             raise
 
@@ -75,7 +75,7 @@ def toolkit_object(name):
     """
 
     mname, oname = name.split(':')
-    be = 'enthought.tvtk.pyface.ui.%s.' % _toolkit
+    be = 'tvtk.pyface.ui.%s.' % _toolkit
     be_mname = be + mname
 
     class Unimplemented(object):

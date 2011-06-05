@@ -63,7 +63,7 @@ def open_help_index():
 def open_tvtk_docs():
     """ Open the TVTK class browser.
     """
-    from enthought.tvtk.tools.tvtk_doc import TVTKClassChooser
+    from tvtk.tools.tvtk_doc import TVTKClassChooser
     TVTKClassChooser().edit_traits()
 
 ######################################################################

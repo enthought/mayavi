@@ -7,8 +7,8 @@
 
 # Enthought library imports.
 from apptools.preferences.api import get_default_preferences
-from enthought.tvtk.pyface.tvtk_scene import TVTKScene
-from enthought.tvtk.pyface.api import DecoratedScene
+from tvtk.pyface.tvtk_scene import TVTKScene
+from tvtk.pyface.api import DecoratedScene
 from pyface.workbench.api import Editor
 from traits.api import Instance
 
@@ -82,16 +82,16 @@ class SceneEditor(Editor):
         """ Create a new decorated scene. """
 
         pref = get_default_preferences()
-        stereo = eval(pref.get('enthought.tvtk.scene.stereo'))
+        stereo = eval(pref.get('tvtk.scene.stereo'))
 
         scene = DecoratedScene(parent, stereo=stereo)
 
         # Set the scene's traits to preference values.
         scene.magnification = \
-                eval(pref.get('enthought.tvtk.scene.magnification'))
+                eval(pref.get('tvtk.scene.magnification'))
 
-        fg = eval(pref.get('enthought.tvtk.scene.foreground_color'))
-        bg = eval(pref.get('enthought.tvtk.scene.background_color'))
+        fg = eval(pref.get('tvtk.scene.foreground_color'))
+        bg = eval(pref.get('tvtk.scene.background_color'))
         scene.foreground = fg
         scene.background = bg
         # FIXME: This seems necessary for some strange reason, if not

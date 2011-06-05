@@ -8,7 +8,7 @@ Test for the dataset_manager.py module.
 import unittest
 import numpy as N
 
-from enthought.tvtk.api import tvtk
+from tvtk.api import tvtk
 from mayavi.core.dataset_manager import DatasetManager
 
 

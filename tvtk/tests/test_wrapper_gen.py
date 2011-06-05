@@ -11,7 +11,7 @@ wrapper_gen directly.
 import unittest
 import vtk
 
-from enthought.tvtk import wrapper_gen
+from tvtk import wrapper_gen
 
 _cache = wrapper_gen.WrapperGenerator()
 

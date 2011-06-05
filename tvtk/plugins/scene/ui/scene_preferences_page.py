@@ -9,7 +9,7 @@
 from apptools.preferences.ui.api import PreferencesPage
 from traits.api import Range
 from traitsui.api import View, Group, Item
-from enthought.tvtk.tvtk_base import false_bool_trait, vtk_color_trait
+from tvtk.tvtk_base import false_bool_trait, vtk_color_trait
 
 
 class ScenePreferencesPage(PreferencesPage):
@@ -29,7 +29,7 @@ class ScenePreferencesPage(PreferencesPage):
     name = 'TVTK Scene'
 
     # The path to the preferences node that contains the preferences.
-    preferences_path = 'enthought.tvtk.scene'
+    preferences_path = 'tvtk.scene'
 
     #### Preferences ##########################################################
 

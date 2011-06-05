@@ -2,9 +2,9 @@
 
 import unittest
 
-from enthought.tvtk.util.ctf import (load_ctfs, save_ctfs, \
+from tvtk.util.ctf import (load_ctfs, save_ctfs, \
         rescale_ctfs, ColorTransferFunction, PiecewiseFunction)
-from enthought.tvtk.api import tvtk
+from tvtk.api import tvtk
 
 
 def make_volume_prop(mins=255, maxs=355):

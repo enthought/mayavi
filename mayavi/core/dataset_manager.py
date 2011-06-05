@@ -8,8 +8,8 @@ Code to help with managing a TVTK data set in Pythonic ways.
 
 from traits.api import (HasTraits, Instance, Array, Str,
                         Property, Dict)
-from enthought.tvtk.api import tvtk
-from enthought.tvtk.array_handler import array2vtk
+from tvtk.api import tvtk
+from tvtk.array_handler import array2vtk
 
 
 ######################################################################

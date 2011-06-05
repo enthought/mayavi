@@ -38,8 +38,8 @@ from traits.api import HasTraits, Instance, Array, \
     on_trait_change
 from traitsui.api import View, Item, HGroup, Group
 
-from enthought.tvtk.api import tvtk
-from enthought.tvtk.pyface.scene import Scene
+from tvtk.api import tvtk
+from tvtk.pyface.scene import Scene
 
 from mayavi import mlab
 from mayavi.core.api import PipelineBase, Source

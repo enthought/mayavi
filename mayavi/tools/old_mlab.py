@@ -22,8 +22,8 @@ import scipy
 
 # Enthought library imports.
 from envisage import get_application
-from enthought.tvtk.api import tvtk
-from enthought.tvtk.tools import mlab
+from tvtk.api import tvtk
+from tvtk.tools import mlab
 from mayavi.modules.axes import Axes
 from traits.api import HasTraits, Instance
 from traitsui.api import View, Item, Group

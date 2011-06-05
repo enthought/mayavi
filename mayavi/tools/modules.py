@@ -16,8 +16,8 @@ import new
 
 from traits.api import Trait, CArray, Instance, CFloat, \
     Any, false, true, TraitTuple, Range, Bool, Property, CInt, Enum, Either
-from enthought.tvtk.api import tvtk
-from enthought.tvtk.common import camel2enthought
+from tvtk.api import tvtk
+from tvtk.common import camel2enthought
 
 from mayavi.core.lut_manager import lut_mode_list
 import mayavi.modules.api as modules
@@ -530,7 +530,7 @@ class VolumeFactory(PipeFactory):
             vol = mlab.pipeline.volume(src)
 
             # Changing the ctf:
-            from enthought.tvtk.util.ctf import ColorTransferFunction
+            from tvtk.util.ctf import ColorTransferFunction
             ctf = ColorTransferFunction()
             ctf.add_rgb_point(value, r, g, b)
             ctf.add_hsv_point(value, h, s, v)
@@ -540,7 +540,7 @@ class VolumeFactory(PipeFactory):
             vol.update_ctf = True
 
             # Changing the otf:
-            from enthought.tvtk.util.ctf import PiecewiseFunction
+            from tvtk.util.ctf import PiecewiseFunction
             otf = PiecewiseFunction()
             otf.add_point(value, opacity)
             vol._otf = otf
@@ -576,7 +576,7 @@ class VolumeFactory(PipeFactory):
         if not self.color:
             return
         range_min, range_max = self._target.current_range
-        from enthought.tvtk.util.ctf import ColorTransferFunction
+        from tvtk.util.ctf import ColorTransferFunction
         ctf = ColorTransferFunction()
         try:
             ctf.range = (range_min, range_max)
@@ -602,7 +602,7 @@ class VolumeFactory(PipeFactory):
             vmax = range_max
 
         # Change the opacity function
-        from enthought.tvtk.util.ctf import PiecewiseFunction, save_ctfs
+        from tvtk.util.ctf import PiecewiseFunction, save_ctfs
 
         otf = PiecewiseFunction()
         if range_min < vmin:
@@ -633,7 +633,7 @@ class VolumeFactory(PipeFactory):
             else:
                 rgb = save_ctfs(self._target.volume_property)['rgb']
 
-            from enthought.tvtk.util.ctf import ColorTransferFunction
+            from tvtk.util.ctf import ColorTransferFunction
             ctf = ColorTransferFunction()
             try:
                 ctf.range = (range_min, range_max)

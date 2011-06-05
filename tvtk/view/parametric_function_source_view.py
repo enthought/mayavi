@@ -1,5 +1,5 @@
 from traitsui.api import View, HGroup, Item
-from enthought.tvtk.tvtk_base import TVTKBaseHandler
+from tvtk.tvtk_base import TVTKBaseHandler
 
 view = View((['generate_texture_coordinates'], ['scalar_mode'],
     HGroup(Item('u_resolution', label = 'u'),

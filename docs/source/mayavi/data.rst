@@ -321,7 +321,7 @@ array, as well as the `mlab.pipeline.scalar_field` and
 
 Creating a `tvtk.ImageData` object from numpy arrays::
   
-    from enthought.tvtk.api import tvtk
+    from tvtk.api import tvtk
     from numpy import random
     data = random.random((3, 3, 3))
     i = tvtk.ImageData(spacing=(1, 1, 1), origin=(0, 0, 0))
@@ -343,7 +343,7 @@ origin and the list of spacings of each axis.
 
 Creating a `tvtk.RectilinearGrid` object from numpy arrays::
 
-    from enthought.tvtk.api import tvtk
+    from tvtk.api import tvtk
     from numpy import random, array
     data = random.random((3, 3, 3))
     r = tvtk.RectilinearGrid()
@@ -373,7 +373,7 @@ created by the `mlab.pipeline.scalar_field` and
 Creating a `tvtk.StructuredGrid` object from numpy arrays::
 
     from numpy import pi, cos, sin, empty, linspace, random
-    from enthought.tvtk.api import tvtk
+    from tvtk.api import tvtk
 
     def generate_annulus(r, theta, z):
         """ Generate points for structured grid for a cylindrical annular
@@ -436,7 +436,7 @@ created by the `mlab.pipeline.scalar_scatter` and
 Creating a `tvtk.PolyData` object from numpy arrays::
 
     from numpy import array, random
-    from enthought.tvtk.api import tvtk
+    from tvtk.api import tvtk
 
     # The numpy array data.
     points = array([[0,-0.5,0], [1.5,0,0], [0,1,0], [0,0,0.5],
@@ -468,7 +468,7 @@ data points.
 Creating a `tvtk.UnstructuredGrid` object from numpy arrays::
 
     from numpy import array, random
-    from enthought.tvtk.api import tvtk
+    from tvtk.api import tvtk
 
     points = array([[0,1.2,0.6], [1,0,0], [0,1,0], [1,1,1], # tetra
                     [1,0,-0.5], [2,0,0], [2,1.5,0], [0,1,0],
@@ -590,7 +590,7 @@ examples above. A VTK data source can be inserted in the Mayavi pipeline
 using the VTKDataSource. For instance we can create an `ImageData`
 dataset::
 
-    from enthought.tvtk.api import tvtk
+    from tvtk.api import tvtk
     import numpy as np
     a = np.random.random((10, 10, 10))
     i = tvtk.ImageData(spacing=(1, 1, 1), origin=(0, 0, 0))

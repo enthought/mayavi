@@ -9,8 +9,8 @@ handle transformation.
 from traits.api import (Instance, List, Trait, Bool,
     TraitPrefixList, Property, Dict)
 from traitsui.api import View, Group, Item, InstanceEditor
-from enthought.tvtk.api import tvtk
-from enthought.tvtk.common import camel2enthought
+from tvtk.api import tvtk
+from tvtk.common import camel2enthought
 from apptools.persistence.state_pickler import set_state
 
 # Local imports.

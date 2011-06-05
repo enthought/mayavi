@@ -11,7 +11,7 @@ from os.path import basename
 # Enthought imports.
 from traits.api import Instance, Str,Dict
 from traitsui.api import View, Item, Group, Include
-from enthought.tvtk.api import tvtk
+from tvtk.api import tvtk
 
 # Local imports
 from mayavi.core.file_data_source import FileDataSource

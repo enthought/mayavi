@@ -7,5 +7,5 @@
 # License: BSD Style.
 
 # Import the toolkit specific version.
-from enthought.tvtk.pyface.toolkit import toolkit_object
+from tvtk.pyface.toolkit import toolkit_object
 ActorEditor = toolkit_object('actor_editor:ActorEditor')

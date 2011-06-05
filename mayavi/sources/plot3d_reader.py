@@ -13,7 +13,7 @@ from os.path import basename, isfile, exists, splitext
 # Enthought library imports.
 from traits.api import Trait, Instance, Str, TraitPrefixMap, Button
 from traitsui.api import View, Group, Item, FileEditor
-from enthought.tvtk.api import tvtk
+from tvtk.api import tvtk
 from apptools.persistence.state_pickler import set_state
 from apptools.persistence.file_path import FilePath
 

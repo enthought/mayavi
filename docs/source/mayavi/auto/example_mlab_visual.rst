@@ -12,7 +12,7 @@ with mlab and create simple animations.
 In the example, the grey box bounces back and forth between the two red
 ones.
 
-The `enthought.tvtk.tools.visual` module exposes an API similar to 
+The `tvtk.tools.visual` module exposes an API similar to 
 `VPython <http://vpython.org/>`_ and is useful to create animation based
 on rigid object movement.
 

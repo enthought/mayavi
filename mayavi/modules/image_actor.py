@@ -9,7 +9,7 @@
 from traits.api import Instance, Bool, on_trait_change, \
         Property
 from traitsui.api import View, Group, Item
-from enthought.tvtk.api import tvtk
+from tvtk.api import tvtk
 
 # Local imports
 from mayavi.core.module import Module

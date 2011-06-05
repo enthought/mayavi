@@ -18,7 +18,7 @@ class BrowserPlugin(Plugin):
     name = 'TVTK Pipeline Browser'
 
     # Our ID.
-    id = 'enthought.tvtk.browser'
+    id = 'tvtk.browser'
 
     #### Extension points offered by this plugin ##############################
 
@@ -40,7 +40,7 @@ class BrowserPlugin(Plugin):
     def _browser_view_factory(self, window, **traits):
         """ Factory method for browser views. """
 
-        from enthought.tvtk.plugins.browser.browser_view import (
+        from tvtk.plugins.browser.browser_view import (
             BrowserView
         )
 
@@ -57,7 +57,7 @@ class BrowserPlugin(Plugin):
 
         # Get the scene manager (a 'per window' service, so we look it up via
         # the window!).
-        from enthought.tvtk.plugins.scene.i_scene_manager import (
+        from tvtk.plugins.scene.i_scene_manager import (
             ISceneManager
         )
 

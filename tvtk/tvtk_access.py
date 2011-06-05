@@ -30,7 +30,7 @@ if not ( exists(tvtk_class_dir) and isdir(tvtk_class_dir)
         "with the TVTK classes." % (tvtk_class_dir, _zip) )
 
 # Check if the VTK version is the same as that used to build TVTK.
-from enthought.tvtk.tvtk_classes.vtk_version import vtk_build_version
+from tvtk.tvtk_classes.vtk_version import vtk_build_version
 
 # Make sure VTK is installed.
 try:
@@ -51,6 +51,6 @@ if vtk_version != vtk_build_version:
     print msg
 
 # Now setup TVTK itself.
-from enthought.tvtk.tvtk_classes import tvtk_helper
+from tvtk.tvtk_classes import tvtk_helper
 tvtk = tvtk_helper.TVTK()
 

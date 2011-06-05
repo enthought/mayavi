@@ -7,7 +7,7 @@
 import unittest
 import cStringIO
 
-from enthought.tvtk import indenter
+from tvtk import indenter
 
 
 class TestIndent(unittest.TestCase):

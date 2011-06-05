@@ -4,7 +4,7 @@
 
 # Enthought library imports.
 from traits.api import Instance
-from enthought.tvtk.api import tvtk
+from tvtk.api import tvtk
 
 # Local imports
 from mayavi.filters.filter_base import FilterBase

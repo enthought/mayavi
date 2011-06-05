@@ -8,5 +8,5 @@
 # License: BSD Style.
 
 # Import the toolkit specific version.
-from enthought.tvtk.pyface.toolkit import toolkit_object
+from tvtk.pyface.toolkit import toolkit_object
 SceneEditor = toolkit_object('scene_editor:SceneEditor')

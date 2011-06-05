@@ -20,7 +20,7 @@ achieving the same effect but the present form nicely illustrates item
 # Copyright (c) 2004-2007, Enthought, Inc.
 # License: BSD Style.
 
-from enthought.tvtk.api import tvtk
+from tvtk.api import tvtk
 import numpy
 import time
 

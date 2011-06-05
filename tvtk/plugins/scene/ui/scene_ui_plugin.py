@@ -24,7 +24,7 @@ class SceneUIPlugin(Plugin):
     name = 'TVTK Scene UI Plugin'
 
     # Our ID.
-    id = 'enthought.tvtk.scene_ui'
+    id = 'tvtk.scene_ui'
 
     #### Extension points offered by this plugin ##############################
 
@@ -37,7 +37,7 @@ class SceneUIPlugin(Plugin):
     def _action_sets_default(self):
         """ Trait initializer. """
 
-        from enthought.tvtk.plugins.scene.ui.scene_ui_action_set import (
+        from tvtk.plugins.scene.ui.scene_ui_action_set import (
             SceneUIActionSet
         )
 
@@ -48,7 +48,7 @@ class SceneUIPlugin(Plugin):
     def _preferences_pages_default(self):
         """ Trait initializer. """
 
-        from enthought.tvtk.plugins.scene.ui.scene_preferences_page import (
+        from tvtk.plugins.scene.ui.scene_preferences_page import (
             ScenePreferencesPage
         )
 

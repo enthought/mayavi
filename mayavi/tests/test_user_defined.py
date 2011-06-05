@@ -19,7 +19,7 @@ from mayavi.filters.user_defined import UserDefined
 from mayavi.filters.api import (CellToPointData, ExtractVectorNorm, ExtractVectorComponents)
 from mayavi.modules.api import ScalarCutPlane
 from mayavi.sources.vtk_xml_file_reader import VTKXMLFileReader
-from enthought.tvtk.api import tvtk
+from tvtk.api import tvtk
 
 class TestUserDefined(unittest.TestCase):
 

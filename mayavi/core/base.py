@@ -16,7 +16,7 @@ import imp
 from traits.api import (Instance, Property, Bool, Str, Python,
     HasTraits, WeakRef, on_trait_change)
 from traitsui.api import TreeNodeObject
-from enthought.tvtk.pyface.tvtk_scene import TVTKScene
+from tvtk.pyface.tvtk_scene import TVTKScene
 from apptools.persistence import state_pickler
 from pyface.resource.api import resource_path
 from pyface.image_resource import ImageResource

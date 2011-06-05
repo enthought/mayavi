@@ -6,7 +6,7 @@
 # Local imports.
 from common import TestCase
 from numpy import zeros, random
-from enthought.tvtk.api import tvtk
+from tvtk.api import tvtk
 
 class TestIPWMultipleScalars(TestCase):
 

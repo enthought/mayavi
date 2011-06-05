@@ -15,7 +15,7 @@ License: BSD style.
 """
 
 from numpy import array, arange, random
-from enthought.tvtk.api import tvtk
+from tvtk.api import tvtk
 from mayavi.scripts import mayavi2
 
 def single_type_ug():

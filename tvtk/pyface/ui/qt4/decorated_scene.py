@@ -20,7 +20,7 @@ else:
 # Enthought library imports.
 from pyface.api import ImageResource, FileDialog, OK
 from pyface.action.api import ToolBarManager, Group, Action
-from enthought.tvtk.api import tvtk
+from tvtk.api import tvtk
 from traits.api import Instance, false, Either, List
 
 # Local imports.
@@ -129,9 +129,9 @@ class DecoratedScene(Scene):
         toolbar."""
 
         # So that we can find the images.
-        import enthought.tvtk.pyface.api
+        import tvtk.pyface.api
 
-        return dirname(enthought.tvtk.pyface.api.__file__)
+        return dirname(tvtk.pyface.api.__file__)
 
     def _toggle_projection(self):
         """ Toggle between perspective and parallel projection, this

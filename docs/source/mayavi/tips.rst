@@ -760,7 +760,7 @@ example to use Mayavi as a 2D image viewer::
     mlab.test_imshow()
     mlab.view(0, 0)
     fig = mlab.gcf()
-    from enthought.tvtk.api import tvtk
+    from tvtk.api import tvtk
     fig.scene.interactor.interactor_style = tvtk.InteractorStyleImage()
     mlab.show()
 
@@ -771,7 +771,7 @@ pointing in the 'z' direction::
     from mayavi import mlab
     mlab.test_surf()
     fig = mlab.gcf()
-    from enthought.tvtk.api import tvtk
+    from tvtk.api import tvtk
     fig.scene.interactor.interactor_style = tvtk.InteractorStyleTerrain()
     mlab.show()
 

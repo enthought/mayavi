@@ -6,7 +6,7 @@ An off-screen mayavi engine.
 # License: BSD Style.
 
 from traits.api import Callable, Str
-from enthought.tvtk.pyface.tvtk_scene import TVTKWindow
+from tvtk.pyface.tvtk_scene import TVTKWindow
 from mayavi.core.engine import Engine
 from mayavi.preferences.api import set_scene_preferences
 

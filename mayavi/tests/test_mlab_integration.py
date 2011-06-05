@@ -10,7 +10,7 @@ import numpy as np
 
 from mayavi import mlab
 from mayavi.core.null_engine import NullEngine
-from enthought.tvtk.api import tvtk
+from tvtk.api import tvtk
 from mayavi.tools.engine_manager import engine_manager
 from mayavi.core.registry import registry
 

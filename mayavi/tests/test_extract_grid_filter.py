@@ -15,7 +15,7 @@ from mayavi.sources.vtk_data_source import VTKDataSource
 from mayavi.modules.grid_plane import GridPlane
 from mayavi.modules.axes import Axes
 from mayavi.filters.extract_grid import ExtractGrid
-from enthought.tvtk.api import tvtk
+from tvtk.api import tvtk
 
 
 class TestExtractGridFilter(unittest.TestCase):

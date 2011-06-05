@@ -31,15 +31,15 @@ if qt_api == 'pyqt':
 else:
     from PySide import QtGui, QtCore
 
-from enthought.tvtk.api import tvtk
-from enthought.tvtk import messenger
+from tvtk.api import tvtk
+from tvtk import messenger
 from traits.api import Instance, Button, Any
 from traitsui.api import View, Group, Item, InstanceEditor
 
 from pyface.api import Widget, GUI, FileDialog, OK
-from enthought.tvtk.pyface import picker
-from enthought.tvtk.pyface import light_manager
-from enthought.tvtk.pyface.tvtk_scene import TVTKScene
+from tvtk.pyface import picker
+from tvtk.pyface import light_manager
+from tvtk.pyface.tvtk_scene import TVTKScene
 
 from QVTKRenderWindowInteractor import QVTKRenderWindowInteractor
 

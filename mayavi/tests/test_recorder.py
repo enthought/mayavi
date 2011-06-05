@@ -11,7 +11,7 @@ import unittest
 
 from traits.api import (HasTraits, Float, Instance,
         Str, List, Bool)
-from enthought.tvtk.api import tvtk
+from tvtk.api import tvtk
 from apptools.scripting.api import (Recorder, recordable,
     set_recorder)
 

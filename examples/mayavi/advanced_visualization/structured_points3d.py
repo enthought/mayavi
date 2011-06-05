@@ -15,8 +15,8 @@ Alternatively, it can be run as::
 # Copyright (c) 2007, Enthought, Inc.
 # License: BSD style.
 
-from enthought.tvtk.api import tvtk
-from enthought.tvtk.array_handler import get_vtk_array_type
+from tvtk.api import tvtk
+from tvtk.array_handler import get_vtk_array_type
 from numpy import array, ogrid, sin, ravel
 from mayavi.scripts import mayavi2
 

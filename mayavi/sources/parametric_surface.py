@@ -8,7 +8,7 @@ the surface.
 
 # Enthought library imports.
 from traits.api import Instance, Enum, Dict, Str
-from enthought.tvtk.api import tvtk
+from tvtk.api import tvtk
 
 # Local imports
 from mayavi.core.source import Source
