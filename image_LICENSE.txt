@@ -12,7 +12,7 @@ under a 3 clause BSD-like license.
 
 Files and original authors:
 ----------------------------------------------------------------
-enthought/mayavi/core/images/:
+mayavi/core/images/:
                             add.ico | GV
                      add_module.png | Crystal
                       add_scene.png | Crystal
@@ -24,7 +24,7 @@ enthought/mayavi/core/images/:
                           scene.ico | Crystal
                          source.ico | Crystal
 
-enthought/mayavi/core/ui/images/:
+mayavi/core/ui/images/:
                      add_filter.png | Nuvola
                      add_module.png | Crystal
                       add_scene.png | Crystal
@@ -34,7 +34,7 @@ enthought/mayavi/core/ui/images/:
                              m2.png | GV
                             mv2.ico | GV
 
-enthought/mayavi/images/:
+mayavi/images/:
                              m2.png | GV
                        m2_about.jpg | GV
 
