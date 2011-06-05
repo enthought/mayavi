@@ -166,7 +166,7 @@ class GenDocs(Command):
 
         mlab_ref_dir = os.path.join(DEFAULT_INPUT_DIR, 'mayavi','auto')
 
-        source_path = os.path.join('enthought', 'mayavi')
+        source_path = 'mayavi'
         sources = '(\.py)|(\.rst)$'
         excluded_dirs = '^\.'
         target_path = mlab_ref_dir
@@ -422,9 +422,9 @@ def configuration(parent_package='', top_path=None):
 
     config.add_subpackage('enthought.tvtk')
     config.add_subpackage('enthought')
-    config.add_data_dir('enthought/mayavi/core/lut')
-    config.add_data_dir('enthought/mayavi/tests/data')
-    config.add_data_dir('enthought/mayavi/tests/csv_files')
+    config.add_data_dir('mayavi/core/lut')
+    config.add_data_dir('mayavi/tests/data')
+    config.add_data_dir('mayavi/tests/csv_files')
 
     # Image files.
     for root, dirs, files in os.walk('enthought'):
@@ -433,7 +433,7 @@ def configuration(parent_package='', top_path=None):
 
     # *.ini files.
     config.add_data_dir('enthought/tvtk/plugins/scene')
-    config.add_data_dir('enthought/mayavi/preferences')
+    config.add_data_dir('mayavi/preferences')
 
     # The mayavi documentation.
     # Take a peak at the zip file to know which path to add:
