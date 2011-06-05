@@ -298,7 +298,7 @@ def list_docs_data_files(project):
         if len(files) == 0:
             continue
         install_dir = root.replace(project_target_dir,
-            os.path.join('enthought', project, 'html'))
+            os.path.join(project, 'html'))
         return_list.append(
             (install_dir, [os.path.join(root, f) for f in files]))
     return return_list
@@ -306,7 +306,7 @@ def list_docs_data_files(project):
 
 # Our custom distutils hooks
 def build_tvtk_classes_zip():
-    tvtk_dir = os.path.join('enthought', 'tvtk')
+    tvtk_dir = 'tvtk'
     sys.path.insert(0, tvtk_dir)
     from setup import gen_tvtk_classes_zip
     gen_tvtk_classes_zip()
@@ -346,7 +346,7 @@ class MyDevelop(develop.develop):
         try:
             self.run_command('build_docs')
         except:
-            log.warn("Couldn't build documentation:\n%s" %
+            log.warn("Could not build documentation:\n%s" %
                      traceback.format_exception(*sys.exc_info()))
 
         # Make sure that the 'build_src' command will
@@ -376,7 +376,7 @@ class MyInstallData(install_data.install_data):
         # make sure tvtk_classes.zip always get created before putting it
         # in the install data.
         build_tvtk_classes_zip()
-        tvtk_dir = os.path.join('enthought', 'tvtk')
+        tvtk_dir = 'tvtk'
         install_data_command.data_files.append(
             (tvtk_dir, [os.path.join(tvtk_dir, 'tvtk_classes.zip')]))
 
@@ -421,18 +421,18 @@ def configuration(parent_package='', top_path=None):
     )
 
     config.add_subpackage('tvtk')
-    config.add_subpackage('enthought')
+#    config.add_subpackage('enthought')
     config.add_data_dir('mayavi/core/lut')
     config.add_data_dir('mayavi/tests/data')
     config.add_data_dir('mayavi/tests/csv_files')
 
     # Image files.
-    for root, dirs, files in os.walk('enthought'):
+    for root, dirs, files in os.walk('.'):
         if os.path.split(root)[-1] == 'images':
             config.add_data_dir(root)
 
     # *.ini files.
-    config.add_data_dir('enthought/tvtk/plugins/scene')
+    config.add_data_dir('tvtk/plugins/scene')
     config.add_data_dir('mayavi/preferences')
 
     # The mayavi documentation.
@@ -495,7 +495,7 @@ numpy.distutils.core.setup(
         },
     description = DOCLINES[1],
     docs_in_egg = True,
-    docs_in_egg_location = 'enthought/docs',
+    docs_in_egg_location = 'docs',
     download_url = ('http://www.enthought.com/repo/ETS/Mayavi-%s.tar.gz' %
         INFO['version']),
     entry_points = {
