@@ -520,9 +520,6 @@ numpy.distutils.core.setup(
     maintainer = 'ETS Developers',
     maintainer_email = 'enthought-dev@enthought.com',
     name = INFO['name'],
-    namespace_packages = [
-        "enthought",
-        ],
     platforms = ["Windows", "Linux", "Mac OS-X", "Unix", "Solaris"],
     ssh_server = 'code.enthought.com',
     ssh_remote_dir = '/www/htdocs/code.enthought.com/projects/mayavi/',
