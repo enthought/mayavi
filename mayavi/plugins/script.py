@@ -13,8 +13,8 @@ safe to instantiate as many Script instances as desired.
 from traits.api import HasTraits, Instance
 
 # Local imports
-from enthought.mayavi.core.engine import Engine
-from enthought.mayavi.core.common import exception
+from mayavi.core.engine import Engine
+from mayavi.core.common import exception
 
 
 ##############################################################################
@@ -27,7 +27,7 @@ def get_imayavi_engine(window):
 
 def get_imayavi(window):
     """Given the Envisage workbench window, returns the
-    enthought.mayavi.script.Script instance (registered as
+    mayavi.script.Script instance (registered as
     `mayavi.services.IMAYAVI`).
     """
     return window.get_service(Script)

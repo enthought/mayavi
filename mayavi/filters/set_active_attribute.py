@@ -8,10 +8,10 @@ from traitsui.api import View, Group, Item
 from enthought.tvtk.api import tvtk
 
 # Local imports.
-from enthought.mayavi.core.pipeline_info import PipelineInfo
-from enthought.mayavi.core.filter import Filter
-from enthought.mayavi.core.trait_defs import DEnum
-from enthought.mayavi.sources.vtk_xml_file_reader import get_all_attributes
+from mayavi.core.pipeline_info import PipelineInfo
+from mayavi.core.filter import Filter
+from mayavi.core.trait_defs import DEnum
+from mayavi.sources.vtk_xml_file_reader import get_all_attributes
 
 ################################################################################
 # `SetActiveAttribute` class.

@@ -9,9 +9,9 @@
 from traits.api import List, Instance, Str
 
 # Local imports
-from enthought.mayavi.core.pipeline_base import PipelineBase
-from enthought.mayavi.core.pipeline_info import PipelineInfo
-from enthought.mayavi.core.common import exception
+from mayavi.core.pipeline_base import PipelineBase
+from mayavi.core.pipeline_info import PipelineInfo
+from mayavi.core.common import exception
 
 
 ######################################################################
@@ -28,7 +28,7 @@ class Module(PipelineBase):
     # always a child of a ModuleManager.  When the module is added to
     # the mayavi pipeline (as a child of the module manager), the
     # module manager automatically sets this trait.
-    module_manager = Instance('enthought.mayavi.core.module_manager.ModuleManager',
+    module_manager = Instance('mayavi.core.module_manager.ModuleManager',
                                record=False)
 
     # The (optional) components used by this module.  NOTE: This is
@@ -239,5 +239,5 @@ class Module(PipelineBase):
         super(Module,self)._visible_changed(value)
 
     def _menu_helper_default(self):
-        from enthought.mayavi.core.traits_menu import ModuleMenuHelper
+        from mayavi.core.traits_menu import ModuleMenuHelper
         return ModuleMenuHelper(object=self.module_manager)

@@ -8,7 +8,7 @@ Tests for the pipeline_info.py module
 import unittest
 
 from enthought.tvtk.api import tvtk
-from enthought.mayavi.core import pipeline_info
+from mayavi.core import pipeline_info
 
 
 class TestPipelineInfoTest(unittest.TestCase):

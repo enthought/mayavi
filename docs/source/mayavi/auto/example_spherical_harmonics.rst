@@ -12,7 +12,7 @@ polar plot.
 This example requires scipy.
 
 In this example we use the mlab's mesh function: 
-:func:`enthought.mayavi.mlab.mesh`.
+:func:`mayavi.mlab.mesh`.
 For plotting surfaces this is a very versatile function. The surfaces can
 be defined as functions of a 2D grid.
 

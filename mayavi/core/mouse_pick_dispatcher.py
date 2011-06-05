@@ -7,7 +7,7 @@ on a scene to picking.
 from traits.api import HasTraits, Dict, Instance, \
         Enum, Int, Callable, on_trait_change, List, Tuple
 
-from enthought.mayavi.core.scene import Scene
+from mayavi.core.scene import Scene
 from enthought.tvtk.api import tvtk
 
 VTK_VERSION =        tvtk.Version().vtk_major_version \

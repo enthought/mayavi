@@ -17,8 +17,8 @@ from traits.api import (HasTraits, Instance, Int,
 
 # Local imports.
 from mayavi_workbench_application import MayaviWorkbenchApplication
-from enthought.mayavi.preferences.api import preference_manager
-from enthought.mayavi.core.customize import get_custom_plugins
+from mayavi.preferences.api import preference_manager
+from mayavi.core.customize import get_custom_plugins
 
 # GLOBALS
 logger = logging.getLogger()
@@ -76,7 +76,7 @@ def get_non_gui_plugin_classes():
     from envisage.core_plugin import CorePlugin
     from envisage.ui.workbench.workbench_plugin import WorkbenchPlugin
     from enthought.tvtk.plugins.scene.scene_plugin import ScenePlugin
-    from enthought.mayavi.plugins.mayavi_plugin import MayaviPlugin
+    from mayavi.plugins.mayavi_plugin import MayaviPlugin
     plugins = [CorePlugin,
                WorkbenchPlugin,
                MayaviPlugin,
@@ -116,7 +116,7 @@ def get_plugin_classes():
     from envisage.plugins.text_editor.text_editor_plugin import TextEditorPlugin
     from traits.logger.plugin.logger_plugin import LoggerPlugin
     from enthought.tvtk.plugins.scene.ui.scene_ui_plugin import SceneUIPlugin
-    from enthought.mayavi.plugins.mayavi_ui_plugin import MayaviUIPlugin
+    from mayavi.plugins.mayavi_ui_plugin import MayaviUIPlugin
     plugins = get_non_gui_plugin_classes()
     plugins.extend([
                 LoggerPlugin,
@@ -150,7 +150,7 @@ class Mayavi(HasTraits):
     start_gui_event_loop = Bool(True, desc='start a GUI event loop')
 
     # The MayaVi Script instance.
-    script = Instance('enthought.mayavi.plugins.script.Script')
+    script = Instance('mayavi.plugins.script.Script')
 
     # The logging mode.
     log_mode = Int(logging.ERROR, desc='the logging mode to use')
@@ -237,7 +237,7 @@ class Mayavi(HasTraits):
         if trait_name != 'started' or not new:
             return
         app = self.application
-        from enthought.mayavi.plugins.script import Script
+        from mayavi.plugins.script import Script
         window = app.workbench.active_window
         # Set our script instance.
         self.script = window.get_service(Script)

@@ -17,10 +17,10 @@ from pyface.resource.api import resource_path
 from apptools.preferences.ui.preferences_node import PreferencesNode
 
 # Local imports.
-from enthought.mayavi.preferences.mayavi_preferences_page import \
+from mayavi.preferences.mayavi_preferences_page import \
     MayaviRootPreferencesPage, MayaviMlabPreferencesPage
 
-from enthought.mayavi.preferences.preference_manager import \
+from mayavi.preferences.preference_manager import \
     preference_manager
 
 ################################################################################
@@ -59,7 +59,7 @@ class PreferenceManagerView(PreferencesManager):
         ui = self.edit_traits(
                 view=view,
                 scrollable=True,
-                id='enthought.mayavi.preferences.preference_view')
+                id='mayavi.preferences.preference_view')
         return ui
 
     def _get_root(self):

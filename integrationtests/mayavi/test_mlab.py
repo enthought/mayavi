@@ -20,7 +20,7 @@ class TestMlab(TestCase):
     def do(self):
         ############################################################
         # Imports.
-        from enthought.mayavi import mlab
+        from mayavi import mlab
 
         ############################################################
         # Create a new scene and set up the visualization.

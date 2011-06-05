@@ -15,8 +15,8 @@ from pyface.api import ImageResource
 
 from data_source_factory import DataSourceFactory
 from preview_window import PreviewWindow
-from enthought.mayavi.modules.api import Surface, Glyph
-from enthought.mayavi.filters.api import ExtractEdges
+from mayavi.modules.api import Surface, Glyph
+from mayavi.filters.api import ExtractEdges
 
 
 ############################################################################

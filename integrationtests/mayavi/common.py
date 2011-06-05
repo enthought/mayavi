@@ -17,7 +17,7 @@ from traits.api import  Bool, Instance
 from pyface.api import GUI
 from pyface.timer.api import do_later
 from enthought.tvtk.api import tvtk
-from enthought.mayavi.plugins.app import Mayavi, setup_logger
+from mayavi.plugins.app import Mayavi, setup_logger
 
 # The TVTK window.
 from enthought.tvtk.pyface.tvtk_scene import TVTKWindow
@@ -333,15 +333,15 @@ class TestCase(Mayavi):
         """Overridden logger setup."""
         if self.standalone:
             path = os.path.join(ETSConfig.application_data,
-                                'enthought.mayavi_e3', 'mayavi-test.log')
+                                'mayavi_e3', 'mayavi-test.log')
             path = os.path.abspath(path)
         else:
             path = 'mayavi-test.log'
         setup_logger(logger, path, mode=self.log_mode)
 
     def run_standalone(self):
-        from enthought.mayavi.core.engine import Engine
-        from enthought.mayavi.plugins.script import Script
+        from mayavi.core.engine import Engine
+        from mayavi.plugins.script import Script
         from pyface.api import ApplicationWindow, GUI
 
         self.setup_logger()

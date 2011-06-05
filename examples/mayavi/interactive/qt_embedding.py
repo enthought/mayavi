@@ -22,7 +22,7 @@ from traits.qt import QtGui, QtCore
 from traits.api import HasTraits, Instance, on_trait_change, \
     Int, Dict
 from traitsui.api import View, Item
-from enthought.mayavi.core.ui.api import MayaviScene, MlabSceneModel, \
+from mayavi.core.ui.api import MayaviScene, MlabSceneModel, \
         SceneEditor
 
 

@@ -9,7 +9,7 @@ import unittest
 import numpy as N
 
 from enthought.tvtk.api import tvtk
-from enthought.mayavi.core.dataset_manager import DatasetManager
+from mayavi.core.dataset_manager import DatasetManager
 
 
 def make_data():

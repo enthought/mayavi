@@ -10,7 +10,7 @@ The `enthought.tvtk.tools.visual` module exposes an API similar to
 `VPython <http://vpython.org/>`_ and is useful to create animation based
 on rigid object movement.
 
-The `@animate` decorator ( :func:`enthought.mayavi.mlab.animate` ) is
+The `@animate` decorator ( :func:`mayavi.mlab.animate` ) is
 detailed on section :ref:`animating_a_visualization`.
 
 If you want to modify the data plotted by the mlab (as in the
@@ -22,7 +22,7 @@ If you want to modify the data plotted by the mlab (as in the
 # Copyright (c) 2009, Enthought, Inc.
 # License: BSD Style.
 
-from enthought.mayavi import mlab
+from mayavi import mlab
 from enthought.tvtk.tools import visual
 # Create a figure
 f = mlab.figure(size=(500,500))

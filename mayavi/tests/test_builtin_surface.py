@@ -10,10 +10,10 @@ import numpy
 import unittest
 
 # Enthought library imports.
-from enthought.mayavi.core.null_engine import NullEngine
-from enthought.mayavi.sources.builtin_surface import BuiltinSurface
-from enthought.mayavi.modules.surface import Surface
-from enthought.mayavi.modules.outline import Outline
+from mayavi.core.null_engine import NullEngine
+from mayavi.sources.builtin_surface import BuiltinSurface
+from mayavi.modules.surface import Surface
+from mayavi.modules.outline import Outline
 
 
 class TestBuiltinSurfaceSource(unittest.TestCase):

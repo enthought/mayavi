@@ -6,10 +6,10 @@ Metadata for all sources.
 # License: BSD Style.
 
 # Local imports.
-from enthought.mayavi.core.metadata import SourceMetadata
-from enthought.mayavi.core.pipeline_info import PipelineInfo
+from mayavi.core.metadata import SourceMetadata
+from mayavi.core.pipeline_info import PipelineInfo
 
-BASE = 'enthought.mayavi.sources'
+BASE = 'mayavi.sources'
 
 open_3ds = SourceMetadata(
     id            = "3DSFile",
@@ -73,7 +73,7 @@ open_poly_data = SourceMetadata(
                'CUBE files (*.cube)|*.cube|'\
                'FACET files (*.facet)|*.facet|'\
                'OBJ files (*.obj)|*.obj',
-    can_read_test = 'enthought.mayavi.sources.poly_data_reader:PolyDataReader.can_read',
+    can_read_test = 'mayavi.sources.poly_data_reader:PolyDataReader.can_read',
     output_info = PipelineInfo(datasets=['poly_data'],
                                attribute_types=['any'],
                                attributes=['any'])

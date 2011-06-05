@@ -1,4 +1,4 @@
-from enthought.mayavi import mlab
+from mayavi import mlab
 from pyface.api import GUI
 
 def close():

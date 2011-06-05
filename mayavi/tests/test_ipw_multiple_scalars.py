@@ -2,9 +2,9 @@ import unittest
 
 from numpy import zeros, random
 from enthought.tvtk.api import tvtk
-from enthought.mayavi.sources.vtk_data_source import VTKDataSource
-from enthought.mayavi.core.null_engine import NullEngine
-from enthought.mayavi.modules.image_plane_widget import ImagePlaneWidget
+from mayavi.sources.vtk_data_source import VTKDataSource
+from mayavi.core.null_engine import NullEngine
+from mayavi.modules.image_plane_widget import ImagePlaneWidget
 
 class TestIPWMultipleScalars(unittest.TestCase):
     def setUp(self):

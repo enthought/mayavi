@@ -13,7 +13,7 @@ visualization can be explored interactively.
 First, let us create the same scalar field as the previous example:. We
 open Mayavi and enter the following code in the Python shell::
 
-    from enthought.mayavi import mlab
+    from mayavi import mlab
     import numpy as np
 
     def V(x, y, z):

@@ -64,7 +64,7 @@ If you are new to mayavi it is a good idea to read the users guide which should
 introduce you to how to install and use it.  The user guide is available in the
 `docs` directory and also available from the mayavi home page.
 
-If you have installed `enthought.mayavi` as described in the previous section
+If you have installed `mayavi` as described in the previous section
 you should be able to launch the `mayavi2` application and also run any of the
 examples in the examples directory.
 

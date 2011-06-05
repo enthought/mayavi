@@ -179,8 +179,8 @@ class GenDocs(Command):
                 os.path.join('docs', 'source', 'mayavi', 'auto',
                 'mlab_reference.rst')):
             try:
-                from enthought.mayavi import mlab
-                from enthought.mayavi.tools import auto_doc
+                from mayavi import mlab
+                from mayavi.tools import auto_doc
                 print "Generating the mlab reference documentation"
                 os.system('python mlab_reference.py')
             except:
@@ -206,8 +206,8 @@ class GenDocs(Command):
                 os.path.join('docs', 'source', 'mayavi', 'auto',
                 'examples.rst')):
             try:
-                from enthought.mayavi import mlab
-                from enthought.mayavi.tools import auto_doc
+                from mayavi import mlab
+                from mayavi.tools import auto_doc
                 print "Generating the example list"
                 subprocess.call('python %s' %
                             os.path.basename(script_file_name), shell=True,
@@ -442,7 +442,7 @@ def configuration(parent_package='', top_path=None):
 
 ################################################################################
 # Similar to package_data, but installed before build
-build_package_data = {'enthought.mayavi.images':
+build_package_data = {'mayavi.images':
                             ['docs/source/mayavi/m2_about.jpg']}
 
 # Instal our data files at build time. This is iffy,
@@ -500,7 +500,7 @@ numpy.distutils.core.setup(
         INFO['version']),
     entry_points = {
         'console_scripts': [
-            'mayavi2 = enthought.mayavi.scripts.mayavi2:main',
+            'mayavi2 = mayavi.scripts.mayavi2:main',
             'tvtk_doc = enthought.tvtk.tools.tvtk_doc:main'
             ],
 
@@ -508,8 +508,8 @@ numpy.distutils.core.setup(
             'enthought.tvtk.scene = enthought.tvtk.plugins.scene.scene_plugin:ScenePlugin',
             'enthought.tvtk.scene_ui = enthought.tvtk.plugins.scene.ui.scene_ui_plugin:SceneUIPlugin',
             'enthought.tvtk.browser = enthought.tvtk.plugins.browser.browser_plugin:BrowserPlugin',
-            'enthought.mayavi = enthought.mayavi.plugins.mayavi_plugin:MayaviPlugin',
-            'enthought.mayavi_ui = enthought.mayavi.plugins.mayavi_ui_plugin:MayaviUIPlugin'
+            'mayavi = mayavi.plugins.mayavi_plugin:MayaviPlugin',
+            'mayavi_ui = mayavi.plugins.mayavi_ui_plugin:MayaviUIPlugin'
             ],
         },
     extras_require = INFO['extras_require'],

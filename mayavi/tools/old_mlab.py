@@ -24,25 +24,25 @@ import scipy
 from envisage import get_application
 from enthought.tvtk.api import tvtk
 from enthought.tvtk.tools import mlab
-from enthought.mayavi.modules.axes import Axes
+from mayavi.modules.axes import Axes
 from traits.api import HasTraits, Instance
 from traitsui.api import View, Item, Group
 
 # MayaVi related imports.
-from enthought.mayavi.services import IMAYAVI
-from enthought.mayavi.sources.vtk_data_source import VTKDataSource
-from enthought.mayavi.filters.filter_base import FilterBase
-from enthought.mayavi.modules.surface import Surface
-from enthought.mayavi.modules.vectors import Vectors
-from enthought.mayavi.modules.iso_surface import IsoSurface
-from enthought.mayavi.modules.streamline import Streamline
-from enthought.mayavi.modules.glyph import Glyph
-from enthought.mayavi.modules.text import Text
-from enthought.mayavi.app import Mayavi
-from enthought.mayavi.core.source import Source
-from enthought.mayavi.core.module import Module
-from enthought.mayavi.core.module_manager import ModuleManager
-from enthought.mayavi.sources.array_source import ArraySource
+from mayavi.services import IMAYAVI
+from mayavi.sources.vtk_data_source import VTKDataSource
+from mayavi.filters.filter_base import FilterBase
+from mayavi.modules.surface import Surface
+from mayavi.modules.vectors import Vectors
+from mayavi.modules.iso_surface import IsoSurface
+from mayavi.modules.streamline import Streamline
+from mayavi.modules.glyph import Glyph
+from mayavi.modules.text import Text
+from mayavi.app import Mayavi
+from mayavi.core.source import Source
+from mayavi.core.module import Module
+from mayavi.core.module_manager import ModuleManager
+from mayavi.sources.array_source import ArraySource
 
 __all__ = ["scalarscatter", "vectorscatter", "scalarfield",
     "vectorfield", "isosurface", "vectors", "glyph", "streamline",
@@ -1266,7 +1266,7 @@ def imshow(arr, extent=None, interpolate=False,
 
     sp = mlab._create_structured_points_direct(xa, ya)
 
-    from enthought.mayavi.core.lut_manager import LUTManager
+    from mayavi.core.lut_manager import LUTManager
     lut = LUTManager(lut_mode=lut_mode, file_name=file_name)
     lut.data_range = min_val, max_val
     a = lut.lut.map_scalars(arr_flat, 0, 0)
@@ -1294,7 +1294,7 @@ def outline(object=None, color=None, name='Outline'):
 
         color -- The color triplet, eg: ( 1., 0., 0.)
     """
-    from enthought.mayavi.modules.outline import Outline
+    from mayavi.modules.outline import Outline
     mayavi = _make_default_figure()
     scene = gcf()
     for obj in _traverse(scene):

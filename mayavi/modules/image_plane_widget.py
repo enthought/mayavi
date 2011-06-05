@@ -11,9 +11,9 @@ from traitsui.api import View, Group, Item
 from enthought.tvtk.api import tvtk
 
 # Local imports
-from enthought.mayavi.core.module import Module
-from enthought.mayavi.core.common import error
-from enthought.mayavi.core.pipeline_info import PipelineInfo
+from mayavi.core.module import Module
+from mayavi.core.common import error
+from mayavi.core.pipeline_info import PipelineInfo
 
 
 ######################################################################

@@ -93,7 +93,7 @@ for city1, city2 in routes_table[1:-1]:
 
 
 ###############################################################################
-from enthought.mayavi import mlab
+from mayavi import mlab
 mlab.figure(1, bgcolor=(0.48, 0.48, 0.48), fgcolor=(0, 0, 0),
                size=(400, 400))
 mlab.clf()
@@ -137,7 +137,7 @@ for city, index in cities.iteritems():
 
 ###############################################################################
 # Display continents outline, using the VTK Builtin surface 'Earth'
-from enthought.mayavi.sources.builtin_surface import BuiltinSurface
+from mayavi.sources.builtin_surface import BuiltinSurface
 continents_src = BuiltinSurface(source='earth', name='Continents')
 # The on_ratio of the Earth source controls the level of detail of the
 # continents outline.

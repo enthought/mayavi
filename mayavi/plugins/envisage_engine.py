@@ -18,7 +18,7 @@ from pyface.workbench.api import WorkbenchWindow
 from apptools.scripting.api import recordable
 
 # Local imports.
-from enthought.mayavi.core.engine import Engine
+from mayavi.core.engine import Engine
 
 logger = logging.getLogger()
 

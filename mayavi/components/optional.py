@@ -13,7 +13,7 @@ from traits.api import Instance, Bool, Str, Property
 from traitsui.api import View, Group, Item
 
 # Local imports.
-from enthought.mayavi.core.component import Component
+from mayavi.core.component import Component
 
 
 ######################################################################

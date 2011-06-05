@@ -10,8 +10,8 @@ import numpy
 from common import get_example_data
 
 # Enthought library imports
-from enthought.mayavi.sources.image_reader import ImageReader
-from enthought.mayavi.tests.data_reader_test_base import DataReaderTestBase
+from mayavi.sources.image_reader import ImageReader
+from mayavi.tests.data_reader_test_base import DataReaderTestBase
 
 class TestDEMImageReader(DataReaderTestBase):
 

@@ -16,8 +16,8 @@ from apptools.persistence.file_path import FilePath
 from apptools.persistence.state_pickler import set_state
 
 # Local imports
-from enthought.mayavi.core.source import Source
-from enthought.mayavi.core.pipeline_info import PipelineInfo
+from mayavi.core.source import Source
+from mayavi.core.pipeline_info import PipelineInfo
 
 ######################################################################
 # `VRMLImporter` class.

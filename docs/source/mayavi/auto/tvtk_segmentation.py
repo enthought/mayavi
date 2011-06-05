@@ -58,7 +58,7 @@ brain_thr =  bins[brain_thr_idx + 4]
 del hist, bins, brain_thr_idx
 
 # Display the data #############################################################
-from enthought.mayavi import mlab
+from mayavi import mlab
 from enthought.tvtk.api import tvtk
 
 fig = mlab.figure(bgcolor=(0, 0, 0), size=(400, 500))

@@ -15,10 +15,10 @@ from pyface.api import FileDialog, OK
 from pyface.action.api import Action
 
 # Local imports
-from enthought.mayavi.plugins.script import get_imayavi
-from enthought.mayavi.core.common import error
-from enthought.mayavi.core.metadata import Metadata
-from enthought.mayavi.core.registry import registry
+from mayavi.plugins.script import get_imayavi
+from mayavi.core.common import error
+from mayavi.core.metadata import Metadata
+from mayavi.core.registry import registry
 
 
 ######################################################################

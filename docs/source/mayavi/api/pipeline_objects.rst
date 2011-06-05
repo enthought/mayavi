@@ -6,7 +6,7 @@ This is an API reference of the base classes of the pipeline objects.
 Please refer to section :ref:`advanced-use-of-mayavi` for instructions on
 how to use them.
 
-.. currentmodule:: enthought.mayavi.core.api
+.. currentmodule:: mayavi.core.api
 
 :class:`Scene`
 ----------------

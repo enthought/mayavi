@@ -13,7 +13,7 @@ import os
 import numpy as np
 
 from matplotlib.cm import datad, get_cmap
-from enthought.mayavi.core import lut as destination_module
+from mayavi.core import lut as destination_module
 from apptools.persistence import state_pickler
 target_dir = os.path.dirname(destination_module.__file__)
 

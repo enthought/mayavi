@@ -9,8 +9,8 @@ import unittest
 from common import get_example_data
 
 # Enthought library imports
-from enthought.mayavi.sources.unstructured_grid_reader import UnstructuredGridReader
-from enthought.mayavi.tests.data_reader_test_base import DataReaderTestBase
+from mayavi.sources.unstructured_grid_reader import UnstructuredGridReader
+from mayavi.tests.data_reader_test_base import DataReaderTestBase
 
 class TestAVSUCDReader(DataReaderTestBase):
 

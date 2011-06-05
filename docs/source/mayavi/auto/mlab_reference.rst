@@ -5,7 +5,7 @@
 MLab reference
 =================
 
-Reference list of all the main functions of ``enthought.mayavi.mlab``
+Reference list of all the main functions of ``mayavi.mlab``
 with documentation and examples.
 
 .. note::
@@ -17,7 +17,7 @@ with documentation and examples.
 
 
 
-.. module:: enthought.mayavi.mlab
+.. module:: mayavi.mlab
 
 .. toctree::
 

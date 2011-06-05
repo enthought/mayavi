@@ -30,7 +30,7 @@ class MayaviRootPreferencesPage(PreferencesPage):
     name = 'Mayavi'
 
     # The path to the preferences node that contains the preferences.
-    preferences_path = 'enthought.mayavi'
+    preferences_path = 'mayavi'
 
     #### Preferences ##########################################################
 
@@ -121,7 +121,7 @@ class MayaviMlabPreferencesPage(PreferencesPage):
     name = 'Mlab'
 
     # The path to the preferences node that contains the preferences.
-    preferences_path = 'enthought.mayavi.mlab'
+    preferences_path = 'mayavi.mlab'
 
     #### Preferences ##########################################################
 

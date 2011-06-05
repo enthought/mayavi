@@ -17,9 +17,9 @@ from apptools.persistence import state_pickler
 from enthought.tvtk.api import tvtk
 
 # Local imports
-from enthought.mayavi.core.filter import Filter
-from enthought.mayavi.core.pipeline_info import PipelineInfo
-from enthought.mayavi.components.implicit_widgets import ImplicitWidgets
+from mayavi.core.filter import Filter
+from mayavi.core.pipeline_info import PipelineInfo
+from mayavi.components.implicit_widgets import ImplicitWidgets
 
 
 ######################################################################

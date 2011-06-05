@@ -11,8 +11,8 @@ The key functions exposed are::
 See the function documentation for more information.  Here is sample
 usage::
 
-    from enthought.mayavi import mlab
-    from enthought.mayavi.tools import server
+    from mayavi import mlab
+    from mayavi.tools import server
     mlab.test_plot3d()
     server.serve_tcp()
 
@@ -166,8 +166,8 @@ def serve_udp(engine=None, port=9007, logto=sys.stdout):
 
     Here is a very simple example::
 
-        from enthought.mayavi import mlab
-        from enthought.mayavi.tools import server
+        from mayavi import mlab
+        from mayavi.tools import server
         mlab.test_plot3d()
         server.serve_udp()
 
@@ -183,7 +183,7 @@ def serve_udp(engine=None, port=9007, logto=sys.stdout):
     Data sent is exec'd so this is a security hole.
     """
 
-    from enthought.mayavi import mlab
+    from mayavi import mlab
     e = engine or mlab.get_engine()
     # Setup the protocol with the right attributes.
     proto = M2UDP()
@@ -228,8 +228,8 @@ def serve_tcp(engine=None, port=8007, logto=sys.stdout, max_connect=1):
 
     Here is a very simple example::
 
-        from enthought.mayavi import mlab
-        from enthought.mayavi.tools import server
+        from mayavi import mlab
+        from mayavi.tools import server
         mlab.test_plot3d()
         server.serve_tcp()
 
@@ -253,7 +253,7 @@ def serve_tcp(engine=None, port=8007, logto=sys.stdout, max_connect=1):
     Data sent is exec'd so this is a security hole.
     """
 
-    from enthought.mayavi import mlab
+    from mayavi import mlab
     e = engine or mlab.get_engine()
     # Setup the factory with the right attributes.
     factory = Factory()
@@ -282,13 +282,13 @@ def serve_tcp(engine=None, port=8007, logto=sys.stdout, max_connect=1):
 ################################################################################
 def test_tcp():
     """Simple test for the TCP server."""
-    from enthought.mayavi import mlab
+    from mayavi import mlab
     mlab.test_plot3d()
     serve_tcp()
 
 def test_udp():
     """Simple test for the UDP server."""
-    from enthought.mayavi import mlab
+    from mayavi import mlab
     mlab.test_plot3d()
     serve_udp()
 

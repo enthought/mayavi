@@ -7,7 +7,7 @@ import os.path
 import logging
 
 # Enthought library imports.
-from enthought.mayavi.plugins.app import get_plugins, setup_logger
+from mayavi.plugins.app import get_plugins, setup_logger
 from traits.api import List
 from envisage.api import Plugin, ServiceOffer
 from envisage.ui.workbench.api import WorkbenchApplication

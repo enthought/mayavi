@@ -24,11 +24,11 @@ from enthought.tvtk.util.ctf import save_ctfs, load_ctfs, \
 from apptools.persistence import state_pickler
 
 # Local imports
-from enthought.mayavi.core.pipeline_info import PipelineInfo
-from enthought.mayavi.core.module import Module
-from enthought.mayavi.core.common import error
-from enthought.mayavi.core.trait_defs import DEnum
-from enthought.mayavi.core.lut_manager import LUTManager
+from mayavi.core.pipeline_info import PipelineInfo
+from mayavi.core.module import Module
+from mayavi.core.common import error
+from mayavi.core.trait_defs import DEnum
+from mayavi.core.lut_manager import LUTManager
 
 ######################################################################
 # Utility functions.

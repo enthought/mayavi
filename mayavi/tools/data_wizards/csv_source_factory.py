@@ -9,9 +9,9 @@ Factory used by mayavi to import csv-like files into datasets.
 from traits.api import HasTraits, Callable
 from traitsui.api import Handler
 
-from enthought.mayavi.tools.data_wizards.data_source_wizard import \
+from mayavi.tools.data_wizards.data_source_wizard import \
         DataSourceWizardView
-from enthought.mayavi.tools.data_wizards.csv_loader import \
+from mayavi.tools.data_wizards.csv_loader import \
         CSVLoader, CSVLoaderController
 
 class CallbackCSVLoader(CSVLoaderController):

@@ -66,9 +66,9 @@ class TestImagePlaneWidget(TestCase):
         ############################################################
         # Imports.
         script = self.script
-        from enthought.mayavi.sources.array_source import ArraySource
-        from enthought.mayavi.modules.outline import Outline
-        from enthought.mayavi.modules.image_plane_widget import ImagePlaneWidget
+        from mayavi.sources.array_source import ArraySource
+        from mayavi.modules.outline import Outline
+        from mayavi.modules.image_plane_widget import ImagePlaneWidget
 
         ############################################################
         # Create a new scene and set up the visualization.

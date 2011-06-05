@@ -14,8 +14,8 @@ from enthought.tvtk.common import camel2enthought
 from apptools.persistence.state_pickler import set_state
 
 # Local imports.
-from enthought.mayavi.core.common import handle_children_state
-from enthought.mayavi.core.component import Component
+from mayavi.core.common import handle_children_state
+from mayavi.core.component import Component
 
 
 ######################################################################

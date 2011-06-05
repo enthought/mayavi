@@ -4,7 +4,7 @@ A script to generate the Mayavi logo: a Boy surface.
 The boy surface is a mathematical parametric surface, see
 http://en.wikipedia.org/wiki/Boy%27s_surface . We display it by sampling
 the two parameters of the surface on a grid and using the mlab's mesh
-function: :func:`enthought.mayavi.mlab.mesh`.
+function: :func:`mayavi.mlab.mesh`.
 """
 
 # Author: Gael Varoquaux <gael.varoquaux@normalesup.org>
@@ -13,7 +13,7 @@ function: :func:`enthought.mayavi.mlab.mesh`.
 
 
 from numpy import sin, cos, mgrid, pi, sqrt
-from enthought.mayavi import mlab
+from mayavi import mlab
 
 mlab.figure(fgcolor=(0, 0, 0), bgcolor=(1, 1, 1))
 u, v = mgrid[-0.035:pi:0.01, -0.035:pi:0.01]

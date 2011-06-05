@@ -25,8 +25,8 @@ from traitsui.api import View
 from apptools.scripting.api import Recorder
 
 # Local imports.
-from enthought.mayavi.preferences.api import preference_manager
-from enthought.mayavi.core.common import get_engine
+from mayavi.preferences.api import preference_manager
+from mayavi.core.common import get_engine
 
 # Setup a logger for this module.
 logger = logging.getLogger(__name__)

@@ -20,7 +20,7 @@ class Animator(HasTraits):
         UI.  This is based on the code in `enthought.tvtk.tools.visual`.
         Here is a simple example of using this class::
 
-            >>> from enthought.mayavi import mlab
+            >>> from mayavi import mlab
             >>> def anim():
             ...     f = mlab.gcf()
             ...     while 1:
@@ -133,7 +133,7 @@ def animate(func=None, delay=500, ui=True):
 
         Here is the example provided in the Animator class documentation::
 
-            >>> from enthought.mayavi import mlab
+            >>> from mayavi import mlab
             >>> @mlab.animate
             ... def anim():
             ...     f = mlab.gcf()
@@ -146,7 +146,7 @@ def animate(func=None, delay=500, ui=True):
 
         For more specialized use you can pass arguments to the decorator::
 
-            >>> from enthought.mayavi import mlab
+            >>> from mayavi import mlab
             >>> @mlab.animate(delay=500, ui=False)
             ... def anim():
             ...     f = mlab.gcf()

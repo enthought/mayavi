@@ -1,7 +1,7 @@
 """Test for the mlab.show function/decorator."""
 
 from inspect import getmembers
-from enthought.mayavi import mlab
+from mayavi import mlab
 from pyface.api import GUI
 
 def do_mlab():

@@ -13,10 +13,10 @@ import unittest
 from common import get_example_data
 
 # Enthought library imports
-from enthought.mayavi.core.null_engine import NullEngine
-from enthought.mayavi.sources.vtk_xml_file_reader import VTKXMLFileReader
-from enthought.mayavi.modules.api import ContourGridPlane
-from enthought.mayavi.filters.image_data_probe import ImageDataProbe
+from mayavi.core.null_engine import NullEngine
+from mayavi.sources.vtk_xml_file_reader import VTKXMLFileReader
+from mayavi.modules.api import ContourGridPlane
+from mayavi.filters.image_data_probe import ImageDataProbe
 
 class TestImageDataProbe(unittest.TestCase):
 
@@ -76,7 +76,7 @@ class TestImageDataProbe(unittest.TestCase):
         #Now test.
         self.check()
 
-        #from enthought.mayavi.tools.show import show
+        #from mayavi.tools.show import show
         #show()
 
     def test_save_and_restore(self):
@@ -122,7 +122,7 @@ class TestImageDataProbe(unittest.TestCase):
         source1 = copy.deepcopy(source)
         s.children[0] = source1
         self.check()
-        #from enthought.mayavi.tools.show import show
+        #from mayavi.tools.show import show
         #show()
 
 

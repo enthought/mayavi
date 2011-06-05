@@ -16,7 +16,7 @@ from traitsui.api import View, Item, Group, \
 from pyface.api import ImageResource
 
 # Local imports.
-from enthought.mayavi.core.registry import registry
+from mayavi.core.registry import registry
 
 ###############################################################################
 # AdderNode class

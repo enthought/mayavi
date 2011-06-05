@@ -43,9 +43,9 @@ class TestStreamline(TestCase):
         ############################################################
         # Imports.
         script = self.script
-        from enthought.mayavi.sources.array_source import ArraySource
-        from enthought.mayavi.modules.outline import Outline
-        from enthought.mayavi.modules.streamline import Streamline
+        from mayavi.sources.array_source import ArraySource
+        from mayavi.modules.outline import Outline
+        from mayavi.modules.streamline import Streamline
 
         ############################################################
         # Create a new scene and set up the visualization.

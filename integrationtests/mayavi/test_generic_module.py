@@ -22,14 +22,14 @@ class TestGenericModule(TestCase):
         ############################################################
         # Imports.
         script = self.script
-        from enthought.mayavi.filters.optional import Optional
-        from enthought.mayavi.filters.warp_scalar import WarpScalar
-        from enthought.mayavi.filters.cut_plane import CutPlane
-        from enthought.mayavi.components.poly_data_normals import PolyDataNormals
-        from enthought.mayavi.components.contour import Contour
-        from enthought.mayavi.components.actor import Actor
-        from enthought.mayavi.modules.generic_module import GenericModule
-        from enthought.mayavi.sources.vtk_xml_file_reader import VTKXMLFileReader
+        from mayavi.filters.optional import Optional
+        from mayavi.filters.warp_scalar import WarpScalar
+        from mayavi.filters.cut_plane import CutPlane
+        from mayavi.components.poly_data_normals import PolyDataNormals
+        from mayavi.components.contour import Contour
+        from mayavi.components.actor import Actor
+        from mayavi.modules.generic_module import GenericModule
+        from mayavi.sources.vtk_xml_file_reader import VTKXMLFileReader
 
         ############################################################
         # Create a new scene and set up the visualization.

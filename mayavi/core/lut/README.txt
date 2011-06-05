@@ -8,10 +8,10 @@ for license agreement (http://matplotlib.sourceforge.net/license.html)
 developed by Cynthia Brewer (http://colorbrewer.org). The ColorBrewer
 palettes have been included under the terms of an Apache-stype license
 (for details, see the file LICENSE_COLORBREWER in the base directory of
-enthought.mayavi source).
+mayavi source).
 
 7 palettes are from the Yorick scientific visalisation package, an
 evolution of the GIST package, both by David H. Munro. They are
 released under a BSD-like license (see LICENSE_YORICK in the base
-directory of enthought.mayavi source).
+directory of mayavi source).
 

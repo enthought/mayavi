@@ -19,7 +19,7 @@ the object added to the pipeline.
 For instance, the `ScalarCutPlane` module can be added with the following
 function:
 
-.. autofunction:: enthought.mayavi.tools.modules.scalar_cut_plane
+.. autofunction:: mayavi.tools.modules.scalar_cut_plane
 
 As the list is long, we shall not enumerate here all the factory function
 for adding modules or filters. You are invited to refer to their

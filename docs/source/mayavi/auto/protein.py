@@ -114,7 +114,7 @@ z       = np.array(z)
 scalars = np.array(scalars)
 
 # Visualize the data ###########################################################
-from enthought.mayavi import mlab
+from mayavi import mlab
 mlab.figure(1, bgcolor=(0, 0, 0))
 mlab.clf()
 

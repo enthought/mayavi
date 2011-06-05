@@ -12,11 +12,11 @@ import warnings
 from auto_doc import make_doc
 from traits.api import HasPrivateTraits, Str, TraitError,\
             Instance, Any, Bool
-from enthought.mayavi.core.filter import Filter
-from enthought.mayavi.core.engine import Engine
-from enthought.mayavi.core.source import Source
-from enthought.mayavi.core.scene import Scene
-from enthought.mayavi.core.module_manager import ModuleManager
+from mayavi.core.filter import Filter
+from mayavi.core.engine import Engine
+from mayavi.core.source import Source
+from mayavi.core.scene import Scene
+from mayavi.core.module_manager import ModuleManager
 
 from enthought.tvtk.api import tvtk
 

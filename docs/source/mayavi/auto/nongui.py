@@ -23,8 +23,8 @@ Or::
 from os.path import join, abspath
 
 # Enthought library imports
-from enthought.mayavi.scripts.util import get_data_dir
-from enthought.mayavi.plugins.app import Mayavi, get_non_gui_plugins
+from mayavi.scripts.util import get_data_dir
+from mayavi.plugins.app import Mayavi, get_non_gui_plugins
 
 class MyApp(Mayavi):
     def run(self):
@@ -33,14 +33,14 @@ class MyApp(Mayavi):
         """
 
         # Various imports to do different things.
-        from enthought.mayavi.sources.vtk_file_reader import VTKFileReader
-        from enthought.mayavi.modules.outline import Outline
-        from enthought.mayavi.modules.axes import Axes
-        from enthought.mayavi.modules.grid_plane import GridPlane
-        from enthought.mayavi.modules.image_plane_widget import ImagePlaneWidget
-        from enthought.mayavi.modules.text import Text
-        from enthought.mayavi.modules.contour_grid_plane import ContourGridPlane
-        from enthought.mayavi.modules.iso_surface import IsoSurface
+        from mayavi.sources.vtk_file_reader import VTKFileReader
+        from mayavi.modules.outline import Outline
+        from mayavi.modules.axes import Axes
+        from mayavi.modules.grid_plane import GridPlane
+        from mayavi.modules.image_plane_widget import ImagePlaneWidget
+        from mayavi.modules.text import Text
+        from mayavi.modules.contour_grid_plane import ContourGridPlane
+        from mayavi.modules.iso_surface import IsoSurface
 
         script = self.script
 

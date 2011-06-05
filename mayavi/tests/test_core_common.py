@@ -1,5 +1,5 @@
 """
-Tests for the enthought.mayavi.core.common module.
+Tests for the mayavi.core.common module.
 """
 # Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
 # Copyright (c) 2008, Enthought, Inc.
@@ -7,12 +7,12 @@ Tests for the enthought.mayavi.core.common module.
 
 import unittest
 
-from enthought.mayavi.core.common import get_object_path, get_engine
-from enthought.mayavi.sources.parametric_surface import \
+from mayavi.core.common import get_object_path, get_engine
+from mayavi.sources.parametric_surface import \
     ParametricSurface
-from enthought.mayavi.modules.outline import Outline
+from mayavi.modules.outline import Outline
 
-from enthought.mayavi.core.null_engine import NullEngine
+from mayavi.core.null_engine import NullEngine
 
 
 class TestCoreCommon(unittest.TestCase):

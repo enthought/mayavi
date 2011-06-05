@@ -18,7 +18,7 @@ Alternatively, it can be run as::
 from enthought.tvtk.api import tvtk
 from enthought.tvtk.array_handler import get_vtk_array_type
 from numpy import array, ogrid, sin, ravel
-from enthought.mayavi.scripts import mayavi2
+from mayavi.scripts import mayavi2
 
 # Make the data.
 dims = array((128, 128, 128))
@@ -55,9 +55,9 @@ spoints.scalar_type = get_vtk_array_type(s.dtype)
 # Now view the data.
 @mayavi2.standalone
 def view():
-    from enthought.mayavi.sources.vtk_data_source import VTKDataSource
-    from enthought.mayavi.modules.outline import Outline
-    from enthought.mayavi.modules.image_plane_widget import ImagePlaneWidget
+    from mayavi.sources.vtk_data_source import VTKDataSource
+    from mayavi.modules.outline import Outline
+    from mayavi.modules.image_plane_widget import ImagePlaneWidget
 
     mayavi.new_scene()
     src = VTKDataSource(data = spoints)

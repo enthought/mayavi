@@ -8,8 +8,8 @@
 from enthought.tvtk.api import tvtk
 
 # Local imports.
-from enthought.mayavi.core.component import Component
-from enthought.mayavi.core.common import error
+from mayavi.core.component import Component
+from mayavi.core.common import error
 
 
 def get_module_source(obj):

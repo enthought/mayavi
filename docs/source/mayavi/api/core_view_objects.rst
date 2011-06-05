@@ -6,7 +6,7 @@ This is an API reference of the views for the main objects.
 The section :ref:`builing_applications` gives some context on
 how to use them.
 
-.. currentmodule:: enthought.mayavi.core.ui.api
+.. currentmodule:: mayavi.core.ui.api
 
 Scene UIs: :class:`DecoratedScene` and :class:`MayaviScene`
 --------------------------------------------------------------
@@ -37,7 +37,7 @@ Scene UIs: :class:`DecoratedScene` and :class:`MayaviScene`
 
 These are two objects to be used as views for an engine::
 
-   from enthought.mayavi.core.ui.api import EngineView
+   from mayavi.core.ui.api import EngineView
    view = EngineView(engine=engine)
    view.edit_traits()
 

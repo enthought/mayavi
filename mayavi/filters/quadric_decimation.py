@@ -7,9 +7,9 @@ from traits.api import Instance
 from enthought.tvtk.api import tvtk
 
 # Local imports
-from enthought.mayavi.filters.poly_data_filter_base import \
+from mayavi.filters.poly_data_filter_base import \
         PolyDataFilterBase
-from enthought.mayavi.core.pipeline_info import PipelineInfo
+from mayavi.core.pipeline_info import PipelineInfo
 
 
 ######################################################################

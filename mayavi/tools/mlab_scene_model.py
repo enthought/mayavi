@@ -6,9 +6,9 @@
 
 from traits.api import Instance, Property
 from enthought.tvtk.pyface.scene_model import SceneModel
-from enthought.mayavi.core.engine import Engine
-from enthought.mayavi.core.scene import Scene
-from enthought.mayavi import mlab as m2_mlab
+from mayavi.core.engine import Engine
+from mayavi.core.scene import Scene
+from mayavi import mlab as m2_mlab
 
 ######################################################################
 # `MlabSceneModel` class

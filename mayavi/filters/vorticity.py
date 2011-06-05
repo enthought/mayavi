@@ -9,13 +9,13 @@ from traits.api import Instance
 from traitsui.api import View, Group, Item
 
 # Local imports.
-from enthought.mayavi.core.pipeline_info import PipelineInfo
-from enthought.mayavi.filters.optional import Optional
-from enthought.mayavi.filters.collection import Collection
-from enthought.mayavi.filters.cell_derivatives import CellDerivatives
-from enthought.mayavi.filters.cell_to_point_data import CellToPointData
-from enthought.mayavi.filters.extract_vector_norm import ExtractVectorNorm
-from enthought.mayavi.filters.extract_vector_components import ExtractVectorComponents
+from mayavi.core.pipeline_info import PipelineInfo
+from mayavi.filters.optional import Optional
+from mayavi.filters.collection import Collection
+from mayavi.filters.cell_derivatives import CellDerivatives
+from mayavi.filters.cell_to_point_data import CellToPointData
+from mayavi.filters.extract_vector_norm import ExtractVectorNorm
+from mayavi.filters.extract_vector_components import ExtractVectorComponents
 
 
 ################################################################################

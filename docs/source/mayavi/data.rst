@@ -120,7 +120,7 @@ For example:
   ::
 
     >>> import numpy as np
-    >>> from enthought.mayavi import mlab
+    >>> from mayavi import mlab
     >>> data = np.random.random((10, 10, 10))
     >>> iso = mlab.contour3d(data) 
     
@@ -133,7 +133,7 @@ For example:
   Thus we can see that the Mayavi source created by `mlab.surf` exposes
   an ImageData_ VTK dataset.
 
-.. currentmodule:: enthought.mayavi.tools
+.. currentmodule:: mayavi.tools
 
 .. note::
 
@@ -153,7 +153,7 @@ Retrieving the data from Mayavi pipelines
 Probing data at given positions
 ................................
 
-.. currentmodule:: enthought.mayavi.tools
+.. currentmodule:: mayavi.tools
 
 If you simply want to retrieve the data values described by a Mayavi
 object a given position in space, you can use the
@@ -613,9 +613,9 @@ dataset::
 * In addition, inserting this dataset on the Mayavi pipeline with direct
   control on the `Engine` is done as suchwith `VTKDataSource`::
 
-    from enthought.mayavi.sources.api import VTKDataSource
+    from mayavi.sources.api import VTKDataSource
     src = VTKDataSource(data=i)
-    from enthought.mayavi.api import Engine
+    from mayavi.api import Engine
     e = Engine()
     e.start()
     s = e.new_scene()

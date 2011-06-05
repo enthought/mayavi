@@ -19,9 +19,9 @@ from traits.api import Trait, CArray, Instance, CFloat, \
 from enthought.tvtk.api import tvtk
 from enthought.tvtk.common import camel2enthought
 
-from enthought.mayavi.core.lut_manager import lut_mode_list
-import enthought.mayavi.modules.api as modules
-from enthought.mayavi.core.registry import registry
+from mayavi.core.lut_manager import lut_mode_list
+import mayavi.modules.api as modules
+from mayavi.core.registry import registry
 import tools
 from pipe_base import PipeFactory, make_function
 

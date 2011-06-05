@@ -12,13 +12,13 @@ import unittest
 import datasets
 
 # Enthought library imports
-from enthought.mayavi.core.null_engine import NullEngine
-from enthought.mayavi.filters.contour import Contour
-from enthought.mayavi.filters.optional import Optional
-from enthought.mayavi.filters.collection import Collection
-from enthought.mayavi.filters.api import PolyDataNormals
-from enthought.mayavi.modules.api import Surface
-from enthought.mayavi.sources.vtk_data_source import VTKDataSource
+from mayavi.core.null_engine import NullEngine
+from mayavi.filters.contour import Contour
+from mayavi.filters.optional import Optional
+from mayavi.filters.collection import Collection
+from mayavi.filters.api import PolyDataNormals
+from mayavi.modules.api import Surface
+from mayavi.sources.vtk_data_source import VTKDataSource
 
 
 class TestOptionalCollection(unittest.TestCase):
@@ -87,7 +87,7 @@ class TestOptionalCollection(unittest.TestCase):
         coll = self.coll
         self.check(coll)
 
-        #from enthought.mayavi.tools.show import show
+        #from mayavi.tools.show import show
         #show()
 
     def test_save_and_restore(self):
@@ -135,7 +135,7 @@ class TestOptionalCollection(unittest.TestCase):
         s.children[0] = source1
         coll = s.children[0].children[0]
         self.check(coll)
-        #from enthought.mayavi.tools.show import show
+        #from mayavi.tools.show import show
         #show()
 
 

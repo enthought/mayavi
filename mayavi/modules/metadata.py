@@ -6,10 +6,10 @@ Metadata for all modules.
 # License: BSD Style.
 
 # Local imports.
-from enthought.mayavi.core.metadata import ModuleMetadata
-from enthought.mayavi.core.pipeline_info import PipelineInfo
+from mayavi.core.metadata import ModuleMetadata
+from mayavi.core.pipeline_info import PipelineInfo
 
-BASE = 'enthought.mayavi.modules'
+BASE = 'mayavi.modules'
 
 
 ################################################################################

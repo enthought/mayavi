@@ -18,10 +18,10 @@ from traitsui.api import View, Group, Item, InstanceEditor
 from enthought.tvtk.api import tvtk
 
 # Local imports
-from enthought.mayavi.core.module import Module
-from enthought.mayavi.core.pipeline_info import PipelineInfo
-from enthought.mayavi.components.actor import Actor
-from enthought.mayavi.components.source_widget import SourceWidget
+from mayavi.core.module import Module
+from mayavi.core.pipeline_info import PipelineInfo
+from mayavi.components.actor import Actor
+from mayavi.components.source_widget import SourceWidget
 
 
 ######################################################################

@@ -14,9 +14,9 @@ from enthought.tvtk.api import tvtk
 from apptools.persistence import state_pickler
 
 # Local imports
-from enthought.mayavi.core.module import Module
-from enthought.mayavi.core.common import error
-from enthought.mayavi.core.pipeline_info import PipelineInfo
+from mayavi.core.module import Module
+from mayavi.core.common import error
+from mayavi.core.pipeline_info import PipelineInfo
 
 if not hasattr(tvtk, 'OrientationMarkerWidget'):
     msg = 'The OrientationAxes module requires VTK version >= 4.5'

@@ -8,7 +8,7 @@ The preferences helpers are divided into different categories for
 different kinds of preferences.  Currently the following are available.
 
   - root: for global mayavi preferences of the form
-    'enthought.mayavi.preference'.
+    'mayavi.preference'.
 
 For more details on the general preferences support in enthought, please
 read the documentation for apptools.preferences (part of the AppTools
@@ -31,11 +31,11 @@ from apptools.preferences.api import (ScopedPreferences, IPreferences,
         PreferencesHelper)
 
 # Local imports.
-from enthought.mayavi.preferences.preferences_helpers import (
+from mayavi.preferences.preferences_helpers import (
         RootPreferencesHelper, MlabPreferencesHelper )
 
 # The application ID where the preferences are stored.
-ID = 'enthought.mayavi_e3'
+ID = 'mayavi_e3'
 
 
 ################################################################################
@@ -44,11 +44,11 @@ ID = 'enthought.mayavi_e3'
 class PreferenceManager(HasTraits):
 
     # The root preferences helper for preferences of the form
-    # 'enthought.mayavi.preference'.
+    # 'mayavi.preference'.
     root = Instance(PreferencesHelper)
 
     # The mlab preferences helper for preferences of the form
-    # 'enthought.mayavi.mlab.preference'.
+    # 'mayavi.mlab.preference'.
     mlab = Instance(PreferencesHelper)
 
     # The preferences.
@@ -103,7 +103,7 @@ class PreferenceManager(HasTraits):
         path = join(ETSConfig.get_application_data(), ID)
         ETSConfig.application_home = path
         try:
-            for pkg in ('enthought.mayavi.preferences',
+            for pkg in ('mayavi.preferences',
                         'enthought.tvtk.plugins.scene'):
                 pref = 'preferences.ini'
                 pref_file = pkg_resources.resource_stream(pkg, pref)

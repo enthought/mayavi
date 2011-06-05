@@ -9,7 +9,7 @@
 from traits.api import List
 
 # Local imports.
-from enthought.mayavi.core.pipeline_base import PipelineBase
+from mayavi.core.pipeline_base import PipelineBase
 
 
 ######################################################################

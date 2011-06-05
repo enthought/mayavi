@@ -7,11 +7,11 @@ from traitsui.api import View, Group, Item
 from enthought.tvtk.api import tvtk
 
 # Local imports
-from enthought.mayavi.core.module import Module
-from enthought.mayavi.core.pipeline_info import PipelineInfo
-from enthought.mayavi.components.implicit_plane import ImplicitPlane
-from enthought.mayavi.components.actor import Actor
-from enthought.mayavi.core.common import error
+from mayavi.core.module import Module
+from mayavi.core.pipeline_info import PipelineInfo
+from mayavi.components.implicit_plane import ImplicitPlane
+from mayavi.components.actor import Actor
+from mayavi.core.common import error
 
 
 ######################################################################

@@ -6,7 +6,7 @@
 
 # Enthought library imports.
 from envisage.ui.action.api import Action, ActionSet, Group, Menu
-from enthought.mayavi.core.registry import registry
+from mayavi.core.registry import registry
 
 ########################################
 # Groups
@@ -64,7 +64,7 @@ filters_menu = Menu(
 ########################################
 # File menu items.
 
-ID = 'enthought.mayavi'
+ID = 'mayavi'
 
 ####################
 # Source actions.

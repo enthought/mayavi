@@ -1,5 +1,5 @@
 """
-Tests for traits defined in enthought.mayavi.core.traits
+Tests for traits defined in mayavi.core.traits
 """
 # Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
 # Copyright (c) 2008, Prabhu Ramachandran Enthought, Inc.
@@ -9,7 +9,7 @@ import unittest
 import numpy
 from traits.api import (HasTraits, Either, Array, Any,
                 TraitError, Float, Int)
-from enthought.mayavi.core.traits import ShadowProperty
+from mayavi.core.traits import ShadowProperty
 
 
 ArrayOrNone = Either(None, Array)

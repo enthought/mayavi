@@ -15,11 +15,11 @@ import numpy
 from common import get_example_data
 
 # Enthought library imports
-from enthought.mayavi.core.null_engine import NullEngine
-from enthought.mayavi.sources.vtk_xml_file_reader import VTKXMLFileReader
-from enthought.mayavi.modules.outline import Outline
-from enthought.mayavi.modules.contour_grid_plane import ContourGridPlane
-from enthought.mayavi.modules.scalar_cut_plane import ScalarCutPlane
+from mayavi.core.null_engine import NullEngine
+from mayavi.sources.vtk_xml_file_reader import VTKXMLFileReader
+from mayavi.modules.outline import Outline
+from mayavi.modules.contour_grid_plane import ContourGridPlane
+from mayavi.modules.scalar_cut_plane import ScalarCutPlane
 
 class TestVTKXMLReader(unittest.TestCase):
 
@@ -100,7 +100,7 @@ class TestVTKXMLReader(unittest.TestCase):
         #Now test.
         self.check()
 
-        #from enthought.mayavi.tools.show import show
+        #from mayavi.tools.show import show
         #show()
 
     def test_save_and_restore(self):
@@ -149,7 +149,7 @@ class TestVTKXMLReader(unittest.TestCase):
         cp = source1.children[0].children[-1]
         cp.implicit_plane.widget.enabled = False
         self.check()
-        #from enthought.mayavi.tools.show import show
+        #from mayavi.tools.show import show
         #show()
 
 if __name__ == '__main__':

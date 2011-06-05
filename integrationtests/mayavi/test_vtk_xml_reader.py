@@ -17,7 +17,7 @@ from test_vtk_data_source import TestVTKDataSource
 class TestVTKXMLReader(TestVTKDataSource):
     def make_data(self):
         script = self.script
-        from enthought.mayavi.sources.vtk_xml_file_reader import VTKXMLFileReader
+        from mayavi.sources.vtk_xml_file_reader import VTKXMLFileReader
 
         ############################################################
         # Create a new scene and set up the visualization.

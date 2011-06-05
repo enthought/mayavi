@@ -4,7 +4,7 @@ any `site_mayavi.py` (anywhere on `sys.path`) or `user_mayavi.py`.  The
 and this directory is also injected into the path.
 
 It is the users responsibility to import the mayavi registry
-(enthought.mayavi.registry:registry) and register any new modules or
+(mayavi.registry:registry) and register any new modules or
 filters into mayavi using suitable metadata.
 
 If the user desires to contribute any plugins then they may expose a
@@ -28,7 +28,7 @@ from os.path import join, exists
 
 # Enthought library imports.
 from traits.util.home_directory import get_home_directory
-from enthought.mayavi.preferences.api import preference_manager
+from mayavi.preferences.api import preference_manager
 
 # The functions that return the plugins.
 _get_global_plugins = lambda: []

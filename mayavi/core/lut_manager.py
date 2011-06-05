@@ -18,10 +18,10 @@ from apptools.persistence import state_pickler
 from enthought.tvtk.api import tvtk
 
 # Local imports.
-from enthought.mayavi.core.base import Base
-from enthought.mayavi.core.common import error
+from mayavi.core.base import Base
+from mayavi.core.common import error
 
-from enthought.mayavi.core import lut
+from mayavi.core import lut
 lut_image_dir = os.path.dirname(lut.__file__)
 pylab_luts = state_pickler.load_state(os.path.join(lut_image_dir,
                                                 'pylab_luts.pkl'))

@@ -14,8 +14,8 @@ from pyface.api import FileDialog, OK
 from pyface.action.api import Action
 
 # Local imports
-from enthought.mayavi.plugins.script import get_imayavi
-from enthought.mayavi.core.common import error, exception
+from mayavi.plugins.script import get_imayavi
+from mayavi.core.common import error, exception
 
 
 ######################################################################

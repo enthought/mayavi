@@ -85,7 +85,7 @@ and have the user interact with the figure.
 You can also use :func:`show` to decorate a function, and have it run in
 the event-loop, which gives you more flexibility::
 
- from enthought.mayavi import mlab
+ from mayavi import mlab
  from numpy import random
  
  @mlab.show

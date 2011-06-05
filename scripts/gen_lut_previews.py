@@ -5,8 +5,8 @@ Requires ImageMagick.
 """
 import os
 
-from enthought.mayavi import mlab
-from enthought.mayavi.core.lut_manager import lut_mode_list, lut_image_dir
+from mayavi import mlab
+from mayavi.core.lut_manager import lut_mode_list, lut_image_dir
 
 import numpy as np
 

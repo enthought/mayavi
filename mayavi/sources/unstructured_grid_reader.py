@@ -13,9 +13,9 @@ from traitsui.api import View, Group, Item, Include
 from enthought.tvtk.api import tvtk
 
 # Local imports.
-from enthought.mayavi.core.file_data_source import FileDataSource
-from enthought.mayavi.core.pipeline_info import PipelineInfo
-from enthought.mayavi.core.common import error
+from mayavi.core.file_data_source import FileDataSource
+from mayavi.core.pipeline_info import PipelineInfo
+from mayavi.core.common import error
 
 ########################################################################
 # `UnstructuredGridReader` class

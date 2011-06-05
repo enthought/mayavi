@@ -14,7 +14,7 @@ copied out here for convenience. Please refer to the corresponding
 section of the user guide for more information (
 :ref:`mlab_plotting_functions`).
 
-.. currentmodule:: enthought.mayavi.mlab
+.. currentmodule:: mayavi.mlab
 
 +------------------+-------------------------+---------------------+
 | :func:`plot3d`   | :func:`points3d`        | :func:`imshow`      |

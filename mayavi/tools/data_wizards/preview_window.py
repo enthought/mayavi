@@ -9,7 +9,7 @@ from enthought.tvtk.pyface.scene_editor import SceneEditor
 from enthought.tvtk.pyface.scene_model import SceneModel
 from enthought.tvtk.pyface.scene import Scene
 
-from enthought.mayavi.core.engine import Engine
+from mayavi.core.engine import Engine
 
 ##############################################################################
 # PreviewWindow class
@@ -63,8 +63,8 @@ class PreviewWindow(HasTraits):
 
 if __name__ == '__main__':
     from pyface.api import GUI
-    from enthought.mayavi.sources.api import ParametricSurface
-    from enthought.mayavi.modules.api import Outline, Surface
+    from mayavi.sources.api import ParametricSurface
+    from mayavi.modules.api import Outline, Surface
     pw = PreviewWindow()
     pw.add_source(ParametricSurface())
     pw.add_module(Outline())

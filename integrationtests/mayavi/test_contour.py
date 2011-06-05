@@ -51,12 +51,12 @@ class TestContour(TestCase):
         ############################################################
         # Imports.
         script = self.script
-        from enthought.mayavi.sources.vtk_file_reader import VTKFileReader
-        from enthought.mayavi.modules.outline import Outline
-        from enthought.mayavi.modules.iso_surface import IsoSurface
-        from enthought.mayavi.modules.contour_grid_plane \
+        from mayavi.sources.vtk_file_reader import VTKFileReader
+        from mayavi.modules.outline import Outline
+        from mayavi.modules.iso_surface import IsoSurface
+        from mayavi.modules.contour_grid_plane \
              import ContourGridPlane
-        from enthought.mayavi.modules.scalar_cut_plane import ScalarCutPlane
+        from mayavi.modules.scalar_cut_plane import ScalarCutPlane
 
         ############################################################
         # Create a new scene and set up the visualization.

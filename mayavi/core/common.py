@@ -78,7 +78,7 @@ def get_engine(obj):
     pipeline.  This basically walks up the parent's of the object till
     the engine is found.
     """
-    from enthought.mayavi.core.engine import Engine
+    from mayavi.core.engine import Engine
     while obj is not None:
         if isinstance(obj, Engine):
             return obj

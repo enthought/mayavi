@@ -11,9 +11,9 @@ import numpy
 
 # Enthought library imports.
 from traits.api import TraitError
-from enthought.mayavi.sources.array_source import ArraySource
-from enthought.mayavi.modules.outline import Outline
-from enthought.mayavi.modules.surface import Surface
+from mayavi.sources.array_source import ArraySource
+from mayavi.modules.outline import Outline
+from mayavi.modules.surface import Surface
 
 
 class TestArraySource(unittest.TestCase):

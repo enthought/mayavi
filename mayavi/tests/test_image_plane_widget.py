@@ -12,11 +12,11 @@ import unittest
 
 
 # Enthought library imports
-from enthought.mayavi.core.engine import Engine
-from enthought.mayavi.core.null_engine import NullEngine
-from enthought.mayavi.sources.array_source import ArraySource
-from enthought.mayavi.modules.outline import Outline
-from enthought.mayavi.modules.image_plane_widget import ImagePlaneWidget
+from mayavi.core.engine import Engine
+from mayavi.core.null_engine import NullEngine
+from mayavi.sources.array_source import ArraySource
+from mayavi.modules.outline import Outline
+from mayavi.modules.image_plane_widget import ImagePlaneWidget
 
 class TestImagePlaneWidget(unittest.TestCase):
 

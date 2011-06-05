@@ -10,7 +10,7 @@ from traitsui.api import View, Group, Item, InstanceEditor
 from enthought.tvtk.api import tvtk
 
 # Local imports.
-from enthought.mayavi.core.component import Component
+from mayavi.core.component import Component
 
 VTK_VER = tvtk.Version().vtk_version
 

@@ -31,7 +31,7 @@ within the `Class name` field of the dialog.
 # License: BSD Style.
 
 
-from enthought.mayavi import mlab
+from mayavi import mlab
 import numpy as np
 
 # Define Gaussian data field

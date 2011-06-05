@@ -13,9 +13,9 @@ from traitsui.api import Item, Group, View
 from apptools.persistence import state_pickler
 
 # Local imports.
-from enthought.mayavi.core.pipeline_base import PipelineBase
-from enthought.mayavi.core.filter import Filter
-from enthought.mayavi.core.common import handle_children_state
+from mayavi.core.pipeline_base import PipelineBase
+from mayavi.core.filter import Filter
+from mayavi.core.common import handle_children_state
 
 ################################################################################
 # `Wrapper` class.

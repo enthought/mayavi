@@ -6,9 +6,9 @@
 from traits.api import Instance
 
 # Local imports.
-from enthought.mayavi.components.contour import Contour as ContourComponent
-from enthought.mayavi.core.pipeline_info import PipelineInfo
-from enthought.mayavi.filters.wrapper import Wrapper
+from mayavi.components.contour import Contour as ContourComponent
+from mayavi.core.pipeline_info import PipelineInfo
+from mayavi.filters.wrapper import Wrapper
 
 ################################################################################
 # `Contour` class.

@@ -20,8 +20,8 @@ from traits.api import HasTraits, Instance, Button, \
     on_trait_change
 from traitsui.api import View, Item, HSplit, Group
 
-from enthought.mayavi import mlab
-from enthought.mayavi.core.ui.api import MlabSceneModel, SceneEditor
+from mayavi import mlab
+from mayavi.core.ui.api import MlabSceneModel, SceneEditor
 
 
 class MyDialog(HasTraits):

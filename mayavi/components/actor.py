@@ -11,8 +11,8 @@ from enthought.tvtk.api import tvtk
 from traits.api import DelegatesTo
 
 # Local imports.
-from enthought.mayavi.core.component import Component
-from enthought.mayavi.core.source import Source
+from mayavi.core.component import Component
+from mayavi.core.source import Source
 
 
 ######################################################################

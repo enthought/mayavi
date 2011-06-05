@@ -68,12 +68,12 @@ class TestUserDefined(TestCase):
     def do(self):
         ############################################################
         # Imports.
-        from enthought.mayavi.filters.optional import Optional
-        from enthought.mayavi.filters.user_defined import UserDefined
-        from enthought.mayavi.filters.api import (CellToPointData,
+        from mayavi.filters.optional import Optional
+        from mayavi.filters.user_defined import UserDefined
+        from mayavi.filters.api import (CellToPointData,
                 ExtractVectorNorm, ExtractVectorComponents)
-        from enthought.mayavi.modules.api import ScalarCutPlane
-        from enthought.mayavi.sources.vtk_xml_file_reader import VTKXMLFileReader
+        from mayavi.modules.api import ScalarCutPlane
+        from mayavi.sources.vtk_xml_file_reader import VTKXMLFileReader
 
         ############################################################
         # Create a new scene and set up the visualization.

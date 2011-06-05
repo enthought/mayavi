@@ -3,10 +3,10 @@
 # License: BSD Style.
 
 # Local imports.
-from enthought.mayavi.components.cutter import Cutter
-from enthought.mayavi.components.implicit_plane import ImplicitPlane
-from enthought.mayavi.filters.collection import Collection
-from enthought.mayavi.core.pipeline_info import PipelineInfo
+from mayavi.components.cutter import Cutter
+from mayavi.components.implicit_plane import ImplicitPlane
+from mayavi.filters.collection import Collection
+from mayavi.core.pipeline_info import PipelineInfo
 
 ################################################################################
 # `CutPlane` class.

@@ -14,11 +14,11 @@ from traits.api import List, Instance, Trait, TraitPrefixList, \
 from apptools.persistence.state_pickler import set_state
 
 # Local imports
-from enthought.mayavi.core.base import Base
-from enthought.mayavi.core.module import Module
-from enthought.mayavi.core.lut_manager import LUTManager
-from enthought.mayavi.core.common import handle_children_state, exception
-from enthought.mayavi.core.pipeline_info import PipelineInfo
+from mayavi.core.base import Base
+from mayavi.core.module import Module
+from mayavi.core.lut_manager import LUTManager
+from mayavi.core.common import handle_children_state, exception
+from mayavi.core.pipeline_info import PipelineInfo
 
 
 ######################################################################
@@ -343,5 +343,5 @@ class ModuleManager(Base):
         super(ModuleManager,self)._visible_changed(value)
 
     def _menu_helper_default(self):
-        from enthought.mayavi.core.traits_menu import ModuleMenuHelper
+        from mayavi.core.traits_menu import ModuleMenuHelper
         return ModuleMenuHelper(object=self)

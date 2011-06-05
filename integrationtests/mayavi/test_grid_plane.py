@@ -38,9 +38,9 @@ class TestGridPlane(TestCase):
         ############################################################
         # Imports.
         script = self.script
-        from enthought.mayavi.sources.vtk_file_reader import VTKFileReader
-        from enthought.mayavi.modules.outline import Outline
-        from enthought.mayavi.modules.grid_plane import GridPlane
+        from mayavi.sources.vtk_file_reader import VTKFileReader
+        from mayavi.modules.outline import Outline
+        from mayavi.modules.grid_plane import GridPlane
 
         ############################################################
         # Create a new scene and set up the visualization.

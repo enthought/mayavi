@@ -19,9 +19,9 @@ from traits.api import Instance, List, Tuple, Bool, Range, \
 from enthought.tvtk.api import tvtk
 
 # Local imports.
-from enthought.mayavi.core.component import Component
-from enthought.mayavi.core.common import error
-from enthought.mayavi.components.common \
+from mayavi.core.component import Component
+from mayavi.core.common import error
+from mayavi.components.common \
      import get_module_source, convert_to_poly_data
 
 

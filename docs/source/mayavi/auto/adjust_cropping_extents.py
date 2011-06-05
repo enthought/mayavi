@@ -73,7 +73,7 @@ class ExtentDialog(HasTraits):
 
 ################################################################################
 # Now build the visualization using mlab
-from enthought.mayavi import mlab
+from mayavi import mlab
 fig = mlab.figure(1, bgcolor=(1, 1, 1))
 
 # Create unconnected points

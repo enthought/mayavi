@@ -17,7 +17,7 @@ Alternatively, it can be run as::
 
 from numpy import arange, sqrt, sin
 from enthought.tvtk.api import tvtk
-from enthought.mayavi.scripts import mayavi2
+from mayavi.scripts import mayavi2
 
 # Generate the scalar values.
 x = (arange(0.1, 50.0)-25)/2.0
@@ -43,10 +43,10 @@ spoints.point_data.scalars.name = 'scalar'
 # Now view the data.
 @mayavi2.standalone
 def view():
-    from enthought.mayavi.sources.vtk_data_source import VTKDataSource
-    from enthought.mayavi.filters.warp_scalar import WarpScalar
-    from enthought.mayavi.filters.poly_data_normals import PolyDataNormals
-    from enthought.mayavi.modules.surface import Surface
+    from mayavi.sources.vtk_data_source import VTKDataSource
+    from mayavi.filters.warp_scalar import WarpScalar
+    from mayavi.filters.poly_data_normals import PolyDataNormals
+    from mayavi.modules.surface import Surface
 
     mayavi.new_scene()
     src = VTKDataSource(data = spoints)

@@ -14,8 +14,8 @@ from traitsui.menu import Action, Menu
 from pyface.api import FileDialog, OK, GUI
 
 # Local imports.
-from enthought.mayavi.core.registry import registry
-from enthought.mayavi.core.common import error, get_engine
+from mayavi.core.registry import registry
+from mayavi.core.common import error, get_engine
 
 
 ################################################################################

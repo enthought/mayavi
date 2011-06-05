@@ -14,7 +14,7 @@ from traitsui.api import View, Group, Item
 from enthought.tvtk.api import tvtk
 from apptools.persistence.state_pickler import set_state
 
-from enthought.mayavi.core.component import Component
+from mayavi.core.component import Component
 
 ######################################################################
 # `ImplicitWidgets` class.

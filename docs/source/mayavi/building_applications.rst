@@ -66,7 +66,7 @@ widget for scene by specifying for it the `SceneEditor`::
 A `Mayavi` button to pop up the pipeline dialog can be added on the
 toolbar by specifying a different scene view to the `SceneEditor`::
 
-    from enthought.mayavi.core.ui.mayavi_scene import MayaviScene
+    from mayavi.core.ui.mayavi_scene import MayaviScene
 
     #...
     editor=SceneEditor(scene_class=MayaviScene)
@@ -94,7 +94,7 @@ it to the scene. Having an `Engine` only for one scene allows us to
 confine action and visualization objects only to this scene. 
 
 We can also use an `MlabSceneModel` instance, rather than a `SceneModel`,
-imported from `enthought.mayavi.tools.mlab_scene_model`. This scene model
+imported from `mayavi.tools.mlab_scene_model`. This scene model
 registers the figure in `mlab` (:ref:`simple-scripting-with-mlab`). It
 has an embedded mlab attribute, that exposes the mlab commands (see
 :ref:`mlab_plotting_functions`). For instance plotting 3D points can be
@@ -145,7 +145,7 @@ by a function of two parameters::
 Using `mlab`, we could plot the curve with `plot3d`::
 
     x, y, z, s = curve(4, 6)
-    from enthought.mayavi import mlab
+    from mayavi import mlab
     plot = mlab.plot3d(x, y, z, s)
 
 Modifying the plot for new parameters could be written::
@@ -159,9 +159,9 @@ In a dialog, this would be::
                         on_trait_change
     from traitsui.api import View, Item, HGroup
     from enthought.tvtk.pyface.scene_editor import SceneEditor
-    from enthought.mayavi.tools.mlab_scene_model import \
+    from mayavi.tools.mlab_scene_model import \
                         MlabSceneModel
-    from enthought.mayavi.core.ui.mayavi_scene import MayaviScene
+    from mayavi.core.ui.mayavi_scene import MayaviScene
 
 
     class Visualization(HasTraits):

@@ -11,7 +11,7 @@ import textwrap
 import itertools
 
 # Enthought imports
-from enthought.mayavi import mlab
+from mayavi import mlab
 
 # A global counter, for subsitutions.
 global_counter = itertools.count()
@@ -287,7 +287,7 @@ copied out here for convenience. Please refer to the corresponding
 section of the user guide for more information (
 :ref:`mlab_plotting_functions`).
 
-.. currentmodule:: enthought.mayavi.mlab
+.. currentmodule:: mayavi.mlab
 
 +------------------+-------------------------+---------------------+
 | :func:`plot3d`   | :func:`points3d`        | :func:`imshow`      |

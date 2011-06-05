@@ -18,8 +18,8 @@ from apptools.persistence.state_pickler import set_state
 from apptools.persistence.file_path import FilePath
 
 # Local imports
-from enthought.mayavi.core.source import Source
-from enthought.mayavi.core.common import handle_children_state
+from mayavi.core.source import Source
+from mayavi.core.common import handle_children_state
 
 
 ######################################################################

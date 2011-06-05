@@ -17,8 +17,8 @@ This should be run as::
 from os.path import join, abspath, dirname
 
 # Enthought library imports
-from enthought.mayavi.plugins.app import Mayavi
-from enthought.mayavi.scripts.util import get_data_dir
+from mayavi.plugins.app import Mayavi
+from mayavi.scripts.util import get_data_dir
 
 class MyApp(Mayavi):
     def run(self):
@@ -26,12 +26,12 @@ class MyApp(Mayavi):
         *Make sure all other MayaVi specific imports are made here!*
         """
         # Various imports to do different things.
-        from enthought.mayavi.sources.vtk_file_reader import VTKFileReader
-        from enthought.mayavi.modules.outline import Outline
-        from enthought.mayavi.modules.axes import Axes
-        from enthought.mayavi.modules.grid_plane import GridPlane
-        from enthought.mayavi.modules.image_plane_widget import ImagePlaneWidget
-        from enthought.mayavi.modules.text import Text
+        from mayavi.sources.vtk_file_reader import VTKFileReader
+        from mayavi.modules.outline import Outline
+        from mayavi.modules.axes import Axes
+        from mayavi.modules.grid_plane import GridPlane
+        from mayavi.modules.image_plane_widget import ImagePlaneWidget
+        from mayavi.modules.text import Text
 
         script = self.script
         # Create a new scene.
@@ -59,7 +59,7 @@ class MyApp(Mayavi):
         # Create an orientation axes for the scene.  This only works with
         # VTK-4.5 and above which is why we have the try block.
         try:
-            from enthought.mayavi.modules.orientation_axes import OrientationAxes
+            from mayavi.modules.orientation_axes import OrientationAxes
         except ImportError:
             pass
         else:

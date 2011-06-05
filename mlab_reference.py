@@ -15,8 +15,8 @@ OUT_DIR = os.sep.join(
                 'mayavi','auto']
             )
 
-from enthought.mayavi.tools import auto_doc
-from enthought.mayavi import mlab
+from mayavi.tools import auto_doc
+from mayavi import mlab
 
 from inspect import getmembers, getsource, getfile, getargspec, \
         formatargspec
@@ -204,7 +204,7 @@ class ModuleReference(object):
                                 getattr(self.module, 'test_' + func_name))
             example_code = """
 import numpy
-from enthought.mayavi.mlab import *
+from mayavi.mlab import *
 
 %s
             """ % example_code
@@ -343,7 +343,7 @@ if __name__ == '__main__':
 
     #########################################################################
     # The main mlab module.
-    from enthought.mayavi.tools import helper_functions, camera, \
+    from mayavi.tools import helper_functions, camera, \
             decorations, figure
 
     sub_modules = [helper_functions, figure, decorations, camera]
@@ -358,7 +358,7 @@ if __name__ == '__main__':
 MLab reference
 =================
 
-Reference list of all the main functions of ``enthought.mayavi.mlab``
+Reference list of all the main functions of ``mayavi.mlab``
 with documentation and examples.
 
 .. note::
@@ -386,7 +386,7 @@ with documentation and examples.
 
     #########################################################################
     # The mlab.pipeline module, sources functions.
-    from enthought.mayavi.tools import pipeline, sources, tools, \
+    from mayavi.tools import pipeline, sources, tools, \
                     probe_data
 
     pipeline_reference = ModuleReference(

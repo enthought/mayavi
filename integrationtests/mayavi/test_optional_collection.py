@@ -22,12 +22,12 @@ class TestOptionalCollection(TestCase):
         ############################################################
         # Imports.
         script = self.script
-        from enthought.mayavi.sources.vtk_file_reader import VTKFileReader
-        from enthought.mayavi.filters.contour import Contour
-        from enthought.mayavi.filters.optional import Optional
-        from enthought.mayavi.filters.collection import Collection
-        from enthought.mayavi.filters.api import PolyDataNormals
-        from enthought.mayavi.modules.api import Surface
+        from mayavi.sources.vtk_file_reader import VTKFileReader
+        from mayavi.filters.contour import Contour
+        from mayavi.filters.optional import Optional
+        from mayavi.filters.collection import Collection
+        from mayavi.filters.api import PolyDataNormals
+        from mayavi.modules.api import Surface
 
         ############################################################
         # Create a new scene and set up the visualization.

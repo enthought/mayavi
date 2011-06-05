@@ -31,8 +31,8 @@ from traits.api import HasTraits, Range, Instance, \
         on_trait_change
 from traitsui.api import View, Item, Group
 
-from enthought.mayavi.core.api import PipelineBase
-from enthought.mayavi.core.ui.api import MayaviScene, SceneEditor, \
+from mayavi.core.api import PipelineBase
+from mayavi.core.ui.api import MayaviScene, SceneEditor, \
                 MlabSceneModel
 
 

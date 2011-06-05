@@ -10,8 +10,8 @@ source.  """
 from traits.api import Int, Range
 from traitsui.api import View, Group, Item
 
-from enthought.mayavi.core.filter import Filter
-from enthought.mayavi.core.pipeline_info import PipelineInfo
+from mayavi.core.filter import Filter
+from mayavi.core.pipeline_info import PipelineInfo
 
 
 ################################################################################

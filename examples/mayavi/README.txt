@@ -35,7 +35,7 @@ to script mayavi2.
     Apart from the nongui.py and test.py scripts all the scripts in
     this directory use this approach.
 
- 2. Subclass the `enthought.mayavi.plugins.app.Mayavi` application and
+ 2. Subclass the `mayavi.plugins.app.Mayavi` application and
     override the `run` method.  While this is obviously very flexible
     it does involve quite a bit more work.  The only major benefit of
     this is that you can choose to use the non-GUI mayavi plugin as

@@ -69,9 +69,9 @@ class TestHideShow(TestCase):
     def do(self):
         ############################################################
         # Imports.
-        from enthought.mayavi.sources.api import VTKXMLFileReader,\
+        from mayavi.sources.api import VTKXMLFileReader,\
                 VRMLImporter
-        from enthought.mayavi.modules.api import ScalarCutPlane,\
+        from mayavi.modules.api import ScalarCutPlane,\
                 IsoSurface
 
         ############################################################

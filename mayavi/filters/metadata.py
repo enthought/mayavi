@@ -6,16 +6,16 @@ Metadata for all filters.
 # License: BSD Style.
 
 # Local imports.
-from enthought.mayavi.core.metadata import FilterMetadata
-from enthought.mayavi.core.pipeline_info import PipelineInfo
+from mayavi.core.metadata import FilterMetadata
+from mayavi.core.pipeline_info import PipelineInfo
 
-BASE = 'enthought.mayavi.filters'
+BASE = 'mayavi.filters'
 
 ################################################################################
 # Factory functions.
 ################################################################################
 def make_user_defined_filter():
-    from enthought.mayavi.filters.user_defined import UserDefined
+    from mayavi.filters.user_defined import UserDefined
     f = UserDefined()
     f.setup_filter()
     return f

@@ -19,12 +19,12 @@ from pyface.image_resource import ImageResource
 from apptools.scripting.api import start_recording, stop_recording
 
 # Local imports.
-from enthought.mayavi.core.engine import Engine
-from enthought.mayavi.core.base import Base
-from enthought.mayavi.core.adder_node import ModuleFilterAdderNode, \
+from mayavi.core.engine import Engine
+from mayavi.core.base import Base
+from mayavi.core.adder_node import ModuleFilterAdderNode, \
         SourceAdderNode, ModuleAdderNode, FilterAdderNode, \
         SceneAdderNode, AdderNode
-from enthought.mayavi.action.help import open_help_index, open_tvtk_docs
+from mayavi.action.help import open_help_index, open_tvtk_docs
 
 class EngineViewHandler(Handler):
     """ A handler for the EngineView object.
@@ -120,7 +120,7 @@ class EngineView(HasTraits):
                                editor=self.tree_editor,
                                resizable=True,
                                show_label=False),
-                    id='enthought.mayavi.engine',
+                    id='mayavi.engine',
                     help=False,
                     resizable=True,
                     scrollable=True,

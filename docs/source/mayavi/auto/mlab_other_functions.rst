@@ -1,6 +1,6 @@
 
 
-.. currentmodule:: enthought.mayavi.mlab
+.. currentmodule:: mayavi.mlab
 
 .. note::
 
@@ -46,7 +46,7 @@ animate
     
             Here is the example provided in the Animator class documentation::
     
-                >>> from enthought.mayavi import mlab
+                >>> from mayavi import mlab
                 >>> @mlab.animate
                 ... def anim():
                 ...     f = mlab.gcf()
@@ -59,7 +59,7 @@ animate
     
             For more specialized use you can pass arguments to the decorator::
     
-                >>> from enthought.mayavi import mlab
+                >>> from mayavi import mlab
                 >>> @mlab.animate(delay=500, ui=False)
                 ... def anim():
                 ...     f = mlab.gcf()
@@ -245,7 +245,7 @@ show
     
     Here is a simple example demonstrating the use of show::
     
-      >>> from enthought.mayavi import mlab
+      >>> from mayavi import mlab
       >>> mlab.test_contour3d()
       >>> mlab.show()
     

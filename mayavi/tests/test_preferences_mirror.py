@@ -8,7 +8,7 @@ from pkg_resources import resource_filename
 from traits.api import Str, Int, Bool
 from apptools.preferences.api import set_default_preferences
 from apptools.preferences.api import Preferences, PreferencesHelper
-from enthought.mayavi.tools.preferences_mirror import PreferencesMirror
+from mayavi.tools.preferences_mirror import PreferencesMirror
 
 
 class TestPreference(PreferencesHelper):
@@ -25,7 +25,7 @@ class ClassNameTest(unittest.TestCase):
         """Called before each test is run"""
         self.preferences = set_default_preferences(Preferences())
         # The filename of the example preferences file.
-        pref_file = resource_filename('enthought.mayavi.tests',
+        pref_file = resource_filename('mayavi.tests',
                                       'test_preference.ini')
         self.preferences.load(pref_file)
         self.pref = TestPreference()

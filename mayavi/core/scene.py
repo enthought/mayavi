@@ -11,10 +11,10 @@ from apptools.persistence.state_pickler import set_state
 
 # Local imports.
 from enthought.tvtk.pyface.tvtk_scene import TVTKScene
-from enthought.mayavi.core.base import Base
-from enthought.mayavi.core.source import Source
-from enthought.mayavi.core.common import handle_children_state, exception
-from enthought.mayavi.core.adder_node import SourceAdderNode
+from mayavi.core.base import Base
+from mayavi.core.source import Source
+from mayavi.core.common import handle_children_state, exception
+from mayavi.core.adder_node import SourceAdderNode
 
 ######################################################################
 # `Scene` class.
@@ -55,7 +55,7 @@ class Scene(Base):
 
     # The dispatch, to register callbacks on mouse pick
     _mouse_pick_dispatcher = Instance(
-        'enthought.mayavi.core.mouse_pick_dispatcher.MousePickDispatcher',
+        'mayavi.core.mouse_pick_dispatcher.MousePickDispatcher',
         record=False)
 
     ######################################################################
@@ -218,10 +218,10 @@ class Scene(Base):
                     exception()
 
     def _menu_helper_default(self):
-        from enthought.mayavi.core.traits_menu import SourceMenuHelper
+        from mayavi.core.traits_menu import SourceMenuHelper
         return SourceMenuHelper(object=self)
 
     def __mouse_pick_dispatcher_default(self):
-        from enthought.mayavi.core.mouse_pick_dispatcher import \
+        from mayavi.core.mouse_pick_dispatcher import \
                         MousePickDispatcher
         return MousePickDispatcher(scene=self)

@@ -22,7 +22,7 @@ from sources import vector_scatter, vector_field, scalar_scatter, \
 from filters import ExtractVectorNormFactory, WarpScalarFactory, \
             TubeFactory, ExtractEdgesFactory, PolyDataNormalsFactory, \
             StripperFactory
-from enthought.mayavi.core.scene import Scene
+from mayavi.core.scene import Scene
 from auto_doc import traits_doc, dedent
 import tools
 from traits.api import Array, Callable, CFloat, HasTraits, \
@@ -58,7 +58,7 @@ class Pipeline(HasTraits):
     _pipeline = List()
 
     # Traits here only for documentation purposes
-    figure = Instance('enthought.mayavi.core.scene.Scene',
+    figure = Instance('mayavi.core.scene.Scene',
                 help='Figure to populate.')
 
     def __call__(self, *args, **kwargs):

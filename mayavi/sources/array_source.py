@@ -15,8 +15,8 @@ from enthought.tvtk.api import tvtk
 from enthought.tvtk import array_handler
 
 # Local imports
-from enthought.mayavi.core.source import Source
-from enthought.mayavi.core.pipeline_info import PipelineInfo
+from mayavi.core.source import Source
+from mayavi.core.pipeline_info import PipelineInfo
 
 def _check_scalar_array(obj, name, value):
     """Validates a scalar array passed to the object."""

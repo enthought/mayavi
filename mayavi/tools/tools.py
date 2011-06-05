@@ -15,10 +15,10 @@ import types
 from enthought.tvtk.api import tvtk
 
 # MayaVi related imports.
-from enthought.mayavi.sources.vtk_data_source import VTKDataSource
-from enthought.mayavi.core.module_manager import ModuleManager
-from enthought.mayavi.core.source import Source
-from enthought.mayavi.core.filter import Filter
+from mayavi.sources.vtk_data_source import VTKDataSource
+from mayavi.core.module_manager import ModuleManager
+from mayavi.core.source import Source
+from mayavi.core.filter import Filter
 
 from engine_manager import get_engine, engine_manager, get_null_engine
 from figure import gcf

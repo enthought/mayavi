@@ -16,7 +16,7 @@ License: BSD style.
 
 from numpy import array, arange, random
 from enthought.tvtk.api import tvtk
-from enthought.mayavi.scripts import mayavi2
+from mayavi.scripts import mayavi2
 
 def single_type_ug():
     """Simple example showing how to create an unstructured grid
@@ -87,10 +87,10 @@ for ug in ug1, ug2:
 # Now view the data.
 @mayavi2.standalone
 def view():
-    from enthought.mayavi.sources.vtk_data_source import VTKDataSource
-    from enthought.mayavi.modules.outline import Outline
-    from enthought.mayavi.modules.surface import Surface
-    from enthought.mayavi.modules.vectors import Vectors
+    from mayavi.sources.vtk_data_source import VTKDataSource
+    from mayavi.modules.outline import Outline
+    from mayavi.modules.surface import Surface
+    from mayavi.modules.vectors import Vectors
 
     mayavi.new_scene()
     # The single type one

@@ -15,9 +15,9 @@ from traitsui.api import View, Group, Item
 
 # Local imports
 from enthought.tvtk.api import tvtk
-from enthought.mayavi.core.module import Module
-from enthought.mayavi.core.pipeline_info import PipelineInfo
-from enthought.mayavi.components.actor import Actor
+from mayavi.core.module import Module
+from mayavi.core.pipeline_info import PipelineInfo
+from mayavi.components.actor import Actor
 
 ######################################################################
 # `Text3D` class.

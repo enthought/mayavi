@@ -283,7 +283,7 @@ documentation, tooltips and some multi-line editing.  In addition it
 supports the following features:
 
  * The name ``mayavi`` is automatically bound to the
-   ``enthought.mayavi.script.Script`` instance.  This may be used to
+   ``mayavi.script.Script`` instance.  This may be used to
    easily script Mayavi.
 
  * The name ``application`` is bound to the envisage application.
@@ -302,7 +302,7 @@ supports the following features:
    is done is the following::
 
      >>> tvtk_scene_1
-     <enthought.mayavi.core.scene.Scene object at 0x9f4cbe3c>
+     <mayavi.core.scene.Scene object at 0x9f4cbe3c>
      >>> s = _
 
    In this case the name ``s`` is bound to the dropped tvtk_scene

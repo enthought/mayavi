@@ -6,11 +6,11 @@ import unittest
 
 from traits.api import HasTraits, Instance
 
-from enthought.mayavi.core.null_engine import NullEngine, DummyViewer
+from mayavi.core.null_engine import NullEngine, DummyViewer
 from enthought.tvtk.api import tvtk
-from enthought.mayavi.tools.engine_manager import engine_manager
-from enthought.mayavi.core.registry import registry
-from enthought.mayavi.core.mouse_pick_dispatcher import \
+from mayavi.tools.engine_manager import engine_manager
+from mayavi.core.registry import registry
+from mayavi.core.mouse_pick_dispatcher import \
                 MousePickDispatcher
 from enthought.tvtk.pyface.picker import Picker
 

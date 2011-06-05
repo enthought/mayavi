@@ -10,10 +10,10 @@ from traits.api import Instance
 from traitsui.api import View, Group, Item
 
 # Local imports
-from enthought.mayavi.core.module import Module
-from enthought.mayavi.components import grid_plane
-from enthought.mayavi.components.actor import Actor
-from enthought.mayavi.core.pipeline_info import PipelineInfo
+from mayavi.core.module import Module
+from mayavi.components import grid_plane
+from mayavi.components.actor import Actor
+from mayavi.core.pipeline_info import PipelineInfo
 
 
 ######################################################################

@@ -16,8 +16,8 @@ from traits.api import (HasTraits, Instance, CArray, Either,
 from enthought.tvtk.api import tvtk
 from enthought.tvtk.common import camel2enthought
 
-from enthought.mayavi.sources.array_source import ArraySource
-from enthought.mayavi.core.registry import registry
+from mayavi.sources.array_source import ArraySource
+from mayavi.core.registry import registry
 
 import tools
 from engine_manager import engine_manager

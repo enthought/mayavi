@@ -15,13 +15,13 @@ from traitsui.api import View, Group, Item, InstanceEditor
 from enthought.tvtk.api import tvtk
 
 # Local imports
-from enthought.mayavi.core.pipeline_info import PipelineInfo
-from enthought.mayavi.core.module import Module
-from enthought.mayavi.components.implicit_plane import ImplicitPlane
-from enthought.mayavi.components.cutter import Cutter
-from enthought.mayavi.filters.warp_vector import WarpVector
-from enthought.mayavi.components.poly_data_normals import PolyDataNormals
-from enthought.mayavi.components.actor import Actor
+from mayavi.core.pipeline_info import PipelineInfo
+from mayavi.core.module import Module
+from mayavi.components.implicit_plane import ImplicitPlane
+from mayavi.components.cutter import Cutter
+from mayavi.filters.warp_vector import WarpVector
+from mayavi.components.poly_data_normals import PolyDataNormals
+from mayavi.components.actor import Actor
 
 
 ######################################################################

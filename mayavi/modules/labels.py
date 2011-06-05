@@ -11,15 +11,15 @@ from enthought.tvtk.api import tvtk
 from apptools.persistence import state_pickler
 
 # Local imports.
-from enthought.mayavi.core.common import error
-from enthought.mayavi.core.pipeline_base import PipelineBase
-from enthought.mayavi.core.pipeline_info import PipelineInfo
-from enthought.mayavi.core.module import Module
-from enthought.mayavi.filters.optional import Optional
-from enthought.mayavi.filters.mask_points import MaskPoints
-from enthought.mayavi.filters.user_defined import UserDefined
-from enthought.mayavi.components.actor2d import Actor2D
-from enthought.mayavi.core.common import handle_children_state
+from mayavi.core.common import error
+from mayavi.core.pipeline_base import PipelineBase
+from mayavi.core.pipeline_info import PipelineInfo
+from mayavi.core.module import Module
+from mayavi.filters.optional import Optional
+from mayavi.filters.mask_points import MaskPoints
+from mayavi.filters.user_defined import UserDefined
+from mayavi.components.actor2d import Actor2D
+from mayavi.core.common import handle_children_state
 
 
 ################################################################################

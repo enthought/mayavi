@@ -37,7 +37,7 @@ interactive Python shell, either using the built-in shell of the Mayavi2
 application, on in `ipython -wthread`. Let us visualize the 3D
 isosurfaces of the potential::
 
-    from enthought.mayavi import mlab
+    from mayavi import mlab
     mlab.contour3d(X, Y, Z, V)
 
 We can interact with the visualization created by the above command by

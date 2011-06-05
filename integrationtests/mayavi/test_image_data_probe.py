@@ -50,9 +50,9 @@ class TestImageDataProbe(TestCase):
     def do(self):
         ############################################################
         # Imports.
-        from enthought.mayavi.filters.image_data_probe import ImageDataProbe
-        from enthought.mayavi.modules.api import ContourGridPlane
-        from enthought.mayavi.sources.vtk_xml_file_reader import VTKXMLFileReader
+        from mayavi.filters.image_data_probe import ImageDataProbe
+        from mayavi.modules.api import ContourGridPlane
+        from mayavi.sources.vtk_xml_file_reader import VTKXMLFileReader
 
         ############################################################
         # Create a new scene and set up the visualization.

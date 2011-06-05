@@ -17,7 +17,7 @@ pipeline than the main mlab interface. For usage examples, see
 
 
 
-.. module:: enthought.mayavi.tools.pipeline
+.. module:: mayavi.tools.pipeline
 
 .. toctree::
 

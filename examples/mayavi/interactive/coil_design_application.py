@@ -42,7 +42,7 @@ from traits.api import HasTraits, Array, CFloat, List, \
    Instance, on_trait_change, Property
 from traitsui.api import Item, View, ListEditor, \
         HSplit, VSplit
-from enthought.mayavi.core.ui.api import EngineView, MlabSceneModel, \
+from mayavi.core.ui.api import EngineView, MlabSceneModel, \
         SceneEditor
 
 ##############################################################################

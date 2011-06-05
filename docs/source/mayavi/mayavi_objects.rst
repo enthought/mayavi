@@ -2,7 +2,7 @@
 Objects populating the Mayavi pipeline
 ========================================
 
-.. currentmodule:: enthought.mayavi.core.api
+.. currentmodule:: mayavi.core.api
 
 Here we give a brief description of the key objects in the Mayavi pipeline.
 
@@ -29,7 +29,7 @@ Key attributes
  ``children``		a list of ``Source`` objects.
 ====================== ========================================================
 
-The ``Scene`` class is defined in the ``enthought.mayavi.core.scene`` module.
+The ``Scene`` class is defined in the ``mayavi.core.scene`` module.
 
 .. seealso:: 
 
@@ -51,7 +51,7 @@ Key attributes
 			the section :ref:`data-structures-used-by-mayavi`.
 ====================== ========================================================
 
-The ``Source`` class is defined in the ``enthought.mayavi.core.source`` 
+The ``Source`` class is defined in the ``mayavi.core.source`` 
 module.  
 
 .. seealso:: 
@@ -94,7 +94,7 @@ Key methods
 			upstream object fires a ``data_changed`` event.
 ====================== ========================================================
 
-The filter class is defined in the ``enthought.mayavi.core.filter`` module.
+The filter class is defined in the ``mayavi.core.filter`` module.
 
 .. seealso:: 
 
@@ -138,7 +138,7 @@ Key attributes
 			'cell data' it uses the input cell data.
 ====================== ========================================================
 
-This class is defined in the ``enthought.mayavi.core.module_manager``
+This class is defined in the ``mayavi.core.module_manager``
 module.
 
 .. seealso:: 
@@ -196,7 +196,7 @@ Key methods
 ====================== ========================================================
 
 
-Defined in the ``enthought.mayavi.core.module`` module.
+Defined in the ``mayavi.core.module`` module.
 
 .. seealso:: 
 
@@ -218,12 +218,12 @@ important in a menu-driven graphical user interface.
 It allows one to create new scenes and delete them.  Also has methods to
 load and save the entire visualization.
 
-.. currentmodule:: enthought.mayavi
+.. currentmodule:: mayavi
 
 When using mlab, the engine used by mlab can be retrieved using
 :func:`mlab.get_engine`.
 
-.. currentmodule:: enthought.mayavi.core.api
+.. currentmodule:: mayavi.core.api
 
 ====================== ========================================================
 Key attributes
@@ -251,17 +251,17 @@ Key methods
 Important sub-classes
 ====================== ========================================================
 ``EnvisageEngine``	defined in the 
-			``enthought.mayavi.plugins.envisage_engine``
+			``mayavi.plugins.envisage_engine``
 			module. It is the subclass of
 			used in the ``mayavi2`` application.
 
 ``OffScreenEngine``	defined in the
-			``enthought.mayavi.core.off_screen_engine`` module. 
+			``mayavi.core.off_screen_engine`` module. 
 			It creates scenes that are not displayed on
 			screen by default.
 
 ``NullEngine``		defined in the
-			``enthought.mayavi.core.null_engine`` module.
+			``mayavi.core.null_engine`` module.
 			With this engine, visualization objects are
 			not added to a scene, and thus cannot be rendered. 
 			This engine is useful for testing and pure-data 
@@ -272,7 +272,7 @@ Important sub-classes
    :alt: The ``Engine`` object.
    :align: center
 
-The `Engine` base class is defined in the ``enthought.mayavi.engine`` module.
+The `Engine` base class is defined in the ``mayavi.engine`` module.
 
 .. seealso:: 
 
@@ -284,7 +284,7 @@ Base class: PipelineBase
 The ``PipelineBase`` is the base class for all
 objects in the mayavi pipeline except the ``Scene`` and ``Engine``
 (which really isn't *in* the pipeline but contains the pipeline).
-Defined in the ``enthought.mayavi.core.pipeline_base`` module.
+Defined in the ``mayavi.core.pipeline_base`` module.
 Derives from ``Base`` which merely abstracts out common
 functionality.  
 

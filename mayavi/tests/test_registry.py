@@ -9,11 +9,11 @@ import unittest
 from common import get_example_data
 
 # Enthought library imports
-from enthought.mayavi.core.null_engine import NullEngine
-from enthought.mayavi.core.registry import registry
-from enthought.mayavi.sources.plot3d_reader import PLOT3DReader
-from enthought.mayavi.core.metadata import SourceMetadata
-from enthought.mayavi.core.pipeline_info import PipelineInfo
+from mayavi.core.null_engine import NullEngine
+from mayavi.core.registry import registry
+from mayavi.sources.plot3d_reader import PLOT3DReader
+from mayavi.core.metadata import SourceMetadata
+from mayavi.core.pipeline_info import PipelineInfo
 
 class DummyReader(PLOT3DReader):
 
@@ -81,14 +81,14 @@ class TestRegistry(unittest.TestCase):
         # reading files with extension 'xyz'
         open_dummy = SourceMetadata(
                 id            = "DummyFile",
-                class_name    = "enthought.mayavi.tests.test_registry.DummyReader",
+                class_name    = "mayavi.tests.test_registry.DummyReader",
                 menu_name     = "&PLOT3D file",
                 tooltip       = "Open a PLOT3D data data",
                 desc        = "Open a PLOT3D data data",
                 help        = "Open a PLOT3D data data",
                 extensions = ['xyz'],
                 wildcard = 'PLOT3D files (*.xyz)|*.xyz',
-                can_read_test = 'enthought.mayavi.tests.test_registry:DummyReader.check_read',
+                can_read_test = 'mayavi.tests.test_registry:DummyReader.check_read',
                 output_info = PipelineInfo(datasets=['structured_grid'],
                     attribute_types=['any'],
                     attributes=['any'])
@@ -121,14 +121,14 @@ class TestRegistry(unittest.TestCase):
         the given extension"""
         open_dummy = SourceMetadata(
                 id            = "DummyFile",
-                class_name    = "enthought.mayavi.tests.test_registry.DummyReader",
+                class_name    = "mayavi.tests.test_registry.DummyReader",
                 menu_name     = "&PLOT3D file",
                 tooltip       = "Open a PLOT3D data data",
                 desc        = "Open a PLOT3D data data",
                 help        = "Open a PLOT3D data data",
                 extensions = ['xyz'],
                 wildcard = 'PLOT3D files (*.xyz)|*.xyz',
-                can_read_test = 'enthought.mayavi.tests.test_registry:DummyReader.check_read',
+                can_read_test = 'mayavi.tests.test_registry:DummyReader.check_read',
                 output_info = PipelineInfo(datasets=['structured_grid'],
                     attribute_types=['any'],
                     attributes=['any'])

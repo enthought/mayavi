@@ -14,12 +14,12 @@ from traits.api import Instance
 from traitsui.api import View, Group, Item
 
 # Local imports
-from enthought.mayavi.core.pipeline_info import PipelineInfo
-from enthought.mayavi.core.module import Module
-from enthought.mayavi.components.implicit_plane import ImplicitPlane
-from enthought.mayavi.components.cutter import Cutter
-from enthought.mayavi.components.glyph import Glyph
-from enthought.mayavi.components.actor import Actor
+from mayavi.core.pipeline_info import PipelineInfo
+from mayavi.core.module import Module
+from mayavi.components.implicit_plane import ImplicitPlane
+from mayavi.components.cutter import Cutter
+from mayavi.components.glyph import Glyph
+from mayavi.components.actor import Actor
 
 
 ######################################################################

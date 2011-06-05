@@ -21,8 +21,8 @@ class TestIPWMultipleScalars(TestCase):
         ############################################################
         # Imports.
         script = self.script
-        from enthought.mayavi.sources.vtk_data_source import VTKDataSource
-        from enthought.mayavi.modules.api import ImagePlaneWidget
+        from mayavi.sources.vtk_data_source import VTKDataSource
+        from mayavi.modules.api import ImagePlaneWidget
 
         # Create dataset with multiple scalars.
         arr1 = zeros(27, 'f')

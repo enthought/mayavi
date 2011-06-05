@@ -14,9 +14,9 @@ from traitsui.api import Item, Group, View, ListEditor
 from apptools.persistence import state_pickler
 
 # Local imports.
-from enthought.mayavi.core.module import Module
-from enthought.mayavi.core.common import handle_children_state
-from enthought.mayavi.components.actor import Actor
+from mayavi.core.module import Module
+from mayavi.core.common import handle_children_state
+from mayavi.components.actor import Actor
 
 ################################################################################
 # Utility function.
@@ -65,7 +65,7 @@ class GenericModule(Module):
     # any.  This is needed for modules that use a contour component
     # because when we turn on filled contours the mapper must switch to
     # use cell data.
-    contour = Instance('enthought.mayavi.components.contour.Contour',
+    contour = Instance('mayavi.components.contour.Contour',
                        allow_none=True)
 
     # The *optional* Actor component for which the LUT must be set.  If

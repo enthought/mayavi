@@ -5,7 +5,7 @@ around any mayavi filter or component.
 # Copyright (c) 2008,  Prabhu Ramachandran
 # License: BSD Style.
 
-from enthought.mayavi.filters.wrapper import Wrapper
+from mayavi.filters.wrapper import Wrapper
 
 ################################################################################
 # `Optional` class.

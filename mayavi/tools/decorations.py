@@ -18,7 +18,7 @@ import tools
 from figure import draw, gcf
 
 # Mayavi imports
-import enthought.mayavi.modules.api as modules
+import mayavi.modules.api as modules
 from .pipe_base import make_function
 from .modules import ModuleFactory
 from .engine_manager import get_engine, engine_manager

@@ -19,8 +19,8 @@ from traits.api import HasTraits, Instance
 from traitsui.api import View, Item
 from enthought.tvtk.pyface.scene_editor import SceneEditor
 
-from enthought.mayavi.tools.mlab_scene_model import MlabSceneModel
-from enthought.mayavi.core.ui.mayavi_scene import MayaviScene
+from mayavi.tools.mlab_scene_model import MlabSceneModel
+from mayavi.core.ui.mayavi_scene import MayaviScene
 
 
 ######################################################################

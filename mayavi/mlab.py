@@ -24,13 +24,13 @@ if not 'wx' in sys.modules:
 
 
 # Mayavi imports
-from enthought.mayavi.tools.camera import view, roll, yaw, pitch, move
-from enthought.mayavi.tools.figure import figure, clf, gcf, savefig, \
+from mayavi.tools.camera import view, roll, yaw, pitch, move
+from mayavi.tools.figure import figure, clf, gcf, savefig, \
     draw, sync_camera, close, screenshot
-from enthought.mayavi.tools.engine_manager import get_engine, show_pipeline, \
+from mayavi.tools.engine_manager import get_engine, show_pipeline, \
         options, set_engine
-from enthought.mayavi.tools.show import show
-from enthought.mayavi.tools.animator import animate
+from mayavi.tools.show import show
+from mayavi.tools.animator import animate
 
 def show_engine():
     """ This function is deprecated, please use show_pipeline.

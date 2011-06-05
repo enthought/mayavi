@@ -1,6 +1,6 @@
 
 
-.. currentmodule:: enthought.mayavi.tools.pipeline
+.. currentmodule:: mayavi.tools.pipeline
 
 .. note::
 

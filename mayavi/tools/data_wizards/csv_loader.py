@@ -13,7 +13,7 @@ from traitsui.api import View, Item, HGroup, Group, \
 
 from traitsui.tabular_adapter import TabularAdapter
 
-from enthought.mayavi.tools.data_wizards.csv_sniff import Sniff, loadtxt, \
+from mayavi.tools.data_wizards.csv_sniff import Sniff, loadtxt, \
         array2dict
 
 ##############################################################################

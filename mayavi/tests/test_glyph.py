@@ -11,13 +11,13 @@ import numpy
 import unittest
 
 # Local imports.
-from enthought.mayavi.core.null_engine import NullEngine
+from mayavi.core.null_engine import NullEngine
 
 # Enthought library imports
-from enthought.mayavi.sources.array_source import ArraySource
-from enthought.mayavi.modules.outline import Outline
-from enthought.mayavi.modules.glyph import Glyph
-from enthought.mayavi.modules.vector_cut_plane import VectorCutPlane
+from mayavi.sources.array_source import ArraySource
+from mayavi.modules.outline import Outline
+from mayavi.modules.glyph import Glyph
+from mayavi.modules.vector_cut_plane import VectorCutPlane
 
 class TestGlyph(unittest.TestCase):
 

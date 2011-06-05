@@ -8,13 +8,13 @@ import unittest
 from numpy import random, allclose, arange
 
 # Local imports.
-from enthought.mayavi.core.null_engine import NullEngine
+from mayavi.core.null_engine import NullEngine
 
 # Enthought library imports
-from enthought.mayavi.sources.vtk_data_source import VTKDataSource
-from enthought.mayavi.modules.grid_plane import GridPlane
-from enthought.mayavi.modules.axes import Axes
-from enthought.mayavi.filters.extract_grid import ExtractGrid
+from mayavi.sources.vtk_data_source import VTKDataSource
+from mayavi.modules.grid_plane import GridPlane
+from mayavi.modules.axes import Axes
+from mayavi.filters.extract_grid import ExtractGrid
 from enthought.tvtk.api import tvtk
 
 
@@ -185,7 +185,7 @@ class TestExtractGridFilter(unittest.TestCase):
         self.assertEqual(allclose(gpz.actor.actor.bounds,
                          (100.0, 200.0, 100.0, 200.0, 100.0, 100.0)), True)
 
-        #from enthought.mayavi.tools.show import show
+        #from mayavi.tools.show import show
         #show()
 
 

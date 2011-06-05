@@ -17,7 +17,7 @@ from apptools.preferences.api import PreferencesHelper
 class RootPreferencesHelper(PreferencesHelper):
 
     # The preferences path for which we use.
-    preferences_path = 'enthought.mayavi'
+    preferences_path = 'mayavi'
 
     ######################################################################
     # Our preferences.
@@ -84,7 +84,7 @@ class RootPreferencesHelper(PreferencesHelper):
 class MlabPreferencesHelper(PreferencesHelper):
 
     # The preferences path for which we use.
-    preferences_path = 'enthought.mayavi.mlab'
+    preferences_path = 'mayavi.mlab'
 
     ######################################################################
     # Our preferences.

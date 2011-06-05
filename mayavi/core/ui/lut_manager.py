@@ -14,7 +14,7 @@ importing.
 
 from traitsui.api \
     import Item, Group, View, ImageEnumEditor, InstanceEditor, HGroup
-from enthought.mayavi.core.lut_manager import lut_mode_list, \
+from mayavi.core.lut_manager import lut_mode_list, \
             lut_image_dir
 
 

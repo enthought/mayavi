@@ -8,10 +8,10 @@
 import new
 
 # Local imports.
-from enthought.mayavi.core.registry import registry
-from enthought.mayavi.core.metadata import ModuleMetadata
-from enthought.mayavi.core.pipeline_info import PipelineInfo
-from enthought.mayavi.action.filters import FilterAction
+from mayavi.core.registry import registry
+from mayavi.core.metadata import ModuleMetadata
+from mayavi.core.pipeline_info import PipelineInfo
+from mayavi.action.filters import FilterAction
 
 ######################################################################
 # `ModuleAction` class.
@@ -41,7 +41,7 @@ class AddModuleManager(ModuleAction):
     description   = "Add a ModuleManager to the current source/filter"
 
     metadata = ModuleMetadata(id="AddModuleManager",
-                class_name="enthought.mayavi.core.module_manager.ModuleManager",
+                class_name="mayavi.core.module_manager.ModuleManager",
                 menu_name="&Add ModuleManager",
                 tooltip="Add a ModuleManager to the current source/filter",
                 description="Add a ModuleManager to the current source/filter",
@@ -52,7 +52,7 @@ class AddModuleManager(ModuleAction):
 
     def perform(self, event):
         """ Performs the action. """
-        from enthought.mayavi.core.module_manager import ModuleManager
+        from mayavi.core.module_manager import ModuleManager
         mm = ModuleManager()
         mv = self.mayavi
         mv.add_module(mm)

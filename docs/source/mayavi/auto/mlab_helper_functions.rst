@@ -1,6 +1,6 @@
 
 
-.. currentmodule:: enthought.mayavi.mlab
+.. currentmodule:: mayavi.mlab
 
 .. note::
 
@@ -124,7 +124,7 @@ see :ref:`running-mlab-scripts` for more info)::
 
     
     import numpy
-    from enthought.mayavi.mlab import *
+    from mayavi.mlab import *
     
     def test_barchart():
         """ Demo the bar chart plot with a 2D array.
@@ -216,7 +216,7 @@ see :ref:`running-mlab-scripts` for more info)::
 
     
     import numpy
-    from enthought.mayavi.mlab import *
+    from mayavi.mlab import *
     
     def test_contour3d():
         x, y, z = numpy.ogrid[-5:5:64j, -5:5:64j, -5:5:64j]
@@ -317,7 +317,7 @@ see :ref:`running-mlab-scripts` for more info)::
 
     
     import numpy
-    from enthought.mayavi.mlab import *
+    from mayavi.mlab import *
     
     def test_contour_surf():
         """Test contour_surf on regularly spaced co-ordinates like MayaVi."""
@@ -435,7 +435,7 @@ see :ref:`running-mlab-scripts` for more info)::
 
     
     import numpy
-    from enthought.mayavi.mlab import *
+    from mayavi.mlab import *
     
     def test_flow():
         x, y, z = numpy.mgrid[0:5, 0:5, 0:5]
@@ -515,7 +515,7 @@ see :ref:`running-mlab-scripts` for more info)::
 
     
     import numpy
-    from enthought.mayavi.mlab import *
+    from mayavi.mlab import *
     
     def test_imshow():
         """ Use imshow to visualize a 2D 10x10 random array.
@@ -632,7 +632,7 @@ see :ref:`running-mlab-scripts` for more info)::
 
     
     import numpy
-    from enthought.mayavi.mlab import *
+    from mayavi.mlab import *
     
     def test_mesh():
         """A very pretty picture of spherical harmonics translated from
@@ -728,7 +728,7 @@ see :ref:`running-mlab-scripts` for more info)::
 
     
     import numpy
-    from enthought.mayavi.mlab import *
+    from mayavi.mlab import *
     
     def test_plot3d():
         """Generates a pretty set of lines."""
@@ -844,7 +844,7 @@ see :ref:`running-mlab-scripts` for more info)::
 
     
     import numpy
-    from enthought.mayavi.mlab import *
+    from mayavi.mlab import *
     
     def test_points3d():
         t = numpy.linspace(0, 4*numpy.pi, 20)
@@ -963,7 +963,7 @@ see :ref:`running-mlab-scripts` for more info)::
 
     
     import numpy
-    from enthought.mayavi.mlab import *
+    from mayavi.mlab import *
     
     def test_quiver3d():
         x, y, z = numpy.mgrid[-2:3, -2:3, -2:3]
@@ -1084,7 +1084,7 @@ see :ref:`running-mlab-scripts` for more info)::
 
     
     import numpy
-    from enthought.mayavi.mlab import *
+    from mayavi.mlab import *
     
     def test_surf():
         """Test surf on regularly spaced co-ordinates like MayaVi."""
@@ -1206,7 +1206,7 @@ see :ref:`running-mlab-scripts` for more info)::
 
     
     import numpy
-    from enthought.mayavi.mlab import *
+    from mayavi.mlab import *
     
     def test_triangular_mesh():
         """An example of a cone, ie a non-regular mesh defined by its

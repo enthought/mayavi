@@ -172,7 +172,7 @@ def m2_tests(verbose=1):
     if verbose > 0:
         print "-"*70
         print "Running Mayavi tests."
-    tests = find_tests(['enthought.mayavi'])
+    tests = find_tests(['mayavi'])
     err += run(tests, verbose)
     return err
 

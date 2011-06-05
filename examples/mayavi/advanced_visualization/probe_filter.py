@@ -43,7 +43,7 @@ and more efficient to directly sample it on the sphere.
 """
 import numpy as np
 
-from enthought.mayavi import mlab
+from mayavi import mlab
 from enthought.tvtk.api import tvtk
 
 # The angular par of the spherical harmonic (3, 2)

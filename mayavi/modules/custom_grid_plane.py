@@ -13,8 +13,8 @@ from traits.api import Instance
 from traitsui.api import View, Group, Item
 
 # Local imports
-from enthought.mayavi.components import custom_grid_plane
-from enthought.mayavi.modules.contour_grid_plane import \
+from mayavi.components import custom_grid_plane
+from mayavi.modules.contour_grid_plane import \
      ContourGridPlane, Contour, Actor
 
 

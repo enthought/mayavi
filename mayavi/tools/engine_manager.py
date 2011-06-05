@@ -9,12 +9,12 @@ import warnings
 from traits.api import HasTraits, Instance
 
 # Local imports
-from enthought.mayavi.preferences.api import preference_manager
-from enthought.mayavi.core.registry import registry
-from enthought.mayavi.core.engine import Engine
-from enthought.mayavi.core.off_screen_engine import OffScreenEngine
-from enthought.mayavi.core.null_engine import NullEngine
-from enthought.mayavi.core.common import process_ui_events
+from mayavi.preferences.api import preference_manager
+from mayavi.core.registry import registry
+from mayavi.core.engine import Engine
+from mayavi.core.off_screen_engine import OffScreenEngine
+from mayavi.core.null_engine import NullEngine
+from mayavi.core.common import process_ui_events
 from preferences_mirror import PreferencesMirror
 
 # The mlab options.
@@ -28,7 +28,7 @@ def check_backend():
     """
     from traitsui.toolkit import toolkit
     from traits.etsconfig.api import ETSConfig
-    from enthought.mayavi.tools.engine_manager import options
+    from mayavi.tools.engine_manager import options
 
     toolkit() # This forces the selection of a toolkit.
     if (options.backend != 'test' and options.offscreen != True) and \
@@ -141,7 +141,7 @@ class EngineManager(HasTraits):
         """
         check_backend()
         if options.backend == 'envisage':
-            from enthought.mayavi.plugins.app import Mayavi
+            from mayavi.plugins.app import Mayavi
             m = Mayavi(start_gui_event_loop=False)
             m.main()
             process_ui_events()
@@ -183,7 +183,7 @@ class EngineManager(HasTraits):
             # FIXME: This should pop up the relevent envisage view
             pass
         elif rich_view:
-            from enthought.mayavi.core.ui.engine_rich_view import \
+            from mayavi.core.ui.engine_rich_view import \
                     EngineRichView
             figure = engine.current_scene
             view = EngineRichView(engine=engine)
@@ -193,7 +193,7 @@ class EngineManager(HasTraits):
                 scene = figure.scene
             return view.scene_editing_view(scene=scene)
         else:
-            from enthought.mayavi.core.ui.engine_view import \
+            from mayavi.core.ui.engine_view import \
                     EngineView
             scene = engine.current_scene
             view = EngineView(engine=engine)

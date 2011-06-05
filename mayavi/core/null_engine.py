@@ -14,7 +14,7 @@ not allow for rendering.
 
 from traits.api import HasTraits, Any, Event, Callable
 
-from enthought.mayavi.core.engine import Engine
+from mayavi.core.engine import Engine
 
 def dummy_viewer_factory():
     """Factory function for the dummy viewer."""

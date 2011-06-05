@@ -9,10 +9,10 @@ import new
 from pyface.action.api import Action
 from traits.api import Instance
 
-from enthought.mayavi.plugins.script import get_imayavi
-from enthought.mayavi.core.registry import registry
-from enthought.mayavi.core.metadata import Metadata
-from enthought.mayavi.core.pipeline_base import PipelineBase
+from mayavi.plugins.script import get_imayavi
+from mayavi.core.registry import registry
+from mayavi.core.metadata import Metadata
+from mayavi.core.pipeline_base import PipelineBase
 
 
 ######################################################################
@@ -23,7 +23,7 @@ class FilterAction(Action):
     # The Metadata associated with this particular action.
     metadata = Instance(Metadata)
 
-    mayavi = Instance('enthought.mayavi.plugins.script.Script')
+    mayavi = Instance('mayavi.plugins.script.Script')
 
     # We disable the actions by default since these are dynamically
     # enabled depending on the current selection or object.

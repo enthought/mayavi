@@ -13,7 +13,7 @@ from enthought.tvtk.api import tvtk
 from traits.api import Instance
 
 # Local imports
-from enthought.mayavi.sources.vrml_importer import VRMLImporter
+from mayavi.sources.vrml_importer import VRMLImporter
 
 
 ######################################################################

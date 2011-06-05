@@ -13,20 +13,20 @@ from enthought.tvtk.api import write_data
 from apptools.scripting.api import recordable
 
 # Local imports
-from enthought.mayavi.core.base import Base
-from enthought.mayavi.core.pipeline_base import PipelineBase
-from enthought.mayavi.core.module import Module
-from enthought.mayavi.core.module_manager import ModuleManager
-from enthought.mayavi.core.common import handle_children_state, \
+from mayavi.core.base import Base
+from mayavi.core.pipeline_base import PipelineBase
+from mayavi.core.module import Module
+from mayavi.core.module_manager import ModuleManager
+from mayavi.core.common import handle_children_state, \
                                          exception, error
-from enthought.mayavi.core.pipeline_info import PipelineInfo
-from enthought.mayavi.core.adder_node import ModuleFilterAdderNode
+from mayavi.core.pipeline_info import PipelineInfo
+from mayavi.core.adder_node import ModuleFilterAdderNode
 
 ######################################################################
 # Utility functions.
 ######################################################################
 def is_filter(object):
-    from enthought.mayavi.core.filter import Filter
+    from mayavi.core.filter import Filter
     return isinstance(object, Filter)
 
 
@@ -171,7 +171,7 @@ class Source(PipelineBase):
     def tno_can_add(self, node, add_object):
         """ Returns whether a given object is droppable on the node.
         """
-        from enthought.mayavi.core.filter import Filter
+        from mayavi.core.filter import Filter
         try:
             if issubclass(add_object, Filter) or \
                    issubclass(add_object, ModuleManager):
@@ -229,7 +229,7 @@ class Source(PipelineBase):
         super(Source,self)._visible_changed(value)
 
     def _menu_helper_default(self):
-        from enthought.mayavi.core.traits_menu import FilterMenuHelper
+        from mayavi.core.traits_menu import FilterMenuHelper
         return FilterMenuHelper(object=self)
 
     def _extra_menu_items(self):

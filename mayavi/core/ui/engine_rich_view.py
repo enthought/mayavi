@@ -10,13 +10,13 @@ from traitsui.api import Item, View, HSplit, InstanceEditor
 from traitsui.menu import Action, Separator
 from pyface.image_resource import ImageResource
 from pyface.api import GUI
-from enthought.mayavi.core.adder_node import SceneAdderNode
+from mayavi.core.adder_node import SceneAdderNode
 
 # Local imports.
-from enthought.mayavi.core.scene import Scene
-from enthought.mayavi.preferences.preference_manager_view import \
+from mayavi.core.scene import Scene
+from mayavi.preferences.preference_manager_view import \
     preference_manager_view
-from enthought.mayavi.core.ui.engine_view import EngineView, \
+from mayavi.core.ui.engine_view import EngineView, \
             EngineViewHandler
 
 
@@ -113,7 +113,7 @@ class EngineRichView(EngineView):
                     show_labels=False,
                     id='mayavi.engine_rich_view_group',
                     ),
-                    id='enthought.mayavi.engine_rich_view',
+                    id='mayavi.engine_rich_view',
                     help=False,
                     resizable=True,
                     undo=False,

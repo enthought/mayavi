@@ -9,7 +9,7 @@ that is entirely based on the Glyph module.
 
 
 # Local imports
-from enthought.mayavi.modules.glyph import Glyph
+from mayavi.modules.glyph import Glyph
 
 ######################################################################
 # `Vectors` class.

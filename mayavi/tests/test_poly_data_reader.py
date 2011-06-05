@@ -9,8 +9,8 @@ import unittest
 from common import get_example_data
 
 # Enthought library imports
-from enthought.mayavi.sources.poly_data_reader import PolyDataReader
-from enthought.mayavi.tests.data_reader_test_base import DataReaderTestBase
+from mayavi.sources.poly_data_reader import PolyDataReader
+from mayavi.tests.data_reader_test_base import DataReaderTestBase
 
 class TestPDBReader(DataReaderTestBase):
 

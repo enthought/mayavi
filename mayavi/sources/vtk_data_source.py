@@ -18,10 +18,10 @@ from enthought.tvtk.api import tvtk
 from enthought.tvtk import messenger
 
 # Local imports.
-from enthought.mayavi.core.source import Source
-from enthought.mayavi.core.common import handle_children_state
-from enthought.mayavi.core.trait_defs import DEnum
-from enthought.mayavi.core.pipeline_info import (PipelineInfo,
+from mayavi.core.source import Source
+from mayavi.core.common import handle_children_state
+from mayavi.core.trait_defs import DEnum
+from mayavi.core.pipeline_info import (PipelineInfo,
         get_tvtk_dataset_name)
 from vtk_xml_file_reader import get_all_attributes
 

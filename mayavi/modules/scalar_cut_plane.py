@@ -11,14 +11,14 @@ from traits.api import Instance, Bool
 from traitsui.api import View, Group, Item, InstanceEditor
 
 # Local imports
-from enthought.mayavi.core.module import Module
-from enthought.mayavi.core.pipeline_info import PipelineInfo
-from enthought.mayavi.components.implicit_plane import ImplicitPlane
-from enthought.mayavi.components.cutter import Cutter
-from enthought.mayavi.filters.warp_scalar import WarpScalar
-from enthought.mayavi.components.poly_data_normals import PolyDataNormals
-from enthought.mayavi.components.contour import Contour
-from enthought.mayavi.components.actor import Actor
+from mayavi.core.module import Module
+from mayavi.core.pipeline_info import PipelineInfo
+from mayavi.components.implicit_plane import ImplicitPlane
+from mayavi.components.cutter import Cutter
+from mayavi.filters.warp_scalar import WarpScalar
+from mayavi.components.poly_data_normals import PolyDataNormals
+from mayavi.components.contour import Contour
+from mayavi.components.actor import Actor
 
 
 ######################################################################

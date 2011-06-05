@@ -41,9 +41,9 @@ from traitsui.api import View, Item, HGroup, Group
 from enthought.tvtk.api import tvtk
 from enthought.tvtk.pyface.scene import Scene
 
-from enthought.mayavi import mlab
-from enthought.mayavi.core.api import PipelineBase, Source
-from enthought.mayavi.core.ui.api import SceneEditor, MayaviScene, \
+from mayavi import mlab
+from mayavi.core.api import PipelineBase, Source
+from mayavi.core.ui.api import SceneEditor, MayaviScene, \
                                 MlabSceneModel
 
 ################################################################################

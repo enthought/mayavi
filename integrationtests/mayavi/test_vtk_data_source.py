@@ -18,7 +18,7 @@ from test_contour import TestContour
 class TestVTKDataSource(TestContour):
     def make_data(self):
         script = self.script
-        from enthought.mayavi.sources.vtk_data_source import VTKDataSource
+        from mayavi.sources.vtk_data_source import VTKDataSource
         from enthought.tvtk.api import tvtk
 
         ############################################################
@@ -39,11 +39,11 @@ class TestVTKDataSource(TestContour):
         # Setup the source.
         self.make_data()
 
-        from enthought.mayavi.modules.outline import Outline
-        from enthought.mayavi.modules.iso_surface import IsoSurface
-        from enthought.mayavi.modules.contour_grid_plane \
+        from mayavi.modules.outline import Outline
+        from mayavi.modules.iso_surface import IsoSurface
+        from mayavi.modules.contour_grid_plane \
              import ContourGridPlane
-        from enthought.mayavi.modules.scalar_cut_plane import ScalarCutPlane
+        from mayavi.modules.scalar_cut_plane import ScalarCutPlane
         script = self.script
         s = script.engine.current_scene
         # Create an outline for the data.

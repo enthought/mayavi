@@ -45,7 +45,7 @@ data.shape = (109, 256, 256)
 data = data.T
 
 # Display the data #############################################################
-from enthought.mayavi import mlab
+from mayavi import mlab
 
 mlab.figure(bgcolor=(0, 0, 0), size=(400, 400))
 

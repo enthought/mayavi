@@ -13,12 +13,12 @@ import unittest
 from common import get_example_data
 
 # Enthought library imports
-from enthought.mayavi.core.null_engine import NullEngine
-from enthought.mayavi.filters.optional import Optional
-from enthought.mayavi.filters.user_defined import UserDefined
-from enthought.mayavi.filters.api import (CellToPointData, ExtractVectorNorm, ExtractVectorComponents)
-from enthought.mayavi.modules.api import ScalarCutPlane
-from enthought.mayavi.sources.vtk_xml_file_reader import VTKXMLFileReader
+from mayavi.core.null_engine import NullEngine
+from mayavi.filters.optional import Optional
+from mayavi.filters.user_defined import UserDefined
+from mayavi.filters.api import (CellToPointData, ExtractVectorNorm, ExtractVectorComponents)
+from mayavi.modules.api import ScalarCutPlane
+from mayavi.sources.vtk_xml_file_reader import VTKXMLFileReader
 from enthought.tvtk.api import tvtk
 
 class TestUserDefined(unittest.TestCase):
@@ -105,7 +105,7 @@ class TestUserDefined(unittest.TestCase):
         s = self.scene
         self.check()
 
-        #from enthought.mayavi.tools.show import show
+        #from mayavi.tools.show import show
         #show()
 
 
@@ -156,7 +156,7 @@ class TestUserDefined(unittest.TestCase):
         s.children[0] = source1
         s = self.scene
         self.check()
-        #from enthought.mayavi.tools.show import show
+        #from mayavi.tools.show import show
         #show()
 
 

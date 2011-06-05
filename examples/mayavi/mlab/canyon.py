@@ -34,7 +34,7 @@ data.shape = (3601, 3601)
 data = data.astype(np.float32)
 
 # Plot an interesting section ##################################################
-from enthought.mayavi import mlab
+from mayavi import mlab
 data = data[:1000, 900:1900]
 # Convert missing values into something more sensible.
 data[data==-32768] = data[data>0].min()

@@ -17,14 +17,14 @@ from pyface.action.api import Action
 from traitsui.api import auto_close_message
 
 # Local imports
-import enthought.mayavi.api
-from enthought.mayavi.core.common import error
-from enthought.mayavi.preferences.api import preference_manager
+import mayavi.api
+from mayavi.core.common import error
+from mayavi.preferences.api import preference_manager
 
 # To find the html documentation directory, first look under the
 # standard place.  If that directory doesn't exist, assume you
 # are running from the source.
-local_dir = dirname(enthought.mayavi.api.__file__)
+local_dir = dirname(mayavi.api.__file__)
 HTML_DIR = join(local_dir, 'html')
 if not path.exists(HTML_DIR):
     HTML_DIR = join(dirname(dirname(local_dir)),

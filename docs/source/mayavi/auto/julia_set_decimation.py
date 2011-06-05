@@ -29,7 +29,7 @@ more efficient to use the greedy-terrain-decimator, see the
 # License: BSD Style.
 
 
-from enthought.mayavi import mlab
+from mayavi import mlab
 import numpy as np
 
 # Calculate the Julia set on a grid

@@ -8,11 +8,11 @@ import unittest
 
 import numpy as np
 
-from enthought.mayavi import mlab
-from enthought.mayavi.core.null_engine import NullEngine
+from mayavi import mlab
+from mayavi.core.null_engine import NullEngine
 from enthought.tvtk.api import tvtk
-from enthought.mayavi.tools.engine_manager import engine_manager
-from enthought.mayavi.core.registry import registry
+from mayavi.tools.engine_manager import engine_manager
+from mayavi.core.registry import registry
 
 
 ################################################################################

@@ -17,8 +17,8 @@ from pyface.action.api import Action, Group
 from pyface.resource.api import resource_path
 
 # Local imports
-from enthought.mayavi.core.common import error
-from enthought.mayavi.preferences.api import set_scene_preferences, \
+from mayavi.core.common import error
+from mayavi.preferences.api import set_scene_preferences, \
         get_scene_preferences
 
 ###############################################################################
@@ -37,8 +37,8 @@ class MayaviScene(DecoratedScene):
         """ Open the engine view corresponding to the engine of the
             scene.
         """
-        from enthought.mayavi.core.registry import registry
-        from enthought.mayavi.core.ui.engine_rich_view import EngineRichView
+        from mayavi.core.registry import registry
+        from mayavi.core.ui.engine_rich_view import EngineRichView
         try:
             engine = registry.find_scene_engine(self)
         except TypeError:
@@ -90,7 +90,7 @@ def viewer_factory(size=(400, 350)):
     return viewer
 
 if __name__ == '__main__':
-    from enthought.mayavi.tools.show import show
+    from mayavi.tools.show import show
     viewer_factory()
     show()
 

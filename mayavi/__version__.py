@@ -4,4 +4,4 @@
 # Copyright (c) 2006, Enthought, Inc.
 # License: BSD Style.
 
-from enthought.mayavi.version import version as __version__
+from mayavi.version import version as __version__

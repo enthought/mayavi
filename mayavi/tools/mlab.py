@@ -2,8 +2,8 @@
 # Copyright (c) 2007, Enthought, Inc.
 # License: BSD Style.
 
-print "!! enthought.mayavi.tools.mlab is obsolete and has been replaced by !!"
-print "!! enthought.mayavi.mlab. Please update your code.                  !!"
+print "!! mayavi.tools.mlab is obsolete and has been replaced by !!"
+print "!! mayavi.mlab. Please update your code.                  !!"
 
-from enthought.mayavi.mlab import *
+from mayavi.mlab import *
 

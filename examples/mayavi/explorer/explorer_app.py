@@ -99,7 +99,7 @@ class Explorer3D(HasTraits):
         # changes to our application trait.
 
     def get_mayavi(self):
-        from enthought.mayavi.plugins.script import Script
+        from mayavi.plugins.script import Script
         return self.window.get_service(Script)
 
     ######################################################################
@@ -123,7 +123,7 @@ class Explorer3D(HasTraits):
         mayavi = self.get_mayavi()
         if mayavi.engine.current_scene is None:
             mayavi.new_scene()
-        from enthought.mayavi.sources.array_source import ArraySource
+        from mayavi.sources.array_source import ArraySource
         vol = self.volume
         origin = vol[::2]
         spacing = (vol[1::2] - origin)/(self.dimensions -1)
@@ -134,9 +134,9 @@ class Explorer3D(HasTraits):
         self.source = src
         mayavi.add_source(src)
 
-        from enthought.mayavi.modules.outline import Outline
-        from enthought.mayavi.modules.image_plane_widget import ImagePlaneWidget
-        from enthought.mayavi.modules.axes import Axes
+        from mayavi.modules.outline import Outline
+        from mayavi.modules.image_plane_widget import ImagePlaneWidget
+        from mayavi.modules.axes import Axes
         # Visualize the data.
         o = Outline()
         mayavi.add_module(o)

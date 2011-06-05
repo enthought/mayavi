@@ -1,6 +1,6 @@
 
 
-.. currentmodule:: enthought.mayavi.mlab
+.. currentmodule:: mayavi.mlab
 
 .. note::
 
@@ -174,7 +174,7 @@ screenshot
     This function can be useful for integrating 3D plotting with
     Mayavi in a 2D plot created by matplotlib.
     
-    >>> from enthought.mayavi import mlab
+    >>> from mayavi import mlab
     >>> mlab.test_plot3d()
     >>> arr = mlab.screenshot()
     >>> import pylab as pl

@@ -17,7 +17,7 @@ mlab.pipeline interface (see :ref:`controlling-the-pipeline-with-mlab-scripts`)
 
 from numpy import mgrid, empty, sin, pi
 from enthought.tvtk.api import tvtk
-from enthought.mayavi import mlab
+from mayavi import mlab
 
 # Generate some points.
 x, y, z = mgrid[1:6:11j,0:4:13j,0:3:6j]

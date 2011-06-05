@@ -10,12 +10,12 @@ from os.path import abspath
 import numpy as np
 
 # Local imports.
-from enthought.mayavi.core.null_engine import NullEngine
+from mayavi.core.null_engine import NullEngine
 from enthought.tvtk.api import tvtk
 
 # Enthought library imports
-from enthought.mayavi.sources.array_source import ArraySource
-from enthought.mayavi.modules.text3d import Text3D
+from mayavi.sources.array_source import ArraySource
+from mayavi.modules.text3d import Text3D
 
 class TestText3D(unittest.TestCase):
 

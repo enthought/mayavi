@@ -8,11 +8,11 @@ import unittest
 import numpy as np
 
 # Local imports.
-from enthought.mayavi.core.null_engine import NullEngine
+from mayavi.core.null_engine import NullEngine
 
 # Enthought library imports
-from enthought.mayavi.filters.threshold import Threshold
-from enthought.mayavi.sources.array_source import ArraySource
+from mayavi.filters.threshold import Threshold
+from mayavi.sources.array_source import ArraySource
 
 
 class TestThresholdFilter(unittest.TestCase):

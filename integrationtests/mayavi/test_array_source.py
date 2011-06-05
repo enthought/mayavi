@@ -104,10 +104,10 @@ class TestArraySource(TestCase):
         ############################################################
         # Imports.
         script = self.script
-        from enthought.mayavi.sources.array_source import ArraySource
-        from enthought.mayavi.modules.outline import Outline
-        from enthought.mayavi.modules.surface import Surface
-        from enthought.mayavi.modules.vectors import Vectors
+        from mayavi.sources.array_source import ArraySource
+        from mayavi.modules.outline import Outline
+        from mayavi.modules.surface import Surface
+        from mayavi.modules.vectors import Vectors
 
         ############################################################
         # Create a new scene and set up the visualization.

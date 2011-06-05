@@ -35,9 +35,9 @@ The file may also be placed anywhere on sys.path and called
 # Copyright (c) 2006-2008, Enthought, Inc.
 # License: BSD Style.
 
-from enthought.mayavi.core.registry import registry
-from enthought.mayavi.core.pipeline_info import PipelineInfo
-from enthought.mayavi.core.metadata import ModuleMetadata
+from mayavi.core.registry import registry
+from mayavi.core.pipeline_info import PipelineInfo
+from mayavi.core.metadata import ModuleMetadata
 
 # Metadata for the new module we want to add -- notice that we use a
 # factory function here for convenience, we could also use a class but
@@ -84,7 +84,7 @@ def get_plugins():
 # A new module to expose to mayavi.
 #
 # WARNING: Do not do other mayavi imports right here like for example:
-# 'from enthought.mayavi.modules.outline import Outline' etc.  This is
+# 'from mayavi.modules.outline import Outline' etc.  This is
 # because the user_mayavi is imported at a time when many of the imports
 # are not complete and this will cause hard-to-debug circular import
 # problems.  The registry is given only metadata mostly in the form of
@@ -98,7 +98,7 @@ def user_outline():
     inside avoiding any circular imports.
     """
     print "User Outline"
-    from enthought.mayavi.modules.outline import Outline
+    from mayavi.modules.outline import Outline
     o = Outline(outline_mode='cornered', name='UserOutline')
     return o
 
@@ -134,7 +134,7 @@ class Worker(HasTraits):
     reset_data = Button('Reset data')
     view_data = Button('View data')
     scale = Range(0.0, 1.0)
-    source = Instance('enthought.mayavi.core.source.Source')
+    source = Instance('mayavi.core.source.Source')
 
     # Our UI view.
     view = View(Item('create_data', show_label=False),
@@ -145,7 +145,7 @@ class Worker(HasTraits):
                 )
 
     def get_mayavi(self):
-        from enthought.mayavi.plugins.script import Script
+        from mayavi.plugins.script import Script
         return self.window.get_service(Script)
 
     def _make_data(self):
@@ -161,7 +161,7 @@ class Worker(HasTraits):
 
     def _create_data_fired(self):
         mayavi = self.get_mayavi()
-        from enthought.mayavi.sources.array_source import ArraySource
+        from mayavi.sources.array_source import ArraySource
         s = self._make_data()
         src = ArraySource(transpose_input_array=False, scalar_data=s)
         self.source = src
@@ -172,8 +172,8 @@ class Worker(HasTraits):
 
     def _view_data_fired(self):
         mayavi = self.get_mayavi()
-        from enthought.mayavi.modules.outline import Outline
-        from enthought.mayavi.modules.image_plane_widget import ImagePlaneWidget
+        from mayavi.modules.outline import Outline
+        from mayavi.modules.image_plane_widget import ImagePlaneWidget
         # Visualize the data.
         o = Outline()
         mayavi.add_module(o)

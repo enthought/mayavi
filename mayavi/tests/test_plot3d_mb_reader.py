@@ -13,10 +13,10 @@ import unittest
 from common import get_example_data
 
 # Enthought library imports
-from enthought.mayavi.core.null_engine import NullEngine
-from enthought.mayavi.sources.plot3d_reader import PLOT3DReader
-from enthought.mayavi.filters.select_output import SelectOutput
-from enthought.mayavi.modules.outline import Outline
+from mayavi.core.null_engine import NullEngine
+from mayavi.sources.plot3d_reader import PLOT3DReader
+from mayavi.filters.select_output import SelectOutput
+from mayavi.modules.outline import Outline
 
 class TestPlot3dMbReader(unittest.TestCase):
 
@@ -65,7 +65,7 @@ class TestPlot3dMbReader(unittest.TestCase):
         self.assertEqual(o.outline_filter.output.bounds,
                                     (1.0, 2.0, 1.0, 2.0, 1.0, 2.0))
 
-        #from enthought.mayavi.tools.show import show
+        #from mayavi.tools.show import show
         #show()
 
 

@@ -10,8 +10,8 @@ basically abstracts out the common parts of the pipeline interface.
 from traits.api import List, Event, Bool, Instance
 
 # Local imports.
-from enthought.mayavi.core.base import Base
-from enthought.mayavi.core.pipeline_info import PipelineInfo
+from mayavi.core.base import Base
+from mayavi.core.pipeline_info import PipelineInfo
 
 
 ######################################################################

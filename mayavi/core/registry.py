@@ -13,7 +13,7 @@ import logging
 from traits.api import HasTraits, List, Instance, Dict, Str
 
 # Local imports.
-from enthought.mayavi.core.metadata import Metadata, import_symbol
+from mayavi.core.metadata import Metadata, import_symbol
 
 # A logger for this module.
 logger = logging.getLogger(__name__)
@@ -30,7 +30,7 @@ class Registry(HasTraits):
     """
 
     # The mayavi engines used.
-    engines = Dict(Str, Instance('enthought.mayavi.core.engine.Engine'))
+    engines = Dict(Str, Instance('mayavi.core.engine.Engine'))
 
     # The metadata for the sources.
     sources = List(Metadata)
@@ -143,18 +143,18 @@ registry = Registry()
 
 # Import the metadata from the sources, modules and filters so they are
 # all registered.
-from enthought.mayavi.sources.metadata import sources
+from mayavi.sources.metadata import sources
 registry.sources.extend(sources)
 
-from enthought.mayavi.filters.metadata import filters
+from mayavi.filters.metadata import filters
 registry.filters.extend(filters)
 
-from enthought.mayavi.modules.metadata import modules
+from mayavi.modules.metadata import modules
 registry.modules.extend(modules)
 
 # Do any customizations from either the `site_mayavi.py` or the
 # `user_mayavi.py` files.  This is done by importing the customize.py
 # module here which in turn imports the necessary code from the users's
 # customization.
-from enthought.mayavi.core import customize
+from mayavi.core import customize
 

@@ -10,8 +10,8 @@ from traits.api import Instance
 from enthought.tvtk.api import tvtk
 
 # Local imports.
-from enthought.mayavi.components.actor import Actor
-from enthought.mayavi.modules.outline import Outline
+from mayavi.components.actor import Actor
+from mayavi.modules.outline import Outline
 
 
 ######################################################################

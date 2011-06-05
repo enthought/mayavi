@@ -45,12 +45,12 @@ class TestNoUIToolkit(unittest.TestCase):
     def test_no_ui(self):
         """Test if mayavi imports work without any UI (wx or PyQt4)."""
         # These imports should work without any UI.
-        from enthought.mayavi import mlab
-        from enthought.mayavi.api import Engine
-        from enthought.mayavi.sources.api import VTKDataSource
-        from enthought.mayavi.filters.api import Optional
-        from enthought.mayavi.modules.api import Outline
-        from enthought.mayavi.preferences.api import preference_manager
+        from mayavi import mlab
+        from mayavi.api import Engine
+        from mayavi.sources.api import VTKDataSource
+        from mayavi.filters.api import Optional
+        from mayavi.modules.api import Outline
+        from mayavi.preferences.api import preference_manager
 
         # Should not have triggered an import wx or PyQt4.
         self.assertEqual(sys.modules.has_key('wx'), False)

@@ -11,7 +11,7 @@ from traitsui.api import View, Group, Item
 from enthought.tvtk.api import tvtk
 
 # Local imports
-from enthought.mayavi.core.filter import Filter
+from mayavi.core.filter import Filter
 
 
 ######################################################################

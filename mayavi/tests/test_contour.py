@@ -12,14 +12,14 @@ import unittest
 import datasets
 
 # Local imports.
-from enthought.mayavi.core.null_engine import NullEngine
+from mayavi.core.null_engine import NullEngine
 
 # Enthought library imports
-from enthought.mayavi.sources.vtk_data_source import VTKDataSource
-from enthought.mayavi.modules.outline import Outline
-from enthought.mayavi.modules.iso_surface import IsoSurface
-from enthought.mayavi.modules.contour_grid_plane import ContourGridPlane
-from enthought.mayavi.modules.scalar_cut_plane import ScalarCutPlane
+from mayavi.sources.vtk_data_source import VTKDataSource
+from mayavi.modules.outline import Outline
+from mayavi.modules.iso_surface import IsoSurface
+from mayavi.modules.contour_grid_plane import ContourGridPlane
+from mayavi.modules.scalar_cut_plane import ScalarCutPlane
 
 
 class TestContour(unittest.TestCase):
@@ -115,7 +115,7 @@ class TestContour(unittest.TestCase):
         #Now test.
         self.check()
 
-        #from enthought.mayavi.tools.show import show
+        #from mayavi.tools.show import show
         #show()
 
     def test_components_changed(self):

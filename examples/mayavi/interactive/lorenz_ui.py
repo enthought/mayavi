@@ -19,8 +19,8 @@ from traits.api import HasTraits, Range, Instance, \
         on_trait_change, Array, Tuple, Str
 from traitsui.api import View, Item, HSplit, Group
 
-from enthought.mayavi import mlab
-from enthought.mayavi.core.ui.api import MayaviScene, MlabSceneModel, \
+from mayavi import mlab
+from mayavi.core.ui.api import MayaviScene, MlabSceneModel, \
     SceneEditor
 
 ################################################################################

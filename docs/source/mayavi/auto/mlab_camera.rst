@@ -1,6 +1,6 @@
 
 
-.. currentmodule:: enthought.mayavi.mlab
+.. currentmodule:: mayavi.mlab
 
 .. note::
 

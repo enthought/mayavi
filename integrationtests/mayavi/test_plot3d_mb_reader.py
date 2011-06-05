@@ -23,9 +23,9 @@ class TestPLOT3DReader(TestCase):
         ############################################################
         # Imports.
         script = self.script
-        from enthought.mayavi.sources.plot3d_reader import PLOT3DReader
-        from enthought.mayavi.filters.select_output import SelectOutput
-        from enthought.mayavi.modules.outline import Outline
+        from mayavi.sources.plot3d_reader import PLOT3DReader
+        from mayavi.filters.select_output import SelectOutput
+        from mayavi.modules.outline import Outline
 
         ############################################################
         # Create a new scene and set up the visualization.

@@ -70,10 +70,10 @@ class TestGlyph(TestCase):
         ############################################################
         # Imports.
         script = self.script
-        from enthought.mayavi.sources.array_source import ArraySource
-        from enthought.mayavi.modules.outline import Outline
-        from enthought.mayavi.modules.glyph import Glyph
-        from enthought.mayavi.modules.vector_cut_plane import VectorCutPlane
+        from mayavi.sources.array_source import ArraySource
+        from mayavi.modules.outline import Outline
+        from mayavi.modules.glyph import Glyph
+        from mayavi.modules.vector_cut_plane import VectorCutPlane
 
         ############################################################
         # Create a new scene and set up the visualization.

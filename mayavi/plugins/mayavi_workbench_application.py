@@ -14,10 +14,10 @@ from envisage.ui.workbench.api import WorkbenchApplication
 from pyface.api import AboutDialog, ImageResource, SplashScreen
 
 # Local imports.
-import enthought.mayavi.api
-from enthought.mayavi.preferences.api import preference_manager
+import mayavi.api
+from mayavi.preferences.api import preference_manager
 
-IMG_DIR = dirname(enthought.mayavi.api.__file__)
+IMG_DIR = dirname(mayavi.api.__file__)
 logger = logging.getLogger(__name__)
 
 
@@ -33,7 +33,7 @@ class MayaviWorkbenchApplication(WorkbenchApplication):
     #### 'IApplication' interface #############################################
 
     # The application's globally unique Id.
-    id = 'enthought.mayavi_e3'
+    id = 'mayavi_e3'
 
     #### 'WorkbenchApplication' interface #####################################
 
@@ -96,7 +96,7 @@ class MayaviWorkbenchApplication(WorkbenchApplication):
     ######################################################################
     def _about_dialog_default(self):
         """ Trait initializer. """
-        from enthought.mayavi import api
+        from mayavi import api
         from vtk import vtkVersion
         vtk_version = vtkVersion().GetVTKVersion()
         about_dialog = AboutDialog(

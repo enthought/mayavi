@@ -4,11 +4,11 @@ Test the mlab null engine.
 
 import unittest
 
-from enthought.mayavi import mlab
-from enthought.mayavi.core.engine import Engine
-from enthought.mayavi.tools.engine_manager import engine_manager
-from enthought.mayavi.core.registry import registry
-from enthought.mayavi.tests.common import get_example_data
+from mayavi import mlab
+from mayavi.core.engine import Engine
+from mayavi.tools.engine_manager import engine_manager
+from mayavi.core.registry import registry
+from mayavi.tests.common import get_example_data
 
 ################################################################################
 # class `TestMlabNullEngineBase`

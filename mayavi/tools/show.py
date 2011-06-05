@@ -86,7 +86,7 @@ def show(func=None, stop=False):
 
     Here is a simple example demonstrating the use of show::
 
-      >>> from enthought.mayavi import mlab
+      >>> from mayavi import mlab
       >>> mlab.test_contour3d()
       >>> mlab.show()
 

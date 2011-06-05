@@ -24,13 +24,13 @@ from apptools.persistence import state_pickler
 from apptools.scripting.api import Recorder, recordable
 
 # Local imports.
-from enthought.mayavi.core.base import Base
-from enthought.mayavi.core.scene import Scene
-from enthought.mayavi.core.common import error, process_ui_events
-from enthought.mayavi.core.registry import registry
-from enthought.mayavi.core.adder_node import AdderNode, SceneAdderNode
-from enthought.mayavi.preferences.api import preference_manager
-from enthought.mayavi.core.ui.mayavi_scene import viewer_factory
+from mayavi.core.base import Base
+from mayavi.core.scene import Scene
+from mayavi.core.common import error, process_ui_events
+from mayavi.core.registry import registry
+from mayavi.core.adder_node import AdderNode, SceneAdderNode
+from mayavi.preferences.api import preference_manager
+from mayavi.core.ui.mayavi_scene import viewer_factory
 
 
 ######################################################################
@@ -477,7 +477,7 @@ class Engine(HasStrictTraits):
 
         Parameters:
         -----------
-         scene - An `enthought.mayavi.core.scene.Scene` instance.
+         scene - An `mayavi.core.scene.Scene` instance.
         """
         return self._viewer_ref.get(scene.scene)
 
@@ -576,7 +576,7 @@ class Engine(HasStrictTraits):
             new.record('try:')
             new.record('    engine = mayavi.engine')
             new.record('except NameError:')
-            new.record('    from enthought.mayavi.api import Engine')
+            new.record('    from mayavi.api import Engine')
             new.record('    engine = Engine()')
             new.record('    engine.start()')
             new.record('if len(engine.scenes) == 0:')
@@ -584,6 +584,6 @@ class Engine(HasStrictTraits):
             new.record('# ------------------------------------------- ')
         elif old is not None:
             old.record('# ------------------------------------------- ')
-            old.record('from enthought.mayavi.tools.show import show')
+            old.record('from mayavi.tools.show import show')
             old.record('show()')
 

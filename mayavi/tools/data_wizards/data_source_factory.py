@@ -4,9 +4,9 @@ from numpy import c_, zeros, arange
 from traits.api import HasStrictTraits, \
     true, false, CArray, Trait, Instance
 
-from enthought.mayavi.sources.vtk_data_source import VTKDataSource
-from enthought.mayavi.sources.array_source import ArraySource
-from enthought.mayavi.core.source import Source
+from mayavi.sources.vtk_data_source import VTKDataSource
+from mayavi.sources.array_source import ArraySource
+from mayavi.core.source import Source
 
 from enthought.tvtk.api import tvtk
 
@@ -191,7 +191,7 @@ class DataSourceFactory(HasStrictTraits):
 def view(src):
     """ Open up a mayavi scene and display the dataset in it.
     """
-    from enthought.mayavi import mlab
+    from mayavi import mlab
     mayavi = mlab.get_engine()
     fig = mlab.figure(bgcolor=(1, 1, 1), fgcolor=(0, 0, 0),)
     mayavi.add_source(src)

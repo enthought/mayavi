@@ -12,7 +12,7 @@ of the input arguments.
 import unittest
 import numpy as np
 
-from enthought.mayavi.tools import sources
+from mayavi.tools import sources
 
 ################################################################################
 # `BaseTestSource`

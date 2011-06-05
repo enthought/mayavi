@@ -8,7 +8,7 @@ mayavi registry
 
 # Enthought library imports.
 from traits.api import HasTraits, Str, Callable, Either, List, Instance
-from enthought.mayavi.core.pipeline_info import PipelineInfo
+from mayavi.core.pipeline_info import PipelineInfo
 
 
 ################################################################################

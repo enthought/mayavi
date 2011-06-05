@@ -12,11 +12,11 @@ from traits.api import Instance, Bool
 from traitsui.api import View, Group, Item
 
 # Local imports
-from enthought.mayavi.core.module import Module
-from enthought.mayavi.components.grid_plane import GridPlane
-from enthought.mayavi.components.contour import Contour
-from enthought.mayavi.components.actor import Actor
-from enthought.mayavi.core.pipeline_info import PipelineInfo
+from mayavi.core.module import Module
+from mayavi.components.grid_plane import GridPlane
+from mayavi.components.contour import Contour
+from mayavi.components.actor import Actor
+from mayavi.core.pipeline_info import PipelineInfo
 
 
 ######################################################################

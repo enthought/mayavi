@@ -17,7 +17,7 @@ What you should get:
 
 """
 
-from enthought.mayavi.core.api import registry, SourceMetadata, PipelineInfo
+from mayavi.core.api import registry, SourceMetadata, PipelineInfo
 
 def zzz_reader(fname, engine):
     """Reader for .zzz files.
@@ -30,7 +30,7 @@ def zzz_reader(fname, engine):
     engine -- The engine the source will be associated with.
     """
     from enthought.tvtk.api import tvtk
-    from enthought.mayavi.sources.vtk_data_source import VTKDataSource
+    from mayavi.sources.vtk_data_source import VTKDataSource
     # Do your own reader stuff here, I'm just reading a VTK file with a
     # different extension here.
     r = tvtk.StructuredPointsReader(file_name=fname)

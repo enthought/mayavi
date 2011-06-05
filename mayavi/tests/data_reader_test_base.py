@@ -8,8 +8,8 @@ from StringIO import StringIO
 import copy
 import unittest
 import numpy
-from enthought.mayavi.core.null_engine import NullEngine
-from enthought.mayavi.modules.outline import Outline
+from mayavi.core.null_engine import NullEngine
+from mayavi.modules.outline import Outline
 
 class DataReaderTestBase(unittest.TestCase):
 

@@ -10,8 +10,8 @@ This scipts requires image magic to be installed.
 
 
 import os
-from enthought.mayavi import mlab
-from enthought.mayavi.scripts import mayavi2
+from mayavi import mlab
+from mayavi.scripts import mayavi2
 
 from inspect import getmembers
 

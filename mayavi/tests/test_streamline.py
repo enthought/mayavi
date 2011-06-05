@@ -11,10 +11,10 @@ import numpy
 import unittest
 
 # Enthought library imports
-from enthought.mayavi.core.null_engine import NullEngine
-from enthought.mayavi.sources.array_source import ArraySource
-from enthought.mayavi.modules.outline import Outline
-from enthought.mayavi.modules.streamline import Streamline
+from mayavi.core.null_engine import NullEngine
+from mayavi.sources.array_source import ArraySource
+from mayavi.modules.outline import Outline
+from mayavi.modules.streamline import Streamline
 
 class TestStreamline(unittest.TestCase):
 

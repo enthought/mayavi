@@ -10,7 +10,7 @@ from envisage.api import Plugin, ServiceOffer
 # This module's package.
 PKG = '.'.join(__name__.split('.')[:-1])
 # The mayavi package ID.
-ID = 'enthought.mayavi'
+ID = 'mayavi'
 
 ###############################################################################
 # `MayaviPlugin` class.
@@ -45,12 +45,12 @@ class MayaviPlugin(Plugin):
     def _service_offers_default(self):
         """ Trait initializer. """
         engine_service_offer = ServiceOffer(
-            protocol = 'enthought.mayavi.core.engine.Engine',
+            protocol = 'mayavi.core.engine.Engine',
             factory  = PKG + '.envisage_engine.EnvisageEngine'
         )
 
         script_service_offer = ServiceOffer(
-            protocol = 'enthought.mayavi.plugins.script.Script',
+            protocol = 'mayavi.plugins.script.Script',
             factory  = PKG + '.script.Script'
         )
         return [engine_service_offer, script_service_offer]

@@ -17,8 +17,8 @@ style, rather than overridding the __init__.
 from traits.api import HasTraits, Instance, on_trait_change
 from traitsui.api import View, Group, Item
 
-from enthought.mayavi.core.api import Engine
-from enthought.mayavi.core.ui.api import MayaviScene, MlabSceneModel, \
+from mayavi.core.api import Engine
+from mayavi.core.ui.api import MayaviScene, MlabSceneModel, \
             SceneEditor
 
 ################################################################################

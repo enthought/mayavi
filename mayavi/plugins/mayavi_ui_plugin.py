@@ -16,8 +16,8 @@ from traits.etsconfig.api import ETSConfig
 logger = logging.getLogger()
 
 # View IDs.
-ENGINE_VIEW = 'enthought.mayavi.core.ui.engine_view.EngineView'
-CURRENT_SELECTION_VIEW = 'enthought.mayavi.core.engine.Engine.current_selection'
+ENGINE_VIEW = 'mayavi.core.ui.engine_view.EngineView'
+CURRENT_SELECTION_VIEW = 'mayavi.core.engine.Engine.current_selection'
 SHELL_VIEW = 'envisage.plugins.python_shell_view'
 LOGGER_VIEW = 'traits.logger.plugin.view.logger_view.LoggerView'
 
@@ -76,7 +76,7 @@ class MayaviUIPlugin(Plugin):
     name = 'Mayavi UI plugin'
 
     # Our ID.
-    id = 'enthought.mayavi_ui'
+    id = 'mayavi_ui'
 
     ###### Contributions to extension points made by this plugin ######
 
@@ -106,13 +106,13 @@ class MayaviUIPlugin(Plugin):
 
     def _preferences_pages_default(self):
         """ Trait initializer. """
-        from enthought.mayavi.preferences.mayavi_preferences_page import (
+        from mayavi.preferences.mayavi_preferences_page import (
             MayaviRootPreferencesPage, MayaviMlabPreferencesPage)
         return [MayaviRootPreferencesPage, MayaviMlabPreferencesPage]
 
     def _action_sets_default(self):
         """ Trait initializer. """
-        from enthought.mayavi.plugins.mayavi_ui_action_set import (
+        from mayavi.plugins.mayavi_ui_action_set import (
             MayaviUIActionSet
         )
         return [MayaviUIActionSet]
@@ -131,7 +131,7 @@ To use Mayavi, you need to load your data in "data sources" and apply "visualiza
         """ Factory method for engine views. """
         from pyface.workbench.traits_ui_view import \
                 TraitsUIView
-        from enthought.mayavi.core.ui.engine_view import \
+        from mayavi.core.ui.engine_view import \
                             EngineView
 
         engine_view = EngineView(engine=self._get_engine(window))
@@ -164,13 +164,13 @@ To use Mayavi, you need to load your data in "data sources" and apply "visualiza
 
     def _get_engine(self, window):
         """Return the Mayavi engine of the particular window."""
-        from enthought.mayavi.core.engine import Engine
+        from mayavi.core.engine import Engine
         return window.get_service(Engine)
 
     def _get_script(self, window):
-        """Return the `enthought.mayavi.plugins.script.Script` instance
+        """Return the `mayavi.plugins.script.Script` instance
         of the window."""
-        from enthought.mayavi.plugins.script import Script
+        from mayavi.plugins.script import Script
         return window.get_service(Script)
 
     ######################################################################

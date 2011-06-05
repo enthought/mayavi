@@ -22,8 +22,8 @@ import logging
 from os.path import splitext, exists, join, abspath
 
 # Local imports.
-from enthought.mayavi.__version__ import __version__
-from enthought.mayavi.scripts.util import get_data_dir
+from mayavi.__version__ import __version__
+from mayavi.scripts.util import get_data_dir
 
 # Globals.
 OFFSCREEN = False
@@ -233,7 +233,7 @@ def _get_non_file_sources():
     """Returns a dict indexed on the name of non-file related sources
     ids with the value being the corresponding metadata object.
     """
-    from enthought.mayavi.core.registry import registry
+    from mayavi.core.registry import registry
     data = {}
     for src in registry.sources:
         if len(src.extensions) == 0:
@@ -253,7 +253,7 @@ def process_cmd_line(app, opts, args):
       args -- The remaining arguments returned by getopt.
     """
 
-    from enthought.mayavi.core.common import error, exception
+    from mayavi.core.common import error, exception
     from enthought.tvtk.common import camel2enthought
 
     sources = _get_non_file_sources()
@@ -294,7 +294,7 @@ def process_cmd_line(app, opts, args):
                 modname = a[:idx]
                 classname = a[idx+1:]
             else:
-                modname = 'enthought.mayavi.modules.%s'%camel2enthought(a)
+                modname = 'mayavi.modules.%s'%camel2enthought(a)
                 classname = a
             try:
                 mod = __import__(modname, globals(), locals(), [classname])
@@ -315,7 +315,7 @@ def process_cmd_line(app, opts, args):
                 classname = a[idx+1:]
             else:
                 if a[:12] == 'UserDefined:':
-                    modname = 'enthought.mayavi.filters.user_defined'
+                    modname = 'mayavi.filters.user_defined'
                     classname = 'UserDefined'
                     # Create the wrapped filter.
                     fname = a[12:]
@@ -326,7 +326,7 @@ def process_cmd_line(app, opts, args):
                         # Don't worry about errors.
                         extra = None
                 else:
-                    modname = 'enthought.mayavi.filters.%s'%camel2enthought(a)
+                    modname = 'mayavi.filters.%s'%camel2enthought(a)
                     classname = a
                     extra = None
             try:
@@ -348,7 +348,7 @@ def process_cmd_line(app, opts, args):
                 last_obj = f
 
         if o in ('-M', '--module-mgr'):
-            from enthought.mayavi.core.module_manager \
+            from mayavi.core.module_manager \
                  import ModuleManager
             mm = ModuleManager()
             script.add_filter(mm)
@@ -399,7 +399,7 @@ def run_script(mayavi, script_name):
 
     It returns `False` if everything was OK and `True` if not.
     """
-    from enthought.mayavi.core.common import exception
+    from mayavi.core.common import exception
 
     g = sys.modules['__main__'].__dict__
     if 'mayavi' not in g:
@@ -419,7 +419,7 @@ def run_script(mayavi, script_name):
 
 # This runs the runtests script and sends any args to it.
 if ('-t' in sys.argv[1:]) or ('--test' in sys.argv[1:]):
-    from enthought.mayavi.tests import runtests
+    from mayavi.tests import runtests
     for arg in ('-t', '--test'):
         if arg in sys.argv[1:]:
             sys.argv.remove(arg)
@@ -472,7 +472,7 @@ if not 'wx' in sys.modules:
 # Importing here to avoid time-consuming import when user only wanted
 # version/help information.
 try:
-    from enthought.mayavi.plugins.app import Mayavi, setup_logger
+    from mayavi.plugins.app import Mayavi, setup_logger
 except ImportError, m:
     msg = '''%s
 %s
@@ -528,8 +528,8 @@ class MayaviOffscreen(MayaviApp):
     """
 
     def _script_default(self):
-        from enthought.mayavi.plugins.script import Script
-        from enthought.mayavi.core.off_screen_engine import OffScreenEngine
+        from mayavi.plugins.script import Script
+        from mayavi.core.off_screen_engine import OffScreenEngine
         engine = OffScreenEngine()
         engine.start()
         s = Script(engine=engine)
@@ -538,7 +538,7 @@ class MayaviOffscreen(MayaviApp):
     def setup_logger(self):
         from traits.etsconfig.api import ETSConfig
         path = join(ETSConfig.application_data,
-                    'enthought.mayavi_e3', 'mayavi.log')
+                    'mayavi_e3', 'mayavi.log')
         path = abspath(path)
         logger = logging.getLogger()
         setup_logger(logger, path, mode=self.log_mode)
@@ -559,9 +559,9 @@ def get_mayavi_script_instance():
     """Return the mayavi Script instance from the first available set of
     envisage engines registered in the registry.
     """
-    from enthought.mayavi.core.registry import registry
-    from enthought.mayavi.plugins.envisage_engine import EnvisageEngine
-    from enthought.mayavi.plugins.script import Script
+    from mayavi.core.registry import registry
+    from mayavi.plugins.envisage_engine import EnvisageEngine
+    from mayavi.plugins.script import Script
     for name, engine in registry.engines.iteritems():
         if isinstance(engine, EnvisageEngine):
             return engine.window.get_service(Script)
@@ -571,7 +571,7 @@ def contains_mayavi(namespace):
     """Returns if the given namespace contains a 'mayavi' name bound to
     a mayavi script instance.
     """
-    from enthought.mayavi.plugins.script import Script
+    from mayavi.plugins.script import Script
     if 'mayavi' in namespace:
         if isinstance(namespace.get('mayavi'), Script):
             return True

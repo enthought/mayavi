@@ -15,9 +15,9 @@ from enthought.tvtk.api import tvtk
 from enthought.tvtk.tvtk_base import TraitRevPrefixMap
 
 # Local imports.
-from enthought.mayavi.core.component import Component
-from enthought.mayavi.core.module import Module
-from enthought.mayavi.components import glyph_source
+from mayavi.core.component import Component
+from mayavi.core.module import Module
+from mayavi.components import glyph_source
 
 
 ######################################################################

@@ -49,7 +49,7 @@ data = data[200:400, 1200:1400]
 data = data.astype(np.float32)
 
 # Plot an interecting section ##################################################
-from enthought.mayavi import mlab
+from mayavi import mlab
 mlab.figure(1, size=(450, 390))
 mlab.clf()
 data = mlab.pipeline.array2d_source(data)

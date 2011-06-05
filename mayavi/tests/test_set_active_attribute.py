@@ -13,12 +13,12 @@ import unittest
 from common import get_example_data
 
 # Enthought library imports
-from enthought.mayavi.core.null_engine import NullEngine
-from enthought.mayavi.sources.api import VTKXMLFileReader
-from enthought.mayavi.filters.contour import Contour
-from enthought.mayavi.filters.api import PolyDataNormals
-from enthought.mayavi.filters.set_active_attribute import SetActiveAttribute
-from enthought.mayavi.modules.api import Surface, Outline
+from mayavi.core.null_engine import NullEngine
+from mayavi.sources.api import VTKXMLFileReader
+from mayavi.filters.contour import Contour
+from mayavi.filters.api import PolyDataNormals
+from mayavi.filters.set_active_attribute import SetActiveAttribute
+from mayavi.modules.api import Surface, Outline
 
 class TestSetActiveAttribute(unittest.TestCase):
 
@@ -78,7 +78,7 @@ class TestSetActiveAttribute(unittest.TestCase):
         #Now test.
         self.check()
 
-        #from enthought.mayavi.tools.show import show
+        #from mayavi.tools.show import show
         #show()
 
 
@@ -123,7 +123,7 @@ class TestSetActiveAttribute(unittest.TestCase):
         source1 = copy.deepcopy(source)
         s.children[0] = source1
         self.check()
-        #from enthought.mayavi.tools.show import show
+        #from mayavi.tools.show import show
         #show()
 
 

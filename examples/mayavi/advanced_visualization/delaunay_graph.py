@@ -45,7 +45,7 @@ display an unoriented graph, it is best to use the `2ddash` mode of
 # Copyright (c) 2009, Enthought, Inc.
 # License: BSD style.
 
-from enthought.mayavi import mlab
+from mayavi import mlab
 import numpy as np
 import networkx as nx
 

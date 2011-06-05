@@ -11,13 +11,13 @@ import unittest
 import datasets
 
 # Local imports.
-from enthought.mayavi.core.engine import Engine
-from enthought.mayavi.core.null_engine import NullEngine
+from mayavi.core.engine import Engine
+from mayavi.core.null_engine import NullEngine
 
 # Enthought library imports
-from enthought.mayavi.sources.vtk_data_source import VTKDataSource
-from enthought.mayavi.modules.outline import Outline
-from enthought.mayavi.modules.grid_plane import GridPlane
+from mayavi.sources.vtk_data_source import VTKDataSource
+from mayavi.modules.outline import Outline
+from mayavi.modules.grid_plane import GridPlane
 
 
 class TestGridPlane(unittest.TestCase):
@@ -88,7 +88,7 @@ class TestGridPlane(unittest.TestCase):
         "Test if the test fixture works"
         self.check()
 
-        #from enthought.mayavi.tools.show import show
+        #from mayavi.tools.show import show
         #show()
 
 
@@ -134,7 +134,7 @@ class TestGridPlane(unittest.TestCase):
         source1 = copy.deepcopy(source)
         s.children[0] = source1
         self.check()
-        #from enthought.mayavi.tools.show import show
+        #from mayavi.tools.show import show
         #show()
 
 

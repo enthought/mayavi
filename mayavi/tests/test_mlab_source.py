@@ -8,7 +8,7 @@ Test for MlabSource and its subclasses.
 import unittest
 import numpy as N
 
-from enthought.mayavi.tools import sources
+from mayavi.tools import sources
 
 ################################################################################
 # `TestMGlyphSource`

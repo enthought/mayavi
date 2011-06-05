@@ -3,8 +3,8 @@
 # License: BSD Style.
 
 # Local imports
-from enthought.mayavi.filters.filter_base import FilterBase
-from enthought.mayavi.components.common import convert_to_poly_data
+from mayavi.filters.filter_base import FilterBase
+from mayavi.components.common import convert_to_poly_data
 
 
 ######################################################################

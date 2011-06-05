@@ -8,12 +8,12 @@ A simple test for script recording in Mayavi.
 import unittest
 
 from apptools.scripting.api import Recorder, set_recorder
-from enthought.mayavi.sources.parametric_surface import \
+from mayavi.sources.parametric_surface import \
     ParametricSurface
-from enthought.mayavi.modules.outline import Outline
-from enthought.mayavi.modules.surface import Surface
+from mayavi.modules.outline import Outline
+from mayavi.modules.surface import Surface
 
-from enthought.mayavi.core.null_engine import NullEngine
+from mayavi.core.null_engine import NullEngine
 
 
 class TestScriptRecording(unittest.TestCase):
@@ -43,7 +43,7 @@ class TestScriptRecording(unittest.TestCase):
 
         src = ParametricSurface()
         e.add_source(src)
-        expect = 'from enthought.mayavi.sources.parametric_surface '\
+        expect = 'from mayavi.sources.parametric_surface '\
                  'import ParametricSurface'
         self.assertEqual(tape.lines[-3], expect)
         self.assertEqual(tape.lines[-2],
@@ -57,7 +57,7 @@ class TestScriptRecording(unittest.TestCase):
 
         o = Outline()
         e.add_module(o)
-        expect = 'from enthought.mayavi.modules.outline import Outline'
+        expect = 'from mayavi.modules.outline import Outline'
         self.assertEqual(tape.lines[-3], expect)
         self.assertEqual(tape.lines[-2], "outline = Outline()")
         self.assertEqual(tape.lines[-1],
@@ -69,7 +69,7 @@ class TestScriptRecording(unittest.TestCase):
 
         s = Surface()
         e.add_module(s)
-        expect = 'from enthought.mayavi.modules.surface import Surface'
+        expect = 'from mayavi.modules.surface import Surface'
         self.assertEqual(tape.lines[-3], expect)
         self.assertEqual(tape.lines[-2], "surface = Surface()")
         self.assertEqual(tape.lines[-1],

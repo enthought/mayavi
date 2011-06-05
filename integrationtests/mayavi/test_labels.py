@@ -52,9 +52,9 @@ class TestLabels(TestCase):
     def do(self):
         ############################################################
         # Imports.
-        from enthought.mayavi.modules.api import ScalarCutPlane
-        from enthought.mayavi.modules.labels import Labels
-        from enthought.mayavi.sources.vtk_xml_file_reader import VTKXMLFileReader
+        from mayavi.modules.api import ScalarCutPlane
+        from mayavi.modules.labels import Labels
+        from mayavi.sources.vtk_xml_file_reader import VTKXMLFileReader
 
         ############################################################
         # Create a new scene and set up the visualization.
