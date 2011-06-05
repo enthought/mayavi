@@ -151,9 +151,9 @@ following:
      are passed they are passed along to the test runner.  So this may
      be used to run other tests as well.  For example::
 
-        mayavi2 -t enthought.persistence
+        mayavi2 -t apptools.persistence
 
-     This will run just the tests inside the enthought.persistence
+     This will run just the tests inside the apptools.persistence
      package.  You can also specify a directory with test files to run
      with this, for example::
 

@@ -9,7 +9,7 @@ from traits.api import (Bool, Enum, Tuple, Range, List,
         Str, Instance, HasTraits)
 from traitsui.api import (View, Group, Item, RGBColorEditor,
         InstanceEditor)
-from enthought.preferences.api import PreferencesHelper
+from apptools.preferences.api import PreferencesHelper
 
 ################################################################################
 # `RootPreferencesHelper` class

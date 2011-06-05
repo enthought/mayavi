@@ -21,7 +21,7 @@ illustrative to look at.
 import scipy
 
 # Enthought library imports.
-from enthought.envisage import get_application
+from envisage import get_application
 from enthought.tvtk.api import tvtk
 from enthought.tvtk.tools import mlab
 from enthought.mayavi.modules.axes import Axes

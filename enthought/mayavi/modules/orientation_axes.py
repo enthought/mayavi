@@ -11,7 +11,7 @@ uses the OrientationMarkerWidget which requires VTK-4.5 and above.
 from traits.api import Instance, Property
 from traitsui.api import View, Group, Item, InstanceEditor
 from enthought.tvtk.api import tvtk
-from enthought.persistence import state_pickler
+from apptools.persistence import state_pickler
 
 # Local imports
 from enthought.mayavi.core.module import Module

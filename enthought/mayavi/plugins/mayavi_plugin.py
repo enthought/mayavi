@@ -5,7 +5,7 @@
 # License: BSD Style.
 
 from traits.api import List
-from enthought.envisage.api import Plugin, ServiceOffer
+from envisage.api import Plugin, ServiceOffer
 
 # This module's package.
 PKG = '.'.join(__name__.split('.')[:-1])
@@ -18,8 +18,8 @@ ID = 'enthought.mayavi'
 class MayaviPlugin(Plugin):
 
     # Extension point Ids.
-    SERVICE_OFFERS = 'enthought.envisage.ui.workbench.service_offers'
-    PREFERENCES       = 'enthought.envisage.preferences'
+    SERVICE_OFFERS = 'envisage.ui.workbench.service_offers'
+    PREFERENCES       = 'envisage.preferences'
 
     # The plugins name.
     name = 'Mayavi plugin'

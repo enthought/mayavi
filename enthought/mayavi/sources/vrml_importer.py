@@ -12,8 +12,8 @@ from os.path import basename
 from enthought.tvtk.api import tvtk
 from traits.api import Instance, Str
 from traitsui.api import View, Item, FileEditor
-from enthought.persistence.file_path import FilePath
-from enthought.persistence.state_pickler import set_state
+from apptools.persistence.file_path import FilePath
+from apptools.persistence.state_pickler import set_state
 
 # Local imports
 from enthought.mayavi.core.source import Source

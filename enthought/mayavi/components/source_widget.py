@@ -10,7 +10,7 @@ to be used by various modules.
 from traits.api import Instance, List, Trait, Bool, TraitPrefixList
 from traitsui.api import View, Group, Item, InstanceEditor
 from enthought.tvtk.api import tvtk
-from enthought.persistence.state_pickler import set_state
+from apptools.persistence.state_pickler import set_state
 
 # Local imports.
 from enthought.mayavi.core.common import handle_children_state

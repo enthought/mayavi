@@ -10,11 +10,11 @@ from os.path import join
 
 # Enthought library imports.
 from traits.api import List
-from enthought.preferences.ui.api import PreferencesManager, \
+from apptools.preferences.ui.api import PreferencesManager, \
     PreferencesPage
 from pyface.api import ImageResource
 from pyface.resource.api import resource_path
-from enthought.preferences.ui.preferences_node import PreferencesNode
+from apptools.preferences.ui.preferences_node import PreferencesNode
 
 # Local imports.
 from enthought.mayavi.preferences.mayavi_preferences_page import \

@@ -73,8 +73,8 @@ def setup_logger(logger, fname, stream=True, mode=logging.ERROR):
 def get_non_gui_plugin_classes():
     """Get list of basic mayavi plugin classes that do not add any views or
     actions."""
-    from enthought.envisage.core_plugin import CorePlugin
-    from enthought.envisage.ui.workbench.workbench_plugin import WorkbenchPlugin
+    from envisage.core_plugin import CorePlugin
+    from envisage.ui.workbench.workbench_plugin import WorkbenchPlugin
     from enthought.tvtk.plugins.scene.scene_plugin import ScenePlugin
     from enthought.mayavi.plugins.mayavi_plugin import MayaviPlugin
     plugins = [CorePlugin,
@@ -102,18 +102,18 @@ def get_plugin_classes():
         try:
             # If the right versions of IPython, EnvisagePlugins and
             # Pyface are not installed, this import will fail.
-            from enthought.plugins.ipython_shell.view.ipython_shell_view \
+            from envisage.plugins.ipython_shell.view.ipython_shell_view \
                     import IPythonShellView
             use_ipython = True
         except: pass
 
     if use_ipython:
-        from enthought.plugins.ipython_shell.ipython_shell_plugin import \
+        from envisage.plugins.ipython_shell.ipython_shell_plugin import \
                 IPythonShellPlugin
         PythonShellPlugin = IPythonShellPlugin
     else:
-        from enthought.plugins.python_shell.python_shell_plugin import PythonShellPlugin
-    from enthought.plugins.text_editor.text_editor_plugin import TextEditorPlugin
+        from envisage.plugins.python_shell.python_shell_plugin import PythonShellPlugin
+    from envisage.plugins.text_editor.text_editor_plugin import TextEditorPlugin
     from traits.logger.plugin.logger_plugin import LoggerPlugin
     from enthought.tvtk.plugins.scene.ui.scene_ui_plugin import SceneUIPlugin
     from enthought.mayavi.plugins.mayavi_ui_plugin import MayaviUIPlugin
@@ -143,7 +143,7 @@ class Mayavi(HasTraits):
     """
 
     # The main envisage application.
-    application = Instance('enthought.envisage.ui.workbench.api.WorkbenchApplication')
+    application = Instance('envisage.ui.workbench.api.WorkbenchApplication')
 
     # Turn this off if you don't want the workbench to start the GUI
     # event loop.

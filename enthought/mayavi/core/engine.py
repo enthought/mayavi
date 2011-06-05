@@ -20,8 +20,8 @@ from traits.api import (HasStrictTraits, List, Str,
         Property, Instance, Event, HasTraits, Callable, Dict,
         Bool, on_trait_change)
 from traitsui.api import View, Item
-from enthought.persistence import state_pickler
-from enthought.scripting.api import Recorder, recordable
+from apptools.persistence import state_pickler
+from apptools.scripting.api import Recorder, recordable
 
 # Local imports.
 from enthought.mayavi.core.base import Base

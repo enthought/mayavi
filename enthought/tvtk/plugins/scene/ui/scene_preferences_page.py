@@ -6,7 +6,7 @@
 
 
 # Enthought library imports.
-from enthought.preferences.ui.api import PreferencesPage
+from apptools.preferences.ui.api import PreferencesPage
 from traits.api import Range
 from traitsui.api import View, Group, Item
 from enthought.tvtk.tvtk_base import false_bool_trait, vtk_color_trait

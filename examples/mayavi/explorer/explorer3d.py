@@ -9,8 +9,8 @@ import logging
 # Enthought library imports.
 from enthought.mayavi.plugins.app import get_plugins, setup_logger
 from traits.api import List
-from enthought.envisage.api import Plugin, ServiceOffer
-from enthought.envisage.ui.workbench.api import WorkbenchApplication
+from envisage.api import Plugin, ServiceOffer
+from envisage.ui.workbench.api import WorkbenchApplication
 from pyface.workbench.api import Perspective, PerspectiveItem
 
 logger = logging.getLogger()
@@ -44,9 +44,9 @@ class ExplorerPerspective(Perspective):
 class ExplorerPlugin(Plugin):
 
     # Extension points we contribute to.
-    PERSPECTIVES = 'enthought.envisage.ui.workbench.perspectives'
-    VIEWS             = 'enthought.envisage.ui.workbench.views'
-    SERVICE_OFFERS = 'enthought.envisage.ui.workbench.service_offers'
+    PERSPECTIVES = 'envisage.ui.workbench.perspectives'
+    VIEWS             = 'envisage.ui.workbench.views'
+    SERVICE_OFFERS = 'envisage.ui.workbench.service_offers'
 
     # The plugin's unique identifier.
     id = 'explorer3d.Explorer3D'

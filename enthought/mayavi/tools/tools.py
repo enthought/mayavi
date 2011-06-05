@@ -331,7 +331,7 @@ def start_recording(ui=True):
     **Returns**
         The `Recorder` instance created.
     """
-    from enthought.scripting.api import start_recording as start
+    from apptools.scripting.api import start_recording as start
     e = get_engine()
     msg = "Current engine, %s, is already being recorded."%(e)
     assert e.recorder is None, msg
@@ -347,7 +347,7 @@ def stop_recording(file=None):
             nothing is saved.
 
     """
-    from enthought.scripting.api import stop_recording as stop
+    from apptools.scripting.api import stop_recording as stop
     e = get_engine()
     r = e.recorder
     if r is not None:

@@ -11,7 +11,7 @@ create new modules.
 # Enthought library imports.
 from traits.api import Bool, Enum, Instance
 from traitsui.api import Item, Group, View, ListEditor
-from enthought.persistence import state_pickler
+from apptools.persistence import state_pickler
 
 # Local imports.
 from enthought.mayavi.core.module import Module

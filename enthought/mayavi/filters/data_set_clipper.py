@@ -12,7 +12,7 @@ import cPickle
 # Enthought library imports.
 from traits.api import Instance, Button, Delegate
 from traitsui.api import View, Group, Item
-from enthought.persistence import state_pickler
+from apptools.persistence import state_pickler
 
 from enthought.tvtk.api import tvtk
 

@@ -5,7 +5,7 @@
 # License: BSD Style.
 
 # Enthought library imports.
-from enthought.envisage.ui.action.api import Action, ActionSet, Group, Menu
+from envisage.ui.action.api import Action, ActionSet, Group, Menu
 from enthought.mayavi.core.registry import registry
 
 ########################################

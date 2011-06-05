@@ -14,7 +14,7 @@ import subprocess
 from traits.api import Instance, Range, Bool, Array, \
      Str, Property, Enum, Button
 from traitsui.api import FileEditor, auto_close_message
-from enthought.persistence import state_pickler
+from apptools.persistence import state_pickler
 from enthought.tvtk.api import tvtk
 
 # Local imports.

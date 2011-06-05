@@ -29,7 +29,7 @@ from traits.api import HasTraits, Range, false, \
 from traitsui.api import View, Group, Handler, ListEditor, Item
 from enthought.tvtk.api import tvtk
 from enthought.tvtk.tvtk_base import vtk_color_trait, TraitRevPrefixMap
-from enthought.persistence import state_pickler
+from apptools.persistence import state_pickler
 
 
 ######################################################################

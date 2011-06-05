@@ -12,7 +12,7 @@ import traceback
 import logging
 
 # Enthought library imports.
-from enthought.persistence.state_pickler import create_instance
+from apptools.persistence.state_pickler import create_instance
 from traits.etsconfig.api import ETSConfig
 if ETSConfig.toolkit in ('null', ''):
     pyface = None

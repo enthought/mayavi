@@ -21,7 +21,7 @@ from enthought.tvtk.api import tvtk
 from enthought.tvtk.util.gradient_editor import hsva_to_rgba, GradientTable
 from enthought.tvtk.util.ctf import save_ctfs, load_ctfs, \
      rescale_ctfs, set_lut, PiecewiseFunction, ColorTransferFunction
-from enthought.persistence import state_pickler
+from apptools.persistence import state_pickler
 
 # Local imports
 from enthought.mayavi.core.pipeline_info import PipelineInfo

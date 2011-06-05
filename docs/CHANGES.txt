@@ -763,7 +763,7 @@ Mayavi 3.1.0
       non-envisage and off screen scenes have the right preferences.
       See [22280] and [22295].
     - REFACTOR/API: The script recording code is now in
-      `enthought.scripting`,  the `enthought.mayavi.core.recorder` was
+      `apptools.scripting`,  the `enthought.mayavi.core.recorder` was
       only a temporary solution. See [22277] and [22279].
 
 10 October, 2008 (GV):
@@ -1176,14 +1176,14 @@ Mayavi 3.0.0
 
       This is the preference manager that manages all prefs.  To see the
       code look in enthought.mayavi.preferences.preference_manager.  It
-      is also a good idea to read the enthought.preferences
+      is also a good idea to read the apptools.preferences
       documentation.
     - BUG: [18627] Fixed bug number 478844 on the Debian BTS here:
       http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=478844
 
 4 May 2008 (PR):
     - API: Added to api.  Added a new preferences framework for mayavi2.
-      This uses enthought.preferences and works well both standalone and
+      This uses apptools.preferences and works well both standalone and
       with envisage3. It makes it easy to create/define/change
       preferences at the application and library level.
 

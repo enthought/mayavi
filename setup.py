@@ -504,7 +504,7 @@ numpy.distutils.core.setup(
             'tvtk_doc = enthought.tvtk.tools.tvtk_doc:main'
             ],
 
-        'enthought.envisage.plugins': [
+        'envisage.plugins': [
             'enthought.tvtk.scene = enthought.tvtk.plugins.scene.scene_plugin:ScenePlugin',
             'enthought.tvtk.scene_ui = enthought.tvtk.plugins.scene.ui.scene_ui_plugin:SceneUIPlugin',
             'enthought.tvtk.browser = enthought.tvtk.plugins.browser.browser_plugin:BrowserPlugin',

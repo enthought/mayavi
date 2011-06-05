@@ -7,7 +7,7 @@
 # Enthought library imports.
 from traits.api import List, Str, Instance
 from traitsui.api import View, Group, Item
-from enthought.persistence.state_pickler import set_state
+from apptools.persistence.state_pickler import set_state
 
 # Local imports.
 from enthought.tvtk.pyface.tvtk_scene import TVTKScene

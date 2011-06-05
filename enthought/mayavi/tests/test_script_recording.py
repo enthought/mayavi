@@ -7,7 +7,7 @@ A simple test for script recording in Mayavi.
 
 import unittest
 
-from enthought.scripting.api import Recorder, set_recorder
+from apptools.scripting.api import Recorder, set_recorder
 from enthought.mayavi.sources.parametric_surface import \
     ParametricSurface
 from enthought.mayavi.modules.outline import Outline

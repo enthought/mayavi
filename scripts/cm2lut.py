@@ -14,7 +14,7 @@ import numpy as np
 
 from matplotlib.cm import datad, get_cmap
 from enthought.mayavi.core import lut as destination_module
-from enthought.persistence import state_pickler
+from apptools.persistence import state_pickler
 target_dir = os.path.dirname(destination_module.__file__)
 
 values = np.linspace(0., 1., 256)

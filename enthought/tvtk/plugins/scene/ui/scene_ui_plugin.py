@@ -2,7 +2,7 @@
 
 
 # Enthought library imports.
-from enthought.envisage.api import Plugin
+from envisage.api import Plugin
 from traits.api import List
 
 
@@ -15,8 +15,8 @@ class SceneUIPlugin(Plugin):
     """
 
     # Extension point Ids.
-    ACTION_SETS       = 'enthought.envisage.ui.workbench.action_sets'
-    PREFERENCES_PAGES = 'enthought.envisage.ui.workbench.preferences_pages'
+    ACTION_SETS       = 'envisage.ui.workbench.action_sets'
+    PREFERENCES_PAGES = 'envisage.ui.workbench.preferences_pages'
 
     #### 'IPlugin' interface ##################################################
 

@@ -7,10 +7,10 @@
 
 # Enthought library imports.
 from traits.api import List, Str
-from enthought.persistence.state_pickler import set_state
+from apptools.persistence.state_pickler import set_state
 from traitsui.menu import Action
 from enthought.tvtk.api import write_data
-from enthought.scripting.api import recordable
+from apptools.scripting.api import recordable
 
 # Local imports
 from enthought.mayavi.core.base import Base

@@ -9,7 +9,7 @@ import logging
 
 # Enthought library imports.
 from traits.api import List, on_trait_change
-from enthought.envisage.api import Plugin
+from envisage.api import Plugin
 from pyface.workbench.api import Perspective, PerspectiveItem
 from traits.etsconfig.api import ETSConfig
 
@@ -18,7 +18,7 @@ logger = logging.getLogger()
 # View IDs.
 ENGINE_VIEW = 'enthought.mayavi.core.ui.engine_view.EngineView'
 CURRENT_SELECTION_VIEW = 'enthought.mayavi.core.engine.Engine.current_selection'
-SHELL_VIEW = 'enthought.plugins.python_shell_view'
+SHELL_VIEW = 'envisage.plugins.python_shell_view'
 LOGGER_VIEW = 'traits.logger.plugin.view.logger_view.LoggerView'
 
 ###############################################################################
@@ -65,11 +65,11 @@ class MayaviPerspective(Perspective):
 class MayaviUIPlugin(Plugin):
 
     # Extension point Ids.
-    VIEWS             = 'enthought.envisage.ui.workbench.views'
-    PERSPECTIVES      = 'enthought.envisage.ui.workbench.perspectives'
-    PREFERENCES_PAGES = 'enthought.envisage.ui.workbench.preferences_pages'
-    ACTION_SETS       = 'enthought.envisage.ui.workbench.action_sets'
-    BANNER            = 'enthought.plugins.ipython_shell.banner'
+    VIEWS             = 'envisage.ui.workbench.views'
+    PERSPECTIVES      = 'envisage.ui.workbench.perspectives'
+    PREFERENCES_PAGES = 'envisage.ui.workbench.preferences_pages'
+    ACTION_SETS       = 'envisage.ui.workbench.action_sets'
+    BANNER            = 'envisage.plugins.ipython_shell.banner'
 
 
     # The plugins name.
@@ -204,7 +204,7 @@ To use Mayavi, you need to load your data in "data sources" and apply "visualiza
         try:
             py.bind('mayavi', script)
             py.bind('engine', script.engine)
-            from enthought.naming.ui.api import explore
+            from apptools.naming.ui.api import explore
             py.bind('explore', explore)
         except AttributeError, msg:
             # This can happen when the shell is not visible.

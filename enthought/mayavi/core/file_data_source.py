@@ -14,8 +14,8 @@ from glob import glob
 # Enthought library imports.
 from traits.api import List, Str, Instance, Int, Range
 from traitsui.api import Group, Item, FileEditor
-from enthought.persistence.state_pickler import set_state
-from enthought.persistence.file_path import FilePath
+from apptools.persistence.state_pickler import set_state
+from apptools.persistence.file_path import FilePath
 
 # Local imports
 from enthought.mayavi.core.source import Source

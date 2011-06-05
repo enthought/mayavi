@@ -6,7 +6,7 @@
 
 
 # Enthought library imports.
-from enthought.preferences.api import get_default_preferences
+from apptools.preferences.api import get_default_preferences
 from enthought.tvtk.pyface.tvtk_scene import TVTKScene
 from enthought.tvtk.pyface.api import DecoratedScene
 from pyface.workbench.api import Editor

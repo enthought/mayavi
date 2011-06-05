@@ -4,7 +4,7 @@
 
 # Enthought library imports.
 from traits.api import HasTraits, List, Str, Instance
-from enthought.preferences.api import PreferencesHelper
+from apptools.preferences.api import PreferencesHelper
 
 ################################################################################
 # `PreferencesMirror` class.

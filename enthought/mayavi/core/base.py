@@ -17,12 +17,12 @@ from traits.api import (Instance, Property, Bool, Str, Python,
     HasTraits, WeakRef, on_trait_change)
 from traitsui.api import TreeNodeObject
 from enthought.tvtk.pyface.tvtk_scene import TVTKScene
-from enthought.persistence import state_pickler
+from apptools.persistence import state_pickler
 from pyface.resource.api import resource_path
 from pyface.image_resource import ImageResource
 from traitsui.menu import Menu, Action, Separator
 from traitsui.api import View
-from enthought.scripting.api import Recorder
+from apptools.scripting.api import Recorder
 
 # Local imports.
 from enthought.mayavi.preferences.api import preference_manager

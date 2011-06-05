@@ -10,7 +10,7 @@ from traits.api import Instance, Range, Str, Bool, Property, \
                                     Float
 from traitsui.api import View, Group, Item, InstanceEditor
 from enthought.tvtk.api import tvtk
-from enthought.persistence import state_pickler
+from apptools.persistence import state_pickler
 
 # Local imports
 from enthought.mayavi.core.module import Module

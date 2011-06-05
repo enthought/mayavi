@@ -15,7 +15,7 @@ from enthought.tvtk.plugins.scene.ui.actions import NewScene
 from enthought.tvtk.plugins.scene import scene_editor
 from pyface.api import GUI
 from pyface.workbench.api import WorkbenchWindow
-from enthought.scripting.api import recordable
+from apptools.scripting.api import recordable
 
 # Local imports.
 from enthought.mayavi.core.engine import Engine

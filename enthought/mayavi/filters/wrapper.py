@@ -10,7 +10,7 @@ from the UI, for that see the `Optional` filter.
 # Enthought library imports.
 from traits.api import Instance, Bool, Str
 from traitsui.api import Item, Group, View
-from enthought.persistence import state_pickler
+from apptools.persistence import state_pickler
 
 # Local imports.
 from enthought.mayavi.core.pipeline_base import PipelineBase

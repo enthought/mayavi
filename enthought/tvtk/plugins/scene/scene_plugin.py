@@ -2,7 +2,7 @@
 
 
 # Enthought library imports.
-from enthought.envisage.api import Plugin, ServiceOffer
+from envisage.api import Plugin, ServiceOffer
 from traits.api import List
 
 
@@ -14,8 +14,8 @@ class ScenePlugin(Plugin):
     """ The TVTK render window scene plugin. """
 
     # Extension point Ids.
-    PREFERENCES    = 'enthought.envisage.preferences'
-    SERVICE_OFFERS = 'enthought.envisage.ui.workbench.service_offers'
+    PREFERENCES    = 'envisage.preferences'
+    SERVICE_OFFERS = 'envisage.ui.workbench.service_offers'
 
     #### 'IPlugin' interface ##################################################
 

@@ -16,7 +16,7 @@ from traitsui.api import (Item, TreeEditor, TreeNode,
 from traitsui.menu import ToolBar, Action, Separator
 from pyface.resource.resource_path import resource_path
 from pyface.image_resource import ImageResource
-from enthought.scripting.api import start_recording, stop_recording
+from apptools.scripting.api import start_recording, stop_recording
 
 # Local imports.
 from enthought.mayavi.core.engine import Engine

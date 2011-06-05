@@ -11,7 +11,7 @@ different kinds of preferences.  Currently the following are available.
     'enthought.mayavi.preference'.
 
 For more details on the general preferences support in enthought, please
-read the documentation for enthought.preferences (part of the AppTools
+read the documentation for apptools.preferences (part of the AppTools
 package).
 
 """
@@ -27,7 +27,7 @@ import pkg_resources
 from traits.etsconfig.api import ETSConfig
 from traits.api import HasTraits, Instance
 from traitsui.api import View, Group, Item
-from enthought.preferences.api import (ScopedPreferences, IPreferences,
+from apptools.preferences.api import (ScopedPreferences, IPreferences,
         PreferencesHelper)
 
 # Local imports.

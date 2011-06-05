@@ -13,7 +13,7 @@ functionality. See the class docs for more details.
 
 import os.path
 
-from enthought.persistence import state_pickler
+from apptools.persistence import state_pickler
 from enthought.tvtk.api import tvtk
 from enthought.tvtk import messenger
 from enthought.tvtk.tvtk_base import vtk_color_trait

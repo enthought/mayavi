@@ -8,7 +8,7 @@
 from traits.api import Int, Instance, Str, TraitError
 from traitsui.api import View, Group, Item
 from enthought.tvtk.api import tvtk
-from enthought.persistence import state_pickler
+from apptools.persistence import state_pickler
 
 # Local imports.
 from enthought.mayavi.core.common import error

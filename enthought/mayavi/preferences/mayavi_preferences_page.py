@@ -8,7 +8,7 @@
 from traits.api import (Bool, Enum, Tuple, Range, List,
         Str, Instance, HasTraits)
 from traitsui.api import View, Group, Item, RGBColorEditor
-from enthought.preferences.ui.api import PreferencesPage
+from apptools.preferences.ui.api import PreferencesPage
 
 ################################################################################
 # `MayaviRootPreferencesPage` class

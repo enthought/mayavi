@@ -195,7 +195,7 @@ class Worker(HasTraits):
 ######################################################################
 # The following code is the small amount of envisage code that brings
 # the users code (above) and Envisage/Mayavi UI together.
-from enthought.envisage.api import Plugin, ServiceOffer
+from envisage.api import Plugin, ServiceOffer
 
 ######################################################################
 # `WorkerPlugin` class
@@ -203,8 +203,8 @@ from enthought.envisage.api import Plugin, ServiceOffer
 class WorkerPlugin(Plugin):
 
     # Extension point Ids.
-    SERVICE_OFFERS = 'enthought.envisage.ui.workbench.service_offers'
-    VIEWS          = 'enthought.envisage.ui.workbench.views'
+    SERVICE_OFFERS = 'envisage.ui.workbench.service_offers'
+    VIEWS          = 'envisage.ui.workbench.views'
 
     # Services we contribute.
     service_offers = List(contributes_to=SERVICE_OFFERS)

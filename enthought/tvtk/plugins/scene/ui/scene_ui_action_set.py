@@ -7,7 +7,7 @@
 
 
 # Enthought library imports.
-from enthought.envisage.ui.action.api import Action, ActionSet, Group, Menu
+from envisage.ui.action.api import Action, ActionSet, Group, Menu
 
 
 # This package

@@ -11,7 +11,7 @@ import numpy
 # Enthought library imports.
 from traits.api import List, Instance, Trait, TraitPrefixList, \
                                  HasTraits, Str
-from enthought.persistence.state_pickler import set_state
+from apptools.persistence.state_pickler import set_state
 
 # Local imports
 from enthought.mayavi.core.base import Base

@@ -16,11 +16,11 @@ import logging
 from traits.logger.api import LogFileHandler, FORMATTER
 from traits.etsconfig.api import ETSConfig
 from traits.api import List
-from enthought.envisage.api import Plugin
-from enthought.envisage.ui.workbench.api import WorkbenchApplication
-from enthought.envisage.core_plugin import CorePlugin
-from enthought.envisage.ui.workbench.workbench_plugin import WorkbenchPlugin
-from enthought.plugins.python_shell.python_shell_plugin import PythonShellPlugin
+from envisage.api import Plugin
+from envisage.ui.workbench.api import WorkbenchApplication
+from envisage.core_plugin import CorePlugin
+from envisage.ui.workbench.workbench_plugin import WorkbenchPlugin
+from envisage.plugins.python_shell.python_shell_plugin import PythonShellPlugin
 from enthought.tvtk.plugins.scene.scene_plugin import ScenePlugin
 from enthought.tvtk.plugins.scene.ui.scene_ui_plugin import SceneUIPlugin
 from enthought.tvtk.plugins.browser.browser_plugin import BrowserPlugin
@@ -46,7 +46,7 @@ class TestPerspective(Perspective):
 
     # View IDs.
     BROWSER_VIEW = 'enthought.tvtk.plugins.browser.browser_view.BrowserView'
-    SHELL_VIEW = 'enthought.plugins.python_shell.view.python_shell_view.PythonShellView'
+    SHELL_VIEW = 'envisage.plugins.python_shell.view.python_shell_view.PythonShellView'
 
     # The contents of the perspective.
     contents = [
@@ -60,7 +60,7 @@ class TestPerspective(Perspective):
 class MyPlugin(Plugin):
 
     # Extension points we contribute to.
-    PERSPECTIVES = 'enthought.envisage.ui.workbench.perspectives'
+    PERSPECTIVES = 'envisage.ui.workbench.perspectives'
 
     # The plugin's unique identifier.
     id = 'tvtk_example_plugin'
@@ -110,7 +110,7 @@ def bind_object(value, app):
     if not value:
         # value is False when the GUI is stopped.
         return
-    id = 'enthought.plugins.python_shell.view.python_shell_view.PythonShellView'
+    id = 'envisage.plugins.python_shell.view.python_shell_view.PythonShellView'
     py = app.workbench.active_window.get_view_by_id(id)
 
     id = 'enthought.tvtk.plugins.scene.i_scene_manager.ISceneManager'

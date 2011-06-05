@@ -2,7 +2,7 @@
 
 
 # Enthought library imports.
-from enthought.envisage.api import Plugin
+from envisage.api import Plugin
 from traits.api import List
 
 
@@ -10,7 +10,7 @@ class BrowserPlugin(Plugin):
     """ The TVTK pipeline browser plugin. """
 
     # Extension point Ids.
-    VIEWS = 'enthought.envisage.ui.workbench.views'
+    VIEWS = 'envisage.ui.workbench.views'
 
     #### 'IPlugin' interface ##################################################
 
