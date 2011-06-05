@@ -410,7 +410,7 @@ class MyInstallScripts(install_scripts.install_scripts):
 
 
 # Configure our extensions to Python
-def configuration(parent_package='', top_path=None):
+def configuration(parent_package=None, top_path=None):
     from numpy.distutils.misc_util import Configuration
     config = Configuration(None, parent_package, top_path)
     config.set_options(
@@ -421,7 +421,6 @@ def configuration(parent_package='', top_path=None):
     )
 
     config.add_subpackage('tvtk')
-#    config.add_subpackage('enthought')
     config.add_data_dir('mayavi/core/lut')
     config.add_data_dir('mayavi/tests/data')
     config.add_data_dir('mayavi/tests/csv_files')
