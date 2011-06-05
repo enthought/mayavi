@@ -7,7 +7,7 @@
 from os.path import splitext
 
 # We import from tvtk.py and not api.py to prevent circular imports.
-from enthought.tvtk.tvtk import tvtk
+from enthought.tvtk.tvtk_access import tvtk
 
 ######################################################################
 # Utility functions.

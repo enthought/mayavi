@@ -8,7 +8,7 @@
 from enthought.tvtk.version import version, version as __version__
 
 # The TVTK pseudo-module.
-from enthought.tvtk.tvtk import tvtk
+from enthought.tvtk.tvtk_access import tvtk
 
 # Handy colors from VTK.
 from vtk.util import colors
