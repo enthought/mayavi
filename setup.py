@@ -170,7 +170,8 @@ class GenDocs(Command):
         sources = '(\.py)|(\.rst)$'
         excluded_dirs = '^\.'
         target_path = mlab_ref_dir
-        target_time = self.latest_modified(target_path, ignore_dirs=excluded_dirs)[0]
+        target_time = self.latest_modified(target_path,
+                                           ignore_dirs=excluded_dirs)[0]
 
         if self.latest_modified(source_path, filetypes=sources,
             ignore_dirs=excluded_dirs)[0] > target_time or \
@@ -195,13 +196,14 @@ class GenDocs(Command):
         sources = '(\.py)|(\.rst)$'
         excluded_dirs = '^\.'
         target_path = mlab_ref_dir
-        target_time = self.latest_modified(target_path, ignore_dirs=excluded_dirs)[0]
+        target_time = self.latest_modified(target_path,
+                                           ignore_dirs=excluded_dirs)[0]
 
         script_file_name = os.path.join('docs', 'source', 'render_examples.py')
 
         if self.latest_modified(source_path, filetypes=sources,
             ignore_dirs=excluded_dirs)[0] > target_time or \
-            self.latest_modified(script_file_name)[0] > target_time or\
+            self.latest_modified(script_file_name)[0] > target_time or \
             not os.path.exists(
                 os.path.join('docs', 'source', 'mayavi', 'auto',
                 'examples.rst')):
@@ -439,10 +441,9 @@ def configuration(parent_package=None, top_path=None):
     zip = zipfile.ZipFile(DEFAULT_HTML_ZIP)
     return config
 
-################################################################################
+###########################################################################
 # Similar to package_data, but installed before build
-build_package_data = {'mayavi.images':
-                            ['docs/source/mayavi/m2_about.jpg']}
+build_package_data = {'mayavi.images': ['docs/source/mayavi/m2_about.jpg']}
 
 # Instal our data files at build time. This is iffy,
 # but we need to do this before distutils kick in.
@@ -450,13 +451,13 @@ for package, files in build_package_data.iteritems():
     target_path = package.replace('.', os.sep)
     for filename in files:
         shutil.copy(filename, target_path)
-################################################################################
+###########################################################################
 
 # Build the full set of packages by appending any found by setuptools'
 # find_packages to those discovered by numpy.distutils.
 config = configuration().todict()
 packages = setuptools.find_packages(exclude=config['packages'] +
-    ['docs', 'examples'])
+                                    ['docs', 'examples'])
 config['packages'] += packages
 
 
@@ -495,8 +496,8 @@ numpy.distutils.core.setup(
     description = DOCLINES[1],
     docs_in_egg = True,
     docs_in_egg_location = 'docs',
-    download_url = ('http://www.enthought.com/repo/ETS/Mayavi-%s.tar.gz' %
-        INFO['version']),
+    download_url = ('http://www.enthought.com/repo/ets/Mayavi-%s.tar.gz' %
+                    INFO['version']),
     entry_points = {
         'console_scripts': [
             'mayavi2 = mayavi.scripts.mayavi2:main',
