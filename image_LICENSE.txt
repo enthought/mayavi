@@ -38,7 +38,7 @@ mayavi/images/:
                              m2.png | GV
                        m2_about.jpg | GV
 
-enthought/tvtk/pipeline/images/:
+tvtk/pipeline/images/:
                           actor.png | Nuvola
                          camera.png | GV
                      coordinate.png | Crystal
@@ -56,7 +56,7 @@ enthought/tvtk/pipeline/images/:
                          window.png | Eclipse
                          writer.png | GV
 
-enthought/tvtk/pyface/images/16x16/:
+tvtk/pyface/images/16x16/:
                       configure.png | Nuvola
                      fullscreen.png | GV
                       isometric.png | Nuvola
@@ -67,7 +67,7 @@ enthought/tvtk/pyface/images/16x16/:
                          y-axis.png | Eclipse
                          z-axis.png | Eclipse
 
-enthought/tvtk/tools/images/:
+tvtk/tools/images/:
                           scene.ico | Crystal
 
 examples/tvtk/images/:
