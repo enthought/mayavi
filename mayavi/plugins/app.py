@@ -10,7 +10,7 @@ import os.path
 import logging
 
 # Enthought library imports.
-from traits.logger.api import LogFileHandler, FORMATTER
+from apptools.logger.api import LogFileHandler, FORMATTER
 from traits.etsconfig.api import ETSConfig
 from traits.api import (HasTraits, Instance, Int,
     on_trait_change, Bool)
@@ -114,7 +114,7 @@ def get_plugin_classes():
     else:
         from envisage.plugins.python_shell.python_shell_plugin import PythonShellPlugin
     from envisage.plugins.text_editor.text_editor_plugin import TextEditorPlugin
-    from traits.logger.plugin.logger_plugin import LoggerPlugin
+    from apptools.logger.plugin.logger_plugin import LoggerPlugin
     from tvtk.plugins.scene.ui.scene_ui_plugin import SceneUIPlugin
     from mayavi.plugins.mayavi_ui_plugin import MayaviUIPlugin
     plugins = get_non_gui_plugin_classes()

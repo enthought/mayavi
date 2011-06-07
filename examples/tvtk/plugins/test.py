@@ -13,7 +13,7 @@ import os.path
 import logging
 
 # Enthought library imports.
-from traits.logger.api import LogFileHandler, FORMATTER
+from apptools.logger.api import LogFileHandler, FORMATTER
 from traits.etsconfig.api import ETSConfig
 from traits.api import List
 from envisage.api import Plugin

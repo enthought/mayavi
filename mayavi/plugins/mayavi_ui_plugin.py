@@ -19,7 +19,7 @@ logger = logging.getLogger()
 ENGINE_VIEW = 'mayavi.core.ui.engine_view.EngineView'
 CURRENT_SELECTION_VIEW = 'mayavi.core.engine.Engine.current_selection'
 SHELL_VIEW = 'envisage.plugins.python_shell_view'
-LOGGER_VIEW = 'traits.logger.plugin.view.logger_view.LoggerView'
+LOGGER_VIEW = 'apptools.logger.plugin.view.logger_view.LoggerView'
 
 ###############################################################################
 # `MayaviPerspective` class.
