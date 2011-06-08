@@ -5,7 +5,7 @@
 import sys
 import pprint
 
-from enthought.mayavi.tools.wizards.csv_sniff import Sniff
+from mayavi.tools.wizards.csv_sniff import Sniff
 
 
 filename = sys.argv[1]

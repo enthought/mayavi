@@ -1,4 +1,4 @@
 #!/usr/bin/env python
 
-from enthought.mayavi.scripts import mayavi2
+from mayavi.scripts import mayavi2
 mayavi2.main()
