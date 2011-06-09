@@ -10,4 +10,5 @@ mayavi/images/m2_about.jpg
 *.egg-info/
 build/
 dist/
+docs/html.zip
 docs/build/
