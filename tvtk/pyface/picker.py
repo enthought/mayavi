@@ -341,11 +341,11 @@ class Picker(HasTraits):
     def pick_cell (self, x, y):
         """ Picks the nearest cell. Returns a `PickedData` instance."""
         try:
-            self.cellpicker.pick(float(x), float(y), 0.0, 
+            self.cellpicker.pick(float(x), float(y), 0.0,
                                  self.renwin.renderer)
         except TypeError:
             # On old versions of VTK, the signature used to be different
-            self.cellpicker.pick((float(x), float(y), 0.0), 
+            self.cellpicker.pick((float(x), float(y), 0.0),
                                  self.renwin.renderer)
 
         cp = self.cellpicker

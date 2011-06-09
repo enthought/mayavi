@@ -25,7 +25,7 @@ qt_api = os.environ.get('QT_API', 'pyqt')
 # PyQt4 version check crash PySide toolkit
 if qt_api == 'pyqt':
     from PyQt4 import QtGui, QtCore
-    
+
     # Check the version numbers are late enough.
     if QtCore.QT_VERSION < 0x040200:
         raise RuntimeError, "Need Qt v4.2 or higher, but got v%s" % QtCore.QT_VERSION_STR

@@ -30,7 +30,7 @@ Changes by Phil Thompson, Mar. 2008
 import sys
 
 import os
-qt_api = os.environ.get('QT_API', 'pyqt') 
+qt_api = os.environ.get('QT_API', 'pyqt')
 if qt_api == 'pyqt':
     from PyQt4 import QtGui, QtCore
 else:
@@ -200,11 +200,11 @@ class QVTKRenderWindowInteractor(QtGui.QWidget):
             self._RenderWindow = rw
         else:
             self._RenderWindow = vtk.vtkRenderWindow()
-        
+
         if qt_api == 'pyqt':
             self._RenderWindow.SetWindowInfo(str(int(self.winId())))
         else:
-            
+
             # On Windows PySide has a bug with winID() function, so this is fix:
             if sys.platform == "win32":
                 self._RenderWindow.SetWindowInfo(str(int(pythonapi.PyCObject_AsVoidPtr(self.winId()))))
@@ -290,7 +290,7 @@ class QVTKRenderWindowInteractor(QtGui.QWidget):
             if qt_api == 'pyqt':
                 self._RenderWindow.SetWindowInfo(str(int(self.winId())))
             else:
-            
+
                 # On Windows PySide has a bug with winID() function, so this is fix:
                 if sys.platform == "win32":
                     self._RenderWindow.SetWindowInfo(str(int(pythonapi.PyCObject_AsVoidPtr(self.winId()))))
@@ -299,7 +299,7 @@ class QVTKRenderWindowInteractor(QtGui.QWidget):
                 if qt_api == 'pyqt':
                     self._RenderWindow.SetParentInfo(str(int(self.winId())))
                 else:
-                    
+
                     # On Windows PySide has a bug with winID() function, so this is fix:
                     if sys.platform == "win32":
                         self._RenderWindow.SetParentInfo(str(int(pythonapi.PyCObject_AsVoidPtr(self.winId()))))

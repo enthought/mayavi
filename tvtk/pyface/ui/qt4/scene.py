@@ -25,7 +25,7 @@ import os
 import tempfile
 
 import os
-qt_api = os.environ.get('QT_API', 'pyqt') 
+qt_api = os.environ.get('QT_API', 'pyqt')
 if qt_api == 'pyqt':
     from PyQt4 import QtGui, QtCore
 else:
