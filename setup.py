@@ -434,9 +434,6 @@ def configuration(parent_package=None, top_path=None):
     config.add_data_dir('tvtk/plugins/scene')
     config.add_data_dir('mayavi/preferences')
 
-    # The mayavi documentation.
-    # Take a peak at the zip file to know which path to add:
-    zip = zipfile.ZipFile(DEFAULT_HTML_ZIP)
     return config
 
 ###########################################################################
