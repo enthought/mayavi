@@ -424,7 +424,7 @@ class Base(TreeNodeObject):
         """
         module = self.__module__.split('.')
         class_filename = module[-1] + '.py'
-        module_dir_name = module[2:-1]
+        module_dir_name = module[1:-1]
         base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         view_filename = reduce(os.path.join,
                                [base_dir] + module_dir_name \
