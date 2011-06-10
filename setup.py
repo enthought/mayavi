@@ -70,7 +70,6 @@ import subprocess
 import shutil
 import re
 import sys
-import zipfile
 import traceback
 
 from numpy.distutils.command import build, install_data
@@ -86,7 +85,6 @@ INFO = setup_data['INFO']
 
 DEFAULT_HTML_TARGET_DIR = os.path.join('build', 'docs', 'html')
 DEFAULT_INPUT_DIR = os.path.join('docs', 'source',)
-DEFAULT_HTML_ZIP = os.path.abspath(os.path.join('docs', 'html.zip'))
 
 class GenDocs(Command):
 
@@ -243,23 +241,8 @@ class BuildDocs(Command):
         else:
             subprocess.call(['make', 'html'], cwd='docs')
 
-    def zip_docs(self):
-        zf = zipfile.ZipFile(DEFAULT_HTML_ZIP, 'w')
-
-        for project in list_doc_projects():
-            project_dir = os.path.join('docs', 'build', project, 'html')
-            for root, dirs, files in os.walk(project_dir):
-                relative_root = root[len(project_dir)+1:]
-                for name in files:
-                    src = os.path.join(root, name)
-                    dest = os.path.join('html', project, relative_root, name)
-                    zf.write(src, dest)
-
-        zf.close()
-
     def run(self):
         self.make_docs()
-        self.zip_docs()
 
     def initialize_options(self):
         pass
