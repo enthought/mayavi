@@ -1,6 +1,6 @@
 INFO = {
     'name': 'Mayavi',
-    'version': '3.4.2',
+    'version': '3.5.0',
     'install_requires': [
         'AppTools >= 3.4.1.dev',
         'traits >= 3.6.0.dev',
@@ -8,8 +8,7 @@ INFO = {
     ],
     'extras_require': {
         'app': [
-            'EnvisageCore >= 3.2.0.dev',
-            'EnvisagePlugins >= 3.2.0.dev',
+            'envisage >= 3.2.0.dev',
         ],
     },
 }
