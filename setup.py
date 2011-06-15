@@ -58,7 +58,6 @@ project:
 * `configobj <http://pypi.python.org/pypi/configobj>`_
 """
 
-
 # NOTE: Setuptools must be imported BEFORE numpy.distutils or else
 # numpy.distutils does the Wrong(TM) thing.
 import setuptools
@@ -71,20 +70,19 @@ import shutil
 import re
 import sys
 import traceback
+from os.path import (abspath, basename, dirname, exists, getmtime, isdir,
+                     join, split, splitext)
 
 from numpy.distutils.command import build, install_data
 from distutils import log
 from setuptools.command import develop, install_scripts
 
 
-# This works around a setuptools bug which gets setup_data.py metadata
-# from incorrect packages.
-setup_data = dict(__name__='', __file__='setup_data.py')
-execfile('setup_data.py', setup_data)
-INFO = setup_data['INFO']
+info = {}
+execfile(join('mayavi', '__init__.py'), info)
 
-DEFAULT_HTML_TARGET_DIR = os.path.join('build', 'docs', 'html')
-DEFAULT_INPUT_DIR = os.path.join('docs', 'source',)
+DEFAULT_HTML_TARGET_DIR = join('build', 'docs', 'html')
+DEFAULT_INPUT_DIR = join('docs', 'source',)
 
 class GenDocs(Command):
 
@@ -126,9 +124,9 @@ class GenDocs(Command):
         file_re = re.compile(filetypes)
         dir_re = re.compile(ignore_dirs)
 
-        if not os.path.exists(the_path):
+        if not exists(the_path):
             return 0, the_path
-        if os.path.isdir(the_path):
+        if isdir(the_path):
             latest_time = 0
             latest_path = the_path
             for root, dirs, files in os.walk(the_path):
@@ -143,15 +141,14 @@ class GenDocs(Command):
                     if filetypes != '':
                         if not file_re.search(file):
                             continue
-                    current_file_time = os.path.getmtime(os.path.join(root,
-                        file))
+                    current_file_time = getmtime(join(root, file))
                     if current_file_time > latest_time:
                         latest_time = current_file_time
-                        latest_path = os.path.join(root, file)
+                        latest_path = join(root, file)
             return latest_time, latest_path
 
         else:
-            return os.path.getmtime(the_path), the_path
+            return getmtime(the_path), the_path
 
     def mlab_reference(self):
         """ If mayavi is installed, run the mlab_reference generator.
@@ -160,7 +157,7 @@ class GenDocs(Command):
         # for different projects, but it ended up being. This part is
         # mayavi-specific.
 
-        mlab_ref_dir = os.path.join(DEFAULT_INPUT_DIR, 'mayavi','auto')
+        mlab_ref_dir = join(DEFAULT_INPUT_DIR, 'mayavi','auto')
 
         source_path = 'mayavi'
         sources = '(\.py)|(\.rst)$'
@@ -172,9 +169,8 @@ class GenDocs(Command):
         if self.latest_modified(source_path, filetypes=sources,
             ignore_dirs=excluded_dirs)[0] > target_time or \
             self.latest_modified('mlab_reference.py')[0] > target_time or\
-            not os.path.exists(
-                os.path.join('docs', 'source', 'mayavi', 'auto',
-                'mlab_reference.rst')):
+            not exists(
+                join('docs', 'source', 'mayavi', 'auto', 'mlab_reference.rst')):
             try:
                 from mayavi import mlab
                 from mayavi.tools import auto_doc
@@ -186,30 +182,30 @@ class GenDocs(Command):
     def example_files(self):
         """ Generate the documentation files for the examples.
         """
-        mlab_ref_dir = os.path.join(DEFAULT_INPUT_DIR, 'mayavi','auto')
+        mlab_ref_dir = join(DEFAULT_INPUT_DIR, 'mayavi','auto')
 
-        source_path = os.path.join('examples', 'mayavi')
+        source_path = join('examples', 'mayavi')
         sources = '(\.py)|(\.rst)$'
         excluded_dirs = '^\.'
         target_path = mlab_ref_dir
         target_time = self.latest_modified(target_path,
                                            ignore_dirs=excluded_dirs)[0]
 
-        script_file_name = os.path.join('docs', 'source', 'render_examples.py')
+        script_file_name = join('docs', 'source', 'render_examples.py')
 
-        if self.latest_modified(source_path, filetypes=sources,
-            ignore_dirs=excluded_dirs)[0] > target_time or \
-            self.latest_modified(script_file_name)[0] > target_time or \
-            not os.path.exists(
-                os.path.join('docs', 'source', 'mayavi', 'auto',
-                'examples.rst')):
+        if (self.latest_modified(source_path, filetypes=sources,
+                                 ignore_dirs=excluded_dirs)[0] > target_time
+            or  self.latest_modified(script_file_name)[0] > target_time
+            or not  exists(join('docs', 'source', 'mayavi', 'auto',
+                                'examples.rst'))
+            ):
             try:
                 from mayavi import mlab
                 from mayavi.tools import auto_doc
                 print "Generating the example list"
                 subprocess.call('python %s' %
-                            os.path.basename(script_file_name), shell=True,
-                            cwd=os.path.dirname(script_file_name))
+                                basename(script_file_name), shell=True,
+                                cwd=dirname(script_file_name))
             except:
                 pass
 
@@ -256,13 +252,13 @@ def list_doc_projects():
     """ List the different source directories under DEFAULT_INPUT_DIR
         for which we have docs.
     """
-    source_dir = os.path.join(os.path.abspath(os.path.dirname(__file__)),
-        DEFAULT_INPUT_DIR)
+    source_dir = join(abspath(dirname(__file__)),
+                      DEFAULT_INPUT_DIR)
     source_list = os.listdir(source_dir)
     # Check to make sure we're using non-hidden directories.
     source_dirs = [listing for listing in source_list
-        if os.path.isdir(os.path.join(source_dir, listing))
-        and not listing.startswith('.')]
+                   if isdir(join(source_dir, listing))
+                   and not listing.startswith('.')]
     return source_dirs
 
 
@@ -273,17 +269,15 @@ def list_docs_data_files(project):
 
         returns a list of (install_dir, [data_files, ]) tuples.
     """
-    project_target_dir = os.path.join(DEFAULT_HTML_TARGET_DIR, project)
+    project_target_dir = join(DEFAULT_HTML_TARGET_DIR, project)
     return_list = []
     for root, dirs, files in os.walk(project_target_dir, topdown=True):
         # Modify inplace the list of directories to walk
         dirs[:] = [d for d in dirs if not d.startswith('.')]
         if len(files) == 0:
             continue
-        install_dir = root.replace(project_target_dir,
-            os.path.join(project, 'html'))
-        return_list.append(
-            (install_dir, [os.path.join(root, f) for f in files]))
+        install_dir = root.replace(project_target_dir, join(project, 'html'))
+        return_list.append((install_dir, [join(root, f) for f in files]))
     return return_list
 
 
@@ -361,7 +355,7 @@ class MyInstallData(install_data.install_data):
         build_tvtk_classes_zip()
         tvtk_dir = 'tvtk'
         install_data_command.data_files.append(
-            (tvtk_dir, [os.path.join(tvtk_dir, 'tvtk_classes.zip')]))
+            (tvtk_dir, [join(tvtk_dir, 'tvtk_classes.zip')]))
 
         install_data.install_data.run(self)
 
@@ -384,10 +378,10 @@ class MyInstallScripts(install_scripts.install_scripts):
                     if file[-7:] == 'mayavi2':
                         new_file = file[:-7] + 'MayaVi2.pyw'
                     else:
-                        new_file = os.path.splitext(file)[0] + '.pyw'
+                        new_file = splitext(file)[0] + '.pyw'
                     self.announce("renaming %s to %s" % (file, new_file))
                     if not self.dry_run:
-                        if os.path.exists(new_file):
+                        if exists(new_file):
                             os.remove (new_file)
                         os.rename (file, new_file)
 
@@ -410,7 +404,7 @@ def configuration(parent_package=None, top_path=None):
 
     # Image files.
     for root, dirs, files in os.walk('.'):
-        if os.path.split(root)[-1] == 'images':
+        if split(root)[-1] == 'images':
             config.add_data_dir(root)
 
     # *.ini files.
@@ -442,8 +436,13 @@ config['packages'] += packages
 # The actual setup call
 DOCLINES = __doc__.split("\n")
 numpy.distutils.core.setup(
+    name = 'mayavi',
+    version = info['__version__'],
     author = "Prabhu Ramachandran, et. al.",
     author_email = "prabhu@aero.iitb.ac.in",
+    maintainer = 'ETS Developers',
+    maintainer_email = 'enthought-dev@enthought.com',
+    url = 'http://code.enthought.com/projects/mayavi/',
     classifiers = [c.strip() for c in """\
         Development Status :: 5 - Production/Stable
         Intended Audience :: Developers
@@ -472,16 +471,13 @@ numpy.distutils.core.setup(
         'build_docs': BuildDocs,
         },
     description = DOCLINES[1],
-    docs_in_egg = True,
-    docs_in_egg_location = 'docs',
     download_url = ('http://www.enthought.com/repo/ets/Mayavi-%s.tar.gz' %
-                    INFO['version']),
+                    info['__version__']),
     entry_points = {
         'console_scripts': [
             'mayavi2 = mayavi.scripts.mayavi2:main',
             'tvtk_doc = tvtk.tools.tvtk_doc:main'
             ],
-
         'envisage.plugins': [
             'tvtk.scene = tvtk.plugins.scene.scene_plugin:ScenePlugin',
             'tvtk.scene_ui = tvtk.plugins.scene.ui.scene_ui_plugin:SceneUIPlugin',
@@ -490,24 +486,12 @@ numpy.distutils.core.setup(
             'mayavi_ui = mayavi.plugins.mayavi_ui_plugin:MayaviUIPlugin'
             ],
         },
-    extras_require = INFO['extras_require'],
-    html_doc_repo = 'https://svn.enthought.com/svn/cec/trunk/projects/mayavi/docs/development/',
+    extras_require = info['__extras_require__'],
     include_package_data = True,
-    install_requires = INFO['install_requires'],
+    install_requires = info['__requires__'],
     license = "BSD",
     long_description = '\n'.join(DOCLINES[3:]),
-    maintainer = 'ETS Developers',
-    maintainer_email = 'enthought-dev@enthought.com',
-    name = INFO['name'],
     platforms = ["Windows", "Linux", "Mac OS-X", "Unix", "Solaris"],
-    ssh_server = 'code.enthought.com',
-    ssh_remote_dir = '/www/htdocs/code.enthought.com/projects/mayavi/',
-    tests_require = [
-        'nose >= 0.10.3',
-        ],
-    test_suite = 'nose.collector',
-    url = 'http://code.enthought.com/projects/mayavi/',
-    version = INFO['version'],
     zip_safe = False,
     **config
 )

@@ -1,9 +1,24 @@
 # Author: Prabhu Ramachandran, Gael Varoquaux
-# Copyright (c) 2004-2010, Enthought, Inc.
+# Copyright (c) 2004-2011, Enthought, Inc.
 # License: BSD Style.
 """ A tool for easy and interactive visualization of data.
     Part of the Mayavi project of the Enthought Tool Suite.
 """
+
+__version__ = '4.0.0'
+
+__requires__ = [
+    'apptools',
+    'traits',
+    'traitsui',
+]
+
+__extras_require__ = {
+    'app': [
+        'envisage >= 3.2.0.dev',
+    ],
+}
+
 
 # Try forcing the use of wx 2.8 before any other import.
 import sys
@@ -16,5 +31,3 @@ if not 'wx' in sys.modules:
             wxversion.ensureMinimal('2.8')
     except ImportError:
         """ wxversion not installed """
-
-
