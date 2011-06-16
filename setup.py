@@ -471,7 +471,7 @@ numpy.distutils.core.setup(
         'build_docs': BuildDocs,
         },
     description = DOCLINES[1],
-    download_url = ('http://www.enthought.com/repo/ets/Mayavi-%s.tar.gz' %
+    download_url = ('http://www.enthought.com/repo/ets/mayavi-%s.tar.gz' %
                     info['__version__']),
     entry_points = {
         'console_scripts': [
