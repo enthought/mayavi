@@ -59,17 +59,14 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General substitutions.
-project = 'Mayavi'
+project = 'mayavi'
 copyright = u'2008-2010, Prabhu Ramachandran, Gaël Varoquaux'
 
 # The default replacements for |version| and |release|, also used in various
 # other places throughout the built documents.
-#
-# Pull from the actual release number in setup_data
-sys.path.insert(0, os.path.join('..', '..', '..'))
-from setup_data import INFO
-version = release = INFO['version']
-
+d = {}
+execfile(os.path.join('..', '..', '..', 'mayavi', '__init__.py'), d)
+version = release = d['__version__']
 
 # There are two options for replacing |today|: either, you set today to some
 # non-false value, then it is used:
