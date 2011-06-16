@@ -166,11 +166,12 @@ class GenDocs(Command):
         target_time = self.latest_modified(target_path,
                                            ignore_dirs=excluded_dirs)[0]
 
-        if self.latest_modified(source_path, filetypes=sources,
-            ignore_dirs=excluded_dirs)[0] > target_time or \
-            self.latest_modified('mlab_reference.py')[0] > target_time or\
-            not exists(
-                join('docs', 'source', 'mayavi', 'auto', 'mlab_reference.rst')):
+        if (self.latest_modified(source_path, filetypes=sources,
+                                 ignore_dirs=excluded_dirs)[0] > target_time
+            or self.latest_modified('mlab_reference.py')[0] > target_time
+            or not exists(join('docs', 'source', 'mayavi', 'auto',
+                               'mlab_reference.rst'))
+            ):
             try:
                 from mayavi import mlab
                 from mayavi.tools import auto_doc
