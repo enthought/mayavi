@@ -15,7 +15,7 @@ __requires__ = [
 
 __extras_require__ = {
     'app': [
-        'envisage >= 3.2.0.dev',
+        'envisage',
     ],
 }
 
