@@ -6,7 +6,7 @@ from traits.etsconfig.api import ETSConfig
 from pyface.api import GUI, ApplicationWindow
 from traits.api import HasTraits, Button, Any
 from traitsui.api import View, Group, Item
-from traits.util import guisupport
+from pyface.util import guisupport
 
 # Globals.
 # The GUI instance.
