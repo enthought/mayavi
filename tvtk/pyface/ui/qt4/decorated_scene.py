@@ -11,11 +11,7 @@ etc.
 from os.path import dirname
 
 import os
-qt_api = os.environ.get('QT_API', 'pyqt')
-if qt_api == 'pyqt':
-    from PyQt4 import QtGui
-else:
-    from PySide import QtGui
+from pyface.qt import QtGui
 
 # Enthought library imports.
 from pyface.api import ImageResource, FileDialog, OK

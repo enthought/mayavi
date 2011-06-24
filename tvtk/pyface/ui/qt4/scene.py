@@ -25,11 +25,7 @@ import os
 import tempfile
 
 import os
-qt_api = os.environ.get('QT_API', 'pyqt')
-if qt_api == 'pyqt':
-    from PyQt4 import QtGui, QtCore
-else:
-    from PySide import QtGui, QtCore
+from pyface.qt import QtCore, QtGui
 
 from tvtk.api import tvtk
 from tvtk import messenger

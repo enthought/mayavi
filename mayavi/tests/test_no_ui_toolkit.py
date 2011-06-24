@@ -28,16 +28,16 @@ class TestNoUIToolkit(unittest.TestCase):
         # safely since the Pyface imports will be done.
         from pyface.api import GUI
 
-        # Remove any references to wx and PyQt4
+        # Remove any references to wx and Qt
         saved = {}
-        for mod in ['wx', 'PyQt4']:
+        for mod in ['wx', 'PyQt4', 'PySide']:
             saved[mod] = sys.modules.pop(mod, None)
         self.saved = saved
 
     def tearDown(self):
         ETSConfig._toolkit = self.orig_tk
-        # Add back any any references to wx and PyQt4
-        for mod in ['wx', 'PyQt4']:
+        # Add back any any references to wx and Qt
+        for mod in ['wx', 'PyQt4', 'PySide']:
             m = self.saved[mod]
             if m is not None:
                 sys.modules[mod] = m

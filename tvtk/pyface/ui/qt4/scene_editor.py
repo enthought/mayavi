@@ -9,11 +9,7 @@
 # License: BSD Style.
 
 import os
-qt_api = os.environ.get('QT_API', 'pyqt')
-if qt_api == 'pyqt':
-    from PyQt4 import QtGui
-else:
-    from PySide import QtGui
+from pyface.qt import QtGui
 
 # Enthought library imports.
 from traits.api import Any, Bool, Callable
@@ -45,7 +41,7 @@ class _SceneEditor(Editor):
         factory = self.factory
         self.control = QtGui.QWidget()
         lay = QtGui.QVBoxLayout(self.control)
-        lay.setMargin(0)
+        lay.setContentsMargins(0, 0, 0, 0)
 
         assert self.value.scene_editor is None, \
                 "The SceneModel may only have one active editor!"

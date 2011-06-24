@@ -30,7 +30,7 @@ Changes by Phil Thompson, Mar. 2008
 import sys
 
 import os
-qt_api = os.environ.get('QT_API', 'pyqt')
+from pyface.qt import qt_api
 if qt_api == 'pyqt':
     from PyQt4 import QtGui, QtCore
 else:
@@ -201,13 +201,12 @@ class QVTKRenderWindowInteractor(QtGui.QWidget):
         else:
             self._RenderWindow = vtk.vtkRenderWindow()
 
-        if qt_api == 'pyqt':
+        if qt_api == 'pyqt' or sys.platform != 'win32':
             self._RenderWindow.SetWindowInfo(str(int(self.winId())))
         else:
-
             # On Windows PySide has a bug with winID() function, so this is fix:
-            if sys.platform == "win32":
-                self._RenderWindow.SetWindowInfo(str(int(pythonapi.PyCObject_AsVoidPtr(self.winId()))))
+            self._RenderWindow.SetWindowInfo(
+                str(int(pythonapi.PyCObject_AsVoidPtr(self.winId()))))
         self._should_set_parent_info = (sys.platform == 'win32')
 
         if stereo: # stereo mode
@@ -287,22 +286,20 @@ class QVTKRenderWindowInteractor(QtGui.QWidget):
             # vtkWin32OpenGLRenderWindow will render using incorrect offsets if
             # the parent info is not given to it because it assumes that it
             # needs to make room for the title bar.
-            if qt_api == 'pyqt':
+            if qt_api == 'pyqt' or sys.platform != 'win32':
                 self._RenderWindow.SetWindowInfo(str(int(self.winId())))
             else:
-
                 # On Windows PySide has a bug with winID() function, so this is fix:
-                if sys.platform == "win32":
-                    self._RenderWindow.SetWindowInfo(str(int(pythonapi.PyCObject_AsVoidPtr(self.winId()))))
+                self._RenderWindow.SetWindowInfo(
+                    str(int(pythonapi.PyCObject_AsVoidPtr(self.winId()))))
             parent = self.parent()
             if parent is not None:
-                if qt_api == 'pyqt':
+                if qt_api == 'pyqt' or sys.platform != 'win32':
                     self._RenderWindow.SetParentInfo(str(int(self.winId())))
                 else:
-
                     # On Windows PySide has a bug with winID() function, so this is fix:
-                    if sys.platform == "win32":
-                        self._RenderWindow.SetParentInfo(str(int(pythonapi.PyCObject_AsVoidPtr(self.winId()))))
+                    self._RenderWindow.SetParentInfo(
+                        str(int(pythonapi.PyCObject_AsVoidPtr(self.winId()))))
             else:
                 self._RenderWindow.SetParentInfo('')
 
