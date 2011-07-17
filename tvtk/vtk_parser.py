@@ -190,7 +190,10 @@ class VTKMethodParser:
         # methods is wrong since the child changes the trait definition
         # which breaks things.  We therefore do not remove any of the
         # Get/SetThings that are ignored due to them being in the
-        # parent.
+        # parent.  However one has to be careful about cases where these are
+        # really Toggle (ThingOn) or State (SetThingToThong) etc. methods and
+        # in those cases we really should ignore the method.  So in essence,
+        # any Get/Set pair that is not a State or Toggle should be redefined.
         overrides = []
         for m in methods:
             check = False
@@ -202,7 +205,20 @@ class VTKMethodParser:
                 check = True
             if check:
                 if m1 in methods and (m1 in ignore or m in ignore):
-                    skip.extend([m1, m])
+                    # Skips are stored as Set followed by Get.
+                    skip.extend(['Set' +m[3:], 'Get'+m[3:]])
+
+        for m in skip[:]:
+            if m.startswith('Set'):
+                base = m[3:]
+                mg, ms = 'Get' + base, 'Set' + base
+                m_st = 'Set' + base + 'To'
+                m_t = base + 'Off'
+                for method in methods:
+                    if m_st in method or m_t == method:
+                        skip.remove(ms)
+                        skip.remove(mg)
+                        break
 
         if 'GetViewProp' in methods and 'GetProp' in methods:
             ignore.extend(['GetProp', 'SetProp'])
@@ -518,7 +534,6 @@ class VTKMethodParser:
                                 meths.remove('Get' + key + 'AsString')
                             except ValueError:
                                 pass
-
         # Find the values for each of the states, i.e. find that
         # vtkProperty.SetRepresentationToWireframe() corresponds to
         # vtkProperty.SetRepresentation(1).

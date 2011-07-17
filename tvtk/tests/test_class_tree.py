@@ -36,7 +36,16 @@ class TestClassTree(unittest.TestCase):
         self.assertEqual(t.get_node('vtkObject').name, 'vtkObject')
         self.assertEqual(t.get_node('vtkObject').parents[0].name,
                          'vtkObjectBase')
-        if (hasattr(vtk, 'vtkArrayCoordinates')
+        if (hasattr(vtk, 'vtkVector')):
+            self.assertEqual(len(t.tree[0]), 11)
+            names = [x.name for x in t.tree[0]]
+            names.sort()
+            expect = ['object', 'vtkColor3', 'vtkColor4', 'vtkDenseArray', 
+                      'vtkObjectBase', 'vtkRect', 'vtkSparseArray', 
+                      'vtkTypedArray', 'vtkVector', 'vtkVector2',
+                      'vtkVector3']
+            self.assertEqual(names, expect)
+        elif (hasattr(vtk, 'vtkArrayCoordinates')
                         and issubclass(vtk.vtkArrayCoordinates, object)):
             self.assertEqual(len(t.tree[0]), 2)
             names = [x.name for x in t.tree[0]]

@@ -44,7 +44,7 @@ class TestVTKParser(unittest.TestCase):
         self.assertEqual(p.get_toggle_methods(),
                          {'Debug': 0, 'GlobalWarningDisplay': 1})
         self.assertEqual(p.get_state_methods(), {})
-        self.assertEqual(p.get_get_set_methods(), {})
+        self.assertEqual(p.get_get_set_methods(), {'ReferenceCount': (1, None)})
         self.assertEqual(p.get_get_methods(), ['GetMTime'])
 
         res = ['AddObserver', 'BreakOnError', 'HasObserver',
@@ -88,6 +88,7 @@ class TestVTKParser(unittest.TestCase):
                'LineWidth': (1.0, (0.0, vtk.VTK_LARGE_FLOAT)),
                'Opacity': (1.0, (0.0, 1.0)),
                'PointSize': (1.0, (0.0, vtk.VTK_LARGE_FLOAT)),
+               'ReferenceCount': (1, None),
                'Specular': (0.0, (0.0, 1.0)),
                'SpecularColor': ((1.0, 1.0, 1.0), None),
                'SpecularPower': (1.0, (0.0, 100.0))}
