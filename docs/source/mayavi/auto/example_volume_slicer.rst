@@ -6,8 +6,8 @@ Volume slicer example
 --------------------------------------------
 
 
-Example of an elaborate dialog showing a multiple views on the same data, with 
-3 cuts synchronized. 
+Example of an elaborate dialog showing a multiple views on the same data, with
+3 cuts synchronized.
 
 This example shows how to have multiple views on the same data, how to
 embedded multiple scenes in a dialog, and the caveat in populating them
@@ -23,7 +23,7 @@ Second, default values created via the '_xxx_default' callback are created
 lazyly, that is, when the attributes are accessed. As the establishement
 of the VTK pipeline can depend on the order in which it is built, we
 trigger these access by explicitely calling the attributes.
-In particular, properties like scene background color, or interaction 
+In particular, properties like scene background color, or interaction
 properties cannot be set before the scene is activated.
 
 The same data is exposed in the different scenes by sharing the VTK

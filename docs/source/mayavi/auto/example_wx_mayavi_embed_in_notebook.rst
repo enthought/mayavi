@@ -6,7 +6,7 @@ Wx mayavi embed in notebook example
 --------------------------------------------
 
 
-This example show how to embedded Mayavi in a wx notebook. 
+This example show how to embedded Mayavi in a wx notebook.
 
 This is a slightly more complex example than the `wx_embedding` example (
 :ref:`example_wx_embedding`), and can be used to see how a large wx

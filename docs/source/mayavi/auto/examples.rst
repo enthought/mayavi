@@ -74,7 +74,7 @@ Advanced mlab examples
 
 .. toctree::
    :hidden:
-    
+
    example_boy.rst
    example_julia_set.rst
    example_custom_colormap.rst
@@ -281,7 +281,7 @@ applications.
 
 .. toctree::
    :hidden:
-    
+
    example_mlab_visual.rst
    example_mlab_traits_ui.rst
    example_wx_embedding.rst
@@ -291,8 +291,8 @@ applications.
    example_wx_mayavi_embed_in_notebook.rst
    example_subclassing_mayavi_application.rst
    example_mayavi_traits_ui.rst
-   example_qt_embedding.rst
    example_compute_in_thread.rst
+   example_qt_embedding.rst
    example_adjust_cropping_extents.rst
    example_poll_file.rst
    example_lorenz_ui.rst
@@ -308,22 +308,22 @@ applications.
 
             
 .. |0101| raw:: html
-    
+
     <br/>
 
             
 .. |0102| raw:: html
-    
+
     <br/>
 
             
 .. |0103| raw:: html
-    
+
     <br/>
 
             
 .. |0104| raw:: html
-    
+
     <br/>
 
             
@@ -332,57 +332,57 @@ applications.
 
             
 .. |0106| raw:: html
-    
+
     <br/>
 
             
 .. |0107| raw:: html
-    
+
     <br/>
 
             
 .. |0108| raw:: html
-    
+
     <br/>
 
             
 .. |0109| raw:: html
-    
+
     <br/>
 
             
 .. |0110| raw:: html
-    
+
     <br/>
 
             
 .. |0111| raw:: html
-    
+
     <br/>
 
             
 .. |0112| raw:: html
-    
+
     <br/>
 
             
 .. |0113| raw:: html
-    
+
     <br/>
 
             
 .. |0114| raw:: html
-    
+
     <br/>
 
             
 .. |0115| raw:: html
-    
+
     <br/>
 
             
 .. |0116| raw:: html
-    
+
     <br/>
 
             
@@ -429,18 +429,18 @@ applications.
          similar to the complete Mayavi
          application inside a Traits UI view.
 
-|0109|  :ref:`example_qt_embedding`
-         This example demonstrates using Mayavi
-         as a component of a large Qt
-         application.
-
-|0110|  :ref:`example_compute_in_thread`
+|0109|  :ref:`example_compute_in_thread`
          This script demonstrates how one can do
          a computation in another thread and
          update the mayavi pipeline. It also
          shows how to create a numpy array data
          and visualize it as image data using a
          few modules.
+
+|0110|  :ref:`example_qt_embedding`
+         This example demonstrates using Mayavi
+         as a component of a large Qt
+         application.
 
 |0111|  :ref:`example_adjust_cropping_extents`
          A custom dialog to adjust the
@@ -486,13 +486,13 @@ Advanced visualization examples
 
 
 Data visualization using the core Mayavi API, object-oriented, and with
-more fine control than mlab.     
+more fine control than mlab.
 
     
 
 .. toctree::
    :hidden:
-    
+
    example_polydata.rst
    example_offscreen.rst
    example_surf_regular_mlab.rst
@@ -609,7 +609,7 @@ Examples showing how you can query and interact with the data.
 
 .. toctree::
    :hidden:
-    
+
    example_pick_on_surface.rst
    example_select_red_balls.rst
 
@@ -631,7 +631,7 @@ Misc examples
 
 .. toctree::
    :hidden:
-    
+
    example_standalone.rst
    example_zzz_reader.rst
    example_nongui.rst

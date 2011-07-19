@@ -11,7 +11,13 @@ example, please read section :ref:`builing-applications`.
 import os
 os.environ['ETS_TOOLKIT'] = 'qt4'
 
+# To be able to use PySide or PyQt4 and not run in conflicts with traits,
+# we need to import QtGui and QtCore from pyface.qt
 from pyface.qt import QtGui, QtCore
+# Alternatively, you can bypass this line, but you need to make sure that
+# the following lines are executed before the import of PyQT:
+#   import sip
+#   sip.setapi('QString', 2)
 
 from traits.api import HasTraits, Instance, on_trait_change, \
     Int, Dict

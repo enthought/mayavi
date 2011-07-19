@@ -2,6 +2,7 @@
 An example creating a structured grid data set from numpy arrays using TVTK
 and visualizing it using mlab.
 
+
 In this example, we create a structured-grid data set: we describe
 data, both scalar and vector, lying on a structured-grid, ie a grid where
 each vertex has 6 neighboors. For this we directly create a

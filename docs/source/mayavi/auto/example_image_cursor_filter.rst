@@ -6,8 +6,8 @@ Image cursor filter example
 --------------------------------------------
 
 
-Excample using the UserDefined filter to paint a cross-shaped cursor on data, 
-in order to point out a special position. 
+Excample using the UserDefined filter to paint a cross-shaped cursor on data,
+in order to point out a special position.
 
 We use the UserDefined filter `ImageCursor3D` to create the cursor. A Gaussian
 data field is painted with the cursor, and then visualized using the

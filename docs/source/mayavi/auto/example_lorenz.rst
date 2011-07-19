@@ -14,7 +14,7 @@ trajectories using mlab's flow function:
 :func:`mayavi.mlab.flow`.
 
 The z-nullcline is plotted by extracting the z component of the vector
-field data source with the ExtractVectorComponent filter, and applying 
+field data source with the ExtractVectorComponent filter, and applying
 an IsoSurface module on this scalar component.
 
 

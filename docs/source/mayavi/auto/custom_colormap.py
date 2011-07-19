@@ -13,6 +13,10 @@ colormap, but we modify add to add a transparency effect.
 
 Notice in the resulting image how the surface becomes more transparent
 for its lower points.
+
+Note that if you want to use a different number of colors, you can
+change the 'number_of_colors' attribute of the lut object and assign a
+new array of the right shape to its 'table' attribute.
 """
 
 # Create some data

@@ -6,9 +6,9 @@ Subclassing mayavi application example
 --------------------------------------------
 
 
-This script demonstrates how one can script the Mayavi application by 
-subclassing the application, create a new scene and create a few 
-simple modules. 
+This script demonstrates how one can script the Mayavi application by
+subclassing the application, create a new scene and create a few
+simple modules.
 
 This should be run as::
 

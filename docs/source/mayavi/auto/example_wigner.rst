@@ -6,12 +6,12 @@ Wigner example
 --------------------------------------------------------------------
 
 
-An example in which 3 functions of x and y  are displayed with a surf plot, 
+An example in which 3 functions of x and y  are displayed with a surf plot,
 while the z scaling is kept constant, to allow comparison between them.
 
 The important aspect of this example is that the 3 functions should not
 be displayed on top of each other, but side by side. For this we use the
-extent keyword argument. 
+extent keyword argument.
 
 In addition, the relative scale between the different plots is important.
 This is why we also use the `warp_scale` keyword argument, to have the same

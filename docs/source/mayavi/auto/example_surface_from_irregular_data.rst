@@ -14,7 +14,7 @@ Data giving the variation of a parameter 'z' as a function of two others
 visualize the underlying function. when the data has been acquired on a
 regular grid for parameters 'x' and 'y', it can simply be view with the
 mlab.surf function. However, when there are some missing points, or the
-data has been acquired at random, the surf function cannot be used. 
+data has been acquired at random, the surf function cannot be used.
 
 The difficulty stems from the fact that points positionned in 3D do
 not define a surface if no connectivity information is given. With the

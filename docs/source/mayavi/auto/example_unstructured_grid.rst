@@ -14,7 +14,7 @@ mayavi2.  The script can be run like so:
 Alternatively, it can be run as:
 
   $ python unstructured_grid.py
-  
+
 Author: Prabhu Ramachandran <prabhu at aero dot iitb dot ac dot in>
 
 Copyright (c) 2007, Enthought, Inc.

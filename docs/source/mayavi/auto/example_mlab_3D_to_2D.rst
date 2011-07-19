@@ -6,8 +6,8 @@ Mlab 3D to 2D example
 --------------------------------------------
 
 
-A script to calculate the projection of 3D world coordinates to 
-2D display coordinates (pixel coordinates) for a given scene. 
+A script to calculate the projection of 3D world coordinates to
+2D display coordinates (pixel coordinates) for a given scene.
 
 The 2D pixel locations of objects in the image plane are related to their
 3D world coordinates by a series of linear transformations. The specific
@@ -18,7 +18,7 @@ of mlab (and most other computer visualization software), we deal with
 only the perspective and euclidean cases. An overview of Projective space
 can be found here: http://en.wikipedia.org/wiki/Projective_space and a
 thorough treatment of projective geometry can be had in the book
-"Multiple View Geometry in Computer Vision" by Richard Hartley. 
+"Multiple View Geometry in Computer Vision" by Richard Hartley.
 
 The essential thing to know for this example is that points in 3-space
 are related to points in 2-space through a series of multiplications of
@@ -40,15 +40,15 @@ orientation. In computer graphics, things are not so simple. This is
 because computer graphics have the benefit of being able to do things
 which are not possible in the real world: adding clipping planes, offset
 projection centers, arbitrary distortions, etc... Thus, a slightly
-different model is used. 
+different model is used.
 
 What follows is the camera/view model for OpenGL and thus, VTK. I can not
-guarantee that other packages follow this model. 
+guarantee that other packages follow this model.
 
 There are 4 different transformations that are applied 3D world
 coordinates to map them to 2D pixel coordinates. They are: the model
 transform, the view transform, the perspective transform, and the
-viewport or display transform. 
+viewport or display transform.
 
 In OpenGL the first two transformations are concatenated to yield the
 modelview transform (called simply the view transform in VTK). The
@@ -81,7 +81,7 @@ important, the first 3 coordinates will not, in general, be within the
 unity range until we divide through by the last coordinate (See the
 wikipedia on homogeneous coordinates if this is confusing). The resulting
 coordinates are termed (appropriately enough) normalized view
-coordinates. 
+coordinates.
 
 The last transformation (the viewport transformation) takes us from
 normalized view coordinates to display coordinates. At this point, you
@@ -94,12 +94,12 @@ coordinates provide a nice common ground so-to-speak. At any rate, the
 viewport transformation simply scales and translates the X and Y
 coordinates of the normalized view coordinates to the appropriate pixel
 coordinates. We don't use the Z value in our example because we don't
-care about it. It is used for other various things however. 
+care about it. It is used for other various things however.
 
-That's all there is to it, pretty simple right? Right. Here is an overview: 
+That's all there is to it, pretty simple right? Right. Here is an overview:
 
 Given a set of 3D world coordinates:
- - Apply the modelview transformation (view transform in VTK) to get eye 
+ - Apply the modelview transformation (view transform in VTK) to get eye
    coordinates
  - Apply the perspective transformation to get normalized view coordinates
  - Apply the viewport transformation to get display coordinates
@@ -108,9 +108,9 @@ VTK provides a nice method to retrieve a 4x4 matrix that combines the
 first two operations. As far as I can tell, VTK does not export a method
 to retrieve the 4x4 matrix representing the viewport transformation, so
 we are on our there to create one (no worries though, its not hard, as
-you will see). 
+you will see).
 
-Now that the prelimenaries are out of the way, lets get started.  
+Now that the prelimenaries are out of the way, lets get started.
 
 
 

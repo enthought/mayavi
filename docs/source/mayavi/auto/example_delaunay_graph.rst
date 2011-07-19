@@ -11,7 +11,7 @@ and NetworkX.
 
 This example shows how to use Mayavi in a purely algorithmic way, to
 compute a Delaunay from data points, extract it and pass it to networkx.
-It also shows how to plot a graph using quiver. 
+It also shows how to plot a graph using quiver.
 
 Starting from points positioned regularly on a sphere, we first use VTK
 to create the Delaunay graph, and also to plot it. We then create a
@@ -35,7 +35,7 @@ list of the ExtractEdges filter object, returned by the
 `mlab.pipeline.extract_edges` factory function. Once we have this object,
 we extract the points and edge list from it. This graph-plotting
 technique differs from the technique used in the examples
-:ref:`example_protein` and :ref:`example_flight_graph` where points are 
+:ref:`example_protein` and :ref:`example_flight_graph` where points are
 created and connected by lines. Unlike these techniques, it enables
 storing scalar data on each line.
 

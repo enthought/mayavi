@@ -25,7 +25,7 @@ if not os.path.exists('h2o-elf.cube'):
     opener = urllib.urlopen(
         'http://code.enthought.com/projects/mayavi/data/h2o-elf.cube'
         )
-    open('h2o-elf.cube', 'w').write(opener.read())
+    open('h2o-elf.cube', 'wb').write(opener.read())
 
 
 # Plot the atoms and the bonds #################################################

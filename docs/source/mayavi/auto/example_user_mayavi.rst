@@ -9,12 +9,12 @@ User mayavi example
 Sample Mayavi customization file.
 
 This code is not to be executed as `mayavi2 -x user_mayavi.py` or
-`python user_mayavi.py`.  
+`python user_mayavi.py`.
 
 Put this file in ~/.mayavi2/user_mayavi.py and rerun mayavi2 to see what
 it does -- the worker view may not show up by default so you will have
 to go to View->Other and in the Show View dialog, activate the "Custom
-Mayavi2 View". 
+Mayavi2 View".
 
 The added modules should show up in the menus (Look for UserOutline in
 the Modules)

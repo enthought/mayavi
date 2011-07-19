@@ -16,7 +16,7 @@ The script can be run like so::
 Alternatively, it can be run as::
 
   $ python structured_points2d.py
-  
+
 
 
 **Python source code:** :download:`structured_points2d.py`
