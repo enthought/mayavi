@@ -3,20 +3,17 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Tvtk segmentation example &mdash; Mayavi 3.4.2 documentation</title>
-    
+    <title>Tvtk segmentation example &mdash; mayavi v4.0.1 documentation</title>
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '3.4.2',
+        VERSION:     '4.0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +22,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="Mayavi 3.4.2 documentation" href="../index.html" />
+    <link rel="top" title="mayavi v4.0.1 documentation" href="../index.html" />
     <link rel="up" title="Example gallery" href="examples.html" />
     <link rel="next" title="Datasets example" href="example_datasets.html" />
     <link rel="prev" title="Structured grid example" href="example_structured_grid.html" />
@@ -73,7 +70,7 @@
         <li class="right" >
           <a href="example_structured_grid.html" title="Structured grid example"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">Mayavi 3.4.2 documentation</a> &raquo;</li>
+        <li><a href="../index.html">mayavi v4.0.1 documentation</a> &raquo;</li>
           <li><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
       </ul>
     </div>  
@@ -92,7 +89,7 @@ applies a segmentation procedure made of VTK filters to extract the
 gray-matter/white-matter boundary.</p>
 <p>The segmentation algorithm used here is very naive and should, of course,
 not be used as an example of segmentation.</p>
-<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/tvtk_segmentation2.py"><tt class="xref download docutils literal"><span class="pre">tvtk_segmentation.py</span></tt></a></p>
+<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/tvtk_segmentation.py"><tt class="xref download docutils literal"><span class="pre">tvtk_segmentation.py</span></tt></a></p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c">### Download the data, if not already on disk ##################################</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s">&#39;mri_data.tar.gz&#39;</span><span class="p">):</span>
@@ -140,8 +137,8 @@ not be used as an example of segmentation.</p>
 <span class="k">del</span> <span class="n">hist</span><span class="p">,</span> <span class="n">bins</span><span class="p">,</span> <span class="n">brain_thr_idx</span>
 
 <span class="c"># Display the data #############################################################</span>
-<span class="kn">from</span> <span class="nn">enthought.mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
-<span class="kn">from</span> <span class="nn">enthought.tvtk.api</span> <span class="kn">import</span> <span class="n">tvtk</span>
+<span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
+<span class="kn">from</span> <span class="nn">tvtk.api</span> <span class="kn">import</span> <span class="n">tvtk</span>
 
 <span class="n">fig</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">bgcolor</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">500</span><span class="p">))</span>
 <span class="c"># to speed things up</span>
@@ -221,7 +218,7 @@ not be used as an example of segmentation.</p>
 <span class="c"># To make the link between the Mayavi pipeline and the much more</span>
 <span class="c"># complex VTK pipeline, we display both:</span>
 <span class="n">mlab</span><span class="o">.</span><span class="n">show_pipeline</span><span class="p">(</span><span class="n">rich_view</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-<span class="kn">from</span> <span class="nn">enthought.tvtk.pipeline.browser</span> <span class="kn">import</span> <span class="n">PipelineBrowser</span>
+<span class="kn">from</span> <span class="nn">tvtk.pipeline.browser</span> <span class="kn">import</span> <span class="n">PipelineBrowser</span>
 <span class="n">browser</span> <span class="o">=</span> <span class="n">PipelineBrowser</span><span class="p">(</span><span class="n">fig</span><span class="o">.</span><span class="n">scene</span><span class="p">)</span>
 <span class="n">browser</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
@@ -282,7 +279,7 @@ not be used as an example of segmentation.</p>
     </div>
     <hr/>
     <div id="searchbox">
-	<a href="misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
+	<a href="http://github.enthought.com/mayavi/mayavi/misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
 
 	<p style="font-size:85%; color: #FFFFFF;">
     	If you publish articles using Mayavi, please 
@@ -308,14 +305,14 @@ not be used as an example of segmentation.</p>
         <li class="right" >
           <a href="example_structured_grid.html" title="Structured grid example"
              >previous</a> |</li>
-        <li><a href="../index.html">Mayavi 3.4.2 documentation</a> &raquo;</li>
+        <li><a href="../index.html">mayavi v4.0.1 documentation</a> &raquo;</li>
           <li><a href="examples.html" >Example gallery</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Mar 26, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1pre/ce4bb37a1409.
+      Last updated on Jul 19, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.
     </div>
   </body>
 </html>

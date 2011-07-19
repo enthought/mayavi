@@ -3,20 +3,17 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Mlab interactive dialog example &mdash; Mayavi 3.4.2 documentation</title>
-    
+    <title>Mlab interactive dialog example &mdash; mayavi v4.0.1 documentation</title>
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '3.4.2',
+        VERSION:     '4.0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +22,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="Mayavi 3.4.2 documentation" href="../index.html" />
+    <link rel="top" title="mayavi v4.0.1 documentation" href="../index.html" />
     <link rel="up" title="Example gallery" href="examples.html" />
     <link rel="next" title="Wx mayavi embed in notebook example" href="example_wx_mayavi_embed_in_notebook.html" />
     <link rel="prev" title="Multiple mlab scene models example" href="example_multiple_mlab_scene_models.html" />
@@ -73,7 +70,7 @@
         <li class="right" >
           <a href="example_multiple_mlab_scene_models.html" title="Multiple mlab scene models example"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">Mayavi 3.4.2 documentation</a> &raquo;</li>
+        <li><a href="../index.html">mayavi v4.0.1 documentation</a> &raquo;</li>
           <li><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
       </ul>
     </div>  
@@ -100,7 +97,7 @@ object (see <a class="reference internal" href="../mlab_animating.html#mlab-anim
 <p>This example is discussed in details in the section
 <a class="reference internal" href="../building_applications.html#embedding-mayavi-traits"><em>Embedding a Mayavi scene in a Traits dialog</em></a>.</p>
 <div align="center" class="align-center"><img alt="../_images/example_mlab_interactive_dialog.jpg" class="align-center" src="../_images/example_mlab_interactive_dialog.jpg" /></div>
-<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/mlab_interactive_dialog2.py"><tt class="xref download docutils literal"><span class="pre">mlab_interactive_dialog.py</span></tt></a></p>
+<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/mlab_interactive_dialog.py"><tt class="xref download docutils literal"><span class="pre">mlab_interactive_dialog.py</span></tt></a></p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c"># Author: Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt;</span>
 <span class="c"># Copyright (c) 2008, Enthought, Inc.</span>
 <span class="c"># License: BSD Style.</span>
@@ -108,12 +105,12 @@ object (see <a class="reference internal" href="../mlab_animating.html#mlab-anim
 
 <span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">arange</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="n">sin</span>
 
-<span class="kn">from</span> <span class="nn">enthought.traits.api</span> <span class="kn">import</span> <span class="n">HasTraits</span><span class="p">,</span> <span class="n">Range</span><span class="p">,</span> <span class="n">Instance</span><span class="p">,</span> \
+<span class="kn">from</span> <span class="nn">traits.api</span> <span class="kn">import</span> <span class="n">HasTraits</span><span class="p">,</span> <span class="n">Range</span><span class="p">,</span> <span class="n">Instance</span><span class="p">,</span> \
         <span class="n">on_trait_change</span>
-<span class="kn">from</span> <span class="nn">enthought.traits.ui.api</span> <span class="kn">import</span> <span class="n">View</span><span class="p">,</span> <span class="n">Item</span><span class="p">,</span> <span class="n">Group</span>
+<span class="kn">from</span> <span class="nn">traitsui.api</span> <span class="kn">import</span> <span class="n">View</span><span class="p">,</span> <span class="n">Item</span><span class="p">,</span> <span class="n">Group</span>
 
-<span class="kn">from</span> <span class="nn">enthought.mayavi.core.api</span> <span class="kn">import</span> <span class="n">PipelineBase</span>
-<span class="kn">from</span> <span class="nn">enthought.mayavi.core.ui.api</span> <span class="kn">import</span> <span class="n">MayaviScene</span><span class="p">,</span> <span class="n">SceneEditor</span><span class="p">,</span> \
+<span class="kn">from</span> <span class="nn">mayavi.core.api</span> <span class="kn">import</span> <span class="n">PipelineBase</span>
+<span class="kn">from</span> <span class="nn">mayavi.core.ui.api</span> <span class="kn">import</span> <span class="n">MayaviScene</span><span class="p">,</span> <span class="n">SceneEditor</span><span class="p">,</span> \
                 <span class="n">MlabSceneModel</span>
 
 
@@ -217,7 +214,7 @@ object (see <a class="reference internal" href="../mlab_animating.html#mlab-anim
     </div>
     <hr/>
     <div id="searchbox">
-	<a href="misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
+	<a href="http://github.enthought.com/mayavi/mayavi/misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
 
 	<p style="font-size:85%; color: #FFFFFF;">
     	If you publish articles using Mayavi, please 
@@ -243,14 +240,14 @@ object (see <a class="reference internal" href="../mlab_animating.html#mlab-anim
         <li class="right" >
           <a href="example_multiple_mlab_scene_models.html" title="Multiple mlab scene models example"
              >previous</a> |</li>
-        <li><a href="../index.html">Mayavi 3.4.2 documentation</a> &raquo;</li>
+        <li><a href="../index.html">mayavi v4.0.1 documentation</a> &raquo;</li>
           <li><a href="examples.html" >Example gallery</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Mar 26, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1pre/ce4bb37a1409.
+      Last updated on Jul 19, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.
     </div>
   </body>
 </html>

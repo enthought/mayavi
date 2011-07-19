@@ -15,7 +15,7 @@ This script is to be run like so::
 Or::
 
  $ python poll_file.py
- 
+
 The script currently defaults to using the example data in
 examples/data/heart.vtk.  You can try editing that data file or change
 this script to point to other data which you can edit.

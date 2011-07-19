@@ -6,7 +6,7 @@ Case studies of some visualizations
 Visualizing volumetric scalar data
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. currentmodule:: enthought.mayavi.mlab
+.. currentmodule:: mayavi.mlab
 
 There are three main ways of visualizing a 3D scalar field. Given the
 following field::
@@ -28,7 +28,7 @@ following field::
     The problem with this method is that the outer iso-surfaces tend to hide inner 
     ones. As a result, quite often only one iso-surface can be visible.
 
-    .. currentmodule:: enthought.mayavi.tools.pipeline
+    .. currentmodule:: mayavi.tools.pipeline
 
 :Volume rendering:
     Volume rendering is an advanced technique in which each voxel is
@@ -124,7 +124,7 @@ Visualizing a vector field
     mlab.figure(1, fgcolor=(0., 0., 0.), bgcolor=(1, 1, 1), size=(349, 349))
     mlab.view(60, 90, 45.8, (9.5, 11.1, 10.4))
 
-.. currentmodule:: enthought.mayavi.mlab
+.. currentmodule:: mayavi.mlab
 
 A vector field, i.e., vectors continuously defined in a volume, can be
 difficult to visualize, as it contains a lot of information. Let us

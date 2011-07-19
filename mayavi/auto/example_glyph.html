@@ -3,20 +3,17 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Glyph example &mdash; Mayavi 3.4.2 documentation</title>
-    
+    <title>Glyph example &mdash; mayavi v4.0.1 documentation</title>
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '3.4.2',
+        VERSION:     '4.0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +22,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="Mayavi 3.4.2 documentation" href="../index.html" />
+    <link rel="top" title="mayavi v4.0.1 documentation" href="../index.html" />
     <link rel="up" title="Example gallery" href="examples.html" />
     <link rel="next" title="Structured points2d example" href="example_structured_points2d.html" />
     <link rel="prev" title="Surf regular mlab example" href="example_surf_regular_mlab.html" />
@@ -73,7 +70,7 @@
         <li class="right" >
           <a href="example_surf_regular_mlab.html" title="Surf regular mlab example"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">Mayavi 3.4.2 documentation</a> &raquo;</li>
+        <li><a href="../index.html">mayavi v4.0.1 documentation</a> &raquo;</li>
           <li><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
       </ul>
     </div>  
@@ -88,7 +85,7 @@
 <p>This script demonstrates using the Mayavi core API to add a VectorCutPlane,
 split the pipeline using a MaskPoints filter and then view the filtered data
 with the Glyph module.</p>
-<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/glyph2.py"><tt class="xref download docutils literal"><span class="pre">glyph.py</span></tt></a></p>
+<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/glyph.py"><tt class="xref download docutils literal"><span class="pre">glyph.py</span></tt></a></p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c"># Author: Prabhu Ramachandran &lt;prabhu_r@users.sf.net&gt;</span>
 <span class="c"># Copyright (c) 2005-2008, Enthought, Inc.</span>
 <span class="c"># License: BSD Style.</span>
@@ -97,12 +94,12 @@ with the Glyph module.</p>
 <span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">join</span><span class="p">,</span> <span class="n">abspath</span><span class="p">,</span> <span class="n">dirname</span>
 
 <span class="c"># Enthought library imports</span>
-<span class="kn">from</span> <span class="nn">enthought.mayavi.scripts</span> <span class="kn">import</span> <span class="n">mayavi2</span>
-<span class="kn">from</span> <span class="nn">enthought.mayavi.sources.vtk_xml_file_reader</span> <span class="kn">import</span> <span class="n">VTKXMLFileReader</span>
-<span class="kn">from</span> <span class="nn">enthought.mayavi.modules.outline</span> <span class="kn">import</span> <span class="n">Outline</span>
-<span class="kn">from</span> <span class="nn">enthought.mayavi.modules.glyph</span> <span class="kn">import</span> <span class="n">Glyph</span>
-<span class="kn">from</span> <span class="nn">enthought.mayavi.modules.vector_cut_plane</span> <span class="kn">import</span> <span class="n">VectorCutPlane</span>
-<span class="kn">from</span> <span class="nn">enthought.mayavi.filters.mask_points</span> <span class="kn">import</span> <span class="n">MaskPoints</span>
+<span class="kn">from</span> <span class="nn">mayavi.scripts</span> <span class="kn">import</span> <span class="n">mayavi2</span>
+<span class="kn">from</span> <span class="nn">mayavi.sources.vtk_xml_file_reader</span> <span class="kn">import</span> <span class="n">VTKXMLFileReader</span>
+<span class="kn">from</span> <span class="nn">mayavi.modules.outline</span> <span class="kn">import</span> <span class="n">Outline</span>
+<span class="kn">from</span> <span class="nn">mayavi.modules.glyph</span> <span class="kn">import</span> <span class="n">Glyph</span>
+<span class="kn">from</span> <span class="nn">mayavi.modules.vector_cut_plane</span> <span class="kn">import</span> <span class="n">VectorCutPlane</span>
+<span class="kn">from</span> <span class="nn">mayavi.filters.mask_points</span> <span class="kn">import</span> <span class="n">MaskPoints</span>
 
 <span class="nd">@mayavi2.standalone</span>
 <span class="k">def</span> <span class="nf">glyph</span><span class="p">():</span>
@@ -199,7 +196,7 @@ with the Glyph module.</p>
     </div>
     <hr/>
     <div id="searchbox">
-	<a href="misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
+	<a href="http://github.enthought.com/mayavi/mayavi/misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
 
 	<p style="font-size:85%; color: #FFFFFF;">
     	If you publish articles using Mayavi, please 
@@ -225,14 +222,14 @@ with the Glyph module.</p>
         <li class="right" >
           <a href="example_surf_regular_mlab.html" title="Surf regular mlab example"
              >previous</a> |</li>
-        <li><a href="../index.html">Mayavi 3.4.2 documentation</a> &raquo;</li>
+        <li><a href="../index.html">mayavi v4.0.1 documentation</a> &raquo;</li>
           <li><a href="examples.html" >Example gallery</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Mar 26, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1pre/ce4bb37a1409.
+      Last updated on Jul 19, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.
     </div>
   </body>
 </html>

@@ -17,7 +17,7 @@ as a surface::
  z = r*sin(phi)*sin(theta)
 
  # View it.
- from enthought.mayavi import mlab
+ from mayavi import mlab
  s = mlab.mesh(x, y, z)
  mlab.show()
 

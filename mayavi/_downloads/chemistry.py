@@ -25,12 +25,12 @@ if not os.path.exists('h2o-elf.cube'):
     opener = urllib.urlopen(
         'http://code.enthought.com/projects/mayavi/data/h2o-elf.cube'
         )
-    open('h2o-elf.cube', 'w').write(opener.read())
+    open('h2o-elf.cube', 'wb').write(opener.read())
 
 
 # Plot the atoms and the bonds #################################################
 import numpy as np
-from enthought.mayavi import mlab
+from mayavi import mlab
 mlab.figure(1, bgcolor=(0, 0, 0), size=(350, 350))
 mlab.clf()
 

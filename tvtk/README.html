@@ -3,20 +3,17 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>An Introduction to Traited VTK (tvtk) &mdash; tvtk 3.4.2 documentation</title>
-    
+    <title>An Introduction to Traited VTK (tvtk) &mdash; tvtk v4.0.1 documentation</title>
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '3.4.2',
+        VERSION:     '4.0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +22,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="tvtk 3.4.2 documentation" href="index.html" />
+    <link rel="top" title="tvtk v4.0.1 documentation" href="index.html" />
     <link rel="next" title="Development guide for TVTK" href="devel.html" />
     <link rel="prev" title="Welcome to tvtk’s documentation!" href="index.html" /> 
   </head>
@@ -42,7 +39,7 @@
         <li class="right" >
           <a href="index.html" title="Welcome to tvtk’s documentation!"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">tvtk 3.4.2 documentation</a> &raquo;</li> 
+        <li><a href="index.html">tvtk v4.0.1 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -57,43 +54,43 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Author:</th><td class="field-body">Prabhu Ramachandran</td>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Prabhu Ramachandran</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Contact:</th><td class="field-body"><a class="reference external" href="mailto:prabhu_r&#37;&#52;&#48;users&#46;sourceforge&#46;net">prabhu_r<span>&#64;</span>users<span>&#46;</span>sourceforge<span>&#46;</span>net</a></td>
+<tr class="field"><th class="field-name">Contact:</th><td class="field-body"><a class="reference external" href="mailto:prabhu_r&#37;&#52;&#48;users&#46;sourceforge&#46;net">prabhu_r<span>&#64;</span>users<span>&#46;</span>sourceforge<span>&#46;</span>net</a></td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Copyright:</th><td class="field-body">2004-2005, Enthought, Inc.</td>
+<tr class="field"><th class="field-name">Copyright:</th><td class="field-body">2004-2005, Enthought, Inc.</td>
 </tr>
 </tbody>
 </table>
 <div class="contents topic" id="contents">
 <p class="topic-title first">Contents</p>
 <ul class="simple">
-<li><a class="reference internal" href="#an-introduction-to-traited-vtk-tvtk" id="id1">An Introduction to Traited VTK (tvtk)</a><ul>
-<li><a class="reference internal" href="#introduction" id="id2">Introduction</a></li>
-<li><a class="reference internal" href="#requirements" id="id3">Requirements</a></li>
-<li><a class="reference internal" href="#installation" id="id4">Installation</a></li>
-<li><a class="reference internal" href="#basic-usage" id="id5">Basic Usage</a></li>
-<li><a class="reference internal" href="#advanced-usage" id="id6">Advanced Usage</a><ul>
-<li><a class="reference internal" href="#definition-of-the-basic-state-of-a-tvtk-object" id="id7">Definition of the &#8220;basic state&#8221; of a tvtk object</a></li>
-<li><a class="reference internal" href="#the-wrapped-vtk-object" id="id8">The wrapped VTK object</a></li>
-<li><a class="reference internal" href="#tvtk-and-traits" id="id9">tvtk and traits</a></li>
-<li><a class="reference internal" href="#sub-classing-tvtk-classes" id="id10">Sub-classing tvtk classes</a></li>
-<li><a class="reference internal" href="#pickling-tvtk-objects" id="id11">Pickling tvtk objects</a></li>
-<li><a class="reference internal" href="#docstrings" id="id12">Docstrings</a></li>
-<li><a class="reference internal" href="#user-defined-code" id="id13">User defined code</a></li>
-<li><a class="reference internal" href="#collections" id="id14">Collections</a></li>
-<li><a class="reference internal" href="#array-handling" id="id15">Array handling</a><ul>
-<li><a class="reference internal" href="#important-considerations" id="id16">Important considerations</a></li>
-<li><a class="reference internal" href="#summary-of-issues" id="id17">Summary of issues</a></li>
+<li><a class="reference external" href="#an-introduction-to-traited-vtk-tvtk" id="id1">An Introduction to Traited VTK (tvtk)</a><ul>
+<li><a class="reference external" href="#introduction" id="id2">Introduction</a></li>
+<li><a class="reference external" href="#requirements" id="id3">Requirements</a></li>
+<li><a class="reference external" href="#installation" id="id4">Installation</a></li>
+<li><a class="reference external" href="#basic-usage" id="id5">Basic Usage</a></li>
+<li><a class="reference external" href="#advanced-usage" id="id6">Advanced Usage</a><ul>
+<li><a class="reference external" href="#definition-of-the-basic-state-of-a-tvtk-object" id="id7">Definition of the &#8220;basic state&#8221; of a tvtk object</a></li>
+<li><a class="reference external" href="#the-wrapped-vtk-object" id="id8">The wrapped VTK object</a></li>
+<li><a class="reference external" href="#tvtk-and-traits" id="id9">tvtk and traits</a></li>
+<li><a class="reference external" href="#sub-classing-tvtk-classes" id="id10">Sub-classing tvtk classes</a></li>
+<li><a class="reference external" href="#pickling-tvtk-objects" id="id11">Pickling tvtk objects</a></li>
+<li><a class="reference external" href="#docstrings" id="id12">Docstrings</a></li>
+<li><a class="reference external" href="#user-defined-code" id="id13">User defined code</a></li>
+<li><a class="reference external" href="#collections" id="id14">Collections</a></li>
+<li><a class="reference external" href="#array-handling" id="id15">Array handling</a><ul>
+<li><a class="reference external" href="#important-considerations" id="id16">Important considerations</a></li>
+<li><a class="reference external" href="#summary-of-issues" id="id17">Summary of issues</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a class="reference internal" href="#other-utility-modules" id="id18">Other utility modules</a><ul>
-<li><a class="reference internal" href="#pipeline-browser" id="id19"><cite>pipeline.browser</cite></a></li>
-<li><a class="reference internal" href="#tools-ivtk" id="id20"><cite>tools.ivtk</cite></a></li>
-<li><a class="reference internal" href="#tools-mlab" id="id21"><cite>tools.mlab</cite></a></li>
-<li><a class="reference internal" href="#plugins" id="id22"><cite>plugins</cite></a></li>
+<li><a class="reference external" href="#other-utility-modules" id="id18">Other utility modules</a><ul>
+<li><a class="reference external" href="#pipeline-browser" id="id19"><cite>pipeline.browser</cite></a></li>
+<li><a class="reference external" href="#tools-ivtk" id="id20"><cite>tools.ivtk</cite></a></li>
+<li><a class="reference external" href="#tools-mlab" id="id21"><cite>tools.mlab</cite></a></li>
+<li><a class="reference external" href="#plugins" id="id22"><cite>plugins</cite></a></li>
 </ul>
 </li>
 </ul>
@@ -108,7 +105,7 @@ support <a class="reference external" href="http://www.enthought.com/traits">tra
 implemented mostly in pure Python (except for a small extension
 module).  Here is a list of current features.</p>
 <blockquote>
-<div><ul class="simple">
+<ul class="simple">
 <li>All VTK classes are wrapped.</li>
 <li>Classes are generated at install time on the installed platform.</li>
 <li>Support for <a class="reference external" href="http://www.enthought.com/traits">traits</a>.</li>
@@ -120,14 +117,14 @@ module.</li>
 <li>Envisage plugins for a tvtk scene and the pipeline browser.</li>
 <li>tvtk is free software with a BSD style license.</li>
 </ul>
-</div></blockquote>
+</blockquote>
 </div>
 <div class="section" id="requirements">
 <h2><a class="toc-backref" href="#id3">Requirements</a><a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
 <p>The following is a list of requirements for you to be able to run
 tvtk.</p>
 <blockquote>
-<div><ul class="simple">
+<ul class="simple">
 <li>Python-2.3 or greater.</li>
 <li>Python should be built with zlib support and must support ZIP file
 imports.</li>
@@ -137,7 +134,7 @@ imports.</li>
 <li>To use <cite>ivtk.py</cite>, <cite>mlab</cite> you need to have <cite>pyface</cite> installed.</li>
 <li>To use the plugins you need Envisage installed.</li>
 </ul>
-</div></blockquote>
+</blockquote>
 </div>
 <div class="section" id="installation">
 <h2><a class="toc-backref" href="#id4">Installation</a><a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
@@ -148,7 +145,7 @@ Enthought tool suite please read: <a class="reference external" href="http://ent
 suite</a>.</p>
 <p>This document only covers building and using TVTK from inside a
 checkout of the the enthought <a class="reference external" href="http://subversion.tigris.org">SVN</a> repository.  The tvtk module lives
-inside <cite>enthought.tvtk</cite>.  To build the tvtk module and use them from
+inside <cite>tvtk</cite>.  To build the tvtk module and use them from
 inside the <cite>enthought</cite> sources do the following from the base of the
 enthought source tree (we assume here that this is in
 <cite>/home/svn/enthought/src/lib/enthought</cite>):</p>
@@ -178,7 +175,7 @@ directory contains a few simple examples demonstrating tvtk in action.</p>
 <div class="section" id="basic-usage">
 <h2><a class="toc-backref" href="#id5">Basic Usage</a><a class="headerlink" href="#basic-usage" title="Permalink to this headline">¶</a></h2>
 <p>An example of how tvtk can be used follows:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">enthought.tvtk.api</span> <span class="kn">import</span> <span class="n">tvtk</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">tvtk.api</span> <span class="kn">import</span> <span class="n">tvtk</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">ConeSource</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span><span class="o">.</span><span class="n">resolution</span> <span class="o">=</span> <span class="mi">36</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">PolyDataMapper</span><span class="p">()</span>
@@ -192,7 +189,7 @@ directory contains a few simple examples demonstrating tvtk in action.</p>
 </pre></div>
 </div>
 <p>Or equivalently:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">enthought.tvtk.api</span> <span class="kn">import</span> <span class="n">tvtk</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">tvtk.api</span> <span class="kn">import</span> <span class="n">tvtk</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">ConeSource</span><span class="p">(</span><span class="n">resolution</span><span class="o">=</span><span class="mi">36</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">PolyDataMapper</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="n">cs</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">Property</span><span class="p">(</span><span class="n">representation</span><span class="o">=</span><span class="s">&#39;w&#39;</span><span class="p">)</span>
@@ -202,7 +199,7 @@ directory contains a few simple examples demonstrating tvtk in action.</p>
 <p>Note that the properties of the object can be set during the
 instantiation.</p>
 <p>To import tvtk please use:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">enthought.tvtk.api</span> <span class="kn">import</span> <span class="n">tvtk</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">tvtk.api</span> <span class="kn">import</span> <span class="n">tvtk</span>
 </pre></div>
 </div>
 <p>While this is perhaps a little inconvenient, note that tvtk provides
@@ -212,7 +209,7 @@ package also behaves.</p>
 that tvtk &#8220;feels&#8221; like VTK but is more Pythonic.  The most important
 differences are.</p>
 <blockquote>
-<div><ol class="arabic simple">
+<ol class="arabic simple">
 <li>tvtk class names are essentially similar to VTK classes except
 there is no annoying &#8216;vtk&#8217; at the front.  The only difficulty is
 with classes that start with a digit.  For example
@@ -236,7 +233,7 @@ of the object as keyword arguments at the time of class
 instantiation.  For example <cite>cs = tvtk.ConeSource(radius=0.1,
 height=0.5)</cite>.</li>
 </ol>
-</div></blockquote>
+</blockquote>
 <p>If you are used to VTK, this might take a little getting used to.
 However, these changes are consistent across all of tvtk.  If they
 aren&#8217;t, its a bug.  Please let me know if you see inconsistencies.</p>
@@ -384,17 +381,17 @@ the class.  This is illustrated in the following example:</p>
 <h3><a class="toc-backref" href="#id10">Sub-classing tvtk classes</a><a class="headerlink" href="#sub-classing-tvtk-classes" title="Permalink to this headline">¶</a></h3>
 <p>You may subclass tvtk classes but please keep in mind the following:</p>
 <blockquote>
-<div><ol class="arabic simple">
+<ol class="arabic simple">
 <li>All tvtk classes derive from <cite>HasStrictTraits</cite>.</li>
 <li>You must make sure to call the super class&#8217;s __init__ correctly.</li>
 <li>If you have to override the __del__ method, you <em>must</em> make sure
 you call the super class&#8217;s __del__ method.</li>
 </ol>
-</div></blockquote>
+</blockquote>
 </div>
 <div class="section" id="pickling-tvtk-objects">
 <h3><a class="toc-backref" href="#id11">Pickling tvtk objects</a><a class="headerlink" href="#pickling-tvtk-objects" title="Permalink to this headline">¶</a></h3>
-<p>tvtk objects support a simple form of pickling.  The <a class="reference internal" href="#state">state</a> of the
+<p>tvtk objects support a simple form of pickling.  The <a class="reference external" href="#state">state</a> of the
 tvtk object maybe pickled.  The references to other VTK objects held
 by the object are <em>NOT</em> picklable.  For example:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">cPickle</span>
@@ -407,15 +404,15 @@ by the object are <em>NOT</em> picklable.  For example:</p>
 <span class="go">&#39;wireframe&#39;</span>
 </pre></div>
 </div>
-<p>Once again, only the <a class="reference internal" href="#state">state</a> of the object is pickled.  Internal
+<p>Once again, only the <a class="reference external" href="#state">state</a> of the object is pickled.  Internal
 references are not.  So the construction of the VTK pipeline will not
 be pickled.  For example if we pickled the actor from the example
-given in the <a class="reference internal" href="#basic-usage">Basic Usage</a> section, then the <cite>ConeSource</cite>,
+given in the <a class="reference external" href="#basic-usage">Basic Usage</a> section, then the <cite>ConeSource</cite>,
 <cite>PolyDataMapper</cite> etc. will not be pickled.  Some of the tvtk classes
 like <cite>Matrix4x4</cite> also have special code that enables better pickling.</p>
 <p>It is also possible to set the state of a live object.  Normally,
 <cite>pickle.load</cite> will create a new object.  However, by using
-<cite>__setstate__</cite> directly it is possible to just update the <a class="reference internal" href="#state">state</a> of
+<cite>__setstate__</cite> directly it is possible to just update the <a class="reference external" href="#state">state</a> of
 the object.  For example:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">Property</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">interpolation</span> <span class="o">=</span> <span class="s">&#39;flat&#39;</span>
@@ -432,7 +429,7 @@ updated.  No new object is created.</p>
 <h3><a class="toc-backref" href="#id12">Docstrings</a><a class="headerlink" href="#docstrings" title="Permalink to this headline">¶</a></h3>
 <p>All tvtk methods and traits are documented using the VTK docstrings.
 The class names and method names are changed suitably as mentioned in
-the <a class="reference internal" href="#basic-usage">Basic Usage</a> section.  These docstrings are generated
+the <a class="reference external" href="#basic-usage">Basic Usage</a> section.  These docstrings are generated
 automatically and there might be small mistakes in them.  All methods
 of a tvtk object also provide method signature information in the
 docstring.</p>
@@ -487,7 +484,7 @@ that accepts a <cite>DataArray</cite>, <cite>Points</cite>, <cite>IdList</cite> 
 instance, will transparently accept a numpy array or a Python list.
 Here is a simple example demonstrating these:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c">########################################</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">enthought.tvtk.api</span> <span class="kn">import</span> <span class="n">tvtk</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">tvtk.api</span> <span class="kn">import</span> <span class="n">tvtk</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">20</span><span class="p">],</span>
 <span class="gp">... </span>                     <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">20</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">30</span><span class="p">]],</span> <span class="s">&#39;f&#39;</span><span class="p">)</span>
@@ -532,7 +529,7 @@ data and has some peculiarities.  The <cite>CellArray</cite> needs to be
 initialized using the cell connectivity list.  This can be specified
 in one of several ways.</p>
 <blockquote>
-<div><ol class="arabic simple">
+<ol class="arabic simple">
 <li>A Python list of 1D lists.  Each 1D list can contain one
 cell connectivity list.  This is very slow and is to be
 used only when efficiency is of no consequence.</li>
@@ -541,9 +538,9 @@ used only when efficiency is of no consequence.</li>
 different shape.  This makes it easy to generate a cell array
 having cells of different kinds.</li>
 </ol>
-</div></blockquote>
+</blockquote>
 <p>This conversion is most efficient if the passed numpy arrays have a
-typecode of <cite>enthought.tvtk.array_handler.ID_TYPE_CODE</cite>.  Otherwise a
+typecode of <cite>tvtk.array_handler.ID_TYPE_CODE</cite>.  Otherwise a
 typecast is necessary and this involves an extra copy.  The input data
 is <em>always copied</em> during the conversion.  Here is an example
 illustrating these different approaches:</p>
@@ -593,7 +590,7 @@ this:</p>
 <p>To clarify the ensuing discussion we make a distinction between two
 different forms of array handling.</p>
 <blockquote>
-<div><ol class="loweralpha">
+<ol class="loweralpha">
 <li><p class="first">Explicit conversion &#8211; These happen when the user is creating a
 tvtk array object and initializes this from a numpy array or
 Python list.  Like so:</p>
@@ -608,7 +605,7 @@ or list to a tvtk method that expects a <cite>DataArray</cite>, <cite>Points</ci
 <cite>IdList</cite> or <cite>CellArray</cite> instance.</p>
 </li>
 </ol>
-</div></blockquote>
+</blockquote>
 <p>There are a few issues to keep in mind when using tvtk&#8217;s array
 handling features.  When possible, tvtk uses a view of the passed
 numpy array and does not make a copy of the data stored in it.  This
@@ -636,7 +633,7 @@ the numpy array.  The <cite>DataArray</cite> class and its subclasses and the
 <cite>Points</cite> class only make copies of the given data in the following
 situations.</p>
 <blockquote>
-<div><ol class="arabic simple">
+<ol class="arabic simple">
 <li>A Python list is given as the data.</li>
 <li>A non-contiguous numpy array is given.</li>
 <li>The method requiring the conversion of the array to a VTK array
@@ -646,7 +643,7 @@ array are not equivalent to each other.  For example if the
 array passed has typecode &#8216;i&#8217; but the tvtk method expects a
 <cite>FloatArray</cite>.</li>
 </ol>
-</div></blockquote>
+</blockquote>
 <p>The cases 3 and 4 occur very rarely in implicit conversions because
 most methods accept <cite>DataArray</cite> instances rather than specific
 subclasses.  However, these cases are likely to occur in explicit
@@ -674,7 +671,7 @@ not make a copy:</p>
 <p>Changing the values of the ids or changing the number of cells is
 <em>not</em> recommended and will lead to undefined behaviour.  It should
 also be noted that it is best to pass cell connectivity data in arrays
-having typecode <cite>enthought.tvtk.array_handler.ID_TYPE_CODE</cite> (this is
+having typecode <cite>tvtk.array_handler.ID_TYPE_CODE</cite> (this is
 actually computed dynamically depending on your VTK build and
 platform).</p>
 <p>The <cite>IdList</cite> also <em>always</em> makes a copy of the data passed to it.</p>
@@ -707,7 +704,7 @@ but probably worth keeping in mind.</p>
 <p>To summarize the considerations of the previous sub-section, the
 following are to be noted.</p>
 <blockquote>
-<div><ol class="arabic simple">
+<ol class="arabic simple">
 <li>Most often <cite>DataArray</cite> and <cite>Points</cite> objects do not make copies of
 the numpy data.  The exceptions are listed above.  This means
 changes to either the tvtk object or the array are reflected in
@@ -720,7 +717,7 @@ using <cite>set_cells</cite>, the behaviour is similar to what happens for
 connectivity ids and number of cells when this is done.  Also
 note that for the <cite>CellArray</cite> it is best to pass data in the form
 of numpy arrays having a typecode of
-<cite>enthought.tvtk.array_handler.ID_TYPE_CODE</cite>).  Otherwise one
+<cite>tvtk.array_handler.ID_TYPE_CODE</cite>).  Otherwise one
 incurs an extra copy due to a typecast.</li>
 <li><cite>IdList</cite> always makes a copy of the data.  This class is very
 rarely used.</li>
@@ -728,7 +725,7 @@ rarely used.</li>
 could lead to increased memory usage in some circumstances.
 However, this is <em>not</em> a memory leak.</li>
 </ol>
-</div></blockquote>
+</blockquote>
 <p>The upshot of these features is that array conversion can be extremely
 efficient in terms of speed and memory considerations.</p>
 </div>
@@ -762,8 +759,8 @@ pipeline browser view.</p>
 <p>For a stand-alone application one may simply run the module.  To use
 this under <a class="reference external" href="http://ipython.scipy.org">IPython</a> (with -wthread) use the <cite>viewer()</cite> helper
 function.  For example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">enthought.tvtk.tools</span> <span class="kn">import</span> <span class="n">ivtk</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">enthought.tvtk.api</span> <span class="kn">import</span> <span class="n">tvtk</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">tvtk.tools</span> <span class="kn">import</span> <span class="n">ivtk</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">tvtk.api</span> <span class="kn">import</span> <span class="n">tvtk</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># Create your actor ...</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">Actor</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># Now create the viewer.</span>
@@ -788,7 +785,7 @@ visualization capability is implemented as a class that has traits.
 So each of these may be configured.  Each visualization class derives
 (ultimately) from MLabBase which is responsible for adding/removing
 its actors into the render window.  The classes all require that the
-RenderWindow be a <cite>enthought.tvtk.scene.Scene</cite> instance (this constraint
+RenderWindow be a <cite>tvtk.scene.Scene</cite> instance (this constraint
 can be relaxed if necessary later on).</p>
 <p>This module offers the following broad class of functionality:</p>
 <dl class="docutils">
@@ -837,7 +834,7 @@ actor.  This is just like MayaVi1&#8217;s <cite>mayavi.tools.imv.viewi</cite>.</
 <p>To see nice examples of all of these look at the <cite>test_*</cite> functions at
 the end of the mlab.py file.  Here is a quick example that uses some
 of these test functions:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">enthought.tvtk.tools</span> <span class="kn">import</span> <span class="n">mlab</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">tvtk.tools</span> <span class="kn">import</span> <span class="n">mlab</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">mlab</span><span class="o">.</span><span class="n">test_surf</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="c"># Create a spherical harmonic.</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span> <span class="c"># Remove it.</span>
@@ -860,7 +857,7 @@ use <cite>mlab</cite>:</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">r</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">z</span> <span class="o">=</span> <span class="n">r</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c"># Now show the surface.</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">enthought.tvtk.tools</span> <span class="kn">import</span> <span class="n">mlab</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">tvtk.tools</span> <span class="kn">import</span> <span class="n">mlab</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">Surf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
@@ -970,13 +967,13 @@ Envisage and make an application.</p>
         <li class="right" >
           <a href="index.html" title="Welcome to tvtk’s documentation!"
              >previous</a> |</li>
-        <li><a href="index.html">tvtk 3.4.2 documentation</a> &raquo;</li> 
+        <li><a href="index.html">tvtk v4.0.1 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2008, tvtk.
-      Last updated on Mar 26, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1pre/ce4bb37a1409.
+      Last updated on Jul 19, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.
     </div>
   </body>
 </html>

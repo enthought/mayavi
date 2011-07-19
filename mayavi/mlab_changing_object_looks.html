@@ -3,20 +3,17 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Changing the looks of the visual objects created &mdash; Mayavi 3.4.2 documentation</title>
-    
+    <title>Changing the looks of the visual objects created &mdash; mayavi v4.0.1 documentation</title>
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '3.4.2',
+        VERSION:     '4.0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +22,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="Mayavi 3.4.2 documentation" href="index.html" />
+    <link rel="top" title="mayavi v4.0.1 documentation" href="index.html" />
 <style type="text/css">
   body {
     /* Very bottom copyright, etc. info */
@@ -64,7 +61,7 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li><a href="index.html">Mayavi 3.4.2 documentation</a> &raquo;</li> 
+        <li><a href="index.html">mayavi v4.0.1 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -81,7 +78,7 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Color:</th><td class="field-body"><p class="first">The color of the objects created by a plotting function can be specified
+<tr class="field"><th class="field-name">Color:</th><td class="field-body"><p class="first">The color of the objects created by a plotting function can be specified
 explicitly using the &#8216;color&#8217; keyword argument of the function. This color
 is then applied uniformly to all the objects created.</p>
 <p>If you want to vary the color across your visualization, you need to
@@ -111,7 +108,7 @@ to set the colormap can be found in the <cite>Colors and legends</cite> node.</p
 specific code, as show in <a class="reference internal" href="auto/example_custom_colormap.html#example-custom-colormap"><em>Custom colormap example</em></a>.</p>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name" colspan="2">Size of the glyph:</th></tr>
+<tr class="field"><th class="field-name" colspan="2">Size of the glyph:</th></tr>
 <tr><td>&nbsp;</td><td class="field-body"><p class="first">The scalar information can also be displayed in many different ways.
 For instance it can be used to adjust the size of glyphs positioned at
 the data points.</p>
@@ -128,7 +125,7 @@ Given six points positionned on a line with interpoint spacing 1:</p>
 </div>
 <p>We represent the dataset as spheres, using <tt class="xref py py-func docutils literal"><span class="pre">points3d()</span></tt>, and the
 scalar is mapped to diameter of the spheres:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">enthought.mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
 <span class="n">pts</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">points3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -160,7 +157,7 @@ absolutely, unless you specify:</p>
 </div>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name" colspan="2">More representations of the attached scalars or vectors:</th></tr>
+<tr class="field"><th class="field-name" colspan="2">More representations of the attached scalars or vectors:</th></tr>
 <tr><td>&nbsp;</td><td class="field-body"><p class="first">There are many more ways to represent the scalar or vector information
 attached to the data. For instance, scalar data can be &#8216;warped&#8217; into a
 displacement, e.g. using a <cite>WarpScalar</cite> filter, or the norm of scalar
@@ -168,7 +165,7 @@ data can be extracted to a scalar component that can be visualized using
 iso-surfaces with the <cite>ExtractVectorNorm</cite> filter.</p>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name" colspan="2">Displaying more than one quantity:</th></tr>
+<tr class="field"><th class="field-name" colspan="2">Displaying more than one quantity:</th></tr>
 <tr><td>&nbsp;</td><td class="field-body"><p class="first">You may want to display color related to one scalar quantity while
 using a second for the iso-contours, or the elevation. This is possible
 but requires a bit of work: see <a class="reference internal" href="auto/example_atomic_orbital.html#example-atomic-orbital"><em>Atomic orbital example</em></a>.</p>
@@ -232,7 +229,7 @@ when you enter this command, please see <a class="reference internal" href="mlab
 full envisage application so you can click on the menus and use other
 modules etc.  To do this you may do the following before you create an
 mlab figure:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">enthought.mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
 <span class="n">mlab</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">backend</span> <span class="o">=</span> <span class="s">&#39;envisage&#39;</span>
 <span class="n">f</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
 <span class="c"># ...</span>
@@ -300,7 +297,7 @@ window.</p>
     </div>
     <hr/>
     <div id="searchbox">
-	<a href="misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
+	<a href="http://github.enthought.com/mayavi/mayavi/misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
 
 	<p style="font-size:85%; color: #FFFFFF;">
     	If you publish articles using Mayavi, please 
@@ -320,13 +317,13 @@ window.</p>
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
-        <li><a href="index.html">Mayavi 3.4.2 documentation</a> &raquo;</li> 
+        <li><a href="index.html">mayavi v4.0.1 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Mar 26, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1pre/ce4bb37a1409.
+      Last updated on Jul 19, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.
     </div>
   </body>
 </html>

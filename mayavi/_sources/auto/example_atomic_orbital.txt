@@ -6,7 +6,7 @@ Atomic orbital example
 --------------------------------------------------------------------
 
 
-An example showing the norm and phase of an atomic orbital: isosurfaces of 
+An example showing the norm and phase of an atomic orbital: isosurfaces of
 the norm, with colors  displaying the phase.
 
 This example shows how you can apply a filter on one data set, and dislay

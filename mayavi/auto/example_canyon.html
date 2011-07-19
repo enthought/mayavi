@@ -3,20 +3,17 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Canyon example &mdash; Mayavi 3.4.2 documentation</title>
-    
+    <title>Canyon example &mdash; mayavi v4.0.1 documentation</title>
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '3.4.2',
+        VERSION:     '4.0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +22,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="Mayavi 3.4.2 documentation" href="../index.html" />
+    <link rel="top" title="mayavi v4.0.1 documentation" href="../index.html" />
     <link rel="up" title="Example gallery" href="examples.html" />
     <link rel="next" title="Spherical harmonics example" href="example_spherical_harmonics.html" />
     <link rel="prev" title="Surface from irregular data example" href="example_surface_from_irregular_data.html" />
@@ -73,7 +70,7 @@
         <li class="right" >
           <a href="example_surface_from_irregular_data.html" title="Surface from irregular data example"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">Mayavi 3.4.2 documentation</a> &raquo;</li>
+        <li><a href="../index.html">mayavi v4.0.1 documentation</a> &raquo;</li>
           <li><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
       </ul>
     </div>  
@@ -92,7 +89,7 @@ more, see the canyon decimation example.</p>
 <p>This example is interesting as it shows how numpy can be used to load
 and crop data completly foreign to Mayavi.</p>
 <div align="center" class="align-center"><img alt="../_images/example_canyon.jpg" class="align-center" src="../_images/example_canyon.jpg" /></div>
-<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/canyon2.py"><tt class="xref download docutils literal"><span class="pre">canyon.py</span></tt></a></p>
+<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/canyon.py"><tt class="xref download docutils literal"><span class="pre">canyon.py</span></tt></a></p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c"># Author: Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt;</span>
 <span class="c"># Copyright (c) 2008, Enthought, Inc.</span>
 <span class="c"># License: BSD Style.</span>
@@ -107,7 +104,7 @@ and crop data completly foreign to Mayavi.</p>
     <span class="s">&#39;http://staging.enthought.com/projects/mayavi/N36W113.hgt.zip&#39;</span>
     <span class="c">#&#39;ftp://e0srp01u.ecs.nasa.gov/srtm/version2/SRTM1/Region_04/N36W113.hgt.zip&#39;</span>
         <span class="p">)</span>
-    <span class="nb">open</span><span class="p">(</span><span class="s">&#39;N36W113.hgt.zip&#39;</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">opener</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+    <span class="nb">open</span><span class="p">(</span><span class="s">&#39;N36W113.hgt.zip&#39;</span><span class="p">,</span> <span class="s">&#39;wb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">opener</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
 
 <span class="c"># Load the data (signed 2 byte integers, big endian) ###########################</span>
 <span class="kn">import</span> <span class="nn">zipfile</span>
@@ -119,7 +116,7 @@ and crop data completly foreign to Mayavi.</p>
 <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
 
 <span class="c"># Plot an interesting section ##################################################</span>
-<span class="kn">from</span> <span class="nn">enthought.mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
+<span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">900</span><span class="p">:</span><span class="mi">1900</span><span class="p">]</span>
 <span class="c"># Convert missing values into something more sensible.</span>
 <span class="n">data</span><span class="p">[</span><span class="n">data</span><span class="o">==-</span><span class="mi">32768</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">data</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
@@ -190,7 +187,7 @@ and crop data completly foreign to Mayavi.</p>
     </div>
     <hr/>
     <div id="searchbox">
-	<a href="misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
+	<a href="http://github.enthought.com/mayavi/mayavi/misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
 
 	<p style="font-size:85%; color: #FFFFFF;">
     	If you publish articles using Mayavi, please 
@@ -216,14 +213,14 @@ and crop data completly foreign to Mayavi.</p>
         <li class="right" >
           <a href="example_surface_from_irregular_data.html" title="Surface from irregular data example"
              >previous</a> |</li>
-        <li><a href="../index.html">Mayavi 3.4.2 documentation</a> &raquo;</li>
+        <li><a href="../index.html">mayavi v4.0.1 documentation</a> &raquo;</li>
           <li><a href="examples.html" >Example gallery</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Mar 26, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1pre/ce4bb37a1409.
+      Last updated on Jul 19, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.
     </div>
   </body>
 </html>

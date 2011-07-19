@@ -22,12 +22,12 @@ are degenerate, as the grid has subdivided flat parts of the Julia
 set.
 
 We have shown in white the decimated mesh, and in black the non-decimated
-one. The view is zoom to the center of the Julia set. If you turn of the 
+one. The view is zoom to the center of the Julia set. If you turn of the
 wireframes and zoom out, you can appreciate the quality of the
 decimation.
 
 In the specific case of decimating a surface warped from 2D data, it is
-more efficient to use the greedy-terrain-decimator, see the 
+more efficient to use the greedy-terrain-decimator, see the
 :ref:`example_canyon_decimation`.
 
 

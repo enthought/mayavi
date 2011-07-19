@@ -11,9 +11,9 @@
     in Python. If you are interested in a list of all the
     functions exposed in mlab, see the :ref:`mlab-reference`.
 
-.. currentmodule:: enthought.mayavi.mlab
+.. currentmodule:: mayavi.mlab
 
-The :mod:`enthought.mayavi.mlab` module, that we call mlab, provides an easy
+The :mod:`mayavi.mlab` module, that we call mlab, provides an easy
 way to visualize data in a script or from an interactive prompt with 
 one-liners as done in the matplotlib_ ``pylab`` interface but with an
 emphasis on 3D visualization using Mayavi2. This allows users to perform

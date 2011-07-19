@@ -3,20 +3,17 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Mlab visual example &mdash; Mayavi 3.4.2 documentation</title>
-    
+    <title>Mlab visual example &mdash; mayavi v4.0.1 documentation</title>
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '3.4.2',
+        VERSION:     '4.0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +22,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="Mayavi 3.4.2 documentation" href="../index.html" />
+    <link rel="top" title="mayavi v4.0.1 documentation" href="../index.html" />
     <link rel="up" title="Example gallery" href="examples.html" />
     <link rel="next" title="Mlab traits ui example" href="example_mlab_traits_ui.html" />
     <link rel="prev" title="Flight graph example" href="example_flight_graph.html" />
@@ -73,7 +70,7 @@
         <li class="right" >
           <a href="example_flight_graph.html" title="Flight graph example"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">Mayavi 3.4.2 documentation</a> &raquo;</li>
+        <li><a href="../index.html">mayavi v4.0.1 documentation</a> &raquo;</li>
           <li><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
       </ul>
     </div>  
@@ -89,22 +86,22 @@
 with mlab and create simple animations.</p>
 <p>In the example, the grey box bounces back and forth between the two red
 ones.</p>
-<p>The <cite>enthought.tvtk.tools.visual</cite> module exposes an API similar to
+<p>The <cite>tvtk.tools.visual</cite> module exposes an API similar to
 <a class="reference external" href="http://vpython.org/">VPython</a> and is useful to create animation based
 on rigid object movement.</p>
-<p>The <cite>&#64;animate</cite> decorator ( <a class="reference internal" href="mlab_other_functions.html#enthought.mayavi.mlab.animate" title="enthought.mayavi.mlab.animate"><tt class="xref py py-func docutils literal"><span class="pre">enthought.mayavi.mlab.animate()</span></tt></a> ) is
+<p>The <cite>&#64;animate</cite> decorator ( <a class="reference internal" href="mlab_other_functions.html#mayavi.mlab.animate" title="mayavi.mlab.animate"><tt class="xref py py-func docutils literal"><span class="pre">mayavi.mlab.animate()</span></tt></a> ) is
 detailed on section <a class="reference internal" href="../tips.html#animating-a-visualization"><em>Animating a visualization</em></a>.</p>
 <p>If you want to modify the data plotted by the mlab (as in the
 <cite>mlab.test_plot3d()</cite> call) to create an animation, please see section
 <a class="reference internal" href="../mlab_animating.html#mlab-animating-data"><em>Animating the data</em></a>.</p>
 <div align="center" class="align-center"><img alt="../_images/example_mlab_visual.jpg" class="align-center" src="../_images/example_mlab_visual.jpg" /></div>
-<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/mlab_visual2.py"><tt class="xref download docutils literal"><span class="pre">mlab_visual.py</span></tt></a></p>
+<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/mlab_visual.py"><tt class="xref download docutils literal"><span class="pre">mlab_visual.py</span></tt></a></p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c"># Author: Prabhu Ramachandran &lt;prabhu [at] aero.iitb.ac.in&gt;</span>
 <span class="c"># Copyright (c) 2009, Enthought, Inc.</span>
 <span class="c"># License: BSD Style.</span>
 
-<span class="kn">from</span> <span class="nn">enthought.mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
-<span class="kn">from</span> <span class="nn">enthought.tvtk.tools</span> <span class="kn">import</span> <span class="n">visual</span>
+<span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
+<span class="kn">from</span> <span class="nn">tvtk.tools</span> <span class="kn">import</span> <span class="n">visual</span>
 <span class="c"># Create a figure</span>
 <span class="n">f</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">500</span><span class="p">,</span><span class="mi">500</span><span class="p">))</span>
 <span class="c"># Tell visual to use this as the viewer.</span>
@@ -187,7 +184,7 @@ detailed on section <a class="reference internal" href="../tips.html#animating-a
     </div>
     <hr/>
     <div id="searchbox">
-	<a href="misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
+	<a href="http://github.enthought.com/mayavi/mayavi/misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
 
 	<p style="font-size:85%; color: #FFFFFF;">
     	If you publish articles using Mayavi, please 
@@ -213,14 +210,14 @@ detailed on section <a class="reference internal" href="../tips.html#animating-a
         <li class="right" >
           <a href="example_flight_graph.html" title="Flight graph example"
              >previous</a> |</li>
-        <li><a href="../index.html">Mayavi 3.4.2 documentation</a> &raquo;</li>
+        <li><a href="../index.html">mayavi v4.0.1 documentation</a> &raquo;</li>
           <li><a href="examples.html" >Example gallery</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Mar 26, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1pre/ce4bb37a1409.
+      Last updated on Jul 19, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.
     </div>
   </body>
 </html>

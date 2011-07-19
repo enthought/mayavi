@@ -53,7 +53,7 @@ if not os.path.exists('pdb%s.ent.gz' % protein_code):
     opener = urllib.urlopen(
       'ftp://ftp.wwpdb.org/pub/pdb/data/structures/divided/pdb/q0/pdb%s.ent.gz'
       % protein_code)
-    open('pdb%s.ent.gz' % protein_code, 'w').write(opener.read())
+    open('pdb%s.ent.gz' % protein_code, 'wb').write(opener.read())
 
 # Parse the pdb file ###########################################################
 import gzip
@@ -114,7 +114,7 @@ z       = np.array(z)
 scalars = np.array(scalars)
 
 # Visualize the data ###########################################################
-from enthought.mayavi import mlab
+from mayavi import mlab
 mlab.figure(1, bgcolor=(0, 0, 0))
 mlab.clf()
 

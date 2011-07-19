@@ -1,10 +1,10 @@
 /*
- * searchtools.js_t
- * ~~~~~~~~~~~~~~~~
+ * searchtools.js
+ * ~~~~~~~~~~~~~~
  *
  * Sphinx JavaScript utilties for the full-text search.
  *
- * :copyright: Copyright 2007-2011 by the Sphinx team, see AUTHORS.
+ * :copyright: Copyright 2007-2010 by the Sphinx team, see AUTHORS.
  * :license: BSD, see LICENSE for details.
  *
  */
@@ -36,11 +36,10 @@ jQuery.makeSearchSummary = function(text, keywords, hlwords) {
   return rv;
 }
 
-
 /**
  * Porter Stemmer
  */
-var Stemmer = function() {
+var PorterStemmer = function() {
 
   var step2list = {
     ational: 'ate',
@@ -301,10 +300,14 @@ var Search = {
   },
 
   query : function(query) {
-    var stopwords = ["and","then","into","it","as","are","in","if","for","no","there","their","was","is","be","to","that","but","they","not","such","with","by","a","on","these","of","will","this","near","the","or","at"];
+    var stopwords = ['and', 'then', 'into', 'it', 'as', 'are', 'in',
+                     'if', 'for', 'no', 'there', 'their', 'was', 'is',
+                     'be', 'to', 'that', 'but', 'they', 'not', 'such',
+                     'with', 'by', 'a', 'on', 'these', 'of', 'will',
+                     'this', 'near', 'the', 'or', 'at'];
 
-    // Stem the searchterms and add them to the correct list
-    var stemmer = new Stemmer();
+    // stem the searchterms and add them to the correct list
+    var stemmer = new PorterStemmer();
     var searchterms = [];
     var excluded = [];
     var hlterms = [];

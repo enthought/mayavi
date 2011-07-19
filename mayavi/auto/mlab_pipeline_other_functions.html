@@ -3,20 +3,17 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Filters, modules, other functions &mdash; Mayavi 3.4.2 documentation</title>
-    
+    <title>Filters, modules, other functions &mdash; mayavi v4.0.1 documentation</title>
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '3.4.2',
+        VERSION:     '4.0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +22,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="Mayavi 3.4.2 documentation" href="../index.html" />
+    <link rel="top" title="mayavi v4.0.1 documentation" href="../index.html" />
 <style type="text/css">
   body {
     /* Very bottom copyright, etc. info */
@@ -64,7 +61,7 @@
         <li class="right" style="margin-right: 10px">
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li><a href="../index.html">Mayavi 3.4.2 documentation</a> &raquo;</li> 
+        <li><a href="../index.html">mayavi v4.0.1 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -86,74 +83,74 @@ instructions on running the examples.</p>
 <div class="section" id="cell-derivatives">
 <h2>cell_derivatives<a class="headerlink" href="#cell-derivatives" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.cell_derivatives">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">cell_derivatives</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.cell_derivatives" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.cell_derivatives">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">cell_derivatives</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.cell_derivatives" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate derivatives of input point/vector data and output these as cell data</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="cell-to-point-data">
 <h2>cell_to_point_data<a class="headerlink" href="#cell-to-point-data" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.cell_to_point_data">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">cell_to_point_data</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.cell_to_point_data" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.cell_to_point_data">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">cell_to_point_data</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.cell_to_point_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert cell data to point data for the active data</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="contour">
 <h2>contour<a class="headerlink" href="#contour" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.contour">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">contour</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.contour" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.contour">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">contour</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.contour" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute contours of the input dataset</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="contour-grid-plane">
 <h2>contour_grid_plane<a class="headerlink" href="#contour-grid-plane" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.contour_grid_plane">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">contour_grid_plane</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.contour_grid_plane" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.contour_grid_plane">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">contour_grid_plane</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.contour_grid_plane" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="docutils">
 <dt>::</dt>
 <dd>Applies the ContourGridPlane mayavi module to the given data</dd>
@@ -161,112 +158,118 @@ instructions on running the examples.</p>
 <p>source (Mayavi source, or VTK dataset).</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<tr class="field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
+<tr class="field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">contours:</th><td class="field-body">Integer/list specifying number/list of
+<tr class="field"><th class="field-name">contours:</th><td class="field-body">Integer/list specifying number/list of
 contours. Specifying 0 shows no contours.
 Specifying a list of values will only give the
 requested contours asked for.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
-Default is the x, y, z arrays extents. Use
+<tr class="field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+Default is the x, y, z arrays extent. Use
 this to change the extent of the object
 created.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
+<tr class="field"><th class="field-name">line_width:</th><td class="field-body">The width of the lines, if any used. Must be a float.
 Default: 2.0</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
+<tr class="field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
 Default: 1.0</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
+<tr class="field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
+added to the scene. Defaults to True.</td>
+</tr>
+<tr class="field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
 scalar.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap
+<tr class="field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
 If None, the max of the data will be used</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap
+<tr class="field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap.
 If None, the min of the data will be used</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="contour-surface">
 <h2>contour_surface<a class="headerlink" href="#contour-surface" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.contour_surface">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">contour_surface</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.contour_surface" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.contour_surface">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">contour_surface</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.contour_surface" title="Permalink to this definition">¶</a></dt>
 <dd><p>Applies the Surface mayavi module to the given data
 source (Mayavi source, or VTK dataset) and turns contours on.</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<tr class="field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
+<tr class="field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">contours:</th><td class="field-body">Integer/list specifying number/list of
+<tr class="field"><th class="field-name">contours:</th><td class="field-body">Integer/list specifying number/list of
 contours. Specifying 0 shows no contours.
 Specifying a list of values will only give the
 requested contours asked for.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
-Default is the x, y, z arrays extents. Use
+<tr class="field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+Default is the x, y, z arrays extent. Use
 this to change the extent of the object
 created.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
+<tr class="field"><th class="field-name">line_width:</th><td class="field-body">The width of the lines, if any used. Must be a float.
 Default: 2.0</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
+<tr class="field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
 Default: 1.0</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
+<tr class="field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
+added to the scene. Defaults to True.</td>
+</tr>
+<tr class="field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
 scalar.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap
+<tr class="field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
 If None, the max of the data will be used</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap
+<tr class="field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap.
 If None, the min of the data will be used</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="custom-grid-plane">
 <h2>custom_grid_plane<a class="headerlink" href="#custom-grid-plane" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.custom_grid_plane">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">custom_grid_plane</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.custom_grid_plane" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.custom_grid_plane">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">custom_grid_plane</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.custom_grid_plane" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="docutils">
 <dt>::</dt>
 <dd>Applies the CustomGridPlane mayavi module to the given VTK data</dd>
@@ -274,659 +277,674 @@ If None, the min of the data will be used</td>
 <p>source (Mayavi source, or VTK dataset).</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<tr class="field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
+<tr class="field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">contours:</th><td class="field-body">Integer/list specifying number/list of
+<tr class="field"><th class="field-name">contours:</th><td class="field-body">Integer/list specifying number/list of
 contours. Specifying 0 shows no contours.
 Specifying a list of values will only give the
 requested contours asked for.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
-Default is the x, y, z arrays extents. Use
+<tr class="field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+Default is the x, y, z arrays extent. Use
 this to change the extent of the object
 created.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
+<tr class="field"><th class="field-name">line_width:</th><td class="field-body">The width of the lines, if any used. Must be a float.
 Default: 2.0</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
+<tr class="field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
 Default: 1.0</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
+<tr class="field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
+added to the scene. Defaults to True.</td>
+</tr>
+<tr class="field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
 scalar.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap
+<tr class="field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
 If None, the max of the data will be used</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap
+<tr class="field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap.
 If None, the min of the data will be used</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="cut-plane">
 <h2>cut_plane<a class="headerlink" href="#cut-plane" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.cut_plane">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">cut_plane</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.cut_plane" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.cut_plane">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">cut_plane</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.cut_plane" title="Permalink to this definition">¶</a></dt>
 <dd><p>Slice the input dataset with a cut plane</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="data-set-clipper">
 <h2>data_set_clipper<a class="headerlink" href="#data-set-clipper" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.data_set_clipper">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">data_set_clipper</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.data_set_clipper" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.data_set_clipper">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">data_set_clipper</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.data_set_clipper" title="Permalink to this definition">¶</a></dt>
 <dd><p>Clip the input dataset</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="decimate-pro">
 <h2>decimate_pro<a class="headerlink" href="#decimate-pro" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.decimate_pro">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">decimate_pro</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.decimate_pro" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.decimate_pro">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">decimate_pro</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.decimate_pro" title="Permalink to this definition">¶</a></dt>
 <dd><p>Simpilies a mesh using the DecimatePro filter</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="delaunay2d">
 <h2>delaunay2d<a class="headerlink" href="#delaunay2d" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.delaunay2d">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">delaunay2d</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.delaunay2d" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.delaunay2d">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">delaunay2d</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.delaunay2d" title="Permalink to this definition">¶</a></dt>
 <dd><p>Perform a 2D Delaunay triangulation for the given data</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="delaunay3d">
 <h2>delaunay3d<a class="headerlink" href="#delaunay3d" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.delaunay3d">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">delaunay3d</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.delaunay3d" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.delaunay3d">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">delaunay3d</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.delaunay3d" title="Permalink to this definition">¶</a></dt>
 <dd><p>Perform a 3D Delaunay triangulation for the given data</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="elevation">
 <h2>elevation<a class="headerlink" href="#elevation" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.elevation">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">elevation</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.elevation" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.elevation">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">elevation</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.elevation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates scalar data from the elevation along a direction</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="elevation-filter">
 <h2>elevation_filter<a class="headerlink" href="#elevation-filter" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.elevation_filter">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">elevation_filter</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.elevation_filter" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.elevation_filter">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">elevation_filter</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.elevation_filter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Applies the Elevation Filter mayavi filter to the given VTK object.</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">high_point:</th><td class="field-body">The end point of the projection line</td>
+<tr class="field"><th class="field-name">high_point:</th><td class="field-body">The end point of the projection line</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">low_point:</th><td class="field-body">The start point of the projection line</td>
+<tr class="field"><th class="field-name">low_point:</th><td class="field-body">The start point of the projection line</td>
 </tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="extract-edges">
 <h2>extract_edges<a class="headerlink" href="#extract-edges" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.extract_edges">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">extract_edges</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.extract_edges" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.extract_edges">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">extract_edges</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.extract_edges" title="Permalink to this definition">¶</a></dt>
 <dd><p>Turns edges into lines.</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="extract-grid">
 <h2>extract_grid<a class="headerlink" href="#extract-grid" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.extract_grid">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">extract_grid</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.extract_grid" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.extract_grid">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">extract_grid</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.extract_grid" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extract/subsample part of any structured grid</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="extract-tensor-components">
 <h2>extract_tensor_components<a class="headerlink" href="#extract-tensor-components" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.extract_tensor_components">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">extract_tensor_components</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.extract_tensor_components" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.extract_tensor_components">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">extract_tensor_components</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.extract_tensor_components" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extract tensor components from tensor data</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="extract-unstructured-grid">
 <h2>extract_unstructured_grid<a class="headerlink" href="#extract-unstructured-grid" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.extract_unstructured_grid">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">extract_unstructured_grid</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.extract_unstructured_grid" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.extract_unstructured_grid">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">extract_unstructured_grid</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.extract_unstructured_grid" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extract part of an unstructured grid</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="extract-vector-components">
 <h2>extract_vector_components<a class="headerlink" href="#extract-vector-components" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.extract_vector_components">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">extract_vector_components</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.extract_vector_components" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.extract_vector_components">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">extract_vector_components</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.extract_vector_components" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extract vector components from vector data</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="extract-vector-norm">
 <h2>extract_vector_norm<a class="headerlink" href="#extract-vector-norm" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.extract_vector_norm">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">extract_vector_norm</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.extract_vector_norm" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.extract_vector_norm">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">extract_vector_norm</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.extract_vector_norm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute the vector norm for the current vector data</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="gaussian-splatter">
 <h2>gaussian_splatter<a class="headerlink" href="#gaussian-splatter" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.gaussian_splatter">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">gaussian_splatter</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.gaussian_splatter" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.gaussian_splatter">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">gaussian_splatter</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.gaussian_splatter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Builds a structured set of points from a cloud of points,
 the local density defining the scalar.  It is essentially equivalent
 to a 3D Gaussian kernel density estimate.
 <strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="glyph">
 <h2>glyph<a class="headerlink" href="#glyph" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.glyph">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">glyph</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.glyph" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.glyph">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">glyph</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.glyph" title="Permalink to this definition">¶</a></dt>
 <dd><p>Applies the Glyph mayavi module to the given VTK data
 source (Mayavi source, or VTK dataset).</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<tr class="field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
+<tr class="field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
-Default is the x, y, z arrays extents. Use
+<tr class="field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+Default is the x, y, z arrays extent. Use
 this to change the extent of the object
 created.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
+<tr class="field"><th class="field-name">line_width:</th><td class="field-body">The width of the lines, if any used. Must be a float.
 Default: 2.0</td>
 </tr>
-<tr class="field-even field"><th class="field-name">mask_points:</th><td class="field-body">If supplied, only one out of &#8216;mask_points&#8217; data point is
-displayed. This option is usefull to reduce the number
-of points displayed on large datasets Must be an integer
-or None.</td>
+<tr class="field"><th class="field-name">mask_points:</th><td class="field-body">If supplied, only one out of &#8216;mask_points&#8217; data point is
+displayed. This option is useful to reduce the number of
+points displayed on large datasets Must be an integer or
+None.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">mode:</th><td class="field-body">the mode of the glyphs. Must be &#8216;2darrow&#8217; or &#8216;2dcircle&#8217; or
+<tr class="field"><th class="field-name">mode:</th><td class="field-body">the mode of the glyphs. Must be &#8216;2darrow&#8217; or &#8216;2dcircle&#8217; or
 &#8216;2dcross&#8217; or &#8216;2ddash&#8217; or &#8216;2ddiamond&#8217; or &#8216;2dhooked_arrow&#8217; or
 &#8216;2dsquare&#8217; or &#8216;2dthick_arrow&#8217; or &#8216;2dthick_cross&#8217; or
 &#8216;2dtriangle&#8217; or &#8216;2dvertex&#8217; or &#8216;arrow&#8217; or &#8216;axes&#8217; or &#8216;cone&#8217; or
 &#8216;cube&#8217; or &#8216;cylinder&#8217; or &#8216;point&#8217; or &#8216;sphere&#8217;. Default: sphere</td>
 </tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
+<tr class="field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
 Default: 1.0</td>
 </tr>
-<tr class="field-even field"><th class="field-name">resolution:</th><td class="field-body">The resolution of the glyph created. For spheres, for
+<tr class="field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
+added to the scene. Defaults to True.</td>
+</tr>
+<tr class="field"><th class="field-name">resolution:</th><td class="field-body">The resolution of the glyph created. For spheres, for
 instance, this is the number of divisions along theta and
 phi. Must be an integer. Default: 8</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">scale_factor:</th><td class="field-body">the scaling applied to the glyphs. The
+<tr class="field"><th class="field-name">scale_factor:</th><td class="field-body">the scaling applied to the glyphs. The
 size of the glyph is by default in drawing
 units. Must be a float. Default: 1.0</td>
 </tr>
-<tr class="field-even field"><th class="field-name">scale_mode:</th><td class="field-body">the scaling mode for the glyphs
+<tr class="field"><th class="field-name">scale_mode:</th><td class="field-body">the scaling mode for the glyphs
 (&#8216;vector&#8217;, &#8216;scalar&#8217;, or &#8216;none&#8217;).</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
+<tr class="field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
 scalar.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap
+<tr class="field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
 If None, the max of the data will be used</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap
+<tr class="field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap.
 If None, the min of the data will be used</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="greedy-terrain-decimation">
 <h2>greedy_terrain_decimation<a class="headerlink" href="#greedy-terrain-decimation" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.greedy_terrain_decimation">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">greedy_terrain_decimation</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.greedy_terrain_decimation" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.greedy_terrain_decimation">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">greedy_terrain_decimation</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.greedy_terrain_decimation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Simplifies image data and performs a triangulation</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="grid-plane">
 <h2>grid_plane<a class="headerlink" href="#grid-plane" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.grid_plane">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">grid_plane</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.grid_plane" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.grid_plane">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">grid_plane</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.grid_plane" title="Permalink to this definition">¶</a></dt>
 <dd><p>Shows a grid plane for the given input</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<tr class="field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
+<tr class="field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
-Default is the x, y, z arrays extents. Use
+<tr class="field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+Default is the x, y, z arrays extent. Use
 this to change the extent of the object
 created.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
+<tr class="field"><th class="field-name">line_width:</th><td class="field-body">The width of the lines, if any used. Must be a float.
 Default: 2.0</td>
 </tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
+<tr class="field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
 Default: 1.0</td>
 </tr>
-<tr class="field-even field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
+<tr class="field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
+added to the scene. Defaults to True.</td>
+</tr>
+<tr class="field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
 scalar.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap
+<tr class="field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
 If None, the max of the data will be used</td>
 </tr>
-<tr class="field-even field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap
+<tr class="field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap.
 If None, the min of the data will be used</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="hyper-streamline">
 <h2>hyper_streamline<a class="headerlink" href="#hyper-streamline" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.hyper_streamline">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">hyper_streamline</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.hyper_streamline" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.hyper_streamline">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">hyper_streamline</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.hyper_streamline" title="Permalink to this definition">¶</a></dt>
 <dd><p>Shows hyper streamlines for tensor data</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<tr class="field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
+<tr class="field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
-Default is the x, y, z arrays extents. Use
+<tr class="field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+Default is the x, y, z arrays extent. Use
 this to change the extent of the object
 created.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
+<tr class="field"><th class="field-name">line_width:</th><td class="field-body">The width of the lines, if any used. Must be a float.
 Default: 2.0</td>
 </tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
+<tr class="field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
 Default: 1.0</td>
 </tr>
-<tr class="field-even field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
+<tr class="field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
+added to the scene. Defaults to True.</td>
+</tr>
+<tr class="field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
 scalar.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap
+<tr class="field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
 If None, the max of the data will be used</td>
 </tr>
-<tr class="field-even field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap
+<tr class="field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap.
 If None, the min of the data will be used</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="image-actor">
 <h2>image_actor<a class="headerlink" href="#image-actor" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.image_actor">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">image_actor</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.image_actor" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.image_actor">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">image_actor</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.image_actor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Applies the ImageActor mayavi module to the given VTK data object.</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<tr class="field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
+<tr class="field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
-Default is the x, y, z arrays extents. Use
+<tr class="field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+Default is the x, y, z arrays extent. Use
 this to change the extent of the object
 created.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">interpolate:</th><td class="field-body">if the pixels in the image are to be
+<tr class="field"><th class="field-name">interpolate:</th><td class="field-body">if the pixels in the image are to be
 interpolated or not. Must be a boolean. Default: True</td>
 </tr>
-<tr class="field-even field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
+<tr class="field"><th class="field-name">line_width:</th><td class="field-body">The width of the lines, if any used. Must be a float.
 Default: 2.0</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">opacity:</th><td class="field-body">the opacity of the image. Must be a legal value. Default:
+<tr class="field"><th class="field-name">opacity:</th><td class="field-body">the opacity of the image. Must be a legal value. Default:
 1.0</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
+<tr class="field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
+added to the scene. Defaults to True.</td>
+</tr>
+<tr class="field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
 scalar.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap
+<tr class="field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
 If None, the max of the data will be used</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap
+<tr class="field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap.
 If None, the min of the data will be used</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="image-change-information">
 <h2>image_change_information<a class="headerlink" href="#image-change-information" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.image_change_information">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">image_change_information</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.image_change_information" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.image_change_information">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">image_change_information</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.image_change_information" title="Permalink to this definition">¶</a></dt>
 <dd><p>Change the origin, spacing and extents of an image dataset</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="image-data-probe">
 <h2>image_data_probe<a class="headerlink" href="#image-data-probe" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.image_data_probe">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">image_data_probe</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.image_data_probe" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.image_data_probe">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">image_data_probe</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.image_data_probe" title="Permalink to this definition">¶</a></dt>
 <dd><p>Samples arbitrary datasets onto an image dataset (cube of data)</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="image-plane-widget">
 <h2>image_plane_widget<a class="headerlink" href="#image-plane-widget" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.image_plane_widget">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">image_plane_widget</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.image_plane_widget" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.image_plane_widget">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">image_plane_widget</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.image_plane_widget" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="docutils">
 <dt>::</dt>
 <dd>Applies the ImagePlaneWidget mayavi module to the given data</dd>
@@ -934,303 +952,315 @@ If None, the min of the data will be used</td>
 <p>source (Mayavi source, or VTK dataset).</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<tr class="field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
+<tr class="field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
-Default is the x, y, z arrays extents. Use
+<tr class="field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+Default is the x, y, z arrays extent. Use
 this to change the extent of the object
 created.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
+<tr class="field"><th class="field-name">line_width:</th><td class="field-body">The width of the lines, if any used. Must be a float.
 Default: 2.0</td>
 </tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
+<tr class="field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
 Default: 1.0</td>
 </tr>
-<tr class="field-even field"><th class="field-name">plane_opacity:</th><td class="field-body">the opacity of the plane actor. Must be a legal value.
+<tr class="field"><th class="field-name">plane_opacity:</th><td class="field-body">the opacity of the plane actor. Must be a legal value.
 Default: 1.0</td>
 </tr>
-<tr class="field-odd field"><th class="field-name" colspan="2">plane_orientation:</th></tr>
+<tr class="field"><th class="field-name" colspan="2">plane_orientation:</th></tr>
 <tr><td>&nbsp;</td><td class="field-body">the orientation of the plane Must be a legal
 value. Default: x_axes</td>
 </tr>
-<tr class="field-even field"><th class="field-name">slice_index:</th><td class="field-body">The index along wich the
+<tr class="field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
+added to the scene. Defaults to True.</td>
+</tr>
+<tr class="field"><th class="field-name">slice_index:</th><td class="field-body">The index along wich the
 image is sliced.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
+<tr class="field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
 scalar.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap
+<tr class="field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
 If None, the max of the data will be used</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap
+<tr class="field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap.
 If None, the min of the data will be used</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="iso-surface">
 <h2>iso_surface<a class="headerlink" href="#iso-surface" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.iso_surface">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">iso_surface</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.iso_surface" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.iso_surface">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">iso_surface</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.iso_surface" title="Permalink to this definition">¶</a></dt>
 <dd><p>Applies the IsoSurface mayavi module to the given data
 source (Mayavi source, or VTK dataset).</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<tr class="field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
+<tr class="field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">contours:</th><td class="field-body">Integer/list specifying number/list of
+<tr class="field"><th class="field-name">contours:</th><td class="field-body">Integer/list specifying number/list of
 contours. Specifying 0 shows no contours.
 Specifying a list of values will only give the
 requested contours asked for.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
-Default is the x, y, z arrays extents. Use
+<tr class="field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+Default is the x, y, z arrays extent. Use
 this to change the extent of the object
 created.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
+<tr class="field"><th class="field-name">line_width:</th><td class="field-body">The width of the lines, if any used. Must be a float.
 Default: 2.0</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
+<tr class="field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
 Default: 1.0</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
+<tr class="field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
+added to the scene. Defaults to True.</td>
+</tr>
+<tr class="field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
 scalar.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap
+<tr class="field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
 If None, the max of the data will be used</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap
+<tr class="field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap.
 If None, the min of the data will be used</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="labels">
 <h2>labels<a class="headerlink" href="#labels" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.labels">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">labels</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.labels" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.labels">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">labels</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.labels" title="Permalink to this definition">¶</a></dt>
 <dd><p>Display labels for active dataset or active module</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<tr class="field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
+<tr class="field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
-Default is the x, y, z arrays extents. Use
+<tr class="field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+Default is the x, y, z arrays extent. Use
 this to change the extent of the object
 created.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
+<tr class="field"><th class="field-name">line_width:</th><td class="field-body">The width of the lines, if any used. Must be a float.
 Default: 2.0</td>
 </tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
+<tr class="field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
 Default: 1.0</td>
 </tr>
-<tr class="field-even field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
+<tr class="field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
+added to the scene. Defaults to True.</td>
+</tr>
+<tr class="field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
 scalar.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap
+<tr class="field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
 If None, the max of the data will be used</td>
 </tr>
-<tr class="field-even field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap
+<tr class="field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap.
 If None, the min of the data will be used</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="mask-points">
 <h2>mask_points<a class="headerlink" href="#mask-points" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.mask_points">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">mask_points</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.mask_points" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.mask_points">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">mask_points</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.mask_points" title="Permalink to this definition">¶</a></dt>
 <dd><p>Mask the input points in the data</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="outline">
 <h2>outline<a class="headerlink" href="#outline" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.outline">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">outline</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.outline" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.outline">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">outline</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.outline" title="Permalink to this definition">¶</a></dt>
 <dd><p>Draw an outline for given input</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<tr class="field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
+<tr class="field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
-Default is the x, y, z arrays extents. Use
+<tr class="field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+Default is the x, y, z arrays extent. Use
 this to change the extent of the object
 created.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
+<tr class="field"><th class="field-name">line_width:</th><td class="field-body">The width of the lines, if any used. Must be a float.
 Default: 2.0</td>
 </tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
+<tr class="field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
 Default: 1.0</td>
 </tr>
-<tr class="field-even field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
+<tr class="field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
+added to the scene. Defaults to True.</td>
+</tr>
+<tr class="field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
 scalar.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap
+<tr class="field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
 If None, the max of the data will be used</td>
 </tr>
-<tr class="field-even field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap
+<tr class="field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap.
 If None, the min of the data will be used</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="point-to-cell-data">
 <h2>point_to_cell_data<a class="headerlink" href="#point-to-cell-data" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.point_to_cell_data">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">point_to_cell_data</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.point_to_cell_data" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.point_to_cell_data">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">point_to_cell_data</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.point_to_cell_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert point data to cell data for the active data</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="poly-data-normals">
 <h2>poly_data_normals<a class="headerlink" href="#poly-data-normals" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.poly_data_normals">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">poly_data_normals</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.poly_data_normals" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.poly_data_normals">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">poly_data_normals</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.poly_data_normals" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute normals and smooth the appearance</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="quadric-decimation">
 <h2>quadric_decimation<a class="headerlink" href="#quadric-decimation" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.quadric_decimation">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">quadric_decimation</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.quadric_decimation" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.quadric_decimation">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">quadric_decimation</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.quadric_decimation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Simplifies a triangular mesh</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="scalar-cut-plane">
 <h2>scalar_cut_plane<a class="headerlink" href="#scalar-cut-plane" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.scalar_cut_plane">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">scalar_cut_plane</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.scalar_cut_plane" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.scalar_cut_plane">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">scalar_cut_plane</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.scalar_cut_plane" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="docutils">
 <dt>::</dt>
 <dd>Applies the ScalarCutPlane mayavi module to the given data</dd>
@@ -1238,81 +1268,84 @@ If None, the min of the data will be used</td>
 <p>source (Mayavi source, or VTK dataset).</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<tr class="field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
+<tr class="field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
-Default is the x, y, z arrays extents. Use
+<tr class="field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+Default is the x, y, z arrays extent. Use
 this to change the extent of the object
 created.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
+<tr class="field"><th class="field-name">line_width:</th><td class="field-body">The width of the lines, if any used. Must be a float.
 Default: 2.0</td>
 </tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
+<tr class="field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
 Default: 1.0</td>
 </tr>
-<tr class="field-even field"><th class="field-name" colspan="2">plane_orientation:</th></tr>
+<tr class="field"><th class="field-name" colspan="2">plane_orientation:</th></tr>
 <tr><td>&nbsp;</td><td class="field-body">the orientation of the plane Must be a legal
 value. Default: x_axes</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
+<tr class="field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
+added to the scene. Defaults to True.</td>
+</tr>
+<tr class="field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
 scalar.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">view_controls:</th><td class="field-body">Whether or not the controls of the cut plane are
+<tr class="field"><th class="field-name">view_controls:</th><td class="field-body">Whether or not the controls of the cut plane are
 shown. Must be a boolean. Default: True</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap
+<tr class="field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
 If None, the max of the data will be used</td>
 </tr>
-<tr class="field-even field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap
+<tr class="field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap.
 If None, the min of the data will be used</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="select-output">
 <h2>select_output<a class="headerlink" href="#select-output" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.select_output">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">select_output</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.select_output" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.select_output">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">select_output</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.select_output" title="Permalink to this definition">¶</a></dt>
 <dd><p>Choose the output of the source that should be used</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="set-active-attribute">
 <h2>set_active_attribute<a class="headerlink" href="#set-active-attribute" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.set_active_attribute">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">set_active_attribute</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.set_active_attribute" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.set_active_attribute">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">set_active_attribute</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.set_active_attribute" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="docutils">
 <dt>::</dt>
 <dd>Applies the SetActiveAttribute Filter mayavi filter to the given</dd>
@@ -1320,505 +1353,523 @@ If None, the min of the data will be used</td>
 <p>VTK object.</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">cell_scalars:</th><td class="field-body">The name of the active cell scalars</td>
+<tr class="field"><th class="field-name">cell_scalars:</th><td class="field-body">The name of the active cell scalars</td>
 </tr>
-<tr class="field-even field"><th class="field-name">cell_tensors:</th><td class="field-body">The name of the active cell tensors</td>
+<tr class="field"><th class="field-name">cell_tensors:</th><td class="field-body">The name of the active cell tensors</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">cell_vectors:</th><td class="field-body">The name of the active cell vectors</td>
+<tr class="field"><th class="field-name">cell_vectors:</th><td class="field-body">The name of the active cell vectors</td>
 </tr>
-<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">point_scalars:</th><td class="field-body">The name of the active point scalars</td>
+<tr class="field"><th class="field-name">point_scalars:</th><td class="field-body">The name of the active point scalars</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">point_tensors:</th><td class="field-body">The name of the active point tensors</td>
+<tr class="field"><th class="field-name">point_tensors:</th><td class="field-body">The name of the active point tensors</td>
 </tr>
-<tr class="field-even field"><th class="field-name">point_vectors:</th><td class="field-body">The name of the active point vectors</td>
+<tr class="field"><th class="field-name">point_vectors:</th><td class="field-body">The name of the active point vectors</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="slice-unstructured-grid">
 <h2>slice_unstructured_grid<a class="headerlink" href="#slice-unstructured-grid" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.slice_unstructured_grid">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">slice_unstructured_grid</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.slice_unstructured_grid" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.slice_unstructured_grid">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">slice_unstructured_grid</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.slice_unstructured_grid" title="Permalink to this definition">¶</a></dt>
 <dd><p>Slice an unstructured grid to show cells</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<tr class="field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
+<tr class="field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
-Default is the x, y, z arrays extents. Use
+<tr class="field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+Default is the x, y, z arrays extent. Use
 this to change the extent of the object
 created.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
+<tr class="field"><th class="field-name">line_width:</th><td class="field-body">The width of the lines, if any used. Must be a float.
 Default: 2.0</td>
 </tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
+<tr class="field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
 Default: 1.0</td>
 </tr>
-<tr class="field-even field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
+<tr class="field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
+added to the scene. Defaults to True.</td>
+</tr>
+<tr class="field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
 scalar.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap
+<tr class="field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
 If None, the max of the data will be used</td>
 </tr>
-<tr class="field-even field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap
+<tr class="field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap.
 If None, the min of the data will be used</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="streamline">
 <h2>streamline<a class="headerlink" href="#streamline" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.streamline">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">streamline</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.streamline" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.streamline">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">streamline</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.streamline" title="Permalink to this definition">¶</a></dt>
 <dd><p>Applies the Streamline mayavi module to the given VTK data object.</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<tr class="field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
+<tr class="field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
-Default is the x, y, z arrays extents. Use
+<tr class="field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+Default is the x, y, z arrays extent. Use
 this to change the extent of the object
 created.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name" colspan="2">integration_direction:</th></tr>
+<tr class="field"><th class="field-name" colspan="2">integration_direction:</th></tr>
 <tr><td>&nbsp;</td><td class="field-body">The direction of the integration. Must be
 &#8216;forward&#8217; or &#8216;backward&#8217; or &#8216;both&#8217;. Default:
 forward</td>
 </tr>
-<tr class="field-even field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
+<tr class="field"><th class="field-name">line_width:</th><td class="field-body">The width of the lines, if any used. Must be a float.
 Default: 2.0</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">linetype:</th><td class="field-body">the type of line-like object used to display the
+<tr class="field"><th class="field-name">linetype:</th><td class="field-body">the type of line-like object used to display the
 streamline. Must be &#8216;line&#8217; or &#8216;ribbon&#8217; or &#8216;tube&#8217;. Default:
 line</td>
 </tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
+<tr class="field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
 Default: 1.0</td>
 </tr>
-<tr class="field-even field"><th class="field-name" colspan="2">seed_resolution:</th></tr>
+<tr class="field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
+added to the scene. Defaults to True.</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">seed_resolution:</th></tr>
 <tr><td>&nbsp;</td><td class="field-body">The resolution of the seed. Determines the number of
 seed points Must be an integer or None.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">seed_scale:</th><td class="field-body">Scales the seed around its default center Must be a
+<tr class="field"><th class="field-name">seed_scale:</th><td class="field-body">Scales the seed around its default center Must be a
 float. Default: 1.0</td>
 </tr>
-<tr class="field-even field"><th class="field-name">seed_visible:</th><td class="field-body">Control the visibility of the seed. Must be a boolean.
+<tr class="field"><th class="field-name">seed_visible:</th><td class="field-body">Control the visibility of the seed. Must be a boolean.
 Default: True</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">seedtype:</th><td class="field-body">the widget used as a seed for the streamlines. Must be
+<tr class="field"><th class="field-name">seedtype:</th><td class="field-body">the widget used as a seed for the streamlines. Must be
 &#8216;line&#8217; or &#8216;plane&#8217; or &#8216;point&#8217; or &#8216;sphere&#8217;. Default: sphere</td>
 </tr>
-<tr class="field-even field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
+<tr class="field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
 scalar.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap
+<tr class="field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
 If None, the max of the data will be used</td>
 </tr>
-<tr class="field-even field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap
+<tr class="field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap.
 If None, the min of the data will be used</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="stripper">
 <h2>stripper<a class="headerlink" href="#stripper" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.stripper">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">stripper</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.stripper" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.stripper">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">stripper</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.stripper" title="Permalink to this definition">¶</a></dt>
 <dd><p>Regularizes surfaces by creating triangle strips</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="structured-grid-outline">
 <h2>structured_grid_outline<a class="headerlink" href="#structured-grid-outline" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.structured_grid_outline">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">structured_grid_outline</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.structured_grid_outline" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.structured_grid_outline">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">structured_grid_outline</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.structured_grid_outline" title="Permalink to this definition">¶</a></dt>
 <dd><p>Draw a grid-conforming outline for structured grids</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<tr class="field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
+<tr class="field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
-Default is the x, y, z arrays extents. Use
+<tr class="field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+Default is the x, y, z arrays extent. Use
 this to change the extent of the object
 created.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
+<tr class="field"><th class="field-name">line_width:</th><td class="field-body">The width of the lines, if any used. Must be a float.
 Default: 2.0</td>
 </tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
+<tr class="field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
 Default: 1.0</td>
 </tr>
-<tr class="field-even field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
+<tr class="field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
+added to the scene. Defaults to True.</td>
+</tr>
+<tr class="field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
 scalar.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap
+<tr class="field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
 If None, the max of the data will be used</td>
 </tr>
-<tr class="field-even field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap
+<tr class="field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap.
 If None, the min of the data will be used</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="surface">
 <h2>surface<a class="headerlink" href="#surface" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.surface">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">surface</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.surface" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.surface">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">surface</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.surface" title="Permalink to this definition">¶</a></dt>
 <dd><p>Applies the Surface mayavi module to the given data
 source (Mayavi source, or VTK dataset).</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<tr class="field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
+<tr class="field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
-Default is the x, y, z arrays extents. Use
+<tr class="field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+Default is the x, y, z arrays extent. Use
 this to change the extent of the object
 created.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
+<tr class="field"><th class="field-name">line_width:</th><td class="field-body">The width of the lines, if any used. Must be a float.
 Default: 2.0</td>
 </tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
+<tr class="field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
 Default: 1.0</td>
 </tr>
-<tr class="field-even field"><th class="field-name">representation:</th><td class="field-body">the representation type used for the surface. Must be
+<tr class="field"><th class="field-name">representation:</th><td class="field-body">the representation type used for the surface. Must be
 &#8216;surface&#8217; or &#8216;wireframe&#8217; or &#8216;points&#8217;. Default:
 surface</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
+<tr class="field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
+added to the scene. Defaults to True.</td>
+</tr>
+<tr class="field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
 scalar.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap
+<tr class="field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
 If None, the max of the data will be used</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap
+<tr class="field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap.
 If None, the min of the data will be used</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="tensor-glyph">
 <h2>tensor_glyph<a class="headerlink" href="#tensor-glyph" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.tensor_glyph">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">tensor_glyph</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.tensor_glyph" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.tensor_glyph">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">tensor_glyph</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.tensor_glyph" title="Permalink to this definition">¶</a></dt>
 <dd><p>Displays glyphs scaled and oriented as per tensor data</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<tr class="field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
+<tr class="field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
-Default is the x, y, z arrays extents. Use
+<tr class="field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+Default is the x, y, z arrays extent. Use
 this to change the extent of the object
 created.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
+<tr class="field"><th class="field-name">line_width:</th><td class="field-body">The width of the lines, if any used. Must be a float.
 Default: 2.0</td>
 </tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
+<tr class="field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
 Default: 1.0</td>
 </tr>
-<tr class="field-even field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
+<tr class="field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
+added to the scene. Defaults to True.</td>
+</tr>
+<tr class="field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
 scalar.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap
+<tr class="field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
 If None, the max of the data will be used</td>
 </tr>
-<tr class="field-even field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap
+<tr class="field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap.
 If None, the min of the data will be used</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="text3d">
 <h2>text3d<a class="headerlink" href="#text3d" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.text3d">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">text3d</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.text3d" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.text3d">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">text3d</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.text3d" title="Permalink to this definition">¶</a></dt>
 <dd><p>Displays user-specified text at a 3D location in the scene</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<tr class="field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
+<tr class="field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
-Default is the x, y, z arrays extents. Use
+<tr class="field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+Default is the x, y, z arrays extent. Use
 this to change the extent of the object
 created.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
+<tr class="field"><th class="field-name">line_width:</th><td class="field-body">The width of the lines, if any used. Must be a float.
 Default: 2.0</td>
 </tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
+<tr class="field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
 Default: 1.0</td>
 </tr>
-<tr class="field-even field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
+<tr class="field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
+added to the scene. Defaults to True.</td>
+</tr>
+<tr class="field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
 scalar.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap
+<tr class="field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
 If None, the max of the data will be used</td>
 </tr>
-<tr class="field-even field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap
+<tr class="field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap.
 If None, the min of the data will be used</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="threshold">
 <h2>threshold<a class="headerlink" href="#threshold" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.threshold">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">threshold</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.threshold" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.threshold">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">threshold</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.threshold" title="Permalink to this definition">¶</a></dt>
 <dd><p>Applies the Threshold mayavi filter to the given VTK object.</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">filter_type:</th><td class="field-body">If thresholding is done on cells or points</td>
+<tr class="field"><th class="field-name">filter_type:</th><td class="field-body">If threshold is put on cells or points</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">low:</th><td class="field-body">The lower threshold</td>
+<tr class="field"><th class="field-name">low:</th><td class="field-body">The lower threshold</td>
 </tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">up:</th><td class="field-body">The upper threshold</td>
+<tr class="field"><th class="field-name">up:</th><td class="field-body">The upper threshold</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="transform-data">
 <h2>transform_data<a class="headerlink" href="#transform-data" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.transform_data">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">transform_data</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.transform_data" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.transform_data">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">transform_data</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.transform_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Transform (rotate/translate/scale) non ImageData datasets</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="triangle-filter">
 <h2>triangle_filter<a class="headerlink" href="#triangle-filter" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.triangle_filter">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">triangle_filter</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.triangle_filter" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.triangle_filter">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">triangle_filter</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.triangle_filter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert input polygons and triangle strips to triangles</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="tube">
 <h2>tube<a class="headerlink" href="#tube" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.tube">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">tube</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.tube" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.tube">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">tube</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.tube" title="Permalink to this definition">¶</a></dt>
 <dd><p>Applies the Tube mayavi filter to the given VTK object.</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">tube_radius:</th><td class="field-body">radius of the tubes used to represent the
+<tr class="field"><th class="field-name">tube_radius:</th><td class="field-body">radius of the tubes used to represent the
 lines. Must be a float. Default: 0.05</td>
 </tr>
-<tr class="field-even field"><th class="field-name">tube_sides:</th><td class="field-body">number of sides of the tubes used to
+<tr class="field"><th class="field-name">tube_sides:</th><td class="field-body">number of sides of the tubes used to
 represent the lines. Must be an integer. Default: 6</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="user-defined">
 <h2>user_defined<a class="headerlink" href="#user-defined" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.user_defined">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">user_defined</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.user_defined" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.user_defined">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">user_defined</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.user_defined" title="Permalink to this definition">¶</a></dt>
 <dd><p>Applies the UserDefined mayavi filter to the given TVTK object.</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">filter:</th><td class="field-body">the tvtk filter to adapt. Thisbe either an instance of the
+<tr class="field"><th class="field-name">filter:</th><td class="field-body">the tvtk filter to adapt. Thisbe either an instance of the
 filter, or thename of this filter.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="vector-cut-plane">
 <h2>vector_cut_plane<a class="headerlink" href="#vector-cut-plane" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.vector_cut_plane">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">vector_cut_plane</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.vector_cut_plane" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.vector_cut_plane">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">vector_cut_plane</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.vector_cut_plane" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="docutils">
 <dt>::</dt>
 <dd>Applies the VectorCutPlane mayavi module to the given data</dd>
@@ -1826,153 +1877,159 @@ filter, or thename of this filter.</td>
 <p>source (Mayavi source, or VTK dataset).</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<tr class="field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
+<tr class="field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
-Default is the x, y, z arrays extents. Use
+<tr class="field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+Default is the x, y, z arrays extent. Use
 this to change the extent of the object
 created.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
+<tr class="field"><th class="field-name">line_width:</th><td class="field-body">The width of the lines, if any used. Must be a float.
 Default: 2.0</td>
 </tr>
-<tr class="field-even field"><th class="field-name">mask_points:</th><td class="field-body">If supplied, only one out of &#8216;mask_points&#8217; data point is
-displayed. This option is usefull to reduce the number
-of points displayed on large datasets Must be an integer
-or None.</td>
+<tr class="field"><th class="field-name">mask_points:</th><td class="field-body">If supplied, only one out of &#8216;mask_points&#8217; data point is
+displayed. This option is useful to reduce the number of
+points displayed on large datasets Must be an integer or
+None.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">mode:</th><td class="field-body">the mode of the glyphs. Must be &#8216;2darrow&#8217; or &#8216;2dcircle&#8217; or
+<tr class="field"><th class="field-name">mode:</th><td class="field-body">the mode of the glyphs. Must be &#8216;2darrow&#8217; or &#8216;2dcircle&#8217; or
 &#8216;2dcross&#8217; or &#8216;2ddash&#8217; or &#8216;2ddiamond&#8217; or &#8216;2dhooked_arrow&#8217; or
 &#8216;2dsquare&#8217; or &#8216;2dthick_arrow&#8217; or &#8216;2dthick_cross&#8217; or
 &#8216;2dtriangle&#8217; or &#8216;2dvertex&#8217; or &#8216;arrow&#8217; or &#8216;axes&#8217; or &#8216;cone&#8217; or
 &#8216;cube&#8217; or &#8216;cylinder&#8217; or &#8216;point&#8217; or &#8216;sphere&#8217;. Default: 2darrow</td>
 </tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
+<tr class="field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
 Default: 1.0</td>
 </tr>
-<tr class="field-even field"><th class="field-name" colspan="2">plane_orientation:</th></tr>
+<tr class="field"><th class="field-name" colspan="2">plane_orientation:</th></tr>
 <tr><td>&nbsp;</td><td class="field-body">the orientation of the plane Must be a legal
 value. Default: x_axes</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">resolution:</th><td class="field-body">The resolution of the glyph created. For spheres, for
+<tr class="field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
+added to the scene. Defaults to True.</td>
+</tr>
+<tr class="field"><th class="field-name">resolution:</th><td class="field-body">The resolution of the glyph created. For spheres, for
 instance, this is the number of divisions along theta and
 phi. Must be an integer. Default: 8</td>
 </tr>
-<tr class="field-even field"><th class="field-name">scale_factor:</th><td class="field-body">the scaling applied to the glyphs. The
+<tr class="field"><th class="field-name">scale_factor:</th><td class="field-body">the scaling applied to the glyphs. The
 size of the glyph is by default in drawing
 units. Must be a float. Default: 1.0</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">scale_mode:</th><td class="field-body">the scaling mode for the glyphs
+<tr class="field"><th class="field-name">scale_mode:</th><td class="field-body">the scaling mode for the glyphs
 (&#8216;vector&#8217;, &#8216;scalar&#8217;, or &#8216;none&#8217;).</td>
 </tr>
-<tr class="field-even field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
+<tr class="field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
 scalar.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">view_controls:</th><td class="field-body">Whether or not the controls of the cut plane are
+<tr class="field"><th class="field-name">view_controls:</th><td class="field-body">Whether or not the controls of the cut plane are
 shown. Must be a boolean. Default: True</td>
 </tr>
-<tr class="field-even field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap
+<tr class="field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
 If None, the max of the data will be used</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap
+<tr class="field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap.
 If None, the min of the data will be used</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="vectors">
 <h2>vectors<a class="headerlink" href="#vectors" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.vectors">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">vectors</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.vectors" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.vectors">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">vectors</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.vectors" title="Permalink to this definition">¶</a></dt>
 <dd><p>Applies the Vectors mayavi module to the given data object
 source (Mayavi source, or VTK dataset).</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<tr class="field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
+<tr class="field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
-Default is the x, y, z arrays extents. Use
+<tr class="field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+Default is the x, y, z arrays extent. Use
 this to change the extent of the object
 created.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
+<tr class="field"><th class="field-name">line_width:</th><td class="field-body">The width of the lines, if any used. Must be a float.
 Default: 2.0</td>
 </tr>
-<tr class="field-even field"><th class="field-name">mask_points:</th><td class="field-body">If supplied, only one out of &#8216;mask_points&#8217; data point is
-displayed. This option is usefull to reduce the number
-of points displayed on large datasets Must be an integer
-or None.</td>
+<tr class="field"><th class="field-name">mask_points:</th><td class="field-body">If supplied, only one out of &#8216;mask_points&#8217; data point is
+displayed. This option is useful to reduce the number of
+points displayed on large datasets Must be an integer or
+None.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">mode:</th><td class="field-body">the mode of the glyphs. Must be &#8216;2darrow&#8217; or &#8216;2dcircle&#8217; or
+<tr class="field"><th class="field-name">mode:</th><td class="field-body">the mode of the glyphs. Must be &#8216;2darrow&#8217; or &#8216;2dcircle&#8217; or
 &#8216;2dcross&#8217; or &#8216;2ddash&#8217; or &#8216;2ddiamond&#8217; or &#8216;2dhooked_arrow&#8217; or
 &#8216;2dsquare&#8217; or &#8216;2dthick_arrow&#8217; or &#8216;2dthick_cross&#8217; or
 &#8216;2dtriangle&#8217; or &#8216;2dvertex&#8217; or &#8216;arrow&#8217; or &#8216;axes&#8217; or &#8216;cone&#8217; or
 &#8216;cube&#8217; or &#8216;cylinder&#8217; or &#8216;point&#8217; or &#8216;sphere&#8217;. Default: 2darrow</td>
 </tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
+<tr class="field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
 Default: 1.0</td>
 </tr>
-<tr class="field-even field"><th class="field-name">resolution:</th><td class="field-body">The resolution of the glyph created. For spheres, for
+<tr class="field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
+added to the scene. Defaults to True.</td>
+</tr>
+<tr class="field"><th class="field-name">resolution:</th><td class="field-body">The resolution of the glyph created. For spheres, for
 instance, this is the number of divisions along theta and
 phi. Must be an integer. Default: 8</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">scale_factor:</th><td class="field-body">the scaling applied to the glyphs. The
+<tr class="field"><th class="field-name">scale_factor:</th><td class="field-body">the scaling applied to the glyphs. The
 size of the glyph is by default in drawing
 units. Must be a float. Default: 1.0</td>
 </tr>
-<tr class="field-even field"><th class="field-name">scale_mode:</th><td class="field-body">the scaling mode for the glyphs
+<tr class="field"><th class="field-name">scale_mode:</th><td class="field-body">the scaling mode for the glyphs
 (&#8216;vector&#8217;, &#8216;scalar&#8217;, or &#8216;none&#8217;).</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
+<tr class="field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
 scalar.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap
+<tr class="field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
 If None, the max of the data will be used</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap
+<tr class="field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap.
 If None, the min of the data will be used</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="volume">
 <h2>volume<a class="headerlink" href="#volume" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.volume">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">volume</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.volume" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.volume">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">volume</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.volume" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="docutils">
 <dt>::</dt>
 <dd>Applies the Volume mayavi module to the given VTK data</dd>
@@ -1986,7 +2043,7 @@ transfer function), or the otf (opacity transfer function):</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">vol</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">volume</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
 
 <span class="c"># Changing the ctf:</span>
-<span class="kn">from</span> <span class="nn">enthought.tvtk.util.ctf</span> <span class="kn">import</span> <span class="n">ColorTransferFunction</span>
+<span class="kn">from</span> <span class="nn">tvtk.util.ctf</span> <span class="kn">import</span> <span class="n">ColorTransferFunction</span>
 <span class="n">ctf</span> <span class="o">=</span> <span class="n">ColorTransferFunction</span><span class="p">()</span>
 <span class="n">ctf</span><span class="o">.</span><span class="n">add_rgb_point</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
 <span class="n">ctf</span><span class="o">.</span><span class="n">add_hsv_point</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
@@ -1996,7 +2053,7 @@ transfer function), or the otf (opacity transfer function):</p>
 <span class="n">vol</span><span class="o">.</span><span class="n">update_ctf</span> <span class="o">=</span> <span class="bp">True</span>
 
 <span class="c"># Changing the otf:</span>
-<span class="kn">from</span> <span class="nn">enthought.tvtk.util.ctf</span> <span class="kn">import</span> <span class="n">PiecewiseFunction</span>
+<span class="kn">from</span> <span class="nn">tvtk.util.ctf</span> <span class="kn">import</span> <span class="n">PiecewiseFunction</span>
 <span class="n">otf</span> <span class="o">=</span> <span class="n">PiecewiseFunction</span><span class="p">()</span>
 <span class="n">otf</span><span class="o">.</span><span class="n">add_point</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
 <span class="n">vol</span><span class="o">.</span><span class="n">_otf</span> <span class="o">=</span> <span class="n">otf</span>
@@ -2005,147 +2062,150 @@ transfer function), or the otf (opacity transfer function):</p>
 </div>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<tr class="field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the transparency
+<tr class="field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the transparency
 gradient. If None, the max of the data will be
 used</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the transparency
+<tr class="field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the transparency
 gradient. If None, the min of the data will be
 used</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="vorticity">
 <h2>vorticity<a class="headerlink" href="#vorticity" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.vorticity">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">vorticity</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.vorticity" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.vorticity">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">vorticity</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.vorticity" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate the vorticity (curl) of input vector field</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="warp-scalar">
 <h2>warp_scalar<a class="headerlink" href="#warp-scalar" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.warp_scalar">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">warp_scalar</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.warp_scalar" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.warp_scalar">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">warp_scalar</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.warp_scalar" title="Permalink to this definition">¶</a></dt>
 <dd><p>Applies the WarpScalar mayavi filter to the given VTK object.</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">warp_scale:</th><td class="field-body">scale of the warp scalar</td>
+<tr class="field"><th class="field-name">warp_scale:</th><td class="field-body">scale of the warp scalar</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="warp-vector">
 <h2>warp_vector<a class="headerlink" href="#warp-vector" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.warp_vector">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">warp_vector</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.warp_vector" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.warp_vector">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">warp_vector</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.warp_vector" title="Permalink to this definition">¶</a></dt>
 <dd><p>Move points of data along the vector data at point</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="warp-vector-cut-plane">
 <h2>warp_vector_cut_plane<a class="headerlink" href="#warp-vector-cut-plane" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.warp_vector_cut_plane">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">warp_vector_cut_plane</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.warp_vector_cut_plane" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.warp_vector_cut_plane">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">warp_vector_cut_plane</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.warp_vector_cut_plane" title="Permalink to this definition">¶</a></dt>
 <dd><p>Warp cut plane along scaled input vectors</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<tr class="field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
+<tr class="field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
-Default is the x, y, z arrays extents. Use
+<tr class="field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+Default is the x, y, z arrays extent. Use
 this to change the extent of the object
 created.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
+<tr class="field"><th class="field-name">line_width:</th><td class="field-body">The width of the lines, if any used. Must be a float.
 Default: 2.0</td>
 </tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
+<tr class="field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
 Default: 1.0</td>
 </tr>
-<tr class="field-even field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
+<tr class="field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
+added to the scene. Defaults to True.</td>
+</tr>
+<tr class="field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
 scalar.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap
+<tr class="field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
 If None, the max of the data will be used</td>
 </tr>
-<tr class="field-even field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap
+<tr class="field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap.
 If None, the min of the data will be used</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
@@ -2261,7 +2321,7 @@ If None, the min of the data will be used</td>
     </div>
     <hr/>
     <div id="searchbox">
-	<a href="misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
+	<a href="http://github.enthought.com/mayavi/mayavi/misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
 
 	<p style="font-size:85%; color: #FFFFFF;">
     	If you publish articles using Mayavi, please 
@@ -2281,13 +2341,13 @@ If None, the min of the data will be used</td>
         <li class="right" style="margin-right: 10px">
           <a href="../genindex.html" title="General Index"
              >index</a></li>
-        <li><a href="../index.html">Mayavi 3.4.2 documentation</a> &raquo;</li> 
+        <li><a href="../index.html">mayavi v4.0.1 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Mar 26, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1pre/ce4bb37a1409.
+      Last updated on Jul 19, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.
     </div>
   </body>
 </html>

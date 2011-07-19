@@ -64,7 +64,7 @@ Platform Summary
   are also situations when this does not always work -- try it and if
   you get blank windows, you have a problem.  For example::
 
-      from enthought.mayavi import mlab
+      from mayavi import mlab
       mlab.options.offscreen = True
       mlab.test_contour3d()
       mlab.savefig('example.png')
@@ -277,11 +277,11 @@ contrib package in the following manner.
          
 Any number of such packages may be created and distributed.  If they are
 installed, users can choose to enable them.  Internally, the list of
-selected packages is stored as the ``enthought.mayavi.contrib_packages``
+selected packages is stored as the ``mayavi.contrib_packages``
 preference option.  The following code shows how this may be accessed
 from a Python script::
 
-   >>> from enthought.mayavi.preferences.api import preference_manager
+   >>> from mayavi.preferences.api import preference_manager
    >>> print preference_manager.root.contrib_packages
    []
    >>> preference_manager.configure_traits() # Pop up a UI.
@@ -322,7 +322,7 @@ The files are similar in their content.  Two things may be done in this
 file:
 
   1. Registering new sources, modules or filters in the Mayavi registry
-     (``enthought.mayavi.core.registry.registry``).  This is done by
+     (``mayavi.core.registry.registry``).  This is done by
      registering metadata for the new class in the registry.  See
      ``examples/mayavi/user_mayavi.py`` to see an example.
 
@@ -340,7 +340,7 @@ the example and it should print out the directory.
 .. warning::
 
  In the ``user_mayavi.py`` or ``site_mayavi.py``, avoid Mayavi imports
- like  ``from enthought.mayavi.modules.outline import Outline`` etc.
+ like  ``from mayavi.modules.outline import Outline`` etc.
  This is because ``user_mayavi`` is imported at a time when many of the
  imports are not complete and this will cause hard-to-debug circular
  import problems.  The ``registry`` is given only metadata mostly in the
@@ -385,15 +385,15 @@ scalar data in the ``examples/data/heart.vtk`` data file.
 Serving Mayavi on the network
 -------------------------------
 
-.. currentmodule:: enthought.mayavi.tools.server
+.. currentmodule:: mayavi.tools.server
 
 Say you have a little visualization script and you'd like to run some
 kind of server where you can script the running Mayavi UI from a TCP/UDP
 connection.  It turns out there is a simple way to do this  if you have
 Twisted_ installed.  Here is a trivial example::
 
-    from enthought.mayavi import mlab
-    from enthought.mayavi.tools import server
+    from mayavi import mlab
+    from mayavi.tools import server
     mlab.test_plot3d()
     server.serve_tcp()
 
@@ -458,7 +458,7 @@ UDP server: the `serve_udp` function
 Animating a visualization
 --------------------------
 
-.. currentmodule:: enthought.mayavi.mlab
+.. currentmodule:: mayavi.mlab
 
 Often users like to animate visualization without affecting the
 interactive capabilities of the view.  For example you may want to
@@ -467,7 +467,7 @@ interact with the Mayavi UI.  To do this one can use the very convenient
 :func:`animate` decorator provided with Mayavi.  Here is a simple
 example::
 
-    from enthought.mayavi import mlab
+    from mayavi import mlab
     @mlab.animate
     def anim():
         f = mlab.gcf()
@@ -485,7 +485,7 @@ you start and stop the animation and change the time interval between
 calls to your function.  For more specialized use you can pass arguments
 to the decorator::
 
-    from enthought.mayavi import mlab
+    from mayavi import mlab
     @mlab.animate(delay=500, ui=False)
     def anim():
         # ...
@@ -495,7 +495,7 @@ to the decorator::
 Note that if you don't want to import all of ``mlab``, the animate
 decorator is available from::
 
-    from enthought.mayavi.tools.animator import animate
+    from mayavi.tools.animator import animate
 
 For more details check the documentation of the :func:`animate` decorator
 available in the :ref:`mlab-reference`. For an example using it,
@@ -516,7 +516,7 @@ serially that you want to animate on a Mayavi scene.  Here is a simple
 script (called ``img_movie.py``)::
     
     # img_movie.py
-    from enthought.pyface.timer.api import Timer
+    from pyface.timer.api import Timer
 
     def animate(src, N=10):
         for j in range(N):
@@ -706,7 +706,7 @@ dataset in a new figure can simply by done by feeding the
 `mlab_source.dataset` attribute of a visualization object created by mlab
 to an `mlab.pipeline` function::
 
-    from enthought.mayavi import mlab
+    from mayavi import mlab
     ctr = mlab.test_contour3d()
     mlab.figure()
     ipw = mlab.pipeline.image_plane_widget(ctr.mlab_source.dataset)
@@ -736,7 +736,7 @@ using factories::
 
     import numpy as np
     a = np.random.random((3, 3, 3))
-    from enthought.mayavi.sources.api import ArraySource, VTKDataSource
+    from mayavi.sources.api import ArraySource, VTKDataSource
     src1 = ArraySource(scalar_data=a)
     engine.add_source(src1)
     engine.new_scene()
@@ -756,11 +756,11 @@ the movement to 2D, e.g. when viewing an object in the 'x' direction.
 This is done by changing the `interactor_style` of a scene. Here is an
 example to use Mayavi as a 2D image viewer::
 
-    from enthought.mayavi import mlab
+    from mayavi import mlab
     mlab.test_imshow()
     mlab.view(0, 0)
     fig = mlab.gcf()
-    from enthought.tvtk.api import tvtk
+    from tvtk.api import tvtk
     fig.scene.interactor.interactor_style = tvtk.InteractorStyleImage()
     mlab.show()
 
@@ -768,10 +768,10 @@ Another useful interactor is the 'terrain' interactor, handy to have
 natural movement in scenes where you want the 'up' vector to be always
 pointing in the 'z' direction::
     
-    from enthought.mayavi import mlab
+    from mayavi import mlab
     mlab.test_surf()
     fig = mlab.gcf()
-    from enthought.tvtk.api import tvtk
+    from tvtk.api import tvtk
     fig.scene.interactor.interactor_style = tvtk.InteractorStyleTerrain()
     mlab.show()
 

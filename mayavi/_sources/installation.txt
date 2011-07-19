@@ -410,9 +410,9 @@ path.
 
 If you have the source tarball of mayavi or have checked out the sources
 from the github repository, you can run the examples in
-``enthought.mayavi*/examples``.  There are plenty of example scripts
+``mayavi*/examples``.  There are plenty of example scripts
 illustrating various features.  Tests are available in the
-``enthought.mayavi*/tests`` sub-directory.
+``mayavi*/tests`` sub-directory.
 
 
 Troubleshooting

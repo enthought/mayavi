@@ -17,13 +17,13 @@ embedding of Mayavi scenes in Wx applications.
 
 from numpy import ogrid, sin
 
-from enthought.traits.api import HasTraits, Instance
-from enthought.traits.ui.api import View, Item
+from traits.api import HasTraits, Instance
+from traitsui.api import View, Item
 
-from enthought.mayavi.sources.api import ArraySource
-from enthought.mayavi.modules.api import IsoSurface
+from mayavi.sources.api import ArraySource
+from mayavi.modules.api import IsoSurface
 
-from enthought.mayavi.core.ui.api import SceneEditor, MlabSceneModel
+from mayavi.core.ui.api import SceneEditor, MlabSceneModel
 
 
 class MayaviView(HasTraits):

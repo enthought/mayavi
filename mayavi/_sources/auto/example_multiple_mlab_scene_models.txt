@@ -17,8 +17,8 @@ The trick is to use the 'mayavi_scene' attribute of the MlabSceneModel,
 and pass it as a keyword argument to the mlab functions.
 
 For more examples on embedding mlab scenes in dialog, see also:
-the examples :ref:`example_mlab_interactive_dialog`, and 
-:ref:`example_lorenz_ui`, as well as the section of the user manual 
+the examples :ref:`example_mlab_interactive_dialog`, and
+:ref:`example_lorenz_ui`, as well as the section of the user manual
 :ref:`embedding_mayavi_traits`.
 
 

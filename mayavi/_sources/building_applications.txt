@@ -50,10 +50,10 @@ A view of this object, as a dialog, can be created using the
 specified the embedded Mayavi scene can be represented with the usual
 widget for scene by specifying for it the `SceneEditor`::
 
-    from enthought.traits.api import HasTraits, Instance
-    from enthought.traits.ui.api import View, Item
-    from enthought.tvtk.pyface.scene_model import SceneModel
-    from enthought.tvtk.pyface.scene_editor import SceneEditor
+    from traits.api import HasTraits, Instance
+    from traitsui.api import View, Item
+    from tvtk.pyface.scene_model import SceneModel
+    from tvtk.pyface.scene_editor import SceneEditor
 
     class MyModel(HasTraits):
         scene = Instance(SceneModel, ())
@@ -66,7 +66,7 @@ widget for scene by specifying for it the `SceneEditor`::
 A `Mayavi` button to pop up the pipeline dialog can be added on the
 toolbar by specifying a different scene view to the `SceneEditor`::
 
-    from enthought.mayavi.core.ui.mayavi_scene import MayaviScene
+    from mayavi.core.ui.mayavi_scene import MayaviScene
 
     #...
     editor=SceneEditor(scene_class=MayaviScene)
@@ -75,7 +75,7 @@ toolbar by specifying a different scene view to the `SceneEditor`::
 If, on the contrary, you want a view with no toolbar, you can replace the
 `MayaviView` by a raw tvtk view::
 
-    from enthought.tvtk.pyface.api import Scene
+    from tvtk.pyface.api import Scene
 
     #...
     editor=SceneEditor(scene_class=Scene)
@@ -94,7 +94,7 @@ it to the scene. Having an `Engine` only for one scene allows us to
 confine action and visualization objects only to this scene. 
 
 We can also use an `MlabSceneModel` instance, rather than a `SceneModel`,
-imported from `enthought.mayavi.tools.mlab_scene_model`. This scene model
+imported from `mayavi.tools.mlab_scene_model`. This scene model
 registers the figure in `mlab` (:ref:`simple-scripting-with-mlab`). It
 has an embedded mlab attribute, that exposes the mlab commands (see
 :ref:`mlab_plotting_functions`). For instance plotting 3D points can be
@@ -145,7 +145,7 @@ by a function of two parameters::
 Using `mlab`, we could plot the curve with `plot3d`::
 
     x, y, z, s = curve(4, 6)
-    from enthought.mayavi import mlab
+    from mayavi import mlab
     plot = mlab.plot3d(x, y, z, s)
 
 Modifying the plot for new parameters could be written::
@@ -155,13 +155,13 @@ Modifying the plot for new parameters could be written::
 
 In a dialog, this would be::
 
-    from enthought.traits.api import HasTraits, Range, Instance, \
+    from traits.api import HasTraits, Range, Instance, \
                         on_trait_change
-    from enthought.traits.ui.api import View, Item, HGroup
-    from enthought.tvtk.pyface.scene_editor import SceneEditor
-    from enthought.mayavi.tools.mlab_scene_model import \
+    from traitsui.api import View, Item, HGroup
+    from tvtk.pyface.scene_editor import SceneEditor
+    from mayavi.tools.mlab_scene_model import \
                         MlabSceneModel
-    from enthought.mayavi.core.ui.mayavi_scene import MayaviScene
+    from mayavi.core.ui.mayavi_scene import MayaviScene
 
 
     class Visualization(HasTraits):

@@ -4,7 +4,7 @@ equations along with the z-nullcline.
 
 The vector field of the Lorenz system flow is integrated to display
 trajectories using mlab's flow function:
-:func:`enthought.mayavi.mlab.flow`.
+:func:`mayavi.mlab.flow`.
 
 The z-nullcline is plotted by extracting the z component of the vector
 field data source with the ExtractVectorComponent filter, and applying
@@ -15,7 +15,7 @@ an IsoSurface module on this scalar component.
 # License: BSD Style.
 
 import numpy
-from enthought.mayavi import mlab
+from mayavi import mlab
 
 def lorenz(x, y, z, s=10.,r=28., b=8./3.):
     """The Lorenz system."""

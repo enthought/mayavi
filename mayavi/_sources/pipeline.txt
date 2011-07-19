@@ -93,7 +93,7 @@ represent lines::
     y	= np.sin(6*phi)*(1 + .5*np.cos(11*phi))
     z	= .5*np.sin(11*phi)
 
-    from enthought.mayavi import mlab
+    from mayavi import mlab
     surface = mlab.plot3d(x, y, z, np.sin(6*phi), tube_radius=0.025, colormap='Spectral', opacity=.5)
 
 .. figure:: images/pipeline_and_scene.jpg

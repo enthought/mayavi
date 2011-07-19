@@ -3,20 +3,17 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Plotting functions &mdash; Mayavi 3.4.2 documentation</title>
-    
+    <title>Plotting functions &mdash; mayavi v4.0.1 documentation</title>
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '3.4.2',
+        VERSION:     '4.0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +22,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="Mayavi 3.4.2 documentation" href="../index.html" />
+    <link rel="top" title="mayavi v4.0.1 documentation" href="../index.html" />
     <link rel="up" title="MLab reference" href="mlab_reference.html" />
     <link rel="next" title="Figure handling functions" href="mlab_figure.html" />
     <link rel="prev" title="MLab reference" href="mlab_reference.html" />
@@ -73,7 +70,7 @@
         <li class="right" >
           <a href="mlab_reference.html" title="MLab reference"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">Mayavi 3.4.2 documentation</a> &raquo;</li>
+        <li><a href="../index.html">mayavi v4.0.1 documentation</a> &raquo;</li>
           <li><a href="mlab_reference.html" accesskey="U">MLab reference</a> &raquo;</li> 
       </ul>
     </div>  
@@ -96,8 +93,8 @@ instructions on running the examples.</p>
 <div class="section" id="barchart">
 <h2>barchart<a class="headerlink" href="#barchart" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.mlab.barchart">
-<tt class="descclassname">enthought.mayavi.mlab.</tt><tt class="descname">barchart</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.mlab.barchart" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.mlab.barchart">
+<tt class="descclassname">mayavi.mlab.</tt><tt class="descname">barchart</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.mlab.barchart" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots vertical glyphs (like bars) scaled vertical, to do
 histogram-like plots.</p>
 <p>This functions accepts a wide variety of inputs, with positions given
@@ -123,79 +120,81 @@ is an array s, or a callable, f, that returns an array giving the
 data value.</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">auto_scale:</th><td class="field-body">whether to compute automaticaly the lateral scaling of
-the glyphs. This might be computationaly expensive. Must
+<tr class="field"><th class="field-name">auto_scale:</th><td class="field-body">whether to compute automatically the lateral scaling of
+the glyphs. This might be computationally expensive. Must
 be a boolean. Default: True</td>
 </tr>
-<tr class="field-even field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<tr class="field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
+<tr class="field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
-Default is the x, y, z arrays extents. Use
+<tr class="field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+Default is the x, y, z arrays extent. Use
 this to change the extent of the object
 created.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">figure:</th><td class="field-body">Figure to populate.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Figure to populate.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">lateral_scale:</th><td class="field-body">The lateral scale of the glyph, in units of the
+<tr class="field"><th class="field-name">lateral_scale:</th><td class="field-body">The lateral scale of the glyph, in units of the
 distance between nearest points Must be a float.
 Default: 0.9</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
+<tr class="field"><th class="field-name">line_width:</th><td class="field-body">The width of the lines, if any used. Must be a float.
 Default: 2.0</td>
 </tr>
-<tr class="field-even field"><th class="field-name">mask_points:</th><td class="field-body">If supplied, only one out of &#8216;mask_points&#8217; data point is
-displayed. This option is usefull to reduce the number
-of points displayed on large datasets Must be an integer
-or None.</td>
+<tr class="field"><th class="field-name">mask_points:</th><td class="field-body">If supplied, only one out of &#8216;mask_points&#8217; data point is
+displayed. This option is useful to reduce the number of
+points displayed on large datasets Must be an integer or
+None.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">mode:</th><td class="field-body">The glyph used to represent the bars. Must be &#8216;2dcircle&#8217; or
+<tr class="field"><th class="field-name">mode:</th><td class="field-body">The glyph used to represent the bars. Must be &#8216;2dcircle&#8217; or
 &#8216;2dcross&#8217; or &#8216;2ddiamond&#8217; or &#8216;2dsquare&#8217; or &#8216;2dthick_cross&#8217; or
 &#8216;2dtriangle&#8217; or &#8216;2dvertex&#8217; or &#8216;cube&#8217;. Default: cube</td>
 </tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
+<tr class="field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
 Default: 1.0</td>
 </tr>
-<tr class="field-even field"><th class="field-name">resolution:</th><td class="field-body">The resolution of the glyph created. For spheres, for
+<tr class="field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
+added to the scene. Defaults to True.</td>
+</tr>
+<tr class="field"><th class="field-name">resolution:</th><td class="field-body">The resolution of the glyph created. For spheres, for
 instance, this is the number of divisions along theta and
 phi. Must be an integer. Default: 8</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">scale_factor:</th><td class="field-body">the scaling applied to the glyphs. The
+<tr class="field"><th class="field-name">scale_factor:</th><td class="field-body">the scaling applied to the glyphs. The
 size of the glyph is by default in drawing
 units. Must be a float. Default: 1.0</td>
 </tr>
-<tr class="field-even field"><th class="field-name">scale_mode:</th><td class="field-body">the scaling mode for the glyphs
+<tr class="field"><th class="field-name">scale_mode:</th><td class="field-body">the scaling mode for the glyphs
 (&#8216;vector&#8217;, &#8216;scalar&#8217;, or &#8216;none&#8217;).</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
+<tr class="field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
 scalar.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap
+<tr class="field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
 If None, the max of the data will be used</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap
+<tr class="field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap.
 If None, the min of the data will be used</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
-<img alt="../_images/enthought_mayavi_mlab_barchart.jpg" src="../_images/enthought_mayavi_mlab_barchart.jpg" />
 <p><strong>Example</strong> (run in <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">-wthread</span></tt> or in the mayavi2 interactive shell,
 see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><em>Running mlab scripts</em></a> for more info):</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">numpy</span>
-<span class="kn">from</span> <span class="nn">enthought.mayavi.mlab</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">mayavi.mlab</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="k">def</span> <span class="nf">test_barchart</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot; Demo the bar chart plot with a 2D array.</span>
@@ -208,8 +207,8 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
 <div class="section" id="contour3d">
 <h2>contour3d<a class="headerlink" href="#contour3d" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.mlab.contour3d">
-<tt class="descclassname">enthought.mayavi.mlab.</tt><tt class="descname">contour3d</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.mlab.contour3d" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.mlab.contour3d">
+<tt class="descclassname">mayavi.mlab.</tt><tt class="descname">contour3d</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.mlab.contour3d" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots iso-surfaces for a 3D volume of data suplied as arguments.</p>
 <p><strong>Function signatures</strong>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">contour3d</span><span class="p">(</span><span class="n">scalars</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
@@ -221,65 +220,67 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
 the position of the arrows, and the last the scalar value. The x, y
 and z arrays are then supposed to have been generated by
 <cite>numpy.mgrid</cite>, in other words, they are 3D arrays, with positions
-lying on a 3D orthogonal and regularily spaced grid with nearest
-neighboor in space matching nearest neighboor in the array. The
-function builds a scalar field assuming  the points are regularily
+lying on a 3D orthogonal and regularly spaced grid with nearest
+neighbor in space matching nearest neighbor in the array. The
+function builds a scalar field assuming  the points are regularly
 spaced.</p>
 <p>If 4 positional arguments, (x, y, z, f) are passed, the last one
 can also be a callable, f, that returns vectors components (u, v, w)
 given the positions (x, y, z).</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<tr class="field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
+<tr class="field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">contours:</th><td class="field-body">Integer/list specifying number/list of
+<tr class="field"><th class="field-name">contours:</th><td class="field-body">Integer/list specifying number/list of
 contours. Specifying 0 shows no contours.
 Specifying a list of values will only give the
 requested contours asked for.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
-Default is the x, y, z arrays extents. Use
+<tr class="field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+Default is the x, y, z arrays extent. Use
 this to change the extent of the object
 created.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">figure:</th><td class="field-body">Figure to populate.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Figure to populate.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
+<tr class="field"><th class="field-name">line_width:</th><td class="field-body">The width of the lines, if any used. Must be a float.
 Default: 2.0</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
+<tr class="field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
 Default: 1.0</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
+<tr class="field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
+added to the scene. Defaults to True.</td>
+</tr>
+<tr class="field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
 scalar.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap
+<tr class="field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
 If None, the max of the data will be used</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap
+<tr class="field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap.
 If None, the min of the data will be used</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
-<img alt="../_images/enthought_mayavi_mlab_contour3d.jpg" src="../_images/enthought_mayavi_mlab_contour3d.jpg" />
 <p><strong>Example</strong> (run in <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">-wthread</span></tt> or in the mayavi2 interactive shell,
 see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><em>Running mlab scripts</em></a> for more info):</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">numpy</span>
-<span class="kn">from</span> <span class="nn">enthought.mayavi.mlab</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">mayavi.mlab</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="k">def</span> <span class="nf">test_contour3d</span><span class="p">():</span>
     <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ogrid</span><span class="p">[</span><span class="o">-</span><span class="mi">5</span><span class="p">:</span><span class="mi">5</span><span class="p">:</span><span class="mi">64</span><span class="n">j</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">:</span><span class="mi">5</span><span class="p">:</span><span class="mi">64</span><span class="n">j</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">:</span><span class="mi">5</span><span class="p">:</span><span class="mi">64</span><span class="n">j</span><span class="p">]</span>
@@ -294,8 +295,8 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
 <div class="section" id="contour-surf">
 <h2>contour_surf<a class="headerlink" href="#contour-surf" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.mlab.contour_surf">
-<tt class="descclassname">enthought.mayavi.mlab.</tt><tt class="descname">contour_surf</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.mlab.contour_surf" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.mlab.contour_surf">
+<tt class="descclassname">mayavi.mlab.</tt><tt class="descname">contour_surf</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.mlab.contour_surf" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots a the contours of a surface using grid-spaced data for
 elevation supplied as a 2D array.</p>
 <p><strong>Function signatures</strong>:</p>
@@ -317,61 +318,63 @@ made from the indices of arrays, and an uniformly-spaced data set is
 created.</p>
 <p>If 3 positional arguments are passed the last one must be an array s,
 or a callable, f, that returns an array. x and y give the
-coordinnates of positions corresponding to the s values.</p>
+coordinates of positions corresponding to the s values.</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<tr class="field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
+<tr class="field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">contours:</th><td class="field-body">Integer/list specifying number/list of
+<tr class="field"><th class="field-name">contours:</th><td class="field-body">Integer/list specifying number/list of
 contours. Specifying 0 shows no contours.
 Specifying a list of values will only give the
 requested contours asked for.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
-Default is the x, y, z arrays extents. Use
+<tr class="field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+Default is the x, y, z arrays extent. Use
 this to change the extent of the object
 created.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">figure:</th><td class="field-body">Figure to populate.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Figure to populate.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
+<tr class="field"><th class="field-name">line_width:</th><td class="field-body">The width of the lines, if any used. Must be a float.
 Default: 2.0</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
+<tr class="field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
 Default: 1.0</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
+<tr class="field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
+added to the scene. Defaults to True.</td>
+</tr>
+<tr class="field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
 scalar.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap
+<tr class="field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
 If None, the max of the data will be used</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap
+<tr class="field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap.
 If None, the min of the data will be used</td>
 </tr>
-<tr class="field-even field"><th class="field-name">warp_scale:</th><td class="field-body">scale of the warp scalar</td>
+<tr class="field"><th class="field-name">warp_scale:</th><td class="field-body">scale of the warp scalar</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
-<img alt="../_images/enthought_mayavi_mlab_contour_surf.jpg" src="../_images/enthought_mayavi_mlab_contour_surf.jpg" />
 <p><strong>Example</strong> (run in <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">-wthread</span></tt> or in the mayavi2 interactive shell,
 see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><em>Running mlab scripts</em></a> for more info):</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">numpy</span>
-<span class="kn">from</span> <span class="nn">enthought.mayavi.mlab</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">mayavi.mlab</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="k">def</span> <span class="nf">test_contour_surf</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;Test contour_surf on regularly spaced co-ordinates like MayaVi.&quot;&quot;&quot;</span>
@@ -388,9 +391,9 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
 <div class="section" id="flow">
 <h2>flow<a class="headerlink" href="#flow" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.mlab.flow">
-<tt class="descclassname">enthought.mayavi.mlab.</tt><tt class="descname">flow</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.mlab.flow" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates trajectories of particles following the flow of a vector field.</p>
+<dt id="mayavi.mlab.flow">
+<tt class="descclassname">mayavi.mlab.</tt><tt class="descname">flow</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.mlab.flow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a trajectory of particles following the flow of a vector field.</p>
 <p><strong>Function signatures</strong>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">flow</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
 <span class="n">flow</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
@@ -405,84 +408,86 @@ corresponding points in the (u, v, w) arrays.</p>
 the position of the arrows, and the 3 last the components. The x, y
 and z arrays are then supposed to have been generated by
 <cite>numpy.mgrid</cite>, in other words, they are 3D arrays, with positions
-lying on a 3D orthogonal and regularily spaced grid with nearest
-neighboor in space matching nearest neighboor in the array. The
-function builds a vector field assuming  the points are regularily
+lying on a 3D orthogonal and regularly spaced grid with nearest
+neighbor in space matching nearest neighbor in the array. The
+function builds a vector field assuming  the points are regularly
 spaced.</p>
 <p>If 4 positional arguments, (x, y, z, f) are passed, the last one must be
 a callable, f, that returns vectors components (u, v, w) given the
 positions (x, y, z).</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<tr class="field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
+<tr class="field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
-Default is the x, y, z arrays extents. Use
+<tr class="field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+Default is the x, y, z arrays extent. Use
 this to change the extent of the object
 created.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">Figure to populate.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Figure to populate.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name" colspan="2">integration_direction:</th></tr>
+<tr class="field"><th class="field-name" colspan="2">integration_direction:</th></tr>
 <tr><td>&nbsp;</td><td class="field-body">The direction of the integration. Must be
 &#8216;forward&#8217; or &#8216;backward&#8217; or &#8216;both&#8217;. Default:
 forward</td>
 </tr>
-<tr class="field-even field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
+<tr class="field"><th class="field-name">line_width:</th><td class="field-body">The width of the lines, if any used. Must be a float.
 Default: 2.0</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">linetype:</th><td class="field-body">the type of line-like object used to display the
+<tr class="field"><th class="field-name">linetype:</th><td class="field-body">the type of line-like object used to display the
 streamline. Must be &#8216;line&#8217; or &#8216;ribbon&#8217; or &#8216;tube&#8217;. Default:
 line</td>
 </tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
+<tr class="field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
 Default: 1.0</td>
 </tr>
-<tr class="field-even field"><th class="field-name">scalars:</th><td class="field-body">optional scalar data.</td>
+<tr class="field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
+added to the scene. Defaults to True.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name" colspan="2">seed_resolution:</th></tr>
+<tr class="field"><th class="field-name">scalars:</th><td class="field-body">optional scalar data.</td>
+</tr>
+<tr class="field"><th class="field-name" colspan="2">seed_resolution:</th></tr>
 <tr><td>&nbsp;</td><td class="field-body">The resolution of the seed. Determines the number of
 seed points Must be an integer or None.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">seed_scale:</th><td class="field-body">Scales the seed around its default center Must be a
+<tr class="field"><th class="field-name">seed_scale:</th><td class="field-body">Scales the seed around its default center Must be a
 float. Default: 1.0</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">seed_visible:</th><td class="field-body">Control the visibility of the seed. Must be a boolean.
+<tr class="field"><th class="field-name">seed_visible:</th><td class="field-body">Control the visibility of the seed. Must be a boolean.
 Default: True</td>
 </tr>
-<tr class="field-even field"><th class="field-name">seedtype:</th><td class="field-body">the widget used as a seed for the streamlines. Must be
+<tr class="field"><th class="field-name">seedtype:</th><td class="field-body">the widget used as a seed for the streamlines. Must be
 &#8216;line&#8217; or &#8216;plane&#8217; or &#8216;point&#8217; or &#8216;sphere&#8217;. Default: sphere</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
+<tr class="field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
 scalar.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap
+<tr class="field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
 If None, the max of the data will be used</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap
+<tr class="field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap.
 If None, the min of the data will be used</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
-<img alt="../_images/enthought_mayavi_mlab_flow.jpg" src="../_images/enthought_mayavi_mlab_flow.jpg" />
 <p><strong>Example</strong> (run in <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">-wthread</span></tt> or in the mayavi2 interactive shell,
 see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><em>Running mlab scripts</em></a> for more info):</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">numpy</span>
-<span class="kn">from</span> <span class="nn">enthought.mayavi.mlab</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">mayavi.mlab</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="k">def</span> <span class="nf">test_flow</span><span class="p">():</span>
     <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span>
@@ -498,8 +503,8 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
 <div class="section" id="imshow">
 <h2>imshow<a class="headerlink" href="#imshow" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.mlab.imshow">
-<tt class="descclassname">enthought.mayavi.mlab.</tt><tt class="descname">imshow</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.mlab.imshow" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.mlab.imshow">
+<tt class="descclassname">mayavi.mlab.</tt><tt class="descname">imshow</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.mlab.imshow" title="Permalink to this definition">¶</a></dt>
 <dd><p>View a 2D array as an image.</p>
 <p><strong>Function signatures</strong>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">imshow</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
@@ -509,54 +514,56 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
 the colormap.</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<tr class="field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
+<tr class="field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
-Default is the x, y, z arrays extents. Use
+<tr class="field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+Default is the x, y, z arrays extent. Use
 this to change the extent of the object
 created.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">Figure to populate.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Figure to populate.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">interpolate:</th><td class="field-body">if the pixels in the image are to be
+<tr class="field"><th class="field-name">interpolate:</th><td class="field-body">if the pixels in the image are to be
 interpolated or not. Must be a boolean. Default: True</td>
 </tr>
-<tr class="field-even field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
+<tr class="field"><th class="field-name">line_width:</th><td class="field-body">The width of the lines, if any used. Must be a float.
 Default: 2.0</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">opacity:</th><td class="field-body">the opacity of the image. Must be a legal value. Default:
+<tr class="field"><th class="field-name">opacity:</th><td class="field-body">the opacity of the image. Must be a legal value. Default:
 1.0</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
+<tr class="field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
+added to the scene. Defaults to True.</td>
+</tr>
+<tr class="field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
 scalar.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap
+<tr class="field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
 If None, the max of the data will be used</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap
+<tr class="field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap.
 If None, the min of the data will be used</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
-<img alt="../_images/enthought_mayavi_mlab_imshow.jpg" src="../_images/enthought_mayavi_mlab_imshow.jpg" />
 <p><strong>Example</strong> (run in <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">-wthread</span></tt> or in the mayavi2 interactive shell,
 see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><em>Running mlab scripts</em></a> for more info):</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">numpy</span>
-<span class="kn">from</span> <span class="nn">enthought.mayavi.mlab</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">mayavi.mlab</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="k">def</span> <span class="nf">test_imshow</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot; Use imshow to visualize a 2D 10x10 random array.</span>
@@ -569,8 +576,8 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
 <div class="section" id="mesh">
 <h2>mesh<a class="headerlink" href="#mesh" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.mlab.mesh">
-<tt class="descclassname">enthought.mayavi.mlab.</tt><tt class="descname">mesh</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.mlab.mesh" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.mlab.mesh">
+<tt class="descclassname">mayavi.mlab.</tt><tt class="descname">mesh</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.mlab.mesh" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots a surface using grid-spaced data supplied as 2D arrays.</p>
 <p><strong>Function signatures</strong>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">mesh</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
@@ -585,87 +592,89 @@ triangles rather than regular implicit connectivity, see the
 <cite>triangular_mesh</cite> function.</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<tr class="field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
+<tr class="field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
-Default is the x, y, z arrays extents. Use
+<tr class="field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+Default is the x, y, z arrays extent. Use
 this to change the extent of the object
 created.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">Figure to populate.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Figure to populate.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
+<tr class="field"><th class="field-name">line_width:</th><td class="field-body">The width of the lines, if any used. Must be a float.
 Default: 2.0</td>
 </tr>
-<tr class="field-even field"><th class="field-name">mask:</th><td class="field-body">boolean mask array to suppress some data points.</td>
+<tr class="field"><th class="field-name">mask:</th><td class="field-body">boolean mask array to suppress some data points.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">mask_points:</th><td class="field-body">If supplied, only one out of &#8216;mask_points&#8217; data point is
-displayed. This option is usefull to reduce the number
-of points displayed on large datasets Must be an integer
-or None.</td>
+<tr class="field"><th class="field-name">mask_points:</th><td class="field-body">If supplied, only one out of &#8216;mask_points&#8217; data point is
+displayed. This option is useful to reduce the number of
+points displayed on large datasets Must be an integer or
+None.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">mode:</th><td class="field-body">the mode of the glyphs. Must be &#8216;2darrow&#8217; or &#8216;2dcircle&#8217; or
+<tr class="field"><th class="field-name">mode:</th><td class="field-body">the mode of the glyphs. Must be &#8216;2darrow&#8217; or &#8216;2dcircle&#8217; or
 &#8216;2dcross&#8217; or &#8216;2ddash&#8217; or &#8216;2ddiamond&#8217; or &#8216;2dhooked_arrow&#8217; or
 &#8216;2dsquare&#8217; or &#8216;2dthick_arrow&#8217; or &#8216;2dthick_cross&#8217; or
 &#8216;2dtriangle&#8217; or &#8216;2dvertex&#8217; or &#8216;arrow&#8217; or &#8216;axes&#8217; or &#8216;cone&#8217; or
 &#8216;cube&#8217; or &#8216;cylinder&#8217; or &#8216;point&#8217; or &#8216;sphere&#8217;. Default: sphere</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
+<tr class="field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
 Default: 1.0</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">representation:</th><td class="field-body">the representation type used for the surface. Must be
+<tr class="field"><th class="field-name">representation:</th><td class="field-body">the representation type used for the surface. Must be
 &#8216;surface&#8217; or &#8216;wireframe&#8217; or &#8216;points&#8217; or &#8216;mesh&#8217; or
 &#8216;fancymesh&#8217;. Default: surface</td>
 </tr>
-<tr class="field-even field"><th class="field-name">resolution:</th><td class="field-body">The resolution of the glyph created. For spheres, for
+<tr class="field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
+added to the scene. Defaults to True.</td>
+</tr>
+<tr class="field"><th class="field-name">resolution:</th><td class="field-body">The resolution of the glyph created. For spheres, for
 instance, this is the number of divisions along theta and
 phi. Must be an integer. Default: 8</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">scalars:</th><td class="field-body">optional scalar data.</td>
+<tr class="field"><th class="field-name">scalars:</th><td class="field-body">optional scalar data.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">scale_factor:</th><td class="field-body">scale factor of the glyphs used to represent
+<tr class="field"><th class="field-name">scale_factor:</th><td class="field-body">scale factor of the glyphs used to represent
 the vertices, in fancy_mesh mode. Must be a float.
 Default: 0.05</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">scale_mode:</th><td class="field-body">the scaling mode for the glyphs
+<tr class="field"><th class="field-name">scale_mode:</th><td class="field-body">the scaling mode for the glyphs
 (&#8216;vector&#8217;, &#8216;scalar&#8217;, or &#8216;none&#8217;).</td>
 </tr>
-<tr class="field-even field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
+<tr class="field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
 scalar.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">tube_radius:</th><td class="field-body">radius of the tubes used to represent the
+<tr class="field"><th class="field-name">tube_radius:</th><td class="field-body">radius of the tubes used to represent the
 lines, in mesh mode. If None, simple lines are used.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">tube_sides:</th><td class="field-body">number of sides of the tubes used to
+<tr class="field"><th class="field-name">tube_sides:</th><td class="field-body">number of sides of the tubes used to
 represent the lines. Must be an integer. Default: 6</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap
+<tr class="field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
 If None, the max of the data will be used</td>
 </tr>
-<tr class="field-even field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap
+<tr class="field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap.
 If None, the min of the data will be used</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
-<img alt="../_images/enthought_mayavi_mlab_mesh.jpg" src="../_images/enthought_mayavi_mlab_mesh.jpg" />
 <p><strong>Example</strong> (run in <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">-wthread</span></tt> or in the mayavi2 interactive shell,
 see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><em>Running mlab scripts</em></a> for more info):</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">numpy</span>
-<span class="kn">from</span> <span class="nn">enthought.mayavi.mlab</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">mayavi.mlab</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="k">def</span> <span class="nf">test_mesh</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;A very pretty picture of spherical harmonics translated from</span>
@@ -688,8 +697,8 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
 <div class="section" id="plot3d">
 <h2>plot3d<a class="headerlink" href="#plot3d" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.mlab.plot3d">
-<tt class="descclassname">enthought.mayavi.mlab.</tt><tt class="descname">plot3d</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.mlab.plot3d" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.mlab.plot3d">
+<tt class="descclassname">mayavi.mlab.</tt><tt class="descname">plot3d</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.mlab.plot3d" title="Permalink to this definition">¶</a></dt>
 <dd><p>Draws lines between points.</p>
 <p><strong>Function signatures</strong>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">plot3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
@@ -701,61 +710,63 @@ give the positions of the successive points of the line. s is an
 optional scalar value associated with each point.</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<tr class="field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
+<tr class="field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
-Default is the x, y, z arrays extents. Use
+<tr class="field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+Default is the x, y, z arrays extent. Use
 this to change the extent of the object
 created.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">Figure to populate.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Figure to populate.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
+<tr class="field"><th class="field-name">line_width:</th><td class="field-body">The width of the lines, if any used. Must be a float.
 Default: 2.0</td>
 </tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
+<tr class="field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
 Default: 1.0</td>
 </tr>
-<tr class="field-even field"><th class="field-name">representation:</th><td class="field-body">the representation type used for the surface. Must be
+<tr class="field"><th class="field-name">representation:</th><td class="field-body">the representation type used for the surface. Must be
 &#8216;surface&#8217; or &#8216;wireframe&#8217; or &#8216;points&#8217;. Default:
 surface</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
+<tr class="field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
+added to the scene. Defaults to True.</td>
+</tr>
+<tr class="field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
 scalar.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">tube_radius:</th><td class="field-body">radius of the tubes used to represent the
+<tr class="field"><th class="field-name">tube_radius:</th><td class="field-body">radius of the tubes used to represent the
 lines, If None, simple lines are used.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">tube_sides:</th><td class="field-body">number of sides of the tubes used to
+<tr class="field"><th class="field-name">tube_sides:</th><td class="field-body">number of sides of the tubes used to
 represent the lines. Must be an integer. Default: 6</td>
 </tr>
-<tr class="field-even field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap
+<tr class="field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
 If None, the max of the data will be used</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap
+<tr class="field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap.
 If None, the min of the data will be used</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
-<img alt="../_images/enthought_mayavi_mlab_plot3d.jpg" src="../_images/enthought_mayavi_mlab_plot3d.jpg" />
 <p><strong>Example</strong> (run in <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">-wthread</span></tt> or in the mayavi2 interactive shell,
 see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><em>Running mlab scripts</em></a> for more info):</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">numpy</span>
-<span class="kn">from</span> <span class="nn">enthought.mayavi.mlab</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">mayavi.mlab</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="k">def</span> <span class="nf">test_plot3d</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;Generates a pretty set of lines.&quot;&quot;&quot;</span>
@@ -776,8 +787,8 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
 <div class="section" id="points3d">
 <h2>points3d<a class="headerlink" href="#points3d" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.mlab.points3d">
-<tt class="descclassname">enthought.mayavi.mlab.</tt><tt class="descname">points3d</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.mlab.points3d" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.mlab.points3d">
+<tt class="descclassname">mayavi.mlab.</tt><tt class="descname">points3d</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.mlab.points3d" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots glyphs (like points) at the position of the supplied data.</p>
 <p><strong>Function signatures</strong>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">points3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="o">...</span><span class="p">)</span>
@@ -796,74 +807,76 @@ scalar value can be used to modulate the color and the size of the
 points.</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<tr class="field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
+<tr class="field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
-Default is the x, y, z arrays extents. Use
+<tr class="field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+Default is the x, y, z arrays extent. Use
 this to change the extent of the object
 created.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">Figure to populate.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Figure to populate.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
+<tr class="field"><th class="field-name">line_width:</th><td class="field-body">The width of the lines, if any used. Must be a float.
 Default: 2.0</td>
 </tr>
-<tr class="field-even field"><th class="field-name">mask_points:</th><td class="field-body">If supplied, only one out of &#8216;mask_points&#8217; data point is
-displayed. This option is usefull to reduce the number
-of points displayed on large datasets Must be an integer
-or None.</td>
+<tr class="field"><th class="field-name">mask_points:</th><td class="field-body">If supplied, only one out of &#8216;mask_points&#8217; data point is
+displayed. This option is useful to reduce the number of
+points displayed on large datasets Must be an integer or
+None.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">mode:</th><td class="field-body">the mode of the glyphs. Must be &#8216;2darrow&#8217; or &#8216;2dcircle&#8217; or
+<tr class="field"><th class="field-name">mode:</th><td class="field-body">the mode of the glyphs. Must be &#8216;2darrow&#8217; or &#8216;2dcircle&#8217; or
 &#8216;2dcross&#8217; or &#8216;2ddash&#8217; or &#8216;2ddiamond&#8217; or &#8216;2dhooked_arrow&#8217; or
 &#8216;2dsquare&#8217; or &#8216;2dthick_arrow&#8217; or &#8216;2dthick_cross&#8217; or
 &#8216;2dtriangle&#8217; or &#8216;2dvertex&#8217; or &#8216;arrow&#8217; or &#8216;axes&#8217; or &#8216;cone&#8217; or
 &#8216;cube&#8217; or &#8216;cylinder&#8217; or &#8216;point&#8217; or &#8216;sphere&#8217;. Default: sphere</td>
 </tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
+<tr class="field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
 Default: 1.0</td>
 </tr>
-<tr class="field-even field"><th class="field-name">resolution:</th><td class="field-body">The resolution of the glyph created. For spheres, for
+<tr class="field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
+added to the scene. Defaults to True.</td>
+</tr>
+<tr class="field"><th class="field-name">resolution:</th><td class="field-body">The resolution of the glyph created. For spheres, for
 instance, this is the number of divisions along theta and
 phi. Must be an integer. Default: 8</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">scale_factor:</th><td class="field-body">The scaling applied to the glyphs. the simple of the
+<tr class="field"><th class="field-name">scale_factor:</th><td class="field-body">The scaling applied to the glyphs. the size of the
 glyph is by default calculated from the inter-glyph
 spacing. Specify a float to give the maximum glyph size
 in drawing units</td>
 </tr>
-<tr class="field-even field"><th class="field-name">scale_mode:</th><td class="field-body">the scaling mode for the glyphs
+<tr class="field"><th class="field-name">scale_mode:</th><td class="field-body">the scaling mode for the glyphs
 (&#8216;vector&#8217;, &#8216;scalar&#8217;, or &#8216;none&#8217;).</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
+<tr class="field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
 scalar.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap
+<tr class="field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
 If None, the max of the data will be used</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap
+<tr class="field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap.
 If None, the min of the data will be used</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
-<img alt="../_images/enthought_mayavi_mlab_points3d.jpg" src="../_images/enthought_mayavi_mlab_points3d.jpg" />
 <p><strong>Example</strong> (run in <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">-wthread</span></tt> or in the mayavi2 interactive shell,
 see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><em>Running mlab scripts</em></a> for more info):</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">numpy</span>
-<span class="kn">from</span> <span class="nn">enthought.mayavi.mlab</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">mayavi.mlab</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="k">def</span> <span class="nf">test_points3d</span><span class="p">():</span>
     <span class="n">t</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
@@ -882,8 +895,8 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
 <div class="section" id="quiver3d">
 <h2>quiver3d<a class="headerlink" href="#quiver3d" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.mlab.quiver3d">
-<tt class="descclassname">enthought.mayavi.mlab.</tt><tt class="descname">quiver3d</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.mlab.quiver3d" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.mlab.quiver3d">
+<tt class="descclassname">mayavi.mlab.</tt><tt class="descname">quiver3d</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.mlab.quiver3d" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots glyphs (like arrows) indicating the direction of the vectors
 at the positions supplied.</p>
 <p><strong>Function signatures</strong>:</p>
@@ -904,76 +917,78 @@ a callable, f, that returns vectors components (u, v, w) given the
 positions (x, y, z).</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<tr class="field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
+<tr class="field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
-Default is the x, y, z arrays extents. Use
+<tr class="field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+Default is the x, y, z arrays extent. Use
 this to change the extent of the object
 created.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">Figure to populate.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Figure to populate.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
+<tr class="field"><th class="field-name">line_width:</th><td class="field-body">The width of the lines, if any used. Must be a float.
 Default: 2.0</td>
 </tr>
-<tr class="field-even field"><th class="field-name">mask_points:</th><td class="field-body">If supplied, only one out of &#8216;mask_points&#8217; data point is
-displayed. This option is usefull to reduce the number
-of points displayed on large datasets Must be an integer
-or None.</td>
+<tr class="field"><th class="field-name">mask_points:</th><td class="field-body">If supplied, only one out of &#8216;mask_points&#8217; data point is
+displayed. This option is useful to reduce the number of
+points displayed on large datasets Must be an integer or
+None.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">mode:</th><td class="field-body">the mode of the glyphs. Must be &#8216;2darrow&#8217; or &#8216;2dcircle&#8217; or
+<tr class="field"><th class="field-name">mode:</th><td class="field-body">the mode of the glyphs. Must be &#8216;2darrow&#8217; or &#8216;2dcircle&#8217; or
 &#8216;2dcross&#8217; or &#8216;2ddash&#8217; or &#8216;2ddiamond&#8217; or &#8216;2dhooked_arrow&#8217; or
 &#8216;2dsquare&#8217; or &#8216;2dthick_arrow&#8217; or &#8216;2dthick_cross&#8217; or
 &#8216;2dtriangle&#8217; or &#8216;2dvertex&#8217; or &#8216;arrow&#8217; or &#8216;axes&#8217; or &#8216;cone&#8217; or
 &#8216;cube&#8217; or &#8216;cylinder&#8217; or &#8216;point&#8217; or &#8216;sphere&#8217;. Default: 2darrow</td>
 </tr>
-<tr class="field-even field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
+<tr class="field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
 Default: 1.0</td>
 </tr>
-<tr class="field-even field"><th class="field-name">resolution:</th><td class="field-body">The resolution of the glyph created. For spheres, for
+<tr class="field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
+added to the scene. Defaults to True.</td>
+</tr>
+<tr class="field"><th class="field-name">resolution:</th><td class="field-body">The resolution of the glyph created. For spheres, for
 instance, this is the number of divisions along theta and
 phi. Must be an integer. Default: 8</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">scalars:</th><td class="field-body">optional scalar data.</td>
+<tr class="field"><th class="field-name">scalars:</th><td class="field-body">optional scalar data.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">scale_factor:</th><td class="field-body">The scaling applied to the glyphs. the simple of the
+<tr class="field"><th class="field-name">scale_factor:</th><td class="field-body">The scaling applied to the glyphs. the size of the
 glyph is by default calculated from the inter-glyph
 spacing. Specify a float to give the maximum glyph size
 in drawing units</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">scale_mode:</th><td class="field-body">the scaling mode for the glyphs
+<tr class="field"><th class="field-name">scale_mode:</th><td class="field-body">the scaling mode for the glyphs
 (&#8216;vector&#8217;, &#8216;scalar&#8217;, or &#8216;none&#8217;).</td>
 </tr>
-<tr class="field-even field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
+<tr class="field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
 scalar.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap
+<tr class="field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
 If None, the max of the data will be used</td>
 </tr>
-<tr class="field-even field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap
+<tr class="field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap.
 If None, the min of the data will be used</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
-<img alt="../_images/enthought_mayavi_mlab_quiver3d.jpg" src="../_images/enthought_mayavi_mlab_quiver3d.jpg" />
 <p><strong>Example</strong> (run in <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">-wthread</span></tt> or in the mayavi2 interactive shell,
 see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><em>Running mlab scripts</em></a> for more info):</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">numpy</span>
-<span class="kn">from</span> <span class="nn">enthought.mayavi.mlab</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">mayavi.mlab</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="k">def</span> <span class="nf">test_quiver3d</span><span class="p">():</span>
     <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
@@ -989,8 +1004,8 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
 <div class="section" id="surf">
 <h2>surf<a class="headerlink" href="#surf" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.mlab.surf">
-<tt class="descclassname">enthought.mayavi.mlab.</tt><tt class="descname">surf</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.mlab.surf" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.mlab.surf">
+<tt class="descclassname">mayavi.mlab.</tt><tt class="descname">surf</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.mlab.surf" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots a surface using regularly-spaced elevation data supplied as a 2D
 array.</p>
 <p><strong>Function signatures</strong>:</p>
@@ -1015,54 +1030,57 @@ made from the indices of arrays, and an uniformly-spaced data set is
 created.</p>
 <p>If 3 positional arguments are passed the last one must be an array s,
 or a callable, f, that returns an array. x and y give the
-coordinnates of positions corresponding to the s values.</p>
+coordinates of positions corresponding to the s values.</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<tr class="field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
+<tr class="field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
-Default is the x, y, z arrays extents. Use
+<tr class="field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+Default is the x, y, z arrays extent. Use
 this to change the extent of the object
 created.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">Figure to populate.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Figure to populate.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
+<tr class="field"><th class="field-name">line_width:</th><td class="field-body">The width of the lines, if any used. Must be a float.
 Default: 2.0</td>
 </tr>
-<tr class="field-even field"><th class="field-name">mask:</th><td class="field-body">boolean mask array to suppress some data points.</td>
+<tr class="field"><th class="field-name">mask:</th><td class="field-body">boolean mask array to suppress some data points.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
+<tr class="field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
 Default: 1.0</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">representation:</th><td class="field-body">the representation type used for the surface. Must be
+<tr class="field"><th class="field-name">representation:</th><td class="field-body">the representation type used for the surface. Must be
 &#8216;surface&#8217; or &#8216;wireframe&#8217; or &#8216;points&#8217;. Default:
 surface</td>
 </tr>
-<tr class="field-even field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
+<tr class="field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
+added to the scene. Defaults to True.</td>
+</tr>
+<tr class="field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
 scalar.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap
+<tr class="field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
 If None, the max of the data will be used</td>
 </tr>
-<tr class="field-even field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap
+<tr class="field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap.
 If None, the min of the data will be used</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">warp_scale:</th><td class="field-body">scale of the z axis (warped from
+<tr class="field"><th class="field-name">warp_scale:</th><td class="field-body">scale of the z axis (warped from
 the value of the scalar). By default this scale
-is a float value.
-If you specify &#8216;auto&#8217;, the scale is calculated to
+is a float value.                          If you specify
+&#8216;auto&#8217;, the scale is calculated to
 give a pleasant aspect ratio to the plot,
 whatever the bounds of the data.
 If you specify a value for warp_scale in
@@ -1078,14 +1096,13 @@ see the <cite>extent</cite> keyword argument.</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
-<img alt="../_images/enthought_mayavi_mlab_surf.jpg" src="../_images/enthought_mayavi_mlab_surf.jpg" />
 <p><strong>Example</strong> (run in <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">-wthread</span></tt> or in the mayavi2 interactive shell,
 see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><em>Running mlab scripts</em></a> for more info):</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">numpy</span>
-<span class="kn">from</span> <span class="nn">enthought.mayavi.mlab</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">mayavi.mlab</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="k">def</span> <span class="nf">test_surf</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;Test surf on regularly spaced co-ordinates like MayaVi.&quot;&quot;&quot;</span>
@@ -1103,8 +1120,8 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
 <div class="section" id="triangular-mesh">
 <h2>triangular_mesh<a class="headerlink" href="#triangular-mesh" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.mlab.triangular_mesh">
-<tt class="descclassname">enthought.mayavi.mlab.</tt><tt class="descname">triangular_mesh</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.mlab.triangular_mesh" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.mlab.triangular_mesh">
+<tt class="descclassname">mayavi.mlab.</tt><tt class="descname">triangular_mesh</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.mlab.triangular_mesh" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots a surface using a mesh defined by the position of its vertices
 and the triangles connecting them.</p>
 <p><strong>Function signatures</strong>:</p>
@@ -1118,87 +1135,89 @@ position arrays.</p>
 mesh functions, as they will create more efficient data structures.</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
+<tr class="field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
 if any, when specified. This is specified as a
 triplet of float ranging from 0 to 1, eg (1, 1,
 1) for white.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
+<tr class="field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
-Default is the x, y, z arrays extents. Use
+<tr class="field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
+Default is the x, y, z arrays extent. Use
 this to change the extent of the object
 created.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">Figure to populate.</td>
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">Figure to populate.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">line_width:</th><td class="field-body">The with of the lines, if any used. Must be a float.
+<tr class="field"><th class="field-name">line_width:</th><td class="field-body">The width of the lines, if any used. Must be a float.
 Default: 2.0</td>
 </tr>
-<tr class="field-even field"><th class="field-name">mask:</th><td class="field-body">boolean mask array to suppress some data points.</td>
+<tr class="field"><th class="field-name">mask:</th><td class="field-body">boolean mask array to suppress some data points.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">mask_points:</th><td class="field-body">If supplied, only one out of &#8216;mask_points&#8217; data point is
-displayed. This option is usefull to reduce the number
-of points displayed on large datasets Must be an integer
-or None.</td>
+<tr class="field"><th class="field-name">mask_points:</th><td class="field-body">If supplied, only one out of &#8216;mask_points&#8217; data point is
+displayed. This option is useful to reduce the number of
+points displayed on large datasets Must be an integer or
+None.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">mode:</th><td class="field-body">the mode of the glyphs. Must be &#8216;2darrow&#8217; or &#8216;2dcircle&#8217; or
+<tr class="field"><th class="field-name">mode:</th><td class="field-body">the mode of the glyphs. Must be &#8216;2darrow&#8217; or &#8216;2dcircle&#8217; or
 &#8216;2dcross&#8217; or &#8216;2ddash&#8217; or &#8216;2ddiamond&#8217; or &#8216;2dhooked_arrow&#8217; or
 &#8216;2dsquare&#8217; or &#8216;2dthick_arrow&#8217; or &#8216;2dthick_cross&#8217; or
 &#8216;2dtriangle&#8217; or &#8216;2dvertex&#8217; or &#8216;arrow&#8217; or &#8216;axes&#8217; or &#8216;cone&#8217; or
 &#8216;cube&#8217; or &#8216;cylinder&#8217; or &#8216;point&#8217; or &#8216;sphere&#8217;. Default: sphere</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
+<tr class="field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
 Default: 1.0</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">representation:</th><td class="field-body">the representation type used for the surface. Must be
+<tr class="field"><th class="field-name">representation:</th><td class="field-body">the representation type used for the surface. Must be
 &#8216;surface&#8217; or &#8216;wireframe&#8217; or &#8216;points&#8217; or &#8216;mesh&#8217; or
 &#8216;fancymesh&#8217;. Default: surface</td>
 </tr>
-<tr class="field-even field"><th class="field-name">resolution:</th><td class="field-body">The resolution of the glyph created. For spheres, for
+<tr class="field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
+added to the scene. Defaults to True.</td>
+</tr>
+<tr class="field"><th class="field-name">resolution:</th><td class="field-body">The resolution of the glyph created. For spheres, for
 instance, this is the number of divisions along theta and
 phi. Must be an integer. Default: 8</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">scalars:</th><td class="field-body">optional scalar data.</td>
+<tr class="field"><th class="field-name">scalars:</th><td class="field-body">optional scalar data.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">scale_factor:</th><td class="field-body">scale factor of the glyphs used to represent
+<tr class="field"><th class="field-name">scale_factor:</th><td class="field-body">scale factor of the glyphs used to represent
 the vertices, in fancy_mesh mode. Must be a float.
 Default: 0.05</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">scale_mode:</th><td class="field-body">the scaling mode for the glyphs
+<tr class="field"><th class="field-name">scale_mode:</th><td class="field-body">the scaling mode for the glyphs
 (&#8216;vector&#8217;, &#8216;scalar&#8217;, or &#8216;none&#8217;).</td>
 </tr>
-<tr class="field-even field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
+<tr class="field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
 scalar.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">tube_radius:</th><td class="field-body">radius of the tubes used to represent the
+<tr class="field"><th class="field-name">tube_radius:</th><td class="field-body">radius of the tubes used to represent the
 lines, in mesh mode. If None, simple lines are used.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">tube_sides:</th><td class="field-body">number of sides of the tubes used to
+<tr class="field"><th class="field-name">tube_sides:</th><td class="field-body">number of sides of the tubes used to
 represent the lines. Must be an integer. Default: 6</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap
+<tr class="field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
 If None, the max of the data will be used</td>
 </tr>
-<tr class="field-even field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap
+<tr class="field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap.
 If None, the min of the data will be used</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
-<img alt="../_images/enthought_mayavi_mlab_triangular_mesh.jpg" src="../_images/enthought_mayavi_mlab_triangular_mesh.jpg" />
 <p><strong>Example</strong> (run in <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">-wthread</span></tt> or in the mayavi2 interactive shell,
 see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><em>Running mlab scripts</em></a> for more info):</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">numpy</span>
-<span class="kn">from</span> <span class="nn">enthought.mayavi.mlab</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">mayavi.mlab</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="k">def</span> <span class="nf">test_triangular_mesh</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;An example of a cone, ie a non-regular mesh defined by its</span>
@@ -1211,7 +1230,7 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
     <span class="n">y</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">imag</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
     <span class="n">z</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 
-    <span class="n">triangles</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
+    <span class="n">triangles</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">)]</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">x</span><span class="p">]</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span>
     <span class="n">z</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">z</span><span class="p">]</span>
@@ -1293,7 +1312,7 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
     </div>
     <hr/>
     <div id="searchbox">
-	<a href="misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
+	<a href="http://github.enthought.com/mayavi/mayavi/misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
 
 	<p style="font-size:85%; color: #FFFFFF;">
     	If you publish articles using Mayavi, please 
@@ -1319,14 +1338,14 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
         <li class="right" >
           <a href="mlab_reference.html" title="MLab reference"
              >previous</a> |</li>
-        <li><a href="../index.html">Mayavi 3.4.2 documentation</a> &raquo;</li>
+        <li><a href="../index.html">mayavi v4.0.1 documentation</a> &raquo;</li>
           <li><a href="mlab_reference.html" >MLab reference</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Mar 26, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1pre/ce4bb37a1409.
+      Last updated on Jul 19, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.
     </div>
   </body>
 </html>

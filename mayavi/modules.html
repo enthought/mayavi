@@ -3,20 +3,17 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Modules &mdash; Mayavi 3.4.2 documentation</title>
-    
+    <title>Modules &mdash; mayavi v4.0.1 documentation</title>
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '3.4.2',
+        VERSION:     '4.0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +22,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="Mayavi 3.4.2 documentation" href="index.html" />
+    <link rel="top" title="mayavi v4.0.1 documentation" href="index.html" />
     <link rel="up" title="Using the Mayavi application" href="application.html" />
     <link rel="next" title="Filters" href="filters.html" />
     <link rel="prev" title="Exploring a vector field" href="example_exploring_a_vector_field.html" />
@@ -73,7 +70,7 @@
         <li class="right" >
           <a href="example_exploring_a_vector_field.html" title="Exploring a vector field"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">Mayavi 3.4.2 documentation</a> &raquo;</li>
+        <li><a href="index.html">mayavi v4.0.1 documentation</a> &raquo;</li>
           <li><a href="application.html" accesskey="U">Using the Mayavi application</a> &raquo;</li> 
       </ul>
     </div>  
@@ -89,26 +86,26 @@
 data to create the visual elements on the scene.</p>
 <p>Here is a list of the Mayavi modules along with a brief description.</p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Axes:</th><td class="field-body">Draws simple axes.</td>
+<tr class="field"><th class="field-name">Axes:</th><td class="field-body">Draws simple axes.</td>
 </tr>
-<tr class="field-even field"><th class="field-name" colspan="2">ContourGridPlane:</th></tr>
+<tr class="field"><th class="field-name" colspan="2">ContourGridPlane:</th></tr>
 <tr><td>&nbsp;</td><td class="field-body">A contour grid plane module. This module lets one take a
 slice of input grid data and view contours of the data.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name" colspan="2">CustomGridPlane:</th></tr>
+<tr class="field"><th class="field-name" colspan="2">CustomGridPlane:</th></tr>
 <tr><td>&nbsp;</td><td class="field-body">A custom grid plane with a lot more flexibility than
 GridPlane module.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Glyph:</th><td class="field-body">Displays different types of glyphs oriented and colored
+<tr class="field"><th class="field-name">Glyph:</th><td class="field-body">Displays different types of glyphs oriented and colored
 as per scalar or vector data at the input points.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">GridPlane:</th><td class="field-body">A simple grid plane module.</td>
+<tr class="field"><th class="field-name">GridPlane:</th><td class="field-body">A simple grid plane module.</td>
 </tr>
-<tr class="field-even field"><th class="field-name" colspan="2">HyperStreamline:</th></tr>
+<tr class="field"><th class="field-name" colspan="2">HyperStreamline:</th></tr>
 <tr><td>&nbsp;</td><td class="field-body">A  module that integrates through a tensor field to generate a
 hyperstreamline. The integration is along the maximum
 eigenvector and the cross section of the hyperstreamline is
@@ -117,63 +114,63 @@ hyperstreamline is &#8220;tube-like&#8221;, with the cross  section being
 elliptical. Hyperstreamlines are used to visualize tensor
 fields.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">ImageActor:</th><td class="field-body">A simple module to view image data efficiently.</td>
+<tr class="field"><th class="field-name">ImageActor:</th><td class="field-body">A simple module to view image data efficiently.</td>
 </tr>
-<tr class="field-even field"><th class="field-name" colspan="2">ImagePlaneWidget:</th></tr>
+<tr class="field"><th class="field-name" colspan="2">ImagePlaneWidget:</th></tr>
 <tr><td>&nbsp;</td><td class="field-body">A simple module to view image data along a cut.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">IsoSurface:</th><td class="field-body">A module that allows the user to make contours of input
+<tr class="field"><th class="field-name">IsoSurface:</th><td class="field-body">A module that allows the user to make contours of input
 volumetric data.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Labels:</th><td class="field-body">Allows a user to label the current dataset or the current
+<tr class="field"><th class="field-name">Labels:</th><td class="field-body">Allows a user to label the current dataset or the current
 actor of the active module.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name" colspan="2">OrientationAxes:</th></tr>
+<tr class="field"><th class="field-name" colspan="2">OrientationAxes:</th></tr>
 <tr><td>&nbsp;</td><td class="field-body">Creates small axes on the side that indicates the
 position of the co-ordinate axes and thereby marks the
 orientation of the scene. Requires VTK-4.5 and above.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Outline:</th><td class="field-body">A module that draws an outline for the given data.</td>
+<tr class="field"><th class="field-name">Outline:</th><td class="field-body">A module that draws an outline for the given data.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">ScalarCutPlane:</th><td class="field-body">Takes a cut plane of any input data set along an
+<tr class="field"><th class="field-name">ScalarCutPlane:</th><td class="field-body">Takes a cut plane of any input data set along an
 implicit plane and plots the data with optional
 contouring and scalar warping.</td>
 </tr>
-<tr class="field-even field"><th class="field-name" colspan="2">SliceUnstructuredGrid:</th></tr>
+<tr class="field"><th class="field-name" colspan="2">SliceUnstructuredGrid:</th></tr>
 <tr><td>&nbsp;</td><td class="field-body">This module takes a slice of the unstructured grid data
 and shows the cells that intersect or touch the slice.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Streamline:</th><td class="field-body">Allows the user to draw streamlines for given vector
+<tr class="field"><th class="field-name">Streamline:</th><td class="field-body">Allows the user to draw streamlines for given vector
 data. This supports various types of seed objects (line,
 sphere, plane and point seeds). It also allows the user
 to draw ribbons or tubes and further supports different
 types of interactive modes of calculating the
 streamlines.</td>
 </tr>
-<tr class="field-even field"><th class="field-name" colspan="2">StructuredGridOutline:</th></tr>
+<tr class="field"><th class="field-name" colspan="2">StructuredGridOutline:</th></tr>
 <tr><td>&nbsp;</td><td class="field-body">Draws a grid-conforming outline for structured grids.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Surface:</th><td class="field-body">Draws a surface for any input dataset with optional contouring.</td>
+<tr class="field"><th class="field-name">Surface:</th><td class="field-body">Draws a surface for any input dataset with optional contouring.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">TensorGlyph:</th><td class="field-body">Displays tensor glyphs oriented and colored as per scalar or
+<tr class="field"><th class="field-name">TensorGlyph:</th><td class="field-body">Displays tensor glyphs oriented and colored as per scalar or
 vector data at the input points.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Text:</th><td class="field-body">This module allows the user to place text on the screen.</td>
+<tr class="field"><th class="field-name">Text:</th><td class="field-body">This module allows the user to place text on the screen.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">VectorCutPlane:</th><td class="field-body">Takes an arbitrary slice of the input data along an
+<tr class="field"><th class="field-name">VectorCutPlane:</th><td class="field-body">Takes an arbitrary slice of the input data along an
 implicit cut plane and places glyphs according to the
 vector field data. The glyphs may be colored using
 either the vector magnitude or the scalar attributes.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Vectors:</th><td class="field-body">Displays different types of glyphs oriented and colored
+<tr class="field"><th class="field-name">Vectors:</th><td class="field-body">Displays different types of glyphs oriented and colored
 as per vector data at the input points. This is merely a
 convenience module that is entirely based on the Glyph
 module.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Volume:</th><td class="field-body">The Volume module visualizes scalar fields using
+<tr class="field"><th class="field-name">Volume:</th><td class="field-body">The Volume module visualizes scalar fields using
 volumetric visualization techniques.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name" colspan="2">WarpVectorCutPlane:</th></tr>
+<tr class="field"><th class="field-name" colspan="2">WarpVectorCutPlane:</th></tr>
 <tr><td>&nbsp;</td><td class="field-body">Takes an arbitrary slice of the input data using an
 implicit cut plane and warps it according to the vector
 field data. The scalars are displayed on the warped
@@ -181,7 +178,7 @@ surface as colors.</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </div>
 
 
@@ -236,7 +233,7 @@ surface as colors.</td>
     </div>
     <hr/>
     <div id="searchbox">
-	<a href="misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
+	<a href="http://github.enthought.com/mayavi/mayavi/misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
 
 	<p style="font-size:85%; color: #FFFFFF;">
     	If you publish articles using Mayavi, please 
@@ -262,14 +259,14 @@ surface as colors.</td>
         <li class="right" >
           <a href="example_exploring_a_vector_field.html" title="Exploring a vector field"
              >previous</a> |</li>
-        <li><a href="index.html">Mayavi 3.4.2 documentation</a> &raquo;</li>
+        <li><a href="index.html">mayavi v4.0.1 documentation</a> &raquo;</li>
           <li><a href="application.html" >Using the Mayavi application</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Mar 26, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1pre/ce4bb37a1409.
+      Last updated on Jul 19, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.
     </div>
   </body>
 </html>

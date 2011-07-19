@@ -24,12 +24,12 @@ The following images are created:
             :scale: 50
 
     * **StructuredGrid**
-      
+
       .. image:: ../structured_grid.jpg
             :scale: 50
 
     * **UnstructuredGrid**
-    
+
       .. image:: ../unstructured_grid.jpg
             :scale: 50
 

@@ -3,20 +3,17 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Building applications using Mayavi &mdash; Mayavi 3.4.2 documentation</title>
-    
+    <title>Building applications using Mayavi &mdash; mayavi v4.0.1 documentation</title>
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '3.4.2',
+        VERSION:     '4.0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +22,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="Mayavi 3.4.2 documentation" href="index.html" />
+    <link rel="top" title="mayavi v4.0.1 documentation" href="index.html" />
     <link rel="next" title="Tips and Tricks" href="tips.html" />
     <link rel="prev" title="Advanced Scripting with Mayavi" href="advanced_scripting.html" />
 <style type="text/css">
@@ -72,7 +69,7 @@
         <li class="right" >
           <a href="advanced_scripting.html" title="Advanced Scripting with Mayavi"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">Mayavi 3.4.2 documentation</a> &raquo;</li> 
+        <li><a href="index.html">mayavi v4.0.1 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -119,10 +116,10 @@ main <cite>HasTraits</cite> object in which the application logics is contained.
 <cite>.configure_traits</cite> method of this object. If a view is explicitely
 specified the embedded Mayavi scene can be represented with the usual
 widget for scene by specifying for it the <cite>SceneEditor</cite>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">enthought.traits.api</span> <span class="kn">import</span> <span class="n">HasTraits</span><span class="p">,</span> <span class="n">Instance</span>
-<span class="kn">from</span> <span class="nn">enthought.traits.ui.api</span> <span class="kn">import</span> <span class="n">View</span><span class="p">,</span> <span class="n">Item</span>
-<span class="kn">from</span> <span class="nn">enthought.tvtk.pyface.scene_model</span> <span class="kn">import</span> <span class="n">SceneModel</span>
-<span class="kn">from</span> <span class="nn">enthought.tvtk.pyface.scene_editor</span> <span class="kn">import</span> <span class="n">SceneEditor</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">traits.api</span> <span class="kn">import</span> <span class="n">HasTraits</span><span class="p">,</span> <span class="n">Instance</span>
+<span class="kn">from</span> <span class="nn">traitsui.api</span> <span class="kn">import</span> <span class="n">View</span><span class="p">,</span> <span class="n">Item</span>
+<span class="kn">from</span> <span class="nn">tvtk.pyface.scene_model</span> <span class="kn">import</span> <span class="n">SceneModel</span>
+<span class="kn">from</span> <span class="nn">tvtk.pyface.scene_editor</span> <span class="kn">import</span> <span class="n">SceneEditor</span>
 
 <span class="k">class</span> <span class="nc">MyModel</span><span class="p">(</span><span class="n">HasTraits</span><span class="p">):</span>
     <span class="n">scene</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">SceneModel</span><span class="p">,</span> <span class="p">())</span>
@@ -135,7 +132,7 @@ widget for scene by specifying for it the <cite>SceneEditor</cite>:</p>
 </div>
 <p>A <cite>Mayavi</cite> button to pop up the pipeline dialog can be added on the
 toolbar by specifying a different scene view to the <cite>SceneEditor</cite>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">enthought.mayavi.core.ui.mayavi_scene</span> <span class="kn">import</span> <span class="n">MayaviScene</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">mayavi.core.ui.mayavi_scene</span> <span class="kn">import</span> <span class="n">MayaviScene</span>
 
 <span class="c">#...</span>
 <span class="n">editor</span><span class="o">=</span><span class="n">SceneEditor</span><span class="p">(</span><span class="n">scene_class</span><span class="o">=</span><span class="n">MayaviScene</span><span class="p">)</span>
@@ -144,7 +141,7 @@ toolbar by specifying a different scene view to the <cite>SceneEditor</cite>:</p
 </div>
 <p>If, on the contrary, you want a view with no toolbar, you can replace the
 <cite>MayaviView</cite> by a raw tvtk view:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">enthought.tvtk.pyface.api</span> <span class="kn">import</span> <span class="n">Scene</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">tvtk.pyface.api</span> <span class="kn">import</span> <span class="n">Scene</span>
 
 <span class="c">#...</span>
 <span class="n">editor</span><span class="o">=</span><span class="n">SceneEditor</span><span class="p">(</span><span class="n">scene_class</span><span class="o">=</span><span class="n">Scene</span><span class="p">)</span>
@@ -162,7 +159,7 @@ data with the scene. For this we can instanciate an <cite>Engine</cite> and assi
 it to the scene. Having an <cite>Engine</cite> only for one scene allows us to
 confine action and visualization objects only to this scene.</p>
 <p>We can also use an <cite>MlabSceneModel</cite> instance, rather than a <cite>SceneModel</cite>,
-imported from <cite>enthought.mayavi.tools.mlab_scene_model</cite>. This scene model
+imported from <cite>mayavi.tools.mlab_scene_model</cite>. This scene model
 registers the figure in <cite>mlab</cite> (<a class="reference internal" href="mlab.html#simple-scripting-with-mlab"><em>mlab: Python scripting for 3D plotting</em></a>). It
 has an embedded mlab attribute, that exposes the mlab commands (see
 <a class="reference internal" href="mlab_3d_plotting_functions.html#mlab-plotting-functions"><em>3D Plotting functions for numpy arrays</em></a>). For instance plotting 3D points can be
@@ -208,7 +205,7 @@ by a function of two parameters:</p>
 </div>
 <p>Using <cite>mlab</cite>, we could plot the curve with <cite>plot3d</cite>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="n">curve</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
-<span class="kn">from</span> <span class="nn">enthought.mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
+<span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
 <span class="n">plot</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">plot3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -218,13 +215,13 @@ by a function of two parameters:</p>
 </pre></div>
 </div>
 <p>In a dialog, this would be:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">enthought.traits.api</span> <span class="kn">import</span> <span class="n">HasTraits</span><span class="p">,</span> <span class="n">Range</span><span class="p">,</span> <span class="n">Instance</span><span class="p">,</span> \
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">traits.api</span> <span class="kn">import</span> <span class="n">HasTraits</span><span class="p">,</span> <span class="n">Range</span><span class="p">,</span> <span class="n">Instance</span><span class="p">,</span> \
                     <span class="n">on_trait_change</span>
-<span class="kn">from</span> <span class="nn">enthought.traits.ui.api</span> <span class="kn">import</span> <span class="n">View</span><span class="p">,</span> <span class="n">Item</span><span class="p">,</span> <span class="n">HGroup</span>
-<span class="kn">from</span> <span class="nn">enthought.tvtk.pyface.scene_editor</span> <span class="kn">import</span> <span class="n">SceneEditor</span>
-<span class="kn">from</span> <span class="nn">enthought.mayavi.tools.mlab_scene_model</span> <span class="kn">import</span> \
+<span class="kn">from</span> <span class="nn">traitsui.api</span> <span class="kn">import</span> <span class="n">View</span><span class="p">,</span> <span class="n">Item</span><span class="p">,</span> <span class="n">HGroup</span>
+<span class="kn">from</span> <span class="nn">tvtk.pyface.scene_editor</span> <span class="kn">import</span> <span class="n">SceneEditor</span>
+<span class="kn">from</span> <span class="nn">mayavi.tools.mlab_scene_model</span> <span class="kn">import</span> \
                     <span class="n">MlabSceneModel</span>
-<span class="kn">from</span> <span class="nn">enthought.mayavi.core.ui.mayavi_scene</span> <span class="kn">import</span> <span class="n">MayaviScene</span>
+<span class="kn">from</span> <span class="nn">mayavi.core.ui.mayavi_scene</span> <span class="kn">import</span> <span class="n">MayaviScene</span>
 
 
 <span class="k">class</span> <span class="nc">Visualization</span><span class="p">(</span><span class="n">HasTraits</span><span class="p">):</span>
@@ -257,7 +254,7 @@ by a function of two parameters:</p>
 </pre></div>
 </div>
 <p>This code creates the following dialog:</p>
-<div align="center" class="align-center"><img alt="_images/example_mlab_interactive_dialog3.jpg" class="align-center" src="_images/example_mlab_interactive_dialog3.jpg" /></div>
+<div align="center" class="align-center"><img alt="_images/example_mlab_interactive_dialog.jpg" class="align-center" src="_images/example_mlab_interactive_dialog.jpg" /></div>
 <p>A complete, runnable, code based on the above comments is given in the
 <a class="reference internal" href="auto/example_mlab_interactive_dialog.html#example-mlab-interactive-dialog"><em>Mlab interactive dialog example</em></a>.</p>
 <div class="admonition warning">
@@ -323,12 +320,12 @@ visualization of the field and the coil structure.</li>
 <p>Two examples of integrating Mayavi visualization with Wx applications are
 given:</p>
 <blockquote>
-<div><ul class="simple">
+<ul class="simple">
 <li><a class="reference internal" href="auto/example_wx_embedding.html#example-wx-embedding"><em>Wx embedding example</em></a>: a simple example, as above.</li>
 <li><a class="reference internal" href="auto/example_wx_mayavi_embed_in_notebook.html#example-wx-mayavi-embed-in-notebook"><em>Wx mayavi embed in notebook example</em></a>: a more complexe example,
 showing 2 different Mayavi views embedded in a Wx notebook.</li>
 </ul>
-</div></blockquote>
+</blockquote>
 </div>
 <div class="section" id="integrating-in-a-qt-application">
 <span id="integrating-pyqt"></span><h2>Integrating in a Qt application<a class="headerlink" href="#integrating-in-a-qt-application" title="Permalink to this headline">¶</a></h2>
@@ -444,7 +441,7 @@ result if you instanciate a new one, using for instance:</p>
     </div>
     <hr/>
     <div id="searchbox">
-	<a href="misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
+	<a href="http://github.enthought.com/mayavi/mayavi/misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
 
 	<p style="font-size:85%; color: #FFFFFF;">
     	If you publish articles using Mayavi, please 
@@ -470,13 +467,13 @@ result if you instanciate a new one, using for instance:</p>
         <li class="right" >
           <a href="advanced_scripting.html" title="Advanced Scripting with Mayavi"
              >previous</a> |</li>
-        <li><a href="index.html">Mayavi 3.4.2 documentation</a> &raquo;</li> 
+        <li><a href="index.html">mayavi v4.0.1 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Mar 26, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1pre/ce4bb37a1409.
+      Last updated on Jul 19, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.
     </div>
   </body>
 </html>

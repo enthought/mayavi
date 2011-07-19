@@ -45,14 +45,14 @@ This section provides a brief introduction to Mayavi's internal
 architecture.
 
 The "big picture" of a visualization in Mayavi is that an ``Engine``
-(``enthought.mayavi.engine.Engine``) object manages the entire
+(``mayavi.engine.Engine``) object manages the entire
 visualization.  The ``Engine`` manages a collection of ``Scene``
-(``enthought.mayavi.core.scene.Scene``) objects.  In each ``Scene``, a
+(``mayavi.core.scene.Scene``) objects.  In each ``Scene``, a
 user may have created any number of ``Source``
-(``enthought.mayavi.core.source.Source``) objects.  A ``Source``
+(``mayavi.core.source.Source``) objects.  A ``Source``
 object can further contain any number of ``Filter``
-(``enthought.mayavi.core.filter.Filter``) or ``ModuleManager``
-(``enthought.mayavi.core.module_manager.ModuleManager``) objects.  A
+(``mayavi.core.filter.Filter``) or ``ModuleManager``
+(``mayavi.core.module_manager.ModuleManager``) objects.  A
 ``Filter`` may contain either other ``filters`` or ``ModuleManagers``.  A
 ``ModuleManager`` manages any number of ``Modules``.  The figure below
 shows this hierarchy in a graphical form.
@@ -81,19 +81,19 @@ explicit calls to the engine::
 
     import numpy as np
     a = np.random.random((4, 4))
-    from enthought.mayavi.api import Engine
+    from mayavi.api import Engine
     e = Engine()
     e.start()
     s = e.new_scene()
-    from enthought.mayavi.sources.api import ArraySource
+    from mayavi.sources.api import ArraySource
     src = ArraySource(scalar_data=a)
     e.add_source(src)
-    from enthought.mayavi.filters.api import WarpScalar, PolyDataNormals
+    from mayavi.filters.api import WarpScalar, PolyDataNormals
     warp = WarpScalar()
     e.add_filter(warp, obj=src)
     normals = PolyDataNormals()
     e.add_filter(normals, obj=warp)
-    from enthought.mayavi.modules.api import Surface
+    from mayavi.modules.api import Surface
     surf = Surface()
     e.add_module(surf, obj=normals)
 
@@ -128,18 +128,18 @@ automatically.  Note that if you are looking to remove an object from
 the mayavi pipeline, you can use the ``remove`` method to do so.  For
 example (the following will require that you use ``ipython -wthread``)::
 
-  >>> from enthought.mayavi.api import Engine
+  >>> from mayavi.api import Engine
   >>> e = Engine()
   >>> e.start()
   >>> s = e.new_scene()
-  >>> from enthought.mayavi.sources.api import ParametricSurface
+  >>> from mayavi.sources.api import ParametricSurface
   >>> p = ParametricSurface()
   >>> e.add_source(p) # calls p.start internally.
   >>> p.remove() # Removes p from the engine. 
 
 Apart from the ``Engine`` object, all other objects in the Mayavi
 pipeline feature a ``scene`` trait which refers to the current
-``enthought.tvtk.pyface.tvtk_scene.TVTKScene`` instance that the
+``tvtk.pyface.tvtk_scene.TVTKScene`` instance that the
 object is associated with.  The objects also feature an ``add_child``
 method that lets one build up the pipeline by adding "children"
 objects.  The ``add_child`` method is "intelligent" and will try to
@@ -149,15 +149,15 @@ Scripting the ``mayavi2`` application
 -------------------------------------
 
 The ``mayavi2`` application is implemented in the
-``enthought.mayavi.scripts.mayavi2`` module (look at the
+``mayavi.scripts.mayavi2`` module (look at the
 ``mayavi2.py`` file and not the ``mayavi2`` script).  This code
 handles the command line argument parsing and runs the application.
 
 ``mayavi2`` is an Envisage_ application.  It starts the Envisage
 application in its ``main`` method.  The code for this is in the
-``enthought.mayavi.plugins.app`` module.  Mayavi uses several envisage plugins
+``mayavi.plugins.app`` module.  Mayavi uses several envisage plugins
 to build up its functionality.  These plugins are defined in the
-``enthought.mayavi.plugins.app`` module.  In this module there
+``mayavi.plugins.app`` module.  In this module there
 are two functions that return a list of default plugins, ``get_plugins`` and the
 ``get_non_gui_plugins``.  The default application uses the
 former which produces a GUI that the user can use.  If one uses the
@@ -176,7 +176,7 @@ Scripting from the UI
 When using the ``mayavi2`` application, it is possible to script from
 the embedded Python interpreter on the UI.  On the interpreter the name
 ``mayavi`` is automatically bound to an
-``enthought.mayavi.plugins.script.Script`` instance that may be used to
+``mayavi.plugins.script.Script`` instance that may be used to
 easily script mayavi.  This instance is a simple wrapper object that
 merely provides some nice conveniences while scripting from the UI.  It
 has an ``engine`` trait that is a reference to the running mayavi
@@ -228,7 +228,7 @@ one to interactively script the mayavi application::
 
 To start a visualization do the following::
 
- from enthought.mayavi.plugins.app import main
+ from mayavi.plugins.app import main
  # Note, this does not process any command line arguments.
  mayavi = main()
  # 'mayavi' is the mayavi Script instance.
@@ -236,7 +236,7 @@ To start a visualization do the following::
 It is also possible to use `mlab` (see :ref:`simple-scripting-with-mlab`) for
 this purpose::
 
- from enthought.mayavi import mlab
+ from mayavi import mlab
  f = mlab.figure() # Returns the current scene.
  engine = mlab.get_engine() # Returns the running mayavi engine.
 
@@ -263,7 +263,7 @@ script.py``)::
   d = mayavi.open('fire_ug.vtu')
 
   # Import a few modules.
-  from enthought.mayavi.modules.api import Outline, IsoSurface, Streamline
+  from mayavi.modules.api import Outline, IsoSurface, Streamline
 
   # Show an outline.
   o = Outline()
@@ -332,8 +332,8 @@ The Mayavi-related plugin definitions to use are:
   * ``mayavi_plugin.py``
   * ``mayavi_ui_plugin.py``
 
-These are in the ``enthought.mayavi.plugins`` package.  To see an
-example of how to use this see the ``enthought.mayavi.plugins.app``
+These are in the ``mayavi.plugins`` package.  To see an
+example of how to use this see the ``mayavi.plugins.app``
 module.  The explorer3D example in ``examples/mayavi/explorer`` also
 demonstrates how to use Mayavi as an envisage plugin.
 
@@ -342,14 +342,14 @@ the Mayavi plugins from your plugins/applications then it is important
 to note that Mayavi creates three workbench service offers for your
 convenience.  These are:
 
-  * ``enthought.mayavi.plugins.script.Script``: This is an
-    ``enthought.mayavi.plugins.script.Script`` instance that may be used
+  * ``mayavi.plugins.script.Script``: This is an
+    ``mayavi.plugins.script.Script`` instance that may be used
     to easily script mayavi.  It is a simple wrapper object that merely
     provides some nice conveniences while scripting from the UI.  It has
     an ``engine`` trait that is a reference to the running Mayavi
     engine.
 
-  * ``enthought.mayavi.core.engine.Engine``: This is the running
+  * ``mayavi.core.engine.Engine``: This is the running
     Mayavi engine instance.
 
 A simple example that demonstrates the use of the Mayavi plugin in an

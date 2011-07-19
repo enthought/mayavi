@@ -3,20 +3,17 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Nongui example &mdash; Mayavi 3.4.2 documentation</title>
-    
+    <title>Nongui example &mdash; mayavi v4.0.1 documentation</title>
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '3.4.2',
+        VERSION:     '4.0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +22,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="Mayavi 3.4.2 documentation" href="../index.html" />
+    <link rel="top" title="mayavi v4.0.1 documentation" href="../index.html" />
     <link rel="up" title="Example gallery" href="examples.html" />
     <link rel="next" title="User mayavi example" href="example_user_mayavi.html" />
     <link rel="prev" title="Zzz reader example" href="example_zzz_reader.html" />
@@ -73,7 +70,7 @@
         <li class="right" >
           <a href="example_zzz_reader.html" title="Zzz reader example"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">Mayavi 3.4.2 documentation</a> &raquo;</li>
+        <li><a href="../index.html">mayavi v4.0.1 documentation</a> &raquo;</li>
           <li><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
       </ul>
     </div>  
@@ -95,7 +92,7 @@ chosen instead of the default gui mayavi plugin.</p>
 <p>Or:</p>
 <div class="highlight-python"><pre>$ mayavi2 script.py</pre>
 </div>
-<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/nongui2.py"><tt class="xref download docutils literal"><span class="pre">nongui.py</span></tt></a></p>
+<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/nongui.py"><tt class="xref download docutils literal"><span class="pre">nongui.py</span></tt></a></p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c"># Author: Prabhu Ramachandran &lt;prabhu_r@users.sf.net&gt;</span>
 <span class="c"># Copyright (c) 2005, Enthought, Inc.</span>
 <span class="c"># License: BSD Style.</span>
@@ -104,8 +101,8 @@ chosen instead of the default gui mayavi plugin.</p>
 <span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">join</span><span class="p">,</span> <span class="n">abspath</span>
 
 <span class="c"># Enthought library imports</span>
-<span class="kn">from</span> <span class="nn">enthought.mayavi.scripts.util</span> <span class="kn">import</span> <span class="n">get_data_dir</span>
-<span class="kn">from</span> <span class="nn">enthought.mayavi.plugins.app</span> <span class="kn">import</span> <span class="n">Mayavi</span><span class="p">,</span> <span class="n">get_non_gui_plugins</span>
+<span class="kn">from</span> <span class="nn">mayavi.scripts.util</span> <span class="kn">import</span> <span class="n">get_data_dir</span>
+<span class="kn">from</span> <span class="nn">mayavi.plugins.app</span> <span class="kn">import</span> <span class="n">Mayavi</span><span class="p">,</span> <span class="n">get_non_gui_plugins</span>
 
 <span class="k">class</span> <span class="nc">MyApp</span><span class="p">(</span><span class="n">Mayavi</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -114,14 +111,14 @@ chosen instead of the default gui mayavi plugin.</p>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c"># Various imports to do different things.</span>
-        <span class="kn">from</span> <span class="nn">enthought.mayavi.sources.vtk_file_reader</span> <span class="kn">import</span> <span class="n">VTKFileReader</span>
-        <span class="kn">from</span> <span class="nn">enthought.mayavi.modules.outline</span> <span class="kn">import</span> <span class="n">Outline</span>
-        <span class="kn">from</span> <span class="nn">enthought.mayavi.modules.axes</span> <span class="kn">import</span> <span class="n">Axes</span>
-        <span class="kn">from</span> <span class="nn">enthought.mayavi.modules.grid_plane</span> <span class="kn">import</span> <span class="n">GridPlane</span>
-        <span class="kn">from</span> <span class="nn">enthought.mayavi.modules.image_plane_widget</span> <span class="kn">import</span> <span class="n">ImagePlaneWidget</span>
-        <span class="kn">from</span> <span class="nn">enthought.mayavi.modules.text</span> <span class="kn">import</span> <span class="n">Text</span>
-        <span class="kn">from</span> <span class="nn">enthought.mayavi.modules.contour_grid_plane</span> <span class="kn">import</span> <span class="n">ContourGridPlane</span>
-        <span class="kn">from</span> <span class="nn">enthought.mayavi.modules.iso_surface</span> <span class="kn">import</span> <span class="n">IsoSurface</span>
+        <span class="kn">from</span> <span class="nn">mayavi.sources.vtk_file_reader</span> <span class="kn">import</span> <span class="n">VTKFileReader</span>
+        <span class="kn">from</span> <span class="nn">mayavi.modules.outline</span> <span class="kn">import</span> <span class="n">Outline</span>
+        <span class="kn">from</span> <span class="nn">mayavi.modules.axes</span> <span class="kn">import</span> <span class="n">Axes</span>
+        <span class="kn">from</span> <span class="nn">mayavi.modules.grid_plane</span> <span class="kn">import</span> <span class="n">GridPlane</span>
+        <span class="kn">from</span> <span class="nn">mayavi.modules.image_plane_widget</span> <span class="kn">import</span> <span class="n">ImagePlaneWidget</span>
+        <span class="kn">from</span> <span class="nn">mayavi.modules.text</span> <span class="kn">import</span> <span class="n">Text</span>
+        <span class="kn">from</span> <span class="nn">mayavi.modules.contour_grid_plane</span> <span class="kn">import</span> <span class="n">ContourGridPlane</span>
+        <span class="kn">from</span> <span class="nn">mayavi.modules.iso_surface</span> <span class="kn">import</span> <span class="n">IsoSurface</span>
 
         <span class="n">script</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">script</span>
 
@@ -248,7 +245,7 @@ chosen instead of the default gui mayavi plugin.</p>
     </div>
     <hr/>
     <div id="searchbox">
-	<a href="misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
+	<a href="http://github.enthought.com/mayavi/mayavi/misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
 
 	<p style="font-size:85%; color: #FFFFFF;">
     	If you publish articles using Mayavi, please 
@@ -274,14 +271,14 @@ chosen instead of the default gui mayavi plugin.</p>
         <li class="right" >
           <a href="example_zzz_reader.html" title="Zzz reader example"
              >previous</a> |</li>
-        <li><a href="../index.html">Mayavi 3.4.2 documentation</a> &raquo;</li>
+        <li><a href="../index.html">mayavi v4.0.1 documentation</a> &raquo;</li>
           <li><a href="examples.html" >Example gallery</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Mar 26, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1pre/ce4bb37a1409.
+      Last updated on Jul 19, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.
     </div>
   </body>
 </html>

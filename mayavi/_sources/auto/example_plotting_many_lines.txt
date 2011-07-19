@@ -21,7 +21,7 @@ set of unconnected point (the underlying data structure is a
 :ref:`poly_data`) using `mlab.pipeline.scalar_scatter`. To add the
 connections, we need to keep track of which point is connected to which.
 As we only have lines, this is fairly easy: in a line, each point is
-connected to the following one. 
+connected to the following one.
 
 
 

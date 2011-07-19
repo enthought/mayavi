@@ -1,11 +1,11 @@
 
 
-.. currentmodule:: enthought.mayavi.tools.pipeline
+.. currentmodule:: mayavi.tools.pipeline
 
 .. note::
 
     This section is only a reference describing the function, please see
-    the chapter on :ref:`simple-scripting-with-mlab` for an introduction to 
+    the chapter on :ref:`simple-scripting-with-mlab` for an introduction to
     mlab and how to interact with and assemble the functions of `mlab`.
 
     Please see the section on :ref:`running-mlab-scripts` for
@@ -90,13 +90,13 @@ contour_grid_plane
                    requested contours asked for.
     
         :extent: [xmin, xmax, ymin, ymax, zmin, zmax]
-                 Default is the x, y, z arrays extents. Use
+                 Default is the x, y, z arrays extent. Use
                  this to change the extent of the object
                  created.
     
         :figure:  Must be a Scene or None.
     
-        :line_width:  The with of the lines, if any used. Must be a float.
+        :line_width:  The width of the lines, if any used. Must be a float.
                      Default: 2.0
     
         :name: the name of the vtk object created.
@@ -104,13 +104,16 @@ contour_grid_plane
         :opacity: The overall opacity of the vtk object. Must be a float.
                   Default: 1.0
     
+        :reset_zoom: Reset the zoom to accomodate the data newly
+                     added to the scene. Defaults to True.
+    
         :transparent: make the opacity of the actor depend on the
                       scalar.
     
-        :vmax: vmax is used to scale the colormap
+        :vmax: vmax is used to scale the colormap.
                If None, the max of the data will be used
     
-        :vmin: vmin is used to scale the colormap
+        :vmin: vmin is used to scale the colormap.
                If None, the min of the data will be used
     
 
@@ -140,13 +143,13 @@ contour_surface
                    requested contours asked for.
     
         :extent: [xmin, xmax, ymin, ymax, zmin, zmax]
-                 Default is the x, y, z arrays extents. Use
+                 Default is the x, y, z arrays extent. Use
                  this to change the extent of the object
                  created.
     
         :figure:  Must be a Scene or None.
     
-        :line_width:  The with of the lines, if any used. Must be a float.
+        :line_width:  The width of the lines, if any used. Must be a float.
                      Default: 2.0
     
         :name: the name of the vtk object created.
@@ -154,13 +157,16 @@ contour_surface
         :opacity: The overall opacity of the vtk object. Must be a float.
                   Default: 1.0
     
+        :reset_zoom: Reset the zoom to accomodate the data newly
+                     added to the scene. Defaults to True.
+    
         :transparent: make the opacity of the actor depend on the
                       scalar.
     
-        :vmax: vmax is used to scale the colormap
+        :vmax: vmax is used to scale the colormap.
                If None, the max of the data will be used
     
-        :vmin: vmin is used to scale the colormap
+        :vmin: vmin is used to scale the colormap.
                If None, the min of the data will be used
     
 
@@ -192,13 +198,13 @@ custom_grid_plane
                    requested contours asked for.
     
         :extent: [xmin, xmax, ymin, ymax, zmin, zmax]
-                 Default is the x, y, z arrays extents. Use
+                 Default is the x, y, z arrays extent. Use
                  this to change the extent of the object
                  created.
     
         :figure:  Must be a Scene or None.
     
-        :line_width:  The with of the lines, if any used. Must be a float.
+        :line_width:  The width of the lines, if any used. Must be a float.
                      Default: 2.0
     
         :name: the name of the vtk object created.
@@ -206,13 +212,16 @@ custom_grid_plane
         :opacity: The overall opacity of the vtk object. Must be a float.
                   Default: 1.0
     
+        :reset_zoom: Reset the zoom to accomodate the data newly
+                     added to the scene. Defaults to True.
+    
         :transparent: make the opacity of the actor depend on the
                       scalar.
     
-        :vmax: vmax is used to scale the colormap
+        :vmax: vmax is used to scale the colormap.
                If None, the max of the data will be used
     
-        :vmin: vmin is used to scale the colormap
+        :vmin: vmin is used to scale the colormap.
                If None, the min of the data will be used
     
 
@@ -480,19 +489,19 @@ glyph
         :colormap: type of colormap to use.
     
         :extent: [xmin, xmax, ymin, ymax, zmin, zmax]
-                 Default is the x, y, z arrays extents. Use
+                 Default is the x, y, z arrays extent. Use
                  this to change the extent of the object
                  created.
     
         :figure:  Must be a Scene or None.
     
-        :line_width:  The with of the lines, if any used. Must be a float.
+        :line_width:  The width of the lines, if any used. Must be a float.
                      Default: 2.0
     
         :mask_points: If supplied, only one out of 'mask_points' data point is
-                      displayed. This option is usefull to reduce the number
-                      of points displayed on large datasets Must be an integer
-                      or None.
+                      displayed. This option is useful to reduce the number of
+                      points displayed on large datasets Must be an integer or
+                      None.
     
         :mode: the mode of the glyphs. Must be '2darrow' or '2dcircle' or
                '2dcross' or '2ddash' or '2ddiamond' or '2dhooked_arrow' or
@@ -504,6 +513,9 @@ glyph
     
         :opacity: The overall opacity of the vtk object. Must be a float.
                   Default: 1.0
+    
+        :reset_zoom: Reset the zoom to accomodate the data newly
+                     added to the scene. Defaults to True.
     
         :resolution: The resolution of the glyph created. For spheres, for
                      instance, this is the number of divisions along theta and
@@ -519,10 +531,10 @@ glyph
         :transparent: make the opacity of the actor depend on the
                       scalar.
     
-        :vmax: vmax is used to scale the colormap
+        :vmax: vmax is used to scale the colormap.
                If None, the max of the data will be used
     
-        :vmin: vmin is used to scale the colormap
+        :vmin: vmin is used to scale the colormap.
                If None, the min of the data will be used
     
 
@@ -563,13 +575,13 @@ grid_plane
         :colormap: type of colormap to use.
     
         :extent: [xmin, xmax, ymin, ymax, zmin, zmax]
-                 Default is the x, y, z arrays extents. Use
+                 Default is the x, y, z arrays extent. Use
                  this to change the extent of the object
                  created.
     
         :figure:  Must be a Scene or None.
     
-        :line_width:  The with of the lines, if any used. Must be a float.
+        :line_width:  The width of the lines, if any used. Must be a float.
                      Default: 2.0
     
         :name: the name of the vtk object created.
@@ -577,13 +589,16 @@ grid_plane
         :opacity: The overall opacity of the vtk object. Must be a float.
                   Default: 1.0
     
+        :reset_zoom: Reset the zoom to accomodate the data newly
+                     added to the scene. Defaults to True.
+    
         :transparent: make the opacity of the actor depend on the
                       scalar.
     
-        :vmax: vmax is used to scale the colormap
+        :vmax: vmax is used to scale the colormap.
                If None, the max of the data will be used
     
-        :vmin: vmin is used to scale the colormap
+        :vmin: vmin is used to scale the colormap.
                If None, the min of the data will be used
     
 
@@ -607,13 +622,13 @@ hyper_streamline
         :colormap: type of colormap to use.
     
         :extent: [xmin, xmax, ymin, ymax, zmin, zmax]
-                 Default is the x, y, z arrays extents. Use
+                 Default is the x, y, z arrays extent. Use
                  this to change the extent of the object
                  created.
     
         :figure:  Must be a Scene or None.
     
-        :line_width:  The with of the lines, if any used. Must be a float.
+        :line_width:  The width of the lines, if any used. Must be a float.
                      Default: 2.0
     
         :name: the name of the vtk object created.
@@ -621,13 +636,16 @@ hyper_streamline
         :opacity: The overall opacity of the vtk object. Must be a float.
                   Default: 1.0
     
+        :reset_zoom: Reset the zoom to accomodate the data newly
+                     added to the scene. Defaults to True.
+    
         :transparent: make the opacity of the actor depend on the
                       scalar.
     
-        :vmax: vmax is used to scale the colormap
+        :vmax: vmax is used to scale the colormap.
                If None, the max of the data will be used
     
-        :vmin: vmin is used to scale the colormap
+        :vmin: vmin is used to scale the colormap.
                If None, the min of the data will be used
     
 
@@ -651,7 +669,7 @@ image_actor
         :colormap: type of colormap to use.
     
         :extent: [xmin, xmax, ymin, ymax, zmin, zmax]
-                 Default is the x, y, z arrays extents. Use
+                 Default is the x, y, z arrays extent. Use
                  this to change the extent of the object
                  created.
     
@@ -660,7 +678,7 @@ image_actor
         :interpolate: if the pixels in the image are to be
                       interpolated or not. Must be a boolean. Default: True
     
-        :line_width:  The with of the lines, if any used. Must be a float.
+        :line_width:  The width of the lines, if any used. Must be a float.
                      Default: 2.0
     
         :name: the name of the vtk object created.
@@ -668,13 +686,16 @@ image_actor
         :opacity: the opacity of the image. Must be a legal value. Default:
                   1.0
     
+        :reset_zoom: Reset the zoom to accomodate the data newly
+                     added to the scene. Defaults to True.
+    
         :transparent: make the opacity of the actor depend on the
                       scalar.
     
-        :vmax: vmax is used to scale the colormap
+        :vmax: vmax is used to scale the colormap.
                If None, the max of the data will be used
     
-        :vmin: vmin is used to scale the colormap
+        :vmin: vmin is used to scale the colormap.
                If None, the min of the data will be used
     
 
@@ -735,13 +756,13 @@ image_plane_widget
         :colormap: type of colormap to use.
     
         :extent: [xmin, xmax, ymin, ymax, zmin, zmax]
-                 Default is the x, y, z arrays extents. Use
+                 Default is the x, y, z arrays extent. Use
                  this to change the extent of the object
                  created.
     
         :figure:  Must be a Scene or None.
     
-        :line_width:  The with of the lines, if any used. Must be a float.
+        :line_width:  The width of the lines, if any used. Must be a float.
                      Default: 2.0
     
         :name: the name of the vtk object created.
@@ -755,16 +776,19 @@ image_plane_widget
         :plane_orientation: the orientation of the plane Must be a legal
                             value. Default: x_axes
     
+        :reset_zoom: Reset the zoom to accomodate the data newly
+                     added to the scene. Defaults to True.
+    
         :slice_index: The index along wich the
                       image is sliced.
     
         :transparent: make the opacity of the actor depend on the
                       scalar.
     
-        :vmax: vmax is used to scale the colormap
+        :vmax: vmax is used to scale the colormap.
                If None, the max of the data will be used
     
-        :vmin: vmin is used to scale the colormap
+        :vmin: vmin is used to scale the colormap.
                If None, the min of the data will be used
     
 
@@ -794,13 +818,13 @@ iso_surface
                    requested contours asked for.
     
         :extent: [xmin, xmax, ymin, ymax, zmin, zmax]
-                 Default is the x, y, z arrays extents. Use
+                 Default is the x, y, z arrays extent. Use
                  this to change the extent of the object
                  created.
     
         :figure:  Must be a Scene or None.
     
-        :line_width:  The with of the lines, if any used. Must be a float.
+        :line_width:  The width of the lines, if any used. Must be a float.
                      Default: 2.0
     
         :name: the name of the vtk object created.
@@ -808,13 +832,16 @@ iso_surface
         :opacity: The overall opacity of the vtk object. Must be a float.
                   Default: 1.0
     
+        :reset_zoom: Reset the zoom to accomodate the data newly
+                     added to the scene. Defaults to True.
+    
         :transparent: make the opacity of the actor depend on the
                       scalar.
     
-        :vmax: vmax is used to scale the colormap
+        :vmax: vmax is used to scale the colormap.
                If None, the max of the data will be used
     
-        :vmin: vmin is used to scale the colormap
+        :vmin: vmin is used to scale the colormap.
                If None, the min of the data will be used
     
 
@@ -838,13 +865,13 @@ labels
         :colormap: type of colormap to use.
     
         :extent: [xmin, xmax, ymin, ymax, zmin, zmax]
-                 Default is the x, y, z arrays extents. Use
+                 Default is the x, y, z arrays extent. Use
                  this to change the extent of the object
                  created.
     
         :figure:  Must be a Scene or None.
     
-        :line_width:  The with of the lines, if any used. Must be a float.
+        :line_width:  The width of the lines, if any used. Must be a float.
                      Default: 2.0
     
         :name: the name of the vtk object created.
@@ -852,13 +879,16 @@ labels
         :opacity: The overall opacity of the vtk object. Must be a float.
                   Default: 1.0
     
+        :reset_zoom: Reset the zoom to accomodate the data newly
+                     added to the scene. Defaults to True.
+    
         :transparent: make the opacity of the actor depend on the
                       scalar.
     
-        :vmax: vmax is used to scale the colormap
+        :vmax: vmax is used to scale the colormap.
                If None, the max of the data will be used
     
-        :vmin: vmin is used to scale the colormap
+        :vmin: vmin is used to scale the colormap.
                If None, the min of the data will be used
     
 
@@ -899,13 +929,13 @@ outline
         :colormap: type of colormap to use.
     
         :extent: [xmin, xmax, ymin, ymax, zmin, zmax]
-                 Default is the x, y, z arrays extents. Use
+                 Default is the x, y, z arrays extent. Use
                  this to change the extent of the object
                  created.
     
         :figure:  Must be a Scene or None.
     
-        :line_width:  The with of the lines, if any used. Must be a float.
+        :line_width:  The width of the lines, if any used. Must be a float.
                      Default: 2.0
     
         :name: the name of the vtk object created.
@@ -913,13 +943,16 @@ outline
         :opacity: The overall opacity of the vtk object. Must be a float.
                   Default: 1.0
     
+        :reset_zoom: Reset the zoom to accomodate the data newly
+                     added to the scene. Defaults to True.
+    
         :transparent: make the opacity of the actor depend on the
                       scalar.
     
-        :vmax: vmax is used to scale the colormap
+        :vmax: vmax is used to scale the colormap.
                If None, the max of the data will be used
     
-        :vmin: vmin is used to scale the colormap
+        :vmin: vmin is used to scale the colormap.
                If None, the min of the data will be used
     
 
@@ -997,13 +1030,13 @@ scalar_cut_plane
         :colormap: type of colormap to use.
     
         :extent: [xmin, xmax, ymin, ymax, zmin, zmax]
-                 Default is the x, y, z arrays extents. Use
+                 Default is the x, y, z arrays extent. Use
                  this to change the extent of the object
                  created.
     
         :figure:  Must be a Scene or None.
     
-        :line_width:  The with of the lines, if any used. Must be a float.
+        :line_width:  The width of the lines, if any used. Must be a float.
                      Default: 2.0
     
         :name: the name of the vtk object created.
@@ -1014,16 +1047,19 @@ scalar_cut_plane
         :plane_orientation: the orientation of the plane Must be a legal
                             value. Default: x_axes
     
+        :reset_zoom: Reset the zoom to accomodate the data newly
+                     added to the scene. Defaults to True.
+    
         :transparent: make the opacity of the actor depend on the
                       scalar.
     
         :view_controls: Whether or not the controls of the cut plane are
                         shown. Must be a boolean. Default: True
     
-        :vmax: vmax is used to scale the colormap
+        :vmax: vmax is used to scale the colormap.
                If None, the max of the data will be used
     
-        :vmin: vmin is used to scale the colormap
+        :vmin: vmin is used to scale the colormap.
                If None, the min of the data will be used
     
 
@@ -1096,13 +1132,13 @@ slice_unstructured_grid
         :colormap: type of colormap to use.
     
         :extent: [xmin, xmax, ymin, ymax, zmin, zmax]
-                 Default is the x, y, z arrays extents. Use
+                 Default is the x, y, z arrays extent. Use
                  this to change the extent of the object
                  created.
     
         :figure:  Must be a Scene or None.
     
-        :line_width:  The with of the lines, if any used. Must be a float.
+        :line_width:  The width of the lines, if any used. Must be a float.
                      Default: 2.0
     
         :name: the name of the vtk object created.
@@ -1110,13 +1146,16 @@ slice_unstructured_grid
         :opacity: The overall opacity of the vtk object. Must be a float.
                   Default: 1.0
     
+        :reset_zoom: Reset the zoom to accomodate the data newly
+                     added to the scene. Defaults to True.
+    
         :transparent: make the opacity of the actor depend on the
                       scalar.
     
-        :vmax: vmax is used to scale the colormap
+        :vmax: vmax is used to scale the colormap.
                If None, the max of the data will be used
     
-        :vmin: vmin is used to scale the colormap
+        :vmin: vmin is used to scale the colormap.
                If None, the min of the data will be used
     
 
@@ -1140,7 +1179,7 @@ streamline
         :colormap: type of colormap to use.
     
         :extent: [xmin, xmax, ymin, ymax, zmin, zmax]
-                 Default is the x, y, z arrays extents. Use
+                 Default is the x, y, z arrays extent. Use
                  this to change the extent of the object
                  created.
     
@@ -1150,7 +1189,7 @@ streamline
                                 'forward' or 'backward' or 'both'. Default:
                                 forward
     
-        :line_width:  The with of the lines, if any used. Must be a float.
+        :line_width:  The width of the lines, if any used. Must be a float.
                      Default: 2.0
     
         :linetype: the type of line-like object used to display the
@@ -1161,6 +1200,9 @@ streamline
     
         :opacity: The overall opacity of the vtk object. Must be a float.
                   Default: 1.0
+    
+        :reset_zoom: Reset the zoom to accomodate the data newly
+                     added to the scene. Defaults to True.
     
         :seed_resolution: The resolution of the seed. Determines the number of
                           seed points Must be an integer or None.
@@ -1177,10 +1219,10 @@ streamline
         :transparent: make the opacity of the actor depend on the
                       scalar.
     
-        :vmax: vmax is used to scale the colormap
+        :vmax: vmax is used to scale the colormap.
                If None, the max of the data will be used
     
-        :vmin: vmin is used to scale the colormap
+        :vmin: vmin is used to scale the colormap.
                If None, the min of the data will be used
     
 
@@ -1221,13 +1263,13 @@ structured_grid_outline
         :colormap: type of colormap to use.
     
         :extent: [xmin, xmax, ymin, ymax, zmin, zmax]
-                 Default is the x, y, z arrays extents. Use
+                 Default is the x, y, z arrays extent. Use
                  this to change the extent of the object
                  created.
     
         :figure:  Must be a Scene or None.
     
-        :line_width:  The with of the lines, if any used. Must be a float.
+        :line_width:  The width of the lines, if any used. Must be a float.
                      Default: 2.0
     
         :name: the name of the vtk object created.
@@ -1235,13 +1277,16 @@ structured_grid_outline
         :opacity: The overall opacity of the vtk object. Must be a float.
                   Default: 1.0
     
+        :reset_zoom: Reset the zoom to accomodate the data newly
+                     added to the scene. Defaults to True.
+    
         :transparent: make the opacity of the actor depend on the
                       scalar.
     
-        :vmax: vmax is used to scale the colormap
+        :vmax: vmax is used to scale the colormap.
                If None, the max of the data will be used
     
-        :vmin: vmin is used to scale the colormap
+        :vmin: vmin is used to scale the colormap.
                If None, the min of the data will be used
     
 
@@ -1266,13 +1311,13 @@ surface
         :colormap: type of colormap to use.
     
         :extent: [xmin, xmax, ymin, ymax, zmin, zmax]
-                 Default is the x, y, z arrays extents. Use
+                 Default is the x, y, z arrays extent. Use
                  this to change the extent of the object
                  created.
     
         :figure:  Must be a Scene or None.
     
-        :line_width:  The with of the lines, if any used. Must be a float.
+        :line_width:  The width of the lines, if any used. Must be a float.
                      Default: 2.0
     
         :name: the name of the vtk object created.
@@ -1284,13 +1329,16 @@ surface
                          'surface' or 'wireframe' or 'points'. Default:
                          surface
     
+        :reset_zoom: Reset the zoom to accomodate the data newly
+                     added to the scene. Defaults to True.
+    
         :transparent: make the opacity of the actor depend on the
                       scalar.
     
-        :vmax: vmax is used to scale the colormap
+        :vmax: vmax is used to scale the colormap.
                If None, the max of the data will be used
     
-        :vmin: vmin is used to scale the colormap
+        :vmin: vmin is used to scale the colormap.
                If None, the min of the data will be used
     
 
@@ -1314,13 +1362,13 @@ tensor_glyph
         :colormap: type of colormap to use.
     
         :extent: [xmin, xmax, ymin, ymax, zmin, zmax]
-                 Default is the x, y, z arrays extents. Use
+                 Default is the x, y, z arrays extent. Use
                  this to change the extent of the object
                  created.
     
         :figure:  Must be a Scene or None.
     
-        :line_width:  The with of the lines, if any used. Must be a float.
+        :line_width:  The width of the lines, if any used. Must be a float.
                      Default: 2.0
     
         :name: the name of the vtk object created.
@@ -1328,13 +1376,16 @@ tensor_glyph
         :opacity: The overall opacity of the vtk object. Must be a float.
                   Default: 1.0
     
+        :reset_zoom: Reset the zoom to accomodate the data newly
+                     added to the scene. Defaults to True.
+    
         :transparent: make the opacity of the actor depend on the
                       scalar.
     
-        :vmax: vmax is used to scale the colormap
+        :vmax: vmax is used to scale the colormap.
                If None, the max of the data will be used
     
-        :vmin: vmin is used to scale the colormap
+        :vmin: vmin is used to scale the colormap.
                If None, the min of the data will be used
     
 
@@ -1358,13 +1409,13 @@ text3d
         :colormap: type of colormap to use.
     
         :extent: [xmin, xmax, ymin, ymax, zmin, zmax]
-                 Default is the x, y, z arrays extents. Use
+                 Default is the x, y, z arrays extent. Use
                  this to change the extent of the object
                  created.
     
         :figure:  Must be a Scene or None.
     
-        :line_width:  The with of the lines, if any used. Must be a float.
+        :line_width:  The width of the lines, if any used. Must be a float.
                      Default: 2.0
     
         :name: the name of the vtk object created.
@@ -1372,13 +1423,16 @@ text3d
         :opacity: The overall opacity of the vtk object. Must be a float.
                   Default: 1.0
     
+        :reset_zoom: Reset the zoom to accomodate the data newly
+                     added to the scene. Defaults to True.
+    
         :transparent: make the opacity of the actor depend on the
                       scalar.
     
-        :vmax: vmax is used to scale the colormap
+        :vmax: vmax is used to scale the colormap.
                If None, the max of the data will be used
     
-        :vmin: vmin is used to scale the colormap
+        :vmin: vmin is used to scale the colormap.
                If None, the min of the data will be used
     
 
@@ -1396,7 +1450,7 @@ threshold
     
         :figure:  Must be a Scene or None.
     
-        :filter_type: If thresholding is done on cells or points
+        :filter_type: If threshold is put on cells or points
     
         :low: The lower threshold
     
@@ -1505,19 +1559,19 @@ vector_cut_plane
         :colormap: type of colormap to use.
     
         :extent: [xmin, xmax, ymin, ymax, zmin, zmax]
-                 Default is the x, y, z arrays extents. Use
+                 Default is the x, y, z arrays extent. Use
                  this to change the extent of the object
                  created.
     
         :figure:  Must be a Scene or None.
     
-        :line_width:  The with of the lines, if any used. Must be a float.
+        :line_width:  The width of the lines, if any used. Must be a float.
                      Default: 2.0
     
         :mask_points: If supplied, only one out of 'mask_points' data point is
-                      displayed. This option is usefull to reduce the number
-                      of points displayed on large datasets Must be an integer
-                      or None.
+                      displayed. This option is useful to reduce the number of
+                      points displayed on large datasets Must be an integer or
+                      None.
     
         :mode: the mode of the glyphs. Must be '2darrow' or '2dcircle' or
                '2dcross' or '2ddash' or '2ddiamond' or '2dhooked_arrow' or
@@ -1532,6 +1586,9 @@ vector_cut_plane
     
         :plane_orientation: the orientation of the plane Must be a legal
                             value. Default: x_axes
+    
+        :reset_zoom: Reset the zoom to accomodate the data newly
+                     added to the scene. Defaults to True.
     
         :resolution: The resolution of the glyph created. For spheres, for
                      instance, this is the number of divisions along theta and
@@ -1550,10 +1607,10 @@ vector_cut_plane
         :view_controls: Whether or not the controls of the cut plane are
                         shown. Must be a boolean. Default: True
     
-        :vmax: vmax is used to scale the colormap
+        :vmax: vmax is used to scale the colormap.
                If None, the max of the data will be used
     
-        :vmin: vmin is used to scale the colormap
+        :vmin: vmin is used to scale the colormap.
                If None, the min of the data will be used
     
 
@@ -1578,19 +1635,19 @@ vectors
         :colormap: type of colormap to use.
     
         :extent: [xmin, xmax, ymin, ymax, zmin, zmax]
-                 Default is the x, y, z arrays extents. Use
+                 Default is the x, y, z arrays extent. Use
                  this to change the extent of the object
                  created.
     
         :figure:  Must be a Scene or None.
     
-        :line_width:  The with of the lines, if any used. Must be a float.
+        :line_width:  The width of the lines, if any used. Must be a float.
                      Default: 2.0
     
         :mask_points: If supplied, only one out of 'mask_points' data point is
-                      displayed. This option is usefull to reduce the number
-                      of points displayed on large datasets Must be an integer
-                      or None.
+                      displayed. This option is useful to reduce the number of
+                      points displayed on large datasets Must be an integer or
+                      None.
     
         :mode: the mode of the glyphs. Must be '2darrow' or '2dcircle' or
                '2dcross' or '2ddash' or '2ddiamond' or '2dhooked_arrow' or
@@ -1602,6 +1659,9 @@ vectors
     
         :opacity: The overall opacity of the vtk object. Must be a float.
                   Default: 1.0
+    
+        :reset_zoom: Reset the zoom to accomodate the data newly
+                     added to the scene. Defaults to True.
     
         :resolution: The resolution of the glyph created. For spheres, for
                      instance, this is the number of divisions along theta and
@@ -1617,10 +1677,10 @@ vectors
         :transparent: make the opacity of the actor depend on the
                       scalar.
     
-        :vmax: vmax is used to scale the colormap
+        :vmax: vmax is used to scale the colormap.
                If None, the max of the data will be used
     
-        :vmin: vmin is used to scale the colormap
+        :vmin: vmin is used to scale the colormap.
                If None, the min of the data will be used
     
 
@@ -1647,7 +1707,7 @@ volume
         vol = mlab.pipeline.volume(src)
     
         # Changing the ctf:
-        from enthought.tvtk.util.ctf import ColorTransferFunction
+        from tvtk.util.ctf import ColorTransferFunction
         ctf = ColorTransferFunction()
         ctf.add_rgb_point(value, r, g, b)
         ctf.add_hsv_point(value, h, s, v)
@@ -1657,7 +1717,7 @@ volume
         vol.update_ctf = True
     
         # Changing the otf:
-        from enthought.tvtk.util.ctf import PiecewiseFunction
+        from tvtk.util.ctf import PiecewiseFunction
         otf = PiecewiseFunction()
         otf.add_point(value, opacity)
         vol._otf = otf
@@ -1757,13 +1817,13 @@ warp_vector_cut_plane
         :colormap: type of colormap to use.
     
         :extent: [xmin, xmax, ymin, ymax, zmin, zmax]
-                 Default is the x, y, z arrays extents. Use
+                 Default is the x, y, z arrays extent. Use
                  this to change the extent of the object
                  created.
     
         :figure:  Must be a Scene or None.
     
-        :line_width:  The with of the lines, if any used. Must be a float.
+        :line_width:  The width of the lines, if any used. Must be a float.
                      Default: 2.0
     
         :name: the name of the vtk object created.
@@ -1771,13 +1831,16 @@ warp_vector_cut_plane
         :opacity: The overall opacity of the vtk object. Must be a float.
                   Default: 1.0
     
+        :reset_zoom: Reset the zoom to accomodate the data newly
+                     added to the scene. Defaults to True.
+    
         :transparent: make the opacity of the actor depend on the
                       scalar.
     
-        :vmax: vmax is used to scale the colormap
+        :vmax: vmax is used to scale the colormap.
                If None, the max of the data will be used
     
-        :vmin: vmin is used to scale the colormap
+        :vmin: vmin is used to scale the colormap.
                If None, the min of the data will be used
     
 

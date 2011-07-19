@@ -15,11 +15,11 @@ This programming style does not allow to benefit from the data-management
 facilities of Mayavi (the pipeline, the data-oriented mlab functions),
 but it allows to easily reuse VTK code together with Mayavi or mlab code.
 
-If you want to use arbritrary VTK filters with Mayavi, it is best to use 
+If you want to use arbritrary VTK filters with Mayavi, it is best to use
 the UserDefined Mayavi filter, which enables the user to insert any VTK
 filter in the Mayavi pipeline. See, for instance, the :ref:`example_mri`
 for example of the UserDefined filter. For a full-blown example of a
-complex VTK pipeline built with Mayavi, see 
+complex VTK pipeline built with Mayavi, see
 :ref:`example_tvtk_segmentation`.
 
 

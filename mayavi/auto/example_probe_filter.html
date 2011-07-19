@@ -3,20 +3,17 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Probe filter example &mdash; Mayavi 3.4.2 documentation</title>
-    
+    <title>Probe filter example &mdash; mayavi v4.0.1 documentation</title>
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '3.4.2',
+        VERSION:     '4.0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +22,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="Mayavi 3.4.2 documentation" href="../index.html" />
+    <link rel="top" title="mayavi v4.0.1 documentation" href="../index.html" />
     <link rel="up" title="Example gallery" href="examples.html" />
     <link rel="next" title="Contour example" href="example_contour.html" />
     <link rel="prev" title="Image cursor filter example" href="example_image_cursor_filter.html" />
@@ -73,7 +70,7 @@
         <li class="right" >
           <a href="example_image_cursor_filter.html" title="Image cursor filter example"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">Mayavi 3.4.2 documentation</a> &raquo;</li>
+        <li><a href="../index.html">mayavi v4.0.1 documentation</a> &raquo;</li>
           <li><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
       </ul>
     </div>  
@@ -120,11 +117,11 @@ in Mayavi: actors, data mappers, and other elements of the VTK pipeline
 are collapsed in the Mayavi filters and modules.</p>
 <p>Note that, as we know the expression of the function, it would be simpler
 and more efficient to directly sample it on the sphere.</p>
-<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/probe_filter2.py"><tt class="xref download docutils literal"><span class="pre">probe_filter.py</span></tt></a></p>
+<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/probe_filter.py"><tt class="xref download docutils literal"><span class="pre">probe_filter.py</span></tt></a></p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">enthought.mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
-<span class="kn">from</span> <span class="nn">enthought.tvtk.api</span> <span class="kn">import</span> <span class="n">tvtk</span>
+<span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
+<span class="kn">from</span> <span class="nn">tvtk.api</span> <span class="kn">import</span> <span class="n">tvtk</span>
 
 <span class="c"># The angular par of the spherical harmonic (3, 2)</span>
 <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="o">-.</span><span class="mi">5</span><span class="p">:</span><span class="o">.</span><span class="mi">5</span><span class="p">:</span><span class="mi">100</span><span class="n">j</span><span class="p">,</span> <span class="o">-.</span><span class="mi">5</span><span class="p">:</span><span class="o">.</span><span class="mi">5</span><span class="p">:</span><span class="mi">100</span><span class="n">j</span><span class="p">,</span> <span class="o">-.</span><span class="mi">5</span><span class="p">:</span><span class="o">.</span><span class="mi">5</span><span class="p">:</span><span class="mi">100</span><span class="n">j</span><span class="p">]</span>
@@ -151,7 +148,7 @@ and more efficient to directly sample it on the sphere.</p>
 <span class="c"># use the TVTK pipeline browser)</span>
 <span class="c"># Note that for Mayavi version &lt; 3.4.1, there is a bug in the</span>
 <span class="c"># PipelineBrowser preventing a good display of this pipeline.</span>
-<span class="kn">from</span> <span class="nn">enthought.tvtk.pipeline.browser</span> <span class="kn">import</span> <span class="n">PipelineBrowser</span>
+<span class="kn">from</span> <span class="nn">tvtk.pipeline.browser</span> <span class="kn">import</span> <span class="n">PipelineBrowser</span>
 <span class="n">browser</span> <span class="o">=</span> <span class="n">PipelineBrowser</span><span class="p">(</span><span class="n">fig</span><span class="o">.</span><span class="n">scene</span><span class="p">)</span>
 <span class="n">browser</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
@@ -212,7 +209,7 @@ and more efficient to directly sample it on the sphere.</p>
     </div>
     <hr/>
     <div id="searchbox">
-	<a href="misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
+	<a href="http://github.enthought.com/mayavi/mayavi/misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
 
 	<p style="font-size:85%; color: #FFFFFF;">
     	If you publish articles using Mayavi, please 
@@ -238,14 +235,14 @@ and more efficient to directly sample it on the sphere.</p>
         <li class="right" >
           <a href="example_image_cursor_filter.html" title="Image cursor filter example"
              >previous</a> |</li>
-        <li><a href="../index.html">Mayavi 3.4.2 documentation</a> &raquo;</li>
+        <li><a href="../index.html">mayavi v4.0.1 documentation</a> &raquo;</li>
           <li><a href="examples.html" >Example gallery</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Mar 26, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1pre/ce4bb37a1409.
+      Last updated on Jul 19, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.
     </div>
   </body>
 </html>

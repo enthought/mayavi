@@ -43,8 +43,8 @@ and more efficient to directly sample it on the sphere.
 """
 import numpy as np
 
-from enthought.mayavi import mlab
-from enthought.tvtk.api import tvtk
+from mayavi import mlab
+from tvtk.api import tvtk
 
 # The angular par of the spherical harmonic (3, 2)
 x, y, z = np.mgrid[-.5:.5:100j, -.5:.5:100j, -.5:.5:100j]
@@ -71,7 +71,7 @@ fig = mlab.gcf()
 # use the TVTK pipeline browser)
 # Note that for Mayavi version < 3.4.1, there is a bug in the
 # PipelineBrowser preventing a good display of this pipeline.
-from enthought.tvtk.pipeline.browser import PipelineBrowser
+from tvtk.pipeline.browser import PipelineBrowser
 browser = PipelineBrowser(fig.scene)
 browser.show()
 

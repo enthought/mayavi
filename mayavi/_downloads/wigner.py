@@ -22,7 +22,7 @@ and ranges in order to make them fit with the data.
 
 
 import numpy
-from enthought.mayavi import mlab
+from mayavi import mlab
 
 def cat(x, y, alpha, eta=1, purity=1):
     """ Multiphoton shrodinger cat. eta is the fidelity, alpha the number

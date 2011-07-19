@@ -55,7 +55,7 @@ Bx, By = x_proj*Brho, y_proj*Brho
 del x_proj, y_proj, Brho
 
 #### Visualize the field #####################################################
-from enthought.mayavi import mlab
+from mayavi import mlab
 fig = mlab.figure(1, size=(400, 400), bgcolor=(1, 1, 1), fgcolor=(0, 0, 0))
 
 field = mlab.pipeline.vector_field(Bx, By, Bz)

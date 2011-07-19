@@ -14,7 +14,7 @@ mlab.plot3d, with scalar information to control the color.
 
 The electron localization function is displayed using volume rendering.
 Good use of the `vmin` and `vmax` argument to
-`mlab.pipeline.volume` is critical to achieve a good visualization: the 
+`mlab.pipeline.volume` is critical to achieve a good visualization: the
 `vmin` threshold should placed high-enough for features to stand out.
 
 The original is an electron localization function from Axel Kohlmeyer.

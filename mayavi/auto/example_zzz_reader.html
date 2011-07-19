@@ -3,20 +3,17 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Zzz reader example &mdash; Mayavi 3.4.2 documentation</title>
-    
+    <title>Zzz reader example &mdash; mayavi v4.0.1 documentation</title>
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '3.4.2',
+        VERSION:     '4.0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +22,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="Mayavi 3.4.2 documentation" href="../index.html" />
+    <link rel="top" title="mayavi v4.0.1 documentation" href="../index.html" />
     <link rel="up" title="Example gallery" href="examples.html" />
     <link rel="next" title="Nongui example" href="example_nongui.html" />
     <link rel="prev" title="Standalone example" href="example_standalone.html" />
@@ -73,7 +70,7 @@
         <li class="right" >
           <a href="example_standalone.html" title="Standalone example"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">Mayavi 3.4.2 documentation</a> &raquo;</li>
+        <li><a href="../index.html">mayavi v4.0.1 documentation</a> &raquo;</li>
           <li><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
       </ul>
     </div>  
@@ -89,23 +86,23 @@
 and register that reader with mayavi.</p>
 <p>To use this:</p>
 <blockquote>
-<div><ul class="simple">
+<ul class="simple">
 <li>put this in ~/.mayavi2/</li>
 <li>then import this module in your ~/.mayavi2/user_mayavi.py.</li>
 </ul>
-</div></blockquote>
+</blockquote>
 <p>that&#8217;s it.</p>
 <p>What you should get:</p>
 <blockquote>
-<div><ul class="simple">
+<ul class="simple">
 <li>Options to open .zzz files from the file-&gt;open menu.</li>
 <li>Open .zzz files via right click.</li>
 <li>Open .zzz files from the engine or mlab (via open)</li>
 <li>do mayavi2 -d foo.zzz.</li>
 </ul>
-</div></blockquote>
-<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/zzz_reader2.py"><tt class="xref download docutils literal"><span class="pre">zzz_reader.py</span></tt></a></p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">enthought.mayavi.core.api</span> <span class="kn">import</span> <span class="n">registry</span><span class="p">,</span> <span class="n">SourceMetadata</span><span class="p">,</span> <span class="n">PipelineInfo</span>
+</blockquote>
+<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/zzz_reader.py"><tt class="xref download docutils literal"><span class="pre">zzz_reader.py</span></tt></a></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">mayavi.core.api</span> <span class="kn">import</span> <span class="n">registry</span><span class="p">,</span> <span class="n">SourceMetadata</span><span class="p">,</span> <span class="n">PipelineInfo</span>
 
 <span class="k">def</span> <span class="nf">zzz_reader</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">engine</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Reader for .zzz files.</span>
@@ -117,8 +114,8 @@ and register that reader with mayavi.</p>
 
 <span class="sd">    engine -- The engine the source will be associated with.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="kn">from</span> <span class="nn">enthought.tvtk.api</span> <span class="kn">import</span> <span class="n">tvtk</span>
-    <span class="kn">from</span> <span class="nn">enthought.mayavi.sources.vtk_data_source</span> <span class="kn">import</span> <span class="n">VTKDataSource</span>
+    <span class="kn">from</span> <span class="nn">tvtk.api</span> <span class="kn">import</span> <span class="n">tvtk</span>
+    <span class="kn">from</span> <span class="nn">mayavi.sources.vtk_data_source</span> <span class="kn">import</span> <span class="n">VTKDataSource</span>
     <span class="c"># Do your own reader stuff here, I&#39;m just reading a VTK file with a</span>
     <span class="c"># different extension here.</span>
     <span class="n">r</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">StructuredPointsReader</span><span class="p">(</span><span class="n">file_name</span><span class="o">=</span><span class="n">fname</span><span class="p">)</span>
@@ -206,7 +203,7 @@ and register that reader with mayavi.</p>
     </div>
     <hr/>
     <div id="searchbox">
-	<a href="misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
+	<a href="http://github.enthought.com/mayavi/mayavi/misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
 
 	<p style="font-size:85%; color: #FFFFFF;">
     	If you publish articles using Mayavi, please 
@@ -232,14 +229,14 @@ and register that reader with mayavi.</p>
         <li class="right" >
           <a href="example_standalone.html" title="Standalone example"
              >previous</a> |</li>
-        <li><a href="../index.html">Mayavi 3.4.2 documentation</a> &raquo;</li>
+        <li><a href="../index.html">mayavi v4.0.1 documentation</a> &raquo;</li>
           <li><a href="examples.html" >Example gallery</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Mar 26, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1pre/ce4bb37a1409.
+      Last updated on Jul 19, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.
     </div>
   </body>
 </html>

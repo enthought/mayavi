@@ -9,12 +9,12 @@
 from os.path import join, abspath, dirname
 
 # Mayavi imports.
-from enthought.mayavi.scripts import mayavi2
-from enthought.mayavi.sources.api import VTKXMLFileReader
-from enthought.mayavi.filters.contour import Contour
-from enthought.mayavi.filters.api import PolyDataNormals
-from enthought.mayavi.filters.set_active_attribute import SetActiveAttribute
-from enthought.mayavi.modules.api import Surface, Outline
+from mayavi.scripts import mayavi2
+from mayavi.sources.api import VTKXMLFileReader
+from mayavi.filters.contour import Contour
+from mayavi.filters.api import PolyDataNormals
+from mayavi.filters.set_active_attribute import SetActiveAttribute
+from mayavi.modules.api import Surface, Outline
 
 @mayavi2.standalone
 def main():

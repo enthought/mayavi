@@ -57,7 +57,7 @@ Adding color or size variations
   We represent the dataset as spheres, using :func:`points3d`, and the 
   scalar is mapped to diameter of the spheres::
 
-    from enthought.mayavi import mlab
+    from mayavi import mlab
     pts = mlab.points3d(x, y, z, s)
 
   By default the diameter of the spheres is not 'clamped', in other
@@ -172,7 +172,7 @@ when you enter this command, please see :ref:`running-mlab-scripts`.
     modules etc.  To do this you may do the following before you create an
     mlab figure::
     
-        from enthought.mayavi import mlab
+        from mayavi import mlab
         mlab.options.backend = 'envisage'
         f = mlab.figure()
         # ...

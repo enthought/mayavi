@@ -3,20 +3,17 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Organisation of Mayavi visualizations: the pipeline &mdash; Mayavi 3.4.2 documentation</title>
-    
+    <title>Organisation of Mayavi visualizations: the pipeline &mdash; mayavi v4.0.1 documentation</title>
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '3.4.2',
+        VERSION:     '4.0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +22,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="Mayavi 3.4.2 documentation" href="index.html" />
+    <link rel="top" title="mayavi v4.0.1 documentation" href="index.html" />
     <link rel="up" title="Advanced use of Mayavi" href="advanced_use.html" />
     <link rel="next" title="Data representation in Mayavi" href="data.html" />
     <link rel="prev" title="Advanced use of Mayavi" href="advanced_use.html" />
@@ -73,7 +70,7 @@
         <li class="right" >
           <a href="advanced_use.html" title="Advanced use of Mayavi"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">Mayavi 3.4.2 documentation</a> &raquo;</li>
+        <li><a href="index.html">mayavi v4.0.1 documentation</a> &raquo;</li>
           <li><a href="advanced_use.html" accesskey="U">Advanced use of Mayavi</a> &raquo;</li> 
       </ul>
     </div>  
@@ -162,7 +159,7 @@ represent lines:</p>
 <span class="n">y</span>   <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">6</span><span class="o">*</span><span class="n">phi</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="o">.</span><span class="mi">5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">11</span><span class="o">*</span><span class="n">phi</span><span class="p">))</span>
 <span class="n">z</span>   <span class="o">=</span> <span class="o">.</span><span class="mi">5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">11</span><span class="o">*</span><span class="n">phi</span><span class="p">)</span>
 
-<span class="kn">from</span> <span class="nn">enthought.mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
+<span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
 <span class="n">surface</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">plot3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">6</span><span class="o">*</span><span class="n">phi</span><span class="p">),</span> <span class="n">tube_radius</span><span class="o">=</span><span class="mf">0.025</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s">&#39;Spectral&#39;</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=.</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -186,7 +183,7 @@ applied. First we retrive the <cite>Stripper</cite> filter:</p>
 </pre></div>
 </div>
 <div class="figure align-center">
-<img alt="_images/pipeline_and_scene22.jpg" src="_images/pipeline_and_scene22.jpg" />
+<img alt="_images/pipeline_and_scene2.jpg" src="_images/pipeline_and_scene2.jpg" />
 </div>
 <p>All the properties of the different steps can be adjusted in the pipeline
 view. In addition, they correspond to attributes on the various objects:</p>
@@ -268,7 +265,7 @@ challenging to find this correspondance. We suggest to use the
     </div>
     <hr/>
     <div id="searchbox">
-	<a href="misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
+	<a href="http://github.enthought.com/mayavi/mayavi/misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
 
 	<p style="font-size:85%; color: #FFFFFF;">
     	If you publish articles using Mayavi, please 
@@ -294,14 +291,14 @@ challenging to find this correspondance. We suggest to use the
         <li class="right" >
           <a href="advanced_use.html" title="Advanced use of Mayavi"
              >previous</a> |</li>
-        <li><a href="index.html">Mayavi 3.4.2 documentation</a> &raquo;</li>
+        <li><a href="index.html">mayavi v4.0.1 documentation</a> &raquo;</li>
           <li><a href="advanced_use.html" >Advanced use of Mayavi</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Mar 26, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1pre/ce4bb37a1409.
+      Last updated on Jul 19, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.
     </div>
   </body>
 </html>

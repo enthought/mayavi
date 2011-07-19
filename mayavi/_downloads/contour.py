@@ -12,13 +12,13 @@ contour related modules.
 from os.path import join, abspath, dirname
 
 # Enthought library imports
-from enthought.mayavi.scripts import mayavi2
-from enthought.mayavi.sources.vtk_file_reader import VTKFileReader
-from enthought.mayavi.modules.outline import Outline
-from enthought.mayavi.modules.grid_plane import GridPlane
-from enthought.mayavi.modules.contour_grid_plane import ContourGridPlane
-from enthought.mayavi.modules.iso_surface import IsoSurface
-from enthought.mayavi.modules.scalar_cut_plane import ScalarCutPlane
+from mayavi.scripts import mayavi2
+from mayavi.sources.vtk_file_reader import VTKFileReader
+from mayavi.modules.outline import Outline
+from mayavi.modules.grid_plane import GridPlane
+from mayavi.modules.contour_grid_plane import ContourGridPlane
+from mayavi.modules.iso_surface import IsoSurface
+from mayavi.modules.scalar_cut_plane import ScalarCutPlane
 
 @mayavi2.standalone
 def contour():

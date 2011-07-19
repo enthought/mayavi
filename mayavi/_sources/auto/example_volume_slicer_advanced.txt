@@ -12,10 +12,10 @@ move the other cuts.
 
 This is an example of complex callback interaction. It builds on the
 :ref:`example_volume_slicer` but has more complex logic. You should try
-to understand the :ref:`example_volume_slicer` first. 
+to understand the :ref:`example_volume_slicer` first.
 
 In this example, the VolumeSlicer object displays a position attribute
-giving the position of the cut in data coordinates. Traits callbacks are 
+giving the position of the cut in data coordinates. Traits callbacks are
 used to move the cut planes when this position attribute is modifed.
 
 In the 3D window, the 3D cuts are displayed using ImagePlaneWidgets

@@ -11,8 +11,8 @@ magnetic dipole (a current loop).
 
 This example requires scipy.
 
-The magnetic field from an arbitrary current loop is calculated from 
-eqns (1) and (2) in Phys Rev A Vol. 35, N 4, pp. 1535-1546; 1987. 
+The magnetic field from an arbitrary current loop is calculated from
+eqns (1) and (2) in Phys Rev A Vol. 35, N 4, pp. 1535-1546; 1987.
 
 To get a prettier result, we use a fairly large grid to sample the
 field. As a consequence, we need to clear temporary arrays as soon as

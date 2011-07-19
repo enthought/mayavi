@@ -5,7 +5,7 @@
 Probe filter example
 --------------------------------------------
 
- 
+
 Using the probe filter to visualize a scalar field along an arbitrary
 surface.
 
@@ -19,7 +19,7 @@ visualized using an ImagePlaneWidget. The function we are interested is
 independent of the distance to the origin and a function only of the
 angle. This is why it may be interesting to visualize its value sampled
 on a sphere center at the origin, but we have the data sampled throughout
-the volume on a regular grid. 
+the volume on a regular grid.
 
 We create a sphere with the BuiltinSurface source and use the VTK
 ProbeFilter to sample the data on this surface. The ProbeFilter takes one

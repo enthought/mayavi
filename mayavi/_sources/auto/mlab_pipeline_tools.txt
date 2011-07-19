@@ -1,11 +1,11 @@
 
 
-.. currentmodule:: enthought.mayavi.tools.pipeline
+.. currentmodule:: mayavi.tools.pipeline
 
 .. note::
 
     This section is only a reference describing the function, please see
-    the chapter on :ref:`simple-scripting-with-mlab` for an introduction to 
+    the chapter on :ref:`simple-scripting-with-mlab` for an introduction to
     mlab and how to interact with and assemble the functions of `mlab`.
 
     Please see the section on :ref:`running-mlab-scripts` for

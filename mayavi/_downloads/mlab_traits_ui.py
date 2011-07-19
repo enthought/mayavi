@@ -15,12 +15,12 @@ the simplest possible dialog: a single Mayavi scene in a window.
 from numpy import sqrt, sin, mgrid
 
 # Enthought imports.
-from enthought.traits.api import HasTraits, Instance
-from enthought.traits.ui.api import View, Item
-from enthought.tvtk.pyface.scene_editor import SceneEditor
+from traits.api import HasTraits, Instance
+from traitsui.api import View, Item
+from tvtk.pyface.scene_editor import SceneEditor
 
-from enthought.mayavi.tools.mlab_scene_model import MlabSceneModel
-from enthought.mayavi.core.ui.mayavi_scene import MayaviScene
+from mayavi.tools.mlab_scene_model import MlabSceneModel
+from mayavi.core.ui.mayavi_scene import MayaviScene
 
 
 ######################################################################

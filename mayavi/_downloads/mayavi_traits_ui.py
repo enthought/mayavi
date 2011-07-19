@@ -20,11 +20,11 @@ edit the currently-selected object.
 from numpy import sqrt, sin, mgrid
 
 # Enthought imports.
-from enthought.traits.api import HasTraits, Instance, Property, Enum
-from enthought.traits.ui.api import View, Item, HSplit, VSplit, InstanceEditor
-from enthought.tvtk.pyface.scene_editor import SceneEditor
-from enthought.mayavi.core.ui.engine_view import EngineView
-from enthought.mayavi.tools.mlab_scene_model import MlabSceneModel
+from traits.api import HasTraits, Instance, Property, Enum
+from traitsui.api import View, Item, HSplit, VSplit, InstanceEditor
+from tvtk.pyface.scene_editor import SceneEditor
+from mayavi.core.ui.engine_view import EngineView
+from mayavi.tools.mlab_scene_model import MlabSceneModel
 
 
 ######################################################################
@@ -78,8 +78,8 @@ class Mayavi(HasTraits):
 
     def generate_data_mayavi(self):
         """Shows how you can generate data using mayavi instead of mlab."""
-        from enthought.mayavi.sources.api import ParametricSurface
-        from enthought.mayavi.modules.api import Outline, Surface
+        from mayavi.sources.api import ParametricSurface
+        from mayavi.modules.api import Outline, Surface
         e = self.scene.engine
         s = ParametricSurface()
         e.add_source(s)

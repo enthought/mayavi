@@ -3,20 +3,17 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Sources &mdash; Mayavi 3.4.2 documentation</title>
-    
+    <title>Sources &mdash; mayavi v4.0.1 documentation</title>
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '3.4.2',
+        VERSION:     '4.0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +22,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="Mayavi 3.4.2 documentation" href="../index.html" />
+    <link rel="top" title="mayavi v4.0.1 documentation" href="../index.html" />
     <link rel="up" title="Mlab pipeline-control reference" href="../mlab_pipeline_reference.html" />
     <link rel="next" title="Tools" href="mlab_pipeline_tools.html" />
     <link rel="prev" title="Mlab pipeline-control reference" href="../mlab_pipeline_reference.html" />
@@ -73,7 +70,7 @@
         <li class="right" >
           <a href="../mlab_pipeline_reference.html" title="Mlab pipeline-control reference"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">Mayavi 3.4.2 documentation</a> &raquo;</li>
+        <li><a href="../index.html">mayavi v4.0.1 documentation</a> &raquo;</li>
           <li><a href="mlab_reference.html" >MLab reference</a> &raquo;</li>
           <li><a href="../mlab_pipeline_reference.html" accesskey="U">Mlab pipeline-control reference</a> &raquo;</li> 
       </ul>
@@ -97,8 +94,8 @@ instructions on running the examples.</p>
 <div class="section" id="array2d-source">
 <h2>array2d_source<a class="headerlink" href="#array2d-source" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.array2d_source">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">array2d_source</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.array2d_source" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.array2d_source">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">array2d_source</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.array2d_source" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates structured 2D data from a 2D array.</p>
 <p><strong>Function signatures</strong>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">array2d_source</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
@@ -118,13 +115,13 @@ made from the indices of arrays, and an uniformly-spaced data set is
 created.</p>
 <p><strong>Keyword arguments</strong>:</p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">optionally, the figure on which to add the data source.
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">optionally, the figure on which to add the data source.
 If None, the source is not added to any figure, and will
 be added automatically by the modules or
 filters. If False, no figure will be created by modules
@@ -132,19 +129,19 @@ or filters applied to the source: the source can only
 be used for testing, or numerical algorithms, not
 visualization.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">mask:</th><td class="field-body">Mask points specified in a boolean masking array.</td>
+<tr class="field"><th class="field-name">mask:</th><td class="field-body">Mask points specified in a boolean masking array.</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="builtin-image">
 <h2>builtin_image<a class="headerlink" href="#builtin-image" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.builtin_image">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">builtin_image</tt><big>(</big><em>metadata=&lt;enthought.mayavi.core.metadata.SourceMetadata object at 0x30cc350&gt;</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.builtin_image" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.builtin_image">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">builtin_image</tt><big>(</big><em>metadata=&lt;mayavi.core.metadata.SourceMetadata object at 0xab58b9c&gt;</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.builtin_image" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a vtk image data source</p>
 </dd></dl>
 
@@ -152,8 +149,8 @@ visualization.</td>
 <div class="section" id="builtin-surface">
 <h2>builtin_surface<a class="headerlink" href="#builtin-surface" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.builtin_surface">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">builtin_surface</tt><big>(</big><em>metadata=&lt;enthought.mayavi.core.metadata.SourceMetadata object at 0x30cc230&gt;</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.builtin_surface" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.builtin_surface">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">builtin_surface</tt><big>(</big><em>metadata=&lt;mayavi.core.metadata.SourceMetadata object at 0xab58b0c&gt;</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.builtin_surface" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a vtk poly data source</p>
 </dd></dl>
 
@@ -161,8 +158,8 @@ visualization.</td>
 <div class="section" id="chaco-file">
 <h2>chaco_file<a class="headerlink" href="#chaco-file" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.chaco_file">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">chaco_file</tt><big>(</big><em>metadata=&lt;enthought.mayavi.core.metadata.SourceMetadata object at 0x30cc590&gt;</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.chaco_file" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.chaco_file">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">chaco_file</tt><big>(</big><em>metadata=&lt;mayavi.core.metadata.SourceMetadata object at 0xab58cbc&gt;</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.chaco_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Open a Chaco file</p>
 </dd></dl>
 
@@ -170,8 +167,8 @@ visualization.</td>
 <div class="section" id="grid-source">
 <h2>grid_source<a class="headerlink" href="#grid-source" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.grid_source">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">grid_source</tt><big>(</big><em>x</em>, <em>y</em>, <em>z</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.grid_source" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.grid_source">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">grid_source</tt><big>(</big><em>x</em>, <em>y</em>, <em>z</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.grid_source" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates 2D grid data.</p>
 <p>x, y, z are 2D arrays giving the positions of the vertices of the surface.
 The connectivity between these points is implied by the connectivity on
@@ -180,15 +177,15 @@ the arrays.</p>
 function, as it will create more efficient data structures.</p>
 <p><strong>Keyword arguments</strong>:</p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">scalars:</th><td class="field-body">optional scalar data.</td>
+<tr class="field"><th class="field-name">scalars:</th><td class="field-body">optional scalar data.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">figure:</th><td class="field-body">optionally, the figure on which to add the data source.
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">optionally, the figure on which to add the data source.
 If None, the source is not added to any figure, and will
 be added automatically by the modules or
 filters. If False, no figure will be created by modules
@@ -198,15 +195,15 @@ visualization.</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="line-source">
 <h2>line_source<a class="headerlink" href="#line-source" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.line_source">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">line_source</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.line_source" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.line_source">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">line_source</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.line_source" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates line data.</p>
 <p><strong>Function signatures</strong>:</p>
 <div class="highlight-python"><pre>line_source(x, y, z, ...)
@@ -218,13 +215,13 @@ a callable, f, that returns an array.</pre>
 </div>
 <p><strong>Keyword arguments</strong>:</p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">optionally, the figure on which to add the data source.
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">optionally, the figure on which to add the data source.
 If None, the source is not added to any figure, and will
 be added automatically by the modules or
 filters. If False, no figure will be created by modules
@@ -234,15 +231,15 @@ visualization.</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="open">
 <h2>open<a class="headerlink" href="#open" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.open">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">open</tt><big>(</big><em>filename</em>, <em>figure=None</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.open" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.open">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">open</tt><big>(</big><em>filename</em>, <em>figure=None</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.open" title="Permalink to this definition">¶</a></dt>
 <dd><p>Open a supported data file given a filename.  Returns the source
 object if a suitable reader was found for the file.</p>
 </dd></dl>
@@ -251,8 +248,8 @@ object if a suitable reader was found for the file.</p>
 <div class="section" id="parametric-surface">
 <h2>parametric_surface<a class="headerlink" href="#parametric-surface" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.parametric_surface">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">parametric_surface</tt><big>(</big><em>metadata=&lt;enthought.mayavi.core.metadata.SourceMetadata object at 0x30cc050&gt;</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.parametric_surface" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.parametric_surface">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">parametric_surface</tt><big>(</big><em>metadata=&lt;mayavi.core.metadata.SourceMetadata object at 0xab589ec&gt;</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.parametric_surface" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a parametric surface source</p>
 </dd></dl>
 
@@ -260,8 +257,8 @@ object if a suitable reader was found for the file.</p>
 <div class="section" id="point-load">
 <h2>point_load<a class="headerlink" href="#point-load" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.point_load">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">point_load</tt><big>(</big><em>metadata=&lt;enthought.mayavi.core.metadata.SourceMetadata object at 0x30cc110&gt;</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.point_load" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.point_load">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">point_load</tt><big>(</big><em>metadata=&lt;mayavi.core.metadata.SourceMetadata object at 0xab58a7c&gt;</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.point_load" title="Permalink to this definition">¶</a></dt>
 <dd><p>Simulates a point load on a cube of data (for tensors)</p>
 </dd></dl>
 
@@ -269,8 +266,8 @@ object if a suitable reader was found for the file.</p>
 <div class="section" id="scalar-field">
 <h2>scalar_field<a class="headerlink" href="#scalar-field" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.scalar_field">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">scalar_field</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.scalar_field" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.scalar_field">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">scalar_field</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.scalar_field" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a scalar field data.</p>
 <p><strong>Function signatures</strong>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">scalar_field</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
@@ -287,13 +284,13 @@ the points are regularily spaced.</p>
 a callable, f, that returns an array.</p>
 <p><strong>Keyword arguments</strong>:</p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">optionally, the figure on which to add the data source.
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">optionally, the figure on which to add the data source.
 If None, the source is not added to any figure, and will
 be added automatically by the modules or
 filters. If False, no figure will be created by modules
@@ -303,15 +300,15 @@ visualization.</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="scalar-scatter">
 <h2>scalar_scatter<a class="headerlink" href="#scalar-scatter" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.scalar_scatter">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">scalar_scatter</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.scalar_scatter" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.scalar_scatter">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">scalar_scatter</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.scalar_scatter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates scattered scalar data.</p>
 <p><strong>Function signatures</strong>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">scalar_scatter</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
@@ -326,13 +323,13 @@ made from the indices of vectors.</p>
 a callable, f, that returns an array.</p>
 <p><strong>Keyword arguments</strong>:</p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">optionally, the figure on which to add the data source.
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">optionally, the figure on which to add the data source.
 If None, the source is not added to any figure, and will
 be added automatically by the modules or
 filters. If False, no figure will be created by modules
@@ -342,15 +339,15 @@ visualization.</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="triangular-mesh-source">
 <h2>triangular_mesh_source<a class="headerlink" href="#triangular-mesh-source" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.triangular_mesh_source">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">triangular_mesh_source</tt><big>(</big><em>x</em>, <em>y</em>, <em>z</em>, <em>triangles</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.triangular_mesh_source" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.triangular_mesh_source">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">triangular_mesh_source</tt><big>(</big><em>x</em>, <em>y</em>, <em>z</em>, <em>triangles</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.triangular_mesh_source" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates 2D mesh by specifying points and triangle connectivity.</p>
 <p>x, y, z are 2D arrays giving the positions of the vertices of the surface.
 The connectivity between these points is given by listing triplets of
@@ -358,15 +355,15 @@ vertices inter-connected. These vertices are designed by there
 position index.</p>
 <p><strong>Keyword arguments</strong>:</p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">scalars:</th><td class="field-body">optional scalar data.</td>
+<tr class="field"><th class="field-name">scalars:</th><td class="field-body">optional scalar data.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">figure:</th><td class="field-body">optionally, the figure on which to add the data source.
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">optionally, the figure on which to add the data source.
 If None, the source is not added to any figure, and will
 be added automatically by the modules or
 filters. If False, no figure will be created by modules
@@ -376,15 +373,15 @@ visualization.</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="vector-field">
 <h2>vector_field<a class="headerlink" href="#vector-field" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.vector_field">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">vector_field</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.vector_field" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.vector_field">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">vector_field</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.vector_field" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates vector field data.</p>
 <p><strong>Function signatures</strong>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">vector_field</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
@@ -401,15 +398,15 @@ assuming the points are regularily spaced on an orthogonal grid.</p>
 that returns vectors.</p>
 <p><strong>Keyword arguments</strong>:</p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">scalars:</th><td class="field-body">optional scalar data.</td>
+<tr class="field"><th class="field-name">scalars:</th><td class="field-body">optional scalar data.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">figure:</th><td class="field-body">optionally, the figure on which to add the data source.
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">optionally, the figure on which to add the data source.
 If None, the source is not added to any figure, and will
 be added automatically by the modules or
 filters. If False, no figure will be created by modules
@@ -419,15 +416,15 @@ visualization.</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="vector-scatter">
 <h2>vector_scatter<a class="headerlink" href="#vector-scatter" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.vector_scatter">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">vector_scatter</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.vector_scatter" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.vector_scatter">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">vector_scatter</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.vector_scatter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates scattered vector data.</p>
 <p><strong>Function signatures</strong>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">vector_scatter</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
@@ -441,15 +438,15 @@ made from the indices of vectors.</p>
 that returns vectors.</p>
 <p><strong>Keyword arguments</strong>:</p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">scalars:</th><td class="field-body">optional scalar data.</td>
+<tr class="field"><th class="field-name">scalars:</th><td class="field-body">optional scalar data.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">figure:</th><td class="field-body">optionally, the figure on which to add the data source.
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">optionally, the figure on which to add the data source.
 If None, the source is not added to any figure, and will
 be added automatically by the modules or
 filters. If False, no figure will be created by modules
@@ -459,15 +456,15 @@ visualization.</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="vertical-vectors-source">
 <h2>vertical_vectors_source<a class="headerlink" href="#vertical-vectors-source" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.vertical_vectors_source">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">vertical_vectors_source</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.vertical_vectors_source" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.vertical_vectors_source">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">vertical_vectors_source</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.vertical_vectors_source" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a set of vectors pointing upward, useful eg for bar graphs.</p>
 <p><strong>Function signatures</strong>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">vertical_vectors_source</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
@@ -491,13 +488,13 @@ is an array s, or a callable, f, that returns an array giving the
 data value.</p>
 <p><strong>Keyword arguments</strong>:</p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
+<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">figure:</th><td class="field-body">optionally, the figure on which to add the data source.
+<tr class="field"><th class="field-name">figure:</th><td class="field-body">optionally, the figure on which to add the data source.
 If None, the source is not added to any figure, and will
 be added automatically by the modules or
 filters. If False, no figure will be created by modules
@@ -507,15 +504,15 @@ visualization.</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="volume-file">
 <h2>volume_file<a class="headerlink" href="#volume-file" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.tools.pipeline.volume_file">
-<tt class="descclassname">enthought.mayavi.tools.pipeline.</tt><tt class="descname">volume_file</tt><big>(</big><em>metadata=&lt;enthought.mayavi.core.metadata.SourceMetadata object at 0x30cc470&gt;</em><big>)</big><a class="headerlink" href="#enthought.mayavi.tools.pipeline.volume_file" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.tools.pipeline.volume_file">
+<tt class="descclassname">mayavi.tools.pipeline.</tt><tt class="descname">volume_file</tt><big>(</big><em>metadata=&lt;mayavi.core.metadata.SourceMetadata object at 0xab58c2c&gt;</em><big>)</big><a class="headerlink" href="#mayavi.tools.pipeline.volume_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Open a Volume file</p>
 </dd></dl>
 
@@ -597,7 +594,7 @@ visualization.</td>
     </div>
     <hr/>
     <div id="searchbox">
-	<a href="misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
+	<a href="http://github.enthought.com/mayavi/mayavi/misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
 
 	<p style="font-size:85%; color: #FFFFFF;">
     	If you publish articles using Mayavi, please 
@@ -623,15 +620,15 @@ visualization.</td>
         <li class="right" >
           <a href="../mlab_pipeline_reference.html" title="Mlab pipeline-control reference"
              >previous</a> |</li>
-        <li><a href="../index.html">Mayavi 3.4.2 documentation</a> &raquo;</li>
+        <li><a href="../index.html">mayavi v4.0.1 documentation</a> &raquo;</li>
           <li><a href="mlab_reference.html" >MLab reference</a> &raquo;</li>
           <li><a href="../mlab_pipeline_reference.html" >Mlab pipeline-control reference</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Mar 26, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1pre/ce4bb37a1409.
+      Last updated on Jul 19, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.
     </div>
   </body>
 </html>

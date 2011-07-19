@@ -3,20 +3,17 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Figure decoration functions &mdash; Mayavi 3.4.2 documentation</title>
-    
+    <title>Figure decoration functions &mdash; mayavi v4.0.1 documentation</title>
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '3.4.2',
+        VERSION:     '4.0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +22,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="Mayavi 3.4.2 documentation" href="../index.html" />
+    <link rel="top" title="mayavi v4.0.1 documentation" href="../index.html" />
     <link rel="up" title="MLab reference" href="mlab_reference.html" />
     <link rel="next" title="Camera handling functions" href="mlab_camera.html" />
     <link rel="prev" title="Figure handling functions" href="mlab_figure.html" />
@@ -73,7 +70,7 @@
         <li class="right" >
           <a href="mlab_figure.html" title="Figure handling functions"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">Mayavi 3.4.2 documentation</a> &raquo;</li>
+        <li><a href="../index.html">mayavi v4.0.1 documentation</a> &raquo;</li>
           <li><a href="mlab_reference.html" accesskey="U">MLab reference</a> &raquo;</li> 
       </ul>
     </div>  
@@ -96,8 +93,8 @@ instructions on running the examples.</p>
 <div class="section" id="colorbar">
 <h2>colorbar<a class="headerlink" href="#colorbar" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.mlab.colorbar">
-<tt class="descclassname">enthought.mayavi.mlab.</tt><tt class="descname">colorbar</tt><big>(</big><em>object=None</em>, <em>title=None</em>, <em>orientation=None</em>, <em>nb_labels=None</em>, <em>nb_colors=None</em>, <em>label_fmt=None</em><big>)</big><a class="headerlink" href="#enthought.mayavi.mlab.colorbar" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.mlab.colorbar">
+<tt class="descclassname">mayavi.mlab.</tt><tt class="descname">colorbar</tt><big>(</big><em>object=None</em>, <em>title=None</em>, <em>orientation=None</em>, <em>nb_labels=None</em>, <em>nb_colors=None</em>, <em>label_fmt=None</em><big>)</big><a class="headerlink" href="#mayavi.mlab.colorbar" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds a colorbar for the color mapping of the given object.</p>
 <p>If the object has scalar data, the scalar color mapping is
 represented. Elsewhere the vector color mapping is represented, if
@@ -106,158 +103,158 @@ If no object is specified, the first object with a color map in the scene
 is used.</p>
 <p><strong>Keyword arguments</strong>:</p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">object:</th><td class="field-body">Optional object to get the color map from</td>
+<tr class="field"><th class="field-name">object:</th><td class="field-body">Optional object to get the color map from</td>
 </tr>
-<tr class="field-even field"><th class="field-name">title:</th><td class="field-body">The title string</td>
+<tr class="field"><th class="field-name">title:</th><td class="field-body">The title string</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">orientation:</th><td class="field-body">Can be &#8216;horizontal&#8217; or &#8216;vertical&#8217;</td>
+<tr class="field"><th class="field-name">orientation:</th><td class="field-body">Can be &#8216;horizontal&#8217; or &#8216;vertical&#8217;</td>
 </tr>
-<tr class="field-even field"><th class="field-name">nb_labels:</th><td class="field-body">The number of labels to display on the colorbar.</td>
+<tr class="field"><th class="field-name">nb_labels:</th><td class="field-body">The number of labels to display on the colorbar.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">label_fmt:</th><td class="field-body">The string formater for the labels. This needs to be
+<tr class="field"><th class="field-name">label_fmt:</th><td class="field-body">The string formater for the labels. This needs to be
 a formater for float number, eg &#8216;%.1f&#8217;.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">nb_colors:</th><td class="field-body">The maximum number of colors displayed on the
+<tr class="field"><th class="field-name">nb_colors:</th><td class="field-body">The maximum number of colors displayed on the
 colorbar.</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="scalarbar">
 <h2>scalarbar<a class="headerlink" href="#scalarbar" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.mlab.scalarbar">
-<tt class="descclassname">enthought.mayavi.mlab.</tt><tt class="descname">scalarbar</tt><big>(</big><em>object=None</em>, <em>title=None</em>, <em>orientation=None</em>, <em>nb_labels=None</em>, <em>nb_colors=None</em>, <em>label_fmt=None</em><big>)</big><a class="headerlink" href="#enthought.mayavi.mlab.scalarbar" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.mlab.scalarbar">
+<tt class="descclassname">mayavi.mlab.</tt><tt class="descname">scalarbar</tt><big>(</big><em>object=None</em>, <em>title=None</em>, <em>orientation=None</em>, <em>nb_labels=None</em>, <em>nb_colors=None</em>, <em>label_fmt=None</em><big>)</big><a class="headerlink" href="#mayavi.mlab.scalarbar" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds a colorbar for the scalar color mapping of the given object.</p>
 <p>If no object is specified, the first object with scalar data in the scene
 is used.</p>
 <p><strong>Keyword arguments</strong>:</p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">object:</th><td class="field-body">Optional object to get the scalar color map from</td>
+<tr class="field"><th class="field-name">object:</th><td class="field-body">Optional object to get the scalar color map from</td>
 </tr>
-<tr class="field-even field"><th class="field-name">title:</th><td class="field-body">The title string</td>
+<tr class="field"><th class="field-name">title:</th><td class="field-body">The title string</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">orientation:</th><td class="field-body">Can be &#8216;horizontal&#8217; or &#8216;vertical&#8217;</td>
+<tr class="field"><th class="field-name">orientation:</th><td class="field-body">Can be &#8216;horizontal&#8217; or &#8216;vertical&#8217;</td>
 </tr>
-<tr class="field-even field"><th class="field-name">nb_labels:</th><td class="field-body">The number of labels to display on the colorbar.</td>
+<tr class="field"><th class="field-name">nb_labels:</th><td class="field-body">The number of labels to display on the colorbar.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">label_fmt:</th><td class="field-body">The string formater for the labels. This needs to be
+<tr class="field"><th class="field-name">label_fmt:</th><td class="field-body">The string formater for the labels. This needs to be
 a formater for float number, eg &#8216;%.1f&#8217;.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">nb_colors:</th><td class="field-body">The maximum number of colors displayed on the
+<tr class="field"><th class="field-name">nb_colors:</th><td class="field-body">The maximum number of colors displayed on the
 colorbar.</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="vectorbar">
 <h2>vectorbar<a class="headerlink" href="#vectorbar" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.mlab.vectorbar">
-<tt class="descclassname">enthought.mayavi.mlab.</tt><tt class="descname">vectorbar</tt><big>(</big><em>object=None</em>, <em>title=None</em>, <em>orientation=None</em>, <em>nb_labels=None</em>, <em>nb_colors=None</em>, <em>label_fmt=None</em><big>)</big><a class="headerlink" href="#enthought.mayavi.mlab.vectorbar" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.mlab.vectorbar">
+<tt class="descclassname">mayavi.mlab.</tt><tt class="descname">vectorbar</tt><big>(</big><em>object=None</em>, <em>title=None</em>, <em>orientation=None</em>, <em>nb_labels=None</em>, <em>nb_colors=None</em>, <em>label_fmt=None</em><big>)</big><a class="headerlink" href="#mayavi.mlab.vectorbar" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds a colorbar for the vector color mapping of the given object.</p>
 <p>If no object is specified, the first object with vector data in the scene
 is used.</p>
 <p><strong>Keyword arguments</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">object:</th><td class="field-body">Optional object to get the vector color map from</td>
+<tr class="field"><th class="field-name">object:</th><td class="field-body">Optional object to get the vector color map from</td>
 </tr>
-<tr class="field-even field"><th class="field-name">title:</th><td class="field-body">The title string</td>
+<tr class="field"><th class="field-name">title:</th><td class="field-body">The title string</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">orientation:</th><td class="field-body">Can be &#8216;horizontal&#8217; or &#8216;vertical&#8217;</td>
+<tr class="field"><th class="field-name">orientation:</th><td class="field-body">Can be &#8216;horizontal&#8217; or &#8216;vertical&#8217;</td>
 </tr>
-<tr class="field-even field"><th class="field-name">nb_labels:</th><td class="field-body">The number of labels to display on the colorbar.</td>
+<tr class="field"><th class="field-name">nb_labels:</th><td class="field-body">The number of labels to display on the colorbar.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">label_fmt:</th><td class="field-body">The string formater for the labels. This needs to be
+<tr class="field"><th class="field-name">label_fmt:</th><td class="field-body">The string formater for the labels. This needs to be
 a formater for float number, eg &#8216;%.1f&#8217;.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">nb_colors:</th><td class="field-body">The maximum number of colors displayed on the
+<tr class="field"><th class="field-name">nb_colors:</th><td class="field-body">The maximum number of colors displayed on the
 colorbar.</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="xlabel">
 <h2>xlabel<a class="headerlink" href="#xlabel" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.mlab.xlabel">
-<tt class="descclassname">enthought.mayavi.mlab.</tt><tt class="descname">xlabel</tt><big>(</big><em>text</em>, <em>object=None</em><big>)</big><a class="headerlink" href="#enthought.mayavi.mlab.xlabel" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.mlab.xlabel">
+<tt class="descclassname">mayavi.mlab.</tt><tt class="descname">xlabel</tt><big>(</big><em>text</em>, <em>object=None</em><big>)</big><a class="headerlink" href="#mayavi.mlab.xlabel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a set of axes if there isn&#8217;t already one, and sets the x label</p>
 <p><strong>Keyword arguments</strong>:</p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">object:</th><td class="field-body">The object to apply the module to, if not the whole scene
+<tr class="field"><th class="field-name">object:</th><td class="field-body">The object to apply the module to, if not the whole scene
 is searched for a suitable object.</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="ylabel">
 <h2>ylabel<a class="headerlink" href="#ylabel" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.mlab.ylabel">
-<tt class="descclassname">enthought.mayavi.mlab.</tt><tt class="descname">ylabel</tt><big>(</big><em>text</em>, <em>object=None</em><big>)</big><a class="headerlink" href="#enthought.mayavi.mlab.ylabel" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.mlab.ylabel">
+<tt class="descclassname">mayavi.mlab.</tt><tt class="descname">ylabel</tt><big>(</big><em>text</em>, <em>object=None</em><big>)</big><a class="headerlink" href="#mayavi.mlab.ylabel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a set of axes if there isn&#8217;t already one, and sets the y label</p>
 <p><strong>Keyword arguments</strong>:</p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">object:</th><td class="field-body">The object to apply the module to, if not the whole scene
+<tr class="field"><th class="field-name">object:</th><td class="field-body">The object to apply the module to, if not the whole scene
 is searched for a suitable object.</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
 <div class="section" id="zlabel">
 <h2>zlabel<a class="headerlink" href="#zlabel" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="enthought.mayavi.mlab.zlabel">
-<tt class="descclassname">enthought.mayavi.mlab.</tt><tt class="descname">zlabel</tt><big>(</big><em>text</em>, <em>object=None</em><big>)</big><a class="headerlink" href="#enthought.mayavi.mlab.zlabel" title="Permalink to this definition">¶</a></dt>
+<dt id="mayavi.mlab.zlabel">
+<tt class="descclassname">mayavi.mlab.</tt><tt class="descname">zlabel</tt><big>(</big><em>text</em>, <em>object=None</em><big>)</big><a class="headerlink" href="#mayavi.mlab.zlabel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a set of axes if there isn&#8217;t already one, and sets the z label</p>
 <p><strong>Keyword arguments</strong></p>
 <blockquote>
-<div><table class="docutils field-list" frame="void" rules="none">
+<table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">object:</th><td class="field-body">The object to apply the module to, if not the whole scene
+<tr class="field"><th class="field-name">object:</th><td class="field-body">The object to apply the module to, if not the whole scene
 is searched for a suitable object.</td>
 </tr>
 </tbody>
 </table>
-</div></blockquote>
+</blockquote>
 </dd></dl>
 
 </div>
@@ -328,7 +325,7 @@ is searched for a suitable object.</td>
     </div>
     <hr/>
     <div id="searchbox">
-	<a href="misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
+	<a href="http://github.enthought.com/mayavi/mayavi/misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
 
 	<p style="font-size:85%; color: #FFFFFF;">
     	If you publish articles using Mayavi, please 
@@ -354,14 +351,14 @@ is searched for a suitable object.</td>
         <li class="right" >
           <a href="mlab_figure.html" title="Figure handling functions"
              >previous</a> |</li>
-        <li><a href="../index.html">Mayavi 3.4.2 documentation</a> &raquo;</li>
+        <li><a href="../index.html">mayavi v4.0.1 documentation</a> &raquo;</li>
           <li><a href="mlab_reference.html" >MLab reference</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Mar 26, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1pre/ce4bb37a1409.
+      Last updated on Jul 19, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.
     </div>
   </body>
 </html>

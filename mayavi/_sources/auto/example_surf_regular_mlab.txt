@@ -5,7 +5,7 @@
 Surf regular mlab example
 --------------------------------------------
 
-Shows how to view data created by `enthought.tvtk.tools.mlab` with
+Shows how to view data created by `tvtk.tools.mlab` with
 mayavi2.
 
 

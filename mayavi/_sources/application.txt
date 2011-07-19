@@ -283,7 +283,7 @@ documentation, tooltips and some multi-line editing.  In addition it
 supports the following features:
 
  * The name ``mayavi`` is automatically bound to the
-   ``enthought.mayavi.script.Script`` instance.  This may be used to
+   ``mayavi.script.Script`` instance.  This may be used to
    easily script Mayavi.
 
  * The name ``application`` is bound to the envisage application.
@@ -302,7 +302,7 @@ supports the following features:
    is done is the following::
 
      >>> tvtk_scene_1
-     <enthought.mayavi.core.scene.Scene object at 0x9f4cbe3c>
+     <mayavi.core.scene.Scene object at 0x9f4cbe3c>
      >>> s = _
 
    In this case the name ``s`` is bound to the dropped tvtk_scene
@@ -529,9 +529,9 @@ The options are:
       are passed they are passed along to the test runner.  So this may
       be used to run other tests as well.  For example::
 
-         mayavi2 -t enthought.persistence
+         mayavi2 -t apptools.persistence
 
-      This will run just the tests inside the ``enthought.persistence``
+      This will run just the tests inside the ``apptools.persistence``
       package.  You can also specify a directory with test files to run
       with this, for example::
 

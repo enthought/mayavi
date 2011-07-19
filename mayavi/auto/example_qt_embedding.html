@@ -3,20 +3,17 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Qt embedding example &mdash; Mayavi 3.4.2 documentation</title>
-    
+    <title>Qt embedding example &mdash; mayavi v4.0.1 documentation</title>
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '3.4.2',
+        VERSION:     '4.0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,10 +22,10 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="Mayavi 3.4.2 documentation" href="../index.html" />
+    <link rel="top" title="mayavi v4.0.1 documentation" href="../index.html" />
     <link rel="up" title="Example gallery" href="examples.html" />
-    <link rel="next" title="Compute in thread example" href="example_compute_in_thread.html" />
-    <link rel="prev" title="Mayavi traits ui example" href="example_mayavi_traits_ui.html" />
+    <link rel="next" title="Adjust cropping extents example" href="example_adjust_cropping_extents.html" />
+    <link rel="prev" title="Compute in thread example" href="example_compute_in_thread.html" />
 <style type="text/css">
   body {
     /* Very bottom copyright, etc. info */
@@ -68,12 +65,12 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="example_compute_in_thread.html" title="Compute in thread example"
+          <a href="example_adjust_cropping_extents.html" title="Adjust cropping extents example"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="example_mayavi_traits_ui.html" title="Mayavi traits ui example"
+          <a href="example_compute_in_thread.html" title="Compute in thread example"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">Mayavi 3.4.2 documentation</a> &raquo;</li>
+        <li><a href="../index.html">mayavi v4.0.1 documentation</a> &raquo;</li>
           <li><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
       </ul>
     </div>  
@@ -89,18 +86,24 @@
 application.</p>
 <p>For this use, Mayavi is embedded in a QWidget. To understand this
 example, please read section <em class="xref std std-ref">builing-applications</em>.</p>
-<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/qt_embedding2.py"><tt class="xref download docutils literal"><span class="pre">qt_embedding.py</span></tt></a></p>
+<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/qt_embedding.py"><tt class="xref download docutils literal"><span class="pre">qt_embedding.py</span></tt></a></p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c"># First, and before importing any Enthought packages, set the ETS_TOOLKIT</span>
 <span class="c"># environment variable to qt4, to tell Traits that we will use Qt.</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s">&#39;ETS_TOOLKIT&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;qt4&#39;</span>
 
-<span class="kn">from</span> <span class="nn">PyQt4</span> <span class="kn">import</span> <span class="n">QtGui</span><span class="p">,</span> <span class="n">QtCore</span>
+<span class="c"># To be able to use PySide or PyQt4 and not run in conflicts with traits,</span>
+<span class="c"># we need to import QtGui and QtCore from pyface.qt</span>
+<span class="kn">from</span> <span class="nn">pyface.qt</span> <span class="kn">import</span> <span class="n">QtGui</span><span class="p">,</span> <span class="n">QtCore</span>
+<span class="c"># Alternatively, you can bypass this line, but you need to make sure that</span>
+<span class="c"># the following lines are executed before the import of PyQT:</span>
+<span class="c">#   import sip</span>
+<span class="c">#   sip.setapi(&#39;QString&#39;, 2)</span>
 
-<span class="kn">from</span> <span class="nn">enthought.traits.api</span> <span class="kn">import</span> <span class="n">HasTraits</span><span class="p">,</span> <span class="n">Instance</span><span class="p">,</span> <span class="n">on_trait_change</span><span class="p">,</span> \
+<span class="kn">from</span> <span class="nn">traits.api</span> <span class="kn">import</span> <span class="n">HasTraits</span><span class="p">,</span> <span class="n">Instance</span><span class="p">,</span> <span class="n">on_trait_change</span><span class="p">,</span> \
     <span class="n">Int</span><span class="p">,</span> <span class="n">Dict</span>
-<span class="kn">from</span> <span class="nn">enthought.traits.ui.api</span> <span class="kn">import</span> <span class="n">View</span><span class="p">,</span> <span class="n">Item</span>
-<span class="kn">from</span> <span class="nn">enthought.mayavi.core.ui.api</span> <span class="kn">import</span> <span class="n">MayaviScene</span><span class="p">,</span> <span class="n">MlabSceneModel</span><span class="p">,</span> \
+<span class="kn">from</span> <span class="nn">traitsui.api</span> <span class="kn">import</span> <span class="n">View</span><span class="p">,</span> <span class="n">Item</span>
+<span class="kn">from</span> <span class="nn">mayavi.core.ui.api</span> <span class="kn">import</span> <span class="n">MayaviScene</span><span class="p">,</span> <span class="n">MlabSceneModel</span><span class="p">,</span> \
         <span class="n">SceneEditor</span>
 
 
@@ -192,11 +195,11 @@ example, please read section <em class="xref std std-ref">builing-applications</
               <img class="logo" src="../_static/mayavi-logo.png" alt="Logo"/>
             </a></p>
   <h4>Previous topic</h4>
-  <p class="topless"><a href="example_mayavi_traits_ui.html"
-                        title="previous chapter">Mayavi traits ui example</a></p>
-  <h4>Next topic</h4>
   <p class="topless"><a href="example_compute_in_thread.html"
-                        title="next chapter">Compute in thread example</a></p>
+                        title="previous chapter">Compute in thread example</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="example_adjust_cropping_extents.html"
+                        title="next chapter">Adjust cropping extents example</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/auto/example_qt_embedding.txt"
@@ -234,7 +237,7 @@ example, please read section <em class="xref std std-ref">builing-applications</
     </div>
     <hr/>
     <div id="searchbox">
-	<a href="misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
+	<a href="http://github.enthought.com/mayavi/mayavi/misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
 
 	<p style="font-size:85%; color: #FFFFFF;">
     	If you publish articles using Mayavi, please 
@@ -255,19 +258,19 @@ example, please read section <em class="xref std std-ref">builing-applications</
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="example_compute_in_thread.html" title="Compute in thread example"
+          <a href="example_adjust_cropping_extents.html" title="Adjust cropping extents example"
              >next</a> |</li>
         <li class="right" >
-          <a href="example_mayavi_traits_ui.html" title="Mayavi traits ui example"
+          <a href="example_compute_in_thread.html" title="Compute in thread example"
              >previous</a> |</li>
-        <li><a href="../index.html">Mayavi 3.4.2 documentation</a> &raquo;</li>
+        <li><a href="../index.html">mayavi v4.0.1 documentation</a> &raquo;</li>
           <li><a href="examples.html" >Example gallery</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Mar 26, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1pre/ce4bb37a1409.
+      Last updated on Jul 19, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.
     </div>
   </body>
 </html>

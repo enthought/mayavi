@@ -20,8 +20,8 @@ Alternatively, it can be run as::
 
 import numpy as np
 from numpy import cos, sin, pi
-from enthought.tvtk.api import tvtk
-from enthought.mayavi.scripts import mayavi2
+from tvtk.api import tvtk
+from mayavi.scripts import mayavi2
 
 def generate_annulus(r=None, theta=None, z=None):
     """ Generate points for structured grid for a cylindrical annular
@@ -101,8 +101,8 @@ sgrid.point_data.scalars.name = 'scalars'
 # View the data.
 @mayavi2.standalone
 def view():
-    from enthought.mayavi.sources.vtk_data_source import VTKDataSource
-    from enthought.mayavi.modules.api import Outline, GridPlane
+    from mayavi.sources.vtk_data_source import VTKDataSource
+    from mayavi.modules.api import Outline, GridPlane
 
     mayavi.new_scene()
     src = VTKDataSource(data=sgrid)

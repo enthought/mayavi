@@ -18,7 +18,7 @@ combinations.
 Mlab provides a sub-module `pipeline` which contains functions to populate
 the pipeline easily from scripts. This module is accessible in `mlab`:
 `mlab.pipeline`, or can be imported from
-`enthought.mayavi.tools.pipeline`.
+`mayavi.tools.pipeline`.
 
 When using an `mlab` plotting function, a pipeline is created: first a
 source is created from `numpy` arrays, then modules, and possibly
@@ -32,7 +32,7 @@ on the pipeline. As an example, let us create a visualization using
 
     import numpy as np
     a = np.random.random((4, 4))
-    from enthought.mayavi import mlab
+    from mayavi import mlab
     mlab.surf(a)
     mlab.show_pipeline()
 
@@ -56,7 +56,7 @@ The same pipeline can be created using the following code::
 Data sources
 ~~~~~~~~~~~~~
 
-.. currentmodule:: enthought.mayavi.tools.pipeline
+.. currentmodule:: mayavi.tools.pipeline
 
 The `mlab.pipeline` module contains functions for creating various data
 sources from arrays. They are fully documented in details in the

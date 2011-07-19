@@ -32,11 +32,11 @@ The following images are created:
 # License: BSD style.
 
 from numpy import array, random, linspace, pi, ravel, cos, sin, empty
-from enthought.tvtk.api import tvtk
+from tvtk.api import tvtk
 
-from enthought.mayavi.sources.vtk_data_source import VTKDataSource
+from mayavi.sources.vtk_data_source import VTKDataSource
 
-from enthought.mayavi import mlab
+from mayavi import mlab
 
 
 def image_data():
