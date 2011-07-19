@@ -390,7 +390,7 @@ class wxVTKRenderWindowInteractor(baseClass):
             return
 
         # make sure the RenderWindow is sized correctly
-        rw.SetSize(self.GetSizeTuple())
+        rw.SetSize(*self.GetSizeTuple())
 
         # Tell the RenderWindow to render inside the wx.Window.
         if not self.__handle:
