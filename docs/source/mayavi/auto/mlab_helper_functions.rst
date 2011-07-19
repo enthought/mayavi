@@ -115,10 +115,6 @@ barchart
     
 
     
-
-.. image:: ../generated_images/enthought_mayavi_mlab_barchart.jpg
-
-
 **Example** (run in ``ipython -wthread`` or in the mayavi2 interactive shell,
 see :ref:`running-mlab-scripts` for more info)::
 
@@ -207,10 +203,6 @@ contour3d
     
 
     
-
-.. image:: ../generated_images/enthought_mayavi_mlab_contour3d.jpg
-
-
 **Example** (run in ``ipython -wthread`` or in the mayavi2 interactive shell,
 see :ref:`running-mlab-scripts` for more info)::
 
@@ -308,10 +300,6 @@ contour_surf
     
 
     
-
-.. image:: ../generated_images/enthought_mayavi_mlab_contour_surf.jpg
-
-
 **Example** (run in ``ipython -wthread`` or in the mayavi2 interactive shell,
 see :ref:`running-mlab-scripts` for more info)::
 
@@ -426,10 +414,6 @@ flow
     
 
     
-
-.. image:: ../generated_images/enthought_mayavi_mlab_flow.jpg
-
-
 **Example** (run in ``ipython -wthread`` or in the mayavi2 interactive shell,
 see :ref:`running-mlab-scripts` for more info)::
 
@@ -506,10 +490,6 @@ imshow
     
 
     
-
-.. image:: ../generated_images/enthought_mayavi_mlab_imshow.jpg
-
-
 **Example** (run in ``ipython -wthread`` or in the mayavi2 interactive shell,
 see :ref:`running-mlab-scripts` for more info)::
 
@@ -623,10 +603,6 @@ mesh
     
 
     
-
-.. image:: ../generated_images/enthought_mayavi_mlab_mesh.jpg
-
-
 **Example** (run in ``ipython -wthread`` or in the mayavi2 interactive shell,
 see :ref:`running-mlab-scripts` for more info)::
 
@@ -719,10 +695,6 @@ plot3d
     
 
     
-
-.. image:: ../generated_images/enthought_mayavi_mlab_plot3d.jpg
-
-
 **Example** (run in ``ipython -wthread`` or in the mayavi2 interactive shell,
 see :ref:`running-mlab-scripts` for more info)::
 
@@ -835,10 +807,6 @@ points3d
     
 
     
-
-.. image:: ../generated_images/enthought_mayavi_mlab_points3d.jpg
-
-
 **Example** (run in ``ipython -wthread`` or in the mayavi2 interactive shell,
 see :ref:`running-mlab-scripts` for more info)::
 
@@ -954,10 +922,6 @@ quiver3d
     
 
     
-
-.. image:: ../generated_images/enthought_mayavi_mlab_quiver3d.jpg
-
-
 **Example** (run in ``ipython -wthread`` or in the mayavi2 interactive shell,
 see :ref:`running-mlab-scripts` for more info)::
 
@@ -1075,10 +1039,6 @@ surf
     
 
     
-
-.. image:: ../generated_images/enthought_mayavi_mlab_surf.jpg
-
-
 **Example** (run in ``ipython -wthread`` or in the mayavi2 interactive shell,
 see :ref:`running-mlab-scripts` for more info)::
 
@@ -1197,10 +1157,6 @@ triangular_mesh
     
 
     
-
-.. image:: ../generated_images/enthought_mayavi_mlab_triangular_mesh.jpg
-
-
 **Example** (run in ``ipython -wthread`` or in the mayavi2 interactive shell,
 see :ref:`running-mlab-scripts` for more info)::
 
