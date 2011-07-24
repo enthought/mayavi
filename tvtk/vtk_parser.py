@@ -539,7 +539,10 @@ class VTKMethodParser:
         # vtkProperty.SetRepresentation(1).
         if sm:
             obj = self._get_instance(klass)
-            if obj:
+            klass_name = klass.__name__
+            if obj and not klass_name.endswith('Viewer'):
+                # We do not try to inspect viewers, because they'll
+                # trigger segfaults during the inspection
                 for key, values in sm.items():
                     default = getattr(obj, 'Get%s'%key)()
                     for x in values[:]:
