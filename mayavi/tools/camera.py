@@ -151,10 +151,10 @@ def get_outline_bounds(figure=None):
 
 def view(azimuth=None, elevation=None, distance=None, focalpoint=None,
             reset_roll=True, figure=None):
-    """ Sets/Gets the view point for the camera.
+    """ Sets/Gets the view point for the camera::
 
      view(azimuth=None, elevation=None, distance=None, focalpoint=None,
-          figure=None)
+          reset_roll=True, figure=None)
 
     If called with no arguments this returns the current view of the
     camera.  To understand how this function works imagine the surface
