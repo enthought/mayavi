@@ -7,6 +7,8 @@ Controlling the camera.
 # License: BSD Style.
 
 # Standard library imports.
+import warnings
+
 try:
     import numpy as np
 except ImportError, m:
@@ -80,6 +82,9 @@ def roll(roll=None, figure=None):
             scene.render()
     return cam.get_roll()
 
+# This is needed for usage inside the view function, where roll is a
+# local variable
+_roll = roll
 
 def rad2deg(rad):
     """Converts radians to degrees."""
@@ -150,11 +155,11 @@ def get_outline_bounds(figure=None):
 
 
 def view(azimuth=None, elevation=None, distance=None, focalpoint=None,
-            reset_roll=True, figure=None):
+            roll=None, reset_roll=True, figure=None):
     """ Sets/Gets the view point for the camera::
 
      view(azimuth=None, elevation=None, distance=None, focalpoint=None,
-          reset_roll=True, figure=None)
+          roll=None, reset_roll=True, figure=None)
 
     If called with no arguments this returns the current view of the
     camera.  To understand how this function works imagine the surface
@@ -192,8 +197,12 @@ def view(azimuth=None, elevation=None, distance=None, focalpoint=None,
         focal point is positioned at the center of all objects in the
         scene.
 
+     :roll: float, optional
+        Controls the roll, ie the rotation of the camera around its axis.
+
      :reset_roll: boolean, optional.
-        If True, the roll orientation of the camera is reset.
+        If True, and 'roll' is not specified, the roll orientation of the 
+        camera is reset.
 
      :figure: The Mayavi figure to operate on. If None is passed, the
         current one is used.
@@ -250,7 +259,7 @@ def view(azimuth=None, elevation=None, distance=None, focalpoint=None,
 
     # If no arguments were specified, just return the current view.
     if azimuth is None and elevation is None and distance is None \
-            and focalpoint is None:
+            and focalpoint is None and roll is None:
         return rad2deg(phi), rad2deg(theta), r, fp
 
     # Convert radians to
@@ -287,7 +296,10 @@ def view(azimuth=None, elevation=None, distance=None, focalpoint=None,
     cam.compute_view_plane_normal()
     ren.reset_camera_clipping_range()
 
-    if reset_roll:
+    if roll is not None:
+        print "setting roll"
+        _roll(roll)
+    elif reset_roll:
         # Now calculate the view_up vector of the camera.  If the view up is
         # close to the 'z' axis, the view plane normal is parallel to the
         # camera which is unacceptable, so we use a different view up.
