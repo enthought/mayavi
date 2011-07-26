@@ -40,7 +40,7 @@ class _ActorEditor(Editor):
         factory = self.factory
         self.control = QtGui.QWidget()
         lay = QtGui.QVBoxLayout(self.control)
-        lay.setMargin(0)
+        lay.setContentsMargins(0, 0, 0, 0)
 
         self._create_scene()
 
