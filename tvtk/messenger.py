@@ -242,7 +242,7 @@ class Messenger:
             if sigs.has_key(evt):
                 slots = sigs[evt]
                 remove = []
-                for key in slots:
+                for key in slots.keys():
                     obj, meth = slots[key]
                     if obj: # instance method
                         inst = obj()
