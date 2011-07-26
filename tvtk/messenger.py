@@ -241,7 +241,6 @@ class Messenger:
         for evt in events:
             if sigs.has_key(evt):
                 slots = sigs[evt]
-                remove = []
                 for key in slots.keys():
                     obj, meth = slots[key]
                     if obj: # instance method
@@ -250,11 +249,9 @@ class Messenger:
                             getattr(inst, meth)(source, event, *args, **kw_args)
                         else:
                             # Oops, dead reference.
-                            remove.append(key)
+                            del slots[key]
                     else: # normal function
                         meth(source, event, *args, **kw_args)
-                for m in remove:
-                    del slots[m]
 
     def is_registered(self, obj):
         """Returns if the given object has registered itself with the
