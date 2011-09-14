@@ -130,12 +130,16 @@ class MayaviMlabPreferencesPage(PreferencesPage):
                    desc='the mlab backend to use')
 
     # The background color of the renderer.
-    background_color = Tuple(Range(0., 1.), Range(0., 1.), Range(0., 1.),
+    background_color = Tuple(Range(0., 1., 1.), 
+                             Range(0., 1., 1.), 
+                             Range(0., 1., 1.),
                              editor=RGBColorEditor,
                              desc='the background color of the scene')
 
     # The foreground color of the renderer.
-    foreground_color = Tuple(Range(0., 1.), Range(0., 1.), Range(0., 1.),
+    foreground_color = Tuple(Range(0., 1., 0.), 
+                             Range(0., 1., 0.), 
+                             Range(0., 1., 0.),
                              editor=RGBColorEditor,
                              desc='the foreground color of the scene')
 
