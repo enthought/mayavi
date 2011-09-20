@@ -277,11 +277,11 @@ def set_extent(module, extents):
         extent keyword argument of mlab.pipeline.outline and
         mlab.pipeline.axes.
     """
-    if not hasattr(module, 'actor'):
-        print 'Cannot set extents for %s' % module
-        return
     if numpy.all(extents == 0.):
         # That the default setting.
+        return
+    if not hasattr(module, 'actor'):
+        print 'Cannot set extents for %s' % module
         return
     xmin, xmax, ymin, ymax, zmin, zmax = extents
     xo = 0.5*(xmax + xmin)
