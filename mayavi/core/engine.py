@@ -18,7 +18,7 @@ except ImportError, m:
 # Enthought library imports.
 from traits.api import (HasStrictTraits, List, Str,
         Property, Instance, Event, HasTraits, Callable, Dict,
-        Bool, on_trait_change)
+        Bool, on_trait_change, WeakRef)
 from traitsui.api import View, Item
 from apptools.persistence import state_pickler
 from apptools.scripting.api import Recorder, recordable
@@ -106,9 +106,9 @@ class Engine(HasStrictTraits):
     ########################################
     # Private traits.
 
-    _current_scene = Instance(Scene)
-    _current_object = Instance(HasTraits)
-    _current_selection = Instance(HasTraits)
+    _current_scene = WeakRef(Scene)
+    _current_object = WeakRef(HasTraits)
+    _current_selection = WeakRef(HasTraits)
     _viewer_ref = Dict
 
     # View related traits.
