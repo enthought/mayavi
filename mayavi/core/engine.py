@@ -106,9 +106,9 @@ class Engine(HasStrictTraits):
     ########################################
     # Private traits.
 
-    _current_scene = WeakRef(Scene)
-    _current_object = WeakRef(HasTraits)
-    _current_selection = WeakRef(HasTraits)
+    _current_scene = WeakRef(Scene, allow_none=True)
+    _current_object = WeakRef(HasTraits, allow_none=True)
+    _current_selection = WeakRef(HasTraits, allow_none=True)
     _viewer_ref = Dict
 
     # View related traits.
