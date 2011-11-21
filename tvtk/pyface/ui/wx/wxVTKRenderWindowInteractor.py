@@ -63,6 +63,13 @@ if wx.Platform == "__WXGTK__":
 # but it is only relevant in wxGTK if there are multiple windows)
 _useCapture = (wx.Platform == "__WXMSW__")
 
+# for wx < 2.9.2, CmdDown is preferred to ControlDown since it catches the
+# meta key on OS X, but in later versions, CmdDown is depricated and its 
+# functionality moved to ControlDown
+_useCmdDown = (wx.VERSION[0] < 2) or \
+              (wx.VERSION[0] == 2 and wx.VERSION[1] < 9) or \
+              (wx.VERSION[0] == 2 and wx.VERSION[1] == 9 and wx.VERSION[2] < 2)
+
 # end of configuration items
 
 
@@ -431,6 +438,12 @@ class wxVTKRenderWindowInteractor(baseClass):
         # this will check for __handle
         self.Render()
 
+    def CommandDown(self, event):
+        if _useCmdDown:
+            return event.CmdDown()
+        else:
+            return event.ControlDown()
+
     def OnMotion(self,event):
         """Handles the wx.EVT_MOTION event for
         wxVTKRenderWindowInteractor.
@@ -442,7 +455,7 @@ class wxVTKRenderWindowInteractor(baseClass):
         event.Skip()
 
         self._Iren.SetEventInformationFlipY(event.GetX(), event.GetY(),
-                                            event.ControlDown(),
+                                            self.CommandDown(event),
                                             event.ShiftDown(),
                                             chr(0), 0, None)
         self._Iren.MouseMoveEvent()
@@ -456,7 +469,7 @@ class wxVTKRenderWindowInteractor(baseClass):
         event.Skip()
 
         self._Iren.SetEventInformationFlipY(event.GetX(), event.GetY(),
-                                            event.ControlDown(),
+                                            self.CommandDown(event),
               event.ShiftDown(),
               chr(0), 0, None)
         self._Iren.EnterEvent()
@@ -471,7 +484,7 @@ class wxVTKRenderWindowInteractor(baseClass):
         event.Skip()
 
         self._Iren.SetEventInformationFlipY(event.GetX(), event.GetY(),
-                                            event.ControlDown(),
+                                            self.CommandDown(event),
               event.ShiftDown(),
               chr(0), 0, None)
         self._Iren.LeaveEvent()
@@ -490,7 +503,7 @@ class wxVTKRenderWindowInteractor(baseClass):
         # raises an exception.
         event.Skip()
 
-        ctrl, shift = event.ControlDown(), event.ShiftDown()
+        ctrl, shift = self.CommandDown(event), event.ShiftDown()
         self._Iren.SetEventInformationFlipY(event.GetX(), event.GetY(),
                                             ctrl, shift, chr(0), 0, None)
 
@@ -539,7 +552,7 @@ class wxVTKRenderWindowInteractor(baseClass):
             self.ReleaseMouse()
             self._own_mouse = False
 
-        ctrl, shift = event.ControlDown(), event.ShiftDown()
+        ctrl, shift = self.CommandDown(event), event.ShiftDown()
         self._Iren.SetEventInformationFlipY(event.GetX(), event.GetY(),
                                             ctrl, shift, chr(0), 0, None)
 
@@ -559,7 +572,7 @@ class wxVTKRenderWindowInteractor(baseClass):
         # event processing should continue
         event.Skip()
 
-        ctrl, shift = event.ControlDown(), event.ShiftDown()
+        ctrl, shift = self.CommandDown(event), event.ShiftDown()
         self._Iren.SetEventInformationFlipY(event.GetX(), event.GetY(),
                                             ctrl, shift, chr(0), 0, None)
         if event.GetWheelRotation() > 0:
@@ -576,7 +589,7 @@ class wxVTKRenderWindowInteractor(baseClass):
         # event processing should continue
         event.Skip()
 
-        ctrl, shift = event.ControlDown(), event.ShiftDown()
+        ctrl, shift = self.CommandDown(event), event.ShiftDown()
         keycode, keysym = event.GetKeyCode(), None
         key = chr(0)
         if keycode < 256:
@@ -601,7 +614,7 @@ class wxVTKRenderWindowInteractor(baseClass):
         # event processing should continue
         event.Skip()
 
-        ctrl, shift = event.ControlDown(), event.ShiftDown()
+        ctrl, shift = self.CommandDown(event), event.ShiftDown()
         keycode, keysym = event.GetKeyCode(), None
         key = chr(0)
         if keycode < 256:
