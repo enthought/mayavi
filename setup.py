@@ -404,9 +404,10 @@ def configuration(parent_package=None, top_path=None):
     config.add_data_dir('mayavi/tests/csv_files')
 
     # Image files.
-    for root, dirs, files in os.walk('.'):
-        if split(root)[-1] == 'images':
-            config.add_data_dir(root)
+    for pkgdir in ('mayavi', 'tvtk'):
+        for root, dirs, files in os.walk(pkgdir):
+            if split(root)[-1] == 'images':
+                config.add_data_dir(root)
 
     # *.ini files.
     config.add_data_dir('tvtk/plugins/scene')
