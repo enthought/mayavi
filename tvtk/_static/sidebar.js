@@ -16,7 +16,7 @@
  * Once the browser is closed the cookie is deleted and the position
  * reset to the default (expanded).
  *
- * :copyright: Copyright 2007-2010 by the Sphinx team, see AUTHORS.
+ * :copyright: Copyright 2007-2011 by the Sphinx team, see AUTHORS.
  * :license: BSD, see LICENSE for details.
  *
  */
@@ -91,6 +91,7 @@ $(function() {
         '<div id="sidebarbutton"><span>&laquo;</span></div>'
     );
     var sidebarbutton = $('#sidebarbutton');
+    light_color = sidebarbutton.css('background-color');
     // find the height of the viewport to center the '<<' in the page
     var viewport_height;
     if (window.innerHeight)

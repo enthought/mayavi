@@ -7,13 +7,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Tips and Tricks &mdash; mayavi v4.0.1 documentation</title>
+    <title>Tips and Tricks &mdash; mayavi v4.1.1 documentation</title>
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '4.0.1',
+        VERSION:     '4.1.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,7 +22,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="mayavi v4.0.1 documentation" href="index.html" />
+    <link rel="top" title="mayavi v4.1.1 documentation" href="index.html" />
     <link rel="next" title="Miscellaneous" href="misc.html" />
     <link rel="prev" title="Building applications using Mayavi" href="building_applications.html" />
 <style type="text/css">
@@ -69,7 +69,7 @@
         <li class="right" >
           <a href="building_applications.html" title="Building applications using Mayavi"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">mayavi v4.0.1 documentation</a> &raquo;</li> 
+        <li><a href="index.html">mayavi v4.1.1 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -155,14 +155,14 @@ as it interferes with your ongoing work.</p>
 <p>A good workaround is to use the virtual framebuffer X server for X11 like
 so:</p>
 <blockquote>
-<ul>
+<div><ul>
 <li><p class="first">Make sure you have the <tt class="docutils literal"><span class="pre">Xvfb</span></tt> package installed.  For example
 under Debian and derivatives this is called the <tt class="docutils literal"><span class="pre">xvfb</span></tt> package.</p>
 </li>
 <li><p class="first">Create the virtual framebuffer X server like so:</p>
 <div class="highlight-python"><pre>Xvfb :1 -screen 0 1280x1024x24 -auth localhost</pre>
 </div>
-<p>This creates the display &#8220;:1&#8221; and creates a screen of size 1280x1024
+<p>This creates the display &#8221;:1&#8221; and creates a screen of size 1280x1024
 with 24 bpp (the 24bpp is important).  For more options check your
 <tt class="docutils literal"><span class="pre">Xvfb</span></tt> man page.</p>
 </li>
@@ -174,7 +174,7 @@ with 24 bpp (the 24bpp is important).  For more options check your
 server and produce your saved images.</p>
 </li>
 </ul>
-</blockquote>
+</div></blockquote>
 <p>This probably will have to be fine tuned to suit your taste.</p>
 <p>Many Linux systems (including Ubuntu and Debian) ship with a helper
 script <cite>xvfb-run</cite> for running headless. The following command can run a
@@ -207,7 +207,7 @@ these cases one could use Mesa&#8217;s OSMesa library to render offscreen.
 The downside is that you will not get any hardware acceleration in this
 case.  Here are brief instructions on how to build VTK to do this.</p>
 <blockquote>
-<ul>
+<div><ul>
 <li><p class="first">Build a recent version of mesa.  7.0.4 (as of this time) should work
 as would 7.2.  We assume you download MesaLib-7.0.4.tar.bz2.</p>
 </li>
@@ -279,7 +279,7 @@ $ export LD_LIBRARY_PATH=$VTK_BUILD/bin:$MESA/lib</pre>
 <p>Now, you should be all set.</p>
 </li>
 </ul>
-</blockquote>
+</div></blockquote>
 <p>Once this is done you should be able to run mlab examples offscreen.
 This will work without an X display even.</p>
 <p>With such a VTK built and running, one could simply build and install
@@ -299,11 +299,11 @@ to popup a full UI, it might be better to <em>not set</em>
 <p>A developer may wish to customize Mayavi by adding new sources, filters
 or modules.  These can be done by writing the respective filters and
 exposing them via a <tt class="docutils literal"><span class="pre">user_mayavi.py</span></tt> or a <tt class="docutils literal"><span class="pre">site_mayavi.py</span></tt> as
-described in <a class="reference external" href="#customizing-mayavi2">Customizing Mayavi2</a>.   A more flexible and
+described in <a class="reference internal" href="#customizing-mayavi2">Customizing Mayavi2</a>.   A more flexible and
 reusable mechanism for doing this is to create a full fledged Mayavi
 contrib package in the following manner.</p>
 <blockquote>
-<ol class="arabic">
+<div><ol class="arabic">
 <li><p class="first">Create a Python package, let&#8217;s call it <tt class="docutils literal"><span class="pre">mv_iitb</span></tt> (for IIT Bombay
 specific extensions/customizations).  The directory structure of
 this package can be something like so:</p>
@@ -335,7 +335,7 @@ then be imported next time Mayavi is started, note that this will
 be usable even from <tt class="docutils literal"><span class="pre">mlab</span></tt>.</p>
 </li>
 </ol>
-</blockquote>
+</div></blockquote>
 <p>Any number of such packages may be created and distributed.  If they are
 installed, users can choose to enable them.  Internally, the list of
 selected packages is stored as the <tt class="docutils literal"><span class="pre">mayavi.contrib_packages</span></tt>
@@ -359,12 +359,12 @@ avoid issues with circular imports.</p>
 <h2>Customizing Mayavi2<a class="headerlink" href="#customizing-mayavi2" title="Permalink to this headline">¶</a></h2>
 <p>There are three ways a user can customize Mayavi:</p>
 <blockquote>
-<ol class="arabic simple">
+<div><ol class="arabic simple">
 <li>Via Mayavi contributions installed on the system.  This may be done
 by enabling any found contributions from the Tools-&gt;Preferences
 menu on the Mayavi component, look for the &#8220;contribution settings&#8221;.
 Any selected contributions will be imported the next time Mayavi
-starts.  For more details see the <a class="reference external" href="#extending-mayavi-with-customizations">Extending Mayavi with
+starts.  For more details see the <a class="reference internal" href="#extending-mayavi-with-customizations">Extending Mayavi with
 customizations</a> section.</li>
 <li>At a global, system wide level via a <tt class="docutils literal"><span class="pre">site_mayavi.py</span></tt>.  This file
 is to be placed anywhere on <tt class="docutils literal"><span class="pre">sys.path</span></tt>.</li>
@@ -373,11 +373,11 @@ is to be placed anywhere on <tt class="docutils literal"><span class="pre">sys.p
 <tt class="docutils literal"><span class="pre">~/.mayavi2/user_mayavi.py</span></tt> is found, the directory is placed in
 <tt class="docutils literal"><span class="pre">sys.path</span></tt>.</li>
 </ol>
-</blockquote>
+</div></blockquote>
 <p>The files are similar in their content.  Two things may be done in this
 file:</p>
 <blockquote>
-<ol class="arabic simple">
+<div><ol class="arabic simple">
 <li>Registering new sources, modules or filters in the Mayavi registry
 (<tt class="docutils literal"><span class="pre">mayavi.core.registry.registry</span></tt>).  This is done by
 registering metadata for the new class in the registry.  See
@@ -387,7 +387,7 @@ This is done by defining a function called <tt class="docutils literal"><span cl
 returns a list of plugins that you wish to add to the mayavi2
 application.</li>
 </ol>
-</blockquote>
+</div></blockquote>
 <p>The <tt class="docutils literal"><span class="pre">examples/mayavi/user_mayavi.py</span></tt> example documents and shows how
 this can be done.  To see it, copy the file to the <tt class="docutils literal"><span class="pre">~/.mayavi2</span></tt>
 directory.  If you are unsure where <tt class="docutils literal"><span class="pre">~</span></tt> is on your platform, just run
@@ -475,7 +475,7 @@ connected to the server.</p>
 <h3>TCP server: the <cite>serve_tcp</cite> function<a class="headerlink" href="#tcp-server-the-serve-tcp-function" title="Permalink to this headline">¶</a></h3>
 <dl class="function">
 <dt id="mayavi.tools.server.serve_tcp">
-<tt class="descclassname">mayavi.tools.server.</tt><tt class="descname">serve_tcp</tt><big>(</big><em>engine=None</em>, <em>port=8007</em>, <em>logto=&lt;open file '&lt;stdout&gt;'</em>, <em>mode 'w' at 0x403c0078&gt;</em>, <em>max_connect=1</em><big>)</big><a class="headerlink" href="#mayavi.tools.server.serve_tcp" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">mayavi.tools.server.</tt><tt class="descname">serve_tcp</tt><big>(</big><em>engine=None</em>, <em>port=8007</em>, <em>logto=&lt;open file '&lt;stdout&gt;'</em>, <em>mode 'w' at 0x40446078&gt;</em>, <em>max_connect=1</em><big>)</big><a class="headerlink" href="#mayavi.tools.server.serve_tcp" title="Permalink to this definition">¶</a></dt>
 <dd><p>Serve the <cite>M2TCP</cite> protocol using the given <cite>engine</cite> on the
 specified <cite>port</cite> logging messages to given <cite>logto</cite> which is a
 file-like object.  This function will block till the service is
@@ -483,7 +483,7 @@ closed.  There is no need to call <cite>mlab.show()</cite> after or before
 this.  The Mayavi UI will be fully responsive.</p>
 <p><strong>Parameters</strong></p>
 <blockquote>
-<table class="docutils field-list" frame="void" rules="none">
+<div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
@@ -500,7 +500,7 @@ support.</td>
 </tr>
 </tbody>
 </table>
-</blockquote>
+</div></blockquote>
 <p><strong>Examples</strong></p>
 <p>Here is a very simple example:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
@@ -532,7 +532,7 @@ scene.camera.zoom(1.5)</pre>
 <h3>UDP server: the <cite>serve_udp</cite> function<a class="headerlink" href="#udp-server-the-serve-udp-function" title="Permalink to this headline">¶</a></h3>
 <dl class="function">
 <dt id="mayavi.tools.server.serve_udp">
-<tt class="descclassname">mayavi.tools.server.</tt><tt class="descname">serve_udp</tt><big>(</big><em>engine=None</em>, <em>port=9007</em>, <em>logto=&lt;open file '&lt;stdout&gt;'</em>, <em>mode 'w' at 0x403c0078&gt;</em><big>)</big><a class="headerlink" href="#mayavi.tools.server.serve_udp" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">mayavi.tools.server.</tt><tt class="descname">serve_udp</tt><big>(</big><em>engine=None</em>, <em>port=9007</em>, <em>logto=&lt;open file '&lt;stdout&gt;'</em>, <em>mode 'w' at 0x40446078&gt;</em><big>)</big><a class="headerlink" href="#mayavi.tools.server.serve_udp" title="Permalink to this definition">¶</a></dt>
 <dd><p>Serve the <cite>M2UDP</cite> protocol using the given <cite>engine</cite> on the
 specified <cite>port</cite> logging messages to given <cite>logto</cite> which is a
 file-like object.  This function will block till the service is
@@ -540,7 +540,7 @@ closed.  There is no need to call <cite>mlab.show()</cite> after or before
 this.  The Mayavi UI will be fully responsive.</p>
 <p><strong>Parameters</strong></p>
 <blockquote>
-<table class="docutils field-list" frame="void" rules="none">
+<div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
@@ -554,7 +554,7 @@ this.  The Mayavi UI will be fully responsive.</p>
 </tr>
 </tbody>
 </table>
-</blockquote>
+</div></blockquote>
 <p><strong>Examples</strong></p>
 <p>Here is a very simple example:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
@@ -1012,13 +1012,13 @@ images.</p>
         <li class="right" >
           <a href="building_applications.html" title="Building applications using Mayavi"
              >previous</a> |</li>
-        <li><a href="index.html">mayavi v4.0.1 documentation</a> &raquo;</li> 
+        <li><a href="index.html">mayavi v4.1.1 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Jul 19, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.
+      Last updated on Feb 04, 2012.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>
 </html>

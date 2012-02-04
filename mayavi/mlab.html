@@ -7,13 +7,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>mlab: Python scripting for 3D plotting &mdash; mayavi v4.0.1 documentation</title>
+    <title>mlab: Python scripting for 3D plotting &mdash; mayavi v4.1.1 documentation</title>
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '4.0.1',
+        VERSION:     '4.1.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,7 +22,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="mayavi v4.0.1 documentation" href="index.html" />
+    <link rel="top" title="mayavi v4.1.1 documentation" href="index.html" />
     <link rel="next" title="Advanced use of Mayavi" href="advanced_use.html" />
     <link rel="prev" title="Filters" href="filters.html" />
 <style type="text/css">
@@ -69,7 +69,7 @@
         <li class="right" >
           <a href="filters.html" title="Filters"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">mayavi v4.0.1 documentation</a> &raquo;</li> 
+        <li><a href="index.html">mayavi v4.1.1 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -88,7 +88,7 @@ point for people interested in doing 3D plotting à la Matlab or IDL
 in Python. If you are interested in a list of all the
 functions exposed in mlab, see the <a class="reference internal" href="auto/mlab_reference.html#mlab-reference"><em>MLab reference</em></a>.</p>
 </div>
-<p>The <a class="reference internal" href="auto/mlab_reference.html#module-mayavi.mlab"><tt class="xref py py-mod docutils literal"><span class="pre">mayavi.mlab</span></tt></a> module, that we call mlab, provides an easy
+<p>The <a class="reference internal" href="auto/mlab_reference.html#module-mayavi.mlab" title="mayavi.mlab"><tt class="xref py py-mod docutils literal"><span class="pre">mayavi.mlab</span></tt></a> module, that we call mlab, provides an easy
 way to visualize data in a script or from an interactive prompt with
 one-liners as done in the <a class="reference external" href="http://matplotlib.sf.net">matplotlib</a> <tt class="docutils literal"><span class="pre">pylab</span></tt> interface but with an
 emphasis on 3D visualization using Mayavi2. This allows users to perform
@@ -122,14 +122,14 @@ scalar and vector data.</p>
 <div class="contents local topic" id="section-contents">
 <p class="topic-title first">Section contents</p>
 <ul class="simple">
-<li><a class="reference external" href="#a-demo" id="id5">A demo</a></li>
-<li><a class="reference external" href="#d-plotting-functions-for-numpy-arrays" id="id6">3D Plotting functions for numpy arrays</a></li>
-<li><a class="reference external" href="#changing-the-looks-of-the-visual-objects-created" id="id7">Changing the looks of the visual objects created</a></li>
-<li><a class="reference external" href="#figures-legends-camera-and-decorations" id="id8">Figures, legends, camera and decorations</a></li>
-<li><a class="reference external" href="#running-mlab-scripts" id="id9">Running mlab scripts</a></li>
-<li><a class="reference external" href="#animating-the-data" id="id10">Animating the data</a></li>
-<li><a class="reference external" href="#assembling-pipelines-with-mlab" id="id11">Assembling pipelines with <cite>mlab</cite></a></li>
-<li><a class="reference external" href="#case-studies-of-some-visualizations" id="id12">Case studies of some visualizations</a></li>
+<li><a class="reference internal" href="#a-demo" id="id5">A demo</a></li>
+<li><a class="reference internal" href="#d-plotting-functions-for-numpy-arrays" id="id6">3D Plotting functions for numpy arrays</a></li>
+<li><a class="reference internal" href="#changing-the-looks-of-the-visual-objects-created" id="id7">Changing the looks of the visual objects created</a></li>
+<li><a class="reference internal" href="#figures-legends-camera-and-decorations" id="id8">Figures, legends, camera and decorations</a></li>
+<li><a class="reference internal" href="#running-mlab-scripts" id="id9">Running mlab scripts</a></li>
+<li><a class="reference internal" href="#animating-the-data" id="id10">Animating the data</a></li>
+<li><a class="reference internal" href="#assembling-pipelines-with-mlab" id="id11">Assembling pipelines with <cite>mlab</cite></a></li>
+<li><a class="reference internal" href="#case-studies-of-some-visualizations" id="id12">Case studies of some visualizations</a></li>
 </ul>
 </div>
 <div class="section" id="a-demo">
@@ -154,7 +154,7 @@ as a surface:</p>
 </div>
 <p>Bulk of the code in the above example is to create the data.  One line
 suffices to visualize it.  This produces the following visualization:</p>
-<div align="center" class="align-center"><img alt="_images/mlab_surf_example.jpg" class="align-center" src="_images/mlab_surf_example.jpg" /></div>
+<img alt="_images/mlab_surf_example.jpg" class="align-center" src="_images/mlab_surf_example.jpg" />
 <p>The visualization is created by the single function <a class="reference internal" href="auto/mlab_helper_functions.html#mayavi.mlab.mesh" title="mayavi.mlab.mesh"><tt class="xref py py-func docutils literal"><span class="pre">mesh()</span></tt></a> in the above.</p>
 <p>Several examples of this kind are provided with mlab (see
 <cite>test_contour3d</cite>, <cite>test_points3d</cite>, <cite>test_plot3d_anim</cite> etc.).  The above
@@ -487,7 +487,7 @@ on each object to edit its properties, as described in other parts of
 this manual, or add new modules or filters by using this icons on the
 pipeline, or through the right-click menus on the objects in the
 pipeline.</p>
-<div align="center" class="align-center"><img alt="_images/pipeline_and_scene.jpg" class="align-center" src="_images/pipeline_and_scene.jpg" /></div>
+<img alt="_images/pipeline_and_scene.jpg" class="align-center" src="_images/pipeline_and_scene.jpg" />
 <div class="topic" id="record-feature">
 <p class="topic-title first">The record feature</p>
 <p>A <strong>very useful feature</strong> of this dialog can be found by pressing the
@@ -575,14 +575,14 @@ view point obtained interactively can be stored and reset using:</p>
 <div class="topic">
 <p class="topic-title first">Rotating the camera around itself</p>
 <blockquote>
-<p>You can also rotate the camera around itself using the <cite>roll</cite>, <cite>yaw</cite>
+<div><p>You can also rotate the camera around itself using the <cite>roll</cite>, <cite>yaw</cite>
 and <cite>pitch</cite> methods of the camera object. This moves the focal point:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">f</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span>
 <span class="n">camera</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span>
 <span class="n">camera</span><span class="o">.</span><span class="n">yaw</span><span class="p">(</span><span class="mi">45</span><span class="p">)</span>
 </pre></div>
 </div>
-</blockquote>
+</div></blockquote>
 <p>Unlike the <a class="reference internal" href="auto/mlab_camera.html#mayavi.mlab.view" title="mayavi.mlab.view"><tt class="xref py py-func docutils literal"><span class="pre">view()</span></tt></a> and <a class="reference internal" href="auto/mlab_camera.html#mayavi.mlab.roll" title="mayavi.mlab.roll"><tt class="xref py py-func docutils literal"><span class="pre">roll()</span></tt></a> function, the angles
 are incremental, and not absolute.</p>
 </div>
@@ -639,7 +639,7 @@ Python Editor).</p>
 <p>If you want to use Matplotlib&#8217;s pylab with Mayavi&#8217;s mlab in IPython you
 should:</p>
 <blockquote>
-<ul>
+<div><ul>
 <li><p class="first">if your IPython version is greater than 0.8.4: start IPython with
 the following options:</p>
 <div class="highlight-python"><pre>$ ipython -pylab -wthread</pre>
@@ -657,7 +657,7 @@ commands:</p>
 </div>
 </li>
 </ul>
-</blockquote>
+</div></blockquote>
 <p>If you want matplotlib and mlab to work together by default in IPython,
 you can change you default matplotlib backend, by editing the
 <cite>~/.matplotlib/matplotlibrc</cite> to add the following line:</p>
@@ -1316,13 +1316,13 @@ approach to mixing by chaotic advection Phys. Fluids, 1995, 7, 2587</td></tr>
         <li class="right" >
           <a href="filters.html" title="Filters"
              >previous</a> |</li>
-        <li><a href="index.html">mayavi v4.0.1 documentation</a> &raquo;</li> 
+        <li><a href="index.html">mayavi v4.1.1 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Jul 19, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.
+      Last updated on Feb 04, 2012.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>
 </html>

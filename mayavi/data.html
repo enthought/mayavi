@@ -7,13 +7,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Data representation in Mayavi &mdash; mayavi v4.0.1 documentation</title>
+    <title>Data representation in Mayavi &mdash; mayavi v4.1.1 documentation</title>
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '4.0.1',
+        VERSION:     '4.1.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,7 +22,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="mayavi v4.0.1 documentation" href="index.html" />
+    <link rel="top" title="mayavi v4.1.1 documentation" href="index.html" />
     <link rel="up" title="Advanced use of Mayavi" href="advanced_use.html" />
     <link rel="next" title="Objects populating the Mayavi pipeline" href="mayavi_objects.html" />
     <link rel="prev" title="Organisation of Mayavi visualizations: the pipeline" href="pipeline.html" />
@@ -70,7 +70,7 @@
         <li class="right" >
           <a href="pipeline.html" title="Organisation of Mayavi visualizations: the pipeline"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">mayavi v4.0.1 documentation</a> &raquo;</li>
+        <li><a href="index.html">mayavi v4.1.1 documentation</a> &raquo;</li>
           <li><a href="advanced_use.html" accesskey="U">Advanced use of Mayavi</a> &raquo;</li> 
       </ul>
     </div>  
@@ -94,11 +94,11 @@ pipeline.</p>
 <div class="contents local topic" id="outline">
 <p class="topic-title first">Outline</p>
 <ul class="simple">
-<li><a class="reference external" href="#introduction-to-tvtk-datasets" id="id1">Introduction to TVTK datasets</a></li>
-<li><a class="reference external" href="#the-flow-of-data" id="id2">The flow of data</a></li>
-<li><a class="reference external" href="#retrieving-the-data-from-mayavi-pipelines" id="id3">Retrieving the data from Mayavi pipelines</a></li>
-<li><a class="reference external" href="#dissection-of-the-different-tvtk-datasets" id="id4">Dissection of the different TVTK datasets</a></li>
-<li><a class="reference external" href="#inserting-tvtk-datasets-in-the-mayavi-pipeline" id="id5">Inserting TVTK datasets in the Mayavi pipeline</a></li>
+<li><a class="reference internal" href="#introduction-to-tvtk-datasets" id="id1">Introduction to TVTK datasets</a></li>
+<li><a class="reference internal" href="#the-flow-of-data" id="id2">The flow of data</a></li>
+<li><a class="reference internal" href="#retrieving-the-data-from-mayavi-pipelines" id="id3">Retrieving the data from Mayavi pipelines</a></li>
+<li><a class="reference internal" href="#dissection-of-the-different-tvtk-datasets" id="id4">Dissection of the different TVTK datasets</a></li>
+<li><a class="reference internal" href="#inserting-tvtk-datasets-in-the-mayavi-pipeline" id="id5">Inserting TVTK datasets in the Mayavi pipeline</a></li>
 </ul>
 </div>
 <hr class="docutils" />
@@ -203,7 +203,7 @@ which is the source feeding into <cite>iso</cite>:</p>
 </pre></div>
 </div>
 <p class="last">Thus we can see that the Mayavi source created by <cite>mlab.surf</cite> exposes
-an <a class="reference external" href="#imagedata">ImageData</a> VTK dataset.</p>
+an <a class="reference internal" href="#imagedata">ImageData</a> VTK dataset.</p>
 </dd>
 </dl>
 <div class="admonition note">
@@ -274,7 +274,7 @@ For this, you can retrieve the TVTK datasets, and inspect them.</p>
 <div class="section" id="extracting-data-points-and-values">
 <h4>Extracting data points and values<a class="headerlink" href="#extracting-data-points-and-values" title="Permalink to this headline">¶</a></h4>
 <blockquote>
-<p>The positions of all the points of a TVTK dataset can be accessed via its
+<div><p>The positions of all the points of a TVTK dataset can be accessed via its
 <cite>points</cite> attribute. Retrieving the dataset from the <cite>field</cite> object of
 the previous example, we can view the data points:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">dataset</span> <span class="o">=</span> <span class="n">field</span><span class="o">.</span><span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -302,12 +302,12 @@ in the cells, and it is scalar data:</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="mi">100</span><span class="p">,)</span>
 </pre></div>
 </div>
-</blockquote>
+</div></blockquote>
 </div>
 <div class="section" id="extracting-lines">
 <h4>Extracting lines<a class="headerlink" href="#extracting-lines" title="Permalink to this headline">¶</a></h4>
 <blockquote>
-<p>If we want to extract the edges of the Delaunay tessellation, we can
+<div><p>If we want to extract the edges of the Delaunay tessellation, we can
 apply the ExtractEdges filter to the <cite>field</cite> from the previous example
 and inspect its output:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">edges</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">extract_edges</span><span class="p">(</span><span class="n">field</span><span class="p">)</span>
@@ -315,8 +315,8 @@ and inspect its output:</p>
 <span class="go">[&lt;tvtk_classes.poly_data.PolyData object at 0xf34e5fc&gt;]</span>
 </pre></div>
 </div>
-<p>We can see that the output is a <a class="reference external" href="#polydata">PolyData</a> dataset. Looking at how these
-are build (see <a class="reference external" href="#polydata">PolyData</a>), we see that the connectivity information is
+<p>We can see that the output is a <a class="reference internal" href="#polydata">PolyData</a> dataset. Looking at how these
+are build (see <a class="reference internal" href="#polydata">PolyData</a>), we see that the connectivity information is
 help in the <cite>lines</cite> attribute (that we convert to a numpy array using its
 <cite>.to_array()</cite> method):</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">pd</span> <span class="o">=</span> <span class="n">edges</span><span class="o">.</span><span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -331,7 +331,7 @@ connected together: the array is an alternation of <cite>2</cite> followed by a 
 of indices.</p>
 <p>A full example illustrating how to use the VTK Delaunay filter to extract
 a graph is given in <a class="reference internal" href="auto/example_delaunay_graph.html#example-delaunay-graph"><em>Delaunay graph example</em></a>.</p>
-</blockquote>
+</div></blockquote>
 </div>
 </div>
 <div class="section" id="headless-use-of-mayavi-for-the-algorithms-without-visualization">
@@ -367,27 +367,27 @@ visualizing them).:</p>
 </tr>
 </thead>
 <tbody valign="top">
-<tr><td><a class="reference external" href="#imagedata">ImageData</a></td>
+<tr><td><a class="reference internal" href="#imagedata">ImageData</a></td>
 <td>Implicit</td>
 <td>Volumes and surfaces</td>
 <td>3D data array and spacing along each axis</td>
 </tr>
-<tr><td><a class="reference external" href="#rectilineargrid">RectilinearGrid</a></td>
+<tr><td><a class="reference internal" href="#rectilineargrid">RectilinearGrid</a></td>
 <td>Implicit</td>
 <td>Volumes and surfaces</td>
 <td>3D data array and 1D array of spacing for each axis</td>
 </tr>
-<tr><td><a class="reference external" href="#structuredgrid">StructuredGrid</a></td>
+<tr><td><a class="reference internal" href="#structuredgrid">StructuredGrid</a></td>
 <td>Implicit</td>
 <td>Volumes and surfaces</td>
 <td>3D data array and 3D position arrays for each axis</td>
 </tr>
-<tr><td><a class="reference external" href="#polydata">PolyData</a></td>
+<tr><td><a class="reference internal" href="#polydata">PolyData</a></td>
 <td>Explicit</td>
 <td>Points, lines and surfaces</td>
 <td>x, y, z, positions of vertices and arrays of surface Cells</td>
 </tr>
-<tr><td><a class="reference external" href="#unstructuredgrid">UnstructuredGrid</a></td>
+<tr><td><a class="reference internal" href="#unstructuredgrid">UnstructuredGrid</a></td>
 <td>Explicit</td>
 <td>Volumes and surfaces</td>
 <td>x, y, z positions of vertices and arrays of volume Cells</td>
@@ -583,7 +583,7 @@ has been modified:</p>
 following two presentations best describe how one can create data
 objects or data files for Mayavi and TVTK.</p>
 <blockquote>
-<ul>
+<div><ul>
 <li><p class="first">Presentation on TVTK and Mayavi2 for course at IIT Bombay</p>
 <p><a class="reference external" href="https://svn.enthought.com/enthought/attachment/wiki/MayaVi/tvtk_mayavi2.pdf">https://svn.enthought.com/enthought/attachment/wiki/MayaVi/tvtk_mayavi2.pdf</a></p>
 <p>This presentation provides information on graphics in general, 3D
@@ -596,7 +596,7 @@ from numpy in Python, and also about mayavi.</p>
 arrays.</p>
 </li>
 </ul>
-</blockquote>
+</div></blockquote>
 </div>
 <div class="section" id="datasets-creation-examples">
 <h3>Datasets creation examples<a class="headerlink" href="#datasets-creation-examples" title="Permalink to this headline">¶</a></h3>
@@ -604,7 +604,7 @@ arrays.</p>
 creation of the most important datasets from numpy arrays. Specifically
 they are:</p>
 <blockquote>
-<ul class="simple">
+<div><ul class="simple">
 <li><a class="reference internal" href="auto/example_datasets.html#example-datasets"><em>Datasets example</em></a>: Generate a simple example for each type of
 VTK dataset.</li>
 <li><a class="reference internal" href="auto/example_polydata.html#example-polydata"><em>Polydata example</em></a>:  Demonstrates how to create Polydata datasets
@@ -622,7 +622,7 @@ visualization of a 3D structured grid.</li>
 <li><a class="reference internal" href="auto/example_unstructured_grid.html#example-unstructured-grid"><em>Unstructured grid example</em></a>: Demonstrates the creation and
 visualization of an unstructured grid.</li>
 </ul>
-</blockquote>
+</div></blockquote>
 <p>These scripts may be run like so:</p>
 <div class="highlight-python"><pre>$ mayavi2 -x structured_grid.py</pre>
 </div>
@@ -792,14 +792,14 @@ data sources with mlab</em></a>.</p>
         <li class="right" >
           <a href="pipeline.html" title="Organisation of Mayavi visualizations: the pipeline"
              >previous</a> |</li>
-        <li><a href="index.html">mayavi v4.0.1 documentation</a> &raquo;</li>
+        <li><a href="index.html">mayavi v4.1.1 documentation</a> &raquo;</li>
           <li><a href="advanced_use.html" >Advanced use of Mayavi</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Jul 19, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.
+      Last updated on Feb 04, 2012.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>
 </html>

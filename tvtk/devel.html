@@ -7,13 +7,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Development guide for TVTK &mdash; tvtk v4.0.1 documentation</title>
+    <title>Development guide for TVTK &mdash; tvtk v4.1.1 documentation</title>
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '4.0.1',
+        VERSION:     '4.1.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,7 +22,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="tvtk v4.0.1 documentation" href="index.html" />
+    <link rel="top" title="tvtk v4.1.1 documentation" href="index.html" />
     <link rel="prev" title="An Introduction to Traited VTK (tvtk)" href="README.html" /> 
   </head>
   <body>
@@ -35,7 +35,7 @@
         <li class="right" >
           <a href="README.html" title="An Introduction to Traited VTK (tvtk)"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">tvtk v4.0.1 documentation</a> &raquo;</li> 
+        <li><a href="index.html">tvtk v4.1.1 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -61,18 +61,18 @@
 <div class="contents topic" id="contents">
 <p class="topic-title first">Contents</p>
 <ul class="simple">
-<li><a class="reference external" href="#development-guide-for-tvtk" id="id1">Development guide for TVTK</a><ul>
-<li><a class="reference external" href="#introduction" id="id2">Introduction</a></li>
-<li><a class="reference external" href="#how-tvtk-works" id="id3">How tvtk works</a><ul>
-<li><a class="reference external" href="#automatic-trait-updation" id="id4">Automatic trait updation</a></li>
-<li><a class="reference external" href="#messaging" id="id5">Messaging</a></li>
-<li><a class="reference external" href="#pickling" id="id6">Pickling</a></li>
-<li><a class="reference external" href="#array-handling" id="id7">Array handling</a></li>
-<li><a class="reference external" href="#the-magical-tvtk-instance" id="id8">The magical <cite>tvtk</cite> instance</a></li>
-<li><a class="reference external" href="#miscellaneous-details" id="id9">Miscellaneous details</a></li>
+<li><a class="reference internal" href="#development-guide-for-tvtk" id="id1">Development guide for TVTK</a><ul>
+<li><a class="reference internal" href="#introduction" id="id2">Introduction</a></li>
+<li><a class="reference internal" href="#how-tvtk-works" id="id3">How tvtk works</a><ul>
+<li><a class="reference internal" href="#automatic-trait-updation" id="id4">Automatic trait updation</a></li>
+<li><a class="reference internal" href="#messaging" id="id5">Messaging</a></li>
+<li><a class="reference internal" href="#pickling" id="id6">Pickling</a></li>
+<li><a class="reference internal" href="#array-handling" id="id7">Array handling</a></li>
+<li><a class="reference internal" href="#the-magical-tvtk-instance" id="id8">The magical <cite>tvtk</cite> instance</a></li>
+<li><a class="reference internal" href="#miscellaneous-details" id="id9">Miscellaneous details</a></li>
 </ul>
 </li>
-<li><a class="reference external" href="#code-generation" id="id10">Code Generation</a></li>
+<li><a class="reference internal" href="#code-generation" id="id10">Code Generation</a></li>
 </ul>
 </li>
 </ul>
@@ -90,7 +90,7 @@ same directory as this file.</p>
 <cite>tvtk_base.py</cite>.  <cite>TVTKBase</cite> provides basic functionality common to all
 tvtk classes.  Most importantly it provides for the following:</p>
 <blockquote>
-<ul class="simple">
+<div><ul class="simple">
 <li>Allows one to wrap an existing VTK object or create a new one.
 <cite>TVTKBase.__init__</cite> accepts an optional VTK object, that can be
 used to wrap an existing VTK object.  Read the method docstring for
@@ -104,7 +104,7 @@ object.</li>
 <li>Common code to change the underlying VTK object when the trait is
 changed.</li>
 </ul>
-</blockquote>
+</div></blockquote>
 <p>As mentioned above, tvtk classes can either wrap an existing VTK
 object or create a new one and manage the new object.</p>
 <div class="section" id="automatic-trait-updation">
@@ -246,7 +246,7 @@ functionality.  However, importing 800 wrapper classes in one go is
 around the problem.  While <cite>tvtk</cite> is a class instance, it behaves just
 like you&#8217;d expect of a module.</p>
 <blockquote>
-<ul class="simple">
+<div><ul class="simple">
 <li>It supports tab-completion on class names.</li>
 <li>Allows one to access all the tvtk classes.</li>
 <li>Imports extremely fast.  Any slowness in the import is really
@@ -254,7 +254,7 @@ because tvtk needs to import VTK.  Thus importing tvtk should not
 be much slower than importing vtk itself.</li>
 <li>Imports the tvtk classes <em>only</em> on demand.</li>
 </ul>
-</blockquote>
+</div></blockquote>
 <p>All the tvtk related code is generated and saved into the
 <cite>tvtk_classes.zip</cite> file.  The <cite>tvtk</cite> instance is basically an instance
 of the TVTK class.  This is defined in <cite>tvtk_helper.py</cite>.  This file is
@@ -289,7 +289,7 @@ tvtk object.</p>
 main driver module that is responsible for this.  Code generation
 works involves the following steps.</p>
 <blockquote>
-<ul class="simple">
+<div><ul class="simple">
 <li>Listing and sorting all the VTK classes into a class hierarchy.
 This is done by <cite>class_tree.py</cite>.  <cite>ClassTree</cite> basically organizes
 all the VTK classes into a tree structure.  The tree is organized
@@ -320,7 +320,7 @@ current indentation level.</li>
 <li>Generating the tvtk code.  Done mainly by <cite>code_gen.py</cite>.</li>
 <li>Generating a ZIP file of the code, also done by <cite>code_gen.py</cite>.</li>
 </ul>
-</blockquote>
+</div></blockquote>
 <p>The <cite>code_gen</cite> module defines a <cite>TVTKGenerator</cite> class that drives the
 code generation.  The module uses the <cite>wrapper_gen</cite> module to generate
 the wrapper classes.</p>
@@ -332,7 +332,7 @@ of the tree), the class is parsed, and a suitable tvtk wrapper class
 (with the name of the class and file name of the module suitably
 modified) is generated using the functionality provided by
 <cite>WrapperGenerator</cite>.  A separate <cite>tvtk_helper</cite> module (described in the
-<a class="reference external" href="#the-magical-tvtk-instance">The magical tvtk instance</a> section) is also simultaneously updated
+<a class="reference internal" href="#the-magical-tvtk-instance">The magical tvtk instance</a> section) is also simultaneously updated
 with the class for which the wrapper is generated.  All of these
 classes are dumped into a temporary directory.  These classes are then
 put into a ZIP file.</p>
@@ -415,13 +415,13 @@ inhibits ZIP file generation.</p>
         <li class="right" >
           <a href="README.html" title="An Introduction to Traited VTK (tvtk)"
              >previous</a> |</li>
-        <li><a href="index.html">tvtk v4.0.1 documentation</a> &raquo;</li> 
+        <li><a href="index.html">tvtk v4.1.1 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2008, tvtk.
-      Last updated on Jul 19, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.
+      Last updated on Feb 04, 2012.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>
 </html>

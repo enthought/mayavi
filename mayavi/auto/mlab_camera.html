@@ -7,13 +7,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Camera handling functions &mdash; mayavi v4.0.1 documentation</title>
+    <title>Camera handling functions &mdash; mayavi v4.1.1 documentation</title>
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.0.1',
+        VERSION:     '4.1.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,7 +22,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi v4.0.1 documentation" href="../index.html" />
+    <link rel="top" title="mayavi v4.1.1 documentation" href="../index.html" />
     <link rel="up" title="MLab reference" href="mlab_reference.html" />
     <link rel="next" title="Other functions" href="mlab_other_functions.html" />
     <link rel="prev" title="Figure decoration functions" href="mlab_decorations.html" />
@@ -70,7 +70,7 @@
         <li class="right" >
           <a href="mlab_decorations.html" title="Figure decoration functions"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">mayavi v4.0.1 documentation</a> &raquo;</li>
+        <li><a href="../index.html">mayavi v4.1.1 documentation</a> &raquo;</li>
           <li><a href="mlab_reference.html" accesskey="U">MLab reference</a> &raquo;</li> 
       </ul>
     </div>  
@@ -99,7 +99,7 @@ instructions on running the examples.</p>
 <dt>::</dt>
 <dd><p class="first">Translates the camera and focal point together.</p>
 <blockquote class="last">
-<p>The arguments specify the relative distance to translate the
+<div><p>The arguments specify the relative distance to translate the
 camera and focal point, so as to produce the appearence of
 moving the camera without changing the effective field of view.
 If called with no arguments, the function returns the absolute
@@ -109,7 +109,7 @@ system.</p>
 return value with no arguments is in an absolute coordinate system.</p>
 <p><strong>Keyword arguments</strong>:</p>
 <blockquote>
-<table class="docutils field-list" frame="void" rules="none">
+<div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
@@ -124,7 +124,7 @@ camera up (if positive) or down (if negative)</td>
 </tr>
 </tbody>
 </table>
-</blockquote>
+</div></blockquote>
 <p><strong>Returns</strong>:</p>
 <p>If no arguments are supplied (or all are None), returns a
 tuple (camera_position, focal_point_position)</p>
@@ -161,8 +161,8 @@ tuple (camera_position, focal_point_position)</p>
 :mlab.roll: control the absolute roll angle of the camera
 :mlab.view: set the camera position relative to the focal point instead</p>
 <blockquote>
-of in absolute space</blockquote>
-</blockquote>
+<div>of in absolute space</div></blockquote>
+</div></blockquote>
 </dd>
 </dl>
 </dd></dl>
@@ -219,14 +219,12 @@ point</td>
 <h2>view<a class="headerlink" href="#view" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="mayavi.mlab.view">
-<tt class="descclassname">mayavi.mlab.</tt><tt class="descname">view</tt><big>(</big><em>azimuth=None</em>, <em>elevation=None</em>, <em>distance=None</em>, <em>focalpoint=None</em>, <em>reset_roll=True</em>, <em>figure=None</em><big>)</big><a class="headerlink" href="#mayavi.mlab.view" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets/Gets the view point for the camera.</p>
-<blockquote>
-<dl class="docutils">
-<dt>view(azimuth=None, elevation=None, distance=None, focalpoint=None,</dt>
-<dd>figure=None)</dd>
-</dl>
-</blockquote>
+<tt class="descclassname">mayavi.mlab.</tt><tt class="descname">view</tt><big>(</big><em>azimuth=None</em>, <em>elevation=None</em>, <em>distance=None</em>, <em>focalpoint=None</em>, <em>roll=None</em>, <em>reset_roll=True</em>, <em>figure=None</em><big>)</big><a class="headerlink" href="#mayavi.mlab.view" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets/Gets the view point for the camera:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">view</span><span class="p">(</span><span class="n">azimuth</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">elevation</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">distance</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">focalpoint</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+     <span class="n">roll</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">reset_roll</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">figure</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+</pre></div>
+</div>
 <p>If called with no arguments this returns the current view of the
 camera.  To understand how this function works imagine the surface
 of a sphere centered around the visualization.  The <cite>azimuth</cite>
@@ -242,7 +240,7 @@ will give you a typical x-y plot with x varying from left to right
 and y from bottom to top.</p>
 <p><strong>Keyword arguments</strong>:</p>
 <blockquote>
-<table class="docutils field-list" frame="void" rules="none">
+<div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
@@ -265,15 +263,19 @@ of the camera. New in Mayavi 3.4.0: if &#8216;auto&#8217; is passed, the
 focal point is positioned at the center of all objects in the
 scene.</td>
 </tr>
+<tr class="field"><th class="field-name">roll:</th><td class="field-body">float, optional
+Controls the roll, ie the rotation of the camera around its axis.</td>
+</tr>
 <tr class="field"><th class="field-name">reset_roll:</th><td class="field-body">boolean, optional.
-If True, the roll orientation of the camera is reset.</td>
+If True, and &#8216;roll&#8217; is not specified, the roll orientation of the
+camera is reset.</td>
 </tr>
 <tr class="field"><th class="field-name">figure:</th><td class="field-body">The Mayavi figure to operate on. If None is passed, the
 current one is used.</td>
 </tr>
 </tbody>
 </table>
-</blockquote>
+</div></blockquote>
 <p><strong>Returns</strong>:</p>
 <p>If no arguments are supplied it returns a tuple of 4 values
 <tt class="docutils literal"><span class="pre">(azimuth,</span> <span class="pre">elevation,</span> <span class="pre">distance,</span> <span class="pre">focalpoint)</span></tt>, representing the
@@ -430,14 +432,14 @@ point</td>
         <li class="right" >
           <a href="mlab_decorations.html" title="Figure decoration functions"
              >previous</a> |</li>
-        <li><a href="../index.html">mayavi v4.0.1 documentation</a> &raquo;</li>
+        <li><a href="../index.html">mayavi v4.1.1 documentation</a> &raquo;</li>
           <li><a href="mlab_reference.html" >MLab reference</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Jul 19, 2011.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.
+      Last updated on Feb 04, 2012.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>
 </html>

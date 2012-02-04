@@ -132,12 +132,12 @@ roll
 view
 ~~~~
 
-.. function:: view(azimuth=None, elevation=None, distance=None, focalpoint=None, reset_roll=True, figure=None)
+.. function:: view(azimuth=None, elevation=None, distance=None, focalpoint=None, roll=None, reset_roll=True, figure=None)
 
-    Sets/Gets the view point for the camera.
+    Sets/Gets the view point for the camera::
     
      view(azimuth=None, elevation=None, distance=None, focalpoint=None,
-          figure=None)
+          roll=None, reset_roll=True, figure=None)
     
     If called with no arguments this returns the current view of the
     camera.  To understand how this function works imagine the surface
@@ -175,8 +175,12 @@ view
         focal point is positioned at the center of all objects in the
         scene.
     
+     :roll: float, optional
+        Controls the roll, ie the rotation of the camera around its axis.
+    
      :reset_roll: boolean, optional.
-        If True, the roll orientation of the camera is reset.
+        If True, and 'roll' is not specified, the roll orientation of the
+        camera is reset.
     
      :figure: The Mayavi figure to operate on. If None is passed, the
         current one is used.

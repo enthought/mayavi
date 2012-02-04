@@ -1,0 +1,14 @@
+[enthought.mayavi]
+confirm_delete = True
+show_splash_screen = True
+show_helper_nodes = True
+open_help_in_light_browser = True
+use_ipython = False
+contrib_packages = '[]'
+
+[enthought.mayavi.mlab]
+backend = 'auto'
+background_color = "(0.5, 0.5, 0.5)"
+foreground_color = "(1.0, 1.0, 1.0)"
+offscreen = False
+
