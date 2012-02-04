@@ -290,6 +290,12 @@ code**::
     import sip
     sip.setapi('QString', 2)
 
+By default, with modern versions of the Enthought Tool Suite, Traits will
+use PySide. To force the use of PyQt, you must set the QT_API environment
+variable::
+
+    os.environ['QT_API'] = 'pyqt'
+
 Then using the visualization class defined above::
 
     from PyQt4 import QtGui
