@@ -19,8 +19,7 @@ from pyface.qt import QtGui, QtCore
 #   import sip
 #   sip.setapi('QString', 2)
 
-from traits.api import HasTraits, Instance, on_trait_change, \
-    Int, Dict
+from traits.api import HasTraits, Instance, on_trait_change
 from traitsui.api import View, Item
 from mayavi.core.ui.api import MayaviScene, MlabSceneModel, \
         SceneEditor
@@ -53,7 +52,11 @@ class MayaviQWidget(QtGui.QWidget):
     def __init__(self, parent=None):
         QtGui.QWidget.__init__(self, parent)
         layout = QtGui.QVBoxLayout(self)
-        layout.setMargin(0)
+        try:
+            layout.setMargin(0)
+        except AttributeError:
+            # Pyside doesn't have a setMargin
+            pass
         layout.setSpacing(0)
         self.visualization = Visualization()
 
