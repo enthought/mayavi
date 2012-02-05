@@ -9,21 +9,23 @@ to the tree.
 
 # Enthought library imports.
 from traits.api import (HasTraits, Str, Property, Any, Button,
-                                  List, Instance,
+                                  List, Instance, implements,
                                   ToolbarButton)
-from traitsui.api import View, Item, Group, \
-        TextEditor, TreeEditor, TreeNode, ListEditor
+from traitsui.api import View, Item, Group,\
+        TextEditor, TreeEditor, TreeNode, ListEditor, ITreeNode
 from pyface.api import ImageResource
+from pyface.resource.api import resource_path
 
 # Local imports.
-from mayavi.core.registry import registry
+from .registry import registry
 
 ###############################################################################
 # AdderNode class
 ###############################################################################
-class AdderNode(HasTraits):
+class AdderNode(TreeNode):
     """ Base class that will display a TreeNode to add items to the tree.
     """
+    implements(ITreeNode)
 
     # String to be shown in the TreeEditor.
     label = Str('Base AdderNode')
@@ -63,6 +65,33 @@ class AdderNode(HasTraits):
         else:
             return None
 
+    #------------------------------------------------------------------------
+    # The ITreeNode interface needed by the Qt tree_editor
+    #------------------------------------------------------------------------
+
+    def get_label(self):
+        return self.label
+
+    def get_icon(self, obj, is_expanded=False):
+        return self.icon_name
+
+    def get_icon_path(self):
+        return resource_path()
+
+    def get_tooltip(self):
+        return self.tooltip
+
+    def allows_children(self):
+        return False
+
+    def get_children_id(self, node=None):
+        return []
+
+    def when_label_changed(self, label_updated, remove):
+        return
+
+    def when_column_labels_change(self, listener, remove):
+        return
 
 ###############################################################################
 # SceneAdderNode class
@@ -73,6 +102,9 @@ class SceneAdderNode(AdderNode):
 
     # String to be shown in the TreeEditor.
     label = Str('Add a new scene')
+
+    # The name of the icon
+    icon_name = Str('add_scene.png')
 
     # Button for the View.
     add_scene = Button('Add a new scene',
