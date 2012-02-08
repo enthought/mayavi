@@ -165,7 +165,7 @@ class MousePickDispatcher(HasTraits):
         if self._mouse_no_mvt:
             x, y = vtk_picker.GetEventPosition()
             for picker in self._active_pickers.values():
-                picker.pick(x, y, 0, self.scene.scene.renderer)
+                picker.pick((x, y, 0), self.scene.scene.renderer)
         self._mouse_no_mvt = 0
 
 
