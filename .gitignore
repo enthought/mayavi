@@ -1,14 +1,17 @@
 # file types to ignore
 *.pyc
+*.pyd
 *.so
+*.enamlc
 *~
-
-tvtk/tvtk_classes.zip
-mayavi/images/m2_about.jpg
+.DS_Store
 
 # ignore the build directories
 *.egg-info/
 build/
 dist/
-docs/html.zip
 docs/build/
+
+docs/html.zip
+tvtk/tvtk_classes.zip
+mayavi/images/m2_about.jpg
