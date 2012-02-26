@@ -62,7 +62,7 @@ class TestMGlyphSource(unittest.TestCase):
 
         # Call reset again with just a few things changed to see if it
         # works correctly.
-        x *= 5.0
+        x *= 5
         s *= 10
         v *= 0.1
         src.reset(x=x, u=v[:,0], v=v[:,1], w=v[:,2], scalars=s)
@@ -93,11 +93,11 @@ class TestMGlyphSource(unittest.TestCase):
     def test_handlers(self):
         "Test if the various static handlers work correctly."
         x, y, z, v, s, src = self.get_data()
-        x *= 2.0
-        y *= 2.0
-        z *= 2.0
-        v *= 2.0
-        s *= 2.0
+        x *= 2
+        y *= 2
+        z *= 2
+        v *= 2
+        s *= 2
         src.x = x
         src.y = y
         src.z = z
@@ -111,9 +111,9 @@ class TestMGlyphSource(unittest.TestCase):
     def test_set(self):
         "Test if the set method works correctly."
         x, y, z, v, s, src = self.get_data()
-        x *= 2.0
-        z *= 2.0
-        s *= 2.0
+        x *= 2
+        z *= 2
+        s *= 2
         src.set(x=x, z=z, scalars=s)
         self.check_traits()
         self.check_dataset()
@@ -182,7 +182,7 @@ class TestMVerticalSource(unittest.TestCase):
 
         # Call reset again with just a few things changed to see if it
         # works correctly.
-        x *= 5.0
+        x *= 5
         s *= 10
         src.reset(x=x, scalars=s)
 
@@ -211,10 +211,10 @@ class TestMVerticalSource(unittest.TestCase):
     def test_handlers(self):
         "Test if the various static handlers work correctly."
         x, y, z, s, src = self.get_data()
-        x *= 2.0
-        y *= 2.0
-        z *= 2.0
-        s *= 2.0
+        x *= 2
+        y *= 2
+        z *= 2
+        s *= 2
         src.x = x
         src.y = y
         src.z = z
@@ -225,9 +225,9 @@ class TestMVerticalSource(unittest.TestCase):
     def test_set(self):
         "Test if the set method works correctly."
         x, y, z, s, src = self.get_data()
-        x *= 2.0
-        z *= 2.0
-        s *= 2.0
+        x *= 2
+        z *= 2
+        s *= 2
         src.set(x=x, z=z, scalars=s)
         self.check_traits()
         self.check_dataset()
@@ -298,7 +298,7 @@ class TestMArraySource(unittest.TestCase):
 
         # Call reset again with just a few things changed to see if it
         # works correctly.
-        x *= 5.0
+        x *= 5
         s *= 10
         v *= 0.1
         src.reset(x=x, u=v[...,0], v=v[...,1], w=v[...,2], scalars=s)
@@ -332,11 +332,11 @@ class TestMArraySource(unittest.TestCase):
     def test_handlers(self):
         "Test if the various static handlers work correctly."
         x, y, z, v, s, src = self.get_data()
-        x *= 2.0
-        y *= 2.0
-        z *= 2.0
-        v *= 2.0
-        s *= 2.0
+        x *= 2
+        y *= 2
+        z *= 2
+        v *= 2
+        s *= 2
         src.x = x
         src.y = y
         src.z = z
@@ -350,9 +350,9 @@ class TestMArraySource(unittest.TestCase):
     def test_set(self):
         "Test if the set method works correctly."
         x, y, z, v, s, src = self.get_data()
-        x *= 2.0
-        z *= 2.0
-        s *= 2.0
+        x *= 2
+        z *= 2
+        s *= 2
         src.set(x=x, z=z, scalars=s)
         self.check_traits()
         self.check_dataset()
@@ -407,14 +407,14 @@ class TestMLineSource(unittest.TestCase):
 
         # Call reset again with just a few things changed to see if it
         # works correctly.
-        x *= 5.0
+        x *= 5
         s *= 10
         src.reset(x=x, scalars=s)
 
         self.check_traits()
         self.check_dataset()
 
-        y *= 6.0
+        y *= 6
         x *= 4
         src.reset(x=x, y=y)
 
@@ -452,10 +452,10 @@ class TestMLineSource(unittest.TestCase):
     def test_handlers(self):
         "Test if the various static handlers work correctly."
         x, y, z, s, src = self.get_data()
-        x *= 2.0
-        y *= 2.0
-        z *= 2.0
-        s *= 2.0
+        x *= 2
+        y *= 2
+        z *= 2
+        s *= 2
         src.x = x
         src.y = y
         src.z = z
@@ -466,16 +466,15 @@ class TestMLineSource(unittest.TestCase):
     def test_set(self):
         "Test if the set method works correctly."
         x, y, z, s, src = self.get_data()
-        x *= 2.0
-        z *= 2.0
-        s *= 2.0
+        x *= 2
+        z *= 2
+        s *= 2
         src.set(x=x, z=z, scalars=s)
         self.check_traits()
         self.check_dataset()
 
-
-        y *= 2.0
-        s *= 2.0
+        y *= 2
+        s *= 2
         src.set(y=y, scalars=s)
         self.check_traits()
         self.check_dataset()
@@ -542,7 +541,7 @@ class TestMArray2DSource(unittest.TestCase):
 
         # Call reset again with just a few things changed to see if it
         # works correctly.
-        x *= 5.0
+        x *= 5
         s *= 10
         src.reset(x=x,y=y, scalars=s)
 
@@ -553,9 +552,9 @@ class TestMArray2DSource(unittest.TestCase):
     def test_handlers(self):
         "Test if the various static handlers work correctly."
         x, y, s, src = self.get_data()
-        x *= 2.0
-        y *= 2.0
-        s *= 2.0
+        x *= 2
+        y *= 2
+        s *= 2
         src.x = x
         src.y = y
         src.scalars = s
@@ -567,16 +566,16 @@ class TestMArray2DSource(unittest.TestCase):
     def test_set(self):
         "Test if the set method works correctly."
         x, y, s, src  = self.get_data()
-        x *= 2.0
-        s *= 2.0
+        x *= 2
+        s *= 2
         src.set(x=x,scalars=s)
 
 
         self.check_traits()
         self.check_dataset()
 
-        y *= 9.0
-        s *= 2.0
+        y *= 9
+        s *= 2
         src.set(y=y, scalars=s)
         self.check_traits()
         self.check_dataset()
@@ -633,7 +632,7 @@ class TestMGridSource(unittest.TestCase):
 
         # Call reset again with just a few things changed to see if it
         # works correctly.
-        x *= 5.0
+        x *= 5
         s *= 10
 
         src.reset(x=x, scalars=s)
@@ -643,10 +642,10 @@ class TestMGridSource(unittest.TestCase):
     def test_handlers(self):
         "Test if the various static handlers work correctly."
         x, y, z, s, src = self.get_data()
-        x *= 2.0
-        y *= 2.0
-        z *= 2.0
-        s *= 2.0
+        x *= 2
+        y *= 2
+        z *= 2
+        s *= 2
         src.x = x
         src.y = y
         src.z = z
@@ -657,9 +656,9 @@ class TestMGridSource(unittest.TestCase):
     def test_set(self):
         "Test if the set method works correctly."
         x, y, z, s, src = self.get_data()
-        x *= 2.0
-        z *= 2.0
-        s *= 2.0
+        x *= 2
+        z *= 2
+        s *= 2
         src.set(x=x, z=z, scalars=s)
         self.check_traits()
         self.check_dataset()
@@ -753,7 +752,7 @@ class TestMArray2DSourceNoArgs(unittest.TestCase):
     def test_handlers(self):
         "Test if the various static handlers work correctly."
         x, y, s, src = self.get_data()
-        s *= 2.0
+        s *= 2
         src.scalars = s
 
         self.check_traits()
@@ -763,7 +762,7 @@ class TestMArray2DSourceNoArgs(unittest.TestCase):
     def test_set(self):
         "Test if the set method works correctly."
         x, y, s, src = self.get_data()
-        s *= 2.0
+        s *= 2
         src.set(x=x,y=y,scalars=s)
 
         self.check_traits()
@@ -809,7 +808,7 @@ class TestMTriangularMeshSource(unittest.TestCase):
 
         # Call reset again with just a few things changed to see if it
         # works correctly.
-        x *= 5.0
+        x *= 5
         s *= 10
         src.reset(x=x,y=y,z=z, triangles=triangles, scalars=s)
 
@@ -832,9 +831,9 @@ class TestMTriangularMeshSource(unittest.TestCase):
     def test_handlers(self):
         "Test if the various static handlers work correctly."
         x, y, z, triangles, s, src = self.get_data()
-        x *= 2.0
-        y *= 2.0
-        s *= 2.0
+        x *= 2
+        y *= 2
+        s *= 2
         src.x = x
         src.y = y
         src.scalars = s
@@ -846,14 +845,14 @@ class TestMTriangularMeshSource(unittest.TestCase):
     def test_set(self):
         "Test if the set method works correctly."
         x, y, z, triangles, s, src = self.get_data()
-        x *= 2.0
-        s *= 2.0
+        x *= 2
+        s *= 2
         src.set(x=x,scalars=s)
 
         self.check_traits()
 
-        y *= 9.0
-        s *= 2.0
+        y *= 9
+        s *= 2
         src.set(y=y, scalars=s)
 
         self.check_traits()
