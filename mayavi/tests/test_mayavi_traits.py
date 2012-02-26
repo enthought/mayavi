@@ -9,7 +9,7 @@ import unittest
 import numpy
 from traits.api import (HasTraits, Either, Array, Any,
                 TraitError, Float, Int)
-from mayavi.core.traits import ShadowProperty
+from mayavi.core.trait_defs import ShadowProperty
 
 
 ArrayOrNone = Either(None, Array)
