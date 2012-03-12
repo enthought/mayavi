@@ -274,7 +274,7 @@ For this, you can retrieve the TVTK datasets, and inspect them.</p>
 <div class="section" id="extracting-data-points-and-values">
 <h4>Extracting data points and values<a class="headerlink" href="#extracting-data-points-and-values" title="Permalink to this headline">¶</a></h4>
 <blockquote>
-<div><p>The positions of all the points of a TVTK dataset can be accessed via its
+<p>The positions of all the points of a TVTK dataset can be accessed via its
 <cite>points</cite> attribute. Retrieving the dataset from the <cite>field</cite> object of
 the previous example, we can view the data points:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">dataset</span> <span class="o">=</span> <span class="n">field</span><span class="o">.</span><span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -302,12 +302,12 @@ in the cells, and it is scalar data:</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="mi">100</span><span class="p">,)</span>
 </pre></div>
 </div>
-</div></blockquote>
+</blockquote>
 </div>
 <div class="section" id="extracting-lines">
 <h4>Extracting lines<a class="headerlink" href="#extracting-lines" title="Permalink to this headline">¶</a></h4>
 <blockquote>
-<div><p>If we want to extract the edges of the Delaunay tessellation, we can
+<p>If we want to extract the edges of the Delaunay tessellation, we can
 apply the ExtractEdges filter to the <cite>field</cite> from the previous example
 and inspect its output:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">edges</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">extract_edges</span><span class="p">(</span><span class="n">field</span><span class="p">)</span>
@@ -331,7 +331,7 @@ connected together: the array is an alternation of <cite>2</cite> followed by a 
 of indices.</p>
 <p>A full example illustrating how to use the VTK Delaunay filter to extract
 a graph is given in <a class="reference internal" href="auto/example_delaunay_graph.html#example-delaunay-graph"><em>Delaunay graph example</em></a>.</p>
-</div></blockquote>
+</blockquote>
 </div>
 </div>
 <div class="section" id="headless-use-of-mayavi-for-the-algorithms-without-visualization">
@@ -405,7 +405,7 @@ structure created by the <cite>ArraySource</cite> mayavi source, from a 3D numpy
 array, as well as the <cite>mlab.pipeline.scalar_field</cite> and
 <cite>mlab.pipeline.vector_field</cite> factory functions, if the <cite>x</cite>, <cite>y</cite> and
 <cite>z</cite> arrays are not explicitely specified.</p>
-<img alt="_images/image_data.jpg" src="_images/image_data.jpg" />
+<img alt="_images/image_data1.jpg" src="_images/image_data1.jpg" />
 <p>Creating a <cite>tvtk.ImageData</cite> object from numpy arrays:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">tvtk.api</span> <span class="kn">import</span> <span class="n">tvtk</span>
 <span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">random</span>
@@ -423,7 +423,7 @@ array, as well as the <cite>mlab.pipeline.scalar_field</cite> and
 with arbitrary spacing along the various axis. The position of the data
 points are inferred from their position on the data array, an
 origin and the list of spacings of each axis.</p>
-<img alt="_images/rectilinear_grid.jpg" src="_images/rectilinear_grid.jpg" />
+<img alt="_images/rectilinear_grid1.jpg" src="_images/rectilinear_grid1.jpg" />
 <p>Creating a <cite>tvtk.RectilinearGrid</cite> object from numpy arrays:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">tvtk.api</span> <span class="kn">import</span> <span class="n">tvtk</span>
 <span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">random</span><span class="p">,</span> <span class="n">array</span>
@@ -447,7 +447,7 @@ arrays, specifying x, y and z for each point. This is the dataset
 created by the <cite>mlab.pipeline.scalar_field</cite> and
 <cite>mlab.pipeline.vector_field</cite> factory functions, if the <cite>x</cite>, <cite>y</cite> and
 <cite>z</cite> arrays are explicitely specified.</p>
-<img alt="_images/structured_grid.jpg" src="_images/structured_grid.jpg" />
+<img alt="_images/structured_grid1.jpg" src="_images/structured_grid1.jpg" />
 <p>Creating a <cite>tvtk.StructuredGrid</cite> object from numpy arrays:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">pi</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">empty</span><span class="p">,</span> <span class="n">linspace</span><span class="p">,</span> <span class="n">random</span>
 <span class="kn">from</span> <span class="nn">tvtk.api</span> <span class="kn">import</span> <span class="n">tvtk</span>
@@ -532,7 +532,7 @@ points positioned arbitrarily. The connectivity between data points
 can be arbitrary (any number of neighbors). It is described by
 specifying connectivity, defining volumetric cells made of adjacent
 data points.</p>
-<img alt="_images/unstructured_grid.jpg" src="_images/unstructured_grid.jpg" />
+<img alt="_images/unstructured_grid1.jpg" src="_images/unstructured_grid1.jpg" />
 <p>Creating a <cite>tvtk.UnstructuredGrid</cite> object from numpy arrays:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">array</span><span class="p">,</span> <span class="n">random</span>
 <span class="kn">from</span> <span class="nn">tvtk.api</span> <span class="kn">import</span> <span class="n">tvtk</span>
@@ -583,7 +583,7 @@ has been modified:</p>
 following two presentations best describe how one can create data
 objects or data files for Mayavi and TVTK.</p>
 <blockquote>
-<div><ul>
+<ul>
 <li><p class="first">Presentation on TVTK and Mayavi2 for course at IIT Bombay</p>
 <p><a class="reference external" href="https://svn.enthought.com/enthought/attachment/wiki/MayaVi/tvtk_mayavi2.pdf">https://svn.enthought.com/enthought/attachment/wiki/MayaVi/tvtk_mayavi2.pdf</a></p>
 <p>This presentation provides information on graphics in general, 3D
@@ -596,7 +596,7 @@ from numpy in Python, and also about mayavi.</p>
 arrays.</p>
 </li>
 </ul>
-</div></blockquote>
+</blockquote>
 </div>
 <div class="section" id="datasets-creation-examples">
 <h3>Datasets creation examples<a class="headerlink" href="#datasets-creation-examples" title="Permalink to this headline">¶</a></h3>
@@ -604,7 +604,7 @@ arrays.</p>
 creation of the most important datasets from numpy arrays. Specifically
 they are:</p>
 <blockquote>
-<div><ul class="simple">
+<ul class="simple">
 <li><a class="reference internal" href="auto/example_datasets.html#example-datasets"><em>Datasets example</em></a>: Generate a simple example for each type of
 VTK dataset.</li>
 <li><a class="reference internal" href="auto/example_polydata.html#example-polydata"><em>Polydata example</em></a>:  Demonstrates how to create Polydata datasets
@@ -622,7 +622,7 @@ visualization of a 3D structured grid.</li>
 <li><a class="reference internal" href="auto/example_unstructured_grid.html#example-unstructured-grid"><em>Unstructured grid example</em></a>: Demonstrates the creation and
 visualization of an unstructured grid.</li>
 </ul>
-</div></blockquote>
+</blockquote>
 <p>These scripts may be run like so:</p>
 <div class="highlight-python"><pre>$ mayavi2 -x structured_grid.py</pre>
 </div>
@@ -798,8 +798,8 @@ data sources with mlab</em></a>.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Feb 04, 2012.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+      Last updated on Mar 12, 2012.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1pre/1f40a2bc5294.
     </div>
   </body>
 </html>

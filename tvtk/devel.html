@@ -90,7 +90,7 @@ same directory as this file.</p>
 <cite>tvtk_base.py</cite>.  <cite>TVTKBase</cite> provides basic functionality common to all
 tvtk classes.  Most importantly it provides for the following:</p>
 <blockquote>
-<div><ul class="simple">
+<ul class="simple">
 <li>Allows one to wrap an existing VTK object or create a new one.
 <cite>TVTKBase.__init__</cite> accepts an optional VTK object, that can be
 used to wrap an existing VTK object.  Read the method docstring for
@@ -104,7 +104,7 @@ object.</li>
 <li>Common code to change the underlying VTK object when the trait is
 changed.</li>
 </ul>
-</div></blockquote>
+</blockquote>
 <p>As mentioned above, tvtk classes can either wrap an existing VTK
 object or create a new one and manage the new object.</p>
 <div class="section" id="automatic-trait-updation">
@@ -246,7 +246,7 @@ functionality.  However, importing 800 wrapper classes in one go is
 around the problem.  While <cite>tvtk</cite> is a class instance, it behaves just
 like you&#8217;d expect of a module.</p>
 <blockquote>
-<div><ul class="simple">
+<ul class="simple">
 <li>It supports tab-completion on class names.</li>
 <li>Allows one to access all the tvtk classes.</li>
 <li>Imports extremely fast.  Any slowness in the import is really
@@ -254,7 +254,7 @@ because tvtk needs to import VTK.  Thus importing tvtk should not
 be much slower than importing vtk itself.</li>
 <li>Imports the tvtk classes <em>only</em> on demand.</li>
 </ul>
-</div></blockquote>
+</blockquote>
 <p>All the tvtk related code is generated and saved into the
 <cite>tvtk_classes.zip</cite> file.  The <cite>tvtk</cite> instance is basically an instance
 of the TVTK class.  This is defined in <cite>tvtk_helper.py</cite>.  This file is
@@ -289,7 +289,7 @@ tvtk object.</p>
 main driver module that is responsible for this.  Code generation
 works involves the following steps.</p>
 <blockquote>
-<div><ul class="simple">
+<ul class="simple">
 <li>Listing and sorting all the VTK classes into a class hierarchy.
 This is done by <cite>class_tree.py</cite>.  <cite>ClassTree</cite> basically organizes
 all the VTK classes into a tree structure.  The tree is organized
@@ -320,7 +320,7 @@ current indentation level.</li>
 <li>Generating the tvtk code.  Done mainly by <cite>code_gen.py</cite>.</li>
 <li>Generating a ZIP file of the code, also done by <cite>code_gen.py</cite>.</li>
 </ul>
-</div></blockquote>
+</blockquote>
 <p>The <cite>code_gen</cite> module defines a <cite>TVTKGenerator</cite> class that drives the
 code generation.  The module uses the <cite>wrapper_gen</cite> module to generate
 the wrapper classes.</p>
@@ -420,8 +420,8 @@ inhibits ZIP file generation.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, tvtk.
-      Last updated on Feb 04, 2012.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+      Last updated on Mar 12, 2012.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1pre/1f40a2bc5294.
     </div>
   </body>
 </html>

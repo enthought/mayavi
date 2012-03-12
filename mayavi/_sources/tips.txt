@@ -492,10 +492,14 @@ to the decorator::
     
     a = anim() # Starts the animation without a UI.
 
-Note that if you don't want to import all of ``mlab``, the animate
+If you don't want to import all of ``mlab``, the animate
 decorator is available from::
 
     from mayavi.tools.animator import animate
+
+Note that to start the event loop, *i.e.* to get the animation running,
+you will need to call :func:`show` if you do not already have a GUI
+environment running.
 
 For more details check the documentation of the :func:`animate` decorator
 available in the :ref:`mlab-reference`. For an example using it,

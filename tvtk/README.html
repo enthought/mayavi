@@ -105,7 +105,7 @@ support <a class="reference external" href="http://www.enthought.com/traits">tra
 implemented mostly in pure Python (except for a small extension
 module).  Here is a list of current features.</p>
 <blockquote>
-<div><ul class="simple">
+<ul class="simple">
 <li>All VTK classes are wrapped.</li>
 <li>Classes are generated at install time on the installed platform.</li>
 <li>Support for <a class="reference external" href="http://www.enthought.com/traits">traits</a>.</li>
@@ -117,14 +117,14 @@ module.</li>
 <li>Envisage plugins for a tvtk scene and the pipeline browser.</li>
 <li>tvtk is free software with a BSD style license.</li>
 </ul>
-</div></blockquote>
+</blockquote>
 </div>
 <div class="section" id="requirements">
 <h2><a class="toc-backref" href="#id3">Requirements</a><a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
 <p>The following is a list of requirements for you to be able to run
 tvtk.</p>
 <blockquote>
-<div><ul class="simple">
+<ul class="simple">
 <li>Python-2.3 or greater.</li>
 <li>Python should be built with zlib support and must support ZIP file
 imports.</li>
@@ -134,7 +134,7 @@ imports.</li>
 <li>To use <cite>ivtk.py</cite>, <cite>mlab</cite> you need to have <cite>pyface</cite> installed.</li>
 <li>To use the plugins you need Envisage installed.</li>
 </ul>
-</div></blockquote>
+</blockquote>
 </div>
 <div class="section" id="installation">
 <h2><a class="toc-backref" href="#id4">Installation</a><a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
@@ -209,7 +209,7 @@ package also behaves.</p>
 that tvtk &#8220;feels&#8221; like VTK but is more Pythonic.  The most important
 differences are.</p>
 <blockquote>
-<div><ol class="arabic simple">
+<ol class="arabic simple">
 <li>tvtk class names are essentially similar to VTK classes except
 there is no annoying &#8216;vtk&#8217; at the front.  The only difficulty is
 with classes that start with a digit.  For example
@@ -233,7 +233,7 @@ of the object as keyword arguments at the time of class
 instantiation.  For example <cite>cs = tvtk.ConeSource(radius=0.1,
 height=0.5)</cite>.</li>
 </ol>
-</div></blockquote>
+</blockquote>
 <p>If you are used to VTK, this might take a little getting used to.
 However, these changes are consistent across all of tvtk.  If they
 aren&#8217;t, its a bug.  Please let me know if you see inconsistencies.</p>
@@ -372,8 +372,8 @@ the class.  This is illustrated in the following example:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">ConeSource</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">cs</span><span class="o">.</span><span class="n">foo</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="gt">Traceback (most recent call last):</span>
-  File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">?</span>
-<span class="gr">TraitError</span>: <span class="n">Cannot set the undefined &#39;foo&#39; attribute of a &#39;ConeSource&#39; object.</span>
+  File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n-Identifier">?</span>
+<span class="nc">TraitError</span>: <span class="n-Identifier">Cannot set the undefined &#39;foo&#39; attribute of a &#39;ConeSource&#39; object.</span>
 </pre></div>
 </div>
 </div>
@@ -381,13 +381,13 @@ the class.  This is illustrated in the following example:</p>
 <h3><a class="toc-backref" href="#id10">Sub-classing tvtk classes</a><a class="headerlink" href="#sub-classing-tvtk-classes" title="Permalink to this headline">¶</a></h3>
 <p>You may subclass tvtk classes but please keep in mind the following:</p>
 <blockquote>
-<div><ol class="arabic simple">
+<ol class="arabic simple">
 <li>All tvtk classes derive from <cite>HasStrictTraits</cite>.</li>
 <li>You must make sure to call the super class&#8217;s __init__ correctly.</li>
 <li>If you have to override the __del__ method, you <em>must</em> make sure
 you call the super class&#8217;s __del__ method.</li>
 </ol>
-</div></blockquote>
+</blockquote>
 </div>
 <div class="section" id="pickling-tvtk-objects">
 <h3><a class="toc-backref" href="#id11">Pickling tvtk objects</a><a class="headerlink" href="#pickling-tvtk-objects" title="Permalink to this headline">¶</a></h3>
@@ -529,7 +529,7 @@ data and has some peculiarities.  The <cite>CellArray</cite> needs to be
 initialized using the cell connectivity list.  This can be specified
 in one of several ways.</p>
 <blockquote>
-<div><ol class="arabic simple">
+<ol class="arabic simple">
 <li>A Python list of 1D lists.  Each 1D list can contain one
 cell connectivity list.  This is very slow and is to be
 used only when efficiency is of no consequence.</li>
@@ -538,7 +538,7 @@ used only when efficiency is of no consequence.</li>
 different shape.  This makes it easy to generate a cell array
 having cells of different kinds.</li>
 </ol>
-</div></blockquote>
+</blockquote>
 <p>This conversion is most efficient if the passed numpy arrays have a
 typecode of <cite>tvtk.array_handler.ID_TYPE_CODE</cite>.  Otherwise a
 typecast is necessary and this involves an extra copy.  The input data
@@ -590,7 +590,7 @@ this:</p>
 <p>To clarify the ensuing discussion we make a distinction between two
 different forms of array handling.</p>
 <blockquote>
-<div><ol class="loweralpha">
+<ol class="loweralpha">
 <li><p class="first">Explicit conversion &#8211; These happen when the user is creating a
 tvtk array object and initializes this from a numpy array or
 Python list.  Like so:</p>
@@ -605,7 +605,7 @@ or list to a tvtk method that expects a <cite>DataArray</cite>, <cite>Points</ci
 <cite>IdList</cite> or <cite>CellArray</cite> instance.</p>
 </li>
 </ol>
-</div></blockquote>
+</blockquote>
 <p>There are a few issues to keep in mind when using tvtk&#8217;s array
 handling features.  When possible, tvtk uses a view of the passed
 numpy array and does not make a copy of the data stored in it.  This
@@ -633,7 +633,7 @@ the numpy array.  The <cite>DataArray</cite> class and its subclasses and the
 <cite>Points</cite> class only make copies of the given data in the following
 situations.</p>
 <blockquote>
-<div><ol class="arabic simple">
+<ol class="arabic simple">
 <li>A Python list is given as the data.</li>
 <li>A non-contiguous numpy array is given.</li>
 <li>The method requiring the conversion of the array to a VTK array
@@ -643,7 +643,7 @@ array are not equivalent to each other.  For example if the
 array passed has typecode &#8216;i&#8217; but the tvtk method expects a
 <cite>FloatArray</cite>.</li>
 </ol>
-</div></blockquote>
+</blockquote>
 <p>The cases 3 and 4 occur very rarely in implicit conversions because
 most methods accept <cite>DataArray</cite> instances rather than specific
 subclasses.  However, these cases are likely to occur in explicit
@@ -704,7 +704,7 @@ but probably worth keeping in mind.</p>
 <p>To summarize the considerations of the previous sub-section, the
 following are to be noted.</p>
 <blockquote>
-<div><ol class="arabic simple">
+<ol class="arabic simple">
 <li>Most often <cite>DataArray</cite> and <cite>Points</cite> objects do not make copies of
 the numpy data.  The exceptions are listed above.  This means
 changes to either the tvtk object or the array are reflected in
@@ -725,7 +725,7 @@ rarely used.</li>
 could lead to increased memory usage in some circumstances.
 However, this is <em>not</em> a memory leak.</li>
 </ol>
-</div></blockquote>
+</blockquote>
 <p>The upshot of these features is that array conversion can be extremely
 efficient in terms of speed and memory considerations.</p>
 </div>
@@ -972,8 +972,8 @@ Envisage and make an application.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008, tvtk.
-      Last updated on Feb 04, 2012.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+      Last updated on Mar 12, 2012.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1pre/1f40a2bc5294.
     </div>
   </body>
 </html>
