@@ -125,7 +125,7 @@ object can further contain any number of <tt class="docutils literal"><span clas
 <tt class="docutils literal"><span class="pre">Filter</span></tt> may contain either other <tt class="docutils literal"><span class="pre">filters</span></tt> or <tt class="docutils literal"><span class="pre">ModuleManagers</span></tt>.  A
 <tt class="docutils literal"><span class="pre">ModuleManager</span></tt> manages any number of <tt class="docutils literal"><span class="pre">Modules</span></tt>.  The figure below
 shows this hierarchy in a graphical form.</p>
-<img alt="Illustration of the various objects in the Mayavi pipeline." src="_images/m2_big_picture.png" />
+<img alt="Illustration of the various objects in the Mayavi pipeline." src="_images/m2_big_picture3.png" />
 <p><em>Illustration of the various objects in the Mayavi pipeline.</em></p>
 <p>This hierarchy is precisely what is seen in the Mayavi tree view on
 the UI.  The UI is therefore merely a graphical representation of this
@@ -160,7 +160,7 @@ explicit calls to the engine:</p>
 </div>
 <p>As with all Mayavi code, you need to have the GUI mainloop running to
 have the visualization go live. Typing this code in <cite>ipython -wthread</cite>
-will do this for you.</p>
+(or <cite>ipython &#8211;gui=wx</cite> in the recent versions) will do this for you.</p>
 <p>This explicit, object-oriented, code thus mirrors the <cite>mlab.pipeline</cite>
 code. It is more fine-grained, and gives you more control. For instance
 it separates initialization of the objects, and their addition or removal
@@ -184,7 +184,8 @@ are setup and its <tt class="docutils literal"><span class="pre">start</span></t
 object is removed from the pipeline its <tt class="docutils literal"><span class="pre">stop</span></tt> method is called
 automatically.  Note that if you are looking to remove an object from
 the mayavi pipeline, you can use the <tt class="docutils literal"><span class="pre">remove</span></tt> method to do so.  For
-example (the following will require that you use <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">-wthread</span></tt>):</p>
+example (the following will require that you use <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">-wthread</span></tt> or
+<cite>ipython &#8211;gui=wx</cite>):</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">mayavi.api</span> <span class="kn">import</span> <span class="n">Engine</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">e</span> <span class="o">=</span> <span class="n">Engine</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">e</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
@@ -268,6 +269,9 @@ contains some information on the recommended ways to script.</p>
 be invoked with the <tt class="docutils literal"><span class="pre">-wthread</span></tt> command line option in order to allow
 one to interactively script the mayavi application:</p>
 <div class="highlight-python"><pre>$ ipython -wthread</pre>
+</div>
+<p>In the recent IPython versions, the right switch is:</p>
+<div class="highlight-python"><pre>$ ipython --gui=wx</pre>
 </div>
 <p>To start a visualization do the following:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">mayavi.plugins.app</span> <span class="kn">import</span> <span class="n">main</span>
@@ -364,11 +368,11 @@ ways to script and some additional information.</p>
 <h2>Using the Mayavi envisage plugins<a class="headerlink" href="#using-the-mayavi-envisage-plugins" title="Permalink to this headline">¶</a></h2>
 <p>The Mayavi-related plugin definitions to use are:</p>
 <blockquote>
-<ul class="simple">
+<div><ul class="simple">
 <li><tt class="docutils literal"><span class="pre">mayavi_plugin.py</span></tt></li>
 <li><tt class="docutils literal"><span class="pre">mayavi_ui_plugin.py</span></tt></li>
 </ul>
-</blockquote>
+</div></blockquote>
 <p>These are in the <tt class="docutils literal"><span class="pre">mayavi.plugins</span></tt> package.  To see an
 example of how to use this see the <tt class="docutils literal"><span class="pre">mayavi.plugins.app</span></tt>
 module.  The explorer3D example in <tt class="docutils literal"><span class="pre">examples/mayavi/explorer</span></tt> also
@@ -378,7 +382,7 @@ the Mayavi plugins from your plugins/applications then it is important
 to note that Mayavi creates three workbench service offers for your
 convenience.  These are:</p>
 <blockquote>
-<ul class="simple">
+<div><ul class="simple">
 <li><tt class="docutils literal"><span class="pre">mayavi.plugins.script.Script</span></tt>: This is an
 <tt class="docutils literal"><span class="pre">mayavi.plugins.script.Script</span></tt> instance that may be used
 to easily script mayavi.  It is a simple wrapper object that merely
@@ -388,7 +392,7 @@ engine.</li>
 <li><tt class="docutils literal"><span class="pre">mayavi.core.engine.Engine</span></tt>: This is the running
 Mayavi engine instance.</li>
 </ul>
-</blockquote>
+</div></blockquote>
 <p>A simple example that demonstrates the use of the Mayavi plugin in an
 envisage application is included in the <tt class="docutils literal"><span class="pre">examples/mayavi/explorer</span></tt>
 directory.  This may be studied to understand how you may do the same
@@ -499,8 +503,8 @@ in your envisage applications.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Mar 12, 2012.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1pre/1f40a2bc5294.
+      Last updated on Mar 28, 2012.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>
 </html>

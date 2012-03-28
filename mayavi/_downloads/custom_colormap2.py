@@ -13,6 +13,10 @@ colormap, but we modify add to add a transparency effect.
 
 Notice in the resulting image how the surface becomes more transparent
 for its lower points.
+
+Note that if you want to use a different number of colors, you can
+change the 'number_of_colors' attribute of the lut object and assign a
+new array of the right shape to its 'table' attribute.
 """
 
 # Create some data
@@ -22,7 +26,7 @@ x, y = np.mgrid[-10:10:200j, -10:10:200j]
 z = 100*np.sin(x*y)/(x*y)
 
 # Visualize it with mlab.surf
-from enthought.mayavi import mlab
+from mayavi import mlab
 mlab.figure(bgcolor=(1, 1, 1))
 surf = mlab.surf(z, colormap='cool')
 

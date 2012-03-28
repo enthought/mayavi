@@ -14,13 +14,13 @@ from threading import Thread
 from time import sleep
 
 # Enthought library imports
-from enthought.mayavi.scripts import mayavi2
-from enthought.traits.api import HasTraits, Button, Instance
-from enthought.traits.ui.api import View, Item
-from enthought.mayavi.sources.array_source import ArraySource
-from enthought.mayavi.modules.outline import Outline
-from enthought.mayavi.modules.image_plane_widget import ImagePlaneWidget
-from enthought.pyface.api import GUI
+from mayavi.scripts import mayavi2
+from traits.api import HasTraits, Button, Instance
+from traitsui.api import View, Item
+from mayavi.sources.array_source import ArraySource
+from mayavi.modules.outline import Outline
+from mayavi.modules.image_plane_widget import ImagePlaneWidget
+from pyface.api import GUI
 
 
 def make_data(dims=(128, 128, 128)):

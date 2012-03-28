@@ -10,12 +10,12 @@ streamlines and an iso surface.
 from os.path import join, abspath, dirname
 
 # Enthought library imports
-from enthought.mayavi.scripts import mayavi2
-from enthought.mayavi.sources.vtk_xml_file_reader import VTKXMLFileReader
-from enthought.mayavi.sources.vrml_importer import VRMLImporter
-from enthought.mayavi.modules.outline import Outline
-from enthought.mayavi.modules.streamline import Streamline
-from enthought.mayavi.modules.iso_surface import IsoSurface
+from mayavi.scripts import mayavi2
+from mayavi.sources.vtk_xml_file_reader import VTKXMLFileReader
+from mayavi.sources.vrml_importer import VRMLImporter
+from mayavi.modules.outline import Outline
+from mayavi.modules.streamline import Streamline
+from mayavi.modules.iso_surface import IsoSurface
 
 def setup_data(fname):
     """Given a VTK XML file name `fname`, this creates a mayavi2

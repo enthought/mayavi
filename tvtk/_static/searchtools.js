@@ -4,7 +4,7 @@
  *
  * Sphinx JavaScript utilties for the full-text search.
  *
- * :copyright: Copyright 2007-2010 by the Sphinx team, see AUTHORS.
+ * :copyright: Copyright 2007-2011 by the Sphinx team, see AUTHORS.
  * :license: BSD, see LICENSE for details.
  *
  */
@@ -489,7 +489,7 @@ var Search = {
             listItem.slideDown(5, function() {
               displayNextItem();
             });
-          });
+          }, "text");
         } else {
           // no source available, just display title
           Search.output.append(listItem);

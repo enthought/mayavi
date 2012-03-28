@@ -27,12 +27,12 @@ This example is discussed in details in the section
 
 from numpy import arange, pi, cos, sin
 
-from enthought.traits.api import HasTraits, Range, Instance, \
+from traits.api import HasTraits, Range, Instance, \
         on_trait_change
-from enthought.traits.ui.api import View, Item, Group
+from traitsui.api import View, Item, Group
 
-from enthought.mayavi.core.api import PipelineBase
-from enthought.mayavi.core.ui.api import MayaviScene, SceneEditor, \
+from mayavi.core.api import PipelineBase
+from mayavi.core.ui.api import MayaviScene, SceneEditor, \
                 MlabSceneModel
 
 

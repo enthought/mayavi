@@ -121,8 +121,8 @@ import pylab as pl
 
 
 import numpy as np
-from enthought.mayavi import mlab
-from enthought.mayavi.core.ui.mayavi_scene import MayaviScene
+from mayavi import mlab
+from mayavi.core.ui.mayavi_scene import MayaviScene
 
 def get_world_to_view_matrix(mlab_scene):
     """returns the 4x4 matrix that is a concatenation of the modelview transform and

@@ -12,12 +12,12 @@ with the Glyph module.
 from os.path import join, abspath, dirname
 
 # Enthought library imports
-from enthought.mayavi.scripts import mayavi2
-from enthought.mayavi.sources.vtk_xml_file_reader import VTKXMLFileReader
-from enthought.mayavi.modules.outline import Outline
-from enthought.mayavi.modules.glyph import Glyph
-from enthought.mayavi.modules.vector_cut_plane import VectorCutPlane
-from enthought.mayavi.filters.mask_points import MaskPoints
+from mayavi.scripts import mayavi2
+from mayavi.sources.vtk_xml_file_reader import VTKXMLFileReader
+from mayavi.modules.outline import Outline
+from mayavi.modules.glyph import Glyph
+from mayavi.modules.vector_cut_plane import VectorCutPlane
+from mayavi.filters.mask_points import MaskPoints
 
 @mayavi2.standalone
 def glyph():

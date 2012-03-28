@@ -96,63 +96,6 @@ automatically added if necessary.</p>
 the object added to the pipeline.</p>
 <p>For instance, the <cite>ScalarCutPlane</cite> module can be added with the following
 function:</p>
-<dl class="function">
-<dt id="mayavi.tools.modules.scalar_cut_plane">
-<tt class="descclassname">mayavi.tools.modules.</tt><tt class="descname">scalar_cut_plane</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.tools.modules.scalar_cut_plane" title="Permalink to this definition">¶</a></dt>
-<dd><p>Applies the ScalarCutPlane mayavi module to the given data
-source (Mayavi source, or VTK dataset).</p>
-<p><strong>Keyword arguments:</strong></p>
-<blockquote>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field"><th class="field-name">color:</th><td class="field-body">the color of the vtk object. Overides the colormap,
-if any, when specified. This is specified as a
-triplet of float ranging from 0 to 1, eg (1, 1,
-1) for white.</td>
-</tr>
-<tr class="field"><th class="field-name">colormap:</th><td class="field-body">type of colormap to use.</td>
-</tr>
-<tr class="field"><th class="field-name">extent:</th><td class="field-body">[xmin, xmax, ymin, ymax, zmin, zmax]
-Default is the x, y, z arrays extent. Use
-this to change the extent of the object
-created.</td>
-</tr>
-<tr class="field"><th class="field-name">figure:</th><td class="field-body">Must be a Scene or None.</td>
-</tr>
-<tr class="field"><th class="field-name">line_width:</th><td class="field-body">The width of the lines, if any used. Must be a float.
-Default: 2.0</td>
-</tr>
-<tr class="field"><th class="field-name">name:</th><td class="field-body">the name of the vtk object created.</td>
-</tr>
-<tr class="field"><th class="field-name">opacity:</th><td class="field-body">The overall opacity of the vtk object. Must be a float.
-Default: 1.0</td>
-</tr>
-<tr class="field"><th class="field-name" colspan="2">plane_orientation:</th></tr>
-<tr><td>&nbsp;</td><td class="field-body">the orientation of the plane Must be a legal
-value. Default: x_axes</td>
-</tr>
-<tr class="field"><th class="field-name">reset_zoom:</th><td class="field-body">Reset the zoom to accomodate the data newly
-added to the scene. Defaults to True.</td>
-</tr>
-<tr class="field"><th class="field-name">transparent:</th><td class="field-body">make the opacity of the actor depend on the
-scalar.</td>
-</tr>
-<tr class="field"><th class="field-name">view_controls:</th><td class="field-body">Whether or not the controls of the cut plane are
-shown. Must be a boolean. Default: True</td>
-</tr>
-<tr class="field"><th class="field-name">vmax:</th><td class="field-body">vmax is used to scale the colormap.
-If None, the max of the data will be used</td>
-</tr>
-<tr class="field"><th class="field-name">vmin:</th><td class="field-body">vmin is used to scale the colormap.
-If None, the min of the data will be used</td>
-</tr>
-</tbody>
-</table>
-</blockquote>
-</dd></dl>
-
 <p>As the list is long, we shall not enumerate here all the factory function
 for adding modules or filters. You are invited to refer to their
 docstring for information on the keyword arguments they accept.</p>
@@ -243,8 +186,8 @@ docstring for information on the keyword arguments they accept.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Mar 12, 2012.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1pre/1f40a2bc5294.
+      Last updated on Mar 28, 2012.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>
 </html>

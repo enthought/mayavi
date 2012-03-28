@@ -26,7 +26,7 @@ z = sin(phi)*sin(theta)
 
 ################################################################################
 # Plot the data
-from enthought.mayavi import mlab
+from mayavi import mlab
 
 # A first plot in 3D
 fig = mlab.figure(1)

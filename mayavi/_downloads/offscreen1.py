@@ -20,12 +20,12 @@ It can be run as::
 from os.path import join, abspath, dirname
 
 # The offscreen Engine.
-from enthought.mayavi.api import OffScreenEngine
+from mayavi.api import OffScreenEngine
 
 # Usual MayaVi imports
-from enthought.mayavi.scripts.util import get_data_dir
-from enthought.mayavi.sources.api import VTKXMLFileReader
-from enthought.mayavi.modules.api import Outline, ScalarCutPlane, Streamline
+from mayavi.scripts.util import get_data_dir
+from mayavi.sources.api import VTKXMLFileReader
+from mayavi.modules.api import Outline, ScalarCutPlane, Streamline
 
 
 def main():

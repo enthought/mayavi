@@ -17,8 +17,8 @@ It can be alternatively run as::
 # License: BSD style.
 
 from numpy import array
-from enthought.tvtk.api import tvtk
-from enthought.mayavi.scripts import mayavi2
+from tvtk.api import tvtk
+from mayavi.scripts import mayavi2
 
 # The numpy array data.
 points = array([[0,0,0], [1,0,0], [0,1,0], [0,0,1]], 'f')
@@ -37,8 +37,8 @@ mesh.point_data.scalars.name = 'Temperature'
 # Now view the data.
 @mayavi2.standalone
 def view():
-    from enthought.mayavi.sources.vtk_data_source import VTKDataSource
-    from enthought.mayavi.modules.surface import Surface
+    from mayavi.sources.vtk_data_source import VTKDataSource
+    from mayavi.modules.surface import Surface
 
     mayavi.new_scene()
     src = VTKDataSource(data = mesh)

@@ -18,7 +18,7 @@ scripts using IPython_'s ``%run`` command::
 
     In [1]: %run my_script
 
-You need to start IPython_ with the `-wthread` option (when installed
+You need to start IPython_ with the `-wthread` option, that became `--gui=wx` in the recent IPython versions (when installed
 with `EPD`_, the `pylab` start-menu link does this for you). In this
 environment, the plotting commands are interactive: they have an
 immediate effect on the figure, alleviating the need to use the
@@ -37,7 +37,11 @@ Using together with Matplotlib's pylab
 If you want to use Matplotlib's pylab with Mayavi's mlab in IPython you
 should:
 
-    * if your IPython version is greater than 0.8.4: start IPython with
+    * if your IPython version is greater than 0.11: start IPython with::
+
+        $ ipython --gui=wx --pylab=wx
+
+    * else, if your IPython version is greater than 0.8.4: start IPython with
       the following options::
 
         $ ipython -pylab -wthread

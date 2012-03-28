@@ -10,7 +10,7 @@ illustrates how to
  2. use a created dataset in Mayavi and visualize it.
 
 This example achieve the same functionnality as mlab's points3d
-function ( :func:`enthought.mayavi.mlab.points3d`), but explicitely
+function ( :func:`mayavi.mlab.points3d`), but explicitely
 creating the objects and adding them to the pipeline engine via the Mayavi
 core API. Compared to using mlab, this method has the advantage of giving
 more control on which objects are created, and there life cycle.
@@ -29,8 +29,8 @@ Alternatively it can be run as::
 # License: BSD Style.
 
 import numpy as np
-from enthought.tvtk.api import tvtk
-from enthought.mayavi.scripts import mayavi2
+from tvtk.api import tvtk
+from mayavi.scripts import mayavi2
 
 
 @mayavi2.standalone
@@ -45,9 +45,9 @@ def main():
     pd.point_data.scalars.name = 'scalars'
 
     # Now visualize it using mayavi2.
-    from enthought.mayavi.sources.vtk_data_source import VTKDataSource
-    from enthought.mayavi.modules.outline import Outline
-    from enthought.mayavi.modules.surface import Surface
+    from mayavi.sources.vtk_data_source import VTKDataSource
+    from mayavi.modules.outline import Outline
+    from mayavi.modules.surface import Surface
 
     mayavi.new_scene()
     d = VTKDataSource()

@@ -34,8 +34,8 @@ We are going to use the `mlab` module (see
 :ref:`simple-scripting-with-mlab`) to interactively visualize this
 volumetric data. For this it is best to type the commands in an
 interactive Python shell, either using the built-in shell of the Mayavi2
-application, on in `ipython -wthread`. Let us visualize the 3D
-isosurfaces of the potential::
+application, on in `ipython -wthread` (`ipython --gui=wx` in recent
+IPython versions). Let us visualize the 3D isosurfaces of the potential::
 
     from mayavi import mlab
     mlab.contour3d(X, Y, Z, V)

@@ -3,7 +3,7 @@ An example showing the Julia set displayed as a z-warped surface.
 
 The Julia set is a fractal (see http://en.wikipedia.org/wiki/Julia_set
 ). We display it here in a canyon-like view using mlab's surf function:
-:func:`enthought.mayavi.mlab.surf`.
+:func:`mayavi.mlab.surf`.
 """
 
 # Author: Gael Varoquaux <gael.varoquaux@normalesup.org>
@@ -11,7 +11,7 @@ The Julia set is a fractal (see http://en.wikipedia.org/wiki/Julia_set
 # License: BSD Style.
 
 
-from enthought.mayavi import mlab
+from mayavi import mlab
 import numpy as np
 
 # Calculate the Julia set on a grid

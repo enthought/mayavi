@@ -100,7 +100,7 @@ explicit calls to the engine::
 
 As with all Mayavi code, you need to have the GUI mainloop running to
 have the visualization go live. Typing this code in `ipython -wthread`
-will do this for you.
+(or `ipython --gui=wx` in the recent versions) will do this for you.
 
 This explicit, object-oriented, code thus mirrors the `mlab.pipeline`
 code. It is more fine-grained, and gives you more control. For instance
@@ -126,7 +126,8 @@ are setup and its ``start`` method is called automatically.  When the
 object is removed from the pipeline its ``stop`` method is called
 automatically.  Note that if you are looking to remove an object from
 the mayavi pipeline, you can use the ``remove`` method to do so.  For
-example (the following will require that you use ``ipython -wthread``)::
+example (the following will require that you use ``ipython -wthread`` or 
+`ipython --gui=wx`)::
 
   >>> from mayavi.api import Engine
   >>> e = Engine()
@@ -225,6 +226,10 @@ be invoked with the ``-wthread`` command line option in order to allow
 one to interactively script the mayavi application::
 
  $ ipython -wthread
+
+In the recent IPython versions, the right switch is::
+
+ $ ipython --gui=wx
 
 To start a visualization do the following::
 

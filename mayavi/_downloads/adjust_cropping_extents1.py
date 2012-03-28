@@ -31,9 +31,9 @@ x, y, z, s = np.random.random((4, 500))
 
 ################################################################################
 # A dialog to edit a range interactively and propagate it to the filter
-from enthought.traits.api import HasTraits, Range, Float, Instance, \
+from traits.api import HasTraits, Range, Float, Instance, \
     on_trait_change
-from enthought.traits.ui.api import View
+from traitsui.api import View
 
 class ExtentDialog(HasTraits):
     """ A dialog to graphical adjust the extents of a filter.
@@ -73,7 +73,7 @@ class ExtentDialog(HasTraits):
 
 ################################################################################
 # Now build the visualization using mlab
-from enthought.mayavi import mlab
+from mayavi import mlab
 fig = mlab.figure(1, bgcolor=(1, 1, 1))
 
 # Create unconnected points

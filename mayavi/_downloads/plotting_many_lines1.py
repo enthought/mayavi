@@ -30,7 +30,7 @@ N = 300
 # The scalar parameter for each line
 t = np.linspace(-2*np.pi, 2*np.pi, N)
 
-from enthought.mayavi import mlab
+from mayavi import mlab
 mlab.figure(1, size=(400, 400), bgcolor=(0, 0, 0))
 mlab.clf()
 

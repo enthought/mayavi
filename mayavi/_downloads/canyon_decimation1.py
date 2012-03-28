@@ -36,7 +36,7 @@ if not os.path.exists('N36W113.hgt.zip'):
     'http://staging.enthought.com/projects/mayavi/N36W113.hgt.zip'
     #'ftp://e0srp01u.ecs.nasa.gov/srtm/version2/SRTM1/Region_04/N36W113.hgt.zip'
         )
-    open('N36W113.hgt.zip', 'w').write(opener.read())
+    open('N36W113.hgt.zip', 'wb').write(opener.read())
 
 # Load the data (signed 2 byte integers, big endian) ###########################
 import zipfile
@@ -49,7 +49,7 @@ data = data[200:400, 1200:1400]
 data = data.astype(np.float32)
 
 # Plot an interecting section ##################################################
-from enthought.mayavi import mlab
+from mayavi import mlab
 mlab.figure(1, size=(450, 390))
 mlab.clf()
 data = mlab.pipeline.array2d_source(data)

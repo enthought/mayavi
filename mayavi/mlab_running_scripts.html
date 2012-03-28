@@ -84,7 +84,7 @@ or more figures and allow the user to interact with them.</p>
 scripts using <a href="#id4"><span class="problematic" id="id5">IPython_</span></a>&#8216;s <tt class="docutils literal"><span class="pre">%run</span></tt> command:</p>
 <div class="highlight-python"><pre>In [1]: %run my_script</pre>
 </div>
-<p>You need to start <a href="#id6"><span class="problematic" id="id7">IPython_</span></a> with the <cite>-wthread</cite> option (when installed
+<p>You need to start <a href="#id6"><span class="problematic" id="id7">IPython_</span></a> with the <cite>-wthread</cite> option, that became <cite>&#8211;gui=wx</cite> in the recent IPython versions (when installed
 with <a class="reference external" href="http://www.enthought.com/products/epd.php">EPD</a>, the <cite>pylab</cite> start-menu link does this for you). In this
 environment, the plotting commands are interactive: they have an
 immediate effect on the figure, alleviating the need to use the
@@ -99,8 +99,12 @@ Python Editor).</p>
 <p>If you want to use Matplotlib&#8217;s pylab with Mayavi&#8217;s mlab in IPython you
 should:</p>
 <blockquote>
-<ul>
-<li><p class="first">if your IPython version is greater than 0.8.4: start IPython with
+<div><ul>
+<li><p class="first">if your IPython version is greater than 0.11: start IPython with:</p>
+<div class="highlight-python"><pre>$ ipython --gui=wx --pylab=wx</pre>
+</div>
+</li>
+<li><p class="first">else, if your IPython version is greater than 0.8.4: start IPython with
 the following options:</p>
 <div class="highlight-python"><pre>$ ipython -pylab -wthread</pre>
 </div>
@@ -117,7 +121,7 @@ commands:</p>
 </div>
 </li>
 </ul>
-</blockquote>
+</div></blockquote>
 <p>If you want matplotlib and mlab to work together by default in IPython,
 you can change you default matplotlib backend, by editing the
 <cite>~/.matplotlib/matplotlibrc</cite> to add the following line:</p>
@@ -239,8 +243,8 @@ will start one and the image function will not return until it is closed.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Mar 12, 2012.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1pre/1f40a2bc5294.
+      Last updated on Mar 28, 2012.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
     </div>
   </body>
 </html>

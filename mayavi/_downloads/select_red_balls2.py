@@ -24,7 +24,7 @@ the corresponding ball.
 # License: BSD style.
 
 import numpy as np
-from enthought.mayavi import mlab
+from mayavi import mlab
 
 ################################################################################
 # Disable the rendering, to get bring up the figure quicker:

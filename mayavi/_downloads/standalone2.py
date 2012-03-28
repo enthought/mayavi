@@ -9,14 +9,14 @@ using Envisage or the Mayavi Envisage application.
 
 from os.path import join, abspath
 
-from enthought.pyface.api import GUI
+from pyface.api import GUI
 # The core Engine.
-from enthought.mayavi.core.api import Engine
-from enthought.mayavi.core.ui.engine_view import EngineView
+from mayavi.core.api import Engine
+from mayavi.core.ui.engine_view import EngineView
 # Usual MayaVi imports
-from enthought.mayavi.scripts.util import get_data_dir
-from enthought.mayavi.sources.api import VTKXMLFileReader
-from enthought.mayavi.modules.api import Outline, ScalarCutPlane, Streamline
+from mayavi.scripts.util import get_data_dir
+from mayavi.sources.api import VTKXMLFileReader
+from mayavi.modules.api import Outline, ScalarCutPlane, Streamline
 
 
 def main():
