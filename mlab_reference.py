@@ -136,7 +136,8 @@ def document_function(func, func_name=None, example_code=None,
 
     if example_code is not None:
         documentation += """
-**Example** (run in ``ipython -wthread`` or in the mayavi2 interactive shell,
+**Example** (run in ``ipython -wthread``, ``ipython --gui=wx`` for recent
+IPython versions, or in the mayavi2 interactive shell,
 see :ref:`running-mlab-scripts` for more info)::
 
 %s

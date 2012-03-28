@@ -31,6 +31,10 @@ It is can be used interactively with IPython_.
 
          $ ipython -wthread
 
+    Or, for IPython recent version (0.11 and above):
+
+         $ ipython --gui=wx
+
     If you are using the `Enthought Python Distribution
     <http://www.enthought.com/products/epd.php>`_, or the latest 
     `Python(x,y) <http://www.pythonxy.com>`_ distribution, the Pylab menu
