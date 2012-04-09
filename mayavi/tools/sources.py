@@ -672,6 +672,9 @@ class MGridSource(MlabSource):
     # The scalars shown on the glyphs.
     scalars = ArrayOrNone
 
+    # The masking array.
+    mask = ArrayOrNone
+
     ######################################################################
     # `MlabSource` interface.
     ######################################################################
@@ -684,7 +687,14 @@ class MGridSource(MlabSource):
 
         points = self.points
         scalars = self.scalars
-        x, y, z = self.x, self.y, self.z
+        x, y, z, mask = self.x, self.y, self.z, self.mask
+        
+        if mask is not None and len(mask) > 0:
+            scalars[mask.astype('bool')] = np.nan
+            # The NaN trick only works with floats.
+            scalars = scalars.astype('float')
+            self.set(scalars=scalars, trait_change_notify=False)
+
 
         assert len(x.shape) == 2, "Array x must be 2 dimensional."
         assert len(y.shape) == 2, "Array y must be 2 dimensional."
@@ -747,6 +757,13 @@ class MGridSource(MlabSource):
         self.update()
 
     def _scalars_changed(self, s):
+        mask = self.mask
+        if mask is not None and len(mask) > 0:
+            s[mask.astype('bool')] = np.nan
+            # The NaN tric only works with floats.
+            s = s.astype('float')
+            self.set(scalars=s, trait_change_notify=False)
+
         self.dataset.point_data.scalars = s.ravel()
         self.dataset.point_data.scalars.name = 'scalars'
         self.update()
@@ -1251,14 +1268,18 @@ def grid_source(x, y, z, **kwargs):
                  or filters applied to the source: the source can only
                  be used for testing, or numerical algorithms, not
                  visualization.
+                 
+        :mask: Mask points specified in a boolean masking array.
+
         """
     scalars = kwargs.pop('scalars', None)
     if scalars is None:
         scalars = z
+    mask = kwargs.pop('mask', None)
 
     x, y, z, scalars = convert_to_arrays((x, y, z, scalars))
     data_source = MGridSource()
-    data_source.reset(x=x, y=y, z=z, scalars=scalars)
+    data_source.reset(x=x, y=y, z=z, scalars=scalars, mask=mask)
 
     name = kwargs.pop('name', 'GridSource')
     ds = tools.add_dataset(data_source.dataset, name, **kwargs)
