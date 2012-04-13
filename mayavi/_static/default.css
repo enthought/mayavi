@@ -113,7 +113,7 @@ div.sphinxsidebar input {
     font-size: 1em;
 }
 
-
+div.sphinxsidebar input[type="text"] {width: 78%}
 
 /* -- hyperlink styles ------------------------------------------------------ */
 
