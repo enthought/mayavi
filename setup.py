@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# Copyright (c) 2008-2011 by Enthought, Inc.
+# Copyright (c) 2008-2012 by Enthought, Inc.
 # All rights reserved.
 
 """
