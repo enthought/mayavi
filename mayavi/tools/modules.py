@@ -173,6 +173,7 @@ class ContourModuleFactory(DataModuleFactory):
             contour_list = False
 
         if contour_list:
+            self._target.contour.auto_contours = False
             self._target.contour.contours = self.contours
         else:
             assert type(self.contours) == int, \
