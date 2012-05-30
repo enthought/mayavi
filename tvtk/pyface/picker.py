@@ -375,7 +375,10 @@ class Picker(HasTraits):
         self.worldpicker.pick((float(x), float(y), 0.0), self.renwin.renderer)
 
         # Use the cell picker to get the data that needs to be probed.
-        self.cellpicker.pick( (float(x), float(y), 0.0), self.renwin.renderer)
+        try:
+            self.cellpicker.pick( (float(x), float(y), 0.0), self.renwin.renderer)
+        except TypeError:
+            self.cellpicker.pick( float(x), float(y), 0.0, self.renwin.renderer)
 
         wp = self.worldpicker
         cp = self.cellpicker
