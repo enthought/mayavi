@@ -258,7 +258,11 @@ will run.
 .. _Enthought Install: https://svn.enthought.com/enthought/wiki/Install
 .. _ETS: http://code.enthought.com/ets
 
-.. _installing_svn:
+Downloading tarballs
+.....................
+
+Relase tarballs for Mayavi can be found on the PyPI page, under 'download
+URL': http://pypi.python.org/pypi/mayavi/4.2.0
 
 Under Mac OSX Snow Leopard
 -------------------------------
@@ -305,6 +309,7 @@ providing the instructions):
 
 #. After that, install Mayavi in the usual way.
 
+.. _installing_git:
 
 The bleeding edge: Git
 ----------------------

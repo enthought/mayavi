@@ -88,7 +88,7 @@ Development quick start
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 To help improve Mayavi, you first need to install the development version
-(see :ref:`installing_svn`). You can then modify your local installation
+(see :ref:`installing_git`). You can then modify your local installation
 of Mayavi to add the functionality you are interested in (make sure the
 tests still run after your modifications). To keep track of your changes,
 you need to use subversion, if you have never used it, see
