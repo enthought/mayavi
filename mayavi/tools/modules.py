@@ -162,9 +162,8 @@ class ContourModuleFactory(DataModuleFactory):
     """ Base class for all the module factories with contours """
 
     contours = Any(5, help="""Integer/list specifying number/list of
-                    contours. Specifying 0 shows no contours.
-                    Specifying a list of values will only give the
-                    requested contours asked for.""")
+                    contours. Specifying a list of values will only
+                    give the requested contours asked for.""")
 
     def _contours_changed(self):
         contour_list = True
@@ -174,6 +173,7 @@ class ContourModuleFactory(DataModuleFactory):
             contour_list = False
 
         if contour_list:
+            self._target.contour.auto_contours = False
             self._target.contour.contours = self.contours
         else:
             assert type(self.contours) == int, \
