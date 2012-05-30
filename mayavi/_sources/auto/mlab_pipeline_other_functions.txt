@@ -1709,7 +1709,7 @@ volume
         # Changing the ctf:
         from tvtk.util.ctf import ColorTransferFunction
         ctf = ColorTransferFunction()
-        ctf.add_rgb_point(value, r, g, b)
+        ctf.add_rgb_point(value, r, g, b) # r, g, and b are float between 0 and 1
         ctf.add_hsv_point(value, h, s, v)
         # ...
         vol._volume_property.set_color(ctf)
@@ -1723,6 +1723,9 @@ volume
         vol._otf = otf
         vol._volume_property.set_scalar_opacity(otf)
     
+    Also, it might be useful to change the range of the ctf::
+    
+        ctf.range = [0, 1]
     
     **Keyword arguments:**
     
