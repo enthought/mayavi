@@ -81,7 +81,7 @@ from setuptools.command import develop, install_scripts
 info = {}
 execfile(join('mayavi', '__init__.py'), info)
 
-DEFAULT_HTML_TARGET_DIR = join('build', 'docs', 'html')
+DEFAULT_HTML_TARGET_DIR = join('docs', 'build')
 DEFAULT_INPUT_DIR = join('docs', 'source',)
 
 class GenDocs(Command):
@@ -270,7 +270,7 @@ def list_docs_data_files(project):
 
         returns a list of (install_dir, [data_files, ]) tuples.
     """
-    project_target_dir = join(DEFAULT_HTML_TARGET_DIR, project)
+    project_target_dir = join(DEFAULT_HTML_TARGET_DIR, project, 'html')
     return_list = []
     for root, dirs, files in os.walk(project_target_dir, topdown=True):
         # Modify inplace the list of directories to walk
