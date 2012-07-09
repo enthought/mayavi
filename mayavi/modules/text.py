@@ -5,7 +5,7 @@
 # Copyright (c) 2005, Enthought, Inc.
 # License: BSD Style.
 
-from distutils.Version import StrictVersion
+from distutils.version import StrictVersion
 
 # Enthought library imports.
 from traits.api import Instance, Range, Str, Bool, Property, \

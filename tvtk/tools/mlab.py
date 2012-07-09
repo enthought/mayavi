@@ -92,7 +92,7 @@ functions::
 # Copyright (c) 2005-2007, Enthought, Inc.
 # License: BSD Style.
 
-from distutils.Version import StrictVersion
+from distutils.version import StrictVersion
 
 import numpy
 
