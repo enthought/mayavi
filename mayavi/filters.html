@@ -3,13 +3,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Filters &mdash; mayavi v4.2.1 documentation</title>
+    <title>Filters &mdash; mayavi 4.2.1 documentation</title>
+    
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
@@ -22,7 +25,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="mayavi v4.2.1 documentation" href="index.html" />
+    <link rel="top" title="mayavi 4.2.1 documentation" href="index.html" />
     <link rel="up" title="Using the Mayavi application" href="application.html" />
     <link rel="next" title="mlab: Python scripting for 3D plotting" href="mlab.html" />
     <link rel="prev" title="Modules" href="modules.html" />
@@ -70,7 +73,7 @@
         <li class="right" >
           <a href="modules.html" title="Modules"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">mayavi v4.2.1 documentation</a> &raquo;</li>
+        <li><a href="index.html">mayavi 4.2.1 documentation</a> &raquo;</li>
           <li><a href="application.html" accesskey="U">Using the Mayavi application</a> &raquo;</li> 
       </ul>
     </div>  
@@ -86,142 +89,142 @@
 intermediate between the data sources and the modules.</p>
 <p>Here is a list of the Mayavi Filters.</p>
 <blockquote>
-<table class="docutils field-list" frame="void" rules="none">
+<div><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name" colspan="2">CellDerivatives:</th></tr>
-<tr><td>&nbsp;</td><td class="field-body">Computes derivatives from input point scalar and vector data
+<tr class="field-odd field"><th class="field-name" colspan="2">CellDerivatives:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">Computes derivatives from input point scalar and vector data
 and produces cell data on the gradients.  Can be used to
 approximately calculate the vorticity for example.</td>
 </tr>
-<tr class="field"><th class="field-name" colspan="2">CellToPointData:</th></tr>
-<tr><td>&nbsp;</td><td class="field-body">Transforms cell attribute data to point data by
+<tr class="field-even field"><th class="field-name" colspan="2">CellToPointData:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">Transforms cell attribute data to point data by
 averaging the cell data from the cells at the point.</td>
 </tr>
-<tr class="field"><th class="field-name">Contour:</th><td class="field-body">A contour filter that wraps around the Contour component to
+<tr class="field-odd field"><th class="field-name">Contour:</th><td class="field-body">A contour filter that wraps around the Contour component to
 generate iso-surfaces on any input dataset.</td>
 </tr>
-<tr class="field"><th class="field-name">CutPlane:</th><td class="field-body">This filter represents a cut plane that can be used to slice
+<tr class="field-even field"><th class="field-name">CutPlane:</th><td class="field-body">This filter represents a cut plane that can be used to slice
 through any dataset.  It also provides a 3D widget interface
 to position and move the slice interactively.</td>
 </tr>
-<tr class="field"><th class="field-name">DataSetClipper:</th><td class="field-body">This filter clips the dataset in an area.  The area can be
+<tr class="field-odd field"><th class="field-name">DataSetClipper:</th><td class="field-body">This filter clips the dataset in an area.  The area can be
 defined interactively as a box, a sphere...</td>
 </tr>
-<tr class="field"><th class="field-name">DecimatePro:</th><td class="field-body">Reduces the number of triangles in a triangular mesh by
+<tr class="field-even field"><th class="field-name">DecimatePro:</th><td class="field-body">Reduces the number of triangles in a triangular mesh by
 approximating the original mesh.</td>
 </tr>
-<tr class="field"><th class="field-name">Delaunay2D:</th><td class="field-body">Performs a 2D Delaunay triangulation.</td>
+<tr class="field-odd field"><th class="field-name">Delaunay2D:</th><td class="field-body">Performs a 2D Delaunay triangulation.</td>
 </tr>
-<tr class="field"><th class="field-name">Delaunay3D:</th><td class="field-body">Performs a 3D Delaunay triangulation.</td>
+<tr class="field-even field"><th class="field-name">Delaunay3D:</th><td class="field-body">Performs a 3D Delaunay triangulation.</td>
 </tr>
-<tr class="field"><th class="field-name" colspan="2">ElevationFilter:</th></tr>
-<tr><td>&nbsp;</td><td class="field-body">Creates scalar data corresponding to the elevation of the
+<tr class="field-odd field"><th class="field-name" colspan="2">ElevationFilter:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">Creates scalar data corresponding to the elevation of the
 points along a line.</td>
 </tr>
-<tr class="field"><th class="field-name">ExtractEdges:</th><td class="field-body">This filter extracts cell edges from any input data.</td>
+<tr class="field-even field"><th class="field-name">ExtractEdges:</th><td class="field-body">This filter extracts cell edges from any input data.</td>
 </tr>
-<tr class="field"><th class="field-name">ExtractGrid:</th><td class="field-body">Allows a user to select a part of a structured grid.</td>
+<tr class="field-odd field"><th class="field-name">ExtractGrid:</th><td class="field-body">Allows a user to select a part of a structured grid.</td>
 </tr>
-<tr class="field"><th class="field-name" colspan="2">ExtractTensorComponents:</th></tr>
-<tr><td>&nbsp;</td><td class="field-body">Wraps the TVTK <tt class="docutils literal"><span class="pre">ExtractTensorComponents</span></tt> filter to extract
+<tr class="field-even field"><th class="field-name" colspan="2">ExtractTensorComponents:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">Wraps the TVTK <tt class="docutils literal"><span class="pre">ExtractTensorComponents</span></tt> filter to extract
 components from a tensor field.</td>
 </tr>
-<tr class="field"><th class="field-name" colspan="2">ExtractUnstructuredGrid:</th></tr>
-<tr><td>&nbsp;</td><td class="field-body">Allows a user to select a part of an unstructured grid.</td>
+<tr class="field-odd field"><th class="field-name" colspan="2">ExtractUnstructuredGrid:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">Allows a user to select a part of an unstructured grid.</td>
 </tr>
-<tr class="field"><th class="field-name" colspan="2">ExtractVectorNorm:</th></tr>
-<tr><td>&nbsp;</td><td class="field-body">Computes the norm (Euclidean) of the input vector data
+<tr class="field-even field"><th class="field-name" colspan="2">ExtractVectorNorm:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">Computes the norm (Euclidean) of the input vector data
 (with optional scaling between [0, 1]). This is useful
 when the input data has vector input but no scalar data
 for the magnitude of the vectors.</td>
 </tr>
-<tr class="field"><th class="field-name" colspan="2">ExtractVectorComponents:</th></tr>
-<tr><td>&nbsp;</td><td class="field-body">Wraps the TVTK ExtractVectorComponents filter to extract
+<tr class="field-odd field"><th class="field-name" colspan="2">ExtractVectorComponents:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">Wraps the TVTK ExtractVectorComponents filter to extract
 components of a vector. This is useful for analyzing
 individual components of a vector data.</td>
 </tr>
-<tr class="field"><th class="field-name" colspan="2">GaussianSplatter:</th></tr>
-<tr><td>&nbsp;</td><td class="field-body">This filter splat points into a volume with an elliptical,
+<tr class="field-even field"><th class="field-name" colspan="2">GaussianSplatter:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">This filter splat points into a volume with an elliptical,
 Gaussian distribution. This is useful to estimate a density
 field from a set of scattered points.</td>
 </tr>
-<tr class="field"><th class="field-name" colspan="2">GreedyTerrainDecimation:</th></tr>
-<tr><td>&nbsp;</td><td class="field-body">Approximates a height field (2D image data) with a triangle mesh,
+<tr class="field-odd field"><th class="field-name" colspan="2">GreedyTerrainDecimation:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">Approximates a height field (2D image data) with a triangle mesh,
 keeping the number of triangles minimum.</td>
 </tr>
-<tr class="field"><th class="field-name" colspan="2">ImageChangeInformation:</th></tr>
-<tr><td>&nbsp;</td><td class="field-body">A filter that can be used to change the origin, spacing and
+<tr class="field-even field"><th class="field-name" colspan="2">ImageChangeInformation:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">A filter that can be used to change the origin, spacing and
 extents of an input image data dataset without changing the
 data itself.</td>
 </tr>
-<tr class="field"><th class="field-name">ImageDataProbe:</th><td class="field-body">A filter that can be used to probe any dataset using a
+<tr class="field-odd field"><th class="field-name">ImageDataProbe:</th><td class="field-body">A filter that can be used to probe any dataset using a
 Structured Points dataset.  The filter also allows one to
 convert the scalar data to an unsigned short array so that the
 scalars can be used for volume visualization.</td>
 </tr>
-<tr class="field"><th class="field-name">MaskPoints:</th><td class="field-body">Selectively passes the input points downstream. This can
+<tr class="field-even field"><th class="field-name">MaskPoints:</th><td class="field-body">Selectively passes the input points downstream. This can
 be used to subsample the input points.  Note that this
 does not pass geometry data, this means all grid
 information is lost.</td>
 </tr>
-<tr class="field"><th class="field-name" colspan="2">PointToCellData:</th></tr>
-<tr><td>&nbsp;</td><td class="field-body">Does the inverse of the CellToPointData filter: converts data
+<tr class="field-odd field"><th class="field-name" colspan="2">PointToCellData:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">Does the inverse of the CellToPointData filter: converts data
 located on the points to data located on the cells.</td>
 </tr>
-<tr class="field"><th class="field-name" colspan="2">PolyDataNormals:</th></tr>
-<tr><td>&nbsp;</td><td class="field-body">Computes normals from input data. This gives meshes a
+<tr class="field-even field"><th class="field-name" colspan="2">PolyDataNormals:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">Computes normals from input data. This gives meshes a
 smoother appearance. This should work for any input
 dataset. Note: this filter is called &#8220;Compute Normals&#8221;
 in Mayavi2 GUI (Visualize/Filters/Compute Normals).</td>
 </tr>
-<tr class="field"><th class="field-name" colspan="2">QuadricDecimation:</th></tr>
-<tr><td>&nbsp;</td><td class="field-body">Reduce triangles in a mesh, forming a good approximation of the
+<tr class="field-odd field"><th class="field-name" colspan="2">QuadricDecimation:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">Reduce triangles in a mesh, forming a good approximation of the
 original mesh.</td>
 </tr>
-<tr class="field"><th class="field-name">SelectOutput:</th><td class="field-body">A filter that allows a user to select one among several of the
+<tr class="field-even field"><th class="field-name">SelectOutput:</th><td class="field-body">A filter that allows a user to select one among several of the
 outputs of a given input.  This is typically very useful for a
 multi-block data source.</td>
 </tr>
-<tr class="field"><th class="field-name" colspan="2">SetActiveAttribute:</th></tr>
-<tr><td>&nbsp;</td><td class="field-body">This filter lets a user set the active data attribute
+<tr class="field-odd field"><th class="field-name" colspan="2">SetActiveAttribute:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">This filter lets a user set the active data attribute
 (scalars, vectors and tensors) on a VTK dataset.  This is
 particularly useful if you need to do something like compute
 contours of one scalar on the contour of another scalar.</td>
 </tr>
-<tr class="field"><th class="field-name">Stripper:</th><td class="field-body">Create triangle strips and/or poly-lines. Useful for regularizing
+<tr class="field-even field"><th class="field-name">Stripper:</th><td class="field-body">Create triangle strips and/or poly-lines. Useful for regularizing
 broken up surfaces, such as those created by the Tube filter.</td>
 </tr>
-<tr class="field"><th class="field-name">Threshold:</th><td class="field-body">A simple filter that thresholds on input data.</td>
+<tr class="field-odd field"><th class="field-name">Threshold:</th><td class="field-body">A simple filter that thresholds on input data.</td>
 </tr>
-<tr class="field"><th class="field-name">TransformData:</th><td class="field-body">Performs a linear transformation to input data.</td>
+<tr class="field-even field"><th class="field-name">TransformData:</th><td class="field-body">Performs a linear transformation to input data.</td>
 </tr>
-<tr class="field"><th class="field-name">Tube:</th><td class="field-body">Turns lines into tubes.</td>
+<tr class="field-odd field"><th class="field-name">Tube:</th><td class="field-body">Turns lines into tubes.</td>
 </tr>
-<tr class="field"><th class="field-name">UserDefined:</th><td class="field-body">This filter lets the user define their own filter
+<tr class="field-even field"><th class="field-name">UserDefined:</th><td class="field-body">This filter lets the user define their own filter
 dynamically/interactively.</td>
 </tr>
-<tr class="field"><th class="field-name">Vorticity:</th><td class="field-body">This filter computes the vorticity of an input vector field.
+<tr class="field-odd field"><th class="field-name">Vorticity:</th><td class="field-body">This filter computes the vorticity of an input vector field.
 For convenience, the filter allows one to optionally
 pass-through the given input vector field.  The filter also
 allows the user to show the component of the vorticity along a
 particular cartesian co-ordinate axes.  It produces point data
 on output which is ready to visualize.</td>
 </tr>
-<tr class="field"><th class="field-name">WarpScalar:</th><td class="field-body">Warps the input data along a particular direction
+<tr class="field-even field"><th class="field-name">WarpScalar:</th><td class="field-body">Warps the input data along a particular direction
 (either the normals or a specified direction) with a
 scale specified by the local scalar value. Useful for
 making carpet plots. The scalar value of a dataset can be, for
 instance, converted in elevation.</td>
 </tr>
-<tr class="field"><th class="field-name">WarpVector:</th><td class="field-body">Warps the input data along the point vector attribute
+<tr class="field-odd field"><th class="field-name">WarpVector:</th><td class="field-body">Warps the input data along the point vector attribute
 scaled as per a scale factor.  Useful for showing flow
 profiles or displacements.</td>
 </tr>
 </tbody>
 </table>
-</blockquote>
+</div></blockquote>
 </div>
 
 
@@ -248,7 +251,7 @@ profiles or displacements.</td>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" size="18" />
+      <input type="text" name="q" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
@@ -302,14 +305,14 @@ profiles or displacements.</td>
         <li class="right" >
           <a href="modules.html" title="Modules"
              >previous</a> |</li>
-        <li><a href="index.html">mayavi v4.2.1 documentation</a> &raquo;</li>
+        <li><a href="index.html">mayavi 4.2.1 documentation</a> &raquo;</li>
           <li><a href="application.html" >Using the Mayavi application</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on May 30, 2012.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1pre/1f40a2bc5294.
+      Last updated on Jul 09, 2012.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>
 </html>

@@ -62,7 +62,7 @@ array2d_source
 builtin_image
 ~~~~~~~~~~~~~
 
-.. function:: builtin_image(metadata=<mayavi.core.metadata.SourceMetadata object at 0xab58b9c>)
+.. function:: builtin_image(metadata=<mayavi.core.metadata.SourceMetadata object at 0x4334050>)
 
     Create a vtk image data source
     
@@ -73,7 +73,7 @@ builtin_image
 builtin_surface
 ~~~~~~~~~~~~~~~
 
-.. function:: builtin_surface(metadata=<mayavi.core.metadata.SourceMetadata object at 0xab58b0c>)
+.. function:: builtin_surface(metadata=<mayavi.core.metadata.SourceMetadata object at 0x42c6f50>)
 
     Create a vtk poly data source
     
@@ -84,7 +84,7 @@ builtin_surface
 chaco_file
 ~~~~~~~~~~
 
-.. function:: chaco_file(metadata=<mayavi.core.metadata.SourceMetadata object at 0xab58cbc>)
+.. function:: chaco_file(metadata=<mayavi.core.metadata.SourceMetadata object at 0x43341d0>)
 
     Open a Chaco file
     
@@ -120,6 +120,9 @@ grid_source
                  or filters applied to the source: the source can only
                  be used for testing, or numerical algorithms, not
                  visualization.
+    
+        :mask: Mask points specified in a boolean masking array.
+    
     
 
     
@@ -172,7 +175,7 @@ open
 parametric_surface
 ~~~~~~~~~~~~~~~~~~
 
-.. function:: parametric_surface(metadata=<mayavi.core.metadata.SourceMetadata object at 0xab589ec>)
+.. function:: parametric_surface(metadata=<mayavi.core.metadata.SourceMetadata object at 0x42c6dd0>)
 
     Create a parametric surface source
     
@@ -183,7 +186,7 @@ parametric_surface
 point_load
 ~~~~~~~~~~
 
-.. function:: point_load(metadata=<mayavi.core.metadata.SourceMetadata object at 0xab58a7c>)
+.. function:: point_load(metadata=<mayavi.core.metadata.SourceMetadata object at 0x42c6e90>)
 
     Simulates a point load on a cube of data (for tensors)
     
@@ -423,7 +426,7 @@ vertical_vectors_source
 volume_file
 ~~~~~~~~~~~
 
-.. function:: volume_file(metadata=<mayavi.core.metadata.SourceMetadata object at 0xab58c2c>)
+.. function:: volume_file(metadata=<mayavi.core.metadata.SourceMetadata object at 0x4334110>)
 
     Open a Volume file
     

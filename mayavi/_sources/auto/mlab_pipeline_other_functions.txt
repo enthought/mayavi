@@ -85,9 +85,8 @@ contour_grid_plane
         :colormap: type of colormap to use.
     
         :contours: Integer/list specifying number/list of
-                   contours. Specifying 0 shows no contours.
-                   Specifying a list of values will only give the
-                   requested contours asked for.
+                   contours. Specifying a list of values will only
+                   give the requested contours asked for.
     
         :extent: [xmin, xmax, ymin, ymax, zmin, zmax]
                  Default is the x, y, z arrays extent. Use
@@ -138,9 +137,8 @@ contour_surface
         :colormap: type of colormap to use.
     
         :contours: Integer/list specifying number/list of
-                   contours. Specifying 0 shows no contours.
-                   Specifying a list of values will only give the
-                   requested contours asked for.
+                   contours. Specifying a list of values will only
+                   give the requested contours asked for.
     
         :extent: [xmin, xmax, ymin, ymax, zmin, zmax]
                  Default is the x, y, z arrays extent. Use
@@ -193,9 +191,8 @@ custom_grid_plane
         :colormap: type of colormap to use.
     
         :contours: Integer/list specifying number/list of
-                   contours. Specifying 0 shows no contours.
-                   Specifying a list of values will only give the
-                   requested contours asked for.
+                   contours. Specifying a list of values will only
+                   give the requested contours asked for.
     
         :extent: [xmin, xmax, ymin, ymax, zmin, zmax]
                  Default is the x, y, z arrays extent. Use
@@ -813,9 +810,8 @@ iso_surface
         :colormap: type of colormap to use.
     
         :contours: Integer/list specifying number/list of
-                   contours. Specifying 0 shows no contours.
-                   Specifying a list of values will only give the
-                   requested contours asked for.
+                   contours. Specifying a list of values will only
+                   give the requested contours asked for.
     
         :extent: [xmin, xmax, ymin, ymax, zmin, zmax]
                  Default is the x, y, z arrays extent. Use

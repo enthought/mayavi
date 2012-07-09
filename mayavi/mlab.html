@@ -3,13 +3,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>mlab: Python scripting for 3D plotting &mdash; mayavi v4.2.1 documentation</title>
+    <title>mlab: Python scripting for 3D plotting &mdash; mayavi 4.2.1 documentation</title>
+    
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
@@ -22,7 +25,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="mayavi v4.2.1 documentation" href="index.html" />
+    <link rel="top" title="mayavi 4.2.1 documentation" href="index.html" />
     <link rel="next" title="Advanced use of Mayavi" href="advanced_use.html" />
     <link rel="prev" title="Filters" href="filters.html" />
 <style type="text/css">
@@ -69,7 +72,7 @@
         <li class="right" >
           <a href="filters.html" title="Filters"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">mayavi v4.2.1 documentation</a> &raquo;</li> 
+        <li><a href="index.html">mayavi 4.2.1 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -104,8 +107,8 @@ be invoked with the <tt class="docutils literal"><span class="pre">-wthread</spa
 <div class="highlight-python"><pre>$ ipython -wthread</pre>
 </div>
 <p>Or, for IPython recent version (0.11 and above):</p>
-<blockquote>
-$ ipython &#8211;gui=wx</blockquote>
+<div class="highlight-python"><pre>$ ipython --gui=wx</pre>
+</div>
 <p>If you are using the <a class="reference external" href="http://www.enthought.com/products/epd.php">Enthought Python Distribution</a>, or the latest
 <a class="reference external" href="http://www.pythonxy.com">Python(x,y)</a> distribution, the Pylab menu
 entry will start ipython with the right switch. In older release of
@@ -157,7 +160,7 @@ as a surface:</p>
 </div>
 <p>Bulk of the code in the above example is to create the data.  One line
 suffices to visualize it.  This produces the following visualization:</p>
-<div align="center" class="align-center"><img alt="_images/mlab_surf_example.jpg" class="align-center" src="_images/mlab_surf_example.jpg" /></div>
+<img alt="_images/mlab_surf_example.jpg" class="align-center" src="_images/mlab_surf_example.jpg" />
 <p>The visualization is created by the single function <a class="reference internal" href="auto/mlab_helper_functions.html#mayavi.mlab.mesh" title="mayavi.mlab.mesh"><tt class="xref py py-func docutils literal"><span class="pre">mesh()</span></tt></a> in the above.</p>
 <p>Several examples of this kind are provided with mlab (see
 <cite>test_contour3d</cite>, <cite>test_points3d</cite>, <cite>test_plot3d_anim</cite> etc.).  The above
@@ -191,19 +194,19 @@ the user guide, with figures and examples. Please follow the links.</p>
 <col width="77%" />
 </colgroup>
 <thead valign="bottom">
-<tr><th class="head">&nbsp;</th>
+<tr class="row-odd"><th class="head">&nbsp;</th>
 <th class="head">&nbsp;</th>
 </tr>
 </thead>
 <tbody valign="top">
-<tr><td><a class="reference internal" href="_images/enthought_mayavi_mlab_points3d1.jpg"><img alt="points3d" src="_images/enthought_mayavi_mlab_points3d1.jpg" style="width: 160.5px; height: 161.0px;" /></a></td>
+<tr class="row-even"><td><a class="reference internal" href="_images/enthought_mayavi_mlab_points3d1.jpg"><img alt="points3d" src="_images/enthought_mayavi_mlab_points3d1.jpg" style="width: 160.5px; height: 161.0px;" /></a></td>
 <td><a class="reference internal" href="auto/mlab_helper_functions.html#mayavi.mlab.points3d" title="mayavi.mlab.points3d"><tt class="xref py py-func docutils literal"><span class="pre">points3d()</span></tt></a>
 <br>
 Plots glyphs (like points) at the position of the
 supplied data, described by <tt class="docutils literal"><span class="pre">x</span></tt>, <tt class="docutils literal"><span class="pre">y</span></tt>, <tt class="docutils literal"><span class="pre">z</span></tt>
 numpy arrays of the same shape.</td>
 </tr>
-<tr><td><a class="reference internal" href="_images/enthought_mayavi_mlab_plot3d1.jpg"><img alt="plot3d" src="_images/enthought_mayavi_mlab_plot3d1.jpg" style="width: 153.0px; height: 113.0px;" /></a></td>
+<tr class="row-odd"><td><a class="reference internal" href="_images/enthought_mayavi_mlab_plot3d1.jpg"><img alt="plot3d" src="_images/enthought_mayavi_mlab_plot3d1.jpg" style="width: 153.0px; height: 113.0px;" /></a></td>
 <td><a class="reference internal" href="auto/mlab_helper_functions.html#mayavi.mlab.plot3d" title="mayavi.mlab.plot3d"><tt class="xref py py-func docutils literal"><span class="pre">plot3d()</span></tt></a>
 <br>
 Plots line between the supplied data, described by <tt class="docutils literal"><span class="pre">x</span></tt>,
@@ -220,30 +223,30 @@ Plots line between the supplied data, described by <tt class="docutils literal">
 <col width="77%" />
 </colgroup>
 <thead valign="bottom">
-<tr><th class="head">&nbsp;</th>
+<tr class="row-odd"><th class="head">&nbsp;</th>
 <th class="head">&nbsp;</th>
 </tr>
 </thead>
 <tbody valign="top">
-<tr><td><a class="reference internal" href="_images/enthought_mayavi_mlab_imshow1.jpg"><img alt="imshow" src="_images/enthought_mayavi_mlab_imshow1.jpg" style="width: 200.0px; height: 129.0px;" /></a></td>
+<tr class="row-even"><td><a class="reference internal" href="_images/enthought_mayavi_mlab_imshow1.jpg"><img alt="imshow" src="_images/enthought_mayavi_mlab_imshow1.jpg" style="width: 200.0px; height: 129.0px;" /></a></td>
 <td><a class="reference internal" href="auto/mlab_helper_functions.html#mayavi.mlab.imshow" title="mayavi.mlab.imshow"><tt class="xref py py-func docutils literal"><span class="pre">imshow()</span></tt></a>
 <br>
 View a 2D array as an image.</td>
 </tr>
-<tr><td><a class="reference internal" href="_images/enthought_mayavi_mlab_surf1.jpg"><img alt="surf" src="_images/enthought_mayavi_mlab_surf1.jpg" style="width: 192.5px; height: 153.0px;" /></a></td>
+<tr class="row-odd"><td><a class="reference internal" href="_images/enthought_mayavi_mlab_surf1.jpg"><img alt="surf" src="_images/enthought_mayavi_mlab_surf1.jpg" style="width: 192.5px; height: 153.0px;" /></a></td>
 <td><a class="reference internal" href="auto/mlab_helper_functions.html#mayavi.mlab.surf" title="mayavi.mlab.surf"><tt class="xref py py-func docutils literal"><span class="pre">surf()</span></tt></a>
 <br>
 View a 2D array as a carpet plot, with the z axis
 representation through elevation the value of the
 array points.</td>
 </tr>
-<tr><td><a class="reference internal" href="_images/enthought_mayavi_mlab_contour_surf1.jpg"><img alt="contour_surf" src="_images/enthought_mayavi_mlab_contour_surf1.jpg" style="width: 200.0px; height: 145.0px;" /></a></td>
+<tr class="row-even"><td><a class="reference internal" href="_images/enthought_mayavi_mlab_contour_surf1.jpg"><img alt="contour_surf" src="_images/enthought_mayavi_mlab_contour_surf1.jpg" style="width: 200.0px; height: 145.0px;" /></a></td>
 <td><a class="reference internal" href="auto/mlab_helper_functions.html#mayavi.mlab.contour_surf" title="mayavi.mlab.contour_surf"><tt class="xref py py-func docutils literal"><span class="pre">contour_surf()</span></tt></a>
 <br>
 View a 2D array as line contours, elevated
 according to the value of the array points.</td>
 </tr>
-<tr><td><a class="reference internal" href="_images/enthought_mayavi_mlab_mesh1.jpg"><img alt="mesh" src="_images/enthought_mayavi_mlab_mesh1.jpg" style="width: 136.0px; height: 120.0px;" /></a></td>
+<tr class="row-odd"><td><a class="reference internal" href="_images/enthought_mayavi_mlab_mesh1.jpg"><img alt="mesh" src="_images/enthought_mayavi_mlab_mesh1.jpg" style="width: 136.0px; height: 120.0px;" /></a></td>
 <td><a class="reference internal" href="auto/mlab_helper_functions.html#mayavi.mlab.mesh" title="mayavi.mlab.mesh"><tt class="xref py py-func docutils literal"><span class="pre">mesh()</span></tt></a>
 <br>
 Plot a surface described by three 2D arrays, <tt class="docutils literal"><span class="pre">x</span></tt>,
@@ -254,7 +257,7 @@ Unlike <a class="reference internal" href="auto/mlab_helper_functions.html#mayav
 <tt class="docutils literal"><span class="pre">x</span></tt>, <tt class="docutils literal"><span class="pre">y</span></tt> and <tt class="docutils literal"><span class="pre">z</span></tt> coordinates with no privileged
 direction. More complex surfaces can be created.</td>
 </tr>
-<tr><td><a class="reference internal" href="_images/enthought_mayavi_mlab_barchart1.jpg"><img alt="barchart" src="_images/enthought_mayavi_mlab_barchart1.jpg" style="width: 161.0px; height: 113.0px;" /></a></td>
+<tr class="row-even"><td><a class="reference internal" href="_images/enthought_mayavi_mlab_barchart1.jpg"><img alt="barchart" src="_images/enthought_mayavi_mlab_barchart1.jpg" style="width: 161.0px; height: 113.0px;" /></a></td>
 <td><a class="reference internal" href="auto/mlab_helper_functions.html#mayavi.mlab.barchart" title="mayavi.mlab.barchart"><tt class="xref py py-func docutils literal"><span class="pre">barchart()</span></tt></a>
 <br>
 Plot an array <tt class="docutils literal"><span class="pre">s</span></tt>, or a set of points with
@@ -265,7 +268,7 @@ This function is very versatile and will accept 2D or
 3D arrays, but also clouds of points, to position the
 bars.</td>
 </tr>
-<tr><td><a class="reference internal" href="_images/enthought_mayavi_mlab_triangular_mesh1.jpg"><img alt="triangular_mesh" src="_images/enthought_mayavi_mlab_triangular_mesh1.jpg" style="width: 137.0px; height: 105.0px;" /></a></td>
+<tr class="row-odd"><td><a class="reference internal" href="_images/enthought_mayavi_mlab_triangular_mesh1.jpg"><img alt="triangular_mesh" src="_images/enthought_mayavi_mlab_triangular_mesh1.jpg" style="width: 137.0px; height: 105.0px;" /></a></td>
 <td><a class="reference internal" href="auto/mlab_helper_functions.html#mayavi.mlab.triangular_mesh" title="mayavi.mlab.triangular_mesh"><tt class="xref py py-func docutils literal"><span class="pre">triangular_mesh()</span></tt></a>
 <br>
 Plot a triangular mesh, fully specified by
@@ -307,18 +310,18 @@ shown in the (<a class="reference internal" href="auto/example_surface_from_irre
 <col width="77%" />
 </colgroup>
 <thead valign="bottom">
-<tr><th class="head">&nbsp;</th>
+<tr class="row-odd"><th class="head">&nbsp;</th>
 <th class="head">&nbsp;</th>
 </tr>
 </thead>
 <tbody valign="top">
-<tr><td><a class="reference internal" href="_images/enthought_mayavi_mlab_contour3d1.jpg"><img alt="contour3d" src="_images/enthought_mayavi_mlab_contour3d1.jpg" style="width: 184.5px; height: 169.0px;" /></a></td>
+<tr class="row-even"><td><a class="reference internal" href="_images/enthought_mayavi_mlab_contour3d1.jpg"><img alt="contour3d" src="_images/enthought_mayavi_mlab_contour3d1.jpg" style="width: 184.5px; height: 169.0px;" /></a></td>
 <td><a class="reference internal" href="auto/mlab_helper_functions.html#mayavi.mlab.contour3d" title="mayavi.mlab.contour3d"><tt class="xref py py-func docutils literal"><span class="pre">contour3d()</span></tt></a>
 <br>
 Plot iso-surfaces of volumetric data defined as a 3D
 array.</td>
 </tr>
-<tr><td><a class="reference internal" href="_images/enthought_mayavi_mlab_quiver3d1.jpg"><img alt="quiver3d" src="_images/enthought_mayavi_mlab_quiver3d1.jpg" style="width: 169.0px; height: 177.0px;" /></a></td>
+<tr class="row-odd"><td><a class="reference internal" href="_images/enthought_mayavi_mlab_quiver3d1.jpg"><img alt="quiver3d" src="_images/enthought_mayavi_mlab_quiver3d1.jpg" style="width: 169.0px; height: 177.0px;" /></a></td>
 <td><a class="reference internal" href="auto/mlab_helper_functions.html#mayavi.mlab.quiver3d" title="mayavi.mlab.quiver3d"><tt class="xref py py-func docutils literal"><span class="pre">quiver3d()</span></tt></a>
 <br>
 Plot arrows to represent vectors at data points.
@@ -326,7 +329,7 @@ The <tt class="docutils literal"><span class="pre">x</span></tt>, <tt class="doc
 numpy arrays, as well as the <tt class="docutils literal"><span class="pre">u</span></tt>, <tt class="docutils literal"><span class="pre">v</span></tt>, <tt class="docutils literal"><span class="pre">w</span></tt>
 components of the vectors.</td>
 </tr>
-<tr><td><a class="reference internal" href="_images/enthought_mayavi_mlab_flow1.jpg"><img alt="flow" src="_images/enthought_mayavi_mlab_flow1.jpg" style="width: 169.0px; height: 105.0px;" /></a></td>
+<tr class="row-even"><td><a class="reference internal" href="_images/enthought_mayavi_mlab_flow1.jpg"><img alt="flow" src="_images/enthought_mayavi_mlab_flow1.jpg" style="width: 169.0px; height: 105.0px;" /></a></td>
 <td><a class="reference internal" href="auto/mlab_helper_functions.html#mayavi.mlab.flow" title="mayavi.mlab.flow"><tt class="xref py py-func docutils literal"><span class="pre">flow()</span></tt></a>
 <br>
 Plot a trajectory of particles along a vector field
@@ -359,7 +362,7 @@ filters and modules. See the
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Color:</th><td class="field-body"><p class="first">The color of the objects created by a plotting function can be specified
+<tr class="field-odd field"><th class="field-name">Color:</th><td class="field-body"><p class="first">The color of the objects created by a plotting function can be specified
 explicitly using the &#8216;color&#8217; keyword argument of the function. This color
 is then applied uniformly to all the objects created.</p>
 <p>If you want to vary the color across your visualization, you need to
@@ -389,8 +392,8 @@ to set the colormap can be found in the <cite>Colors and legends</cite> node.</p
 specific code, as show in <a class="reference internal" href="auto/example_custom_colormap.html#example-custom-colormap"><em>Custom colormap example</em></a>.</p>
 </td>
 </tr>
-<tr class="field"><th class="field-name" colspan="2">Size of the glyph:</th></tr>
-<tr><td>&nbsp;</td><td class="field-body"><p class="first">The scalar information can also be displayed in many different ways.
+<tr class="field-even field"><th class="field-name" colspan="2">Size of the glyph:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first">The scalar information can also be displayed in many different ways.
 For instance it can be used to adjust the size of glyphs positioned at
 the data points.</p>
 <p><strong>A caveat: Clamping: relative or absolute scaling</strong>
@@ -438,16 +441,16 @@ absolutely, unless you specify:</p>
 </div>
 </td>
 </tr>
-<tr class="field"><th class="field-name" colspan="2">More representations of the attached scalars or vectors:</th></tr>
-<tr><td>&nbsp;</td><td class="field-body"><p class="first">There are many more ways to represent the scalar or vector information
+<tr class="field-odd field"><th class="field-name" colspan="2">More representations of the attached scalars or vectors:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><p class="first">There are many more ways to represent the scalar or vector information
 attached to the data. For instance, scalar data can be &#8216;warped&#8217; into a
 displacement, e.g. using a <cite>WarpScalar</cite> filter, or the norm of scalar
 data can be extracted to a scalar component that can be visualized using
 iso-surfaces with the <cite>ExtractVectorNorm</cite> filter.</p>
 </td>
 </tr>
-<tr class="field"><th class="field-name" colspan="2">Displaying more than one quantity:</th></tr>
-<tr><td>&nbsp;</td><td class="field-body"><p class="first">You may want to display color related to one scalar quantity while
+<tr class="field-even field"><th class="field-name" colspan="2">Displaying more than one quantity:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first">You may want to display color related to one scalar quantity while
 using a second for the iso-contours, or the elevation. This is possible
 but requires a bit of work: see <a class="reference internal" href="auto/example_atomic_orbital.html#example-atomic-orbital"><em>Atomic orbital example</em></a>.</p>
 <p>If you simply want to display points with a size given by one quantity,
@@ -490,7 +493,7 @@ on each object to edit its properties, as described in other parts of
 this manual, or add new modules or filters by using this icons on the
 pipeline, or through the right-click menus on the objects in the
 pipeline.</p>
-<div align="center" class="align-center"><img alt="_images/pipeline_and_scene.jpg" class="align-center" src="_images/pipeline_and_scene.jpg" /></div>
+<img alt="_images/pipeline_and_scene.jpg" class="align-center" src="_images/pipeline_and_scene.jpg" />
 <div class="topic" id="record-feature">
 <p class="topic-title first">The record feature</p>
 <p>A <strong>very useful feature</strong> of this dialog can be found by pressing the
@@ -578,14 +581,14 @@ view point obtained interactively can be stored and reset using:</p>
 <div class="topic">
 <p class="topic-title first">Rotating the camera around itself</p>
 <blockquote>
-<p>You can also rotate the camera around itself using the <cite>roll</cite>, <cite>yaw</cite>
+<div><p>You can also rotate the camera around itself using the <cite>roll</cite>, <cite>yaw</cite>
 and <cite>pitch</cite> methods of the camera object. This moves the focal point:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">f</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span>
 <span class="n">camera</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span>
 <span class="n">camera</span><span class="o">.</span><span class="n">yaw</span><span class="p">(</span><span class="mi">45</span><span class="p">)</span>
 </pre></div>
 </div>
-</blockquote>
+</div></blockquote>
 <p>Unlike the <a class="reference internal" href="auto/mlab_camera.html#mayavi.mlab.view" title="mayavi.mlab.view"><tt class="xref py py-func docutils literal"><span class="pre">view()</span></tt></a> and <a class="reference internal" href="auto/mlab_camera.html#mayavi.mlab.roll" title="mayavi.mlab.roll"><tt class="xref py py-func docutils literal"><span class="pre">roll()</span></tt></a> function, the angles
 are incremental, and not absolute.</p>
 </div>
@@ -642,7 +645,7 @@ Python Editor).</p>
 <p>If you want to use Matplotlib&#8217;s pylab with Mayavi&#8217;s mlab in IPython you
 should:</p>
 <blockquote>
-<ul>
+<div><ul>
 <li><p class="first">if your IPython version is greater than 0.11: start IPython with:</p>
 <div class="highlight-python"><pre>$ ipython --gui=wx --pylab=wx</pre>
 </div>
@@ -664,7 +667,7 @@ commands:</p>
 </div>
 </li>
 </ul>
-</blockquote>
+</div></blockquote>
 <p>If you want matplotlib and mlab to work together by default in IPython,
 you can change you default matplotlib backend, by editing the
 <cite>~/.matplotlib/matplotlibrc</cite> to add the following line:</p>
@@ -865,8 +868,8 @@ or engineering.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name" colspan="2">Unconnected sources:</th></tr>
-<tr><td>&nbsp;</td><td class="field-body"><table class="hlist"><tr><td><ul>
+<tr class="field-odd field"><th class="field-name" colspan="2">Unconnected sources:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><table class="hlist"><tr><td><ul>
 <li><p class="first"><a class="reference internal" href="auto/mlab_pipeline_sources.html#mayavi.tools.pipeline.scalar_scatter" title="mayavi.tools.pipeline.scalar_scatter"><tt class="xref py py-func docutils literal"><span class="pre">scalar_scatter()</span></tt></a> (creates a <a class="reference internal" href="data.html#poly-data"><em>PolyData</em></a>)</p>
 <a class="reference internal image-reference" href="_images/enthought_mayavi_mlab_points3d1.jpg"><img alt="_images/enthought_mayavi_mlab_points3d1.jpg" src="_images/enthought_mayavi_mlab_points3d1.jpg" style="width: 121.98px; height: 122.36px;" /></a>
 </li>
@@ -879,8 +882,8 @@ or engineering.</p>
 </td></tr></table>
 </td>
 </tr>
-<tr class="field"><th class="field-name" colspan="2">implicitly-connected sources:</th></tr>
-<tr><td>&nbsp;</td><td class="field-body"><table class="hlist"><tr><td><ul>
+<tr class="field-even field"><th class="field-name" colspan="2">implicitly-connected sources:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><table class="hlist"><tr><td><ul>
 <li><p class="first"><a class="reference internal" href="auto/mlab_pipeline_sources.html#mayavi.tools.pipeline.scalar_field" title="mayavi.tools.pipeline.scalar_field"><tt class="xref py py-func docutils literal"><span class="pre">scalar_field()</span></tt></a> (creates an <a class="reference internal" href="data.html#image-data"><em>ImageData</em></a>)</p>
 <a class="reference internal image-reference" href="_images/enthought_mayavi_mlab_contour3d1.jpg"><img alt="_images/enthought_mayavi_mlab_contour3d1.jpg" src="_images/enthought_mayavi_mlab_contour3d1.jpg" style="width: 140.22px; height: 128.44px;" /></a>
 </li>
@@ -896,8 +899,8 @@ or engineering.</p>
 </td></tr></table>
 </td>
 </tr>
-<tr class="field"><th class="field-name" colspan="2">Explicitly-connected sources:</th></tr>
-<tr><td>&nbsp;</td><td class="field-body"><table class="hlist"><tr><td><ul>
+<tr class="field-odd field"><th class="field-name" colspan="2">Explicitly-connected sources:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><table class="hlist"><tr><td><ul>
 <li><p class="first"><a class="reference internal" href="auto/mlab_pipeline_sources.html#mayavi.tools.pipeline.line_source" title="mayavi.tools.pipeline.line_source"><tt class="xref py py-func docutils literal"><span class="pre">line_source()</span></tt></a> (creates an <a class="reference internal" href="data.html#poly-data"><em>PolyData</em></a>)</p>
 <a class="reference internal image-reference" href="_images/enthought_mayavi_mlab_plot3d1.jpg"><img alt="_images/enthought_mayavi_mlab_plot3d1.jpg" src="_images/enthought_mayavi_mlab_plot3d1.jpg" style="width: 153.0px; height: 113.0px;" /></a>
 </li>
@@ -960,7 +963,7 @@ following field:</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Iso-Surfaces:</th><td class="field-body"><p class="first">To display iso surfaces of the field, the simplest solution is
+<tr class="field-odd field"><th class="field-name">Iso-Surfaces:</th><td class="field-body"><p class="first">To display iso surfaces of the field, the simplest solution is
 simply to use the <cite>mlab</cite> <a class="reference internal" href="auto/mlab_helper_functions.html#mayavi.mlab.contour3d" title="mayavi.mlab.contour3d"><tt class="xref py py-func docutils literal"><span class="pre">contour3d()</span></tt></a> function:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">mlab</span><span class="o">.</span><span class="n">contour3d</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
 </pre></div>
@@ -970,8 +973,8 @@ simply to use the <cite>mlab</cite> <a class="reference internal" href="auto/mla
 ones. As a result, quite often only one iso-surface can be visible.</p>
 </td>
 </tr>
-<tr class="field"><th class="field-name" colspan="2">Volume rendering:</th></tr>
-<tr><td>&nbsp;</td><td class="field-body"><p class="first">Volume rendering is an advanced technique in which each voxel is
+<tr class="field-even field"><th class="field-name" colspan="2">Volume rendering:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first">Volume rendering is an advanced technique in which each voxel is
 given a partly transparent color. This can be achieved with
 <cite>mlab.pipeline</cite> using the <a class="reference internal" href="auto/mlab_pipeline_sources.html#mayavi.tools.pipeline.scalar_field" title="mayavi.tools.pipeline.scalar_field"><tt class="xref py py-func docutils literal"><span class="pre">scalar_field()</span></tt></a> source, and the
 <cite>volume</cite> module:</p>
@@ -998,7 +1001,7 @@ pretty, it can be difficult to analyze the details of the field with
 it.</p>
 </td>
 </tr>
-<tr class="field"><th class="field-name">Cut planes:</th><td class="field-body"><p class="first">While less impressive, cut planes are a very informative way of
+<tr class="field-odd field"><th class="field-name">Cut planes:</th><td class="field-body"><p class="first">While less impressive, cut planes are a very informative way of
 visualizing the details of a scalar field:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">image_plane_widget</span><span class="p">(</span><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">scalar_field</span><span class="p">(</span><span class="n">s</span><span class="p">),</span>
                             <span class="n">plane_orientation</span><span class="o">=</span><span class="s">&#39;x_axes&#39;</span><span class="p">,</span>
@@ -1019,8 +1022,8 @@ should thus be prefered to the scalar cut plane, when possible.</p>
 the field.</p>
 </td>
 </tr>
-<tr class="field"><th class="field-name" colspan="2">A combination of techniques:</th></tr>
-<tr><td>&nbsp;</td><td class="field-body"><p class="first">Finally, it can be interesting to combine cut planes with
+<tr class="field-even field"><th class="field-name" colspan="2">A combination of techniques:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first">Finally, it can be interesting to combine cut planes with
 iso-surfaces and thresholding to give a view of the peak areas using
 the iso-surfaces, visualize the details of the field with the cut
 plane, and the global mass with a large iso-surface:</p>
@@ -1063,7 +1066,7 @@ sampled on a grid, <cite>u</cite>, <cite>v</cite>, <cite>w</cite>:</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field"><th class="field-name">Quiver:</th><td class="field-body"><p class="first">The simplest visualization of a set of vectors, is using the <cite>mlab</cite>
+<tr class="field-odd field"><th class="field-name">Quiver:</th><td class="field-body"><p class="first">The simplest visualization of a set of vectors, is using the <cite>mlab</cite>
 function <cite>quiver3d</cite>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">mlab</span><span class="o">.</span><span class="n">quiver3d</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
 <span class="n">mlab</span><span class="o">.</span><span class="n">outline</span><span class="p">()</span>
@@ -1075,8 +1078,8 @@ arrow for each sampling point on the grid. As a result the
 visualization is very busy.</p>
 </td>
 </tr>
-<tr class="field"><th class="field-name" colspan="2">Masking vectors:</th></tr>
-<tr><td>&nbsp;</td><td class="field-body"><p class="first">We can use the fact that we are visualizing a vector field, and not
+<tr class="field-even field"><th class="field-name" colspan="2">Masking vectors:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first">We can use the fact that we are visualizing a vector field, and not
 just a bunch of vectors, to reduce the amount of arrows displayed. For
 this we need to build a <cite>vector_field</cite> source, and apply to it the
 <cite>vectors</cite> module, with some masking parameters (here we keep only one
@@ -1088,7 +1091,7 @@ point out of 20):</p>
 <img alt="_images/vector_field_vectors.jpg" src="_images/vector_field_vectors.jpg" />
 </td>
 </tr>
-<tr class="field"><th class="field-name">A cut plane:</th><td class="field-body"><p class="first">If we are interested in displaying the vectors along a cut, we can
+<tr class="field-odd field"><th class="field-name">A cut plane:</th><td class="field-body"><p class="first">If we are interested in displaying the vectors along a cut, we can
 use a cut plane. In particular, we can inspect interactively the
 vector field by moving the cut plane along: clicking on it and
 dragging it can give a very clear understanding of the vector field:</p>
@@ -1098,8 +1101,8 @@ dragging it can give a very clear understanding of the vector field:</p>
 <img alt="_images/vector_field_cut_plane.jpg" src="_images/vector_field_cut_plane.jpg" />
 </td>
 </tr>
-<tr class="field"><th class="field-name" colspan="2">Iso-Surfaces of the magnitude:</th></tr>
-<tr><td>&nbsp;</td><td class="field-body"><p class="first">An important parameter of the vector field is its magnitude. It can
+<tr class="field-even field"><th class="field-name" colspan="2">Iso-Surfaces of the magnitude:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first">An important parameter of the vector field is its magnitude. It can
 be interesting to display iso-surfaces of the normal of the vectors.
 For this we can create a scalar field from the vector field using the
 ExtractVectorNorm filter, and use the Iso-Surface module on it. When
@@ -1113,8 +1116,8 @@ object&#8217;s property dialog.</p>
 <img alt="_images/vector_field_isosurface.jpg" src="_images/vector_field_isosurface.jpg" />
 </td>
 </tr>
-<tr class="field"><th class="field-name" colspan="2">The Flow, or the field lines:</th></tr>
-<tr><td>&nbsp;</td><td class="field-body"><p class="first">For certain vector fields, the line of flow along the field can
+<tr class="field-odd field"><th class="field-name" colspan="2">The Flow, or the field lines:</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><p class="first">For certain vector fields, the line of flow along the field can
 have an interesting meaning. For instance this can be interpreted as a
 trajectory in hydrodynamics, or field lines in electro-magnetism.
 We can display the flow lines originating for a certain seed surface
@@ -1128,8 +1131,8 @@ which relies on <cite>streamline</cite> internally:</p>
 <img alt="_images/vector_field_flow.jpg" src="_images/vector_field_flow.jpg" />
 </td>
 </tr>
-<tr class="field"><th class="field-name" colspan="2">A combination of techniques:</th></tr>
-<tr><td>&nbsp;</td><td class="field-body"><p class="first">Giving a meaningful visualization of a vector field is a hard task,
+<tr class="field-even field"><th class="field-name" colspan="2">A combination of techniques:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first">Giving a meaningful visualization of a vector field is a hard task,
 and one must use all the tools at hand to illustrate his purposes. It
 is important to choose the message conveyed. No one visualization
 will tell all about a vector field. Here is an example of a
@@ -1269,7 +1272,7 @@ approach to mixing by chaotic advection Phys. Fluids, 1995, 7, 2587</td></tr>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" size="18" />
+      <input type="text" name="q" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
@@ -1323,13 +1326,13 @@ approach to mixing by chaotic advection Phys. Fluids, 1995, 7, 2587</td></tr>
         <li class="right" >
           <a href="filters.html" title="Filters"
              >previous</a> |</li>
-        <li><a href="index.html">mayavi v4.2.1 documentation</a> &raquo;</li> 
+        <li><a href="index.html">mayavi 4.2.1 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on May 30, 2012.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1pre/1f40a2bc5294.
+      Last updated on Jul 09, 2012.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>
 </html>

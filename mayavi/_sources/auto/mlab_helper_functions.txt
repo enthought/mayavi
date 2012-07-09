@@ -115,7 +115,8 @@ barchart
     
 
     
-**Example** (run in ``ipython -wthread`` or in the mayavi2 interactive shell,
+**Example** (run in ``ipython -wthread``, ``ipython --gui=wx`` for recent
+IPython versions, or in the mayavi2 interactive shell,
 see :ref:`running-mlab-scripts` for more info)::
 
     
@@ -170,9 +171,8 @@ contour3d
         :colormap: type of colormap to use.
     
         :contours: Integer/list specifying number/list of
-                   contours. Specifying 0 shows no contours.
-                   Specifying a list of values will only give the
-                   requested contours asked for.
+                   contours. Specifying a list of values will only
+                   give the requested contours asked for.
     
         :extent: [xmin, xmax, ymin, ymax, zmin, zmax]
                  Default is the x, y, z arrays extent. Use
@@ -203,7 +203,8 @@ contour3d
     
 
     
-**Example** (run in ``ipython -wthread`` or in the mayavi2 interactive shell,
+**Example** (run in ``ipython -wthread``, ``ipython --gui=wx`` for recent
+IPython versions, or in the mayavi2 interactive shell,
 see :ref:`running-mlab-scripts` for more info)::
 
     
@@ -265,9 +266,8 @@ contour_surf
         :colormap: type of colormap to use.
     
         :contours: Integer/list specifying number/list of
-                   contours. Specifying 0 shows no contours.
-                   Specifying a list of values will only give the
-                   requested contours asked for.
+                   contours. Specifying a list of values will only
+                   give the requested contours asked for.
     
         :extent: [xmin, xmax, ymin, ymax, zmin, zmax]
                  Default is the x, y, z arrays extent. Use
@@ -300,7 +300,8 @@ contour_surf
     
 
     
-**Example** (run in ``ipython -wthread`` or in the mayavi2 interactive shell,
+**Example** (run in ``ipython -wthread``, ``ipython --gui=wx`` for recent
+IPython versions, or in the mayavi2 interactive shell,
 see :ref:`running-mlab-scripts` for more info)::
 
     
@@ -414,7 +415,8 @@ flow
     
 
     
-**Example** (run in ``ipython -wthread`` or in the mayavi2 interactive shell,
+**Example** (run in ``ipython -wthread``, ``ipython --gui=wx`` for recent
+IPython versions, or in the mayavi2 interactive shell,
 see :ref:`running-mlab-scripts` for more info)::
 
     
@@ -490,7 +492,8 @@ imshow
     
 
     
-**Example** (run in ``ipython -wthread`` or in the mayavi2 interactive shell,
+**Example** (run in ``ipython -wthread``, ``ipython --gui=wx`` for recent
+IPython versions, or in the mayavi2 interactive shell,
 see :ref:`running-mlab-scripts` for more info)::
 
     
@@ -603,7 +606,8 @@ mesh
     
 
     
-**Example** (run in ``ipython -wthread`` or in the mayavi2 interactive shell,
+**Example** (run in ``ipython -wthread``, ``ipython --gui=wx`` for recent
+IPython versions, or in the mayavi2 interactive shell,
 see :ref:`running-mlab-scripts` for more info)::
 
     
@@ -695,7 +699,8 @@ plot3d
     
 
     
-**Example** (run in ``ipython -wthread`` or in the mayavi2 interactive shell,
+**Example** (run in ``ipython -wthread``, ``ipython --gui=wx`` for recent
+IPython versions, or in the mayavi2 interactive shell,
 see :ref:`running-mlab-scripts` for more info)::
 
     
@@ -807,7 +812,8 @@ points3d
     
 
     
-**Example** (run in ``ipython -wthread`` or in the mayavi2 interactive shell,
+**Example** (run in ``ipython -wthread``, ``ipython --gui=wx`` for recent
+IPython versions, or in the mayavi2 interactive shell,
 see :ref:`running-mlab-scripts` for more info)::
 
     
@@ -922,7 +928,8 @@ quiver3d
     
 
     
-**Example** (run in ``ipython -wthread`` or in the mayavi2 interactive shell,
+**Example** (run in ``ipython -wthread``, ``ipython --gui=wx`` for recent
+IPython versions, or in the mayavi2 interactive shell,
 see :ref:`running-mlab-scripts` for more info)::
 
     
@@ -1039,7 +1046,8 @@ surf
     
 
     
-**Example** (run in ``ipython -wthread`` or in the mayavi2 interactive shell,
+**Example** (run in ``ipython -wthread``, ``ipython --gui=wx`` for recent
+IPython versions, or in the mayavi2 interactive shell,
 see :ref:`running-mlab-scripts` for more info)::
 
     
@@ -1157,7 +1165,8 @@ triangular_mesh
     
 
     
-**Example** (run in ``ipython -wthread`` or in the mayavi2 interactive shell,
+**Example** (run in ``ipython -wthread``, ``ipython --gui=wx`` for recent
+IPython versions, or in the mayavi2 interactive shell,
 see :ref:`running-mlab-scripts` for more info)::
 
     
