@@ -31,7 +31,7 @@ It is can be used interactively with IPython_.
 
          $ ipython -wthread
 
-    Or, for IPython recent version (0.11 and above):
+    Or, for IPython recent version (0.11 and above)::
 
          $ ipython --gui=wx
 
