@@ -5,6 +5,8 @@
 # Copyright (c) 2005, Enthought, Inc.
 # License: BSD Style.
 
+from distutils.Version import StrictVersion
+
 # Enthought library imports.
 from traits.api import Instance, Range, Str, Bool, Property, \
                                     Float
@@ -16,7 +18,7 @@ from apptools.persistence import state_pickler
 from mayavi.core.module import Module
 from mayavi.core.pipeline_info import PipelineInfo
 
-VTK_VER = float(tvtk.Version().vtk_version[:3])
+VTK_VER = StrictVersion(tvtk.Version().vtk_version)
 
 
 ######################################################################
@@ -68,7 +70,7 @@ class Text(Module):
     ########################################
     # The view of this object.
 
-    if VTK_VER > 5.1:
+    if VTK_VER > '5.1':
         _text_actor_group = Group(Item(name='visibility'),
                                   Item(name='text_scale_mode'),
                                   Item(name='alignment_point'),
@@ -152,7 +154,7 @@ class Text(Module):
         set the `actors` attribute up at this point.
         """
         actor = self.actor = tvtk.TextActor(input=str(self.text))
-        if VTK_VER > 5.1:
+        if VTK_VER > '5.1':
             actor.set(text_scale_mode='prop', width=0.4, height=1.0)
         else:
             actor.set(scaled_text=True, width=0.4, height=1.0)
