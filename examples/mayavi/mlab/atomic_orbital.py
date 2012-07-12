@@ -26,17 +26,17 @@ for more details.
 # Create the data ############################################################
 import numpy as np
 
-x, y, z = np.ogrid[-.5:.5:200j, -.5:.5:200j, -.5:.5:200j]
-r = np.sqrt(x**2 + y**2 + z**2)
+x, y, z = np.ogrid[- .5:.5:200j, - .5:.5:200j, - .5:.5:200j]
+r = np.sqrt(x ** 2 + y ** 2 + z ** 2)
 
 
 # Generalized Laguerre polynomial (3, 2)
-L = -r**3/6 + 5./2*r**2 - 10*r + 6
+L = - r ** 3 / 6 + 5. / 2 * r ** 2 - 10 * r + 6
 
 # Spherical harmonic (3, 2)
-Y = (x+y*1j)**2*z/r**3
+Y = (x + y * 1j) ** 2 * z / r ** 3
 
-Phi = L*Y*np.exp(-r)*r**2
+Phi = L * Y * np.exp(- r) * r ** 2
 
 # Plot it ####################################################################
 from mayavi import mlab
@@ -72,4 +72,3 @@ mlab.pipeline.surface(contour2, colormap='hsv')
 mlab.colorbar(title='Phase', orientation='vertical', nb_labels=3)
 
 mlab.show()
-
