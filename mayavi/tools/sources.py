@@ -1393,12 +1393,15 @@ def triangular_mesh_source(x, y, z, triangles, **kwargs):
 def open(filename, figure=None):
     """Open a supported data file given a filename.  Returns the source
     object if a suitable reader was found for the file.
+
+    If 'figure' is False, no view is opened, and the code does not need
+    GUI or openGL context.
     """
     if figure is None:
         engine = tools.get_engine()
     elif figure is False:
         # Get a null engine that we can use.
-	engine = get_null_engine()
+        engine = get_null_engine()
     else:
         engine = engine_manager.find_figure_engine(figure)
         engine.current_scene = figure
