@@ -1,6 +1,12 @@
-The log refers to changesets in the trac format [#revno], for
-example to view the changeset [18702] use the following URL:
-https://svn.enthought.com/enthought/changeset/18702
+
+Mayavi 4.2.1
+=============
+
+Enhancements
+------------
+
+9 August 2012 (GV)
+  - ENH: Add null engine to mlab.pipeline.open.
 
 
 Mayavi 3.4.0 (Oct 15, 2010)

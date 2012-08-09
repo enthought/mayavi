@@ -20,7 +20,7 @@ from mayavi.sources.array_source import ArraySource
 from mayavi.core.registry import registry
 
 import tools
-from engine_manager import engine_manager
+from engine_manager import get_null_engine, engine_manager
 
 __all__ = [ 'vector_scatter', 'vector_field', 'scalar_scatter',
     'scalar_field', 'line_source', 'array2d_source', 'grid_source',
@@ -1396,6 +1396,9 @@ def open(filename, figure=None):
     """
     if figure is None:
         engine = tools.get_engine()
+    elif figure is False:
+        # Get a null engine that we can use.
+	engine = get_null_engine()
     else:
         engine = engine_manager.find_figure_engine(figure)
         engine.current_scene = figure
