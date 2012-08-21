@@ -53,7 +53,7 @@ cat3 -= 0.5
 cat1_extent = (-14,-6, -4,4, 0,5)
 surf_cat1 = mlab.surf(x-10, y, cat1, colormap='Spectral', warp_scale=5,
             extent=cat1_extent, vmin=-0.5, vmax=0.5)
-mlab.outline(surf_cat1, color=(.7, .7, .7))
+mlab.outline(surf_cat1, color=(.7, .7, .7), extent=cat1_extent)
 mlab.axes(surf_cat1, color=(.7, .7, .7), extent=cat1_extent,
             ranges=(0,1, 0,1, 0,1), xlabel='', ylabel='',
             zlabel='Probability',
