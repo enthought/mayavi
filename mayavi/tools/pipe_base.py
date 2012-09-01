@@ -23,6 +23,7 @@ from tvtk.api import tvtk
 import tools
 from engine_manager import get_engine
 
+
 def get_obj(obj, components):
     """ Get the target object for the specified components. """
 
@@ -37,9 +38,10 @@ def make_function(factory_class):
         factory = factory_class(*args, **kwargs)
         return factory._target
 
-    the_function.__doc__  = make_doc(factory_class)
+    the_function.__doc__ = make_doc(factory_class)
     the_function.func_name = factory_class.__name__.lower()
     return the_function
+
 
 def get_module_manager(obj):
     """ Returns the module manager that would be used when a module
@@ -54,6 +56,7 @@ def get_module_manager(obj):
             return child
     else:
         return None
+
 
 ##############################################################################
 class PipeFactory(HasPrivateTraits):
@@ -103,7 +106,7 @@ class PipeFactory(HasPrivateTraits):
 
                 elif 'colormap' in kwargs:
                     cmap = kwargs['colormap']
-                    if ( scalar_lut.lut_mode != cmap
+                    if (scalar_lut.lut_mode != cmap
                                         or vector_lut.lut_mode != cmap):
                         parent = self._engine.add_module(ModuleManager(),
                                             module_manager.parent)
@@ -137,7 +140,6 @@ class PipeFactory(HasPrivateTraits):
             if not parent in self._scene.children:
                 parent = tools.add_dataset(parent, figure=self._scene)
 
-
         if scene is not None:
             self._do_redraw = not scene.disable_render
             scene.disable_render = True
@@ -154,7 +156,7 @@ class PipeFactory(HasPrivateTraits):
 
         traits = self.get(self.class_trait_names())
         [traits.pop(key) for key in traits.keys()
-                                    if key[0]=='_' or key is None]
+                                    if key[0] == '_' or key is None]
         traits.update(kwargs)
         # Now calling the traits setter, so that traits handlers are
         # called
@@ -167,7 +169,7 @@ class PipeFactory(HasPrivateTraits):
         unless trait_change_notify==False"""
         HasPrivateTraits.set(self, trait_change_notify=trait_change_notify,
                                     **traits)
-        if trait_change_notify==False:
+        if trait_change_notify == False:
             return
         for trait in traits.iterkeys():
             callback = getattr(self, '_%s_changed' % trait)
@@ -177,12 +179,11 @@ class PipeFactory(HasPrivateTraits):
                     callback()
                 self._anytrait_changed(trait, value)
             except TraitError:
-                if value==None:
+                if value == None:
                     # This means "default"
                     pass
                 else:
                     raise
-
 
     def _anytrait_changed(self, name, value):
         """ This is where we implement the adaptation code. """
@@ -191,10 +192,7 @@ class PipeFactory(HasPrivateTraits):
             # Private attribute
             return
         # hasattr(traits, "adapts") always returns True :-<.
-        if not trait.adapts==None:
+        if not trait.adapts == None:
             components = trait.adapts.split('.')
             obj = get_obj(self._target, components[:-1])
             setattr(obj, components[-1], value)
-
-
-

@@ -15,7 +15,7 @@ except ImportError, m:
     msg = '''%s\n%s\nPlease check your numpy installation. If you need numpy,
 'easy_install numpy' will install it.
 http://numpy.scipy.org
-        ''' % (m, '_'*80)
+        ''' % (m, '_' * 80)
     raise ImportError(msg)
 
 from numpy import pi
@@ -23,6 +23,7 @@ from numpy import pi
 # We can't use gcf, as it creates a circular import in camera management
 # routines.
 from engine_manager import get_engine
+
 
 def world_to_display(x, y, z, figure=None):
     """ Converts 3D world coordinates to screenshot pixel coordinates.
@@ -82,18 +83,20 @@ def roll(roll=None, figure=None):
             scene.render()
     return cam.get_roll()
 
+
 # This is needed for usage inside the view function, where roll is a
 # local variable
 _roll = roll
 
+
 def rad2deg(rad):
     """Converts radians to degrees."""
-    return rad*180./pi
+    return rad * 180. / pi
 
 
 def deg2rad(deg):
     """Converts degrees to radians."""
-    return deg*pi/180.
+    return deg * pi / 180.
 
 
 def get_camera_direction(cam):
@@ -103,8 +106,8 @@ def get_camera_direction(cam):
     fp = cam.focal_point
     pos = cam.position
     x, y, z = pos - fp
-    r = np.sqrt(x*x + y*y + z*z)
-    theta = np.arccos(z/r)
+    r = np.sqrt(x * x + y * y + z * z)
+    theta = np.arccos(z / r)
     phi = np.arctan2(y, x)
     return r, theta, phi, fp
 
@@ -128,9 +131,9 @@ def get_outline_bounds(figure=None):
 
     # Use mode='rgba' to have float values, as with fig.scene.background
     outline = screenshot(mode='rgba')
-    outline =  ( (outline[..., 0] != red)
-                +(outline[..., 1] != green)
-                +(outline[..., 2] != blue)
+    outline = ((outline[..., 0] != red)
+                + (outline[..., 1] != green)
+                + (outline[..., 2] != blue)
                 )
     outline_x = outline.sum(axis=0)
     outline_y = outline.sum(axis=1)
@@ -142,12 +145,12 @@ def get_outline_bounds(figure=None):
     outline_y = np.where(outline_y)[0]
 
     if len(outline_x) == 0:
-        x_min = x_max = .5*width
+        x_min = x_max = .5 * width
     else:
         x_min = outline_x.min()
         x_max = outline_x.max()
     if len(outline_y) == 0:
-        y_min = y_max = .5*height
+        y_min = y_max = .5 * height
     else:
         y_min = outline_y.min()
         y_max = outline_y.max()
@@ -201,7 +204,7 @@ def view(azimuth=None, elevation=None, distance=None, focalpoint=None,
         Controls the roll, ie the rotation of the camera around its axis.
 
      :reset_roll: boolean, optional.
-        If True, and 'roll' is not specified, the roll orientation of the 
+        If True, and 'roll' is not specified, the roll orientation of the
         camera is reset.
 
      :figure: The Mayavi figure to operate on. If None is passed, the
@@ -279,20 +282,20 @@ def view(azimuth=None, elevation=None, distance=None, focalpoint=None,
     if distance is not None and not distance == 'auto':
         r = distance
     else:
-        r = max(bounds[1::2] - bounds[::2])*2.0
+        r = max(bounds[1::2] - bounds[::2]) * 2.0
 
-    cen = (bounds[1::2] + bounds[::2])*0.5
+    cen = (bounds[1::2] + bounds[::2]) * 0.5
     if focalpoint is not None and not focalpoint == 'auto':
         cen = np.asarray(focalpoint)
 
     # Find camera position.
-    x = r*cos(phi)*sin(theta)
-    y = r*sin(phi)*sin(theta)
-    z = r*cos(theta)
+    x = r * cos(phi) * sin(theta)
+    y = r * sin(phi) * sin(theta)
+    z = r * cos(theta)
 
     # Now setup the view.
     cam.focal_point = cen
-    cam.position = cen + [x,y,z]
+    cam.position = cen + [x, y, z]
     cam.compute_view_plane_normal()
     ren.reset_camera_clipping_range()
 
@@ -315,21 +318,21 @@ def view(azimuth=None, elevation=None, distance=None, focalpoint=None,
         x_focus, y_focus = world_to_display(cen[0], cen[1], cen[2],
                                             figure=figure)
 
-        ratio = 1.1*max((x_focus - x_min)/x_focus,
-                        (x_max - x_focus)/(w - x_focus),
-                        (y_focus - y_min)/y_focus,
-                        (y_max - y_focus)/(h - y_focus),
+        ratio = 1.1 * max((x_focus - x_min) / x_focus,
+                        (x_max - x_focus) / (w - x_focus),
+                        (y_focus - y_min) / y_focus,
+                        (y_max - y_focus) / (h - y_focus),
                        )
 
         distance = get_camera_direction(cam)[0]
-        r = distance*ratio
+        r = distance * ratio
         # Reset the camera position.
-        x = r*cos(phi)*sin(theta)
-        y = r*sin(phi)*sin(theta)
-        z = r*cos(theta)
+        x = r * cos(phi) * sin(theta)
+        y = r * sin(phi) * sin(theta)
+        z = r * cos(theta)
 
         # Now setup the view.
-        cam.position = cen + [x,y,z]
+        cam.position = cen + [x, y, z]
         cam.compute_view_plane_normal()
         ren.reset_camera_clipping_range()
 
@@ -415,30 +418,31 @@ def move(forward=None, right=None, up=None):
     cam = scene.camera
 
     if forward is None and right is None and up is None:
-        return cam.position,cam.focal_point
+        return cam.position, cam.focal_point
 
     # vector to offset the camera loc and focal point
     v = np.zeros(3)
 
     # view plane vetor points behind viewing direction, so we invert it
-    yhat = -1*cam.view_plane_normal
+    yhat = -1 * cam.view_plane_normal
     zhat = cam.view_up
 
     if forward is not None:
-        xhat = np.cross(yhat,zhat)
-        v += forward*yhat
+        xhat = np.cross(yhat, zhat)
+        v += forward * yhat
 
     if right is not None:
-        v += right*xhat
+        v += right * xhat
 
     if up is not None:
-        v += up*zhat
+        v += up * zhat
 
     # Apply the offset and setup the view.
     cam.position = cam.position + v
     cam.focal_point = cam.focal_point + v
     ren.reset_camera_clipping_range()
     scene.render()
+
 
 def yaw(degrees):
     """ Rotates the camera about the  axis corresponding to the
@@ -473,6 +477,7 @@ def yaw(degrees):
     ren.reset_camera_clipping_range()
     scene.render()
 
+
 def pitch(degrees):
     """ Rotates the camera about the  axis corresponding to the
     "right" direction of the current view. Note that this will
@@ -491,7 +496,6 @@ def pitch(degrees):
                 point
     """
 
-
     f = get_engine().current_scene
     if f is None:
         return
@@ -506,4 +510,3 @@ def pitch(degrees):
 
     ren.reset_camera_clipping_range()
     scene.render()
-

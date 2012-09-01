@@ -22,7 +22,7 @@ from mayavi.core.registry import registry
 from pipe_base import PipeFactory, make_function
 
 # This the list is dynamically populated further down below at the end.
-__all__ = [ 'tube', 'warp_scalar', 'threshold', 'elevation_filter',
+__all__ = ['tube', 'warp_scalar', 'threshold', 'elevation_filter',
             'set_active_attribute', 'user_defined'
           ]
 
@@ -34,12 +34,11 @@ class TubeFactory(PipeFactory):
     _target = Instance(filters.Tube, ())
 
     tube_sides = CInt(6, adapts='filter.number_of_sides',
-                        desc = """number of sides of the tubes used to
+                        desc="""number of sides of the tubes used to
                         represent the lines.""")
 
-
     tube_radius = CFloat(0.05, adapts='filter.radius',
-                        desc = """radius of the tubes used to represent the
+                        desc="""radius of the tubes used to represent the
                         lines.""")
 
 
@@ -67,7 +66,7 @@ class ThresholdFactory(PipeFactory):
     filter_type = Enum('cells', 'points', adapts='filter_type',
                     help="If threshold is put on cells or points")
 
-    low  = Trait(None, None, CFloat, help="The lower threshold")
+    low = Trait(None, None, CFloat, help="The lower threshold")
 
     def _low_changed(self):
         if self.low == None:
@@ -75,7 +74,7 @@ class ThresholdFactory(PipeFactory):
         else:
             self._target.lower_threshold = self.low
 
-    up   = Trait(None, None, CFloat, help="The upper threshold")
+    up = Trait(None, None, CFloat, help="The upper threshold")
 
     def _up_changed(self):
         if self.up == None:
@@ -214,7 +213,7 @@ def _make_functions(namespace):
         # The class to wrap.
         klass = new.classobj(class_name,
                              (_AutomaticFilterFactory,),
-                             {'__doc__': fil.help,}
+                             {'__doc__': fil.help, }
                              )
         klass._metadata = fil
 
@@ -228,4 +227,3 @@ def _make_functions(namespace):
 
 # Create the module related functions.
 _make_functions(locals())
-

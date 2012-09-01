@@ -10,6 +10,7 @@ from mayavi.core.engine import Engine
 from mayavi.core.scene import Scene
 from mayavi import mlab as m2_mlab
 
+
 ######################################################################
 # `MlabSceneModel` class
 ######################################################################
@@ -48,5 +49,3 @@ class MlabSceneModel(SceneModel):
 
     def _get_mlab(self):
         return m2_mlab
-
-

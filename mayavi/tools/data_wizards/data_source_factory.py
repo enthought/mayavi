@@ -12,6 +12,7 @@ from tvtk.api import tvtk
 
 ArrayOrNone = Trait(None, (None, CArray))
 
+
 ############################################################################
 # The DataSourceFactory class
 ############################################################################
@@ -55,15 +56,12 @@ class DataSourceFactory(HasStrictTraits):
     vector_v = ArrayOrNone
     vector_w = ArrayOrNone
 
-
     #----------------------------------------------------------------------
     # Private traits
     #----------------------------------------------------------------------
-
     _vtk_source = Instance(tvtk.DataSet)
 
     _mayavi_source = Instance(Source)
-
 
     #----------------------------------------------------------------------
     # Private interface
@@ -76,32 +74,30 @@ class DataSourceFactory(HasStrictTraits):
             scalars = self.scalar_data.ravel()
             self._vtk_source.point_data.scalars = scalars
 
-
     def _add_vector_data(self):
         """ Adds the vector data to the vtk source.
         """
         if self.has_vector_data:
-            vectors = c_[ self.vector_u.ravel(),
-                          self.vector_v.ravel(),
-                          self.vector_w.ravel(),
+            vectors = c_[self.vector_u.ravel(),
+                         self.vector_v.ravel(),
+                         self.vector_w.ravel(),
                         ]
             self._vtk_source.point_data.vectors = vectors
-
 
     def _mk_polydata(self):
         """ Creates a PolyData vtk data set using the factory's
             attributes.
         """
-        points = c_[ self.position_x.ravel(),
-                     self.position_y.ravel(),
-                     self.position_z.ravel(),
+        points = c_[self.position_x.ravel(),
+                    self.position_y.ravel(),
+                    self.position_z.ravel(),
                    ]
         lines = None
         if self.lines:
             np = len(points) - 1
-            lines  = zeros((np, 2), 'l')
-            lines[:,0] = arange(0, np-0.5, 1, 'l')
-            lines[:,1] = arange(1, np+0.5, 1, 'l')
+            lines = zeros((np, 2), 'l')
+            lines[:, 0] = arange(0, np - 0.5, 1, 'l')
+            lines[:, 1] = arange(1, np + 0.5, 1, 'l')
         self._vtk_source = tvtk.PolyData(points=points, lines=lines)
         if (self.connectivity_triangles is not None and
                         self.connected):
@@ -110,17 +106,15 @@ class DataSourceFactory(HasStrictTraits):
             self._vtk_source.polys = self.connectivity_triangles
         self._mayavi_source = VTKDataSource(data=self._vtk_source)
 
-
     def _mk_image_data(self):
         """ Creates an ImageData VTK data set and the associated ArraySource
             using the factory's attributes.
         """
-        self._mayavi_source = ArraySource(  transpose_input_array=True,
-                                            scalar_data=self.scalar_data,
-                                            origin=[0., 0., 0],
-                                            spacing=[1, 1, 1])
+        self._mayavi_source = ArraySource(transpose_input_array=True,
+                                          scalar_data=self.scalar_data,
+                                          origin=[0., 0., 0],
+                                          spacing=[1, 1, 1])
         self._vtk_source = self._mayavi_source.image_data
-
 
     def _mk_rectilinear_grid(self):
         """ Creates a RectilinearGrid VTK data set using the factory's
@@ -144,7 +138,6 @@ class DataSourceFactory(HasStrictTraits):
         self._vtk_source = rg
         self._mayavi_source = VTKDataSource(data=self._vtk_source)
 
-
     def _mk_structured_grid(self):
         """ Creates a StructuredGrid VTK data set using the factory's
             attributes.
@@ -152,13 +145,12 @@ class DataSourceFactory(HasStrictTraits):
         # FIXME: We need to figure out the dimensions of the data
         # here, if any.
         sg = tvtk.StructuredGrid(dimensions=self.scalar_data.shape)
-        sg.points = c_[ self.position_x.ravel(),
-                        self.position_y.ravel(),
-                        self.position_z.ravel(),
+        sg.points = c_[self.position_x.ravel(),
+                       self.position_y.ravel(),
+                       self.position_z.ravel(),
                       ]
         self._vtk_source = sg
         self._mayavi_source = VTKDataSource(data=self._vtk_source)
-
 
     #----------------------------------------------------------------------
     # Public interface
@@ -201,7 +193,6 @@ def view(src):
                             color=(0, 0, 0), )
 
 
-
 def test_image_data():
     from numpy import random
     scalars = random.random((3, 3, 3))
@@ -216,9 +207,9 @@ def test_rectilinear_grid():
     factory = DataSourceFactory()
 
     scalars = random.random((3, 3, 3))
-    x = arange(3)**2
-    y = 0.5*arange(3)**2
-    z = arange(3)**2
+    x = arange(3) ** 2
+    y = 0.5 * arange(3) ** 2
+    z = arange(3) ** 2
 
     rectilinear_grid = factory.build_data_source(scalar_data=scalars,
                                        position_implicit=False,
@@ -235,16 +226,15 @@ def test_structured_grid():
 
     scalars = random.random((3, 3, 3))
     x, y, z = mgrid[0:3, 0:3, 0:3]
-    x = x + 0.5*random.random(x.shape)
-    y = y + 0.5*random.random(y.shape)
-    z = z + 0.5*random.random(z.shape)
+    x = x + 0.5 * random.random(x.shape)
+    y = y + 0.5 * random.random(y.shape)
+    z = z + 0.5 * random.random(z.shape)
 
     structured_grid = factory.build_data_source(scalar_data=scalars,
                                        position_x=x,
                                        position_y=y,
                                        position_z=z)
     view(structured_grid)
-
 
 
 if __name__ == '__main__':

@@ -56,9 +56,9 @@ from twisted.internet import reactor
 from twisted.python import log
 
 
-################################################################################
+###############################################################################
 # `M2UDP` protocol.
-################################################################################
+###############################################################################
 class M2UDP(DatagramProtocol):
 
     """Implements a brain dead but supremely powerful UDP API.  Any data
@@ -92,9 +92,9 @@ class M2UDP(DatagramProtocol):
             scene.render()
 
 
-################################################################################
+###############################################################################
 # `M2TCP` protocol
-################################################################################
+###############################################################################
 class M2TCP(Protocol):
 
     """Implements a brain dead but suprememly powerful TCP API.  Any
@@ -142,9 +142,9 @@ class M2TCP(Protocol):
             scene.render()
 
 
-################################################################################
+###############################################################################
 # Utility functions.
-################################################################################
+###############################################################################
 def serve_udp(engine=None, port=9007, logto=sys.stdout):
     """Serve the `M2UDP` protocol using the given `engine` on the
     specified `port` logging messages to given `logto` which is a
@@ -277,14 +277,15 @@ def serve_tcp(engine=None, port=8007, logto=sys.stdout, max_connect=1):
     reactor.run()
 
 
-################################################################################
+###############################################################################
 # Examples and tests.
-################################################################################
+###############################################################################
 def test_tcp():
     """Simple test for the TCP server."""
     from mayavi import mlab
     mlab.test_plot3d()
     serve_tcp()
+
 
 def test_udp():
     """Simple test for the UDP server."""
@@ -294,4 +295,3 @@ def test_udp():
 
 if __name__ == '__main__':
     test_tcp()
-

@@ -39,7 +39,6 @@ class DataSourceWizard(HasTraits):
         names.sort()
         return names
 
-
     # Dictionnary mapping the views
     data_type = Trait('point',
             {'A surface':
@@ -52,7 +51,6 @@ class DataSourceWizard(HasTraits):
                     'volumetric',
             })
 
-
     position_type = Trait('image data',
                      {'Specified explicitly':
                         'explicit',
@@ -61,7 +59,6 @@ class DataSourceWizard(HasTraits):
                       'On an orthogonal grid with varying spacing':
                         'orthogonal grid',
                         })
-
 
     # The array that is used for finding out the shape of the grid,
     # when creating an ImageData
@@ -75,7 +72,7 @@ class DataSourceWizard(HasTraits):
                 self.grid_shape = \
                         self.data_sources[keys[0]].shape
             return keys[0]
-        elif self.grid_shape_source_[:16]=='Shape of array: ':
+        elif self.grid_shape_source_[:16] == 'Shape of array: ':
             return self.grid_shape_source_[17:-1]
         else:
             return ""
@@ -130,8 +127,7 @@ class DataSourceWizard(HasTraits):
 
     vector_v = Str
 
-    vector_w =  Str
-
+    vector_w = Str
 
     #----------------------------------------------------------------------
     # Public interface
@@ -150,7 +146,6 @@ class DataSourceWizard(HasTraits):
             if len(array_names) > 0:
                 array_name = array_names.pop()
             setattr(self, attr, array_name)
-
 
     def guess_arrays(self):
         """ Do some guess work on the arrays to find sensible default.
@@ -192,7 +187,6 @@ class DataSourceWizard(HasTraits):
                 else:
                     break
 
-
     def build_data_source(self):
         """ This is where we apply the selections made by the user in
             in the wizard to build the data source.
@@ -214,8 +208,8 @@ class DataSourceWizard(HasTraits):
             factory.connected = True
 
         if (self.position_type_ == "image data"
-                and not self.data_type_=="point"):
-            if not self.has_scalar_data and not self.vector_u=='':
+                and not self.data_type_ == "point"):
+            if not self.has_scalar_data and not self.vector_u == '':
                 # With image data we need a scalar array always:
                 factory.scalar_data = ones(self.grid_shape)
             factory.position_implicit = True
@@ -228,7 +222,7 @@ class DataSourceWizard(HasTraits):
         if self.position_type_ == "explicit" and self.data_type_ == "surface":
             factory.connectivity_triangles = self.get_data(
                                                 self.connectivity_triangles)
-        if self.lines and self.data_type_=="point":
+        if self.lines and self.data_type_ == "point":
             factory.lines = True
 
         if self.has_vector_data or self.data_type_ == 'vector':
@@ -251,18 +245,15 @@ class DataSourceWizard(HasTraits):
 
         if self.has_scalar_data:
             if hasattr(self.data_source, 'scalar_name'):
-               self.data_source.scalar_name = self.scalar_data
+                self.data_source.scalar_name = self.scalar_data
             elif hasattr(self.data_source, 'point_scalar_name'):
-               self.data_source.point_scalar_name = self.scalars
-
+                self.data_source.point_scalar_name = self.scalars
 
     #----------------------------------------------------------------------
     # Private interface
     #----------------------------------------------------------------------
-
     def get_data(self, name):
         return self.data_sources[name]
-
 
     def get_sdata(self, name):
         ary = self.data_sources[name]
@@ -270,42 +261,39 @@ class DataSourceWizard(HasTraits):
             ary = resize(ary, self.grid_shape)
         return ary
 
-
     def active_arrays(self):
         """ Return the list of the active array-selection drop-downs.
         """
         arrays = []
         if self.data_type_ == 'point' or self.position_type_ == 'explicit':
             arrays.extend(
-                    ['position_x' ,'position_y', 'position_z',])
+                    ['position_x', 'position_y', 'position_z', ])
         if self.data_type_ == 'vector' or self.has_vector_data:
             arrays.extend(['vector_u', 'vector_v', 'vector_w'])
         if self.has_scalar_data or self.data_type_ == 'volumetric':
             arrays.extend(['scalar_data'])
         return arrays
 
-
     def check_arrays(self):
         """ Checks that all the array have the right size.
         """
         arrays_to_check = self.active_arrays()
-        if len(arrays_to_check)==0:
+        if len(arrays_to_check) == 0:
             return True
         size = self.get_data(getattr(self, arrays_to_check.pop())).size
         for attr in arrays_to_check:
             if not self.get_data(getattr(self, attr)).size == size:
                 return False
-        if ( self.data_type_ == 'surface'
+        if (self.data_type_ == 'surface'
                 and self.position_type_ == "explicit"):
-            if not self.connectivity_triangles.size/3 == size:
+            if not self.connectivity_triangles.size / 3 == size:
                 return False
         return True
 
 
-
-############################################################################
+###########################################################################
 # class ArrayColumnWrapper
-############################################################################
+###########################################################################
 class ArrayColumnWrapper(HasStrictTraits):
 
     name = Str
@@ -317,11 +305,10 @@ class ArrayColumnWrapper(HasStrictTraits):
 ############################################################################
 class ArrayColumnAdapter(TabularAdapter):
 
-    columns = [ ('name',  'name'),
-                ('shape', 'shape'), ]
+    columns = [('name',  'name'),
+               ('shape', 'shape'), ]
 
     width = 100
-
 
 
 ############################################################################
@@ -339,9 +326,9 @@ class DataSourceWizardView(DataSourceWizard):
 
     _array_label = Str('Available arrays')
 
-    _data_type_text = Str("What does your data represents?" )
+    _data_type_text = Str("What does your data represents?")
 
-    _lines_text = Str("Connect the points with lines" )
+    _lines_text = Str("Connect the points with lines")
 
     _scalar_data_text = Str("Array giving the value of the scalars")
 
@@ -367,12 +354,11 @@ class DataSourceWizardView(DataSourceWizard):
     _data_sources_wrappers = Property(depends_on='data_sources')
 
     def _get__data_sources_wrappers(self):
-         return [
+        return [
             ArrayColumnWrapper(name=name,
                 shape=repr(self.data_sources[name].shape))
                     for name in self._data_sources_names
                 ]
-
 
     # A traits pointing to the object, to play well with traitsUI
     _self = Instance(DataSourceWizard)
@@ -398,7 +384,6 @@ class DataSourceWizardView(DataSourceWizard):
             self.ui.dispose()
             self.build_data_source()
 
-
     _cancel_button = Button(label='Cancel')
 
     def __cancel_button_fired(self):
@@ -413,7 +398,7 @@ class DataSourceWizardView(DataSourceWizard):
         """ Validates if the OK button is enabled.
         """
         if self.ui:
-            self._is_ok =  self.check_arrays()
+            self._is_ok = self.check_arrays()
             self._is_not_ok = not self._is_ok
 
     _preview_window = Instance(PreviewWindow, ())
@@ -424,7 +409,6 @@ class DataSourceWizardView(DataSourceWizard):
     #----------------------------------------------------------------------
     # TraitsUI views
     #----------------------------------------------------------------------
-
     _coordinates_group = \
                         HGroup(
                            Item('position_x', label='x',
@@ -437,7 +421,6 @@ class DataSourceWizardView(DataSourceWizard):
                                editor=EnumEditor(name='_data_sources_names',
                                         invalid='_is_not_ok')),
                        )
-
 
     _position_group = \
                     Group(
@@ -469,7 +452,6 @@ class DataSourceWizardView(DataSourceWizard):
                        show_labels=False,
                    ),
 
-
     _connectivity_group = \
                    Group(
                        HGroup(
@@ -488,7 +470,6 @@ class DataSourceWizardView(DataSourceWizard):
                        enabled_when='position_type_=="explicit"',
                    ),
 
-
     _scalar_data_group = \
                    Group(
                        Item('_scalar_data_text', style='readonly',
@@ -505,7 +486,6 @@ class DataSourceWizardView(DataSourceWizard):
                        show_border=True,
                        show_labels=False,
                    )
-
 
     _optional_scalar_data_group = \
                    Group(
@@ -533,7 +513,6 @@ class DataSourceWizardView(DataSourceWizard):
                        show_labels=False,
                    ),
 
-
     _vector_data_group = \
                    VGroup(
                        HGroup(
@@ -550,7 +529,6 @@ class DataSourceWizardView(DataSourceWizard):
                        label='Vector data',
                        show_border=True,
                    ),
-
 
     _optional_vector_data_group = \
                    VGroup(
@@ -576,7 +554,6 @@ class DataSourceWizardView(DataSourceWizard):
                        show_border=True,
                    ),
 
-
     _array_view = \
                 View(
                     Item('_array_label', editor=TitleEditor(),
@@ -584,7 +561,7 @@ class DataSourceWizardView(DataSourceWizard):
                     Group(
                     Item('_data_sources_wrappers',
                       editor=TabularEditor(
-                          adapter = ArrayColumnAdapter(),
+                          adapter=ArrayColumnAdapter(),
                       ),
                     ),
                     show_border=True,
@@ -657,7 +634,6 @@ class DataSourceWizardView(DataSourceWizard):
                    Label('\n'),
                 ))
 
-
     _surface_data_view = \
                 View(Group(
                    _position_group,
@@ -666,7 +642,6 @@ class DataSourceWizardView(DataSourceWizard):
                    _optional_vector_data_group,
                 ))
 
-
     _vector_data_view = \
                 View(Group(
                    _vector_data_group,
@@ -674,14 +649,12 @@ class DataSourceWizardView(DataSourceWizard):
                    _optional_scalar_data_group,
                 ))
 
-
     _volumetric_data_view = \
                 View(Group(
                    _scalar_data_group,
                    _position_group,
                    _optional_vector_data_group,
                 ))
-
 
     _wizard_view = View(
           Group(
@@ -710,7 +683,6 @@ class DataSourceWizardView(DataSourceWizard):
         resizable=True,
         )
 
-
     #----------------------------------------------------------------------
     # Public interface
     #----------------------------------------------------------------------
@@ -718,7 +690,6 @@ class DataSourceWizardView(DataSourceWizard):
     def __init__(self, **traits):
         DataSourceFactory.__init__(self, **traits)
         self._self = self
-
 
     def view_wizard(self):
         """ Pops up the view of the wizard, and keeps the reference it to
@@ -731,7 +702,6 @@ class DataSourceWizardView(DataSourceWizard):
         self.grid_shape_source
         self._is_ok
         self.ui = self.edit_traits(view='_wizard_view')
-
 
     def preview(self):
         """ Display a preview of the data structure in the preview
@@ -764,18 +734,17 @@ if __name__ == '__main__':
     from numpy import mgrid
 
     x, y, z = mgrid[-5:5, -5:5, -5:5]
-    r = x**2 + y**2 + z**2
+    r = x ** 2 + y ** 2 + z ** 2
     X = linspace(0, 8)
 
     data_sources = {
-            'x':X,
-            'y':y,
-            'z':z,
-            'r':r
+            'x': X,
+            'y': y,
+            'z': z,
+            'r': r
         }
 
     wizard = DataSourceWizardView(data_sources=data_sources)
     wizard.init_arrays()
     wizard.guess_arrays()
     wizard.view_wizard()
-

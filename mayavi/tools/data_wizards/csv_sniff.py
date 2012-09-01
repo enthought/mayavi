@@ -25,7 +25,8 @@ class Sniff(object):
             print s.skiprows()            # 2
             a = s.loadtxt()               # a is now the array
 
-            from numpy import loadtxt     # make sure it's numpy 1.1.0 or higher
+            from numpy import loadtxt     # make sure it's numpy 1.1.0 or
+                                          # higher
             b = loadtxt('mydata.csv', **s.kwds())
     """
     def __init__(self, filename):
@@ -49,7 +50,8 @@ class Sniff(object):
         line0 = self._reallines[0]
         if line0.startswith('#') or line0.startswith('%'):
             self._comment = line0[0]
-            self._reallines[0] = self._dialect.delimiter.join(line0.split()[1:])
+            self._reallines[0] = self._dialect.delimiter.join(
+                                        line0.split()[1:])
             for i in xrange(1, len(self._reallines)):
                 self._reallines[i] = \
                     self._reallines[i].split(self._comment)[0]
@@ -80,7 +82,7 @@ class Sniff(object):
                     continue
                 return tuple(t.strip('"\' \t') for t in self._split(line))
 
-        return tuple('Column %i' % (i+1) for i in xrange(self._numcols))
+        return tuple('Column %i' % (i + 1) for i in xrange(self._numcols))
 
     def _formats(self):
         res = []
@@ -160,17 +162,16 @@ class Sniff(object):
     def kwds(self):
         """ Return a dict of the keyword argument needed by numpy.loadtxt
         """
-        return {'comments' : self.comments(),
+        return {'comments': self.comments(),
                 'delimiter': self.delimiter(),
-                'skiprows' : self.skiprows(),
-                'dtype'    : self.dtype()}
+                'skiprows': self.skiprows(),
+                'dtype': self.dtype()}
 
     def loadtxt(self):
         """ Return the array (by using numpy.loadtxt), using the sniffed
             information in the keyword arguments.
         """
         return loadtxt(self._filename, **self.kwds())
-
 
 
 def loadtxt_unknown(filename, verbose=0):

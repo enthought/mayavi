@@ -27,7 +27,7 @@ from pipe_base import PipeFactory, make_function
 
 
 # This the list is dynamically populated further down below at the end.
-__all__ = [ 'vectors', 'glyph', 'streamline', 'surface', 'iso_surface',
+__all__ = ['vectors', 'glyph', 'streamline', 'surface', 'iso_surface',
             'image_actor', 'contour_surface', 'contour_grid_plane',
             'custom_grid_plane', 'image_plane_widget',
             'scalar_cut_plane', 'vector_cut_plane', 'volume',
@@ -37,10 +37,11 @@ __all__ = [ 'vectors', 'glyph', 'streamline', 'surface', 'iso_surface',
 # Abstract module classes
 ##############################################################################
 
+
 class ModuleFactory(PipeFactory):
     """ Base class for all the modules factories"""
     color = Trait(None, None,
-                TraitTuple(Range(0., 1.),Range(0., 1.),Range(0., 1.)),
+                TraitTuple(Range(0., 1.), Range(0., 1.), Range(0., 1.)),
                 help="""the color of the vtk object. Overides the colormap,
                         if any, when specified. This is specified as a
                         triplet of float ranging from 0 to 1, eg (1, 1,
@@ -78,6 +79,7 @@ class ModuleFactory(PipeFactory):
             except AttributeError:
                 pass
 
+
 ##############################################################################
 class DataModuleFactory(ModuleFactory):
     """ Base class for all the module factories operating on data (ie not
@@ -104,8 +106,8 @@ class DataModuleFactory(ModuleFactory):
                 self._target.module_manager.scalar_lut_manager.data_range
             self._target.module_manager.scalar_lut_manager.lut.alpha_range = \
                                                                 (0.2, 0.8)
-            data_range = ( numpy.mean(data_range)
-                            + 0.4 * ( data_range.max() - data_range.min())
+            data_range = (numpy.mean(data_range)
+                            + 0.4 * (data_range.max() - data_range.min())
                                 * numpy.array([-1, 1]))
             self._target.module_manager.scalar_lut_manager.data_range = \
                 data_range
@@ -121,7 +123,6 @@ class DataModuleFactory(ModuleFactory):
             self._target.module_manager.vector_lut_manager.reverse_lut = True
         self._target.module_manager.scalar_lut_manager.lut_mode = colormap
         self._target.module_manager.vector_lut_manager.lut_mode = colormap
-
 
     vmin = Trait(None, None, CFloat,
                     help="""vmin is used to scale the colormap.
@@ -198,9 +199,9 @@ class CutPlaneFactory(DataModuleFactory):
                            "cut plane are shown."))
 
     def _plane_orientation_changed(self):
-        choices = dict(x_axes=numpy.array([ 1.,  0.,  0.]),
-                       y_axes=numpy.array([ 0.,  1.,  0.]),
-                       z_axes=numpy.array([ 0.,  0.,  1.]))
+        choices = dict(x_axes=numpy.array([1.,  0.,  0.]),
+                       y_axes=numpy.array([0.,  1.,  0.]),
+                       z_axes=numpy.array([0.,  0.,  1.]))
         self._target.implicit_plane.normal = \
                                 choices[self.plane_orientation]
 
@@ -210,11 +211,11 @@ class CutPlaneFactory(DataModuleFactory):
 ##############################################################################
 
 # The list of possible glyph modes
-glyph_mode_dict = {'2darrow': 0, '2dcircle':0, '2dcross':0,
-                            '2ddash': 0, '2ddiamond':0,
-                            '2dhooked_arrow':0, '2dsquare':0,
-                            '2dthick_arrow':0, '2dthick_cross':0,
-                            '2dtriangle':0, '2dvertex':0,
+glyph_mode_dict = {'2darrow': 0, '2dcircle': 0, '2dcross': 0,
+                            '2ddash': 0, '2ddiamond': 0,
+                            '2dhooked_arrow': 0, '2dsquare': 0,
+                            '2dthick_arrow': 0, '2dthick_cross': 0,
+                            '2dtriangle': 0, '2dvertex': 0,
                             'arrow': 1, 'cone': 2, 'cylinder': 3,
                             'sphere': 4, 'cube': 5, 'axes': 6, 'point': 7}
 
@@ -232,9 +233,9 @@ class VectorsFactory(DataModuleFactory):
                                     size of the glyph is by default in drawing
                                     units.""")
 
-    scale_mode = Trait('vector', {'none':'data_scaling_off',
-                                'scalar':'scale_by_scalar',
-                                'vector':'scale_by_vector'},
+    scale_mode = Trait('vector', {'none': 'data_scaling_off',
+                                'scalar': 'scale_by_scalar',
+                                'vector': 'scale_by_vector'},
                             help="""the scaling mode for the glyphs
                             ('vector', 'scalar', or 'none').""")
 
@@ -298,9 +299,9 @@ class GlyphFactory(VectorsFactory):
 
     _target = Instance(modules.Glyph, ())
 
-    scale_mode = Trait('scalar', {'none':'data_scaling_off',
-                                'scalar':'scale_by_scalar',
-                                'vector':'scale_by_vector'},
+    scale_mode = Trait('scalar', {'none': 'data_scaling_off',
+                                'scalar': 'scale_by_scalar',
+                                'vector': 'scale_by_vector'},
                             help="""the scaling mode for the glyphs
                             ('vector', 'scalar', or 'none').""")
 
@@ -322,7 +323,7 @@ class StreamlineFactory(DataModuleFactory):
                    streamline.""")
 
     seedtype = Trait('sphere',
-            {'sphere':0, 'line':1, 'plane':2, 'point':3},
+            {'sphere': 0, 'line': 1, 'plane': 2, 'point': 3},
             desc="""the widget used as a seed for the streamlines.""")
 
     seed_visible = Bool(True,
@@ -343,7 +344,6 @@ class StreamlineFactory(DataModuleFactory):
             desc="The direction of the integration.",
             )
 
-
     def _seedtype_changed(self):
         # XXX: this also acts for seed_scale and seed_resolution, but no
         # need to define explicit callbacks, as all the callbacks are
@@ -351,22 +351,22 @@ class StreamlineFactory(DataModuleFactory):
         self._target.seed.widget = widget = \
                             self._target.seed.widget_list[self.seedtype_]
 
-        if  not self.seed_scale==1.:
+        if  not self.seed_scale == 1.:
             widget.enabled = True
             if self.seedtype == 'line':
                 p1 = widget.point1
                 p2 = widget.point2
-                center = (p1 + p2)/2.
-                widget.point1 = center + self.seed_scale*(p1 - center)
-                widget.point2 = center + self.seed_scale*(p2 - center)
+                center = (p1 + p2) / 2.
+                widget.point1 = center + self.seed_scale * (p1 - center)
+                widget.point2 = center + self.seed_scale * (p2 - center)
             elif self.seedtype == 'plane':
                 p1 = widget.point1
                 p2 = widget.point2
-                center = (p1 + p2)/2.
+                center = (p1 + p2) / 2.
                 o = widget.origin
-                widget.point1 = center + self.seed_scale*(p1 - center)
-                widget.point2 = center + self.seed_scale*(p2 - center)
-                widget.origin = center + self.seed_scale*(o - center)
+                widget.point1 = center + self.seed_scale * (p1 - center)
+                widget.point2 = center + self.seed_scale * (p2 - center)
+                widget.origin = center + self.seed_scale * (o - center)
             elif self.seedtype == 'sphere':
                 widget.radius *= self.seed_scale
 
@@ -389,7 +389,6 @@ class StreamlineFactory(DataModuleFactory):
             self._target.seed.stop()
             self._target.seed.start()
             widget.enabled = self.seed_visible
-
 
 
 streamline = make_function(StreamlineFactory)
@@ -436,6 +435,7 @@ class ContourSurfaceFactory(ContourModuleFactory):
 
 contour_surface = make_function(ContourSurfaceFactory)
 
+
 ##############################################################################
 class ImageActorFactory(DataModuleFactory):
     """Applies the ImageActor mayavi module to the given VTK data object."""
@@ -473,7 +473,6 @@ class ImagePlaneWidgetFactory(DataModuleFactory):
 image_plane_widget = make_function(ImagePlaneWidgetFactory)
 
 
-
 ##############################################################################
 class ScalarCutPlaneFactory(CutPlaneFactory):
     """ Applies the ScalarCutPlane mayavi module to the given data
@@ -492,7 +491,6 @@ class VectorCutPlaneFactory(CutPlaneFactory, VectorsFactory):
     _target = Instance(modules.VectorCutPlane, ())
 
 vector_cut_plane = make_function(VectorCutPlaneFactory)
-
 
 
 ##############################################################################
@@ -532,7 +530,8 @@ class VolumeFactory(PipeFactory):
             # Changing the ctf:
             from tvtk.util.ctf import ColorTransferFunction
             ctf = ColorTransferFunction()
-            ctf.add_rgb_point(value, r, g, b) # r, g, and b are float between 0 and 1
+            ctf.add_rgb_point(value, r, g, b)  # r, g, and b are float
+                                               # between 0 and 1
             ctf.add_hsv_point(value, h, s, v)
             # ...
             vol._volume_property.set_color(ctf)
@@ -552,7 +551,7 @@ class VolumeFactory(PipeFactory):
     """
 
     color = Trait(None, None,
-                TraitTuple(Range(0., 1.),Range(0., 1.),Range(0., 1.)),
+                TraitTuple(Range(0., 1.), Range(0., 1.), Range(0., 1.)),
                 help="""the color of the vtk object. Overides the colormap,
                         if any, when specified. This is specified as a
                         triplet of float ranging from 0 to 1, eg (1, 1,
@@ -617,16 +616,20 @@ class VolumeFactory(PipeFactory):
         self._target._otf = otf
         self._target._volume_property.set_scalar_opacity(otf)
         if self.color is None and not self.__ctf_rescaled and \
-                        ( (self.vmin is not None) or (self.vmax is not None) ):
-            # FIXME: We don't use 'rescale_ctfs' because it screws up the nodes.
+                        ((self.vmin is not None) or (self.vmax is not None)):
+            # FIXME: We don't use 'rescale_ctfs' because it screws up the
+            # nodes.
+
             def _rescale_value(x):
-                nx = (x - range_min)/(range_max - range_min)
-                return vmin + nx*(vmax - vmin)
+                nx = (x - range_min) / (range_max - range_min)
+                return vmin + nx * (vmax - vmin)
             # The range of the existing ctf can vary.
             scale_min, scale_max = self._target._ctf.range
+
             def _rescale_node(x):
-                nx = (x - scale_min)/(scale_max - scale_min)
-                return range_min + nx*(range_max - range_min)
+                nx = (x - scale_min) / (scale_max - scale_min)
+                return range_min + nx * (range_max - range_min)
+
             if hasattr(self._target._ctf, 'nodes'):
                 rgb = list()
                 for value in self._target._ctf.nodes:
@@ -707,7 +710,7 @@ def _make_functions(namespace):
         # The class to wrap.
         klass = new.classobj(class_name,
                              (_AutomaticModuleFactory,),
-                             {'__doc__': mod.help,}
+                             {'__doc__': mod.help, }
                              )
         klass._metadata = mod
         # The mlab helper function.
@@ -720,4 +723,3 @@ def _make_functions(namespace):
 
 # Create the module related functions.
 _make_functions(locals())
-

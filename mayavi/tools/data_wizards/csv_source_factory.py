@@ -14,6 +14,7 @@ from mayavi.tools.data_wizards.data_source_wizard import \
 from mayavi.tools.data_wizards.csv_loader import \
         CSVLoader, CSVLoaderController
 
+
 class CallbackCSVLoader(CSVLoaderController):
     """ Simple handler for a TraitsUI view to call a given callback on
         exit.
@@ -39,7 +40,6 @@ class CSVSourceFactory(HasTraits):
         self.data_source_wizard = DataSourceWizardView(
                 data_sources=self.csv_loader.data_dict)
         self.data_source_wizard.edit_traits()
-
 
     def __call__(self, fname):
         """ Pops up the dialogs required for the import of the

@@ -22,25 +22,26 @@ from mayavi.core.registry import registry
 import tools
 from engine_manager import get_null_engine, engine_manager
 
-__all__ = [ 'vector_scatter', 'vector_field', 'scalar_scatter',
+__all__ = ['vector_scatter', 'vector_field', 'scalar_scatter',
     'scalar_field', 'line_source', 'array2d_source', 'grid_source',
     'open', 'triangular_mesh_source', 'vertical_vectors_source',
 ]
 
-################################################################################
+
+###############################################################################
 # A subclass of CArray that will accept floats and do a np.atleast_1d
-################################################################################
+###############################################################################
 class CArrayOrNumber(CArray):
 
-    def validate( self, object, name, value):
+    def validate(self, object, name, value):
         if operator.isNumberType(value):
             value = np.atleast_1d(value)
         return CArray.validate(self, object, name, value)
 
 
-################################################################################
+###############################################################################
 # `MlabSource` class.
-################################################################################
+###############################################################################
 class MlabSource(HasTraits):
     """
     This class represents the base class for all mlab sources.  These
@@ -130,9 +131,9 @@ ArrayOrNone = Either(None, CArray, comparison_mode=NO_COMPARE)
 ArrayNumberOrNone = Either(None, CArrayOrNumber, comparison_mode=NO_COMPARE)
 
 
-################################################################################
+###############################################################################
 # `MGlyphSource` class.
-################################################################################
+###############################################################################
 class MGlyphSource(MlabSource):
     """
     This class represents a glyph data source for Mlab objects and
@@ -140,10 +141,10 @@ class MGlyphSource(MlabSource):
     """
 
     # The x, y, z and points of the glyphs.
-    x       = ArrayNumberOrNone
-    y       = ArrayNumberOrNone
-    z       = ArrayNumberOrNone
-    points  = ArrayOrNone
+    x = ArrayNumberOrNone
+    y = ArrayNumberOrNone
+    z = ArrayNumberOrNone
+    points = ArrayOrNone
 
     # The scalars shown on the glyphs.
     scalars = ArrayNumberOrNone
@@ -177,16 +178,15 @@ class MGlyphSource(MlabSource):
         z = np.atleast_1d(z)
 
         if 'points' in traits:
-            x=points[:,0].ravel()
-            y=points[:,1].ravel()
-            z=points[:,2].ravel()
-            self.set(x=x,y=y,z=z,trait_change_notify=False)
+            x = points[:, 0].ravel()
+            y = points[:, 1].ravel()
+            z = points[:, 2].ravel()
+            self.set(x=x, y=y, z=z, trait_change_notify=False)
 
         else:
             points = np.c_[x.ravel(), y.ravel(), z.ravel()].ravel()
-            points.shape = (points.size/3, 3)
+            points.shape = (points.size / 3, 3)
             self.set(points=points, trait_change_notify=False)
-
 
         u, v, w = self.u, self.v, self.w
         if u is not None:
@@ -196,22 +196,21 @@ class MGlyphSource(MlabSource):
             if len(u) > 0:
                 vectors = np.c_[u.ravel(), v.ravel(),
                                 w.ravel()].ravel()
-                vectors.shape = (vectors.size/3, 3)
+                vectors.shape = (vectors.size / 3, 3)
                 self.set(vectors=vectors, trait_change_notify=False)
 
         if 'vectors' in traits:
-            u=vectors[:,0].ravel()
-            v=vectors[:,1].ravel()
-            w=vectors[:,2].ravel()
-            self.set(u=u,v=v,w=w,trait_change_notify=False)
+            u = vectors[:, 0].ravel()
+            v = vectors[:, 1].ravel()
+            w = vectors[:, 2].ravel()
+            self.set(u=u, v=v, w=w, trait_change_notify=False)
 
         else:
             if u is not None and len(u) > 0:
                 vectors = np.c_[u.ravel(), v.ravel(),
-                                   w.ravel()].ravel()
-                vectors.shape = (vectors.size/3, 3)
+                                w.ravel()].ravel()
+                vectors.shape = (vectors.size / 3, 3)
                 self.set(vectors=vectors, trait_change_notify=False)
-
 
         if vectors is not None and len(vectors) > 0:
             assert len(points) == len(vectors)
@@ -245,32 +244,32 @@ class MGlyphSource(MlabSource):
     ######################################################################
     def _x_changed(self, x):
         x = np.atleast_1d(x)
-        self.points[:,0] = x
+        self.points[:, 0] = x
         self.update()
 
     def _y_changed(self, y):
         y = np.atleast_1d(y)
-        self.points[:,1] = y
+        self.points[:, 1] = y
         self.update()
 
     def _z_changed(self, z):
         z = np.atleast_1d(z)
-        self.points[:,2] = z
+        self.points[:, 2] = z
         self.update()
 
     def _u_changed(self, u):
         u = np.atleast_1d(u)
-        self.vectors[:,0] = u
+        self.vectors[:, 0] = u
         self.update()
 
     def _v_changed(self, v):
         v = np.atleast_1d(v)
-        self.vectors[:,1] = v
+        self.vectors[:, 1] = v
         self.update()
 
     def _w_changed(self, w):
         w = np.atleast_1d(w)
-        self.vectors[:,2] = w
+        self.vectors[:, 2] = w
         self.update()
 
     def _points_changed(self, p):
@@ -294,9 +293,9 @@ class MGlyphSource(MlabSource):
         self.update()
 
 
-################################################################################
+###############################################################################
 # `MVerticalGlyphSource` class.
-################################################################################
+###############################################################################
 class MVerticalGlyphSource(MGlyphSource):
     """
     This class represents a vertical glyph data source for Mlab objects
@@ -314,7 +313,6 @@ class MVerticalGlyphSource(MGlyphSource):
                 traits['w'] = s
         super(MVerticalGlyphSource, self).reset(**traits)
 
-
     def _scalars_changed(self, s):
         self.dataset.point_data.scalars = s
         self.dataset.point_data.scalars.name = 'scalars'
@@ -324,9 +322,9 @@ class MVerticalGlyphSource(MGlyphSource):
         self.update()
 
 
-################################################################################
+###############################################################################
 # `MArraySource` class.
-################################################################################
+###############################################################################
 class MArraySource(MlabSource):
     """
     This class represents an array data source for Mlab objects and
@@ -363,10 +361,10 @@ class MArraySource(MlabSource):
 
         u, v, w = self.u, self.v, self.w
         if 'vectors' in traits:
-            u=vectors[:,0].ravel()
-            v=vectors[:,1].ravel()
-            w=vectors[:,2].ravel()
-            self.set(u=u,v=v,w=w,trait_change_notify=False)
+            u = vectors[:, 0].ravel()
+            v = vectors[:, 1].ravel()
+            w = vectors[:, 2].ravel()
+            self.set(u=u, v=v, w=w, trait_change_notify=False)
 
         else:
             if u is not None and len(u) > 0:
@@ -376,7 +374,7 @@ class MArraySource(MlabSource):
                 #                axis=3)
                 vectors = np.c_[u.ravel(), v.ravel(),
                                    w.ravel()].ravel()
-                vectors.shape = (u.shape[0] , u.shape[1], w.shape[2], 3)
+                vectors.shape = (u.shape[0], u.shape[1], w.shape[2], 3)
                 self.set(vectors=vectors, trait_change_notify=False)
 
         if vectors is not None and len(vectors) > 0 and scalars is not None:
@@ -427,15 +425,15 @@ class MArraySource(MlabSource):
         self.update()
 
     def _u_changed(self, u):
-        self.vectors[...,0] = u
+        self.vectors[..., 0] = u
         self.m_data._vector_data_changed(self.vectors)
 
     def _v_changed(self, v):
-        self.vectors[...,1] = v
+        self.vectors[..., 1] = v
         self.m_data._vector_data_changed(self.vectors)
 
     def _w_changed(self, w):
-        self.vectors[...,2] = w
+        self.vectors[..., 2] = w
         self.m_data._vector_data_changed(self.vectors)
 
     def _scalars_changed(self, s):
@@ -448,9 +446,9 @@ class MArraySource(MlabSource):
         self.m_data.vector_data = v
 
 
-################################################################################
+###############################################################################
 # `MLineSource` class.
-################################################################################
+###############################################################################
 class MLineSource(MlabSource):
     """
     This class represents a line data source for Mlab objects and
@@ -481,22 +479,21 @@ class MLineSource(MlabSource):
         x, y, z = self.x, self.y, self.z
 
         if 'points' in traits:
-            x=points[:,0].ravel()
-            y=points[:,1].ravel()
-            z=points[:,2].ravel()
-            self.set(x=x,y=y,z=z,trait_change_notify=False)
+            x = points[:, 0].ravel()
+            y = points[:, 1].ravel()
+            z = points[:, 2].ravel()
+            self.set(x=x, y=y, z=z, trait_change_notify=False)
 
         else:
             points = np.c_[x.ravel(), y.ravel(), z.ravel()].ravel()
             points.shape = (len(x), 3)
             self.set(points=points, trait_change_notify=False)
 
-
         # Create the dataset.
         n_pts = len(points) - 1
-        lines  = np.zeros((n_pts, 2), 'l')
-        lines[:,0] = np.arange(0, n_pts-0.5, 1, 'l')
-        lines[:,1] = np.arange(1, n_pts+0.5, 1, 'l')
+        lines = np.zeros((n_pts, 2), 'l')
+        lines[:, 0] = np.arange(0, n_pts - 0.5, 1, 'l')
+        lines[:, 1] = np.arange(1, n_pts + 0.5, 1, 'l')
         if self.dataset is None:
             pd = tvtk.PolyData()
         else:
@@ -519,15 +516,15 @@ class MLineSource(MlabSource):
     # Non-public interface.
     ######################################################################
     def _x_changed(self, x):
-        self.points[:,0] = x
+        self.points[:, 0] = x
         self.update()
 
     def _y_changed(self, y):
-        self.points[:,1] = y
+        self.points[:, 1] = y
         self.update()
 
     def _z_changed(self, z):
-        self.points[:,2] = z
+        self.points[:, 2] = z
         self.update()
 
     def _points_changed(self, p):
@@ -539,9 +536,10 @@ class MLineSource(MlabSource):
         self.dataset.point_data.scalars.name = 'scalars'
         self.update()
 
-################################################################################
+
+###############################################################################
 # `MArray2DSource` class.
-################################################################################
+###############################################################################
 class MArray2DSource(MlabSource):
     """
     This class represents a 2D array data source for Mlab objects and
@@ -578,7 +576,7 @@ class MArray2DSource(MlabSource):
 
         #Build X and Y from shape of Scalars if they are none
         if x is None and y is None:
-            x, y = np.mgrid[-nx/2.:nx/2, -ny/2.:ny/2]
+            x, y = np.mgrid[-nx / 2.:nx / 2, -ny / 2.:ny / 2]
 
         if mask is not None and len(mask) > 0:
             scalars[mask.astype('bool')] = np.nan
@@ -617,19 +615,19 @@ class MArray2DSource(MlabSource):
         self.dataset = ds.image_data
         self.m_data = ds
 
-    ######################################################################
+    #####################################################################
     # Non-public interface.
-    ######################################################################
+    #####################################################################
     @on_trait_change('[x, y]')
     def _xy_changed(self):
-        x, y,scalars = self.x, self.y, self.scalars
+        x, y, scalars = self.x, self.y, self.scalars
 
         nx, ny = scalars.shape
 
         if x is None or y is None:
-            x, y = np.mgrid[-nx/2.:nx/2, -ny/2.:ny/2]
+            x, y = np.mgrid[-nx / 2.:nx / 2, -ny / 2.:ny / 2]
 
-        self.trait_setq(x=x,y=y)
+        self.trait_setq(x=x, y=y)
         x = np.atleast_2d(x.squeeze().T)[0, :].squeeze()
         y = np.atleast_2d(y.squeeze())[0, :].squeeze()
         dx = x[1] - x[0]
@@ -654,9 +652,9 @@ class MArray2DSource(MlabSource):
             self.m_data._scalar_data_changed(s)
 
 
-################################################################################
+##############################################################################
 # `MGridSource` class.
-################################################################################
+##############################################################################
 class MGridSource(MlabSource):
     """
     This class represents a grid source for Mlab objects and
@@ -688,35 +686,36 @@ class MGridSource(MlabSource):
         points = self.points
         scalars = self.scalars
         x, y, z, mask = self.x, self.y, self.z, self.mask
-        
+
         if mask is not None and len(mask) > 0:
             scalars[mask.astype('bool')] = np.nan
             # The NaN trick only works with floats.
             scalars = scalars.astype('float')
             self.set(scalars=scalars, trait_change_notify=False)
 
-
         assert len(x.shape) == 2, "Array x must be 2 dimensional."
         assert len(y.shape) == 2, "Array y must be 2 dimensional."
         assert len(z.shape) == 2, "Array z must be 2 dimensional."
         assert x.shape == y.shape, "Arrays x and y must have same shape."
         assert y.shape == z.shape, "Arrays y and z must have same shape."
-        #Points in the grid source will always be created using x,y,z
-        #Changing of points is not allowed because it cannot be used to modify values of x,y,z
+
+        # Points in the grid source will always be created using x,y,z
+        # Changing of points is not allowed because it cannot be used to
+        # modify values of x,y,z
 
         nx, ny = x.shape
         points = np.c_[x.ravel(), y.ravel(), z.ravel()].ravel()
-        points.shape = (nx*ny, 3)
+        points.shape = (nx * ny, 3)
         self.set(points=points, trait_change_notify=False)
 
-        i, j = np.mgrid[0:nx-1,0:ny-1]
+        i, j = np.mgrid[0:nx - 1, 0:ny - 1]
         i, j = np.ravel(i), np.ravel(j)
-        t1 = i*ny+j, (i+1)*ny+j, (i+1)*ny+(j+1)
-        t2 = (i+1)*ny+(j+1), i*ny+(j+1), i*ny+j
+        t1 = i * ny + j, (i + 1) * ny + j, (i + 1) * ny + (j + 1)
+        t2 = (i + 1) * ny + (j + 1), i * ny + (j + 1), i * ny + j
         nt = len(t1[0])
-        triangles = np.zeros((nt*2, 3), 'l')
-        triangles[0:nt,0], triangles[0:nt,1], triangles[0:nt,2] = t1
-        triangles[nt:,0], triangles[nt:,1], triangles[nt:,2] = t2
+        triangles = np.zeros((nt * 2, 3), 'l')
+        triangles[0:nt, 0], triangles[0:nt, 1], triangles[0:nt, 2] = t1
+        triangles[nt:, 0], triangles[nt:, 1], triangles[nt:, 2] = t2
 
         if self.dataset is None:
             pd = tvtk.PolyData()
@@ -738,18 +737,18 @@ class MGridSource(MlabSource):
     # Non-public interface.
     ######################################################################
     def _x_changed(self, x):
-        self.trait_setq(x=x);
-        self.points[:,0] = x.ravel()
+        self.trait_setq(x=x)
+        self.points[:, 0] = x.ravel()
         self.update()
 
     def _y_changed(self, y):
         self.trait_setq(y=y)
-        self.points[:,1] = y.ravel()
+        self.points[:, 1] = y.ravel()
         self.update()
 
     def _z_changed(self, z):
         self.trait_setq(z=z)
-        self.points[:,2] = z.ravel()
+        self.points[:, 2] = z.ravel()
         self.update()
 
     def _points_changed(self, p):
@@ -769,9 +768,9 @@ class MGridSource(MlabSource):
         self.update()
 
 
-################################################################################
+###############################################################################
 # `MTriangularMeshSource` class.
-################################################################################
+###############################################################################
 class MTriangularMeshSource(MlabSource):
     """
     This class represents a triangular mesh source for Mlab objects and
@@ -803,7 +802,7 @@ class MTriangularMeshSource(MlabSource):
 
         x, y, z = self.x, self.y, self.z
         points = np.c_[x.ravel(), y.ravel(), z.ravel()].ravel()
-        points.shape = (points.size/3, 3)
+        points.shape = (points.size / 3, 3)
         self.set(points=points, trait_change_notify=False)
 
         triangles = self.triangles
@@ -844,18 +843,18 @@ class MTriangularMeshSource(MlabSource):
     # Non-public interface.
     ######################################################################
     def _x_changed(self, x):
-        self.trait_setq(x=x);
-        self.points[:,0] = x.ravel()
+        self.trait_setq(x=x)
+        self.points[:, 0] = x.ravel()
         self.update()
 
     def _y_changed(self, y):
         self.trait_setq(y=y)
-        self.points[:,1] = y.ravel()
+        self.points[:, 1] = y.ravel()
         self.update()
 
     def _z_changed(self, z):
         self.trait_setq(z=z)
-        self.points[:,2] = z.ravel()
+        self.points[:, 2] = z.ravel()
         self.update()
 
     def _points_changed(self, p):
@@ -869,10 +868,10 @@ class MTriangularMeshSource(MlabSource):
 
     def _triangles_changed(self, triangles):
         if triangles.min() < 0:
-            raise ValueError, 'The triangles array has negative values'
+            raise ValueError('The triangles array has negative values')
         if triangles.max() > self.x.size:
-            raise ValueError, 'The triangles array has values larger than' \
-                                        'the number of points'
+            raise ValueError('The triangles array has values larger than' \
+                                        'the number of points')
         self.dataset.polys = triangles
         self.update()
 
@@ -897,54 +896,58 @@ def convert_to_arrays(args):
             args[index] = arg
     return args
 
+
 def process_regular_vectors(*args):
     """ Converts different signatures to (x, y, z, u, v, w). """
     args = convert_to_arrays(args)
-    if len(args)==3:
+    if len(args) == 3:
         u, v, w = [np.atleast_3d(a) for a in args]
-        assert len(u.shape)==3, "3D array required"
+        assert len(u.shape) == 3, "3D array required"
         x, y, z = np.indices(u.shape)
-    elif len(args)==6:
+    elif len(args) == 6:
         x, y, z, u, v, w = args
-    elif len(args)==4:
+    elif len(args) == 4:
         x, y, z, f = args
         if not callable(f):
-            raise ValueError, "When 4 arguments are provided, the fourth must be a callable"
+            raise ValueError("When 4 arguments are provided, the fourth must "
+                             "be a callable")
         u, v, w = f(x, y, z)
     else:
-        raise ValueError, "wrong number of arguments"
+        raise ValueError("wrong number of arguments")
 
-    assert ( x.shape == y.shape and
+    assert (x.shape == y.shape and
             y.shape == z.shape and
             u.shape == z.shape and
             v.shape == u.shape and
-            w.shape == v.shape ), "argument shape are not equal"
+            w.shape == v.shape), "argument shape are not equal"
 
     return x, y, z, u, v, w
+
 
 def process_regular_scalars(*args):
     """ Converts different signatures to (x, y, z, s). """
     args = convert_to_arrays(args)
-    if len(args)==1:
+    if len(args) == 1:
         s = np.atleast_3d(args[0])
-        assert len(s.shape)==3, "3D array required"
+        assert len(s.shape) == 3, "3D array required"
         x, y, z = np.indices(s.shape)
-    elif len(args)==3:
+    elif len(args) == 3:
         x, y, z = args
         s = None
-    elif len(args)==4:
+    elif len(args) == 4:
         x, y, z, s = args
         if callable(s):
             s = s(x, y, z)
     else:
-        raise ValueError, "wrong number of arguments"
+        raise ValueError("wrong number of arguments")
 
-    assert ( x.shape == y.shape and
+    assert (x.shape == y.shape and
             y.shape == z.shape and
-            ( s is None
-                or s.shape == z.shape ) ), "argument shape are not equal"
+            (s is None
+               or s.shape == z.shape)), "argument shape are not equal"
 
     return x, y, z, s
+
 
 def process_regular_2d_scalars(*args, **kwargs):
     """ Converts different signatures to (x, y, s). """
@@ -952,17 +955,17 @@ def process_regular_2d_scalars(*args, **kwargs):
     for index, arg in enumerate(args):
         if not callable(arg):
             args[index] = np.atleast_2d(arg)
-    if len(args)==1:
+    if len(args) == 1:
         s = args[0]
-        assert len(s.shape)==2, "2D array required"
+        assert len(s.shape) == 2, "2D array required"
         x, y = np.indices(s.shape)
-    elif len(args)==3:
+    elif len(args) == 3:
         x, y, s = args
         if callable(s):
             s = s(x, y)
     else:
-        raise ValueError, "wrong number of arguments"
-    assert len(s.shape)==2, "2D array required"
+        raise ValueError("wrong number of arguments")
+    assert len(s.shape) == 2, "2D array required"
 
     if 'mask' in kwargs:
         mask = kwargs['mask']
@@ -1166,8 +1169,8 @@ def line_source(*args, **kwargs):
         line_source(x, y, z, s, ...)
         line_source(x, y, z, f, ...)
 
-        If 4 positional arguments are passed the last one must be an array s, or
-        a callable, f, that returns an array.
+        If 4 positional arguments are passed the last one must be an array s,
+        or a callable, f, that returns an array.
 
     **Keyword arguments**:
 
@@ -1180,8 +1183,8 @@ def line_source(*args, **kwargs):
                  or filters applied to the source: the source can only
                  be used for testing, or numerical algorithms, not
                  visualization."""
-    if len(args)==1:
-        raise ValueError, "wrong number of arguments"
+    if len(args) == 1:
+        raise ValueError("wrong number of arguments")
     x, y, z, s = process_regular_scalars(*args)
 
     data_source = MLineSource()
@@ -1232,7 +1235,7 @@ def array2d_source(*args, **kwargs):
     """
     data_source = MArray2DSource()
     mask = kwargs.pop('mask', None)
-    if len(args) == 1 :
+    if len(args) == 1:
         args = convert_to_arrays(args)
         s = np.atleast_2d(args[0])
         data_source.reset(scalars=s, mask=mask)
@@ -1268,7 +1271,7 @@ def grid_source(x, y, z, **kwargs):
                  or filters applied to the source: the source can only
                  be used for testing, or numerical algorithms, not
                  visualization.
-                 
+
         :mask: Mask points specified in a boolean masking array.
 
         """
@@ -1347,6 +1350,7 @@ def vertical_vectors_source(*args, **kwargs):
     data_source.m_data = ds
     return ds
 
+
 def triangular_mesh_source(x, y, z, triangles, **kwargs):
     """
     Creates 2D mesh by specifying points and triangle connectivity.
@@ -1373,10 +1377,10 @@ def triangular_mesh_source(x, y, z, triangles, **kwargs):
     x, y, z, triangles = convert_to_arrays((x, y, z, triangles))
 
     if triangles.min() < 0:
-        raise ValueError, 'The triangles array has negative values'
+        raise ValueError('The triangles array has negative values')
     if triangles.max() > x.size:
-        raise ValueError, 'The triangles array has values larger than' \
-                                    'the number of points'
+        raise ValueError('The triangles array has values larger than' \
+                                    'the number of points')
     scalars = kwargs.pop('scalars', None)
     if scalars is None:
         scalars = z
@@ -1408,6 +1412,7 @@ def open(filename, figure=None):
     src = engine.open(filename)
     return src
 
+
 ############################################################################
 # Automatically generated sources from registry.
 ############################################################################
@@ -1420,6 +1425,7 @@ def _create_data_source(metadata):
     engine = tools.get_engine()
     engine.add_source(src)
     return src
+
 
 def _make_functions(namespace):
     """Make the automatic functions and add them to the namespace."""

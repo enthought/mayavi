@@ -11,16 +11,18 @@ import types
 
 old_dedent = dedent
 
+
 def dedent(text):
     """ Removes as much indentation as possible from some text, but does
     not modify the first line.
     """
-    text_lines = [line.rstrip() for line in text.split("\n") ]
-    if len(text_lines)>0:
+    text_lines = [line.rstrip() for line in text.split("\n")]
+    if len(text_lines) > 0:
         return text_lines[0] + "\n" + old_dedent(
-                                            "\n".join(text_lines[1:]) )
+                                            "\n".join(text_lines[1:]))
     else:
         return text
+
 
 def make_doc(klass):
     """ Builds a docstring from the object's docstring, and it's traits
@@ -37,6 +39,7 @@ def make_doc(klass):
     doc += traits_doc(traits)
     return doc
 
+
 def traits_doc(traits):
     doc = ""
     traits_names = traits.keys()
@@ -47,9 +50,10 @@ def traits_doc(traits):
             doc += format_argument(trait_name, trait_obj)
     return doc
 
+
 def format_argument(trait_name, trait_obj):
     doc = "\n    :%s: " % trait_name
-    pad = "\n" + (len(doc)-1) * " "
+    pad = "\n" + (len(doc) - 1) * " "
     help = trait_obj.help
     if help is not None:
         arg_desc = help
@@ -60,7 +64,7 @@ def format_argument(trait_name, trait_obj):
             arg_desc += desc.rstrip()
         handler = trait_obj.handler
         if handler is not None:
-            if ( not hasattr(handler, 'aType') or
+            if (not hasattr(handler, 'aType') or
                         not handler.aType in (types.IntType, types.FloatType)):
                 # These types are simple enough
                 arg_desc += ' Must be %s.' % handler.info()
@@ -72,5 +76,3 @@ def format_argument(trait_name, trait_obj):
         doc += line
         doc += pad
     return doc
-
-

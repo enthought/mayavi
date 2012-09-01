@@ -26,6 +26,7 @@ from .engine_manager import get_engine, engine_manager
 #############################################################################
 # Colorbar related functions
 
+
 def _orient_colorbar(lut_mgr, orientation):
     """Orients the given LUTManager (make it horizontal or vertical).
     """
@@ -47,7 +48,7 @@ def _orient_colorbar(lut_mgr, orientation):
             colorbar.orientation = "horizontal"
         else:
             rep.orientation = 0
-            rep.position  = (0.1, 0.01)
+            rep.position = (0.1, 0.01)
             rep.position2 = (0.8, 0.17)
         colorbar.width = 0.8
         colorbar.height = 0.17
@@ -55,6 +56,7 @@ def _orient_colorbar(lut_mgr, orientation):
     else:
         raise ValueError("Unknown orientation: %s" % orientation)
     draw()
+
 
 def _lut_manager_properties(lut_manager, **props):
     """ Internal function used to apply properties to a colorbar.
@@ -207,6 +209,7 @@ def colorbar(object=None, title=None, orientation=None,
                                 label_fmt=label_fmt)
     return colorbar
 
+
 #############################################################################
 class SingletonModuleFactory(ModuleFactory):
     """ Base classe for factories that can find an existing object
@@ -231,12 +234,12 @@ class SingletonModuleFactory(ModuleFactory):
         if self._scene.scene is not None:
             self._scene.scene.disable_render = True
         # Process the arguments
-        if len(args)==1:
+        if len(args) == 1:
             (parent, ) = args
-        elif len(args)==0:
+        elif len(args) == 0:
             parent = self._engine.current_object
         else:
-            raise ValueError, "Wrong number of arguments"
+            raise ValueError("Wrong number of arguments")
 
         # Try to find an existing module, if not add one to the pipeline
         if parent == None:
@@ -247,8 +250,8 @@ class SingletonModuleFactory(ModuleFactory):
         klass = self._target.__class__
 
         for obj in tools._traverse(target):
-            if ( isinstance(obj, klass)
-                        and obj.name == self.name ):
+            if (isinstance(obj, klass)
+                        and obj.name == self.name):
                 self._target = obj
                 break
         else:
@@ -312,6 +315,7 @@ class AxesLikeModuleFactory(SingletonModuleFactory):
             except AttributeError:
                 """ Either this is not a module, or it has no actors"""
 
+
 #############################################################################
 class Outline(AxesLikeModuleFactory):
     """ Creates an outline for the current (or given) object."""
@@ -355,7 +359,6 @@ class Axes(AxesLikeModuleFactory):
 
     z_axis_visibility = true(adapts='axes.z_axis_visibility',
                 help="Whether or not the z axis is visible (boolean)")
-
 
     _target = Instance(modules.Axes, ())
 
@@ -450,9 +453,9 @@ class Text(ModuleFactory):
     width = Trait(None, None, CFloat, adapts='width',
                         help="""width of the text.""")
 
-    z     = Trait(None, None, CFloat,
-                        help="""Optional z position. When specified, the
-                        text is positioned in 3D""")
+    z = Trait(None, None, CFloat,
+              help="""Optional z position. When specified, the
+                      text is positioned in 3D""")
 
     _target = Instance(modules.Text, ())
 
@@ -464,11 +467,11 @@ class Text(ModuleFactory):
         if 'z' in kwargs and kwargs['z'] is not None:
             self._target.z_position = kwargs['z']
             self._target.position_in_3d = True
-        elif not (x<1. and x>0. and y>0. and y<1.):
+        elif not (x < 1. and x > 0. and y > 0. and y < 1.):
             raise ValueError('Text positions should be in [0, 1] if no z'
                 'position is given')
         super(Text, self).__init__(None, **kwargs)
-        self._target.text       = text
+        self._target.text = text
         self._target.x_position = x
         self._target.y_position = y
 
@@ -511,14 +514,13 @@ class Text3D(ModuleFactory):
         if not 'scale' in kwargs:
             kwargs['scale'] = 1
         super(Text3D, self).__init__(None, **kwargs)
-        self._target.text       = text
+        self._target.text = text
         self._target.position = (x, y, z)
-
 
     def _scale_changed(self):
         scale = self.scale
         if operator.isNumberType(scale):
-            scale = scale*np.ones((3,))
+            scale = scale * np.ones((3,))
         self._target.scale = scale
 
 text3d = make_function(Text3D)
@@ -541,22 +543,22 @@ class Title(SingletonModuleFactory):
                                  figure height""")
 
     def _size_changed(self):
-        self._target.width = min(0.05*self.size*len(self._text), 1)
-        self._target.x_position = 0.5*(1 - self._target.width)
+        self._target.width = min(0.05 * self.size * len(self._text), 1)
+        self._target.x_position = 0.5 * (1 - self._target.width)
 
     _target = Instance(modules.Text)
 
     def __target_default(self):
         """ This is called only if no existing title is found."""
-        width = min(0.05*self.size*len(self._text), 1)
-        text= modules.Text(text=self._text,
+        width = min(0.05 * self.size * len(self._text), 1)
+        text = modules.Text(text=self._text,
                             y_position=self.height,
-                            x_position=0.5*(1 - width),)
-        text.width =width
+                            x_position=0.5 * (1 - width),)
+        text.width = width
         return text
 
     def __init__(self, text, **kwargs):
-        self._text = text # This will be used by _size_changed
+        self._text = text  # This will be used by _size_changed
         if not 'name' in kwargs:
             # The name is used as au unique marker to identify the
             # title. We need to set it ASAP.
@@ -570,4 +572,3 @@ class Title(SingletonModuleFactory):
 
 
 title = make_function(Title)
-

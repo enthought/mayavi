@@ -11,11 +11,11 @@ from pyface.timer.api import Timer
 from traits.api import HasTraits, Button, Instance, Range
 from traitsui.api import View, Group, Item
 
-################################################################################
-# `Animator` class.
-################################################################################
-class Animator(HasTraits):
 
+###############################################################################
+# `Animator` class.
+###############################################################################
+class Animator(HasTraits):
     """ Convenience class to manage a timer and present a convenient
         UI.  This is based on the code in `tvtk.tools.visual`.
         Here is a simple example of using this class::
@@ -57,12 +57,11 @@ class Animator(HasTraits):
 
     traits_view = View(Group(Item('start'),
                              Item('stop'),
-                             show_labels = False
-                             ),
-                             Item('_'),
-                       Item(name = 'delay'),
-                       title = 'Animation Controller',
-                       buttons = ['OK'])
+                             show_labels=False),
+                       Item('_'),
+                       Item(name='delay'),
+                       title='Animation Controller',
+                       buttons=['OK'])
 
     ######################################################################
     # Initialize object
@@ -103,8 +102,7 @@ class Animator(HasTraits):
             t.Start(value)
 
 
-
-################################################################################
+###############################################################################
 # Decorators.
 
 def animate(func=None, delay=500, ui=True):
@@ -165,10 +163,12 @@ def animate(func=None, delay=500, ui=True):
 
     class Wrapper(object):
         # The wrapper which calls the decorated function.
+
         def __init__(self, function):
             self.func = function
             self.ui = ui
             self.delay = delay
+
         def __call__(self, *args, **kw):
             f = self.func(*args, **kw)
             if isinstance(f, types.GeneratorType):
@@ -178,7 +178,7 @@ def animate(func=None, delay=500, ui=True):
                 return a
             else:
                 msg = 'The function "%s" must be a generator '\
-                      '(use yield)!'%(self.func.__name__)
+                      '(use yield)!' % (self.func.__name__)
                 raise TypeError(msg)
 
     def _wrapper1(function):
@@ -190,4 +190,3 @@ def animate(func=None, delay=500, ui=True):
         return _wrapper1
     else:
         return _wrapper1(func)
-
