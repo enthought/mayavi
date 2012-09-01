@@ -16,6 +16,7 @@ from traitsui.tabular_adapter import TabularAdapter
 from mayavi.tools.data_wizards.csv_sniff import Sniff, loadtxt, \
         array2dict
 
+
 ##############################################################################
 # ListItem class
 ##############################################################################
@@ -25,7 +26,7 @@ class ListItem(HasTraits):
     column_number = Int
     name = Str
     my_name = Str
-    parent=Instance(HasTraits)
+    parent = Instance(HasTraits)
     view = View(
                HGroup(
                    Item('name', style='readonly', show_label=False,
@@ -36,6 +37,7 @@ class ListItem(HasTraits):
                )
            )
 
+
 ##############################################################################
 # CSVLoader class
 ##############################################################################
@@ -44,17 +46,17 @@ class CSVLoader(HasTraits):
     """
 
     # The name of the file being loaded.
-    filename  = Str
+    filename = Str
 
     # The comment characters
-    comments  = Str(desc="The comment characters")
+    comments = Str(desc="The comment characters")
 
     # The character giving the delimiter between the columns.
     delimiter = Str(
         desc="The character giving the delimiter between the columns")
 
     # The number of rows to skip at the beginning of the file
-    skiprows  = Int(
+    skiprows = Int(
         desc="The number of rows to skip at the beginning of the file")
 
     columns = List(ListItem)
@@ -70,10 +72,10 @@ class CSVLoader(HasTraits):
         try:
             kwds = Sniff(self.filename).kwds()
         except:
-            kwds = { 'comments': '#',
-                     'delimiter': ',',
-                     'dtype': float,
-                     'skiprows': 0 }
+            kwds = {'comments': '#',
+                    'delimiter': ',',
+                    'dtype': float,
+                    'skiprows': 0}
 
         if kwds['delimiter']:
             self.delimiter = kwds['delimiter']
@@ -84,13 +86,12 @@ class CSVLoader(HasTraits):
         self.names = list(kwds['dtype']['names'])
         self.formats = list(kwds['dtype']['formats'])
 
-        self.columns = [ListItem(name    = 'Column %i:' % (i+1),
-                                 parent = self,
-                                 column_number = i,
-                                 my_name = val)
+        self.columns = [ListItem(name='Column %i:' % (i + 1),
+                                 parent=self,
+                                 column_number=i,
+                                 my_name=val)
                         for i, val in enumerate(self.names)]
         self.load_data()
-
 
     def load_data(self):
         kwds = {}
@@ -106,7 +107,6 @@ class CSVLoader(HasTraits):
             pass
 
 
-
 ##############################################################################
 # CSVLoaderController class
 ##############################################################################
@@ -118,12 +118,12 @@ class CSVLoaderController(Controller):
 
     def _tabular_editor_default(self):
         class ArrayAdapter(TabularAdapter):
-            columns     = [(n, i) for i, n in enumerate(self.model.names)]
-            font        = 'Courier 10'
-            alignment   = 'right'
-            format      = '%s'
+            columns = [(n, i) for i, n in enumerate(self.model.names)]
+            font = 'Courier 10'
+            alignment = 'right'
+            format = '%s'
 
-        return TabularEditor(adapter = ArrayAdapter())
+        return TabularEditor(adapter=ArrayAdapter())
 
     update_preview = Button('Update preview')
 
@@ -138,14 +138,12 @@ class CSVLoaderController(Controller):
                                 (new, object.column_number)
             GUI.set_trait_later(self.info.ui, 'updated', True)
 
-
     file_content = Str
 
     @on_trait_change('model.filename')
     def update_file(self):
         f = open(self.model.filename)
         self.file_content = f.read(300)
-
 
     def default_traits_view(self):
         view = View(
@@ -191,16 +189,14 @@ class CSVLoaderController(Controller):
                         ),
                     layout='tab'),
                ),
-               buttons   = ['OK', 'Cancel', 'Help'],
-               id        = 'csv_load_editor',
+               buttons=['OK', 'Cancel', 'Help'],
+               id='csv_load_editor',
                resizable=True,
                width=640,
                height=580,
                title='CSV import - [%s]' % self.model.filename
            )
         return view
-
-
 
 if __name__ == '__main__':
     from pyface.api import GUI

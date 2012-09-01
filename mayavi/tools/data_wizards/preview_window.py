@@ -11,6 +11,7 @@ from tvtk.pyface.scene import Scene
 
 from mayavi.core.engine import Engine
 
+
 ##############################################################################
 # PreviewWindow class
 ##############################################################################
@@ -31,24 +32,19 @@ class PreviewWindow(HasTraits):
     # Public API
     #-----------------------------------------------------------------------
 
-
     def add_source(self, src):
         self._engine.add_source(src)
-
 
     def add_module(self, module):
         self._engine.add_module(module)
 
-
     def add_filter(self, filter):
         self._engine.add_module(filter)
-
 
     def clear(self):
         self._engine.current_scene.scene.disable_render = True
         self._engine.current_scene.children[:] = []
         self._engine.current_scene.scene.disable_render = False
-
 
     #-----------------------------------------------------------------------
     # Private API
@@ -60,7 +56,6 @@ class PreviewWindow(HasTraits):
         e.new_scene(self._scene)
         return e
 
-
 if __name__ == '__main__':
     from pyface.api import GUI
     from mayavi.sources.api import ParametricSurface
@@ -71,4 +66,3 @@ if __name__ == '__main__':
     pw.add_module(Surface())
 
     pw.edit_traits()
-

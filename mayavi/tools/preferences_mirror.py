@@ -6,9 +6,10 @@
 from traits.api import HasTraits, List, Str, Instance
 from apptools.preferences.api import PreferencesHelper
 
-################################################################################
+
+###############################################################################
 # `PreferencesMirror` class.
-################################################################################
+###############################################################################
 class PreferencesMirror(HasTraits):
     """
     This class mirrors preferences from a PreferencesHelper such that
@@ -21,7 +22,6 @@ class PreferencesMirror(HasTraits):
 
     # Private trait to store names of traits.
     _trait_names = List(Str)
-
 
     ######################################################################
     # Public interface.
@@ -53,4 +53,3 @@ class PreferencesMirror(HasTraits):
 
     def _update(self, obj, name, old, new):
         setattr(self, name, new)
-

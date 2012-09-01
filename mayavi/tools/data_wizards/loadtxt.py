@@ -6,9 +6,12 @@
 
 import numpy as np
 
+
 def _string_like(obj):
-    try: obj + ''
-    except (TypeError, ValueError): return 0
+    try:
+        obj + ''
+    except (TypeError, ValueError):
+        return 0
     return 1
 
 
@@ -72,8 +75,9 @@ def loadtxt(fname, dtype=float, comments='#', delimiter=None, converters=None,
     --------
       >>> X = loadtxt('test.dat')  # data in two columns
       >>> x,y,z = load('somefile.dat', usecols=(3,5,7), unpack=True)
-      >>> r = np.loadtxt('record.dat', dtype={'names':('gender','age','weight'),
-                'formats': ('S1','i4', 'f4')})
+      >>> r = np.loadtxt('record.dat',
+                         dtype={'names':('gender','age','weight'),
+                         'formats': ('S1','i4', 'f4')})
 
     SeeAlso: scipy.io.loadmat to read and write matfiles.
     """
@@ -99,27 +103,31 @@ def loadtxt(fname, dtype=float, comments='#', delimiter=None, converters=None,
             converterseq = [_getconv(dtype.fields[name][0]) \
                             for name in dtype.names]
 
-    for i,line in enumerate(fh):
-        if i<skiprows: continue
+    for i, line in enumerate(fh):
+        if i < skiprows:
+            continue
         comment_start = line.find(comments)
         if comment_start != -1:
             line = line[:comment_start].strip()
         else:
             line = line.strip()
-        if not len(line): continue
+        if not len(line):
+            continue
         vals = line.split(delimiter)
         if converterseq is None:
-            converterseq = [converters.get(j,defconv) \
+            converterseq = [converters.get(j, defconv) \
                             for j in xrange(len(vals))]
         if usecols is not None:
             row = [converterseq[j](vals[j]) for j in usecols]
         else:
-            row = [converterseq[j](val) for j,val in enumerate(vals)]
+            row = [converterseq[j](val) for j, val in enumerate(vals)]
         if dtype.names is not None:
             row = tuple(row)
         X.append(row)
 
     X = np.array(X, dtype)
     X = np.squeeze(X)
-    if unpack: return X.T
-    else: return X
+    if unpack:
+        return X.T
+    else:
+        return X

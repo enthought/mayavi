@@ -6,4 +6,3 @@ print "!! mayavi.tools.mlab is obsolete and has been replaced by !!"
 print "!! mayavi.mlab. Please update your code.                  !!"
 
 from mayavi.mlab import *
-

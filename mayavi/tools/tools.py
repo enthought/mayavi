@@ -26,6 +26,7 @@ from figure import gcf
 ######################################################################
 # Utility functions.
 
+
 def add_dataset(dataset, name='', **kwargs):
     """Add a dataset object to the Mayavi pipeline.
 
@@ -57,9 +58,9 @@ def add_dataset(dataset, name='', **kwargs):
     elif isinstance(dataset, Source):
         d = dataset
     else:
-        raise TypeError, \
+        raise TypeError(
               "first argument should be either a TVTK object"\
-              " or a mayavi source"
+              " or a mayavi source")
 
     if len(name) > 0:
         d.name = name
@@ -80,11 +81,13 @@ def add_dataset(dataset, name='', **kwargs):
     engine.add_source(d)
     return d
 
+
 def add_module_manager(object):
     """ Add a module-manager, to control colors and legend bars to the
         given object.
     """
     return get_engine().add_module(ModuleManager(), object)
+
 
 def _traverse(node):
     """ Generator to traverse a tree accessing the nodes' children
@@ -106,6 +109,7 @@ def _traverse(node):
     except AttributeError:
         pass
     yield node
+
 
 def get_vtk_src(mayavi_object, stop_at_filter=True):
     """ Goes up the Mayavi pipeline to find the data sources of a given
@@ -134,16 +138,17 @@ def get_vtk_src(mayavi_object, stop_at_filter=True):
                         and hasattr(mayavi_object, 'point_data'):
         # We have been passed a tvtk source
         return [mayavi_object]
-    if not (   hasattr(mayavi_object, 'parent')
+    if not (hasattr(mayavi_object, 'parent')
             or isinstance(mayavi_object, Source)):
-        raise TypeError, 'Cannot find data source for given object %s' % (
-                                            mayavi_object)
+        raise TypeError('Cannot find data source for given object %s' % (
+                                            mayavi_object))
     while True:
         # XXX: If the pipeline is not a DAG, this is an infinite loop
         if isinstance(mayavi_object, Source):
             if stop_at_filter or not isinstance(mayavi_object, Filter):
                 return mayavi_object.outputs
         mayavi_object = mayavi_object.parent
+
 
 def _has_scalar_data(object):
     """Tests if an object has scalar data.
@@ -156,6 +161,7 @@ def _has_scalar_data(object):
             return True
     return False
 
+
 def _has_vector_data(object):
     """Tests if an object has vector data.
     """
@@ -167,6 +173,7 @@ def _has_vector_data(object):
             return True
     return False
 
+
 def _has_tensor_data(object):
     """Tests if an object has tensor data.
     """
@@ -177,6 +184,7 @@ def _has_tensor_data(object):
         elif source.cell_data.tensors is not None:
             return True
     return False
+
 
 def _find_module_manager(object=None, data_type=None):
     """If an object is specified, returns its module_manager, elsewhere finds
@@ -211,30 +219,32 @@ def _find_module_manager(object=None, data_type=None):
             print("This object has no color map")
     return None
 
+
 def _typical_distance(data_obj):
     """ Returns a typical distance in a cloud of points.
         This is done by taking the size of the bounding box, and dividing it
         by the cubic root of the number of points.
     """
     x_min, x_max, y_min, y_max, z_min, z_max = data_obj.bounds
-    distance = numpy.sqrt(((x_max-x_min)**2 + (y_max-y_min)**2 +
-                           (z_max-z_min)**2)/(4*
-                           data_obj.number_of_points**(0.33)))
+    distance = numpy.sqrt(((x_max - x_min) ** 2 + (y_max - y_min) ** 2 +
+                           (z_max - z_min) ** 2) / (4 *
+                           data_obj.number_of_points ** (0.33)))
     if distance == 0:
         return 1
     else:
-        return 0.4*distance
+        return 0.4 * distance
+
 
 def _min_distance(x, y, z):
     """ Return the minimum interparticle distance in a cloud of points.
         This is done by brute force calculation of all the distances
         between particle couples.
     """
-    distances = numpy.sqrt(  (x.reshape((-1,)) - x.reshape((1, -1)))**2
-                           + (y.reshape((-1,)) - y.reshape((1, -1)))**2
-                           + (z.reshape((-1,)) - z.reshape((1, -1)))**2
+    distances = numpy.sqrt((x.reshape((-1,)) - x.reshape((1, -1))) ** 2
+                           + (y.reshape((-1,)) - y.reshape((1, -1))) ** 2
+                           + (z.reshape((-1,)) - z.reshape((1, -1))) ** 2
                           )
-    return distances[distances!=0].min()
+    return distances[distances != 0].min()
 
 
 def _min_axis_distance(x, y, z):
@@ -245,7 +255,7 @@ def _min_axis_distance(x, y, z):
     """
     def axis_min(a):
         a = numpy.abs(a.reshape((-1,)) - a.reshape((-1, 1)))
-        a = a[a>0]
+        a = a[a > 0]
         if a.size == 0:
             return numpy.inf
         return a.min()
@@ -254,6 +264,7 @@ def _min_axis_distance(x, y, z):
         return 1
     else:
         return distances
+
 
 def set_extent(module, extents):
     """ Attempts to set the physical extents of the given module.
@@ -284,43 +295,43 @@ def set_extent(module, extents):
         print 'Cannot set extents for %s' % module
         return
     xmin, xmax, ymin, ymax, zmin, zmax = extents
-    xo = 0.5*(xmax + xmin)
-    yo = 0.5*(ymax + ymin)
-    zo = 0.5*(zmax + zmin)
-    extentx = 0.5*(xmax - xmin)
-    extenty = 0.5*(ymax - ymin)
-    extentz = 0.5*(zmax - zmin)
+    xo = 0.5 * (xmax + xmin)
+    yo = 0.5 * (ymax + ymin)
+    zo = 0.5 * (zmax + zmin)
+    extentx = 0.5 * (xmax - xmin)
+    extenty = 0.5 * (ymax - ymin)
+    extentz = 0.5 * (zmax - zmin)
     # Now the actual bounds.
     xmin, xmax, ymin, ymax, zmin, zmax = module.actor.actor.bounds
     # Scale the object
-    boundsx = 0.5*(xmax - xmin)
-    boundsy = 0.5*(ymax - ymin)
-    boundsz = 0.5*(zmax - zmin)
+    boundsx = 0.5 * (xmax - xmin)
+    boundsy = 0.5 * (ymax - ymin)
+    boundsz = 0.5 * (zmax - zmin)
     xs, ys, zs = module.actor.actor.scale
     if not numpy.allclose(xmin, xmax):
-        scalex = xs*extentx/boundsx
+        scalex = xs * extentx / boundsx
     else:
         scalex = 1
     if not numpy.allclose(ymin, ymax):
-        scaley = ys*extenty/boundsy
+        scaley = ys * extenty / boundsy
     else:
         scaley = 1
     if not numpy.allclose(zmin, zmax):
-        scalez = zs*extentz/boundsz
+        scalez = zs * extentz / boundsz
     else:
         scalez = 1
 
     module.actor.actor.scale = (scalex, scaley, scalez)
     ## Remeasure the bounds
     xmin, xmax, ymin, ymax, zmin, zmax = module.actor.actor.bounds
-    xcenter = 0.5*(xmax + xmin)
-    ycenter = 0.5*(ymax + ymin)
-    zcenter = 0.5*(zmax + zmin)
+    xcenter = 0.5 * (xmax + xmin)
+    ycenter = 0.5 * (ymax + ymin)
+    zcenter = 0.5 * (zmax + zmin)
     # Center the object
     module.actor.actor.origin = (0.,  0.,  0.)
     xpos, ypos, zpos = module.actor.actor.position
-    module.actor.actor.position = (xpos + xo -xcenter, ypos + yo - ycenter,
-                                            zpos + zo -zcenter)
+    module.actor.actor.position = (xpos + xo - xcenter, ypos + yo - ycenter,
+                                            zpos + zo - zcenter)
 
 
 def start_recording(ui=True):
@@ -333,10 +344,11 @@ def start_recording(ui=True):
     """
     from apptools.scripting.api import start_recording as start
     e = get_engine()
-    msg = "Current engine, %s, is already being recorded."%(e)
+    msg = "Current engine, %s, is already being recorded." % (e)
     assert e.recorder is None, msg
     r = start(e, ui=ui)
     return r
+
 
 def stop_recording(file=None):
     """Stop the automatic script recording.
@@ -358,4 +370,3 @@ def stop_recording(file=None):
             f.close()
         elif hasattr(file, 'write') and hasattr(file, 'flush'):
             r.save(file)
-

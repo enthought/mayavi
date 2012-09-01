@@ -14,6 +14,7 @@ _gui = None
 # The stop show instance.
 _stop_show = None
 
+
 def is_ui_running():
     """ Returns True if the UI event loop is running.
     """
@@ -27,9 +28,10 @@ def is_ui_running():
     else:
         return False
 
-################################################################################
+
+###############################################################################
 # `StopShow` class.
-################################################################################
+###############################################################################
 class StopShow(HasTraits):
 
     ########################################
@@ -44,7 +46,7 @@ class StopShow(HasTraits):
     _ui = Any
 
     view = View(Group(Item('stop'), show_labels=False),
-                buttons = [], title='Control Show')
+                buttons=[], title='Control Show')
 
     ######################################################################
     # `object` interface.
@@ -137,7 +139,7 @@ def show(func=None, stop=False):
             g = GUI()
             if tk == 'wx':
                 # Create a dummy app so invoke later works on wx.
-                a = ApplicationWindow(size=(1,1))
+                a = ApplicationWindow(size=(1, 1))
                 GUI.invoke_later(lambda: a.close())
                 a.open()
 
@@ -149,4 +151,3 @@ def show(func=None, stop=False):
             g.start_event_loop()
 
     return wrapper
-

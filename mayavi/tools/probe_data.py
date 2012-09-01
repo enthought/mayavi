@@ -8,6 +8,7 @@ import numpy as np
 from tvtk.api import tvtk
 from . import tools
 
+
 def probe_data(mayavi_object, x, y, z, type='scalars', location='points'):
     """ Retrieve the data from a described by Mayavi visualization object
         at points x, y, z.
@@ -75,6 +76,3 @@ def probe_data(mayavi_object, x, y, z, type='scalars', location='points'):
         values = np.reshape(values, shape + [-1, ])
         values = np.rollaxis(values, -1)
     return values
-
-
-

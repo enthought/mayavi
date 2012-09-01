@@ -236,10 +236,10 @@ def savefig(filename, size=None, figure=None, magnification='auto',
             current_x, current_y = tuple(figure.scene.get_size())
             target_x, target_y = size
             if magnification is 'auto':
-                magnification = max(target_x//current_x,
-                                            target_y//current_y) + 1
-                target_x = int(target_x/magnification)
-                target_y = int(target_y/magnification)
+                magnification = max(target_x // current_x,
+                                            target_y // current_y) + 1
+                target_x = int(target_x / magnification)
+                target_y = int(target_y / magnification)
                 size = target_x, target_y
         elif magnification is 'auto':
             magnification = 1
@@ -306,13 +306,13 @@ def screenshot(figure=None, mode='rgb', antialiased=False):
         out = tvtk.UnsignedCharArray()
         shape = (y, x, 3)
         pixel_getter = figure.scene.render_window.get_pixel_data
-        pg_args = (0, 0, x-1, y-1, 1, out)
+        pg_args = (0, 0, x - 1, y - 1, 1, out)
 
     elif mode == 'rgba':
         out = tvtk.FloatArray()
         shape = (y, x, 4)
         pixel_getter = figure.scene.render_window.get_rgba_pixel_data
-        pg_args = (0, 0, x-1, y-1, 1, out)
+        pg_args = (0, 0, x - 1, y - 1, 1, out)
 
     else:
         raise ValueError('mode type not understood')
@@ -335,4 +335,3 @@ def screenshot(figure=None, mode='rgb', antialiased=False):
     out.shape = shape
     out = np.flipud(out)
     return out
-

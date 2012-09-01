@@ -21,6 +21,7 @@ from preferences_mirror import PreferencesMirror
 options = PreferencesMirror()
 options.preferences = preference_manager.mlab
 
+
 ######################################################################
 def check_backend():
     """ Check if either we are in test mode, or if there is a
@@ -30,14 +31,14 @@ def check_backend():
     from traits.etsconfig.api import ETSConfig
     from mayavi.tools.engine_manager import options
 
-    toolkit() # This forces the selection of a toolkit.
+    toolkit()  # This forces the selection of a toolkit.
     if (options.backend != 'test' and options.offscreen != True) and \
             ETSConfig.toolkit in ('null', ''):
-        raise ImportError, '''Could not import backend for traits
-________________________________________________________________________________
+        raise ImportError('''Could not import backend for traits
+_______________________________________________________________________________
 Make sure that you have either the TraitsBackendWx or the TraitsBackendQt
-projects installed. If you installed Mayavi with easy_install, try easy_install
-<pkg_name>. easy_install Mayavi[app] will also work.
+projects installed. If you installed Mayavi with easy_install, try
+easy_install <pkg_name>. easy_install Mayavi[app] will also work.
 
 If you performed a source checkout, be sure to run 'python setup.py install'
 in Traits, TraitsGUI, and the Traits backend of your choice.
@@ -45,12 +46,12 @@ in Traits, TraitsGUI, and the Traits backend of your choice.
 Also make sure that either wxPython or PyQT is installed.
 wxPython: http://www.wxpython.org/
 PyQT: http://www.riverbankcomputing.co.uk/software/pyqt/intro
-'''
+''')
 
 
-################################################################################
+###############################################################################
 # `EngineManager` class.
-################################################################################
+###############################################################################
 class EngineManager(HasTraits):
     """ Central registry for figures with mlab.
 
@@ -134,7 +135,6 @@ class EngineManager(HasTraits):
         self.current_engine = engine
         registry.register_engine(engine)
 
-
     def new_engine(self):
         """ Creates a new engine, envisage or not depending on the
             options.
@@ -160,7 +160,6 @@ class EngineManager(HasTraits):
         self.current_engine = engine
         return engine
 
-
     def find_figure_engine(self, fig):
         """ Find the engine corresponding to a given mayavi scene.
         """
@@ -168,8 +167,7 @@ class EngineManager(HasTraits):
             if fig in engine.scenes:
                 return engine
         else:
-            raise TypeError, "Figure not attached to a mayavi engine."
-
+            raise TypeError("Figure not attached to a mayavi engine.")
 
     def show_engine(self, engine=None, rich_view=True):
         """ Show a dialog with the mayavi pipeline. This dialog allows to
@@ -209,4 +207,3 @@ get_null_engine = engine_manager.get_null_engine
 set_engine = engine_manager.set_engine
 
 show_pipeline = engine_manager.show_engine
-
