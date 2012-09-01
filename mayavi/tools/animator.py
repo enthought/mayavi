@@ -57,9 +57,8 @@ class Animator(HasTraits):
 
     traits_view = View(Group(Item('start'),
                              Item('stop'),
-                             show_labels=False
-                             ),
-                             Item('_'),
+                             show_labels=False),
+                       Item('_'),
                        Item(name='delay'),
                        title='Animation Controller',
                        buttons=['OK'])
