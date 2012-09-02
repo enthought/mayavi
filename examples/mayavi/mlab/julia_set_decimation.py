@@ -34,13 +34,13 @@ import numpy as np
 
 # Calculate the Julia set on a grid
 x, y = np.ogrid[-1.5:0.5:500j, -1:1:500j]
-z = x + 1j*y
+z = x + 1j * y
 
 julia = np.zeros(z.shape)
 
 for i in range(50):
-    z = z**2 -0.70176 -0.3842j
-    julia += 1/float(2+i)*(z*np.conj(z) > 4)
+    z = z ** 2 - 0.70176 - 0.3842j
+    julia += 1 / float(2 + i) * (z * np.conj(z) > 4)
 
 
 mlab.figure(size=(400, 300))

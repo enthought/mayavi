@@ -28,11 +28,12 @@ import numpy as np
 # Create data with x and y random in the [-2, 2] segment, and z a
 # Gaussian function of x and y.
 np.random.seed(12345)
-x = 4*(np.random.random(500) - 0.5)
-y = 4*(np.random.random(500) - 0.5)
+x = 4 * (np.random.random(500) - 0.5)
+y = 4 * (np.random.random(500) - 0.5)
+
 
 def f(x, y):
-    return np.exp(-(x**2 + y**2))
+    return np.exp(-(x ** 2 + y ** 2))
 
 z = f(x, y)
 
