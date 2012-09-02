@@ -64,6 +64,5 @@ text_actor.position = (0, 0, 0)
 v.scene.add_actor(text_actor)
 
 # Choose a view angle, and display the figure
-mlab.view(85, -17, 15, [ 3.5, -0.3, -0.8])
+mlab.view(85, -17, 15, [3.5, -0.3, -0.8])
 mlab.show()
-

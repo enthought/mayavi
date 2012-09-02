@@ -28,7 +28,7 @@ import numpy as np
 N = 300
 
 # The scalar parameter for each line
-t = np.linspace(-2*np.pi, 2*np.pi, N)
+t = np.linspace(-2 * np.pi, 2 * np.pi, N)
 
 from mayavi import mlab
 mlab.figure(1, size=(400, 400), bgcolor=(0, 0, 0))
@@ -48,8 +48,8 @@ index = 0
 # Create each line one after the other in a loop
 for i in range(50):
     x.append(np.sin(t))
-    y.append(np.cos((2+.02*i)*t))
-    z.append(np.cos((3+.02*i)*t))
+    y.append(np.cos((2 + .02 * i) * t))
+    z.append(np.cos((3 + .02 * i) * t))
     s.append(t)
     # This is the tricky part: in a line, each point is connected
     # to the one following it. We have to express this with the indices
@@ -58,7 +58,7 @@ for i in range(50):
     # points already created (index)
     connections.append(np.vstack(
                        [np.arange(index,   index + N - 1.5),
-                        np.arange(index+1, index + N - .5)]
+                        np.arange(index + 1, index + N - .5)]
                             ).T)
     index += N
 
@@ -85,5 +85,3 @@ mlab.pipeline.surface(lines, colormap='Accent', line_width=1, opacity=.4)
 mlab.view(33.6, 106, 5.5, [0, 0, .05])
 mlab.roll(125)
 mlab.show()
-
-
