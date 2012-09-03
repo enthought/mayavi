@@ -14,6 +14,8 @@ and crop data completly foreign to Mayavi.
 
 # Retrieve the grand Canyon topological data ##################################
 import os
+# Original file:
+#'ftp://e0srp01u.ecs.nasa.gov/srtm/version2/SRTM1/Region_04/N36W113.hgt.zip'
 if not os.path.exists('N36W113.hgt.zip'):
     # Download the data
     import urllib
