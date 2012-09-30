@@ -26,52 +26,51 @@ Data source: http://www.777fleetpage.com/777fleetpage3.htm
 # The data. This could be loaded from a file, or scraped from a website
 
 routes_data = """
-Bombay  Atlanta
-Johannesburg    Atlanta
-Dubai   Los Angeles
-Dubai   Houston
-Dubai   San Francisco
-New York        Hong Kong
-Newark  Hong Kong
-Doha    Houston
-Toronto Hong Kong
-Bombay  Newark
-Bombay  New York
-Vancouver       Hong Kong
-Dubai   Sao Paulo
-Los Angeles     Sydney
-Chicago Delhi
+Bombay,Atlanta
+Johannesburg,Atlanta
+Dubai,Los Angeles
+Dubai,Houston
+Dubai,San Francisco
+New York,Hong Kong
+Newark,Hong Kong
+Doha,Houston
+Toronto,Hong Kong
+Bombay,Newark
+Bombay,New York
+Vancouver,Hong Kong
+Dubai,Sao Paulo
+Los Angeles,Sydney
+Chicago,Delhi
 """
 
 cities_data = """
-Toronto -79.38  43.65
-Chicago -87.68  41.84
-Houston -95.39  29.77
-New York        -73.94  40.67
-Vancouver       -123.13 49.28
-Los Angeles     -118.41 34.11
-San Francisco   -122.45 37.77
-Atlanta -84.42  33.76
-Dubai   55.33   25.27
-Sydney  151.21  -33.87
-Hong Kong       114.19  22.38
-Bombay  72.82   18.96
-Delhi   77.21   28.67
-Newark  -82.43  40.04
-Johannesburg    28.04   -26.19
-Doha    51.53   25.29
-Sao Paulo       -46.63  -23.53
+Toronto,-79.38,43.65
+Chicago,-87.68,41.84
+Houston,-95.39,29.77
+New York,-73.94,40.67
+Vancouver,-123.13,49.28
+Los Angeles,-118.41,34.11
+San Francisco,-122.45,37.77
+Atlanta,-84.42,33.76
+Dubai,55.33,25.27
+Sydney,151.21,-33.87
+Hong Kong,114.19,22.38
+Bombay,72.82,18.96
+Delhi,77.21,28.67
+Newark,-82.43,40.04
+Johannesburg,28.04,-26.19
+Doha,51.53,25.29
+Sao Paulo,-46.63,-23.53
 """
 
 ###############################################################################
 # Load the data, and put it in data structures we can use
 import csv
-routes_table = list(csv.reader(routes_data.split('\n'), dialect='excel-tab'))
+routes_table = [i for i in csv.reader(routes_data.split('\n')[1:-1])]
 
 # Build a dictionnary returning GPS coordinates for each city
 cities_coord = dict()
-for line in list(csv.reader(cities_data.split('\n'),
-                    dialect='excel-tab'))[1:-1]:
+for line in list(csv.reader(cities_data.split('\n')))[1:-1]:
     name, long, lat = line
     cities_coord[name] = (float(long), float(lat))
 
@@ -104,7 +103,7 @@ import numpy as np
 coords = np.array(coords)
 # First we have to convert latitude/longitude information to 3D
 # positioning.
-lat, long = coords.T * np.pi/180
+lat, long = coords.T * np.pi / 180
 x = np.cos(long) * np.cos(lat)
 y = np.cos(long) * np.sin(lat)
 z = np.sin(long)
@@ -132,7 +131,7 @@ mlab.pipeline.surface(points, color=(1, 1, 1),
 # Display city names
 for city, index in cities.iteritems():
     label = mlab.text(x[index], y[index], city, z=z[index],
-                      width=0.016*len(city), name=city)
+                      width=0.016 * len(city), name=city)
     label.property.shadow = True
 
 ###############################################################################
@@ -167,16 +166,14 @@ sphere.actor.property.backface_culling = True
 
 ###############################################################################
 # Plot the equator and the tropiques
-theta = np.linspace(0, 2*np.pi, 100)
-for angle in (-np.pi/6, 0, np.pi/6):
-    x = np.cos(theta)*np.cos(angle)
-    y = np.sin(theta)*np.cos(angle)
-    z = np.ones_like(theta)*np.sin(angle)
+theta = np.linspace(0, 2 * np.pi, 100)
+for angle in (- np.pi / 6, 0, np.pi / 6):
+    x = np.cos(theta) * np.cos(angle)
+    y = np.sin(theta) * np.cos(angle)
+    z = np.ones_like(theta) * np.sin(angle)
 
     mlab.plot3d(x, y, z, color=(1, 1, 1),
                         opacity=0.2, tube_radius=None)
 
 mlab.view(63.4, 73.8, 4, [-0.05, 0, 0])
 mlab.show()
-
-

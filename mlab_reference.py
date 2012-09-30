@@ -18,8 +18,7 @@ OUT_DIR = os.sep.join(
 from mayavi.tools import auto_doc
 from mayavi import mlab
 
-from inspect import getmembers, getsource, getfile, getargspec, \
-        formatargspec
+from inspect import getmembers, getsource, getargspec, formatargspec
 from docutils import io as docIO
 from docutils import core as docCore
 

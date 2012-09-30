@@ -44,7 +44,7 @@ http://mmcif.pdb.org/dictionaries/pdb-correspondence/pdb2mmcif.html
 # The pdb code for the protein.
 protein_code = '2q09'
 
-# Retrieve the file from the protein database ##################################
+# Retrieve the file from the protein database #################################
 import os
 if not os.path.exists('pdb%s.ent.gz' % protein_code):
     # Download the data
@@ -55,7 +55,7 @@ if not os.path.exists('pdb%s.ent.gz' % protein_code):
       % protein_code)
     open('pdb%s.ent.gz' % protein_code, 'wb').write(opener.read())
 
-# Parse the pdb file ###########################################################
+# Parse the pdb file ##########################################################
 import gzip
 infile = gzip.GzipFile('pdb%s.ent.gz' % protein_code, 'rb')
 
@@ -89,14 +89,14 @@ atoms = dict(zip(atoms, range(len(atoms))))
 # Turn the graph into 3D positions, and a connection list.
 labels = dict()
 
-x       = list()
-y       = list()
-z       = list()
+x = list()
+y = list()
+z = list()
 scalars = list()
 
 for index, label in enumerate(nodes):
     labels[label] = index
-    this_scalar, this_x, this_y, this_z= nodes[label]
+    this_scalar, this_x, this_y, this_z = nodes[label]
     scalars.append(atoms[this_scalar])
     x.append(float(this_x))
     y.append(float(this_y))
@@ -108,17 +108,17 @@ for start, stop in edges:
     connections.append((labels[start], labels[stop]))
 
 import numpy as np
-x       = np.array(x)
-y       = np.array(y)
-z       = np.array(z)
+x = np.array(x)
+y = np.array(y)
+z = np.array(z)
 scalars = np.array(scalars)
 
-# Visualize the data ###########################################################
+# Visualize the data ##########################################################
 from mayavi import mlab
 mlab.figure(1, bgcolor=(0, 0, 0))
 mlab.clf()
 
-pts = mlab.points3d(x, y, z, 1.5*scalars.max() - scalars,
+pts = mlab.points3d(x, y, z, 1.5 * scalars.max() - scalars,
                                     scale_factor=0.015, resolution=10)
 pts.mlab_source.dataset.lines = np.array(connections)
 

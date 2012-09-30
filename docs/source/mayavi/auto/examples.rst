@@ -75,8 +75,8 @@ Advanced mlab examples
 .. toctree::
    :hidden:
 
-   example_boy.rst
    example_julia_set.rst
+   example_boy.rst
    example_custom_colormap.rst
    example_surface_from_irregular_data.rst
    example_canyon.rst
@@ -96,11 +96,11 @@ Advanced mlab examples
    example_flight_graph.rst
 
 
-.. |0000| image:: ../generated_images/example_boy.jpg
+.. |0000| image:: ../generated_images/example_julia_set.jpg
     :width: 150
 
             
-.. |0001| image:: ../generated_images/example_julia_set.jpg
+.. |0001| image:: ../generated_images/example_boy.jpg
     :width: 150
 
             
@@ -174,13 +174,13 @@ Advanced mlab examples
             
 ======= =============================================
 ======= =============================================
-|0000|  :ref:`example_boy`
-         A script to generate the Mayavi logo: a
-         Boy surface.
-
-|0001|  :ref:`example_julia_set`
+|0000|  :ref:`example_julia_set`
          An example showing the Julia set
          displayed as a z-warped surface.
+
+|0001|  :ref:`example_boy`
+         A script to generate the Mayavi logo: a
+         Boy surface.
 
 |0002|  :ref:`example_custom_colormap`
          An example showing how a custom
@@ -496,8 +496,8 @@ more fine control than mlab.
    example_polydata.rst
    example_offscreen.rst
    example_surf_regular_mlab.rst
-   example_glyph.rst
    example_structured_points2d.rst
+   example_glyph.rst
    example_contour_contour.rst
    example_scatter_plot.rst
    example_structured_points3d.rst
@@ -528,15 +528,15 @@ more fine control than mlab.
     Shows how to view data created by `tvtk.tools.mlab` with
     mayavi2.
 
-* :ref:`example_glyph`
-    This script demonstrates using the Mayavi core API to add a VectorCutPlane,
-    split the pipeline using a MaskPoints filter and then view the filtered data
-    with the Glyph module.
-
 * :ref:`example_structured_points2d`
     An example of how to generate a 2D structured points dataset
     using numpy arrays.  Also shown is a way to visualize this data with
     the mayavi2 application.
+
+* :ref:`example_glyph`
+    This script demonstrates using the Mayavi core API to add a VectorCutPlane,
+    split the pipeline using a MaskPoints filter and then view the filtered data
+    with the Glyph module.
 
 * :ref:`example_contour_contour`
     This example shows how you can produce contours on an IsoSurface.

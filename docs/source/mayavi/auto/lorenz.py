@@ -17,15 +17,16 @@ an IsoSurface module on this scalar component.
 import numpy
 from mayavi import mlab
 
-def lorenz(x, y, z, s=10.,r=28., b=8./3.):
+
+def lorenz(x, y, z, s=10., r=28., b=8. / 3.):
     """The Lorenz system."""
-    u = s*(y-x)
-    v = r*x -y - x*z
-    w = x*y - b*z
+    u = s * (y - x)
+    v = r * x - y - x * z
+    w = x * y - b * z
     return u, v, w
 
 # Sample the space in an interesting region.
-x, y, z = numpy.mgrid[-50:50:100j,-50:50:100j,-10:60:70j]
+x, y, z = numpy.mgrid[-50:50:100j, -50:50:100j, -10:60:70j]
 u, v, w = lorenz(x, y, z)
 fig = mlab.figure(size=(400, 300), bgcolor=(0, 0, 0))
 
@@ -42,7 +43,7 @@ f.stream_tracer.maximum_propagation = 200
 src = f.mlab_source.m_data
 e = mlab.pipeline.extract_vector_components(src)
 e.component = 'z-component'
-zc = mlab.pipeline.iso_surface(e, opacity=0.5, contours=[0,],
+zc = mlab.pipeline.iso_surface(e, opacity=0.5, contours=[0, ],
             color=(0.6, 1, 0.2))
 # When using transparency, hiding 'backface' triangles often gives better
 # results
@@ -51,4 +52,3 @@ zc.actor.property.backface_culling = True
 # A nice view of the plot.
 mlab.view(140, 120, 113, [0.65, 1.5, 27])
 mlab.show()
-
