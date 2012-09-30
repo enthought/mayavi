@@ -56,9 +56,9 @@ class MayaviQWidget(QtGui.QWidget):
         QtGui.QWidget.__init__(self, parent)
         layout = QtGui.QVBoxLayout(self)
         try:
-            layout.setMargin(0)
+            layout.setContentsMargins(0,0,0,0)
         except AttributeError:
-            # Pyside doesn't have a setMargin
+#             Pyside doesn't have a setContentsMargins
             pass
         layout.setSpacing(0)
         self.visualization = Visualization()
