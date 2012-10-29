@@ -16,9 +16,10 @@ from vtk.util import vtkConstants
 # Enthought library imports.
 from traits.api import Instance, Property, List, ReadOnly, \
      Str, Button, Tuple
-from traitsui.api import View, Group, Item, InstanceEditor, CustomEditor
+from traitsui.api import View, Group, Item, InstanceEditor
 from tvtk.api import tvtk
 from tvtk.util.gradient_editor import hsva_to_rgba, GradientTable
+from tvtk.util.traitsui_gradient_editor import VolumePropertyEditor
 from tvtk.util.ctf import save_ctfs, load_ctfs, \
      rescale_ctfs, set_lut, PiecewiseFunction, ColorTransferFunction
 from apptools.persistence import state_pickler
@@ -33,14 +34,6 @@ from mayavi.core.lut_manager import LUTManager
 ######################################################################
 # Utility functions.
 ######################################################################
-def gradient_editor_factory(wx_parent, trait_editor):
-    """A simple wrapper to the wx specific function to avoid any UI
-    toolkit imports.
-    """
-    from tvtk.util import wx_gradient_editor as wxge
-    return wxge.gradient_editor_factory(wx_parent, trait_editor)
-
-
 def is_volume_pro_available():
     """Returns `True` if there is a volume pro card available.
     """
@@ -220,7 +213,7 @@ class Volume(Module):
     update_ctf = Button('Update CTF')
 
     view = View(Group(Item(name='_volume_property', style='custom',
-                           editor=CustomEditor(gradient_editor_factory),
+                           editor=VolumePropertyEditor,
                            resizable=True),
                       Item(name='update_ctf'),
                       label='CTF',
