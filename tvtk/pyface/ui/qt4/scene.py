@@ -24,7 +24,6 @@ docs for more details.
 import os
 import tempfile
 
-import os
 from pyface.qt import QtCore, QtGui
 
 from tvtk.api import tvtk
@@ -104,6 +103,7 @@ class _VTKRenderWindowInteractor(QVTKRenderWindowInteractor):
             return
 
         if key in [QtCore.Qt.Key_E, QtCore.Qt.Key_Q, QtCore.Qt.Key_Escape]:
+            scene._disable_fullscreen()
             return
 
         if key in [QtCore.Qt.Key_W]:
@@ -245,59 +245,6 @@ def popup_save(parent=None):
 
 
 ######################################################################
-# `FullScreen` class.
-######################################################################
-class FullScreen(object):
-    """Creates a full screen interactor widget.  This will use VTK's
-    event loop until the user presses 'q'/'e' on the full screen
-    window.  This does not yet support interacting with any widgets on
-    the renderered scene.
-
-    This class is really meant to be used for VTK versions earlier
-    than 5.1 where there was a bug with reparenting a window.
-
-    """
-    def __init__(self, scene):
-        self.scene = scene
-        self.old_rw = scene.render_window
-        self.ren = scene.renderer
-
-    def run(self):
-        # Remove the renderer from the current render window.
-        self.old_rw.remove_renderer(self.ren)
-
-        # Creates renderwindow that should be used ONLY for
-        # visualization in full screen
-        full_rw = tvtk.RenderWindow(stereo_capable_window=True,
-                                    full_screen=True
-                                    )
-        # add the current visualization
-        full_rw.add_renderer(self.ren)
-
-        # provides a simple interactor
-        style = tvtk.InteractorStyleTrackballCamera()
-        self.iren = tvtk.RenderWindowInteractor(render_window=full_rw,
-                                                interactor_style=style)
-
-        # Gets parameters for stereo visualization
-        if self.old_rw.stereo_render:
-            full_rw.set(stereo_type=self.old_rw.stereo_type, stereo_render=True)
-
-        # Starts the interactor
-        self.iren.initialize()
-        self.iren.render()
-        self.iren.start()
-
-        # Once the full screen window is quit this releases the
-        # renderer before it is destroyed, and return it to the main
-        # renderwindow.
-        full_rw.remove_renderer(self.ren)
-        self.old_rw.add_renderer(self.ren)
-        self.old_rw.render()
-        self.iren.disable()
-
-
-######################################################################
 # `Scene` class.
 ######################################################################
 class Scene(TVTKScene, Widget):
@@ -379,7 +326,7 @@ class Scene(TVTKScene, Widget):
     # Private traits.
 
     _vtk_control = Instance(_VTKRenderWindowInteractor)
-    _fullscreen = Any
+    _fullscreen = Any(False)
 
     ###########################################################################
     # 'object' interface.
@@ -500,10 +447,18 @@ class Scene(TVTKScene, Widget):
 
     def _full_screen_fired(self):
         fs = self._fullscreen
-        if fs is None:
-            f = FullScreen(self)
-            f.run() # This will block.
-            self._fullscreen = None
-
+        if fs:
+            self._vtk_control.window().showNormal()
+            self._fullscreen = False
+        else:
+            self._vtk_control.window().showFullScreen()
+            self._fullscreen = True
+            
+    def _disable_fullscreen(self):
+        fs = self._fullscreen
+        if fs:
+            self._vtk_control.window().showNormal()
+            self._fullscreen = False
+            
     def _busy_changed(self, val):
         GUI.set_busy(val)
