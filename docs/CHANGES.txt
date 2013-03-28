@@ -1,3 +1,23 @@
+Mayavi 4.3.0
+=============
+
+Enhancements
+------------
+
+30 Oct 2012 (PR)
+    - NEW: Adding a Qt version of the gradient editor. With this, all of
+      Mayavi's UI should be usable on Qt.
+
+Fixes
+------
+
+11 Mar 2013 (Aestrivex)
+    - Fixed bug with incorrectly tiled snapshots while using savefig.
+    
+30 Oct 2012 (PR)
+    - BUG: Qt: fix crashing full-screen-mode.  Fixed segfault when you click on
+      full-screen and press escape/q/e.
+
 
 Mayavi 4.2.1
 =============
