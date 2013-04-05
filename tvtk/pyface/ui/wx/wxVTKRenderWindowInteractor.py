@@ -187,7 +187,8 @@ class wxVTKRenderWindowInteractor(baseClass):
                                    attribList=attribList)
             except wx.PyAssertionError:
                 # visual couldn't be allocated, so we go back to default
-                baseClass.__init__(self, parent, ID, position, size, style)
+                baseClass.__init__(self, parent, id=ID, pos=position,
+                                   size=size, style=style)
                 if stereo:
                     # and make sure everyone knows that the stereo
                     # visual wasn't set.
