@@ -64,7 +64,7 @@ if wx.Platform == "__WXGTK__":
 _useCapture = (wx.Platform == "__WXMSW__")
 
 # for wx < 2.9.2, CmdDown is preferred to ControlDown since it catches the
-# meta key on OS X, but in later versions, CmdDown is depricated and its 
+# meta key on OS X, but in later versions, CmdDown is depricated and its
 # functionality moved to ControlDown
 _useCmdDown = (wx.VERSION[0] < 2) or \
               (wx.VERSION[0] == 2 and wx.VERSION[1] < 9) or \
@@ -182,11 +182,13 @@ class wxVTKRenderWindowInteractor(baseClass):
                 attribList.append(wx.glcanvas.WX_GL_STEREO)
 
             try:
-                baseClass.__init__(self, parent, ID, position, size, style,
+                baseClass.__init__(self, parent, id=ID, pos=position,
+                                   size=size, style=style,
                                    attribList=attribList)
             except wx.PyAssertionError:
                 # visual couldn't be allocated, so we go back to default
-                baseClass.__init__(self, parent, ID, position, size, style)
+                baseClass.__init__(self, parent, id=ID, pos=position,
+                                   size=size, style=style)
                 if stereo:
                     # and make sure everyone knows that the stereo
                     # visual wasn't set.
