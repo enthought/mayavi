@@ -653,7 +653,7 @@ class VTKMethodParser:
         obj = None
         try:
             obj = klass()
-        except TypeError:
+        except (TypeError, NotImplementedError):
             if self._tree:
                 t = self._tree
                 n = t.get_node(klass.__name__)
