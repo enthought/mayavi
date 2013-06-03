@@ -58,7 +58,7 @@ def get_tvtk_class_names():
             klass = getattr(vtk, name)
             try:
                 c = klass()
-            except TypeError:
+            except (TypeError, NotImplementedError):
                 continue
 
             tvtk_name = get_tvtk_name(name)
