@@ -22,6 +22,7 @@ from sources import vector_scatter, vector_field, scalar_scatter, \
 from filters import ExtractVectorNormFactory, WarpScalarFactory, \
             TubeFactory, ExtractEdgesFactory, PolyDataNormalsFactory, \
             StripperFactory
+from animator import animate
 from mayavi.core.scene import Scene
 from auto_doc import traits_doc, dedent
 import tools
@@ -197,16 +198,16 @@ def test_points3d():
 
     return points3d(x, y, z, s, colormap="copper", scale_factor=.25)
 
-
-def test_points3d_anim():
+@animate
+def test_points3d_anim(obj=None):
     """Animates the test_points3d example."""
-    g = test_points3d()
+    g = obj if obj is not None else test_points3d()
     t = numpy.linspace(0, 4 * numpy.pi, 20)
     # Animate the points3d.
     ms = g.mlab_source
     for i in range(10):
         ms.z = numpy.cos(2 * t * 0.1 * (i + 1))
-    return g
+        yield
 
 
 def test_molecule():
@@ -402,32 +403,17 @@ def test_flow_tubes():
     return obj
 
 
-def test_flow_anim():
-    dims = [32, 32, 32]
-    xmin, xmax, ymin, ymax, zmin, zmax = [-5, 5, -5, 5, -5, 5]
-    x, y, z = numpy.mgrid[xmin:xmax:dims[0] * 1j,
-                          ymin:ymax:dims[1] * 1j,
-                          zmin:zmax:dims[2] * 1j]
-    x = x.astype('f')
-    y = y.astype('f')
-    z = z.astype('f')
-
-    sin = numpy.sin
-    cos = numpy.cos
-    u = cos(x / 2.)
-    v = sin(y / 2.)
-    w = sin(x * z / 4.)
-
-    obj = flow(x, y, z, u, v, w, linetype='tube')
-
+@animate
+def test_flow_anim(obj=None):
+    obj = obj if obj is not None else test_flow_tubes()
     # Now animate the flow.
     ms = obj.mlab_source
+    x, y, z = ms.x, ms.y, ms.z
     for i in range(10):
-        u = cos(x / 2. + numpy.pi * (i + 1) / 10.)
-        w = sin(x * z / 4. + numpy.pi * (i + 1) / 10.)
+        u = numpy.cos(x / 2. + numpy.pi * (i + 1) / 10.)
+        w = numpy.sin(x * z / 4. + numpy.pi * (i + 1) / 10.)
         ms.set(u=u, w=w)
-
-    return obj
+        yield
 
 
 def test_flow_scalars():
@@ -495,24 +481,15 @@ def test_contour3d():
     return obj
 
 
-def test_contour3d_anim():
-    dims = [64, 64, 64]
-    xmin, xmax, ymin, ymax, zmin, zmax = [-5, 5, -5, 5, -5, 5]
-    x, y, z = numpy.ogrid[xmin:xmax:dims[0] * 1j,
-                          ymin:ymax:dims[1] * 1j,
-                          zmin:zmax:dims[2] * 1j]
-    x = x.astype('f')
-    y = y.astype('f')
-    z = z.astype('f')
-
-    scalars = x * x * 0.5 + y * x * 0.1 + z * z * 0.25
-    obj = contour3d(scalars, contours=4, transparent=True)
-
+@animate
+def test_contour3d_anim(obj=None):
+    obj = obj if obj is not None else test_contour3d()
+    x, y, z = numpy.ogrid[-5:5:64j, -5:5:64j, -5:5:64j]
     # Now animate the contours.
     ms = obj.mlab_source
     for i in range(1, 10):
         ms.scalars = x * x * 0.5 + y * x * 0.1 * (i + 1) + z * z * 0.25
-    return obj
+        yield
 
 
 #############################################################################
@@ -571,12 +548,12 @@ def test_plot3d():
     l = plot3d(x, y, z, numpy.sin(mu), tube_radius=0.025, colormap='Spectral')
     return l
 
-
-def test_plot3d_anim():
+@animate
+def test_plot3d_anim(obj=None):
     """Generates a pretty set of lines and animates it."""
 
     # Run the standard example and get the module generated.
-    l = test_plot3d()
+    obj = obj if obj is not None else test_plot3d()
 
     # Some data from the test example for the animation.
     n_mer, n_long = 6, 11
@@ -586,14 +563,13 @@ def test_plot3d_anim():
     mu = phi * n_mer
 
     # Now animate the data.
-    ms = l.mlab_source
+    ms = obj.mlab_source
     for i in range(10):
         x = numpy.cos(mu) * (1 + numpy.cos(n_long * mu / n_mer +
                                           numpy.pi * (i + 1) / 5.) * 0.5)
         scalars = numpy.sin(mu + numpy.pi * (i + 1) / 5)
         ms.set(x=x, scalars=scalars)
-    return l
-
+        yield
 
 #############################################################################
 class ImShow(Pipeline):
@@ -752,16 +728,16 @@ def test_simple_surf():
     x, y = numpy.mgrid[0:3:1, 0:3:1]
     return surf(x, y, numpy.asarray(x, 'd'))
 
-
-def test_simple_surf_anim():
+@animate
+def test_simple_surf_anim(obj=None):
     """Test Surf with a simple collection of points and animate it."""
-    x, y = numpy.mgrid[0:3:1, 0:3:1]
-    s = surf(x, y, numpy.asarray(x * 0.1, 'd'))
+    obj = obj if obj is not None else test_simple_surf()
 
-    ms = s.mlab_source
+    ms = obj.mlab_source
+    x = ms.x
     for i in range(10):
         ms.scalars = numpy.asarray(x * 0.1 * (i + 1), 'd')
-    return s
+        yield
 
 
 def test_surf():
@@ -902,25 +878,21 @@ def test_mesh_sphere(r=1.0, npts=(100, 100), colormap='jet'):
     z = r * cos(phi)
     return mesh(x, y, z, colormap=colormap)
 
-
-def test_mesh_sphere_anim(r=1.0, npts=(100, 100), colormap='jet'):
+@animate
+def test_mesh_sphere_anim(obj=None, r=1.0, npts=(100, 100), colormap='jet'):
     """Create a simple sphere and animate it."""
+    obj = obj if obj is not None else test_mesh_sphere(r, npts, colormap)
     pi = numpy.pi
     cos = numpy.cos
-    sin = numpy.sin
     np_phi = npts[0] * 1j
     np_theta = npts[1] * 1j
     phi, theta = numpy.mgrid[0:pi:np_phi, 0:2 * pi:np_theta]
-    x = r * sin(phi) * cos(theta)
-    y = r * sin(phi) * sin(theta)
-    z = r * cos(phi)
-    s = mesh(x, y, z, colormap=colormap)
 
-    ms = s.mlab_source
+    ms = obj.mlab_source
     for i in range(1, 10):
         z = (r + i * 0.25) * cos(phi)
         ms.set(z=z, scalars=z)
-    return s
+        yield
 
 
 def test_fancy_mesh():

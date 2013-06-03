@@ -6,6 +6,12 @@ Simple utility code for animations.
 # License: BSD Style.
 
 import types
+from functools import wraps
+try:
+    from decorator import decorator
+    HAS_DECORATOR = True
+except ImportError:
+    HAS_DECORATOR = False
 
 from pyface.timer.api import Timer
 from traits.api import HasTraits, Button, Instance, Range
@@ -170,7 +176,10 @@ def animate(func=None, delay=500, ui=True):
             self.delay = delay
 
         def __call__(self, *args, **kw):
-            f = self.func(*args, **kw)
+            if isinstance(self.func, types.GeneratorType):
+                f = self.func
+            else:
+                f = self.func(*args, **kw)
             if isinstance(f, types.GeneratorType):
                 a = Animator(self.delay, f.next)
                 if self.ui:
@@ -181,12 +190,19 @@ def animate(func=None, delay=500, ui=True):
                       '(use yield)!' % (self.func.__name__)
                 raise TypeError(msg)
 
-    def _wrapper1(function):
+        def decorator_call(self, func, *args, **kw):
+            self(*args, **kw)
+
+
+    def _wrapper(function):
         # Needed to create the Wrapper in the right scope.
-        w = Wrapper(function)
-        return w
+        if HAS_DECORATOR:
+            # The decorator calls a callable with (func, *args, **kw) signature
+            return decorator(Wrapper(function).decorator_call, function)
+        else:
+            return wraps(function)(Wrapper(function))
 
     if func is None:
-        return _wrapper1
+        return _wrapper
     else:
-        return _wrapper1(func)
+        return _wrapper(func)
