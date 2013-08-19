@@ -101,7 +101,6 @@ class TestMGlyphSource(unittest.TestCase):
         vv = N.reshape(v[:,1], (5,2))
         w = N.reshape(v[:,2], (5,2))
         self.s = s = N.reshape(s, (5,2))
-
         src.reset(x=x, y=y, z=z, u=u, v=vv, w=w, scalars=s)
         self.check_traits()
         self.check_dataset()
@@ -127,6 +126,7 @@ class TestMGlyphSource(unittest.TestCase):
 
     def test_handlers_strange_shape(self):
         "Test if the various static handlers work correctly for strange shapes."
+        # Initialize with 2-d array data.
         x, y, z, v, s, src = self.get_data()
         x = N.reshape(x, (5,2))
         y = N.reshape(y, (5,2))
@@ -135,9 +135,9 @@ class TestMGlyphSource(unittest.TestCase):
         vv = N.reshape(v[:,1], (5,2))
         w = N.reshape(v[:,2], (5,2))
         s = N.reshape(s, (5,2))
-
         src.reset(x=x, y=y, z=z, u=u, v=vv, w=w, scalars=s)
 
+        # modify variables in src to check handlers
         self.x = src.x = 2*x
         self.y = src.y = 2*y
         self.z = src.z = 2*z
