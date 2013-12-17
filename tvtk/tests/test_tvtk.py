@@ -540,7 +540,10 @@ class TestTVTKModule(unittest.TestCase):
         ok = True
         # Turn off VTK warnings.
         vtk.vtkObject.GlobalWarningDisplayOff()
-        for name in dir(vtk):
+        names = [name for name in dir(vtk) \
+                 if name.startswith('vtk') and \
+                 not name.startswith('vtkQt')]
+        for name in names:
             klass = getattr(vtk, name)
             if hasattr(klass, '__bases__') \
                     and not issubclass(klass, object):
@@ -553,10 +556,18 @@ class TestTVTKModule(unittest.TestCase):
                 else:
                     t_name = get_tvtk_name(name)
                     skip = ['ObjectBase']
+                    do_not_update_traits = ['CellQuality', 'GeoView',
+                                            'MatrixMathFilter', 'PLYWriter',
+                                            'ParallelCoordinatesView',
+                                            'ResliceImageViewer']
                     if t_name not in skip:
                         k = getattr(tvtk, t_name)
                         try:
-                            obj = k()
+                            if t_name in do_not_update_traits:
+                                print 'Special handling of %s' % t_name
+                                obj = k(update=False)
+                            else:
+                                obj = k()
                         except TraitError, msg:
                             print "class:", t_name, msg
                             ok = False
