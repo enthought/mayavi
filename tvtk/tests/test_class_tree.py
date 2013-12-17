@@ -37,11 +37,11 @@ class TestClassTree(unittest.TestCase):
         self.assertEqual(t.get_node('vtkObject').parents[0].name,
                          'vtkObjectBase')
         if (hasattr(vtk, 'vtkVector')):
-            self.assertEqual(len(t.tree[0]), 11)
+            self.assertEqual(len(t.tree[0]), 12)
             names = [x.name for x in t.tree[0]]
             names.sort()
             expect = ['object', 'vtkColor3', 'vtkColor4', 'vtkDenseArray', 
-                      'vtkObjectBase', 'vtkRect', 'vtkSparseArray', 
+                      'vtkObjectBase', 'vtkRect', 'vtkSparseArray', 'vtkTuple',
                       'vtkTypedArray', 'vtkVector', 'vtkVector2',
                       'vtkVector3']
             self.assertEqual(names, expect)
