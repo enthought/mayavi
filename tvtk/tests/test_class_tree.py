@@ -45,6 +45,15 @@ class TestClassTree(unittest.TestCase):
                       'vtkTypedArray', 'vtkVector', 'vtkVector2',
                       'vtkVector3']
             self.assertEqual(names, expect)
+        elif (hasattr(vtk, 'vtkVector')):
+            self.assertEqual(len(t.tree[0]), 11)
+            names = [x.name for x in t.tree[0]]
+            names.sort()
+            expect = ['object', 'vtkColor3', 'vtkColor4', 'vtkDenseArray', 
+                      'vtkObjectBase', 'vtkRect', 'vtkSparseArray', 
+                      'vtkTypedArray', 'vtkVector', 'vtkVector2',
+                      'vtkVector3']
+            self.assertEqual(names, expect)
         elif (hasattr(vtk, 'vtkArrayCoordinates')
                         and issubclass(vtk.vtkArrayCoordinates, object)):
             self.assertEqual(len(t.tree[0]), 2)
