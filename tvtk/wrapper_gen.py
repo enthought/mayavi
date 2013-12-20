@@ -373,6 +373,22 @@ class WrapperGenerator:
                 d[self._reform_name(key)] = val
                 if isinstance(val, vtk.vtkObjectBase):
                     vtk_val = 1
+
+            # Setting the default value of the traits of these classes
+            # Else they are not instantiable
+            if klass.__name__ == 'vtkCellQuality' \
+                    and m == 'QualityMeasure':
+                vtk_val = 1
+            if klass.__name__ == 'vtkRenderView' \
+                    and m == 'InteractionMode':
+                vtk_val = 1
+            if klass.__name__ == 'vtkMatrixMathFilter' \
+                    and m == 'Operation':
+                vtk_val = 1
+            if klass.__name__ == 'vtkResliceImageViewer' \
+                    and m == 'ResliceMode':
+                vtk_val = 'axis_aligned'
+
             if (not hasattr(klass, 'Set' + m)):
                 # Sometimes (very rarely) the VTK method is
                 # inconsistent.  For example in VTK-4.4
@@ -545,7 +561,9 @@ class WrapperGenerator:
                             # changes value so we must force an
                             # update.
                             force = 'True'
-
+                        if klass.__name__ == 'vtkPLYWriter' \
+                                and name == 'color':
+                            default = (1.0, 1.0, 1.0)
                         t_def = 'tvtk_base.vtk_color_trait(%(default)s)'%locals()
                         self._write_trait(out, name, t_def, vtk_set_meth,
                                           mapped=False, force_update=force)

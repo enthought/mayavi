@@ -556,15 +556,10 @@ class TestTVTKModule(unittest.TestCase):
                 else:
                     t_name = get_tvtk_name(name)
                     skip = ['ObjectBase']
-                    do_not_update_traits = ['CellQuality', 'GeoView',
-                                            'MatrixMathFilter', 'PLYWriter',
-                                            'ParallelCoordinatesView',
-                                            'ResliceImageViewer']
                     if t_name not in skip:
                         k = getattr(tvtk, t_name)
                         try:
-                            if t_name in do_not_update_traits:
-                                print 'Special handling of %s' % t_name
+                            if t_name == 'PLYWriter':
                                 obj = k(update=False)
                             else:
                                 obj = k()
