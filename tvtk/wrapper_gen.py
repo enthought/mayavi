@@ -373,6 +373,62 @@ class WrapperGenerator:
                 d[self._reform_name(key)] = val
                 if isinstance(val, vtk.vtkObjectBase):
                     vtk_val = 1
+
+            # Setting the default value of the traits of these classes
+            # Else they are not instantiable
+            if klass.__name__ == 'vtkCellQuality' \
+                    and m == 'QualityMeasure':
+                vtk_val = 1
+            if klass.__name__ == 'vtkRenderView' \
+                    and m == 'InteractionMode':
+                vtk_val = 1
+            if klass.__name__ == 'vtkMatrixMathFilter' \
+                    and m == 'Operation':
+                vtk_val = 1
+            if klass.__name__ == 'vtkResliceImageViewer' \
+                    and m == 'ResliceMode':
+                vtk_val = 'axis_aligned'
+
+            if (not hasattr(klass, 'Set' + m)):
+                # Sometimes (very rarely) the VTK method is
+                # inconsistent.  For example in VTK-4.4
+                # vtkExtentTranslator::SetSplitMode does not exist.
+                # In this case wrap it specially.
+                vtk_val = 1
+            if  vtk_val == 0 and m in ['DataScalarType', 'OutputScalarType',
+                                       'UpdateExtent']:
+                vtk_val = 2
+
+            # Sometimes, some methods have default values that are
+            # outside the specified choices.  This is to special case
+            # these.
+            extra_val = None
+            if vtk_val == 0 and klass.__name__ == 'vtkGenericEnSightReader' \
+                   and m == 'ByteOrder':
+                extra_val = 2
+            if vtk_val == 0 and klass.__name__ == 'vtkImageData' \
+                   and m == 'ScalarType':
+                extra_val = range(0, 22)
+            if vtk_val == 0 and klass.__name__ == 'vtkImagePlaneWidget' \
+                   and m == 'PlaneOrientation':
+                extra_val = 3
+            if (vtk_val == 0) and (klass.__name__ == 'vtkThreshold') \
+                   and (m == 'AttributeMode'):
+                extra_val = -1
+            if (sys.platform == 'darwin') and (vtk_val == 0) \
+                   and (klass.__name__ == 'vtkRenderWindow') \
+                   and (m == 'StereoType'):
+                extra_val = 0
+
+            if not vtk_val:
+                default = self._reform_name(meths[m][0][0])
+                if extra_val is None:
+                    t_def = """traits.Trait('%(default)s',
+                                       tvtk_base.TraitRevPrefixMap(%(d)s))"""\
+                    %locals()
+                elif hasattr(extra_val, '__iter__'):
+                    extra_val = str(extra_val)[1:-1]
+
             if (not hasattr(klass, 'Set' + m)):
                 # Sometimes (very rarely) the VTK method is
                 # inconsistent.  For example in VTK-4.4
@@ -545,7 +601,11 @@ class WrapperGenerator:
                             # changes value so we must force an
                             # update.
                             force = 'True'
-
+                        if klass.__name__ == 'vtkPLYWriter' \
+                                and name == 'color':
+                            print 'vtkPLYWriter color is not updateable'
+                            default = (1.0, 1.0, 1.0)
+                            del updateable_traits[name]
                         t_def = 'tvtk_base.vtk_color_trait(%(default)s)'%locals()
                         self._write_trait(out, name, t_def, vtk_set_meth,
                                           mapped=False, force_update=force)

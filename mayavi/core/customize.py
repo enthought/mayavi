@@ -75,10 +75,14 @@ def _import_contrib(pkg):
     mod = None
     try:
         components = pkg.split('.')
-        mod_name = '.'.join(components[:-1])
-        sym_name = components[-1]
-        m = __import__(mod_name, globals(), locals(), [sym_name], level=0)
-        mod = getattr(m, sym_name)
+        if len(components) > 1:
+            mod_name = '.'.join(components[:-1])
+            sym_name = components[-1]
+            mod = __import__(mod_name, globals(), locals(), [sym_name], level=0)
+            mod = getattr(mod, sym_name)
+        else:
+            mod_name = components[0]
+            mod = __import__(mod_name, globals(), locals(), [mod_name], level=0)
     except Exception:
         print "*"*80
         traceback.print_exc(file=sys.stdout)

@@ -540,7 +540,10 @@ class TestTVTKModule(unittest.TestCase):
         ok = True
         # Turn off VTK warnings.
         vtk.vtkObject.GlobalWarningDisplayOff()
-        for name in dir(vtk):
+        names = [name for name in dir(vtk) \
+                 if name.startswith('vtk') and \
+                 not name.startswith('vtkQt')]
+        for name in names:
             klass = getattr(vtk, name)
             if hasattr(klass, '__bases__') \
                     and not issubclass(klass, object):
