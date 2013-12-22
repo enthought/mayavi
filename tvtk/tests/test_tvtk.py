@@ -559,10 +559,7 @@ class TestTVTKModule(unittest.TestCase):
                     if t_name not in skip:
                         k = getattr(tvtk, t_name)
                         try:
-                            if t_name == 'PLYWriter':
-                                obj = k(update=False)
-                            else:
-                                obj = k()
+                            obj = k()
                         except TraitError, msg:
                             print "class:", t_name, msg
                             ok = False
