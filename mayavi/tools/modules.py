@@ -351,7 +351,12 @@ class StreamlineFactory(DataModuleFactory):
         self._target.seed.widget = widget = \
                             self._target.seed.widget_list[self.seedtype_]
 
-        if  not self.seed_scale == 1.:
+        if widget.interactor == None:
+            from mayavi.core.engine import Engine
+            e = Engine()
+            s = e.new_scene()
+            widget.interactor = s.scene.interactor
+        if not self.seed_scale == 1.:
             widget.enabled = True
             if self.seedtype == 'line':
                 p1 = widget.point1
@@ -377,6 +382,7 @@ class StreamlineFactory(DataModuleFactory):
             widget.enabled = self.seed_visible
 
         if self.seed_resolution is not None:
+            widget.interactor = Instance(tvtk.GenericRenderWindowInteractor)
             widget.enabled = True
             if self.seedtype in ('plane', 'line'):
                 widget.resolution = self.seed_resolution
