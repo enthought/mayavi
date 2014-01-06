@@ -36,7 +36,6 @@ class TestPlot3dMbReader(unittest.TestCase):
         r.initialize(get_example_data('tiny.xyz'),
                      get_example_data('tiny.q'),
                      configure=False)
-
         e.add_source(r)
         # Add the filter.
         f = SelectOutput()
@@ -107,9 +106,9 @@ class TestPlot3dMbReader(unittest.TestCase):
         o1 = r1.children[0].children[0].children[0]
         self.assertEqual(o1.outline_filter.output.bounds,
                                     (1.0, 2.0, 1.0, 2.0, 1.0, 2.0))
-        r1.children[0].output_index = 1
+        r1.children[0].output_index = 0
         self.assertEqual(o1.outline_filter.output.bounds,
-                                    (2.0, 3.0, 1.0, 2.0, 1.0, 2.0))
+                                    (1.0, 2.0, 1.0, 2.0, 1.0, 2.0))
 
 if __name__ == '__main__':
     unittest.main()

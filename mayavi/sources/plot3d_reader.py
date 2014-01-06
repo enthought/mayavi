@@ -63,7 +63,7 @@ class PLOT3DReader(Source):
                          desc='vector data attribute to show')
 
     # The VTK data file reader.
-    reader = Instance(tvtk.PLOT3DReader, args=(), allow_none=False,
+    reader = Instance(tvtk.MultiBlockPLOT3DReader, args=(), allow_none=False,
                       record=True)
 
     # Information about what this object can produce.
@@ -151,7 +151,7 @@ class PLOT3DReader(Source):
         if configure:
             # First set properties of the reader.  This is useful when
             # the data format has atypical defaults.  Automatic
-            # detection can be disastrous sometimes due to VTK related
+           # detection can be disastrous sometimes due to VTK related
             # problems.
             self.reader.edit_traits(kind='livemodal')
         self.xyz_file_name = xyz_file_name
@@ -240,7 +240,7 @@ class PLOT3DReader(Source):
             n = r.number_of_outputs
         outputs = []
         for i in range(n):
-            outputs.append(r.get_output(i))
+            outputs.append(r.get_output().get_block(i))
 
         self.outputs = outputs
 
