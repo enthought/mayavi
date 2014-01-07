@@ -382,7 +382,6 @@ class StreamlineFactory(DataModuleFactory):
             widget.enabled = self.seed_visible
 
         if self.seed_resolution is not None:
-            widget.interactor = Instance(tvtk.GenericRenderWindowInteractor)
             widget.enabled = True
             if self.seedtype in ('plane', 'line'):
                 widget.resolution = self.seed_resolution
