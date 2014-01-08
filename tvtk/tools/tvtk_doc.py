@@ -366,7 +366,7 @@ class TVTKClassChooser(HasTraits):
             return
 
         f = self.finder
-        result = f.search(value)
+        result = f.search(str(value))
         if len(result) == 0:
             self.available = self._orig_available
         elif len(result) == 1:
@@ -404,4 +404,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
