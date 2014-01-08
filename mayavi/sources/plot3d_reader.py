@@ -151,7 +151,7 @@ class PLOT3DReader(Source):
         if configure:
             # First set properties of the reader.  This is useful when
             # the data format has atypical defaults.  Automatic
-           # detection can be disastrous sometimes due to VTK related
+            # detection can be disastrous sometimes due to VTK related
             # problems.
             self.reader.edit_traits(kind='livemodal')
         self.xyz_file_name = xyz_file_name
