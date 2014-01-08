@@ -351,11 +351,6 @@ class StreamlineFactory(DataModuleFactory):
         self._target.seed.widget = widget = \
                             self._target.seed.widget_list[self.seedtype_]
 
-        if widget.interactor == None:
-            from mayavi.core.engine import Engine
-            e = Engine()
-            s = e.new_scene()
-            widget.interactor = s.scene.interactor
         if not self.seed_scale == 1.:
             widget.enabled = True
             if self.seedtype == 'line':
