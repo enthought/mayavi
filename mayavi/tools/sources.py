@@ -217,7 +217,7 @@ class MGlyphSource(MlabSource):
         if scalars is not None:
             scalars = np.atleast_1d(scalars)
             if len(scalars) > 0:
-                assert len(points) == len(scalars)
+                assert len(points) == len(scalars.ravel())
 
         # Create the dataset.
         polys = np.arange(0, len(points), 1, 'l')
@@ -234,7 +234,7 @@ class MGlyphSource(MlabSource):
             pd.point_data.vectors = self.vectors
             pd.point_data.vectors.name = 'vectors'
         if self.scalars is not None:
-            pd.point_data.scalars = self.scalars
+            pd.point_data.scalars = self.scalars.ravel()
             pd.point_data.scalars.name = 'scalars'
 
         self.dataset = pd
@@ -244,32 +244,32 @@ class MGlyphSource(MlabSource):
     ######################################################################
     def _x_changed(self, x):
         x = np.atleast_1d(x)
-        self.points[:, 0] = x
+        self.points[:, 0] = x.ravel()
         self.update()
 
     def _y_changed(self, y):
         y = np.atleast_1d(y)
-        self.points[:, 1] = y
+        self.points[:, 1] = y.ravel()
         self.update()
 
     def _z_changed(self, z):
         z = np.atleast_1d(z)
-        self.points[:, 2] = z
+        self.points[:, 2] = z.ravel()
         self.update()
 
     def _u_changed(self, u):
         u = np.atleast_1d(u)
-        self.vectors[:, 0] = u
+        self.vectors[:, 0] = u.ravel()
         self.update()
 
     def _v_changed(self, v):
         v = np.atleast_1d(v)
-        self.vectors[:, 1] = v
+        self.vectors[:, 1] = v.ravel()
         self.update()
 
     def _w_changed(self, w):
         w = np.atleast_1d(w)
-        self.vectors[:, 2] = w
+        self.vectors[:, 2] = w.ravel()
         self.update()
 
     def _points_changed(self, p):
@@ -283,7 +283,7 @@ class MGlyphSource(MlabSource):
             self.dataset.point_data.remove_array('scalars')
         else:
             s = np.atleast_1d(s)
-            self.dataset.point_data.scalars = s
+            self.dataset.point_data.scalars = s.ravel()
             self.dataset.point_data.scalars.name = 'scalars'
         self.update()
 

@@ -34,9 +34,9 @@ class TestMGlyphSource(unittest.TestCase):
         """Check if the sources traits are set correctly."""
         x, y, z, v, s, src = self.get_data()
         # Check if points are set correctly.
-        self.assertEqual(N.alltrue(src.points[:,0].ravel() == x), True)
-        self.assertEqual(N.alltrue(src.points[:,1].ravel() == y), True)
-        self.assertEqual(N.alltrue(src.points[:,2].ravel() == z), True)
+        self.assertEqual(N.alltrue(src.points[:,0].ravel() == x.ravel()), True)
+        self.assertEqual(N.alltrue(src.points[:,1].ravel() == y.ravel()), True)
+        self.assertEqual(N.alltrue(src.points[:,2].ravel() == z.ravel()), True)
         # Check the vectors and scalars.
         self.assertEqual(N.alltrue(src.vectors == v), True)
         self.assertEqual(N.alltrue(src.scalars == s), True)
@@ -46,13 +46,13 @@ class TestMGlyphSource(unittest.TestCase):
         x, y, z, v, s, src = self.get_data()
         # Check if the dataset is setup right.
         pts = src.dataset.points.to_array()
-        self.assertEqual(N.alltrue(pts[:,0].ravel() == x), True)
-        self.assertEqual(N.alltrue(pts[:,1].ravel() == y), True)
-        self.assertEqual(N.alltrue(pts[:,2].ravel() == z), True)
+        self.assertEqual(N.alltrue(pts[:,0].ravel() == x.ravel()), True)
+        self.assertEqual(N.alltrue(pts[:,1].ravel() == y.ravel()), True)
+        self.assertEqual(N.alltrue(pts[:,2].ravel() == z.ravel()), True)
         vec = src.dataset.point_data.vectors.to_array()
         sc = src.dataset.point_data.scalars.to_array()
         self.assertEqual(N.alltrue(vec == v), True)
-        self.assertEqual(N.alltrue(sc == s), True)
+        self.assertEqual(N.alltrue(sc == s.ravel()), True)
 
     def test_reset(self):
         "Test the reset method."
@@ -90,6 +90,22 @@ class TestMGlyphSource(unittest.TestCase):
         self.check_traits()
         self.check_dataset()
 
+    def test_reset_strange_shape(self):
+        " Test the reset method when the inputs are 2-d arrays."
+
+        x, y, z, v, s, src = self.get_data()
+        self.x = x = N.reshape(x, (5,2))
+        self.y = y = N.reshape(y, (5,2))
+        self.z = z = N.reshape(z, (5,2))
+        u = N.reshape(v[:,0], (5,2))
+        vv = N.reshape(v[:,1], (5,2))
+        w = N.reshape(v[:,2], (5,2))
+        self.s = s = N.reshape(s, (5,2))
+        src.reset(x=x, y=y, z=z, u=u, v=vv, w=w, scalars=s)
+        self.check_traits()
+        self.check_dataset()
+
+
     def test_handlers(self):
         "Test if the various static handlers work correctly."
         x, y, z, v, s, src = self.get_data()
@@ -105,6 +121,33 @@ class TestMGlyphSource(unittest.TestCase):
         src.v = v[:,1]
         src.w = v[:,2]
         src.scalars = s
+        self.check_traits()
+        self.check_dataset()
+
+    def test_handlers_strange_shape(self):
+        "Test if the various static handlers work correctly for strange shapes."
+        # Initialize with 2-d array data.
+        x, y, z, v, s, src = self.get_data()
+        x = N.reshape(x, (5,2))
+        y = N.reshape(y, (5,2))
+        z = N.reshape(z, (5,2))
+        u = N.reshape(v[:,0], (5,2))
+        vv = N.reshape(v[:,1], (5,2))
+        w = N.reshape(v[:,2], (5,2))
+        s = N.reshape(s, (5,2))
+        src.reset(x=x, y=y, z=z, u=u, v=vv, w=w, scalars=s)
+
+        # modify variables in src to check handlers
+        self.x = src.x = 2*x
+        self.y = src.y = 2*y
+        self.z = src.z = 2*z
+        src.u = 2*z
+        src.v = 2*vv
+        src.w = 2*w
+        self.v[:,0] = src.u.ravel()
+        self.v[:,1] = src.v.ravel()
+        self.v[:,2] = src.w.ravel()
+        self.s = src.scalars = 2*s
         self.check_traits()
         self.check_dataset()
 
