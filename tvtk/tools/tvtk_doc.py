@@ -54,7 +54,7 @@ def get_tvtk_class_names():
     filter = []
     sink = []
     for name in dir(vtk):
-        if name.startswith('vtk'):
+        if name.startswith('vtk') and not name.startswith('vtkQt'):
             klass = getattr(vtk, name)
             try:
                 c = klass()
