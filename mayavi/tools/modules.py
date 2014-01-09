@@ -352,7 +352,7 @@ class StreamlineFactory(DataModuleFactory):
         self._target.seed.widget = widget = \
                             self._target.seed.widget_list[self.seedtype_]
 
-        if  not self.seed_scale == 1.:
+        if not self.seed_scale == 1.:
             widget.enabled = True
             if self.seedtype == 'line':
                 p1 = widget.point1

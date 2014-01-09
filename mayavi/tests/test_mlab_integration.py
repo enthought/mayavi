@@ -10,6 +10,7 @@ import numpy as np
 
 from mayavi import mlab
 from mayavi.core.null_engine import NullEngine
+from mayavi.core.engine import Engine
 from tvtk.api import tvtk
 from mayavi.tools.engine_manager import engine_manager
 from mayavi.core.registry import registry
@@ -210,8 +211,31 @@ class TestMlabNullEngineMisc(TestMlabNullEngine):
 ################################################################################
 class TestMlabPipeline(TestMlabNullEngine):
     """ Test the pipeline functions.
+        For vtk versions greater than 5.6 (5.10.1 onwards), widgets need
+        a render window interactor to be set, otherwise an error is raised.
+        As such this test checks for the current VTK version and setups a real
+        engine for vtk > 5.6 and null engine otherwise.
     """
 
+    def setUp(self):
+        ver = tvtk.Version()
+        self.less_than_vtk_5_6 = True
+        if ver.vtk_major_version >= 5 and ver.vtk_minor_version >= 10:
+            self.less_than_vtk_5_6 = False
+        if self.less_than_vtk_5_6:
+            super(TestMlabPipeline, self).setUp()
+        else:
+            e = Engine()
+            e.start()
+            mlab.set_engine(e)
+
+    def tearDown(self):
+        if self.less_than_vtk_5_6:
+            super(TestMlabPipeline, self).setUp()
+        else:            
+            for engine in registry.engines.keys():
+                registry.unregister_engine(engine)
+    
     def test_probe_data(self):
         """ Test probe_data
         """

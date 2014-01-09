@@ -556,6 +556,9 @@ class WrapperGenerator:
                 number_map = {types.IntType: 'traits.Int',
                               types.FloatType: 'traits.Float',
                               types.LongType: 'traits.Long'}
+                if klass.__name__ == 'vtkImageReader2':
+                    if m == 'HeaderSize':
+                        typ = types.LongType
                 if typ in number_map:
                     t_name = number_map[typ]
                     t_def = '%(t_name)s(%(default)s, enter_set=True, '\
