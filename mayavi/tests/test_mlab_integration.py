@@ -253,6 +253,10 @@ class TestMlabHelperFunctions(TestMlabNullEngine):
         for bar in bar1, bar2, bar3:
             self.assertEqual(bar.glyph.glyph_source.glyph_source.y_length, 0.9)
 
+    def test_imshow(self):
+        s = np.random.random((10, 10))
+        # This should work.
+        obj = mlab.imshow(s)
 
 
 ################################################################################
@@ -346,4 +350,3 @@ class TestMlabModules(TestMlabNullEngine):
 
 if __name__ == '__main__':
     unittest.main()
-
