@@ -1,3 +1,45 @@
+Mayavi 4.3.1
+=============
+
+Enhancements
+------------
+
+17 Dec 2013
+    - Upgrade to VTK 5.10.1 with VTK's old pipeline. This upgrade does not yet
+      make use of VTK's new pipeline.
+
+07 Aug 2013
+    - Added interactive superquadics example.
+
+03 Jun 2013
+    - Refactor the animation component so that corresponding tests in test
+      suite dispaly animations.
+
+Fixes
+------
+
+08 Jan 2014
+    - Fix search when user enters a search string.
+
+09 Jan 2014
+    - Fix creation of scripts on win32 using gui_scripts.
+
+23 Dec 2013
+    - Fix imshow by handling TraitError.
+
+05 Apr 2013
+    - Fix class browser when VTK is built with QT/SIP support.
+    - Fix wxpython 2.9 compatibility.
+
+19 Aug 2013
+    - Fix MGlyphSource when assigning multi dimensional arrays to individual
+      components of vector data.
+    - Fix inconsistent handling of scalars. 
+
+10 Jun 2013
+    - Fix to use front buffer when off screen is False.
+
+
 Mayavi 4.3.0
 =============
 
