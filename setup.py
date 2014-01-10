@@ -361,32 +361,6 @@ class MyInstallData(install_data.install_data):
         install_data.install_data.run(self)
 
 
-class MyInstallScripts(install_scripts.install_scripts):
-    """ Hook to rename the  mayavi script to a MayaVi.pyw script on win32.
-
-        Subclassing setuptools' command because numpy.distutils doesn't
-        have an implementation.
-
-    """
-
-    def run(self):
-        install_scripts.install_scripts.run(self)
-        if os.name != 'posix':
-            # Rename <script> to <script>.pyw. Executable bits
-            # are already set in install_scripts.run().
-            for file in self.get_outputs():
-                if file[-4:] != '.pyw':
-                    if file[-7:] == 'mayavi2':
-                        new_file = file[:-7] + 'MayaVi2.pyw'
-                    else:
-                        new_file = splitext(file)[0] + '.pyw'
-                    self.announce("renaming %s to %s" % (file, new_file))
-                    if not self.dry_run:
-                        if exists(new_file):
-                            os.remove (new_file)
-                        os.rename (file, new_file)
-
-
 # Configure our extensions to Python
 def configuration(parent_package=None, top_path=None):
     from numpy.distutils.misc_util import Configuration
@@ -467,7 +441,6 @@ numpy.distutils.core.setup(
         'sdist': setuptools.command.sdist.sdist,
         'build': MyBuild,
         'develop': MyDevelop,
-        'install_scripts': MyInstallScripts,
         'install_data': MyInstallData,
         'gen_docs': GenDocs,
         'build_docs': BuildDocs,
@@ -476,7 +449,7 @@ numpy.distutils.core.setup(
     download_url = ('http://www.enthought.com/repo/ets/mayavi-%s.tar.gz' %
                     info['__version__']),
     entry_points = {
-        'console_scripts': [
+        'gui_scripts': [
             'mayavi2 = mayavi.scripts.mayavi2:main',
             'tvtk_doc = tvtk.tools.tvtk_doc:main'
             ],
