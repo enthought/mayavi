@@ -9,32 +9,35 @@ Enhancements
       make use of VTK's new pipeline.
 
 07 Aug 2013
-    - Added interactive superquadics example.
+    - Added interactive superquadrics example. Thanks to Pratik for contributing
+      this example.
 
 03 Jun 2013
-    - Refactor the animation component so that corresponding tests in test
-      suite dispaly animations.
+    - Refactor the animation component so that corresponding examples
+      display animations.
 
 Fixes
 ------
 
 08 Jan 2014
-    - Fix search when user enters a search string.
+    - tvtk_doc: Fix search when user enters a search string.
 
 09 Jan 2014
-    - Fix creation of scripts on win32 using gui_scripts.
+    - Fix creation of scripts on win32 using gui_scripts. Thanks to Gabi Davar
+      for this fix.
 
 23 Dec 2013
-    - Fix imshow by handling TraitError.
+    - Fix imshow by handling TraitError. Thanks to Jens Nielsen for this fix.
 
 05 Apr 2013
-    - Fix class browser when VTK is built with QT/SIP support.
-    - Fix wxpython 2.9 compatibility.
+    - Fix class browser when VTK is built with QT/SIP support. Thanks to Gabi
+      Davar for this fix. 
+    - Fix wxpython 2.9 compatibility. Thanks to Martin Luessi for this fix.
 
 19 Aug 2013
     - Fix MGlyphSource when assigning multi dimensional arrays to individual
-      components of vector data.
-    - Fix inconsistent handling of scalars. 
+      components of vector data. Thanks to Senganal for this fix.
+    - Fix inconsistent handling of scalars. Thanks to Senganal for this fix. 
 
 10 Jun 2013
     - Fix to use front buffer when off screen is False.
