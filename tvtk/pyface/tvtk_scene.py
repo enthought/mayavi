@@ -116,11 +116,11 @@ class TVTKScene(HasPrivateTraits):
                           desc='the magnification used when the screen is saved to an image')
 
     # Specifies the number of frames to use for anti-aliasing when
-    # saving a scene.  This basically increases
+    # rendering a scene.  This basically increases
     # `self.render_window.aa_frames` in order to produce anti-aliased
-    # figures when a scene is saved to an image.  It then restores the
-    # `aa_frames` in order to get interactive rendering rates.
-    anti_aliasing_frames = Range(0, 20, 8, desc='number of frames to use for anti-aliasing when saving a scene')
+    # figures when a scene is rendered. The number of frames is automatically
+    # reduced when interacting with the scene inorder to retain interactivity.
+    anti_aliasing_frames = Range(0, 20, 0, desc='number of frames to use for anti-aliasing when rendering/saving a scene')
 
     # Default JPEG quality.
     jpeg_quality = Range(10, 100, 95, desc='the quality of the JPEG image to produce')
@@ -783,7 +783,9 @@ class TVTKScene(HasPrivateTraits):
 
         renwin.set(point_smoothing=self.point_smoothing,
                    line_smoothing=self.line_smoothing,
-                   polygon_smoothing=self.polygon_smoothing)
+                   polygon_smoothing=self.polygon_smoothing,
+                   aa_frames = self.anti_aliasing_frames)
+
         # Create a renderer and add it to the renderwindow
         self._renderer = tvtk.Renderer()
         renwin.add_renderer(self._renderer)
@@ -903,6 +905,73 @@ class TVTKScene(HasPrivateTraits):
             i_vtk = tvtk.to_vtk(iren)
             messenger.disconnect(i_vtk, 'EndInteractionEvent',
                                  self._record_camera_position)
+
+    def _enable_anti_aliasing(self, vtk_obj, event):
+        # FIXME: what if interactor is changed !
+        assert(tvtk.to_vtk(self.interactor) is vtk_obj)
+        renwin = self.render_window
+        if renwin is not None:
+            renwin.aa_frames = self.anti_aliasing_frames
+
+    def _disable_anti_aliasing(self, vtk_obj, event):
+        # FIXME: what if interactor is changed !
+        assert(tvtk.to_vtk(self.interactor) is vtk_obj)
+        renwin = self._renwin
+        if renwin is not None:
+            self._renwin.aa_frames = 0
+
+    def _update_interactor_observers(self, add_observers):
+        # FIXME: Do we need these guards ?
+        iren = self.interactor
+        if iren is None:
+            return
+        # FIXME: What about when the scene is destroyed or if interactor is
+        # changed and so on ?
+        # only weak refs are stored in messenger so that is not an issue but
+        # the key for the objects need to be removed
+        # would it be better to store a dict with hash and the ids ?
+        i_vtk = tvtk.to_vtk(iren)
+        if not add_observers:
+            print 'removing observers'
+            iren.remove_observer(self._interactor_observer_end_interaction_id)
+            iren.remove_observer(self._interactor_observer_start_interaction_id)
+            i_vtk = tvtk.to_vtk(iren)
+            messenger.disconnect(i_vtk, 'EndInteractionEvent',
+                                 self._enable_anti_aliasing)
+            messenger.disconnect(i_vtk, 'StartInteractionEvent',
+                                 self._disable_anti_aliasing)
+            # FIXME: should id be reset to something ?
+        else:
+            print 'adding observers'
+            start_id = iren.add_observer('StartInteractionEvent', messenger.send)
+            self._interactor_observer_start_interaction_id =  start_id
+            messenger.connect(i_vtk, 'StartInteractionEvent',
+                                 self._disable_anti_aliasing)
+
+            end_id = iren.add_observer('EndInteractionEvent', messenger.send)
+            self._interactor_observer_end_interaction_id = end_id
+            messenger.connect(i_vtk, 'EndInteractionEvent',
+                              self._enable_anti_aliasing)
+
+    def _anti_aliasing_frames_changed(self, old_aa_frames, new_aa_frames):
+        """ When the anti_aliasing is non-zero, temporarily disable it when
+        when the interaction occurs (e.g rotation) so that any rendering
+        during the interaction is faster.
+        """
+        print 'old, new == ', old_aa_frames, new_aa_frames
+        renwin = self.render_window
+        if renwin is not None:
+            renwin.aa_frames = new_aa_frames
+
+        if old_aa_frames == 0:
+            # add observers when anti-aliasing frames is changed from 0.
+            self._update_interactor_observers(True)
+        elif new_aa_frames== 0:
+            # remove the observers if anti-aliasing frames is set to 0
+            self._update_interactor_observers(False)
+        else:
+            # do nothing as the observers are already wired up.
+            pass
 
 ######################################################################
 # `TVTKScene` class.
