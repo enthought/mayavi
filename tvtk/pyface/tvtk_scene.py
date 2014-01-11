@@ -932,7 +932,6 @@ class TVTKScene(HasPrivateTraits):
         # would it be better to store a dict with hash and the ids ?
         i_vtk = tvtk.to_vtk(iren)
         if not add_observers:
-            print 'removing observers'
             iren.remove_observer(self._interactor_observer_end_interaction_id)
             iren.remove_observer(self._interactor_observer_start_interaction_id)
             i_vtk = tvtk.to_vtk(iren)
@@ -942,7 +941,6 @@ class TVTKScene(HasPrivateTraits):
                                  self._disable_anti_aliasing)
             # FIXME: should id be reset to something ?
         else:
-            print 'adding observers'
             start_id = iren.add_observer('StartInteractionEvent', messenger.send)
             self._interactor_observer_start_interaction_id =  start_id
             messenger.connect(i_vtk, 'StartInteractionEvent',
@@ -958,7 +956,6 @@ class TVTKScene(HasPrivateTraits):
         when the interaction occurs (e.g rotation) so that any rendering
         during the interaction is faster.
         """
-        print 'old, new == ', old_aa_frames, new_aa_frames
         renwin = self.render_window
         if renwin is not None:
             renwin.aa_frames = new_aa_frames
