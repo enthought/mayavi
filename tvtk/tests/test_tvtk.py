@@ -511,7 +511,7 @@ class TestTVTK(unittest.TestCase):
         # In this case if the wrapping is not done right, the input
         # trait is made read-only which is a bug.  We set the input
         # below to test this.
-        vm.input = tvtk.ImageData() 
+        vm.input = tvtk.ImageData()
 
         spw = tvtk.StructuredPointsWriter()
         spw.input = None
@@ -538,12 +538,18 @@ class TestTVTKModule(unittest.TestCase):
         # This is a comprehensive test that instantiates every single
         # non-abstract tvtk class.  This takes a while.
         ok = True
+        ignore = []
+        if vtk.vtkVersion.GetVTKMajorVersion() >= 5 and \
+            vtk.vtkVersion.GetVTKMinorVersion() == 8:
+                ignore = ['vtkAxesTransformRepresentation']
         # Turn off VTK warnings.
         vtk.vtkObject.GlobalWarningDisplayOff()
         names = [name for name in dir(vtk) \
                  if name.startswith('vtk') and \
                  not name.startswith('vtkQt')]
         for name in names:
+            if name in ignore:
+                continue
             klass = getattr(vtk, name)
             if hasattr(klass, '__bases__') \
                     and not issubclass(klass, object):

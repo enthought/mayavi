@@ -45,9 +45,12 @@ class TestVTKParser(unittest.TestCase):
         p.parse(vtk.vtkObject())
         self.assertEqual(p.get_toggle_methods(),
                          {'Debug': 0, 'GlobalWarningDisplay': 1})
-        if vtk_major_version >= 5 and vtk_minor_version > 6:
+        if vtk_major_version >= 5 and vtk_minor_version >= 10:
             self.assertEqual(p.get_state_methods(), {})
             self.assertEqual(p.get_get_methods(), ['GetCommand', 'GetMTime'])
+        elif vtk_major_version >= 5 and vtk_minor_version > 6:
+            self.assertEqual(p.get_state_methods(), {})
+            self.assertEqual(p.get_get_methods(), ['GetMTime'])
         else:
             self.assertEqual(p.get_state_methods(), {'ReferenceCount':(1, None)})
             self.assertEqual(p.get_get_methods(), ['GetMTime'])
