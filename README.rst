@@ -4,6 +4,10 @@ MayaVi2: 3D visualization of scientific data in Python
 
 http://github.enthought.com/mayavi/mayavi
 
+.. image:: https://api.travis-ci.org/enthought/mayavi.png?branch=master
+   :target: https://travis-ci.org/enthought/mayavi
+   :alt: Build status
+
 Vision
 ======
 
