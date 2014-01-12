@@ -36,11 +36,11 @@ class TestClassTree(unittest.TestCase):
         self.assertEqual(t.get_node('vtkObject').name, 'vtkObject')
         self.assertEqual(t.get_node('vtkObject').parents[0].name,
                          'vtkObjectBase')
-        if (hasattr(vtk, 'vtkVector')):
+        if (hasattr(vtk, 'vtkTuple')):
             self.assertEqual(len(t.tree[0]), 12)
             names = [x.name for x in t.tree[0]]
             names.sort()
-            expect = ['object', 'vtkColor3', 'vtkColor4', 'vtkDenseArray', 
+            expect = ['object', 'vtkColor3', 'vtkColor4', 'vtkDenseArray',
                       'vtkObjectBase', 'vtkRect', 'vtkSparseArray', 'vtkTuple',
                       'vtkTypedArray', 'vtkVector', 'vtkVector2',
                       'vtkVector3']
@@ -49,8 +49,8 @@ class TestClassTree(unittest.TestCase):
             self.assertEqual(len(t.tree[0]), 11)
             names = [x.name for x in t.tree[0]]
             names.sort()
-            expect = ['object', 'vtkColor3', 'vtkColor4', 'vtkDenseArray', 
-                      'vtkObjectBase', 'vtkRect', 'vtkSparseArray', 
+            expect = ['object', 'vtkColor3', 'vtkColor4', 'vtkDenseArray',
+                      'vtkObjectBase', 'vtkRect', 'vtkSparseArray',
                       'vtkTypedArray', 'vtkVector', 'vtkVector2',
                       'vtkVector3']
             self.assertEqual(names, expect)
@@ -140,4 +140,3 @@ class TestClassTree(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-

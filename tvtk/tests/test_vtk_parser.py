@@ -22,6 +22,8 @@ import vtk
 
 # This is a little expensive to create so we cache it.
 _cache = vtk_parser.VTKMethodParser()
+vtk_major_version = vtk.vtkVersion.GetVTKMajorVersion()
+vtk_minor_version = vtk.vtkVersion.GetVTKMinorVersion()
 
 class TestVTKParser(unittest.TestCase):
     def setUp(self):
@@ -43,7 +45,7 @@ class TestVTKParser(unittest.TestCase):
         p.parse(vtk.vtkObject())
         self.assertEqual(p.get_toggle_methods(),
                          {'Debug': 0, 'GlobalWarningDisplay': 1})
-        if ('GetCommand' in p.get_get_methods()):
+        if vtk_major_version >= 5 and vtk_minor_version > 6:
             self.assertEqual(p.get_state_methods(), {})
             self.assertEqual(p.get_get_methods(), ['GetCommand', 'GetMTime'])
         else:
@@ -92,7 +94,7 @@ class TestVTKParser(unittest.TestCase):
                'LineWidth': (1.0, (0.0, vtk.VTK_LARGE_FLOAT)),
                'Opacity': (1.0, (0.0, 1.0)),
                'PointSize': (1.0, (0.0, vtk.VTK_LARGE_FLOAT)),
-               'ReferenceCount': (1, None), 
+               'ReferenceCount': (1, None),
                'Specular': (0.0, (0.0, 1.0)),
                'SpecularColor': ((1.0, 1.0, 1.0), None),
                'SpecularPower': (1.0, (0.0, 100.0))}
