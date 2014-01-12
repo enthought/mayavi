@@ -7,7 +7,7 @@ virtualenv:
 install:
   # nose is already installed
   - pip install Sphinx
-  - sudo apt-get install python-numpy
+  #- sudo apt-get install python-numpy
   - sudo apt-get install python-vtk
   # Test against the current master of traits, traitsui and enable
   - pip install git+http://github.com/enthought/traits.git#egg=traits
