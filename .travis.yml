@@ -15,8 +15,9 @@ install:
   - pip install git+http://github.com/enthought/apptools.git#egg=apptools
   - python setup.py develop
 script:
-  # Running all tests in chaco/tests and chaco/tests2
-  - nosetests -v mayavi tvtk
+  # Running all tests in tvtk/tests and mayavi.
+  - nosetests -v tvtk/tests
+  - nosetests -v mayavi
 notifications:
   email:
     - travis-ci@enthought.com
