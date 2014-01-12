@@ -124,7 +124,8 @@ class TestVTKParser(unittest.TestCase):
             if hasattr(obj, 'GetMaterialName'):
                 if hasattr(obj, 'GetShaderDeviceAdapter2'):
                     expect.append('GetShaderDeviceAdapter2')
-                self.assertEqual(sorted(p.get_get_methods()), sorted(expect))
+                msg = "%s not in %s"%(p.get_get_methods(), expect)
+                self.assertTrue(all([x in expect for x in sorted(p.get_get_methods())]), msg)
             else:
                 expect.remove('GetMaterialName')
                 self.assertEqual(p.get_get_methods(), expect)
