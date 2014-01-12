@@ -1,0 +1,12 @@
+# Set up PyQt4 for potential UI tests.
+
+export DISPLAY=:99.0
+sh -e /etc/init.d/xvfb start
+
+sudo apt-get install python-qt4 python-qt4-dev
+
+python -c 'import PyQt4'
+python -c 'import PyQt4.QtCore'
+python -c 'import PyQt4.QtGui'
+
+export ETS_TOOLKIT=qt4

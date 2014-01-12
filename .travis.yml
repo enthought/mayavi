@@ -4,6 +4,8 @@ python:
 virtualenv:
   # This allows installing python-vtk using apt-get and being able to import it.
   system_site_packages: true
+before_install:
+  - source .travis_before_install
 install:
   # nose is already installed
   - pip install Sphinx
