@@ -4,12 +4,12 @@ python:
 virtualenv:
   # This allows installing python-vtk using apt-get and being able to import it.
   system_site_packages: true
-before_install:
-  - source .travis_before_install
+#before_install:
+#  - source .travis_before_install
 install:
   # nose is already installed
   - pip install Sphinx
-  #- sudo apt-get install python-numpy
+  - sudo apt-get install python-numpy
   - sudo apt-get install python-vtk
   # Test against the current master of traits, traitsui and enable
   - pip install git+http://github.com/enthought/traits.git#egg=traits
@@ -18,8 +18,8 @@ install:
   - python setup.py develop
 script:
   # Running all tests in tvtk/tests and mayavi.
-  - nosetests -v tvtk/tests
-  - nosetests -v mayavi
+  - python -m nose.core -v tvtk/tests
+  - python -m nose.core -v mayavi
 notifications:
   email:
     - travis-ci@enthought.com
