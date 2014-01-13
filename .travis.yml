@@ -6,10 +6,9 @@ virtualenv:
   system_site_packages: true
 install:
   # nose is already installed
-  - pip install Sphinx
-  - sudo apt-get install python-numpy
   - sudo apt-get install python-vtk
-  # Test against the current master of traits, traitsui and enable
+  - pip install Sphinx
+  # Test against the current master of traits, traitsui and apptools
   - pip install git+http://github.com/enthought/traits.git#egg=traits
   - pip install git+http://github.com/enthought/traitsui.git#egg=traitsui
   - pip install git+http://github.com/enthought/apptools.git#egg=apptools
