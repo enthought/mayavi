@@ -164,20 +164,20 @@ class TestPLYReader(DataReaderTestBase):
         r.initialize(get_example_data('pyramid.ply'))
         self.e.add_source(r)
         self.bounds = (0.0, 1.0, 0.0, 1.0, 0.0, 1.60)
-        # Hack to work around bug in PLY reader available on travis-ci.
-        if vtk_major_version == 5 and vtk_minor_version == 8:
-            xmax = r.outputs[0].bounds[1]
-            ymax = r.outputs[0].bounds[3]
-            self.bounds = (0.0, xmax, 0.0, ymax, 0.0, 1.60)
 
     def test_ply_data_reader(self):
         "Test if the test fixture works"
-        #Now test.
+        if vtk_major_version == 5 and vtk_minor_version == 8:
+            raise unittest.SkipTest('PLY reader broken in this version of VTK')
 
+        #Now test.
         self.check(self.scene, self.bounds)
 
     def test_save_and_restore(self):
         """Test if saving a visualization and restoring it works."""
+
+        if vtk_major_version == 5 and vtk_minor_version == 8:
+            raise unittest.SkipTest('PLY reader broken in this version of VTK')
 
         self.check_saving(self.e, self.scene, self.bounds)
 
@@ -185,6 +185,9 @@ class TestPLYReader(DataReaderTestBase):
         """Test if the MayaVi2 visualization can be deep-copied."""
         ############################################################
         # Test if the MayaVi2 visualization can be deep-copied.
+
+        if vtk_major_version == 5 and vtk_minor_version == 8:
+            raise unittest.SkipTest('PLY reader broken in this version of VTK')
 
         self.check_deepcopying(self.scene, self.bounds)
 
