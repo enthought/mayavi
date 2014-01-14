@@ -12,6 +12,12 @@ from common import get_example_data
 from mayavi.sources.poly_data_reader import PolyDataReader
 from mayavi.tests.data_reader_test_base import DataReaderTestBase
 
+# External library imports
+import vtk
+
+vtk_major_version = vtk.vtkVersion.GetVTKMajorVersion()
+vtk_minor_version = vtk.vtkVersion.GetVTKMinorVersion()
+
 class TestPDBReader(DataReaderTestBase):
 
     def setup_reader(self):
@@ -161,12 +167,17 @@ class TestPLYReader(DataReaderTestBase):
 
     def test_ply_data_reader(self):
         "Test if the test fixture works"
-        #Now test.
+        if vtk_major_version == 5 and vtk_minor_version == 8:
+            raise unittest.SkipTest('PLY reader broken in this version of VTK')
 
+        #Now test.
         self.check(self.scene, self.bounds)
 
     def test_save_and_restore(self):
         """Test if saving a visualization and restoring it works."""
+
+        if vtk_major_version == 5 and vtk_minor_version == 8:
+            raise unittest.SkipTest('PLY reader broken in this version of VTK')
 
         self.check_saving(self.e, self.scene, self.bounds)
 
@@ -174,6 +185,9 @@ class TestPLYReader(DataReaderTestBase):
         """Test if the MayaVi2 visualization can be deep-copied."""
         ############################################################
         # Test if the MayaVi2 visualization can be deep-copied.
+
+        if vtk_major_version == 5 and vtk_minor_version == 8:
+            raise unittest.SkipTest('PLY reader broken in this version of VTK')
 
         self.check_deepcopying(self.scene, self.bounds)
 
@@ -312,4 +326,3 @@ class TestSLCReader(DataReaderTestBase):
 
 if __name__ == '__main__':
     unittest.main()
-
