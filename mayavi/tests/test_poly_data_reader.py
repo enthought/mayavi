@@ -167,7 +167,8 @@ class TestPLYReader(DataReaderTestBase):
         # Hack to work around bug in PLY reader available on travis-ci.
         if vtk_major_version == 5 and vtk_minor_version == 8:
             xmax = r.outputs[0].bounds[1]
-            self.bounds = (0.0, xmax, 0.0, 1.0, 0.0, 1.60)
+            ymax = r.outputs[0].bounds[3]
+            self.bounds = (0.0, xmax, 0.0, ymax, 0.0, 1.60)
 
     def test_ply_data_reader(self):
         "Test if the test fixture works"
