@@ -575,11 +575,16 @@ class VTKMethodParser:
         """
         meths = methods[:]
         gsm = self.get_set_meths
+        klass_name = klass.__name__
 
         for method in meths[:]:
             # Methods of the Set/Get form.
             if method in ['Get', 'Set']:
                 # This occurs with the vtkInformation class.
+                continue
+            elif klass_name == 'vtkProp' and method[3:] == 'AllocatedRenderTime':
+                # vtkProp.Get/SetAllocatedRenderTime is private and
+                # SetAllocatedRenderTime takes two args, don't wrap it.
                 continue
             elif (method[:3] == 'Set') and ('Get' + method[3:]) in methods:
                 key = method[3:]
@@ -596,7 +601,6 @@ class VTKMethodParser:
         if gsm:
             obj = self._get_instance(klass)
             if obj:
-                klass_name = klass.__name__
                 for key, value in gsm.items():
                     if klass_name in ['vtkPolyData', 'vtkContext2D']:
                         # Evil hack, these classes segfault!
@@ -662,4 +666,3 @@ class VTKMethodParser:
                     if obj:
                         break
         return obj
-
