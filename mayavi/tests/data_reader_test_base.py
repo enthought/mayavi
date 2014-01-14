@@ -54,8 +54,9 @@ class DataReaderTestBase(unittest.TestCase):
         ot.render() # Flush the pipeline.
 
         # Check the outline bounds
-        self.assertEqual(numpy.allclose(ot.outline_filter.output.bounds,bounds,
-                                    atol=error), True)
+        got = ot.outline_filter.output.bounds
+        msg = "Got: %s; expected: %s"%(got, bounds)
+        self.assertEqual(numpy.allclose(got, bounds, atol=error), True, msg)
 
     def check_saving(self, engine, scene, bounds, error = 1.01e-02):
 
@@ -92,5 +93,3 @@ class DataReaderTestBase(unittest.TestCase):
         source1 = copy.deepcopy(source)
         scene.children[0] = source1
         self.check(scene, bounds, error)
-
-
