@@ -374,11 +374,11 @@ flow = document_pipeline(Flow())
 
 
 def test_flow():
-    x, y, z = numpy.mgrid[0:5, 0:5, 0:5]
-    r = numpy.sqrt(x ** 2 + y ** 2 + z ** 4)
+    x, y, z = numpy.mgrid[-4:4:40j, -4:4:40j, 0:4:20j]
+    r = numpy.sqrt(x ** 2 + y ** 2 + z ** 2 + 0.1)
     u = y * numpy.sin(r) / r
     v = -x * numpy.sin(r) / r
-    w = numpy.zeros_like(z)
+    w = numpy.ones_like(z)*0.05
     obj = flow(u, v, w)
     return obj
 

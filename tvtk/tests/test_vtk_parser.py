@@ -154,6 +154,13 @@ class TestVTKParser(unittest.TestCase):
         self.assertEqual('OutputOrigin' not in state_meths, True)
         self.assertEqual('OutputExtent' not in state_meths, True)
 
+    def test_props_allocated_rendertime_is_not_a_get_set_method(self):
+        p = self.p
+        a = vtk.vtkActor()
+        if hasattr(a, 'GetAllocatedRenderTime'):
+            p.parse(vtk.vtkProp)
+            self.assertFalse('AllocatedRenderTime' in p.get_get_set_methods())
+
     def test_method_signature(self):
         """Check if VTK method signatures are parsed correctly."""
         p = self.p

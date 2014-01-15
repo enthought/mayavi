@@ -74,7 +74,6 @@ class TestGenericModule(TestCase):
             assert (rng[1] - rng[0]) < 1e-4
             # Turn on auto-contours
             c.auto_contours = True
-            assert len(normals.outputs[0].points) == 0
             # Increase number of contours and the range should change.
             c.number_of_contours = 10
             assert len(normals.outputs[0].points) != 0
@@ -150,4 +149,3 @@ class TestGenericModule(TestCase):
 if __name__ == "__main__":
     t = TestGenericModule()
     t.test()
-

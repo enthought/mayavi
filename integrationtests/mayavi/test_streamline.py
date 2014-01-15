@@ -97,6 +97,11 @@ class TestStreamline(TestCase):
         c.elevation(30)
         s.render()
 
+        # Update the streamlines.
+        mm = o.module_manager
+        for child in mm.children[1:]:
+            child.update_streamlines = True
+
         # Now compare the image.
         self.compare_image(s, 'images/test_streamline.png')
 
