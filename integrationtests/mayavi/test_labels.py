@@ -92,6 +92,10 @@ class TestLabels(TestCase):
         s = engine.current_scene
         s.scene.isometric_view()
 
+        # Seems to be needed for the test to pass. :(  Just flushes the
+        # pipeline.
+        s.children[0].pipeline_changed = True
+
         # Check.
         # Now do the check.
         self.check(saved=True)
@@ -122,4 +126,3 @@ class TestLabels(TestCase):
 if __name__ == "__main__":
     t = TestLabels()
     t.test()
-
