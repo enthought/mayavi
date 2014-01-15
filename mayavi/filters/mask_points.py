@@ -35,3 +35,22 @@ class MaskPoints(FilterBase):
                                attribute_types=['any'],
                                attributes=['any'])
 
+    ######################################################################
+    # `Filter` interface.
+    ######################################################################
+    def update_pipeline(self):
+        # FIXME: This is needed, for with VTK-5.10 (for sure), the filter
+        # allocates memory for maximum_number_of_points which is impossibly
+        # large,  so we set it to the number of points in the input
+        # for safety.
+        self.filter.maximum_number_of_points = \
+            self._find_number_of_points_in_input()
+        super(MaskPoints, self).update_pipeline()
+
+    ######################################################################
+    # Non-public interface.
+    ######################################################################
+    def _find_number_of_points_in_input(self):
+        inp = self.inputs[0].outputs[0]
+        inp.update()
+        return inp.number_of_points
