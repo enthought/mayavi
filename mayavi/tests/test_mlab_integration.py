@@ -246,7 +246,7 @@ class TestMlabPipeline(TestMlabNullEngine):
         r_ = mlab.pipeline.probe_data(iso, x_, y_, z_)
         np.testing.assert_array_almost_equal(r_,
                                              np.sqrt(x_**2 + y_**2 + z_**2),
-                                             decimal=2)
+                                             decimal=1)
         flow = mlab.flow(x, y, z, x, y, z)
         u_, v_, w_ = mlab.pipeline.probe_data(flow, x_, y_, z_,
                                               type='vectors')
