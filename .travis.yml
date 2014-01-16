@@ -4,6 +4,8 @@ python:
 virtualenv:
   # This allows installing python-vtk using apt-get and being able to import it.
   system_site_packages: true
+before_install:
+  - source .travis_before_install
 install:
   # nose is already installed
   - sudo apt-get install python-vtk
@@ -12,11 +14,17 @@ install:
   - pip install git+http://github.com/enthought/traits.git#egg=traits
   - pip install git+http://github.com/enthought/traitsui.git#egg=traitsui
   - pip install git+http://github.com/enthought/apptools.git#egg=apptools
+  - pip install git+http://github.com/enthought/pyface.git#egg=pyface
+  - pip install git+http://github.com/enthought/envisage.git#egg=envisage
   - python setup.py develop
 script:
   # Running all tests in tvtk/tests and mayavi.
   - python -m nose.core -v tvtk/tests
   - python -m nose.core -v mayavi
+  # Run the integration tests.
+  - cd integrationtests/mayavi
+  - python run.py
+  - cd ../../
 notifications:
   email:
     - travis-ci@enthought.com
