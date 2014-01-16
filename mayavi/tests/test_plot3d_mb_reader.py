@@ -92,7 +92,6 @@ class TestPlot3dMbReader(unittest.TestCase):
                                 (1.0, 2.0, 1.0, 2.0, 1.0, 2.0))
 
 
-    @unittest.skip("Plot3DReader and MultiBlock version are broken in 5.10.1")
     def test_deepcopied(self):
         """Test if the MayaVi2 visualization can be deep-copied.
            XXX: The plot 3d reader and multi block version are broken in
@@ -109,7 +108,7 @@ class TestPlot3dMbReader(unittest.TestCase):
         o1 = r1.children[0].children[0].children[0]
         self.assertEqual(o1.outline_filter.output.bounds,
                                     (1.0, 2.0, 1.0, 2.0, 1.0, 2.0))
-        r1.children[0].output_index = 0
+        r1.children[0].output_index = 1
         self.assertEqual(o1.outline_filter.output.bounds,
                                     (2.0, 3.0, 1.0, 2.0, 1.0, 2.0))
 
