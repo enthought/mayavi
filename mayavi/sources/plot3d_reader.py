@@ -235,7 +235,7 @@ class PLOT3DReader(Source):
         # Now setup the outputs by resetting self.outputs.  Changing
         # the outputs automatically fires a pipeline_changed event.
         try:
-            n = r.number_of_output_ports
+            n = r.get_output().number_of_blocks
         except AttributeError: # for VTK >= 4.5
             n = r.number_of_outputs
         outputs = []
