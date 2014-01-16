@@ -8,8 +8,48 @@
 from inspect import getmembers
 from time import sleep
 
+# Enthought library imports
+from pyface.api import GUI
+
 # Local imports.
 from common import TestCase
+
+def is_timer_running(timer):
+    """Written to work around a pyface bug.
+    """
+    if hasattr(timer, 'isActive'):
+        # The Qt backend's IsRunning does not work correctly.
+        return timer.isActive()
+    else:
+        return timer.IsRunning()
+
+
+def run_mlab_examples():
+    from mayavi import mlab
+    from mayavi.tools.animator import Animator
+
+    ############################################################
+    # run all the "test_foobar" functions in the mlab module.
+    for name, func in getmembers(mlab):
+        if not callable(func) or not name[:4] in ('test', 'Test'):
+            continue
+
+        mlab.clf()
+        GUI.process_events()
+        obj = func()
+
+        if isinstance(obj, Animator):
+            obj.delay = 10
+            # Close the animation window.
+            obj.close()
+            while is_timer_running(obj.timer):
+                GUI.process_events()
+                sleep(0.05)
+
+        # Mayavi has become too fast: the operator cannot see if the
+        # Test function was succesful.
+        GUI.process_events()
+        sleep(0.1)
 
 
 class TestMlab(TestCase):
@@ -25,17 +65,11 @@ class TestMlab(TestCase):
         ############################################################
         # Create a new scene and set up the visualization.
         s = self.new_scene()
+        s.scene.isometric_view()
 
         ############################################################
         # run all the "test_foobar" functions in the mlab module.
-        for name, func in getmembers(mlab):
-            if not callable(func) or not name[:4] in ('test', 'Test'):
-                continue
-            mlab.clf()
-            func()
-            # Mayavi has become too fast: the operator cannot see if the
-            # Test function was succesful.
-            sleep(0.1)
+        run_mlab_examples()
 
         ############################################################
         # Test some specific corner-cases

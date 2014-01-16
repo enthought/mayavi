@@ -3,10 +3,8 @@
 export DISPLAY=:99.0
 sh -e /etc/init.d/xvfb start
 
-sudo apt-get install python-qt4 python-qt4-dev
+sudo apt-get install python-wxgtk2.8
 
-python -c 'import PyQt4'
-python -c 'import PyQt4.QtCore'
-python -c 'import PyQt4.QtGui'
+python -c 'import wx'
 
-export ETS_TOOLKIT=qt4
+export ETS_TOOLKIT=wx

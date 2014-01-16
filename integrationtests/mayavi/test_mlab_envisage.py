@@ -5,7 +5,10 @@ def close():
     """Close the scene."""
     f = mlab.gcf()
     e = mlab.get_engine()
+    e.window.workbench.prompt_on_exit = False
     e.window.close()
+    # Hack: on Linux the splash screen does not go away so we force it.
+    GUI.invoke_after(500, e.window.workbench.application.gui.stop_event_loop)
 
 def test_mlab_envisage():
     """Test if mlab runs correctly when the backend is set to
@@ -20,4 +23,3 @@ def test_mlab_envisage():
 
 if __name__ == '__main__':
     test_mlab_envisage()
-
