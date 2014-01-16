@@ -5,6 +5,7 @@ def close():
     """Close the scene."""
     f = mlab.gcf()
     e = mlab.get_engine()
+    e.window.workbench.prompt_on_exit = False
     e.window.close()
 
 def test_mlab_envisage():
@@ -20,4 +21,3 @@ def test_mlab_envisage():
 
 if __name__ == '__main__':
     test_mlab_envisage()
-
