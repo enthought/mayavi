@@ -9,7 +9,7 @@ import sys
 import os
 from os.path import splitext
 import glob
-from common import test, TestCase
+from common import TestCase
 
 def get_tests():
     """Get all the tests to run.
@@ -21,10 +21,25 @@ def run_all(tests):
     """Run the given tests.
     """
     args = ' '.join(sys.argv[1:])
+    success = []
+    fail = []
     for test in tests:
         cmd = 'python %s %s'%(test, args)
         print cmd
-        os.system(cmd)
+        status = os.system(cmd)
+        if status == 0:
+            print "OK"
+            success.append(test)
+        else:
+            print "FAIL: %s"%test
+            fail.append(test)
+
+    print '-'*70
+    print "%d successful tests, %d failures"%(len(success), len(fail))
+    for test in fail:
+        print test
+    print '-'*70
+    return len(fail) != 0
 
 
 class RunAllTests(TestCase):
@@ -75,8 +90,8 @@ def main():
         t.main()
     else:
         tests = get_tests()
-        run_all(tests)
+        status = run_all(tests)
+        sys.exit(status)
 
 if __name__ == "__main__":
     main()
-
