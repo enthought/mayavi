@@ -89,7 +89,22 @@ class Animator(HasTraits):
         """
         HasTraits.__init__(self)
         self.delay = millisec
+        self.ui = None
         self.timer = Timer(millisec, callable, *args, **kwargs)
+
+    ######################################################################
+    # `Animator` protocol.
+    ######################################################################
+    def show(self):
+        """Show the animator UI.
+        """
+        self.ui = self.edit_traits()
+
+    def close(self):
+        """Close the animator UI.
+        """
+        if self.ui is not None:
+            self.ui.dispose()
 
     ######################################################################
     # Non-public methods, Event handlers
@@ -183,7 +198,7 @@ def animate(func=None, delay=500, ui=True):
             if isinstance(f, types.GeneratorType):
                 a = Animator(self.delay, f.next)
                 if self.ui:
-                    a.edit_traits()
+                    a.show()
                 return a
             else:
                 msg = 'The function "%s" must be a generator '\
@@ -191,7 +206,7 @@ def animate(func=None, delay=500, ui=True):
                 raise TypeError(msg)
 
         def decorator_call(self, func, *args, **kw):
-            self(*args, **kw)
+            return self(*args, **kw)
 
 
     def _wrapper(function):
