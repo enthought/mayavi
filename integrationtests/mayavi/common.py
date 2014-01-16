@@ -5,6 +5,7 @@
 # License: BSD Style.
 
 # Standard library imports
+import os
 import os.path
 import sys
 import logging
@@ -335,6 +336,9 @@ class TestCase(Mayavi):
             path = os.path.join(ETSConfig.application_data,
                                 'mayavi_e3', 'mayavi-test.log')
             path = os.path.abspath(path)
+            log_path = os.path.dirname(path)
+            if not os.path.exists(log_path):
+                os.makedirs(log_path)
         else:
             path = 'mayavi-test.log'
         setup_logger(logger, path, mode=self.log_mode)
@@ -533,4 +537,3 @@ def test(function):
 
     test = MyTest()
     return test
-
