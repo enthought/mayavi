@@ -656,7 +656,10 @@ class Surf(Pipeline):
                         see the `extent` keyword argument.
                         """)
 
-    mask = Array(help="boolean mask array to suppress some data points.")
+    mask = Array(help="""boolean mask array to suppress some data points.
+                 Note: this works based on colormapping of scalars and will
+                 not work if you specify a solid color using the
+                 `color` keyword.""")
 
     def __call_internal__(self, *args, **kwargs):
         """ Override the call to be able to scale automatically the axis.
@@ -802,7 +805,10 @@ class Mesh(Pipeline):
 
     scalars = Array(help="""optional scalar data.""")
 
-    mask = Array(help="boolean mask array to suppress some data points.")
+    mask = Array(help="""boolean mask array to suppress some data points.
+                 Note: this works based on colormapping of scalars and will
+                 not work if you specify a solid color using the
+                 `color` keyword.""")
 
     representation = Trait('surface', 'wireframe', 'points', 'mesh',
                     'fancymesh',
