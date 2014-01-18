@@ -167,7 +167,7 @@ class TestPLYReader(DataReaderTestBase):
 
     def test_ply_data_reader(self):
         "Test if the test fixture works"
-        if vtk_major_version == 5 and vtk_minor_version == 8:
+        if vtk_major_version == 5 and vtk_minor_version in [6, 8]:
             raise unittest.SkipTest('PLY reader broken in this version of VTK')
 
         #Now test.
@@ -176,7 +176,7 @@ class TestPLYReader(DataReaderTestBase):
     def test_save_and_restore(self):
         """Test if saving a visualization and restoring it works."""
 
-        if vtk_major_version == 5 and vtk_minor_version == 8:
+        if vtk_major_version == 5 and vtk_minor_version in [6, 8]:
             raise unittest.SkipTest('PLY reader broken in this version of VTK')
 
         self.check_saving(self.e, self.scene, self.bounds)
@@ -186,7 +186,7 @@ class TestPLYReader(DataReaderTestBase):
         ############################################################
         # Test if the MayaVi2 visualization can be deep-copied.
 
-        if vtk_major_version == 5 and vtk_minor_version == 8:
+        if vtk_major_version == 5 and vtk_minor_version in [6, 8]:
             raise unittest.SkipTest('PLY reader broken in this version of VTK')
 
         self.check_deepcopying(self.scene, self.bounds)
