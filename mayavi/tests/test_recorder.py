@@ -398,7 +398,7 @@ class TestRecorder(unittest.TestCase):
         # to create the objects.
         r = a.g(Toy())
         self.assertEqual(tape.lines[-3][-10:], "import Toy",
-                         '\n'.join(tape.lines[-5]))
+                         '\n'.join(tape.lines[-5:]))
         self.assertEqual(tape.lines[-2], "toy = Toy()")
         self.assertEqual(tape.lines[-1], "toy = a.g(toy)")
 
