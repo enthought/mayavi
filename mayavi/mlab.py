@@ -52,7 +52,7 @@ from tools.helper_functions import contour3d, test_contour3d, \
     test_plot3d_anim, test_points3d_anim, test_contour3d_anim,\
     test_simple_surf_anim, test_flow_anim, test_mesh_sphere_anim, \
     triangular_mesh, test_triangular_mesh, barchart, \
-    test_barchart
+    test_barchart, test_mesh_mask_custom_colors
 
 
 from tools.decorations import colorbar, scalarbar, vectorbar, \
@@ -95,4 +95,3 @@ if __name__ == "__main__":
     outline(pl)
 
     title('Mayavi rocks', height=0.85)
-
