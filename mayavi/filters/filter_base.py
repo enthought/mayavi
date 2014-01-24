@@ -70,7 +70,10 @@ class FilterBase(Filter):
 
         # By default we set the input to the first output of the first
         # input.
-        fil.input = inputs[0].outputs[0]
+        try:
+            fil.input_connection = inputs[0].reader.output_port
+        except AttributeError:
+            fil.input = inputs[0].outputs[0]
         fil.update()
         self._set_outputs([fil.output])
 
