@@ -103,8 +103,6 @@ class GridPlane(Component):
         """
         if len(self.inputs) == 0:
             return
-        print '========= inputs[0]: %s' % self.inputs[0]
-        print '    output port : %s' % self.inputs[0].output_port
         input = self.inputs[0].outputs[0]
         plane = None
         if input.is_a('vtkStructuredGrid'):
