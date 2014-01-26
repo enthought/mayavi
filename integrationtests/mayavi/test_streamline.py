@@ -18,7 +18,7 @@ import sys
 
 
 # Local imports.
-from common import TestCase
+from common import TestCase, is_running_with_nose
 
 
 class TestStreamline(TestCase):
@@ -36,9 +36,10 @@ class TestStreamline(TestCase):
 
 
     def test(self):
-        if sys.platform == 'darwin':
-            import unittest
-            raise unittest.SkipTest('This test Segfaults after passing on OSX.')
+        if is_running_with_nose():
+            if sys.platform == 'darwin' or sys.platform.startswith('linux'):
+                import unittest
+                raise unittest.SkipTest('This test Segfaults after passing.')
         self.main()
 
     def do(self):
