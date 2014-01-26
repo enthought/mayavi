@@ -288,6 +288,18 @@ def compare_image(scene, img_path):
         ren.reset_camera()
         s.render()
 
+def is_running_with_nose():
+    """Returns True if we are being run via nosetests.
+
+    This tests if `nosetests` is used or if we are invoked via
+    `python -m nose.core`.
+    """
+    argv0 = sys.argv[0]
+    nose_core = os.path.join('nose', 'core.py')
+    if argv0.endswith('nosetests') or argv0.endswith(nose_core):
+        return True
+    return False
+
 
 ###########################################################################
 # `TestCase` class.
@@ -305,7 +317,8 @@ class TestCase(Mayavi):
     # `self.compare_image` was called in the test..
     offscreen = Bool(False)
 
-    # Use the standalone mode.
+    # Use the standalone mode. This mode does not use the envisage Mayavi
+    # application.
     standalone = Bool(True)
 
     app_window = Instance('pyface.api.ApplicationWindow')
@@ -322,7 +335,8 @@ class TestCase(Mayavi):
         if argv is None:
             argv = sys.argv[1:]
 
-        self.parse_command_line(argv)
+        if not is_running_with_nose():
+            self.parse_command_line(argv)
 
         if self.standalone:
             self.run_standalone()

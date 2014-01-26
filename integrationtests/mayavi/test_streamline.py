@@ -14,9 +14,8 @@ from os.path import abspath
 from StringIO import StringIO
 import copy
 import numpy
+import sys
 
-# Enthought library imports.
-from traits.api import TraitError
 
 # Local imports.
 from common import TestCase
@@ -37,6 +36,9 @@ class TestStreamline(TestCase):
 
 
     def test(self):
+        if sys.platform == 'darwin':
+            import unittest
+            raise unittest.SkipTest('This test Segfaults after passing on OSX.')
         self.main()
 
     def do(self):
