@@ -88,10 +88,10 @@ class Actor2D(Component):
         if (len(self.inputs) == 0) or \
                (len(self.inputs[0].outputs) == 0):
             return
-        try:
-            self.mapper.input_connection = self.inputs[0].reader.output_port
-        except AttributeError:
-            self.mapper.input = self.inputs[0].outputs[0]
+        if self.inputs[0].has_output_port():
+            self.mapper.input_connection = self.inputs[0].get_output_object()
+        else:
+            self.mapper.input = self.inputs[0].get_output_object()
         self.render()
 
     def update_data(self):
