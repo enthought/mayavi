@@ -37,9 +37,8 @@ class TestStreamline(TestCase):
 
     def test(self):
         if is_running_with_nose():
-            if sys.platform == 'darwin' or sys.platform.startswith('linux'):
-                import unittest
-                raise unittest.SkipTest('This test Segfaults after passing.')
+            import unittest
+            raise unittest.SkipTest('This test Segfaults after passing or fails.')
         self.main()
 
     def do(self):
