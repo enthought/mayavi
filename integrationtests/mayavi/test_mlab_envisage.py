@@ -15,6 +15,8 @@ def test_mlab_envisage():
     "Test if mlab runs correctly when the backend is set to 'envisage'."
     @mlab.show
     def f():
+        from mayavi.preferences.api import preference_manager
+        preference_manager.root.show_splash_screen = False
         mlab.options.backend = 'envisage'
         mlab.test_contour3d()
         GUI.invoke_after(3000, close)
