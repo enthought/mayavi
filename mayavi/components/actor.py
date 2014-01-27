@@ -226,21 +226,29 @@ class Actor(Component):
         if (len(inp) == 0) or \
                (len(inp[0].outputs) == 0):
             return
-        input = inp[0].outputs[0]
         old_tg = self.tcoord_generator
         if old_tg is not None:
             old_tg.on_trait_change(self.render, remove=True)
         if value == 'none':
             self.tcoord_generator = None
-            self.mapper.input = input
+            if inp[0].has_output_port():
+                self.mapper.input_connection = inp[0].get_output_object()
+            else:
+                self.mapper.input = inp[0].get_output_object()
         else:
             tg_dict = {'cylinder': tvtk.TextureMapToCylinder,
                        'sphere': tvtk.TextureMapToSphere,
                        'plane': tvtk.TextureMapToPlane}
             tg = tg_dict[value]()
             self.tcoord_generator = tg
-            tg.input = input
-            self.mapper.input = tg.output
+            if inp[0].has_output_port():
+                tg.input_connection = inp[0].get_output_object()
+            else:
+                tg.input = inp[0].get_output_object()
+            if inp[0].has_output_port():
+                self.mapper.input_connection = inp[0].get_output_object()
+            else:
+                self.mapper.input = inp[0].get_output_object()
         tg = self.tcoord_generator
         if tg is not None:
             tg.on_trait_change(self.render)

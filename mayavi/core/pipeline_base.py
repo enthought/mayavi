@@ -160,6 +160,16 @@ class PipelineBase(Base):
             scene.remove_widgets(self.widgets)
             self._actors_added = False
 
+    def has_output_port(self):
+        """ We assume the old pipeline topology.
+        As such we assume no output_port exists."""
+        return False
+
+    def get_output_object(self):
+        """ We assume the old pipeline topology.
+        As such we return the first output."""
+        return self.outputs[0]
+
     ######################################################################
     # Non-public interface
     ######################################################################
