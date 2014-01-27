@@ -14,12 +14,11 @@ from os.path import abspath
 from StringIO import StringIO
 import copy
 import numpy
+import sys
 
-# Enthought library imports.
-from traits.api import TraitError
 
 # Local imports.
-from common import TestCase
+from common import TestCase, is_running_with_nose
 
 
 class TestStreamline(TestCase):
@@ -37,6 +36,10 @@ class TestStreamline(TestCase):
 
 
     def test(self):
+        if is_running_with_nose():
+            if sys.platform == 'darwin' or sys.platform.startswith('linux'):
+                import unittest
+                raise unittest.SkipTest('This test Segfaults after passing.')
         self.main()
 
     def do(self):
