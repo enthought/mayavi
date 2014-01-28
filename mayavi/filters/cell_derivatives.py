@@ -38,3 +38,10 @@ class CellDerivatives(FilterBase):
                                attribute_types=['any'],
                                attributes=['any'])
 
+    def has_output_port(self):
+        """ The filter has an output port."""
+        return True
+
+    def get_output_object(self):
+        """ Return the output port."""
+        return self.filter.output_port

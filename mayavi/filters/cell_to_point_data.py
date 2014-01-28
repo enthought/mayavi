@@ -45,7 +45,10 @@ class CellToPointData(FilterBase):
 
         fil = self.filter
         input = inputs[0].outputs[0]
-        fil.input = input
+        if inputs[0].has_output_port():
+            fil.input_connection = inputs[0].get_output_object()
+        else:
+            fil.input = inputs[0].outputs[0]
         fil.update()
         # This filter creates different outputs depending on the
         # input.

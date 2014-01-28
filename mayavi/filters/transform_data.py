@@ -135,7 +135,10 @@ class TransformData(Filter):
         # By default we set the input to the first output of the first
         # input.
         fil = self.filter
-        fil.input = inp
+        if inputs[0].has_output_port():
+            fil.input_connection = inputs[0].get_output_object()
+        else:
+            fil.input = inp
         fil.transform = self._transform
         fil.update()
         self._set_outputs([fil.output])

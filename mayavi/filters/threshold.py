@@ -140,7 +140,10 @@ class Threshold(Filter):
         # By default we set the input to the first output of the first
         # input.
         fil = self.threshold_filter
-        fil.input = self.inputs[0].outputs[0]
+        if self.inputs[0].has_output_port():
+            fil.input_connection = self.inputs[0].get_output_object()
+        else:
+            fil.input = self.inputs[0].outputs[0]
 
         self._update_ranges()
         self._set_outputs([self.threshold_filter.output])

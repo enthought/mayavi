@@ -111,7 +111,10 @@ class DataSetClipper(Filter):
         widget.update_pipeline()
 
         filter = self.filter
-        filter.input = inputs[0].outputs[0]
+        if inputs[0].has_output_port():
+            filter.input_connection = inputs[0].get_output_object()
+        else:
+            filter.input = inputs[0].outputs[0]
         widget.update_implicit_function()
         filter.clip_function = widget.implicit_function
         filter.update()
