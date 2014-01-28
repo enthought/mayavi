@@ -146,6 +146,54 @@ class CustomGridPlane(Component):
         # Propagate the data_changed event.
         self.data_changed = True
 
+    def has_output_port(self):
+        """ The contour filter has an output port."""
+        return True
+
+    def get_output_object(self):
+        """ Returns the output port."""
+        return self.plane.output_port
+
+    ######################################################################
+    # Non-public methods.
+    ######################################################################
+    def _contours_items_changed(self, list_event):
+        if self.auto_contours or not self._has_input():
+            return
+        cf = self.contour_filter
+        added, removed, index = (list_event.added, list_event.removed,
+                                 list_event.index)
+        if len(added) == len(removed):
+            cf.set_value(index, added[0])
+            cf.update()
+            self.data_changed = True
+        else:
+            self._contours_changed(self.contours)
+
+    def _contours_changed(self, values):
+        if self.auto_contours or not self._has_input():
+            return
+        cf = self.contour_filter
+        cf.number_of_contours = len(values)
+        for i, x in enumerate(values):
+            cf.set_value(i, x)
+        cf.update()
+        self.data_changed = True
+
+    def _update_ranges(self):
+        # Here we get the module's source since the input of this
+        # component may not in general represent the entire object.
+        if not self.auto_update_range:
+            return
+        src = get_module_source(self.inputs[0])
+        sc = src.outputs[0].point_data.scalars
+        if sc is not None:
+            sc_array = sc.to_array()
+            has_nan = numpy.isnan(sc_array).any()
+            if has_nan:
+                rng = (float(numpy.nanmin(sc_array)),
+                       float(numpy.nanmax(sc_array)))
+
     ######################################################################
     # Non-public methods.
     ######################################################################

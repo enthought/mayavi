@@ -209,6 +209,14 @@ class Glyph(Component):
         self.glyph_source.stop()
         super(Glyph, self).stop()
 
+    def has_output_port(self):
+        """ The contour filter has an output port."""
+        return True
+
+    def get_output_object(self):
+        """ Returns the output port."""
+        return self.glyph.output_port
+
     ######################################################################
     # Non-public methods.
     ######################################################################
@@ -261,10 +269,16 @@ class Glyph(Component):
             return
         if value:
             mask = self.mask_points
-            mask.input = inputs[0].outputs[0]
-            self.glyph.input = mask.output
+            if inputs[0].has_output_port():
+                mask.input_connection = inputs[0].get_output_object()
+            else:
+                mask.input = inputs[0].get_output_object()
+            self.glyph.input_connection = mask.output_port
         else:
-            self.glyph.input = inputs[0].outputs[0]
+            if inputs[0].has_output_port():
+                self.glyph.input_connection = inputs[0].get_output_object()
+            else:
+                self.glyph.input = inputs[0].get_output_object()
 
     def _glyph_type_changed(self, value):
         if self.glyph_type == 'vector':

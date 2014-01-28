@@ -50,7 +50,10 @@ class Cutter(Component):
         if (len(self.inputs) == 0) or (len(self.inputs[0].outputs) == 0):
             return
         c = self.cutter
-        c.input = self.inputs[0].outputs[0]
+        if self.inputs[0].has_output_port():
+            c.input_connection = self.inputs[0].get_output_object()
+        else:
+            c.input = self.inputs[0].get_output_object()
         self.outputs = [c.output]
 
     def update_data(self):
@@ -61,6 +64,14 @@ class Cutter(Component):
         sends a `data_changed` event.
         """
         self.data_changed = True
+
+    def has_output_port(self):
+        """ The contour filter has an output port."""
+        return True
+
+    def get_output_object(self):
+        """ Returns the output port."""
+        return self.cutter.output_port
 
     ######################################################################
     # `Cutter` interface
