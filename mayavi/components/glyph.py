@@ -210,7 +210,7 @@ class Glyph(Component):
         super(Glyph, self).stop()
 
     def has_output_port(self):
-        """ The contour filter has an output port."""
+        """ The filter has an output port."""
         return True
 
     def get_output_object(self):
