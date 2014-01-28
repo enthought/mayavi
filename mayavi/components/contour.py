@@ -189,6 +189,14 @@ class Contour(Component):
         # Propagage the data changed event.
         self.data_changed = True
 
+    def has_output_port(self):
+        """ The contour filter has an output port."""
+        return True
+
+    def get_output_object(self):
+        """ Returns the output port."""
+        return self.contour_filter.output_port
+
     ######################################################################
     # Non-public methods.
     ######################################################################
@@ -297,7 +305,12 @@ class Contour(Component):
         cf = self.contour_filter
         if self.filled_contours:
             inp = convert_to_poly_data(inp)
-        cf.input = inp
+            cf.input = inp
+        else:
+            if self.inputs[0].has_output_port():
+                cf.input_connection = self.inputs[0].get_output_object()
+            else:
+                cf.input = self.inputs[0].get_output_object()
         cf.update()
         return cf
 
