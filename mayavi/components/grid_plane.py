@@ -142,6 +142,14 @@ class GridPlane(Component):
         # Propagate the data_changed event.
         self.data_changed = True
 
+    def has_output_port(self):
+        """ The filter has an output port."""
+        return True
+
+    def get_output_object(self):
+        """ Returns the output port."""
+        return self.plane.output_port
+
     ######################################################################
     # Non-public methods.
     ######################################################################

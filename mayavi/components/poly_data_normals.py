@@ -77,3 +77,11 @@ class PolyDataNormals(Component):
         """
         self.data_changed = True
 
+    def has_output_port(self):
+        """ The filter has an output port."""
+        return True
+
+    def get_output_object(self):
+        """ Returns the output port."""
+        return self.filter.output_port
+
