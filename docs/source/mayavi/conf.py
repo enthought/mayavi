@@ -60,7 +60,7 @@ master_doc = 'index'
 
 # General substitutions.
 project = 'mayavi'
-copyright = u'2008-2010, Prabhu Ramachandran, Gaël Varoquaux'
+copyright = u'2008-2014, Prabhu Ramachandran, Gaël Varoquaux'
 
 # The default replacements for |version| and |release|, also used in various
 # other places throughout the built documents.
@@ -169,5 +169,3 @@ latex_logo = 'm2_about.jpg'
 # A hack:
 import shutil
 shutil.copyfile('../../CHANGES.txt', './auto/changes.rst')
-
-
