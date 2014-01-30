@@ -1,3 +1,81 @@
+Mayavi 4.3.1
+=============
+
+Enhancements
+------------
+
+20 Jan 2014 (PR)
+    - New example `mlab.test_mesh_mash_custom_colors` illustrating masking
+      and a custom color map.
+
+12 Jan 2014 (PR)
+    - Enabled Travis-CI for the repo.
+
+17 Dec 2013 (dmsurti)
+    - Upgrade to VTK 5.10.1 with VTK's old pipeline. This upgrade does not yet
+      make use of VTK's new pipeline.
+
+07 Aug 2013 (pratikmallya)
+    - Added interactive superquadrics example. Thanks to Pratik for contributing
+      this example.
+
+03 Jun 2013 (PR)
+    - Refactor the animation component so that corresponding examples
+      display animations.
+
+Fixes
+------
+
+27 Jan 2014 (PR)
+    - Many fixes to the test suite so the unit tests and integration tests
+      all pass on OS X, Linux and Windows 32 and 64 bit with VTK 5.6.
+
+08 Jan 2014 (PR)
+    - tvtk_doc: Fix search when user enters a search string.
+
+09 Jan 2014 (mindw)
+    - Fix creation of scripts on win32 using gui_scripts. Thanks to Gabi Davar
+      for this fix.
+
+23 Dec 2013 (jenshnielsen)
+    - Fix imshow by handling TraitError. Thanks to Jens Nielsen for this fix.
+
+05 Apr 2013 (mindw)
+    - Fix class browser when VTK is built with QT/SIP support. Thanks to Gabi
+      Davar for this fix.
+
+05 Apr 2013 (mluessi)
+    - Fix wxpython 2.9 compatibility. Thanks to Martin Luessi for this fix.
+
+19 Aug 2013 (senganal)
+    - Fix MGlyphSource when assigning multi dimensional arrays to individual
+      components of vector data. Thanks to Senganal for this fix.
+    - Fix inconsistent handling of scalars. Thanks to Senganal for this fix.
+
+10 Jun 2013 (PR)
+    - Fix to use front buffer when off screen is False.
+
+
+Mayavi 4.3.0
+=============
+
+Enhancements
+------------
+
+30 Oct 2012 (PR)
+    - NEW: Adding a Qt version of the gradient editor. With this, all of
+      Mayavi's UI should be usable on Qt.
+
+Fixes
+------
+
+11 Mar 2013 (Aestrivex)
+    - Fixed bug with incorrectly tiled snapshots while using savefig.
+
+30 Oct 2012 (PR)
+    - BUG: Qt: fix crashing full-screen-mode.  Fixed segfault when you click on
+      full-screen and press escape/q/e.
+
 
 Mayavi 4.2.1
 =============
