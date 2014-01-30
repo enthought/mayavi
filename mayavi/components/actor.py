@@ -133,7 +133,10 @@ class Actor(Component):
             self.set_lut(old.lookup_table)
         # Setup the inputs to the mapper.
         if (len(self.inputs) > 0) and (len(self.inputs[0].outputs) > 0):
-            new.input = self.inputs[0].outputs[0]
+            if self.inputs[0].has_output_port():
+                new.input_connection = self.inputs[0].get_output_object()
+            else:
+                new.input = self.inputs[0].outputs[0]
         # Setup the actor's mapper.
         actor = self.actor
         if actor is not None:
@@ -191,8 +194,12 @@ class Actor(Component):
 
     def _change_texture_input(self):
         if self._can_object_give_image_data(self.texture_source_object):
-            img_data = self.texture_source_object.outputs[0]
-            self.texture.input = img_data
+            if self.texture_source_object.has_output_port():
+                output_port = self.texture_source_object.get_output_object()
+                self.texture.input_connection = output_port
+            else:
+                img_data = self.texture_source_object.outputs[0]
+                self.texture.input = img_data
             self.actor.texture = self.texture
         else:
             self.texture_source_object = None
@@ -211,11 +218,13 @@ class Actor(Component):
         else:
             self.actor.texture = None
             self.texture.input = None
+            self.texture.input_connection = None
 
     def _texture_changed(self,value):
         # Setup the actor's texture.
         actor = self.actor
-        if actor is not None and value.input is not None:
+        if actor is not None and (value.input is not None
+                                  or value.input_connection is not None):
             actor.texture = value
             self.texture.on_trait_change(self.render)
 

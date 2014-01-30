@@ -117,7 +117,10 @@ class GridPlane(Component):
             error(msg)
             raise TypeError, msg
 
-        plane.input = input
+        if self.inputs[0].has_output_port():
+            plane.input_connection = self.inputs[0].get_output_object()
+        else:
+            plane.input = self.inputs[0].get_output_object()
         self.plane = plane
         self.outputs = [plane.output]
         self._update_limits()

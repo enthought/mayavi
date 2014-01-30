@@ -117,7 +117,10 @@ class Actor2D(Component):
         self._setup_handlers(old, new)
         # Setup the inputs to the mapper.
         if (len(self.inputs) > 0) and (len(self.inputs[0].outputs) > 0):
-            new.input = self.inputs[0].outputs[0]
+            if self.inputs[0].has_output_port():
+                new.input_connection = self.inputs[0].get_output_object()
+            else:
+                new.input = self.inputs[0].outputs[0]
         # Setup the actor's mapper.
         actor = self.actor
         if actor is not None:
