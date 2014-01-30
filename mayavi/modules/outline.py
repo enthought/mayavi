@@ -174,11 +174,14 @@ class Outline(Module):
 
     def _manual_bounds_changed(self):
         if self.manual_bounds:
-            self.outline_filter.input = self.outline_source.output
+            self.outline_filter.input_connection = self.outline_source.output_port
         else:
             # Set the input of the filter.
             mm = self.module_manager
-            self.outline_filter.input = mm.source.outputs[0]
+            if mm.source.has_output_port():
+                self.outline_filter.input_connection = mm.source.get_output_object()
+            else:
+                self.outline_filter.input = mm.source.outputs[0]
 
     def _bounds_changed(self):
         self.pipeline_changed = True

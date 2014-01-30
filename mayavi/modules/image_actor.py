@@ -73,7 +73,11 @@ class ImageActor(Module):
         if self._force_map_scalars_to_color:
             self.set(map_scalars_to_color=True, trait_change_notify=False)
         if self.map_scalars_to_color:
-            self.image_map_to_color.input = src.outputs[0]
+            if src.has_output_port():
+                op = src.get_output_object()
+                self.image_map_to_color.input_connection = op
+            else:
+                self.image_map_to_color.input = src.outputs[0]
             self.image_map_to_color.lookup_table = mm.scalar_lut_manager.lut
             self.actor.input = self.image_map_to_color.output
         else:

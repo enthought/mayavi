@@ -161,7 +161,10 @@ class Streamline(Module):
             return
 
         src = mm.source
-        self.stream_tracer.input = src.outputs[0]
+        if src.has_output_port():
+            self.stream_tracer.input_connection = src.get_output_object()
+        else:
+            self.stream_tracer.input = src.outputs[0]
         self.seed.inputs = [src]
 
         # Setup the radius/width of the tube/ribbon filters based on
@@ -203,10 +206,10 @@ class Streamline(Module):
         if value == 'line':
             self.outputs = [st.output]
         elif value == 'ribbon':
-            rf.input = st.output
+            rf.input_connection = st.output_port
             self.outputs = [rf.output]
         elif value == 'tube':
-            tf.input = st.output
+            tf.input_connection = st.output_port
             self.outputs = [tf.output]
         self.render()
 
@@ -223,7 +226,11 @@ class Streamline(Module):
         new.on_trait_change(self.render)
         mm = self.module_manager
         if mm is not None:
-            new.input = mm.source.outputs[0]
+            src = mm.source
+            if src.has_output_port():
+                new.input_connection = src.get_output_object()
+            else:
+                new.input = src.outputs[0]
 
         # A default output so there are no pipeline errors.  The
         # update_pipeline call corrects this if needed.

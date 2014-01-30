@@ -105,7 +105,12 @@ class SliceUnstructuredGrid(Module):
             error('SliceUnstructuredGrid only works with input '\
                   'unstructured grids')
         self.implicit_plane.inputs = [mod_mgr.source]
-        self.extract_geometry.input = self.module_manager.source.outputs[0]
+        src = self.module_manager.source
+        if src.has_output_port():
+            op = src.get_output_object()
+            self.extract_geometry.input_connection = op
+        else:
+            self.extract_geometry.input = self.module_manager.source.outputs[0]
 
         # Set the LUT for the mapper.
         self.actor.set_lut(self.module_manager.scalar_lut_manager.lut)
@@ -139,14 +144,18 @@ class SliceUnstructuredGrid(Module):
 
         mm = self.module_manager
         if mm is not None:
-            new.input = mm.source.outputs[0]
+            src = mm.source
+            if src.has_output_port():
+                new.input_connection = src.get_output_object()
+            else:
+                new.input = src.outputs[0]
 
         ip = self.implicit_plane
         if ip is not None:
             new.implicit_function = ip.plane
         gf = self.geom_filter
         if gf is not None:
-            gf.input = new.output
+            gf.input_connection = new.output_port
 
         new.on_trait_change(self.render)
         self.update_pipeline()
@@ -157,7 +166,7 @@ class SliceUnstructuredGrid(Module):
 
         ex = self.extract_geometry
         if ex is not None:
-            new.input = ex.output
+            new.input_connection = ex.output_port
 
         new.on_trait_change(self.render)
         self.outputs = [new.output]
