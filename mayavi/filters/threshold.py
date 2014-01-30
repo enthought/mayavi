@@ -257,7 +257,10 @@ class Threshold(Filter):
         if len(self.inputs) == 0:
             return
         fil = new
-        fil.input = self.inputs[0].outputs[0]
+        if self.inputs[0].has_output_port():
+            fil.input_connection = self.inputs[0].get_output_object()
+        else:
+            fil.input = self.inputs[0].outputs[0]
         fil.threshold_between(self.lower_threshold,
                               self.upper_threshold)
         fil.update()

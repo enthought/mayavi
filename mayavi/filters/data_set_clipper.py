@@ -164,8 +164,11 @@ class DataSetClipper(Filter):
                 old.on_trait_change(self.render, remove=True)
         new.on_trait_change(self.render)
         if len(self.inputs) > 0:
-            inp = self.inputs[0].outputs[0]
-            new.input = inp
+            if self.inputs[0].has_output_port():
+                new.input_connection = self.inputs[0].get_output_object()
+            else:
+                inp = self.inputs[0].outputs[0]
+                new.input = inp
             self.outputs = [new.output]
 
     def _reset_button_fired(self):

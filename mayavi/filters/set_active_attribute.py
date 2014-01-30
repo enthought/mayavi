@@ -145,7 +145,7 @@ class SetActiveAttribute(Filter):
         if len(self.inputs) == 0 or len(self.inputs[0].outputs) == 0:
             return
 
-        input = self.inputs[0].outputs[0]
+        input = self.inputs[0].get_output_object()
         if self._first:
             # Force all attributes to be defined and computed
             input.update()
