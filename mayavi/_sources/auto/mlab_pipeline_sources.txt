@@ -62,7 +62,7 @@ array2d_source
 builtin_image
 ~~~~~~~~~~~~~
 
-.. function:: builtin_image(metadata=<mayavi.core.metadata.SourceMetadata object at 0x4334050>)
+.. function:: builtin_image(metadata=<mayavi.core.metadata.SourceMetadata object at 0x42a1a10>)
 
     Create a vtk image data source
     
@@ -73,7 +73,7 @@ builtin_image
 builtin_surface
 ~~~~~~~~~~~~~~~
 
-.. function:: builtin_surface(metadata=<mayavi.core.metadata.SourceMetadata object at 0x42c6f50>)
+.. function:: builtin_surface(metadata=<mayavi.core.metadata.SourceMetadata object at 0x42a1950>)
 
     Create a vtk poly data source
     
@@ -84,7 +84,7 @@ builtin_surface
 chaco_file
 ~~~~~~~~~~
 
-.. function:: chaco_file(metadata=<mayavi.core.metadata.SourceMetadata object at 0x43341d0>)
+.. function:: chaco_file(metadata=<mayavi.core.metadata.SourceMetadata object at 0x42a1b90>)
 
     Open a Chaco file
     
@@ -142,8 +142,8 @@ line_source
         line_source(x, y, z, s, ...)
         line_source(x, y, z, f, ...)
     
-        If 4 positional arguments are passed the last one must be an array s, or
-        a callable, f, that returns an array.
+        If 4 positional arguments are passed the last one must be an array s,
+        or a callable, f, that returns an array.
     
     **Keyword arguments**:
     
@@ -168,6 +168,9 @@ open
     Open a supported data file given a filename.  Returns the source
     object if a suitable reader was found for the file.
     
+    If 'figure' is False, no view is opened, and the code does not need
+    GUI or openGL context.
+    
 
     
 
@@ -175,7 +178,7 @@ open
 parametric_surface
 ~~~~~~~~~~~~~~~~~~
 
-.. function:: parametric_surface(metadata=<mayavi.core.metadata.SourceMetadata object at 0x42c6dd0>)
+.. function:: parametric_surface(metadata=<mayavi.core.metadata.SourceMetadata object at 0x42a17d0>)
 
     Create a parametric surface source
     
@@ -186,7 +189,7 @@ parametric_surface
 point_load
 ~~~~~~~~~~
 
-.. function:: point_load(metadata=<mayavi.core.metadata.SourceMetadata object at 0x42c6e90>)
+.. function:: point_load(metadata=<mayavi.core.metadata.SourceMetadata object at 0x42a1890>)
 
     Simulates a point load on a cube of data (for tensors)
     
@@ -426,7 +429,7 @@ vertical_vectors_source
 volume_file
 ~~~~~~~~~~~
 
-.. function:: volume_file(metadata=<mayavi.core.metadata.SourceMetadata object at 0x4334110>)
+.. function:: volume_file(metadata=<mayavi.core.metadata.SourceMetadata object at 0x42a1ad0>)
 
     Open a Volume file
     

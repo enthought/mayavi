@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Mayavi 3.4.0 (Oct 15, 2010) &mdash; mayavi 4.2.1 documentation</title>
+    <title>Mayavi 4.3.1 &mdash; mayavi 4.3.1 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.2.1',
+        VERSION:     '4.3.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.2.1 documentation" href="../index.html" />
+    <link rel="top" title="mayavi 4.3.1 documentation" href="../index.html" />
     <link rel="up" title="Changelog" href="../changes.html" />
     <link rel="prev" title="Changelog" href="../changes.html" />
 <style type="text/css">
@@ -69,7 +69,7 @@
         <li class="right" >
           <a href="../changes.html" title="Changelog"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">mayavi 4.2.1 documentation</a> &raquo;</li>
+        <li><a href="../index.html">mayavi 4.3.1 documentation</a> &raquo;</li>
           <li><a href="../changes.html" accesskey="U">Changelog</a> &raquo;</li> 
       </ul>
     </div>  
@@ -79,13 +79,140 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <p>The log refers to changesets in the trac format [#revno], for
-example to view the changeset [18702] use the following URL:
-<a class="reference external" href="https://svn.enthought.com/enthought/changeset/18702">https://svn.enthought.com/enthought/changeset/18702</a></p>
-<div class="section" id="mayavi-3-4-0-oct-15-2010">
-<h1>Mayavi 3.4.0 (Oct 15, 2010)<a class="headerlink" href="#mayavi-3-4-0-oct-15-2010" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="mayavi-4-3-1">
+<h1>Mayavi 4.3.1<a class="headerlink" href="#mayavi-4-3-1" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="enhancements">
 <h2>Enhancements<a class="headerlink" href="#enhancements" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>20 Jan 2014 (PR)</dt>
+<dd><ul class="first last simple">
+<li>New example <cite>mlab.test_mesh_mash_custom_colors</cite> illustrating masking
+and a custom color map.</li>
+</ul>
+</dd>
+<dt>12 Jan 2014 (PR)</dt>
+<dd><ul class="first last simple">
+<li>Enabled Travis-CI for the repo.</li>
+</ul>
+</dd>
+<dt>17 Dec 2013 (dmsurti)</dt>
+<dd><ul class="first last simple">
+<li>Upgrade to VTK 5.10.1 with VTK&#8217;s old pipeline. This upgrade does not yet
+make use of VTK&#8217;s new pipeline.</li>
+</ul>
+</dd>
+<dt>07 Aug 2013 (pratikmallya)</dt>
+<dd><ul class="first last simple">
+<li>Added interactive superquadrics example. Thanks to Pratik for contributing
+this example.</li>
+</ul>
+</dd>
+<dt>03 Jun 2013 (PR)</dt>
+<dd><ul class="first last simple">
+<li>Refactor the animation component so that corresponding examples
+display animations.</li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="fixes">
+<h2>Fixes<a class="headerlink" href="#fixes" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>27 Jan 2014 (PR)</dt>
+<dd><ul class="first last simple">
+<li>Many fixes to the test suite so the unit tests and integration tests
+all pass on OS X, Linux and Windows 32 and 64 bit with VTK 5.6.</li>
+</ul>
+</dd>
+<dt>08 Jan 2014 (PR)</dt>
+<dd><ul class="first last simple">
+<li>tvtk_doc: Fix search when user enters a search string.</li>
+</ul>
+</dd>
+<dt>09 Jan 2014 (mindw)</dt>
+<dd><ul class="first last simple">
+<li>Fix creation of scripts on win32 using gui_scripts. Thanks to Gabi Davar
+for this fix.</li>
+</ul>
+</dd>
+<dt>23 Dec 2013 (jenshnielsen)</dt>
+<dd><ul class="first last simple">
+<li>Fix imshow by handling TraitError. Thanks to Jens Nielsen for this fix.</li>
+</ul>
+</dd>
+<dt>05 Apr 2013 (mindw)</dt>
+<dd><ul class="first last simple">
+<li>Fix class browser when VTK is built with QT/SIP support. Thanks to Gabi
+Davar for this fix.</li>
+</ul>
+</dd>
+<dt>05 Apr 2013 (mluessi)</dt>
+<dd><ul class="first last simple">
+<li>Fix wxpython 2.9 compatibility. Thanks to Martin Luessi for this fix.</li>
+</ul>
+</dd>
+<dt>19 Aug 2013 (senganal)</dt>
+<dd><ul class="first last simple">
+<li>Fix MGlyphSource when assigning multi dimensional arrays to individual
+components of vector data. Thanks to Senganal for this fix.</li>
+<li>Fix inconsistent handling of scalars. Thanks to Senganal for this fix.</li>
+</ul>
+</dd>
+<dt>10 Jun 2013 (PR)</dt>
+<dd><ul class="first last simple">
+<li>Fix to use front buffer when off screen is False.</li>
+</ul>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="mayavi-4-3-0">
+<h1>Mayavi 4.3.0<a class="headerlink" href="#mayavi-4-3-0" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>Enhancements<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>30 Oct 2012 (PR)</dt>
+<dd><ul class="first last simple">
+<li>NEW: Adding a Qt version of the gradient editor. With this, all of
+Mayavi&#8217;s UI should be usable on Qt.</li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="id2">
+<h2>Fixes<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>11 Mar 2013 (Aestrivex)</dt>
+<dd><ul class="first last simple">
+<li>Fixed bug with incorrectly tiled snapshots while using savefig.</li>
+</ul>
+</dd>
+<dt>30 Oct 2012 (PR)</dt>
+<dd><ul class="first last simple">
+<li>BUG: Qt: fix crashing full-screen-mode.  Fixed segfault when you click on
+full-screen and press escape/q/e.</li>
+</ul>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="mayavi-4-2-1">
+<h1>Mayavi 4.2.1<a class="headerlink" href="#mayavi-4-2-1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id3">
+<h2>Enhancements<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>9 August 2012 (GV)</dt>
+<dd><ul class="first last simple">
+<li>ENH: Add null engine to mlab.pipeline.open.</li>
+</ul>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="mayavi-3-4-0-oct-15-2010">
+<h1>Mayavi 3.4.0 (Oct 15, 2010)<a class="headerlink" href="#mayavi-3-4-0-oct-15-2010" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id4">
+<h2>Enhancements<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
 <dt>22 July 2010 (GV)</dt>
 <dd><ul class="first last simple">
@@ -102,8 +229,8 @@ adjusted [25663].</li>
 </ul>
 </div></blockquote>
 </div>
-<div class="section" id="fixes">
-<h2>Fixes<a class="headerlink" href="#fixes" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id5">
+<h2>Fixes<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
 <dt>2 August 2010 (GV)</dt>
 <dd><ul class="first last simple">
@@ -135,8 +262,8 @@ pointing out the solution [25660].</li>
 </div>
 <div class="section" id="mayavi-3-3-2-may-25-2010">
 <h1>Mayavi 3.3.2 (May 25, 2010)<a class="headerlink" href="#mayavi-3-3-2-may-25-2010" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="id1">
-<h2>Enhancements<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id6">
+<h2>Enhancements<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <p>DOCs: many docs and example improvements (GV).</p>
 <dl class="docutils">
 <dt>13 April 2010 (GV)</dt>
@@ -158,8 +285,8 @@ recent VTK versions colors look ugly when normals are not computed
 </dd>
 </dl>
 </div>
-<div class="section" id="id2">
-<h2>Fixes<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id7">
+<h2>Fixes<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
 <dt>17 May 2010 (PR)</dt>
 <dd><ul class="first last simple">
@@ -191,8 +318,8 @@ work. [25430]</li>
 </div>
 <div class="section" id="mayavi-3-3-1-feb-24-2010">
 <h1>Mayavi 3.3.1 (Feb 24, 2010)<a class="headerlink" href="#mayavi-3-3-1-feb-24-2010" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="id3">
-<h2>Enhancements<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id8">
+<h2>Enhancements<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
 <dt>20 Dec, 2009 (GV):</dt>
 <dd><ul class="first last simple">
@@ -358,8 +485,8 @@ distribution.  This is necessary due to the use of namespace packages
 </dd>
 </dl>
 </div>
-<div class="section" id="id4">
-<h2>Fixes<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id9">
+<h2>Fixes<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
 <dt>21 Feb, 2010 (GV)</dt>
 <dd><ul class="first last simple">
@@ -513,8 +640,8 @@ before resizing in order to avoid an offset bug [24427]</li>
 </div>
 <div class="section" id="mayavi-3-3-0-july-15-2009">
 <h1>Mayavi 3.3.0 (July 15, 2009)<a class="headerlink" href="#mayavi-3-3-0-july-15-2009" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="id5">
-<h2>Enhancements<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id10">
+<h2>Enhancements<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
 <dt>06 Jul, 2009 (PR):</dt>
 <dd><ul class="first last simple">
@@ -673,8 +800,8 @@ important core import [23520]</li>
 </dd>
 </dl>
 </div>
-<div class="section" id="id6">
-<h2>Fixes<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id11">
+<h2>Fixes<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
 <dt>15 Jul, 2009 (PR):</dt>
 <dd><ul class="first last simple">
@@ -1707,24 +1834,38 @@ plugin API completely!</em></li>
             </a></p>
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Mayavi 3.4.0 (Oct 15, 2010)</a><ul>
+<li><a class="reference internal" href="#">Mayavi 4.3.1</a><ul>
 <li><a class="reference internal" href="#enhancements">Enhancements</a></li>
 <li><a class="reference internal" href="#fixes">Fixes</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#mayavi-3-3-2-may-25-2010">Mayavi 3.3.2 (May 25, 2010)</a><ul>
+<li><a class="reference internal" href="#mayavi-4-3-0">Mayavi 4.3.0</a><ul>
 <li><a class="reference internal" href="#id1">Enhancements</a></li>
 <li><a class="reference internal" href="#id2">Fixes</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#mayavi-3-3-1-feb-24-2010">Mayavi 3.3.1 (Feb 24, 2010)</a><ul>
+<li><a class="reference internal" href="#mayavi-4-2-1">Mayavi 4.2.1</a><ul>
 <li><a class="reference internal" href="#id3">Enhancements</a></li>
-<li><a class="reference internal" href="#id4">Fixes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mayavi-3-4-0-oct-15-2010">Mayavi 3.4.0 (Oct 15, 2010)</a><ul>
+<li><a class="reference internal" href="#id4">Enhancements</a></li>
+<li><a class="reference internal" href="#id5">Fixes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mayavi-3-3-2-may-25-2010">Mayavi 3.3.2 (May 25, 2010)</a><ul>
+<li><a class="reference internal" href="#id6">Enhancements</a></li>
+<li><a class="reference internal" href="#id7">Fixes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mayavi-3-3-1-feb-24-2010">Mayavi 3.3.1 (Feb 24, 2010)</a><ul>
+<li><a class="reference internal" href="#id8">Enhancements</a></li>
+<li><a class="reference internal" href="#id9">Fixes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#mayavi-3-3-0-july-15-2009">Mayavi 3.3.0 (July 15, 2009)</a><ul>
-<li><a class="reference internal" href="#id5">Enhancements</a></li>
-<li><a class="reference internal" href="#id6">Fixes</a></li>
+<li><a class="reference internal" href="#id10">Enhancements</a></li>
+<li><a class="reference internal" href="#id11">Fixes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#mayavi-3-2-0-march-23-2009">Mayavi 3.2.0 (March 23, 2009)</a></li>
@@ -1797,14 +1938,14 @@ plugin API completely!</em></li>
         <li class="right" >
           <a href="../changes.html" title="Changelog"
              >previous</a> |</li>
-        <li><a href="../index.html">mayavi 4.2.1 documentation</a> &raquo;</li>
+        <li><a href="../index.html">mayavi 4.3.1 documentation</a> &raquo;</li>
           <li><a href="../changes.html" >Changelog</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Jul 09, 2012.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+        &copy; Copyright 2008-2014, Prabhu Ramachandran, Gaël Varoquaux.
+      Last updated on Jan 30, 2014.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
     </div>
   </body>
 </html>

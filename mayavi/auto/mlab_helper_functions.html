@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Plotting functions &mdash; mayavi 4.2.1 documentation</title>
+    <title>Plotting functions &mdash; mayavi 4.3.1 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.2.1',
+        VERSION:     '4.3.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.2.1 documentation" href="../index.html" />
+    <link rel="top" title="mayavi 4.3.1 documentation" href="../index.html" />
     <link rel="up" title="MLab reference" href="mlab_reference.html" />
     <link rel="next" title="Figure handling functions" href="mlab_figure.html" />
     <link rel="prev" title="MLab reference" href="mlab_reference.html" />
@@ -73,7 +73,7 @@
         <li class="right" >
           <a href="mlab_reference.html" title="MLab reference"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">mayavi 4.2.1 documentation</a> &raquo;</li>
+        <li><a href="../index.html">mayavi 4.3.1 documentation</a> &raquo;</li>
           <li><a href="mlab_reference.html" accesskey="U">MLab reference</a> &raquo;</li> 
       </ul>
     </div>  
@@ -287,9 +287,9 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
 <span class="kn">from</span> <span class="nn">mayavi.mlab</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="k">def</span> <span class="nf">test_contour3d</span><span class="p">():</span>
-    <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ogrid</span><span class="p">[</span><span class="o">-</span><span class="mi">5</span><span class="p">:</span><span class="mi">5</span><span class="p">:</span><span class="mi">64</span><span class="n">j</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">:</span><span class="mi">5</span><span class="p">:</span><span class="mi">64</span><span class="n">j</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">:</span><span class="mi">5</span><span class="p">:</span><span class="mi">64</span><span class="n">j</span><span class="p">]</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ogrid</span><span class="p">[</span><span class="o">-</span><span class="mi">5</span><span class="p">:</span><span class="mi">5</span><span class="p">:</span><span class="mi">64j</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">:</span><span class="mi">5</span><span class="p">:</span><span class="mi">64j</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">:</span><span class="mi">5</span><span class="p">:</span><span class="mi">64j</span><span class="p">]</span>
 
-    <span class="n">scalars</span> <span class="o">=</span> <span class="n">x</span><span class="o">*</span><span class="n">x</span><span class="o">*</span><span class="mf">0.5</span> <span class="o">+</span> <span class="n">y</span><span class="o">*</span><span class="n">y</span> <span class="o">+</span> <span class="n">z</span><span class="o">*</span><span class="n">z</span><span class="o">*</span><span class="mf">2.0</span>
+    <span class="n">scalars</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span> <span class="o">*</span> <span class="mf">0.5</span> <span class="o">+</span> <span class="n">y</span> <span class="o">*</span> <span class="n">y</span> <span class="o">+</span> <span class="n">z</span> <span class="o">*</span> <span class="n">z</span> <span class="o">*</span> <span class="mf">2.0</span>
 
     <span class="n">obj</span> <span class="o">=</span> <span class="n">contour3d</span><span class="p">(</span><span class="n">scalars</span><span class="p">,</span> <span class="n">contours</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">transparent</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">obj</span>
@@ -384,7 +384,7 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
     <span class="sd">&quot;&quot;&quot;Test contour_surf on regularly spaced co-ordinates like MayaVi.&quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
         <span class="n">sin</span><span class="p">,</span> <span class="n">cos</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sin</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">cos</span>
-        <span class="k">return</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="n">y</span><span class="p">)</span> <span class="o">+</span> <span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">x</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span> <span class="o">+</span> <span class="n">cos</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">x</span><span class="o">+</span><span class="mi">4</span><span class="o">*</span><span class="n">y</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">)</span> <span class="o">+</span> <span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">x</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span> <span class="o">+</span> <span class="n">cos</span><span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">y</span><span class="p">)</span>
 
     <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="o">-</span><span class="mf">7.</span><span class="p">:</span><span class="mf">7.05</span><span class="p">:</span><span class="mf">0.1</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.</span><span class="p">:</span><span class="mf">5.05</span><span class="p">:</span><span class="mf">0.05</span><span class="p">]</span>
     <span class="n">s</span> <span class="o">=</span> <span class="n">contour_surf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
@@ -496,9 +496,9 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
 
 <span class="k">def</span> <span class="nf">test_flow</span><span class="p">():</span>
     <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span>
-    <span class="n">r</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">y</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">z</span><span class="o">**</span><span class="mi">4</span><span class="p">)</span>
-    <span class="n">u</span> <span class="o">=</span> <span class="n">y</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">r</span><span class="p">)</span><span class="o">/</span><span class="n">r</span>
-    <span class="n">v</span> <span class="o">=</span> <span class="o">-</span><span class="n">x</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">r</span><span class="p">)</span><span class="o">/</span><span class="n">r</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">y</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">z</span> <span class="o">**</span> <span class="mi">4</span><span class="p">)</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="n">y</span> <span class="o">*</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="o">/</span> <span class="n">r</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="o">-</span><span class="n">x</span> <span class="o">*</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="o">/</span> <span class="n">r</span>
     <span class="n">w</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
     <span class="n">obj</span> <span class="o">=</span> <span class="n">flow</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">obj</span>
@@ -574,7 +574,7 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
 <span class="k">def</span> <span class="nf">test_imshow</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot; Use imshow to visualize a 2D 10x10 random array.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">s</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">imshow</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s">&#39;gist_earth&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -592,9 +592,9 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
 <p>x, y, z are 2D arrays, all of the same shape, giving the positions of
 the vertices of the surface. The connectivity between these points is
 implied by the connectivity on the arrays.</p>
-<p>For simple structures (such as orthogonal grids) prefer the <cite>surf</cite> function,
-as it will create more efficient data structures. For mesh defined by
-triangles rather than regular implicit connectivity, see the
+<p>For simple structures (such as orthogonal grids) prefer the <cite>surf</cite>
+function, as it will create more efficient data structures. For mesh
+defined by triangles rather than regular implicit connectivity, see the
 <cite>triangular_mesh</cite> function.</p>
 <p><strong>Keyword arguments:</strong></p>
 <blockquote>
@@ -689,13 +689,22 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
     <span class="n">pi</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">pi</span>
     <span class="n">cos</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">cos</span>
     <span class="n">sin</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sin</span>
-    <span class="n">dphi</span><span class="p">,</span> <span class="n">dtheta</span> <span class="o">=</span> <span class="n">pi</span><span class="o">/</span><span class="mf">250.0</span><span class="p">,</span> <span class="n">pi</span><span class="o">/</span><span class="mf">250.0</span>
-    <span class="p">[</span><span class="n">phi</span><span class="p">,</span><span class="n">theta</span><span class="p">]</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">pi</span><span class="o">+</span><span class="n">dphi</span><span class="o">*</span><span class="mf">1.5</span><span class="p">:</span><span class="n">dphi</span><span class="p">,</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="o">+</span><span class="n">dtheta</span><span class="o">*</span><span class="mf">1.5</span><span class="p">:</span><span class="n">dtheta</span><span class="p">]</span>
-    <span class="n">m0</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span> <span class="n">m1</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span> <span class="n">m2</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">m3</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span> <span class="n">m4</span> <span class="o">=</span> <span class="mi">6</span><span class="p">;</span> <span class="n">m5</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">m6</span> <span class="o">=</span> <span class="mi">6</span><span class="p">;</span> <span class="n">m7</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
-    <span class="n">r</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">m0</span><span class="o">*</span><span class="n">phi</span><span class="p">)</span><span class="o">**</span><span class="n">m1</span> <span class="o">+</span> <span class="n">cos</span><span class="p">(</span><span class="n">m2</span><span class="o">*</span><span class="n">phi</span><span class="p">)</span><span class="o">**</span><span class="n">m3</span> <span class="o">+</span> <span class="n">sin</span><span class="p">(</span><span class="n">m4</span><span class="o">*</span><span class="n">theta</span><span class="p">)</span><span class="o">**</span><span class="n">m5</span> <span class="o">+</span> <span class="n">cos</span><span class="p">(</span><span class="n">m6</span><span class="o">*</span><span class="n">theta</span><span class="p">)</span><span class="o">**</span><span class="n">m7</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">r</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
-    <span class="n">y</span> <span class="o">=</span> <span class="n">r</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span>
-    <span class="n">z</span> <span class="o">=</span> <span class="n">r</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">);</span>
+    <span class="n">dphi</span><span class="p">,</span> <span class="n">dtheta</span> <span class="o">=</span> <span class="n">pi</span> <span class="o">/</span> <span class="mf">250.0</span><span class="p">,</span> <span class="n">pi</span> <span class="o">/</span> <span class="mf">250.0</span>
+    <span class="p">[</span><span class="n">phi</span><span class="p">,</span> <span class="n">theta</span><span class="p">]</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">pi</span> <span class="o">+</span> <span class="n">dphi</span> <span class="o">*</span> <span class="mf">1.5</span><span class="p">:</span><span class="n">dphi</span><span class="p">,</span>
+                               <span class="mi">0</span><span class="p">:</span><span class="mi">2</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">+</span> <span class="n">dtheta</span> <span class="o">*</span> <span class="mf">1.5</span><span class="p">:</span><span class="n">dtheta</span><span class="p">]</span>
+    <span class="n">m0</span> <span class="o">=</span> <span class="mi">4</span>
+    <span class="n">m1</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="n">m2</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">m3</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="n">m4</span> <span class="o">=</span> <span class="mi">6</span>
+    <span class="n">m5</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">m6</span> <span class="o">=</span> <span class="mi">6</span>
+    <span class="n">m7</span> <span class="o">=</span> <span class="mi">4</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">m0</span> <span class="o">*</span> <span class="n">phi</span><span class="p">)</span> <span class="o">**</span> <span class="n">m1</span> <span class="o">+</span> <span class="n">cos</span><span class="p">(</span><span class="n">m2</span> <span class="o">*</span> <span class="n">phi</span><span class="p">)</span> <span class="o">**</span> <span class="n">m3</span> <span class="o">+</span> \
+        <span class="n">sin</span><span class="p">(</span><span class="n">m4</span> <span class="o">*</span> <span class="n">theta</span><span class="p">)</span> <span class="o">**</span> <span class="n">m5</span> <span class="o">+</span> <span class="n">cos</span><span class="p">(</span><span class="n">m6</span> <span class="o">*</span> <span class="n">theta</span><span class="p">)</span> <span class="o">**</span> <span class="n">m7</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">r</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">r</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">r</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">mesh</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s">&quot;bone&quot;</span><span class="p">)</span>
 </pre></div>
@@ -780,12 +789,12 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
     <span class="sd">&quot;&quot;&quot;Generates a pretty set of lines.&quot;&quot;&quot;</span>
     <span class="n">n_mer</span><span class="p">,</span> <span class="n">n_long</span> <span class="o">=</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">11</span>
     <span class="n">pi</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">pi</span>
-    <span class="n">dphi</span> <span class="o">=</span> <span class="n">pi</span><span class="o">/</span><span class="mf">1000.0</span>
-    <span class="n">phi</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">pi</span> <span class="o">+</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">dphi</span><span class="p">,</span> <span class="n">dphi</span><span class="p">)</span>
-    <span class="n">mu</span> <span class="o">=</span> <span class="n">phi</span><span class="o">*</span><span class="n">n_mer</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">mu</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">numpy</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">n_long</span><span class="o">*</span><span class="n">mu</span><span class="o">/</span><span class="n">n_mer</span><span class="p">)</span><span class="o">*</span><span class="mf">0.5</span><span class="p">)</span>
-    <span class="n">y</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">mu</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">numpy</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">n_long</span><span class="o">*</span><span class="n">mu</span><span class="o">/</span><span class="n">n_mer</span><span class="p">)</span><span class="o">*</span><span class="mf">0.5</span><span class="p">)</span>
-    <span class="n">z</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">n_long</span><span class="o">*</span><span class="n">mu</span><span class="o">/</span><span class="n">n_mer</span><span class="p">)</span><span class="o">*</span><span class="mf">0.5</span>
+    <span class="n">dphi</span> <span class="o">=</span> <span class="n">pi</span> <span class="o">/</span> <span class="mf">1000.0</span>
+    <span class="n">phi</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">dphi</span><span class="p">,</span> <span class="n">dphi</span><span class="p">)</span>
+    <span class="n">mu</span> <span class="o">=</span> <span class="n">phi</span> <span class="o">*</span> <span class="n">n_mer</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">mu</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">numpy</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">n_long</span> <span class="o">*</span> <span class="n">mu</span> <span class="o">/</span> <span class="n">n_mer</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">mu</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">numpy</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">n_long</span> <span class="o">*</span> <span class="n">mu</span> <span class="o">/</span> <span class="n">n_mer</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">n_long</span> <span class="o">*</span> <span class="n">mu</span> <span class="o">/</span> <span class="n">n_mer</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.5</span>
 
     <span class="n">l</span> <span class="o">=</span> <span class="n">plot3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">mu</span><span class="p">),</span> <span class="n">tube_radius</span><span class="o">=</span><span class="mf">0.025</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s">&#39;Spectral&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">l</span>
@@ -888,14 +897,14 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
 <span class="kn">from</span> <span class="nn">mayavi.mlab</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="k">def</span> <span class="nf">test_points3d</span><span class="p">():</span>
-    <span class="n">t</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">numpy</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
     <span class="n">cos</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">cos</span>
     <span class="n">sin</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sin</span>
 
-    <span class="n">x</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">t</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">cos</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
-    <span class="n">z</span> <span class="o">=</span> <span class="n">cos</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">t</span><span class="p">)</span>
-    <span class="n">s</span> <span class="o">=</span> <span class="mi">2</span><span class="o">+</span><span class="n">sin</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">sin</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">points3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s">&quot;copper&quot;</span><span class="p">,</span> <span class="n">scale_factor</span><span class="o">=.</span><span class="mi">25</span><span class="p">)</span>
 </pre></div>
@@ -1002,9 +1011,9 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
 
 <span class="k">def</span> <span class="nf">test_quiver3d</span><span class="p">():</span>
     <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
-    <span class="n">r</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">y</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">z</span><span class="o">**</span><span class="mi">4</span><span class="p">)</span>
-    <span class="n">u</span> <span class="o">=</span> <span class="n">y</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">r</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">r</span><span class="o">+</span><span class="mf">0.001</span><span class="p">)</span>
-    <span class="n">v</span> <span class="o">=</span> <span class="o">-</span><span class="n">x</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">r</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">r</span><span class="o">+</span><span class="mf">0.001</span><span class="p">)</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">y</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">z</span> <span class="o">**</span> <span class="mi">4</span><span class="p">)</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="n">y</span> <span class="o">*</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">r</span> <span class="o">+</span> <span class="mf">0.001</span><span class="p">)</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="o">-</span><span class="n">x</span> <span class="o">*</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">r</span> <span class="o">+</span> <span class="mf">0.001</span><span class="p">)</span>
     <span class="n">w</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
     <span class="n">obj</span> <span class="o">=</span> <span class="n">quiver3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">scale_factor</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">obj</span>
@@ -1119,7 +1128,7 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
     <span class="sd">&quot;&quot;&quot;Test surf on regularly spaced co-ordinates like MayaVi.&quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
         <span class="n">sin</span><span class="p">,</span> <span class="n">cos</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sin</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">cos</span>
-        <span class="k">return</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="n">y</span><span class="p">)</span> <span class="o">+</span> <span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">x</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span> <span class="o">+</span> <span class="n">cos</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">x</span><span class="o">+</span><span class="mi">4</span><span class="o">*</span><span class="n">y</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">)</span> <span class="o">+</span> <span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">x</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span> <span class="o">+</span> <span class="n">cos</span><span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">y</span><span class="p">)</span>
 
     <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="o">-</span><span class="mf">7.</span><span class="p">:</span><span class="mf">7.05</span><span class="p">:</span><span class="mf">0.1</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.</span><span class="p">:</span><span class="mf">5.05</span><span class="p">:</span><span class="mf">0.05</span><span class="p">]</span>
     <span class="n">s</span> <span class="o">=</span> <span class="n">surf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
@@ -1237,12 +1246,12 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">n</span> <span class="o">=</span> <span class="mi">8</span>
     <span class="n">t</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">numpy</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
-    <span class="n">z</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">t</span><span class="p">)</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">1j</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">real</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">imag</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
     <span class="n">z</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 
-    <span class="n">triangles</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">)]</span>
+    <span class="n">triangles</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">)]</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">x</span><span class="p">]</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span>
     <span class="n">z</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">z</span><span class="p">]</span>
@@ -1350,14 +1359,14 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
         <li class="right" >
           <a href="mlab_reference.html" title="MLab reference"
              >previous</a> |</li>
-        <li><a href="../index.html">mayavi 4.2.1 documentation</a> &raquo;</li>
+        <li><a href="../index.html">mayavi 4.3.1 documentation</a> &raquo;</li>
           <li><a href="mlab_reference.html" >MLab reference</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Jul 09, 2012.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+        &copy; Copyright 2008-2014, Prabhu Ramachandran, Gaël Varoquaux.
+      Last updated on Jan 30, 2014.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
     </div>
   </body>
 </html>

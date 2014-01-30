@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Canyon decimation example &mdash; mayavi 4.2.1 documentation</title>
+    <title>Canyon decimation example &mdash; mayavi 4.3.1 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.2.1',
+        VERSION:     '4.3.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.2.1 documentation" href="../index.html" />
+    <link rel="top" title="mayavi 4.3.1 documentation" href="../index.html" />
     <link rel="up" title="Example gallery" href="examples.html" />
     <link rel="next" title="Plotting many lines example" href="example_plotting_many_lines.html" />
     <link rel="prev" title="Wigner example" href="example_wigner.html" />
@@ -73,7 +73,7 @@
         <li class="right" >
           <a href="example_wigner.html" title="Wigner example"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">mayavi 4.2.1 documentation</a> &raquo;</li>
+        <li><a href="../index.html">mayavi 4.3.1 documentation</a> &raquo;</li>
           <li><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
       </ul>
     </div>  
@@ -109,6 +109,8 @@ less-efficient decimate-pro filter (see <a class="reference internal" href="exam
 <span class="c"># License: BSD Style.</span>
 
 <span class="c"># Retrieve the grand Canyon topological data ###################################</span>
+<span class="c"># Original file:</span>
+<span class="c">#&#39;ftp://e0srp01u.ecs.nasa.gov/srtm/version2/SRTM1/Region_04/N36W113.hgt.zip&#39;</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s">&#39;N36W113.hgt.zip&#39;</span><span class="p">):</span>
     <span class="c"># Download the data</span>
@@ -116,7 +118,6 @@ less-efficient decimate-pro filter (see <a class="reference internal" href="exam
     <span class="k">print</span> <span class="s">&#39;Downloading data, please wait (10M)&#39;</span>
     <span class="n">opener</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span>
     <span class="s">&#39;http://staging.enthought.com/projects/mayavi/N36W113.hgt.zip&#39;</span>
-    <span class="c">#&#39;ftp://e0srp01u.ecs.nasa.gov/srtm/version2/SRTM1/Region_04/N36W113.hgt.zip&#39;</span>
         <span class="p">)</span>
     <span class="nb">open</span><span class="p">(</span><span class="s">&#39;N36W113.hgt.zip&#39;</span><span class="p">,</span> <span class="s">&#39;wb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">opener</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
 
@@ -245,14 +246,14 @@ less-efficient decimate-pro filter (see <a class="reference internal" href="exam
         <li class="right" >
           <a href="example_wigner.html" title="Wigner example"
              >previous</a> |</li>
-        <li><a href="../index.html">mayavi 4.2.1 documentation</a> &raquo;</li>
+        <li><a href="../index.html">mayavi 4.3.1 documentation</a> &raquo;</li>
           <li><a href="examples.html" >Example gallery</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Jul 09, 2012.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+        &copy; Copyright 2008-2014, Prabhu Ramachandran, Gaël Varoquaux.
+      Last updated on Jan 30, 2014.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
     </div>
   </body>
 </html>

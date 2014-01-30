@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Lorenz example &mdash; mayavi 4.2.1 documentation</title>
+    <title>Lorenz example &mdash; mayavi 4.3.1 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.2.1',
+        VERSION:     '4.3.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.2.1 documentation" href="../index.html" />
+    <link rel="top" title="mayavi 4.3.1 documentation" href="../index.html" />
     <link rel="up" title="Example gallery" href="examples.html" />
     <link rel="next" title="Tvtk in mayavi example" href="example_tvtk_in_mayavi.html" />
     <link rel="prev" title="Spherical harmonics example" href="example_spherical_harmonics.html" />
@@ -73,7 +73,7 @@
         <li class="right" >
           <a href="example_spherical_harmonics.html" title="Spherical harmonics example"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">mayavi 4.2.1 documentation</a> &raquo;</li>
+        <li><a href="../index.html">mayavi 4.3.1 documentation</a> &raquo;</li>
           <li><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
       </ul>
     </div>  
@@ -102,15 +102,16 @@ an IsoSurface module on this scalar component.</p>
 <span class="kn">import</span> <span class="nn">numpy</span>
 <span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
 
-<span class="k">def</span> <span class="nf">lorenz</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mf">10.</span><span class="p">,</span><span class="n">r</span><span class="o">=</span><span class="mf">28.</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mf">8.</span><span class="o">/</span><span class="mf">3.</span><span class="p">):</span>
+
+<span class="k">def</span> <span class="nf">lorenz</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mf">10.</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="mf">28.</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mf">8.</span> <span class="o">/</span> <span class="mf">3.</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;The Lorenz system.&quot;&quot;&quot;</span>
-    <span class="n">u</span> <span class="o">=</span> <span class="n">s</span><span class="o">*</span><span class="p">(</span><span class="n">y</span><span class="o">-</span><span class="n">x</span><span class="p">)</span>
-    <span class="n">v</span> <span class="o">=</span> <span class="n">r</span><span class="o">*</span><span class="n">x</span> <span class="o">-</span><span class="n">y</span> <span class="o">-</span> <span class="n">x</span><span class="o">*</span><span class="n">z</span>
-    <span class="n">w</span> <span class="o">=</span> <span class="n">x</span><span class="o">*</span><span class="n">y</span> <span class="o">-</span> <span class="n">b</span><span class="o">*</span><span class="n">z</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="n">s</span> <span class="o">*</span> <span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">x</span><span class="p">)</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="n">r</span> <span class="o">*</span> <span class="n">x</span> <span class="o">-</span> <span class="n">y</span> <span class="o">-</span> <span class="n">x</span> <span class="o">*</span> <span class="n">z</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">y</span> <span class="o">-</span> <span class="n">b</span> <span class="o">*</span> <span class="n">z</span>
     <span class="k">return</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span>
 
 <span class="c"># Sample the space in an interesting region.</span>
-<span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="o">-</span><span class="mi">50</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">100</span><span class="n">j</span><span class="p">,</span><span class="o">-</span><span class="mi">50</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">100</span><span class="n">j</span><span class="p">,</span><span class="o">-</span><span class="mi">10</span><span class="p">:</span><span class="mi">60</span><span class="p">:</span><span class="mi">70</span><span class="n">j</span><span class="p">]</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="o">-</span><span class="mi">50</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">100j</span><span class="p">,</span> <span class="o">-</span><span class="mi">50</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">100j</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">:</span><span class="mi">60</span><span class="p">:</span><span class="mi">70j</span><span class="p">]</span>
 <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">lorenz</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
 <span class="n">fig</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">300</span><span class="p">),</span> <span class="n">bgcolor</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
 
@@ -127,7 +128,7 @@ an IsoSurface module on this scalar component.</p>
 <span class="n">src</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">mlab_source</span><span class="o">.</span><span class="n">m_data</span>
 <span class="n">e</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">extract_vector_components</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
 <span class="n">e</span><span class="o">.</span><span class="n">component</span> <span class="o">=</span> <span class="s">&#39;z-component&#39;</span>
-<span class="n">zc</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">iso_surface</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">contours</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,],</span>
+<span class="n">zc</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">iso_surface</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">contours</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">],</span>
             <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mf">0.6</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">))</span>
 <span class="c"># When using transparency, hiding &#39;backface&#39; triangles often gives better</span>
 <span class="c"># results</span>
@@ -218,14 +219,14 @@ an IsoSurface module on this scalar component.</p>
         <li class="right" >
           <a href="example_spherical_harmonics.html" title="Spherical harmonics example"
              >previous</a> |</li>
-        <li><a href="../index.html">mayavi 4.2.1 documentation</a> &raquo;</li>
+        <li><a href="../index.html">mayavi 4.3.1 documentation</a> &raquo;</li>
           <li><a href="examples.html" >Example gallery</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Jul 09, 2012.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+        &copy; Copyright 2008-2014, Prabhu Ramachandran, Gaël Varoquaux.
+      Last updated on Jan 30, 2014.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
     </div>
   </body>
 </html>
