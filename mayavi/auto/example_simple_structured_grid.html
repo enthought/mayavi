@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Simple structured grid example &mdash; mayavi 4.2.1 documentation</title>
+    <title>Simple structured grid example &mdash; mayavi 4.3.1 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.2.1',
+        VERSION:     '4.3.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.2.1 documentation" href="../index.html" />
+    <link rel="top" title="mayavi 4.3.1 documentation" href="../index.html" />
     <link rel="up" title="Example gallery" href="examples.html" />
     <link rel="next" title="Atomic orbital example" href="example_atomic_orbital.html" />
     <link rel="prev" title="Julia set decimation example" href="example_julia_set_decimation.html" />
@@ -73,7 +73,7 @@
         <li class="right" >
           <a href="example_julia_set_decimation.html" title="Julia set decimation example"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">mayavi 4.2.1 documentation</a> &raquo;</li>
+        <li><a href="../index.html">mayavi 4.3.1 documentation</a> &raquo;</li>
           <li><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
       </ul>
     </div>  
@@ -105,33 +105,33 @@ mlab.pipeline interface (see <a class="reference internal" href="../mlab_pipelin
 <span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
 
 <span class="c"># Generate some points.</span>
-<span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">mgrid</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">6</span><span class="p">:</span><span class="mi">11</span><span class="n">j</span><span class="p">,</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">:</span><span class="mi">13</span><span class="n">j</span><span class="p">,</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">:</span><span class="mi">6</span><span class="n">j</span><span class="p">]</span>
-<span class="n">base</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="o">...</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">y</span><span class="p">[</span><span class="o">...</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">mgrid</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">6</span><span class="p">:</span><span class="mi">11j</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">:</span><span class="mi">13j</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">:</span><span class="mi">6j</span><span class="p">]</span>
+<span class="n">base</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">y</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
 <span class="c"># Some interesting z values.</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">z</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]):</span>
-    <span class="n">z</span><span class="p">[</span><span class="o">...</span><span class="p">,</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">base</span><span class="o">*</span><span class="mf">0.25</span><span class="o">*</span><span class="n">i</span>
+    <span class="n">z</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">base</span> <span class="o">*</span> <span class="mf">0.25</span> <span class="o">*</span> <span class="n">i</span>
 
 <span class="c"># The actual points.</span>
 <span class="n">pts</span> <span class="o">=</span> <span class="n">empty</span><span class="p">(</span><span class="n">z</span><span class="o">.</span><span class="n">shape</span> <span class="o">+</span> <span class="p">(</span><span class="mi">3</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
-<span class="n">pts</span><span class="p">[</span><span class="o">...</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span>
-<span class="n">pts</span><span class="p">[</span><span class="o">...</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span>
-<span class="n">pts</span><span class="p">[</span><span class="o">...</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">z</span>
+<span class="n">pts</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span>
+<span class="n">pts</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span>
+<span class="n">pts</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">z</span>
 
 <span class="c"># Simple scalars.</span>
-<span class="n">scalars</span> <span class="o">=</span> <span class="n">x</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="o">*</span><span class="n">y</span> <span class="o">+</span> <span class="n">z</span><span class="o">*</span><span class="n">z</span>
+<span class="n">scalars</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span> <span class="o">*</span> <span class="n">y</span> <span class="o">+</span> <span class="n">z</span> <span class="o">*</span> <span class="n">z</span>
 <span class="c"># Some vectors</span>
 <span class="n">vectors</span> <span class="o">=</span> <span class="n">empty</span><span class="p">(</span><span class="n">z</span><span class="o">.</span><span class="n">shape</span> <span class="o">+</span> <span class="p">(</span><span class="mi">3</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
-<span class="n">vectors</span><span class="p">[</span><span class="o">...</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">4</span> <span class="o">-</span> <span class="n">y</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">vectors</span><span class="p">[</span><span class="o">...</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="mi">3</span> <span class="o">-</span> <span class="mi">12</span><span class="p">)</span>
-<span class="n">vectors</span><span class="p">[</span><span class="o">...</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">z</span><span class="o">*</span><span class="n">pi</span><span class="p">)</span>
+<span class="n">vectors</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">4</span> <span class="o">-</span> <span class="n">y</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">vectors</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">-</span> <span class="mi">12</span><span class="p">)</span>
+<span class="n">vectors</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">z</span> <span class="o">*</span> <span class="n">pi</span><span class="p">)</span>
 
 <span class="c"># We reorder the points, scalars and vectors so this is as per VTK&#39;s</span>
 <span class="c"># requirement of x first, y next and z last.</span>
 <span class="n">pts</span> <span class="o">=</span> <span class="n">pts</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="n">pts</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="n">pts</span><span class="o">.</span><span class="n">size</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span>
+<span class="n">pts</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="n">pts</span><span class="o">.</span><span class="n">size</span> <span class="o">/</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span>
 <span class="n">scalars</span> <span class="o">=</span> <span class="n">scalars</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 <span class="n">vectors</span> <span class="o">=</span> <span class="n">vectors</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="n">vectors</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="n">vectors</span><span class="o">.</span><span class="n">size</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span>
+<span class="n">vectors</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="n">vectors</span><span class="o">.</span><span class="n">size</span> <span class="o">/</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span>
 
 <span class="c"># Create the dataset.</span>
 <span class="n">sg</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">StructuredGrid</span><span class="p">(</span><span class="n">dimensions</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">points</span><span class="o">=</span><span class="n">pts</span><span class="p">)</span>
@@ -238,14 +238,14 @@ mlab.pipeline interface (see <a class="reference internal" href="../mlab_pipelin
         <li class="right" >
           <a href="example_julia_set_decimation.html" title="Julia set decimation example"
              >previous</a> |</li>
-        <li><a href="../index.html">mayavi 4.2.1 documentation</a> &raquo;</li>
+        <li><a href="../index.html">mayavi 4.3.1 documentation</a> &raquo;</li>
           <li><a href="examples.html" >Example gallery</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Jul 09, 2012.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+        &copy; Copyright 2008-2014, Prabhu Ramachandran, Gaël Varoquaux.
+      Last updated on Jan 30, 2014.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
     </div>
   </body>
 </html>

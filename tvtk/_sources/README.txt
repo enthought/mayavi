@@ -2,8 +2,8 @@
 An Introduction to Traited VTK (tvtk)
 =====================================
 :Author: Prabhu Ramachandran
-:Contact: prabhu_r@users.sourceforge.net
-:Copyright: 2004-2005, Enthought, Inc.
+:Contact: prabhu@enthought.com
+:Copyright: 2004-2012, Enthought, Inc.
 
 .. contents::
 
@@ -715,6 +715,33 @@ Other utility modules
 
 The `tvtk` package ships with several other utility modules.  These
 are briefly described in the following sections.
+
+Miscellaneous
+--------------
+
+If you need to write out VTK data files given a TVTK dataset.  The
+``tvtk.api.write_data`` function should be useful.  For example::
+
+    >>> from tvtk.api import tvtk, write_data
+    >>> pd = tvtk.PolyData()
+    >>> # ...
+    >>> write_data(pd, 'file_name')
+    
+This will write out an XML file with basename ``file_name``.  If one specifies
+a ``.vtk`` extension, like say::
+
+    >>> write_data(pd, 'file_name.vtk')
+    
+It will write out an old-style ASCII file.  See the docstring for more details.
+
+VTK-Python defines several handy colors and these are made available in TVTK.
+For example::
+
+    >>> from tvtk.api import colors
+    >>> colors.alice_blue
+    (0.9412, 0.9725, 1.0)
+
+This allows you to refer to color by name easily.
 
 `pipeline.browser`
 ------------------

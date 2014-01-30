@@ -16,7 +16,7 @@ For an example of feature extraction from MRI data using Mayavi and vtk,
 see :ref:`example_tvtk_segmentation`.
 """
 
-### Download the data, if not already on disk ##################################
+### Download the data, if not already on disk #################################
 import os
 if not os.path.exists('mri_data.tar.gz'):
     # Download the data
@@ -37,14 +37,14 @@ tar_file.extractall('mri_data')
 tar_file.close()
 
 
-### Read the data in a numpy 3D array ##########################################
+### Read the data in a numpy 3D array #########################################
 import numpy as np
 data = np.array([np.fromfile(os.path.join('mri_data', 'MRbrain.%i' % i),
                                         dtype='>u2') for i in range(1, 110)])
 data.shape = (109, 256, 256)
 data = data.T
 
-# Display the data #############################################################
+# Display the data ############################################################
 from mayavi import mlab
 
 mlab.figure(bgcolor=(0, 0, 0), size=(400, 400))

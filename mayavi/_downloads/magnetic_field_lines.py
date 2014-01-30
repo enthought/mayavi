@@ -22,39 +22,41 @@ visualization with Mayavi and scipy, see
 import numpy as np
 from scipy import special
 
-#### Calculate the field #####################################################
-radius = 1 # Radius of the coils
+#### Calculate the field ####################################################
+radius = 1  # Radius of the coils
 
 x, y, z = [e.astype(np.float32) for e in
-            np.ogrid[-10:10:150j, -10:10:150j, -10:10:150j] ]
+            np.ogrid[-10:10:150j, -10:10:150j, -10:10:150j]]
 
 # express the coordinates in polar form
-rho = np.sqrt(x**2 + y**2)
-x_proj = x/rho
-y_proj = y/rho
+rho = np.sqrt(x ** 2 + y ** 2)
+x_proj = x / rho
+y_proj = y / rho
 # Free memory early
 del x, y
 
-E = special.ellipe((4 * radius * rho)/( (radius + rho)**2 + z**2))
-K = special.ellipk((4 * radius * rho)/( (radius + rho)**2 + z**2))
-Bz =  1/np.sqrt((radius + rho)**2 + z**2) * (
+E = special.ellipe((4 * radius * rho) / ((radius + rho) ** 2 + z ** 2))
+K = special.ellipk((4 * radius * rho) / ((radius + rho) ** 2 + z ** 2))
+Bz = 1 / np.sqrt((radius + rho) ** 2 + z ** 2) * (
                 K
-                + E * (radius**2 - rho**2 - z**2)/((radius - rho)**2 + z**2)
+                + E * (radius ** 2 - rho ** 2 - z ** 2) /
+                    ((radius - rho) ** 2 + z ** 2)
             )
-Brho = z/(rho*np.sqrt((radius + rho)**2 + z**2)) * (
-                -K
-                + E * (radius**2 + rho**2 + z**2)/((radius - rho)**2 + z**2)
+Brho = z / (rho * np.sqrt((radius + rho) ** 2 + z ** 2)) * (
+                - K
+                + E * (radius ** 2 + rho ** 2 + z ** 2) /
+                    ((radius - rho) ** 2 + z ** 2)
             )
 del E, K, z, rho
 # On the axis of the coil we get a divided by zero. This returns a
 # NaN, where the field is actually zero :
 Brho[np.isnan(Brho)] = 0
 
-Bx, By = x_proj*Brho, y_proj*Brho
+Bx, By = x_proj * Brho, y_proj * Brho
 
 del x_proj, y_proj, Brho
 
-#### Visualize the field #####################################################
+#### Visualize the field ####################################################
 from mayavi import mlab
 fig = mlab.figure(1, size=(400, 400), bgcolor=(1, 1, 1), fgcolor=(0, 0, 0))
 
@@ -84,7 +86,6 @@ field_lines.seed.widget.point2 = [82, 75.5, 75.5]
 field_lines.seed.widget.resolution = 50
 field_lines.seed.widget.enabled = False
 
-mlab.view(42, 73, 104, [ 79,  75,  76])
+mlab.view(42, 73, 104, [79,  75,  76])
 
 mlab.show()
-

@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Qt embedding example &mdash; mayavi 4.2.1 documentation</title>
+    <title>Qt embedding example &mdash; mayavi 4.3.1 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.2.1',
+        VERSION:     '4.3.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.2.1 documentation" href="../index.html" />
+    <link rel="top" title="mayavi 4.3.1 documentation" href="../index.html" />
     <link rel="up" title="Example gallery" href="examples.html" />
     <link rel="next" title="Adjust cropping extents example" href="example_adjust_cropping_extents.html" />
     <link rel="prev" title="Compute in thread example" href="example_compute_in_thread.html" />
@@ -73,7 +73,7 @@
         <li class="right" >
           <a href="example_compute_in_thread.html" title="Compute in thread example"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">mayavi 4.2.1 documentation</a> &raquo;</li>
+        <li><a href="../index.html">mayavi 4.3.1 documentation</a> &raquo;</li>
           <li><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
       </ul>
     </div>  
@@ -94,6 +94,9 @@ example, please read section <em class="xref std std-ref">builing-applications</
 <span class="c"># environment variable to qt4, to tell Traits that we will use Qt.</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s">&#39;ETS_TOOLKIT&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;qt4&#39;</span>
+<span class="c"># By default, the PySide binding will be used. If you want the PyQt bindings</span>
+<span class="c"># to be used, you need to set the QT_API environment variable to &#39;pyqt&#39;</span>
+<span class="c">#os.environ[&#39;QT_API&#39;] = &#39;pyqt&#39;</span>
 
 <span class="c"># To be able to use PySide or PyQt4 and not run in conflicts with traits,</span>
 <span class="c"># we need to import QtGui and QtCore from pyface.qt</span>
@@ -103,8 +106,7 @@ example, please read section <em class="xref std std-ref">builing-applications</
 <span class="c">#   import sip</span>
 <span class="c">#   sip.setapi(&#39;QString&#39;, 2)</span>
 
-<span class="kn">from</span> <span class="nn">traits.api</span> <span class="kn">import</span> <span class="n">HasTraits</span><span class="p">,</span> <span class="n">Instance</span><span class="p">,</span> <span class="n">on_trait_change</span><span class="p">,</span> \
-    <span class="n">Int</span><span class="p">,</span> <span class="n">Dict</span>
+<span class="kn">from</span> <span class="nn">traits.api</span> <span class="kn">import</span> <span class="n">HasTraits</span><span class="p">,</span> <span class="n">Instance</span><span class="p">,</span> <span class="n">on_trait_change</span>
 <span class="kn">from</span> <span class="nn">traitsui.api</span> <span class="kn">import</span> <span class="n">View</span><span class="p">,</span> <span class="n">Item</span>
 <span class="kn">from</span> <span class="nn">mayavi.core.ui.api</span> <span class="kn">import</span> <span class="n">MayaviScene</span><span class="p">,</span> <span class="n">MlabSceneModel</span><span class="p">,</span> \
         <span class="n">SceneEditor</span>
@@ -137,7 +139,7 @@ example, please read section <em class="xref std std-ref">builing-applications</
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="n">QtGui</span><span class="o">.</span><span class="n">QWidget</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
         <span class="n">layout</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QVBoxLayout</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="n">layout</span><span class="o">.</span><span class="n">setMargin</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">setContentsMargins</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
         <span class="n">layout</span><span class="o">.</span><span class="n">setSpacing</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">visualization</span> <span class="o">=</span> <span class="n">Visualization</span><span class="p">()</span>
 
@@ -266,14 +268,14 @@ example, please read section <em class="xref std std-ref">builing-applications</
         <li class="right" >
           <a href="example_compute_in_thread.html" title="Compute in thread example"
              >previous</a> |</li>
-        <li><a href="../index.html">mayavi 4.2.1 documentation</a> &raquo;</li>
+        <li><a href="../index.html">mayavi 4.3.1 documentation</a> &raquo;</li>
           <li><a href="examples.html" >Example gallery</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Jul 09, 2012.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+        &copy; Copyright 2008-2014, Prabhu Ramachandran, Gaël Varoquaux.
+      Last updated on Jan 30, 2014.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
     </div>
   </body>
 </html>

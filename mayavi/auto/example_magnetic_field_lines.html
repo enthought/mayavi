@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Magnetic field lines example &mdash; mayavi 4.2.1 documentation</title>
+    <title>Magnetic field lines example &mdash; mayavi 4.3.1 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.2.1',
+        VERSION:     '4.3.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.2.1 documentation" href="../index.html" />
+    <link rel="top" title="mayavi 4.3.1 documentation" href="../index.html" />
     <link rel="up" title="Example gallery" href="examples.html" />
     <link rel="next" title="Mri example" href="example_mri.html" />
     <link rel="prev" title="Plotting many lines example" href="example_plotting_many_lines.html" />
@@ -73,7 +73,7 @@
         <li class="right" >
           <a href="example_plotting_many_lines.html" title="Plotting many lines example"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">mayavi 4.2.1 documentation</a> &raquo;</li>
+        <li><a href="../index.html">mayavi 4.3.1 documentation</a> &raquo;</li>
           <li><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
       </ul>
     </div>  
@@ -105,39 +105,41 @@ visualization with Mayavi and scipy, see
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">special</span>
 
-<span class="c">#### Calculate the field #####################################################</span>
-<span class="n">radius</span> <span class="o">=</span> <span class="mi">1</span> <span class="c"># Radius of the coils</span>
+<span class="c">#### Calculate the field ####################################################</span>
+<span class="n">radius</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c"># Radius of the coils</span>
 
 <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span>
-            <span class="n">np</span><span class="o">.</span><span class="n">ogrid</span><span class="p">[</span><span class="o">-</span><span class="mi">10</span><span class="p">:</span><span class="mi">10</span><span class="p">:</span><span class="mi">150</span><span class="n">j</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">:</span><span class="mi">10</span><span class="p">:</span><span class="mi">150</span><span class="n">j</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">:</span><span class="mi">10</span><span class="p">:</span><span class="mi">150</span><span class="n">j</span><span class="p">]</span> <span class="p">]</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">ogrid</span><span class="p">[</span><span class="o">-</span><span class="mi">10</span><span class="p">:</span><span class="mi">10</span><span class="p">:</span><span class="mi">150j</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">:</span><span class="mi">10</span><span class="p">:</span><span class="mi">150j</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">:</span><span class="mi">10</span><span class="p">:</span><span class="mi">150j</span><span class="p">]]</span>
 
 <span class="c"># express the coordinates in polar form</span>
-<span class="n">rho</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">y</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">x_proj</span> <span class="o">=</span> <span class="n">x</span><span class="o">/</span><span class="n">rho</span>
-<span class="n">y_proj</span> <span class="o">=</span> <span class="n">y</span><span class="o">/</span><span class="n">rho</span>
+<span class="n">rho</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">y</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">x_proj</span> <span class="o">=</span> <span class="n">x</span> <span class="o">/</span> <span class="n">rho</span>
+<span class="n">y_proj</span> <span class="o">=</span> <span class="n">y</span> <span class="o">/</span> <span class="n">rho</span>
 <span class="c"># Free memory early</span>
 <span class="k">del</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
 
-<span class="n">E</span> <span class="o">=</span> <span class="n">special</span><span class="o">.</span><span class="n">ellipe</span><span class="p">((</span><span class="mi">4</span> <span class="o">*</span> <span class="n">radius</span> <span class="o">*</span> <span class="n">rho</span><span class="p">)</span><span class="o">/</span><span class="p">(</span> <span class="p">(</span><span class="n">radius</span> <span class="o">+</span> <span class="n">rho</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
-<span class="n">K</span> <span class="o">=</span> <span class="n">special</span><span class="o">.</span><span class="n">ellipk</span><span class="p">((</span><span class="mi">4</span> <span class="o">*</span> <span class="n">radius</span> <span class="o">*</span> <span class="n">rho</span><span class="p">)</span><span class="o">/</span><span class="p">(</span> <span class="p">(</span><span class="n">radius</span> <span class="o">+</span> <span class="n">rho</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
-<span class="n">Bz</span> <span class="o">=</span>  <span class="mi">1</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">radius</span> <span class="o">+</span> <span class="n">rho</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span>
+<span class="n">E</span> <span class="o">=</span> <span class="n">special</span><span class="o">.</span><span class="n">ellipe</span><span class="p">((</span><span class="mi">4</span> <span class="o">*</span> <span class="n">radius</span> <span class="o">*</span> <span class="n">rho</span><span class="p">)</span> <span class="o">/</span> <span class="p">((</span><span class="n">radius</span> <span class="o">+</span> <span class="n">rho</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">z</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
+<span class="n">K</span> <span class="o">=</span> <span class="n">special</span><span class="o">.</span><span class="n">ellipk</span><span class="p">((</span><span class="mi">4</span> <span class="o">*</span> <span class="n">radius</span> <span class="o">*</span> <span class="n">rho</span><span class="p">)</span> <span class="o">/</span> <span class="p">((</span><span class="n">radius</span> <span class="o">+</span> <span class="n">rho</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">z</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
+<span class="n">Bz</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">radius</span> <span class="o">+</span> <span class="n">rho</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">z</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span>
                 <span class="n">K</span>
-                <span class="o">+</span> <span class="n">E</span> <span class="o">*</span> <span class="p">(</span><span class="n">radius</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">rho</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="p">((</span><span class="n">radius</span> <span class="o">-</span> <span class="n">rho</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+                <span class="o">+</span> <span class="n">E</span> <span class="o">*</span> <span class="p">(</span><span class="n">radius</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">rho</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">z</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span>
+                    <span class="p">((</span><span class="n">radius</span> <span class="o">-</span> <span class="n">rho</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">z</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
             <span class="p">)</span>
-<span class="n">Brho</span> <span class="o">=</span> <span class="n">z</span><span class="o">/</span><span class="p">(</span><span class="n">rho</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">radius</span> <span class="o">+</span> <span class="n">rho</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span>
-                <span class="o">-</span><span class="n">K</span>
-                <span class="o">+</span> <span class="n">E</span> <span class="o">*</span> <span class="p">(</span><span class="n">radius</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">rho</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="p">((</span><span class="n">radius</span> <span class="o">-</span> <span class="n">rho</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">Brho</span> <span class="o">=</span> <span class="n">z</span> <span class="o">/</span> <span class="p">(</span><span class="n">rho</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">radius</span> <span class="o">+</span> <span class="n">rho</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">z</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span>
+                <span class="o">-</span> <span class="n">K</span>
+                <span class="o">+</span> <span class="n">E</span> <span class="o">*</span> <span class="p">(</span><span class="n">radius</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">rho</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">z</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span>
+                    <span class="p">((</span><span class="n">radius</span> <span class="o">-</span> <span class="n">rho</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">z</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
             <span class="p">)</span>
 <span class="k">del</span> <span class="n">E</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">rho</span>
 <span class="c"># On the axis of the coil we get a divided by zero. This returns a</span>
 <span class="c"># NaN, where the field is actually zero :</span>
 <span class="n">Brho</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">Brho</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">0</span>
 
-<span class="n">Bx</span><span class="p">,</span> <span class="n">By</span> <span class="o">=</span> <span class="n">x_proj</span><span class="o">*</span><span class="n">Brho</span><span class="p">,</span> <span class="n">y_proj</span><span class="o">*</span><span class="n">Brho</span>
+<span class="n">Bx</span><span class="p">,</span> <span class="n">By</span> <span class="o">=</span> <span class="n">x_proj</span> <span class="o">*</span> <span class="n">Brho</span><span class="p">,</span> <span class="n">y_proj</span> <span class="o">*</span> <span class="n">Brho</span>
 
 <span class="k">del</span> <span class="n">x_proj</span><span class="p">,</span> <span class="n">y_proj</span><span class="p">,</span> <span class="n">Brho</span>
 
-<span class="c">#### Visualize the field #####################################################</span>
+<span class="c">#### Visualize the field ####################################################</span>
 <span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
 <span class="n">fig</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">400</span><span class="p">),</span> <span class="n">bgcolor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">fgcolor</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
 
@@ -167,7 +169,7 @@ visualization with Mayavi and scipy, see
 <span class="n">field_lines</span><span class="o">.</span><span class="n">seed</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">resolution</span> <span class="o">=</span> <span class="mi">50</span>
 <span class="n">field_lines</span><span class="o">.</span><span class="n">seed</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="bp">False</span>
 
-<span class="n">mlab</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="mi">42</span><span class="p">,</span> <span class="mi">73</span><span class="p">,</span> <span class="mi">104</span><span class="p">,</span> <span class="p">[</span> <span class="mi">79</span><span class="p">,</span>  <span class="mi">75</span><span class="p">,</span>  <span class="mi">76</span><span class="p">])</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="mi">42</span><span class="p">,</span> <span class="mi">73</span><span class="p">,</span> <span class="mi">104</span><span class="p">,</span> <span class="p">[</span><span class="mi">79</span><span class="p">,</span>  <span class="mi">75</span><span class="p">,</span>  <span class="mi">76</span><span class="p">])</span>
 
 <span class="n">mlab</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
@@ -252,14 +254,14 @@ visualization with Mayavi and scipy, see
         <li class="right" >
           <a href="example_plotting_many_lines.html" title="Plotting many lines example"
              >previous</a> |</li>
-        <li><a href="../index.html">mayavi 4.2.1 documentation</a> &raquo;</li>
+        <li><a href="../index.html">mayavi 4.3.1 documentation</a> &raquo;</li>
           <li><a href="examples.html" >Example gallery</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Jul 09, 2012.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+        &copy; Copyright 2008-2014, Prabhu Ramachandran, Gaël Varoquaux.
+      Last updated on Jan 30, 2014.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
     </div>
   </body>
 </html>

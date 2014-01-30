@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Protein example &mdash; mayavi 4.2.1 documentation</title>
+    <title>Protein example &mdash; mayavi 4.3.1 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.2.1',
+        VERSION:     '4.3.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.2.1 documentation" href="../index.html" />
+    <link rel="top" title="mayavi 4.3.1 documentation" href="../index.html" />
     <link rel="up" title="Example gallery" href="examples.html" />
     <link rel="next" title="Flight graph example" href="example_flight_graph.html" />
     <link rel="prev" title="Mri example" href="example_mri.html" />
@@ -73,7 +73,7 @@
         <li class="right" >
           <a href="example_mri.html" title="Mri example"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">mayavi 4.2.1 documentation</a> &raquo;</li>
+        <li><a href="../index.html">mayavi 4.3.1 documentation</a> &raquo;</li>
           <li><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
       </ul>
     </div>  
@@ -123,7 +123,7 @@ volume rendering.</p>
 <span class="c"># The pdb code for the protein.</span>
 <span class="n">protein_code</span> <span class="o">=</span> <span class="s">&#39;2q09&#39;</span>
 
-<span class="c"># Retrieve the file from the protein database ##################################</span>
+<span class="c"># Retrieve the file from the protein database #################################</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s">&#39;pdb</span><span class="si">%s</span><span class="s">.ent.gz&#39;</span> <span class="o">%</span> <span class="n">protein_code</span><span class="p">):</span>
     <span class="c"># Download the data</span>
@@ -134,7 +134,7 @@ volume rendering.</p>
       <span class="o">%</span> <span class="n">protein_code</span><span class="p">)</span>
     <span class="nb">open</span><span class="p">(</span><span class="s">&#39;pdb</span><span class="si">%s</span><span class="s">.ent.gz&#39;</span> <span class="o">%</span> <span class="n">protein_code</span><span class="p">,</span> <span class="s">&#39;wb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">opener</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
 
-<span class="c"># Parse the pdb file ###########################################################</span>
+<span class="c"># Parse the pdb file ##########################################################</span>
 <span class="kn">import</span> <span class="nn">gzip</span>
 <span class="n">infile</span> <span class="o">=</span> <span class="n">gzip</span><span class="o">.</span><span class="n">GzipFile</span><span class="p">(</span><span class="s">&#39;pdb</span><span class="si">%s</span><span class="s">.ent.gz&#39;</span> <span class="o">%</span> <span class="n">protein_code</span><span class="p">,</span> <span class="s">&#39;rb&#39;</span><span class="p">)</span>
 
@@ -168,14 +168,14 @@ volume rendering.</p>
 <span class="c"># Turn the graph into 3D positions, and a connection list.</span>
 <span class="n">labels</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
 
-<span class="n">x</span>       <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
-<span class="n">y</span>       <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
-<span class="n">z</span>       <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+<span class="n">x</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+<span class="n">y</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+<span class="n">z</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
 <span class="n">scalars</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
 
 <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">nodes</span><span class="p">):</span>
     <span class="n">labels</span><span class="p">[</span><span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="n">index</span>
-    <span class="n">this_scalar</span><span class="p">,</span> <span class="n">this_x</span><span class="p">,</span> <span class="n">this_y</span><span class="p">,</span> <span class="n">this_z</span><span class="o">=</span> <span class="n">nodes</span><span class="p">[</span><span class="n">label</span><span class="p">]</span>
+    <span class="n">this_scalar</span><span class="p">,</span> <span class="n">this_x</span><span class="p">,</span> <span class="n">this_y</span><span class="p">,</span> <span class="n">this_z</span> <span class="o">=</span> <span class="n">nodes</span><span class="p">[</span><span class="n">label</span><span class="p">]</span>
     <span class="n">scalars</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">atoms</span><span class="p">[</span><span class="n">this_scalar</span><span class="p">])</span>
     <span class="n">x</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">this_x</span><span class="p">))</span>
     <span class="n">y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">this_y</span><span class="p">))</span>
@@ -187,17 +187,17 @@ volume rendering.</p>
     <span class="n">connections</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">labels</span><span class="p">[</span><span class="n">start</span><span class="p">],</span> <span class="n">labels</span><span class="p">[</span><span class="n">stop</span><span class="p">]))</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="n">x</span>       <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<span class="n">y</span>       <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
-<span class="n">z</span>       <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
 <span class="n">scalars</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">scalars</span><span class="p">)</span>
 
-<span class="c"># Visualize the data ###########################################################</span>
+<span class="c"># Visualize the data ##########################################################</span>
 <span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
 <span class="n">mlab</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">bgcolor</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
 <span class="n">mlab</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
 
-<span class="n">pts</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">points3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="mf">1.5</span><span class="o">*</span><span class="n">scalars</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">scalars</span><span class="p">,</span>
+<span class="n">pts</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">points3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">scalars</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">scalars</span><span class="p">,</span>
                                     <span class="n">scale_factor</span><span class="o">=</span><span class="mf">0.015</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 <span class="n">pts</span><span class="o">.</span><span class="n">mlab_source</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">lines</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">connections</span><span class="p">)</span>
 
@@ -296,14 +296,14 @@ volume rendering.</p>
         <li class="right" >
           <a href="example_mri.html" title="Mri example"
              >previous</a> |</li>
-        <li><a href="../index.html">mayavi 4.2.1 documentation</a> &raquo;</li>
+        <li><a href="../index.html">mayavi 4.3.1 documentation</a> &raquo;</li>
           <li><a href="examples.html" >Example gallery</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Jul 09, 2012.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+        &copy; Copyright 2008-2014, Prabhu Ramachandran, Gaël Varoquaux.
+      Last updated on Jan 30, 2014.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
     </div>
   </body>
 </html>

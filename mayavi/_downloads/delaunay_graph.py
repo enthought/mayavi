@@ -83,7 +83,7 @@ def compute_delaunay_edges(x, y, z, visualize=False):
         vtk_source = mlab.points3d(x, y, z, opacity=0.3, mode='2dvertex')
         vtk_source.actor.property.point_size = 3
     else:
-        vtk_source = mlab.points3d(x, y, z, figure=False)
+        vtk_source =  mlab.pipeline.scalar_scatter(x, y, z, figure=False)
     delaunay =  mlab.pipeline.delaunay3d(vtk_source)
     delaunay.filter.offset = 999    # seems more reliable than the default
     edges = mlab.pipeline.extract_edges(delaunay)

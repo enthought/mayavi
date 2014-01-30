@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Wigner example &mdash; mayavi 4.2.1 documentation</title>
+    <title>Wigner example &mdash; mayavi 4.3.1 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -16,7 +16,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.2.1',
+        VERSION:     '4.3.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.2.1 documentation" href="../index.html" />
+    <link rel="top" title="mayavi 4.3.1 documentation" href="../index.html" />
     <link rel="up" title="Example gallery" href="examples.html" />
     <link rel="next" title="Canyon decimation example" href="example_canyon_decimation.html" />
     <link rel="prev" title="Chemistry example" href="example_chemistry.html" />
@@ -73,7 +73,7 @@
         <li class="right" >
           <a href="example_chemistry.html" title="Chemistry example"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">mayavi 4.2.1 documentation</a> &raquo;</li>
+        <li><a href="../index.html">mayavi 4.3.1 documentation</a> &raquo;</li>
           <li><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
       </ul>
     </div>  
@@ -107,14 +107,15 @@ and ranges in order to make them fit with the data.</p>
 <span class="kn">import</span> <span class="nn">numpy</span>
 <span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
 
+
 <span class="k">def</span> <span class="nf">cat</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">eta</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">purity</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Multiphoton shrodinger cat. eta is the fidelity, alpha the number</span>
 <span class="sd">        of photons&quot;&quot;&quot;</span>
     <span class="n">cos</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">cos</span>
     <span class="n">exp</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">exp</span>
-    <span class="k">return</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">eta</span><span class="o">*</span><span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span><span class="p">(</span><span class="n">y</span><span class="o">-</span><span class="n">alpha</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>  <span class="o">+</span> <span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span>
-    <span class="p">(</span><span class="n">y</span><span class="o">+</span><span class="n">alpha</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">purity</span> <span class="o">*</span> <span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">y</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">x</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span>
-    <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">exp</span><span class="p">(</span><span class="o">-</span> <span class="n">alpha</span><span class="o">**</span><span class="mi">2</span><span class="p">))))</span><span class="o">/</span><span class="mi">2</span>
+    <span class="k">return</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">eta</span> <span class="o">*</span> <span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span>
+    <span class="p">(</span><span class="n">y</span> <span class="o">+</span> <span class="n">alpha</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">purity</span> <span class="o">*</span> <span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">y</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> \
+    <span class="n">alpha</span> <span class="o">*</span> <span class="n">x</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">exp</span><span class="p">(</span><span class="o">-</span> <span class="n">alpha</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))))</span> <span class="o">/</span> <span class="mi">2</span>
 
 <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">:</span><span class="mf">4.15</span><span class="p">:</span><span class="mf">0.1</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">:</span><span class="mf">4.15</span><span class="p">:</span><span class="mf">0.1</span><span class="p">]</span>
 
@@ -133,26 +134,26 @@ and ranges in order to make them fit with the data.</p>
 <span class="n">cat2</span> <span class="o">-=</span> <span class="mf">0.5</span>
 <span class="n">cat3</span> <span class="o">-=</span> <span class="mf">0.5</span>
 
-<span class="n">cat1_extent</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">14</span><span class="p">,</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
-<span class="n">surf_cat1</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">surf</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cat1</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s">&#39;Spectral&#39;</span><span class="p">,</span> <span class="n">warp_scale</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+<span class="n">cat1_extent</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">14</span><span class="p">,</span> <span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">surf_cat1</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">surf</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">10</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cat1</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s">&#39;Spectral&#39;</span><span class="p">,</span> <span class="n">warp_scale</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
             <span class="n">extent</span><span class="o">=</span><span class="n">cat1_extent</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-<span class="n">mlab</span><span class="o">.</span><span class="n">outline</span><span class="p">(</span><span class="n">surf_cat1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="o">.</span><span class="mi">7</span><span class="p">,</span> <span class="o">.</span><span class="mi">7</span><span class="p">,</span> <span class="o">.</span><span class="mi">7</span><span class="p">))</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">outline</span><span class="p">(</span><span class="n">surf_cat1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="o">.</span><span class="mi">7</span><span class="p">,</span> <span class="o">.</span><span class="mi">7</span><span class="p">,</span> <span class="o">.</span><span class="mi">7</span><span class="p">),</span> <span class="n">extent</span><span class="o">=</span><span class="n">cat1_extent</span><span class="p">)</span>
 <span class="n">mlab</span><span class="o">.</span><span class="n">axes</span><span class="p">(</span><span class="n">surf_cat1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="o">.</span><span class="mi">7</span><span class="p">,</span> <span class="o">.</span><span class="mi">7</span><span class="p">,</span> <span class="o">.</span><span class="mi">7</span><span class="p">),</span> <span class="n">extent</span><span class="o">=</span><span class="n">cat1_extent</span><span class="p">,</span>
-            <span class="n">ranges</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">xlabel</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">,</span>
+            <span class="n">ranges</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">xlabel</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">,</span>
             <span class="n">zlabel</span><span class="o">=</span><span class="s">&#39;Probability&#39;</span><span class="p">,</span>
             <span class="n">x_axis_visibility</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">z_axis_visibility</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 
 <span class="n">mlab</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mi">18</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="s">&#39;1 photon&#39;</span><span class="p">,</span> <span class="n">z</span><span class="o">=-</span><span class="mi">4</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.13</span><span class="p">)</span>
 
-<span class="n">cat2_extent</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">cat2_extent</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
 <span class="n">surf_cat2</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">surf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cat2</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s">&#39;Spectral&#39;</span><span class="p">,</span> <span class="n">warp_scale</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
             <span class="n">extent</span><span class="o">=</span><span class="n">cat2_extent</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 <span class="n">mlab</span><span class="o">.</span><span class="n">outline</span><span class="p">(</span><span class="n">surf_cat2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mf">0.7</span><span class="p">,</span> <span class="o">.</span><span class="mi">7</span><span class="p">,</span> <span class="o">.</span><span class="mi">7</span><span class="p">),</span> <span class="n">extent</span><span class="o">=</span><span class="n">cat2_extent</span><span class="p">)</span>
 
 <span class="n">mlab</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="s">&#39;2 photons&#39;</span><span class="p">,</span> <span class="n">z</span><span class="o">=-</span><span class="mi">4</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.14</span><span class="p">)</span>
 
-<span class="n">cat3_extent</span> <span class="o">=</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">14</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
-<span class="n">surf_cat3</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">surf</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="mi">10</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cat3</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s">&#39;Spectral&#39;</span><span class="p">,</span> <span class="n">warp_scale</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+<span class="n">cat3_extent</span> <span class="o">=</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">surf_cat3</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">surf</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">10</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cat3</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s">&#39;Spectral&#39;</span><span class="p">,</span> <span class="n">warp_scale</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
             <span class="n">extent</span><span class="o">=</span><span class="n">cat3_extent</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 <span class="n">mlab</span><span class="o">.</span><span class="n">outline</span><span class="p">(</span><span class="n">surf_cat3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="o">.</span><span class="mi">7</span><span class="p">,</span> <span class="o">.</span><span class="mi">7</span><span class="p">,</span> <span class="o">.</span><span class="mi">7</span><span class="p">),</span> <span class="n">extent</span><span class="o">=</span><span class="n">cat3_extent</span><span class="p">)</span>
 
@@ -245,14 +246,14 @@ and ranges in order to make them fit with the data.</p>
         <li class="right" >
           <a href="example_chemistry.html" title="Chemistry example"
              >previous</a> |</li>
-        <li><a href="../index.html">mayavi 4.2.1 documentation</a> &raquo;</li>
+        <li><a href="../index.html">mayavi 4.3.1 documentation</a> &raquo;</li>
           <li><a href="examples.html" >Example gallery</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2008-2010, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Jul 09, 2012.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+        &copy; Copyright 2008-2014, Prabhu Ramachandran, Gaël Varoquaux.
+      Last updated on Jan 30, 2014.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
     </div>
   </body>
 </html>
