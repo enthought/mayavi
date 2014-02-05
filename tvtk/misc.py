@@ -53,6 +53,7 @@ def write_data(dataset, fname, **kwargs):
         file_name = fname
         writer = tvtk.XMLDataSetWriter
 
-    w = writer(file_name=file_name, input=dataset, **kwargs)
+    w = writer(file_name=file_name, **kwargs)
+    w.set_input_data(dataset)
     w.write()
 
