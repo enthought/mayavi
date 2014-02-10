@@ -45,7 +45,8 @@ class TestVTKParser(unittest.TestCase):
         p.parse(vtk.vtkObject())
         self.assertEqual(p.get_toggle_methods(),
                          {'Debug': 0, 'GlobalWarningDisplay': 1})
-        if vtk_major_version >= 5 and vtk_minor_version >= 10:
+        if (vtk_major_version >= 5 and vtk_minor_version >= 10) or \
+           (vtk_major_version >= 6):
             self.assertEqual(p.get_state_methods(), {})
             self.assertEqual(p.get_get_methods(), ['GetCommand', 'GetMTime'])
         elif vtk_major_version >= 5 and vtk_minor_version >= 6:
@@ -193,7 +194,10 @@ class TestVTKParser(unittest.TestCase):
 
         # Test vtkObjects args.
         o = vtk.vtkContourFilter()
-        sig = p.get_method_signature(o.SetInput)
+        if vtk_major_version < 6:
+            sig = p.get_method_signature(o.SetInput)
+        else:
+            sig = p.get_method_signature(o.SetInputData)
         if len(sig) == 1:
             self.assertEqual([([None], ['vtkDataSet'])],
                              sig)
@@ -229,7 +233,8 @@ class TestVTKParser(unittest.TestCase):
         p = self.p
         p.parse(vtk.vtkDataObject)
         self.assert_('UpdateExtent' not in p.get_state_methods())
-        self.assert_('UpdateExtent' in p.get_get_set_methods())
+        if vtk_major_version < 6:
+            self.assert_('UpdateExtent' in p.get_get_set_methods())
 
         p.parse(vtk.vtkImageImport)
         self.assert_('DataExtent' not in p.get_state_methods())

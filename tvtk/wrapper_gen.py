@@ -388,6 +388,9 @@ class WrapperGenerator:
             if klass.__name__ == 'vtkResliceImageViewer' \
                     and m == 'ResliceMode':
                 vtk_val = 'axis_aligned'
+            if  klass.__name__ == 'vtkThreshold' \
+                   and m == 'PointsDataType':
+                vtk_val = 10
 
             if (not hasattr(klass, 'Set' + m)):
                 # Sometimes (very rarely) the VTK method is
@@ -538,6 +541,8 @@ class WrapperGenerator:
                 # sources.
                 del updateable_traits['source']
                 self._write_get_source_method(klass, out)
+            elif m == 'ScalarType':
+                del updateable_traits['scalar_type']
             elif m == 'Input':
                 # In VTK > 4.5, Set/GetInput have multiple signatures.
                 del updateable_traits['input']
@@ -594,6 +599,7 @@ class WrapperGenerator:
                                       mapped=False)
                 elif typ in (types.TupleType,):
                     if (name.find('color') > -1 or \
+                        name.find('bond_color') > -1 or \
                         name.find('background') > -1) and \
                         len(default) == 3:
                         # This is a color.
@@ -607,6 +613,11 @@ class WrapperGenerator:
                         if klass.__name__ == 'vtkPLYWriter' \
                                 and name == 'color':
                             print 'vtkPLYWriter color is not updateable'
+                            default = (1.0, 1.0, 1.0)
+                            del updateable_traits[name]
+                        if klass.__name__ == 'vtkMoleculeMapper' \
+                                and name == 'bond_color':
+                            print 'vtkMoleculeMapper bond_color is not updateable'
                             default = (1.0, 1.0, 1.0)
                             del updateable_traits[name]
                         t_def = 'tvtk_base.vtk_color_trait(%(default)s)'%locals()
