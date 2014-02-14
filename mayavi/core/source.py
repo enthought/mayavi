@@ -22,6 +22,8 @@ from mayavi.core.common import handle_children_state, \
 from mayavi.core.pipeline_info import PipelineInfo
 from mayavi.core.adder_node import ModuleFilterAdderNode
 
+import logging
+logging.basicConfig()
 ######################################################################
 # Utility functions.
 ######################################################################
