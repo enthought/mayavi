@@ -56,10 +56,10 @@ class LightGlyph(HasTraits):
         tf.transform = t
         t.rotate_y(90.0)
         t.translate((-2, 0, 0))
-        tf.input = arrow.output
+        tf.set_input_data(arrow.output)
 
         mapper = tvtk.PolyDataMapper()
-        mapper.input = tf.output
+        mapper.input_connection = tf.output_port
 
         self.actor = actor = tvtk.Follower()
         actor.mapper = mapper
@@ -229,7 +229,7 @@ class CameraLight(HasTraits):
         self.source.intensity = val
 
     def _color_changed(self, val):
-        self.source.color = val
+        self.source.set_color(val)
         self.glyph.set_color(val)
 
     def _elevation_changed(self, val):

@@ -35,7 +35,7 @@ def write_dataset_to_string(data):
     """
     w = tvtk.DataSetWriter(write_to_output_string=1)
     warn = w.global_warning_display
-    w.set_input(data)
+    w.set_input_data(data)
     w.global_warning_display = 0
     w.update()
     if w.output_string_length == 0:
@@ -225,7 +225,7 @@ class VTKDataSource(Source):
     def _data_changed(self, old, new):
         if has_attributes(self.data):
             aa = self._assign_attribute
-            aa.input = new
+            aa.set_input_data(new)
             self._update_data()
             self.outputs = [aa.output]
         else:

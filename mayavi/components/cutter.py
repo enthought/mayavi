@@ -53,7 +53,7 @@ class Cutter(Component):
         if self.inputs[0].has_output_port():
             c.input_connection = self.inputs[0].get_output_object()
         else:
-            c.input = self.inputs[0].get_output_object()
+            c.set_input_data(self.inputs[0].get_output_object())
         self.outputs = [c.output]
 
     def update_data(self):

@@ -181,7 +181,7 @@ class Outline(Module):
             if mm.source.has_output_port():
                 self.outline_filter.input_connection = mm.source.get_output_object()
             else:
-                self.outline_filter.input = mm.source.outputs[0]
+                self.outline_filter.set_input_data(mm.source.outputs[0])
 
     def _bounds_changed(self):
         self.pipeline_changed = True

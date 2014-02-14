@@ -64,7 +64,7 @@ class PolyDataNormals(Component):
             return
         f = self.filter
         input = self.inputs[0].outputs[0]
-        f.input = convert_to_poly_data(input)
+        f.set_input_data(convert_to_poly_data(input))
         f.update()
         self.outputs = [f.output]
 

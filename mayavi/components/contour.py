@@ -305,12 +305,12 @@ class Contour(Component):
         cf = self.contour_filter
         if self.filled_contours:
             inp = convert_to_poly_data(inp)
-            cf.input = inp
+            cf.set_input_data(inp)
         else:
             if self.inputs[0].has_output_port():
                 cf.input_connection = self.inputs[0].get_output_object()
             else:
-                cf.input = self.inputs[0].get_output_object()
+                cf.set_input_data(self.inputs[0].outputs[0])
         cf.update()
         return cf
 

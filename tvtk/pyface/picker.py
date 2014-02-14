@@ -257,7 +257,7 @@ class Picker(HasTraits):
         prop.line_width = 2
         prop.ambient = 1.0
         prop.diffuse = 0.0
-        self.p_mapper.input = self.p_source.output
+        self.p_mapper.set_input_data(self.p_source.output)
         self.p_actor.mapper = self.p_mapper
 
         self.probe_data.points = [[0.0, 0.0, 0.0]]

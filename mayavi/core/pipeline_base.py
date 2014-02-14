@@ -121,11 +121,12 @@ class PipelineBase(Base):
                     m = actor.mapper
                     if m is not None:
                         m.update()
-            for widget in self.widgets:
-                if hasattr(widget, 'input'):
-                    input = widget.input
-                    if input is not None:
-                        input.update()
+# only commenting out as need to relook when backporting to 5.10.1
+#            for widget in self.widgets:
+#                if hasattr(widget, 'input'):
+#                    input = widget.input
+#                    if input is not None:
+#                        input.update()
         if hasattr(self, 'components'):
             for component in self.components:
                     component.render()

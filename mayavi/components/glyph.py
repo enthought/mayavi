@@ -221,10 +221,10 @@ class Glyph(Component):
     # Non-public methods.
     ######################################################################
     def _update_source(self):
-        self.glyph.source = self.glyph_source.outputs[0]
+        self.glyph.set_source_data(self.glyph_source.outputs[0])
 
     def _glyph_source_changed(self, value):
-        self.glyph.source = value.outputs[0]
+        self.glyph.set_source_data(value.outputs[0])
 
     def _color_mode_changed(self, value):
         if len(self.inputs) == 0:
@@ -278,7 +278,7 @@ class Glyph(Component):
             if inputs[0].has_output_port():
                 self.glyph.input_connection = inputs[0].get_output_object()
             else:
-                self.glyph.input = inputs[0].get_output_object()
+                self.glyph.set_input_data(inputs[0].get_output_object())
 
     def _glyph_type_changed(self, value):
         if self.glyph_type == 'vector':
