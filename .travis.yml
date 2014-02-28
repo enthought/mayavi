@@ -25,7 +25,7 @@ script:
   - coverage run -p -m nose.core -v mayavi
   # Run the integration tests.
   - cd integrationtests/mayavi
-  - coverage run -p run.py
+  - coverage run --rcfile=../../.coveragerc -p run.py
   - cd ../../
   - cp integrationtests/mayavi/.coverage.* ./
   - coverage combine

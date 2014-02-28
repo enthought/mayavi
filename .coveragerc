@@ -1,11 +1,7 @@
 [run]
 branch = True
-source =
-    mayavi
-    tvtk
-omit =
-    */tests/*
-    */tvtk_classes.zip/*
+source = mayavi, tvtk
+omit = ['*/tests/*', '*/tvtk_classes.zip/*']
 
 [report]
 # Regexes for lines to exclude from consideration
