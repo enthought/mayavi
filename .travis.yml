@@ -8,8 +8,9 @@ before_install:
   - source .travis_before_install
 install:
   # nose is already installed
-  - sudo apt-get install python-vtk
   - pip install Sphinx
+  - pip install coverage
+  - pip install coveralls
   # Test against the current master of traits, traitsui and apptools
   - pip install git+http://github.com/enthought/traits.git#egg=traits
   - pip install git+http://github.com/enthought/traitsui.git#egg=traitsui
@@ -19,12 +20,17 @@ install:
   - python setup.py develop
 script:
   # Running all tests in tvtk/tests and mayavi.
-  - python -m nose.core -v tvtk/tests
-  - python -m nose.core -v mayavi
+  - coverage erase
+  - coverage run -p -m nose.core -v tvtk/tests
+  - coverage run -p -m nose.core -v mayavi
   # Run the integration tests.
   - cd integrationtests/mayavi
-  - python run.py
+  - coverage run --rcfile=../../.coveragerc -p run.py
   - cd ../../
+  - cp integrationtests/mayavi/.coverage.* ./
+  - coverage combine
 notifications:
   email:
     - travis-ci@enthought.com
+after_success:
+  coveralls
