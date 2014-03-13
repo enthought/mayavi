@@ -13,7 +13,7 @@ from traits.api import DelegatesTo
 # Local imports.
 from mayavi.core.component import Component
 from mayavi.core.source import Source
-
+from mayavi.core.common import is_old_pipeline
 
 ######################################################################
 # `Actor` class.
@@ -243,7 +243,10 @@ class Actor(Component):
             if inp[0].has_output_port():
                 self.mapper.input_connection = inp[0].get_output_object()
             else:
-                self.mapper.set_input_data(inp[0].get_output_object())
+                if is_old_pipeline():
+                    self.mapper.input = inp[0].get_output_object()
+                else:
+                    self.mapper.set_input_data(inp[0].get_output_object())
         else:
             tg_dict = {'cylinder': tvtk.TextureMapToCylinder,
                        'sphere': tvtk.TextureMapToSphere,

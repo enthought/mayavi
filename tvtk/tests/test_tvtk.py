@@ -500,7 +500,7 @@ class TestTVTK(unittest.TestCase):
             a.on_trait_change(z.f, 'input')
             a.add_input(pd)
             old, new = None, pd
-            self.assertEqual(z.data, (m, 'input', old, new))
+            self.assertEqual(z.data, (a, 'input', old, new))
             a.remove_input(pd)
             old, new = pd, None
             self.assertEqual(z.data, (a, 'input', old, new))

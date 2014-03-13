@@ -18,6 +18,7 @@ from tvtk.tvtk_base import TraitRevPrefixMap
 from mayavi.core.component import Component
 from mayavi.core.module import Module
 from mayavi.components import glyph_source
+from mayavi.core.common import is_old_pipeline
 
 
 ######################################################################
@@ -221,10 +222,16 @@ class Glyph(Component):
     # Non-public methods.
     ######################################################################
     def _update_source(self):
-        self.glyph.set_source_data(self.glyph_source.outputs[0])
+        if is_old_pipeline():
+            self.glyph.source = self.glyph_source.outputs[0]
+        else:
+            self.glyph.set_source_data(self.glyph_source.outputs[0])
 
     def _glyph_source_changed(self, value):
-        self.glyph.set_source_data(value.outputs[0])
+        if is_old_pipeline():
+            self.glyph.source = value.outputs[0]
+        else:
+            self.glyph.set_source_data(value.outputs[0])
 
     def _color_mode_changed(self, value):
         if len(self.inputs) == 0:
@@ -269,16 +276,23 @@ class Glyph(Component):
             return
         if value:
             mask = self.mask_points
-            if inputs[0].has_output_port():
-                mask.input_connection = inputs[0].get_output_object()
+            if is_old_pipeline():
+                mask.input = inputs[0].outputs[0]
+                self.glyph.input = mask.output
             else:
-                mask.input = inputs[0].get_output_object()
-            self.glyph.input_connection = mask.output_port
+                if inputs[0].has_output_port():
+                    mask.input_connection = inputs[0].get_output_object()
+                else:
+                    mask.input = inputs[0].outputs[0]
+                self.glyph.input_connection = mask.output_port
         else:
-            if inputs[0].has_output_port():
-                self.glyph.input_connection = inputs[0].get_output_object()
+            if is_old_pipeline():
+                self.glyph.input = inputs[0].outputs[0]
             else:
-                self.glyph.set_input_data(inputs[0].get_output_object())
+                if inputs[0].has_output_port():
+                    self.glyph.input_connection = inputs[0].get_output_object()
+                else:
+                    self.glyph.input = inputs[0].get_output_object()
 
     def _glyph_type_changed(self, value):
         if self.glyph_type == 'vector':

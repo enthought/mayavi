@@ -11,6 +11,7 @@ from tvtk.api import tvtk
 
 # Local imports.
 from mayavi.core.component import Component
+from mayavi.core.common import is_old_pipeline
 
 VTK_VER = tvtk.Version().vtk_version
 
@@ -110,7 +111,10 @@ class ImplicitPlane(Component):
             return
         inp = self.inputs[0].outputs[0]
         w = self.widget
-        w.set_input_data(inp)
+        if is_old_pipeline():
+            w.input = inp
+        else:
+            w.set_input_data(inp)
         if self._first:
             w.place_widget()
             self.origin = inp.center

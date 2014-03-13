@@ -13,7 +13,7 @@ from apptools.persistence import state_pickler
 
 # Local imports.
 from mayavi.core.component import Component
-from mayavi.core.common import error
+from mayavi.core.common import error, is_old_pipeline
 
 
 def _get_extent(inp):
@@ -120,7 +120,10 @@ class GridPlane(Component):
         if self.inputs[0].has_output_port():
             plane.input_connection = self.inputs[0].get_output_object()
         else:
-            plane.set_input_data(self.inputs[0].get_output_object())
+            if is_old_pipeline():
+                plane.input = self.inputs[0].get_output_object()
+            else:
+                plane.set_input_data(self.inputs[0].get_output_object())
         self.plane = plane
         self.plane.update()
         self.outputs = [plane.output]

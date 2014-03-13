@@ -12,7 +12,7 @@ from traits.api import List, Event, Bool, Instance
 # Local imports.
 from mayavi.core.base import Base
 from mayavi.core.pipeline_info import PipelineInfo
-
+from mayavi.core.common import is_old_pipeline
 
 ######################################################################
 # `PipelineBase` class.
@@ -121,12 +121,12 @@ class PipelineBase(Base):
                     m = actor.mapper
                     if m is not None:
                         m.update()
-# only commenting out as need to relook when backporting to 5.10.1
-#            for widget in self.widgets:
-#                if hasattr(widget, 'input'):
-#                    input = widget.input
-#                    if input is not None:
-#                        input.update()
+            if is_old_pipeline():
+                for widget in self.widgets:
+                    if hasattr(widget, 'input'):
+                        input = widget.input
+                        if input is not None:
+                            input.update()
         if hasattr(self, 'components'):
             for component in self.components:
                     component.render()

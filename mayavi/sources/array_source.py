@@ -18,6 +18,7 @@ from tvtk import array_handler
 # Local imports
 from mayavi.core.source import Source
 from mayavi.core.pipeline_info import PipelineInfo
+from mayavi.core.common import is_old_pipeline
 
 def _check_scalar_array(obj, name, value):
     """Validates a scalar array passed to the object."""
@@ -127,7 +128,11 @@ class ArraySource(Source):
         vd = traits.pop('vector_data', None)
         # Now set the other traits.
         super(ArraySource, self).__init__(**traits)
-        self.change_information_filter.set_input_data(self.image_data)
+        if is_old_pipeline():
+            self.change_information_filter.input = self.image_data
+        else:
+            self.change_information_filter.set_input_data(self.image_data)
+
         # And finally set the scalar and vector data.
         if sd is not None:
             self.scalar_data = sd
@@ -177,7 +182,8 @@ class ArraySource(Source):
         img_data.origin = tuple(self.origin)
         img_data.dimensions = tuple(dims)
         img_data.extent = 0, dims[0]-1, 0, dims[1]-1, 0, dims[2]-1
-        #img_data.update_extent = 0, dims[0]-1, 0, dims[1]-1, 0, dims[2]-1
+        if is_old_pipeline():
+            img_data.update_extent = 0, dims[0]-1, 0, dims[1]-1, 0, dims[2]-1
         if self.transpose_input_array:
             img_data.point_data.scalars = numpy.ravel(numpy.transpose(data))
         else:
@@ -185,11 +191,13 @@ class ArraySource(Source):
         img_data.point_data.scalars.name = self.scalar_name
         # This is very important and if not done can lead to a segfault!
         typecode = data.dtype
-        filter_out_info = self.change_information_filter.get_output_information(0)
-        img_data.set_point_data_active_scalar_info(filter_out_info,
-                vtkConstants.VTK_UNSIGNED_CHAR, 3)
-        # img_data.scalar_type = array_handler.get_vtk_array_type(typecode)
-        # img_data.update() # This sets up the extents correctly.
+        if is_old_pipeline():
+            img_data.scalar_type = array_handler.get_vtk_array_type(typecode)
+            img_data.update() # This sets up the extents correctly.
+        else:
+            filter_out_info = self.change_information_filter.get_output_information(0)
+            img_data.set_point_data_active_scalar_info(filter_out_info,
+                    vtkConstants.VTK_UNSIGNED_CHAR, 3)
         img_data.update_traits()
         self.change_information_filter.update()
 
@@ -210,7 +218,8 @@ class ArraySource(Source):
         img_data.origin = tuple(self.origin)
         img_data.dimensions = tuple(dims[:-1])
         img_data.extent = 0, dims[0]-1, 0, dims[1]-1, 0, dims[2]-1
-        # img_data.update_extent = 0, dims[0]-1, 0, dims[1]-1, 0, dims[2]-1
+        if is_old_pipeline():
+            img_data.update_extent = 0, dims[0]-1, 0, dims[1]-1, 0, dims[2]-1
         sz = numpy.size(data)
         if self.transpose_input_array:
             data_t = numpy.transpose(data, (2, 1, 0, 3))
@@ -218,7 +227,8 @@ class ArraySource(Source):
             data_t = data
         img_data.point_data.vectors = numpy.reshape(data_t, (sz/3, 3))
         img_data.point_data.vectors.name = self.vector_name
-        # img_data.update() # This sets up the extents correctly.
+        if is_old_pipeline():
+            img_data.update() # This sets up the extents correctly.
         img_data.update_traits()
         self.change_information_filter.update()
 

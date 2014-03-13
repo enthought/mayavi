@@ -15,6 +15,7 @@ from tvtk.api import tvtk
 # Local imports.
 from mayavi.core.pipeline_info import (PipelineInfo,
         get_tvtk_dataset_name)
+from mayavi.core.common import is_old_pipeline
 from vtk_xml_file_reader import VTKXMLFileReader
 
 
@@ -83,7 +84,10 @@ class VTKFileReader(VTKXMLFileReader):
             # FIXME: Only the first output goes through the assign
             # attribute filter.
             aa = self._assign_attribute
-            aa.set_input_data(outputs[0])
+            if is_old_pipeline():
+                aa.input = outputs[0]
+            else:
+                aa.set_input_data(outputs[0])
             outputs[0] = aa.output
             self.update_data()
 

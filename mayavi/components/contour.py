@@ -20,7 +20,7 @@ from tvtk.api import tvtk
 
 # Local imports.
 from mayavi.core.component import Component
-from mayavi.core.common import error
+from mayavi.core.common import error, is_old_pipeline
 from mayavi.components.common \
      import get_module_source, convert_to_poly_data
 
@@ -305,12 +305,18 @@ class Contour(Component):
         cf = self.contour_filter
         if self.filled_contours:
             inp = convert_to_poly_data(inp)
-            cf.set_input_data(inp)
+            if is_old_pipeline():
+                cf.input = inp
+            else:
+                cf.set_input_data(inp)
         else:
             if self.inputs[0].has_output_port():
                 cf.input_connection = self.inputs[0].get_output_object()
             else:
-                cf.set_input_data(self.inputs[0].outputs[0])
+                if is_old_pipeline():
+                    cf.input = self.inputs[0].get_output_object()
+                else:
+                    cf.set_input_data(self.inputs[0].outputs[0])
         cf.update()
         return cf
 

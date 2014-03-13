@@ -45,6 +45,13 @@ def get_last_input(data):
             tmp = None
     return inp
 
+def is_old_pipeline():
+    import vtk
+    vtk_major_version = vtk.vtkVersion.GetVTKMajorVersion()
+    if vtk_major_version < 6:
+        return True
+    else:
+        return False
 
 ######################################################################
 # `PickedData` class.
@@ -257,7 +264,10 @@ class Picker(HasTraits):
         prop.line_width = 2
         prop.ambient = 1.0
         prop.diffuse = 0.0
-        self.p_mapper.set_input_data(self.p_source.output)
+        if is_old_pipeline():
+            self.p_mapper.input = self.p_source.output
+        else:
+            self.p_mapper.set_input_data(self.p_source.output)
         self.p_actor.mapper = self.p_mapper
 
         self.probe_data.points = [[0.0, 0.0, 0.0]]

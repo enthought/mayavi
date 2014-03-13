@@ -54,6 +54,11 @@ def write_data(dataset, fname, **kwargs):
         writer = tvtk.XMLDataSetWriter
 
     w = writer(file_name=file_name, **kwargs)
-    w.set_input_data(dataset)
+    import vtk
+    vtk_major_version = vtk.vtkVersion.GetVTKMajorVersion()
+    if vtk_major_version < 6:
+        w.set_input(dataset)
+    else:
+        w.set_input_data(dataset)
     w.write()
 

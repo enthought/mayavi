@@ -18,6 +18,7 @@ from tvtk.api import tvtk
 from mayavi.core.module import Module
 from mayavi.components.actor import Actor
 from mayavi.core.pipeline_info import PipelineInfo
+from mayavi.core.common import is_old_pipeline
 
 
 ######################################################################
@@ -181,7 +182,10 @@ class Outline(Module):
             if mm.source.has_output_port():
                 self.outline_filter.input_connection = mm.source.get_output_object()
             else:
-                self.outline_filter.set_input_data(mm.source.outputs[0])
+                if is_old_pipeline():
+                    self.outline_filter.input = mm.source.outputs[0]
+                else:
+                    self.outline_filter.set_input_data(mm.source.outputs[0])
 
     def _bounds_changed(self):
         self.pipeline_changed = True

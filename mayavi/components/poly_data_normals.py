@@ -12,6 +12,7 @@ from tvtk.api import tvtk
 # Local imports.
 from mayavi.core.component import Component
 from mayavi.components.common import convert_to_poly_data
+from mayavi.core.common import is_old_pipeline
 
 
 ######################################################################
@@ -64,7 +65,10 @@ class PolyDataNormals(Component):
             return
         f = self.filter
         input = self.inputs[0].outputs[0]
-        f.set_input_data(convert_to_poly_data(input))
+        if is_old_pipeline():
+            f.input = convert_to_poly_data(input)
+        else:
+            f.set_input_data(convert_to_poly_data(input))
         f.update()
         self.outputs = [f.output]
 

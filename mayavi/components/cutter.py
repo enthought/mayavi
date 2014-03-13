@@ -12,6 +12,7 @@ from tvtk.api import tvtk
 
 # Local imports.
 from mayavi.core.component import Component
+from mayavi.core.common import is_old_pipeline
 
 
 ######################################################################
@@ -53,7 +54,10 @@ class Cutter(Component):
         if self.inputs[0].has_output_port():
             c.input_connection = self.inputs[0].get_output_object()
         else:
-            c.set_input_data(self.inputs[0].get_output_object())
+            if is_old_pipeline():
+                c.input = self.inputs[0].get_output_object()
+            else:
+                c.set_input_data(self.inputs[0].get_output_object())
         self.outputs = [c.output]
 
     def update_data(self):

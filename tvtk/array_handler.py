@@ -396,7 +396,11 @@ def vtk2array(vtk_array):
     img_data.Modified()
 
     exp = vtk.vtkImageExport()
-    exp.SetInputData(img_data)
+    vtk_major_version = vtk.vtkVersion.GetVTKMajorVersion()
+    if vtk_major_version < 6:
+        exp.SetInput(img_data)
+    else:
+        exp.SetInputData(img_data)
 
     # Create an array of the right size and export the image into it.
     im_arr = numpy.empty((shape[0]*shape[1],), r_dtype)

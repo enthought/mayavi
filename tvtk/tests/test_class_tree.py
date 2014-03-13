@@ -17,6 +17,7 @@ import __builtin__
 _cache = class_tree.ClassTree(vtk)
 _cache.create()
 
+vtk_major_version = vtk.vtkVersion.GetVTKMajorVersion()
 
 def get_level(klass):
     """Gets the inheritance level of a given class."""
@@ -37,14 +38,22 @@ class TestClassTree(unittest.TestCase):
         self.assertEqual(t.get_node('vtkObject').parents[0].name,
                          'vtkObjectBase')
         if (hasattr(vtk, 'vtkTuple')):
-            self.assertEqual(len(t.tree[0]), 13)
             names = [x.name for x in t.tree[0]]
             names.sort()
-            expect = ['object', 'vtkColor3', 'vtkColor4', 'vtkDenseArray',
-                      'vtkObjectBase', 'vtkQuaternion', 'vtkRect',
-                      'vtkSparseArray', 'vtkTuple',
-                      'vtkTypedArray', 'vtkVector', 'vtkVector2',
-                      'vtkVector3']
+            if vtk_major_version < 6:
+                self.assertEqual(len(t.tree[0]), 12)
+                expect = ['object', 'vtkColor3', 'vtkColor4', 'vtkDenseArray',
+                          'vtkObjectBase', 'vtkRect',
+                          'vtkSparseArray', 'vtkTuple',
+                          'vtkTypedArray', 'vtkVector', 'vtkVector2',
+                          'vtkVector3']
+            else:
+                self.assertEqual(len(t.tree[0]), 13)
+                expect = ['object', 'vtkColor3', 'vtkColor4', 'vtkDenseArray',
+                          'vtkObjectBase', 'vtkQuaternion', 'vtkRect',
+                          'vtkSparseArray', 'vtkTuple',
+                          'vtkTypedArray', 'vtkVector', 'vtkVector2',
+                          'vtkVector3']
             self.assertEqual(names, expect)
         elif (hasattr(vtk, 'vtkVector')):
             self.assertEqual(len(t.tree[0]), 11)
