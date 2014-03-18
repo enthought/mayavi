@@ -8,6 +8,7 @@ dependencies (apart from the standard library of course).
 
 import string
 import re
+import vtk
 
 ######################################################################
 # Utility functions.
@@ -40,7 +41,12 @@ def get_tvtk_name(vtk_name):
     else:
         return vtk_name
 
-
+def is_old_pipeline():
+    vtk_major_version = vtk.vtkVersion.GetVTKMajorVersion()
+    if vtk_major_version < 6:
+        return True
+    else:
+        return False
 
 class _Camel2Enthought:
     """Simple functor class to convert names from CamelCase to
