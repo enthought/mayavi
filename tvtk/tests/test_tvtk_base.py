@@ -125,7 +125,7 @@ class TestTVTKBase(unittest.TestCase):
         obj.SetRepresentationToPoints()
         self.assertEqual(p.representation, 'points')
 
-        val = (1.0, 1.0, 1.0)
+        val = (1.0, 1.0, 0.0)
         obj.SetColor(val)
         self.assertEqual(p.color, val)
 
