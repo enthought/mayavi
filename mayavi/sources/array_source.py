@@ -167,7 +167,10 @@ class ArraySource(Source):
     ######################################################################
 
     def _image_data_changed(self, value):
-        self.change_information_filter.input = value
+        if is_old_pipeline():
+            self.change_information_filter.input = value
+        else:
+            self.change_information_filter.set_input_data(value)
 
     def _scalar_data_changed(self, data):
         img_data = self.image_data
@@ -184,6 +187,9 @@ class ArraySource(Source):
         img_data.extent = 0, dims[0]-1, 0, dims[1]-1, 0, dims[2]-1
         if is_old_pipeline():
             img_data.update_extent = 0, dims[0]-1, 0, dims[1]-1, 0, dims[2]-1
+        else:
+            update_extent = [0, dims[0]-1, 0, dims[1]-1, 0, dims[2]-1]
+            self.change_information_filter.set_update_extent(update_extent)
         if self.transpose_input_array:
             img_data.point_data.scalars = numpy.ravel(numpy.transpose(data))
         else:
@@ -197,7 +203,8 @@ class ArraySource(Source):
         else:
             filter_out_info = self.change_information_filter.get_output_information(0)
             img_data.set_point_data_active_scalar_info(filter_out_info,
-                    vtkConstants.VTK_UNSIGNED_CHAR, 3)
+                    array_handler.get_vtk_array_type(typecode), -1)
+            img_data.modified()
         img_data.update_traits()
         self.change_information_filter.update()
 
@@ -220,6 +227,10 @@ class ArraySource(Source):
         img_data.extent = 0, dims[0]-1, 0, dims[1]-1, 0, dims[2]-1
         if is_old_pipeline():
             img_data.update_extent = 0, dims[0]-1, 0, dims[1]-1, 0, dims[2]-1
+        else:
+            self.change_information_filter.update_information()
+            update_extent = [0, dims[0]-1, 0, dims[1]-1, 0, dims[2]-1]
+            self.change_information_filter.set_update_extent(update_extent)
         sz = numpy.size(data)
         if self.transpose_input_array:
             data_t = numpy.transpose(data, (2, 1, 0, 3))
@@ -229,6 +240,8 @@ class ArraySource(Source):
         img_data.point_data.vectors.name = self.vector_name
         if is_old_pipeline():
             img_data.update() # This sets up the extents correctly.
+        else:
+            img_data.modified()
         img_data.update_traits()
         self.change_information_filter.update()
 
