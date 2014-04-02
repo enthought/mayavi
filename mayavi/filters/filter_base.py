@@ -71,7 +71,7 @@ class FilterBase(Filter):
         # By default we set the input to the first output of the first
         # input.
         if inputs[0].has_output_port():
-            fil.input_connection = inputs[0].outputs[0]
+            fil.input_connection = inputs[0].get_output_object()
         else:
             if is_old_pipeline():
                 fil.input = inputs[0].outputs[0]

@@ -8,6 +8,7 @@ from tvtk.api import tvtk
 # Local imports
 from mayavi.filters.filter_base import FilterBase
 from mayavi.core.pipeline_info import PipelineInfo
+from mayavi.core.common import is_old_pipeline
 
 
 ######################################################################
@@ -53,7 +54,11 @@ class ExtractVectorComponents(FilterBase):
         if inputs[0].has_output_port():
             fil.input_connection = inputs[0].get_output_object()
         else:
-            fil.input = inputs[0].outputs[0]
+            if is_old_pipeline():
+                fil.input = inputs[0].outputs[0]
+            else:
+                fil.set_input_data(inputs[0].outputs[0])
+
         fil.update()
         self._component_changed(self.component)
 
