@@ -135,6 +135,11 @@ class Outline(Module):
         """
         # Just set data_changed, the component should do the rest.
         self.data_changed = True
+    
+    def render(self):
+        if not is_old_pipeline():
+            self.outline_filter.update()
+        super(Outline, self).render()
 
     ######################################################################
     # Non-public methods.
