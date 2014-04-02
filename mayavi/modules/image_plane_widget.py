@@ -12,7 +12,7 @@ from tvtk.api import tvtk
 
 # Local imports
 from mayavi.core.module import Module
-from mayavi.core.common import error
+from mayavi.core.common import error, is_old_pipeline
 from mayavi.core.pipeline_info import PipelineInfo
 
 
@@ -86,7 +86,10 @@ class ImagePlaneWidget(Module):
             error(msg)
             raise TypeError, msg
 
-        self.ipw.input = input
+        if is_old_pipeline():
+            self.ipw.input = input
+        else:
+            self.ipw.set_input_data(input)
         self.setup_lut()
 
     def update_data(self):

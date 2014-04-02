@@ -287,8 +287,9 @@ class VTKDataSource(Source):
             # get garbage rendered or worse.
             s = getattr(dataset, attr_type + '_data').scalars
             r = s.range
-            dataset.scalar_type = s.data_type
-            aa.output.scalar_type = s.data_type
+            if is_old_pipeline():
+                dataset.scalar_type = s.data_type
+                aa.output.scalar_type = s.data_type
         aa.update()
         # Fire an event, so the changes propagate.
         self.data_changed = True
@@ -323,8 +324,9 @@ class VTKDataSource(Source):
             # the data through to prevent some really strange errors
             # when using an ImagePlaneWidget.
             r = scalars.range
-            self._assign_attribute.output.scalar_type = scalars.data_type
-            self.data.scalar_type = scalars.data_type
+            if is_old_pipeline():
+                self._assign_attribute.output.scalar_type = scalars.data_type
+                self.data.scalar_type = scalars.data_type
 
         def _setup_data_traits(obj, attributes, d_type):
             """Given the object, the dict of the attributes from the
