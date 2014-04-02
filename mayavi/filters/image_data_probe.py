@@ -13,7 +13,7 @@ from tvtk.api import tvtk
 # Local imports.
 from mayavi.core.filter import Filter
 from mayavi.core.pipeline_info import PipelineInfo
-
+from mayavi.core.common import is_old_pipeline
 
 ################################################################################
 # `ImageDataProbe` class.
@@ -101,7 +101,10 @@ class ImageDataProbe(Filter):
     ######################################################################
     def setup_pipeline(self):
         """Creates the pipeline."""
-        self.filter.input = self.probe_data
+        if is_old_pipeline():
+            self.filter.input = self.probe_data
+        else:
+            self.filter.set_input_data(self.probe_data)
 
     def update_pipeline(self):
         """Connect and update the pipeline."""
@@ -110,7 +113,10 @@ class ImageDataProbe(Filter):
             return
 
         fil = self.filter
-        fil.source = inputs[0].outputs[0]
+        if is_old_pipeline():
+            fil.source = inputs[0].outputs[0]
+        else:
+            fil.set_source_data(inputs[0].outputs[0])
         reset = False
         if self.dimensions.sum() == 0:
             reset = True
@@ -143,10 +149,14 @@ class ImageDataProbe(Filter):
             fac = 3.0*npnt/tot_len
             dims = (l*fac).astype(int) + 1
             extent = (0, dims[0] -1, 0, dims[1] -1, 0, dims[2] -1)
-            pd.set(extent=extent,
-                   update_extent=extent,
-                   whole_extent=extent,
-                   dimensions=dims)
+            if is_old_pipeline():
+                pd.set(extent=extent,
+                       update_extent=extent,
+                       whole_extent=extent,
+                       dimensions=dims)
+            else:
+                pd.set(extent=extent,
+                       dimensions=dims)
 
             max_dim = dims.max()
             dims = (dims-1).clip(min=1, max=max_dim+1)
@@ -156,7 +166,6 @@ class ImageDataProbe(Filter):
             self.set(spacing = pd.spacing,
                      dimensions=pd.dimensions)
             self._event_handled = False
-            pd.update()
 
 
     def _rescale_scalars_changed(self, value):
@@ -225,18 +234,25 @@ class ImageDataProbe(Filter):
         dims = self.dimensions
         spacing = self.spacing
         extent = (0, dims[0] -1, 0, dims[1] -1, 0, dims[2] -1)
-        pd.set(extent=extent,
-               update_extent=extent,
-               whole_extent=extent,
-               dimensions=dims,
-               spacing=spacing)
+        if is_old_pipeline():
+            pd.set(extent=extent,
+                   update_extent=extent,
+                   whole_extent=extent,
+                   dimensions=dims,
+                   spacing=spacing)
+        else:
+            pd.set(extent=extent,
+                   dimensions=dims,
+                   spacing=spacing)
         pd.modified()
-        pd.update()
         fil = self.filter
         w = fil.global_warning_display
         fil.global_warning_display = False
         fil.remove_all_inputs()
-        fil.input = pd
+        if is_old_pipeline():
+            fil.input = pd
+        else:
+            fil.set_input_data(pd)
         fil.update_whole_extent()
         fil.update()
         self._rescale_scalars_changed(self.rescale_scalars)
