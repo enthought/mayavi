@@ -27,7 +27,7 @@ from apptools.persistence import state_pickler
 # Local imports
 from mayavi.core.pipeline_info import PipelineInfo
 from mayavi.core.module import Module
-from mayavi.core.common import error
+from mayavi.core.common import error, is_old_pipeline
 from mayavi.core.trait_defs import DEnum
 from mayavi.core.lut_manager import LUTManager
 
@@ -479,7 +479,10 @@ class Volume(Module):
         if src.has_output_port():
             new_vm.input_connection = src.get_output_object()
         else:
-            new_vm.input = src.outputs[0]
+            if is_old_pipeline():
+                new_vm.input = src.outputs[0]
+            else:
+                new_vm.set_input_data(src.outputs[0])
         self.volume.mapper = new_vm
         new_vm.on_trait_change(self.render)
 

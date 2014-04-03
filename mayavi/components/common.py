@@ -9,7 +9,7 @@ from tvtk.api import tvtk
 
 # Local imports.
 from mayavi.core.component import Component
-from mayavi.core.common import error
+from mayavi.core.common import error, is_old_pipeline
 
 
 def get_module_source(obj):
@@ -43,7 +43,10 @@ def convert_to_poly_data(data):
             break
 
     if fil is not None:
-        fil.input = data
+        if is_old_pipeline():
+            fil.input = data
+        else:
+            fil.set_input_data(data)
         return fil.output
     else:
         error('Given object is not a VTK dataset: %s'%data.__class__.__name__)

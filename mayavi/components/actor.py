@@ -246,7 +246,7 @@ class Actor(Component):
                 if is_old_pipeline():
                     self.mapper.input = inp[0].get_output_object()
                 else:
-                    self.mapper.set_input_data(inp[0].get_output_object())
+                    self.mapper.set_input_data(inp[0].outputs[0])
         else:
             tg_dict = {'cylinder': tvtk.TextureMapToCylinder,
                        'sphere': tvtk.TextureMapToSphere,
@@ -260,7 +260,10 @@ class Actor(Component):
             if inp[0].has_output_port():
                 self.mapper.input_connection = inp[0].get_output_object()
             else:
-                self.mapper.input = inp[0].get_output_object()
+                if is_old_pipeline():
+                    self.mapper.input = inp[0].get_output_object()
+                else:
+                    self.mapper.set_input_data(inp[0].outputs[0])
         tg = self.tcoord_generator
         if tg is not None:
             tg.on_trait_change(self.render)

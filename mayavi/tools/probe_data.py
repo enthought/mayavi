@@ -7,7 +7,7 @@ import numpy as np
 
 from tvtk.api import tvtk
 from . import tools
-
+from mayavi.core.common import is_old_pipeline
 
 def probe_data(mayavi_object, x, y, z, type='scalars', location='points'):
     """ Retrieve the data from a described by Mayavi visualization object
@@ -49,8 +49,14 @@ def probe_data(mayavi_object, x, y, z, type='scalars', location='points'):
                                                    z.ravel()])
     shape = list(shape)
     probe = tvtk.ProbeFilter()
-    probe.input = probe_data
-    probe.source = dataset
+    if is_old_pipeline():
+        probe.input = probe_data
+    else:
+        probe.set_input_data(probe_data)
+    if is_old_pipeline():
+        probe.source = dataset
+    else:
+        probe.set_source_data(dataset)
     probe.update()
 
     if location == 'points':

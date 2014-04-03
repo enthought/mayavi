@@ -120,7 +120,10 @@ class PipelineBase(Base):
                 if hasattr(actor, 'mapper'):
                     m = actor.mapper
                     if m is not None:
-                        m.update()
+                        if is_old_pipeline():
+                            m.update()
+                        else:
+                            m.update(0)
             if is_old_pipeline():
                 for widget in self.widgets:
                     if hasattr(widget, 'input'):
