@@ -20,6 +20,7 @@ from tvtk.api import tvtk
 # Local imports
 from mayavi.core.module import Module
 from mayavi.core.pipeline_info import PipelineInfo
+from mayavi.core.common import is_old_pipeline
 from mayavi.components.actor import Actor
 from mayavi.components.source_widget import SourceWidget
 
@@ -164,7 +165,10 @@ class Streamline(Module):
         if src.has_output_port():
             self.stream_tracer.input_connection = src.get_output_object()
         else:
-            self.stream_tracer.input = src.outputs[0]
+            if is_old_pipeline():
+                self.stream_tracer.input = src.outputs[0]
+            else:
+                self.stream_tracer.set_input_data(src.outputs[0])
         self.seed.inputs = [src]
 
         # Setup the radius/width of the tube/ribbon filters based on
@@ -222,7 +226,10 @@ class Streamline(Module):
             old.on_trait_change(self.render, remove=True)
         seed = self.seed
         if seed is not None:
-            new.source = seed.poly_data
+            if is_old_pipeline():
+                new.source = seed.poly_data
+            else:
+                new.set_source_data(seed.poly_data)
         new.on_trait_change(self.render)
         mm = self.module_manager
         if mm is not None:
@@ -230,7 +237,10 @@ class Streamline(Module):
             if src.has_output_port():
                 new.input_connection = src.get_output_object()
             else:
-                new.input = src.outputs[0]
+                if is_old_pipeline():
+                    new.input = src.outputs[0]
+                else:
+                    new.set_input_data(src.outputs[0])
 
         # A default output so there are no pipeline errors.  The
         # update_pipeline call corrects this if needed.
@@ -241,7 +251,10 @@ class Streamline(Module):
     def _seed_changed(self, old, new):
         st = self.stream_tracer
         if st is not None:
-            st.source = new.poly_data
+            if is_old_pipeline():
+                st.source = new.poly_data
+            else:
+                st.set_source_data(new.poly_data)
         self._change_components(old, new)
 
     def _ribbon_filter_changed(self, old, new):

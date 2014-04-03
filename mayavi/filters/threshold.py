@@ -18,6 +18,7 @@ from tvtk.api import tvtk
 # Local imports
 from mayavi.core.filter import Filter
 from mayavi.core.pipeline_info import PipelineInfo
+from mayavi.core.common import is_old_pipeline
 
 
 ######################################################################
@@ -143,7 +144,10 @@ class Threshold(Filter):
         if self.inputs[0].has_output_port():
             fil.input_connection = self.inputs[0].get_output_object()
         else:
-            fil.input = self.inputs[0].outputs[0]
+            if is_old_pipeline():
+                fil.input = self.inputs[0].outputs[0]
+            else:
+                fil.set_input_data(self.inputs[0].outputs[0])
 
         self._update_ranges()
         self._set_outputs([self.threshold_filter.output])

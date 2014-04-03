@@ -15,7 +15,7 @@ from tvtk.api import tvtk
 # Local imports.
 from mayavi.core.file_data_source import FileDataSource
 from mayavi.core.pipeline_info import PipelineInfo
-from mayavi.core.common import error
+from mayavi.core.common import error, is_old_pipeline
 
 ########################################################################
 # `UnstructuredGridReader` class
@@ -121,8 +121,15 @@ class UnstructuredGridReader(FileDataSource):
 
     def __reader_dict_default(self):
         """Default value for reader dict."""
-        rd = {'inp':tvtk.AVSucdReader(),
-             'neu':tvtk.GAMBITReader(),
-             'exii':tvtk.ExodusReader()
-            }
+        if is_old_pipeline():
+            rd = {'inp':tvtk.AVSucdReader(),
+                 'neu':tvtk.GAMBITReader(),
+                 'exii':tvtk.ExodusReader()
+                }
+        else:
+            rd = {'inp':tvtk.AVSucdReader(),
+                 'neu':tvtk.GAMBITReader(),
+                 'exii':tvtk.ExodusIIReader()
+                }
+
         return rd

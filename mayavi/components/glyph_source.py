@@ -14,7 +14,7 @@ from tvtk.common import camel2enthought
 from apptools.persistence.state_pickler import set_state
 
 # Local imports.
-from mayavi.core.common import handle_children_state
+from mayavi.core.common import handle_children_state, is_old_pipeline
 from mayavi.core.component import Component
 
 
@@ -170,7 +170,11 @@ class GlyphSource(Component):
         if name == 'GlyphSource2D':
             self.outputs = [value.output]
         else:
-            self._trfm.input = value.output
+            if is_old_pipeline():
+                self._trfm.input = value.output
+            else:
+                self._trfm.input_connection = value.output_port
+                value.update()
             self.outputs = [self._trfm.output]
         value.on_trait_change(self.render)
         self._updating = False

@@ -11,6 +11,7 @@ from tvtk.api import tvtk
 from mayavi.core.pipeline_info import PipelineInfo
 from mayavi.core.filter import Filter
 from mayavi.core.trait_defs import DEnum
+from mayavi.core.common import is_old_pipeline
 from mayavi.sources.vtk_xml_file_reader import get_all_attributes
 
 ################################################################################
@@ -131,7 +132,10 @@ class SetActiveAttribute(Filter):
         if self.inputs[0].has_output_port():
             aa.input_connection = self.inputs[0].get_output_object()
         else:
-            aa.input = self.inputs[0].outputs[0]
+            if is_old_pipeline():
+                aa.input = self.inputs[0].outputs[0]
+            else:
+                aa.set_input_data(self.inputs[0].outputs[0])
         self._update()
         self._set_outputs([aa.output])
 
@@ -146,7 +150,7 @@ class SetActiveAttribute(Filter):
             return
 
         input = self.inputs[0].get_output_object()
-        if self._first:
+        if self._first and is_old_pipeline():
             # Force all attributes to be defined and computed
             input.update()
         pnt_attr, cell_attr = get_all_attributes(input)
