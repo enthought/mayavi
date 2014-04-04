@@ -47,6 +47,7 @@ def convert_to_poly_data(data):
             fil.input = data
         else:
             fil.set_input_data(data)
+        fil.update()
         return fil.output
     else:
         error('Given object is not a VTK dataset: %s'%data.__class__.__name__)
