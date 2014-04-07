@@ -26,7 +26,7 @@ from apptools.scripting.api import Recorder
 
 # Local imports.
 from mayavi.preferences.api import preference_manager
-from mayavi.core.common import get_engine
+from mayavi.core.common import get_engine, is_old_pipeline
 
 # Setup a logger for this module.
 logger = logging.getLogger(__name__)
@@ -180,6 +180,15 @@ class Base(TreeNodeObject):
         saved_state = self._saved_state
         if len(saved_state) == 0:
             state = state_pickler.get_state(self)
+            #FIXME: This is for streamline seed point widget position which 
+            #does not get serialized correctly
+            if not is_old_pipeline():
+                try:
+                    st = state.children[0].children[4]
+                    l_pos = st.seed.widget.position
+                    st.seed.widget.position = [pos.item() for pos in l_pos]
+                except (IndexError, AttributeError):
+                    pass
             saved_state = cPickle.dumps(state)
         new._saved_state = saved_state
         # In the unlikely case that a new instance is running, load
