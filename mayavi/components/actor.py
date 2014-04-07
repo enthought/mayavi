@@ -104,7 +104,8 @@ class Actor(Component):
         sends a `data_changed` event.
         """
         # Invoke render to update any changes.
-        self.mapper.update()
+        if not is_old_pipeline():
+            self.mapper.update(0)
         self.render()
 
     ######################################################################

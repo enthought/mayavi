@@ -10,7 +10,7 @@ from traits.api import (HasTraits, Instance, Array, Str,
                         Property, Dict)
 from tvtk.api import tvtk
 from tvtk.array_handler import array2vtk
-
+from mayavi.core.common import is_old_pipeline
 
 ######################################################################
 # Utility functions.
@@ -167,7 +167,10 @@ class DatasetManager(HasTraits):
     ######################################################################
     def _dataset_changed(self, value):
         self._setup_data()
-        self._assign_attribute.input = value
+        if is_old_pipeline():
+            self._assign_attribute.input = value
+        else:
+            self._assign_attribute.set_input_data(value)
 
     def _get_output(self):
         return self._assign_attribute.output
