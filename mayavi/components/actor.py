@@ -105,7 +105,14 @@ class Actor(Component):
         """
         # Invoke render to update any changes.
         if not is_old_pipeline():
-            self.mapper.update(0)
+            from mayavi.modules.outline import Outline
+            from mayavi.components.glyph import Glyph
+            #FIXME: A bad hack, but without these checks results in seg fault
+            input = self.inputs[0]
+            if isinstance(input, Outline) or isinstance(input, Glyph):
+                self.mapper.update(0)
+            else:
+                self.mapper.update()
         self.render()
 
     ######################################################################
