@@ -125,7 +125,7 @@ true_bool_trait = traits.Trait('true',
                                {'true':  1, 't': 1, 'yes': 1,
                                 'y': 1, 'on': 1, 1: 1, 'false': 0,
                                 'f': 0, 'no':  0, 'n': 0,
-                                'off': 0, 0: 0},
+                                'off': 0, 0: 0, -1:0},
                                editor=BooleanEditor)
 
 false_bool_trait = traits.Trait('false', true_bool_trait)

@@ -475,6 +475,8 @@ class VTKMethodParser:
             if klass_name == 'vtkDataSetAttributes' and \
                method[:-2] in problem_methods:
                 continue
+            elif method[:-2] == 'AlphaBitPlanes':
+                continue
             if method[-2:] == 'On':
                 key = method[:-2]
                 if (key + 'Off') in meths and ('Get' + key) in meths:
@@ -590,6 +592,9 @@ class VTKMethodParser:
                 method[3:] == 'AttributesToInterpolate':
                 continue
             elif klass_name == 'vtkOverlappingAMR' and method[3:] == 'Origin':
+                continue
+            elif (klass_name == 'vtkOrientationMarkerWidget'
+                  and method[3:] == 'OutlineColor'):
                 continue
             elif (method[:3] == 'Set') and ('Get' + method[3:]) in methods:
                 key = method[3:]
