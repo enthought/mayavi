@@ -586,6 +586,11 @@ class VTKMethodParser:
                 # vtkProp.Get/SetAllocatedRenderTime is private and
                 # SetAllocatedRenderTime takes two args, don't wrap it.
                 continue
+            elif klass_name == 'vtkGenericAttributeCollection' and \
+                method[3:] == 'AttributesToInterpolate':
+                continue
+            elif klass_name == 'vtkOverlappingAMR' and method[3:] == 'Origin':
+                continue
             elif (method[:3] == 'Set') and ('Get' + method[3:]) in methods:
                 key = method[3:]
                 meths.remove('Set' + key)
