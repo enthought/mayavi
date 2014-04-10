@@ -136,10 +136,15 @@ class TestVTKParser(unittest.TestCase):
 
         res = ['BackfaceRender', 'DeepCopy', 'Render']
         if hasattr(obj, 'GetTexture'):
-            res = ['AddShaderVariable', 'BackfaceRender', 'DeepCopy',
-                   'LoadMaterial', 'LoadMaterialFromString',
-                   'ReleaseGraphicsResources', 'RemoveAllTextures', 'RemoveTexture',
-                   'Render']
+            if vtk_major_version == 6 and vtk_minor_version == 1:
+                res = ['AddShaderVariable', 'BackfaceRender', 'DeepCopy',
+                       'ReleaseGraphicsResources', 'RemoveAllTextures', 'RemoveTexture',
+                       'Render']
+            else:
+                res = ['AddShaderVariable', 'BackfaceRender', 'DeepCopy',
+                       'LoadMaterial', 'LoadMaterialFromString',
+                       'ReleaseGraphicsResources', 'RemoveAllTextures', 'RemoveTexture',
+                       'Render']
         if hasattr(obj, 'PostRender'):
             res.append('PostRender')
             res.sort()
