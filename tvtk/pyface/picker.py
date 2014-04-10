@@ -26,6 +26,7 @@ from traits.api import HasTraits, Trait, Long, Array, Any, Float, \
 from traitsui.api import View, Group, Item, Handler
 from tvtk.api import tvtk
 from tvtk.tvtk_base import TraitRevPrefixMap, false_bool_trait
+from tvtk.common import is_old_pipeline
 from apptools.persistence import state_pickler
 
 
@@ -44,14 +45,6 @@ def get_last_input(data):
         except AttributeError:
             tmp = None
     return inp
-
-def is_old_pipeline():
-    import vtk
-    vtk_major_version = vtk.vtkVersion.GetVTKMajorVersion()
-    if vtk_major_version < 6:
-        return True
-    else:
-        return False
 
 ######################################################################
 # `PickedData` class.

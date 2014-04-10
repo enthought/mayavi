@@ -48,6 +48,13 @@ def is_old_pipeline():
     else:
         return False
 
+def configure_input_data(self, obj, data):
+    """ Configure the input data for vtk pipeline object obj."""
+    if is_old_pipeline():
+        obj.input = data
+    else:
+        obj.set_input_data(data)
+
 class _Camel2Enthought:
     """Simple functor class to convert names from CamelCase to
     Enthought compatible names.

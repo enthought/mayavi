@@ -102,7 +102,7 @@ from pyface.api import GUI
 
 from tvtk.api import tvtk
 from tvtk.tvtk_base import TVTKBase, vtk_color_trait
-
+from tvtk.common import configure_input_data
 from tvtk.tools import ivtk
 
 # Set this to False to not use LOD Actors.
@@ -410,7 +410,7 @@ class Glyphs(MLabBase):
 
         self.poly_data = pd
 
-        self.glyph.input = pd
+        configure_input_data(self.glyph, pd)
         if self.glyph_source:
             self.glyph.source = self.glyph_source.output
 
@@ -551,8 +551,8 @@ class Line3(MLabBase):
         tf = self.tube_filter
         tf.radius = self.radius
         if self.use_tubes:
-            tf.input = pd
-            mapper.input = tf.output
+            configure_input_data(tf, pd)
+            configure_input_data(mapper, tf.output)
 
         a = _make_actor(mapper=mapper)
         a.property.color = self.color
@@ -565,10 +565,10 @@ class Line3(MLabBase):
     def _use_tubes_changed(self, val):
         if val:
             tf = self.tube_filter
-            tf.input = self.poly_data
-            self.mapper.input = tf.output
+            configure_input_data(tf, self.poly_data)
+            configure_input_data(self.mapper, tf.output)
         else:
-            self.mapper.input = self.poly_data
+            configure_input_data(self.mapper, self.poly_data)
         self.render()
 
     def _color_changed(self, val):
@@ -788,7 +788,7 @@ class SurfRegularC(LUTBase):
 
         dr = data.point_data.scalars.range
         cf = self.contour_filter
-        cf.input = data
+        configure_input_data(cf, data)
         cf.generate_values(self.number_of_contours, dr[0], dr[1])
         mapper = tvtk.PolyDataMapper(input=cf.output, lookup_table=self.lut)
         cont_actor = _make_actor(mapper=mapper)
@@ -1123,7 +1123,7 @@ class Contour3(LUTBase):
         self.lut.table_range = dr
 
         cf = self.contour_filter
-        cf.input = self.pd
+        configure_input_data(cf, self.pd)
         cf.generate_values(self.number_of_contours, dr[0], dr[1])
         mapper = tvtk.PolyDataMapper(input=cf.output, lookup_table=self.lut,
                                      scalar_range=dr)

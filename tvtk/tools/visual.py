@@ -63,6 +63,7 @@ from traitsui.api import View, Item, Group, RGBColorEditor, RangeEditor
 from traitsui.message import message
 from tvtk.api import tvtk
 from tvtk.tools import ivtk
+from tvtk.common import configure_input_data
 from pyface.api import GUI
 from pyface.timer.api import Timer
 from tvtk.tvtk_base import TVTKBase, vtk_color_trait
@@ -584,13 +585,13 @@ class Curve(HasTraits):
         self._radius_changed(self.radius)
         self._axis_changed(numpy.array((1.0, 0.0, 0.0)), self.axis)
 
-        self.stripper.input = self.polydata
-        self.tube.input = self.stripper.output
+        configure_input_data(self.stripper, self.polydata)
+        configure_input_data(self.tube, self.stripper.output)
         self.tube.number_of_sides = 4
         self.tube.capping = 1
 
         m = tvtk.PolyDataMapper()
-        m.input = self.tube.output
+        configure_input_data(m, self.tube.output)
         self.actor.mapper = m
         self.property = self.actor.property
         self.property.representation = self.representation
@@ -761,12 +762,12 @@ class Ring(HasTraits):
         self._axis_changed(numpy.array((1.0, 0.0, 0.0)), self.axis)
 
         normals = tvtk.PolyDataNormals(input = self.polydata)
-        self.tube.input = normals.output
+        configure_input_data(self.tube, normals.outputs)
         self.tube.number_of_sides = 4
         self.tube.capping = 1
 
         m = tvtk.PolyDataMapper()
-        m.input = self.tube.output
+        configure_input_data(m, self.tube.outputs)
         self.actor.mapper = m
         self.property = self.actor.property
         self.property.representation = self.representation
@@ -935,7 +936,7 @@ class Cone(HasTraits):
         self._color_changed(self.color)
 
         m = tvtk.PolyDataMapper()
-        m.input = self.polydata
+        configure_input_data(m, self.polydata)
         self.actor.mapper = m
         self.property = self.actor.property
         self.property.representation = self.representation
@@ -1392,7 +1393,7 @@ class Box(HasTraits):
         self._width_changed(self.width)
 
         m = tvtk.PolyDataMapper() # the usual vtk pipleine countinuation
-        m.input = self.polydata
+        configure_input_data(m, self.polydata)
         self.actor.mapper = m
         self.property = self.actor.property
         self.property.representation = self.representation
@@ -1714,12 +1715,12 @@ class Helix(HasTraits):
         self._axis_changed(numpy.array((1.0, 0.0, 0.0)), self.axis)
 
         normals = tvtk.PolyDataNormals(input = self.polydata)
-        self.tube.input = normals.output
+        configure_input_data(self.tube, normals.output)
         self.tube.number_of_sides = 4
         self.tube.capping = 1
 
         m = tvtk.PolyDataMapper()
-        m.input = self.tube.output
+        configure_input_data(m, self.tube.output)
         self.actor.mapper = m
         self.property = self.actor.property
         self.property.representation = self.representation

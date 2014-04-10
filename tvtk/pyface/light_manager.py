@@ -29,18 +29,8 @@ from traits.api import HasTraits, Range, false, \
 from traitsui.api import View, Group, Handler, ListEditor, Item
 from tvtk.api import tvtk
 from tvtk.tvtk_base import vtk_color_trait, TraitRevPrefixMap
+from tvtk.common import is_old_pipeline
 from apptools.persistence import state_pickler
-
-######################################################################
-# Utility functions
-######################################################################
-def is_old_pipeline():
-    import vtk
-    vtk_major_version = vtk.vtkVersion.GetVTKMajorVersion()
-    if vtk_major_version < 6:
-        return True
-    else:
-        return False
 
 ######################################################################
 # `LightGlyph` class.
