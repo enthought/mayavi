@@ -101,10 +101,7 @@ class ImageDataProbe(Filter):
     ######################################################################
     def setup_pipeline(self):
         """Creates the pipeline."""
-        if is_old_pipeline():
-            self.filter.input = self.probe_data
-        else:
-            self.filter.set_input_data(self.probe_data)
+        self.configure_input_data(self.filter, self.probe_data)
 
     def update_pipeline(self):
         """Connect and update the pipeline."""
@@ -249,10 +246,7 @@ class ImageDataProbe(Filter):
         w = fil.global_warning_display
         fil.global_warning_display = False
         fil.remove_all_inputs()
-        if is_old_pipeline():
-            fil.input = pd
-        else:
-            fil.set_input_data(pd)
+        self.configure_input_data(fil, pd)
         fil.update_whole_extent()
         fil.update()
         self._rescale_scalars_changed(self.rescale_scalars)

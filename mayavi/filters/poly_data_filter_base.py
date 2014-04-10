@@ -29,9 +29,7 @@ class PolyDataFilterBase(FilterBase):
         # By default we set the input to the first output of the first
         # input.
         fil = self.filter
-        if is_old_pipeline():
-            fil.input = convert_to_poly_data(inputs[0].outputs[0])
-        else:
-            fil.set_input_data(convert_to_poly_data(inputs[0].outputs[0]))
+        self.configure_input_data(fil, 
+                                  convert_to_poly_data(inputs[0].outputs[0]))
         fil.update()
         self._set_outputs([fil.output])

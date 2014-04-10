@@ -65,10 +65,7 @@ class PolyDataNormals(Component):
             return
         f = self.filter
         input = self.inputs[0].outputs[0]
-        if is_old_pipeline():
-            f.input = convert_to_poly_data(input)
-        else:
-            f.set_input_data(convert_to_poly_data(input))
+        self.configure_input_data(f, convert_to_poly_data(input))
         f.update()
         self.outputs = [f.output]
 

@@ -141,14 +141,7 @@ class Threshold(Filter):
         # By default we set the input to the first output of the first
         # input.
         fil = self.threshold_filter
-        if self.inputs[0].has_output_port():
-            fil.input_connection = self.inputs[0].get_output_object()
-        else:
-            if is_old_pipeline():
-                fil.input = self.inputs[0].outputs[0]
-            else:
-                fil.set_input_data(self.inputs[0].outputs[0])
-
+        self.configure_connection(fil, self.inputs[0])
         self._update_ranges()
         self._set_outputs([self.threshold_filter.output])
 
@@ -261,10 +254,7 @@ class Threshold(Filter):
         if len(self.inputs) == 0:
             return
         fil = new
-        if self.inputs[0].has_output_port():
-            fil.input_connection = self.inputs[0].get_output_object()
-        else:
-            fil.input = self.inputs[0].outputs[0]
+        self.configure_connection(fil, self.inputs[0])
         fil.threshold_between(self.lower_threshold,
                               self.upper_threshold)
         fil.update()

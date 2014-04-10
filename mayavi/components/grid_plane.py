@@ -117,13 +117,7 @@ class GridPlane(Component):
             error(msg)
             raise TypeError, msg
 
-        if self.inputs[0].has_output_port():
-            plane.input_connection = self.inputs[0].get_output_object()
-        else:
-            if is_old_pipeline():
-                plane.input = self.inputs[0].get_output_object()
-            else:
-                plane.set_input_data(self.inputs[0].get_output_object())
+        self.configure_connection(plane, self.inputs[0])
         self.plane = plane
         self.plane.update()
         self.outputs = [plane.output]

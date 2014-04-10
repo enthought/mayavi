@@ -111,10 +111,7 @@ class ImplicitPlane(Component):
             return
         inp = self.inputs[0].outputs[0]
         w = self.widget
-        if is_old_pipeline():
-            w.input = inp
-        else:
-            w.set_input_data(inp)
+        self.configure_input_data(w, inp)
         if self._first:
             w.place_widget()
             self.origin = inp.center

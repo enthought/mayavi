@@ -276,23 +276,10 @@ class Glyph(Component):
             return
         if value:
             mask = self.mask_points
-            if is_old_pipeline():
-                mask.input = inputs[0].outputs[0]
-                self.glyph.input = mask.output
-            else:
-                if inputs[0].has_output_port():
-                    mask.input_connection = inputs[0].get_output_object()
-                else:
-                    mask.set_input_data(inputs[0].outputs[0])
-                self.glyph.input_connection = mask.output_port
+            self.configure_connection(mask, inputs[0])
+            self.configure_input(self.glyph, mask)
         else: 
-            if is_old_pipeline():
-                self.glyph.input = inputs[0].outputs[0]
-            else:
-                if inputs[0].has_output_port():
-                    self.glyph.input_connection = inputs[0].get_output_object()
-                else:
-                    self.glyph.set_input_data(inputs[0].outputs[0])
+            self.configure_connection(self.glyph, inputs[0])
 
     def _glyph_type_changed(self, value):
         if self.glyph_type == 'vector':

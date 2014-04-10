@@ -73,24 +73,12 @@ class ImageActor(Module):
         if self._force_map_scalars_to_color:
             self.set(map_scalars_to_color=True, trait_change_notify=False)
         if self.map_scalars_to_color:
-            if src.has_output_port():
-                op = src.get_output_object()
-                self.image_map_to_color.input_connection = op
-            else:
-                if is_old_pipeline():
-                    self.image_map_to_color.input = src.outputs[0]
-                else:
-                    self.image_map_to_color.set_input_data(src.outputs[0])
+            self.configure_connection(self.image_map_to_color, src)
             self.image_map_to_color.lookup_table = mm.scalar_lut_manager.lut
-            if is_old_pipeline():
-                self.actor.input = self.image_map_to_color.output
-            else:
-                self.actor.set_input_data(self.image_map_to_color.output)
+            self.configure_input_data(self.actor,
+                                      self.image_map_to_color.output)
         else:
-            if is_old_pipeline():
-                self.actor.input = src.outputs[0]
-            else:
-                self.actor.set_input_data(src.outputs[0])
+            self.configure_input_data(self.actor, src.outputs[0])
         self.pipeline_changed = True
 
     def update_data(self):

@@ -184,15 +184,8 @@ class Outline(Module):
         else:
             # Set the input of the filter.
             mm = self.module_manager
-            if mm.source.has_output_port():
-                self.outline_filter.input_connection = mm.source.get_output_object()
-                self.outline_filter.update()
-            else:
-                if is_old_pipeline():
-                    self.outline_filter.input = mm.source.outputs[0]
-                else:
-                    self.outline_filter.set_input_data(mm.source.outputs[0])
-                    self.outline_filter.update()
+            self.configure_connection(self.outline_filter, mm.source)
+            self.outline_filter.update()
 
     def _bounds_changed(self):
         self.pipeline_changed = True

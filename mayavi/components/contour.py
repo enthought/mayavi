@@ -305,18 +305,9 @@ class Contour(Component):
         cf = self.contour_filter
         if self.filled_contours:
             inp = convert_to_poly_data(inp)
-            if is_old_pipeline():
-                cf.input = inp
-            else:
-                cf.set_input_data(inp)
+            self.configure_input_data(cf, inp)
         else:
-            if self.inputs[0].has_output_port():
-                cf.input_connection = self.inputs[0].get_output_object()
-            else:
-                if is_old_pipeline():
-                    cf.input = self.inputs[0].get_output_object()
-                else:
-                    cf.set_input_data(self.inputs[0].outputs[0])
+            self.configure_connection(cf, self.inputs[0])
         cf.update()
         return cf
 

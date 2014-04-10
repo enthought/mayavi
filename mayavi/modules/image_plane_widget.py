@@ -86,10 +86,7 @@ class ImagePlaneWidget(Module):
             error(msg)
             raise TypeError, msg
 
-        if is_old_pipeline():
-            self.ipw.input = input
-        else:
-            self.ipw.set_input_data(input)
+        self.configure_input_data(self.ipw, input)
         self.setup_lut()
 
     def update_data(self):

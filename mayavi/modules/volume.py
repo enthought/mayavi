@@ -476,13 +476,7 @@ class Volume(Module):
             self._ray_cast_functions = ['']
 
         src = mm.source
-        if src.has_output_port():
-            new_vm.input_connection = src.get_output_object()
-        else:
-            if is_old_pipeline():
-                new_vm.input = src.outputs[0]
-            else:
-                new_vm.set_input_data(src.outputs[0])
+        self.configure_connection(new_vm, src)
         self.volume.mapper = new_vm
         new_vm.on_trait_change(self.render)
 

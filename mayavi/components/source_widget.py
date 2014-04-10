@@ -84,10 +84,7 @@ class SourceWidget(Component):
         w = self.widget = self.widget_list[m.index(w_c_name)]
         # Set the input.
         if len(self.inputs) > 0:
-            if is_old_pipeline():
-                w.input = self.inputs[0].outputs[0]
-            else:
-                w.set_input_data(self.inputs[0].outputs[0])
+            self.configure_input_data(w, self.inputs[0].outputs[0])
         # Fix for the point widget.
         if w_c_name == 'PointWidget':
             w.place_widget()
@@ -158,11 +155,7 @@ class SourceWidget(Component):
             return
         inp = self.inputs[0].outputs[0]
         w = self.widget
-        if is_old_pipeline():
-            w.input = inp
-        else:
-            w.set_input_data(inp)
-
+        self.configure_input_data(w, inp)
         if self._first:
             w.place_widget()
             self._first = False

@@ -228,10 +228,7 @@ class VTKDataSource(Source):
     def _data_changed(self, old, new):
         if has_attributes(self.data):
             aa = self._assign_attribute
-            if is_old_pipeline():
-                aa.input = new
-            else:
-                aa.set_input_data(new)
+            self.configure_input_data(aa, new)
             self._update_data()
             self.outputs = [aa.output]
         else:

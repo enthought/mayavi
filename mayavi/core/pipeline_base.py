@@ -174,6 +174,27 @@ class PipelineBase(Base):
         As such we return the first output."""
         return self.outputs[0]
 
+    def configure_connection(self, obj, inp):
+        """ Configure topology for vtk pipeline obj."""
+        if inp.has_output_port():
+            obj.input_connection = inp.get_output_object()
+        else:
+            self.configure_input_data(obj, inp.outputs[0])
+
+    def configure_input_data(self, obj, data):
+        """ Configure the input data for vtk pipeline object obj."""
+        if is_old_pipeline():
+            obj.input = data
+        else:
+            obj.set_input_data(data)
+
+    def configure_input(self, inp, op):
+        """ Configure the inp using op."""
+        if is_old_pipeline():
+            inp.input = op.output
+        else:
+            inp.input_connection = op.output_port
+
     ######################################################################
     # Non-public interface
     ######################################################################

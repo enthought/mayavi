@@ -128,10 +128,8 @@ class ArraySource(Source):
         vd = traits.pop('vector_data', None)
         # Now set the other traits.
         super(ArraySource, self).__init__(**traits)
-        if is_old_pipeline():
-            self.change_information_filter.input = self.image_data
-        else:
-            self.change_information_filter.set_input_data(self.image_data)
+        self.configure_input_data(self.change_information_filter,
+                                  self.image_data)
 
         # And finally set the scalar and vector data.
         if sd is not None:
@@ -167,10 +165,7 @@ class ArraySource(Source):
     ######################################################################
 
     def _image_data_changed(self, value):
-        if is_old_pipeline():
-            self.change_information_filter.input = value
-        else:
-            self.change_information_filter.set_input_data(value)
+        self.configure_input_data(self.change_information_filter, value)
 
     def _scalar_data_changed(self, data):
         img_data = self.image_data

@@ -51,14 +51,7 @@ class ExtractVectorComponents(FilterBase):
             return
 
         fil = self.filter
-        if inputs[0].has_output_port():
-            fil.input_connection = inputs[0].get_output_object()
-        else:
-            if is_old_pipeline():
-                fil.input = inputs[0].outputs[0]
-            else:
-                fil.set_input_data(inputs[0].outputs[0])
-
+        self.configure_connection(fil, inputs[0])
         fil.update()
         self._component_changed(self.component)
 

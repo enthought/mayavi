@@ -162,13 +162,7 @@ class Streamline(Module):
             return
 
         src = mm.source
-        if src.has_output_port():
-            self.stream_tracer.input_connection = src.get_output_object()
-        else:
-            if is_old_pipeline():
-                self.stream_tracer.input = src.outputs[0]
-            else:
-                self.stream_tracer.set_input_data(src.outputs[0])
+        self.configure_connection(self.stream_tracer, src)
         self.seed.inputs = [src]
 
         # Setup the radius/width of the tube/ribbon filters based on
@@ -234,13 +228,7 @@ class Streamline(Module):
         mm = self.module_manager
         if mm is not None:
             src = mm.source
-            if src.has_output_port():
-                new.input_connection = src.get_output_object()
-            else:
-                if is_old_pipeline():
-                    new.input = src.outputs[0]
-                else:
-                    new.set_input_data(src.outputs[0])
+            self.configure_connection(new, src)
 
         # A default output so there are no pipeline errors.  The
         # update_pipeline call corrects this if needed.

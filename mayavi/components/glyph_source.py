@@ -170,11 +170,7 @@ class GlyphSource(Component):
         if name == 'GlyphSource2D':
             self.outputs = [value.output]
         else:
-            if is_old_pipeline():
-                self._trfm.input = value.output
-            else:
-                self._trfm.input_connection = value.output_port
-                value.update()
+            self.configure_input(self._trfm, value)
             self.outputs = [self._trfm.output]
         value.on_trait_change(self.render)
         self._updating = False

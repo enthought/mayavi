@@ -167,13 +167,7 @@ class ExtractGrid(FilterBase):
             return
 
         fil = self.filter
-        if inputs[0].has_output_port():
-            fil.input_connection = inputs[0].get_output_object()
-        else:
-            if is_old_pipeline():
-                fil.input = input
-            else:
-                fil.set_input_data(input)
+        self.configure_connection(fil, inputs[0])
         fil.update_whole_extent()
         fil.update()
         self._set_outputs([fil.output])

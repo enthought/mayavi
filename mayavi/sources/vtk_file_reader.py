@@ -84,10 +84,7 @@ class VTKFileReader(VTKXMLFileReader):
             # FIXME: Only the first output goes through the assign
             # attribute filter.
             aa = self._assign_attribute
-            if is_old_pipeline():
-                aa.input = outputs[0]
-            else:
-                aa.set_input_data(outputs[0])
+            self.configure_input_data(aa, outputs[0])
             outputs[0] = aa.output
             self.update_data()
 

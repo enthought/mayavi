@@ -99,13 +99,10 @@ class HyperStreamline(Module):
         if mm is None:
             return
         src = mm.source.outputs[0]
-        if mm.source.has_ouput_port():
-            self.streamline.input_connection = mm.source.get_output_object()
-        else:
-            self.streamline.input = src
+        self.configure_connection(self.streamline, mm.source)
         w = self.widget
         old_inp = w.input
-        w.input = src
+        self.configure_input_data(w, src)
         if old_inp is None or src != old_inp:
             w.place_widget()
         self.streamline.update()
@@ -131,11 +128,7 @@ class HyperStreamline(Module):
         new.on_trait_change(self.render)
         mm = self.module_manager
         if mm is not None:
-            if mm.source.has_output_port():
-                new.input_connection = mm.source.get_output_object()
-            else:
-                new.input = mm.source.outputs[0]
-
+            self.configure_connection(new, mm.source)
         # A default output so there are no pipeline errors.  The
         # update_pipeline call corrects this if needed.
         self.outputs = [new.output]

@@ -51,13 +51,7 @@ class Cutter(Component):
         if (len(self.inputs) == 0) or (len(self.inputs[0].outputs) == 0):
             return
         c = self.cutter
-        if self.inputs[0].has_output_port():
-            c.input_connection = self.inputs[0].get_output_object()
-        else:
-            if is_old_pipeline():
-                c.input = self.inputs[0].get_output_object()
-            else:
-                c.set_input_data(self.inputs[0].get_output_object())
+        self.configure_connection(c, self.inputs[0])
         self.outputs = [c.output]
 
     def update_data(self):

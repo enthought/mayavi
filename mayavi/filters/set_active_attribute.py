@@ -129,13 +129,7 @@ class SetActiveAttribute(Filter):
             return
 
         aa = self._assign_attribute
-        if self.inputs[0].has_output_port():
-            aa.input_connection = self.inputs[0].get_output_object()
-        else:
-            if is_old_pipeline():
-                aa.input = self.inputs[0].outputs[0]
-            else:
-                aa.set_input_data(self.inputs[0].outputs[0])
+        self.configure_connection(aa, self.inputs[0])
         self._update()
         self._set_outputs([aa.output])
 
