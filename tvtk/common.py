@@ -48,7 +48,7 @@ def is_old_pipeline():
     else:
         return False
 
-def configure_input_data(self, obj, data):
+def configure_input_data(obj, data):
     """ Configure the input data for vtk pipeline object obj."""
     if is_old_pipeline():
         obj.input = data
