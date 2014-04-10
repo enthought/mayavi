@@ -596,6 +596,12 @@ class VTKMethodParser:
             elif (klass_name == 'vtkOrientationMarkerWidget'
                   and method[3:] == 'OutlineColor'):
                 continue
+            elif (klass_name == 'vtkImageDataGeometryFilter'
+                  and method[3:] == 'Extent'):
+                continue
+            elif (klass_name == 'vtkVolumeMapper'
+                  and method[3:] == 'CroppingRegionPlanes'):
+                continue
             elif (method[:3] == 'Set') and ('Get' + method[3:]) in methods:
                 key = method[3:]
                 meths.remove('Set' + key)
