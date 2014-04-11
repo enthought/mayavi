@@ -12,7 +12,7 @@ from traits.api import List, Event, Bool, Instance
 # Local imports.
 from mayavi.core.base import Base
 from mayavi.core.pipeline_info import PipelineInfo
-from mayavi.core.common import is_old_pipeline
+import tvtk.common as tvtk_common
 
 ######################################################################
 # `PipelineBase` class.
@@ -120,11 +120,11 @@ class PipelineBase(Base):
                 if hasattr(actor, 'mapper'):
                     m = actor.mapper
                     if m is not None:
-                        if is_old_pipeline():
+                        if tvtk_common.is_old_pipeline():
                             m.update()
                         else:
                             m.update(0)
-            if is_old_pipeline():
+            if tvtk_common.is_old_pipeline():
                 for widget in self.widgets:
                     if hasattr(widget, 'input'):
                         input = widget.input
@@ -176,24 +176,19 @@ class PipelineBase(Base):
 
     def configure_connection(self, obj, inp):
         """ Configure topology for vtk pipeline obj."""
-        if inp.has_output_port():
-            obj.input_connection = inp.get_output_object()
-        else:
-            self.configure_input_data(obj, inp.outputs[0])
+        tvtk_common.configure_connection(obj, inp)
 
     def configure_input_data(self, obj, data):
         """ Configure the input data for vtk pipeline object obj."""
-        if is_old_pipeline():
-            obj.input = data
-        else:
-            obj.set_input_data(data)
+        tvtk_common.configure_input_data(obj, data)
 
     def configure_input(self, inp, op):
         """ Configure the inp using op."""
-        if is_old_pipeline():
-            inp.input = op.output
-        else:
-            inp.input_connection = op.output_port
+        tvtk_common.configure_input(inp, op)
+
+    def configure_source_data(self, obj, data):
+        """ Configure the source data for vtk pipeline object obj."""
+        tvtk_common.configure_source_data(obj, data)
 
     ######################################################################
     # Non-public interface

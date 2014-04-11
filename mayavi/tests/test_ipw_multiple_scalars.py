@@ -2,10 +2,10 @@ import unittest
 
 from numpy import zeros, random
 from tvtk.api import tvtk
+from tvtk.common import is_old_pipeline
 from mayavi.sources.vtk_data_source import VTKDataSource
 from mayavi.core.null_engine import NullEngine
 from mayavi.modules.image_plane_widget import ImagePlaneWidget
-from mayavi.core.common import is_old_pipeline
 
 class TestIPWMultipleScalars(unittest.TestCase):
     def setUp(self):
@@ -19,7 +19,7 @@ class TestIPWMultipleScalars(unittest.TestCase):
 
         if is_old_pipeline():
             p = tvtk.ImageData(dimensions=[3,3,3],spacing=[1,1,1],
-                    scalar_type='int')
+                               scalar_type='int')
         else:
             p = tvtk.ImageData(dimensions=[3,3,3],spacing=[1,1,1])
         p.point_data.scalars = arr1

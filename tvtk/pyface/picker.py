@@ -26,7 +26,7 @@ from traits.api import HasTraits, Trait, Long, Array, Any, Float, \
 from traitsui.api import View, Group, Item, Handler
 from tvtk.api import tvtk
 from tvtk.tvtk_base import TraitRevPrefixMap, false_bool_trait
-from tvtk.common import is_old_pipeline
+from tvtk.common import configure_input_data
 from apptools.persistence import state_pickler
 
 
@@ -257,10 +257,7 @@ class Picker(HasTraits):
         prop.line_width = 2
         prop.ambient = 1.0
         prop.diffuse = 0.0
-        if is_old_pipeline():
-            self.p_mapper.input = self.p_source.output
-        else:
-            self.p_mapper.set_input_data(self.p_source.output)
+        configure_input_data(self.p_mapper, self.p_source.output)
         self.p_actor.mapper = self.p_mapper
 
         self.probe_data.points = [[0.0, 0.0, 0.0]]

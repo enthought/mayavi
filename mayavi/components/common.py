@@ -8,8 +8,9 @@
 from tvtk.api import tvtk
 
 # Local imports.
+from tvtk.common import configure_input_data
 from mayavi.core.component import Component
-from mayavi.core.common import error, is_old_pipeline
+from mayavi.core.common import error
 
 
 def get_module_source(obj):
@@ -43,10 +44,7 @@ def convert_to_poly_data(data):
             break
 
     if fil is not None:
-        if is_old_pipeline():
-            fil.input = data
-        else:
-            fil.set_input_data(data)
+        configure_input_data(fil, data)
         fil.update()
         return fil.output
     else:

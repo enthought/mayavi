@@ -9,9 +9,9 @@ import unittest
 from common import get_example_data
 
 # Enthought library imports
+from tvtk.common import is_old_pipeline
 from mayavi.sources.unstructured_grid_reader import UnstructuredGridReader
 from mayavi.tests.data_reader_test_base import DataReaderTestBase
-from mayavi.core.common import is_old_pipeline
 
 old_pipeline = is_old_pipeline()
 

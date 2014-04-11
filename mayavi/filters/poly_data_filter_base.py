@@ -5,7 +5,6 @@
 # Local imports
 from mayavi.filters.filter_base import FilterBase
 from mayavi.components.common import convert_to_poly_data
-from mayavi.core.common import is_old_pipeline
 
 
 ######################################################################

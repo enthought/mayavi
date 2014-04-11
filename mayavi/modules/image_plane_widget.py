@@ -12,7 +12,7 @@ from tvtk.api import tvtk
 
 # Local imports
 from mayavi.core.module import Module
-from mayavi.core.common import error, is_old_pipeline
+from mayavi.core.common import error
 from mayavi.core.pipeline_info import PipelineInfo
 
 

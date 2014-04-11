@@ -13,12 +13,12 @@ from traits.api import Instance, Enum, Property, Bool, \
     DelegatesTo
 from traitsui.api import View, Group, Item
 from tvtk.api import tvtk
+from tvtk.common import is_old_pipeline
 
 # Local imports
 from mayavi.core.module import Module
 from mayavi.components.actor import Actor
 from mayavi.core.pipeline_info import PipelineInfo
-from mayavi.core.common import is_old_pipeline
 
 
 ######################################################################

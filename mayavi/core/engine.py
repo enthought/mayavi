@@ -24,9 +24,10 @@ from apptools.persistence import state_pickler
 from apptools.scripting.api import Recorder, recordable
 
 # Local imports.
+from tvtk.common import is_old_pipeline
 from mayavi.core.base import Base
 from mayavi.core.scene import Scene
-from mayavi.core.common import error, process_ui_events, is_old_pipeline
+from mayavi.core.common import error, process_ui_events
 from mayavi.core.registry import registry
 from mayavi.core.adder_node import AdderNode, SceneAdderNode
 from mayavi.preferences.api import preference_manager

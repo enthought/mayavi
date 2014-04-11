@@ -14,7 +14,6 @@ from apptools.persistence import state_pickler
 # Local imports
 from mayavi.core.module import Module
 from mayavi.core.pipeline_info import PipelineInfo
-from mayavi.core.common import is_old_pipeline
 
 ######################################################################
 # `CubeAxesActor2D` class.

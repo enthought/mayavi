@@ -18,7 +18,6 @@ from tvtk.tvtk_base import TraitRevPrefixMap
 from mayavi.core.component import Component
 from mayavi.core.module import Module
 from mayavi.components import glyph_source
-from mayavi.core.common import is_old_pipeline
 
 
 ######################################################################
@@ -222,16 +221,10 @@ class Glyph(Component):
     # Non-public methods.
     ######################################################################
     def _update_source(self):
-        if is_old_pipeline():
-            self.glyph.source = self.glyph_source.outputs[0]
-        else:
-            self.glyph.set_source_data(self.glyph_source.outputs[0])
+        self.configure_source_data(self.glyph, self.glyph_source.outputs[0])
 
     def _glyph_source_changed(self, value):
-        if is_old_pipeline():
-            self.glyph.source = value.outputs[0]
-        else:
-            self.glyph.set_source_data(value.outputs[0])
+        self.configure_source_data(self.glyph, value.outputs[0])
 
     def _color_mode_changed(self, value):
         if len(self.inputs) == 0:

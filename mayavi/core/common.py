@@ -144,11 +144,3 @@ def handle_children_state(children, kids):
 
     # Now set the children in one shot.
     children[:] = m_children
-
-def is_old_pipeline():
-    vtk_major_version = vtk.vtkVersion.GetVTKMajorVersion()
-    if vtk_major_version < 6:
-        return True
-    else:
-        return False
-

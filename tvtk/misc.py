@@ -8,6 +8,7 @@ from os.path import splitext
 
 # We import from tvtk.py and not api.py to prevent circular imports.
 from tvtk.tvtk_access import tvtk
+from tvtk.common import configure_input_data
 
 ######################################################################
 # Utility functions.
@@ -54,11 +55,6 @@ def write_data(dataset, fname, **kwargs):
         writer = tvtk.XMLDataSetWriter
 
     w = writer(file_name=file_name, **kwargs)
-    import vtk
-    vtk_major_version = vtk.vtkVersion.GetVTKMajorVersion()
-    if vtk_major_version < 6:
-        w.set_input(dataset)
-    else:
-        w.set_input_data(dataset)
+    configure_input_data(w, dataset)
     w.write()
 

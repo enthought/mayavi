@@ -9,7 +9,6 @@ from tvtk.api import tvtk
 # Local imports
 from mayavi.filters.filter_base import FilterBase
 from mayavi.core.pipeline_info import PipelineInfo
-from mayavi.core.common import is_old_pipeline
 
 ######################################################################
 # `CellToPointData` class.

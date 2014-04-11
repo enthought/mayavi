@@ -17,7 +17,7 @@ from tvtk.api import tvtk
 from mayavi.core.common import error
 from mayavi.filters.filter_base import FilterBase
 from mayavi.core.pipeline_info import PipelineInfo
-from mayavi.core.common import is_old_pipeline
+from tvtk.common import is_old_pipeline
 
 ######################################################################
 # `ExtractGrid` class.

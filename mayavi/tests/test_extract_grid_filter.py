@@ -16,7 +16,7 @@ from mayavi.modules.grid_plane import GridPlane
 from mayavi.modules.axes import Axes
 from mayavi.filters.extract_grid import ExtractGrid
 from tvtk.api import tvtk
-from mayavi.core.common import is_old_pipeline
+from tvtk.common import is_old_pipeline
 
 class TestExtractGridFilter(unittest.TestCase):
 

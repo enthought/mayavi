@@ -9,11 +9,11 @@ import numpy
 from traits.api import Instance, Bool, Array, Button, Str
 from traitsui.api import View, Group, Item
 from tvtk.api import tvtk
+import tvtk.common as tvtk_common
 
 # Local imports.
 from mayavi.core.filter import Filter
 from mayavi.core.pipeline_info import PipelineInfo
-from mayavi.core.common import is_old_pipeline
 
 ################################################################################
 # `ImageDataProbe` class.
@@ -110,10 +110,7 @@ class ImageDataProbe(Filter):
             return
 
         fil = self.filter
-        if is_old_pipeline():
-            fil.source = inputs[0].outputs[0]
-        else:
-            fil.set_source_data(inputs[0].outputs[0])
+        self.configure_source_data(fil, inputs[0].outputs[0])
         reset = False
         if self.dimensions.sum() == 0:
             reset = True
@@ -146,7 +143,7 @@ class ImageDataProbe(Filter):
             fac = 3.0*npnt/tot_len
             dims = (l*fac).astype(int) + 1
             extent = (0, dims[0] -1, 0, dims[1] -1, 0, dims[2] -1)
-            if is_old_pipeline():
+            if tvtk_common.is_old_pipeline():
                 pd.set(extent=extent,
                        update_extent=extent,
                        whole_extent=extent,
@@ -231,7 +228,7 @@ class ImageDataProbe(Filter):
         dims = self.dimensions
         spacing = self.spacing
         extent = (0, dims[0] -1, 0, dims[1] -1, 0, dims[2] -1)
-        if is_old_pipeline():
+        if tvtk_common.is_old_pipeline():
             pd.set(extent=extent,
                    update_extent=extent,
                    whole_extent=extent,

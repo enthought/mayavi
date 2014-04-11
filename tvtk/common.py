@@ -10,6 +10,8 @@ import string
 import re
 import vtk
 
+vtk_major_version = vtk.vtkVersion.GetVTKMajorVersion()
+
 ######################################################################
 # Utility functions.
 ######################################################################
@@ -42,11 +44,14 @@ def get_tvtk_name(vtk_name):
         return vtk_name
 
 def is_old_pipeline():
-    vtk_major_version = vtk.vtkVersion.GetVTKMajorVersion()
-    if vtk_major_version < 6:
-        return True
+    return vtk_major_version < 6
+
+def configure_connection(obj, inp):
+    """ Configure topology for vtk pipeline obj."""
+    if inp.has_output_port():
+        obj.input_connection = inp.get_output_object()
     else:
-        return False
+        configure_input_data(obj, inp.outputs[0])
 
 def configure_input_data(obj, data):
     """ Configure the input data for vtk pipeline object obj."""
@@ -54,6 +59,20 @@ def configure_input_data(obj, data):
         obj.input = data
     else:
         obj.set_input_data(data)
+
+def configure_input(inp, op):
+    """ Configure the inp using op."""
+    if is_old_pipeline():
+        inp.input = op.output
+    else:
+        inp.input_connection = op.output_port
+
+def configure_source_data(obj, data):
+    """ Configure the source data for vtk pipeline object obj."""
+    if is_old_pipeline():
+        obj.source = data
+    else:
+        obj.set_source_data(data)
 
 class _Camel2Enthought:
     """Simple functor class to convert names from CamelCase to

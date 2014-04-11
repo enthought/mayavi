@@ -9,11 +9,11 @@
 from traits.api import Instance, Bool, Enum
 from tvtk.api import tvtk
 from traits.api import DelegatesTo
+from tvtk.common import is_old_pipeline
 
 # Local imports.
 from mayavi.core.component import Component
 from mayavi.core.source import Source
-from mayavi.core.common import is_old_pipeline
 
 ######################################################################
 # `Actor` class.

@@ -13,9 +13,10 @@ from traitsui.api import View, Group, Item, Include
 from tvtk.api import tvtk
 
 # Local imports.
+from tvtk.common import is_old_pipeline
 from mayavi.core.file_data_source import FileDataSource
 from mayavi.core.pipeline_info import PipelineInfo
-from mayavi.core.common import error, is_old_pipeline
+from mayavi.core.common import error
 
 ########################################################################
 # `UnstructuredGridReader` class

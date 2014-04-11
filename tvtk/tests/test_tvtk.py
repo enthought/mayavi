@@ -19,7 +19,7 @@ import numpy
 import vtk
 
 from tvtk import tvtk_base
-from tvtk.common import get_tvtk_name
+from tvtk.common import get_tvtk_name, configure_input_data
 
 from traits.api import TraitError
 
@@ -542,11 +542,7 @@ class TestTVTK(unittest.TestCase):
         # In this case if the wrapping is not done right, the input
         # trait is made read-only which is a bug.  We set the input
         # below to test this.
-        if vtk_major_version < 6:
-            vm.input = tvtk.ImageData()
-        else:
-            vm.set_input_data(tvtk.ImageData())
-
+        configure_input_data(vm, tvtk.ImageData())
         spw = tvtk.StructuredPointsWriter()
         if vtk_major_version < 6:
             spw.input = None

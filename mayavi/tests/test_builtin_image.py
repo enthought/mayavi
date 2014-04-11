@@ -11,11 +11,11 @@ import unittest
 from numpy import array
 
 # Enthought library imports.
+from tvtk.common import is_old_pipeline
 from mayavi.core.null_engine import NullEngine
 from mayavi.sources.builtin_image import BuiltinImage
 from mayavi.modules.surface import Surface
 from mayavi.modules.outline import Outline
-from mayavi.core.common import is_old_pipeline
 
 class TestBuiltinImageSource(unittest.TestCase):
 

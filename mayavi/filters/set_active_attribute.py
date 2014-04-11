@@ -6,12 +6,12 @@
 from traits.api import Instance, List, Str, Bool
 from traitsui.api import View, Group, Item
 from tvtk.api import tvtk
+from tvtk.common import is_old_pipeline
 
 # Local imports.
 from mayavi.core.pipeline_info import PipelineInfo
 from mayavi.core.filter import Filter
 from mayavi.core.trait_defs import DEnum
-from mayavi.core.common import is_old_pipeline
 from mayavi.sources.vtk_xml_file_reader import get_all_attributes
 
 ################################################################################

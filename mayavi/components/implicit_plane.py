@@ -11,7 +11,6 @@ from tvtk.api import tvtk
 
 # Local imports.
 from mayavi.core.component import Component
-from mayavi.core.common import is_old_pipeline
 
 VTK_VER = tvtk.Version().vtk_version
 

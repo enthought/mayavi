@@ -13,7 +13,7 @@ from apptools.persistence import state_pickler
 
 # Local imports.
 from mayavi.core.component import Component
-from mayavi.core.common import error, is_old_pipeline
+from mayavi.core.common import error 
 
 
 def _get_extent(inp):

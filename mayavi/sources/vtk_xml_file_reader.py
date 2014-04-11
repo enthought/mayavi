@@ -14,7 +14,6 @@ from tvtk.api import tvtk
 
 # Local imports.
 from mayavi.core.file_data_source import FileDataSource
-from mayavi.core.common import error, is_old_pipeline
 from mayavi.core.trait_defs import DEnum
 from mayavi.core.pipeline_info import (PipelineInfo,
         get_tvtk_dataset_name)

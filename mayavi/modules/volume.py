@@ -27,7 +27,7 @@ from apptools.persistence import state_pickler
 # Local imports
 from mayavi.core.pipeline_info import PipelineInfo
 from mayavi.core.module import Module
-from mayavi.core.common import error, is_old_pipeline
+from mayavi.core.common import error
 from mayavi.core.trait_defs import DEnum
 from mayavi.core.lut_manager import LUTManager
 

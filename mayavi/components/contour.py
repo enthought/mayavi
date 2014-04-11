@@ -20,7 +20,7 @@ from tvtk.api import tvtk
 
 # Local imports.
 from mayavi.core.component import Component
-from mayavi.core.common import error, is_old_pipeline
+from mayavi.core.common import error
 from mayavi.components.common \
      import get_module_source, convert_to_poly_data
 

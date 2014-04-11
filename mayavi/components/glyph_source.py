@@ -14,7 +14,7 @@ from tvtk.common import camel2enthought
 from apptools.persistence.state_pickler import set_state
 
 # Local imports.
-from mayavi.core.common import handle_children_state, is_old_pipeline
+from mayavi.core.common import handle_children_state
 from mayavi.core.component import Component
 
 

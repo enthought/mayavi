@@ -29,7 +29,7 @@ from traits.api import HasTraits, Range, false, \
 from traitsui.api import View, Group, Handler, ListEditor, Item
 from tvtk.api import tvtk
 from tvtk.tvtk_base import vtk_color_trait, TraitRevPrefixMap
-from tvtk.common import is_old_pipeline
+from tvtk.common import is_old_pipeline, configure_input, configure_input_data
 from apptools.persistence import state_pickler
 
 ######################################################################
@@ -56,16 +56,10 @@ class LightGlyph(HasTraits):
         tf.transform = t
         t.rotate_y(90.0)
         t.translate((-2, 0, 0))
-        if is_old_pipeline():
-            tf.input = arrow.output
-        else:
-            tf.set_input_data(arrow.output)
+        configure_input_data(tf, arrow.output)
 
         mapper = tvtk.PolyDataMapper()
-        if is_old_pipeline():
-            mapper.input = tf.output
-        else:
-            mapper.input_connection = tf.output_port
+        configure_input(mapper, tf)
 
         self.actor = actor = tvtk.Follower()
         actor.mapper = mapper

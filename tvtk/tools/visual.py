@@ -1083,8 +1083,10 @@ class Sphere(HasTraits):
         self._y_changed(self.y)
         self._z_changed(self.z)
 
-        normals = tvtk.PolyDataNormals(input = self.polydata)
-        m = tvtk.PolyDataMapper(input = normals.output) # the usual vtk pipleine countinuation
+        normals = tvtk.PolyDataNormals()
+        configure_input_data(normals, self.polydata)
+        m = tvtk.PolyDataMapper() # the usual vtk pipleine countinuation
+        configure_input_data(m, normals.output)
         self.actor.mapper = m
         self.property = self.actor.property
         self.property.representation = self.representation
@@ -1230,8 +1232,10 @@ class Cylinder(HasTraits):
         self._y_changed(self.y)
         self._z_changed(self.z)
 
-        normals = tvtk.PolyDataNormals(input = self.polydata)
-        m = tvtk.PolyDataMapper(input = normals.output) # the usual vtk pipleine countinuation
+        normals = tvtk.PolyDataNormals()
+        configure_input_data(normals, self.polydata)
+        m = tvtk.PolyDataMapper() # the usual vtk pipleine countinuation
+        configure_input_data(m, normals.output)
         self.actor.mapper = m
         self.property = self.actor.property
         self.property.representation = self.representation
@@ -1551,8 +1555,10 @@ class Arrow(HasTraits):
         self._z_changed(self.z)
         self._axis_changed(numpy.array((1.0, 0.0, 0.0)), self.axis)
 
-        normals = tvtk.PolyDataNormals(input = self.polydata)
-        m = tvtk.PolyDataMapper(input = normals.output) # the usual vtk pipleine countinuation
+        normals = tvtk.PolyDataNormals()
+        configure_input_data(normals, self.polydata)
+        m = tvtk.PolyDataMapper() # the usual vtk pipleine countinuation
+        configure_input_data(m, normals.output)
         self.actor.mapper = m
         self.property = self.actor.property
         self.property.representation = self.representation
@@ -1714,7 +1720,8 @@ class Helix(HasTraits):
         self._thickness_changed(self.thickness)
         self._axis_changed(numpy.array((1.0, 0.0, 0.0)), self.axis)
 
-        normals = tvtk.PolyDataNormals(input = self.polydata)
+        normals = tvtk.PolyDataNormals()
+        configure_input_data(normals, self.polydata)
         configure_input_data(self.tube, normals.output)
         self.tube.number_of_sides = 4
         self.tube.capping = 1

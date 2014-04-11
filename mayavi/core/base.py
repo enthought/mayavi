@@ -25,8 +25,9 @@ from traitsui.api import View
 from apptools.scripting.api import Recorder
 
 # Local imports.
+from tvtk.common import is_old_pipeline
 from mayavi.preferences.api import preference_manager
-from mayavi.core.common import get_engine, is_old_pipeline
+from mayavi.core.common import get_engine
 
 # Setup a logger for this module.
 logger = logging.getLogger(__name__)

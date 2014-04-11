@@ -18,8 +18,9 @@ from tvtk.api import tvtk
 from tvtk import messenger
 
 # Local imports.
+from tvtk.common import is_old_pipeline, configure_input_data
 from mayavi.core.source import Source
-from mayavi.core.common import handle_children_state, is_old_pipeline
+from mayavi.core.common import handle_children_state
 from mayavi.core.trait_defs import DEnum
 from mayavi.core.pipeline_info import (PipelineInfo,
         get_tvtk_dataset_name)
@@ -35,10 +36,7 @@ def write_dataset_to_string(data):
     """
     w = tvtk.DataSetWriter(write_to_output_string=1)
     warn = w.global_warning_display
-    if is_old_pipeline():
-        w.set_input(data)
-    else:
-        w.set_input_data(data)
+    configure_input_data(w, data)
     w.global_warning_display = 0
     w.update()
     if w.output_string_length == 0:

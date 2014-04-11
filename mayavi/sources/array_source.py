@@ -14,11 +14,11 @@ from traits.api import Instance, Trait, Str, Bool, Button, DelegatesTo
 from traitsui.api import View, Group, Item
 from tvtk.api import tvtk
 from tvtk import array_handler
+from tvtk.common import is_old_pipeline
 
 # Local imports
 from mayavi.core.source import Source
 from mayavi.core.pipeline_info import PipelineInfo
-from mayavi.core.common import is_old_pipeline
 
 def _check_scalar_array(obj, name, value):
     """Validates a scalar array passed to the object."""

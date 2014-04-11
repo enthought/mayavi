@@ -154,46 +154,6 @@ class CustomGridPlane(Component):
     ######################################################################
     # Non-public methods.
     ######################################################################
-    def _contours_items_changed(self, list_event):
-        if self.auto_contours or not self._has_input():
-            return
-        cf = self.contour_filter
-        added, removed, index = (list_event.added, list_event.removed,
-                                 list_event.index)
-        if len(added) == len(removed):
-            cf.set_value(index, added[0])
-            cf.update()
-            self.data_changed = True
-        else:
-            self._contours_changed(self.contours)
-
-    def _contours_changed(self, values):
-        if self.auto_contours or not self._has_input():
-            return
-        cf = self.contour_filter
-        cf.number_of_contours = len(values)
-        for i, x in enumerate(values):
-            cf.set_value(i, x)
-        cf.update()
-        self.data_changed = True
-
-    def _update_ranges(self):
-        # Here we get the module's source since the input of this
-        # component may not in general represent the entire object.
-        if not self.auto_update_range:
-            return
-        src = get_module_source(self.inputs[0])
-        sc = src.outputs[0].point_data.scalars
-        if sc is not None:
-            sc_array = sc.to_array()
-            has_nan = numpy.isnan(sc_array).any()
-            if has_nan:
-                rng = (float(numpy.nanmin(sc_array)),
-                       float(numpy.nanmax(sc_array)))
-
-    ######################################################################
-    # Non-public methods.
-    ######################################################################
     def _update_limits(self):
         extents = self.plane.input.whole_extent
         self._x_low, self._x_high = extents[:2]

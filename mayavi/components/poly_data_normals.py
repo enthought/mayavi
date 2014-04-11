@@ -12,7 +12,6 @@ from tvtk.api import tvtk
 # Local imports.
 from mayavi.core.component import Component
 from mayavi.components.common import convert_to_poly_data
-from mayavi.core.common import is_old_pipeline
 
 
 ######################################################################
