@@ -34,6 +34,7 @@ def axes_actor(origin=(0, 0, 0), scale_factor=1.0, radius=0.02,
     mapper = tvtk.PolyDataMapper()
     configure_input_data(mapper, tube.output)
     actor = tvtk.Actor(mapper=mapper)
+    axes.update()
     return actor
 
 
@@ -48,6 +49,7 @@ def cone_actor(center=(0, 0, 0), height=1.0, radius=0.5,
     configure_input_data(mapper, source.output)
     p = tvtk.Property(opacity=opacity, color=color)
     actor = tvtk.Actor(mapper=mapper, property=p)
+    source.update()
     return actor
 
 
@@ -59,6 +61,7 @@ def cube_actor(center=(0, 0, 0), color=colors.blue, opacity=1.0):
     configure_input_data(mapper, source.output)
     p = tvtk.Property(opacity=opacity, color=color)
     actor = tvtk.Actor(mapper=mapper, property=p)
+    source.update()
     return actor
 
 
@@ -71,6 +74,7 @@ def cylinder_actor(center=(0, 0, 0), radius=0.5, resolution=64,
     configure_input_data(mapper, source.output)
     prop = tvtk.Property(opacity=opacity, color=color)
     actor = tvtk.Actor(mapper=mapper, property=prop)
+    source.update()
     return actor
 
 
@@ -81,6 +85,7 @@ def earth_actor(radius=0.5, opacity=1.0):
     configure_input_data(mapper, source.output)
     prop = tvtk.Property(opacity=opacity)
     actor = tvtk.Actor(mapper=mapper, property=prop)
+    source.update()
     return actor
 
 
@@ -94,6 +99,7 @@ def sphere_actor(center=(0, 0, 0), radius=0.5, resolution=32,
     configure_input_data(mapper, source.output)
     prop = tvtk.Property(opacity=opacity, color=color)
     actor = tvtk.Actor(mapper=mapper, property=prop)
+    source.update()
     return actor
 
 
@@ -105,5 +111,6 @@ def arrow_actor(color=colors.peacock, opacity=1.0, resolution=24):
     configure_input_data(mapper, source.output)
     prop = tvtk.Property(opacity=opacity, color=color)
     actor = tvtk.Actor(mapper=mapper, property=prop)
+    source.update()
     return actor
 

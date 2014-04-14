@@ -622,6 +622,9 @@ class Curve(HasTraits):
 
     def update(self):
         self.polydata.modified()
+        self.stripper.update()
+        self.tube.update()
+        self.actor.mapper.update()
         self.viewer.scene.render()
 
     def rotate(self, angle, axis, origin = numpy.array([0.0, 0.0, 0.0])):
@@ -635,6 +638,9 @@ class Curve(HasTraits):
         self.set(axis = ax, trait_change_notify = False)
         self.polydata.points = self.points
         self.polydata.modified()
+        self.stripper.update()
+        self.tube.update()
+        self.actor.mapper.update()
         self.render()
 
     def render(self):
@@ -680,12 +686,17 @@ class Curve(HasTraits):
         self.set(points = p, trait_change_notify = False)
         self.polydata.points = self.points
         self.polydata.modified()
+        self.stripper.update()
+        self.tube.update()
+        self.actor.mapper.update()
         self.render()
 
     def _axis_changed(self, old, new):
         self.points = axis_changed(old, new, self.pos, self.points)
         self.polydata.points = self.points
         self.polydata.modified()
+        self.stripper.update()
+        self.tube.update()
         self.render()
 
     def _color_changed(self, value):
@@ -729,6 +740,7 @@ class Ring(HasTraits):
     property = Instance(tvtk.Property)
     tube = Instance(tvtk.TubeFilter, ())
     actor = Instance(tvtk.Actor, ()) # tvtk Actor, for the usual pipeline architecture.
+    normals = Instance(tvtk.PolyDataNormals(), ())
 
     ######################################################################
     # User interface view
@@ -761,8 +773,11 @@ class Ring(HasTraits):
         self._thickness_changed(self.thickness)
         self._axis_changed(numpy.array((1.0, 0.0, 0.0)), self.axis)
 
-        normals = tvtk.PolyDataNormals(input = self.polydata)
-        configure_input_data(self.tube, normals.outputs)
+        self.normals = tvtk.PolyDataNormals()
+        configure_input_data(self.normals, self.polydata)
+        configure_input_data(self.tube, self.normals.outputs)
+        self.normals.update()
+        self.tube.update()
         self.tube.number_of_sides = 4
         self.tube.capping = 1
 
@@ -806,6 +821,9 @@ class Ring(HasTraits):
         if (numpy.allclose(self.pos, 0.0)):
             self.points[:] = factor*self.points[:]
             self.polydata.modified()
+            self.normals.update()
+            self.tube.update()
+            self.actor.mapper.update()
             self.render()
         else:
             c = self.pos
@@ -816,6 +834,9 @@ class Ring(HasTraits):
             self.points = translate_points(diff, self.points)
             self.polydata.points = self.points
             self.polydata.modified()
+            self.normals.update()
+            self.actor.mapper.update()
+            self.tube.update()
             self.render()
 
     def _x_changed(self, value):
@@ -837,12 +858,17 @@ class Ring(HasTraits):
         self.points = translate(old, new, self.points)
         self.polydata.points = self.points
         self.polydata.modified()
+        self.normals.update()
+        self.tube.update()
+        self.actor.mapper.update()
         self.render()
 
     def _axis_changed(self, old, new):
         self.points = axis_changed(old, new, self.pos, self.points)
         self.polydata.points = self.points
         self.polydata.modified()
+        self.normals.update()
+        self.tube.update()
         self.render()
 
     def _representation_changed(self, value):
@@ -873,6 +899,9 @@ class Ring(HasTraits):
         self.set(axis = ax, trait_change_notify = False)
         self.polydata.points = self.points
         self.polydata.modified()
+        self.normals.update()
+        self.tube.update()
+        self.actor.mapper.update()
         self.render()
 
     def render(self):
@@ -966,12 +995,14 @@ class Cone(HasTraits):
         points, lines = self._create_points(self.radius, self.height, self.pos, self.axis)
         self.polydata.points = points
         self.polydata.modified()
+        self.actor.mapper.update()
         self.render()
 
     def _height_changed(self):
         points, lines = self._create_points(self.radius, self.height, self.pos, self.axis)
         self.polydata.points = points
         self.polydata.modified()
+        self.actor.mapper.update()
         self.render()
 
     def _pos_changed(self, old, new):
@@ -981,6 +1012,7 @@ class Cone(HasTraits):
         points, lines = self._create_points(self.radius, self.height, self.pos, self.axis)
         self.points = points
         self.polydata.modified()
+        self.actor.mapper.update()
         self.render()
 
     def _axis_changed(self):
@@ -1026,6 +1058,7 @@ class Cone(HasTraits):
         self.set(axis = ax, trait_change_notify = False)
         self.polydata.points = self.points
         self.polydata.modified()
+        self.actor.mapper.update()
         self.render()
 
     def render(self):
@@ -1055,6 +1088,7 @@ class Sphere(HasTraits):
     polydata = Instance(tvtk.PolyData, ())
     property = Instance(tvtk.Property)
     actor = Instance(tvtk.Actor, ()) # tvtk Actor, for the usual pipeline architecture.
+    normals = Instance(tvtk.PolyDataNormals, ())
 
     ######################################################################
     # User interface view
@@ -1083,10 +1117,11 @@ class Sphere(HasTraits):
         self._y_changed(self.y)
         self._z_changed(self.z)
 
-        normals = tvtk.PolyDataNormals()
-        configure_input_data(normals, self.polydata)
+        self.normals = tvtk.PolyDataNormals()
+        configure_input_data(self.normals, self.polydata)
+        self.normals.update()
         m = tvtk.PolyDataMapper() # the usual vtk pipleine countinuation
-        configure_input_data(m, normals.output)
+        configure_input_data(m, self.normals.output)
         self.actor.mapper = m
         self.property = self.actor.property
         self.property.representation = self.representation
@@ -1099,7 +1134,9 @@ class Sphere(HasTraits):
     ######################################################################
     # Non-public methods, Event handlers
     def _create_points(self, r, c):
-        sp = tvtk.SphereSource(radius = r, center = tuple(c), phi_resolution = 20, theta_resolution = 20)
+        sp = tvtk.SphereSource(radius = r, center = tuple(c), 
+                               phi_resolution = 20, 
+                               theta_resolution = 20)
         sp.update()
         ps = sp.output
 
@@ -1125,12 +1162,14 @@ class Sphere(HasTraits):
         points, lines = self._create_points(self.radius, self.pos)
         self.polydata.points = points
         self.polydata.modified()
+        self.normals.update()
         self.render()
 
     def _axis_changed(self, old, new):
         self.points = axis_changed(old, new, self.pos, self.points)
         self.polydata.points = self.points
         self.polydata.modified()
+        self.normals.update()
         self.render()
 
     def _x_changed(self, value):
@@ -1202,6 +1241,7 @@ class Cylinder(HasTraits):
     polydata = Instance(tvtk.PolyData, ())
     actor = Instance(tvtk.Actor, ()) # tvtk Actor, for the usual pipeline architecture.
     property = Instance(tvtk.Property)
+    normals = Instance(tvtk.PolyDataNormals(), ())
 
     ######################################################################
     # User interface view
@@ -1232,10 +1272,10 @@ class Cylinder(HasTraits):
         self._y_changed(self.y)
         self._z_changed(self.z)
 
-        normals = tvtk.PolyDataNormals()
-        configure_input_data(normals, self.polydata)
+        self.normals = tvtk.PolyDataNormals()
+        configure_input_data(self.normals, self.polydata)
         m = tvtk.PolyDataMapper() # the usual vtk pipleine countinuation
-        configure_input_data(m, normals.output)
+        configure_input_data(m, self.normals.output)
         self.actor.mapper = m
         self.property = self.actor.property
         self.property.representation = self.representation
@@ -1266,18 +1306,21 @@ class Cylinder(HasTraits):
         self.points, polys = self._create_points(self.radius, self.pos, self.length)
         self.polydata.points = self.points
         self.polydata.modified()
+        self.normals.update()
         self.render()
 
     def _length_changed(self, value):
         self.points, polys = self._create_points(self.radius, self.pos, self.length)
         self.polydata.points = self.points
         self.polydata.modified()
+        self.normals.update()
         self.render()
 
     def _axis_changed(self, old, new):
         self.points = axis_changed(old, new, self.pos, self.points)
         self.polydata.points = self.points
         self.polydata.modified()
+        self.normals.update()
         self.render()
 
     def _pos_changed(self, old, new):
@@ -1287,6 +1330,7 @@ class Cylinder(HasTraits):
         self.points = translate(old, new, self.points)
         self.polydata.points = self.points
         self.polydata.modified()
+        self.normals.update()
         self.render()
 
     def _color_changed(self, value):
@@ -1329,6 +1373,7 @@ class Cylinder(HasTraits):
         self.set(axis = ax, trait_change_notify = False)
         self.polydata.points = self.points
         self.polydata.modified()
+        self.normals.update()
         self.render()
 
     def render(self):
@@ -1525,6 +1570,7 @@ class Arrow(HasTraits):
     actor = Instance(tvtk.Actor, ()) # tvtk Actor, for the usual pipeline architecture.
     property = Instance(tvtk.Property)
     polydata = Instance(tvtk.PolyData, ())
+    normals = Instance(tvtk.PolyDataNormals(), ())
 
     ######################################################################
     # User interface view
@@ -1555,10 +1601,11 @@ class Arrow(HasTraits):
         self._z_changed(self.z)
         self._axis_changed(numpy.array((1.0, 0.0, 0.0)), self.axis)
 
-        normals = tvtk.PolyDataNormals()
-        configure_input_data(normals, self.polydata)
+        self.normals = tvtk.PolyDataNormals()
+        configure_input_data(self.normals, self.polydata)
+        self.normals.update()
         m = tvtk.PolyDataMapper() # the usual vtk pipleine countinuation
-        configure_input_data(m, normals.output)
+        configure_input_data(m, self.normals.output)
         self.actor.mapper = m
         self.property = self.actor.property
         self.property.representation = self.representation
@@ -1585,18 +1632,21 @@ class Arrow(HasTraits):
         self.points, polys = self._create_points(self.radius_cone, self.length_cone, self.radius_shaft, self.pos)
         self.polydata.points = self.points
         self.polydata.modified()
+        self.normals.update()
         self.render()
 
     def _length_cone_changed(self, old, new):
         self.points, polys = self._create_points(self.radius_cone, self.length_cone, self.radius_shaft, self.pos)
         self.polydata.points = self.points
         self.polydata.modified()
+        self.normals.update()
         self.render()
 
     def _radius_shaft_changed(self, old, new):
         self.points, polys = self._create_points(self.radius_cone, self.length_cone, self.radius_shaft, self.pos)
         self.polydata.points = self.points
         self.polydata.modified()
+        self.normals.update()
         self.render()
 
     def _pos_changed(self, old, new):
@@ -1606,12 +1656,14 @@ class Arrow(HasTraits):
         self.points = translate(old, new, self.points)
         self.polydata.points = self.points
         self.polydata.modified()
+        self.normals.update()
         self.render()
 
     def _axis_changed(self, old, new):
         self.points = axis_changed(old, new, self.pos, self.points)
         self.polydata.points = self.points
         self.polydata.modified()
+        self.normals.update()
         self.render()
 
     def _color_changed(self, value):
@@ -1654,6 +1706,7 @@ class Arrow(HasTraits):
         self.set(axis = ax, trait_change_notify = False)
         self.polydata.points = self.points
         self.polydata.modified()
+        self.normals.update()
         self.render()
 
     def render(self):
@@ -1689,6 +1742,7 @@ class Helix(HasTraits):
     property = Instance(tvtk.Property)
     tube = Instance(tvtk.TubeFilter, ())
     actor = Instance(tvtk.Actor, ()) # tvtk Actor, for the usual pipeline architecture.
+    normals = Instance(tvtk.PolyDataNormals(), ())
 
     ######################################################################
     # User interface view
@@ -1720,9 +1774,9 @@ class Helix(HasTraits):
         self._thickness_changed(self.thickness)
         self._axis_changed(numpy.array((1.0, 0.0, 0.0)), self.axis)
 
-        normals = tvtk.PolyDataNormals()
-        configure_input_data(normals, self.polydata)
-        configure_input_data(self.tube, normals.output)
+        self.normals = tvtk.PolyDataNormals()
+        configure_input_data(self.normals, self.polydata)
+        configure_input_data(self.tube, self.normals.output)
         self.tube.number_of_sides = 4
         self.tube.capping = 1
 
@@ -1759,6 +1813,8 @@ class Helix(HasTraits):
         lines[:,1] = numpy.arange(1, np+0.5, 1, 'l')
         self.polydata.points = self.points
         self.polydata.lines = lines
+        self.normals.update()
+        self.tube.update()
 
     def _color_changed(self, value):
         self.actor.property.color = value
@@ -1769,6 +1825,8 @@ class Helix(HasTraits):
         self.change_axis(numpy.array((1.0, 0.0, 0.0)), self.axis)
         self.polydata.points = self.points
         self.polydata.modified()
+        self.normals.update()
+        self.tube.update()
         self.render()
 
     def _coils_changed(self, old, new):
@@ -1795,6 +1853,8 @@ class Helix(HasTraits):
         self._pos_changed(numpy.array([0.0, 0.0, 0.0]), self.pos)
         self.change_axis(numpy.array((1.0, 0.0, 0.0)), self.axis)
         self.polydata.modified()
+        self.normals.update()
+        self.tube.update()
         self.render()
 
     def _x_changed(self, value):
@@ -1821,12 +1881,16 @@ class Helix(HasTraits):
         self.points = translate(old, new, self.points)
         #self.polydata.points = self.points
         self.polydata.modified()
+        self.normals.update()
+        self.tube.update()
         self.render()
 
     def _axis_changed(self, old, new):
         self.points = axis_changed(old, new, self.pos, self.points)
         #self.polydata.points = self.points
         self.polydata.modified()
+        self.normals.update()
+        self.tube.update()
         self.render()
 
     def change_axis(self, old, new):
@@ -1844,6 +1908,8 @@ class Helix(HasTraits):
             v.scene.disable_render = False
         self.polydata.points = self.points
         self.polydata.modified()
+        self.normals.update()
+        self.tube.update()
         self.render()
 
     def _visibility_changed(self, value):
@@ -1869,6 +1935,8 @@ class Helix(HasTraits):
         self.set(axis = ax, trait_change_notify = False)
         self.polydata.points = self.points
         self.polydata.modified()
+        self.normals.update()
+        self.tube.update()
         self.render()
 
     def render(self):
@@ -1903,6 +1971,7 @@ class Ellipsoid(HasTraits):
     polydata = Instance(tvtk.PolyData, ())
     property = Instance(tvtk.Property)
     actor = Instance(tvtk.Actor, ()) # tvtk Actor, for the usual pipeline architecture.
+    normals = Instance(tvtk.PolyDataNormals(), ())
 
     ######################################################################
     # User interface view
@@ -1933,8 +2002,11 @@ class Ellipsoid(HasTraits):
         self._z_changed(self.z)
         self._axis_changed(numpy.array((1.0, 0.0, 0.0)), self.axis)
 
-        normals = tvtk.PolyDataNormals(input = self.polydata)
-        m = tvtk.PolyDataMapper(input = normals.output) # the usual vtk pipleine countinuation
+        self.normals = tvtk.PolyDataNormals()
+        configure_input_data(self.normals, self.polydata)
+        self.normals.update()
+        m = tvtk.PolyDataMapper() # the usual vtk pipleine countinuation
+        configure_input_data(self.normals, self.normals.output)
         self.actor.mapper = m
         self.property = self.actor.property
         self.property.representation = self.representation
@@ -1962,12 +2034,14 @@ class Ellipsoid(HasTraits):
         points, polys = self._create_points(self.radius, self.pos)
         self.polydata.points = points
         self.polydata.modified()
+        self.normals.update()
         self.render()
 
     def _size_changed(self, value):
         points, polys = self._create_points(self.radius, self.pos)
         self.polydata.points = points
         self.polydata.modified()
+        self.normals.update()
         self.render()
 
     def _color_changed(self, value):
@@ -1980,6 +2054,7 @@ class Ellipsoid(HasTraits):
         points, lines = self._create_points(self.radius, self.pos)
         self.polydata.points = points
         self.polydata.modified()
+        self.normals.update()
         self.render()
 
     def _axis_changed(self, old, new):
@@ -1987,6 +2062,7 @@ class Ellipsoid(HasTraits):
         self.points = points
         self.polydata.points = self.points
         self.polydata.modified()
+        self.normals.update()
         self.render()
 
     def _x_changed(self, value):

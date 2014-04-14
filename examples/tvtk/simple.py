@@ -28,6 +28,7 @@ m = tvtk.PolyDataMapper()
 # get_output(N).
 # m.input = cs.output # or m.input = cs.get_output()
 configure_input_data(m, cs.output)
+cs.update()
 
 # Create the actor and set its mapper.
 a = tvtk.Actor(mapper=m)
