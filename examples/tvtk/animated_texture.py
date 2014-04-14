@@ -47,6 +47,8 @@ configure_input_data(g, pd)
 # use get_source(N).
 # g.source = cs.output
 configure_source_data(g, cs.output)
+cs.update()
+g.update()
 
 m = tvtk.PolyDataMapper()
 configure_input_data(m, g.output)

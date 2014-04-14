@@ -34,6 +34,7 @@ configure_input_data(m, cs.output)
 
 # Create the actor and set its mapper.
 a = tvtk.Actor(mapper=m)
+cs.update()
 
 # Create a Renderer, add the actor and set its background color.
 ren = tvtk.Renderer(background=(0.1, 0.2, 0.4))
@@ -51,4 +52,5 @@ w2if.input = rw
 ex = tvtk.PNGWriter()
 ex.file_name = "example.png"
 configure_input_data(ex, w2if.output)
+w2if.update()
 ex.write()
