@@ -13,11 +13,13 @@ from traits.api import Enum
 from traitsui.api import View, Group, Item
 from tvtk.api import tvtk
 from tvtk.tvtk_base import TraitRevPrefixMap
+import tvtk.common as tvtk_common
 
 # Local imports.
 from mayavi.core.component import Component
 from mayavi.core.module import Module
 from mayavi.components import glyph_source
+from mayavi.components.common import convert_to_poly_data
 
 
 ######################################################################
@@ -269,10 +271,15 @@ class Glyph(Component):
             return
         if value:
             mask = self.mask_points
-            self.configure_connection(mask, inputs[0])
-            self.configure_input(self.glyph, mask)
+            tvtk_common.configure_input_data(mask, inputs[0].outputs[0])
+            tvtk_common.configure_source_data(self.glyph, mask.output)
         else: 
-            self.configure_connection(self.glyph, inputs[0])
+            op = inputs[0].outputs[0]
+            if isinstance(op, tvtk.PolyData):
+                self.configure_source_data(self.glyph, op)
+            else:
+                pd = convert_to_poly_data(op)
+                self.configure_source_data(self.glyph, pd)
 
     def _glyph_type_changed(self, value):
         if self.glyph_type == 'vector':

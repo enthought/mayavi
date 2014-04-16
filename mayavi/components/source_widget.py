@@ -10,6 +10,7 @@ to be used by various modules.
 from traits.api import Instance, List, Trait, Bool, TraitPrefixList
 from traitsui.api import View, Group, Item, InstanceEditor
 from tvtk.api import tvtk
+from tvtk.common import configure_input_data
 from apptools.persistence.state_pickler import set_state
 
 # Local imports.
@@ -218,7 +219,7 @@ class SourceWidget(Component):
             recorder.record('%s = %s'%(lhs, rhs))
 
         if len(self.inputs) > 0:
-            value.input = self.inputs[0].outputs[0]
+            configure_input_data(value, self.inputs[0].outputs[0])
             value.place_widget()
 
         value.on_trait_change(self.render)

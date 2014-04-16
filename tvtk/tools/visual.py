@@ -593,6 +593,9 @@ class Curve(HasTraits):
         m = tvtk.PolyDataMapper()
         configure_input_data(m, self.tube.output)
         self.actor.mapper = m
+        self.stripper.update()
+        self.tube.update()
+        self.actor.mapper.update()
         self.property = self.actor.property
         self.property.representation = self.representation
         show_actor(self.actor)
@@ -662,6 +665,9 @@ class Curve(HasTraits):
             lines[:,0] = numpy.arange(0, np-0.5, 1, 'l')
             lines[:,1] = numpy.arange(1, np+0.5, 1, 'l')
         self.polydata.lines = lines
+        self.polydata.modified()
+        self.stripper.update()
+        self.tube.update()
         v = self.viewer
         if v is not None:
             v.scene.render()

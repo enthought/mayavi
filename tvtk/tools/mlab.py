@@ -261,18 +261,19 @@ def make_surf_actor(x, y, z, warp=1, scale=[1.0, 1.0, 1.0],
     if not make_actor:
         return data
     if warp:
-        geom_f = tvtk.ImageDataGeometryFilter(input=data)
+        geom_f = tvtk.ImageDataGeometryFilter()
+        configure_input_data(geom_f, data)
 
-        warper = tvtk.WarpScalar(input=geom_f.output,
-                                 scale_factor=scale[2])
-        normals = tvtk.PolyDataNormals(input=warper.output,
-                                       feature_angle=45)
+        warper = tvtk.WarpScalar(scale_factor=scale[2])
+        configure_input_data(warper, geom_f.output)
+        normals = tvtk.PolyDataNormals(feature_angle=45)
+        configure_input_data(normals, warper.output)
 
-        mapper = tvtk.PolyDataMapper(input=normals.output,
-                                     scalar_range=(min(zval),max(zval)))
+        mapper = tvtk.PolyDataMapper(scalar_range=(min(zval),max(zval)))
+        configure_input_data(mapper, normals.output)
     else:
-        mapper = tvtk.PolyDataMapper(input=data,
-                                     scalar_range=(min(zval),max(zval)))
+        mapper = tvtk.PolyDataMapper(scalar_range=(min(zval),max(zval)))
+        configure_input_data(mapper, data)
     actor = _make_actor(mapper=mapper)
     return data, actor
 
