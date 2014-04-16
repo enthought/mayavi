@@ -158,6 +158,7 @@ class ArraySource(Source):
             pd.scalars.modified()
         if self.vector_data is not None:
             pd.vectors.modified()
+        self.change_information_filter.update()
         self.data_changed = True
 
     ######################################################################
@@ -261,4 +262,3 @@ class ArraySource(Source):
 
     def _information_changed(self):
         self.data_changed = True
-
