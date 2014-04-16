@@ -7,7 +7,7 @@ to be used by various modules.
 # License: BSD Style.
 
 # Enthought library imports.
-from traits.api import Instance, List, Trait, Bool, TraitPrefixList
+from traits.api import Event, Instance, List, Trait, Bool, TraitPrefixList
 from traitsui.api import View, Group, Item, InstanceEditor
 from tvtk.api import tvtk
 from tvtk.common import configure_input_data
@@ -45,6 +45,8 @@ class SourceWidget(Component):
 
     # The poly data that the widget manages.
     poly_data = Instance(tvtk.PolyData, args=())
+
+    poly_data_updated = Event
 
     ########################################
     # Private traits.
@@ -156,7 +158,7 @@ class SourceWidget(Component):
             return
         inp = self.inputs[0].outputs[0]
         w = self.widget
-        self.configure_input_data(w, inp)
+        self.configure_input(w, inp)
         if self._first:
             w.place_widget()
             self._first = False
@@ -193,6 +195,7 @@ class SourceWidget(Component):
     ######################################################################
     def update_poly_data(self):
         self.widget.get_poly_data(self.poly_data)
+        self.poly_data_updated = True
 
     ######################################################################
     # Non-public traits.

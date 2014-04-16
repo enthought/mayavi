@@ -16,6 +16,7 @@ from traits.api import Instance, Bool, TraitPrefixList, Trait, \
                              Delegate, Button
 from traitsui.api import View, Group, Item, InstanceEditor
 from tvtk.api import tvtk
+from tvtk.common import is_old_pipeline
 
 # Local imports
 from mayavi.core.module import Module
@@ -212,6 +213,7 @@ class Streamline(Module):
 
     def _update_streamlines_fired(self):
         self.seed.update_poly_data()
+        self.stream_tracer.update()
         self.render()
 
     def _stream_tracer_changed(self, old, new):
@@ -255,3 +257,6 @@ class Streamline(Module):
         new.inputs = [self]
         self._change_components(old, new)
 
+    def _poly_data_updated_changed_for_seed(self):
+        if not is_old_pipeline():
+            self.stream_tracer.update()

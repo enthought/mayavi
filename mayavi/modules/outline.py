@@ -123,6 +123,7 @@ class Outline(Module):
         mm = self.module_manager
         if mm is None:
             return
+
         self._outline_mode_changed(self.outline_mode)
         self.pipeline_changed = True
 
@@ -135,7 +136,7 @@ class Outline(Module):
         """
         # Just set data_changed, the component should do the rest.
         self.data_changed = True
-    
+
     def render(self):
         if not is_old_pipeline():
             self.outline_filter.update()
@@ -180,13 +181,16 @@ class Outline(Module):
 
     def _manual_bounds_changed(self):
         if self.manual_bounds:
-            self.outline_filter.input_connection = self.outline_source.output_port
+            if is_old_pipeline():
+                self.outline_filter.input = self.outline_source.output
+            else:
+                self.outline_filter.input_connection = self.outline_source.output_port
         else:
             # Set the input of the filter.
             mm = self.module_manager
             self.configure_connection(self.outline_filter, mm.source)
-            self.outline_filter.update()
+        self.render()
 
     def _bounds_changed(self):
+        self.outline_filter.update()
         self.pipeline_changed = True
-
