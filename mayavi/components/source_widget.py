@@ -46,8 +46,6 @@ class SourceWidget(Component):
     # The poly data that the widget manages.
     poly_data = Instance(tvtk.PolyData, args=())
 
-    poly_data_updated = Event
-
     ########################################
     # Private traits.
 
@@ -195,7 +193,6 @@ class SourceWidget(Component):
     ######################################################################
     def update_poly_data(self):
         self.widget.get_poly_data(self.poly_data)
-        self.poly_data_updated = True
 
     ######################################################################
     # Non-public traits.

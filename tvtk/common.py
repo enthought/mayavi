@@ -48,10 +48,12 @@ def is_old_pipeline():
 
 def configure_connection(obj, inp):
     """ Configure topology for vtk pipeline obj."""
-    if inp.has_output_port():
+    if hasattr(inp, 'output_port'):
+        obj.input_connection = inp.output_port
+    elif inp.has_output_port():
         obj.input_connection = inp.get_output_object()
     else:
-        configure_input_data(obj, inp.outputs[0])
+        configure_input(obj, inp.outputs[0])
 
 def configure_input_data(obj, data):
     """ Configure the input data for vtk pipeline object obj."""

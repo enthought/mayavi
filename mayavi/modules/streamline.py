@@ -16,7 +16,7 @@ from traits.api import Instance, Bool, TraitPrefixList, Trait, \
                              Delegate, Button
 from traitsui.api import View, Group, Item, InstanceEditor
 from tvtk.api import tvtk
-from tvtk.common import is_old_pipeline
+from tvtk.common import configure_outputs
 
 # Local imports
 from mayavi.core.module import Module
@@ -202,13 +202,13 @@ class Streamline(Module):
         rf = self.ribbon_filter
         tf = self.tube_filter
         if value == 'line':
-            self.outputs = [st.output]
+            configure_outputs(self, st)
         elif value == 'ribbon':
-            rf.input_connection = st.output_port
-            self.outputs = [rf.output]
+            self.configure_connection(rf, st)
+            configure_outputs(self, rf)
         elif value == 'tube':
-            tf.input_connection = st.output_port
-            self.outputs = [tf.output]
+            self.configure_connection(tf, st)
+            configure_outputs(self, tf)
         self.render()
 
     def _update_streamlines_fired(self):
@@ -256,7 +256,3 @@ class Streamline(Module):
         new.scene = self.scene
         new.inputs = [self]
         self._change_components(old, new)
-
-    def _poly_data_updated_changed_for_seed(self):
-        if not is_old_pipeline():
-            self.stream_tracer.update()
