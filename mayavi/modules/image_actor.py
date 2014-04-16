@@ -74,6 +74,7 @@ class ImageActor(Module):
         if self.map_scalars_to_color:
             self.configure_connection(self.image_map_to_color, src)
             self.image_map_to_color.lookup_table = mm.scalar_lut_manager.lut
+            self.image_map_to_color.update()
             self.configure_input_data(self.actor,
                                       self.image_map_to_color.output)
         else:
@@ -104,4 +105,3 @@ class ImageActor(Module):
         src = mm.source
         return not isinstance(src.outputs[0].point_data.scalars,
                                                     tvtk.UnsignedCharArray)
-
