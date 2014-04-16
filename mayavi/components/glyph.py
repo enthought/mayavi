@@ -19,7 +19,6 @@ import tvtk.common as tvtk_common
 from mayavi.core.component import Component
 from mayavi.core.module import Module
 from mayavi.components import glyph_source
-from mayavi.components.common import convert_to_poly_data
 
 
 ######################################################################
@@ -180,7 +179,7 @@ class Glyph(Component):
         self._scale_mode_changed(self.scale_mode)
 
         # Set our output.
-        self.outputs = [self.glyph.output]
+        tvtk_common.configure_outputs(self, self.glyph)
         self.pipeline_changed = True
 
     def update_data(self):
@@ -271,15 +270,9 @@ class Glyph(Component):
             return
         if value:
             mask = self.mask_points
-            tvtk_common.configure_input_data(mask, inputs[0].outputs[0])
-            tvtk_common.configure_source_data(self.glyph, mask.output)
-        else: 
-            op = inputs[0].outputs[0]
-            if isinstance(op, tvtk.PolyData):
-                self.configure_source_data(self.glyph, op)
-            else:
-                pd = convert_to_poly_data(op)
-                self.configure_source_data(self.glyph, pd)
+            tvtk_common.configure_input(mask, inputs[0].outputs[0])
+        else:
+            self.configure_connection(self.glyph, inputs[0])
 
     def _glyph_type_changed(self, value):
         if self.glyph_type == 'vector':
@@ -292,4 +285,3 @@ class Glyph(Component):
     def _scene_changed(self, old, new):
         super(Glyph, self)._scene_changed(old, new)
         self.glyph_source.scene = new
-

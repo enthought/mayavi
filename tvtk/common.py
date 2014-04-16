@@ -63,16 +63,38 @@ def configure_input_data(obj, data):
 def configure_input(inp, op):
     """ Configure the inp using op."""
     if is_old_pipeline():
-        inp.input = op.output
+        if op.is_a('vtkDataSet'):
+            inp.input = op
+        else:
+            inp.input = op.output
     else:
-        inp.input_connection = op.output_port
+        if hasattr(op, 'output_port'):
+            inp.input_connection = op.output_port
+        elif op.is_a('vtkAlgorithmOutput'):
+            inp.input_connection = op
+        elif op.is_a('vtkDataSet'):
+            inp.set_input_data(op)
+        else:
+            raise ValueError('Unknown input type for object %s'%op)
+
+def configure_outputs(obj, tvtk_obj):
+    if is_old_pipeline():
+        obj.outputs = [tvtk_obj.output]
+    else:
+        if hasattr(tvtk_obj, 'output_port'):
+            obj.outputs = [tvtk_obj.output_port]
+        else:
+            obj.outputs = [tvtk_obj]
 
 def configure_source_data(obj, data):
     """ Configure the source data for vtk pipeline object obj."""
     if is_old_pipeline():
         obj.source = data
     else:
-        obj.set_source_data(data)
+        if data.is_a('vtkAlgorithmOutput'):
+            obj.set_source_connection(data)
+        else:
+            obj.set_source_data(data)
 
 class _Camel2Enthought:
     """Simple functor class to convert names from CamelCase to
