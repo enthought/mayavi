@@ -21,7 +21,7 @@ if not os.path.exists('N36W113.hgt.zip'):
     import urllib
     print 'Downloading data, please wait (10M)'
     opener = urllib.urlopen(
-    'http://staging.enthought.com/projects/mayavi/N36W113.hgt.zip'
+    'https://s3.amazonaws.com/storage.enthought.com/www/sample_data/N36W113.hgt.zip'
         )
     open('N36W113.hgt.zip', 'wb').write(opener.read())
 

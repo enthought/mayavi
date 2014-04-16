@@ -35,7 +35,7 @@ if not os.path.exists('N36W113.hgt.zip'):
     import urllib
     print 'Downloading data, please wait (10M)'
     opener = urllib.urlopen(
-    'http://staging.enthought.com/projects/mayavi/N36W113.hgt.zip'
+    'https://s3.amazonaws.com/storage.enthought.com/www/sample_data/N36W113.hgt.zip'
         )
     open('N36W113.hgt.zip', 'wb').write(opener.read())
 
@@ -82,4 +82,3 @@ grid = mlab.pipeline.surface(warp, color=(1, 1, 1),
 mlab.view(-17, 46, 143, [1.46, 8.46, 269.4])
 
 mlab.show()
-
