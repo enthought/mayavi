@@ -261,4 +261,5 @@ class ArraySource(Source):
             self._vector_data_changed(self.vector_data)
 
     def _information_changed(self):
+        self.change_information_filter.update()
         self.data_changed = True
