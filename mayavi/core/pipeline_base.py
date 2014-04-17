@@ -12,7 +12,7 @@ from traits.api import List, Event, Bool, Instance
 # Local imports.
 from mayavi.core.base import Base
 from mayavi.core.pipeline_info import PipelineInfo
-
+import tvtk.common as tvtk_common
 
 ######################################################################
 # `PipelineBase` class.
@@ -120,12 +120,16 @@ class PipelineBase(Base):
                 if hasattr(actor, 'mapper'):
                     m = actor.mapper
                     if m is not None:
-                        m.update()
-            for widget in self.widgets:
-                if hasattr(widget, 'input'):
-                    input = widget.input
-                    if input is not None:
-                        input.update()
+                        if tvtk_common.is_old_pipeline():
+                            m.update()
+                        else:
+                            m.update(0)
+            if tvtk_common.is_old_pipeline():
+                for widget in self.widgets:
+                    if hasattr(widget, 'input'):
+                        input = widget.input
+                        if input is not None:
+                            input.update()
         if hasattr(self, 'components'):
             for component in self.components:
                     component.render()
@@ -159,6 +163,32 @@ class PipelineBase(Base):
             scene.remove_actors(self.actors)
             scene.remove_widgets(self.widgets)
             self._actors_added = False
+
+    def has_output_port(self):
+        """ We assume the old pipeline topology.
+        As such we assume no output_port exists."""
+        return False
+
+    def get_output_object(self):
+        """ We assume the old pipeline topology.
+        As such we return the first output."""
+        return self.outputs[0]
+
+    def configure_connection(self, obj, inp):
+        """ Configure topology for vtk pipeline obj."""
+        tvtk_common.configure_connection(obj, inp)
+
+    def configure_input_data(self, obj, data):
+        """ Configure the input data for vtk pipeline object obj."""
+        tvtk_common.configure_input_data(obj, data)
+
+    def configure_input(self, inp, op):
+        """ Configure the inp using op."""
+        tvtk_common.configure_input(inp, op)
+
+    def configure_source_data(self, obj, data):
+        """ Configure the source data for vtk pipeline object obj."""
+        tvtk_common.configure_source_data(obj, data)
 
     ######################################################################
     # Non-public interface

@@ -88,7 +88,7 @@ class Actor2D(Component):
         if (len(self.inputs) == 0) or \
                (len(self.inputs[0].outputs) == 0):
             return
-        self.mapper.input = self.inputs[0].outputs[0]
+        self.configure_connection(self.mapper, self.inputs[0])
         self.render()
 
     def update_data(self):
@@ -114,7 +114,7 @@ class Actor2D(Component):
         self._setup_handlers(old, new)
         # Setup the inputs to the mapper.
         if (len(self.inputs) > 0) and (len(self.inputs[0].outputs) > 0):
-            new.input = self.inputs[0].outputs[0]
+            self.configure_connection(new, self.inputs[0])
         # Setup the actor's mapper.
         actor = self.actor
         if actor is not None:

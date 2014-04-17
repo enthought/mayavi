@@ -16,7 +16,7 @@ from mayavi.modules.grid_plane import GridPlane
 from mayavi.modules.axes import Axes
 from mayavi.filters.extract_grid import ExtractGrid
 from tvtk.api import tvtk
-
+from tvtk.common import is_old_pipeline
 
 class TestExtractGridFilter(unittest.TestCase):
 
@@ -41,7 +41,8 @@ class TestExtractGridFilter(unittest.TestCase):
         image_data = tvtk.ImageData(origin=(xmin, ymin, zmin),
                                     spacing=(dx, dy, dz),
                                     extent=(0, nx-1, 0, ny-1, 0, nz-1))
-        image_data.whole_extent = image_data.extent
+        if is_old_pipeline():
+            image_data.whole_extent = image_data.extent
         src.data = image_data
         return src
 
@@ -86,9 +87,10 @@ class TestExtractGridFilter(unittest.TestCase):
         d = VTKDataSource()
         d.data = self.make_scatter()
         e.add_source(d)
-        a = Axes()
-        e.add_module(a)
-        a.axes.number_of_labels = nb_ticks
+        if is_old_pipeline():
+            a = Axes()
+            e.add_module(a)
+            a.axes.number_of_labels = nb_ticks
 
         self.eg = eg
         self.gpx = gpx

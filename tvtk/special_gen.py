@@ -124,7 +124,8 @@ class SpecialGenerator:
         code = """
         def __getstate__(self):
             d = tvtk_base.TVTKBase.__getstate__(self)
-            del d['color']
+            if 'color' in d:
+                del d['color']
             return d
 
         def __setstate__(self, dict):
@@ -548,4 +549,3 @@ class HelperGenerator:
         %(name)s = property(lambda self: get_class('%(name)s'))
         """%locals()
         out.write(self.indent.format(code))
-

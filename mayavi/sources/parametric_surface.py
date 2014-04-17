@@ -107,5 +107,5 @@ class ParametricSurface(Source):
         if old is not None:
             old.on_trait_change(self.render, remove=True)
         new.on_trait_change(self.render)
-
+        self.source.update()
         self.data_changed = True

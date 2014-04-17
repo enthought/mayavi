@@ -21,6 +21,7 @@ achieving the same effect but the present form nicely illustrates item
 # License: BSD Style.
 
 from tvtk.api import tvtk
+from tvtk.common import configure_input
 import numpy
 import time
 
@@ -48,17 +49,21 @@ except ImportError:
 sp.point_data.scalars = z
 
 # Convert this to a PolyData object.
-geom_filter = tvtk.ImageDataGeometryFilter(input=sp)
+geom_filter = tvtk.ImageDataGeometryFilter()
+configure_input(geom_filter, sp)
 
 # Now warp this using the scalar value to generate a carpet plot.
-warp = tvtk.WarpScalar(input=geom_filter.output)
+warp = tvtk.WarpScalar()
+configure_input(warp, geom_filter)
 
 # Smooth the resulting data so it looks good.
-normals = tvtk.PolyDataNormals(input=warp.output)
+normals = tvtk.PolyDataNormals()
+configure_input(normals, warp)
 
 # The rest of the VTK pipeline.
-m = tvtk.PolyDataMapper(input=normals.output,
-                        scalar_range=(min(z), max(z)))
+m = tvtk.PolyDataMapper(scalar_range=(min(z), max(z)))
+configure_input(m, normals)
+
 a = tvtk.Actor(mapper=m)
 
 ren = tvtk.Renderer(background=(0.5, 0.5, 0.5))

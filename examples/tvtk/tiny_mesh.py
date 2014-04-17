@@ -10,6 +10,7 @@ transparently with TVTK.
 # License: BSD Style.
 
 from tvtk.api import tvtk
+from tvtk.common import configure_input_data
 from numpy import array
 
 ### DATA
@@ -44,7 +45,8 @@ mesh.point_data.scalars = temperature
 
 # Set the mapper to scale temperature range
 # across the entire range of colors
-mapper = tvtk.PolyDataMapper(input=mesh)
+mapper = tvtk.PolyDataMapper()
+configure_input_data(mapper, mesh)
 mapper.scalar_range = min(temperature), max(temperature)
 
 # Create mesh actor for display

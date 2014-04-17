@@ -168,10 +168,10 @@ class Axes(Module):
         """
         mm = self.module_manager
         if mm is None or not self.axes.use_data_bounds:
-            self.axes.input = None
+            self.configure_input_data(self.axes, None)
             return
         src = mm.source
-        self.axes.input = src.outputs[0]
+        self.configure_input_data(self.axes, src.outputs[0])
         self.pipeline_changed = True
 
     def update_data(self):

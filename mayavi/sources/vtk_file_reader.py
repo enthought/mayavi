@@ -45,6 +45,18 @@ class VTKFileReader(VTKXMLFileReader):
                                attributes=['any'])
 
     ######################################################################
+    # `FileDataSource` interface
+    ######################################################################
+
+    def has_output_port(self):
+        """ Return True as the reader has output port."""
+        return True
+
+    def get_output_object(self):
+        """ Return the reader output port."""
+        return self.reader.output_port
+    
+    ######################################################################
     # Non-public interface
     ######################################################################
     def _file_path_changed(self, fpath):
@@ -71,7 +83,7 @@ class VTKFileReader(VTKXMLFileReader):
             # FIXME: Only the first output goes through the assign
             # attribute filter.
             aa = self._assign_attribute
-            aa.input = outputs[0]
+            self.configure_input_data(aa, outputs[0])
             outputs[0] = aa.output
             self.update_data()
 

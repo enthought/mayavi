@@ -17,6 +17,7 @@ from apptools.persistence import state_pickler
 from tvtk.api import tvtk
 from tvtk import messenger
 from tvtk.tvtk_base import vtk_color_trait
+from tvtk.common import configure_input
 
 from traits.api import HasPrivateTraits, HasTraits, Any, Int, \
      Property, Instance, Event, Range, Bool, Trait, Str
@@ -412,7 +413,7 @@ class TVTKScene(HasPrivateTraits):
             w2if.input = self._renwin
             ex = tvtk.PostScriptWriter()
             ex.file_name = file_name
-            ex.input = w2if.output
+            configure_input(ex, w2if)
             self._exporter_write(ex)
 
     def save_bmp(self, file_name):
@@ -425,7 +426,7 @@ class TVTKScene(HasPrivateTraits):
             w2if.input = self._renwin
             ex = tvtk.BMPWriter()
             ex.file_name = file_name
-            ex.input = w2if.output
+            configure_input(ex, w2if)
             self._exporter_write(ex)
 
     def save_tiff(self, file_name):
@@ -438,7 +439,7 @@ class TVTKScene(HasPrivateTraits):
             w2if.input = self._renwin
             ex = tvtk.TIFFWriter()
             ex.file_name = file_name
-            ex.input = w2if.output
+            configure_input(ex, w2if)
             self._exporter_write(ex)
 
     def save_png(self, file_name):
@@ -451,7 +452,7 @@ class TVTKScene(HasPrivateTraits):
             w2if.input = self._renwin
             ex = tvtk.PNGWriter()
             ex.file_name = file_name
-            ex.input = w2if.output
+            configure_input(ex, w2if)
             self._exporter_write(ex)
 
     def save_jpg(self, file_name, quality=None, progressive=None):
@@ -470,7 +471,7 @@ class TVTKScene(HasPrivateTraits):
             ex.quality = quality
             ex.progressive = progressive
             ex.file_name = file_name
-            ex.input = w2if.output
+            configure_input(ex, w2if)
             self._exporter_write(ex)
 
     def save_iv(self, file_name):
@@ -830,6 +831,7 @@ class TVTKScene(HasPrivateTraits):
         aa_frames = rw.aa_frames
         rw.aa_frames = self.anti_aliasing_frames
         rw.render()
+        ex.update()
         ex.write()
         # Set the frames back to original setting.
         rw.aa_frames = aa_frames

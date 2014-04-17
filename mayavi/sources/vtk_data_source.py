@@ -18,6 +18,7 @@ from tvtk.api import tvtk
 from tvtk import messenger
 
 # Local imports.
+from tvtk.common import is_old_pipeline, configure_input_data
 from mayavi.core.source import Source
 from mayavi.core.common import handle_children_state
 from mayavi.core.trait_defs import DEnum
@@ -35,7 +36,7 @@ def write_dataset_to_string(data):
     """
     w = tvtk.DataSetWriter(write_to_output_string=1)
     warn = w.global_warning_display
-    w.set_input(data)
+    configure_input_data(w, data)
     w.global_warning_display = 0
     w.update()
     if w.output_string_length == 0:
@@ -218,6 +219,7 @@ class VTKDataSource(Source):
         # This tells the VTK pipeline that the data has changed.  This
         # will fire the data_changed event automatically.
         self.data.modified()
+        self._assign_attribute.update()
 
     ######################################################################
     # Non-public interface
@@ -225,8 +227,9 @@ class VTKDataSource(Source):
     def _data_changed(self, old, new):
         if has_attributes(self.data):
             aa = self._assign_attribute
-            aa.input = new
+            self.configure_input_data(aa, new)
             self._update_data()
+            aa.update()
             self.outputs = [aa.output]
         else:
             self.outputs = [self.data]
@@ -281,8 +284,9 @@ class VTKDataSource(Source):
             # get garbage rendered or worse.
             s = getattr(dataset, attr_type + '_data').scalars
             r = s.range
-            dataset.scalar_type = s.data_type
-            aa.output.scalar_type = s.data_type
+            if is_old_pipeline():
+                dataset.scalar_type = s.data_type
+                aa.output.scalar_type = s.data_type
         aa.update()
         # Fire an event, so the changes propagate.
         self.data_changed = True
@@ -317,8 +321,9 @@ class VTKDataSource(Source):
             # the data through to prevent some really strange errors
             # when using an ImagePlaneWidget.
             r = scalars.range
-            self._assign_attribute.output.scalar_type = scalars.data_type
-            self.data.scalar_type = scalars.data_type
+            if is_old_pipeline():
+                self._assign_attribute.output.scalar_type = scalars.data_type
+                self.data.scalar_type = scalars.data_type
 
         def _setup_data_traits(obj, attributes, d_type):
             """Given the object, the dict of the attributes from the
@@ -361,4 +366,3 @@ class VTKDataSource(Source):
         if '[Hidden]' in self.name:
             ret += ' [Hidden]'
         return ret
-

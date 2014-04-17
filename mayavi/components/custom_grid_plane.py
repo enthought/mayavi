@@ -125,7 +125,7 @@ class CustomGridPlane(Component):
             error(msg)
             raise TypeError, msg
 
-        plane.input = input
+        self.configure_connection(plane, self.inputs[0])
         self.plane = plane
         self._update_limits()
         self._update_voi()
@@ -142,6 +142,14 @@ class CustomGridPlane(Component):
         self._update_voi()
         # Propagate the data_changed event.
         self.data_changed = True
+
+    def has_output_port(self):
+        """ The contour filter has an output port."""
+        return True
+
+    def get_output_object(self):
+        """ Returns the output port."""
+        return self.plane.output_port
 
     ######################################################################
     # Non-public methods.

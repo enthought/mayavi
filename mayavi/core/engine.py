@@ -24,6 +24,7 @@ from apptools.persistence import state_pickler
 from apptools.scripting.api import Recorder, recordable
 
 # Local imports.
+from tvtk.common import is_old_pipeline
 from mayavi.core.base import Base
 from mayavi.core.scene import Scene
 from mayavi.core.common import error, process_ui_events
@@ -249,6 +250,18 @@ class Engine(HasStrictTraits):
         w = o.GetGlobalWarningDisplay()
         o.SetGlobalWarningDisplay(0) # Turn it off.
         try:
+            #FIXME: This is for streamline seed point widget position which 
+            #does not get serialized correctly
+            if is_old_pipeline():
+                state_pickler.dump(self, file_or_fname)
+            else:
+                state = state_pickler.get_state(self)
+                st = state.scenes[0].children[0].children[0].children[4]
+                l_pos = st.seed.widget.position
+                st.seed.widget.position = [pos.item() for pos in l_pos]
+                saved_state = state_pickler.dumps(state)
+                file_or_fname.write(saved_state)
+        except (IndexError, AttributeError):
             state_pickler.dump(self, file_or_fname)
         finally:
             # Reset the warning state.

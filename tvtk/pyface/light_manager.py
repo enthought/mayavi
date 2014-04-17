@@ -29,8 +29,8 @@ from traits.api import HasTraits, Range, false, \
 from traitsui.api import View, Group, Handler, ListEditor, Item
 from tvtk.api import tvtk
 from tvtk.tvtk_base import vtk_color_trait, TraitRevPrefixMap
+from tvtk.common import is_old_pipeline, configure_input, configure_input_data
 from apptools.persistence import state_pickler
-
 
 ######################################################################
 # `LightGlyph` class.
@@ -56,10 +56,10 @@ class LightGlyph(HasTraits):
         tf.transform = t
         t.rotate_y(90.0)
         t.translate((-2, 0, 0))
-        tf.input = arrow.output
+        configure_input_data(tf, arrow.output)
 
         mapper = tvtk.PolyDataMapper()
-        mapper.input = tf.output
+        configure_input(mapper, tf)
 
         self.actor = actor = tvtk.Follower()
         actor.mapper = mapper
@@ -229,7 +229,10 @@ class CameraLight(HasTraits):
         self.source.intensity = val
 
     def _color_changed(self, val):
-        self.source.color = val
+        if is_old_pipeline():
+            self.source.color = val
+        else:
+            self.source.set_color(val)
         self.glyph.set_color(val)
 
     def _elevation_changed(self, val):

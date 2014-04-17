@@ -8,6 +8,7 @@
 from tvtk.api import tvtk
 
 # Local imports.
+from tvtk.common import configure_input_data
 from mayavi.core.component import Component
 from mayavi.core.common import error
 
@@ -43,7 +44,8 @@ def convert_to_poly_data(data):
             break
 
     if fil is not None:
-        fil.input = data
+        configure_input_data(fil, data)
+        fil.update()
         return fil.output
     else:
         error('Given object is not a VTK dataset: %s'%data.__class__.__name__)

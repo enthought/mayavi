@@ -13,6 +13,7 @@ from traits.api import Enum
 from traitsui.api import View, Group, Item
 from tvtk.api import tvtk
 from tvtk.tvtk_base import TraitRevPrefixMap
+import tvtk.common as tvtk_common
 
 # Local imports.
 from mayavi.core.component import Component
@@ -178,7 +179,7 @@ class Glyph(Component):
         self._scale_mode_changed(self.scale_mode)
 
         # Set our output.
-        self.outputs = [self.glyph.output]
+        tvtk_common.configure_outputs(self, self.glyph)
         self.pipeline_changed = True
 
     def update_data(self):
@@ -209,14 +210,22 @@ class Glyph(Component):
         self.glyph_source.stop()
         super(Glyph, self).stop()
 
+    def has_output_port(self):
+        """ The filter has an output port."""
+        return True
+
+    def get_output_object(self):
+        """ Returns the output port."""
+        return self.glyph.output_port
+
     ######################################################################
     # Non-public methods.
     ######################################################################
     def _update_source(self):
-        self.glyph.source = self.glyph_source.outputs[0]
+        self.configure_source_data(self.glyph, self.glyph_source.outputs[0])
 
     def _glyph_source_changed(self, value):
-        self.glyph.source = value.outputs[0]
+        self.configure_source_data(self.glyph, value.outputs[0])
 
     def _color_mode_changed(self, value):
         if len(self.inputs) == 0:
@@ -261,10 +270,9 @@ class Glyph(Component):
             return
         if value:
             mask = self.mask_points
-            mask.input = inputs[0].outputs[0]
-            self.glyph.input = mask.output
+            tvtk_common.configure_input(mask, inputs[0].outputs[0])
         else:
-            self.glyph.input = inputs[0].outputs[0]
+            self.configure_connection(self.glyph, inputs[0])
 
     def _glyph_type_changed(self, value):
         if self.glyph_type == 'vector':
@@ -277,4 +285,3 @@ class Glyph(Component):
     def _scene_changed(self, old, new):
         super(Glyph, self)._scene_changed(old, new)
         self.glyph_source.scene = new
-

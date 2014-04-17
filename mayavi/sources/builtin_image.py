@@ -73,6 +73,14 @@ class BuiltinImage(Source):
         self.source = state.source
         super(BuiltinImage, self).__set_pure_state__(state)
 
+    def has_output_port(self):
+        """ Return True as the data source has output port."""
+        return True
+
+    def get_output_object(self):
+        """ Return the data source output port."""
+        return self.data_source.output_port
+
     ######################################################################
     # Non-public methods.
     ######################################################################

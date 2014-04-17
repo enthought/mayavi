@@ -127,7 +127,7 @@ class TransformData(Filter):
         # Set the input for the widget and place it if this hasn't
         # been done before.
         w = self.widget
-        w.input = inp
+        self.configure_input_data(w, inp)
         if self._first:
             w.place_widget()
             self._first = False
@@ -135,7 +135,7 @@ class TransformData(Filter):
         # By default we set the input to the first output of the first
         # input.
         fil = self.filter
-        fil.input = inp
+        self.configure_connection(fil, inputs[0])
         fil.transform = self._transform
         fil.update()
         self._set_outputs([fil.output])
@@ -183,7 +183,7 @@ class TransformData(Filter):
                                              self._on_interaction_event)
         self.widgets.append(new)
         if len(self.inputs) > 0:
-            new.input = self.inputs[0].output[0]
+            self.configure_input_data(new, self.inputs[0].outputs[0])
 
     def _filter_changed(self, old, new):
         if old is not None:
@@ -193,8 +193,7 @@ class TransformData(Filter):
         if transform is not None:
             new.transform = transform
         if len(self.inputs) > 0:
-            inp = self.inputs[0].outputs[0]
-            new.input = inp
+            self.configure_connection(new, self.inputs[0])
             self.outputs = [new.output]
 
     def _reset_fired(self):

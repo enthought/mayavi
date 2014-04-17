@@ -13,6 +13,7 @@ from traitsui.api import View, Group, Item, Include
 from tvtk.api import tvtk
 
 # Local imports.
+from tvtk.common import is_old_pipeline
 from mayavi.core.file_data_source import FileDataSource
 from mayavi.core.pipeline_info import PipelineInfo
 from mayavi.core.common import error
@@ -63,6 +64,14 @@ class UnstructuredGridReader(FileDataSource):
             return
         self.render()
 
+    def has_output_port(self):
+        """ Return True as the reader has output port."""
+        return True
+
+    def get_output_object(self):
+        """ Return the reader output port."""
+        return self.reader.output_port
+    
     ######################################################################
     # Non-public interface
     ######################################################################
@@ -82,15 +91,23 @@ class UnstructuredGridReader(FileDataSource):
             return
 
         self.reader.file_name = value.strip()
-        self.reader.update()
         self.reader.update_information()
+        if isinstance(self.reader, tvtk.ExodusIIReader):
+            # Make sure the point fields are read during Update().
+            for k in xrange(self.reader.number_of_point_result_arrays ):
+                arr_name = self.reader.get_point_result_array_name( k )
+                self.reader.set_point_result_array_status( arr_name, 1 )
+        self.reader.update()
 
         if old_reader is not None:
             old_reader.on_trait_change(self.render, remove=True)
         self.reader.on_trait_change(self.render)
 
         old_outputs = self.outputs
-        self.outputs = [self.reader.output]
+        if isinstance(self.reader, tvtk.ExodusIIReader):
+            self.outputs = [self.reader.output.get_block(0).get_block(0)]
+        else:
+            self.outputs = [self.reader.output]
 
         if self.outputs == old_outputs:
             self.data_changed = True
@@ -113,8 +130,15 @@ class UnstructuredGridReader(FileDataSource):
 
     def __reader_dict_default(self):
         """Default value for reader dict."""
-        rd = {'inp':tvtk.AVSucdReader(),
-             'neu':tvtk.GAMBITReader(),
-             'exii':tvtk.ExodusReader()
-            }
+        if is_old_pipeline():
+            rd = {'inp':tvtk.AVSucdReader(),
+                 'neu':tvtk.GAMBITReader(),
+                 'exii':tvtk.ExodusReader()
+                }
+        else:
+            rd = {'inp':tvtk.AVSucdReader(),
+                 'neu':tvtk.GAMBITReader(),
+                 'ex2':tvtk.ExodusIIReader()
+                }
+
         return rd

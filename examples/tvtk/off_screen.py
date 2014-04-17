@@ -12,6 +12,7 @@
 # License: BSD Style.
 
 from tvtk.api import tvtk
+from tvtk.common import configure_input_data
 
 # Create a cone source and configure it.
 cs = tvtk.ConeSource(height=3.0, radius=1.0, resolution=36)
@@ -28,10 +29,12 @@ m = tvtk.PolyDataMapper()
 # method.  Using the output property will work fine if all you want is
 # the default output.  OTOH if you want the N'th output use
 # get_output(N).
-m.input = cs.output # or m.input = cs.get_output()
+# m.input = cs.output # or m.input = cs.get_output()
+configure_input_data(m, cs.output)
 
 # Create the actor and set its mapper.
 a = tvtk.Actor(mapper=m)
+cs.update()
 
 # Create a Renderer, add the actor and set its background color.
 ren = tvtk.Renderer(background=(0.1, 0.2, 0.4))
@@ -48,5 +51,6 @@ w2if.magnification = 2
 w2if.input = rw
 ex = tvtk.PNGWriter()
 ex.file_name = "example.png"
-ex.input = w2if.output
+configure_input_data(ex, w2if.output)
+w2if.update()
 ex.write()

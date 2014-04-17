@@ -17,6 +17,7 @@ Alternatively, it can be run as::
 
 from tvtk.api import tvtk
 from tvtk.array_handler import get_vtk_array_type
+from tvtk.common import is_old_pipeline
 from numpy import array, ogrid, sin, ravel
 from mayavi.scripts import mayavi2
 
@@ -46,7 +47,8 @@ spoints.point_data.scalars.name = 'scalars'
 # This is needed in slightly older versions of VTK (like the 5.0.2
 # release) to prevent a segfault.  VTK does not detect the correct
 # data type.
-spoints.scalar_type = get_vtk_array_type(s.dtype)
+if is_old_pipeline():
+    spoints.scalar_type = get_vtk_array_type(s.dtype)
 
 # Uncomment the next two lines to save the dataset to a VTK XML file.
 #w = tvtk.XMLImageDataWriter(input=spoints, file_name='spoints3d.vti')

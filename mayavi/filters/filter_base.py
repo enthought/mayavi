@@ -13,7 +13,6 @@ from tvtk.api import tvtk
 # Local imports
 from mayavi.core.filter import Filter
 
-
 ######################################################################
 # `FilterBase` class.
 ######################################################################
@@ -70,7 +69,7 @@ class FilterBase(Filter):
 
         # By default we set the input to the first output of the first
         # input.
-        fil.input = inputs[0].outputs[0]
+        self.configure_connection(fil, inputs[0])
         fil.update()
         self._set_outputs([fil.output])
 
@@ -97,4 +96,6 @@ class FilterBase(Filter):
 
         if old is not None:
             self.update_pipeline()
+
+
 

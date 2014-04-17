@@ -13,7 +13,6 @@ from tvtk.api import tvtk
 # Local imports.
 from mayavi.core.component import Component
 
-
 ######################################################################
 # `Cutter` class.
 ######################################################################
@@ -50,7 +49,7 @@ class Cutter(Component):
         if (len(self.inputs) == 0) or (len(self.inputs[0].outputs) == 0):
             return
         c = self.cutter
-        c.input = self.inputs[0].outputs[0]
+        self.configure_connection(c, self.inputs[0])
         self.outputs = [c.output]
 
     def update_data(self):
@@ -61,6 +60,14 @@ class Cutter(Component):
         sends a `data_changed` event.
         """
         self.data_changed = True
+
+    def has_output_port(self):
+        """ The contour filter has an output port."""
+        return True
+
+    def get_output_object(self):
+        """ Returns the output port."""
+        return self.cutter.output_port
 
     ######################################################################
     # `Cutter` interface

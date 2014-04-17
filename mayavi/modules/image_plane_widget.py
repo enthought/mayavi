@@ -86,7 +86,7 @@ class ImagePlaneWidget(Module):
             error(msg)
             raise TypeError, msg
 
-        self.ipw.input = input
+        self.configure_input_data(self.ipw, input)
         self.setup_lut()
 
     def update_data(self):

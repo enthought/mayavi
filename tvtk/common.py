@@ -8,6 +8,9 @@ dependencies (apart from the standard library of course).
 
 import string
 import re
+import vtk
+
+vtk_major_version = vtk.vtkVersion.GetVTKMajorVersion()
 
 ######################################################################
 # Utility functions.
@@ -40,7 +43,60 @@ def get_tvtk_name(vtk_name):
     else:
         return vtk_name
 
+def is_old_pipeline():
+    return vtk_major_version < 6
 
+def configure_connection(obj, inp):
+    """ Configure topology for vtk pipeline obj."""
+    if hasattr(inp, 'output_port'):
+        obj.input_connection = inp.output_port
+    elif inp.has_output_port():
+        obj.input_connection = inp.get_output_object()
+    else:
+        configure_input(obj, inp.outputs[0])
+
+def configure_input_data(obj, data):
+    """ Configure the input data for vtk pipeline object obj."""
+    if is_old_pipeline():
+        obj.input = data
+    else:
+        obj.set_input_data(data)
+
+def configure_input(inp, op):
+    """ Configure the inp using op."""
+    if is_old_pipeline():
+        if op.is_a('vtkDataSet'):
+            inp.input = op
+        else:
+            inp.input = op.output
+    else:
+        if hasattr(op, 'output_port'):
+            inp.input_connection = op.output_port
+        elif op.is_a('vtkAlgorithmOutput'):
+            inp.input_connection = op
+        elif op.is_a('vtkDataSet'):
+            inp.set_input_data(op)
+        else:
+            raise ValueError('Unknown input type for object %s'%op)
+
+def configure_outputs(obj, tvtk_obj):
+    if is_old_pipeline():
+        obj.outputs = [tvtk_obj.output]
+    else:
+        if hasattr(tvtk_obj, 'output_port'):
+            obj.outputs = [tvtk_obj.output_port]
+        else:
+            obj.outputs = [tvtk_obj]
+
+def configure_source_data(obj, data):
+    """ Configure the source data for vtk pipeline object obj."""
+    if is_old_pipeline():
+        obj.source = data
+    else:
+        if data.is_a('vtkAlgorithmOutput'):
+            obj.set_source_connection(data)
+        else:
+            obj.set_source_data(data)
 
 class _Camel2Enthought:
     """Simple functor class to convert names from CamelCase to

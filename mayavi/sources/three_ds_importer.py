@@ -27,6 +27,18 @@ class ThreeDSImporter(VRMLImporter):
                       allow_none=False, record=True)
 
     ######################################################################
+    # `FileDataSource` interface
+    ######################################################################
+
+    def has_output_port(self):
+        """ Return True as the reader has output port."""
+        return True
+
+    def get_output_object(self):
+        """ Return the reader output port."""
+        return self.reader.output_port
+    
+    ######################################################################
     # Non-public interface
     ######################################################################
     def _file_name_changed(self, value):

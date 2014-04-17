@@ -104,7 +104,7 @@ class Optional(Component):
         if self.enabled:
             return self.component.outputs
         else:
-            return self.inputs[0].outputs
+            return self.inputs[0].get_output_object()
 
     def _enabled_changed(self, value):
         # Force downstream modules to update.

@@ -10,7 +10,6 @@ from tvtk.api import tvtk
 from mayavi.filters.filter_base import FilterBase
 from mayavi.core.pipeline_info import PipelineInfo
 
-
 ######################################################################
 # `CellToPointData` class.
 ######################################################################
@@ -45,7 +44,7 @@ class CellToPointData(FilterBase):
 
         fil = self.filter
         input = inputs[0].outputs[0]
-        fil.input = input
+        self.configure_connection(fil, inputs[0])
         fil.update()
         # This filter creates different outputs depending on the
         # input.

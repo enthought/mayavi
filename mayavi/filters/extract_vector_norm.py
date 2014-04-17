@@ -10,7 +10,6 @@ from tvtk.api import tvtk
 from mayavi.filters.filter_base import FilterBase
 from mayavi.core.pipeline_info import PipelineInfo
 
-
 ######################################################################
 # `ExtractVectorNorm` class.
 ######################################################################
@@ -47,7 +46,7 @@ class ExtractVectorNorm(FilterBase):
         # By default we set the input to the first output of the first
         # input.
         fil = self.filter
-        fil.input = inputs[0].outputs[0]
+        self.configure_connection(fil, inputs[0])
         fil.update()
         self._set_array_name(fil)
         self._set_outputs([fil.output])

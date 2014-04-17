@@ -9,6 +9,7 @@ VTK/Examples/Tutorial/Step6/Python/Cone6.py.
 # License: BSD Style.
 
 from tvtk.api import tvtk
+from tvtk.common import configure_input_data
 
 # Create a cone source and configure it.
 cs = tvtk.ConeSource(height=3.0, radius=1.0, resolution=36)
@@ -25,7 +26,9 @@ m = tvtk.PolyDataMapper()
 # method.  Using the output property will work fine if all you want is
 # the default output.  OTOH if you want the N'th output use
 # get_output(N).
-m.input = cs.output # or m.input = cs.get_output()
+# m.input = cs.output # or m.input = cs.get_output()
+configure_input_data(m, cs.output)
+cs.update()
 
 # Create the actor and set its mapper.
 a = tvtk.Actor(mapper=m)

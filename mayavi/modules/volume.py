@@ -475,7 +475,8 @@ class Volume(Module):
             self._volume_mapper = new_vm
             self._ray_cast_functions = ['']
 
-        new_vm.input = mm.source.outputs[0]
+        src = mm.source
+        self.configure_connection(new_vm, src)
         self.volume.mapper = new_vm
         new_vm.on_trait_change(self.render)
 

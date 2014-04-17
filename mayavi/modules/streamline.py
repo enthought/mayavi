@@ -16,6 +16,7 @@ from traits.api import Instance, Bool, TraitPrefixList, Trait, \
                              Delegate, Button
 from traitsui.api import View, Group, Item, InstanceEditor
 from tvtk.api import tvtk
+from tvtk.common import configure_outputs
 
 # Local imports
 from mayavi.core.module import Module
@@ -161,7 +162,7 @@ class Streamline(Module):
             return
 
         src = mm.source
-        self.stream_tracer.input = src.outputs[0]
+        self.configure_connection(self.stream_tracer, src)
         self.seed.inputs = [src]
 
         # Setup the radius/width of the tube/ribbon filters based on
@@ -201,17 +202,18 @@ class Streamline(Module):
         rf = self.ribbon_filter
         tf = self.tube_filter
         if value == 'line':
-            self.outputs = [st.output]
+            configure_outputs(self, st)
         elif value == 'ribbon':
-            rf.input = st.output
-            self.outputs = [rf.output]
+            self.configure_connection(rf, st)
+            configure_outputs(self, rf)
         elif value == 'tube':
-            tf.input = st.output
-            self.outputs = [tf.output]
+            self.configure_connection(tf, st)
+            configure_outputs(self, tf)
         self.render()
 
     def _update_streamlines_fired(self):
         self.seed.update_poly_data()
+        self.stream_tracer.update()
         self.render()
 
     def _stream_tracer_changed(self, old, new):
@@ -219,11 +221,12 @@ class Streamline(Module):
             old.on_trait_change(self.render, remove=True)
         seed = self.seed
         if seed is not None:
-            new.source = seed.poly_data
+            self.configure_source_data(new, seed.poly_data)
         new.on_trait_change(self.render)
         mm = self.module_manager
         if mm is not None:
-            new.input = mm.source.outputs[0]
+            src = mm.source
+            self.configure_connection(new, src)
 
         # A default output so there are no pipeline errors.  The
         # update_pipeline call corrects this if needed.
@@ -234,7 +237,7 @@ class Streamline(Module):
     def _seed_changed(self, old, new):
         st = self.stream_tracer
         if st is not None:
-            st.source = new.poly_data
+            self.configure_source_data(st, new.poly_data)
         self._change_components(old, new)
 
     def _ribbon_filter_changed(self, old, new):
@@ -253,4 +256,3 @@ class Streamline(Module):
         new.scene = self.scene
         new.inputs = [self]
         self._change_components(old, new)
-

@@ -17,7 +17,7 @@ from tvtk.api import tvtk
 from mayavi.core.common import error
 from mayavi.filters.filter_base import FilterBase
 from mayavi.core.pipeline_info import PipelineInfo
-
+from tvtk.common import is_old_pipeline
 
 ######################################################################
 # `ExtractGrid` class.
@@ -167,7 +167,7 @@ class ExtractGrid(FilterBase):
             return
 
         fil = self.filter
-        fil.input = input
+        self.configure_connection(fil, inputs[0])
         fil.update_whole_extent()
         fil.update()
         self._set_outputs([fil.output])
@@ -190,7 +190,10 @@ class ExtractGrid(FilterBase):
     # Non-public methods.
     ######################################################################
     def _update_limits(self):
-        extents = self.filter.input.whole_extent
+        if is_old_pipeline():
+            extents = self.filter.input.whole_extent
+        else:
+            extents = self.filter.get_update_extent()
         self._x_low, self._x_high = extents[:2]
         self._y_low, self._y_high = extents[2:4]
         self._z_low, self._z_high = extents[4:]

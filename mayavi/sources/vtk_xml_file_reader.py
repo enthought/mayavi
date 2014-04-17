@@ -14,7 +14,6 @@ from tvtk.api import tvtk
 
 # Local imports.
 from mayavi.core.file_data_source import FileDataSource
-from mayavi.core.common import error
 from mayavi.core.trait_defs import DEnum
 from mayavi.core.pipeline_info import (PipelineInfo,
         get_tvtk_dataset_name)
@@ -272,6 +271,13 @@ class VTKXMLFileReader(FileDataSource):
         # Propagate the data changed event.
         self.data_changed = True
 
+    def has_output_port(self):
+        """ Return True as the reader has output port."""
+        return True
+
+    def get_output_object(self):
+        """ Return the reader output port."""
+        return self.reader.output_port
 
     ######################################################################
     # Non-public interface
@@ -302,7 +308,7 @@ class VTKXMLFileReader(FileDataSource):
             # FIXME: Only the first output goes through the assign
             # attribute filter.
             aa = self._assign_attribute
-            aa.input = outputs[0]
+            self.configure_input_data(aa, outputs[0])
             outputs[0] = aa.output
             self.update_data()
 

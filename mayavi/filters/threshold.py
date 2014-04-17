@@ -140,8 +140,7 @@ class Threshold(Filter):
         # By default we set the input to the first output of the first
         # input.
         fil = self.threshold_filter
-        fil.input = self.inputs[0].outputs[0]
-
+        self.configure_connection(fil, self.inputs[0])
         self._update_ranges()
         self._set_outputs([self.threshold_filter.output])
 
@@ -254,7 +253,7 @@ class Threshold(Filter):
         if len(self.inputs) == 0:
             return
         fil = new
-        fil.input = self.inputs[0].outputs[0]
+        self.configure_connection(fil, self.inputs[0])
         fil.threshold_between(self.lower_threshold,
                               self.upper_threshold)
         fil.update()

@@ -50,7 +50,7 @@ class ExtractVectorComponents(FilterBase):
             return
 
         fil = self.filter
-        fil.input = inputs[0].outputs[0]
+        self.configure_connection(fil, inputs[0])
         fil.update()
         self._component_changed(self.component)
 

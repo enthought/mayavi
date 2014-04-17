@@ -13,7 +13,7 @@ from apptools.persistence import state_pickler
 
 # Local imports.
 from mayavi.core.component import Component
-from mayavi.core.common import error
+from mayavi.core.common import error 
 
 
 def _get_extent(inp):
@@ -117,8 +117,9 @@ class GridPlane(Component):
             error(msg)
             raise TypeError, msg
 
-        plane.input = input
+        self.configure_connection(plane, self.inputs[0])
         self.plane = plane
+        self.plane.update()
         self.outputs = [plane.output]
         self._update_limits()
         self._update_extents()
@@ -141,6 +142,14 @@ class GridPlane(Component):
         self._update_extents()
         # Propagate the data_changed event.
         self.data_changed = True
+
+    def has_output_port(self):
+        """ The filter has an output port."""
+        return True
+
+    def get_output_object(self):
+        """ Returns the output port."""
+        return self.plane.output_port
 
     ######################################################################
     # Non-public methods.

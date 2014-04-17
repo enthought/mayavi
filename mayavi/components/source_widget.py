@@ -7,9 +7,10 @@ to be used by various modules.
 # License: BSD Style.
 
 # Enthought library imports.
-from traits.api import Instance, List, Trait, Bool, TraitPrefixList
+from traits.api import Event, Instance, List, Trait, Bool, TraitPrefixList
 from traitsui.api import View, Group, Item, InstanceEditor
 from tvtk.api import tvtk
+from tvtk.common import configure_input_data
 from apptools.persistence.state_pickler import set_state
 
 # Local imports.
@@ -84,7 +85,7 @@ class SourceWidget(Component):
         w = self.widget = self.widget_list[m.index(w_c_name)]
         # Set the input.
         if len(self.inputs) > 0:
-            w.input = self.inputs[0].outputs[0]
+            self.configure_input_data(w, self.inputs[0].outputs[0])
         # Fix for the point widget.
         if w_c_name == 'PointWidget':
             w.place_widget()
@@ -155,8 +156,7 @@ class SourceWidget(Component):
             return
         inp = self.inputs[0].outputs[0]
         w = self.widget
-        w.input = inp
-
+        self.configure_input(w, inp)
         if self._first:
             w.place_widget()
             self._first = False
@@ -219,7 +219,7 @@ class SourceWidget(Component):
             recorder.record('%s = %s'%(lhs, rhs))
 
         if len(self.inputs) > 0:
-            value.input = self.inputs[0].outputs[0]
+            configure_input_data(value, self.inputs[0].outputs[0])
             value.place_widget()
 
         value.on_trait_change(self.render)

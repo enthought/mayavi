@@ -9,8 +9,11 @@ import unittest
 from common import get_example_data
 
 # Enthought library imports
+from tvtk.common import is_old_pipeline
 from mayavi.sources.unstructured_grid_reader import UnstructuredGridReader
 from mayavi.tests.data_reader_test_base import DataReaderTestBase
+
+old_pipeline = is_old_pipeline()
 
 class TestAVSUCDReader(DataReaderTestBase):
 
@@ -44,6 +47,8 @@ class TestAVSUCDReader(DataReaderTestBase):
 
         self.check_deepcopying(self.scene, self.bounds)
 
+@unittest.skipIf(not old_pipeline,
+                    "ExodusReader is not supported VTK 6.0 onwards.")
 class TestExodusReader(DataReaderTestBase):
 
     def setup_reader(self):
@@ -75,6 +80,30 @@ class TestExodusReader(DataReaderTestBase):
         # Test if the MayaVi2 visualization can be deep-copied.
 
         self.check_deepcopying(self.scene, self.bounds)
+
+#TODO: Update the ExodusIIReader test for scenarios as for the other readers
+#in this module.
+@unittest.skip("ExodusIIReader support is disabled for now.")
+class TestExodusIIReader(DataReaderTestBase):
+
+    def setup_reader(self):
+
+        """"Setup the reader in here.  This is called after the engine
+        has been created and started.  The engine is available as
+        self.e.  This method is called by setUp().
+        """
+        # Read a Exodus data file.
+        r = UnstructuredGridReader()
+        r.initialize(get_example_data('disk_out_ref.ex2'))
+        self.e.add_source(r)
+
+    def test_point_cell_data(self):
+        """ Test if the point and cell data is parsed correctly."""
+        u_grid = self.scene.children[0].outputs[0]
+        self.assertEqual(u_grid.point_data.number_of_arrays, 7)
+        self.assertEqual(u_grid.cell_data.number_of_arrays, 1)
+        self.assertEqual(u_grid.point_data.number_of_tuples, 8499)
+        self.assertEqual(u_grid.cell_data.number_of_tuples, 7472)
 
 class TestGambitReader(DataReaderTestBase):
 

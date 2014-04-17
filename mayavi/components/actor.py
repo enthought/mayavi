@@ -9,11 +9,11 @@
 from traits.api import Instance, Bool, Enum
 from tvtk.api import tvtk
 from traits.api import DelegatesTo
+from tvtk.common import is_old_pipeline
 
 # Local imports.
 from mayavi.core.component import Component
 from mayavi.core.source import Source
-
 
 ######################################################################
 # `Actor` class.
@@ -104,6 +104,15 @@ class Actor(Component):
         sends a `data_changed` event.
         """
         # Invoke render to update any changes.
+        if not is_old_pipeline():
+            from mayavi.modules.outline import Outline
+            from mayavi.components.glyph import Glyph
+            #FIXME: A bad hack, but without these checks results in seg fault
+            input = self.inputs[0]
+            if isinstance(input, Outline) or isinstance(input, Glyph):
+                self.mapper.update(0)
+            else:
+                self.mapper.update()
         self.render()
 
     ######################################################################
@@ -133,7 +142,7 @@ class Actor(Component):
             self.set_lut(old.lookup_table)
         # Setup the inputs to the mapper.
         if (len(self.inputs) > 0) and (len(self.inputs[0].outputs) > 0):
-            new.input = self.inputs[0].outputs[0]
+            self.configure_connection(new, self.inputs[0])
         # Setup the actor's mapper.
         actor = self.actor
         if actor is not None:
@@ -191,8 +200,8 @@ class Actor(Component):
 
     def _change_texture_input(self):
         if self._can_object_give_image_data(self.texture_source_object):
-            img_data = self.texture_source_object.outputs[0]
-            self.texture.input = img_data
+            self.configure_connection(self.texture,
+                                      self.texture_source_object)
             self.actor.texture = self.texture
         else:
             self.texture_source_object = None
@@ -211,11 +220,13 @@ class Actor(Component):
         else:
             self.actor.texture = None
             self.texture.input = None
+            self.texture.input_connection = None
 
     def _texture_changed(self,value):
         # Setup the actor's texture.
         actor = self.actor
-        if actor is not None and value.input is not None:
+        if actor is not None and (value.input is not None
+                                  or value.input_connection is not None):
             actor.texture = value
             self.texture.on_trait_change(self.render)
 
@@ -226,21 +237,20 @@ class Actor(Component):
         if (len(inp) == 0) or \
                (len(inp[0].outputs) == 0):
             return
-        input = inp[0].outputs[0]
         old_tg = self.tcoord_generator
         if old_tg is not None:
             old_tg.on_trait_change(self.render, remove=True)
         if value == 'none':
             self.tcoord_generator = None
-            self.mapper.input = input
+            self.configure_connection(self.mapper, inp[0])
         else:
             tg_dict = {'cylinder': tvtk.TextureMapToCylinder,
                        'sphere': tvtk.TextureMapToSphere,
                        'plane': tvtk.TextureMapToPlane}
             tg = tg_dict[value]()
             self.tcoord_generator = tg
-            tg.input = input
-            self.mapper.input = tg.output
+            self.configure_connection(tg, inp[0])
+            self.configure_connection(self.mapper, inp[0])
         tg = self.tcoord_generator
         if tg is not None:
             tg.on_trait_change(self.render)

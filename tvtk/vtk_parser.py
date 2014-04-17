@@ -475,6 +475,8 @@ class VTKMethodParser:
             if klass_name == 'vtkDataSetAttributes' and \
                method[:-2] in problem_methods:
                 continue
+            elif method[:-2] == 'AlphaBitPlanes':
+                continue
             if method[-2:] == 'On':
                 key = method[:-2]
                 if (key + 'Off') in meths and ('Get' + key) in meths:
@@ -585,6 +587,20 @@ class VTKMethodParser:
             elif klass_name == 'vtkProp' and method[3:] == 'AllocatedRenderTime':
                 # vtkProp.Get/SetAllocatedRenderTime is private and
                 # SetAllocatedRenderTime takes two args, don't wrap it.
+                continue
+            elif klass_name == 'vtkGenericAttributeCollection' and \
+                method[3:] == 'AttributesToInterpolate':
+                continue
+            elif klass_name == 'vtkOverlappingAMR' and method[3:] == 'Origin':
+                continue
+            elif (klass_name == 'vtkOrientationMarkerWidget'
+                  and method[3:] in ['OutlineColor', 'Viewport']):
+                continue
+            elif (klass_name == 'vtkImageDataGeometryFilter'
+                  and method[3:] == 'Extent'):
+                continue
+            elif (klass_name == 'vtkVolumeMapper'
+                  and method[3:] == 'CroppingRegionPlanes'):
                 continue
             elif (method[:3] == 'Set') and ('Get' + method[3:]) in methods:
                 key = method[3:]

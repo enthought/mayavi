@@ -64,7 +64,7 @@ class PolyDataNormals(Component):
             return
         f = self.filter
         input = self.inputs[0].outputs[0]
-        f.input = convert_to_poly_data(input)
+        self.configure_input_data(f, convert_to_poly_data(input))
         f.update()
         self.outputs = [f.output]
 
@@ -76,4 +76,12 @@ class PolyDataNormals(Component):
         sends a `data_changed` event.
         """
         self.data_changed = True
+
+    def has_output_port(self):
+        """ The filter has an output port."""
+        return True
+
+    def get_output_object(self):
+        """ Returns the output port."""
+        return self.filter.output_port
 

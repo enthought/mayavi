@@ -88,6 +88,14 @@ class VRMLImporter(Source):
             self._actors_added = False
             self.scene.render()
 
+    def has_output_port(self):
+        """ Return True as the reader has output port."""
+        return True
+
+    def get_output_object(self):
+        """ Return the reader output port."""
+        return self.reader.output_port
+    
     ######################################################################
     # Non-public interface
     ######################################################################

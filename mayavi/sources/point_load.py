@@ -53,4 +53,10 @@ class PointLoad(Source):
         # Setup the outputs.
         self.outputs = [self.point_load.output]
 
+    def has_output_port(self):
+        """ Return True as the point load has output port."""
+        return True
 
+    def get_output_object(self):
+        """ Return the point load output port."""
+        return self.point_load.output_port

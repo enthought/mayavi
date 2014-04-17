@@ -7,12 +7,14 @@ array as ImageData.  This supports both scalar and vector data.
 
 # Standard library imports.
 import numpy
+from vtk.util import vtkConstants
 
 # Enthought library imports
 from traits.api import Instance, Trait, Str, Bool, Button, DelegatesTo
 from traitsui.api import View, Group, Item
 from tvtk.api import tvtk
 from tvtk import array_handler
+from tvtk.common import is_old_pipeline
 
 # Local imports
 from mayavi.core.source import Source
@@ -126,7 +128,9 @@ class ArraySource(Source):
         vd = traits.pop('vector_data', None)
         # Now set the other traits.
         super(ArraySource, self).__init__(**traits)
-        self.change_information_filter.input = self.image_data
+        self.configure_input_data(self.change_information_filter,
+                                  self.image_data)
+
         # And finally set the scalar and vector data.
         if sd is not None:
             self.scalar_data = sd
@@ -154,6 +158,7 @@ class ArraySource(Source):
             pd.scalars.modified()
         if self.vector_data is not None:
             pd.vectors.modified()
+        self.change_information_filter.update()
         self.data_changed = True
 
     ######################################################################
@@ -161,7 +166,7 @@ class ArraySource(Source):
     ######################################################################
 
     def _image_data_changed(self, value):
-        self.change_information_filter.input = value
+        self.configure_input_data(self.change_information_filter, value)
 
     def _scalar_data_changed(self, data):
         img_data = self.image_data
@@ -176,7 +181,11 @@ class ArraySource(Source):
         img_data.origin = tuple(self.origin)
         img_data.dimensions = tuple(dims)
         img_data.extent = 0, dims[0]-1, 0, dims[1]-1, 0, dims[2]-1
-        img_data.update_extent = 0, dims[0]-1, 0, dims[1]-1, 0, dims[2]-1
+        if is_old_pipeline():
+            img_data.update_extent = 0, dims[0]-1, 0, dims[1]-1, 0, dims[2]-1
+        else:
+            update_extent = [0, dims[0]-1, 0, dims[1]-1, 0, dims[2]-1]
+            self.change_information_filter.set_update_extent(update_extent)
         if self.transpose_input_array:
             img_data.point_data.scalars = numpy.ravel(numpy.transpose(data))
         else:
@@ -184,8 +193,14 @@ class ArraySource(Source):
         img_data.point_data.scalars.name = self.scalar_name
         # This is very important and if not done can lead to a segfault!
         typecode = data.dtype
-        img_data.scalar_type = array_handler.get_vtk_array_type(typecode)
-        img_data.update() # This sets up the extents correctly.
+        if is_old_pipeline():
+            img_data.scalar_type = array_handler.get_vtk_array_type(typecode)
+            img_data.update() # This sets up the extents correctly.
+        else:
+            filter_out_info = self.change_information_filter.get_output_information(0)
+            img_data.set_point_data_active_scalar_info(filter_out_info,
+                    array_handler.get_vtk_array_type(typecode), -1)
+            img_data.modified()
         img_data.update_traits()
         self.change_information_filter.update()
 
@@ -206,7 +221,12 @@ class ArraySource(Source):
         img_data.origin = tuple(self.origin)
         img_data.dimensions = tuple(dims[:-1])
         img_data.extent = 0, dims[0]-1, 0, dims[1]-1, 0, dims[2]-1
-        img_data.update_extent = 0, dims[0]-1, 0, dims[1]-1, 0, dims[2]-1
+        if is_old_pipeline():
+            img_data.update_extent = 0, dims[0]-1, 0, dims[1]-1, 0, dims[2]-1
+        else:
+            self.change_information_filter.update_information()
+            update_extent = [0, dims[0]-1, 0, dims[1]-1, 0, dims[2]-1]
+            self.change_information_filter.set_update_extent(update_extent)
         sz = numpy.size(data)
         if self.transpose_input_array:
             data_t = numpy.transpose(data, (2, 1, 0, 3))
@@ -214,7 +234,10 @@ class ArraySource(Source):
             data_t = data
         img_data.point_data.vectors = numpy.reshape(data_t, (sz/3, 3))
         img_data.point_data.vectors.name = self.vector_name
-        img_data.update() # This sets up the extents correctly.
+        if is_old_pipeline():
+            img_data.update() # This sets up the extents correctly.
+        else:
+            img_data.modified()
         img_data.update_traits()
         self.change_information_filter.update()
 
@@ -238,5 +261,5 @@ class ArraySource(Source):
             self._vector_data_changed(self.vector_data)
 
     def _information_changed(self):
+        self.change_information_filter.update()
         self.data_changed = True
-

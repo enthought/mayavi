@@ -111,7 +111,7 @@ class DataSetClipper(Filter):
         widget.update_pipeline()
 
         filter = self.filter
-        filter.input = inputs[0].outputs[0]
+        self.configure_connection(filter, inputs[0])
         widget.update_implicit_function()
         filter.clip_function = widget.implicit_function
         filter.update()
@@ -161,8 +161,7 @@ class DataSetClipper(Filter):
                 old.on_trait_change(self.render, remove=True)
         new.on_trait_change(self.render)
         if len(self.inputs) > 0:
-            inp = self.inputs[0].outputs[0]
-            new.input = inp
+            self.configure_connection(new, self.inputs[0])
             self.outputs = [new.output]
 
     def _reset_button_fired(self):

@@ -6,6 +6,7 @@
 from traits.api import Instance, List, Str, Bool
 from traitsui.api import View, Group, Item
 from tvtk.api import tvtk
+from tvtk.common import is_old_pipeline
 
 # Local imports.
 from mayavi.core.pipeline_info import PipelineInfo
@@ -128,7 +129,7 @@ class SetActiveAttribute(Filter):
             return
 
         aa = self._assign_attribute
-        aa.input = self.inputs[0].outputs[0]
+        self.configure_connection(aa, self.inputs[0])
         self._update()
         self._set_outputs([aa.output])
 
@@ -142,8 +143,8 @@ class SetActiveAttribute(Filter):
         if len(self.inputs) == 0 or len(self.inputs[0].outputs) == 0:
             return
 
-        input = self.inputs[0].outputs[0]
-        if self._first:
+        input = self.inputs[0].get_output_object()
+        if self._first and is_old_pipeline():
             # Force all attributes to be defined and computed
             input.update()
         pnt_attr, cell_attr = get_all_attributes(input)

@@ -14,6 +14,8 @@ from numpy import arange, zeros, float32, float64, uint8, \
                   atleast_3d, exp, sqrt, pi
 
 from tvtk.api import tvtk
+from tvtk.common import configure_input_data, configure_source_data, \
+                        is_old_pipeline
 
 # Source for glyph.  Note that you need to pick a source that has
 # texture co-ords already set.  If not you'll have to generate them.
@@ -34,8 +36,8 @@ vecs = [[1,0,0], [0,1,0], [0,0,1]]
 pd.point_data.vectors = vecs
 
 # Create the glyph3d and set up the pipeline.
-g = tvtk.Glyph3D(scale_mode='data_scaling_off', vector_mode = 'use_vector',
-                 input=pd)
+g = tvtk.Glyph3D(scale_mode='data_scaling_off', vector_mode = 'use_vector')
+configure_input_data(g, pd)
 
 # Note that VTK's vtkGlyph.SetSource is special because it has two
 # call signatures: SetSource(src) and SetSource(int N, src) (which
@@ -43,9 +45,13 @@ g = tvtk.Glyph3D(scale_mode='data_scaling_off', vector_mode = 'use_vector',
 # and as a method.  Using the `source` property will work fine if all
 # you want is the first `source`.  OTOH if you want the N'th `source`
 # use get_source(N).
-g.source = cs.output
+# g.source = cs.output
+configure_source_data(g, cs.output)
+cs.update()
+g.update()
 
-m = tvtk.PolyDataMapper(input=g.output)
+m = tvtk.PolyDataMapper()
+configure_input_data(m, g.output)
 a = tvtk.Actor(mapper=m)
 
 # Read the texture from image and set the texture on the actor.  If
@@ -77,7 +83,10 @@ def image_from_array(ary):
 
     elif dims == 3:
         # 2D array of pixels.
-        img.whole_extent = (0, sz[0]-1, 0, sz[1]-1, 0, 0)
+        if is_old_pipeline():
+            img.whole_extent = (0, sz[0]-1, 0, sz[1]-1, 0, 0)
+        else:
+            img.extent = (0, sz[0]-1, 0, sz[1]-1, 0, 0)
         img.dimensions = sz[0], sz[1], 1
 
         # create a 2d view of the array
@@ -94,7 +103,8 @@ sz = (256, 256, 3)
 array_3d = zeros(sz, uint8)
 img = image_from_array(array_3d)
 
-t = tvtk.Texture(input=img, interpolate = 1)
+t = tvtk.Texture(interpolate = 1)
+configure_input_data(t, img)
 a.texture = t
 
 # Renderwindow stuff and add actor.

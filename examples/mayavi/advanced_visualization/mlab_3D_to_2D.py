@@ -140,7 +140,7 @@ def get_world_to_view_matrix(mlab_scene):
     aspect_ratio = float(scene_size[0])/float(scene_size[1])
 
     # this actually just gets a vtk matrix object, we can't really do anything with it yet
-    vtk_comb_trans_mat = mlab_scene.camera.get_composite_perspective_transform_matrix(
+    vtk_comb_trans_mat = mlab_scene.camera.get_composite_projection_transform_matrix(
                                 aspect_ratio, clip_range[0], clip_range[1])
 
      # get the vtk mat as a numpy array

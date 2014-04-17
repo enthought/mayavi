@@ -15,7 +15,6 @@ from tvtk.api import tvtk
 from mayavi.core.module import Module
 from mayavi.core.pipeline_info import PipelineInfo
 
-
 ######################################################################
 # `ImageActor` class
 ######################################################################
@@ -73,11 +72,13 @@ class ImageActor(Module):
         if self._force_map_scalars_to_color:
             self.set(map_scalars_to_color=True, trait_change_notify=False)
         if self.map_scalars_to_color:
-            self.image_map_to_color.input = src.outputs[0]
+            self.configure_connection(self.image_map_to_color, src)
             self.image_map_to_color.lookup_table = mm.scalar_lut_manager.lut
-            self.actor.input = self.image_map_to_color.output
+            self.image_map_to_color.update()
+            self.configure_input_data(self.actor,
+                                      self.image_map_to_color.output)
         else:
-            self.actor.input = src.outputs[0]
+            self.configure_input_data(self.actor, src.outputs[0])
         self.pipeline_changed = True
 
     def update_data(self):
@@ -104,4 +105,3 @@ class ImageActor(Module):
         src = mm.source
         return not isinstance(src.outputs[0].point_data.scalars,
                                                     tvtk.UnsignedCharArray)
-
