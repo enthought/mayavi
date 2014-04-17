@@ -190,7 +190,8 @@ class Labels(Module):
             return
         f = self.mask.filter
         inp = self.input.outputs[0]
-        inp.update()
+        if hasattr(inp, 'update'):
+            inp.update()
         npts = inp.number_of_points
         typ = type(f.on_ratio)
         f.on_ratio = typ(max(npts/value, 1))

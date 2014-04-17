@@ -594,7 +594,7 @@ class VTKMethodParser:
             elif klass_name == 'vtkOverlappingAMR' and method[3:] == 'Origin':
                 continue
             elif (klass_name == 'vtkOrientationMarkerWidget'
-                  and method[3:] == 'OutlineColor'):
+                  and method[3:] in ['OutlineColor', 'Viewport']):
                 continue
             elif (klass_name == 'vtkImageDataGeometryFilter'
                   and method[3:] == 'Extent'):
