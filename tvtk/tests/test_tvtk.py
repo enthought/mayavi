@@ -198,6 +198,7 @@ class TestTVTK(unittest.TestCase):
 
         # Now get another ConeSource and ensure the hash is different.
         cs = tvtk.ConeSource()
+        o = cs.output
         if hasattr(o, 'producer_port'):
             src = o.producer_port.producer
         else:
