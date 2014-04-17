@@ -219,6 +219,7 @@ class VTKDataSource(Source):
         # This tells the VTK pipeline that the data has changed.  This
         # will fire the data_changed event automatically.
         self.data.modified()
+        self._assign_attribute.update()
 
     ######################################################################
     # Non-public interface
@@ -228,6 +229,7 @@ class VTKDataSource(Source):
             aa = self._assign_attribute
             self.configure_input_data(aa, new)
             self._update_data()
+            aa.update()
             self.outputs = [aa.output]
         else:
             self.outputs = [self.data]
@@ -364,4 +366,3 @@ class VTKDataSource(Source):
         if '[Hidden]' in self.name:
             ret += ' [Hidden]'
         return ret
-
