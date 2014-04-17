@@ -86,6 +86,7 @@ class TestBuiltinSurfaceSource(unittest.TestCase):
         #Modify Properties and check again
         src.data_source.height = 1.5
         src.data_source.angle = 30
+        src.data_source.modified()
         self.assertEqual(numpy.allclose(src.data_source.radius,0.866,atol=1.01e-03),True)
 
     def test_change(self):

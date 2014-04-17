@@ -47,7 +47,7 @@ class TestAVSUCDReader(DataReaderTestBase):
 
         self.check_deepcopying(self.scene, self.bounds)
 
-@unittest.skipIf(not old_pipeline, 
+@unittest.skipIf(not old_pipeline,
                     "ExodusReader is not supported VTK 6.0 onwards.")
 class TestExodusReader(DataReaderTestBase):
 
@@ -83,8 +83,7 @@ class TestExodusReader(DataReaderTestBase):
 
 #TODO: Update the ExodusIIReader test for scenarios as for the other readers
 #in this module.
-@unittest.skipIf(old_pipeline, 
-                 "ExodusIIReader is supported VTK 6.0 onwards.")
+@unittest.skip("ExodusIIReader support is disabled for now.")
 class TestExodusIIReader(DataReaderTestBase):
 
     def setup_reader(self):
