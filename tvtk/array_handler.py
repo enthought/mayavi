@@ -390,7 +390,7 @@ def vtk2array(vtk_array):
             img_data.SetScalarType(vtkConstants.VTK_LONG)
             r_dtype = get_numeric_array_type(vtkConstants.VTK_LONG)
         elif typ == vtkConstants.VTK_BIT:
-            # img_data.SetScalarType(vtkConstants.VTK_CHAR)
+            img_data.SetScalarType(vtkConstants.VTK_CHAR)
             r_dtype = get_numeric_array_type(vtkConstants.VTK_CHAR)
         else:
             img_data.SetScalarType(typ)
@@ -772,4 +772,3 @@ def deref_array(args, sigs=None):
             else:
                 ret.append(deref_vtk(a))
     return ret
-
