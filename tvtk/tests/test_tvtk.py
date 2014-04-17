@@ -191,12 +191,20 @@ class TestTVTK(unittest.TestCase):
         self.assertEqual(hash1, hash(src))
         del cs, src
         gc.collect()
-        cs = tvtk.ConeSource() # Force cs to be gc'd!
+        # The test sometimes fails as VTK seems to generate objects with the
+        # same memory address and hash, we try to force it to allocate more
+        # objects so as to not end up reusing the same address and hash.
+        junk = [vtk.vtkConeSource() for i in range(5)]
+
+        # Now get another ConeSource and ensure the hash is different.
+        cs = tvtk.ConeSource()
         if hasattr(o, 'producer_port'):
             src = o.producer_port.producer
         else:
             src = cs.executive.algorithm
+
         self.assertEqual(hash1 != hash(src), True)
+        self.assertEqual(hash(cs), hash(src))
 
         # Test for a bug with collections and the object cache.
         r = tvtk.Renderer()
