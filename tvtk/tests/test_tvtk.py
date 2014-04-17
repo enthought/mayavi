@@ -196,12 +196,7 @@ class TestTVTK(unittest.TestCase):
             src = o.producer_port.producer
         else:
             src = cs.executive.algorithm
-        if vtk_major_version < 6:
-            self.assertEqual(hash1 != hash(src), True)
-        else:
-            # FIX ME: This should not be the case. Is gc the issue?
-            # or something with the new pipeline?
-            self.assertEqual(hash1 != hash(src), False)
+        self.assertEqual(hash1 != hash(src), True)
 
         # Test for a bug with collections and the object cache.
         r = tvtk.Renderer()
