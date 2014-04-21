@@ -50,6 +50,7 @@ class Cutter(Component):
             return
         c = self.cutter
         self.configure_connection(c, self.inputs[0])
+        c.update()
         self.outputs = [c.output]
 
     def update_data(self):
