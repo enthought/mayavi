@@ -12,12 +12,10 @@ Installation
 
 ..
  Up-to-date install instructions for the latest version of Mayavi are
- always available from links at the Mayavi2_ wiki page.  The following
+ always available from links at the Mayavi_ wiki page.  The following
  will give you a good idea of the general installation procedure and a
  start on where to look for more information.
  
- .. _Mayavi2: http://docs.enthought.com/mayavi
-
 Installing ready-made distributions
 ------------------------------------
 
@@ -105,6 +103,7 @@ One can install the requirements in several ways.
 There are several ways to install TVTK_, Traits_ and Mayavi.  These
 are described in the following.
 
+.. _Mayavi: http://docs.enthought.com/mayavi/mayavi
 .. _TVTK: http://docs.enthought.com/mayavi/tvtk
 .. _VTK: http://www.vtk.org
 .. _envisage: http://docs.enthought.com/envisage
@@ -258,7 +257,7 @@ will run.
 
 .. _Eggs: http://peak.telecommunity.com/DevCenter/PythonEggs
 .. _Enthought Install: https://svn.enthought.com/enthought/wiki/Install
-.. _ETS: https://github.com/enthought/ets
+.. _ETS: http://code.enthought.com/
 
 Downloading tarballs
 .....................
