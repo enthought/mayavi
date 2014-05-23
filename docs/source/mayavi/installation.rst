@@ -23,8 +23,8 @@ Installing ready-made distributions
 
 :Windows:
      Under Windows the best way to install Mayavi is to install a full
-     Python distribution, such as `Enthought Canopy`_ or Pythonxy_. Note that for 
-     Pythonxy, you need to check in 'ETS' in the installer, when
+     Python distribution, such as `Enthought Canopy`_, Pythonxy_, or Anaconda_. 
+     Note that for Pythonxy, you need to check in 'ETS' in the installer, when
      selecting components. If you want to reduce the disk space used by
      Pythonxy, you can uncheck other components.
      
@@ -117,7 +117,8 @@ are described in the following.
 .. _IntelMacPython25: https://svn.enthought.com/enthought/wiki/IntelMacPython25
 .. _numpy: http://numpy.scipy.org
 .. _Enthought Canopy: https://www.enthought.com/products/canopy/
-.. _Pythonxy: http://www.pythonxy.com
+.. _Pythonxy: http://code.google.com/p/pythonxy/
+.. _Anaconda: https://store.continuum.io/cshop/anaconda/
 .. _configobj: http://pypi.python.org/pypi/ConfigObj/
 
 Doing it yourself: Python packages: Eggs
@@ -257,7 +258,7 @@ will run.
 
 .. _Eggs: http://peak.telecommunity.com/DevCenter/PythonEggs
 .. _Enthought Install: https://svn.enthought.com/enthought/wiki/Install
-.. _ETS: http://code.enthought.com/ets
+.. _ETS: https://github.com/enthought/ets
 
 Downloading tarballs
 .....................
