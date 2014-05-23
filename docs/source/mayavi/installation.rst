@@ -23,13 +23,13 @@ Installing ready-made distributions
 
 :Windows:
      Under Windows the best way to install Mayavi is to install a full
-     Python distribution, such as EPD_ or Pythonxy_. Note that for 
+     Python distribution, such as `Enthought Canopy`_ or Pythonxy_. Note that for 
      Pythonxy, you need to check in 'ETS' in the installer, when
      selecting components. If you want to reduce the disk space used by
      Pythonxy, you can uncheck other components.
      
 :MacOSX:
-    The full Python distribution EPD_ (that includes Mayavi) is also
+    The full Python distribution `Enthought Canopy`_ (that includes Mayavi) is also
     available for MacOSX.  Unless you really enjoy the intricacies of
     compilation; this is the best solution to install Mayavi.
 
@@ -41,7 +41,7 @@ Installing ready-made distributions
      http://people.debian.org/~varun/ .
 
 :RedHat EL3 and EL4:
-    The full Python distribution EPD_ (that includes Mayavi) is also
+    The full Python distribution `Enthought Canopy`_ (that includes Mayavi) is also
     available for RHEL3 and 4.
 
 
@@ -77,8 +77,9 @@ One can install the requirements in several ways.
 
    * Windows and MacOSX: even if you want to build from source, a good
      way to install the requirements is to install one of the
-     distributions indicated above. Note that under Windows, EPD_ comes
-     with a compiler (mingw) and facilitates building Mayavi.
+     distributions indicated above. Note that under Windows, 
+     `Enthought Canopy`_ comes with a compiler (mingw) and facilitates 
+     building Mayavi.
 
    * Linux: Most Linux distributions will have installable binaries
      available for the some of the above.  For example, under Debian_ or
@@ -115,7 +116,7 @@ are described in the following.
 .. _Ubuntu: http://www.ubuntu.com
 .. _IntelMacPython25: https://svn.enthought.com/enthought/wiki/IntelMacPython25
 .. _numpy: http://numpy.scipy.org
-.. _EPD: http://www.enthought.com/products/epd.php
+.. _Enthought Canopy: https://www.enthought.com/products/canopy/
 .. _Pythonxy: http://www.pythonxy.com
 .. _configobj: http://pypi.python.org/pypi/ConfigObj/
 
