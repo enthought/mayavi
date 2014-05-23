@@ -16,16 +16,16 @@ Installation
  will give you a good idea of the general installation procedure and a
  start on where to look for more information.
  
- .. _Mayavi2: https://svn.enthought.com/enthought/wiki/MayaVi
+ .. _Mayavi2: http://docs.enthought.com/mayavi
 
 Installing ready-made distributions
 ------------------------------------
 
 :Windows:
-     Under Window the best way to install Mayavi is to install a full
+     Under Windows the best way to install Mayavi is to install a full
      Python distribution, such as EPD_ or Pythonxy_. Note that for 
      Pythonxy, you need to check in 'ETS' in the installer, when
-     selecting components. If you want to reduce the disk used by the
+     selecting components. If you want to reduce the disk space used by
      Pythonxy, you can uncheck other components.
      
 :MacOSX:
@@ -104,10 +104,10 @@ One can install the requirements in several ways.
 There are several ways to install TVTK_, Traits_ and Mayavi.  These
 are described in the following.
 
-.. _TVTK: https://svn.enthought.com/enthought/wiki/TVTK
+.. _TVTK: http://docs.enthought.com/mayavi/tvtk
 .. _VTK: http://www.vtk.org
-.. _envisage: https://svn.enthought.com/enthought/wiki/Envisage
-.. _Traits: https://svn.enthought.com/enthought/wiki/Traits
+.. _envisage: http://docs.enthought.com/envisage
+.. _Traits: http://docs.enthought.com/traits
 .. _wxPython: http://www.wxpython.org
 .. _setuptools: http://peak.telecommunity.com/DevCenter/setuptools
 .. _enstaller: http://code.enthought.com/enstaller
