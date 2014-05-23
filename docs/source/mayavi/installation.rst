@@ -83,11 +83,6 @@ One can install the requirements in several ways.
      available for the some of the above.  For example, under Debian_ or
      Ubuntu_ you would need ``python-vtk``, ``python-wxgtk2.6``,
      ``python-setuptools``, ``python-numpy``, ``python-configobj``.
-     More information on specific distributions and how you can get the
-     requirements for each of these should be available from the list of
-     distributions here:
-
-        https://svn.enthought.com/enthought/wiki/Install
 
    * Mac OS X: The best available instructions for this platform are
      available on the IntelMacPython25_ page. If you are building VTK
@@ -160,7 +155,7 @@ installed, and then build and install the eggs like so::
 This one command will download, build and install all the required ETS
 related modules that Mayavi needs for the latest ETS release, this means
 that the `Traits` dependencies and the `Envisage` dependencies will be
-installed automatically (more details on the `Enthought Install`_ pages).
+installed automatically.
 
 If you are running a unix system (such as Linux) we advice you not to
 install the files in the system directories (`/usr`). An easy way to
@@ -180,16 +175,10 @@ avoid this is to run::
     violation". In this case, it can be useful to try the download and
     install command a few times.
 
-If you still have problems, given this background, please see the
-following `Enthought Install`_ describes how ETS can be installed
-with eggs. Check this page first.  It contains information on how to
-install the prebuilt binary eggs for various platforms along with any
-dependencies.
-
 
 .. note:: Automatic downloading of required eggs
 
-    If you whish to download all the eggs fetched by `easy_install`, for
+    If you wish to download all the eggs fetched by `easy_install`, for
     instance to propagate to an offline PC, you can use virtualenv to
     create an empty site-packages, and install to it::
 
@@ -256,7 +245,6 @@ will run.
 
 
 .. _Eggs: http://peak.telecommunity.com/DevCenter/PythonEggs
-.. _Enthought Install: https://svn.enthought.com/enthought/wiki/Install
 .. _ETS: http://code.enthought.com/
 
 Downloading tarballs
