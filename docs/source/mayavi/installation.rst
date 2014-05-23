@@ -84,16 +84,6 @@ One can install the requirements in several ways.
      Ubuntu_ you would need ``python-vtk``, ``python-wxgtk2.6``,
      ``python-setuptools``, ``python-numpy``, ``python-configobj``.
 
-   * Mac OS X: The best available instructions for this platform are
-     available on the IntelMacPython25_ page. If you are building VTK
-     yourself, make sure to use the following options::
-
-	VTK_USE_CARBON=ON
-	VTK_USE_COCOA=OFF
-	VTK_USE_RPATH=ON
-
-     Instructions for Snow Leopard can be found below.
-
 
 There are several ways to install TVTK_, Traits_ and Mayavi.  These
 are described in the following.
