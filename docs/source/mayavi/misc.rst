@@ -28,10 +28,7 @@ Discussion and bug reports are also sometimes sent to the mayavi-users
 mailing list (Mayavi-users@lists.sourceforge.net).  We recommend
 sending messages to the enthought-dev list though.
 
-The Mayavi wiki page: https://svn.enthought.com/enthought/wiki/MayaVi
-
-is a trac page where one can also enter bug reports and feature
-requests.
+The Mayavi documentation: http://docs.enthought.com/mayavi/mayavi
 
 If this manual, the Mayavi web page, the wiki page and google are of no
 help feel free to post on the enthought-dev mailing list for help.
