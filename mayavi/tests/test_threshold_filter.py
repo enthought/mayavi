@@ -72,6 +72,40 @@ class TestThresholdFilter(unittest.TestCase):
                          ))
         return
 
+    def test_threshold_filter_data_range_changes(self):
+        # Regression test for GitHub issue #136.
+        src = self.make_src()
+        self.e.add_source(src)
+        threshold = Threshold()
+        self.e.add_filter(threshold)
+
+        # Move from one data range to another non-overlapping range,
+        # first downwards, then back up.
+        src.scalar_data = np.linspace(3.0, 5.0, 27).reshape((3, 3, 3))
+        self.assertAlmostEqual(threshold.lower_threshold, 3.0)
+        self.assertAlmostEqual(threshold.upper_threshold, 5.0)
+        src.scalar_data = np.linspace(-5.0, -3.0, 27).reshape((3, 3, 3))
+        self.assertAlmostEqual(threshold.lower_threshold, -5.0)
+        self.assertAlmostEqual(threshold.upper_threshold, -3.0)
+        src.scalar_data = np.linspace(3.0, 5.0, 27).reshape((3, 3, 3))
+        self.assertAlmostEqual(threshold.lower_threshold, 3.0)
+        self.assertAlmostEqual(threshold.upper_threshold, 5.0)
+
+        # Narrow and widen.
+        src.scalar_data = np.linspace(4.2, 4.6, 27).reshape((3, 3, 3))
+        self.assertAlmostEqual(threshold.lower_threshold, 4.2)
+        self.assertAlmostEqual(threshold.upper_threshold, 4.6)
+        src.scalar_data = np.linspace(-20.0, 20.0, 27).reshape((3, 3, 3))
+        self.assertAlmostEqual(threshold.lower_threshold, -20.0)
+        self.assertAlmostEqual(threshold.upper_threshold, 20.0)
+
+        # Shift to a range overlapping the previous one.
+        src.scalar_data = np.linspace(-10.0, -30.0, 27).reshape((3, 3, 3))
+        self.assertAlmostEqual(threshold.lower_threshold, -30.0)
+        self.assertAlmostEqual(threshold.upper_threshold, -10.0)
+        src.scalar_data = np.linspace(-20.0, 20.0, 27).reshape((3, 3, 3))
+        self.assertAlmostEqual(threshold.lower_threshold, -20.0)
+        self.assertAlmostEqual(threshold.upper_threshold, 20.0)
 
 
 if __name__ == '__main__':
