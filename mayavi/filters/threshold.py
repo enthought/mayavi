@@ -157,9 +157,7 @@ class Threshold(Filter):
         self._update_ranges()
 
         # Propagate the data_changed event.
-        print "Propagating data changed"
         self.data_changed = True
-        print "Done"
 
     ######################################################################
     # Non-public interface
