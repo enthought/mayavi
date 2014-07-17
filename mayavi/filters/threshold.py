@@ -157,7 +157,9 @@ class Threshold(Filter):
         self._update_ranges()
 
         # Propagate the data_changed event.
+        print "Propagating data changed"
         self.data_changed = True
+        print "Done"
 
     ######################################################################
     # Non-public interface
@@ -178,22 +180,47 @@ class Threshold(Filter):
         """Updates the ranges of the input.
         """
         data_range = self._get_data_range()
-        if len(data_range) > 0:
-            dr = data_range
-            if self._first:
-                self._data_min, self._data_max = dr
-                self.set(lower_threshold = dr[0], trait_change_notify=False)
+        if len(data_range) == 0:
+            return
+
+        dr = data_range
+        if self._first:
+            self._data_min, self._data_max = dr
+            self.set(lower_threshold = dr[0], trait_change_notify=False)
+            self.upper_threshold = dr[1]
+            self._first = False
+            return
+
+        # Decide whether to change 'lower' or 'upper' first, to avoid
+        # ending up with inconsistent bounds (max < min) in the lower_threshold
+        # and upper_threshold Range traits.
+        if dr[0] <= self._data_min:
+            # Safe to change lower bound first: intermediate range is [dr[0],
+            # self._data_max], and dr[0] <= self._data_min <= self._data_max.
+            change_lower_first = True
+        else:
+            # Safe to change upper bound first: intermediate range is [self._data_min, dr[1]],
+            # and self._data_min < dr[0] <= dr[1].
+            change_lower_first = False
+
+        if change_lower_first:
+            if self.auto_reset_lower:
+                self._data_min = dr[0]
+                notify = not self.auto_reset_upper
+                self.set(lower_threshold = dr[0],
+                         trait_change_notify=notify)
+            if self.auto_reset_upper:
+                self._data_max = dr[1]
                 self.upper_threshold = dr[1]
-                self._first = False
-            else:
-                if self.auto_reset_lower:
-                    self._data_min = dr[0]
-                    notify = not self.auto_reset_upper
-                    self.set(lower_threshold = dr[0],
-                             trait_change_notify=notify)
-                if self.auto_reset_upper:
-                    self._data_max = dr[1]
-                    self.upper_threshold = dr[1]
+        else:
+            if self.auto_reset_upper:
+                self._data_max = dr[1]
+                notify = not self.auto_reset_lower
+                self.set(upper_threshold = dr[1],
+                         trait_change_notify=notify)
+            if self.auto_reset_lower:
+                self._data_min = dr[0]
+                self.lower_threshold = dr[0]
 
     def _get_data_range(self):
         """Returns the range of the input scalar data."""
