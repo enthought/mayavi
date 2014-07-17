@@ -78,16 +78,15 @@ class TestThresholdFilter(unittest.TestCase):
         self.e.add_source(src)
         threshold = Threshold()
         self.e.add_filter(threshold)
+
         # Move from one data range to another non-overlapping range,
         # first downwards, then back up.
         src.scalar_data = np.linspace(3.0, 5.0, 27).reshape((3, 3, 3))
         self.assertAlmostEqual(threshold.lower_threshold, 3.0)
         self.assertAlmostEqual(threshold.upper_threshold, 5.0)
-
         src.scalar_data = np.linspace(-5.0, -3.0, 27).reshape((3, 3, 3))
         self.assertAlmostEqual(threshold.lower_threshold, -5.0)
         self.assertAlmostEqual(threshold.upper_threshold, -3.0)
-
         src.scalar_data = np.linspace(3.0, 5.0, 27).reshape((3, 3, 3))
         self.assertAlmostEqual(threshold.lower_threshold, 3.0)
         self.assertAlmostEqual(threshold.upper_threshold, 5.0)
