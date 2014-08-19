@@ -389,8 +389,13 @@ class QVTKRenderWindowInteractor(QtGui.QWidget):
         ctrl, shift = self._GetCtrlShift(ev)
         key_sym = self._KEY_MAP.get(ev.key(), None)
         if ev.key() < 256:
-            if ev.text():
-                key = str(ev.text())
+            # Sometimes, the OS allows a chord (e.g. Alt-T) to generate
+            # a Unicode character outside of the 8-bit Latin-1 range. We will
+            # try to pass along Latin-1 characters unchanged, since VTK expects
+            # a single `char` byte. If not, we will try to pass on the root key
+            # of the chord (e.g. 'T' above).
+            if ev.text() and ev.text() <= u'\u00ff':
+                key = ev.text().encode('latin-1')
             else:
                 # Has modifiers, but an ASCII key code.
                 key = chr(ev.key())
@@ -406,7 +411,11 @@ class QVTKRenderWindowInteractor(QtGui.QWidget):
         ctrl, shift = self._GetCtrlShift(ev)
         key_sym = self._KEY_MAP.get(ev.key(), None)
         if ev.key() < 256:
-            key = chr(ev.key())
+            if ev.text() and ev.text() <= u'\u00ff':
+                key = ev.text().encode('latin-1')
+            else:
+                # Has modifiers, but an ASCII key code.
+                key = chr(ev.key())
         else:
             key = chr(0)
 

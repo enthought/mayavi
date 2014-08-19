@@ -189,7 +189,7 @@ class TestTVTK(unittest.TestCase):
             src = cs.executive.algorithm
         self.assertEqual(src, cs)
         self.assertEqual(hash1, hash(src))
-        del cs, src
+        del cs, src, o
         gc.collect()
         # The test sometimes fails as VTK seems to generate objects with the
         # same memory address and hash, we try to force it to allocate more
@@ -204,7 +204,7 @@ class TestTVTK(unittest.TestCase):
         else:
             src = cs.executive.algorithm
 
-        self.assertEqual(hash1 != hash(src), True)
+        self.assertNotEqual(hash1, hash(src))
         self.assertEqual(hash(cs), hash(src))
 
         # Test for a bug with collections and the object cache.
