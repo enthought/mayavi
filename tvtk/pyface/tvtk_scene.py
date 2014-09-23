@@ -519,7 +519,7 @@ class TVTKScene(HasPrivateTraits):
 
         resfactor -- The resolution factor which scales the resolution.
         """
-        if resolution == None:
+        if resolution is None:
             # get present window size
             Nx, Ny = self.render_window.size
         else:

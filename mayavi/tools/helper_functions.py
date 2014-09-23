@@ -525,7 +525,7 @@ class Plot3d(Pipeline):
         self.store_kwargs(kwargs)
         # Copy the pipeline so as not to modify it for the next call
         self.pipeline = self._pipeline[:]
-        if self.kwargs['tube_radius'] == None:
+        if self.kwargs['tube_radius'] is None:
             self.pipeline.remove(TubeFactory)
             self.pipeline.remove(StripperFactory)
         return self.build_pipeline()
@@ -834,7 +834,7 @@ class Mesh(Pipeline):
             self.pipeline.remove(GlyphFactory)
             self.pipeline = [PolyDataNormalsFactory, ] + self.pipeline
         else:
-            if self.kwargs['tube_radius'] == None:
+            if self.kwargs['tube_radius'] is None:
                 self.pipeline.remove(TubeFactory)
             if not self.kwargs['representation'] == 'fancymesh':
                 self.pipeline.remove(GlyphFactory)

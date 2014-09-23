@@ -69,7 +69,7 @@ class ThresholdFactory(PipeFactory):
     low = Trait(None, None, CFloat, help="The lower threshold")
 
     def _low_changed(self):
-        if self.low == None:
+        if self.low is None:
             pass
         else:
             self._target.lower_threshold = self.low
@@ -77,7 +77,7 @@ class ThresholdFactory(PipeFactory):
     up = Trait(None, None, CFloat, help="The upper threshold")
 
     def _up_changed(self):
-        if self.up == None:
+        if self.up is None:
             pass
         else:
             self._target.upper_threshold = self.up
