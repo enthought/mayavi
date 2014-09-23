@@ -29,8 +29,9 @@ class BaseTestSource(unittest.TestCase):
     def all_close(self, a, b):
         """ Similar to numpy's allclose, but works also for a=None.
         """
-        if None in (a, b):
-            self.assert_(a==b)
+        if a is None or b is None:
+            self.assertIsNone(a)
+            self.assertIsNone(b)
         else:
             self.assert_(np.allclose(a, a))
 
