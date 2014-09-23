@@ -16,7 +16,10 @@
 #
 #---------------------------------------------------------------------------
 
-from traits.api import Property, TraitFactory, TraitError, TraitType, Int
+import operator
+
+from traits.api import (CArray, Int, NO_COMPARE, Property, TraitError,
+    TraitFactory, TraitType)
 from traitsui.api import EnumEditor
 from traits.traits import trait_cast
 
@@ -252,3 +255,40 @@ class ShadowProperty(TraitType):
             object.remove_trait(attr)
             return status
 
+
+class ArrayOrNone(CArray):
+    """ Either an array-like object or None.
+    """
+
+    def __init__(self, *args, **metadata):
+        metadata['comparison_mode'] = NO_COMPARE
+        super(ArrayOrNone, self).__init__(*args, **metadata)
+
+    def validate(self, object, name, value):
+        if value is None:
+            return value
+        return super(ArrayOrNone, self).validate(object, name, value)
+
+    def get_default_value(self):
+        return (0, None)
+
+
+class ArrayNumberOrNone(CArray):
+    """ Either an array-like, number converted to a 1D array, or None.
+    """
+
+    def __init__(self, *args, **metadata):
+        metadata['comparison_mode'] = NO_COMPARE
+        super(ArrayNumberOrNone, self).__init__(*args, **metadata)
+
+    def validate(self, object, name, value):
+        if value is None:
+            return value
+        elif operator.isNumberType(value):
+            # Local import to avoid explicit dependency.
+            import numpy
+            value = numpy.atleast_1d(value)
+        return super(ArrayNumberOrNone, self).validate(object, name, value)
+
+    def get_default_value(self):
+        return (0, None)
