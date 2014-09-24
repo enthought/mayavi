@@ -134,7 +134,7 @@ class DataModuleFactory(ModuleFactory):
                             If None, the max of the data will be used""")
 
     def _vmin_changed(self):
-        if self.vmin == None and self.vmax == None:
+        if self.vmin is None and self.vmax is None:
             self._target.module_manager.scalar_lut_manager.use_default_range\
                     = True
             return

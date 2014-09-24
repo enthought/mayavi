@@ -179,7 +179,7 @@ class PipeFactory(HasPrivateTraits):
                     callback()
                 self._anytrait_changed(trait, value)
             except TraitError:
-                if value == None:
+                if value is None:
                     # This means "default"
                     pass
                 else:
@@ -192,7 +192,7 @@ class PipeFactory(HasPrivateTraits):
             # Private attribute
             return
         # hasattr(traits, "adapts") always returns True :-<.
-        if not trait.adapts == None:
+        if not trait.adapts is None:
             components = trait.adapts.split('.')
             obj = get_obj(self._target, components[:-1])
             setattr(obj, components[-1], value)

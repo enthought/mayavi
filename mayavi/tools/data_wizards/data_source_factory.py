@@ -2,15 +2,14 @@
 from numpy import c_, zeros, arange
 
 from traits.api import HasStrictTraits, \
-    true, false, CArray, Trait, Instance
+    true, false, Instance
 
 from mayavi.sources.vtk_data_source import VTKDataSource
 from mayavi.sources.array_source import ArraySource
 from mayavi.core.source import Source
+from mayavi.core.trait_defs import ArrayOrNone
 
 from tvtk.api import tvtk
-
-ArrayOrNone = Trait(None, (None, CArray))
 
 
 ############################################################################

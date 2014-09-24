@@ -245,7 +245,7 @@ class FunctionControl(tk.Frame):
             channel.paint(self.canvas)
 
     def find_control_point(self, x, y):
-        """Check if a control point lies near (x,y) or near x if y == None.
+        """Check if a control point lies near (x,y) or near x if y is None.
         returns [channel, control point] if found, None otherwise"""
         for channel in self.channels:
             for control_point in self.table.control_points:
@@ -256,7 +256,7 @@ class FunctionControl(tk.Frame):
                 point_x = channel.get_pos_index( control_point.pos )
                 point_y = channel.get_value_index( control_point.color )
                 y_ = y
-                if ( None == y_ ):
+                if ( y_ is None ):
                     y_ = point_y
                 if ( (point_x-x)**2 + (point_y-y_)**2 <= self.control_pt_click_tolerance**2 ):
                     return [channel, control_point]

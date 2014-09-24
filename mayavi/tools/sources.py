@@ -7,17 +7,15 @@ Data sources classes and their associated functions for mlab.
 # Copyright (c) 2007-2010, Enthought, Inc.
 # License: BSD Style.
 
-import operator
-
 import numpy as np
 
-from traits.api import (HasTraits, Instance, CArray, Either,
-            Bool, on_trait_change, NO_COMPARE)
+from traits.api import Bool, HasTraits, Instance, on_trait_change
 from tvtk.api import tvtk
 from tvtk.common import camel2enthought
 
 from mayavi.sources.array_source import ArraySource
 from mayavi.core.registry import registry
+from mayavi.core.trait_defs import ArrayNumberOrNone, ArrayOrNone
 
 import tools
 from engine_manager import get_null_engine, engine_manager
@@ -26,17 +24,6 @@ __all__ = ['vector_scatter', 'vector_field', 'scalar_scatter',
     'scalar_field', 'line_source', 'array2d_source', 'grid_source',
     'open', 'triangular_mesh_source', 'vertical_vectors_source',
 ]
-
-
-###############################################################################
-# A subclass of CArray that will accept floats and do a np.atleast_1d
-###############################################################################
-class CArrayOrNumber(CArray):
-
-    def validate(self, object, name, value):
-        if operator.isNumberType(value):
-            value = np.atleast_1d(value)
-        return CArray.validate(self, object, name, value)
 
 
 ###############################################################################
@@ -125,10 +112,6 @@ class MlabSource(HasTraits):
         if not hasattr(ds, 'mlab_source'):
             ds.add_trait('mlab_source', Instance(MlabSource))
         ds.mlab_source = self
-
-
-ArrayOrNone = Either(None, CArray, comparison_mode=NO_COMPARE)
-ArrayNumberOrNone = Either(None, CArrayOrNumber, comparison_mode=NO_COMPARE)
 
 
 ###############################################################################

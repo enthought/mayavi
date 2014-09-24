@@ -95,7 +95,7 @@ def document_function(func, func_name=None, example_code=None,
     """ Creates a rst documentation string for the function, with an
         image and a example code, if given.
     """
-    if func_name==None:
+    if func_name is None:
         func_name = func.__name__
 
     func_doc = func.__doc__

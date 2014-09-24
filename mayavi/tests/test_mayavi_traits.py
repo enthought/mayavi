@@ -9,10 +9,10 @@ import unittest
 import numpy
 from traits.api import (HasTraits, Either, Array, Any,
                 TraitError, Float, Int)
-from mayavi.core.trait_defs import ShadowProperty
+from mayavi.core.trait_defs import (ArrayNumberOrNone, ArrayOrNone,
+    ShadowProperty)
 
 
-ArrayOrNone = Either(None, Array)
 class DataNotSmart(HasTraits):
     x = ShadowProperty(ArrayOrNone, smart_notify=False)
     # Test attribute.
@@ -33,6 +33,20 @@ class Simple(HasTraits):
     _test = Int(0)
     def _x_changed(self, value):
         self._test += 1
+
+class HasArrays(HasTraits):
+    x = ArrayOrNone
+    y = ArrayNumberOrNone
+
+    # Test attribute.
+    _test_x = Int(0)
+    _test_y = Int(0)
+
+    def _x_changed(self, value):
+        self._test_x += 1
+
+    def _y_changed(self, value):
+        self._test_y += 1
 
 
 class TestShadowProperty(unittest.TestCase):
@@ -97,6 +111,36 @@ class TestShadowProperty(unittest.TestCase):
         # added.
         self.assertEqual(s.trait_names(), trait_names)
         self.assertEqual(s._notifiers(False), None)
+
+
+class TestArrayOrNone(unittest.TestCase):
+
+    def test_default(self):
+        a = HasArrays()
+        self.assertIsNone(a.x)
+        self.assertIsNone(a.y)
+
+    def test_no_compare(self):
+        a = HasArrays()
+        a.x = numpy.arange(10)
+        self.assertEqual(a._test_x, 1)
+        a.x = numpy.arange(10)
+        self.assertEqual(a._test_x, 2)
+        a.x = a.x
+        self.assertEqual(a._test_x, 3)
+        a.x = None
+        self.assertEqual(a._test_x, 4)
+
+        a.y = numpy.arange(10)
+        self.assertEqual(a._test_y, 1)
+        a.y = 1.0
+        self.assertEqual(a.y.shape, (1,))
+        self.assertEqual(a._test_y, 2)
+        a.y = a.y
+        self.assertEqual(a._test_y, 3)
+        a.y = None
+        self.assertEqual(a._test_y, 4)
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -242,7 +242,7 @@ class SingletonModuleFactory(ModuleFactory):
             raise ValueError("Wrong number of arguments")
 
         # Try to find an existing module, if not add one to the pipeline
-        if parent == None:
+        if parent is None:
             target = self._scene
         else:
             target = parent
