@@ -58,6 +58,10 @@ class Streamline(Module):
     tube_filter = Instance(tvtk.TubeFilter, allow_none=False,
                            record=True)
 
+    # The clean poly data filter
+    clean_filter = Instance(tvtk.CleanPolyData, allow_none=False,
+                           record=True)
+
     # The actor component that represents the visualization.
     actor = Instance(Actor, allow_none=False, record=True)
 
@@ -145,6 +149,7 @@ class Streamline(Module):
                                                )
         self.ribbon_filter = tvtk.RibbonFilter()
         self.tube_filter = tvtk.TubeFilter()
+        self.clean_filter = tvtk.CleanPolyData()
 
         self.actor = Actor()
         # Setup the actor suitably for this module.
@@ -207,7 +212,11 @@ class Streamline(Module):
             self.configure_connection(rf, st)
             configure_outputs(self, rf)
         elif value == 'tube':
-            self.configure_connection(tf, st)
+            # Without a clean poly data filter, tube filter will throw could
+            # not generate normals warning
+            cf = self.clean_filter
+            self.configure_connection(cf, st)
+            self.configure_connection(tf, cf)
             configure_outputs(self, tf)
         self.render()
 
