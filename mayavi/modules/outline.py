@@ -113,8 +113,7 @@ class Outline(Module):
 
         # In the new pipeline, vtkCompositeDataPipeline complains if
         # an outline filter is configured without an input connection
-        if not is_old_pipeline():
-            self.outline_filter.input_connection = self.outline_source.output_port
+        self.configure_connection(self.outline_filter, self.outline_source)
 
         self.actor = Actor()
 
