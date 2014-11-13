@@ -45,7 +45,7 @@ import numpy as np
 
 from mayavi import mlab
 from tvtk.api import tvtk
-from tvtk.common import configure_source_data
+from tvtk.common import configure_source_data, configure_input
 
 # The angular par of the spherical harmonic (3, 2)
 x, y, z = np.mgrid[-.5:.5:100j, -.5:.5:100j, -.5:.5:100j]
@@ -61,6 +61,7 @@ surface.data_source.radius = .4
 surface.data_source.phi_resolution = 200
 surface.data_source.theta_resolution = 200
 probe_filter = tvtk.ProbeFilter()
+configure_input(probe_filter, surface.data_source)
 configure_source_data(probe_filter, field.outputs[0])
 probe = mlab.pipeline.user_defined(surface, filter=probe_filter)
 

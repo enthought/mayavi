@@ -119,7 +119,7 @@ connections = np.array(connections)
 # We add lines between the points that we have previously created by
 # directly modifying the VTK dataset.
 points.mlab_source.dataset.lines = connections
-points.mlab_source.update()
+points.mlab_source.reset()
 # To represent the lines, we use the surface module. Using a wireframe
 # representation allows to control the line-width.
 mlab.pipeline.surface(points, color=(1, 1, 1),

@@ -111,6 +111,10 @@ class Outline(Module):
         self._full_outline.on_trait_change(self.render)
         self._cornered_outline.on_trait_change(self.render)
 
+        # In the new pipeline, vtkCompositeDataPipeline complains if
+        # an outline filter is configured without an input connection
+        self.configure_connection(self.outline_filter, self.outline_source)
+
         self.actor = Actor()
 
     def update_pipeline(self):
