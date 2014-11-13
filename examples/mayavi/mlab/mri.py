@@ -23,7 +23,7 @@ if not os.path.exists('mri_data.tar.gz'):
     import urllib
     print "Downloading data, Please Wait (7.8MB)"
     opener = urllib.urlopen(
-                'http://www-graphics.stanford.edu/data/voldata/MRbrain.tar.gz')
+                'http://graphics.stanford.edu/data/voldata/MRbrain.tar.gz')
     open('mri_data.tar.gz', 'wb').write(opener.read())
 
 # Extract the data
