@@ -10,7 +10,8 @@ import numpy
 from vtk.util import vtkConstants
 
 # Enthought library imports
-from traits.api import Instance, Trait, Str, Bool, Button, DelegatesTo
+from traits.api import (Instance, Trait, Str, Bool, Button, DelegatesTo, List,
+                        Int)
 from traitsui.api import View, Group, Item
 from tvtk.api import tvtk
 from tvtk import array_handler
@@ -110,6 +111,9 @@ class ArraySource(Source):
     # Information about what this object can produce.
     output_info = PipelineInfo(datasets=['image_data'])
 
+    # Specify the order of dimensions. The default is: [0, 1, 2]
+    dimensions_order = List(Int, [0, 1, 2])
+
     # Our view.
     view = View(Group(Item(name='transpose_input_array'),
                       Item(name='scalar_name'),
@@ -178,13 +182,16 @@ class ArraySource(Source):
         if len(dims) == 2:
             dims.append(1)
 
+        # set the dimension indices
+        dim0, dim1, dim2 = self.dimensions_order
+
         img_data.origin = tuple(self.origin)
         img_data.dimensions = tuple(dims)
-        img_data.extent = 0, dims[0]-1, 0, dims[1]-1, 0, dims[2]-1
+        img_data.extent = 0, dims[dim0]-1, 0, dims[dim1]-1, 0, dims[dim2]-1
         if is_old_pipeline():
-            img_data.update_extent = 0, dims[0]-1, 0, dims[1]-1, 0, dims[2]-1
+            img_data.update_extent = 0, dims[dim0]-1, 0, dims[dim1]-1, 0, dims[dim2]-1
         else:
-            update_extent = [0, dims[0]-1, 0, dims[1]-1, 0, dims[2]-1]
+            update_extent = [0, dims[dim0]-1, 0, dims[dim1]-1, 0, dims[dim2]-1]
             self.change_information_filter.set_update_extent(update_extent)
         if self.transpose_input_array:
             img_data.point_data.scalars = numpy.ravel(numpy.transpose(data))
