@@ -18,17 +18,17 @@ see :ref:`example_tvtk_segmentation`.
 
 ### Download the data, if not already on disk #################################
 import os
-if not os.path.exists('mri_data.tar.gz'):
+if not os.path.exists('MRbrain.tar.gz'):
     # Download the data
     import urllib
     print "Downloading data, Please Wait (7.8MB)"
     opener = urllib.urlopen(
-                'http://www-graphics.stanford.edu/data/voldata/MRbrain.tar.gz')
-    open('mri_data.tar.gz', 'wb').write(opener.read())
+                'http://graphics.stanford.edu/data/voldata/MRbrain.tar.gz')
+    open('MRbrain.tar.gz', 'wb').write(opener.read())
 
 # Extract the data
 import tarfile
-tar_file = tarfile.open('mri_data.tar.gz')
+tar_file = tarfile.open('MRbrain.tar.gz')
 try:
     os.mkdir('mri_data')
 except:
