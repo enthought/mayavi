@@ -62,6 +62,13 @@ def configure_input_data(obj, data):
     else:
         obj.set_input_data(data)
 
+def configure_port_input_data(obj, port, data):
+    """ Configure the input data for vtk pipeline object obj at port."""
+    if is_old_pipeline():
+        obj.set_input(port, data)
+    else:
+        obj.set_input_data(port, data)
+
 def configure_input(inp, op):
     """ Configure the inp using op."""
     if is_old_pipeline():

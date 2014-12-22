@@ -369,6 +369,10 @@ class LUTManager(Base):
 
     def _show_scalar_bar_changed(self, value):
         if self.scene is not None:
+            # Without a title for scalar bar actor, vtkOpenGLTexture logs this:
+            # Error: No scalar values found for texture input!
+            if self.scalar_bar.title == '':
+                self.scalar_bar.title = ' '
             self.scalar_bar_widget.enabled = value
             self.render()
 
