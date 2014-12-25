@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -8,15 +6,15 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Building applications using Mayavi &mdash; mayavi 4.3.1 documentation</title>
+    <title>Building applications using Mayavi &mdash; mayavi 4.3.2 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
-        VERSION:     '4.3.1',
+        URL_ROOT:    './',
+        VERSION:     '4.3.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.3.1 documentation" href="index.html" />
+    <link rel="top" title="mayavi 4.3.2 documentation" href="index.html" />
     <link rel="next" title="Tips and Tricks" href="tips.html" />
     <link rel="prev" title="Advanced Scripting with Mayavi" href="advanced_scripting.html" />
 <style type="text/css">
@@ -72,7 +70,7 @@
         <li class="right" >
           <a href="advanced_scripting.html" title="Advanced Scripting with Mayavi"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">mayavi 4.3.1 documentation</a> &raquo;</li> 
+        <li><a href="index.html">mayavi 4.3.2 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -274,10 +272,11 @@ simply not work when applied without a dialog opened. When embedding
 a scene in a Traits object, the best option is to create and modify
 these objects only when the scene is activated, by listening to
 changes on the &#8216;scene.activated&#8217; traits:</p>
-<div class="highlight-python"><pre>@on_trait_change('scene.activated')
+<div class="highlight-python"><div class="highlight"><pre>@on_trait_change(&#39;scene.activated&#39;)
 def create_plot(self):
     # Do the plotting here
-    # ...</pre>
+    # ...
+</pre></div>
 </div>
 <p class="last">The <a class="reference internal" href="auto/example_lorenz_ui.html#example-lorenz-ui"><em>Lorenz ui example</em></a> shows a good example of this situation.</p>
 </div>
@@ -476,13 +475,13 @@ result if you instanciate a new one, using for instance:</p>
         <li class="right" >
           <a href="advanced_scripting.html" title="Advanced Scripting with Mayavi"
              >previous</a> |</li>
-        <li><a href="index.html">mayavi 4.3.1 documentation</a> &raquo;</li> 
+        <li><a href="index.html">mayavi 4.3.2 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2014, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Jan 30, 2014.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+      Last updated on Oct 27, 2014.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
     </div>
   </body>
 </html>

@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -8,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Camera handling functions &mdash; mayavi 4.3.1 documentation</title>
+    <title>Camera handling functions &mdash; mayavi 4.3.2 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -16,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.3.1',
+        VERSION:     '4.3.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.3.1 documentation" href="../index.html" />
+    <link rel="top" title="mayavi 4.3.2 documentation" href="../index.html" />
     <link rel="up" title="MLab reference" href="mlab_reference.html" />
     <link rel="next" title="Other functions" href="mlab_other_functions.html" />
     <link rel="prev" title="Figure decoration functions" href="mlab_decorations.html" />
@@ -73,7 +71,7 @@
         <li class="right" >
           <a href="mlab_decorations.html" title="Figure decoration functions"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">mayavi 4.3.1 documentation</a> &raquo;</li>
+        <li><a href="../index.html">mayavi 4.3.2 documentation</a> &raquo;</li>
           <li><a href="mlab_reference.html" accesskey="U">MLab reference</a> &raquo;</li> 
       </ul>
     </div>  
@@ -188,11 +186,11 @@ system.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Mlab.yaw :</th><td class="field-body">relative rotation about the &#8220;up&#8221; direction</td>
+<tr class="field-odd field"><th class="field-name">Mlab.yaw:</th><td class="field-body">relative rotation about the &#8220;up&#8221; direction</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Mlab.roll :</th><td class="field-body">absolute roll angle (i.e. &#8220;up&#8221; direction)</td>
+<tr class="field-even field"><th class="field-name">Mlab.roll:</th><td class="field-body">absolute roll angle (i.e. &#8220;up&#8221; direction)</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Mlab.move :</th><td class="field-body">relative  translation of the camera and focal
+<tr class="field-odd field"><th class="field-name">Mlab.move:</th><td class="field-body">relative  translation of the camera and focal
 point</td>
 </tr>
 </tbody>
@@ -211,7 +209,7 @@ point</td>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Mlab.view :</th><td class="field-body">control the position and direction of the camera</td>
+<tr class="field-odd field"><th class="field-name">Mlab.view:</th><td class="field-body">control the position and direction of the camera</td>
 </tr>
 </tbody>
 </table>
@@ -286,9 +284,10 @@ current view.  Note that these can be used later on to set the view.</p>
 <p>If arguments are supplied it returns <cite>None</cite>.</p>
 <p><strong>Examples</strong>:</p>
 <p>Get the current view:</p>
-<div class="highlight-python"><pre> &gt;&gt;&gt; v = view()
+<div class="highlight-python"><div class="highlight"><pre> &gt;&gt;&gt; v = view()
  &gt;&gt;&gt; v
-(45.0, 45.0, 25.02794981, array([ 0.01118028,  0.        ,  4.00558996]))</pre>
+(45.0, 45.0, 25.02794981, array([ 0.01118028,  0.        ,  4.00558996]))
+</pre></div>
 </div>
 <p>Set the view in different ways:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">view</span><span class="p">(</span><span class="mi">45</span><span class="p">,</span> <span class="mi">45</span><span class="p">)</span>
@@ -306,7 +305,7 @@ current view.  Note that these can be used later on to set the view.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Mlab.roll :</th><td class="field-body">control the roll angle of the camera, ie the direction
+<tr class="field-odd field"><th class="field-name">Mlab.roll:</th><td class="field-body">control the roll angle of the camera, ie the direction
 pointing up</td>
 </tr>
 </tbody>
@@ -331,11 +330,11 @@ system.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Mlab.pitch :</th><td class="field-body">relative rotation about the &#8220;right&#8221; direction</td>
+<tr class="field-odd field"><th class="field-name">Mlab.pitch:</th><td class="field-body">relative rotation about the &#8220;right&#8221; direction</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Mlab.roll :</th><td class="field-body">absolute roll angle (i.e. &#8220;up&#8221; direction)</td>
+<tr class="field-even field"><th class="field-name">Mlab.roll:</th><td class="field-body">absolute roll angle (i.e. &#8220;up&#8221; direction)</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Mlab.move :</th><td class="field-body">relative translation of the camera and focal
+<tr class="field-odd field"><th class="field-name">Mlab.move:</th><td class="field-body">relative translation of the camera and focal
 point</td>
 </tr>
 </tbody>
@@ -435,14 +434,14 @@ point</td>
         <li class="right" >
           <a href="mlab_decorations.html" title="Figure decoration functions"
              >previous</a> |</li>
-        <li><a href="../index.html">mayavi 4.3.1 documentation</a> &raquo;</li>
+        <li><a href="../index.html">mayavi 4.3.2 documentation</a> &raquo;</li>
           <li><a href="mlab_reference.html" >MLab reference</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2014, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Jan 30, 2014.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+      Last updated on Oct 29, 2014.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
     </div>
   </body>
 </html>

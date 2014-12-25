@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -8,15 +6,15 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Using the Mayavi application &mdash; mayavi 4.3.1 documentation</title>
+    <title>Using the Mayavi application &mdash; mayavi 4.3.2 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
-        VERSION:     '4.3.1',
+        URL_ROOT:    './',
+        VERSION:     '4.3.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.3.1 documentation" href="index.html" />
+    <link rel="top" title="mayavi 4.3.2 documentation" href="index.html" />
     <link rel="next" title="Parametric surfaces: a simple introduction to visualization" href="example_parametric_surface.html" />
     <link rel="prev" title="Installation" href="installation.html" />
 <style type="text/css">
@@ -72,7 +70,7 @@
         <li class="right" >
           <a href="installation.html" title="Installation"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">mayavi 4.3.1 documentation</a> &raquo;</li> 
+        <li><a href="index.html">mayavi 4.3.2 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -108,7 +106,8 @@ deeper understanding.</p>
 <span id="learning-mayavi-by-example"></span><h2><a class="toc-backref" href="#id6">Tutorial examples to learn Mayavi</a><a class="headerlink" href="#tutorial-examples-to-learn-mayavi" title="Permalink to this headline">¶</a></h2>
 <p>To get acquainted with mayavi you may start up the Mayavi2 application,
 <tt class="docutils literal"><span class="pre">mayavi2</span></tt> in the command line, like so:</p>
-<div class="highlight-python"><pre>$ mayavi2</pre>
+<div class="highlight-python"><div class="highlight"><pre>$ mayavi2
+</pre></div>
 </div>
 <p>On Windows you can double click on the installed <tt class="docutils literal"><span class="pre">mayavi2.exe</span></tt>
 executable (usually in the <tt class="docutils literal"><span class="pre">Python2X\Scripts</span></tt> directory), or use the
@@ -473,10 +472,12 @@ and not saving a file you may click cancel at this point.</p>
 <li><p class="first">Close the recorder window. You can quit Mayavi, if you want to.</p>
 </li>
 <li><p class="first">Now from the shell do:</p>
-<div class="highlight-python"><pre>$  mayavi2 -x script.py</pre>
+<div class="highlight-python"><div class="highlight"><pre>$  mayavi2 -x script.py
+</pre></div>
 </div>
 <p>or even:</p>
-<div class="highlight-python"><pre>$ python script.py</pre>
+<div class="highlight-python"><div class="highlight"><pre>$ python script.py
+</pre></div>
 </div>
 <p>These should run all the code to get you where you left.  You can
 feel free to edit this generated script &#8211; in fact that is the whole
@@ -589,7 +590,8 @@ then the module (<tt class="docutils literal"><span class="pre">SomeModule</span
 <tt class="docutils literal"><span class="pre">package.sub.module</span></tt>.  Standard modules provided with
 <tt class="docutils literal"><span class="pre">mayavi2</span></tt> do not need the full path specification.  For
 example:</p>
-<div class="highlight-python"><pre>mayavi2 -d data.vtk -m Outline -m user_modules.AModule</pre>
+<div class="highlight-python"><div class="highlight"><pre>mayavi2 -d data.vtk -m Outline -m user_modules.AModule
+</pre></div>
 </div>
 <p class="last">In this example <tt class="docutils literal"><span class="pre">Outline</span></tt> is a standard module and
 <tt class="docutils literal"><span class="pre">user_modules.AModule</span></tt> is some user defined module.
@@ -606,7 +608,8 @@ then the filter (<tt class="docutils literal"><span class="pre">SomeFilter</span
 <tt class="docutils literal"><span class="pre">package.sub.filter</span></tt>.  Standard modules provided with
 <tt class="docutils literal"><span class="pre">mayavi2</span></tt> do not need the full path specification.  For
 example:</p>
-<div class="highlight-python"><pre>mayavi2 -d data.vtk -f ExtractVectorNorm -f user_filters.AFilter</pre>
+<div class="highlight-python"><div class="highlight"><pre>mayavi2 -d data.vtk -f ExtractVectorNorm -f user_filters.AFilter
+</pre></div>
 </div>
 <p class="last">In this example <tt class="docutils literal"><span class="pre">ExtractVectorNorm</span></tt> is a standard filter and
 <tt class="docutils literal"><span class="pre">user_filters.AFilter</span></tt> is some user defined filter.
@@ -641,12 +644,14 @@ in the embedded Python interpreter.  Also available through
 both the TVTK and Mayavi2 unit tests.  If any additional arguments
 are passed they are passed along to the test runner.  So this may
 be used to run other tests as well.  For example:</p>
-<div class="highlight-python"><pre>mayavi2 -t apptools.persistence</pre>
+<div class="highlight-python"><div class="highlight"><pre>mayavi2 -t apptools.persistence
+</pre></div>
 </div>
 <p>This will run just the tests inside the <tt class="docutils literal"><span class="pre">apptools.persistence</span></tt>
 package.  You can also specify a directory with test files to run
 with this, for example:</p>
-<div class="highlight-python"><pre>mayavi2 -t relative_path_to/integrationtests/mayavi</pre>
+<div class="highlight-python"><div class="highlight"><pre>mayavi2 -t relative_path_to/integrationtests/mayavi
+</pre></div>
 </div>
 <p class="last">will run the integration tests from the Mayavi sources.  Also
 available as <tt class="docutils literal"><span class="pre">--test</span></tt>.</p>
@@ -657,8 +662,9 @@ available as <tt class="docutils literal"><span class="pre">--test</span></tt>.<
 <tr><td>&nbsp;</td><td><p class="first">Execute the python-expression on the last created object.  For
 example, let&#8217;s say the previous object was a module.  If you want
 to set the color of that object and save the scene, you may do:</p>
-<div class="highlight-python"><pre>$ mayavi2 [...] -m Outline -s"actor.property.color = (1,0,0)" \
- -s "scene.save('test.png', size=(800, 800))"</pre>
+<div class="highlight-python"><div class="highlight"><pre>$ mayavi2 [...] -m Outline -s&quot;actor.property.color = (1,0,0)&quot; \
+ -s &quot;scene.save(&#39;test.png&#39;, size=(800, 800))&quot;
+</pre></div>
 </div>
 <p class="last">You should use quotes for the expression.  This is also available
 through <tt class="docutils literal"><span class="pre">--set</span></tt>.</p>
@@ -675,15 +681,16 @@ dangerous if the script does something nasty!  Similarly, <tt class="docutils li
 processed sequentially</strong> in the same order they are given.  This
 allows users to do interesting things.</p>
 <p>Here are a few examples of the command line arguments:</p>
-<div class="highlight-python"><pre>$ mayavi2 -d ParametricSurface -s "function='dini'" -m Surface \
-  -s "module_manager.scalar_lut_manager.show_scalar_bar = True" \
-  -s "scene.isometric_view()" -s "scene.save('snapshot.png')"
+<div class="highlight-python"><div class="highlight"><pre>$ mayavi2 -d ParametricSurface -s &quot;function=&#39;dini&#39;&quot; -m Surface \
+  -s &quot;module_manager.scalar_lut_manager.show_scalar_bar = True&quot; \
+  -s &quot;scene.isometric_view()&quot; -s &quot;scene.save(&#39;snapshot.png&#39;)&quot;
 
 $ mayavi2 -d heart.vtk -m Axes -m Outline -m GridPlane \
   -m ContourGridPlane -m IsoSurface
 
 $ mayavi2 -d fire_ug.vtu -m Axes -m Outline -m VectorCutPlane \
-  -f MaskPoints -m Glyph</pre>
+  -f MaskPoints -m Glyph
+</pre></div>
 </div>
 <p>In the above examples, <tt class="docutils literal"><span class="pre">heart.vtk</span></tt> and <tt class="docutils literal"><span class="pre">fire_ug.vtu</span></tt> VTK files can
 be found in the <tt class="docutils literal"><span class="pre">examples/data</span></tt> directory in the source.  They may
@@ -704,13 +711,9 @@ platform.</p>
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Using the Mayavi application</a><ul>
-<li><a class="reference internal" href="#tutorial-examples-to-learn-mayavi">Tutorial examples to learn Mayavi</a><ul>
-</ul>
-</li>
+<li><a class="reference internal" href="#tutorial-examples-to-learn-mayavi">Tutorial examples to learn Mayavi</a></li>
 <li><a class="reference internal" href="#general-layout-of-ui">General layout of UI</a></li>
-<li><a class="reference internal" href="#visualizing-data">Visualizing data</a><ul>
-</ul>
-</li>
+<li><a class="reference internal" href="#visualizing-data">Visualizing data</a></li>
 <li><a class="reference internal" href="#interaction-with-the-scene">Interaction with the scene</a><ul>
 <li><a class="reference internal" href="#mouse-interaction">Mouse interaction</a></li>
 <li><a class="reference internal" href="#keyboard-interaction">Keyboard interaction</a></li>
@@ -795,13 +798,13 @@ platform.</p>
         <li class="right" >
           <a href="installation.html" title="Installation"
              >previous</a> |</li>
-        <li><a href="index.html">mayavi 4.3.1 documentation</a> &raquo;</li> 
+        <li><a href="index.html">mayavi 4.3.2 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2014, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Jan 30, 2014.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+      Last updated on Oct 27, 2014.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
     </div>
   </body>
 </html>

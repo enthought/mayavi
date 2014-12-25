@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -8,15 +6,15 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Miscellaneous &mdash; mayavi 4.3.1 documentation</title>
+    <title>Miscellaneous &mdash; mayavi 4.3.2 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
-        VERSION:     '4.3.1',
+        URL_ROOT:    './',
+        VERSION:     '4.3.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.3.1 documentation" href="index.html" />
+    <link rel="top" title="mayavi 4.3.2 documentation" href="index.html" />
     <link rel="next" title="Example gallery" href="auto/examples.html" />
     <link rel="prev" title="Tips and Tricks" href="tips.html" />
 <style type="text/css">
@@ -72,7 +70,7 @@
         <li class="right" >
           <a href="tips.html" title="Tips and Tricks"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">mayavi 4.3.1 documentation</a> &raquo;</li> 
+        <li><a href="index.html">mayavi 4.3.2 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -104,9 +102,7 @@ gmane from here:
 <p>Discussion and bug reports are also sometimes sent to the mayavi-users
 mailing list (<a class="reference external" href="mailto:Mayavi-users&#37;&#52;&#48;lists&#46;sourceforge&#46;net">Mayavi-users<span>&#64;</span>lists<span>&#46;</span>sourceforge<span>&#46;</span>net</a>).  We recommend
 sending messages to the enthought-dev list though.</p>
-<p>The Mayavi wiki page: <a class="reference external" href="https://svn.enthought.com/enthought/wiki/MayaVi">https://svn.enthought.com/enthought/wiki/MayaVi</a></p>
-<p>is a trac page where one can also enter bug reports and feature
-requests.</p>
+<p>The Mayavi documentation: <a class="reference external" href="http://docs.enthought.com/mayavi/mayavi">http://docs.enthought.com/mayavi/mayavi</a></p>
 <p>If this manual, the Mayavi web page, the wiki page and google are of no
 help feel free to post on the enthought-dev mailing list for help.</p>
 </div>
@@ -122,11 +118,12 @@ by running the test suite and reporting any errors.</p>
 <p>ETS uses <a class="reference external" href="http://somethingaboutorange.com/mrl/projects/nose/">nose</a> to gather and run tests. You can also run the unit tests
 of both packages by doing the following from the root of the Mayavi
 source directory:</p>
-<div class="highlight-python"><pre>$ nosetests
+<div class="highlight-python"><div class="highlight"><pre>$ nosetests
 ----------------------------------------------------------------------
 Ran 170 tests in 39.254s
 
-OK (SKIP=1)</pre>
+OK (SKIP=1)
+</pre></div>
 </div>
 <p>If you get an &#8220;ERROR&#8221; regarding the unavailability of coverage you may
 safely ignore it.  If for some reason nose is having difficulty running
@@ -137,7 +134,8 @@ directories and run <tt class="docutils literal"><span class="pre">nosetests</sp
 <p>In addition to these unit tests mayavi also has several integration tests.
 These are in the <tt class="docutils literal"><span class="pre">integrationtests/mayavi</span></tt> directory of the source
 distribution.  You may run the tests there like so:</p>
-<div class="highlight-python"><pre>$ ./run.py</pre>
+<div class="highlight-python"><div class="highlight"><pre>$ ./run.py
+</pre></div>
 </div>
 <p>These tests are intrusive and will create several mayavi windows and
 also take a while to complete.  Some of them may fail on your machine
@@ -158,7 +156,8 @@ you need to use subversion, if you have never used it, see
 <a class="reference external" href="http://svnbook.red-bean.com/en/1.1/ch01s07.html">http://svnbook.red-bean.com/en/1.1/ch01s07.html</a>. Once you are done, you
 can generate a path that sums up your changes by executing the
 following command in the root of the Mayavi source:</p>
-<div class="highlight-python"><pre>svn diff &gt; my_patch.patch</pre>
+<div class="highlight-python"><div class="highlight"><pre>svn diff &gt; my_patch.patch
+</pre></div>
 </div>
 <p>Feel free to send us patches via the <a class="reference external" href="https://mail.enthought.com/mailman/listinfo/enthought-dev">mailing list</a>.  Thanks!</p>
 </div>
@@ -167,21 +166,24 @@ following command in the root of the Mayavi source:</p>
 <p>Documentation of a project is incredibly important. It also takes a lot
 of time to write and improve. You can easily help us with documentation.</p>
 <p>For that, you can check out only the subversion tree of Mayavi, using:</p>
-<div class="highlight-python"><pre>svn co http://svn.enthought.com/svn/enthought/Mayavi/trunk/ mayavi</pre>
+<div class="highlight-python"><div class="highlight"><pre>svn co http://svn.enthought.com/svn/enthought/Mayavi/trunk/ mayavi
+</pre></div>
 </div>
 <p>You will find the documentation sources in <cite>docs/sources/mayavi</cite>. The
 documentation is written in <a class="reference external" href="http://sphinx.pocoo.org/">sphinx</a>. It is
 easy to edit the <cite>.rst</cite> files to modify or extend the text. Once you have
 done your modifications, you can build the documentation using by
 running:</p>
-<div class="highlight-python"><pre>python setup.py build_docs</pre>
+<div class="highlight-python"><div class="highlight"><pre>python setup.py build_docs
+</pre></div>
 </div>
 <p>in the base directory of your checkout. You will need
 <a class="reference external" href="http://sphinx.pocoo.org/">sphinx</a> installed for that. The
 documentation is then built as an HTML documentation that you can find
 in the sub directory <cite>build/docs/html/mayavi</cite>. Once you are comfortable
 with the modifications, just generate an SVN patch using:</p>
-<div class="highlight-python"><pre>svn diff &gt; my_patch.patch</pre>
+<div class="highlight-python"><div class="highlight"><pre>svn diff &gt; my_patch.patch
+</pre></div>
 </div>
 <p>And send us the patch via the <a class="reference external" href="https://mail.enthought.com/mailman/listinfo/enthought-dev">mailing list</a>.  Thanks!</p>
 </div>
@@ -281,13 +283,13 @@ with the modifications, just generate an SVN patch using:</p>
         <li class="right" >
           <a href="tips.html" title="Tips and Tricks"
              >previous</a> |</li>
-        <li><a href="index.html">mayavi 4.3.1 documentation</a> &raquo;</li> 
+        <li><a href="index.html">mayavi 4.3.2 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2014, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Jan 30, 2014.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+      Last updated on Oct 27, 2014.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
     </div>
   </body>
 </html>
