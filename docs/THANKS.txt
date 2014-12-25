@@ -1,6 +1,7 @@
 Developers:
     Prabhu Ramachandran (2001-)
     Gaël Varoquaux (2007-)
+    Deepak Surti (2013-)
 
 We gratefully acknowledge patches and other contributions from the
 following.  Please let us know if we missed anyone, thanks!

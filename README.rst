@@ -140,6 +140,8 @@ Authors and Contributors
 
   Gaël Varoquaux: mlab, icons, many general improvements and maintainance.
 
+  Deepak Surti: Upgrade to VTK 5.10.1, VTK 6.x with new pipeline.
+
 * Support and code contributions from Enthought Inc.
 
 * Patches from many people (see the release notes), including K K Rai and 
