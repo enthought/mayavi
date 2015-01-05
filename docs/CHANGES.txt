@@ -4,23 +4,23 @@ Mayavi 5.0.0
 Enhancements
 ------------
 
-22 Dec 2014 (PR)
+22 Dec 2014 (DS)
     - Add function to set data at input port, add stanford (bunny,
       dragon, lucy) examples, and use new volume mapper for new pipeline.
 
-24 Jan 2014 (PR)
+24 Jan 2014 (DS)
     - Upgrade to VTK 6.0 with VTK's new pipeline.
 
 Fixes
 -----
 
-22 Dec 2014 (PR)
+22 Dec 2014 (DS)
     - Support dynamic dimensions in array source.
 
 03 Dec 2014 (paulmueller)
     - Fix MRI brain data URL.
 
-13 Nov 2014 (PR)
+13 Nov 2014 (DS)
     - More fixes for connection topology, information request and tube filter
       after upgrading to new pipeline.
 
