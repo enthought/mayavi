@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -8,15 +6,15 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>mlab: Python scripting for 3D plotting &mdash; mayavi 4.3.1 documentation</title>
+    <title>mlab: Python scripting for 3D plotting &mdash; mayavi 4.4.0 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
-        VERSION:     '4.3.1',
+        URL_ROOT:    './',
+        VERSION:     '4.4.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.3.1 documentation" href="index.html" />
+    <link rel="top" title="mayavi 4.4.0 documentation" href="index.html" />
     <link rel="next" title="Advanced use of Mayavi" href="advanced_use.html" />
     <link rel="prev" title="Filters" href="filters.html" />
 <style type="text/css">
@@ -72,7 +70,7 @@
         <li class="right" >
           <a href="filters.html" title="Filters"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">mayavi 4.3.1 documentation</a> &raquo;</li> 
+        <li><a href="index.html">mayavi 4.4.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -104,10 +102,12 @@ It is can be used interactively with <a class="reference external" href="http://
 <p class="first admonition-title">Warning</p>
 <p>When using IPython with mlab, as in the following examples, IPython must
 be invoked with the <tt class="docutils literal"><span class="pre">-wthread</span></tt> command line option like so:</p>
-<div class="highlight-python"><pre>$ ipython -wthread</pre>
+<div class="highlight-python"><div class="highlight"><pre>$ ipython -wthread
+</pre></div>
 </div>
 <p>Or, for IPython recent version (0.11 and above):</p>
-<div class="highlight-python"><pre>$ ipython --gui=wx</pre>
+<div class="highlight-python"><div class="highlight"><pre>$ ipython --gui=wx
+</pre></div>
 </div>
 <p>If you are using the <a class="reference external" href="http://www.enthought.com/products/epd.php">Enthought Python Distribution</a>, or the latest
 <a class="reference external" href="http://www.pythonxy.com">Python(x,y)</a> distribution, the Pylab menu
@@ -372,7 +372,7 @@ for functions with vectors, or to the z elevation for functions where it is
 meaningful, such as <a class="reference internal" href="auto/mlab_helper_functions.html#mayavi.mlab.surf" title="mayavi.mlab.surf"><tt class="xref py py-func docutils literal"><span class="pre">surf()</span></tt></a> or <a class="reference internal" href="auto/mlab_helper_functions.html#mayavi.mlab.barchart" title="mayavi.mlab.barchart"><tt class="xref py py-func docutils literal"><span class="pre">barchart()</span></tt></a>.</p>
 <p>This scalar information is converted into colors using the colormap, or
 also called LUT, for Look Up Table. The list of possible colormaps is:</p>
-<div class="highlight-python"><pre>accent       flag          hot      pubu     set2
+<div class="highlight-python"><div class="highlight"><pre>accent       flag          hot      pubu     set2
 autumn       gist_earth    hsv      pubugn   set3
 black-white  gist_gray     jet      puor     spectral
 blue-red     gist_heat     oranges  purd     spring
@@ -383,7 +383,8 @@ bugn         gist_yarg     pastel2  rdpu     ylgn
 bupu         gnbu          pink     rdylbu   ylorbr
 cool         gray          piyg     rdylgn   ylorrd
 copper       greens        prgn     reds
-dark2        greys         prism    set1</pre>
+dark2        greys         prism    set1
+</pre></div>
 </div>
 <p>The easiest way to choose the colormap, most adapted to your visualization
 is to use the GUI (as described in the next paragraph). The dialog
@@ -628,7 +629,8 @@ or more figures and allow the user to interact with them.</p>
 <h3>Using mlab interactively<a class="headerlink" href="#using-mlab-interactively" title="Permalink to this headline">¶</a></h3>
 <p>Using <a class="reference external" href="http://ipython.scipy.org">IPython</a>, mlab instructions can be run interactively, or in
 scripts using <a class="reference external" href="http://ipython.scipy.org">IPython</a>&#8216;s <tt class="docutils literal"><span class="pre">%run</span></tt> command:</p>
-<div class="highlight-python"><pre>In [1]: %run my_script</pre>
+<div class="highlight-python"><div class="highlight"><pre>In [1]: %run my_script
+</pre></div>
 </div>
 <p>You need to start <a class="reference external" href="http://ipython.scipy.org">IPython</a> with the <cite>-wthread</cite> option, that became <cite>&#8211;gui=wx</cite> in the recent IPython versions (when installed
 with <a class="reference external" href="http://www.enthought.com/products/epd.php">EPD</a>, the <cite>pylab</cite> start-menu link does this for you). In this
@@ -647,16 +649,19 @@ should:</p>
 <blockquote>
 <div><ul>
 <li><p class="first">if your IPython version is greater than 0.11: start IPython with:</p>
-<div class="highlight-python"><pre>$ ipython --gui=wx --pylab=wx</pre>
+<div class="highlight-python"><div class="highlight"><pre>$ ipython --gui=wx --pylab=wx
+</pre></div>
 </div>
 </li>
 <li><p class="first">else, if your IPython version is greater than 0.8.4: start IPython with
 the following options:</p>
-<div class="highlight-python"><pre>$ ipython -pylab -wthread</pre>
+<div class="highlight-python"><div class="highlight"><pre>$ ipython -pylab -wthread
+</pre></div>
 </div>
 </li>
 <li><p class="first">elsewhere, start IPython with the <cite>-wthread</cite> option:</p>
-<div class="highlight-python"><pre>$ ipython -wthread</pre>
+<div class="highlight-python"><div class="highlight"><pre>$ ipython -wthread
+</pre></div>
 </div>
 <p>and <strong>before</strong> importing pylab, enter the following Python
 commands:</p>
@@ -671,7 +676,8 @@ commands:</p>
 <p>If you want matplotlib and mlab to work together by default in IPython,
 you can change you default matplotlib backend, by editing the
 <cite>~/.matplotlib/matplotlibrc</cite> to add the following line:</p>
-<div class="highlight-python"><pre>backend     : WXAgg</pre>
+<div class="highlight-python"><div class="highlight"><pre>backend     : WXAgg
+</pre></div>
 </div>
 <div class="topic">
 <p class="topic-title first">Capturing mlab plots to integrate in pylab</p>
@@ -841,11 +847,12 @@ on the pipeline. As an example, let us create a visualization using
 </pre></div>
 </div>
 <p>The following pipeline is created:</p>
-<div class="highlight-python"><pre>Array2DSource
+<div class="highlight-python"><div class="highlight"><pre>Array2DSource
     \__ WarpScalar
             \__ PolyDataNormals
                     \__ Colors and legends
-                            \__ Surface</pre>
+                            \__ Surface
+</pre></div>
 </div>
 <p>The same pipeline can be created using the following code:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">src</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">array2d_source</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
@@ -1328,13 +1335,13 @@ approach to mixing by chaotic advection Phys. Fluids, 1995, 7, 2587</td></tr>
         <li class="right" >
           <a href="filters.html" title="Filters"
              >previous</a> |</li>
-        <li><a href="index.html">mayavi 4.3.1 documentation</a> &raquo;</li> 
+        <li><a href="index.html">mayavi 4.4.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2014, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Jan 30, 2014.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+      Last updated on Jan 14, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
     </div>
   </body>
 </html>

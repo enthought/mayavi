@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -8,15 +6,15 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Development guide for TVTK &mdash; tvtk 4.3.1 documentation</title>
+    <title>Development guide for TVTK &mdash; tvtk 4.4.0 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
-        VERSION:     '4.3.1',
+        URL_ROOT:    './',
+        VERSION:     '4.4.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="tvtk 4.3.1 documentation" href="index.html" />
+    <link rel="top" title="tvtk 4.4.0 documentation" href="index.html" />
     <link rel="prev" title="An Introduction to Traited VTK (tvtk)" href="README.html" /> 
   </head>
   <body>
@@ -38,7 +36,7 @@
         <li class="right" >
           <a href="README.html" title="An Introduction to Traited VTK (tvtk)"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">tvtk 4.3.1 documentation</a> &raquo;</li> 
+        <li><a href="index.html">tvtk 4.4.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -224,8 +222,9 @@ correct VTK data array and passed to the wrapped VTK object.</p>
 module is required.  The sources for this extension module are in
 <cite>src/array_ext.*</cite>.  The <a class="reference external" href="http://cython.org/">Cython</a> file can be used to generate the
 <cite>src/array_ext.c</cite> file like so:</p>
-<div class="highlight-python"><pre>$ cd src
-$ cython array_ext.pyx</pre>
+<div class="highlight-python"><div class="highlight"><pre>$ cd src
+$ cython array_ext.pyx
+</pre></div>
 </div>
 <p>The sources ship with the generated source file so that folks without
 Cython can build it.</p>
@@ -347,13 +346,15 @@ special code for some of the VTK classes.</p>
 code generation process, builds a ZIP file and optionally cleans up
 the temporary directory where the wrapper code was written.</p>
 <p>Please run the following:</p>
-<div class="highlight-python"><pre>$ python code_gen.py -h</pre>
+<div class="highlight-python"><div class="highlight"><pre>$ python code_gen.py -h
+</pre></div>
 </div>
 <p>To see a list of options to the code generator.  Some of the options
 are extremely useful during development.  For example do this to
 generate the code for a few classes alone:</p>
-<div class="highlight-python"><pre>$ python code_gen.py -n -z -o /tmp/tvtk_tmp vtkCollection \
-  vtkProperty vtkConeSource</pre>
+<div class="highlight-python"><div class="highlight"><pre>$ python code_gen.py -n -z -o /tmp/tvtk_tmp vtkCollection \
+  vtkProperty vtkConeSource
+</pre></div>
 </div>
 <p>The <cite>-n</cite> option ensures that &#8216;/tmp/tvtk_tmp&#8217; is not removed.  <cite>-z</cite>
 inhibits ZIP file generation.</p>
@@ -418,13 +419,13 @@ inhibits ZIP file generation.</p>
         <li class="right" >
           <a href="README.html" title="An Introduction to Traited VTK (tvtk)"
              >previous</a> |</li>
-        <li><a href="index.html">tvtk 4.3.1 documentation</a> &raquo;</li> 
+        <li><a href="index.html">tvtk 4.4.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2014, Enthought Inc..
-      Last updated on Jan 30, 2014.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+      Last updated on Jan 14, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
     </div>
   </body>
 </html>
