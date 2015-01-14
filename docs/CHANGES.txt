@@ -1,4 +1,4 @@
-Mayavi 5.0.0
+Mayavi 4.4.0
 ============
 
 Enhancements
