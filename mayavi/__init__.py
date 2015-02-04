@@ -1,11 +1,11 @@
 # Author: Prabhu Ramachandran, Gael Varoquaux
-# Copyright (c) 2004-2014, Enthought, Inc.
+# Copyright (c) 2004-2015, Enthought, Inc.
 # License: BSD Style.
 """ A tool for easy and interactive visualization of data.
     Part of the Mayavi project of the Enthought Tool Suite.
 """
 
-__version__ = '4.4.0'
+__version__ = '4.4.1'
 
 __requires__ = [
     'apptools',
