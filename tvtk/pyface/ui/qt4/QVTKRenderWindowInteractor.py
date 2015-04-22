@@ -226,6 +226,14 @@ class QVTKRenderWindowInteractor(QtGui.QWidget):
         self._Timer = QtCore.QTimer(self)
         self.connect(self._Timer, QtCore.SIGNAL('timeout()'), self.TimerEvent)
 
+        # add wheel timer to fix scrolling issue with trackpad
+        self.wheel_timer = QtCore.QTimer()
+        self.wheel_timer.setSingleShot(True)
+        self.wheel_timer.setInterval(25)
+        self.wheel_timer.timeout.connect(self._emit_wheel_event)
+        self.wheel_accumulator = 0
+        self._saved_wheel_event_info = ()
+
         self._Iren.AddObserver('CreateTimerEvent', messenger.send)
         messenger.connect(self._Iren, 'CreateTimerEvent', self.CreateTimer)
         self._Iren.AddObserver('DestroyTimerEvent', messenger.send)
@@ -424,11 +432,37 @@ class QVTKRenderWindowInteractor(QtGui.QWidget):
         self._Iren.KeyReleaseEvent()
 
     def wheelEvent(self, ev):
+        """ Reimplemented to work around scrolling bug in Mac.
+
+        Work around https://bugreports.qt-project.org/browse/QTBUG-22269.
+        Accumulate wheel events that are within a period of 25ms into a single
+        event.  Changes in buttons or modifiers, while a scroll is going on,
+        are not handled, since they seem to be too much of a corner case to be
+        worth handling.
+        """
+        self.wheel_accumulator += ev.delta()
+        self._saved_wheel_event_info = (
+                                        ev.pos(),
+                                        ev.globalPos(),
+                                        self.wheel_accumulator,
+                                        ev.buttons(),
+                                        ev.modifiers(),
+                                        ev.orientation()
+                                    )
+        ev.setAccepted(True)
+
+        if not self.wheel_timer.isActive():
+            self.wheel_timer.start()
+
+    def _emit_wheel_event(self):
+        ev = QtGui.QWheelEvent(*self._saved_wheel_event_info)
         if ev.delta() >= 0:
             self._Iren.MouseWheelForwardEvent()
         else:
             self._Iren.MouseWheelBackwardEvent()
-
+        self.wheel_timer.stop()
+        self.wheel_accumulator = 0
+    
     def GetRenderWindow(self):
         return self._RenderWindow
 
