@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Objects populating the Mayavi pipeline &mdash; mayavi 4.4.0 documentation</title>
+    <title>Objects populating the Mayavi pipeline &mdash; mayavi 4.4.1 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '4.4.0',
+        VERSION:     '4.4.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.4.0 documentation" href="index.html" />
+    <link rel="top" title="mayavi 4.4.1 documentation" href="index.html" />
     <link rel="up" title="Advanced use of Mayavi" href="advanced_use.html" />
     <link rel="next" title="Advanced Scripting with Mayavi" href="advanced_scripting.html" />
     <link rel="prev" title="Data representation in Mayavi" href="data.html" />
@@ -58,8 +58,8 @@
 </style>
 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -71,15 +71,15 @@
         <li class="right" >
           <a href="data.html" title="Data representation in Mayavi"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">mayavi 4.4.0 documentation</a> &raquo;</li>
-          <li><a href="advanced_use.html" accesskey="U">Advanced use of Mayavi</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.4.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="advanced_use.html" accesskey="U">Advanced use of Mayavi</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="objects-populating-the-mayavi-pipeline">
 <h1>Objects populating the Mayavi pipeline<a class="headerlink" href="#objects-populating-the-mayavi-pipeline" title="Permalink to this headline">¶</a></h1>
@@ -88,7 +88,7 @@
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Given a Mayavi object, a simple way to see what important attribute
-is, display it to call it&#8217;s <tt class="docutils literal"><span class="pre">print_traits()</span></tt>. Note that, for
+is, display it to call it&#8217;s <code class="docutils literal"><span class="pre">print_traits()</span></code>. Note that, for
 certain objects, when used in IPython, this can cause a segfault, due
 to threading problems in IPython.</p>
 </div>
@@ -105,25 +105,25 @@ to threading problems in IPython.</p>
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">scene</span></tt></td>
-<td>a <tt class="docutils literal"><span class="pre">TVTKScene</span></tt> (<tt class="docutils literal"><span class="pre">tvtk.pyface.tvtk_scene</span></tt>)
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">scene</span></code></td>
+<td>a <code class="docutils literal"><span class="pre">TVTKScene</span></code> (<code class="docutils literal"><span class="pre">tvtk.pyface.tvtk_scene</span></code>)
 object which is where all the rendering occurs.</td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">children</span></tt></td>
-<td>a list of <tt class="docutils literal"><span class="pre">Source</span></tt> objects.</td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">children</span></code></td>
+<td>a list of <code class="docutils literal"><span class="pre">Source</span></code> objects.</td>
 </tr>
 </tbody>
 </table>
-<p>The <tt class="docutils literal"><span class="pre">Scene</span></tt> class is defined in the <tt class="docutils literal"><span class="pre">mayavi.core.scene</span></tt> module.</p>
+<p>The <code class="docutils literal"><span class="pre">Scene</span></code> class is defined in the <code class="docutils literal"><span class="pre">mayavi.core.scene</span></code> module.</p>
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
-<p class="last">API reference for the <tt class="xref py py-class docutils literal"><span class="pre">Scene</span></tt> class.</p>
+<p class="last">API reference for the <a class="reference internal" href="api/pipeline_objects.html#mayavi.core.api.Scene" title="mayavi.core.api.Scene"><code class="xref py py-class docutils literal"><span class="pre">Scene</span></code></a> class.</p>
 </div>
 </div>
 <div class="section" id="source">
 <h2>Source<a class="headerlink" href="#source" title="Permalink to this headline">¶</a></h2>
 <p>All the data sources, file readers, Parametric surface etc. are
-subclasses of the <tt class="docutils literal"><span class="pre">Source</span></tt> class.</p>
+subclasses of the <code class="docutils literal"><span class="pre">Source</span></code> class.</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="28%" />
@@ -135,26 +135,26 @@ subclasses of the <tt class="docutils literal"><span class="pre">Source</span></
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">children</span></tt></td>
-<td>a list of either <tt class="docutils literal"><span class="pre">Modules</span></tt> or <tt class="docutils literal"><span class="pre">Filters</span></tt></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">children</span></code></td>
+<td>a list of either <code class="docutils literal"><span class="pre">Modules</span></code> or <code class="docutils literal"><span class="pre">Filters</span></code></td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">outputs</span></tt></td>
-<td><tt class="docutils literal"><span class="pre">List</span></tt> of outputs produced by the source. These are
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">outputs</span></code></td>
+<td><code class="docutils literal"><span class="pre">List</span></code> of outputs produced by the source. These are
 TVTK datasets, that are explained in
-the section <a class="reference internal" href="data.html#data-structures-used-by-mayavi"><em>Data representation in Mayavi</em></a>.</td>
+the section <a class="reference internal" href="data.html#data-structures-used-by-mayavi"><span>Data representation in Mayavi</span></a>.</td>
 </tr>
 </tbody>
 </table>
-<p>The <tt class="docutils literal"><span class="pre">Source</span></tt> class is defined in the <tt class="docutils literal"><span class="pre">mayavi.core.source</span></tt>
+<p>The <code class="docutils literal"><span class="pre">Source</span></code> class is defined in the <code class="docutils literal"><span class="pre">mayavi.core.source</span></code>
 module.</p>
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
-<p class="last">API reference for the <tt class="xref py py-class docutils literal"><span class="pre">Source</span></tt> class.</p>
+<p class="last">API reference for the <a class="reference internal" href="api/pipeline_objects.html#mayavi.core.api.Source" title="mayavi.core.api.Source"><code class="xref py py-class docutils literal"><span class="pre">Source</span></code></a> class.</p>
 </div>
 </div>
 <div class="section" id="filter">
 <h2>Filter<a class="headerlink" href="#filter" title="Permalink to this headline">¶</a></h2>
-<p>All the <tt class="docutils literal"><span class="pre">Filters</span></tt> described in the <a class="reference internal" href="filters.html#filters"><em>Filters</em></a> section are
+<p>All the <code class="docutils literal"><span class="pre">Filters</span></code> described in the <a class="reference internal" href="filters.html#filters"><span>Filters</span></a> section are
 subclasses of this class.</p>
 <table border="1" class="docutils">
 <colgroup>
@@ -167,17 +167,17 @@ subclasses of this class.</p>
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">children</span></tt></td>
-<td>a list of either <tt class="docutils literal"><span class="pre">Modules</span></tt> or other <tt class="docutils literal"><span class="pre">Filters</span></tt>.</td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">children</span></code></td>
+<td>a list of either <code class="docutils literal"><span class="pre">Modules</span></code> or other <code class="docutils literal"><span class="pre">Filters</span></code>.</td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">inputs</span></tt></td>
-<td>a <tt class="docutils literal"><span class="pre">List</span></tt> of input TVTK dataset objects that feed into
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">inputs</span></code></td>
+<td>a <code class="docutils literal"><span class="pre">List</span></code> of input TVTK dataset objects that feed into
 the filter.</td>
 </tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">outputs</span></tt></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">outputs</span></code></td>
 <td>a list of outputs produced by the filter. These are
 TVTK datasets, that are explained in
-the section <a class="reference internal" href="data.html#data-structures-used-by-mayavi"><em>Data representation in Mayavi</em></a>.</td>
+the section <a class="reference internal" href="data.html#data-structures-used-by-mayavi"><span>Data representation in Mayavi</span></a>.</td>
 </tr>
 </tbody>
 </table>
@@ -192,34 +192,34 @@ the section <a class="reference internal" href="data.html#data-structures-used-b
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">setup_pipeline()</span></tt></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">setup_pipeline()</span></code></td>
 <td>used to create the underlying TVTK pipeline objects if
 needed.</td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">update_pipeline()</span></tt></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">update_pipeline()</span></code></td>
 <td>called when the upstream pipeline
 has been changed, i.e. an upstream object fires a
-<tt class="docutils literal"><span class="pre">pipeline_changed</span></tt> event.</td>
+<code class="docutils literal"><span class="pre">pipeline_changed</span></code> event.</td>
 </tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">update_data()</span></tt></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">update_data()</span></code></td>
 <td>called when the upstream pipeline
 has <strong>not</strong> been changed but the data in the
 pipeline has been changed.  This happens when the
-upstream object fires a <tt class="docutils literal"><span class="pre">data_changed</span></tt> event.</td>
+upstream object fires a <code class="docutils literal"><span class="pre">data_changed</span></code> event.</td>
 </tr>
 </tbody>
 </table>
-<p>The filter class is defined in the <tt class="docutils literal"><span class="pre">mayavi.core.filter</span></tt> module.</p>
+<p>The filter class is defined in the <code class="docutils literal"><span class="pre">mayavi.core.filter</span></code> module.</p>
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
-<p class="last">API reference for the <tt class="xref py py-class docutils literal"><span class="pre">Filter</span></tt> class.</p>
+<p class="last">API reference for the <a class="reference internal" href="api/pipeline_objects.html#mayavi.core.api.Filter" title="mayavi.core.api.Filter"><code class="xref py py-class docutils literal"><span class="pre">Filter</span></code></a> class.</p>
 </div>
 </div>
 <div class="section" id="modulemanager-colors-and-legends-node">
 <h2>ModuleManager: Colors and legends node<a class="headerlink" href="#modulemanager-colors-and-legends-node" title="Permalink to this headline">¶</a></h2>
 <p>This object is the one called <em>Colors and legends</em> in the tree view on
 the UI.  The main purpose of this object is to control how data is turned
-in colors in the <tt class="docutils literal"><span class="pre">Modules</span></tt> it manages.  All modules typically will use
+in colors in the <code class="docutils literal"><span class="pre">Modules</span></code> it manages.  All modules typically will use
 a lookup table (LUT) in order to produce a meaningful visualization.
 This lookup table is managed by the module manager.</p>
 <table border="1" class="docutils">
@@ -233,25 +233,25 @@ This lookup table is managed by the module manager.</p>
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">source</span></tt></td>
-<td>the <tt class="docutils literal"><span class="pre">Source</span></tt> or <tt class="docutils literal"><span class="pre">Filter</span></tt> object that is the input
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">source</span></code></td>
+<td>the <code class="docutils literal"><span class="pre">Source</span></code> or <code class="docutils literal"><span class="pre">Filter</span></code> object that is the input
 of this object.</td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">children</span></tt></td>
-<td>a list of the <tt class="docutils literal"><span class="pre">Modules</span></tt> it manages.</td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">children</span></code></td>
+<td>a list of the <code class="docutils literal"><span class="pre">Modules</span></code> it manages.</td>
 </tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">scalar_lut_manager</span></tt></td>
-<td>an instance of a <tt class="docutils literal"><span class="pre">LUTManager</span></tt> which
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">scalar_lut_manager</span></code></td>
+<td>an instance of a <code class="docutils literal"><span class="pre">LUTManager</span></code> which
 basically manages the color mapping from
 scalar values to colors on the visualizations.
 This is basically a mapping from scalars to colors.</td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">vector_lut_manager</span></tt></td>
-<td>an instance of a <tt class="docutils literal"><span class="pre">LUTManager</span></tt> which manages the
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">vector_lut_manager</span></code></td>
+<td>an instance of a <code class="docutils literal"><span class="pre">LUTManager</span></code> which manages the
 color mapping from vector values to colors on the
 visualizations.</td>
 </tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">lut_data_mode</span></tt></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">lut_data_mode</span></code></td>
 <td><dl class="first last docutils">
 <dt>&#8216;auto&#8217;, &#8216;point data&#8217; and &#8216;cell data&#8217;.</dt>
 <dd>Specifies the data type to use for the LUTs.  This can
@@ -268,20 +268,20 @@ uses the input point data for the LUT and if set to
 </tr>
 </tbody>
 </table>
-<p>This class is defined in the <tt class="docutils literal"><span class="pre">mayavi.core.module_manager</span></tt>
+<p>This class is defined in the <code class="docutils literal"><span class="pre">mayavi.core.module_manager</span></code>
 module.</p>
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
-<p class="last">API reference for the <tt class="xref py py-class docutils literal"><span class="pre">ModuleManager</span></tt> class.</p>
+<p class="last">API reference for the <a class="reference internal" href="api/pipeline_objects.html#mayavi.core.api.ModuleManager" title="mayavi.core.api.ModuleManager"><code class="xref py py-class docutils literal"><span class="pre">ModuleManager</span></code></a> class.</p>
 </div>
 </div>
 <div class="section" id="module">
 <h2>Module<a class="headerlink" href="#module" title="Permalink to this headline">¶</a></h2>
 <p>These objects are the ones that typically produce a visualization on the
-scene.  All the modules defined in the <a class="reference internal" href="modules.html#modules"><em>Modules</em></a> section are
+scene.  All the modules defined in the <a class="reference internal" href="modules.html#modules"><span>Modules</span></a> section are
 subclasses of this.</p>
 <p>A module is typically returned by the mlab
-<a class="reference internal" href="mlab_3d_plotting_functions.html#mlab-plotting-functions"><em>3D plotting functions</em></a>.</p>
+<a class="reference internal" href="mlab_3d_plotting_functions.html#mlab-plotting-functions"><span>3D plotting functions</span></a>.</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="28%" />
@@ -293,24 +293,24 @@ subclasses of this.</p>
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">module_manager</span></tt></td>
-<td>The <tt class="docutils literal"><span class="pre">ModuleManager</span></tt> instance that controls the
-colormaps and the legends of this <tt class="docutils literal"><span class="pre">Module</span></tt></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">module_manager</span></code></td>
+<td>The <code class="docutils literal"><span class="pre">ModuleManager</span></code> instance that controls the
+colormaps and the legends of this <code class="docutils literal"><span class="pre">Module</span></code></td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">actor</span></tt></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">actor</span></code></td>
 <td>The TVTK actor of the modules, in other words
 the object displayed in the scene. This is where
 you will have the properties such as scaling, or
 GL material properties.</td>
 </tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">components</span></tt></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">components</span></code></td>
 <td>a list of various reusable components that are used
 by the module.  These usually are never used directly
 by the user.  However, they are extremely useful
-when creating new modules.  A <tt class="docutils literal"><span class="pre">Component</span></tt> is
+when creating new modules.  A <code class="docutils literal"><span class="pre">Component</span></code> is
 basically a reusable piece of code that is used by
 various other objects.  For example, almost every
-<tt class="docutils literal"><span class="pre">Module</span></tt> uses a TVTK actor, mapper and property.
+<code class="docutils literal"><span class="pre">Module</span></code> uses a TVTK actor, mapper and property.
 These are all &#8220;componentized&#8221; into a reusable
 <cite>Actor</cite> component that the modules use.  Thus,
 components are a means to promote reuse between
@@ -329,27 +329,27 @@ mayavi pipeline objects.</td>
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">setup_pipeline()</span></tt></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">setup_pipeline()</span></code></td>
 <td>used to create the underlying TVTK pipeline objects if
 needed.</td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">update_pipeline()</span></tt></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">update_pipeline()</span></code></td>
 <td>called when the upstream pipeline
 has been changed, i.e. an upstream object fires a
-<tt class="docutils literal"><span class="pre">pipeline_changed</span></tt> event.</td>
+<code class="docutils literal"><span class="pre">pipeline_changed</span></code> event.</td>
 </tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">update_data()</span></tt></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">update_data()</span></code></td>
 <td>called when the upstream pipeline
 has <strong>not</strong> been changed but the data in the
 pipeline has been changed.  This happens when the
-upstream object fires a <tt class="docutils literal"><span class="pre">data_changed</span></tt> event.</td>
+upstream object fires a <code class="docutils literal"><span class="pre">data_changed</span></code> event.</td>
 </tr>
 </tbody>
 </table>
-<p>Defined in the <tt class="docutils literal"><span class="pre">mayavi.core.module</span></tt> module.</p>
+<p>Defined in the <code class="docutils literal"><span class="pre">mayavi.core.module</span></code> module.</p>
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
-<p class="last">API reference for the <tt class="xref py py-class docutils literal"><span class="pre">Module</span></tt> class.</p>
+<p class="last">API reference for the <a class="reference internal" href="api/pipeline_objects.html#mayavi.core.api.Module" title="mayavi.core.api.Module"><code class="xref py py-class docutils literal"><span class="pre">Module</span></code></a> class.</p>
 </div>
 </div>
 <div class="section" id="engine">
@@ -360,12 +360,12 @@ pipeline. It is at the root of the pipeline and is not displayed in the
 pipeline view.</p>
 <p>For contextual operation, the engine has the notion of a &#8216;current object&#8217;
 and a &#8216;current scene&#8217; and features several methods that let one add a
-<tt class="docutils literal"><span class="pre">Filter/Source/Module</span></tt> instance to it. The contextual operations are
+<code class="docutils literal"><span class="pre">Filter/Source/Module</span></code> instance to it. The contextual operations are
 important in a menu-driven graphical user interface.</p>
 <p>It allows one to create new scenes and delete them.  Also has methods to
 load and save the entire visualization.</p>
 <p>When using mlab, the engine used by mlab can be retrieved using
-<a class="reference internal" href="auto/mlab_other_functions.html#mayavi.mlab.get_engine" title="mayavi.mlab.get_engine"><tt class="xref py py-func docutils literal"><span class="pre">mlab.get_engine()</span></tt></a>.</p>
+<a class="reference internal" href="auto/mlab_other_functions.html#mayavi.mlab.get_engine" title="mayavi.mlab.get_engine"><code class="xref py py-func docutils literal"><span class="pre">mlab.get_engine()</span></code></a>.</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="28%" />
@@ -377,18 +377,18 @@ load and save the entire visualization.</p>
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">scenes</span></tt></td>
-<td>a list of <tt class="docutils literal"><span class="pre">Scene</span></tt> objects.</td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">scenes</span></code></td>
+<td>a list of <code class="docutils literal"><span class="pre">Scene</span></code> objects.</td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">current_object</span></tt></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">current_object</span></code></td>
 <td>the object on which contextual operations, such
-as <tt class="docutils literal"><span class="pre">add_module</span></tt> will apply.</td>
+as <code class="docutils literal"><span class="pre">add_module</span></code> will apply.</td>
 </tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">current_scene</span></tt></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">current_scene</span></code></td>
 <td>the scene in which data sources will be added by
 default.</td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">current_selection</span></tt></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">current_selection</span></code></td>
 <td>The object selected in the pipeline view.</td>
 </tr>
 </tbody>
@@ -404,7 +404,7 @@ default.</td>
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">new_scene()</span></tt></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">new_scene()</span></code></td>
 <td>this is the method called to create a new scene.
 Subclasses override this method.</td>
 </tr>
@@ -421,21 +421,21 @@ Subclasses override this method.</td>
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">EnvisageEngine</span></tt></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">EnvisageEngine</span></code></td>
 <td>defined in the
-<tt class="docutils literal"><span class="pre">mayavi.plugins.envisage_engine</span></tt>
+<code class="docutils literal"><span class="pre">mayavi.plugins.envisage_engine</span></code>
 module. It is the subclass of
-used in the <tt class="docutils literal"><span class="pre">mayavi2</span></tt> application.</td>
+used in the <code class="docutils literal"><span class="pre">mayavi2</span></code> application.</td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">OffScreenEngine</span></tt></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">OffScreenEngine</span></code></td>
 <td>defined in the
-<tt class="docutils literal"><span class="pre">mayavi.core.off_screen_engine</span></tt> module.
+<code class="docutils literal"><span class="pre">mayavi.core.off_screen_engine</span></code> module.
 It creates scenes that are not displayed on
 screen by default.</td>
 </tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">NullEngine</span></tt></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">NullEngine</span></code></td>
 <td>defined in the
-<tt class="docutils literal"><span class="pre">mayavi.core.null_engine</span></tt> module.
+<code class="docutils literal"><span class="pre">mayavi.core.null_engine</span></code> module.
 With this engine, visualization objects are
 not added to a scene, and thus cannot be rendered.
 This engine is useful for testing and pure-data
@@ -444,19 +444,19 @@ handling use of Mayavi&#8217;s data structures.</td>
 </tbody>
 </table>
 <img alt="The ``Engine`` object." class="align-center" src="_images/design2c.jpg" />
-<p>The <cite>Engine</cite> base class is defined in the <tt class="docutils literal"><span class="pre">mayavi.engine</span></tt> module.</p>
+<p>The <cite>Engine</cite> base class is defined in the <code class="docutils literal"><span class="pre">mayavi.engine</span></code> module.</p>
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
-<p class="last">API reference for the <tt class="xref py py-class docutils literal"><span class="pre">Engine</span></tt> class.</p>
+<p class="last">API reference for the <a class="reference internal" href="api/pipeline_objects.html#mayavi.core.api.Engine" title="mayavi.core.api.Engine"><code class="xref py py-class docutils literal"><span class="pre">Engine</span></code></a> class.</p>
 </div>
 </div>
 <div class="section" id="base-class-pipelinebase">
 <h2>Base class: PipelineBase<a class="headerlink" href="#base-class-pipelinebase" title="Permalink to this headline">¶</a></h2>
-<p>The <tt class="docutils literal"><span class="pre">PipelineBase</span></tt> is the base class for all
-objects in the mayavi pipeline except the <tt class="docutils literal"><span class="pre">Scene</span></tt> and <tt class="docutils literal"><span class="pre">Engine</span></tt>
+<p>The <code class="docutils literal"><span class="pre">PipelineBase</span></code> is the base class for all
+objects in the mayavi pipeline except the <code class="docutils literal"><span class="pre">Scene</span></code> and <code class="docutils literal"><span class="pre">Engine</span></code>
 (which really isn&#8217;t <em>in</em> the pipeline but contains the pipeline).
-Defined in the <tt class="docutils literal"><span class="pre">mayavi.core.pipeline_base</span></tt> module.
-Derives from <tt class="docutils literal"><span class="pre">Base</span></tt> which merely abstracts out common
+Defined in the <code class="docutils literal"><span class="pre">mayavi.core.pipeline_base</span></code> module.
+Derives from <code class="docutils literal"><span class="pre">Base</span></code> which merely abstracts out common
 functionality.</p>
 <table border="1" class="docutils">
 <colgroup>
@@ -469,32 +469,32 @@ functionality.</p>
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">pipeline_changed</span></tt></td>
-<td><p class="first">This is an <tt class="docutils literal"><span class="pre">Event</span></tt> Trait: it can only be
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">pipeline_changed</span></code></td>
+<td><p class="first">This is an <code class="docutils literal"><span class="pre">Event</span></code> Trait: it can only be
 assigned to and determines when the pipeline has
 been changed. Therefore, if one does:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="nb">object</span><span class="o">.</span><span class="n">pipeline_changed</span> <span class="o">=</span> <span class="bp">True</span>
 </pre></div>
 </div>
-<p class="last">then the <tt class="docutils literal"><span class="pre">pipeline_changed</span></tt> event is fired.
-Objects downstream of <tt class="docutils literal"><span class="pre">object</span></tt> in the pipeline
+<p class="last">then the <code class="docutils literal"><span class="pre">pipeline_changed</span></code> event is fired.
+Objects downstream of <code class="docutils literal"><span class="pre">object</span></code> in the pipeline
 are automatically setup to listen to events from
 an upstream object and will call their
-<tt class="docutils literal"><span class="pre">update_pipeline</span></tt> method.</p>
+<code class="docutils literal"><span class="pre">update_pipeline</span></code> method.</p>
 </td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">data_changed</span></tt></td>
-<td>Similarly, if the <tt class="docutils literal"><span class="pre">data_changed</span></tt> event is fired
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">data_changed</span></code></td>
+<td>Similarly, if the <code class="docutils literal"><span class="pre">data_changed</span></code> event is fired
 then downstream objects will automatically call
-their <tt class="docutils literal"><span class="pre">update_data</span></tt> methods.</td>
+their <code class="docutils literal"><span class="pre">update_data</span></code> methods.</td>
 </tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">outputs</span></tt></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">outputs</span></code></td>
 <td>a list of outputs produced by the object.</td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">scene</span></tt></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">scene</span></code></td>
 <td>the scene to which the object is attached.</td>
 </tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">visible</span></tt></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">visible</span></code></td>
 <td>a boolean that toggle the Hide/Show status of the
 object and its downstream pipeline.</td>
 </tr>
@@ -511,7 +511,7 @@ object and its downstream pipeline.</td>
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">remove()</span></tt></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">remove()</span></code></td>
 <td>can be used to remove the object (if added)
 from the mayavi pipeline.</td>
 </tr>
@@ -519,7 +519,7 @@ from the mayavi pipeline.</td>
 </table>
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
-<p class="last">API reference for the <tt class="xref py py-class docutils literal"><span class="pre">PipelineBase</span></tt> class.</p>
+<p class="last">API reference for the <a class="reference internal" href="api/pipeline_objects.html#mayavi.core.api.PipelineBase" title="mayavi.core.api.PipelineBase"><code class="xref py py-class docutils literal"><span class="pre">PipelineBase</span></code></a> class.</p>
 </div>
 </div>
 <div class="section" id="class-hierarchy">
@@ -539,7 +539,7 @@ involved.</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="index.html">
               <img class="logo" src="_static/mayavi-logo.png" alt="Logo"/>
@@ -565,13 +565,15 @@ involved.</p>
   <h4>Next topic</h4>
   <p class="topless"><a href="advanced_scripting.html"
                         title="next chapter">Advanced Scripting with Mayavi</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/mayavi_objects.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/mayavi_objects.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
 
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
@@ -616,26 +618,20 @@ involved.</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="advanced_scripting.html" title="Advanced Scripting with Mayavi"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="data.html" title="Data representation in Mayavi"
-             >previous</a> |</li>
-        <li><a href="index.html">mayavi 4.4.0 documentation</a> &raquo;</li>
-          <li><a href="advanced_use.html" >Advanced use of Mayavi</a> &raquo;</li> 
-      </ul>
-    </div>
     <div class="footer">
-        &copy; Copyright 2008-2014, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Jan 14, 2015.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+      &copy;2008-2015, Prabhu Ramachandran, Gaël Varoquaux, Deepak Surti.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.4</a>
+      
+      |
+      <a href="_sources/mayavi_objects.txt"
+          rel="nofollow">Page source</a></li>
     </div>
+
+    
+
+    
   </body>
 </html>

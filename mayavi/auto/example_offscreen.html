@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Offscreen example &mdash; mayavi 4.4.0 documentation</title>
+    <title>Offscreen example &mdash; mayavi 4.4.1 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.4.0',
+        VERSION:     '4.4.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.4.0 documentation" href="../index.html" />
+    <link rel="top" title="mayavi 4.4.1 documentation" href="../index.html" />
     <link rel="up" title="Example gallery" href="examples.html" />
     <link rel="next" title="Surf regular mlab example" href="example_surf_regular_mlab.html" />
     <link rel="prev" title="Polydata example" href="example_polydata.html" />
@@ -58,8 +58,8 @@
 </style>
 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -71,22 +71,22 @@
         <li class="right" >
           <a href="example_polydata.html" title="Polydata example"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">mayavi 4.4.0 documentation</a> &raquo;</li>
-          <li><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.4.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="offscreen-example">
 <span id="example-offscreen"></span><h1>Offscreen example<a class="headerlink" href="#offscreen-example" title="Permalink to this headline">¶</a></h1>
 <p>A simple example of how you can use Mayavi without using Envisage
 or the Mayavi Envisage application and do off screen rendering.</p>
 <p>On Linux/Mac, with VTK &lt; 5.2, you should see a small black window popup
-and disappear, see the section <a class="reference internal" href="../tips.html#offscreen-rendering"><em>Off screen rendering</em></a> to avoid this.
+and disappear, see the section <a class="reference internal" href="../tips.html#offscreen-rendering"><span>Off screen rendering</span></a> to avoid this.
 On Win32 you will not see any windows popping up at all. In the end you
 should have an offscreen.png image in the same directory with the
 rendered visualization.</p>
@@ -94,7 +94,7 @@ rendered visualization.</p>
 <div class="highlight-python"><div class="highlight"><pre>$ python offscreen.py
 </pre></div>
 </div>
-<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/offscreen.py"><tt class="xref download docutils literal"><span class="pre">offscreen.py</span></tt></a></p>
+<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/offscreen.py"><code class="xref download docutils literal"><span class="pre">offscreen.py</span></code></a></p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c"># Author: Prabhu Ramachandran &lt;prabhu@aero.iitb.ac.in&gt;</span>
 <span class="c"># Copyright (c) 2007, Enthought, Inc.</span>
 <span class="c"># License: BSD Style.</span>
@@ -143,7 +143,7 @@ rendered visualization.</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="../index.html">
               <img class="logo" src="../_static/mayavi-logo.png" alt="Logo"/>
@@ -154,13 +154,15 @@ rendered visualization.</p>
   <h4>Next topic</h4>
   <p class="topless"><a href="example_surf_regular_mlab.html"
                         title="next chapter">Surf regular mlab example</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="../_sources/auto/example_offscreen.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/auto/example_offscreen.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
 
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
       <input type="text" name="q" />
@@ -205,26 +207,20 @@ rendered visualization.</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="example_surf_regular_mlab.html" title="Surf regular mlab example"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="example_polydata.html" title="Polydata example"
-             >previous</a> |</li>
-        <li><a href="../index.html">mayavi 4.4.0 documentation</a> &raquo;</li>
-          <li><a href="examples.html" >Example gallery</a> &raquo;</li> 
-      </ul>
-    </div>
     <div class="footer">
-        &copy; Copyright 2008-2014, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Jan 14, 2015.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+      &copy;2008-2015, Prabhu Ramachandran, Gaël Varoquaux, Deepak Surti.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.4</a>
+      
+      |
+      <a href="../_sources/auto/example_offscreen.txt"
+          rel="nofollow">Page source</a></li>
     </div>
+
+    
+
+    
   </body>
 </html>

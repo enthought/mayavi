@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Mlab interactive dialog example &mdash; mayavi 4.4.0 documentation</title>
+    <title>Mlab interactive dialog example &mdash; mayavi 4.4.1 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.4.0',
+        VERSION:     '4.4.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.4.0 documentation" href="../index.html" />
+    <link rel="top" title="mayavi 4.4.1 documentation" href="../index.html" />
     <link rel="up" title="Example gallery" href="examples.html" />
     <link rel="next" title="Wx mayavi embed in notebook example" href="example_wx_mayavi_embed_in_notebook.html" />
     <link rel="prev" title="Multiple mlab scene models example" href="example_multiple_mlab_scene_models.html" />
@@ -58,8 +58,8 @@
 </style>
 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -71,15 +71,15 @@
         <li class="right" >
           <a href="example_multiple_mlab_scene_models.html" title="Multiple mlab scene models example"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">mayavi 4.4.0 documentation</a> &raquo;</li>
-          <li><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.4.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="mlab-interactive-dialog-example">
 <span id="example-mlab-interactive-dialog"></span><h1>Mlab interactive dialog example<a class="headerlink" href="#mlab-interactive-dialog-example" title="Permalink to this headline">¶</a></h1>
@@ -94,11 +94,11 @@ as an attribute on the main MyModel object, to modify it inplace later.</p>
 <p>When the <cite>n_meridional</cite> and <cite>n_longitudinal</cite> attributes are modified, eg via
 the slide bars on the dialog, the curve is recomputed, and the
 visualization is updated by modifying inplace the stored plot
-object (see <a class="reference internal" href="../mlab_animating.html#mlab-animating-data"><em>Animating the data</em></a>).</p>
+object (see <a class="reference internal" href="../mlab_animating.html#mlab-animating-data"><span>Animating the data</span></a>).</p>
 <p>This example is discussed in details in the section
-<a class="reference internal" href="../building_applications.html#embedding-mayavi-traits"><em>Embedding a Mayavi scene in a Traits dialog</em></a>.</p>
+<a class="reference internal" href="../building_applications.html#embedding-mayavi-traits"><span>Embedding a Mayavi scene in a Traits dialog</span></a>.</p>
 <img alt="../_images/example_mlab_interactive_dialog.jpg" class="align-center" src="../_images/example_mlab_interactive_dialog.jpg" />
-<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/mlab_interactive_dialog.py"><tt class="xref download docutils literal"><span class="pre">mlab_interactive_dialog.py</span></tt></a></p>
+<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/mlab_interactive_dialog.py"><code class="xref download docutils literal"><span class="pre">mlab_interactive_dialog.py</span></code></a></p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c"># Author: Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt;</span>
 <span class="c"># Copyright (c) 2008, Enthought, Inc.</span>
 <span class="c"># License: BSD Style.</span>
@@ -167,7 +167,7 @@ object (see <a class="reference internal" href="../mlab_animating.html#mlab-anim
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="../index.html">
               <img class="logo" src="../_static/mayavi-logo.png" alt="Logo"/>
@@ -178,13 +178,15 @@ object (see <a class="reference internal" href="../mlab_animating.html#mlab-anim
   <h4>Next topic</h4>
   <p class="topless"><a href="example_wx_mayavi_embed_in_notebook.html"
                         title="next chapter">Wx mayavi embed in notebook example</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="../_sources/auto/example_mlab_interactive_dialog.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/auto/example_mlab_interactive_dialog.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
 
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
       <input type="text" name="q" />
@@ -229,26 +231,20 @@ object (see <a class="reference internal" href="../mlab_animating.html#mlab-anim
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="example_wx_mayavi_embed_in_notebook.html" title="Wx mayavi embed in notebook example"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="example_multiple_mlab_scene_models.html" title="Multiple mlab scene models example"
-             >previous</a> |</li>
-        <li><a href="../index.html">mayavi 4.4.0 documentation</a> &raquo;</li>
-          <li><a href="examples.html" >Example gallery</a> &raquo;</li> 
-      </ul>
-    </div>
     <div class="footer">
-        &copy; Copyright 2008-2014, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Jan 14, 2015.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+      &copy;2008-2015, Prabhu Ramachandran, Gaël Varoquaux, Deepak Surti.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.4</a>
+      
+      |
+      <a href="../_sources/auto/example_mlab_interactive_dialog.txt"
+          rel="nofollow">Page source</a></li>
     </div>
+
+    
+
+    
   </body>
 </html>

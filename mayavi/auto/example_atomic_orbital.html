@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Atomic orbital example &mdash; mayavi 4.4.0 documentation</title>
+    <title>Atomic orbital example &mdash; mayavi 4.4.1 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.4.0',
+        VERSION:     '4.4.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.4.0 documentation" href="../index.html" />
+    <link rel="top" title="mayavi 4.4.1 documentation" href="../index.html" />
     <link rel="up" title="Example gallery" href="examples.html" />
     <link rel="next" title="Chemistry example" href="example_chemistry.html" />
     <link rel="prev" title="Simple structured grid example" href="example_simple_structured_grid.html" />
@@ -58,8 +58,8 @@
 </style>
 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -71,15 +71,15 @@
         <li class="right" >
           <a href="example_simple_structured_grid.html" title="Simple structured grid example"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">mayavi 4.4.0 documentation</a> &raquo;</li>
-          <li><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.4.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="atomic-orbital-example">
 <span id="example-atomic-orbital"></span><h1>Atomic orbital example<a class="headerlink" href="#atomic-orbital-example" title="Permalink to this headline">¶</a></h1>
@@ -96,10 +96,10 @@ second step is to apply filters and modules, using the
 &#8216;set_active_attribute&#8217; filter to select on which data these apply.</p>
 <p>Creating a data source with two scalar datasets is actually slighlty
 tricky, as it requires some understanding of the layout of the datasets
-in TVTK. The reader is referred to <a class="reference internal" href="../data.html#data-structures-used-by-mayavi"><em>Data representation in Mayavi</em></a>
+in TVTK. The reader is referred to <a class="reference internal" href="../data.html#data-structures-used-by-mayavi"><span>Data representation in Mayavi</span></a>
 for more details.</p>
 <img alt="../_images/example_atomic_orbital.jpg" class="align-center" src="../_images/example_atomic_orbital.jpg" />
-<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/atomic_orbital.py"><tt class="xref download docutils literal"><span class="pre">atomic_orbital.py</span></tt></a></p>
+<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/atomic_orbital.py"><code class="xref download docutils literal"><span class="pre">atomic_orbital.py</span></code></a></p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c"># Author: Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt;</span>
 <span class="c"># Copyright (c) 2008, Enthought, Inc.</span>
 <span class="c"># License: BSD Style.</span>
@@ -161,7 +161,7 @@ for more details.</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="../index.html">
               <img class="logo" src="../_static/mayavi-logo.png" alt="Logo"/>
@@ -172,13 +172,15 @@ for more details.</p>
   <h4>Next topic</h4>
   <p class="topless"><a href="example_chemistry.html"
                         title="next chapter">Chemistry example</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="../_sources/auto/example_atomic_orbital.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/auto/example_atomic_orbital.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
 
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
       <input type="text" name="q" />
@@ -223,26 +225,20 @@ for more details.</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="example_chemistry.html" title="Chemistry example"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="example_simple_structured_grid.html" title="Simple structured grid example"
-             >previous</a> |</li>
-        <li><a href="../index.html">mayavi 4.4.0 documentation</a> &raquo;</li>
-          <li><a href="examples.html" >Example gallery</a> &raquo;</li> 
-      </ul>
-    </div>
     <div class="footer">
-        &copy; Copyright 2008-2014, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Jan 14, 2015.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+      &copy;2008-2015, Prabhu Ramachandran, Gaël Varoquaux, Deepak Surti.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.4</a>
+      
+      |
+      <a href="../_sources/auto/example_atomic_orbital.txt"
+          rel="nofollow">Page source</a></li>
     </div>
+
+    
+
+    
   </body>
 </html>

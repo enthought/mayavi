@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Installation &mdash; mayavi 4.4.0 documentation</title>
+    <title>Installation &mdash; mayavi 4.4.1 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '4.4.0',
+        VERSION:     '4.4.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.4.0 documentation" href="index.html" />
+    <link rel="top" title="mayavi 4.4.1 documentation" href="index.html" />
     <link rel="next" title="Using the Mayavi application" href="application.html" />
     <link rel="prev" title="An overview of Mayavi" href="overview.html" />
 <style type="text/css">
@@ -57,8 +57,8 @@
 </style>
 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -70,14 +70,14 @@
         <li class="right" >
           <a href="overview.html" title="An overview of Mayavi"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">mayavi 4.4.0 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.4.1 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="installation">
 <span id="id1"></span><h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
@@ -121,7 +121,7 @@ available for RHEL3 and 4.</td>
 <h2>Requirements for manual installs<a class="headerlink" href="#requirements-for-manual-installs" title="Permalink to this headline">¶</a></h2>
 <p>If you are not using full, ready-made, scientific Python distribution,
 you need to satisfy Mayavi&#8217;s requirements (for a step-by-step guide on
-installing all these under windows, see <a class="reference internal" href="#step-by-step-window-installation"><em>below</em></a>).</p>
+installing all these under windows, see <a class="reference internal" href="#step-by-step-window-installation"><span>below</span></a>).</p>
 <p>Mayavi requires at the very minimum the following packages:</p>
 <blockquote>
 <div><ul class="simple">
@@ -156,8 +156,8 @@ distributions indicated above. Note that under Windows,
 building Mayavi.</li>
 <li>Linux: Most Linux distributions will have installable binaries
 available for the some of the above.  For example, under <a class="reference external" href="http://www.debian.org">Debian</a> or
-<a class="reference external" href="http://www.ubuntu.com">Ubuntu</a> you would need <tt class="docutils literal"><span class="pre">python-vtk</span></tt>, <tt class="docutils literal"><span class="pre">python-wxgtk2.6</span></tt>,
-<tt class="docutils literal"><span class="pre">python-setuptools</span></tt>, <tt class="docutils literal"><span class="pre">python-numpy</span></tt>, <tt class="docutils literal"><span class="pre">python-configobj</span></tt>.</li>
+<a class="reference external" href="http://www.ubuntu.com">Ubuntu</a> you would need <code class="docutils literal"><span class="pre">python-vtk</span></code>, <code class="docutils literal"><span class="pre">python-wxgtk2.6</span></code>,
+<code class="docutils literal"><span class="pre">python-setuptools</span></code>, <code class="docutils literal"><span class="pre">python-numpy</span></code>, <code class="docutils literal"><span class="pre">python-configobj</span></code>.</li>
 </ul>
 </div></blockquote>
 <p>There are several ways to install <a class="reference external" href="http://docs.enthought.com/mayavi/tvtk">TVTK</a>, <a class="reference external" href="http://docs.enthought.com/traits">Traits</a> and Mayavi.  These
@@ -213,7 +213,7 @@ avoid this is to run:</p>
 <ul class="last simple">
 <li>One common sources of problems during an install, is the presence of
 older versions of packages such as Traits, Mayavi, Envisage or TVTK.
-Make sure that you clean your <tt class="docutils literal"><span class="pre">site-packages</span></tt> before installing a new
+Make sure that you clean your <code class="docutils literal"><span class="pre">site-packages</span></code> before installing a new
 version of Mayavi.</li>
 <li>Another problem often encountered is running into
 what is probably a bug of the build system that appears as a &#8220;sandbox
@@ -371,15 +371,15 @@ Traceback (most recent call last):
 ImportError: No module named enthought
 </pre></div>
 </div>
-<p>If you <em>don&#8217;t</em> get the ImportError (e.g. importing <tt class="docutils literal"><span class="pre">enthought</span></tt> succeeds),
+<p>If you <em>don&#8217;t</em> get the ImportError (e.g. importing <code class="docutils literal"><span class="pre">enthought</span></code> succeeds),
 then there is no way to install the git Mayavi version over it (even if you
 put it first in your PYTHONPATH), because the older (setuptools managed)
 ETS packages will get picked up too and they will mess up things. This
 behavior might be surprising if you are new to setuptools.</p>
 <p>So for example if you use Ubuntu or Debian, you need to first remove all ETS
-packages (in Ubuntu 9.04, you need to remove all of these: <tt class="docutils literal"><span class="pre">mayavi2</span> <span class="pre">python-apptools</span>
+packages (in Ubuntu 9.04, you need to remove all of these: <code class="docutils literal"><span class="pre">mayavi2</span> <span class="pre">python-apptools</span>
 <span class="pre">python-enthoughtbase</span> <span class="pre">python-envisagecore</span> <span class="pre">python-envisageplugins</span>
-<span class="pre">python-traits</span> <span class="pre">python-traitsbackendwx</span> <span class="pre">python-traitsgui</span></tt>).</p>
+<span class="pre">python-traits</span> <span class="pre">python-traitsbackendwx</span> <span class="pre">python-traitsgui</span></code>).</p>
 </li>
 <li><p class="first">Create an empty directory and download in it the <cite>ets.py</cite> script from
 <a class="reference external" href="https://github.com/enthought/ets/raw/master/ets.py">https://github.com/enthought/ets/raw/master/ets.py</a></p>
@@ -407,8 +407,8 @@ safely the following directories:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ python ets.py develop
 </pre></div>
 </div>
-<p>This will install all the checked out sources by executing a <tt class="docutils literal"><span class="pre">python</span>
-<span class="pre">setup.py</span> <span class="pre">develop</span></tt> in each sub directory.</p>
+<p>This will install all the checked out sources by executing a <code class="docutils literal"><span class="pre">python</span>
+<span class="pre">setup.py</span> <span class="pre">develop</span></code> in each sub directory.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p>To install of the packages in a different location than the
@@ -421,8 +421,8 @@ PYTHONPATH environment variable (for the above example it would
 be: &#8216;~/usr/lib/python2.x/site-packages/&#8217;</p>
 </div>
 </li>
-<li><p class="first">Alternatively, if you&#8217;d like just <tt class="docutils literal"><span class="pre">Mayavi</span></tt> installed via a
-standard  <tt class="docutils literal"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">install</span></tt> you may do:</p>
+<li><p class="first">Alternatively, if you&#8217;d like just <code class="docutils literal"><span class="pre">Mayavi</span></code> installed via a
+standard  <code class="docutils literal"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">install</span></code> you may do:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ python ets.py develop -f ../dist
 </pre></div>
 </div>
@@ -444,25 +444,25 @@ application like so:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">mayavi2</span> <span class="o">-</span><span class="n">h</span>
 </pre></div>
 </div>
-<p><tt class="docutils literal"><span class="pre">mayavi2</span></tt> is the mayavi application.  On some platforms like win32
-you will need to double click on the <tt class="docutils literal"><span class="pre">mayavi2.exe</span></tt> program found in
-your <tt class="docutils literal"><span class="pre">Python2X\Scripts</span></tt> folder.  Make sure this directory is in your
+<p><code class="docutils literal"><span class="pre">mayavi2</span></code> is the mayavi application.  On some platforms like win32
+you will need to double click on the <code class="docutils literal"><span class="pre">mayavi2.exe</span></code> program found in
+your <code class="docutils literal"><span class="pre">Python2X\Scripts</span></code> folder.  Make sure this directory is in your
 path.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Mayavi can be used in a variety of other ways but the <tt class="docutils literal"><span class="pre">mayavi2</span></tt>
+<p class="last">Mayavi can be used in a variety of other ways but the <code class="docutils literal"><span class="pre">mayavi2</span></code>
 application is the easiest to start with.</p>
 </div>
 <p>If you have the source tarball of mayavi or have checked out the sources
 from the github repository, you can run the examples in
-<tt class="docutils literal"><span class="pre">mayavi*/examples</span></tt>.  There are plenty of example scripts
+<code class="docutils literal"><span class="pre">mayavi*/examples</span></code>.  There are plenty of example scripts
 illustrating various features.  Tests are available in the
-<tt class="docutils literal"><span class="pre">mayavi*/tests</span></tt> sub-directory.</p>
+<code class="docutils literal"><span class="pre">mayavi*/tests</span></code> sub-directory.</p>
 </div>
 <div class="section" id="troubleshooting">
 <h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h2>
 <p>If you are having trouble with the installation you may want to check
-the <a class="reference internal" href="misc.html#getting-help"><em>Getting help</em></a> page for more details on how you can search for
+the <a class="reference internal" href="misc.html#getting-help"><span>Getting help</span></a> page for more details on how you can search for
 information or email the mailing list.</p>
 </div>
 </div>
@@ -471,7 +471,7 @@ information or email the mailing list.</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="index.html">
               <img class="logo" src="_static/mayavi-logo.png" alt="Logo"/>
@@ -501,13 +501,15 @@ information or email the mailing list.</p>
   <h4>Next topic</h4>
   <p class="topless"><a href="application.html"
                         title="next chapter">Using the Mayavi application</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/installation.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/installation.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
 
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
@@ -552,25 +554,20 @@ information or email the mailing list.</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="application.html" title="Using the Mayavi application"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="overview.html" title="An overview of Mayavi"
-             >previous</a> |</li>
-        <li><a href="index.html">mayavi 4.4.0 documentation</a> &raquo;</li> 
-      </ul>
-    </div>
     <div class="footer">
-        &copy; Copyright 2008-2014, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Jan 14, 2015.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+      &copy;2008-2015, Prabhu Ramachandran, Gaël Varoquaux, Deepak Surti.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.4</a>
+      
+      |
+      <a href="_sources/installation.txt"
+          rel="nofollow">Page source</a></li>
     </div>
+
+    
+
+    
   </body>
 </html>
