@@ -1,3 +1,53 @@
+Mayavi 4.4.1
+============
+
+Fixes
+-----
+
+23 Apr 2015 (DS)
+    - Fix trackpad scrolling to zoom in/out smoothly on OS X.
+
+Mayavi 4.4.0
+============
+
+Enhancements
+------------
+
+22 Dec 2014 (DS)
+    - Add function to set data at input port, add stanford (bunny,
+      dragon, lucy) examples, and use new volume mapper for new pipeline.
+
+24 Jan 2014 (DS)
+    - Upgrade to VTK 6.0 with VTK's new pipeline.
+
+Fixes
+-----
+
+22 Dec 2014 (DS)
+    - Support dynamic dimensions in array source.
+
+03 Dec 2014 (paulmueller)
+    - Fix MRI brain data URL.
+
+13 Nov 2014 (DS)
+    - More fixes for connection topology, information request and tube filter
+      after upgrading to new pipeline.
+
+24 Sep 2014 (pberkes)
+    - Handle the non-Latin-1 keypresses.
+
+23 Sep 2014 (rkern)
+    - Prevent ndarray comparisions with None.
+
+17 Jul 2014 (mdickinson)
+    - Fix the trait error raised when the threshold range is updated.
+
+24 May 2014 (markkness)
+    - Update installation documentation links.
+
+21 Apr 2014 (PR)
+    - Fix integration tests after upgrade to VTK's new pipeline.
+
 Mayavi 4.3.1
 =============
 
