@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Data representation in Mayavi &mdash; mayavi 4.4.0 documentation</title>
+    <title>Data representation in Mayavi &mdash; mayavi 4.4.1 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '4.4.0',
+        VERSION:     '4.4.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.4.0 documentation" href="index.html" />
+    <link rel="top" title="mayavi 4.4.1 documentation" href="index.html" />
     <link rel="up" title="Advanced use of Mayavi" href="advanced_use.html" />
     <link rel="next" title="Objects populating the Mayavi pipeline" href="mayavi_objects.html" />
     <link rel="prev" title="Organisation of Mayavi visualizations: the pipeline" href="pipeline.html" />
@@ -58,8 +58,8 @@
 </style>
 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -71,22 +71,22 @@
         <li class="right" >
           <a href="pipeline.html" title="Organisation of Mayavi visualizations: the pipeline"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">mayavi 4.4.0 documentation</a> &raquo;</li>
-          <li><a href="advanced_use.html" accesskey="U">Advanced use of Mayavi</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.4.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="advanced_use.html" accesskey="U">Advanced use of Mayavi</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="data-representation-in-mayavi">
 <span id="data-structures-used-by-mayavi"></span><h1>Data representation in Mayavi<a class="headerlink" href="#data-representation-in-mayavi" title="Permalink to this headline">¶</a></h1>
 <p>Describing data in three dimensions in the general case is a complex
 problem. Mayavi helps you focus on your visualization work and not worry
 too much about the underlying data structures, for instance using mlab
-(see <a class="reference internal" href="mlab.html#simple-scripting-with-mlab"><em>mlab: Python scripting for 3D plotting</em></a>). We suggest you create sources
+(see <a class="reference internal" href="mlab.html#simple-scripting-with-mlab"><span>mlab: Python scripting for 3D plotting</span></a>). We suggest you create sources
 for Mayavi using <cite>mlab</cite> or Mayavi sources when possible. However, it
 helps to understand the VTK data structures that Mayavi uses if you want
 to create data with a specific structure for a more efficient
@@ -107,7 +107,7 @@ pipeline.</p>
 <p class="topic-title first">Mayavi data sources and VTK datasets</p>
 <ul class="simple">
 <li>When you load a file, or you expose data in Mayavi using one of the
-<cite>mlab.pipeline</cite> source functions (see <a class="reference internal" href="mlab_pipeline.html#mlab-data-source"><em>Data sources</em></a>), you
+<cite>mlab.pipeline</cite> source functions (see <a class="reference internal" href="mlab_pipeline.html#mlab-data-source"><span>Data sources</span></a>), you
 create an object in the Mayavi pipeline that is attached to a
 scene. This object is a Mayavi source, and serves to describe the
 data and its properties to the Mayavi pipeline.</li>
@@ -177,7 +177,7 @@ the operation is:</p>
 </div>
 <div class="section" id="the-flow-of-data">
 <h2><a class="toc-backref" href="#id2">The flow of data</a><a class="headerlink" href="#the-flow-of-data" title="Permalink to this headline">¶</a></h2>
-<p>As described <a class="reference internal" href="overview.html#pipeline-model"><em>earlier</em></a>, Mayavi builds visualization by
+<p>As described <a class="reference internal" href="overview.html#pipeline-model"><span>earlier</span></a>, Mayavi builds visualization by
 assembling pipelines, where the data is loaded in Mayavi by a <cite>data
 source</cite>, and it can be transformed by <cite>filters</cite> and visualized by
 <cite>modules</cite>.</p>
@@ -210,7 +210,7 @@ an <a class="reference internal" href="#imagedata">ImageData</a> VTK dataset.</p
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p>To retrieve the VTK datasets feeding in an arbitrary object, the mlab
-function <a class="reference internal" href="auto/mlab_pipeline_tools.html#mayavi.tools.pipeline.get_vtk_src" title="mayavi.tools.pipeline.get_vtk_src"><tt class="xref py py-func docutils literal"><span class="pre">pipeline.get_vtk_src()</span></tt></a> may be useful. In the above
+function <a class="reference internal" href="auto/mlab_pipeline_tools.html#mayavi.tools.pipeline.get_vtk_src" title="mayavi.tools.pipeline.get_vtk_src"><code class="xref py py-func docutils literal"><span class="pre">pipeline.get_vtk_src()</span></code></a> may be useful. In the above
 example:</p>
 <div class="last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">get_vtk_src</span><span class="p">(</span><span class="n">iso</span><span class="p">)</span>
 <span class="go">[&lt;tvtk_classes.image_data.ImageData object at 0xf08220c&gt;]</span>
@@ -224,7 +224,7 @@ example:</p>
 <h3>Probing data at given positions<a class="headerlink" href="#probing-data-at-given-positions" title="Permalink to this headline">¶</a></h3>
 <p>If you simply want to retrieve the data values described by a Mayavi
 object a given position in space, you can use the
-<a class="reference internal" href="auto/mlab_pipeline_data.html#mayavi.tools.pipeline.probe_data" title="mayavi.tools.pipeline.probe_data"><tt class="xref py py-func docutils literal"><span class="pre">pipeline.probe_data()</span></tt></a> function (<strong>warning</strong> the <cite>probe_data</cite>
+<a class="reference internal" href="auto/mlab_pipeline_data.html#mayavi.tools.pipeline.probe_data" title="mayavi.tools.pipeline.probe_data"><code class="xref py py-func docutils literal"><span class="pre">pipeline.probe_data()</span></code></a> function (<strong>warning</strong> the <cite>probe_data</cite>
 function is new in Mayavi 3.4.0)</p>
 <p>For example, if you have a set of irregularly spaced data points with no
 connectivity information:</p>
@@ -248,7 +248,7 @@ interpolate between the points:</p>
 <span class="go">array([ 0. ])</span>
 </pre></div>
 </div>
-<p>To define volumetric data, you can use a <tt class="docutils literal"><span class="pre">delaunay3d</span></tt> filter:</p>
+<p>To define volumetric data, you can use a <code class="docutils literal"><span class="pre">delaunay3d</span></code> filter:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">field</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">delaunay3d</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -331,7 +331,7 @@ points array retrieved earlier. Here we have only sets of pairs of points
 connected together: the array is an alternation of <cite>2</cite> followed by a pair
 of indices.</p>
 <p>A full example illustrating how to use the VTK Delaunay filter to extract
-a graph is given in <a class="reference internal" href="auto/example_delaunay_graph.html#example-delaunay-graph"><em>Delaunay graph example</em></a>.</p>
+a graph is given in <a class="reference internal" href="auto/example_delaunay_graph.html#example-delaunay-graph"><span>Delaunay graph example</span></a>.</p>
 </div></blockquote>
 </div>
 </div>
@@ -606,21 +606,21 @@ creation of the most important datasets from numpy arrays. Specifically
 they are:</p>
 <blockquote>
 <div><ul class="simple">
-<li><a class="reference internal" href="auto/example_datasets.html#example-datasets"><em>Datasets example</em></a>: Generate a simple example for each type of
+<li><a class="reference internal" href="auto/example_datasets.html#example-datasets"><span>Datasets example</span></a>: Generate a simple example for each type of
 VTK dataset.</li>
-<li><a class="reference internal" href="auto/example_polydata.html#example-polydata"><em>Polydata example</em></a>:  Demonstrates how to create Polydata datasets
+<li><a class="reference internal" href="auto/example_polydata.html#example-polydata"><span>Polydata example</span></a>:  Demonstrates how to create Polydata datasets
 from numpy arrays and visualize them in mayavi.</li>
-<li><a class="reference internal" href="auto/example_structured_points2d.html#example-structured-points2d"><em>Structured points2d example</em></a>: Demonstrates how to create a 2D
+<li><a class="reference internal" href="auto/example_structured_points2d.html#example-structured-points2d"><span>Structured points2d example</span></a>: Demonstrates how to create a 2D
 structured points (an ImageData) dataset from numpy arrays and
 visualize them in mayavi.  This is basically a square of
 equispaced points.</li>
-<li><a class="reference internal" href="auto/example_structured_points3d.html#example-structured-points3d"><em>Structured points3d example</em></a>: Demonstrates how to create a 3D
+<li><a class="reference internal" href="auto/example_structured_points3d.html#example-structured-points3d"><span>Structured points3d example</span></a>: Demonstrates how to create a 3D
 structured points (an ImageData) dataset from numpy arrays and
 visualize them in Mayavi.  This is a cube of points that are
 regularly spaced.</li>
-<li><a class="reference internal" href="auto/example_structured_grid.html#example-structured-grid"><em>Structured grid example</em></a>: Demonstrates the creation and
+<li><a class="reference internal" href="auto/example_structured_grid.html#example-structured-grid"><span>Structured grid example</span></a>: Demonstrates the creation and
 visualization of a 3D structured grid.</li>
-<li><a class="reference internal" href="auto/example_unstructured_grid.html#example-unstructured-grid"><em>Unstructured grid example</em></a>: Demonstrates the creation and
+<li><a class="reference internal" href="auto/example_unstructured_grid.html#example-unstructured-grid"><span>Unstructured grid example</span></a>: Demonstrates the creation and
 visualization of an unstructured grid.</li>
 </ul>
 </div></blockquote>
@@ -651,8 +651,8 @@ dataset:</p>
 </pre></div>
 </div>
 <ul>
-<li><p class="first">If you are scripting using <a class="reference internal" href="mlab.html#simple-scripting-with-mlab"><em>mlab</em></a>, the
-simplest way to visualize your data is to use the <a class="reference internal" href="mlab_pipeline.html#controlling-the-pipeline-with-mlab-scripts"><em>mlab.pipeline</em></a> to apply filters and
+<li><p class="first">If you are scripting using <a class="reference internal" href="mlab.html#simple-scripting-with-mlab"><span>mlab</span></a>, the
+simplest way to visualize your data is to use the <a class="reference internal" href="mlab_pipeline.html#controlling-the-pipeline-with-mlab-scripts"><span>mlab.pipeline</span></a> to apply filters and
 modules to your data. Indeed these functions creating filters and
 modules accept VTK datasets and automatically insert them on the
 pipeline. A surface module could have been used to visualize the
@@ -682,8 +682,8 @@ advised. The <cite>ArraySource</cite> object of Mayavi will actually create an
 <cite>ImageData</cite>, but make sure you don&#8217;t get the shape wrong, which can lead
 to a segmentation fault. An even easier way to create a data source for
 an <cite>ImageData</cite> is to use the <cite>mlab.pipeline.scalar_field</cite> function, as
-explained in the <a class="reference internal" href="mlab_pipeline.html#mlab-data-source"><em>section on creating
-data sources with mlab</em></a>.</p>
+explained in the <a class="reference internal" href="mlab_pipeline.html#mlab-data-source"><span>section on creating
+data sources with mlab</span></a>.</p>
 </div>
 </div>
 
@@ -691,7 +691,7 @@ data sources with mlab</em></a>.</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="index.html">
               <img class="logo" src="_static/mayavi-logo.png" alt="Logo"/>
@@ -732,13 +732,15 @@ data sources with mlab</em></a>.</p>
   <h4>Next topic</h4>
   <p class="topless"><a href="mayavi_objects.html"
                         title="next chapter">Objects populating the Mayavi pipeline</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/data.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/data.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
 
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
@@ -783,26 +785,20 @@ data sources with mlab</em></a>.</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="mayavi_objects.html" title="Objects populating the Mayavi pipeline"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="pipeline.html" title="Organisation of Mayavi visualizations: the pipeline"
-             >previous</a> |</li>
-        <li><a href="index.html">mayavi 4.4.0 documentation</a> &raquo;</li>
-          <li><a href="advanced_use.html" >Advanced use of Mayavi</a> &raquo;</li> 
-      </ul>
-    </div>
     <div class="footer">
-        &copy; Copyright 2008-2014, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Jan 14, 2015.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+      &copy;2008-2015, Prabhu Ramachandran, Gaël Varoquaux, Deepak Surti.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.4</a>
+      
+      |
+      <a href="_sources/data.txt"
+          rel="nofollow">Page source</a></li>
     </div>
+
+    
+
+    
   </body>
 </html>

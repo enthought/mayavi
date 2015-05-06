@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Tutorial examples to learn Mayavi &mdash; mayavi 4.4.0 documentation</title>
+    <title>Tutorial examples to learn Mayavi &mdash; mayavi 4.4.1 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '4.4.0',
+        VERSION:     '4.4.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.4.0 documentation" href="index.html" />
+    <link rel="top" title="mayavi 4.4.1 documentation" href="index.html" />
 <style type="text/css">
   body {
     /* Very bottom copyright, etc. info */
@@ -55,41 +55,41 @@
 </style>
 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li><a href="index.html">mayavi 4.4.0 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.4.1 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="tutorial-examples-to-learn-mayavi">
 <span id="learning-mayavi-by-example"></span><h1>Tutorial examples to learn Mayavi<a class="headerlink" href="#tutorial-examples-to-learn-mayavi" title="Permalink to this headline">¶</a></h1>
 <p>To get acquainted with mayavi you may start up the Mayavi2 application,
-<tt class="docutils literal"><span class="pre">mayavi2</span></tt> in the command line, like so:</p>
+<code class="docutils literal"><span class="pre">mayavi2</span></code> in the command line, like so:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ mayavi2
 </pre></div>
 </div>
-<p>On Windows you can double click on the installed <tt class="docutils literal"><span class="pre">mayavi2.exe</span></tt>
-executable (usually in the <tt class="docutils literal"><span class="pre">Python2X\Scripts</span></tt> directory), or use the
+<p>On Windows you can double click on the installed <code class="docutils literal"><span class="pre">mayavi2.exe</span></code>
+executable (usually in the <code class="docutils literal"><span class="pre">Python2X\Scripts</span></code> directory), or use the
 start menu entry, if you installed python(x,y) or EPD.</p>
 <p>Once Mayavi starts, you may resize the various panes of the user
 interface to get a comfortable layout.  These settings will become the
 default &#8220;perspective&#8221; of the mayavi application.  More details on the
-UI are available in the <a class="reference internal" href="application.html#general-layout-of-ui"><em>General layout of UI</em></a> section.</p>
+UI are available in the <a class="reference internal" href="application.html#general-layout-of-ui"><span>General layout of UI</span></a> section.</p>
 <p>We give a few detailed examples of how you can use the Mayavi application
 to tour some of its features. Before proceeding to the examples, it can
 be useful to locate some data to experiment with. Two of the examples
 below make use of data shipped with the mayavi sources ship.  These may
-be found in the <tt class="docutils literal"><span class="pre">examples/data</span></tt> directory inside the root of the mayavi
+be found in the <code class="docutils literal"><span class="pre">examples/data</span></code> directory inside the root of the mayavi
 source tree. If these are not installed, the sources may be downloaded
 from here: <a class="reference external" href="http://code.enthought.com/enstaller/eggs/source/">http://code.enthought.com/enstaller/eggs/source/</a></p>
 <div class="topic">
@@ -97,8 +97,8 @@ from here: <a class="reference external" href="http://code.enthought.com/enstall
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="example_parametric_surface.html">Parametric surfaces: a simple introduction to visualization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="example_heart.html">Loading scalar data: the <tt class="docutils literal"><span class="pre">heart.vtk</span></tt> example</a></li>
-<li class="toctree-l1"><a class="reference internal" href="example_fire.html">Visualizing rich datasets: the <tt class="docutils literal"><span class="pre">fire_ug.vtu</span></tt> example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example_heart.html">Loading scalar data: the <code class="docutils literal"><span class="pre">heart.vtk</span></code> example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example_fire.html">Visualizing rich datasets: the <code class="docutils literal"><span class="pre">fire_ug.vtu</span></code> example</a></li>
 <li class="toctree-l1"><a class="reference internal" href="example_using_with_scipy.html">Using Mayavi with scipy</a></li>
 <li class="toctree-l1"><a class="reference internal" href="example_exploring_a_vector_field.html">Exploring a vector field</a></li>
 </ul>
@@ -110,18 +110,20 @@ from here: <a class="reference external" href="http://code.enthought.com/enstall
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="index.html">
               <img class="logo" src="_static/mayavi-logo.png" alt="Logo"/>
             </a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/examples.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/examples.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
 
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
@@ -166,19 +168,20 @@ from here: <a class="reference external" href="http://code.enthought.com/enstall
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             >index</a></li>
-        <li><a href="index.html">mayavi 4.4.0 documentation</a> &raquo;</li> 
-      </ul>
-    </div>
     <div class="footer">
-        &copy; Copyright 2008-2014, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Jan 14, 2015.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+      &copy;2008-2015, Prabhu Ramachandran, Gaël Varoquaux, Deepak Surti.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.4</a>
+      
+      |
+      <a href="_sources/examples.txt"
+          rel="nofollow">Page source</a></li>
     </div>
+
+    
+
+    
   </body>
 </html>

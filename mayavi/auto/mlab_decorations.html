@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Figure decoration functions &mdash; mayavi 4.4.0 documentation</title>
+    <title>Figure decoration functions &mdash; mayavi 4.4.1 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.4.0',
+        VERSION:     '4.4.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.4.0 documentation" href="../index.html" />
+    <link rel="top" title="mayavi 4.4.1 documentation" href="../index.html" />
     <link rel="up" title="MLab reference" href="mlab_reference.html" />
     <link rel="next" title="Camera handling functions" href="mlab_camera.html" />
     <link rel="prev" title="Figure handling functions" href="mlab_figure.html" />
@@ -58,8 +58,8 @@
 </style>
 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -71,22 +71,22 @@
         <li class="right" >
           <a href="mlab_figure.html" title="Figure handling functions"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">mayavi 4.4.0 documentation</a> &raquo;</li>
-          <li><a href="mlab_reference.html" accesskey="U">MLab reference</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.4.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="mlab_reference.html" accesskey="U">MLab reference</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p>This section is only a reference describing the function, please see
-the chapter on <a class="reference internal" href="../mlab.html#simple-scripting-with-mlab"><em>mlab: Python scripting for 3D plotting</em></a> for an introduction to
+the chapter on <a class="reference internal" href="../mlab.html#simple-scripting-with-mlab"><span>mlab: Python scripting for 3D plotting</span></a> for an introduction to
 mlab and how to interact with and assemble the functions of <cite>mlab</cite>.</p>
-<p class="last">Please see the section on <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><em>Running mlab scripts</em></a> for
+<p class="last">Please see the section on <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span>Running mlab scripts</span></a> for
 instructions on running the examples.</p>
 </div>
 <div class="section" id="figure-decoration-functions">
@@ -95,7 +95,7 @@ instructions on running the examples.</p>
 <h2>colorbar<a class="headerlink" href="#colorbar" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="mayavi.mlab.colorbar">
-<tt class="descclassname">mayavi.mlab.</tt><tt class="descname">colorbar</tt><big>(</big><em>object=None</em>, <em>title=None</em>, <em>orientation=None</em>, <em>nb_labels=None</em>, <em>nb_colors=None</em>, <em>label_fmt=None</em><big>)</big><a class="headerlink" href="#mayavi.mlab.colorbar" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">mayavi.mlab.</code><code class="descname">colorbar</code><span class="sig-paren">(</span><em>object=None</em>, <em>title=None</em>, <em>orientation=None</em>, <em>nb_labels=None</em>, <em>nb_colors=None</em>, <em>label_fmt=None</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.colorbar" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds a colorbar for the color mapping of the given object.</p>
 <p>If the object has scalar data, the scalar color mapping is
 represented. Elsewhere the vector color mapping is represented, if
@@ -132,7 +132,7 @@ colorbar.</td>
 <h2>scalarbar<a class="headerlink" href="#scalarbar" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="mayavi.mlab.scalarbar">
-<tt class="descclassname">mayavi.mlab.</tt><tt class="descname">scalarbar</tt><big>(</big><em>object=None</em>, <em>title=None</em>, <em>orientation=None</em>, <em>nb_labels=None</em>, <em>nb_colors=None</em>, <em>label_fmt=None</em><big>)</big><a class="headerlink" href="#mayavi.mlab.scalarbar" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">mayavi.mlab.</code><code class="descname">scalarbar</code><span class="sig-paren">(</span><em>object=None</em>, <em>title=None</em>, <em>orientation=None</em>, <em>nb_labels=None</em>, <em>nb_colors=None</em>, <em>label_fmt=None</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.scalarbar" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds a colorbar for the scalar color mapping of the given object.</p>
 <p>If no object is specified, the first object with scalar data in the scene
 is used.</p>
@@ -166,7 +166,7 @@ colorbar.</td>
 <h2>vectorbar<a class="headerlink" href="#vectorbar" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="mayavi.mlab.vectorbar">
-<tt class="descclassname">mayavi.mlab.</tt><tt class="descname">vectorbar</tt><big>(</big><em>object=None</em>, <em>title=None</em>, <em>orientation=None</em>, <em>nb_labels=None</em>, <em>nb_colors=None</em>, <em>label_fmt=None</em><big>)</big><a class="headerlink" href="#mayavi.mlab.vectorbar" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">mayavi.mlab.</code><code class="descname">vectorbar</code><span class="sig-paren">(</span><em>object=None</em>, <em>title=None</em>, <em>orientation=None</em>, <em>nb_labels=None</em>, <em>nb_colors=None</em>, <em>label_fmt=None</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.vectorbar" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds a colorbar for the vector color mapping of the given object.</p>
 <p>If no object is specified, the first object with vector data in the scene
 is used.</p>
@@ -200,7 +200,7 @@ colorbar.</td>
 <h2>xlabel<a class="headerlink" href="#xlabel" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="mayavi.mlab.xlabel">
-<tt class="descclassname">mayavi.mlab.</tt><tt class="descname">xlabel</tt><big>(</big><em>text</em>, <em>object=None</em><big>)</big><a class="headerlink" href="#mayavi.mlab.xlabel" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">mayavi.mlab.</code><code class="descname">xlabel</code><span class="sig-paren">(</span><em>text</em>, <em>object=None</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.xlabel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a set of axes if there isn&#8217;t already one, and sets the x label</p>
 <p><strong>Keyword arguments</strong>:</p>
 <blockquote>
@@ -221,7 +221,7 @@ is searched for a suitable object.</td>
 <h2>ylabel<a class="headerlink" href="#ylabel" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="mayavi.mlab.ylabel">
-<tt class="descclassname">mayavi.mlab.</tt><tt class="descname">ylabel</tt><big>(</big><em>text</em>, <em>object=None</em><big>)</big><a class="headerlink" href="#mayavi.mlab.ylabel" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">mayavi.mlab.</code><code class="descname">ylabel</code><span class="sig-paren">(</span><em>text</em>, <em>object=None</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.ylabel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a set of axes if there isn&#8217;t already one, and sets the y label</p>
 <p><strong>Keyword arguments</strong>:</p>
 <blockquote>
@@ -242,7 +242,7 @@ is searched for a suitable object.</td>
 <h2>zlabel<a class="headerlink" href="#zlabel" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="mayavi.mlab.zlabel">
-<tt class="descclassname">mayavi.mlab.</tt><tt class="descname">zlabel</tt><big>(</big><em>text</em>, <em>object=None</em><big>)</big><a class="headerlink" href="#mayavi.mlab.zlabel" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">mayavi.mlab.</code><code class="descname">zlabel</code><span class="sig-paren">(</span><em>text</em>, <em>object=None</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.zlabel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a set of axes if there isn&#8217;t already one, and sets the z label</p>
 <p><strong>Keyword arguments</strong></p>
 <blockquote>
@@ -265,7 +265,7 @@ is searched for a suitable object.</td>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="../index.html">
               <img class="logo" src="../_static/mayavi-logo.png" alt="Logo"/>
@@ -289,13 +289,15 @@ is searched for a suitable object.</td>
   <h4>Next topic</h4>
   <p class="topless"><a href="mlab_camera.html"
                         title="next chapter">Camera handling functions</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="../_sources/auto/mlab_decorations.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/auto/mlab_decorations.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
 
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
       <input type="text" name="q" />
@@ -340,26 +342,20 @@ is searched for a suitable object.</td>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="mlab_camera.html" title="Camera handling functions"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="mlab_figure.html" title="Figure handling functions"
-             >previous</a> |</li>
-        <li><a href="../index.html">mayavi 4.4.0 documentation</a> &raquo;</li>
-          <li><a href="mlab_reference.html" >MLab reference</a> &raquo;</li> 
-      </ul>
-    </div>
     <div class="footer">
-        &copy; Copyright 2008-2014, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Jan 14, 2015.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+      &copy;2008-2015, Prabhu Ramachandran, Gaël Varoquaux, Deepak Surti.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.4</a>
+      
+      |
+      <a href="../_sources/auto/mlab_decorations.txt"
+          rel="nofollow">Page source</a></li>
     </div>
+
+    
+
+    
   </body>
 </html>

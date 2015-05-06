@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Probe filter example &mdash; mayavi 4.4.0 documentation</title>
+    <title>Probe filter example &mdash; mayavi 4.4.1 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.4.0',
+        VERSION:     '4.4.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.4.0 documentation" href="../index.html" />
+    <link rel="top" title="mayavi 4.4.1 documentation" href="../index.html" />
     <link rel="up" title="Example gallery" href="examples.html" />
     <link rel="next" title="Contour example" href="example_contour.html" />
     <link rel="prev" title="Image cursor filter example" href="example_image_cursor_filter.html" />
@@ -58,8 +58,8 @@
 </style>
 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -71,15 +71,15 @@
         <li class="right" >
           <a href="example_image_cursor_filter.html" title="Image cursor filter example"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">mayavi 4.4.0 documentation</a> &raquo;</li>
-          <li><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.4.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="probe-filter-example">
 <span id="example-probe-filter"></span><h1>Probe filter example<a class="headerlink" href="#probe-filter-example" title="Permalink to this headline">¶</a></h1>
@@ -100,8 +100,8 @@ ProbeFilter to sample the data on this surface. The ProbeFilter takes one
 input, which is the data structure to project the data on, and a
 &#8216;source&#8217;, which is where the data values come from.</p>
 <p>We need to use the UserDefined filter to insert this VTK filter in the
-Mayavi pipeline (see <a class="reference internal" href="../tips.html#using-userdefined-filter"><em>Using the UserDefined filter</em></a> as well as
-<a class="reference internal" href="example_image_cursor_filter.html#example-image-cursor-filter"><em>Image cursor filter example</em></a> and <a class="reference internal" href="example_tvtk_segmentation.html#example-tvtk-segmentation"><em>Tvtk segmentation example</em></a>).
+Mayavi pipeline (see <a class="reference internal" href="../tips.html#using-userdefined-filter"><span>Using the UserDefined filter</span></a> as well as
+<a class="reference internal" href="example_image_cursor_filter.html#example-image-cursor-filter"><span>Image cursor filter example</span></a> and <a class="reference internal" href="example_tvtk_segmentation.html#example-tvtk-segmentation"><span>Tvtk segmentation example</span></a>).
 Specifying its input is done automatical when it is inserted on the
 pipeline, be its source needs to be specified explicitely. As it is a VTK
 filter, the source is the VTK dataset output by the Mayavi object: we can
@@ -109,7 +109,7 @@ find it in <cite>.outputs[0]</cite>.</p>
 <p>Note that this filter violates slightly the simple pipeline model that
 Mayavi tries to expose to the users: it has two entries. As a result,
 the Mayavi pipeline is not longer really a tree. However, if you open up
-the Mayavi <a class="reference internal" href="../mlab_changing_object_looks.html#mlab-changing-objects-interactively"><em>pipeline view</em></a>,
+the Mayavi <a class="reference internal" href="../mlab_changing_object_looks.html#mlab-changing-objects-interactively"><span>pipeline view</span></a>,
 you can see that the ProbeFilter has only one parent in the view. To
 inspect the actually VTK pipeline underlying this visualization, we
 use the TVTK PipelineBrowser at the end of the example. You can see that
@@ -118,7 +118,7 @@ in Mayavi: actors, data mappers, and other elements of the VTK pipeline
 are collapsed in the Mayavi filters and modules.</p>
 <p>Note that, as we know the expression of the function, it would be simpler
 and more efficient to directly sample it on the sphere.</p>
-<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/probe_filter.py"><tt class="xref download docutils literal"><span class="pre">probe_filter.py</span></tt></a></p>
+<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/probe_filter.py"><code class="xref download docutils literal"><span class="pre">probe_filter.py</span></code></a></p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 
 <span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
@@ -162,7 +162,7 @@ and more efficient to directly sample it on the sphere.</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="../index.html">
               <img class="logo" src="../_static/mayavi-logo.png" alt="Logo"/>
@@ -173,13 +173,15 @@ and more efficient to directly sample it on the sphere.</p>
   <h4>Next topic</h4>
   <p class="topless"><a href="example_contour.html"
                         title="next chapter">Contour example</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="../_sources/auto/example_probe_filter.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/auto/example_probe_filter.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
 
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
       <input type="text" name="q" />
@@ -224,26 +226,20 @@ and more efficient to directly sample it on the sphere.</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="example_contour.html" title="Contour example"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="example_image_cursor_filter.html" title="Image cursor filter example"
-             >previous</a> |</li>
-        <li><a href="../index.html">mayavi 4.4.0 documentation</a> &raquo;</li>
-          <li><a href="examples.html" >Example gallery</a> &raquo;</li> 
-      </ul>
-    </div>
     <div class="footer">
-        &copy; Copyright 2008-2014, Prabhu Ramachandran, Gaël Varoquaux.
-      Last updated on Jan 14, 2015.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+      &copy;2008-2015, Prabhu Ramachandran, Gaël Varoquaux, Deepak Surti.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.4</a>
+      
+      |
+      <a href="../_sources/auto/example_probe_filter.txt"
+          rel="nofollow">Page source</a></li>
     </div>
+
+    
+
+    
   </body>
 </html>
