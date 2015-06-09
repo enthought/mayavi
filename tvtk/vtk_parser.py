@@ -7,11 +7,12 @@ type information, and organizes them.
 # License: BSD Style.
 
 import re
+import types
 
 # Local imports (these are relative imports for a good reason).
 import class_tree
 import vtk_module as vtk
-
+from common import is_version_62
 
 class VTKMethodParser:
     """This class provides useful methods for parsing methods of a VTK
@@ -299,6 +300,12 @@ class VTKMethodParser:
           A VTK method object.
 
         """
+        # VTK 6.2 false built in funcs/methods are ignored
+        if is_version_62():
+            built_in_func = isinstance(method, types.BuiltinFunctionType)
+            built_in_meth = isinstance(method, types.BuiltinMethodType)
+            if not (built_in_func or built_in_meth):
+                return None
         # Remove all the C++ function signatures.
         doc = method.__doc__
         doc = doc[:doc.find('\n\n')]

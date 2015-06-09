@@ -11,6 +11,7 @@ import re
 import vtk
 
 vtk_major_version = vtk.vtkVersion.GetVTKMajorVersion()
+vtk_minor_version = vtk.vtkVersion.GetVTKMinorVersion()
 
 ######################################################################
 # Utility functions.
@@ -45,6 +46,9 @@ def get_tvtk_name(vtk_name):
 
 def is_old_pipeline():
     return vtk_major_version < 6
+
+def is_version_62():
+    return vtk_major_version == 6 and vtk_minor_version == 2
 
 def configure_connection(obj, inp):
     """ Configure topology for vtk pipeline obj."""
