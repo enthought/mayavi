@@ -16,7 +16,7 @@ import copy
 
 # Local imports (these are relative imports because the package is not
 # installed when these modules are imported).
-from common import get_tvtk_name, camel2enthought
+from common import get_tvtk_name, camel2enthought, is_version_62
 import vtk_parser
 import indenter
 import special_gen
@@ -744,6 +744,7 @@ class WrapperGenerator:
             vtk_meth = getattr(klass, m)
             self._write_tvtk_method(out, vtk_meth)
 
+
     #################################################################
     # Private utility methods.
     #################################################################
@@ -1044,6 +1045,9 @@ class WrapperGenerator:
         """
         if not sig:
             sig = self.parser.get_method_signature(vtk_meth)
+            # VTK 6.2 false built in funcs/methods are ignored
+            if sig is None:
+                return
 
         # Figure out if we really need to wrap the return and deref
         # the args.
