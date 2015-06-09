@@ -1043,11 +1043,12 @@ class WrapperGenerator:
           If None, this is computed.  If not, the passed signature
           information is used.
         """
-        if not sig:
+        if sig is None:
             sig = self.parser.get_method_signature(vtk_meth)
-            # VTK 6.2 false built in funcs/methods are ignored
-            if sig is None:
-                return
+        
+        # VTK 6.2: When the method signature is None, ignore the method
+        if sig is None:
+            return
 
         # Figure out if we really need to wrap the return and deref
         # the args.
