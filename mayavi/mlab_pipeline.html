@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Assembling pipelines with mlab &mdash; mayavi 4.4.1 documentation</title>
+    <title>Assembling pipelines with mlab &mdash; mayavi 4.4.2 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '4.4.1',
+        VERSION:     '4.4.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.4.1 documentation" href="index.html" />
+    <link rel="top" title="mayavi 4.4.2 documentation" href="index.html" />
 <style type="text/css">
   body {
     /* Very bottom copyright, etc. info */
@@ -55,31 +55,31 @@
 </style>
 
   </head>
-  <body role="document">
-    <div class="related" role="navigation" aria-label="related navigation">
+  <body>
+    <div class="related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.4.1 documentation</a> &raquo;</li> 
+        <li><a href="index.html">mayavi 4.4.2 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body" role="main">
+          <div class="body">
             
   <div class="section" id="assembling-pipelines-with-mlab">
 <span id="controlling-the-pipeline-with-mlab-scripts"></span><h1>Assembling pipelines with <cite>mlab</cite><a class="headerlink" href="#assembling-pipelines-with-mlab" title="Permalink to this headline">¶</a></h1>
 <p>The plotting functions reviewed above explore only a small fraction of
 the visualization possibilities of Mayavi. The full power of Mayavi can
 only be unleashed through the control of the pipeline itself. As
-described in the <a class="reference internal" href="overview.html#an-overview-of-mayavi"><span>An overview of Mayavi</span></a> section, a visualization in
+described in the <a class="reference internal" href="overview.html#an-overview-of-mayavi"><em>An overview of Mayavi</em></a> section, a visualization in
 Mayavi is created by loading the data in Mayavi with <cite>data source</cite>
-object, optionally transforming the data through <a class="reference internal" href="filters.html#filters"><span>Filters</span></a>, and
-visualizing it with <a class="reference internal" href="modules.html#modules"><span>Modules</span></a>. The mlab functions build complex
+object, optionally transforming the data through <a class="reference internal" href="filters.html#filters"><em>Filters</em></a>, and
+visualizing it with <a class="reference internal" href="modules.html#modules"><em>Modules</em></a>. The mlab functions build complex
 pipelines for you in one function, making the right choice of sources,
 filters, and modules, but they cannot explore all the possible
 combinations.</p>
@@ -95,7 +95,7 @@ the very same pipeline directly using the <cite>pipeline</cite> scripting module
 the names of the functions required to create each step of the pipeline
 are directly linked to the default names of the objects created by <cite>mlab</cite>
 on the pipeline. As an example, let us create a visualization using
-<code class="xref py py-func docutils literal"><span class="pre">surf()</span></code>:</p>
+<tt class="xref py py-func docutils literal"><span class="pre">surf()</span></tt>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
 <span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
@@ -104,12 +104,11 @@ on the pipeline. As an example, let us create a visualization using
 </pre></div>
 </div>
 <p>The following pipeline is created:</p>
-<div class="highlight-python"><div class="highlight"><pre>Array2DSource
+<div class="highlight-python"><pre>Array2DSource
     \__ WarpScalar
             \__ PolyDataNormals
                     \__ Colors and legends
-                            \__ Surface
-</pre></div>
+                            \__ Surface</pre>
 </div>
 <p>The same pipeline can be created using the following code:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">src</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">array2d_source</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
@@ -122,7 +121,7 @@ on the pipeline. As an example, let us create a visualization using
 <span id="mlab-data-source"></span><h2>Data sources<a class="headerlink" href="#data-sources" title="Permalink to this headline">¶</a></h2>
 <p>The <cite>mlab.pipeline</cite> module contains functions for creating various data
 sources from arrays. They are fully documented in details in the
-<a class="reference internal" href="mlab_pipeline_reference.html#mlab-pipeline-reference"><span>Mlab pipeline-control reference</span></a>. We give a small summary of the
+<a class="reference internal" href="mlab_pipeline_reference.html#mlab-pipeline-reference"><em>Mlab pipeline-control reference</em></a>. We give a small summary of the
 possibilities here.</p>
 <p>Mayavi distinguishes sources with <strong>scalar data</strong>, and sources with
 <strong>vector data</strong>, but more important, it has different functions to create
@@ -136,13 +135,13 @@ or engineering.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name" colspan="2">Unconnected sources:</th></tr>
 <tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><table class="hlist"><tr><td><ul>
-<li><p class="first"><a class="reference internal" href="auto/mlab_pipeline_sources.html#mayavi.tools.pipeline.scalar_scatter" title="mayavi.tools.pipeline.scalar_scatter"><code class="xref py py-func docutils literal"><span class="pre">scalar_scatter()</span></code></a> (creates a <a class="reference internal" href="data.html#poly-data"><span>PolyData</span></a>)</p>
-<a class="reference internal image-reference" href="_images/enthought_mayavi_mlab_points3d1.jpg"><img alt="_images/enthought_mayavi_mlab_points3d1.jpg" src="_images/enthought_mayavi_mlab_points3d1.jpg" style="width: 121.98px; height: 122.36px;" /></a>
+<li><p class="first"><a class="reference internal" href="auto/mlab_pipeline_sources.html#mayavi.tools.pipeline.scalar_scatter" title="mayavi.tools.pipeline.scalar_scatter"><tt class="xref py py-func docutils literal"><span class="pre">scalar_scatter()</span></tt></a> (creates a <a class="reference internal" href="data.html#poly-data"><em>PolyData</em></a>)</p>
+<a class="reference internal image-reference" href="_images/enthought_mayavi_mlab_points3d1.jpg"><img alt="_images/enthought_mayavi_mlab_points3d1.jpg" src="_images/enthought_mayavi_mlab_points3d1.jpg" /></a>
 </li>
 </ul>
 </td><td><ul>
-<li><p class="first"><a class="reference internal" href="auto/mlab_pipeline_sources.html#mayavi.tools.pipeline.vector_scatter" title="mayavi.tools.pipeline.vector_scatter"><code class="xref py py-func docutils literal"><span class="pre">vector_scatter()</span></code></a> (creates an <a class="reference internal" href="data.html#poly-data"><span>PolyData</span></a>)</p>
-<a class="reference internal image-reference" href="_images/enthought_mayavi_mlab_quiver3d1.jpg"><img alt="_images/enthought_mayavi_mlab_quiver3d1.jpg" src="_images/enthought_mayavi_mlab_quiver3d1.jpg" style="width: 135.2px; height: 141.6px;" /></a>
+<li><p class="first"><a class="reference internal" href="auto/mlab_pipeline_sources.html#mayavi.tools.pipeline.vector_scatter" title="mayavi.tools.pipeline.vector_scatter"><tt class="xref py py-func docutils literal"><span class="pre">vector_scatter()</span></tt></a> (creates an <a class="reference internal" href="data.html#poly-data"><em>PolyData</em></a>)</p>
+<a class="reference internal image-reference" href="_images/enthought_mayavi_mlab_quiver3d1.jpg"><img alt="_images/enthought_mayavi_mlab_quiver3d1.jpg" src="_images/enthought_mayavi_mlab_quiver3d1.jpg" /></a>
 </li>
 </ul>
 </td></tr></table>
@@ -150,16 +149,16 @@ or engineering.</p>
 </tr>
 <tr class="field-even field"><th class="field-name" colspan="2">implicitly-connected sources:</th></tr>
 <tr class="field-even field"><td>&nbsp;</td><td class="field-body"><table class="hlist"><tr><td><ul>
-<li><p class="first"><a class="reference internal" href="auto/mlab_pipeline_sources.html#mayavi.tools.pipeline.scalar_field" title="mayavi.tools.pipeline.scalar_field"><code class="xref py py-func docutils literal"><span class="pre">scalar_field()</span></code></a> (creates an <a class="reference internal" href="data.html#image-data"><span>ImageData</span></a>)</p>
-<a class="reference internal image-reference" href="_images/enthought_mayavi_mlab_contour3d1.jpg"><img alt="_images/enthought_mayavi_mlab_contour3d1.jpg" src="_images/enthought_mayavi_mlab_contour3d1.jpg" style="width: 140.22px; height: 128.44px;" /></a>
+<li><p class="first"><a class="reference internal" href="auto/mlab_pipeline_sources.html#mayavi.tools.pipeline.scalar_field" title="mayavi.tools.pipeline.scalar_field"><tt class="xref py py-func docutils literal"><span class="pre">scalar_field()</span></tt></a> (creates an <a class="reference internal" href="data.html#image-data"><em>ImageData</em></a>)</p>
+<a class="reference internal image-reference" href="_images/enthought_mayavi_mlab_contour3d1.jpg"><img alt="_images/enthought_mayavi_mlab_contour3d1.jpg" src="_images/enthought_mayavi_mlab_contour3d1.jpg" /></a>
 </li>
-<li><p class="first"><a class="reference internal" href="auto/mlab_pipeline_sources.html#mayavi.tools.pipeline.vector_field" title="mayavi.tools.pipeline.vector_field"><code class="xref py py-func docutils literal"><span class="pre">vector_field()</span></code></a> (creates an <a class="reference internal" href="data.html#image-data"><span>ImageData</span></a>)</p>
-<a class="reference internal image-reference" href="_images/enthought_mayavi_mlab_flow1.jpg"><img alt="_images/enthought_mayavi_mlab_flow1.jpg" src="_images/enthought_mayavi_mlab_flow1.jpg" style="width: 169.0px; height: 105.0px;" /></a>
+<li><p class="first"><a class="reference internal" href="auto/mlab_pipeline_sources.html#mayavi.tools.pipeline.vector_field" title="mayavi.tools.pipeline.vector_field"><tt class="xref py py-func docutils literal"><span class="pre">vector_field()</span></tt></a> (creates an <a class="reference internal" href="data.html#image-data"><em>ImageData</em></a>)</p>
+<a class="reference internal image-reference" href="_images/enthought_mayavi_mlab_flow1.jpg"><img alt="_images/enthought_mayavi_mlab_flow1.jpg" src="_images/enthought_mayavi_mlab_flow1.jpg" /></a>
 </li>
 </ul>
 </td><td><ul>
-<li><p class="first"><a class="reference internal" href="auto/mlab_pipeline_sources.html#mayavi.tools.pipeline.array2d_source" title="mayavi.tools.pipeline.array2d_source"><code class="xref py py-func docutils literal"><span class="pre">array2d_source()</span></code></a> (creates an <a class="reference internal" href="data.html#image-data"><span>ImageData</span></a>)</p>
-<a class="reference internal image-reference" href="_images/enthought_mayavi_mlab_imshow1.jpg"><img alt="_images/enthought_mayavi_mlab_imshow1.jpg" src="_images/enthought_mayavi_mlab_imshow1.jpg" style="width: 180.0px; height: 116.1px;" /></a>
+<li><p class="first"><a class="reference internal" href="auto/mlab_pipeline_sources.html#mayavi.tools.pipeline.array2d_source" title="mayavi.tools.pipeline.array2d_source"><tt class="xref py py-func docutils literal"><span class="pre">array2d_source()</span></tt></a> (creates an <a class="reference internal" href="data.html#image-data"><em>ImageData</em></a>)</p>
+<a class="reference internal image-reference" href="_images/enthought_mayavi_mlab_imshow1.jpg"><img alt="_images/enthought_mayavi_mlab_imshow1.jpg" src="_images/enthought_mayavi_mlab_imshow1.jpg" /></a>
 </li>
 </ul>
 </td></tr></table>
@@ -167,13 +166,13 @@ or engineering.</p>
 </tr>
 <tr class="field-odd field"><th class="field-name" colspan="2">Explicitly-connected sources:</th></tr>
 <tr class="field-odd field"><td>&nbsp;</td><td class="field-body"><table class="hlist"><tr><td><ul>
-<li><p class="first"><a class="reference internal" href="auto/mlab_pipeline_sources.html#mayavi.tools.pipeline.line_source" title="mayavi.tools.pipeline.line_source"><code class="xref py py-func docutils literal"><span class="pre">line_source()</span></code></a> (creates an <a class="reference internal" href="data.html#poly-data"><span>PolyData</span></a>)</p>
-<a class="reference internal image-reference" href="_images/enthought_mayavi_mlab_plot3d1.jpg"><img alt="_images/enthought_mayavi_mlab_plot3d1.jpg" src="_images/enthought_mayavi_mlab_plot3d1.jpg" style="width: 153.0px; height: 113.0px;" /></a>
+<li><p class="first"><a class="reference internal" href="auto/mlab_pipeline_sources.html#mayavi.tools.pipeline.line_source" title="mayavi.tools.pipeline.line_source"><tt class="xref py py-func docutils literal"><span class="pre">line_source()</span></tt></a> (creates an <a class="reference internal" href="data.html#poly-data"><em>PolyData</em></a>)</p>
+<a class="reference internal image-reference" href="_images/enthought_mayavi_mlab_plot3d1.jpg"><img alt="_images/enthought_mayavi_mlab_plot3d1.jpg" src="_images/enthought_mayavi_mlab_plot3d1.jpg" /></a>
 </li>
 </ul>
 </td><td><ul>
-<li><p class="first"><a class="reference internal" href="auto/mlab_pipeline_sources.html#mayavi.tools.pipeline.triangular_mesh_source" title="mayavi.tools.pipeline.triangular_mesh_source"><code class="xref py py-func docutils literal"><span class="pre">triangular_mesh_source()</span></code></a> (creates an <a class="reference internal" href="data.html#poly-data"><span>PolyData</span></a>)</p>
-<a class="reference internal image-reference" href="_images/poly_data.jpg"><img alt="_images/poly_data.jpg" src="_images/poly_data.jpg" style="width: 152.0px; height: 121.6px;" /></a>
+<li><p class="first"><a class="reference internal" href="auto/mlab_pipeline_sources.html#mayavi.tools.pipeline.triangular_mesh_source" title="mayavi.tools.pipeline.triangular_mesh_source"><tt class="xref py py-func docutils literal"><span class="pre">triangular_mesh_source()</span></tt></a> (creates an <a class="reference internal" href="data.html#poly-data"><em>PolyData</em></a>)</p>
+<a class="reference internal image-reference" href="_images/poly_data.jpg"><img alt="_images/poly_data.jpg" src="_images/poly_data.jpg" /></a>
 </li>
 </ul>
 </td></tr></table>
@@ -191,12 +190,12 @@ other words, the array describes an image, possibly 3 dimensional.</p>
 <p class="first admonition-title">Note</p>
 <p class="last">More complicated data structures can be created, such as irregular
 grids or non-orthogonal grid. See
-<a class="reference internal" href="data.html#data-structures-used-by-mayavi"><span>the section on data structures</span></a>.</p>
+<a class="reference internal" href="data.html#data-structures-used-by-mayavi"><em>the section on data structures</em></a>.</p>
 </div>
 </div>
 <div class="section" id="modules-and-filters">
 <h2>Modules and filters<a class="headerlink" href="#modules-and-filters" title="Permalink to this headline">¶</a></h2>
-<p>For each Mayavi module or filter (see <a class="reference internal" href="modules.html#modules"><span>Modules</span></a> and <a class="reference internal" href="filters.html#filters"><span>Filters</span></a>),
+<p>For each Mayavi module or filter (see <a class="reference internal" href="modules.html#modules"><em>Modules</em></a> and <a class="reference internal" href="filters.html#filters"><em>Filters</em></a>),
 there is a corresponding <cite>mlab.pipeline</cite> function. The name of this
 function is created by replacing the alternating capitals in the module
 or filter name by underscores. Thus <cite>ScalarCutPlane</cite> corresponds to
@@ -219,7 +218,7 @@ subsection.</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="index.html">
               <img class="logo" src="_static/mayavi-logo.png" alt="Logo"/>
@@ -233,15 +232,13 @@ subsection.</p>
 </li>
 </ul>
 
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="_sources/mlab_pipeline.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/mlab_pipeline.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
 
-<div id="searchbox" style="display: none" role="search">
+<div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
@@ -286,20 +283,19 @@ subsection.</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="footer">
-      &copy;2008-2015, Prabhu Ramachandran, Gaël Varoquaux, Deepak Surti.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.4</a>
-      
-      |
-      <a href="_sources/mlab_pipeline.txt"
-          rel="nofollow">Page source</a></li>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li><a href="index.html">mayavi 4.4.2 documentation</a> &raquo;</li> 
+      </ul>
     </div>
-
-    
-
-    
+    <div class="footer">
+        &copy; Copyright 2008-2015, Enthought Inc..
+      Last updated on Jun 11, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
   </body>
 </html>

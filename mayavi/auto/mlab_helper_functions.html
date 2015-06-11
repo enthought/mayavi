@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Plotting functions &mdash; mayavi 4.4.1 documentation</title>
+    <title>Plotting functions &mdash; mayavi 4.4.2 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.4.1',
+        VERSION:     '4.4.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.4.1 documentation" href="../index.html" />
+    <link rel="top" title="mayavi 4.4.2 documentation" href="../index.html" />
     <link rel="up" title="MLab reference" href="mlab_reference.html" />
     <link rel="next" title="Figure handling functions" href="mlab_figure.html" />
     <link rel="prev" title="MLab reference" href="mlab_reference.html" />
@@ -58,8 +58,8 @@
 </style>
 
   </head>
-  <body role="document">
-    <div class="related" role="navigation" aria-label="related navigation">
+  <body>
+    <div class="related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -71,22 +71,22 @@
         <li class="right" >
           <a href="mlab_reference.html" title="MLab reference"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.4.1 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="mlab_reference.html" accesskey="U">MLab reference</a> &raquo;</li> 
+        <li><a href="../index.html">mayavi 4.4.2 documentation</a> &raquo;</li>
+          <li><a href="mlab_reference.html" accesskey="U">MLab reference</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body" role="main">
+          <div class="body">
             
   <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p>This section is only a reference describing the function, please see
-the chapter on <a class="reference internal" href="../mlab.html#simple-scripting-with-mlab"><span>mlab: Python scripting for 3D plotting</span></a> for an introduction to
+the chapter on <a class="reference internal" href="../mlab.html#simple-scripting-with-mlab"><em>mlab: Python scripting for 3D plotting</em></a> for an introduction to
 mlab and how to interact with and assemble the functions of <cite>mlab</cite>.</p>
-<p class="last">Please see the section on <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span>Running mlab scripts</span></a> for
+<p class="last">Please see the section on <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><em>Running mlab scripts</em></a> for
 instructions on running the examples.</p>
 </div>
 <div class="section" id="plotting-functions">
@@ -95,7 +95,7 @@ instructions on running the examples.</p>
 <h2>barchart<a class="headerlink" href="#barchart" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="mayavi.mlab.barchart">
-<code class="descclassname">mayavi.mlab.</code><code class="descname">barchart</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.barchart" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">mayavi.mlab.</tt><tt class="descname">barchart</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.mlab.barchart" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots vertical glyphs (like bars) scaled vertical, to do
 histogram-like plots.</p>
 <p>This functions accepts a wide variety of inputs, with positions given
@@ -192,9 +192,9 @@ If None, the min of the data will be used</td>
 </div></blockquote>
 </dd></dl>
 
-<p><strong>Example</strong> (run in <code class="docutils literal"><span class="pre">ipython</span> <span class="pre">-wthread</span></code>, <code class="docutils literal"><span class="pre">ipython</span> <span class="pre">--gui=wx</span></code> for recent
+<p><strong>Example</strong> (run in <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">-wthread</span></tt>, <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">--gui=wx</span></tt> for recent
 IPython versions, or in the mayavi2 interactive shell,
-see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span>Running mlab scripts</span></a> for more info):</p>
+see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><em>Running mlab scripts</em></a> for more info):</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">numpy</span>
 <span class="kn">from</span> <span class="nn">mayavi.mlab</span> <span class="kn">import</span> <span class="o">*</span>
 
@@ -210,7 +210,7 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
 <h2>contour3d<a class="headerlink" href="#contour3d" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="mayavi.mlab.contour3d">
-<code class="descclassname">mayavi.mlab.</code><code class="descname">contour3d</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.contour3d" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">mayavi.mlab.</tt><tt class="descname">contour3d</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.mlab.contour3d" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots iso-surfaces for a 3D volume of data suplied as arguments.</p>
 <p><strong>Function signatures</strong>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">contour3d</span><span class="p">(</span><span class="n">scalars</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
@@ -278,9 +278,9 @@ If None, the min of the data will be used</td>
 </div></blockquote>
 </dd></dl>
 
-<p><strong>Example</strong> (run in <code class="docutils literal"><span class="pre">ipython</span> <span class="pre">-wthread</span></code>, <code class="docutils literal"><span class="pre">ipython</span> <span class="pre">--gui=wx</span></code> for recent
+<p><strong>Example</strong> (run in <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">-wthread</span></tt>, <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">--gui=wx</span></tt> for recent
 IPython versions, or in the mayavi2 interactive shell,
-see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span>Running mlab scripts</span></a> for more info):</p>
+see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><em>Running mlab scripts</em></a> for more info):</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">numpy</span>
 <span class="kn">from</span> <span class="nn">mayavi.mlab</span> <span class="kn">import</span> <span class="o">*</span>
 
@@ -298,7 +298,7 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
 <h2>contour_surf<a class="headerlink" href="#contour-surf" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="mayavi.mlab.contour_surf">
-<code class="descclassname">mayavi.mlab.</code><code class="descname">contour_surf</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.contour_surf" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">mayavi.mlab.</tt><tt class="descname">contour_surf</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.mlab.contour_surf" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots a the contours of a surface using grid-spaced data for
 elevation supplied as a 2D array.</p>
 <p><strong>Function signatures</strong>:</p>
@@ -372,9 +372,9 @@ If None, the min of the data will be used</td>
 </div></blockquote>
 </dd></dl>
 
-<p><strong>Example</strong> (run in <code class="docutils literal"><span class="pre">ipython</span> <span class="pre">-wthread</span></code>, <code class="docutils literal"><span class="pre">ipython</span> <span class="pre">--gui=wx</span></code> for recent
+<p><strong>Example</strong> (run in <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">-wthread</span></tt>, <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">--gui=wx</span></tt> for recent
 IPython versions, or in the mayavi2 interactive shell,
-see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span>Running mlab scripts</span></a> for more info):</p>
+see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><em>Running mlab scripts</em></a> for more info):</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">numpy</span>
 <span class="kn">from</span> <span class="nn">mayavi.mlab</span> <span class="kn">import</span> <span class="o">*</span>
 
@@ -394,7 +394,7 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
 <h2>flow<a class="headerlink" href="#flow" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="mayavi.mlab.flow">
-<code class="descclassname">mayavi.mlab.</code><code class="descname">flow</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.flow" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">mayavi.mlab.</tt><tt class="descname">flow</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.mlab.flow" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a trajectory of particles following the flow of a vector field.</p>
 <p><strong>Function signatures</strong>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">flow</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
@@ -486,9 +486,9 @@ If None, the min of the data will be used</td>
 </div></blockquote>
 </dd></dl>
 
-<p><strong>Example</strong> (run in <code class="docutils literal"><span class="pre">ipython</span> <span class="pre">-wthread</span></code>, <code class="docutils literal"><span class="pre">ipython</span> <span class="pre">--gui=wx</span></code> for recent
+<p><strong>Example</strong> (run in <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">-wthread</span></tt>, <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">--gui=wx</span></tt> for recent
 IPython versions, or in the mayavi2 interactive shell,
-see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span>Running mlab scripts</span></a> for more info):</p>
+see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><em>Running mlab scripts</em></a> for more info):</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">numpy</span>
 <span class="kn">from</span> <span class="nn">mayavi.mlab</span> <span class="kn">import</span> <span class="o">*</span>
 
@@ -507,7 +507,7 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
 <h2>imshow<a class="headerlink" href="#imshow" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="mayavi.mlab.imshow">
-<code class="descclassname">mayavi.mlab.</code><code class="descname">imshow</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.imshow" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">mayavi.mlab.</tt><tt class="descname">imshow</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.mlab.imshow" title="Permalink to this definition">¶</a></dt>
 <dd><p>View a 2D array as an image.</p>
 <p><strong>Function signatures</strong>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">imshow</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
@@ -563,9 +563,9 @@ If None, the min of the data will be used</td>
 </div></blockquote>
 </dd></dl>
 
-<p><strong>Example</strong> (run in <code class="docutils literal"><span class="pre">ipython</span> <span class="pre">-wthread</span></code>, <code class="docutils literal"><span class="pre">ipython</span> <span class="pre">--gui=wx</span></code> for recent
+<p><strong>Example</strong> (run in <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">-wthread</span></tt>, <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">--gui=wx</span></tt> for recent
 IPython versions, or in the mayavi2 interactive shell,
-see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span>Running mlab scripts</span></a> for more info):</p>
+see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><em>Running mlab scripts</em></a> for more info):</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">numpy</span>
 <span class="kn">from</span> <span class="nn">mayavi.mlab</span> <span class="kn">import</span> <span class="o">*</span>
 
@@ -581,7 +581,7 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
 <h2>mesh<a class="headerlink" href="#mesh" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="mayavi.mlab.mesh">
-<code class="descclassname">mayavi.mlab.</code><code class="descname">mesh</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.mesh" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">mayavi.mlab.</tt><tt class="descname">mesh</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.mlab.mesh" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots a surface using grid-spaced data supplied as 2D arrays.</p>
 <p><strong>Function signatures</strong>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">mesh</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
@@ -675,9 +675,9 @@ If None, the min of the data will be used</td>
 </div></blockquote>
 </dd></dl>
 
-<p><strong>Example</strong> (run in <code class="docutils literal"><span class="pre">ipython</span> <span class="pre">-wthread</span></code>, <code class="docutils literal"><span class="pre">ipython</span> <span class="pre">--gui=wx</span></code> for recent
+<p><strong>Example</strong> (run in <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">-wthread</span></tt>, <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">--gui=wx</span></tt> for recent
 IPython versions, or in the mayavi2 interactive shell,
-see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span>Running mlab scripts</span></a> for more info):</p>
+see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><em>Running mlab scripts</em></a> for more info):</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">numpy</span>
 <span class="kn">from</span> <span class="nn">mayavi.mlab</span> <span class="kn">import</span> <span class="o">*</span>
 
@@ -712,7 +712,7 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
 <h2>plot3d<a class="headerlink" href="#plot3d" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="mayavi.mlab.plot3d">
-<code class="descclassname">mayavi.mlab.</code><code class="descname">plot3d</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.plot3d" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">mayavi.mlab.</tt><tt class="descname">plot3d</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.mlab.plot3d" title="Permalink to this definition">¶</a></dt>
 <dd><p>Draws lines between points.</p>
 <p><strong>Function signatures</strong>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">plot3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
@@ -777,9 +777,9 @@ If None, the min of the data will be used</td>
 </div></blockquote>
 </dd></dl>
 
-<p><strong>Example</strong> (run in <code class="docutils literal"><span class="pre">ipython</span> <span class="pre">-wthread</span></code>, <code class="docutils literal"><span class="pre">ipython</span> <span class="pre">--gui=wx</span></code> for recent
+<p><strong>Example</strong> (run in <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">-wthread</span></tt>, <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">--gui=wx</span></tt> for recent
 IPython versions, or in the mayavi2 interactive shell,
-see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span>Running mlab scripts</span></a> for more info):</p>
+see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><em>Running mlab scripts</em></a> for more info):</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">numpy</span>
 <span class="kn">from</span> <span class="nn">mayavi.mlab</span> <span class="kn">import</span> <span class="o">*</span>
 
@@ -803,7 +803,7 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
 <h2>points3d<a class="headerlink" href="#points3d" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="mayavi.mlab.points3d">
-<code class="descclassname">mayavi.mlab.</code><code class="descname">points3d</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.points3d" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">mayavi.mlab.</tt><tt class="descname">points3d</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.mlab.points3d" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots glyphs (like points) at the position of the supplied data.</p>
 <p><strong>Function signatures</strong>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">points3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="o">...</span><span class="p">)</span>
@@ -888,9 +888,9 @@ If None, the min of the data will be used</td>
 </div></blockquote>
 </dd></dl>
 
-<p><strong>Example</strong> (run in <code class="docutils literal"><span class="pre">ipython</span> <span class="pre">-wthread</span></code>, <code class="docutils literal"><span class="pre">ipython</span> <span class="pre">--gui=wx</span></code> for recent
+<p><strong>Example</strong> (run in <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">-wthread</span></tt>, <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">--gui=wx</span></tt> for recent
 IPython versions, or in the mayavi2 interactive shell,
-see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span>Running mlab scripts</span></a> for more info):</p>
+see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><em>Running mlab scripts</em></a> for more info):</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">numpy</span>
 <span class="kn">from</span> <span class="nn">mayavi.mlab</span> <span class="kn">import</span> <span class="o">*</span>
 
@@ -912,7 +912,7 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
 <h2>quiver3d<a class="headerlink" href="#quiver3d" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="mayavi.mlab.quiver3d">
-<code class="descclassname">mayavi.mlab.</code><code class="descname">quiver3d</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.quiver3d" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">mayavi.mlab.</tt><tt class="descname">quiver3d</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.mlab.quiver3d" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots glyphs (like arrows) indicating the direction of the vectors
 at the positions supplied.</p>
 <p><strong>Function signatures</strong>:</p>
@@ -1001,9 +1001,9 @@ If None, the min of the data will be used</td>
 </div></blockquote>
 </dd></dl>
 
-<p><strong>Example</strong> (run in <code class="docutils literal"><span class="pre">ipython</span> <span class="pre">-wthread</span></code>, <code class="docutils literal"><span class="pre">ipython</span> <span class="pre">--gui=wx</span></code> for recent
+<p><strong>Example</strong> (run in <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">-wthread</span></tt>, <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">--gui=wx</span></tt> for recent
 IPython versions, or in the mayavi2 interactive shell,
-see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span>Running mlab scripts</span></a> for more info):</p>
+see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><em>Running mlab scripts</em></a> for more info):</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">numpy</span>
 <span class="kn">from</span> <span class="nn">mayavi.mlab</span> <span class="kn">import</span> <span class="o">*</span>
 
@@ -1022,7 +1022,7 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
 <h2>surf<a class="headerlink" href="#surf" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="mayavi.mlab.surf">
-<code class="descclassname">mayavi.mlab.</code><code class="descname">surf</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.surf" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">mayavi.mlab.</tt><tt class="descname">surf</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.mlab.surf" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots a surface using regularly-spaced elevation data supplied as a 2D
 array.</p>
 <p><strong>Function signatures</strong>:</p>
@@ -1116,9 +1116,9 @@ see the <cite>extent</cite> keyword argument.</td>
 </div></blockquote>
 </dd></dl>
 
-<p><strong>Example</strong> (run in <code class="docutils literal"><span class="pre">ipython</span> <span class="pre">-wthread</span></code>, <code class="docutils literal"><span class="pre">ipython</span> <span class="pre">--gui=wx</span></code> for recent
+<p><strong>Example</strong> (run in <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">-wthread</span></tt>, <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">--gui=wx</span></tt> for recent
 IPython versions, or in the mayavi2 interactive shell,
-see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span>Running mlab scripts</span></a> for more info):</p>
+see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><em>Running mlab scripts</em></a> for more info):</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">numpy</span>
 <span class="kn">from</span> <span class="nn">mayavi.mlab</span> <span class="kn">import</span> <span class="o">*</span>
 
@@ -1139,12 +1139,11 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
 <h2>triangular_mesh<a class="headerlink" href="#triangular-mesh" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="mayavi.mlab.triangular_mesh">
-<code class="descclassname">mayavi.mlab.</code><code class="descname">triangular_mesh</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.triangular_mesh" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">mayavi.mlab.</tt><tt class="descname">triangular_mesh</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#mayavi.mlab.triangular_mesh" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plots a surface using a mesh defined by the position of its vertices
 and the triangles connecting them.</p>
 <p><strong>Function signatures</strong>:</p>
-<div class="highlight-python"><div class="highlight"><pre>triangular_mesh(x, y, z, triangles ...)
-</pre></div>
+<div class="highlight-python"><pre>triangular_mesh(x, y, z, triangles ...)</pre>
 </div>
 <p>x, y, z are arrays giving the positions of the vertices of the surface.
 triangles is a list of triplets (or an array) list the vertices in
@@ -1233,9 +1232,9 @@ If None, the min of the data will be used</td>
 </div></blockquote>
 </dd></dl>
 
-<p><strong>Example</strong> (run in <code class="docutils literal"><span class="pre">ipython</span> <span class="pre">-wthread</span></code>, <code class="docutils literal"><span class="pre">ipython</span> <span class="pre">--gui=wx</span></code> for recent
+<p><strong>Example</strong> (run in <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">-wthread</span></tt>, <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">--gui=wx</span></tt> for recent
 IPython versions, or in the mayavi2 interactive shell,
-see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span>Running mlab scripts</span></a> for more info):</p>
+see <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><em>Running mlab scripts</em></a> for more info):</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">numpy</span>
 <span class="kn">from</span> <span class="nn">mayavi.mlab</span> <span class="kn">import</span> <span class="o">*</span>
 
@@ -1266,7 +1265,7 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="../index.html">
               <img class="logo" src="../_static/mayavi-logo.png" alt="Logo"/>
@@ -1295,15 +1294,13 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
   <h4>Next topic</h4>
   <p class="topless"><a href="mlab_figure.html"
                         title="next chapter">Figure handling functions</a></p>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../_sources/auto/mlab_helper_functions.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/auto/mlab_helper_functions.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
 
-<div id="searchbox" style="display: none" role="search">
+<div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
       <input type="text" name="q" />
@@ -1348,20 +1345,26 @@ see <a class="reference internal" href="../mlab_running_scripts.html#running-mla
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="footer">
-      &copy;2008-2015, Prabhu Ramachandran, Gaël Varoquaux, Deepak Surti.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.4</a>
-      
-      |
-      <a href="../_sources/auto/mlab_helper_functions.txt"
-          rel="nofollow">Page source</a></li>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="mlab_figure.html" title="Figure handling functions"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="mlab_reference.html" title="MLab reference"
+             >previous</a> |</li>
+        <li><a href="../index.html">mayavi 4.4.2 documentation</a> &raquo;</li>
+          <li><a href="mlab_reference.html" >MLab reference</a> &raquo;</li> 
+      </ul>
     </div>
-
-    
-
-    
+    <div class="footer">
+        &copy; Copyright 2008-2015, Enthought Inc..
+      Last updated on Jun 11, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
   </body>
 </html>

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Image cursor filter example &mdash; mayavi 4.4.1 documentation</title>
+    <title>Image cursor filter example &mdash; mayavi 4.4.2 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.4.1',
+        VERSION:     '4.4.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.4.1 documentation" href="../index.html" />
+    <link rel="top" title="mayavi 4.4.2 documentation" href="../index.html" />
     <link rel="up" title="Example gallery" href="examples.html" />
     <link rel="next" title="Probe filter example" href="example_probe_filter.html" />
     <link rel="prev" title="Numeric source example" href="example_numeric_source.html" />
@@ -58,8 +58,8 @@
 </style>
 
   </head>
-  <body role="document">
-    <div class="related" role="navigation" aria-label="related navigation">
+  <body>
+    <div class="related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -71,15 +71,15 @@
         <li class="right" >
           <a href="example_numeric_source.html" title="Numeric source example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.4.1 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
+        <li><a href="../index.html">mayavi 4.4.2 documentation</a> &raquo;</li>
+          <li><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body" role="main">
+          <div class="body">
             
   <div class="section" id="image-cursor-filter-example">
 <span id="example-image-cursor-filter"></span><h1>Image cursor filter example<a class="headerlink" href="#image-cursor-filter-example" title="Permalink to this headline">¶</a></h1>
@@ -89,9 +89,9 @@ in order to point out a special position.</p>
 data field is painted with the cursor, and then visualized using the
 ImagePlaneWIdget module.</p>
 <p>ImageCursor3D is one example among many of the use of the UserDefined, which
-allows to use TVTK filters that are not. See <a class="reference internal" href="../tips.html#using-userdefined-filter"><span>Using the UserDefined filter</span></a>
+allows to use TVTK filters that are not. See <a class="reference internal" href="../tips.html#using-userdefined-filter"><em>Using the UserDefined filter</em></a>
 for more details. Also, other examples using the UserDefined filter are
-provided in <a class="reference internal" href="example_mri.html#example-mri"><span>Mri example</span></a> and <a class="reference internal" href="example_tvtk_segmentation.html#example-tvtk-segmentation"><span>Tvtk segmentation example</span></a>.</p>
+provided in <a class="reference internal" href="example_mri.html#example-mri"><em>Mri example</em></a> and <a class="reference internal" href="example_tvtk_segmentation.html#example-tvtk-segmentation"><em>Tvtk segmentation example</em></a>.</p>
 <p>Selecting the UserDefined filter in the Mayavi pipeline is a convenient
 way to look for additional filters. This pops up a dialog called <cite>TVTK
 class chooser</cite>, with a <cite>Search</cite> field that allows to search for desired
@@ -99,12 +99,12 @@ actions or properties. For example, searching for <cite>cursor</cite> returns
 several filters, among which Cursor3D and ImageCursor3D. As a rule of
 thumb, the name of TVTK filters acting on TVTK ImageData dataset starts
 with <cite>Image</cite> (ImageData is the type of VTK data set created by e.g.
-mlab.pipeline.scalar_field. See <a class="reference internal" href="../data.html#data-structures-used-by-mayavi"><span>Data representation in Mayavi</span></a> for
+mlab.pipeline.scalar_field. See <a class="reference internal" href="../data.html#data-structures-used-by-mayavi"><em>Data representation in Mayavi</em></a> for
 more details about VTK datasets). In the dialog used to interactively
 add the UserDefined filet, we can therefore select <cite>ImageCursor3D</cite>.
 The documentation of the filter is displayed when selecting its name
 within the <cite>Class name</cite> field of the dialog.</p>
-<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/image_cursor_filter.py"><code class="xref download docutils literal"><span class="pre">image_cursor_filter.py</span></code></a></p>
+<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/image_cursor_filter.py"><tt class="xref download docutils literal"><span class="pre">image_cursor_filter.py</span></tt></a></p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c"># Authors: Emmanuelle Gouillart &lt;emmanuelle.gouillart@normalesup.org&gt;</span>
 <span class="c"># and Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt;</span>
 <span class="c"># Copyright (c) 2009, Enthought, Inc.</span>
@@ -163,7 +163,7 @@ within the <cite>Class name</cite> field of the dialog.</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="../index.html">
               <img class="logo" src="../_static/mayavi-logo.png" alt="Logo"/>
@@ -174,15 +174,13 @@ within the <cite>Class name</cite> field of the dialog.</p>
   <h4>Next topic</h4>
   <p class="topless"><a href="example_probe_filter.html"
                         title="next chapter">Probe filter example</a></p>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../_sources/auto/example_image_cursor_filter.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/auto/example_image_cursor_filter.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
 
-<div id="searchbox" style="display: none" role="search">
+<div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
       <input type="text" name="q" />
@@ -227,20 +225,26 @@ within the <cite>Class name</cite> field of the dialog.</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="footer">
-      &copy;2008-2015, Prabhu Ramachandran, Gaël Varoquaux, Deepak Surti.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.4</a>
-      
-      |
-      <a href="../_sources/auto/example_image_cursor_filter.txt"
-          rel="nofollow">Page source</a></li>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="example_probe_filter.html" title="Probe filter example"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="example_numeric_source.html" title="Numeric source example"
+             >previous</a> |</li>
+        <li><a href="../index.html">mayavi 4.4.2 documentation</a> &raquo;</li>
+          <li><a href="examples.html" >Example gallery</a> &raquo;</li> 
+      </ul>
     </div>
-
-    
-
-    
+    <div class="footer">
+        &copy; Copyright 2008-2015, Enthought Inc..
+      Last updated on Jun 11, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
   </body>
 </html>

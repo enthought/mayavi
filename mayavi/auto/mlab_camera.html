@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Camera handling functions &mdash; mayavi 4.4.1 documentation</title>
+    <title>Camera handling functions &mdash; mayavi 4.4.2 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.4.1',
+        VERSION:     '4.4.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.4.1 documentation" href="../index.html" />
+    <link rel="top" title="mayavi 4.4.2 documentation" href="../index.html" />
     <link rel="up" title="MLab reference" href="mlab_reference.html" />
     <link rel="next" title="Other functions" href="mlab_other_functions.html" />
     <link rel="prev" title="Figure decoration functions" href="mlab_decorations.html" />
@@ -58,8 +58,8 @@
 </style>
 
   </head>
-  <body role="document">
-    <div class="related" role="navigation" aria-label="related navigation">
+  <body>
+    <div class="related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -71,22 +71,22 @@
         <li class="right" >
           <a href="mlab_decorations.html" title="Figure decoration functions"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.4.1 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="mlab_reference.html" accesskey="U">MLab reference</a> &raquo;</li> 
+        <li><a href="../index.html">mayavi 4.4.2 documentation</a> &raquo;</li>
+          <li><a href="mlab_reference.html" accesskey="U">MLab reference</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body" role="main">
+          <div class="body">
             
   <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p>This section is only a reference describing the function, please see
-the chapter on <a class="reference internal" href="../mlab.html#simple-scripting-with-mlab"><span>mlab: Python scripting for 3D plotting</span></a> for an introduction to
+the chapter on <a class="reference internal" href="../mlab.html#simple-scripting-with-mlab"><em>mlab: Python scripting for 3D plotting</em></a> for an introduction to
 mlab and how to interact with and assemble the functions of <cite>mlab</cite>.</p>
-<p class="last">Please see the section on <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><span>Running mlab scripts</span></a> for
+<p class="last">Please see the section on <a class="reference internal" href="../mlab_running_scripts.html#running-mlab-scripts"><em>Running mlab scripts</em></a> for
 instructions on running the examples.</p>
 </div>
 <div class="section" id="camera-handling-functions">
@@ -95,7 +95,7 @@ instructions on running the examples.</p>
 <h2>move<a class="headerlink" href="#move" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="mayavi.mlab.move">
-<code class="descclassname">mayavi.mlab.</code><code class="descname">move</code><span class="sig-paren">(</span><em>forward=None</em>, <em>right=None</em>, <em>up=None</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.move" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">mayavi.mlab.</tt><tt class="descname">move</tt><big>(</big><em>forward=None</em>, <em>right=None</em>, <em>up=None</em><big>)</big><a class="headerlink" href="#mayavi.mlab.move" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="docutils">
 <dt>::</dt>
 <dd><p class="first">Translates the camera and focal point together.</p>
@@ -173,7 +173,7 @@ tuple (camera_position, focal_point_position)</p>
 <h2>pitch<a class="headerlink" href="#pitch" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="mayavi.mlab.pitch">
-<code class="descclassname">mayavi.mlab.</code><code class="descname">pitch</code><span class="sig-paren">(</span><em>degrees</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.pitch" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">mayavi.mlab.</tt><tt class="descname">pitch</tt><big>(</big><em>degrees</em><big>)</big><a class="headerlink" href="#mayavi.mlab.pitch" title="Permalink to this definition">¶</a></dt>
 <dd><p>Rotates the camera about the  axis corresponding to the
 &#8220;right&#8221; direction of the current view. Note that this will
 change the location of the focal point (although not the
@@ -186,11 +186,11 @@ system.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Mlab.yaw:</th><td class="field-body">relative rotation about the &#8220;up&#8221; direction</td>
+<tr class="field-odd field"><th class="field-name">Mlab.yaw :</th><td class="field-body">relative rotation about the &#8220;up&#8221; direction</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Mlab.roll:</th><td class="field-body">absolute roll angle (i.e. &#8220;up&#8221; direction)</td>
+<tr class="field-even field"><th class="field-name">Mlab.roll :</th><td class="field-body">absolute roll angle (i.e. &#8220;up&#8221; direction)</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Mlab.move:</th><td class="field-body">relative  translation of the camera and focal
+<tr class="field-odd field"><th class="field-name">Mlab.move :</th><td class="field-body">relative  translation of the camera and focal
 point</td>
 </tr>
 </tbody>
@@ -202,14 +202,14 @@ point</td>
 <h2>roll<a class="headerlink" href="#roll" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="mayavi.mlab.roll">
-<code class="descclassname">mayavi.mlab.</code><code class="descname">roll</code><span class="sig-paren">(</span><em>roll=None</em>, <em>figure=None</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.roll" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">mayavi.mlab.</tt><tt class="descname">roll</tt><big>(</big><em>roll=None</em>, <em>figure=None</em><big>)</big><a class="headerlink" href="#mayavi.mlab.roll" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets or returns the absolute roll angle of the camera.</p>
 <p><strong>See also</strong></p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Mlab.view:</th><td class="field-body">control the position and direction of the camera</td>
+<tr class="field-odd field"><th class="field-name">Mlab.view :</th><td class="field-body">control the position and direction of the camera</td>
 </tr>
 </tbody>
 </table>
@@ -220,7 +220,7 @@ point</td>
 <h2>view<a class="headerlink" href="#view" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="mayavi.mlab.view">
-<code class="descclassname">mayavi.mlab.</code><code class="descname">view</code><span class="sig-paren">(</span><em>azimuth=None</em>, <em>elevation=None</em>, <em>distance=None</em>, <em>focalpoint=None</em>, <em>roll=None</em>, <em>reset_roll=True</em>, <em>figure=None</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.view" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">mayavi.mlab.</tt><tt class="descname">view</tt><big>(</big><em>azimuth=None</em>, <em>elevation=None</em>, <em>distance=None</em>, <em>focalpoint=None</em>, <em>roll=None</em>, <em>reset_roll=True</em>, <em>figure=None</em><big>)</big><a class="headerlink" href="#mayavi.mlab.view" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets/Gets the view point for the camera:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">view</span><span class="p">(</span><span class="n">azimuth</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">elevation</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">distance</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">focalpoint</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
      <span class="n">roll</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">reset_roll</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">figure</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
@@ -236,7 +236,7 @@ from 0-360 degrees.  The <cite>elevation</cite> argument specifies the angle
 <cite>focalpoint</cite>, the center of the sphere.</p>
 <p>Note that if the <cite>elevation</cite> is close to zero or 180, then the
 <cite>azimuth</cite> angle refers to the amount of rotation of a standard x-y
-plot with respect to the x-axis.  Thus, specifying <code class="docutils literal"><span class="pre">view(0,0)</span></code>
+plot with respect to the x-axis.  Thus, specifying <tt class="docutils literal"><span class="pre">view(0,0)</span></tt>
 will give you a typical x-y plot with x varying from left to right
 and y from bottom to top.</p>
 <p><strong>Keyword arguments</strong>:</p>
@@ -279,15 +279,14 @@ current one is used.</td>
 </div></blockquote>
 <p><strong>Returns</strong>:</p>
 <p>If no arguments are supplied it returns a tuple of 4 values
-<code class="docutils literal"><span class="pre">(azimuth,</span> <span class="pre">elevation,</span> <span class="pre">distance,</span> <span class="pre">focalpoint)</span></code>, representing the
+<tt class="docutils literal"><span class="pre">(azimuth,</span> <span class="pre">elevation,</span> <span class="pre">distance,</span> <span class="pre">focalpoint)</span></tt>, representing the
 current view.  Note that these can be used later on to set the view.</p>
 <p>If arguments are supplied it returns <cite>None</cite>.</p>
 <p><strong>Examples</strong>:</p>
 <p>Get the current view:</p>
-<div class="highlight-python"><div class="highlight"><pre> &gt;&gt;&gt; v = view()
+<div class="highlight-python"><pre> &gt;&gt;&gt; v = view()
  &gt;&gt;&gt; v
-(45.0, 45.0, 25.02794981, array([ 0.01118028,  0.        ,  4.00558996]))
-</pre></div>
+(45.0, 45.0, 25.02794981, array([ 0.01118028,  0.        ,  4.00558996]))</pre>
 </div>
 <p>Set the view in different ways:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">view</span><span class="p">(</span><span class="mi">45</span><span class="p">,</span> <span class="mi">45</span><span class="p">)</span>
@@ -305,7 +304,7 @@ current view.  Note that these can be used later on to set the view.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Mlab.roll:</th><td class="field-body">control the roll angle of the camera, ie the direction
+<tr class="field-odd field"><th class="field-name">Mlab.roll :</th><td class="field-body">control the roll angle of the camera, ie the direction
 pointing up</td>
 </tr>
 </tbody>
@@ -317,7 +316,7 @@ pointing up</td>
 <h2>yaw<a class="headerlink" href="#yaw" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="mayavi.mlab.yaw">
-<code class="descclassname">mayavi.mlab.</code><code class="descname">yaw</code><span class="sig-paren">(</span><em>degrees</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.mlab.yaw" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">mayavi.mlab.</tt><tt class="descname">yaw</tt><big>(</big><em>degrees</em><big>)</big><a class="headerlink" href="#mayavi.mlab.yaw" title="Permalink to this definition">¶</a></dt>
 <dd><p>Rotates the camera about the  axis corresponding to the
 &#8220;up&#8221; direction of the current view. Note that this will
 change the location of the focal point (although not the
@@ -330,11 +329,11 @@ system.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Mlab.pitch:</th><td class="field-body">relative rotation about the &#8220;right&#8221; direction</td>
+<tr class="field-odd field"><th class="field-name">Mlab.pitch :</th><td class="field-body">relative rotation about the &#8220;right&#8221; direction</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Mlab.roll:</th><td class="field-body">absolute roll angle (i.e. &#8220;up&#8221; direction)</td>
+<tr class="field-even field"><th class="field-name">Mlab.roll :</th><td class="field-body">absolute roll angle (i.e. &#8220;up&#8221; direction)</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Mlab.move:</th><td class="field-body">relative translation of the camera and focal
+<tr class="field-odd field"><th class="field-name">Mlab.move :</th><td class="field-body">relative translation of the camera and focal
 point</td>
 </tr>
 </tbody>
@@ -348,7 +347,7 @@ point</td>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="../index.html">
               <img class="logo" src="../_static/mayavi-logo.png" alt="Logo"/>
@@ -371,15 +370,13 @@ point</td>
   <h4>Next topic</h4>
   <p class="topless"><a href="mlab_other_functions.html"
                         title="next chapter">Other functions</a></p>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../_sources/auto/mlab_camera.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/auto/mlab_camera.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
 
-<div id="searchbox" style="display: none" role="search">
+<div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
       <input type="text" name="q" />
@@ -424,20 +421,26 @@ point</td>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="footer">
-      &copy;2008-2015, Prabhu Ramachandran, Gaël Varoquaux, Deepak Surti.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.4</a>
-      
-      |
-      <a href="../_sources/auto/mlab_camera.txt"
-          rel="nofollow">Page source</a></li>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="mlab_other_functions.html" title="Other functions"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="mlab_decorations.html" title="Figure decoration functions"
+             >previous</a> |</li>
+        <li><a href="../index.html">mayavi 4.4.2 documentation</a> &raquo;</li>
+          <li><a href="mlab_reference.html" >MLab reference</a> &raquo;</li> 
+      </ul>
     </div>
-
-    
-
-    
+    <div class="footer">
+        &copy; Copyright 2008-2015, Enthought Inc..
+      Last updated on Jun 11, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
   </body>
 </html>
