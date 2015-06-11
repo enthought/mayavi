@@ -1046,7 +1046,8 @@ class WrapperGenerator:
         if sig is None:
             sig = self.parser.get_method_signature(vtk_meth)
         
-        # VTK 6.2: When the method signature is None, ignore the method
+        # VTK 6.2: There exists no method signature for false built in
+        # functions/methods
         if sig is None:
             return
 
