@@ -1,3 +1,12 @@
+Mayavi 4.4.2
+============
+
+Enhancements
+------------
+
+11 Jun 2015 (DS)
+    - Upgrade the VTK parser to add support for VTK 6.2.
+
 Mayavi 4.4.1
 ============
 

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Running mlab scripts &mdash; mayavi 4.4.1 documentation</title>
+    <title>Running mlab scripts &mdash; mayavi 4.4.2 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '4.4.1',
+        VERSION:     '4.4.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.4.1 documentation" href="index.html" />
+    <link rel="top" title="mayavi 4.4.2 documentation" href="index.html" />
 <style type="text/css">
   body {
     /* Very bottom copyright, etc. info */
@@ -55,42 +55,41 @@
 </style>
 
   </head>
-  <body role="document">
-    <div class="related" role="navigation" aria-label="related navigation">
+  <body>
+    <div class="related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.4.1 documentation</a> &raquo;</li> 
+        <li><a href="index.html">mayavi 4.4.2 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body" role="main">
+          <div class="body">
             
   <div class="section" id="running-mlab-scripts">
 <span id="id1"></span><h1>Running mlab scripts<a class="headerlink" href="#running-mlab-scripts" title="Permalink to this headline">¶</a></h1>
 <p>Mlab, like the rest of Mayavi, is an interactive application. If you are
 not already in an interactive environment (see next paragraph), to
 interact with the figures or the rest of the drawing elements, you need
-to use the <code class="xref py py-func docutils literal"><span class="pre">show()</span></code> function. For instance, if you are writing a
-script, you need to call <code class="xref py py-func docutils literal"><span class="pre">show()</span></code> each time you want to display one
+to use the <tt class="xref py py-func docutils literal"><span class="pre">show()</span></tt> function. For instance, if you are writing a
+script, you need to call <tt class="xref py py-func docutils literal"><span class="pre">show()</span></tt> each time you want to display one
 or more figures and allow the user to interact with them.</p>
 <div class="section" id="using-mlab-interactively">
 <h2>Using mlab interactively<a class="headerlink" href="#using-mlab-interactively" title="Permalink to this headline">¶</a></h2>
 <p>Using <a href="#id2"><span class="problematic" id="id3">IPython_</span></a>, mlab instructions can be run interactively, or in
-scripts using <a href="#id4"><span class="problematic" id="id5">IPython_</span></a>&#8216;s <code class="docutils literal"><span class="pre">%run</span></code> command:</p>
-<div class="highlight-python"><div class="highlight"><pre>In [1]: %run my_script
-</pre></div>
+scripts using <a href="#id4"><span class="problematic" id="id5">IPython_</span></a>&#8216;s <tt class="docutils literal"><span class="pre">%run</span></tt> command:</p>
+<div class="highlight-python"><pre>In [1]: %run my_script</pre>
 </div>
 <p>You need to start <a href="#id6"><span class="problematic" id="id7">IPython_</span></a> with the <cite>-wthread</cite> option, that became <cite>&#8211;gui=wx</cite> in the recent IPython versions (when installed
 with <a class="reference external" href="http://www.enthought.com/products/epd.php">EPD</a>, the <cite>pylab</cite> start-menu link does this for you). In this
 environment, the plotting commands are interactive: they have an
 immediate effect on the figure, alleviating the need to use the
-<code class="xref py py-func docutils literal"><span class="pre">show()</span></code> function.</p>
+<tt class="xref py py-func docutils literal"><span class="pre">show()</span></tt> function.</p>
 <p>Mlab can also be used interactively in the Python shell of the mayavi2
 application, or in any interactive Python shell of wxPython-based
 application (such as other Envisage-based applications, or SPE, Stani&#8217;s
@@ -103,19 +102,16 @@ should:</p>
 <blockquote>
 <div><ul>
 <li><p class="first">if your IPython version is greater than 0.11: start IPython with:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ ipython --gui=wx --pylab=wx
-</pre></div>
+<div class="highlight-python"><pre>$ ipython --gui=wx --pylab=wx</pre>
 </div>
 </li>
 <li><p class="first">else, if your IPython version is greater than 0.8.4: start IPython with
 the following options:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ ipython -pylab -wthread
-</pre></div>
+<div class="highlight-python"><pre>$ ipython -pylab -wthread</pre>
 </div>
 </li>
 <li><p class="first">elsewhere, start IPython with the <cite>-wthread</cite> option:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ ipython -wthread
-</pre></div>
+<div class="highlight-python"><pre>$ ipython -wthread</pre>
 </div>
 <p>and <strong>before</strong> importing pylab, enter the following Python
 commands:</p>
@@ -130,12 +126,11 @@ commands:</p>
 <p>If you want matplotlib and mlab to work together by default in IPython,
 you can change you default matplotlib backend, by editing the
 <cite>~/.matplotlib/matplotlibrc</cite> to add the following line:</p>
-<div class="highlight-python"><div class="highlight"><pre>backend     : WXAgg
-</pre></div>
+<div class="highlight-python"><pre>backend     : WXAgg</pre>
 </div>
 <div class="topic">
 <p class="topic-title first">Capturing mlab plots to integrate in pylab</p>
-<p>Starting from Mayavi version 3.4.0, the mlab <code class="xref py py-func docutils literal"><span class="pre">screenshot()</span></code> can
+<p>Starting from Mayavi version 3.4.0, the mlab <tt class="xref py py-func docutils literal"><span class="pre">screenshot()</span></tt> can
 be used to take a screenshot of the current figure, to integrate in a
 matplotlib plot.</p>
 </div>
@@ -145,13 +140,13 @@ matplotlib plot.</p>
 <p>Mlab commands can be written to a file, to form a script. This script
 can be loaded in the Mayavi application using the <em>File-&gt;Open file</em> menu
 entry, and executed using the <em>File-&gt;Refresh code</em> menu entry or by
-pressing <code class="docutils literal"><span class="pre">Control-r</span></code>.  It can also be executed during the start of the
-Mayavi application using the <code class="docutils literal"><span class="pre">-x</span></code> command line switch.</p>
+pressing <tt class="docutils literal"><span class="pre">Control-r</span></tt>.  It can also be executed during the start of the
+Mayavi application using the <tt class="docutils literal"><span class="pre">-x</span></tt> command line switch.</p>
 <p>As mentioned above, when running outside of an interactive environment,
 for instance with <cite>python myscript.py</cite>, you need to call the
-<code class="xref py py-func docutils literal"><span class="pre">show()</span></code> function (as shown in the <a class="reference external" href=":ref:`mlab-demo`">demo</a> above) to pause your script
+<tt class="xref py py-func docutils literal"><span class="pre">show()</span></tt> function (as shown in the <a class="reference external" href=":ref:`mlab-demo`">demo</a> above) to pause your script
 and have the user interact with the figure.</p>
-<p>You can also use <code class="xref py py-func docutils literal"><span class="pre">show()</span></code> to decorate a function, and have it run in
+<p>You can also use <tt class="xref py py-func docutils literal"><span class="pre">show()</span></tt> to decorate a function, and have it run in
 the event-loop, which gives you more flexibility:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
 <span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">random</span>
@@ -172,7 +167,7 @@ will start one and the image function will not return until it is closed.</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="index.html">
               <img class="logo" src="_static/mayavi-logo.png" alt="Logo"/>
@@ -187,15 +182,13 @@ will start one and the image function will not return until it is closed.</p>
 </li>
 </ul>
 
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="_sources/mlab_running_scripts.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/mlab_running_scripts.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
 
-<div id="searchbox" style="display: none" role="search">
+<div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
@@ -240,20 +233,19 @@ will start one and the image function will not return until it is closed.</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="footer">
-      &copy;2008-2015, Prabhu Ramachandran, Gaël Varoquaux, Deepak Surti.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.4</a>
-      
-      |
-      <a href="_sources/mlab_running_scripts.txt"
-          rel="nofollow">Page source</a></li>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li><a href="index.html">mayavi 4.4.2 documentation</a> &raquo;</li> 
+      </ul>
     </div>
-
-    
-
-    
+    <div class="footer">
+        &copy; Copyright 2008-2015, Enthought Inc..
+      Last updated on Jun 11, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
   </body>
 </html>

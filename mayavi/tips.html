@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Tips and Tricks &mdash; mayavi 4.4.1 documentation</title>
+    <title>Tips and Tricks &mdash; mayavi 4.4.2 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '4.4.1',
+        VERSION:     '4.4.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.4.1 documentation" href="index.html" />
+    <link rel="top" title="mayavi 4.4.2 documentation" href="index.html" />
     <link rel="next" title="Miscellaneous" href="misc.html" />
     <link rel="prev" title="Building applications using Mayavi" href="building_applications.html" />
 <style type="text/css">
@@ -57,8 +57,8 @@
 </style>
 
   </head>
-  <body role="document">
-    <div class="related" role="navigation" aria-label="related navigation">
+  <body>
+    <div class="related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -70,14 +70,14 @@
         <li class="right" >
           <a href="building_applications.html" title="Building applications using Mayavi"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.4.1 documentation</a> &raquo;</li> 
+        <li><a href="index.html">mayavi 4.4.2 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body" role="main">
+          <div class="body">
             
   <div class="section" id="tips-and-tricks">
 <h1>Tips and Tricks<a class="headerlink" href="#tips-and-tricks" title="Permalink to this headline">¶</a></h1>
@@ -93,21 +93,19 @@ an animation or so and find that each time you save an image, Mayavi
 work.  This is needed since VTK internally grabs the window to make a
 picture.  Occluding the window will also produce either blank or
 incorrect images.</p>
-<p>If you already have a Python script, say <code class="docutils literal"><span class="pre">script.py</span></code> that sets up your
+<p>If you already have a Python script, say <tt class="docutils literal"><span class="pre">script.py</span></tt> that sets up your
 visualization that you run likes so:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ mayavi2 -x script.py
-</pre></div>
+<div class="highlight-python"><pre>$ mayavi2 -x script.py</pre>
 </div>
 <p>Then it is very easy to have this script run offscreen.  Simply run it
 like so:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ mayavi2 -x script.py -o
-</pre></div>
+<div class="highlight-python"><pre>$ mayavi2 -x script.py -o</pre>
 </div>
 <p>This will run the script in an offscreen, standalone window.  On Linux,
 this works best with VTK-5.2 and above.  For more details on the command
-line arguments supported by the <code class="docutils literal"><span class="pre">mayavi2</span></code> application, see the
-<a class="reference internal" href="application.html#command-line-arguments"><span>Command line arguments</span></a> section.</p>
-<p>When using <code class="docutils literal"><span class="pre">mlab</span></code> you will want to do this:</p>
+line arguments supported by the <tt class="docutils literal"><span class="pre">mayavi2</span></tt> application, see the
+<a class="reference internal" href="application.html#command-line-arguments"><em>Command line arguments</em></a> section.</p>
+<p>When using <tt class="docutils literal"><span class="pre">mlab</span></tt> you will want to do this:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">mlab</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">offscreen</span> <span class="o">=</span> <span class="bp">True</span>
 </pre></div>
 </div>
@@ -159,20 +157,18 @@ as it interferes with your ongoing work.</p>
 so:</p>
 <blockquote>
 <div><ul>
-<li><p class="first">Make sure you have the <code class="docutils literal"><span class="pre">Xvfb</span></code> package installed.  For example
-under Debian and derivatives this is called the <code class="docutils literal"><span class="pre">xvfb</span></code> package.</p>
+<li><p class="first">Make sure you have the <tt class="docutils literal"><span class="pre">Xvfb</span></tt> package installed.  For example
+under Debian and derivatives this is called the <tt class="docutils literal"><span class="pre">xvfb</span></tt> package.</p>
 </li>
 <li><p class="first">Create the virtual framebuffer X server like so:</p>
-<div class="highlight-python"><div class="highlight"><pre>Xvfb :1 -screen 0 1280x1024x24 -auth localhost
-</pre></div>
+<div class="highlight-python"><pre>Xvfb :1 -screen 0 1280x1024x24 -auth localhost</pre>
 </div>
 <p>This creates the display &#8221;:1&#8221; and creates a screen of size 1280x1024
 with 24 bpp (the 24bpp is important).  For more options check your
-<code class="docutils literal"><span class="pre">Xvfb</span></code> man page.</p>
+<tt class="docutils literal"><span class="pre">Xvfb</span></tt> man page.</p>
 </li>
 <li><p class="first">Export display to :1 like so (on bash):</p>
-<div class="highlight-python"><div class="highlight"><pre>$ export DISPLAY=:1
-</pre></div>
+<div class="highlight-python"><pre>$ export DISPLAY=:1</pre>
 </div>
 </li>
 <li><p class="first">Now run your Mayavi script.  It should run uninterrupted on this X
@@ -184,8 +180,7 @@ server and produce your saved images.</p>
 <p>Many Linux systems (including Ubuntu and Debian) ship with a helper
 script <cite>xvfb-run</cite> for running headless. The following command can run a
 Python script with Mayavi2 visualizations headless:</p>
-<div class="highlight-python"><div class="highlight"><pre>xvfb-run --server-args=&quot;-screen 0 1024x768x24&quot; python my_script.py
-</pre></div>
+<div class="highlight-python"><pre>xvfb-run --server-args="-screen 0 1024x768x24" python my_script.py</pre>
 </div>
 <p>Beware that you shouldn&#8217;t call <cite>mlab.show</cite> or start the mainloop in the
 script, elsewhere the script will run endlessly, waiting for interaction
@@ -195,7 +190,7 @@ in a hidden window.</p>
 <p>If you want to use Mayavi without the envisage UI or even a traits UI
 (i.e. with a pure TVTK window) and do off screen rendering with
 Python scripts you may be interested in the
-<span class="xref std std-ref">examples_offscreen</span>. This simple example shows how you can use
+<em class="xref std std-ref">examples_offscreen</em>. This simple example shows how you can use
 Mayavi without using Envisage or the Mayavi envisage application and
 still do off screen rendering.</p>
 <p>If you are using mlab, outside of the Mayavi2 application, simply set:</p>
@@ -218,42 +213,42 @@ case.  Here are brief instructions on how to build VTK to do this.</p>
 as would 7.2.  We assume you download MesaLib-7.0.4.tar.bz2.</p>
 </li>
 <li><p class="first">Untar, and change directory to the new directory created. We call
-this directory <code class="docutils literal"><span class="pre">$MESA</span></code> henceforth.</p>
+this directory <tt class="docutils literal"><span class="pre">$MESA</span></tt> henceforth.</p>
 </li>
-<li><p class="first">Run <code class="docutils literal"><span class="pre">make</span> <span class="pre">configs/linux-x86</span></code>,  change file as per your
-configuration. Run <code class="docutils literal"><span class="pre">make</span></code> to see list of options.  Note: 7.2 has a
-<code class="docutils literal"><span class="pre">./configure</span></code> script that you can run.</p>
+<li><p class="first">Run <tt class="docutils literal"><span class="pre">make</span> <span class="pre">configs/linux-x86</span></tt>,  change file as per your
+configuration. Run <tt class="docutils literal"><span class="pre">make</span></tt> to see list of options.  Note: 7.2 has a
+<tt class="docutils literal"><span class="pre">./configure</span></tt> script that you can run.</p>
 </li>
 <li><p class="first">Get VTK-5.2 or later (CVS will also work)..</p>
 </li>
-<li><p class="first">Run <code class="docutils literal"><span class="pre">ccmake</span> <span class="pre">path/to/VTK</span></code>.</p>
+<li><p class="first">Run <tt class="docutils literal"><span class="pre">ccmake</span> <span class="pre">path/to/VTK</span></tt>.</p>
 <ul>
 <li><p class="first">Now select advanced options &#8216;t&#8217;.</p>
 </li>
-<li><p class="first">Set <code class="docutils literal"><span class="pre">VTK_OPENGL_HAS_OSMESA</span> <span class="pre">ON</span></code></p>
+<li><p class="first">Set <tt class="docutils literal"><span class="pre">VTK_OPENGL_HAS_OSMESA</span> <span class="pre">ON</span></tt></p>
 </li>
 <li><p class="first">Configure: press &#8216;c&#8217;</p>
 </li>
-<li><p class="first">Set the <code class="docutils literal"><span class="pre">OSMESA_INCLUDE_DIR</span></code> to the <code class="docutils literal"><span class="pre">$MESA/include</span> <span class="pre">dir</span></code></p>
+<li><p class="first">Set the <tt class="docutils literal"><span class="pre">OSMESA_INCLUDE_DIR</span></tt> to the <tt class="docutils literal"><span class="pre">$MESA/include</span> <span class="pre">dir</span></tt></p>
 </li>
-<li><p class="first">Set <code class="docutils literal"><span class="pre">OSMESA_LIBRARY</span></code> to <code class="docutils literal"><span class="pre">$MESA/lib/libOSMesa.so</span></code></p>
+<li><p class="first">Set <tt class="docutils literal"><span class="pre">OSMESA_LIBRARY</span></tt> to <tt class="docutils literal"><span class="pre">$MESA/lib/libOSMesa.so</span></tt></p>
 </li>
-<li><p class="first">Similarly set the <code class="docutils literal"><span class="pre">OPENGL_INCLUDE_DIR</span></code>,
-<code class="docutils literal"><span class="pre">OPENGL_gl_LIBRARY=$MESA/lib/libGL.so</span></code>,
-<code class="docutils literal"><span class="pre">OPENGL_glu_LIBRARY</span></code>, and <code class="docutils literal"><span class="pre">OPENGL_xmesa_INCLUDE_DIR</span></code>.</p>
+<li><p class="first">Similarly set the <tt class="docutils literal"><span class="pre">OPENGL_INCLUDE_DIR</span></tt>,
+<tt class="docutils literal"><span class="pre">OPENGL_gl_LIBRARY=$MESA/lib/libGL.so</span></tt>,
+<tt class="docutils literal"><span class="pre">OPENGL_glu_LIBRARY</span></tt>, and <tt class="docutils literal"><span class="pre">OPENGL_xmesa_INCLUDE_DIR</span></tt>.</p>
 </li>
-<li><p class="first">Set <code class="docutils literal"><span class="pre">VTK_USE_OFFSCREEN</span></code> to <code class="docutils literal"><span class="pre">ON</span></code> if you want offscreen all the
+<li><p class="first">Set <tt class="docutils literal"><span class="pre">VTK_USE_OFFSCREEN</span></tt> to <tt class="docutils literal"><span class="pre">ON</span></tt> if you want offscreen all the
 time, this will never produce an actual mapped VTK window since the
 default value of the render window&#8217;s offscreen rendering ivar will
 be set to True in this case.</p>
 </li>
-<li><p class="first">Any other settings like <code class="docutils literal"><span class="pre">VTK_USE_GL2PS,</span> <span class="pre">USE_RPATH</span></code> etc.</p>
+<li><p class="first">Any other settings like <tt class="docutils literal"><span class="pre">VTK_USE_GL2PS,</span> <span class="pre">USE_RPATH</span></tt> etc.</p>
 </li>
 <li><p class="first">Configure again (press &#8216;c&#8217;) and then generate &#8216;g&#8217;.</p>
 </li>
-<li><p class="first">Note that if you do not want to use <code class="docutils literal"><span class="pre">ccmake</span></code> and would like to do
+<li><p class="first">Note that if you do not want to use <tt class="docutils literal"><span class="pre">ccmake</span></tt> and would like to do
 this from the command line you may also do (for example):</p>
-<div class="highlight-python"><div class="highlight"><pre>cmake \
+<div class="highlight-python"><pre>cmake \
 -DVTK_OPENGL_HAS_OSMESA=ON \
 -DVTK_USE_OFFSCREEN=ON \
 -DCMAKE_INSTALL_PREFIX=/path/to/vtk-offscreen \
@@ -267,22 +262,20 @@ this from the command line you may also do (for example):</p>
 -DOPENGL_INCLUDE_DIR=/path/to/Mesa-7.2/include \
 -DOPENGL_gl_LIBRARY=/path/to/Mesa-7.2/lib64/libGL.so \
 -DOPENGL_glu_LIBRARY=/path/to/Mesa-7.2/lib64/libGLU.so \
-path/to/VTK/
-</pre></div>
+path/to/VTK/</pre>
 </div>
 </li>
 </ul>
 </li>
-<li><p class="first">Run <code class="docutils literal"><span class="pre">make</span></code> and wait till VTK has built.  Let us say the build is in
-<code class="docutils literal"><span class="pre">$VTK_BUILD</span></code>.</p>
+<li><p class="first">Run <tt class="docutils literal"><span class="pre">make</span></tt> and wait till VTK has built.  Let us say the build is in
+<tt class="docutils literal"><span class="pre">$VTK_BUILD</span></tt>.</p>
 </li>
-<li><p class="first">Now install VTK or set the <code class="docutils literal"><span class="pre">PYTHONPATH</span></code> and <code class="docutils literal"><span class="pre">LD_LIBRARY_PATH</span></code>
-suitably.  Also ensure that <code class="docutils literal"><span class="pre">LD_LIBRARY_PATH</span></code> points to
-<code class="docutils literal"><span class="pre">$MESA/lib</span></code> (if the mesa libs are not installed on the system) this
+<li><p class="first">Now install VTK or set the <tt class="docutils literal"><span class="pre">PYTHONPATH</span></tt> and <tt class="docutils literal"><span class="pre">LD_LIBRARY_PATH</span></tt>
+suitably.  Also ensure that <tt class="docutils literal"><span class="pre">LD_LIBRARY_PATH</span></tt> points to
+<tt class="docutils literal"><span class="pre">$MESA/lib</span></tt> (if the mesa libs are not installed on the system) this
 ensures that VTK links to the right GL libs.  For example:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ export PYTHONPATH=$VTK_BUILD/bin:$VTK_BUILD/Wrapping/Python``
-$ export LD_LIBRARY_PATH=$VTK_BUILD/bin:$MESA/lib
-</pre></div>
+<div class="highlight-python"><pre>$ export PYTHONPATH=$VTK_BUILD/bin:$VTK_BUILD/Wrapping/Python``
+$ export LD_LIBRARY_PATH=$VTK_BUILD/bin:$MESA/lib</pre>
 </div>
 <p>Now, you should be all set.</p>
 </li>
@@ -292,30 +285,30 @@ $ export LD_LIBRARY_PATH=$VTK_BUILD/bin:$MESA/lib
 This will work without an X display even.</p>
 <p>With such a VTK built and running, one could simply build and install
 mayavi2.  To use it in a Sage notebook for example you&#8217;d want to set
-<code class="docutils literal"><span class="pre">ETS_TOOLKIT='null'</span></code> and set <code class="docutils literal"><span class="pre">mlab.options.offscreen</span> <span class="pre">=</span> <span class="pre">True</span></code>.  Thats
+<tt class="docutils literal"><span class="pre">ETS_TOOLKIT='null'</span></tt> and set <tt class="docutils literal"><span class="pre">mlab.options.offscreen</span> <span class="pre">=</span> <span class="pre">True</span></tt>.  Thats
 it.  Everything should now work offscreen.</p>
-<p>Note that if you set <code class="docutils literal"><span class="pre">VTK_USE_OFFSCREEN</span></code> to <code class="docutils literal"><span class="pre">ON</span></code> then you&#8217;ll by
+<p>Note that if you set <tt class="docutils literal"><span class="pre">VTK_USE_OFFSCREEN</span></tt> to <tt class="docutils literal"><span class="pre">ON</span></tt> then you&#8217;ll by
 default only get offscreen contexts.  If you do want a UI you will want
-to explicitly set the render window&#8217;s <code class="docutils literal"><span class="pre">off_screen_rendering</span></code> ivar to
-<code class="docutils literal"><span class="pre">False</span></code> to force a mapped window.  For this reason if you might need
+to explicitly set the render window&#8217;s <tt class="docutils literal"><span class="pre">off_screen_rendering</span></tt> ivar to
+<tt class="docutils literal"><span class="pre">False</span></tt> to force a mapped window.  For this reason if you might need
 to popup a full UI, it might be better to <em>not set</em>
-<code class="docutils literal"><span class="pre">VTK_USE_OFFSCREEN=ON</span></code>.</p>
+<tt class="docutils literal"><span class="pre">VTK_USE_OFFSCREEN=ON</span></tt>.</p>
 </div>
 </div>
 <div class="section" id="extending-mayavi-with-customizations">
 <h2>Extending Mayavi with customizations<a class="headerlink" href="#extending-mayavi-with-customizations" title="Permalink to this headline">¶</a></h2>
 <p>A developer may wish to customize Mayavi by adding new sources, filters
 or modules.  These can be done by writing the respective filters and
-exposing them via a <code class="docutils literal"><span class="pre">user_mayavi.py</span></code> or a <code class="docutils literal"><span class="pre">site_mayavi.py</span></code> as
+exposing them via a <tt class="docutils literal"><span class="pre">user_mayavi.py</span></tt> or a <tt class="docutils literal"><span class="pre">site_mayavi.py</span></tt> as
 described in <a class="reference internal" href="#customizing-mayavi2">Customizing Mayavi2</a>.   A more flexible and
 reusable mechanism for doing this is to create a full fledged Mayavi
 contrib package in the following manner.</p>
 <blockquote>
 <div><ol class="arabic">
-<li><p class="first">Create a Python package, let&#8217;s call it <code class="docutils literal"><span class="pre">mv_iitb</span></code> (for IIT Bombay
+<li><p class="first">Create a Python package, let&#8217;s call it <tt class="docutils literal"><span class="pre">mv_iitb</span></tt> (for IIT Bombay
 specific extensions/customizations).  The directory structure of
 this package can be something like so:</p>
-<div class="highlight-python"><div class="highlight"><pre>mv_iitb/
+<div class="highlight-python"><pre>mv_iitb/
         __init__.py
         user_mayavi.py
         sources/
@@ -325,29 +318,28 @@ this package can be something like so:</p>
         modules/
                 ...
         docs/
-            ...
-</pre></div>
+            ...</pre>
 </div>
 <p>The two key points to note in the above are the fact that
-<code class="docutils literal"><span class="pre">mv_iitb</span></code> is a proper Python package (notice the <code class="docutils literal"><span class="pre">__init__.py</span></code>)
-and the <code class="docutils literal"><span class="pre">user_mayavi.py</span></code> is the file that adds whatever new
+<tt class="docutils literal"><span class="pre">mv_iitb</span></tt> is a proper Python package (notice the <tt class="docutils literal"><span class="pre">__init__.py</span></tt>)
+and the <tt class="docutils literal"><span class="pre">user_mayavi.py</span></tt> is the file that adds whatever new
 sources/filters/modules etc. to Mayavi.  The other part of the
 structure is really up to the developer.  At the moment these
 packages can add new sources, filters, modules and contribute any
-Envisage plugins that the <code class="docutils literal"><span class="pre">mayavi2</span></code> application will load.</p>
+Envisage plugins that the <tt class="docutils literal"><span class="pre">mayavi2</span></tt> application will load.</p>
 </li>
-<li><p class="first">This package should then be installed somewhere on <code class="docutils literal"><span class="pre">sys.path</span></code>.
+<li><p class="first">This package should then be installed somewhere on <tt class="docutils literal"><span class="pre">sys.path</span></tt>.
 Once this is done, users can find these packages and enable them
 from the Tools-&gt;Preferences (the UI will automatically detect the
-package).  The <code class="docutils literal"><span class="pre">user_mayavi.py</span></code> of each selected package will
+package).  The <tt class="docutils literal"><span class="pre">user_mayavi.py</span></tt> of each selected package will
 then be imported next time Mayavi is started, note that this will
-be usable even from <code class="docutils literal"><span class="pre">mlab</span></code>.</p>
+be usable even from <tt class="docutils literal"><span class="pre">mlab</span></tt>.</p>
 </li>
 </ol>
 </div></blockquote>
 <p>Any number of such packages may be created and distributed.  If they are
 installed, users can choose to enable them.  Internally, the list of
-selected packages is stored as the <code class="docutils literal"><span class="pre">mayavi.contrib_packages</span></code>
+selected packages is stored as the <tt class="docutils literal"><span class="pre">mayavi.contrib_packages</span></tt>
 preference option.  The following code shows how this may be accessed
 from a Python script:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">mayavi.preferences.api</span> <span class="kn">import</span> <span class="n">preference_manager</span>
@@ -356,11 +348,11 @@ from a Python script:</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">preference_manager</span><span class="o">.</span><span class="n">configure_traits</span><span class="p">()</span> <span class="c"># Pop up a UI.</span>
 </pre></div>
 </div>
-<p>For more details on how best to write <code class="docutils literal"><span class="pre">user_mayavi.py</span></code> files and what
+<p>For more details on how best to write <tt class="docutils literal"><span class="pre">user_mayavi.py</span></tt> files and what
 you can do in them, please refer to the
 <a class="reference external" href="https://svn.enthought.com/enthought/browser/Mayavi/trunk/examples/mayavi/user_mayavi.py">examples/mayavi/user_mayavi.py</a> example.  Please pay particular
 attention to the warnings in that file.  It is a very good idea to
-ensure that the <code class="docutils literal"><span class="pre">user_mayavi.py</span></code> does not implement any
+ensure that the <tt class="docutils literal"><span class="pre">user_mayavi.py</span></tt> does not implement any
 sources/modules/filters and only registers the metadata.  This will
 avoid issues with circular imports.</p>
 </div>
@@ -375,12 +367,12 @@ menu on the Mayavi component, look for the &#8220;contribution settings&#8221;.
 Any selected contributions will be imported the next time Mayavi
 starts.  For more details see the <a class="reference internal" href="#extending-mayavi-with-customizations">Extending Mayavi with
 customizations</a> section.</li>
-<li>At a global, system wide level via a <code class="docutils literal"><span class="pre">site_mayavi.py</span></code>.  This file
-is to be placed anywhere on <code class="docutils literal"><span class="pre">sys.path</span></code>.</li>
+<li>At a global, system wide level via a <tt class="docutils literal"><span class="pre">site_mayavi.py</span></tt>.  This file
+is to be placed anywhere on <tt class="docutils literal"><span class="pre">sys.path</span></tt>.</li>
 <li>At a local, user level.  This is achieved by placing a
-<code class="docutils literal"><span class="pre">user_mayavi.py</span></code> in the users <code class="docutils literal"><span class="pre">~/.mayavi2/</span></code> directory.  If a
-<code class="docutils literal"><span class="pre">~/.mayavi2/user_mayavi.py</span></code> is found, the directory is placed in
-<code class="docutils literal"><span class="pre">sys.path</span></code>.</li>
+<tt class="docutils literal"><span class="pre">user_mayavi.py</span></tt> in the users <tt class="docutils literal"><span class="pre">~/.mayavi2/</span></tt> directory.  If a
+<tt class="docutils literal"><span class="pre">~/.mayavi2/user_mayavi.py</span></tt> is found, the directory is placed in
+<tt class="docutils literal"><span class="pre">sys.path</span></tt>.</li>
 </ol>
 </div></blockquote>
 <p>The files are similar in their content.  Two things may be done in this
@@ -388,43 +380,43 @@ file:</p>
 <blockquote>
 <div><ol class="arabic simple">
 <li>Registering new sources, modules or filters in the Mayavi registry
-(<code class="docutils literal"><span class="pre">mayavi.core.registry.registry</span></code>).  This is done by
+(<tt class="docutils literal"><span class="pre">mayavi.core.registry.registry</span></tt>).  This is done by
 registering metadata for the new class in the registry.  See
-<code class="docutils literal"><span class="pre">examples/mayavi/user_mayavi.py</span></code> to see an example.</li>
+<tt class="docutils literal"><span class="pre">examples/mayavi/user_mayavi.py</span></tt> to see an example.</li>
 <li>Adding additional envisage plugins to the mayavi2 application.
-This is done by defining a function called <code class="docutils literal"><span class="pre">get_plugins()</span></code> that
+This is done by defining a function called <tt class="docutils literal"><span class="pre">get_plugins()</span></tt> that
 returns a list of plugins that you wish to add to the mayavi2
 application.</li>
 </ol>
 </div></blockquote>
-<p>The <code class="docutils literal"><span class="pre">examples/mayavi/user_mayavi.py</span></code> example documents and shows how
-this can be done.  To see it, copy the file to the <code class="docutils literal"><span class="pre">~/.mayavi2</span></code>
-directory.  If you are unsure where <code class="docutils literal"><span class="pre">~</span></code> is on your platform, just run
+<p>The <tt class="docutils literal"><span class="pre">examples/mayavi/user_mayavi.py</span></tt> example documents and shows how
+this can be done.  To see it, copy the file to the <tt class="docutils literal"><span class="pre">~/.mayavi2</span></tt>
+directory.  If you are unsure where <tt class="docutils literal"><span class="pre">~</span></tt> is on your platform, just run
 the example and it should print out the directory.</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">In the <code class="docutils literal"><span class="pre">user_mayavi.py</span></code> or <code class="docutils literal"><span class="pre">site_mayavi.py</span></code>, avoid Mayavi imports
-like  <code class="docutils literal"><span class="pre">from</span> <span class="pre">mayavi.modules.outline</span> <span class="pre">import</span> <span class="pre">Outline</span></code> etc.
-This is because <code class="docutils literal"><span class="pre">user_mayavi</span></code> is imported at a time when many of the
+<p class="last">In the <tt class="docutils literal"><span class="pre">user_mayavi.py</span></tt> or <tt class="docutils literal"><span class="pre">site_mayavi.py</span></tt>, avoid Mayavi imports
+like  <tt class="docutils literal"><span class="pre">from</span> <span class="pre">mayavi.modules.outline</span> <span class="pre">import</span> <span class="pre">Outline</span></tt> etc.
+This is because <tt class="docutils literal"><span class="pre">user_mayavi</span></tt> is imported at a time when many of the
 imports are not complete and this will cause hard-to-debug circular
-import problems.  The <code class="docutils literal"><span class="pre">registry</span></code> is given only metadata mostly in the
+import problems.  The <tt class="docutils literal"><span class="pre">registry</span></tt> is given only metadata mostly in the
 form of strings and this will cause no problem.  Therefore to define
 new modules, we strongly recommend that the modules be defined in
 another module or be defined in a factory function as done in the
-example <code class="docutils literal"><span class="pre">user_mayavi.py</span></code> provided.</p>
+example <tt class="docutils literal"><span class="pre">user_mayavi.py</span></tt> provided.</p>
 </div>
 </div>
 <div class="section" id="scripting-mayavi-without-using-envisage">
 <h2>Scripting Mayavi without using Envisage<a class="headerlink" href="#scripting-mayavi-without-using-envisage" title="Permalink to this headline">¶</a></h2>
-<p>The <a class="reference internal" href="auto/example_standalone.html#example-standalone"><span>Standalone example</span></a> demonstrates how one can use the core
+<p>The <a class="reference internal" href="auto/example_standalone.html#example-standalone"><em>Standalone example</em></a> demonstrates how one can use the core
 Mayavi API without using Envisage.  This is useful when you want to
-minimize dependencies.  <a class="reference internal" href="auto/example_offscreen.html#example-offscreen"><span>Offscreen example</span></a> demonstrates how to use
+minimize dependencies.  <a class="reference internal" href="auto/example_offscreen.html#example-offscreen"><em>Offscreen example</em></a> demonstrates how to use
 Mayavi without the envisage UI or even a traits UI (i.e. with a pure TVTK
 window) and do off screen rendering.</p>
 </div>
 <div class="section" id="computing-in-a-thread">
 <h2>Computing in a thread<a class="headerlink" href="#computing-in-a-thread" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference internal" href="auto/example_compute_in_thread.html#example-compute-in-thread"><span>Compute in thread example</span></a> demonstrates how to visualize a 2D
+<p><a class="reference internal" href="auto/example_compute_in_thread.html#example-compute-in-thread"><em>Compute in thread example</em></a> demonstrates how to visualize a 2D
 numpy array and visualize it as image data using a few modules.  It also
 shows how one can do a computation in another thread and update the
 Mayavi pipeline once the computation is done.  This allows a user to
@@ -437,9 +429,9 @@ another thread.</p>
 suitable for visualization.  You&#8217;d like Mayavi to visualize the data but
 automatically update the data when the data file is updated by the
 computation.  This is easily achieved by polling the data file and
-checking if it has been modified.  The <a class="reference internal" href="auto/example_poll_file.html#example-poll-file"><span>Poll file example</span></a>
+checking if it has been modified.  The <a class="reference internal" href="auto/example_poll_file.html#example-poll-file"><em>Poll file example</em></a>
 demonstrates this.  To see it in action will require that you edit the
-scalar data in the <code class="docutils literal"><span class="pre">examples/data/heart.vtk</span></code> data file.</p>
+scalar data in the <tt class="docutils literal"><span class="pre">examples/data/heart.vtk</span></tt> data file.</p>
 </div>
 <div class="section" id="serving-mayavi-on-the-network">
 <h2>Serving Mayavi on the network<a class="headerlink" href="#serving-mayavi-on-the-network" title="Permalink to this headline">¶</a></h2>
@@ -453,27 +445,26 @@ connection.  It turns out there is a simple way to do this  if you have
 <span class="n">server</span><span class="o">.</span><span class="n">serve_tcp</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>There is no need to call <code class="docutils literal"><span class="pre">mlab.show()</span></code> in the above.  The TCP server
+<p>There is no need to call <tt class="docutils literal"><span class="pre">mlab.show()</span></tt> in the above.  The TCP server
 will listen on port 8007 by default in the above (this can be changed
-with suitable arguments to <code class="xref py py-func docutils literal"><span class="pre">serve_tcp()</span></code>).  Any data sent to the server
+with suitable arguments to <tt class="xref py py-func docutils literal"><span class="pre">serve_tcp()</span></tt>).  Any data sent to the server
 is simply exec&#8217;d, meaning you can do pretty much anything you want.  The
-names <code class="docutils literal"><span class="pre">engine</span></code>, <code class="docutils literal"><span class="pre">scene</span></code>, <code class="docutils literal"><span class="pre">camera</span></code> and <code class="docutils literal"><span class="pre">mlab</span></code> are all available
+names <tt class="docutils literal"><span class="pre">engine</span></tt>, <tt class="docutils literal"><span class="pre">scene</span></tt>, <tt class="docutils literal"><span class="pre">camera</span></tt> and <tt class="docutils literal"><span class="pre">mlab</span></tt> are all available
 and can be scripted with Python code.  For example after running the
 above you can do this:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ telnet localhost 8007
+<div class="highlight-python"><pre>$ telnet localhost 8007
 Trying 127.0.0.1...
 Connected to localhost.
-Escape character is &#39;^]&#39;.
+Escape character is '^]'.
 scene.camera.azimuth(45)
 mlab.clf()
 mlab.test_contour3d()
-scene.camera.zoom(1.5)
-</pre></div>
+scene.camera.zoom(1.5)</pre>
 </div>
 <p>The nice thing about this is that you do not loose any interactivity of
 the application and can continue to use its UI as before, any network
 commands will be simply run on top of this.  To serve on a UDP port use
-the <code class="xref py py-func docutils literal"><span class="pre">serve_udp()</span></code> function.  For more details on the <code class="docutils literal"><span class="pre">server</span></code> module
+the <tt class="xref py py-func docutils literal"><span class="pre">serve_udp()</span></tt> function.  For more details on the <tt class="docutils literal"><span class="pre">server</span></tt> module
 please look at the source code &#8211; it is thoroughly documented.</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
@@ -494,7 +485,7 @@ connected to the server.</p>
 interactive capabilities of the view.  For example you may want to
 rotate the camera continuously, take a snapshot while continuing to
 interact with the Mayavi UI.  To do this one can use the very convenient
-<a class="reference internal" href="auto/mlab_other_functions.html#mayavi.mlab.animate" title="mayavi.mlab.animate"><code class="xref py py-func docutils literal"><span class="pre">animate()</span></code></a> decorator provided with Mayavi.  Here is a simple
+<a class="reference internal" href="auto/mlab_other_functions.html#mayavi.mlab.animate" title="mayavi.mlab.animate"><tt class="xref py py-func docutils literal"><span class="pre">animate()</span></tt></a> decorator provided with Mayavi.  Here is a simple
 example:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
 <span class="nd">@mlab.animate</span>
@@ -508,42 +499,41 @@ example:</p>
 <span class="n">a</span> <span class="o">=</span> <span class="n">anim</span><span class="p">()</span> <span class="c"># Starts the animation.</span>
 </pre></div>
 </div>
-<p>Notice the use of <code class="docutils literal"><span class="pre">yield</span></code> in the above, this is <em>very</em> crucial to this
+<p>Notice the use of <tt class="docutils literal"><span class="pre">yield</span></tt> in the above, this is <em>very</em> crucial to this
 working.  This example will continuously rotate the camera without
 affecting the UI&#8217;s interactivity.  It also pops up a little UI that lets
 you start and stop the animation and change the time interval between
 calls to your function.  For more specialized use you can pass arguments
 to the decorator:</p>
-<div class="highlight-python"><div class="highlight"><pre>from mayavi import mlab
+<div class="highlight-python"><pre>from mayavi import mlab
 @mlab.animate(delay=500, ui=False)
 def anim():
     # ...
 
-a = anim() # Starts the animation without a UI.
-</pre></div>
+a = anim() # Starts the animation without a UI.</pre>
 </div>
-<p>If you don&#8217;t want to import all of <code class="docutils literal"><span class="pre">mlab</span></code>, the animate
+<p>If you don&#8217;t want to import all of <tt class="docutils literal"><span class="pre">mlab</span></tt>, the animate
 decorator is available from:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">mayavi.tools.animator</span> <span class="kn">import</span> <span class="n">animate</span>
 </pre></div>
 </div>
 <p>Note that to start the event loop, <em>i.e.</em> to get the animation running,
-you will need to call <a class="reference internal" href="auto/mlab_other_functions.html#mayavi.mlab.show" title="mayavi.mlab.show"><code class="xref py py-func docutils literal"><span class="pre">show()</span></code></a> if you do not already have a GUI
+you will need to call <a class="reference internal" href="auto/mlab_other_functions.html#mayavi.mlab.show" title="mayavi.mlab.show"><tt class="xref py py-func docutils literal"><span class="pre">show()</span></tt></a> if you do not already have a GUI
 environment running.</p>
-<p>For more details check the documentation of the <a class="reference internal" href="auto/mlab_other_functions.html#mayavi.mlab.animate" title="mayavi.mlab.animate"><code class="xref py py-func docutils literal"><span class="pre">animate()</span></code></a> decorator
-available in the <a class="reference internal" href="auto/mlab_reference.html#mlab-reference"><span>MLab reference</span></a>. For an example using it,
+<p>For more details check the documentation of the <a class="reference internal" href="auto/mlab_other_functions.html#mayavi.mlab.animate" title="mayavi.mlab.animate"><tt class="xref py py-func docutils literal"><span class="pre">animate()</span></tt></a> decorator
+available in the <a class="reference internal" href="auto/mlab_reference.html#mlab-reference"><em>MLab reference</em></a>. For an example using it,
 alongside with the <cite>visual</cite> handy for object-movement animation, see
-<a class="reference internal" href="auto/example_mlab_visual.html#example-mlab-visual"><span>Mlab visual example</span></a>.</p>
+<a class="reference internal" href="auto/example_mlab_visual.html#example-mlab-visual"><em>Mlab visual example</em></a>.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">If you want to change the data of an object in an animation, see
-<a class="reference internal" href="mlab_animating.html#mlab-animating-data"><span>Animating the data</span></a></p>
+<a class="reference internal" href="mlab_animating.html#mlab-animating-data"><em>Animating the data</em></a></p>
 </div>
 <div class="section" id="animating-a-series-of-images">
 <h3>Animating a series of images<a class="headerlink" href="#animating-a-series-of-images" title="Permalink to this headline">¶</a></h3>
 <p>Let&#8217;s say you have a stack of PNG or JPEG files that are numbered
 serially that you want to animate on a Mayavi scene.  Here is a simple
-script (called <code class="docutils literal"><span class="pre">img_movie.py</span></code>):</p>
+script (called <tt class="docutils literal"><span class="pre">img_movie.py</span></tt>):</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c"># img_movie.py</span>
 <span class="kn">from</span> <span class="nn">pyface.timer.api</span> <span class="kn">import</span> <span class="n">Timer</span>
 
@@ -559,130 +549,121 @@ script (called <code class="docutils literal"><span class="pre">img_movie.py</sp
     <span class="n">t</span> <span class="o">=</span> <span class="n">Timer</span><span class="p">(</span><span class="mi">250</span><span class="p">,</span> <span class="n">animator</span><span class="o">.</span><span class="n">next</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>The <code class="docutils literal"><span class="pre">Timer</span></code> class lets you call a function without blocking the
+<p>The <tt class="docutils literal"><span class="pre">Timer</span></tt> class lets you call a function without blocking the
 running user interface.  The first argument is the time after which the
-function is to be called again in milliseconds.  The <code class="docutils literal"><span class="pre">animate</span></code>
+function is to be called again in milliseconds.  The <tt class="docutils literal"><span class="pre">animate</span></tt>
 function is a generator and changes the timestep of the source.  This
 script will animate the stack of images 10 times.  The script animates
 the first data source by default.  This may be changed easily.</p>
 <p>To use this script do this:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ mayavi2 -d your_image000.png -m ImageActor -x img_movie.py
-</pre></div>
+<div class="highlight-python"><pre>$ mayavi2 -d your_image000.png -m ImageActor -x img_movie.py</pre>
 </div>
 </div>
 <div class="section" id="making-movies-from-a-stack-of-images">
 <h3>Making movies from a stack of images<a class="headerlink" href="#making-movies-from-a-stack-of-images" title="Permalink to this headline">¶</a></h3>
 <p>This isn&#8217;t really related to Mayavi but is a useful trick nonetheless.
 Let&#8217;s say you generate a stack of images using Mayavi say of the form
-<code class="docutils literal"><span class="pre">anim%03d.png</span></code> (i.e. <code class="docutils literal"><span class="pre">anim000.png</span></code>, <code class="docutils literal"><span class="pre">anim001.png</span></code> and so on), you
-can make this into a movie.  If you have <code class="docutils literal"><span class="pre">mencoder</span></code> installed try
+<tt class="docutils literal"><span class="pre">anim%03d.png</span></tt> (i.e. <tt class="docutils literal"><span class="pre">anim000.png</span></tt>, <tt class="docutils literal"><span class="pre">anim001.png</span></tt> and so on), you
+can make this into a movie.  If you have <tt class="docutils literal"><span class="pre">mencoder</span></tt> installed try
 this:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ mencoder &quot;mf://anim%03d.png&quot; -mf fps=10 -o anim.avi \
-  -ovc lavc -lavcopts vcodec=msmpeg4v2:vbitrate=500
-</pre></div>
+<div class="highlight-python"><pre>$ mencoder "mf://anim%03d.png" -mf fps=10 -o anim.avi \
+  -ovc lavc -lavcopts vcodec=msmpeg4v2:vbitrate=500</pre>
 </div>
 <p>If you have ffmpeg installed you may try this:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ ffmpeg -f image2 -r 10 -i anim%03d.png -sameq anim.mov -pass 2
-</pre></div>
+<div class="highlight-python"><pre>$ ffmpeg -f image2 -r 10 -i anim%03d.png -sameq anim.mov -pass 2</pre>
 </div>
 </div>
 </div>
 <div class="section" id="scripting-from-the-command-line">
 <h2>Scripting from the command line<a class="headerlink" href="#scripting-from-the-command-line" title="Permalink to this headline">¶</a></h2>
 <p>The Mayavi application allows for very powerful
-<a class="reference internal" href="application.html#command-line-arguments"><span>Command line arguments</span></a> that lets you build a complex
+<a class="reference internal" href="application.html#command-line-arguments"><em>Command line arguments</em></a> that lets you build a complex
 visualization from your shell.  What follow is a bunch of simple
 examples illustrating these.</p>
-<p>The following example creates a <code class="docutils literal"><span class="pre">ParametricSurface</span></code> source and then
+<p>The following example creates a <tt class="docutils literal"><span class="pre">ParametricSurface</span></tt> source and then
 visualizes glyphs on its surface colored red:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ mayavi2 -d ParametricSurface -m Glyph \
--s&quot;glyph.glyph.scale_factor=0.1&quot; \
--s&quot;glyph.color_mode=&#39;no_coloring&#39;&quot; \
--s&quot;actor.property.color = (1,0,0)&quot;
-</pre></div>
+<div class="highlight-python"><pre>$ mayavi2 -d ParametricSurface -m Glyph \
+-s"glyph.glyph.scale_factor=0.1" \
+-s"glyph.color_mode='no_coloring'" \
+-s"actor.property.color = (1,0,0)"</pre>
 </div>
-<p>Note that <code class="docutils literal"><span class="pre">-s&quot;string&quot;</span></code> applies the string on the last object (also
-available as <code class="docutils literal"><span class="pre">last_obj</span></code>), which is the glyph.</p>
+<p>Note that <tt class="docutils literal"><span class="pre">-s&quot;string&quot;</span></tt> applies the string on the last object (also
+available as <tt class="docutils literal"><span class="pre">last_obj</span></tt>), which is the glyph.</p>
 <p>This example turns off coloring of the glyph and changes the glyph to
 display:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ mayavi2 -d ParametricSurface -m Glyph\
--s&quot;glyph.glyph.scale_factor=0.1&quot; \
--s&quot;glyph.color_mode=&#39;no_coloring&#39;&quot; \
--s&quot;glyph.glyph_source.glyph_source = last_obj.glyph.glyph_source.glyph_list[-1]&quot;
-</pre></div>
+<div class="highlight-python"><pre>$ mayavi2 -d ParametricSurface -m Glyph\
+-s"glyph.glyph.scale_factor=0.1" \
+-s"glyph.color_mode='no_coloring'" \
+-s"glyph.glyph_source.glyph_source = last_obj.glyph.glyph_source.glyph_list[-1]"</pre>
 </div>
-<p>Note the use of <code class="docutils literal"><span class="pre">last_obj</span></code> in the above.</p>
+<p>Note the use of <tt class="docutils literal"><span class="pre">last_obj</span></tt> in the above.</p>
 </div>
 <div class="section" id="texture-mapping-actors">
 <h2>Texture mapping actors<a class="headerlink" href="#texture-mapping-actors" title="Permalink to this headline">¶</a></h2>
 <p>Here is a simple example showing how to texture map an iso-surface with
 the data that ships with the Mayavi sources (the data files are in the
 examples directory):</p>
-<div class="highlight-python"><div class="highlight"><pre>$ mayavi2 -d examples/tvtk/images/masonry.jpg \
+<div class="highlight-python"><pre>$ mayavi2 -d examples/tvtk/images/masonry.jpg \
  -d examples/mayavi/data/heart.vti \
  -m IsoSurface \
- -s&quot;actor.mapper.scalar_visibility=False&quot; \
- -s&quot;actor.enable_texture=True&quot;\
- -s&quot;actor.tcoord_generator_mode=&#39;cylinder&#39;&quot;\
- -s&quot;actor.texture_source_object=script.engine.current_scene.children[0]&quot;
-</pre></div>
+ -s"actor.mapper.scalar_visibility=False" \
+ -s"actor.enable_texture=True"\
+ -s"actor.tcoord_generator_mode='cylinder'"\
+ -s"actor.texture_source_object=script.engine.current_scene.children[0]"</pre>
 </div>
 <p>It should be relatively straightforward to change this example to use a
-<code class="docutils literal"><span class="pre">ParametricSurface</span></code> instead and any other image of your choice.
-Notice how the texture image (<code class="docutils literal"><span class="pre">masonry.jpg</span></code>) is set in the last line
+<tt class="docutils literal"><span class="pre">ParametricSurface</span></tt> instead and any other image of your choice.
+Notice how the texture image (<tt class="docutils literal"><span class="pre">masonry.jpg</span></tt>) is set in the last line
 of the above.  The image reader is the first child of the current scene
-and we set it as the <code class="docutils literal"><span class="pre">texture_source_object</span></code> of the isosurface actor.</p>
+and we set it as the <tt class="docutils literal"><span class="pre">texture_source_object</span></tt> of the isosurface actor.</p>
 </div>
 <div class="section" id="shifting-data-and-plotting">
 <h2>Shifting data and plotting<a class="headerlink" href="#shifting-data-and-plotting" title="Permalink to this headline">¶</a></h2>
 <p>Sometimes you need to shift/transform your input data in space and
 visualize that in addition to the original data.  This is useful when
 you&#8217;d like to do different things to the same data and see them on the
-same plot.  This can be done with Mayavi using the <code class="docutils literal"><span class="pre">TransformData</span></code> filter
-for <code class="docutils literal"><span class="pre">StructuredGrid</span></code>, <code class="docutils literal"><span class="pre">PolyData</span></code> and <code class="docutils literal"><span class="pre">UnstructuredGrid</span></code> datasets.
-Here is an example using the <code class="docutils literal"><span class="pre">ParametricSurface</span></code> data source:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ mayavi2 -d ParametricSurface \
+same plot.  This can be done with Mayavi using the <tt class="docutils literal"><span class="pre">TransformData</span></tt> filter
+for <tt class="docutils literal"><span class="pre">StructuredGrid</span></tt>, <tt class="docutils literal"><span class="pre">PolyData</span></tt> and <tt class="docutils literal"><span class="pre">UnstructuredGrid</span></tt> datasets.
+Here is an example using the <tt class="docutils literal"><span class="pre">ParametricSurface</span></tt> data source:</p>
+<div class="highlight-python"><pre>$ mayavi2 -d ParametricSurface \
   -m Outline -m Surface \
-  -f TransformData -s &quot;transform.translate(1,1,1)&quot; \
-  -s &quot;widget.set_transform(last_obj.transform)&quot; \
-  -m Outline -m Surface
-</pre></div>
+  -f TransformData -s "transform.translate(1,1,1)" \
+  -s "widget.set_transform(last_obj.transform)" \
+  -m Outline -m Surface</pre>
 </div>
-<p>If you have an <code class="docutils literal"><span class="pre">ImageData</span></code> dataset then you can change the origin,
-spacing and extents alone by using the <code class="docutils literal"><span class="pre">ImageChangeInformation</span></code>
+<p>If you have an <tt class="docutils literal"><span class="pre">ImageData</span></tt> dataset then you can change the origin,
+spacing and extents alone by using the <tt class="docutils literal"><span class="pre">ImageChangeInformation</span></tt>
 filter.  Here is a simple example with the standard Mayavi image data:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ mayavi2 -d examples/mayavi/data/heart.vti -m Outline \
+<div class="highlight-python"><pre>$ mayavi2 -d examples/mayavi/data/heart.vti -m Outline \
 -m ImagePlaneWidget \
 -f ImageChangeInformation \
--s &quot;filter.origin_translation=(20,20,20)&quot; \
--m Outline -m ImagePlaneWidget
-</pre></div>
+-s "filter.origin_translation=(20,20,20)" \
+-m Outline -m ImagePlaneWidget</pre>
 </div>
 </div>
 <div class="section" id="using-the-userdefined-filter">
-<span id="using-userdefined-filter"></span><h2>Using the <code class="docutils literal"><span class="pre">UserDefined</span></code> filter<a class="headerlink" href="#using-the-userdefined-filter" title="Permalink to this headline">¶</a></h2>
-<p>The <code class="docutils literal"><span class="pre">UserDefined</span></code> filter in Mayavi lets you wrap around existing VTK
+<span id="using-userdefined-filter"></span><h2>Using the <tt class="docutils literal"><span class="pre">UserDefined</span></tt> filter<a class="headerlink" href="#using-the-userdefined-filter" title="Permalink to this headline">¶</a></h2>
+<p>The <tt class="docutils literal"><span class="pre">UserDefined</span></tt> filter in Mayavi lets you wrap around existing VTK
 filters easily.  Here are a few examples:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ mayavi2 -d ParametricSurface -s &quot;function=&#39;dini&#39;&quot; \
+<div class="highlight-python"><pre>$ mayavi2 -d ParametricSurface -s "function='dini'" \
 -f UserDefined:GeometryFilter \
--s &quot;filter.extent_clipping=True&quot; \
--s &quot;filter.extent = [-1,1,-1,1,0,5]&quot; \
+-s "filter.extent_clipping=True" \
+-s "filter.extent = [-1,1,-1,1,0,5]" \
 -f UserDefined:CleanPolyData \
 -m Surface \
--s &quot;actor.property.representation = &#39;p&#39;&quot; \
--s &quot;actor.property.point_size=2&quot;
-</pre></div>
+-s "actor.property.representation = 'p'" \
+-s "actor.property.point_size=2"</pre>
 </div>
-<p>This one uses a <code class="docutils literal"><span class="pre">tvtk.GeometryFilter</span></code> to perform extent based clipping of
-the parametric surface generated.  Note the specification of the <code class="docutils literal"><span class="pre">-f</span>
-<span class="pre">UserDefined:GeometryFilter</span></code>.  This data is then cleaned using the
-<code class="docutils literal"><span class="pre">tvtk.CleanPolyData</span></code> filter.</p>
-<p>Under <a class="reference internal" href="mlab.html#simple-scripting-with-mlab"><span>mlab</span></a>, the <cite>Userdefined</cite> can be
+<p>This one uses a <tt class="docutils literal"><span class="pre">tvtk.GeometryFilter</span></tt> to perform extent based clipping of
+the parametric surface generated.  Note the specification of the <tt class="docutils literal"><span class="pre">-f</span>
+<span class="pre">UserDefined:GeometryFilter</span></tt>.  This data is then cleaned using the
+<tt class="docutils literal"><span class="pre">tvtk.CleanPolyData</span></tt> filter.</p>
+<p>Under <a class="reference internal" href="mlab.html#simple-scripting-with-mlab"><em>mlab</em></a>, the <cite>Userdefined</cite> can be
 used to wrap eg a <cite>GeometryFilter</cite> VTK filter with:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">filtered_obj</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">user_defined</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="s">&#39;GeometryFilter&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>With <a class="reference internal" href="mlab.html#simple-scripting-with-mlab"><span>mlab</span></a>, the <cite>user_defined</cite>
+<p>With <a class="reference internal" href="mlab.html#simple-scripting-with-mlab"><em>mlab</em></a>, the <cite>user_defined</cite>
 function can either take as a filter argument the name of the VTK filter
 to be used, or an already-instanciated instance of the filter.</p>
 <div class="admonition note">
@@ -691,8 +672,8 @@ to be used, or an already-instanciated instance of the filter.</p>
 TVTK object can be accessed as the <cite>filter</cite> attribute of the Mayavi
 filter object.</p>
 </div>
-<p>The <a class="reference internal" href="auto/example_image_cursor_filter.html#example-image-cursor-filter"><span>Image cursor filter example</span></a> gives a full example of using the
-UserDefined filter. The <a class="reference internal" href="auto/example_tvtk_segmentation.html#example-tvtk-segmentation"><span>Tvtk segmentation example</span></a> is a full
+<p>The <a class="reference internal" href="auto/example_image_cursor_filter.html#example-image-cursor-filter"><em>Image cursor filter example</em></a> gives a full example of using the
+UserDefined filter. The <a class="reference internal" href="auto/example_tvtk_segmentation.html#example-tvtk-segmentation"><em>Tvtk segmentation example</em></a> is a full
 example of building a complex VTK pipeline with a heavy use of the
 UserDefined filter.</p>
 </div>
@@ -703,13 +684,13 @@ will have to create different Mayavi data sources, as a data source can
 belong on to one scene. However, this does not mean that you need to copy
 the data, or recreate the source from scratch. The trick is to create a
 second Mayavi data source pointing to the same underlying VTK dataset,
-and attach it to another scene (see <a class="reference internal" href="data.html#data-structures-used-by-mayavi"><span>Data representation in Mayavi</span></a>
+and attach it to another scene (see <a class="reference internal" href="data.html#data-structures-used-by-mayavi"><em>Data representation in Mayavi</em></a>
 for the difference between a Mayavi source and a VTK dataset).</p>
 <div class="section" id="using-mlab">
 <h3>Using mlab<a class="headerlink" href="#using-mlab" title="Permalink to this headline">¶</a></h3>
-<p>Every visualization object returned by <a class="reference internal" href="mlab.html#simple-scripting-with-mlab"><span>mlab</span></a> has a <cite>mlab_source</cite> attribute, which
-exposes the VTK dataset as <cite>dataset</cite>. In addition, the <a class="reference internal" href="mlab_pipeline.html#controlling-the-pipeline-with-mlab-scripts"><span>mlab
-pipeline</span></a> functions for
+<p>Every visualization object returned by <a class="reference internal" href="mlab.html#simple-scripting-with-mlab"><em>mlab</em></a> has a <cite>mlab_source</cite> attribute, which
+exposes the VTK dataset as <cite>dataset</cite>. In addition, the <a class="reference internal" href="mlab_pipeline.html#controlling-the-pipeline-with-mlab-scripts"><em>mlab
+pipeline</em></a> functions for
 adding modules know how to use raw VTK datasets. Thus exposing the
 dataset in a new figure can simply by done by feeding the
 <cite>mlab_source.dataset</cite> attribute of a visualization object created by mlab
@@ -732,7 +713,7 @@ rather than a script:</p>
 <span class="n">ipw</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">image_plane_widget</span><span class="p">(</span><span class="n">ctr</span><span class="o">.</span><span class="n">mlab_source</span><span class="o">.</span><span class="n">dataset</span><span class="p">,</span> <span class="n">figure</span><span class="o">=</span><span class="n">new_fig</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>The <a class="reference internal" href="auto/example_volume_slicer.html#example-volume-slicer"><span>Volume slicer example</span></a> shows a complex dialog exposing the same
+<p>The <a class="reference internal" href="auto/example_volume_slicer.html#example-volume-slicer"><em>Volume slicer example</em></a> shows a complex dialog exposing the same
 data through different views via <cite>mlab.pipeline</cite>.</p>
 </div>
 <div class="section" id="using-the-core-mayavi-api">
@@ -793,8 +774,8 @@ complete on Ipython, on <cite>tvtk.InteractorStyle</cite>.</p>
 <p>You&#8217;ve just created a nice Mayavi/mlab script and now want to generate
 an animation or a series of images.  You realize that it is way too slow
 rendering the images and takes ages to finish.  There are two simple
-ways to speed up the rendering.  Let&#8217;s assume that <code class="docutils literal"><span class="pre">obj</span></code> is any Mayavi
-pipeline object that has a <code class="docutils literal"><span class="pre">scene</span></code> attribute:</p>
+ways to speed up the rendering.  Let&#8217;s assume that <tt class="docutils literal"><span class="pre">obj</span></tt> is any Mayavi
+pipeline object that has a <tt class="docutils literal"><span class="pre">scene</span></tt> attribute:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">obj</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">disable_render</span> <span class="o">=</span> <span class="bp">True</span>
 <span class="c"># Do all your scripting that takes ages.</span>
 <span class="c"># ...</span>
@@ -823,7 +804,7 @@ images.</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="index.html">
               <img class="logo" src="_static/mayavi-logo.png" alt="Logo"/>
@@ -856,7 +837,7 @@ images.</p>
 <li><a class="reference internal" href="#scripting-from-the-command-line">Scripting from the command line</a></li>
 <li><a class="reference internal" href="#texture-mapping-actors">Texture mapping actors</a></li>
 <li><a class="reference internal" href="#shifting-data-and-plotting">Shifting data and plotting</a></li>
-<li><a class="reference internal" href="#using-the-userdefined-filter">Using the <code class="docutils literal"><span class="pre">UserDefined</span></code> filter</a></li>
+<li><a class="reference internal" href="#using-the-userdefined-filter">Using the <tt class="docutils literal"><span class="pre">UserDefined</span></tt> filter</a></li>
 <li><a class="reference internal" href="#sharing-the-same-data-between-scenes">Sharing the same data between scenes</a><ul>
 <li><a class="reference internal" href="#using-mlab">Using mlab</a></li>
 <li><a class="reference internal" href="#using-the-core-mayavi-api">Using the core Mayavi API</a></li>
@@ -874,15 +855,13 @@ images.</p>
   <h4>Next topic</h4>
   <p class="topless"><a href="misc.html"
                         title="next chapter">Miscellaneous</a></p>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="_sources/tips.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/tips.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
 
-<div id="searchbox" style="display: none" role="search">
+<div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
@@ -927,20 +906,25 @@ images.</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="footer">
-      &copy;2008-2015, Prabhu Ramachandran, Gaël Varoquaux, Deepak Surti.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.4</a>
-      
-      |
-      <a href="_sources/tips.txt"
-          rel="nofollow">Page source</a></li>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="misc.html" title="Miscellaneous"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="building_applications.html" title="Building applications using Mayavi"
+             >previous</a> |</li>
+        <li><a href="index.html">mayavi 4.4.2 documentation</a> &raquo;</li> 
+      </ul>
     </div>
-
-    
-
-    
+    <div class="footer">
+        &copy; Copyright 2008-2015, Enthought Inc..
+      Last updated on Jun 11, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
   </body>
 </html>

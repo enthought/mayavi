@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Case studies of some visualizations &mdash; mayavi 4.4.1 documentation</title>
+    <title>Case studies of some visualizations &mdash; mayavi 4.4.2 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '4.4.1',
+        VERSION:     '4.4.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.4.1 documentation" href="index.html" />
+    <link rel="top" title="mayavi 4.4.2 documentation" href="index.html" />
 <style type="text/css">
   body {
     /* Very bottom copyright, etc. info */
@@ -55,21 +55,21 @@
 </style>
 
   </head>
-  <body role="document">
-    <div class="related" role="navigation" aria-label="related navigation">
+  <body>
+    <div class="related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.4.1 documentation</a> &raquo;</li> 
+        <li><a href="index.html">mayavi 4.4.2 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body" role="main">
+          <div class="body">
             
   <div class="section" id="case-studies-of-some-visualizations">
 <span id="mlab-case-studies"></span><h1>Case studies of some visualizations<a class="headerlink" href="#case-studies-of-some-visualizations" title="Permalink to this headline">¶</a></h1>
@@ -87,7 +87,7 @@ following field:</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Iso-Surfaces:</th><td class="field-body"><p class="first">To display iso surfaces of the field, the simplest solution is
-simply to use the <cite>mlab</cite> <a class="reference internal" href="auto/mlab_helper_functions.html#mayavi.mlab.contour3d" title="mayavi.mlab.contour3d"><code class="xref py py-func docutils literal"><span class="pre">contour3d()</span></code></a> function:</p>
+simply to use the <cite>mlab</cite> <a class="reference internal" href="auto/mlab_helper_functions.html#mayavi.mlab.contour3d" title="mayavi.mlab.contour3d"><tt class="xref py py-func docutils literal"><span class="pre">contour3d()</span></tt></a> function:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">mlab</span><span class="o">.</span><span class="n">contour3d</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -99,7 +99,7 @@ ones. As a result, quite often only one iso-surface can be visible.</p>
 <tr class="field-even field"><th class="field-name" colspan="2">Volume rendering:</th></tr>
 <tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first">Volume rendering is an advanced technique in which each voxel is
 given a partly transparent color. This can be achieved with
-<cite>mlab.pipeline</cite> using the <a class="reference internal" href="auto/mlab_pipeline_sources.html#mayavi.tools.pipeline.scalar_field" title="mayavi.tools.pipeline.scalar_field"><code class="xref py py-func docutils literal"><span class="pre">scalar_field()</span></code></a> source, and the
+<cite>mlab.pipeline</cite> using the <a class="reference internal" href="auto/mlab_pipeline_sources.html#mayavi.tools.pipeline.scalar_field" title="mayavi.tools.pipeline.scalar_field"><tt class="xref py py-func docutils literal"><span class="pre">scalar_field()</span></tt></a> source, and the
 <cite>volume</cite> module:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">volume</span><span class="p">(</span><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">scalar_field</span><span class="p">(</span><span class="n">s</span><span class="p">))</span>
 </pre></div>
@@ -244,7 +244,7 @@ object&#8217;s property dialog.</p>
 have an interesting meaning. For instance this can be interpreted as a
 trajectory in hydrodynamics, or field lines in electro-magnetism.
 We can display the flow lines originating for a certain seed surface
-using the <cite>streamline</cite> module, or the mlab <a class="reference internal" href="auto/mlab_helper_functions.html#mayavi.mlab.flow" title="mayavi.mlab.flow"><code class="xref py py-func docutils literal"><span class="pre">flow()</span></code></a> function,
+using the <cite>streamline</cite> module, or the mlab <a class="reference internal" href="auto/mlab_helper_functions.html#mayavi.mlab.flow" title="mayavi.mlab.flow"><tt class="xref py py-func docutils literal"><span class="pre">flow()</span></tt></a> function,
 which relies on <cite>streamline</cite> internally:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">flow</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">flow</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">seed_scale</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
                           <span class="n">seed_resolution</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
@@ -296,7 +296,7 @@ visualization made by combining the different tools above:</p>
 to create visualization objects, it is important to remember that
 Mayavi is an interactive program, and that the properties of these
 objects can be modified interactively, as described in
-<a class="reference internal" href="mlab_changing_object_looks.html#mlab-changing-objects-interactively"><span>Changing object properties interactively</span></a>. It is often
+<a class="reference internal" href="mlab_changing_object_looks.html#mlab-changing-objects-interactively"><em>Changing object properties interactively</em></a>. It is often
 impossible to choose the best parameters for a visualization before
 hand. Colors, contour values, colormap, view angle, etc... should be
 chosen interactively. If reproducibiles are required, the chosen
@@ -309,9 +309,9 @@ objects are very rich, as they are built from VTK objects. It can be
 hard to find the right attribute to modify when exploring them, or in
 the VTK documentation, thus the easiest way is to modify them
 interactively using the pipeline view dialog and use
-the <a class="reference internal" href="mlab_changing_object_looks.html#record-feature"><span>record feature</span></a> to find out the
+the <a class="reference internal" href="mlab_changing_object_looks.html#record-feature"><em>record feature</em></a> to find out the
 corresponding lines of code. See
-<a class="reference internal" href="pipeline.html#organisation-mayavi-visualisations"><span>Organisation of Mayavi visualizations: the pipeline</span></a> to understand better the
+<a class="reference internal" href="pipeline.html#organisation-mayavi-visualisations"><em>Organisation of Mayavi visualizations: the pipeline</em></a> to understand better the
 link between the lines of code generated by the record feature and
 <cite>mlab</cite>.
 .</p>
@@ -331,7 +331,7 @@ approach to mixing by chaotic advection Phys. Fluids, 1995, 7, 2587</td></tr>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="index.html">
               <img class="logo" src="_static/mayavi-logo.png" alt="Logo"/>
@@ -345,15 +345,13 @@ approach to mixing by chaotic advection Phys. Fluids, 1995, 7, 2587</td></tr>
 </li>
 </ul>
 
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="_sources/mlab_case_studies.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/mlab_case_studies.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
 
-<div id="searchbox" style="display: none" role="search">
+<div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
@@ -398,20 +396,19 @@ approach to mixing by chaotic advection Phys. Fluids, 1995, 7, 2587</td></tr>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="footer">
-      &copy;2008-2015, Prabhu Ramachandran, Gaël Varoquaux, Deepak Surti.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.4</a>
-      
-      |
-      <a href="_sources/mlab_case_studies.txt"
-          rel="nofollow">Page source</a></li>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li><a href="index.html">mayavi 4.4.2 documentation</a> &raquo;</li> 
+      </ul>
     </div>
-
-    
-
-    
+    <div class="footer">
+        &copy; Copyright 2008-2015, Enthought Inc..
+      Last updated on Jun 11, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
   </body>
 </html>

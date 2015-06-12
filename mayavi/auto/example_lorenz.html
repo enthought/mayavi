@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Lorenz example &mdash; mayavi 4.4.1 documentation</title>
+    <title>Lorenz example &mdash; mayavi 4.4.2 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.4.1',
+        VERSION:     '4.4.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.4.1 documentation" href="../index.html" />
+    <link rel="top" title="mayavi 4.4.2 documentation" href="../index.html" />
     <link rel="up" title="Example gallery" href="examples.html" />
     <link rel="next" title="Tvtk in mayavi example" href="example_tvtk_in_mayavi.html" />
     <link rel="prev" title="Spherical harmonics example" href="example_spherical_harmonics.html" />
@@ -58,8 +58,8 @@
 </style>
 
   </head>
-  <body role="document">
-    <div class="related" role="navigation" aria-label="related navigation">
+  <body>
+    <div class="related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -71,15 +71,15 @@
         <li class="right" >
           <a href="example_spherical_harmonics.html" title="Spherical harmonics example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.4.1 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
+        <li><a href="../index.html">mayavi 4.4.2 documentation</a> &raquo;</li>
+          <li><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body" role="main">
+          <div class="body">
             
   <div class="section" id="lorenz-example">
 <span id="example-lorenz"></span><h1>Lorenz example<a class="headerlink" href="#lorenz-example" title="Permalink to this headline">¶</a></h1>
@@ -87,12 +87,12 @@
 equations along with the z-nullcline.</p>
 <p>The vector field of the Lorenz system flow is integrated to display
 trajectories using mlab&#8217;s flow function:
-<a class="reference internal" href="mlab_helper_functions.html#mayavi.mlab.flow" title="mayavi.mlab.flow"><code class="xref py py-func docutils literal"><span class="pre">mayavi.mlab.flow()</span></code></a>.</p>
+<a class="reference internal" href="mlab_helper_functions.html#mayavi.mlab.flow" title="mayavi.mlab.flow"><tt class="xref py py-func docutils literal"><span class="pre">mayavi.mlab.flow()</span></tt></a>.</p>
 <p>The z-nullcline is plotted by extracting the z component of the vector
 field data source with the ExtractVectorComponent filter, and applying
 an IsoSurface module on this scalar component.</p>
 <img alt="../_images/example_lorenz.jpg" class="align-center" src="../_images/example_lorenz.jpg" />
-<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/lorenz.py"><code class="xref download docutils literal"><span class="pre">lorenz.py</span></code></a></p>
+<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/lorenz.py"><tt class="xref download docutils literal"><span class="pre">lorenz.py</span></tt></a></p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c"># Author: Prabhu Ramachandran &lt;prabhu@aero.iitb.ac.in&gt;</span>
 <span class="c"># Copyright (c) 2008-2009, Enthought, Inc.</span>
 <span class="c"># License: BSD Style.</span>
@@ -143,7 +143,7 @@ an IsoSurface module on this scalar component.</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="../index.html">
               <img class="logo" src="../_static/mayavi-logo.png" alt="Logo"/>
@@ -154,15 +154,13 @@ an IsoSurface module on this scalar component.</p>
   <h4>Next topic</h4>
   <p class="topless"><a href="example_tvtk_in_mayavi.html"
                         title="next chapter">Tvtk in mayavi example</a></p>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../_sources/auto/example_lorenz.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/auto/example_lorenz.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
 
-<div id="searchbox" style="display: none" role="search">
+<div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
       <input type="text" name="q" />
@@ -207,20 +205,26 @@ an IsoSurface module on this scalar component.</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="footer">
-      &copy;2008-2015, Prabhu Ramachandran, Gaël Varoquaux, Deepak Surti.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.4</a>
-      
-      |
-      <a href="../_sources/auto/example_lorenz.txt"
-          rel="nofollow">Page source</a></li>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="example_tvtk_in_mayavi.html" title="Tvtk in mayavi example"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="example_spherical_harmonics.html" title="Spherical harmonics example"
+             >previous</a> |</li>
+        <li><a href="../index.html">mayavi 4.4.2 documentation</a> &raquo;</li>
+          <li><a href="examples.html" >Example gallery</a> &raquo;</li> 
+      </ul>
     </div>
-
-    
-
-    
+    <div class="footer">
+        &copy; Copyright 2008-2015, Enthought Inc..
+      Last updated on Jun 11, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
   </body>
 </html>

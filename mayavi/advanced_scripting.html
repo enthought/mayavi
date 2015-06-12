@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Advanced Scripting with Mayavi &mdash; mayavi 4.4.1 documentation</title>
+    <title>Advanced Scripting with Mayavi &mdash; mayavi 4.4.2 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '4.4.1',
+        VERSION:     '4.4.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.4.1 documentation" href="index.html" />
+    <link rel="top" title="mayavi 4.4.2 documentation" href="index.html" />
     <link rel="up" title="Advanced use of Mayavi" href="advanced_use.html" />
     <link rel="next" title="Building applications using Mayavi" href="building_applications.html" />
     <link rel="prev" title="Objects populating the Mayavi pipeline" href="mayavi_objects.html" />
@@ -58,8 +58,8 @@
 </style>
 
   </head>
-  <body role="document">
-    <div class="related" role="navigation" aria-label="related navigation">
+  <body>
+    <div class="related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -71,19 +71,19 @@
         <li class="right" >
           <a href="mayavi_objects.html" title="Objects populating the Mayavi pipeline"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.4.1 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="advanced_use.html" accesskey="U">Advanced use of Mayavi</a> &raquo;</li> 
+        <li><a href="index.html">mayavi 4.4.2 documentation</a> &raquo;</li>
+          <li><a href="advanced_use.html" accesskey="U">Advanced use of Mayavi</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body" role="main">
+          <div class="body">
             
   <div class="section" id="advanced-scripting-with-mayavi">
 <span id="id1"></span><h1>Advanced Scripting with Mayavi<a class="headerlink" href="#advanced-scripting-with-mayavi" title="Permalink to this headline">¶</a></h1>
-<p>As elaborated in the <a class="reference internal" href="overview.html#an-overview-of-mayavi"><span>An overview of Mayavi</span></a> section, Mayavi can be
+<p>As elaborated in the <a class="reference internal" href="overview.html#an-overview-of-mayavi"><em>An overview of Mayavi</em></a> section, Mayavi can be
 scripted from Python in order to visualize data.  Mayavi was designed
 from the ground up to be highly scriptable.  Everything that can be done
 from the user interface can be achieved using Python scripts. Scripting
@@ -95,10 +95,10 @@ powerful visualization library.</p>
 build an application, but looking for quick ways to get your
 visualization done with simple code you may want to check out Mayavi&#8217;s
 <cite>mlab</cite> module.  This is described in more detail in the
-<a class="reference internal" href="mlab.html#simple-scripting-with-mlab"><span>mlab: Python scripting for 3D plotting</span></a> section.  In addition to this Mayavi
+<a class="reference internal" href="mlab.html#simple-scripting-with-mlab"><em>mlab: Python scripting for 3D plotting</em></a> section.  In addition to this Mayavi
 features an automatic script recording feature that automatically writes
 Python scripts for you as you use the GUI.  This is described in more
-detail in the <a class="reference internal" href="application.html#automatic-script-generation"><span>Recording Mayavi actions to a script</span></a> chapter.  This is
+detail in the <a class="reference internal" href="application.html#automatic-script-generation"><em>Recording Mayavi actions to a script</em></a> chapter.  This is
 probably the easiest and most powerful way to script Mayavi.</p>
 <p>However, to best understand how to script Mayavi, a reasonable
 understanding of the Mayavi internals is necessary.  The following
@@ -114,17 +114,17 @@ Trust me, your efforts learning Traits will not be wasted!</p>
 <h2>Design Overview: Mayavi as a visualization framework<a class="headerlink" href="#design-overview-mayavi-as-a-visualization-framework" title="Permalink to this headline">¶</a></h2>
 <p>This section provides a brief introduction to Mayavi&#8217;s internal
 architecture.</p>
-<p>The &#8220;big picture&#8221; of a visualization in Mayavi is that an <code class="docutils literal"><span class="pre">Engine</span></code>
-(<code class="docutils literal"><span class="pre">mayavi.engine.Engine</span></code>) object manages the entire
-visualization.  The <code class="docutils literal"><span class="pre">Engine</span></code> manages a collection of <code class="docutils literal"><span class="pre">Scene</span></code>
-(<code class="docutils literal"><span class="pre">mayavi.core.scene.Scene</span></code>) objects.  In each <code class="docutils literal"><span class="pre">Scene</span></code>, a
-user may have created any number of <code class="docutils literal"><span class="pre">Source</span></code>
-(<code class="docutils literal"><span class="pre">mayavi.core.source.Source</span></code>) objects.  A <code class="docutils literal"><span class="pre">Source</span></code>
-object can further contain any number of <code class="docutils literal"><span class="pre">Filter</span></code>
-(<code class="docutils literal"><span class="pre">mayavi.core.filter.Filter</span></code>) or <code class="docutils literal"><span class="pre">ModuleManager</span></code>
-(<code class="docutils literal"><span class="pre">mayavi.core.module_manager.ModuleManager</span></code>) objects.  A
-<code class="docutils literal"><span class="pre">Filter</span></code> may contain either other <code class="docutils literal"><span class="pre">filters</span></code> or <code class="docutils literal"><span class="pre">ModuleManagers</span></code>.  A
-<code class="docutils literal"><span class="pre">ModuleManager</span></code> manages any number of <code class="docutils literal"><span class="pre">Modules</span></code>.  The figure below
+<p>The &#8220;big picture&#8221; of a visualization in Mayavi is that an <tt class="docutils literal"><span class="pre">Engine</span></tt>
+(<tt class="docutils literal"><span class="pre">mayavi.engine.Engine</span></tt>) object manages the entire
+visualization.  The <tt class="docutils literal"><span class="pre">Engine</span></tt> manages a collection of <tt class="docutils literal"><span class="pre">Scene</span></tt>
+(<tt class="docutils literal"><span class="pre">mayavi.core.scene.Scene</span></tt>) objects.  In each <tt class="docutils literal"><span class="pre">Scene</span></tt>, a
+user may have created any number of <tt class="docutils literal"><span class="pre">Source</span></tt>
+(<tt class="docutils literal"><span class="pre">mayavi.core.source.Source</span></tt>) objects.  A <tt class="docutils literal"><span class="pre">Source</span></tt>
+object can further contain any number of <tt class="docutils literal"><span class="pre">Filter</span></tt>
+(<tt class="docutils literal"><span class="pre">mayavi.core.filter.Filter</span></tt>) or <tt class="docutils literal"><span class="pre">ModuleManager</span></tt>
+(<tt class="docutils literal"><span class="pre">mayavi.core.module_manager.ModuleManager</span></tt>) objects.  A
+<tt class="docutils literal"><span class="pre">Filter</span></tt> may contain either other <tt class="docutils literal"><span class="pre">filters</span></tt> or <tt class="docutils literal"><span class="pre">ModuleManagers</span></tt>.  A
+<tt class="docutils literal"><span class="pre">ModuleManager</span></tt> manages any number of <tt class="docutils literal"><span class="pre">Modules</span></tt>.  The figure below
 shows this hierarchy in a graphical form.</p>
 <img alt="Illustration of the various objects in the Mayavi pipeline." src="_images/m2_big_picture.png" />
 <p><em>Illustration of the various objects in the Mayavi pipeline.</em></p>
@@ -138,7 +138,7 @@ source code of a class can be view in IPython by entering <cite>Class??</cite>).
 <p>When scripting Mayavi to create or modify a visualization, one mainly
 deals with adding or removing objects to the engine, or modifying their
 properties. We can thus rewrite the example of building a pipeline with
-mlab visited in <a class="reference internal" href="mlab_pipeline.html#controlling-the-pipeline-with-mlab-scripts"><span>Assembling pipelines with mlab</span></a> by
+mlab visited in <a class="reference internal" href="mlab_pipeline.html#controlling-the-pipeline-with-mlab-scripts"><em>Assembling pipelines with mlab</em></a> by
 explicit calls to the engine:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
@@ -170,22 +170,22 @@ as opposed to a script.</p>
 </div>
 <div class="section" id="life-cycle-of-the-different-objects">
 <h3>Life-cycle of the different objects<a class="headerlink" href="#life-cycle-of-the-different-objects" title="Permalink to this headline">¶</a></h3>
-<p>All objects in the Mayavi pipeline feature <code class="docutils literal"><span class="pre">start</span></code> and <code class="docutils literal"><span class="pre">stop</span></code>
+<p>All objects in the Mayavi pipeline feature <tt class="docutils literal"><span class="pre">start</span></tt> and <tt class="docutils literal"><span class="pre">stop</span></tt>
 methods.  The reasoning for this is that any object in Mayavi is not
 usable (i.e. it may not provide any outputs) unless it has been
-started.  Similarly the <code class="docutils literal"><span class="pre">stop</span></code> method &#8220;deactivates&#8221; the object.
+started.  Similarly the <tt class="docutils literal"><span class="pre">stop</span></tt> method &#8220;deactivates&#8221; the object.
 This is done because Mayavi is essentially driving VTK objects
 underneath.  These objects require inputs in order to do anything
 useful.  Thus, an object that is not connected to the pipeline cannot
-be used.  For example, consider an <code class="docutils literal"><span class="pre">IsoSurface</span></code> module.  It requires
+be used.  For example, consider an <tt class="docutils literal"><span class="pre">IsoSurface</span></tt> module.  It requires
 some data in order to contour anything.  Thus, the module in isolation
 is completely useless.  It is usable only when it is added to the
 Mayavi pipeline.  When an object is added to the pipeline, its inputs
-are setup and its <code class="docutils literal"><span class="pre">start</span></code> method is called automatically.  When the
-object is removed from the pipeline its <code class="docutils literal"><span class="pre">stop</span></code> method is called
+are setup and its <tt class="docutils literal"><span class="pre">start</span></tt> method is called automatically.  When the
+object is removed from the pipeline its <tt class="docutils literal"><span class="pre">stop</span></tt> method is called
 automatically.  Note that if you are looking to remove an object from
-the mayavi pipeline, you can use the <code class="docutils literal"><span class="pre">remove</span></code> method to do so.  For
-example (the following will require that you use <code class="docutils literal"><span class="pre">ipython</span> <span class="pre">-wthread</span></code> or
+the mayavi pipeline, you can use the <tt class="docutils literal"><span class="pre">remove</span></tt> method to do so.  For
+example (the following will require that you use <tt class="docutils literal"><span class="pre">ipython</span> <span class="pre">-wthread</span></tt> or
 <cite>ipython &#8211;gui=wx</cite>):</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">mayavi.api</span> <span class="kn">import</span> <span class="n">Engine</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">e</span> <span class="o">=</span> <span class="n">Engine</span><span class="p">()</span>
@@ -197,86 +197,82 @@ example (the following will require that you use <code class="docutils literal">
 <span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span> <span class="c"># Removes p from the engine.</span>
 </pre></div>
 </div>
-<p>Apart from the <code class="docutils literal"><span class="pre">Engine</span></code> object, all other objects in the Mayavi
-pipeline feature a <code class="docutils literal"><span class="pre">scene</span></code> trait which refers to the current
-<code class="docutils literal"><span class="pre">tvtk.pyface.tvtk_scene.TVTKScene</span></code> instance that the
-object is associated with.  The objects also feature an <code class="docutils literal"><span class="pre">add_child</span></code>
+<p>Apart from the <tt class="docutils literal"><span class="pre">Engine</span></tt> object, all other objects in the Mayavi
+pipeline feature a <tt class="docutils literal"><span class="pre">scene</span></tt> trait which refers to the current
+<tt class="docutils literal"><span class="pre">tvtk.pyface.tvtk_scene.TVTKScene</span></tt> instance that the
+object is associated with.  The objects also feature an <tt class="docutils literal"><span class="pre">add_child</span></tt>
 method that lets one build up the pipeline by adding &#8220;children&#8221;
-objects.  The <code class="docutils literal"><span class="pre">add_child</span></code> method is &#8220;intelligent&#8221; and will try to
+objects.  The <tt class="docutils literal"><span class="pre">add_child</span></tt> method is &#8220;intelligent&#8221; and will try to
 appropriately add the child in the right place based on the context.</p>
 </div>
 </div>
 <div class="section" id="scripting-the-mayavi2-application">
-<h2>Scripting the <code class="docutils literal"><span class="pre">mayavi2</span></code> application<a class="headerlink" href="#scripting-the-mayavi2-application" title="Permalink to this headline">¶</a></h2>
-<p>The <code class="docutils literal"><span class="pre">mayavi2</span></code> application is implemented in the
-<code class="docutils literal"><span class="pre">mayavi.scripts.mayavi2</span></code> module (look at the
-<code class="docutils literal"><span class="pre">mayavi2.py</span></code> file and not the <code class="docutils literal"><span class="pre">mayavi2</span></code> script).  This code
+<h2>Scripting the <tt class="docutils literal"><span class="pre">mayavi2</span></tt> application<a class="headerlink" href="#scripting-the-mayavi2-application" title="Permalink to this headline">¶</a></h2>
+<p>The <tt class="docutils literal"><span class="pre">mayavi2</span></tt> application is implemented in the
+<tt class="docutils literal"><span class="pre">mayavi.scripts.mayavi2</span></tt> module (look at the
+<tt class="docutils literal"><span class="pre">mayavi2.py</span></tt> file and not the <tt class="docutils literal"><span class="pre">mayavi2</span></tt> script).  This code
 handles the command line argument parsing and runs the application.</p>
-<p><code class="docutils literal"><span class="pre">mayavi2</span></code> is an <a class="reference external" href="http://code.enthought.com/projects/envisage">Envisage</a> application.  It starts the Envisage
-application in its <code class="docutils literal"><span class="pre">main</span></code> method.  The code for this is in the
-<code class="docutils literal"><span class="pre">mayavi.plugins.app</span></code> module.  Mayavi uses several envisage plugins
+<p><tt class="docutils literal"><span class="pre">mayavi2</span></tt> is an <a class="reference external" href="http://code.enthought.com/projects/envisage">Envisage</a> application.  It starts the Envisage
+application in its <tt class="docutils literal"><span class="pre">main</span></tt> method.  The code for this is in the
+<tt class="docutils literal"><span class="pre">mayavi.plugins.app</span></tt> module.  Mayavi uses several envisage plugins
 to build up its functionality.  These plugins are defined in the
-<code class="docutils literal"><span class="pre">mayavi.plugins.app</span></code> module.  In this module there
-are two functions that return a list of default plugins, <code class="docutils literal"><span class="pre">get_plugins</span></code> and the
-<code class="docutils literal"><span class="pre">get_non_gui_plugins</span></code>.  The default application uses the
+<tt class="docutils literal"><span class="pre">mayavi.plugins.app</span></tt> module.  In this module there
+are two functions that return a list of default plugins, <tt class="docutils literal"><span class="pre">get_plugins</span></tt> and the
+<tt class="docutils literal"><span class="pre">get_non_gui_plugins</span></tt>.  The default application uses the
 former which produces a GUI that the user can use.  If one uses the
-latter (<code class="docutils literal"><span class="pre">get_non_gui_plugins</span></code>) then the mayavi tree view,
+latter (<tt class="docutils literal"><span class="pre">get_non_gui_plugins</span></tt>) then the mayavi tree view,
 object editor and menu items will not be available when the
 application is run.  This allows a developer to create an application
 that uses mayavi but does not show its user interface.  An example of
-how this may be done is provided in <code class="docutils literal"><span class="pre">examples/mayavi/nongui.py</span></code>.</p>
+how this may be done is provided in <tt class="docutils literal"><span class="pre">examples/mayavi/nongui.py</span></tt>.</p>
 <div class="section" id="scripting-from-the-ui">
 <h3>Scripting from the UI<a class="headerlink" href="#scripting-from-the-ui" title="Permalink to this headline">¶</a></h3>
-<p>When using the <code class="docutils literal"><span class="pre">mayavi2</span></code> application, it is possible to script from
+<p>When using the <tt class="docutils literal"><span class="pre">mayavi2</span></tt> application, it is possible to script from
 the embedded Python interpreter on the UI.  On the interpreter the name
-<code class="docutils literal"><span class="pre">mayavi</span></code> is automatically bound to an
-<code class="docutils literal"><span class="pre">mayavi.plugins.script.Script</span></code> instance that may be used to
+<tt class="docutils literal"><span class="pre">mayavi</span></tt> is automatically bound to an
+<tt class="docutils literal"><span class="pre">mayavi.plugins.script.Script</span></tt> instance that may be used to
 easily script mayavi.  This instance is a simple wrapper object that
 merely provides some nice conveniences while scripting from the UI.  It
-has an <code class="docutils literal"><span class="pre">engine</span></code> trait that is a reference to the running mayavi
+has an <tt class="docutils literal"><span class="pre">engine</span></tt> trait that is a reference to the running mayavi
 engine.  Note that it is just as convenient to use an
-<code class="docutils literal"><span class="pre">Engine</span></code> instance itself to script mayavi.</p>
-<p>As described in <a class="reference internal" href="application.html#the-embedded-python-interpreter"><span>The embedded Python interpreter</span></a> section, one can
+<tt class="docutils literal"><span class="pre">Engine</span></tt> instance itself to script mayavi.</p>
+<p>As described in <a class="reference internal" href="application.html#the-embedded-python-interpreter"><em>The embedded Python interpreter</em></a> section, one can
 always drag a mayavi pipeline object from the tree and drop it on the
 interpreter to script it directly.</p>
 <p>One may select the <cite>File-&gt;Open Text File...</cite> menu to open an existing
 Python file in the text editor, or choose the <cite>File-&gt;New Text File</cite> menu
 to create a new file.  The text editor is Python-aware and one may write
-a script assuming that the <code class="docutils literal"><span class="pre">mayavi</span></code> name is bound to the <code class="docutils literal"><span class="pre">Script</span></code>
+a script assuming that the <tt class="docutils literal"><span class="pre">mayavi</span></tt> name is bound to the <tt class="docutils literal"><span class="pre">Script</span></tt>
 instance as it is on the shell.  To execute this script one can press
-<code class="docutils literal"><span class="pre">Control-r</span></code> as described earlier.  <code class="docutils literal"><span class="pre">Control-s</span></code> will save the script.
-<code class="docutils literal"><span class="pre">Control-b</span></code> increases the font size and <code class="docutils literal"><span class="pre">Control-n</span></code> reduces it.</p>
+<tt class="docutils literal"><span class="pre">Control-r</span></tt> as described earlier.  <tt class="docutils literal"><span class="pre">Control-s</span></tt> will save the script.
+<tt class="docutils literal"><span class="pre">Control-b</span></tt> increases the font size and <tt class="docutils literal"><span class="pre">Control-n</span></tt> reduces it.</p>
 <p>The nice thing about this kind of scripting is that if one scripts
 something on the interpreter or on the editor, one may save the
-contents to a file, say <code class="docutils literal"><span class="pre">script.py</span></code> and then the next time this script
+contents to a file, say <tt class="docutils literal"><span class="pre">script.py</span></tt> and then the next time this script
 can be run like so:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ mayavi2 -x script.py
-</pre></div>
+<div class="highlight-python"><pre>$ mayavi2 -x script.py</pre>
 </div>
-<p>This will execute the script for automatically.  The name <code class="docutils literal"><span class="pre">mayavi</span></code>
-is available to the script and is bound to the <code class="docutils literal"><span class="pre">Script</span></code> instance.
+<p>This will execute the script for automatically.  The name <tt class="docutils literal"><span class="pre">mayavi</span></tt>
+is available to the script and is bound to the <tt class="docutils literal"><span class="pre">Script</span></tt> instance.
 This is very convenient.  It is possible to have mayavi execute
 multiple scripts.  For example:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ mayavi2 -d foo.vtk -m IsoSurface -x setup_iso.py -x script2.py
-</pre></div>
+<div class="highlight-python"><pre>$ mayavi2 -d foo.vtk -m IsoSurface -x setup_iso.py -x script2.py</pre>
 </div>
-<p>will load the <code class="docutils literal"><span class="pre">foo.vtk</span></code> file, create an <code class="docutils literal"><span class="pre">IsoSurface</span></code> module, then
-run <code class="docutils literal"><span class="pre">setup_iso.py</span></code> and then run <code class="docutils literal"><span class="pre">script2.py</span></code>.</p>
-<p>There are several scripts in the mayavi <code class="docutils literal"><span class="pre">examples</span></code> directory that
-should show how this can be done.  The <code class="docutils literal"><span class="pre">examples/README.txt</span></code>
+<p>will load the <tt class="docutils literal"><span class="pre">foo.vtk</span></tt> file, create an <tt class="docutils literal"><span class="pre">IsoSurface</span></tt> module, then
+run <tt class="docutils literal"><span class="pre">setup_iso.py</span></tt> and then run <tt class="docutils literal"><span class="pre">script2.py</span></tt>.</p>
+<p>There are several scripts in the mayavi <tt class="docutils literal"><span class="pre">examples</span></tt> directory that
+should show how this can be done.  The <tt class="docutils literal"><span class="pre">examples/README.txt</span></tt>
 contains some information on the recommended ways to script.</p>
 </div>
 <div class="section" id="scripting-from-ipython">
 <h3>Scripting from IPython<a class="headerlink" href="#scripting-from-ipython" title="Permalink to this headline">¶</a></h3>
 <p>It is possible to script Mayavi using <a class="reference external" href="http://ipython.scipy.org">IPython</a>.  IPython will have to
-be invoked with the <code class="docutils literal"><span class="pre">-wthread</span></code> command line option in order to allow
+be invoked with the <tt class="docutils literal"><span class="pre">-wthread</span></tt> command line option in order to allow
 one to interactively script the mayavi application:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ ipython -wthread
-</pre></div>
+<div class="highlight-python"><pre>$ ipython -wthread</pre>
 </div>
 <p>In the recent IPython versions, the right switch is:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ ipython --gui=wx
-</pre></div>
+<div class="highlight-python"><pre>$ ipython --gui=wx</pre>
 </div>
 <p>To start a visualization do the following:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">mayavi.plugins.app</span> <span class="kn">import</span> <span class="n">main</span>
@@ -285,7 +281,7 @@ one to interactively script the mayavi application:</p>
 <span class="c"># &#39;mayavi&#39; is the mayavi Script instance.</span>
 </pre></div>
 </div>
-<p>It is also possible to use <cite>mlab</cite> (see <a class="reference internal" href="mlab.html#simple-scripting-with-mlab"><span>mlab: Python scripting for 3D plotting</span></a>) for
+<p>It is also possible to use <cite>mlab</cite> (see <a class="reference internal" href="mlab.html#simple-scripting-with-mlab"><em>mlab: Python scripting for 3D plotting</em></a>) for
 this purpose:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
 <span class="n">f</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span> <span class="c"># Returns the current scene.</span>
@@ -299,8 +295,8 @@ done on the embedded interpreter or on the text editor.</p>
 <h3>An example<a class="headerlink" href="#an-example" title="Permalink to this headline">¶</a></h3>
 <p>Here is an example script that illustrates various features of scripting
 Mayavi (note that this will work if you execute the following from the
-embedded Python shell inside Mayavi or if you run it as <code class="docutils literal"><span class="pre">mayavi2</span> <span class="pre">-x</span>
-<span class="pre">script.py</span></code>):</p>
+embedded Python shell inside Mayavi or if you run it as <tt class="docutils literal"><span class="pre">mayavi2</span> <span class="pre">-x</span>
+<span class="pre">script.py</span></tt>):</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c"># Create a new mayavi scene.</span>
 <span class="n">mayavi</span><span class="o">.</span><span class="n">new_scene</span><span class="p">()</span>
 
@@ -350,22 +346,22 @@ embedded Python shell inside Mayavi or if you run it as <code class="docutils li
     <span class="n">s</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">save_png</span><span class="p">(</span><span class="s">&#39;anim</span><span class="si">%d</span><span class="s">.png&#39;</span><span class="o">%</span><span class="n">i</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Sometimes, given a Mayavi <code class="docutils literal"><span class="pre">Script</span></code> instance or <code class="docutils literal"><span class="pre">Engine</span></code>, it is
+<p>Sometimes, given a Mayavi <tt class="docutils literal"><span class="pre">Script</span></tt> instance or <tt class="docutils literal"><span class="pre">Engine</span></tt>, it is
 handy to be able to navigate to a particular module/object.  In the
 above this could be achieved as follows:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">x</span> <span class="o">=</span> <span class="n">mayavi</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">scenes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 <span class="k">print</span> <span class="n">x</span>
 </pre></div>
 </div>
-<p>In this case <code class="docutils literal"><span class="pre">x</span></code> will be set to the <code class="docutils literal"><span class="pre">Streamline</span></code> instance that we
+<p>In this case <tt class="docutils literal"><span class="pre">x</span></tt> will be set to the <tt class="docutils literal"><span class="pre">Streamline</span></tt> instance that we
 just created.</p>
 <p>There are plenty of examples illustrating various things in the
-<code class="docutils literal"><span class="pre">examples/mayavi</span></code> directory.  These are all fairly well documented.</p>
-<p>In particular, the <code class="docutils literal"><span class="pre">standalone.py</span></code> example illustrates how one can
+<tt class="docutils literal"><span class="pre">examples/mayavi</span></tt> directory.  These are all fairly well documented.</p>
+<p>In particular, the <tt class="docutils literal"><span class="pre">standalone.py</span></tt> example illustrates how one can
 script mayavi without using the envisage application at all.  The
-<code class="docutils literal"><span class="pre">offscreen.py</span></code> example illustrates how this may be done using off
+<tt class="docutils literal"><span class="pre">offscreen.py</span></tt> example illustrates how this may be done using off
 screen rendering (if supported by your particular build of VTK).</p>
-<p><code class="docutils literal"><span class="pre">examples/README.txt</span></code> contains some information on the recommended
+<p><tt class="docutils literal"><span class="pre">examples/README.txt</span></tt> contains some information on the recommended
 ways to script and some additional information.</p>
 </div>
 </div>
@@ -374,13 +370,13 @@ ways to script and some additional information.</p>
 <p>The Mayavi-related plugin definitions to use are:</p>
 <blockquote>
 <div><ul class="simple">
-<li><code class="docutils literal"><span class="pre">mayavi_plugin.py</span></code></li>
-<li><code class="docutils literal"><span class="pre">mayavi_ui_plugin.py</span></code></li>
+<li><tt class="docutils literal"><span class="pre">mayavi_plugin.py</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">mayavi_ui_plugin.py</span></tt></li>
 </ul>
 </div></blockquote>
-<p>These are in the <code class="docutils literal"><span class="pre">mayavi.plugins</span></code> package.  To see an
-example of how to use this see the <code class="docutils literal"><span class="pre">mayavi.plugins.app</span></code>
-module.  The explorer3D example in <code class="docutils literal"><span class="pre">examples/mayavi/explorer</span></code> also
+<p>These are in the <tt class="docutils literal"><span class="pre">mayavi.plugins</span></tt> package.  To see an
+example of how to use this see the <tt class="docutils literal"><span class="pre">mayavi.plugins.app</span></tt>
+module.  The explorer3D example in <tt class="docutils literal"><span class="pre">examples/mayavi/explorer</span></tt> also
 demonstrates how to use Mayavi as an envisage plugin.</p>
 <p>If you are writing Envisage plugins for an application and desire to use
 the Mayavi plugins from your plugins/applications then it is important
@@ -388,18 +384,18 @@ to note that Mayavi creates three workbench service offers for your
 convenience.  These are:</p>
 <blockquote>
 <div><ul class="simple">
-<li><code class="docutils literal"><span class="pre">mayavi.plugins.script.Script</span></code>: This is an
-<code class="docutils literal"><span class="pre">mayavi.plugins.script.Script</span></code> instance that may be used
+<li><tt class="docutils literal"><span class="pre">mayavi.plugins.script.Script</span></tt>: This is an
+<tt class="docutils literal"><span class="pre">mayavi.plugins.script.Script</span></tt> instance that may be used
 to easily script mayavi.  It is a simple wrapper object that merely
 provides some nice conveniences while scripting from the UI.  It has
-an <code class="docutils literal"><span class="pre">engine</span></code> trait that is a reference to the running Mayavi
+an <tt class="docutils literal"><span class="pre">engine</span></tt> trait that is a reference to the running Mayavi
 engine.</li>
-<li><code class="docutils literal"><span class="pre">mayavi.core.engine.Engine</span></code>: This is the running
+<li><tt class="docutils literal"><span class="pre">mayavi.core.engine.Engine</span></tt>: This is the running
 Mayavi engine instance.</li>
 </ul>
 </div></blockquote>
 <p>A simple example that demonstrates the use of the Mayavi plugin in an
-envisage application is included in the <code class="docutils literal"><span class="pre">examples/mayavi/explorer</span></code>
+envisage application is included in the <tt class="docutils literal"><span class="pre">examples/mayavi/explorer</span></tt>
 directory.  This may be studied to understand how you may do the same
 in your envisage applications.</p>
 </div>
@@ -409,7 +405,7 @@ in your envisage applications.</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="index.html">
               <img class="logo" src="_static/mayavi-logo.png" alt="Logo"/>
@@ -422,7 +418,7 @@ in your envisage applications.</p>
 <li><a class="reference internal" href="#life-cycle-of-the-different-objects">Life-cycle of the different objects</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#scripting-the-mayavi2-application">Scripting the <code class="docutils literal"><span class="pre">mayavi2</span></code> application</a><ul>
+<li><a class="reference internal" href="#scripting-the-mayavi2-application">Scripting the <tt class="docutils literal"><span class="pre">mayavi2</span></tt> application</a><ul>
 <li><a class="reference internal" href="#scripting-from-the-ui">Scripting from the UI</a></li>
 <li><a class="reference internal" href="#scripting-from-ipython">Scripting from IPython</a></li>
 <li><a class="reference internal" href="#an-example">An example</a></li>
@@ -439,15 +435,13 @@ in your envisage applications.</p>
   <h4>Next topic</h4>
   <p class="topless"><a href="building_applications.html"
                         title="next chapter">Building applications using Mayavi</a></p>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="_sources/advanced_scripting.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/advanced_scripting.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
 
-<div id="searchbox" style="display: none" role="search">
+<div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
@@ -492,20 +486,26 @@ in your envisage applications.</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="footer">
-      &copy;2008-2015, Prabhu Ramachandran, Gaël Varoquaux, Deepak Surti.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.4</a>
-      
-      |
-      <a href="_sources/advanced_scripting.txt"
-          rel="nofollow">Page source</a></li>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="building_applications.html" title="Building applications using Mayavi"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="mayavi_objects.html" title="Objects populating the Mayavi pipeline"
+             >previous</a> |</li>
+        <li><a href="index.html">mayavi 4.4.2 documentation</a> &raquo;</li>
+          <li><a href="advanced_use.html" >Advanced use of Mayavi</a> &raquo;</li> 
+      </ul>
     </div>
-
-    
-
-    
+    <div class="footer">
+        &copy; Copyright 2008-2015, Enthought Inc..
+      Last updated on Jun 11, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
   </body>
 </html>
