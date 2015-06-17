@@ -1,2 +1,23 @@
-prune artwork
+include .coveragerc .travis_before_install *.rst *.txt *.py
+recursive-include artwork *.*
+recursive-include docs *.* Makefile*
+recursive-include examples *.py *.txt *.jpg
+recursive-include examples/mayavi/data *.*
+recursive-include integrationtests *.py *.txt *.png
+recursive-include mayavi *.txt *.ini
+recursive-include mayavi/core/images *.*
+recursive-include mayavi/core/ui/images *.*
+recursive-include mayavi/core/lut *.gif *.pkl *.txt
+recursive-include mayavi/images *.*
+recursive-include mayavi/preferences/images *.*
+recursive-include mayavi/scripts *.py mayavi2
+recursive-include mayavi/tests/csv_files *.* csv_2_py
+recursive-include mayavi/tests/data *.*
+recursive-include mayavi/tools/data_wizards *.csv
+recursive-include scripts *.py
+recursive-include tvtk/pipeline/images *.*
+recursive-include tvtk/plugins/scene *.ini
+recursive-include tvtk/pyface/images *.*
+recursive-include tvtk/tools/images *.*
+prune docs/build
 prune docs/pdf
