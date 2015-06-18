@@ -1,0 +1,17 @@
+build: false
+environment:
+
+  global:
+    distutils_use_sdk: 1
+    sdkver: "C:/Program Files/Microsoft SDKs/Windows/v7.0/Setup/WindowsSdkVer.exe"
+    python: "C:/Python27-x64"
+
+init:
+  - ps: $Env:path = $Env:python + ";" + $Env:python + "\scripts;" + "C:\Program Files\Microsoft SDKs\Windows\v7.0\Bin;" + $Env:path
+install:
+  - ps: (new-object net.webclient).DownloadFile('https://raw.github.com/pypa/pip/master/contrib/get-pip.py', 'C:/get-pip.py')
+  - ps: python -c "import sys; print sys.executable"
+  - ps: python C:/get-pip.py
+  - cmd /v:on /e:on /c ".\appveyor-install.cmd"
+test_script:
+  - cmd /v:on /e:on /c ".\appveyor-test.cmd"
