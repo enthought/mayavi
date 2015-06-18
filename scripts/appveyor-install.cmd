@@ -3,6 +3,8 @@ call setenv /x64
 pip install nose
 pip install Sphinx
 pip install coverage
+pip install numpy
+pip install pyside
 # Test against the current master of traits, traitsui and apptools
 pip install git+http://github.com/enthought/traits.git#egg=traits
 pip install git+http://github.com/enthought/traitsui.git#egg=traitsui
