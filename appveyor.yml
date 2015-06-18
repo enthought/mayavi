@@ -12,6 +12,6 @@ install:
   - ps: (new-object net.webclient).DownloadFile('https://raw.github.com/pypa/pip/master/contrib/get-pip.py', 'C:/get-pip.py')
   - ps: python -c "import sys; print sys.executable"
   - ps: python C:/get-pip.py
-  - cmd /v:on /e:on /c ".\appveyor-install.cmd"
+  - cmd /v:on /e:on /c ".\scripts\appveyor-install.cmd"
 test_script:
-  - cmd /v:on /e:on /c ".\appveyor-test.cmd"
+  - cmd /v:on /e:on /c ".\scripts\appveyor-test.cmd"
