@@ -15,7 +15,6 @@ init:
   - ps: $Env:path = $Env:python + ";" + $Env:python + "\scripts;" + "C:\Program Files\Microsoft SDKs\Windows\v7.0\Bin;" + "C:\vtk\bin;" + $Env:path
 install:
   - ps: if ((Test-Path "c:/temp") -eq 0) { mkdir c:/temp }
-  - cmd: dir /S /B c:\temp
   - ps: (new-object net.webclient).DownloadFile($Env:vtk_url, 'c:/vtkpython.exe')
   - ps: c:/vtkpython.exe /S /D=C:\vtk
   - ps: (new-object net.webclient).DownloadFile('https://raw.github.com/pypa/pip/master/contrib/get-pip.py', 'c:/get-pip.py')
