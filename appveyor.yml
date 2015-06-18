@@ -16,6 +16,7 @@ init:
 install:
   - ps: if ((Test-Path "c:/temp") -eq 0) { mkdir c:/temp }
   - cmd: dir /S /B c:\temp\*.whl
+  - ls -r c:/temp | measure -s Length
   - ps: (new-object net.webclient).DownloadFile('https://raw.github.com/pypa/pip/master/contrib/get-pip.py', 'C:/get-pip.py')
   - ps: (new-object net.webclient).DownloadFile($Env:vtk_url, 'vtkpython-6.2.0-Windows-64bit.exe')
   - ps: vtkpython-6.2.0-Windows-64bit.exe /S /D=C:\vtk
