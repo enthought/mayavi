@@ -1,5 +1,5 @@
-#"%sdkver%" -q -version:v7.0
-#call setenv /x64
+"%sdkver%" -q -version:v7.0
+call setenv /x64
 
 # install python packages
 pip install --cache-dir c:/temp nose
