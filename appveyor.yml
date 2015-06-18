@@ -5,14 +5,18 @@ environment:
     distutils_use_sdk: 1
     sdkver: "C:/Program Files/Microsoft SDKs/Windows/v7.0/Setup/WindowsSdkVer.exe"
     python: "C:/Python27-x64"
-    
+    vtk_url: "http://www.vtk.org/files/release/6.2/vtkpython-6.2.0-Windows-64bit.exe"
+    pythonpath: "c:\vtk\bin\Lib\site-packages"
+
 cache:
   - c:/temp
 
 init:
-  - ps: $Env:path = $Env:python + ";" + $Env:python + "\scripts;" + "C:\Program Files\Microsoft SDKs\Windows\v7.0\Bin;" + $Env:path
+  - ps: $Env:path = $Env:python + ";" + $Env:python + "\scripts;" + "C:\Program Files\Microsoft SDKs\Windows\v7.0\Bin;" + "C:\vtk\bin" + $Env:path
 install:
   - ps: (new-object net.webclient).DownloadFile('https://raw.github.com/pypa/pip/master/contrib/get-pip.py', 'C:/get-pip.py')
+  - ps: (new-object net.webclient).DownloadFile('http://www.vtk.org/files/release/6.2/vtkpython-6.2.0-Windows-64bit.exe', 'vtkpython-6.2.0-Windows-64bit.exe')
+  - ps: vtkpython-6.2.0-Windows-64bit.exe /S /D=C:\vtk
   - ps: python -c "import sys; print sys.executable"
   - ps: python C:/get-pip.py
   - cmd /v:on /e:on /c ".\scripts\appveyor-install.cmd"
