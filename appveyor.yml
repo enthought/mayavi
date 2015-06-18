@@ -15,7 +15,7 @@ init:
   - ps: $Env:path = $Env:python + ";" + $Env:python + "\scripts;" + "C:\Program Files\Microsoft SDKs\Windows\v7.0\Bin;" + "C:\vtk\bin;" + $Env:path
 install:
   - ps: if ((Test-Path "c:/temp") -eq 0) { mkdir c:/temp }
-  - cmd: dir /S /B c:\temp\*.whl
+  - cmd: dir /S /B c:\temp
   - ls -r c:/temp | measure -s Length
   - ps: (new-object net.webclient).DownloadFile($Env:vtk_url, 'vtkpython.exe')
   - ps: vtkpython.exe /S /D=C:\vtk
