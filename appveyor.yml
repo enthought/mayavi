@@ -14,6 +14,7 @@ cache:
 init:
   - ps: $Env:path = $Env:python + ";" + $Env:python + "\scripts;" + "C:\Program Files\Microsoft SDKs\Windows\v7.0\Bin;" + "C:\vtk\bin" + $Env:path
 install:
+  - ps: mkdir -p c:/temp
   - ps: ls c:/temp
   - ps: (new-object net.webclient).DownloadFile('https://raw.github.com/pypa/pip/master/contrib/get-pip.py', 'C:/get-pip.py')
   - ps: (new-object net.webclient).DownloadFile($Env:vtk_url, 'vtkpython-6.2.0-Windows-64bit.exe')
