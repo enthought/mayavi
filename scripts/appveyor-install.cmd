@@ -1,7 +1,7 @@
 "%sdkver%" -q -version:v7.0
 call setenv /x64
 
-# install python packages
+rem install python packages
 pip install --cache-dir c:/temp nose
 pip install --cache-dir c:/temp Sphinx
 pip install --cache-dir c:/temp coverage
@@ -13,5 +13,5 @@ pip install --cache-dir c:/temp git+http://github.com/enthought/apptools.git#egg
 pip install --cache-dir c:/temp git+http://github.com/enthought/pyface.git#egg=pyface
 pip install --cache-dir c:/temp git+http://github.com/enthought/envisage.git#egg=envisage
 
-# install mayavi
+rem install mayavi
 python setup.py develop
