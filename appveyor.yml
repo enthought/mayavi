@@ -17,10 +17,10 @@ install:
   - ps: if ((Test-Path "c:/temp") -eq 0) { mkdir c:/temp }
   - cmd: dir /S /B c:\temp
 #  - ls -r c:/temp | measure -s Length
-  - ps: (new-object net.webclient).DownloadFile($Env:vtk_url, 'vtkpython.exe')
-  - ps: vtkpython.exe /S /D=C:\vtk
-  - ps: (new-object net.webclient).DownloadFile('https://raw.github.com/pypa/pip/master/contrib/get-pip.py', 'get-pip.py')
-  - ps: python get-pip.py
+  - ps: (new-object net.webclient).DownloadFile($Env:vtk_url, 'c:/vtkpython.exe')
+  - ps: c:/vtkpython.exe /S /D=C:\vtk
+  - ps: (new-object net.webclient).DownloadFile('https://raw.github.com/pypa/pip/master/contrib/get-pip.py', 'c:/get-pip.py')
+  - ps: python c:/get-pip.py
   - ps: pip --version
   - cmd /v:on /e:on /c ".\scripts\appveyor-install.cmd"
 test_script:
