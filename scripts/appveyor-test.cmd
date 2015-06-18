@@ -7,5 +7,5 @@ rem cd integrationtests/mayavi
 rem coverage run --rcfile=../../.coveragerc -p run.py
 rem cd ../../
 rem copy integrationtests/mayavi/.coverage.* ./
-rem coverage combine
+coverage combine
 coverage report
