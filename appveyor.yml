@@ -5,6 +5,9 @@ environment:
     distutils_use_sdk: 1
     sdkver: "C:/Program Files/Microsoft SDKs/Windows/v7.0/Setup/WindowsSdkVer.exe"
     python: "C:/Python27-x64"
+    
+cache:
+  - c:/temp
 
 init:
   - ps: $Env:path = $Env:python + ";" + $Env:python + "\scripts;" + "C:\Program Files\Microsoft SDKs\Windows\v7.0\Bin;" + $Env:path
