@@ -9,7 +9,7 @@ environment:
     pythonpath: "C:/vtk/bin/Lib/site-packages"
 
 cache:
-  - c:/temp
+  - c:\temp
 
 init:
   - ps: $Env:path = $Env:python + ";" + $Env:python + "\scripts;" + "C:\Program Files\Microsoft SDKs\Windows\v7.0\Bin;" + "C:\vtk\bin;" + $Env:path
