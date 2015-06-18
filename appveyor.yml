@@ -12,7 +12,7 @@ cache:
   - c:/temp
 
 init:
-  - ps: $Env:path = $Env:python + ";" + $Env:python + "\scripts;" + "C:\Program Files\Microsoft SDKs\Windows\v7.0\Bin;" + "C:\vtk\bin" + $Env:path
+  - ps: $Env:path = $Env:python + ";" + $Env:python + "\scripts;" + "C:\Program Files\Microsoft SDKs\Windows\v7.0\Bin;" + "C:\vtk\bin;" + $Env:path
 install:
   - ps: if ((Test-Path "c:/temp") -eq 0) { mkdir c:/temp }
   - cmd: dir /S /B c:\temp\*.whl
