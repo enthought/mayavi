@@ -38,7 +38,7 @@ To generate tvtk_classes.zip you must do the following::
   $ cd ../ # This is the enthought/tvtk directory
   $ python code_gen.py
 """
-    raise
+    raise ImportError(msg)
 
 # Only used for testing.
 from tvtk.tvtk_classes import tvtk_helper
