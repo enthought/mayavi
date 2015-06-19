@@ -16,7 +16,7 @@ import copy
 
 # Local imports (these are relative imports because the package is not
 # installed when these modules are imported).
-from common import get_tvtk_name, camel2enthought, is_version_62
+from common import get_tvtk_name, camel2enthought, is_version_62, is_version_58
 import vtk_parser
 import indenter
 import special_gen
@@ -690,6 +690,15 @@ class WrapperGenerator:
                        name == 'inertia':
                     # VTK bug.  Inconsistent API!
                     rng = (float(rng[0]), float(rng[1]))
+                if is_version_58() and \
+                       klass.__name__ == 'vtkAxesTransformRepresentation'  and \
+                       name == 'tolerance':
+                    message = (
+                       "VTK bug. tolerance is not "
+                       "properly initialized in vtk 5.8")
+                    print message
+                    default = rng[0]
+                    del updateable_traits[name]
                 # If the default is just a little off from the range
                 # then extend the range.
                 if (default < rng[0]) and (rng[0] - default) < 2:
