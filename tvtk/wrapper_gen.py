@@ -617,7 +617,11 @@ class WrapperGenerator:
                             del updateable_traits[name]
                         if klass.__name__ == 'vtkHardwareSelector' \
                                 and name == 'prop_color_value':
-                            print 'vtkHardwareSelector prop_color_value is uninitialised'
+                            message = (
+                                "vtkHardwareSelector: "
+                                "prop_color_value not updatable "
+                                "(VTK 6.2 bug - value not properly initialized)")
+                            print message
                             default = (1.0, 1.0, 1.0)
                             del updateable_traits[name]
                         if klass.__name__ == 'vtkMoleculeMapper' \
@@ -694,8 +698,9 @@ class WrapperGenerator:
                        klass.__name__ == 'vtkAxesTransformRepresentation'  and \
                        name == 'tolerance':
                     message = (
-                       "VTK bug. tolerance is not "
-                       "properly initialized in vtk 5.8")
+                       "vtkAxesTransformRepresentation: "
+                       "tolerance not updatable "
+                       "(VTK 5.8 bug - value not properly initialized)")
                     print message
                     default = rng[0]
                     del updateable_traits[name]
