@@ -1,4 +1,5 @@
 build: false
+shallow_clone: true
 environment:
 
   global:
