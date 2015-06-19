@@ -617,7 +617,7 @@ class TestTVTKModule(unittest.TestCase):
                         errors.append(traceback.format_exc())
         if len(errors) > 0:
             message = "Not all classes could be instantiated:\n{0}\n"
-            raise AssertionError(message.format(''.join(*errors)))
+            raise AssertionError(message.format(''.join(errors)))
 
 
 if __name__ == "__main__":
