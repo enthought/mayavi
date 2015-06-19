@@ -615,6 +615,11 @@ class WrapperGenerator:
                             print 'vtkPLYWriter color is not updateable'
                             default = (1.0, 1.0, 1.0)
                             del updateable_traits[name]
+                        if klass.__name__ == 'vtkHardwareSelector' \
+                                and name == 'prop_color_value':
+                            print 'vtkHardwareSelector prop_color_value is uninitialised'
+                            default = (1.0, 1.0, 1.0)
+                            del updateable_traits[name]
                         if klass.__name__ == 'vtkMoleculeMapper' \
                                 and name == 'bond_color':
                             print 'vtkMoleculeMapper bond_color is not updateable'
