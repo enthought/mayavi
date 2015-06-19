@@ -1059,7 +1059,7 @@ class WrapperGenerator:
         """
         if sig is None:
             sig = self.parser.get_method_signature(vtk_meth)
-        
+
         # VTK 6.2: There exists no method signature for false built in
         # functions/methods
         if sig is None:
@@ -1319,4 +1319,3 @@ class WrapperGenerator:
         # Close the function definition.
         out.write(indent.format(')'))
         out.write('\n')
-
