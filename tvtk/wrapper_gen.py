@@ -16,7 +16,7 @@ import copy
 
 # Local imports (these are relative imports because the package is not
 # installed when these modules are imported).
-from common import get_tvtk_name, camel2enthought, is_version_62
+from common import get_tvtk_name, camel2enthought, is_version_62, is_version_58
 import vtk_parser
 import indenter
 import special_gen
@@ -615,6 +615,15 @@ class WrapperGenerator:
                             print 'vtkPLYWriter color is not updateable'
                             default = (1.0, 1.0, 1.0)
                             del updateable_traits[name]
+                        if klass.__name__ == 'vtkHardwareSelector' \
+                                and name == 'prop_color_value':
+                            message = (
+                                "vtkHardwareSelector: "
+                                "prop_color_value not updatable "
+                                "(VTK 6.2 bug - value not properly initialized)")
+                            print message
+                            default = (1.0, 1.0, 1.0)
+                            del updateable_traits[name]
                         if klass.__name__ == 'vtkMoleculeMapper' \
                                 and name == 'bond_color':
                             print 'vtkMoleculeMapper bond_color is not updateable'
@@ -685,6 +694,16 @@ class WrapperGenerator:
                        name == 'inertia':
                     # VTK bug.  Inconsistent API!
                     rng = (float(rng[0]), float(rng[1]))
+                if is_version_58() and \
+                       klass.__name__ == 'vtkAxesTransformRepresentation'  and \
+                       name == 'tolerance':
+                    message = (
+                       "vtkAxesTransformRepresentation: "
+                       "tolerance not updatable "
+                       "(VTK 5.8 bug - value not properly initialized)")
+                    print message
+                    default = rng[0]
+                    del updateable_traits[name]
                 # If the default is just a little off from the range
                 # then extend the range.
                 if (default < rng[0]) and (rng[0] - default) < 2:
@@ -1045,7 +1064,7 @@ class WrapperGenerator:
         """
         if sig is None:
             sig = self.parser.get_method_signature(vtk_meth)
-        
+
         # VTK 6.2: There exists no method signature for false built in
         # functions/methods
         if sig is None:
@@ -1305,4 +1324,3 @@ class WrapperGenerator:
         # Close the function definition.
         out.write(indent.format(')'))
         out.write('\n')
-

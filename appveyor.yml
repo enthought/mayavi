@@ -1,0 +1,26 @@
+build: false
+shallow_clone: true
+environment:
+
+  global:
+    distutils_use_sdk: 1
+    sdkver: "C:/Program Files/Microsoft SDKs/Windows/v7.0/Setup/WindowsSdkVer.exe"
+    python: "C:/Python27-x64"
+    vtk_url: "http://www.vtk.org/files/release/6.2/vtkpython-6.2.0-Windows-64bit.exe"
+    pythonpath: "C:/vtk/bin/Lib/site-packages"
+
+cache:
+  - c:\temp
+
+init:
+  - ps: $Env:path = $Env:python + ";" + $Env:python + "\scripts;" + "C:\Program Files\Microsoft SDKs\Windows\v7.0\Bin;" + "C:\vtk\bin;" + $Env:path
+install:
+  - ps: if ((Test-Path "c:/temp") -eq 0) { mkdir c:/temp }
+  - ps: (new-object net.webclient).DownloadFile($Env:vtk_url, 'c:/vtkpython.exe')
+  - ps: c:/vtkpython.exe /S /D=C:\vtk
+  - ps: (new-object net.webclient).DownloadFile('https://raw.github.com/pypa/pip/master/contrib/get-pip.py', 'c:/get-pip.py')
+  - ps: python c:/get-pip.py
+  - ps: pip --version
+  - cmd /v:on /e:on /c ".\appveyor-install.cmd"
+test_script:
+  - cmd /v:on /e:on /c ".\appveyor-test.cmd"
