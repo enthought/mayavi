@@ -80,9 +80,8 @@ The mayavi codebase can be found in github:
 
 https://github.com/enthought/mayavi
 
-General Build and Installation instructions are available here:
-
- http://docs.enthought.com/mayavi/mayavi/installation.html#installing-ready-made-distributions
+General Build and Installation instructions are available `here 
+<http://docs.enthought.com/mayavi/mayavi/installation.html#installing-ready-made-distributions>`_
 
 Source tarballs for necessary stable ETS packages are available through pypi
 
