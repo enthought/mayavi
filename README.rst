@@ -93,7 +93,7 @@ Source tarballs for necessary stable ETS packages are available through pypi
 - `envisage <https://pypi.python.org/pypi/envisage>`_
 - `mayavi <https://pypi.python.org/pypi/mayavi>`_
 
-Development versions exist the github `Enthought organization <https://github.com/enthought>`_
+Development versions exist in the github `Enthought organization <https://github.com/enthought>`_
 
 
 Documentation
