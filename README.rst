@@ -90,7 +90,8 @@ Source tarballs for necessary stable ETS packages are available through pypi
 - `traitsui <https://pypi.python.org/pypi/traitsui>`_
 - `pyface <https://pypi.python.org/pypi/pyface>`_
 - `apptools <https://pypi.python.org/pypi/apptools>`_
-- `envisage <https://pypi.python.org/pypi/envisage/4.4.0>`_
+- `envisage <https://pypi.python.org/pypi/envisage>`_
+- `mayavi <https://pypi.python.org/pypi/mayavi>`_
 
 Development versions exist the github `Enthought organization <https://github.com/enthought>`_
 
