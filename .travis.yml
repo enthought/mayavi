@@ -4,18 +4,21 @@ python:
   - 2.7
 virtualenv:
   system_site_packages: true
+env:
+  - ETS_TOOLKIT=qt4
+  - ETS_TOOLKIT=wx
 addons:
   apt:
     packages:
     - python-vtk
     - python-qt4
     - python-qt4-gl
+    - python-wxgtk2.8
     - python-imaging
     - python-pip
 before_install:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
-  - export ETS_TOOLKIT=qt4
 install:
   - pip install -r travis-requirements.txt
   - python setup.py develop
