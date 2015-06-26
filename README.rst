@@ -76,13 +76,23 @@ examples in the examples directory.
 Getting the package
 ===================
 
-General Build and Installation instructions for ETS are available here:
+The mayavi codebase can be found in github:
 
- http://github.enthought.com/mayavi/mayavi/installation.html
+https://github.com/enthought/mayavi
 
-Source tarballs for all stable ETS packages are available at
+General Build and Installation instructions are available here:
 
- http://code.enthought.com/enstaller/eggs/source
+ http://docs.enthought.com/mayavi/mayavi/installation.html#installing-ready-made-distributions
+
+Source tarballs for necessary stable ETS packages are available through pypi
+
+- `traits <https://pypi.python.org/pypi/traits>`_
+- `traitsui <https://pypi.python.org/pypi/traitsui>`_
+- `pyface <https://pypi.python.org/pypi/pyface>`_
+- `apptools <https://pypi.python.org/pypi/apptools>`_
+- `envisage <https://pypi.python.org/pypi/envisage/4.4.0>`_
+
+Development versions exist the github `Enthought organization <https://github.com/enthought>`_
 
 
 Documentation
@@ -90,7 +100,7 @@ Documentation
 
 More documentation is available in the online user manual, 
 
-http://github.enthought.com/mayavi/mayavi
+http://docs.enthought.com/mayavi/mayavi/
 
 or in `docs` directory of the sources.  This includes a man page for the
 `mayavi2` application, a users guide in HTML and PDF format and
@@ -108,28 +118,25 @@ also contains some sample data.
 Test suite
 ==========
 
-The test suite may be run like so (on a bash shell)::
+The basic test suites for tvtk and mayavi can be run using nose::
 
- cd tests
- for i in test*.py; do python $i; done
+  nosettests -v tvtk/tests
+  nosettests -v mayavi
+  
+The integration tests::
 
-Use a similar line for your particular shell.
+  cd integrationtests/mayavi
+  python run.py
 
 
 Bug tracker, mailing list etc.
 ==============================
 
-The bug tracker is available as part of the trac interface here:
+The bug tracker is available in github::
 
- https://svn.enthought.com/enthought/
+https://github.com/enthought/mayavi
 
-To submit a bug you will necessarily have to register at the site.  Click on
-the "register" link at the top right on the above page to register.  Or login
-if you already have registered.  Once you are registered you may file a bug by
-creating a new ticket.
-
-Alternatively, you can post on the enthought-dev@mail.enthought.com mailing list.
-
+Please provide info and details on platform, python, vtk and gui backends and their versions. If possible, a small example replicating the the problem.
 
 Authors and Contributors
 ========================
@@ -138,7 +145,7 @@ Authors and Contributors
 
   Prabhu Ramachandran: primary author.
 
-  Gaël Varoquaux: mlab, icons, many general improvements and maintainance.
+  GaÃ«l Varoquaux: mlab, icons, many general improvements and maintainance.
 
   Deepak Surti: Upgrade to VTK 5.10.1, VTK 6.x with new pipeline.
 
