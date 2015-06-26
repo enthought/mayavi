@@ -98,13 +98,11 @@ Development versions exist in the github `Enthought organization <https://github
 Documentation
 ==============
 
-More documentation is available in the online user manual, 
-
-http://docs.enthought.com/mayavi/mayavi/
-
-or in `docs` directory of the sources.  This includes a man page for the
-`mayavi2` application, a users guide in HTML and PDF format and
-documentation for `mlab`.
+More documentation is available in the `online user manual 
+<http://docs.enthought.com/mayavi/mayavi/>_` or in `docs` directory 
+of the sources.  This includes a man page for the `mayavi2` 
+application, a users guide in HTML and PDF format and documentation 
+for `mlab`.
 
 
 Examples
