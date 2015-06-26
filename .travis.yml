@@ -1,22 +1,23 @@
 language: python
+sudo: false
 python:
   - 2.7
 virtualenv:
-  # This allows installing python-vtk using apt-get and being able to import it.
   system_site_packages: true
+addons:
+  apt:
+    packages:
+    - python-vtk
+    - python-qt4
+    - python-qt4-gl
+    - python-imaging
+    - python-pip
 before_install:
-  - source .travis_before_install
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+  - export ETS_TOOLKIT=qt4
 install:
-  # nose is already installed
-  - pip install Sphinx
-  - pip install coverage
-  - pip install coveralls
-  # Test against the current master of traits, traitsui and apptools
-  - pip install git+http://github.com/enthought/traits.git#egg=traits
-  - pip install git+http://github.com/enthought/traitsui.git#egg=traitsui
-  - pip install git+http://github.com/enthought/apptools.git#egg=apptools
-  - pip install git+http://github.com/enthought/pyface.git#egg=pyface
-  - pip install git+http://github.com/enthought/envisage.git#egg=envisage
+  - pip install -r travis-requirements
   - python setup.py develop
 script:
   # Running all tests in tvtk/tests and mayavi.
@@ -29,8 +30,6 @@ script:
   - cd ../../
   - cp integrationtests/mayavi/.coverage.* ./
   - coverage combine
-notifications:
-  email:
-    - travis-ci@enthought.com
 after_success:
-  coveralls
+  - pip install codecov
+  - codecov
