@@ -17,7 +17,7 @@ before_install:
   - sh -e /etc/init.d/xvfb start
   - export ETS_TOOLKIT=qt4
 install:
-  - pip install -r travis-requirements
+  - pip install -r travis-requirements.txt
   - python setup.py develop
 script:
   # Running all tests in tvtk/tests and mayavi.
