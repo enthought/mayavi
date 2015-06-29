@@ -99,8 +99,8 @@ Documentation
 ==============
 
 More documentation is available in the `online user manual 
-<http://docs.enthought.com/mayavi/mayavi/>_` or in `docs` directory 
-of the sources.  This includes a man page for the `mayavi2` 
+<http://docs.enthought.com/mayavi/mayavi/>`_ or in ``docs`` directory 
+of the sources.  This includes a man page for the ``mayavi2`` 
 application, a users guide in HTML and PDF format and documentation 
 for `mlab`.
 
@@ -108,7 +108,7 @@ for `mlab`.
 Examples
 ========
 
-Examples are all in the `examples` directory of the source or the SVN checkout.
+Examples are all in the ``examples`` directory of the source or the SVN checkout.
 The docs and examples do not ship with the binary eggs.  The examples directory
 also contains some sample data.
 
@@ -130,11 +130,7 @@ The integration tests::
 Bug tracker, mailing list etc.
 ==============================
 
-The bug tracker is available in github::
-
-https://github.com/enthought/mayavi
-
-Please provide info and details on platform, python, vtk and gui backends and their versions. If possible, a small example replicating the the problem.
+The bug tracker is available in `github <https://github.com/enthought/mayavi/issues>`_ Please provide info and details on platform, python, vtk and gui backends and their versions. If possible, a small example replicating the the problem.
 
 Authors and Contributors
 ========================
