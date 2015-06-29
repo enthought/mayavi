@@ -2,7 +2,7 @@
 MayaVi2: 3D visualization of scientific data in Python 
 =======================================================
 
-http://github.enthought.com/mayavi/mayavi
+http://github.com/enthought/mayavi
 
 .. image:: https://api.travis-ci.org/enthought/mayavi.png?branch=master
    :target: https://travis-ci.org/enthought/mayavi
@@ -11,7 +11,7 @@ http://github.enthought.com/mayavi/mayavi
 Vision
 ======
 
-MayaVi2_ seeks to provide easy and interactive visualization of 3D data. It does
+MayaVi2 seeks to provide easy and interactive visualization of 3D data. It does
 this by the following:
 
     - an (optional) rich user interface with dialogs to interact with all data
