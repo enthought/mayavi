@@ -16,7 +16,7 @@ addons:
     - python-imaging
     - python-pip
     - mesa-common-dev
-    - libgtk-2.0-dev
+    - libgtk2.0-dev
     - ccache
 cache:
   directories:
