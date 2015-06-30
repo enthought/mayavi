@@ -1,3 +1,4 @@
+#!/bin/bash
 set -e
 rm -Rf wxPython-src-2.8.12.1
 wget http://sourceforge.net/projects/wxpython/files/wxPython/2.8.12.1/wxPython-src-2.8.12.1.tar.bz2/download
@@ -8,11 +9,11 @@ mkdir wxGTK-build
 cd wxGTK-build
 ../configure --enable-unicode --prefix=$VIRTUAL_ENV --enable-debug_flag --enable-optimize --with-opengl
 make -j 3
-make -C contrib/src/stc -j 3
-make -C contrib/src/gizmos -j 3
-make -j 3
 make install
+make -C contrib/src/stc -j 3
 make -C contrib/src/stc install
+make -C contrib/src/gizmos -j 3
 make -C contrib/src/gizmos install
+export LD_LIBRARY_PATH=$VIRTUAL_ENV/lib:${LD_LIBRARY_PATH}
 cd ../wxPython
 python setup.py install
