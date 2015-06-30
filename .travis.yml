@@ -27,6 +27,7 @@ before_install:
   - export PATH=/usr/lib/ccache:${PATH}
   - pip install --upgrade pip
   - if [[ ${ETS_TOOLKIT} == "wx" ]]; then sh travis-install-wx.sh; fi
+  - export LD_LIBRARY_PATH=$VIRTUAL_ENV/lib:${LD_LIBRARY_PATH}
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
 install:

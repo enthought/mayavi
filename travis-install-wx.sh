@@ -14,6 +14,5 @@ make -C contrib/src/stc -j 3
 make -C contrib/src/stc install
 make -C contrib/src/gizmos -j 3
 make -C contrib/src/gizmos install
-export LD_LIBRARY_PATH=$VIRTUAL_ENV/lib:${LD_LIBRARY_PATH}
 cd ../wxPython
 python setup.py install
