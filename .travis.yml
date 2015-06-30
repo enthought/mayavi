@@ -24,7 +24,7 @@ cache:
     - $HOME/.ccache
 before_install:
   - export PATH=/usr/lib/ccache:${PATH}
-  - if [ $ETS_TOOKIT = wx ]; then bash travis-install-wx.sh; fi
+  - if [ ${ETS_TOOKIT} = "wx" ]; then bash travis-install-wx.sh; fi
 install:
   - pip install -r travis-requirements.txt
   - python setup.py develop
