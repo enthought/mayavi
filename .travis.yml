@@ -33,15 +33,10 @@ install:
   - pip install -r travis-requirements.txt
   - python setup.py develop
 script:
-  # Running all tests in tvtk/tests and mayavi.
   - coverage erase
   - coverage run -p -m nose.core -v tvtk/tests
   - coverage run -p -m nose.core -v mayavi
-  # Run the integration tests.
-  - cd integrationtests/mayavi
-  - coverage run --rcfile=../../.coveragerc -p run.py
-  - cd ../../
-  - cp integrationtests/mayavi/.coverage.* ./
+  - if [[ ${ETS_TOOLKIT} == "wx" ]]; then sh travis-run-integration-tests.sh; fi
   - coverage combine
 after_success:
   - pip install codecov
