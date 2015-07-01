@@ -1,5 +1,5 @@
 =======================================================
-MayaVi2: 3D visualization of scientific data in Python 
+MayaVi2: 3D visualization of scientific data in Python
 =======================================================
 
 http://github.com/enthought/mayavi
@@ -7,6 +7,10 @@ http://github.com/enthought/mayavi
 .. image:: https://api.travis-ci.org/enthought/mayavi.png?branch=master
    :target: https://travis-ci.org/enthought/mayavi
    :alt: Build status
+
+.. image:: http://codecov.io/github/enthought/mayavi/coverage.svg?branch=master
+   :target: http://codecov.io/github/enthought/mayavi?branch=master
+
 
 Vision
 ======
@@ -26,7 +30,7 @@ Additionally Mayavi2 strives to be a reusable tool that can be embedded in your
 applications in different ways or combined with the envisage
 application-building framework to assemble domain-specific tools.
 
-Mayavi is part of the Enthought Tool Suite (ETS). 
+Mayavi is part of the Enthought Tool Suite (ETS).
 
 
 Features
@@ -80,7 +84,7 @@ The mayavi codebase can be found in github:
 
 https://github.com/enthought/mayavi
 
-General Build and Installation instructions are available `here 
+General Build and Installation instructions are available `here
 <http://docs.enthought.com/mayavi/mayavi/installation.html#installing-ready-made-distributions>`_
 
 Source tarballs for necessary stable ETS packages are available through pypi
@@ -98,10 +102,10 @@ Development versions exist in the github `Enthought organization <https://github
 Documentation
 ==============
 
-More documentation is available in the `online user manual 
-<http://docs.enthought.com/mayavi/mayavi/>`_ or in ``docs`` directory 
-of the sources.  This includes a man page for the ``mayavi2`` 
-application, a users guide in HTML and PDF format and documentation 
+More documentation is available in the `online user manual
+<http://docs.enthought.com/mayavi/mayavi/>`_ or in ``docs`` directory
+of the sources.  This includes a man page for the ``mayavi2``
+application, a users guide in HTML and PDF format and documentation
 for `mlab`.
 
 
@@ -120,7 +124,7 @@ The basic test suites for tvtk and mayavi can be run using nose::
 
   nosettests -v tvtk/tests
   nosettests -v mayavi
-  
+
 The integration tests::
 
   cd integrationtests/mayavi
@@ -145,9 +149,8 @@ Authors and Contributors
 
 * Support and code contributions from Enthought Inc.
 
-* Patches from many people (see the release notes), including K K Rai and 
+* Patches from many people (see the release notes), including K K Rai and
   R A Ambareesha for tensor support, parametric source and image data.
 
   Many thanks to all those who have submitted bug reports and suggestions for
   further enhancements.
-
