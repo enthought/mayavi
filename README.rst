@@ -2,7 +2,7 @@
 MayaVi2: 3D visualization of scientific data in Python 
 =======================================================
 
-http://github.enthought.com/mayavi/mayavi
+http://github.com/enthought/mayavi
 
 .. image:: https://api.travis-ci.org/enthought/mayavi.png?branch=master
    :target: https://travis-ci.org/enthought/mayavi
@@ -11,7 +11,7 @@ http://github.enthought.com/mayavi/mayavi
 Vision
 ======
 
-MayaVi2_ seeks to provide easy and interactive visualization of 3D data. It does
+MayaVi2 seeks to provide easy and interactive visualization of 3D data. It does
 this by the following:
 
     - an (optional) rich user interface with dialogs to interact with all data
@@ -76,31 +76,39 @@ examples in the examples directory.
 Getting the package
 ===================
 
-General Build and Installation instructions for ETS are available here:
+The mayavi codebase can be found in github:
 
- http://github.enthought.com/mayavi/mayavi/installation.html
+https://github.com/enthought/mayavi
 
-Source tarballs for all stable ETS packages are available at
+General Build and Installation instructions are available `here 
+<http://docs.enthought.com/mayavi/mayavi/installation.html#installing-ready-made-distributions>`_
 
- http://code.enthought.com/enstaller/eggs/source
+Source tarballs for necessary stable ETS packages are available through pypi
+
+- `traits <https://pypi.python.org/pypi/traits>`_
+- `traitsui <https://pypi.python.org/pypi/traitsui>`_
+- `pyface <https://pypi.python.org/pypi/pyface>`_
+- `apptools <https://pypi.python.org/pypi/apptools>`_
+- `envisage <https://pypi.python.org/pypi/envisage>`_
+- `mayavi <https://pypi.python.org/pypi/mayavi>`_
+
+Development versions exist in the github `Enthought organization <https://github.com/enthought>`_
 
 
 Documentation
 ==============
 
-More documentation is available in the online user manual, 
-
-http://github.enthought.com/mayavi/mayavi
-
-or in `docs` directory of the sources.  This includes a man page for the
-`mayavi2` application, a users guide in HTML and PDF format and
-documentation for `mlab`.
+More documentation is available in the `online user manual 
+<http://docs.enthought.com/mayavi/mayavi/>`_ or in ``docs`` directory 
+of the sources.  This includes a man page for the ``mayavi2`` 
+application, a users guide in HTML and PDF format and documentation 
+for `mlab`.
 
 
 Examples
 ========
 
-Examples are all in the `examples` directory of the source or the SVN checkout.
+Examples are all in the ``examples`` directory of the source or the SVN checkout.
 The docs and examples do not ship with the binary eggs.  The examples directory
 also contains some sample data.
 
@@ -108,28 +116,21 @@ also contains some sample data.
 Test suite
 ==========
 
-The test suite may be run like so (on a bash shell)::
+The basic test suites for tvtk and mayavi can be run using nose::
 
- cd tests
- for i in test*.py; do python $i; done
+  nosettests -v tvtk/tests
+  nosettests -v mayavi
+  
+The integration tests::
 
-Use a similar line for your particular shell.
+  cd integrationtests/mayavi
+  python run.py
 
 
 Bug tracker, mailing list etc.
 ==============================
 
-The bug tracker is available as part of the trac interface here:
-
- https://svn.enthought.com/enthought/
-
-To submit a bug you will necessarily have to register at the site.  Click on
-the "register" link at the top right on the above page to register.  Or login
-if you already have registered.  Once you are registered you may file a bug by
-creating a new ticket.
-
-Alternatively, you can post on the enthought-dev@mail.enthought.com mailing list.
-
+The bug tracker is available in `github <https://github.com/enthought/mayavi/issues>`_ Please provide info and details on platform, python, vtk and gui backends and their versions. If possible, a small example replicating the the problem.
 
 Authors and Contributors
 ========================
@@ -138,7 +139,7 @@ Authors and Contributors
 
   Prabhu Ramachandran: primary author.
 
-  Gaël Varoquaux: mlab, icons, many general improvements and maintainance.
+  GaÃ«l Varoquaux: mlab, icons, many general improvements and maintainance.
 
   Deepak Surti: Upgrade to VTK 5.10.1, VTK 6.x with new pipeline.
 
