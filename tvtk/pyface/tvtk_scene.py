@@ -12,6 +12,7 @@ functionality. See the class docs for more details.
 
 
 import os.path
+import weakref
 
 from apptools.persistence import state_pickler
 from tvtk.api import tvtk
@@ -231,7 +232,6 @@ class TVTKScene(HasPrivateTraits):
     # 'event' interface.
     ###########################################################################
     def _closed_fired(self):
-        del self.picker
         del self.light_manager
         del self._interactor
         del self
@@ -817,7 +817,7 @@ class TVTKScene(HasPrivateTraits):
 
         self._interactor.initialize()
         self._interactor.render()
-        self.light_manager = light_manager.LightManager(self)
+        self.light_manager = light_manager.LightManager(weakref.proxy(self))
 
         if self.off_screen_rendering:
             # We want the default size to be the normal (300, 300).
