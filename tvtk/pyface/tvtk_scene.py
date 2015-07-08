@@ -232,9 +232,8 @@ class TVTKScene(HasPrivateTraits):
     # 'event' interface.
     ###########################################################################
     def _closed_fired(self):
-        del self.light_manager
-        del self._interactor
-        del self
+        self.light_manager = None
+        self._interactor = None
 
     ###########################################################################
     # 'Scene' interface.
