@@ -10,7 +10,6 @@ from StringIO import StringIO
 import copy
 import numpy
 import os
-import psutil
 
 # Local imports.
 from common import TestCase, get_example_data
@@ -203,5 +202,14 @@ class TestMemoryUsage(TestCase):
         self.check()
 
 if __name__ == "__main__":
-    t = TestMemoryUsage()
-    t.test_memory_usage()
+    try:
+        import psutil
+        t = TestMemoryUsage()
+        t.test_memory_usage()
+    except ImportError, e:
+        import unittest
+        skip_message = """ 
+                       This test has a missing psutil dependency.
+                       Please install psutil to run this test.
+                       """
+        raise unittest.SkipTest(skip_message)
