@@ -401,6 +401,7 @@ class Scene(TVTKScene, Widget):
         self.picker = None
         self.light_manager = None
         self._interactor = None
+        self._vtk_control = None
 
     ###########################################################################
     # Non-public interface.
