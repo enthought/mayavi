@@ -7,8 +7,8 @@
 import unittest
 import weakref
 import gc
-import os
 
+from traits.etsconfig.api import ETSConfig
 from tvtk.pyface.tvtk_scene import TVTKScene
 
 class TestScene(unittest.TestCase):
@@ -49,7 +49,7 @@ class TestScene(unittest.TestCase):
         self.assertEqual(scene_weakref(), None)
         self.assertEqual(gc.collect(), 0)
     
-    @unittest.skipIf(os.environ['ETS_TOOLKIT'] == 'wx', 
+    @unittest.skipIf(ETSConfig.toolkit == 'wx',
                      "Skip qt test when running wx")
     def test_qt_scene_garbage_collected(self):
         """ Test the garbage collection of qt Scene implementation."""
