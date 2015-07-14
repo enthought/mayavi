@@ -65,8 +65,7 @@ class TestScene(unittest.TestCase):
         self.assertEqual(scene_weakref(), None)
         self.assertEqual(gc.collect(), 0)
 
-    @unittest.skipIf(os.environ['ETS_TOOLKIT'] == 'qt4', 
-                     "Skip wx test when running qt4")
+    @unittest.skip("Skip wx test as it causes segmentation fault")
     def test_wx_scene_garbage_collected(self):
         """ Test the garbage collection of wx Scene implementation."""
         from tvtk.pyface.ui.wx.scene import Scene
