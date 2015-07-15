@@ -5,6 +5,7 @@
 # License: BSD Style.
 
 import unittest
+import weakref
 import gc
 
 from traits.etsconfig.api import ETSConfig
@@ -19,18 +20,26 @@ class TestScene(unittest.TestCase):
         ETSConfig.toolkit=='wx', 'Test segfaults using WX (issue #216)')
     def test_scene_garbage_collected(self):
 
+        # given
+        scene_collected = []
+        scene_weakref = None
+
+        def scene_collected_callback(weakref):
+            scene_collected.append(True)
+
         def do():
-            scene = Scene(None)
+            scene = Scene()
+            reference = weakref.ref(scene, scene_collected_callback)
             scene.close()
+            return reference
 
         # when
         with restore_gc_state():
-            gc.collect()
-            do()
-            gc.collect()
+            gc.disable()
+            scene_weakref = do()
 
-        # All created cycles should be collectible.
-        self.assertEqual(len(gc.garbage), 0)
+        # The Scene should have been collected.
+        self.assertTrue(scene_collected[0])
 
 
 if __name__ == "__main__":
