@@ -23,7 +23,6 @@ docs for more details.
 
 import os
 import tempfile
-import weakref
 
 from pyface.qt import QtCore, QtGui
 
@@ -339,7 +338,7 @@ class Scene(TVTKScene, Widget):
         super(Scene, self).__init__(parent, **traits)
 
         # Setup the default picker.
-        self.picker = picker.Picker(weakref.proxy(self))
+        self.picker = picker.Picker(self)
 
         # The light manager needs creating.
         self.light_manager = None
@@ -410,10 +409,8 @@ class Scene(TVTKScene, Widget):
         """ Create the toolkit-specific control that represents the widget. """
 
         # Create the VTK widget.
-        proxy_scene = weakref.proxy(self)
-        self._vtk_control = window = _VTKRenderWindowInteractor(proxy_scene, 
-                                                                parent,
-                                                                stereo=self.stereo)
+        self._vtk_control = window = _VTKRenderWindowInteractor(
+            self, parent, stereo=self.stereo)
 
         # Switch the default interaction style to the trackball one.
         window.GetInteractorStyle().SetCurrentStyleToTrackballCamera()
@@ -465,12 +462,12 @@ class Scene(TVTKScene, Widget):
         else:
             self._vtk_control.window().showFullScreen()
             self._fullscreen = True
-            
+
     def _disable_fullscreen(self):
         fs = self._fullscreen
         if fs:
             self._vtk_control.window().showNormal()
             self._fullscreen = False
-            
+
     def _busy_changed(self, val):
         GUI.set_busy(val)
