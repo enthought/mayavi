@@ -30,7 +30,7 @@ class TestScene(unittest.TestCase):
             gc.collect()
 
         # All created cycles should be collectible.
-        self.assertEqual(gc.garbage, 0)
+        self.assertEqual(len(gc.garbage), 0)
 
 
 if __name__ == "__main__":
