@@ -84,8 +84,9 @@ class VTKFileReader(VTKXMLFileReader):
             # attribute filter.
             aa = self._assign_attribute
             self.configure_input_data(aa, outputs[0])
-            outputs[0] = aa.output
             self.update_data()
+            aa.update()
+            outputs[0] = aa.output
 
             self.outputs = outputs
 
