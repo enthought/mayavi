@@ -10,6 +10,12 @@ from common import get_example_data
 # Enthought library imports
 from mayavi.sources.vtk_file_reader import VTKFileReader
 
+# External library imports
+import vtk
+
+vtk_major_version = vtk.vtkVersion.GetVTKMajorVersion()
+vtk_minor_version = vtk.vtkVersion.GetVTKMinorVersion()
+
 class TestVTKFileReader(unittest.TestCase):
     def setUp(self):
         # Read a VTK data file.
@@ -43,6 +49,8 @@ class TestVTKFileReader(unittest.TestCase):
         self.src.initialize(get_example_data('SampleStructGrid.vtk'))
         self.check(24000, 21489)
     
+    @unittest.skipIf(vtk_major_version == 5 and vtk_minor_version < 10,
+                    "This test is probably broken in VTK < 5.10")
     def test_unstructured_grid_file(self):
         self.src.initialize(get_example_data('UGridEx.vtk'))
         self.check(27, 12)
