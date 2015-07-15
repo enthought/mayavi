@@ -27,9 +27,10 @@ class TestScene(unittest.TestCase):
         with restore_gc_state():
             gc.collect()
             do()
+            gc.collect()
 
-        # All created cycles should be collectable.
-        self.assertEqual(gc.collect(), 0)
+        # All created cycles should be collectible.
+        self.assertEqual(gc.garbage, 0)
 
 
 if __name__ == "__main__":
