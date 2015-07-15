@@ -7,6 +7,7 @@
 
 import unittest
 import weakref
+import gc
 
 from tvtk.pyface.tvtk_scene import TVTKScene
 from tvtk.tests.common import restore_gc_state
@@ -31,6 +32,7 @@ class TestTVTKScene(unittest.TestCase):
 
         # when
         with restore_gc_state():
+            gc.disable()
             scene_weakref = do()
 
         # The TVTK Scene should have been collected.
