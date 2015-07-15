@@ -23,6 +23,7 @@ the class docs for more details.
 import sys
 import os
 import tempfile
+import weakref
 import wx
 
 from tvtk.api import tvtk
@@ -302,7 +303,7 @@ class Scene(TVTKScene, Widget):
         super(Scene, self).__init__(parent, **traits)
 
         # Setup the default picker.
-        self.picker = picker.Picker(self)
+        self.picker = picker.Picker(weakref.proxy(self))
 
 
     def __get_pure_state__(self):
@@ -532,7 +533,7 @@ class Scene(TVTKScene, Widget):
             # later.
             return
         # Now create the light manager.
-        self.light_manager = light_manager.LightManager(self)
+        self.light_manager = light_manager.LightManager(weakref.proxy(self))
 
         renwin = self._renwin
         renwin.update_traits()
@@ -563,6 +564,15 @@ class Scene(TVTKScene, Widget):
     def OnButtonUp(self, event):
         self._interacting = False
         self._vtk_control.OnButtonUp(event)
+
+    ###########################################################################
+    # 'event' interface.
+    ###########################################################################
+    def _closed_fired(self):
+        self.picker = None
+        self.light_manager = None
+        self._interactor = None
+        self._vtk_control = None
 
     ###########################################################################
     # Non-public interface.

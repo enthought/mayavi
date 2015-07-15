@@ -12,6 +12,7 @@ functionality. See the class docs for more details.
 
 
 import os.path
+import weakref
 
 from apptools.persistence import state_pickler
 from tvtk.api import tvtk
@@ -226,6 +227,13 @@ class TVTKScene(HasPrivateTraits):
         # scene is constructed.  However, setstate is defined just for
         # completeness.
         state_pickler.set_state(self, state_pickler.loads_state(str_state))
+
+    ###########################################################################
+    # 'event' interface.
+    ###########################################################################
+    def _closed_fired(self):
+        self.light_manager = None
+        self._interactor = None
 
     ###########################################################################
     # 'Scene' interface.
@@ -808,7 +816,7 @@ class TVTKScene(HasPrivateTraits):
 
         self._interactor.initialize()
         self._interactor.render()
-        self.light_manager = light_manager.LightManager(self)
+        self.light_manager = light_manager.LightManager(weakref.proxy(self))
 
         if self.off_screen_rendering:
             # We want the default size to be the normal (300, 300).
