@@ -397,10 +397,10 @@ class Scene(TVTKScene, Widget):
     # 'event' interface.
     ###########################################################################
     def _closed_fired(self):
+        super(Scene, self)._closed_fired()
         self.picker = None
-        self.light_manager = None
-        self._interactor = None
         self._vtk_control = None
+        self.control = None
 
     ###########################################################################
     # Non-public interface.
