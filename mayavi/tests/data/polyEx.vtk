@@ -1,0 +1,59 @@
+# vtk DataFile Version 1.0
+Cube example
+ASCII
+
+DATASET POLYDATA
+POINTS 8 float
+0.0 0.0 0.0
+1.0 0.0 0.0
+1.0 1.0 0.0
+0.0 1.0 0.0
+0.0 0.0 1.0
+1.0 0.0 1.0
+1.0 1.0 1.0
+0.0 1.0 1.0
+POLYGONS 6 30
+4 0 1 2 3
+4 4 5 6 7
+4 0 1 5 4
+4 2 3 7 6
+4 0 4 7 3
+4 1 2 6 5
+
+CELL_DATA 6
+SCALARS cell_scalars int
+LOOKUP_TABLE default
+0
+1
+2
+3
+4
+5
+NORMALS cell_normals float
+0 0 -1
+0 0 1
+0 -1 0
+0 1 0
+-1 0 0
+1 0 0
+
+POINT_DATA 8
+SCALARS my_scalars float
+LOOKUP_TABLE custom_table
+0.0
+1.0
+2.0
+3.0
+4.0
+5.0
+6.0
+7.0
+LOOKUP_TABLE custom_table 8
+0.0 0.0 0.0 1.0
+1.0 0.0 0.0 1.0
+0.0 1.0 0.0 1.0
+1.0 1.0 0.0 1.0
+0.0 0.0 1.0 1.0
+1.0 0.0 1.0 1.0
+0.0 1.0 1.0 1.0
+1.0 1.0 1.0 1.0
