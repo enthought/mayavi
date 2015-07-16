@@ -200,7 +200,7 @@ class TestTVTK(unittest.TestCase):
         # The test sometimes fails as VTK seems to generate objects with the
         # same memory address and hash, we try to force it to allocate more
         # objects so as to not end up reusing the same address and hash.
-        junk = [vtk.vtkConeSource() for i in range(5)]
+        junk = [vtk.vtkConeSource() for i in range(50)]
 
         # Now get another ConeSource and ensure the hash is different.
         cs = tvtk.ConeSource()
