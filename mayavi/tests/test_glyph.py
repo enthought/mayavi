@@ -152,7 +152,7 @@ class TestGlyph(unittest.TestCase):
         n_output_points = src.outputs[0].number_of_points
         n_glyph_input_points = g.glyph.glyph.input.number_of_points
         self.assertNotEqual(n_glyph_input_points , 0)
-        self.assertLessEqual(n_glyph_input_points , n_output_points / on_ratio)
+        self.assertEqual(n_glyph_input_points , n_output_points / on_ratio)
 
     def test_components_changed(self):
         """"Test if the modules respond correctly when the components
