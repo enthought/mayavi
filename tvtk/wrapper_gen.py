@@ -484,10 +484,10 @@ class WrapperGenerator:
             else:
                 del updateable_traits[name]
                 vtk_meth = getattr(klass, 'Get' + m)
-                self._write_tvtk_method(out, vtk_meth)
+                self._write_tvtk_method(klass, out, vtk_meth)
                 if vtk_val == 2:
                     vtk_meth = getattr(klass, 'Set' + m)
-                    self._write_tvtk_method(out, vtk_meth)
+                    self._write_tvtk_method(klass, out, vtk_meth)
                 for key, val in meths[m][1:]:
                     x = self._reform_name(key)
                     vtk_meth = getattr(klass, 'Set%sTo%s'%(m, key))
@@ -528,8 +528,8 @@ class WrapperGenerator:
                     else:
                         default, rng = None, None
                 else:
-                    self._write_tvtk_method(out, vtk_get_meth, sig)
-                    self._write_tvtk_method(out, vtk_set_meth)
+                    self._write_tvtk_method(klass, out, vtk_get_meth, sig)
+                    self._write_tvtk_method(klass, out, vtk_set_meth)
                     continue
 
             if m == 'Output':
@@ -676,8 +676,8 @@ class WrapperGenerator:
                             self._write_property(out, name, vtk_get_meth,
                                                  vtk_set_meth)
                         else: # Get has args or Set needs many args.
-                            self._write_tvtk_method(out, vtk_get_meth, g_sig)
-                            self._write_tvtk_method(out, vtk_set_meth, s_sig)
+                            self._write_tvtk_method(klass, out, vtk_get_meth, g_sig)
+                            self._write_tvtk_method(klass, out, vtk_set_meth, s_sig)
                         del updateable_traits[name]
                 elif typ is types.BooleanType:
                     t_def = 'traits.Bool(%(default)s)'%locals()
@@ -754,14 +754,14 @@ class WrapperGenerator:
                 else:
                     # Cannot be represented as a simple property,
                     # so we wrap it as a plain old method.
-                    self._write_tvtk_method(out, vtk_get_meth, sig)
+                    self._write_tvtk_method(klass, out, vtk_get_meth, sig)
 
     def _gen_other_methods(self, klass, out):
         parser = self.parser
         meths = parser.get_other_methods()
         for m in meths:
             vtk_meth = getattr(klass, m)
-            self._write_tvtk_method(out, vtk_meth)
+            self._write_tvtk_method(klass, out, vtk_meth)
 
 
     #################################################################
@@ -929,8 +929,8 @@ class WrapperGenerator:
             """%locals()
             out.write(self.indent.format(trait_def))
             # Now wrap the set_source and get_source.
-            self._write_tvtk_method(out, vtk_get_meth)
-            self._write_tvtk_method(out, vtk_set_meth, set_sig)
+            self._write_tvtk_method(klass, out, vtk_get_meth)
+            self._write_tvtk_method(klass, out, vtk_set_meth, set_sig)
         else:
             self._write_property(out, 'source', vtk_get_meth, vtk_set_meth)
 
@@ -979,7 +979,7 @@ class WrapperGenerator:
             """%locals()
             out.write(self.indent.format(trait_def))
             # Now wrap the get_input with args.
-            self._write_tvtk_method(out, vtk_get_meth)
+            self._write_tvtk_method(klass, out, vtk_get_meth)
         else:
             self._write_property(out, 'input', vtk_get_meth, None)
 
@@ -1010,8 +1010,8 @@ class WrapperGenerator:
             """%locals()
             out.write(self.indent.format(trait_def))
             # Now wrap the set_input and get_input.
-            self._write_tvtk_method(out, vtk_get_meth)
-            self._write_tvtk_method(out, vtk_set_meth, set_sig)
+            self._write_tvtk_method(klass, out, vtk_get_meth)
+            self._write_tvtk_method(klass, out, vtk_set_meth, set_sig)
         else:
             self._write_property(out, 'input', vtk_get_meth, vtk_set_meth)
 
@@ -1041,10 +1041,10 @@ class WrapperGenerator:
         """%locals()
         out.write(self.indent.format(trait_def))
         # Now wrap the set_input_connection and get_input_connection.
-        self._write_tvtk_method(out, vtk_get_meth)
-        self._write_tvtk_method(out, vtk_set_meth)
+        self._write_tvtk_method(klass, out, vtk_get_meth)
+        self._write_tvtk_method(klass, out, vtk_set_meth)
 
-    def _write_tvtk_method(self, out, vtk_meth, sig=None):
+    def _write_tvtk_method(self, klass, out, vtk_meth, sig=None):
         """Write a generic tvtk_method to `out`.
 
         Parameters
@@ -1081,6 +1081,8 @@ class WrapperGenerator:
         method_affects_input = vtk_m_name in ['AddInput', 'RemoveInput',
                                               'RemoveAllInputs',
                                               'SetInputByNumber']
+        method_needs_update = (vtk_m_name in ['InsertNextCell'] and
+                               klass.__name__ in ['vtkCellArray'])
 
         if arg_type is None:
             decl = 'def %s(self):'%name
@@ -1114,6 +1116,12 @@ class WrapperGenerator:
                 body = "my_args = deref_array(args, %s)\n"\
                        "ret = self._wrap_call(self._vtk_obj.%s, *my_args)\n"\
                        %(arr_sig, vtk_m_name)
+                ##########################################################
+                # When a cell is inserted, number of cells is not updated.
+                # Fixes GH Issue 178.
+                ##########################################################
+                if method_needs_update:
+                    body += "self.update_traits()\n"
             else:
                 body = "ret = self._wrap_call(self._vtk_obj.%s, *args)\n"\
                        %vtk_m_name
