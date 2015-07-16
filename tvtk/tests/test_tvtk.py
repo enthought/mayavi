@@ -200,7 +200,7 @@ class TestTVTK(unittest.TestCase):
         # The test sometimes fails as VTK seems to generate objects with the
         # same memory address and hash, we try to force it to allocate more
         # objects so as to not end up reusing the same address and hash.
-        junk = [vtk.vtkConeSource() for i in range(50)]
+        junk = [vtk.vtkConeSource() for i in range(5)]
 
         # Now get another ConeSource and ensure the hash is different.
         cs = tvtk.ConeSource()
@@ -210,7 +210,13 @@ class TestTVTK(unittest.TestCase):
         else:
             src = cs.executive.algorithm
 
-        self.assertEqual(hash1 != hash(src), True)
+        ##############################################################
+        # This assertion is related to a bug fixed in VTK 6 onwards
+        # For VTK 5.x this test is inconsistent, hence skipeed for 5.x
+        # See http://review.source.kitware.com/#/c/15095/
+        ##############################################################
+        if vtk_major_version > 5:
+            self.assertEqual(hash1 != hash(src), True)
         self.assertEqual(hash(cs), hash(src))
 
         # Test for a bug with collections and the object cache.
