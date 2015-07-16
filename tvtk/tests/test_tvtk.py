@@ -291,6 +291,19 @@ class TestTVTK(unittest.TestCase):
         self.assertEqual(p.ambient_color, val)
         self.assertEqual(p.color, (0.5, 0.5, 0.5))
 
+    def test_cell_array(self):
+        """ Test if cell array insertion updates number of cells.
+            Fixes GH Issue 178.
+        """
+        cell_array = tvtk.CellArray()
+        line1 = tvtk.Line()
+        self.assertEqual(cell_array.number_of_cells, 0)
+        cell_array.insert_next_cell(line1)
+        self.assertEqual(cell_array.number_of_cells, 1)
+        line2 = tvtk.Line()
+        cell_array.insert_next_cell(line2)
+        self.assertEqual(cell_array.number_of_cells, 2)
+
     def test_collection(self):
         """Test if Collection objects work nicely."""
         ac = tvtk.ActorCollection()
