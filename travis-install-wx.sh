@@ -14,4 +14,11 @@ make -C contrib/src/stc install
 make -C contrib/src/gizmos -j 3
 make -C contrib/src/gizmos install
 cd ../wxPython
+svn co http://svn.wxwidgets.org/svn/wx/wxPython/3rdParty/AGW/agw/ wx/lib/agw
+svn co http://svn.wxwidgets.org/svn/wx/wxPython/3rdParty/FloatCanvas/floatcanvas/ wx/lib/floatcanvas
+svn co http://svn.wxwidgets.org/svn/wx/wxPython/3rdParty/PubSub/pubsub/ wx/lib/pubsub
+mkdir wx/lib/pubsub/pubsub1
+mkdir wx/lib/pubsub/pubsub2
+svn co http://svn.wxwidgets.org/svn/wx/wxPython/3rdParty/XRCed/ wx/tools/XRCed
+svn co http://svn.wxwidgets.org/svn/wx/wxPython/3rdParty/Editra/ wx/tools/Editra
 python setup.py install
