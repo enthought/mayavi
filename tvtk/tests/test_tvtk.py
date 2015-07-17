@@ -291,6 +291,21 @@ class TestTVTK(unittest.TestCase):
         self.assertEqual(p.ambient_color, val)
         self.assertEqual(p.color, (0.5, 0.5, 0.5))
 
+    def test_points_lookup(self):
+        """ Test if points can be looked up with both int and long keys.
+            Fixes GH Issue 173.
+        """
+        points = tvtk.Points()
+        points.insert_next_point((0, 1, 2))
+        pt = points[0]
+        self.assertEqual(pt, (0, 1, 2))
+        ptl = points[0L]
+        self.assertEqual(ptl, (0, 1, 2))
+        get_pt = points.get_point(0)
+        self.assertEqual(get_pt, (0, 1, 2))
+        get_ptl = points.get_point(0L)
+        self.assertEqual(get_ptl, (0, 1, 2))
+
     def test_collection(self):
         """Test if Collection objects work nicely."""
         ac = tvtk.ActorCollection()
