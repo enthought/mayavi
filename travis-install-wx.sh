@@ -26,7 +26,7 @@ else
    svn co http://svn.wxwidgets.org/svn/wx/wxPython/3rdParty/XRCed/ wx/tools/XRCed
    svn co http://svn.wxwidgets.org/svn/wx/wxPython/3rdParty/Editra/ wx/tools/Editra
    python setup.py bdist_egg
-   wheel convert ./dist/wxPython-2.8.12.1-py2.7-linux-x86_64.egg $HOME/.cache/
+   wheel convert ./dist/wxPython-2.8.12.1-py2.7-linux-x86_64.egg --dist-dir=$HOME/.cache/
 fi
 
 pip install $HOME/.cache/wxPython-2.8.12.1-cp27-none-linux_x86_64.whl
