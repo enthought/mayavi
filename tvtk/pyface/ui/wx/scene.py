@@ -565,6 +565,16 @@ class Scene(TVTKScene, Widget):
         self._vtk_control.OnButtonUp(event)
 
     ###########################################################################
+    # 'event' interface.
+    ###########################################################################
+
+    def _closed_fired(self):
+        self.picker = None
+        self.light_manager = None
+        self._interactor = None
+        self._vtk_control = None
+
+    ###########################################################################
     # Non-public interface.
     ###########################################################################
     def _create_control(self, parent):

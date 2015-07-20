@@ -177,6 +177,68 @@ class TestContour(TestCase):
 
         # If we have come this far, we are golden!
 
+    def do_profile(self):
+        ############################################################
+        # Imports.
+        ############################################################
+        script = self.script
+        from mayavi.sources.vtk_file_reader import VTKFileReader
+        from mayavi.modules.outline import Outline
+        from mayavi.modules.iso_surface import IsoSurface
+        from mayavi.modules.contour_grid_plane \
+             import ContourGridPlane
+        from mayavi.modules.scalar_cut_plane import ScalarCutPlane
+
+        ############################################################
+        # Create a new scene and set up the visualization.
+        ############################################################
+        s = self.new_scene()
+
+        # Read a VTK (old style) data file.
+        r = VTKFileReader()
+        r.initialize(get_example_data('heart.vtk'))
+
+        script.add_source(r)
+
+        # Create an outline for the data.
+        o = Outline()
+        script.add_module(o)
+
+        # Create one ContourGridPlane normal to the 'x' axis.
+        cgp1 = ContourGridPlane()
+        script.add_module(cgp1)
+        # Set the position to the middle of the data.
+        cgp1.grid_plane.position = 15
+
+        # Another with filled contours normal to 'y' axis.
+        cgp2 = ContourGridPlane()
+        cgp2.contour.filled_contours = True
+        # Set the axis and position to the middle of the data.
+        cgp2.grid_plane.axis = 'y'
+        cgp2.grid_plane.position = 15
+        script.add_module(cgp2)
+
+        # An isosurface module.
+        iso = IsoSurface(compute_normals=True)
+        script.add_module(iso)
+        iso.contour.contours = [200.0]
+
+        # An interactive scalar cut plane.
+        cp = ScalarCutPlane()
+        script.add_module(cp)
+        ip = cp.implicit_plane
+        ip.normal = 0,0,1
+        ip.origin = 0,0,5
+        ip.widget.enabled = False
+
+        # Set the scene to an isometric view.
+        s.scene.isometric_view()
+
+        s.render()
+
+        # Remove existing scene.
+        engine = script.engine
+        engine.close_scene(s)
 
 if __name__ == "__main__":
     t = TestContour()

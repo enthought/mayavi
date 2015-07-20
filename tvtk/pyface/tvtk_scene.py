@@ -228,6 +228,13 @@ class TVTKScene(HasPrivateTraits):
         state_pickler.set_state(self, state_pickler.loads_state(str_state))
 
     ###########################################################################
+    # 'event' interface.
+    ###########################################################################
+    def _closed_fired(self):
+        self.light_manager = None
+        self._interactor = None
+
+    ###########################################################################
     # 'Scene' interface.
     ###########################################################################
     def render(self):

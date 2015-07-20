@@ -394,14 +394,23 @@ class Scene(TVTKScene, Widget):
         os.unlink(name)
 
     ###########################################################################
+    # 'event' interface.
+    ###########################################################################
+    def _closed_fired(self):
+        super(Scene, self)._closed_fired()
+        self.picker = None
+        self._vtk_control = None
+        self.control = None
+
+    ###########################################################################
     # Non-public interface.
     ###########################################################################
     def _create_control(self, parent):
         """ Create the toolkit-specific control that represents the widget. """
 
         # Create the VTK widget.
-        self._vtk_control = window = _VTKRenderWindowInteractor(self, parent,
-                                                                 stereo=self.stereo)
+        self._vtk_control = window = _VTKRenderWindowInteractor(
+            self, parent, stereo=self.stereo)
 
         # Switch the default interaction style to the trackball one.
         window.GetInteractorStyle().SetCurrentStyleToTrackballCamera()
@@ -453,12 +462,12 @@ class Scene(TVTKScene, Widget):
         else:
             self._vtk_control.window().showFullScreen()
             self._fullscreen = True
-            
+
     def _disable_fullscreen(self):
         fs = self._fullscreen
         if fs:
             self._vtk_control.window().showNormal()
             self._fullscreen = False
-            
+
     def _busy_changed(self, val):
         GUI.set_busy(val)
