@@ -28,13 +28,15 @@ To see the supported command line options you may do::
     Usage: test_contour.py [options]
 
     Options:
-      -h, --help          show this help message and exit
-      -v, --verbose       Print verbose output
-      -i, --interact      Allow interaction after test (default: False)
-      -s, --nostandalone  Run test using envisage without standalone (default:
-                          False)
-      -o, --offscreen     Always use offscreen rendering when generating images
-                          (default: False)
+    -h, --help          show this help message and exit
+    -v, --verbose       Print verbose output
+    -i, --interact      Allow interaction after test (default: False)
+    -p, --profile       Profile for memory usage and leaks (default: False).
+                        [Long Running]
+    -s, --nostandalone  Run test using envisage without standalone (default:
+                        False)
+    -o, --offscreen     Always use offscreen rendering when generating images
+                        (default: False)
 
 You should be able to run the tests as::
 

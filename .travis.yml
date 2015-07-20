@@ -20,7 +20,7 @@ addons:
     - ccache
 cache:
   directories:
-    - $HOME/.cache/pip
+    - $HOME/.cache
     - $HOME/.ccache
 before_install:
   - ccache -s

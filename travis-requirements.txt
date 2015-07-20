@@ -1,5 +1,6 @@
 Sphinx
 coverage
+psutil
 git+http://github.com/enthought/traits.git#egg=traits
 git+http://github.com/enthought/traitsui.git#egg=traitsui
 git+http://github.com/enthought/apptools.git#egg=apptools

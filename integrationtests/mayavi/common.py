@@ -17,6 +17,7 @@ from traits.etsconfig.api import ETSConfig
 from traits.api import  Any, Bool, Instance
 from pyface.api import GUI
 from tvtk.api import tvtk
+from tvtk.common import MemoryAssistant
 from mayavi.plugins.app import Mayavi, setup_logger
 
 # The TVTK window.
@@ -299,7 +300,6 @@ def is_running_with_nose():
         return True
     return False
 
-
 ###########################################################################
 # `TestCase` class.
 ###########################################################################
@@ -315,6 +315,9 @@ class TestCase(Mayavi):
     # Always use offscreen rendering to generate images -- even if
     # `self.compare_image` was called in the test..
     offscreen = Bool(False)
+
+    # Profile for memory usage.
+    profile = Bool(False)
 
     # Use the standalone mode. This mode does not use the envisage Mayavi
     # application.
@@ -383,12 +386,18 @@ class TestCase(Mayavi):
             type, value, tb = self.exception_info
             raise type, value, tb
 
+
     def run(self):
         """This starts everything up and runs the test.  Call main to
         run the test."""
         # Calls the users test code.
         try:
-            self.do()
+            if self.profile:
+                memory_assistant = MemoryAssistant()
+                memory_assistant.assertReturnsMemory(self.do_profile,
+                                                     slack = 1.0)
+            else:
+                self.do()
         except Exception, e:
             type, value, tb = sys.exc_info()
             if is_running_with_nose():
@@ -434,6 +443,10 @@ class TestCase(Mayavi):
         parser.add_option("-i", "--interact", action="store_true",
                           dest="interact", default=False,
                           help="Allow interaction after test (default: False)")
+        parser.add_option("-p", "--profile", action="store_true",
+                          dest="profile", default=False,
+                          help="Profile for memory usage and leaks "\
+                               "(default:False). [Long Running] ")
         parser.add_option("-s", "--nostandalone", action="store_true",
                           dest="standalone", default=False,
                           help="Run test using envisage without standalone "\
@@ -450,6 +463,7 @@ class TestCase(Mayavi):
             self.log_mode = logging.DEBUG
         self.offscreen = options.offscreen
         self.interact = options.interact
+        self.profile = options.profile
         self.standalone = not options.standalone
 
     ######################################################################
@@ -458,6 +472,16 @@ class TestCase(Mayavi):
     def do(self):
         """Override this to do whatever you want to do as your test
         code.
+
+        *Make sure all other MayaVi specific imports are made here!*
+
+        If you import MayaVi related code earlier you will run into
+        difficulties.
+        """
+        raise NotImplementedError
+
+    def do_profile(self):
+        """Override this to profile for memory usage.
 
         *Make sure all other MayaVi specific imports are made here!*
 
