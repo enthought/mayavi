@@ -18,10 +18,12 @@ the following article (bibtex entry :download:`citation.bib`):
 Getting help
 ------------
 
-If this manual, the Mayavi web page, the wiki page and google are of no
-help feel free to ask on the github issue tracker. Bug reports should be
-submitted in the github issue tracker. Please make sure to provide enough
-information so that the issue can be reproduced.
+Bug reports should be submitted to the `github issue tracker
+<https://github.com/enthought/mayavi/issues>`_. Please make sure to
+provide enough information so that the issue can be reproduced. For
+other request, if this manual, the Mayavi web page, the wiki page,
+stack overflow and google are of no help feel free to ask on the
+`issue tracker <https://github.com/enthought/mayavi/issues>`_.
 
 
 Tests for Mayavi
@@ -65,21 +67,22 @@ for various reasons.
 Helping out
 -----------
 
-We are always on the lookout for people to help this project grow.
-If you need a functionality added to Mayavi, open an new feature
-request issue in github_ and feel free to make suggestions through
-pull_requests_. Please note that we aim to improve the overall
-testing of the Mayavi codebase, so tests are also important.
+We are always on the lookout for people to help this project grow.  If
+you need a functionality added to Mayavi, open an new feature request
+issue in github_ and feel free to make suggestions through `pull
+request <https://help.github.com/articles/using-pull-requests/>`_.
+Please note that we aim to improve the overall testing of the Mayavi
+codebase, so tests are also important.
 
 Development quick start
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-To help improve Mayavi, you first need to install the development version
-(see :ref:`installing_git`). You can then modify your local installation
-of Mayavi to add the functionality you are interested in (make sure the
-tests still run after your modifications).  Once you are done, you
-can generate a github pull request to get your changes into the next
-stable release.
+To help improve Mayavi, you first need to install the development
+version (see :ref:`installing_git`). You can then modify your local
+installation of Mayavi to add the functionality you are interested in
+(make sure the tests still run after your modifications).  Once you
+are done, you can generate a github `pull request <pull_requests>`_ to
+get your changes into the next stable release.
 
 Improving the documentation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -104,7 +107,7 @@ your changes into the next stable release.
 
 .. _nose: http://somethingaboutorange.com/mrl/projects/nose/
 .. _github: https://github.com/enthought/mayavi
-.. _pull_requests: https://help.github.com/articles/using-pull-requests/
+.. _github_issues:
 
 ..
    Local Variables:
