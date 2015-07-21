@@ -3,9 +3,11 @@
 Known bugs and issues
 ======================
 
-Here we list several known bugs along with potential solutions when
-available and also those that are currently unresolved with links to the
-appropriate tickets.
+The Known Issues section contains those items that are big and
+important but are not currently actively worked on, because they need
+a lot of effort or there is no solution yet for them. For a more detailed
+list of issues and bugs please check the list in github_
+
 
   * **Display bugs:** Mayavi, and VTK, heavily use hardware rendering, as a
     result are very sensitive to hardware rendering bugs. Common
@@ -20,8 +22,4 @@ appropriate tickets.
     graphics-card drivers (under Linux, try switching between the open
     source one, and the proprietary one).
 
-  * **Crash when adding list items**
-    https://svn.enthought.com/enthought/ticket/1813 : Crashing list
-    editor on Linux with wx backend when adding or removing list items.
-    In Mayavi this happens for instance when adding or removing contours.
-
+.. _github: https://github.com/enthought/mayavi/issues

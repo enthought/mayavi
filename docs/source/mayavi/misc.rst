@@ -9,7 +9,7 @@ resources spent developing Mayavi by the number of citations of the
 software. If you publish scientific articles using Mayavi, please cite
 the following article (bibtex entry :download:`citation.bib`):
 
-  Ramachandran, P. and Varoquaux, G., *`Mayavi: 3D Visualization of 
+  Ramachandran, P. and Varoquaux, G., *`Mayavi: 3D Visualization of
   Scientific Data`* IEEE Computing in Science & Engineering, **13**
   (2), pp. 40-51 (2011)
 
@@ -18,20 +18,10 @@ the following article (bibtex entry :download:`citation.bib`):
 Getting help
 ------------
 
-Most of the user and developer discussion for Mayavi occurs on the
-Enthought OSS developers mailing list
-(enthought-dev@mail.enthought.com).  This list is also available via
-gmane from here:
-http://dir.gmane.org/gmane.comp.python.enthought.devel
-
-Discussion and bug reports are also sometimes sent to the mayavi-users
-mailing list (Mayavi-users@lists.sourceforge.net).  We recommend
-sending messages to the enthought-dev list though.
-
-The Mayavi documentation: http://docs.enthought.com/mayavi/mayavi
-
 If this manual, the Mayavi web page, the wiki page and google are of no
-help feel free to post on the enthought-dev mailing list for help.
+help feel free to ask on the github issue tracker. Bug reports should be
+submitted in the github issue tracker. Please make sure to provide enough
+information so that the issue can be reproduced.
 
 
 Tests for Mayavi
@@ -72,14 +62,14 @@ These tests are intrusive and will create several mayavi windows and
 also take a while to complete.  Some of them may fail on your machine
 for various reasons.
 
-.. _nose: http://somethingaboutorange.com/mrl/projects/nose/
-
 Helping out
 -----------
 
 We are always on the lookout for people to help this project grow.
-If you need a functionality added to Mayavi, just pitch in on the
-enthought-dev mailing and we'll help you code it.
+If you need a functionality added to Mayavi, open an new feature
+request issue in github_ and feel free to make suggestions through
+pull_requests_. Please note that we aim to improve the overall
+testing of the Mayavi codebase, so tests are also important.
 
 Development quick start
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -87,25 +77,15 @@ Development quick start
 To help improve Mayavi, you first need to install the development version
 (see :ref:`installing_git`). You can then modify your local installation
 of Mayavi to add the functionality you are interested in (make sure the
-tests still run after your modifications). To keep track of your changes,
-you need to use subversion, if you have never used it, see
-http://svnbook.red-bean.com/en/1.1/ch01s07.html. Once you are done, you
-can generate a path that sums up your changes by executing the
-following command in the root of the Mayavi source::
-
-    svn diff > my_patch.patch
-
-Feel free to send us patches via the `mailing list <https://mail.enthought.com/mailman/listinfo/enthought-dev>`__.  Thanks!
+tests still run after your modifications).  Once you are done, you
+can generate a github pull request to get your changes into the next
+stable release.
 
 Improving the documentation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Documentation of a project is incredibly important. It also takes a lot
 of time to write and improve. You can easily help us with documentation.
-
-For that, you can check out only the subversion tree of Mayavi, using::
-
-  svn co http://svn.enthought.com/svn/enthought/Mayavi/trunk/ mayavi
 
 You will find the documentation sources in `docs/sources/mayavi`. The
 documentation is written in `sphinx <http://sphinx.pocoo.org/>`__. It is
@@ -115,16 +95,16 @@ running::
 
     python setup.py build_docs
 
-in the base directory of your checkout. You will need 
+in the base directory of your checkout. You will need
 `sphinx <http://sphinx.pocoo.org/>`__ installed for that. The
 documentation is then built as an HTML documentation that you can find
 in the sub directory `build/docs/html/mayavi`. Once you are comfortable
-with the modifications, just generate an SVN patch using::
+with the modifications, just generate a github pool request to integrate
+your changes into the next stable release.
 
-    svn diff > my_patch.patch 
-
-And send us the patch via the `mailing list <https://mail.enthought.com/mailman/listinfo/enthought-dev>`__.  Thanks!
-
+.. _nose: http://somethingaboutorange.com/mrl/projects/nose/
+.. _github: https://github.com/enthought/mayavi
+.. _pull_requests: https://help.github.com/articles/using-pull-requests/
 
 ..
    Local Variables:
@@ -133,4 +113,3 @@ And send us the patch via the `mailing list <https://mail.enthought.com/mailman/
    sentence-end-double-space: t
    fill-column: 70
    End:
-
