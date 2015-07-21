@@ -21,8 +21,8 @@ Getting help
 Bug reports should be submitted to the `github issue tracker
 <https://github.com/enthought/mayavi/issues>`_. Please make sure to
 provide enough information so that the issue can be reproduced. For
-other request, if this manual, the Mayavi web page, the wiki page,
-stack overflow and google are of no help feel free to ask on the
+other requests, if this manual, the Mayavi web page, the wiki page,
+stack overflow and google are of no help, feel free to ask on the
 `issue tracker <https://github.com/enthought/mayavi/issues>`_.
 
 
