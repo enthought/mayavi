@@ -6,7 +6,7 @@ Known bugs and issues
 The Known Issues section contains those items that are big and
 important but are not currently actively worked on, because they need
 a lot of effort or there is no solution yet for them. For a more detailed
-list of issues and bugs please check the list in github_.
+list of issues and bugs please check the list in `issue tracker`_.
 
 
   * **Display bugs:** Mayavi, and VTK, heavily use hardware rendering, as a
@@ -34,4 +34,4 @@ list of issues and bugs please check the list in github_.
   * **wxPython 3:** Similar to the Qt 5 issue support for wxPython 3 is linked with
     the necessary support arriving in the stable releases of the gui libraries.
 
-.. _github: https://github.com/enthought/mayavi/issues
+.. _issue tracker: https://github.com/enthought/mayavi/issues
