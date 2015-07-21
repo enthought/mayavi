@@ -210,7 +210,13 @@ class TestTVTK(unittest.TestCase):
         else:
             src = cs.executive.algorithm
 
-        self.assertEqual(hash1 != hash(src), True)
+        ##############################################################
+        # This assertion is related to a bug fixed in VTK 6 onwards
+        # For VTK 5.x this test is inconsistent, hence skipeed for 5.x
+        # See http://review.source.kitware.com/#/c/15095/
+        ##############################################################
+        if vtk_major_version > 5:
+            self.assertEqual(hash1 != hash(src), True)
         self.assertEqual(hash(cs), hash(src))
 
         # Test for a bug with collections and the object cache.
@@ -305,6 +311,19 @@ class TestTVTK(unittest.TestCase):
         self.assertEqual(get_pt, (0, 1, 2))
         get_ptl = points.get_point(0L)
         self.assertEqual(get_ptl, (0, 1, 2))
+    
+    def test_cell_array(self):
+        """ Test if cell array insertion updates number of cells.
+            Fixes GH Issue 178.
+        """
+        cell_array = tvtk.CellArray()
+        line1 = tvtk.Line()
+        self.assertEqual(cell_array.number_of_cells, 0)
+        cell_array.insert_next_cell(line1)
+        self.assertEqual(cell_array.number_of_cells, 1)
+        line2 = tvtk.Line()
+        cell_array.insert_next_cell(line2)
+        self.assertEqual(cell_array.number_of_cells, 2)
 
     def test_collection(self):
         """Test if Collection objects work nicely."""
