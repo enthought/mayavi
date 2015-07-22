@@ -3,9 +3,11 @@
 Known bugs and issues
 ======================
 
-Here we list several known bugs along with potential solutions when
-available and also those that are currently unresolved with links to the
-appropriate tickets.
+The Known Issues section contains those items that are big and
+important but are not currently actively worked on, because they need
+a lot of effort or there is no solution yet for them. For a more detailed
+list of issues and bugs please check the list in `issue tracker`_.
+
 
   * **Display bugs:** Mayavi, and VTK, heavily use hardware rendering, as a
     result are very sensitive to hardware rendering bugs. Common
@@ -20,8 +22,16 @@ appropriate tickets.
     graphics-card drivers (under Linux, try switching between the open
     source one, and the proprietary one).
 
-  * **Crash when adding list items**
-    https://svn.enthought.com/enthought/ticket/1813 : Crashing list
-    editor on Linux with wx backend when adding or removing list items.
-    In Mayavi this happens for instance when adding or removing contours.
+  * **Python 3:** The plans for Mayavi on Python 3 are mainly linked to VTK
+    being available on Python 3. Transitioning to Python 3 would also require
+    the gui libraries such as traitsui and pyface to also support Python 3. For
+    more details please check the related github `issue
+    <https://github.com/enthought/mayavi/issues/84>`_.
 
+  * **Qt 5:** Mayavi is built on top of the traitsui and pyface gui libraries. Thus
+    support for Qt 5 is linked to these gui libraries supporting Qt 5.
+
+  * **wxPython 3:** Similar to the Qt 5 issue support for wxPython 3 is linked with
+    the necessary support arriving in the stable releases of the gui libraries.
+
+.. _issue tracker: https://github.com/enthought/mayavi/issues
