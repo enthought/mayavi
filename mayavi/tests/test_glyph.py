@@ -64,6 +64,7 @@ class TestGlyph(unittest.TestCase):
         g.glyph.glyph_source.glyph_position = 'center'
         g.glyph.glyph.vector_mode = 'use_normal'
         g.glyph.glyph.scale_factor = 0.5
+        g.glyph.mask_points.on_ratio = 20
         g.actor.property.line_width = 1.0
 
         v = VectorCutPlane()
@@ -91,19 +92,30 @@ class TestGlyph(unittest.TestCase):
         self.e.stop()
         return
 
-    def check(self):
-        """Do the actual testing."""
-
-        s=self.scene
+    def check(self, mask=False, mask_random_mode=False):
+        """Do the actual testing with and without masking. For masking,
+           both the presence and absence of random mode is also tested.
+        """
+        s = self.scene
         src = s.children[0]
         g = src.children[0].children[1]
         self.assertEqual(g.glyph.glyph_source.glyph_position,'center')
         self.assertEqual(g.glyph.glyph.vector_mode,'use_normal')
         self.assertEqual(g.glyph.glyph.scale_factor,0.5)
         self.assertEqual(g.actor.property.line_width,1.0)
+        # Test masking
         n_output_points = src.outputs[0].number_of_points
         n_glyph_input_points = g.glyph.glyph.input.number_of_points
-        self.assertEqual(n_glyph_input_points, n_output_points)
+        if mask:
+            self.assertNotEqual(n_glyph_input_points , 0)
+            if mask_random_mode:
+                self.assertLessEqual(n_glyph_input_points , n_output_points)
+            else:
+                on_ratio = g.glyph.mask_points.on_ratio
+                self.assertEqual(n_glyph_input_points,
+                                 n_output_points / on_ratio)
+        else:
+            self.assertEqual(n_glyph_input_points, n_output_points)
 
         v = src.children[0].children[2]
         glyph = v.glyph
@@ -121,38 +133,28 @@ class TestGlyph(unittest.TestCase):
         self.assertEqual(numpy.allclose(v.implicit_plane.normal,
                          (0., 1., 0.)),True)
 
-
     def test_glyph(self):
         "Test if the test fixture works"
         self.check()
 
     def test_mask_input_points_with_random_mode(self):
         """Test if masking input points works with random mode.
-           Fixes Issue #165"""
-        s=self.scene
+           Tests Issue #165"""
+        s = self.scene
         src = s.children[0]
         g = src.children[0].children[1]
         g.glyph.mask_input_points = True
-        g.glyph.mask_points.on_ratio = 20
-        n_output_points = src.outputs[0].number_of_points
-        n_glyph_input_points = g.glyph.glyph.input.number_of_points
-        self.assertNotEqual(n_glyph_input_points , 0)
-        self.assertLessEqual(n_glyph_input_points , n_output_points)
+        self.check(mask=True, mask_random_mode=True)
 
     def test_mask_input_points_without_random_mode(self):
         """Test if masking input points works without random mode.
-           Fixes Issue #165"""
-        s=self.scene
+           Tests Issue #165"""
+        s = self.scene
         src = s.children[0]
         g = src.children[0].children[1]
-        on_ratio = 20
-        g.glyph.mask_points.on_ratio = on_ratio
         g.glyph.mask_points.random_mode = 0
         g.glyph.mask_input_points = True
-        n_output_points = src.outputs[0].number_of_points
-        n_glyph_input_points = g.glyph.glyph.input.number_of_points
-        self.assertNotEqual(n_glyph_input_points , 0)
-        self.assertEqual(n_glyph_input_points , n_output_points / on_ratio)
+        self.check(mask=True)
 
     def test_components_changed(self):
         """"Test if the modules respond correctly when the components
