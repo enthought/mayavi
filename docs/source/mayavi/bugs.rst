@@ -28,7 +28,7 @@ list of issues and bugs please check the list in `issue tracker`_.
     more details please check the related github `issue
     <https://github.com/enthought/mayavi/issues/84>`_.
 
-  * **Qt 5:** Mayavi is build on top of the traitsui and pyface gui libraries. Thus
+  * **Qt 5:** Mayavi is built on top of the traitsui and pyface gui libraries. Thus
     support for Qt 5 is linked to these gui libraries supporting Qt 5.
 
   * **wxPython 3:** Similar to the Qt 5 issue support for wxPython 3 is linked with
