@@ -569,6 +569,7 @@ class Scene(TVTKScene, Widget):
     ###########################################################################
 
     def _closed_fired(self):
+        super(Scene, self)._closed_fired()
         self.picker = None
         self.light_manager = None
         self._interactor = None
