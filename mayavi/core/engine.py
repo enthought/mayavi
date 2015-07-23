@@ -180,6 +180,13 @@ class Engine(HasStrictTraits):
         registry.unregister_engine(self)
         self.running = False
 
+    def clear_viewers(self):
+        """ When the scene is closed, clear the viewer ref which otherwise
+            stores references to scenes to prevent crash on QT4.
+            See: self.new_scene and MlabSceneModel._closed_fired
+        """
+        self._viewer_ref.clear()
+
     @recordable
     def add_source(self, src, scene=None):
         """Adds a source to the pipeline. Uses the current scene unless a

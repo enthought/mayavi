@@ -44,6 +44,11 @@ class MlabSceneModel(SceneModel):
     ###################################################################
     # Private API.
     ###################################################################
+    def _closed_fired(self):
+        super(MlabSceneModel, self)._closed_fired()
+        self.mayavi_scene.scene = None
+        self.engine.clear_viewers()
+
     def _engine_default(self):
         return m2_mlab.get_engine()
 
