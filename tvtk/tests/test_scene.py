@@ -40,6 +40,7 @@ class TestScene(unittest.TestCase):
 
         # The Scene should have been collected.
         self.assertTrue(scene_collected[0])
+        self.assertIsNone(scene_weakref())
 
 
 if __name__ == "__main__":
