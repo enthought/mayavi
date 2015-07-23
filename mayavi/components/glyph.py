@@ -271,8 +271,10 @@ class Glyph(Component):
         if value:
             mask = self.mask_points
             tvtk_common.configure_input(mask, inputs[0].outputs[0])
+            self.configure_connection(self.glyph, mask)
         else:
             self.configure_connection(self.glyph, inputs[0])
+        self.glyph.update()
 
     def _glyph_type_changed(self, value):
         if self.glyph_type == 'vector':
