@@ -103,6 +103,12 @@ class MemoryAssistant(object):
         running test suite.
 
         """
+        try:
+            import psutil
+        except ImportError:
+            msg = "Please install psutil to check memory usage"
+            raise ImportError(msg)
+
         process = psutil.Process(os.getpid())
 
         def test_function():
@@ -573,13 +579,6 @@ class TestCase(Mayavi):
         if options.verbose:
             VERBOSE = True
             self.log_mode = logging.DEBUG
-        global psutil
-        if options.profile:
-            try:
-                import psutil
-            except ImportError:
-                msg = "Please install psutil to check memory usage"
-                raise ImportError(msg)
         self.offscreen = options.offscreen
         self.interact = options.interact
         self.profile = options.profile
