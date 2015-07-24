@@ -43,28 +43,5 @@ class TestMlabSceneModel(TestMlabNullEngine):
         self.assertEqual(plt.scene, test_object.scene1)
         self.assertEqual(pts.scene, test_object.scene2)
 
-    def test_scene_model_garbage_collected(self):
-
-        # given
-        scene_model_collected = []
-        scene_model_weakref = None
-
-        def scene_model_collected_callback(weakref):
-            scene_model_collected.append(True)
-
-        def do():
-            scene_model = MlabSceneModel()
-            reference = weakref.ref(scene_model, scene_model_collected_callback)
-            scene_model.closed = True
-            return reference
-
-        # when
-        with restore_gc_state():
-            gc.disable()
-            scene_model_weakref = do()
-
-        self.assertTrue(scene_model_collected[0])
-        self.assertIsNone(scene_model_weakref())
-
 if __name__ == '__main__':
     unittest.main()
