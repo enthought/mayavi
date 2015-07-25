@@ -203,7 +203,7 @@ class Scene(Base):
     def _closed_fired(self):
         self.scene = None
         self.menu_helper.object = None
-        self.parent.clear_scenes()
+        self.parent.closed = True
 
     def _children_changed(self, old, new):
         self._handle_children(old, new)
