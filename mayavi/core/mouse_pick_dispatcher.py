@@ -5,7 +5,7 @@ on a scene to picking.
 
 # ETS imports
 from traits.api import HasTraits, Dict, Instance, \
-        Enum, Int, Callable, on_trait_change, List, Tuple
+        Enum, Int, Callable, on_trait_change, List, Tuple, WeakRef
 
 from mayavi.core.scene import Scene
 from tvtk.api import tvtk
@@ -27,7 +27,7 @@ class MousePickDispatcher(HasTraits):
     """
 
     # The scene events are wired to.
-    scene = Instance(Scene)
+    scene = WeakRef(Scene)
 
     # The list of callbacks, with the picker type they should be using,
     # and the mouse button that triggers them.

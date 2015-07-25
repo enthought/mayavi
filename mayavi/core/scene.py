@@ -5,7 +5,7 @@
 # License: BSD Style.
 
 # Enthought library imports.
-from traits.api import List, Str, Instance
+from traits.api import Event, List, Str, Instance
 from traitsui.api import View, Group, Item
 from apptools.persistence.state_pickler import set_state
 
@@ -57,6 +57,9 @@ class Scene(Base):
     _mouse_pick_dispatcher = Instance(
         'mayavi.core.mouse_pick_dispatcher.MousePickDispatcher',
         record=False)
+
+    # The scene has been closed.
+    closed = Event()
 
     ######################################################################
     # `object` interface
@@ -154,7 +157,6 @@ class Scene(Base):
             # Re-enable rendering.
             if scene is not None:
                 scene.disable_render = status
-
         super(Scene, self).stop()
 
     def add_child(self, child):
@@ -198,6 +200,11 @@ class Scene(Base):
     ######################################################################
     # Non-public interface
     ######################################################################
+    def _closed_fired(self):
+        self.scene = None
+        self.menu_helper.object = None
+        self.parent.clear_scenes()
+
     def _children_changed(self, old, new):
         self._handle_children(old, new)
 

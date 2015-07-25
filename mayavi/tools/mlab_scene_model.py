@@ -46,8 +46,7 @@ class MlabSceneModel(SceneModel):
     ###################################################################
     def _closed_fired(self):
         super(MlabSceneModel, self)._closed_fired()
-        self.mayavi_scene.scene = None
-        self.engine.clear_viewers()
+        self.mayavi_scene.closed = True
 
     def _engine_default(self):
         return m2_mlab.get_engine()

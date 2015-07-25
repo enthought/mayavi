@@ -64,6 +64,7 @@ class Registry(HasTraits):
         engine instance."""
 
         engines = self.engines
+        name = None
         if isinstance(engine_or_name, str):
             name = engine_or_name
         else:
@@ -72,7 +73,7 @@ class Registry(HasTraits):
                     name = key
                     break
 
-        del engines[name]
+        if name: del engines[name]
         logger.debug('Engine named %s unregistered', name)
 
     def get_file_reader(self, filename):
