@@ -81,6 +81,9 @@ class DecoratedScene(Scene):
     ##########################################################################
     # Non-public interface.
     ##########################################################################
+    def _closed_fired(self):
+        super(DecoratedScene, self)._closed_fired()
+
     def _create_control(self, parent):
         """ Create the toolkit-specific control that represents the widget.
 
