@@ -41,10 +41,13 @@ class TestMayaviGarbageCollection(TestGarbageCollection):
         def create_fn():
             e = NullEngine()
             e.start()
+            e.new_scene()
+            e.new_scene()
+            e.new_scene()
             return e
 
         def close_fn(o):
-            o.closed = True
+            o.stop()
 
         self.check_object_garbage_collected(create_fn, close_fn)
 
@@ -56,6 +59,6 @@ class TestMayaviGarbageCollection(TestGarbageCollection):
             return e
 
         def close_fn(o):
-            o.closed = True
+            o.stop()
 
         self.check_object_garbage_collected(create_fn, close_fn)

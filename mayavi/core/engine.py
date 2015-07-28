@@ -184,6 +184,7 @@ class Engine(HasStrictTraits):
     def stop(self):
         registry.unregister_engine(self)
         self.running = False
+        self.closed = True
 
     @recordable
     def add_source(self, src, scene=None):
