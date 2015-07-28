@@ -8,7 +8,7 @@ import unittest
 from traits.etsconfig.api import ETSConfig
 
 from tvtk.pyface.tvtk_scene import TVTKScene
-from tvtk.pyface.scene import Scene
+from tvtk.pyface.api import DecoratedScene, Scene
 from tvtk.pyface.scene_model import SceneModel
 from tvtk.tests.common import TestGarbageCollection
 
@@ -21,7 +21,7 @@ class TestTVTKGarbageCollection(TestGarbageCollection):
             return TVTKScene()
 
         def close_fn(o):
-            o.closed = True
+            o.close()
 
         self.check_object_garbage_collected(create_fn, close_fn)
     
@@ -33,7 +33,19 @@ class TestTVTKGarbageCollection(TestGarbageCollection):
             return Scene()
 
         def close_fn(o):
-            o.closed = True
+            o.close()
+
+        self.check_object_garbage_collected(create_fn, close_fn)
+
+    @unittest.skipIf(
+        ETSConfig.toolkit=='wx', 'Test segfaults using WX (issue #216)')
+    def test_decorated_scene(self):
+        """ Tests if Decorated Scene can be garbage collected."""
+        def create_fn():
+            return DecoratedScene(parent=None)
+
+        def close_fn(o):
+            o.close()
 
         self.check_object_garbage_collected(create_fn, close_fn)
     
@@ -42,7 +54,7 @@ class TestTVTKGarbageCollection(TestGarbageCollection):
         def create_fn():
             return SceneModel()
 
-        def close_fn(obj):
-            obj.closed = True
+        def close_fn(o):
+            o.close()
 
         self.check_object_garbage_collected(create_fn, close_fn)
