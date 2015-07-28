@@ -7,6 +7,7 @@
 from tvtk.tests.common import TestGarbageCollection
 from mayavi.core.engine import Engine
 from mayavi.core.null_engine import NullEngine
+from mayavi.core.ui.mayavi_scene import MayaviScene
 from mayavi.tools.mlab_scene_model import MlabSceneModel
 
 class TestMayaviGarbageCollection(TestGarbageCollection):
@@ -35,6 +36,15 @@ class TestMayaviGarbageCollection(TestGarbageCollection):
             o.closed = True
 
         self.check_object_garbage_collected(create_fn, close_fn)
+
+    def test_mayavi_scene(self):
+        """ Tests if Mayavi UI Scene can be garbage collected."""
+        def create_fn():
+            scene = MayaviScene(parent=None)
+            return scene
+
+        def close_fn(o):
+            o.close()
 
     def test_null_engine(self):
         """ Tests if core Null Engine can be garbage collected."""
