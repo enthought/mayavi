@@ -322,7 +322,7 @@ class SpecialGenerator:
             ##############################################
             # Allow int and long keys. Fixes GH Issue 173.
             ##############################################
-            if type(key) not in [type(1), type(1L)]:
+            if not isinstance(key, (int, long)):
                 raise TypeError, "Only int and long are valid keys."
             if key < 0:
                 key =  n + key
