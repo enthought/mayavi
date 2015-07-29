@@ -9,19 +9,24 @@ importing.
 """
 # Authors: Prabhu Ramachandran <prabhu_r@users.sf.net>
 #          Judah De Paula <judah@enthought.com>
-# Copyright (c) 2005-2008, Enthought, Inc.
+# Copyright (c) 2005-2015, Enthought, Inc.
 # License: BSD Style.
 
+from traits.etsconfig.api import ETSConfig
 from traitsui.api \
     import Item, Group, View, ImageEnumEditor, InstanceEditor, HGroup
 from mayavi.core.lut_manager import lut_mode_list, \
             lut_image_dir
 
+if ETSConfig.toolkit == 'qt4':
+    lut_cols = 1
+else:
+    lut_cols = 6
 
 # The view of the LUT Manager object.
 view = View(Group(Item(name='lut_mode',
                        editor=ImageEnumEditor(values=lut_mode_list(),
-                                              cols=6,
+                                              cols=lut_cols,
                                               path=lut_image_dir)),
                   Item(name='file_name', visible_when="lut_mode=='file'"),
                   Item(name='number_of_colors'),
