@@ -73,7 +73,8 @@ class Registry(HasTraits):
                     name = key
                     break
 
-        if name: del engines[name]
+        if name:
+            del engines[name]
         logger.debug('Engine named %s unregistered', name)
 
     def get_file_reader(self, filename):

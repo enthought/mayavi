@@ -1,15 +1,11 @@
 """
 Testing the MlabSceneModel
 """
-import gc
 import unittest
-import weakref
 
 import numpy as np
 
 from traits.api import HasTraits, Instance
-from traits.etsconfig.api import ETSConfig
-from tvtk.tests.common import restore_gc_state
 from mayavi.tools.mlab_scene_model import MlabSceneModel
 from mayavi import mlab
 

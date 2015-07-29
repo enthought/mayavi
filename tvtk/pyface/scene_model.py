@@ -62,9 +62,6 @@ class SceneModel(TVTKScene):
     # The control is going to be closed.
     closing = Event()
 
-    # The control has been closed.
-    closed = Event()
-
     # This exists just to mirror the TVTKWindow api.
     scene = Property
 
@@ -333,9 +330,6 @@ class SceneModel(TVTKScene):
     ######################################################################
     # SceneModel API.
     ######################################################################
-    def _closed_fired(self):
-        super(SceneModel, self)._closed_fired()
-
     def _get_scene(self):
         """Getter for the scene property."""
         return self

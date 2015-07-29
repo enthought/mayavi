@@ -48,7 +48,8 @@ class TestGarbageCollection(unittest.TestCase):
         def do():
             obj = obj_create_fn()
             reference = weakref.ref(obj, object_collected_callback)
-            if obj_close_fn: obj_close_fn(obj)
+            if obj_close_fn:
+                obj_close_fn(obj)
             return reference
 
         # when

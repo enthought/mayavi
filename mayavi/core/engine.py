@@ -580,6 +580,9 @@ class Engine(HasStrictTraits):
         """
         self._viewer_ref.clear()
         self.scenes = []
+        preference_manager.root.on_trait_change(self._show_helper_nodes_changed,
+                                                'show_helper_nodes',
+                                                remove=True)
         registry.unregister_engine(self)
 
     def _show_helper_nodes_changed(self):
