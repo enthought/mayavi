@@ -21,7 +21,7 @@ class TestTVTKGarbageCollection(TestGarbageCollection):
             return TVTKScene()
 
         def close_fn(o):
-            o.close()
+            o.closing = True
 
         self.check_object_garbage_collected(create_fn, close_fn)
     
@@ -45,7 +45,7 @@ class TestTVTKGarbageCollection(TestGarbageCollection):
             return DecoratedScene(parent=None)
 
         def close_fn(o):
-            o.close()
+            o.closing = True
 
         self.check_object_garbage_collected(create_fn, close_fn)
     
@@ -55,6 +55,6 @@ class TestTVTKGarbageCollection(TestGarbageCollection):
             return SceneModel()
 
         def close_fn(o):
-            o.close()
+            o.closing = True
 
         self.check_object_garbage_collected(create_fn, close_fn)

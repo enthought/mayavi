@@ -4,22 +4,57 @@
 # Copyright (c) 2015, Enthought, Inc.
 # License: BSD Style.
 
+from pyface.api import GUI, ApplicationWindow
+from traits.api import Instance
 from tvtk.tests.common import TestGarbageCollection
+from mayavi.core.ui.mayavi_scene import MayaviScene
 from mayavi.core.engine import Engine
 from mayavi.core.null_engine import NullEngine
-from mayavi.core.ui.mayavi_scene import MayaviScene
 from mayavi.tools.mlab_scene_model import MlabSceneModel
+
+
 
 class TestMayaviGarbageCollection(TestGarbageCollection):
     """ See: tvtk.tests.common.TestGarbageCollection
     """
+    def test_mlab_scene_model_with_gui(self):
+        """ Tests if MlabSceneModel with GUI can be garbage collected."""
+
+        class MlabSceneModelWindow(ApplicationWindow):
+            scene = Instance(MlabSceneModel, ())
+
+            def __init__(self, **traits):
+                super(MlabSceneModelWindow, self).__init__(**traits)
+
+        gui = GUI()
+
+        def close(win):
+            win.scene.closing = True
+            win.close()
+
+        def open(gui):
+            window = MlabSceneModelWindow(size=(60, 60))
+            window.open()
+            return window
+
+        def create_fn():
+            return open(gui)
+
+        def close_fn(o):
+            # Start the GUI event loop!
+            gui.invoke_after(500, close, o)
+            gui.start_event_loop()
+
+        self.check_object_garbage_collected(create_fn, close_fn)
+
     def test_mlab_scene_model(self):
         """ Tests if MlabSceneModel can be garbage collected."""
+
         def create_fn():
             return MlabSceneModel()
 
         def close_fn(o):
-            o.closed = True
+            o.closing = True
 
         self.check_object_garbage_collected(create_fn, close_fn)
 
@@ -28,12 +63,11 @@ class TestMayaviGarbageCollection(TestGarbageCollection):
         def create_fn():
             e = NullEngine()
             e.start()
-            e.new_scene()
-            scene = e.scenes[-1]
+            scene = e.new_scene()
             return scene
 
         def close_fn(o):
-            o.closed = True
+            o.closing = True
 
         self.check_object_garbage_collected(create_fn, close_fn)
 
@@ -44,7 +78,7 @@ class TestMayaviGarbageCollection(TestGarbageCollection):
             return scene
 
         def close_fn(o):
-            o.close()
+            o.closing = True
 
     def test_null_engine(self):
         """ Tests if core Null Engine can be garbage collected."""

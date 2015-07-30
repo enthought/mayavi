@@ -157,6 +157,7 @@ class Scene(Base):
             # Re-enable rendering.
             if scene is not None:
                 scene.disable_render = status
+                self.scene = None
         super(Scene, self).stop()
 
     def add_child(self, child):
@@ -200,11 +201,6 @@ class Scene(Base):
     ######################################################################
     # Non-public interface
     ######################################################################
-    def _closed_fired(self):
-        self.scene = None
-        self.menu_helper.object = None
-        self.parent.closed = True
-
     def _children_changed(self, old, new):
         self._handle_children(old, new)
 
