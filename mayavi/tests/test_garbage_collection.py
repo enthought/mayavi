@@ -7,6 +7,7 @@
 from numpy import sqrt, sin, mgrid
 from traits.api import Instance, HasTraits
 from traitsui.api import View, Item
+from traits.etsconfig.api import ETSConfig
 from tvtk.pyface.scene_editor import SceneEditor
 from tvtk.tests.common import TestGarbageCollection
 from mayavi.core.ui.mayavi_scene import MayaviScene
@@ -43,11 +44,17 @@ class TestMayaviGarbageCollection(TestGarbageCollection):
                 Z = sin(R)/R
                 self.scene.mlab.surf(X, Y, Z, colormap='gist_earth')
 
+        def close_fn(o):
+            o.owner.ui = None
+            if ETSConfig.toolkit == 'qt4':
+                o.control = None
+            o.dispose()
+
         def create_fn():
             app = MlabApp()
             return app.edit_traits()
 
-        self.check_object_garbage_collected(create_fn)
+        self.check_object_garbage_collected(create_fn, close_fn)
 
     def test_mlab_scene_model(self):
         """ Tests if MlabSceneModel can be garbage collected."""
