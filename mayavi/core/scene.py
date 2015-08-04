@@ -58,9 +58,6 @@ class Scene(Base):
         'mayavi.core.mouse_pick_dispatcher.MousePickDispatcher',
         record=False)
 
-    # The scene has been closed.
-    closed = Event()
-
     ######################################################################
     # `object` interface
     ######################################################################
