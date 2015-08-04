@@ -101,8 +101,7 @@ class Engine(HasStrictTraits):
     # Are we running?
     running = Bool(False, record=False)
 
-    # The engine has been closed. This does not stop running the engine.
-    # This is invoked when scenes are closed.
+    # This event is invoked when the engine has been stopped.
     closed = Event()
 
     # The recorder for script recording.
@@ -574,7 +573,7 @@ class Engine(HasStrictTraits):
                 break
 
     def _closed_fired(self):
-        """ When the scene is closed, clear the viewer ref which otherwise
+        """ When the engine is closed, clear the viewer ref which otherwise
             stores references to scenes to prevent crash on QT4.
             See: self.new_scene and MlabSceneModel._closed_fired
         """

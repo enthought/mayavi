@@ -23,9 +23,6 @@ class TestMayaviGarbageCollection(TestGarbageCollection):
         class MlabSceneModelWindow(ApplicationWindow):
             scene = Instance(MlabSceneModel, ())
 
-            def __init__(self, **traits):
-                super(MlabSceneModelWindow, self).__init__(**traits)
-
         gui = GUI()
 
         def close(win):
