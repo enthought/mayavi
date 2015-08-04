@@ -4,44 +4,50 @@
 # Copyright (c) 2015, Enthought, Inc.
 # License: BSD Style.
 
-from pyface.api import GUI, ApplicationWindow
-from traits.api import Instance
+from numpy import sqrt, sin, mgrid
+from traits.api import Instance, HasTraits
+from traitsui.api import View, Item
+from tvtk.pyface.scene_editor import SceneEditor
 from tvtk.tests.common import TestGarbageCollection
 from mayavi.core.ui.mayavi_scene import MayaviScene
 from mayavi.core.engine import Engine
 from mayavi.core.null_engine import NullEngine
 from mayavi.tools.mlab_scene_model import MlabSceneModel
 
-
-
 class TestMayaviGarbageCollection(TestGarbageCollection):
     """ See: tvtk.tests.common.TestGarbageCollection
     """
     def test_mlab_scene_model_with_gui(self):
         """ Tests if MlabSceneModel with GUI can be garbage collected."""
+        class MlabApp(HasTraits):
 
-        class MlabSceneModelWindow(ApplicationWindow):
+            # The scene model.
             scene = Instance(MlabSceneModel, ())
 
-        gui = GUI()
+            view = View(Item(name='scene',
+                             editor=SceneEditor(scene_class=MayaviScene),
+                             show_label=False,
+                             resizable=True,
+                             height=500,
+                             width=500),
+                        resizable=True
+                        )
 
-        def close(win):
-            win.close()
+            def __init__(self, **traits):
+                self.generate_data()
 
-        def open(gui):
-            window = MlabSceneModelWindow(size=(60, 60))
-            window.open()
-            return window
+            def generate_data(self):
+                # Create some data
+                X, Y = mgrid[-2:2:100j, -2:2:100j]
+                R = 10*sqrt(X**2 + Y**2)
+                Z = sin(R)/R
+                self.scene.mlab.surf(X, Y, Z, colormap='gist_earth')
 
         def create_fn():
-            return open(gui)
+            app = MlabApp()
+            return app.edit_traits()
 
-        def close_fn(o):
-            # Start the GUI event loop!
-            gui.invoke_after(500, close, o)
-            gui.start_event_loop()
-
-        self.check_object_garbage_collected(create_fn, close_fn)
+        self.check_object_garbage_collected(create_fn)
 
     def test_mlab_scene_model(self):
         """ Tests if MlabSceneModel can be garbage collected."""
