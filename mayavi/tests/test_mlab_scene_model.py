@@ -39,6 +39,5 @@ class TestMlabSceneModel(TestMlabNullEngine):
         self.assertEqual(plt.scene, test_object.scene1)
         self.assertEqual(pts.scene, test_object.scene2)
 
-
 if __name__ == '__main__':
     unittest.main()

@@ -17,6 +17,7 @@ Caveats:
 from traits.api import Dict, Event, \
                                  Instance, List, Property
 from traitsui.api import View, Group, Item, InstanceEditor
+from tvtk.pyface import light_manager
 from tvtk.pyface.tvtk_scene import TVTKScene
 
 
@@ -35,7 +36,8 @@ class SceneModel(TVTKScene):
     ########################################
     # TVTKScene traits.
 
-    light_manager = Property
+    # The light manager.
+    light_manager = Instance(light_manager.LightManager, record=True)
 
     picker = Property
 
@@ -57,7 +59,7 @@ class SceneModel(TVTKScene):
     # Fired when this is activated.
     activated = Event()
 
-    # Fired when this widget is closed.
+    # The control is going to be closed.
     closing = Event()
 
     # This exists just to mirror the TVTKWindow api.
