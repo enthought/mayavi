@@ -18,15 +18,13 @@ from traitsui.api \
 from mayavi.core.lut_manager import lut_mode_list, \
             lut_image_dir
 
-if ETSConfig.toolkit == 'qt4':
-    lut_cols = 1
-else:
-    lut_cols = 6
+def _number_of_lut_cols():
+    return 1 if ETSConfig.toolkit == 'qt4' else 6
 
 # The view of the LUT Manager object.
 view = View(Group(Item(name='lut_mode',
                        editor=ImageEnumEditor(values=lut_mode_list(),
-                                              cols=lut_cols,
+                                              cols=_number_of_lut_cols(),
                                               path=lut_image_dir)),
                   Item(name='file_name', visible_when="lut_mode=='file'"),
                   Item(name='number_of_colors'),
