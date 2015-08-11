@@ -40,9 +40,6 @@ Fixes
     - Fix TVTK wrapper to update number of cells when a cell is inserted in a
       VTK cell array
 
-20 Jul 2015 (IT)
-    - Download wx sources for CI from release files on github
-
 15 Jul 2015 (DS)
     - Fix VKTFileReader to update output when using standalone
 
