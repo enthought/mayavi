@@ -17,7 +17,6 @@ Caveats:
 from traits.api import Dict, Event, \
                                  Instance, List, Property
 from traitsui.api import View, Group, Item, InstanceEditor
-from tvtk.pyface import light_manager
 from tvtk.pyface.tvtk_scene import TVTKScene
 
 
@@ -35,9 +34,6 @@ class SceneModel(TVTKScene):
 
     ########################################
     # TVTKScene traits.
-
-    # The light manager.
-    light_manager = Instance(light_manager.LightManager, record=True)
 
     picker = Property
 
