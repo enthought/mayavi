@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Miscellaneous &mdash; mayavi 4.4.2 documentation</title>
+    <title>Miscellaneous &mdash; mayavi 4.4.3 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '4.4.2',
+        VERSION:     '4.4.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.4.2 documentation" href="index.html" />
+    <link rel="top" title="mayavi 4.4.3 documentation" href="index.html" />
     <link rel="next" title="Example gallery" href="auto/examples.html" />
     <link rel="prev" title="Tips and Tricks" href="tips.html" />
 <style type="text/css">
@@ -70,7 +70,7 @@
         <li class="right" >
           <a href="tips.html" title="Tips and Tricks"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">mayavi 4.4.2 documentation</a> &raquo;</li> 
+        <li><a href="index.html">mayavi 4.4.3 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -94,17 +94,11 @@ Scientific Data`</em> IEEE Computing in Science &amp; Engineering, <strong>13</s
 </div>
 <div class="section" id="getting-help">
 <span id="id1"></span><h2>Getting help<a class="headerlink" href="#getting-help" title="Permalink to this headline">¶</a></h2>
-<p>Most of the user and developer discussion for Mayavi occurs on the
-Enthought OSS developers mailing list
-(<a class="reference external" href="mailto:enthought-dev&#37;&#52;&#48;mail&#46;enthought&#46;com">enthought-dev<span>&#64;</span>mail<span>&#46;</span>enthought<span>&#46;</span>com</a>).  This list is also available via
-gmane from here:
-<a class="reference external" href="http://dir.gmane.org/gmane.comp.python.enthought.devel">http://dir.gmane.org/gmane.comp.python.enthought.devel</a></p>
-<p>Discussion and bug reports are also sometimes sent to the mayavi-users
-mailing list (<a class="reference external" href="mailto:Mayavi-users&#37;&#52;&#48;lists&#46;sourceforge&#46;net">Mayavi-users<span>&#64;</span>lists<span>&#46;</span>sourceforge<span>&#46;</span>net</a>).  We recommend
-sending messages to the enthought-dev list though.</p>
-<p>The Mayavi documentation: <a class="reference external" href="http://docs.enthought.com/mayavi/mayavi">http://docs.enthought.com/mayavi/mayavi</a></p>
-<p>If this manual, the Mayavi web page, the wiki page and google are of no
-help feel free to post on the enthought-dev mailing list for help.</p>
+<p>Bug reports should be submitted to the <a class="reference external" href="https://github.com/enthought/mayavi/issues">issue tracker</a>. Please make sure to
+provide enough information so that the issue can be reproduced. For
+other requests, if this manual, the Mayavi web page, the wiki page,
+stack overflow and google are of no help, feel free to ask on the
+<a class="reference external" href="https://github.com/enthought/mayavi/issues">issue tracker</a>.</p>
 </div>
 <div class="section" id="tests-for-mayavi">
 <h2>Tests for Mayavi<a class="headerlink" href="#tests-for-mayavi" title="Permalink to this headline">¶</a></h2>
@@ -115,18 +109,33 @@ in addition to the variety of existing operating systems, different
 versions of the libraries can be installed. The Mayavi developers do
 their best to support many different configuration, but you can help them
 by running the test suite and reporting any errors.</p>
-<p>ETS uses <a class="reference external" href="http://somethingaboutorange.com/mrl/projects/nose/">nose</a> to gather and run tests. You can also run the unit tests
-of both packages by doing the following from the root of the Mayavi
-source directory:</p>
+<p>You can use <a class="reference external" href="https://nose.readthedocs.org">nose</a> to run the unit tests of both packages by doing the
+following from the root of the Mayavi source directory:</p>
 <div class="highlight-python"><pre>$ nosetests
 ----------------------------------------------------------------------
-Ran 170 tests in 39.254s
+Ran 317 tests in 29.934s
+
+OK (SKIP=5)</pre>
+</div>
+<p>From the mayavi source directory, to run tests only for mayavi package you can
+do:</p>
+<div class="highlight-python"><pre>$ nosetests mayavi/tests
+----------------------------------------------------------------------
+Ran 231 tests in 14.066s
+
+OK (SKIP=4)</pre>
+</div>
+<p>From the mayavi source directory, to run tests only for tvtk package you can
+do:</p>
+<div class="highlight-python"><pre>$ nosetests tvtk/tests
+----------------------------------------------------------------------
+Ran 87 tests in 9.080s
 
 OK (SKIP=1)</pre>
 </div>
 <p>If you get an &#8220;ERROR&#8221; regarding the unavailability of coverage you may
 safely ignore it.  If for some reason nose is having difficulty running
-the tests, the tests may be found inside <tt class="docutils literal"><span class="pre">enthought/tvtk/tests</span></tt> and
+the tests, the tests may be found inside <tt class="docutils literal"><span class="pre">tvtk/tests</span></tt> and
 <tt class="docutils literal"><span class="pre">mayavi/tests</span></tt>.  You can run each of the <tt class="docutils literal"><span class="pre">test_*.py</span></tt> files
 in these directories manually, or change your current directory to these
 directories and run <tt class="docutils literal"><span class="pre">nosetests</span></tt> there.</p>
@@ -141,45 +150,46 @@ for various reasons.</p>
 </div>
 <div class="section" id="helping-out">
 <h2>Helping out<a class="headerlink" href="#helping-out" title="Permalink to this headline">¶</a></h2>
-<p>We are always on the lookout for people to help this project grow.
-If you need a functionality added to Mayavi, just pitch in on the
-enthought-dev mailing and we&#8217;ll help you code it.</p>
+<p>We are always on the lookout for people to help this project grow.  If
+you need a functionality added to Mayavi, open an new feature request
+issue in <a class="reference external" href="https://github.com/enthought/mayavi/issues">issue tracker</a>.</p>
+<p>To submit bug fixes or new functionality, this is the recommended
+workflow:</p>
+<ol class="arabic simple">
+<li>Fork the Repo on github.</li>
+<li>If you are adding functionality or fixing a bug, please add a test!</li>
+<li>Push to your fork and submit a <strong>pull request to the master branch</strong>.</li>
+</ol>
+<p>The <strong>master</strong> branch is a 100% stable (should be).  The pull request is merged
+only after it is certain that things are working out, which means that
+<a class="reference external" href="http://travis-ci.org/enthought/mayavi">Travis</a> and <a class="reference external" href="https://ci.appveyor.com/project/itziakos/mayavi">Appveyor</a> tests pass.</p>
+<p>Please note that we aim to improve the overall testing of the Mayavi codebase,
+so tests are also important.</p>
 <div class="section" id="development-quick-start">
 <h3>Development quick start<a class="headerlink" href="#development-quick-start" title="Permalink to this headline">¶</a></h3>
-<p>To help improve Mayavi, you first need to install the development version
-(see <a class="reference internal" href="installation.html#installing-git"><em>The bleeding edge: Git</em></a>). You can then modify your local installation
-of Mayavi to add the functionality you are interested in (make sure the
-tests still run after your modifications). To keep track of your changes,
-you need to use subversion, if you have never used it, see
-<a class="reference external" href="http://svnbook.red-bean.com/en/1.1/ch01s07.html">http://svnbook.red-bean.com/en/1.1/ch01s07.html</a>. Once you are done, you
-can generate a path that sums up your changes by executing the
-following command in the root of the Mayavi source:</p>
-<div class="highlight-python"><pre>svn diff &gt; my_patch.patch</pre>
-</div>
-<p>Feel free to send us patches via the <a class="reference external" href="https://mail.enthought.com/mailman/listinfo/enthought-dev">mailing list</a>.  Thanks!</p>
+<p>To help improve Mayavi, you first need to install the development
+version, see <a class="reference internal" href="installation.html#installing-git"><em>The bleeding edge: Git</em></a>. You can then modify your local
+installation of Mayavi to add the functionality you are interested in
+(make sure the tests still run after your modifications).  Once you
+are done, you can generate a github <a class="reference external" href="https://help.github.com/articles/using-pull-requests">pull request</a> to get your changes
+into the next stable release.</p>
 </div>
 <div class="section" id="improving-the-documentation">
 <h3>Improving the documentation<a class="headerlink" href="#improving-the-documentation" title="Permalink to this headline">¶</a></h3>
 <p>Documentation of a project is incredibly important. It also takes a lot
 of time to write and improve. You can easily help us with documentation.</p>
-<p>For that, you can check out only the subversion tree of Mayavi, using:</p>
-<div class="highlight-python"><pre>svn co http://svn.enthought.com/svn/enthought/Mayavi/trunk/ mayavi</pre>
-</div>
-<p>You will find the documentation sources in <cite>docs/sources/mayavi</cite>. The
-documentation is written in <a class="reference external" href="http://sphinx.pocoo.org/">sphinx</a>. It is
+<p>You will find the documentation sources in <tt class="docutils literal"><span class="pre">docs/sources/mayavi</span></tt>. The
+documentation is written in <a class="reference external" href="http://sphinx.pocoo.org">sphinx</a>. It is
 easy to edit the <cite>.rst</cite> files to modify or extend the text. Once you have
 done your modifications, you can build the documentation using by
 running:</p>
 <div class="highlight-python"><pre>python setup.py build_docs</pre>
 </div>
-<p>in the base directory of your checkout. You will need
-<a class="reference external" href="http://sphinx.pocoo.org/">sphinx</a> installed for that. The
-documentation is then built as an HTML documentation that you can find
-in the sub directory <cite>build/docs/html/mayavi</cite>. Once you are comfortable
-with the modifications, just generate an SVN patch using:</p>
-<div class="highlight-python"><pre>svn diff &gt; my_patch.patch</pre>
-</div>
-<p>And send us the patch via the <a class="reference external" href="https://mail.enthought.com/mailman/listinfo/enthought-dev">mailing list</a>.  Thanks!</p>
+<p>in the base directory of your checkout. You will need <a class="reference external" href="http://sphinx.pocoo.org">sphinx</a> installed for
+that. The documentation is then built as an HTML documentation that you can
+find in the sub directory <tt class="docutils literal"><span class="pre">build/docs/html/mayavi</span></tt>. Once you are comfortable
+with the modifications, just generate a github pull request to integrate
+your changes into the next stable release.</p>
 </div>
 </div>
 </div>
@@ -277,12 +287,12 @@ with the modifications, just generate an SVN patch using:</p>
         <li class="right" >
           <a href="tips.html" title="Tips and Tricks"
              >previous</a> |</li>
-        <li><a href="index.html">mayavi 4.4.2 documentation</a> &raquo;</li> 
+        <li><a href="index.html">mayavi 4.4.3 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2008-2015, Enthought Inc..
-      Last updated on Jun 11, 2015.
+      Last updated on Aug 12, 2015.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
     </div>
   </body>
