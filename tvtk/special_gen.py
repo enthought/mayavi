@@ -12,8 +12,8 @@ some of the VTK classes.  `HelperGenerator` helps generate the
 import vtk
 
 # These are relative imports for good reason.
-import indenter
-from common import get_tvtk_name
+from . import indenter
+from .common import get_tvtk_name
 
 
 ######################################################################

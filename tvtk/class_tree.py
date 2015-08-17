@@ -1,5 +1,5 @@
 # Author: Prabhu Ramachandran
-# Copyright (c) 2004-2007, Enthought, Inc.
+# Copyright (c) 2004-2015, Enthought, Inc.
 # License: BSD Style.
 
 """This module generates the class hierarchy for any given Python
@@ -8,7 +8,12 @@ traitified VTK classes in the correct order.
 
 """
 
-import __builtin__
+import sys
+
+if sys.version_info.major > 2:
+    import builtins
+else:
+    import __builtin__ as builtins
 
 
 class TreeNode:
@@ -159,19 +164,19 @@ class ClassTree:
         for m in self.modules:
             if hasattr(m, name):
                 return getattr(m, name)
-        if hasattr(__builtin__, name):
-            klass = getattr(__builtin__, name)
+        if hasattr(builtins, name):
+            klass = getattr(builtins, name)
         if not klass:
             try:
                 klass = self.nodes[name].klass
             except KeyError:
-                raise KeyError, "Cannot find class of name %s"%name
+                raise KeyError("Cannot find class of name %s"%name)
         return klass
 
     def add_node(self, klass):
         """Create a node for the given class."""
         name = klass.__name__
-        if not self.nodes.has_key(name):
+        if not name in self.nodes:
             node = TreeNode(klass)
             self.nodes[name] = node
             return node
@@ -197,7 +202,7 @@ class ClassTree:
         - `TreeNode`
 
         """
-        if self.nodes.has_key(name):
+        if name in self.nodes:
             return self.nodes[name]
         elif create:
             return self.add_node(self.get_class(name))
@@ -224,7 +229,7 @@ class ClassTree:
 
         """
         name = cls.__name__
-        if self.nodes.has_key(name):
+        if name in self.nodes:
             return self.nodes[name]
         elif create:
             return self.add_node(cls)

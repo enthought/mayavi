@@ -6,13 +6,17 @@ This code is distributed under the conditions of the BSD license.
 This code was originally written by Gerald Knizia <cgk.d@gmx.net> and
 later modified by Prabhu Ramachandran
 
-Copyright (c) 2005-2006, Gerald Knizia and Prabhu Ramachandran
+Copyright (c) 2005-2015, Gerald Knizia and Prabhu Ramachandran
 """
 
-import Tkinter as tk
-import tkFileDialog
+try:
+    import Tkinter as tk
+    import tkFileDialog
+except ImportError:
+    import tkinter as tk
+    import tkinter.filedialog as tkFileDialog
 
-from gradient_editor import GradientTable, ColorControlPoint
+from .gradient_editor import GradientTable, ColorControlPoint
 
 ##########################################################################
 # `GradientControl` class.
@@ -148,9 +152,10 @@ class FunctionControl(tk.Frame):
             table = self.control.table
             # only control points which are active for the current channel
             # are to be painted. filter them out.
-            relevant_control_points = filter( \
-                lambda x: self.name in x.active_channels,
-                table.control_points )
+            relevant_control_points = [
+                x for x in table.control_points \
+                if self.name in x.active_channels
+            ]
             # lines between control points
             for k in range( len(relevant_control_points) - 1 ):
                 cur_point = relevant_control_points[k]

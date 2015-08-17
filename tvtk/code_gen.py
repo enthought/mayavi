@@ -3,9 +3,10 @@ VTK-Python API.
 
 """
 # Author: Prabhu Ramachandran
-# Copyright (c) 2004-2007, Enthought, Inc.
+# Copyright (c) 2004-2015, Enthought, Inc.
 # License: BSD Style.
 
+from __future__ import print_function
 
 import vtk
 import os
@@ -18,9 +19,9 @@ from optparse import OptionParser
 
 # Local imports -- these should be relative imports since these are
 # imported before the package is installed.
-from common import get_tvtk_name, camel2enthought
-from wrapper_gen import WrapperGenerator
-from special_gen import HelperGenerator
+from .common import get_tvtk_name, camel2enthought
+from .wrapper_gen import WrapperGenerator
+from .special_gen import HelperGenerator
 
 
 ######################################################################
@@ -117,7 +118,7 @@ class TVTKGenerator:
         for name in names:
             node = self.wrap_gen.get_tree().get_node(name)
             if node is None:
-                print 'ERROR: Cannot find class: %s'%name
+                print('ERROR: Cannot find class: %s'%name)
             nodes.append(node)
 
         # Get ancestors.
@@ -176,8 +177,8 @@ class TVTKGenerator:
         if ok:
             shutil.rmtree(tmp_dir)
         else:
-            print "Not removing directory:", tmp_dir
-            print "It does not contain a tvtk_classes directory!"
+            print("Not removing directory:", tmp_dir)
+            print("It does not contain a tvtk_classes directory!")
 
     #################################################################
     # Non-public interface.

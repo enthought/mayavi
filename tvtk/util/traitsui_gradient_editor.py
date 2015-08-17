@@ -15,15 +15,15 @@ from tvtk.api import tvtk
 ##########################################################################
 def gradient_editor_factory(parent, trait_editor):
     """This is a factory function for `traitsui.CustomEditor` and allows us to
-    use the `wxGradientEditorWidget` or `QGradientEditorWidget` as a traits 
+    use the `wxGradientEditorWidget` or `QGradientEditorWidget` as a traits
     UI editor.
     """
     tvtk_obj = getattr(trait_editor.object, trait_editor.name)
     if ETSConfig.toolkit == 'wx':
-        from wx_gradient_editor import wxGradientEditorWidget
+        from .wx_gradient_editor import wxGradientEditorWidget
         widget = wxGradientEditorWidget(parent, tvtk_obj)
     elif ETSConfig.toolkit == 'qt4':
-        from qt_gradient_editor import QGradientEditorWidget
+        from .qt_gradient_editor import QGradientEditorWidget
         widget = QGradientEditorWidget(None, tvtk_obj)
     else:
         msg = 'Toolkit %s does not implement gradient_editors.'%ETSConfig.toolkit
@@ -40,7 +40,7 @@ VolumePropertyEditor = CustomEditor(gradient_editor_factory)
 # Test case related code.
 ##########################################################################
 def make_test_table(lut=False):
-    from ctf import ColorTransferFunction, PiecewiseFunction
+    from .ctf import ColorTransferFunction, PiecewiseFunction
     if lut:
         table = tvtk.LookupTable()
         table.table_range = (255, 355)
@@ -95,4 +95,3 @@ def test_trait_ui():
 if __name__ == '__main__':
     t = test_trait_ui()
     t.configure_traits()
-    

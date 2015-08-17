@@ -301,9 +301,10 @@ class GradientTableOld:
         for it in [("h",0),("s",1),("v",2),("a",3)]:
             # take into account only control points which are active
             # for the current channel
-            control_point_indices = filter( \
-                lambda x: it[0] in x[1].active_channels,
-                control_point_indices_total )
+            control_point_indices = [
+                x for x in control_point_indices_total \
+                if it[0] in x[1].active_channels
+            ]
             assert( len( control_point_indices ) >= 2 )
 
             # we always interpolate between two adjacent control points on the
@@ -463,7 +464,7 @@ class GradientTableOld:
         if ( "" == self.scaling_function_string ):
             return
         try:
-            exec def_string in dict
+            exec(def_string, dict)
             self.scaling_function = dict["ParamFn"]
         except:
             raise ValueError("failed to compile function: ", def_string )
@@ -1002,7 +1003,7 @@ class ChannelBase(object):
     def paint(self, painter):
         """Paint current channel into Canvas (a canvas of a function control
         object).
-        
+
         This should be overridden to do the actual painting.
 
         """
@@ -1019,7 +1020,7 @@ class FunctionControl(object):
     # Radius around a control point center in which we'd still count a
     # click as "clicked the control point"
     control_pt_click_tolerance = 4
-    
+
     ChannelFactory = ChannelBase
 
     def __init__(self, master, gradient_table, color_space, width, height):
@@ -1120,7 +1121,7 @@ class FunctionControl(object):
     ######################################################################
     # Toolkit specific event methods.
     # Look at wx_gradient_editor.py and qt_gradient_editor.py to see
-    # the methods that are necessary.  
+    # the methods that are necessary.
     ######################################################################
 
 

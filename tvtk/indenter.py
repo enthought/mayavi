@@ -5,13 +5,13 @@ miscellaneous classes useful for the tvtk code generation.
 """
 
 # Author: Prabhu Ramachandran
-# Copyright (c) 2004, Enthought, Inc.
+# Copyright (c) 2004-2015, Enthought, Inc.
 # License: BSD Style.
 
 import re
 
 # Local imports (there is a good reason for the relative imports).
-from common import get_tvtk_name, camel2enthought
+from .common import get_tvtk_name, camel2enthought
 
 
 ######################################################################
@@ -284,4 +284,3 @@ class VTKDocMassager:
                         nw.append(word)
             nl.append(' '.join(nw))
         return '\n'.join(nl)
-

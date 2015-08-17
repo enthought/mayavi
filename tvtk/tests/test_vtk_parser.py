@@ -70,7 +70,7 @@ class TestVTKParser(unittest.TestCase):
         self.assertEqual(p.toggle_meths, p.get_toggle_methods())
         res = {'EdgeVisibility': 0, 'BackfaceCulling': 0,
                'FrontfaceCulling': 0}
-        if p.get_toggle_methods().has_key('Shading'):
+        if 'Shading' in p.get_toggle_methods():
             res['Shading'] = 0
 
         result = p.get_toggle_methods()
@@ -104,7 +104,7 @@ class TestVTKParser(unittest.TestCase):
                'SpecularPower': (1.0, (0.0, 100.0))}
         if ('ReferenceCount' not in p.get_get_set_methods()):
             del res['ReferenceCount']
-        result = p.get_get_set_methods().keys()
+        result = list(p.get_get_set_methods().keys())
         if hasattr(obj, 'GetTexture'):
             result.remove('Texture')
         self.assertEqual(sorted(res.keys()), sorted(result))
@@ -138,7 +138,7 @@ class TestVTKParser(unittest.TestCase):
         if hasattr(obj, 'GetTexture'):
             if vtk_major_version == 6:
                 res = ['AddShaderVariable', 'BackfaceRender', 'DeepCopy',
-                       'ReleaseGraphicsResources', 'RemoveAllTextures', 
+                       'ReleaseGraphicsResources', 'RemoveAllTextures',
                        'RemoveTexture', 'Render']
                 if vtk_minor_version == 2:
                     res.append('VTKTextureUnit')
@@ -239,13 +239,13 @@ class TestVTKParser(unittest.TestCase):
         """Check exceptional cases that are not state methods."""
         p = self.p
         p.parse(vtk.vtkDataObject)
-        self.assert_('UpdateExtent' not in p.get_state_methods())
+        self.assertTrue('UpdateExtent' not in p.get_state_methods())
         if vtk_major_version < 6:
-            self.assert_('UpdateExtent' in p.get_get_set_methods())
+            self.assertTrue('UpdateExtent' in p.get_get_set_methods())
 
         p.parse(vtk.vtkImageImport)
-        self.assert_('DataExtent' not in p.get_state_methods())
-        self.assert_('DataExtent' in p.get_get_set_methods())
+        self.assertTrue('DataExtent' not in p.get_state_methods())
+        self.assertTrue('DataExtent' in p.get_get_set_methods())
 
     def test_no_tree(self):
         """Check if parser is usable without the tree."""

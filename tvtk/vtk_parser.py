@@ -3,16 +3,19 @@ type information, and organizes them.
 
 """
 # Author: Prabhu Ramachandran
-# Copyright (c) 2004-2007, Enthought, Inc.
+# Copyright (c) 2004-2015, Enthought, Inc.
 # License: BSD Style.
 
+from __future__ import print_function
+
+import collections
 import re
 import types
 
 # Local imports (these are relative imports for a good reason).
-import class_tree
-import vtk_module as vtk
-from common import is_version_62
+from . import class_tree
+from . import vtk_module as vtk
+from .common import is_version_62
 
 class VTKMethodParser:
     """This class provides useful methods for parsing methods of a VTK
@@ -147,7 +150,7 @@ class VTKMethodParser:
         if no_warn:
             # Save warning setting and shut it off before parsing.
             warn = vtk.vtkObject.GetGlobalWarningDisplay()
-            if klass.__name__ <> 'vtkObject':
+            if klass.__name__ != 'vtkObject':
                 vtk.vtkObject.GlobalWarningDisplayOff()
 
         self._organize_methods(klass, methods)
@@ -164,7 +167,7 @@ class VTKMethodParser:
             meths = dir(klass)
             d = methods.fromkeys(meths)
             methods.update(d)
-        return methods.keys()
+        return list(methods.keys())
 
     def get_methods(self, klass):
         """Returns all the relevant methods of the given VTK class."""
@@ -457,8 +460,10 @@ class VTKMethodParser:
         meths = self._find_state_methods(klass, meths)
         meths = self._find_get_set_methods(klass, meths)
         meths = self._find_get_methods(klass, meths)
-        self.other_meths = [x for x in meths \
-                            if callable(getattr(klass, x))]
+        self.other_meths = [
+            x for x in meths \
+            if isinstance(getattr(klass, x), collections.Callable)
+        ]
 
     def _remove_method(self, meths, method):
         try:
@@ -500,8 +505,7 @@ class VTKMethodParser:
                     try:
                         tm[key] = getattr(obj, 'Get%s'%key)()
                     except (TypeError, AttributeError):
-                        print klass.__name__, key
-                        pass
+                        print(klass.__name__, key)
         return meths
 
     def _find_state_methods(self, klass, methods):
@@ -530,7 +534,7 @@ class VTKMethodParser:
                     if (('Get' + key) in methods):
                         val = method[match.start()+2:] # <Value> part.
                         meths.remove(method)
-                        if sm.has_key(key):
+                        if key in sm:
                             sm[key].append([val, None])
                         else:
                             sm[key] = [[val, None]]
@@ -562,7 +566,7 @@ class VTKMethodParser:
                             # its SetIvarToState methods that have
                             # non-standard arguments, this throws off
                             # the parser and we ignore these.
-                            #print klass.__name__, key
+                            #print(klass.__name__, key)
                             pass
                         else:
                             val = getattr(obj, 'Get%s'%key)()

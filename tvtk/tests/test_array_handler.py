@@ -63,7 +63,7 @@ class TestArrayHandler(unittest.TestCase):
         t_z.append(numpy.array([-2147483648, 0, 2147483647], numpy.int32))
         t_z.append(numpy.array([0, 255], numpy.uint8))
         t_z.append(numpy.array([0, 65535], numpy.uint16))
-        t_z.append(numpy.array([0, 4294967295L], numpy.uint32))
+        t_z.append(numpy.array([0, 4294967295], numpy.uint32))
         t_z.append(numpy.array([-1.0e38, 0, 1.0e38], 'f'))
         t_z.append(numpy.array([-1.0e299, 0, 1.0e299], 'd'))
 
@@ -74,7 +74,7 @@ class TestArrayHandler(unittest.TestCase):
         t_z.append(numpy.array([[1, 2, 3],[4, 5, 6]], 'd'))
         t_z.append(numpy.array([[1, 2, 3, 400],[4, 5, 6, 700]],
                                  'd'))
-        t_z.append(numpy.array([range(9),range(10,19)], 'f'))
+        t_z.append(numpy.array([list(range(9)),list(range(10,19))], 'f'))
 
         # Test if a Python list also works.
         t_z.append(numpy.array([[1., 2., 3., 400.],[4, 5, 6, 700]],
@@ -83,7 +83,7 @@ class TestArrayHandler(unittest.TestCase):
         # Test if arrays with number of components not in [1,2,3,4,9] work.
         t_z.append(numpy.array([[1, 2, 3, 400, 5000],
                                   [4, 5, 6, 700, 8000]], 'd'))
-        t_z.append(numpy.array([range(10), range(10,20)], 'd'))
+        t_z.append(numpy.array([list(range(10)), list(range(10,20))], 'd'))
 
         for z in t_z:
             vtk_arr = array_handler.array2vtk(z)
@@ -148,8 +148,7 @@ class TestArrayHandler(unittest.TestCase):
         # Delete the VTK array and see if the cache is cleared.
         del vtk_arr
         self.assertEqual(len(array_handler._array_cache), l1-1)
-        self.assertEqual(array_handler._array_cache._cache.has_key(key),
-                         False)
+        self.assertEqual(key in array_handler._array_cache._cache, False)
 
         # Make sure bit arrays are copied.
         vtk_arr = vtk.vtkBitArray()
@@ -405,7 +404,7 @@ class TestArrayHandler(unittest.TestCase):
             arr.SetValue(i, i)
 
         np = array_handler.vtk2array(arr)
-        self.assertEqual(numpy.all(np == range(10)), True)
+        self.assertEqual(numpy.all(np == list(range(10))), True)
 
 
 if __name__ == "__main__":

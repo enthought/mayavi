@@ -4,9 +4,10 @@ and this instance serves as the `tvtk` 'module'.  For more details on
 this see the devel.txt in the TVTK documentation directory.
 """
 # Author: Prabhu Ramachandran <prabhu [at] aero.iitb.ac.in>
-# Copyright (c) 2007-2008,  Enthought, Inc.
+# Copyright (c) 2007-2015,  Enthought, Inc.
 # License: BSD Style.
 
+from __future__ import print_function
 
 from os.path import exists, join, dirname, isdir
 
@@ -35,7 +36,7 @@ from tvtk.tvtk_classes.vtk_version import vtk_build_version
 # Make sure VTK is installed.
 try:
     import vtk
-except ImportError, m:
+except ImportError as m:
     msg = '%s\n%s\nDo you have vtk installed properly?\n' \
           'VTK (and build instructions) can be obtained from http://www.vtk.org\n' \
          % (m, '_'*80)
@@ -48,9 +49,8 @@ if vtk_version != vtk_build_version:
           '         to build the TVTK classes (%s). This may cause problems.\n'\
           '         Please rebuild TVTK.\n'%(vtk_version, vtk_build_version) +\
           '*'*80 + '\n'
-    print msg
+    print(msg)
 
 # Now setup TVTK itself.
 from tvtk.tvtk_classes import tvtk_helper
 tvtk = tvtk_helper.TVTK()
-

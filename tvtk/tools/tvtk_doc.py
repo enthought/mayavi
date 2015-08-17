@@ -13,7 +13,7 @@ docs are shown.
 
 """
 # Author: Prabhu Ramachandran <prabhu [at] aero . iitb . ac . in>
-# Copyright (c) 2008,  Enthought, Inc.
+# Copyright (c) 2008-2015,  Enthought, Inc.
 # License: BSD Style.
 
 # Standard library imports.
@@ -92,11 +92,11 @@ def get_func_doc(func, fname):
     if inspect.isfunction(func):
         func_obj = func
     elif inspect.ismethod(func):
-        func_obj = func.im_func
+        func_obj = func.__func__
     else:
         return ''
-    args, vargs, vkw = inspect.getargs(func_obj.func_code)
-    defaults = func_obj.func_defaults
+    args, vargs, vkw = inspect.getargs(func_obj.__code__)
+    defaults = func_obj.__defaults__
     doc = fname + inspect.formatargspec(args, vargs, vkw, defaults)
     d = inspect.getdoc(func)
     if d is not None:
@@ -108,7 +108,7 @@ def get_tvtk_class_doc(obj):
     doc = obj.__doc__ + '\nTraits:\n-------------------\n\n'
 
     ignore = ['trait_added', 'trait_modified']
-    for key, trait in obj.traits().iteritems():
+    for key, trait in obj.traits().items():
         if key.startswith('_') or key.endswith('_') or key in ignore:
             continue
         doc += '\n%s: %s'%(key, trait.help)
@@ -177,7 +177,7 @@ class DocSearch(object):
         ----------
             word -- name to search for.
         """
-        assert type(word) in types.StringTypes, \
+        assert type(word) is str, \
                "Sorry, passed argument, %s is not a string."%word
         if len(word.strip()) == 0:
             return []

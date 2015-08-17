@@ -4,14 +4,15 @@ test_tvtk.py.
 
 """
 # Author: Prabhu Ramachandran
-# Copyright (c) 2004, Enthought, Inc.
+# Copyright (c) 2004-2015, Enthought, Inc.
 # License: BSD Style.
 
 import unittest
-import cPickle
+import pickle
 import weakref
 import vtk
 import gc
+import imp
 
 from traits import api as traits
 from tvtk import tvtk_base
@@ -179,10 +180,10 @@ class TestTVTKBase(unittest.TestCase):
         p.diffuse_color = (0,1,1)
         p.specular_color = (1,1,0)
 
-        s = cPickle.dumps(p)
+        s = pickle.dumps(p)
         del p
 
-        p = cPickle.loads(s)
+        p = pickle.loads(s)
 
         self.assertEqual(p.edge_visibility, 1)
         self.assertEqual(p.opacity, 0.5)
@@ -273,13 +274,12 @@ class TestTVTKBase(unittest.TestCase):
         del p
         gc.collect() # Force collection.
         self.assertEqual(l1, len(tvtk_base._object_cache))
-        self.assertEqual(tvtk_base._object_cache.has_key(addr),
-                         False)
+        self.assertEqual(addr in tvtk_base._object_cache, False)
 
         # Check reload-safety.
         p = Prop()
         l1 = len(tvtk_base._object_cache)
-        reload(tvtk_base)
+        imp.reload(tvtk_base)
         self.assertEqual(l1, len(tvtk_base._object_cache))
 
     # Reloading causes havoc with nosetests based tests so we skip in

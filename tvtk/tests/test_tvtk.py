@@ -5,11 +5,11 @@ make sure that the generated code works well.
 
 """
 # Author: Prabhu Ramachandran
-# Copyright (c) 2004, Enthought, Inc.
+# Copyright (c) 2004-2015, Enthought, Inc.
 # License: BSD Style.
 
 import unittest
-import cPickle
+import pickle
 import weakref
 import new
 import sys
@@ -257,14 +257,14 @@ class TestTVTK(unittest.TestCase):
         """Test if Matrix4x4 works nicely."""
         m = tvtk.Matrix4x4()
         [m.set_element(i, j, i*4 + j) for i in range(4) for j in range(4)]
-        s = cPickle.dumps(m)
+        s = pickle.dumps(m)
         del m
-        m = cPickle.loads(s)
+        m = pickle.loads(s)
         for i in range(4):
             for j in range(4):
                 self.assertEqual(m.get_element(i, j), i*4 + j)
         # Test the from/to_array functions.
-        a = numpy.array(range(16), dtype=float)
+        a = numpy.array(list(range(16)), dtype=float)
         a.shape = 4, 4
         m = tvtk.Matrix4x4()
         m.from_array(a)
@@ -289,9 +289,9 @@ class TestTVTK(unittest.TestCase):
         self.assertEqual(p.color, (0.5, 0.5, 0.5))
 
         # Test pickling.
-        s = cPickle.dumps(p)
+        s = pickle.dumps(p)
         del p
-        p = cPickle.loads(s)
+        p = pickle.loads(s)
         self.assertEqual(p.specular_color, sc)
         self.assertEqual(p.diffuse_color, val)
         self.assertEqual(p.ambient_color, val)
@@ -301,17 +301,19 @@ class TestTVTK(unittest.TestCase):
         """ Test if points can be looked up with both int and long keys.
             Fixes GH Issue 173.
         """
+        if sys.version_info.major > 2:
+            long = int
         points = tvtk.Points()
         points.insert_next_point((0, 1, 2))
         pt = points[0]
         self.assertEqual(pt, (0, 1, 2))
-        ptl = points[0L]
+        ptl = points[long(0)]
         self.assertEqual(ptl, (0, 1, 2))
         get_pt = points.get_point(0)
         self.assertEqual(get_pt, (0, 1, 2))
-        get_ptl = points.get_point(0L)
+        get_ptl = points.get_point(long(0))
         self.assertEqual(get_ptl, (0, 1, 2))
-    
+
     def test_cell_array(self):
         """ Test if cell array insertion updates number of cells.
             Fixes GH Issue 178.
@@ -464,6 +466,8 @@ class TestTVTK(unittest.TestCase):
             self.assertEqual(i, j)
         self.assertEqual(f[-1], 3)
         self.assertEqual(f[0], 0)
+        if sys.version_info.major > 2:
+            long = int
         if type(f[0]) is long:
             self.assertEqual(repr(f), '[0L, 1L, 2L, 3L]')
         else:

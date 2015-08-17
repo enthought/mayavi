@@ -7,11 +7,16 @@ tests if the tree generation works for the __builtin__ module.
 
 """
 
+import sys
 import unittest
+
 from tvtk import class_tree
 
 import vtk
-import __builtin__
+if sys.version_info.major > 2:
+    import builtins as __builtin__
+else:
+    import __builtin__
 
 # This computation can be expensive, so we cache it.
 _cache = class_tree.ClassTree(vtk)

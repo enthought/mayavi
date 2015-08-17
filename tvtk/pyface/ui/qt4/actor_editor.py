@@ -14,7 +14,8 @@ from pyface.qt import QtGui
 from traits.api import Any, Bool, Callable, Dict, Str
 from traitsui.qt4.editor import Editor
 from traitsui.basic_editor_factory import BasicEditorFactory
-from decorated_scene import DecoratedScene
+
+from .decorated_scene import DecoratedScene
 
 #####################################################################
 # `_ActorEditor` class

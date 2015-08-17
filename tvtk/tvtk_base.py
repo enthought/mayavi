@@ -2,10 +2,11 @@
 
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2004-2008,  Enthought, Inc.
+# Copyright (c) 2004-2015,  Enthought, Inc.
 # License: BSD Style.
 
-import types
+from __future__ import print_function
+
 import sys
 import weakref
 import os
@@ -15,7 +16,7 @@ import vtk
 
 from traits import api as traits
 from traitsui.api import BooleanEditor, RGBColorEditor, FileEditor
-import messenger
+from . import messenger
 
 # Setup a logger for this module.
 logger = logging.getLogger(__name__)
@@ -98,7 +99,7 @@ class TVTKObjectCache(weakref.WeakValueDictionary):
 _dummy = None
 # This makes the cache work even when the module is reloaded.
 for name in ['tvtk_base', 'tvtk.tvtk_base']:
-    if sys.modules.has_key(name):
+    if name in sys.modules:
         mod = sys.modules[name]
         if hasattr(mod, '_object_cache'):
             _dummy = mod._object_cache
@@ -158,9 +159,9 @@ class TraitRevPrefixMap(traits.TraitPrefixMap):
 
     def validate(self, object, name, value):
         try:
-            if self._rmap.has_key(value):
+            if value in self._rmap:
                 value = self._rmap[value]
-            if not self._map.has_key( value ):
+            if not value in self._map:
                 match = None
                 n     = len( value )
                 for key in self.map.keys():
@@ -202,9 +203,9 @@ def vtk_color_trait(default, **metadata):
 
 
 # Special cases for the FileName and FilePrefix
-vtk_file_name = traits.Trait(None, None, traits.Str, types.UnicodeType,
+vtk_file_name = traits.Trait(None, None, traits.Str, str,
                              editor=FileEditor)
-vtk_file_prefix = traits.Trait(None, None, traits.Str, types.UnicodeType,
+vtk_file_prefix = traits.Trait(None, None, traits.Str, str,
                                editor=(FileEditor, {'truncate_ext': True}))
 
 # The Property class traits are delegated in the Actors.
@@ -350,9 +351,9 @@ class TVTKBase(traits.HasStrictTraits):
             # needs to be updated.
             try:
                 setattr(self, i, dict[i])
-            except traits.TraitError, msg:
-                print "WARNING:",
-                print msg
+            except traits.TraitError as msg:
+                print("WARNING:", end=' ')
+                print(msg)
         self._in_set = 0
 
     def __str__(self):
@@ -394,11 +395,15 @@ class TVTKBase(traits.HasStrictTraits):
             view_filename = os.path.join(viewDir,
                                          module_name + '_view.py')
             result = {}
-            execfile(view_filename, {}, result)
+            exec(
+                compile(
+                    open(view_filename).read(), view_filename, 'exec'
+                ), {}, result
+            )
             for name in names:
                 if name in result:
                     view_elements.content[ name ] = result[name]
-        except Exception, e:
+        except Exception:
             pass
         return view_elements
 

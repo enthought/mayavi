@@ -48,7 +48,7 @@ class SceneEditor(Editor):
     def _name_default(self):
         """ Trait initializer. """
 
-        return 'TVTK Scene %d' % (_id_generator.next())
+        return 'TVTK Scene %d' % (next(_id_generator))
 
     #### Methods ##############################################################
 

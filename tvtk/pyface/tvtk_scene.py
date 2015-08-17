@@ -7,9 +7,11 @@ functionality. See the class docs for more details.
 
 """
 # Author: Prabhu Ramachandran <prabhu@enthought.com>
-# Copyright (c) 2007-2013, Enthought, Inc.
+# Copyright (c) 2007-2015, Enthought, Inc.
 # License: BSD Style.
 
+
+from __future__ import print_function
 
 import os.path
 
@@ -395,9 +397,10 @@ class TVTKScene(HasPrivateTraits):
                     '.oogl': 'oogl', '.rib': 'rib', '.obj': 'wavefront',
                     '.eps': 'gl2ps', '.pdf':'gl2ps', '.tex': 'gl2ps',
                     '.x3d': 'x3d', '.pov': 'povray'}
-        if ext.lower() not in meth_map.keys():
-            raise ValueError, \
-                  'Unable to find suitable image type for given file extension.'
+        if ext.lower() not in meth_map:
+            raise ValueError(
+                'Unable to find suitable image type for given file extension.'
+            )
         meth = getattr(self, 'save_' + meth_map[ext])
         if size is not None:
             orig_size = self.get_size()
@@ -533,8 +536,9 @@ class TVTKScene(HasPrivateTraits):
             try:
                 Nx, Ny = resolution
             except TypeError:
-                raise TypeError, \
-                      "Resolution (%s) should be a sequence with two elements"%resolution
+                raise TypeError(
+                    "Resolution (%s) should be a sequence with two elements"%resolution
+                )
 
         if len(file_name) == 0:
             return
@@ -639,7 +643,7 @@ class TVTKScene(HasPrivateTraits):
                   "either not supported by your version of VTK or "\
                   "you have not configured VTK to work with GL2PS -- read "\
                   "the documentation for the vtkGL2PSExporter class."
-            print msg
+            print(msg)
             return
 
         if len(file_name) != 0:
@@ -650,7 +654,7 @@ class TVTKScene(HasPrivateTraits):
                 if not isinstance(exp, tvtk.GL2PSExporter):
                     msg = "Need a vtkGL2PSExporter you passed a "\
                           "%s"%exp.__class__.__name__
-                    raise TypeError, msg
+                    raise TypeError(msg)
                 ex.file_prefix = f_prefix
             else:
                 ex = tvtk.GL2PSExporter()
@@ -686,7 +690,7 @@ class TVTKScene(HasPrivateTraits):
         if not hasattr(tvtk, 'X3DExporter'):
             msg = "Saving as a X3D file does not appear to be  "\
                   "supported by your version of VTK."
-            print msg
+            print(msg)
             return
 
         if len(file_name) != 0:
@@ -708,7 +712,7 @@ class TVTKScene(HasPrivateTraits):
         if not hasattr(tvtk, 'POVExporter'):
             msg = "Saving as a POVRAY file does not appear to be  "\
                   "supported by your version of VTK."
-            print msg
+            print(msg)
             return
 
         if len(file_name) != 0:

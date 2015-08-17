@@ -2,7 +2,7 @@
 
 """
 # Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
-# Copyright (c) 2006-2009, Enthought, Inc.
+# Copyright (c) 2006-2015, Enthought, Inc.
 # License: BSD Style.
 
 # Enthought library imports.
@@ -42,7 +42,7 @@ def save_ctfs(volume_property):
             ctf.get_node_value(i, val)
             rgb.append(val[:4])
     else:
-        raise TypeError, _err_msg(ctf, 'ColorTransferFunction')
+        raise TypeError(_err_msg(ctf, 'ColorTransferFunction'))
 
     # The Alpha values.
     na = otf.size
@@ -58,7 +58,7 @@ def save_ctfs(volume_property):
             otf.get_node_value(i, val)
             a.append(val[:2])
     else:
-        raise TypeError, _err_msg(otf, 'PiecewiseFunction')
+        raise TypeError(_err_msg(otf, 'PiecewiseFunction'))
 
     return {'range': (s1, s2), 'rgb':rgb, 'alpha':a}
 
@@ -288,4 +288,3 @@ class PiecewiseFunction(tvtk.PiecewiseFunction):
         """
         super(PiecewiseFunction, self).remove_all_points()
         self.nodes = []
-

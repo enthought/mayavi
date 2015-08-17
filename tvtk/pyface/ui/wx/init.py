@@ -16,7 +16,7 @@ import wx
 
 # Check the version number is late enough.
 if wx.VERSION < (2, 6):
-    raise RuntimeError, "Need wx version 2.6 or higher, but got %s" % str(wx.VERSION)
+    raise RuntimeError("Need wx version 2.6 or higher, but got %s" % str(wx.VERSION))
 
 # It's possible that it has already been initialised.
 _app = wx.GetApp()

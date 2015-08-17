@@ -8,7 +8,7 @@ from traits.api import implements, on_trait_change
 from tvtk.plugins.scene.scene_editor import SceneEditor
 
 # Local imports.
-from i_scene_manager import ISceneManager
+from .i_scene_manager import ISceneManager
 
 
 class SceneManager(HasTraits):
@@ -94,6 +94,3 @@ class SceneManager(HasTraits):
         return
 
 #### EOF ######################################################################
-
-
-

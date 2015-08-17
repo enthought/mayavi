@@ -24,7 +24,8 @@ import wx
 from traits.api import Any, Bool, Callable
 from traitsui.wx.editor import Editor
 from traitsui.basic_editor_factory import BasicEditorFactory
-from decorated_scene import DecoratedScene
+
+from .decorated_scene import DecoratedScene
 
 #####################################################################
 # `_SceneEditor` class

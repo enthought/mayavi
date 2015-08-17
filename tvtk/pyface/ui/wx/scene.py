@@ -35,7 +35,7 @@ from tvtk.pyface import picker
 from tvtk.pyface import light_manager
 from tvtk.pyface.tvtk_scene import TVTKScene
 
-from wxVTKRenderWindowInteractor import wxVTKRenderWindowInteractor
+from .wxVTKRenderWindowInteractor import wxVTKRenderWindowInteractor
 
 
 ######################################################################
