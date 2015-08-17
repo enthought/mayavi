@@ -1,4 +1,4 @@
-"%sdkver%" -q -version:v7.0
+"%sdkverpath%" -q -version:"%sdkver%"
 call setenv /x64
 coverage erase
 coverage run -p -m nose.core -v tvtk/tests

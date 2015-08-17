@@ -4,17 +4,27 @@ environment:
 
   global:
     distutils_use_sdk: 1
-    sdkver: "C:/Program Files/Microsoft SDKs/Windows/v7.0/Setup/WindowsSdkVer.exe"
-    python: "C:/Python27-x64"
-    vtk_url: "http://www.vtk.org/files/release/6.2/vtkpython-6.2.0-Windows-64bit.exe"
-    pythonpath: "C:/vtk/bin/Lib/site-packages"
+
+  matrix:
+
+    - python: "C:/Python34-x64"
+      sdkver: "v7.0"
+      vtk_url: "http://www.vtk.org/files/release/6.2/vtkpython-6.2.0-Windows-64bit.exe"
+      pythonpath: "C:/vtk/bin/Lib/site-packages"
+
+    - python: "C:/Python34-x64"
+      sdkver: "v7.1"
+      vtk_url: "NOT A CLUE"
 
 cache:
   - c:\temp
 
 init:
-  - ps: $Env:path = $Env:python + ";" + $Env:python + "\scripts;" + "C:\Program Files\Microsoft SDKs\Windows\v7.0\Bin;" + "C:\vtk\bin;" + $Env:path
+  - ps: $Env:sdkbin = "C:\Program Files\Microsoft SDKs\Windows\" + $Env:sdkver + "\Bin"
+  - ps: $Env:sdkverpath = "C:/Program Files/Microsoft SDKs/Windows/" + $Env:sdkver + "/Setup/WindowsSdkVer.exe"
+  - ps: $Env:path = $Env:python + ";" + $Env:python + "\scripts;" + $Env:sdkbin + "C:\vtk\bin;" + $Env:path
   - ps: $env:ETS_TOOLKIT="qt4"
+
 install:
   - ps: if ((Test-Path "c:/temp") -eq 0) { mkdir c:/temp }
   - ps: (new-object net.webclient).DownloadFile($Env:vtk_url, 'c:/vtkpython.exe')
@@ -23,5 +33,6 @@ install:
   - ps: python c:/get-pip.py
   - ps: pip --version
   - cmd /v:on /e:on /c ".\appveyor-install.cmd"
+
 test_script:
   - cmd /v:on /e:on /c ".\appveyor-test.cmd"

@@ -1,4 +1,4 @@
-"%sdkver%" -q -version:v7.0
+"%sdkverpath%" -q -version:"%sdkver%"
 call setenv /x64
 
 rem install python packages
