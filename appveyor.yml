@@ -7,7 +7,7 @@ environment:
 
   matrix:
 
-    - python: "C:/Python34-x64"
+    - python: "C:/Python27-x64"
       sdkver: "v7.0"
       vtk_url: "http://www.vtk.org/files/release/6.2/vtkpython-6.2.0-Windows-64bit.exe"
       pythonpath: "C:/vtk/bin/Lib/site-packages"
