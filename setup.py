@@ -285,11 +285,15 @@ def list_docs_data_files(project):
 
 # Our custom distutils hooks
 def build_tvtk_classes_zip():
+    MY_DIR = os.path.dirname(__file__)
+    sys.path.insert(0, MY_DIR)
+    import tvtk
     tvtk_dir = 'tvtk'
     sys.path.insert(0, tvtk_dir)
     from setup import gen_tvtk_classes_zip
     gen_tvtk_classes_zip()
     sys.path.remove(tvtk_dir)
+    sys.path.remove(MY_DIR)
 
 
 class MyBuild(build.build):

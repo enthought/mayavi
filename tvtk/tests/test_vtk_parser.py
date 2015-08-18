@@ -13,6 +13,8 @@ error messages but they are usually harmless.
 
 """
 
+from __future__ import print_function
+
 import unittest
 from tvtk import vtk_parser
 
@@ -55,7 +57,12 @@ class TestVTKParser(unittest.TestCase):
         else:
             self.assertEqual(p.get_state_methods(), {'ReferenceCount':(1, None)})
             self.assertEqual(p.get_get_methods(), ['GetMTime'])
-        self.assertEqual(p.get_get_set_methods(), {})
+
+        if hasattr(vtk.vtkObject, 'SetReferenceCount'):
+            self.assertEqual(p.get_get_set_methods(),
+                             {'ReferenceCount': (1, None)})
+        else:
+            self.assertEqual(p.get_get_set_methods(), {})
 
         res = ['AddObserver', 'BreakOnError', 'HasObserver',
                'InvokeEvent', 'IsA', 'Modified', 'NewInstance',
@@ -87,6 +94,13 @@ class TestVTKParser(unittest.TestCase):
         self.assertEqual(p.state_meths, p.get_state_methods())
 
         obj = vtk.vtkProperty()
+        if hasattr(vtk, 'VTK_LARGE_FLOAT'):
+            int_max = vtk.VTK_LARGE_INTEGER
+            float_max = vtk.VTK_LARGE_FLOAT
+        else:
+            int_max = vtk.VTK_INT_MAX
+            float_max = vtk.VTK_FLOAT_MAX
+
         res = {'Ambient': (0.0, (0.0, 1.0)),
                'AmbientColor': ((1.0, 1.0, 1.0), None),
                'Color': ((1.0, 1.0, 1.0), None),
@@ -94,10 +108,10 @@ class TestVTKParser(unittest.TestCase):
                'DiffuseColor': ((1.0, 1.0, 1.0), None),
                'EdgeColor': ((1.0, 1.0, 1.0), None),
                'LineStipplePattern': (65535, None),
-               'LineStippleRepeatFactor': (1, (1, vtk.VTK_LARGE_INTEGER)),
-               'LineWidth': (1.0, (0.0, vtk.VTK_LARGE_FLOAT)),
+               'LineStippleRepeatFactor': (1, (1, int_max)),
+               'LineWidth': (1.0, (0.0, float_max)),
                'Opacity': (1.0, (0.0, 1.0)),
-               'PointSize': (1.0, (0.0, vtk.VTK_LARGE_FLOAT)),
+               'PointSize': (1.0, (0.0, float_max)),
                'ReferenceCount': (1, None),
                'Specular': (0.0, (0.0, 1.0)),
                'SpecularColor': ((1.0, 1.0, 1.0), None),
@@ -140,7 +154,7 @@ class TestVTKParser(unittest.TestCase):
                 res = ['AddShaderVariable', 'BackfaceRender', 'DeepCopy',
                        'ReleaseGraphicsResources', 'RemoveAllTextures',
                        'RemoveTexture', 'Render']
-                if vtk_minor_version == 2:
+                if vtk_minor_version >= 2:
                     res.append('VTKTextureUnit')
             else:
                 res = ['AddShaderVariable', 'BackfaceRender', 'DeepCopy',
@@ -286,7 +300,7 @@ class TestVTKParser(unittest.TestCase):
             k = getattr(vtk, obj)
             ignore = ['mutable', 'exc', 'kits', 'util']
             if hasattr(k, '__bases__') and obj not in ignore:
-                #print k.__name__,
+                #print(k.__name__, end=' ')
                 #sys.stdout.flush()
                 p.parse(k)
                 for method in p.get_methods(k):

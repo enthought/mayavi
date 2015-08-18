@@ -10,7 +10,7 @@ traitified VTK classes in the correct order.
 
 import sys
 
-if sys.version_info.major > 2:
+if sys.version_info[0] > 2:
     import builtins
 else:
     import __builtin__ as builtins
@@ -255,6 +255,10 @@ class ClassTree:
 
         # Generate the nodes.
         for name in class_names:
+            if ('.' in name):
+                # With VTK 6.x and above there are strange names
+                # in the vtk module which we ignore.
+                continue
             klass = self.get_class(name)
             if klass and hasattr(klass, '__bases__'):
                 self._generate_hierarchy(klass)
@@ -267,7 +271,5 @@ class ClassTree:
             self.tree[d].append(node)
 
         # Sort the nodes alphabetically.
-        def _comp(x, y):
-            return cmp(x.name, y.name)
         for nodes in self.tree:
-            nodes.sort(_comp)
+            nodes.sort(key=lambda x:x.name)

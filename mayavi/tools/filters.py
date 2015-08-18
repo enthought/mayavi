@@ -11,8 +11,6 @@ helper functions.
 # Copyright (c) 2007-2015, Enthought, Inc.
 # License: BSD Style.
 
-import new
-
 from traits.api import Instance, CFloat, CInt, CArray, Trait, \
             Enum, Property, Any, String
 from tvtk.common import camel2enthought
@@ -26,6 +24,13 @@ __all__ = ['tube', 'warp_scalar', 'threshold', 'elevation_filter',
             'set_active_attribute', 'user_defined'
           ]
 
+def new_class(*args, **kw):
+    try:
+        import new
+        return new.classobj(*args, **kw)
+    except ImportError:
+        import types
+        return types.new_class(*args, **kw)
 
 ##############################################################################
 class TubeFactory(PipeFactory):
@@ -211,10 +216,9 @@ def _make_functions(namespace):
             continue
 
         # The class to wrap.
-        klass = new.classobj(class_name,
-                             (_AutomaticFilterFactory,),
-                             {'__doc__': fil.help, }
-                             )
+        klass = new_class(
+            class_name, (_AutomaticFilterFactory,), {'__doc__': fil.help, }
+        )
         klass._metadata = fil
 
         # The mlab helper function.

@@ -11,11 +11,11 @@ make sure that the generated code works well.
 import unittest
 import pickle
 import weakref
-import new
 import sys
 import gc
 import traceback
 import contextlib
+import types
 
 import numpy
 import vtk
@@ -92,7 +92,7 @@ class TestTVTK(unittest.TestCase):
         """Test if custom modules can be imported."""
 
         # Hack to simulate a module inside tvtk.custom.
-        mod = new.module('xml_data_reader')
+        mod = types.ModuleType('xml_data_reader')
 
         class XMLDataReader:
             def f(self):
@@ -103,7 +103,12 @@ class TestTVTK(unittest.TestCase):
         # Now test if this is the one imported.
         r = tvtk.XMLDataReader()
         self.assertEqual(r.f(), 'f')
-        self.assertEqual(r.__class__.__bases__, ())
+        if len(vtk.vtkObjectBase.__bases__) > 0:
+            expect = (object,)
+        else:
+            expect = tuple()
+
+        self.assertEqual(r.__class__.__bases__, expect)
 
         # Clean up.
         del sys.modules['tvtk.custom.xml_data_reader']
@@ -301,7 +306,7 @@ class TestTVTK(unittest.TestCase):
         """ Test if points can be looked up with both int and long keys.
             Fixes GH Issue 173.
         """
-        if sys.version_info.major > 2:
+        if sys.version_info[0] > 2:
             long = int
         points = tvtk.Points()
         points.insert_next_point((0, 1, 2))
@@ -466,12 +471,13 @@ class TestTVTK(unittest.TestCase):
             self.assertEqual(i, j)
         self.assertEqual(f[-1], 3)
         self.assertEqual(f[0], 0)
-        if sys.version_info.major > 2:
-            long = int
-        if type(f[0]) is long:
-            self.assertEqual(repr(f), '[0L, 1L, 2L, 3L]')
-        else:
+        if sys.version_info[0] > 2:
             self.assertEqual(repr(f), '[0, 1, 2, 3]')
+        else:
+            if type(f[0]) is long:
+                self.assertEqual(repr(f), '[0L, 1L, 2L, 3L]')
+            else:
+                self.assertEqual(repr(f), '[0, 1, 2, 3]')
         f.append(4)
         f.extend([5, 6])
         self.assertEqual(len(f), 7)

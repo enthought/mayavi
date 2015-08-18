@@ -311,6 +311,8 @@ class VTKMethodParser:
                 return None
         # Remove all the C++ function signatures.
         doc = method.__doc__
+        if doc is None:
+            return None
         doc = doc[:doc.find('\n\n')]
         sig = []
         c_sig = [] # The C++ signature
@@ -688,8 +690,9 @@ class VTKMethodParser:
             if self._tree:
                 t = self._tree
                 n = t.get_node(klass.__name__)
-                for c in n.children:
-                    obj = self._get_instance(t.get_class(c.name))
-                    if obj:
-                        break
+                if n is not None:
+                    for c in n.children:
+                        obj = self._get_instance(t.get_class(c.name))
+                        if obj:
+                            break
         return obj

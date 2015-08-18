@@ -242,7 +242,7 @@ class Messenger:
         for evt in events:
             if evt in sigs:
                 slots = sigs[evt]
-                for key in slots:
+                for key in list(slots.keys()):
                     obj, meth = slots[key]
                     if obj: # instance method
                         inst = obj()

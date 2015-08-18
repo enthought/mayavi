@@ -17,12 +17,12 @@ import copy
 
 # Local imports (these are relative imports because the package is not
 # installed when these modules are imported).
-from .common import get_tvtk_name, camel2enthought, is_version_62, is_version_58
+from .common import get_tvtk_name, camel2enthought, is_version_58
 from . import vtk_parser
 from . import indenter
 from . import special_gen
 
-PY_VER = sys.version_info.major
+PY_VER = sys.version_info[0]
 
 
 def clean_special_chars(s):
@@ -110,6 +110,12 @@ class WrapperGenerator:
         from tvtk.array_handler import deref_array
         from tvtk.tvtk_classes.tvtk_helper import wrap_vtk
 
+        try:
+            long
+        except NameError:
+            # Silly workaround for Python3.
+            long = int
+
         """
         out.write(self.indent.format(prelim))
 
@@ -118,7 +124,8 @@ class WrapperGenerator:
         klass = self.get_tree().get_class(node.name)
         vtk_class_name = klass.__name__
         class_name = self._get_class_name(klass)
-        if node.level == 0:
+
+        if node.level == 0 or node.name == 'vtkObjectBase':
             base_name = 'tvtk_base.TVTKBase'
         else:
             base_name = self._get_class_name(klass.__bases__)[0]

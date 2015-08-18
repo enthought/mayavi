@@ -46,6 +46,10 @@ elif VTK_LONG_TYPE_SIZE == 8:
 BASE_REFERENCE_COUNT = vtk.vtkObject().GetReferenceCount()
 
 
+def getbuffer(array):
+    return getattr(numpy, 'getbuffer', memoryview)(array)
+
+
 ######################################################################
 # The array cache.
 ######################################################################
@@ -295,7 +299,7 @@ def array2vtk(num_array, vtk_array=None):
 
     # Point the VTK array to the numpy data.  The last argument (1)
     # tells the array not to deallocate.
-    result_array.SetVoidArray(numpy.getbuffer(z_flat), len(z_flat), 1)
+    result_array.SetVoidArray(getbuffer(z_flat), len(z_flat), 1)
 
     if bit_array:
         # Handle bit arrays -- they have to be copied.  Note that bit

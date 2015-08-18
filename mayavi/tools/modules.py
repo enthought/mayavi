@@ -25,6 +25,7 @@ import mayavi.modules.api as modules
 from mayavi.core.registry import registry
 from . import tools
 from .pipe_base import PipeFactory, make_function
+from .filters import new_class
 
 
 # This the list is dynamically populated further down below at the end.
@@ -709,10 +710,9 @@ def _make_functions(namespace):
             continue
 
         # The class to wrap.
-        klass = new.classobj(class_name,
-                             (_AutomaticModuleFactory,),
-                             {'__doc__': mod.help, }
-                             )
+        klass = new_class(
+            class_name, (_AutomaticModuleFactory,), {'__doc__': mod.help, }
+        )
         klass._metadata = mod
         # The mlab helper function.
         func = make_function(klass)

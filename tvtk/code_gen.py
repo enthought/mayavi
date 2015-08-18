@@ -19,9 +19,14 @@ from optparse import OptionParser
 
 # Local imports -- these should be relative imports since these are
 # imported before the package is installed.
-from .common import get_tvtk_name, camel2enthought
-from .wrapper_gen import WrapperGenerator
-from .special_gen import HelperGenerator
+try:
+    from .common import get_tvtk_name, camel2enthought
+    from .wrapper_gen import WrapperGenerator
+    from .special_gen import HelperGenerator
+except SystemError:
+    from common import get_tvtk_name, camel2enthought
+    from wrapper_gen import WrapperGenerator
+    from special_gen import HelperGenerator
 
 
 ######################################################################
@@ -90,11 +95,10 @@ class TVTKGenerator:
         # Write the wrapper files.
         tree = wrap_gen.get_tree().tree
 
-        #classes = dir(vtk)
         classes = [x.name for x in wrap_gen.get_tree() \
                    if x.name.startswith('vtk') and \
                    not x.name.startswith('vtkQt') and \
-                   not issubclass(getattr(vtk, x.name), object) ]
+                   ('.' not in x.name) ]
         for nodes in tree:
             for node in nodes:
                 if node.name in classes:

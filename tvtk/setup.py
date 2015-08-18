@@ -45,8 +45,10 @@ def configuration(parent_package=None, top_path=None):
 
 
 def gen_tvtk_classes_zip():
-    from .code_gen import TVTKGenerator
-    target = os.path.join(os.path.dirname(__file__), 'tvtk_classes.zip')
+    MY_DIR = os.path.dirname(__file__)
+    sys.path.append(MY_DIR)
+    from tvtk.code_gen import TVTKGenerator
+    target = os.path.join(MY_DIR, 'tvtk_classes.zip')
     output_dir = os.path.dirname(target)
     try:
         os.mkdir(output_dir)
@@ -66,6 +68,7 @@ def gen_tvtk_classes_zip():
     os.chdir(cwd)
     print("Done.")
     print('-'*70)
+    sys.path.remove(MY_DIR)
 
 
 def vtk_version_changed(zipfile):
