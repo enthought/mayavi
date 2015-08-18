@@ -4,7 +4,7 @@ Rectilinear.
 
 """
 # Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
-# Copyright (c) 2007, Enthought, Inc.
+# Copyright (c) 2007-2015, Enthought, Inc.
 # License: BSD Style.
 
 # Enthought library imports.
@@ -157,7 +157,7 @@ class ExtractGrid(FilterBase):
                    'vtkRectilinearGrid': tvtk.ExtractRectilinearGrid,
                    'vtkImageData': tvtk.ExtractVOI}
 
-        for key, klass in mapping.iteritems():
+        for key, klass in mapping.items():
             if input.is_a(key):
                 self.filter = klass()
                 break

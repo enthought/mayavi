@@ -8,7 +8,7 @@ helper functions.
 
 # Author: Gael Varoquaux <gael.varoquaux@normalesup.org>
 #         Prabhu Ramachandran
-# Copyright (c) 2007-2008, Enthought, Inc.
+# Copyright (c) 2007-2015, Enthought, Inc.
 # License: BSD Style.
 
 import new
@@ -19,7 +19,7 @@ from tvtk.common import camel2enthought
 from tvtk.api import tvtk
 import mayavi.filters.api as filters
 from mayavi.core.registry import registry
-from pipe_base import PipeFactory, make_function
+from .pipe_base import PipeFactory, make_function
 
 # This the list is dynamically populated further down below at the end.
 __all__ = ['tube', 'warp_scalar', 'threshold', 'elevation_filter',
@@ -157,7 +157,7 @@ class UserDefinedFactory(PipeFactory):
                     filter = getattr(tvtk, filter)
                 except AttributeError:
                     raise Exception('Filter %s unknown to TVTK' % filter)
-                kwargs['filter'] = filter()
+                kwargs['filter'] = list(filter())
                 self._target.filter = kwargs['filter']
                 self._target.setup_filter()
             else:

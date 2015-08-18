@@ -16,7 +16,7 @@ this script to point to other data which you can edit.
 """
 
 # Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
-# Copyright (c) 2006-2007, Enthought Inc.
+# Copyright (c) 2006-2015, Enthought Inc.
 # License: BSD Style.
 
 # Standard imports.
@@ -62,7 +62,7 @@ class Pollster(object):
     def update_pipeline(self):
         """Override this to do something else if needed.
         """
-        print "file changed"
+        print("file changed")
         # Force the reader to re-read the file.
         d = self.data
         d.reader.modified()
@@ -118,4 +118,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-

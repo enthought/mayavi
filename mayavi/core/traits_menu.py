@@ -2,8 +2,10 @@
  Code related to traits UI menu items for the tree view of mayavi.
 """
 # Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
-# Copyright (c) 2008, Prabhu Ramachandran Enthought, Inc.
+# Copyright (c) 2008-2015, Prabhu Ramachandran Enthought, Inc.
 # License: BSD Style.
+
+from __future__ import print_function
 
 # Standard library imports.
 from os.path import splitext, isfile
@@ -113,7 +115,7 @@ class MenuHelper(HasTraits):
             # This is required when running mayavi in envisage.
             GUI.set_trait_later(engine, 'current_selection', obj)
         else:
-            print "No engine"
+            print("No engine")
 
     def _build_source_actions(self):
         actions = []

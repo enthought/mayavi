@@ -177,7 +177,7 @@ class MousePickDispatcher(HasTraits):
             corresponding mouse button.
         """
         picker = tvtk.to_tvtk(vtk_picker)
-        for event_type, event_picker in self._active_pickers.iteritems():
+        for event_type, event_picker in self._active_pickers.items():
             if picker is event_picker:
                 for callback, type, button in self.callbacks:
                     if ( type == event_type
@@ -191,4 +191,3 @@ class MousePickDispatcher(HasTraits):
 
     def __del__(self):
         self.clear_callbacks()
-

@@ -3,7 +3,7 @@ co-ordinate axes and thereby marks the orientation of the scene.  It
 uses the OrientationMarkerWidget which requires VTK-4.5 and above.
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2005, Prabhu Ramachandran,  Enthought, Inc.
+# Copyright (c) 2005-2015, Enthought, Inc.
 # License: BSD Style.
 
 
@@ -21,7 +21,7 @@ from mayavi.core.pipeline_info import PipelineInfo
 if not hasattr(tvtk, 'OrientationMarkerWidget'):
     msg = 'The OrientationAxes module requires VTK version >= 4.5'
     error(msg)
-    raise ImportError, msg
+    raise ImportError(msg)
 
 ######################################################################
 # `OrientationAxes` class.

@@ -15,7 +15,7 @@ from mayavi.core.engine import Engine
 from mayavi.core.off_screen_engine import OffScreenEngine
 from mayavi.core.null_engine import NullEngine
 from mayavi.core.common import process_ui_events
-from preferences_mirror import PreferencesMirror
+from .preferences_mirror import PreferencesMirror
 
 # The mlab options.
 options = PreferencesMirror()
@@ -80,7 +80,7 @@ class EngineManager(HasTraits):
             engines = list((self.current_engine,))
         else:
             engines = list()
-        engines.extend(registry.engines.values())
+        engines.extend(list(registry.engines.values()))
         if options.backend == 'auto':
             suitable = [e for e in engines
                                 if e.__class__.__name__ != 'NullEngine']
@@ -115,7 +115,7 @@ class EngineManager(HasTraits):
             engines = list((self.current_engine,))
         else:
             engines = list()
-        engines.extend(registry.engines.values())
+        engines.extend(list(registry.engines.values()))
         engine = None
         for e in engines:
             if e.__class__.__name__ == 'NullEngine':

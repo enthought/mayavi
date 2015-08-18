@@ -2,7 +2,7 @@
  A registry for engines, sources, filters and modules.
 """
 # Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
-# Copyright (c) 2008, Enthought, Inc.
+# Copyright (c) 2008-2015, Enthought, Inc.
 # License: BSD Style.
 
 # Standard library imports.
@@ -68,7 +68,7 @@ class Registry(HasTraits):
         if isinstance(engine_or_name, str):
             name = engine_or_name
         else:
-            for key, engine in engines.iteritems():
+            for key, engine in engines.items():
                 if engine_or_name == engine:
                     name = key
                     break
@@ -136,7 +136,7 @@ class Registry(HasTraits):
                     # This check is needed for scene model objects.
                     return engine
         else:
-            raise TypeError, "Scene not attached to a mayavi engine."
+            raise TypeError("Scene not attached to a mayavi engine.")
 
 
 
@@ -159,4 +159,3 @@ registry.modules.extend(modules)
 # module here which in turn imports the necessary code from the users's
 # customization.
 from mayavi.core import customize
-

@@ -2,7 +2,7 @@
 Test for the dataset_manager.py module.
 """
 # Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
-# Copyright (c) 2008, Enthought, Inc.
+# Copyright (c) 2008-2015, Enthought, Inc.
 # License: BSD Style.
 
 import unittest
@@ -59,12 +59,11 @@ class TestDataSetManager(unittest.TestCase):
     def test_point_arrays(self):
         "Are the point data arrays of the manager setup right?"
         dm = self.dm
-        sc = dm.point_scalars.keys()
-        sc.sort()
+        sc = sorted(dm.point_scalars.keys())
         self.assertEqual(sc, ['p', 't'])
-        vec = dm.point_vectors.keys()
+        vec = list(dm.point_vectors.keys())
         self.assertEqual(vec, ['v'])
-        ten = dm.point_tensors.keys()
+        ten = list(dm.point_tensors.keys())
         self.assertEqual(ten, ['ten'])
 
     def test_point_array_view(self):
@@ -87,11 +86,11 @@ class TestDataSetManager(unittest.TestCase):
     def test_cell_arrays(self):
         "Are the cell arrays of the manager setup right?"
         dm = self.dm
-        sc = dm.cell_scalars.keys()
+        sc = list(dm.cell_scalars.keys())
         self.assertEqual(sc, ['t'])
-        vec = dm.cell_vectors.keys()
+        vec = list(dm.cell_vectors.keys())
         self.assertEqual(vec, ['v'])
-        ten = dm.cell_tensors.keys()
+        ten = list(dm.cell_tensors.keys())
         self.assertEqual(ten, ['ten'])
 
     def test_cell_array_view(self):
@@ -117,7 +116,7 @@ class TestDataSetManager(unittest.TestCase):
         data = self.data
         dm.remove_array('t', 'point')
         self.assertEqual(len(dm.point_scalars), 1)
-        self.assertEqual(dm.point_scalars.keys(), ['p'])
+        self.assertEqual(list(dm.point_scalars.keys()), ['p'])
         dm.remove_array('ten', 'point')
         self.assertEqual(len(dm.point_tensors), 0)
         # Make sure the default category is point.
@@ -138,7 +137,7 @@ class TestDataSetManager(unittest.TestCase):
         data = self.data
 
         dm.rename_array('ten', 'ten1', 'point')
-        self.assertEqual(dm.point_tensors.keys(), ['ten1'])
+        self.assertEqual(list(dm.point_tensors.keys()), ['ten1'])
         pd = data.point_data
         arrs = [pd.get_array_name(x) for x in
                 range(pd.number_of_arrays)]
@@ -146,7 +145,7 @@ class TestDataSetManager(unittest.TestCase):
         self.assertEqual(arrs, ['p', 't', 'ten1', 'v'])
 
         dm.rename_array('t', 'temp', 'cell')
-        self.assertEqual(dm.cell_scalars.keys(), ['temp'])
+        self.assertEqual(list(dm.cell_scalars.keys()), ['temp'])
         cd = data.cell_data
         arrs = [cd.get_array_name(x) for x in
                 range(cd.number_of_arrays)]
@@ -165,20 +164,17 @@ class TestDataSetManager(unittest.TestCase):
         v = N.random.randn(12,3)
         t = N.random.randn(12, 9)
         dm.add_array(s, 'scalar')
-        sc = self.dm.point_scalars.keys()
-        sc.sort()
+        sc = sorted(self.dm.point_scalars.keys())
         self.assertEqual(sc, ['p', 'scalar', 't'])
         x = pd.get_array('scalar')
         self.assertNotEqual(x, None)
         dm.add_array(v, 'vector')
-        vc = self.dm.point_vectors.keys()
-        vc.sort()
+        vc = sorted(self.dm.point_vectors.keys())
         self.assertEqual(vc, ['v', 'vector'])
         x = pd.get_array('vector')
         self.assertNotEqual(x, None)
         dm.add_array(t, 'tensor')
-        vc = self.dm.point_tensors.keys()
-        vc.sort()
+        vc = sorted(self.dm.point_tensors.keys())
         self.assertEqual(vc, ['ten', 'tensor'])
         x = pd.get_array('tensor')
         self.assertNotEqual(x, None)
@@ -188,20 +184,17 @@ class TestDataSetManager(unittest.TestCase):
         v = N.random.randn(3, 3)
         t = N.random.randn(3, 9)
         dm.add_array(s, 'scalar', 'cell')
-        sc = self.dm.cell_scalars.keys()
-        sc.sort()
+        sc = sorted(self.dm.cell_scalars.keys())
         self.assertEqual(sc, ['scalar', 't'])
         x = cd.get_array('scalar')
         self.assertNotEqual(x, None)
         dm.add_array(v, 'vector', 'cell')
-        vc = self.dm.cell_vectors.keys()
-        vc.sort()
+        vc = sorted(self.dm.cell_vectors.keys())
         self.assertEqual(vc, ['v', 'vector'])
         x = cd.get_array('vector')
         self.assertNotEqual(x, None)
         dm.add_array(t, 'tensor', 'cell')
-        vc = self.dm.cell_tensors.keys()
-        vc.sort()
+        vc = sorted(self.dm.cell_tensors.keys())
         self.assertEqual(vc, ['ten', 'tensor'])
         x = cd.get_array('tensor')
         self.assertNotEqual(x, None)

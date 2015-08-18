@@ -123,7 +123,7 @@ class CustomGridPlane(Component):
             msg = "The GridPlane component does not support the %s dataset."\
                   %(input.class_name)
             error(msg)
-            raise TypeError, msg
+            raise TypeError(msg)
 
         self.configure_connection(plane, self.inputs[0])
         self.plane = plane

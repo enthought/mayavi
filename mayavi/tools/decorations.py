@@ -4,18 +4,18 @@ pipeline in a procedural way.
 """
 
 # Author: Gael Varoquaux
-# Copyright (c) 2007, 2008, 2009, Enthought, Inc.
+# Copyright (c) 2007-2015 Enthought, Inc.
 # License: BSD Style.
 
-import operator
+import numbers
 
 import numpy as np
 
 # Enthought library imports.
 from traits.api import String, CFloat, Instance, HasTraits, \
             Trait, CArray, true, Any, Range, Either
-import tools
-from figure import draw, gcf
+from . import tools
+from .figure import draw, gcf
 
 # Mayavi imports
 import mayavi.modules.api as modules
@@ -519,7 +519,7 @@ class Text3D(ModuleFactory):
 
     def _scale_changed(self):
         scale = self.scale
-        if operator.isNumberType(scale):
+        if isinstance(scale, numbers.Number):
             scale = scale * np.ones((3,))
         self._target.scale = scale
 

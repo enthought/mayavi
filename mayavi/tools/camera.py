@@ -11,7 +11,7 @@ import warnings
 
 try:
     import numpy as np
-except ImportError, m:
+except ImportError as m:
     msg = '''%s\n%s\nPlease check your numpy installation. If you need numpy,
 'easy_install numpy' will install it.
 http://numpy.scipy.org
@@ -22,7 +22,7 @@ from numpy import pi
 
 # We can't use gcf, as it creates a circular import in camera management
 # routines.
-from engine_manager import get_engine
+from .engine_manager import get_engine
 
 
 def world_to_display(x, y, z, figure=None):
@@ -126,7 +126,7 @@ def get_outline_bounds(figure=None):
         return 1, 1, 1, 1
 
     # Lazy import, to avoid circular imports
-    from figure import screenshot
+    from .figure import screenshot
     red, green, blue = scene.background
 
     # Use mode='rgba' to have float values, as with fig.scene.background
@@ -300,7 +300,7 @@ def view(azimuth=None, elevation=None, distance=None, focalpoint=None,
     ren.reset_camera_clipping_range()
 
     if roll is not None:
-        print "setting roll"
+        print("setting roll")
         _roll(roll)
     elif reset_roll:
         # Now calculate the view_up vector of the camera.  If the view up is

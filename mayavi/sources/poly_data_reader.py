@@ -2,7 +2,7 @@
 """
 # Author:   R.Sreekanth <sreekanth [at] aero.iitb.ac.in>
 #               Suyog Dutt Jain <suyog.jain [at] aero.iitb.ac.in>
-# Copyright (c) 2009, Enthought, Inc.
+# Copyright (c) 2009-2015, Enthought, Inc.
 # License: BSD Style.
 
 # Standard library imports.
@@ -78,7 +78,7 @@ class PolyDataReader(FileDataSource):
     def get_output_object(self):
         """ Return the reader output port."""
         return self.reader.output_port
-    
+
     ######################################################################
     # Non-public interface
     ######################################################################
@@ -92,7 +92,7 @@ class PolyDataReader(FileDataSource):
         extension = splitname[-1].lower()
         # Select polydata reader based on file type
         old_reader = self.reader
-        if self._reader_dict.has_key(extension):
+        if extension in self._reader_dict:
             self.reader = self._reader_dict[extension]
         else:
             error('Invalid extension for file: %s'%value)

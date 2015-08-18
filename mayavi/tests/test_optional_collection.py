@@ -1,15 +1,14 @@
 # Author: Suyog Dutt Jain <suyog.jain@aero.iitb.ac.in>
 #         Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2008,  Enthought, Inc.
+# Copyright (c) 2008-2015,  Enthought, Inc.
 # License: BSD Style.
 
 # Standard library imports.
 from os.path import abspath
-from StringIO import StringIO
+from io import StringIO
 import copy
 import numpy as np
 import unittest
-import datasets
 
 # Enthought library imports
 from mayavi.core.null_engine import NullEngine
@@ -20,6 +19,7 @@ from mayavi.filters.api import PolyDataNormals
 from mayavi.modules.api import Surface
 from mayavi.sources.vtk_data_source import VTKDataSource
 
+from . import datasets
 
 class TestOptionalCollection(unittest.TestCase):
 

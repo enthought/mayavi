@@ -5,12 +5,12 @@
 
 # Standard library imports.
 from os.path import abspath
-from StringIO import StringIO
+from io import StringIO
 import copy
 import unittest
 
 # Local imports.
-from common import get_example_data
+from .common import get_example_data
 
 # Enthought library imports
 from mayavi.core.null_engine import NullEngine

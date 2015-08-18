@@ -8,7 +8,7 @@ helper functions.
 
 # Author: Gael Varoquaux <gael.varoquaux@normalesup.org>
 #         Prabhu Ramachandran
-# Copyright (c) 2007-2008, Enthought, Inc.
+# Copyright (c) 2007-2015, Enthought, Inc.
 # License: BSD Style.
 
 import numpy
@@ -23,8 +23,8 @@ from tvtk.common import camel2enthought
 from mayavi.core.lut_manager import lut_mode_list
 import mayavi.modules.api as modules
 from mayavi.core.registry import registry
-import tools
-from pipe_base import PipeFactory, make_function
+from . import tools
+from .pipe_base import PipeFactory, make_function
 
 
 # This the list is dynamically populated further down below at the end.

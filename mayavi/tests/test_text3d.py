@@ -1,10 +1,10 @@
 # Author: Gael Varoquaux <gael dot varoquaux at enthought dot com>
-# Copyright (c) 2009,  Enthought, Inc.
+# Copyright (c) 2009-2015,  Enthought, Inc.
 # License: BSD Style.
 
 # Standard library imports.
 import unittest
-from StringIO import StringIO
+from io import StringIO
 from os.path import abspath
 
 import numpy as np
@@ -73,14 +73,14 @@ class TestText3D(unittest.TestCase):
 
     def test_text3d(self):
         "Test if the text3d has been properly instanciated"
-        self.assert_(isinstance(self.t, Text3D))
+        self.assertTrue(isinstance(self.t, Text3D))
 
 
     def test_follower(self):
         """ Test if changing 'orient_to_camera' switches between plain
             actor and follower """
         self.t.orient_to_camera = True
-        self.assert_(isinstance(self.t.actor.actor, tvtk.Follower))
+        self.assertTrue(isinstance(self.t.actor.actor, tvtk.Follower))
         self.t.orient_to_camera = False
         self.assertFalse(isinstance(self.t.actor.actor, tvtk.Follower))
 
@@ -92,10 +92,10 @@ class TestText3D(unittest.TestCase):
         self.assertFalse(isinstance(self.t.actor.actor, tvtk.Follower))
         self.assertFalse(self.t.orient_to_camera)
         self.t.orient_to_camera = True
-        self.assert_(isinstance(self.t.actor.actor, tvtk.Follower))
+        self.assertTrue(isinstance(self.t.actor.actor, tvtk.Follower))
         self.save_and_reload()
         self.assertTrue(self.t.orient_to_camera)
-        self.assert_(isinstance(self.t.actor.actor, tvtk.Follower))
+        self.assertTrue(isinstance(self.t.actor.actor, tvtk.Follower))
 
 if __name__ == '__main__':
     unittest.main()

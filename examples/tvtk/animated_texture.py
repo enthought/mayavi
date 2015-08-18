@@ -7,11 +7,12 @@ TVTK sees a view of this array without doing any data transfers.
 
 """
 # Authors: Prabhu Ramachandran, Eric Jones
-# Copyright (c) 2006, Enthought, Inc.
+# Copyright (c) 2006-2015, Enthought, Inc.
 # License: BSD Style.
 
-from numpy import arange, zeros, float32, float64, uint8, \
-                  atleast_3d, exp, sqrt, pi
+from __future__ import print_function
+
+from numpy import arange, zeros, uint8, exp, sqrt, pi
 
 from tvtk.api import tvtk
 from tvtk.common import configure_input_data, configure_source_data, \
@@ -95,7 +96,7 @@ def image_from_array(ary):
         img.point_data.scalars = ary_2d
 
     else:
-        raise ValueError, "ary must be 3 dimensional."
+        raise ValueError("ary must be 3 dimensional.")
 
     return img
 
@@ -129,7 +130,7 @@ for i in range(N):
     rwi.render()
     #print i
 t2 = time.time()
-print 'texture size:', array_3d.shape
-print 'fps:', N/(t2-t1)
+print('texture size:', array_3d.shape)
+print('fps:', N/(t2-t1))
 
 rwi.start()

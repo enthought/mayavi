@@ -7,12 +7,12 @@ standalone application.
 
 Mayavi2 wiki page: http://svn.enthought.com/enthought/wiki/MayaVi
 
-Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-
 """
-# Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2005-2008, Enthought, Inc.
+# Author: Prabhu Ramachandran <prabhu@enthought.com>
+# Copyright (c) 2005-2015, Enthought, Inc.
 # License: BSD Style.
+
+from __future__ import print_function
 
 # Standard library imports.
 import sys
@@ -204,7 +204,7 @@ def parse_cmd_line(arguments):
                    passed on the command line.  If it is a string the
                    string is split to create a list of arguments.
     """
-    if type(arguments) in types.StringTypes:
+    if type(arguments) is str:
         arguments = arguments.split()
 
     options = "d:m:f:z:x:s:nMvo"
@@ -219,11 +219,11 @@ def parse_cmd_line(arguments):
 
     try:
         opts, args = getopt.getopt (arguments, options, long_opts)
-    except getopt.error, msg:
-        print msg
-        print usage ()
-        print '-'*70
-        print msg
+    except getopt.error as msg:
+        print(msg)
+        print(usage())
+        print('-'*70)
+        print(msg)
         sys.exit (1)
 
     return opts, args
@@ -298,7 +298,7 @@ def process_cmd_line(app, opts, args):
                 classname = a
             try:
                 mod = __import__(modname, globals(), locals(), [classname])
-            except ImportError, msg:
+            except ImportError as msg:
                 exception(str(msg))
                 return
             else:
@@ -331,7 +331,7 @@ def process_cmd_line(app, opts, args):
                     extra = None
             try:
                 mod = __import__(modname, globals(), locals(), [classname])
-            except ImportError, msg:
+            except ImportError as msg:
                 exception(str(msg))
                 return
             else:
@@ -369,8 +369,8 @@ def process_cmd_line(app, opts, args):
         if o in ('-s', '--set'):
             try:
                 stmt = 'last_obj.' + a
-                exec stmt in locals(), globals()
-            except Exception, msg:
+                exec(stmt, locals(), globals())
+            except Exception as msg:
                 exception(str(msg))
 
         if o in ('-z', '--visualization', '--viz'):
@@ -410,8 +410,8 @@ def run_script(mayavi, script_name):
     try:
         # If we don't pass globals twice we get NameErrors and nope,
         # using exec open(script_name).read() does not fix it.
-        execfile(script_name, g, g)
-    except Exception, msg:
+        exec(compile(open(script_name).read(), script_name, 'exec'), g, g)
+    except Exception as msg:
         exception(str(msg))
         error = True
 
@@ -428,11 +428,11 @@ if ('-t' in sys.argv[1:]) or ('--test' in sys.argv[1:]):
 # If the user just wants help messages.  Print them before importing
 # any of the big modules.
 if ('-h' in sys.argv[1:]) or ('--help' in sys.argv[1:]):
-    print usage()
+    print(usage())
     sys.exit(0)
 
 if ('-V' in sys.argv[1:]) or ('--version' in sys.argv[1:]):
-    print 'Mayavi %s'%__version__
+    print('Mayavi %s'%__version__)
     sys.exit(0)
 
 for opt, arg in parse_cmd_line(sys.argv[1:])[0]:
@@ -450,7 +450,7 @@ del opt, arg
 # error message
 try:
     import vtk
-except ImportError, m:
+except ImportError as m:
     msg = '%s\n%s\nDo you have vtk installed properly?\n' \
         'VTK (and build instructions) can be obtained from http://www.vtk.org\n' \
         % (m, '_'*80)
@@ -473,7 +473,7 @@ if not 'wx' in sys.modules:
 # version/help information.
 try:
     from mayavi.plugins.app import Mayavi, setup_logger
-except ImportError, m:
+except ImportError as m:
     msg = '''%s
 %s
 Could not load envisage. You might have a missing dependency.
@@ -562,7 +562,7 @@ def get_mayavi_script_instance():
     from mayavi.core.registry import registry
     from mayavi.plugins.envisage_engine import EnvisageEngine
     from mayavi.plugins.script import Script
-    for name, engine in registry.engines.iteritems():
+    for name, engine in registry.engines.items():
         if isinstance(engine, EnvisageEngine):
             return engine.window.get_service(Script)
     return
@@ -592,7 +592,7 @@ def standalone(func):
                 """Callback that runs the function inside the mayavi
                 app."""
                 # Bind the 'mayavi' name to the script instance
-                func.func_globals['mayavi'] = script
+                func.__globals__['mayavi'] = script
                 # Run the function in the event loop.
                 g = script.window.application.gui
                 g.invoke_later(func, *args, **kw)
@@ -604,7 +604,7 @@ def standalone(func):
             # Run the mayavi app.
             m.main()
         else:
-            ns = func.func_globals
+            ns = func.__globals__
             if not contains_mayavi(ns):
                 # Bind the 'mayavi' name to the script instance
                 ns['mayavi'] = script
@@ -631,7 +631,7 @@ def main():
         from traitsui.toolkit import toolkit
         toolkit() # This forces the selection of a toolkit.
         if ETSConfig.toolkit in ('null', ''):
-            raise ImportError, '''Could not import backend for traits
+            raise ImportError('''Could not import backend for traits
 ________________________________________________________________________________
 Make sure that you have either the TraitsBackendWx or the TraitsBackendQt
 projects installed. If you installed Mayavi with easy_install, try easy_install
@@ -644,7 +644,7 @@ Also make sure that either wxPython or PyQT is installed.
 wxPython: http://www.wxpython.org/
 PyQT: http://www.riverbankcomputing.co.uk/software/pyqt/intro
 '''
-
+            )
         mayavi = MayaviApp()
     mayavi.main(sys.argv[1:])
 

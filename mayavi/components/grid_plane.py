@@ -13,7 +13,7 @@ from apptools.persistence import state_pickler
 
 # Local imports.
 from mayavi.core.component import Component
-from mayavi.core.common import error 
+from mayavi.core.common import error
 
 
 def _get_extent(inp):
@@ -115,7 +115,7 @@ class GridPlane(Component):
             msg = "The GridPlane component does not support the %s dataset."\
                   %(input.class_name)
             error(msg)
-            raise TypeError, msg
+            raise TypeError(msg)
 
         self.configure_connection(plane, self.inputs[0])
         self.plane = plane

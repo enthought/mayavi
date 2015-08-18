@@ -3,14 +3,14 @@ highest level.
 
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2005-2008, Enthought, Inc.
+# Copyright (c) 2005-2015, Enthought, Inc.
 # License: BSD Style.
 
 # Standard library imports.
 # VTK is used to just shut off the warnings temporarily.
 try:
     import vtk
-except ImportError, m:
+except ImportError as m:
     m.args = ('%s\n%s\nDo you have vtk and its Python bindings installed properly?' %
                     (m.args[0], '_'*80),)
     raise
@@ -50,7 +50,7 @@ def get_args(function):
     """ Simple inspect-like function to inspect the arguments a function
         takes.
     """
-    return function.func_code.co_varnames[:function.func_code.co_argcount]
+    return function.__code__.co_varnames[:function.__code__.co_argcount]
 
 ######################################################################
 # `Engine` class
@@ -255,7 +255,7 @@ class Engine(HasStrictTraits):
         w = o.GetGlobalWarningDisplay()
         o.SetGlobalWarningDisplay(0) # Turn it off.
         try:
-            #FIXME: This is for streamline seed point widget position which 
+            #FIXME: This is for streamline seed point widget position which
             #does not get serialized correctly
             if is_old_pipeline():
                 state_pickler.dump(self, file_or_fname)
@@ -371,7 +371,7 @@ class Engine(HasStrictTraits):
             if hasattr(scene, 'name'):
                 name = scene.name
             else:
-                name = 'Mayavi Scene %d'%scene_id_generator.next()
+                name = 'Mayavi Scene %d'%next(scene_id_generator)
 
         s = Scene(scene=scene, name=name, parent=self)
         s.start()
@@ -445,7 +445,7 @@ class Engine(HasStrictTraits):
         if viewer is None:
             factory_kwargs = {}
             factory_kwargs_names = get_args(self.scene_factory)
-            for arg, value in kwargs.iteritems():
+            for arg, value in kwargs.items():
                 if arg in factory_kwargs_names:
                     factory_kwargs[arg] = value
 
@@ -620,4 +620,3 @@ class Engine(HasStrictTraits):
             old.record('# ------------------------------------------- ')
             old.record('from mayavi.tools.show import show')
             old.record('show()')
-

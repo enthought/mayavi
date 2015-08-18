@@ -7,7 +7,6 @@ Factory used by mayavi to import csv-like files into datasets.
 # License: BSD Style.
 
 from traits.api import HasTraits, Callable
-from traitsui.api import Handler
 
 from mayavi.tools.data_wizards.data_source_wizard import \
         DataSourceWizardView
@@ -25,7 +24,7 @@ class CallbackCSVLoader(CSVLoaderController):
     callback = Callable()
 
     def closed(self, info, is_ok):
-        print "CallbackHander"
+        print("CallbackHander")
         if is_ok:
             self.callback(self.model)
 

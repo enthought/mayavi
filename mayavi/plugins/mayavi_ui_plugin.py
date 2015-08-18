@@ -208,9 +208,8 @@ To use Mayavi, you need to load your data in "data sources" and apply "visualiza
             # Tree that has not been ported from Wx yet.
             from apptools.naming.ui.api import explore
             py.bind('explore', explore)
-        except AttributeError, msg:
+        except AttributeError as msg:
             # This can happen when the shell is not visible.
             # FIXME: fix this when the shell plugin is improved.
             logger.warn(msg)
             logger.warn("Can't find the Python shell to bind variables")
-

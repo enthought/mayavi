@@ -3,7 +3,7 @@ files.
 
 """
 # Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
-# Copyright (c) 2007, Enthought, Inc.
+# Copyright (c) 2007-2015, Enthought, Inc.
 # License: BSD Style.
 
 
@@ -117,7 +117,7 @@ class PLOT3DReader(Source):
         if not isfile(xyz_fn):
             msg = 'Could not find file at %s\n'%xyz_fn
             msg += 'Please move the file there and try again.'
-            raise IOError, msg
+            raise IOError(msg)
 
         # Setup the reader state.
         set_state(self, state, first=['reader'], ignore=['*'])
@@ -288,4 +288,3 @@ class PLOT3DReader(Source):
         if '[Hidden]' in self.name:
             ret += ' [Hidden]'
         return ret
-

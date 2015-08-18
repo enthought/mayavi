@@ -111,6 +111,8 @@ Now that the prelimenaries are out of the way, lets get started.
 # Copyright (c) 2009, S. Chris Colbert
 # License: BSD Style
 
+from __future__ import print_function
+
 # this import is here because we need to ensure that matplotlib uses the
 # wx backend and having regular code outside the main block is PyTaboo.
 # It needs to be imported first, so that matplotlib can impose the
@@ -228,7 +230,7 @@ if __name__ == '__main__':
     pl.imshow(img)
 
     for i in range(N):
-        print  'Point %d:  (x, y) ' % i, disp_coords[:, 0:2][i]
+        print('Point %d:  (x, y) ' % i, disp_coords[:, 0:2][i])
         pl.plot([disp_coords[:, 0][i]], [disp_coords[:, 1][i]], 'ro')
 
     pl.show()

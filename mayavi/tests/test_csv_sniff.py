@@ -34,9 +34,9 @@ class Util(unittest.TestCase):
     def assertClose(self, a, b):
         if isinstance(a, (int, float)):
             if repr(a) == 'nan':
-                self.assert_(repr(b) == 'nan')
+                self.assertTrue(repr(b) == 'nan')
             else:
-                self.assert_(abs(a - b) < 1e-6 * max(1, abs(a)),
+                self.assertTrue(abs(a - b) < 1e-6 * max(1, abs(a)),
                              '%r != %r  %r' % (a, b, abs(a - b)))
 
         elif isinstance(a, str):
@@ -53,7 +53,7 @@ class Test(Util):
             f.write(''' "A", "B", "C"
                          1, 2, 3.2
                          7, 4, 1.87''')
-        
+
         s = Sniff(fo)
         self.assertEqual(s.comments(), '#')
         self.assertEqual(s.delimiter(), ',')

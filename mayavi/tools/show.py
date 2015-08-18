@@ -18,7 +18,7 @@ _stop_show = None
 def is_ui_running():
     """ Returns True if the UI event loop is running.
     """
-    from engine_manager import options
+    from .engine_manager import options
     if options.offscreen:
         return True
     elif ETSConfig.toolkit == 'wx':

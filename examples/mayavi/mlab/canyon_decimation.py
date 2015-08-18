@@ -23,7 +23,7 @@ warped from 2D data. To decimated more general meshes, you can use the
 less-efficient decimate-pro filter (see :ref:`example_julia_set_decimation`).
 """
 # Author: Gael Varoquaux <gael.varoquaux@normalesup.org>
-# Copyright (c) 2008, Enthought, Inc.
+# Copyright (c) 2008-2015, Enthought, Inc.
 # License: BSD Style.
 
 # Retrieve the grand Canyon topological data ###################################
@@ -32,9 +32,12 @@ less-efficient decimate-pro filter (see :ref:`example_julia_set_decimation`).
 import os
 if not os.path.exists('N36W113.hgt.zip'):
     # Download the data
-    import urllib
-    print 'Downloading data, please wait (10M)'
-    opener = urllib.urlopen(
+    try:
+        from urllib import urlopen
+    except ImportError:
+        from urllib.request import urlopen
+    print('Downloading data, please wait (10M)')
+    opener = urlopen(
     'https://s3.amazonaws.com/storage.enthought.com/www/sample_data/N36W113.hgt.zip'
         )
     open('N36W113.hgt.zip', 'wb').write(opener.read())

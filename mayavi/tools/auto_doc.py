@@ -3,7 +3,7 @@ Automatic documentation from traited objects.
 """
 
 # Author: Gael Varoquaux <gael.varoquaux@normalesup.org>
-# Copyright (c) 2007, Enthought, Inc.
+# Copyright (c) 2007-2015, Enthought, Inc.
 # License: BSD Style.
 
 from textwrap import wrap, dedent
@@ -42,8 +42,7 @@ def make_doc(klass):
 
 def traits_doc(traits):
     doc = ""
-    traits_names = traits.keys()
-    traits_names.sort()
+    traits_names = sorted(traits.keys())
     for trait_name in traits_names:
         trait_obj = traits[trait_name]
         if not trait_name[0] == '_':
@@ -65,7 +64,7 @@ def format_argument(trait_name, trait_obj):
         handler = trait_obj.handler
         if handler is not None:
             if (not hasattr(handler, 'aType') or
-                        not handler.aType in (types.IntType, types.FloatType)):
+                        not handler.aType in (int, float)):
                 # These types are simple enough
                 arg_desc += ' Must be %s.' % handler.info()
         default = trait_obj.default_value()[1]

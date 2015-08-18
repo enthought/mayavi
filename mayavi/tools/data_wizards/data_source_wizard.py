@@ -13,8 +13,8 @@ from traitsui.image.image import ImageLibrary
 
 from pyface.api import ImageResource
 
-from data_source_factory import DataSourceFactory
-from preview_window import PreviewWindow
+from .data_source_factory import DataSourceFactory
+from .preview_window import PreviewWindow
 from mayavi.modules.api import Surface, Glyph
 from mayavi.filters.api import ExtractEdges
 

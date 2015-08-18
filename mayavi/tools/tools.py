@@ -4,12 +4,11 @@ The general purpose tools to manipulate the pipeline with the mlab interface.
 
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>,
 #         Gael Varoquaux      <gael dot varoquaux at normalesup dot org>
-# Copyright (c) 2007, 2010 Enthought, Inc.
+# Copyright (c) 2007-2015 Enthought, Inc.
 # License: BSD Style.
 
 # Standard library imports.
 import numpy
-import types
 
 # Enthought library imports.
 from tvtk.api import tvtk
@@ -20,8 +19,8 @@ from mayavi.core.module_manager import ModuleManager
 from mayavi.core.source import Source
 from mayavi.core.filter import Filter
 
-from engine_manager import get_engine, engine_manager, get_null_engine
-from figure import gcf
+from .engine_manager import get_engine, engine_manager, get_null_engine
+from .figure import gcf
 
 ######################################################################
 # Utility functions.
@@ -292,7 +291,7 @@ def set_extent(module, extents):
         # That the default setting.
         return
     if not hasattr(module, 'actor'):
-        print 'Cannot set extents for %s' % module
+        print('Cannot set extents for %s' % module)
         return
     xmin, xmax, ymin, ymax, zmin, zmax = extents
     xo = 0.5 * (xmax + xmin)
@@ -364,7 +363,7 @@ def stop_recording(file=None):
     r = e.recorder
     if r is not None:
         stop(e, save=False)
-        if type(file) in types.StringTypes:
+        if type(file) is str:
             f = open(file, 'w')
             r.save(f)
             f.close()

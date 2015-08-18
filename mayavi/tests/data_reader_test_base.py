@@ -4,7 +4,7 @@
 
 # Standard library imports.
 from os.path import abspath
-from StringIO import StringIO
+from io import StringIO
 import copy
 import unittest
 import numpy

@@ -42,7 +42,7 @@ class PreferencesMirror(HasTraits):
         """
         trait_names = []
         opts = self.preferences
-        for key, value in opts.traits().iteritems():
+        for key, value in opts.traits().items():
             if key not in ['trait_added', 'trait_modified',
                            'preferences', 'preferences_path']:
                 self.add_trait(key, value)

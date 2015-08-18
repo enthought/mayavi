@@ -4,11 +4,14 @@ ImageData/StructuredPoints/RectilinearGrid.
 
 """
 # Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
-# Copyright (c) 2006,  Enthought, Inc.
+# Copyright (c) 2006-2015,  Enthought, Inc.
 # License: BSD Style.
 
 # Standard library imports.
-import cPickle
+try:
+    import cPickle
+except ImportError:
+    import pickle as cPickle
 
 # Enthought library imports.
 from traits.api import Instance, Property, Bool, Int, \

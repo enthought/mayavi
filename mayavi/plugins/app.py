@@ -1,7 +1,7 @@
 """The Mayavi Envisage application.
 """
-# Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2008, Enthought, Inc.
+# Author: Prabhu Ramachandran <prabhu@enthought.com>
+# Copyright (c) 2008-2015, Enthought, Inc.
 # License: BSD Style.
 
 # Standard library imports.
@@ -16,7 +16,7 @@ from traits.api import (HasTraits, Instance, Int,
     on_trait_change, Bool)
 
 # Local imports.
-from mayavi_workbench_application import MayaviWorkbenchApplication
+from .mayavi_workbench_application import MayaviWorkbenchApplication
 from mayavi.preferences.api import preference_manager
 from mayavi.core.customize import get_custom_plugins
 

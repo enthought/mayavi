@@ -34,8 +34,7 @@ class TestMlabNullEngine(unittest.TestCase):
     def tearDown(self):
         # Check that the NullEngine is still the mlab engine
         if not mlab.get_engine() is self.e:
-            raise AssertionError, \
-                    "The NullEngine has been overridden"
+            raise AssertionError("The NullEngine has been overridden")
         engine_manager.current_engine = None
         # Unregistering the engine, to avoid side-effects between tests
         self.e.stop()
@@ -64,7 +63,7 @@ class TestMlabNullEngineMisc(TestMlabNullEngine):
 
         # Check that the filter was not added to a live scene:
         if filter.scene is not None:
-            raise AssertionError, "The NullEngine seems not to work"
+            raise AssertionError("The NullEngine seems not to work")
 
     def test_user_defined_filter(self):
         x, y, z = np.random.random((3, 100))
@@ -72,7 +71,7 @@ class TestMlabNullEngineMisc(TestMlabNullEngine):
         density = mlab.pipeline.user_defined(src, filter='GaussianSplatter')
 
         self.assertEqual(len(density.outputs), 1)
-        self.assert_(isinstance(density.outputs[0], tvtk.ImageData))
+        self.assertTrue(isinstance(density.outputs[0], tvtk.ImageData))
 
     def test_mlab_source(self):
         """ Check that the different objects created by mlab have an
@@ -115,54 +114,54 @@ class TestMlabNullEngineMisc(TestMlabNullEngine):
         # Test when specifying figure instances
         f1 = mlab.figure()
         e = mlab.get_engine()
-        self.assert_(e.current_scene is f1)
+        self.assertTrue(e.current_scene is f1)
         f2 = mlab.figure()
-        self.assert_(e.current_scene is f2)
+        self.assertTrue(e.current_scene is f2)
         mlab.figure(f1)
-        self.assert_(e.current_scene is f1)
+        self.assertTrue(e.current_scene is f1)
 
         # Test when specifying figure numbers
         f1 = mlab.figure(3)
-        self.assert_(e.current_scene is f1)
+        self.assertTrue(e.current_scene is f1)
         f2 = mlab.figure(4)
-        self.assert_(e.current_scene is f2)
+        self.assertTrue(e.current_scene is f2)
         mlab.figure(3)
-        self.assert_(e.current_scene is f1)
+        self.assertTrue(e.current_scene is f1)
 
         # Test when specifying figure names
         f1 = mlab.figure('Test 1')
-        self.assert_(e.current_scene is f1)
+        self.assertTrue(e.current_scene is f1)
         f2 = mlab.figure('Test 2')
-        self.assert_(e.current_scene is f2)
+        self.assertTrue(e.current_scene is f2)
         mlab.figure('Test 1')
-        self.assert_(e.current_scene is f1)
+        self.assertTrue(e.current_scene is f1)
 
     def test_close(self):
         """ Various tests for mlab.close().
         """
         f = mlab.figure()
-        self.assert_(f.running)
+        self.assertTrue(f.running)
         mlab.close(f)
         self.assertFalse(f.running)
 
         f = mlab.figure(314)
-        self.assert_(f.running)
+        self.assertTrue(f.running)
         mlab.close(314)
         self.assertFalse(f.running)
 
         f = mlab.figure('test_figure')
-        self.assert_(f.running)
+        self.assertTrue(f.running)
         mlab.close('test_figure')
         self.assertFalse(f.running)
 
         f = mlab.figure()
-        self.assert_(f.running)
+        self.assertTrue(f.running)
         mlab.close()
         self.assertFalse(f.running)
 
         figs = [mlab.figure() for i in range(5)]
         for f in figs:
-            self.assert_(f.running)
+            self.assertTrue(f.running)
         mlab.close(all=True)
         for f in figs:
             self.assertFalse(f.running)
@@ -232,10 +231,10 @@ class TestMlabPipeline(TestMlabNullEngine):
     def tearDown(self):
         if self.less_than_vtk_5_6:
             super(TestMlabPipeline, self).setUp()
-        else:            
-            for engine in registry.engines.keys():
+        else:
+            for engine in registry.engines:
                 registry.unregister_engine(engine)
-    
+
     def test_probe_data(self):
         """ Test probe_data
         """

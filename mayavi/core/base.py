@@ -2,11 +2,11 @@
 
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2005, Enthought, Inc.
+# Copyright (c) 2005-2015, Enthought, Inc.
 # License: BSD Style.
 
 # Standard library imports.
-import cPickle
+import pickle
 from copy import deepcopy
 import os
 import logging
@@ -166,7 +166,7 @@ class Base(TreeNodeObject):
         state = state_pickler.loads_state(str_state)
         state_pickler.update_state(state)
         # Save the state and load it if we are running.
-        self._saved_state = cPickle.dumps(state)
+        self._saved_state = pickle.dumps(state)
         if self.running:
             self._load_saved_state()
 
@@ -181,7 +181,7 @@ class Base(TreeNodeObject):
         saved_state = self._saved_state
         if len(saved_state) == 0:
             state = state_pickler.get_state(self)
-            #FIXME: This is for streamline seed point widget position which 
+            #FIXME: This is for streamline seed point widget position which
             #does not get serialized correctly
             if not is_old_pipeline():
                 try:
@@ -190,7 +190,7 @@ class Base(TreeNodeObject):
                     st.seed.widget.position = [pos.item() for pos in l_pos]
                 except (IndexError, AttributeError):
                     pass
-            saved_state = cPickle.dumps(state)
+            saved_state = pickle.dumps(state)
         new._saved_state = saved_state
         # In the unlikely case that a new instance is running, load
         # the saved state.
@@ -402,7 +402,9 @@ class Base(TreeNodeObject):
         result = {}
         view_filename = self._view_filename
         try:
-            execfile(view_filename, {}, result)
+            exec(compile(
+                open(view_filename).read(), view_filename, 'exec'), {}, result
+            )
             view = result['view']
         except IOError:
             logger.debug("No view found for [%s] in [%s]. "
@@ -422,7 +424,7 @@ class Base(TreeNodeObject):
         """
         saved_state = self._saved_state
         if len(saved_state) > 0:
-            state = cPickle.loads(saved_state)
+            state = pickle.loads(saved_state)
             if hasattr(self, '__set_pure_state__'):
                 self.__set_pure_state__(state)
             else:
