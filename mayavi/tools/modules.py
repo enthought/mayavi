@@ -12,7 +12,6 @@ helper functions.
 # License: BSD Style.
 
 import numpy
-import new
 
 from traits.api import Trait, CArray, Instance, CFloat, \
     Any, false, true, TraitTuple, Range, Bool, Property, CInt, Enum, Either

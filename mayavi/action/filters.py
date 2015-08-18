@@ -12,13 +12,12 @@ from mayavi.core.registry import registry
 from mayavi.core.metadata import Metadata
 from mayavi.core.pipeline_base import PipelineBase
 
-def new_class(*args, **kw):
+def new_class(name, bases, dict_):
     try:
         import new
-        return new.classobj(*args, **kw)
+        return new.classobj(name, bases, dict_)
     except ImportError:
-        import types
-        return types.new_class(*args, **kw)
+        return type(name, bases, dict_)
 
 ######################################################################
 # `FilterAction` class.

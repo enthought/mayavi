@@ -155,7 +155,7 @@ class PipeFactory(HasPrivateTraits):
             self._target.mlab_source = ms
 
         traits = self.get(self.class_trait_names())
-        [traits.pop(key) for key in traits.keys()
+        [traits.pop(key) for key in list(traits.keys())
                                     if key[0] == '_' or key is None]
         traits.update(kwargs)
         # Now calling the traits setter, so that traits handlers are

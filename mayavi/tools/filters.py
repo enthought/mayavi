@@ -24,13 +24,12 @@ __all__ = ['tube', 'warp_scalar', 'threshold', 'elevation_filter',
             'set_active_attribute', 'user_defined'
           ]
 
-def new_class(*args, **kw):
+def new_class(name, bases, dict_):
     try:
         import new
-        return new.classobj(*args, **kw)
+        return new.classobj(name, bases, dict_)
     except ImportError:
-        import types
-        return types.new_class(*args, **kw)
+        return type(name, bases, dict_)
 
 ##############################################################################
 class TubeFactory(PipeFactory):

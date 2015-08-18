@@ -105,7 +105,7 @@ class Pipeline(HasTraits):
                         str(k) for k in
                         set(kwargs.keys()).difference(list(all_traits.keys()))))
         traits = self.get(self.class_trait_names())
-        [traits.pop(key) for key in traits.keys() if key[0] == '_']
+        [traits.pop(key) for key in list(traits.keys()) if key[0] == '_']
         traits.update(kwargs)
         self.kwargs = traits
 

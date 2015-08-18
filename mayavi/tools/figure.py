@@ -8,7 +8,6 @@ Functions related to creating the engine or the figures.
 # License: BSD Style.
 
 # Standard library imports.
-from types import IntType
 import gc
 import warnings
 import copy
@@ -69,7 +68,7 @@ def figure(figure=None, bgcolor=None, fgcolor=None, engine=None,
             engine.new_scene(name=name, size=size)
             engine.current_scene.name = name
         else:
-            if type(figure) in (IntType, np.int, np.int0, np.int8,
+            if type(figure) in (int, np.int, np.int0, np.int8,
                             np.int16, np.int32, np.int64):
                 name = int(figure)
                 __scene_number_list.update((name,))
@@ -163,7 +162,7 @@ def close(scene=None, all=False):
         if scene is None:
             scene = engine.current_scene
         else:
-            if type(scene) in (IntType, np.int, np.int0, np.int8,
+            if type(scene) in (int, np.int, np.int0, np.int8,
                             np.int16, np.int32, np.int64):
                 scene = int(scene)
                 name = 'Mayavi Scene %d' % scene

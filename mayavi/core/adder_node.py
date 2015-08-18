@@ -25,7 +25,7 @@ from .registry import registry
 class AdderNode(TreeNode):
     """ Base class that will display a TreeNode to add items to the tree.
     """
-    implements(ITreeNode)
+    #implements(ITreeNode)
 
     # String to be shown in the TreeEditor.
     label = Str('Base AdderNode')
