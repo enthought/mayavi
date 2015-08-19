@@ -1,8 +1,9 @@
 Sphinx
 coverage
 psutil
+nose
 git+http://github.com/enthought/traits.git#egg=traits
 git+http://github.com/enthought/traitsui.git#egg=traitsui
-git+http://github.com/enthought/apptools.git#egg=apptools
 git+http://github.com/enthought/pyface.git#egg=pyface
 git+http://github.com/enthought/envisage.git#egg=envisage
+git+http://github.com/enthought/apptools.git#egg=apptools
