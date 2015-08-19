@@ -44,7 +44,7 @@ before_script:
   - cd testrun
 script:
   - coverage erase
-  - coverage run -p -m nose.core -v tvtk/tests
+  - coverage run -p -m nose.core -v tvtk
   - coverage run -p -m nose.core -v mayavi
   - if [[ ${ETS_TOOLKIT} == "wx" ]]; then sh travis-run-integration-tests.sh; fi
   - coverage combine
