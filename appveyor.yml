@@ -14,7 +14,11 @@ environment:
 
     - python: "C:/Python34-x64"
       sdkver: "v7.1"
-      vtk_url: "NOT A CLUE"
+      vtk_url: "NONE"
+
+matrix:
+  allow_failures:
+    - python: "C:/Python34-x64"
 
 cache:
   - c:\temp
@@ -27,8 +31,7 @@ init:
 
 install:
   - ps: if ((Test-Path "c:/temp") -eq 0) { mkdir c:/temp }
-  - ps: (new-object net.webclient).DownloadFile($Env:vtk_url, 'c:/vtkpython.exe')
-  - ps: c:/vtkpython.exe /S /D=C:\vtk
+  - ps: if ($Env:vtk_url -ne "NONE") { (new-object net.webclient).DownloadFile($Env:vtk_url, 'c:/vtkpython.exe'); c:/vtkpython.exe /S /D=C:\vtk; }
   - ps: (new-object net.webclient).DownloadFile('https://raw.github.com/pypa/pip/master/contrib/get-pip.py', 'c:/get-pip.py')
   - ps: python c:/get-pip.py
   - ps: pip --version
