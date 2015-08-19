@@ -41,6 +41,7 @@ install:
 before_script:
   - mkdir testrun
   - cp .coveragerc testrun/
+  - cp .travis-run-integration-tests.sh testrun/
   - cd testrun
 script:
   - coverage erase
