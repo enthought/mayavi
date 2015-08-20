@@ -7,7 +7,6 @@
 
 # Standard library imports.
 from os.path import isfile
-import new
 
 # Enthought library imports.
 from traits.api import Instance, Str
@@ -20,6 +19,7 @@ from mayavi.core.common import error
 from mayavi.core.metadata import Metadata
 from mayavi.core.registry import registry
 
+from .filters import new_class
 
 ######################################################################
 # Utility functions
@@ -110,6 +110,6 @@ for src in registry.sources:
         d = {'tooltip': src.tooltip,
              'description': src.desc,
              'metadata': src}
-        action = new.classobj(src.id, (SourceAction,), d)
+        action = new_class(src.id, (SourceAction,), d)
         globals()[src.id] = action
 
