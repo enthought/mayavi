@@ -37,7 +37,7 @@ before_install:
   - if [[ ${TRAVIS_PYTHON_VERSION} == "3.4" && ${ETS_TOOLKIT} == "qt4" ]]; then ./build_pyside_wheel.sh; fi
   - pip install -r travis-ci-requirements.txt
 install:
-  - if [[ ${TRAVIS_PYTHON_VERSION} == "3.4" ]]; python -m lib2to3 -w setup.py; fi
+  - if [[ ${TRAVIS_PYTHON_VERSION} == "3.4" ]]; then python -m lib2to3 -w setup.py; fi
   - python setup.py develop
 before_script:
   - mkdir testrun
