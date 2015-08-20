@@ -39,7 +39,7 @@ before_install:
 install:
   - if [[ ${TRAVIS_PYTHON_VERSION} == "3.4" ]]; then python -m lib2to3 -w setup.py; fi
   - if [[ ${TRAVIS_PYTHON_VERSION} == "3.4" ]]; then python -m lib2to3 -w tvtk/setup.py; fi
-  - python setup.py develop
+#  - python setup.py develop
 before_script:
   - mkdir testrun
   - cp .coveragerc testrun/
@@ -47,10 +47,10 @@ before_script:
   - cd testrun
 script:
   - coverage erase
-  - coverage run -p -m nose.core -v tvtk
-  - coverage run -p -m nose.core -v mayavi
-  - if [[ ${ETS_TOOLKIT} == "wx" ]]; then sh travis-run-integration-tests.sh; fi
-  - coverage combine
-after_success:
-  - pip install codecov
-  - codecov
+#  - coverage run -p -m nose.core -v tvtk
+#  - coverage run -p -m nose.core -v mayavi
+#  - if [[ ${ETS_TOOLKIT} == "wx" ]]; then sh travis-run-integration-tests.sh; fi
+#  - coverage combine
+#after_success:
+#  - pip install codecov
+#  - codecov
