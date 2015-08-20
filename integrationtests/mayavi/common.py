@@ -1,8 +1,10 @@
 """MayaVi test related utilities.
 """
-# Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2005-2008, Enthought, Inc.
+# Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
+# Copyright (c) 2005-2015, Enthought, Inc.
 # License: BSD Style.
+
+from __future__ import print_function
 
 # Standard library imports
 import gc
@@ -124,11 +126,11 @@ class MemoryAssistant(object):
         mem_leak_msg =  "Memory leak   (%) : {:5.1f}"
 
         try:
-            print 'Profiling',
+            print('Profiling', end=' ')
             sys.stdout.flush()
-            for index in xrange(iterations):
+            for index in range(iterations):
                 test_function()
-                print '.',
+                print('.', end=' ')
                 sys.stdout.flush()
                 gc.collect()
                 self.assertMemoryUsage(process, baseline, slack=slack)
@@ -137,10 +139,10 @@ class MemoryAssistant(object):
             ##########################################
             final = self._memory_usage(process)
             leak = (final - baseline) / baseline
-            print
-            print samples_msg.format(index + 1)
-            print mem_usage_msg.format(baseline, final)
-            print mem_leak_msg.format(leak * 100.0, index + 1)
+            print()
+            print(samples_msg.format(index + 1))
+            print(mem_usage_msg.format(baseline, final))
+            print(mem_leak_msg.format(leak * 100.0, index + 1))
         except AssertionError:
             final = self._memory_usage(process)
             leak = (final - baseline) / baseline
@@ -172,7 +174,7 @@ def _print_image_error(img_err, err_index, img_base):
              Valid image: %(img_base)s.small.jpg"""%locals()
     logger.error(msg)
     if VERBOSE:
-        print msg
+        print(msg)
 
 
 def _print_image_success(img_err, err_index):
@@ -180,7 +182,7 @@ def _print_image_success(img_err, err_index):
     msg = "Image Error, image_index: %s, %s"%(img_err, err_index)
     logger.debug(msg)
     if VERBOSE:
-        print msg
+        print(msg)
 
 
 def _handle_failed_image(idiff, src_img, pngr, img_fname):
@@ -263,7 +265,7 @@ def compare_image_with_saved_image(src_img, img_fname, threshold=10,
         pngw = tvtk.PNGWriter(file_name=img_fname, input=src_img)
         pngw.write()
         if VERBOSE:
-            print "Creating baseline image '%s'."%img_fname
+            print("Creating baseline image '%s'."%img_fname)
         return
 
     pngr = tvtk.PNGReader(file_name=img_fname)
@@ -327,7 +329,7 @@ def compare_image_with_saved_image(src_img, img_fname, threshold=10,
             _handle_failed_image(idiff, src_img, pngr, best_img)
             _print_image_error(img_err, err_index, f_base)
             msg = "Failed image test: %f\n"%idiff.thresholded_error
-            raise AssertionError, msg
+            raise AssertionError(msg)
     # output the image error even if a test passed
     _print_image_success(img_err, err_index)
 
@@ -502,7 +504,10 @@ class TestCase(Mayavi):
         g.start_event_loop()
         if self.exception_info is not None:
             type, value, tb = self.exception_info
-            raise type, value, tb
+            if sys.version_info[0] > 2:
+                raise type(value).with_traceback(tb)
+            else:
+                raise type(value)
 
 
     def run(self):
@@ -516,7 +521,7 @@ class TestCase(Mayavi):
                                                      slack = 1.0)
             else:
                 self.do()
-        except Exception, e:
+        except Exception as e:
             type, value, tb = sys.exc_info()
             if is_running_with_nose():
                 self.exception_info = type, value, tb
@@ -664,7 +669,7 @@ class TestCase(Mayavi):
                 excName = excClass.__name__
             else:
                 excName = str(excClass)
-            raise MayaviTestError, excName
+            raise MayaviTestError(excName)
     assertRaises = failUnlessRaises
 
 

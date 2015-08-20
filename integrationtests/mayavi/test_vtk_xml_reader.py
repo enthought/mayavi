@@ -7,7 +7,6 @@ of test_contour.py with just the reader changed.
 
 # Standard library imports.
 from os.path import abspath
-from StringIO import StringIO
 import copy
 
 # Local imports.

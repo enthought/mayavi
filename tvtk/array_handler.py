@@ -45,6 +45,8 @@ elif VTK_LONG_TYPE_SIZE == 8:
 
 BASE_REFERENCE_COUNT = vtk.vtkObject().GetReferenceCount()
 
+if sys.version_info[0] > 2:
+    unicode = str
 
 def getbuffer(array):
     return getattr(numpy, 'getbuffer', memoryview)(array)
@@ -662,7 +664,7 @@ def convert_array(arr, vtk_typ=None):
 
 def is_array_sig(s):
     """Given a signature, return if the signature has an array."""
-    if not isinstance(s, str):
+    if not isinstance(s, (unicode, str)):
         return False
     arr_types = ['Array', 'vtkPoints', 'vtkIdList']
     for i in arr_types:
