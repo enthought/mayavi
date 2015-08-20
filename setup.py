@@ -175,7 +175,7 @@ class GenDocs(Command):
             try:
                 from mayavi import mlab
                 from mayavi.tools import auto_doc
-                print "Generating the mlab reference documentation"
+                print("Generating the mlab reference documentation")
                 os.system('python mlab_reference.py')
             except:
                 pass
@@ -203,7 +203,7 @@ class GenDocs(Command):
             try:
                 from mayavi import mlab
                 from mayavi.tools import auto_doc
-                print "Generating the example list"
+                print("Generating the example list")
                 subprocess.call('python %s' %
                                 basename(script_file_name), shell=True,
                                 cwd=dirname(script_file_name))
@@ -234,7 +234,7 @@ class BuildDocs(Command):
 
     def make_docs(self):
         if os.name == 'nt':
-            print "Please impelemnt sphinx building on windows here."
+            print("Please impelemnt sphinx building on windows here.")
         else:
             subprocess.call(['make', 'html'], cwd='docs')
 
