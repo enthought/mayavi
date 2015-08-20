@@ -39,7 +39,7 @@ class Util(unittest.TestCase):
                 self.assertTrue(abs(a - b) < 1e-6 * max(1, abs(a)),
                              '%r != %r  %r' % (a, b, abs(a - b)))
 
-        elif isinstance(a, str):
+        elif isinstance(a, (str, bytes)):
             self.assertEqual(a, b)
 
         else:
@@ -49,7 +49,7 @@ class Test(Util):
 
     def test_API(self):
         fo = tempfile.mktemp()
-        with open(fo, 'wb') as f:
+        with open(fo, 'w') as f:
             f.write(''' "A", "B", "C"
                          1, 2, 3.2
                          7, 4, 1.87''')
@@ -81,7 +81,7 @@ class Test(Util):
 
     def test_comment(self):
         fo = tempfile.mktemp()
-        with open(fo, 'wb') as f:
+        with open(fo, 'w') as f:
             f.write('''
             % "A"  "B"  "C"
                1    2   4.2   % comment''')
@@ -97,7 +97,7 @@ class Test(Util):
 
     def test_tabs(self):
         fo = tempfile.mktemp()
-        with open(fo, 'wb') as f:
+        with open(fo, 'w') as f:
             f.write('''54\t87\n21\t32''')
 
         s = Sniff(fo)
@@ -107,7 +107,7 @@ class Test(Util):
 
     def test_nohead(self):
         fo = tempfile.mktemp()
-        with open(fo, 'wb') as f:
+        with open(fo, 'w') as f:
             f.write('''Hello;54;87\nWorld;42;86.5''')
 
         s = Sniff(fo)
@@ -121,7 +121,7 @@ class Test(Util):
 
     def test_empty_file(self):
         fo = tempfile.mktemp()
-        with open(fo, 'wb') as f:
+        with open(fo, 'w') as f:
             f.write('')
         self.assertRaises(IndexError, Sniff, fo)
 

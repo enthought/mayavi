@@ -5,7 +5,7 @@
 
 # Standard library imports.
 from os.path import abspath
-from io import StringIO
+from io import BytesIO
 import numpy
 import unittest
 
@@ -111,7 +111,7 @@ class TestBuiltinSurfaceSource(unittest.TestCase):
         src.data_source.resolution = 10
 
         # Save visualization.
-        f = StringIO()
+        f = BytesIO()
         f.name = abspath('test.mv2') # We simulate a file.
         engine.save_visualization(f)
         f.seek(0) # So we can read this saved data.

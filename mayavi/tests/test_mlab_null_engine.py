@@ -29,7 +29,7 @@ class TestMlabNullEngineBase(unittest.TestCase):
         engine_manager.current_engine = None
         # Unregistering all unused engines.
         registry.unregister_engine(self._non_null_engine)
-        for engine in registry.engines:
+        for engine in list(registry.engines):
             registry.unregister_engine(engine)
 
 
@@ -45,7 +45,7 @@ class TestRealMlabNullEngine(unittest.TestCase):
 
     def tearDown(self):
         mlab.options.backend = self.backend
-        for engine in registry.engines:
+        for engine in list(registry.engines):
             registry.unregister_engine(engine)
 
     def test_test_backend(self):

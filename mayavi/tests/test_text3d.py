@@ -4,7 +4,7 @@
 
 # Standard library imports.
 import unittest
-from io import StringIO
+from io import BytesIO
 from os.path import abspath
 
 import numpy as np
@@ -51,7 +51,7 @@ class TestText3D(unittest.TestCase):
 
     def save_and_reload(self):
         # Save visualization.
-        f = StringIO()
+        f = BytesIO()
         f.name = abspath('test.mv2') # We simulate a file.
         self.e.save_visualization(f)
         f.seek(0) # So we can read this saved data.

@@ -73,7 +73,7 @@ def get_file_list(file_name):
         else:
             return 0
 
-    files.sort(file_sort)
+    files.sort(key=lambda x:_get_index(x))
     return files
 
 

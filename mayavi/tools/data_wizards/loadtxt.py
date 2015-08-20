@@ -87,7 +87,7 @@ def loadtxt(fname, dtype=float, comments='#', delimiter=None, converters=None,
             import gzip
             fh = gzip.open(fname)
         else:
-            fh = file(fname)
+            fh = open(fname, 'r')
     elif hasattr(fname, 'seek'):
         fh = fname
     else:

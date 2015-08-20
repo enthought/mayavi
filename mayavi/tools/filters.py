@@ -161,7 +161,7 @@ class UserDefinedFactory(PipeFactory):
                     filter = getattr(tvtk, filter)
                 except AttributeError:
                     raise Exception('Filter %s unknown to TVTK' % filter)
-                kwargs['filter'] = list(filter())
+                kwargs['filter'] = filter()
                 self._target.filter = kwargs['filter']
                 self._target.setup_filter()
             else:

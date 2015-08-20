@@ -60,7 +60,7 @@ class Sniff(object):
         res = []
         f = open(self._filename, 'rb')
         for line in f:
-            line = line.strip()
+            line = line.strip().decode('utf-8')
             res.append(line)
             if len(res) > 20:
                 break

@@ -54,8 +54,7 @@ class TestMGlyphSource(unittest.TestCase):
         self.assertEqual(N.alltrue(vec == v), True)
         self.assertEqual(N.alltrue(sc == s.ravel()), True)
 
-    def test_reset(self):
-        "Test the reset method."
+    def test_reset_with_same_size_data(self):
         x, y, z, v, s, src = self.get_data()
         self.check_traits()
         self.check_dataset()
@@ -70,9 +69,7 @@ class TestMGlyphSource(unittest.TestCase):
         self.check_traits()
         self.check_dataset()
 
-    def test_reset1(self):
-
-        "Test the reset method."
+    def test_reset_with_resized_data(self):
         x, y, z, v, s, src = self.get_data()
         self.check_traits()
         self.check_dataset()
@@ -575,8 +572,6 @@ class TestMArray2DSource(unittest.TestCase):
         self.assertEqual(N.alltrue(sc.ravel() == s1.ravel()), True)
 
     def test_reset(self):
-        "Test the reset method."
-
         x, y, s, src = self.get_data()
 
         self.check_traits()
@@ -587,7 +582,6 @@ class TestMArray2DSource(unittest.TestCase):
         x *= 5
         s *= 10
         src.reset(x=x,y=y, scalars=s)
-
 
         self.check_traits()
         self.check_dataset()

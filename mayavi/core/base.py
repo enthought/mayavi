@@ -13,7 +13,7 @@ import logging
 import imp
 
 # Enthought library imports.
-from traits.api import (Instance, Property, Bool, Str, Python,
+from traits.api import (Any, Instance, Property, Bool, Str, Python,
     HasTraits, WeakRef, on_trait_change)
 from traitsui.api import TreeNodeObject
 from tvtk.pyface.tvtk_scene import TVTKScene
@@ -112,7 +112,7 @@ class Base(TreeNodeObject):
     # is done because a stopped object will not have a meaningful VTK
     # pipeline setup, so setting its state will lead to all kinds of
     # errors.
-    _saved_state = Str('')
+    _saved_state = Any('')
 
     # Hide and show actions
     _HideShowAction = Instance(Action,
