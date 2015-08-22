@@ -74,6 +74,7 @@ src = mlab.pipeline.scalar_scatter(x, y, z, s)
 
 # Connect them
 src.mlab_source.dataset.lines = connections
+src.update()
 
 # The stripper filter cleans up connected lines
 lines = mlab.pipeline.stripper(src)

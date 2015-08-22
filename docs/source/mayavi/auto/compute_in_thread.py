@@ -5,8 +5,10 @@ and update the mayavi pipeline. It also shows how to create a numpy array
 data and visualize it as image data using a few modules.
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2007-2008, Enthought, Inc.
+# Copyright (c) 2007-2015, Enthought, Inc.
 # License: BSD Style.
+
+from __future__ import print_function
 
 # Standard library imports
 import numpy
@@ -53,12 +55,12 @@ class ThreadedAction(Thread):
         self.data = data
 
     def run(self):
-        print "Performing expensive calculation in %s..."%self.getName(),
+        print("Performing expensive calculation in %s..."%self.getName(), end=' ')
         sleep(3)
         sd = self.data.scalar_data
         sd += numpy.sin(numpy.random.rand(*sd.shape)*2.0*numpy.pi)
         GUI.invoke_later(self.data.update)
-        print 'done.'
+        print('done.')
 
 
 class Controller(HasTraits):
@@ -100,4 +102,3 @@ def view_numpy():
 
 if __name__ == '__main__':
     view_numpy()
-
