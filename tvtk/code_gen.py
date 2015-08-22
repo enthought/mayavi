@@ -95,10 +95,21 @@ class TVTKGenerator:
         # Write the wrapper files.
         tree = wrap_gen.get_tree().tree
 
-        classes = [x.name for x in wrap_gen.get_tree() \
-                   if x.name.startswith('vtk') and \
-                   not x.name.startswith('vtkQt') and \
-                   ('.' not in x.name) ]
+        classes = []
+        for node in wrap_gen.get_tree():
+            name = node.name
+            if not name.startswith('vtk') or name.startswith('vtkQt'):
+                continue
+            if not hasattr(vtk, name) or not hasattr(getattr(vtk, name), 'IsA'):
+                # We need to wrap VTK classes that are derived from
+                # vtkObjectBase, the others are straightforward VTK classes
+                # that can be used as such.  All of these have an 'IsA' method
+                # so we check for that.  Only the vtkObjectBase subclasses
+                # support observers etc. and hence only those make sense to
+                # wrap into TVTK.
+                continue
+            classes.append(name)
+
         for nodes in tree:
             for node in nodes:
                 if node.name in classes:

@@ -15,7 +15,7 @@ import logging
 import vtk
 
 from traits import api as traits
-from traitsui.api import BooleanEditor, RGBColorEditor, FileEditor
+from traitsui.api import (BooleanEditor, RGBColorEditor, FileEditor)
 from . import messenger
 
 # Setup a logger for this module.
@@ -195,11 +195,19 @@ def vtk_color_trait(default, **metadata):
                                          Range(0.0, 1.0),
                                          editor=RGBColorEditor),
                             **metadata)
-    else:
+    elif type(default[0]) is float:
         return traits.Trait(traits.Tuple(Range(0.0, 1.0, default[0]),
                                          Range(0.0, 1.0, default[1]),
                                          Range(0.0, 1.0, default[2])),
                             editor=RGBColorEditor, **metadata)
+    else:
+        return traits.Trait(
+            traits.Tuple(
+                Range(0, 255, default[0]), Range(0, 255, default[1]),
+                Range(0, 255, default[2]), cols=3
+            ),
+            **metadata
+        )
 
 
 # Special cases for the FileName and FilePrefix

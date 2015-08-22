@@ -17,7 +17,8 @@ import copy
 
 # Local imports (these are relative imports because the package is not
 # installed when these modules are imported).
-from .common import get_tvtk_name, camel2enthought, is_version_58
+from .common import (get_tvtk_name, camel2enthought, is_version_58,
+    is_version_62)
 from . import vtk_parser
 from . import indenter
 from . import special_gen
@@ -624,23 +625,13 @@ class WrapperGenerator:
                             # changes value so we must force an
                             # update.
                             force = 'True'
-                        if klass.__name__ == 'vtkPLYWriter' \
-                                and name == 'color':
-                            print('vtkPLYWriter color is not updateable')
-                            default = (1.0, 1.0, 1.0)
-                            del updateable_traits[name]
-                        if klass.__name__ == 'vtkHardwareSelector' \
+                        if is_version_62() and klass.__name__ == 'vtkHardwareSelector' \
                                 and name == 'prop_color_value':
                             message = (
                                 "vtkHardwareSelector: "
                                 "prop_color_value not updatable "
                                 "(VTK 6.2 bug - value not properly initialized)")
                             print(message)
-                            default = (1.0, 1.0, 1.0)
-                            del updateable_traits[name]
-                        if klass.__name__ == 'vtkMoleculeMapper' \
-                                and name == 'bond_color':
-                            print('vtkMoleculeMapper bond_color is not updateable')
                             default = (1.0, 1.0, 1.0)
                             del updateable_traits[name]
                         t_def = 'tvtk_base.vtk_color_trait(%(default)s)'%locals()

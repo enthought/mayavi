@@ -43,6 +43,9 @@ To generate tvtk_classes.zip you must do the following::
 # Only used for testing.
 from tvtk.tvtk_classes import tvtk_helper
 
+if sys.version_info[0] > 2:
+    long = int
+
 
 def mysum(arr):
     val = arr
@@ -306,8 +309,6 @@ class TestTVTK(unittest.TestCase):
         """ Test if points can be looked up with both int and long keys.
             Fixes GH Issue 173.
         """
-        if sys.version_info[0] > 2:
-            long = int
         points = tvtk.Points()
         points.insert_next_point((0, 1, 2))
         pt = points[0]
@@ -638,14 +639,16 @@ class TestTVTKModule(unittest.TestCase):
         self.names = [
             name for name in dir(vtk)
             if name.startswith('vtk') and
-            not name.startswith('vtkQt')]
+            not name.startswith('vtkQt') and len(name) > 3]
 
     def test_all_instantiable(self):
         """Test if all the TVTK classes can be instantiated"""
         errors = []
         for name in self.names:
             klass = getattr(vtk, name)
-            if hasattr(klass, '__bases__') and not issubclass(klass, object):
+            tvtk_name = get_tvtk_name(name)
+            tvtk_klass = getattr(tvtk, tvtk_name, None)
+            if hasattr(klass, '__bases__') and tvtk_klass is not None:
                 try:
                     klass()
                 except (TypeError, NotImplementedError):
@@ -653,8 +656,6 @@ class TestTVTKModule(unittest.TestCase):
                     # be instantiated.
                     pass
                 else:
-                    tvtk_name = get_tvtk_name(name)
-                    tvtk_klass = getattr(tvtk, tvtk_name)
                     try:
                         tvtk_klass()
                     except TraitError:
