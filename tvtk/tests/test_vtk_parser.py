@@ -58,7 +58,11 @@ class TestVTKParser(unittest.TestCase):
             self.assertEqual(p.get_state_methods(), {'ReferenceCount':(1, None)})
             self.assertEqual(p.get_get_methods(), ['GetMTime'])
 
-        self.assertEqual(p.get_get_set_methods(), {})
+        if 'SetReferenceCount' in dir(vtk.vtkObject):
+            self.assertEqual(p.get_get_set_methods(),
+                             {'ReferenceCount': (1, None)})
+        else:
+            self.assertEqual(p.get_get_set_methods(), {})
 
         res = ['AddObserver', 'BreakOnError', 'HasObserver',
                'InvokeEvent', 'IsA', 'Modified', 'NewInstance',
