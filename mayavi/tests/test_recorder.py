@@ -7,6 +7,7 @@ TVTK object to ensure that the test works with TVTK objects.
 # Copyright (c) 2008-2015, Enthought, Inc.
 # License: BSD Style.
 
+import sys
 import unittest
 
 from traits.api import (HasTraits, Float, Instance,
@@ -439,7 +440,7 @@ class TestRecorder(unittest.TestCase):
         tape.unregister(p)
 
         import io
-        f = io.StringIO()
+        f = io.StringIO() if sys.version_info[0] > 2 else io.BytesIO()
         tape.save(f)
         # Test if the file is OK.
         expect = ["child = parent.children[0]\n",
