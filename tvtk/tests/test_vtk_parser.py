@@ -140,7 +140,7 @@ class TestVTKParser(unittest.TestCase):
                 res = ['AddShaderVariable', 'BackfaceRender', 'DeepCopy',
                        'ReleaseGraphicsResources', 'RemoveAllTextures', 
                        'RemoveTexture', 'Render']
-                if vtk_minor_version > 2:
+                if vtk_minor_version > 1:
                     res.append('VTKTextureUnit')
             else:
                 res = ['AddShaderVariable', 'BackfaceRender', 'DeepCopy',
