@@ -94,10 +94,10 @@ class TestVTKParser(unittest.TestCase):
                'DiffuseColor': ((1.0, 1.0, 1.0), None),
                'EdgeColor': ((1.0, 1.0, 1.0), None),
                'LineStipplePattern': (65535, None),
-               'LineStippleRepeatFactor': (1, (1, vtk.VTK_LARGE_INTEGER)),
-               'LineWidth': (1.0, (0.0, vtk.VTK_LARGE_FLOAT)),
+               'LineStippleRepeatFactor': (1, (1, vtk.VTK_INT_MAX)),
+               'LineWidth': (1.0, (0.0, vtk.VTK_FLOAT_MAX)),
                'Opacity': (1.0, (0.0, 1.0)),
-               'PointSize': (1.0, (0.0, vtk.VTK_LARGE_FLOAT)),
+               'PointSize': (1.0, (0.0, vtk.VTK_FLOAT_MAX)),
                'ReferenceCount': (1, None),
                'Specular': (0.0, (0.0, 1.0)),
                'SpecularColor': ((1.0, 1.0, 1.0), None),
@@ -140,7 +140,7 @@ class TestVTKParser(unittest.TestCase):
                 res = ['AddShaderVariable', 'BackfaceRender', 'DeepCopy',
                        'ReleaseGraphicsResources', 'RemoveAllTextures', 
                        'RemoveTexture', 'Render']
-                if vtk_minor_version == 2:
+                if vtk_minor_version > 2:
                     res.append('VTKTextureUnit')
             else:
                 res = ['AddShaderVariable', 'BackfaceRender', 'DeepCopy',
