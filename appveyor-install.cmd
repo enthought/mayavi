@@ -3,7 +3,7 @@ call setenv /x64
 
 rem install python packages
 pip install --cache-dir c:/temp nose
-pip install --cache-dir c:/temp Sphinx
+pip install --cache-dir c:/temp Sphinx==1.2.3
 pip install --cache-dir c:/temp coverage
 pip install --cache-dir c:/temp numpy
 pip install --cache-dir c:/temp pyside
