@@ -96,6 +96,7 @@ class SourceWidget(Component):
         if w_c_name == 'PlaneWidget':
             w.origin = state.widget.origin
             w.normal = state.widget.normal
+            w.center = state.widget.center
             w.update_placement()
             w.get_poly_data(self.poly_data)
         elif w_c_name == 'SphereWidget':
