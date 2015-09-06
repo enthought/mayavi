@@ -33,12 +33,15 @@ class TestMlabNullEngine(unittest.TestCase):
 
     def tearDown(self):
         # Check that the NullEngine is still the mlab engine
-        if not mlab.get_engine() is self.e:
-            raise AssertionError("The NullEngine has been overridden")
+        current_engine = mlab.get_engine()
+        engine_overridden = not current_engine is self.e
         engine_manager.current_engine = None
-        # Unregistering the engine, to avoid side-effects between tests
         self.e.stop()
         registry.unregister_engine(self.e)
+        if engine_overridden:
+            current_engine.stop()
+            registry.unregister_engine(current_engine)
+            raise AssertionError("The NullEngine has been overridden")
 
 
 ################################################################################
