@@ -350,7 +350,7 @@ class Scene(TVTKScene, Widget):
         # The control attribute is not picklable since it is a VTK
         # object so we remove it.
         d = super(Scene, self).__get_pure_state__()
-        for x in ['_vtk_control', '_fullscreen']:
+        for x in ['_vtk_control', '_fullscreen', '_cursor']:
             d.pop(x, None)
         return d
 
