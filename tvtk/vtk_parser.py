@@ -198,7 +198,6 @@ class VTKMethodParser:
         # really Toggle (ThingOn) or State (SetThingToThong) etc. methods and
         # in those cases we really should ignore the method.  So in essence,
         # any Get/Set pair that is not a State or Toggle should be redefined.
-        overrides = []
         for m in methods:
             check = False
             if m.startswith('Get'):
@@ -209,8 +208,19 @@ class VTKMethodParser:
                 check = True
             if check:
                 if m1 in methods and (m1 in ignore or m in ignore):
-                    # Skips are stored as Set followed by Get.
-                    skip.extend(['Set' +m[3:], 'Get'+m[3:]])
+                    skip_method = True
+                    if hasattr(klass, 'mro'):
+                        # New in VTK 6.3.x with Python 3 support.  In this
+                        # case  dir(klass) produces all methods so we check if
+                        # the definition is the same as the parent.
+                        base_cls = klass.__bases__[0]
+                        if getattr(klass, m) is getattr(base_cls, m, None) \
+                            and getattr(klass, m1) is getattr(base_cls, m1, None):
+                            skip_method = False
+
+                    if skip_method:
+                        # Skips are stored as Set followed by Get.
+                        skip.extend(['Set' +m[3:], 'Get'+m[3:]])
 
         for m in skip[:]:
             if m.startswith('Set'):
