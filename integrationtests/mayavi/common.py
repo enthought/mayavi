@@ -20,6 +20,7 @@ from traits.etsconfig.api import ETSConfig
 from traits.api import  Any, Bool, Instance
 from pyface.api import GUI
 from tvtk.api import tvtk
+from tvtk.common import configure_input
 from mayavi.plugins.app import Mayavi, setup_logger
 
 # The TVTK window.
@@ -191,8 +192,8 @@ def _handle_failed_image(idiff, src_img, pngr, img_fname):
     f_base, f_ext = os.path.splitext(img_fname)
 
     # write out the difference file in full.
-    pngw = tvtk.PNGWriter(file_name=f_base + ".diff.png",
-                          input=idiff.output)
+    pngw = tvtk.PNGWriter(file_name=f_base + ".diff.png")
+    configure_input(pngw, idiff)
     pngw.write()
 
     # write the difference image scaled and gamma adjusted for the
@@ -203,28 +204,34 @@ def _handle_failed_image(idiff, src_img, pngr, img_fname):
     else:
         mag = 250.0/sz[1]
 
-    shrink = tvtk.ImageResample(input=idiff.output, interpolate=1)
+    shrink = tvtk.ImageResample(interpolate=1)
+    configure_input(shrink, idiff.output)
     shrink.set_axis_magnification_factor(0, mag)
     shrink.set_axis_magnification_factor(1, mag)
 
-    gamma = tvtk.ImageShiftScale(input=shrink.output, shift=0, scale=10)
+    gamma = tvtk.ImageShiftScale(shift=0, scale=10)
+    configure_input(gamma, shrink)
 
     jpegw = tvtk.JPEGWriter(file_name=f_base + ".diff.small.jpg",
-                            input=gamma.output, quality=85)
+                            quality=85)
+    configure_input(jpegw, gamma)
     jpegw.write()
 
     # write out the image that was generated.
-    pngw.set(input=src_img, file_name=f_base + ".test.png")
+    pngw.set(file_name=f_base + ".test.png")
+    configure_input(pngw, src_img)
     pngw.write()
 
     # write out a smaller version of the image that was generated.
-    shrink.input = idiff.input
-    jpegw.set(input=shrink.output, file_name=f_base + ".test.small.jpg")
+    configure_input(shrink, idiff.input)
+    jpegw.set(file_name=f_base + ".test.small.jpg")
+    configure_input(jpegw, shrink)
     jpegw.write()
 
     # write out the valid image that matched.
-    shrink.input = idiff.image
-    jpegw.set(input=shrink.output, file_name=f_base + ".small.jpg")
+    configure_input(shrink, idiff.image)
+    jpegw.set(file_name=f_base + ".small.jpg")
+    configure_input(jpegw, shrink)
     jpegw.write()
 
 def _set_scale(r1, r2):
@@ -234,9 +241,15 @@ def _set_scale(r1, r2):
     image.
     """
     img1, img2 = r1.input, r2.input
-    ex1 = img1.whole_extent
+    if hasattr(img1, 'whole_extent'):
+        ex1 = img1.whole_extent
+    else:
+        ex1 = img1.extent
     w1, h1 = ex1[1] + 1, ex1[3] + 1
-    ex2 = img2.whole_extent
+    if hasattr(img2, 'whole_extent'):
+        ex2 = img2.whole_extent
+    else:
+        ex2 = img2.extent
     w2, h2 = ex2[1] + 1, ex2[3] + 1
     w = min(w1, w2)
     h = min(h1, h2)
@@ -272,16 +285,26 @@ def compare_image_with_saved_image(src_img, img_fname, threshold=10,
     pngr.update()
 
     if allow_resize:
-        src_resample = tvtk.ImageResample(input=src_img, interpolate=1,
+        src_resample = tvtk.ImageResample(interpolate=1,
                                           interpolation_mode='cubic')
-        img_resample = tvtk.ImageResample(input=pngr.output, interpolate=1,
+        configure_input(src_resample, src_img)
+        img_resample = tvtk.ImageResample(interpolate=1,
                                           interpolation_mode='cubic')
+        configure_input(img_resample, pngr)
         _set_scale(src_resample, img_resample)
-        idiff = tvtk.ImageDifference(input=src_resample.output,
-                                     image=img_resample.output)
+        idiff = tvtk.ImageDifference()
+        configure_input(idiff, src_resample.output)
+        if hasattr(idiff, 'set_image_data'):
+            idiff.set_image_data(img_resample.output)
+        else:
+            idiff.image = img_resample.output
     else:
-        idiff = tvtk.ImageDifference(input=src_img,
-                                     image=pngr.output)
+        idiff = tvtk.ImageDifference()
+        configure_input(idiff, src_img)
+        if hasattr(idiff, 'set_image_data'):
+            idiff.set_image_data(pngr.output)
+        else:
+            idiff.image = pngr.output
     idiff.update()
 
     min_err = idiff.thresholded_error
