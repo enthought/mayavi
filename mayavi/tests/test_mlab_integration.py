@@ -9,7 +9,6 @@ import unittest
 import numpy as np
 
 from mayavi import mlab
-from mayavi.core.null_engine import NullEngine
 from mayavi.core.engine import Engine
 from tvtk.api import tvtk
 from mayavi.tools.engine_manager import engine_manager
@@ -26,9 +25,7 @@ class TestMlabNullEngine(unittest.TestCase):
 
     def setUp(self):
         mlab.options.backend = 'test'
-        e = NullEngine()
-        e.start()
-        mlab.set_engine(e)
+        e = mlab.get_engine()
         self.e = e
 
     def tearDown(self):
