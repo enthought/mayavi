@@ -81,7 +81,7 @@ class TestContour(unittest.TestCase):
         self.e.stop()
         return
 
-    def check(self):
+    def check(self, auto_contour=False):
         """Do the actual testing."""
         scene = self.scene
         src = scene.children[0]
@@ -108,7 +108,13 @@ class TestContour(unittest.TestCase):
         self.assertAlmostEqual(numpy.sum(ip.origin - (0.5, 0.5, 1.0)), 0.0)
         self.assertEqual(ip.widget.enabled,False)
 
-
+        if auto_contour:
+            iso.contour.auto_contours = True
+            iso.contour.number_of_contours = 6
+            contour_points = iso.contour.outputs[0].number_of_points
+            iso.contour.number_of_contours = 7
+            changed_contour_points = iso.contour.outputs[0].number_of_points
+            self.assertNotEqual(contour_points, changed_contour_points)
 
     def test_contour(self):
         "Test if the test fixture works"
@@ -144,7 +150,6 @@ class TestContour(unittest.TestCase):
         # Now check.
         self.check()
 
-
     def test_save_and_restore(self):
         """Test if saving a visualization and restoring it works."""
         engine = self.e
@@ -165,7 +170,6 @@ class TestContour(unittest.TestCase):
         self.scene = engine.current_scene
 
         self.check()
-
 
     def test_deepcopied(self):
         """Test if the MayaVi2 visualization can be deep-copied."""
@@ -191,6 +195,10 @@ class TestContour(unittest.TestCase):
         cp = source1.children[0].children[-1]
         cp.implicit_plane.widget.enabled = False
         self.check()
+
+    def test_auto_contour(self):
+        """Test if auto contour works"""
+        self.check(auto_contour=True)
 
 if __name__ == '__main__':
     unittest.main()

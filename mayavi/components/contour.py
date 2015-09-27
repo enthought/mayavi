@@ -272,7 +272,6 @@ class Contour(Component):
             self.trait_property_changed('_data_max', rng[1],
                                         self._data_max)
 
-
     def _do_auto_contours(self):
         if not self._has_input():
             return
@@ -281,6 +280,7 @@ class Contour(Component):
             self.contour_filter.generate_values(self.number_of_contours,
                                                 min(minc, maxc),
                                                 max(minc, maxc))
+            self.contour_filter.update()
             self.data_changed = True
 
     def _filled_contours_changed(self, val):
