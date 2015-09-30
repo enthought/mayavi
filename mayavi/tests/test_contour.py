@@ -81,7 +81,7 @@ class TestContour(unittest.TestCase):
         self.e.stop()
         return
 
-    def check(self, auto_contour=False):
+    def check(self, contour_points=0):
         """Do the actual testing."""
         scene = self.scene
         src = scene.children[0]
@@ -98,23 +98,23 @@ class TestContour(unittest.TestCase):
         ctr = iso.contour.contours
         self.assertEqual(iso.compute_normals,True)
         self.assertEqual(ctr, [5.0])
+
         rng = iso.actor.mapper.input.point_data.scalars.range
-        self.assertEqual(rng[0],5.0)
-        self.assertEqual(rng[1],5.0)
+        if iso.contour.auto_contours:
+            self.assertEqual(rng[0], 2.0)
+            self.assertEqual(rng[1], 10.0)
+
+            auto_contour_points = iso.contour.outputs[0].number_of_points
+            self.assertNotEqual(contour_points, auto_contour_points)
+        else:
+            self.assertEqual(rng[0], 5.0)
+            self.assertEqual(rng[1], 5.0)
 
         cp = mm.children[4]
         ip = cp.implicit_plane
         self.assertAlmostEqual(numpy.sum(ip.normal - (0,0,1)) , 1e-16)
         self.assertAlmostEqual(numpy.sum(ip.origin - (0.5, 0.5, 1.0)), 0.0)
         self.assertEqual(ip.widget.enabled,False)
-
-        if auto_contour:
-            iso.contour.auto_contours = True
-            iso.contour.number_of_contours = 6
-            contour_points = iso.contour.outputs[0].number_of_points
-            iso.contour.number_of_contours = 7
-            changed_contour_points = iso.contour.outputs[0].number_of_points
-            self.assertNotEqual(contour_points, changed_contour_points)
 
     def test_contour(self):
         "Test if the test fixture works"
@@ -198,7 +198,20 @@ class TestContour(unittest.TestCase):
 
     def test_auto_contour(self):
         """Test if auto contour works"""
-        self.check(auto_contour=True)
+        iso = self.iso
+        contour = iso.contour
+
+        # Check number of contour points before setting
+        # auto contour to True
+        contour_points = contour.outputs[0].number_of_points
+
+        contour.auto_contours = True
+        contour.number_of_contours = 6
+        contour.minimum_contour = 2.0
+        contour.maximum_contour = 10.0
+
+        self.check(contour_points)
+
 
 if __name__ == '__main__':
     unittest.main()
