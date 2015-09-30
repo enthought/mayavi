@@ -47,8 +47,8 @@ def get_tvtk_name(vtk_name):
 def is_old_pipeline():
     return vtk_major_version < 6
 
-def is_version_62():
-    return vtk_major_version == 6 and vtk_minor_version == 2
+def is_version_62_or_later():
+    return vtk_major_version == 6 and vtk_minor_version > 1
 
 def is_version_58():
     return vtk_major_version == 5 and vtk_minor_version == 8

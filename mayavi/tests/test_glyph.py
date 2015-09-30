@@ -140,10 +140,6 @@ class TestGlyph(unittest.TestCase):
     def test_mask_input_points_with_random_mode(self):
         """Test if masking input points works with random mode.
            Tests Issue #165"""
-        s = self.scene
-        src = s.children[0]
-        g = src.children[0].children[1]
-        g.glyph.mask_input_points = True
         self.check(mask=True, mask_random_mode=True)
 
     def test_mask_input_points_without_random_mode(self):

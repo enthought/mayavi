@@ -16,7 +16,7 @@ import copy
 
 # Local imports (these are relative imports because the package is not
 # installed when these modules are imported).
-from common import get_tvtk_name, camel2enthought, is_version_62, is_version_58
+from common import get_tvtk_name, camel2enthought, is_version_58
 import vtk_parser
 import indenter
 import special_gen

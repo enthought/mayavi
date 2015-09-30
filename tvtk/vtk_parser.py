@@ -12,7 +12,7 @@ import types
 # Local imports (these are relative imports for a good reason).
 import class_tree
 import vtk_module as vtk
-from common import is_version_62
+from common import is_version_62_or_later
 
 class VTKMethodParser:
     """This class provides useful methods for parsing methods of a VTK
@@ -301,7 +301,7 @@ class VTKMethodParser:
 
         """
         # VTK 6.2 false built in funcs/methods are ignored
-        if is_version_62():
+        if is_version_62_or_later():
             built_in_func = isinstance(method, types.BuiltinFunctionType)
             built_in_meth = isinstance(method, types.BuiltinMethodType)
             if not (built_in_func or built_in_meth):
