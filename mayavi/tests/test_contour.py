@@ -81,7 +81,7 @@ class TestContour(unittest.TestCase):
         self.e.stop()
         return
 
-    def check(self, contour_points=0):
+    def check(self, contour_points=0, check_values=False):
         """Do the actual testing."""
         scene = self.scene
         src = scene.children[0]
@@ -96,23 +96,45 @@ class TestContour(unittest.TestCase):
 
         iso = mm.children[3]
         ctr = iso.contour.contours
+        contour = iso.contour
+        minc = contour.minimum_contour
+        maxc = contour.maximum_contour
         self.assertEqual(iso.compute_normals,True)
-        self.assertEqual(ctr, [5.0])
+        if not check_values:
+            self.assertEqual(ctr, [5.0])
 
         rng = iso.actor.mapper.input.point_data.scalars.range
-        if iso.contour.auto_contours:
-            self.assertEqual(rng[0], 2.0)
-            self.assertEqual(rng[1], 10.0)
 
-            auto_contour_points = iso.contour.outputs[0].number_of_points
+        if contour.auto_contours:
+            if check_values:
+                for i in range(0, contour.number_of_contours):
+                    val = contour.contour_filter.get_value(i)
+
+                    # The 'maximum_contour' trait of a Contour
+                    # instance must be minc <= a number <= maxc
+                    self.assertGreaterEqual(val, minc)
+                    self.assertLessEqual(val, maxc)
+            else:
+                self.assertEqual(rng[0], 2.0)
+                self.assertEqual(rng[1], 10.0)
+
+            auto_contour_points = contour.outputs[0].number_of_points
             self.assertNotEqual(contour_points, auto_contour_points)
         else:
-            self.assertEqual(rng[0], 5.0)
-            self.assertEqual(rng[1], 5.0)
+            if check_values:
+                self.assertEqual(ctr, [minc-1, minc, maxc, maxc+1])
+
+                # The 'contours' trait of a Contour instance must be a
+                # list of items which are minc <= a number <= maxc
+                self.assertTrue(rng[0], minc)
+                self.assertTrue(rng[1], maxc)
+            else:
+                self.assertEqual(rng[0], 5.0)
+                self.assertEqual(rng[1], 5.0)
 
         cp = mm.children[4]
         ip = cp.implicit_plane
-        self.assertAlmostEqual(numpy.sum(ip.normal - (0,0,1)) , 1e-16)
+        self.assertAlmostEqual(numpy.sum(ip.normal - (0,0,1)), 1e-16)
         self.assertAlmostEqual(numpy.sum(ip.origin - (0.5, 0.5, 1.0)), 0.0)
         self.assertEqual(ip.widget.enabled,False)
 
@@ -211,6 +233,24 @@ class TestContour(unittest.TestCase):
         contour.maximum_contour = 10.0
 
         self.check(contour_points)
+
+    def test_contour_values(self):
+        """Test if Contour points are within
+        minimum_contour <= a number <= maximum_contour"""
+        iso = self.iso
+        contour = iso.contour
+        minc = contour.minimum_contour
+        maxc = contour.maximum_contour
+        contour.contours = [minc-1, minc, maxc, maxc+1]
+
+        # Check when auto_contour is False
+        self.check(check_values=True)
+
+        contour.auto_contours = True
+        contour.number_of_contours = 4
+
+        # Check when auto_contour is True
+        self.check(check_values=True)
 
 
 if __name__ == '__main__':
