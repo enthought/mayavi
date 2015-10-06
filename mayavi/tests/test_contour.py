@@ -99,28 +99,27 @@ class TestContour(unittest.TestCase):
         self.assertEqual(iso.compute_normals,True)
 
         rng = iso.actor.mapper.input.point_data.scalars.range
-        minc = contour.minimum_contour
-        maxc = contour.maximum_contour
 
         if contour.auto_contours:
-            self.assertEqual(rng[0], minc)
-            self.assertEqual(rng[1], maxc)
+            minc = contour.minimum_contour
+            maxc = contour.maximum_contour
+            self.assertTrue(rng[0] >= minc)
+            self.assertTrue(rng[1] <= maxc)
+
+            # Check if all contour values are within minimum_contour
+            # and maximum_contour
+            for i in range(0, contour.number_of_contours):
+                val = contour.contour_filter.get_value(i)
+                self.assertGreaterEqual(val, minc)
+                self.assertLessEqual(val, maxc)
 
             auto_contour_points = contour.outputs[0].number_of_points
             self.assertNotEqual(contour_points, auto_contour_points)
-            to_range = contour.number_of_contours
         else:
             ctr = contour.contours
             self.assertEqual(ctr, [5.0])
             self.assertEqual(rng[0], 5.0)
             self.assertEqual(rng[1], 5.0)
-            to_range = len(ctr)
-
-        # Check if all contour values are within minimum_contour and maximum_contour
-        for i in range(0, to_range):
-            val = contour.contour_filter.get_value(i)
-            self.assertGreaterEqual(val, minc)
-            self.assertLessEqual(val, maxc)
 
         cp = mm.children[4]
         ip = cp.implicit_plane
@@ -220,8 +219,6 @@ class TestContour(unittest.TestCase):
 
         contour.auto_contours = True
         contour.number_of_contours = 6
-        contour.minimum_contour = 2.0
-        contour.maximum_contour = 10.0
 
         self.check(contour_points)
 
