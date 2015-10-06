@@ -103,8 +103,8 @@ class TestContour(unittest.TestCase):
         if contour.auto_contours:
             minc = contour.minimum_contour
             maxc = contour.maximum_contour
-            self.assertTrue(rng[0] >= minc)
-            self.assertTrue(rng[1] <= maxc)
+            self.assertGreaterEqual(rng[0], minc)
+            self.assertLessEqual(rng[1], maxc)
 
             # Check if all contour values are within minimum_contour
             # and maximum_contour
