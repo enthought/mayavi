@@ -319,8 +319,11 @@ class SpecialGenerator:
                 yield obj.GetPoint(i)
 
         def _check_key(self, key, n):
-            if type(key) != type(1):
-                raise TypeError, "Only integers are valid keys."
+            ##############################################
+            # Allow int and long keys. Fixes GH Issue 173.
+            ##############################################
+            if not isinstance(key, (int, long)):
+                raise TypeError, "Only int and long are valid keys."
             if key < 0:
                 key =  n + key
             if key < 0 or key >= n:

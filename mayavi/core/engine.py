@@ -101,6 +101,9 @@ class Engine(HasStrictTraits):
     # Are we running?
     running = Bool(False, record=False)
 
+    # This event is invoked when the engine has been stopped.
+    closed = Event()
+
     # The recorder for script recording.
     recorder = Instance(Recorder, record=False)
 
@@ -129,9 +132,10 @@ class Engine(HasStrictTraits):
 
         # FIXME: This is tied to preferences.  It really should not be
         # we need to use bind_preferences here.
-        cbk = lambda : self.trait_property_changed('children_ui_list', [],
-                                                   self.children_ui_list)
-        preference_manager.root.on_trait_change(cbk,
+
+        # To remove ref cycle with root preferences helper, the trait change
+        # handler is an instance method
+        preference_manager.root.on_trait_change(self._show_helper_nodes_changed,
                                                 'show_helper_nodes')
 
     def __get_pure_state__(self):
@@ -179,6 +183,7 @@ class Engine(HasStrictTraits):
     def stop(self):
         registry.unregister_engine(self)
         self.running = False
+        self.closed = True
 
     @recordable
     def add_source(self, src, scene=None):
@@ -566,6 +571,22 @@ class Engine(HasStrictTraits):
             if scene.scene is obj.scene:
                 self.current_scene = scene
                 break
+
+    def _closed_fired(self):
+        """ When the engine is closed, clear the viewer ref which otherwise
+            stores references to scenes to prevent crash on QT4.
+            See: self.new_scene and MlabSceneModel._closed_fired
+        """
+        self._viewer_ref.clear()
+        self.scenes = []
+        preference_manager.root.on_trait_change(self._show_helper_nodes_changed,
+                                                'show_helper_nodes',
+                                                remove=True)
+        registry.unregister_engine(self)
+
+    def _show_helper_nodes_changed(self):
+        self.trait_property_changed('children_ui_list', [],
+                                    self.children_ui_list)
 
     def _get_children_ui_list(self):
         """ Trait getter for children_ui_list Property.

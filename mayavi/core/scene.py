@@ -5,7 +5,7 @@
 # License: BSD Style.
 
 # Enthought library imports.
-from traits.api import List, Str, Instance
+from traits.api import Event, List, Str, Instance
 from traitsui.api import View, Group, Item
 from apptools.persistence.state_pickler import set_state
 
@@ -154,7 +154,7 @@ class Scene(Base):
             # Re-enable rendering.
             if scene is not None:
                 scene.disable_render = status
-
+                self.scene = None
         super(Scene, self).stop()
 
     def add_child(self, child):

@@ -1,3 +1,51 @@
+Mayavi 4.4.3
+============
+
+Enhancements
+------------
+
+01 Jul 2015 (IT)
+    - Update the readme fixing dead links
+
+01 Jul 2015 (IT)
+    - Use new Travis CI containers for faster builds
+
+22 Jun 2015 (IT)
+    - Add CI tests on Windows using Appveyor
+
+Fixes
+-----
+
+11 Aug 2015 (DS, IT, PR)
+    - Remove reference cycles from various objects to fix memory leaks. Add
+      unit test that provides an API to test garbage collection.
+
+10 Aug 2015 (PR)
+    - Fix the LUT manager to select the correct lut mode for QT backend
+
+04 Aug 2015 (IT)
+    - Use the python-wxtool package to speed up Travis CI build
+
+04 Aug 2015 (DS)
+    - Fix TVTK wrapper to allow look up with long keys for Points
+
+23 Jul 2015 (DS)
+    - Fix glyph to handle the masking of input points
+
+22 Jul 2015 (IT)
+    - Update the docs with known bugs, issues list and describe the PR
+      workflow on github for development and documentation.
+
+20 Jul 2015 (DS)
+    - Fix TVTK wrapper to update number of cells when a cell is inserted in a
+      VTK cell array
+
+15 Jul 2015 (DS)
+    - Fix VKTFileReader to update output when using standalone
+
+24 Jun 2015 (PR)
+    - Fix the sdist command
+
 Mayavi 4.4.2
 ============
 

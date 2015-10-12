@@ -35,8 +35,6 @@ class SceneModel(TVTKScene):
     ########################################
     # TVTKScene traits.
 
-    light_manager = Property
-
     picker = Property
 
     ########################################
@@ -57,7 +55,7 @@ class SceneModel(TVTKScene):
     # Fired when this is activated.
     activated = Event()
 
-    # Fired when this widget is closed.
+    # The control is going to be closed.
     closing = Event()
 
     # This exists just to mirror the TVTKWindow api.
