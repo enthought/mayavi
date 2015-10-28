@@ -440,7 +440,7 @@ class TestRecorder(unittest.TestCase):
         tape.unregister(p)
 
         import io
-        f = io.StringIO() if sys.version_info[0] > 2 else io.BytesIO()
+        f = io.StringIO()
         tape.save(f)
         # Test if the file is OK.
         expect = ["child = parent.children[0]\n",
