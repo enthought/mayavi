@@ -126,7 +126,7 @@ def initialize(app):
 
     fn = app.config.numpydoc_phantom_import_file
     if (fn and os.path.isfile(fn)):
-        print "[numpydoc] Phantom importing modules from", fn, "..."
+        print("[numpydoc] Phantom importing modules from", fn, "...")
         numpydoc.import_phantom_module(fn)
 
 def setup(app):
