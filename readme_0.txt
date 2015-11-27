@@ -1,3 +1,2 @@
-
-self readme added
+self readme added.....
 add v.01
