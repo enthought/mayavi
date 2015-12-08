@@ -308,6 +308,8 @@ class VTKMethodParser:
                 return None
         # Remove all the C++ function signatures.
         doc = method.__doc__
+        if not hasattr(doc, 'find'):
+            return None
         doc = doc[:doc.find('\n\n')]
         sig = []
         c_sig = [] # The C++ signature
