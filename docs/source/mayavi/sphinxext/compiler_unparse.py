@@ -10,13 +10,18 @@
     fixme: We may want to move to using _ast trees because the compiler for
            them is about 6 times faster than compiler.compile.
 """
+from __future__ import division, absolute_import, print_function
 
 import sys
-import cStringIO
 from compiler.ast import Const, Name, Tuple, Div, Mul, Sub, Add
 
+if sys.version_info[0] >= 3:
+    from io import StringIO
+else:
+    from StringIO import StringIO
+
 def unparse(ast, single_line_functions=False):
-    s = cStringIO.StringIO()
+    s = StringIO()
     UnparseCompilerAst(ast, s, single_line_functions)
     return s.getvalue().lstrip()
 
@@ -282,12 +287,12 @@ class UnparseCompilerAst:
             self._write(')')
         else:
             self._dispatch(t.expr)
-
+            
         self._write('.'+t.attrname)
-
+        
     def _If(self, t):
         self._fill()
-
+        
         for i, (compare,code) in enumerate(t.tests):
             if i == 0:
                 self._write("if ")
@@ -307,7 +312,7 @@ class UnparseCompilerAst:
             self._dispatch(t.else_)
             self._leave()
             self._write("\n")
-
+            
     def _IfExp(self, t):
         self._dispatch(t.then)
         self._write(" if ")
@@ -322,7 +327,7 @@ class UnparseCompilerAst:
         """ Handle "import xyz.foo".
         """
         self._fill("import ")
-
+        
         for i, (name,asname) in enumerate(t.names):
             if i != 0:
                 self._write(", ")
@@ -336,7 +341,7 @@ class UnparseCompilerAst:
         self._write(t.name)
         self._write("=")
         self._dispatch(t.expr)
-
+        
     def _List(self, t):
         self._write("[")
         for  i,node in enumerate(t.nodes):
@@ -358,12 +363,12 @@ class UnparseCompilerAst:
 
     def _NoneType(self, t):
         self._write("None")
-
+        
     def _Not(self, t):
         self._write('not (')
         self._dispatch(t.expr)
         self._write(')')
-
+        
     def _Or(self, t):
         self._write(" (")
         for i, node in enumerate(t.nodes):
@@ -371,7 +376,7 @@ class UnparseCompilerAst:
             if i != len(t.nodes)-1:
                 self._write(") or (")
         self._write(")")
-
+                
     def _Pass(self, t):
         self._write("pass\n")
 
@@ -452,7 +457,7 @@ class UnparseCompilerAst:
             self._enter()
             self._dispatch(handler[2])
             self._leave()
-
+            
         if t.else_:
             self._fill("else")
             self._enter()
@@ -477,14 +482,14 @@ class UnparseCompilerAst:
             self._dispatch(last_element)
 
             self._write(")")
-
+            
     def _UnaryAdd(self, t):
         self._write("+")
         self._dispatch(t.expr)
-
+        
     def _UnarySub(self, t):
         self._write("-")
-        self._dispatch(t.expr)
+        self._dispatch(t.expr)        
 
     def _With(self, t):
         self._fill('with ')
@@ -496,7 +501,7 @@ class UnparseCompilerAst:
         self._dispatch(t.body)
         self._leave()
         self._write('\n')
-
+        
     def _int(self, t):
         self._write(repr(t))
 
@@ -533,7 +538,7 @@ class UnparseCompilerAst:
 
     def _str(self, t):
         self._write(repr(t))
-
+        
     def _tuple(self, t):
         self._write(str(t))
 

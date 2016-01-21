@@ -38,7 +38,7 @@ http://mmcif.pdb.org/dictionaries/pdb-correspondence/pdb2mmcif.html
 """
 
 # Author: Gael Varoquaux <gael.varoquaux@normalesup.org>
-# Copyright (c) 2008, Enthought, Inc.
+# Copyright (c) 2008-2015, Enthought, Inc.
 # License: BSD Style.
 
 # The pdb code for the protein.
@@ -48,9 +48,12 @@ protein_code = '2q09'
 import os
 if not os.path.exists('pdb%s.ent.gz' % protein_code):
     # Download the data
-    import urllib
-    print 'Downloading protein data, please wait'
-    opener = urllib.urlopen(
+    try:
+        from urllib import urlopen
+    except ImportError:
+        from urllib.request import urlopen
+    print('Downloading protein data, please wait')
+    opener = urlopen(
       'ftp://ftp.wwpdb.org/pub/pdb/data/structures/divided/pdb/q0/pdb%s.ent.gz'
       % protein_code)
     open('pdb%s.ent.gz' % protein_code, 'wb').write(opener.read())

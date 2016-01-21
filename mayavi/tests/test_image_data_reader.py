@@ -7,7 +7,7 @@ import unittest
 import numpy
 
 # Local imports.
-from common import get_example_data
+from .common import get_example_data
 
 # Enthought library imports
 from mayavi.sources.image_reader import ImageReader

@@ -1,7 +1,7 @@
 """
 Viewing Stanford 3D Scanning Repository lucy model
 """
-# Copyright (c) 2014, Enthought, Inc.
+# Copyright (c) 2014-2015, Enthought, Inc.
 # Standard library imports
 import os
 from os.path import join
@@ -12,9 +12,12 @@ from mayavi import mlab
 ### Download the lucy data, if not already on disk ############################
 if not os.path.exists('lucy.tar.gz'):
     # Download the data
-    import urllib
-    print "Downloading lucy model, Please Wait (307MB)"
-    opener = urllib.urlopen(
+    try:
+        from urllib import urlopen
+    except ImportError:
+        from urllib.request import urlopen
+    print("Downloading lucy model, Please Wait (307MB)")
+    opener = urlopen(
             'http://graphics.stanford.edu/data/3Dscanrep/lucy.tar.gz')
     open('lucy.tar.gz', 'wb').write(opener.read())
 

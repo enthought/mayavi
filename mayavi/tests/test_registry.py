@@ -1,12 +1,9 @@
 # Author: Suyog Dutt Jain <suyog.jain@aero.iitb.ac.in>
-# Copyright (c) 2009,  Enthought, Inc.
+# Copyright (c) 2009-2015,  Enthought, Inc.
 # License: BSD Style.
 
 # Standard library imports.
 import unittest
-
-#Local Imports
-from common import get_example_data
 
 # Enthought library imports
 from mayavi.core.null_engine import NullEngine
@@ -14,6 +11,9 @@ from mayavi.core.registry import registry
 from mayavi.sources.plot3d_reader import PLOT3DReader
 from mayavi.core.metadata import SourceMetadata
 from mayavi.core.pipeline_info import PipelineInfo
+
+# Local Imports
+from .common import get_example_data
 
 class DummyReader(PLOT3DReader):
 

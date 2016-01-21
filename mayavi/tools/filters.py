@@ -8,10 +8,8 @@ helper functions.
 
 # Author: Gael Varoquaux <gael.varoquaux@normalesup.org>
 #         Prabhu Ramachandran
-# Copyright (c) 2007-2008, Enthought, Inc.
+# Copyright (c) 2007-2015, Enthought, Inc.
 # License: BSD Style.
-
-import new
 
 from traits.api import Instance, CFloat, CInt, CArray, Trait, \
             Enum, Property, Any, String
@@ -19,13 +17,19 @@ from tvtk.common import camel2enthought
 from tvtk.api import tvtk
 import mayavi.filters.api as filters
 from mayavi.core.registry import registry
-from pipe_base import PipeFactory, make_function
+from .pipe_base import PipeFactory, make_function
 
 # This the list is dynamically populated further down below at the end.
 __all__ = ['tube', 'warp_scalar', 'threshold', 'elevation_filter',
             'set_active_attribute', 'user_defined'
           ]
 
+def new_class(name, bases, dict_):
+    try:
+        import new
+        return new.classobj(name, bases, dict_)
+    except ImportError:
+        return type(name, bases, dict_)
 
 ##############################################################################
 class TubeFactory(PipeFactory):
@@ -211,10 +215,9 @@ def _make_functions(namespace):
             continue
 
         # The class to wrap.
-        klass = new.classobj(class_name,
-                             (_AutomaticFilterFactory,),
-                             {'__doc__': fil.help, }
-                             )
+        klass = new_class(
+            class_name, (_AutomaticFilterFactory,), {'__doc__': fil.help, }
+        )
         klass._metadata = fil
 
         # The mlab helper function.

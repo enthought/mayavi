@@ -46,27 +46,26 @@ vanilla python interpretor.
 #         Prabhu Ramachandran <prabhu_r@users.sf.net>
 #
 # License: BSD Style.
-# Version: 1.0
 # Year : 2007
+
+from __future__ import print_function
 
 # Standard library imports.
 import sys
 import numpy
 import time
-from math import sin, cos, pi, sqrt, acos, asin
-from vtk.util import colors as color
+from math import sin, cos, pi, sqrt, acos
 
 # Enthought library imports.
 from traits.api import HasTraits, Trait, Instance, Tuple, Int, \
-     Float, Range, Button, Array, Color, Bool, Any, List, Enum
-from traitsui.api import View, Item, Group, RGBColorEditor, RangeEditor
-from traitsui.message import message
+     Range, Button, Array, Bool, Any, List, Enum
+from traitsui.api import View, Item, Group
 from tvtk.api import tvtk
 from tvtk.tools import ivtk
 from tvtk.common import configure_input_data
 from pyface.api import GUI
 from pyface.timer.api import Timer
-from tvtk.tvtk_base import TVTKBase, vtk_color_trait
+from tvtk.tvtk_base import vtk_color_trait
 
 
 
@@ -308,7 +307,7 @@ class VTimer(Timer):
 
     def _close(self):
         self.Stop()
-        print "Stopping iterations since the viewer has been closed."
+        print("Stopping iterations since the viewer has been closed.")
 
     def Notify(self):
         """Overridden to call the given callable.
@@ -465,7 +464,7 @@ class Frame(HasTraits):
         self.arg = list(arguments)
         HasTraits.__init__(self, **traits)
 
-        self.keys = traits.keys()
+        self.keys = list(traits.keys())
 
         self._pos_changed(numpy.array([0.0, 0.0, 0.0]), self.pos)
         self._x_changed(0.0, self.x)
@@ -1140,8 +1139,8 @@ class Sphere(HasTraits):
     ######################################################################
     # Non-public methods, Event handlers
     def _create_points(self, r, c):
-        sp = tvtk.SphereSource(radius = r, center = tuple(c), 
-                               phi_resolution = 20, 
+        sp = tvtk.SphereSource(radius = r, center = tuple(c),
+                               phi_resolution = 20,
                                theta_resolution = 20)
         sp.update()
         ps = sp.output
@@ -2151,9 +2150,9 @@ def rate(arg):
     periodically called via a timer.  This will make your script's UI
     completely interactive.
     """
-    print '*'*80
-    print msg
-    print '*'*80
+    print('*'*80)
+    print(msg)
+    print('*'*80)
 
 
 ############################################################
@@ -2211,11 +2210,11 @@ def test_remove_actors():
     cy = cylinder(resolution = 100, pos = (3, 0, 0), color = (0, 0, 1))
 
     time.sleep(3)
-    print "Removed sphere from scene"
+    print("Removed sphere from scene")
     remove_actor(s)
 
     time.sleep(3)
-    print "Removed cone from cone"
+    print("Removed cone from cone")
     remove_actor(co)
 
 def test_frame():
@@ -2251,9 +2250,9 @@ def test_rotate():
     r.rotate(-90, [0,1,0], [1,0,0])
     points2 = r.points
     if (numpy.allclose(points1, points2)):
-        print "All clear"
+        print("All clear")
     else:
-        print "Test failed"
+        print("Test failed")
     return r
 
 def test_translate():
@@ -2296,4 +2295,3 @@ def bounce():
     t = iterate(60, anim)
     t.edit_traits()
     return t
-

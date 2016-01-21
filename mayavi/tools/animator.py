@@ -196,7 +196,8 @@ def animate(func=None, delay=500, ui=True):
             else:
                 f = self.func(*args, **kw)
             if isinstance(f, types.GeneratorType):
-                a = Animator(self.delay, f.next)
+                _next = f.next if hasattr(f, 'next') else f.__next__
+                a = Animator(self.delay, _next)
                 if self.ui:
                     a.show()
                 return a

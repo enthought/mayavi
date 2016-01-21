@@ -1,7 +1,7 @@
 """Various preference helpers for the mayavi preferences.
 """
 # Author: Prabhu Ramachandran <prabhu [at] aero . iitb . ac . in>
-# Copyright (c) 2008,  Enthought, Inc.
+# Copyright (c) 2008-2015,  Enthought, Inc.
 # License: BSD Style.
 
 # Enthought library imports
@@ -75,7 +75,7 @@ class RootPreferencesHelper(PreferencesHelper):
     # Non-public interface.
     ######################################################################
     def __contrib_finder_default(self):
-        from contrib_finder import ContribFinder
+        from .contrib_finder import ContribFinder
         return ContribFinder()
 
 ################################################################################
@@ -118,4 +118,3 @@ class MlabPreferencesHelper(PreferencesHelper):
                              ),
                        resizable=True
                       )
-

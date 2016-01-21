@@ -1,11 +1,11 @@
 # Author: Suyog Dutt Jain <suyog.jain@aero.iitb.ac.in>
 #         Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2008,  Enthought, Inc.
+# Copyright (c) 2008-2015,  Enthought, Inc.
 # License: BSD Style.
 
 # Standard library imports.
 from os.path import abspath
-from StringIO import StringIO
+from io import BytesIO
 import copy
 import numpy
 import unittest
@@ -177,14 +177,12 @@ class TestGlyph(unittest.TestCase):
         v.implicit_plane = ip
         self.check()
 
-
-
     def test_save_and_restore(self):
         """Test if saving a visualization and restoring it works."""
         engine = self.e
         scene = self.scene
         # Save visualization.
-        f = StringIO()
+        f = BytesIO()
         f.name = abspath('test.mv2') # We simulate a file.
         engine.save_visualization(f)
         f.seek(0) # So we can read this saved data.

@@ -2,7 +2,7 @@
 
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2005-2008, Enthought, Inc.
+# Copyright (c) 2005-2015, Enthought, Inc.
 # License: BSD Style.
 
 # Standard library imports.
@@ -15,7 +15,7 @@ from tvtk.api import tvtk
 # Local imports.
 from mayavi.core.pipeline_info import (PipelineInfo,
         get_tvtk_dataset_name)
-from vtk_xml_file_reader import VTKXMLFileReader
+from .vtk_xml_file_reader import VTKXMLFileReader
 
 
 ########################################################################
@@ -55,7 +55,7 @@ class VTKFileReader(VTKXMLFileReader):
     def get_output_object(self):
         """ Return the reader output port."""
         return self.reader.output_port
-    
+
     ######################################################################
     # Non-public interface
     ######################################################################
@@ -107,4 +107,3 @@ class VTKFileReader(VTKXMLFileReader):
             ret += ' [Hidden]'
 
         return ret
-

@@ -33,16 +33,16 @@ class BaseTestSource(unittest.TestCase):
             self.assertIsNone(a)
             self.assertIsNone(b)
         else:
-            self.assert_(np.allclose(a, a))
+            self.assertTrue(np.allclose(a, a))
 
 
     def check_positions(self, source, x, y, z):
         """ Check that the position vectors of the source do correspond
             to the given input positions
         """
-        self.assert_(np.allclose(source.mlab_source.x, x))
-        self.assert_(np.allclose(source.mlab_source.y, y))
-        self.assert_(np.allclose(source.mlab_source.z, z))
+        self.assertTrue(np.allclose(source.mlab_source.x, x))
+        self.assertTrue(np.allclose(source.mlab_source.y, y))
+        self.assertTrue(np.allclose(source.mlab_source.z, z))
 
 
     def check_vectors(self, source, u, v, w):
@@ -441,4 +441,3 @@ class TestVerticalVectorsSource(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-

@@ -2,7 +2,7 @@
 """
 # Author:   R.Sreekanth <sreekanth [at] aero.iitb.ac.in>
 #               Suyog Dutt Jain <suyog.jain [at] aero.iitb.ac.in>
-# Copyright (c) 2009, Enthought, Inc.
+# Copyright (c) 2009-2015, Enthought, Inc.
 # License: BSD Style.
 
 from os.path import basename
@@ -71,7 +71,7 @@ class UnstructuredGridReader(FileDataSource):
     def get_output_object(self):
         """ Return the reader output port."""
         return self.reader.output_port
-    
+
     ######################################################################
     # Non-public interface
     ######################################################################
@@ -84,7 +84,7 @@ class UnstructuredGridReader(FileDataSource):
         extension = splitname[-1].lower()
         # Select UnstructuredGridreader based on file type
         old_reader = self.reader
-        if self._reader_dict.has_key(extension):
+        if extension in self._reader_dict:
             self.reader = self._reader_dict[extension]
         else:
             error('Invalid file extension for file: %s'%value)
@@ -94,7 +94,7 @@ class UnstructuredGridReader(FileDataSource):
         self.reader.update_information()
         if isinstance(self.reader, tvtk.ExodusIIReader):
             # Make sure the point fields are read during Update().
-            for k in xrange(self.reader.number_of_point_result_arrays ):
+            for k in range(self.reader.number_of_point_result_arrays ):
                 arr_name = self.reader.get_point_result_array_name( k )
                 self.reader.set_point_result_array_status( arr_name, 1 )
         self.reader.update()

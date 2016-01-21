@@ -4,12 +4,11 @@ Base class for factories for adding objects to the pipeline.
 """
 
 # Author: Gael Varoquaux <gael.varoquaux@normalesup.org>
-# Copyright (c) 2007, Enthought, Inc.
+# Copyright (c) 2007-2015, Enthought, Inc.
 # License: BSD Style.
 
 import warnings
 
-from auto_doc import make_doc
 from traits.api import HasPrivateTraits, Str, TraitError,\
             Instance, Any, Bool
 from mayavi.core.filter import Filter
@@ -20,8 +19,9 @@ from mayavi.core.module_manager import ModuleManager
 
 from tvtk.api import tvtk
 
-import tools
-from engine_manager import get_engine
+from .auto_doc import make_doc
+from . import tools
+from .engine_manager import get_engine
 
 
 def get_obj(obj, components):
@@ -39,7 +39,7 @@ def make_function(factory_class):
         return factory._target
 
     the_function.__doc__ = make_doc(factory_class)
-    the_function.func_name = factory_class.__name__.lower()
+    the_function.__name__ = factory_class.__name__.lower()
     return the_function
 
 
@@ -155,7 +155,7 @@ class PipeFactory(HasPrivateTraits):
             self._target.mlab_source = ms
 
         traits = self.get(self.class_trait_names())
-        [traits.pop(key) for key in traits.keys()
+        [traits.pop(key) for key in list(traits.keys())
                                     if key[0] == '_' or key is None]
         traits.update(kwargs)
         # Now calling the traits setter, so that traits handlers are
@@ -171,7 +171,7 @@ class PipeFactory(HasPrivateTraits):
                                     **traits)
         if trait_change_notify == False:
             return
-        for trait in traits.iterkeys():
+        for trait in traits:
             callback = getattr(self, '_%s_changed' % trait)
             value = getattr(self, trait)
             try:

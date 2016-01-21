@@ -4,8 +4,6 @@
 # Copyright (c) 2005-2008, Enthought, Inc.
 # License: BSD Style.
 
-import new
-
 from pyface.action.api import Action
 from traits.api import Instance
 
@@ -14,6 +12,12 @@ from mayavi.core.registry import registry
 from mayavi.core.metadata import Metadata
 from mayavi.core.pipeline_base import PipelineBase
 
+def new_class(name, bases, dict_):
+    try:
+        import new
+        return new.classobj(name, bases, dict_)
+    except ImportError:
+        return type(name, bases, dict_)
 
 ######################################################################
 # `FilterAction` class.
@@ -63,6 +67,5 @@ for filter in registry.filters:
     d = {'tooltip': filter.tooltip,
          'description': filter.desc,
          'metadata': filter}
-    action = new.classobj(filter.id, (FilterAction,), d)
+    action = new_class(filter.id, (FilterAction,), d)
     globals()[filter.id] = action
-

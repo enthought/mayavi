@@ -17,8 +17,8 @@ from mayavi.sources.array_source import ArraySource
 from mayavi.core.registry import registry
 from mayavi.core.trait_defs import ArrayNumberOrNone, ArrayOrNone
 
-import tools
-from engine_manager import get_null_engine, engine_manager
+from . import tools
+from .engine_manager import get_null_engine, engine_manager
 
 __all__ = ['vector_scatter', 'vector_field', 'scalar_scatter',
     'scalar_field', 'line_source', 'array2d_source', 'grid_source',
@@ -340,7 +340,7 @@ class MArraySource(MlabSource):
 
         vectors = self.vectors
         scalars = self.scalars
-        x, y, z = [np.atleast_3d(a) for a in self.x, self.y, self.z]
+        x, y, z = [np.atleast_3d(a) for a in (self.x, self.y, self.z)]
 
         u, v, w = self.u, self.v, self.w
         if 'vectors' in traits:
@@ -595,7 +595,7 @@ class MArray2DSource(MlabSource):
         if old_scalar is scalars:
             ds._scalar_data_changed(scalars)
 
-        self.dataset = ds.image_data
+        self.dataset = ds.outputs[0]
         self.m_data = ds
 
     #####################################################################

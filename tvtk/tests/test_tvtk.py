@@ -5,17 +5,17 @@ make sure that the generated code works well.
 
 """
 # Author: Prabhu Ramachandran
-# Copyright (c) 2004, Enthought, Inc.
+# Copyright (c) 2004-2015, Enthought, Inc.
 # License: BSD Style.
 
 import unittest
-import cPickle
+import pickle
 import weakref
-import new
 import sys
 import gc
 import traceback
 import contextlib
+import types
 
 import numpy
 import vtk
@@ -42,6 +42,9 @@ To generate tvtk_classes.zip you must do the following::
 
 # Only used for testing.
 from tvtk.tvtk_classes import tvtk_helper
+
+if sys.version_info[0] > 2:
+    long = int
 
 
 def mysum(arr):
@@ -92,7 +95,7 @@ class TestTVTK(unittest.TestCase):
         """Test if custom modules can be imported."""
 
         # Hack to simulate a module inside tvtk.custom.
-        mod = new.module('xml_data_reader')
+        mod = types.ModuleType('xml_data_reader')
 
         class XMLDataReader:
             def f(self):
@@ -103,7 +106,12 @@ class TestTVTK(unittest.TestCase):
         # Now test if this is the one imported.
         r = tvtk.XMLDataReader()
         self.assertEqual(r.f(), 'f')
-        self.assertEqual(r.__class__.__bases__, ())
+        if len(vtk.vtkObjectBase.__bases__) > 0:
+            expect = (object,)
+        else:
+            expect = tuple()
+
+        self.assertEqual(r.__class__.__bases__, expect)
 
         # Clean up.
         del sys.modules['tvtk.custom.xml_data_reader']
@@ -257,14 +265,14 @@ class TestTVTK(unittest.TestCase):
         """Test if Matrix4x4 works nicely."""
         m = tvtk.Matrix4x4()
         [m.set_element(i, j, i*4 + j) for i in range(4) for j in range(4)]
-        s = cPickle.dumps(m)
+        s = pickle.dumps(m)
         del m
-        m = cPickle.loads(s)
+        m = pickle.loads(s)
         for i in range(4):
             for j in range(4):
                 self.assertEqual(m.get_element(i, j), i*4 + j)
         # Test the from/to_array functions.
-        a = numpy.array(range(16), dtype=float)
+        a = numpy.array(list(range(16)), dtype=float)
         a.shape = 4, 4
         m = tvtk.Matrix4x4()
         m.from_array(a)
@@ -289,9 +297,9 @@ class TestTVTK(unittest.TestCase):
         self.assertEqual(p.color, (0.5, 0.5, 0.5))
 
         # Test pickling.
-        s = cPickle.dumps(p)
+        s = pickle.dumps(p)
         del p
-        p = cPickle.loads(s)
+        p = pickle.loads(s)
         self.assertEqual(p.specular_color, sc)
         self.assertEqual(p.diffuse_color, val)
         self.assertEqual(p.ambient_color, val)
@@ -305,13 +313,13 @@ class TestTVTK(unittest.TestCase):
         points.insert_next_point((0, 1, 2))
         pt = points[0]
         self.assertEqual(pt, (0, 1, 2))
-        ptl = points[0L]
+        ptl = points[long(0)]
         self.assertEqual(ptl, (0, 1, 2))
         get_pt = points.get_point(0)
         self.assertEqual(get_pt, (0, 1, 2))
-        get_ptl = points.get_point(0L)
+        get_ptl = points.get_point(long(0))
         self.assertEqual(get_ptl, (0, 1, 2))
-    
+
     def test_cell_array(self):
         """ Test if cell array insertion updates number of cells.
             Fixes GH Issue 178.
@@ -464,10 +472,13 @@ class TestTVTK(unittest.TestCase):
             self.assertEqual(i, j)
         self.assertEqual(f[-1], 3)
         self.assertEqual(f[0], 0)
-        if type(f[0]) is long:
-            self.assertEqual(repr(f), '[0L, 1L, 2L, 3L]')
-        else:
+        if sys.version_info[0] > 2:
             self.assertEqual(repr(f), '[0, 1, 2, 3]')
+        else:
+            if type(f[0]) is long:
+                self.assertEqual(repr(f), '[0L, 1L, 2L, 3L]')
+            else:
+                self.assertEqual(repr(f), '[0, 1, 2, 3]')
         f.append(4)
         f.extend([5, 6])
         self.assertEqual(len(f), 7)
@@ -628,14 +639,16 @@ class TestTVTKModule(unittest.TestCase):
         self.names = [
             name for name in dir(vtk)
             if name.startswith('vtk') and
-            not name.startswith('vtkQt')]
+            not name.startswith('vtkQt') and len(name) > 3]
 
     def test_all_instantiable(self):
         """Test if all the TVTK classes can be instantiated"""
         errors = []
         for name in self.names:
             klass = getattr(vtk, name)
-            if hasattr(klass, '__bases__') and not issubclass(klass, object):
+            tvtk_name = get_tvtk_name(name)
+            tvtk_klass = getattr(tvtk, tvtk_name, None)
+            if hasattr(klass, '__bases__') and tvtk_klass is not None:
                 try:
                     klass()
                 except (TypeError, NotImplementedError):
@@ -643,8 +656,6 @@ class TestTVTKModule(unittest.TestCase):
                     # be instantiated.
                     pass
                 else:
-                    tvtk_name = get_tvtk_name(name)
-                    tvtk_klass = getattr(tvtk, tvtk_name)
                     try:
                         tvtk_klass()
                     except TraitError:

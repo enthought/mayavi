@@ -7,7 +7,7 @@ application with the WxWidget mainloop running.
 
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
 #         Gael Varoquaux <gael dot varoquaux at normalesup dot org>
-# Copyright (c) 2007-2010, Enthought, Inc.
+# Copyright (c) 2007-2015, Enthought, Inc.
 # License: BSD Style.
 
 
@@ -40,7 +40,7 @@ def show_engine():
                     'show_pipeline', stacklevel=2)
     return show_pipeline()
 
-from tools.helper_functions import contour3d, test_contour3d, \
+from .tools.helper_functions import contour3d, test_contour3d, \
     quiver3d, test_quiver3d, test_quiver3d_2d_data, \
     points3d, test_points3d, test_molecule, \
     flow, test_flow, \
@@ -55,13 +55,13 @@ from tools.helper_functions import contour3d, test_contour3d, \
     test_barchart, test_mesh_mask_custom_colors
 
 
-from tools.decorations import colorbar, scalarbar, vectorbar, \
+from .tools.decorations import colorbar, scalarbar, vectorbar, \
     outline, axes, xlabel, ylabel, zlabel, text, title, \
     orientation_axes, text3d
 
-import tools.pipeline as pipeline
+from .tools import pipeline
 
-from tools.tools import start_recording, stop_recording
+from .tools.tools import start_recording, stop_recording
 
 if __name__ == "__main__":
     import numpy

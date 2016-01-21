@@ -13,6 +13,8 @@ error messages but they are usually harmless.
 
 """
 
+from __future__ import print_function
+
 import unittest
 from tvtk import vtk_parser
 
@@ -55,6 +57,7 @@ class TestVTKParser(unittest.TestCase):
         else:
             self.assertEqual(p.get_state_methods(), {'ReferenceCount':(1, None)})
             self.assertEqual(p.get_get_methods(), ['GetMTime'])
+
         self.assertEqual(p.get_get_set_methods(), {})
 
         res = ['AddObserver', 'BreakOnError', 'HasObserver',
@@ -70,7 +73,7 @@ class TestVTKParser(unittest.TestCase):
         self.assertEqual(p.toggle_meths, p.get_toggle_methods())
         res = {'EdgeVisibility': 0, 'BackfaceCulling': 0,
                'FrontfaceCulling': 0}
-        if p.get_toggle_methods().has_key('Shading'):
+        if 'Shading' in p.get_toggle_methods():
             res['Shading'] = 0
 
         result = p.get_toggle_methods()
@@ -87,6 +90,13 @@ class TestVTKParser(unittest.TestCase):
         self.assertEqual(p.state_meths, p.get_state_methods())
 
         obj = vtk.vtkProperty()
+        if hasattr(vtk, 'VTK_LARGE_FLOAT'):
+            int_max = vtk.VTK_LARGE_INTEGER
+            float_max = vtk.VTK_LARGE_FLOAT
+        else:
+            int_max = vtk.VTK_INT_MAX
+            float_max = vtk.VTK_FLOAT_MAX
+
         res = {'Ambient': (0.0, (0.0, 1.0)),
                'AmbientColor': ((1.0, 1.0, 1.0), None),
                'Color': ((1.0, 1.0, 1.0), None),
@@ -94,17 +104,17 @@ class TestVTKParser(unittest.TestCase):
                'DiffuseColor': ((1.0, 1.0, 1.0), None),
                'EdgeColor': ((1.0, 1.0, 1.0), None),
                'LineStipplePattern': (65535, None),
-               'LineStippleRepeatFactor': (1, (1, vtk.VTK_LARGE_INTEGER)),
-               'LineWidth': (1.0, (0.0, vtk.VTK_LARGE_FLOAT)),
+               'LineStippleRepeatFactor': (1, (1, int_max)),
+               'LineWidth': (1.0, (0.0, float_max)),
                'Opacity': (1.0, (0.0, 1.0)),
-               'PointSize': (1.0, (0.0, vtk.VTK_LARGE_FLOAT)),
+               'PointSize': (1.0, (0.0, float_max)),
                'ReferenceCount': (1, None),
                'Specular': (0.0, (0.0, 1.0)),
                'SpecularColor': ((1.0, 1.0, 1.0), None),
                'SpecularPower': (1.0, (0.0, 100.0))}
         if ('ReferenceCount' not in p.get_get_set_methods()):
             del res['ReferenceCount']
-        result = p.get_get_set_methods().keys()
+        result = list(p.get_get_set_methods().keys())
         if hasattr(obj, 'GetTexture'):
             result.remove('Texture')
         self.assertEqual(sorted(res.keys()), sorted(result))
@@ -138,9 +148,9 @@ class TestVTKParser(unittest.TestCase):
         if hasattr(obj, 'GetTexture'):
             if vtk_major_version == 6:
                 res = ['AddShaderVariable', 'BackfaceRender', 'DeepCopy',
-                       'ReleaseGraphicsResources', 'RemoveAllTextures', 
+                       'ReleaseGraphicsResources', 'RemoveAllTextures',
                        'RemoveTexture', 'Render']
-                if vtk_minor_version == 2:
+                if vtk_minor_version >= 2:
                     res.append('VTKTextureUnit')
             else:
                 res = ['AddShaderVariable', 'BackfaceRender', 'DeepCopy',
@@ -239,13 +249,13 @@ class TestVTKParser(unittest.TestCase):
         """Check exceptional cases that are not state methods."""
         p = self.p
         p.parse(vtk.vtkDataObject)
-        self.assert_('UpdateExtent' not in p.get_state_methods())
+        self.assertTrue('UpdateExtent' not in p.get_state_methods())
         if vtk_major_version < 6:
-            self.assert_('UpdateExtent' in p.get_get_set_methods())
+            self.assertTrue('UpdateExtent' in p.get_get_set_methods())
 
         p.parse(vtk.vtkImageImport)
-        self.assert_('DataExtent' not in p.get_state_methods())
-        self.assert_('DataExtent' in p.get_get_set_methods())
+        self.assertTrue('DataExtent' not in p.get_state_methods())
+        self.assertTrue('DataExtent' in p.get_get_set_methods())
 
     def test_no_tree(self):
         """Check if parser is usable without the tree."""
@@ -286,7 +296,7 @@ class TestVTKParser(unittest.TestCase):
             k = getattr(vtk, obj)
             ignore = ['mutable', 'exc', 'kits', 'util']
             if hasattr(k, '__bases__') and obj not in ignore:
-                #print k.__name__,
+                #print(k.__name__, end=' ')
                 #sys.stdout.flush()
                 p.parse(k)
                 for method in p.get_methods(k):

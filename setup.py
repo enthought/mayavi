@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# Copyright (c) 2008-2013 by Enthought, Inc.
+# Copyright (c) 2008-2015 by Enthought, Inc.
 # All rights reserved.
 
 """
@@ -79,7 +79,8 @@ from setuptools.command import develop, install_scripts
 
 
 info = {}
-execfile(join('mayavi', '__init__.py'), info)
+fname = join('mayavi', '__init__.py')
+exec(compile(open(fname).read(), fname, 'exec'), info)
 
 DEFAULT_HTML_TARGET_DIR = join('docs', 'build')
 DEFAULT_INPUT_DIR = join('docs', 'source',)
@@ -175,7 +176,7 @@ class GenDocs(Command):
             try:
                 from mayavi import mlab
                 from mayavi.tools import auto_doc
-                print "Generating the mlab reference documentation"
+                print("Generating the mlab reference documentation")
                 os.system('python mlab_reference.py')
             except:
                 pass
@@ -203,7 +204,7 @@ class GenDocs(Command):
             try:
                 from mayavi import mlab
                 from mayavi.tools import auto_doc
-                print "Generating the example list"
+                print("Generating the example list")
                 subprocess.call('python %s' %
                                 basename(script_file_name), shell=True,
                                 cwd=dirname(script_file_name))
@@ -234,7 +235,7 @@ class BuildDocs(Command):
 
     def make_docs(self):
         if os.name == 'nt':
-            print "Please impelemnt sphinx building on windows here."
+            print("Please impelemnt sphinx building on windows here.")
         else:
             subprocess.call(['make', 'html'], cwd='docs')
 
@@ -284,11 +285,15 @@ def list_docs_data_files(project):
 
 # Our custom distutils hooks
 def build_tvtk_classes_zip():
+    MY_DIR = os.path.dirname(__file__)
+    sys.path.insert(0, MY_DIR)
+    import tvtk
     tvtk_dir = 'tvtk'
     sys.path.insert(0, tvtk_dir)
     from setup import gen_tvtk_classes_zip
     gen_tvtk_classes_zip()
     sys.path.remove(tvtk_dir)
+    sys.path.remove(MY_DIR)
 
 
 class MyBuild(build.build):
@@ -395,7 +400,7 @@ build_package_data = {'mayavi.images': ['docs/source/mayavi/m2_about.jpg']}
 
 # Instal our data files at build time. This is iffy,
 # but we need to do this before distutils kick in.
-for package, files in build_package_data.iteritems():
+for package, files in build_package_data.items():
     target_path = package.replace('.', os.sep)
     for filename in files:
         shutil.copy(filename, target_path)

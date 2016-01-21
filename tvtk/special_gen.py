@@ -12,8 +12,8 @@ some of the VTK classes.  `HelperGenerator` helps generate the
 import vtk
 
 # These are relative imports for good reason.
-import indenter
-from common import get_tvtk_name
+from . import indenter
+from .common import get_tvtk_name
 
 
 ######################################################################
@@ -154,38 +154,40 @@ class SpecialGenerator:
                 raise StopIteration
             return wrap_vtk(val)
 
+        __next__ = next
+
         def __getitem__(self, key):
             obj = self._vtk_obj
             if type(key) != type(1):
-                raise TypeError, "Only integers are valid keys."
+                raise TypeError("Only integers are valid keys.")
             ni = obj.GetNumberOfItems()
             if key < 0:
                 key =  ni + key
             ret = obj.GetItemAsObject(key)
             if ret is None:
-                raise IndexError, "Index out of range."
+                raise IndexError("Index %s out of range."%key)
             return wrap_vtk(ret)
 
         def __setitem__(self, key, val):
             obj = self._vtk_obj
             if type(key) != type(1):
-                raise TypeError, "Only integers are valid key."
+                raise TypeError("Only integers are valid keys.")
             ni = obj.GetNumberOfItems()
             if key < 0:
                 key =  ni + key
             if key < 0 or key >= ni:
-                raise IndexError, "Index out of range."
+                raise IndexError("Index out of range.")
             obj.ReplaceItem(key, deref_vtk(val))
 
         def __delitem__(self, key):
             obj = self._vtk_obj
             if type(key) != type(1):
-                raise TypeError, "Only integers are valid keys."
+                raise TypeError("Only integers are valid keys.")
             ni = obj.GetNumberOfItems()
             if key < 0:
                 key =  ni + key
             if key < 0 or key >= ni:
-                raise IndexError, "Index out of range."
+                raise IndexError("Index %s out of range."%key)
             obj.RemoveItem(key)
 
         def __repr__(self):
@@ -212,19 +214,19 @@ class SpecialGenerator:
             nc = obj.GetNumberOfComponents()
             if nc in [1,2,3,4,9]:
                 meth = getattr(obj, 'GetTuple%d'%nc)
-                for i in xrange(n):
+                for i in range(n):
                     yield meth(i)
             else:
-                for i in xrange(n):
+                for i in range(n):
                     yield tuple([obj.GetComponent(i, x) for x in range(nc)])
 
         def _check_key(self, key, n):
             if type(key) not in [int, long]:
-                raise TypeError, "Only integers are valid keys."
+                raise TypeError("Only integers are valid keys.")
             if key < 0:
                 key =  n + key
             if key < 0 or key >= n:
-                raise IndexError, "Index out of range."
+                raise IndexError("Index %s out of range."%key)
             return key
 
         def __getitem__(self, key):
@@ -315,7 +317,7 @@ class SpecialGenerator:
         def __iter__(self):
             obj = self._vtk_obj
             n = obj.GetNumberOfPoints()
-            for i in xrange(n):
+            for i in range(n):
                 yield obj.GetPoint(i)
 
         def _check_key(self, key, n):
@@ -323,11 +325,11 @@ class SpecialGenerator:
             # Allow int and long keys. Fixes GH Issue 173.
             ##############################################
             if not isinstance(key, (int, long)):
-                raise TypeError, "Only int and long are valid keys."
+                raise TypeError("Only int and long are valid keys.")
             if key < 0:
                 key =  n + key
             if key < 0 or key >= n:
-                raise IndexError, "Index out of range."
+                raise IndexError("Index %s out of range."%key)
             return key
 
         def __getitem__(self, key):
@@ -385,16 +387,16 @@ class SpecialGenerator:
         def __iter__(self):
             obj = self._vtk_obj
             n = obj.GetNumberOfIds()
-            for i in xrange(n):
+            for i in range(n):
                 yield obj.GetId(i)
 
         def _check_key(self, key, n):
             if type(key) != type(1):
-                raise TypeError, "Only integers are valid keys."
+                raise TypeError("Only integers are valid keys.")
             if key < 0:
                 key =  n + key
             if key < 0 or key >= n:
-                raise IndexError, "Index out of range."
+                raise IndexError("Index %s out of range."%key)
             return key
 
         def __getitem__(self, key):
@@ -494,7 +496,7 @@ class HelperGenerator:
             # Assuming a single inheritance.
             tmp = tmp[0]
             name = tmp.__name__
-            while not _cache.has_key(name) and \
+            while name not in _cache and \
                     name not in ['TVTKBase', 'object']:
                 _cache[name] = tmp
                 tmp = tmp.__bases__[0]
@@ -512,7 +514,7 @@ class HelperGenerator:
             return mod
 
         def get_class(name):
-            if _cache.has_key(name):
+            if name in _cache:
                 return _cache[name]
             else:
                 fname = camel2enthought(name)

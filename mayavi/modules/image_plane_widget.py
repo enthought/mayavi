@@ -2,7 +2,7 @@
 
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2005, Enthought, Inc.
+# Copyright (c) 2005-2015, Enthought, Inc.
 # License: BSD Style.
 
 # Enthought library imports.
@@ -84,7 +84,7 @@ class ImagePlaneWidget(Module):
             msg = 'ImagePlaneWidget only supports structured points or '\
                   'image data.'
             error(msg)
-            raise TypeError, msg
+            raise TypeError(msg)
 
         self.configure_input_data(self.ipw, input)
         self.setup_lut()
@@ -123,6 +123,3 @@ class ImagePlaneWidget(Module):
         if old is not None:
             self.update_pipeline()
         self.pipeline_changed = True
-
-
-

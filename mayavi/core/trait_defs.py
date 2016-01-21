@@ -16,13 +16,11 @@
 #
 #---------------------------------------------------------------------------
 
-import operator
-
 from traits.api import (CArray, Int, NO_COMPARE, Property, TraitError,
     TraitFactory, TraitType)
 from traitsui.api import EnumEditor
 from traits.traits import trait_cast
-
+import numbers
 
 #---------------------------------------------------------------------------
 #  Utility functions:
@@ -96,9 +94,7 @@ class DEnumHelper(object):
         trait = object.trait( name )
         values = super_getattr(object, trait.values_name)
         if value not in values:
-            raise TraitError, (object, name,
-                               "one of %s"%values,
-                               value )
+            raise TraitError(object, name,"one of %s"%values, value)
         old = super_getattr(object, _name)
         super_setattr( object, _name, value )
         object.trait_property_changed(name, old, value)
@@ -284,7 +280,7 @@ class ArrayNumberOrNone(CArray):
     def validate(self, object, name, value):
         if value is None:
             return value
-        elif operator.isNumberType(value):
+        elif isinstance(value, numbers.Number):
             # Local import to avoid explicit dependency.
             import numpy
             value = numpy.atleast_1d(value)

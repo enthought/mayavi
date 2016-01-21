@@ -13,16 +13,19 @@ Good use of the `vmin` and `vmax` argument to
 The original is an electron localization function from Axel Kohlmeyer.
 """
 # Author: Gael Varoquaux <gael.varoquaux@normalesup.org>
-# Copyright (c) 2008, Enthought, Inc.
+# Copyright (c) 2008-2015, Enthought, Inc.
 # License: BSD Style.
 
 # Retrieve the electron localization data for H2O #############################
 import os
 if not os.path.exists('h2o-elf.cube'):
     # Download the data
-    import urllib
-    print 'Downloading data, please wait'
-    opener = urllib.urlopen(
+    try:
+        from urllib import urlopen
+    except ImportError:
+        from urllib.request import urlopen
+    print('Downloading data, please wait')
+    opener = urlopen(
         'http://code.enthought.com/projects/mayavi/data/h2o-elf.cube'
         )
     open('h2o-elf.cube', 'wb').write(opener.read())

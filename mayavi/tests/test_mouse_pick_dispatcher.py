@@ -77,11 +77,10 @@ class TestMousePickerDispatcher(unittest.TestCase):
         interactor_callbacks = frozenset([i for i in range(100)
                                     if self.s.scene.interactor.has_observer(i)
                                 ])
-        self.assertEquals(interactor_callbacks,
-                    initial_interactor_callbacks)
+        self.assertEqual(interactor_callbacks,
+                         initial_interactor_callbacks)
 
 
 
 if __name__ == '__main__':
     unittest.main()
-

@@ -6,7 +6,7 @@
 #          Chandrashekhar Kaushik
 #          Suyog Dutt Jain <suyog.jain [at] aero.iitb.ac.in>
 #          Prabhu Ramachandran <prabhu [at] aero.iitb.ac.in>
-# Copyright (c) 2007, Enthought, Inc.
+# Copyright (c) 2007-2015, Enthought, Inc.
 # License: BSD Style.
 
 from os.path import basename
@@ -110,7 +110,7 @@ class ImageReader(FileDataSource):
         extension = splitname[-1].lower()
         # Select image reader based on file type
         old_reader = self.reader
-        if self._image_reader_dict.has_key(extension):
+        if extension in self._image_reader_dict:
             self.reader = self._image_reader_dict[extension]
         else:
             self.reader = tvtk.ImageReader()
@@ -140,4 +140,3 @@ class ImageReader(FileDataSource):
             ret += ' [Hidden]'
 
         return ret
-

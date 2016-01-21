@@ -7,11 +7,17 @@ tests if the tree generation works for the __builtin__ module.
 
 """
 
+import sys
 import unittest
+from contextlib import contextmanager
+
 from tvtk import class_tree
 
 import vtk
-import __builtin__
+if sys.version_info[0] > 2:
+    import builtins as __builtin__
+else:
+    import __builtin__
 
 # This computation can be expensive, so we cache it.
 _cache = class_tree.ClassTree(vtk)
@@ -31,6 +37,18 @@ class TestClassTree(unittest.TestCase):
     def setUp(self):
         self.t = _cache
 
+    @contextmanager
+    def _remove_loader_from_builtin(self):
+        self._loader = None
+        if hasattr(__builtin__, '__loader__'):
+            self._loader = __builtin__.__loader__
+            del __builtin__.__loader__
+        try:
+            yield
+        finally:
+            if self._loader:
+                __builtin__.__loader__ = self._loader
+
     def test_basic_vtk(self):
         """Basic tests for the VTK module."""
         t = self.t
@@ -41,14 +59,18 @@ class TestClassTree(unittest.TestCase):
             names = [x.name for x in t.tree[0]]
             names.sort()
             if vtk_major_version < 6:
-                self.assertEqual(len(t.tree[0]), 12)
                 expect = ['object', 'vtkColor3', 'vtkColor4', 'vtkDenseArray',
                           'vtkObjectBase', 'vtkRect',
                           'vtkSparseArray', 'vtkTuple',
                           'vtkTypedArray', 'vtkVector', 'vtkVector2',
                           'vtkVector3']
+            elif len(vtk.vtkObjectBase.__bases__) > 0:
+                expect = ['object', 'vtkColor3', 'vtkColor4', 'vtkDenseArray',
+                          'vtkQuaternion', 'vtkRect',
+                          'vtkSparseArray', 'vtkTuple',
+                          'vtkTypedArray', 'vtkVector', 'vtkVector2',
+                          'vtkVector3']
             else:
-                self.assertEqual(len(t.tree[0]), 13)
                 expect = ['object', 'vtkColor3', 'vtkColor4', 'vtkDenseArray',
                           'vtkObjectBase', 'vtkQuaternion', 'vtkRect',
                           'vtkSparseArray', 'vtkTuple',
@@ -89,18 +111,26 @@ class TestClassTree(unittest.TestCase):
         while x.__name__ != 'vtkObjectBase':
             x = x.__bases__[0]
             ancestors.append(x.__name__)
+        if len(vtk.vtkObjectBase.__bases__) > 0:
+            ancestors.append('object')
+
         self.assertEqual([x.name for x in n.get_ancestors()], ancestors)
 
+        def _get_ancestors(klass):
+            bases = []
+            for base in klass.__bases__:
+                bases.append(base)
+                bases.extend(_get_ancestors(base))
+            return bases
+
         # Simple __builtin__ test.
-        t = class_tree.ClassTree(__builtin__)
-        t.create()
-        n = t.get_node('TabError')
-        bases = ['IndentationError', 'SyntaxError',
-                 'StandardError', 'Exception']
-        if len(Exception.__bases__) > 0:
-            bases.extend(['BaseException', 'object'])
-        self.assertEqual([x.name for x in n.get_ancestors()],
-                         bases)
+        with self._remove_loader_from_builtin():
+            t = class_tree.ClassTree(__builtin__)
+            t.create()
+            n = t.get_node('TabError')
+            bases = [x.__name__ for x in _get_ancestors(TabError)]
+            self.assertEqual([x.name for x in n.get_ancestors()],
+                            bases)
 
     def test_parent_child(self):
         """Check if the node's parent and children are correct."""
@@ -140,12 +170,13 @@ class TestClassTree(unittest.TestCase):
 
         # This tests to see if the tree structure generation works for
         # the __builtin__ module.
-        t = class_tree.ClassTree(__builtin__)
-        t.create()
-        self.t = t
-        self.test_parent_child()
-        self.test_level()
-        self.test_tree()
+        with self._remove_loader_from_builtin():
+            t = class_tree.ClassTree(__builtin__)
+            t.create()
+            self.t = t
+            self.test_parent_child()
+            self.test_level()
+            self.test_tree()
 
 
 if __name__ == "__main__":

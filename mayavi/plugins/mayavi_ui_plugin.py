@@ -204,13 +204,15 @@ To use Mayavi, you need to load your data in "data sources" and apply "visualiza
         try:
             py.bind('mayavi', script)
             py.bind('engine', script.engine)
-            # The following will fail under Qt, as it needs the Pyface
-            # Tree that has not been ported from Wx yet.
-            from apptools.naming.ui.api import explore
-            py.bind('explore', explore)
-        except AttributeError, msg:
+            try:
+                # The following will fail under Qt, as it needs the Pyface
+                # Tree that has not been ported from Wx yet.
+                from apptools.naming.ui.api import explore
+                py.bind('explore', explore)
+            except ImportError:
+                pass
+        except AttributeError as msg:
             # This can happen when the shell is not visible.
             # FIXME: fix this when the shell plugin is improved.
             logger.warn(msg)
             logger.warn("Can't find the Python shell to bind variables")
-

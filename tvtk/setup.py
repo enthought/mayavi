@@ -2,6 +2,8 @@
 # Setup script for TVTK, numpy.distutils based.
 #
 #
+from __future__ import print_function
+
 import os, sys
 
 
@@ -43,18 +45,20 @@ def configuration(parent_package=None, top_path=None):
 
 
 def gen_tvtk_classes_zip():
-    from code_gen import TVTKGenerator
-    target = os.path.join(os.path.dirname(__file__), 'tvtk_classes.zip')
+    MY_DIR = os.path.dirname(__file__)
+    sys.path.append(MY_DIR)
+    from tvtk.code_gen import TVTKGenerator
+    target = os.path.join(MY_DIR, 'tvtk_classes.zip')
     output_dir = os.path.dirname(target)
     try:
         os.mkdir(output_dir)
     except:
         pass
-    print '-'*70
+    print('-'*70)
     if os.path.exists(target):
-        print 'Deleting possibly old TVTK classes'
+        print('Deleting possibly old TVTK classes')
         os.unlink(target)
-    print "Building TVTK classes...",
+    print("Building TVTK classes...", end=' ')
     sys.stdout.flush()
     cwd = os.getcwd()
     os.chdir(output_dir)
@@ -62,8 +66,9 @@ def gen_tvtk_classes_zip():
     gen.generate_code()
     gen.build_zip(True)
     os.chdir(cwd)
-    print "Done."
-    print '-'*70
+    print("Done.")
+    print('-'*70)
+    sys.path.remove(MY_DIR)
 
 
 def vtk_version_changed(zipfile):
@@ -89,4 +94,3 @@ def vtk_version_changed(zipfile):
         sys.path.pop()
 
     return result
-

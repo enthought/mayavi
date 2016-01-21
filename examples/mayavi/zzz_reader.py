@@ -57,9 +57,8 @@ registry.sources.append(zzz_reader_info)
 
 if __name__ == '__main__':
     import sys
-    print "*"*80
-    print "ERROR: This script isn't supposed to be executed."
-    print __doc__
-    print "*"*80
+    print("*"*80)
+    print("ERROR: This script isn't supposed to be executed.")
+    print(__doc__)
+    print("*"*80)
     sys.exit(1)
-

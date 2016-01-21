@@ -2,16 +2,14 @@
 
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2005-2008, Enthought, Inc.
+# Copyright (c) 2005-2015, Enthought, Inc.
 # License: BSD Style.
-
-import new
 
 # Local imports.
 from mayavi.core.registry import registry
 from mayavi.core.metadata import ModuleMetadata
 from mayavi.core.pipeline_info import PipelineInfo
-from mayavi.action.filters import FilterAction
+from mayavi.action.filters import FilterAction, new_class
 
 ######################################################################
 # `ModuleAction` class.
@@ -65,6 +63,5 @@ for module in registry.modules:
     d = {'tooltip': module.tooltip,
          'description': module.desc,
          'metadata': module}
-    action = new.classobj(module.id, (ModuleAction,), d)
+    action = new_class(module.id, (ModuleAction,), d)
     globals()[module.id] = action
-

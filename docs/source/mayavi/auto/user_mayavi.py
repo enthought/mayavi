@@ -97,7 +97,7 @@ def user_outline():
     pipeline.  Note that the method safely does any mayavi imports
     inside avoiding any circular imports.
     """
-    print "User Outline"
+    print("User Outline")
     from mayavi.modules.outline import Outline
     o = Outline(outline_mode='cornered', name='UserOutline')
     return o
@@ -247,12 +247,12 @@ class WorkerPlugin(Plugin):
 
 if __name__ == '__main__':
     import sys
-    print "*"*80
-    print "ERROR: This script isn't supposed to be executed."
-    print __doc__
-    print "*"*80
+    print("*"*80)
+    print("ERROR: This script isn't supposed to be executed.")
+    print(__doc__)
+    print("*"*80)
 
     from traits.util.home_directory import get_home_directory
-    print "Your .mayavi2 directory should be in %s"%get_home_directory()
-    print "*"*80
+    print("Your .mayavi2 directory should be in %s"%get_home_directory())
+    print("*"*80)
     sys.exit(1)

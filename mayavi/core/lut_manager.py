@@ -48,12 +48,12 @@ def check_lut_first_line(line, file_name=''):
         errmsg = "Error: The input data file \"%s\"\n"%(file_name)
         errmsg = errmsg+ "is not a proper lookup table file."\
                  " No LOOKUP_TABLE tag in first line. Try again."
-        raise IOError, errmsg
+        raise IOError(errmsg)
     try:
         n_color = first[2]
     except:
 
-        raise IOError, "Error: No size for LookupTable specified."
+        raise IOError("Error: No size for LookupTable specified.")
     else:
         return n_color
 
@@ -72,15 +72,16 @@ def parse_lut_file(file_name):
         if len(entr) != 4:
             errmsg="Error: insufficient or too much data in line "\
                     "-- \"%s\""%(entr)
-            raise IOError, errmsg
+            raise IOError(errmsg)
 
         tmp = []
         for color in entr:
             try:
                 tmp.append(float(color))
             except:
-                raise IOError, \
-                      "Unknown entry '%s'in lookup table input."%color
+                raise IOError(
+                    "Unknown entry '%s'in lookup table input."%color
+                )
         lut.append(tmp)
 
     return lut
@@ -90,7 +91,7 @@ def lut_mode_list():
     """ Function to generate the list of acceptable lut_mode values.
     """
     lut_mode_list = ( ['blue-red', 'black-white', 'file', ]
-                            + pylab_luts.keys() )
+                            + list(pylab_luts.keys()) )
     lut_mode_list.sort()
     return lut_mode_list
 
@@ -438,7 +439,7 @@ class LUTManager(Base):
                 f.close()
                 try:
                     lut_list = parse_lut_file(file_name)
-                except IOError, err_msg:
+                except IOError as err_msg:
                     msg = "Sorry could not parse LUT file: %s\n"%file_name
                     msg += err_msg
                     error(msg)

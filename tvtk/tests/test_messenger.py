@@ -2,12 +2,14 @@
 
 """
 # Author: Prabhu Ramachandran
-# Copyright (c) 2004,  Enthought, Inc.
+# Copyright (c) 2004-2015,  Enthought, Inc.
 # License: BSD Style.
 
+import imp
 import unittest
 
 from tvtk import messenger
+
 
 #################################################################
 # Support code.
@@ -75,7 +77,7 @@ class TestMessenger(unittest.TestCase):
         b = B()
         m = messenger.Messenger()
         orig_len = len(m._signals)
-        reload(messenger)
+        imp.reload(messenger)
         m = messenger.Messenger()
         self.assertEqual(len(m._signals), orig_len)
         b.send(1, test=1)

@@ -36,7 +36,7 @@ from tvtk.pyface import picker
 from tvtk.pyface import light_manager
 from tvtk.pyface.tvtk_scene import TVTKScene
 
-from QVTKRenderWindowInteractor import QVTKRenderWindowInteractor
+from .QVTKRenderWindowInteractor import QVTKRenderWindowInteractor
 
 
 ######################################################################
@@ -350,7 +350,7 @@ class Scene(TVTKScene, Widget):
         # The control attribute is not picklable since it is a VTK
         # object so we remove it.
         d = super(Scene, self).__get_pure_state__()
-        for x in ['_vtk_control', '_fullscreen']:
+        for x in ['_vtk_control', '_fullscreen', '_cursor']:
             d.pop(x, None)
         return d
 

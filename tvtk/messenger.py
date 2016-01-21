@@ -64,7 +64,7 @@ import weakref
 _saved = {}
 
 for name in ['messenger', 'tvtk.messenger']:
-    if sys.modules.has_key(name):
+    if name in sys.modules:
         mod = sys.modules[name]
         if hasattr(mod, 'Messenger'):
             _saved = mod.Messenger._shared_data
@@ -146,10 +146,10 @@ class Messenger:
         """
         typ = type(callback)
         key = hash(obj)
-        if not self._signals.has_key(key):
+        if not key in self._signals:
             self._signals[key] = {}
         signals = self._signals[key]
-        if not signals.has_key(event):
+        if not event in signals:
             signals[event] = {}
 
         slots = signals[event]
@@ -158,13 +158,14 @@ class Messenger:
         if typ is types.FunctionType:
             slots[callback_key] = (None, callback)
         elif typ is types.MethodType:
-            obj = weakref.ref(callback.im_self)
+            obj = weakref.ref(callback.__self__)
             name = callback.__name__
             slots[callback_key] = (obj, name)
         else:
-            raise MessengerError, \
-                  "Callback must be a function or method. "\
-                  "You passed a %s."%(str(callback))
+            raise MessengerError(
+                "Callback must be a function or method. "\
+                "You passed a %s."%(str(callback))
+            )
 
     def disconnect(self, obj, event=None, callback=None, obj_is_hash=False):
         """Disconnects the object and its event handlers.
@@ -200,7 +201,7 @@ class Messenger:
             key = obj
         else:
             key = hash(obj)
-        if not signals.has_key(key):
+        if not key in signals:
             return
         if callback is None:
             if event is None:
@@ -239,9 +240,9 @@ class Messenger:
         if event not in events:
             events.append(event)
         for evt in events:
-            if sigs.has_key(evt):
+            if evt in sigs:
                 slots = sigs[evt]
-                for key in slots.keys():
+                for key in list(slots.keys()):
                     obj, meth = slots[key]
                     if obj: # instance method
                         inst = obj()
@@ -270,7 +271,7 @@ class Messenger:
         registered.
 
         """
-        return self._get_signals(obj).keys()
+        return list(self._get_signals(obj).keys())
 
     #################################################################
     # Non-public interface.
@@ -283,9 +284,10 @@ class Messenger:
         """
         ret = self._signals.get(hash(obj))
         if ret is None:
-            raise MessengerError, \
-                  "No such object: %s, has registered itself "\
-                  "with the messenger."%obj
+            raise MessengerError(
+                "No such object: %s, has registered itself "\
+                "with the messenger."%obj
+            )
         else:
             return ret
 
@@ -309,4 +311,3 @@ def send(obj, event, *args, **kw_args):
 send.__doc__ = _messenger.send.__doc__
 
 del _saved
-

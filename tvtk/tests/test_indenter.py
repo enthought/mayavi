@@ -2,10 +2,13 @@
 
 # Author: Prabhu Ramachandran
 # License: BSD style
-# Copyright (c) 2004, Enthought, Inc.
+# Copyright (c) 2004-2015, Enthought, Inc.
 
 import unittest
-import cStringIO
+try:
+    import cStringIO
+except ImportError:
+    import io as cStringIO
 
 from tvtk import indenter
 

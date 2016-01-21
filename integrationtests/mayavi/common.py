@@ -1,8 +1,10 @@
 """MayaVi test related utilities.
 """
-# Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2005-2008, Enthought, Inc.
+# Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
+# Copyright (c) 2005-2015, Enthought, Inc.
 # License: BSD Style.
+
+from __future__ import print_function
 
 # Standard library imports
 import gc
@@ -18,6 +20,7 @@ from traits.etsconfig.api import ETSConfig
 from traits.api import  Any, Bool, Instance
 from pyface.api import GUI
 from tvtk.api import tvtk
+from tvtk.common import configure_input
 from mayavi.plugins.app import Mayavi, setup_logger
 
 # The TVTK window.
@@ -124,11 +127,11 @@ class MemoryAssistant(object):
         mem_leak_msg =  "Memory leak   (%) : {:5.1f}"
 
         try:
-            print 'Profiling',
+            print('Profiling', end=' ')
             sys.stdout.flush()
-            for index in xrange(iterations):
+            for index in range(iterations):
                 test_function()
-                print '.',
+                print('.', end=' ')
                 sys.stdout.flush()
                 gc.collect()
                 self.assertMemoryUsage(process, baseline, slack=slack)
@@ -137,10 +140,10 @@ class MemoryAssistant(object):
             ##########################################
             final = self._memory_usage(process)
             leak = (final - baseline) / baseline
-            print
-            print samples_msg.format(index + 1)
-            print mem_usage_msg.format(baseline, final)
-            print mem_leak_msg.format(leak * 100.0, index + 1)
+            print()
+            print(samples_msg.format(index + 1))
+            print(mem_usage_msg.format(baseline, final))
+            print(mem_leak_msg.format(leak * 100.0, index + 1))
         except AssertionError:
             final = self._memory_usage(process)
             leak = (final - baseline) / baseline
@@ -172,7 +175,7 @@ def _print_image_error(img_err, err_index, img_base):
              Valid image: %(img_base)s.small.jpg"""%locals()
     logger.error(msg)
     if VERBOSE:
-        print msg
+        print(msg)
 
 
 def _print_image_success(img_err, err_index):
@@ -180,7 +183,7 @@ def _print_image_success(img_err, err_index):
     msg = "Image Error, image_index: %s, %s"%(img_err, err_index)
     logger.debug(msg)
     if VERBOSE:
-        print msg
+        print(msg)
 
 
 def _handle_failed_image(idiff, src_img, pngr, img_fname):
@@ -189,8 +192,8 @@ def _handle_failed_image(idiff, src_img, pngr, img_fname):
     f_base, f_ext = os.path.splitext(img_fname)
 
     # write out the difference file in full.
-    pngw = tvtk.PNGWriter(file_name=f_base + ".diff.png",
-                          input=idiff.output)
+    pngw = tvtk.PNGWriter(file_name=f_base + ".diff.png")
+    configure_input(pngw, idiff)
     pngw.write()
 
     # write the difference image scaled and gamma adjusted for the
@@ -201,28 +204,34 @@ def _handle_failed_image(idiff, src_img, pngr, img_fname):
     else:
         mag = 250.0/sz[1]
 
-    shrink = tvtk.ImageResample(input=idiff.output, interpolate=1)
+    shrink = tvtk.ImageResample(interpolate=1)
+    configure_input(shrink, idiff.output)
     shrink.set_axis_magnification_factor(0, mag)
     shrink.set_axis_magnification_factor(1, mag)
 
-    gamma = tvtk.ImageShiftScale(input=shrink.output, shift=0, scale=10)
+    gamma = tvtk.ImageShiftScale(shift=0, scale=10)
+    configure_input(gamma, shrink)
 
     jpegw = tvtk.JPEGWriter(file_name=f_base + ".diff.small.jpg",
-                            input=gamma.output, quality=85)
+                            quality=85)
+    configure_input(jpegw, gamma)
     jpegw.write()
 
     # write out the image that was generated.
-    pngw.set(input=src_img, file_name=f_base + ".test.png")
+    pngw.set(file_name=f_base + ".test.png")
+    configure_input(pngw, src_img)
     pngw.write()
 
     # write out a smaller version of the image that was generated.
-    shrink.input = idiff.input
-    jpegw.set(input=shrink.output, file_name=f_base + ".test.small.jpg")
+    configure_input(shrink, idiff.input)
+    jpegw.set(file_name=f_base + ".test.small.jpg")
+    configure_input(jpegw, shrink)
     jpegw.write()
 
     # write out the valid image that matched.
-    shrink.input = idiff.image
-    jpegw.set(input=shrink.output, file_name=f_base + ".small.jpg")
+    configure_input(shrink, idiff.image)
+    jpegw.set(file_name=f_base + ".small.jpg")
+    configure_input(jpegw, shrink)
     jpegw.write()
 
 def _set_scale(r1, r2):
@@ -232,9 +241,15 @@ def _set_scale(r1, r2):
     image.
     """
     img1, img2 = r1.input, r2.input
-    ex1 = img1.whole_extent
+    if hasattr(img1, 'whole_extent'):
+        ex1 = img1.whole_extent
+    else:
+        ex1 = img1.extent
     w1, h1 = ex1[1] + 1, ex1[3] + 1
-    ex2 = img2.whole_extent
+    if hasattr(img2, 'whole_extent'):
+        ex2 = img2.whole_extent
+    else:
+        ex2 = img2.extent
     w2, h2 = ex2[1] + 1, ex2[3] + 1
     w = min(w1, w2)
     h = min(h1, h2)
@@ -263,23 +278,33 @@ def compare_image_with_saved_image(src_img, img_fname, threshold=10,
         pngw = tvtk.PNGWriter(file_name=img_fname, input=src_img)
         pngw.write()
         if VERBOSE:
-            print "Creating baseline image '%s'."%img_fname
+            print("Creating baseline image '%s'."%img_fname)
         return
 
     pngr = tvtk.PNGReader(file_name=img_fname)
     pngr.update()
 
     if allow_resize:
-        src_resample = tvtk.ImageResample(input=src_img, interpolate=1,
+        src_resample = tvtk.ImageResample(interpolate=1,
                                           interpolation_mode='cubic')
-        img_resample = tvtk.ImageResample(input=pngr.output, interpolate=1,
+        configure_input(src_resample, src_img)
+        img_resample = tvtk.ImageResample(interpolate=1,
                                           interpolation_mode='cubic')
+        configure_input(img_resample, pngr)
         _set_scale(src_resample, img_resample)
-        idiff = tvtk.ImageDifference(input=src_resample.output,
-                                     image=img_resample.output)
+        idiff = tvtk.ImageDifference()
+        configure_input(idiff, src_resample.output)
+        if hasattr(idiff, 'set_image_data'):
+            idiff.set_image_data(img_resample.output)
+        else:
+            idiff.image = img_resample.output
     else:
-        idiff = tvtk.ImageDifference(input=src_img,
-                                     image=pngr.output)
+        idiff = tvtk.ImageDifference()
+        configure_input(idiff, src_img)
+        if hasattr(idiff, 'set_image_data'):
+            idiff.set_image_data(pngr.output)
+        else:
+            idiff.image = pngr.output
     idiff.update()
 
     min_err = idiff.thresholded_error
@@ -327,7 +352,7 @@ def compare_image_with_saved_image(src_img, img_fname, threshold=10,
             _handle_failed_image(idiff, src_img, pngr, best_img)
             _print_image_error(img_err, err_index, f_base)
             msg = "Failed image test: %f\n"%idiff.thresholded_error
-            raise AssertionError, msg
+            raise AssertionError(msg)
     # output the image error even if a test passed
     _print_image_success(img_err, err_index)
 
@@ -502,7 +527,10 @@ class TestCase(Mayavi):
         g.start_event_loop()
         if self.exception_info is not None:
             type, value, tb = self.exception_info
-            raise type, value, tb
+            if sys.version_info[0] > 2:
+                raise type(value).with_traceback(tb)
+            else:
+                raise type(value)
 
 
     def run(self):
@@ -516,7 +544,7 @@ class TestCase(Mayavi):
                                                      slack = 1.0)
             else:
                 self.do()
-        except Exception, e:
+        except Exception as e:
             type, value, tb = sys.exc_info()
             if is_running_with_nose():
                 self.exception_info = type, value, tb
@@ -664,7 +692,7 @@ class TestCase(Mayavi):
                 excName = excClass.__name__
             else:
                 excName = str(excClass)
-            raise MayaviTestError, excName
+            raise MayaviTestError(excName)
     assertRaises = failUnlessRaises
 
 

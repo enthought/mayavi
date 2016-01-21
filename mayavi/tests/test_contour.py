@@ -1,26 +1,25 @@
 # Author: Suyog Dutt Jain <suyog.jain@aero.iitb.ac.in>
 #         Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2008,  Enthought, Inc.
+# Copyright (c) 2008-2015,  Enthought, Inc.
 # License: BSD Style.
 
 # Standard library imports.
 from os.path import abspath
-from StringIO import StringIO
+from io import BytesIO
 import copy
 import numpy
 import unittest
-import datasets
 
 # Local imports.
 from mayavi.core.null_engine import NullEngine
 
-# Enthought library imports
 from mayavi.sources.vtk_data_source import VTKDataSource
 from mayavi.modules.outline import Outline
 from mayavi.modules.iso_surface import IsoSurface
 from mayavi.modules.contour_grid_plane import ContourGridPlane
 from mayavi.modules.scalar_cut_plane import ScalarCutPlane
 
+from . import datasets
 
 class TestContour(unittest.TestCase):
 
@@ -151,7 +150,7 @@ class TestContour(unittest.TestCase):
         scene = self.scene
 
         # Save visualization.
-        f = StringIO()
+        f = BytesIO()
         f.name = abspath('test.mv2') # We simulate a file.
         engine.save_visualization(f)
         f.seek(0) # So we can read this saved data.

@@ -7,8 +7,10 @@ thing.
 """
 
 # Author: Prabhu Ramachandran <prabhu [at] aero . iitb . ac . in>
-# Copyright (c) 2009,  Enthought Inc.
+# Copyright (c) 2009-2015,  Enthought Inc.
 # License: BSD Style.
+
+from __future__ import print_function
 
 import sys
 from os.path import dirname, join, isfile, isdir
@@ -67,7 +69,7 @@ def find_tests(tests):
             except ImportError:
                 msg = 'Warning: %s is neither a file/directory or '\
                       'module. Ignoring.'%test
-                print msg
+                print(msg)
     return files
 
 def run(tests, verbose=1):
@@ -104,7 +106,7 @@ def run(tests, verbose=1):
 
         # Run the test in a subprocess.
         if verbose > 1:
-            print 'Running:', ' '.join(cmd)
+            print('Running:', ' '.join(cmd))
         t1 = time.time()
         pipe = subprocess.Popen(cmd, stdout=PIPE, stderr=PIPE, close_fds=True)
         # Get the status, stdout and stderr.
@@ -139,39 +141,39 @@ def run(tests, verbose=1):
             errors.append([test, st, out, err, t2 - t1])
 
         if verbose > 1:
-            print out
-            print err
+            print(out)
+            print(err)
         sys.stdout.flush()
         total_time += t2 - t1
 
-    print '\n' + '-'*70
-    print "Ran %d tests in %.4g seconds\n"%(total, total_time)
+    print('\n' + '-'*70)
+    print("Ran %d tests in %.4g seconds\n"%(total, total_time))
 
     errorcode = 0
     if len(errors) > 0:
-        print 'FAILED: there were %d failures and %d errors'\
-                %(tot_fail, tot_err)
+        print('FAILED: there were %d failures and %d errors'\
+                %(tot_fail, tot_err))
         for err in errors:
             test, st, out, err, t = err
-            print 'File:', test
-            print out
-            print err
+            print('File:', test)
+            print(out)
+            print(err)
         errorcode = 1
     else:
-        print 'OK'
+        print('OK')
     return errorcode
 
 def m2_tests(verbose=1):
     """Run all the TVTK and mayavi tests.
     """
     if verbose > 0:
-        print "-"*70
-        print "Running TVTK tests."
+        print("-"*70)
+        print("Running TVTK tests.")
     tests = find_tests(['tvtk'])
     err = run(tests, verbose)
     if verbose > 0:
-        print "-"*70
-        print "Running Mayavi tests."
+        print("-"*70)
+        print("Running Mayavi tests.")
     tests = find_tests(['mayavi'])
     err += run(tests, verbose)
     return err

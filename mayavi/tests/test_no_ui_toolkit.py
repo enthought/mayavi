@@ -53,8 +53,9 @@ class TestNoUIToolkit(unittest.TestCase):
         from mayavi.preferences.api import preference_manager
 
         # Should not have triggered an import wx or PyQt4.
-        self.assertEqual(sys.modules.has_key('wx'), False)
-        self.assertEqual(sys.modules.has_key('PyQt4'), False)
+        self.assertEqual('wx' in sys.modules, False)
+        self.assertEqual('PyQt4' in sys.modules, False)
+        self.assertEqual('PySide' in sys.modules, False)
 
 
 if __name__ == '__main__':

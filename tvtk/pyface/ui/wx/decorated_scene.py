@@ -30,7 +30,7 @@ from tvtk.api import tvtk
 from traits.api import Instance, false, List, Either
 
 # Local imports.
-from scene import Scene
+from .scene import Scene
 
 
 ###########################################################################
@@ -312,4 +312,3 @@ class DecoratedScene(Scene):
                     ),
                 ),
             ]
-

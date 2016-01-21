@@ -1,18 +1,15 @@
 # Author: Suyog Dutt Jain <suyog.jain@aero.iitb.ac.in>
 #         Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2008,  Enthought, Inc.
+# Copyright (c) 2008-2015,  Enthought, Inc.
 # License: BSD Style.
 
 # Standard library imports.
 from os.path import abspath
-from StringIO import StringIO
+from io import BytesIO
 import copy
 import unittest
 
 import numpy
-
-# Local imports.
-from common import get_example_data
 
 # Enthought library imports
 from mayavi.core.null_engine import NullEngine
@@ -20,6 +17,9 @@ from mayavi.sources.vtk_xml_file_reader import VTKXMLFileReader
 from mayavi.modules.outline import Outline
 from mayavi.modules.contour_grid_plane import ContourGridPlane
 from mayavi.modules.scalar_cut_plane import ScalarCutPlane
+
+# Local imports.
+from .common import get_example_data
 
 class TestVTKXMLReader(unittest.TestCase):
 
@@ -109,7 +109,7 @@ class TestVTKXMLReader(unittest.TestCase):
         scene = self.scene
 
         # Save visualization.
-        f = StringIO()
+        f = BytesIO()
         f.name = abspath('test.mv2') # We simulate a file.
         engine.save_visualization(f)
         f.seek(0) # So we can read this saved data.

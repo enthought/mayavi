@@ -25,12 +25,11 @@ class TestMlabNullEngineBase(unittest.TestCase):
     def tearDown(self):
         # Check that the NullEngine was not set as the default mlab engine.
         if not mlab.get_engine() is self._non_null_engine:
-            raise AssertionError, \
-                    "The NullEngine has overridden the default one"
+            raise AssertionError("The NullEngine has overridden the default one")
         engine_manager.current_engine = None
         # Unregistering all unused engines.
         registry.unregister_engine(self._non_null_engine)
-        for engine in registry.engines.keys():
+        for engine in list(registry.engines):
             registry.unregister_engine(engine)
 
 
@@ -46,7 +45,7 @@ class TestRealMlabNullEngine(unittest.TestCase):
 
     def tearDown(self):
         mlab.options.backend = self.backend
-        for engine in registry.engines.keys():
+        for engine in list(registry.engines):
             registry.unregister_engine(engine)
 
     def test_test_backend(self):
@@ -59,4 +58,3 @@ class TestRealMlabNullEngine(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-

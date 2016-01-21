@@ -4,9 +4,10 @@ refactored to move to AppTools however we repeat the tests here with a
 TVTK object to ensure that the test works with TVTK objects.
 """
 # Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
-# Copyright (c) 2008, Enthought, Inc.
+# Copyright (c) 2008-2015, Enthought, Inc.
 # License: BSD Style.
 
+import sys
 import unittest
 
 from traits.api import (HasTraits, Float, Instance,
@@ -438,8 +439,8 @@ class TestRecorder(unittest.TestCase):
         tape.recording = False
         tape.unregister(p)
 
-        import StringIO
-        f = StringIO.StringIO()
+        import io
+        f = io.StringIO()
         tape.save(f)
         # Test if the file is OK.
         expect = ["child = parent.children[0]\n",

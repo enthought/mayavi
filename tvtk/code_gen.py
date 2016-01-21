@@ -3,9 +3,10 @@ VTK-Python API.
 
 """
 # Author: Prabhu Ramachandran
-# Copyright (c) 2004-2007, Enthought, Inc.
+# Copyright (c) 2004-2015, Enthought, Inc.
 # License: BSD Style.
 
+from __future__ import print_function
 
 import vtk
 import os
@@ -18,9 +19,14 @@ from optparse import OptionParser
 
 # Local imports -- these should be relative imports since these are
 # imported before the package is installed.
-from common import get_tvtk_name, camel2enthought
-from wrapper_gen import WrapperGenerator
-from special_gen import HelperGenerator
+try:
+    from .common import get_tvtk_name, camel2enthought
+    from .wrapper_gen import WrapperGenerator
+    from .special_gen import HelperGenerator
+except SystemError:
+    from common import get_tvtk_name, camel2enthought
+    from wrapper_gen import WrapperGenerator
+    from special_gen import HelperGenerator
 
 
 ######################################################################
@@ -89,11 +95,21 @@ class TVTKGenerator:
         # Write the wrapper files.
         tree = wrap_gen.get_tree().tree
 
-        #classes = dir(vtk)
-        classes = [x.name for x in wrap_gen.get_tree() \
-                   if x.name.startswith('vtk') and \
-                   not x.name.startswith('vtkQt') and \
-                   not issubclass(getattr(vtk, x.name), object) ]
+        classes = []
+        for node in wrap_gen.get_tree():
+            name = node.name
+            if not name.startswith('vtk') or name.startswith('vtkQt'):
+                continue
+            if not hasattr(vtk, name) or not hasattr(getattr(vtk, name), 'IsA'):
+                # We need to wrap VTK classes that are derived from
+                # vtkObjectBase, the others are straightforward VTK classes
+                # that can be used as such.  All of these have an 'IsA' method
+                # so we check for that.  Only the vtkObjectBase subclasses
+                # support observers etc. and hence only those make sense to
+                # wrap into TVTK.
+                continue
+            classes.append(name)
+
         for nodes in tree:
             for node in nodes:
                 if node.name in classes:
@@ -117,7 +133,7 @@ class TVTKGenerator:
         for name in names:
             node = self.wrap_gen.get_tree().get_node(name)
             if node is None:
-                print 'ERROR: Cannot find class: %s'%name
+                print('ERROR: Cannot find class: %s'%name)
             nodes.append(node)
 
         # Get ancestors.
@@ -176,8 +192,8 @@ class TVTKGenerator:
         if ok:
             shutil.rmtree(tmp_dir)
         else:
-            print "Not removing directory:", tmp_dir
-            print "It does not contain a tvtk_classes directory!"
+            print("Not removing directory:", tmp_dir)
+            print("It does not contain a tvtk_classes directory!")
 
     #################################################################
     # Non-public interface.

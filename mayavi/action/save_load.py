@@ -1,8 +1,8 @@
 """Actions to save and load a MayaVi2 visualization file.
 
 """
-# Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2005, Enthought, Inc.
+# Author: Prabhu Ramachandran <prabhu@enthought.com>
+# Copyright (c) 2005-2015, Enthought, Inc.
 # License: BSD Style.
 
 # Standard library imports.
@@ -113,7 +113,8 @@ class RunScript(Action):
             try:
                 # If we don't pass globals twice we get NameErrors and nope,
                 # using exec open(script_name).read() does not fix it.
-                execfile(dialog.path, g, g)
-            except Exception, msg:
+                exec(compile(
+                    open(dialog.path).read(), dialog.path, 'exec'), g, g
+                )
+            except Exception as msg:
                 exception(str(msg))
-

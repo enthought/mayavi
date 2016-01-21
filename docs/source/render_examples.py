@@ -19,7 +19,7 @@ global_counter = itertools.count()
 EXAMPLE_DIR = '../../examples/mayavi'
 
 def is_mlab_example(filename):
-    tokens = tokenize.generate_tokens(file(filename).readline)
+    tokens = tokenize.generate_tokens(open(filename).readline)
     code_only = ''.join([tok_content
                             for tok_type, tok_content, _, _, _  in tokens
                             if not token.tok_name[tok_type] in ('COMMENT',
@@ -37,7 +37,10 @@ def run_mlab_file(filename, image_file):
     mlab.clf()
     e = mlab.get_engine()
     e.close_scene(mlab.gcf())
-    execfile(filename, {'__name__': '__main__'})
+    exec(
+        compile(open(filename).read(), filename, 'exec'),
+        {'__name__': '__main__'}
+    )
     mlab.savefig(image_file)
     size = mlab.gcf().scene.get_size()
     for scene in e.scenes:
@@ -47,7 +50,7 @@ def run_mlab_file(filename, image_file):
 
 def extract_docstring(filename):
     # Extract a module-level docstring, if any
-    lines = file(filename).readlines()
+    lines = open(filename).readlines()
     start_row = 0
     if lines[0].startswith('#!'):
         lines.pop(0)
@@ -55,7 +58,9 @@ def extract_docstring(filename):
 
     docstring = ''
     first_par = ''
-    tokens = tokenize.generate_tokens(lines.__iter__().next)
+    li = lines.__iter__()
+    li_next = li.__next__ if hasattr(li, '__next__') else li.next
+    tokens = tokenize.generate_tokens(li_next)
     for tok_type, tok_content, _, (erow, _), _ in tokens:
         tok_type = token.tok_name[tok_type]
         if tok_type in ('NEWLINE', 'COMMENT', 'NL', 'INDENT', 'DEDENT'):
@@ -120,8 +125,8 @@ class ExampleLister(object):
 
     def __init__(self, **kwargs):
         # Cheap unique hash for substitutions
-        self._unique_hash = global_counter.next()
-        for name, value in kwargs.iteritems():
+        self._unique_hash = next(global_counter)
+        for name, value in kwargs.items():
             setattr(self, name, value)
 
 
@@ -134,7 +139,7 @@ class ExampleLister(object):
         for index, file_details in enumerate(files_details):
             filename, short_file_name, short_desc, title, docstring, \
                                                     end_row = file_details
-            self.render_example_page(file(os.path.join(self.out_dir,
+            self.render_example_page(open(os.path.join(self.out_dir,
                                             'example_%s.rst') %
                                      short_file_name, 'w'), index, file_details)
             self.gallery_entry(index, file_details)
@@ -228,7 +233,7 @@ class ImagesExampleLister(ExampleLister):
         for index, file_details in enumerate(files_details):
             filename, short_file_name, short_desc, title, docstring, end_row = \
                                                                 file_details
-            self.render_example_page(file(os.path.join(self.out_dir,
+            self.render_example_page(open(os.path.join(self.out_dir,
                                         'example_%s.rst') %
                                      short_file_name, 'w'), index, file_details)
             self.gallery_entry(index, file_details)
@@ -379,7 +384,7 @@ Advanced mlab examples
         filename, short_file_name, short_desc, title, docstring, end_row = \
                                                             file_details
         if self.render_images:
-            print "Generating images for %s" % filename
+            print("Generating images for %s" % filename)
             image_file = os.path.join(self.images_dir, 'example_%s.jpg' \
                                     % short_file_name)
             run_mlab_file(filename, image_file=image_file)
@@ -393,7 +398,7 @@ Advanced mlab examples
 def render_examples(render_images=False, out_dir='mayavi/auto'):
     if not os.path.exists(out_dir):
         os.makedirs(out_dir)
-    example_gallery_file = file(os.path.join(out_dir, 'examples.rst'), 'w')
+    example_gallery_file = open(os.path.join(out_dir, 'examples.rst'), 'w')
 
     example_gallery_file.write("""
 
@@ -412,7 +417,7 @@ Example gallery
                     if is_mlab_example(filename)]
     # Sort by file length (gives a measure of the complexity of the
     # example)
-    example_files.sort(key=lambda name: len(file(name, 'r').readlines()))
+    example_files.sort(key=lambda name: len(open(name, 'r').readlines()))
 
     mlab_example_lister = MlabExampleLister(render_images=render_images,
                                         out_dir=out_dir,
@@ -430,7 +435,7 @@ Example gallery
                         'interactive', '*.py'))]
     # Sort by file length (gives a measure of the complexity of the
     # example)
-    example_files.sort(key=lambda name: len(file(name, 'r').readlines()))
+    example_files.sort(key=lambda name: len(open(name, 'r').readlines()))
     example_lister = ImagesExampleLister(
             title="Interactive examples",
             out_dir=out_dir,
@@ -449,7 +454,7 @@ applications.
                         'advanced_visualization', '*.py'))]
     # Sort by file length (gives a measure of the complexity of the
     # example)
-    example_files.sort(key=lambda name: len(file(name, 'r').readlines()))
+    example_files.sort(key=lambda name: len(open(name, 'r').readlines()))
     example_lister = ExampleLister(
             title="Advanced visualization examples",
             out_dir=out_dir,
@@ -467,7 +472,7 @@ more fine control than mlab.
                         'data_interaction', '*.py'))]
     # Sort by file length (gives a measure of the complexity of the
     # example)
-    example_files.sort(key=lambda name: len(file(name, 'r').readlines()))
+    example_files.sort(key=lambda name: len(open(name, 'r').readlines()))
     example_lister = ExampleLister(
             title="Data interaction examples",
             out_dir=out_dir,
@@ -484,7 +489,7 @@ Examples showing how you can query and interact with the data.
                         '*.py'))]
     # Sort by file length (gives a measure of the complexity of the
     # example)
-    example_files.sort(key=lambda name: len(file(name, 'r').readlines()))
+    example_files.sort(key=lambda name: len(open(name, 'r').readlines()))
     example_lister = ExampleLister(title="Misc examples",
                                    out_dir=out_dir)
     example_lister.render_all(example_gallery_file, example_files)

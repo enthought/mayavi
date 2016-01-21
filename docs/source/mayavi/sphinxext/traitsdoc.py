@@ -1,11 +1,32 @@
+"""
+=========
+traitsdoc
+=========
+
+Sphinx extension that handles docstrings in the Numpy standard format, [1]
+and support Traits [2].
+
+This extension can be used as a replacement for ``numpydoc`` when support
+for Traits is required.
+
+.. [1] http://projects.scipy.org/numpy/wiki/CodingStyleGuidelines#docstring-standard
+.. [2] http://code.enthought.com/projects/traits/
+
+"""
+from __future__ import division, absolute_import, print_function
+
 import inspect
 import os
 import pydoc
+import collections
 
-import docscrape
-from docscrape_sphinx import SphinxClassDoc, SphinxFunctionDoc
-import numpydoc
-import comment_eater
+from . import docscrape
+from . import docscrape_sphinx
+from .docscrape_sphinx import SphinxClassDoc, SphinxFunctionDoc, SphinxDocString
+
+from . import numpydoc
+
+from . import comment_eater
 
 class SphinxTraitsDoc(SphinxClassDoc):
     def __init__(self, cls, modulename='', func_doc=SphinxFunctionDoc):
@@ -40,6 +61,7 @@ class SphinxTraitsDoc(SphinxClassDoc):
             'Extended Summary': [],
             'Parameters': [],
             'Returns': [],
+            'Yields': [],
             'Raises': [],
             'Warns': [],
             'Other Parameters': [],
@@ -68,7 +90,7 @@ class SphinxTraitsDoc(SphinxClassDoc):
         out += self._str_summary()
         out += self._str_extended_summary()
         for param_list in ('Parameters', 'Traits', 'Methods',
-                           'Returns','Raises'):
+                           'Returns', 'Yields', 'Raises'):
             out += self._str_param_list(param_list)
         out += self._str_see_also("obj")
         out += self._str_section('Notes')
@@ -92,18 +114,18 @@ def looks_like_issubclass(obj, classname):
             return True
     return False
 
-def get_doc_object(obj, what=None):
+def get_doc_object(obj, what=None, config=None):
     if what is None:
         if inspect.isclass(obj):
             what = 'class'
         elif inspect.ismodule(obj):
             what = 'module'
-        elif callable(obj):
+        elif isinstance(obj, collections.Callable):
             what = 'function'
         else:
             what = 'object'
     if what == 'class':
-        doc = SphinxTraitsDoc(obj, '', func_doc=numpydoc.SphinxFunctionDoc)
+        doc = SphinxTraitsDoc(obj, '', func_doc=SphinxFunctionDoc, config=config)
         if looks_like_issubclass(obj, 'HasTraits'):
             for name, trait, comment in comment_eater.get_class_traits(obj):
                 # Exclude private traits.
@@ -111,31 +133,11 @@ def get_doc_object(obj, what=None):
                     doc['Traits'].append((name, trait, comment.splitlines()))
         return doc
     elif what in ('function', 'method'):
-        return numpydoc.SphinxFunctionDoc(obj, '')
+        return SphinxFunctionDoc(obj, '', config=config)
     else:
-        return numpydoc.SphinxDocString(pydoc.getdoc(obj))
-
-def initialize(app):
-    try:
-        app.connect('autodoc-process-signature', numpydoc.mangle_signature)
-    except:
-        numpydoc.monkeypatch_sphinx_ext_autodoc()
-
-    # Monkeypatch numpydoc
-    numpydoc.get_doc_object = get_doc_object
-
-    fn = app.config.numpydoc_phantom_import_file
-    if (fn and os.path.isfile(fn)):
-        print "[numpydoc] Phantom importing modules from", fn, "..."
-        numpydoc.import_phantom_module(fn)
+        return SphinxDocString(pydoc.getdoc(obj), config=config)
 
 def setup(app):
-    app.connect('autodoc-process-docstring', numpydoc.mangle_docstrings)
-    app.connect('builder-inited', initialize)
-    app.add_config_value('numpydoc_phantom_import_file', None, True)
-    app.add_config_value('numpydoc_edit_link', None, True)
-
-    app.add_directive('autosummary', numpydoc.autosummary_directive, 1, (0, 0, False))
-    app.add_role('autolink', numpydoc.autolink_role)
-
+    # init numpydoc
+    numpydoc.setup(app, get_doc_object)
 

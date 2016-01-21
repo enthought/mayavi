@@ -111,6 +111,8 @@ Now that the prelimenaries are out of the way, lets get started.
 # Copyright (c) 2009, S. Chris Colbert
 # License: BSD Style
 
+from __future__ import print_function
+
 # this import is here because we need to ensure that matplotlib uses the
 # wx backend and having regular code outside the main block is PyTaboo.
 # It needs to be imported first, so that matplotlib can impose the
@@ -140,7 +142,7 @@ def get_world_to_view_matrix(mlab_scene):
     aspect_ratio = float(scene_size[0])/float(scene_size[1])
 
     # this actually just gets a vtk matrix object, we can't really do anything with it yet
-    vtk_comb_trans_mat = mlab_scene.camera.get_composite_perspective_transform_matrix(
+    vtk_comb_trans_mat = mlab_scene.camera.get_composite_projection_transform_matrix(
                                 aspect_ratio, clip_range[0], clip_range[1])
 
      # get the vtk mat as a numpy array
@@ -228,7 +230,7 @@ if __name__ == '__main__':
     pl.imshow(img)
 
     for i in range(N):
-        print  'Point %d:  (x, y) ' % i, disp_coords[:, 0:2][i]
+        print('Point %d:  (x, y) ' % i, disp_coords[:, 0:2][i])
         pl.plot([disp_coords[:, 0][i]], [disp_coords[:, 1][i]], 'ro')
 
     pl.show()

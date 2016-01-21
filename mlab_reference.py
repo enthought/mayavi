@@ -6,6 +6,8 @@ Script to generate the function reference for mlab.
 # Copyright (c) 2007, Enthought, Inc.
 # License: BSD Style.
 
+from __future__ import print_function
+
 import os
 import sys
 
@@ -24,9 +26,9 @@ from docutils import core as docCore
 
 # We need to exec render_image, as we can't import it, because it is not
 # in a python package.
-render_images = dict(__name__='',
-   __file__=os.path.abspath(os.path.join('docs', 'source', 'render_images.py')))
-execfile(render_images['__file__'], render_images)
+_src = os.path.abspath(os.path.join('docs', 'source', 'render_images.py'))
+render_images = dict(__name__='', __file__=_src)
+exec(compile(open(_src).read(), _src, 'exec'), render_images)
 IMAGE_DIR = render_images['IMAGE_DIR']
 
 ##############################################################################
@@ -59,7 +61,7 @@ def relpath(target, base=os.curdir):
     # Starting from the filepath root, work out how much of the filepath is
     # shared by base and target.
     for i in range(min(len(base_list), len(target_list))):
-        if base_list[i] <> target_list[i]: break
+        if base_list[i] != target_list[i]: break
     else:
         # If we broke out of the loop, i is pointing to the first
         # differing path elements. If we didn't break out of the loop, i
@@ -101,7 +103,7 @@ def document_function(func, func_name=None, example_code=None,
     func_doc = func.__doc__
 
     if func_doc is None:
-        print 'function %s is undocumented' % func_name
+        print('function %s is undocumented' % func_name)
         func_doc = '\n\n'
     else:
         if is_valid_rst(func_doc):
@@ -197,7 +199,7 @@ class ModuleReference(object):
         """
         func = getattr(self.module, func_name)
 
-        print >>sys.stderr, "Documenting function %s" % func_name
+        print("Documenting function %s" % func_name, file=sys.stderr)
 
         if hasattr(self.module, 'test_' + func_name):
             example_code = getsource(
@@ -421,4 +423,3 @@ pipeline than the main mlab interface. For usage examples, see
             )
 
     pipeline_reference.write_doc()
-

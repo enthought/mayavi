@@ -52,7 +52,7 @@ class Sniff(object):
             self._comment = line0[0]
             self._reallines[0] = self._dialect.delimiter.join(
                                         line0.split()[1:])
-            for i in xrange(1, len(self._reallines)):
+            for i in range(1, len(self._reallines)):
                 self._reallines[i] = \
                     self._reallines[i].split(self._comment)[0]
 
@@ -60,7 +60,7 @@ class Sniff(object):
         res = []
         f = open(self._filename, 'rb')
         for line in f:
-            line = line.strip()
+            line = line.strip().decode('utf-8')
             res.append(line)
             if len(res) > 20:
                 break
@@ -71,7 +71,7 @@ class Sniff(object):
         if self._usePySplit:
             return line.split()
         else:
-            return csv.reader([line], self._dialect).next()
+            return next(csv.reader([line], self._dialect))
 
     def _names(self):
         if self._datatypes != self._numcols * (str,):
@@ -82,7 +82,7 @@ class Sniff(object):
                     continue
                 return tuple(t.strip('"\' \t') for t in self._split(line))
 
-        return tuple('Column %i' % (i + 1) for i in xrange(self._numcols))
+        return tuple('Column %i' % (i + 1) for i in range(self._numcols))
 
     def _formats(self):
         res = []
@@ -120,11 +120,11 @@ class Sniff(object):
         return tuple(res)
 
     def _debug(self):
-        print '===== Sniffed information for file %r:' % self._filename
-        print 'delimiter = %r' % self.delimiter()
-        print 'comments  = %r' % self.comments()
-        print 'dtype     = %r' % self.dtype()
-        print 'skiprows  = %r' % self.skiprows()
+        print('===== Sniffed information for file %r:' % self._filename)
+        print('delimiter = %r' % self.delimiter())
+        print('comments  = %r' % self.comments())
+        print('dtype     = %r' % self.dtype())
+        print('skiprows  = %r' % self.skiprows())
 
     #-----------------------------------------------------------------------
     # Public API:

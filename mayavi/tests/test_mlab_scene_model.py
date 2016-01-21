@@ -9,7 +9,7 @@ from traits.api import HasTraits, Instance
 from mayavi.tools.mlab_scene_model import MlabSceneModel
 from mayavi import mlab
 
-from test_mlab_integration import TestMlabNullEngine
+from .test_mlab_integration import TestMlabNullEngine
 
 ###############################################################################
 # class `TestMlabSceneModel`

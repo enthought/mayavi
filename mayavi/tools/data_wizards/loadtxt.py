@@ -87,7 +87,7 @@ def loadtxt(fname, dtype=float, comments='#', delimiter=None, converters=None,
             import gzip
             fh = gzip.open(fname)
         else:
-            fh = file(fname)
+            fh = open(fname, 'r')
     elif hasattr(fname, 'seek'):
         fh = fname
     else:
@@ -116,7 +116,7 @@ def loadtxt(fname, dtype=float, comments='#', delimiter=None, converters=None,
         vals = line.split(delimiter)
         if converterseq is None:
             converterseq = [converters.get(j, defconv) \
-                            for j in xrange(len(vals))]
+                            for j in range(len(vals))]
         if usecols is not None:
             row = [converterseq[j](vals[j]) for j in usecols]
         else:

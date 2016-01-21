@@ -3,10 +3,10 @@ to be used by various modules.
 """
 # Author: Suyog Dutt Jain <suyog.jain@aero.iitb.ac.in>
 #         Prabhu Ramachandran <prabhu at aero.iitb.ac.in>
-# Copyright (c) 2009, Enthought, Inc.
+# Copyright (c) 2009-2015, Enthought, Inc.
 # License: BSD Style.
 
-import cPickle
+import pickle
 
 from traits.api import (Instance, Trait, Bool, TraitMap, Enum, Dict,
                                   Str, Int)
@@ -86,7 +86,7 @@ class ImplicitWidgets(Component):
         tfm = tvtk.Transform()
         w = self._widget_dict['Box']
         w.get_transform(tfm)
-        d['matrix'] = cPickle.dumps(tfm.matrix)
+        d['matrix'] = pickle.dumps(tfm.matrix)
         return d
 
     def __set_pure_state__(self, state):
@@ -99,7 +99,7 @@ class ImplicitWidgets(Component):
 
         # Set the transformation for Box widget.
         tfm = tvtk.Transform()
-        tfm.set_matrix(cPickle.loads(mat))
+        tfm.set_matrix(pickle.loads(mat))
         w = self._widget_dict['Box']
         w.set_transform(tfm)
 

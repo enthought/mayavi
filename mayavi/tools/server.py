@@ -41,7 +41,7 @@ hole** since the remote user can do pretty much anything they want.
 """
 
 # Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
-# Copyright (c) 2009, Enthought, Inc.
+# Copyright (c) 2009-2015, Enthought, Inc.
 # License: BSD Style.
 
 import sys
@@ -76,8 +76,9 @@ class M2UDP(DatagramProtocol):
     mayavi app.
     """
 
-    def datagramReceived(self, data, (host, port)):
+    def datagramReceived(self, data, host_port):
         """Given a line of data, simply execs it to do whatever."""
+        host, port = host_port
         log.msg("Received: %r from %s:%d" % (data, host, port))
         c = data.strip()
         if len(c) > 0:
@@ -86,7 +87,7 @@ class M2UDP(DatagramProtocol):
             scene = self.scene
             camera = scene.camera
             try:
-                exec c in locals(), globals()
+                exec(c, locals(), globals())
             except:
                 log.err()
             scene.render()
@@ -136,7 +137,7 @@ class M2TCP(Protocol):
             scene = self.factory.scene
             camera = scene.camera
             try:
-                exec c in locals(), globals()
+                exec(c, locals(), globals())
             except:
                 log.err()
             scene.render()

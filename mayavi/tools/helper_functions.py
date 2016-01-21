@@ -13,19 +13,19 @@ both for testing and to ilustrate its use.
 # Copyright (c) 2007, Enthought, Inc.
 # License: BSD Style.
 
-from modules import VectorsFactory, StreamlineFactory, GlyphFactory, \
+from .modules import VectorsFactory, StreamlineFactory, GlyphFactory, \
             IsoSurfaceFactory, SurfaceFactory, ContourSurfaceFactory, \
             ImageActorFactory, glyph_mode_dict
-from sources import vector_scatter, vector_field, scalar_scatter, \
+from .sources import vector_scatter, vector_field, scalar_scatter, \
             scalar_field, line_source, array2d_source, grid_source, \
             triangular_mesh_source, vertical_vectors_source
-from filters import ExtractVectorNormFactory, WarpScalarFactory, \
+from .filters import ExtractVectorNormFactory, WarpScalarFactory, \
             TubeFactory, ExtractEdgesFactory, PolyDataNormalsFactory, \
             StripperFactory
-from animator import animate
+from .animator import animate
 from mayavi.core.scene import Scene
-from auto_doc import traits_doc, dedent
-import tools
+from .auto_doc import traits_doc, dedent
+from . import tools
 from traits.api import Array, Callable, CFloat, HasTraits, \
     List, Trait, Any, Instance, TraitError, true
 import numpy
@@ -99,13 +99,13 @@ class Pipeline(HasTraits):
             store the resulting dictionary in self.kwargs."""
         kwargs = kwargs.copy()
         all_traits = self.get_all_traits()
-        if not set(kwargs.keys()).issubset(all_traits.keys()):
+        if not set(kwargs.keys()).issubset(list(all_traits.keys())):
             raise ValueError("Invalid keyword arguments : %s" % \
                     ', '.join(
                         str(k) for k in
-                        set(kwargs.keys()).difference(all_traits.keys())))
+                        set(kwargs.keys()).difference(list(all_traits.keys()))))
         traits = self.get(self.class_trait_names())
-        [traits.pop(key) for key in traits.keys() if key[0] == '_']
+        [traits.pop(key) for key in list(traits.keys()) if key[0] == '_']
         traits.update(kwargs)
         self.kwargs = traits
 
@@ -117,7 +117,7 @@ class Pipeline(HasTraits):
             keywords.remove('trait_added')
             keywords.remove('trait_modified')
             this_kwargs = {}
-            for key, value in self.kwargs.iteritems():
+            for key, value in self.kwargs.items():
                 if key in keywords:
                     this_kwargs[key] = value
             object = pipe(object, **this_kwargs)._target
@@ -213,15 +213,15 @@ def test_points3d_anim(obj=None):
 def test_molecule():
     """Generates and shows a Caffeine molecule."""
     o = [[30, 62, 19], [8, 21, 10]]
-    ox, oy, oz = map(numpy.array, zip(*o))
+    ox, oy, oz = list(map(numpy.array, zip(*o)))
     n = [[31, 21, 11], [18, 42, 14], [55, 46, 17], [56, 25, 13]]
-    nx, ny, nz = map(numpy.array, zip(*n))
+    nx, ny, nz = list(map(numpy.array, zip(*n)))
     c = [[5, 49, 15], [30, 50, 16], [42, 42, 15], [43, 29, 13], [18, 28, 12],
          [32, 6, 8], [63, 36, 15], [59, 60, 20]]
-    cx, cy, cz = map(numpy.array, zip(*c))
+    cx, cy, cz = list(map(numpy.array, zip(*c)))
     h = [[23, 5, 7], [32, 0, 16], [37, 5, 0], [73, 36, 16], [69, 60, 20],
          [54, 62, 28], [57, 66, 12], [6, 59, 16], [1, 44, 22], [0, 49, 6]]
-    hx, hy, hz = map(numpy.array, zip(*h))
+    hx, hy, hz = list(map(numpy.array, zip(*h)))
 
     oxygen = points3d(ox, oy, oz, scale_factor=16, scale_mode='none',
                                 resolution=20, color=(1, 0, 0), name='Oxygen')
@@ -678,15 +678,15 @@ class Surf(Pipeline):
                 zi, zf = self.source.image_data.scalar_range
             aspect_ratios = [(zf - zi) / (xf - xi), (zf - zi) / (yf - yi)]
             if min(aspect_ratios) < 0.01 or max(aspect_ratios) > 100:
-                print 'Warning: the range of your scalar values differs by ' \
+                print('Warning: the range of your scalar values differs by ' \
                 'more than a factor 100 than the range of the grid values ' \
                 'and you did not '\
-                'specify a warp_scale. You could try warp_scale="auto".'
+                'specify a warp_scale. You could try warp_scale="auto".')
         if 'warp_scale' in kwargs and not kwargs['warp_scale'] == 'auto' \
                 and 'extent' in kwargs:
             # XXX: I should use the logging module.
-            print 'Warning: both warp_scale and extent keyword argument ' \
-            'specified, the z bounds of the extents will be overridden'
+            print('Warning: both warp_scale and extent keyword argument ' \
+            'specified, the z bounds of the extents will be overridden')
             xi, xf, yi, yf, zi, zf = kwargs['extent']
             zo = 0.5 * (zi + zf)
             try:
@@ -701,8 +701,8 @@ class Surf(Pipeline):
         elif kwargs.get('warp_scale', 1) == 'auto':
             if 'extent' in kwargs:
                 if 'warp_scale' in kwargs:
-                    print "Warning: extent specified, warp_scale='auto' " \
-                    "ignored."
+                    print("Warning: extent specified, warp_scale='auto' " \
+                    "ignored.")
             else:
                 try:
                     xi, xf, yi, yf, _, _ = self.source.data.bounds

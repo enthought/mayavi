@@ -1,16 +1,16 @@
 # Author: Suyog Dutt Jain <suyog.jain@aero.iitb.ac.in>
 #         Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2008,  Enthought, Inc.
+# Copyright (c) 2008-2015,  Enthought, Inc.
 # License: BSD Style.
 
 # Standard library imports.
 from os.path import abspath
-from StringIO import StringIO
+from io import BytesIO
 import copy
 import unittest
 
 # Local imports.
-from common import get_example_data
+from .common import get_example_data
 
 # Enthought library imports
 from mayavi.core.null_engine import NullEngine
@@ -74,7 +74,7 @@ class TestPlot3dMbReader(unittest.TestCase):
         scene = self.scene
 
         # Save visualization.
-        f = StringIO()
+        f = BytesIO()
         f.name = abspath('test.mv2') # We simulate a file.
         engine.save_visualization(f)
         f.seek(0) # So we can read this saved data.

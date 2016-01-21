@@ -7,7 +7,7 @@ Based on a Tk version of this widget by Gerald Knizia <cgk.d@gmx.net>
 Ported to wxPython by Pete Schmitt <schmitt@colorado.edu>
 Cleaned up and enhanced for use with MayaVi2 by Prabhu Ramachandran
 
-Copyright (c) 2005-2013, Gerald Knizia, Pete Schmitt and Prabhu Ramachandran
+Copyright (c) 2005-2015, Gerald Knizia, Pete Schmitt and Prabhu Ramachandran
 """
 
 
@@ -15,7 +15,7 @@ Copyright (c) 2005-2013, Gerald Knizia, Pete Schmitt and Prabhu Ramachandran
 import wx
 
 # Local imports
-from gradient_editor import (ColorControlPoint, ChannelBase, FunctionControl, 
+from .gradient_editor import (ColorControlPoint, ChannelBase, FunctionControl,
     GradientEditorWidget)
 
 ##########################################################################
@@ -105,9 +105,9 @@ class Channel(ChannelBase):
         table = self.control.table
         # only control points which are active for the current channel
         # are to be painted. filter them out.
-        relevant_control_points = filter( \
-            lambda x: self.name in x.active_channels,
-            table.control_points )
+        relevant_control_points = [
+            x for x in table.control_points if self.name in x.active_channels
+        ]
         dc.BeginDrawing()
         # lines between control points
         dc.SetPen(wx.Pen(self.rgb_color,1))
@@ -146,7 +146,7 @@ class wxFunctionControl(wx.Panel, FunctionControl):
     # Radius around a control point center in which we'd still count a
     # click as "clicked the control point"
     control_pt_click_tolerance = 4
-    
+
     ChannelFactory = Channel
 
     def __init__(self, master, gradient_table, color_space, width, height):
@@ -171,9 +171,9 @@ class wxFunctionControl(wx.Panel, FunctionControl):
         set_status_text: a callback used to set the status text
              when using the editor.
         """
-        FunctionControl.__init__(self, master, gradient_table, color_space, 
+        FunctionControl.__init__(self, master, gradient_table, color_space,
                                  width, height)
-                                 
+
         wx.Panel.__init__(self, master, size=wx.Size(width, height),
                           name="RGBHSVA Editor")
 
@@ -307,7 +307,7 @@ class wxGradientEditorWidget(wx.Panel, GradientEditorWidget):
                  'h', 's', 'v', 'r', 'g', 'b', 'a' separately
                  specified creates different panels for each.
         """
-        GradientEditorWidget.__init__(self, master, vtk_table, 
+        GradientEditorWidget.__init__(self, master, vtk_table,
                                       on_change_color_table, colors)
         wx.Panel.__init__(self, master)
 
@@ -333,7 +333,7 @@ class wxGradientEditorWidget(wx.Panel, GradientEditorWidget):
         # Add the function controls:
         function_controls = self.function_controls
 
-        
+
         editor_data = self.editor_data
         row = 1
         for color in self.colors:
@@ -388,8 +388,8 @@ class wxGradientEditorWidget(wx.Panel, GradientEditorWidget):
 
     def on_save(self, event):
         """
-        Open "Save" dialog, write lookuptable to 3 files: ``*.lut`` 
-        (lookuptable) ``*.grad`` (gradient table for use with this program), 
+        Open "Save" dialog, write lookuptable to 3 files: ``*.lut``
+        (lookuptable) ``*.grad`` (gradient table for use with this program),
         and ``*.jpg`` (image of the gradient)
         """
         dlg = wx.FileDialog(self, "Save LUT to...", style=wx.SAVE)
@@ -503,7 +503,7 @@ class wxGradientEditor(wx.Frame):
 # Test application.
 ##########################################################################
 def main():
-    from traitsui_gradient_editor import make_test_table
+    from .traitsui_gradient_editor import make_test_table
     table, ctf, otf = make_test_table(lut=False)
     # the actual gradient editor code.
     def on_color_table_changed():

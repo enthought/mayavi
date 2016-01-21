@@ -2,18 +2,18 @@
 
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2005, Enthought, Inc.
+# Copyright (c) 2005-2015, Enthought, Inc.
 # License: BSD Style.
 
 # Standard library imports.
-import cPickle
+import pickle
 from copy import deepcopy
 import os
 import logging
 import imp
 
 # Enthought library imports.
-from traits.api import (Instance, Property, Bool, Str, Python,
+from traits.api import (Any, Instance, Property, Bool, Str, Python,
     HasTraits, WeakRef, on_trait_change)
 from traitsui.api import TreeNodeObject
 from tvtk.pyface.tvtk_scene import TVTKScene
@@ -112,7 +112,7 @@ class Base(TreeNodeObject):
     # is done because a stopped object will not have a meaningful VTK
     # pipeline setup, so setting its state will lead to all kinds of
     # errors.
-    _saved_state = Str('')
+    _saved_state = Any('')
 
     # Hide and show actions
     _HideShowAction = Instance(Action,
@@ -166,7 +166,7 @@ class Base(TreeNodeObject):
         state = state_pickler.loads_state(str_state)
         state_pickler.update_state(state)
         # Save the state and load it if we are running.
-        self._saved_state = cPickle.dumps(state)
+        self._saved_state = pickle.dumps(state)
         if self.running:
             self._load_saved_state()
 
@@ -181,7 +181,7 @@ class Base(TreeNodeObject):
         saved_state = self._saved_state
         if len(saved_state) == 0:
             state = state_pickler.get_state(self)
-            #FIXME: This is for streamline seed point widget position which 
+            #FIXME: This is for streamline seed point widget position which
             #does not get serialized correctly
             if not is_old_pipeline():
                 try:
@@ -190,7 +190,7 @@ class Base(TreeNodeObject):
                     st.seed.widget.position = [pos.item() for pos in l_pos]
                 except (IndexError, AttributeError):
                     pass
-            saved_state = cPickle.dumps(state)
+            saved_state = pickle.dumps(state)
         new._saved_state = saved_state
         # In the unlikely case that a new instance is running, load
         # the saved state.
@@ -402,7 +402,9 @@ class Base(TreeNodeObject):
         result = {}
         view_filename = self._view_filename
         try:
-            execfile(view_filename, {}, result)
+            exec(compile(
+                open(view_filename).read(), view_filename, 'exec'), {}, result
+            )
             view = result['view']
         except IOError:
             logger.debug("No view found for [%s] in [%s]. "
@@ -422,7 +424,7 @@ class Base(TreeNodeObject):
         """
         saved_state = self._saved_state
         if len(saved_state) > 0:
-            state = cPickle.loads(saved_state)
+            state = pickle.loads(saved_state)
             if hasattr(self, '__set_pure_state__'):
                 self.__set_pure_state__(state)
             else:
@@ -436,9 +438,8 @@ class Base(TreeNodeObject):
         class_filename = module[-1] + '.py'
         module_dir_name = module[1:-1]
         base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        view_filename = reduce(os.path.join,
-                               [base_dir] + module_dir_name \
-                               + UI_DIR_NAME + [class_filename])
+        view_filename = os.path.join(*([base_dir] + module_dir_name \
+                                        + UI_DIR_NAME + [class_filename]))
         return view_filename
 
 
@@ -447,7 +448,7 @@ class Base(TreeNodeObject):
         """
         view_filename = self._view_filename
         try:
-            result = imp.load_module('view', file(view_filename),
+            result = imp.load_module('view', open(view_filename, 'r'),
                             view_filename, ('.py', 'U', 1))
             view = result.view
         except:

@@ -3,9 +3,10 @@ pickled or persisted, it saves the data given to it in the form of a
 gzipped string.
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2005-2008, Enthought, Inc.
+# Copyright (c) 2005-2015, Enthought, Inc.
 # License: BSD Style.
 
+import sys
 import os
 import tempfile
 
@@ -24,7 +25,7 @@ from mayavi.core.common import handle_children_state
 from mayavi.core.trait_defs import DEnum
 from mayavi.core.pipeline_info import (PipelineInfo,
         get_tvtk_dataset_name)
-from vtk_xml_file_reader import get_all_attributes
+from .vtk_xml_file_reader import get_all_attributes
 
 
 ######################################################################
@@ -171,14 +172,20 @@ class VTKDataSource(Source):
         data = self.data
         if data is not None:
             sdata = write_dataset_to_string(data)
-            z = gzip_string(sdata)
+            if sys.version_info[0] > 2:
+                z = gzip_string(sdata.encode('ascii'))
+            else:
+                z = gzip_string(sdata)
             d['data'] = z
         return d
 
     def __set_pure_state__(self, state):
         z = state.data
         if z is not None:
-            d = gunzip_string(z)
+            if sys.version_info[0] > 2:
+                d = gunzip_string(z).decode('ascii')
+            else:
+                d = gunzip_string(z)
             r = tvtk.DataSetReader(read_from_input_string=1,
                                    input_string=d)
             warn = r.global_warning_display

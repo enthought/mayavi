@@ -2,7 +2,7 @@
 """Script to run all the tests.
 """
 # Author: Prabhu Ramachandran <prabhu [at] aero . iitb . ac . in>
-# Copyright (c) 2008,  Prabhu Ramachandran
+# Copyright (c) 2008-2015,  Prabhu Ramachandran
 # License: BSD Style.
 
 import sys
@@ -25,20 +25,20 @@ def run_all(tests):
     fail = []
     for test in tests:
         cmd = 'python %s %s'%(test, args)
-        print cmd
+        print(cmd)
         status = os.system(cmd)
         if status == 0:
-            print "OK"
+            print("OK")
             success.append(test)
         else:
-            print "FAIL: %s"%test
+            print("FAIL: %s"%test)
             fail.append(test)
 
-    print '-'*70
-    print "%d successful tests, %d failures"%(len(success), len(fail))
+    print('-'*70)
+    print("%d successful tests, %d failures"%(len(success), len(fail)))
     for test in fail:
-        print test
-    print '-'*70
+        print(test)
+    print('-'*70)
     return len(fail) != 0
 
 
@@ -73,8 +73,8 @@ class RunAllTests(TestCase):
             e = self.script.engine
             for scene in e.scenes:
                 e.close_scene(scene)
-            print '*'*80
-            print name
+            print('*'*80)
+            print(name)
             obj = klass()
             obj.set(script=self.script)
             obj.test()

@@ -11,7 +11,7 @@ since they are not always reliable and a pain.
 
 # Standard library imports.
 from os.path import abspath
-from StringIO import StringIO
+from io import BytesIO
 import copy
 import numpy
 import sys
@@ -133,7 +133,7 @@ class TestStreamline(TestCase):
 
         bg = s.scene.background
         # Save visualization.
-        f = StringIO()
+        f = BytesIO()
         f.name = abspath('test.mv2') # We simulate a file.
         script.save_visualization(f)
         f.seek(0) # So we can read this saved data.

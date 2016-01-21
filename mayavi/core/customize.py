@@ -18,8 +18,10 @@ custom plugins.
 
 """
 # Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
-# Copyright (c) 2008, Prabhu Ramachandran, Enthought, Inc.
+# Copyright (c) 2008-2015, Prabhu Ramachandran, Enthought, Inc.
 # License: BSD Style.
+
+from __future__ import print_function
 
 # Standard library imports.
 import sys
@@ -84,9 +86,9 @@ def _import_contrib(pkg):
             mod_name = components[0]
             mod = __import__(mod_name, globals(), locals(), [mod_name], level=0)
     except Exception:
-        print "*"*80
+        print("*"*80)
         traceback.print_exc(file=sys.stdout)
-        print "*"*80
+        print("*"*80)
     return mod
 
 def add_contributions():
@@ -113,4 +115,3 @@ def get_custom_plugins():
     """
     return _get_global_plugins() + _get_user_plugins() + \
            get_contrib_plugins()
-

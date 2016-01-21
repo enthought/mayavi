@@ -3,9 +3,10 @@ VTK classes.
 
 """
 # Author: Prabhu Ramachandran
-# Copyright (c) 2004, Enthought, Inc.
+# Copyright (c) 2004-2015, Enthought, Inc.
 # License: BSD Style.
 
+from __future__ import print_function
 
 import sys
 import vtk
@@ -16,10 +17,13 @@ import copy
 
 # Local imports (these are relative imports because the package is not
 # installed when these modules are imported).
-from common import get_tvtk_name, camel2enthought, is_version_62, is_version_58
-import vtk_parser
-import indenter
-import special_gen
+from .common import (get_tvtk_name, camel2enthought, is_version_58,
+    is_version_62)
+from . import vtk_parser
+from . import indenter
+from . import special_gen
+
+PY_VER = sys.version_info[0]
 
 
 def clean_special_chars(s):
@@ -107,6 +111,12 @@ class WrapperGenerator:
         from tvtk.array_handler import deref_array
         from tvtk.tvtk_classes.tvtk_helper import wrap_vtk
 
+        try:
+            long
+        except NameError:
+            # Silly workaround for Python3.
+            long = int
+
         """
         out.write(self.indent.format(prelim))
 
@@ -115,7 +125,8 @@ class WrapperGenerator:
         klass = self.get_tree().get_class(node.name)
         vtk_class_name = klass.__name__
         class_name = self._get_class_name(klass)
-        if node.level == 0:
+
+        if node.level == 0 or node.name == 'vtkObjectBase':
             base_name = 'tvtk_base.TVTKBase'
         else:
             base_name = self._get_class_name(klass.__bases__)[0]
@@ -237,9 +248,9 @@ class WrapperGenerator:
         # editor. For this, we first write out the _full_traitnames_list: this
         # is used by the TVTKBaseHandler to build a TableEditor for all of
         # the (relevant) traits in the tvtk object.
-        t_g = toggle.keys(); t_g.sort()
-        s_g = state.keys(); s_g.sort()
-        gs_g = get_set.keys(); gs_g.sort()
+        t_g = sorted(toggle.keys())
+        s_g = sorted(state.keys())
+        gs_g = sorted(get_set.keys())
 
         junk = textwrap.fill("(%s)" % (t_g + s_g + gs_g))
         code = "\n_full_traitnames_list_ = \\" + "\n%s\n\n"%junk
@@ -280,9 +291,9 @@ class WrapperGenerator:
         _safe_remove(toggle, ['abort_execute', 'release_data_flag',
                               'dragable', 'pickable',
                               'debug', 'global_warning_display'])
-        t_g = toggle.keys(); t_g.sort()
-        s_g = state.keys(); s_g.sort()
-        gs_g = get_set.keys(); gs_g.sort()
+        t_g = sorted(toggle.keys())
+        s_g = sorted(state.keys())
+        gs_g = sorted(get_set.keys())
         junk = textwrap.fill('traitsui.View((%s, %s, %s),'%(t_g, s_g, gs_g))
         code = "\nview = \\" + \
                "\n%s\ntitle=\'%s\', scrollable=True, resizable=True,"\
@@ -321,13 +332,13 @@ class WrapperGenerator:
         prop_name = {'vtkActor': 'vtkProperty',
                      'vtkActor2D': 'vtkProperty2D',
                      'vtkVolume': 'vtkVolumeProperty'}
-        if node.name in prop_name.keys():
+        if node.name in prop_name:
             prop_node = self.get_tree().get_node(prop_name[node.name])
             prop_data = prop_node.data
             # Update the data of the node so the view includes the
             # property traits.
             code = ''
-            for key in n_data.keys():
+            for key in n_data:
                 props = prop_data[key]
                 n_data[key].update(props)
                 # Write the delegates.
@@ -364,7 +375,7 @@ class WrapperGenerator:
         meths = parser.get_state_methods()
         updateable_traits = {}
 
-        for m in meths.keys():
+        for m in meths:
             name = self._reform_name(m)
             updateable_traits[name] = 'Get' + m
             d = {}
@@ -411,7 +422,7 @@ class WrapperGenerator:
                 extra_val = 2
             if vtk_val == 0 and klass.__name__ == 'vtkImageData' \
                    and m == 'ScalarType':
-                extra_val = range(0, 22)
+                extra_val = list(range(0, 22))
             if vtk_val == 0 and klass.__name__ == 'vtkImagePlaneWidget' \
                    and m == 'PlaneOrientation':
                 extra_val = 3
@@ -451,7 +462,7 @@ class WrapperGenerator:
                 extra_val = 2
             if vtk_val == 0 and klass.__name__ == 'vtkImageData' \
                    and m == 'ScalarType':
-                extra_val = range(0, 22)
+                extra_val = list(range(0, 22))
             if vtk_val == 0 and klass.__name__ == 'vtkImagePlaneWidget' \
                    and m == 'PlaneOrientation':
                 extra_val = 3
@@ -501,7 +512,7 @@ class WrapperGenerator:
         parser = self.parser
         meths = parser.get_get_set_methods()
         updateable_traits = {}
-        for m in meths.keys():
+        for m in meths:
             name = self._reform_name(m)
             updateable_traits[name] = 'Get' + m
             vtk_get_meth = getattr(klass, 'Get' + m)
@@ -558,12 +569,16 @@ class WrapperGenerator:
                 self._write_trait(out, name, t_def, vtk_set_meth, mapped=False)
             elif rng is None:
                 typ = type(default)
-                number_map = {types.IntType: 'traits.Int',
-                              types.FloatType: 'traits.Float',
-                              types.LongType: 'traits.Long'}
+                if PY_VER < 3:
+                    number_map = {types.IntType: 'traits.Int',
+                                  types.FloatType: 'traits.Float',
+                                  types.LongType: 'traits.Long'}
+                else:
+                    number_map = {int: 'traits.Int',
+                                  float: 'traits.Float'}
                 if klass.__name__ == 'vtkImageReader2':
                     if m == 'HeaderSize':
-                        typ = types.LongType
+                        typ = int if PY_VER == 3 else types.LongType
                 if typ in number_map:
                     t_name = number_map[typ]
                     t_def = '%(t_name)s(%(default)s, enter_set=True, '\
@@ -581,7 +596,7 @@ class WrapperGenerator:
                             "auto_set=False))"%locals()
                     self._write_trait(out, name, t_def, vtk_set_meth,
                                       mapped=False)
-                elif typ in types.StringTypes:
+                elif typ is str:
                     if '\n' in default or '\r' in default:
                         default = clean_special_chars(default)
 
@@ -597,7 +612,7 @@ class WrapperGenerator:
                     t_def += 'enter_set=True, auto_set=False)'
                     self._write_trait(out, name, t_def, vtk_set_meth,
                                       mapped=False)
-                elif typ in (types.TupleType,):
+                elif typ in (tuple,):
                     if (name.find('color') > -1 or \
                         name.find('bond_color') > -1 or \
                         name.find('background') > -1) and \
@@ -610,23 +625,13 @@ class WrapperGenerator:
                             # changes value so we must force an
                             # update.
                             force = 'True'
-                        if klass.__name__ == 'vtkPLYWriter' \
-                                and name == 'color':
-                            print 'vtkPLYWriter color is not updateable'
-                            default = (1.0, 1.0, 1.0)
-                            del updateable_traits[name]
-                        if klass.__name__ == 'vtkHardwareSelector' \
+                        if is_version_62() and klass.__name__ == 'vtkHardwareSelector' \
                                 and name == 'prop_color_value':
                             message = (
                                 "vtkHardwareSelector: "
                                 "prop_color_value not updatable "
                                 "(VTK 6.2 bug - value not properly initialized)")
-                            print message
-                            default = (1.0, 1.0, 1.0)
-                            del updateable_traits[name]
-                        if klass.__name__ == 'vtkMoleculeMapper' \
-                                and name == 'bond_color':
-                            print 'vtkMoleculeMapper bond_color is not updateable'
+                            print(message)
                             default = (1.0, 1.0, 1.0)
                             del updateable_traits[name]
                         t_def = 'tvtk_base.vtk_color_trait(%(default)s)'%locals()
@@ -679,14 +684,14 @@ class WrapperGenerator:
                             self._write_tvtk_method(klass, out, vtk_get_meth, g_sig)
                             self._write_tvtk_method(klass, out, vtk_set_meth, s_sig)
                         del updateable_traits[name]
-                elif typ is types.BooleanType:
+                elif typ is bool:
                     t_def = 'traits.Bool(%(default)s)'%locals()
                     self._write_trait(out, name, t_def, vtk_set_meth,
                                       mapped=False)
                 else:
-                    print "%s:"%klass.__name__,
-                    print "Ignoring method: Get/Set%s"%m
-                    print "default: %s, range: None"%default
+                    print("%s:"%klass.__name__, end=' ')
+                    print("Ignoring method: Get/Set%s"%m)
+                    print("default: %s, range: None"%default)
                     del updateable_traits[name]
 
             else: # Has a specified range of valid values.
@@ -701,7 +706,7 @@ class WrapperGenerator:
                        "vtkAxesTransformRepresentation: "
                        "tolerance not updatable "
                        "(VTK 5.8 bug - value not properly initialized)")
-                    print message
+                    print(message)
                     default = rng[0]
                     del updateable_traits[name]
                 # If the default is just a little off from the range
@@ -789,7 +794,7 @@ class WrapperGenerator:
     def _get_class_name(self, klasses):
         """Returns renamed VTK classes as per TVTK naming style."""
         ret = []
-        if type(klasses) in (types.ListType, types.TupleType):
+        if type(klasses) in (list, tuple):
             return  [get_tvtk_name(x.__name__) \
                      for x in klasses]
         else:
@@ -1143,7 +1148,7 @@ class WrapperGenerator:
         string is used directly.
 
         """
-        if type(vtk_doc_meth) in types.StringTypes:
+        if type(vtk_doc_meth) is str:
             doc = vtk_doc_meth
         else: # Must be a method so get the docstring.
             doc = self.dm.get_method_doc(vtk_doc_meth.__doc__)

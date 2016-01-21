@@ -71,8 +71,8 @@ routes_table = [i for i in csv.reader(routes_data.split('\n')[1:-1])]
 # Build a dictionnary returning GPS coordinates for each city
 cities_coord = dict()
 for line in list(csv.reader(cities_data.split('\n')))[1:-1]:
-    name, long, lat = line
-    cities_coord[name] = (float(long), float(lat))
+    name, long_, lat = line
+    cities_coord[name] = (float(long_), float(lat))
 
 # Store all the coordinates of connected cities in a list also keep
 # track of which city corresponds to a given index in the list. The
@@ -129,7 +129,7 @@ mlab.pipeline.surface(points, color=(1, 1, 1),
 
 ###############################################################################
 # Display city names
-for city, index in cities.iteritems():
+for city, index in cities.items():
     label = mlab.text(x[index], y[index], city, z=z[index],
                       width=0.016 * len(city), name=city)
     label.property.shadow = True

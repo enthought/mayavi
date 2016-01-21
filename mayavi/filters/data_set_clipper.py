@@ -3,11 +3,14 @@ using various Implicit Widgets.
 """
 # Author: Suyog Dutt Jain <suyog.jain@aero.iitb.ac.in>
 #         Prabhu Ramachandran <prabhu at aero.iitb.ac.in>
-# Copyright (c) 2009, Enthought, Inc.
+# Copyright (c) 2009-2015, Enthought, Inc.
 # License: BSD Style.
 
 # Standard library imports.
-import cPickle
+try:
+    import cPickle
+except ImportError:
+    import pickle as cPickle
 
 # Enthought library imports.
 from traits.api import Instance, Button, Delegate
@@ -176,4 +179,3 @@ class DataSetClipper(Filter):
         f.clip_function = self.widget.implicit_function
         f.update()
         self.update_pipeline()
-

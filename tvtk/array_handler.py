@@ -10,10 +10,9 @@ seems no unique one-to-one VTK data array type to map it to.
 
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2004-2008,  Enthought, Inc.
+# Copyright (c) 2004-2015,  Enthought, Inc.
 # License: BSD Style.
 
-import types
 import sys
 
 import vtk
@@ -46,6 +45,12 @@ elif VTK_LONG_TYPE_SIZE == 8:
 
 BASE_REFERENCE_COUNT = vtk.vtkObject().GetReferenceCount()
 
+if sys.version_info[0] > 2:
+    unicode = str
+
+def getbuffer(array):
+    return getattr(numpy, 'getbuffer', memoryview)(array)
+
 
 ######################################################################
 # The array cache.
@@ -70,7 +75,7 @@ class ArrayCache(object):
 
     def __contains__(self, vtk_arr):
         key = vtk_arr.__this__
-        return self._cache.has_key(key)
+        return key in self._cache
 
     ######################################################################
     # `ArrayCache` interface.
@@ -119,7 +124,7 @@ class ArrayCache(object):
 _dummy = None
 # This makes the cache work even when the module is reloaded.
 for name in ['array_handler', 'tvtk.array_handler']:
-    if sys.modules.has_key(name):
+    if name in sys.modules:
         mod = sys.modules[name]
         if hasattr(mod, '_array_cache'):
             _dummy = mod._array_cache
@@ -166,7 +171,7 @@ def get_vtk_array_type(numeric_array_type):
         for key in _arr_vtk:
             if numpy.issubdtype(numeric_array_type, key):
                 return _arr_vtk[key]
-    raise TypeError, "Couldn't translate array's type to VTK"
+    raise TypeError("Couldn't translate array's type to VTK")
 
 def get_vtk_to_numeric_typemap():
     """Returns the VTK array type to numpy array type mapping."""
@@ -296,7 +301,7 @@ def array2vtk(num_array, vtk_array=None):
 
     # Point the VTK array to the numpy data.  The last argument (1)
     # tells the array not to deallocate.
-    result_array.SetVoidArray(numpy.getbuffer(z_flat), len(z_flat), 1)
+    result_array.SetVoidArray(getbuffer(z_flat), len(z_flat), 1)
 
     if bit_array:
         # Handle bit arrays -- they have to be copied.  Note that bit
@@ -509,10 +514,10 @@ def array2vtkCellArray(num_array, vtk_array=None):
     msg = "Invalid argument.  Valid types are a Python list of lists,"\
           " a Python list of numpy arrays, or a numpy array."
 
-    if issubclass(type(num_array), (types.ListType, types.TupleType)):
+    if issubclass(type(num_array), (list, tuple)):
         assert len(num_array[0]) > 0, "Input array must be 2D."
         tp = type(num_array[0])
-        if issubclass(tp, types.ListType): # Pure Python list.
+        if issubclass(tp, list): # Pure Python list.
             _slow_array2cells(num_array, cells)
             return cells
         elif issubclass(tp, numpy.ndarray):  # List of arrays.
@@ -538,7 +543,7 @@ def array2vtkCellArray(num_array, vtk_array=None):
             _set_cells(cells, n_cells, id_typ_arr)
             return cells
         else:
-            raise TypeError, msg
+            raise TypeError(msg)
     elif issubclass(type(num_array), numpy.ndarray):
         assert len(num_array.shape) == 2, "Input array must be 2D."
         tmp_arr = _get_tmp_array(num_array)
@@ -548,7 +553,7 @@ def array2vtkCellArray(num_array, vtk_array=None):
         _set_cells(cells, shp[0], id_typ_arr)
         return cells
     else:
-        raise TypeError, msg
+        raise TypeError(msg)
 
 
 def array2vtkPoints(num_array, vtk_points=None):
@@ -620,7 +625,7 @@ def array2vtkIdList(num_array, vtk_idlist=None):
 
 def is_array(arr):
     """Returns True if the passed `arr` is a numpy array or a List."""
-    if issubclass(type(arr), (numpy.ndarray, types.ListType)):
+    if issubclass(type(arr), (numpy.ndarray, list)):
         return True
     return False
 
@@ -659,7 +664,7 @@ def convert_array(arr, vtk_typ=None):
 
 def is_array_sig(s):
     """Given a signature, return if the signature has an array."""
-    if not isinstance(s, basestring):
+    if not isinstance(s, (unicode, str)):
         return False
     arr_types = ['Array', 'vtkPoints', 'vtkIdList']
     for i in arr_types:
@@ -702,7 +707,7 @@ def get_correct_sig(args, sigs):
             # No sig has the right number of args.
             msg = "Insufficient number of arguments to method."\
                   "Valid arguments are:\n%s"%sigs
-            raise TypeError, msg
+            raise TypeError(msg)
         elif count == 1:
             # If only one of the sigs has the right number of args,
             # return it.

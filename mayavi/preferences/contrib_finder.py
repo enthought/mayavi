@@ -4,11 +4,11 @@ on startup.
 """
 
 # Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
-# Copyright (c) 2008, Prabhu Ramachandran
+# Copyright (c) 2008-2015, Prabhu Ramachandran
 # License: BSD Style.
 
 import sys
-from os.path import isdir, exists, join, basename
+from os.path import isdir, exists, join
 from os import listdir
 
 from traits.api import (HasTraits, List, Str, Instance,
@@ -81,9 +81,8 @@ class ContribFinder(HasTraits):
     # Non-public interface.
     ######################################################################
     def _preference_helper_default(self):
-        from preference_manager import preference_manager
+        from .preference_manager import preference_manager
         return preference_manager.root
 
     def _search_fired(self):
         self.find()
-

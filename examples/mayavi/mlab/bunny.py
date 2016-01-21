@@ -1,7 +1,7 @@
 """
 Viewing Stanford 3D Scanning Repository bunny model
 """
-# Copyright (c) 2014, Enthought, Inc.
+# Copyright (c) 2014-2015, Enthought, Inc.
 # Standard library imports
 import os
 from os.path import join
@@ -12,9 +12,12 @@ from mayavi import mlab
 ### Download the bunny data, if not already on disk ############################
 if not os.path.exists('bunny.tar.gz'):
     # Download the data
-    import urllib
-    print "Downloading bunny model, Please Wait (3MB)"
-    opener = urllib.urlopen(
+    try:
+        from urllib import urlopen
+    except ImportError:
+        from urllib.request import urlopen
+    print("Downloading bunny model, Please Wait (3MB)")
+    opener = urlopen(
                 'http://graphics.stanford.edu/pub/3Dscanrep/bunny.tar.gz')
     open('bunny.tar.gz', 'wb').write(opener.read())
 
@@ -37,4 +40,3 @@ mlab.show()
 
 import shutil
 shutil.rmtree('bunny_data')
-

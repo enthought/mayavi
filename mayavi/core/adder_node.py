@@ -9,7 +9,7 @@ to the tree.
 
 # Enthought library imports.
 from traits.api import (HasTraits, Str, Property, Any, Button,
-                                  List, Instance, implements,
+                                  List, Instance, provides,
                                   ToolbarButton)
 from traitsui.api import View, Item, Group,\
         TextEditor, TreeEditor, TreeNode, ListEditor, ITreeNode
@@ -22,10 +22,10 @@ from .registry import registry
 ###############################################################################
 # AdderNode class
 ###############################################################################
+@provides(ITreeNode)
 class AdderNode(TreeNode):
     """ Base class that will display a TreeNode to add items to the tree.
     """
-    implements(ITreeNode)
 
     # String to be shown in the TreeEditor.
     label = Str('Base AdderNode')

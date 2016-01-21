@@ -2,10 +2,10 @@
 Code to setup the preferences for common objects.
 """
 # Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
-# Copyright (c) 2008, Prabhu Ramachandran
+# Copyright (c) 2008-2015, Enthought Inc.
 # License: BSD Style.
 
-from preference_manager import preference_manager
+from .preference_manager import preference_manager
 
 
 def get_scene_preferences():
@@ -29,4 +29,3 @@ def set_scene_preferences(scene, prefs_dict=None):
     scene.set(**prefs_dict)
     # If this isn't done the background isn't set.
     scene.renderer.background = scene.background
-

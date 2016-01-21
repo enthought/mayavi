@@ -4,17 +4,16 @@
 from tvtk.pyface.tvtk_scene import TVTKScene
 from pyface.workbench.api import WorkbenchWindow
 from traits.api import HasTraits, List, Instance, Property
-from traits.api import implements, on_trait_change
+from traits.api import provides, on_trait_change
 from tvtk.plugins.scene.scene_editor import SceneEditor
 
 # Local imports.
-from i_scene_manager import ISceneManager
+from .i_scene_manager import ISceneManager
 
 
+@provides(ISceneManager)
 class SceneManager(HasTraits):
     """ Manage the TVTK scenes. """
-
-    implements(ISceneManager)
 
     #### 'SceneManager' interface #############################################
 
@@ -94,6 +93,3 @@ class SceneManager(HasTraits):
         return
 
 #### EOF ######################################################################
-
-
-

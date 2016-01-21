@@ -3,16 +3,19 @@ type information, and organizes them.
 
 """
 # Author: Prabhu Ramachandran
-# Copyright (c) 2004-2007, Enthought, Inc.
+# Copyright (c) 2004-2015, Enthought, Inc.
 # License: BSD Style.
 
+from __future__ import print_function
+
+import collections
 import re
 import types
 
 # Local imports (these are relative imports for a good reason).
-import class_tree
-import vtk_module as vtk
-from common import is_version_62
+from . import class_tree
+from . import vtk_module as vtk
+from .common import is_version_62
 
 class VTKMethodParser:
     """This class provides useful methods for parsing methods of a VTK
@@ -147,7 +150,7 @@ class VTKMethodParser:
         if no_warn:
             # Save warning setting and shut it off before parsing.
             warn = vtk.vtkObject.GetGlobalWarningDisplay()
-            if klass.__name__ <> 'vtkObject':
+            if klass.__name__ != 'vtkObject':
                 vtk.vtkObject.GlobalWarningDisplayOff()
 
         self._organize_methods(klass, methods)
@@ -164,7 +167,7 @@ class VTKMethodParser:
             meths = dir(klass)
             d = methods.fromkeys(meths)
             methods.update(d)
-        return methods.keys()
+        return list(methods.keys())
 
     def get_methods(self, klass):
         """Returns all the relevant methods of the given VTK class."""
@@ -195,7 +198,6 @@ class VTKMethodParser:
         # really Toggle (ThingOn) or State (SetThingToThong) etc. methods and
         # in those cases we really should ignore the method.  So in essence,
         # any Get/Set pair that is not a State or Toggle should be redefined.
-        overrides = []
         for m in methods:
             check = False
             if m.startswith('Get'):
@@ -206,8 +208,19 @@ class VTKMethodParser:
                 check = True
             if check:
                 if m1 in methods and (m1 in ignore or m in ignore):
-                    # Skips are stored as Set followed by Get.
-                    skip.extend(['Set' +m[3:], 'Get'+m[3:]])
+                    skip_method = True
+                    if hasattr(klass, 'mro'):
+                        # New in VTK 6.3.x with Python 3 support.  In this
+                        # case  dir(klass) produces all methods so we check if
+                        # the definition is the same as the parent.
+                        base_cls = klass.__bases__[0]
+                        if getattr(klass, m) is getattr(base_cls, m, None) \
+                            and getattr(klass, m1) is getattr(base_cls, m1, None):
+                            skip_method = False
+
+                    if skip_method:
+                        # Skips are stored as Set followed by Get.
+                        skip.extend(['Set' +m[3:], 'Get'+m[3:]])
 
         for m in skip[:]:
             if m.startswith('Set'):
@@ -308,6 +321,8 @@ class VTKMethodParser:
                 return None
         # Remove all the C++ function signatures.
         doc = method.__doc__
+        if doc is None:
+            return None
         doc = doc[:doc.find('\n\n')]
         sig = []
         c_sig = [] # The C++ signature
@@ -457,8 +472,10 @@ class VTKMethodParser:
         meths = self._find_state_methods(klass, meths)
         meths = self._find_get_set_methods(klass, meths)
         meths = self._find_get_methods(klass, meths)
-        self.other_meths = [x for x in meths \
-                            if callable(getattr(klass, x))]
+        self.other_meths = [
+            x for x in meths \
+            if isinstance(getattr(klass, x), collections.Callable)
+        ]
 
     def _remove_method(self, meths, method):
         try:
@@ -500,8 +517,7 @@ class VTKMethodParser:
                     try:
                         tm[key] = getattr(obj, 'Get%s'%key)()
                     except (TypeError, AttributeError):
-                        print klass.__name__, key
-                        pass
+                        print(klass.__name__, key)
         return meths
 
     def _find_state_methods(self, klass, methods):
@@ -530,7 +546,7 @@ class VTKMethodParser:
                     if (('Get' + key) in methods):
                         val = method[match.start()+2:] # <Value> part.
                         meths.remove(method)
-                        if sm.has_key(key):
+                        if key in sm:
                             sm[key].append([val, None])
                         else:
                             sm[key] = [[val, None]]
@@ -562,7 +578,7 @@ class VTKMethodParser:
                             # its SetIvarToState methods that have
                             # non-standard arguments, this throws off
                             # the parser and we ignore these.
-                            #print klass.__name__, key
+                            #print(klass.__name__, key)
                             pass
                         else:
                             val = getattr(obj, 'Get%s'%key)()
@@ -684,8 +700,9 @@ class VTKMethodParser:
             if self._tree:
                 t = self._tree
                 n = t.get_node(klass.__name__)
-                for c in n.children:
-                    obj = self._get_instance(t.get_class(c.name))
-                    if obj:
-                        break
+                if n is not None:
+                    for c in n.children:
+                        obj = self._get_instance(t.get_class(c.name))
+                        if obj:
+                            break
         return obj

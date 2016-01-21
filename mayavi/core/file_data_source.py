@@ -73,7 +73,7 @@ def get_file_list(file_name):
         else:
             return 0
 
-    files.sort(file_sort)
+    files.sort(key=lambda x:_get_index(x))
     return files
 
 
@@ -135,7 +135,7 @@ class FileDataSource(Source):
         if not isfile(fname):
             msg = 'Could not find file at %s\n'%fname
             msg += 'Please move the file there and try again.'
-            raise IOError, msg
+            raise IOError(msg)
 
         self.initialize(fname)
         # Now set the remaining state without touching the children.
@@ -186,4 +186,3 @@ class FileDataSource(Source):
             self.timestep = self.file_list.index(value)
         except ValueError:
             self.timestep = 0
-
