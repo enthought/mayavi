@@ -19,8 +19,8 @@ install:
   - ps: if ((Test-Path "c:/temp") -eq 0) { mkdir c:/temp }
   - ps: (new-object net.webclient).DownloadFile($Env:vtk_url, 'c:/vtkpython.exe')
   - ps: c:/vtkpython.exe /S /D=C:\vtk
-  - ps: (new-object net.webclient).DownloadFile('https://raw.github.com/pypa/pip/master/contrib/get-pip.py', 'c:/get-pip.py')
-  - ps: python c:/get-pip.py
+  - ps: python -m pip install --upgrade --no-use-wheel pip
+  - ps: pip install --upgrade wheel
   - ps: pip --version
   - cmd /v:on /e:on /c ".\appveyor-install.cmd"
 test_script:
