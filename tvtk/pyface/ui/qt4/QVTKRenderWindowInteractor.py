@@ -412,6 +412,11 @@ class QVTKRenderWindowInteractor(QWidget):
         self._Iren.MouseMoveEvent()
 
     def keyPressEvent(self, ev):
+        """ React to key pressed event.
+
+        If event text contains multiple characters, it is truncated to first
+        one.
+        """
         ctrl, shift = self._GetCtrlShift(ev)
         key_sym = _qt_key_to_key_sym(ev.key())
         if ev.key() < 256:
@@ -427,6 +432,11 @@ class QVTKRenderWindowInteractor(QWidget):
                 key = chr(ev.key())
         else:
             key = chr(0)
+
+        # Truncating key pressed to first character if slow machine leads to
+        # multiple times the same key (required by SetEventInformationFlipY):
+        if ev.isAutoRepeat():
+            key = key[0]
 
         self._Iren.SetEventInformationFlipY(self.__saveX, self.__saveY,
                                             ctrl, shift, key, 0, key_sym)
