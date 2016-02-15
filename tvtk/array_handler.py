@@ -351,14 +351,16 @@ def vtk2array(vtk_array):
         dtype = get_numeric_array_type(typ)
         return numpy.array([], dtype)
 
-    # First check if this array already has a numpy array cached, if
-    # it does, reshape that and return it.
+    # First check if this array already has a numpy array cached,
+    # if it does and the array size has not been changed, reshape
+    # that and return it.
     if vtk_array in _array_cache:
         arr = _array_cache.get(vtk_array)
         if shape[1] == 1:
             shape = (shape[0], )
-        arr = numpy.reshape(arr, shape)
-        return arr
+        if arr.size == numpy.prod(shape):
+            arr = numpy.reshape(arr, shape)
+            return arr
 
     # If VTK's new numpy support is available, use the buffer interface.
     if numpy_support is not None and typ != vtkConstants.VTK_BIT:
