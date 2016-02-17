@@ -109,6 +109,7 @@ class RunScript(Action):
                 mv = get_imayavi(self.window)
                 g['mayavi'] = mv
                 g['engine'] = mv.engine
+            g['__file__'] = dialog.path
             # Do execfile
             try:
                 # If we don't pass globals twice we get NameErrors and nope,

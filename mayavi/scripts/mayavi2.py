@@ -405,6 +405,7 @@ def run_script(mayavi, script_name):
     if 'mayavi' not in g:
         g['mayavi'] = mayavi
         g['engine'] = mayavi.engine
+    g['__file__'] = script_name
     error = False
     # Do execfile
     try:
