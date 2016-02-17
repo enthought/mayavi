@@ -4,7 +4,7 @@ using Envisage or the Mayavi Envisage application.
 
 """
 # Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
-# Copyright (c) 2007, Enthought, Inc.
+# Copyright (c) 2007-2016, Enthought, Inc.
 # License: BSD Style.
 
 from os.path import join, abspath
@@ -50,7 +50,6 @@ if __name__ == '__main__':
     # to disappear with qt4.
     e, ui = main()
     # Create a GUI instance and start the event loop.  We do this here so that
-    # main can be run from IPython -wthread if needed.
+    # main can be run from IPython --gui=qt if needed.
     gui = GUI()
     gui.start_event_loop()
-

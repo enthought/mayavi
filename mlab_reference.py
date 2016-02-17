@@ -3,7 +3,7 @@ Script to generate the function reference for mlab.
 
 """
 # Author: Gael Varoquaux <gael dot varoquaux at normalesup dot org>
-# Copyright (c) 2007, Enthought, Inc.
+# Copyright (c) 2007-2016, Enthought, Inc.
 # License: BSD Style.
 
 from __future__ import print_function
@@ -137,8 +137,7 @@ def document_function(func, func_name=None, example_code=None,
 
     if example_code is not None:
         documentation += """
-**Example** (run in ``ipython -wthread``, ``ipython --gui=wx`` for recent
-IPython versions, or in the mayavi2 interactive shell,
+**Example** (run in ``ipython --gui=qt``, or in the mayavi2 interactive shell,
 see :ref:`running-mlab-scripts` for more info)::
 
 %s

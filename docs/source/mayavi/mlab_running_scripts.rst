@@ -18,11 +18,10 @@ scripts using IPython_'s ``%run`` command::
 
     In [1]: %run my_script
 
-You need to start IPython_ with the `-wthread` option, that became `--gui=wx` in the recent IPython versions (when installed
-with `EPD`_, the `pylab` start-menu link does this for you). In this
+You need to start IPython_ with the `--gui=qt` option. In this
 environment, the plotting commands are interactive: they have an
 immediate effect on the figure, alleviating the need to use the
-:func:`show` function. 
+:func:`show` function.
 
 .. _EPD: http://www.enthought.com/products/epd.php
 
@@ -37,31 +36,34 @@ Using together with Matplotlib's pylab
 If you want to use Matplotlib's pylab with Mayavi's mlab in IPython you
 should:
 
-    * if your IPython version is greater than 0.11: start IPython with::
+    * start IPython with::
 
-        $ ipython --gui=wx --pylab=wx
+        $ ipython --gui=qt --pylab=qt
 
-    * else, if your IPython version is greater than 0.8.4: start IPython with
-      the following options::
+    * elsewhere, start IPython with the `--gui=qtt` option::
 
-        $ ipython -pylab -wthread
-
-    * elsewhere, start IPython with the `-wthread` option::
-
-        $ ipython -wthread
+        $ ipython --gui=qt
 
       and **before** importing pylab, enter the following Python
       commands::
 
         >>> import matplotlib
-        >>> matplotlib.use('WxAgg')
+        >>> matplotlib.use('Qt4Agg')
         >>> matplotlib.interactive(True)
 
 If you want matplotlib and mlab to work together by default in IPython,
 you can change you default matplotlib backend, by editing the
 `~/.matplotlib/matplotlibrc` to add the following line::
 
-    backend     : WXAgg
+    backend     : Qt4Agg
+
+If for some reason, the Qt backend does not work, you can use the wx
+backend.  To do this you may do::
+
+  $ ETS_TOOLKIT=wx
+  $ ipython --gui=wx
+
+
 
 .. topic:: Capturing mlab plots to integrate in pylab
 
@@ -91,7 +93,7 @@ the event-loop, which gives you more flexibility::
 
  from mayavi import mlab
  from numpy import random
- 
+
  @mlab.show
  def image():
     mlab.imshow(random.random((10, 10)))
@@ -108,4 +110,3 @@ will start one and the image function will not return until it is closed.
    sentence-end-double-space: t
    fill-column: 70
    End:
-

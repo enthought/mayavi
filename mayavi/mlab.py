@@ -1,13 +1,13 @@
 """
 mlab: a simple scripting interface to Mayavi2 for 3D plotting.
 
-Can be used inside Mayavi2 itself, in "ipython -wthread", or in any
-application with the WxWidget mainloop running.
+Can be used inside Mayavi2 itself, in "ipython --gui=qt", or in any
+application with a compatible UI (Qt or wxPython).
 """
 
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
 #         Gael Varoquaux <gael dot varoquaux at normalesup dot org>
-# Copyright (c) 2007-2015, Enthought, Inc.
+# Copyright (c) 2007-2016, Enthought, Inc.
 # License: BSD Style.
 
 

@@ -1,4 +1,4 @@
-""" A module that provides VPython like capabilities.  For more
+"""A module that provides VPython like capabilities.  For more
 details about VPython, refer the official website.
 VPython : http://www.vpython.org/index.html
 
@@ -27,14 +27,12 @@ To see examples of classes and functions look at the `test_*`
 functions at the end of this file. Here is a quick example
 demonstrating how to use visual.
 
-Note: To provide threading support for WXWidgets which are essential
-for all GUI fucntionalities in visual, the visual module should be
-interactively used in ipython only when wthread mode is
-enabled. visual will not work properly in an interactive mode in
-vanilla python interpretor.
-::
+Note: To provide threading support for WXWidgets which are essential for all
+GUI fucntionalities in visual, the visual module should be interactively used
+in ipython only when --gui=qt is enabled. visual will not work properly in an
+interactive mode in vanilla python interpretor.  ::
 
-    $ ipython -wthread
+    $ ipython --gui=qt
 
     In [1]: from tvtk.tools import visual
     In [2]: visual.test_sphere()
@@ -134,7 +132,7 @@ def show():
     visual program. Note - Don't call this function when running
     visual from ipython iterpretor in an interactive mode
     """
-    if '-wthread' in sys.argv:
+    if '-wthread' in sys.argv or '--gui' in sys.argv:
         pass
     else:
         gui = GUI()
