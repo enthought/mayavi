@@ -396,6 +396,25 @@ class TestArrayHandler(unittest.TestCase):
         del varr
         self.assertEqual(len(cache), 0)
 
+    def test_vtk2array_appended_array(self):
+        """Test the vtk2array can tolerate appending a cached array."""
+        # array is cached upon array2vtk is called
+        arr  = numpy.arange(8).reshape(2, 4)
+        vtk_arr = array_handler.array2vtk(arr)
+        arr1 = array_handler.vtk2array(vtk_arr)
+
+        # the vtk array is appended, shapes don't match cached array anymore
+        extra_row = (1, 2, 3, 4)
+        vtk_arr.InsertTuple4(2, *extra_row)
+
+        # arr2 has a different shape
+        arr2 = array_handler.vtk2array(vtk_arr)
+        self.assertEqual(arr2.shape, (3, 4))
+
+        # check values
+        expected = numpy.vstack((arr, numpy.array(extra_row)))
+        self.assertEqual(numpy.sum(arr2 - expected), 0)
+
     def test_id_array(self):
         """Test if a vtkIdTypeArray is converted correctly."""
         arr = vtk.vtkIdTypeArray()
