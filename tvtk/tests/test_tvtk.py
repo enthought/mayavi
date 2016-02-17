@@ -669,6 +669,7 @@ class TestTVTKModule(unittest.TestCase):
 
         output = check_output([sys.executable, "-v", "-c",
                                "from tvtk.api import tvtk"], stderr=STDOUT)
+        output = output.decode('ascii')
         self.assertFalse('QtCore' in output)
         self.assertFalse('wx' in output)
 
