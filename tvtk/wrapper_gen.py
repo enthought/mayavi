@@ -100,7 +100,9 @@ class WrapperGenerator:
         prelim = """
         # Automatically generated code: EDIT AT YOUR OWN RISK
         from traits import api as traits
-        from traitsui import api as traitsui
+        from traitsui.item import Item, spring
+        from traitsui.group import HGroup
+        from traitsui.view import View
 
         from tvtk import vtk_module as vtk
         from tvtk import tvtk_base
@@ -110,6 +112,11 @@ class WrapperGenerator:
         from tvtk import array_handler
         from tvtk.array_handler import deref_array
         from tvtk.tvtk_classes.tvtk_helper import wrap_vtk
+
+
+        def InstanceEditor(*args, **kw):
+            from traitsui.editors.api import InstanceEditor as Editor
+            return Editor(view_name="handler.view")
 
         try:
             long
@@ -272,8 +279,8 @@ class WrapperGenerator:
         out.write(self.indent.format(code))
         self.indent.incr()
         item_contents = (
-              'traitsui.Item("handler._full_traits_list",show_label=False)')
-        junk = 'traitsui.View((%s),'% item_contents
+              'Item("handler._full_traits_list",show_label=False)')
+        junk = 'View((%s),'% item_contents
         code = "\nfull_traits_view = \\" + \
                "\n%s\ntitle=\'%s\', scrollable=True, resizable=True,"\
                "\nhandler=TVTKBaseHandler,"\
@@ -294,7 +301,7 @@ class WrapperGenerator:
         t_g = sorted(toggle.keys())
         s_g = sorted(state.keys())
         gs_g = sorted(get_set.keys())
-        junk = textwrap.fill('traitsui.View((%s, %s, %s),'%(t_g, s_g, gs_g))
+        junk = textwrap.fill('View((%s, %s, %s),'%(t_g, s_g, gs_g))
         code = "\nview = \\" + \
                "\n%s\ntitle=\'%s\', scrollable=True, resizable=True,"\
                "\nhandler=TVTKBaseHandler,"\
@@ -309,13 +316,13 @@ class WrapperGenerator:
         out.write(self.indent.format(code))
         self.indent.incr()
         viewtype_contents = (
-            'traitsui.HGroup(traitsui.spring, "handler.view_type", ' +\
+            'HGroup(spring, "handler.view_type", ' +\
                              'show_border=True)')
         view_contents = (
-            '\ntraitsui.Item("handler.info.object", ' +\
-            'editor = traitsui.InstanceEditor(view_name="handler.view"), ' +\
+            '\nItem("handler.info.object", ' +\
+            'editor = InstanceEditor(view_name="handler.view"), ' +\
             'style = "custom", show_label=False)')
-        junk = 'traitsui.View((%s, %s),'% (viewtype_contents, view_contents)
+        junk = 'View((%s, %s),'% (viewtype_contents, view_contents)
         code = "\ntraits_view = \\" + \
                "\n%s\ntitle=\'%s\', scrollable=True, resizable=True,"\
                "\nhandler=TVTKBaseHandler,"\
