@@ -311,7 +311,8 @@ class WrapperGenerator:
         self.indent.decr()
 
         # Finally, we write the default traits_view which includes a field
-        # for specifying the view type (basic or advanced) and the                     # corresponding view (basic->view and advanced->full_traits_view)
+        # for specifying the view type (basic or advanced) and the
+        # corresponding view (basic->view and advanced->full_traits_view)
         code = "\nelif name in (None, 'traits_view'):"
         out.write(self.indent.format(code))
         self.indent.incr()
