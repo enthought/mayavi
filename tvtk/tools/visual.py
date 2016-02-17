@@ -27,10 +27,9 @@ To see examples of classes and functions look at the `test_*`
 functions at the end of this file. Here is a quick example
 demonstrating how to use visual.
 
-Note: To provide threading support for WXWidgets which are essential for all
-GUI fucntionalities in visual, the visual module should be interactively used
-in ipython only when --gui=qt is enabled. visual will not work properly in an
-interactive mode in vanilla python interpretor.  ::
+Note: The visual module should be interactively used in ipython only when
+--gui=qt is enabled. `visual` will not work properly in an interactive mode
+with the vanilla python interpretor.  ::
 
     $ ipython --gui=qt
 
