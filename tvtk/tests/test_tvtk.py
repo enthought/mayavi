@@ -667,8 +667,10 @@ class TestTVTKModule(unittest.TestCase):
     def test_import_tvtk_does_not_import_gui(self):
         from subprocess import check_output, STDOUT
 
-        output = check_output([sys.executable, "-v", "-c",
-                               "from tvtk.api import tvtk"], stderr=STDOUT)
+        output = check_output(
+            [sys.executable, "-v", "-c",
+             "from tvtk.api import tvtk; p = tvtk.Property()"], stderr=STDOUT
+        )
         output = output.decode('ascii')
         self.assertFalse('QtCore' in output)
         self.assertFalse('wx' in output)
