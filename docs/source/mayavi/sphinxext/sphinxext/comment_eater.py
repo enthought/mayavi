@@ -1,10 +1,7 @@
 from __future__ import division, absolute_import, print_function
 
 import sys
-if sys.version_info[0] >= 3:
-    from io import StringIO
-else:
-    from io import StringIO
+from io import StringIO
 
 import compiler
 import inspect
@@ -12,6 +9,11 @@ import textwrap
 import tokenize
 
 from .compiler_unparse import unparse
+
+if sys.version_info[0] >= 3:
+    sixu = lambda s: s
+else:
+    sixu = lambda s: unicode(s, 'unicode_escape')
 
 
 class Comment(object):
@@ -156,7 +158,7 @@ def get_class_traits(klass):
     # FIXME: gracefully handle errors here or in the caller?
     source = inspect.getsource(klass)
     cb = CommentBlocker()
-    cb.process_file(StringIO(source))
+    cb.process_file(StringIO(sixu(source)))
     mod_ast = compiler.parse(source)
     class_ast = mod_ast.node.nodes[0]
     for node in class_ast.code.nodes:
