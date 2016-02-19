@@ -125,13 +125,13 @@ def get_doc_object(obj, what=None, doc=None, config=None):
         else:
             what = 'object'
     if what == 'class' and obj is not None:
-        new_doc = SphinxTraitsDoc(obj, '', func_doc=SphinxFunctionDoc, config=config)
+        doc = SphinxTraitsDoc(obj, '', func_doc=SphinxFunctionDoc, config=config)
         if looks_like_issubclass(obj, 'HasTraits'):
             for name, trait, comment in comment_eater.get_class_traits(obj):
                 # Exclude private traits.
                 if not name.startswith('_'):
-                    new_doc['Traits'].append((name, trait, comment.splitlines()))
-        return new_doc
+                    doc['Traits'].append((name, trait, comment.splitlines()))
+        return doc
     elif what in ('function', 'method'):
         return SphinxFunctionDoc(obj, doc=doc, config=config)
     else:
