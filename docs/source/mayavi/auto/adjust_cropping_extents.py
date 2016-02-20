@@ -14,9 +14,9 @@ object as a dialog box. We use a callback called when these attributes
 are modified to propagate them to the filter. For more information
 on creating GUIs with Traits:
 
-    http://code.enthought.com/projects/traits/docs/html/tutorials/traits_ui_scientific_app.html
+    http://docs.enthought.com/traitsui/tutorials/traits_ui_scientific_app.html
 
-    http://code.enthought.com/projects/traits/documentation.php
+    http://docs.enthought.com/traits
 
 """
 # Author: Gael Varoquaux <gael.varoquaux@normalesup.org>
