@@ -20,16 +20,16 @@ import os
 import pydoc
 import collections
 
-from . import docscrape
-from . import docscrape_sphinx
-from .docscrape_sphinx import SphinxClassDoc, SphinxFunctionDoc, SphinxDocString
+from sphinxext import docscrape
+from sphinxext.docscrape_sphinx import (SphinxClassDoc, SphinxFunctionDoc,
+                                        SphinxDocString, sixu)
 
-from . import numpydoc
+from sphinxext import numpydoc
 
-from . import comment_eater
+from sphinxext import comment_eater
 
 class SphinxTraitsDoc(SphinxClassDoc):
-    def __init__(self, cls, modulename='', func_doc=SphinxFunctionDoc):
+    def __init__(self, cls, modulename='', func_doc=SphinxFunctionDoc, config=None):
         if not inspect.isclass(cls):
             raise ValueError("Initialise using a class. Got %r" % cls)
         self._cls = cls
@@ -114,7 +114,7 @@ def looks_like_issubclass(obj, classname):
             return True
     return False
 
-def get_doc_object(obj, what=None, config=None):
+def get_doc_object(obj, what=None, doc=None, config=None):
     if what is None:
         if inspect.isclass(obj):
             what = 'class'
@@ -124,7 +124,7 @@ def get_doc_object(obj, what=None, config=None):
             what = 'function'
         else:
             what = 'object'
-    if what == 'class':
+    if what == 'class' and obj is not None:
         doc = SphinxTraitsDoc(obj, '', func_doc=SphinxFunctionDoc, config=config)
         if looks_like_issubclass(obj, 'HasTraits'):
             for name, trait, comment in comment_eater.get_class_traits(obj):
@@ -133,8 +133,10 @@ def get_doc_object(obj, what=None, config=None):
                     doc['Traits'].append((name, trait, comment.splitlines()))
         return doc
     elif what in ('function', 'method'):
-        return SphinxFunctionDoc(obj, '', config=config)
+        return SphinxFunctionDoc(obj, doc=doc, config=config)
     else:
+        if doc is None and obj:
+            doc = pydoc.getobj(obj)
         return SphinxDocString(pydoc.getdoc(obj), config=config)
 
 def setup(app):
