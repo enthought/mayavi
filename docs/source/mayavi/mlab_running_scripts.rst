@@ -30,26 +30,32 @@ application, or in any interactive Python shell of wxPython-based
 application (such as other Envisage-based applications, or SPE, Stani's
 Python Editor).
 
-Using together with Matplotlib's pylab
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Using together with Matplotlib
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If you want to use Matplotlib's pylab with Mayavi's mlab in IPython you
-should:
+If you want to use Matplotlib's interactive plotting with Mayavi's
+mlab in IPython you should:
 
     * start IPython with::
 
-        $ ipython --gui=qt --pylab=qt
+        $ ipython --matplotlib=qt
 
-    * elsewhere, start IPython with the `--gui=qtt` option::
+    * elsewhere, start IPython with the `--gui=qt` option::
 
         $ ipython --gui=qt
 
-      and **before** importing pylab, enter the following Python
-      commands::
+      and **before** importing any matplotlib modules, enter the
+      following Python commands::
 
         >>> import matplotlib
         >>> matplotlib.use('Qt4Agg')
         >>> matplotlib.interactive(True)
+
+    * one could also use the ``--pylab`` option to IPython as
+      follows::
+
+        $ ipython --pylab=qt
+
 
 If you want matplotlib and mlab to work together by default in IPython,
 you can change you default matplotlib backend, by editing the
@@ -63,7 +69,17 @@ backend.  To do this you may do::
   $ ETS_TOOLKIT=wx
   $ ipython --gui=wx
 
+Note that as far as Mayavi is concerned, it chooses the appropriate
+toolkit using the ``ETS_TOOLKIT`` environment variable.  If this is
+not set, the supported toolkits are tried in some order until one
+succeeds.  With recent releases of traitsui_, the default is Qt.
+The possible options for ``ETS_TOOLKIT`` are:
 
+ - `qt4`: to use the Qt library,
+ - `wx`: to use wxPython,
+ - `null`: to use no UI toolkit.
+
+.. _traitsui: http://github.com/enthought/traitsui
 
 .. topic:: Capturing mlab plots to integrate in pylab
 
