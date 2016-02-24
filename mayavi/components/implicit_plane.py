@@ -149,15 +149,18 @@ class ImplicitPlane(Component):
     ######################################################################
     def _get_normal(self):
         return self.widget.normal
+
     def _set_normal(self, value):
         w = self.widget
         old = w.normal
         w.normal = value
         self.trait_property_changed('normal', old, value)
         self.update_plane()
+        self.pipeline_changed = True
 
     def _get_origin(self):
         return self.widget.origin
+
     def _set_origin(self, value):
         # Ugly, but needed.
         w = tvtk.to_vtk(self.widget)
