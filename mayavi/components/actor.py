@@ -2,7 +2,7 @@
 
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2005, Enthought, Inc.
+# Copyright (c) 2005-2016, Enthought, Inc.
 # License: BSD Style.
 
 # Enthought library imports.
@@ -93,6 +93,7 @@ class Actor(Component):
                (len(self.inputs[0].outputs) == 0):
             return
 
+        self.configure_input(self.mapper, self.inputs[0].outputs[0])
         self._tcoord_generator_mode_changed(self.tcoord_generator_mode)
         self.render()
 
@@ -255,4 +256,3 @@ class Actor(Component):
         if tg is not None:
             tg.on_trait_change(self.render)
         self.render()
-

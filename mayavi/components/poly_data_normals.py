@@ -1,7 +1,7 @@
 """This component computes normals for input poly data.
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2005,  Enthought, Inc.
+# Copyright (c) 2005-2016,  Enthought, Inc.
 # License: BSD Style.
 
 # Enthought library imports.
@@ -66,7 +66,7 @@ class PolyDataNormals(Component):
         input = self.inputs[0].outputs[0]
         self.configure_input_data(f, convert_to_poly_data(input))
         f.update()
-        self.outputs = [f.output]
+        self.outputs = [f]
 
     def update_data(self):
         """Override this method to do what is necessary when upstream
@@ -84,4 +84,3 @@ class PolyDataNormals(Component):
     def get_output_object(self):
         """ Returns the output port."""
         return self.filter.output_port
-
