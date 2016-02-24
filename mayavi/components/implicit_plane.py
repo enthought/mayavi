@@ -143,6 +143,7 @@ class ImplicitPlane(Component):
         changed.
         """
         self.widget.get_plane(self.plane)
+        self.update_data()
 
     ######################################################################
     # Non-public interface.

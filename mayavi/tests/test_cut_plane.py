@@ -32,7 +32,7 @@ class TestCutter(unittest.TestCase):
 
     def tearDown(self):
         """For necessary clean up, automatically called by TestCase after the
-           test methods have been invoked""" 
+           test methods have been invoked"""
         self.e.stop()
         return
 
@@ -49,7 +49,7 @@ class TestCutter(unittest.TestCase):
 
         ip = cp.implicit_plane
         ip.origin = -1.5, -1.5, -1.5
-        poly_data = cp.cutter.outputs[0]
+        poly_data = cp.cutter.outputs[0].output
         initial_cells = poly_data.number_of_cells
 
         # Change the plane normal
@@ -80,3 +80,6 @@ class TestCutter(unittest.TestCase):
         e.add_source(r)
 
         self.check()
+
+if __name__ == '__main__':
+    unittest.main()
