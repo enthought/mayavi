@@ -1,14 +1,21 @@
 """ Handler and UI elements for tvtk objects.
 """
 # Author: Vibha Srinivasan <vibha@enthought.com>
-# Copyright (c) 2008,  Enthought, Inc.
+# Copyright (c) 2008-2016,  Enthought, Inc.
 # License: BSD Style.
 
 from traits.api import HasTraits, Str, Instance, Property, Button, List, Enum
-from traitsui.api import Handler, UIInfo, TableEditor, View, Item
-from traitsui.table_column import ObjectColumn
-from traits.trait_base \
-    import user_name_for, xgetattr
+from traitsui.handler import Handler
+from traitsui.ui_info import UIInfo
+from traitsui.item import Item
+from traitsui.view import View
+from traits.trait_base import user_name_for, xgetattr
+
+def TableEditor(*args, **kw):
+   from .value_column import ObjectColumn, ValueColumn
+   from traitsui.api import TableEditor as _E
+   return _E(columns=[ObjectColumn(name='name'), ValueColumn(name='value')])
+
 
 class TraitsViewObject(HasTraits):
    """ Wrapper for all items to be included in the full traits view of the TVTKBase
@@ -22,48 +29,6 @@ class TraitsViewObject(HasTraits):
    parent = Instance(HasTraits)
 
 
-class ValueColumn(ObjectColumn):
-   """ Column to display the trait value for each trait of a tvtk object.
-   """
-
-   def get_object ( self, object ):
-        """ Returns the actual object being edited.
-        Overridden here to return the tvtk object (which is the parent trait of object).
-
-        """
-        return object.parent
-
-
-   def target_name ( self, object ):
-        """ Returns the target object and name for the column.
-        Overridden here to return the trait name (which is the object's name trait) rather than the
-        column's name trait.
-
-        """
-        name   = object.name
-        object = self.get_object( object )
-        col    = name.rfind( '.' )
-        if col < 0:
-            return ( object, name )
-
-        return ( xgetattr( object, name[ :col ] ), name[ col + 1: ] )
-
-
-   def get_raw_value ( self, object ):
-        """ Gets the unformatted value of the column for a specified object.
-        Overridden here to return the trait name (which is the object's name trait) rather than the
-        column's name trait.
-
-        """
-        try:
-            target, name = self.target_name( object )
-            return xgetattr( target, name )
-        except:
-            return None
-
-
-""" A handler for the TVTKBase object.
-"""
 
 class TVTKBaseHandler(Handler):
    """ A handler for the TVTKBase object.
@@ -80,9 +45,7 @@ class TVTKBaseHandler(Handler):
 
    # List of TraitsViewObject items, where each item contains information
    # about the trait to display as a row in a table editor.
-   _full_traits_list = Property(List, editor = TableEditor(columns =
-                                           [ObjectColumn(name='name'),
-                                            ValueColumn(name='value')]))
+   _full_traits_list = Property(List, editor=TableEditor)
 
    def init_info(self, info):
        """ Informs the handler what the UIInfo object for a View will be.

@@ -5,7 +5,7 @@ make sure that the generated code works well.
 
 """
 # Author: Prabhu Ramachandran
-# Copyright (c) 2004-2015, Enthought, Inc.
+# Copyright (c) 2004-2016, Enthought, Inc.
 # License: BSD Style.
 
 import unittest
@@ -664,6 +664,16 @@ class TestTVTKModule(unittest.TestCase):
             message = "Not all classes could be instantiated:\n{0}\n"
             raise AssertionError(message.format(''.join(errors)))
 
+    def test_import_tvtk_does_not_import_gui(self):
+        from subprocess import check_output, STDOUT
+
+        output = check_output(
+            [sys.executable, "-v", "-c",
+             "from tvtk.api import tvtk; p = tvtk.Property()"], stderr=STDOUT
+        )
+        output = output.decode('ascii')
+        self.assertFalse('QtCore' in output)
+        self.assertFalse('wx' in output)
 
 if __name__ == "__main__":
     unittest.main()

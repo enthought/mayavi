@@ -119,9 +119,6 @@ def setup(app, get_doc_object_=get_doc_object):
     if not hasattr(app, 'add_config_value'):
         return  # probably called by nose, better bail out
 
-    global get_doc_object
-    get_doc_object = get_doc_object_
-
     app.connect('autodoc-process-docstring', mangle_docstrings)
     app.connect('autodoc-process-signature', mangle_signature)
     app.add_config_value('numpydoc_edit_link', None, False)
