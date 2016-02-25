@@ -51,7 +51,7 @@ Doing it yourself
 Requirements for manual installs
 ................................
 
-If you are not using full, ready-made, scientific Python distribution,
+If you are not using a full, ready-made, scientific Python distribution,
 you need to satisfy Mayavi's requirements.  However, depending on your
 installation procedure, these requirements may be automatically done
 for you (see the following sections).
@@ -76,7 +76,7 @@ Mayavi requires at the very minimum the following packages:
 The following requirements are really optional but strongly recommended,
 especially if you are new to Mayavi:
 
-    * PyQt4_ 4.8.x or wxPython_ 2.8.x
+    * PySide_ or PyQt4_ or wxPython_ (2.8.x)
     * configobj_
     * Envisage_ == 3.x (`EnvisageCore` and `EnvisagePlugins`) 
       **Note** These last requirements can be automatically installed,
@@ -105,6 +105,8 @@ are described in the following.
 .. _VTK: http://www.vtk.org
 .. _envisage: http://docs.enthought.com/envisage
 .. _Traits: http://docs.enthought.com/traits
+.. _PyQt4: http://pyqt.sourceforge.net/Docs/PyQt4/
+.. _PySide: https://pypi.python.org/pypi/PySide/1.2.4
 .. _PyQt4: http://pyqt.sourceforge.net/Docs/PyQt4/
 .. _wxPython: http://www.wxpython.org
 .. _setuptools: http://peak.telecommunity.com/DevCenter/setuptools
@@ -336,20 +338,8 @@ of an unreleased component.  It is very convenient to get all the
 relevant ETS projects that Mayavi recursively depends on with a single
 checkout.  The ETS repository provides an `ets` module, which allows
 pulling all other ETS projects from github, and other useful features.
-
-To install ETS::
-
-  mkdir ets
-  cd ets
-  git clone http://github.com/enthought/ets.git
-  cd ets
-  python setup.py develop
-  cd ..
-  ets -h
-
-To clone all the ETS projects::
-
-  ets clone
+To install ETS, please follow the instruction
+`here <https://github.com/enthought/ets>`_.
 
 .. note::
 
