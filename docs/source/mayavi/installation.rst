@@ -338,6 +338,7 @@ of an unreleased component.  It is very convenient to get all the
 relevant ETS projects that Mayavi recursively depends on with a single
 checkout.  The ETS repository provides an `ets` module, which allows
 pulling all other ETS projects from github, and other useful features.
+
 To install ETS, please follow the instruction
 `here <https://github.com/enthought/ets>`_.
 
@@ -349,8 +350,6 @@ To install ETS, please follow the instruction
    safely the following directories::
 
      blockcanvas chaco codetools enable graphcanvas scimath
-
-You should now have the latest version of Mayavi installed and usable.
 
 
 Testing your installation
