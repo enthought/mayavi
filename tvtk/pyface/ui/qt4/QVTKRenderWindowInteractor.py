@@ -266,7 +266,7 @@ class QVTKRenderWindowInteractor(QWidget):
             pythonapi.PyCapsule_GetPointer.argtypes = [py_object, c_char_p]
 
             WId = pythonapi.PyCapsule_GetPointer(WId, name)
-        return str(WId)
+        return str(int(WId))
 
     def Finalize(self):
         '''
