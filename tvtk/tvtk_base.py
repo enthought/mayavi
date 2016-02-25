@@ -15,11 +15,24 @@ import logging
 import vtk
 
 from traits import api as traits
-from traitsui.api import (BooleanEditor, RGBColorEditor, FileEditor)
 from . import messenger
 
 # Setup a logger for this module.
 logger = logging.getLogger(__name__)
+
+
+def BooleanEditor(*args, **kw):
+    from traitsui.api import BooleanEditor as Editor
+    return Editor(*args, **kw)
+
+def RGBColorEditor(*args, **kw):
+    from traitsui.api import RGBColorEditor as Editor
+    return Editor(*args, **kw)
+
+def FileEditor(*args, **kw):
+    from traitsui.api import FileEditor as Editor
+    return Editor(*args, **kw)
+
 
 ######################################################################
 # The TVTK object cache.
