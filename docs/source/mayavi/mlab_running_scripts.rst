@@ -40,7 +40,7 @@ mlab in IPython you should:
 
         $ ipython --matplotlib=qt
 
-    * elsewhere, start IPython with the `--gui=qt` option::
+    * alternatively, start IPython with the `--gui=qt` option::
 
         $ ipython --gui=qt
 
@@ -71,11 +71,11 @@ backend.  To do this you may do::
 
 Note that as far as Mayavi is concerned, it chooses the appropriate
 toolkit using the ``ETS_TOOLKIT`` environment variable.  If this is
-not set, the supported toolkits are tried in some order until one
-succeeds.  With recent releases of traitsui_, the default is Qt.
-The possible options for ``ETS_TOOLKIT`` are:
+not set, the supported toolkits are tried in a version-dependent order
+until one succeeds.  With recent releases of traitsui_, the default is
+Qt.  The possible options for ``ETS_TOOLKIT`` are:
 
- - `qt4`: to use the Qt library,
+ - `qt4`: to use the Qt backend (either PySide or PyQt4),
  - `wx`: to use wxPython,
  - `null`: to use no UI toolkit.
 

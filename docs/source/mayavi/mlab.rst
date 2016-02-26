@@ -27,7 +27,7 @@ It is can be used interactively with IPython_.
 .. warning::
 
     When using IPython with mlab, as in the following examples, IPython must
-    be invoked with the ``--gui=qt`` command line option like so::
+    be invoked with the ``--gui=qt`` command line option like this::
 
          $ ipython --gui=qt
 

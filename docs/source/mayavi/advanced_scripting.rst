@@ -99,8 +99,9 @@ explicit calls to the engine::
 
 
 As with all Mayavi code, you need to have the GUI mainloop running to
-have the visualization go live. Typing this code in `ipython --gui=qt`
-will do this for you.
+have the visualization go live.  To do this, type ``ipython --gui=qt`` in
+a Terminal or Command Prompt.
+
 
 This explicit, object-oriented, code thus mirrors the `mlab.pipeline`
 code. It is more fine-grained, and gives you more control. For instance
