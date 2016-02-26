@@ -1,14 +1,14 @@
 """Common code used by different components.
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2005, Enthought, Inc.
+# Copyright (c) 2005-2016, Enthought, Inc.
 # License: BSD Style.
 
 # Enthought library imports.
 from tvtk.api import tvtk
 
 # Local imports.
-from tvtk.common import configure_input_data
+from tvtk.common import configure_input
 from mayavi.core.component import Component
 from mayavi.core.common import error
 
@@ -23,13 +23,20 @@ def get_module_source(obj):
     return o
 
 
-def convert_to_poly_data(data):
+def convert_to_poly_data(obj):
     """Given a VTK dataset object, this returns the data as PolyData.
     This is primarily used to convert the data suitably for filters
     that only work for PolyData.
     """
-    if data.is_a('vtkPolyData'):
-        return data
+    if obj.is_a('vtkDataSet'):
+        data = obj
+    else:
+        # FIXME
+        data = obj.output
+
+    if obj.is_a('vtkPolyData') or data.is_a('vtkPolyData'):
+        return obj
+
 
     conv = {'vtkStructuredPoints': tvtk.ImageDataGeometryFilter,
             'vtkImageData': tvtk.ImageDataGeometryFilter,
@@ -44,9 +51,8 @@ def convert_to_poly_data(data):
             break
 
     if fil is not None:
-        configure_input_data(fil, data)
+        configure_input(fil, obj)
         fil.update()
-        return fil.output
+        return fil
     else:
         error('Given object is not a VTK dataset: %s'%data.__class__.__name__)
-
