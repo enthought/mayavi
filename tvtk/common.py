@@ -109,6 +109,8 @@ def configure_source_data(obj, data):
     else:
         if data.is_a('vtkAlgorithmOutput'):
             obj.set_source_connection(data)
+        elif hasattr(data, 'output_port'):
+            obj.set_source_connection(data.output_port)
         else:
             obj.set_source_data(data)
 

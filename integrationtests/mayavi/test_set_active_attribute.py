@@ -21,13 +21,13 @@ class TestSetActiveAttribute(TestCase):
         src = scene.children[0]
         assert src.point_scalars_name == 'u'
         c = src.children[1]
-        sc = c.outputs[0].point_data.scalars
+        sc = self._get_output(c.outputs[0]).point_data.scalars
         assert sc.name == 'u'
         # It is an iso-contour!
         assert sc.range[0] == sc.range[1]
         aa = c.children[0].children[0]
         assert aa.point_scalars_name == 't'
-        sc = aa.outputs[0].point_data.scalars
+        sc = self._get_output(aa.outputs[0]).point_data.scalars
         assert sc.name == 't'
         assert abs(sc.range[0] - 308) < 1.0
         assert abs(sc.range[1] - 631) < 1.0

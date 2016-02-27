@@ -54,19 +54,25 @@ class TestSetActiveAttribute(unittest.TestCase):
         self.e.stop()
         return
 
+    def _get_output(self, obj):
+        if obj.is_a('vtkDataSet'):
+            return obj
+        else:
+            return obj.output
+
     def check(self):
         """Do the actual testing"""
         scene = self.scene
         src = scene.children[0]
         self.assertEqual(src.point_scalars_name,'temperature')
         c = src.children[1]
-        sc = c.outputs[0].point_data.scalars
+        sc = self._get_output(c.outputs[0]).point_data.scalars
         self.assertEqual(sc.name,'temperature')
         # It is an iso-contour!
         self.assertEqual(sc.range[0],sc.range[1])
         aa = c.children[0].children[0]
         self.assertEqual(aa.point_scalars_name,'pressure')
-        sc = aa.outputs[0].point_data.scalars
+        sc = self._get_output(aa.outputs[0]).point_data.scalars
         self.assertEqual(sc.name, 'pressure')
         self.assertEqual((abs(sc.range[0] - 70) < 1.0),True)
         self.assertEqual((abs(sc.range[1] - 70) < 1.0),True)

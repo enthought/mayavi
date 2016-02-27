@@ -129,7 +129,7 @@ class CustomGridPlane(Component):
         self.plane = plane
         self._update_limits()
         self._update_voi()
-        self.outputs = [plane.output]
+        self.outputs = [plane]
 
     def update_data(self):
         """Override this method to do what is necessary when upstream

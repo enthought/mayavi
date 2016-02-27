@@ -120,7 +120,7 @@ class GridPlane(Component):
         self.configure_connection(plane, self.inputs[0])
         self.plane = plane
         self.plane.update()
-        self.outputs = [plane.output]
+        self.outputs = [plane]
         self._update_limits()
         self._update_extents()
         # If the data is 2D make sure that we default to the

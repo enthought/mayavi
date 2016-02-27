@@ -201,8 +201,9 @@ class Actor(Component):
 
     def _change_texture_input(self):
         if self._can_object_give_image_data(self.texture_source_object):
-            self.configure_connection(self.texture,
-                                      self.texture_source_object)
+            self.configure_connection(
+                self.texture, self.texture_source_object
+            )
             self.actor.texture = self.texture
         else:
             self.texture_source_object = None
