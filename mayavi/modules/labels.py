@@ -190,6 +190,8 @@ class Labels(Module):
             return
         f = self.mask.filter
         inp = self.input.outputs[0]
+        if not inp.is_a('vtkDataSet'):
+            inp = inp.output
         if hasattr(inp, 'update'):
             inp.update()
         npts = inp.number_of_points

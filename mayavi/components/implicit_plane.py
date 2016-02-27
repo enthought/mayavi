@@ -1,7 +1,7 @@
 """A component to manage an implicit plane widget.
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2005, Enthought, Inc.
+# Copyright (c) 2005-2016, Enthought, Inc.
 # License: BSD Style.
 
 # Enthought library imports.
@@ -110,7 +110,7 @@ class ImplicitPlane(Component):
             return
         inp = self.inputs[0].outputs[0]
         w = self.widget
-        self.configure_input_data(w, inp)
+        self.configure_input(w, inp)
         if self._first:
             w.place_widget()
             self.origin = inp.center
@@ -143,6 +143,7 @@ class ImplicitPlane(Component):
         changed.
         """
         self.widget.get_plane(self.plane)
+        self.update_data()
 
     ######################################################################
     # Non-public interface.
@@ -189,4 +190,3 @@ class ImplicitPlane(Component):
 
         for obj in (self.plane, w):
             obj.on_trait_change(self.render)
-

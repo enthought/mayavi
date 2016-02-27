@@ -1,7 +1,7 @@
 """A simple wrapper for `tvtk.Cutter`.
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2005-2008, Enthought, Inc.
+# Copyright (c) 2005-2016, Enthought, Inc.
 # License: BSD Style.
 
 
@@ -49,9 +49,9 @@ class Cutter(Component):
         if (len(self.inputs) == 0) or (len(self.inputs[0].outputs) == 0):
             return
         c = self.cutter
-        self.configure_connection(c, self.inputs[0])
+        self.configure_input(c, self.inputs[0].outputs[0])
         c.update()
-        self.outputs = [c.output]
+        self.outputs = [c]
 
     def update_data(self):
         """Override this method to do what is necessary when upstream
@@ -72,4 +72,3 @@ class Cutter(Component):
         old = self.cutter.cut_function
         self.cutter.cut_function = val
         self.trait_property_changed('cut_function', old, val)
-

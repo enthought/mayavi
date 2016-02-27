@@ -229,7 +229,8 @@ class Contour(Component):
         if not self.auto_update_range:
             return
         src = get_module_source(self.inputs[0])
-        sc = src.outputs[0].point_data.scalars
+        dataset = self._get_source_dataset(src)
+        sc = dataset.point_data.scalars
         if sc is not None:
             sc_array = sc.to_array()
             has_nan = numpy.isnan(sc_array).any()
@@ -305,9 +306,9 @@ class Contour(Component):
         cf = self.contour_filter
         if self.filled_contours:
             inp = convert_to_poly_data(inp)
-            self.configure_input_data(cf, inp)
+            self.configure_input(cf, inp)
         else:
-            self.configure_connection(cf, self.inputs[0])
+            self.configure_input(cf, inp)
         cf.update()
         return cf
 
@@ -336,3 +337,10 @@ class Contour(Component):
     def _get__default_contour(self):
         return (self._data_min + self._data_max)*0.5
 
+
+    def _get_source_dataset(self, src):
+        o = src.outputs[0]
+        if o.is_a('vtkDataSet'):
+            return o
+        elif hasattr(o, 'output'):
+            return o.output

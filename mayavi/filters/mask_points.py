@@ -52,6 +52,8 @@ class MaskPoints(FilterBase):
     ######################################################################
     def _find_number_of_points_in_input(self):
         inp = self.inputs[0].outputs[0]
+        if not inp.is_a('vtkDataSet'):
+            inp = inp.output
         if hasattr(inp, 'update'):
             inp.update()
         return inp.number_of_points
