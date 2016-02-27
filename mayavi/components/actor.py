@@ -195,7 +195,7 @@ class Actor(Component):
             return False
         if not isinstance(source, Source):
             return False
-        if source.outputs[0].is_a('vtkImageData'):
+        if source.get_output_dataset().is_a('vtkImageData'):
             return True
         return False
 

@@ -158,6 +158,8 @@ class ModuleManager(Base):
         This is invoked when the source changes or when there are
         pipeline/data changes upstream.
         """
+        if len(self.source.outputs) == 0:
+            return
         self._setup_scalar_data()
         self._setup_vector_data()
 

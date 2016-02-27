@@ -131,7 +131,7 @@ class SetActiveAttribute(Filter):
         aa = self._assign_attribute
         self.configure_connection(aa, self.inputs[0])
         self._update()
-        self._set_outputs([aa.output])
+        self._set_outputs([aa])
 
     ######################################################################
     # Non-public interface.
@@ -147,7 +147,9 @@ class SetActiveAttribute(Filter):
         if self._first and is_old_pipeline():
             # Force all attributes to be defined and computed
             input.update()
-        pnt_attr, cell_attr = get_all_attributes(input)
+        pnt_attr, cell_attr = get_all_attributes(
+            self.inputs[0].get_output_dataset()
+        )
 
         self._setup_data_traits(cell_attr, 'cell')
         self._setup_data_traits(pnt_attr, 'point')
@@ -161,7 +163,7 @@ class SetActiveAttribute(Filter):
         """
         attrs = ['scalars', 'vectors', 'tensors']
         aa = self._assign_attribute
-        input = self.inputs[0].outputs[0]
+        input = self.inputs[0].get_output_dataset()
         data = getattr(input, '%s_data'%d_type)
         for attr in attrs:
             values = attributes[attr]
@@ -183,7 +185,7 @@ class SetActiveAttribute(Filter):
         if value is None or len(self.inputs) == 0:
             return
 
-        input = self.inputs[0].outputs[0]
+        input = self.inputs[0].get_output_dataset()
         if len(value) == 0:
             # If the value is empty then we deactivate that attribute.
             d = getattr(input, attr_type + '_data')
@@ -223,4 +225,3 @@ class SetActiveAttribute(Filter):
 
     def _cell_tensors_name_changed(self, value):
         self._set_data_name('tensors', 'cell', value)
-

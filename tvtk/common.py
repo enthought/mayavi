@@ -85,7 +85,10 @@ def configure_input(inp, op):
             inp.input = op.output
     else:
         if hasattr(op, 'output_port'):
-            inp.input_connection = op.output_port
+            if hasattr(inp, 'input_connection'):
+                inp.input_connection = op.output_port
+            elif hasattr(inp, 'set_input_connection'):
+                inp.set_input_connection(op.output_port)
         elif op.is_a('vtkAlgorithmOutput'):
             inp.input_connection = op
         elif op.is_a('vtkDataSet'):

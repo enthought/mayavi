@@ -107,7 +107,7 @@ class ImplicitWidgets(Component):
         w = self.widget
         # Set the input.
         if len(self.inputs) > 0:
-            w.input = self.inputs[0].outputs[0]
+            self.configure_input(w, self.inputs[0].outputs[0])
         w.update_traits()
         mode = self.widget_mode
         if mode == 'Plane':
@@ -140,7 +140,7 @@ class ImplicitWidgets(Component):
             return
         inp = self.inputs[0].outputs[0]
         w = self.widget
-        w.input = inp
+        self.configure_input(w, inp)
 
         if self._first:
             w.place_widget()
@@ -179,7 +179,7 @@ class ImplicitWidgets(Component):
     ######################################################################
     def _widget_changed(self, old, value):
         if len(self.inputs) > 0:
-            value.input = self.inputs[0].outputs[0]
+            self.configure_input(value, self.inputs[0].outputs[0])
             value.place_widget()
         self.implicit_function = self._implicit_function_dict[self.widget_mode]
 

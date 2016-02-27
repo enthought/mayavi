@@ -103,7 +103,7 @@ class GridPlane(Component):
         """
         if len(self.inputs) == 0:
             return
-        input = self.inputs[0].outputs[0]
+        input = self.inputs[0].get_output_dataset()
         plane = None
         if input.is_a('vtkStructuredGrid'):
             plane = tvtk.StructuredGridGeometryFilter()

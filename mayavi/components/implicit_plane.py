@@ -106,14 +106,14 @@ class ImplicitPlane(Component):
         This method is invoked (automatically) when the input fires a
         `pipeline_changed` event.
         """
-        if len(self.inputs) == 0:
+        if len(self.inputs) == 0 or len(self.inputs[0].outputs) == 0:
             return
         inp = self.inputs[0].outputs[0]
         w = self.widget
         self.configure_input(w, inp)
         if self._first:
             w.place_widget()
-            self.origin = inp.center
+            self.origin = self.inputs[0].get_output_dataset().center
             self._first = False
         else:
             n = self.normal

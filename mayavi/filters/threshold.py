@@ -142,7 +142,7 @@ class Threshold(Filter):
         fil = self.threshold_filter
         self.configure_connection(fil, self.inputs[0])
         self._update_ranges()
-        self._set_outputs([self.threshold_filter.output])
+        self._set_outputs([self.threshold_filter])
 
     def update_data(self):
         """Override this method to do what is necessary when upstream
@@ -282,7 +282,7 @@ class Threshold(Filter):
         fil.threshold_between(self.lower_threshold,
                               self.upper_threshold)
         fil.update()
-        self._set_outputs([fil.output])
+        self._set_outputs([fil])
 
     def _threshold_filter_edited(self):
         self.threshold_filter.update()

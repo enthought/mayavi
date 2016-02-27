@@ -46,6 +46,7 @@ class CellToPointData(FilterBase):
         input = inputs[0].outputs[0]
         self.configure_connection(fil, inputs[0])
         fil.update()
+        dataset = self.inputs[0].get_output_dataset()
         # This filter creates different outputs depending on the
         # input.
         out_map = {'vtkStructuredGrid': 'structured_grid_output',
@@ -56,7 +57,6 @@ class CellToPointData(FilterBase):
                    'vtkImageData': 'image_data_output'}
         # Find the input data type and pass that to our output..
         for type in out_map:
-            if input.is_a(type):
+            if dataset.is_a(type):
                 self._set_outputs([getattr(fil, out_map[type])])
                 break
-

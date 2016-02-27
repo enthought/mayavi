@@ -3,7 +3,7 @@
  outputs of an object in the pipeline.
 """
 # Author: Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
-# Copyright (c) 2008, Prabhu Ramachandran Enthought, Inc.
+# Copyright (c) 2008-2016, Prabhu Ramachandran Enthought, Inc.
 # License: BSD Style.
 
 # Enthought library imports.
@@ -29,6 +29,9 @@ def get_tvtk_dataset_name(dataset):
     """
     result = 'none'
     if hasattr(dataset, 'is_a'):
+        if not dataset.is_a('vtkDataSet') and hasattr(dataset, 'output'):
+            # FIXME: Use pipeline information to do this correctly.
+            dataset = dataset.output
         if dataset.is_a('vtkStructuredPoints') or \
            dataset.is_a('vtkImageData'):
                result = 'image_data'
@@ -65,4 +68,3 @@ class PipelineInfo(HasTraits):
 
     # The attributes the object can use/produce.
     attributes = List(Attribute)
-

@@ -26,7 +26,7 @@ class TestLabels(TestCase):
         mm = src.children[0]
         l = mm.children[1]
         if not saved:
-            np = l.visible_points.outputs[0].number_of_points
+            np = l.visible_points.get_output_dataset().number_of_points
             assert np < 35 and np > 20
             l.visible_points.enabled = True
             l.mapper.label_mode = 'label_scalars'
@@ -35,10 +35,10 @@ class TestLabels(TestCase):
             l.property.color = (0,0,0)
             l.property.italic = False
 
-        np = l.visible_points.outputs[0].number_of_points
+        np = l.visible_points.get_output_dataset().number_of_points
         assert np < 60  and np > 35
         assert l.visible_points.enabled == True
-        assert l.visible_points.outputs[0] == \
+        assert l.visible_points.get_output_dataset() == \
             l.visible_points.filter.filter.output
         assert l.property.color == (0,0,0)
         assert l.property.italic == False

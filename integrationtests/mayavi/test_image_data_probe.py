@@ -26,9 +26,9 @@ class TestImageDataProbe(TestCase):
         idp = src.children[0]
         mm = idp.children[0]
         if not saved:
-            assert src.outputs[0].is_a('vtkUnstructuredGrid')
-            assert idp.outputs[0].is_a('vtkImageData')
-            sc = idp.outputs[0].point_data.scalars
+            assert src.get_output_dataset().is_a('vtkUnstructuredGrid')
+            assert idp.get_output_dataset().is_a('vtkImageData')
+            sc = idp.get_output_dataset().point_data.scalars
             assert sc.name == 't'
             assert mm.scalar_lut_manager.data_name == 't'
             assert abs(sc.range[0]) < 1.0
@@ -37,12 +37,12 @@ class TestImageDataProbe(TestCase):
             idp.rescale_scalars = True
             idp.dimensions = (41, 19, 19)
 
-        sc = idp.outputs[0].point_data.scalars
+        sc = idp.get_output_dataset().point_data.scalars
         assert sc.name == idp.rescaled_scalar_name
         assert mm.scalar_lut_manager.data_name == idp.rescaled_scalar_name
         assert abs(sc.range[0]) < 1e-2
         assert abs(sc.range[1] - 65535.0) < 1.e-2
-        assert (idp.outputs[0].dimensions == (41, 19, 19)).all()
+        assert (idp.get_output_dataset().dimensions == (41, 19, 19)).all()
 
     def test(self):
         self.main()
@@ -122,4 +122,3 @@ class TestImageDataProbe(TestCase):
 if __name__ == "__main__":
     t = TestImageDataProbe()
     t.test()
-

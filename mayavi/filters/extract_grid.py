@@ -152,7 +152,7 @@ class ExtractGrid(FilterBase):
         if len(inputs) == 0:
             return
 
-        input = inputs[0].outputs[0]
+        input = inputs[0].get_output_dataset()
         mapping = {'vtkStructuredGrid': tvtk.ExtractGrid,
                    'vtkRectilinearGrid': tvtk.ExtractRectilinearGrid,
                    'vtkImageData': tvtk.ExtractVOI}
@@ -170,7 +170,7 @@ class ExtractGrid(FilterBase):
         self.configure_connection(fil, inputs[0])
         fil.update_whole_extent()
         fil.update()
-        self._set_outputs([fil.output])
+        self._set_outputs([fil])
         self._update_limits()
         self._update_voi()
         self._update_sample_rate()

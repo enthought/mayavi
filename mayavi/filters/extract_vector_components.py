@@ -46,7 +46,7 @@ class ExtractVectorComponents(FilterBase):
     def update_pipeline(self):
         # Do nothing if there is no input.
         inputs = self.inputs
-        if len(inputs) == 0:
+        if len(inputs) == 0 or len(inputs[0].outputs) == 0:
             return
 
         fil = self.filter
@@ -61,7 +61,7 @@ class ExtractVectorComponents(FilterBase):
         # Obtain output from the TVTK ExtractVectorComponents filter
         # corresponding to the selected vector component
 
-        if len(self.inputs) == 0:
+        if len(self.inputs) == 0 or len(self.inputs[0].outputs) == 0:
             return
 
         if value == 'x-component':

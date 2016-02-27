@@ -163,7 +163,7 @@ class SourceWidget(Component):
 
         # If the dataset is effectively 2D switch to using the line
         # widget since that works best.
-        b = inp.bounds
+        b = self.inputs[0].get_output_dataset().bounds
         l = [(b[1]-b[0]), (b[3]-b[2]), (b[5]-b[4])]
         max_l = max(l)
         for i, x in enumerate(l):

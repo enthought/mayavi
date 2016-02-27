@@ -40,7 +40,7 @@ class ExtractVectorNorm(FilterBase):
     def update_pipeline(self):
         # Do nothing if there is no input.
         inputs = self.inputs
-        if len(inputs) == 0:
+        if len(inputs) == 0 or len(inputs[0].outputs) == 0:
             return
 
         # By default we set the input to the first output of the first
@@ -49,7 +49,7 @@ class ExtractVectorNorm(FilterBase):
         self.configure_connection(fil, inputs[0])
         fil.update()
         self._set_array_name(fil)
-        self._set_outputs([fil.output])
+        self._set_outputs([fil])
 
     def update_data(self):
         """Override this method to do what is necessary when upstream
@@ -60,7 +60,7 @@ class ExtractVectorNorm(FilterBase):
         """
         # Do nothing if there is no input.
         inputs = self.inputs
-        if len(inputs) == 0:
+        if len(inputs) == 0 or len(inputs[0].outputs) == 0:
             return
 
         self.filter.update()
@@ -73,7 +73,7 @@ class ExtractVectorNorm(FilterBase):
     ######################################################################
     def _set_array_name(self, filter):
         # Do nothing if there is no input.
-        if len(self.inputs) == 0:
+        if len(self.inputs) == 0 or len(self.inputs[0].outputs) == 0:
             return
 
         o = filter.output
@@ -85,4 +85,3 @@ class ExtractVectorNorm(FilterBase):
             ps.name = pd.vectors.name + ' magnitude'
         elif (cs is not None) and (not cs.name):
             cs.name = cd.vectors.name + ' magnitude'
-

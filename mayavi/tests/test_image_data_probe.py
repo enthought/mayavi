@@ -57,17 +57,17 @@ class TestImageDataProbe(unittest.TestCase):
         idp = src.children[0]
         mm = idp.children[0]
 
-        self.assertEqual(src.outputs[0].is_a('vtkUnstructuredGrid'),True)
-        self.assertEqual(idp.outputs[0].is_a('vtkImageData'),True)
-        sc = idp.outputs[0].point_data.scalars
-        vc = idp.outputs[0].point_data.vectors
+        self.assertEqual(src.get_output_dataset().is_a('vtkUnstructuredGrid'),True)
+        self.assertEqual(idp.get_output_dataset().is_a('vtkImageData'),True)
+        sc = idp.get_output_dataset().point_data.scalars
+        vc = idp.get_output_dataset().point_data.vectors
         self.assertEqual(sc.name,idp.rescaled_scalar_name)
         self.assertEqual(vc.name,'velocity')
         self.assertEqual(mm.scalar_lut_manager.data_name,
                                                 idp.rescaled_scalar_name)
         self.assertEqual((abs(sc.range[0]) < 1e-2),True)
         self.assertEqual( abs(sc.range[1] - 65535.0) < 1.e-2,True)
-        self.assertEqual((idp.outputs[0].dimensions == (3, 3, 2)).all(),True)
+        self.assertEqual((idp.get_output_dataset().dimensions == (3, 3, 2)).all(),True)
 
 
 

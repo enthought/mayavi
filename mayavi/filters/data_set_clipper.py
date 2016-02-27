@@ -3,7 +3,7 @@ using various Implicit Widgets.
 """
 # Author: Suyog Dutt Jain <suyog.jain@aero.iitb.ac.in>
 #         Prabhu Ramachandran <prabhu at aero.iitb.ac.in>
-# Copyright (c) 2009-2015, Enthought, Inc.
+# Copyright (c) 2009-2016, Enthought, Inc.
 # License: BSD Style.
 
 # Standard library imports.
@@ -118,7 +118,7 @@ class DataSetClipper(Filter):
         widget.update_implicit_function()
         filter.clip_function = widget.implicit_function
         filter.update()
-        self._set_outputs([filter.output])
+        self._set_outputs([filter])
 
         self.pipeline_changed = True
 
@@ -165,7 +165,7 @@ class DataSetClipper(Filter):
         new.on_trait_change(self.render)
         if len(self.inputs) > 0:
             self.configure_connection(new, self.inputs[0])
-            self.outputs = [new.output]
+            self.outputs = [new]
 
     def _reset_button_fired(self):
         self.widget.widget.place_widget()
