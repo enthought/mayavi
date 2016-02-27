@@ -81,15 +81,18 @@ class EngineManager(HasTraits):
         else:
             engines = list()
         engines.extend(list(registry.engines.values()))
-        if options.backend == 'auto':
-            suitable = [e for e in engines
-                                if e.__class__.__name__ != 'NullEngine']
-        elif options.backend == 'envisage':
+        if options.backend == 'envisage':
             suitable = [e for e in engines
                                 if e.__class__.__name__ == 'EnvisageEngine']
         elif options.backend == 'test':
             suitable = [e for e in engines
                                 if e.__class__.__name__ == 'NullEngine']
+        elif options.offscreen:
+            suitable = [e for e in engines
+                                if e.__class__.__name__ == 'OffScreenEngine']
+        elif options.backend == 'auto':
+            suitable = [e for e in engines
+                                if e.__class__.__name__ != 'NullEngine']
         else:
             suitable = [e for e in engines
                                 if e.__class__.__name__ == 'Engine']
