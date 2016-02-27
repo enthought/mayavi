@@ -2,7 +2,7 @@
 
 A utility module that makes VTK/TVTK easier to use from the Python
 interpreter.  For a standalone application simply run this file.  To
-use this under IPython (with -wthread) use the `viewer()` helper
+use this under IPython (with --gui=qt) use the `viewer()` helper
 function or use the `IVTK` class.  The widget can also make use of the
 tvtk pipeline browser.
 
@@ -465,7 +465,7 @@ def viewer(browser=True, instantiate_gui=False):
 
       If True, create an instance of GUI().  This is useful when this
       function is invoked from within an IPython shell.  OTOH, if this
-      is called from within a wxPython app (or with ipython -wthread)
+      is called from within a wxPython app (or with ipython --gui=qt)
       you don't want to start another GUI instance.
     """
     if instantiate_gui:

@@ -1,4 +1,3 @@
-
 Using Mayavi with scipy
 -------------------------
 
@@ -30,12 +29,11 @@ sample it on these points::
     X, Y, Z = np.mgrid[-2:2:100j, -2:2:100j, -2:2:100j]
     V(X, Y, Z)
 
-We are going to use the `mlab` module (see
-:ref:`simple-scripting-with-mlab`) to interactively visualize this
-volumetric data. For this it is best to type the commands in an
-interactive Python shell, either using the built-in shell of the Mayavi2
-application, on in `ipython -wthread` (`ipython --gui=wx` in recent
-IPython versions). Let us visualize the 3D isosurfaces of the potential::
+We are going to use the `mlab` module (see :ref:`simple-scripting-with-mlab`)
+to interactively visualize this volumetric data. For this it is best to type
+the commands in an interactive Python shell, either using the built-in shell
+of the Mayavi2 application, on in `ipython --gui=qt`. Let us visualize the 3D
+isosurfaces of the potential::
 
     from mayavi import mlab
     mlab.contour3d(X, Y, Z, V)
@@ -52,10 +50,10 @@ contour value (eg by entering it in the text box on the right, and
 pressing `tab`). A second contour can be added by clicking on the blue
 arrow and selecting "Add after". Using a value of 15 gives a nice result.
 
-.. warning:: 
-    Note that the "Add after" UI used to crash on Linux with the
-    wxPython backend for versions of Mayavi up to 3.2.0 (see 
-    :ref:`known_bugs` for all the know bugs). 
+.. warning::
+    Note that the "Add after" UI formerly crashed on Linux with the
+    wxPython backend for versions of Mayavi up to 3.2.0 (see
+    :ref:`known_bugs` for all know bugs).
 
 
 We can now click on the `Colors and legends` on the pipeline and change
@@ -139,13 +137,12 @@ extra scalar information attached to it, to display the time via the
 colormap::
 
     x, y, z, vx, vy, vz = R.T
-    trajectory = mlab.plot3d(x, y, z, t, colormap='hot',                   
+    trajectory = mlab.plot3d(x, y, z, t, colormap='hot',
                         tube_radius=None)
-    mlab.colorbar(trajectory, title='Time', orientation='vertical') 
+    mlab.colorbar(trajectory, title='Time', orientation='vertical')
 
 .. image:: example_trajectories.jpg
 
 .. _`numpy`: http://www.scipy.org
 .. _`scipy`: http://www.scipy.org
 .. _ODE: http://en.wikipedia.org/wiki/Ordinary_differential_equation
-
