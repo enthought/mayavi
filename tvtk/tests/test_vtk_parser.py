@@ -146,11 +146,11 @@ class TestVTKParser(unittest.TestCase):
 
         res = ['BackfaceRender', 'DeepCopy', 'Render']
         if hasattr(obj, 'GetTexture'):
-            if vtk_major_version == 6:
+            if vtk_major_version >= 6:
                 res = ['AddShaderVariable', 'BackfaceRender', 'DeepCopy',
                        'ReleaseGraphicsResources', 'RemoveAllTextures',
                        'RemoveTexture', 'Render']
-                if vtk_minor_version >= 2:
+                if (vtk_major_version == 7 or vtk_minor_version >= 2):
                     res.append('VTKTextureUnit')
             else:
                 res = ['AddShaderVariable', 'BackfaceRender', 'DeepCopy',

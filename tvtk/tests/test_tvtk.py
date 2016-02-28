@@ -593,7 +593,8 @@ class TestTVTK(unittest.TestCase):
 
     def test_parent_child_input(self):
         """Case where parent has GetInput and child SetInput."""
-        if vtk_major_version == 6 and vtk_minor_version > 1:
+        if (vtk_major_version >= 6 and vtk_minor_version > 1) or \
+            vtk_major_version == 7:
             vm = tvtk.SmartVolumeMapper()
         else:
             vm = tvtk.VolumeTextureMapper2D()
