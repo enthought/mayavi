@@ -78,7 +78,6 @@ class TestClassTree(unittest.TestCase):
                             'vtkTypedArray', 'vtkVector', 'vtkVector2',
                             'vtkVector3']
             else:
-                print( 'here in vtk 7 final else')
                 expect = ['object', 'vtkColor3', 'vtkColor4', 'vtkDenseArray',
                           'vtkObjectBase', 'vtkQuaternion', 'vtkRect',
                           'vtkSparseArray', 'vtkTuple',
