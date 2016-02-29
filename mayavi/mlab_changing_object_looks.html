@@ -6,15 +6,15 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Changing the looks of the visual objects created &mdash; mayavi 4.4.3 documentation</title>
+    <title>Changing the looks of the visual objects created &mdash; mayavi 4.4.4 documentation</title>
     
-    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '4.4.3',
+        VERSION:     '4.4.4',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.4.3 documentation" href="index.html" />
+    <link rel="top" title="mayavi 4.4.4 documentation" href="index.html" />
 <style type="text/css">
   body {
     /* Very bottom copyright, etc. info */
@@ -55,21 +55,21 @@
 </style>
 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li><a href="index.html">mayavi 4.4.3 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.4.4 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="changing-the-looks-of-the-visual-objects-created">
 <h1>Changing the looks of the visual objects created<a class="headerlink" href="#changing-the-looks-of-the-visual-objects-created" title="Permalink to this headline">¶</a></h1>
@@ -86,10 +86,10 @@ is then applied uniformly to all the objects created.</p>
 specify scalar information for each data point. Some functions try to
 guess this information: these scalars default to the norm of the vectors,
 for functions with vectors, or to the z elevation for functions where it is
-meaningful, such as <tt class="xref py py-func docutils literal"><span class="pre">surf()</span></tt> or <tt class="xref py py-func docutils literal"><span class="pre">barchart()</span></tt>.</p>
+meaningful, such as <code class="xref py py-func docutils literal"><span class="pre">surf()</span></code> or <code class="xref py py-func docutils literal"><span class="pre">barchart()</span></code>.</p>
 <p>This scalar information is converted into colors using the colormap, or
 also called LUT, for Look Up Table. The list of possible colormaps is:</p>
-<div class="highlight-python"><pre>accent       flag          hot      pubu     set2
+<div class="highlight-python"><div class="highlight"><pre>accent       flag          hot      pubu     set2
 autumn       gist_earth    hsv      pubugn   set3
 black-white  gist_gray     jet      puor     spectral
 blue-red     gist_heat     oranges  purd     spring
@@ -100,13 +100,14 @@ bugn         gist_yarg     pastel2  rdpu     ylgn
 bupu         gnbu          pink     rdylbu   ylorbr
 cool         gray          piyg     rdylgn   ylorrd
 copper       greens        prgn     reds
-dark2        greys         prism    set1</pre>
+dark2        greys         prism    set1
+</pre></div>
 </div>
 <p>The easiest way to choose the colormap, most adapted to your visualization
 is to use the GUI (as described in the next paragraph). The dialog
 to set the colormap can be found in the <cite>Colors and legends</cite> node.</p>
 <p>To use a custom-defined colormap, for the time being, you need to write
-specific code, as show in <a class="reference internal" href="auto/example_custom_colormap.html#example-custom-colormap"><em>Custom colormap example</em></a>.</p>
+specific code, as show in <a class="reference internal" href="auto/example_custom_colormap.html#example-custom-colormap"><span>Custom colormap example</span></a>.</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name" colspan="2">Size of the glyph:</th></tr>
@@ -124,7 +125,7 @@ Given six points positionned on a line with interpoint spacing 1:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">s</span> <span class="o">=</span> <span class="p">[</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="o">.</span><span class="mi">6</span><span class="p">,</span> <span class="o">.</span><span class="mi">7</span><span class="p">,</span> <span class="o">.</span><span class="mi">8</span><span class="p">,</span> <span class="o">.</span><span class="mi">9</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>We represent the dataset as spheres, using <tt class="xref py py-func docutils literal"><span class="pre">points3d()</span></tt>, and the
+<p>We represent the dataset as spheres, using <code class="xref py py-func docutils literal"><span class="pre">points3d()</span></code>, and the
 scalar is mapped to diameter of the spheres:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
 <span class="n">pts</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">points3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
@@ -169,11 +170,11 @@ iso-surfaces with the <cite>ExtractVectorNorm</cite> filter.</p>
 <tr class="field-even field"><th class="field-name" colspan="2">Displaying more than one quantity:</th></tr>
 <tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first">You may want to display color related to one scalar quantity while
 using a second for the iso-contours, or the elevation. This is possible
-but requires a bit of work: see <a class="reference internal" href="auto/example_atomic_orbital.html#example-atomic-orbital"><em>Atomic orbital example</em></a>.</p>
+but requires a bit of work: see <a class="reference internal" href="auto/example_atomic_orbital.html#example-atomic-orbital"><span>Atomic orbital example</span></a>.</p>
 <p>If you simply want to display points with a size given by one quantity,
 and a color by a second, you can use a simple trick: add the size
 information using the norm of vectors, add the color information using
-scalars, create a <tt class="xref py py-func docutils literal"><span class="pre">quiver3d()</span></tt> plot choosing the glyphs to symmetric
+scalars, create a <code class="xref py py-func docutils literal"><span class="pre">quiver3d()</span></code> plot choosing the glyphs to symmetric
 glyphs, and use scalars to represent the color:</p>
 <div class="last highlight-python"><div class="highlight"><pre><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
 <span class="n">pts</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">quiver3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">scalars</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">&#39;sphere&#39;</span><span class="p">)</span>
@@ -195,7 +196,7 @@ different directions and the displacement of the center. Beware that when
 you are using this functionality, it can be useful to pass the same
 extents to other modules visualizing the same data. If you don&#8217;t, they
 will not share the same displacement and scale.</p>
-<p>The <tt class="xref py py-func docutils literal"><span class="pre">surf()</span></tt>, <tt class="xref py py-func docutils literal"><span class="pre">contour_surf()</span></tt>, and <tt class="xref py py-func docutils literal"><span class="pre">barchart()</span></tt> functions, which
+<p>The <code class="xref py py-func docutils literal"><span class="pre">surf()</span></code>, <code class="xref py py-func docutils literal"><span class="pre">contour_surf()</span></code>, and <code class="xref py py-func docutils literal"><span class="pre">barchart()</span></code> functions, which
 display 2D arrays by converting the values in height, also take a
 <cite>warp_scale</cite> parameter, to control the vertical scaling.</p>
 </div>
@@ -204,7 +205,7 @@ display 2D arrays by converting the values in height, also take a
 <p>Mayavi, and thus mlab, allows you to interactively modify your
 visualization.</p>
 <p>The Mayavi pipeline tree can be displayed by clicking on the mayavi icon
-in the figure&#8217;s toolbar, or by using <tt class="xref py py-func docutils literal"><span class="pre">show_pipeline()</span></tt> mlab command.
+in the figure&#8217;s toolbar, or by using <code class="xref py py-func docutils literal"><span class="pre">show_pipeline()</span></code> mlab command.
 One can now change the visualization using this dialog by double-clicking
 on each object to edit its properties, as described in other parts of
 this manual, or add new modules or filters by using this icons on the
@@ -218,14 +219,14 @@ red round button of the toolbar of the pipeline view. This opens up a
 recorder that tracks the changes made interactively to the
 visualization via the dialogs, and generates valid lines of Python
 code. To find out about navigating through a program in the pipeline, see
-<a class="reference internal" href="pipeline.html#organisation-mayavi-visualisations"><em>Organisation of Mayavi visualizations: the pipeline</em></a>.</p>
+<a class="reference internal" href="pipeline.html#organisation-mayavi-visualisations"><span>Organisation of Mayavi visualizations: the pipeline</span></a>.</p>
 </div>
 <p>In addition, for every object returned by a mlab function,
-<tt class="docutils literal"><span class="pre">this_object.edit_traits()</span></tt> brings up a dialog that can be used to
+<code class="docutils literal"><span class="pre">this_object.edit_traits()</span></code> brings up a dialog that can be used to
 interactively edit the object&#8217;s properties. If the dialog doesn&#8217;t show up
-when you enter this command, please see <a class="reference internal" href="mlab_running_scripts.html#running-mlab-scripts"><em>Running mlab scripts</em></a>.</p>
+when you enter this command, please see <a class="reference internal" href="mlab_running_scripts.html#running-mlab-scripts"><span>Running mlab scripts</span></a>.</p>
 <div class="topic">
-<p class="topic-title first">Using <tt class="docutils literal"><span class="pre">mlab</span></tt> with the full Envisage UI</p>
+<p class="topic-title first">Using <code class="docutils literal"><span class="pre">mlab</span></code> with the full Envisage UI</p>
 <p>Sometimes it is convenient to write an mlab script but still use the
 full envisage application so you can click on the menus and use other
 modules etc.  To do this you may do the following before you create an
@@ -246,7 +247,7 @@ window.</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="index.html">
               <img class="logo" src="_static/mayavi-logo.png" alt="Logo"/>
@@ -261,13 +262,15 @@ window.</p>
 </li>
 </ul>
 
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/mlab_changing_object_looks.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/mlab_changing_object_looks.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
 
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
@@ -298,7 +301,7 @@ window.</p>
     </div>
     <hr/>
     <div id="searchbox">
-	<a href="http://github.enthought.com/mayavi/mayavi/misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
+	<a href="http://docs.enthought.com/mayavi/mayavi/misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
 
 	<p style="font-size:85%; color: #FFFFFF;">
     	If you publish articles using Mayavi, please 
@@ -312,19 +315,19 @@ window.</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
-        <li><a href="index.html">mayavi 4.4.3 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.4.4 documentation</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer">
+    <div class="footer" role="contentinfo">
         &copy; Copyright 2008-2015, Enthought Inc..
-      Last updated on Aug 12, 2015.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+      Last updated on Feb 29, 2016.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
     </div>
   </body>
 </html>

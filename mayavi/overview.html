@@ -6,15 +6,15 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>An overview of Mayavi &mdash; mayavi 4.4.3 documentation</title>
+    <title>An overview of Mayavi &mdash; mayavi 4.4.4 documentation</title>
     
-    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '4.4.3',
+        VERSION:     '4.4.4',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.4.3 documentation" href="index.html" />
+    <link rel="top" title="mayavi 4.4.4 documentation" href="index.html" />
     <link rel="next" title="Installation" href="installation.html" />
     <link rel="prev" title="Mayavi: 3D scientific data visualization and plotting in Python" href="index.html" />
 <style type="text/css">
@@ -57,8 +57,8 @@
 </style>
 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -70,14 +70,14 @@
         <li class="right" >
           <a href="index.html" title="Mayavi: 3D scientific data visualization and plotting in Python"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">mayavi 4.4.3 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.4.4 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="an-overview-of-mayavi">
 <span id="id1"></span><h1>An overview of Mayavi<a class="headerlink" href="#an-overview-of-mayavi" title="Permalink to this headline">¶</a></h1>
@@ -97,7 +97,7 @@ data, or 3D plotting.  It does this by the following:</p>
 all data and objects in the visualization.</li>
 <li>a simple and clean scripting interface in <a class="reference external" href="http://www.python.org">Python</a>, including ready
 to use 3D visualization functionality similar to matlab or
-<a class="reference external" href="http://matplotlib.sf.net">matplotlib</a> (using <a class="reference internal" href="mlab.html#simple-scripting-with-mlab"><em>mlab</em></a>), or
+<a class="reference external" href="http://matplotlib.sf.net">matplotlib</a> (using <a class="reference internal" href="mlab.html#simple-scripting-with-mlab"><span>mlab</span></a>), or
 an object-oriented programming interface.</li>
 <li>harnesses the power of <a class="reference external" href="http://www.vtk.org">VTK</a> without forcing you to learn it.</li>
 </ul>
@@ -121,12 +121,12 @@ etc.</li>
 <li>Saving of visualizations.</li>
 <li>Saving rendered visualization in a variety of image formats.</li>
 <li>Convenient functionality for rapid scientific plotting via mlab
-(see <a class="reference internal" href="mlab.html#simple-scripting-with-mlab"><em>mlab: Python scripting for 3D plotting</em></a>).</li>
+(see <a class="reference internal" href="mlab.html#simple-scripting-with-mlab"><span>mlab: Python scripting for 3D plotting</span></a>).</li>
 </ul>
 </div></blockquote>
 <p>Unlike its predecessor <a class="reference external" href="http://mayavi.sourceforge.net">Mayavi1</a>, Mayavi2 has been designed with
 scriptability and extensibility in mind from the ground up.  Mayavi2
-provides a <tt class="docutils literal"><span class="pre">mayavi2</span></tt> application which is usable by itself.  However,
+provides a <code class="docutils literal"><span class="pre">mayavi2</span></code> application which is usable by itself.  However,
 Mayavi2 may also be used as a plotting engine, in scripts, like with
 matplotlib or gnuplot, as well as a library for interactive
 visualizations in any other application.  It may also be used as an
@@ -177,7 +177,7 @@ without a wxPython or Qt4 based UI.</p>
 <p class="first admonition-title">Note</p>
 <p class="last">All the following sections assume you have a working Mayavi, for
 information on downloading and installing Mayavi, see the next section,
-<a class="reference internal" href="installation.html#installation"><em>Installation</em></a>.</p>
+<a class="reference internal" href="installation.html#installation"><span>Installation</span></a>.</p>
 </div>
 </div>
 </div>
@@ -186,14 +186,14 @@ information on downloading and installing Mayavi, see the next section,
 <p>As a user there are three primary ways to use Mayavi:</p>
 <blockquote>
 <div><ol class="arabic">
-<li><p class="first">Use the <tt class="docutils literal"><span class="pre">mayavi2</span></tt> application completely graphically.  More
-information on this is in the <a class="reference internal" href="application.html#using-the-mayavi-application"><em>Using the Mayavi application</em></a>
+<li><p class="first">Use the <code class="docutils literal"><span class="pre">mayavi2</span></code> application completely graphically.  More
+information on this is in the <a class="reference internal" href="application.html#using-the-mayavi-application"><span>Using the Mayavi application</span></a>
 section.</p>
 </li>
 <li><p class="first">Use Mayavi as a plotting engine from simple Python scripts, for
 example from Ipython, in combination with numpy.  The
-<tt class="docutils literal"><span class="pre">mlab</span></tt> scripting API provides a simple way of using Mayavi in
-batch-processing scripts, see <a class="reference internal" href="mlab.html#simple-scripting-with-mlab"><em>mlab: Python scripting for 3D plotting</em></a> for
+<code class="docutils literal"><span class="pre">mlab</span></code> scripting API provides a simple way of using Mayavi in
+batch-processing scripts, see <a class="reference internal" href="mlab.html#simple-scripting-with-mlab"><span>mlab: Python scripting for 3D plotting</span></a> for
 more information on this.</p>
 </li>
 <li><p class="first">Script the Mayavi application from Python. The Mayavi application
@@ -201,7 +201,7 @@ itself features a powerful and general purpose scripting API that
 can be used to adapt it to your needs.</p>
 <blockquote>
 <div><ol class="loweralpha simple">
-<li>You can script Mayavi while using the <tt class="docutils literal"><span class="pre">mayavi2</span></tt> application
+<li>You can script Mayavi while using the <code class="docutils literal"><span class="pre">mayavi2</span></code> application
 in order to automate tasks and extend Mayavi&#8217;s behavior.</li>
 <li>You can script Mayavi from your own Python based application.</li>
 <li>You can embed Mayavi into your application in a variety of
@@ -209,7 +209,7 @@ ways either using <a class="reference external" href="https://svn.enthought.com/
 </ol>
 </div></blockquote>
 <p>More details on this are available in the
-<a class="reference internal" href="advanced_scripting.html#advanced-scripting-with-mayavi"><em>Advanced Scripting with Mayavi</em></a> chapter.</p>
+<a class="reference internal" href="advanced_scripting.html#advanced-scripting-with-mayavi"><span>Advanced Scripting with Mayavi</span></a> chapter.</p>
 </li>
 </ol>
 </div></blockquote>
@@ -225,8 +225,8 @@ concerned this basically boils down to a simple hierarchy.</p>
 files or data objects may be opened. Data sources are rich objects
 that describe the data, but not how to visualize it.</p>
 </li>
-<li><p class="first">This data is optionally processed using <a class="reference internal" href="filters.html#filters"><em>Filters</em></a> that operate on
-the data and visualized using visualization <a class="reference internal" href="modules.html#modules"><em>Modules</em></a>.  The
+<li><p class="first">This data is optionally processed using <a class="reference internal" href="filters.html#filters"><span>Filters</span></a> that operate on
+the data and visualized using visualization <a class="reference internal" href="modules.html#modules"><span>Modules</span></a>.  The
 filters and <strong>modules</strong> are accessible in the application via the
 <cite>Visualize</cite> menu on the UI or context menus on the pipeline. They may
 also be instantiated as Python objects when scripting Mayavi.</p>
@@ -258,13 +258,13 @@ using the menus.</li>
 <li>Generate a TVTK dataset via <a class="reference external" href="http://numpy.scipy.org">numpy</a> arrays or any other sequence.
 This is easiest done by using the scripting APIs, for instance <cite>mlab</cite>
 (see the paragraph on
-<a class="reference internal" href="mlab_pipeline.html#mlab-data-source"><em>creating data sources with mlab</em></a>, or simply
-the 3D plotting functions: <a class="reference internal" href="mlab_3d_plotting_functions.html#mlab-plotting-functions"><em>3D Plotting functions for numpy arrays</em></a>).</li>
+<a class="reference internal" href="mlab_pipeline.html#mlab-data-source"><span>creating data sources with mlab</span></a>, or simply
+the 3D plotting functions: <a class="reference internal" href="mlab_3d_plotting_functions.html#mlab-plotting-functions"><span>3D Plotting functions for numpy arrays</span></a>).</li>
 </ol>
 </div></blockquote>
 <p>Alternatively, if you wish to gain a deeper understanding by
 creating VTK data structures or files, more information on datasets in general
-is available in the <a class="reference internal" href="data.html#data-structures-used-by-mayavi"><em>Data representation in Mayavi</em></a> section.</p>
+is available in the <a class="reference internal" href="data.html#data-structures-used-by-mayavi"><span>Data representation in Mayavi</span></a> section.</p>
 </div>
 </div>
 
@@ -272,7 +272,7 @@ is available in the <a class="reference internal" href="data.html#data-structure
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="index.html">
               <img class="logo" src="_static/mayavi-logo.png" alt="Logo"/>
@@ -298,13 +298,15 @@ is available in the <a class="reference internal" href="data.html#data-structure
   <h4>Next topic</h4>
   <p class="topless"><a href="installation.html"
                         title="next chapter">Installation</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/overview.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/overview.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
 
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
@@ -335,7 +337,7 @@ is available in the <a class="reference internal" href="data.html#data-structure
     </div>
     <hr/>
     <div id="searchbox">
-	<a href="http://github.enthought.com/mayavi/mayavi/misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
+	<a href="http://docs.enthought.com/mayavi/mayavi/misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
 
 	<p style="font-size:85%; color: #FFFFFF;">
     	If you publish articles using Mayavi, please 
@@ -349,7 +351,7 @@ is available in the <a class="reference internal" href="data.html#data-structure
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -361,13 +363,13 @@ is available in the <a class="reference internal" href="data.html#data-structure
         <li class="right" >
           <a href="index.html" title="Mayavi: 3D scientific data visualization and plotting in Python"
              >previous</a> |</li>
-        <li><a href="index.html">mayavi 4.4.3 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.4.4 documentation</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer">
+    <div class="footer" role="contentinfo">
         &copy; Copyright 2008-2015, Enthought Inc..
-      Last updated on Aug 12, 2015.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+      Last updated on Feb 29, 2016.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
     </div>
   </body>
 </html>

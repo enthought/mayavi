@@ -15,9 +15,12 @@ not be used as an example of segmentation.
 import os
 if not os.path.exists('MRbrain.tar.gz'):
     # Download the data
-    import urllib
-    print "Downloading data, Please Wait (7.8MB)"
-    opener = urllib.urlopen(
+    try:
+        from urllib import urlopen
+    except ImportError:
+        from urllib.request import urlopen
+    print("Downloading data, Please Wait (7.8MB)")
+    opener = urlopen(
                 'http://graphics.stanford.edu/data/voldata/MRbrain.tar.gz')
     open('MRbrain.tar.gz', 'wb').write(opener.read())
 

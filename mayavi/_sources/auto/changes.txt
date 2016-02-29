@@ -1,3 +1,56 @@
+Mayavi 4.4.4
+============
+
+Enhancements
+------------
+
+21 Jan 2016 (PR)
+   - Add experimental Python3 support
+
+Fixes
+-----
+
+27 Feb 2016 (PR)
+   - Ensure the cut plane is updated when the plane is changed in the GUI
+
+27 Feb 2016 (kitchoi)
+   - Use off screen engine when mlab's offscreen option is enabled
+
+26 Feb 2016 (mabl)
+   - Cast the window id to an int in the render window interactor
+
+27 Feb 2016 (kitchoi)
+   - Update installation guide
+
+27 Feb 2016 (PR)
+   - Update docs to use Qt instead of wx
+
+24 Feb 2016 (kitchoi)
+   - Update documentation setup
+
+24 Feb 2016 (PR)
+   - Allow TVTK to be used without UI/X server
+
+23 Feb 2016 (kitchoi)
+   - Update documentation links
+
+17 Feb 2016 (kitchoi)
+   - Make sure the array shape and size match
+
+17 Feb 2016 (IT)
+   - Ensure __file__ attribute points to the correct path when running a script
+     from Mayavi2
+
+09 Feb 2016 (jonathanrocher)
+   - Avoid multiple identical keys in keyPressEvent. This is observed on slow
+     machines
+
+22 Jan 2016 (IT)
+   - Do not use get-pip or wheel to upgrade pip on appveyor
+
+10 Sep 2015 (alexendreleroux)
+   - Fix broken link in docs left hand side menu bar
+
 Mayavi 4.4.3
 ============
 

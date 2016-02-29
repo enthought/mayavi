@@ -18,11 +18,10 @@ scripts using IPython_'s ``%run`` command::
 
     In [1]: %run my_script
 
-You need to start IPython_ with the `-wthread` option, that became `--gui=wx` in the recent IPython versions (when installed
-with `EPD`_, the `pylab` start-menu link does this for you). In this
+You need to start IPython_ with the `--gui=qt` option. In this
 environment, the plotting commands are interactive: they have an
 immediate effect on the figure, alleviating the need to use the
-:func:`show` function. 
+:func:`show` function.
 
 .. _EPD: http://www.enthought.com/products/epd.php
 
@@ -31,37 +30,56 @@ application, or in any interactive Python shell of wxPython-based
 application (such as other Envisage-based applications, or SPE, Stani's
 Python Editor).
 
-Using together with Matplotlib's pylab
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Using together with Matplotlib
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If you want to use Matplotlib's pylab with Mayavi's mlab in IPython you
-should:
+If you want to use Matplotlib's interactive plotting with Mayavi's
+mlab in IPython you should:
 
-    * if your IPython version is greater than 0.11: start IPython with::
+    * start IPython with::
 
-        $ ipython --gui=wx --pylab=wx
+        $ ipython --matplotlib=qt
 
-    * else, if your IPython version is greater than 0.8.4: start IPython with
-      the following options::
+    * alternatively, start IPython with the `--gui=qt` option::
 
-        $ ipython -pylab -wthread
+        $ ipython --gui=qt
 
-    * elsewhere, start IPython with the `-wthread` option::
-
-        $ ipython -wthread
-
-      and **before** importing pylab, enter the following Python
-      commands::
+      and **before** importing any matplotlib modules, enter the
+      following Python commands::
 
         >>> import matplotlib
-        >>> matplotlib.use('WxAgg')
+        >>> matplotlib.use('Qt4Agg')
         >>> matplotlib.interactive(True)
+
+    * one could also use the ``--pylab`` option to IPython as
+      follows::
+
+        $ ipython --pylab=qt
+
 
 If you want matplotlib and mlab to work together by default in IPython,
 you can change you default matplotlib backend, by editing the
 `~/.matplotlib/matplotlibrc` to add the following line::
 
-    backend     : WXAgg
+    backend     : Qt4Agg
+
+If for some reason, the Qt backend does not work, you can use the wx
+backend.  To do this you may do::
+
+  $ ETS_TOOLKIT=wx
+  $ ipython --gui=wx
+
+Note that as far as Mayavi is concerned, it chooses the appropriate
+toolkit using the ``ETS_TOOLKIT`` environment variable.  If this is
+not set, the supported toolkits are tried in a version-dependent order
+until one succeeds.  With recent releases of traitsui_, the default is
+Qt.  The possible options for ``ETS_TOOLKIT`` are:
+
+ - `qt4`: to use the Qt backend (either PySide or PyQt4),
+ - `wx`: to use wxPython,
+ - `null`: to use no UI toolkit.
+
+.. _traitsui: http://github.com/enthought/traitsui
 
 .. topic:: Capturing mlab plots to integrate in pylab
 
@@ -91,7 +109,7 @@ the event-loop, which gives you more flexibility::
 
  from mayavi import mlab
  from numpy import random
- 
+
  @mlab.show
  def image():
     mlab.imshow(random.random((10, 10)))
@@ -108,4 +126,3 @@ will start one and the image function will not return until it is closed.
    sentence-end-double-space: t
    fill-column: 70
    End:
-

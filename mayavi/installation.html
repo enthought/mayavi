@@ -6,15 +6,15 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Installation &mdash; mayavi 4.4.3 documentation</title>
+    <title>Installation &mdash; mayavi 4.4.4 documentation</title>
     
-    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '4.4.3',
+        VERSION:     '4.4.4',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.4.3 documentation" href="index.html" />
+    <link rel="top" title="mayavi 4.4.4 documentation" href="index.html" />
     <link rel="next" title="Using the Mayavi application" href="application.html" />
     <link rel="prev" title="An overview of Mayavi" href="overview.html" />
 <style type="text/css">
@@ -57,8 +57,8 @@
 </style>
 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -70,14 +70,14 @@
         <li class="right" >
           <a href="overview.html" title="An overview of Mayavi"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">mayavi 4.4.3 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.4.4 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="installation">
 <span id="id1"></span><h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
@@ -94,7 +94,7 @@ Mayavi.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Windows:</th><td class="field-body">Under Windows the best way to install Mayavi is to install a full
-Python distribution, such as <a class="reference external" href="https://www.enthought.com/products/canopy/">Enthought Canopy</a>, <a class="reference external" href="http://code.google.com/p/pythonxy/">Pythonxy</a>, or <a class="reference external" href="https://store.continuum.io/cshop/anaconda/">Anaconda</a>.
+Python distribution, such as <a class="reference external" href="https://www.enthought.com/products/canopy/">Enthought Canopy</a>, <a class="reference external" href="https://python-xy.github.io/">Pythonxy</a>, or <a class="reference external" href="https://store.continuum.io/cshop/anaconda/">Anaconda</a>.
 Note that for Pythonxy, you need to check in &#8216;ETS&#8217; in the installer, when
 selecting components. If you want to reduce the disk space used by
 Pythonxy, you can uncheck other components.</td>
@@ -117,29 +117,36 @@ available for RHEL3 and 4.</td>
 </tbody>
 </table>
 </div>
+<div class="section" id="doing-it-yourself">
+<h2>Doing it yourself<a class="headerlink" href="#doing-it-yourself" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="requirements-for-manual-installs">
-<h2>Requirements for manual installs<a class="headerlink" href="#requirements-for-manual-installs" title="Permalink to this headline">¶</a></h2>
-<p>If you are not using full, ready-made, scientific Python distribution,
-you need to satisfy Mayavi&#8217;s requirements (for a step-by-step guide on
-installing all these under windows, see <a class="reference internal" href="#step-by-step-window-installation"><em>below</em></a>).</p>
+<span id="requirements-for-install"></span><h3>Requirements for manual installs<a class="headerlink" href="#requirements-for-manual-installs" title="Permalink to this headline">¶</a></h3>
+<p>If you are not using a full, ready-made, scientific Python distribution,
+you need to satisfy Mayavi&#8217;s requirements.  However, depending on your
+installation procedure, these requirements may be automatically done
+for you (see the following sections).</p>
 <p>Mayavi requires at the very minimum the following packages:</p>
 <blockquote>
 <div><ul class="simple">
-<li><a class="reference external" href="http://www.vtk.org">VTK</a> &gt;= 4.4 (5.x is ideal)</li>
-<li><a class="reference external" href="http://numpy.scipy.org">numpy</a> &gt;= 1.0.1</li>
+<li><a class="reference external" href="http://www.vtk.org">VTK</a> &gt;= 5.0 with Python wrapper</li>
+<li><a class="reference external" href="http://numpy.scipy.org">numpy</a> &gt;= 1.1.1</li>
 <li><a class="reference external" href="http://peak.telecommunity.com/DevCenter/setuptools">setuptools</a> (for installation and egg builds)</li>
-<li><a class="reference external" href="http://docs.enthought.com/traits">Traits</a> &gt;= 3.0 (<cite>Traits</cite>, <cite>TraitsGUI</cite> and <cite>TraitsBackendWX</cite> or
-<cite>TraitsBackendQt</cite>, <cite>EnthoughtBase</cite>, <cite>AppTools</cite>)
-<strong>Note</strong> Depending on your installation
-procedure, you might not need to install manually these
-requirements.</li>
+<li><a class="reference external" href="http://docs.enthought.com/traits">Traits</a> &gt;= 3.0 (<cite>Traits</cite>, <cite>TraitsUI</cite> and <cite>TraitsBackendWX</cite> or
+<cite>TraitsBackendQt</cite>, <cite>EnthoughtBase</cite>, <cite>AppTools</cite>)</li>
 </ul>
 </div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">As new versions of <a class="reference external" href="http://www.vtk.org">VTK</a> become available, Mayavi is continuously
+updated to support the latest releases.  If your VTK version is
+newer than 6.2.0, please check the <a class="reference external" href="auto/changes.html">Changelog</a> for the current status
+of Mayavi.</p>
+</div>
 <p>The following requirements are really optional but strongly recommended,
 especially if you are new to Mayavi:</p>
 <blockquote>
 <div><ul class="simple">
-<li><a class="reference external" href="http://www.wxpython.org">wxPython</a> 2.8.x</li>
+<li><a class="reference external" href="https://pypi.python.org/pypi/PySide/1.2.4">PySide</a> or <a class="reference external" href="http://pyqt.sourceforge.net/Docs/PyQt4/">PyQt4</a> or <a class="reference external" href="http://www.wxpython.org">wxPython</a> (2.8.x)</li>
 <li><a class="reference external" href="http://pypi.python.org/pypi/ConfigObj/">configobj</a></li>
 <li><a class="reference external" href="http://docs.enthought.com/envisage">Envisage</a> == 3.x (<cite>EnvisageCore</cite> and <cite>EnvisagePlugins</cite>)
 <strong>Note</strong> These last requirements can be automatically installed,
@@ -154,30 +161,34 @@ way to install the requirements is to install one of the
 distributions indicated above. Note that under Windows,
 <a class="reference external" href="https://www.enthought.com/products/canopy/">Enthought Canopy</a> comes with a compiler (mingw) and facilitates
 building Mayavi.</li>
-<li>Linux: Most Linux distributions will have installable binaries
+<li>Linux: In addition to using <a class="reference external" href="https://www.enthought.com/products/canopy/">Enthought Canopy</a>, most Linux
+distributions will have installable binaries
 available for the some of the above.  For example, under <a class="reference external" href="http://www.debian.org">Debian</a> or
-<a class="reference external" href="http://www.ubuntu.com">Ubuntu</a> you would need <tt class="docutils literal"><span class="pre">python-vtk</span></tt>, <tt class="docutils literal"><span class="pre">python-wxgtk2.6</span></tt>,
-<tt class="docutils literal"><span class="pre">python-setuptools</span></tt>, <tt class="docutils literal"><span class="pre">python-numpy</span></tt>, <tt class="docutils literal"><span class="pre">python-configobj</span></tt>.</li>
+<a class="reference external" href="http://www.ubuntu.com">Ubuntu</a> you would need <code class="docutils literal"><span class="pre">python-vtk</span></code>, <code class="docutils literal"><span class="pre">python-qt4</span></code>, <code class="docutils literal"><span class="pre">python-qt4-gl</span></code>,
+<code class="docutils literal"><span class="pre">python-setuptools</span></code>, <code class="docutils literal"><span class="pre">python-numpy</span></code>, <code class="docutils literal"><span class="pre">python-configobj</span></code>.</li>
 </ul>
 </div></blockquote>
 <p>There are several ways to install <a class="reference external" href="http://docs.enthought.com/mayavi/tvtk">TVTK</a>, <a class="reference external" href="http://docs.enthought.com/traits">Traits</a> and Mayavi.  These
 are described in the following.</p>
 </div>
-<div class="section" id="doing-it-yourself-python-packages-eggs">
-<h2>Doing it yourself: Python packages: Eggs<a class="headerlink" href="#doing-it-yourself-python-packages-eggs" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="installing-with-pip">
+<span id="install-with-pip"></span><h3>Installing with <cite>pip</cite><a class="headerlink" href="#installing-with-pip" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://pip.pypa.io/en/stable/">pip</a> is the <a class="reference external" href="https://packaging.python.org/en/latest/current/">PyPA</a> recommended tool for installing Python packages from <a class="reference external" href="https://pypi.python.org/pypi">PyPI</a>.
+The latest version of Mayavi available on PyPI can be found
+<a class="reference external" href="https://pypi.python.org/pypi/mayavi">here</a>.</p>
+<p>Required python packages can be automatically fetched and installed by <cite>pip</cite>.
+However, VTK Python wrapper is not available from PyPI.
+Therefore you will need to install it separately before proceeding;
+e.g. it is available from <a class="reference external" href="https://www.enthought.com/products/canopy/">Enthought Canopy</a> or Linux installable binaries.</p>
+<p>After installing VTK Python, you can install mayavi using <cite>pip</cite>:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ pip install mayavi
+</pre></div>
+</div>
+</div>
 <div class="section" id="installing-with-easy-install">
-<h3>Installing with <cite>easy_install</cite><a class="headerlink" href="#installing-with-easy-install" title="Permalink to this headline">¶</a></h3>
+<span id="install-with-easy-install"></span><h3>Installing with <cite>easy_install</cite><a class="headerlink" href="#installing-with-easy-install" title="Permalink to this headline">¶</a></h3>
 <p>First make sure you have the prerequisites for Mayavi installed, as
-indicated in the previous section, i.e. the following packages:</p>
-<blockquote>
-<div><ul class="simple">
-<li><a class="reference external" href="http://www.vtk.org">VTK</a> &gt;= 4.4 (5.x is ideal)</li>
-<li><a class="reference external" href="http://numpy.scipy.org">numpy</a> &gt;= 1.0.1</li>
-<li><a class="reference external" href="http://www.wxpython.org">wxPython</a> &gt;= 2.8.0</li>
-<li><a class="reference external" href="http://pypi.python.org/pypi/ConfigObj/">configobj</a></li>
-<li><a class="reference external" href="http://peak.telecommunity.com/DevCenter/setuptools">setuptools</a> (for installation and egg builds; later the better)</li>
-</ul>
-</div></blockquote>
+indicated in <a class="reference internal" href="#requirements-for-install"><span>Requirements for manual installs</span></a>.</p>
 <p><a class="reference external" href="http://docs.enthought.com/mayavi/mayavi">Mayavi</a> is part of the Enthought Tool Suite (<a class="reference external" href="http://code.enthought.com/">ETS</a>).  As such, it is
 distributed as part of ETS and therefore binary packages and source
 packages of ETS will contain Mayavi. Mayavi releases are almost always
@@ -194,7 +205,8 @@ Alternatively <cite>easy_install</cite> can build the eggs from the source tarba
 This is also fairly easy to do if you have a proper build environment.</p>
 <p>To install eggs, first make sure the essential requirements are
 installed, and then build and install the eggs like so:</p>
-<div class="highlight-python"><pre>$ easy_install "Mayavi[app]"</pre>
+<div class="highlight-python"><div class="highlight"><pre>$ easy_install &quot;Mayavi[app]&quot;
+</pre></div>
 </div>
 <p>This one command will download, build and install all the required ETS
 related modules that Mayavi needs for the latest ETS release, this means
@@ -203,7 +215,8 @@ installed automatically.</p>
 <p>If you are running a unix system (such as Linux) we advice you not to
 install the files in the system directories (<cite>/usr</cite>). An easy way to
 avoid this is to run:</p>
-<div class="highlight-python"><pre>$ easy_install --prefix "Mayavi[app]"</pre>
+<div class="highlight-python"><div class="highlight"><pre>$ easy_install --prefix &quot;Mayavi[app]&quot;
+</pre></div>
 </div>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
@@ -211,7 +224,7 @@ avoid this is to run:</p>
 <ul class="last simple">
 <li>One common sources of problems during an install, is the presence of
 older versions of packages such as Traits, Mayavi, Envisage or TVTK.
-Make sure that you clean your <tt class="docutils literal"><span class="pre">site-packages</span></tt> before installing a new
+Make sure that you clean your <code class="docutils literal"><span class="pre">site-packages</span></code> before installing a new
 version of Mayavi.</li>
 <li>Another problem often encountered is running into
 what is probably a bug of the build system that appears as a &#8220;sandbox
@@ -225,11 +238,12 @@ install command a few times.</li>
 <p>If you wish to download all the eggs fetched by <cite>easy_install</cite>, for
 instance to propagate to an offline PC, you can use virtualenv to
 create an empty site-packages, and install to it:</p>
-<div class="last highlight-python"><pre>virtualenv --no-site-packages temp
+<div class="last highlight-python"><div class="highlight"><pre>virtualenv --no-site-packages temp
 cd temp
 source bin/activate
 mkdir temp_subdir
-easy_install -zmaxd temp_subdir "Mayavi[app,nonets]"</pre>
+easy_install -zmaxd temp_subdir &quot;Mayavi[app,nonets]&quot;
+</pre></div>
 </div>
 </div>
 </div>
@@ -281,11 +295,13 @@ website and copy them into C:\winnt\system32.</li>
 <li><p class="first">Installing wxPython (2.8 binary from <a class="reference external" href="http://www.wxpython.org/">http://www.wxpython.org/</a> )</p>
 </li>
 <li><p class="first">Run in cmd.exe:</p>
-<div class="highlight-python"><pre>easy_install Sphinx EnvisageCore EnvisagePlugins configobj</pre>
+<div class="highlight-python"><div class="highlight"><pre>easy_install Sphinx EnvisageCore EnvisagePlugins configobj
+</pre></div>
 </div>
 </li>
 <li><p class="first">Finally, run in cmd.exe:</p>
-<div class="highlight-python"><pre>easy_install Mayavi[app]</pre>
+<div class="highlight-python"><div class="highlight"><pre>easy_install Mayavi[app]
+</pre></div>
 </div>
 </li>
 </ol>
@@ -293,11 +309,10 @@ website and copy them into C:\winnt\system32.</li>
 <div class="section" id="downloading-tarballs">
 <h3>Downloading tarballs<a class="headerlink" href="#downloading-tarballs" title="Permalink to this headline">¶</a></h3>
 <p>Relase tarballs for Mayavi can be found on the PyPI page, under &#8216;download
-URL&#8217;: <a class="reference external" href="http://pypi.python.org/pypi/mayavi/4.2.0">http://pypi.python.org/pypi/mayavi/4.2.0</a></p>
-</div>
+URL&#8217;: <a class="reference external" href="http://pypi.python.org/pypi/mayavi/">http://pypi.python.org/pypi/mayavi/</a></p>
 </div>
 <div class="section" id="under-mac-osx-snow-leopard">
-<h2>Under Mac OSX Snow Leopard<a class="headerlink" href="#under-mac-osx-snow-leopard" title="Permalink to this headline">¶</a></h2>
+<span id="install-in-mac-snow-leopard"></span><h3>Under Mac OSX Snow Leopard<a class="headerlink" href="#under-mac-osx-snow-leopard" title="Permalink to this headline">¶</a></h3>
 <p>Under Mac OSX Snow Leopard, you may need to build VTK yourself. Here are
 instructions specific to Snow Leopard (thanks to Darren Dale for
 providing the instructions):</p>
@@ -307,7 +322,7 @@ providing the instructions):</p>
 </li>
 <li><p class="first">Then cd into vtkbuild and run &#8220;cmake ../VTK&#8221;. Next, edit CMakeCache.txt
 (in vtkbuild) and set:</p>
-<div class="highlight-python"><pre>//Build Verdict with shared libraries.
+<div class="highlight-python"><div class="highlight"><pre>//Build Verdict with shared libraries.
 BUILD_SHARED_LIBS:BOOL=ON
 
 //Build architectures for OSX
@@ -320,8 +335,9 @@ CMAKE_OSX_DEPLOYMENT_TARGET:STRING=10.6
 //Wrap VTK classes into the Python language.
 VTK_WRAP_PYTHON:BOOL=ON
 
-//Arguments passed to "python setup.py install ..." during installation.
-VTK_PYTHON_SETUP_ARGS:STRING=</pre>
+//Arguments passed to &quot;python setup.py install ...&quot; during installation.
+VTK_PYTHON_SETUP_ARGS:STRING=
+</pre></div>
 </div>
 </li>
 <li><p class="first">Run &#8220;cmake ../VTK&#8221; again.</p>
@@ -332,7 +348,8 @@ faster on an 8-core system.</p>
 <li><p class="first">Run &#8220;sudo make install&#8221;</p>
 </li>
 <li><p class="first">Edit your ~/.profile and add the following line:</p>
-<div class="highlight-python"><pre>export DYLD_LIBRARY_PATH=${DYLD_LIBRARY_PATH}:/usr/local/lib/vtk-5.4</pre>
+<div class="highlight-python"><div class="highlight"><pre>export DYLD_LIBRARY_PATH=${DYLD_LIBRARY_PATH}:/usr/local/lib/vtk-5.4
+</pre></div>
 </div>
 </li>
 <li><p class="first">Run &#8220;source ~/.profile&#8221; or open a new terminal so the DYLD_LIBRARY_PATH
@@ -342,83 +359,32 @@ environment variable is available.</p>
 </li>
 </ol>
 </div>
+</div>
 <div class="section" id="the-bleeding-edge-git">
 <span id="installing-git"></span><h2>The bleeding edge: Git<a class="headerlink" href="#the-bleeding-edge-git" title="Permalink to this headline">¶</a></h2>
 <p>If you want to get the latest development version of Mayavi (e.g. for
 developing Mayavi or contributing to the documentation), we
-recommend that you check it out from github: Mayavi is hosted on github,
-with the rest of the Enthought open source packages: the &#8216;ETS&#8217; (Enthought
-Tool Suite): <a class="reference external" href="https://github.com/enthought">https://github.com/enthought</a></p>
+recommend that you check it out from github: Mayavi is hosted on github
+with its own repository: <a class="reference external" href="https://github.com/enthought/mayavi">https://github.com/enthought/mayavi</a> as part of the
+Enthought open source packages (ETS): <a class="reference external" href="https://github.com/enthought/ets">https://github.com/enthought/ets</a></p>
 <p>Mayavi depends on several packages that are part of ETS.  It is highly
 likely that the in-development mayavi version may depend on some feature
-of an as yet unreleased component.  Therefore, it is very convenient to
-get all the relevant ETS projects that Mayavi recursively depends on in
-one single checkout. For this purpose a script <cite>ets.py</cite> is available.</p>
-<blockquote>
-<div><ol class="arabic">
-<li><p class="first">Make sure there is no other ETS package installed in your pythonpath:</p>
-<div class="highlight-python"><pre>$ python
-&gt;&gt;&gt; import enthought
-Traceback (most recent call last):
-  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
-ImportError: No module named enthought</pre>
-</div>
-<p>If you <em>don&#8217;t</em> get the ImportError (e.g. importing <tt class="docutils literal"><span class="pre">enthought</span></tt> succeeds),
-then there is no way to install the git Mayavi version over it (even if you
-put it first in your PYTHONPATH), because the older (setuptools managed)
-ETS packages will get picked up too and they will mess up things. This
-behavior might be surprising if you are new to setuptools.</p>
-<p>So for example if you use Ubuntu or Debian, you need to first remove all ETS
-packages (in Ubuntu 9.04, you need to remove all of these: <tt class="docutils literal"><span class="pre">mayavi2</span> <span class="pre">python-apptools</span>
-<span class="pre">python-enthoughtbase</span> <span class="pre">python-envisagecore</span> <span class="pre">python-envisageplugins</span>
-<span class="pre">python-traits</span> <span class="pre">python-traitsbackendwx</span> <span class="pre">python-traitsgui</span></tt>).</p>
-</li>
-<li><p class="first">Create an empty directory and download in it the <cite>ets.py</cite> script from
-<a class="reference external" href="https://github.com/enthought/ets/raw/master/ets.py">https://github.com/enthought/ets/raw/master/ets.py</a></p>
-</li>
-<li><p class="first">To get just the sources for mayavi and all its dependencies do this:</p>
-<div class="highlight-python"><pre>$ python ets.py clone</pre>
-</div>
-<p>This will download from github the source code for the entire ETS.</p>
+of an unreleased component.  It is very convenient to get all the
+relevant ETS projects that Mayavi recursively depends on with a single
+checkout.  The ETS repository provides an <cite>ets</cite> module, which allows
+pulling all other ETS projects from github, and other useful features.</p>
+<p>To install ETS, please follow the instruction
+<a class="reference external" href="https://github.com/enthought/ets">here</a>.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p>The <cite>ets.py</cite> downloads the entire ETS, which is more than you need
+<p>The <cite>ets</cite> utility downloads the entire ETS, which is more than you need
 to build Mayavi. As the extra packages have additional
 dependencies, they may render the build harder. You can remove
 safely the following directories:</p>
-<div class="last highlight-python"><pre>blockcanvas chaco codetools enable graphcanvas scimath</pre>
+<div class="last highlight-python"><div class="highlight"><pre>blockcanvas chaco codetools enable graphcanvas scimath
+</pre></div>
 </div>
 </div>
-</li>
-<li><p class="first">Once the sources are checked out you may either:</p>
-<ol class="arabic">
-<li><p class="first">Install a development version, to track changes to github easily
-(recommended):</p>
-<div class="highlight-python"><pre>$ python ets.py develop</pre>
-</div>
-<p>This will install all the checked out sources by executing a <tt class="docutils literal"><span class="pre">python</span>
-<span class="pre">setup.py</span> <span class="pre">develop</span></tt> in each sub directory.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p>To install of the packages in a different location than the
-default one, eg &#8216;~/usr/&#8217;, use the following syntax:</p>
-<div class="highlight-python"><pre>$ python ets.py develop --prefix ~/usr</pre>
-</div>
-<p class="last">make sure that the corresponding site-packages folder is in your
-PYTHONPATH environment variable (for the above example it would
-be: &#8216;~/usr/lib/python2.x/site-packages/&#8217;</p>
-</div>
-</li>
-<li><p class="first">Alternatively, if you&#8217;d like just <tt class="docutils literal"><span class="pre">Mayavi</span></tt> installed via a
-standard  <tt class="docutils literal"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">install</span></tt> you may do:</p>
-<div class="highlight-python"><pre>$ python ets.py develop -f ../dist</pre>
-</div>
-</li>
-</ol>
-</li>
-</ol>
-</div></blockquote>
-<p>You should now have the latest version of Mayavi installed and usable.</p>
 </div>
 <div class="section" id="testing-your-installation">
 <h2>Testing your installation<a class="headerlink" href="#testing-your-installation" title="Permalink to this headline">¶</a></h2>
@@ -431,25 +397,25 @@ application like so:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">mayavi2</span> <span class="o">-</span><span class="n">h</span>
 </pre></div>
 </div>
-<p><tt class="docutils literal"><span class="pre">mayavi2</span></tt> is the mayavi application.  On some platforms like win32
-you will need to double click on the <tt class="docutils literal"><span class="pre">mayavi2.exe</span></tt> program found in
-your <tt class="docutils literal"><span class="pre">Python2X\Scripts</span></tt> folder.  Make sure this directory is in your
+<p><code class="docutils literal"><span class="pre">mayavi2</span></code> is the mayavi application.  On some platforms like win32
+you will need to double click on the <code class="docutils literal"><span class="pre">mayavi2.exe</span></code> program found in
+your <code class="docutils literal"><span class="pre">Python2X\Scripts</span></code> folder.  Make sure this directory is in your
 path.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Mayavi can be used in a variety of other ways but the <tt class="docutils literal"><span class="pre">mayavi2</span></tt>
+<p class="last">Mayavi can be used in a variety of other ways but the <code class="docutils literal"><span class="pre">mayavi2</span></code>
 application is the easiest to start with.</p>
 </div>
 <p>If you have the source tarball of mayavi or have checked out the sources
 from the github repository, you can run the examples in
-<tt class="docutils literal"><span class="pre">mayavi*/examples</span></tt>.  There are plenty of example scripts
+<code class="docutils literal"><span class="pre">mayavi*/examples</span></code>.  There are plenty of example scripts
 illustrating various features.  Tests are available in the
-<tt class="docutils literal"><span class="pre">mayavi*/tests</span></tt> sub-directory.</p>
+<code class="docutils literal"><span class="pre">mayavi*/tests</span></code> sub-directory.</p>
 </div>
 <div class="section" id="troubleshooting">
 <h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h2>
 <p>If you are having trouble with the installation you may want to check
-the <a class="reference internal" href="misc.html#getting-help"><em>Getting help</em></a> page for more details on how you can search for
+the <a class="reference internal" href="misc.html#getting-help"><span>Getting help</span></a> page for more details on how you can search for
 information or email the mailing list.</p>
 </div>
 </div>
@@ -458,7 +424,7 @@ information or email the mailing list.</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="index.html">
               <img class="logo" src="_static/mayavi-logo.png" alt="Logo"/>
@@ -467,14 +433,15 @@ information or email the mailing list.</p>
   <ul>
 <li><a class="reference internal" href="#">Installation</a><ul>
 <li><a class="reference internal" href="#installing-ready-made-distributions">Installing ready-made distributions</a></li>
+<li><a class="reference internal" href="#doing-it-yourself">Doing it yourself</a><ul>
 <li><a class="reference internal" href="#requirements-for-manual-installs">Requirements for manual installs</a></li>
-<li><a class="reference internal" href="#doing-it-yourself-python-packages-eggs">Doing it yourself: Python packages: Eggs</a><ul>
+<li><a class="reference internal" href="#installing-with-pip">Installing with <cite>pip</cite></a></li>
 <li><a class="reference internal" href="#installing-with-easy-install">Installing with <cite>easy_install</cite></a></li>
 <li><a class="reference internal" href="#step-by-step-instructions-to-install-with-eggs-under-windows">Step-by-step instructions to install with eggs under Windows</a></li>
 <li><a class="reference internal" href="#downloading-tarballs">Downloading tarballs</a></li>
+<li><a class="reference internal" href="#under-mac-osx-snow-leopard">Under Mac OSX Snow Leopard</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#under-mac-osx-snow-leopard">Under Mac OSX Snow Leopard</a></li>
 <li><a class="reference internal" href="#the-bleeding-edge-git">The bleeding edge: Git</a></li>
 <li><a class="reference internal" href="#testing-your-installation">Testing your installation</a></li>
 <li><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
@@ -488,13 +455,15 @@ information or email the mailing list.</p>
   <h4>Next topic</h4>
   <p class="topless"><a href="application.html"
                         title="next chapter">Using the Mayavi application</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/installation.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/installation.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
 
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
@@ -525,7 +494,7 @@ information or email the mailing list.</p>
     </div>
     <hr/>
     <div id="searchbox">
-	<a href="http://github.enthought.com/mayavi/mayavi/misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
+	<a href="http://docs.enthought.com/mayavi/mayavi/misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
 
 	<p style="font-size:85%; color: #FFFFFF;">
     	If you publish articles using Mayavi, please 
@@ -539,7 +508,7 @@ information or email the mailing list.</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -551,13 +520,13 @@ information or email the mailing list.</p>
         <li class="right" >
           <a href="overview.html" title="An overview of Mayavi"
              >previous</a> |</li>
-        <li><a href="index.html">mayavi 4.4.3 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.4.4 documentation</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer">
+    <div class="footer" role="contentinfo">
         &copy; Copyright 2008-2015, Enthought Inc..
-      Last updated on Aug 12, 2015.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+      Last updated on Feb 29, 2016.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
     </div>
   </body>
 </html>

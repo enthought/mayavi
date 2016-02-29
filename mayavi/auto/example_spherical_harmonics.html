@@ -6,15 +6,15 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Spherical harmonics example &mdash; mayavi 4.4.3 documentation</title>
+    <title>Spherical harmonics example &mdash; mayavi 4.4.4 documentation</title>
     
-    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.4.3',
+        VERSION:     '4.4.4',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,10 +23,10 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.4.3 documentation" href="../index.html" />
+    <link rel="top" title="mayavi 4.4.4 documentation" href="../index.html" />
     <link rel="up" title="Example gallery" href="examples.html" />
     <link rel="next" title="Lorenz example" href="example_lorenz.html" />
-    <link rel="prev" title="Canyon example" href="example_canyon.html" />
+    <link rel="prev" title="Surface from irregular data example" href="example_surface_from_irregular_data.html" />
 <style type="text/css">
   body {
     /* Very bottom copyright, etc. info */
@@ -58,8 +58,8 @@
 </style>
 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -69,17 +69,17 @@
           <a href="example_lorenz.html" title="Lorenz example"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="example_canyon.html" title="Canyon example"
+          <a href="example_surface_from_irregular_data.html" title="Surface from irregular data example"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">mayavi 4.4.3 documentation</a> &raquo;</li>
-          <li><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.4.4 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="spherical-harmonics-example">
 <span id="example-spherical-harmonics"></span><h1>Spherical harmonics example<a class="headerlink" href="#spherical-harmonics-example" title="Permalink to this headline">¶</a></h1>
@@ -87,15 +87,16 @@
 polar plot.</p>
 <p>This example requires scipy.</p>
 <p>In this example we use the mlab&#8217;s mesh function:
-<a class="reference internal" href="mlab_helper_functions.html#mayavi.mlab.mesh" title="mayavi.mlab.mesh"><tt class="xref py py-func docutils literal"><span class="pre">mayavi.mlab.mesh()</span></tt></a>.
+<a class="reference internal" href="mlab_helper_functions.html#mayavi.mlab.mesh" title="mayavi.mlab.mesh"><code class="xref py py-func docutils literal"><span class="pre">mayavi.mlab.mesh()</span></code></a>.
 For plotting surfaces this is a very versatile function. The surfaces can
 be defined as functions of a 2D grid.</p>
 <p>For each spherical harmonic, we plot its value on the surface of a
 sphere, and then in polar. The polar plot is simply obtained by varying
 the radius of the previous sphere.</p>
 <img alt="../_images/example_spherical_harmonics.jpg" class="align-center" src="../_images/example_spherical_harmonics.jpg" />
-<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/spherical_harmonics.py"><tt class="xref download docutils literal"><span class="pre">spherical_harmonics.py</span></tt></a></p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># Author: Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt;</span>
+<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/spherical_harmonics.py"><code class="xref download docutils literal"><span class="pre">spherical_harmonics.py</span></code></a></p>
+<div class="highlight-python"><div class="highlight"><pre>
+<span class="c"># Author: Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt;</span>
 <span class="c"># Copyright (c) 2008, Enthought, Inc.</span>
 <span class="c"># License: BSD Style.</span>
 
@@ -139,24 +140,26 @@ the radius of the previous sphere.</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="../index.html">
               <img class="logo" src="../_static/mayavi-logo.png" alt="Logo"/>
             </a></p>
   <h4>Previous topic</h4>
-  <p class="topless"><a href="example_canyon.html"
-                        title="previous chapter">Canyon example</a></p>
+  <p class="topless"><a href="example_surface_from_irregular_data.html"
+                        title="previous chapter">Surface from irregular data example</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="example_lorenz.html"
                         title="next chapter">Lorenz example</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="../_sources/auto/example_spherical_harmonics.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/auto/example_spherical_harmonics.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
 
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
       <input type="text" name="q" />
@@ -187,7 +190,7 @@ the radius of the previous sphere.</p>
     </div>
     <hr/>
     <div id="searchbox">
-	<a href="http://github.enthought.com/mayavi/mayavi/misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
+	<a href="http://docs.enthought.com/mayavi/mayavi/misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
 
 	<p style="font-size:85%; color: #FFFFFF;">
     	If you publish articles using Mayavi, please 
@@ -201,7 +204,7 @@ the radius of the previous sphere.</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -211,16 +214,16 @@ the radius of the previous sphere.</p>
           <a href="example_lorenz.html" title="Lorenz example"
              >next</a> |</li>
         <li class="right" >
-          <a href="example_canyon.html" title="Canyon example"
+          <a href="example_surface_from_irregular_data.html" title="Surface from irregular data example"
              >previous</a> |</li>
-        <li><a href="../index.html">mayavi 4.4.3 documentation</a> &raquo;</li>
-          <li><a href="examples.html" >Example gallery</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.4.4 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer">
+    <div class="footer" role="contentinfo">
         &copy; Copyright 2008-2015, Enthought Inc..
-      Last updated on Aug 12, 2015.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+      Last updated on Feb 29, 2016.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
     </div>
   </body>
 </html>

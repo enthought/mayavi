@@ -6,15 +6,15 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Wx embedding example &mdash; mayavi 4.4.3 documentation</title>
+    <title>Wx embedding example &mdash; mayavi 4.4.4 documentation</title>
     
-    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.4.3',
+        VERSION:     '4.4.4',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.4.3 documentation" href="../index.html" />
+    <link rel="top" title="mayavi 4.4.4 documentation" href="../index.html" />
     <link rel="up" title="Example gallery" href="examples.html" />
     <link rel="next" title="Multiple engines example" href="example_multiple_engines.html" />
     <link rel="prev" title="Mlab traits ui example" href="example_mlab_traits_ui.html" />
@@ -58,8 +58,8 @@
 </style>
 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -71,31 +71,32 @@
         <li class="right" >
           <a href="example_mlab_traits_ui.html" title="Mlab traits ui example"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">mayavi 4.4.3 documentation</a> &raquo;</li>
-          <li><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.4.4 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="wx-embedding-example">
 <span id="example-wx-embedding"></span><h1>Wx embedding example<a class="headerlink" href="#wx-embedding-example" title="Permalink to this headline">¶</a></h1>
 <p>This example shows to embed a Mayavi view in a wx frame.</p>
 <p>The trick is to create a <cite>HasTraits</cite> object, as in the
 mlab_traits_ui.py, mayavi_traits_ui.py, or the modifying_mlab_source.py
-examples (<a class="reference internal" href="example_mlab_traits_ui.html#example-mlab-traits-ui"><em>Mlab traits ui example</em></a>, <a class="reference internal" href="example_mayavi_traits_ui.html#example-mayavi-traits-ui"><em>Mayavi traits ui example</em></a>,
-<a class="reference internal" href="example_mlab_interactive_dialog.html#example-mlab-interactive-dialog"><em>Mlab interactive dialog example</em></a>).</p>
+examples (<a class="reference internal" href="example_mlab_traits_ui.html#example-mlab-traits-ui"><span>Mlab traits ui example</span></a>, <a class="reference internal" href="example_mayavi_traits_ui.html#example-mayavi-traits-ui"><span>Mayavi traits ui example</span></a>,
+<a class="reference internal" href="example_mlab_interactive_dialog.html#example-mlab-interactive-dialog"><span>Mlab interactive dialog example</span></a>).</p>
 <p>Calling the <cite>edit_traits</cite> method returns a <cite>ui</cite> object whose
 <cite>control</cite> attribute is the wx widget. It can thus be embedded in a
 standard wx application.</p>
 <p>In this example, the wx part is very simple. See
-<a class="reference internal" href="example_wx_mayavi_embed_in_notebook.html#example-wx-mayavi-embed-in-notebook"><em>Wx mayavi embed in notebook example</em></a> for an example of more complex
+<a class="reference internal" href="example_wx_mayavi_embed_in_notebook.html#example-wx-mayavi-embed-in-notebook"><span>Wx mayavi embed in notebook example</span></a> for an example of more complex
 embedding of Mayavi scenes in Wx applications.</p>
-<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/wx_embedding.py"><tt class="xref download docutils literal"><span class="pre">wx_embedding.py</span></tt></a></p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">ogrid</span><span class="p">,</span> <span class="n">sin</span>
+<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/wx_embedding.py"><code class="xref download docutils literal"><span class="pre">wx_embedding.py</span></code></a></p>
+<div class="highlight-python"><div class="highlight"><pre>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">ogrid</span><span class="p">,</span> <span class="n">sin</span>
 
 <span class="kn">from</span> <span class="nn">traits.api</span> <span class="kn">import</span> <span class="n">HasTraits</span><span class="p">,</span> <span class="n">Instance</span>
 <span class="kn">from</span> <span class="nn">traitsui.api</span> <span class="kn">import</span> <span class="n">View</span><span class="p">,</span> <span class="n">Item</span>
@@ -143,6 +144,7 @@ embedding of Mayavi scenes in Wx applications.</p>
 <span class="n">app</span> <span class="o">=</span> <span class="n">wx</span><span class="o">.</span><span class="n">PySimpleApp</span><span class="p">()</span>
 <span class="n">frame</span> <span class="o">=</span> <span class="n">MainWindow</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="n">wx</span><span class="o">.</span><span class="n">ID_ANY</span><span class="p">)</span>
 <span class="n">app</span><span class="o">.</span><span class="n">MainLoop</span><span class="p">()</span>
+
 </pre></div>
 </div>
 </div>
@@ -151,7 +153,7 @@ embedding of Mayavi scenes in Wx applications.</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="../index.html">
               <img class="logo" src="../_static/mayavi-logo.png" alt="Logo"/>
@@ -162,13 +164,15 @@ embedding of Mayavi scenes in Wx applications.</p>
   <h4>Next topic</h4>
   <p class="topless"><a href="example_multiple_engines.html"
                         title="next chapter">Multiple engines example</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="../_sources/auto/example_wx_embedding.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/auto/example_wx_embedding.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
 
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
       <input type="text" name="q" />
@@ -199,7 +203,7 @@ embedding of Mayavi scenes in Wx applications.</p>
     </div>
     <hr/>
     <div id="searchbox">
-	<a href="http://github.enthought.com/mayavi/mayavi/misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
+	<a href="http://docs.enthought.com/mayavi/mayavi/misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
 
 	<p style="font-size:85%; color: #FFFFFF;">
     	If you publish articles using Mayavi, please 
@@ -213,7 +217,7 @@ embedding of Mayavi scenes in Wx applications.</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -225,14 +229,14 @@ embedding of Mayavi scenes in Wx applications.</p>
         <li class="right" >
           <a href="example_mlab_traits_ui.html" title="Mlab traits ui example"
              >previous</a> |</li>
-        <li><a href="../index.html">mayavi 4.4.3 documentation</a> &raquo;</li>
-          <li><a href="examples.html" >Example gallery</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.4.4 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer">
+    <div class="footer" role="contentinfo">
         &copy; Copyright 2008-2015, Enthought Inc..
-      Last updated on Aug 12, 2015.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+      Last updated on Feb 29, 2016.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
     </div>
   </body>
 </html>

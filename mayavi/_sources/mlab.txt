@@ -14,7 +14,7 @@
 .. currentmodule:: mayavi.mlab
 
 The :mod:`mayavi.mlab` module, that we call mlab, provides an easy
-way to visualize data in a script or from an interactive prompt with 
+way to visualize data in a script or from an interactive prompt with
 one-liners as done in the matplotlib_ ``pylab`` interface but with an
 emphasis on 3D visualization using Mayavi2. This allows users to perform
 quick 3D visualization while being able to use Mayavi's powerful
@@ -24,22 +24,23 @@ Mayavi's mlab is designed to be used in a manner well-suited to
 scripting and does not present a fully object-oriented API.
 It is can be used interactively with IPython_.
 
-.. warning:: 
+.. warning::
 
-    When using IPython with mlab, as in the following examples, IPython must 
-    be invoked with the ``-wthread`` command line option like so::
+    When using IPython with mlab, as in the following examples, IPython must
+    be invoked with the ``--gui=qt`` command line option like this::
 
-         $ ipython -wthread
+         $ ipython --gui=qt
 
-    Or, for IPython recent version (0.11 and above)::
+    On recent versions of IPython, this can be turned on from within IPython
+    itself by::
 
-         $ ipython --gui=wx
+        In []: %gui qt
 
-    If you are using the `Enthought Python Distribution
-    <http://www.enthought.com/products/epd.php>`_, or the latest 
-    `Python(x,y) <http://www.pythonxy.com>`_ distribution, the Pylab menu
-    entry will start ipython with the right switch. In older release of
-    Python(x,y) you need to start "Interactive Console (wxPython)".
+    In some cases, where for some reason Mayavi fails with the Qt backend, you
+    can try using the wxPython backend by doing::
+
+        $ ETS_TOOLKIT=wx
+        $ ipython --gui=wx
 
     For more details on using mlab and running scripts, read the section
     :ref:`running-mlab-scripts`
@@ -64,9 +65,9 @@ scalar and vector data.
 
 ..
  .. topic:: **Section contents**
- 
+
     .. toctree::
- 
+
         mlab_demo
         mlab_3d_plotting_functions
         mlab_changing_object_looks
@@ -99,4 +100,3 @@ scalar and vector data.
    sentence-end-double-space: t
    fill-column: 70
    End:
-

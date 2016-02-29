@@ -77,15 +77,18 @@ Advanced mlab examples
 
    example_julia_set.rst
    example_boy.rst
+   example_bunny.rst
+   example_dragon.rst
+   example_lucy.rst
    example_custom_colormap.rst
    example_surface_from_irregular_data.rst
-   example_canyon.rst
    example_spherical_harmonics.rst
    example_lorenz.rst
-   example_tvtk_in_mayavi.rst
+   example_canyon.rst
    example_julia_set_decimation.rst
    example_simple_structured_grid.rst
    example_atomic_orbital.rst
+   example_tvtk_in_mayavi.rst
    example_chemistry.rst
    example_wigner.rst
    example_canyon_decimation.rst
@@ -104,71 +107,86 @@ Advanced mlab examples
     :width: 150
 
             
-.. |0002| image:: ../generated_images/example_custom_colormap.jpg
+.. |0002| raw:: html
+
+    <br/>
+
+            
+.. |0003| raw:: html
+
+    <br/>
+
+            
+.. |0004| raw:: html
+
+    <br/>
+
+            
+.. |0005| image:: ../generated_images/example_custom_colormap.jpg
     :width: 150
 
             
-.. |0003| image:: ../generated_images/example_surface_from_irregular_data.jpg
+.. |0006| image:: ../generated_images/example_surface_from_irregular_data.jpg
     :width: 150
 
             
-.. |0004| image:: ../generated_images/example_canyon.jpg
+.. |0007| image:: ../generated_images/example_spherical_harmonics.jpg
     :width: 150
 
             
-.. |0005| image:: ../generated_images/example_spherical_harmonics.jpg
+.. |0008| image:: ../generated_images/example_lorenz.jpg
     :width: 150
 
             
-.. |0006| image:: ../generated_images/example_lorenz.jpg
+.. |0009| image:: ../generated_images/example_canyon.jpg
     :width: 150
 
             
-.. |0007| image:: ../generated_images/example_tvtk_in_mayavi.jpg
+.. |0010| image:: ../generated_images/example_julia_set_decimation.jpg
     :width: 150
 
             
-.. |0008| image:: ../generated_images/example_julia_set_decimation.jpg
+.. |0011| image:: ../generated_images/example_simple_structured_grid.jpg
     :width: 150
 
             
-.. |0009| image:: ../generated_images/example_simple_structured_grid.jpg
+.. |0012| image:: ../generated_images/example_atomic_orbital.jpg
     :width: 150
 
             
-.. |0010| image:: ../generated_images/example_atomic_orbital.jpg
+.. |0013| image:: ../generated_images/example_tvtk_in_mayavi.jpg
     :width: 150
 
             
-.. |0011| image:: ../generated_images/example_chemistry.jpg
+.. |0014| image:: ../generated_images/example_chemistry.jpg
     :width: 150
 
             
-.. |0012| image:: ../generated_images/example_wigner.jpg
+.. |0015| image:: ../generated_images/example_wigner.jpg
     :width: 150
 
             
-.. |0013| image:: ../generated_images/example_canyon_decimation.jpg
+.. |0016| image:: ../generated_images/example_canyon_decimation.jpg
     :width: 150
 
             
-.. |0014| image:: ../generated_images/example_plotting_many_lines.jpg
+.. |0017| image:: ../generated_images/example_plotting_many_lines.jpg
     :width: 150
 
             
-.. |0015| image:: ../generated_images/example_magnetic_field_lines.jpg
+.. |0018| image:: ../generated_images/example_magnetic_field_lines.jpg
     :width: 150
 
             
-.. |0016| image:: ../generated_images/example_mri.jpg
+.. |0019| image:: ../generated_images/example_mri.jpg
     :width: 150
 
             
-.. |0017| image:: ../generated_images/example_protein.jpg
+.. |0020| image:: ../generated_images/example_protein.jpg
     :width: 150
 
             
-.. |0018| image:: ../generated_images/example_flight_graph.jpg
+.. |0021| image:: ../generated_images/example_flight_graph.jpg
     :width: 150
 
             
@@ -182,87 +200,99 @@ Advanced mlab examples
          A script to generate the Mayavi logo: a
          Boy surface.
 
-|0002|  :ref:`example_custom_colormap`
+|0002|  :ref:`example_bunny`
+         Viewing Stanford 3D Scanning Repository
+         bunny model
+
+|0003|  :ref:`example_dragon`
+         Viewing Stanford 3D Scanning Repository
+         dragon model
+
+|0004|  :ref:`example_lucy`
+         Viewing Stanford 3D Scanning Repository
+         lucy model
+
+|0005|  :ref:`example_custom_colormap`
          An example showing how a custom
          colormap (or look up table) can be used
          for a given object.
 
-|0003|  :ref:`example_surface_from_irregular_data`
+|0006|  :ref:`example_surface_from_irregular_data`
          An example which shows how to plot a
          surface from data acquired irregularly.
 
-|0004|  :ref:`example_canyon`
-         Retrieve radar data from the NASA and
-         plot a view of the Grand Canyon
-         landscape.
-
-|0005|  :ref:`example_spherical_harmonics`
+|0007|  :ref:`example_spherical_harmonics`
          Plot spherical harmonics on the surface
          of the sphere, as well as a 3D polar
          plot.
 
-|0006|  :ref:`example_lorenz`
+|0008|  :ref:`example_lorenz`
          An example displaying the trajectories
          for the Lorenz system of equations along
          with the z-nullcline.
 
-|0007|  :ref:`example_tvtk_in_mayavi`
-         An example of pure TVTK programming to
-         build TVTK objects, which are then added
-         to a Mayavi scene.
+|0009|  :ref:`example_canyon`
+         Retrieve radar data from the NASA and
+         plot a view of the Grand Canyon
+         landscape.
 
-|0008|  :ref:`example_julia_set_decimation`
+|0010|  :ref:`example_julia_set_decimation`
          The Julia set, but with a decimated
          mesh: unecessary triangles due to the
          initial grid and not matching the
          geometry of the Julia set are removed.
 
-|0009|  :ref:`example_simple_structured_grid`
+|0011|  :ref:`example_simple_structured_grid`
          An example creating a structured grid
          data set from numpy arrays using TVTK
          and visualizing it using mlab.
 
-|0010|  :ref:`example_atomic_orbital`
+|0012|  :ref:`example_atomic_orbital`
          An example showing the norm and phase
          of an atomic orbital: isosurfaces of the
          norm, with colors  displaying the phase.
 
-|0011|  :ref:`example_chemistry`
+|0013|  :ref:`example_tvtk_in_mayavi`
+         An example of pure TVTK programming to
+         build TVTK objects, which are then added
+         to a Mayavi scene.
+
+|0014|  :ref:`example_chemistry`
          In this example, we display the H2O
          molecule, and use volume rendering to
          display the electron localization
          function.
 
-|0012|  :ref:`example_wigner`
+|0015|  :ref:`example_wigner`
          An example in which 3 functions of x
          and y  are displayed with a surf plot,
          while the z scaling is kept constant, to
          allow comparison between them.
 
-|0013|  :ref:`example_canyon_decimation`
+|0016|  :ref:`example_canyon_decimation`
          Use the greedy-terrain-decimator to
          display a decimated terrain view.
 
-|0014|  :ref:`example_plotting_many_lines`
+|0017|  :ref:`example_plotting_many_lines`
          This examples shows how many lines can
          be grouped together in a single object,
          for convenience and efficiency.
 
-|0015|  :ref:`example_magnetic_field_lines`
+|0018|  :ref:`example_magnetic_field_lines`
          This example uses the streamline module
          to display field lines of a magnetic
          dipole (a current loop).
 
-|0016|  :ref:`example_mri`
+|0019|  :ref:`example_mri`
          Viewing MRI data with cut plane and iso
          surface.
 
-|0017|  :ref:`example_protein`
+|0020|  :ref:`example_protein`
          Visualize a protein graph structure
          downloaded from the protein database in
          standard pdb format.
 
-|0018|  :ref:`example_flight_graph`
+|0021|  :ref:`example_flight_graph`
          An example showing a graph display
          between cities positionned on the Earth
          surface.
@@ -287,6 +317,7 @@ applications.
    example_wx_embedding.rst
    example_multiple_engines.rst
    example_multiple_mlab_scene_models.rst
+   example_superquad_with_gui.rst
    example_mlab_interactive_dialog.rst
    example_wx_mayavi_embed_in_notebook.rst
    example_subclassing_mayavi_application.rst
@@ -327,13 +358,13 @@ applications.
     <br/>
 
             
-.. |0105| image:: ../images/example_mlab_interactive_dialog.jpg
-    :width: 150
-
-            
-.. |0106| raw:: html
+.. |0105| raw:: html
 
     <br/>
+
+            
+.. |0106| image:: ../images/example_mlab_interactive_dialog.jpg
+    :width: 150
 
             
 .. |0107| raw:: html
@@ -386,6 +417,11 @@ applications.
     <br/>
 
             
+.. |0117| raw:: html
+
+    <br/>
+
+            
 ======= =============================================
 ======= =============================================
 |0100|  :ref:`example_mlab_visual`
@@ -409,27 +445,37 @@ applications.
          Example showing a dialog with multiple
          embedded scenes.
 
-|0105|  :ref:`example_mlab_interactive_dialog`
+|0105|  :ref:`example_superquad_with_gui`
+         This example uses MayaVi to show the
+         evolution of a superquadric (http://en.w
+         ikipedia.org/wiki/Superquadrics), which
+         are ellipsoidal surfaces parametrised by
+         two parameters,lpha and eta. The
+         equations that are used to determine the
+         superquadric are (in spherical-polar
+         coordinates):
+
+|0106|  :ref:`example_mlab_interactive_dialog`
          An example of how to modify the data
          visualized  via an interactive dialog.
 
-|0106|  :ref:`example_wx_mayavi_embed_in_notebook`
+|0107|  :ref:`example_wx_mayavi_embed_in_notebook`
          This example show how to embedded
          Mayavi in a wx notebook.
 
-|0107|  :ref:`example_subclassing_mayavi_application`
+|0108|  :ref:`example_subclassing_mayavi_application`
          This script demonstrates how one can
          script the Mayavi application by
          subclassing the application, create a
          new scene and create a few simple
          modules.
 
-|0108|  :ref:`example_mayavi_traits_ui`
+|0109|  :ref:`example_mayavi_traits_ui`
          An example of how to create a UI
          similar to the complete Mayavi
          application inside a Traits UI view.
 
-|0109|  :ref:`example_compute_in_thread`
+|0110|  :ref:`example_compute_in_thread`
          This script demonstrates how one can do
          a computation in another thread and
          update the mayavi pipeline. It also
@@ -437,22 +483,22 @@ applications.
          and visualize it as image data using a
          few modules.
 
-|0110|  :ref:`example_qt_embedding`
+|0111|  :ref:`example_qt_embedding`
          This example demonstrates using Mayavi
          as a component of a large Qt
          application.
 
-|0111|  :ref:`example_adjust_cropping_extents`
+|0112|  :ref:`example_adjust_cropping_extents`
          A custom dialog to adjust the
          parameters of a GeometryFilter to crop
          data points.
 
-|0112|  :ref:`example_poll_file`
+|0113|  :ref:`example_poll_file`
          A simple script that polls a data file
          for changes and then updates the mayavi
          pipeline automatically.
 
-|0113|  :ref:`example_lorenz_ui`
+|0114|  :ref:`example_lorenz_ui`
          This example displays the trajectories
          for the Lorenz system of equations using
          mlab along with the z-nullcline.  It
@@ -462,17 +508,17 @@ applications.
          demonstrates how one can build powerful
          tools with a UI using Traits and Mayavi.
 
-|0114|  :ref:`example_volume_slicer`
+|0115|  :ref:`example_volume_slicer`
          Example of an elaborate dialog showing
          a multiple views on the same data, with
          3 cuts synchronized.
 
-|0115|  :ref:`example_coil_design_application`
+|0116|  :ref:`example_coil_design_application`
          An full-blown application demoing a
          domain-specific usecase with Mayavi:
          interactive design of coils.
 
-|0116|  :ref:`example_volume_slicer_advanced`
+|0117|  :ref:`example_volume_slicer_advanced`
          An efficient implementation of the
          triple-plane view showing 3 cut planes
          on volumetric data, and side views
@@ -496,16 +542,16 @@ more fine control than mlab.
    example_polydata.rst
    example_offscreen.rst
    example_surf_regular_mlab.rst
-   example_structured_points2d.rst
    example_glyph.rst
+   example_structured_points2d.rst
    example_contour_contour.rst
    example_scatter_plot.rst
-   example_structured_points3d.rst
    example_streamline.rst
    example_numeric_source.rst
+   example_structured_points3d.rst
    example_image_cursor_filter.rst
-   example_probe_filter.rst
    example_contour.rst
+   example_probe_filter.rst
    example_unstructured_grid.rst
    example_structured_grid.rst
    example_tvtk_segmentation.rst
@@ -528,26 +574,21 @@ more fine control than mlab.
     Shows how to view data created by `tvtk.tools.mlab` with
     mayavi2.
 
-* :ref:`example_structured_points2d`
-    An example of how to generate a 2D structured points dataset
-    using numpy arrays.  Also shown is a way to visualize this data with
-    the mayavi2 application.
-
 * :ref:`example_glyph`
     This script demonstrates using the Mayavi core API to add a VectorCutPlane,
     split the pipeline using a MaskPoints filter and then view the filtered data
     with the Glyph module.
+
+* :ref:`example_structured_points2d`
+    An example of how to generate a 2D structured points dataset
+    using numpy arrays.  Also shown is a way to visualize this data with
+    the mayavi2 application.
 
 * :ref:`example_contour_contour`
     This example shows how you can produce contours on an IsoSurface.
 
 * :ref:`example_scatter_plot`
     An example of plotting scatter points with Mayavi's core API.
-
-* :ref:`example_structured_points3d`
-    An example of how to generate a 3D structured points dataset
-    using numpy arrays.  Also shown is a way to visualize this data with
-    the mayavi2 application.
 
 * :ref:`example_streamline`
     This script demonstrates how one can script Mayavi's core API to display
@@ -557,17 +598,22 @@ more fine control than mlab.
     This script demonstrates how to create a numpy array data and
     visualize it as image data using a few modules.
 
+* :ref:`example_structured_points3d`
+    An example of how to generate a 3D structured points dataset
+    using numpy arrays.  Also shown is a way to visualize this data with
+    the mayavi2 application.
+
 * :ref:`example_image_cursor_filter`
     Excample using the UserDefined filter to paint a cross-shaped cursor on data,
     in order to point out a special position.
 
-* :ref:`example_probe_filter`
-    Using the probe filter to visualize a scalar field along an arbitrary
-    surface.
-
 * :ref:`example_contour`
     This script demonstrates how one can script Mayavi and use its
     contour related modules.
+
+* :ref:`example_probe_filter`
+    Using the probe filter to visualize a scalar field along an arbitrary
+    surface.
 
 * :ref:`example_unstructured_grid`
     A MayaVi example of how to generate an unstructured grid dataset
