@@ -92,7 +92,8 @@ class EngineManager(HasTraits):
                                 if e.__class__.__name__ == 'OffScreenEngine']
         elif options.backend == 'auto':
             suitable = [e for e in engines
-                                if e.__class__.__name__ != 'NullEngine']
+                        if e.__class__.__name__ not in ('NullEngine',
+                                                        'OffScreenEngine')]
         else:
             suitable = [e for e in engines
                                 if e.__class__.__name__ == 'Engine']
