@@ -6,15 +6,15 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Structured points3d example &mdash; mayavi 4.4.3 documentation</title>
+    <title>Structured points3d example &mdash; mayavi 4.4.4 documentation</title>
     
-    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.4.3',
+        VERSION:     '4.4.4',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,10 +23,10 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.4.3 documentation" href="../index.html" />
+    <link rel="top" title="mayavi 4.4.4 documentation" href="../index.html" />
     <link rel="up" title="Example gallery" href="examples.html" />
-    <link rel="next" title="Streamline example" href="example_streamline.html" />
-    <link rel="prev" title="Scatter plot example" href="example_scatter_plot.html" />
+    <link rel="next" title="Image cursor filter example" href="example_image_cursor_filter.html" />
+    <link rel="prev" title="Numeric source example" href="example_numeric_source.html" />
 <style type="text/css">
   body {
     /* Very bottom copyright, etc. info */
@@ -58,28 +58,28 @@
 </style>
 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="example_streamline.html" title="Streamline example"
+          <a href="example_image_cursor_filter.html" title="Image cursor filter example"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="example_scatter_plot.html" title="Scatter plot example"
+          <a href="example_numeric_source.html" title="Numeric source example"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">mayavi 4.4.3 documentation</a> &raquo;</li>
-          <li><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.4.4 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="structured-points3d-example">
 <span id="example-structured-points3d"></span><h1>Structured points3d example<a class="headerlink" href="#structured-points3d-example" title="Permalink to this headline">¶</a></h1>
@@ -87,18 +87,21 @@
 using numpy arrays.  Also shown is a way to visualize this data with
 the mayavi2 application.</p>
 <p>The script can be run like so:</p>
-<div class="highlight-python"><pre>$ mayavi2 -x structured_points3d.py</pre>
+<div class="highlight-python"><div class="highlight"><pre>$ mayavi2 -x structured_points3d.py
+</pre></div>
 </div>
 <p>Alternatively, it can be run as:</p>
-<div class="highlight-python"><pre>$ python structured_points3d.py</pre>
+<div class="highlight-python"><div class="highlight"><pre>$ python structured_points3d.py
+</pre></div>
 </div>
-<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/structured_points3d.py"><tt class="xref download docutils literal"><span class="pre">structured_points3d.py</span></tt></a></p>
+<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/structured_points3d.py"><code class="xref download docutils literal"><span class="pre">structured_points3d.py</span></code></a></p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c"># Author: Prabhu Ramachandran &lt;prabhu at aero dot iitb dot ac dot in&gt;</span>
 <span class="c"># Copyright (c) 2007, Enthought, Inc.</span>
 <span class="c"># License: BSD style.</span>
 
 <span class="kn">from</span> <span class="nn">tvtk.api</span> <span class="kn">import</span> <span class="n">tvtk</span>
 <span class="kn">from</span> <span class="nn">tvtk.array_handler</span> <span class="kn">import</span> <span class="n">get_vtk_array_type</span>
+<span class="kn">from</span> <span class="nn">tvtk.common</span> <span class="kn">import</span> <span class="n">is_old_pipeline</span>
 <span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">array</span><span class="p">,</span> <span class="n">ogrid</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">ravel</span>
 <span class="kn">from</span> <span class="nn">mayavi.scripts</span> <span class="kn">import</span> <span class="n">mayavi2</span>
 
@@ -128,7 +131,8 @@ the mayavi2 application.</p>
 <span class="c"># This is needed in slightly older versions of VTK (like the 5.0.2</span>
 <span class="c"># release) to prevent a segfault.  VTK does not detect the correct</span>
 <span class="c"># data type.</span>
-<span class="n">spoints</span><span class="o">.</span><span class="n">scalar_type</span> <span class="o">=</span> <span class="n">get_vtk_array_type</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">is_old_pipeline</span><span class="p">():</span>
+    <span class="n">spoints</span><span class="o">.</span><span class="n">scalar_type</span> <span class="o">=</span> <span class="n">get_vtk_array_type</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
 
 <span class="c"># Uncomment the next two lines to save the dataset to a VTK XML file.</span>
 <span class="c">#w = tvtk.XMLImageDataWriter(input=spoints, file_name=&#39;spoints3d.vti&#39;)</span>
@@ -157,24 +161,26 @@ the mayavi2 application.</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="../index.html">
               <img class="logo" src="../_static/mayavi-logo.png" alt="Logo"/>
             </a></p>
   <h4>Previous topic</h4>
-  <p class="topless"><a href="example_scatter_plot.html"
-                        title="previous chapter">Scatter plot example</a></p>
+  <p class="topless"><a href="example_numeric_source.html"
+                        title="previous chapter">Numeric source example</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="example_streamline.html"
-                        title="next chapter">Streamline example</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="../_sources/auto/example_structured_points3d.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  <p class="topless"><a href="example_image_cursor_filter.html"
+                        title="next chapter">Image cursor filter example</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/auto/example_structured_points3d.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
 
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
       <input type="text" name="q" />
@@ -205,7 +211,7 @@ the mayavi2 application.</p>
     </div>
     <hr/>
     <div id="searchbox">
-	<a href="http://github.enthought.com/mayavi/mayavi/misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
+	<a href="http://docs.enthought.com/mayavi/mayavi/misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
 
 	<p style="font-size:85%; color: #FFFFFF;">
     	If you publish articles using Mayavi, please 
@@ -219,26 +225,26 @@ the mayavi2 application.</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="example_streamline.html" title="Streamline example"
+          <a href="example_image_cursor_filter.html" title="Image cursor filter example"
              >next</a> |</li>
         <li class="right" >
-          <a href="example_scatter_plot.html" title="Scatter plot example"
+          <a href="example_numeric_source.html" title="Numeric source example"
              >previous</a> |</li>
-        <li><a href="../index.html">mayavi 4.4.3 documentation</a> &raquo;</li>
-          <li><a href="examples.html" >Example gallery</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.4.4 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer">
+    <div class="footer" role="contentinfo">
         &copy; Copyright 2008-2015, Enthought Inc..
-      Last updated on Aug 12, 2015.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+      Last updated on Feb 29, 2016.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
     </div>
   </body>
 </html>

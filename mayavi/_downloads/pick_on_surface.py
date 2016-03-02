@@ -56,15 +56,14 @@ def picker_callback(picker_obj):
         # dataset. GetPointId return the index in this array.
         x_, y_ = np.lib.index_tricks.unravel_index(picker_obj.point_id,
                                                                 s.shape)
-        print "Data indices: %i, %i" % (x_, y_)
+        print("Data indices: %i, %i" % (x_, y_))
         n_x, n_y = s.shape
-        cursor.mlab_source.set(x=x_ - n_x/2.,
+        cursor.mlab_source.reset(x=x_ - n_x/2.,
                                y=y_ - n_y/2.)
-        cursor3d.mlab_source.set(x=x[x_, y_],
+        cursor3d.mlab_source.reset(x=x[x_, y_],
                                  y=y[x_, y_],
                                  z=z[x_, y_])
 
 fig.on_mouse_pick(picker_callback)
 
 mlab.show()
-

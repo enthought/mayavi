@@ -99,8 +99,9 @@ explicit calls to the engine::
 
 
 As with all Mayavi code, you need to have the GUI mainloop running to
-have the visualization go live. Typing this code in `ipython -wthread`
-(or `ipython --gui=wx` in the recent versions) will do this for you.
+have the visualization go live.  To do this, type ``ipython --gui=qt`` in
+a Terminal or Command Prompt.
+
 
 This explicit, object-oriented, code thus mirrors the `mlab.pipeline`
 code. It is more fine-grained, and gives you more control. For instance
@@ -126,8 +127,7 @@ are setup and its ``start`` method is called automatically.  When the
 object is removed from the pipeline its ``stop`` method is called
 automatically.  Note that if you are looking to remove an object from
 the mayavi pipeline, you can use the ``remove`` method to do so.  For
-example (the following will require that you use ``ipython -wthread`` or 
-`ipython --gui=wx`)::
+example (the following will require that you use `ipython --gui=qt`)::
 
   >>> from mayavi.api import Engine
   >>> e = Engine()
@@ -136,7 +136,7 @@ example (the following will require that you use ``ipython -wthread`` or
   >>> from mayavi.sources.api import ParametricSurface
   >>> p = ParametricSurface()
   >>> e.add_source(p) # calls p.start internally.
-  >>> p.remove() # Removes p from the engine. 
+  >>> p.remove() # Removes p from the engine.
 
 Apart from the ``Engine`` object, all other objects in the Mayavi
 pipeline feature a ``scene`` trait which refers to the current
@@ -222,14 +222,10 @@ Scripting from IPython
 ~~~~~~~~~~~~~~~~~~~~~~
 
 It is possible to script Mayavi using IPython_.  IPython will have to
-be invoked with the ``-wthread`` command line option in order to allow
+be invoked with the ``--gui=qt`` command line option in order to allow
 one to interactively script the mayavi application::
 
- $ ipython -wthread
-
-In the recent IPython versions, the right switch is::
-
- $ ipython --gui=wx
+ $ ipython --gui=qt
 
 To start a visualization do the following::
 
@@ -317,7 +313,7 @@ In this case ``x`` will be set to the ``Streamline`` instance that we
 just created.
 
 There are plenty of examples illustrating various things in the
-``examples/mayavi`` directory.  These are all fairly well documented.  
+``examples/mayavi`` directory.  These are all fairly well documented.
 
 In particular, the ``standalone.py`` example illustrates how one can
 script mayavi without using the envisage application at all.  The

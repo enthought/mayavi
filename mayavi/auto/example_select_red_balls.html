@@ -6,15 +6,15 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Select red balls example &mdash; mayavi 4.4.3 documentation</title>
+    <title>Select red balls example &mdash; mayavi 4.4.4 documentation</title>
     
-    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.4.3',
+        VERSION:     '4.4.4',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.4.3 documentation" href="../index.html" />
+    <link rel="top" title="mayavi 4.4.4 documentation" href="../index.html" />
     <link rel="up" title="Example gallery" href="examples.html" />
     <link rel="next" title="Standalone example" href="example_standalone.html" />
     <link rel="prev" title="Pick on surface example" href="example_pick_on_surface.html" />
@@ -58,8 +58,8 @@
 </style>
 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -71,15 +71,15 @@
         <li class="right" >
           <a href="example_pick_on_surface.html" title="Pick on surface example"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">mayavi 4.4.3 documentation</a> &raquo;</li>
-          <li><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.4.4 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="select-red-balls-example">
 <span id="example-select-red-balls"></span><h1>Select red balls example<a class="headerlink" href="#select-red-balls-example" title="Permalink to this headline">¶</a></h1>
@@ -98,8 +98,9 @@ each ball is represented by several points. Thus we need to retrieve the
 number of points per ball, and divide the point id by this number.</p>
 <p>We use an outline to display which ball was selected by positioning it on
 the corresponding ball.</p>
-<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/select_red_balls.py"><tt class="xref download docutils literal"><span class="pre">select_red_balls.py</span></tt></a></p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># Author: Gael Varoquaux &lt;gael dot varoquaux at normalesup.org&gt;</span>
+<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/select_red_balls.py"><code class="xref download docutils literal"><span class="pre">select_red_balls.py</span></code></a></p>
+<div class="highlight-python"><div class="highlight"><pre>
+<span class="c"># Author: Gael Varoquaux &lt;gael dot varoquaux at normalesup.org&gt;</span>
 <span class="c"># Copyright (c) 2009, Enthought, Inc.</span>
 <span class="c"># License: BSD style.</span>
 
@@ -176,7 +177,7 @@ the corresponding ball.</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="../index.html">
               <img class="logo" src="../_static/mayavi-logo.png" alt="Logo"/>
@@ -187,13 +188,15 @@ the corresponding ball.</p>
   <h4>Next topic</h4>
   <p class="topless"><a href="example_standalone.html"
                         title="next chapter">Standalone example</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="../_sources/auto/example_select_red_balls.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/auto/example_select_red_balls.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
 
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
       <input type="text" name="q" />
@@ -224,7 +227,7 @@ the corresponding ball.</p>
     </div>
     <hr/>
     <div id="searchbox">
-	<a href="http://github.enthought.com/mayavi/mayavi/misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
+	<a href="http://docs.enthought.com/mayavi/mayavi/misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
 
 	<p style="font-size:85%; color: #FFFFFF;">
     	If you publish articles using Mayavi, please 
@@ -238,7 +241,7 @@ the corresponding ball.</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -250,14 +253,14 @@ the corresponding ball.</p>
         <li class="right" >
           <a href="example_pick_on_surface.html" title="Pick on surface example"
              >previous</a> |</li>
-        <li><a href="../index.html">mayavi 4.4.3 documentation</a> &raquo;</li>
-          <li><a href="examples.html" >Example gallery</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.4.4 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer">
+    <div class="footer" role="contentinfo">
         &copy; Copyright 2008-2015, Enthought Inc..
-      Last updated on Aug 12, 2015.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+      Last updated on Feb 29, 2016.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
     </div>
   </body>
 </html>

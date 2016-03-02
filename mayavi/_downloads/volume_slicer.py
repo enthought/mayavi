@@ -154,7 +154,7 @@ class VolumeSlicer(HasTraits):
         # move the others
         def move_view(obj, evt):
             position = obj.GetCurrentCursorPosition()
-            for other_axis, axis_number in self._axis_names.iteritems():
+            for other_axis, axis_number in self._axis_names.items():
                 if other_axis == axis_name:
                     continue
                 ipw3d = getattr(self, 'ipw_3d_%s' % other_axis)

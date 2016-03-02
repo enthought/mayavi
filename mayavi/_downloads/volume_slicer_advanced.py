@@ -231,7 +231,7 @@ class VolumeSlicer(HasTraits):
 
         # For each axis, move image_plane_widget and the cursor in the
         # side view
-        for axis_name, axis_number in self._axis_names.iteritems():
+        for axis_name, axis_number in self._axis_names.items():
             ipw3d = getattr(self, 'ipw_3d_%s' % axis_name)
             ipw3d.ipw.slice_position = self.position[axis_number]
 

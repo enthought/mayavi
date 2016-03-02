@@ -23,7 +23,7 @@ be useful to locate some data to experiment with. Two of the examples
 below make use of data shipped with the mayavi sources ship.  These may
 be found in the ``examples/data`` directory inside the root of the mayavi
 source tree. If these are not installed, the sources may be downloaded
-from here: http://code.enthought.com/enstaller/eggs/source/
+from here: https://github.com/enthought/mayavi
 
 .. topic:: **Examples**:
 

@@ -6,15 +6,15 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Canyon example &mdash; mayavi 4.4.3 documentation</title>
+    <title>Canyon example &mdash; mayavi 4.4.4 documentation</title>
     
-    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.4.3',
+        VERSION:     '4.4.4',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,10 +23,10 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.4.3 documentation" href="../index.html" />
+    <link rel="top" title="mayavi 4.4.4 documentation" href="../index.html" />
     <link rel="up" title="Example gallery" href="examples.html" />
-    <link rel="next" title="Spherical harmonics example" href="example_spherical_harmonics.html" />
-    <link rel="prev" title="Surface from irregular data example" href="example_surface_from_irregular_data.html" />
+    <link rel="next" title="Julia set decimation example" href="example_julia_set_decimation.html" />
+    <link rel="prev" title="Lorenz example" href="example_lorenz.html" />
 <style type="text/css">
   body {
     /* Very bottom copyright, etc. info */
@@ -58,28 +58,28 @@
 </style>
 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="example_spherical_harmonics.html" title="Spherical harmonics example"
+          <a href="example_julia_set_decimation.html" title="Julia set decimation example"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="example_surface_from_irregular_data.html" title="Surface from irregular data example"
+          <a href="example_lorenz.html" title="Lorenz example"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">mayavi 4.4.3 documentation</a> &raquo;</li>
-          <li><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.4.4 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="canyon-example">
 <span id="example-canyon"></span><h1>Canyon example<a class="headerlink" href="#canyon-example" title="Permalink to this headline">¶</a></h1>
@@ -90,7 +90,7 @@ more, see the canyon decimation example.</p>
 <p>This example is interesting as it shows how numpy can be used to load
 and crop data completly foreign to Mayavi.</p>
 <img alt="../_images/example_canyon.jpg" class="align-center" src="../_images/example_canyon.jpg" />
-<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/canyon.py"><tt class="xref download docutils literal"><span class="pre">canyon.py</span></tt></a></p>
+<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/canyon.py"><code class="xref download docutils literal"><span class="pre">canyon.py</span></code></a></p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c"># Author: Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt;</span>
 <span class="c"># Copyright (c) 2008, Enthought, Inc.</span>
 <span class="c"># License: BSD Style.</span>
@@ -101,10 +101,13 @@ and crop data completly foreign to Mayavi.</p>
 <span class="c">#&#39;ftp://e0srp01u.ecs.nasa.gov/srtm/version2/SRTM1/Region_04/N36W113.hgt.zip&#39;</span>
 <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s">&#39;N36W113.hgt.zip&#39;</span><span class="p">):</span>
     <span class="c"># Download the data</span>
-    <span class="kn">import</span> <span class="nn">urllib</span>
-    <span class="k">print</span> <span class="s">&#39;Downloading data, please wait (10M)&#39;</span>
-    <span class="n">opener</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span>
-    <span class="s">&#39;http://staging.enthought.com/projects/mayavi/N36W113.hgt.zip&#39;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">urllib</span> <span class="kn">import</span> <span class="n">urlopen</span>
+    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">urlopen</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&#39;Downloading data, please wait (10M)&#39;</span><span class="p">)</span>
+    <span class="n">opener</span> <span class="o">=</span> <span class="n">urlopen</span><span class="p">(</span>
+    <span class="s">&#39;https://s3.amazonaws.com/storage.enthought.com/www/sample_data/N36W113.hgt.zip&#39;</span>
         <span class="p">)</span>
     <span class="nb">open</span><span class="p">(</span><span class="s">&#39;N36W113.hgt.zip&#39;</span><span class="p">,</span> <span class="s">&#39;wb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">opener</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
 
@@ -141,24 +144,26 @@ and crop data completly foreign to Mayavi.</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="../index.html">
               <img class="logo" src="../_static/mayavi-logo.png" alt="Logo"/>
             </a></p>
   <h4>Previous topic</h4>
-  <p class="topless"><a href="example_surface_from_irregular_data.html"
-                        title="previous chapter">Surface from irregular data example</a></p>
+  <p class="topless"><a href="example_lorenz.html"
+                        title="previous chapter">Lorenz example</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="example_spherical_harmonics.html"
-                        title="next chapter">Spherical harmonics example</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="../_sources/auto/example_canyon.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  <p class="topless"><a href="example_julia_set_decimation.html"
+                        title="next chapter">Julia set decimation example</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/auto/example_canyon.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
 
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
       <input type="text" name="q" />
@@ -189,7 +194,7 @@ and crop data completly foreign to Mayavi.</p>
     </div>
     <hr/>
     <div id="searchbox">
-	<a href="http://github.enthought.com/mayavi/mayavi/misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
+	<a href="http://docs.enthought.com/mayavi/mayavi/misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
 
 	<p style="font-size:85%; color: #FFFFFF;">
     	If you publish articles using Mayavi, please 
@@ -203,26 +208,26 @@ and crop data completly foreign to Mayavi.</p>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="example_spherical_harmonics.html" title="Spherical harmonics example"
+          <a href="example_julia_set_decimation.html" title="Julia set decimation example"
              >next</a> |</li>
         <li class="right" >
-          <a href="example_surface_from_irregular_data.html" title="Surface from irregular data example"
+          <a href="example_lorenz.html" title="Lorenz example"
              >previous</a> |</li>
-        <li><a href="../index.html">mayavi 4.4.3 documentation</a> &raquo;</li>
-          <li><a href="examples.html" >Example gallery</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.4.4 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer">
+    <div class="footer" role="contentinfo">
         &copy; Copyright 2008-2015, Enthought Inc..
-      Last updated on Aug 12, 2015.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+      Last updated on Feb 29, 2016.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
     </div>
   </body>
 </html>

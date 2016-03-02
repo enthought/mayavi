@@ -29,10 +29,10 @@ callbacks when they are modified. In particular this means that when a
 visualization object is modified, the scene can update automatically.
 
 We strongly suggest that you refer to the `Traits` 
-`documentation <http://code.enthought.com/projects/traits.documentation.php>`_
-for more details, and to the 
-`tutorial <http://code.enthought.com/projects/traits/docs/html/tutorials/traits_ui_scientific_app.html>`_
-for a quick introduction.
+`documentation <http://docs.enthought.com/traits>`_
+for more details.  There are also a list of introductory
+`materials <https://support.enthought.com/hc/en-us/articles/204469620-Introductory-materials-for-Traits-and-Traits-UI>`
+for learning Traits and Traits UI.
 
 .. _embedding_mayavi_traits:
 

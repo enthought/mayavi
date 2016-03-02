@@ -6,15 +6,15 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>3D Plotting functions for numpy arrays &mdash; mayavi 4.4.3 documentation</title>
+    <title>3D Plotting functions for numpy arrays &mdash; mayavi 4.4.4 documentation</title>
     
-    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '4.4.3',
+        VERSION:     '4.4.4',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.4.3 documentation" href="index.html" />
+    <link rel="top" title="mayavi 4.4.4 documentation" href="index.html" />
 <style type="text/css">
   body {
     /* Very bottom copyright, etc. info */
@@ -55,28 +55,28 @@
 </style>
 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li><a href="index.html">mayavi 4.4.3 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.4.4 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="d-plotting-functions-for-numpy-arrays">
 <span id="mlab-plotting-functions"></span><h1>3D Plotting functions for numpy arrays<a class="headerlink" href="#d-plotting-functions-for-numpy-arrays" title="Permalink to this headline">¶</a></h1>
 <p>Visualization can be created in <cite>mlab</cite> by a set of functions operating on
 numpy arrays.</p>
 <p>The mlab plotting functions take numpy arrays as input, describing the
-<tt class="docutils literal"><span class="pre">x</span></tt>, <tt class="docutils literal"><span class="pre">y</span></tt>, and <tt class="docutils literal"><span class="pre">z</span></tt> coordinates of the data. They build full-blown
+<code class="docutils literal"><span class="pre">x</span></code>, <code class="docutils literal"><span class="pre">y</span></code>, and <code class="docutils literal"><span class="pre">z</span></code> coordinates of the data. They build full-blown
 visualizations: they create the data source, filters if necessary, and
 add the visualization modules. Their behavior, and thus the visualization
 created, can be fine-tuned through keyword arguments, similarly to pylab.
@@ -86,7 +86,7 @@ module.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">In this section, we only list the different functions. Each function
-is described in detail in the <a class="reference internal" href="auto/mlab_reference.html#mlab-reference"><em>MLab reference</em></a>, at the end of
+is described in detail in the <a class="reference internal" href="auto/mlab_reference.html#mlab-reference"><span>MLab reference</span></a>, at the end of
 the user guide, with figures and examples. Please follow the links.</p>
 </div>
 <div class="section" id="d-and-1d-data">
@@ -102,18 +102,18 @@ the user guide, with figures and examples. Please follow the links.</p>
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td><a class="reference internal" href="_images/enthought_mayavi_mlab_points3d1.jpg"><img alt="points3d" src="_images/enthought_mayavi_mlab_points3d1.jpg" /></a></td>
-<td><tt class="xref py py-func docutils literal"><span class="pre">points3d()</span></tt>
+<tr class="row-even"><td><a class="reference internal" href="_images/enthought_mayavi_mlab_points3d1.jpg"><img alt="points3d" src="_images/enthought_mayavi_mlab_points3d1.jpg" style="width: 160.5px; height: 161.0px;" /></a></td>
+<td><code class="xref py py-func docutils literal"><span class="pre">points3d()</span></code>
 <br>
 Plots glyphs (like points) at the position of the
-supplied data, described by <tt class="docutils literal"><span class="pre">x</span></tt>, <tt class="docutils literal"><span class="pre">y</span></tt>, <tt class="docutils literal"><span class="pre">z</span></tt>
+supplied data, described by <code class="docutils literal"><span class="pre">x</span></code>, <code class="docutils literal"><span class="pre">y</span></code>, <code class="docutils literal"><span class="pre">z</span></code>
 numpy arrays of the same shape.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="_images/enthought_mayavi_mlab_plot3d1.jpg"><img alt="plot3d" src="_images/enthought_mayavi_mlab_plot3d1.jpg" /></a></td>
-<td><tt class="xref py py-func docutils literal"><span class="pre">plot3d()</span></tt>
+<tr class="row-odd"><td><a class="reference internal" href="_images/enthought_mayavi_mlab_plot3d1.jpg"><img alt="plot3d" src="_images/enthought_mayavi_mlab_plot3d1.jpg" style="width: 153.0px; height: 113.0px;" /></a></td>
+<td><code class="xref py py-func docutils literal"><span class="pre">plot3d()</span></code>
 <br>
-Plots line between the supplied data, described by <tt class="docutils literal"><span class="pre">x</span></tt>,
-<tt class="docutils literal"><span class="pre">y</span></tt>, <tt class="docutils literal"><span class="pre">z</span></tt> 1D numpy arrays of the same length.</td>
+Plots line between the supplied data, described by <code class="docutils literal"><span class="pre">x</span></code>,
+<code class="docutils literal"><span class="pre">y</span></code>, <code class="docutils literal"><span class="pre">z</span></code> 1D numpy arrays of the same length.</td>
 </tr>
 </tbody>
 </table>
@@ -131,59 +131,59 @@ Plots line between the supplied data, described by <tt class="docutils literal">
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td><a class="reference internal" href="_images/enthought_mayavi_mlab_imshow1.jpg"><img alt="imshow" src="_images/enthought_mayavi_mlab_imshow1.jpg" /></a></td>
-<td><tt class="xref py py-func docutils literal"><span class="pre">imshow()</span></tt>
+<tr class="row-even"><td><a class="reference internal" href="_images/enthought_mayavi_mlab_imshow1.jpg"><img alt="imshow" src="_images/enthought_mayavi_mlab_imshow1.jpg" style="width: 200.0px; height: 129.0px;" /></a></td>
+<td><code class="xref py py-func docutils literal"><span class="pre">imshow()</span></code>
 <br>
 View a 2D array as an image.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="_images/enthought_mayavi_mlab_surf1.jpg"><img alt="surf" src="_images/enthought_mayavi_mlab_surf1.jpg" /></a></td>
-<td><tt class="xref py py-func docutils literal"><span class="pre">surf()</span></tt>
+<tr class="row-odd"><td><a class="reference internal" href="_images/enthought_mayavi_mlab_surf1.jpg"><img alt="surf" src="_images/enthought_mayavi_mlab_surf1.jpg" style="width: 192.5px; height: 153.0px;" /></a></td>
+<td><code class="xref py py-func docutils literal"><span class="pre">surf()</span></code>
 <br>
 View a 2D array as a carpet plot, with the z axis
 representation through elevation the value of the
 array points.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="_images/enthought_mayavi_mlab_contour_surf1.jpg"><img alt="contour_surf" src="_images/enthought_mayavi_mlab_contour_surf1.jpg" /></a></td>
-<td><tt class="xref py py-func docutils literal"><span class="pre">contour_surf()</span></tt>
+<tr class="row-even"><td><a class="reference internal" href="_images/enthought_mayavi_mlab_contour_surf1.jpg"><img alt="contour_surf" src="_images/enthought_mayavi_mlab_contour_surf1.jpg" style="width: 200.0px; height: 145.0px;" /></a></td>
+<td><code class="xref py py-func docutils literal"><span class="pre">contour_surf()</span></code>
 <br>
 View a 2D array as line contours, elevated
 according to the value of the array points.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="_images/enthought_mayavi_mlab_mesh1.jpg"><img alt="mesh" src="_images/enthought_mayavi_mlab_mesh1.jpg" /></a></td>
-<td><tt class="xref py py-func docutils literal"><span class="pre">mesh()</span></tt>
+<tr class="row-odd"><td><a class="reference internal" href="_images/enthought_mayavi_mlab_mesh1.jpg"><img alt="mesh" src="_images/enthought_mayavi_mlab_mesh1.jpg" style="width: 136.0px; height: 120.0px;" /></a></td>
+<td><code class="xref py py-func docutils literal"><span class="pre">mesh()</span></code>
 <br>
-Plot a surface described by three 2D arrays, <tt class="docutils literal"><span class="pre">x</span></tt>,
-<tt class="docutils literal"><span class="pre">y</span></tt>, <tt class="docutils literal"><span class="pre">z</span></tt> giving the coordinates of the data points
+Plot a surface described by three 2D arrays, <code class="docutils literal"><span class="pre">x</span></code>,
+<code class="docutils literal"><span class="pre">y</span></code>, <code class="docutils literal"><span class="pre">z</span></code> giving the coordinates of the data points
 as a grid.
 <br>
-Unlike <tt class="xref py py-func docutils literal"><span class="pre">surf()</span></tt>, the surface is defined by its
-<tt class="docutils literal"><span class="pre">x</span></tt>, <tt class="docutils literal"><span class="pre">y</span></tt> and <tt class="docutils literal"><span class="pre">z</span></tt> coordinates with no privileged
+Unlike <code class="xref py py-func docutils literal"><span class="pre">surf()</span></code>, the surface is defined by its
+<code class="docutils literal"><span class="pre">x</span></code>, <code class="docutils literal"><span class="pre">y</span></code> and <code class="docutils literal"><span class="pre">z</span></code> coordinates with no privileged
 direction. More complex surfaces can be created.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="_images/enthought_mayavi_mlab_barchart1.jpg"><img alt="barchart" src="_images/enthought_mayavi_mlab_barchart1.jpg" /></a></td>
-<td><tt class="xref py py-func docutils literal"><span class="pre">barchart()</span></tt>
+<tr class="row-even"><td><a class="reference internal" href="_images/enthought_mayavi_mlab_barchart1.jpg"><img alt="barchart" src="_images/enthought_mayavi_mlab_barchart1.jpg" style="width: 161.0px; height: 113.0px;" /></a></td>
+<td><code class="xref py py-func docutils literal"><span class="pre">barchart()</span></code>
 <br>
-Plot an array <tt class="docutils literal"><span class="pre">s</span></tt>, or a set of points with
-explicit coordinates arrays, <tt class="docutils literal"><span class="pre">x</span></tt>, <tt class="docutils literal"><span class="pre">y</span></tt> and <tt class="docutils literal"><span class="pre">z</span></tt>,
+Plot an array <code class="docutils literal"><span class="pre">s</span></code>, or a set of points with
+explicit coordinates arrays, <code class="docutils literal"><span class="pre">x</span></code>, <code class="docutils literal"><span class="pre">y</span></code> and <code class="docutils literal"><span class="pre">z</span></code>,
 as a bar chart, eg for histograms.
 <br>
 This function is very versatile and will accept 2D or
 3D arrays, but also clouds of points, to position the
 bars.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="_images/enthought_mayavi_mlab_triangular_mesh1.jpg"><img alt="triangular_mesh" src="_images/enthought_mayavi_mlab_triangular_mesh1.jpg" /></a></td>
-<td><tt class="xref py py-func docutils literal"><span class="pre">triangular_mesh()</span></tt>
+<tr class="row-odd"><td><a class="reference internal" href="_images/enthought_mayavi_mlab_triangular_mesh1.jpg"><img alt="triangular_mesh" src="_images/enthought_mayavi_mlab_triangular_mesh1.jpg" style="width: 137.0px; height: 105.0px;" /></a></td>
+<td><code class="xref py py-func docutils literal"><span class="pre">triangular_mesh()</span></code>
 <br>
 Plot a triangular mesh, fully specified by
-<tt class="docutils literal"><span class="pre">x</span></tt>, <tt class="docutils literal"><span class="pre">y</span></tt> and <tt class="docutils literal"><span class="pre">z</span></tt> coordinates of its
+<code class="docutils literal"><span class="pre">x</span></code>, <code class="docutils literal"><span class="pre">y</span></code> and <code class="docutils literal"><span class="pre">z</span></code> coordinates of its
 vertices, and the (n, 3) array of the indices of
 the triangles.</td>
 </tr>
 </tbody>
 </table>
 <div class="topic">
-<p class="topic-title first">Vertical scale of  <tt class="xref py py-func docutils literal"><span class="pre">surf()</span></tt> and <tt class="xref py py-func docutils literal"><span class="pre">contour_surf()</span></tt></p>
-<p><tt class="xref py py-func docutils literal"><span class="pre">surf()</span></tt> and <tt class="xref py py-func docutils literal"><span class="pre">contour_surf()</span></tt> can be used as 3D
+<p class="topic-title first">Vertical scale of  <code class="xref py py-func docutils literal"><span class="pre">surf()</span></code> and <code class="xref py py-func docutils literal"><span class="pre">contour_surf()</span></code></p>
+<p><code class="xref py py-func docutils literal"><span class="pre">surf()</span></code> and <code class="xref py py-func docutils literal"><span class="pre">contour_surf()</span></code> can be used as 3D
 representation of 2D data. By default the z-axis is supposed to
 be in the same units as the x and y axis, but it can be
 auto-scaled to give a 2/3 aspect ratio. This behavior can be
@@ -193,16 +193,16 @@ controlled by specifying the &#8220;warp_scale=&#8217;auto&#8217;&#8221;.</p>
 <p class="topic-title first">From data points to surfaces.</p>
 <p>Knowing the positions of data points is not enough to define a
 surface, connectivity information is also required. With the
-functions <tt class="xref py py-func docutils literal"><span class="pre">surf()</span></tt> and <tt class="xref py py-func docutils literal"><span class="pre">mesh()</span></tt>, this connectivity
+functions <code class="xref py py-func docutils literal"><span class="pre">surf()</span></code> and <code class="xref py py-func docutils literal"><span class="pre">mesh()</span></code>, this connectivity
 information is implicitly extracted from the shape of the input
 arrays: neighboring data points in the 2D input arrays are
 connected, and the data lies on a grid. With the function
-<tt class="xref py py-func docutils literal"><span class="pre">triangular_mesh()</span></tt>, connectivity is explicitly specified.
+<code class="xref py py-func docutils literal"><span class="pre">triangular_mesh()</span></code>, connectivity is explicitly specified.
 Quite often, the connectivity is not regular, but is not known in
 advance either. The data points lie on a surface, and we want to
 plot the surface implicitly defined. The <cite>delaunay2d</cite> filter does
 the required nearest-neighbor matching, and interpolation, as
-shown in the (<a class="reference internal" href="auto/example_surface_from_irregular_data.html#example-surface-from-irregular-data"><em>Surface from irregular data example</em></a>).</p>
+shown in the (<a class="reference internal" href="auto/example_surface_from_irregular_data.html#example-surface-from-irregular-data"><span>Surface from irregular data example</span></a>).</p>
 </div>
 </div>
 <div class="section" id="id1">
@@ -218,33 +218,33 @@ shown in the (<a class="reference internal" href="auto/example_surface_from_irre
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td><a class="reference internal" href="_images/enthought_mayavi_mlab_contour3d1.jpg"><img alt="contour3d" src="_images/enthought_mayavi_mlab_contour3d1.jpg" /></a></td>
-<td><tt class="xref py py-func docutils literal"><span class="pre">contour3d()</span></tt>
+<tr class="row-even"><td><a class="reference internal" href="_images/enthought_mayavi_mlab_contour3d1.jpg"><img alt="contour3d" src="_images/enthought_mayavi_mlab_contour3d1.jpg" style="width: 184.5px; height: 169.0px;" /></a></td>
+<td><code class="xref py py-func docutils literal"><span class="pre">contour3d()</span></code>
 <br>
 Plot iso-surfaces of volumetric data defined as a 3D
 array.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="_images/enthought_mayavi_mlab_quiver3d1.jpg"><img alt="quiver3d" src="_images/enthought_mayavi_mlab_quiver3d1.jpg" /></a></td>
-<td><tt class="xref py py-func docutils literal"><span class="pre">quiver3d()</span></tt>
+<tr class="row-odd"><td><a class="reference internal" href="_images/enthought_mayavi_mlab_quiver3d1.jpg"><img alt="quiver3d" src="_images/enthought_mayavi_mlab_quiver3d1.jpg" style="width: 169.0px; height: 177.0px;" /></a></td>
+<td><code class="xref py py-func docutils literal"><span class="pre">quiver3d()</span></code>
 <br>
 Plot arrows to represent vectors at data points.
-The <tt class="docutils literal"><span class="pre">x</span></tt>, <tt class="docutils literal"><span class="pre">y</span></tt>, <tt class="docutils literal"><span class="pre">z</span></tt> position are specified by
-numpy arrays, as well as the <tt class="docutils literal"><span class="pre">u</span></tt>, <tt class="docutils literal"><span class="pre">v</span></tt>, <tt class="docutils literal"><span class="pre">w</span></tt>
+The <code class="docutils literal"><span class="pre">x</span></code>, <code class="docutils literal"><span class="pre">y</span></code>, <code class="docutils literal"><span class="pre">z</span></code> position are specified by
+numpy arrays, as well as the <code class="docutils literal"><span class="pre">u</span></code>, <code class="docutils literal"><span class="pre">v</span></code>, <code class="docutils literal"><span class="pre">w</span></code>
 components of the vectors.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="_images/enthought_mayavi_mlab_flow1.jpg"><img alt="flow" src="_images/enthought_mayavi_mlab_flow1.jpg" /></a></td>
-<td><tt class="xref py py-func docutils literal"><span class="pre">flow()</span></tt>
+<tr class="row-even"><td><a class="reference internal" href="_images/enthought_mayavi_mlab_flow1.jpg"><img alt="flow" src="_images/enthought_mayavi_mlab_flow1.jpg" style="width: 169.0px; height: 105.0px;" /></a></td>
+<td><code class="xref py py-func docutils literal"><span class="pre">flow()</span></code>
 <br>
 Plot a trajectory of particles along a vector field
-described by three 3D arrays giving the <tt class="docutils literal"><span class="pre">u</span></tt>,
-<tt class="docutils literal"><span class="pre">v</span></tt>, <tt class="docutils literal"><span class="pre">w</span></tt> components on a grid.</td>
+described by three 3D arrays giving the <code class="docutils literal"><span class="pre">u</span></code>,
+<code class="docutils literal"><span class="pre">v</span></code>, <code class="docutils literal"><span class="pre">w</span></code> components on a grid.</td>
 </tr>
 </tbody>
 </table>
 <div class="topic">
 <p class="topic-title first">Structured or unstructured data</p>
-<p><tt class="xref py py-func docutils literal"><span class="pre">contour3d()</span></tt> and <tt class="xref py py-func docutils literal"><span class="pre">flow()</span></tt> require ordered data (to
-be able to interpolate between the points), whereas <tt class="xref py py-func docutils literal"><span class="pre">quiver3d()</span></tt>
+<p><code class="xref py py-func docutils literal"><span class="pre">contour3d()</span></code> and <code class="xref py py-func docutils literal"><span class="pre">flow()</span></code> require ordered data (to
+be able to interpolate between the points), whereas <code class="xref py py-func docutils literal"><span class="pre">quiver3d()</span></code>
 works with any set of points. The required structure is detailed
 in the functions&#8217; documentation.</p>
 </div>
@@ -252,8 +252,8 @@ in the functions&#8217; documentation.</p>
 <p class="first admonition-title">Note</p>
 <p class="last">Many richer visualizations can be created by assembling data sources
 filters and modules. See the
-<a class="reference internal" href="mlab_pipeline.html#controlling-the-pipeline-with-mlab-scripts"><em>Assembling pipelines with mlab</em></a> and the
-<a class="reference internal" href="mlab_case_studies.html#mlab-case-studies"><em>Case studies of some visualizations</em></a> sections.</p>
+<a class="reference internal" href="mlab_pipeline.html#controlling-the-pipeline-with-mlab-scripts"><span>Assembling pipelines with mlab</span></a> and the
+<a class="reference internal" href="mlab_case_studies.html#mlab-case-studies"><span>Case studies of some visualizations</span></a> sections.</p>
 </div>
 </div>
 </div>
@@ -262,7 +262,7 @@ filters and modules. See the
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="index.html">
               <img class="logo" src="_static/mayavi-logo.png" alt="Logo"/>
@@ -277,13 +277,15 @@ filters and modules. See the
 </li>
 </ul>
 
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/mlab_3d_plotting_functions.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/mlab_3d_plotting_functions.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
 
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
       <input type="text" name="q" />
@@ -314,7 +316,7 @@ filters and modules. See the
     </div>
     <hr/>
     <div id="searchbox">
-	<a href="http://github.enthought.com/mayavi/mayavi/misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
+	<a href="http://docs.enthought.com/mayavi/mayavi/misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
 
 	<p style="font-size:85%; color: #FFFFFF;">
     	If you publish articles using Mayavi, please 
@@ -328,19 +330,19 @@ filters and modules. See the
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
-        <li><a href="index.html">mayavi 4.4.3 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.4.4 documentation</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer">
+    <div class="footer" role="contentinfo">
         &copy; Copyright 2008-2015, Enthought Inc..
-      Last updated on Aug 12, 2015.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+      Last updated on Feb 29, 2016.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
     </div>
   </body>
 </html>
