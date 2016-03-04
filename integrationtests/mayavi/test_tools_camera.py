@@ -79,10 +79,8 @@ class TestCameraUnitTest(unittest.TestCase):
     def test_camera_move_with_right(self):
         camera = self.engine.current_scene.scene.camera
 
-        with check_attrs_change(self, camera,
-                                ("focal_point", "position")), \
-                check_attrs_do_not_change(self, camera,
-                                          ("clipping_range",)):
+        with check_attrs_change(self, camera, ("focal_point", "position")), \
+                check_attrs_do_not_change(self, camera, ("clipping_range",)):
             camera_tools.move(right=20.)
 
     def test_camera_move_with_up(self):
