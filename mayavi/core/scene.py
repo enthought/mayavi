@@ -66,10 +66,17 @@ class Scene(Base):
         d = super(Scene, self).__get_pure_state__()
         d['scene'] = self.scene
         d.pop('_mouse_pick_dispatcher', None)
+
         return d
 
     def __set_pure_state__(self, state):
         handle_children_state(self.children, state.children)
+
+        # As `camera.distance` is derived from other camera parameters
+        # if camera is defined, we should skip restoring "distance"
+        if state.scene and state.scene.camera:
+            state.scene.camera.pop("distance", None)
+
         # Now set our complete state.  Doing the scene last ensures
         # that the camera view is set right.
         set_state(self, state, last=['scene'])
