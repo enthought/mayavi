@@ -21,7 +21,7 @@ import numpy
 import vtk
 
 from tvtk import tvtk_base
-from tvtk.common import get_tvtk_name, configure_input_data
+from tvtk.common import get_tvtk_name, configure_input_data, is_version_7
 
 from traits.api import TraitError
 
@@ -107,7 +107,10 @@ class TestTVTK(unittest.TestCase):
         r = tvtk.XMLDataReader()
         self.assertEqual(r.f(), 'f')
         if len(vtk.vtkObjectBase.__bases__) > 0:
-            expect = (object,)
+            if is_version_7():
+                expect = ()
+            else:
+                expect = (object,)
         else:
             expect = tuple()
 
