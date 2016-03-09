@@ -341,7 +341,6 @@ def compare_image_with_saved_image(src_img, img_fname, threshold=10,
                 if alt_err < min_err:
                     # image is a better match.
                     err_index = count
-                    test_failed = 0
                     min_err = alt_err
                     img_err = alt_err
                     best_img = new_fname
