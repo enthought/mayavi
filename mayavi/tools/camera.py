@@ -424,11 +424,11 @@ def move(forward=None, right=None, up=None):
     v = np.zeros(3)
 
     # view plane vetor points behind viewing direction, so we invert it
-    yhat = -1 * cam.view_plane_normal
+    yhat = -1. * np.array(cam.view_plane_normal)
     zhat = cam.view_up
+    xhat = np.cross(yhat, zhat)
 
     if forward is not None:
-        xhat = np.cross(yhat, zhat)
         v += forward * yhat
 
     if right is not None:
