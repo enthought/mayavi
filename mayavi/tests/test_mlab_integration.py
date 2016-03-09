@@ -40,6 +40,12 @@ class TestMlabNullEngine(unittest.TestCase):
             registry.unregister_engine(current_engine)
             raise AssertionError("The NullEngine has been overridden")
 
+    def _get_output(self, obj):
+        if obj.is_a('vtkDataSet'):
+            return obj
+        else:
+            return obj.output
+
 
 ################################################################################
 # class `TestMlabNullEngineMisc`
@@ -54,7 +60,7 @@ class TestMlabNullEngineMisc(TestMlabNullEngine):
         src = mlab.pipeline.scalar_field(a)
         filter = mlab.pipeline.contour(src)
 
-        x, y, z = filter.outputs[0].points.to_array().T
+        x, y, z = filter.get_output_dataset().points.to_array().T
 
         # Check that the contour filter indeed did its work:
         np.testing.assert_almost_equal(x, [ 2. ,  2. ,  1.5,  2.5,  2. ,  2. ])
@@ -71,7 +77,7 @@ class TestMlabNullEngineMisc(TestMlabNullEngine):
         density = mlab.pipeline.user_defined(src, filter='GaussianSplatter')
 
         self.assertEqual(len(density.outputs), 1)
-        self.assertTrue(isinstance(density.outputs[0], tvtk.ImageData))
+        self.assertTrue(isinstance(density.get_output_dataset(), tvtk.ImageData))
 
     def test_mlab_source(self):
         """ Check that the different objects created by mlab have an

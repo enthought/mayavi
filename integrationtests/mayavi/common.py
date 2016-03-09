@@ -615,6 +615,12 @@ class TestCase(Mayavi):
     ######################################################################
     # `TestCase` interface.
     ######################################################################
+    def _get_output(self, obj):
+        if obj.is_a('vtkDataSet'):
+            return obj
+        else:
+            return obj.output
+
     def do(self):
         """Override this to do whatever you want to do as your test
         code.

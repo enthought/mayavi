@@ -121,7 +121,7 @@ class TransformData(Filter):
         if len(inputs) == 0:
             return
 
-        inp = inputs[0].outputs[0]
+        inp = inputs[0].get_output_dataset()
         if inp.is_a('vtkImageData') or inp.is_a('vtkRectilinearGrid'):
             error('Transformation not supported for '\
                   'ImageData/StructuredPoints/RectilinearGrid')
@@ -141,7 +141,7 @@ class TransformData(Filter):
         self.configure_connection(fil, inputs[0])
         fil.transform = self._transform
         fil.update()
-        self._set_outputs([fil.output])
+        self._set_outputs([fil])
 
     def update_data(self):
         # Do nothing if there is no input.
@@ -186,7 +186,7 @@ class TransformData(Filter):
                                              self._on_interaction_event)
         self.widgets.append(new)
         if len(self.inputs) > 0:
-            self.configure_input_data(new, self.inputs[0].outputs[0])
+            self.configure_input(new, self.inputs[0].outputs[0])
 
     def _filter_changed(self, old, new):
         if old is not None:
@@ -197,7 +197,7 @@ class TransformData(Filter):
             new.transform = transform
         if len(self.inputs) > 0:
             self.configure_connection(new, self.inputs[0])
-            self.outputs = [new.output]
+            self.outputs = [new]
 
     def _reset_fired(self):
         self._transform.identity()

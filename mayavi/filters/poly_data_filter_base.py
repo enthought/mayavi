@@ -30,4 +30,4 @@ class PolyDataFilterBase(FilterBase):
         fil = self.filter
         self.configure_input(fil, convert_to_poly_data(inputs[0].outputs[0]))
         fil.update()
-        self._set_outputs([fil.output])
+        self._set_outputs([fil])

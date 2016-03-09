@@ -117,14 +117,14 @@ class ImageDataProbe(Filter):
         self._setup_probe_data(reset)
         fil.update()
         self._rescale_scalars_changed(self.rescale_scalars)
-        self._set_outputs([fil.output])
+        self._set_outputs([fil])
 
     ######################################################################
     # Non-public interface.
     ######################################################################
     def _setup_probe_data(self, reset=False):
         pd = self.probe_data
-        input = self.inputs[0].outputs[0]
+        input = self.inputs[0].get_output_dataset()
         if input.is_a('vtkImageData'):
             self.allow_changes = False
             self.set(spacing=input.spacing,
@@ -161,7 +161,6 @@ class ImageDataProbe(Filter):
                      dimensions=pd.dimensions)
             self._event_handled = False
 
-
     def _rescale_scalars_changed(self, value):
         out = self.filter.output
         pd = out.point_data
@@ -171,7 +170,8 @@ class ImageDataProbe(Filter):
             return
 
         if not value:
-            orig_sc = self.inputs[0].outputs[0].point_data.scalars
+            dataset = self.inputs[0].get_output_dataset()
+            orig_sc = dataset.point_data.scalars
             if sc.is_a('vtkUnsignedShortArray') and \
                sc.name == self.rescaled_scalar_name:
                 pd.set_active_scalars(orig_sc.name)
@@ -203,7 +203,7 @@ class ImageDataProbe(Filter):
 
         max_d = value.max()
         dims = (value-1).clip(min=1, max=max_d)
-        b = numpy.array(self.inputs[0].outputs[0].bounds)
+        b = numpy.array(self.inputs[0].get_output_dataset().bounds)
         l = b[1::2] - b[::2]
         self.spacing = l/dims
         self._update_probe()
@@ -211,7 +211,7 @@ class ImageDataProbe(Filter):
     def _spacing_changed(self, value):
         if not self.allow_changes or self._event_handled:
             return
-        b = numpy.array(self.inputs[0].outputs[0].bounds)
+        b = numpy.array(self.inputs[0].get_output_dataset().bounds)
         l = b[1::2] - b[::2]
         dims = (l/value + 0.5).astype(int) + 1
         # Recalculate space because of rounding.
@@ -253,4 +253,3 @@ class ImageDataProbe(Filter):
     def _reset_defaults_fired(self):
         self._setup_probe_data(reset=True)
         self._rescale_scalars_changed(self.rescale_scalars)
-

@@ -31,32 +31,32 @@ class TestUserDefined(TestCase):
         mm = o.children[0]
         if not saved:
             assert ud.filter.vector_mode == 'compute_gradient'
-            assert src.outputs[0].point_data.scalars.name == 't'
-            assert src.outputs[0].point_data.vectors.name == 'uvw'
+            assert src.get_output_dataset().point_data.scalars.name == 't'
+            assert src.get_output_dataset().point_data.vectors.name == 'uvw'
             expect = ['ScalarGradient', 'Vorticity']
             expect1 = [x +'-y' for x in expect]
             expect2 = [x + ' magnitude' for x in expect]
             # FIXME: This is really a bug in VTK, the name of the scalar
             # should really be ScalarGradient-y.  This is fixed in
             # 5.2 but earlier versions fail.
-            assert o.outputs[0].point_data.scalars.name in expect1
-            assert o.outputs[0].point_data.vectors.name in expect
+            assert o.get_output_dataset().point_data.scalars.name in expect1
+            assert o.get_output_dataset().point_data.vectors.name in expect
             assert mm.scalar_lut_manager.data_name in expect1
             # Turn of extraction.
             o.enabled = False
-            assert o.outputs[0].point_data.scalars.name in expect2
-            assert o.outputs[0].point_data.vectors.name in expect
+            assert o.get_output_dataset().point_data.scalars.name in expect2
+            assert o.get_output_dataset().point_data.vectors.name in expect
             assert mm.scalar_lut_manager.data_name in expect2
 
             # Compute the vorticity
             ud.filter.vector_mode = 'compute_vorticity'
-        assert o.outputs[0].point_data.scalars.name == 'Vorticity magnitude'
-        assert o.outputs[0].point_data.vectors.name == 'Vorticity'
+        assert o.get_output_dataset().point_data.scalars.name == 'Vorticity magnitude'
+        assert o.get_output_dataset().point_data.vectors.name == 'Vorticity'
         assert mm.scalar_lut_manager.data_name == 'Vorticity magnitude'
         # Turn on extraction.
         o.enabled = True
-        assert o.outputs[0].point_data.scalars.name == 'Vorticity-y'
-        assert o.outputs[0].point_data.vectors.name == 'Vorticity'
+        assert o.get_output_dataset().point_data.scalars.name == 'Vorticity-y'
+        assert o.get_output_dataset().point_data.vectors.name == 'Vorticity'
         assert mm.scalar_lut_manager.data_name == 'Vorticity-y'
         # Turn off extraction.
         o.enabled = False
@@ -151,4 +151,3 @@ class TestUserDefined(TestCase):
 if __name__ == "__main__":
     t = TestUserDefined()
     t.test()
-

@@ -174,6 +174,21 @@ class PipelineBase(Base):
         As such we return the first output."""
         return self.outputs[0]
 
+    def get_output_dataset(self):
+        """ Return the output dataset of this object.
+        """
+        if self.outputs:
+            o = self.outputs[0]
+            if o.is_a('vtkDataSet'):
+                return o
+            else:
+                output = o.output
+                if output is None and hasattr(o, 'update'):
+                    o.update()
+                return o.output
+        else:
+            return None
+
     def configure_connection(self, obj, inp):
         """ Configure topology for vtk pipeline obj."""
         tvtk_common.configure_connection(obj, inp)

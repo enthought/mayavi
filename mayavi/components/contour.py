@@ -7,7 +7,7 @@ a convenient option to create "filled contours".
 
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2005, Enthought, Inc.
+# Copyright (c) 2005-2016, Enthought, Inc.
 # License: BSD Style.
 
 # Standard library imports.
@@ -176,7 +176,7 @@ class Contour(Component):
             self.contours = [(cr[0] + cr[1])/2]
             self.minimum_contour = cr[0]
             self.maximum_contour = cr[1]
-        self.outputs = [cf.output]
+        self.outputs = [cf]
 
     def update_data(self):
         """Override this method to do what is necessary when upstream
@@ -290,7 +290,7 @@ class Contour(Component):
         cf = self._set_contour_input()
         # This will trigger a change.
         self._auto_contours_changed(self.auto_contours)
-        self.outputs = [cf.output]
+        self.outputs = [cf]
 
     def _get_contour_filter(self):
         if self.filled_contours:

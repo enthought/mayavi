@@ -158,6 +158,8 @@ class ModuleManager(Base):
         This is invoked when the source changes or when there are
         pipeline/data changes upstream.
         """
+        if len(self.source.outputs) == 0:
+            return
         self._setup_scalar_data()
         self._setup_vector_data()
 
@@ -289,7 +291,7 @@ class ModuleManager(Base):
     def _setup_scalar_data(self):
         """Computes the scalar range and an appropriate name for the
         lookup table."""
-        input = self.source.outputs[0]
+        input = self._get_output(self.source.outputs[0])
         ps = input.point_data.scalars
         cs = input.cell_data.scalars
 
@@ -312,7 +314,7 @@ class ModuleManager(Base):
         data_attr.config_lut(self.scalar_lut_manager)
 
     def _setup_vector_data(self):
-        input = self.source.outputs[0]
+        input = self._get_output(self.source.outputs[0])
         pv = input.point_data.vectors
         cv = input.cell_data.vectors
 
@@ -345,3 +347,9 @@ class ModuleManager(Base):
     def _menu_helper_default(self):
         from mayavi.core.traits_menu import ModuleMenuHelper
         return ModuleMenuHelper(object=self)
+
+    def _get_output(self, obj):
+        if obj.is_a('vtkDataSet'):
+            return obj
+        else:
+            return obj.output

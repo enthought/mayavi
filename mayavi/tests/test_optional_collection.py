@@ -61,7 +61,7 @@ class TestOptionalCollection(unittest.TestCase):
         c = c.filter
         n = o.filter
 
-        r = coll.outputs[0].point_data.scalars.range
+        r = coll.get_output_dataset().point_data.scalars.range
 
         self.assertEqual(np.allclose(r, (6.09,6.09), atol=1.01e-03), True)
         # Adding a contour should create the appropriate output in

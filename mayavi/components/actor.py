@@ -195,14 +195,15 @@ class Actor(Component):
             return False
         if not isinstance(source, Source):
             return False
-        if source.outputs[0].is_a('vtkImageData'):
+        if source.get_output_dataset().is_a('vtkImageData'):
             return True
         return False
 
     def _change_texture_input(self):
         if self._can_object_give_image_data(self.texture_source_object):
-            self.configure_connection(self.texture,
-                                      self.texture_source_object)
+            self.configure_connection(
+                self.texture, self.texture_source_object
+            )
             self.actor.texture = self.texture
         else:
             self.texture_source_object = None

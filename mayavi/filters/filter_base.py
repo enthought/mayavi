@@ -71,7 +71,7 @@ class FilterBase(Filter):
         # input.
         self.configure_connection(fil, inputs[0])
         fil.update()
-        self._set_outputs([fil.output])
+        self._set_outputs([fil])
 
     def update_data(self):
         """Override this method to do what is necessary when upstream
@@ -96,6 +96,3 @@ class FilterBase(Filter):
 
         if old is not None:
             self.update_pipeline()
-
-
-

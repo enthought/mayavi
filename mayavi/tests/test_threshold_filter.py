@@ -50,15 +50,18 @@ class TestThresholdFilter(unittest.TestCase):
         self.e.add_source(src)
         threshold = Threshold()
         self.e.add_filter(threshold)
-        self.assertEqual(np.nanmin(src.scalar_data),
-                         np.nanmin(
-                            threshold.outputs[0].point_data.scalars.to_array()
-                         ))
-        self.assertEqual(np.nanmax(src.scalar_data),
-                         np.nanmax(
-                            threshold.outputs[0].point_data.scalars.to_array()
-                         ))
-
+        self.assertEqual(
+            np.nanmin(src.scalar_data),
+            np.nanmin(
+                threshold.get_output_dataset().point_data.scalars.to_array()
+            )
+        )
+        self.assertEqual(
+            np.nanmax(src.scalar_data),
+            np.nanmax(
+                threshold.get_output_dataset().point_data.scalars.to_array()
+            )
+        )
 
     def test_threshold_filter_threhsold(self):
         src = self.make_src()
@@ -66,10 +69,11 @@ class TestThresholdFilter(unittest.TestCase):
         threshold = Threshold()
         self.e.add_filter(threshold)
         threshold.upper_threshold = 20.
-        self.assertTrue(20 >=
-                         np.nanmax(
-                            threshold.outputs[0].point_data.scalars.to_array()
-                         ))
+        self.assertTrue(
+            20 >= np.nanmax(
+                threshold.get_output_dataset().point_data.scalars.to_array()
+            )
+        )
         return
 
     def test_threshold_filter_data_range_changes(self):

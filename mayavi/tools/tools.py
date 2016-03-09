@@ -133,10 +133,12 @@ def get_vtk_src(mayavi_object, stop_at_filter=True):
         This function traverses the Mayavi pipeline. Thus the input
         object 'mayavi_object' should already be added to the pipeline.
     """
-    if isinstance(mayavi_object, tvtk.Object) \
-                        and hasattr(mayavi_object, 'point_data'):
-        # We have been passed a tvtk source
-        return [mayavi_object]
+    if isinstance(mayavi_object, tvtk.Object):
+        if mayavi_object.is_a('vtkDataSet'):
+            # We have been passed a tvtk source
+            return [mayavi_object]
+        elif hasattr(mayavi_object, 'output'):
+            return [mayavi_object.output]
     if not (hasattr(mayavi_object, 'parent')
             or isinstance(mayavi_object, Source)):
         raise TypeError('Cannot find data source for given object %s' % (
@@ -145,7 +147,8 @@ def get_vtk_src(mayavi_object, stop_at_filter=True):
         # XXX: If the pipeline is not a DAG, this is an infinite loop
         if isinstance(mayavi_object, Source):
             if stop_at_filter or not isinstance(mayavi_object, Filter):
-                return mayavi_object.outputs
+                get_output = lambda x: x if x.is_a('vtkDataSet') else x.output
+                return [get_output(x) for x in mayavi_object.outputs]
         mayavi_object = mayavi_object.parent
 
 
