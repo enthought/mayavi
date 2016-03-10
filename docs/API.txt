@@ -4,7 +4,7 @@ Public and private APIs in TVTK and Mayavi
 In general the following page documents the version numbers of each
 Mayavi project release:
 
-   https://svn.enthought.com/enthought/wiki/EnthoughtVersionNumbers
+   https://github.com/enthought/mayavi/releases
 
 However, not everything released as part of the project is really a
 public API that we guarantee to ensure.   Public API's are those that
