@@ -423,7 +423,7 @@ numpy.distutils.core.setup(
     author_email = "prabhu@aero.iitb.ac.in",
     maintainer = 'ETS Developers',
     maintainer_email = 'enthought-dev@enthought.com',
-    url = 'http://code.enthought.com/projects/mayavi/',
+    url = 'http://docs.enthought.com/mayavi/mayavi/',
     classifiers = [c.strip() for c in """\
         Development Status :: 5 - Production/Stable
         Intended Audience :: Developers
