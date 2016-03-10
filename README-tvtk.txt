@@ -23,14 +23,9 @@ information is available in the LICENSE.txt file in this same directory.
 Getting the package
 -------------------
 
-Source tarballs for all stable ETS packages are available at
+The source for TVTK should be acquired with the source for Mayavi here:
 
- http://code.enthought.com/enstaller/eggs/source
-
-General Build and Installation instructions for ETS are available here:
-
- https://svn.enthought.com/enthought/wiki/Build
- https://svn.enthought.com/enthought/wiki/Install
+ http://pypi.python.org/pypi/mayavi
 
 
 Documentation
