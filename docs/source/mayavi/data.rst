@@ -518,7 +518,7 @@ objects or data files for Mayavi and TVTK.
 
  * Presentation on TVTK and Mayavi2 for course at IIT Bombay
 
-   In source: ./docs/pdf/tvtk_mayavi2.pdf
+   https://github.com/enthought/mayavi/raw/master/docs/pdf/tvtk_mayavi2.pdf
 
    This presentation provides information on graphics in general, 3D
    data representation, creating VTK data files, creating datasets

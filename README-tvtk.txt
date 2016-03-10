@@ -57,7 +57,7 @@ Bug tracker, mailing list etc.
 
 The bug tracker is available here:
 
- https://github.com/enthought/mayavi
+ https://github.com/enthought/mayavi/issues
 
 To submit a bug you will necessarily have to register on Github.
 Alternatively, you can post on the info@enthought.com mailing list.
