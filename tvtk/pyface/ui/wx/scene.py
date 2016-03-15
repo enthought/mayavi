@@ -329,6 +329,9 @@ class Scene(TVTKScene, Widget):
 
     def set_size(self, size):
         """Set the size of the window."""
+        # the OpenGLRenderWindow needs resizing too; otherwise snapshots
+        # with off_screen_rendering would have the wrong size
+        self._vtk_control._Iren.GetRenderWindow().SetSize(size)
         self._vtk_control.SetSize(size)
 
     def hide_cursor(self):
