@@ -15,6 +15,7 @@ from tvtk.api import tvtk
 # Local imports.
 from mayavi.core.pipeline_info import (PipelineInfo,
         get_tvtk_dataset_name)
+from .utils import has_attributes
 from .vtk_xml_file_reader import VTKXMLFileReader
 
 
@@ -75,18 +76,20 @@ class VTKFileReader(VTKXMLFileReader):
                 n = self.reader.number_of_outputs
             except AttributeError: # for VTK >= 4.5
                 n = self.reader.number_of_output_ports
+
             outputs = []
             for i in range(n):
                 outputs.append(self.reader.get_output(i))
-            self.outputs = outputs
 
-            # FIXME: Only the first output goes through the assign
-            # attribute filter.
-            aa = self._assign_attribute
-            self.configure_input_data(aa, outputs[0])
-            self.update_data()
-            aa.update()
-            outputs[0] = aa.output
+            # FIXME: currently handling only one output (the first one) with
+            # assign attributes.
+            for index, output in enumerate(outputs):
+                if has_attributes(output):
+                    aa = self._assign_attribute
+                    self.configure_input_data(aa, output)
+                    self.update_data()
+                    aa.update()
+                    outputs[index] = aa.output
 
             self.outputs = outputs
 
