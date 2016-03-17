@@ -329,9 +329,6 @@ class Scene(TVTKScene, Widget):
 
     def set_size(self, size):
         """Set the size of the window."""
-        # the OpenGLRenderWindow needs resizing too; otherwise snapshots
-        # with off_screen_rendering would have the wrong size
-        self._vtk_control._Iren.GetRenderWindow().SetSize(size)
         self._vtk_control.SetSize(size)
 
     def hide_cursor(self):
@@ -684,9 +681,12 @@ class Scene(TVTKScene, Widget):
     def _lift(self):
         """Lift the window to the top. Useful when saving screen to an
         image."""
-        if self.render_window.off_screen_rendering:
-            # Do nothing if off screen rendering is being used.
-            return
+        ## The image size would be wrong if we don't lift the
+        ## the window even when off_screen_rendering is On
+        ## because the OnSize event is not being called anymore
+        # if self.render_window.off_screen_rendering:
+        #     # Do nothing if off screen rendering is being used.
+        #     return
 
         w = self._vtk_control
         while w and not w.IsTopLevel():
