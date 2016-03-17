@@ -2,7 +2,6 @@ import os
 import shutil
 import unittest
 import tempfile
-from contextlib import contextmanager
 
 import numpy
 from PIL import Image
@@ -13,15 +12,6 @@ from mayavi.tools.figure import savefig
 from common import TestCase
 
 
-@contextmanager
-def get_figure_finally_close():
-    try:
-        yield mlab.figure()
-    finally:
-        mlab.clf()
-        mlab.close()
-
-
 class TestMlabSavefigUnitTest(unittest.TestCase):
 
     def setUp(self, figure=None):
@@ -29,66 +19,66 @@ class TestMlabSavefigUnitTest(unittest.TestCase):
         self.temp_dir = tempfile.mkdtemp()
         self.filename = os.path.join(self.temp_dir, "saved_figure.png")
 
+        self.figure = mlab.figure()
+
         # this ensures that the temporary directory is removed
+        # and all scene is closed
         self.addCleanup(self.cleanup)
 
     def cleanup(self):
         shutil.rmtree(self.temp_dir)
+        mlab.close(all=True)
 
     def test_savefig_with_size(self):
-        with get_figure_finally_close():
-            # Set up the scene
-            X, Y = numpy.ogrid[-10:10, -10:10]
-            Z = X**2 + Y**2
-            mlab.surf(X, Y, Z)
+        # Set up the scene
+        X, Y = numpy.ogrid[-10:10, -10:10]
+        Z = X**2 + Y**2
+        mlab.surf(X, Y, Z)
 
-            # save the figure
-            savefig(self.filename, size=(131, 217))
+        # save the figure
+        savefig(self.filename, size=(131, 217))
 
         # check
         self.check_image((217, 131))
 
     def test_savefig_with_size_offscreen(self):
-        with get_figure_finally_close() as fig:
-            # Use off-screen rendering
-            fig.scene.off_screen_rendering = True
+        # Use off-screen rendering
+        self.figure.scene.off_screen_rendering = True
 
-            # Set up the scene
-            X, Y = numpy.ogrid[-10:10, -10:10]
-            Z = X**2 + Y**2
-            mlab.surf(X, Y, Z)
+        # Set up the scene
+        X, Y = numpy.ogrid[-10:10, -10:10]
+        Z = X**2 + Y**2
+        mlab.surf(X, Y, Z)
 
-            # save the figure
-            savefig(self.filename, size=(131, 217))
+        # save the figure
+        savefig(self.filename, size=(131, 217))
 
         # check
         self.check_image((217, 131))
 
     def test_savefig_with_size_and_magnification(self):
-        with get_figure_finally_close():
-            # Set up the scene
-            X, Y = numpy.ogrid[-10:10, -10:10]
-            Z = X**2 + Y**2
-            mlab.surf(X, Y, Z)
+        # Set up the scene
+        X, Y = numpy.ogrid[-10:10, -10:10]
+        Z = X**2 + Y**2
+        mlab.surf(X, Y, Z)
 
-            # save the figure
-            savefig(self.filename, size=(131, 217), magnification=2)
+        # save the figure
+        savefig(self.filename, size=(131, 217), magnification=2)
 
         # check if the image size is twice as big
         self.check_image((434, 262))
 
     def test_savefig_with_size_and_magnification_offscreen(self):
-        with get_figure_finally_close() as fig:
-            # Use off-screen rendering
-            fig.scene.off_screen_rendering = True
+        # Use off-screen rendering
+        self.figure.scene.off_screen_rendering = True
 
-            # Set up the scene
-            X, Y = numpy.ogrid[-10:10, -10:10]
-            Z = X**2 + Y**2
-            mlab.surf(X, Y, Z)
+        # Set up the scene
+        X, Y = numpy.ogrid[-10:10, -10:10]
+        Z = X**2 + Y**2
+        mlab.surf(X, Y, Z)
 
-            # save the figure
-            savefig(self.filename, size=(131, 217), magnification=2)
+        # save the figure
+        savefig(self.filename, size=(131, 217), magnification=2)
 
         # check if the image size is twice as big
         self.check_image((434, 262))
