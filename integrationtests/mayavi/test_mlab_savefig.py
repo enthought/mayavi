@@ -21,9 +21,9 @@ def create_quiver3d():
     mlab.quiver3d(x, y, z, u, v, w, scalars=s)
 
 
-# Note: the figure size is delibrately set to be smaller than
-# the required size during `savefig`, this forces the re-rendering
-# to occur and catch any potential ill rendering
+# Note: the figure(window) size is delibrately set to be smaller than
+# the required size in `savefig`, this forces the re-rendering to
+# occur and catch any potential ill rendering
 
 class TestMlabSavefigUnitTest(unittest.TestCase):
 
@@ -34,6 +34,9 @@ class TestMlabSavefigUnitTest(unittest.TestCase):
 
         # this ensures that the temporary directory is removed
         self.addCleanup(self.remove_tempdir)
+
+    def remove_tempdir(self):
+        shutil.rmtree(self.temp_dir)
 
     def setup_engine_and_figure(self, engine):
         # Set up a Engine/OffScreenEngine/... for the test case
@@ -55,9 +58,6 @@ class TestMlabSavefigUnitTest(unittest.TestCase):
         for scene in scenes:
             engine.close_scene(scene)
         engine.stop()
-
-    def remove_tempdir(self):
-        shutil.rmtree(self.temp_dir)
 
     def test_savefig(self):
         """Test if savefig works with auto size, mag and a normal Engine"""
