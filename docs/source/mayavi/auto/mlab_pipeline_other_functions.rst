@@ -497,8 +497,8 @@ glyph
     
         :mask_points: If supplied, only one out of 'mask_points' data point is
                       displayed. This option is useful to reduce the number of
-                      points displayed on large datasets Must be an integer
-                      (int or long) or None.
+                      points displayed on large datasets Must be an integer or
+                      None.
     
         :mode: the mode of the glyphs. Must be '2darrow' or '2dcircle' or
                '2dcross' or '2ddash' or '2ddiamond' or '2dhooked_arrow' or
@@ -516,7 +516,7 @@ glyph
     
         :resolution: The resolution of the glyph created. For spheres, for
                      instance, this is the number of divisions along theta and
-                     phi. Must be an integer (int or long). Default: 8
+                     phi. Must be an integer. Default: 8
     
         :scale_factor: the scaling applied to the glyphs. The
                        size of the glyph is by default in drawing
@@ -1201,8 +1201,7 @@ streamline
                      added to the scene. Defaults to True.
     
         :seed_resolution: The resolution of the seed. Determines the number of
-                          seed points Must be an integer (int or long) or
-                          None.
+                          seed points Must be an integer or None.
     
         :seed_scale: Scales the seed around its default center Must be a
                      float. Default: 1.0
@@ -1510,8 +1509,7 @@ tube
                       lines. Must be a float. Default: 0.05
     
         :tube_sides: number of sides of the tubes used to
-                     represent the lines. Must be an integer (int or long).
-                     Default: 6
+                     represent the lines. Must be an integer. Default: 6
     
 
     
@@ -1568,8 +1566,8 @@ vector_cut_plane
     
         :mask_points: If supplied, only one out of 'mask_points' data point is
                       displayed. This option is useful to reduce the number of
-                      points displayed on large datasets Must be an integer
-                      (int or long) or None.
+                      points displayed on large datasets Must be an integer or
+                      None.
     
         :mode: the mode of the glyphs. Must be '2darrow' or '2dcircle' or
                '2dcross' or '2ddash' or '2ddiamond' or '2dhooked_arrow' or
@@ -1590,7 +1588,7 @@ vector_cut_plane
     
         :resolution: The resolution of the glyph created. For spheres, for
                      instance, this is the number of divisions along theta and
-                     phi. Must be an integer (int or long). Default: 8
+                     phi. Must be an integer. Default: 8
     
         :scale_factor: the scaling applied to the glyphs. The
                        size of the glyph is by default in drawing
@@ -1644,8 +1642,8 @@ vectors
     
         :mask_points: If supplied, only one out of 'mask_points' data point is
                       displayed. This option is useful to reduce the number of
-                      points displayed on large datasets Must be an integer
-                      (int or long) or None.
+                      points displayed on large datasets Must be an integer or
+                      None.
     
         :mode: the mode of the glyphs. Must be '2darrow' or '2dcircle' or
                '2dcross' or '2ddash' or '2ddiamond' or '2dhooked_arrow' or
@@ -1663,7 +1661,7 @@ vectors
     
         :resolution: The resolution of the glyph created. For spheres, for
                      instance, this is the number of divisions along theta and
-                     phi. Must be an integer (int or long). Default: 8
+                     phi. Must be an integer. Default: 8
     
         :scale_factor: the scaling applied to the glyphs. The
                        size of the glyph is by default in drawing
