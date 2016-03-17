@@ -78,8 +78,8 @@ barchart
     
         :mask_points: If supplied, only one out of 'mask_points' data point is
                       displayed. This option is useful to reduce the number of
-                      points displayed on large datasets Must be an integer or
-                      None.
+                      points displayed on large datasets Must be an integer
+                      (int or long) or None.
     
         :mode: The glyph used to represent the bars. Must be '2dcircle' or
                '2dcross' or '2ddiamond' or '2dsquare' or '2dthick_cross' or
@@ -95,7 +95,7 @@ barchart
     
         :resolution: The resolution of the glyph created. For spheres, for
                      instance, this is the number of divisions along theta and
-                     phi. Must be an integer. Default: 8
+                     phi. Must be an integer (int or long). Default: 8
     
         :scale_factor: the scaling applied to the glyphs. The
                        size of the glyph is by default in drawing
@@ -115,8 +115,7 @@ barchart
     
 
     
-**Example** (run in ``ipython -wthread``, ``ipython --gui=wx`` for recent
-IPython versions, or in the mayavi2 interactive shell,
+**Example** (run in ``ipython --gui=qt``, or in the mayavi2 interactive shell,
 see :ref:`running-mlab-scripts` for more info)::
 
     
@@ -203,8 +202,7 @@ contour3d
     
 
     
-**Example** (run in ``ipython -wthread``, ``ipython --gui=wx`` for recent
-IPython versions, or in the mayavi2 interactive shell,
+**Example** (run in ``ipython --gui=qt``, or in the mayavi2 interactive shell,
 see :ref:`running-mlab-scripts` for more info)::
 
     
@@ -300,8 +298,7 @@ contour_surf
     
 
     
-**Example** (run in ``ipython -wthread``, ``ipython --gui=wx`` for recent
-IPython versions, or in the mayavi2 interactive shell,
+**Example** (run in ``ipython --gui=qt``, or in the mayavi2 interactive shell,
 see :ref:`running-mlab-scripts` for more info)::
 
     
@@ -393,7 +390,8 @@ flow
         :scalars: optional scalar data.
     
         :seed_resolution: The resolution of the seed. Determines the number of
-                          seed points Must be an integer or None.
+                          seed points Must be an integer (int or long) or
+                          None.
     
         :seed_scale: Scales the seed around its default center Must be a
                      float. Default: 1.0
@@ -415,8 +413,7 @@ flow
     
 
     
-**Example** (run in ``ipython -wthread``, ``ipython --gui=wx`` for recent
-IPython versions, or in the mayavi2 interactive shell,
+**Example** (run in ``ipython --gui=qt``, or in the mayavi2 interactive shell,
 see :ref:`running-mlab-scripts` for more info)::
 
     
@@ -424,11 +421,11 @@ see :ref:`running-mlab-scripts` for more info)::
     from mayavi.mlab import *
     
     def test_flow():
-        x, y, z = numpy.mgrid[0:5, 0:5, 0:5]
-        r = numpy.sqrt(x ** 2 + y ** 2 + z ** 4)
+        x, y, z = numpy.mgrid[-4:4:40j, -4:4:40j, 0:4:20j]
+        r = numpy.sqrt(x ** 2 + y ** 2 + z ** 2 + 0.1)
         u = y * numpy.sin(r) / r
         v = -x * numpy.sin(r) / r
-        w = numpy.zeros_like(z)
+        w = numpy.ones_like(z)*0.05
         obj = flow(u, v, w)
         return obj
     
@@ -492,8 +489,7 @@ imshow
     
 
     
-**Example** (run in ``ipython -wthread``, ``ipython --gui=wx`` for recent
-IPython versions, or in the mayavi2 interactive shell,
+**Example** (run in ``ipython --gui=qt``, or in the mayavi2 interactive shell,
 see :ref:`running-mlab-scripts` for more info)::
 
     
@@ -552,11 +548,14 @@ mesh
                      Default: 2.0
     
         :mask: boolean mask array to suppress some data points.
+               Note: this works based on colormapping of scalars and will
+               not work if you specify a solid color using the
+               `color` keyword.
     
         :mask_points: If supplied, only one out of 'mask_points' data point is
                       displayed. This option is useful to reduce the number of
-                      points displayed on large datasets Must be an integer or
-                      None.
+                      points displayed on large datasets Must be an integer
+                      (int or long) or None.
     
         :mode: the mode of the glyphs. Must be '2darrow' or '2dcircle' or
                '2dcross' or '2ddash' or '2ddiamond' or '2dhooked_arrow' or
@@ -578,7 +577,7 @@ mesh
     
         :resolution: The resolution of the glyph created. For spheres, for
                      instance, this is the number of divisions along theta and
-                     phi. Must be an integer. Default: 8
+                     phi. Must be an integer (int or long). Default: 8
     
         :scalars: optional scalar data.
     
@@ -596,7 +595,8 @@ mesh
                       lines, in mesh mode. If None, simple lines are used.
     
         :tube_sides: number of sides of the tubes used to
-                     represent the lines. Must be an integer. Default: 6
+                     represent the lines. Must be an integer (int or long).
+                     Default: 6
     
         :vmax: vmax is used to scale the colormap.
                If None, the max of the data will be used
@@ -606,8 +606,7 @@ mesh
     
 
     
-**Example** (run in ``ipython -wthread``, ``ipython --gui=wx`` for recent
-IPython versions, or in the mayavi2 interactive shell,
+**Example** (run in ``ipython --gui=qt``, or in the mayavi2 interactive shell,
 see :ref:`running-mlab-scripts` for more info)::
 
     
@@ -698,7 +697,8 @@ plot3d
                       lines, If None, simple lines are used.
     
         :tube_sides: number of sides of the tubes used to
-                     represent the lines. Must be an integer. Default: 6
+                     represent the lines. Must be an integer (int or long).
+                     Default: 6
     
         :vmax: vmax is used to scale the colormap.
                If None, the max of the data will be used
@@ -708,8 +708,7 @@ plot3d
     
 
     
-**Example** (run in ``ipython -wthread``, ``ipython --gui=wx`` for recent
-IPython versions, or in the mayavi2 interactive shell,
+**Example** (run in ``ipython --gui=qt``, or in the mayavi2 interactive shell,
 see :ref:`running-mlab-scripts` for more info)::
 
     
@@ -781,8 +780,8 @@ points3d
     
         :mask_points: If supplied, only one out of 'mask_points' data point is
                       displayed. This option is useful to reduce the number of
-                      points displayed on large datasets Must be an integer or
-                      None.
+                      points displayed on large datasets Must be an integer
+                      (int or long) or None.
     
         :mode: the mode of the glyphs. Must be '2darrow' or '2dcircle' or
                '2dcross' or '2ddash' or '2ddiamond' or '2dhooked_arrow' or
@@ -800,7 +799,7 @@ points3d
     
         :resolution: The resolution of the glyph created. For spheres, for
                      instance, this is the number of divisions along theta and
-                     phi. Must be an integer. Default: 8
+                     phi. Must be an integer (int or long). Default: 8
     
         :scale_factor: The scaling applied to the glyphs. the size of the
                        glyph is by default calculated from the inter-glyph
@@ -821,8 +820,7 @@ points3d
     
 
     
-**Example** (run in ``ipython -wthread``, ``ipython --gui=wx`` for recent
-IPython versions, or in the mayavi2 interactive shell,
+**Example** (run in ``ipython --gui=qt``, or in the mayavi2 interactive shell,
 see :ref:`running-mlab-scripts` for more info)::
 
     
@@ -895,8 +893,8 @@ quiver3d
     
         :mask_points: If supplied, only one out of 'mask_points' data point is
                       displayed. This option is useful to reduce the number of
-                      points displayed on large datasets Must be an integer or
-                      None.
+                      points displayed on large datasets Must be an integer
+                      (int or long) or None.
     
         :mode: the mode of the glyphs. Must be '2darrow' or '2dcircle' or
                '2dcross' or '2ddash' or '2ddiamond' or '2dhooked_arrow' or
@@ -914,7 +912,7 @@ quiver3d
     
         :resolution: The resolution of the glyph created. For spheres, for
                      instance, this is the number of divisions along theta and
-                     phi. Must be an integer. Default: 8
+                     phi. Must be an integer (int or long). Default: 8
     
         :scalars: optional scalar data.
     
@@ -937,8 +935,7 @@ quiver3d
     
 
     
-**Example** (run in ``ipython -wthread``, ``ipython --gui=wx`` for recent
-IPython versions, or in the mayavi2 interactive shell,
+**Example** (run in ``ipython --gui=qt``, or in the mayavi2 interactive shell,
 see :ref:`running-mlab-scripts` for more info)::
 
     
@@ -1014,6 +1011,9 @@ surf
                      Default: 2.0
     
         :mask: boolean mask array to suppress some data points.
+               Note: this works based on colormapping of scalars and will
+               not work if you specify a solid color using the
+               `color` keyword.
     
         :name: the name of the vtk object created.
     
@@ -1055,8 +1055,7 @@ surf
     
 
     
-**Example** (run in ``ipython -wthread``, ``ipython --gui=wx`` for recent
-IPython versions, or in the mayavi2 interactive shell,
+**Example** (run in ``ipython --gui=qt``, or in the mayavi2 interactive shell,
 see :ref:`running-mlab-scripts` for more info)::
 
     
@@ -1120,11 +1119,14 @@ triangular_mesh
                      Default: 2.0
     
         :mask: boolean mask array to suppress some data points.
+               Note: this works based on colormapping of scalars and will
+               not work if you specify a solid color using the
+               `color` keyword.
     
         :mask_points: If supplied, only one out of 'mask_points' data point is
                       displayed. This option is useful to reduce the number of
-                      points displayed on large datasets Must be an integer or
-                      None.
+                      points displayed on large datasets Must be an integer
+                      (int or long) or None.
     
         :mode: the mode of the glyphs. Must be '2darrow' or '2dcircle' or
                '2dcross' or '2ddash' or '2ddiamond' or '2dhooked_arrow' or
@@ -1146,7 +1148,7 @@ triangular_mesh
     
         :resolution: The resolution of the glyph created. For spheres, for
                      instance, this is the number of divisions along theta and
-                     phi. Must be an integer. Default: 8
+                     phi. Must be an integer (int or long). Default: 8
     
         :scalars: optional scalar data.
     
@@ -1164,7 +1166,8 @@ triangular_mesh
                       lines, in mesh mode. If None, simple lines are used.
     
         :tube_sides: number of sides of the tubes used to
-                     represent the lines. Must be an integer. Default: 6
+                     represent the lines. Must be an integer (int or long).
+                     Default: 6
     
         :vmax: vmax is used to scale the colormap.
                If None, the max of the data will be used
@@ -1174,8 +1177,7 @@ triangular_mesh
     
 
     
-**Example** (run in ``ipython -wthread``, ``ipython --gui=wx`` for recent
-IPython versions, or in the mayavi2 interactive shell,
+**Example** (run in ``ipython --gui=qt``, or in the mayavi2 interactive shell,
 see :ref:`running-mlab-scripts` for more info)::
 
     
