@@ -229,20 +229,14 @@ def savefig(filename, size=None, figure=None, magnification='auto',
     """
     if figure is None:
         figure = gcf()
+
     current_mag = figure.scene.magnification
     try:
-        if size is not None:
-            current_x, current_y = tuple(figure.scene.get_size())
-            target_x, target_y = size
-            if magnification is 'auto':
-                magnification = max(target_x // current_x,
-                                            target_y // current_y) + 1
-                target_x = int(target_x / magnification)
-                target_y = int(target_y / magnification)
-                size = target_x, target_y
-        elif magnification is 'auto':
+        if magnification is "auto":
             magnification = 1
+
         figure.scene.magnification = int(magnification)
+
         figure.scene.save(filename,
                             size=size,
                             **kwargs)

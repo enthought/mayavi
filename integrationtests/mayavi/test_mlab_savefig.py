@@ -14,6 +14,17 @@ from mayavi.tools.figure import savefig
 from common import TestCase
 
 
+def create_quiver3d():
+    x, y, z = numpy.mgrid[1:10, 1:10, 1:10]
+    u, v, w = numpy.mgrid[1:10, 1:10, 1:10]
+    s = numpy.sqrt(u**2 + v**2)
+    mlab.quiver3d(x, y, z, u, v, w, scalars=s)
+
+
+# Note: the figure size is delibrately set to be smaller than
+# the required size during `savefig`, this forces the re-rendering
+# to occur and catch any potential ill rendering
+
 class TestMlabSavefigUnitTest(unittest.TestCase):
 
     def setUp(self):
@@ -25,17 +36,21 @@ class TestMlabSavefigUnitTest(unittest.TestCase):
         self.addCleanup(self.remove_tempdir)
 
     def setup_engine_and_figure(self, engine):
+        # Set up a Engine/OffScreenEngine/... for the test case
         self.engine = engine
 
         if not engine.running:
             engine.start()
 
-        engine.new_scene()
+        # figure size is set to be small to force re-rendering
+        engine.new_scene(size=(90, 100))
         self.figure = engine.current_scene
 
+        # the clean up function will close all figures and stop the engine
         self.addCleanup(self.cleanup_engine, self.engine)
 
     def cleanup_engine(self, engine):
+        """ Close all scenes in the engine and stop it """
         scenes = [scene for scene in engine.scenes]
         for scene in scenes:
             engine.close_scene(scene)
@@ -44,27 +59,41 @@ class TestMlabSavefigUnitTest(unittest.TestCase):
     def remove_tempdir(self):
         shutil.rmtree(self.temp_dir)
 
-    def test_savefig_with_size(self):
+    def test_savefig(self):
+        """Test if savefig works with auto size, mag and a normal Engine"""
         self.setup_engine_and_figure(Engine())
 
         # Set up the scene
-        X, Y = numpy.ogrid[-10:10, -10:10]
-        Z = X**2 + Y**2
-        mlab.surf(X, Y, Z, figure=self.figure)
+        create_quiver3d()
 
-        # save the figure
+        # save the figure (magnification is default "auto")
+        savefig(self.filename, figure=self.figure)
+
+        # check
+        self.check_image()
+
+    def test_savefig_with_size(self):
+        """Test if savefig works with given size and a normal Engine"""
+        self.setup_engine_and_figure(Engine())
+
+        # Set up the scene
+        create_quiver3d()
+
+        # save the figure (magnification is default "auto")
         savefig(self.filename, size=(131, 217), figure=self.figure)
 
         # check
         self.check_image((217, 131))
 
+    @unittest.skipIf(os.environ.get("TRAVIS", False),
+                     ("Offscreen rendering is not tested on Travis "
+                      "due to lack of GLX support"))
     def test_savefig_with_size_offscreen(self):
+        """Test if savefig works with given size on an OffScreenEngine"""
         self.setup_engine_and_figure(OffScreenEngine())
 
         # Set up the scene
-        X, Y = numpy.ogrid[-10:10, -10:10]
-        Z = X**2 + Y**2
-        mlab.surf(X, Y, Z, figure=self.figure)
+        create_quiver3d()
 
         # save the figure
         savefig(self.filename, size=(131, 217), figure=self.figure)
@@ -73,12 +102,11 @@ class TestMlabSavefigUnitTest(unittest.TestCase):
         self.check_image((217, 131))
 
     def test_savefig_with_size_and_magnification(self):
+        """Test if savefig works with given size and magnification"""
         self.setup_engine_and_figure(Engine())
 
         # Set up the scene
-        X, Y = numpy.ogrid[-10:10, -10:10]
-        Z = X**2 + Y**2
-        mlab.surf(X, Y, Z, figure=self.figure)
+        create_quiver3d()
 
         # save the figure
         savefig(self.filename, size=(131, 217), magnification=2,
@@ -87,16 +115,18 @@ class TestMlabSavefigUnitTest(unittest.TestCase):
         # check if the image size is twice as big
         self.check_image((434, 262))
 
+    @unittest.skipIf(os.environ.get("TRAVIS", False),
+                     ("Offscreen rendering is not tested on Travis "
+                      "due to lack of GLX support"))
     def test_savefig_with_size_and_magnification_offscreen(self):
+        """Test savefig with off_screen_rendering and OffScreenEngine"""
         self.setup_engine_and_figure(OffScreenEngine())
 
         # Use off-screen rendering
         self.figure.scene.off_screen_rendering = True
 
         # Set up the scene
-        X, Y = numpy.ogrid[-10:10, -10:10]
-        Z = X**2 + Y**2
-        mlab.surf(X, Y, Z, figure=self.figure)
+        create_quiver3d()
 
         # save the figure
         savefig(self.filename, size=(131, 217), magnification=2,
@@ -105,16 +135,18 @@ class TestMlabSavefigUnitTest(unittest.TestCase):
         # check if the image size is twice as big
         self.check_image((434, 262))
 
+    @unittest.skipIf(os.environ.get("TRAVIS", False),
+                     ("Offscreen rendering is not tested on Travis "
+                      "due to lack of GLX support"))
     def test_savefig_with_size_and_magnification_offscreen_with_engine(self):
+        """Test if savefig works with off_screen_rendering and Engine"""
         self.setup_engine_and_figure(Engine())
 
         # Use off-screen rendering
         self.figure.scene.off_screen_rendering = True
 
         # Set up the scene
-        X, Y = numpy.ogrid[-10:10, -10:10]
-        Z = X**2 + Y**2
-        mlab.surf(X, Y, Z, figure=self.figure)
+        create_quiver3d()
 
         # save the figure
         savefig(self.filename, size=(131, 217), magnification=2,
@@ -123,11 +155,12 @@ class TestMlabSavefigUnitTest(unittest.TestCase):
         # check if the image size is twice as big
         self.check_image((434, 262))
 
-    def check_image(self, size):
+    def check_image(self, size=None):
         image = numpy.array(Image.open(self.filename))[:, :, :3]
 
         # check the size is correct
-        self.assertEqual(image.shape[:2], size)
+        if size:
+            self.assertEqual(image.shape[:2], size)
 
 
 class TestMlabSavefig(TestCase):
@@ -138,8 +171,7 @@ class TestMlabSavefig(TestCase):
     def do(self):
         suite = unittest.TestLoader().loadTestsFromTestCase(
             TestMlabSavefigUnitTest)
-        for test in suite:
-            test.run()
+        unittest.TextTestRunner().run(suite)
 
 
 if __name__ == "__main__":
