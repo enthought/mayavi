@@ -10,7 +10,7 @@ This extension can be used as a replacement for ``numpydoc`` when support
 for Traits is required.
 
 .. [1] http://projects.scipy.org/numpy/wiki/CodingStyleGuidelines#docstring-standard
-.. [2] http://code.enthought.com/projects/traits/
+.. [2] http://docs.enthought.com/traits/
 
 """
 from __future__ import division, absolute_import, print_function

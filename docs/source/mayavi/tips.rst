@@ -295,7 +295,7 @@ sources/modules/filters and only registers the metadata.  This will
 avoid issues with circular imports. 
 
 
-.. _`examples/mayavi/user_mayavi.py`: https://svn.enthought.com/enthought/browser/Mayavi/trunk/examples/mayavi/user_mayavi.py
+.. _`examples/mayavi/user_mayavi.py`: https://raw.githubusercontent.com/enthought/mayavi/4.4.4/examples/mayavi/user_mayavi.py
 
 
 Customizing Mayavi2

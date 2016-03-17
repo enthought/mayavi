@@ -423,7 +423,7 @@ numpy.distutils.core.setup(
     author_email = "prabhu@aero.iitb.ac.in",
     maintainer = 'ETS Developers',
     maintainer_email = 'enthought-dev@enthought.com',
-    url = 'http://code.enthought.com/projects/mayavi/',
+    url = 'http://docs.enthought.com/mayavi/mayavi/',
     classifiers = [c.strip() for c in """\
         Development Status :: 5 - Production/Stable
         Intended Audience :: Developers
@@ -451,8 +451,7 @@ numpy.distutils.core.setup(
         'build_docs': BuildDocs,
         },
     description = DOCLINES[1],
-    download_url = ('http://www.enthought.com/repo/ets/mayavi-%s.tar.gz' %
-                    info['__version__']),
+    download_url=('https://www.github.com/enthought/mayavi'),
     entry_points = {
         'gui_scripts': [
             'mayavi2 = mayavi.scripts.mayavi2:main',
