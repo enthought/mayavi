@@ -77,24 +77,24 @@ class VTKFileReader(VTKXMLFileReader):
             except AttributeError: # for VTK >= 4.5
                 n = self.reader.number_of_output_ports
 
-            outputs = []
-            for i in range(n):
-                outputs.append(self.reader.get_output(i))
+            if n > 0:
+                outputs = []
+                for i in range(n):
+                    outputs.append(self.reader.get_output(i))
 
-            # FIXME: currently handling only one output (the first one) with
-            # assign attributes.
-            for index, output in enumerate(outputs):
-                if has_attributes(output):
+                # FIXME: currently handling only one output (the first one)
+                # with assign attributes.
+                if has_attributes(outputs[0]):
                     aa = self._assign_attribute
-                    self.configure_input_data(aa, output)
+                    self.configure_input_data(aa, outputs[0])
                     self.update_data()
                     aa.update()
-                    outputs[index] = aa.output
+                    outputs[0] = aa.output
 
-            self.outputs = outputs
+                self.outputs = outputs
 
-            # FIXME: The output info is only based on the first output.
-            self.output_info.datasets = [get_tvtk_dataset_name(outputs[0])]
+                # FIXME: The output info is only based on the first output.
+                self.output_info.datasets = [get_tvtk_dataset_name(outputs[0])]
 
             # Change our name on the tree view
             self.name = self._get_name()
