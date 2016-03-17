@@ -416,8 +416,7 @@ class TVTKScene(HasPrivateTraits):
         """Saves the rendered scene to a rasterized PostScript image.
         For vector graphics use the save_gl2ps method."""
         if len(file_name) != 0:
-            w2if = tvtk.WindowToImageFilter(read_front_buffer=
-                                              not self.off_screen_rendering)
+            w2if = tvtk.WindowToImageFilter(read_front_buffer=False)
             w2if.magnification = self.magnification
             self._lift()
             w2if.input = self._renwin
@@ -429,8 +428,7 @@ class TVTKScene(HasPrivateTraits):
     def save_bmp(self, file_name):
         """Save to a BMP image file."""
         if len(file_name) != 0:
-            w2if = tvtk.WindowToImageFilter(read_front_buffer=
-                                              not self.off_screen_rendering)
+            w2if = tvtk.WindowToImageFilter(read_front_buffer=False)
             w2if.magnification = self.magnification
             self._lift()
             w2if.input = self._renwin
@@ -442,8 +440,7 @@ class TVTKScene(HasPrivateTraits):
     def save_tiff(self, file_name):
         """Save to a TIFF image file."""
         if len(file_name) != 0:
-            w2if = tvtk.WindowToImageFilter(read_front_buffer=
-                                              not self.off_screen_rendering)
+            w2if = tvtk.WindowToImageFilter(read_front_buffer=False)
             w2if.magnification = self.magnification
             self._lift()
             w2if.input = self._renwin
@@ -455,8 +452,7 @@ class TVTKScene(HasPrivateTraits):
     def save_png(self, file_name):
         """Save to a PNG image file."""
         if len(file_name) != 0:
-            w2if = tvtk.WindowToImageFilter(read_front_buffer=
-                                              not self.off_screen_rendering)
+            w2if = tvtk.WindowToImageFilter(read_front_buffer=False)
             w2if.magnification = self.magnification
             self._lift()
             w2if.input = self._renwin
@@ -472,8 +468,7 @@ class TVTKScene(HasPrivateTraits):
         if len(file_name) != 0:
             if not quality and not progressive:
                 quality, progressive = self.jpeg_quality, self.jpeg_progressive
-            w2if = tvtk.WindowToImageFilter(read_front_buffer=
-                                              not self.off_screen_rendering)
+            w2if = tvtk.WindowToImageFilter(read_front_buffer=False)
             w2if.magnification = self.magnification
             self._lift()
             w2if.input = self._renwin
