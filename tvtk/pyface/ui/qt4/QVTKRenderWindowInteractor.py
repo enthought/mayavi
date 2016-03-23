@@ -204,7 +204,7 @@ class QVTKRenderWindowInteractor(_QVTKRenderWindowInteractor):
             key = chr(0)
 
         self._Iren.SetEventInformationFlipY(self.__saveX, self.__saveY,
-                                            ctrl, shift, key, 0, None)
+                                            ctrl, shift, key, 0, key_sym)
         self._Iren.KeyReleaseEvent()
 
     def wheelEvent(self, ev):
