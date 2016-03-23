@@ -3,7 +3,6 @@ A simple VTK widget for PyQt or PySide.
 See http://www.trolltech.com for Qt documentation,
 http://www.riverbankcomputing.co.uk for PyQt, and
 http://pyside.github.io for PySide.
-
 This class is based on the vtkGenericRenderWindowInteractor and is
 therefore fairly powerful.  It should also play nicely with the
 vtk3DWidget code.
@@ -42,21 +41,16 @@ Changes by Fabian Wenzel, Jan. 2016
 
 import sys
 
+from tvtk import messenger
+
+# pyface does not support PyQt5 yet
 from pyface.qt import qt_api
 if qt_api == 'pyqt':
     PyQtImpl = "PyQt4"
 else:
     PyQtImpl = "PySide"
 
-import vtk
-
-from tvtk import messenger
-
-if PyQtImpl == "PyQt5":
-    from PyQt5.QtWidgets import QWidget, QSizePolicy, QApplication
-    from PyQt5.QtGui import QWheelEvent
-    from PyQt5.QtCore import Qt, QTimer, QObject, QSize, QEvent
-elif PyQtImpl == "PyQt4":
+if PyQtImpl == "PyQt4":
     from PyQt4.QtGui import QWidget, QSizePolicy, QApplication, QWheelEvent
     from PyQt4.QtCore import Qt, QTimer, QObject, QSize, QEvent
 elif PyQtImpl == "PySide":
@@ -65,147 +59,26 @@ elif PyQtImpl == "PySide":
 else:
     raise ImportError("Unknown PyQt implementation " + repr(PyQtImpl))
 
-class QVTKRenderWindowInteractor(QWidget):
 
-    """ A QVTKRenderWindowInteractor for Python and Qt.  Uses a
-    vtkGenericRenderWindowInteractor to handle the interactions.  Use
-    GetRenderWindow() to get the vtkRenderWindow.  Create with the
-    keyword stereo=1 in order to generate a stereo-capable window.
+from vtk import VTK_MAJOR_VERSION
+from vtk.qt4.QVTKRenderWindowInteractor import QVTKRenderWindowInteractor as _QVTKRenderWindowInteractor   # noqa
 
-    The user interface is summarized in vtkInteractorStyle.h:
 
-    - Keypress j / Keypress t: toggle between joystick (position
-    sensitive) and trackball (motion sensitive) styles. In joystick
-    style, motion occurs continuously as long as a mouse button is
-    pressed. In trackball style, motion occurs when the mouse button
-    is pressed and the mouse pointer moves.
-
-    - Keypress c / Keypress o: toggle between camera and object
-    (actor) modes. In camera mode, mouse events affect the camera
-    position and focal point. In object mode, mouse events affect
-    the actor that is under the mouse pointer.
-
-    - Button 1: rotate the camera around its focal point (if camera
-    mode) or rotate the actor around its origin (if actor mode). The
-    rotation is in the direction defined from the center of the
-    renderer's viewport towards the mouse position. In joystick mode,
-    the magnitude of the rotation is determined by the distance the
-    mouse is from the center of the render window.
-
-    - Button 2: pan the camera (if camera mode) or translate the actor
-    (if object mode). In joystick mode, the direction of pan or
-    translation is from the center of the viewport towards the mouse
-    position. In trackball mode, the direction of motion is the
-    direction the mouse moves. (Note: with 2-button mice, pan is
-    defined as <Shift>-Button 1.)
-
-    - Button 3: zoom the camera (if camera mode) or scale the actor
-    (if object mode). Zoom in/increase scale if the mouse position is
-    in the top half of the viewport; zoom out/decrease scale if the
-    mouse position is in the bottom half. In joystick mode, the amount
-    of zoom is controlled by the distance of the mouse pointer from
-    the horizontal centerline of the window.
-
-    - Keypress 3: toggle the render window into and out of stereo
-    mode.  By default, red-blue stereo pairs are created. Some systems
-    support Crystal Eyes LCD stereo glasses; you have to invoke
-    SetStereoTypeToCrystalEyes() on the rendering window.  Note: to
-    use stereo you also need to pass a stereo=1 keyword argument to
-    the constructor.
-
-    - Keypress e: exit the application.
-
-    - Keypress f: fly to the picked point
-
-    - Keypress p: perform a pick operation. The render window interactor
-    has an internal instance of vtkCellPicker that it uses to pick.
-
-    - Keypress r: reset the camera view along the current view
-    direction. Centers the actors and moves the camera so that all actors
-    are visible.
-
-    - Keypress s: modify the representation of all actors so that they
-    are surfaces.
-
-    - Keypress u: invoke the user-defined function. Typically, this
-    keypress will bring up an interactor that you can type commands in.
-
-    - Keypress w: modify the representation of all actors so that they
-    are wireframe.
-    """
-
-    # Map between VTK and Qt cursors.
-    _CURSOR_MAP = {
-        0:  Qt.ArrowCursor,          # VTK_CURSOR_DEFAULT
-        1:  Qt.ArrowCursor,          # VTK_CURSOR_ARROW
-        2:  Qt.SizeBDiagCursor,      # VTK_CURSOR_SIZENE
-        3:  Qt.SizeFDiagCursor,      # VTK_CURSOR_SIZENWSE
-        4:  Qt.SizeBDiagCursor,      # VTK_CURSOR_SIZESW
-        5:  Qt.SizeFDiagCursor,      # VTK_CURSOR_SIZESE
-        6:  Qt.SizeVerCursor,        # VTK_CURSOR_SIZENS
-        7:  Qt.SizeHorCursor,        # VTK_CURSOR_SIZEWE
-        8:  Qt.SizeAllCursor,        # VTK_CURSOR_SIZEALL
-        9:  Qt.PointingHandCursor,   # VTK_CURSOR_HAND
-        10: Qt.CrossCursor,          # VTK_CURSOR_CROSSHAIR
-    }
+class QVTKRenderWindowInteractor(_QVTKRenderWindowInteractor):
 
     def __init__(self, parent=None, wflags=Qt.WindowFlags(), **kw):
-        # the current button
-        self._ActiveButton = Qt.NoButton
+
+        super(QVTKRenderWindowInteractor, self).__init__(parent=parent,
+                                                         wflags=wflags,
+                                                         **kw)
 
         # private attributes
         self.__oldFocus = None
-        self.__saveX = 0
-        self.__saveY = 0
-        self.__saveModifiers = Qt.NoModifier
-        self.__saveButtons = Qt.NoButton
 
-        # do special handling of some keywords:
-        # stereo, rw
-
-        try:
-            stereo = bool(kw['stereo'])
-        except KeyError:
-            stereo = False
-
-        try:
-            rw = kw['rw']
-        except KeyError:
-            rw = None
-
-        # create qt-level widget
-        QWidget.__init__(self, parent, wflags|Qt.MSWindowsOwnDC)
-
-        if rw: # user-supplied render window
-            self._RenderWindow = rw
-        else:
-            self._RenderWindow = vtk.vtkRenderWindow()
-
-        wid = self._get_win_id()
-        self._RenderWindow.SetWindowInfo(wid)
-
-        self._should_set_parent_info = (sys.platform == 'win32')
-
-        if stereo: # stereo mode
-            self._RenderWindow.StereoCapableWindowOn()
-            self._RenderWindow.SetStereoTypeToCrystalEyes()
-
-        try:
-            self._Iren = kw['iren']
-        except KeyError:
-            self._Iren = vtk.vtkGenericRenderWindowInteractor()
-
-        self._Iren.SetRenderWindow(self._RenderWindow)
-
-        # do all the necessary qt setup
-        self.setAttribute(Qt.WA_OpaquePaintEvent)
-        self.setAttribute(Qt.WA_PaintOnScreen)
-        self.setMouseTracking(True) # get all mouse events
-        self.setFocusPolicy(Qt.WheelFocus)
-        self.setSizePolicy(QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding))
-
-        self._Timer = QTimer(self)
-        self._Timer.timeout.connect(self.TimerEvent)
+        if VTK_MAJOR_VERSION < 7:
+            # This function is added to the __init__ in VTK 7.0.0
+            wid = self._get_win_id()
+            self._RenderWindow.SetWindowInfo(wid)
 
         # add wheel timer to fix scrolling issue with trackpad
         self.wheel_timer = QTimer()
@@ -215,6 +88,7 @@ class QVTKRenderWindowInteractor(QWidget):
         self.wheel_accumulator = 0
         self._saved_wheel_event_info = ()
 
+        # tvtk events
         self._Iren.AddObserver('CreateTimerEvent', messenger.send)
         messenger.connect(self._Iren, 'CreateTimerEvent', self.CreateTimer)
         self._Iren.AddObserver('DestroyTimerEvent', messenger.send)
@@ -223,25 +97,10 @@ class QVTKRenderWindowInteractor(QWidget):
         messenger.connect(self._RenderWindow, 'CursorChangedEvent',
                           self.CursorChangedEvent)
 
-        # Create a hidden child widget and connect its destroyed signal to its
-        # parent ``Finalize`` slot. The hidden children will be destroyed
-        # before its parent thus allowing cleanup of VTK elements.
-        self._hidden = QWidget(self)
-        self._hidden.hide()
-        self._hidden.destroyed.connect(self.Finalize)
-
-    def __getattr__(self, attr):
-        """Makes the object behave like a vtkGenericRenderWindowInteractor"""
-        if attr == '__vtk__':
-            return lambda t=self._Iren: t
-        elif hasattr(self._Iren, attr):
-            return getattr(self._Iren, attr)
-        else:
-            raise AttributeError(
-                self.__class__.__name__ + " has no attribute named " + attr
-            )
-
     def _get_win_id(self):
+        # This function is called from __init__ function and
+        # from the resizeEvent if the machine is a Windows system
+        # This function is embeded in the __init__ function in VTK 7.0.0
         WId = self.winId()
 
         # Python2
@@ -268,53 +127,12 @@ class QVTKRenderWindowInteractor(QWidget):
             WId = pythonapi.PyCapsule_GetPointer(WId, name)
         return str(int(WId))
 
-    def Finalize(self):
-        '''
-        Call internal cleanup method on VTK objects
-        '''
-        self._RenderWindow.Finalize()
-
-    def CreateTimer(self, obj, evt):
-        self._Timer.start(10)
-
-    def DestroyTimer(self, obj, evt):
-        self._Timer.stop()
-        return 1
-
-    def TimerEvent(self):
-        self._Iren.TimerEvent()
-
-    def CursorChangedEvent(self, obj, evt):
-        """Called when the CursorChangedEvent fires on the render window."""
-        # This indirection is needed since when the event fires, the current
-        # cursor is not yet set so we defer this by which time the current
-        # cursor should have been set.
-        QTimer.singleShot(0, self.ShowCursor)
-
-    def HideCursor(self):
-        """Hides the cursor."""
-        self.setCursor(Qt.BlankCursor)
-
-    def ShowCursor(self):
-        """Shows the cursor."""
-        vtk_cursor = self._Iren.GetRenderWindow().GetCurrentCursor()
-        qt_cursor = self._CURSOR_MAP.get(vtk_cursor, Qt.ArrowCursor)
-        self.setCursor(qt_cursor)
-
-    def closeEvent(self, evt):
-        self.Finalize()
-
-    def sizeHint(self):
-        return QSize(400, 400)
-
-    def paintEngine(self):
-        return None
-
     def paintEvent(self, ev):
+        super(QVTKRenderWindowInteractor, self).paintEvent(ev)
         self._RenderWindow.Render()
-
+    
     def resizeEvent(self, ev):
-        if self._should_set_parent_info:
+        if sys.platform == "win32":
             # Set the window info and parent info on every resize.
             # vtkWin32OpenGLRenderWindow will render using incorrect offsets if
             # the parent info is not given to it because it assumes that it
@@ -327,89 +145,21 @@ class QVTKRenderWindowInteractor(QWidget):
             else:
                 self._RenderWindow.SetParentInfo('')
 
-        w = self.width()
-        h = self.height()
-
-        self._RenderWindow.SetSize(w, h)
-        self._Iren.SetSize(w, h)
-        self._Iren.ConfigureEvent()
-        self.update()
-
-    def _GetCtrlShift(self, ev):
-        ctrl = shift = False
-
-        if hasattr(ev, 'modifiers'):
-            if ev.modifiers() & Qt.ShiftModifier:
-                shift = True
-            if ev.modifiers() & Qt.ControlModifier:
-                ctrl = True
-        else:
-            if self.__saveModifiers & Qt.ShiftModifier:
-                shift = True
-            if self.__saveModifiers & Qt.ControlModifier:
-                ctrl = True
-
-        return ctrl, shift
+        super(QVTKRenderWindowInteractor, self).resizeEvent(ev)
 
     def enterEvent(self, ev):
         if not self.hasFocus():
             self.__oldFocus = self.focusWidget()
             self.setFocus()
 
-        ctrl, shift = self._GetCtrlShift(ev)
-        self._Iren.SetEventInformationFlipY(self.__saveX, self.__saveY,
-                                            ctrl, shift, chr(0), 0, None)
-        self._Iren.EnterEvent()
+        super(QVTKRenderWindowInteractor, self).enterEvent(ev)
 
     def leaveEvent(self, ev):
         if self.__saveButtons == Qt.NoButton and self.__oldFocus:
             self.__oldFocus.setFocus()
             self.__oldFocus = None
 
-        ctrl, shift = self._GetCtrlShift(ev)
-        self._Iren.SetEventInformationFlipY(self.__saveX, self.__saveY,
-                                            ctrl, shift, chr(0), 0, None)
-        self._Iren.LeaveEvent()
-
-    def mousePressEvent(self, ev):
-        ctrl, shift = self._GetCtrlShift(ev)
-        repeat = 0
-        if ev.type() == QEvent.MouseButtonDblClick:
-            repeat = 1
-        self._Iren.SetEventInformationFlipY(ev.x(), ev.y(),
-                                            ctrl, shift, chr(0), repeat, None)
-
-        self._ActiveButton = ev.button()
-
-        if self._ActiveButton == Qt.LeftButton:
-            self._Iren.LeftButtonPressEvent()
-        elif self._ActiveButton == Qt.RightButton:
-            self._Iren.RightButtonPressEvent()
-        elif self._ActiveButton == Qt.MidButton:
-            self._Iren.MiddleButtonPressEvent()
-
-    def mouseReleaseEvent(self, ev):
-        ctrl, shift = self._GetCtrlShift(ev)
-        self._Iren.SetEventInformationFlipY(ev.x(), ev.y(),
-                                            ctrl, shift, chr(0), 0, None)
-
-        if self._ActiveButton == Qt.LeftButton:
-            self._Iren.LeftButtonReleaseEvent()
-        elif self._ActiveButton == Qt.RightButton:
-            self._Iren.RightButtonReleaseEvent()
-        elif self._ActiveButton == Qt.MidButton:
-            self._Iren.MiddleButtonReleaseEvent()
-
-    def mouseMoveEvent(self, ev):
-        self.__saveModifiers = ev.modifiers()
-        self.__saveButtons = ev.buttons()
-        self.__saveX = ev.x()
-        self.__saveY = ev.y()
-
-        ctrl, shift = self._GetCtrlShift(ev)
-        self._Iren.SetEventInformationFlipY(ev.x(), ev.y(),
-                                            ctrl, shift, chr(0), 0, None)
-        self._Iren.MouseMoveEvent()
+        super(QVTKRenderWindowInteractor, self).leaveEvent(ev)
 
     def keyPressEvent(self, ev):
         """ React to key pressed event.
@@ -490,12 +240,6 @@ class QVTKRenderWindowInteractor(QWidget):
             self._Iren.MouseWheelBackwardEvent()
         self.wheel_timer.stop()
         self.wheel_accumulator = 0
-
-    def GetRenderWindow(self):
-        return self._RenderWindow
-
-    def Render(self):
-        self.update()
 
 
 def QVTKRenderWidgetConeExample():
