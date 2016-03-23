@@ -79,7 +79,6 @@ class TestMlabSavefigUnitTest(unittest.TestCase):
                     figure=self.figure)
 
 
-
 class TestMlabSavefig(TestCase):
 
     def test(self):
