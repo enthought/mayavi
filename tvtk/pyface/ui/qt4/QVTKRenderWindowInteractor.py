@@ -53,10 +53,10 @@ else:
     PyQtImpl = "PySide"
 
 if PyQtImpl == "PyQt4":
-    from PyQt4.QtGui import QApplication, QWheelEvent
+    from PyQt4.QtGui import QWidget, QSizePolicy, QApplication, QWheelEvent
     from PyQt4.QtCore import Qt, QTimer
 elif PyQtImpl == "PySide":
-    from PySide.QtGui import QApplication, QWheelEvent
+    from PySide.QtGui import QWidget, QSizePolicy, QApplication, QWheelEvent
     from PySide.QtCore import Qt, QTimer
 else:
     raise ImportError("Unknown PyQt implementation " + repr(PyQtImpl))
@@ -65,18 +65,61 @@ else:
 class QVTKRenderWindowInteractor(_QVTKRenderWindowInteractor):
 
     def __init__(self, parent=None, wflags=Qt.WindowFlags(), **kw):
-
-        super(QVTKRenderWindowInteractor, self).__init__(parent=parent,
-                                                         wflags=wflags,
-                                                         **kw)
+        # the current button
+        self._ActiveButton = Qt.NoButton
 
         # private attributes
         self.__oldFocus = None
+        self.__saveX = 0
+        self.__saveY = 0
+        self.__saveModifiers = Qt.NoModifier
+        self.__saveButtons = Qt.NoButton
 
-        if vtk.VTK_MAJOR_VERSION < 7:
-            # This function is added to the __init__ in VTK 7.0.0
-            wid = self._get_win_id()
-            self._RenderWindow.SetWindowInfo(wid)
+        # do special handling of some keywords:
+        # stereo, rw
+
+        try:
+            stereo = bool(kw['stereo'])
+        except KeyError:
+            stereo = False
+
+        try:
+            rw = kw['rw']
+        except KeyError:
+            rw = None
+
+        # create qt-level widget
+        QWidget.__init__(self, parent, wflags | Qt.MSWindowsOwnDC)
+
+        if rw:  # user-supplied render window
+            self._RenderWindow = rw
+        else:
+            self._RenderWindow = vtk.vtkRenderWindow()
+
+        wid = self._get_win_id()
+        self._RenderWindow.SetWindowInfo(wid)
+
+        if stereo:  # stereo mode
+            self._RenderWindow.StereoCapableWindowOn()
+            self._RenderWindow.SetStereoTypeToCrystalEyes()
+
+        try:
+            self._Iren = kw['iren']
+        except KeyError:
+            self._Iren = vtk.vtkGenericRenderWindowInteractor()
+
+        self._Iren.SetRenderWindow(self._RenderWindow)
+
+        # do all the necessary qt setup
+        self.setAttribute(Qt.WA_OpaquePaintEvent)
+        self.setAttribute(Qt.WA_PaintOnScreen)
+        self.setMouseTracking(True)  # get all mouse events
+        self.setFocusPolicy(Qt.WheelFocus)
+        self.setSizePolicy(QSizePolicy(QSizePolicy.Expanding,
+                                       QSizePolicy.Expanding))
+
+        self._Timer = QTimer(self)
+        self._Timer.timeout.connect(self.TimerEvent)
 
         # add wheel timer to fix scrolling issue with trackpad
         self.wheel_timer = QTimer()
@@ -86,7 +129,6 @@ class QVTKRenderWindowInteractor(_QVTKRenderWindowInteractor):
         self.wheel_accumulator = 0
         self._saved_wheel_event_info = ()
 
-        # tvtk events
         self._Iren.AddObserver('CreateTimerEvent', messenger.send)
         messenger.connect(self._Iren, 'CreateTimerEvent', self.CreateTimer)
         self._Iren.AddObserver('DestroyTimerEvent', messenger.send)
@@ -94,6 +136,13 @@ class QVTKRenderWindowInteractor(_QVTKRenderWindowInteractor):
         self._RenderWindow.AddObserver('CursorChangedEvent', messenger.send)
         messenger.connect(self._RenderWindow, 'CursorChangedEvent',
                           self.CursorChangedEvent)
+
+        # Create a hidden child widget and connect its destroyed signal to its
+        # parent ``Finalize`` slot. The hidden children will be destroyed
+        # before its parent thus allowing cleanup of VTK elements.
+        self._hidden = QWidget(self)
+        self._hidden.hide()
+        self._hidden.destroyed.connect(self.Finalize)
 
     def _get_win_id(self):
         # This function is called from __init__ function and
