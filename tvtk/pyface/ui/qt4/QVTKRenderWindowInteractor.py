@@ -42,6 +42,8 @@ Changes by Fabian Wenzel, Jan. 2016
 import sys
 
 from tvtk import messenger
+import vtk
+from vtk.qt4.QVTKRenderWindowInteractor import QVTKRenderWindowInteractor as _QVTKRenderWindowInteractor   # noqa
 
 # pyface does not support PyQt5 yet
 from pyface.qt import qt_api
@@ -51,17 +53,13 @@ else:
     PyQtImpl = "PySide"
 
 if PyQtImpl == "PyQt4":
-    from PyQt4.QtGui import QWidget, QSizePolicy, QApplication, QWheelEvent
-    from PyQt4.QtCore import Qt, QTimer, QObject, QSize, QEvent
+    from PyQt4.QtGui import QApplication, QWheelEvent
+    from PyQt4.QtCore import Qt, QTimer
 elif PyQtImpl == "PySide":
-    from PySide.QtGui import QWidget, QSizePolicy, QApplication, QWheelEvent
-    from PySide.QtCore import Qt, QTimer, QObject, QSize, QEvent
+    from PySide.QtGui import QApplication, QWheelEvent
+    from PySide.QtCore import Qt, QTimer
 else:
     raise ImportError("Unknown PyQt implementation " + repr(PyQtImpl))
-
-
-from vtk import VTK_MAJOR_VERSION
-from vtk.qt4.QVTKRenderWindowInteractor import QVTKRenderWindowInteractor as _QVTKRenderWindowInteractor   # noqa
 
 
 class QVTKRenderWindowInteractor(_QVTKRenderWindowInteractor):
@@ -75,7 +73,7 @@ class QVTKRenderWindowInteractor(_QVTKRenderWindowInteractor):
         # private attributes
         self.__oldFocus = None
 
-        if VTK_MAJOR_VERSION < 7:
+        if vtk.VTK_MAJOR_VERSION < 7:
             # This function is added to the __init__ in VTK 7.0.0
             wid = self._get_win_id()
             self._RenderWindow.SetWindowInfo(wid)
@@ -107,7 +105,7 @@ class QVTKRenderWindowInteractor(_QVTKRenderWindowInteractor):
         if type(WId).__name__ == 'PyCObject':
             from ctypes import pythonapi, c_void_p, py_object
 
-            pythonapi.PyCObject_AsVoidPtr.restype  = c_void_p
+            pythonapi.PyCObject_AsVoidPtr.restype = c_void_p
             pythonapi.PyCObject_AsVoidPtr.argtypes = [py_object]
 
             WId = pythonapi.PyCObject_AsVoidPtr(WId)
@@ -121,7 +119,7 @@ class QVTKRenderWindowInteractor(_QVTKRenderWindowInteractor):
 
             name = pythonapi.PyCapsule_GetName(WId)
 
-            pythonapi.PyCapsule_GetPointer.restype  = c_void_p
+            pythonapi.PyCapsule_GetPointer.restype = c_void_p
             pythonapi.PyCapsule_GetPointer.argtypes = [py_object, c_char_p]
 
             WId = pythonapi.PyCapsule_GetPointer(WId, name)
@@ -130,7 +128,7 @@ class QVTKRenderWindowInteractor(_QVTKRenderWindowInteractor):
     def paintEvent(self, ev):
         super(QVTKRenderWindowInteractor, self).paintEvent(ev)
         self._RenderWindow.Render()
-    
+
     def resizeEvent(self, ev):
         if sys.platform == "win32":
             # Set the window info and parent info on every resize.
@@ -369,6 +367,7 @@ _keysyms = {
     Qt.Key_NumLock: 'Num_Lock',
     Qt.Key_ScrollLock: 'Scroll_Lock',
     }
+
 
 def _qt_key_to_key_sym(key):
     """ Convert a Qt key into a vtk keysym.
