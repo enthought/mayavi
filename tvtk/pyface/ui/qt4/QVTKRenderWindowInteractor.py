@@ -174,6 +174,14 @@ class QVTKRenderWindowInteractor(_QVTKRenderWindowInteractor):
             WId = pythonapi.PyCapsule_GetPointer(WId, name)
         return str(int(WId))
 
+    def Finalize(self):
+        '''
+        Call internal cleanup method on VTK objects
+
+        New in VTK 6.0.0
+        '''
+        self._RenderWindow.Finalize()
+
     def paintEvent(self, ev):
         super(QVTKRenderWindowInteractor, self).paintEvent(ev)
         self._RenderWindow.Render()
