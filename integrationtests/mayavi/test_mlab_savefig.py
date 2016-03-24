@@ -14,11 +14,11 @@ from mayavi.tools.figure import savefig
 from common import TestCase
 
 
-def create_quiver3d():
+def create_quiver3d(figure):
     x, y, z = numpy.mgrid[1:10, 1:10, 1:10]
     u, v, w = numpy.mgrid[1:10, 1:10, 1:10]
     s = numpy.sqrt(u**2 + v**2)
-    mlab.quiver3d(x, y, z, u, v, w, scalars=s)
+    mlab.quiver3d(x, y, z, u, v, w, scalars=s, figure=figure)
 
 
 # Note: the figure(window) size is delibrately set to be smaller than
@@ -64,7 +64,7 @@ class TestMlabSavefigUnitTest(unittest.TestCase):
         self.setup_engine_and_figure(Engine())
 
         # Set up the scene
-        create_quiver3d()
+        create_quiver3d(figure=self.figure)
 
         # save the figure (magnification is default "auto")
         savefig(self.filename, figure=self.figure)
@@ -77,7 +77,7 @@ class TestMlabSavefigUnitTest(unittest.TestCase):
         self.setup_engine_and_figure(Engine())
 
         # Set up the scene
-        create_quiver3d()
+        create_quiver3d(figure=self.figure)
 
         # save the figure (magnification is default "auto")
         savefig(self.filename, size=(131, 217), figure=self.figure)
@@ -93,7 +93,7 @@ class TestMlabSavefigUnitTest(unittest.TestCase):
         self.setup_engine_and_figure(OffScreenEngine())
 
         # Set up the scene
-        create_quiver3d()
+        create_quiver3d(figure=self.figure)
 
         # save the figure
         savefig(self.filename, size=(131, 217), figure=self.figure)
@@ -106,7 +106,7 @@ class TestMlabSavefigUnitTest(unittest.TestCase):
         self.setup_engine_and_figure(Engine())
 
         # Set up the scene
-        create_quiver3d()
+        create_quiver3d(figure=self.figure)
 
         # save the figure
         savefig(self.filename, size=(131, 217), magnification=2,
@@ -126,7 +126,7 @@ class TestMlabSavefigUnitTest(unittest.TestCase):
         self.figure.scene.off_screen_rendering = True
 
         # Set up the scene
-        create_quiver3d()
+        create_quiver3d(figure=self.figure)
 
         # save the figure
         savefig(self.filename, size=(131, 217), magnification=2,
@@ -146,7 +146,7 @@ class TestMlabSavefigUnitTest(unittest.TestCase):
         self.figure.scene.off_screen_rendering = True
 
         # Set up the scene
-        create_quiver3d()
+        create_quiver3d(figure=self.figure)
 
         # save the figure
         savefig(self.filename, size=(131, 217), magnification=2,

@@ -658,21 +658,23 @@ class Scene(TVTKScene, Widget):
         # messed up when the application window is shown.  To work
         # around this a dynamic IDLE event handler is added and
         # immediately removed once it executes.  This event handler
-        # simply forces a resize to occur.  The _idle_count allows us
-        # to execute the idle function a few times (this seems to work
-        # better).
+        # simply forces a resize to occur.  Previously this event
+        # handler is excecuted for the first two idle events.
+        # However this has caused scene.save to effectively ignore
+        # the `size` attribute on Mac OS (i.e. scene.save resizes the
+        # render window to the target size but then the idle handler
+        # resize it back to the old size before an image is saved.
+        # Since resizing once seems to be efficient, the idle handler
+        # is only called for the first idle event.
         def _do_idle(event, window=window):
             w = wx.GetTopLevelParent(window)
             # Force a resize
             sz = w.GetSize()
             w.SetSize((sz[0]-1, sz[1]-1))
             w.SetSize(sz)
-            window._idle_count -= 1
-            if window._idle_count < 1:
-                wx.EVT_IDLE(window, None)
-                del window._idle_count
+            # Remove the handler
+            wx.EVT_IDLE(window, None)
 
-        window._idle_count = 2
         wx.EVT_IDLE(window, _do_idle)
 
         self._interactor = tvtk.to_tvtk(window._Iren)
@@ -681,9 +683,9 @@ class Scene(TVTKScene, Widget):
     def _lift(self):
         """Lift the window to the top. Useful when saving screen to an
         image."""
-        ## The image size would be wrong if we don't lift the
-        ## the window even when off_screen_rendering is On
-        ## because the OnSize event is not being called anymore
+        ## Even when off_screen_rendering is On, the image size would
+        ## be wrong if we don't lift the window because the OnSize
+        ## event would not be called anymore
         # if self.render_window.off_screen_rendering:
         #     # Do nothing if off screen rendering is being used.
         #     return
