@@ -25,6 +25,7 @@ from mayavi.core.common import handle_children_state
 from mayavi.core.trait_defs import DEnum
 from mayavi.core.pipeline_info import (PipelineInfo,
         get_tvtk_dataset_name)
+from .utils import has_attributes
 from .vtk_xml_file_reader import get_all_attributes
 
 
@@ -56,18 +57,6 @@ def write_dataset_to_string(data):
         sdata = w.output_string
     w.global_warning_display = warn
     return sdata
-
-def has_attributes(dataset):
-    """Returns `True` when the given TVTK `dataset` has any attribute
-    arrays in point and cell data and `False` otherwise.
-    """
-    pd = dataset.point_data
-    if pd is not None and pd.number_of_arrays > 0:
-        return True
-    cd = dataset.cell_data
-    if cd is not None and cd.number_of_arrays > 0:
-        return True
-    return False
 
 
 ######################################################################
