@@ -330,7 +330,7 @@ class VTKDataSource(Source):
             aa = obj._assign_attribute
             data = getattr(obj.data, '%s_data'%d_type)
             for attr in attrs:
-                values = attributes[attr]
+                values = sorted(attributes[attr])
                 values.append('')
                 setattr(obj, '_%s_%s_list'%(d_type, attr), values)
                 if len(values) > 1:
