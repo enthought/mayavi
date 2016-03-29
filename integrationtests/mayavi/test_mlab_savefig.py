@@ -162,6 +162,11 @@ class TestMlabSavefigUnitTest(unittest.TestCase):
         if size:
             self.assertEqual(image.shape[:2], size)
 
+        # check if the image has black spots
+        if (numpy.sum(image == [0, 0, 0], axis=2) == 3).any():
+            message = "The image has black spots"
+            self.fail(message)
+
 
 class TestMlabSavefig(TestCase):
 
