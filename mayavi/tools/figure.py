@@ -217,9 +217,6 @@ def savefig(filename, size=None, figure=None, magnification='auto',
 
         **Notes**
 
-        If the size specified is larger than the window size, and no
-        magnification parameter is passed, the magnification of the scene
-        is changed so that the image created has the requested size.
         Please note that if you are trying to save images with sizes
         larger than the window size, there will be additional computation
         cost.
@@ -238,8 +235,8 @@ def savefig(filename, size=None, figure=None, magnification='auto',
         figure.scene.magnification = int(magnification)
 
         figure.scene.save(filename,
-                            size=size,
-                            **kwargs)
+                          size=size,
+                          **kwargs)
     finally:
         figure.scene.magnification = int(current_mag)
 
