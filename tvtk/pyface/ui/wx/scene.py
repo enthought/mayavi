@@ -571,6 +571,10 @@ class Scene(TVTKScene, Widget):
     def _closed_fired(self):
         super(Scene, self)._closed_fired()
         self.picker = None
+        # Remove OnPaint handler for PaintEvent, otherwise
+        # OnPaint tries to reset the size of the nonexisting
+        # renderwindow
+        wx.EVT_PAINT(self._vtk_control, None)
         self._vtk_control = None
 
     ###########################################################################
