@@ -4,7 +4,6 @@ import unittest
 import tempfile
 
 import numpy
-from PIL import Image
 
 from mayavi import mlab
 from mayavi.core.engine import Engine
