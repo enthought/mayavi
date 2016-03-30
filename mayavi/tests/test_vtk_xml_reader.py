@@ -19,7 +19,7 @@ from mayavi.modules.contour_grid_plane import ContourGridPlane
 from mayavi.modules.scalar_cut_plane import ScalarCutPlane
 
 # Local imports.
-from .common import get_example_data
+from mayavi.tests.common import get_example_data
 
 class TestVTKXMLReader(unittest.TestCase):
 

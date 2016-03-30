@@ -19,7 +19,7 @@ from mayavi.filters.api import PolyDataNormals
 from mayavi.modules.api import Surface
 from mayavi.sources.vtk_data_source import VTKDataSource
 
-from . import datasets
+from mayavi.tests import datasets
 
 class TestOptionalCollection(unittest.TestCase):
 
