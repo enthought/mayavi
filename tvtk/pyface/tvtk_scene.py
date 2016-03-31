@@ -415,12 +415,10 @@ class TVTKScene(HasPrivateTraits):
             orig_renwin.remove_renderer(renderer)
 
             # new render window only used here for saving the image
-            # set the size to (1, 1) in case of offscreen rendering
-            temp_renwin = tvtk.RenderWindow(size=(1, 1))
-
-            # older VTK may not support offscreen rendering
-            if orig_renwin.off_screen_rendering:
-                temp_renwin.off_screen_rendering = True
+            # set the size to (1, 1) and off_screen_rendering
+            # to prevent this window from showing
+            temp_renwin = tvtk.RenderWindow(
+                size=(1, 1), off_screen_rendering=True)
 
             # older VTK may not support stereo rendering
             if orig_renwin.stereo_render:
