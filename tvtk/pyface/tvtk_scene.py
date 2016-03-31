@@ -433,6 +433,7 @@ class TVTKScene(HasPrivateTraits):
 
             # Give the renderer back to the original render window
             temp_renwin.remove_renderer(renderer)
+            temp_renwin.finalize()
             orig_renwin.add_renderer(renderer)
             orig_renwin.render()
 
