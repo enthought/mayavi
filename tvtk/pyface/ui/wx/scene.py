@@ -687,12 +687,9 @@ class Scene(TVTKScene, Widget):
     def _lift(self):
         """Lift the window to the top. Useful when saving screen to an
         image."""
-        ## Even when off_screen_rendering is On, the image size would
-        ## be wrong if we don't lift the window because the OnSize
-        ## event would not be called anymore
-        # if self.render_window.off_screen_rendering:
-        #     # Do nothing if off screen rendering is being used.
-        #     return
+        if self.render_window.off_screen_rendering:
+            # Do nothing if off screen rendering is being used.
+            return
 
         w = self._vtk_control
         while w and not w.IsTopLevel():
