@@ -412,28 +412,31 @@ class TVTKScene(HasPrivateTraits):
             orig_renwin.remove_renderer(renderer)
 
             # new render window only used here for saving the image
-            temp_renwin = tvtk.RenderWindow(
-                size=size,
-                off_screen_rendering=orig_renwin.off_screen_rendering,
-                stereo_capable_window=orig_renwin.stereo_capable_window,
-                stereo_type=orig_renwin.stereo_type,
-                stereo_render=orig_renwin.stereo_render
-                )
+            temp_renwin = tvtk.RenderWindow(size=size)
+
+            # older VTK may not support offscreen rendering
+            if orig_renwin.off_screen_rendering:
+                temp_renwin.off_screen_rendering = orig_renwin.off_screen_rendering
+
+            # older VTK may not support stereo rendering
+            if orig_renwin.stereo_render:
+                temp_renwin.set(
+                    stereo_capable_window=orig_renwin.stereo_capable_window,
+                    stereo_type=orig_renwin.stereo_type,
+                    stereo_render=True)
+
             temp_renwin.add_renderer(renderer)
             temp_renwin.render()
 
             self._renwin = temp_renwin
             meth(file_name, **kw_args)
-            self._renwin = orig_renwin
-
-            # dispose of the render window for saving image
-            temp_renwin.remove_renderer(renderer)
-            del temp_renwin
 
             # Give the renderer back to the original render window
+            temp_renwin.remove_renderer(renderer)
             orig_renwin.add_renderer(renderer)
             orig_renwin.render()
 
+            self._renwin = orig_renwin
             self._record_methods('save(%r, %r)'%(file_name, size))
         else:
             meth(file_name, **kw_args)
