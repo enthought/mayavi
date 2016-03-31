@@ -287,6 +287,10 @@ class TestMlabHelperFunctions(TestMlabNullEngine):
         # This should work.
         obj = mlab.imshow(s)
 
+    def test_imshow_extent(self):
+        mlab.imshow(np.random.rand(10, 20),
+                    extent=[-1, 11, -1, 21, 0, 0])
+
 
 ################################################################################
 # class `TestMlabModules`
