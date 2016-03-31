@@ -664,10 +664,9 @@ class Scene(TVTKScene, Widget):
         # immediately removed once it executes.  This event handler
         # simply forces a resize to occur.  Previously this event
         # handler is excecuted for the first two idle events.
-        # However this has caused scene.save to effectively ignore
-        # the `size` attribute on Mac OS (i.e. scene.save resizes the
-        # render window to the target size but then the idle handler
-        # resize it back to the old size before an image is saved.
+        # However this causes the first resizing event after
+        # initialization to be effectively ignored: the idle handler
+        # simply resizes it back to the old size.
         # Since resizing once seems to be efficient, the idle handler
         # is only called for the first idle event.
         def _do_idle(event, window=window):
