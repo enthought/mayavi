@@ -12,7 +12,7 @@ An overview of Mayavi
 Introduction
 -------------
 
-Mayavi2_ seeks to provide easy and interactive visualization of 3D
+Mayavi2 seeks to provide easy and interactive visualization of 3D
 data, or 3D plotting.  It does this by the following:
 
     * an (optional) rich user interface with dialogs to interact with
@@ -30,11 +30,9 @@ in your libraries and applications in different ways or be combined with
 the Envisage_ application-building framework to assemble domain-specific
 tools.
 
-.. _Mayavi2: https://svn.enthought.com/enthought/wiki/MayaVi
-.. _Mayavi: https://svn.enthought.com/enthought/wiki/MayaVi
 .. _Python: http://www.python.org
 .. _VTK: http://www.vtk.org
-.. _envisage: https://svn.enthought.com/enthought/wiki/Envisage
+.. _Envisage: http://docs.enthought.com/envisage
 .. _matplotlib: http://matplotlib.sf.net
 
 What is Mayavi2?
@@ -110,8 +108,8 @@ Envisage_. Here are some of its features:
 
 
 .. _ETS: http://code.enthought.com/projects/tool-suite.php
-.. _Traits: https://svn.enthought.com/enthought/wiki/Traits
-.. _TVTK: https://svn.enthought.com/enthought/wiki/TVTK
+.. _Traits: https://docs.enthought.com/traits
+.. _TVTK: https://docs.enthought.com/mayavi/tvtk
 .. _MVC: http://en.wikipedia.org/wiki/Model-view-controller
 .. _numpy: http://numpy.scipy.org
 
@@ -216,8 +214,6 @@ is available in the :ref:`data-structures-used-by-mayavi` section.
 .. _VTK file formats: http://www.vtk.org/VTK/img/file-formats.pdf 
 .. _numpy: http://numpy.scipy.org
 .. _VTK: http://www.vtk.org
-.. _envisage: https://svn.enthought.com/enthought/wiki/Envisage
-.. _TVTK: https://svn.enthought.com/enthought/wiki/TVTK
 
 ..
    Local Variables:
