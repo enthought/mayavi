@@ -420,6 +420,8 @@ class TVTKScene(HasPrivateTraits):
             temp_renwin = tvtk.RenderWindow(
                 size=(1, 1), off_screen_rendering=self.off_screen_rendering)
 
+            self._renwin = temp_renwin
+
             # older VTK may not support stereo rendering
             if orig_renwin.stereo_render:
                 temp_renwin.set(
@@ -434,17 +436,10 @@ class TVTKScene(HasPrivateTraits):
             if sys.platform != "darwin" and self.off_screen_rendering:
                 interactor = tvtk.RenderWindowInteractor(render_window=temp_renwin)
                 interactor.initialize()
-                temp_renwin.add_renderer(renderer)
 
-                # resize to the requested size
-                interactor.size = size
-                temp_renwin.size = size
-                interactor.render()
-            else:
-                temp_renwin.add_renderer(renderer)
-                temp_renwin.size = size
-
-            self._renwin = temp_renwin
+            temp_renwin.add_renderer(renderer)
+            temp_renwin.size = size
+            self.render()
 
             # More rendering occurs in the save method
             meth(file_name, **kw_args)
