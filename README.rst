@@ -2,7 +2,8 @@
 MayaVi2: 3D visualization of scientific data in Python
 =======================================================
 
-http://github.com/enthought/mayavi
+Mayavi doc: http://docs.enthought.com/mayavi/mayavi/
+TVTK doc: http://docs.enthought.com/mayavi/tvtk
 
 .. image:: https://api.travis-ci.org/enthought/mayavi.png?branch=master
    :target: https://travis-ci.org/enthought/mayavi

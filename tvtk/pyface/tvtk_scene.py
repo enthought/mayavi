@@ -403,10 +403,37 @@ class TVTKScene(HasPrivateTraits):
             )
         meth = getattr(self, 'save_' + meth_map[ext])
         if size is not None:
-            orig_size = self.get_size()
-            self.set_size(size)
+            # We create a RenderWindow of the requested size
+            # instead of resizing the existing one
+            orig_renwin = self.render_window
+            renderer = self.renderer
+
+            # temporarily remove the render from the render window
+            orig_renwin.remove_renderer(renderer)
+
+            # new render window only used here for saving the image
+            temp_renwin = tvtk.RenderWindow(
+                size=size,
+                off_screen_rendering=orig_renwin.off_screen_rendering,
+                stereo_capable_window=orig_renwin.stereo_capable_window,
+                stereo_type=orig_renwin.stereo_type,
+                stereo_render=orig_renwin.stereo_render
+                )
+            temp_renwin.add_renderer(renderer)
+            temp_renwin.render()
+
+            self._renwin = temp_renwin
             meth(file_name, **kw_args)
-            self.set_size(orig_size)
+            self._renwin = orig_renwin
+
+            # dispose of the render window for saving image
+            temp_renwin.remove_renderer(renderer)
+            del temp_renwin
+
+            # Give the renderer back to the original render window
+            orig_renwin.add_renderer(renderer)
+            orig_renwin.render()
+
             self._record_methods('save(%r, %r)'%(file_name, size))
         else:
             meth(file_name, **kw_args)

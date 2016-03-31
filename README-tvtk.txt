@@ -9,38 +9,29 @@ Description
 TVTK_ provides a Traits enabled version of VTK_.  TVTK objects wrap around VTK
 objects but additionally support Traits_, support numpy arrays transparently
 and provide a convenient Pythonic API. TVTK is implemented mostly in pure
-Python (except for a small extension module).  TVTK is part of the Enthought
-Tool Suite (ETS) and is distributed under a liberal BSD style license.  License
+Python (except for a small extension module).  TVTK is distributed under
+a liberal BSD style license with the Mayavi_ package, which is part of the
+Enthought Tool Suite (ETS) and is distributed.  License
 information is available in the LICENSE.txt file in this same directory.
 
 .. _VTK: http://www.vtk.org
-.. _Traits: https://svn.enthought.com/enthought/wiki/Traits
-.. _TVTK: https://svn.enthought.com/enthought/wiki/TVTK
-
+.. _Traits: https://docs.enthought.com/traits
+.. _TVTK: https://docs.enthought.com/mayavi/tvtk
+.. _Mayavi: https://docs.enthought.com/mayavi/mayavi
 
 
 Getting the package
 -------------------
 
-Source tarballs for all stable ETS packages are available at
+The source for TVTK should be acquired with the source for Mayavi here:
 
- http://code.enthought.com/enstaller/eggs/source
-
-General Build and Installation instructions for ETS are available here:
-
- https://svn.enthought.com/enthought/wiki/Build
- https://svn.enthought.com/enthought/wiki/Install
+ http://pypi.python.org/pypi/mayavi
 
 
 Documentation
 --------------
 
-The TVTK home page is: http://code.enthought.com/projects/mayavi
-
-More detailed information on TVTK is available in `docs/README.txt` which
-covers installation, requirements, examples of usage etc.  This document is
-also available on the web from
-http://code.enthought.com/projects/mayavi/docs/development/html/tvtk/
+Documentation is hosted here: http://docs.enthought.com/mayavi/tvtk
 
 
 Examples
@@ -64,16 +55,12 @@ Use a similar line for your particular shell.
 Bug tracker, mailing list etc.
 -------------------------------
 
-The bug tracker is available as part of the trac interface here:
+The bug tracker is available here:
 
- https://svn.enthought.com/enthought/
+ https://github.com/enthought/mayavi/issues
 
-To submit a bug you will necessarily have to register at the site.  Click on
-the "register" link at the top right on the above page to register.  Or login
-if you already have registered.  Once you are registered you may file a bug by
-creating a new ticket.
-
-Alternatively, you can post on the enthought-dev@mail.enthought.com mailing list.
+To submit a bug you will necessarily have to register on Github.
+Alternatively, you can post on the info@enthought.com mailing list.
 
 
 Authors and Contributors

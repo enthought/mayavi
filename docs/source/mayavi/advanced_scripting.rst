@@ -34,8 +34,8 @@ Traits in order to understand Mayavi's internals.  If you are unsure
 of Traits it is a good idea to get a general idea about Traits now.
 Trust me, your efforts learning Traits will not be wasted!
 
-.. _Traits: http://code.enthought.com/projects/traits
-.. _TVTK: http://code.enthought.com/projects/mayavi
+.. _Traits: http://docs.enthought.com/traits
+.. _TVTK: http://docs.enthought.com/mayavi/tvtk
 
 
 Design Overview: Mayavi as a visualization framework
@@ -168,7 +168,7 @@ application is run.  This allows a developer to create an application
 that uses mayavi but does not show its user interface.  An example of
 how this may be done is provided in ``examples/mayavi/nongui.py``.
 
-.. _Envisage: http://code.enthought.com/projects/envisage
+.. _Envisage: http://docs.enthought.com/envisage
 
 
 Scripting from the UI
