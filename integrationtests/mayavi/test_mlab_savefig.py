@@ -85,6 +85,19 @@ class TestMlabSavefigUnitTest(unittest.TestCase):
         # check
         self.check_image((217, 131))
 
+    def test_savefig_with_magnification(self):
+        """Test savefig with given magnification and a normal Engine"""
+        self.setup_engine_and_figure(Engine())
+
+        # Set up the scene
+        create_quiver3d(figure=self.figure)
+
+        # save the figure with a magnification
+        savefig(self.filename, magnification=2, figure=self.figure)
+
+        # check
+        self.check_image()
+
     @unittest.skipIf(os.environ.get("TRAVIS", False),
                      ("Offscreen rendering is not tested on Travis "
                       "due to lack of GLX support"))
@@ -161,6 +174,11 @@ class TestMlabSavefigUnitTest(unittest.TestCase):
         # check the size is correct
         if size:
             self.assertEqual(image.shape[:2], size)
+
+        # check if the image has black spots
+        if (numpy.sum(image == [0, 0, 0], axis=2) == 3).any():
+            message = "The image has black spots"
+            self.fail(message)
 
 
 class TestMlabSavefig(TestCase):
