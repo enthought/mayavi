@@ -13,6 +13,7 @@ functionality. See the class docs for more details.
 
 from __future__ import print_function
 
+import sys
 import os.path
 
 from apptools.persistence import state_pickler
@@ -405,6 +406,8 @@ class TVTKScene(HasPrivateTraits):
         if size is not None:
             # We create a RenderWindow of the requested size
             # instead of resizing the existing one
+
+            # Original render window and renderer
             orig_renwin = self.render_window
             renderer = self.renderer
 
@@ -412,11 +415,12 @@ class TVTKScene(HasPrivateTraits):
             orig_renwin.remove_renderer(renderer)
 
             # new render window only used here for saving the image
-            temp_renwin = tvtk.RenderWindow(size=size)
+            # set the size to (1, 1) in case of offscreen rendering
+            temp_renwin = tvtk.RenderWindow(size=(1, 1))
 
             # older VTK may not support offscreen rendering
             if orig_renwin.off_screen_rendering:
-                temp_renwin.off_screen_rendering = orig_renwin.off_screen_rendering
+                temp_renwin.off_screen_rendering = True
 
             # older VTK may not support stereo rendering
             if orig_renwin.stereo_render:
@@ -425,10 +429,26 @@ class TVTKScene(HasPrivateTraits):
                     stereo_type=orig_renwin.stereo_type,
                     stereo_render=True)
 
-            temp_renwin.add_renderer(renderer)
-            temp_renwin.render()
+            # We need an interactor to contain the RenderWindow so that
+            # upon resizing an offscreen window, the window does not pop up
+            # Mar 30, 2016: On Mac OSX with vtkCocoaRenderWindow, this
+            # causes the rendering to fail upon resizing
+            if sys.platform != "darwin":
+                interactor = tvtk.RenderWindowInteractor(render_window=temp_renwin)
+                interactor.initialize()
+                temp_renwin.add_renderer(renderer)
+
+                # resize to the requested size
+                interactor.size = size
+                temp_renwin.size = size
+                interactor.render()
+            else:
+                temp_renwin.add_renderer(renderer)
+                temp_renwin.size = size
 
             self._renwin = temp_renwin
+
+            # More rendering occurs in the save method
             meth(file_name, **kw_args)
 
             # Give the renderer back to the original render window
@@ -437,7 +457,9 @@ class TVTKScene(HasPrivateTraits):
             orig_renwin.add_renderer(renderer)
             orig_renwin.render()
 
+            # Restore the render window
             self._renwin = orig_renwin
+
             self._record_methods('save(%r, %r)'%(file_name, size))
         else:
             meth(file_name, **kw_args)
