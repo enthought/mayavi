@@ -431,7 +431,7 @@ class TVTKScene(HasPrivateTraits):
             # upon resizing an offscreen window, the window does not pop up
             # Mar 30, 2016: On Mac OSX with vtkCocoaRenderWindow, this
             # causes the rendering to fail upon resizing
-            if sys.platform != "darwin":
+            if sys.platform != "darwin" and self.off_screen_rendering:
                 interactor = tvtk.RenderWindowInteractor(render_window=temp_renwin)
                 interactor.initialize()
                 temp_renwin.add_renderer(renderer)
