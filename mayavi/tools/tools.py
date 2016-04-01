@@ -328,7 +328,7 @@ def set_extent(module, extents):
     else:
         scalez = 1
 
-    module.actor.scale = (scalex, scaley, scalez)
+    actor.scale = (scalex, scaley, scalez)
     ## Remeasure the bounds
     xmin, xmax, ymin, ymax, zmin, zmax = actor.bounds
     xcenter = 0.5 * (xmax + xmin)
