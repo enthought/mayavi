@@ -5,7 +5,7 @@ This script parses the command line arguments and launches Mayavi2
 suitably.  It is meant to be used by those using Mayavi2 as a
 standalone application.
 
-Mayavi2 wiki page: http://svn.enthought.com/enthought/wiki/MayaVi
+Mayavi2: http://docs.enthought.com/mayavi/mayavi/overview.html
 
 """
 # Author: Prabhu Ramachandran <prabhu@enthought.com>
