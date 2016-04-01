@@ -19,7 +19,7 @@ from mayavi.modules.iso_surface import IsoSurface
 from mayavi.modules.contour_grid_plane import ContourGridPlane
 from mayavi.modules.scalar_cut_plane import ScalarCutPlane
 
-from . import datasets
+from mayavi.tests import datasets
 
 class TestContour(unittest.TestCase):
 
