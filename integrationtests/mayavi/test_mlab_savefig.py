@@ -168,18 +168,6 @@ class TestMlabSavefigUnitTest(unittest.TestCase):
         # check if the image size is twice as big
         self.check_image((434, 262))
 
-    def check_image(self, size=None):
-        image = numpy.array(Image.open(self.filename))[:, :, :3]
-
-        # check the size is correct
-        if size:
-            self.assertEqual(image.shape[:2], size)
-
-        # check if the image has black spots
-        if (numpy.sum(image == [0, 0, 0], axis=2) == 3).any():
-            message = "The image has black spots"
-            self.fail(message)
-
     @unittest.skipIf(os.environ.get("TRAVIS", False),
                      ("Offscreen rendering is not tested on Travis "
                       "due to lack of GLX support"))
@@ -198,6 +186,18 @@ class TestMlabSavefigUnitTest(unittest.TestCase):
             # save the figure
             savefig(self.filename, size=(131, 217),
                     figure=self.figure)
+
+    def check_image(self, size=None):
+        image = numpy.array(Image.open(self.filename))[:, :, :3]
+
+        # check the size is correct
+        if size:
+            self.assertEqual(image.shape[:2], size)
+
+        # check if the image has black spots
+        if (numpy.sum(image == [0, 0, 0], axis=2) == 3).any():
+            message = "The image has black spots"
+            self.fail(message)
 
 
 class TestMlabSavefig(TestCase):
