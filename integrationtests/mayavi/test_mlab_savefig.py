@@ -180,6 +180,25 @@ class TestMlabSavefigUnitTest(unittest.TestCase):
             message = "The image has black spots"
             self.fail(message)
 
+    @unittest.skipIf(os.environ.get("TRAVIS", False),
+                     ("Offscreen rendering is not tested on Travis "
+                      "due to lack of GLX support"))
+    def test_many_savefig_offscreen(self):
+        """Test saving many figures offscreen"""
+        engine = Engine()
+        for _ in xrange(5):
+            self.setup_engine_and_figure(engine)
+
+            # Use off-screen rendering
+            self.figure.scene.off_screen_rendering = True
+
+            # Set up the scene
+            create_quiver3d(figure=self.figure)
+
+            # save the figure
+            savefig(self.filename, size=(131, 217),
+                    figure=self.figure)
+
 
 class TestMlabSavefig(TestCase):
 
