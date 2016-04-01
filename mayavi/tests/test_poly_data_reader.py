@@ -191,7 +191,8 @@ class TestPLYReader(DataReaderTestBase):
 
         # Skipping for known versions. See issue #328
         if version_str in ["5.6", "5.8", "6.2"]:
-            raise unittest.SkipTest('PLY reader broken in this version of VTK')
+            raise unittest.SkipTest(
+                'PLY reader broken in this version of VTK. See issue #328')
 
 class TestPointsReader(DataReaderTestBase):
 
