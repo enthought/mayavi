@@ -10,7 +10,7 @@ import copy
 import unittest
 
 # Local imports.
-from .common import get_example_data
+from mayavi.tests.common import get_example_data
 
 # Enthought library imports
 from mayavi.core.null_engine import NullEngine

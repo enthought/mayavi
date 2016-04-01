@@ -60,11 +60,17 @@ def find_tests(tests):
             try:
                 # Import the module
                 components = test.split('.')
-                modname = '.'.join(components[:-1])
-                symbol = components[-1]
-                mod = __import__(modname, globals(), locals(), [symbol])
-                s = getattr(mod, symbol)
-                d = dirname(s.__file__)
+                if len(components) > 1:
+                    modname = '.'.join(components[:-1])
+                    symbol = components[-1]
+                    mod = __import__(modname, globals(), locals(), [symbol])
+                    s = getattr(mod, symbol)
+                    d = dirname(s.__file__)
+                else:
+                    modname = components[0]
+                    mod = __import__(modname, globals(), locals(), [])
+                    d = dirname(mod.__file__)
+
                 files.extend(get_tests_in_dir(d))
             except ImportError:
                 msg = 'Warning: %s is neither a file/directory or '\

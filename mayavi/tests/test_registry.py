@@ -13,7 +13,7 @@ from mayavi.core.metadata import SourceMetadata
 from mayavi.core.pipeline_info import PipelineInfo
 
 # Local Imports
-from .common import get_example_data
+from mayavi.tests.common import get_example_data
 
 class DummyReader(PLOT3DReader):
 

@@ -11,7 +11,7 @@ import vtk
 from mayavi.sources.vtk_file_reader import VTKFileReader
 
 # Local imports.
-from .common import get_example_data
+from mayavi.tests.common import get_example_data
 
 vtk_major_version = vtk.vtkVersion.GetVTKMajorVersion()
 vtk_minor_version = vtk.vtkVersion.GetVTKMinorVersion()

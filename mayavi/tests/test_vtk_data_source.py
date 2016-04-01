@@ -19,7 +19,7 @@ from mayavi.modules.contour_grid_plane import ContourGridPlane
 from mayavi.modules.scalar_cut_plane import ScalarCutPlane
 from tvtk.api import tvtk
 
-from . import datasets
+from mayavi.tests import datasets
 
 class TestVTKDataSource(unittest.TestCase):
 
