@@ -8,7 +8,7 @@ from os.path import abspath
 from io import BytesIO
 import copy
 import unittest
-from . import datasets
+from mayavi.tests import datasets
 
 # Local imports.
 from mayavi.core.engine import Engine

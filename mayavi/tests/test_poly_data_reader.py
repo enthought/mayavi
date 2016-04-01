@@ -6,7 +6,7 @@
 import unittest
 
 # Local imports.
-from .common import get_example_data
+from mayavi.tests.common import get_example_data
 
 # Enthought library imports
 from mayavi.sources.poly_data_reader import PolyDataReader

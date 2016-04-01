@@ -18,7 +18,7 @@ from mayavi.filters.set_active_attribute import SetActiveAttribute
 from mayavi.modules.api import Surface, Outline
 
 # Local imports.
-from .common import get_example_data
+from mayavi.tests.common import get_example_data
 
 class TestSetActiveAttribute(unittest.TestCase):
 
