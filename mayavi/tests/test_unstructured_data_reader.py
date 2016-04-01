@@ -11,7 +11,7 @@ from mayavi.sources.unstructured_grid_reader import UnstructuredGridReader
 from mayavi.tests.data_reader_test_base import DataReaderTestBase
 
 # Local imports.
-from .common import get_example_data
+from mayavi.tests.common import get_example_data
 
 old_pipeline = is_old_pipeline()
 
