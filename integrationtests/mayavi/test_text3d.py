@@ -31,6 +31,7 @@ class TestText3DUnitTest(unittest.TestCase):
         mlab.close(all=True)
 
     def test_text3d(self):
+        """Test if Text3D shows"""
         # the points3d is there to provide data for
         # attaching the text3d module.  Opacity is set to
         # zero so that the image should only show
