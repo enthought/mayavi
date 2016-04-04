@@ -871,7 +871,8 @@ def convert_to_arrays(args):
     for index, arg in enumerate(args):
         if not callable(arg):
             if not hasattr(arg, 'shape'):
-                arg = np.atleast_1d(np.array(arg))
+                arg = np.array(arg)
+            arg = np.atleast_1d(arg)
             if np.any(np.isinf(arg)):
                 raise ValueError("""Input array contains infinite values
                 You can remove them using: a[np.isinf(a)] = np.nan
