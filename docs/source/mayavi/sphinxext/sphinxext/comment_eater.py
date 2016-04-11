@@ -170,8 +170,8 @@ def get_class_traits(klass):
     class_ast = mod_ast.body[0]
 
     # All assignement nodes
-    assign_nodes = [node for node in class_ast.body
-                    if isinstance(node, ast.Assign)]
+    assign_nodes = (node for node in class_ast.body
+                    if isinstance(node, ast.Assign))
 
     for node in assign_nodes:
         # Left-hand side
