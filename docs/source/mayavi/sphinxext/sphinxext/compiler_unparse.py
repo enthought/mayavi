@@ -1,4 +1,4 @@
-""" Turn compiler.ast structures back into executable python code.
+""" Turn ast structures back into executable python code.
 
     The unparse method takes a compiler.ast tree and transforms it back into
     valid python code.  It is incomplete and currently only works for
@@ -7,13 +7,13 @@
 
     Inspired by python-2.5-svn/Demo/parser/unparse.py
 
-    fixme: We may want to move to using _ast trees because the compiler for
-           them is about 6 times faster than compiler.compile.
+    fixme: The API of ast has changed.  Many parts of this module are broken.
+    Only attempted fixing unparsing for _ast.Assign and _ast.Call
 """
 from __future__ import division, absolute_import, print_function
 
 import sys
-from compiler.ast import Const, Name, Tuple, Div, Mul, Sub, Add
+from ast import Num, Name, Tuple, Div, Mult, Sub, Add
 
 if sys.version_info[0] >= 3:
     from io import StringIO
@@ -25,8 +25,8 @@ def unparse(ast, single_line_functions=False):
     UnparseCompilerAst(ast, s, single_line_functions)
     return s.getvalue().lstrip()
 
-op_precedence = { 'compiler.ast.Power':3, 'compiler.ast.Mul':2, 'compiler.ast.Div':2,
-                  'compiler.ast.Add':1, 'compiler.ast.Sub':1 }
+op_precedence = { 'ast.Power':3, 'ast.Mult':2, 'ast.Div':2,
+                  'ast.Add':1, 'ast.Sub':1 }
 
 class UnparseCompilerAst:
     """ Methods in this class recursively traverse an AST and
@@ -120,10 +120,10 @@ class UnparseCompilerAst:
             is handled separately.
         """
         self._fill()
-        for target in t.nodes:
+        for target in t.targets:
             self._dispatch(target)
             self._write(" = ")
-        self._dispatch(t.expr)
+        self._dispatch(t.value)
         if not self._do_indent:
             self._write('; ')
 
@@ -180,26 +180,26 @@ class UnparseCompilerAst:
             if i != len(t.nodes)-1:
                 self._write(" | ")
 
-    def _CallFunc(self, t):
+    def _Call(self, t):
         """ Function call.
         """
-        self._dispatch(t.node)
+        self._dispatch(t.func)
         self._write("(")
         comma = False
         for e in t.args:
             if comma: self._write(", ")
             else: comma = True
             self._dispatch(e)
-        if t.star_args:
+        if t.starargs:
             if comma: self._write(", ")
             else: comma = True
             self._write("*")
-            self._dispatch(t.star_args)
-        if t.dstar_args:
+            self._dispatch(t.starargs)
+        if t.kwargs:
             if comma: self._write(", ")
             else: comma = True
             self._write("**")
-            self._dispatch(t.dstar_args)
+            self._dispatch(t.kwargs)
         self._write(")")
 
     def _Compare(self, t):
@@ -208,10 +208,15 @@ class UnparseCompilerAst:
             self._write(" " + op + " ")
             self._dispatch(expr)
 
-    def _Const(self, t):
-        """ A constant value such as an integer value, 3, or a string, "hello".
+    def _Num(self, t):
+        """ A constant value such as an integer value, 3
         """
-        self._dispatch(t.value)
+        self._dispatch(t.n)
+
+    def _Str(self, t):
+        """ A string value such as "hello".
+        """
+        self._dispatch(t.s)
 
     def _Decorators(self, t):
         """ Handle function decorators (eg. @has_units)
@@ -255,12 +260,12 @@ class UnparseCompilerAst:
             if asname is not None:
                 self._write(" as "+asname)
 
-    def _Function(self, t):
+    def _FunctionDef(self, t):
         """ Handle function definitions
         """
-        if t.decorators is not None:
+        for decorator in t.decorator_list:
             self._fill("@")
-            self._dispatch(t.decorators)
+            self._dispatch(decorator)
         self._fill("def "+t.name + "(")
         defaults = [None] * (len(t.argnames) - len(t.defaults)) + list(t.defaults)
         for i, arg in enumerate(zip(t.argnames, defaults)):
@@ -281,7 +286,7 @@ class UnparseCompilerAst:
     def _Getattr(self, t):
         """ Handle getting an attribute of an object
         """
-        if isinstance(t.expr, (Div, Mul, Sub, Add)):
+        if isinstance(t.expr, (Div, Mult, Sub, Add)):
             self._write('(')
             self._dispatch(t.expr)
             self._write(')')
@@ -344,9 +349,9 @@ class UnparseCompilerAst:
         
     def _List(self, t):
         self._write("[")
-        for  i,node in enumerate(t.nodes):
+        for  i,node in enumerate(t.elts):
             self._dispatch(node)
-            if i < len(t.nodes)-1:
+            if i < len(t.elts)-1:
                 self._write(", ")
         self._write("]")
 
@@ -355,11 +360,11 @@ class UnparseCompilerAst:
             self._dispatch(t.doc)
         self._dispatch(t.node)
 
-    def _Mul(self, t):
+    def _Mult(self, t):
         self.__binary_op(t, '*')
 
     def _Name(self, t):
-        self._write(t.name)
+        self._write(t.id)
 
     def _NoneType(self, t):
         self._write("None")
@@ -423,7 +428,7 @@ class UnparseCompilerAst:
         for i, node in enumerate(t.nodes):
             if i != 0:
                 self._write(":")
-            if not (isinstance(node, Const) and node.value is None):
+            if not (isinstance(node, Num) and node.value is None):
                 self._dispatch(node)
 
     def _Stmt(self, tree):

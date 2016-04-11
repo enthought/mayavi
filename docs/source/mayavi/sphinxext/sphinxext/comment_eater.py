@@ -169,9 +169,6 @@ def get_class_traits(klass):
     # AST tree for the class
     class_ast = mod_ast.body[0]
 
-    # Source code needed for getting the right-hand side
-    source_code = source.split("\n")
-
     # All assignement nodes
     assign_nodes = [node for node in class_ast.body
                     if isinstance(node, ast.Assign)]
@@ -180,12 +177,10 @@ def get_class_traits(klass):
         # Left-hand side
         name = node.targets[0].id
 
-        # Get the type of the right-hand side
-        if isinstance(node.value, ast.Call):
-            rhs = node.value.func.id
-        else:
-            rhs = type(node.value).__name__
+        # Right-hand side
+        rhs = unparse(node.value)
 
+        # Comment
         doc = strip_comment_marker(cb.search_for_comment(node.lineno, default=''))
 
         yield name, rhs, doc
