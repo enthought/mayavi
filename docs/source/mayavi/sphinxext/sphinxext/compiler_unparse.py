@@ -213,6 +213,11 @@ class UnparseCompilerAst:
         """
         self._dispatch(t.n)
 
+    def _NameConstant(self, t):
+        """ NameConstant such as False
+        """
+        self._dispatch(repr(t.value))
+
     def _Str(self, t):
         """ A string value such as "hello".
         """
