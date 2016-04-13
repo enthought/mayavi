@@ -6,15 +6,23 @@ user, but only once in a while to synchronize with MPL developpement.
 """
 # Authors: Frederic Petit <fredmfp@gmail.com>,
 #          Gael Varoquaux <gael.varoquaux@normalesup.org>
-# Copyright (c) 2007-2009, Enthought, Inc.
+# Copyright (c) 2007-2016, Enthought, Inc.
 # License: BSD Style.
 
 import os
+
+try:
+    # Python 2
+    import cPickle as pickle
+except ImportError:
+    # Python 3
+    import pickle
+
 import numpy as np
 
 from matplotlib.cm import datad, get_cmap
 from mayavi.core import lut as destination_module
-from apptools.persistence import state_pickler
+
 target_dir = os.path.dirname(destination_module.__file__)
 
 values = np.linspace(0., 1., 256)
@@ -27,5 +35,6 @@ for name in datad.keys():
     lut_dic[name] = get_cmap(name)(values.copy())
 
 out_name = os.path.join(target_dir, 'pylab_luts.pkl')
-state_pickler.dump(lut_dic, out_name)
 
+with open(out_name, "wb") as fh:
+    pickle.dump(lut_dic, fh)
