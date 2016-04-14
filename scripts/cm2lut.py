@@ -37,4 +37,4 @@ for name in datad.keys():
 out_name = os.path.join(target_dir, 'pylab_luts.pkl')
 
 with open(out_name, "wb") as fh:
-    pickle.dump(lut_dic, fh, protocol=0)
+    pickle.dump(lut_dic, fh)
