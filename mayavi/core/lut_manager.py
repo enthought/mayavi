@@ -2,19 +2,25 @@
 
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2005-2008, Enthought, Inc.
+# Copyright (c) 2005-2016, Enthought, Inc.
 # License: BSD Style.
 
 import os.path
 import sys
 import subprocess
+import logging
 
+try:
+    # Python 2
+    import cPickle as pickle
+except ImportError:
+    # Python 3
+    import pickle
 
 # Enthought library imports.
 from traits.api import Instance, Range, Bool, Array, \
      Str, Property, Enum, Button
 from traitsui.api import FileEditor, auto_close_message
-from apptools.persistence import state_pickler
 from tvtk.api import tvtk
 
 # Local imports.
@@ -22,9 +28,33 @@ from mayavi.core.base import Base
 from mayavi.core.common import error
 
 from mayavi.core import lut
+
+# A logger for this module.
+logger = logging.getLogger(__name__)
+
+
+# Colormap from pickled file
 lut_image_dir = os.path.dirname(lut.__file__)
-pylab_luts = state_pickler.load_state(os.path.join(lut_image_dir,
-                                                'pylab_luts.pkl'))
+pylab_luts_file = os.path.join(lut_image_dir, 'pylab_luts.pkl')
+
+try:
+    with open(pylab_luts_file, "rb") as fh:
+        pylab_luts = pickle.load(fh)
+except (IOError, ValueError, TypeError) as exception:
+    # IOError: failed to open file
+    # ValueError: pickled file is built from an OS w/ different architecture
+    # TypeError: Loading from an old pylab_luts.pkl that was built using
+    #     apptools.persistence.state_pickler
+    message = ("Failed to load pylab colormaps from file: {filepath}\n"
+               "{err_type}: {err_message}\n"
+               "There will be fewer colormaps available. "
+               "You may rebuild this file using the script provided "
+               "in the source code: scripts/cm2lut.py")
+    logger.warning(message.format(filepath=pylab_luts_file,
+                                  err_type=type(exception).__name__,
+                                  err_message=str(exception)))
+    pylab_luts = {}
+
 
 #################################################################
 # Utility functions.
