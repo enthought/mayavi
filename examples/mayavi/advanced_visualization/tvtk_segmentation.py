@@ -49,8 +49,8 @@ data = data.T
 # scipy.stats.scoreatpercentile)
 sorted_data = np.sort(data.ravel())
 l = len(sorted_data)
-lower_thr = sorted_data[0.2*l]
-upper_thr = sorted_data[0.8*l]
+lower_thr = sorted_data[int(0.2*l)]
+upper_thr = sorted_data[int(0.8*l)]
 
 # The white matter boundary: find the densest part of the upper half
 # of histogram, and take a value 10% higher, to cut _in_ the white matter
