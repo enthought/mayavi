@@ -87,7 +87,7 @@ thresh_filter.threshold_between(lower_thr, upper_thr)
 thresh = mlab.pipeline.user_defined(src, filter=thresh_filter)
 
 median_filter = tvtk.ImageMedian3D()
-median_filter.set_kernel_size(3, 3, 3)
+median_filter.kernel_size = [3, 3, 3]
 median = mlab.pipeline.user_defined(thresh, filter=median_filter)
 
 diffuse_filter = tvtk.ImageAnisotropicDiffusion3D(
