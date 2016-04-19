@@ -5,8 +5,14 @@ python:
 virtualenv:
   system_site_packages: true
 env:
-  - ETS_TOOLKIT=qt4
-  - ETS_TOOLKIT=wx
+  - VTK_VERSION=5.8 ETS_TOOLKIT=qt4
+  - VTK_VERSION=5.8 ETS_TOOLKIT=wx
+  - VTK_VERSION=6.3 ETS_TOOLKIT=wx
+  - VTK_VERSION=7.0 ETS_TOOLKIT=wx
+matrix:
+  allow_failures:
+    - env: VTK_VERSION=6.3
+    - env: VTK_VERSION=7.0
 addons:
   apt:
     packages:
@@ -28,6 +34,8 @@ before_install:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
 install:
+  - if [[ ${VTK_VERSION} == "6.3" ]]; then sh travis_setup_vtk_6_3.sh; fi
+  - if [[ ${VTK_VERSION} == "7.0" ]]; then sh travis_setup_vtk_7_0.sh; fi
   - pip install -r travis-requirements.txt
   - python setup.py develop
 script:
