@@ -11,8 +11,8 @@ env:
   - VTK_VERSION=7.0 ETS_TOOLKIT=wx
 matrix:
   allow_failures:
-    - env: VTK_VERSION=6.3
-    - env: VTK_VERSION=7.0
+    - env: VTK_VERSION=6.3 ETS_TOOLKIT=wx
+    - env: VTK_VERSION=7.0 ETS_TOOLKIT=wx
 addons:
   apt:
     packages:

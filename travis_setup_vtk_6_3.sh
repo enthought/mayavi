@@ -5,7 +5,7 @@ FILE_PREFIX=vtkpython-6.3.0-Linux-64bit
 DOWNLOAD_LINK=http://www.vtk.org/files/release/6.3/${FILE_PREFIX}.tar.gz
 CACHE_DIR=${HOME}/.cache
 
-pushd .
+CURRENT_DIR=$PWD
 cd $CACHE_DIR
 
 if [ -d "${VTK_PYTHON}" ]; then
@@ -19,4 +19,4 @@ fi
 
 export PYTHONPATH=${CACHE_DIR}/${VTK_PYTHON}/lib/python2.7/site-packages
 export LD_LIBRARY_PATH=${CACHE_DIR}/${VTK_PYTHON}/lib
-popd
+cd $CURRENT_DIR
