@@ -34,8 +34,8 @@ before_install:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
 install:
-  - if [[ ${VTK_VERSION} == "6.3" ]]; then sh travis_setup_vtk_6_3.sh; fi
-  - if [[ ${VTK_VERSION} == "7.0" ]]; then sh travis_setup_vtk_7_0.sh; fi
+  - if [[ ${VTK_VERSION} == "6.3" ]]; then source travis_setup_vtk_6_3.sh; fi
+  - if [[ ${VTK_VERSION} == "7.0" ]]; then source travis_setup_vtk_7_0.sh; fi
   # Print the VTK version
   - python -c "from __future__ import print_function; import vtk; print('VTK Version:', vtk.vtkVersion.GetVTKVersion())"
   - pip install -r travis-requirements.txt
