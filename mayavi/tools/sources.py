@@ -168,7 +168,7 @@ class MGlyphSource(MlabSource):
 
         else:
             points = np.c_[x.ravel(), y.ravel(), z.ravel()].ravel()
-            points.shape = (points.size / 3, 3)
+            points.shape = (-1, 3)
             self.set(points=points, trait_change_notify=False)
 
         u, v, w = self.u, self.v, self.w
@@ -179,7 +179,7 @@ class MGlyphSource(MlabSource):
             if len(u) > 0:
                 vectors = np.c_[u.ravel(), v.ravel(),
                                 w.ravel()].ravel()
-                vectors.shape = (vectors.size / 3, 3)
+                vectors.shape = (-1, 3)
                 self.set(vectors=vectors, trait_change_notify=False)
 
         if 'vectors' in traits:
@@ -192,7 +192,7 @@ class MGlyphSource(MlabSource):
             if u is not None and len(u) > 0:
                 vectors = np.c_[u.ravel(), v.ravel(),
                                 w.ravel()].ravel()
-                vectors.shape = (vectors.size / 3, 3)
+                vectors.shape = (-1, 3)
                 self.set(vectors=vectors, trait_change_notify=False)
 
         if vectors is not None and len(vectors) > 0:
@@ -785,7 +785,7 @@ class MTriangularMeshSource(MlabSource):
 
         x, y, z = self.x, self.y, self.z
         points = np.c_[x.ravel(), y.ravel(), z.ravel()].ravel()
-        points.shape = (points.size / 3, 3)
+        points.shape = (-1, 3)
         self.set(points=points, trait_change_notify=False)
 
         triangles = self.triangles
@@ -871,7 +871,8 @@ def convert_to_arrays(args):
     for index, arg in enumerate(args):
         if not callable(arg):
             if not hasattr(arg, 'shape'):
-                arg = np.atleast_1d(np.array(arg))
+                arg = np.array(arg)
+            arg = np.atleast_1d(arg)
             if np.any(np.isinf(arg)):
                 raise ValueError("""Input array contains infinite values
                 You can remove them using: a[np.isinf(a)] = np.nan

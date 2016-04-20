@@ -3,7 +3,7 @@ from __future__ import division, absolute_import, print_function
 import sys
 from io import StringIO
 
-import compiler
+import ast
 import inspect
 import textwrap
 import tokenize
@@ -155,17 +155,32 @@ def strip_comment_marker(text):
 def get_class_traits(klass):
     """ Yield all of the documentation for trait definitions on a class object.
     """
+
     # FIXME: gracefully handle errors here or in the caller?
     source = inspect.getsource(klass)
+
+    # This collects all the comments block
     cb = CommentBlocker()
     cb.process_file(StringIO(sixu(source)))
-    mod_ast = compiler.parse(source)
-    class_ast = mod_ast.node.nodes[0]
-    for node in class_ast.code.nodes:
-        # FIXME: handle other kinds of assignments?
-        if isinstance(node, compiler.ast.Assign):
-            name = node.nodes[0].name
-            rhs = unparse(node.expr).strip()
-            doc = strip_comment_marker(cb.search_for_comment(node.lineno, default=''))
-            yield name, rhs, doc
 
+    # AST tree for the module
+    mod_ast = ast.parse(source)
+
+    # AST tree for the class
+    class_ast = mod_ast.body[0]
+
+    # All assignement nodes
+    assign_nodes = (node for node in class_ast.body
+                    if isinstance(node, ast.Assign))
+
+    for node in assign_nodes:
+        # Left-hand side
+        name = node.targets[0].id
+
+        # Right-hand side
+        rhs = unparse(node.value)
+
+        # Comment
+        doc = strip_comment_marker(cb.search_for_comment(node.lineno, default=''))
+
+        yield name, rhs, doc

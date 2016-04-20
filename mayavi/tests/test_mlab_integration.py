@@ -7,6 +7,7 @@ This also tests some numerics with VTK.
 import unittest
 
 import numpy as np
+from traits.testing.unittest_tools import UnittestTools
 
 from mayavi import mlab
 from mayavi.core.engine import Engine
@@ -266,7 +267,7 @@ class TestMlabPipeline(TestMlabNullEngine):
 ################################################################################
 # class `TestMlabHelperFunctions`
 ################################################################################
-class TestMlabHelperFunctions(TestMlabNullEngine):
+class TestMlabHelperFunctions(TestMlabNullEngine, UnittestTools):
     """ Test various behaviors of the mlab helper functions.
     """
 
@@ -287,6 +288,19 @@ class TestMlabHelperFunctions(TestMlabNullEngine):
         # This should work.
         obj = mlab.imshow(s)
 
+    def test_imshow_extent(self):
+        mlab.imshow(np.random.rand(10, 20),
+                    extent=[-1, 11, -1, 21, 0, 0])
+
+    def test_imshow_colormap(self):
+        # Check if the pipeline is refreshed when we change colormap.
+        # See issue #262
+        a = np.random.random_integers(0, 10, (100, 100))
+
+        actor = mlab.imshow(a, colormap="cool")
+
+        with self.assertTraitChanges(actor, 'pipeline_changed'):
+            actor.module_manager.scalar_lut_manager.lut_mode = 'jet'
 
 ################################################################################
 # class `TestMlabModules`

@@ -60,7 +60,10 @@ class ImageActor(Module):
     def setup_pipeline(self):
         self.actor = tvtk.ImageActor()
 
-    @on_trait_change('map_scalars_to_color,image_map_to_color.[output_format,pass_alpha_to_output]')
+    @on_trait_change('map_scalars_to_color,'
+                     'image_map_to_color.[output_format,pass_alpha_to_output],'
+                     'module_manager.scalar_lut_manager.lut_mode,'
+                     'module_manager.vector_lut_manager.lut_mode')
     def update_pipeline(self):
         """Override this method so that it *updates* the tvtk pipeline
         when data upstream is known to have changed.
