@@ -19,6 +19,7 @@ import inspect
 import os
 import pydoc
 import collections
+import textwrap
 
 from sphinxext import docscrape
 from sphinxext.docscrape_sphinx import (SphinxClassDoc, SphinxFunctionDoc,
@@ -28,32 +29,34 @@ from sphinxext import numpydoc
 
 from sphinxext import comment_eater
 
+
 class SphinxTraitsDoc(SphinxClassDoc):
-    def __init__(self, cls, modulename='', func_doc=SphinxFunctionDoc, config=None):
-        if not inspect.isclass(cls):
+
+    def __init__(self, cls, modulename='', func_doc=SphinxFunctionDoc, doc=None, config={}):
+
+        self.load_config(config)
+
+        if not inspect.isclass(cls) and cls is not None:
             raise ValueError("Initialise using a class. Got %r" % cls)
+
         self._cls = cls
+
+        self.show_inherited_members = config.get(
+                    'show_inherited_class_members', True)
 
         if modulename and not modulename.endswith('.'):
             modulename += '.'
+
         self._mod = modulename
-        self._name = cls.__name__
+
         self._func_doc = func_doc
 
-        docstring = pydoc.getdoc(cls)
-        docstring = docstring.split('\n')
+        if doc is None:
+            doc = pydoc.getdoc(cls)
 
-        # De-indent paragraph
-        try:
-            indent = min(len(s) - len(s.lstrip()) for s in docstring
-                         if s.strip())
-        except ValueError:
-            indent = 0
+        doc = textwrap.dedent(doc).split('\n')
 
-        for n,line in enumerate(docstring):
-            docstring[n] = docstring[n][indent:]
-
-        self._doc = docscrape.Reader(docstring)
+        self._doc = docscrape.Reader(doc)
         self._parsed_data = {
             'Signature': '',
             'Summary': '',
@@ -92,6 +95,7 @@ class SphinxTraitsDoc(SphinxClassDoc):
         for param_list in ('Parameters', 'Traits', 'Methods',
                            'Returns', 'Yields', 'Raises'):
             out += self._str_param_list(param_list)
+
         out += self._str_see_also("obj")
         out += self._str_section('Notes')
         out += self._str_references()
@@ -99,6 +103,7 @@ class SphinxTraitsDoc(SphinxClassDoc):
         out += self._str_section('Examples')
         out = self._str_indent(out,indent)
         return '\n'.join(out)
+
 
 def looks_like_issubclass(obj, classname):
     """ Return True if the object has a class or superclass with the given class
@@ -114,7 +119,9 @@ def looks_like_issubclass(obj, classname):
             return True
     return False
 
-def get_doc_object(obj, what=None, doc=None, config=None):
+
+def get_doc_object(obj, what=None, doc=None, config={}):
+
     if what is None:
         if inspect.isclass(obj):
             what = 'class'
@@ -124,20 +131,27 @@ def get_doc_object(obj, what=None, doc=None, config=None):
             what = 'function'
         else:
             what = 'object'
-    if what == 'class' and obj is not None:
-        doc = SphinxTraitsDoc(obj, '', func_doc=SphinxFunctionDoc, config=config)
-        if looks_like_issubclass(obj, 'HasTraits'):
+
+    if what == 'class':
+        # It is important that the `doc=doc` is passed because
+        # this function may be run the second time with a
+        # prepared docstring `doc` and `obj=None`
+        # In that case the prepared `doc` is used
+        newdoc = SphinxTraitsDoc(obj, "", func_doc=SphinxFunctionDoc,
+                                 doc=doc, config=config)
+        if obj and looks_like_issubclass(obj, "HasTraits"):
             for name, trait, comment in comment_eater.get_class_traits(obj):
                 # Exclude private traits.
                 if not name.startswith('_'):
-                    doc['Traits'].append((name, trait, comment.splitlines()))
-        return doc
+                    newdoc['Traits'].append((name, trait, comment.splitlines()))
+        return newdoc
     elif what in ('function', 'method'):
         return SphinxFunctionDoc(obj, doc=doc, config=config)
     else:
         if doc is None and obj:
             doc = pydoc.getobj(obj)
         return SphinxDocString(pydoc.getdoc(obj), config=config)
+
 
 def setup(app):
     # init numpydoc

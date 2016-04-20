@@ -252,7 +252,7 @@ class Actor(Component):
             tg = tg_dict[value]()
             self.tcoord_generator = tg
             self.configure_connection(tg, inp[0])
-            self.configure_connection(self.mapper, inp[0])
+            self.configure_connection(self.mapper, tg)
         tg = self.tcoord_generator
         if tg is not None:
             tg.on_trait_change(self.render)
