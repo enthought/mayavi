@@ -303,13 +303,18 @@ def set_extent(module, extents):
     extentx = 0.5 * (xmax - xmin)
     extenty = 0.5 * (ymax - ymin)
     extentz = 0.5 * (zmax - zmin)
+
+    # Extract the actor, checking either module.actor.actor
+    # or module.actor as a fallback
+    actor = getattr(module.actor, 'actor', module.actor)
+
     # Now the actual bounds.
-    xmin, xmax, ymin, ymax, zmin, zmax = module.actor.actor.bounds
+    xmin, xmax, ymin, ymax, zmin, zmax = actor.bounds
     # Scale the object
     boundsx = 0.5 * (xmax - xmin)
     boundsy = 0.5 * (ymax - ymin)
     boundsz = 0.5 * (zmax - zmin)
-    xs, ys, zs = module.actor.actor.scale
+    xs, ys, zs = actor.scale
     if not numpy.allclose(xmin, xmax):
         scalex = xs * extentx / boundsx
     else:
@@ -323,17 +328,18 @@ def set_extent(module, extents):
     else:
         scalez = 1
 
-    module.actor.actor.scale = (scalex, scaley, scalez)
+    actor.scale = (scalex, scaley, scalez)
     ## Remeasure the bounds
-    xmin, xmax, ymin, ymax, zmin, zmax = module.actor.actor.bounds
+    xmin, xmax, ymin, ymax, zmin, zmax = actor.bounds
     xcenter = 0.5 * (xmax + xmin)
     ycenter = 0.5 * (ymax + ymin)
     zcenter = 0.5 * (zmax + zmin)
     # Center the object
-    module.actor.actor.origin = (0.,  0.,  0.)
-    xpos, ypos, zpos = module.actor.actor.position
-    module.actor.actor.position = (xpos + xo - xcenter, ypos + yo - ycenter,
-                                            zpos + zo - zcenter)
+    actor.origin = (0.,  0.,  0.)
+    xpos, ypos, zpos = actor.position
+    actor.position = (xpos + xo - xcenter,
+                      ypos + yo - ycenter,
+                      zpos + zo - zcenter)
 
 
 def start_recording(ui=True):

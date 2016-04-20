@@ -288,6 +288,10 @@ class TestMlabHelperFunctions(TestMlabNullEngine, UnittestTools):
         # This should work.
         obj = mlab.imshow(s)
 
+    def test_imshow_extent(self):
+        mlab.imshow(np.random.rand(10, 20),
+                    extent=[-1, 11, -1, 21, 0, 0])
+
     def test_imshow_colormap(self):
         # Check if the pipeline is refreshed when we change colormap.
         # See issue #262
