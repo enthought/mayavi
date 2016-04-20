@@ -1,3 +1,6 @@
+from __future__ import print_function
+
+import os
 from mayavi import mlab
 from pyface.api import GUI
 
@@ -24,4 +27,10 @@ def test_mlab_envisage():
     f()
 
 if __name__ == '__main__':
-    test_mlab_envisage()
+    from traits.etsconfig.api import ETSConfig
+
+    if os.environ.get("TRAVIS", False) and ETSConfig.toolkit == "qt4":
+        print("Virtual buffer on Travis leads to seg fault with Qt as "
+              "has_focus, active_view are undefined.  Skip.")
+    else:
+        test_mlab_envisage()
