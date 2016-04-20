@@ -113,6 +113,12 @@ class Text3D(Module):
         """
         self.pipeline_changed = True
 
+    def has_output_port(self):
+        """ Return True as the text3d has output port. """
+        return True
+
+    def get_output_object(self):
+        return self.vector_text.output_port
 
     ######################################################################
     # Non-public interface
