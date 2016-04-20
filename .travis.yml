@@ -7,16 +7,21 @@ virtualenv:
 env:
   - VTK_VERSION=5.8 ETS_TOOLKIT=qt4
   - VTK_VERSION=5.8 ETS_TOOLKIT=wx
+  - VTK_VERSION=6.3 ETS_TOOLKIT=qt4
   - VTK_VERSION=6.3 ETS_TOOLKIT=wx
+  - VTK_VERSION=7.0 ETS_TOOLKIT=qt4
   - VTK_VERSION=7.0 ETS_TOOLKIT=wx
 matrix:
   allow_failures:
+    - env: VTK_VERSION=6.3 ETS_TOOLKIT=qt4
     - env: VTK_VERSION=6.3 ETS_TOOLKIT=wx
+    - env: VTK_VERSION=7.0 ETS_TOOLKIT=qt4
     - env: VTK_VERSION=7.0 ETS_TOOLKIT=wx
 addons:
   apt:
     packages:
     - python-vtk
+    - python-pyside
     - python-qt4
     - python-qt4-gl
     - python-imaging
@@ -44,7 +49,9 @@ script:
   - coverage erase
   - coverage run -p -m nose.core -v tvtk/tests
   - coverage run -p -m nose.core -v mayavi
-  - if [[ ${ETS_TOOLKIT} == "wx" ]]; then sh travis-run-integration-tests.sh; fi
+  # Force the use of pyside for integrationtests as pyqt4's event loop hangs
+  - if [[ ${ETS_TOOLKIT} == "qt4" ]]; then export QT_API=pyside; fi
+  - sh travis-run-integration-tests.sh
   - coverage combine
 after_success:
   - pip install codecov
