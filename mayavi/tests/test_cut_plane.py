@@ -6,8 +6,8 @@
 import unittest
 
 # Local imports.
-import datasets
-from common import get_example_data
+from . import datasets
+from .common import get_example_data
 
 # Enthought library imports
 from mayavi.core.null_engine import NullEngine
