@@ -1,6 +1,3 @@
-from __future__ import print_function
-
-import os
 from mayavi import mlab
 from pyface.api import GUI
 
