@@ -7,21 +7,18 @@ virtualenv:
 env:
   - VTK_VERSION=5.8 ETS_TOOLKIT=qt4
   - VTK_VERSION=5.8 ETS_TOOLKIT=wx
-  - VTK_VERSION=6.3 ETS_TOOLKIT=qt4
   - VTK_VERSION=6.3 ETS_TOOLKIT=wx
-  - VTK_VERSION=7.0 ETS_TOOLKIT=qt4
   - VTK_VERSION=7.0 ETS_TOOLKIT=wx
 matrix:
   allow_failures:
-    - env: VTK_VERSION=6.3 ETS_TOOLKIT=qt4
     - env: VTK_VERSION=6.3 ETS_TOOLKIT=wx
-    - env: VTK_VERSION=7.0 ETS_TOOLKIT=qt4
     - env: VTK_VERSION=7.0 ETS_TOOLKIT=wx
+
+# Travis Ubuntu 12 does not allow python-pyside
 addons:
   apt:
     packages:
     - python-vtk
-    - python-pyside
     - python-qt4
     - python-qt4-gl
     - python-imaging
@@ -49,9 +46,9 @@ script:
   - coverage erase
   - coverage run -p -m nose.core -v tvtk/tests
   - coverage run -p -m nose.core -v mayavi
-  # Force the use of pyside for integrationtests as pyqt4's event loop hangs
-  - if [[ ${ETS_TOOLKIT} == "qt4" ]]; then export QT_API=pyside; fi
-  - sh travis-run-integration-tests.sh
+  # We can't run the integrationtests on travis with qt because python-pyside is forbidden
+  # And PyQt hangs during event loop
+  - if [[ ${ETS_TOOLKIT} == "wx" ]]; then sh travis-run-integration-tests.sh; fi
   - coverage combine
 after_success:
   - pip install codecov
