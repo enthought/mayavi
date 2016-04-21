@@ -1,3 +1,4 @@
+import sys
 import os
 import shutil
 import unittest
@@ -122,6 +123,20 @@ class TestMlabSavefigUnitTest(unittest.TestCase):
         # check if the image size is twice as big
         self.check_image_size(self.filename, size=(262, 434))
         self.check_image_no_black_pixel(self.filename)
+
+    def test_savefig_very_large_image(self):
+        """Test savefig for an image likely too big to fix in screen"""
+        self.setup_engine_and_figure(Engine())
+
+        # Set up the scene
+        create_quiver3d(figure=self.figure)
+
+        # save the figure
+        savefig(self.filename, size=(607, 711), magnification=4,
+                figure=self.figure)
+
+        # check if the image size is four times as big
+        self.check_image_size(self.filename, size=(2428, 2844))
 
     @unittest.skipIf(os.environ.get("TRAVIS", False),
                      ("Offscreen rendering is not tested on Travis "
