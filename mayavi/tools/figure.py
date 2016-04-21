@@ -202,9 +202,9 @@ def savefig(filename, size=None, figure=None, magnification=1,
 
         **Parameters**
 
-        :size: the size of the image created (unless magnification is
-               set, in which case it is the size of the window used
-               for rendering).
+        :size: tuple(int, int); the size of the image created
+               (unless magnification is set, in which case it
+               is the size of the window used for rendering).
 
         :figure: the figure instance to save to a file.
 
@@ -216,9 +216,17 @@ def savefig(filename, size=None, figure=None, magnification=1,
 
         **Notes**
 
-        Please note that if you are trying to save images with sizes
-        larger than the window size, there will be additional computation
+        (1) Please note that if you are trying to save images with sizes
+        different from the window size, there will be additional computation
         cost.
+
+        (2) If `size` is so large that it won't fit on the screen and
+        you are not using offscreen rendering, the size of the image
+        may be wrong.  In this case you should set `size` small
+        enough to fix within screen, and set `magnification` to get
+        the desired image size.
+        E.g. You may set `size=(400, 600), magnification=5` to get an
+        image size of (2000, 3000).
 
         Any extra keyword arguments are passed along to the respective
         image format's save method.
