@@ -13,6 +13,7 @@ functionality. See the class docs for more details.
 
 from __future__ import print_function
 
+import sys
 import os.path
 
 from apptools.persistence import state_pickler
@@ -403,10 +404,55 @@ class TVTKScene(HasPrivateTraits):
             )
         meth = getattr(self, 'save_' + meth_map[ext])
         if size is not None:
-            orig_size = self.get_size()
-            self.set_size(size)
+            # We create a RenderWindow of the requested size
+            # instead of resizing the existing one
+
+            # Original render window and renderer
+            orig_renwin = self.render_window
+            renderer = self.renderer
+
+            # temporarily remove the render from the render window
+            orig_renwin.remove_renderer(renderer)
+
+            # new render window only used here for saving the image
+            # set the size to (1, 1) in case of off_screen_rendering
+            # this window would not be shown
+            temp_renwin = tvtk.RenderWindow(
+                size=(1, 1), off_screen_rendering=self.off_screen_rendering)
+
+            self._renwin = temp_renwin
+
+            # older VTK may not support stereo rendering
+            if orig_renwin.stereo_render:
+                temp_renwin.set(
+                    stereo_capable_window=orig_renwin.stereo_capable_window,
+                    stereo_type=orig_renwin.stereo_type,
+                    stereo_render=True)
+
+            # We need an interactor to contain the RenderWindow so that
+            # upon resizing an offscreen window, the window does not pop up
+            # Mar 30, 2016: On Mac OSX with vtkCocoaRenderWindow, this
+            # causes the rendering to fail upon resizing
+            if sys.platform != "darwin" and self.off_screen_rendering:
+                interactor = tvtk.RenderWindowInteractor(render_window=temp_renwin)
+                interactor.initialize()
+
+            temp_renwin.add_renderer(renderer)
+            temp_renwin.size = size
+            self.render()
+
+            # More rendering occurs in the save method
             meth(file_name, **kw_args)
-            self.set_size(orig_size)
+
+            # Give the renderer back to the original render window
+            temp_renwin.remove_renderer(renderer)
+            temp_renwin.finalize()
+            orig_renwin.add_renderer(renderer)
+
+            # Restore the render window
+            self._renwin = orig_renwin
+            self.render()
+
             self._record_methods('save(%r, %r)'%(file_name, size))
         else:
             meth(file_name, **kw_args)
@@ -417,7 +463,7 @@ class TVTKScene(HasPrivateTraits):
         For vector graphics use the save_gl2ps method."""
         if len(file_name) != 0:
             w2if = tvtk.WindowToImageFilter(read_front_buffer=
-                                              not self.off_screen_rendering)
+                                            not self.off_screen_rendering)
             w2if.magnification = self.magnification
             self._lift()
             w2if.input = self._renwin
@@ -430,7 +476,7 @@ class TVTKScene(HasPrivateTraits):
         """Save to a BMP image file."""
         if len(file_name) != 0:
             w2if = tvtk.WindowToImageFilter(read_front_buffer=
-                                              not self.off_screen_rendering)
+                                            not self.off_screen_rendering)
             w2if.magnification = self.magnification
             self._lift()
             w2if.input = self._renwin
@@ -443,7 +489,7 @@ class TVTKScene(HasPrivateTraits):
         """Save to a TIFF image file."""
         if len(file_name) != 0:
             w2if = tvtk.WindowToImageFilter(read_front_buffer=
-                                              not self.off_screen_rendering)
+                                            not self.off_screen_rendering)
             w2if.magnification = self.magnification
             self._lift()
             w2if.input = self._renwin
@@ -456,7 +502,7 @@ class TVTKScene(HasPrivateTraits):
         """Save to a PNG image file."""
         if len(file_name) != 0:
             w2if = tvtk.WindowToImageFilter(read_front_buffer=
-                                              not self.off_screen_rendering)
+                                            not self.off_screen_rendering)
             w2if.magnification = self.magnification
             self._lift()
             w2if.input = self._renwin
@@ -473,7 +519,7 @@ class TVTKScene(HasPrivateTraits):
             if not quality and not progressive:
                 quality, progressive = self.jpeg_quality, self.jpeg_progressive
             w2if = tvtk.WindowToImageFilter(read_front_buffer=
-                                              not self.off_screen_rendering)
+                                            not self.off_screen_rendering)
             w2if.magnification = self.magnification
             self._lift()
             w2if.input = self._renwin

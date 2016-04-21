@@ -571,6 +571,10 @@ class Scene(TVTKScene, Widget):
     def _closed_fired(self):
         super(Scene, self)._closed_fired()
         self.picker = None
+        # Remove OnPaint handler for PaintEvent, otherwise
+        # OnPaint tries to reset the size of the nonexisting
+        # renderwindow
+        wx.EVT_PAINT(self._vtk_control, None)
         self._vtk_control = None
 
     ###########################################################################
@@ -658,21 +662,22 @@ class Scene(TVTKScene, Widget):
         # messed up when the application window is shown.  To work
         # around this a dynamic IDLE event handler is added and
         # immediately removed once it executes.  This event handler
-        # simply forces a resize to occur.  The _idle_count allows us
-        # to execute the idle function a few times (this seems to work
-        # better).
+        # simply forces a resize to occur.  Previously this event
+        # handler is excecuted for the first two idle events.
+        # However this causes the first resizing event after
+        # initialization to be effectively ignored: the idle handler
+        # simply resizes it back to the old size.
+        # Since resizing once seems to be efficient, the idle handler
+        # is only called for the first idle event.
         def _do_idle(event, window=window):
             w = wx.GetTopLevelParent(window)
             # Force a resize
             sz = w.GetSize()
             w.SetSize((sz[0]-1, sz[1]-1))
             w.SetSize(sz)
-            window._idle_count -= 1
-            if window._idle_count < 1:
-                wx.EVT_IDLE(window, None)
-                del window._idle_count
+            # Remove the handler
+            wx.EVT_IDLE(window, None)
 
-        window._idle_count = 2
         wx.EVT_IDLE(window, _do_idle)
 
         self._interactor = tvtk.to_tvtk(window._Iren)

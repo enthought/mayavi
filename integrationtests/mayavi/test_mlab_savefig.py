@@ -4,6 +4,7 @@ import unittest
 import tempfile
 
 import numpy
+from PIL import Image
 
 from mayavi import mlab
 from mayavi.core.engine import Engine
@@ -13,11 +14,11 @@ from mayavi.tools.figure import savefig
 from common import TestCase
 
 
-def create_quiver3d():
+def create_quiver3d(figure):
     x, y, z = numpy.mgrid[1:10, 1:10, 1:10]
     u, v, w = numpy.mgrid[1:10, 1:10, 1:10]
     s = numpy.sqrt(u**2 + v**2)
-    mlab.quiver3d(x, y, z, u, v, w, scalars=s)
+    mlab.quiver3d(x, y, z, u, v, w, scalars=s, figure=figure)
 
 
 # Note: the figure(window) size is delibrately set to be smaller than
@@ -58,24 +59,145 @@ class TestMlabSavefigUnitTest(unittest.TestCase):
             engine.close_scene(scene)
         engine.stop()
 
+    def test_savefig(self):
+        """Test if savefig works with auto size, mag and a normal Engine"""
+        self.setup_engine_and_figure(Engine())
+
+        # Set up the scene
+        create_quiver3d(figure=self.figure)
+
+        # save the figure (magnification is default "auto")
+        savefig(self.filename, figure=self.figure)
+
+        # check
+        self.check_image()
+
+    def test_savefig_with_size(self):
+        """Test if savefig works with given size and a normal Engine"""
+        self.setup_engine_and_figure(Engine())
+
+        # Set up the scene
+        create_quiver3d(figure=self.figure)
+
+        # save the figure (magnification is default "auto")
+        savefig(self.filename, size=(131, 217), figure=self.figure)
+
+        # check
+        self.check_image((217, 131))
+
+    def test_savefig_with_magnification(self):
+        """Test savefig with given magnification and a normal Engine"""
+        self.setup_engine_and_figure(Engine())
+
+        # Set up the scene
+        create_quiver3d(figure=self.figure)
+
+        # save the figure with a magnification
+        savefig(self.filename, magnification=2, figure=self.figure)
+
+        # check
+        self.check_image()
+
+    @unittest.skipIf(os.environ.get("TRAVIS", False),
+                     ("Offscreen rendering is not tested on Travis "
+                      "due to lack of GLX support"))
+    def test_savefig_with_size_offscreen(self):
+        """Test if savefig works with given size on an OffScreenEngine"""
+        self.setup_engine_and_figure(OffScreenEngine())
+
+        # Set up the scene
+        create_quiver3d(figure=self.figure)
+
+        # save the figure
+        savefig(self.filename, size=(131, 217), figure=self.figure)
+
+        # check
+        self.check_image((217, 131))
+
+    def test_savefig_with_size_and_magnification(self):
+        """Test if savefig works with given size and magnification"""
+        self.setup_engine_and_figure(Engine())
+
+        # Set up the scene
+        create_quiver3d(figure=self.figure)
+
+        # save the figure
+        savefig(self.filename, size=(131, 217), magnification=2,
+                figure=self.figure)
+
+        # check if the image size is twice as big
+        self.check_image((434, 262))
+
+    @unittest.skipIf(os.environ.get("TRAVIS", False),
+                     ("Offscreen rendering is not tested on Travis "
+                      "due to lack of GLX support"))
+    def test_savefig_with_size_and_magnification_offscreen(self):
+        """Test savefig with off_screen_rendering and OffScreenEngine"""
+        self.setup_engine_and_figure(OffScreenEngine())
+
+        # Use off-screen rendering
+        self.figure.scene.off_screen_rendering = True
+
+        # Set up the scene
+        create_quiver3d(figure=self.figure)
+
+        # save the figure
+        savefig(self.filename, size=(131, 217), magnification=2,
+                figure=self.figure)
+
+        # check if the image size is twice as big
+        self.check_image((434, 262))
+
+    @unittest.skipIf(os.environ.get("TRAVIS", False),
+                     ("Offscreen rendering is not tested on Travis "
+                      "due to lack of GLX support"))
+    def test_savefig_with_size_and_magnification_offscreen_with_engine(self):
+        """Test if savefig works with off_screen_rendering and Engine"""
+        self.setup_engine_and_figure(Engine())
+
+        # Use off-screen rendering
+        self.figure.scene.off_screen_rendering = True
+
+        # Set up the scene
+        create_quiver3d(figure=self.figure)
+
+        # save the figure
+        savefig(self.filename, size=(131, 217), magnification=2,
+                figure=self.figure)
+
+        # check if the image size is twice as big
+        self.check_image((434, 262))
+
     @unittest.skipIf(os.environ.get("TRAVIS", False),
                      ("Offscreen rendering is not tested on Travis "
                       "due to lack of GLX support"))
     def test_many_savefig_offscreen(self):
-        """Test if savefig works with off_screen_rendering and Engine"""
+        """Test saving many figures offscreen"""
         engine = Engine()
-        for _ in xrange(5):
+        for _ in range(5):
             self.setup_engine_and_figure(engine)
 
             # Use off-screen rendering
             self.figure.scene.off_screen_rendering = True
 
             # Set up the scene
-            create_quiver3d()
+            create_quiver3d(figure=self.figure)
 
             # save the figure
             savefig(self.filename, size=(131, 217),
                     figure=self.figure)
+
+    def check_image(self, size=None):
+        image = numpy.array(Image.open(self.filename))[:, :, :3]
+
+        # check the size is correct
+        if size:
+            self.assertEqual(image.shape[:2], size)
+
+        # check if the image has black spots
+        if (numpy.sum(image == [0, 0, 0], axis=2) == 3).any():
+            message = "The image has black spots"
+            self.fail(message)
 
 
 class TestMlabSavefig(TestCase):
