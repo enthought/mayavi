@@ -202,7 +202,14 @@ class TestMlabSavefig(TestCase):
     def do(self):
         suite = unittest.TestLoader().loadTestsFromTestCase(
             TestMlabSavefigUnitTest)
-        unittest.TextTestRunner().run(suite)
+
+        # Run the test suite using TextTestRunner so you get
+        # messages printed to the stdout
+        result = unittest.TextTestRunner().run(suite)
+
+        # common.TestCase.run exists with 1 if tests fail
+        if result.errors or result.failures:
+            sys.exit(1)
 
 
 if __name__ == "__main__":
