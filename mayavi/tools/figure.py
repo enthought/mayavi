@@ -11,6 +11,7 @@ Functions related to creating the engine or the figures.
 import gc
 import warnings
 import copy
+from numbers import Integral
 
 import numpy as np
 
@@ -192,7 +193,7 @@ def draw(figure=None):
     figure.render()
 
 
-def savefig(filename, size=None, figure=None, magnification='auto',
+def savefig(filename, size=None, figure=None, magnification=1,
                     **kwargs):
     """ Save the current scene.
         The output format are deduced by the extension to filename.
@@ -207,19 +208,14 @@ def savefig(filename, size=None, figure=None, magnification='auto',
 
         :figure: the figure instance to save to a file.
 
-        :magnification: the magnification is the scaling between the
-                        pixels on the screen, and the pixels in the
-                        file saved. If you do not specify it, it will be
-                        calculated so that the file is saved with the
-                        specified size. If you specify a magnification,
-                        Mayavi will use the given size as a screen size,
-                        and the file size will be 'magnification * size'.
+        :magnification: Integer. If you specify a magnification, the
+                        saved image size will be 'magnification * size'.
+                        This is useful when the target image size is big,
+                        especially if it is larger than the physical
+                        screen size
 
         **Notes**
 
-        If the size specified is larger than the window size, and no
-        magnification parameter is passed, the magnification of the scene
-        is changed so that the image created has the requested size.
         Please note that if you are trying to save images with sizes
         larger than the window size, there will be additional computation
         cost.
@@ -229,23 +225,25 @@ def savefig(filename, size=None, figure=None, magnification='auto',
     """
     if figure is None:
         figure = gcf()
+
     current_mag = figure.scene.magnification
     try:
-        if size is not None:
-            current_x, current_y = tuple(figure.scene.get_size())
-            target_x, target_y = size
-            if magnification is 'auto':
-                magnification = max(target_x // current_x,
-                                            target_y // current_y) + 1
-                target_x = int(target_x / magnification)
-                target_y = int(target_y / magnification)
-                size = target_x, target_y
-        elif magnification is 'auto':
+        # For compatibility
+        if magnification == "auto":
+            warnings.warn("magnification=='auto' is no longer used. "
+                          "Magnification is set to 1 and the image size "
+                          "will be `size` if given.")
             magnification = 1
+
+        # Magnification must be an integer, if it is not, notify the user
+        # that we converted it
+        if not isinstance(magnification, Integral):
+            warnings.warn("magnification must be an integer. "
+                          "Got {0}, using int({0})={1} instead.".format(
+                              magnification, int(magnification)))
+
         figure.scene.magnification = int(magnification)
-        figure.scene.save(filename,
-                            size=size,
-                            **kwargs)
+        figure.scene.save(filename, size=size, **kwargs)
     finally:
         figure.scene.magnification = int(current_mag)
 
