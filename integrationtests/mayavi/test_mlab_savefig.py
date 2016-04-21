@@ -123,6 +123,57 @@ class TestMlabSavefigUnitTest(unittest.TestCase):
         self.check_image_size(self.filename, size=(262, 434))
         self.check_image_no_black_pixel(self.filename)
 
+    def test_savefig_offscreen(self):
+        """Test savefig with auto size, mag, normal Engine and offscreen"""
+        self.setup_engine_and_figure(Engine())
+
+        # Use offscreen rendering
+        self.figure.scene.off_screen_rendering = True
+
+        # Set up the scene
+        create_quiver3d(figure=self.figure)
+
+        # save the figure (magnification is default "auto")
+        savefig(self.filename, figure=self.figure)
+
+        # check
+        self.check_image_no_black_pixel(self.filename)
+
+    def test_savefig_with_size_offscreen(self):
+        """Test savefig with given size, normal Engine and offscreen"""
+        self.setup_engine_and_figure(Engine())
+
+        # Use offscreen rendering
+        self.figure.scene.off_screen_rendering = True
+
+        # Set up the scene
+        create_quiver3d(figure=self.figure)
+
+        # save the figure (magnification is default = 1)
+        savefig(self.filename, size=(131, 217), figure=self.figure)
+
+        # check
+        self.check_image_size(self.filename, size=(131, 217))
+        self.check_image_no_black_pixel(self.filename)
+
+    def test_savefig_with_size_and_magnification_offscreen(self):
+        """Test savefig with given size, mag, normal Engine and offscreen"""
+        self.setup_engine_and_figure(Engine())
+
+        # Use offscreen rendering
+        self.figure.scene.off_screen_rendering = True
+
+        # Set up the scene
+        create_quiver3d(figure=self.figure)
+
+        # save the figure
+        savefig(self.filename, size=(131, 217), magnification=2,
+                figure=self.figure)
+
+        # check if the image size is twice as big
+        self.check_image_size(self.filename, size=(262, 434))
+        self.check_image_no_black_pixel(self.filename)
+
     @unittest.skipIf(os.environ.get("TRAVIS", False),
                      ("Offscreen rendering is not tested on Travis "
                       "due to lack of GLX support"))
