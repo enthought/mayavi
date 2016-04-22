@@ -41,16 +41,17 @@ for pylab_luts_file in pylab_luts_files:
         break
     except (IOError, ValueError) as exception:
         # IOError: failed to open file
-        # ValueError: pickled file is built from an OS w/ different architecture,
-        #             or with an incompatible protocol
+        # ValueError: pickled file is built from an OS w/ different
+        #             architecture, or with an incompatible protocol
         continue
 else:
-    message = ("Failed to load pylab colormaps from files: {filepaths}\n"
+    message = ("Failed to load pylab colormaps from anyone of the files:\n"
+               "{filepaths}\n"
                "Last error: {err_type} {err_message}\n"
                "Some colormaps will not be available. "
                "You may rebuild this file using the script provided "
                "in the mayavi source code: scripts/cm2lut.py")
-    warnings.warn(message.format(filepaths=", ".join(pylab_luts_files),
+    warnings.warn(message.format(filepaths="\n".join(pylab_luts_files),
                                  err_type=type(exception).__name__,
                                  err_message=str(exception)))
     pylab_luts = {}
