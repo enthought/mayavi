@@ -201,7 +201,7 @@ involves various pointers to other C++ objects.
 It is also important to consider that the identity of objects
 is preserved according to the VTK behavior. For example, in the 
 following code, the default object created by the VTK implementation of
-`GetLines()` is the same for any vtkPolyData
+`GetLines()` is the same for any vtkPolyData::
 
   >>> data1 = vtk.vtkPolyData()
   >>> data2 = vtk.vtkPolyData()
@@ -210,7 +210,7 @@ following code, the default object created by the VTK implementation of
   >>> data2.GetLines()
   (vtkCellArray)0x103b52e30
 
-The equivalent tvtk code behaves in the same way
+The equivalent tvtk code behaves in the same way::
 
   >>> data1 = tvtk.PolyData()
   >>> data2 = tvtk.PolyData()
