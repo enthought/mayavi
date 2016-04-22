@@ -1,4 +1,4 @@
-.png binary
-.jpg binary
-.pdf binary
-.pkl binary
+*.png binary
+*.jpg binary
+*.pdf binary
+*.pkl binary
