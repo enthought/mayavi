@@ -2,13 +2,13 @@
 
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2005-2008, Enthought, Inc.
+# Copyright (c) 2005-2016, Enthought, Inc.
 # License: BSD Style.
 
 import os.path
 import sys
 import subprocess
-
+import warnings
 
 # Enthought library imports.
 from traits.api import Instance, Range, Bool, Array, \
@@ -22,9 +22,40 @@ from mayavi.core.base import Base
 from mayavi.core.common import error
 
 from mayavi.core import lut
+
+
+# The directory that contains the pickled files for colormap
 lut_image_dir = os.path.dirname(lut.__file__)
-pylab_luts = state_pickler.load_state(os.path.join(lut_image_dir,
-                                                'pylab_luts.pkl'))
+
+# Two pickled files are provided, we try them in order and
+# give up if none works
+# First one has worked for most situations
+# Second one is built from Windows 64bit machine with Python 2.7
+pylab_luts_files = (os.path.join(lut_image_dir, 'pylab_luts.pkl'),
+                    os.path.join(lut_image_dir,
+                                 'pylab_luts-cp27-cp27m-win_amd64.pkl'))
+
+for pylab_luts_file in pylab_luts_files:
+    try:
+        pylab_luts = state_pickler.load_state(pylab_luts_file)
+        break
+    except (IOError, ValueError) as exception:
+        # IOError: failed to open file
+        # ValueError: pickled file is built from an OS w/ different
+        #             architecture, or with an incompatible protocol
+        continue
+else:
+    message = ("Failed to load pylab colormaps from anyone of the files:\n"
+               "{filepaths}\n"
+               "Last error: {err_type} {err_message}\n"
+               "Some colormaps will not be available. "
+               "You may rebuild this file using the script provided "
+               "in the mayavi source code: scripts/cm2lut.py")
+    warnings.warn(message.format(filepaths="\n".join(pylab_luts_files),
+                                 err_type=type(exception).__name__,
+                                 err_message=str(exception)))
+    pylab_luts = {}
+
 
 #################################################################
 # Utility functions.
