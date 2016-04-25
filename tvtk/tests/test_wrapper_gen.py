@@ -8,7 +8,6 @@ wrapper_gen directly.
 # Copyright (c) 2004, Prabhu Ramachandran,  Enthought, Inc.
 # License: BSD Style.
 
-import sys
 import unittest
 import vtk
 
