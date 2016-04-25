@@ -43,7 +43,8 @@ To generate tvtk_classes.zip you must do the following::
 # Only used for testing.
 from tvtk.tvtk_classes import tvtk_helper
 
-if sys.version_info[0] > 2:
+PY_VER = sys.version_info[0]
+if PY_VER > 2:
     long = int
 
 
@@ -678,6 +679,13 @@ class TestTVTKModule(unittest.TestCase):
         output = output.decode('ascii')
         self.assertFalse('QtCore' in output)
         self.assertFalse('wx' in output)
+
+    @unittest.skipIf(PY_VER > 2, "Irrelevant for python 3")
+    def test_unicode_traits(self):
+        reader = tvtk.DelimitedTextReader()
+        self.assertIsInstance(reader.unicode_record_delimiters, unicode)
+        self.assertIsInstance(reader.unicode_string_delimiters, unicode)
+        self.assertIsInstance(reader.unicode_field_delimiters, unicode)
 
 if __name__ == "__main__":
     unittest.main()

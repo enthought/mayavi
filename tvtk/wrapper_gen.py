@@ -632,7 +632,7 @@ class WrapperGenerator:
                     elif default == "'":
                         t_def = '''traits.Unicode(u"%(default)s", ''' % locals()
                     else:
-                        t_def = 'traits.String(u"%(default)s", ' % locals()
+                        t_def = 'traits.Unicode(u"%(default)s", ' % locals()
                     t_def += 'enter_set=True, auto_set=False)'
                     self._write_trait(out, name, t_def, vtk_set_meth,
                                       mapped=False)
