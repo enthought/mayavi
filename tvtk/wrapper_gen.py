@@ -620,6 +620,22 @@ class WrapperGenerator:
                     t_def += 'enter_set=True, auto_set=False)'
                     self._write_trait(out, name, t_def, vtk_set_meth,
                                       mapped=False)
+                elif PY_VER < 3 and typ is unicode:
+                    default = default.encode("unicode_escape")
+                    if '\n' in default or '\r' in default:
+                        default = clean_special_chars(default)
+
+                    if default == '\x00':
+                        t_def = 'traits.Unicode(u"", '
+                    elif default == '"':
+                        t_def = "traits.Unicode(u'%(default)s', " % locals()
+                    elif default == "'":
+                        t_def = '''traits.Unicode(u"%(default)s", ''' % locals()
+                    else:
+                        t_def = 'traits.String(u"%(default)s", ' % locals()
+                    t_def += 'enter_set=True, auto_set=False)'
+                    self._write_trait(out, name, t_def, vtk_set_meth,
+                                      mapped=False)
                 elif typ in (tuple,):
                     if (name.find('color') > -1 or \
                         name.find('bond_color') > -1 or \
