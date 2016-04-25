@@ -58,5 +58,11 @@ class TestWrapperGenerator(unittest.TestCase):
                (['vtkStructuredPoints'], ['vtkFooClass'])]
         self.assertEqual(('vtk', 'vtk'), wg._find_sig_type(sig))
 
+    def test_unicode_return_value(self):
+        wg = self.wg
+        meths = [vtk.vtkDelimitedTextReader.GetUnicodeRecordDelimiters]
+        sig = wg.parser.get_method_signature(meth)
+        self.assertEqual( ('', None), wg._find_sig_type(sig))
+
 if __name__ == "__main__":
     unittest.main()
