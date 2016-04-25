@@ -599,16 +599,16 @@ class WrapperGenerator:
                     if default == '\x00':
                         default = ''
 
-                    t_def = 'traits.String({0!r}, '.format(default)
-                    t_def += 'enter_set=True, auto_set=False)'
+                    t_def = ('traits.String({0!r}, '
+                             'enter_set=True, auto_set=False)'.format(default))
                     self._write_trait(out, name, t_def, vtk_set_meth, mapped=False)
 
                 elif PY_VER < 3 and typ is unicode:
                     if default == u'\x00':
                         default = ''
 
-                    t_def = 'traits.Unicode({0!r}, '.format(default)
-                    t_def += 'enter_set=True, auto_set=False)'
+                    t_def = ('traits.Unicode({0!r}, '
+                             'enter_set=True, auto_set=False)'.format(default))
                     self._write_trait(out, name, t_def, vtk_set_meth, mapped=False)
 
                 elif typ in (tuple,):
