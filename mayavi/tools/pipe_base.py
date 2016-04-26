@@ -21,7 +21,7 @@ from tvtk.api import tvtk
 
 from .auto_doc import make_doc
 from . import tools
-from .engine_manager import get_engine
+from .engine_manager import get_engine, engine_manager
 
 
 def get_obj(obj, components):
@@ -111,6 +111,10 @@ class PipeFactory(HasPrivateTraits):
                         parent = self._engine.add_module(ModuleManager(),
                                             module_manager.parent)
 
+        print "adding module to engine"
+        print "engine = ", self._engine
+        print "target = ", self._target
+        print "parent = ", self._parent
         self._engine.add_module(self._target, obj=parent)
 
     def __init__(self, parent, **kwargs):
@@ -118,6 +122,8 @@ class PipeFactory(HasPrivateTraits):
         super(PipeFactory, self).__init__()
         # Try to find the right engine and scene to work with
         ancester = parent
+        self.figure = kwargs.get("figure")
+
         while hasattr(ancester, 'parent'):
             ancester = getattr(ancester, 'parent')
             if isinstance(ancester, Scene):
@@ -127,9 +133,11 @@ class PipeFactory(HasPrivateTraits):
         else:
             if self.figure is not None:
                 self._scene = self.figure
+                self._engine = engine_manager.find_figure_engine(self.figure)
             else:
                 self._scene = tools.gcf()
                 self._engine = get_engine()
+
         scene = self._scene.scene
         if self.figure is not None and self.figure is not self._scene:
             warnings.warn('Trying to add a module on the wrong scene')
