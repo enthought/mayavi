@@ -14,6 +14,7 @@ import types
 import textwrap
 import keyword
 import copy
+from itertools import chain
 
 # Local imports (these are relative imports because the package is not
 # installed when these modules are imported).
@@ -24,6 +25,56 @@ from . import indenter
 from . import special_gen
 
 PY_VER = sys.version_info[0]
+
+
+def patch_default(parser, vtk_set_meth, default):
+    """Patch the initial default value for an attribute of
+    a VTK class that does not initialise it properly.
+
+    Parameters
+    ----------
+    parser : vtk_parser.VTKMethodParser
+    vtk_set_meth : Method for setting the position attribute
+    default : initial default value
+
+    Returns
+    -------
+    default
+       if we fail to patch it, the input `default` value is returned
+
+    Examples
+    --------
+    >>> import vtk
+    >>> vtk.vtkVersion.GetVTKVersion()
+    '6.3.0'
+    >>> obj = vtk.vtkXOpenGLRenderWindow()
+    >>> obj.GetPosition()
+    '_000000000351c458_p_void'
+
+    >>> patch_default(vtk_parser.VTKMethodParser(),
+                      vtk.vtkXOpenGLRenderWindow.SetPosition,
+                      '_000000000351c458_p_void')
+    (0, 0)
+    """
+    # We will attempt to guess the default by looking into the
+    # arguments of the Set method
+    # SetPosition(int, int) has a signature of ("int", "int")
+    # SetPosition(int position[2]) has a signature of (["int", "int"],)
+    # Some method even has a signature of (["int", "int"], "vtkInformation")
+    arg_formats = []
+    for sig in parser.get_method_signature(vtk_set_meth):
+        if any(isinstance(arg_format, list) for arg_format in sig[1]):
+            arg_formats.append(tuple(chain.from_iterable(sig[1])))
+        else:
+            arg_formats.append(tuple(sig[1]))
+
+    for arg_format in arg_formats:
+        if "int" in arg_format:
+            return (0,)*len(arg_format)
+        if "float" in arg_format:
+            return (0.,)*len(arg_format)
+    else:
+        return default
 
 
 def clean_special_chars(s):
@@ -576,6 +627,33 @@ class WrapperGenerator:
                 t_def = 'tvtk_base.vtk_file_prefix("")'
                 self._write_trait(out, name, t_def, vtk_set_meth, mapped=False)
             elif rng is None:
+
+                # if we patch the default, we need to wrap it with traits.Either
+                patch_with_either = None
+
+                if isinstance(default, str) and default.endswith("_void"):
+                    # This may be a VTK bug (e.g. vtk.vtkBrush.GetColor), or
+                    # that the attribute is by designed to be specified later
+                    # (e.g. vtk.vtkViewTheme.PointHueRange is
+                    # specified by the CreateOceanTheme method)
+                    message = ("{klass}.Get{name} gives an initial value of "
+                               "{default}. This is a VTK behaviour/bug that "
+                               "the value is not initalized.")
+                    print(message.format(klass=klass.__name__,
+                                         name=m, default=default))
+
+                    # We guess a proper default by looking into the
+                    # set method
+                    default = patch_default(parser, vtk_set_meth, default)
+
+                    if not isinstance(default, str):
+                        # We will need to use traits.Either
+                        patch_with_either = ("traits.String(enter_set=True, "
+                                             "auto_set=False)")
+                        print("We are able to patch for it with", default)
+                    else:
+                        print("We could not patch for it")
+
                 typ = type(default)
                 if PY_VER < 3:
                     number_map = {types.IntType: 'traits.Int',
@@ -592,7 +670,8 @@ class WrapperGenerator:
                     t_def = '%(t_name)s(%(default)s, enter_set=True, '\
                             'auto_set=False)'%locals()
                     self._write_trait(out, name, t_def, vtk_set_meth,
-                                      mapped=False)
+                                      mapped=False,
+                                      patch_with_either=patch_with_either)
                 elif m in ['AreaLabelArrayName'] and \
                         klass.__name__ == 'vtkTreeAreaView':
                     # A special case for the vtkTreeAreaView which
@@ -603,7 +682,8 @@ class WrapperGenerator:
                             "traits.String('%(default)s', enter_set=True, "\
                             "auto_set=False))"%locals()
                     self._write_trait(out, name, t_def, vtk_set_meth,
-                                      mapped=False)
+                                      mapped=False,
+                                      patch_with_either=patch_with_either)
                 elif typ is str:
                     if '\n' in default or '\r' in default:
                         default = clean_special_chars(default)
@@ -619,7 +699,8 @@ class WrapperGenerator:
                         t_def = 'traits.String(r"%(default)s", '%locals()
                     t_def += 'enter_set=True, auto_set=False)'
                     self._write_trait(out, name, t_def, vtk_set_meth,
-                                      mapped=False)
+                                      mapped=False,
+                                      patch_with_either=patch_with_either)
                 elif typ in (tuple,):
                     if (name.find('color') > -1 or \
                         name.find('bond_color') > -1 or \
@@ -644,7 +725,8 @@ class WrapperGenerator:
                             del updateable_traits[name]
                         t_def = 'tvtk_base.vtk_color_trait(%(default)s)'%locals()
                         self._write_trait(out, name, t_def, vtk_set_meth,
-                                          mapped=False, force_update=force)
+                                          mapped=False, force_update=force,
+                                          patch_with_either=patch_with_either)
                     else:
                         # Some other tuple
                         shape = (len(default),)
@@ -658,7 +740,8 @@ class WrapperGenerator:
                                 'enter_set=True, auto_set=False, '\
                                 'cols=3)'%locals()
                         self._write_trait(out, name, t_def, vtk_set_meth,
-                                          mapped=False)
+                                          mapped=False,
+                                          patch_with_either=patch_with_either)
                 elif default is None or \
                          isinstance(default, vtk.vtkObjectBase):
                     g_sig = parser.get_method_signature(vtk_get_meth)
@@ -682,7 +765,8 @@ class WrapperGenerator:
                         t_def = 'traits.Trait(None, None, '\
                                 'traits.String(enter_set=True, auto_set=False))'
                         self._write_trait(out, name, t_def, vtk_set_meth,
-                                          mapped=False)
+                                          mapped=False,
+                                          patch_with_either=patch_with_either)
                     else:
                         if (g_sig[0][1] is None) and (len(s_sig[0][1]) == 1):
                             # Get needs no args and Set needs one arg
@@ -695,7 +779,8 @@ class WrapperGenerator:
                 elif typ is bool:
                     t_def = 'traits.Bool(%(default)s)'%locals()
                     self._write_trait(out, name, t_def, vtk_set_meth,
-                                      mapped=False)
+                                      mapped=False,
+                                      patch_with_either=patch_with_either)
                 else:
                     print("%s:"%klass.__name__, end=' ')
                     print("Ignoring method: Get/Set%s"%m)
@@ -1170,7 +1255,8 @@ class WrapperGenerator:
         indent.decr()
 
     def _write_trait(self, out, t_name, t_def, vtk_set_meth,
-                     mapped, force_update=None, broken_bool=False):
+                     mapped, force_update=None, broken_bool=False,
+                     patch_with_either=None):
         """Write out a complete trait definition to `out`.
 
         Parameters
@@ -1193,6 +1279,10 @@ class WrapperGenerator:
           must be handled specially.  In this case make sure that the
           vtk_set_meth points to the 'Get' method.
 
+        - patch_with_either : `string`
+
+          If given, t_def and patch_with_either will be wrapped by
+          traits.Either
         """
         changed = '_%s_changed'%t_name
         vtk_m_name = vtk_set_meth.__name__
@@ -1202,6 +1292,13 @@ class WrapperGenerator:
         force_str = ''
         if force_update is not None:
             force_str = ', %s'%force_update
+
+        if patch_with_either:
+            either = ("traits.Either("
+                      "{t_def}, "
+                      "{either_trait})")
+            t_def = either.format(t_def=t_def,
+                                  either_trait=patch_with_either)
 
         # Fixing the trait definition in order to handle the help trait.
         if t_def.endswith(')'):
