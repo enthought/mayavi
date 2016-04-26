@@ -386,9 +386,6 @@ class MyClean(clean.clean):
         clean.clean.run(self)
 
 
-
-
-
 # Configure our extensions to Python
 def configuration(parent_package=None, top_path=None):
     from numpy.distutils.misc_util import Configuration
