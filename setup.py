@@ -74,6 +74,7 @@ from os.path import (abspath, basename, dirname, exists, getmtime, isdir,
                      join, split, splitext)
 
 from numpy.distutils.command import build, install_data
+from distutils.command import clean
 from distutils import log
 from setuptools.command import develop, install_scripts
 
@@ -296,6 +297,18 @@ def build_tvtk_classes_zip():
     sys.path.remove(MY_DIR)
 
 
+def clear_array_ext():
+    MY_DIR = os.path.dirname(__file__)
+    sys.path.insert(0, MY_DIR)
+    import tvtk
+    tvtk_dir = 'tvtk'
+    sys.path.insert(0, tvtk_dir)
+    from setup import clear_extensions
+    clear_extensions()
+    sys.path.remove(tvtk_dir)
+    sys.path.remove(MY_DIR)
+
+
 class MyBuild(build.build):
     """ A build hook to generate the documentation.
 
@@ -313,7 +326,6 @@ class MyBuild(build.build):
         except:
             log.warn("Couldn't build documentation:\n%s" %
                      traceback.format_exception(*sys.exc_info()))
-
 
 
 class MyDevelop(develop.develop):
@@ -364,6 +376,13 @@ class MyInstallData(install_data.install_data):
             (tvtk_dir, [join(tvtk_dir, 'tvtk_classes.zip')]))
 
         install_data.install_data.run(self)
+
+
+class MyClean(clean.clean):
+    def run(self):
+        print "Cleaning extensions"
+        clear_array_ext()
+        clean.clean.run(self)
 
 
 # Configure our extensions to Python
@@ -445,6 +464,7 @@ numpy.distutils.core.setup(
         # setuptools' sdist command.
         'sdist': setuptools.command.sdist.sdist,
         'build': MyBuild,
+        'clean': MyClean,
         'develop': MyDevelop,
         'install_data': MyInstallData,
         'gen_docs': GenDocs,
