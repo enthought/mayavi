@@ -297,18 +297,6 @@ def build_tvtk_classes_zip():
     sys.path.remove(MY_DIR)
 
 
-def clear_array_ext():
-    MY_DIR = os.path.dirname(__file__)
-    sys.path.insert(0, MY_DIR)
-    import tvtk
-    tvtk_dir = 'tvtk'
-    sys.path.insert(0, tvtk_dir)
-    from setup import clear_extensions
-    clear_extensions()
-    sys.path.remove(tvtk_dir)
-    sys.path.remove(MY_DIR)
-
-
 class MyBuild(build.build):
     """ A build hook to generate the documentation.
 
@@ -379,10 +367,26 @@ class MyInstallData(install_data.install_data):
 
 
 class MyClean(clean.clean):
+    """Reimplements to remove the extension module array_ext to guarantee a
+    fresh rebuild every time. The module hanging around could introduce
+    problems when doing develop for a different vtk version."""
     def run(self):
-        print("Cleaning extensions")
-        clear_array_ext()
+        MY_DIR = os.path.dirname(__file__)
+
+        ext_file = os.path.join(
+            MY_DIR,
+            "tvtk",
+            "array_ext" + (".pyd" if sys.platform == "win32" else ".so")
+        )
+
+        if os.path.exists(ext_file):
+            print("Removing in-place array extensions {}".format(ext_file))
+            os.unlink(ext_file)
+
         clean.clean.run(self)
+
+
+
 
 
 # Configure our extensions to Python

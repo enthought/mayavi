@@ -71,22 +71,6 @@ def gen_tvtk_classes_zip():
     sys.path.remove(MY_DIR)
 
 
-def clear_extensions():
-    """Clears the extension module array_ext to guarantee a fresh rebuild
-    every time. The module hanging around could introduce problems when
-    recompiling for a different vtk version."""
-    MY_DIR = os.path.dirname(__file__)
-
-    ext_file = os.path.join(
-        MY_DIR,
-        "array_ext" + (".pyd" if sys.platform == "win32" else ".so")
-    )
-
-    if os.path.exists(ext_file):
-        print('Deleting {}'.format(ext_file))
-        os.unlink(ext_file)
-
-
 def vtk_version_changed(zipfile):
     """Checks the ZIP file's VTK build version versus the current
     installed version of VTK and returns `True` if the versions are
