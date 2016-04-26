@@ -68,16 +68,11 @@ def patch_position_default(parser, vtk_set_meth, default):
 
     for arg_format in arg_formats:
         if "int" in arg_format:
-            default = (0,)*ndim
-            print("We are able to patch for it with", default)
-            break
+            return (0,)*ndim
         if "float" in arg_format:
-            default = (0.,)*ndim
-            print("We are able to patch for it with", default)
-            break
+            return (0.,)*ndim
     else:
-        print("We could not patch for it")
-    return default
+        return default
 
 
 def clean_special_chars(s):
@@ -644,6 +639,8 @@ class WrapperGenerator:
                     default = patch_position_default(parser, vtk_set_meth, default)
 
                     if isinstance(default, tuple):
+                        print("We are able to patch for it with", default)
+
                         # We patched the default value with some tuple
                         # otherwise the `rng is None` clause carry on going
                         shape = (len(default),)
@@ -666,6 +663,8 @@ class WrapperGenerator:
                         self._write_trait(out, name, t_def % locals(), vtk_set_meth,
                                           mapped=False)
                         continue
+                    else:
+                        print("We could not patch for it")
 
                 typ = type(default)
                 if PY_VER < 3:
