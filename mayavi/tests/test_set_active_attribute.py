@@ -11,6 +11,7 @@ import unittest
 
 # Enthought library imports
 from mayavi.core.null_engine import NullEngine
+from mayavi.core.common import get_output
 from mayavi.sources.api import VTKXMLFileReader
 from mayavi.filters.contour import Contour
 from mayavi.filters.api import PolyDataNormals
@@ -19,6 +20,7 @@ from mayavi.modules.api import Surface, Outline
 
 # Local imports.
 from mayavi.tests.common import get_example_data
+
 
 class TestSetActiveAttribute(unittest.TestCase):
 
@@ -54,30 +56,23 @@ class TestSetActiveAttribute(unittest.TestCase):
         self.e.stop()
         return
 
-    def _get_output(self, obj):
-        if obj.is_a('vtkDataSet'):
-            return obj
-        else:
-            return obj.output
-
     def check(self):
         """Do the actual testing"""
         scene = self.scene
         src = scene.children[0]
         self.assertEqual(src.point_scalars_name,'temperature')
         c = src.children[1]
-        sc = self._get_output(c.outputs[0]).point_data.scalars
+        sc = get_output(c.outputs[0]).point_data.scalars
         self.assertEqual(sc.name,'temperature')
         # It is an iso-contour!
         self.assertEqual(sc.range[0],sc.range[1])
         aa = c.children[0].children[0]
         self.assertEqual(aa.point_scalars_name,'pressure')
-        sc = self._get_output(aa.outputs[0]).point_data.scalars
+        sc = get_output(aa.outputs[0]).point_data.scalars
         self.assertEqual(sc.name, 'pressure')
         self.assertEqual((abs(sc.range[0] - 70) < 1.0),True)
         self.assertEqual((abs(sc.range[1] - 70) < 1.0),True)
         s = aa.children[0].children[0]
-
 
     def test_set_active_attribute(self):
         "Test if the test fixture works"
@@ -86,7 +81,6 @@ class TestSetActiveAttribute(unittest.TestCase):
 
         #from mayavi.tools.show import show
         #show()
-
 
     def test_save_and_restore(self):
         """Test if saving a visualization and restoring it works."""
@@ -108,7 +102,6 @@ class TestSetActiveAttribute(unittest.TestCase):
         self.scene = engine.current_scene
 
         self.check()
-
 
     def test_deepcopied(self):
         """Test if the MayaVi2 visualization can be deep-copied."""

@@ -10,6 +10,7 @@ from io import BytesIO
 import copy
 
 # Local imports.
+from mayavi.core.common import get_output
 from common import TestCase, get_example_data
 
 
@@ -70,23 +71,23 @@ class TestGenericModule(TestCase):
             ctr.enabled = True
             assert ctr.outputs[0] is c.outputs[0]
             assert ctr.outputs[0] is normals.outputs[0]
-            n_output = self._get_output(normals.outputs[0])
+            n_output = get_output(normals.outputs[0])
             rng = n_output.point_data.scalars.range
             assert (rng[1] - rng[0]) < 1e-4
             # Turn on auto-contours
             c.auto_contours = True
             # Increase number of contours and the range should change.
             c.number_of_contours = 10
-            n_output = self._get_output(normals.outputs[0])
+            n_output = get_output(normals.outputs[0])
             assert len(n_output.points) != 0
             rng = n_output.point_data.scalars.range
             assert rng[0] < rng[1]
             # Check if pipeline_changed is correctly propagated.
-            old = self._get_output(normals.outputs[0])
+            old = get_output(normals.outputs[0])
             assert a.mapper.scalar_mode == 'default'
             c.filled_contours = True
-            n_output = self._get_output(normals.outputs[0])
-            c_output = self._get_output(c.outputs[0])
+            n_output = get_output(normals.outputs[0])
+            c_output = get_output(c.outputs[0])
             assert n_output != old
             assert n_output is c_output
             # Check if the actor responds correctly to the

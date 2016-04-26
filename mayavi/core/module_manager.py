@@ -16,6 +16,7 @@ from apptools.persistence.state_pickler import set_state
 # Local imports
 from mayavi.core.base import Base
 from mayavi.core.module import Module
+from mayavi.core.common import get_output
 from mayavi.core.lut_manager import LUTManager
 from mayavi.core.common import handle_children_state, exception
 from mayavi.core.pipeline_info import PipelineInfo
@@ -291,7 +292,7 @@ class ModuleManager(Base):
     def _setup_scalar_data(self):
         """Computes the scalar range and an appropriate name for the
         lookup table."""
-        input = self._get_output(self.source.outputs[0])
+        input = get_output(self.source.outputs[0])
         ps = input.point_data.scalars
         cs = input.cell_data.scalars
 
@@ -314,7 +315,7 @@ class ModuleManager(Base):
         data_attr.config_lut(self.scalar_lut_manager)
 
     def _setup_vector_data(self):
-        input = self._get_output(self.source.outputs[0])
+        input = get_output(self.source.outputs[0])
         pv = input.point_data.vectors
         cv = input.cell_data.vectors
 
@@ -348,8 +349,3 @@ class ModuleManager(Base):
         from mayavi.core.traits_menu import ModuleMenuHelper
         return ModuleMenuHelper(object=self)
 
-    def _get_output(self, obj):
-        if obj.is_a('vtkDataSet'):
-            return obj
-        else:
-            return obj.output

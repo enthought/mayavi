@@ -41,12 +41,6 @@ class TestMlabNullEngine(unittest.TestCase):
             registry.unregister_engine(current_engine)
             raise AssertionError("The NullEngine has been overridden")
 
-    def _get_output(self, obj):
-        if obj.is_a('vtkDataSet'):
-            return obj
-        else:
-            return obj.output
-
 
 ################################################################################
 # class `TestMlabNullEngineMisc`
