@@ -26,6 +26,60 @@ from . import special_gen
 PY_VER = sys.version_info[0]
 
 
+def patch_position_default(parser, vtk_set_meth, default):
+    """Patch the initial default value for the position attribute of
+    a VTK class that does not initialise it properly.
+
+    Parameters
+    ----------
+    parser : vtk_parser.VTKMethodParser
+    vtk_set_meth : Method for setting the position attribute
+    default : initial default value
+
+    Returns
+    -------
+    default
+       if we fail to patch it, the input `default` value is returned
+
+    Examples
+    --------
+    >>> import vtk
+    >>> vtk.vtkVersion.GetVTKVersion()
+    '6.3.0'
+    >>> obj = vtk.vtkXOpenGLRenderWindow()
+    >>> obj.GetPosition()
+    '_000000000351c458_p_void'
+
+    >>> patch_position_default(vtk_parser.VTKMethodParser(),
+                               vtk.vtkXOpenGLRenderWindow.SetPosition,
+                               '_000000000351c458_p_void')
+    (0, 0)
+    """
+    # We will attempt to guess the format of "position"
+    # by looking into the arguments of the Set method
+    # SetPosition(int, int) has a signature of ("int", "int")
+    arg_formats = list(set(
+        tuple(sig[1][0]) if len(sig[1]) == 1
+        else tuple(sig[1])
+        for sig in parser.get_method_signature(vtk_set_meth)))
+
+    # e.g. Position = (0, 0) has ndim of 2
+    ndim = max(len(arg_format) for arg_format in arg_formats)
+
+    for arg_format in arg_formats:
+        if "int" in arg_format:
+            default = (0,)*ndim
+            print("We are able to patch for it with", default)
+            break
+        if "int" in arg_format:
+            default = (0.,)*ndim
+            print("We are able to patch for it with", default)
+            break
+    else:
+        print("We could not patch for it")
+    return default
+
+
 def clean_special_chars(s):
     """Given a string with a '\n' or '\r' it replaces it with a suitably
     escaped string.
@@ -576,6 +630,43 @@ class WrapperGenerator:
                 t_def = 'tvtk_base.vtk_file_prefix("")'
                 self._write_trait(out, name, t_def, vtk_set_meth, mapped=False)
             elif rng is None:
+
+                if m.endswith("Position") and isinstance(default, str):
+                    # It is unlikely any position attribute should be a str
+                    # For some classes, this is a bug for certain VTK versions
+                    # For some classes, VTK may not care
+                    message = ("{klass}.Get{name} gives an initial value of "
+                               "{default}. This is a VTK behaviour that "
+                               "the value is not initalized.")
+                    print(message.format(klass=klass.__name__,
+                                         name=m, default=default))
+
+                    default = patch_position_default(parser, vtk_set_meth, default)
+
+                    if isinstance(default, tuple):
+                        # We patched the default value with some tuple
+                        # otherwise the `rng is None` clause carry on going
+                        shape = (len(default),)
+                        if type(default[0]) is int:
+                            dtype = 'int'
+                        else:
+                            dtype = 'float'
+
+                        # VTK may initialise the position correctly at the
+                        # later stage.  At any given time, updating
+                        # traits from the VTK object may either get a string
+                        # or a tuple of numbers.  So we use traits.Either here
+                        t_def = ('traits.Either('
+                                 'traits.Array('
+                                 'shape=%(shape)s, value=%(default)s, '
+                                 'dtype=%(dtype)s, '
+                                 'enter_set=True, auto_set=False, '
+                                 'cols=3), '
+                                 'traits.String)')
+                        self._write_trait(out, name, t_def % locals(), vtk_set_meth,
+                                          mapped=False)
+                        continue
+
                 typ = type(default)
                 if PY_VER < 3:
                     number_map = {types.IntType: 'traits.Int',
