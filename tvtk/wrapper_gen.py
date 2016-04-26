@@ -71,7 +71,7 @@ def patch_position_default(parser, vtk_set_meth, default):
             default = (0,)*ndim
             print("We are able to patch for it with", default)
             break
-        if "int" in arg_format:
+        if "float" in arg_format:
             default = (0.,)*ndim
             print("We are able to patch for it with", default)
             break
