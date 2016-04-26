@@ -605,7 +605,7 @@ class WrapperGenerator:
 
                 elif PY_VER < 3 and typ is unicode:
                     if default == u'\x00':
-                        default = ''
+                        default = u''
 
                     t_def = ('traits.Unicode({0!r}, '
                              'enter_set=True, auto_set=False)'.format(default))
