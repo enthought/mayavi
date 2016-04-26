@@ -1279,6 +1279,10 @@ class WrapperGenerator:
           must be handled specially.  In this case make sure that the
           vtk_set_meth points to the 'Get' method.
 
+        - patch_with_either : `string`
+
+          If given, t_def and patch_with_either will be wrapped by
+          traits.Either
         """
         changed = '_%s_changed'%t_name
         vtk_m_name = vtk_set_meth.__name__
