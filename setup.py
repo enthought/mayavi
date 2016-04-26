@@ -380,7 +380,7 @@ class MyInstallData(install_data.install_data):
 
 class MyClean(clean.clean):
     def run(self):
-        print "Cleaning extensions"
+        print("Cleaning extensions")
         clear_array_ext()
         clean.clean.run(self)
 
