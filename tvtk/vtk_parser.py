@@ -17,6 +17,7 @@ from . import class_tree
 from . import vtk_module as vtk
 from .common import is_version_62
 
+
 class VTKMethodParser:
     """This class provides useful methods for parsing methods of a VTK
     class or instance.
@@ -654,6 +655,7 @@ class VTKMethodParser:
                             default = getattr(obj, 'Get%s'%key)()
                         except TypeError:
                             default = None
+
                     if value:
                         low = getattr(obj, 'Get%sMinValue'%key)()
                         high = getattr(obj, 'Get%sMaxValue'%key)()

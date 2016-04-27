@@ -26,15 +26,6 @@ from . import special_gen
 PY_VER = sys.version_info[0]
 
 
-def clean_special_chars(s):
-    """Given a string with a '\n' or '\r' it replaces it with a suitably
-    escaped string.
-    """
-    s1 = s.replace('\n', '\\n')
-    s2 = s1.replace('\r', '\\r')
-    return s2
-
-
 ######################################################################
 # `WrapperGenerator` class.
 ######################################################################
@@ -605,21 +596,21 @@ class WrapperGenerator:
                     self._write_trait(out, name, t_def, vtk_set_meth,
                                       mapped=False)
                 elif typ is str:
-                    if '\n' in default or '\r' in default:
-                        default = clean_special_chars(default)
-
                     if default == '\x00':
                         default = ''
-                        t_def = 'traits.String("%(default)s", '%locals()
-                    elif default == '"':
-                        t_def = "traits.String('%(default)s', "%locals()
-                    elif default == "'":
-                        t_def = '''traits.String("%(default)s", '''%locals()
-                    else:
-                        t_def = 'traits.String(r"%(default)s", '%locals()
-                    t_def += 'enter_set=True, auto_set=False)'
-                    self._write_trait(out, name, t_def, vtk_set_meth,
-                                      mapped=False)
+
+                    t_def = ('traits.String({0!r}, '
+                             'enter_set=True, auto_set=False)'.format(default))
+                    self._write_trait(out, name, t_def, vtk_set_meth, mapped=False)
+
+                elif PY_VER < 3 and typ is unicode:
+                    if default == u'\x00':
+                        default = u''
+
+                    t_def = ('traits.Unicode({0!r}, '
+                             'enter_set=True, auto_set=False)'.format(default))
+                    self._write_trait(out, name, t_def, vtk_set_meth, mapped=False)
+
                 elif typ in (tuple,):
                     if (name.find('color') > -1 or \
                         name.find('bond_color') > -1 or \
