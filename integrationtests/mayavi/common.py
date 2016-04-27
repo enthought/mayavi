@@ -165,6 +165,7 @@ class MemoryAssistant(object):
 # Image comparison utility functions.
 ######################################################################
 
+
 # Much of this code is translated from `vtk.test.Testing`.
 def _print_image_error(img_err, err_index, img_base):
     """Prints out image related error information."""
@@ -233,6 +234,7 @@ def _handle_failed_image(idiff, src_img, pngr, img_fname):
     jpegw.set(file_name=f_base + ".small.jpg")
     configure_input(jpegw, shrink)
     jpegw.write()
+
 
 def _set_scale(r1, r2):
     """Given two instances of tvtk.ImageResample, this sets the scale
@@ -431,6 +433,7 @@ def compare_image(scene, img_path):
         ren.reset_camera()
         s.render()
 
+
 def is_running_with_nose():
     """Returns True if we are being run via nosetests.
 
@@ -442,6 +445,7 @@ def is_running_with_nose():
     if argv0.endswith('nosetests') or argv0.endswith(nose_core):
         return True
     return False
+
 
 ###########################################################################
 # `TestCase` class.
@@ -532,7 +536,6 @@ class TestCase(Mayavi):
             else:
                 raise type(value)
 
-
     def run(self):
         """This starts everything up and runs the test.  Call main to
         run the test."""
@@ -615,11 +618,6 @@ class TestCase(Mayavi):
     ######################################################################
     # `TestCase` interface.
     ######################################################################
-    def _get_output(self, obj):
-        if obj.is_a('vtkDataSet'):
-            return obj
-        else:
-            return obj.output
 
     def do(self):
         """Override this to do whatever you want to do as your test
@@ -709,6 +707,7 @@ def fixpath(filename):
     """
     return os.path.join(os.path.dirname(__file__), filename)
 
+
 def get_example_data(fname):
     """Given a relative path to data inside the examples directory,
     obtains the full path to the file.
@@ -716,6 +715,7 @@ def get_example_data(fname):
     p = os.path.join(os.pardir, os.pardir,
                      'examples', 'mayavi', 'data', fname)
     return os.path.abspath(fixpath(p))
+
 
 def test(function):
     """A decorator to make a simple mayavi2 script function into a
