@@ -4,6 +4,7 @@ import unittest
 import tempfile
 
 import numpy
+from PIL import Image
 
 from mayavi import mlab
 from mayavi.core.engine import Engine
@@ -13,7 +14,7 @@ from mayavi.tools.figure import savefig
 from common import TestCase
 
 
-def create_quiver3d():
+def create_quiver3d(figure):
     x, y, z = numpy.mgrid[1:10, 1:10, 1:10]
     u, v, w = numpy.mgrid[1:10, 1:10, 1:10]
     s = numpy.sqrt(u**2 + v**2)
@@ -58,6 +59,130 @@ class TestMlabSavefigUnitTest(unittest.TestCase):
             engine.close_scene(scene)
         engine.stop()
 
+    def check_image_no_black_pixel(self, filename):
+        """ The image setup for this test case should have absolutely
+        no black pixels.  This function checks and fails the test if
+        black pixels are found.
+        """
+        with open(filename) as fh:
+            image = numpy.array(Image.open(fh))[:, :, :3]
+
+            if (numpy.sum(image == [0, 0, 0], axis=2) == 3).any():
+                message = "The image has black spots"
+                self.fail(message)
+
+    def check_image_size(self, filename, size):
+        """ Check if the image saved in the filename has the desired
+        size
+        """
+        with open(filename) as fh:
+            image = numpy.array(Image.open(fh))[:, :, :3]
+            # check the size is correct
+            # The width and height dimensions are swapped
+            self.assertEqual(image.shape[:2][::-1], size)
+
+    def test_savefig(self):
+        """Test if savefig works with auto size, mag and a normal Engine"""
+        self.setup_engine_and_figure(Engine())
+
+        # Set up the scene
+        create_quiver3d(figure=self.figure)
+
+        # save the figure (magnification is default "auto")
+        savefig(self.filename, figure=self.figure)
+
+        # check
+        self.check_image_no_black_pixel(self.filename)
+
+    def test_savefig_with_size(self):
+        """Test if savefig works with given size and a normal Engine"""
+        self.setup_engine_and_figure(Engine())
+
+        # Set up the scene
+        create_quiver3d(figure=self.figure)
+
+        # save the figure (magnification is default = 1)
+        savefig(self.filename, size=(131, 217), figure=self.figure)
+
+        # check
+        self.check_image_size(self.filename, size=(131, 217))
+        self.check_image_no_black_pixel(self.filename)
+
+    def test_savefig_with_size_and_magnification(self):
+        """Test if savefig works with given size and magnification"""
+        self.setup_engine_and_figure(Engine())
+
+        # Set up the scene
+        create_quiver3d(figure=self.figure)
+
+        # save the figure
+        savefig(self.filename, size=(131, 217), magnification=2,
+                figure=self.figure)
+
+        # check if the image size is twice as big
+        self.check_image_size(self.filename, size=(262, 434))
+        self.check_image_no_black_pixel(self.filename)
+
+    @unittest.skipIf(os.environ.get("TRAVIS", False),
+                     ("Offscreen rendering is not tested on Travis "
+                      "due to lack of GLX support"))
+    def test_savefig_offscreen(self):
+        """Test savefig with auto size, mag, normal Engine and offscreen"""
+        self.setup_engine_and_figure(Engine())
+
+        # Use offscreen rendering
+        self.figure.scene.off_screen_rendering = True
+
+        # Set up the scene
+        create_quiver3d(figure=self.figure)
+
+        # save the figure (magnification is default "auto")
+        savefig(self.filename, figure=self.figure)
+
+        # check
+        self.check_image_no_black_pixel(self.filename)
+
+    @unittest.skipIf(os.environ.get("TRAVIS", False),
+                     ("Offscreen rendering is not tested on Travis "
+                      "due to lack of GLX support"))
+    def test_savefig_with_size_offscreen(self):
+        """Test savefig with given size, normal Engine and offscreen"""
+        self.setup_engine_and_figure(Engine())
+
+        # Use offscreen rendering
+        self.figure.scene.off_screen_rendering = True
+
+        # Set up the scene
+        create_quiver3d(figure=self.figure)
+
+        # save the figure (magnification is default = 1)
+        savefig(self.filename, size=(131, 217), figure=self.figure)
+
+        # check
+        self.check_image_size(self.filename, size=(131, 217))
+        self.check_image_no_black_pixel(self.filename)
+
+    @unittest.skipIf(os.environ.get("TRAVIS", False),
+                     ("Offscreen rendering is not tested on Travis "
+                      "due to lack of GLX support"))
+    def test_savefig_with_size_and_magnification_offscreen(self):
+        """Test savefig with given size, mag, normal Engine and offscreen"""
+        self.setup_engine_and_figure(Engine())
+
+        # Use offscreen rendering
+        self.figure.scene.off_screen_rendering = True
+
+        # Set up the scene
+        create_quiver3d(figure=self.figure)
+
+        # save the figure
+        savefig(self.filename, size=(131, 217), magnification=2,
+                figure=self.figure)
+
+        # check if the image size is twice as big
+        self.check_image_size(self.filename, size=(262, 434))
+        self.check_image_no_black_pixel(self.filename)
+
     @unittest.skipIf(os.environ.get("TRAVIS", False),
                      ("Offscreen rendering is not tested on Travis "
                       "due to lack of GLX support"))
@@ -71,7 +196,7 @@ class TestMlabSavefigUnitTest(unittest.TestCase):
             self.figure.scene.off_screen_rendering = True
 
             # Set up the scene
-            create_quiver3d()
+            create_quiver3d(figure=self.figure)
 
             # save the figure
             savefig(self.filename, size=(131, 217),
@@ -86,7 +211,14 @@ class TestMlabSavefig(TestCase):
     def do(self):
         suite = unittest.TestLoader().loadTestsFromTestCase(
             TestMlabSavefigUnitTest)
-        unittest.TextTestRunner().run(suite)
+
+        # Run the test suite using TextTestRunner so you get
+        # messages printed to the stdout
+        result = unittest.TextTestRunner().run(suite)
+
+        # common.TestCase.run exists with 1 if tests fail
+        if result.errors or result.failures:
+            sys.exit(1)
 
 
 if __name__ == "__main__":
