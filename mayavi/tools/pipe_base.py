@@ -115,6 +115,7 @@ class PipeFactory(HasPrivateTraits):
         print "engine = ", self._engine
         print "target = ", self._target
         print "parent = ", self._parent
+        self._engine.print_traits()
         self._engine.add_module(self._target, obj=parent)
 
     def __init__(self, parent, **kwargs):
@@ -138,6 +139,7 @@ class PipeFactory(HasPrivateTraits):
                 self._scene = tools.gcf()
                 self._engine = get_engine()
 
+        self._engine.current_scene = self._scene
         scene = self._scene.scene
         if self.figure is not None and self.figure is not self._scene:
             warnings.warn('Trying to add a module on the wrong scene')

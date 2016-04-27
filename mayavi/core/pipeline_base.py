@@ -110,6 +110,7 @@ class PipelineBase(Base):
         """Invokes render on the scene, this in turn invokes Render on
         the VTK pipeline.
         """
+        print "rendering {} on scene {}".format(self, self.scene)
         s = self.scene
         if s is not None:
             s.render()

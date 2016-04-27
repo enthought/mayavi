@@ -203,6 +203,7 @@ class TVTKScene(HasPrivateTraits):
 
         self.control = self._create_control(parent)
         self._renwin.update_traits()
+        print(self.renderer)
 
     def __get_pure_state__(self):
         """Allows us to pickle the scene."""
@@ -249,6 +250,8 @@ class TVTKScene(HasPrivateTraits):
         """ Adds a single actor or a tuple or list of actors to the
         renderer."""
         # Reset the zoom if this is the first actor.
+        import traceback; traceback.print_stack()
+        print("adding actors to renderer ", self, actors)
         reset_zoom = (len(self._renderer.actors) == 0 and len(self._renderer.volumes)==0)
         if hasattr(actors, '__iter__'):
             for actor in actors:

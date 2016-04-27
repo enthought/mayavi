@@ -215,6 +215,7 @@ class Engine(HasStrictTraits):
         to the selected object, or to an object passed as the
         kwarg `obj`.
         """
+        print("adding filter ", fil, obj, self.current_object)
         passed_obj = obj
         if obj is None:
             obj = self.current_object
