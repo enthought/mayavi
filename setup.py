@@ -54,7 +54,9 @@ project:
 
 * `Numpy <http://pypi.python.org/pypi/numpy/1.1.1>`_ version 1.1.1 or later
 * `VTK <http://www.vtk.org/>`_ version 5.0 or later
-* `wxPython <http://www.wxpython.org/>`_ version 2.8 or later
+* One of the following GUI toolkit packages:
+    - `Qt <http://www.qt.io>`_ version 4.8 with either PyQt 4.11.4 or PySide 1.2.2
+    - `wxPython <http://www.wxpython.org/>`_ version 2.8 or later
 * `configobj <http://pypi.python.org/pypi/configobj>`_
 """
 
