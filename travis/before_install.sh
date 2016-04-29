@@ -3,7 +3,7 @@ if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
     brew tap homebrew/science
     brew install python
     brew install pyqt
-    brew install vtk
+    brew install vtk5
     brew install wxpython
 else
     ccache -s
