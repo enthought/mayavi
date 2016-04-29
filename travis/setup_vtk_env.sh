@@ -1,14 +1,11 @@
 #!/bin/bash
 
-if [[ "${VTK_VERSION}" = "5.8" ]]
-then
-    if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then 
+if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then 
+    if [[ "${VTK_VERSION}" == "5.8" ]]; then 
         brew install vtk5
         export PYTHONPATH=/usr/local/opt/vtk5/lib/python2.7/site-packages
         export DYLD_LIBRARY_PATH=/usr/local/opt/vtk5/lib
-    fi  
-else
-    if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then 
+    elif [[ "${VTK_VERSION}" == "6.3" ]]; then 
         # This is the name of the directory after unpacking
         VTK_PYTHON=VTK-${VTK_VERSION}.0-Darwin-64bit
 
@@ -34,7 +31,17 @@ else
 
         export PYTHONPATH=${CACHE_DIR}/${VTK_PYTHON}/lib/python2.7/site-packages
         export DYLD_LIBRARY_PATH=${CACHE_DIR}/${VTK_PYTHON}/lib
-    elif [[ "$TRAVIS_OS_NAME" == "linux" ]]; then 
+    elif [[ "${VTK_VERSION}" == "7.0" ]]; then 
+        brew install vtk
+        export PYTHONPATH=/usr/local/opt/vtk/lib/python2.7/site-packages
+        export DYLD_LIBRARY_PATH=/usr/local/opt/vtk/lib
+    fi
+else
+    # Linux
+    if [[ "${VTK_VERSION}" == "5.8" ]]; then
+        # Do nothing. 5.8 is already on the system
+        :
+    else
         # This is the name of the directory after unpacking
         VTK_PYTHON=VTK-${VTK_VERSION}.0-Linux-64bit
 
