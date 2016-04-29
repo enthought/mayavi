@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # This is the name of the directory after unpacking
-VTK_PYTHON=VTK-6.3.0-Linux-64bit
+VTK_PYTHON=VTK-${VTK_VERSION}.0-Linux-64bit
 
 # Download link to the vtkPython
-DOWNLOAD_LINK=http://www.vtk.org/files/release/6.3/vtkpython-6.3.0-Linux-64bit.tar.gz
+DOWNLOAD_LINK=http://www.vtk.org/files/release/${VTK_VERSION}/vtkpython-${VTK_VERSION}.0-Linux-64bit.tar.gz
 
 # Cache directory
 CACHE_DIR=${HOME}/.cache

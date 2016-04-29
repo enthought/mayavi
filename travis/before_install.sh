@@ -1,5 +1,6 @@
 if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then 
     brew update         
+    brew tap homebrew/science
     brew install python
     brew install pyqt
     brew install vtk

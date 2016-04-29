@@ -32,6 +32,15 @@ matrix:
     - os: osx
       language: generic
       env: VTK_VERSION=7.0 ETS_TOOLKIT=wx
+  allow_failures:      
+    - os: linux
+      language: python
+      python: 2.7
+      env: VTK_VERSION=6.3 ETS_TOOLKIT=wx
+    - os: linux
+      language: python
+      python: 2.7
+      env: VTK_VERSION=7.0 ETS_TOOLKIT=wx
     
 # Travis Ubuntu 12 does not allow python-pyside
 addons:
@@ -51,8 +60,7 @@ cache:
 before_install:
   - source travis/before_install.sh
 install:
-  - if [[ ${VTK_VERSION} == "6.3" ]]; then source travis/travis_setup_vtk_6_3.sh; fi
-  - if [[ ${VTK_VERSION} == "7.0" ]]; then source travis/travis_setup_vtk_7_0.sh; fi
+  - source travis/setup_vtk_env.sh
   # Print the VTK version
   - python -c "from __future__ import print_function; import vtk; print('VTK Version:', vtk.vtkVersion.GetVTKVersion())"
   - pip install -r travis/travis-requirements.txt
