@@ -1,7 +1,13 @@
 #!/bin/bash
 
-if [[ "${VTK_VERSION}" != "5.8" ]]
+if [[ "${VTK_VERSION}" = "5.8" ]]
 then
+    if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then 
+        brew install vtk5
+        export PYTHONPATH=/usr/local/opt/vtk5/lib/python2.7/site-packages
+        export DYLD_LIBRARY_PATH=/usr/local/opt/vtk5/lib
+    fi  
+else
     if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then 
         # This is the name of the directory after unpacking
         VTK_PYTHON=VTK-${VTK_VERSION}.0-Darwin-64bit
@@ -17,9 +23,9 @@ then
             echo "${VTK_PYTHON} is found"
         else
             echo "Downloading ${VTK_PYTHON}"
-            wget ${DOWNLOAD_LINK} -O vtkpython-${VTK_VERSION}.0-Darwin-64bit.dmg
-            yes | hdiutil attach vtkpython-${VTK_VERSION}.0-Darwin-64bit.dmg
-            mv /Volumes/vtkpython-${VTK_VERSION}.0-Darwin-64bit/vtkpython ${CACHE_DIR}/${VTK_PYTHON}
+            wget ${DOWNLOAD_LINK} -O ${VTK_PYTHON}.dmg
+            yes | hdiutil attach ${VTK_PYTHON}.dmg
+            mv /Volumes/${VTK_PYTHON}/vtkpython ${CACHE_DIR}/${VTK_PYTHON}
             rm -f vtk_python.tar
         fi
 
@@ -49,5 +55,4 @@ then
         export PYTHONPATH=${CACHE_DIR}/${VTK_PYTHON}/lib/python2.7/site-packages
         export LD_LIBRARY_PATH=${CACHE_DIR}/${VTK_PYTHON}/lib
     fi
-
 fi
