@@ -4,34 +4,34 @@ virtualenv:
 
 matrix:
   include:
-    - os: osx
-      language: generic
-      env: VTK_VERSION=5.8 ETS_TOOLKIT=qt4
-    - os: osx
-      language: generic
-      env: VTK_VERSION=5.8 ETS_TOOLKIT=wx
-    - os: osx
-      language: generic
-      env: VTK_VERSION=6.3 ETS_TOOLKIT=wx
+#    - os: osx
+#      language: generic
+#      env: VTK_VERSION=5.8 ETS_TOOLKIT=qt4
+#    - os: osx
+#      language: generic
+#      env: VTK_VERSION=5.8 ETS_TOOLKIT=wx
+#    - os: osx
+#      language: generic
+#      env: VTK_VERSION=6.3 ETS_TOOLKIT=wx
     - os: osx
       language: generic
       env: VTK_VERSION=7.0 ETS_TOOLKIT=wx
-    - os: linux
-      language: python
-      python: 2.7
-      env: VTK_VERSION=5.8 ETS_TOOLKIT=qt4
-    - os: linux
-      language: python
-      python: 2.7
-      env: VTK_VERSION=5.8 ETS_TOOLKIT=wx
-    - os: linux
-      language: python
-      python: 2.7
-      env: VTK_VERSION=6.3 ETS_TOOLKIT=wx
-    - os: linux
-      language: python
-      python: 2.7
-      env: VTK_VERSION=7.0 ETS_TOOLKIT=wx
+#    - os: linux
+#      language: python
+#      python: 2.7
+#      env: VTK_VERSION=5.8 ETS_TOOLKIT=qt4
+#    - os: linux
+#      language: python
+#      python: 2.7
+#      env: VTK_VERSION=5.8 ETS_TOOLKIT=wx
+#    - os: linux
+#      language: python
+#      python: 2.7
+#      env: VTK_VERSION=6.3 ETS_TOOLKIT=wx
+#    - os: linux
+#      language: python
+#      python: 2.7
+#      env: VTK_VERSION=7.0 ETS_TOOLKIT=wx
   allow_failures:      
     - os: osx
       language: generic
