@@ -6,8 +6,6 @@ if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
     brew install pyqt
     brew install wxpython
     brew install numpy
-    brew install boost
-    brew install cmake
 
     which python
     python --version
