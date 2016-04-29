@@ -753,8 +753,8 @@ class WrapperGenerator:
                 print(message)
                 default = rng[0]
                 t_def = ('traits.Trait({default}, traits.Range{rng}, '
-                         'enter_set=True, auto_set=False))').format(default=default,
-                                                                    rng=rng)
+                         'enter_set=True, auto_set=False)').format(default=default,
+                                                                   rng=rng)
                 self._write_trait(out, name, t_def, vtk_set_meth, mapped=False)
 
             elif isinstance(default, str) and default.endswith('_p_void'):
