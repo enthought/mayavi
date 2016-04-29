@@ -25,7 +25,7 @@ else
             echo "Downloading ${VTK_PYTHON}"
             wget ${DOWNLOAD_LINK} -O ${VTK_PYTHON}.dmg
             yes | hdiutil attach ${VTK_PYTHON}.dmg
-            mv /Volumes/${VTK_PYTHON}/vtkpython ${CACHE_DIR}/${VTK_PYTHON}
+            cp -rv /Volumes/${VTK_PYTHON}/vtkpython ${CACHE_DIR}/${VTK_PYTHON}
             rm -f vtk_python.tar
         fi
 
