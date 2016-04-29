@@ -885,11 +885,9 @@ class WrapperGenerator:
                     else:
                         t_def = '{0}({1})'.format(trait_type, kwargs)
 
-                    print(t_def)
                 except TypeError:
                     print("%s:"%klass.__name__, end=' ')
                     print("Ignoring method: Get/Set%s"%m)
-                    print(default)
                     print("default: %s, range: None"%default)
                     del updateable_traits[name]
                 else:
