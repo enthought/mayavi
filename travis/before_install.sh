@@ -6,6 +6,9 @@ if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
     brew install pyqt
     brew install wxpython
     brew install numpy
+
+    which python
+    python --version
 else
     ccache -s
     export PATH=/usr/lib/ccache:${PATH}
