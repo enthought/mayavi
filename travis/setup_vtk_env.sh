@@ -32,12 +32,12 @@ if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
         export PYTHONPATH=${CACHE_DIR}/${VTK_PYTHON}/lib/python2.7/site-packages
         export DYLD_LIBRARY_PATH=${CACHE_DIR}/${VTK_PYTHON}/lib
     elif [[ "${VTK_VERSION}" == "7.0" ]]; then 
-        brew install vtk
+        brew install vtk --build-from-source
         # Apparently the brew vtk package dylib bind against the wrong framework, hardcoded,
         # so we need to change it manually.
-        for f in `/usr/local/Cellar/vtk/lib/*.dylib`; do
-            install_name_tool -change /System/Library/Frameworks/Python.framework/Versions/2.7/Python /usr/local/Cellar/python/2.7.11/Frameworks/Python.framework/Versions/2.7/Python $f
-        done
+        #for f in `/usr/local/Cellar/vtk/lib/*.dylib`; do
+        #    install_name_tool -change /System/Library/Frameworks/Python.framework/Versions/2.7/Python /usr/local/Cellar/python/2.7.11/Frameworks/Python.framework/Versions/2.7/Python $f
+        #done
         export PYTHONPATH=/usr/local/opt/vtk/lib/python2.7/site-packages
         export DYLD_LIBRARY_PATH=/usr/local/opt/vtk/lib
     fi
