@@ -33,6 +33,8 @@ if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
         export DYLD_LIBRARY_PATH=${CACHE_DIR}/${VTK_PYTHON}/lib
     elif [[ "${VTK_VERSION}" == "7.0" ]]; then 
         brew install vtk
+        ls -la PYTHONPATH=/usr/local/opt/vtk/lib/python2.7/site-packages
+        ls -la PYTHONPATH=/usr/local/opt/vtk/lib/python2.7/site-packages/vtk
         export PYTHONPATH=/usr/local/opt/vtk/lib/python2.7/site-packages
         export DYLD_LIBRARY_PATH=/usr/local/opt/vtk/lib
     fi

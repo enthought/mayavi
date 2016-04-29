@@ -65,7 +65,7 @@ before_install:
 install:
   - source travis/setup_vtk_env.sh
   # Print the VTK version
-  - DYLD_PRINT_LIBRARIES=1 python -c "from __future__ import print_function; import vtk; print('VTK Version:', vtk.vtkVersion.GetVTKVersion())"
+  - /usr/local/bin/python -c "from __future__ import print_function; import vtk; print('VTK Version:', vtk.vtkVersion.GetVTKVersion())"
   - pip install -r travis/travis-requirements.txt
   - python setup.py develop
 script:

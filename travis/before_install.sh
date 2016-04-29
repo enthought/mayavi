@@ -9,6 +9,7 @@ if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
 
     which python
     python --version
+    ls -la /usr/local/opt
 else
     ccache -s
     export PATH=/usr/lib/ccache:${PATH}
