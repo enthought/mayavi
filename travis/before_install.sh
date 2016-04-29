@@ -1,6 +1,9 @@
 if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then 
     brew update         
-    brew install python3
+    brew install python
+    brew install pyqt
+    brew install vtk
+    brew install wxpython
 else
     ccache -s
     export PATH=/usr/lib/ccache:${PATH}
