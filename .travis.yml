@@ -2,8 +2,6 @@ language: python
 os:
   - osx
 sudo: false
-python:
-  - 2.7
 virtualenv:
   system_site_packages: true
 env:
@@ -17,7 +15,7 @@ matrix:
     - env: VTK_VERSION=7.0 ETS_TOOLKIT=wx
   include:
     - os: linux
-      language: python
+      python: 2.7
     - os: osx
       language: generic
     
