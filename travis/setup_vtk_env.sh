@@ -24,7 +24,7 @@ else
         else
             echo "Downloading ${VTK_PYTHON}"
             wget ${DOWNLOAD_LINK} -O ${VTK_PYTHON}.dmg
-            yes | hdiutil attach ${VTK_PYTHON}.dmg >/dev/null
+            echo "Y" | hdiutil attach ${VTK_PYTHON}.dmg
             cp -rv /Volumes/${VTK_PYTHON}/vtkpython ${CACHE_DIR}/${VTK_PYTHON}
             # Move the python stuff from bin. Unclear why it's that, 
             # but we prefer it in a more canonical place
