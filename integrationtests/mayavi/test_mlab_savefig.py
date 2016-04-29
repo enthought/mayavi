@@ -1,5 +1,6 @@
 import os
 import shutil
+import sys
 import unittest
 import tempfile
 
@@ -86,7 +87,11 @@ class TestMlabSavefig(TestCase):
     def do(self):
         suite = unittest.TestLoader().loadTestsFromTestCase(
             TestMlabSavefigUnitTest)
-        unittest.TextTestRunner().run(suite)
+
+        result = unittest.TextTestRunner().run(suite)
+
+        if result.errors or result.failures:
+            sys.exit(1)
 
 
 if __name__ == "__main__":
