@@ -1,20 +1,37 @@
-os:
-  - osx
 sudo: false
 virtualenv:
   system_site_packages: true
-env:
-  - VTK_VERSION=5.8 ETS_TOOLKIT=qt4
-  - VTK_VERSION=5.8 ETS_TOOLKIT=wx
-  - VTK_VERSION=6.3 ETS_TOOLKIT=wx
-  - VTK_VERSION=7.0 ETS_TOOLKIT=wx
+
 matrix:
-  allow_failures:
-    - env: VTK_VERSION=6.3 ETS_TOOLKIT=wx
-    - env: VTK_VERSION=7.0 ETS_TOOLKIT=wx
   include:
+    - os: linux
+      language: python
+      python: 2.7
+      env: VTK_VERSION=5.8 ETS_TOOLKIT=qt4
+    - os: linux
+      language: python
+      python: 2.7
+      env: VTK_VERSION=5.8 ETS_TOOLKIT=wx
+    - os: linux
+      language: python
+      python: 2.7
+      env: VTK_VERSION=6.3 ETS_TOOLKIT=wx
+    - os: linux
+      language: python
+      python: 2.7
+      env: VTK_VERSION=7.0 ETS_TOOLKIT=wx
     - os: osx
       language: generic
+      env: VTK_VERSION=5.8 ETS_TOOLKIT=qt4
+    - os: osx
+      language: generic
+      env: VTK_VERSION=5.8 ETS_TOOLKIT=wx
+    - os: osx
+      language: generic
+      env: VTK_VERSION=6.3 ETS_TOOLKIT=wx
+    - os: osx
+      language: generic
+      env: VTK_VERSION=7.0 ETS_TOOLKIT=wx
     
 # Travis Ubuntu 12 does not allow python-pyside
 addons:
