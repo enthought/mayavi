@@ -28,30 +28,35 @@ from . import special_gen
 PY_VER = sys.version_info[0]
 
 
-def get_trait_type(value):
-    """ Return the appropriate trait type for the given `value`
+def get_trait_def(value, kwargs="enter_set=True, auto_set=False"):
+    """ Return the appropriate trait type, reformatted string and
+    the associated traits meta data for a given `value`
 
     If a sequence is given, traits.Array is returned instead of
     traits.Tuple or traits.List
 
-    Parameter
-    ---------
+    Parameters
+    ----------
     value
+
+    kwargs : str
+       extra keyword arguments for the trait definition
 
     Returns
     -------
-    str
+    tuple : (str, str, str)
+       (trait_type, value, keyword_arguments)
 
     Example
     -------
-    >>> get_trait_type([100., 200.])
-    'traits.Array'
-    >>> get_trait_type(100)
-    'traits.Int'
-    >>> get_trait_type(long(100))  # Python 2
-    'traits.Long'
-    >>> get_trait_type(u'something')
-    'traits.Unicode'
+    >>> get_trait_def([100., 200.])
+    ('traits.Array', '', 'enter_set=True, auto_set=False, shape=(2,), dtype=float, value=[100.0, 200.0], cols=2')
+    >>> get_trait_def(100)
+    ('traits.Int', '100', 'enter_set=True, auto_set=False')
+    >>> get_trait_def(long(100))  # Python 2
+    ('traits.Long', '100', 'enter_set=True, auto_set=False')
+    >>> get_trait_def(u'something')
+    ('traits.Unicode', "u'something'", 'enter_set=True, auto_set=False')
     """
 
     type_ = type(value)
@@ -64,37 +69,38 @@ def get_trait_type(value):
         number_map[long] = 'traits.Long'
 
     if type_ in number_map:
-        return number_map[type_]
+        return number_map[type_], str(value), kwargs
 
     elif type_ is str:
-        return 'traits.String'
+        if value == '\x00':
+            value = ''
+        return 'traits.String', '{!r}'.format(value), kwargs
 
     elif PY_VER < 3 and type_ is unicode:
-        return 'traits.Unicode'
+        if value == u'\x00':
+            value = u''
+        return 'traits.Unicode', '{!r}'.format(value), kwargs
 
     elif type_ in (tuple, list):
-        return 'traits.Array'
-
-    elif type_ is bool:
-        return 'traits.Bool'
-
-    else:
-        raise TypeError("Could not understand type: {}".format(type_))
-
-
-def get_array_meta(value):
-    if not isinstance(value, Sequence):
-        return ""
-    else:
         shape = (len(value),)
         dtypes = set(type(element) for element in value)
         dtype = dtypes.pop().__name__ if len(dtypes) == 1 else None
         cols = len(value)
-        return ('shape={shape}, dtype={dtype}, '
-                'value={value!r}, cols={cols}, ').format(shape=shape,
-                                                         dtype=dtype,
-                                                         value=value,
-                                                         cols=cols)
+        if kwargs:
+            kwargs += ', '
+
+        kwargs += ('shape={shape}, dtype={dtype}, '
+                   'value={value!r}, cols={cols}').format(shape=shape,
+                                                          dtype=dtype,
+                                                          value=value,
+                                                          cols=cols)
+        return 'traits.Array', '', kwargs
+
+    elif type_ is bool:
+        return 'traits.Bool', '', kwargs
+
+    else:
+        raise TypeError("Could not understand type: {}".format(type_))
 
 
 def patch_default(vtk_set_meth, default):
@@ -769,7 +775,7 @@ class WrapperGenerator:
                                      name=m, default=default))
 
                 # `patch_default` use the Set method to find an appropriate default.
-                # `new_default` is then passed to `get_trait_type` for finding
+                # `new_default` is then passed to `get_trait_def` for finding
                 # the trait type. When writing the code, `new_default` is replaced
                 # with traits.Undefined (or a tuple of Undefined) so that we don't
                 # pretend we know the value in the VTK object.
@@ -789,13 +795,13 @@ class WrapperGenerator:
                     else:
                         default = "traits.Undefined"
 
-                    trait_type = get_trait_type(new_default)
+                    trait_type, _, kwargs = get_trait_def(new_default, "")
                     t_def = ('traits.Trait({default}, '  # traits.Undefined
-                             '{trait_type}({meta}), '    # the new default trait
+                             '{trait_type}({kwargs}), '    # the new default trait
                              'enter_set=True, auto_set=False)').format(
                                  default=default,
                                  trait_type=trait_type,
-                                 meta=get_array_meta(new_default))
+                                 kwargs=kwargs)
                     self._write_trait(out, name, t_def, vtk_set_meth, mapped=False)
                     print('We found a type from the Set method:', trait_type,
                           'It may be undefined upon initialisation.')
@@ -872,14 +878,18 @@ class WrapperGenerator:
 
             else:
                 try:
-                    t_def = ('{trait_type}('
-                             '{meta}'
-                             'enter_set=True, auto_set=False)').format(
-                                 trait_type=get_trait_type(default),
-                                 meta=get_array_meta(default))
-                except Exception:
+                    trait_type, default, kwargs = get_trait_def(default)
+                    if default:
+                        t_def = '{0}({1}, {2})'.format(trait_type, default,
+                                                       kwargs)
+                    else:
+                        t_def = '{0}({1})'.format(trait_type, kwargs)
+
+                    print(t_def)
+                except TypeError:
                     print("%s:"%klass.__name__, end=' ')
                     print("Ignoring method: Get/Set%s"%m)
+                    print(default)
                     print("default: %s, range: None"%default)
                     del updateable_traits[name]
                 else:
