@@ -199,10 +199,11 @@ class TraitRevPrefixMap(traits.TraitPrefixMap):
 
 def vtk_color_trait(default, **metadata):
     Range = traits.Range
+
     if default[0] == -1.0:
         # Occurs for the vtkTextProperty's color trait.  Need to work
         # around.
-        return traits.Trait(default, traits.Tuple(*default),
+        return traits.Trait(default,
                             traits.Tuple(Range(0.0, 1.0),
                                          Range(0.0, 1.0),
                                          Range(0.0, 1.0),
@@ -212,7 +213,8 @@ def vtk_color_trait(default, **metadata):
         return traits.Trait(traits.Tuple(Range(0.0, 1.0, default[0]),
                                          Range(0.0, 1.0, default[1]),
                                          Range(0.0, 1.0, default[2])),
-                            editor=RGBColorEditor, **metadata)
+                            editor=RGBColorEditor,
+                            **metadata)
     else:
         return traits.Trait(
             traits.Tuple(
@@ -271,6 +273,11 @@ class TVTKBase(traits.HasStrictTraits):
 
     # The wrapped VTK object.
     _vtk_obj = traits.Trait(None, None, vtk.vtkObjectBase())
+
+    # Stores the names of the traits whose VTK Get methods may return
+    # invalid values (e.g. reference to a point) or uninitialised values
+    # We would try to update but allow it to failure
+    _allow_update_failure_ = traits.Tuple
 
     # Stores the names of the traits that need to be updated.
     _updateable_traits_ = traits.Tuple
@@ -471,15 +478,28 @@ class TVTKBase(traits.HasStrictTraits):
         vtk.vtkObject.GlobalWarningDisplayOff()
 
         for name, getter in self._updateable_traits_:
+            if name == 'global_warning_display':
+                setattr(self, name, warn)
+                continue
+
             try:
                 val = getattr(vtk_obj, getter)()
             except (AttributeError, TypeError):
+                # Some vtk GetMethod accepts more than 1 arguments
+                # FIXME: If we really want to try harder, we could
+                # pass an empty array to the Get method, some Get
+                # method will populate the array as the return
+                # value (e.g. vtkImageConvolve.GetKernel3x3 and alike)
                 pass
             else:
-                if name == 'global_warning_display':
-                    setattr(self, name, warn)
-                else:
+                try:
                     setattr(self, name, val)
+                except traits.TraitError:
+                    if name in self._allow_update_failure_:
+                        pass
+                    else:
+                        raise
+
         # Reset the warning state.
         vtk.vtkObject.SetGlobalWarningDisplay(warn)
         self._in_set = 0
