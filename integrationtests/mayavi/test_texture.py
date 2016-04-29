@@ -1,5 +1,6 @@
 import os
 import shutil
+import sys
 import unittest
 import tempfile
 
@@ -85,7 +86,7 @@ class TestTextureUnitTest(unittest.TestCase):
         mlab.savefig(self.filename, size=(400, 300))
 
         # Check the saved image (if texture fails, std ~ 90)
-        self.check_image_std(target_std=200.)
+        self.check_image_std(target_std=150.)
 
     def test_text3d_cylinder(self):
         """ Test texture on mlab.points3d (cylinder) """
@@ -104,7 +105,7 @@ class TestTextureUnitTest(unittest.TestCase):
         mlab.savefig(self.filename, size=(400, 300))
 
         # Check the saved image (if texture fails, std ~ 90)
-        self.check_image_std(target_std=200.)
+        self.check_image_std(target_std=150.)
 
     def check_image_std(self, target_std):
         # Check that the pixels in the image vary greatly as
@@ -126,7 +127,11 @@ class TestTexture(TestCase):
     def do(self):
         suite = unittest.TestLoader().loadTestsFromTestCase(
             TestTextureUnitTest)
-        unittest.TextTestRunner().run(suite)
+
+        result = unittest.TextTestRunner().run(suite)
+
+        if result.errors or result.failures:
+            sys.exit(1)
 
 
 if __name__ == "__main__":

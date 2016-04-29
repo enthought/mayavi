@@ -1,5 +1,6 @@
 """Tests for the tools.camera
 """
+import sys
 import unittest
 from contextlib import contextmanager
 
@@ -98,8 +99,11 @@ class TestCamera(TestCase):
 
     def do(self):
         suite = unittest.TestLoader().loadTestsFromTestCase(TestCameraUnitTest)
-        for test in suite:
-            test.run()
+
+        result = unittest.TextTestRunner().run(suite)
+
+        if result.errors or result.failures:
+            sys.exit(1)
 
 
 if __name__ == "__main__":
