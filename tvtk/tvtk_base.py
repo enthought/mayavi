@@ -276,7 +276,7 @@ class TVTKBase(traits.HasStrictTraits):
 
     # Stores the names of the traits whose VTK Get methods may return
     # invalid values (e.g. reference to a point) or uninitialised values
-    # We would try to update but allow it to failure
+    # We would try to update but allow it to fail
     _allow_update_failure_ = traits.Tuple
 
     # Stores the names of the traits that need to be updated.
