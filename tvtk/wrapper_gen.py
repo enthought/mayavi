@@ -142,10 +142,8 @@ def patch_default(vtk_set_meth, default):
     for sig in vtk_parser.VTKMethodParser.get_method_signature(vtk_set_meth):
         if sig[1] is None:
             continue
-        if any(isinstance(arg_format, list) for arg_format in sig[1]):
-            arg_formats.append(tuple(chain.from_iterable(sig[1])))
-        else:
-            arg_formats.append(sig[1])
+        arg_formats.append(tuple(chain.from_iterable(sig[1])))
+        arg_formats.append(sig[1])
 
     for arg_format in arg_formats:
         if all(type_ == "int" for type_ in arg_format):

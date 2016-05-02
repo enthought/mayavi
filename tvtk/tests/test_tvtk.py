@@ -658,6 +658,10 @@ class TestTVTK(unittest.TestCase):
             tvtk_filter.get_kernel3x3(result)
 
             self.assertTrue(numpy.allclose(result, expected), True)
+
+            with self.assertRaises(TypeError):
+                tvtk_filter.set_kernel3x3(range(2))
+
         else:
             tvtk_filter.kernel3x3 = expected
 
@@ -666,6 +670,9 @@ class TestTVTK(unittest.TestCase):
             tvtk_filter._vtk_obj.GetKernel3x3(result)
 
             self.assertTrue(numpy.allclose(result, expected), True)
+
+            with self.assertRaises(TraitError):
+                tvtk_filter.kernel3x3 = range(2)
 
 
 # This separates out any tests for the entire module that would affect
