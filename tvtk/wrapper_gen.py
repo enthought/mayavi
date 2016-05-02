@@ -8,6 +8,7 @@ VTK classes.
 
 from __future__ import print_function
 
+import re
 import sys
 import vtk
 import types
@@ -57,6 +58,8 @@ def get_trait_def(value, kwargs="enter_set=True, auto_set=False"):
     ('traits.Long', '100', 'enter_set=True, auto_set=False')
     >>> get_trait_def(u'something')
     ('traits.Unicode', "u'something'", 'enter_set=True, auto_set=False')
+    >>> get_trait_def(True)
+    ('traits.Bool', '', 'enter_set=True, auto_set=False')
     """
 
     type_ = type(value)
@@ -90,10 +93,10 @@ def get_trait_def(value, kwargs="enter_set=True, auto_set=False"):
             kwargs += ', '
 
         kwargs += ('shape={shape}, dtype={dtype}, '
-                   'value={value!r}, cols={cols}').format(shape=shape,
-                                                          dtype=dtype,
-                                                          value=value,
-                                                          cols=cols)
+                   'value={value!r}, cols={cols}').format(
+                       shape=shape, dtype=dtype,
+                       value=value, cols=max(3, len(value)))
+
         return 'traits.Array', '', kwargs
 
     elif type_ is bool:
@@ -135,6 +138,7 @@ def patch_default(vtk_set_meth, default):
     # SetPosition(int position[2]) has a signature of (["int", "int"],)
     # Some method even has a signature of (["int", "int"], "vtkInformation")
     arg_formats = []
+
     for sig in vtk_parser.VTKMethodParser.get_method_signature(vtk_set_meth):
         if sig[1] is None:
             continue
@@ -156,9 +160,10 @@ def patch_default(vtk_set_meth, default):
                 return (0.,)*len(arg_format)
         if all(type_ == "string" for type_ in arg_format):
             if len(arg_format) == 1:
-                return "None"
+                return ""
             else:
-                return ("None",)*len(arg_format)
+                return ("",)*len(arg_format)
+
     else:
         return default
 
@@ -662,154 +667,82 @@ class WrapperGenerator:
         meths = parser.get_get_set_methods()
         updateable_traits = {}
         allow_update_failure = set()
-        for m in meths:
-            name = self._reform_name(m)
-            updateable_traits[name] = 'Get' + m
-            vtk_get_meth = getattr(klass, 'Get' + m)
-            vtk_set_meth = getattr(klass, 'Set' + m)
 
-            if meths[m]:
-                default, rng = meths[m]
+        for vtk_attr_name in meths:   # VTK Attribute name (e.g. PropColorValue)
+            # trait name
+            name = self._reform_name(vtk_attr_name)
+            updateable_traits[name] = 'Get' + vtk_attr_name
+
+            #- ----------------------------------------------------------
+            # Some traits have special API or the VTK API is broken that
+            # we need to handle them separately.
+            # Warning: Be critical about whether the case is special
+            # enthough to be added to the `special_traits` mapping
+            # -----------------------------------------------------------
+            if self._is_special(klass, vtk_attr_name):
+                updateable, can_fail = self._get_special_updateable_failable(
+                    klass, vtk_attr_name)
+
+                if not updateable:
+                    # We cannot update this trait
+                    del updateable_traits[name]
+                elif can_fail:
+                    # We can update this trait but updating can fail
+                    allow_update_failure.add(name)
+
+                self._write_special_trait(klass, out, vtk_attr_name)
+                continue
+
+            # --------------------------------------------------------
+            # If it is an abstract class with no concrete subclass
+            # and if we can read the get method signature, we write
+            # the get and set methods and done
+            # --------------------------------------------------------
+            vtk_set_meth = getattr(klass, 'Set' + vtk_attr_name)
+            vtk_get_meth = getattr(klass, 'Get' + vtk_attr_name)
+            get_sig = parser.get_method_signature(vtk_get_meth)
+
+            if not meths[vtk_attr_name] and get_sig[0][1]:
+                self._write_tvtk_method(klass, out, vtk_get_meth, get_sig)
+                self._write_tvtk_method(klass, out, vtk_set_meth)
+                continue
+
+            # -------------------------------
+            # Get default values
+            # -------------------------------
+            if meths[vtk_attr_name]:
+                default, rng = meths[vtk_attr_name]
             else:
-                # In this case we could not get the defaults and range
-                # since class has no known concrete subclass.  This
-                # happens in very rare circumstances and while the
-                # below look like hacks, they are the best we can do.
-                sig = parser.get_method_signature(vtk_get_meth)
-                if sig[0][1] is None:
-                    ret = sig[0][0][0]
-                    if ret[:3] == 'vtk':
-                        default, rng = None, None
-                    elif ret == 'int':
-                        default, rng = 0, None
-                    elif ret == 'float':
-                        default, rng = 0.0, None
-                    elif ret == 'string':
-                        default, rng = '', None
-                    else:
-                        default, rng = None, None
-                else:
-                    self._write_tvtk_method(klass, out, vtk_get_meth, sig)
-                    self._write_tvtk_method(klass, out, vtk_set_meth)
-                    continue
+                # In some rare cases, the vtk class is an abstract class
+                # that does not have a concrete subclass
+                # We patch the default using the set method
+                # while the below seems a hack, this is the best we could do
+                vtk_set_meth = getattr(klass, 'Set' + vtk_attr_name)
+                default, rng = patch_default(vtk_set_meth, None), None
 
-            if m == 'Output':
-                self._write_get_output_method(klass, out, set=True)
-                del updateable_traits['output']
-
-            elif m == 'Source':
-                # Special cased because vtkGlyph3D.GetSource/SetSource
-                # etc. have a special structure to support multiple
-                # sources.
-                del updateable_traits['source']
-                self._write_get_source_method(klass, out)
-
-            elif m == 'ScalarType':
-                del updateable_traits['scalar_type']
-
-            elif m == 'Input':
-                # In VTK > 4.5, Set/GetInput have multiple signatures.
-                del updateable_traits['input']
-                self._write_get_input_method(klass, out)
-
-            elif m == 'InputConnection':
-                del updateable_traits['input_connection']
-                self._write_get_input_connection_method(klass, out)
-
-            elif m.endswith('FileName'):
-                t_def = 'tvtk_base.vtk_file_name("")'
-                self._write_trait(out, name, t_def, vtk_set_meth, mapped=False)
-
-            elif m.endswith('FilePrefix'):
-                t_def = 'tvtk_base.vtk_file_prefix("")'
-                self._write_trait(out, name, t_def, vtk_set_meth, mapped=False)
-
-            elif klass.__name__ == 'vtkImageReader2' and m == 'HeaderSize':
-                # The documentation of vtkImageReader2.GetHeaderSize says
-                # it returns `int`, but really the API meant `long`
-                # matters for Python 2
-                if PY_VER < 3:
-                    default = long(default)
-                    t_def = ('traits.Long({default}, '
-                             'enter_set=True, auto_set=False)').format(default=default)
-                else:
-                    t_def = ('traits.Int({default}, '
-                             'enter_set=True, auto_set=False)').format(default=default)
-                self._write_trait(out, name, t_def, vtk_set_meth, mapped=False)
-
-            elif klass.__name__ == 'vtkHardwareSelector' and name == 'prop_color_value':
-                # The VTK GetPropColorValue method returns an uninitialised value
-                # that is not a valid color, we will still try to update it but
-                # we allow the update for this trait to fail
-                allow_update_failure.add(name)
-
-                t_def = ('tvtk_base.vtk_color_trait('
-                         '(traits.Undefined, traits.Undefined, traits.Undefined))')
-                self._write_trait(out, name, t_def, vtk_set_meth, mapped=False,
-                                  force_update='False')
-
-            elif (is_version_58() and klass.__name__ == 'vtkAxesTransformRepresentation' and
-                      name == 'tolerance'):
-                # e.g. The range of the tolerance is 1-100 but the value initialised by
-                # VTK is zero, clearly not right
-                allow_update_failure.add(name)
-                message = ("vtkAxesTransformRepresentation: "
-                           "tolerance not updatable "
-                           "(VTK 5.8 bug - value not properly initialized)")
-                print(message)
-                default = rng[0]
-                t_def = ('traits.Trait({default}, traits.Range{rng}, '
-                         'enter_set=True, auto_set=False)').format(default=default,
-                                                                   rng=rng)
-                self._write_trait(out, name, t_def, vtk_set_meth, mapped=False)
+            if rng:    # Has a specified range of valid values.
+                self._write_trait_with_range(klass, out, vtk_attr_name)
+                continue
 
             elif isinstance(default, str) and default.endswith('_p_void'):
-                # The VTK Get method for the attribute does not return
-                # a sensible value. We will still try to update it (i.e.
-                # not removing `name` from `updateable_traits`) but we allow
-                # it to fail
+                # The VTK Get method for the attribute returns the address
+                # to a pointer, this is therefore, a VTK python bug
+                # The value of the attribute could either be initialised or not
+                # Some Get methods can return the correct value if you pass
+                # an array as its argument (e.g. vtkImageConvolve.GetKernel3x3).
+                # Upon updating the trait in TVTKBase.update_traits, we try harder
+                # to get the initial value.
+                # Therefore we will keep the trait as an updateable trait
+                # but allow updating it to fail.
                 allow_update_failure.add(name)
 
-                message = '{klass}.Get{name} gives an initial value of {default}.'
-                print(message.format(klass=klass.__name__,
-                                     name=m, default=default))
+                self._write_trait_with_default_undefined(klass, out,
+                                                         vtk_attr_name)
 
-                # `patch_default` use the Set method to find an appropriate default.
-                # `new_default` is then passed to `get_trait_def` for finding
-                # the trait type. When writing the code, `new_default` is replaced
-                # with traits.Undefined (or a tuple of Undefined) so that we don't
-                # pretend we know the value in the VTK object.
-                new_default = patch_default(vtk_set_meth, default)
-
-                if isinstance(new_default, str) and new_default.endswith('_p_void'):
-                    # Still undefined, we give up, the trait can be anything
-                    t_def = 'traits.Trait(enter_set=True, auto_set=False)'
-                    self._write_trait(out, name, t_def, vtk_set_meth, mapped=False)
-                    print('We could not determine the appropriate type, '
-                          'it can be anything')
-                else:
-                    # Overwrite the default with Undefined's
-                    if type(new_default) in (tuple, list):
-                        default = "({})".format(", ".join(
-                            ("traits.Undefined",)*len(new_default)))
-                    else:
-                        default = "traits.Undefined"
-
-                    trait_type, _, kwargs = get_trait_def(new_default, "")
-                    t_def = ('traits.Trait({default}, '  # traits.Undefined
-                             '{trait_type}({kwargs}), '    # the new default trait
-                             'enter_set=True, auto_set=False)').format(
-                                 default=default,
-                                 trait_type=trait_type,
-                                 kwargs=kwargs)
-                    self._write_trait(out, name, t_def, vtk_set_meth, mapped=False)
-                    print('We found a type from the Set method:', trait_type,
-                          'It may be undefined upon initialisation.')
-
-            elif (default is None or
-                      isinstance(default, vtk.vtkObjectBase)):
+            elif default is None or isinstance(default, vtk.vtkObjectBase):
                 g_sig = parser.get_method_signature(vtk_get_meth)
                 s_sig = parser.get_method_signature(vtk_set_meth)
+
                 # Bunch of hacks to work around issues.
                 #print g_sig, vtk_get_meth, klass.__name__
                 if len(g_sig) == 0:
@@ -823,7 +756,7 @@ class WrapperGenerator:
                     s_sig[0] = list(s_sig[0])
                     s_sig[0][1] = [None]
 
-                if g_sig[0][0][0] == 'string':
+                if g_sig[0][0][0] == 'string' and g_sig[0][1] is None:
                     # If the get method really returns a string
                     # wrap it as such.
                     t_def = 'traits.Trait(None, None, '\
@@ -838,6 +771,8 @@ class WrapperGenerator:
                     else: # Get has args or Set needs many args.
                         self._write_tvtk_method(klass, out, vtk_get_meth, g_sig)
                         self._write_tvtk_method(klass, out, vtk_set_meth, s_sig)
+
+                    # We cannot update the trait
                     del updateable_traits[name]
 
             elif (isinstance(default, tuple) and len(default) == 3 and
@@ -855,42 +790,22 @@ class WrapperGenerator:
                 self._write_trait(out, name, t_def, vtk_set_meth,
                                   mapped=False, force_update=force)
 
-            elif rng:    # Has a specified range of valid values.
-
-                # If the default is just a little off from the range
-                # then extend the range.
-                if (default < rng[0]) and (rng[0] - default) < 2:
-                    rng = (default, rng[1])
-                if (default > rng[1]) and (default - rng[1]) < 2:
-                    rng = (rng[0], default)
-                # Sometimes the default is not in the valid range to
-                # perhaps indicate that the class is not initialized
-                if (default < rng[0]) or (default > rng[1]):
-                    t_def = 'traits.Trait(%(default)s, %(default)s, '\
-                            'traits.Range%(rng)s'%locals()
-                    t_def = t_def[:-1] + ', enter_set=True, auto_set=False))'
-                else:
-                    t_def = 'traits.Trait(%(default)s, '\
-                            'traits.Range%(rng)s'%locals()
-                    t_def = t_def[:-1] + ', enter_set=True, auto_set=False))'
-                self._write_trait(out, name, t_def, vtk_set_meth,
-                                  mapped=False)
-
             else:
+                # The simpliest setup, give it a go
                 try:
                     trait_type, default, kwargs = get_trait_def(default)
+                except TypeError:
+                    print("%s:"%klass.__name__, end=' ')
+                    print("Ignoring method: Get/Set%s"%vtk_attr_name)
+                    print("default: %s, range: None"%default)
+                    del updateable_traits[name]
+                else:
                     if default:
                         t_def = '{0}({1}, {2})'.format(trait_type, default,
                                                        kwargs)
                     else:
                         t_def = '{0}({1})'.format(trait_type, kwargs)
 
-                except TypeError:
-                    print("%s:"%klass.__name__, end=' ')
-                    print("Ignoring method: Get/Set%s"%m)
-                    print("default: %s, range: None"%default)
-                    del updateable_traits[name]
-                else:
                     self._write_trait(out, name, t_def, vtk_set_meth,
                                       mapped=False)
 
@@ -1508,3 +1423,245 @@ class WrapperGenerator:
         # Close the function definition.
         out.write(indent.format(')'))
         out.write('\n')
+
+    def _write_trait_with_default_undefined(self, klass, out, vtk_attr_name):
+        name = self._reform_name(vtk_attr_name)
+        vtk_set_meth = getattr(klass, 'Set' + vtk_attr_name)
+
+        # `patch_default` use the Set method to find an appropriate default.
+        # However we are only using it to get the trait type, we should
+        # not set the default to arbitrary value without knowing what it is
+        value_for_type = patch_default(vtk_set_meth, None)
+
+        if value_for_type:
+            # default value is Undefined or a tuple of Undefined
+            if type(value_for_type) in (tuple, list):
+                default = "({})".format(", ".join(
+                    ("traits.Undefined",)*len(value_for_type)))
+            else:
+                default = "traits.Undefined"
+
+            trait_type, _, kwargs = get_trait_def(value_for_type, "")
+            t_def = ('traits.Trait({default}, '    # traits.Undefined
+                     '{trait_type}({kwargs}), '    # the new default trait
+                     'enter_set=True, auto_set=False)').format(
+                         default=default,
+                         trait_type=trait_type,
+                         kwargs=kwargs)
+            self._write_trait(out, name, t_def, vtk_set_meth, mapped=False)
+        else:
+            # we give up, the trait can be anything
+            t_def = 'traits.Trait(enter_set=True, auto_set=False)'
+            self._write_trait(out, name, t_def, vtk_set_meth, mapped=False)
+
+    def _write_trait_with_range(self, klass, out, vtk_attr_name):
+        default, rng = self.parser.get_get_set_methods()[vtk_attr_name]
+
+        # If the default is just a little off from the range
+        # then extend the range.
+        if (default < rng[0]) and (rng[0] - default) < 2:
+            rng = (default, rng[1])
+        if (default > rng[1]) and (default - rng[1]) < 2:
+            rng = (rng[0], default)
+        # Sometimes the default is not in the valid range to
+        # perhaps indicate that the class is not initialized
+        if (default < rng[0]) or (default > rng[1]):
+            t_def = 'traits.Trait(%(default)s, %(default)s, '\
+                    'traits.Range%(rng)s'%locals()
+            t_def = t_def[:-1] + ', enter_set=True, auto_set=False))'
+        else:
+            t_def = 'traits.Trait(%(default)s, '\
+                    'traits.Range%(rng)s'%locals()
+            t_def = t_def[:-1] + ', enter_set=True, auto_set=False))'
+
+        name = self._reform_name(vtk_attr_name)
+        vtk_set_meth = getattr(klass, 'Set' + vtk_attr_name)
+        self._write_trait(out, name, t_def, vtk_set_meth,
+                          mapped=False)
+
+
+    # ------------------------------------------------------
+    # Traits that need special handling
+    # ------------------------------------------------------
+    # To add a trait for special handling,
+    # add an item to the `special_traits` (below)
+    # and add a method that handles the trait.
+    # The method should be referred to by the `special_traits`
+    # mapping.
+
+    special_traits = {
+        # `special_traits` = {expr: tuple}
+        # The key is a regular expression pattern for matching
+        # {vtkObject}.{Attribute}.  The value is a tuple of three
+        # values: (updateable, allow_to_fail, name_of_method)
+        # where
+        # `updateable` is whether the trait should
+        #         be in the `updateable_traits` tuple,
+        # `allow_to_fail` is whether the trait should be in the
+        #         the `allow_update_failure` tuple
+        # `name_of_method` is the name of the method for writing
+        #         the code for this trait,
+        #         i.e. getattr(self, name_of_method)(...)
+        '[a-zA-Z0-9]+\.Output$': (
+            False, False, '_write_any_output'),
+        '[a-zA-Z0-9]+\.Source$': (
+            False, False, '_write_any_source'),
+        '[a-zA-Z0-9]+\.ScalarType$': (
+            False, False, '_write_any_scalar_type'),
+        '[a-zA-Z0-9]+\.Input$': (
+            # In VTK > 4.5, Set/GetInput have multiple signatures
+            False, False, '_write_any_input'),
+        '[a-zA-Z0-9]+\.InputConnection$': (
+            False, False, '_write_any_input_connection'),
+        '[a-zA-Z0-9\.]+FileName$': (
+            True, False, '_write_any_something_file_name'),
+        '[a-zA-Z0-9\.]+FilePrefix$': (
+            True, False, '_write_any_something_file_prefix'),
+        'vtkImageReader2.HeaderSize$': (
+            True, False, '_write_image_reader2_header_size'),
+        # PropColorValue is not initialised, GetPropColorValue
+        # gives random values as a tuple of float[3] that are
+        'vtkHardwareSelector.PropColorValue$': (
+            True, True, '_write_hardware_selector_prop_color_value'),
+        # In VTK 5.8, tolerance is initialised as 0 while the range
+        # is 1-100
+        'vtkAxesTransformRepresentation.Tolerance$': (
+            True, True, '_write_axes_transform_representation_tolerance')
+    }
+
+    @classmethod
+    def _get_special_matched_key(cls, klass, vtk_attr_name):
+        full_name = ".".join((klass.__name__, vtk_attr_name))
+        for re_expr in cls.special_traits.keys():
+            if re.match(re_expr, full_name):
+                return re_expr
+        else:
+            return None
+
+    @classmethod
+    def _get_special_updateable_failable(cls, klass, vtk_attr_name):
+        key = cls._get_special_matched_key(klass, vtk_attr_name)
+        return cls.special_traits.get(key)[:2]
+
+    @classmethod
+    def _is_special(cls, klass, vtk_attr_name):
+        """
+        Parameters
+        ----------
+        klass : class
+           VTK class
+        vtk_attr_name : str
+           VTK class attribute name
+
+        Returns
+        -------
+        boolean
+        """
+        full_name = ".".join((klass.__name__, vtk_attr_name))
+        return re.match('|'.join(cls.special_traits.keys()),
+                        full_name) is not None
+
+    def _write_special_trait(self, klass, out, vtk_attr_name):
+        key = self._get_special_matched_key(klass, vtk_attr_name)
+        _, _, method_name = self.special_traits[key]
+        getattr(self, method_name)(klass, out, vtk_attr_name)
+
+    def _write_any_output(self, klass, out, vtk_attr_name):
+        self._write_get_output_method(klass, out, set=True)
+
+    def _write_any_source(self, klass, out, vtk_attr_name):
+        self._write_get_source_method(klass, out)
+
+    def _write_any_scalar_type(self, klass, out, vtk_attr_name):
+        """ This method does nothing """
+        pass
+
+    def _write_any_input(self, klass, out, vtk_attr_name):
+        self._write_get_input_method(klass, out)
+
+    def _write_any_input_connection(self, klass, out, vtk_attr_name):
+        self._write_get_input_connection_method(klass, out)
+
+    def _write_any_something_file_name(self, klass, out, vtk_attr_name):
+        name = self._reform_name(vtk_attr_name)
+        vtk_set_meth = getattr(klass, 'Set' + vtk_attr_name)
+
+        t_def = 'tvtk_base.vtk_file_name("")'
+        self._write_trait(out, name, t_def, vtk_set_meth, mapped=False)
+
+    def _write_any_something_file_prefix(self, klass, out, vtk_attr_name):
+        name = self._reform_name(vtk_attr_name)
+        vtk_set_meth = getattr(klass, 'Set' + vtk_attr_name)
+        t_def = 'tvtk_base.vtk_file_prefix("")'
+        self._write_trait(out, name, t_def, vtk_set_meth, mapped=False)
+
+    def _write_image_reader2_header_size(self, klass, out, vtk_attr_name='HeaderSize'):
+
+        if vtk_attr_name != 'HeaderSize':
+            raise RuntimeError("Not sure why you ask for me! "
+                               "I only deal with HeaderSize. Panicking.")
+
+        default, _ = self.parser.get_get_set_methods()[vtk_attr_name]
+
+        # The documentation of vtkImageReader2.GetHeaderSize says
+        # it returns `int`, but really the API meant `long`
+        # matters for Python 2
+        if PY_VER < 3:
+            default = long(default)
+            t_def = ('traits.Long({default}, '
+                     'enter_set=True, auto_set=False)').format(default=default)
+        else:
+            t_def = ('traits.Int({default}, '
+                     'enter_set=True, auto_set=False)').format(default=default)
+
+        # trait name
+        name = self._reform_name(vtk_attr_name)
+
+        # vtk set method
+        vtk_set_meth = getattr(klass, 'Set'+vtk_attr_name)
+
+        self._write_trait(out, name, t_def, vtk_set_meth, mapped=False)
+
+    def _write_hardware_selector_prop_color_value(self, klass, out,
+                                                  vtk_attr_name='PropColorValue'):
+
+        if vtk_attr_name != 'PropColorValue':
+            raise RuntimeError("Not sure why you ask for me! "
+                               "I only deal with PropColorValue. Panicking.")
+
+        # FIXME: Don't we need to tell the vtk object that we set it
+        # to some value?
+        t_def = ('tvtk_base.vtk_color_trait('
+                 '(1.0, 1.0, 1.0))')
+        vtk_attr_name = 'PropColorValue'
+
+        # trait name
+        name = self._reform_name(vtk_attr_name)
+
+        # VTK set method
+        vtk_set_meth = getattr(klass, 'Set'+vtk_attr_name)
+
+        self._write_trait(out, name, t_def, vtk_set_meth, mapped=False,
+                               force_update='False')
+
+    def _write_axes_transform_representation_tolerance(self, klass, out,
+                                                       vtk_attr_name='Tolerance'):
+
+        if vtk_attr_name != 'Tolerance':
+            raise RuntimeError("Not sure why you ask for me! "
+                               "I only deal with Tolerance. Panicking.")
+
+        default, rng = self.parser.get_get_set_methods()[vtk_attr_name]
+
+        if is_version_58():
+            message = ("vtkAxesTransformRepresentation: "
+                       "tolerance not updatable "
+                       "(VTK 5.8 bug - value not properly initialized)")
+            print(message)
+            default = rng[0]
+        t_def = ('traits.Trait({default}, traits.Range{rng}, '
+                 'enter_set=True, auto_set=False)').format(default=default,
+                                                           rng=rng)
+        name = self._reform_name(vtk_attr_name)
+        vtk_set_meth = getattr(klass, 'Set' + vtk_attr_name)
+        self._write_trait(out, name, t_def, vtk_set_meth, mapped=False)
