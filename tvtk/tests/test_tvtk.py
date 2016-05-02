@@ -636,6 +636,37 @@ class TestTVTK(unittest.TestCase):
             ('caption', 'GetCaption') in cap._updateable_traits_, True)
         self.assertEqual('caption' in cap._full_traitnames_list_, True)
 
+    def test_spider_plot_actor(self):
+        """ Test SpiderPlotActor Get/SetAxisLabel works
+        """
+        actor = tvtk.SpiderPlotActor()
+        actor.set_axis_label(1, 'ss')
+        self.assertEqual(actor.get_axis_label(1), 'ss')
+
+    def test_image_convolve_kernel(self):
+        """ Test that setting the kernels in ImageConvolve works
+        """
+        tvtk_filter = tvtk.ImageConvolve()
+        expected = numpy.arange(9.)
+
+        if vtk_major_version < 6:
+            # Set the kernel
+            tvtk_filter.set_kernel3x3(expected)
+
+            # Get it back
+            result = numpy.empty(9)
+            tvtk_filter.get_kernel3x3(result)
+
+            self.assertTrue(numpy.allclose(result, expected), True)
+        else:
+            tvtk_filter.kernel3x3 = expected
+
+            # Get it back
+            result = numpy.empty(9)
+            tvtk_filter._vtk_obj.GetKernel3x3(result)
+
+            self.assertTrue(numpy.allclose(result, expected), True)
+
 
 # This separates out any tests for the entire module that would affect
 # the functioning of the other tests.
