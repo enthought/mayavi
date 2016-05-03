@@ -38,10 +38,8 @@ else
     else
         # This is the name of the directory after unpacking
         if [[ "${VTK_VERSION}" == "6.3" ]]; then
-            # Do nothing. 5.8 is already on the system
             VTK_PYTHON=VTK-${VTK_VERSION}.0-Linux-64bit
-        if [[ "${VTK_VERSION}" == "7.0" ]]; then
-            # vtk7
+        elif [[ "${VTK_VERSION}" == "7.0" ]]; then
             VTK_PYTHON=vtkpython-${VTK_VERSION}.0-Linux-64bit
         else
             echo "Unknown VTK Version specified in variable VTK_VERSION"
