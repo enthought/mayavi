@@ -220,7 +220,7 @@ class TestMlabPipeline(TestMlabNullEngine):
     def setUp(self):
         ver = tvtk.Version()
         self.less_than_or_equal_to_vtk_5_10 = True
-        if ver.vtk_major_version >= 5 and ver.vtk_minor_version >= 10:
+        if ver.vtk_major_version >= 5 and ver.vtk_minor_version > 10:
             self.less_than_or_equal_to_vtk_5_10 = False
         if self.less_than_or_equal_to_vtk_5_10:
             super(TestMlabPipeline, self).setUp()
