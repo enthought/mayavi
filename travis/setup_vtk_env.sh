@@ -20,6 +20,7 @@ if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
         brew install vtk
         # but apparently binds against the system framework, hardcoded,
         # so we need to change it manually.
+        chmod -R +w /usr/local/Cellar/vtk/
         for f in `find /usr/local/Cellar/vtk -name *.dylib`; do
             install_name_tool -change /System/Library/Frameworks/Python.framework/Versions/2.7/Python /usr/local/Cellar/python/2.7.11/Frameworks/Python.framework/Versions/2.7/Python $f
         done
