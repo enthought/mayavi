@@ -95,6 +95,11 @@ class TestTVTK(unittest.TestCase):
     def test_custom(self):
         """Test if custom modules can be imported."""
 
+        # First clear the cache. Another module may have already imported
+        # the same class and this would compromise the test
+        from tvtk.tvtk_classes import tvtk_helper
+        tvtk_helper._cache.clear()
+
         # Hack to simulate a module inside tvtk.custom.
         mod = types.ModuleType('xml_data_reader')
 
@@ -119,6 +124,7 @@ class TestTVTK(unittest.TestCase):
 
         # Clean up.
         del sys.modules['tvtk.custom.xml_data_reader']
+        tvtk_helper._cache.clear()
 
     def test_basic(self):
         """Test a simple tvtk pipeline."""
