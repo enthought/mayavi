@@ -231,9 +231,9 @@ class TestMlabPipeline(TestMlabNullEngine):
 
     def tearDown(self):
         if self.less_than_vtk_5_6:
-            super(TestMlabPipeline, self).setUp()
+            super(TestMlabPipeline, self).tearDown()
         else:
-            for engine in registry.engines:
+            for engine in registry.engines[:]:
                 registry.unregister_engine(engine)
 
     def test_probe_data(self):
