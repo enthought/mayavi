@@ -12,9 +12,6 @@ matrix:
       env: VTK_VERSION=5.8 ETS_TOOLKIT=wx
     - os: osx
       language: generic
-      env: VTK_VERSION=6.3 ETS_TOOLKIT=wx
-    - os: osx
-      language: generic
       env: VTK_VERSION=7.0 ETS_TOOLKIT=wx
     - os: linux
       language: python
@@ -39,9 +36,6 @@ matrix:
     - os: osx
       language: generic
       env: VTK_VERSION=5.8 ETS_TOOLKIT=wx
-    - os: osx
-      language: generic
-      env: VTK_VERSION=6.3 ETS_TOOLKIT=wx
     - os: osx
       language: generic
       env: VTK_VERSION=7.0 ETS_TOOLKIT=wx
