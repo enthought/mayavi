@@ -211,7 +211,7 @@ class TestMlabNullEngineMisc(TestMlabNullEngine):
 ################################################################################
 class TestMlabPipeline(TestMlabNullEngine):
     """ Test the pipeline functions.
-        For vtk versions greater than 5.10.1, widgets need
+        For vtk versions greater than 5.10, widgets need
         a render window interactor to be set, otherwise an error is raised.
         As such this test checks for the current VTK version and setups a real
         engine for vtk > 5.10 and null engine otherwise.
