@@ -37,7 +37,16 @@ else
         :
     else
         # This is the name of the directory after unpacking
-        VTK_PYTHON=VTK-${VTK_VERSION}.0-Linux-64bit
+        if [[ "${VTK_VERSION}" == "6.3" ]]; then
+            # Do nothing. 5.8 is already on the system
+            VTK_PYTHON=VTK-${VTK_VERSION}.0-Linux-64bit
+        if [[ "${VTK_VERSION}" == "7.0" ]]; then
+            # vtk7
+            VTK_PYTHON=vtkpython-${VTK_VERSION}.0-Linux-64bit
+        else
+            echo "Unknown VTK Version specified in variable VTK_VERSION"
+            exit 1
+        fi
 
         # Download link to the vtkPython
         DOWNLOAD_LINK=http://www.vtk.org/files/release/${VTK_VERSION}/vtkpython-${VTK_VERSION}.0-Linux-64bit.tar.gz
