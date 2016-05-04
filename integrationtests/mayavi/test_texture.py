@@ -48,7 +48,7 @@ class TestTextureUnitTest(unittest.TestCase):
         source.actor.tcoord_generator_mode=mode
         source.actor.actor.texture=self.texture
 
-    def test_text3d_curve(self):
+    def test_texture_curve(self):
         """ Test texture on mlab.surf """
         mlab.figure()
         X, Y = numpy.mgrid[-1:1:20j,-1:1:20j]
@@ -69,7 +69,7 @@ class TestTextureUnitTest(unittest.TestCase):
         # Check the saved image (if texture fails, std ~ 10)
         self.check_image_std(target_std=150.)
 
-    def test_text3d_sphere(self):
+    def test_texture_sphere(self):
         """ Test texture on mlab.points3d (sphere) """
         mlab.figure()
         source = mlab.points3d(0, 0, 0)
@@ -88,7 +88,7 @@ class TestTextureUnitTest(unittest.TestCase):
         # Check the saved image (if texture fails, std ~ 90)
         self.check_image_std(target_std=150.)
 
-    def test_text3d_cylinder(self):
+    def test_texture_cylinder(self):
         """ Test texture on mlab.points3d (cylinder) """
         mlab.figure()
         source = mlab.points3d(0, 0, 0, mode="cylinder")
