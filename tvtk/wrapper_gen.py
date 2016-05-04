@@ -95,7 +95,7 @@ def get_trait_def(value, kwargs="enter_set=True, auto_set=False"):
         kwargs += ('shape={shape}, dtype={dtype}, '
                    'value={value!r}, cols={cols}').format(
                        shape=shape, dtype=dtype,
-                       value=value, cols=max(3, len(value)))
+                       value=value, cols=min(3, len(value)))
 
         return 'traits.Array', '', kwargs
 
