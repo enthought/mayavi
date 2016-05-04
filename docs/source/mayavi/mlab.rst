@@ -41,7 +41,7 @@ It is can be used interactively with IPython_.
         ValueError: API 'QString' has already been set to version 1
 
     This is the result of incompatible setups between PyQt and PySide. The
-    solution is to run ``QT_API=pyqt ETS_TOOLKIT=qt4 mayavi``, without the
+    solution is to run ``QT_API=pyqt ETS_TOOLKIT=qt4 ipython``, without the
     ``--gui=qt`` option. More details can be found at the `ipython documentation page`_.
 
     If for some reason Mayavi fails with the Qt backend, you can also try
