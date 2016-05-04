@@ -72,7 +72,8 @@ def has_subclass(tvtk_class):
 def skipUnlessTVTKHasattr(attr):
     if hasattr(tvtk, attr):
         return lambda func: func
-    return unittest.skip("{} is not available on this build of TVTK")
+    message = "{} is not available on this build of TVTK"
+    return unittest.skip(message.format(attr))
 
 
 class TestTVTK(unittest.TestCase):
