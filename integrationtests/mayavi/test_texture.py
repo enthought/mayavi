@@ -67,7 +67,7 @@ class TestTextureUnitTest(unittest.TestCase):
         mlab.savefig(self.filename, size=(400, 300))
 
         # Check the saved image (if texture fails, std ~ 10)
-        self.check_image_std(target_std=200.)
+        self.check_image_std(target_std=150.)
 
     def test_text3d_sphere(self):
         """ Test texture on mlab.points3d (sphere) """
