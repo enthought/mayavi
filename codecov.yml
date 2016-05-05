@@ -8,10 +8,8 @@ codecov:
     range: 40...100
 
     status:
-      project: 
-        enabled: yes
-      changes: 
-        enabled: no
+      project: true
+      changes: false
 
   comment:
     layout: "uncovered"
