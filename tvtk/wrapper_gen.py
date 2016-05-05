@@ -39,6 +39,7 @@ def get_trait_def(value, kwargs="enter_set=True, auto_set=False"):
     Parameters
     ----------
     value
+       can be anything
 
     kwargs : str
        extra keyword arguments for the trait definition
@@ -47,6 +48,11 @@ def get_trait_def(value, kwargs="enter_set=True, auto_set=False"):
     -------
     tuple : (str, str, str)
        (trait_type, value, keyword_arguments)
+
+    Raises
+    ------
+    TypeError
+        if this function cannot find an appropriate Trait type for `value`
 
     Example
     -------
