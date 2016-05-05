@@ -1684,7 +1684,7 @@ class WrapperGenerator:
         t_def = 'tvtk_base.vtk_file_prefix("")'
         self._write_trait(out, name, t_def, vtk_set_meth, mapped=False)
 
-    def _write_image_reader2_header_size(self, klass, out, vtk_attr_name='HeaderSize'):
+    def _write_image_reader2_header_size(self, klass, out, vtk_attr_name):
 
         if vtk_attr_name != 'HeaderSize':
             raise RuntimeError("Not sure why you ask for me! "
@@ -1712,7 +1712,7 @@ class WrapperGenerator:
         self._write_trait(out, name, t_def, vtk_set_meth, mapped=False)
 
     def _write_hardware_selector_prop_color_value(self, klass, out,
-                                                  vtk_attr_name='PropColorValue'):
+                                                  vtk_attr_name):
 
         if vtk_attr_name != 'PropColorValue':
             raise RuntimeError("Not sure why you ask for me! "
@@ -1733,7 +1733,7 @@ class WrapperGenerator:
                                force_update='False')
 
     def _write_axes_transform_representation_tolerance(self, klass, out,
-                                                       vtk_attr_name='Tolerance'):
+                                                       vtk_attr_name):
 
         if vtk_attr_name != 'Tolerance':
             raise RuntimeError("Not sure why you ask for me! "
