@@ -926,40 +926,6 @@ class TestTVTKModule(unittest.TestCase):
     def test_no_trait_has_ptr_address_as_value(self):
         '''Test if none of the TVTK classes' traits has a value of "*_p_void"
         '''
-        errors_getting_trait = []
-        errors_trait_is_ptr = []
-        for name in self.names:
-            tvtk_klass_name = get_tvtk_name(name)
-
-            try:
-                obj = getattr(tvtk, tvtk_klass_name)()
-            except Exception:
-                # testing for instantiation is above
-                pass
-
-            for trait_name in obj.editable_traits():
-                try:
-                    trait = getattr(obj, trait_name)
-                except (TypeError, TraitError):
-                    errors_getting_trait.append(
-                        (tvtk_klass_name, trait_name))
-                else:
-                    if isinstance(trait, str) and trait.endswith('_p_void'):
-                        errors_trait_is_ptr.append(
-                            (tvtk_klass_name, trait_name, trait))
-
-        if errors_trait_is_ptr:
-            message = ('These traits cannot be obtained:\n'
-                       '\n'.join(('{0}.{1}'.format(*error)
-                                  for error in errors_getting_trait)))
-        if errors_trait_is_ptr:
-            message = ('These traits are invalid:\n'
-                       '\n'.join(('{0}.{1} = {2}'.format(*error)
-                                  for error in errors_trait_is_ptr)))
-
-    def test_no_trait_has_ptr_address_as_value(self):
-        '''Test if none of the TVTK classes' traits has a value of "*_p_void"
-        '''
         errors_trait_is_ptr = []
         for name in self.names:
             tvtk_klass_name = get_tvtk_name(name)
@@ -1012,7 +978,7 @@ class TestTVTKModule(unittest.TestCase):
         if errors_getting_trait:
             message = 'These traits cannot be obtained:\n'
             message += '\n'.join(('tvtk.{0}.{1} : {2}'.format(*error)
-                                  for error in errors_trait_is_ptr))
+                                  for error in errors_getting_trait))
             self.fail(message)
 
     def test_import_tvtk_does_not_import_gui(self):
