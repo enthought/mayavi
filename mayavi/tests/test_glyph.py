@@ -6,6 +6,7 @@
 # Standard library imports.
 from os.path import abspath
 from io import BytesIO
+import platform
 import copy
 import numpy
 import unittest
@@ -137,6 +138,7 @@ class TestGlyph(unittest.TestCase):
         "Test if the test fixture works"
         self.check()
 
+    @unittest.skipIf(platform.system() == "Darwin", "Test crashes on OSX. See issue #373")
     def test_mask_input_points_with_random_mode(self):
         """Test if masking input points works with random mode.
            Tests Issue #165"""

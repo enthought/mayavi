@@ -36,8 +36,16 @@ It is can be used interactively with IPython_.
 
         In []: %gui qt
 
-    In some cases, where for some reason Mayavi fails with the Qt backend, you
-    can try using the wxPython backend by doing::
+    If the following exception is raised::
+
+        ValueError: API 'QString' has already been set to version 1
+
+    This is the result of incompatible setups between PyQt and PySide. The
+    solution is to run ``QT_API=pyqt ETS_TOOLKIT=qt4 ipython``. 
+    More details can be found at the `ipython documentation page`_.
+
+    If for some reason Mayavi fails with the Qt backend, you can also try
+    using the wxPython backend by doing::
 
         $ ETS_TOOLKIT=wx
         $ ipython --gui=wx
@@ -48,6 +56,8 @@ It is can be used interactively with IPython_.
 .. _matplotlib: http://matplotlib.sf.net
 
 .. _IPython: http://ipython.scipy.org
+
+.. _ipython documentation page: http://ipython.readthedocs.io/en/stable/interactive/reference.html#pyqt-and-pyside
 
 In this section, we first introduce simple plotting functions, to create
 3D objects as representations of `numpy` arrays. Then we explain how

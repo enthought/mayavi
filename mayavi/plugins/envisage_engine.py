@@ -76,7 +76,7 @@ class EnvisageEngine(Engine):
         super(EnvisageEngine, self).stop()
 
     @recordable
-    def new_scene(self, name=None, **kwargs):
+    def new_scene(self, viewer=None, name=None, **kwargs):
         """ Creates a new VTK scene window.
 
             For the time being the extra kwargs are ignored with the
