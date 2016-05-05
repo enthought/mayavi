@@ -1585,6 +1585,22 @@ class WrapperGenerator:
 
     @classmethod
     def _get_special_matched_key(cls, klass, vtk_attr_name):
+        """ Return the key in `special_traits` that matches klass.vtk_attr_name
+        using regular expression
+
+        Parameters
+        ----------
+        klass : class
+           VTK class
+
+        vtk_attr_name : str
+           VTK class attribute name
+
+        Returns
+        -------
+        key
+           key is None if nothing matches
+        """
         full_name = ".".join((klass.__name__, vtk_attr_name))
         for re_expr in cls.special_traits.keys():
             if re.match(re_expr, full_name):
@@ -1594,16 +1610,35 @@ class WrapperGenerator:
 
     @classmethod
     def _get_special_updateable_failable(cls, klass, vtk_attr_name):
+        """ Return (updateable, failable) for the klass.vtk_attr_name
+
+        Parameters
+        ----------
+        klass : class
+           VTK class
+
+        vtk_attr_name : str
+           VTK class attribute name
+
+        Raises
+        ------
+        KeyError
+           if klass.vtk_attr_name does not match anything in
+           `special_traits`
+        """
         key = cls._get_special_matched_key(klass, vtk_attr_name)
         return cls.special_traits.get(key)[:2]
 
     @classmethod
     def _is_special(cls, klass, vtk_attr_name):
-        """
+        """ Returns True if klass.vtk_attr_name matches anything
+        in `special_traits`
+
         Parameters
         ----------
         klass : class
            VTK class
+
         vtk_attr_name : str
            VTK class attribute name
 
