@@ -1,7 +1,7 @@
 .. _known_bugs:
 
 Known bugs and issues
-======================
+=====================
 
 The Known Issues section contains those items that are big and
 important but are not currently actively worked on, because they need
