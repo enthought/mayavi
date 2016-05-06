@@ -1628,12 +1628,17 @@ class WrapperGenerator:
 
         Raises
         ------
-        KeyError
+        ValueError
            if klass.vtk_attr_name does not match anything in
            `special_traits`
         """
         key = cls._get_special_matched_key(klass, vtk_attr_name)
-        return cls.special_traits.get(key)[:2]
+
+        if key is None:
+            message = '{0}.{1} does not have a special method for get/set code'
+            raise ValueError(message.format(klass.__name__, vtk_attr_name))
+
+        return cls.special_traits[key][:2]
 
     @classmethod
     def _is_special(cls, klass, vtk_attr_name):
