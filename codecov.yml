@@ -9,9 +9,8 @@ codecov:
 
     status:
       project: true
-      changes: false
+      changes: 
+        enabled: false
 
   comment:
-    layout: "uncovered"
-    behavior: default 
-
+    enabled : false
