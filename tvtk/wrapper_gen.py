@@ -65,7 +65,7 @@ def get_trait_def(value, **kwargs):
     >>> get_trait_def(u'something', enter_set=True, auto_set=False)
     ('traits.Unicode', "u'something'", 'auto_set=False, enter_set=True')
     >>> get_trait_def(True, enter_set=True, auto_set=False)
-    ('traits.Bool', '', 'auto_set=False, enter_set=True')
+    ('traits.Bool', 'True', 'auto_set=False, enter_set=True')
     """
 
     kwargs_code = ', '.join('{0}={1}'.format(key, value)
@@ -110,7 +110,7 @@ def get_trait_def(value, **kwargs):
         return 'traits.Array', '', kwargs_code
 
     elif type_ is bool:
-        return 'traits.Bool', '', kwargs_code
+        return 'traits.Bool', str(value), kwargs_code
 
     else:
         raise TypeError("Could not understand type: {}".format(type_))
