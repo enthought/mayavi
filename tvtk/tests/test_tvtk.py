@@ -657,9 +657,12 @@ class TestTVTK(unittest.TestCase):
             ('caption', 'GetCaption') in cap._updateable_traits_, True)
         self.assertEqual('caption' in cap._full_traitnames_list_, True)
 
-    def test_spider_plot_actor(self):
+    def test_spider_plot_actor_set_axis_label(self):
         """ Test SpiderPlotActor Get/SetAxisLabel works
         """
+        # SpiderPlotActor.SetAxisLabel accepts two arguments
+        # that are of different type, we need to make sure they
+        # are coded as is
         actor = tvtk.SpiderPlotActor()
         actor.set_axis_label(1, 'ss')
         self.assertEqual(actor.get_axis_label(1), 'ss')
