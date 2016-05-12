@@ -29,7 +29,7 @@ from . import special_gen
 PY_VER = sys.version_info[0]
 
 
-def get_trait_def(value, kwargs="enter_set=True, auto_set=False"):
+def get_trait_def(value, **kwargs):
     """ Return the appropriate trait type, reformatted string and
     the associated traits meta data for a given `value`
 
@@ -41,8 +41,8 @@ def get_trait_def(value, kwargs="enter_set=True, auto_set=False"):
     value
        can be anything
 
-    kwargs : str
-       extra keyword arguments for the trait definition
+    kwargs : dict
+       keyword arguments for the trait definition
 
     Returns
     -------
@@ -56,17 +56,20 @@ def get_trait_def(value, kwargs="enter_set=True, auto_set=False"):
 
     Example
     -------
-    >>> get_trait_def([100., 200.])
-    ('traits.Array', '', 'enter_set=True, auto_set=False, shape=(2,), dtype=float, value=[100.0, 200.0], cols=2')
-    >>> get_trait_def(100)
-    ('traits.Int', '100', 'enter_set=True, auto_set=False')
-    >>> get_trait_def(long(100))  # Python 2
-    ('traits.Long', '100', 'enter_set=True, auto_set=False')
-    >>> get_trait_def(u'something')
-    ('traits.Unicode', "u'something'", 'enter_set=True, auto_set=False')
-    >>> get_trait_def(True)
-    ('traits.Bool', '', 'enter_set=True, auto_set=False')
+    >>> get_trait_def([100., 200.], enter_set=True, auto_set=False)
+    ('traits.Array', '', 'auto_set=False, enter_set=True, shape=(2,), dtype=float, value=[100.0, 200.0], cols=2')
+    >>> get_trait_def(100, enter_set=True, auto_set=False)
+    ('traits.Int', '100', 'auto_set=False, enter_set=True')
+    >>> get_trait_def(long(100), enter_set=True, auto_set=False)  # Python 2
+    ('traits.Long', '100', 'auto_set=False, enter_set=True')
+    >>> get_trait_def(u'something', enter_set=True, auto_set=False)
+    ('traits.Unicode', "u'something'", 'auto_set=False, enter_set=True')
+    >>> get_trait_def(True, enter_set=True, auto_set=False)
+    ('traits.Bool', '', 'auto_set=False, enter_set=True')
     """
+
+    kwargs_code = ', '.join('{0}={1}'.format(key, value)
+                            for key, value in kwargs.items())
 
     type_ = type(value)
 
@@ -78,35 +81,36 @@ def get_trait_def(value, kwargs="enter_set=True, auto_set=False"):
         number_map[long] = 'traits.Long'
 
     if type_ in number_map:
-        return number_map[type_], str(value), kwargs
+        return number_map[type_], str(value), kwargs_code
 
     elif type_ is str:
         if value == '\x00':
             value = ''
-        return 'traits.String', '{!r}'.format(value), kwargs
+        return 'traits.String', '{!r}'.format(value), kwargs_code
 
     elif PY_VER < 3 and type_ is unicode:
         if value == u'\x00':
             value = u''
-        return 'traits.Unicode', '{!r}'.format(value), kwargs
+        return 'traits.Unicode', '{!r}'.format(value), kwargs_code
 
     elif type_ in (tuple, list):
         shape = (len(value),)
         dtypes = set(type(element) for element in value)
         dtype = dtypes.pop().__name__ if len(dtypes) == 1 else None
         cols = len(value)
-        if kwargs:
-            kwargs += ', '
 
-        kwargs += ('shape={shape}, dtype={dtype}, '
-                   'value={value!r}, cols={cols}').format(
-                       shape=shape, dtype=dtype,
-                       value=value, cols=min(3, len(value)))
+        if kwargs_code:
+            kwargs_code += ', '
 
-        return 'traits.Array', '', kwargs
+        kwargs_code += ('shape={shape}, dtype={dtype}, '
+                        'value={value!r}, cols={cols}').format(
+                            shape=shape, dtype=dtype,
+                            value=value, cols=min(3, len(value)))
+
+        return 'traits.Array', '', kwargs_code
 
     elif type_ is bool:
-        return 'traits.Bool', '', kwargs
+        return 'traits.Bool', '', kwargs_code
 
     else:
         raise TypeError("Could not understand type: {}".format(type_))
@@ -843,7 +847,9 @@ class WrapperGenerator:
                 try:
                     # That would give the trait definition as
                     # {trait_type}({default}, {kwargs})
-                    trait_type, default, kwargs = get_trait_def(default)
+                    trait_type, default, kwargs = get_trait_def(default,
+                                                                enter_set=True,
+                                                                auto_set=False)
                 except TypeError:
                     # ------------------------------------------
                     # Nothing works, print what we ignore
@@ -1496,7 +1502,7 @@ class WrapperGenerator:
             else:
                 default = "traits.Undefined"
 
-            trait_type, _, kwargs = get_trait_def(value_for_type, "")
+            trait_type, _, kwargs = get_trait_def(value_for_type)
             t_def = ('traits.Trait({default}, '    # traits.Undefined
                      '{trait_type}({kwargs}), '    # the new default trait
                      'enter_set=True, auto_set=False)').format(
