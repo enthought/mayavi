@@ -69,13 +69,12 @@ class VTKMethodParser:
     object.  Here is an example::
 
        >>> import vtk
-       >>> p = VTKMethodParser()
        >>> o = vtk.vtkProperty
-       >>> print p.get_method_signature(o.GetClassName)
+       >>> print VTKMethodParser.get_method_signature(o.GetClassName)
        [(['string'], None)]
-       >>> print p.get_method_signature(o.GetColor)[0]
+       >>> print VTKMethodParser.get_method_signature(o.GetColor)[0]
        ([('float', 'float', 'float')], None)
-       >>> print p.get_method_signature(o.GetColor)[1]
+       >>> print VTKMethodParser.get_method_signature(o.GetColor)[1]
        ([None], (('float', 'float', 'float'),))
 
     The `get_method_signature` is fairly efficient and obtaining the
@@ -295,7 +294,8 @@ class VTKMethodParser:
         """
         return self.other_meths
 
-    def get_method_signature(self, method):
+    @staticmethod
+    def get_method_signature(method):
         """Returns information on the Python method signature given
         the VTK method.
 

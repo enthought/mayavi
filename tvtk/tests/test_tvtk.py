@@ -16,7 +16,8 @@ import gc
 import traceback
 import contextlib
 import types
-
+import inspect
+import re
 import numpy
 import vtk
 
@@ -53,6 +54,26 @@ def mysum(arr):
     while type(val) == numpy.ndarray:
         val = numpy.sum(val)
     return val
+
+
+def has_subclass(tvtk_class):
+    """ Return True if `tvtk_class` has a subclass (excluding itself)
+    Unfortunately because of the VTK API we cannot tell whether the
+    subclass is abstract or not
+    """
+    def is_sub_class(x):
+        return (inspect.isclass(x) and
+                issubclass(x, tvtk_class) and
+                x is not tvtk_class)
+    # wish there was an iterator version of inspect.getmembers
+    return bool(inspect.getmembers(tvtk, is_sub_class))
+
+
+def skipUnlessTVTKHasattr(attr):
+    if hasattr(tvtk, attr):
+        return lambda func: func
+    message = "{} is not available on this build of TVTK"
+    return unittest.skip(message.format(attr))
 
 
 class TestTVTK(unittest.TestCase):
@@ -636,6 +657,183 @@ class TestTVTK(unittest.TestCase):
             ('caption', 'GetCaption') in cap._updateable_traits_, True)
         self.assertEqual('caption' in cap._full_traitnames_list_, True)
 
+    def test_spider_plot_actor_set_axis_label(self):
+        """ Test SpiderPlotActor Get/SetAxisLabel works
+        """
+        # SpiderPlotActor.SetAxisLabel accepts two arguments
+        # that are of different type, we need to make sure they
+        # are coded as is
+        actor = tvtk.SpiderPlotActor()
+        actor.set_axis_label(1, 'ss')
+        self.assertEqual(actor.get_axis_label(1), 'ss')
+
+    def test_image_convolve_kernel(self):
+        """ Test that setting the kernels in ImageConvolve works
+        """
+        tvtk_filter = tvtk.ImageConvolve()
+        expected = numpy.arange(9.)
+
+        if vtk_major_version < 6:
+            # Before VTK 6, the ImageConvolve.GetKernel3x3
+            # requires an array as argument
+
+            # Set the kernel
+            tvtk_filter.set_kernel3x3(expected)
+
+            # Get it back
+            result = numpy.empty(9)
+            tvtk_filter.get_kernel3x3(result)
+
+            self.assertTrue(numpy.allclose(result, expected), True)
+
+            with self.assertRaises(TypeError):
+                # VTK Set method raises the TypeError
+                tvtk_filter.set_kernel3x3(range(2))
+
+        else:
+            # Since VTK 6.x, ImageConvolve.GetKernel3x3
+            # can take either no argument or an array
+            # With that change in the API, kernel3x3
+            # is a Trait (similarly for kernel3x3x3, ...)
+            tvtk_filter.kernel3x3 = expected
+
+            # Get it back
+            result = numpy.empty(9)
+            tvtk_filter._vtk_obj.GetKernel3x3(result)
+
+            self.assertTrue(numpy.allclose(result, expected), True)
+
+            # The shape is validated by Trait
+            with self.assertRaises(TraitError):
+                tvtk_filter.kernel3x3 = range(2)
+
+    @skipUnlessTVTKHasattr('DistanceRepresentation2D')
+    def test_distance_representation_2d_point1_world_position(self):
+        """ Test that Position attributes in DistanceRepresentation2D works
+        """
+        tvtk_filter = tvtk.DistanceRepresentation2D()
+        tvtk_filter.instantiate_handle_representation()
+
+        if vtk_major_version < 6:
+            # Before VTK 6, the DistanceRepresentation2D.GetPoint1WorldPosition
+            # requires an array as argument
+
+            # Set the kernel
+            expected = (1, 2, 3)
+            tvtk_filter.set_point1_world_position(expected)
+
+            # Get it back
+            result = numpy.empty(3)
+            tvtk_filter.get_point1_world_position(result)
+
+            self.assertTrue(numpy.allclose(result, expected), True)
+
+            with self.assertRaises(TypeError):
+                # VTK Set method raises the TypeError
+                tvtk_filter.set_point1_world_position(range(2))
+        else:
+            # Since VTK 6.x, DistanceRepresentation2D.GetPoint1WorldPosition
+            # can take either no argument or an array
+            # With that change in the API, point1_world_position
+            # is a Trait (similarly for point2_world_position ...)
+
+            # Set the position
+            expected = (1, 2, 3)
+            tvtk_filter.point1_world_position = expected
+
+            # Get it back
+            result = numpy.empty(3)
+            tvtk_filter._vtk_obj.GetPoint1WorldPosition(result)
+
+            self.assertTrue(numpy.allclose(result, expected), True)
+
+            # The shape is validated by Trait
+            with self.assertRaises(TraitError):
+                tvtk_filter.point1_world_position = range(2)
+
+    @skipUnlessTVTKHasattr('XOpenGLRenderWindow')
+    def test_xopengl_render_window(self):
+        """ Test that setting the position to a render window works
+        Issue #357
+        """
+        window = tvtk.XOpenGLRenderWindow()
+
+        # Setting it to some valid value
+        window.position = (1, 1)
+
+        # But setting to some invalid value outside of update_traits
+        # should fail as long as Traits is doing its job
+        with self.assertRaises(TraitError):
+            window.position = 1
+
+    @unittest.skipIf(vtk_major_version < 6,
+                     ('vtkHardwareSelector.PropColorValue is not available '
+                      'for vtk version < 6'))
+    @skipUnlessTVTKHasattr('HardwareSelector')
+    def test_hardware_selector_prop_color_value(self):
+        """ Test that PropColorValue of HardwareSelector works
+        Issue #360
+        """
+        selector = tvtk.HardwareSelector()
+
+        # Setting it to some valid value
+        selector.prop_color_value = (0.1, 0.4, 0.2)
+
+        # But setting to some invalid value outside of update_traits
+        # should fail as long as Traits is doing its job
+        with self.assertRaises(TraitError):
+            selector.prop_color_value = (-100., 10., 1.)
+
+    @skipUnlessTVTKHasattr('AxesTransformRepresentation')
+    def test_axes_transform_representation_tolerance(self):
+        """ Test the tolerance of AxesTransformRepresentation is set properly
+        """
+        tvtk_obj = tvtk.AxesTransformRepresentation()
+        vtk_obj = vtk.vtkAxesTransformRepresentation()
+
+        self.assertTrue(tvtk_obj.tolerance <= vtk_obj.GetToleranceMaxValue())
+        self.assertTrue(tvtk_obj.tolerance >= vtk_obj.GetToleranceMinValue())
+
+    @skipUnlessTVTKHasattr('ObjectFactory')
+    def test_object_factory_enableflag_api(self):
+        """ Test ObjectFactory Get/SetEnableFlag API
+        """
+        # It is an abstract class, can't instantiate
+        klass = tvtk.ObjectFactory
+
+        if has_subclass(klass):
+            # If we place this check as a unittest.skipIf decorator,
+            # this would cause garbage collection tests in the test suite to fail
+            # as the some classes are kept live
+            raise unittest.SkipTest(('ObjectFactory has a subclass. '
+                                     'This may cause the TVTK API to be different '
+                                     'from if it had not'))
+
+        # The Set/Get methods require many args
+        # they should be coded as such
+        self.assertTrue(hasattr(klass, 'set_enable_flag'))
+        self.assertTrue(hasattr(klass, 'get_enable_flag'))
+
+    @skipUnlessTVTKHasattr('ContextDevice2D')
+    def test_contextdevice2d_matrix_api(self):
+        """ Test ContextDevice2D Get/SetMatrix API
+        """
+        # It is an abstract class, can't instantiate
+        klass = tvtk.ContextDevice2D
+
+        if has_subclass(klass):
+            # If we place this check as a unittest.skipIf decorator,
+            # this would cause garbage collection tests in the test suite to fail
+            # as the some classes are kept live
+            raise unittest.SkipTest(('ContextDevice2D has a subclass. '
+                                     'This may cause the TVTK API to be different '
+                                     'from if it had not'))
+
+        # The Set/Get methods require many args
+        # they should be coded as such
+        self.assertTrue(hasattr(klass, 'set_matrix'))
+        self.assertTrue(hasattr(klass, 'get_matrix'))
+
 
 # This separates out any tests for the entire module that would affect
 # the functioning of the other tests.
@@ -647,33 +845,144 @@ class TestTVTKModule(unittest.TestCase):
 
     def setUp(self):
         vtk.vtkObject.GlobalWarningDisplayOff()
-        self.names = [
-            name for name in dir(vtk)
-            if name.startswith('vtk') and
-            not name.startswith('vtkQt') and len(name) > 3]
+        self.names = []
+        # Filter the ones that are abstract or not implemented
+        for name in dir(vtk):
+            if (not name.startswith('vtk') or name.startswith('vtkQt') or
+                    len(name) <= 3):
+                continue
+            vtk_klass = getattr(vtk, name)
+            tvtk_klass_name = get_tvtk_name(name)
+            tvtk_klass = getattr(tvtk, tvtk_klass_name, None)
+            if hasattr(vtk_klass, '__bases__') and tvtk_klass is not None:
+                try:
+                    obj = vtk_klass()
+                except (TypeError, NotImplementedError):
+                    continue
+                else:
+                    self.names.append(name)
 
     def test_all_instantiable(self):
         """Test if all the TVTK classes can be instantiated"""
         errors = []
         for name in self.names:
-            klass = getattr(vtk, name)
             tvtk_name = get_tvtk_name(name)
             tvtk_klass = getattr(tvtk, tvtk_name, None)
-            if hasattr(klass, '__bases__') and tvtk_klass is not None:
-                try:
-                    klass()
-                except (TypeError, NotImplementedError):
-                    # These classes are abstract and can't/shouldn't
-                    # be instantiated.
-                    pass
-                else:
-                    try:
-                        tvtk_klass()
-                    except TraitError:
-                        errors.append(traceback.format_exc())
+            try:
+                tvtk_klass()
+            except TraitError:
+                errors.append(traceback.format_exc())
         if len(errors) > 0:
             message = "Not all classes could be instantiated:\n{0}\n"
             raise AssertionError(message.format(''.join(errors)))
+
+    def test_trait_with_range(self):
+        '''Test if all the attributes with MinValue/MaxValue are traits
+        with Range
+        '''
+        def to_camel_case(text):
+            """ Convert text to CamelCase"""
+            def replace_func(matched):
+                word = matched.group(0).strip("_")
+                return word[0].upper()+word[1:].lower()
+            return re.sub(r'(_?[a-zA-Z]+)', replace_func, text)
+
+        def get_min_max_value(vtk_klass, vtk_attr_name):
+            """ Return (min, max) of a VTK attribute
+
+            If MaxValue or MinValue is not available
+            (None, None) is returned
+            """
+            get_min_method = 'Get' + vtk_attr_name + 'MinValue'
+            get_max_method = 'Get' + vtk_attr_name + 'MaxValue'
+            try:
+                return (getattr(vtk_klass(), get_min_method)(),
+                        getattr(vtk_klass(), get_max_method)())
+            except AttributeError:
+                return None, None
+
+        for name in self.names:
+            vtk_klass = getattr(vtk, name)
+            tvtk_klass_name = get_tvtk_name(name)
+
+            try:
+                obj = getattr(tvtk, tvtk_klass_name)()
+            except Exception:
+                # testing for instantiation is above
+                pass
+
+            for trait_name in obj.editable_traits():
+                vtk_attr_name = to_camel_case(trait_name)
+                min_value, max_value = get_min_max_value(vtk_klass,
+                                                         vtk_attr_name)
+
+                # Explicitly checking for None instead of bool(value)
+                # since min_value/max_value could be int(0)
+                if max_value is not None and min_value is not None:
+                    # If max and min values are defined, setting the trait
+                    # to outside this range should fail
+                    with self.assertRaises(TraitError):
+                        setattr(obj, trait_name, (min_value-1, max_value))
+                    with self.assertRaises(TraitError):
+                        setattr(obj, trait_name, (min_value, max_value+1))
+
+    def test_no_trait_has_ptr_address_as_value(self):
+        '''Test if none of the TVTK classes' traits has a value of "*_p_void"
+        '''
+        errors_trait_is_ptr = []
+        for name in self.names:
+            tvtk_klass_name = get_tvtk_name(name)
+            try:
+                obj = getattr(tvtk, tvtk_klass_name)()
+            except Exception:
+                # testing for instantiation is above
+                pass
+
+            # Had to use `_full_traitnames_list_` instead of calling
+            # editable_traits(), otherwise looping over the trait name
+            # and getting the attribute (getattr) cause Segfault for
+            # AxisActor.title_prop3d, DataSetCellIterator.cell_type
+            # DataSetCellIterator.number_of_points ...etc
+            for trait_name in obj._full_traitnames_list_:
+                try:
+                    trait = getattr(obj, trait_name)
+                except (TypeError, TraitError):
+                    pass  # this is tested in another test
+                else:
+                    if isinstance(trait, str) and trait.endswith('_p_void'):
+                        errors_trait_is_ptr.append(
+                            (tvtk_klass_name, trait_name, trait))
+
+        if errors_trait_is_ptr:
+            message = 'These traits are invalid:\n'
+            message += '\n'.join(('tvtk.{0}.{1} = {2!r}'.format(*error)
+                                  for error in errors_trait_is_ptr))
+            self.fail(message)
+
+    def test_all_traits_can_be_obtained(self):
+        '''Test if all of the traits can be obtained
+        '''
+        errors_getting_trait = []
+        for name in self.names:
+            tvtk_klass_name = get_tvtk_name(name)
+            try:
+                obj = getattr(tvtk, tvtk_klass_name)()
+            except Exception:
+                # testing for instantiation is above
+                pass
+
+            for trait_name in obj._full_traitnames_list_:
+                try:
+                    trait = getattr(obj, trait_name)
+                except Exception as exception:
+                    errors_getting_trait.append(
+                        (tvtk_klass_name, trait_name, str(exception)))
+
+        if errors_getting_trait:
+            message = 'These traits cannot be obtained:\n'
+            message += '\n'.join(('tvtk.{0}.{1} : {2}'.format(*error)
+                                  for error in errors_getting_trait))
+            self.fail(message)
 
     def test_import_tvtk_does_not_import_gui(self):
         from subprocess import check_output, STDOUT
