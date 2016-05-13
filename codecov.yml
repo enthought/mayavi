@@ -2,15 +2,15 @@ codecov:
   notify:
     require_ci_to_pass: yes
 
-  coverage:
-    precision: 2
-    round: down
-    range: 40...100
+coverage:
+  precision: 2
+  round: up
+  range: 40...100
 
-    status:
-      project: true
-      changes: 
-        enabled: false
+  status:
+    project: 
+    
+    patch:
+      only_pulls: yes
 
-  comment:
-    enabled : false
+comment : off
