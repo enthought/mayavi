@@ -5,6 +5,7 @@ import unittest
 import tempfile
 
 import numpy
+from PIL import Image
 
 from mayavi import mlab
 from mayavi.core.engine import Engine
@@ -38,6 +39,40 @@ class TestMlabSavefigUnitTest(unittest.TestCase):
     def remove_tempdir(self):
         shutil.rmtree(self.temp_dir)
 
+    def test_many_savefig_offscreen(self):
+        """Test if savefig works with off_screen_rendering and Engine"""
+        engine = Engine()
+        for _ in xrange(5):
+            self.setup_engine_and_figure(engine)
+
+            # Use off-screen rendering
+            self.figure.scene.off_screen_rendering = True
+
+            # Set up the scene
+            create_quiver3d()
+
+            # save the figure
+            savefig(self.filename, size=(131, 217), figure=self.figure)
+            self.assertImageSavedWithContent(self.filename)
+
+    def assertImageSavedWithContent(self, filename):
+        """ Load the image and check that there is some content in it.
+        """
+        image = numpy.array(Image.open(filename))
+        # default is expected to be a totally white image
+
+        self.assertEqual(image.shape[:2], (215, 130))
+        if image.shape[2] == 3:
+            check = numpy.sum(image == [255, 0, 0], axis=2) == 3
+        elif image.shape[2] == 4:
+            check = numpy.sum(image == [255, 0, 0, 255], axis=2) == 4
+        else:
+            self.fail(
+                'Pixel size is not 3 or 4, but {0}'.format(image.shape[2]))
+        if check.any():
+            return
+        self.fail('The image looks empty, content was drawn')
+
     def setup_engine_and_figure(self, engine):
         # Set up a Engine/OffScreenEngine/... for the test case
         self.engine = engine
@@ -58,25 +93,6 @@ class TestMlabSavefigUnitTest(unittest.TestCase):
         for scene in scenes:
             engine.close_scene(scene)
         engine.stop()
-
-    @unittest.skipIf(os.environ.get("TRAVIS", False),
-                     ("Offscreen rendering is not tested on Travis "
-                      "due to lack of GLX support"))
-    def test_many_savefig_offscreen(self):
-        """Test if savefig works with off_screen_rendering and Engine"""
-        engine = Engine()
-        for _ in xrange(5):
-            self.setup_engine_and_figure(engine)
-
-            # Use off-screen rendering
-            self.figure.scene.off_screen_rendering = True
-
-            # Set up the scene
-            create_quiver3d()
-
-            # save the figure
-            savefig(self.filename, size=(131, 217),
-                    figure=self.figure)
 
 
 class TestMlabSavefig(TestCase):
