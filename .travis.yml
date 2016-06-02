@@ -29,7 +29,7 @@ matrix:
       language: python
       python: 2.7
       env: VTK_VERSION=7.0 ETS_TOOLKIT=wx
-  allow_failures:      
+  allow_failures:
     - os: osx
       language: generic
       env: VTK_VERSION=5.8 ETS_TOOLKIT=qt4
@@ -47,7 +47,7 @@ matrix:
       language: python
       python: 2.7
       env: VTK_VERSION=7.0 ETS_TOOLKIT=wx
-    
+
 # Travis Ubuntu 12 does not allow python-pyside
 addons:
   apt:
@@ -75,9 +75,7 @@ script:
   - coverage erase
   - coverage run -p -m nose.core -v tvtk/tests
   - coverage run -p -m nose.core -v mayavi
-  # We can't run the integrationtests on travis with qt because python-pyside is forbidden
-  # And PyQt hangs during event loop
-  - if [[ ${ETS_TOOLKIT} == "wx" ]]; then sh travis/travis-run-integration-tests.sh; fi
+  - sh travis/travis-run-integration-tests.sh
   - coverage combine
 after_success:
   - pip install codecov
