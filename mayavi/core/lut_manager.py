@@ -2,13 +2,13 @@
 
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2005-2008, Enthought, Inc.
+# Copyright (c) 2005-2016, Enthought, Inc.
 # License: BSD Style.
 
 import os.path
 import sys
 import subprocess
-
+import warnings
 
 # Enthought library imports.
 from traits.api import Instance, Range, Bool, Array, \
@@ -22,9 +22,29 @@ from mayavi.core.base import Base
 from mayavi.core.common import error
 
 from mayavi.core import lut
+
+
+# The directory that contains the pickled files for colormap
 lut_image_dir = os.path.dirname(lut.__file__)
-pylab_luts = state_pickler.load_state(os.path.join(lut_image_dir,
-                                                'pylab_luts.pkl'))
+pylab_luts_file = os.path.join(lut_image_dir, 'pylab_luts.pkl')
+
+try:
+    pylab_luts = state_pickler.load_state(pylab_luts_file)
+except (IOError, ValueError) as exception:
+    # IOError: failed to open file
+    # ValueError: pickled file is built from an OS w/ different
+    #             architecture, or with an incompatible protocol
+    message = ("Failed to load pylab colormaps from file:\n"
+               "{filepath}\n"
+               "Last error: {err_type} {err_message}\n"
+               "Some colormaps will not be available. "
+               "You may rebuild this file using the script provided "
+               "in the mayavi source code: scripts/cm2lut.py")
+    warnings.warn(message.format(filepath=pylab_luts_file,
+                                 err_type=type(exception).__name__,
+                                 err_message=str(exception)))
+    pylab_luts = {}
+
 
 #################################################################
 # Utility functions.

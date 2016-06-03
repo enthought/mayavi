@@ -41,12 +41,6 @@ class TestMlabNullEngine(unittest.TestCase):
             registry.unregister_engine(current_engine)
             raise AssertionError("The NullEngine has been overridden")
 
-    def _get_output(self, obj):
-        if obj.is_a('vtkDataSet'):
-            return obj
-        else:
-            return obj.output
-
 
 ################################################################################
 # class `TestMlabNullEngineMisc`
@@ -217,18 +211,18 @@ class TestMlabNullEngineMisc(TestMlabNullEngine):
 ################################################################################
 class TestMlabPipeline(TestMlabNullEngine):
     """ Test the pipeline functions.
-        For vtk versions greater than 5.6 (5.10.1 onwards), widgets need
+        For vtk versions greater than 5.10, widgets need
         a render window interactor to be set, otherwise an error is raised.
         As such this test checks for the current VTK version and setups a real
-        engine for vtk > 5.6 and null engine otherwise.
+        engine for vtk > 5.10 and null engine otherwise.
     """
 
     def setUp(self):
         ver = tvtk.Version()
-        self.less_than_vtk_5_6 = True
-        if ver.vtk_major_version >= 5 and ver.vtk_minor_version >= 10:
-            self.less_than_vtk_5_6 = False
-        if self.less_than_vtk_5_6:
+        self.less_than_or_equal_to_vtk_5_10 = True
+        if ver.vtk_major_version >= 5 and ver.vtk_minor_version > 10:
+            self.less_than_or_equal_to_vtk_5_10 = False
+        if self.less_than_or_equal_to_vtk_5_10:
             super(TestMlabPipeline, self).setUp()
         else:
             e = Engine()
@@ -236,10 +230,10 @@ class TestMlabPipeline(TestMlabNullEngine):
             mlab.set_engine(e)
 
     def tearDown(self):
-        if self.less_than_vtk_5_6:
-            super(TestMlabPipeline, self).setUp()
+        if self.less_than_or_equal_to_vtk_5_10:
+            super(TestMlabPipeline, self).tearDown()
         else:
-            for engine in registry.engines:
+            for engine in list(registry.engines.keys()):
                 registry.unregister_engine(engine)
 
     def test_probe_data(self):

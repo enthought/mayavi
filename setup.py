@@ -54,7 +54,9 @@ project:
 
 * `Numpy <http://pypi.python.org/pypi/numpy/1.1.1>`_ version 1.1.1 or later
 * `VTK <http://www.vtk.org/>`_ version 5.0 or later
-* `wxPython <http://www.wxpython.org/>`_ version 2.8 or later
+* One of the following GUI toolkit packages:
+    - `Qt <http://www.qt.io>`_ version 4.8 with either PyQt 4.11.4 or PySide 1.2.2
+    - `wxPython <http://www.wxpython.org/>`_ version 2.8 or later
 * `configobj <http://pypi.python.org/pypi/configobj>`_
 """
 
@@ -74,6 +76,7 @@ from os.path import (abspath, basename, dirname, exists, getmtime, isdir,
                      join, split, splitext)
 
 from numpy.distutils.command import build, install_data
+from distutils.command import clean
 from distutils import log
 from setuptools.command import develop, install_scripts
 
@@ -315,7 +318,6 @@ class MyBuild(build.build):
                      traceback.format_exception(*sys.exc_info()))
 
 
-
 class MyDevelop(develop.develop):
     """ A hook to have the docs rebuilt during develop.
 
@@ -364,6 +366,26 @@ class MyInstallData(install_data.install_data):
             (tvtk_dir, [join(tvtk_dir, 'tvtk_classes.zip')]))
 
         install_data.install_data.run(self)
+
+
+class MyClean(clean.clean):
+    """Reimplements to remove the extension module array_ext to guarantee a
+    fresh rebuild every time. The module hanging around could introduce
+    problems when doing develop for a different vtk version."""
+    def run(self):
+        MY_DIR = os.path.dirname(__file__)
+
+        ext_file = os.path.join(
+            MY_DIR,
+            "tvtk",
+            "array_ext" + (".pyd" if sys.platform == "win32" else ".so")
+        )
+
+        if os.path.exists(ext_file):
+            print("Removing in-place array extensions {}".format(ext_file))
+            os.unlink(ext_file)
+
+        clean.clean.run(self)
 
 
 # Configure our extensions to Python
@@ -445,6 +467,7 @@ numpy.distutils.core.setup(
         # setuptools' sdist command.
         'sdist': setuptools.command.sdist.sdist,
         'build': MyBuild,
+        'clean': MyClean,
         'develop': MyDevelop,
         'install_data': MyInstallData,
         'gen_docs': GenDocs,

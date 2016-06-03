@@ -1,12 +1,54 @@
-language: python
 sudo: false
-python:
-  - 2.7
 virtualenv:
   system_site_packages: true
-env:
-  - ETS_TOOLKIT=qt4
-  - ETS_TOOLKIT=wx
+
+matrix:
+  include:
+    - os: osx
+      language: generic
+      env: VTK_VERSION=5.8 ETS_TOOLKIT=qt4
+    - os: osx
+      language: generic
+      env: VTK_VERSION=5.8 ETS_TOOLKIT=wx
+    - os: osx
+      language: generic
+      env: VTK_VERSION=7.0 ETS_TOOLKIT=wx
+    - os: linux
+      language: python
+      python: 2.7
+      env: VTK_VERSION=5.8 ETS_TOOLKIT=qt4
+    - os: linux
+      language: python
+      python: 2.7
+      env: VTK_VERSION=5.8 ETS_TOOLKIT=wx
+    - os: linux
+      language: python
+      python: 2.7
+      env: VTK_VERSION=6.3 ETS_TOOLKIT=wx
+    - os: linux
+      language: python
+      python: 2.7
+      env: VTK_VERSION=7.0 ETS_TOOLKIT=wx
+  allow_failures:      
+    - os: osx
+      language: generic
+      env: VTK_VERSION=5.8 ETS_TOOLKIT=qt4
+    - os: osx
+      language: generic
+      env: VTK_VERSION=5.8 ETS_TOOLKIT=wx
+    - os: osx
+      language: generic
+      env: VTK_VERSION=7.0 ETS_TOOLKIT=wx
+    - os: linux
+      language: python
+      python: 2.7
+      env: VTK_VERSION=6.3 ETS_TOOLKIT=wx
+    - os: linux
+      language: python
+      python: 2.7
+      env: VTK_VERSION=7.0 ETS_TOOLKIT=wx
+    
+# Travis Ubuntu 12 does not allow python-pyside
 addons:
   apt:
     packages:
@@ -22,19 +64,20 @@ cache:
     - $HOME/.cache
     - $HOME/.ccache
 before_install:
-  - ccache -s
-  - export PATH=/usr/lib/ccache:${PATH}
-  - pip install --upgrade pip
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
+  - source travis/before_install.sh
 install:
-  - pip install -r travis-requirements.txt
+  - source travis/setup_vtk_env.sh
+  # Print the VTK version
+  - python -c "from __future__ import print_function; import vtk; print('VTK Version:', vtk.vtkVersion.GetVTKVersion())"
+  - pip install -r travis/travis-requirements.txt
   - python setup.py develop
 script:
   - coverage erase
   - coverage run -p -m nose.core -v tvtk/tests
   - coverage run -p -m nose.core -v mayavi
-  - if [[ ${ETS_TOOLKIT} == "wx" ]]; then sh travis-run-integration-tests.sh; fi
+  # We can't run the integrationtests on travis with qt because python-pyside is forbidden
+  # And PyQt hangs during event loop
+  - if [[ ${ETS_TOOLKIT} == "wx" ]]; then sh travis/travis-run-integration-tests.sh; fi
   - coverage combine
 after_success:
   - pip install codecov

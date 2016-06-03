@@ -26,10 +26,13 @@ logger = logging.getLogger(__name__)
 ######################################################################
 # Utility functions.
 ######################################################################
+
+
 def debug(msg):
     """Handle a debug message.
     """
     logger.debug(msg)
+
 
 def warning(msg, parent=None):
     """Handle a warning message.
@@ -38,12 +41,14 @@ def warning(msg, parent=None):
     if pyface is not None:
         pyface.warning(parent, msg)
 
+
 def error(msg, parent=None):
     """Handle an error message.
     """
     logger.error(msg)
     if pyface is not None:
         pyface.error(parent, msg)
+
 
 def exception(msg='Exception', parent=None):
     """This function handles any exception derived from Exception and
@@ -65,6 +70,7 @@ def exception(msg='Exception', parent=None):
     finally:
         type = value = tb = None # clean up
 
+
 def process_ui_events():
     """Process GUI events.
 
@@ -73,6 +79,7 @@ def process_ui_events():
     """
     if pyface is not None:
         pyface.GUI.process_events()
+
 
 def get_engine(obj):
     """Try and return the engine given an object in the mayavi
@@ -86,6 +93,15 @@ def get_engine(obj):
         else:
             obj = obj.parent
     return None
+
+
+def get_output(obj):
+    """Given an object, extracts the output object, hiding differences
+    between old and new pipeline."""
+    if obj.is_a('vtkDataSet'):
+        return obj
+    else:
+        return obj.output
 
 
 def get_object_path(object, parent, path='engine'):

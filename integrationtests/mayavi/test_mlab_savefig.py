@@ -1,5 +1,6 @@
 import os
 import shutil
+import sys
 import unittest
 import tempfile
 
@@ -215,8 +216,6 @@ class TestMlabSavefig(TestCase):
         # Run the test suite using TextTestRunner so you get
         # messages printed to the stdout
         result = unittest.TextTestRunner().run(suite)
-
-        # common.TestCase.run exists with 1 if tests fail
         if result.errors or result.failures:
             sys.exit(1)
 

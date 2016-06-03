@@ -49,10 +49,8 @@ class TestVTKFileReader(unittest.TestCase):
         self.src.initialize(get_example_data('SampleStructGrid.vtk'))
         self.check(24000, 21489)
 
-    @unittest.skipIf(vtk_major_version == 5 and vtk_minor_version < 10,
-                    "This test is probably broken in VTK < 5.10")
     def test_unstructured_grid_file(self):
-        self.src.initialize(get_example_data('UGridEx.vtk'))
+        self.src.initialize(get_example_data('uGridEx.vtk'))
         self.check(27, 12)
 
     def test_field_file(self):
