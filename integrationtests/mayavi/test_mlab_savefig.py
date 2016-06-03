@@ -39,49 +39,6 @@ class TestMlabSavefigUnitTest(unittest.TestCase):
     def remove_tempdir(self):
         shutil.rmtree(self.temp_dir)
 
-    def setup_engine_and_figure(self, engine):
-        # Set up a Engine/OffScreenEngine/... for the test case
-        self.engine = engine
-
-        if not engine.running:
-            engine.start()
-
-        # figure size is set to be small to force re-rendering
-        engine.new_scene(size=(90, 100))
-        self.figure = engine.current_scene
-
-        # the clean up function will close all figures and stop the engine
-        self.addCleanup(self.cleanup_engine, self.engine)
-
-    def cleanup_engine(self, engine):
-        """ Close all scenes in the engine and stop it """
-        scenes = [scene for scene in engine.scenes]
-        for scene in scenes:
-            engine.close_scene(scene)
-        engine.stop()
-
-    def check_image_no_black_pixel(self, filename):
-        """ The image setup for this test case should have absolutely
-        no black pixels.  This function checks and fails the test if
-        black pixels are found.
-        """
-        with open(filename) as fh:
-            image = numpy.array(Image.open(fh))[:, :, :3]
-
-            if (numpy.sum(image == [0, 0, 0], axis=2) == 3).any():
-                message = "The image has black spots"
-                self.fail(message)
-
-    def check_image_size(self, filename, size):
-        """ Check if the image saved in the filename has the desired
-        size
-        """
-        with open(filename) as fh:
-            image = numpy.array(Image.open(fh))[:, :, :3]
-            # check the size is correct
-            # The width and height dimensions are swapped
-            self.assertEqual(image.shape[:2][::-1], size)
-
     def test_savefig(self):
         """Test if savefig works with auto size, mag and a normal Engine"""
         self.setup_engine_and_figure(Engine())
@@ -124,9 +81,6 @@ class TestMlabSavefigUnitTest(unittest.TestCase):
         self.check_image_size(self.filename, size=(262, 434))
         self.check_image_no_black_pixel(self.filename)
 
-    @unittest.skipIf(os.environ.get("TRAVIS", False),
-                     ("Offscreen rendering is not tested on Travis "
-                      "due to lack of GLX support"))
     def test_savefig_offscreen(self):
         """Test savefig with auto size, mag, normal Engine and offscreen"""
         self.setup_engine_and_figure(Engine())
@@ -143,9 +97,6 @@ class TestMlabSavefigUnitTest(unittest.TestCase):
         # check
         self.check_image_no_black_pixel(self.filename)
 
-    @unittest.skipIf(os.environ.get("TRAVIS", False),
-                     ("Offscreen rendering is not tested on Travis "
-                      "due to lack of GLX support"))
     def test_savefig_with_size_offscreen(self):
         """Test savefig with given size, normal Engine and offscreen"""
         self.setup_engine_and_figure(Engine())
@@ -163,9 +114,6 @@ class TestMlabSavefigUnitTest(unittest.TestCase):
         self.check_image_size(self.filename, size=(131, 217))
         self.check_image_no_black_pixel(self.filename)
 
-    @unittest.skipIf(os.environ.get("TRAVIS", False),
-                     ("Offscreen rendering is not tested on Travis "
-                      "due to lack of GLX support"))
     def test_savefig_with_size_and_magnification_offscreen(self):
         """Test savefig with given size, mag, normal Engine and offscreen"""
         self.setup_engine_and_figure(Engine())
@@ -184,9 +132,6 @@ class TestMlabSavefigUnitTest(unittest.TestCase):
         self.check_image_size(self.filename, size=(262, 434))
         self.check_image_no_black_pixel(self.filename)
 
-    @unittest.skipIf(os.environ.get("TRAVIS", False),
-                     ("Offscreen rendering is not tested on Travis "
-                      "due to lack of GLX support"))
     def test_many_savefig_offscreen(self):
         """Test if savefig works with off_screen_rendering and Engine"""
         engine = Engine()
@@ -203,6 +148,48 @@ class TestMlabSavefigUnitTest(unittest.TestCase):
             savefig(self.filename, size=(131, 217),
                     figure=self.figure)
 
+    def setup_engine_and_figure(self, engine):
+        # Set up a Engine/OffScreenEngine/... for the test case
+        self.engine = engine
+
+        if not engine.running:
+            engine.start()
+
+        # figure size is set to be small to force re-rendering
+        engine.new_scene(size=(90, 100))
+        self.figure = engine.current_scene
+
+        # the clean up function will close all figures and stop the engine
+        self.addCleanup(self.cleanup_engine, self.engine)
+
+    def cleanup_engine(self, engine):
+        """ Close all scenes in the engine and stop it """
+        scenes = [scene for scene in engine.scenes]
+        for scene in scenes:
+            engine.close_scene(scene)
+        engine.stop()
+
+    def check_image_no_black_pixel(self, filename):
+        """ The image setup for this test case should have absolutely
+        no black pixels.  This function checks and fails the test if
+        black pixels are found.
+        """
+        with open(filename) as fh:
+            image = numpy.array(Image.open(fh))[:, :, :3]
+
+            if (numpy.sum(image == [0, 0, 0], axis=2) == 3).any():
+                message = "The image has black spots"
+                self.fail(message)
+
+    def check_image_size(self, filename, size):
+        """ Check if the image saved in the filename has the desired
+        size
+        """
+        with open(filename) as fh:
+            image = numpy.array(Image.open(fh))[:, :, :3]
+            # check the size is correct
+            # The width and height dimensions are swapped
+            self.assertEqual(image.shape[:2][::-1], size)
 
 class TestMlabSavefig(TestCase):
 
