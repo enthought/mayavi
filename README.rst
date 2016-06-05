@@ -123,8 +123,8 @@ Test suite
 
 The basic test suites for tvtk and mayavi can be run using nose::
 
-  nosettests -v tvtk/tests
-  nosettests -v mayavi
+  nosetests -v tvtk/tests
+  nosetests -v mayavi
 
 The integration tests::
 
