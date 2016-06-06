@@ -59,6 +59,7 @@ addons:
     - python-pip
     - python-wxtools
     - ccache
+    - xvfb
 cache:
   directories:
     - $HOME/.cache
