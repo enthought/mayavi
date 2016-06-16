@@ -161,10 +161,9 @@ class SliceUnstructuredGrid(Module):
             new.input_connection = ex.output_port
 
         new.on_trait_change(self.render)
-        self.outputs = [new.output]
+        self.outputs = [new.output_port]
 
     def _actor_changed(self, old, new):
         new.scene = self.scene
         new.inputs = [self]
         self._change_components(old, new)
-
