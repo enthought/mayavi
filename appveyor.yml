@@ -6,8 +6,12 @@ environment:
     distutils_use_sdk: 1
     sdkver: "C:/Program Files/Microsoft SDKs/Windows/v7.0/Setup/WindowsSdkVer.exe"
     python: "C:/Python27-x64"
-    vtk_url: "http://www.vtk.org/files/release/6.2/vtkpython-6.2.0-Windows-64bit.exe"
     pythonpath: "C:/vtk/bin/Lib/site-packages"
+
+  matrix:
+    - vtk_url: "http://www.vtk.org/files/release/6.3/vtkpython-6.3.0-Windows-64bit.exe"
+
+    - vtk_url: "http://www.vtk.org/files/release/7.0/vtkpython-7.0.0-Windows-64bit.exe"
 
 cache:
   - c:\temp
