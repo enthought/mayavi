@@ -1,5 +1,4 @@
-"""This module generates tvtk (Traited VTK) classes from the
-VTK-Python API.
+"""This module generates tvtk (Traited VTK) classes from the VTK-Python API.
 
 """
 # Author: Prabhu Ramachandran
@@ -156,9 +155,7 @@ class TVTKGenerator:
 
         Parameters
         ----------
-
-        - include_src : `bool` (default: False)
-
+        include_src : `bool` (default: False)
           If True, also includes all the ``*.py`` files in the ZIP file.
           By default only the ``*.pyc`` files are included.
 
