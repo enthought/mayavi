@@ -132,7 +132,7 @@ class TVTKGenerator:
         for name in names:
             node = self.wrap_gen.get_tree().get_node(name)
             if node is None:
-                print('ERROR: Cannot find class: %s'%name)
+                print('ERROR: Cannot find class: %s' % name)
             nodes.append(node)
 
         # Get ancestors.
@@ -169,7 +169,7 @@ class TVTKGenerator:
             l = glob.glob(os.path.join('tvtk_classes', '*.py'))
             for x in l:
                 fname = os.path.basename(x)
-                z.write(x, 'tvtk_classes/%s'%fname)
+                z.write(x, 'tvtk_classes/%s' % fname)
         z.writepy('tvtk_classes')
         z.close()
         if os.path.exists(cwd + "/" + self.zip_name):
@@ -205,7 +205,6 @@ class TVTKGenerator:
         out.close()
 
 
-
 ######################################################################
 # Utility functions.
 ######################################################################
@@ -218,18 +217,23 @@ which code is to be generated may be specified.  If none are specified
 code will be generated for all the VTK classes.
     """
     parser = OptionParser(usage)
-    parser.add_option("-o", "--output-dir", action="store",
-                      type="string", dest="out_dir", default='',
-                      help="Output directory in which to generate code.")
-    parser.add_option("-n", "--no-clean", action="store_false",
-                      dest="clean", default=True,
-                      help="Do not clean the temporary directory.")
-    parser.add_option("-z", "--no-zipfile", action="store_false",
-                      dest="zip", default=True,
-                      help="Do not create a ZIP file.")
-    parser.add_option("-s", "--source", action="store_true",
-                      dest="src", default=False,
-                      help="Include source files (*.py) in addition to *.pyc files in the ZIP file.")
+    parser.add_option(
+        "-o", "--output-dir", action="store",
+        type="string", dest="out_dir", default='',
+        help="Output directory in which to generate code.")
+    parser.add_option(
+        "-n", "--no-clean", action="store_false",
+        dest="clean", default=True,
+        help="Do not clean the temporary directory.")
+    parser.add_option(
+        "-z", "--no-zipfile", action="store_false",
+        dest="zip", default=True,
+        help="Do not create a ZIP file.")
+    parser.add_option(
+        "-s", "--source", action="store_true",
+        dest="src", default=False,
+        help="Include source files (*.py) in "
+             "addition to *.pyc files in the ZIP file.")
 
     (options, args) = parser.parse_args()
 
