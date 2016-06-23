@@ -14,6 +14,7 @@ import zipfile
 import tempfile
 import shutil
 import glob
+import logging
 from optparse import OptionParser
 
 # Local imports -- these should be relative imports since these are
@@ -28,9 +29,12 @@ except SystemError:
     from special_gen import HelperGenerator
 
 
+logger = logging.getLogger(__name__)
+
 ######################################################################
 # `TVTKGenerator`
 ######################################################################
+
 
 class TVTKGenerator:
     """Generates all the TVTK code."""
@@ -114,6 +118,8 @@ class TVTKGenerator:
                 for node in nodes:
                     if node.name in classes:
                         tvtk_name = get_tvtk_name(node.name)
+                        logger.debug(
+                            'Wrapping %s as %s' % (node.name, tvtk_name))
                         self._write_wrapper_class(node, tvtk_name)
                         helper_gen.add_class(tvtk_name, helper_file)
 
@@ -234,8 +240,23 @@ code will be generated for all the VTK classes.
         dest="src", default=False,
         help="Include source files (*.py) in "
              "addition to *.pyc files in the ZIP file.")
+    parser.add_option(
+        "-v", "--verbose", action="store_true",
+        dest="verbose", default=False,
+        help="Verbose output for debugging")
 
     (options, args) = parser.parse_args()
+
+    if options.verbose:
+        # Log to console
+        logger = logging.getLogger()
+        logger.setLevel(logging.DEBUG)
+        ch = logging.StreamHandler()
+        ch.setLevel(logging.DEBUG)
+        formatter = logging.Formatter(
+            '%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+        ch.setFormatter(formatter)
+        logger.addHandler(ch)
 
     # Now do stuff.
     gen = TVTKGenerator(options.out_dir)

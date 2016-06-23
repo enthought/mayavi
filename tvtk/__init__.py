@@ -6,6 +6,10 @@
 """
 
 from os.path import exists, join, dirname, isdir
+import logging
+
+# use a null handler when used as a library
+logging.getLogger('tvtk').addHandler(logging.NullHandler())
 
 # The tvtk wrapper code is all typically inside one zip file.  We try to
 # find this file and put it in __path__ and then create the 'tvtk' module
@@ -27,5 +31,3 @@ if exists(tvtk_class_dir) and isdir(tvtk_class_dir):
     pass
 elif exists(_zip):
     __path__.append(_zip)
-
-
