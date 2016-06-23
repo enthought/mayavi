@@ -152,10 +152,12 @@ class DecoratedScene(Scene):
         if self._panel is not None:
             extensions = ['*.png', '*.jpg', '*.tiff', '*.bmp', '*.ps',
                           '*.eps', '*.pdf', '*.tex', '*.rib', '*.wrl',
-                          '*.oogl', '*.vrml', '*.obj', '*.iv']
+                          '*.oogl', '*.vrml', '*.obj', '*.iv', '*.pov',
+                          '*.x3d']
             descriptions = ["PNG", "JPG", "TIFF", "Bitmap", "PostScript",
                             "EPS", "PDF", "Tex", "RIB", "WRL",
-                            "Geomview", "VRML", "Wavefront", "Open Inventor"]
+                            "Geomview", "VRML", "Wavefront", "Open Inventor",
+                            "Povray", "X3D"]
             wildcard = ""
             for description, extension in zip(descriptions, extensions):
                 wildcard += "{} ({})|{}|".format(description,

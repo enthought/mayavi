@@ -231,7 +231,7 @@ def popup_save(parent=None):
     """
     extns = ['*.png', '*.jpg', '*.jpeg', '*.tiff', '*.bmp', '*.ps', '*.eps',
              '*.tex', '*.rib', '*.wrl', '*.oogl', '*.pdf', '*.vrml', '*.obj',
-             '*.iv']
+             '*.iv', '*.pov', '*.x3d']
     wildcard='|'.join(extns)
 
     dialog = FileDialog(
