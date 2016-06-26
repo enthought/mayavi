@@ -79,14 +79,15 @@ class ImagePlaneWidget(Module):
 
         # Data is available, so set the input for the IPW.
         input = mod_mgr.source.outputs[0]
-        if not (input.is_a('vtkStructuredPoints') \
-                or input.is_a('vtkImageData')):
+        dataset = mod_mgr.source.get_output_dataset()
+        if not (dataset.is_a('vtkStructuredPoints') \
+                or dataset.is_a('vtkImageData')):
             msg = 'ImagePlaneWidget only supports structured points or '\
                   'image data.'
             error(msg)
             raise TypeError(msg)
 
-        self.configure_input_data(self.ipw, input)
+        self.configure_input(self.ipw, input)
         self.setup_lut()
 
     def update_data(self):

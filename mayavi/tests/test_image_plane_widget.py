@@ -9,6 +9,7 @@ from io import BytesIO
 import copy
 import numpy
 import unittest
+from mock import patch
 
 
 # Enthought library imports
@@ -17,6 +18,9 @@ from mayavi.core.null_engine import NullEngine
 from mayavi.sources.array_source import ArraySource
 from mayavi.modules.outline import Outline
 from mayavi.modules.image_plane_widget import ImagePlaneWidget
+from mayavi.tests.common import get_example_data
+from mayavi import mlab
+
 
 class TestImagePlaneWidget(unittest.TestCase):
 
@@ -138,6 +142,23 @@ class TestImagePlaneWidget(unittest.TestCase):
         s.children[:] = sources1
         self.check()
 
+
+class TestImagePlaneWidgetNewPipeline(unittest.TestCase):
+
+    def setUp(self):
+        self._orig_backend = mlab.options.backend
+        mlab.options.backend = "test"
+
+    def tearDown(self):
+        mlab.options.backend = self._orig_backend
+
+    def test_ipw_works_with_image_data_probe(self):
+        src = mlab.pipeline.open(get_example_data('pyramid_ug.vtu'))
+        idp = mlab.pipeline.image_data_probe(src)
+        with patch('pyface.api.error') as m:
+            ipw = mlab.pipeline.image_plane_widget(idp)
+        self.assertEqual(m.call_count, 0)
+        self.assertEqual(numpy.allclose(ipw.ipw.center, (0.0, 3.0, 1.5)),True)
 
 if __name__ == '__main__':
     unittest.main()

@@ -337,16 +337,17 @@ class Volume(Module):
         if mm is None:
             return
 
-        input = mm.source.outputs[0]
+
+        dataset = mm.source.get_output_dataset()
 
         ug = hasattr(tvtk, 'UnstructuredGridVolumeMapper')
         if ug:
-            if not input.is_a('vtkImageData') \
-                   and not input.is_a('vtkUnstructuredGrid'):
+            if not dataset.is_a('vtkImageData') \
+                   and not dataset.is_a('vtkUnstructuredGrid'):
                 error('Volume rendering only works with '\
                       'StructuredPoints/ImageData/UnstructuredGrid datasets')
                 return
-        elif not input.is_a('vtkImageData'):
+        elif not dataset.is_a('vtkImageData'):
             error('Volume rendering only works with '\
                   'StructuredPoints/ImageData datasets')
             return
@@ -375,8 +376,8 @@ class Volume(Module):
     def _setup_mapper_types(self):
         """Sets up the mapper based on input data types.
         """
-        input = self.module_manager.source.outputs[0]
-        if input.is_a('vtkUnstructuredGrid'):
+        dataset = self.module_manager.source.get_output_dataset()
+        if dataset.is_a('vtkUnstructuredGrid'):
             if hasattr(tvtk, 'UnstructuredGridVolumeMapper'):
                 check = ['UnstructuredGridVolumeZSweepMapper',
                          'UnstructuredGridVolumeRayCastMapper',
@@ -390,7 +391,7 @@ class Volume(Module):
                 self._mapper_types = mapper_types
                 return
         else:
-            if input.point_data.scalars.data_type not in \
+            if dataset.point_data.scalars.data_type not in \
                [vtkConstants.VTK_UNSIGNED_CHAR,
                 vtkConstants.VTK_UNSIGNED_SHORT]:
                 if 'FixedPointVolumeRayCastMapper' \
@@ -418,8 +419,8 @@ class Volume(Module):
                default_data_range=slm.default_data_range)
 
         # Set the current range.
-        input = mm.source.outputs[0]
-        sc = input.point_data.scalars
+        dataset = mm.source.get_output_dataset()
+        sc = dataset.point_data.scalars
         if sc is not None:
             rng = sc.range
         else:
