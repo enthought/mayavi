@@ -43,8 +43,10 @@ from .QVTKRenderWindowInteractor import QVTKRenderWindowInteractor
 # `_VTKRenderWindowInteractor` class.
 ######################################################################
 class _VTKRenderWindowInteractor(QVTKRenderWindowInteractor):
+
     """ This is a thin wrapper around the standard VTK PyQt interactor.
     """
+
     def __init__(self, scene, parent, **kwargs):
         QVTKRenderWindowInteractor.__init__(self, parent, **kwargs)
 
@@ -129,8 +131,8 @@ class _VTKRenderWindowInteractor(QVTKRenderWindowInteractor):
             if coord is not None:
                 camera.focal_point = coord
                 scene.render()
-                scene._record_methods('camera.focal_point = %r\n'\
-                                      'render()'%list(coord))
+                scene._record_methods('camera.focal_point = %r\n'
+                                      'render()' % list(coord))
             return
 
         if key in [QtCore.Qt.Key_L] and modifiers == QtCore.Qt.NoModifier:
@@ -143,7 +145,8 @@ class _VTKRenderWindowInteractor(QVTKRenderWindowInteractor):
                 self.save(fname)
             return
 
-        shift = ((modifiers & QtCore.Qt.ShiftModifier) == QtCore.Qt.ShiftModifier)
+        shift = (
+            (modifiers & QtCore.Qt.ShiftModifier) == QtCore.Qt.ShiftModifier)
 
         if key == QtCore.Qt.Key_Left:
             if shift:
@@ -229,13 +232,23 @@ def popup_save(parent=None):
     filename, returns empty string if action was cancelled. `parent` is
     the parent widget over which the dialog will be popped up.
     """
-    extns = ['*.png', '*.jpg', '*.jpeg', '*.tiff', '*.bmp', '*.ps', '*.eps',
-             '*.tex', '*.rib', '*.wrl', '*.oogl', '*.pdf', '*.vrml', '*.obj',
-             '*.iv', '*.pov', '*.x3d']
-    wildcard='|'.join(extns)
+    extensions = ['*.png', '*.jpg', '*.tiff', '*.bmp', '*.ps',
+                  '*.eps', '*.pdf', '*.tex', '*.rib', '*.wrl',
+                  '*.oogl', '*.vrml', '*.obj', '*.iv', '*.pov',
+                  '*.x3d']
+    descriptions = ["PNG", "JPG", "TIFF", "Bitmap", "PostScript",
+                    "EPS", "PDF", "Tex", "RIB", "WRL",
+                    "Geomview", "VRML", "Wavefront", "Open Inventor",
+                    "Povray", "X3D"]
+    wildcard = ""
+    for description, extension in zip(descriptions, extensions):
+        wildcard += "{} ({})|{}|".format(description,
+                                         extension,
+                                         extension)
+    wildcard += "Determine by extension (*.*)|(*.*)"
 
     dialog = FileDialog(
-        parent = parent, title='Save scene to image',
+        parent=parent, title='Save scene to image',
         action='save as', wildcard=wildcard
     )
     if dialog.open() == OK:
@@ -248,6 +261,7 @@ def popup_save(parent=None):
 # `Scene` class.
 ######################################################################
 class Scene(TVTKScene, Widget):
+
     """A VTK interactor scene widget for pyface and PyQt.
 
     This widget uses a RenderWindowInteractor and therefore supports
@@ -297,30 +311,31 @@ class Scene(TVTKScene, Widget):
 
     # The default view of this object.
     default_view = View(Group(
-                            Group(Item(name='background'),
-                                  Item(name='foreground'),
-                                  Item(name='parallel_projection'),
-                                  Item(name='disable_render'),
-                                  Item(name='off_screen_rendering'),
-                                  Item(name='jpeg_quality'),
-                                  Item(name='jpeg_progressive'),
-                                  Item(name='magnification'),
-                                  Item(name='anti_aliasing_frames'),
-                                  Item(name='full_screen',
-                                       show_label=False),
-                                  ),
-                            Group(Item(name='render_window',
-                                       style='custom',
-                                       visible_when='object.stereo',
-                                       editor=InstanceEditor(view=View(_stereo_view)),
-                                       show_label=False),
-                                  ),
-                            label='Scene'),
-                         Group( Item(name='light_manager',
-                                style='custom', show_label=False),
-                                label='Lights'),
-                         buttons=['OK', 'Cancel']
-                        )
+        Group(Item(name='background'),
+              Item(name='foreground'),
+              Item(name='parallel_projection'),
+              Item(name='disable_render'),
+              Item(name='off_screen_rendering'),
+              Item(name='jpeg_quality'),
+              Item(name='jpeg_progressive'),
+              Item(name='magnification'),
+              Item(name='anti_aliasing_frames'),
+              Item(name='full_screen',
+                   show_label=False),
+              ),
+        Group(Item(name='render_window',
+                   style='custom',
+                   visible_when='object.stereo',
+                   editor=InstanceEditor(
+                       view=View(_stereo_view)),
+                   show_label=False),
+              ),
+        label='Scene'),
+        Group(Item(name='light_manager',
+                   style='custom', show_label=False),
+              label='Lights'),
+        buttons=['OK', 'Cancel']
+    )
 
     ########################################
     # Private traits.

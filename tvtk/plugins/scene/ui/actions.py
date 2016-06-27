@@ -13,9 +13,8 @@ from traits.api import Instance, Property, Str
 
 
 class SceneAction(Action):
-    """ Base class for actions that require a scene manager. """
 
-    #### 'SceneAction' interface ##############################################
+    """ Base class for actions that require a scene manager. """
 
     # The scene manager.
     scene_manager = Property(Instance(
@@ -33,9 +32,8 @@ class SceneAction(Action):
 
 
 class NewScene(Action):
-    """ An action that creates a new TVTK scene. """
 
-    #### 'Action' interface ###################################################
+    """ An action that creates a new TVTK scene. """
 
     name = 'Scene'
 
@@ -50,10 +48,8 @@ class NewScene(Action):
 
 
 class SaveScene(SceneAction):
+
     """ An action that saves a scene to an image. """
-
-    #### 'Action' interface ###################################################
-
     name = 'Save Scene'
 
     def perform(self, event):
@@ -68,10 +64,10 @@ class SaveScene(SceneAction):
         wildcard = '|'.join(extensions)
 
         dialog = FileDialog(
-            parent   = self.window.control,
-            title    = 'Save scene to image',
-            action   = 'save as',
-            wildcard = wildcard
+            parent=self.window.control,
+            title='Save scene to image',
+            action='save as',
+            wildcard=wildcard
         )
         if dialog.open() == OK:
             scene = self.scene_manager.current_scene
@@ -82,14 +78,11 @@ class SaveScene(SceneAction):
 
 
 class SaveSceneToImage(SceneAction):
-    """ An action that saves a scene to an image. """
 
-    #### 'Action' interface ###################################################
+    """ An action that saves a scene to an image. """
 
     # Name of the action.
     name = 'Image'
-
-    #### 'SaveSceneToImage' interface #########################################
 
     # The save method name.
     save_method = Str('save')
@@ -105,10 +98,10 @@ class SaveSceneToImage(SceneAction):
         """ Perform the action. """
 
         dialog = FileDialog(
-            parent   = self.window.control,
-            title    = 'Save scene to %s' % self.name,
-            action   = 'save as',
-            wildcard = self.wildcard
+            parent=self.window.control,
+            title='Save scene to %s' % self.name,
+            action='save as',
+            wildcard=self.wildcard
         )
         if dialog.open() == OK:
             scene = self.scene_manager.current_scene
@@ -121,81 +114,90 @@ class SaveSceneToImage(SceneAction):
 
 # These are all specific subclasses that save particular images.
 class SaveSceneToPNG(SaveSceneToImage):
-    name        = 'PNG Image'
+    name = 'PNG Image'
     save_method = 'save_png'
-    wildcard    = 'PNG images (*.png)|*.png|' \
-                  'All files (*.*)|*.*'
+    wildcard = 'PNG images (*.png)|*.png|' \
+        'All files (*.*)|*.*'
+
 
 class SaveSceneToJPEG(SaveSceneToImage):
-    name        = 'JPEG Image'
+    name = 'JPEG Image'
     save_method = 'save_jpg'
-    wildcard    = 'JPEG images (*.jpg)|*.jpg|' \
-                  'JPEG images (*.jpeg)|*.jpeg|' \
-                  'All files (*.*)|*.*'
+    wildcard = 'JPEG images (*.jpg)|*.jpg|' \
+        'JPEG images (*.jpeg)|*.jpeg|' \
+        'All files (*.*)|*.*'
+
 
 class SaveSceneToBMP(SaveSceneToImage):
-    name        = 'BMP Image'
+    name = 'BMP Image'
     save_method = 'save_bmp'
-    wildcard    = 'BMP images (*.bmp)|*.bmp|' \
-                  'All files (*.*)|*.*'
+    wildcard = 'BMP images (*.bmp)|*.bmp|' \
+        'All files (*.*)|*.*'
+
 
 class SaveSceneToTIFF(SaveSceneToImage):
-    name        = 'TIFF Image'
+    name = 'TIFF Image'
     save_method = 'save_tiff'
-    wildcard    = 'TIFF images (*.tif)|*.tif|' \
-                  'TIFF images (*.tiff)|*.tiff|' \
-                  'All files (*.*)|*.*'
+    wildcard = 'TIFF images (*.tif)|*.tif|' \
+        'TIFF images (*.tiff)|*.tiff|' \
+        'All files (*.*)|*.*'
+
 
 class SaveSceneToPS(SaveSceneToImage):
-    name        = 'PostScript bitmap Image'
+    name = 'PostScript bitmap Image'
     save_method = 'save_ps'
-    wildcard    = 'PostScript bitmap images (*.ps)|*.ps|' \
-                  'All files (*.*)|*.*'
+    wildcard = 'PostScript bitmap images (*.ps)|*.ps|' \
+        'All files (*.*)|*.*'
+
 
 class SaveSceneToGL2PS(SaveSceneToImage):
-    name        = 'Vector PS/EPS/PDF/TeX'
+    name = 'Vector PS/EPS/PDF/TeX'
     save_method = 'save_gl2ps'
-    wildcard    = 'All files (*.*)|*.*|' \
-                  'EPS files (*.eps)|*.eps|' \
-                  'PS files (*.ps)|*.ps|' \
-                  'PDF files (*.pdf)|*.pdf|' \
-                  'TeX files (*.tex)|*.tex'
+    wildcard = 'All files (*.*)|*.*|' \
+        'EPS files (*.eps)|*.eps|' \
+        'PS files (*.ps)|*.ps|' \
+        'PDF files (*.pdf)|*.pdf|' \
+        'TeX files (*.tex)|*.tex'
+
 
 class SaveSceneToRIB(SaveSceneToImage):
-    name        = 'RenderMan RIB file'
+    name = 'RenderMan RIB file'
     save_method = 'save_rib'
-    wildcard    = 'RIB files (*.rib)|*.rib|' \
-                  'All files (*.*)|*.*'
+    wildcard = 'RIB files (*.rib)|*.rib|' \
+        'All files (*.*)|*.*'
+
 
 class SaveSceneToOOGL(SaveSceneToImage):
-    name        = 'GeomView OOGL file'
+    name = 'GeomView OOGL file'
     save_method = 'save_oogl'
-    wildcard    = 'OOGL files (*.oogl)|*.oogl|' \
-                  'All files (*.*)|*.*'
+    wildcard = 'OOGL files (*.oogl)|*.oogl|' \
+        'All files (*.*)|*.*'
+
 
 class SaveSceneToIV(SaveSceneToImage):
-    name        = 'OpenInventor file'
+    name = 'OpenInventor file'
     save_method = 'save_iv'
-    wildcard    = 'OpenInventor files (*.iv)|*.iv|' \
-                  'All files (*.*)|*.*'
+    wildcar = 'OpenInventor files (*.iv)|*.iv|' \
+        'All files (*.*)|*.*'
+
 
 class SaveSceneToVRML(SaveSceneToImage):
-    name        = 'VRML file'
+    name = 'VRML file'
     save_method = 'save_vrml'
-    wildcard    = 'VRML files (*.wrl)|*.wrl|' \
-                  'All files (*.*)|*.*'
+    wildcard = 'VRML files (*.wrl)|*.wrl|' \
+        'All files (*.*)|*.*'
+
 
 class SaveSceneToOBJ(SaveSceneToImage):
-    name        = 'Wavefront OBJ file'
+    name = 'Wavefront OBJ file'
     save_method = 'save_wavefront'
-    wildcard    = 'OBJ files (*.obj)|*.obj|' \
-                  'All files (*.*)|*.*'
+    wildcard = 'OBJ files (*.obj)|*.obj|' \
+        'All files (*.*)|*.*'
 
 
 class SetView(SceneAction):
-    """ An action that sets the current scene to a particular view."""
 
-    #### 'SetView' interface ##################################################
+    """ An action that sets the current scene to a particular view."""
 
     # The method to invoke on the scene that will set the view.
     view_method = Str
@@ -215,36 +217,43 @@ class SetView(SceneAction):
         return
 
 # These are all specific subclasses that invoke particular views.
+
+
 class ResetZoom(SetView):
     name = '&Reset Zoom'
     view_method = 'reset_zoom'
+
 
 class IsometricView(SetView):
     name = '&Isometric View'
     view_method = 'isometric_view'
 
+
 class XPlusView(SetView):
     name = '&X+ View'
     view_method = 'x_plus_view'
+
 
 class XMinusView(SetView):
     name = '&X- View'
     view_method = 'x_minus_view'
 
+
 class YPlusView(SetView):
     name = '&Y+ View'
     view_method = 'y_plus_view'
+
 
 class YMinusView(SetView):
     name = '&Y- View'
     view_method = 'y_minus_view'
 
+
 class ZPlusView(SetView):
     name = '&Z+ View'
     view_method = 'z_plus_view'
 
+
 class ZMinusView(SetView):
     name = '&Z- View'
     view_method = 'z_minus_view'
-
-#### EOF ######################################################################

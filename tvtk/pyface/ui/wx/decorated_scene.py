@@ -10,7 +10,7 @@
 #
 #  Thanks for using Enthought open source!
 #
-#  Authors: Prabhu Ramachandran <prabhu_r@users.sf.net>,
+#  Authors: Prabhu Ramachandran <prabhu_r@users.sf.net>
 #           Dave Peterson <dpeterson@enthought.com>
 #
 #------------------------------------------------------------------------------

@@ -34,7 +34,7 @@ from pyface.api import SplitApplicationWindow, ApplicationWindow
 from pyface.api import SplitPanel
 from tvtk.pyface.api import Scene, DecoratedScene
 from pyface.action.api import Action, MenuBarManager,\
-     MenuManager, Separator
+    MenuManager, Separator
 from pyface.image_resource import ImageResource
 from pyface.resource.api import resource_path
 
@@ -47,6 +47,8 @@ from tvtk.pipeline.browser import PipelineBrowser
 ######################################################################
 # The scene icon.
 ######################################################################
+
+
 def mk_scene_icon():
     icon_path = os.path.join(resource_path(), 'images', 'scene.ico')
     return ImageResource(icon_path)
@@ -56,8 +58,12 @@ scene_icon = mk_scene_icon()
 ######################################################################
 # `ExitAction` class.
 ######################################################################
+
+
 class ExitAction(Action):
+
     """ Exits the application. """
+
     def __init__(self, window):
         """ Creates a new action. """
         self._window = window
@@ -72,18 +78,31 @@ class ExitAction(Action):
 # `SaveImageAction` class.
 ######################################################################
 class SaveImageAction(Action):
+
     """Saves the rendered scene to an image."""
+
     def __init__(self, window):
         self._window = window
         self.name = "S&ave Scene"
 
     def perform(self):
         """Pops up a dialog used to save the scene to an image."""
-        extns = ['*.png', '*.jpg', '*.jpeg', '*.tiff', '*.bmp', '*.ps', '*.eps',
-                 '*.tex', '*.rib', '*.wrl', '*.oogl', '*.pdf', '*.vrml', '*.obj',
-                 '*.iv']
+        extensions = ['*.png', '*.jpg', '*.tiff', '*.bmp', '*.ps',
+                      '*.eps', '*.pdf', '*.tex', '*.rib', '*.wrl',
+                      '*.oogl', '*.vrml', '*.obj', '*.iv', '*.pov',
+                      '*.x3d']
+        descriptions = ["PNG", "JPG", "TIFF", "Bitmap", "PostScript",
+                        "EPS", "PDF", "Tex", "RIB", "WRL",
+                        "Geomview", "VRML", "Wavefront", "Open Inventor",
+                        "Povray", "X3D"]
+        wildcard = ""
+        for description, extension in zip(descriptions, extensions):
+            wildcard += "{} ({})|{}|".format(description,
+                                             extension,
+                                             extension)
+        wildcard += "Determine by extension (*.*)|(*.*)"
         dlg = FileDialog(parent=self._window.control, action='save as',
-                wildcard='|'.join(extns), title="Save scene to image")
+                         wildcard=wildcard, title="Save scene to image")
         if dlg.open() == OK:
             self._window.scene.save(dlg.path)
 
@@ -92,7 +111,9 @@ class SaveImageAction(Action):
 # `SaveToClipboardAction` class.
 ######################################################################
 class SaveToClipboardAction(Action):
+
     """ Saves rendered scene to the Clipboard. """
+
     def __init__(self, window):
         """ Creates a new action. """
         self._window = window
@@ -107,7 +128,9 @@ class SaveToClipboardAction(Action):
 # `SpecialViewAction` class.
 ######################################################################
 class SpecialViewAction(Action):
+
     """Sets the scene to a particular view."""
+
     def __init__(self, window, name, view):
         """ Creates a new action. """
         self._window = window
@@ -139,10 +162,10 @@ def create_ivtk_menu(obj):
         MenuManager(SaveImageAction(obj),
                     Separator(),
                     ExitAction(obj),
-                    name = '&File',
+                    name='&File',
                     ),
         MenuManager(SaveToClipboardAction(obj),
-                    name = '&Edit',
+                    name='&Edit',
                     ),
         MenuManager(SpecialViewAction(obj, "&Reset Zoom", 'reset_zoom'),
                     Separator(),
@@ -153,9 +176,9 @@ def create_ivtk_menu(obj):
                     SpecialViewAction(obj, "Y negative", 'y_minus_view'),
                     SpecialViewAction(obj, "&Z positive", 'z_plus_view'),
                     SpecialViewAction(obj, "Z negative", 'z_minus_view'),
-                    name = '&View',
+                    name='&View',
                     )
-        )
+    )
     return menu_bar_manager
 
 
@@ -163,6 +186,7 @@ def create_ivtk_menu(obj):
 # `SceneWithBrowser` class.
 ######################################################################
 class SceneWithBrowser(SplitPanel):
+
     """ Provides an Scene along with an embedded PyCrust Python shell.
     In the shell, 'scene' and 's' are bound to the Scene."""
 
@@ -216,6 +240,7 @@ class SceneWithBrowser(SplitPanel):
 # `IVTKWithCrust` class.
 ######################################################################
 class IVTKWithCrust(SplitApplicationWindow):
+
     """ Provides an Scene along with an embedded PyCrust Python shell.
     In the shell, 'scene' and 's' are bound to the Scene."""
 
@@ -277,6 +302,7 @@ class IVTKWithCrust(SplitApplicationWindow):
 # `IVTKWithCrustAndBrowser` class.
 ######################################################################
 class IVTKWithCrustAndBrowser(SplitApplicationWindow):
+
     """ Provides an Scene along with an embedded PyCrust Python shell.
     In the shell, 'scene' and 's' are bound to the Scene."""
 
@@ -350,6 +376,7 @@ class IVTKWithCrustAndBrowser(SplitApplicationWindow):
 # `IVTK` class.
 ######################################################################
 class IVTK(ApplicationWindow):
+
     """ Provides an Scene along without an embedded Python shell.
     This is useful when scripting from the vanilla Python or IPython
     interpreter."""
@@ -396,7 +423,10 @@ class IVTK(ApplicationWindow):
 ######################################################################
 # `IVTKWithBrowser` class.
 ######################################################################
+
+
 class IVTKWithBrowser(ApplicationWindow):
+
     """ Provides an Scene along without an embedded Python shell.
     This is useful when scripting from the vanilla Python or IPython
     interpreter."""
@@ -471,9 +501,9 @@ def viewer(browser=True, instantiate_gui=False):
     if instantiate_gui:
         gui = GUI()
     if browser:
-        v = IVTKWithBrowser(size=(600,600))
+        v = IVTKWithBrowser(size=(600, 600))
     else:
-        v = IVTK(size=(600,600))
+        v = IVTK(size=(600, 600))
     v.open()
     return v
 
@@ -482,7 +512,7 @@ def main():
     # Create the GUI.
     gui = GUI()
     # Create and open an application window.
-    window = IVTKWithCrustAndBrowser(size=(800,600))
+    window = IVTKWithCrustAndBrowser(size=(800, 600))
     window.open()
     # Start the GUI event loop!
     gui.start_event_loop()
