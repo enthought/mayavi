@@ -204,14 +204,14 @@ class SaveSceneToIV(SaveSceneToImage):
 
 class SaveSceneToPovray(SaveSceneToImage):
     name = 'Povray File'
-    save_method = 'save as'
+    save_method = 'save_povray'
     wildcard = 'Povray (*.pov)|*.pov|' \
         'All files (*.*)|*.*'
 
 
 class SaveSceneToX3D(SaveSceneToImage):
     name = 'X3D File'
-    save_method = 'save as'
+    save_method = 'save_x3d'
     wildcard = 'X3D (*.x3d)|*.pov|' \
         'All files (*.*)|*.*'
 

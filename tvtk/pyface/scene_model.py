@@ -244,6 +244,14 @@ class SceneModel(TVTKScene):
         self._check_scene_editor()
         self.scene_editor.save_rib(file_name, bg, resolution, resfactor)
 
+    def save_povray(self, file_name):
+        self._check_scene_editor()
+        self.scene_editor.save_povray(file_name)
+
+    def save_x3d(self, file_name):
+        self._check_scene_editor()
+        self.scene_editor.save_x3d(file_name)
+
     def save_wavefront(self, file_name):
         """Save scene to a Wavefront OBJ file.  Two files are
         generated.  One with a .obj extension and another with a .mtl
