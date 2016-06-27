@@ -15,44 +15,46 @@ from mayavi.core.engine import Engine
 from mayavi.core.null_engine import NullEngine
 from mayavi.tools.mlab_scene_model import MlabSceneModel
 
-class TestMayaviGarbageCollection(TestGarbageCollection):
-    """ See: tvtk.tests.common.TestGarbageCollection
-    """
-    def test_mlab_scene_model_with_gui(self):
-        """ Tests if MlabSceneModel with GUI can be garbage collected."""
-        class MlabApp(HasTraits):
+class MlabApp(HasTraits):
 
-            # The scene model.
-            scene = Instance(MlabSceneModel, ())
+    # The scene model.
+    scene = Instance(MlabSceneModel, ())
 
-            view = View(Item(name='scene',
-                             editor=SceneEditor(scene_class=MayaviScene),
-                             show_label=False,
-                             resizable=True,
-                             height=500,
-                             width=500),
-                        resizable=True
-                        )
+    view = View(
+        Item(name='scene',
+             editor=SceneEditor(scene_class=MayaviScene),
+             show_label=False,
+             resizable=True,
+             height=500,
+             width=500),
+        resizable=True)
 
-            def __init__(self, **traits):
-                self.generate_data()
+    def __init__(self, **traits):
+        self.generate_data()
 
-            def generate_data(self):
-                # Create some data
+    def generate_data(self):
+            # Create some data
                 X, Y = mgrid[-2:2:100j, -2:2:100j]
                 R = 10*sqrt(X**2 + Y**2)
                 Z = sin(R)/R
                 self.scene.mlab.surf(X, Y, Z, colormap='gist_earth')
 
-        def close_fn(o):
-            o.owner.ui = None
-            if ETSConfig.toolkit == 'qt4':
-                o.control = None
-            o.dispose()
+
+class TestMayaviGarbageCollection(TestGarbageCollection):
+
+    def _test_mlab_scene_model_with_gui(self):
+        """ Tests if MlabSceneModel with GUI can be garbage collected."""
 
         def create_fn():
             app = MlabApp()
             return app.edit_traits()
+
+        def close_fn(o):
+            o.owner.ui = None
+            if ETSConfig.toolkit == 'qt4':
+                o.control = None
+            print o
+            o.dispose()
 
         self.check_object_garbage_collected(create_fn, close_fn)
 
