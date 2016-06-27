@@ -65,9 +65,9 @@ class SaveScene(SceneAction):
                         "Povray", "X3D"]
         wildcard = ""
         for description, extension in zip(descriptions, extensions):
-                wildcard += "{} ({})|{}|".format(description,
-                                                 extension,
-                                                 extension)
+            wildcard += "{} ({})|{}|".format(description,
+                                             extension,
+                                             extension)
         wildcard += "Determine by extension (*.*)|(*.*)"
 
         dialog = FileDialog(
@@ -121,7 +121,7 @@ class SaveSceneToImage(SceneAction):
 
 # These are all specific subclasses that save particular images.
 class SaveSceneToPNG(SaveSceneToImage):
-    name = 'PNG Image'
+    name = 'PNG'
     save_method = 'save_png'
     wildcard = 'PNG images (*.png)|*.png|' \
         'All files (*.*)|*.*'
@@ -135,13 +135,6 @@ class SaveSceneToJPEG(SaveSceneToImage):
         'All files (*.*)|*.*'
 
 
-class SaveSceneToBMP(SaveSceneToImage):
-    name = 'BMP Image'
-    save_method = 'save_bmp'
-    wildcard = 'BMP images (*.bmp)|*.bmp|' \
-        'All files (*.*)|*.*'
-
-
 class SaveSceneToTIFF(SaveSceneToImage):
     name = 'TIFF Image'
     save_method = 'save_tiff'
@@ -150,15 +143,22 @@ class SaveSceneToTIFF(SaveSceneToImage):
         'All files (*.*)|*.*'
 
 
+class SaveSceneToBMP(SaveSceneToImage):
+    name = 'BMP Image'
+    save_method = 'save_bmp'
+    wildcard = 'BMP images (*.bmp)|*.bmp|' \
+        'All files (*.*)|*.*'
+
+
 class SaveSceneToPS(SaveSceneToImage):
-    name = 'PostScript bitmap Image'
+    name = 'PostScript Bitmap Image'
     save_method = 'save_ps'
     wildcard = 'PostScript bitmap images (*.ps)|*.ps|' \
         'All files (*.*)|*.*'
 
 
 class SaveSceneToGL2PS(SaveSceneToImage):
-    name = 'Vector PS/EPS/PDF/TeX'
+    name = 'Vector (PS/EPS/PDF/TeX)'
     save_method = 'save_gl2ps'
     wildcard = 'All files (*.*)|*.*|' \
         'EPS files (*.eps)|*.eps|' \
@@ -168,23 +168,16 @@ class SaveSceneToGL2PS(SaveSceneToImage):
 
 
 class SaveSceneToRIB(SaveSceneToImage):
-    name = 'RenderMan RIB file'
+    name = 'RenderMan RIB File'
     save_method = 'save_rib'
     wildcard = 'RIB files (*.rib)|*.rib|' \
         'All files (*.*)|*.*'
 
 
 class SaveSceneToOOGL(SaveSceneToImage):
-    name = 'GeomView OOGL file'
+    name = 'GeomView OOGL File'
     save_method = 'save_oogl'
     wildcard = 'OOGL files (*.oogl)|*.oogl|' \
-        'All files (*.*)|*.*'
-
-
-class SaveSceneToIV(SaveSceneToImage):
-    name = 'OpenInventor file'
-    save_method = 'save_iv'
-    wildcar = 'OpenInventor files (*.iv)|*.iv|' \
         'All files (*.*)|*.*'
 
 
@@ -199,6 +192,27 @@ class SaveSceneToOBJ(SaveSceneToImage):
     name = 'Wavefront OBJ file'
     save_method = 'save_wavefront'
     wildcard = 'OBJ files (*.obj)|*.obj|' \
+        'All files (*.*)|*.*'
+
+
+class SaveSceneToIV(SaveSceneToImage):
+    name = 'OpenInventor File'
+    save_method = 'save_iv'
+    wildcard = 'OpenInventor files (*.iv)|*.iv|' \
+        'All files (*.*)|*.*'
+
+
+class SaveSceneToPovray(SaveSceneToImage):
+    name = 'Povray File'
+    save_method = 'save as'
+    wildcard = 'Povray (*.pov)|*.pov|' \
+        'All files (*.*)|*.*'
+
+
+class SaveSceneToX3D(SaveSceneToImage):
+    name = 'X3D File'
+    save_method = 'save as'
+    wildcard = 'X3D (*.x3d)|*.pov|' \
         'All files (*.*)|*.*'
 
 
