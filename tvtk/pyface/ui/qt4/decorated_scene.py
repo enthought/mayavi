@@ -9,8 +9,6 @@ etc.
 
 # System imports.
 from os.path import dirname
-
-import os
 from pyface.qt import QtGui
 
 # Enthought library imports.
