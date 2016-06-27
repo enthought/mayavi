@@ -47,15 +47,23 @@ def popup_save(parent=None):
     filename, returns empty string if action was cancelled. `parent` is
     the parent widget over which the dialog will be popped up.
     """
-    extns = ['*.png', '*.jpg', '*.jpeg', '*.tiff', '*.bmp', '*.ps', '*.eps',
-             '*.tex', '*.rib', '*.wrl', '*.oogl', '*.pdf', '*.vrml', '*.obj',
-             '*.iv']
-    wildcard='|'.join(extns)
+    extensions = ['*.png', '*.jpg', '*.tiff', '*.bmp', '*.ps',
+                  '*.eps', '*.pdf', '*.tex', '*.rib', '*.wrl',
+                  '*.oogl', '*.vrml', '*.obj', '*.iv', '*.pov',
+                  '*.x3d']
+    descriptions = ["PNG", "JPG", "TIFF", "Bitmap", "PostScript",
+                    "EPS", "PDF", "Tex", "RIB", "WRL",
+                    "Geomview", "VRML", "Wavefront", "Open Inventor",
+                    "Povray", "X3D"]
+    wildcard = ""
+    for description, extension in zip(descriptions, extensions):
+        wildcard += "{} ({})|{}|".format(description,
+                                         extension,
+                                         extension)
+    wildcard += "Determine by extension (*.*)|(*.*)"
 
-    dialog = FileDialog(
-        parent = parent, title='Save scene to image',
-        action='save as', wildcard=wildcard
-    )
+    dialog = FileDialog(parent=parent, title='Save scene to image',
+                        action='save as', wildcard=wildcard)
     if dialog.open() == OK:
         return dialog.path
     else:
@@ -66,6 +74,7 @@ def popup_save(parent=None):
 # `FullScreen` class.
 ######################################################################
 class FullScreen(object):
+
     """Creates a full screen interactor widget.  This will use VTK's
     event loop until the user presses 'q'/'e' on the full screen
     window.  This does not yet support interacting with any widgets on
@@ -75,6 +84,7 @@ class FullScreen(object):
     than 5.1 where there was a bug with reparenting a window.
 
     """
+
     def __init__(self, scene):
         self.scene = scene
         self.old_rw = scene.render_window
@@ -94,7 +104,7 @@ class FullScreen(object):
 
         # Under OS X there is no support for creating a full screen
         # window so we set the size of the window here.
-        if sys.platform  == 'darwin':
+        if sys.platform == 'darwin':
             full_rw.size = tuple(wx.GetDisplaySize())
 
         # provides a simple interactor
@@ -104,7 +114,8 @@ class FullScreen(object):
 
         # Gets parameters for stereo visualization
         if self.old_rw.stereo_render:
-            full_rw.set(stereo_type=self.old_rw.stereo_type, stereo_render=True)
+            full_rw.set(
+                stereo_type=self.old_rw.stereo_type, stereo_render=True)
 
         # Starts the interactor
         self.iren.initialize()
@@ -124,11 +135,13 @@ class FullScreen(object):
 # `PopupScene` class.
 ######################################################################
 class PopupScene(object):
+
     """Pops up a Scene instance with an independent `wx.Frame` in
     order to produce either a standalone window or usually a full
     screen view with *complete* interactivity (including widget
     interaction).
     """
+
     def __init__(self, scene):
         self.orig_parent = None
         self.orig_size = None
@@ -155,7 +168,7 @@ class PopupScene(object):
         orig_disable_render = scene.disable_render
         scene.disable_render = True
         orig_render = vc.Render
-        vc.Render = lambda : None
+        vc.Render = lambda: None
         rw = vc.GetRenderWindow()
         if sys.platform != 'darwin' and wx.Platform != '__WXMSW__':
             rw.SetNextWindowInfo(str(widget.GetHandle()))
@@ -208,6 +221,7 @@ class PopupScene(object):
 # `Scene` class.
 ######################################################################
 class Scene(TVTKScene, Widget):
+
     """A VTK interactor scene widget for pyface and wxPython.
 
     This widget uses a RenderWindowInteractor and therefore supports
@@ -260,30 +274,31 @@ class Scene(TVTKScene, Widget):
 
     # The default view of this object.
     default_view = View(Group(
-                            Group(Item(name='background'),
-                                  Item(name='foreground'),
-                                  Item(name='parallel_projection'),
-                                  Item(name='disable_render'),
-                                  Item(name='off_screen_rendering'),
-                                  Item(name='jpeg_quality'),
-                                  Item(name='jpeg_progressive'),
-                                  Item(name='magnification'),
-                                  Item(name='anti_aliasing_frames'),
-                                  Item(name='full_screen',
-                                       show_label=False),
-                                  ),
-                            Group(Item(name='render_window',
-                                       style='custom',
-                                       visible_when='object.stereo',
-                                       editor=InstanceEditor(view=View(_stereo_view)),
-                                       show_label=False),
-                                  ),
-                            label='Scene'),
-                         Group( Item(name='light_manager',
-                                style='custom', show_label=False),
-                                label='Lights'),
-                         buttons=['OK', 'Cancel']
-                        )
+        Group(Item(name='background'),
+              Item(name='foreground'),
+              Item(name='parallel_projection'),
+              Item(name='disable_render'),
+              Item(name='off_screen_rendering'),
+              Item(name='jpeg_quality'),
+              Item(name='jpeg_progressive'),
+              Item(name='magnification'),
+              Item(name='anti_aliasing_frames'),
+              Item(name='full_screen',
+                   show_label=False),
+              ),
+        Group(Item(name='render_window',
+                   style='custom',
+                   visible_when='object.stereo',
+                   editor=InstanceEditor(
+                       view=View(_stereo_view)),
+                   show_label=False),
+              ),
+        label='Scene'),
+        Group(Item(name='light_manager',
+                   style='custom', show_label=False),
+              label='Lights'),
+        buttons=['OK', 'Cancel']
+    )
 
     ########################################
     # Private traits.
@@ -303,7 +318,6 @@ class Scene(TVTKScene, Widget):
 
         # Setup the default picker.
         self.picker = picker.Picker(self)
-
 
     def __get_pure_state__(self):
         """Allows us to pickle the scene."""
@@ -486,8 +500,8 @@ class Scene(TVTKScene, Widget):
                     if coord is not None:
                         self.camera.focal_point = coord
                         self.render()
-                        self._record_methods('camera.focal_point = %r\n'\
-                                             'render()'%list(coord))
+                        self._record_methods('camera.focal_point = %r\n'
+                                             'render()' % list(coord))
                         return
             # Handle picking.
             if key.lower() in ['p']:
@@ -512,7 +526,6 @@ class Scene(TVTKScene, Widget):
 
         self._vtk_control.OnKeyUp(event)
         event.Skip()
-
 
     def OnPaint(self, event):
         """This method is overridden temporarily in order to create
@@ -544,7 +557,7 @@ class Scene(TVTKScene, Widget):
         messenger.connect(vtk_rw, 'EndEvent', self._end_event_callback)
 
         # Reset the event handler to the default since our job is done.
-        wx.EVT_PAINT(self._vtk_control, None) # Remove the default handler.
+        wx.EVT_PAINT(self._vtk_control, None)  # Remove the default handler.
         wx.EVT_PAINT(self._vtk_control, self._vtk_control.OnPaint)
 
     def OnSize(self, event):
@@ -584,13 +597,13 @@ class Scene(TVTKScene, Widget):
                                                                  stereo=self.stereo)
 
         # Override these handlers.
-        wx.EVT_CHAR(window, None) # Remove the default handler.
+        wx.EVT_CHAR(window, None)  # Remove the default handler.
         wx.EVT_CHAR(window, self.OnKeyDown)
-        wx.EVT_KEY_UP(window, None) # Remove the default handler.
+        wx.EVT_KEY_UP(window, None)  # Remove the default handler.
         wx.EVT_KEY_UP(window, self.OnKeyUp)
-        wx.EVT_PAINT(window, None) # Remove the default handler.
+        wx.EVT_PAINT(window, None)  # Remove the default handler.
         wx.EVT_PAINT(window, self.OnPaint)
-        wx.EVT_SIZE(window, None) # Remove the default handler.
+        wx.EVT_SIZE(window, None)  # Remove the default handler.
         wx.EVT_SIZE(window, self.OnSize)
         # Override the button down and up handlers as well to note the
         # interaction.  This is to toggle the busy status nicely.
@@ -721,7 +734,7 @@ class Scene(TVTKScene, Widget):
             elif ver.vtk_major_version > 5:
                 popup = True
             elif (ver.vtk_major_version == 5) and \
-                 ((ver.vtk_minor_version >= 1) or \
+                 ((ver.vtk_minor_version >= 1) or
                   (ver.vtk_build_version > 2)):
                 popup = True
             if popup:
@@ -733,7 +746,7 @@ class Scene(TVTKScene, Widget):
                 f.fullscreen()
             else:
                 f = FullScreen(self)
-                f.run() # This will block.
+                f.run()  # This will block.
                 self._fullscreen = None
 
     def _disable_fullscreen(self):
