@@ -21,8 +21,19 @@ class TestTextureUnitTest(unittest.TestCase):
     def setUp(self):
         # Make a temporary directory for saved figures
         self.temp_dir = tempfile.mkdtemp()
-        self.filename1 = os.path.join(self.temp_dir, "saved_figure.png")
-        self.filename2 = os.path.join(self.temp_dir, "inverted.png")
+
+        # We save the same image twice to calibrate the difference in pixels
+        # simply from rendering it again
+        self.original_image_file = os.path.join(self.temp_dir,
+                                                "saved_figure.png")
+        self.same_image_file = os.path.join(self.temp_dir,
+                                            "same_saved_figure.png")
+
+        # This is an image with the texture inverted
+        # The differences in pixels between original image and this one
+        # should be greater than the difference between the two saved images
+        # above
+        self.inverted_image_file = os.path.join(self.temp_dir, "inverted.png")
 
         # this ensures that the temporary directory is removed
         self.addCleanup(self.remove_tempdir)
@@ -73,13 +84,16 @@ class TestTextureUnitTest(unittest.TestCase):
         # Zoom in closer for analysis
         mlab.view(67.2, 47, 2.1, [0.22, 0.13, -0.6])
 
-        mlab.savefig(self.filename1, size=(400, 300))
+        mlab.savefig(self.original_image_file)
+        mlab.savefig(self.same_image_file)
 
         # Change the texture to the inverted one
         source.actor.actor.texture = self.texture_inverted
-        mlab.savefig(self.filename2, size=(400, 300))
+        mlab.savefig(self.inverted_image_file)
 
-        self.check_images_differ(self.filename1, self.filename2)
+        self.check_images_differ(self.original_image_file,
+                                 self.same_image_file,
+                                 self.inverted_image_file)
 
     def test_texture_sphere(self):
         """ Test texture on mlab.points3d (sphere) """
@@ -95,13 +109,16 @@ class TestTextureUnitTest(unittest.TestCase):
         # Zoom in closer for analysis
         mlab.view(-158., 10.4,  2., [0, 0, 0])
 
-        mlab.savefig(self.filename1, size=(400, 300))
+        mlab.savefig(self.original_image_file)
+        mlab.savefig(self.same_image_file)
 
         # Change the texture to the inverted one
         source.actor.actor.texture = self.texture_inverted
-        mlab.savefig(self.filename2, size=(400, 300))
+        mlab.savefig(self.inverted_image_file)
 
-        self.check_images_differ(self.filename1, self.filename2)
+        self.check_images_differ(self.original_image_file,
+                                 self.same_image_file,
+                                 self.inverted_image_file)
 
     def test_texture_cylinder(self):
         """ Test texture on mlab.points3d (cylinder) """
@@ -117,22 +134,43 @@ class TestTextureUnitTest(unittest.TestCase):
         # Zoom in closer for analysis
         mlab.view(52., 38., 1.4, [0., 0., 0.])
 
-        mlab.savefig(self.filename1, size=(400, 300))
+        mlab.savefig(self.original_image_file)
+        mlab.savefig(self.same_image_file)
 
         # Change the texture to the inverted one
-        #source.actor.actor.texture = self.texture_inverted
-        mlab.savefig(self.filename2, size=(400, 300))
+        source.actor.actor.texture = self.texture_inverted
+        mlab.savefig(self.inverted_image_file)
 
-        self.check_images_differ(self.filename1, self.filename2)
+        self.check_images_differ(self.original_image_file,
+                                 self.same_image_file,
+                                 self.inverted_image_file)
 
-    def check_images_differ(self, image_file1, image_file2):
-        image1 = numpy.array(Image.open(image_file1))[:, :, :3].sum(axis=2)
-        image2 = numpy.array(Image.open(image_file2))[:, :, :3].sum(axis=2)
-        diff = numpy.abs(image1.ravel() - image2.ravel())
-        num_diff_pixels = sum(diff > 0)
-        self.assertGreater(num_diff_pixels, 0,
-                           "The texture is inverted but the two images"
-                           "do not differ greatly.  Looks wrong.")
+    def check_images_differ(self, original_image_file, same_image_file,
+                            inverted_image_file):
+        ''' Check if the difference between inverted_image_file and
+        original_image_file is greater than the difference between
+        the same_image_file and original_image_file '''
+        # These two images have the same textures
+        # But when they are saved, re-rendering may lead to some differences
+        # in their pixels
+        original_image = numpy.array(
+            Image.open(original_image_file))[:, :, :3].sum(axis=2)
+        same_image = numpy.array(
+            Image.open(same_image_file))[:, :, :3].sum(axis=2)
+
+        # Inverted texture
+        inverted_image = numpy.array(
+            Image.open(inverted_image_file))[:, :, :3].sum(axis=2)
+
+        ref_diff = numpy.abs(
+            original_image.ravel() - same_image.ravel())
+
+        sample_diff = numpy.abs(
+            inverted_image.ravel() - original_image.ravel())
+
+        self.assertGreater(sum(sample_diff > 0), 2*sum(ref_diff > 0),
+                           "Applying an image and its inverse as textures. "
+                           "However the images do not differ greatly.")
 
 
 class TestTexture(TestCase):
