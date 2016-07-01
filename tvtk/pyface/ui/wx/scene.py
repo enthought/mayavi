@@ -1,5 +1,5 @@
 #------------------------------------------------------------------------------
-# Copyright (c) 2005, Enthought, Inc.
+# Copyright (c) 2005-2016, Enthought, Inc.
 # All rights reserved.
 #
 # This software is provided without warranty under the terms of the BSD
@@ -16,7 +16,7 @@ the class docs for more details.
 
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2004-2008, Enthought, Inc.
+# Copyright (c) 2004-2016, Enthought, Inc.
 # License: BSD Style.
 
 
@@ -282,6 +282,12 @@ class Scene(TVTKScene, Widget):
                          Group( Item(name='light_manager',
                                 style='custom', show_label=False),
                                 label='Lights'),
+                         Group(
+                             Item(
+                                 name='movie_maker',
+                                 style='custom', show_label=False
+                             ),
+                             label='Movie'),
                          buttons=['OK', 'Cancel']
                         )
 

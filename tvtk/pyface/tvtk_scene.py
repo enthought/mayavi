@@ -7,7 +7,7 @@ functionality. See the class docs for more details.
 
 """
 # Author: Prabhu Ramachandran <prabhu@enthought.com>
-# Copyright (c) 2007-2015, Enthought, Inc.
+# Copyright (c) 2007-2016, Enthought, Inc.
 # License: BSD Style.
 
 
@@ -25,6 +25,7 @@ from traits.api import HasPrivateTraits, HasTraits, Any, Int, \
      Property, Instance, Event, Range, Bool, Trait, Str
 
 from tvtk.pyface import light_manager
+
 
 VTK_VER = tvtk.Version().vtk_version
 
@@ -134,6 +135,9 @@ class TVTKScene(HasPrivateTraits):
     # The light manager.
     light_manager = Instance(light_manager.LightManager, record=True)
 
+    # The movie maker instance.
+    movie_maker = Instance('tvtk.pyface.movie_maker.MovieMaker', record=True)
+
     # Is the scene busy or not.
     busy = Property(Bool, record=False)
 
@@ -235,6 +239,7 @@ class TVTKScene(HasPrivateTraits):
     def _closed_fired(self):
         self.light_manager = None
         self._interactor = None
+        self.movie_maker = None
 
     ###########################################################################
     # 'Scene' interface.
@@ -916,6 +921,11 @@ class TVTKScene(HasPrivateTraits):
             i_vtk = tvtk.to_vtk(iren)
             messenger.disconnect(i_vtk, 'EndInteractionEvent',
                                  self._record_camera_position)
+
+    def _movie_maker_default(self):
+        from tvtk.pyface.movie_maker import MovieMaker
+        return MovieMaker(scene=self)
+
 
 ######################################################################
 # `TVTKScene` class.

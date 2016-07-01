@@ -2,8 +2,8 @@
 sources derive.
 
 """
-# Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2005, Enthought, Inc.
+# Author: Prabhu Ramachandran
+# Copyright (c) 2005-2016, Enthought, Inc.
 # License: BSD Style.
 
 # Standard library imports.
@@ -12,8 +12,8 @@ from os.path import split, join, isfile
 from glob import glob
 
 # Enthought library imports.
-from traits.api import List, Str, Instance, Int, Range
-from traitsui.api import Group, Item, FileEditor
+from traits.api import Any, Bool, Float, List, Str, Instance, Int, Range
+from traitsui.api import Group, HGroup, Item, FileEditor, RangeEditor
 from apptools.persistence.state_pickler import set_state
 from apptools.persistence.file_path import FilePath
 
@@ -77,6 +77,40 @@ def get_file_list(file_name):
     return files
 
 
+class NoUITimer(object):
+    """Dummy timer for case where there is no UI.  This implements the
+    pyface.timer.Timer API with the only exception that it does not call Start
+    when constructed and start must be called explicitly.
+
+    """
+
+    def __init__(self, millisecs, callable, *args, **kw):
+        self.callable = callable
+        self.args = args
+        self.kw = kw
+        self._is_active = False
+
+    def Notify(self):
+        try:
+            self.callable(*self.args, **self.kw)
+        except StopIteration:
+            self.Stop()
+        except:
+            self.Stop()
+            raise
+
+    def Start(self):
+        self._is_active = True
+        while self._is_active:
+            self.Notify()
+
+    def Stop(self):
+        self._is_active = False
+
+    def IsRunning(self):
+        return self._is_active
+
+
 ######################################################################
 # `FileDataSource` class.
 ######################################################################
@@ -98,6 +132,14 @@ class FileDataSource(Source):
                      enter_set=True, auto_set=False,
                      desc='the current time step')
 
+    sync_timestep = Bool(False, desc='if all dataset timesteps are synced')
+
+    play = Bool(False, desc='if timesteps are automatically updated')
+    play_delay = Float(0.2, desc='the delay between loading files')
+    loop = Bool(False, desc='if animation is looped')
+
+    # Add a refresh button and a re-read button? XXX
+
     base_file_name=Str('', desc="the base name of the file",
                        enter_set=True, auto_set=False,
                        editor=FileEditor())
@@ -105,8 +147,18 @@ class FileDataSource(Source):
     # A timestep view group that may be included by subclasses.
     time_step_group = Group(Item(name='file_path', style='readonly'),
                             Item(name='timestep',
-                                 defined_when='len(object.file_list) > 1')
-                            )
+                                 defined_when='len(object.file_list) > 1'),
+                            Item(name='sync_timestep',
+                                 enabled_when='len(object.file_list) > 1',
+                            ),
+                            HGroup(
+                                Item(name='play'),
+                                Item(name='play_delay',
+                                     label='Delay'),
+                                Item(name='loop'),
+                                enabled_when='len(object.file_list) > 1',
+                            ),
+                        )
 
     ##################################################
     # Private traits.
@@ -118,6 +170,7 @@ class FileDataSource(Source):
 
     _min_timestep = Int(0)
     _max_timestep = Int(0)
+    _timer = Any
 
     ######################################################################
     # `object` interface
@@ -125,7 +178,7 @@ class FileDataSource(Source):
     def __get_pure_state__(self):
         d = super(FileDataSource, self).__get_pure_state__()
         # These are obtained dynamically, so don't pickle them.
-        for x in ['file_list', 'timestep']:
+        for x in ['file_list', 'timestep', 'play']:
             d.pop(x, None)
         return d
 
@@ -177,6 +230,9 @@ class FileDataSource(Source):
             self.file_path = FilePath(file_list[value])
         else:
             self.file_path = FilePath('')
+        if self.sync_timestep:
+            for sibling in self._find_sibling_datasets():
+                sibling.timestep = value
 
     def _base_file_name_changed(self,value):
         self.file_list = get_file_list(value)
@@ -186,3 +242,48 @@ class FileDataSource(Source):
             self.timestep = self.file_list.index(value)
         except ValueError:
             self.timestep = 0
+
+    def _play_changed(self, value):
+        if value:
+            self.scene.movie_maker.animation_start()
+            self._timer = self._make_play_timer()
+            if not self._timer.IsRunning():
+                self._timer.Start()
+        else:
+            self._timer.Stop()
+            self._timer = None
+            self.scene.movie_maker.animation_stop()
+
+    def _loop_changed(self, value):
+        if value and self.play:
+            self._play_changed(self.play)
+
+    def _play_event(self):
+        nf = self._max_timestep
+        pc = self.timestep
+        pc += 1
+        if pc > nf:
+            if self.loop:
+                pc = 0
+            else:
+                self._timer.Stop()
+                pc = nf
+        self.timestep = pc
+        self.scene.movie_maker.animation_step()
+
+    def _play_delay_changed(self):
+        if self.play:
+            self._timer.Stop()
+            self._timer.Start(self.play_delay*1000)
+
+    def _make_play_timer(self):
+        if self.scene.off_screen_rendering:
+            timer = NoUITimer(self.play_delay*1000, self._play_event)
+        else:
+            from pyface.timer.api import Timer
+            timer = Timer(self.play_delay*1000, self._play_event)
+        return timer
+
+    def _find_sibling_datasets(self):
+        nt = self._max_timestep
+        return [x for x in self.parent.children if x._max_timestep == nt]
