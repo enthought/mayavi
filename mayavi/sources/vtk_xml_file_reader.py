@@ -8,7 +8,7 @@
 from os.path import basename
 
 # Enthought library imports.
-from traits.api import Instance, List, Str, Bool
+from traits.api import Instance, List, Str, Bool, Button
 from traitsui.api import View, Group, Item, Include
 from tvtk.api import tvtk
 
@@ -134,6 +134,8 @@ class VTKXMLFileReader(FileDataSource):
     # The VTK data file reader.
     reader = Instance(tvtk.XMLReader)
 
+    refresh = Button('Update reader')
+
     # Information about what this object can produce.
     output_info = PipelineInfo(datasets=['any'],
                                attribute_types=['any'],
@@ -148,6 +150,7 @@ class VTKXMLFileReader(FileDataSource):
                       Item(name='cell_vectors_name'),
                       Item(name='cell_tensors_name'),
                       Item(name='reader'),
+                      Item(name='refresh', show_label=False)
                       ))
 
     ########################################
@@ -377,3 +380,7 @@ class VTKXMLFileReader(FileDataSource):
             ret += ' [Hidden]'
 
         return ret
+
+    def _refresh_fired(self):
+        self.reader.modified()
+        self.update_data()

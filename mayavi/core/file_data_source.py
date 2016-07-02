@@ -12,7 +12,8 @@ from os.path import split, join, isfile
 from glob import glob
 
 # Enthought library imports.
-from traits.api import Any, Bool, Float, List, Str, Instance, Int, Range
+from traits.api import (Any, Bool, Button, Float, List, Str, Instance, Int,
+                        Range)
 from traitsui.api import Group, HGroup, Item, FileEditor, RangeEditor
 from apptools.persistence.state_pickler import set_state
 from apptools.persistence.file_path import FilePath
@@ -138,27 +139,33 @@ class FileDataSource(Source):
     play_delay = Float(0.2, desc='the delay between loading files')
     loop = Bool(False, desc='if animation is looped')
 
-    # Add a refresh button and a re-read button? XXX
+    update_files = Button('Rescan files')
 
     base_file_name=Str('', desc="the base name of the file",
                        enter_set=True, auto_set=False,
                        editor=FileEditor())
 
     # A timestep view group that may be included by subclasses.
-    time_step_group = Group(Item(name='file_path', style='readonly'),
-                            Item(name='timestep',
-                                 defined_when='len(object.file_list) > 1'),
-                            Item(name='sync_timestep',
-                                 enabled_when='len(object.file_list) > 1',
-                            ),
-                            HGroup(
-                                Item(name='play'),
-                                Item(name='play_delay',
-                                     label='Delay'),
-                                Item(name='loop'),
-                                enabled_when='len(object.file_list) > 1',
-                            ),
-                        )
+    time_step_group = Group(
+                          Item(name='file_path', style='readonly'),
+                          Group(
+                              Item(name='timestep',
+                                   editor=RangeEditor(
+                                       low=0, high_name='_max_timestep',
+                                       mode='slider'
+                                   ),
+                              ),
+                              Item(name='sync_timestep'),
+                              HGroup(
+                                  Item(name='play'),
+                                  Item(name='play_delay',
+                                       label='Delay'),
+                                  Item(name='loop'),
+                              ),
+                              enabled_when='len(object.file_list) > 1'
+                          ),
+                          Item(name='update_files', show_label=False),
+                      )
 
     ##################################################
     # Private traits.
@@ -214,12 +221,12 @@ class FileDataSource(Source):
     def _file_list_changed(self, value):
         # Change the range of the timestep suitably to reflect new list.
         n_files = len(self.file_list)
-        timestep = min(self.timestep, n_files)
-        self._max_timestep = max(n_files -1, 0)
+        timestep = max(min(self.timestep, n_files-1), 0)
         if self.timestep == timestep:
             self._timestep_changed(timestep)
         else:
             self.timestep = timestep
+        self._max_timestep = max(n_files -1, 0)
 
     def _file_list_items_changed(self, list_event):
         self._file_list_changed(self.file_list)
@@ -234,10 +241,8 @@ class FileDataSource(Source):
             for sibling in self._find_sibling_datasets():
                 sibling.timestep = value
 
-    def _base_file_name_changed(self,value):
-        self.file_list = get_file_list(value)
-        if len(self.file_list) == 0:
-            self.file_list = [value]
+    def _base_file_name_changed(self, value):
+        self._update_files_fired()
         try:
             self.timestep = self.file_list.index(value)
         except ValueError:
@@ -287,3 +292,10 @@ class FileDataSource(Source):
     def _find_sibling_datasets(self):
         nt = self._max_timestep
         return [x for x in self.parent.children if x._max_timestep == nt]
+
+    def _update_files_fired(self):
+        fname = self.base_file_name
+        file_list = get_file_list(fname)
+        if len(file_list) == 0:
+            file_list = [fname]
+        self.file_list = file_list
