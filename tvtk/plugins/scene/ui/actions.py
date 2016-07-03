@@ -74,7 +74,7 @@ class SaveScene(SceneAction):
         wildcard = ''
 
         for description, extension in zip(descriptions, extensions):
-            wildcard += '{} ({})|{}|".format(description, extension, extension)
+            wildcard += '{} ({})|{}|'.format(description, extension, extension)
         
         wildcard += 'Determine by extension (*.*)|(*.*)'
 
