@@ -107,6 +107,16 @@ save_scene_to_obj = Action(
     path       = 'MenuBar/File/SaveSceneAs'
 )
 
+save_scene_to_pov = Action(
+    class_name = PKG + '.actions.SaveSceneToPovray',
+    path       = 'MenuBar/File/SaveSceneAs'
+)
+
+save_scene_to_x3d = Action(
+    class_name = PKG + '.actions.SaveSceneToX3D',
+    path       = 'MenuBar/File/SaveSceneAs'
+)
+
 #### View actions ####
 
 reset_zoom = Action(
@@ -162,7 +172,8 @@ class SceneUIActionSet(ActionSet):
         save_scene, save_scene_to_png, save_scene_to_jpeg, save_scene_to_bmp,
         save_scene_to_tiff, save_scene_to_ps, save_scene_to_gl2ps,
         save_scene_to_rib, save_scene_to_oogl, save_scene_to_iv,
-        save_scene_to_vrml, save_scene_to_obj,
+        save_scene_to_vrml, save_scene_to_obj, save_scene_to_pov,
+        save_scene_to_x3d,
 
         # Scene actions.
         reset_zoom, isometric_view, x_plus_view, x_minus_view, y_plus_view,
