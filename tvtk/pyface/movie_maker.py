@@ -30,16 +30,19 @@ class MovieMaker(HasTraits):
         return view
 
     def animation_start(self):
-        self._count = 0
-        self._save_scene(self._count)
+        if self.record:
+            if self.use_default_directory:
+                self.directory = self._directory_default()
+            self._count = 0
+            self._save_scene(self._count)
 
     def animation_step(self):
-        self._count += 1
-        self._save_scene(self._count)
+        if self.record:
+            self._count += 1
+            self._save_scene(self._count)
 
     def animation_stop(self):
-        if self.use_default_directory:
-            self.directory = self._directory_default()
+        pass
 
     @contextmanager
     def record_movie(self):
@@ -66,17 +69,16 @@ class MovieMaker(HasTraits):
             self.record = False
 
     def _save_scene(self, count):
-        if self.record:
-            dir = self.directory
-            if not os.path.exists(dir):
-                os.makedirs(dir)
+        dir = self.directory
+        if not os.path.exists(dir):
+            os.makedirs(dir)
 
-            fname = os.path.join(dir, self.filename%count)
-            if not self.anti_alias:
-                orig_aa = self.scene.anti_aliasing_frames
-            self.scene.save(fname)
-            if not self.anti_alias:
-                self.scene.anti_aliasing_frames = orig_aa
+        fname = os.path.join(dir, self.filename%count)
+        if not self.anti_alias:
+            orig_aa = self.scene.anti_aliasing_frames
+        self.scene.save(fname)
+        if not self.anti_alias:
+            self.scene.anti_aliasing_frames = orig_aa
 
     def _directory_default(self):
         home = get_home_directory()
