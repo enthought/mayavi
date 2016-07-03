@@ -67,7 +67,7 @@ class SaveScene(SceneAction):
 
         descriptions = [
             'PNG', 'JPG', 'JPEG', 'TIFF', 'Bitmap', 'PostScript', 'EPS',
-            'TeX', 'RIB', 'WRL', 'Geomview', 'PDF', 'VRML', Wavefront',
+            'TeX', 'RIB', 'WRL', 'Geomview', 'PDF', 'VRML', 'Wavefront',
 	    'Povray', 'X3D'
         ]
 
