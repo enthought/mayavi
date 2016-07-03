@@ -47,10 +47,21 @@ def popup_save(parent=None):
     filename, returns empty string if action was cancelled. `parent` is
     the parent widget over which the dialog will be popped up.
     """
-    extns = ['*.png', '*.jpg', '*.jpeg', '*.tiff', '*.bmp', '*.ps', '*.eps',
-             '*.tex', '*.rib', '*.wrl', '*.oogl', '*.pdf', '*.vrml', '*.obj',
-             '*.iv']
-    wildcard='|'.join(extns)
+
+    extensions = ['*.png', '*.jpg', '*.tiff', '*.bmp', '*.ps',
+                  '*.eps', '*.pdf', '*.tex', '*.rib', '*.wrl',
+                  '*.oogl', '*.vrml', '*.obj', '*.iv', '*.pov',
+                  '*.x3d']
+    descriptions = ["PNG", "JPG", "TIFF", "Bitmap", "PostScript",
+                    "EPS", "PDF", "Tex", "RIB", "WRL",
+                    "Geomview", "VRML", "Wavefront", "Open Inventor",
+                    "Povray", "X3D"]
+    wildcard = ""
+    for description, extension in zip(descriptions, extensions):
+        wildcard += "{} ({})|{}|".format(description,
+                                         extension,
+                                         extension)
+    wildcard += "Determine by extension (*.*)|(*.*)"
 
     dialog = FileDialog(
         parent = parent, title='Save scene to image',

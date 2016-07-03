@@ -62,10 +62,21 @@ class SaveScene(SceneAction):
         extensions = [
             '*.png', '*.jpg', '*.jpeg', '*.tiff', '*.bmp', '*.ps', '*.eps',
             '*.tex', '*.rib', '*.wrl', '*.oogl', '*.pdf', '*.vrml', '*.obj',
-            '*.iv'
+            '*.iv', '*.pov', '*x3d'
         ]
 
-        wildcard = '|'.join(extensions)
+        descriptions = [
+            'PNG', 'JPG', 'JPEG', 'TIFF', 'Bitmap', 'PostScript', 'EPS',
+            'TeX', 'RIB', 'WRL', 'Geomview', 'PDF', 'VRML', 'Wavefront',
+	    'Povray', 'X3D'
+        ]
+
+        wildcard = ''
+
+        for description, extension in zip(descriptions, extensions):
+            wildcard += '{} ({})|{}|'.format(description, extension, extension)
+        
+        wildcard += 'Determine by extension (*.*)|(*.*)'
 
         dialog = FileDialog(
             parent   = self.window.control,
@@ -191,6 +202,17 @@ class SaveSceneToOBJ(SaveSceneToImage):
     wildcard    = 'OBJ files (*.obj)|*.obj|' \
                   'All files (*.*)|*.*'
 
+class SaveSceneToPovray(SaveSceneToImage):
+    name	= 'Povray File'
+    save_method = 'save_povray'
+    wildcard	= 'Povray (*.pov)|*.pov|' \
+    		  'All files (*.*)|*.*'
+
+class SaveSceneToX3D(SaveSceneToImage):
+    name	= 'X3D File'
+    save_method	= 'save_x3d'
+    wildcard	= 'X3D (*.x3d)|*.pov|' \
+		  'All files (*.*)|*.*'
 
 class SetView(SceneAction):
     """ An action that sets the current scene to a particular view."""
