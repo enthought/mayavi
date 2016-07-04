@@ -7,12 +7,15 @@ from traits.util.home_directory import get_home_directory
 
 
 class MovieMaker(HasTraits):
-    record = Bool(False)
+    record = Bool(False, desc='if a movie should be recorded')
     scene = Instance('tvtk.pyface.tvtk_scene.TVTKScene', record=False)
     directory = Directory
     filename = Str('anim%05d.png')
-    anti_alias = Bool(True)
-    use_default_directory = Bool(True)
+    anti_alias = Bool(True, desc='if the saved images should be anti-aliased')
+    use_default_directory = Bool(True,
+                                 desc='if the movie be dumped in the default'\
+                                 'directory'
+                            )
 
     ##################
     # Private traits
@@ -82,13 +85,12 @@ class MovieMaker(HasTraits):
 
     def _directory_default(self):
         home = get_home_directory()
-        pattern = os.path.join(home, 'Documents', 'mayavi_movies' 'movie*')
-        dirs = [x for x in glob(pattern) if os.path.isdir(x)]
-        existing = sorted(glob(pattern))
+        pattern = os.path.join(home, 'Documents', 'mayavi_movies', 'movie*')
+        existing = sorted([x for x in glob(pattern) if os.path.isdir(x)])
         last_index = 1
         if existing:
             last = existing[-1]
-            last_index = int(last[-3:])
+            last_index = int(last[-3:]) + 1
         return os.path.join(
             home, 'Documents', 'mayavi_movies', 'movie%03d'%last_index
         )
