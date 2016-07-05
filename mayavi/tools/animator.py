@@ -14,7 +14,7 @@ except ImportError:
     HAS_DECORATOR = False
 
 from pyface.timer.api import Timer
-from traits.api import HasTraits, Button, Instance, Range
+from traits.api import Any, HasTraits, Button, Instance, Range
 from traitsui.api import View, Group, Item
 
 
@@ -56,7 +56,7 @@ class Animator(HasTraits):
                   desc='frequency with which timer is called')
 
     # The internal timer we manage.
-    timer = Instance(Timer)
+    timer = Any
 
     ######################################################################
     # User interface view

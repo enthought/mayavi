@@ -249,21 +249,25 @@ class FileDataSource(Source):
             self.timestep = 0
 
     def _play_changed(self, value):
+        mm = getattr(self.scene, 'movie_maker', None)
         if value:
-            self.scene.movie_maker.animation_start()
+            if mm is not None:
+                mm.animation_start()
             self._timer = self._make_play_timer()
             if not self._timer.IsRunning():
                 self._timer.Start()
         else:
             self._timer.Stop()
             self._timer = None
-            self.scene.movie_maker.animation_stop()
+            if mm is not None:
+                mm.animation_stop()
 
     def _loop_changed(self, value):
         if value and self.play:
             self._play_changed(self.play)
 
     def _play_event(self):
+        mm = getattr(self.scene, 'movie_maker', None)
         nf = self._max_timestep
         pc = self.timestep
         pc += 1
@@ -273,8 +277,12 @@ class FileDataSource(Source):
             else:
                 self._timer.Stop()
                 pc = nf
-        self.timestep = pc
-        self.scene.movie_maker.animation_step()
+                if mm is not None:
+                    mm.animation_stop()
+        if pc != self.timestep:
+            self.timestep = pc
+            if mm is not None:
+                mm.animation_step()
 
     def _play_delay_changed(self):
         if self.play:
@@ -282,7 +290,8 @@ class FileDataSource(Source):
             self._timer.Start(self.play_delay*1000)
 
     def _make_play_timer(self):
-        if self.scene.off_screen_rendering:
+        scene = self.scene
+        if scene is None or scene.off_screen_rendering:
             timer = NoUITimer(self.play_delay*1000, self._play_event)
         else:
             from pyface.timer.api import Timer

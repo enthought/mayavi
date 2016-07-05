@@ -12,13 +12,10 @@ class MovieMaker(HasTraits):
     directory = Directory
     filename = Str('anim%05d.png')
     anti_alias = Bool(True, desc='if the saved images should be anti-aliased')
-    use_default_directory = Bool(True,
-                                 desc='if the movie be dumped in the default'\
-                                 'directory'
-                            )
 
     ##################
     # Private traits
+    _subdir = Str
     _count = Int(0)
 
     def default_traits_view(self):
@@ -28,14 +25,12 @@ class MovieMaker(HasTraits):
             Item('anti_alias'),
             Item('filename'),
             Item('directory'),
-            Item('use_default_directory')
         )
         return view
 
     def animation_start(self):
         if self.record:
-            if self.use_default_directory:
-                self.directory = self._directory_default()
+            self._update_subdir()
             self._count = 0
             self._save_scene(self._count)
 
@@ -72,7 +67,7 @@ class MovieMaker(HasTraits):
             self.record = False
 
     def _save_scene(self, count):
-        dir = self.directory
+        dir = os.path.join(self.directory, self._subdir)
         if not os.path.exists(dir):
             os.makedirs(dir)
 
@@ -85,12 +80,13 @@ class MovieMaker(HasTraits):
 
     def _directory_default(self):
         home = get_home_directory()
-        pattern = os.path.join(home, 'Documents', 'mayavi_movies', 'movie*')
+        return os.path.join(home, 'Documents', 'mayavi_movies')
+
+    def _update_subdir(self):
+        pattern = os.path.join(self.directory, 'movie*')
         existing = sorted([x for x in glob(pattern) if os.path.isdir(x)])
         last_index = 1
         if existing:
             last = existing[-1]
             last_index = int(last[-3:]) + 1
-        return os.path.join(
-            home, 'Documents', 'mayavi_movies', 'movie%03d'%last_index
-        )
+        self._subdir = 'movie%03d'%last_index

@@ -5,6 +5,7 @@ This also tests some numerics with VTK.
 """
 
 import unittest
+import mock
 
 import numpy as np
 from traits.testing.unittest_tools import UnittestTools
@@ -383,6 +384,34 @@ class TestMlabModules(TestMlabNullEngine):
         b.mlab_source.update()
         self.assertEqual(b.glyph.glyph.scale_mode,
                          'scale_by_vector_components')
+
+
+################################################################################
+# class `TestMlabAnimate`
+################################################################################
+class TestMlabAnimate(TestMlabNullEngine):
+
+    def test_animate_sets_up_movie_maker(self):
+        # Given
+        @mlab.animate
+        def anim():
+            for i in range(5): yield
+
+        self.e.new_scene()
+        from mayavi.tests.test_file_timestep import make_mock_scene
+        self.e.current_scene.scene = make_mock_scene()
+        mm = self.e.current_scene.scene.movie_maker
+
+        # When
+        from mayavi.core.file_data_source import NoUITimer
+        with mock.patch('mayavi.tools.animator.Timer', NoUITimer):
+            a = anim()
+            a.timer.Start()
+
+        # Then
+        mm.animation_start.assert_called_once_with()
+        self.assertEqual(mm.animation_step.call_count, 4)
+        mm.animation_stop.assert_called_once_with()
 
 
 if __name__ == '__main__':
