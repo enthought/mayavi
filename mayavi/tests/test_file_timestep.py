@@ -181,6 +181,34 @@ class TestFileDataSourceTimestep(unittest.TestCase):
         self.assertEqual(r._max_timestep, 2)
         self.assertEqual(len(r.file_list), 3)
 
+    def test_update_files_updates_all_file_lists(self):
+        # Given
+        e = self.engine
+        # Read a VTK XML data file.
+        r = VTKXMLFileReader()
+        r.initialize(self.abc1)
+        e.add_source(r)
+
+        r2 = VTKXMLFileReader()
+        r2.initialize(self.def1)
+        e.add_source(r2)
+        r.sync_timestep = True
+        r.timestep = 0
+
+        self.assertEqual(r._max_timestep, 1)
+        self.assertEqual(len(r.file_list), 2)
+
+        # When
+        shutil.copy(self.abc1, os.path.join(self.root, 'abc_3.vti'))
+        shutil.copy(self.def1, os.path.join(self.root, 'def_3.vti'))
+        r.update_files = True
+
+        # Then
+        self.assertEqual(r._max_timestep, 2)
+        self.assertEqual(len(r.file_list), 3)
+        self.assertEqual(r2._max_timestep, 2)
+        self.assertEqual(len(r2.file_list), 3)
+
 
 if __name__ == '__main__':
     unittest.main()

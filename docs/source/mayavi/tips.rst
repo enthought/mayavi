@@ -17,7 +17,7 @@ an animation or so and find that each time you save an image, Mayavi
 "raises" the window to make it the active window thus disrupting your
 work.  This is needed since VTK internally grabs the window to make a
 picture.  Occluding the window will also produce either blank or
-incorrect images. 
+incorrect images.
 
 If you already have a Python script, say ``script.py`` that sets up your
 visualization that you run likes so::
@@ -106,7 +106,7 @@ so:
 
   * Now run your Mayavi script.  It should run uninterrupted on this X
     server and produce your saved images.
-  
+
 This probably will have to be fine tuned to suit your taste.
 
 Many Linux systems (including Ubuntu and Debian) ship with a helper
@@ -119,15 +119,15 @@ Beware that you shouldn't call `mlab.show` or start the mainloop in the
 script, elsewhere the script will run endlessly, waiting for interaction
 in a hidden window.
 
-.. note:: 
+.. note::
 
     If you want to use Mayavi without the envisage UI or even a traits UI
     (i.e. with a pure TVTK window) and do off screen rendering with
     Python scripts you may be interested in the
     :ref:`examples_offscreen`. This simple example shows how you can use
     Mayavi without using Envisage or the Mayavi envisage application and
-    still do off screen rendering. 
-    
+    still do off screen rendering.
+
     If you are using mlab, outside of the Mayavi2 application, simply set::
 
         mlab.options.offscreen = True
@@ -210,8 +210,8 @@ case.  Here are brief instructions on how to build VTK to do this.
 
         $ export PYTHONPATH=$VTK_BUILD/bin:$VTK_BUILD/Wrapping/Python``
         $ export LD_LIBRARY_PATH=$VTK_BUILD/bin:$MESA/lib
-        
-   Now, you should be all set.  
+
+   Now, you should be all set.
 
 Once this is done you should be able to run mlab examples offscreen.
 This will work without an X display even.
@@ -226,7 +226,7 @@ default only get offscreen contexts.  If you do want a UI you will want
 to explicitly set the render window's ``off_screen_rendering`` ivar to
 ``False`` to force a mapped window.  For this reason if you might need
 to popup a full UI, it might be better to *not set*
-``VTK_USE_OFFSCREEN=ON``.  
+``VTK_USE_OFFSCREEN=ON``.
 
 
 
@@ -274,7 +274,7 @@ contrib package in the following manner.
      package).  The ``user_mayavi.py`` of each selected package will
      then be imported next time Mayavi is started, note that this will
      be usable even from ``mlab``.
-         
+
 Any number of such packages may be created and distributed.  If they are
 installed, users can choose to enable them.  Internally, the list of
 selected packages is stored as the ``mayavi.contrib_packages``
@@ -292,7 +292,7 @@ you can do in them, please refer to the
 attention to the warnings in that file.  It is a very good idea to
 ensure that the ``user_mayavi.py`` does not implement any
 sources/modules/filters and only registers the metadata.  This will
-avoid issues with circular imports. 
+avoid issues with circular imports.
 
 
 .. _`examples/mayavi/user_mayavi.py`: https://raw.githubusercontent.com/enthought/mayavi/4.4.4/examples/mayavi/user_mayavi.py
@@ -314,7 +314,7 @@ There are three ways a user can customize Mayavi:
      is to be placed anywhere on ``sys.path``.
 
   3. At a local, user level.  This is achieved by placing a
-     ``user_mayavi.py`` in the users ``~/.mayavi2/`` directory.  If a 
+     ``user_mayavi.py`` in the users ``~/.mayavi2/`` directory.  If a
      ``~/.mayavi2/user_mayavi.py`` is found, the directory is placed in
      ``sys.path``.
 
@@ -357,7 +357,7 @@ The :ref:`example_standalone` demonstrates how one can use the core
 Mayavi API without using Envisage.  This is useful when you want to
 minimize dependencies.  :ref:`example_offscreen` demonstrates how to use
 Mayavi without the envisage UI or even a traits UI (i.e. with a pure TVTK
-window) and do off screen rendering.  
+window) and do off screen rendering.
 
 Computing in a thread
 ----------------------
@@ -379,7 +379,7 @@ automatically update the data when the data file is updated by the
 computation.  This is easily achieved by polling the data file and
 checking if it has been modified.  The :ref:`example_poll_file`
 demonstrates this.  To see it in action will require that you edit the
-scalar data in the ``examples/data/heart.vtk`` data file.  
+scalar data in the ``examples/data/heart.vtk`` data file.
 
 
 Serving Mayavi on the network
@@ -420,7 +420,7 @@ commands will be simply run on top of this.  To serve on a UDP port use
 the :func:`serve_udp` function.  For more details on the ``server`` module
 please look at the source code -- it is thoroughly documented.
 
-.. warning:: 
+.. warning::
     While this is very powerful it is also a huge security hole
     since the remote user can do pretty much anything they want once
     connected to the server.
@@ -435,7 +435,7 @@ TCP server: the `serve_tcp` function
 
 ..
  _____
- 
+
  .. autoclass:: M2TCP
     :members:
 
@@ -447,10 +447,41 @@ UDP server: the `serve_udp` function
 
 ..
  _____
- 
+
  .. autoclass:: M2UDP
     :members:
 
+
+.. _animating_a_timeseries:
+
+Animating a timeseries
+-----------------------
+
+If a file that mayavi can load has the form ``some_name[0-9]*.ext``,
+then it is treated as part of a timeseries.  For example let us say
+you have the following files:
+
+.. code-block:: bash
+
+  $ ls
+  data_01.vti data_02.vti ... data_10.vti
+
+If one loads the file using Mayavi, a slider will show up on the file
+reader object which can be used to choose an appropriate timestep.
+There are also buttons to automatically change the timestep. To do
+this, select the play checkbox.  This can also be done
+programmatically as follows::
+
+   from mayavi import mlab
+   src = mlab.pipeline.open('data_01.vti')
+   src.play = True
+
+Selecting the "loop" checkbox will loop over the files continuously.
+If you have multiple files that are part of a timeseries, you can
+choose the "sync timestep" option.  This will sync all the timesteps
+of the other files that have the same number of timesteps as the
+current reader. The "Rescan files" button will rescan the files on the
+disc to find newer ones that are part of the timeseries.
 
 
 .. _animating_a_visualization:
@@ -475,7 +506,7 @@ example::
             f.scene.camera.azimuth(10)
             f.scene.render()
             yield
-    
+
     a = anim() # Starts the animation.
 
 Notice the use of ``yield`` in the above, this is *very* crucial to this
@@ -489,7 +520,7 @@ to the decorator::
     @mlab.animate(delay=500, ui=False)
     def anim():
         # ...
-    
+
     a = anim() # Starts the animation without a UI.
 
 If you don't want to import all of ``mlab``, the animate
@@ -512,13 +543,35 @@ alongside with the `visual` handy for object-movement animation, see
     :ref:`mlab-animating-data`
 
 
+Creating a movie from an animation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+It is easy to create a movie from either an animation or by playing a
+timeseries.  To do this on the UI, select the Mayavi Scene and
+navigate to the Movie tab and select the record checkbox.  After this,
+if one animates a timestep via the "play" checkbox referred to in
+:ref:`animating_a_timeseries`, then a stack of images will be created
+in the directory specified in the movie UI.  This will also happen if
+one runs an animation as discussed in :ref:`animating_a_visualization`.
+
+This can also be scripted with mlab for example as follows::
+
+   from mayavi import mlab
+   f = mlab.figure()
+   f.scene.movie_maker.record = True
+   mlab.test_mesh_sphere_anim()
+
+This will create a set of images, one for each step of the animation.
+The ``movie_maker`` instance is available on each created scene.
+
+
 Animating a series of images
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Let's say you have a stack of PNG or JPEG files that are numbered
 serially that you want to animate on a Mayavi scene.  Here is a simple
 script (called ``img_movie.py``)::
-    
+
     # img_movie.py
     from pyface.timer.api import Timer
 
@@ -541,7 +594,7 @@ script will animate the stack of images 10 times.  The script animates
 the first data source by default.  This may be changed easily.
 
 To use this script do this::
-    
+
     $ mayavi2 -d your_image000.png -m ImageActor -x img_movie.py
 
 
@@ -582,7 +635,7 @@ visualizes glyphs on its surface colored red::
     -s"actor.property.color = (1,0,0)"
 
 Note that ``-s"string"`` applies the string on the last object (also
-available as ``last_obj``), which is the glyph. 
+available as ``last_obj``), which is the glyph.
 
 This example turns off coloring of the glyph and changes the glyph to
 display::
@@ -639,7 +692,7 @@ filter.  Here is a simple example with the standard Mayavi image data::
 
     $ mayavi2 -d examples/mayavi/data/heart.vti -m Outline \
     -m ImagePlaneWidget \
-    -f ImageChangeInformation \ 
+    -f ImageChangeInformation \
     -s "filter.origin_translation=(20,20,20)" \
     -m Outline -m ImagePlaneWidget
 
@@ -715,7 +768,7 @@ to an `mlab.pipeline` function::
     mlab.figure()
     ipw = mlab.pipeline.image_plane_widget(ctr.mlab_source.dataset)
     mlab.show()
-    
+
 The above example creates two figures displaying the same data, one with
 iso-surfaces, and the other with an image plane widget.
 
@@ -771,7 +824,7 @@ example to use Mayavi as a 2D image viewer::
 Another useful interactor is the 'terrain' interactor, handy to have
 natural movement in scenes where you want the 'up' vector to be always
 pointing in the 'z' direction::
-    
+
     from mayavi import mlab
     mlab.test_surf()
     fig = mlab.gcf()
@@ -803,7 +856,7 @@ pipeline object that has a ``scene`` attribute::
     obj.scene.disable_render = False
 
 This will speed things up for complex visualizations sometimes by an
-order of magnitude.  
+order of magnitude.
 
 While saving the visualization to an image you can speed up the image
 generation at the cost of loosing out on anti-aliasing by doing the
@@ -827,4 +880,3 @@ images.
    sentence-end-double-space: t
    fill-column: 70
    End:
-
