@@ -124,6 +124,8 @@ mlab.clf()
 pts = mlab.points3d(x, y, z, 1.5 * scalars.max() - scalars,
                                     scale_factor=0.015, resolution=10)
 pts.mlab_source.dataset.lines = np.array(connections)
+# Update the pipeline since the connectivity has changed.
+pts.mlab_source.update()
 
 # Use a tube fiter to plot tubes on the link, varying the radius with the
 # scalar value
