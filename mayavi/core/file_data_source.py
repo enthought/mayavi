@@ -162,7 +162,7 @@ class FileDataSource(Source):
                                        label='Delay'),
                                   Item(name='loop'),
                               ),
-                              enabled_when='len(object.file_list) > 1'
+                              visible_when='len(object.file_list) > 1'
                           ),
                           Item(name='update_files', show_label=False),
                       )
