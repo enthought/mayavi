@@ -14,7 +14,7 @@ except ImportError:
     HAS_DECORATOR = False
 
 from pyface.timer.api import Timer
-from traits.api import HasTraits, Button, Instance, Range
+from traits.api import Any, HasTraits, Button, Instance, Range
 from traitsui.api import View, Group, Item
 
 
@@ -56,7 +56,7 @@ class Animator(HasTraits):
                   desc='frequency with which timer is called')
 
     # The internal timer we manage.
-    timer = Instance(Timer)
+    timer = Any
 
     ######################################################################
     # User interface view
@@ -126,60 +126,68 @@ class Animator(HasTraits):
 ###############################################################################
 # Decorators.
 
-def animate(func=None, delay=500, ui=True):
-    """ A convenient decorator to animate a generator that performs an
-        animation.  The `delay` parameter specifies the delay (in
-        milliseconds) between calls to the decorated function. If `ui` is
-        True, then a simple UI for the animator is also popped up.  The
-        decorated function will return the `Animator` instance used and a
-        user may call its `Stop` method to stop the animation.
+def animate(func=None, delay=500, ui=True, support_movie=True):
+    """A convenient decorator to animate a generator that performs an
+    animation.
 
-        If an ordinary function is decorated a `TypeError` will be raised.
+    The `delay` parameter specifies the delay (in milliseconds) between calls
+    to the decorated function. If `ui` is True, then a simple UI for the
+    animator is also popped up.  The decorated function will return the
+    `Animator` instance used and a user may call its `Stop` method to stop the
+    animation.  The `support_movie` parameter is True by default and this
+    makes it easy to record a movie with the decorator.  If this is turned
+    off, one cannot record a movie of the animation.
 
-        **Parameters**
+    If an ordinary function is decorated a `TypeError` will be raised.
 
-        :delay: int specifying the time interval in milliseconds between
-                calls to the function.
+    **Parameters**
 
-        :ui: bool specifying if a UI controlling the animation is to be
-             provided.
+    :delay: int specifying the time interval in milliseconds between
+            calls to the function.
 
-        **Returns**
+    :ui: bool specifying if a UI controlling the animation is to be
+         provided.
 
-        The decorated function returns an `Animator` instance.
+    :support_movie: bool specifying if the animation will support
+                    recording of a movie.
 
-        **Examples**
+    **Returns**
 
-        Here is the example provided in the Animator class documentation::
+    The decorated function returns an `Animator` instance.
 
-            >>> from mayavi import mlab
-            >>> @mlab.animate
-            ... def anim():
-            ...     f = mlab.gcf()
-            ...     while 1:
-            ...         f.scene.camera.azimuth(10)
-            ...         f.scene.render()
-            ...         yield
-            ...
-            >>> a = anim() # Starts the animation.
+    **Examples**
 
-        For more specialized use you can pass arguments to the decorator::
+    Here is the example provided in the Animator class documentation::
 
-            >>> from mayavi import mlab
-            >>> @mlab.animate(delay=500, ui=False)
-            ... def anim():
-            ...     f = mlab.gcf()
-            ...     while 1:
-            ...         f.scene.camera.azimuth(10)
-            ...         f.scene.render()
-            ...         yield
-            ...
-            >>> a = anim() # Starts the animation without a UI.
+        >>> from mayavi import mlab
+        >>> @mlab.animate
+        ... def anim():
+        ...     f = mlab.gcf()
+        ...     while 1:
+        ...         f.scene.camera.azimuth(10)
+        ...         f.scene.render()
+        ...         yield
+        ...
+        >>> a = anim() # Starts the animation.
 
-        **Notes**
+    For more specialized use you can pass arguments to the decorator::
 
-        If you want to modify the data plotted by an `mlab` function call,
-        please refer to the section on: :ref:`mlab-animating-data`.
+        >>> from mayavi import mlab
+        >>> @mlab.animate(delay=500, ui=False)
+        ... def anim():
+        ...     f = mlab.gcf()
+        ...     while 1:
+        ...         f.scene.camera.azimuth(10)
+        ...         f.scene.render()
+        ...         yield
+        ...
+        >>> a = anim() # Starts the animation without a UI.
+
+    **Notes**
+
+    If you want to modify the data plotted by an `mlab` function call,
+    please refer to the section on: :ref:`mlab-animating-data`.
+
     """
 
     class Wrapper(object):
@@ -189,6 +197,9 @@ def animate(func=None, delay=500, ui=True):
             self.func = function
             self.ui = ui
             self.delay = delay
+            self._support_movie = support_movie
+            self._movie_maker = None
+            self._next = None
 
         def __call__(self, *args, **kw):
             if isinstance(self.func, types.GeneratorType):
@@ -197,7 +208,9 @@ def animate(func=None, delay=500, ui=True):
                 f = self.func(*args, **kw)
             if isinstance(f, types.GeneratorType):
                 _next = f.next if hasattr(f, 'next') else f.__next__
-                a = Animator(self.delay, _next)
+                self._next = _next
+                self._movie_maker = None
+                a = Animator(self.delay, self._step)
                 if self.ui:
                     a.show()
                 return a
@@ -205,6 +218,25 @@ def animate(func=None, delay=500, ui=True):
                 msg = 'The function "%s" must be a generator '\
                       '(use yield)!' % (self.func.__name__)
                 raise TypeError(msg)
+
+        def _step(self):
+            try:
+                self._next()
+                if self._support_movie:
+                    self._update_movie_maker()
+            except StopIteration:
+                if self._support_movie:
+                    self._movie_maker.animation_stop()
+                raise
+
+        def _update_movie_maker(self):
+            if self._movie_maker is None:
+                from .engine_manager import get_engine
+                scene = get_engine().current_scene.scene
+                self._movie_maker = scene.movie_maker
+                self._movie_maker.animation_start()
+            else:
+                self._movie_maker.animation_step()
 
         def decorator_call(self, func, *args, **kw):
             return self(*args, **kw)

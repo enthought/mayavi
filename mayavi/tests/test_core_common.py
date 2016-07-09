@@ -8,6 +8,7 @@ Tests for the mayavi.core.common module.
 import unittest
 
 from mayavi.core.common import get_object_path, get_engine
+from mayavi.core.file_data_source import NoUITimer
 from mayavi.sources.parametric_surface import \
     ParametricSurface
 from mayavi.modules.outline import Outline
@@ -83,6 +84,53 @@ class TestCoreCommon(unittest.TestCase):
         # Is it really added?
         self.assertEqual(o1.module_manager, mm)
         self.assertEqual(o1.parent, mm)
+
+
+
+class TestNoUITimer(unittest.TestCase):
+    def test_simple_timer(self):
+        class A(object):
+            def __init__(self):
+                self.count = 0
+                self.timer = NoUITimer(10, self.step)
+            def step(self):
+                self.count +=1
+                if self.count > 10:
+                    self.timer.Stop()
+
+        a = A()
+        a.timer.Start()
+        self.assertEqual(a.count, 11)
+        self.assertFalse(a.timer.IsRunning())
+
+    def test_timer_stops_on_error_and_raises(self):
+        class A(object):
+            def __init__(self):
+                self.count = 0
+                self.timer = NoUITimer(10, self.step)
+            def step(self):
+                self.count +=1
+                raise(RuntimeError('Oops'))
+
+        a = A()
+        self.assertRaises(RuntimeError, a.timer.Start)
+        self.assertEqual(a.count, 1)
+        self.assertFalse(a.timer.IsRunning())
+
+    def test_timer_stops_on_stop_iteration(self):
+        class A(object):
+            def __init__(self):
+                self.count = 0
+                self.timer = NoUITimer(10, self.step)
+            def step(self):
+                self.count +=1
+                if self.count > 10:
+                    raise(StopIteration('Stop'))
+
+        a = A()
+        a.timer.Start()
+        self.assertEqual(a.count, 11)
+        self.assertFalse(a.timer.IsRunning())
 
 
 if __name__ == '__main__':
