@@ -14,6 +14,7 @@ recursive-include mayavi/scripts *.py mayavi2
 recursive-include mayavi/tests/csv_files *.* csv_2_py
 recursive-include mayavi/tests/data *.*
 recursive-include mayavi/tools/data_wizards *.csv
+recursive-include mayavi/tools/static *.css *.js
 recursive-include scripts *.py
 recursive-include tvtk/pipeline/images *.*
 recursive-include tvtk/plugins/scene *.ini

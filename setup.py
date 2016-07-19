@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# Copyright (c) 2008-2015 by Enthought, Inc.
+# Copyright (c) 2008-2016 by Enthought, Inc.
 # All rights reserved.
 
 """
@@ -403,6 +403,7 @@ def configuration(parent_package=None, top_path=None):
     config.add_data_dir('mayavi/core/lut')
     config.add_data_dir('mayavi/tests/data')
     config.add_data_dir('mayavi/tests/csv_files')
+    config.add_data_dir('mayavi/tools/static')
 
     # Image files.
     for pkgdir in ('mayavi', 'tvtk'):
