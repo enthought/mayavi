@@ -1,4 +1,4 @@
-"""Functionality to display Mayavi scenes inside IPython notebooks.
+"""Functionality to display Mayavi scenes inside Jupyter notebooks.
 """
 from __future__ import print_function
 from tvtk.api import tvtk
@@ -36,22 +36,23 @@ def init(backend='x3d', width=None, height=None, local=True):
 
 
 def _monkey_patch_for_ipython():
-    def _repr_html_(self):
-        """Method for displaying elements on the IPython notebook.
-        """
-        if hasattr(self, 'render_window'):
-            scene = self
-        elif hasattr(self, 'scene'):
-            scene = self.scene
-        if _backend == 'png':
-            return scene_to_png(scene)
-        elif _backend == 'x3d':
-            return scene_to_x3d(scene)
-
     from mayavi.core.base import Base
     from tvtk.pyface.tvtk_scene import TVTKScene
     Base._repr_html_ = _repr_html_
     TVTKScene._repr_html_ = _repr_html_
+
+
+def _repr_html_(self):
+    """Method for displaying elements on the IPython notebook.
+    """
+    if hasattr(self, 'render_window'):
+        scene = self
+    elif hasattr(self, 'scene'):
+        scene = self.scene
+    if _backend == 'png':
+        return scene_to_png(scene)
+    elif _backend == 'x3d':
+        return scene_to_x3d(scene)
 
 
 def _counter():
@@ -134,19 +135,11 @@ def display(obj, backend=None):
 
     This is largely for testing.
     """
+    global _backend
     from IPython.display import HTML, display as ipy_display
     backend = _backend if backend is None else backend
-    if backend == 'qt':
-        # Do nothing in this case.
-        return
-    if hasattr(obj, 'render_window'):
-        scene = obj
-    elif hasattr(obj, 'scene'):
-        scene = obj.scene
-    else:
-        print("Do not know how to display: %s"%obj)
-
-    if backend == 'png':
-        return ipy_display(HTML(scene_to_png(scene)))
-    elif backend == 'x3d':
-        return ipy_display(HTML(scene_to_x3d(scene)))
+    orig_backend = _backend
+    _backend = backend
+    html = _repr_html_(obj)
+    _backend = orig_backend
+    return ipy_display(HTML(html))
