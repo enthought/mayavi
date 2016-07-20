@@ -1,6 +1,8 @@
 """Functionality to display Mayavi scenes inside Jupyter notebooks.
 """
 from __future__ import print_function
+
+from itertools import counter as _counter
 from tvtk.api import tvtk
 from tvtk.common import configure_input
 
@@ -9,6 +11,8 @@ _backend = 'x3d'
 _width = None
 _height = None
 _local = True
+
+counter = _counter()
 
 
 def init(backend='x3d', width=None, height=None, local=True):
@@ -43,7 +47,7 @@ def _monkey_patch_for_ipython():
 
 
 def _repr_html_(self):
-    """Method for displaying elements on the IPython notebook.
+    """Method for displaying elements on the Jupyter notebook.
     """
     if hasattr(self, 'render_window'):
         scene = self
@@ -54,14 +58,6 @@ def _repr_html_(self):
     elif _backend == 'x3d':
         return scene_to_x3d(scene)
 
-
-def _counter():
-    count = 0
-    while True:
-        yield count
-        count += 1
-
-counter = _counter()
 
 def _fix_x3d_header(x3d):
     id = 'scene_%d'%counter.next()
