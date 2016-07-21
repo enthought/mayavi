@@ -19,7 +19,7 @@ install:
   - ps: if ((Test-Path "c:/temp") -eq 0) { mkdir c:/temp }
   - ps: (new-object net.webclient).DownloadFile($Env:vtk_url, 'c:/vtkpython.exe')
   - ps: c:/vtkpython.exe /S /D=C:\vtk
-  - ps: python -m pip install --upgrade --no-use-wheel pip
+  - ps: python -m pip install --upgrade --no-binary ":all:" pip
   - ps: pip install --upgrade wheel
   - ps: pip --version
   - cmd /v:on /e:on /c ".\appveyor-install.cmd"

@@ -63,6 +63,8 @@ from .tools import pipeline
 
 from .tools.tools import start_recording, stop_recording
 
+from .tools.notebook import init as init_notebook
+
 if __name__ == "__main__":
     import numpy
 

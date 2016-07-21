@@ -4,6 +4,68 @@ Tips and Tricks
 Below are a few tips and tricks that you may find useful when you use
 Mayavi2.
 
+.. _jupyter_notebook:
+
+Using Mayavi in Jupyter notebooks
+---------------------------------
+
+Mayavi can display either images or X3D_ elements on the notebook.
+The images are static and one cannot interact with them.  The X3D
+output produces a fully interactive 3D scene.  For information on how
+to interact with the scene, see here:
+http://www.x3dom.org/documentation/interaction/
+
+Mayavi ships with some javascript files that can be installed as::
+
+  $ jupyter nbextension install --py mayavi --user
+
+This will install the x3dom Javascript and CSS files locally.  Note
+that you do not need to "enable" the extension or anything after you
+run the above.  For more instructions and options see the
+`Installation of Jupyter Extensions`_.  Doing this allows one to view
+X3D files without a network connection.
+
+.. _Installation of Jupyter Extensions: http://jupyter-notebook.readthedocs.io/en/latest/examples/Notebook/Distributing%20Jupyter%20Extensions%20as%20Python%20Packages.html#Installation-of-Jupyter-Extensions
+
+To view Mayavi visualizations on the notebook one should first do::
+
+    from mayavi import mlab
+    mlab.init_notebook()
+
+Subequently, one may simply do::
+
+    s = mlab.test_plot3d()
+    s
+
+When the ``init_notebook`` method is called it configures the Mayavi
+objects so they can be rendered on the Jupyter notebook.
+
+.. note::
+
+   One can call ``init_notebook`` multiple times if one wishes to
+   change the backend between ``png`` and ``x3d`` for some reason.
+
+There are several optional arguments to ``init_notebook``, the first
+is the backend which defaults to ``'x3d'``, it can also be set to
+``'png'``.  One can set the width and height of the figure to create
+(as integers).  The last keyword argument ``local`` defaults to
+``True``.  When ``local=True`` it uses javascript files that are
+distributed along with Mayavi otherwise will require an internet
+connection to use the x3dom files online.  If for some reason the
+installation of the jupyter nbextension is not working, using
+``local=False`` with an internet connection should work on a modern
+browser that supports WebGL.
+
+The X3D data is embedded in the notebook and can be shared but if the
+scenes have a lot of polygons, these files can be large.  With the PNG
+backend, the PNG's are also embedded and these are smaller files.  The
+PNG backend relies on offscreen rendering working correctly on your
+platform.
+
+
+.. _X3D: http://www.x3dom.org
+
+
 .. _offscreen_rendering:
 
 Off screen rendering
