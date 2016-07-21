@@ -2,7 +2,7 @@
 """
 from __future__ import print_function
 
-from itertools import counter as _counter
+from itertools import count
 from tvtk.api import tvtk
 from tvtk.common import configure_input
 
@@ -12,7 +12,7 @@ _width = None
 _height = None
 _local = True
 
-counter = _counter()
+counter = count()
 
 
 def init(backend='x3d', width=None, height=None, local=True):
