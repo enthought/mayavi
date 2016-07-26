@@ -59,7 +59,7 @@ from traits.api import HasTraits, Trait, Instance, Tuple, Int, \
 from traitsui.api import View, Item, Group
 from tvtk.api import tvtk
 from tvtk.tools import ivtk
-from tvtk.common import configure_input_data
+from tvtk.common import configure_input
 from pyface.api import GUI
 from pyface.timer.api import Timer
 from tvtk.tvtk_base import vtk_color_trait
@@ -573,25 +573,16 @@ class Curve(HasTraits):
     def __init__(self, **traits):
         self.property = self.actor.property
 
-        HasTraits.__init__(self, **traits)
-
-        self._points_changed(self.points)
-        self._color_changed(self.color)
-        self._visibility_changed(self.visibility)
-        self._radius_changed(self.radius)
-        self._axis_changed(numpy.array((1.0, 0.0, 0.0)), self.axis)
-
-        configure_input_data(self.stripper, self.polydata)
-        configure_input_data(self.tube, self.stripper.output)
+        configure_input(self.stripper, self.polydata)
+        configure_input(self.tube, self.stripper)
         self.tube.number_of_sides = 4
         self.tube.capping = 1
 
         m = tvtk.PolyDataMapper()
-        configure_input_data(m, self.tube.output)
+        configure_input(m, self.tube)
         self.actor.mapper = m
         self.stripper.update()
         self.tube.update()
-        self.actor.mapper.update()
         self.property = self.actor.property
         self.property.representation = self.representation
         show_actor(self.actor)
@@ -600,6 +591,15 @@ class Curve(HasTraits):
         self.property.on_trait_change(self.viewer.scene.render)
         self.actor.on_trait_change(self.viewer.scene.render)
         self.tube.on_trait_change(self.viewer.scene.render)
+
+        HasTraits.__init__(self, **traits)
+
+        self._points_changed(self.points)
+        self._color_changed(self.color)
+        self._visibility_changed(self.visibility)
+        self._radius_changed(self.radius)
+        self._axis_changed(numpy.array((1.0, 0.0, 0.0)), self.axis)
+
 
     ######################################################################
     # Object's public methods
@@ -623,7 +623,6 @@ class Curve(HasTraits):
         self.polydata.modified()
         self.stripper.update()
         self.tube.update()
-        self.actor.mapper.update()
         self.viewer.scene.render()
 
     def rotate(self, angle, axis, origin = numpy.array([0.0, 0.0, 0.0])):
@@ -639,7 +638,6 @@ class Curve(HasTraits):
         self.polydata.modified()
         self.stripper.update()
         self.tube.update()
-        self.actor.mapper.update()
         self.render()
 
     def render(self):
@@ -690,7 +688,6 @@ class Curve(HasTraits):
         self.polydata.modified()
         self.stripper.update()
         self.tube.update()
-        self.actor.mapper.update()
         self.render()
 
     def _axis_changed(self, old, new):
@@ -763,28 +760,18 @@ class Ring(HasTraits):
     def __init__(self, **traits):
         self.property = self.actor.property
 
-        HasTraits.__init__(self, **traits)
-
         self._create_points()
-        self._pos_changed(numpy.array([0.0, 0.0, 0.0]), self.pos)
-        self._x_changed(self.x)
-        self._y_changed(self.y)
-        self._z_changed(self.z)
-        self._color_changed(self.color)
-        self._visibility_changed(self.visibility)
-        self._thickness_changed(self.thickness)
-        self._axis_changed(numpy.array((1.0, 0.0, 0.0)), self.axis)
 
         self.normals = tvtk.PolyDataNormals()
-        configure_input_data(self.normals, self.polydata)
-        configure_input_data(self.tube, self.normals.outputs)
+        configure_input(self.normals, self.polydata)
+        configure_input(self.tube, self.normals)
         self.normals.update()
         self.tube.update()
         self.tube.number_of_sides = 4
         self.tube.capping = 1
 
         m = tvtk.PolyDataMapper()
-        configure_input_data(m, self.tube.outputs)
+        configure_input(m, self.tube)
         self.actor.mapper = m
         self.property = self.actor.property
         self.property.representation = self.representation
@@ -794,6 +781,17 @@ class Ring(HasTraits):
         self.property.on_trait_change(self.viewer.scene.render)
         self.actor.on_trait_change(self.viewer.scene.render)
         self.tube.on_trait_change(self.viewer.scene.render)
+
+        HasTraits.__init__(self, **traits)
+
+        self._pos_changed(numpy.array([0.0, 0.0, 0.0]), self.pos)
+        self._x_changed(self.x)
+        self._y_changed(self.y)
+        self._z_changed(self.z)
+        self._color_changed(self.color)
+        self._visibility_changed(self.visibility)
+        self._thickness_changed(self.thickness)
+        self._axis_changed(numpy.array((1.0, 0.0, 0.0)), self.axis)
 
     ######################################################################
     # Non-public methods, Event handlers
@@ -825,7 +823,6 @@ class Ring(HasTraits):
             self.polydata.modified()
             self.normals.update()
             self.tube.update()
-            self.actor.mapper.update()
             self.render()
         else:
             c = self.pos
@@ -837,7 +834,6 @@ class Ring(HasTraits):
             self.polydata.points = self.points
             self.polydata.modified()
             self.normals.update()
-            self.actor.mapper.update()
             self.tube.update()
             self.render()
 
@@ -862,7 +858,6 @@ class Ring(HasTraits):
         self.polydata.modified()
         self.normals.update()
         self.tube.update()
-        self.actor.mapper.update()
         self.render()
 
     def _axis_changed(self, old, new):
@@ -903,7 +898,6 @@ class Ring(HasTraits):
         self.polydata.modified()
         self.normals.update()
         self.tube.update()
-        self.actor.mapper.update()
         self.render()
 
     def render(self):
@@ -957,17 +951,8 @@ class Cone(HasTraits):
     def __init__(self, **traits):
         self.property = self.actor.property
 
-        HasTraits.__init__(self, **traits)
-
-        self._create_points(self.radius, self.height, self.pos, self.axis)
-        self._pos_changed(numpy.array([0.0, 0.0, 0.0]), self.pos)
-        self._x_changed(self.x)
-        self._y_changed(self.y)
-        self._z_changed(self.z)
-        self._color_changed(self.color)
-
         m = tvtk.PolyDataMapper()
-        configure_input_data(m, self.polydata)
+        configure_input(m, self.polydata)
         self.actor.mapper = m
         self.property = self.actor.property
         self.property.representation = self.representation
@@ -976,6 +961,15 @@ class Cone(HasTraits):
 
         self.property.on_trait_change(self.viewer.scene.render)
         self.actor.on_trait_change(self.viewer.scene.render)
+
+        HasTraits.__init__(self, **traits)
+
+        self._create_points(self.radius, self.height, self.pos, self.axis)
+        self._pos_changed(numpy.array([0.0, 0.0, 0.0]), self.pos)
+        self._x_changed(self.x)
+        self._y_changed(self.y)
+        self._z_changed(self.z)
+        self._color_changed(self.color)
 
     ######################################################################
     # Non-public methods, Event handlers
@@ -997,14 +991,12 @@ class Cone(HasTraits):
         points, lines = self._create_points(self.radius, self.height, self.pos, self.axis)
         self.polydata.points = points
         self.polydata.modified()
-        self.actor.mapper.update()
         self.render()
 
     def _height_changed(self):
         points, lines = self._create_points(self.radius, self.height, self.pos, self.axis)
         self.polydata.points = points
         self.polydata.modified()
-        self.actor.mapper.update()
         self.render()
 
     def _pos_changed(self, old, new):
@@ -1014,7 +1006,6 @@ class Cone(HasTraits):
         points, lines = self._create_points(self.radius, self.height, self.pos, self.axis)
         self.points = points
         self.polydata.modified()
-        self.actor.mapper.update()
         self.render()
 
     def _axis_changed(self):
@@ -1060,7 +1051,6 @@ class Cone(HasTraits):
         self.set(axis = ax, trait_change_notify = False)
         self.polydata.points = self.points
         self.polydata.modified()
-        self.actor.mapper.update()
         self.render()
 
     def render(self):
@@ -1110,6 +1100,20 @@ class Sphere(HasTraits):
     def __init__(self, **traits):
         self.property = self.actor.property
 
+        self.normals = tvtk.PolyDataNormals()
+        configure_input(self.normals, self.polydata)
+        self.normals.update()
+        m = tvtk.PolyDataMapper() # the usual vtk pipleine countinuation
+        configure_input(m, self.normals)
+        self.actor.mapper = m
+        self.property = self.actor.property
+        self.property.representation = self.representation
+        show_actor(self.actor) # passing the actors function for rendering
+        self.viewer = get_viewer() # getting the ivtk viewer
+
+        self.property.on_trait_change(self.viewer.scene.render)
+        self.actor.on_trait_change(self.viewer.scene.render)
+
         HasTraits.__init__(self, **traits)
 
         self._create_points(self.radius, self.pos)
@@ -1119,19 +1123,6 @@ class Sphere(HasTraits):
         self._y_changed(self.y)
         self._z_changed(self.z)
 
-        self.normals = tvtk.PolyDataNormals()
-        configure_input_data(self.normals, self.polydata)
-        self.normals.update()
-        m = tvtk.PolyDataMapper() # the usual vtk pipleine countinuation
-        configure_input_data(m, self.normals.output)
-        self.actor.mapper = m
-        self.property = self.actor.property
-        self.property.representation = self.representation
-        show_actor(self.actor) # passing the actors function for rendering
-        self.viewer = get_viewer() # getting the ivtk viewer
-
-        self.property.on_trait_change(self.viewer.scene.render)
-        self.actor.on_trait_change(self.viewer.scene.render)
 
     ######################################################################
     # Non-public methods, Event handlers
@@ -1264,6 +1255,19 @@ class Cylinder(HasTraits):
     def __init__(self, **traits):
         self.property = self.actor.property
 
+        self.normals = tvtk.PolyDataNormals()
+        configure_input(self.normals, self.polydata)
+        m = tvtk.PolyDataMapper() # the usual vtk pipleine countinuation
+        configure_input(m, self.normals)
+        self.actor.mapper = m
+        self.property = self.actor.property
+        self.property.representation = self.representation
+        show_actor(self.actor) # passing the actors function for rendering
+        self.viewer = get_viewer() # getting the ivtk viewer
+
+        self.property.on_trait_change(self.viewer.scene.render)
+        self.actor.on_trait_change(self.viewer.scene.render)
+
         HasTraits.__init__(self, **traits)
 
         self._create_points(self.radius, self.pos, self.length)
@@ -1273,19 +1277,6 @@ class Cylinder(HasTraits):
         self._x_changed(self.x)
         self._y_changed(self.y)
         self._z_changed(self.z)
-
-        self.normals = tvtk.PolyDataNormals()
-        configure_input_data(self.normals, self.polydata)
-        m = tvtk.PolyDataMapper() # the usual vtk pipleine countinuation
-        configure_input_data(m, self.normals.output)
-        self.actor.mapper = m
-        self.property = self.actor.property
-        self.property.representation = self.representation
-        show_actor(self.actor) # passing the actors function for rendering
-        self.viewer = get_viewer() # getting the ivtk viewer
-
-        self.property.on_trait_change(self.viewer.scene.render)
-        self.actor.on_trait_change(self.viewer.scene.render)
 
     ######################################################################
     # Non-public methods, Event handlers
@@ -1430,6 +1421,17 @@ class Box(HasTraits):
     def __init__(self, **traits):
         self.property = self.actor.property
 
+        m = tvtk.PolyDataMapper() # the usual vtk pipleine countinuation
+        configure_input(m, self.polydata)
+        self.actor.mapper = m
+        self.property = self.actor.property
+        self.property.representation = self.representation
+        show_actor(self.actor) # passing the actors function for rendering
+        self.viewer = get_viewer() # getting the ivtk viewer
+
+        self.property.on_trait_change(self.viewer.scene.render)
+        self.actor.on_trait_change(self.viewer.scene.render)
+
         HasTraits.__init__(self, **traits)
 
         self._create_points(self.size, self.pos)
@@ -1442,17 +1444,6 @@ class Box(HasTraits):
         self._length_changed(self.length)
         self._height_changed(self.height)
         self._width_changed(self.width)
-
-        m = tvtk.PolyDataMapper() # the usual vtk pipleine countinuation
-        configure_input_data(m, self.polydata)
-        self.actor.mapper = m
-        self.property = self.actor.property
-        self.property.representation = self.representation
-        show_actor(self.actor) # passing the actors function for rendering
-        self.viewer = get_viewer() # getting the ivtk viewer
-
-        self.property.on_trait_change(self.viewer.scene.render)
-        self.actor.on_trait_change(self.viewer.scene.render)
 
     ######################################################################
     # Non-public methods, Event handlers
@@ -1592,6 +1583,20 @@ class Arrow(HasTraits):
     def __init__(self, **traits):
         self.property = self.actor.property
 
+        self.normals = tvtk.PolyDataNormals()
+        configure_input(self.normals, self.polydata)
+        self.normals.update()
+        m = tvtk.PolyDataMapper() # the usual vtk pipleine countinuation
+        configure_input(m, self.normals)
+        self.actor.mapper = m
+        self.property = self.actor.property
+        self.property.representation = self.representation
+        show_actor(self.actor) # passing the actors function for rendering
+        self.viewer = get_viewer() # getting the ivtk viewer
+
+        self.property.on_trait_change(self.viewer.scene.render)
+        self.actor.on_trait_change(self.viewer.scene.render)
+
         HasTraits.__init__(self, **traits)
 
         self._create_points(self.radius_cone, self.length_cone, self.radius_shaft, self.pos)
@@ -1602,20 +1607,6 @@ class Arrow(HasTraits):
         self._y_changed(self.y)
         self._z_changed(self.z)
         self._axis_changed(numpy.array((1.0, 0.0, 0.0)), self.axis)
-
-        self.normals = tvtk.PolyDataNormals()
-        configure_input_data(self.normals, self.polydata)
-        self.normals.update()
-        m = tvtk.PolyDataMapper() # the usual vtk pipleine countinuation
-        configure_input_data(m, self.normals.output)
-        self.actor.mapper = m
-        self.property = self.actor.property
-        self.property.representation = self.representation
-        show_actor(self.actor) # passing the actors function for rendering
-        self.viewer = get_viewer() # getting the ivtk viewer
-
-        self.property.on_trait_change(self.viewer.scene.render)
-        self.actor.on_trait_change(self.viewer.scene.render)
 
     ######################################################################
     # Non-public methods, Event handlers
@@ -1764,6 +1755,24 @@ class Helix(HasTraits):
     def __init__(self, **traits):
         self.property = self.actor.property
 
+        self.normals = tvtk.PolyDataNormals()
+        configure_input(self.normals, self.polydata)
+        configure_input(self.tube, self.normals)
+        self.tube.number_of_sides = 4
+        self.tube.capping = 1
+
+        m = tvtk.PolyDataMapper()
+        configure_input(m, self.tube)
+        self.actor.mapper = m
+        self.property = self.actor.property
+        self.property.representation = self.representation
+        show_actor(self.actor)
+        self.viewer = get_viewer()
+
+        self.property.on_trait_change(self.viewer.scene.render)
+        self.actor.on_trait_change(self.viewer.scene.render)
+        self.tube.on_trait_change(self.viewer.scene.render)
+
         HasTraits.__init__(self, **traits)
 
         self._create_points()
@@ -1775,24 +1784,6 @@ class Helix(HasTraits):
         self._visibility_changed(self.visibility)
         self._thickness_changed(self.thickness)
         self._axis_changed(numpy.array((1.0, 0.0, 0.0)), self.axis)
-
-        self.normals = tvtk.PolyDataNormals()
-        configure_input_data(self.normals, self.polydata)
-        configure_input_data(self.tube, self.normals.output)
-        self.tube.number_of_sides = 4
-        self.tube.capping = 1
-
-        m = tvtk.PolyDataMapper()
-        configure_input_data(m, self.tube.output)
-        self.actor.mapper = m
-        self.property = self.actor.property
-        self.property.representation = self.representation
-        show_actor(self.actor)
-        self.viewer = get_viewer()
-
-        self.property.on_trait_change(self.viewer.scene.render)
-        self.actor.on_trait_change(self.viewer.scene.render)
-        self.tube.on_trait_change(self.viewer.scene.render)
 
     ######################################################################
     # Non-public methods, Event handlers
@@ -1994,6 +1985,14 @@ class Ellipsoid(HasTraits):
     def __init__(self, **traits):
         self.property = self.actor.property
 
+        self.normals = tvtk.PolyDataNormals()
+        configure_input(self.normals, self.polydata)
+        m = tvtk.PolyDataMapper()
+        configure_input(m, self.normals)
+        self.actor.mapper = m
+        self.property = self.actor.property
+        self.property.representation = self.representation
+
         HasTraits.__init__(self, **traits)
 
         self._create_points(self.radius, self.pos)
@@ -2004,14 +2003,6 @@ class Ellipsoid(HasTraits):
         self._z_changed(self.z)
         self._axis_changed(numpy.array((1.0, 0.0, 0.0)), self.axis)
 
-        self.normals = tvtk.PolyDataNormals()
-        configure_input_data(self.normals, self.polydata)
-        self.normals.update()
-        m = tvtk.PolyDataMapper() # the usual vtk pipleine countinuation
-        configure_input_data(self.normals, self.normals.output)
-        self.actor.mapper = m
-        self.property = self.actor.property
-        self.property.representation = self.representation
         show_actor(self.actor) # passing the actors function for rendering
         self.viewer = get_viewer() # getting the ivtk viewer
 
@@ -2021,7 +2012,8 @@ class Ellipsoid(HasTraits):
     ######################################################################
     # Non-public methods, Event handlers
     def _create_points(self, r, c):
-        sp = tvtk.SphereSource(radius = r, center = tuple(c), phi_resolution = 20, theta_resolution = 20)
+        sp = tvtk.SphereSource(radius=r, center=tuple(c),
+                               phi_resolution = 20, theta_resolution = 20)
         sp.update()
         ps = sp.output
 
