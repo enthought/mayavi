@@ -158,6 +158,7 @@ class DecoratedScene(Scene):
                             "Geomview", "VRML", "Wavefront", "Open Inventor",
                             "Povray", "X3D"]
 
+            wildcard = ""
             for description, extension in zip(descriptions, extensions):
                 wildcard += "{} ({})|{}|".format(description,
                                                  extension,
