@@ -60,7 +60,7 @@ def _repr_html_(self):
 
 
 def _fix_x3d_header(x3d):
-    id = 'scene_%d'%counter.next()
+    id = 'scene_%d' % next(counter)
     rep = '<X3D profile="Immersive" version="3.0" id="%s" '%id
     if _width is not None:
         rep += 'width="%dpx" '%_width
