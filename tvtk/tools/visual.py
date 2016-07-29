@@ -2139,48 +2139,6 @@ def rate(arg):
 ############################################################
 # Some examples.
 
-def test_sphere():
-    s1 = sphere()
-    s2 = sphere(radius = 1.5, pos = (2, 0, 0), color = (1, 0, 0))
-    s2.edit_traits()
-
-def test_box():
-    b1 = box()
-    b2 = box(center = (2, 0, 0), size = (2, 1, 1), color = (0.5, 0.5, 1.0))
-    b2.edit_traits()
-
-def test_cone():
-    c = cone(pos = (5,0,0), color = (1,1,0), axis = (1,1,0))
-    c.edit_traits()
-
-def test_cylinder():
-    c1 = cylinder()
-    c2 = cylinder(radius = 1.5, pos = (2, 0, 0), color = (1, 0, 0))
-    c2.edit_traits()
-
-def test_arrow():
-    a = arrow()
-    a.edit_traits()
-
-def test_curve():
-    c = curve(points = ([[0,0,0],[1,0,0],[0,1,0],[0,0,1]]))
-    c.edit_traits()
-    return c
-
-def test_ring():
-    r1 = ring()
-    r2 = ring(radius = 1.5, pos = (2,0,0), color = (1,0,0))
-    r2.edit_traits()
-
-def test_helix():
-    h1 = helix()
-    r2 = helix(radius = 0.5, pos = (2,0,0), color = (1,0,0))
-    r2.edit_traits()
-
-def test_ellipsoid():
-    e1 = ellipsoid()
-    e1.edit_traits()
-
 def test_remove_actors():
     """Test fuction for testing integrity of remove function for
     actors"""
