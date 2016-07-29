@@ -4,7 +4,7 @@ etc.
 """
 # Authors: Prabhu Ramachandran <prabhu_r@users.sf.net>,
 #          Dave Peterson <dpeterson@enthought.com>
-# Copyright (c) 2006, Enthought, Inc.
+# Copyright (c) 2006-2016, Enthought, Inc.
 # License: BSD Style.
 
 # System imports.
@@ -14,13 +14,13 @@ import os
 from pyface.qt import QtGui
 
 # Enthought library imports.
-from pyface.api import ImageResource, FileDialog, OK
+from pyface.api import ImageResource
 from pyface.action.api import ToolBarManager, Group, Action
 from tvtk.api import tvtk
 from traits.api import Instance, false, Either, List
 
 # Local imports.
-from .scene import Scene
+from .scene import Scene, popup_save
 
 
 ###########################################################################
@@ -148,34 +148,11 @@ class DecoratedScene(Scene):
         determines what image type is saved.  The default is PNG.
         """
         if self._panel is not None:
-            extensions = ['*.png', '*.jpg', '*.tiff', '*.bmp', '*.ps',
-                          '*.eps', '*.pdf', '*.tex', '*.rib', '*.wrl',
-                          '*.oogl', '*.vrml', '*.obj', '*.iv', '*.pov',
-                          '*.x3d']
-
-            descriptions = ["PNG", "JPG", "TIFF", "Bitmap", "PostScript",
-                            "EPS", "PDF", "Tex", "RIB", "WRL",
-                            "Geomview", "VRML", "Wavefront", "Open Inventor",
-                            "Povray", "X3D"]
-
-            wildcard = ""
-            for description, extension in zip(descriptions, extensions):
-                wildcard += "{} ({})|{}|".format(description,
-                                                 extension,
-                                                 extension)
-            wildcard += "Determine by extension (*.*)|(*.*)"
-
-            dialog = FileDialog(
-                parent = self._panel,
-                title = 'Save scene to image',
-                action = 'save as',
-                default_filename = "snapshot.png",
-                wildcard = wildcard
-            )
-            if dialog.open() == OK:
+            path = popup_save(self._panel)
+            if len(path) > 0:
                 # The extension of the path will determine the actual
                 # image type saved.
-                self.save(dialog.path)
+                self.save(path)
 
     def _configure_scene(self):
         """Invoked when the toolbar icon for configuration is clicked.

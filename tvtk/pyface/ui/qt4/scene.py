@@ -17,7 +17,7 @@ docs for more details.
 """
 
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2004-2007, Enthought, Inc.
+# Copyright (c) 2004-2016, Enthought, Inc.
 # License: BSD Style.
 
 
@@ -31,9 +31,10 @@ from tvtk import messenger
 from traits.api import Instance, Button, Any
 from traitsui.api import View, Group, Item, InstanceEditor
 
-from pyface.api import Widget, GUI, FileDialog, OK
+from pyface.api import Widget, GUI
 from tvtk.pyface import picker
 from tvtk.pyface import light_manager
+from tvtk.pyface.utils import popup_save
 from tvtk.pyface.tvtk_scene import TVTKScene
 
 from .QVTKRenderWindowInteractor import QVTKRenderWindowInteractor
@@ -140,7 +141,7 @@ class _VTKRenderWindowInteractor(QVTKRenderWindowInteractor):
         if key in [QtCore.Qt.Key_S] and modifiers == QtCore.Qt.NoModifier:
             fname = popup_save(self.parent())
             if len(fname) != 0:
-                self.save(fname)
+                self._scene.save(fname)
             return
 
         shift = ((modifiers & QtCore.Qt.ShiftModifier) == QtCore.Qt.ShiftModifier)
@@ -219,40 +220,6 @@ class _VTKRenderWindowInteractor(QVTKRenderWindowInteractor):
         else:
             self._scene.busy = False
 
-
-######################################################################
-# Utility functions.
-######################################################################
-def popup_save(parent=None):
-    """Popup a dialog asking for an image name to save the scene to.
-    This is used mainly to save a scene in full screen mode. Returns a
-    filename, returns empty string if action was cancelled. `parent` is
-    the parent widget over which the dialog will be popped up.
-    """
-
-    extensions = ['*.png', '*.jpg', '*.tiff', '*.bmp', '*.ps',
-                  '*.eps', '*.pdf', '*.tex', '*.rib', '*.wrl',
-                  '*.oogl', '*.vrml', '*.obj', '*.iv', '*.pov',
-                  '*.x3d']
-    descriptions = ["PNG", "JPG", "TIFF", "Bitmap", "PostScript",
-                    "EPS", "PDF", "Tex", "RIB", "WRL",
-                    "Geomview", "VRML", "Wavefront", "Open Inventor",
-                    "Povray", "X3D"]
-    wildcard = ""
-    for description, extension in zip(descriptions, extensions):
-        wildcard += "{} ({})|{}|".format(description,
-                                         extension,
-                                         extension)
-    wildcard += "Determine by extension (*.*)|(*.*)"
-
-    dialog = FileDialog(
-        parent = parent, title='Save scene to image',
-        action='save as', wildcard=wildcard
-    )
-    if dialog.open() == OK:
-        return dialog.path
-    else:
-        return ''
 
 
 ######################################################################
