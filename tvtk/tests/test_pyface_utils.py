@@ -6,7 +6,7 @@ from pyface.api import OK, FileDialog
 
 class TestPopupSave(unittest.TestCase):
 
-    def _make_mock(self):
+    def _make_mock_file_dialog(self):
         m = mock.Mock(spec=FileDialog)
         m.open.return_value = OK
         m.path = 'mock'
@@ -14,8 +14,8 @@ class TestPopupSave(unittest.TestCase):
 
     def test_popup_save(self):
         with mock.patch('pyface.api.FileDialog') as fd:
-            fd.return_value = self._make_mock()
-            from tvtk.pyface.ui.qt4.scene import popup_save
+            fd.return_value = self._make_mock_file_dialog()
+            from tvtk.pyface.utils import popup_save
             x = popup_save()
 
         self.assertEqual(x, 'mock')
