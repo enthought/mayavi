@@ -1,5 +1,5 @@
 #------------------------------------------------------------------------------
-# Copyright (c) 2005, Enthought, Inc.
+# Copyright (c) 2005-2016, Enthought, Inc.
 # All rights reserved.
 #
 # This software is provided without warranty under the terms of the BSD
@@ -9,7 +9,7 @@
 # Thanks for using Enthought open source!
 #
 # Author: Enthought, Inc.
-# Description: <Enthought pyface package component>
+# Description: <Enthought mayavi package component>
 #------------------------------------------------------------------------------
 """This module provides basic picking functionality.  Using this, one
 can interactively select a point and/or a cell in the data.  One can
@@ -18,7 +18,7 @@ probe for the data at that point.
 
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2004, Enthought, Inc.
+# Copyright (c) 2004-2016, Enthought, Inc.
 # License: BSD Style.
 
 from traits.api import HasTraits, Trait, Long, Array, Any, Float, \
@@ -26,7 +26,7 @@ from traits.api import HasTraits, Trait, Long, Array, Any, Float, \
 from traitsui.api import View, Group, Item, Handler
 from tvtk.api import tvtk
 from tvtk.tvtk_base import TraitRevPrefixMap, false_bool_trait
-from tvtk.common import configure_input_data
+from tvtk.common import configure_input
 from apptools.persistence import state_pickler
 
 
@@ -257,7 +257,7 @@ class Picker(HasTraits):
         prop.line_width = 2
         prop.ambient = 1.0
         prop.diffuse = 0.0
-        configure_input_data(self.p_mapper, self.p_source.output)
+        configure_input(self.p_mapper, self.p_source)
         self.p_actor.mapper = self.p_mapper
 
         self.probe_data.points = [[0.0, 0.0, 0.0]]
@@ -449,4 +449,3 @@ class Picker(HasTraits):
                 self.ui.control.Raise()
             except AttributeError:
                 pass
-
