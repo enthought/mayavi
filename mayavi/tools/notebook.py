@@ -2,6 +2,7 @@
 """
 from __future__ import print_function
 
+import base64
 from itertools import count
 from tvtk.api import tvtk
 from tvtk.common import configure_input
@@ -60,7 +61,7 @@ def _repr_html_(self):
 
 
 def _fix_x3d_header(x3d):
-    id = 'scene_%d'%counter.next()
+    id = 'scene_%d' % next(counter)
     rep = '<X3D profile="Immersive" version="3.0" id="%s" '%id
     if _width is not None:
         rep += 'width="%dpx" '%_width
@@ -122,9 +123,9 @@ def scene_to_png(scene):
     configure_input(ex, w2if)
     ex.update()
     ex.write()
-    data = ex.result.to_array().tobytes().encode('base64')
+    data = base64.b64encode(ex.result.to_array()).decode('ascii')
     html = '<img src="data:image/png;base64,%s" alt="PNG image"></img>'
-    return html%data
+    return html % data
 
 def display(obj, backend=None):
     """Display given object on Jupyter notebook using given backend.
