@@ -40,10 +40,10 @@ with the vanilla python interpretor.  ::
 
 """
 # Author: Raashid Baig <raashid@aero.iitb.ac.in>
-#         Prabhu Ramachandran <prabhu_r@users.sf.net>
+#         Prabhu Ramachandran <prabhu@aero.iitb.ac.in>
 #
 # License: BSD Style.
-# Year : 2007
+# Year : 2007-2016
 
 from __future__ import print_function
 
@@ -536,10 +536,10 @@ class Curve(HasTraits):
     #####################################################################
     # Traits definitions
 
-    points = Trait(None, None, Array('d', shape=(None,3)), desc='the points of the curve')
+    points = Array(dtype=float, shape=(None,3), desc='the points of the curve')
     pos = Array(value = (0.0, 0.0, 0.0), desc = 'the curve pos')
     radius = Range(0.0, 1.0e299, value = 0.01, desc = 'the radius of curve tube')
-    axis = Array(value = (1.0, 0.0, 0.0), desc = 'the curve axis')
+    axis = Array(value=(1.0, 0.0, 0.0), desc = 'the curve axis')
     x = Range(-1e299, 1e299, 0.0, desc = 'the X coordinate of curve')
     y = Range(-1e299, 1e299, 0.0, desc = 'the Y coordinate of curve')
     z = Range(-1e299, 1e299, 0.0, desc = 'the Z coordinate of curve')
@@ -592,13 +592,16 @@ class Curve(HasTraits):
         self.actor.on_trait_change(self.viewer.scene.render)
         self.tube.on_trait_change(self.viewer.scene.render)
 
+        axis = traits.pop('axis', None)
         HasTraits.__init__(self, **traits)
 
         self._points_changed(self.points)
         self._color_changed(self.color)
         self._visibility_changed(self.visibility)
         self._radius_changed(self.radius)
-        self._axis_changed(numpy.array((1.0, 0.0, 0.0)), self.axis)
+        if axis is not None:
+            self._axis_changed(numpy.array((1.0, 0.0, 0.0)),
+                               numpy.asarray(axis, dtype=float))
 
 
     ######################################################################
@@ -649,6 +652,7 @@ class Curve(HasTraits):
     ######################################################################
     # Non-public methods, Event handlers
     def _points_changed(self, value):
+        self.polydata.lines = None
         self.polydata.points = value
         if value is None:
             np = 0
@@ -691,12 +695,8 @@ class Curve(HasTraits):
         self.render()
 
     def _axis_changed(self, old, new):
-        self.points = axis_changed(old, new, self.pos, self.points)
-        self.polydata.points = self.points
-        self.polydata.modified()
-        self.stripper.update()
-        self.tube.update()
-        self.render()
+        pts = axis_changed(old, new, self.pos, self.points)
+        self.points = pts.copy()
 
     def _color_changed(self, value):
         self.actor.property.color = value
@@ -760,8 +760,6 @@ class Ring(HasTraits):
     def __init__(self, **traits):
         self.property = self.actor.property
 
-        self._create_points()
-
         self.normals = tvtk.PolyDataNormals()
         configure_input(self.normals, self.polydata)
         configure_input(self.tube, self.normals)
@@ -775,23 +773,22 @@ class Ring(HasTraits):
         self.actor.mapper = m
         self.property = self.actor.property
         self.property.representation = self.representation
-        show_actor(self.actor)
-        self.viewer = get_viewer()
 
+        self.viewer = get_viewer()
         self.property.on_trait_change(self.viewer.scene.render)
         self.actor.on_trait_change(self.viewer.scene.render)
         self.tube.on_trait_change(self.viewer.scene.render)
 
         HasTraits.__init__(self, **traits)
 
-        self._pos_changed(numpy.array([0.0, 0.0, 0.0]), self.pos)
-        self._x_changed(self.x)
-        self._y_changed(self.y)
-        self._z_changed(self.z)
+        self._create_points()
+        self._pos_changed([0.0, 0.0, 0.0], self.pos)
         self._color_changed(self.color)
         self._visibility_changed(self.visibility)
         self._thickness_changed(self.thickness)
         self._axis_changed(numpy.array((1.0, 0.0, 0.0)), self.axis)
+
+        show_actor(self.actor)
 
     ######################################################################
     # Non-public methods, Event handlers
@@ -874,11 +871,7 @@ class Ring(HasTraits):
         self.render()
 
     def _visibility_changed(self, value):
-        val = int(value)
-        if (val == 1):
-            self.actor.visibility = 1
-        else:
-            self.actor.visibility = 0
+        self.actor.visibility = value
 
     def _thickness_changed(self, value):
         self.tube.radius = value
@@ -956,9 +949,8 @@ class Cone(HasTraits):
         self.actor.mapper = m
         self.property = self.actor.property
         self.property.representation = self.representation
-        show_actor(self.actor) # passing the actors function for rendering
-        self.viewer = get_viewer() # getting the ivtk viewer
 
+        self.viewer = get_viewer() # getting the ivtk viewer
         self.property.on_trait_change(self.viewer.scene.render)
         self.actor.on_trait_change(self.viewer.scene.render)
 
@@ -966,15 +958,15 @@ class Cone(HasTraits):
 
         self._create_points(self.radius, self.height, self.pos, self.axis)
         self._pos_changed(numpy.array([0.0, 0.0, 0.0]), self.pos)
-        self._x_changed(self.x)
-        self._y_changed(self.y)
-        self._z_changed(self.z)
         self._color_changed(self.color)
+
+        show_actor(self.actor) # passing the actors function for rendering
 
     ######################################################################
     # Non-public methods, Event handlers
     def _create_points(self, r, h, c, d):
-        cs = tvtk.ConeSource(radius = r, height = h, center = tuple(c), direction = tuple(d))
+        cs = tvtk.ConeSource(radius=r, height=h, center=tuple(c),
+                             direction=tuple(d))
         cs.update()
         ps = cs.output
 
@@ -1602,7 +1594,6 @@ class Arrow(HasTraits):
         self._create_points(self.radius_cone, self.length_cone, self.radius_shaft, self.pos)
         self._color_changed(self.color)
         self._visibility_changed(self.visibility)
-        self._pos_changed(numpy.array([0.0, 0.0, 0.0]), self.pos)
         self._x_changed(self.x)
         self._y_changed(self.y)
         self._z_changed(self.z)
@@ -1611,7 +1602,7 @@ class Arrow(HasTraits):
     ######################################################################
     # Non-public methods, Event handlers
     def _create_points(self, rc, lc, rs, ps):
-        asrc = tvtk.ArrowSource(tip_radius = rc, tip_length = lc, shaft_radius = rs)
+        asrc = tvtk.ArrowSource(tip_radius=rc, tip_length=lc, shaft_radius=rs)
         asrc.update()
         ps = asrc.output
         points = ps.points.to_array()
@@ -2005,7 +1996,6 @@ class Ellipsoid(HasTraits):
 
         show_actor(self.actor) # passing the actors function for rendering
         self.viewer = get_viewer() # getting the ivtk viewer
-
         self.property.on_trait_change(self.viewer.scene.render)
         self.actor.on_trait_change(self.viewer.scene.render)
 
@@ -2013,7 +2003,7 @@ class Ellipsoid(HasTraits):
     # Non-public methods, Event handlers
     def _create_points(self, r, c):
         sp = tvtk.SphereSource(radius=r, center=tuple(c),
-                               phi_resolution = 20, theta_resolution = 20)
+                               phi_resolution=20, theta_resolution=20)
         sp.update()
         ps = sp.output
 
@@ -2033,6 +2023,8 @@ class Ellipsoid(HasTraits):
 
     def _size_changed(self, value):
         points, polys = self._create_points(self.radius, self.pos)
+        self.set(length=value[0], height=value[1],  width=value[2],
+                 trait_change_notify=False)
         self.polydata.points = points
         self.polydata.modified()
         self.normals.update()
@@ -2145,8 +2137,7 @@ def rate(arg):
 
 
 ############################################################
-####################  Test Functions #######################
-############################################################
+# Some examples.
 
 def test_sphere():
     s1 = sphere()
@@ -2264,7 +2255,7 @@ def test_translate():
     ti = iterate(50, anim)
     ti.edit_traits()
 
-def bounce():
+def test_bounce():
     """This is a basic example function, extending the previous
     example."""
     xlen = 10
