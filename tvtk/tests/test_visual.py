@@ -61,7 +61,7 @@ class TestVisual(unittest.TestCase):
         self.assertEqual(r.radius, 1.0)
         self.assertEqual(r.thickness, 0.01)
         self.assertEqual(r.tube.radius, 0.01)
-        self.assertTrue(np.allclose(r.pos, (1.0, 1.0, 1.0)))
+        assert_allclose(r.pos, (1.0, 1.0, 1.0))
         assert_allclose(r.polydata.bounds, (1.0, 1.0, 0.0, 2.0, 0.0, 2.0))
 
         # When
@@ -264,6 +264,35 @@ class TestVisual(unittest.TestCase):
         bounds = get_bounds((1.5, 1.0, 1.0), (1.0, 0.4, 0.4))
         assert_allclose(h.polydata.bounds, bounds, atol=3e-2, rtol=0)
 
+    def test_frame(self):
+        # Given
+        s = visual.sphere()
+        a = visual.arrow()
+        f = visual.frame(s, a)
+
+        # Then
+        axis = (1.0, 0, 0)
+        assert_allclose(s.axis, axis, rtol=0, atol=1e-15)
+        assert_allclose(a.axis, axis, rtol=0, atol=1e-15)
+        assert_allclose(f.axis, axis, rtol=0, atol=1e-15)
+
+        # When
+        axis = (0, 1.0, 0.0)
+        f.axis = axis
+
+        # Then
+        assert_allclose(s.axis, axis, rtol=0, atol=1e-15)
+        assert_allclose(a.axis, axis, rtol=0, atol=1e-15)
+        assert_allclose(f.axis, axis, rtol=0, atol=1e-15)
+
+        # When
+        pos = (1., 1.0, 1.0)
+        f.pos = pos
+
+        # Then
+        assert_allclose(s.pos, pos, rtol=0, atol=1e-15)
+        assert_allclose(a.pos, pos, rtol=0, atol=1e-15)
+        assert_allclose(f.pos, pos, rtol=0, atol=1e-15)
 
 if __name__ == '__main__':
     unittest.main()
