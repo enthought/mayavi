@@ -13,6 +13,7 @@ functionality. See the class docs for more details.
 
 from __future__ import print_function
 
+import os
 import os.path
 
 from apptools.persistence import state_pickler
@@ -683,6 +684,10 @@ class TVTKScene(HasPrivateTraits):
                 self._exporter_write(ex)
             else:
                 ex.write()
+            # Work around for a bug in VTK where it saves the file as a
+            # .pdf.gz when the file is really a PDF file.
+            if f_ext == '.pdf' and os.path.exists(f_prefix + '.pdf.gz'):
+                os.rename(f_prefix + '.pdf.gz', file_name)
 
     def save_x3d(self, file_name):
         """Save scene to an X3D file (http://www.web3d.org/x3d/).
