@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Streamline example &mdash; mayavi 4.4.4 documentation</title>
+    <title>Streamline example &mdash; mayavi 4.5.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.4.4',
+        VERSION:     '4.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.4.4 documentation" href="../index.html" />
+    <link rel="top" title="mayavi 4.5.0 documentation" href="../index.html" />
     <link rel="up" title="Example gallery" href="examples.html" />
     <link rel="next" title="Numeric source example" href="example_numeric_source.html" />
     <link rel="prev" title="Scatter plot example" href="example_scatter_plot.html" />
@@ -71,7 +71,7 @@
         <li class="right" >
           <a href="example_scatter_plot.html" title="Scatter plot example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.4.4 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
       </ul>
     </div>  
@@ -86,14 +86,14 @@
 <p>This script demonstrates how one can script Mayavi&#8217;s core API to display
 streamlines and an iso surface.</p>
 <p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/streamline.py"><code class="xref download docutils literal"><span class="pre">streamline.py</span></code></a></p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># Author: Prabhu Ramachandran &lt;prabhu_r@users.sf.net&gt;</span>
-<span class="c"># Copyright (c) 2005-2007, Enthought, Inc.</span>
-<span class="c"># License: BSD Style.</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Author: Prabhu Ramachandran &lt;prabhu_r@users.sf.net&gt;</span>
+<span class="c1"># Copyright (c) 2005-2007, Enthought, Inc.</span>
+<span class="c1"># License: BSD Style.</span>
 
-<span class="c"># Standard library imports</span>
+<span class="c1"># Standard library imports</span>
 <span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">join</span><span class="p">,</span> <span class="n">abspath</span><span class="p">,</span> <span class="n">dirname</span>
 
-<span class="c"># Enthought library imports</span>
+<span class="c1"># Enthought library imports</span>
 <span class="kn">from</span> <span class="nn">mayavi.scripts</span> <span class="kn">import</span> <span class="n">mayavi2</span>
 <span class="kn">from</span> <span class="nn">mayavi.sources.vtk_xml_file_reader</span> <span class="kn">import</span> <span class="n">VTKXMLFileReader</span>
 <span class="kn">from</span> <span class="nn">mayavi.sources.vrml_importer</span> <span class="kn">import</span> <span class="n">VRMLImporter</span>
@@ -122,13 +122,13 @@ streamlines and an iso surface.</p>
 <span class="k">def</span> <span class="nf">streamline</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;Sets up the mayavi pipeline for the visualization.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c"># Create an outline for the data.</span>
+    <span class="c1"># Create an outline for the data.</span>
     <span class="n">o</span> <span class="o">=</span> <span class="n">Outline</span><span class="p">()</span>
     <span class="n">mayavi</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
 
-    <span class="n">s</span> <span class="o">=</span> <span class="n">Streamline</span><span class="p">(</span><span class="n">streamline_type</span><span class="o">=</span><span class="s">&#39;tube&#39;</span><span class="p">)</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">Streamline</span><span class="p">(</span><span class="n">streamline_type</span><span class="o">=</span><span class="s1">&#39;tube&#39;</span><span class="p">)</span>
     <span class="n">mayavi</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
-    <span class="n">s</span><span class="o">.</span><span class="n">stream_tracer</span><span class="o">.</span><span class="n">integration_direction</span> <span class="o">=</span> <span class="s">&#39;both&#39;</span>
+    <span class="n">s</span><span class="o">.</span><span class="n">stream_tracer</span><span class="o">.</span><span class="n">integration_direction</span> <span class="o">=</span> <span class="s1">&#39;both&#39;</span>
     <span class="n">s</span><span class="o">.</span><span class="n">seed</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">center</span> <span class="o">=</span> <span class="mf">3.5</span><span class="p">,</span> <span class="mf">0.625</span><span class="p">,</span> <span class="mf">1.25</span>
     <span class="n">s</span><span class="o">.</span><span class="n">module_manager</span><span class="o">.</span><span class="n">scalar_lut_manager</span><span class="o">.</span><span class="n">show_scalar_bar</span> <span class="o">=</span> <span class="bp">True</span>
 
@@ -142,15 +142,15 @@ streamlines and an iso surface.</p>
     <span class="n">mayavi</span><span class="o">.</span><span class="n">new_scene</span><span class="p">()</span>
 
     <span class="n">data_dir</span> <span class="o">=</span> <span class="n">mayavi2</span><span class="o">.</span><span class="n">get_data_dir</span><span class="p">(</span><span class="n">dirname</span><span class="p">(</span><span class="n">abspath</span><span class="p">(</span><span class="n">__file__</span><span class="p">)))</span>
-    <span class="n">vrml_fname</span> <span class="o">=</span> <span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="s">&#39;room_vis.wrl&#39;</span><span class="p">)</span>
+    <span class="n">vrml_fname</span> <span class="o">=</span> <span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="s1">&#39;room_vis.wrl&#39;</span><span class="p">)</span>
     <span class="n">r</span> <span class="o">=</span> <span class="n">show_vrml</span><span class="p">(</span><span class="n">vrml_fname</span><span class="p">)</span>
 
-    <span class="n">fname</span> <span class="o">=</span> <span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="s">&#39;fire_ug.vtu&#39;</span><span class="p">)</span>
+    <span class="n">fname</span> <span class="o">=</span> <span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="s1">&#39;fire_ug.vtu&#39;</span><span class="p">)</span>
     <span class="n">r</span> <span class="o">=</span> <span class="n">setup_data</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
     <span class="n">streamline</span><span class="p">()</span>
 
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -236,13 +236,13 @@ streamlines and an iso surface.</p>
         <li class="right" >
           <a href="example_scatter_plot.html" title="Scatter plot example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.4.4 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2008-2015, Enthought Inc..
-      Last updated on Feb 29, 2016.
+        &copy; Copyright 2008-2016, Enthought Inc..
+      Last updated on Aug 02, 2016.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
     </div>
   </body>

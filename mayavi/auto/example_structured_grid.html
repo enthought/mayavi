@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Structured grid example &mdash; mayavi 4.4.4 documentation</title>
+    <title>Structured grid example &mdash; mayavi 4.5.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.4.4',
+        VERSION:     '4.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.4.4 documentation" href="../index.html" />
+    <link rel="top" title="mayavi 4.5.0 documentation" href="../index.html" />
     <link rel="up" title="Example gallery" href="examples.html" />
     <link rel="next" title="Tvtk segmentation example" href="example_tvtk_segmentation.html" />
     <link rel="prev" title="Unstructured grid example" href="example_unstructured_grid.html" />
@@ -71,7 +71,7 @@
         <li class="right" >
           <a href="example_unstructured_grid.html" title="Unstructured grid example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.4.4 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
       </ul>
     </div>  
@@ -87,19 +87,19 @@
 numpy arrays.  Also shown is a way to visualize this data with
 the mayavi2 application.</p>
 <p>The script can be run like so:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ mayavi2 -x structured_grid.py
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ mayavi2 -x structured_grid.py
 </pre></div>
 </div>
 <p>Alternatively, it can be run as:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ python structured_grid.py
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ python structured_grid.py
 </pre></div>
 </div>
 <p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/structured_grid.py"><code class="xref download docutils literal"><span class="pre">structured_grid.py</span></code></a></p>
-<div class="highlight-python"><div class="highlight"><pre>
-<span class="c"># Authors: Eric Jones &lt;eric at enthought dot com&gt;</span>
-<span class="c">#          Prabhu Ramachandran &lt;prabhu at aero dot iitb dot ac dot in&gt;</span>
-<span class="c"># Copyright (c) 2007, Enthought, Inc.</span>
-<span class="c"># License: BSD style.</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span>
+<span class="c1"># Authors: Eric Jones &lt;eric at enthought dot com&gt;</span>
+<span class="c1">#          Prabhu Ramachandran &lt;prabhu at aero dot iitb dot ac dot in&gt;</span>
+<span class="c1"># Copyright (c) 2007, Enthought, Inc.</span>
+<span class="c1"># License: BSD style.</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">cos</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">pi</span>
@@ -130,29 +130,29 @@ the mayavi2 application.</p>
 <span class="sd">            of z and with the inside &quot;ring&quot; of the plane as the first</span>
 <span class="sd">            set of points.  The default point array will be 1331x3.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c"># Default values for the annular grid.</span>
+    <span class="c1"># Default values for the annular grid.</span>
     <span class="k">if</span> <span class="n">r</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span> <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">theta</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span> <span class="n">theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">z</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span> <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span>
 
-    <span class="c"># Find the x values and y values for each plane.</span>
+    <span class="c1"># Find the x values and y values for each plane.</span>
     <span class="n">x_plane</span> <span class="o">=</span> <span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span><span class="o">*</span><span class="n">r</span><span class="p">[:,</span><span class="bp">None</span><span class="p">])</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
     <span class="n">y_plane</span> <span class="o">=</span> <span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span><span class="o">*</span><span class="n">r</span><span class="p">[:,</span><span class="bp">None</span><span class="p">])</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
 
-    <span class="c"># Allocate an array for all the points.  We&#39;ll have len(x_plane)</span>
-    <span class="c"># points on each plane, and we have a plane for each z value, so</span>
-    <span class="c"># we need len(x_plane)*len(z) points.</span>
+    <span class="c1"># Allocate an array for all the points.  We&#39;ll have len(x_plane)</span>
+    <span class="c1"># points on each plane, and we have a plane for each z value, so</span>
+    <span class="c1"># we need len(x_plane)*len(z) points.</span>
     <span class="n">points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">x_plane</span><span class="p">)</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">z</span><span class="p">),</span><span class="mi">3</span><span class="p">])</span>
 
-    <span class="c"># Loop through the points for each plane and fill them with the</span>
-    <span class="c"># correct x,y,z values.</span>
+    <span class="c1"># Loop through the points for each plane and fill them with the</span>
+    <span class="c1"># correct x,y,z values.</span>
     <span class="n">start</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">for</span> <span class="n">z_plane</span> <span class="ow">in</span> <span class="n">z</span><span class="p">:</span>
         <span class="n">end</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">x_plane</span><span class="p">)</span>
-        <span class="c"># slice out a plane of the output points and fill it</span>
-        <span class="c"># with the x,y, and z values for this plane.  The x,y</span>
-        <span class="c"># values are the same for every plane.  The z value</span>
-        <span class="c"># is set to the current z</span>
+        <span class="c1"># slice out a plane of the output points and fill it</span>
+        <span class="c1"># with the x,y, and z values for this plane.  The x,y</span>
+        <span class="c1"># values are the same for every plane.  The z value</span>
+        <span class="c1"># is set to the current z</span>
         <span class="n">plane_points</span> <span class="o">=</span> <span class="n">points</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">]</span>
         <span class="n">plane_points</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">x_plane</span>
         <span class="n">plane_points</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">y_plane</span>
@@ -161,27 +161,27 @@ the mayavi2 application.</p>
 
     <span class="k">return</span> <span class="n">points</span>
 
-<span class="c"># Make the data.</span>
+<span class="c1"># Make the data.</span>
 <span class="n">dims</span> <span class="o">=</span> <span class="p">(</span><span class="mi">51</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span>
-<span class="c"># Note here that the &#39;x&#39; axis corresponds to &#39;theta&#39;</span>
+<span class="c1"># Note here that the &#39;x&#39; axis corresponds to &#39;theta&#39;</span>
 <span class="n">theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">dims</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="c"># &#39;y&#39; corresponds to varying &#39;r&#39;</span>
+<span class="c1"># &#39;y&#39; corresponds to varying &#39;r&#39;</span>
 <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">dims</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">dims</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
 <span class="n">pts</span> <span class="o">=</span> <span class="n">generate_annulus</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
-<span class="c"># Uncomment the following if you want to add some noise to the data.</span>
-<span class="c">#pts += np.random.randn(dims[0]*dims[1]*dims[2], 3)*0.04</span>
+<span class="c1"># Uncomment the following if you want to add some noise to the data.</span>
+<span class="c1">#pts += np.random.randn(dims[0]*dims[1]*dims[2], 3)*0.04</span>
 <span class="n">sgrid</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">StructuredGrid</span><span class="p">(</span><span class="n">dimensions</span><span class="o">=</span><span class="n">dims</span><span class="p">)</span>
 <span class="n">sgrid</span><span class="o">.</span><span class="n">points</span> <span class="o">=</span> <span class="n">pts</span>
 <span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">pts</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">pts</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">pts</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">sgrid</span><span class="o">.</span><span class="n">point_data</span><span class="o">.</span><span class="n">scalars</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ravel</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
-<span class="n">sgrid</span><span class="o">.</span><span class="n">point_data</span><span class="o">.</span><span class="n">scalars</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">&#39;scalars&#39;</span>
+<span class="n">sgrid</span><span class="o">.</span><span class="n">point_data</span><span class="o">.</span><span class="n">scalars</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;scalars&#39;</span>
 
-<span class="c"># Uncomment the next two lines to save the dataset to a VTK XML file.</span>
-<span class="c">#w = tvtk.XMLStructuredGridWriter(input=sgrid, file_name=&#39;sgrid.vts&#39;)</span>
-<span class="c">#w.write()</span>
+<span class="c1"># Uncomment the next two lines to save the dataset to a VTK XML file.</span>
+<span class="c1">#w = tvtk.XMLStructuredGridWriter(input=sgrid, file_name=&#39;sgrid.vts&#39;)</span>
+<span class="c1">#w.write()</span>
 
-<span class="c"># View the data.</span>
+<span class="c1"># View the data.</span>
 <span class="nd">@mayavi2.standalone</span>
 <span class="k">def</span> <span class="nf">view</span><span class="p">():</span>
     <span class="kn">from</span> <span class="nn">mayavi.sources.vtk_data_source</span> <span class="kn">import</span> <span class="n">VTKDataSource</span>
@@ -192,16 +192,16 @@ the mayavi2 application.</p>
     <span class="n">mayavi</span><span class="o">.</span><span class="n">add_source</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
     <span class="n">mayavi</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">Outline</span><span class="p">())</span>
     <span class="n">g</span> <span class="o">=</span> <span class="n">GridPlane</span><span class="p">()</span>
-    <span class="n">g</span><span class="o">.</span><span class="n">grid_plane</span><span class="o">.</span><span class="n">axis</span> <span class="o">=</span> <span class="s">&#39;x&#39;</span>
+    <span class="n">g</span><span class="o">.</span><span class="n">grid_plane</span><span class="o">.</span><span class="n">axis</span> <span class="o">=</span> <span class="s1">&#39;x&#39;</span>
     <span class="n">mayavi</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
     <span class="n">g</span> <span class="o">=</span> <span class="n">GridPlane</span><span class="p">()</span>
-    <span class="n">g</span><span class="o">.</span><span class="n">grid_plane</span><span class="o">.</span><span class="n">axis</span> <span class="o">=</span> <span class="s">&#39;y&#39;</span>
+    <span class="n">g</span><span class="o">.</span><span class="n">grid_plane</span><span class="o">.</span><span class="n">axis</span> <span class="o">=</span> <span class="s1">&#39;y&#39;</span>
     <span class="n">mayavi</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
     <span class="n">g</span> <span class="o">=</span> <span class="n">GridPlane</span><span class="p">()</span>
-    <span class="n">g</span><span class="o">.</span><span class="n">grid_plane</span><span class="o">.</span><span class="n">axis</span> <span class="o">=</span> <span class="s">&#39;z&#39;</span>
+    <span class="n">g</span><span class="o">.</span><span class="n">grid_plane</span><span class="o">.</span><span class="n">axis</span> <span class="o">=</span> <span class="s1">&#39;z&#39;</span>
     <span class="n">mayavi</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">view</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -287,13 +287,13 @@ the mayavi2 application.</p>
         <li class="right" >
           <a href="example_unstructured_grid.html" title="Unstructured grid example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.4.4 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2008-2015, Enthought Inc..
-      Last updated on Feb 29, 2016.
+        &copy; Copyright 2008-2016, Enthought Inc..
+      Last updated on Aug 02, 2016.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
     </div>
   </body>

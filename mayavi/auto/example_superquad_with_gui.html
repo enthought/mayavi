@@ -1,0 +1,250 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Superquad with gui example &mdash; mayavi 4.5.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '4.5.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="mayavi 4.5.0 documentation" href="../index.html" />
+    <link rel="up" title="Example gallery" href="examples.html" />
+    <link rel="next" title="Mlab interactive dialog example" href="example_mlab_interactive_dialog.html" />
+    <link rel="prev" title="Multiple mlab scene models example" href="example_multiple_mlab_scene_models.html" />
+<style type="text/css">
+  body {
+    /* Very bottom copyright, etc. info */
+    background: #4d598d;
+  }
+
+  .documentwrapper {
+    /* Blank area on left bar */
+    background: #24326e;
+  }
+
+  .related {
+    /* Long horizontal nav bars */
+    background: #3c4b8a!important;
+  }
+
+  .sphinxsidebarwrapper {
+    /* Filled part of left sidebar */
+    background: #24326e;
+  }
+
+  a {
+    color: #253370;
+  }
+
+  .sphinxsidebarwrapper a {
+    color: #f2f2f2!important;
+  }
+</style>
+
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="example_mlab_interactive_dialog.html" title="Mlab interactive dialog example"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="example_multiple_mlab_scene_models.html" title="Multiple mlab scene models example"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="superquad-with-gui-example">
+<span id="example-superquad-with-gui"></span><h1>Superquad with gui example<a class="headerlink" href="#superquad-with-gui-example" title="Permalink to this headline">¶</a></h1>
+<p>This example uses MayaVi to show the evolution of a superquadric
+(<a class="reference external" href="http://en.wikipedia.org/wiki/Superquadrics">http://en.wikipedia.org/wiki/Superquadrics</a>), which are ellipsoidal surfaces parametrised
+by two parameters,lpha and eta. The equations that are used to determine the superquadric are
+(in spherical-polar coordinates):</p>
+<blockquote>
+<div>(x = A(sin^{lpha}(phi)*cos^{eta}(       heta)))
+(y = B(sin^{lpha}(phi)*sin^{eta}(       heta)))
+(z = C(cos^{lpha}(phi)))</div></blockquote>
+<p>Note that when we set A=B=C=r, and lpha =  eta = 1, we get the
+equation for a sphere in spherical polar coordinate.</p>
+<p>Use the controls at the bottom of the plot to adjust lpha and eta,
+and watch as the figure transforms accordingly!</p>
+<p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/superquad_with_gui.py"><code class="xref download docutils literal"><span class="pre">superquad_with_gui.py</span></code></a></p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>
+<span class="c1"># Author: Pratik Mallya &lt;pmallya@enthought.com&gt;</span>
+<span class="c1"># Copyright (c) 2008-2013, Enthought, Inc.</span>
+<span class="c1"># License: BSD Style.</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">enthought.traits.api</span> <span class="kn">import</span> <span class="n">HasTraits</span><span class="p">,</span> <span class="n">Range</span><span class="p">,</span> <span class="n">Instance</span><span class="p">,</span> \
+                    <span class="n">on_trait_change</span>
+<span class="kn">from</span> <span class="nn">enthought.traits.ui.api</span> <span class="kn">import</span> <span class="n">View</span><span class="p">,</span> <span class="n">Item</span><span class="p">,</span> <span class="n">HGroup</span>
+<span class="kn">from</span> <span class="nn">enthought.tvtk.pyface.scene_editor</span> <span class="kn">import</span> <span class="n">SceneEditor</span>
+<span class="kn">from</span> <span class="nn">enthought.mayavi.tools.mlab_scene_model</span> <span class="kn">import</span> \
+                    <span class="n">MlabSceneModel</span>
+<span class="kn">from</span> <span class="nn">enthought.mayavi.core.ui.mayavi_scene</span> <span class="kn">import</span> <span class="n">MayaviScene</span>
+
+
+<span class="k">def</span> <span class="nf">fexp</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">p</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;a different kind of exponentiation&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">**</span><span class="n">p</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">tens_fld</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">C</span><span class="p">,</span><span class="n">P</span><span class="p">,</span><span class="n">Q</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;this module plots superquadratic surfaces with the given parameters&quot;&quot;&quot;</span>
+    <span class="n">phi</span><span class="p">,</span> <span class="n">theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">:</span><span class="mi">80j</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">:</span><span class="mi">80j</span><span class="p">]</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">A</span> <span class="o">*</span> <span class="p">(</span><span class="n">fexp</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">phi</span><span class="p">),</span><span class="n">P</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span><span class="n">fexp</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span><span class="n">Q</span><span class="p">))</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">B</span> <span class="o">*</span> <span class="p">(</span><span class="n">fexp</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">phi</span><span class="p">),</span><span class="n">P</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span><span class="n">fexp</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span><span class="n">Q</span><span class="p">))</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">C</span> <span class="o">*</span> <span class="p">(</span><span class="n">fexp</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">phi</span><span class="p">),</span><span class="n">P</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="p">,</span> <span class="n">y</span> <span class="p">,</span> <span class="n">z</span> 
+
+
+<span class="k">class</span> <span class="nc">Visualization</span><span class="p">(</span><span class="n">HasTraits</span><span class="p">):</span>
+    <span class="n">alpha</span> <span class="o">=</span> <span class="n">Range</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>
+    <span class="n">beta</span>  <span class="o">=</span> <span class="n">Range</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>
+    <span class="n">scene</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">MlabSceneModel</span><span class="p">,</span> <span class="p">())</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Do not forget to call the parent&#39;s __init__</span>
+        <span class="n">HasTraits</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="o">=</span> <span class="n">tens_fld</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">beta</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plot</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">mlab</span><span class="o">.</span><span class="n">mesh</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;copper&#39;</span><span class="p">,</span> <span class="n">representation</span><span class="o">=</span><span class="s1">&#39;surface&#39;</span><span class="p">)</span>
+
+    <span class="nd">@on_trait_change</span><span class="p">(</span><span class="s1">&#39;beta,alpha&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">update_plot</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="o">=</span> <span class="n">tens_fld</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">beta</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">mlab_source</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">z</span><span class="p">)</span>
+
+
+    <span class="c1"># the layout of the dialog created</span>
+    <span class="n">view</span> <span class="o">=</span> <span class="n">View</span><span class="p">(</span><span class="n">Item</span><span class="p">(</span><span class="s1">&#39;scene&#39;</span><span class="p">,</span> <span class="n">editor</span> <span class="o">=</span> <span class="n">SceneEditor</span><span class="p">(</span><span class="n">scene_class</span><span class="o">=</span><span class="n">MayaviScene</span><span class="p">),</span>
+                    <span class="n">height</span> <span class="o">=</span> <span class="mi">750</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">750</span><span class="p">,</span> <span class="n">show_label</span><span class="o">=</span><span class="bp">False</span><span class="p">),</span>
+                <span class="n">HGroup</span><span class="p">(</span>
+                        <span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="s1">&#39;beta&#39;</span><span class="p">,</span> <span class="s1">&#39;alpha&#39;</span><span class="p">,</span>
+                    <span class="p">),</span>
+                <span class="p">)</span>
+
+<span class="n">visualization</span> <span class="o">=</span> <span class="n">Visualization</span><span class="p">()</span>
+<span class="n">visualization</span><span class="o">.</span><span class="n">configure_traits</span><span class="p">()</span>
+
+
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/mayavi-logo.png" alt="Logo"/>
+            </a></p>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="example_multiple_mlab_scene_models.html"
+                        title="previous chapter">Multiple mlab scene models example</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="example_mlab_interactive_dialog.html"
+                        title="next chapter">Mlab interactive dialog example</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/auto/example_superquad_with_gui.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+    <div id="searchbox">
+	<h3>Google Search</h3>
+    <form method="get" action="http://www.google.com/search">
+
+    <table border="0" cellpadding="0">
+    <tr><td>
+    <input type="text"   name="q" size="20"
+    maxlength="255" value="" />
+    <input type="submit" value="Go" /></td></tr>
+    <tr><td align="center" style="font-size:75%; color: #FFFFFF;">
+    <input type="checkbox"  name="sitesearch"
+    value="http://github.enthought.com/mayavi/mayavi/" checked /> only search Mayavi documentation<br />
+    </td></tr></table>
+
+    </form>
+    </div>
+    <hr/>
+    <div id="searchbox">
+	<a href="http://docs.enthought.com/mayavi/mayavi/misc.html#citing-mayavi"><h3>Citing Mayavi</h3></a>
+
+	<p style="font-size:85%; color: #FFFFFF;">
+    	If you publish articles using Mayavi, please 
+	<strong><a href="misc.html#citing-mayavi">cite
+	Mayavi</a></strong>. We need
+	these citations to justify time and resources on the software.
+	</p>
+    </div>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="example_mlab_interactive_dialog.html" title="Mlab interactive dialog example"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="example_multiple_mlab_scene_models.html" title="Multiple mlab scene models example"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2008-2016, Enthought Inc..
+      Last updated on Aug 02, 2016.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
+    </div>
+  </body>
+</html>

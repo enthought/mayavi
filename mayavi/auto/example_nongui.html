@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Nongui example &mdash; mayavi 4.4.4 documentation</title>
+    <title>Nongui example &mdash; mayavi 4.5.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.4.4',
+        VERSION:     '4.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.4.4 documentation" href="../index.html" />
+    <link rel="top" title="mayavi 4.5.0 documentation" href="../index.html" />
     <link rel="up" title="Example gallery" href="examples.html" />
     <link rel="next" title="User mayavi example" href="example_user_mayavi.html" />
     <link rel="prev" title="Zzz reader example" href="example_zzz_reader.html" />
@@ -71,7 +71,7 @@
         <li class="right" >
           <a href="example_zzz_reader.html" title="Zzz reader example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.4.4 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
       </ul>
     </div>  
@@ -88,22 +88,22 @@ without displaying Mayavi&#8217;s UI.</p>
 <p>Note: look at the end of this file to see how the non gui plugin is
 chosen instead of the default gui mayavi plugin.</p>
 <p>This should be run as:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ python nongui.py
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ python nongui.py
 </pre></div>
 </div>
 <p>Or:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ mayavi2 script.py
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ mayavi2 script.py
 </pre></div>
 </div>
 <p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/nongui.py"><code class="xref download docutils literal"><span class="pre">nongui.py</span></code></a></p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># Author: Prabhu Ramachandran &lt;prabhu_r@users.sf.net&gt;</span>
-<span class="c"># Copyright (c) 2005, Enthought, Inc.</span>
-<span class="c"># License: BSD Style.</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Author: Prabhu Ramachandran &lt;prabhu_r@users.sf.net&gt;</span>
+<span class="c1"># Copyright (c) 2005, Enthought, Inc.</span>
+<span class="c1"># License: BSD Style.</span>
 
-<span class="c"># Standard library imports</span>
+<span class="c1"># Standard library imports</span>
 <span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">join</span><span class="p">,</span> <span class="n">abspath</span>
 
-<span class="c"># Enthought library imports</span>
+<span class="c1"># Enthought library imports</span>
 <span class="kn">from</span> <span class="nn">mayavi.scripts.util</span> <span class="kn">import</span> <span class="n">get_data_dir</span>
 <span class="kn">from</span> <span class="nn">mayavi.plugins.app</span> <span class="kn">import</span> <span class="n">Mayavi</span><span class="p">,</span> <span class="n">get_non_gui_plugins</span>
 
@@ -113,7 +113,7 @@ chosen instead of the default gui mayavi plugin.</p>
 <span class="sd">        *Make sure all other MayaVi specific imports are made here!*</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="c"># Various imports to do different things.</span>
+        <span class="c1"># Various imports to do different things.</span>
         <span class="kn">from</span> <span class="nn">mayavi.sources.vtk_file_reader</span> <span class="kn">import</span> <span class="n">VTKFileReader</span>
         <span class="kn">from</span> <span class="nn">mayavi.modules.outline</span> <span class="kn">import</span> <span class="n">Outline</span>
         <span class="kn">from</span> <span class="nn">mayavi.modules.axes</span> <span class="kn">import</span> <span class="n">Axes</span>
@@ -125,60 +125,60 @@ chosen instead of the default gui mayavi plugin.</p>
 
         <span class="n">script</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">script</span>
 
-        <span class="c"># Create a new scene.</span>
+        <span class="c1"># Create a new scene.</span>
         <span class="n">script</span><span class="o">.</span><span class="n">new_scene</span><span class="p">()</span>
 
-        <span class="c"># Read a VTK (old style) data file.</span>
+        <span class="c1"># Read a VTK (old style) data file.</span>
         <span class="n">r</span> <span class="o">=</span> <span class="n">VTKFileReader</span><span class="p">()</span>
         <span class="n">r</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">join</span><span class="p">(</span><span class="n">get_data_dir</span><span class="p">(</span><span class="n">abspath</span><span class="p">(</span><span class="n">__file__</span><span class="p">)),</span>
-                          <span class="s">&#39;heart.vtk&#39;</span><span class="p">))</span>
+                          <span class="s1">&#39;heart.vtk&#39;</span><span class="p">))</span>
         <span class="n">script</span><span class="o">.</span><span class="n">add_source</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
 
-        <span class="c"># Put up some text.</span>
-        <span class="n">t</span> <span class="o">=</span> <span class="n">Text</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s">&#39;MayaVi rules!&#39;</span><span class="p">,</span> <span class="n">x_position</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">y_position</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
-        <span class="n">t</span><span class="o">.</span><span class="n">property</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span>  <span class="c"># Bright yellow, yeah!</span>
+        <span class="c1"># Put up some text.</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">Text</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;MayaVi rules!&#39;</span><span class="p">,</span> <span class="n">x_position</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">y_position</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">property</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span>  <span class="c1"># Bright yellow, yeah!</span>
         <span class="n">script</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
 
-        <span class="c"># Create an outline for the data.</span>
+        <span class="c1"># Create an outline for the data.</span>
         <span class="n">o</span> <span class="o">=</span> <span class="n">Outline</span><span class="p">()</span>
         <span class="n">script</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
 
-        <span class="c"># Create an axes for the data.</span>
+        <span class="c1"># Create an axes for the data.</span>
         <span class="n">a</span> <span class="o">=</span> <span class="n">Axes</span><span class="p">()</span>
         <span class="n">script</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 
-        <span class="c"># Create three simple grid plane modules.</span>
-        <span class="c"># First normal to &#39;x&#39; axis.</span>
+        <span class="c1"># Create three simple grid plane modules.</span>
+        <span class="c1"># First normal to &#39;x&#39; axis.</span>
         <span class="n">gp</span> <span class="o">=</span> <span class="n">GridPlane</span><span class="p">()</span>
         <span class="n">script</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">gp</span><span class="p">)</span>
-        <span class="c"># Second normal to &#39;y&#39; axis.</span>
+        <span class="c1"># Second normal to &#39;y&#39; axis.</span>
         <span class="n">gp</span> <span class="o">=</span> <span class="n">GridPlane</span><span class="p">()</span>
-        <span class="n">gp</span><span class="o">.</span><span class="n">grid_plane</span><span class="o">.</span><span class="n">axis</span> <span class="o">=</span> <span class="s">&#39;y&#39;</span>
+        <span class="n">gp</span><span class="o">.</span><span class="n">grid_plane</span><span class="o">.</span><span class="n">axis</span> <span class="o">=</span> <span class="s1">&#39;y&#39;</span>
         <span class="n">script</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">gp</span><span class="p">)</span>
-        <span class="c"># Third normal to &#39;z&#39; axis.</span>
+        <span class="c1"># Third normal to &#39;z&#39; axis.</span>
         <span class="n">gp</span> <span class="o">=</span> <span class="n">GridPlane</span><span class="p">()</span>
         <span class="n">script</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">gp</span><span class="p">)</span>
-        <span class="n">gp</span><span class="o">.</span><span class="n">grid_plane</span><span class="o">.</span><span class="n">axis</span> <span class="o">=</span> <span class="s">&#39;z&#39;</span>
+        <span class="n">gp</span><span class="o">.</span><span class="n">grid_plane</span><span class="o">.</span><span class="n">axis</span> <span class="o">=</span> <span class="s1">&#39;z&#39;</span>
 
-        <span class="c"># Create one ImagePlaneWidget.</span>
+        <span class="c1"># Create one ImagePlaneWidget.</span>
         <span class="n">ipw</span> <span class="o">=</span> <span class="n">ImagePlaneWidget</span><span class="p">()</span>
         <span class="n">script</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">ipw</span><span class="p">)</span>
-        <span class="c"># Set the position to the middle of the data.</span>
+        <span class="c1"># Set the position to the middle of the data.</span>
         <span class="n">ipw</span><span class="o">.</span><span class="n">ipw</span><span class="o">.</span><span class="n">slice_position</span> <span class="o">=</span> <span class="mi">16</span>
 
-        <span class="c"># Create one ContourGridPlane normal to the &#39;x&#39; axis.</span>
+        <span class="c1"># Create one ContourGridPlane normal to the &#39;x&#39; axis.</span>
         <span class="n">cgp</span> <span class="o">=</span> <span class="n">ContourGridPlane</span><span class="p">()</span>
         <span class="n">script</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">cgp</span><span class="p">)</span>
-        <span class="c"># Set the position to the middle of the data.</span>
-        <span class="n">cgp</span><span class="o">.</span><span class="n">grid_plane</span><span class="o">.</span><span class="n">axis</span> <span class="o">=</span> <span class="s">&#39;y&#39;</span>
+        <span class="c1"># Set the position to the middle of the data.</span>
+        <span class="n">cgp</span><span class="o">.</span><span class="n">grid_plane</span><span class="o">.</span><span class="n">axis</span> <span class="o">=</span> <span class="s1">&#39;y&#39;</span>
         <span class="n">cgp</span><span class="o">.</span><span class="n">grid_plane</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="mi">15</span>
 
-        <span class="c"># An isosurface module.</span>
+        <span class="c1"># An isosurface module.</span>
         <span class="n">iso</span> <span class="o">=</span> <span class="n">IsoSurface</span><span class="p">(</span><span class="n">compute_normals</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
         <span class="n">script</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">iso</span><span class="p">)</span>
         <span class="n">iso</span><span class="o">.</span><span class="n">contour</span><span class="o">.</span><span class="n">contours</span> <span class="o">=</span> <span class="p">[</span><span class="mf">200.0</span><span class="p">]</span>
 
-        <span class="c"># Set the view.</span>
+        <span class="c1"># Set the view.</span>
         <span class="n">s</span> <span class="o">=</span> <span class="n">script</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">current_scene</span>
         <span class="n">cam</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span>
         <span class="n">cam</span><span class="o">.</span><span class="n">azimuth</span><span class="p">(</span><span class="mi">45</span><span class="p">)</span>
@@ -186,11 +186,11 @@ chosen instead of the default gui mayavi plugin.</p>
         <span class="n">s</span><span class="o">.</span><span class="n">render</span><span class="p">()</span>
 
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">m</span> <span class="o">=</span> <span class="n">MyApp</span><span class="p">()</span>
-    <span class="c"># Get the default non GUI plugins.</span>
+    <span class="c1"># Get the default non GUI plugins.</span>
     <span class="n">plugins</span> <span class="o">=</span> <span class="n">get_non_gui_plugins</span><span class="p">()</span>
-    <span class="c"># Start the app with these plugins.</span>
+    <span class="c1"># Start the app with these plugins.</span>
     <span class="n">m</span><span class="o">.</span><span class="n">main</span><span class="p">(</span><span class="n">plugins</span><span class="o">=</span><span class="n">plugins</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -276,13 +276,13 @@ chosen instead of the default gui mayavi plugin.</p>
         <li class="right" >
           <a href="example_zzz_reader.html" title="Zzz reader example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.4.4 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2008-2015, Enthought Inc..
-      Last updated on Feb 29, 2016.
+        &copy; Copyright 2008-2016, Enthought Inc..
+      Last updated on Aug 02, 2016.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
     </div>
   </body>

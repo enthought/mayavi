@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Delaunay graph example &mdash; mayavi 4.4.4 documentation</title>
+    <title>Delaunay graph example &mdash; mayavi 4.5.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.4.4',
+        VERSION:     '4.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.4.4 documentation" href="../index.html" />
+    <link rel="top" title="mayavi 4.5.0 documentation" href="../index.html" />
     <link rel="up" title="Example gallery" href="examples.html" />
     <link rel="next" title="Mlab 3D to 2D example" href="example_mlab_3D_to_2D.html" />
     <link rel="prev" title="Datasets example" href="example_datasets.html" />
@@ -71,7 +71,7 @@
         <li class="right" >
           <a href="example_datasets.html" title="Datasets example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.4.4 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
       </ul>
     </div>  
@@ -116,10 +116,10 @@ vectors giving the edges, and use <cite>mlab.quiver3d</cite> to display them. To
 display an unoriented graph, it is best to use the <cite>2ddash</cite> mode of
 <cite>quiver3d</cite>.</p>
 <p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/delaunay_graph.py"><code class="xref download docutils literal"><span class="pre">delaunay_graph.py</span></code></a></p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># Author: Gary Ruben</span>
-<span class="c">#         Gael Varoquaux &lt;gael dot varoquaux at normalesup dot org&gt;</span>
-<span class="c"># Copyright (c) 2009, Enthought, Inc.</span>
-<span class="c"># License: BSD style.</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Author: Gary Ruben</span>
+<span class="c1">#         Gael Varoquaux &lt;gael dot varoquaux at normalesup dot org&gt;</span>
+<span class="c1"># Copyright (c) 2009, Enthought, Inc.</span>
+<span class="c1"># License: BSD style.</span>
 
 <span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
@@ -156,19 +156,19 @@ display an unoriented graph, it is best to use the <cite>2ddash</cite> mode of
 <span class="sd">                          ...                         ]</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">visualize</span><span class="p">:</span>
-        <span class="n">vtk_source</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">points3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">&#39;2dvertex&#39;</span><span class="p">)</span>
+        <span class="n">vtk_source</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">points3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;2dvertex&#39;</span><span class="p">)</span>
         <span class="n">vtk_source</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">property</span><span class="o">.</span><span class="n">point_size</span> <span class="o">=</span> <span class="mi">3</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">vtk_source</span> <span class="o">=</span>  <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">scalar_scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">figure</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
     <span class="n">delaunay</span> <span class="o">=</span>  <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">delaunay3d</span><span class="p">(</span><span class="n">vtk_source</span><span class="p">)</span>
-    <span class="n">delaunay</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">offset</span> <span class="o">=</span> <span class="mi">999</span>    <span class="c"># seems more reliable than the default</span>
+    <span class="n">delaunay</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">offset</span> <span class="o">=</span> <span class="mi">999</span>    <span class="c1"># seems more reliable than the default</span>
     <span class="n">edges</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">extract_edges</span><span class="p">(</span><span class="n">delaunay</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">visualize</span><span class="p">:</span>
         <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">surface</span><span class="p">(</span><span class="n">edges</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 
-    <span class="c"># We extract the output array. the &#39;points&#39; attribute itself</span>
-    <span class="c"># is a TVTK array, that we convert to a numpy array using</span>
-    <span class="c"># its &#39;to_array&#39; method.</span>
+    <span class="c1"># We extract the output array. the &#39;points&#39; attribute itself</span>
+    <span class="c1"># is a TVTK array, that we convert to a numpy array using</span>
+    <span class="c1"># its &#39;to_array&#39; method.</span>
     <span class="n">new_x</span><span class="p">,</span> <span class="n">new_y</span><span class="p">,</span> <span class="n">new_z</span> <span class="o">=</span> <span class="n">edges</span><span class="o">.</span><span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">points</span><span class="o">.</span><span class="n">to_array</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
     <span class="n">lines</span> <span class="o">=</span> <span class="n">edges</span><span class="o">.</span><span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lines</span><span class="o">.</span><span class="n">to_array</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">new_x</span><span class="p">,</span> <span class="n">new_y</span><span class="p">,</span> <span class="n">new_z</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">lines</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">3</span><span class="p">],</span> <span class="n">lines</span><span class="p">[</span><span class="mi">2</span><span class="p">::</span><span class="mi">3</span><span class="p">]])</span><span class="o">.</span><span class="n">T</span>
@@ -197,11 +197,11 @@ display an unoriented graph, it is best to use the <cite>2ddash</cite> mode of
                         <span class="n">y</span><span class="p">[</span><span class="n">end_idx</span><span class="p">]</span> <span class="o">-</span> <span class="n">y</span><span class="p">[</span><span class="n">start_idx</span><span class="p">],</span>
                         <span class="n">z</span><span class="p">[</span><span class="n">end_idx</span><span class="p">]</span> <span class="o">-</span> <span class="n">z</span><span class="p">[</span><span class="n">start_idx</span><span class="p">],</span>
                         <span class="n">scalars</span><span class="o">=</span><span class="n">edge_scalars</span><span class="p">,</span>
-                        <span class="n">mode</span><span class="o">=</span><span class="s">&#39;2ddash&#39;</span><span class="p">,</span>
+                        <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;2ddash&#39;</span><span class="p">,</span>
                         <span class="n">scale_factor</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
                         <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">edge_scalars</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-        <span class="n">vec</span><span class="o">.</span><span class="n">glyph</span><span class="o">.</span><span class="n">color_mode</span> <span class="o">=</span> <span class="s">&#39;color_by_scalar&#39;</span>
+        <span class="n">vec</span><span class="o">.</span><span class="n">glyph</span><span class="o">.</span><span class="n">color_mode</span> <span class="o">=</span> <span class="s1">&#39;color_by_scalar&#39;</span>
     <span class="k">return</span> <span class="n">vec</span>
 
 
@@ -238,7 +238,7 @@ display an unoriented graph, it is best to use the <cite>2ddash</cite> mode of
 
     <span class="n">g</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">edges</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">nx</span><span class="o">.</span><span class="n">__version__</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="s">&#39;0&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">nx</span><span class="o">.</span><span class="n">__version__</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="s1">&#39;0&#39;</span><span class="p">:</span>
             <span class="n">g</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="n">euclidean_dist</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">))</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">g</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">euclidean_dist</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">))</span>
@@ -250,54 +250,54 @@ display an unoriented graph, it is best to use the <cite>2ddash</cite> mode of
 <span class="sd">        the origin. Uses the &#39;Golden Spiral&#39;.</span>
 <span class="sd">        Code by Chris Colbert from the numpy-discussion list.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">phi</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span> <span class="o">/</span> <span class="mi">2</span>  <span class="c"># the golden ratio</span>
-    <span class="n">long_incr</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="n">phi</span>   <span class="c"># how much to increment the longitude</span>
+    <span class="n">phi</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span> <span class="o">/</span> <span class="mi">2</span>  <span class="c1"># the golden ratio</span>
+    <span class="n">long_incr</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="n">phi</span>   <span class="c1"># how much to increment the longitude</span>
 
-    <span class="n">dz</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>         <span class="c"># a unit sphere has diameter 2</span>
-    <span class="n">bands</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>        <span class="c"># each band will have one point placed on it</span>
-    <span class="n">z</span> <span class="o">=</span> <span class="n">bands</span> <span class="o">*</span> <span class="n">dz</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">+</span> <span class="p">(</span><span class="n">dz</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="c"># the height z of each band/point</span>
-    <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">z</span><span class="o">*</span><span class="n">z</span><span class="p">)</span>        <span class="c"># project onto xy-plane</span>
-    <span class="n">az</span> <span class="o">=</span> <span class="n">bands</span> <span class="o">*</span> <span class="n">long_incr</span>      <span class="c"># azimuthal angle of point modulo 2 pi</span>
+    <span class="n">dz</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>         <span class="c1"># a unit sphere has diameter 2</span>
+    <span class="n">bands</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>        <span class="c1"># each band will have one point placed on it</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">bands</span> <span class="o">*</span> <span class="n">dz</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">+</span> <span class="p">(</span><span class="n">dz</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># the height z of each band/point</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">z</span><span class="o">*</span><span class="n">z</span><span class="p">)</span>        <span class="c1"># project onto xy-plane</span>
+    <span class="n">az</span> <span class="o">=</span> <span class="n">bands</span> <span class="o">*</span> <span class="n">long_incr</span>      <span class="c1"># azimuthal angle of point modulo 2 pi</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">r</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">az</span><span class="p">)</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">r</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">az</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span>
 
 
-<span class="c">################################################################################</span>
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="c"># generate some points</span>
+<span class="c1">################################################################################</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="c1"># generate some points</span>
     <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">points_on_sphere</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
-    <span class="c"># Avoid triangulation problems on the sphere</span>
+    <span class="c1"># Avoid triangulation problems on the sphere</span>
     <span class="n">z</span> <span class="o">*=</span> <span class="mf">1.01</span>
 
     <span class="n">mlab</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">bgcolor</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
     <span class="n">mlab</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
 
-    <span class="c"># Now get the Delaunay Triangulation from vtk via mayavi mlab. Vtk stores</span>
-    <span class="c"># its points in a different order so overwrite ours to match the edges</span>
+    <span class="c1"># Now get the Delaunay Triangulation from vtk via mayavi mlab. Vtk stores</span>
+    <span class="c1"># its points in a different order so overwrite ours to match the edges</span>
     <span class="n">new_x</span><span class="p">,</span> <span class="n">new_y</span><span class="p">,</span> <span class="n">new_z</span><span class="p">,</span> <span class="n">edges</span> <span class="o">=</span> <span class="n">compute_delaunay_edges</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">visualize</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-    <span class="k">assert</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">new_x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>   <span class="c"># check triangulation got everything</span>
+    <span class="k">assert</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">new_x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>   <span class="c1"># check triangulation got everything</span>
     <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">new_x</span><span class="p">,</span> <span class="n">new_y</span><span class="p">,</span> <span class="n">new_z</span>
 
-    <span class="k">if</span> <span class="n">nx</span><span class="o">.</span><span class="n">__version__</span> <span class="o">&lt;</span> <span class="s">&#39;0.99&#39;</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s">&#39;The version of NetworkX must be at least &#39;</span>
-                    <span class="s">&#39;0.99 to run this example&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">nx</span><span class="o">.</span><span class="n">__version__</span> <span class="o">&lt;</span> <span class="s1">&#39;0.99&#39;</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s1">&#39;The version of NetworkX must be at least &#39;</span>
+                    <span class="s1">&#39;0.99 to run this example&#39;</span><span class="p">)</span>
 
-    <span class="c"># Make a NetworkX graph out of our point and edge data</span>
+    <span class="c1"># Make a NetworkX graph out of our point and edge data</span>
     <span class="n">g</span> <span class="o">=</span> <span class="n">build_geometric_graph</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">edges</span><span class="p">)</span>
 
-    <span class="c"># Compute minimum spanning tree using networkx</span>
-    <span class="c"># nx.mst returns an edge generator</span>
+    <span class="c1"># Compute minimum spanning tree using networkx</span>
+    <span class="c1"># nx.mst returns an edge generator</span>
     <span class="n">edges</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">minimum_spanning_tree</span><span class="p">(</span><span class="n">g</span><span class="p">)</span><span class="o">.</span><span class="n">edges</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
     <span class="n">start_idx</span><span class="p">,</span> <span class="n">end_idx</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">edges</span><span class="p">))</span><span class="o">.</span><span class="n">T</span>
     <span class="n">start_idx</span> <span class="o">=</span> <span class="n">start_idx</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">)</span>
     <span class="n">end_idx</span>   <span class="o">=</span> <span class="n">end_idx</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">)</span>
 
-    <span class="c"># Plot this with Mayavi</span>
+    <span class="c1"># Plot this with Mayavi</span>
     <span class="n">graph_plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">start_idx</span><span class="p">,</span> <span class="n">end_idx</span><span class="p">,</span>
                 <span class="n">edge_scalars</span><span class="o">=</span><span class="n">z</span><span class="p">[</span><span class="n">start_idx</span><span class="p">],</span>
                 <span class="n">opacity</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
-                <span class="n">colormap</span><span class="o">=</span><span class="s">&#39;summer&#39;</span><span class="p">,</span>
+                <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;summer&#39;</span><span class="p">,</span>
                 <span class="n">line_width</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
                 <span class="p">)</span>
 
@@ -387,13 +387,13 @@ display an unoriented graph, it is best to use the <cite>2ddash</cite> mode of
         <li class="right" >
           <a href="example_datasets.html" title="Datasets example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.4.4 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2008-2015, Enthought Inc..
-      Last updated on Feb 29, 2016.
+        &copy; Copyright 2008-2016, Enthought Inc..
+      Last updated on Aug 02, 2016.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
     </div>
   </body>

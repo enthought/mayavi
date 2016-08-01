@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>User mayavi example &mdash; mayavi 4.4.4 documentation</title>
+    <title>User mayavi example &mdash; mayavi 4.5.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.4.4',
+        VERSION:     '4.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.4.4 documentation" href="../index.html" />
+    <link rel="top" title="mayavi 4.5.0 documentation" href="../index.html" />
     <link rel="up" title="Example gallery" href="examples.html" />
     <link rel="next" title="MLab reference" href="mlab_reference.html" />
     <link rel="prev" title="Nongui example" href="example_nongui.html" />
@@ -71,7 +71,7 @@
         <li class="right" >
           <a href="example_nongui.html" title="Nongui example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.4.4 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
       </ul>
     </div>  
@@ -106,116 +106,116 @@ carefully (so as not to override any common module names).</p>
 <p>The file may also be placed anywhere on sys.path and called
 <cite>site_mayavi.py</cite> for global system level customizations.</p>
 <p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/user_mayavi.py"><code class="xref download docutils literal"><span class="pre">user_mayavi.py</span></code></a></p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># Author: Prabhu Ramachandran &lt;prabhu@aero.iitb.ac.in&gt;</span>
-<span class="c"># Copyright (c) 2006-2008, Enthought, Inc.</span>
-<span class="c"># License: BSD Style.</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Author: Prabhu Ramachandran &lt;prabhu@aero.iitb.ac.in&gt;</span>
+<span class="c1"># Copyright (c) 2006-2008, Enthought, Inc.</span>
+<span class="c1"># License: BSD Style.</span>
 
 <span class="kn">from</span> <span class="nn">mayavi.core.registry</span> <span class="kn">import</span> <span class="n">registry</span>
 <span class="kn">from</span> <span class="nn">mayavi.core.pipeline_info</span> <span class="kn">import</span> <span class="n">PipelineInfo</span>
 <span class="kn">from</span> <span class="nn">mayavi.core.metadata</span> <span class="kn">import</span> <span class="n">ModuleMetadata</span>
 
-<span class="c"># Metadata for the new module we want to add -- notice that we use a</span>
-<span class="c"># factory function here for convenience, we could also use a class but</span>
-<span class="c"># the reasons for doing this are documented below.</span>
+<span class="c1"># Metadata for the new module we want to add -- notice that we use a</span>
+<span class="c1"># factory function here for convenience, we could also use a class but</span>
+<span class="c1"># the reasons for doing this are documented below.</span>
 <span class="n">user_outline</span> <span class="o">=</span> <span class="n">ModuleMetadata</span><span class="p">(</span>
-    <span class="nb">id</span>            <span class="o">=</span> <span class="s">&quot;UserOutlineModule&quot;</span><span class="p">,</span>
-    <span class="n">menu_name</span>          <span class="o">=</span> <span class="s">&quot;&amp;UserOutline&quot;</span><span class="p">,</span>
-    <span class="n">factory</span> <span class="o">=</span> <span class="s">&#39;user_mayavi.user_outline&#39;</span><span class="p">,</span>
-    <span class="n">desc</span>   <span class="o">=</span> <span class="s">&quot;Draw a cornered outline for given input&quot;</span><span class="p">,</span>
-    <span class="n">tooltip</span>       <span class="o">=</span> <span class="s">&quot;Draw a cornered outline for given input&quot;</span><span class="p">,</span>
-    <span class="n">help</span>       <span class="o">=</span> <span class="s">&quot;Draw a cornered outline for given input&quot;</span><span class="p">,</span>
-    <span class="n">input_info</span> <span class="o">=</span> <span class="n">PipelineInfo</span><span class="p">(</span><span class="n">datasets</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;any&#39;</span><span class="p">],</span>
-                              <span class="n">attribute_types</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;any&#39;</span><span class="p">],</span>
-                              <span class="n">attributes</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;any&#39;</span><span class="p">])</span>
+    <span class="nb">id</span>            <span class="o">=</span> <span class="s2">&quot;UserOutlineModule&quot;</span><span class="p">,</span>
+    <span class="n">menu_name</span>          <span class="o">=</span> <span class="s2">&quot;&amp;UserOutline&quot;</span><span class="p">,</span>
+    <span class="n">factory</span> <span class="o">=</span> <span class="s1">&#39;user_mayavi.user_outline&#39;</span><span class="p">,</span>
+    <span class="n">desc</span>   <span class="o">=</span> <span class="s2">&quot;Draw a cornered outline for given input&quot;</span><span class="p">,</span>
+    <span class="n">tooltip</span>       <span class="o">=</span> <span class="s2">&quot;Draw a cornered outline for given input&quot;</span><span class="p">,</span>
+    <span class="n">help</span>       <span class="o">=</span> <span class="s2">&quot;Draw a cornered outline for given input&quot;</span><span class="p">,</span>
+    <span class="n">input_info</span> <span class="o">=</span> <span class="n">PipelineInfo</span><span class="p">(</span><span class="n">datasets</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;any&#39;</span><span class="p">],</span>
+                              <span class="n">attribute_types</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;any&#39;</span><span class="p">],</span>
+                              <span class="n">attributes</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;any&#39;</span><span class="p">])</span>
 <span class="p">)</span>
 
-<span class="c"># Register the module with the mayavi registry.</span>
+<span class="c1"># Register the module with the mayavi registry.</span>
 <span class="n">registry</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">user_outline</span><span class="p">)</span>
 
-<span class="c">#######</span>
-<span class="c"># The all important function that returns the plugin we wish to add to</span>
-<span class="c"># the default mayavi application.</span>
+<span class="c1">#######</span>
+<span class="c1"># The all important function that returns the plugin we wish to add to</span>
+<span class="c1"># the default mayavi application.</span>
 <span class="k">def</span> <span class="nf">get_plugins</span><span class="p">():</span>
-    <span class="c"># We simply return a list containing the WorkerPlugin defined below.</span>
+    <span class="c1"># We simply return a list containing the WorkerPlugin defined below.</span>
     <span class="k">return</span> <span class="p">[</span><span class="n">WorkerPlugin</span><span class="p">()]</span>
 
-<span class="c">######################################################################</span>
-<span class="c"># Thats it, basically.  The rest of the code should really be in another</span>
-<span class="c"># module but is in the same module for convenience here.  There are</span>
-<span class="c"># problems with doing any significant non-core module imports in this</span>
-<span class="c"># module as documented below.</span>
-<span class="c">######################################################################</span>
+<span class="c1">######################################################################</span>
+<span class="c1"># Thats it, basically.  The rest of the code should really be in another</span>
+<span class="c1"># module but is in the same module for convenience here.  There are</span>
+<span class="c1"># problems with doing any significant non-core module imports in this</span>
+<span class="c1"># module as documented below.</span>
+<span class="c1">######################################################################</span>
 
 
-<span class="c">######################################################################</span>
-<span class="c"># THE CODE BELOW SHOULD REALLY BE IN SEPARATE MODULES.</span>
-<span class="c">#</span>
-<span class="c"># The following can very well be in a separate module but I&#39;ve kept it</span>
-<span class="c"># here to make this a compact demo of how to customize things.</span>
-<span class="c">######################################################################</span>
+<span class="c1">######################################################################</span>
+<span class="c1"># THE CODE BELOW SHOULD REALLY BE IN SEPARATE MODULES.</span>
+<span class="c1">#</span>
+<span class="c1"># The following can very well be in a separate module but I&#39;ve kept it</span>
+<span class="c1"># here to make this a compact demo of how to customize things.</span>
+<span class="c1">######################################################################</span>
 
 
-<span class="c">######################################################################</span>
-<span class="c"># A new module to expose to mayavi.</span>
-<span class="c">#</span>
-<span class="c"># WARNING: Do not do other mayavi imports right here like for example:</span>
-<span class="c"># &#39;from mayavi.modules.outline import Outline&#39; etc.  This is</span>
-<span class="c"># because the user_mayavi is imported at a time when many of the imports</span>
-<span class="c"># are not complete and this will cause hard-to-debug circular import</span>
-<span class="c"># problems.  The registry is given only metadata mostly in the form of</span>
-<span class="c"># strings and this will cause no problem.  Therefore to define new</span>
-<span class="c"># modules, we strongly recommend that the modules be defined in another</span>
-<span class="c"># module or be defined in a factory function as done below.</span>
+<span class="c1">######################################################################</span>
+<span class="c1"># A new module to expose to mayavi.</span>
+<span class="c1">#</span>
+<span class="c1"># WARNING: Do not do other mayavi imports right here like for example:</span>
+<span class="c1"># &#39;from mayavi.modules.outline import Outline&#39; etc.  This is</span>
+<span class="c1"># because the user_mayavi is imported at a time when many of the imports</span>
+<span class="c1"># are not complete and this will cause hard-to-debug circular import</span>
+<span class="c1"># problems.  The registry is given only metadata mostly in the form of</span>
+<span class="c1"># strings and this will cause no problem.  Therefore to define new</span>
+<span class="c1"># modules, we strongly recommend that the modules be defined in another</span>
+<span class="c1"># module or be defined in a factory function as done below.</span>
 
 <span class="k">def</span> <span class="nf">user_outline</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;A Factory function that creates a new module to add to the</span>
 <span class="sd">    pipeline.  Note that the method safely does any mayavi imports</span>
 <span class="sd">    inside avoiding any circular imports.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&quot;User Outline&quot;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;User Outline&quot;</span><span class="p">)</span>
     <span class="kn">from</span> <span class="nn">mayavi.modules.outline</span> <span class="kn">import</span> <span class="n">Outline</span>
-    <span class="n">o</span> <span class="o">=</span> <span class="n">Outline</span><span class="p">(</span><span class="n">outline_mode</span><span class="o">=</span><span class="s">&#39;cornered&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;UserOutline&#39;</span><span class="p">)</span>
+    <span class="n">o</span> <span class="o">=</span> <span class="n">Outline</span><span class="p">(</span><span class="n">outline_mode</span><span class="o">=</span><span class="s1">&#39;cornered&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;UserOutline&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">o</span>
 
 
-<span class="c">######################################################################</span>
-<span class="c"># This code simulates something the user would like to do.  In this case</span>
-<span class="c"># we just want to create some data, view it with mayavi and modify the</span>
-<span class="c"># data.  We want to add this as a view to the standard mayavi.  The code</span>
-<span class="c"># below is simply traits code with a few extra things to be able to grab</span>
-<span class="c"># the running mayavi instance and script it.  The object we create we</span>
-<span class="c"># offer as an envisage service offer -- this instantiates the worker.</span>
-<span class="c"># The WorkerPlugin exposes the service offer and shows the view of this</span>
-<span class="c"># worker.</span>
+<span class="c1">######################################################################</span>
+<span class="c1"># This code simulates something the user would like to do.  In this case</span>
+<span class="c1"># we just want to create some data, view it with mayavi and modify the</span>
+<span class="c1"># data.  We want to add this as a view to the standard mayavi.  The code</span>
+<span class="c1"># below is simply traits code with a few extra things to be able to grab</span>
+<span class="c1"># the running mayavi instance and script it.  The object we create we</span>
+<span class="c1"># offer as an envisage service offer -- this instantiates the worker.</span>
+<span class="c1"># The WorkerPlugin exposes the service offer and shows the view of this</span>
+<span class="c1"># worker.</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span>
 
 <span class="kn">from</span> <span class="nn">traits.api</span> <span class="kn">import</span> <span class="n">HasTraits</span><span class="p">,</span> <span class="n">Range</span><span class="p">,</span> <span class="n">Button</span><span class="p">,</span> <span class="n">Instance</span><span class="p">,</span> <span class="n">List</span>
 <span class="kn">from</span> <span class="nn">traitsui.api</span> <span class="kn">import</span> <span class="n">Item</span><span class="p">,</span> <span class="n">View</span>
 
-<span class="c">######################################################################</span>
-<span class="c"># `Worker` class</span>
-<span class="c">######################################################################</span>
+<span class="c1">######################################################################</span>
+<span class="c1"># `Worker` class</span>
+<span class="c1">######################################################################</span>
 <span class="k">class</span> <span class="nc">Worker</span><span class="p">(</span><span class="n">HasTraits</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;This class basically allows you to create a data set, view it</span>
 <span class="sd">    and modify the dataset.  This is a rather crude example but</span>
 <span class="sd">    demonstrates how things can be done.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="c"># Set by envisage when this is contributed as a ServiceOffer.</span>
-    <span class="n">window</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="s">&#39;pyface.workbench.api.WorkbenchWindow&#39;</span><span class="p">)</span>
+    <span class="c1"># Set by envisage when this is contributed as a ServiceOffer.</span>
+    <span class="n">window</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="s1">&#39;pyface.workbench.api.WorkbenchWindow&#39;</span><span class="p">)</span>
 
-    <span class="n">create_data</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="s">&#39;Create data&#39;</span><span class="p">)</span>
-    <span class="n">reset_data</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="s">&#39;Reset data&#39;</span><span class="p">)</span>
-    <span class="n">view_data</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="s">&#39;View data&#39;</span><span class="p">)</span>
+    <span class="n">create_data</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="s1">&#39;Create data&#39;</span><span class="p">)</span>
+    <span class="n">reset_data</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="s1">&#39;Reset data&#39;</span><span class="p">)</span>
+    <span class="n">view_data</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="s1">&#39;View data&#39;</span><span class="p">)</span>
     <span class="n">scale</span> <span class="o">=</span> <span class="n">Range</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
-    <span class="n">source</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="s">&#39;mayavi.core.source.Source&#39;</span><span class="p">)</span>
+    <span class="n">source</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="s1">&#39;mayavi.core.source.Source&#39;</span><span class="p">)</span>
 
-    <span class="c"># Our UI view.</span>
-    <span class="n">view</span> <span class="o">=</span> <span class="n">View</span><span class="p">(</span><span class="n">Item</span><span class="p">(</span><span class="s">&#39;create_data&#39;</span><span class="p">,</span> <span class="n">show_label</span><span class="o">=</span><span class="bp">False</span><span class="p">),</span>
-                <span class="n">Item</span><span class="p">(</span><span class="s">&#39;view_data&#39;</span><span class="p">,</span> <span class="n">show_label</span><span class="o">=</span><span class="bp">False</span><span class="p">),</span>
-                <span class="n">Item</span><span class="p">(</span><span class="s">&#39;reset_data&#39;</span><span class="p">,</span> <span class="n">show_label</span><span class="o">=</span><span class="bp">False</span><span class="p">),</span>
-                <span class="n">Item</span><span class="p">(</span><span class="s">&#39;scale&#39;</span><span class="p">),</span>
+    <span class="c1"># Our UI view.</span>
+    <span class="n">view</span> <span class="o">=</span> <span class="n">View</span><span class="p">(</span><span class="n">Item</span><span class="p">(</span><span class="s1">&#39;create_data&#39;</span><span class="p">,</span> <span class="n">show_label</span><span class="o">=</span><span class="bp">False</span><span class="p">),</span>
+                <span class="n">Item</span><span class="p">(</span><span class="s1">&#39;view_data&#39;</span><span class="p">,</span> <span class="n">show_label</span><span class="o">=</span><span class="bp">False</span><span class="p">),</span>
+                <span class="n">Item</span><span class="p">(</span><span class="s1">&#39;reset_data&#39;</span><span class="p">,</span> <span class="n">show_label</span><span class="o">=</span><span class="bp">False</span><span class="p">),</span>
+                <span class="n">Item</span><span class="p">(</span><span class="s1">&#39;scale&#39;</span><span class="p">),</span>
                 <span class="n">resizable</span><span class="o">=</span><span class="bp">True</span>
                 <span class="p">)</span>
 
@@ -227,11 +227,11 @@ carefully (so as not to override any common module names).</p>
         <span class="n">dims</span> <span class="o">=</span> <span class="p">[</span><span class="mi">64</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">64</span><span class="p">]</span>
         <span class="n">np</span> <span class="o">=</span> <span class="n">dims</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">dims</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">dims</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
         <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ogrid</span><span class="p">[</span><span class="o">-</span><span class="mi">5</span><span class="p">:</span><span class="mi">5</span><span class="p">:</span><span class="n">dims</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">1j</span><span class="p">,</span><span class="o">-</span><span class="mi">5</span><span class="p">:</span><span class="mi">5</span><span class="p">:</span><span class="n">dims</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="mi">1j</span><span class="p">,</span><span class="o">-</span><span class="mi">5</span><span class="p">:</span><span class="mi">5</span><span class="p">:</span><span class="n">dims</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="mi">1j</span><span class="p">]</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s">&#39;f&#39;</span><span class="p">)</span>
-        <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s">&#39;f&#39;</span><span class="p">)</span>
-        <span class="n">z</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s">&#39;f&#39;</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;f&#39;</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;f&#39;</span><span class="p">)</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;f&#39;</span><span class="p">)</span>
         <span class="n">s</span> <span class="o">=</span> <span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="o">*</span><span class="n">z</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="o">*</span><span class="n">z</span><span class="p">))</span>
-        <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="c"># This makes the data contiguous.</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="c1"># This makes the data contiguous.</span>
         <span class="k">return</span> <span class="n">s</span>
 
     <span class="k">def</span> <span class="nf">_create_data_fired</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -249,7 +249,7 @@ carefully (so as not to override any common module names).</p>
         <span class="n">mayavi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_mayavi</span><span class="p">()</span>
         <span class="kn">from</span> <span class="nn">mayavi.modules.outline</span> <span class="kn">import</span> <span class="n">Outline</span>
         <span class="kn">from</span> <span class="nn">mayavi.modules.image_plane_widget</span> <span class="kn">import</span> <span class="n">ImagePlaneWidget</span>
-        <span class="c"># Visualize the data.</span>
+        <span class="c1"># Visualize the data.</span>
         <span class="n">o</span> <span class="o">=</span> <span class="n">Outline</span><span class="p">()</span>
         <span class="n">mayavi</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
         <span class="n">ipw</span> <span class="o">=</span> <span class="n">ImagePlaneWidget</span><span class="p">()</span>
@@ -258,7 +258,7 @@ carefully (so as not to override any common module names).</p>
 
         <span class="n">ipw_y</span> <span class="o">=</span> <span class="n">ImagePlaneWidget</span><span class="p">()</span>
         <span class="n">mayavi</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">ipw_y</span><span class="p">)</span>
-        <span class="n">ipw_y</span><span class="o">.</span><span class="n">ipw</span><span class="o">.</span><span class="n">plane_orientation</span> <span class="o">=</span> <span class="s">&#39;y_axes&#39;</span>
+        <span class="n">ipw_y</span><span class="o">.</span><span class="n">ipw</span><span class="o">.</span><span class="n">plane_orientation</span> <span class="o">=</span> <span class="s1">&#39;y_axes&#39;</span>
 
     <span class="k">def</span> <span class="nf">_scale_changed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="n">src</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">source</span>
@@ -267,32 +267,32 @@ carefully (so as not to override any common module names).</p>
         <span class="n">numpy</span><span class="o">.</span><span class="n">mod</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
         <span class="n">src</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
 
-<span class="c">######################################################################</span>
-<span class="c"># The following code is the small amount of envisage code that brings</span>
-<span class="c"># the users code (above) and Envisage/Mayavi UI together.</span>
+<span class="c1">######################################################################</span>
+<span class="c1"># The following code is the small amount of envisage code that brings</span>
+<span class="c1"># the users code (above) and Envisage/Mayavi UI together.</span>
 <span class="kn">from</span> <span class="nn">envisage.api</span> <span class="kn">import</span> <span class="n">Plugin</span><span class="p">,</span> <span class="n">ServiceOffer</span>
 
-<span class="c">######################################################################</span>
-<span class="c"># `WorkerPlugin` class</span>
-<span class="c">######################################################################</span>
+<span class="c1">######################################################################</span>
+<span class="c1"># `WorkerPlugin` class</span>
+<span class="c1">######################################################################</span>
 <span class="k">class</span> <span class="nc">WorkerPlugin</span><span class="p">(</span><span class="n">Plugin</span><span class="p">):</span>
 
-    <span class="c"># Extension point Ids.</span>
-    <span class="n">SERVICE_OFFERS</span> <span class="o">=</span> <span class="s">&#39;envisage.ui.workbench.service_offers&#39;</span>
-    <span class="n">VIEWS</span>          <span class="o">=</span> <span class="s">&#39;envisage.ui.workbench.views&#39;</span>
+    <span class="c1"># Extension point Ids.</span>
+    <span class="n">SERVICE_OFFERS</span> <span class="o">=</span> <span class="s1">&#39;envisage.ui.workbench.service_offers&#39;</span>
+    <span class="n">VIEWS</span>          <span class="o">=</span> <span class="s1">&#39;envisage.ui.workbench.views&#39;</span>
 
-    <span class="c"># Services we contribute.</span>
+    <span class="c1"># Services we contribute.</span>
     <span class="n">service_offers</span> <span class="o">=</span> <span class="n">List</span><span class="p">(</span><span class="n">contributes_to</span><span class="o">=</span><span class="n">SERVICE_OFFERS</span><span class="p">)</span>
-    <span class="c"># Views.</span>
+    <span class="c1"># Views.</span>
     <span class="n">views</span> <span class="o">=</span> <span class="n">List</span><span class="p">(</span><span class="n">contributes_to</span><span class="o">=</span><span class="n">VIEWS</span><span class="p">)</span>
 
-    <span class="c">######################################################################</span>
-    <span class="c"># Private methods.</span>
+    <span class="c1">######################################################################</span>
+    <span class="c1"># Private methods.</span>
     <span class="k">def</span> <span class="nf">_service_offers_default</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Trait initializer. &quot;&quot;&quot;</span>
         <span class="n">worker_service_offer</span> <span class="o">=</span> <span class="n">ServiceOffer</span><span class="p">(</span>
-            <span class="n">protocol</span> <span class="o">=</span> <span class="s">&#39;user_mayavi.Worker&#39;</span><span class="p">,</span>
-            <span class="n">factory</span>  <span class="o">=</span> <span class="s">&#39;user_mayavi.Worker&#39;</span>
+            <span class="n">protocol</span> <span class="o">=</span> <span class="s1">&#39;user_mayavi.Worker&#39;</span><span class="p">,</span>
+            <span class="n">factory</span>  <span class="o">=</span> <span class="s1">&#39;user_mayavi.Worker&#39;</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="p">[</span><span class="n">worker_service_offer</span><span class="p">]</span>
 
@@ -308,28 +308,28 @@ carefully (so as not to override any common module names).</p>
 
         <span class="n">worker</span> <span class="o">=</span> <span class="n">window</span><span class="o">.</span><span class="n">get_service</span><span class="p">(</span><span class="n">Worker</span><span class="p">)</span>
         <span class="n">tui_worker_view</span> <span class="o">=</span> <span class="n">TraitsUIView</span><span class="p">(</span><span class="n">obj</span><span class="o">=</span><span class="n">worker</span><span class="p">,</span>
-                                       <span class="n">view</span><span class="o">=</span><span class="s">&#39;view&#39;</span><span class="p">,</span>
-                                       <span class="nb">id</span><span class="o">=</span><span class="s">&#39;user_mayavi.Worker.view&#39;</span><span class="p">,</span>
-                                       <span class="n">name</span><span class="o">=</span><span class="s">&#39;Custom Mayavi2 View&#39;</span><span class="p">,</span>
+                                       <span class="n">view</span><span class="o">=</span><span class="s1">&#39;view&#39;</span><span class="p">,</span>
+                                       <span class="nb">id</span><span class="o">=</span><span class="s1">&#39;user_mayavi.Worker.view&#39;</span><span class="p">,</span>
+                                       <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Custom Mayavi2 View&#39;</span><span class="p">,</span>
                                        <span class="n">window</span><span class="o">=</span><span class="n">window</span><span class="p">,</span>
-                                       <span class="n">position</span><span class="o">=</span><span class="s">&#39;left&#39;</span><span class="p">,</span>
+                                       <span class="n">position</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span>
                                        <span class="o">**</span><span class="n">traits</span>
                                        <span class="p">)</span>
         <span class="k">return</span> <span class="n">tui_worker_view</span>
 
-<span class="c"># END OF CODE THAT SHOULD REALLY BE IN SEPARATE MODULES.</span>
-<span class="c">######################################################################</span>
+<span class="c1"># END OF CODE THAT SHOULD REALLY BE IN SEPARATE MODULES.</span>
+<span class="c1">######################################################################</span>
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">sys</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&quot;*&quot;</span><span class="o">*</span><span class="mi">80</span><span class="p">)</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&quot;ERROR: This script isn&#39;t supposed to be executed.&quot;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;*&quot;</span><span class="o">*</span><span class="mi">80</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;ERROR: This script isn&#39;t supposed to be executed.&quot;</span><span class="p">)</span>
     <span class="k">print</span><span class="p">(</span><span class="n">__doc__</span><span class="p">)</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&quot;*&quot;</span><span class="o">*</span><span class="mi">80</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;*&quot;</span><span class="o">*</span><span class="mi">80</span><span class="p">)</span>
 
     <span class="kn">from</span> <span class="nn">traits.util.home_directory</span> <span class="kn">import</span> <span class="n">get_home_directory</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&quot;Your .mayavi2 directory should be in </span><span class="si">%s</span><span class="s">&quot;</span><span class="o">%</span><span class="n">get_home_directory</span><span class="p">())</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&quot;*&quot;</span><span class="o">*</span><span class="mi">80</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Your .mayavi2 directory should be in </span><span class="si">%s</span><span class="s2">&quot;</span><span class="o">%</span><span class="n">get_home_directory</span><span class="p">())</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;*&quot;</span><span class="o">*</span><span class="mi">80</span><span class="p">)</span>
     <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -415,13 +415,13 @@ carefully (so as not to override any common module names).</p>
         <li class="right" >
           <a href="example_nongui.html" title="Nongui example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.4.4 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2008-2015, Enthought Inc..
-      Last updated on Feb 29, 2016.
+        &copy; Copyright 2008-2016, Enthought Inc..
+      Last updated on Aug 02, 2016.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
     </div>
   </body>

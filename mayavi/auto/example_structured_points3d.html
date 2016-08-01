@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Structured points3d example &mdash; mayavi 4.4.4 documentation</title>
+    <title>Structured points3d example &mdash; mayavi 4.5.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.4.4',
+        VERSION:     '4.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.4.4 documentation" href="../index.html" />
+    <link rel="top" title="mayavi 4.5.0 documentation" href="../index.html" />
     <link rel="up" title="Example gallery" href="examples.html" />
     <link rel="next" title="Image cursor filter example" href="example_image_cursor_filter.html" />
     <link rel="prev" title="Numeric source example" href="example_numeric_source.html" />
@@ -71,7 +71,7 @@
         <li class="right" >
           <a href="example_numeric_source.html" title="Numeric source example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.4.4 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
       </ul>
     </div>  
@@ -87,17 +87,17 @@
 using numpy arrays.  Also shown is a way to visualize this data with
 the mayavi2 application.</p>
 <p>The script can be run like so:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ mayavi2 -x structured_points3d.py
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ mayavi2 -x structured_points3d.py
 </pre></div>
 </div>
 <p>Alternatively, it can be run as:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ python structured_points3d.py
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ python structured_points3d.py
 </pre></div>
 </div>
 <p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/structured_points3d.py"><code class="xref download docutils literal"><span class="pre">structured_points3d.py</span></code></a></p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># Author: Prabhu Ramachandran &lt;prabhu at aero dot iitb dot ac dot in&gt;</span>
-<span class="c"># Copyright (c) 2007, Enthought, Inc.</span>
-<span class="c"># License: BSD style.</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Author: Prabhu Ramachandran &lt;prabhu at aero dot iitb dot ac dot in&gt;</span>
+<span class="c1"># Copyright (c) 2007, Enthought, Inc.</span>
+<span class="c1"># License: BSD style.</span>
 
 <span class="kn">from</span> <span class="nn">tvtk.api</span> <span class="kn">import</span> <span class="n">tvtk</span>
 <span class="kn">from</span> <span class="nn">tvtk.array_handler</span> <span class="kn">import</span> <span class="n">get_vtk_array_type</span>
@@ -105,7 +105,7 @@ the mayavi2 application.</p>
 <span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">array</span><span class="p">,</span> <span class="n">ogrid</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">ravel</span>
 <span class="kn">from</span> <span class="nn">mayavi.scripts</span> <span class="kn">import</span> <span class="n">mayavi2</span>
 
-<span class="c"># Make the data.</span>
+<span class="c1"># Make the data.</span>
 <span class="n">dims</span> <span class="o">=</span> <span class="n">array</span><span class="p">((</span><span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">))</span>
 <span class="n">vol</span> <span class="o">=</span> <span class="n">array</span><span class="p">((</span><span class="o">-</span><span class="mf">5.</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
 <span class="n">origin</span> <span class="o">=</span> <span class="n">vol</span><span class="p">[::</span><span class="mi">2</span><span class="p">]</span>
@@ -114,31 +114,31 @@ the mayavi2 application.</p>
 <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">ogrid</span><span class="p">[</span><span class="n">xmin</span><span class="p">:</span><span class="n">xmax</span><span class="p">:</span><span class="n">dims</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">1j</span><span class="p">,</span>
                 <span class="n">ymin</span><span class="p">:</span><span class="n">ymax</span><span class="p">:</span><span class="n">dims</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="mi">1j</span><span class="p">,</span>
                 <span class="n">zmin</span><span class="p">:</span><span class="n">zmax</span><span class="p">:</span><span class="n">dims</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="mi">1j</span><span class="p">]</span>
-<span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s">&#39;f&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)]</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;f&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)]</span>
 <span class="n">scalars</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="o">*</span><span class="n">z</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="o">*</span><span class="n">z</span><span class="p">)</span>
 
-<span class="c"># Make the tvtk dataset.</span>
+<span class="c1"># Make the tvtk dataset.</span>
 <span class="n">spoints</span> <span class="o">=</span> <span class="n">tvtk</span><span class="o">.</span><span class="n">StructuredPoints</span><span class="p">(</span><span class="n">origin</span><span class="o">=</span><span class="n">origin</span><span class="p">,</span> <span class="n">spacing</span><span class="o">=</span><span class="n">spacing</span><span class="p">,</span>
                                 <span class="n">dimensions</span><span class="o">=</span><span class="n">dims</span><span class="p">)</span>
-<span class="c"># The copy makes the data contiguous and the transpose makes it</span>
-<span class="c"># suitable for display via tvtk.  Note that it is not necessary to</span>
-<span class="c"># make the data contiguous since in that case the array is copied</span>
-<span class="c"># internally.</span>
+<span class="c1"># The copy makes the data contiguous and the transpose makes it</span>
+<span class="c1"># suitable for display via tvtk.  Note that it is not necessary to</span>
+<span class="c1"># make the data contiguous since in that case the array is copied</span>
+<span class="c1"># internally.</span>
 <span class="n">s</span> <span class="o">=</span> <span class="n">scalars</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 <span class="n">spoints</span><span class="o">.</span><span class="n">point_data</span><span class="o">.</span><span class="n">scalars</span> <span class="o">=</span> <span class="n">ravel</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
-<span class="n">spoints</span><span class="o">.</span><span class="n">point_data</span><span class="o">.</span><span class="n">scalars</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">&#39;scalars&#39;</span>
+<span class="n">spoints</span><span class="o">.</span><span class="n">point_data</span><span class="o">.</span><span class="n">scalars</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;scalars&#39;</span>
 
-<span class="c"># This is needed in slightly older versions of VTK (like the 5.0.2</span>
-<span class="c"># release) to prevent a segfault.  VTK does not detect the correct</span>
-<span class="c"># data type.</span>
+<span class="c1"># This is needed in slightly older versions of VTK (like the 5.0.2</span>
+<span class="c1"># release) to prevent a segfault.  VTK does not detect the correct</span>
+<span class="c1"># data type.</span>
 <span class="k">if</span> <span class="n">is_old_pipeline</span><span class="p">():</span>
     <span class="n">spoints</span><span class="o">.</span><span class="n">scalar_type</span> <span class="o">=</span> <span class="n">get_vtk_array_type</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
 
-<span class="c"># Uncomment the next two lines to save the dataset to a VTK XML file.</span>
-<span class="c">#w = tvtk.XMLImageDataWriter(input=spoints, file_name=&#39;spoints3d.vti&#39;)</span>
-<span class="c">#w.write()</span>
+<span class="c1"># Uncomment the next two lines to save the dataset to a VTK XML file.</span>
+<span class="c1">#w = tvtk.XMLImageDataWriter(input=spoints, file_name=&#39;spoints3d.vti&#39;)</span>
+<span class="c1">#w.write()</span>
 
-<span class="c"># Now view the data.</span>
+<span class="c1"># Now view the data.</span>
 <span class="nd">@mayavi2.standalone</span>
 <span class="k">def</span> <span class="nf">view</span><span class="p">():</span>
     <span class="kn">from</span> <span class="nn">mayavi.sources.vtk_data_source</span> <span class="kn">import</span> <span class="n">VTKDataSource</span>
@@ -151,7 +151,7 @@ the mayavi2 application.</p>
     <span class="n">mayavi</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">Outline</span><span class="p">())</span>
     <span class="n">mayavi</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">ImagePlaneWidget</span><span class="p">())</span>
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">view</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -237,13 +237,13 @@ the mayavi2 application.</p>
         <li class="right" >
           <a href="example_numeric_source.html" title="Numeric source example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.4.4 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2008-2015, Enthought Inc..
-      Last updated on Feb 29, 2016.
+        &copy; Copyright 2008-2016, Enthought Inc..
+      Last updated on Aug 02, 2016.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
     </div>
   </body>

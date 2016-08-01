@@ -29,7 +29,7 @@ module).  Here is a list of current features.
  * tvtk is free software with a BSD style license.
 
 
-.. _traits: http://www.enthought.com/traits
+.. _traits: http://docs.enthought.com/traits
 .. _VTK: http://www.vtk.org
 
 
@@ -43,7 +43,7 @@ tvtk.
  * Python should be built with zlib support and must support ZIP file
    imports.
  * VTK-5.x, VTK-4.4 or VTK-4.2.  It is unlikely to work with VTK-3.x.
- * Traits, version 2.
+ * Traits.
  * numpy -- Any recent version should be fine.
  * To use `ivtk.py`, `mlab` you need to have `pyface` installed.
  * To use the plugins you need Envisage installed.
@@ -52,24 +52,21 @@ tvtk.
 Installation
 ============
 
-TVTK is meant to be installed as part of the `enthought` package.  The
-`setup_tvtk.py` file sets up TVTK.  So installing the `enthought`
-package should also install tvtk for you.  For an inplace build of the
-Enthought tool suite please read: `inplace build of the Enthought tool
-suite`_.
+TVTK is meant to be installed as part of the `mayavi` package.
+Please visit the installation guide on the Mayavi documentation:
 
+   http://docs.enthought.com/mayavi/mayavi/installation.html
 
 This document only covers building and using TVTK from inside a
-checkout of the the enthought SVN_ repository.  The tvtk module lives
+checkout of the the mayavi_ repository.  The tvtk module lives
 inside `tvtk`.  To build the tvtk module and use them from
-inside the `enthought` sources do the following from the base of the
-enthought source tree (we assume here that this is in
-`/home/svn/enthought/src/lib/enthought`)::
+inside the `mayavi` sources do the following from the base of the
+mayavi source tree (we assume here that this is in
+`/home/user/src/lib/mayavi`)::
 
   $ pwd
-  /home/svn/enthought/src/lib/enthought
-  $ cd tvtk
-  $ python setup_tvtk.py build_ext --inplace
+  /home/user/src/lib/mayavi
+  $ python setup.py build
 
 The code generation will take a bit of time.  On a PentiumIII machine
 at 450Mhz, generating the code takes about a minute.  If the code
@@ -81,20 +78,15 @@ This completes the installation.  The build can be tested by running
 the tests in the `tests/` directory.  This tests the built code::
 
   $ pwd
-  /home/svn/enthought/tvtk
-  $ cd tests
-  $ python test_tvtk.py
+  /home/user/src/lib/mayavi
+  $ python -m nose.core -v tvtk/tests
   [...]
 
 If the tests run fine, the build is good.  There are other tests in
 the `tests` directory that can also be run.
 
-Documentation is available in the 'doc/' directory.  The 'examples/'
+Documentation is available in the 'docs/' directory.  The 'examples/'
 directory contains a few simple examples demonstrating tvtk in action.
-
-
-.. _SVN: http://subversion.tigris.org
-.. _inplace build of the Enthought tool suite: http://enthought.com/enthought/wiki/GrabbingAndBuilding
 
 
 Basic Usage
@@ -205,6 +197,27 @@ of the tvtk object.
 Note that the complete state of the underlying C++ object is
 impossible to represent in the Python world since this usually
 involves various pointers to other C++ objects.
+
+It is also important to consider that the identity of objects
+is preserved according to the VTK behavior. For example, in the 
+following code, the default object created by the VTK implementation of
+`GetLines()` is the same for any vtkPolyData::
+
+  >>> data1 = vtk.vtkPolyData()
+  >>> data2 = vtk.vtkPolyData()
+  >>> data1.GetLines()
+  (vtkCellArray)0x103b52e30
+  >>> data2.GetLines()
+  (vtkCellArray)0x103b52e30
+
+The equivalent tvtk code behaves in the same way::
+
+  >>> data1 = tvtk.PolyData()
+  >>> data2 = tvtk.PolyData()
+  >>> data1.lines
+  <tvtk.tvtk_classes.cell_array.CellArray at 0xe11e570>
+  >>> data2.lines
+  <tvtk.tvtk_classes.cell_array.CellArray at 0xe11e570>
 
 
 The wrapped VTK object

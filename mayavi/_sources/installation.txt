@@ -113,7 +113,6 @@ are described in the following.
 .. _enstaller: https://pypi.python.org/pypi/enstaller
 .. _Debian: http://www.debian.org
 .. _Ubuntu: http://www.ubuntu.com
-.. _IntelMacPython25: https://svn.enthought.com/enthought/wiki/IntelMacPython25
 .. _numpy: http://numpy.scipy.org
 .. _Enthought Canopy: https://www.enthought.com/products/canopy/
 .. _Pythonxy: https://python-xy.github.io/

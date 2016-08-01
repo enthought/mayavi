@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Main view and UI objects &mdash; mayavi 4.4.4 documentation</title>
+    <title>Main view and UI objects &mdash; mayavi 4.5.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.4.4',
+        VERSION:     '4.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.4.4 documentation" href="../index.html" />
+    <link rel="top" title="mayavi 4.5.0 documentation" href="../index.html" />
     <link rel="up" title="Mayavi API reference" href="index.html" />
     <link rel="next" title="Known bugs and issues" href="../bugs.html" />
     <link rel="prev" title="Pipeline base objects" href="pipeline_objects.html" />
@@ -71,7 +71,7 @@
         <li class="right" >
           <a href="pipeline_objects.html" title="Pipeline base objects"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.4.4 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Mayavi API reference</a> &raquo;</li> 
       </ul>
     </div>  
@@ -95,7 +95,16 @@ how to use them.</p>
 <p>A VTK interactor scene which provides a convenient toolbar that
 allows the user to set the camera view, turn on the axes indicator
 etc.</p>
-<p class="rubric">Methods</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Traits:</th><td class="field-body"><p class="first"><strong>show_axes</strong> : false</p>
+<p class="last"><strong>actions</strong> : List(Either(Action, Group))</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="class">
@@ -103,7 +112,14 @@ etc.</p>
 <em class="property">class </em><code class="descclassname">mayavi.core.ui.api.</code><code class="descname">MayaviScene</code><span class="sig-paren">(</span><em>parent</em>, <em>**traits</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.ui.api.MayaviScene" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">tvtk.pyface.ui.qt4.decorated_scene.DecoratedScene</span></code></p>
 <p>A scene UI, similar to a decorated scene, but with more buttons.</p>
-<p class="rubric">Methods</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Traits:</th><td class="field-body"><strong>image_search_path</strong> : [join(resource_path(), &#8216;images&#8217;)]</td>
+</tr>
+</tbody>
+</table>
 <dl class="method">
 <dt id="mayavi.core.ui.api.MayaviScene.show_engine">
 <code class="descname">show_engine</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.ui.api.MayaviScene.show_engine" title="Permalink to this definition">¶</a></dt>
@@ -121,7 +137,16 @@ scene.</p>
 <em class="property">class </em><code class="descclassname">mayavi.core.ui.api.</code><code class="descname">SceneEditor</code><span class="sig-paren">(</span><em>*args</em>, <em>**traits</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.ui.api.SceneEditor" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">traitsui.basic_editor_factory.BasicEditorFactory</span></code></p>
 <p>A TraitsUI editor factory for SceneModel instances.</p>
-<p class="rubric">Methods</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Traits:</th><td class="field-body"><p class="first"><strong>klass</strong> : _SceneEditor</p>
+<p class="last"><strong>scene_class</strong> : Callable(DecoratedScene)</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </div>
@@ -133,14 +158,24 @@ scene.</p>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">tvtk.pyface.scene_model.SceneModel</span></code></p>
 <p>An container for an mlab model, that can be exposed using a Mayavi
 scene in a TraitsUI view.</p>
-<p class="rubric">Methods</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Traits:</th><td class="field-body"><p class="first"><strong>engine</strong> : Instance(Engine)</p>
+<p><strong>mlab</strong> : Property()</p>
+<p class="last"><strong>mayavi_scene</strong> : Instance(Scene)</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </div>
 <div class="section" id="engineview-and-enginerichview">
 <h2><a class="reference internal" href="#mayavi.core.ui.api.EngineView" title="mayavi.core.ui.api.EngineView"><code class="xref py py-class docutils literal"><span class="pre">EngineView</span></code></a> and  <a class="reference internal" href="#mayavi.core.ui.api.EngineRichView" title="mayavi.core.ui.api.EngineRichView"><code class="xref py py-class docutils literal"><span class="pre">EngineRichView</span></code></a><a class="headerlink" href="#engineview-and-enginerichview" title="Permalink to this headline">¶</a></h2>
 <p>These are two objects to be used as views for an engine:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">mayavi.core.ui.api</span> <span class="kn">import</span> <span class="n">EngineView</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mayavi.core.ui.api</span> <span class="kn">import</span> <span class="n">EngineView</span>
 <span class="n">view</span> <span class="o">=</span> <span class="n">EngineView</span><span class="p">(</span><span class="n">engine</span><span class="o">=</span><span class="n">engine</span><span class="p">)</span>
 <span class="n">view</span><span class="o">.</span><span class="n">edit_traits</span><span class="p">()</span>
 </pre></div>
@@ -150,7 +185,22 @@ scene in a TraitsUI view.</p>
 <em class="property">class </em><code class="descclassname">mayavi.core.ui.api.</code><code class="descname">EngineView</code><span class="sig-paren">(</span><em>**traits</em><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.ui.api.EngineView" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">traits.has_traits.HasTraits</span></code></p>
 <p>A view displaying the engine&#8217;s object tree.</p>
-<p class="rubric">Methods</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Traits:</th><td class="field-body"><p class="first"><strong>engine</strong> : Instance(Engine)</p>
+<p><strong>icon</strong> : ImageResource(&#8216;mv2.ico&#8217;)</p>
+<p><strong>nodes</strong> : Any</p>
+<p><strong>tree_editor</strong> : Instance(TreeEditor)</p>
+<p><strong>toolbar</strong> : Instance(ToolBar)</p>
+<p><strong>actions</strong> : List(Either(Action, Separator))</p>
+<p><strong>scenes</strong> : Delegate(&#8216;engine&#8217;)</p>
+<p class="last"><strong>current_selection</strong> : Delegate(&#8216;engine&#8217;)</p>
+</td>
+</tr>
+</tbody>
+</table>
 <dl class="method">
 <dt id="mayavi.core.ui.api.EngineView.default_traits_view">
 <code class="descname">default_traits_view</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.ui.api.EngineView.default_traits_view" title="Permalink to this definition">¶</a></dt>
@@ -165,7 +215,6 @@ scene in a TraitsUI view.</p>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">mayavi.core.ui.engine_view.EngineView</span></code></p>
 <p>A view displaying the engine&#8217;s object tree, alongside with a
 panel to edit the objects.</p>
-<p class="rubric">Methods</p>
 <dl class="method">
 <dt id="mayavi.core.ui.api.EngineRichView.default_traits_view">
 <code class="descname">default_traits_view</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mayavi.core.ui.api.EngineRichView.default_traits_view" title="Permalink to this definition">¶</a></dt>
@@ -268,13 +317,13 @@ panel to edit the objects.</p>
         <li class="right" >
           <a href="pipeline_objects.html" title="Pipeline base objects"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.4.4 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="index.html" >Mayavi API reference</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2008-2015, Enthought Inc..
-      Last updated on Feb 29, 2016.
+        &copy; Copyright 2008-2016, Enthought Inc..
+      Last updated on Aug 02, 2016.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
     </div>
   </body>

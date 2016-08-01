@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Glyph example &mdash; mayavi 4.4.4 documentation</title>
+    <title>Glyph example &mdash; mayavi 4.5.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.4.4',
+        VERSION:     '4.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.4.4 documentation" href="../index.html" />
+    <link rel="top" title="mayavi 4.5.0 documentation" href="../index.html" />
     <link rel="up" title="Example gallery" href="examples.html" />
     <link rel="next" title="Structured points2d example" href="example_structured_points2d.html" />
     <link rel="prev" title="Surf regular mlab example" href="example_surf_regular_mlab.html" />
@@ -71,7 +71,7 @@
         <li class="right" >
           <a href="example_surf_regular_mlab.html" title="Surf regular mlab example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.4.4 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
       </ul>
     </div>  
@@ -87,14 +87,14 @@
 split the pipeline using a MaskPoints filter and then view the filtered data
 with the Glyph module.</p>
 <p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/glyph.py"><code class="xref download docutils literal"><span class="pre">glyph.py</span></code></a></p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># Author: Prabhu Ramachandran &lt;prabhu_r@users.sf.net&gt;</span>
-<span class="c"># Copyright (c) 2005-2008, Enthought, Inc.</span>
-<span class="c"># License: BSD Style.</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Author: Prabhu Ramachandran &lt;prabhu_r@users.sf.net&gt;</span>
+<span class="c1"># Copyright (c) 2005-2008, Enthought, Inc.</span>
+<span class="c1"># License: BSD Style.</span>
 
-<span class="c"># Standard library imports</span>
+<span class="c1"># Standard library imports</span>
 <span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">join</span><span class="p">,</span> <span class="n">abspath</span><span class="p">,</span> <span class="n">dirname</span>
 
-<span class="c"># Enthought library imports</span>
+<span class="c1"># Enthought library imports</span>
 <span class="kn">from</span> <span class="nn">mayavi.scripts</span> <span class="kn">import</span> <span class="n">mayavi2</span>
 <span class="kn">from</span> <span class="nn">mayavi.sources.vtk_xml_file_reader</span> <span class="kn">import</span> <span class="n">VTKXMLFileReader</span>
 <span class="kn">from</span> <span class="nn">mayavi.modules.outline</span> <span class="kn">import</span> <span class="n">Outline</span>
@@ -107,39 +107,39 @@ with the Glyph module.</p>
     <span class="sd">&quot;&quot;&quot;The script itself.  We needn&#39;t have defined a function but</span>
 <span class="sd">    having a function makes this more reusable.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c"># &#39;mayavi&#39; is always defined on the interpreter.</span>
-    <span class="c"># Create a new VTK scene.</span>
+    <span class="c1"># &#39;mayavi&#39; is always defined on the interpreter.</span>
+    <span class="c1"># Create a new VTK scene.</span>
     <span class="n">mayavi</span><span class="o">.</span><span class="n">new_scene</span><span class="p">()</span>
 
-    <span class="c"># Read a VTK (old style) data file.</span>
+    <span class="c1"># Read a VTK (old style) data file.</span>
     <span class="n">r</span> <span class="o">=</span> <span class="n">VTKXMLFileReader</span><span class="p">()</span>
     <span class="n">r</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">join</span><span class="p">(</span><span class="n">mayavi2</span><span class="o">.</span><span class="n">get_data_dir</span><span class="p">(</span><span class="n">dirname</span><span class="p">(</span><span class="n">abspath</span><span class="p">(</span><span class="n">__file__</span><span class="p">))),</span>
-                      <span class="s">&#39;fire_ug.vtu&#39;</span><span class="p">))</span>
+                      <span class="s1">&#39;fire_ug.vtu&#39;</span><span class="p">))</span>
     <span class="n">mayavi</span><span class="o">.</span><span class="n">add_source</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
 
-    <span class="c"># Create an outline and a vector cut plane.</span>
+    <span class="c1"># Create an outline and a vector cut plane.</span>
     <span class="n">mayavi</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">Outline</span><span class="p">())</span>
 
     <span class="n">v</span> <span class="o">=</span> <span class="n">VectorCutPlane</span><span class="p">()</span>
     <span class="n">mayavi</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
-    <span class="n">v</span><span class="o">.</span><span class="n">glyph</span><span class="o">.</span><span class="n">color_mode</span> <span class="o">=</span> <span class="s">&#39;color_by_scalar&#39;</span>
+    <span class="n">v</span><span class="o">.</span><span class="n">glyph</span><span class="o">.</span><span class="n">color_mode</span> <span class="o">=</span> <span class="s1">&#39;color_by_scalar&#39;</span>
 
-    <span class="c"># Now mask the points and show glyphs (we could also use</span>
-    <span class="c"># Vectors but glyphs are a bit more generic)</span>
+    <span class="c1"># Now mask the points and show glyphs (we could also use</span>
+    <span class="c1"># Vectors but glyphs are a bit more generic)</span>
     <span class="n">m</span> <span class="o">=</span> <span class="n">MaskPoints</span><span class="p">()</span>
     <span class="n">m</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">on_ratio</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">random_mode</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
     <span class="n">mayavi</span><span class="o">.</span><span class="n">add_filter</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
 
     <span class="n">g</span> <span class="o">=</span> <span class="n">Glyph</span><span class="p">()</span>
     <span class="n">mayavi</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
-    <span class="c"># Note that this adds the module to the filtered output.</span>
-    <span class="n">g</span><span class="o">.</span><span class="n">glyph</span><span class="o">.</span><span class="n">scale_mode</span> <span class="o">=</span> <span class="s">&#39;scale_by_vector&#39;</span>
-    <span class="c"># Use arrows to view the scalars.</span>
+    <span class="c1"># Note that this adds the module to the filtered output.</span>
+    <span class="n">g</span><span class="o">.</span><span class="n">glyph</span><span class="o">.</span><span class="n">scale_mode</span> <span class="o">=</span> <span class="s1">&#39;scale_by_vector&#39;</span>
+    <span class="c1"># Use arrows to view the scalars.</span>
     <span class="n">gs</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">glyph</span><span class="o">.</span><span class="n">glyph_source</span>
-    <span class="n">gs</span><span class="o">.</span><span class="n">glyph_source</span> <span class="o">=</span> <span class="n">gs</span><span class="o">.</span><span class="n">glyph_dict</span><span class="p">[</span><span class="s">&#39;arrow_source&#39;</span><span class="p">]</span>
+    <span class="n">gs</span><span class="o">.</span><span class="n">glyph_source</span> <span class="o">=</span> <span class="n">gs</span><span class="o">.</span><span class="n">glyph_dict</span><span class="p">[</span><span class="s1">&#39;arrow_source&#39;</span><span class="p">]</span>
 
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">glyph</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -225,13 +225,13 @@ with the Glyph module.</p>
         <li class="right" >
           <a href="example_surf_regular_mlab.html" title="Surf regular mlab example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.4.4 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2008-2015, Enthought Inc..
-      Last updated on Feb 29, 2016.
+        &copy; Copyright 2008-2016, Enthought Inc..
+      Last updated on Aug 02, 2016.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
     </div>
   </body>

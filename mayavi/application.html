@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Using the Mayavi application &mdash; mayavi 4.4.4 documentation</title>
+    <title>Using the Mayavi application &mdash; mayavi 4.5.0 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '4.4.4',
+        VERSION:     '4.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.4.4 documentation" href="index.html" />
+    <link rel="top" title="mayavi 4.5.0 documentation" href="index.html" />
     <link rel="next" title="Parametric surfaces: a simple introduction to visualization" href="example_parametric_surface.html" />
     <link rel="prev" title="Installation" href="installation.html" />
 <style type="text/css">
@@ -70,7 +70,7 @@
         <li class="right" >
           <a href="installation.html" title="Installation"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.4.4 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.5.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -106,7 +106,7 @@ deeper understanding.</p>
 <span id="learning-mayavi-by-example"></span><h2><a class="toc-backref" href="#id6">Tutorial examples to learn Mayavi</a><a class="headerlink" href="#tutorial-examples-to-learn-mayavi" title="Permalink to this headline">¶</a></h2>
 <p>To get acquainted with mayavi you may start up the Mayavi2 application,
 <code class="docutils literal"><span class="pre">mayavi2</span></code> in the command line, like so:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ mayavi2
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ mayavi2
 </pre></div>
 </div>
 <p>On Windows you can double click on the installed <code class="docutils literal"><span class="pre">mayavi2.exe</span></code>
@@ -406,7 +406,7 @@ Mayavi scripts. You can also increase and decrease the font size using
 pipeline tree view onto the Python shell.  The object may then be
 scripted as one normally would.  A commonly used pattern when this
 is done is the following:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">tvtk_scene_1</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tvtk_scene_1</span>
 <span class="go">&lt;mayavi.core.scene.Scene object at 0x9f4cbe3c&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">_</span>
 </pre></div>
@@ -472,11 +472,11 @@ and not saving a file you may click cancel at this point.</p>
 <li><p class="first">Close the recorder window. You can quit Mayavi, if you want to.</p>
 </li>
 <li><p class="first">Now from the shell do:</p>
-<div class="highlight-python"><div class="highlight"><pre>$  mayavi2 -x script.py
+<div class="highlight-python"><div class="highlight"><pre><span></span>$  mayavi2 -x script.py
 </pre></div>
 </div>
 <p>or even:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ python script.py
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ python script.py
 </pre></div>
 </div>
 <p>These should run all the code to get you where you left.  You can
@@ -539,7 +539,7 @@ are described in the <code class="docutils literal"><span class="pre">mayavi2</s
 <p>A complete pipeline may be built from the command line, so that Mayavi
 can be integrated in shell scripts to provide useful visualizations.</p>
 <p>Mayavi can be run like so:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">mayavi2</span> <span class="p">[</span><span class="n">options</span><span class="p">]</span> <span class="p">[</span><span class="n">args</span><span class="p">]</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">mayavi2</span> <span class="p">[</span><span class="n">options</span><span class="p">]</span> <span class="p">[</span><span class="n">args</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>Where <code class="docutils literal"><span class="pre">arg1</span></code>, <code class="docutils literal"><span class="pre">arg2</span></code> etc.  are optional file names that correspond
@@ -590,7 +590,7 @@ then the module (<code class="docutils literal"><span class="pre">SomeModule</sp
 <code class="docutils literal"><span class="pre">package.sub.module</span></code>.  Standard modules provided with
 <code class="docutils literal"><span class="pre">mayavi2</span></code> do not need the full path specification.  For
 example:</p>
-<div class="highlight-python"><div class="highlight"><pre>mayavi2 -d data.vtk -m Outline -m user_modules.AModule
+<div class="highlight-python"><div class="highlight"><pre><span></span>mayavi2 -d data.vtk -m Outline -m user_modules.AModule
 </pre></div>
 </div>
 <p class="last">In this example <code class="docutils literal"><span class="pre">Outline</span></code> is a standard module and
@@ -608,7 +608,7 @@ then the filter (<code class="docutils literal"><span class="pre">SomeFilter</sp
 <code class="docutils literal"><span class="pre">package.sub.filter</span></code>.  Standard modules provided with
 <code class="docutils literal"><span class="pre">mayavi2</span></code> do not need the full path specification.  For
 example:</p>
-<div class="highlight-python"><div class="highlight"><pre>mayavi2 -d data.vtk -f ExtractVectorNorm -f user_filters.AFilter
+<div class="highlight-python"><div class="highlight"><pre><span></span>mayavi2 -d data.vtk -f ExtractVectorNorm -f user_filters.AFilter
 </pre></div>
 </div>
 <p class="last">In this example <code class="docutils literal"><span class="pre">ExtractVectorNorm</span></code> is a standard filter and
@@ -644,13 +644,13 @@ in the embedded Python interpreter.  Also available through
 both the TVTK and Mayavi2 unit tests.  If any additional arguments
 are passed they are passed along to the test runner.  So this may
 be used to run other tests as well.  For example:</p>
-<div class="highlight-python"><div class="highlight"><pre>mayavi2 -t apptools.persistence
+<div class="highlight-python"><div class="highlight"><pre><span></span>mayavi2 -t apptools.persistence
 </pre></div>
 </div>
 <p>This will run just the tests inside the <code class="docutils literal"><span class="pre">apptools.persistence</span></code>
 package.  You can also specify a directory with test files to run
 with this, for example:</p>
-<div class="highlight-python"><div class="highlight"><pre>mayavi2 -t relative_path_to/integrationtests/mayavi
+<div class="highlight-python"><div class="highlight"><pre><span></span>mayavi2 -t relative_path_to/integrationtests/mayavi
 </pre></div>
 </div>
 <p class="last">will run the integration tests from the Mayavi sources.  Also
@@ -662,7 +662,7 @@ available as <code class="docutils literal"><span class="pre">--test</span></cod
 <tr><td>&nbsp;</td><td><p class="first">Execute the python-expression on the last created object.  For
 example, let&#8217;s say the previous object was a module.  If you want
 to set the color of that object and save the scene, you may do:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ mayavi2 [...] -m Outline -s&quot;actor.property.color = (1,0,0)&quot; \
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ mayavi2 [...] -m Outline -s&quot;actor.property.color = (1,0,0)&quot; \
  -s &quot;scene.save(&#39;test.png&#39;, size=(800, 800))&quot;
 </pre></div>
 </div>
@@ -681,7 +681,7 @@ dangerous if the script does something nasty!  Similarly, <code class="docutils 
 processed sequentially</strong> in the same order they are given.  This
 allows users to do interesting things.</p>
 <p>Here are a few examples of the command line arguments:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ mayavi2 -d ParametricSurface -s &quot;function=&#39;dini&#39;&quot; -m Surface \
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ mayavi2 -d ParametricSurface -s &quot;function=&#39;dini&#39;&quot; -m Surface \
   -s &quot;module_manager.scalar_lut_manager.show_scalar_bar = True&quot; \
   -s &quot;scene.isometric_view()&quot; -s &quot;scene.save(&#39;snapshot.png&#39;)&quot;
 
@@ -800,12 +800,12 @@ platform.</p>
         <li class="right" >
           <a href="installation.html" title="Installation"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.4.4 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.5.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2008-2015, Enthought Inc..
-      Last updated on Feb 29, 2016.
+        &copy; Copyright 2008-2016, Enthought Inc..
+      Last updated on Aug 02, 2016.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
     </div>
   </body>
