@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Standalone example &mdash; mayavi 4.4.4 documentation</title>
+    <title>Standalone example &mdash; mayavi 4.5.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.4.4',
+        VERSION:     '4.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.4.4 documentation" href="../index.html" />
+    <link rel="top" title="mayavi 4.5.0 documentation" href="../index.html" />
     <link rel="up" title="Example gallery" href="examples.html" />
     <link rel="next" title="Zzz reader example" href="example_zzz_reader.html" />
     <link rel="prev" title="Select red balls example" href="example_select_red_balls.html" />
@@ -71,7 +71,7 @@
         <li class="right" >
           <a href="example_select_red_balls.html" title="Select red balls example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.4.4 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
       </ul>
     </div>  
@@ -86,54 +86,54 @@
 <p>A simple example of how you can use Mayavi without
 using Envisage or the Mayavi Envisage application.</p>
 <p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/standalone.py"><code class="xref download docutils literal"><span class="pre">standalone.py</span></code></a></p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># Author: Prabhu Ramachandran &lt;prabhu@aero.iitb.ac.in&gt;</span>
-<span class="c"># Copyright (c) 2007, Enthought, Inc.</span>
-<span class="c"># License: BSD Style.</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Author: Prabhu Ramachandran &lt;prabhu@aero.iitb.ac.in&gt;</span>
+<span class="c1"># Copyright (c) 2007, Enthought, Inc.</span>
+<span class="c1"># License: BSD Style.</span>
 
 <span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">join</span><span class="p">,</span> <span class="n">abspath</span>
 
 <span class="kn">from</span> <span class="nn">pyface.api</span> <span class="kn">import</span> <span class="n">GUI</span>
-<span class="c"># The core Engine.</span>
+<span class="c1"># The core Engine.</span>
 <span class="kn">from</span> <span class="nn">mayavi.core.api</span> <span class="kn">import</span> <span class="n">Engine</span>
 <span class="kn">from</span> <span class="nn">mayavi.core.ui.engine_view</span> <span class="kn">import</span> <span class="n">EngineView</span>
-<span class="c"># Usual MayaVi imports</span>
+<span class="c1"># Usual MayaVi imports</span>
 <span class="kn">from</span> <span class="nn">mayavi.scripts.util</span> <span class="kn">import</span> <span class="n">get_data_dir</span>
 <span class="kn">from</span> <span class="nn">mayavi.sources.api</span> <span class="kn">import</span> <span class="n">VTKXMLFileReader</span>
 <span class="kn">from</span> <span class="nn">mayavi.modules.api</span> <span class="kn">import</span> <span class="n">Outline</span><span class="p">,</span> <span class="n">ScalarCutPlane</span><span class="p">,</span> <span class="n">Streamline</span>
 
 
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="c"># Create the MayaVi engine and start it.</span>
+    <span class="c1"># Create the MayaVi engine and start it.</span>
     <span class="n">e</span> <span class="o">=</span> <span class="n">Engine</span><span class="p">()</span>
-    <span class="c"># Starting the engine registers the engine with the registry and</span>
-    <span class="c"># notifies others that the engine is ready.</span>
+    <span class="c1"># Starting the engine registers the engine with the registry and</span>
+    <span class="c1"># notifies others that the engine is ready.</span>
     <span class="n">e</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
 
-    <span class="c"># Do this if you need to see the MayaVi tree view UI.</span>
+    <span class="c1"># Do this if you need to see the MayaVi tree view UI.</span>
     <span class="n">ev</span> <span class="o">=</span> <span class="n">EngineView</span><span class="p">(</span><span class="n">engine</span><span class="o">=</span><span class="n">e</span><span class="p">)</span>
     <span class="n">ui</span> <span class="o">=</span> <span class="n">ev</span><span class="o">.</span><span class="n">edit_traits</span><span class="p">()</span>
 
-    <span class="c"># Create a new scene.</span>
+    <span class="c1"># Create a new scene.</span>
     <span class="n">scene</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">new_scene</span><span class="p">()</span>
-    <span class="c"># Now create a new scene just for kicks.</span>
+    <span class="c1"># Now create a new scene just for kicks.</span>
     <span class="n">scene1</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">new_scene</span><span class="p">()</span>
 
-    <span class="c"># Now setup a normal MayaVi pipeline.</span>
+    <span class="c1"># Now setup a normal MayaVi pipeline.</span>
     <span class="n">src</span> <span class="o">=</span> <span class="n">VTKXMLFileReader</span><span class="p">()</span>
     <span class="n">src</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">join</span><span class="p">(</span><span class="n">get_data_dir</span><span class="p">(</span><span class="n">abspath</span><span class="p">(</span><span class="n">__file__</span><span class="p">)),</span>
-                        <span class="s">&#39;fire_ug.vtu&#39;</span><span class="p">))</span>
+                        <span class="s1">&#39;fire_ug.vtu&#39;</span><span class="p">))</span>
     <span class="n">e</span><span class="o">.</span><span class="n">add_source</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
     <span class="n">e</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">Outline</span><span class="p">())</span>
     <span class="n">e</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">ScalarCutPlane</span><span class="p">())</span>
     <span class="n">e</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">Streamline</span><span class="p">())</span>
     <span class="k">return</span> <span class="n">e</span><span class="p">,</span> <span class="n">ui</span>
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="c"># When main returns the ui to go out of scope and be gc&#39;d causing the view</span>
-    <span class="c"># to disappear with qt4.</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="c1"># When main returns the ui to go out of scope and be gc&#39;d causing the view</span>
+    <span class="c1"># to disappear with qt4.</span>
     <span class="n">e</span><span class="p">,</span> <span class="n">ui</span> <span class="o">=</span> <span class="n">main</span><span class="p">()</span>
-    <span class="c"># Create a GUI instance and start the event loop.  We do this here so that</span>
-    <span class="c"># main can be run from IPython -wthread if needed.</span>
+    <span class="c1"># Create a GUI instance and start the event loop.  We do this here so that</span>
+    <span class="c1"># main can be run from IPython -wthread if needed.</span>
     <span class="n">gui</span> <span class="o">=</span> <span class="n">GUI</span><span class="p">()</span>
     <span class="n">gui</span><span class="o">.</span><span class="n">start_event_loop</span><span class="p">()</span>
 
@@ -221,13 +221,13 @@ using Envisage or the Mayavi Envisage application.</p>
         <li class="right" >
           <a href="example_select_red_balls.html" title="Select red balls example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.4.4 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2008-2015, Enthought Inc..
-      Last updated on Feb 29, 2016.
+        &copy; Copyright 2008-2016, Enthought Inc..
+      Last updated on Aug 02, 2016.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
     </div>
   </body>

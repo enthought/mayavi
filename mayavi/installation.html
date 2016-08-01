@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Installation &mdash; mayavi 4.4.4 documentation</title>
+    <title>Installation &mdash; mayavi 4.5.0 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '4.4.4',
+        VERSION:     '4.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.4.4 documentation" href="index.html" />
+    <link rel="top" title="mayavi 4.5.0 documentation" href="index.html" />
     <link rel="next" title="Using the Mayavi application" href="application.html" />
     <link rel="prev" title="An overview of Mayavi" href="overview.html" />
 <style type="text/css">
@@ -70,7 +70,7 @@
         <li class="right" >
           <a href="overview.html" title="An overview of Mayavi"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.4.4 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.5.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -181,7 +181,7 @@ However, VTK Python wrapper is not available from PyPI.
 Therefore you will need to install it separately before proceeding;
 e.g. it is available from <a class="reference external" href="https://www.enthought.com/products/canopy/">Enthought Canopy</a> or Linux installable binaries.</p>
 <p>After installing VTK Python, you can install mayavi using <cite>pip</cite>:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ pip install mayavi
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ pip install mayavi
 </pre></div>
 </div>
 </div>
@@ -205,7 +205,7 @@ Alternatively <cite>easy_install</cite> can build the eggs from the source tarba
 This is also fairly easy to do if you have a proper build environment.</p>
 <p>To install eggs, first make sure the essential requirements are
 installed, and then build and install the eggs like so:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ easy_install &quot;Mayavi[app]&quot;
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ easy_install &quot;Mayavi[app]&quot;
 </pre></div>
 </div>
 <p>This one command will download, build and install all the required ETS
@@ -215,7 +215,7 @@ installed automatically.</p>
 <p>If you are running a unix system (such as Linux) we advice you not to
 install the files in the system directories (<cite>/usr</cite>). An easy way to
 avoid this is to run:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ easy_install --prefix &quot;Mayavi[app]&quot;
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ easy_install --prefix &quot;Mayavi[app]&quot;
 </pre></div>
 </div>
 <div class="admonition warning">
@@ -238,7 +238,7 @@ install command a few times.</li>
 <p>If you wish to download all the eggs fetched by <cite>easy_install</cite>, for
 instance to propagate to an offline PC, you can use virtualenv to
 create an empty site-packages, and install to it:</p>
-<div class="last highlight-python"><div class="highlight"><pre>virtualenv --no-site-packages temp
+<div class="last highlight-python"><div class="highlight"><pre><span></span>virtualenv --no-site-packages temp
 cd temp
 source bin/activate
 mkdir temp_subdir
@@ -263,7 +263,7 @@ environment variables.</p>
 </li>
 <li><p class="first">Create a &#8216;c:\documents and settings\USERNAME\pydistutils.cfg&#8217; file(where
 USERNAME is the login) with the following contents:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">[</span><span class="n">build</span><span class="p">]</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">build</span><span class="p">]</span>
 <span class="n">compiler</span><span class="o">=</span><span class="n">mingw32</span>
 </pre></div>
 </div>
@@ -295,12 +295,12 @@ website and copy them into C:\winnt\system32.</li>
 <li><p class="first">Installing wxPython (2.8 binary from <a class="reference external" href="http://www.wxpython.org/">http://www.wxpython.org/</a> )</p>
 </li>
 <li><p class="first">Run in cmd.exe:</p>
-<div class="highlight-python"><div class="highlight"><pre>easy_install Sphinx EnvisageCore EnvisagePlugins configobj
+<div class="highlight-python"><div class="highlight"><pre><span></span>easy_install Sphinx EnvisageCore EnvisagePlugins configobj
 </pre></div>
 </div>
 </li>
 <li><p class="first">Finally, run in cmd.exe:</p>
-<div class="highlight-python"><div class="highlight"><pre>easy_install Mayavi[app]
+<div class="highlight-python"><div class="highlight"><pre><span></span>easy_install Mayavi[app]
 </pre></div>
 </div>
 </li>
@@ -322,7 +322,7 @@ providing the instructions):</p>
 </li>
 <li><p class="first">Then cd into vtkbuild and run &#8220;cmake ../VTK&#8221;. Next, edit CMakeCache.txt
 (in vtkbuild) and set:</p>
-<div class="highlight-python"><div class="highlight"><pre>//Build Verdict with shared libraries.
+<div class="highlight-python"><div class="highlight"><pre><span></span>//Build Verdict with shared libraries.
 BUILD_SHARED_LIBS:BOOL=ON
 
 //Build architectures for OSX
@@ -348,7 +348,7 @@ faster on an 8-core system.</p>
 <li><p class="first">Run &#8220;sudo make install&#8221;</p>
 </li>
 <li><p class="first">Edit your ~/.profile and add the following line:</p>
-<div class="highlight-python"><div class="highlight"><pre>export DYLD_LIBRARY_PATH=${DYLD_LIBRARY_PATH}:/usr/local/lib/vtk-5.4
+<div class="highlight-python"><div class="highlight"><pre><span></span>export DYLD_LIBRARY_PATH=${DYLD_LIBRARY_PATH}:/usr/local/lib/vtk-5.4
 </pre></div>
 </div>
 </li>
@@ -381,7 +381,7 @@ pulling all other ETS projects from github, and other useful features.</p>
 to build Mayavi. As the extra packages have additional
 dependencies, they may render the build harder. You can remove
 safely the following directories:</p>
-<div class="last highlight-python"><div class="highlight"><pre>blockcanvas chaco codetools enable graphcanvas scimath
+<div class="last highlight-python"><div class="highlight"><pre><span></span>blockcanvas chaco codetools enable graphcanvas scimath
 </pre></div>
 </div>
 </div>
@@ -390,11 +390,11 @@ safely the following directories:</p>
 <h2>Testing your installation<a class="headerlink" href="#testing-your-installation" title="Permalink to this headline">¶</a></h2>
 <p>The easiest way to test if your installation is OK is to run the mayavi2
 application like so:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">mayavi2</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">mayavi2</span>
 </pre></div>
 </div>
 <p>To get more help on the command try this:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">mayavi2</span> <span class="o">-</span><span class="n">h</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">mayavi2</span> <span class="o">-</span><span class="n">h</span>
 </pre></div>
 </div>
 <p><code class="docutils literal"><span class="pre">mayavi2</span></code> is the mayavi application.  On some platforms like win32
@@ -520,12 +520,12 @@ information or email the mailing list.</p>
         <li class="right" >
           <a href="overview.html" title="An overview of Mayavi"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.4.4 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.5.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2008-2015, Enthought Inc..
-      Last updated on Feb 29, 2016.
+        &copy; Copyright 2008-2016, Enthought Inc..
+      Last updated on Aug 02, 2016.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
     </div>
   </body>

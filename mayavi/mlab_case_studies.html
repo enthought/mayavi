@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Case studies of some visualizations &mdash; mayavi 4.4.4 documentation</title>
+    <title>Case studies of some visualizations &mdash; mayavi 4.5.0 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '4.4.4',
+        VERSION:     '4.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.4.4 documentation" href="index.html" />
+    <link rel="top" title="mayavi 4.5.0 documentation" href="index.html" />
 <style type="text/css">
   body {
     /* Very bottom copyright, etc. info */
@@ -62,7 +62,7 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.4.4 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.5.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -77,7 +77,7 @@
 <h2>Visualizing volumetric scalar data<a class="headerlink" href="#visualizing-volumetric-scalar-data" title="Permalink to this headline">¶</a></h2>
 <p>There are three main ways of visualizing a 3D scalar field. Given the
 following field:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ogrid</span><span class="p">[</span><span class="o">-</span><span class="mi">10</span><span class="p">:</span><span class="mi">10</span><span class="p">:</span><span class="mi">20j</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">:</span><span class="mi">10</span><span class="p">:</span><span class="mi">20j</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">:</span><span class="mi">10</span><span class="p">:</span><span class="mi">20j</span><span class="p">]</span>
 <span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="o">*</span><span class="n">z</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="o">*</span><span class="n">z</span><span class="p">)</span>
 </pre></div>
@@ -88,7 +88,7 @@ following field:</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Iso-Surfaces:</th><td class="field-body"><p class="first">To display iso surfaces of the field, the simplest solution is
 simply to use the <cite>mlab</cite> <a class="reference internal" href="auto/mlab_helper_functions.html#mayavi.mlab.contour3d" title="mayavi.mlab.contour3d"><code class="xref py py-func docutils literal"><span class="pre">contour3d()</span></code></a> function:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">mlab</span><span class="o">.</span><span class="n">contour3d</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">mlab</span><span class="o">.</span><span class="n">contour3d</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
 </pre></div>
 </div>
 <p><img alt="volumetric_contour3d" src="_images/volumetric_contour3d.jpg" /></p>
@@ -101,7 +101,7 @@ ones. As a result, quite often only one iso-surface can be visible.</p>
 given a partly transparent color. This can be achieved with
 <cite>mlab.pipeline</cite> using the <a class="reference internal" href="auto/mlab_pipeline_sources.html#mayavi.tools.pipeline.scalar_field" title="mayavi.tools.pipeline.scalar_field"><code class="xref py py-func docutils literal"><span class="pre">scalar_field()</span></code></a> source, and the
 <cite>volume</cite> module:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">volume</span><span class="p">(</span><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">scalar_field</span><span class="p">(</span><span class="n">s</span><span class="p">))</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">volume</span><span class="p">(</span><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">scalar_field</span><span class="p">(</span><span class="n">s</span><span class="p">))</span>
 </pre></div>
 </div>
 <p><img alt="volumetric_volume" src="_images/volumetric_volume.jpg" /></p>
@@ -110,7 +110,7 @@ critical to achieve a good effect. Typically, it can be useful to
 limit the lower and upper values to the 20 and 80 percentiles of the
 data, in order to have a reasonable fraction of the volume
 transparent:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">volume</span><span class="p">(</span><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">scalar_field</span><span class="p">(</span><span class="n">s</span><span class="p">),</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">volume</span><span class="p">(</span><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">scalar_field</span><span class="p">(</span><span class="n">s</span><span class="p">),</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
 </pre></div>
 </div>
 <p><img alt="volumetric_volume_tweaked" src="_images/volumetric_volume_tweaked.jpg" /></p>
@@ -126,12 +126,12 @@ it.</p>
 </tr>
 <tr class="field-odd field"><th class="field-name">Cut planes:</th><td class="field-body"><p class="first">While less impressive, cut planes are a very informative way of
 visualizing the details of a scalar field:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">image_plane_widget</span><span class="p">(</span><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">scalar_field</span><span class="p">(</span><span class="n">s</span><span class="p">),</span>
-                            <span class="n">plane_orientation</span><span class="o">=</span><span class="s">&#39;x_axes&#39;</span><span class="p">,</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">image_plane_widget</span><span class="p">(</span><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">scalar_field</span><span class="p">(</span><span class="n">s</span><span class="p">),</span>
+                            <span class="n">plane_orientation</span><span class="o">=</span><span class="s1">&#39;x_axes&#39;</span><span class="p">,</span>
                             <span class="n">slice_index</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
                         <span class="p">)</span>
 <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">image_plane_widget</span><span class="p">(</span><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">scalar_field</span><span class="p">(</span><span class="n">s</span><span class="p">),</span>
-                            <span class="n">plane_orientation</span><span class="o">=</span><span class="s">&#39;y_axes&#39;</span><span class="p">,</span>
+                            <span class="n">plane_orientation</span><span class="o">=</span><span class="s1">&#39;y_axes&#39;</span><span class="p">,</span>
                             <span class="n">slice_index</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
                         <span class="p">)</span>
 <span class="n">mlab</span><span class="o">.</span><span class="n">outline</span><span class="p">()</span>
@@ -150,11 +150,11 @@ the field.</p>
 iso-surfaces and thresholding to give a view of the peak areas using
 the iso-surfaces, visualize the details of the field with the cut
 plane, and the global mass with a large iso-surface:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">src</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">scalar_field</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">src</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">scalar_field</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
 <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">iso_surface</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">contours</span><span class="o">=</span><span class="p">[</span><span class="n">s</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">+</span><span class="mf">0.1</span><span class="o">*</span><span class="n">s</span><span class="o">.</span><span class="n">ptp</span><span class="p">(),</span> <span class="p">],</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
 <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">iso_surface</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">contours</span><span class="o">=</span><span class="p">[</span><span class="n">s</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">-</span><span class="mf">0.1</span><span class="o">*</span><span class="n">s</span><span class="o">.</span><span class="n">ptp</span><span class="p">(),</span> <span class="p">],)</span>
 <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">image_plane_widget</span><span class="p">(</span><span class="n">src</span><span class="p">,</span>
-                            <span class="n">plane_orientation</span><span class="o">=</span><span class="s">&#39;z_axes&#39;</span><span class="p">,</span>
+                            <span class="n">plane_orientation</span><span class="o">=</span><span class="s1">&#39;z_axes&#39;</span><span class="p">,</span>
                             <span class="n">slice_index</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
                         <span class="p">)</span>
 </pre></div>
@@ -177,7 +177,7 @@ difficult to visualize, as it contains a lot of information. Let us
 explore different visualizations for the velocity field of a multi-axis
 convection cell <a class="footnote-reference" href="#id2" id="id1">[1]</a>, in hydrodynamics, as defined by its components
 sampled on a grid, <cite>u</cite>, <cite>v</cite>, <cite>w</cite>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span><span class="mi">20j</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span><span class="mi">20j</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span><span class="mi">20j</span><span class="p">]</span>
 
 <span class="n">u</span> <span class="o">=</span>    <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">z</span><span class="p">)</span>
@@ -191,7 +191,7 @@ sampled on a grid, <cite>u</cite>, <cite>v</cite>, <cite>w</cite>:</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Quiver:</th><td class="field-body"><p class="first">The simplest visualization of a set of vectors, is using the <cite>mlab</cite>
 function <cite>quiver3d</cite>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">mlab</span><span class="o">.</span><span class="n">quiver3d</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">mlab</span><span class="o">.</span><span class="n">quiver3d</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
 <span class="n">mlab</span><span class="o">.</span><span class="n">outline</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -207,7 +207,7 @@ just a bunch of vectors, to reduce the amount of arrows displayed. For
 this we need to build a <cite>vector_field</cite> source, and apply to it the
 <cite>vectors</cite> module, with some masking parameters (here we keep only one
 point out of 20):</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">src</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">vector_field</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">src</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">vector_field</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
 <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">vectors</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">mask_points</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">scale_factor</span><span class="o">=</span><span class="mf">3.</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -218,7 +218,7 @@ point out of 20):</p>
 use a cut plane. In particular, we can inspect interactively the
 vector field by moving the cut plane along: clicking on it and
 dragging it can give a very clear understanding of the vector field:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">vector_cut_plane</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">mask_points</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">scale_factor</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">vector_cut_plane</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">mask_points</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">scale_factor</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 </pre></div>
 </div>
 <img alt="_images/vector_field_cut_plane.jpg" src="_images/vector_field_cut_plane.jpg" />
@@ -232,7 +232,7 @@ ExtractVectorNorm filter, and use the Iso-Surface module on it. When
 working interactively, a good understanding of the magnitude of the
 field can be gained by changing the values of the contours in the
 object&#8217;s property dialog.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">magnitude</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">extract_vector_norm</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">magnitude</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">extract_vector_norm</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
 <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">iso_surface</span><span class="p">(</span><span class="n">magnitude</span><span class="p">,</span> <span class="n">contours</span><span class="o">=</span><span class="p">[</span><span class="mf">1.9</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])</span>
 </pre></div>
 </div>
@@ -246,9 +246,9 @@ trajectory in hydrodynamics, or field lines in electro-magnetism.
 We can display the flow lines originating for a certain seed surface
 using the <cite>streamline</cite> module, or the mlab <a class="reference internal" href="auto/mlab_helper_functions.html#mayavi.mlab.flow" title="mayavi.mlab.flow"><code class="xref py py-func docutils literal"><span class="pre">flow()</span></code></a> function,
 which relies on <cite>streamline</cite> internally:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">flow</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">flow</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">seed_scale</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">flow</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">flow</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">seed_scale</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
                           <span class="n">seed_resolution</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
-                          <span class="n">integration_direction</span><span class="o">=</span><span class="s">&#39;both&#39;</span><span class="p">)</span>
+                          <span class="n">integration_direction</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <img alt="_images/vector_field_flow.jpg" src="_images/vector_field_flow.jpg" />
@@ -260,12 +260,12 @@ and one must use all the tools at hand to illustrate his purposes. It
 is important to choose the message conveyed. No one visualization
 will tell all about a vector field. Here is an example of a
 visualization made by combining the different tools above:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">mlab</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">fgcolor</span><span class="o">=</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">),</span> <span class="n">bgcolor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">mlab</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">fgcolor</span><span class="o">=</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">),</span> <span class="n">bgcolor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
 <span class="n">src</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">vector_field</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
 <span class="n">magnitude</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">extract_vector_norm</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
 
-<span class="c"># We apply the following modules on the magnitude object, in order to</span>
-<span class="c"># be able to display the norm of the vectors, eg as the color.</span>
+<span class="c1"># We apply the following modules on the magnitude object, in order to</span>
+<span class="c1"># be able to display the norm of the vectors, eg as the color.</span>
 <span class="n">iso</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">iso_surface</span><span class="p">(</span><span class="n">magnitude</span><span class="p">,</span> <span class="n">contours</span><span class="o">=</span><span class="p">[</span><span class="mf">1.9</span><span class="p">,</span> <span class="p">],</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
 
 <span class="n">vec</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">vectors</span><span class="p">(</span><span class="n">magnitude</span><span class="p">,</span> <span class="n">mask_points</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span>
@@ -273,16 +273,16 @@ visualization made by combining the different tools above:</p>
                                     <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="o">.</span><span class="mi">8</span><span class="p">,</span> <span class="o">.</span><span class="mi">8</span><span class="p">,</span> <span class="o">.</span><span class="mi">8</span><span class="p">),</span>
                                     <span class="n">scale_factor</span><span class="o">=</span><span class="mf">4.</span><span class="p">)</span>
 
-<span class="n">flow</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">streamline</span><span class="p">(</span><span class="n">magnitude</span><span class="p">,</span> <span class="n">seedtype</span><span class="o">=</span><span class="s">&#39;plane&#39;</span><span class="p">,</span>
+<span class="n">flow</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">streamline</span><span class="p">(</span><span class="n">magnitude</span><span class="p">,</span> <span class="n">seedtype</span><span class="o">=</span><span class="s1">&#39;plane&#39;</span><span class="p">,</span>
                                         <span class="n">seed_visible</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
                                         <span class="n">seed_scale</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
                                         <span class="n">seed_resolution</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                                        <span class="n">linetype</span><span class="o">=</span><span class="s">&#39;ribbon&#39;</span><span class="p">,)</span>
+                                        <span class="n">linetype</span><span class="o">=</span><span class="s1">&#39;ribbon&#39;</span><span class="p">,)</span>
 
 <span class="n">vcp</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">vector_cut_plane</span><span class="p">(</span><span class="n">magnitude</span><span class="p">,</span> <span class="n">mask_points</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
                                         <span class="n">scale_factor</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
-                                        <span class="n">colormap</span><span class="o">=</span><span class="s">&#39;jet&#39;</span><span class="p">,</span>
-                                        <span class="n">plane_orientation</span><span class="o">=</span><span class="s">&#39;x_axes&#39;</span><span class="p">)</span>
+                                        <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">,</span>
+                                        <span class="n">plane_orientation</span><span class="o">=</span><span class="s1">&#39;x_axes&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <img alt="_images/vector_field_combination.jpg" class="last" src="_images/vector_field_combination.jpg" />
@@ -404,12 +404,12 @@ approach to mixing by chaotic advection Phys. Fluids, 1995, 7, 2587</td></tr>
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.4.4 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.5.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2008-2015, Enthought Inc..
-      Last updated on Feb 29, 2016.
+        &copy; Copyright 2008-2016, Enthought Inc..
+      Last updated on Aug 02, 2016.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
     </div>
   </body>

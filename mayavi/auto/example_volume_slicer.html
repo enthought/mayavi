@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Volume slicer example &mdash; mayavi 4.4.4 documentation</title>
+    <title>Volume slicer example &mdash; mayavi 4.5.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.4.4',
+        VERSION:     '4.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.4.4 documentation" href="../index.html" />
+    <link rel="top" title="mayavi 4.5.0 documentation" href="../index.html" />
     <link rel="up" title="Example gallery" href="examples.html" />
     <link rel="next" title="Coil design application example" href="example_coil_design_application.html" />
     <link rel="prev" title="Lorenz ui example" href="example_lorenz_ui.html" />
@@ -71,7 +71,7 @@
         <li class="right" >
           <a href="example_lorenz_ui.html" title="Lorenz ui example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.4.4 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
       </ul>
     </div>  
@@ -108,9 +108,9 @@ on it is strongly simplified by turning off interaction, and choosing
 specific scene interactor styles. Indeed, non-technical users can be
 confused with too rich interaction.</p>
 <p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/volume_slicer.py"><code class="xref download docutils literal"><span class="pre">volume_slicer.py</span></code></a></p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># Author: Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt;</span>
-<span class="c"># Copyright (c) 2009, Enthought, Inc.</span>
-<span class="c"># License: BSD Style.</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Author: Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt;</span>
+<span class="c1"># Copyright (c) 2009, Enthought, Inc.</span>
+<span class="c1"># License: BSD Style.</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 
@@ -126,27 +126,27 @@ confused with too rich interaction.</p>
 <span class="kn">from</span> <span class="nn">mayavi.core.ui.api</span> <span class="kn">import</span> <span class="n">SceneEditor</span><span class="p">,</span> <span class="n">MayaviScene</span><span class="p">,</span> \
                                 <span class="n">MlabSceneModel</span>
 
-<span class="c">################################################################################</span>
-<span class="c"># Create some data</span>
+<span class="c1">################################################################################</span>
+<span class="c1"># Create some data</span>
 <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ogrid</span><span class="p">[</span><span class="o">-</span><span class="mi">5</span><span class="p">:</span><span class="mi">5</span><span class="p">:</span><span class="mi">64j</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">:</span><span class="mi">5</span><span class="p">:</span><span class="mi">64j</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">:</span><span class="mi">5</span><span class="p">:</span><span class="mi">64j</span><span class="p">]</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">x</span><span class="p">)</span><span class="o">/</span><span class="n">x</span> <span class="o">+</span> <span class="mf">0.05</span><span class="o">*</span><span class="n">z</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">y</span><span class="p">)</span>
 
-<span class="c">################################################################################</span>
-<span class="c"># The object implementing the dialog</span>
+<span class="c1">################################################################################</span>
+<span class="c1"># The object implementing the dialog</span>
 <span class="k">class</span> <span class="nc">VolumeSlicer</span><span class="p">(</span><span class="n">HasTraits</span><span class="p">):</span>
-    <span class="c"># The data to plot</span>
+    <span class="c1"># The data to plot</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">Array</span><span class="p">()</span>
 
-    <span class="c"># The 4 views displayed</span>
+    <span class="c1"># The 4 views displayed</span>
     <span class="n">scene3d</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">MlabSceneModel</span><span class="p">,</span> <span class="p">())</span>
     <span class="n">scene_x</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">MlabSceneModel</span><span class="p">,</span> <span class="p">())</span>
     <span class="n">scene_y</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">MlabSceneModel</span><span class="p">,</span> <span class="p">())</span>
     <span class="n">scene_z</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">MlabSceneModel</span><span class="p">,</span> <span class="p">())</span>
 
-    <span class="c"># The data source</span>
+    <span class="c1"># The data source</span>
     <span class="n">data_src3d</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">Source</span><span class="p">)</span>
 
-    <span class="c"># The image plane widgets of the 3D scene</span>
+    <span class="c1"># The image plane widgets of the 3D scene</span>
     <span class="n">ipw_3d_x</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">PipelineBase</span><span class="p">)</span>
     <span class="n">ipw_3d_y</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">PipelineBase</span><span class="p">)</span>
     <span class="n">ipw_3d_z</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">PipelineBase</span><span class="p">)</span>
@@ -154,18 +154,18 @@ confused with too rich interaction.</p>
     <span class="n">_axis_names</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 
 
-    <span class="c">#---------------------------------------------------------------------------</span>
+    <span class="c1">#---------------------------------------------------------------------------</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">traits</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">VolumeSlicer</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">traits</span><span class="p">)</span>
-        <span class="c"># Force the creation of the image_plane_widgets:</span>
+        <span class="c1"># Force the creation of the image_plane_widgets:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ipw_3d_x</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ipw_3d_y</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ipw_3d_z</span>
 
 
-    <span class="c">#---------------------------------------------------------------------------</span>
-    <span class="c"># Default values</span>
-    <span class="c">#---------------------------------------------------------------------------</span>
+    <span class="c1">#---------------------------------------------------------------------------</span>
+    <span class="c1"># Default values</span>
+    <span class="c1">#---------------------------------------------------------------------------</span>
     <span class="k">def</span> <span class="nf">_data_src3d_default</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">scalar_field</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
                             <span class="n">figure</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">scene3d</span><span class="o">.</span><span class="n">mayavi_scene</span><span class="p">)</span>
@@ -173,130 +173,130 @@ confused with too rich interaction.</p>
     <span class="k">def</span> <span class="nf">make_ipw_3d</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axis_name</span><span class="p">):</span>
         <span class="n">ipw</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">image_plane_widget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_src3d</span><span class="p">,</span>
                         <span class="n">figure</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">scene3d</span><span class="o">.</span><span class="n">mayavi_scene</span><span class="p">,</span>
-                        <span class="n">plane_orientation</span><span class="o">=</span><span class="s">&#39;</span><span class="si">%s</span><span class="s">_axes&#39;</span> <span class="o">%</span> <span class="n">axis_name</span><span class="p">)</span>
+                        <span class="n">plane_orientation</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">_axes&#39;</span> <span class="o">%</span> <span class="n">axis_name</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">ipw</span>
 
     <span class="k">def</span> <span class="nf">_ipw_3d_x_default</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_ipw_3d</span><span class="p">(</span><span class="s">&#39;x&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_ipw_3d</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_ipw_3d_y_default</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_ipw_3d</span><span class="p">(</span><span class="s">&#39;y&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_ipw_3d</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_ipw_3d_z_default</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_ipw_3d</span><span class="p">(</span><span class="s">&#39;z&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_ipw_3d</span><span class="p">(</span><span class="s1">&#39;z&#39;</span><span class="p">)</span>
 
 
-    <span class="c">#---------------------------------------------------------------------------</span>
-    <span class="c"># Scene activation callbaks</span>
-    <span class="c">#---------------------------------------------------------------------------</span>
-    <span class="nd">@on_trait_change</span><span class="p">(</span><span class="s">&#39;scene3d.activated&#39;</span><span class="p">)</span>
+    <span class="c1">#---------------------------------------------------------------------------</span>
+    <span class="c1"># Scene activation callbaks</span>
+    <span class="c1">#---------------------------------------------------------------------------</span>
+    <span class="nd">@on_trait_change</span><span class="p">(</span><span class="s1">&#39;scene3d.activated&#39;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">display_scene3d</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">outline</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">outline</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_src3d</span><span class="p">,</span>
                         <span class="n">figure</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">scene3d</span><span class="o">.</span><span class="n">mayavi_scene</span><span class="p">,</span>
                         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">scene3d</span><span class="o">.</span><span class="n">mlab</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
-        <span class="c"># Interaction properties can only be changed after the scene</span>
-        <span class="c"># has been created, and thus the interactor exists</span>
+        <span class="c1"># Interaction properties can only be changed after the scene</span>
+        <span class="c1"># has been created, and thus the interactor exists</span>
         <span class="k">for</span> <span class="n">ipw</span> <span class="ow">in</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ipw_3d_x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ipw_3d_y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ipw_3d_z</span><span class="p">):</span>
-            <span class="c"># Turn the interaction off</span>
+            <span class="c1"># Turn the interaction off</span>
             <span class="n">ipw</span><span class="o">.</span><span class="n">ipw</span><span class="o">.</span><span class="n">interaction</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">scene3d</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">background</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-        <span class="c"># Keep the view always pointing up</span>
+        <span class="c1"># Keep the view always pointing up</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">scene3d</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">interactor</span><span class="o">.</span><span class="n">interactor_style</span> <span class="o">=</span> \
                                  <span class="n">tvtk</span><span class="o">.</span><span class="n">InteractorStyleTerrain</span><span class="p">()</span>
 
 
     <span class="k">def</span> <span class="nf">make_side_view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axis_name</span><span class="p">):</span>
-        <span class="n">scene</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s">&#39;scene_</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">axis_name</span><span class="p">)</span>
+        <span class="n">scene</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;scene_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">axis_name</span><span class="p">)</span>
 
-        <span class="c"># To avoid copying the data, we take a reference to the</span>
-        <span class="c"># raw VTK dataset, and pass it on to mlab. Mlab will create</span>
-        <span class="c"># a Mayavi source from the VTK without copying it.</span>
-        <span class="c"># We have to specify the figure so that the data gets</span>
-        <span class="c"># added on the figure we are interested in.</span>
+        <span class="c1"># To avoid copying the data, we take a reference to the</span>
+        <span class="c1"># raw VTK dataset, and pass it on to mlab. Mlab will create</span>
+        <span class="c1"># a Mayavi source from the VTK without copying it.</span>
+        <span class="c1"># We have to specify the figure so that the data gets</span>
+        <span class="c1"># added on the figure we are interested in.</span>
         <span class="n">outline</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">outline</span><span class="p">(</span>
                             <span class="bp">self</span><span class="o">.</span><span class="n">data_src3d</span><span class="o">.</span><span class="n">mlab_source</span><span class="o">.</span><span class="n">dataset</span><span class="p">,</span>
                             <span class="n">figure</span><span class="o">=</span><span class="n">scene</span><span class="o">.</span><span class="n">mayavi_scene</span><span class="p">,</span>
                             <span class="p">)</span>
         <span class="n">ipw</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">image_plane_widget</span><span class="p">(</span>
                             <span class="n">outline</span><span class="p">,</span>
-                            <span class="n">plane_orientation</span><span class="o">=</span><span class="s">&#39;</span><span class="si">%s</span><span class="s">_axes&#39;</span> <span class="o">%</span> <span class="n">axis_name</span><span class="p">)</span>
-        <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s">&#39;ipw_</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">axis_name</span><span class="p">,</span> <span class="n">ipw</span><span class="p">)</span>
+                            <span class="n">plane_orientation</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">_axes&#39;</span> <span class="o">%</span> <span class="n">axis_name</span><span class="p">)</span>
+        <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;ipw_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">axis_name</span><span class="p">,</span> <span class="n">ipw</span><span class="p">)</span>
 
-        <span class="c"># Synchronize positions between the corresponding image plane</span>
-        <span class="c"># widgets on different views.</span>
-        <span class="n">ipw</span><span class="o">.</span><span class="n">ipw</span><span class="o">.</span><span class="n">sync_trait</span><span class="p">(</span><span class="s">&#39;slice_position&#39;</span><span class="p">,</span>
-                            <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s">&#39;ipw_3d_</span><span class="si">%s</span><span class="s">&#39;</span><span class="o">%</span> <span class="n">axis_name</span><span class="p">)</span><span class="o">.</span><span class="n">ipw</span><span class="p">)</span>
+        <span class="c1"># Synchronize positions between the corresponding image plane</span>
+        <span class="c1"># widgets on different views.</span>
+        <span class="n">ipw</span><span class="o">.</span><span class="n">ipw</span><span class="o">.</span><span class="n">sync_trait</span><span class="p">(</span><span class="s1">&#39;slice_position&#39;</span><span class="p">,</span>
+                            <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;ipw_3d_</span><span class="si">%s</span><span class="s1">&#39;</span><span class="o">%</span> <span class="n">axis_name</span><span class="p">)</span><span class="o">.</span><span class="n">ipw</span><span class="p">)</span>
 
-        <span class="c"># Make left-clicking create a crosshair</span>
+        <span class="c1"># Make left-clicking create a crosshair</span>
         <span class="n">ipw</span><span class="o">.</span><span class="n">ipw</span><span class="o">.</span><span class="n">left_button_action</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="c"># Add a callback on the image plane widget interaction to</span>
-        <span class="c"># move the others</span>
+        <span class="c1"># Add a callback on the image plane widget interaction to</span>
+        <span class="c1"># move the others</span>
         <span class="k">def</span> <span class="nf">move_view</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">evt</span><span class="p">):</span>
             <span class="n">position</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">GetCurrentCursorPosition</span><span class="p">()</span>
             <span class="k">for</span> <span class="n">other_axis</span><span class="p">,</span> <span class="n">axis_number</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_axis_names</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
                 <span class="k">if</span> <span class="n">other_axis</span> <span class="o">==</span> <span class="n">axis_name</span><span class="p">:</span>
                     <span class="k">continue</span>
-                <span class="n">ipw3d</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s">&#39;ipw_3d_</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">other_axis</span><span class="p">)</span>
+                <span class="n">ipw3d</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;ipw_3d_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">other_axis</span><span class="p">)</span>
                 <span class="n">ipw3d</span><span class="o">.</span><span class="n">ipw</span><span class="o">.</span><span class="n">slice_position</span> <span class="o">=</span> <span class="n">position</span><span class="p">[</span><span class="n">axis_number</span><span class="p">]</span>
 
-        <span class="n">ipw</span><span class="o">.</span><span class="n">ipw</span><span class="o">.</span><span class="n">add_observer</span><span class="p">(</span><span class="s">&#39;InteractionEvent&#39;</span><span class="p">,</span> <span class="n">move_view</span><span class="p">)</span>
-        <span class="n">ipw</span><span class="o">.</span><span class="n">ipw</span><span class="o">.</span><span class="n">add_observer</span><span class="p">(</span><span class="s">&#39;StartInteractionEvent&#39;</span><span class="p">,</span> <span class="n">move_view</span><span class="p">)</span>
+        <span class="n">ipw</span><span class="o">.</span><span class="n">ipw</span><span class="o">.</span><span class="n">add_observer</span><span class="p">(</span><span class="s1">&#39;InteractionEvent&#39;</span><span class="p">,</span> <span class="n">move_view</span><span class="p">)</span>
+        <span class="n">ipw</span><span class="o">.</span><span class="n">ipw</span><span class="o">.</span><span class="n">add_observer</span><span class="p">(</span><span class="s1">&#39;StartInteractionEvent&#39;</span><span class="p">,</span> <span class="n">move_view</span><span class="p">)</span>
 
-        <span class="c"># Center the image plane widget</span>
+        <span class="c1"># Center the image plane widget</span>
         <span class="n">ipw</span><span class="o">.</span><span class="n">ipw</span><span class="o">.</span><span class="n">slice_position</span> <span class="o">=</span> <span class="mf">0.5</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_axis_names</span><span class="p">[</span><span class="n">axis_name</span><span class="p">]]</span>
 
-        <span class="c"># Position the view for the scene</span>
+        <span class="c1"># Position the view for the scene</span>
         <span class="n">views</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="p">(</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">90</span><span class="p">),</span>
                      <span class="n">y</span><span class="o">=</span><span class="p">(</span><span class="mi">90</span><span class="p">,</span> <span class="mi">90</span><span class="p">),</span>
                      <span class="n">z</span><span class="o">=</span><span class="p">(</span> <span class="mi">0</span><span class="p">,</span>  <span class="mi">0</span><span class="p">),</span>
                      <span class="p">)</span>
         <span class="n">scene</span><span class="o">.</span><span class="n">mlab</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">*</span><span class="n">views</span><span class="p">[</span><span class="n">axis_name</span><span class="p">])</span>
-        <span class="c"># 2D interaction: only pan and zoom</span>
+        <span class="c1"># 2D interaction: only pan and zoom</span>
         <span class="n">scene</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">interactor</span><span class="o">.</span><span class="n">interactor_style</span> <span class="o">=</span> \
                                  <span class="n">tvtk</span><span class="o">.</span><span class="n">InteractorStyleImage</span><span class="p">()</span>
         <span class="n">scene</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">background</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 
 
-    <span class="nd">@on_trait_change</span><span class="p">(</span><span class="s">&#39;scene_x.activated&#39;</span><span class="p">)</span>
+    <span class="nd">@on_trait_change</span><span class="p">(</span><span class="s1">&#39;scene_x.activated&#39;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">display_scene_x</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_side_view</span><span class="p">(</span><span class="s">&#39;x&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_side_view</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
 
-    <span class="nd">@on_trait_change</span><span class="p">(</span><span class="s">&#39;scene_y.activated&#39;</span><span class="p">)</span>
+    <span class="nd">@on_trait_change</span><span class="p">(</span><span class="s1">&#39;scene_y.activated&#39;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">display_scene_y</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_side_view</span><span class="p">(</span><span class="s">&#39;y&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_side_view</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
 
-    <span class="nd">@on_trait_change</span><span class="p">(</span><span class="s">&#39;scene_z.activated&#39;</span><span class="p">)</span>
+    <span class="nd">@on_trait_change</span><span class="p">(</span><span class="s1">&#39;scene_z.activated&#39;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">display_scene_z</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_side_view</span><span class="p">(</span><span class="s">&#39;z&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_side_view</span><span class="p">(</span><span class="s1">&#39;z&#39;</span><span class="p">)</span>
 
 
-    <span class="c">#---------------------------------------------------------------------------</span>
-    <span class="c"># The layout of the dialog created</span>
-    <span class="c">#---------------------------------------------------------------------------</span>
+    <span class="c1">#---------------------------------------------------------------------------</span>
+    <span class="c1"># The layout of the dialog created</span>
+    <span class="c1">#---------------------------------------------------------------------------</span>
     <span class="n">view</span> <span class="o">=</span> <span class="n">View</span><span class="p">(</span><span class="n">HGroup</span><span class="p">(</span>
                   <span class="n">Group</span><span class="p">(</span>
-                       <span class="n">Item</span><span class="p">(</span><span class="s">&#39;scene_y&#39;</span><span class="p">,</span>
+                       <span class="n">Item</span><span class="p">(</span><span class="s1">&#39;scene_y&#39;</span><span class="p">,</span>
                             <span class="n">editor</span><span class="o">=</span><span class="n">SceneEditor</span><span class="p">(</span><span class="n">scene_class</span><span class="o">=</span><span class="n">Scene</span><span class="p">),</span>
                             <span class="n">height</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">300</span><span class="p">),</span>
-                       <span class="n">Item</span><span class="p">(</span><span class="s">&#39;scene_z&#39;</span><span class="p">,</span>
+                       <span class="n">Item</span><span class="p">(</span><span class="s1">&#39;scene_z&#39;</span><span class="p">,</span>
                             <span class="n">editor</span><span class="o">=</span><span class="n">SceneEditor</span><span class="p">(</span><span class="n">scene_class</span><span class="o">=</span><span class="n">Scene</span><span class="p">),</span>
                             <span class="n">height</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">300</span><span class="p">),</span>
                        <span class="n">show_labels</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
                   <span class="p">),</span>
                   <span class="n">Group</span><span class="p">(</span>
-                       <span class="n">Item</span><span class="p">(</span><span class="s">&#39;scene_x&#39;</span><span class="p">,</span>
+                       <span class="n">Item</span><span class="p">(</span><span class="s1">&#39;scene_x&#39;</span><span class="p">,</span>
                             <span class="n">editor</span><span class="o">=</span><span class="n">SceneEditor</span><span class="p">(</span><span class="n">scene_class</span><span class="o">=</span><span class="n">Scene</span><span class="p">),</span>
                             <span class="n">height</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">300</span><span class="p">),</span>
-                       <span class="n">Item</span><span class="p">(</span><span class="s">&#39;scene3d&#39;</span><span class="p">,</span>
+                       <span class="n">Item</span><span class="p">(</span><span class="s1">&#39;scene3d&#39;</span><span class="p">,</span>
                             <span class="n">editor</span><span class="o">=</span><span class="n">SceneEditor</span><span class="p">(</span><span class="n">scene_class</span><span class="o">=</span><span class="n">MayaviScene</span><span class="p">),</span>
                             <span class="n">height</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">300</span><span class="p">),</span>
                        <span class="n">show_labels</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
                   <span class="p">),</span>
                 <span class="p">),</span>
                 <span class="n">resizable</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-                <span class="n">title</span><span class="o">=</span><span class="s">&#39;Volume Slicer&#39;</span><span class="p">,</span>
+                <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Volume Slicer&#39;</span><span class="p">,</span>
                 <span class="p">)</span>
 
 
@@ -386,13 +386,13 @@ confused with too rich interaction.</p>
         <li class="right" >
           <a href="example_lorenz_ui.html" title="Lorenz ui example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.4.4 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2008-2015, Enthought Inc..
-      Last updated on Feb 29, 2016.
+        &copy; Copyright 2008-2016, Enthought Inc..
+      Last updated on Aug 02, 2016.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
     </div>
   </body>

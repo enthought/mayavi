@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Animating the data &mdash; mayavi 4.4.4 documentation</title>
+    <title>Animating the data &mdash; mayavi 4.5.0 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '4.4.4',
+        VERSION:     '4.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.4.4 documentation" href="index.html" />
+    <link rel="top" title="mayavi 4.5.0 documentation" href="index.html" />
 <style type="text/css">
   body {
     /* Very bottom copyright, etc. info */
@@ -62,7 +62,7 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.4.4 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.5.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -81,13 +81,13 @@ is very inefficient and leads to very jerky looking
 animations. To do this, mlab provides a very convenient way to change
 the data of an existing mlab visualization.  Consider a very simple
 example.  The <cite>mlab.test_simple_surf_anim</cite> function has this code:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
 <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span>
-<span class="n">s</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">surf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="mf">0.1</span><span class="p">,</span> <span class="s">&#39;d&#39;</span><span class="p">))</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">surf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="mf">0.1</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">))</span>
 
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
-    <span class="n">s</span><span class="o">.</span><span class="n">mlab_source</span><span class="o">.</span><span class="n">scalars</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="mf">0.1</span><span class="o">*</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="s">&#39;d&#39;</span><span class="p">)</span>
+    <span class="n">s</span><span class="o">.</span><span class="n">mlab_source</span><span class="o">.</span><span class="n">scalars</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="mf">0.1</span><span class="o">*</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="s1">&#39;d&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The first two lines define a simple plane and view that.  The next three
@@ -96,7 +96,7 @@ rotates about the origin.  The key here is that the <cite>s</cite> object above 
 a special attribute called <cite>mlab_source</cite>.  This sub-object allows us to
 manipulate the points and scalars.  If we wanted to change the <cite>x</cite> values
 we could set that too by:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">s</span><span class="o">.</span><span class="n">mlab_source</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">new_x</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">s</span><span class="o">.</span><span class="n">mlab_source</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">new_x</span>
 </pre></div>
 </div>
 <p>The only thing to keep in mind here is that the shape of <cite>x</cite> should not
@@ -104,20 +104,20 @@ be changed.</p>
 <p>If multiple values have to be changed, you can use the <cite>set</cite> method of
 the <cite>mlab_source</cite> to set them as shown in the more complicated example
 below:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># Produce some nice data.</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Produce some nice data.</span>
 <span class="n">n_mer</span><span class="p">,</span> <span class="n">n_long</span> <span class="o">=</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">11</span>
 <span class="n">pi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
 <span class="n">dphi</span> <span class="o">=</span> <span class="n">pi</span><span class="o">/</span><span class="mf">1000.0</span>
-<span class="n">phi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">pi</span> <span class="o">+</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">dphi</span><span class="p">,</span> <span class="n">dphi</span><span class="p">,</span> <span class="s">&#39;d&#39;</span><span class="p">)</span>
+<span class="n">phi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">pi</span> <span class="o">+</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">dphi</span><span class="p">,</span> <span class="n">dphi</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">)</span>
 <span class="n">mu</span> <span class="o">=</span> <span class="n">phi</span><span class="o">*</span><span class="n">n_mer</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">mu</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">n_long</span><span class="o">*</span><span class="n">mu</span><span class="o">/</span><span class="n">n_mer</span><span class="p">)</span><span class="o">*</span><span class="mf">0.5</span><span class="p">)</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">mu</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">n_long</span><span class="o">*</span><span class="n">mu</span><span class="o">/</span><span class="n">n_mer</span><span class="p">)</span><span class="o">*</span><span class="mf">0.5</span><span class="p">)</span>
 <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">n_long</span><span class="o">*</span><span class="n">mu</span><span class="o">/</span><span class="n">n_mer</span><span class="p">)</span><span class="o">*</span><span class="mf">0.5</span>
 
-<span class="c"># View it.</span>
-<span class="n">l</span> <span class="o">=</span> <span class="n">plot3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">mu</span><span class="p">),</span> <span class="n">tube_radius</span><span class="o">=</span><span class="mf">0.025</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s">&#39;Spectral&#39;</span><span class="p">)</span>
+<span class="c1"># View it.</span>
+<span class="n">l</span> <span class="o">=</span> <span class="n">plot3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">mu</span><span class="p">),</span> <span class="n">tube_radius</span><span class="o">=</span><span class="mf">0.025</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;Spectral&#39;</span><span class="p">)</span>
 
-<span class="c"># Now animate the data.</span>
+<span class="c1"># Now animate the data.</span>
 <span class="n">ms</span> <span class="o">=</span> <span class="n">l</span><span class="o">.</span><span class="n">mlab_source</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">mu</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">n_long</span><span class="o">*</span><span class="n">mu</span><span class="o">/</span><span class="n">n_mer</span> <span class="o">+</span>
@@ -130,15 +130,15 @@ below:</p>
 visualization is recomputed only once.  In this case, the shape of the
 new arrays has not changed, only their values have.  If the shape of the
 array changes then one should use the <cite>reset</cite> method as shown below:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span>
-<span class="n">s</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">surf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="mf">0.1</span><span class="p">,</span> <span class="s">&#39;d&#39;</span><span class="p">),</span>
-              <span class="n">representation</span><span class="o">=</span><span class="s">&#39;wireframe&#39;</span><span class="p">)</span>
-<span class="c"># Animate the data.</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">surf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="mf">0.1</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">),</span>
+              <span class="n">representation</span><span class="o">=</span><span class="s1">&#39;wireframe&#39;</span><span class="p">)</span>
+<span class="c1"># Animate the data.</span>
 <span class="n">fig</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span>
 <span class="n">ms</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">mlab_source</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
     <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">:</span><span class="mf">1.0</span><span class="o">/</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">2</span><span class="p">),</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">:</span><span class="mf">1.0</span><span class="o">/</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">2</span><span class="p">)]</span>
-    <span class="n">sc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">x</span><span class="o">*</span><span class="mf">0.05</span><span class="o">*</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="s">&#39;d&#39;</span><span class="p">)</span>
+    <span class="n">sc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">x</span><span class="o">*</span><span class="mf">0.05</span><span class="o">*</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="s1">&#39;d&#39;</span><span class="p">)</span>
     <span class="n">ms</span><span class="o">.</span><span class="n">reset</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">scalars</span><span class="o">=</span><span class="n">sc</span><span class="p">)</span>
     <span class="n">fig</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">reset_zoom</span><span class="p">()</span>
 </pre></div>
@@ -241,12 +241,12 @@ your animation. In this case, the tip
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              >index</a></li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.4.4 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.5.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2008-2015, Enthought Inc..
-      Last updated on Feb 29, 2016.
+        &copy; Copyright 2008-2016, Enthought Inc..
+      Last updated on Aug 02, 2016.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
     </div>
   </body>

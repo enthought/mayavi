@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>mlab: Python scripting for 3D plotting &mdash; mayavi 4.4.4 documentation</title>
+    <title>mlab: Python scripting for 3D plotting &mdash; mayavi 4.5.0 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '4.4.4',
+        VERSION:     '4.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.4.4 documentation" href="index.html" />
+    <link rel="top" title="mayavi 4.5.0 documentation" href="index.html" />
     <link rel="next" title="Advanced use of Mayavi" href="advanced_use.html" />
     <link rel="prev" title="Filters" href="filters.html" />
 <style type="text/css">
@@ -70,7 +70,7 @@
         <li class="right" >
           <a href="filters.html" title="Filters"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.4.4 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.5.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -102,17 +102,24 @@ It is can be used interactively with <a class="reference external" href="http://
 <p class="first admonition-title">Warning</p>
 <p>When using IPython with mlab, as in the following examples, IPython must
 be invoked with the <code class="docutils literal"><span class="pre">--gui=qt</span></code> command line option like this:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ ipython --gui=qt
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ ipython --gui=qt
 </pre></div>
 </div>
 <p>On recent versions of IPython, this can be turned on from within IPython
 itself by:</p>
-<div class="highlight-python"><div class="highlight"><pre>In []: %gui qt
+<div class="highlight-python"><div class="highlight"><pre><span></span>In []: %gui qt
 </pre></div>
 </div>
-<p>In some cases, where for some reason Mayavi fails with the Qt backend, you
-can try using the wxPython backend by doing:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ ETS_TOOLKIT=wx
+<p>If the following exception is raised:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>ValueError: API &#39;QString&#39; has already been set to version 1
+</pre></div>
+</div>
+<p>This is the result of incompatible setups between PyQt and PySide. The
+solution is to run <code class="docutils literal"><span class="pre">QT_API=pyqt</span> <span class="pre">ETS_TOOLKIT=qt4</span> <span class="pre">ipython</span></code>.
+More details can be found at the <a class="reference external" href="http://ipython.readthedocs.io/en/stable/interactive/reference.html#pyqt-and-pyside">ipython documentation page</a>.</p>
+<p>If for some reason Mayavi fails with the Qt backend, you can also try
+using the wxPython backend by doing:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ ETS_TOOLKIT=wx
 $ ipython --gui=wx
 </pre></div>
 </div>
@@ -145,7 +152,7 @@ scalar and vector data.</p>
 <span id="mlab-demo"></span><h2><a class="toc-backref" href="#id5">A demo</a><a class="headerlink" href="#a-demo" title="Permalink to this headline">¶</a></h2>
 <p>To get you started, here is a pretty example showing a spherical harmonic
 as a surface:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># Create the data.</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Create the data.</span>
 <span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">pi</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="n">mgrid</span>
 <span class="n">dphi</span><span class="p">,</span> <span class="n">dtheta</span> <span class="o">=</span> <span class="n">pi</span><span class="o">/</span><span class="mf">250.0</span><span class="p">,</span> <span class="n">pi</span><span class="o">/</span><span class="mf">250.0</span>
 <span class="p">[</span><span class="n">phi</span><span class="p">,</span><span class="n">theta</span><span class="p">]</span> <span class="o">=</span> <span class="n">mgrid</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">pi</span><span class="o">+</span><span class="n">dphi</span><span class="o">*</span><span class="mf">1.5</span><span class="p">:</span><span class="n">dphi</span><span class="p">,</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="o">+</span><span class="n">dtheta</span><span class="o">*</span><span class="mf">1.5</span><span class="p">:</span><span class="n">dtheta</span><span class="p">]</span>
@@ -155,7 +162,7 @@ as a surface:</p>
 <span class="n">y</span> <span class="o">=</span> <span class="n">r</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span>
 <span class="n">z</span> <span class="o">=</span> <span class="n">r</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
 
-<span class="c"># View it.</span>
+<span class="c1"># View it.</span>
 <span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
 <span class="n">s</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">mesh</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
 <span class="n">mlab</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -375,7 +382,7 @@ for functions with vectors, or to the z elevation for functions where it is
 meaningful, such as <a class="reference internal" href="auto/mlab_helper_functions.html#mayavi.mlab.surf" title="mayavi.mlab.surf"><code class="xref py py-func docutils literal"><span class="pre">surf()</span></code></a> or <a class="reference internal" href="auto/mlab_helper_functions.html#mayavi.mlab.barchart" title="mayavi.mlab.barchart"><code class="xref py py-func docutils literal"><span class="pre">barchart()</span></code></a>.</p>
 <p>This scalar information is converted into colors using the colormap, or
 also called LUT, for Look Up Table. The list of possible colormaps is:</p>
-<div class="highlight-python"><div class="highlight"><pre>accent       flag          hot      pubu     set2
+<div class="highlight-python"><div class="highlight"><pre><span></span>accent       flag          hot      pubu     set2
 autumn       gist_earth    hsv      pubugn   set3
 black-white  gist_gray     jet      puor     spectral
 blue-red     gist_heat     oranges  purd     spring
@@ -402,18 +409,18 @@ For instance it can be used to adjust the size of glyphs positioned at
 the data points.</p>
 <p><strong>A caveat: Clamping: relative or absolute scaling</strong>
 Given six points positionned on a line with interpoint spacing 1:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
 <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
 <span class="n">z</span> <span class="o">=</span> <span class="n">y</span>
 </pre></div>
 </div>
 <p>If we represent a scalar varying from 0.5 to 1 on this dataset:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">s</span> <span class="o">=</span> <span class="p">[</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="o">.</span><span class="mi">6</span><span class="p">,</span> <span class="o">.</span><span class="mi">7</span><span class="p">,</span> <span class="o">.</span><span class="mi">8</span><span class="p">,</span> <span class="o">.</span><span class="mi">9</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">s</span> <span class="o">=</span> <span class="p">[</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="o">.</span><span class="mi">6</span><span class="p">,</span> <span class="o">.</span><span class="mi">7</span><span class="p">,</span> <span class="o">.</span><span class="mi">8</span><span class="p">,</span> <span class="o">.</span><span class="mi">9</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>We represent the dataset as spheres, using <a class="reference internal" href="auto/mlab_helper_functions.html#mayavi.mlab.points3d" title="mayavi.mlab.points3d"><code class="xref py py-func docutils literal"><span class="pre">points3d()</span></code></a>, and the
 scalar is mapped to diameter of the spheres:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
 <span class="n">pts</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">points3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -428,7 +435,7 @@ desired if the scalar represents the size of the glyphs in the same
 unit as the positions specified.</p>
 <p>In this case, you shoud turn auto-scaling off by specifying the desired
 scale factor:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">pts</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">points3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">scale_factor</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">pts</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">points3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">scale_factor</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
 <img alt="_images/clamping_off.jpg" src="_images/clamping_off.jpg" />
@@ -439,7 +446,7 @@ not auto-scaled, and as a result the visualization can seem empty
 due to the glyphs being very small. In addition the minimum diameter of
 the glyphs is clamped to zero, and thus the glyph are not scaled
 absolutely, unless you specify:</p>
-<div class="last highlight-python"><div class="highlight"><pre><span class="n">pts</span><span class="o">.</span><span class="n">glyph</span><span class="o">.</span><span class="n">glyph</span><span class="o">.</span><span class="n">clamping</span> <span class="o">=</span> <span class="bp">False</span>
+<div class="last highlight-python"><div class="highlight"><pre><span></span><span class="n">pts</span><span class="o">.</span><span class="n">glyph</span><span class="o">.</span><span class="n">glyph</span><span class="o">.</span><span class="n">clamping</span> <span class="o">=</span> <span class="bp">False</span>
 </pre></div>
 </div>
 </div>
@@ -462,10 +469,10 @@ and a color by a second, you can use a simple trick: add the size
 information using the norm of vectors, add the color information using
 scalars, create a <a class="reference internal" href="auto/mlab_helper_functions.html#mayavi.mlab.quiver3d" title="mayavi.mlab.quiver3d"><code class="xref py py-func docutils literal"><span class="pre">quiver3d()</span></code></a> plot choosing the glyphs to symmetric
 glyphs, and use scalars to represent the color:</p>
-<div class="last highlight-python"><div class="highlight"><pre><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
-<span class="n">pts</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">quiver3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">scalars</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">&#39;sphere&#39;</span><span class="p">)</span>
-<span class="n">pts</span><span class="o">.</span><span class="n">glyph</span><span class="o">.</span><span class="n">color_mode</span> <span class="o">=</span> <span class="s">&#39;color_by_scalar&#39;</span>
-<span class="c"># Finally, center the glyphs on the data point</span>
+<div class="last highlight-python"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">pts</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">quiver3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">scalars</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;sphere&#39;</span><span class="p">)</span>
+<span class="n">pts</span><span class="o">.</span><span class="n">glyph</span><span class="o">.</span><span class="n">color_mode</span> <span class="o">=</span> <span class="s1">&#39;color_by_scalar&#39;</span>
+<span class="c1"># Finally, center the glyphs on the data point</span>
 <span class="n">pts</span><span class="o">.</span><span class="n">glyph</span><span class="o">.</span><span class="n">glyph_source</span><span class="o">.</span><span class="n">glyph_source</span><span class="o">.</span><span class="n">center</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
 </pre></div>
 </div>
@@ -517,10 +524,10 @@ when you enter this command, please see <a class="reference internal" href="mlab
 full envisage application so you can click on the menus and use other
 modules etc.  To do this you may do the following before you create an
 mlab figure:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
-<span class="n">mlab</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">backend</span> <span class="o">=</span> <span class="s">&#39;envisage&#39;</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
+<span class="n">mlab</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">backend</span> <span class="o">=</span> <span class="s1">&#39;envisage&#39;</span>
 <span class="n">f</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-<span class="c"># ...</span>
+<span class="c1"># ...</span>
 </pre></div>
 </div>
 <p>This will give you the full-fledged UI instead of the default simple
@@ -573,11 +580,11 @@ dragging the mouse, see <a class="reference internal" href="application.html#int
 <p>The <a class="reference internal" href="auto/mlab_camera.html#mayavi.mlab.view" title="mayavi.mlab.view"><code class="xref py py-func docutils literal"><span class="pre">view()</span></code></a> and <a class="reference internal" href="auto/mlab_camera.html#mayavi.mlab.roll" title="mayavi.mlab.roll"><code class="xref py py-func docutils literal"><span class="pre">roll()</span></code></a> functions return the current values of
 the different angles and distances they take as arguments. As a result, the
 view point obtained interactively can be stored and reset using:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># Store the information</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Store the information</span>
 <span class="n">view</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
 <span class="n">roll</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">roll</span><span class="p">()</span>
 
-<span class="c"># Reposition the camera</span>
+<span class="c1"># Reposition the camera</span>
 <span class="n">mlab</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">*</span><span class="n">view</span><span class="p">)</span>
 <span class="n">mlab</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">roll</span><span class="p">)</span>
 </pre></div>
@@ -587,7 +594,7 @@ view point obtained interactively can be stored and reset using:</p>
 <blockquote>
 <div><p>You can also rotate the camera around itself using the <cite>roll</cite>, <cite>yaw</cite>
 and <cite>pitch</cite> methods of the camera object. This moves the focal point:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">f</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span>
 <span class="n">camera</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span>
 <span class="n">camera</span><span class="o">.</span><span class="n">yaw</span><span class="p">(</span><span class="mi">45</span><span class="p">)</span>
 </pre></div>
@@ -612,7 +619,7 @@ function can also be useful in these regards.</p>
 mlab.roll, a last parameter is needed to fully define the view point:
 the parallel scale of the camera, that control its view angle. It can
 be read (or set) with the following code:</p>
-<div class="last highlight-python"><div class="highlight"><pre><span class="n">f</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span>
+<div class="last highlight-python"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span>
 <span class="n">camera</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span>
 <span class="n">cam</span><span class="o">.</span><span class="n">parallel_scale</span> <span class="o">=</span> <span class="mi">9</span>
 </pre></div>
@@ -632,7 +639,7 @@ or more figures and allow the user to interact with them.</p>
 <h3>Using mlab interactively<a class="headerlink" href="#using-mlab-interactively" title="Permalink to this headline">¶</a></h3>
 <p>Using <a class="reference external" href="http://ipython.scipy.org">IPython</a>, mlab instructions can be run interactively, or in
 scripts using <a class="reference external" href="http://ipython.scipy.org">IPython</a>&#8216;s <code class="docutils literal"><span class="pre">%run</span></code> command:</p>
-<div class="highlight-python"><div class="highlight"><pre>In [1]: %run my_script
+<div class="highlight-python"><div class="highlight"><pre><span></span>In [1]: %run my_script
 </pre></div>
 </div>
 <p>You need to start <a class="reference external" href="http://ipython.scipy.org">IPython</a> with the <cite>&#8211;gui=qt</cite> option. In this
@@ -651,25 +658,25 @@ mlab in IPython you should:</p>
 <blockquote>
 <div><ul>
 <li><p class="first">start IPython with:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ ipython --matplotlib=qt
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ ipython --matplotlib=qt
 </pre></div>
 </div>
 </li>
 <li><p class="first">alternatively, start IPython with the <cite>&#8211;gui=qt</cite> option:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ ipython --gui=qt
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ ipython --gui=qt
 </pre></div>
 </div>
 <p>and <strong>before</strong> importing any matplotlib modules, enter the
 following Python commands:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">matplotlib</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s">&#39;Qt4Agg&#39;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">matplotlib</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;Qt4Agg&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">matplotlib</span><span class="o">.</span><span class="n">interactive</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">one could also use the <code class="docutils literal"><span class="pre">--pylab</span></code> option to IPython as
 follows:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ ipython --pylab=qt
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ ipython --pylab=qt
 </pre></div>
 </div>
 </li>
@@ -678,12 +685,12 @@ follows:</p>
 <p>If you want matplotlib and mlab to work together by default in IPython,
 you can change you default matplotlib backend, by editing the
 <cite>~/.matplotlib/matplotlibrc</cite> to add the following line:</p>
-<div class="highlight-python"><div class="highlight"><pre>backend     : Qt4Agg
+<div class="highlight-python"><div class="highlight"><pre><span></span>backend     : Qt4Agg
 </pre></div>
 </div>
 <p>If for some reason, the Qt backend does not work, you can use the wx
 backend.  To do this you may do:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ ETS_TOOLKIT=wx
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ ETS_TOOLKIT=wx
 $ ipython --gui=wx
 </pre></div>
 </div>
@@ -719,7 +726,7 @@ for instance with <cite>python myscript.py</cite>, you need to call the
 and have the user interact with the figure.</p>
 <p>You can also use <a class="reference internal" href="auto/mlab_other_functions.html#mayavi.mlab.show" title="mayavi.mlab.show"><code class="xref py py-func docutils literal"><span class="pre">show()</span></code></a> to decorate a function, and have it run in
 the event-loop, which gives you more flexibility:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
 <span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">random</span>
 
 <span class="nd">@mlab.show</span>
@@ -743,13 +750,13 @@ is very inefficient and leads to very jerky looking
 animations. To do this, mlab provides a very convenient way to change
 the data of an existing mlab visualization.  Consider a very simple
 example.  The <cite>mlab.test_simple_surf_anim</cite> function has this code:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
 <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span>
-<span class="n">s</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">surf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="mf">0.1</span><span class="p">,</span> <span class="s">&#39;d&#39;</span><span class="p">))</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">surf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="mf">0.1</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">))</span>
 
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
-    <span class="n">s</span><span class="o">.</span><span class="n">mlab_source</span><span class="o">.</span><span class="n">scalars</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="mf">0.1</span><span class="o">*</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="s">&#39;d&#39;</span><span class="p">)</span>
+    <span class="n">s</span><span class="o">.</span><span class="n">mlab_source</span><span class="o">.</span><span class="n">scalars</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="mf">0.1</span><span class="o">*</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="s1">&#39;d&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The first two lines define a simple plane and view that.  The next three
@@ -758,7 +765,7 @@ rotates about the origin.  The key here is that the <cite>s</cite> object above 
 a special attribute called <cite>mlab_source</cite>.  This sub-object allows us to
 manipulate the points and scalars.  If we wanted to change the <cite>x</cite> values
 we could set that too by:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">s</span><span class="o">.</span><span class="n">mlab_source</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">new_x</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">s</span><span class="o">.</span><span class="n">mlab_source</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">new_x</span>
 </pre></div>
 </div>
 <p>The only thing to keep in mind here is that the shape of <cite>x</cite> should not
@@ -766,20 +773,20 @@ be changed.</p>
 <p>If multiple values have to be changed, you can use the <cite>set</cite> method of
 the <cite>mlab_source</cite> to set them as shown in the more complicated example
 below:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># Produce some nice data.</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Produce some nice data.</span>
 <span class="n">n_mer</span><span class="p">,</span> <span class="n">n_long</span> <span class="o">=</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">11</span>
 <span class="n">pi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
 <span class="n">dphi</span> <span class="o">=</span> <span class="n">pi</span><span class="o">/</span><span class="mf">1000.0</span>
-<span class="n">phi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">pi</span> <span class="o">+</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">dphi</span><span class="p">,</span> <span class="n">dphi</span><span class="p">,</span> <span class="s">&#39;d&#39;</span><span class="p">)</span>
+<span class="n">phi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">pi</span> <span class="o">+</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">dphi</span><span class="p">,</span> <span class="n">dphi</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">)</span>
 <span class="n">mu</span> <span class="o">=</span> <span class="n">phi</span><span class="o">*</span><span class="n">n_mer</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">mu</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">n_long</span><span class="o">*</span><span class="n">mu</span><span class="o">/</span><span class="n">n_mer</span><span class="p">)</span><span class="o">*</span><span class="mf">0.5</span><span class="p">)</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">mu</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">n_long</span><span class="o">*</span><span class="n">mu</span><span class="o">/</span><span class="n">n_mer</span><span class="p">)</span><span class="o">*</span><span class="mf">0.5</span><span class="p">)</span>
 <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">n_long</span><span class="o">*</span><span class="n">mu</span><span class="o">/</span><span class="n">n_mer</span><span class="p">)</span><span class="o">*</span><span class="mf">0.5</span>
 
-<span class="c"># View it.</span>
-<span class="n">l</span> <span class="o">=</span> <span class="n">plot3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">mu</span><span class="p">),</span> <span class="n">tube_radius</span><span class="o">=</span><span class="mf">0.025</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s">&#39;Spectral&#39;</span><span class="p">)</span>
+<span class="c1"># View it.</span>
+<span class="n">l</span> <span class="o">=</span> <span class="n">plot3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">mu</span><span class="p">),</span> <span class="n">tube_radius</span><span class="o">=</span><span class="mf">0.025</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;Spectral&#39;</span><span class="p">)</span>
 
-<span class="c"># Now animate the data.</span>
+<span class="c1"># Now animate the data.</span>
 <span class="n">ms</span> <span class="o">=</span> <span class="n">l</span><span class="o">.</span><span class="n">mlab_source</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">mu</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">n_long</span><span class="o">*</span><span class="n">mu</span><span class="o">/</span><span class="n">n_mer</span> <span class="o">+</span>
@@ -792,15 +799,15 @@ below:</p>
 visualization is recomputed only once.  In this case, the shape of the
 new arrays has not changed, only their values have.  If the shape of the
 array changes then one should use the <cite>reset</cite> method as shown below:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span>
-<span class="n">s</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">surf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="mf">0.1</span><span class="p">,</span> <span class="s">&#39;d&#39;</span><span class="p">),</span>
-              <span class="n">representation</span><span class="o">=</span><span class="s">&#39;wireframe&#39;</span><span class="p">)</span>
-<span class="c"># Animate the data.</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">surf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="mf">0.1</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">),</span>
+              <span class="n">representation</span><span class="o">=</span><span class="s1">&#39;wireframe&#39;</span><span class="p">)</span>
+<span class="c1"># Animate the data.</span>
 <span class="n">fig</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span>
 <span class="n">ms</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">mlab_source</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
     <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">:</span><span class="mf">1.0</span><span class="o">/</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">2</span><span class="p">),</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">:</span><span class="mf">1.0</span><span class="o">/</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">2</span><span class="p">)]</span>
-    <span class="n">sc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">x</span><span class="o">*</span><span class="mf">0.05</span><span class="o">*</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="s">&#39;d&#39;</span><span class="p">)</span>
+    <span class="n">sc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">x</span><span class="o">*</span><span class="mf">0.05</span><span class="o">*</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="s1">&#39;d&#39;</span><span class="p">)</span>
     <span class="n">ms</span><span class="o">.</span><span class="n">reset</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">scalars</span><span class="o">=</span><span class="n">sc</span><span class="p">)</span>
     <span class="n">fig</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">reset_zoom</span><span class="p">()</span>
 </pre></div>
@@ -859,7 +866,7 @@ the names of the functions required to create each step of the pipeline
 are directly linked to the default names of the objects created by <cite>mlab</cite>
 on the pipeline. As an example, let us create a visualization using
 <a class="reference internal" href="auto/mlab_helper_functions.html#mayavi.mlab.surf" title="mayavi.mlab.surf"><code class="xref py py-func docutils literal"><span class="pre">surf()</span></code></a>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
 <span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
 <span class="n">mlab</span><span class="o">.</span><span class="n">surf</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
@@ -867,7 +874,7 @@ on the pipeline. As an example, let us create a visualization using
 </pre></div>
 </div>
 <p>The following pipeline is created:</p>
-<div class="highlight-python"><div class="highlight"><pre>Array2DSource
+<div class="highlight-python"><div class="highlight"><pre><span></span>Array2DSource
     \__ WarpScalar
             \__ PolyDataNormals
                     \__ Colors and legends
@@ -875,7 +882,7 @@ on the pipeline. As an example, let us create a visualization using
 </pre></div>
 </div>
 <p>The same pipeline can be created using the following code:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">src</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">array2d_source</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">src</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">array2d_source</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 <span class="n">warp</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">warp_scalar</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
 <span class="n">normals</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">poly_data_normals</span><span class="p">(</span><span class="n">warp</span><span class="p">)</span>
 <span class="n">surf</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">surface</span><span class="p">(</span><span class="n">normals</span><span class="p">)</span>
@@ -983,7 +990,7 @@ subsection.</p>
 <h3>Visualizing volumetric scalar data<a class="headerlink" href="#visualizing-volumetric-scalar-data" title="Permalink to this headline">¶</a></h3>
 <p>There are three main ways of visualizing a 3D scalar field. Given the
 following field:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ogrid</span><span class="p">[</span><span class="o">-</span><span class="mi">10</span><span class="p">:</span><span class="mi">10</span><span class="p">:</span><span class="mi">20j</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">:</span><span class="mi">10</span><span class="p">:</span><span class="mi">20j</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">:</span><span class="mi">10</span><span class="p">:</span><span class="mi">20j</span><span class="p">]</span>
 <span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="o">*</span><span class="n">z</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="o">*</span><span class="n">z</span><span class="p">)</span>
 </pre></div>
@@ -994,7 +1001,7 @@ following field:</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Iso-Surfaces:</th><td class="field-body"><p class="first">To display iso surfaces of the field, the simplest solution is
 simply to use the <cite>mlab</cite> <a class="reference internal" href="auto/mlab_helper_functions.html#mayavi.mlab.contour3d" title="mayavi.mlab.contour3d"><code class="xref py py-func docutils literal"><span class="pre">contour3d()</span></code></a> function:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">mlab</span><span class="o">.</span><span class="n">contour3d</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">mlab</span><span class="o">.</span><span class="n">contour3d</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
 </pre></div>
 </div>
 <p><img alt="volumetric_contour3d" src="_images/volumetric_contour3d.jpg" /></p>
@@ -1007,7 +1014,7 @@ ones. As a result, quite often only one iso-surface can be visible.</p>
 given a partly transparent color. This can be achieved with
 <cite>mlab.pipeline</cite> using the <a class="reference internal" href="auto/mlab_pipeline_sources.html#mayavi.tools.pipeline.scalar_field" title="mayavi.tools.pipeline.scalar_field"><code class="xref py py-func docutils literal"><span class="pre">scalar_field()</span></code></a> source, and the
 <cite>volume</cite> module:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">volume</span><span class="p">(</span><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">scalar_field</span><span class="p">(</span><span class="n">s</span><span class="p">))</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">volume</span><span class="p">(</span><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">scalar_field</span><span class="p">(</span><span class="n">s</span><span class="p">))</span>
 </pre></div>
 </div>
 <p><img alt="volumetric_volume" src="_images/volumetric_volume.jpg" /></p>
@@ -1016,7 +1023,7 @@ critical to achieve a good effect. Typically, it can be useful to
 limit the lower and upper values to the 20 and 80 percentiles of the
 data, in order to have a reasonable fraction of the volume
 transparent:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">volume</span><span class="p">(</span><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">scalar_field</span><span class="p">(</span><span class="n">s</span><span class="p">),</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">volume</span><span class="p">(</span><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">scalar_field</span><span class="p">(</span><span class="n">s</span><span class="p">),</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
 </pre></div>
 </div>
 <p><img alt="volumetric_volume_tweaked" src="_images/volumetric_volume_tweaked.jpg" /></p>
@@ -1032,12 +1039,12 @@ it.</p>
 </tr>
 <tr class="field-odd field"><th class="field-name">Cut planes:</th><td class="field-body"><p class="first">While less impressive, cut planes are a very informative way of
 visualizing the details of a scalar field:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">image_plane_widget</span><span class="p">(</span><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">scalar_field</span><span class="p">(</span><span class="n">s</span><span class="p">),</span>
-                            <span class="n">plane_orientation</span><span class="o">=</span><span class="s">&#39;x_axes&#39;</span><span class="p">,</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">image_plane_widget</span><span class="p">(</span><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">scalar_field</span><span class="p">(</span><span class="n">s</span><span class="p">),</span>
+                            <span class="n">plane_orientation</span><span class="o">=</span><span class="s1">&#39;x_axes&#39;</span><span class="p">,</span>
                             <span class="n">slice_index</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
                         <span class="p">)</span>
 <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">image_plane_widget</span><span class="p">(</span><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">scalar_field</span><span class="p">(</span><span class="n">s</span><span class="p">),</span>
-                            <span class="n">plane_orientation</span><span class="o">=</span><span class="s">&#39;y_axes&#39;</span><span class="p">,</span>
+                            <span class="n">plane_orientation</span><span class="o">=</span><span class="s1">&#39;y_axes&#39;</span><span class="p">,</span>
                             <span class="n">slice_index</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
                         <span class="p">)</span>
 <span class="n">mlab</span><span class="o">.</span><span class="n">outline</span><span class="p">()</span>
@@ -1056,11 +1063,11 @@ the field.</p>
 iso-surfaces and thresholding to give a view of the peak areas using
 the iso-surfaces, visualize the details of the field with the cut
 plane, and the global mass with a large iso-surface:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">src</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">scalar_field</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">src</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">scalar_field</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
 <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">iso_surface</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">contours</span><span class="o">=</span><span class="p">[</span><span class="n">s</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">+</span><span class="mf">0.1</span><span class="o">*</span><span class="n">s</span><span class="o">.</span><span class="n">ptp</span><span class="p">(),</span> <span class="p">],</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
 <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">iso_surface</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">contours</span><span class="o">=</span><span class="p">[</span><span class="n">s</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">-</span><span class="mf">0.1</span><span class="o">*</span><span class="n">s</span><span class="o">.</span><span class="n">ptp</span><span class="p">(),</span> <span class="p">],)</span>
 <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">image_plane_widget</span><span class="p">(</span><span class="n">src</span><span class="p">,</span>
-                            <span class="n">plane_orientation</span><span class="o">=</span><span class="s">&#39;z_axes&#39;</span><span class="p">,</span>
+                            <span class="n">plane_orientation</span><span class="o">=</span><span class="s1">&#39;z_axes&#39;</span><span class="p">,</span>
                             <span class="n">slice_index</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
                         <span class="p">)</span>
 </pre></div>
@@ -1083,7 +1090,7 @@ difficult to visualize, as it contains a lot of information. Let us
 explore different visualizations for the velocity field of a multi-axis
 convection cell <a class="footnote-reference" href="#id4" id="id3">[1]</a>, in hydrodynamics, as defined by its components
 sampled on a grid, <cite>u</cite>, <cite>v</cite>, <cite>w</cite>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span><span class="mi">20j</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span><span class="mi">20j</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span><span class="mi">20j</span><span class="p">]</span>
 
 <span class="n">u</span> <span class="o">=</span>    <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">z</span><span class="p">)</span>
@@ -1097,7 +1104,7 @@ sampled on a grid, <cite>u</cite>, <cite>v</cite>, <cite>w</cite>:</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Quiver:</th><td class="field-body"><p class="first">The simplest visualization of a set of vectors, is using the <cite>mlab</cite>
 function <cite>quiver3d</cite>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">mlab</span><span class="o">.</span><span class="n">quiver3d</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">mlab</span><span class="o">.</span><span class="n">quiver3d</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
 <span class="n">mlab</span><span class="o">.</span><span class="n">outline</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1113,7 +1120,7 @@ just a bunch of vectors, to reduce the amount of arrows displayed. For
 this we need to build a <cite>vector_field</cite> source, and apply to it the
 <cite>vectors</cite> module, with some masking parameters (here we keep only one
 point out of 20):</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">src</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">vector_field</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">src</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">vector_field</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
 <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">vectors</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">mask_points</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">scale_factor</span><span class="o">=</span><span class="mf">3.</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1124,7 +1131,7 @@ point out of 20):</p>
 use a cut plane. In particular, we can inspect interactively the
 vector field by moving the cut plane along: clicking on it and
 dragging it can give a very clear understanding of the vector field:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">vector_cut_plane</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">mask_points</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">scale_factor</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">vector_cut_plane</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">mask_points</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">scale_factor</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 </pre></div>
 </div>
 <img alt="_images/vector_field_cut_plane.jpg" src="_images/vector_field_cut_plane.jpg" />
@@ -1138,7 +1145,7 @@ ExtractVectorNorm filter, and use the Iso-Surface module on it. When
 working interactively, a good understanding of the magnitude of the
 field can be gained by changing the values of the contours in the
 object&#8217;s property dialog.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">magnitude</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">extract_vector_norm</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">magnitude</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">extract_vector_norm</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
 <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">iso_surface</span><span class="p">(</span><span class="n">magnitude</span><span class="p">,</span> <span class="n">contours</span><span class="o">=</span><span class="p">[</span><span class="mf">1.9</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])</span>
 </pre></div>
 </div>
@@ -1152,9 +1159,9 @@ trajectory in hydrodynamics, or field lines in electro-magnetism.
 We can display the flow lines originating for a certain seed surface
 using the <cite>streamline</cite> module, or the mlab <a class="reference internal" href="auto/mlab_helper_functions.html#mayavi.mlab.flow" title="mayavi.mlab.flow"><code class="xref py py-func docutils literal"><span class="pre">flow()</span></code></a> function,
 which relies on <cite>streamline</cite> internally:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">flow</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">flow</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">seed_scale</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">flow</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">flow</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">seed_scale</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
                           <span class="n">seed_resolution</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
-                          <span class="n">integration_direction</span><span class="o">=</span><span class="s">&#39;both&#39;</span><span class="p">)</span>
+                          <span class="n">integration_direction</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <img alt="_images/vector_field_flow.jpg" src="_images/vector_field_flow.jpg" />
@@ -1166,12 +1173,12 @@ and one must use all the tools at hand to illustrate his purposes. It
 is important to choose the message conveyed. No one visualization
 will tell all about a vector field. Here is an example of a
 visualization made by combining the different tools above:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">mlab</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">fgcolor</span><span class="o">=</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">),</span> <span class="n">bgcolor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">mlab</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">fgcolor</span><span class="o">=</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">),</span> <span class="n">bgcolor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
 <span class="n">src</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">vector_field</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
 <span class="n">magnitude</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">extract_vector_norm</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
 
-<span class="c"># We apply the following modules on the magnitude object, in order to</span>
-<span class="c"># be able to display the norm of the vectors, eg as the color.</span>
+<span class="c1"># We apply the following modules on the magnitude object, in order to</span>
+<span class="c1"># be able to display the norm of the vectors, eg as the color.</span>
 <span class="n">iso</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">iso_surface</span><span class="p">(</span><span class="n">magnitude</span><span class="p">,</span> <span class="n">contours</span><span class="o">=</span><span class="p">[</span><span class="mf">1.9</span><span class="p">,</span> <span class="p">],</span> <span class="n">opacity</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
 
 <span class="n">vec</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">vectors</span><span class="p">(</span><span class="n">magnitude</span><span class="p">,</span> <span class="n">mask_points</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span>
@@ -1179,16 +1186,16 @@ visualization made by combining the different tools above:</p>
                                     <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="o">.</span><span class="mi">8</span><span class="p">,</span> <span class="o">.</span><span class="mi">8</span><span class="p">,</span> <span class="o">.</span><span class="mi">8</span><span class="p">),</span>
                                     <span class="n">scale_factor</span><span class="o">=</span><span class="mf">4.</span><span class="p">)</span>
 
-<span class="n">flow</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">streamline</span><span class="p">(</span><span class="n">magnitude</span><span class="p">,</span> <span class="n">seedtype</span><span class="o">=</span><span class="s">&#39;plane&#39;</span><span class="p">,</span>
+<span class="n">flow</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">streamline</span><span class="p">(</span><span class="n">magnitude</span><span class="p">,</span> <span class="n">seedtype</span><span class="o">=</span><span class="s1">&#39;plane&#39;</span><span class="p">,</span>
                                         <span class="n">seed_visible</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
                                         <span class="n">seed_scale</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
                                         <span class="n">seed_resolution</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                                        <span class="n">linetype</span><span class="o">=</span><span class="s">&#39;ribbon&#39;</span><span class="p">,)</span>
+                                        <span class="n">linetype</span><span class="o">=</span><span class="s1">&#39;ribbon&#39;</span><span class="p">,)</span>
 
 <span class="n">vcp</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">vector_cut_plane</span><span class="p">(</span><span class="n">magnitude</span><span class="p">,</span> <span class="n">mask_points</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
                                         <span class="n">scale_factor</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
-                                        <span class="n">colormap</span><span class="o">=</span><span class="s">&#39;jet&#39;</span><span class="p">,</span>
-                                        <span class="n">plane_orientation</span><span class="o">=</span><span class="s">&#39;x_axes&#39;</span><span class="p">)</span>
+                                        <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">,</span>
+                                        <span class="n">plane_orientation</span><span class="o">=</span><span class="s1">&#39;x_axes&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <img alt="_images/vector_field_combination.jpg" class="last" src="_images/vector_field_combination.jpg" />
@@ -1357,12 +1364,12 @@ approach to mixing by chaotic advection Phys. Fluids, 1995, 7, 2587</td></tr>
         <li class="right" >
           <a href="filters.html" title="Filters"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.4.4 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.5.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2008-2015, Enthought Inc..
-      Last updated on Feb 29, 2016.
+        &copy; Copyright 2008-2016, Enthought Inc..
+      Last updated on Aug 02, 2016.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
     </div>
   </body>

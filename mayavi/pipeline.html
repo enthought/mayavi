@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Organisation of Mayavi visualizations: the pipeline &mdash; mayavi 4.4.4 documentation</title>
+    <title>Organisation of Mayavi visualizations: the pipeline &mdash; mayavi 4.5.0 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '4.4.4',
+        VERSION:     '4.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.4.4 documentation" href="index.html" />
+    <link rel="top" title="mayavi 4.5.0 documentation" href="index.html" />
     <link rel="up" title="Advanced use of Mayavi" href="advanced_use.html" />
     <link rel="next" title="Data representation in Mayavi" href="data.html" />
     <link rel="prev" title="Advanced use of Mayavi" href="advanced_use.html" />
@@ -71,7 +71,7 @@
         <li class="right" >
           <a href="advanced_use.html" title="Advanced use of Mayavi"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.4.4 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="advanced_use.html" accesskey="U">Advanced use of Mayavi</a> &raquo;</li> 
       </ul>
     </div>  
@@ -154,14 +154,14 @@ pipeline manually, as exposed
 <h2>A pipeline example examined<a class="headerlink" href="#a-pipeline-example-examined" title="Permalink to this headline">¶</a></h2>
 <p>Let us study the pipeline created by the <cite>mlab.plot3d</cite> function to
 represent lines:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="n">phi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
 <span class="n">x</span>   <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">6</span><span class="o">*</span><span class="n">phi</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="o">.</span><span class="mi">5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">11</span><span class="o">*</span><span class="n">phi</span><span class="p">))</span>
 <span class="n">y</span>   <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">6</span><span class="o">*</span><span class="n">phi</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="o">.</span><span class="mi">5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">11</span><span class="o">*</span><span class="n">phi</span><span class="p">))</span>
 <span class="n">z</span>   <span class="o">=</span> <span class="o">.</span><span class="mi">5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">11</span><span class="o">*</span><span class="n">phi</span><span class="p">)</span>
 
 <span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
-<span class="n">surface</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">plot3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">6</span><span class="o">*</span><span class="n">phi</span><span class="p">),</span> <span class="n">tube_radius</span><span class="o">=</span><span class="mf">0.025</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s">&#39;Spectral&#39;</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=.</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">surface</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">plot3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">6</span><span class="o">*</span><span class="n">phi</span><span class="p">),</span> <span class="n">tube_radius</span><span class="o">=</span><span class="mf">0.025</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;Spectral&#39;</span><span class="p">,</span> <span class="n">opacity</span><span class="o">=.</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="figure align-center">
@@ -176,11 +176,11 @@ tubes. The <cite>surface</cite> object returned by the <cite>mlab.plot3d</cite> 
 that final <cite>Surface</cite> module.</p>
 <p>Let us have a look at the data in the pipeline before the tube filter was
 applied. First we retrive the <cite>Stripper</cite> filter:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">stripper</span> <span class="o">=</span> <span class="n">surface</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">stripper</span> <span class="o">=</span> <span class="n">surface</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span>
 </pre></div>
 </div>
 <p>Then we apply on it a <cite>Surface</cite> module to represent the <cite>strip</cite>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">lines</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">surface</span><span class="p">(</span><span class="n">stripper</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">lines</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">surface</span><span class="p">(</span><span class="n">stripper</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
 </pre></div>
 </div>
 <div class="figure align-center">
@@ -188,7 +188,7 @@ applied. First we retrive the <cite>Stripper</cite> filter:</p>
 </div>
 <p>All the properties of the different steps can be adjusted in the pipeline
 view. In addition, they correspond to attributes on the various objects:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">tubes</span> <span class="o">=</span> <span class="n">surface</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tubes</span> <span class="o">=</span> <span class="n">surface</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">tubes</span><span class="o">.</span><span class="n">filter</span><span class="o">.</span><span class="n">radius</span>
 <span class="go">0.025000000000000001</span>
 </pre></div>
@@ -294,13 +294,13 @@ challenging to find this correspondance. We suggest to use the
         <li class="right" >
           <a href="advanced_use.html" title="Advanced use of Mayavi"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.4.4 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="advanced_use.html" >Advanced use of Mayavi</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2008-2015, Enthought Inc..
-      Last updated on Feb 29, 2016.
+        &copy; Copyright 2008-2016, Enthought Inc..
+      Last updated on Aug 02, 2016.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
     </div>
   </body>

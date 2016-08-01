@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Offscreen example &mdash; mayavi 4.4.4 documentation</title>
+    <title>Offscreen example &mdash; mayavi 4.5.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.4.4',
+        VERSION:     '4.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.4.4 documentation" href="../index.html" />
+    <link rel="top" title="mayavi 4.5.0 documentation" href="../index.html" />
     <link rel="up" title="Example gallery" href="examples.html" />
     <link rel="next" title="Surf regular mlab example" href="example_surf_regular_mlab.html" />
     <link rel="prev" title="Polydata example" href="example_polydata.html" />
@@ -71,7 +71,7 @@
         <li class="right" >
           <a href="example_polydata.html" title="Polydata example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.4.4 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
       </ul>
     </div>  
@@ -91,50 +91,50 @@ On Win32 you will not see any windows popping up at all. In the end you
 should have an offscreen.png image in the same directory with the
 rendered visualization.</p>
 <p>It can be run as:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ python offscreen.py
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ python offscreen.py
 </pre></div>
 </div>
 <p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/offscreen.py"><code class="xref download docutils literal"><span class="pre">offscreen.py</span></code></a></p>
-<div class="highlight-python"><div class="highlight"><pre>
-<span class="c"># Author: Prabhu Ramachandran &lt;prabhu@aero.iitb.ac.in&gt;</span>
-<span class="c"># Copyright (c) 2007, Enthought, Inc.</span>
-<span class="c"># License: BSD Style.</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span>
+<span class="c1"># Author: Prabhu Ramachandran &lt;prabhu@aero.iitb.ac.in&gt;</span>
+<span class="c1"># Copyright (c) 2007, Enthought, Inc.</span>
+<span class="c1"># License: BSD Style.</span>
 
 <span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">join</span><span class="p">,</span> <span class="n">abspath</span><span class="p">,</span> <span class="n">dirname</span>
 
-<span class="c"># The offscreen Engine.</span>
+<span class="c1"># The offscreen Engine.</span>
 <span class="kn">from</span> <span class="nn">mayavi.api</span> <span class="kn">import</span> <span class="n">OffScreenEngine</span>
 
-<span class="c"># Usual MayaVi imports</span>
+<span class="c1"># Usual MayaVi imports</span>
 <span class="kn">from</span> <span class="nn">mayavi.scripts.util</span> <span class="kn">import</span> <span class="n">get_data_dir</span>
 <span class="kn">from</span> <span class="nn">mayavi.sources.api</span> <span class="kn">import</span> <span class="n">VTKXMLFileReader</span>
 <span class="kn">from</span> <span class="nn">mayavi.modules.api</span> <span class="kn">import</span> <span class="n">Outline</span><span class="p">,</span> <span class="n">ScalarCutPlane</span><span class="p">,</span> <span class="n">Streamline</span>
 
 
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="c"># Create the MayaVi offscreen engine and start it.</span>
+    <span class="c1"># Create the MayaVi offscreen engine and start it.</span>
     <span class="n">e</span> <span class="o">=</span> <span class="n">OffScreenEngine</span><span class="p">()</span>
-    <span class="c"># Starting the engine registers the engine with the registry and</span>
-    <span class="c"># notifies others that the engine is ready.</span>
+    <span class="c1"># Starting the engine registers the engine with the registry and</span>
+    <span class="c1"># notifies others that the engine is ready.</span>
     <span class="n">e</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
 
-    <span class="c"># Create a new scene.</span>
+    <span class="c1"># Create a new scene.</span>
     <span class="n">win</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">new_scene</span><span class="p">()</span>
 
-    <span class="c"># Now setup a normal MayaVi pipeline.</span>
+    <span class="c1"># Now setup a normal MayaVi pipeline.</span>
     <span class="n">src</span> <span class="o">=</span> <span class="n">VTKXMLFileReader</span><span class="p">()</span>
     <span class="n">src</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">join</span><span class="p">(</span><span class="n">get_data_dir</span><span class="p">(</span><span class="n">dirname</span><span class="p">(</span><span class="n">abspath</span><span class="p">(</span><span class="n">__file__</span><span class="p">))),</span>
-                        <span class="s">&#39;fire_ug.vtu&#39;</span><span class="p">))</span>
+                        <span class="s1">&#39;fire_ug.vtu&#39;</span><span class="p">))</span>
     <span class="n">e</span><span class="o">.</span><span class="n">add_source</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
     <span class="n">e</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">Outline</span><span class="p">())</span>
     <span class="n">e</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">ScalarCutPlane</span><span class="p">())</span>
     <span class="n">e</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">Streamline</span><span class="p">())</span>
     <span class="n">win</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">isometric_view</span><span class="p">()</span>
-    <span class="c"># Change the size argument to anything you want.</span>
-    <span class="n">win</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s">&#39;offscreen.png&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mi">800</span><span class="p">))</span>
+    <span class="c1"># Change the size argument to anything you want.</span>
+    <span class="n">win</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;offscreen.png&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mi">800</span><span class="p">))</span>
 
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -220,13 +220,13 @@ rendered visualization.</p>
         <li class="right" >
           <a href="example_polydata.html" title="Polydata example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.4.4 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2008-2015, Enthought Inc..
-      Last updated on Feb 29, 2016.
+        &copy; Copyright 2008-2016, Enthought Inc..
+      Last updated on Aug 02, 2016.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
     </div>
   </body>

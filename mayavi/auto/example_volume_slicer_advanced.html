@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Volume slicer advanced example &mdash; mayavi 4.4.4 documentation</title>
+    <title>Volume slicer advanced example &mdash; mayavi 4.5.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.4.4',
+        VERSION:     '4.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.4.4 documentation" href="../index.html" />
+    <link rel="top" title="mayavi 4.5.0 documentation" href="../index.html" />
     <link rel="up" title="Example gallery" href="examples.html" />
     <link rel="next" title="Polydata example" href="example_polydata.html" />
     <link rel="prev" title="Coil design application example" href="example_coil_design_application.html" />
@@ -71,7 +71,7 @@
         <li class="right" >
           <a href="example_coil_design_application.html" title="Coil design application example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.4.4 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
       </ul>
     </div>  
@@ -108,7 +108,7 @@ creates a VTK <cite>InteractionEvent</cite>. When this happens, VTK calls an
 callback (observer, it VTK terms), that we use to move the position of
 the cut. The Traits callbacks do the rest for the updating.</p>
 <p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/volume_slicer_advanced.py"><code class="xref download docutils literal"><span class="pre">volume_slicer_advanced.py</span></code></a></p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 
 <span class="kn">from</span> <span class="nn">traits.api</span> <span class="kn">import</span> <span class="n">HasTraits</span><span class="p">,</span> <span class="n">Instance</span><span class="p">,</span> <span class="n">Array</span><span class="p">,</span> \
     <span class="n">Bool</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">on_trait_change</span>
@@ -122,160 +122,160 @@ the cut. The Traits callbacks do the rest for the updating.</p>
 <span class="kn">from</span> <span class="nn">mayavi.core.ui.api</span> <span class="kn">import</span> <span class="n">SceneEditor</span><span class="p">,</span> <span class="n">MlabSceneModel</span>
 
 
-<span class="c">################################################################################</span>
-<span class="c"># The object implementing the dialog</span>
+<span class="c1">################################################################################</span>
+<span class="c1"># The object implementing the dialog</span>
 <span class="k">class</span> <span class="nc">VolumeSlicer</span><span class="p">(</span><span class="n">HasTraits</span><span class="p">):</span>
-    <span class="c"># The data to plot</span>
+    <span class="c1"># The data to plot</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">Array</span>
 
-    <span class="c"># The position of the view</span>
+    <span class="c1"># The position of the view</span>
     <span class="n">position</span> <span class="o">=</span> <span class="n">Array</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,))</span>
 
-    <span class="c"># The 4 views displayed</span>
+    <span class="c1"># The 4 views displayed</span>
     <span class="n">scene3d</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">MlabSceneModel</span><span class="p">,</span> <span class="p">())</span>
     <span class="n">scene_x</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">MlabSceneModel</span><span class="p">,</span> <span class="p">())</span>
     <span class="n">scene_y</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">MlabSceneModel</span><span class="p">,</span> <span class="p">())</span>
     <span class="n">scene_z</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">MlabSceneModel</span><span class="p">,</span> <span class="p">())</span>
 
-    <span class="c"># The data source</span>
+    <span class="c1"># The data source</span>
     <span class="n">data_src</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">Source</span><span class="p">)</span>
 
-    <span class="c"># The image plane widgets of the 3D scene</span>
+    <span class="c1"># The image plane widgets of the 3D scene</span>
     <span class="n">ipw_3d_x</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">PipelineBase</span><span class="p">)</span>
     <span class="n">ipw_3d_y</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">PipelineBase</span><span class="p">)</span>
     <span class="n">ipw_3d_z</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">PipelineBase</span><span class="p">)</span>
 
-    <span class="c"># The cursors on each view:</span>
+    <span class="c1"># The cursors on each view:</span>
     <span class="n">cursors</span> <span class="o">=</span> <span class="n">Dict</span><span class="p">()</span>
 
     <span class="n">disable_render</span> <span class="o">=</span> <span class="n">Bool</span>
 
     <span class="n">_axis_names</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 
-    <span class="c">#---------------------------------------------------------------------------</span>
-    <span class="c"># Object interface</span>
-    <span class="c">#---------------------------------------------------------------------------</span>
+    <span class="c1">#---------------------------------------------------------------------------</span>
+    <span class="c1"># Object interface</span>
+    <span class="c1">#---------------------------------------------------------------------------</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">traits</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">VolumeSlicer</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">traits</span><span class="p">)</span>
-        <span class="c"># Force the creation of the image_plane_widgets:</span>
+        <span class="c1"># Force the creation of the image_plane_widgets:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ipw_3d_x</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ipw_3d_y</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">ipw_3d_z</span>
 
 
-    <span class="c">#---------------------------------------------------------------------------</span>
-    <span class="c"># Default values</span>
-    <span class="c">#---------------------------------------------------------------------------</span>
+    <span class="c1">#---------------------------------------------------------------------------</span>
+    <span class="c1"># Default values</span>
+    <span class="c1">#---------------------------------------------------------------------------</span>
     <span class="k">def</span> <span class="nf">_position_default</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_data_src_default</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">scalar_field</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
                             <span class="n">figure</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">scene3d</span><span class="o">.</span><span class="n">mayavi_scene</span><span class="p">,</span>
-                            <span class="n">name</span><span class="o">=</span><span class="s">&#39;Data&#39;</span><span class="p">,)</span>
+                            <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Data&#39;</span><span class="p">,)</span>
 
     <span class="k">def</span> <span class="nf">make_ipw_3d</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axis_name</span><span class="p">):</span>
         <span class="n">ipw</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">image_plane_widget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_src</span><span class="p">,</span>
                         <span class="n">figure</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">scene3d</span><span class="o">.</span><span class="n">mayavi_scene</span><span class="p">,</span>
-                        <span class="n">plane_orientation</span><span class="o">=</span><span class="s">&#39;</span><span class="si">%s</span><span class="s">_axes&#39;</span> <span class="o">%</span> <span class="n">axis_name</span><span class="p">,</span>
-                        <span class="n">name</span><span class="o">=</span><span class="s">&#39;Cut </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">axis_name</span><span class="p">)</span>
+                        <span class="n">plane_orientation</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">_axes&#39;</span> <span class="o">%</span> <span class="n">axis_name</span><span class="p">,</span>
+                        <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Cut </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">axis_name</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">ipw</span>
 
     <span class="k">def</span> <span class="nf">_ipw_3d_x_default</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_ipw_3d</span><span class="p">(</span><span class="s">&#39;x&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_ipw_3d</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_ipw_3d_y_default</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_ipw_3d</span><span class="p">(</span><span class="s">&#39;y&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_ipw_3d</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_ipw_3d_z_default</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_ipw_3d</span><span class="p">(</span><span class="s">&#39;z&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_ipw_3d</span><span class="p">(</span><span class="s1">&#39;z&#39;</span><span class="p">)</span>
 
 
-    <span class="c">#---------------------------------------------------------------------------</span>
-    <span class="c"># Scene activation callbacks</span>
-    <span class="c">#---------------------------------------------------------------------------</span>
-    <span class="nd">@on_trait_change</span><span class="p">(</span><span class="s">&#39;scene3d.activated&#39;</span><span class="p">)</span>
+    <span class="c1">#---------------------------------------------------------------------------</span>
+    <span class="c1"># Scene activation callbacks</span>
+    <span class="c1">#---------------------------------------------------------------------------</span>
+    <span class="nd">@on_trait_change</span><span class="p">(</span><span class="s1">&#39;scene3d.activated&#39;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">display_scene3d</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">outline</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">outline</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_src</span><span class="p">,</span>
                         <span class="n">figure</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">scene3d</span><span class="o">.</span><span class="n">mayavi_scene</span><span class="p">,</span>
                         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">scene3d</span><span class="o">.</span><span class="n">mlab</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
-        <span class="c"># Interaction properties can only be changed after the scene</span>
-        <span class="c"># has been created, and thus the interactor exists</span>
+        <span class="c1"># Interaction properties can only be changed after the scene</span>
+        <span class="c1"># has been created, and thus the interactor exists</span>
         <span class="k">for</span> <span class="n">ipw</span> <span class="ow">in</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ipw_3d_x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ipw_3d_y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ipw_3d_z</span><span class="p">):</span>
             <span class="n">ipw</span><span class="o">.</span><span class="n">ipw</span><span class="o">.</span><span class="n">interaction</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">scene3d</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">background</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-        <span class="c"># Keep the view always pointing up</span>
+        <span class="c1"># Keep the view always pointing up</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">scene3d</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">interactor</span><span class="o">.</span><span class="n">interactor_style</span> <span class="o">=</span> \
                                  <span class="n">tvtk</span><span class="o">.</span><span class="n">InteractorStyleTerrain</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">update_position</span><span class="p">()</span>
 
 
     <span class="k">def</span> <span class="nf">make_side_view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axis_name</span><span class="p">):</span>
-        <span class="n">scene</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s">&#39;scene_</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">axis_name</span><span class="p">)</span>
+        <span class="n">scene</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;scene_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">axis_name</span><span class="p">)</span>
         <span class="n">scene</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">parallel_projection</span> <span class="o">=</span> <span class="bp">True</span>
-        <span class="n">ipw_3d</span>   <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s">&#39;ipw_3d_</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">axis_name</span><span class="p">)</span>
+        <span class="n">ipw_3d</span>   <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;ipw_3d_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">axis_name</span><span class="p">)</span>
 
-        <span class="c"># We create the image_plane_widgets in the side view using a</span>
-        <span class="c"># VTK dataset pointing to the data on the corresponding</span>
-        <span class="c"># image_plane_widget in the 3D view (it is returned by</span>
-        <span class="c"># ipw_3d._get_reslice_output())</span>
+        <span class="c1"># We create the image_plane_widgets in the side view using a</span>
+        <span class="c1"># VTK dataset pointing to the data on the corresponding</span>
+        <span class="c1"># image_plane_widget in the 3D view (it is returned by</span>
+        <span class="c1"># ipw_3d._get_reslice_output())</span>
         <span class="n">side_src</span> <span class="o">=</span> <span class="n">ipw_3d</span><span class="o">.</span><span class="n">ipw</span><span class="o">.</span><span class="n">_get_reslice_output</span><span class="p">()</span>
         <span class="n">ipw</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">image_plane_widget</span><span class="p">(</span>
                             <span class="n">side_src</span><span class="p">,</span>
-                            <span class="n">plane_orientation</span><span class="o">=</span><span class="s">&#39;z_axes&#39;</span><span class="p">,</span>
+                            <span class="n">plane_orientation</span><span class="o">=</span><span class="s1">&#39;z_axes&#39;</span><span class="p">,</span>
                             <span class="n">vmin</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span>
                             <span class="n">vmax</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span>
                             <span class="n">figure</span><span class="o">=</span><span class="n">scene</span><span class="o">.</span><span class="n">mayavi_scene</span><span class="p">,</span>
-                            <span class="n">name</span><span class="o">=</span><span class="s">&#39;Cut view </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">axis_name</span><span class="p">,</span>
+                            <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Cut view </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">axis_name</span><span class="p">,</span>
                             <span class="p">)</span>
-        <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s">&#39;ipw_</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">axis_name</span><span class="p">,</span> <span class="n">ipw</span><span class="p">)</span>
+        <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;ipw_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">axis_name</span><span class="p">,</span> <span class="n">ipw</span><span class="p">)</span>
 
-        <span class="c"># Extract the spacing of the side_src to convert coordinates</span>
-        <span class="c"># into indices</span>
+        <span class="c1"># Extract the spacing of the side_src to convert coordinates</span>
+        <span class="c1"># into indices</span>
         <span class="n">spacing</span> <span class="o">=</span> <span class="n">side_src</span><span class="o">.</span><span class="n">spacing</span>
 
-        <span class="c"># Make left-clicking create a crosshair</span>
+        <span class="c1"># Make left-clicking create a crosshair</span>
         <span class="n">ipw</span><span class="o">.</span><span class="n">ipw</span><span class="o">.</span><span class="n">left_button_action</span> <span class="o">=</span> <span class="mi">0</span>
 
         <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span>
         <span class="n">cursor</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">points3d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span>
-                            <span class="n">mode</span><span class="o">=</span><span class="s">&#39;axes&#39;</span><span class="p">,</span>
+                            <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;axes&#39;</span><span class="p">,</span>
                             <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
                             <span class="n">scale_factor</span><span class="o">=</span><span class="mi">2</span><span class="o">*</span><span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">),</span>
                             <span class="n">figure</span><span class="o">=</span><span class="n">scene</span><span class="o">.</span><span class="n">mayavi_scene</span><span class="p">,</span>
-                            <span class="n">name</span><span class="o">=</span><span class="s">&#39;Cursor view </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">axis_name</span><span class="p">,</span>
+                            <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Cursor view </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">axis_name</span><span class="p">,</span>
                         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cursors</span><span class="p">[</span><span class="n">axis_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">cursor</span>
 
-        <span class="c"># Add a callback on the image plane widget interaction to</span>
-        <span class="c"># move the others</span>
+        <span class="c1"># Add a callback on the image plane widget interaction to</span>
+        <span class="c1"># move the others</span>
         <span class="n">this_axis_number</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_axis_names</span><span class="p">[</span><span class="n">axis_name</span><span class="p">]</span>
         <span class="k">def</span> <span class="nf">move_view</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">evt</span><span class="p">):</span>
-            <span class="c"># Disable rendering on all scene</span>
+            <span class="c1"># Disable rendering on all scene</span>
             <span class="n">position</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">GetCurrentCursorPosition</span><span class="p">()</span><span class="o">*</span><span class="n">spacing</span><span class="p">)[:</span><span class="mi">2</span><span class="p">]</span>
             <span class="n">position</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">this_axis_number</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">[</span><span class="n">this_axis_number</span><span class="p">])</span>
-            <span class="c"># We need to special case y, as the view has been rotated.</span>
-            <span class="k">if</span> <span class="n">axis_name</span> <span class="ow">is</span> <span class="s">&#39;y&#39;</span><span class="p">:</span>
+            <span class="c1"># We need to special case y, as the view has been rotated.</span>
+            <span class="k">if</span> <span class="n">axis_name</span> <span class="ow">is</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span>
                 <span class="n">position</span> <span class="o">=</span> <span class="n">position</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="n">position</span>
 
-        <span class="n">ipw</span><span class="o">.</span><span class="n">ipw</span><span class="o">.</span><span class="n">add_observer</span><span class="p">(</span><span class="s">&#39;InteractionEvent&#39;</span><span class="p">,</span> <span class="n">move_view</span><span class="p">)</span>
-        <span class="n">ipw</span><span class="o">.</span><span class="n">ipw</span><span class="o">.</span><span class="n">add_observer</span><span class="p">(</span><span class="s">&#39;StartInteractionEvent&#39;</span><span class="p">,</span> <span class="n">move_view</span><span class="p">)</span>
+        <span class="n">ipw</span><span class="o">.</span><span class="n">ipw</span><span class="o">.</span><span class="n">add_observer</span><span class="p">(</span><span class="s1">&#39;InteractionEvent&#39;</span><span class="p">,</span> <span class="n">move_view</span><span class="p">)</span>
+        <span class="n">ipw</span><span class="o">.</span><span class="n">ipw</span><span class="o">.</span><span class="n">add_observer</span><span class="p">(</span><span class="s1">&#39;StartInteractionEvent&#39;</span><span class="p">,</span> <span class="n">move_view</span><span class="p">)</span>
 
-        <span class="c"># Center the image plane widget</span>
+        <span class="c1"># Center the image plane widget</span>
         <span class="n">ipw</span><span class="o">.</span><span class="n">ipw</span><span class="o">.</span><span class="n">slice_position</span> <span class="o">=</span> <span class="mf">0.5</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span>
                                         <span class="bp">self</span><span class="o">.</span><span class="n">_axis_names</span><span class="p">[</span><span class="n">axis_name</span><span class="p">]]</span>
 
-        <span class="c"># 2D interaction: only pan and zoom</span>
+        <span class="c1"># 2D interaction: only pan and zoom</span>
         <span class="n">scene</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">interactor</span><span class="o">.</span><span class="n">interactor_style</span> <span class="o">=</span> \
                                  <span class="n">tvtk</span><span class="o">.</span><span class="n">InteractorStyleImage</span><span class="p">()</span>
         <span class="n">scene</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">background</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 
-        <span class="c"># Some text:</span>
+        <span class="c1"># Some text:</span>
         <span class="n">mlab</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="n">axis_name</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.08</span><span class="p">)</span>
 
-        <span class="c"># Choose a view that makes sens</span>
+        <span class="c1"># Choose a view that makes sens</span>
         <span class="n">views</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">y</span><span class="o">=</span><span class="p">(</span><span class="mi">90</span><span class="p">,</span> <span class="mi">180</span><span class="p">),</span> <span class="n">z</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
         <span class="n">mlab</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">views</span><span class="p">[</span><span class="n">axis_name</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
                   <span class="n">views</span><span class="p">[</span><span class="n">axis_name</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span>
@@ -283,92 +283,92 @@ the cut. The Traits callbacks do the rest for the updating.</p>
                   <span class="n">figure</span><span class="o">=</span><span class="n">scene</span><span class="o">.</span><span class="n">mayavi_scene</span><span class="p">)</span>
         <span class="n">scene</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">camera</span><span class="o">.</span><span class="n">parallel_scale</span> <span class="o">=</span> <span class="mf">0.52</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 
-    <span class="nd">@on_trait_change</span><span class="p">(</span><span class="s">&#39;scene_x.activated&#39;</span><span class="p">)</span>
+    <span class="nd">@on_trait_change</span><span class="p">(</span><span class="s1">&#39;scene_x.activated&#39;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">display_scene_x</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_side_view</span><span class="p">(</span><span class="s">&#39;x&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_side_view</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
 
-    <span class="nd">@on_trait_change</span><span class="p">(</span><span class="s">&#39;scene_y.activated&#39;</span><span class="p">)</span>
+    <span class="nd">@on_trait_change</span><span class="p">(</span><span class="s1">&#39;scene_y.activated&#39;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">display_scene_y</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_side_view</span><span class="p">(</span><span class="s">&#39;y&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_side_view</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
 
-    <span class="nd">@on_trait_change</span><span class="p">(</span><span class="s">&#39;scene_z.activated&#39;</span><span class="p">)</span>
+    <span class="nd">@on_trait_change</span><span class="p">(</span><span class="s1">&#39;scene_z.activated&#39;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">display_scene_z</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_side_view</span><span class="p">(</span><span class="s">&#39;z&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_side_view</span><span class="p">(</span><span class="s1">&#39;z&#39;</span><span class="p">)</span>
 
 
-    <span class="c">#---------------------------------------------------------------------------</span>
-    <span class="c"># Traits callback</span>
-    <span class="c">#---------------------------------------------------------------------------</span>
-    <span class="nd">@on_trait_change</span><span class="p">(</span><span class="s">&#39;position&#39;</span><span class="p">)</span>
+    <span class="c1">#---------------------------------------------------------------------------</span>
+    <span class="c1"># Traits callback</span>
+    <span class="c1">#---------------------------------------------------------------------------</span>
+    <span class="nd">@on_trait_change</span><span class="p">(</span><span class="s1">&#39;position&#39;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">update_position</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Update the position of the cursors on each side view, as well</span>
 <span class="sd">            as the image_plane_widgets in the 3D view.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c"># First disable rendering in all scenes to avoid unecessary</span>
-        <span class="c"># renderings</span>
+        <span class="c1"># First disable rendering in all scenes to avoid unecessary</span>
+        <span class="c1"># renderings</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">disable_render</span> <span class="o">=</span> <span class="bp">True</span>
 
-        <span class="c"># For each axis, move image_plane_widget and the cursor in the</span>
-        <span class="c"># side view</span>
+        <span class="c1"># For each axis, move image_plane_widget and the cursor in the</span>
+        <span class="c1"># side view</span>
         <span class="k">for</span> <span class="n">axis_name</span><span class="p">,</span> <span class="n">axis_number</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_axis_names</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="n">ipw3d</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s">&#39;ipw_3d_</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">axis_name</span><span class="p">)</span>
+            <span class="n">ipw3d</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;ipw_3d_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">axis_name</span><span class="p">)</span>
             <span class="n">ipw3d</span><span class="o">.</span><span class="n">ipw</span><span class="o">.</span><span class="n">slice_position</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">[</span><span class="n">axis_number</span><span class="p">]</span>
 
-            <span class="c"># Go from the 3D position, to the 2D coordinates in the</span>
-            <span class="c"># side view</span>
+            <span class="c1"># Go from the 3D position, to the 2D coordinates in the</span>
+            <span class="c1"># side view</span>
             <span class="n">position2d</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">)</span>
             <span class="n">position2d</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">axis_number</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">axis_name</span> <span class="ow">is</span> <span class="s">&#39;y&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">axis_name</span> <span class="ow">is</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span>
                 <span class="n">position2d</span> <span class="o">=</span> <span class="n">position2d</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-            <span class="c"># Move the cursor</span>
-            <span class="c"># For the following to work, you need Mayavi 3.4.0, if you</span>
-            <span class="c"># have a less recent version, use &#39;x=[position2d[0]]&#39;</span>
+            <span class="c1"># Move the cursor</span>
+            <span class="c1"># For the following to work, you need Mayavi 3.4.0, if you</span>
+            <span class="c1"># have a less recent version, use &#39;x=[position2d[0]]&#39;</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">cursors</span><span class="p">[</span><span class="n">axis_name</span><span class="p">]</span><span class="o">.</span><span class="n">mlab_source</span><span class="o">.</span><span class="n">set</span><span class="p">(</span>
                                                 <span class="n">x</span><span class="o">=</span><span class="n">position2d</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
                                                 <span class="n">y</span><span class="o">=</span><span class="n">position2d</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
                                                 <span class="n">z</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
-        <span class="c"># Finally re-enable rendering</span>
+        <span class="c1"># Finally re-enable rendering</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">disable_render</span> <span class="o">=</span> <span class="bp">False</span>
 
-    <span class="nd">@on_trait_change</span><span class="p">(</span><span class="s">&#39;disable_render&#39;</span><span class="p">)</span>
+    <span class="nd">@on_trait_change</span><span class="p">(</span><span class="s1">&#39;disable_render&#39;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">_render_enable</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">scene</span> <span class="ow">in</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scene3d</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">scene_x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">scene_y</span><span class="p">,</span>
                                                   <span class="bp">self</span><span class="o">.</span><span class="n">scene_z</span><span class="p">):</span>
             <span class="n">scene</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">disable_render</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">disable_render</span>
 
 
-    <span class="c">#---------------------------------------------------------------------------</span>
-    <span class="c"># The layout of the dialog created</span>
-    <span class="c">#---------------------------------------------------------------------------</span>
+    <span class="c1">#---------------------------------------------------------------------------</span>
+    <span class="c1"># The layout of the dialog created</span>
+    <span class="c1">#---------------------------------------------------------------------------</span>
     <span class="n">view</span> <span class="o">=</span> <span class="n">View</span><span class="p">(</span><span class="n">HGroup</span><span class="p">(</span>
                   <span class="n">Group</span><span class="p">(</span>
-                       <span class="n">Item</span><span class="p">(</span><span class="s">&#39;scene_y&#39;</span><span class="p">,</span>
+                       <span class="n">Item</span><span class="p">(</span><span class="s1">&#39;scene_y&#39;</span><span class="p">,</span>
                             <span class="n">editor</span><span class="o">=</span><span class="n">SceneEditor</span><span class="p">(</span><span class="n">scene_class</span><span class="o">=</span><span class="n">Scene</span><span class="p">),</span>
                             <span class="n">height</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">300</span><span class="p">),</span>
-                       <span class="n">Item</span><span class="p">(</span><span class="s">&#39;scene_z&#39;</span><span class="p">,</span>
+                       <span class="n">Item</span><span class="p">(</span><span class="s1">&#39;scene_z&#39;</span><span class="p">,</span>
                             <span class="n">editor</span><span class="o">=</span><span class="n">SceneEditor</span><span class="p">(</span><span class="n">scene_class</span><span class="o">=</span><span class="n">Scene</span><span class="p">),</span>
                             <span class="n">height</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">300</span><span class="p">),</span>
                        <span class="n">show_labels</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
                   <span class="p">),</span>
                   <span class="n">Group</span><span class="p">(</span>
-                       <span class="n">Item</span><span class="p">(</span><span class="s">&#39;scene_x&#39;</span><span class="p">,</span>
+                       <span class="n">Item</span><span class="p">(</span><span class="s1">&#39;scene_x&#39;</span><span class="p">,</span>
                             <span class="n">editor</span><span class="o">=</span><span class="n">SceneEditor</span><span class="p">(</span><span class="n">scene_class</span><span class="o">=</span><span class="n">Scene</span><span class="p">),</span>
                             <span class="n">height</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">300</span><span class="p">),</span>
-                       <span class="n">Item</span><span class="p">(</span><span class="s">&#39;scene3d&#39;</span><span class="p">,</span>
+                       <span class="n">Item</span><span class="p">(</span><span class="s1">&#39;scene3d&#39;</span><span class="p">,</span>
                             <span class="n">editor</span><span class="o">=</span><span class="n">SceneEditor</span><span class="p">(</span><span class="n">scene_class</span><span class="o">=</span><span class="n">Scene</span><span class="p">),</span>
                             <span class="n">height</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">300</span><span class="p">),</span>
                        <span class="n">show_labels</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
                   <span class="p">),</span>
                 <span class="p">),</span>
                 <span class="n">resizable</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-                <span class="n">title</span><span class="o">=</span><span class="s">&#39;Volume Slicer&#39;</span><span class="p">,</span>
+                <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Volume Slicer&#39;</span><span class="p">,</span>
                 <span class="p">)</span>
 
 
-<span class="c">################################################################################</span>
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="c"># Create some data</span>
+<span class="c1">################################################################################</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="c1"># Create some data</span>
     <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ogrid</span><span class="p">[</span><span class="o">-</span><span class="mi">5</span><span class="p">:</span><span class="mi">5</span><span class="p">:</span><span class="mi">100j</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">:</span><span class="mi">5</span><span class="p">:</span><span class="mi">100j</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">:</span><span class="mi">5</span><span class="p">:</span><span class="mi">100j</span><span class="p">]</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">x</span><span class="p">)</span><span class="o">/</span><span class="n">x</span> <span class="o">+</span> <span class="mf">0.05</span><span class="o">*</span><span class="n">z</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">y</span><span class="p">)</span>
 
@@ -458,13 +458,13 @@ the cut. The Traits callbacks do the rest for the updating.</p>
         <li class="right" >
           <a href="example_coil_design_application.html" title="Coil design application example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.4.4 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2008-2015, Enthought Inc..
-      Last updated on Feb 29, 2016.
+        &copy; Copyright 2008-2016, Enthought Inc..
+      Last updated on Aug 02, 2016.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
     </div>
   </body>

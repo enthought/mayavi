@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Poll file example &mdash; mayavi 4.4.4 documentation</title>
+    <title>Poll file example &mdash; mayavi 4.5.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.4.4',
+        VERSION:     '4.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.4.4 documentation" href="../index.html" />
+    <link rel="top" title="mayavi 4.5.0 documentation" href="../index.html" />
     <link rel="up" title="Example gallery" href="examples.html" />
     <link rel="next" title="Lorenz ui example" href="example_lorenz_ui.html" />
     <link rel="prev" title="Adjust cropping extents example" href="example_adjust_cropping_extents.html" />
@@ -71,7 +71,7 @@
         <li class="right" >
           <a href="example_adjust_cropping_extents.html" title="Adjust cropping extents example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.4.4 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
       </ul>
     </div>  
@@ -86,27 +86,27 @@
 <p>A simple script that polls a data file for changes and then updates
 the mayavi pipeline automatically.</p>
 <p>This script is to be run like so:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ mayavi2 -x poll_file.py
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ mayavi2 -x poll_file.py
 </pre></div>
 </div>
 <p>Or:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ python poll_file.py
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ python poll_file.py
 </pre></div>
 </div>
 <p>The script currently defaults to using the example data in
 examples/data/heart.vtk.  You can try editing that data file or change
 this script to point to other data which you can edit.</p>
 <p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/poll_file.py"><code class="xref download docutils literal"><span class="pre">poll_file.py</span></code></a></p>
-<div class="highlight-python"><div class="highlight"><pre>
-<span class="c"># Author: Prabhu Ramachandran &lt;prabhu@aero.iitb.ac.in&gt;</span>
-<span class="c"># Copyright (c) 2006-2015, Enthought Inc.</span>
-<span class="c"># License: BSD Style.</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span>
+<span class="c1"># Author: Prabhu Ramachandran &lt;prabhu@aero.iitb.ac.in&gt;</span>
+<span class="c1"># Copyright (c) 2006-2015, Enthought Inc.</span>
+<span class="c1"># License: BSD Style.</span>
 
-<span class="c"># Standard imports.</span>
+<span class="c1"># Standard imports.</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">join</span><span class="p">,</span> <span class="n">abspath</span><span class="p">,</span> <span class="n">dirname</span>
 
-<span class="c"># Enthought library imports</span>
+<span class="c1"># Enthought library imports</span>
 <span class="kn">from</span> <span class="nn">mayavi.scripts</span> <span class="kn">import</span> <span class="n">mayavi2</span>
 <span class="kn">from</span> <span class="nn">mayavi.sources.vtk_file_reader</span> <span class="kn">import</span> <span class="n">VTKFileReader</span>
 <span class="kn">from</span> <span class="nn">mayavi.modules.outline</span> <span class="kn">import</span> <span class="n">Outline</span>
@@ -114,8 +114,8 @@ this script to point to other data which you can edit.</p>
 <span class="kn">from</span> <span class="nn">pyface.timer.api</span> <span class="kn">import</span> <span class="n">Timer</span>
 
 
-<span class="c">######################################################################</span>
-<span class="c"># `Pollster` class.</span>
+<span class="c1">######################################################################</span>
+<span class="c1"># `Pollster` class.</span>
 <span class="k">class</span> <span class="nc">Pollster</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Given a file name and a mayavi2 data reader object, this class</span>
 <span class="sd">    polls the file for any changes and automatically updates the</span>
@@ -134,7 +134,7 @@ this script to point to other data which you can edit.</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">last_stat</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">stat</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">poll_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c"># Check the file&#39;s time stamp.</span>
+        <span class="c1"># Check the file&#39;s time stamp.</span>
         <span class="n">s</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">stat</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fname</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_stat</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]:</span>
             <span class="k">return</span>
@@ -145,12 +145,12 @@ this script to point to other data which you can edit.</p>
     <span class="k">def</span> <span class="nf">update_pipeline</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Override this to do something else if needed.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">&quot;file changed&quot;</span><span class="p">)</span>
-        <span class="c"># Force the reader to re-read the file.</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;file changed&quot;</span><span class="p">)</span>
+        <span class="c1"># Force the reader to re-read the file.</span>
         <span class="n">d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span>
         <span class="n">d</span><span class="o">.</span><span class="n">reader</span><span class="o">.</span><span class="n">modified</span><span class="p">()</span>
         <span class="n">d</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
-        <span class="c"># Propagate the changes in the pipeline.</span>
+        <span class="c1"># Propagate the changes in the pipeline.</span>
         <span class="n">d</span><span class="o">.</span><span class="n">data_changed</span> <span class="o">=</span> <span class="bp">True</span>
 
 
@@ -160,7 +160,7 @@ this script to point to other data which you can edit.</p>
 <span class="sd">    for it and adds it to the pipeline.  It returns the reader</span>
 <span class="sd">    created.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c"># &#39;mayavi&#39; is always defined on the interpreter.</span>
+    <span class="c1"># &#39;mayavi&#39; is always defined on the interpreter.</span>
     <span class="n">mayavi</span><span class="o">.</span><span class="n">new_scene</span><span class="p">()</span>
     <span class="n">d</span> <span class="o">=</span> <span class="n">VTKFileReader</span><span class="p">()</span>
     <span class="n">d</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
@@ -170,7 +170,7 @@ this script to point to other data which you can edit.</p>
 <span class="k">def</span> <span class="nf">view_data</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;Sets up the mayavi pipeline for the visualization.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c"># &#39;mayavi&#39; is always defined on the interpreter.</span>
+    <span class="c1"># &#39;mayavi&#39; is always defined on the interpreter.</span>
     <span class="n">o</span> <span class="o">=</span> <span class="n">Outline</span><span class="p">()</span>
     <span class="n">mayavi</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
 
@@ -181,25 +181,25 @@ this script to point to other data which you can edit.</p>
 
 <span class="nd">@mayavi2.standalone</span>
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="c"># Change this to suit your needs.  Edit the file after running this</span>
-    <span class="c"># script and the pipeline should be updated automatically.</span>
+    <span class="c1"># Change this to suit your needs.  Edit the file after running this</span>
+    <span class="c1"># script and the pipeline should be updated automatically.</span>
 
     <span class="n">fname</span> <span class="o">=</span> <span class="n">join</span><span class="p">(</span><span class="n">mayavi2</span><span class="o">.</span><span class="n">get_data_dir</span><span class="p">(</span><span class="n">abspath</span><span class="p">(</span><span class="n">dirname</span><span class="p">(</span><span class="n">__file__</span><span class="p">))),</span>
-                 <span class="s">&#39;heart.vtk&#39;</span><span class="p">)</span>
+                 <span class="s1">&#39;heart.vtk&#39;</span><span class="p">)</span>
 
     <span class="n">data</span> <span class="o">=</span> <span class="n">setup_data</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
     <span class="n">view_data</span><span class="p">()</span>
 
-    <span class="c"># Poll the file.</span>
+    <span class="c1"># Poll the file.</span>
     <span class="n">p</span> <span class="o">=</span> <span class="n">Pollster</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
     <span class="n">timer</span> <span class="o">=</span> <span class="n">Timer</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">poll_file</span><span class="p">)</span>
-    <span class="c"># Keep a reference on the timer</span>
+    <span class="c1"># Keep a reference on the timer</span>
     <span class="n">mayavi2</span><span class="o">.</span><span class="n">savedtimerbug</span> <span class="o">=</span> <span class="n">timer</span>
 
-    <span class="c"># To stop polling the file do:</span>
-    <span class="c">#timer.Stop()</span>
+    <span class="c1"># To stop polling the file do:</span>
+    <span class="c1">#timer.Stop()</span>
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -285,13 +285,13 @@ this script to point to other data which you can edit.</p>
         <li class="right" >
           <a href="example_adjust_cropping_extents.html" title="Adjust cropping extents example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.4.4 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2008-2015, Enthought Inc..
-      Last updated on Feb 29, 2016.
+        &copy; Copyright 2008-2016, Enthought Inc..
+      Last updated on Aug 02, 2016.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
     </div>
   </body>

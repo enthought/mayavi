@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Probe filter example &mdash; mayavi 4.4.4 documentation</title>
+    <title>Probe filter example &mdash; mayavi 4.5.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.4.4',
+        VERSION:     '4.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.4.4 documentation" href="../index.html" />
+    <link rel="top" title="mayavi 4.5.0 documentation" href="../index.html" />
     <link rel="up" title="Example gallery" href="examples.html" />
     <link rel="next" title="Unstructured grid example" href="example_unstructured_grid.html" />
     <link rel="prev" title="Contour example" href="example_contour.html" />
@@ -71,7 +71,7 @@
         <li class="right" >
           <a href="example_contour.html" title="Contour example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.4.4 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
       </ul>
     </div>  
@@ -119,13 +119,13 @@ are collapsed in the Mayavi filters and modules.</p>
 <p>Note that, as we know the expression of the function, it would be simpler
 and more efficient to directly sample it on the sphere.</p>
 <p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/probe_filter.py"><code class="xref download docutils literal"><span class="pre">probe_filter.py</span></code></a></p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 
 <span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
 <span class="kn">from</span> <span class="nn">tvtk.api</span> <span class="kn">import</span> <span class="n">tvtk</span>
 <span class="kn">from</span> <span class="nn">tvtk.common</span> <span class="kn">import</span> <span class="n">configure_source_data</span><span class="p">,</span> <span class="n">configure_input</span>
 
-<span class="c"># The angular par of the spherical harmonic (3, 2)</span>
+<span class="c1"># The angular par of the spherical harmonic (3, 2)</span>
 <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="o">-.</span><span class="mi">5</span><span class="p">:</span><span class="o">.</span><span class="mi">5</span><span class="p">:</span><span class="mi">100j</span><span class="p">,</span> <span class="o">-.</span><span class="mi">5</span><span class="p">:</span><span class="o">.</span><span class="mi">5</span><span class="p">:</span><span class="mi">100j</span><span class="p">,</span> <span class="o">-.</span><span class="mi">5</span><span class="p">:</span><span class="o">.</span><span class="mi">5</span><span class="p">:</span><span class="mi">100j</span><span class="p">]</span>
 <span class="n">Phi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">angle</span><span class="p">((</span><span class="n">x</span><span class="o">+</span><span class="n">y</span><span class="o">*</span><span class="mi">1j</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="n">z</span><span class="p">)</span>
 
@@ -134,7 +134,7 @@ and more efficient to directly sample it on the sphere.</p>
 <span class="n">mlab</span><span class="o">.</span><span class="n">outline</span><span class="p">(</span><span class="n">field</span><span class="p">)</span>
 
 <span class="n">surface</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">builtin_surface</span><span class="p">()</span>
-<span class="n">surface</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="s">&#39;sphere&#39;</span>
+<span class="n">surface</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="s1">&#39;sphere&#39;</span>
 <span class="n">surface</span><span class="o">.</span><span class="n">data_source</span><span class="o">.</span><span class="n">radius</span> <span class="o">=</span> <span class="o">.</span><span class="mi">4</span>
 <span class="n">surface</span><span class="o">.</span><span class="n">data_source</span><span class="o">.</span><span class="n">phi_resolution</span> <span class="o">=</span> <span class="mi">200</span>
 <span class="n">surface</span><span class="o">.</span><span class="n">data_source</span><span class="o">.</span><span class="n">theta_resolution</span> <span class="o">=</span> <span class="mi">200</span>
@@ -147,11 +147,11 @@ and more efficient to directly sample it on the sphere.</p>
 
 <span class="n">fig</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span>
 
-<span class="c">################################################################################</span>
-<span class="c"># Finally, to inspect the VTK Pipeline (and not the Mayavi one, we</span>
-<span class="c"># use the TVTK pipeline browser)</span>
-<span class="c"># Note that for Mayavi version &lt; 3.4.1, there is a bug in the</span>
-<span class="c"># PipelineBrowser preventing a good display of this pipeline.</span>
+<span class="c1">################################################################################</span>
+<span class="c1"># Finally, to inspect the VTK Pipeline (and not the Mayavi one, we</span>
+<span class="c1"># use the TVTK pipeline browser)</span>
+<span class="c1"># Note that for Mayavi version &lt; 3.4.1, there is a bug in the</span>
+<span class="c1"># PipelineBrowser preventing a good display of this pipeline.</span>
 <span class="kn">from</span> <span class="nn">tvtk.pipeline.browser</span> <span class="kn">import</span> <span class="n">PipelineBrowser</span>
 <span class="n">browser</span> <span class="o">=</span> <span class="n">PipelineBrowser</span><span class="p">(</span><span class="n">fig</span><span class="o">.</span><span class="n">scene</span><span class="p">)</span>
 <span class="n">browser</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -242,13 +242,13 @@ and more efficient to directly sample it on the sphere.</p>
         <li class="right" >
           <a href="example_contour.html" title="Contour example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.4.4 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2008-2015, Enthought Inc..
-      Last updated on Feb 29, 2016.
+        &copy; Copyright 2008-2016, Enthought Inc..
+      Last updated on Aug 02, 2016.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
     </div>
   </body>

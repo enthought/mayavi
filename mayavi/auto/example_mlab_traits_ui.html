@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Mlab traits ui example &mdash; mayavi 4.4.4 documentation</title>
+    <title>Mlab traits ui example &mdash; mayavi 4.5.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.4.4',
+        VERSION:     '4.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.4.4 documentation" href="../index.html" />
+    <link rel="top" title="mayavi 4.5.0 documentation" href="../index.html" />
     <link rel="up" title="Example gallery" href="examples.html" />
     <link rel="next" title="Wx embedding example" href="example_wx_embedding.html" />
     <link rel="prev" title="Mlab visual example" href="example_mlab_visual.html" />
@@ -71,7 +71,7 @@
         <li class="right" >
           <a href="example_mlab_visual.html" title="Mlab visual example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.4.4 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
       </ul>
     </div>  
@@ -88,16 +88,16 @@
 <a class="reference external" href="http://code.enthought.com/projects/traits/">traitsUI</a> ) to create a
 the simplest possible dialog: a single Mayavi scene in a window.</p>
 <p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/mlab_traits_ui.py"><code class="xref download docutils literal"><span class="pre">mlab_traits_ui.py</span></code></a></p>
-<div class="highlight-python"><div class="highlight"><pre>
-<span class="c"># Authors: Prabhu Ramachandran &lt;prabhu [at] aero.iitb.ac.in&gt;</span>
-<span class="c">#          Gael Varoquaux</span>
-<span class="c"># Copyright (c) 2007, Enthought, Inc.</span>
-<span class="c"># License: BSD Style.</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span>
+<span class="c1"># Authors: Prabhu Ramachandran &lt;prabhu [at] aero.iitb.ac.in&gt;</span>
+<span class="c1">#          Gael Varoquaux</span>
+<span class="c1"># Copyright (c) 2007, Enthought, Inc.</span>
+<span class="c1"># License: BSD Style.</span>
 
-<span class="c"># Standard imports.</span>
+<span class="c1"># Standard imports.</span>
 <span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">sqrt</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">mgrid</span>
 
-<span class="c"># Enthought imports.</span>
+<span class="c1"># Enthought imports.</span>
 <span class="kn">from</span> <span class="nn">traits.api</span> <span class="kn">import</span> <span class="n">HasTraits</span><span class="p">,</span> <span class="n">Instance</span>
 <span class="kn">from</span> <span class="nn">traitsui.api</span> <span class="kn">import</span> <span class="n">View</span><span class="p">,</span> <span class="n">Item</span>
 <span class="kn">from</span> <span class="nn">tvtk.pyface.scene_editor</span> <span class="kn">import</span> <span class="n">SceneEditor</span>
@@ -106,16 +106,16 @@ the simplest possible dialog: a single Mayavi scene in a window.</p>
 <span class="kn">from</span> <span class="nn">mayavi.core.ui.mayavi_scene</span> <span class="kn">import</span> <span class="n">MayaviScene</span>
 
 
-<span class="c">######################################################################</span>
+<span class="c1">######################################################################</span>
 <span class="k">class</span> <span class="nc">ActorViewer</span><span class="p">(</span><span class="n">HasTraits</span><span class="p">):</span>
 
-    <span class="c"># The scene model.</span>
+    <span class="c1"># The scene model.</span>
     <span class="n">scene</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">MlabSceneModel</span><span class="p">,</span> <span class="p">())</span>
 
-    <span class="c">######################</span>
-    <span class="c"># Using &#39;scene_class=MayaviScene&#39; adds a Mayavi icon to the toolbar,</span>
-    <span class="c"># to pop up a dialog editing the pipeline.</span>
-    <span class="n">view</span> <span class="o">=</span> <span class="n">View</span><span class="p">(</span><span class="n">Item</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&#39;scene&#39;</span><span class="p">,</span>
+    <span class="c1">######################</span>
+    <span class="c1"># Using &#39;scene_class=MayaviScene&#39; adds a Mayavi icon to the toolbar,</span>
+    <span class="c1"># to pop up a dialog editing the pipeline.</span>
+    <span class="n">view</span> <span class="o">=</span> <span class="n">View</span><span class="p">(</span><span class="n">Item</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;scene&#39;</span><span class="p">,</span>
                      <span class="n">editor</span><span class="o">=</span><span class="n">SceneEditor</span><span class="p">(</span><span class="n">scene_class</span><span class="o">=</span><span class="n">MayaviScene</span><span class="p">),</span>
                      <span class="n">show_label</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
                      <span class="n">resizable</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
@@ -129,15 +129,15 @@ the simplest possible dialog: a single Mayavi scene in a window.</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">generate_data</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">generate_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c"># Create some data</span>
+        <span class="c1"># Create some data</span>
         <span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">mgrid</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:</span><span class="mi">2</span><span class="p">:</span><span class="mi">100j</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">:</span><span class="mi">2</span><span class="p">:</span><span class="mi">100j</span><span class="p">]</span>
         <span class="n">R</span> <span class="o">=</span> <span class="mi">10</span><span class="o">*</span><span class="n">sqrt</span><span class="p">(</span><span class="n">X</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">Y</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
         <span class="n">Z</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">R</span><span class="p">)</span><span class="o">/</span><span class="n">R</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">mlab</span><span class="o">.</span><span class="n">surf</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s">&#39;gist_earth&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">mlab</span><span class="o">.</span><span class="n">surf</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;gist_earth&#39;</span><span class="p">)</span>
 
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">a</span> <span class="o">=</span> <span class="n">ActorViewer</span><span class="p">()</span>
     <span class="n">a</span><span class="o">.</span><span class="n">configure_traits</span><span class="p">()</span>
 </pre></div>
@@ -224,13 +224,13 @@ the simplest possible dialog: a single Mayavi scene in a window.</p>
         <li class="right" >
           <a href="example_mlab_visual.html" title="Mlab visual example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.4.4 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2008-2015, Enthought Inc..
-      Last updated on Feb 29, 2016.
+        &copy; Copyright 2008-2016, Enthought Inc..
+      Last updated on Aug 02, 2016.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
     </div>
   </body>

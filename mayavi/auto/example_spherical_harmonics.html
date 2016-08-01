@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Spherical harmonics example &mdash; mayavi 4.4.4 documentation</title>
+    <title>Spherical harmonics example &mdash; mayavi 4.5.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.4.4',
+        VERSION:     '4.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.4.4 documentation" href="../index.html" />
+    <link rel="top" title="mayavi 4.5.0 documentation" href="../index.html" />
     <link rel="up" title="Example gallery" href="examples.html" />
     <link rel="next" title="Lorenz example" href="example_lorenz.html" />
     <link rel="prev" title="Surface from irregular data example" href="example_surface_from_irregular_data.html" />
@@ -71,7 +71,7 @@
         <li class="right" >
           <a href="example_surface_from_irregular_data.html" title="Surface from irregular data example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.4.4 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
       </ul>
     </div>  
@@ -95,16 +95,16 @@ sphere, and then in polar. The polar plot is simply obtained by varying
 the radius of the previous sphere.</p>
 <img alt="../_images/example_spherical_harmonics.jpg" class="align-center" src="../_images/example_spherical_harmonics.jpg" />
 <p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/spherical_harmonics.py"><code class="xref download docutils literal"><span class="pre">spherical_harmonics.py</span></code></a></p>
-<div class="highlight-python"><div class="highlight"><pre>
-<span class="c"># Author: Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt;</span>
-<span class="c"># Copyright (c) 2008, Enthought, Inc.</span>
-<span class="c"># License: BSD Style.</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span>
+<span class="c1"># Author: Gael Varoquaux &lt;gael.varoquaux@normalesup.org&gt;</span>
+<span class="c1"># Copyright (c) 2008, Enthought, Inc.</span>
+<span class="c1"># License: BSD Style.</span>
 
 <span class="kn">from</span> <span class="nn">mayavi</span> <span class="kn">import</span> <span class="n">mlab</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">scipy.special</span> <span class="kn">import</span> <span class="n">sph_harm</span>
 
-<span class="c"># Create a sphere</span>
+<span class="c1"># Create a sphere</span>
 <span class="n">r</span> <span class="o">=</span> <span class="mf">0.3</span>
 <span class="n">pi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
 <span class="n">cos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span>
@@ -117,18 +117,18 @@ the radius of the previous sphere.</p>
 
 <span class="n">mlab</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">bgcolor</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">fgcolor</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">300</span><span class="p">))</span>
 <span class="n">mlab</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
-<span class="c"># Represent spherical harmonics on the surface of the sphere</span>
+<span class="c1"># Represent spherical harmonics on the surface of the sphere</span>
 <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">):</span>
     <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
         <span class="n">s</span> <span class="o">=</span> <span class="n">sph_harm</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">phi</span><span class="p">)</span><span class="o">.</span><span class="n">real</span>
 
-        <span class="n">mlab</span><span class="o">.</span><span class="n">mesh</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">m</span><span class="p">,</span> <span class="n">y</span> <span class="o">-</span> <span class="n">n</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">scalars</span><span class="o">=</span><span class="n">s</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s">&#39;jet&#39;</span><span class="p">)</span>
+        <span class="n">mlab</span><span class="o">.</span><span class="n">mesh</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">m</span><span class="p">,</span> <span class="n">y</span> <span class="o">-</span> <span class="n">n</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">scalars</span><span class="o">=</span><span class="n">s</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;jet&#39;</span><span class="p">)</span>
 
         <span class="n">s</span><span class="p">[</span><span class="n">s</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]</span> <span class="o">*=</span> <span class="mf">0.97</span>
 
         <span class="n">s</span> <span class="o">/=</span> <span class="n">s</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
         <span class="n">mlab</span><span class="o">.</span><span class="n">mesh</span><span class="p">(</span><span class="n">s</span> <span class="o">*</span> <span class="n">x</span> <span class="o">-</span> <span class="n">m</span><span class="p">,</span> <span class="n">s</span> <span class="o">*</span> <span class="n">y</span> <span class="o">-</span> <span class="n">n</span><span class="p">,</span> <span class="n">s</span> <span class="o">*</span> <span class="n">z</span> <span class="o">+</span> <span class="mf">1.3</span><span class="p">,</span>
-                  <span class="n">scalars</span><span class="o">=</span><span class="n">s</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s">&#39;Spectral&#39;</span><span class="p">)</span>
+                  <span class="n">scalars</span><span class="o">=</span><span class="n">s</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;Spectral&#39;</span><span class="p">)</span>
 
 <span class="n">mlab</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="mi">90</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mf">6.2</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="mf">1.3</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.9</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">))</span>
 <span class="n">mlab</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -216,13 +216,13 @@ the radius of the previous sphere.</p>
         <li class="right" >
           <a href="example_surface_from_irregular_data.html" title="Surface from irregular data example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.4.4 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2008-2015, Enthought Inc..
-      Last updated on Feb 29, 2016.
+        &copy; Copyright 2008-2016, Enthought Inc..
+      Last updated on Aug 02, 2016.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
     </div>
   </body>

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Filters, modules, other functions &mdash; mayavi 4.4.4 documentation</title>
+    <title>Filters, modules, other functions &mdash; mayavi 4.5.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.4.4',
+        VERSION:     '4.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.4.4 documentation" href="../index.html" />
+    <link rel="top" title="mayavi 4.5.0 documentation" href="../index.html" />
 <style type="text/css">
   body {
     /* Very bottom copyright, etc. info */
@@ -62,7 +62,7 @@
         <li class="right" style="margin-right: 10px">
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.4.4 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -2037,20 +2037,20 @@ If None, the min of the data will be used</td>
 vmin/vmax parameters (see below). For more complex modifications of
 the colormap, here is some pseudo code to change the ctf (color
 transfer function), or the otf (opacity transfer function):</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">vol</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">volume</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">vol</span> <span class="o">=</span> <span class="n">mlab</span><span class="o">.</span><span class="n">pipeline</span><span class="o">.</span><span class="n">volume</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
 
-<span class="c"># Changing the ctf:</span>
+<span class="c1"># Changing the ctf:</span>
 <span class="kn">from</span> <span class="nn">tvtk.util.ctf</span> <span class="kn">import</span> <span class="n">ColorTransferFunction</span>
 <span class="n">ctf</span> <span class="o">=</span> <span class="n">ColorTransferFunction</span><span class="p">()</span>
-<span class="n">ctf</span><span class="o">.</span><span class="n">add_rgb_point</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>  <span class="c"># r, g, and b are float</span>
-                                   <span class="c"># between 0 and 1</span>
+<span class="n">ctf</span><span class="o">.</span><span class="n">add_rgb_point</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>  <span class="c1"># r, g, and b are float</span>
+                                   <span class="c1"># between 0 and 1</span>
 <span class="n">ctf</span><span class="o">.</span><span class="n">add_hsv_point</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
-<span class="c"># ...</span>
+<span class="c1"># ...</span>
 <span class="n">vol</span><span class="o">.</span><span class="n">_volume_property</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="n">ctf</span><span class="p">)</span>
 <span class="n">vol</span><span class="o">.</span><span class="n">_ctf</span> <span class="o">=</span> <span class="n">ctf</span>
 <span class="n">vol</span><span class="o">.</span><span class="n">update_ctf</span> <span class="o">=</span> <span class="bp">True</span>
 
-<span class="c"># Changing the otf:</span>
+<span class="c1"># Changing the otf:</span>
 <span class="kn">from</span> <span class="nn">tvtk.util.ctf</span> <span class="kn">import</span> <span class="n">PiecewiseFunction</span>
 <span class="n">otf</span> <span class="o">=</span> <span class="n">PiecewiseFunction</span><span class="p">()</span>
 <span class="n">otf</span><span class="o">.</span><span class="n">add_point</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">opacity</span><span class="p">)</span>
@@ -2059,7 +2059,7 @@ transfer function), or the otf (opacity transfer function):</p>
 </pre></div>
 </div>
 <p>Also, it might be useful to change the range of the ctf:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">ctf</span><span class="o">.</span><span class="n">range</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">ctf</span><span class="o">.</span><span class="n">range</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
 </pre></div>
 </div>
 <p><strong>Keyword arguments:</strong></p>
@@ -2345,12 +2345,12 @@ If None, the min of the data will be used</td>
         <li class="right" style="margin-right: 10px">
           <a href="../genindex.html" title="General Index"
              >index</a></li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.4.4 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2008-2015, Enthought Inc..
-      Last updated on Feb 29, 2016.
+        &copy; Copyright 2008-2016, Enthought Inc..
+      Last updated on Aug 02, 2016.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
     </div>
   </body>

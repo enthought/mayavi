@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Wx embedding example &mdash; mayavi 4.4.4 documentation</title>
+    <title>Wx embedding example &mdash; mayavi 4.5.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '4.4.4',
+        VERSION:     '4.5.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="mayavi 4.4.4 documentation" href="../index.html" />
+    <link rel="top" title="mayavi 4.5.0 documentation" href="../index.html" />
     <link rel="up" title="Example gallery" href="examples.html" />
     <link rel="next" title="Multiple engines example" href="example_multiple_engines.html" />
     <link rel="prev" title="Mlab traits ui example" href="example_mlab_traits_ui.html" />
@@ -71,7 +71,7 @@
         <li class="right" >
           <a href="example_mlab_traits_ui.html" title="Mlab traits ui example"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.4.4 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Example gallery</a> &raquo;</li> 
       </ul>
     </div>  
@@ -95,7 +95,7 @@ standard wx application.</p>
 <a class="reference internal" href="example_wx_mayavi_embed_in_notebook.html#example-wx-mayavi-embed-in-notebook"><span>Wx mayavi embed in notebook example</span></a> for an example of more complex
 embedding of Mayavi scenes in Wx applications.</p>
 <p><strong>Python source code:</strong> <a class="reference download internal" href="../_downloads/wx_embedding.py"><code class="xref download docutils literal"><span class="pre">wx_embedding.py</span></code></a></p>
-<div class="highlight-python"><div class="highlight"><pre>
+<div class="highlight-python"><div class="highlight"><pre><span></span>
 <span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">ogrid</span><span class="p">,</span> <span class="n">sin</span>
 
 <span class="kn">from</span> <span class="nn">traits.api</span> <span class="kn">import</span> <span class="n">HasTraits</span><span class="p">,</span> <span class="n">Instance</span>
@@ -111,34 +111,34 @@ embedding of Mayavi scenes in Wx applications.</p>
 
     <span class="n">scene</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">MlabSceneModel</span><span class="p">,</span> <span class="p">())</span>
 
-    <span class="c"># The layout of the panel created by Traits</span>
-    <span class="n">view</span> <span class="o">=</span> <span class="n">View</span><span class="p">(</span><span class="n">Item</span><span class="p">(</span><span class="s">&#39;scene&#39;</span><span class="p">,</span> <span class="n">editor</span><span class="o">=</span><span class="n">SceneEditor</span><span class="p">(),</span> <span class="n">resizable</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+    <span class="c1"># The layout of the panel created by Traits</span>
+    <span class="n">view</span> <span class="o">=</span> <span class="n">View</span><span class="p">(</span><span class="n">Item</span><span class="p">(</span><span class="s1">&#39;scene&#39;</span><span class="p">,</span> <span class="n">editor</span><span class="o">=</span><span class="n">SceneEditor</span><span class="p">(),</span> <span class="n">resizable</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
                     <span class="n">show_label</span><span class="o">=</span><span class="bp">False</span><span class="p">),</span>
                     <span class="n">resizable</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">HasTraits</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="c"># Create some data, and plot it using the embedded scene&#39;s engine</span>
+        <span class="c1"># Create some data, and plot it using the embedded scene&#39;s engine</span>
         <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">ogrid</span><span class="p">[</span><span class="o">-</span><span class="mi">10</span><span class="p">:</span><span class="mi">10</span><span class="p">:</span><span class="mi">100j</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">:</span><span class="mi">10</span><span class="p">:</span><span class="mi">100j</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">:</span><span class="mi">10</span><span class="p">:</span><span class="mi">100j</span><span class="p">]</span>
         <span class="n">scalars</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="o">*</span><span class="n">z</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="o">*</span><span class="n">z</span><span class="p">)</span>
         <span class="n">src</span> <span class="o">=</span> <span class="n">ArraySource</span><span class="p">(</span><span class="n">scalar_data</span><span class="o">=</span><span class="n">scalars</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">add_source</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
         <span class="n">src</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">IsoSurface</span><span class="p">())</span>
 
-<span class="c">#-----------------------------------------------------------------------------</span>
-<span class="c"># Wx Code</span>
+<span class="c1">#-----------------------------------------------------------------------------</span>
+<span class="c1"># Wx Code</span>
 <span class="kn">import</span> <span class="nn">wx</span>
 
 <span class="k">class</span> <span class="nc">MainWindow</span><span class="p">(</span><span class="n">wx</span><span class="o">.</span><span class="n">Frame</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
-        <span class="n">wx</span><span class="o">.</span><span class="n">Frame</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="s">&#39;Mayavi in Wx&#39;</span><span class="p">)</span>
+        <span class="n">wx</span><span class="o">.</span><span class="n">Frame</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="s1">&#39;Mayavi in Wx&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mayavi_view</span> <span class="o">=</span> <span class="n">MayaviView</span><span class="p">()</span>
-        <span class="c"># Use traits to create a panel, and use it as the content of this</span>
-        <span class="c"># wx frame.</span>
+        <span class="c1"># Use traits to create a panel, and use it as the content of this</span>
+        <span class="c1"># wx frame.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">control</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mayavi_view</span><span class="o">.</span><span class="n">edit_traits</span><span class="p">(</span>
                         <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
-                        <span class="n">kind</span><span class="o">=</span><span class="s">&#39;subpanel&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">control</span>
+                        <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;subpanel&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">control</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">Show</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
 
 <span class="n">app</span> <span class="o">=</span> <span class="n">wx</span><span class="o">.</span><span class="n">PySimpleApp</span><span class="p">()</span>
@@ -229,13 +229,13 @@ embedding of Mayavi scenes in Wx applications.</p>
         <li class="right" >
           <a href="example_mlab_traits_ui.html" title="Mlab traits ui example"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.4.4 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">mayavi 4.5.0 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="examples.html" >Example gallery</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2008-2015, Enthought Inc..
-      Last updated on Feb 29, 2016.
+        &copy; Copyright 2008-2016, Enthought Inc..
+      Last updated on Aug 02, 2016.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.5.
     </div>
   </body>
