@@ -22,7 +22,7 @@ Enhancements
 Fixes
 -----
 
-30 Jul 2016 `#416 <https://github.com/enthought/mayavi/pull/416>`_ (PR)
+01 Aug 2016 `#416 <https://github.com/enthought/mayavi/pull/416>`_ (PR)
    - Fix several bugs, `#397 <https://github.com/enthought/mayavi/issues/397>`_
      where PDF files were not saved properly. Fix issues with ``tvtk.visual``
      and add many tests for it, this fixes `#387
@@ -151,6 +151,11 @@ Fixes
 09 Mar 2016 `#303 <https://github.com/enthought/mayavi/pull/303>`_ (kitchoi)
    - Fix get_engine behavior when backend is changed again.
 
+
+Contributions from itziakos, stefanoborini and kitchoi are funded and supported
+by the `SimPhoNy <http://www.simphony-project.eu/>`_ project, an EU-project
+funded by the 7th Framework Programme (Project number 604005) under the
+call NMP.2013.1.4-1.
 
 
 Mayavi 4.4.4

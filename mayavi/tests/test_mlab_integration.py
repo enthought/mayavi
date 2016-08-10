@@ -228,6 +228,9 @@ class TestMlabNullEngineMisc(TestMlabNullEngine):
             os.remove(tmpfname)
 
     def test_slice_unstructured_grid(self):
+        v = tvtk.Version()
+        if v.vtk_major_version < 6 and v.vtk_minor_version < 10:
+            raise unittest.SkipTest('Broken on Travis with VTK-5.8?')
         # Given
         src = mlab.pipeline.open(get_example_data('uGridEx.vtk'))
         eg = mlab.pipeline.extract_unstructured_grid(src)
