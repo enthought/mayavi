@@ -222,7 +222,7 @@ class Threshold(Filter):
 
     def _get_data_range(self):
         """Returns the range of the input scalar data."""
-        input = self.inputs[0].outputs[0]
+        input = self.inputs[0].get_output_dataset()
         data_range = []
         ps = input.point_data.scalars
         cs = input.cell_data.scalars
