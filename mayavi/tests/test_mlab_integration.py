@@ -8,6 +8,7 @@ import unittest
 import mock
 
 import numpy as np
+from numpy.testing import assert_allclose
 from traits.testing.unittest_tools import UnittestTools
 
 from mayavi import mlab
@@ -297,6 +298,7 @@ class TestMlabHelperFunctions(TestMlabNullEngine, UnittestTools):
         with self.assertTraitChanges(actor, 'pipeline_changed'):
             actor.module_manager.scalar_lut_manager.lut_mode = 'jet'
 
+
 ################################################################################
 # class `TestMlabModules`
 ################################################################################
@@ -385,6 +387,13 @@ class TestMlabModules(TestMlabNullEngine):
         self.assertEqual(b.glyph.glyph.scale_mode,
                          'scale_by_vector_components')
 
+    def test_axes(self):
+        s = mlab.test_plot3d()
+        a = mlab.axes(s)
+        assert_allclose(
+            a.axes.ranges, [-1.5, 1.5, -1.5, 1.5, -0.5, 0.5],
+            rtol=0, atol=0.1
+        )
 
 ################################################################################
 # class `TestMlabAnimate`
@@ -393,7 +402,7 @@ class TestMlabAnimate(TestMlabNullEngine):
 
     def test_animate_sets_up_movie_maker(self):
         # Given
-        @mlab.animate
+        @mlab.animate(ui=False)
         def anim():
             for i in range(5): yield
 
