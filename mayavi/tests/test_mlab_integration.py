@@ -4,7 +4,10 @@ Integration tests of mlab with the null engine.
 This also tests some numerics with VTK.
 """
 
+import os
+import tempfile
 import unittest
+
 import mock
 
 import numpy as np
@@ -16,6 +19,7 @@ from mayavi.core.engine import Engine
 from tvtk.api import tvtk
 from mayavi.tools.engine_manager import engine_manager
 from mayavi.core.registry import registry
+from mayavi.tests.common import get_example_data
 
 
 ################################################################################
@@ -206,6 +210,36 @@ class TestMlabNullEngineMisc(TestMlabNullEngine):
         self.assertEqual(
                     s1.module_manager.scalar_lut_manager.show_scalar_bar,
                     True)
+
+    def test_source_can_save_output_to_file(self):
+        # Given
+        x, y, z = np.random.random((3, 100))
+        src = mlab.pipeline.scalar_scatter(x, y, z)
+
+        # When
+        tmpfname = tempfile.mktemp('.vtk')
+        src.save_output(tmpfname)
+
+        # Then
+        self.assertTrue(os.path.exists(tmpfname))
+
+        # Cleanup
+        if os.path.exists(tmpfname):
+            os.remove(tmpfname)
+
+    def test_slice_unstructured_grid(self):
+        # Given
+        src = mlab.pipeline.open(get_example_data('uGridEx.vtk'))
+        eg = mlab.pipeline.extract_unstructured_grid(src)
+        eg.filter.set(cell_clipping=True, cell_maximum=2)
+
+        # When
+        sug = mlab.pipeline.slice_unstructured_grid(eg)
+
+        # Then
+        assert_allclose(
+            sug.actor.actor.bounds, (1.0, 2.0, 0.0, 1.0, 0.0, 1.0)
+        )
 
 
 ################################################################################
