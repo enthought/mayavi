@@ -1,9 +1,9 @@
-=======================================================
-MayaVi2: 3D visualization of scientific data in Python
-=======================================================
+======================================================
+Mayavi: 3D visualization of scientific data in Python
+======================================================
 
-Mayavi doc: http://docs.enthought.com/mayavi/mayavi/
-TVTK doc: http://docs.enthought.com/mayavi/tvtk
+Mayavi docs: http://docs.enthought.com/mayavi/mayavi/
+TVTK docs: http://docs.enthought.com/mayavi/tvtk
 
 .. image:: https://api.travis-ci.org/enthought/mayavi.png?branch=master
    :target: https://travis-ci.org/enthought/mayavi
@@ -16,7 +16,7 @@ TVTK doc: http://docs.enthought.com/mayavi/tvtk
 Vision
 ======
 
-MayaVi2 seeks to provide easy and interactive visualization of 3D data. It does
+Mayavi seeks to provide easy and interactive visualization of 3D data. It does
 this by the following:
 
     - an (optional) rich user interface with dialogs to interact with all data
@@ -27,7 +27,7 @@ this by the following:
 
     - harnesses the power of the VTK toolkit without forcing you to learn it.
 
-Additionally Mayavi2 strives to be a reusable tool that can be embedded in your
+Additionally Mayavi strives to be a reusable tool that can be embedded in your
 applications in different ways or combined with the envisage
 application-building framework to assemble domain-specific tools.
 
@@ -37,7 +37,7 @@ Mayavi is part of the Enthought Tool Suite (ETS).
 Features
 ===========
 
-MayaVi2 is a general purpose, cross-platform tool for 2-D and 3-D scientific
+Mayavi is a general purpose, cross-platform tool for 2-D and 3-D scientific
 data visualization. Its features include:
 
     * Visualization of scalar, vector and tensor data in 2 and 3 dimensions
@@ -55,12 +55,12 @@ data visualization. Its features include:
     * Convenient functionality for rapid scientific plotting via mlab (see mlab
       documentation)
 
-    * See the MayaVi2 Users Guide for more information.
+    * See the Mayavi Users Guide for more information.
 
-Unlike its predecessor MayaVi1_, Mayavi2 has been designed with scriptability
-and extensibility in mind from the ground up.  While the mayavi2 application is
-usable by itself, it may be used as an Envisage plugin which allows it to be
-embedded in user applications natively. Alternatively, it may be used as a
+Unlike its predecessor MayaVi1_, Mayavi has been designed with scriptability
+and extensibility in mind from the ground up.  While the mayavi2 application
+is usable by itself, it may be used as an Envisage plugin which allows it to
+be embedded in user applications natively. Alternatively, it may be used as a
 visualization engine for any application.
 
 .. _MayaVi1: http://mayavi.sf.net
@@ -140,11 +140,11 @@ The bug tracker is available in `github <https://github.com/enthought/mayavi/iss
 Authors and Contributors
 ========================
 
-* Core contribtuors:
+* Core contributors:
 
   Prabhu Ramachandran: primary author.
 
-  Gaël Varoquaux: mlab, icons, many general improvements and maintainance.
+  Gaël Varoquaux: mlab, icons, many general improvements and maintenance.
 
   Deepak Surti: Upgrade to VTK 5.10.1, VTK 6.x with new pipeline.
 
