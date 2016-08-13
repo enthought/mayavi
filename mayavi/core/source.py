@@ -102,7 +102,7 @@ class Source(PipelineBase):
         XML files are supported.
         """
         if len(self.outputs) > 0:
-            write_data(self.outputs[0], fname)
+            write_data(self.get_output_dataset(), fname)
         else:
             error('Object has no outputs to save!')
 

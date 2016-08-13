@@ -595,7 +595,7 @@ class MArray2DSource(MlabSource):
         if old_scalar is scalars:
             ds._scalar_data_changed(scalars)
 
-        self.dataset = ds.outputs[0]
+        self.dataset = ds.get_output_dataset()
         self.m_data = ds
 
     #####################################################################
