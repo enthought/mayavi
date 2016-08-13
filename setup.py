@@ -3,13 +3,12 @@
 # Copyright (c) 2008-2016 by Enthought, Inc.
 # All rights reserved.
 
-"""
-The Mayavi scientific data 3-dimensional visualizer.
+"""The Mayavi scientific data 3-dimensional visualizer.
 
 The Mayavi *project* includes two related *packages* for 3-dimensional
 visualization:
 
-- **Mayavi2**: A tool for easy and interactive visualization of data.
+- **Mayavi**: A tool for easy and interactive visualization of data.
 - **TVTK**: A Traits-based wrapper for the Visualization Toolkit, a popular
   open-source visualization library.
 
@@ -19,9 +18,10 @@ see the results. Most users either use the Mayavi user interface or program
 to its scripting interface; you probably don't need to interact with TVTK
 unless you want to create a new Mayavi module.
 
-Mayavi2
+Mayavi
 -------
-Mayavi2 seeks to provide easy and interactive visualization of 3-D data.
+
+Mayavi seeks to provide easy and interactive visualization of 3-D data.
 It offers:
 
 - An (optional) rich user interface with dialogs to interact with all data
@@ -31,11 +31,12 @@ It offers:
 - The power of the VTK toolkit, harnessed through these interfaces, without
   forcing you to learn it.
 
-Additionally Mayavi2 is a reusable tool that can be embedded in your
+Additionally Mayavi is a reusable tool that can be embedded in your
 applications in different ways or combined with the Envisage
 application-building framework to assemble domain-specific tools.
 
-
+Mayavi is a complete rewrite and far superior to `MayaVi1
+<http://mayavi.sf.net>`_ which is no longer maintained.
 
 TVTK
 ----
@@ -58,6 +59,7 @@ project:
     - `Qt <http://www.qt.io>`_ version 4.8 with either PyQt 4.11.4 or PySide 1.2.2
     - `wxPython <http://www.wxpython.org/>`_ version 2.8 or later
 * `configobj <http://pypi.python.org/pypi/configobj>`_
+
 """
 
 # NOTE: Setuptools must be imported BEFORE numpy.distutils or else
