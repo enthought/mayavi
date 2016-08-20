@@ -294,23 +294,23 @@ section of the user guide for more information (
 
 .. currentmodule:: mayavi.mlab
 
-+------------------+-------------------------+---------------------+
-| :func:`plot3d`   | :func:`points3d`        | :func:`imshow`      |
-|                  |                         |                     |
-| |plot3d.jpg|     | |points3d.jpg|          | |imshow.jpg|        |
-+------------------+-------------------------+---------------------+
-| :func:`surf`     | :func:`contour_surf`    | :func:`mesh`        |
-|                  |                         |                     |
-| |surf.jpg|       | |contour_surf.jpg|      | |mesh.jpg|          |
-+------------------+-------------------------+---------------------+
-| :func:`barchart` | :func:`triangular_mesh` | :func:`contour3d`   |
-|                  |                         |                     |
-| |barchart.jpg|   | |triangular_mesh.jpg|   | |contour3d.jpg|     |
-+------------------+-------------------------+---------------------+
-| :func:`quiver3d` | :func:`flow`            |                     |
-|                  |                         |                     |
-| |quiver3d.jpg|   |  |flow.jpg|             |                     |
-+------------------+-------------------------+---------------------+
++------------------+-------------------------+----------------------+
+| :func:`plot3d`   | :func:`points3d`        | :func:`imshow`       |
+|                  |                         |                      |
+| |plot3d.jpg|     | |points3d.jpg|          | |imshow.jpg|         |
++------------------+-------------------------+----------------------+
+| :func:`surf`     | :func:`contour_surf`    | :func:`mesh`         |
+|                  |                         |                      |
+| |surf.jpg|       | |contour_surf.jpg|      | |mesh.jpg|           |
++------------------+-------------------------+----------------------+
+| :func:`barchart` | :func:`triangular_mesh` | :func:`contour3d`    |
+|                  |                         |                      |
+| |barchart.jpg|   | |triangular_mesh.jpg|   | |contour3d.jpg|      |
++------------------+-------------------------+----------------------+
+| :func:`quiver3d` | :func:`flow`            | :func:`volume_slice` |
+|                  |                         |                      |
+| |quiver3d.jpg|   |  |flow.jpg|             | |volume_slice.jpg|   |
++------------------+-------------------------+----------------------+
 
 .. |plot3d.jpg| image:: ../generated_images/enthought_mayavi_mlab_plot3d.jpg
      :width: 150
@@ -345,6 +345,8 @@ section of the user guide for more information (
 .. |flow.jpg| image:: ../generated_images/enthought_mayavi_mlab_flow.jpg
      :width: 150
 
+.. |volume_slice.jpg| image:: ../generated_images/enthought_mayavi_mlab_volume_slice.jpg
+     :width: 150
 
 
 Advanced mlab examples
