@@ -165,7 +165,7 @@ module.
                   described by three 3D arrays giving the ``u``,
                   ``v``, ``w`` components on a grid.
 
-|volume_slice|    :func:`volume_slice`
+|slice|           :func:`volume_slice`
                   |hack|
                   Plots an interactive image plane sliced through
                   volumetric data.
@@ -188,10 +188,11 @@ module.
 .. |flow| image:: generated_images/enthought_mayavi_mlab_flow.jpg
      :scale: 50
 
-.. |volume_slice| image:: generated_images/enthought_mayavi_mlab_volume_slice.jpg
+.. |slice| image:: generated_images/enthought_mayavi_mlab_volume_slice.jpg
      :scale: 50
 
-  .. note::
+
+.. note::
 
     Many richer visualizations can be created by assembling data sources
     filters and modules. See the

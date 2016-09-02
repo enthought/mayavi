@@ -90,6 +90,7 @@ class TestMlabNullEngineMisc(TestMlabNullEngine):
             (mlab.pipeline.scalar_field, ),
             (mlab.pipeline.scalar_field, mlab.pipeline.image_plane_widget),
             (mlab.contour3d, ),
+            (mlab.volume_slice, ),
             (mlab.points3d, ), )
         data = np.random.random((3, 3, 3))
         for pipeline in pipelines:
@@ -334,6 +335,12 @@ class TestMlabHelperFunctions(TestMlabNullEngine, UnittestTools):
 
         with self.assertTraitChanges(actor, 'pipeline_changed'):
             actor.module_manager.scalar_lut_manager.lut_mode = 'jet'
+
+    def test_volume_slice(self):
+        x, y, z = np.ogrid[-5:5:20j, -5:5:20j, -5:5:20j]
+        scalars = x * x * 0.5 + y * y + z * z * 2.0
+        ipw = mlab.volume_slice(scalars, plane_orientation='y_axes')
+        self.assertEqual(ipw.ipw.plane_orientation, 'y_axes')
 
 
 ################################################################################
