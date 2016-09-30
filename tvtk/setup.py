@@ -22,6 +22,7 @@ def configuration(parent_package=None, top_path=None):
     config.add_subpackage('pyface')
     config.add_subpackage('pyface.*')
     config.add_subpackage('pyface.*.*')
+    config.add_subpackage('view')
 
     config.add_data_dir('pipeline/images')
     config.add_data_dir('pyface/images')
