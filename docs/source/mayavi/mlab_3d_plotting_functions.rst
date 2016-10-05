@@ -165,14 +165,19 @@ module.
                   described by three 3D arrays giving the ``u``,
                   ``v``, ``w`` components on a grid.
 
+|slice|           :func:`volume_slice`
+                  |hack|
+                  Plots an interactive image plane sliced through
+                  volumetric data.
+
 ================= =========================================================
 
 .. topic:: Structured or unstructured data
     
-    :func:`contour3d` and :func:`flow` require ordered data (to
-    be able to interpolate between the points), whereas :func:`quiver3d`
-    works with any set of points. The required structure is detailed
-    in the functions' documentation.
+    :func:`contour3d`, :func:`volume_slice` and :func:`flow` require
+    ordered data (to be able to interpolate between the points), whereas
+    :func:`quiver3d` works with any set of points. The required structure
+    is detailed in the functions' documentation.
 
 .. |contour3d| image:: generated_images/enthought_mayavi_mlab_contour3d.jpg
      :scale: 50
@@ -182,6 +187,10 @@ module.
 
 .. |flow| image:: generated_images/enthought_mayavi_mlab_flow.jpg
      :scale: 50
+
+.. |slice| image:: generated_images/enthought_mayavi_mlab_volume_slice.jpg
+     :scale: 50
+
 
 .. note::
 

@@ -19,7 +19,7 @@ following field::
 
 :Iso-Surfaces:
     To display iso surfaces of the field, the simplest solution is
-    simply to use the `mlab` :func:`contour3d` function:: 
+    simply to use the ``mlab`` :func:`contour3d` function:: 
 
         mlab.contour3d(s)
 
@@ -53,12 +53,14 @@ following field::
     It is useful to open the module's dialog (eg through the pipeline
     interface, or using it's `edit_traits()` method) and tweak the color
     transfer function to render the transparent low-intensity regions
-    of the image. **For this module, the LUT as defined in the `Colors and
-    legends` node are not used**
+    of the image. **For this module, the LUT as defined in the** `Colors and
+    legends` **node are not used.**
 
     The limitations of volume rendering is that, while it is often very
     pretty, it can be difficult to analyze the details of the field with
     it.
+
+.. currentmodule:: mayavi.mlab
 
 :Cut planes:
     While less impressive, cut planes are a very informative way of
@@ -74,6 +76,10 @@ following field::
                                 )
         mlab.outline()
 
+    Image plane widgets can also being created from NumPy arrays using
+    the ``mlab`` :func:`volume_slice` function::
+
+        mlab.volume_slice(s, plane_orientation='x_axes', slice_index=10)
 
     |volumetric_cut_plane|
 
@@ -100,6 +106,11 @@ following field::
         
 
     |volumetric_combination|
+
+
+    In the above example, we have used the pipeline syntax of mayavi
+    instead of using :func:`contour3d` and :func:`volume_slice`
+    in order to use a single scalar field as data source.
 
     In some cases, though not in our example, it might be usable to
     insert a threshold filter before the cut plane, eg:to remove area
