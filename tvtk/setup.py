@@ -19,12 +19,18 @@ def configuration(parent_package=None, top_path=None):
 
     config.add_subpackage('custom')
     config.add_subpackage('pipeline')
+    config.add_subpackage('pyface')
+    config.add_subpackage('pyface.*')
+    config.add_subpackage('pyface.*.*')
+    config.add_subpackage('view')
+
     config.add_data_dir('pipeline/images')
     config.add_data_dir('pyface/images')
     config.add_data_dir('tools/images')
 
     config.add_subpackage('plugins')
     config.add_subpackage('plugins.*')
+    config.add_subpackage('plugins.*.*')
 
     config.add_subpackage('tools')
     config.add_subpackage('util')
