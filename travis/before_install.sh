@@ -1,5 +1,5 @@
-if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then 
-    brew update         
+if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+    brew update
     brew tap homebrew/science
     brew tap homebrew/python
     brew install python
@@ -14,5 +14,6 @@ else
     export PATH=/usr/lib/ccache:${PATH}
     pip install --upgrade pip
     export DISPLAY=:99.0
-    sh -e /etc/init.d/xvfb start
+    /sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 800x600x24
+    sleep 3
 fi
