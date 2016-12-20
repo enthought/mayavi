@@ -45,16 +45,19 @@ objects so they can be rendered on the Jupyter notebook.
    One can call ``init_notebook`` multiple times if one wishes to
    change the backend between ``png`` and ``x3d`` for some reason.
 
-There are several optional arguments to ``init_notebook``, the first
-is the backend which defaults to ``'x3d'``, it can also be set to
-``'png'``.  One can set the width and height of the figure to create
-(as integers).  The last keyword argument ``local`` defaults to
-``True``.  When ``local=True`` it uses javascript files that are
-distributed along with Mayavi otherwise will require an internet
-connection to use the x3dom files online.  If for some reason the
-installation of the jupyter nbextension is not working, using
-``local=False`` with an internet connection should work on a modern
-browser that supports WebGL.
+There are several optional arguments to ``init_notebook``.
+
+- The first is the backend which defaults to ``'x3d'`` and can also
+  be set to ``'png'``.
+- One can set the pixel width and height of the figure to create
+  (as integers) (for example ``mlab.init_notebook('x3d',800,800)``).
+- The last keyword argument ``local`` defaults to ``True``.
+  When ``local=True`` it uses javascript files that are distributed
+  along with Mayavi otherwise will require an internet connection
+  to use the x3dom files online.  If for some reason the installation
+  of the jupyter nbextension is not working, using ``local=False``
+  with an internet connection should work on a modern browser that
+  supports WebGL.
 
 The X3D data is embedded in the notebook and can be shared but if the
 scenes have a lot of polygons, these files can be large.  With the PNG
