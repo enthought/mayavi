@@ -22,12 +22,6 @@ list of issues and bugs please check the list in `issue tracker`_.
     graphics-card drivers (under Linux, try switching between the open
     source one, and the proprietary one).
 
-  * **Python 3:** The plans for Mayavi on Python 3 are mainly linked to VTK
-    being available on Python 3. Transitioning to Python 3 would also require
-    the gui libraries such as traitsui and pyface to also support Python 3. For
-    more details please check the related github `issue
-    <https://github.com/enthought/mayavi/issues/84>`_.
-
   * **Qt 5:** Mayavi is built on top of the traitsui and pyface gui libraries. Thus
     support for Qt 5 is linked to these gui libraries supporting Qt 5.
 
