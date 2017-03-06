@@ -90,11 +90,32 @@ One can install the requirements in several ways.
      `Enthought Canopy`_ comes with a compiler (mingw) and facilitates 
      building Mayavi.
 
-   * Linux: In addition to using `Enthought Canopy`_, most Linux
-     distributions will have installable binaries
-     available for the some of the above.  For example, under Debian_ or
-     Ubuntu_ you would need ``python-vtk``, ``python-qt4``, ``python-qt4-gl``,
-     ``python-setuptools``, ``python-numpy``, ``python-configobj``.
+Installing the requirements on Linux
+....................................
+In addition to using Enthought Canopy, most Linux distributions will have installable binaries available for the some of the above. You can do the following instead:
+
+1. Install Python VTK (5.10.1) by using::
+   
+   $ sudo apt-get install python-vtk
+
+2. Install Numpy (1.11.0) by using::
+
+   $ sudo apt-get install python-numpy
+
+3. Install PyQt4 (recommended) or wxPython(3.0.2.0) by using::
+   
+   $ sudo apt-get install python-qt4
+   $ sudo apt-get python-qt4-gl
+
+   or ::
+   
+   $ sudo apt-get install python-wxgtk3.0
+   
+ 
+   **Note:** Mayavi currently does not support PyQt5. It is recommended to install PyQt4 over wxPython as currently, Mayavi is more stable with the former.
+ 
+4. Proceed to installing with pip.
+     
 
 
 There are several ways to install TVTK_, Traits_ and Mayavi.  These
@@ -134,15 +155,22 @@ However, VTK Python wrapper is not available from PyPI.
 Therefore you will need to install it separately before proceeding;
 e.g. it is available from `Enthought Canopy`_ or Linux installable binaries.
 
-After installing VTK Python, you can install mayavi using `pip`::
+After installing VTK, Numpy and PyQt4 (or wxPython) as stated in the previous section, you can install traits (4.6.0) and envisage (4.6.0) using `pip`::
 
-  $ pip install mayavi
+  $ pip install traits --user
+  $ pip install envisage --user
+  
+Then finally run::
+
+  $ pip install mayavi --user
 
 .. _pip: https://pip.pypa.io/en/stable/
 .. _PyPA: https://packaging.python.org/en/latest/current/
 .. _PyPI: https://pypi.python.org/pypi
 
 .. _install-with-easy-install:
+
+The above command installs the other required dependencies (apptools-4.4.0, configobj-5.0.6, pyface-5.1.0, pygments-2.1.3, six-1.10.0, traitsui-5.1.0) along with Mayavi (mayavi-4.5.0) . If you get no errors then proceed to testing your installation.
 
 Installing with `easy_install`
 ...............................
@@ -393,4 +421,3 @@ information or email the mailing list.
    sentence-end-double-space: t
    fill-column: 70
    End:
-
