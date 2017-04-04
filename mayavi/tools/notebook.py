@@ -86,10 +86,7 @@ def scene_to_x3d(scene):
     ex.write()
     # Switch back
     scene.light_manager.light_mode = lm
-    if _local:
-        url_base = "/nbextensions/mayavi/x3d"
-    else:
-        url_base = "http://www.x3dom.org/download"
+    url_base = "https://www.x3dom.org/download/1.7.2/"
     x3d_elem = _fix_x3d_header(ex.output_string)
     html = '''
     %s
