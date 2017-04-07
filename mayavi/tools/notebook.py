@@ -94,7 +94,7 @@ def scene_to_x3d(scene):
     html = '''
     %s
     <script type="text/javascript">
-    require(["%s/x3dom.js"], function(x3dom) {
+    require(["%s/x3dom"], function(x3dom) {
         var x3dom_css = document.getElementById("x3dom-css");
         if (x3dom_css === null) {
             var l = document.createElement("link");
