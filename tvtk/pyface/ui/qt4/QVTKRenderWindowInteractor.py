@@ -352,20 +352,12 @@ class QVTKRenderWindowInteractor(QWidget):
         return ctrl, shift
 
     def enterEvent(self, ev):
-        if not self.hasFocus():
-            self.__oldFocus = self.focusWidget()
-            self.setFocus()
-
         ctrl, shift = self._GetCtrlShift(ev)
         self._Iren.SetEventInformationFlipY(self.__saveX, self.__saveY,
                                             ctrl, shift, chr(0), 0, None)
         self._Iren.EnterEvent()
 
     def leaveEvent(self, ev):
-        if self.__saveButtons == Qt.NoButton and self.__oldFocus:
-            self.__oldFocus.setFocus()
-            self.__oldFocus = None
-
         ctrl, shift = self._GetCtrlShift(ev)
         self._Iren.SetEventInformationFlipY(self.__saveX, self.__saveY,
                                             ctrl, shift, chr(0), 0, None)
