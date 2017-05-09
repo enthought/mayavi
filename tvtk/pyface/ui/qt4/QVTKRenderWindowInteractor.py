@@ -154,7 +154,6 @@ class QVTKRenderWindowInteractor(QWidget):
         self._ActiveButton = Qt.NoButton
 
         # private attributes
-        self.__oldFocus = None
         self.__saveX = 0
         self.__saveY = 0
         self.__saveModifiers = Qt.NoModifier
