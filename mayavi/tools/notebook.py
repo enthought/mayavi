@@ -87,20 +87,20 @@ def scene_to_x3d(scene):
     # Switch back
     scene.light_manager.light_mode = lm
     if _local:
-        url_base = "/nbextensions/mayavi/x3d"
+        url_base = "nbextensions/mayavi/x3d"
     else:
-        url_base = "http://www.x3dom.org/download"
+        url_base = "https://www.x3dom.org/download/1.7.2"
     x3d_elem = _fix_x3d_header(ex.output_string)
     html = '''
     %s
     <script type="text/javascript">
-    require(["%s/x3dom.js"], function(x3dom) {
+    require(["%s/x3dom"], function(x3dom) {
         var x3dom_css = document.getElementById("x3dom-css");
         if (x3dom_css === null) {
             var l = document.createElement("link");
             l.setAttribute("rel", "stylesheet");
             l.setAttribute("type", "text/css");
-            l.setAttribute("href", "%s/x3dom.css");
+            l.setAttribute("href", require.toUrl("%s/x3dom.css"));
             l.setAttribute("id", "x3dom-css");
             $("head").append(l);
         }
