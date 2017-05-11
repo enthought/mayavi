@@ -29,7 +29,7 @@ from tvtk.tvtk_base import TraitRevPrefixMap, false_bool_trait
 from tvtk.common import configure_input
 from apptools.persistence import state_pickler
 
-VTK_MAJOR_VERSION = tvtk.Version().vtk_major_version
+from tvtk.common import vtk_major_version
 
 ######################################################################
 # Utility functions.
@@ -393,7 +393,7 @@ class Picker(HasTraits):
             # Need to create the probe each time because otherwise it
             # does not seem to work properly.
             probe = tvtk.ProbeFilter()
-            if VTK_MAJOR_VERSION >= 6:
+            if vtk_major_version >= 6:
                 probe.set_source_data(data)
                 probe.set_input_data(self.probe_data)
             else:
