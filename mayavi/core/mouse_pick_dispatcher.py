@@ -183,7 +183,7 @@ class MousePickDispatcher(HasTraits):
                     if ( type == event_type
                                     and button == self._current_button):
                         callback(picker)
-            break
+                break
 
     #--------------------------------------------------------------------------
     # Private methods
