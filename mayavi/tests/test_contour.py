@@ -80,7 +80,7 @@ class TestContour(unittest.TestCase):
         self.e.stop()
         return
 
-    def check(self):
+    def check(self, contour_points=0):
         """Do the actual testing."""
         scene = self.scene
         src = scene.children[0]
@@ -94,20 +94,37 @@ class TestContour(unittest.TestCase):
         self.assertEqual(cgp2.grid_plane.position,15)
 
         iso = mm.children[3]
-        ctr = iso.contour.contours
+        contour = iso.contour
         self.assertEqual(iso.compute_normals,True)
-        self.assertEqual(ctr, [5.0])
+
         rng = iso.actor.mapper.input.point_data.scalars.range
-        self.assertEqual(rng[0],5.0)
-        self.assertEqual(rng[1],5.0)
+
+        if contour.auto_contours:
+            minc = contour.minimum_contour
+            maxc = contour.maximum_contour
+            self.assertGreaterEqual(rng[0], minc)
+            self.assertLessEqual(rng[1], maxc)
+
+            # Check if all contour values are within minimum_contour
+            # and maximum_contour
+            for i in range(0, contour.number_of_contours):
+                val = contour.contour_filter.get_value(i)
+                self.assertGreaterEqual(val, minc)
+                self.assertLessEqual(val, maxc)
+
+            auto_contour_points = contour.outputs[0].number_of_points
+            self.assertNotEqual(contour_points, auto_contour_points)
+        else:
+            ctr = contour.contours
+            self.assertEqual(ctr, [5.0])
+            self.assertEqual(rng[0], 5.0)
+            self.assertEqual(rng[1], 5.0)
 
         cp = mm.children[4]
         ip = cp.implicit_plane
-        self.assertAlmostEqual(numpy.sum(ip.normal - (0,0,1)) , 1e-16)
+        self.assertAlmostEqual(numpy.sum(ip.normal - (0, 0, 1)), 1e-16)
         self.assertAlmostEqual(numpy.sum(ip.origin - (0.5, 0.5, 1.0)), 0.0)
         self.assertEqual(ip.widget.enabled,False)
-
-
 
     def test_contour(self):
         "Test if the test fixture works"
@@ -143,7 +160,6 @@ class TestContour(unittest.TestCase):
         # Now check.
         self.check()
 
-
     def test_save_and_restore(self):
         """Test if saving a visualization and restoring it works."""
         engine = self.e
@@ -164,7 +180,6 @@ class TestContour(unittest.TestCase):
         self.scene = engine.current_scene
 
         self.check()
-
 
     def test_deepcopied(self):
         """Test if the MayaVi2 visualization can be deep-copied."""
@@ -190,6 +205,22 @@ class TestContour(unittest.TestCase):
         cp = source1.children[0].children[-1]
         cp.implicit_plane.widget.enabled = False
         self.check()
+
+    def test_auto_contour(self):
+        """Test if auto contour works, also test if Contour points
+        are within minimum_contour <= a number <= maximum_contour"""
+        iso = self.iso
+        contour = iso.contour
+
+        # Check number of contour points before setting
+        # auto contour to True
+        contour_points = contour.outputs[0].number_of_points
+
+        contour.auto_contours = True
+        contour.number_of_contours = 6
+
+        self.check(contour_points)
+
 
 if __name__ == '__main__':
     unittest.main()
