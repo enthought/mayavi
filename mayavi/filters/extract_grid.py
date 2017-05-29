@@ -169,7 +169,6 @@ class ExtractGrid(FilterBase):
         fil = self.filter
         self.configure_connection(fil, inputs[0])
         self._update_limits()
-        #fil.update_whole_extent()
         self._set_outputs([fil])
         self._update_limits()
         self._update_voi()
@@ -196,7 +195,8 @@ class ExtractGrid(FilterBase):
         else:
             extents = self.filter.get_update_extent()
 
-        if extents[0]>extents[1] or extents[2]>extents[3] or extents[4]>extents[5]:
+        if (extents[0]>extents[1] or extents[2]>extents[3] or
+                extents[4]>extents[5]):
             dims = self.inputs[0].get_output_dataset().dimensions
             e = extents
             extents = [e[0], dims[0]-1, e[2], dims[1] -1, e[4], dims[2] -1]
