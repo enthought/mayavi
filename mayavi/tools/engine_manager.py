@@ -167,6 +167,7 @@ class EngineManager(HasTraits):
     def find_figure_engine(self, fig):
         """ Find the engine corresponding to a given mayavi scene.
         """
+        print "engines : ", registry.engines.values()
         for engine in registry.engines.values():
             if fig in engine.scenes:
                 return engine
