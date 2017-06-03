@@ -168,7 +168,6 @@ class ExtractGrid(FilterBase):
 
         fil = self.filter
         self.configure_connection(fil, inputs[0])
-        self._update_limits()
         self._set_outputs([fil])
         self._update_limits()
         self._update_voi()
