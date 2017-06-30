@@ -239,7 +239,7 @@ class ArraySource(Source):
             data_t = numpy.transpose(data, (2, 1, 0, 3))
         else:
             data_t = data
-        img_data.point_data.vectors = numpy.reshape(data_t, (sz/3, 3))
+        img_data.point_data.vectors = numpy.reshape(data_t, (sz//3, 3))
         img_data.point_data.vectors.name = self.vector_name
         if is_old_pipeline():
             img_data.update() # This sets up the extents correctly.
