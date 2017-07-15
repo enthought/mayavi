@@ -45,6 +45,8 @@ import sys
 from pyface.qt import qt_api
 if qt_api == 'pyqt':
     PyQtImpl = "PyQt4"
+elif qt_api == 'pyqt5':
+    PyQtImpl = "PyQt5"
 else:
     PyQtImpl = "PySide"
 
@@ -64,6 +66,7 @@ elif PyQtImpl == "PySide":
     from PySide.QtCore import Qt, QTimer, QObject, QSize, QEvent
 else:
     raise ImportError("Unknown PyQt implementation " + repr(PyQtImpl))
+
 
 class QVTKRenderWindowInteractor(QWidget):
 
@@ -207,12 +210,14 @@ class QVTKRenderWindowInteractor(QWidget):
         self._Timer.timeout.connect(self.TimerEvent)
 
         # add wheel timer to fix scrolling issue with trackpad
-        self.wheel_timer = QTimer()
-        self.wheel_timer.setSingleShot(True)
-        self.wheel_timer.setInterval(25)
-        self.wheel_timer.timeout.connect(self._emit_wheel_event)
-        self.wheel_accumulator = 0
-        self._saved_wheel_event_info = ()
+        self.wheel_timer = None
+        if PyQtImpl == 'PyQt4':
+            self.wheel_timer = QTimer()
+            self.wheel_timer.setSingleShot(True)
+            self.wheel_timer.setInterval(25)
+            self.wheel_timer.timeout.connect(self._emit_wheel_event)
+            self.wheel_accumulator = 0
+            self._saved_wheel_event_info = ()
 
         self._Iren.AddObserver('CreateTimerEvent', messenger.send)
         messenger.connect(self._Iren, 'CreateTimerEvent', self.CreateTimer)
@@ -459,18 +464,25 @@ class QVTKRenderWindowInteractor(QWidget):
         are not handled, since they seem to be too much of a corner case to be
         worth handling.
         """
-        self.wheel_accumulator += ev.delta()
-        self._saved_wheel_event_info = (
-                                        ev.pos(),
-                                        ev.globalPos(),
-                                        self.wheel_accumulator,
-                                        ev.buttons(),
-                                        ev.modifiers(),
-                                        ev.orientation()
-                                    )
+        if hasattr(ev, 'delta'):
+            self.wheel_accumulator += ev.delta()
+            self._saved_wheel_event_info = (
+                ev.pos(),
+                ev.globalPos(),
+                self.wheel_accumulator,
+                ev.buttons(),
+                ev.modifiers(),
+                ev.orientation()
+            )
+        else:
+            if ev.angleDelta().y() >= 0:
+                self._Iren.MouseWheelForwardEvent()
+            else:
+                self._Iren.MouseWheelBackwardEvent()
+
         ev.setAccepted(True)
 
-        if not self.wheel_timer.isActive():
+        if self.wheel_timer and not self.wheel_timer.isActive():
             self.wheel_timer.start()
 
     def _emit_wheel_event(self):
