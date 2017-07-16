@@ -65,7 +65,10 @@ except (ImportError, AttributeError):
 
 if PyQtImpl == "PyQt5":
     if QVTKRWIBase == "QGLWidget":
-        from PyQt5.QtOpenGL import QGLWidget
+        try:
+            from PyQt5.QtWidgets import QOpenGLWidget as QGLWidget
+        except:
+            from PyQt5.QtOpenGL import QGLWidget
     from PyQt5.QtWidgets import QWidget, QSizePolicy, QApplication
     from PyQt5.QtGui import QWheelEvent
     from PyQt5.QtCore import Qt, QTimer, QObject, QSize, QEvent
