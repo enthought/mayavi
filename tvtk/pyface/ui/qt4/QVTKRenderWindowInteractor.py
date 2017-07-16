@@ -244,7 +244,7 @@ class QVTKRenderWindowInteractor(QVTKRWIBaseClass):
 
         # add wheel timer to fix scrolling issue with trackpad
         self.wheel_timer = None
-        if PyQtImpl == 'PyQt4':
+        if PyQtImpl != 'PyQt5':
             self.wheel_timer = QTimer()
             self.wheel_timer.setSingleShot(True)
             self.wheel_timer.setInterval(25)
