@@ -132,7 +132,7 @@ class TVTKGenerator:
         specified classes.
 
         """
-        # Wrappers for the ancesors are generated in order to get the
+        # Wrappers for the accesors are generated in order to get the
         # _updateable_traits_ information correctly.
         nodes = []
         for name in names:
@@ -148,7 +148,7 @@ class TVTKGenerator:
                 if i not in nodes:
                     nodes.insert(0, i)
         # Sort them as per their level.
-        nodes.sort(lambda x, y: cmp(x.level, y.level))
+        nodes.sort(key=lambda x: x.level)
 
         # Write code.
         for node in nodes:

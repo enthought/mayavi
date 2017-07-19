@@ -51,6 +51,10 @@ class _VTKRenderWindowInteractor(QVTKRenderWindowInteractor):
 
         self._scene = scene
         self._interacting = False
+        if hasattr(self, 'devicePixelRatio'):
+            self._pixel_ratio = self.devicePixelRatio()
+        else:
+            self._pixel_ratio = 1.0
 
     def resizeEvent(self, e):
         """ Reimplemented to refresh the traits of the render window.
@@ -118,14 +122,14 @@ class _VTKRenderWindowInteractor(QVTKRenderWindowInteractor):
             pos = self.mapFromGlobal(QtGui.QCursor.pos())
             x = pos.x()
             y = self.height() - pos.y()
-            scene.picker.pick(x, y)
+            scene.picker.pick(x*self._pixel_ratio, y*self._pixel_ratio)
             return
 
         if key in [QtCore.Qt.Key_F] and modifiers == QtCore.Qt.NoModifier:
             pos = self.mapFromGlobal(QtGui.QCursor.pos())
             x = pos.x()
             y = self.height() - pos.y()
-            data = scene.picker.pick_world(x, y)
+            data = scene.picker.pick_world(x*self._pixel_ratio, y*self._pixel_ratio)
             coord = data.coordinate
             if coord is not None:
                 camera.focal_point = coord
