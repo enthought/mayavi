@@ -38,8 +38,6 @@ the `mlab_source` to set them as shown in the more complicated example
 below::
 
     # Produce some nice data.
-    import numpy as np
-    from mayavi.mlab import *
     n_mer, n_long = 6, 11
     pi = np.pi
     dphi = pi/1000.0
@@ -50,7 +48,7 @@ below::
     z = np.sin(n_long*mu/n_mer)*0.5
 
     # View it.
-    l = plot3d(x, y, z, np.sin(mu), tube_radius=0.025, colormap='Spectral')
+    l = mlab.plot3d(x, y, z, np.sin(mu), tube_radius=0.025, colormap='Spectral')
 
     # Now animate the data.
     ms = l.mlab_source
