@@ -48,7 +48,7 @@ below::
     z = np.sin(n_long*mu/n_mer)*0.5
 
     # View it.
-    l = plot3d(x, y, z, np.sin(mu), tube_radius=0.025, colormap='Spectral')
+    l = mlab.plot3d(x, y, z, np.sin(mu), tube_radius=0.025, colormap='Spectral')
 
     # Now animate the data.
     ms = l.mlab_source
