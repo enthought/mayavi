@@ -147,14 +147,14 @@ After installing VTK Python, you can install mayavi using `pip`::
 Installing with `Enthought Deployment Manager(EDM)`
 .....................
 
-EDM is Enthought's freely available installer. It can be downloaded from 
+EDM is Enthought's freely available python environment manager. It allows new python users to create light-weight and custom python environments. A major advantage of EDM is its robust state-of-the-art management of package dependencies, with support for resolving conflicts and ensuring consistent package version sets. It can be downloaded from 
 `here <https://www.enthought.com/products/edm/installers/>`_.
 
-EDM provides Python 2.7.x as well as Python 3.6.x runtimes. Python 2.7 is the default version. After installing EDM, mayavi can be easily installed from the terminal by using `edm`:: 
+EDM provides Python 2.7.x as well as Python 3.x runtimes. Python 2.7 is the default version. After installing EDM, mayavi can be easily installed from the terminal by using `edm`:: 
 
-  $ edm install mayavi jupyter notebook
+  $ edm install mayavi pyqt
   
-This will install jupyter along with mayavi. After this, you can start a shell with the default python version by running::
+This will install mayavi along with 'pyqt'. After this, you can start a shell with the default python version by running::
 
   $ edm shell
   
@@ -170,9 +170,9 @@ Where 'py3' is the name of the environment. You may change this name to somethin
   
 You can now install mayavi as follows::
 
-  $ edm install mayavi jupyter notebook pyqt
+  $ edm install mayavi pyqt
   
-'pyqt' needs to be installed explicitly for python 3.6 case whereas on python 2.7, pyside is automatically installed. 
+Note that 'pyqt' needs to be installed explicitly for python 3.6 as well as fpr python 2.7. 
 
 
 .. _install-with-easy-install:
