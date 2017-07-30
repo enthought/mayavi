@@ -172,7 +172,26 @@ You can now install mayavi as follows::
 
   $ edm install mayavi pyqt
   
-Note that 'pyqt' needs to be installed explicitly for python 3.6 as well as fpr python 2.7. 
+Note that 'pyqt' needs to be installed explicitly for python 3.6 as well as for python 2.7. 
+
+.. _installing-with-conda
+
+Installing from `Conda`
+.....................
+
+Conda is an open source package management environment management system for installing multiple versions of software packages and their dependencies. Conda is included in Anaconda and Miniconda.
+
+Miniconda is a small "bootstrap" version that includes conda, pythona, and the packages they depend on. You can install miniconda from here_.
+
+.. _here: https://conda.io/miniconda.html
+
+After installing conda you need to run the following from command line:: 
+
+  $ conda create -n scipy17 python=3.5 pyqt=4
+  $ source activate scipy17
+  $ conda install -c menpo mayavi
+
+You should be all set with this.
 
 
 .. _install-with-easy-install:
@@ -410,6 +429,18 @@ from the github repository, you can run the examples in
 ``mayavi*/examples``.  There are plenty of example scripts
 illustrating various features.  Tests are available in the
 ``mayavi*/tests`` sub-directory.
+
+
+Getting the latest Mayavi development version
+.....................
+
+If you wish to get the latest version, you could clone the Mayavi git repository if you wish:: 
+
+  $ git clone https://github.com/enthought/mayavi.git
+  $ cd mayavi
+  $ python setup.py install
+
+The advantage here is some important bug fixes and you will also get all the Mayavi examples.  
 
 
 Troubleshooting
