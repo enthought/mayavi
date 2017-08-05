@@ -245,6 +245,30 @@ class TestMlabNullEngineMisc(TestMlabNullEngine):
             sug.actor.actor.bounds, (1.0, 2.0, 0.0, 1.0, 0.0, 1.0)
         )
 
+    def test_set_active_attribute(self):
+        # Given
+        x, y = np.mgrid[0:10:100j, 0:10:100j]
+        z = x**2 + y**2
+        w = np.arctan(x/(y+0.1))
+
+        # Create the data source
+        src = mlab.pipeline.array2d_source(z)
+
+        # add second array
+        dataset = src.mlab_source.dataset
+        scalar_range = dataset.point_data.scalars.range
+        array_id = dataset.point_data.add_array(w.T.ravel())
+        dataset.point_data.get_array(array_id).name = 'color'
+        dataset.point_data.update()
+
+        # select the array from a copy
+        # When/Then
+        f = mlab.pipeline.set_active_attribute(dataset,
+                                               point_scalars='color')
+        self.assertFalse(np.allclose(
+            f.get_output_dataset().point_data.scalars.range, scalar_range
+        ))
+
 
 ################################################################################
 # class `TestMlabPipeline`
