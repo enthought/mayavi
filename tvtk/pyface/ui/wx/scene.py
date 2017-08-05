@@ -496,7 +496,6 @@ class Scene(TVTKScene, Widget):
         self._vtk_control.OnKeyUp(event)
         event.Skip()
 
-
     def OnPaint(self, event):
         """This method is overridden temporarily in order to create
         the light manager.  This is necessary because it makes sense
@@ -506,6 +505,9 @@ class Scene(TVTKScene, Widget):
         correctly.  This handler is removed on the first Paint event
         and the default paint handler of the
         wxVTKRenderWindowInteractor is used instead."""
+
+        if self._vtk_control is None:
+            return
 
         # Call the original handler (this will Show the widget)
         self._vtk_control.OnPaint(event)
