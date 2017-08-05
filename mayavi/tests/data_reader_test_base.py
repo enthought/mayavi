@@ -51,10 +51,10 @@ class DataReaderTestBase(unittest.TestCase):
 
         src = scene.children[0]
         ot = src.children[0].children[0]
-        ot.render() # Flush the pipeline.
+        ot.render()  # Flush the pipeline.
 
         # Check the outline bounds
-        got = ot.outline_filter.output.bounds
+        got = ot.get_output_dataset().bounds
         msg = "Got: %s; expected: %s"%(got, bounds)
         self.assertEqual(numpy.allclose(got, bounds, atol=error), True, msg)
 
