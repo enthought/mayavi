@@ -379,6 +379,20 @@ illustrating various features.  Tests are available in the
 ``mayavi*/tests`` sub-directory.
 
 
+.. _Getting the latest Mayavi version
+
+Getting the latest Mayavi development version
+.....................
+
+If you wish to get the latest version, you could clone the Mayavi git repository if you wish:: 
+
+  $ git clone https://github.com/enthought/mayavi.git
+  $ cd mayavi
+  $ python setup.py install
+
+The advantage here is some important bug fixes and you will also get all the Mayavi examples. 
+
+
 Troubleshooting
 ----------------
 
