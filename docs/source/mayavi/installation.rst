@@ -142,6 +142,25 @@ After installing VTK Python, you can install mayavi using `pip`::
 .. _PyPA: https://packaging.python.org/en/latest/current/
 .. _PyPI: https://pypi.python.org/pypi
 
+.. _installing-with-conda
+
+Installing from `Conda`
+.....................
+
+Conda is an open source package management environment management system for installing multiple versions of software packages and their dependencies. Conda is included in Anaconda and Miniconda.
+
+Miniconda is a small "bootstrap" version that includes conda, python and the packages they depend on. You can install miniconda from here_.
+
+.. _here: https://conda.io/miniconda.html
+
+After installing conda you need to run the following from command line:: 
+
+  $ conda create -n scipy17 python=3.5 pyqt=4
+  $ source activate scipy17
+  $ conda install -c menpo mayavi
+
+You should be all set with this.
+
 .. _install-with-easy-install:
 
 Installing with `easy_install`
