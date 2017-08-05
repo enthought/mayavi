@@ -187,12 +187,16 @@ class TestPLYReader(DataReaderTestBase):
         self.check_deepcopying(self.scene, self.bounds)
 
     def _skip_if_broken_version(self):
-        version_str = "{}.{}".format(vtk_major_version, vtk_minor_version)
+        vtk_version = float(
+            "{}.{}".format(vtk_major_version, vtk_minor_version)
+        )
 
         # Skipping for known versions. See issue #328
-        if version_str in ["5.6", "5.8", "6.2"]:
+        # This is known to fail with VTK 5.6, all the way up to 7.0.0 at least.
+        if vtk_version > 5.5:
             raise unittest.SkipTest(
                 'PLY reader broken in this version of VTK. See issue #328')
+
 
 class TestPointsReader(DataReaderTestBase):
 
