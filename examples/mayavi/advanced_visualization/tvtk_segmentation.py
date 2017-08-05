@@ -49,8 +49,8 @@ data = data.T
 # scipy.stats.scoreatpercentile)
 sorted_data = np.sort(data.ravel())
 l = len(sorted_data)
-lower_thr = sorted_data[0.2*l]
-upper_thr = sorted_data[0.8*l]
+lower_thr = sorted_data[int(0.2*l)]
+upper_thr = sorted_data[int(0.8*l)]
 
 # The white matter boundary: find the densest part of the upper half
 # of histogram, and take a value 10% higher, to cut _in_ the white matter
@@ -87,7 +87,7 @@ thresh_filter.threshold_between(lower_thr, upper_thr)
 thresh = mlab.pipeline.user_defined(src, filter=thresh_filter)
 
 median_filter = tvtk.ImageMedian3D()
-median_filter.set_kernel_size(3, 3, 3)
+median_filter.kernel_size = [3, 3, 3]
 median = mlab.pipeline.user_defined(thresh, filter=median_filter)
 
 diffuse_filter = tvtk.ImageAnisotropicDiffusion3D(
