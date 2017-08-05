@@ -285,7 +285,7 @@ def view(azimuth=None, elevation=None, distance=None, focalpoint=None,
         r = max(bounds[1::2] - bounds[::2]) * 2.0
 
     cen = (bounds[1::2] + bounds[::2]) * 0.5
-    if focalpoint is not None and not focalpoint == 'auto':
+    if focalpoint is not None and not (isinstance(focalpoint, str) and focalpoint == 'auto'):
         cen = np.asarray(focalpoint)
 
     # Find camera position.
