@@ -113,8 +113,8 @@ for `mlab`.
 Examples
 ========
 
-Examples are all in the ``examples`` directory of the source or the SVN checkout.
-The docs and examples do not ship with the binary eggs.  The examples directory
+Examples are all in the ``examples`` directory of the source or the git clone.
+The docs and examples do not ship with the binary eggs. The examples directory
 also contains some sample data.
 
 
@@ -135,7 +135,18 @@ The integration tests::
 Bug tracker, mailing list etc.
 ==============================
 
-The bug tracker is available in `github <https://github.com/enthought/mayavi/issues>`_ Please provide info and details on platform, python, vtk and gui backends and their versions. If possible, a small example replicating the the problem.
+The bug tracker is available in `github
+<https://github.com/enthought/mayavi/issues>`_ Please provide info and details
+on platform, python, vtk and gui backends and their versions. If possible, a
+small example replicating the the problem.
+
+If you have questions you could ask on the `Mayavi-users mailing list
+<https://sourceforge.net/p/mayavi/mailman/mayavi-users/>`_. This is used by
+some folks and is not too active. Another mailing list that may be of use is
+the `ETS Users mailing list
+<https://groups.google.com/forum/#!forum/ets-users>`_. This is a more general
+list where a lot of folks experienced with the Enthought Tool Suite are
+available.
 
 Authors and Contributors
 ========================
