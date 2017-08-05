@@ -134,7 +134,7 @@ class PipeFactory(HasPrivateTraits):
         if self.figure is not None and self.figure is not self._scene:
             warnings.warn('Trying to add a module on the wrong scene')
         if isinstance(parent, (Source, tvtk.DataSet)) \
-                and not isinstance(parent, Filter) and scene is not None:
+                and not isinstance(parent, Filter) and self._scene is not None:
             # Search the current scene to see if the  source is already
             # in it, if not add it.
             if not parent in self._scene.children:
