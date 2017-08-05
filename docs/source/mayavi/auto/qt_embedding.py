@@ -21,6 +21,7 @@ from pyface.qt import QtGui, QtCore
 # the following lines are executed before the import of PyQT:
 #   import sip
 #   sip.setapi('QString', 2)
+#   sip.setapi('QVariant', 2)
 
 from traits.api import HasTraits, Instance, on_trait_change
 from traitsui.api import View, Item
