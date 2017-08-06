@@ -7,7 +7,7 @@ Controlling the camera.
 # License: BSD Style.
 
 # Standard library imports.
-import warnings
+import sys
 
 try:
     import numpy as np
@@ -17,12 +17,17 @@ except ImportError as m:
 http://numpy.scipy.org
         ''' % (m, '_' * 80)
     raise ImportError(msg)
-
 from numpy import pi
 
 # We can't use gcf, as it creates a circular import in camera management
 # routines.
 from .engine_manager import get_engine
+
+
+if sys.version_info[0] > 2:
+    string_types = (str,)
+else:
+    string_types = (basestring,)
 
 
 def world_to_display(x, y, z, figure=None):
@@ -131,10 +136,10 @@ def get_outline_bounds(figure=None):
 
     # Use mode='rgba' to have float values, as with fig.scene.background
     outline = screenshot(mode='rgba')
-    outline = ((outline[..., 0] != red)
-                + (outline[..., 1] != green)
-                + (outline[..., 2] != blue)
-                )
+    outline = (
+        (outline[..., 0] != red) + (outline[..., 1] != green)
+        + (outline[..., 2] != blue)
+    )
     outline_x = outline.sum(axis=0)
     outline_y = outline.sum(axis=1)
     height, width = outline.shape
@@ -158,7 +163,7 @@ def get_outline_bounds(figure=None):
 
 
 def view(azimuth=None, elevation=None, distance=None, focalpoint=None,
-            roll=None, reset_roll=True, figure=None):
+         roll=None, reset_roll=True, figure=None):
     """ Sets/Gets the view point for the camera::
 
      view(azimuth=None, elevation=None, distance=None, focalpoint=None,
@@ -279,13 +284,15 @@ def view(azimuth=None, elevation=None, distance=None, focalpoint=None,
     # centered at the center of the bounds, with radius chosen from the
     # bounds.
     bounds = np.array(ren.compute_visible_prop_bounds())
-    if distance is not None and not distance == 'auto':
+    if distance is not None and not (
+            isinstance(distance, string_types) and distance == 'auto'):
         r = distance
     else:
         r = max(bounds[1::2] - bounds[::2]) * 2.0
 
     cen = (bounds[1::2] + bounds[::2]) * 0.5
-    if focalpoint is not None and not focalpoint == 'auto':
+    if focalpoint is not None and not (
+            isinstance(focalpoint, string_types) and focalpoint == 'auto'):
         cen = np.asarray(focalpoint)
 
     # Find camera position.
@@ -319,10 +326,9 @@ def view(azimuth=None, elevation=None, distance=None, focalpoint=None,
                                             figure=figure)
 
         ratio = 1.1 * max((x_focus - x_min) / x_focus,
-                        (x_max - x_focus) / (w - x_focus),
-                        (y_focus - y_min) / y_focus,
-                        (y_max - y_focus) / (h - y_focus),
-                       )
+                          (x_max - x_focus) / (w - x_focus),
+                          (y_focus - y_min) / y_focus,
+                          (y_max - y_focus) / (h - y_focus))
 
         distance = get_camera_direction(cam)[0]
         r = distance * ratio
