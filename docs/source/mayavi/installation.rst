@@ -145,7 +145,7 @@ After installing VTK Python, you can install mayavi using `pip`::
 .. _install-with-edm:
 
 Installing with `Enthought Deployment Manager(EDM)`
-.....................
+...................................................
 
 EDM is Enthought's freely available python environment manager. It allows new python users to create light-weight and custom python environments. A major advantage of EDM is its robust state-of-the-art management of package dependencies, with support for resolving conflicts and ensuring consistent package version sets. It can be downloaded from 
 `here <https://www.enthought.com/products/edm/installers/>`_.
@@ -177,18 +177,45 @@ Note that 'pyqt' needs to be installed explicitly for python 3.6 as well as for 
 .. _installing-with-conda
 
 Installing from `Conda`
-.....................
+.......................
 
 Conda is an open source package management environment management system for installing multiple versions of software packages and their dependencies. Conda is included in Anaconda and Miniconda.
 
-Miniconda is a small "bootstrap" version that includes conda, pythona, and the packages they depend on. You can install miniconda from here_.
+Miniconda is a small "bootstrap" version that includes conda, python, and the packages they depend on. You can install miniconda from the following link depending on your operating system.
 
-.. _here: https://conda.io/miniconda.html
+For python 3.6: 
+--------------
+
+`Windows64bit <https://repo.continuum.io/miniconda/Miniconda3-latest-Windows-x86_64.exe>`_
+
+`Windows32bit <https://repo.continuum.io/miniconda/Miniconda3-latest-Windows-x86.exe>`_
+
+`MacOS <https://repo.continuum.io/miniconda/Miniconda3-latest-MacOSX-x86_64.sh>`_
+
+`Linux64bit <https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh>`_
+
+`Linux32bit <https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86.sh>`_
+
+
+For python 2.7: 
+--------------
+
+`Windows64bit <https://repo.continuum.io/miniconda/Miniconda2-latest-Windows-x86_64.exe>`_
+
+`Windows32bit <https://repo.continuum.io/miniconda/Miniconda2-latest-Windows-x86.exe>`_
+
+`MacOS <https://repo.continuum.io/miniconda/Miniconda2-latest-MacOSX-x86_64.sh>`_
+
+`Linux64bit <https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh>`_
+
+`Linux32bit <https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86.sh>`_
+
+
 
 After installing conda you need to run the following from command line:: 
 
-  $ conda create -n scipy17 python=3.5 pyqt=4
-  $ source activate scipy17
+  $ conda create -n pyconda python=3.5 pyqt=4
+  $ source activate pyconda
   $ conda install -c menpo mayavi
 
 You should be all set with this.
@@ -432,7 +459,7 @@ illustrating various features.  Tests are available in the
 
 
 Getting the latest Mayavi development version
-.....................
+..............................................
 
 If you wish to get the latest version, you could clone the Mayavi git repository if you wish:: 
 
