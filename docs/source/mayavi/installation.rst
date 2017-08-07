@@ -198,7 +198,7 @@ You should be all set with this.
 Installing with `Conda-forge`
 -----------------------------
 
-Conda-forege is a community-led conda channel of installable packages. For more information on conda-forge, you can vist their their website_.
+Conda-forge is a community-led conda channel of installable packages. For more information on conda-forge, you can vist their their website_.
 
 .. _website: https://conda-forge.org
 
