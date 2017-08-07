@@ -148,7 +148,7 @@ Installing with `Enthought Deployment Manager(EDM)`
 ...................................................
 
 EDM is Enthought's freely available python environment manager. It allows new python users to create light-weight and custom python environments. A major advantage of EDM is its robust state-of-the-art management of package dependencies, with support for resolving conflicts and ensuring consistent package version sets. It can be downloaded from 
-`here <https://www.enthought.com/products/edm/installers/>`_.
+`edmInstaller <https://www.enthought.com/products/edm/installers/>`_.
 
 EDM provides Python 2.7.x as well as Python 3.x runtimes. Python 2.7 is the default version. After installing EDM, mayavi can be easily installed from the terminal by using `edm`:: 
 
@@ -181,35 +181,7 @@ Installing from `Conda`
 
 Conda is an open source package management environment management system for installing multiple versions of software packages and their dependencies. Conda is included in Anaconda and Miniconda.
 
-Miniconda is a small "bootstrap" version that includes conda, python, and the packages they depend on. You can install miniconda from the following link depending on your operating system.
-
-For python 3.6: 
---------------
-
-`Windows64bit <https://repo.continuum.io/miniconda/Miniconda3-latest-Windows-x86_64.exe>`_
-
-`Windows32bit <https://repo.continuum.io/miniconda/Miniconda3-latest-Windows-x86.exe>`_
-
-`MacOS <https://repo.continuum.io/miniconda/Miniconda3-latest-MacOSX-x86_64.sh>`_
-
-`Linux64bit <https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh>`_
-
-`Linux32bit <https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86.sh>`_
-
-
-For python 2.7: 
---------------
-
-`Windows64bit <https://repo.continuum.io/miniconda/Miniconda2-latest-Windows-x86_64.exe>`_
-
-`Windows32bit <https://repo.continuum.io/miniconda/Miniconda2-latest-Windows-x86.exe>`_
-
-`MacOS <https://repo.continuum.io/miniconda/Miniconda2-latest-MacOSX-x86_64.sh>`_
-
-`Linux64bit <https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh>`_
-
-`Linux32bit <https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86.sh>`_
-
+Miniconda is a small "bootstrap" version that includes conda, python, and the packages they depend on. Depending on your operating system, you can download the `MinicondaInstaller <https://conda.io/miniconda.html>`_
 
 
 After installing conda you need to run the following from command line:: 
@@ -219,6 +191,41 @@ After installing conda you need to run the following from command line::
   $ conda install -c menpo mayavi
 
 You should be all set with this.
+
+
+.. Installing with conda-forge 
+
+Installing with `Conda-forge`
+-----------------------------
+
+Conda-forege is a community-led conda channel of installable packages. For more information on conda-forge, you can vist their their website_.
+
+.. _website: https://conda-forge.org
+
+Follow these steps to install using conda-forge: 
+
+First, clone the environment or build one from scratch::
+
+	$ conda create --name pyforge --clone root
+ 	or
+ 	$ conda create --name pyforge python=2.7	
+
+Then add the conda-forge channel:: 
+	
+	$ conda config --add channels conda-forge
+
+Activate the 'pyforge' environment::
+
+	$ source activate pyforge
+
+You will need to install these dependencies for Mayavi::
+
+	$ conda install vtk
+	$ conda install pyqt=4
+
+Finally, Mayavi can be installed as::
+
+	$ conda install mayavi
 
 
 .. _install-with-easy-install:
