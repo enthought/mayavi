@@ -296,7 +296,7 @@ class LUTManager(Base):
             n_total = len(lut)
             n_color = self.number_of_colors
             if not n_color >= n_total:
-                lut = lut[::round(n_total/float(n_color))]
+                lut = lut[::int(round(n_total/float(n_color)))]
             self.load_lut_from_list(lut.tolist())
             #self.lut.force_build()
             return
@@ -358,7 +358,7 @@ class LUTManager(Base):
             n_total = len(lut)
             if value > n_total:
                 return
-            lut = lut[::round(n_total/float(value))]
+            lut = lut[::int(round(n_total/float(value)))]
             self.load_lut_from_list(lut.tolist())
         else:
             lut = self.lut
