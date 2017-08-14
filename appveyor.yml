@@ -23,7 +23,7 @@ install:
   - ps: c:/vtkpython.exe /S /D=C:\vtk
   - ps: python -m pip install --upgrade pip wheel
   - ps: pip --version
-  - pip install -r requirements
+  - pip install -r appveyor-requirements.txt
   - pip install -e .
 test_script:
   - coverage erase
