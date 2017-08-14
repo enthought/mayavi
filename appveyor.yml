@@ -6,7 +6,7 @@ environment:
     sdkver: "C:/Program Files/Microsoft SDKs/Windows/v7.0/Setup/WindowsSdkVer.exe"
     python: "C:/Python27-x64"
     pythonpath: "C:/vtk/bin/Lib/site-packages"
-    ets_toolkit="qt4"
+    ets_toolkit: "qt4"
 
   matrix:
     - vtk_url: "http://www.vtk.org/files/release/6.3/vtkpython-6.3.0-Windows-64bit.exe"
