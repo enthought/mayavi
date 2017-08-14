@@ -100,7 +100,7 @@ class SliceUnstructuredGrid(Module):
             return
 
         # Data is available, so set the input for the grid plane.
-        input = mod_mgr.source.outputs[0]
+        input = mod_mgr.source.get_output_dataset()
         if not input.is_a('vtkUnstructuredGrid'):
             error('SliceUnstructuredGrid only works with input '\
                   'unstructured grids')

@@ -79,11 +79,23 @@ class SaveImageAction(Action):
 
     def perform(self):
         """Pops up a dialog used to save the scene to an image."""
-        extns = ['*.png', '*.jpg', '*.jpeg', '*.tiff', '*.bmp', '*.ps', '*.eps',
-                 '*.tex', '*.rib', '*.wrl', '*.oogl', '*.pdf', '*.vrml', '*.obj',
-                 '*.iv']
+        extensions = ['*.png', '*.jpg', '*.tiff', '*.bmp', '*.ps',
+                      '*.eps', '*.pdf', '*.tex', '*.rib', '*.wrl',
+                      '*.oogl', '*.vrml', '*.obj', '*.iv', '*.pov',
+                      '*.x3d']
+        descriptions = ["PNG", "JPG", "TIFF", "Bitmap", "PostScript",
+                        "EPS", "PDF", "Tex", "RIB", "WRL",
+                        "Geomview", "VRML", "Wavefront", "Open Inventor",
+                        "Povray", "X3D"]
+        wildcard = ""
+        for description, extension in zip(descriptions, extensions):
+            wildcard += "{} ({})|{}|".format(description,
+                                             extension,
+                                             extension)
+        wildcard += "Determine by extension (*.*)|(*.*)"
+
         dlg = FileDialog(parent=self._window.control, action='save as',
-                wildcard='|'.join(extns), title="Save scene to image")
+                wildcard=wildcard, title="Save scene to image")
         if dlg.open() == OK:
             self._window.scene.save(dlg.path)
 

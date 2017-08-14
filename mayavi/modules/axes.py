@@ -1,7 +1,7 @@
 """Draws a simple axes using tvtk.CubeAxesActor2D.
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2005-2006, Enthought, Inc.
+# Copyright (c) 2005-2016, Enthought, Inc.
 # License: BSD Style.
 
 # Enthought library imports.
@@ -171,7 +171,7 @@ class Axes(Module):
             self.configure_input_data(self.axes, None)
             return
         src = mm.source
-        self.configure_input_data(self.axes, src.outputs[0])
+        self.configure_input(self.axes, src.outputs[0])
         self.pipeline_changed = True
 
     def update_data(self):
@@ -237,4 +237,3 @@ class Axes(Module):
             the actor to the source (if any). We are using it here.
         """
         self.update_pipeline()
-

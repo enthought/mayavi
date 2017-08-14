@@ -12,15 +12,16 @@ from mayavi.core.null_engine import NullEngine
 
 # Enthought library imports
 from mayavi.filters.threshold import Threshold
+from mayavi.filters.cut_plane import CutPlane
 from mayavi.sources.array_source import ArraySource
 
 
 class TestThresholdFilter(unittest.TestCase):
 
     def make_src(self, nan=False):
-        data      = np.empty((3, 3, 3))
+        data = np.empty((3, 3, 3))
         if nan:
-            data[0]   = np.nan
+            data[0] = np.nan
         data.flat[:] = np.arange(data.size)
         return ArraySource(scalar_data=data)
 
@@ -110,6 +111,32 @@ class TestThresholdFilter(unittest.TestCase):
         src.scalar_data = np.linspace(-20.0, 20.0, 27).reshape((3, 3, 3))
         self.assertAlmostEqual(threshold.lower_threshold, -20.0)
         self.assertAlmostEqual(threshold.upper_threshold, 20.0)
+
+    def test_threshold_with_other_filter_as_input(self):
+        # Given
+        x, y, z = np.mgrid[-1:1:10j, -1:1:10j, -1:1:10j]
+        s = x*x + y*y + z*z
+
+        src = ArraySource(scalar_data=s)
+        self.e.add_source(src)
+        scp = CutPlane()
+        self.e.add_filter(scp)
+
+        # When
+        threshold = Threshold()
+        self.e.add_filter(threshold)
+        threshold.set(
+            lower_threshold=0.25, upper_threshold=0.75,
+            auto_reset_lower=False, auto_reset_upper=False
+        )
+
+        # Then
+        output = threshold.get_output_dataset()
+        self.assertTrue(output is not None)
+        self.assertTrue(output.is_a('vtkUnstructuredGrid'))
+        output_range = output.point_data.scalars.range
+        self.assertTrue(output_range[0] >= 0.25)
+        self.assertTrue(output_range[1] <= 0.75)
 
 
 if __name__ == '__main__':

@@ -106,5 +106,5 @@ class ImageActor(Module):
         if mm is None:
             return False
         src = mm.source
-        return not isinstance(src.outputs[0].point_data.scalars,
-                                                    tvtk.UnsignedCharArray)
+        return not isinstance(src.get_output_dataset().point_data.scalars,
+                              tvtk.UnsignedCharArray)

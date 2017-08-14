@@ -205,13 +205,16 @@ class MGlyphSource(MlabSource):
         # Create the dataset.
         polys = np.arange(0, len(points), 1, 'l')
         polys = np.reshape(polys, (len(points), 1))
+        new_dataset = False
         if self.dataset is None:
             # Create new dataset if none exists
             pd = tvtk.PolyData()
+            new_dataset = True
         else:
             # Modify existing one.
             pd = self.dataset
-        pd.set(points=points, polys=polys)
+        pd.set(points=points)
+        pd.set(polys=polys)
 
         if self.vectors is not None:
             pd.point_data.vectors = self.vectors
@@ -221,6 +224,8 @@ class MGlyphSource(MlabSource):
             pd.point_data.scalars.name = 'scalars'
 
         self.dataset = pd
+        if not new_dataset:
+            self.update()
 
     ######################################################################
     # Non-public interface.
@@ -300,8 +305,8 @@ class MVerticalGlyphSource(MGlyphSource):
         self.dataset.point_data.scalars = s
         self.dataset.point_data.scalars.name = 'scalars'
         self.set(vectors=np.c_[np.ones_like(s),
-                                  np.ones_like(s),
-                                  s])
+                               np.ones_like(s),
+                               s])
         self.update()
 
 
@@ -477,8 +482,10 @@ class MLineSource(MlabSource):
         lines = np.zeros((n_pts, 2), 'l')
         lines[:, 0] = np.arange(0, n_pts - 0.5, 1, 'l')
         lines[:, 1] = np.arange(1, n_pts + 0.5, 1, 'l')
+        new_dataset = False
         if self.dataset is None:
             pd = tvtk.PolyData()
+            new_dataset = True
         else:
             pd = self.dataset
         # Avoid lines refering to non existing points: First set the
@@ -494,6 +501,8 @@ class MLineSource(MlabSource):
             pd.point_data.scalars.name = 'scalars'
 
         self.dataset = pd
+        if not new_dataset:
+            self.update()
 
     ######################################################################
     # Non-public interface.
@@ -595,7 +604,7 @@ class MArray2DSource(MlabSource):
         if old_scalar is scalars:
             ds._scalar_data_changed(scalars)
 
-        self.dataset = ds.outputs[0]
+        self.dataset = ds.get_output_dataset()
         self.m_data = ds
 
     #####################################################################
@@ -700,11 +709,14 @@ class MGridSource(MlabSource):
         triangles[0:nt, 0], triangles[0:nt, 1], triangles[0:nt, 2] = t1
         triangles[nt:, 0], triangles[nt:, 1], triangles[nt:, 2] = t2
 
+        new_dataset = False
         if self.dataset is None:
             pd = tvtk.PolyData()
+            new_dataset = True
         else:
             pd = self.dataset
-        pd.set(points=points, polys=triangles)
+        pd.set(points=points)
+        pd.set(polys=triangles)
 
         if scalars is not None and len(scalars) > 0:
             if not scalars.flags.contiguous:
@@ -715,6 +727,8 @@ class MGridSource(MlabSource):
             pd.point_data.scalars.name = 'scalars'
 
         self.dataset = pd
+        if not new_dataset:
+            self.update()
 
     ######################################################################
     # Non-public interface.
@@ -796,8 +810,10 @@ class MTriangularMeshSource(MlabSource):
         assert triangles.min() >= 0, \
             "The triangles indices must be positive or null"
 
+        new_dataset = False
         if self.dataset is None:
             pd = tvtk.PolyData()
+            new_dataset = True
         else:
             pd = self.dataset
         # Set the points first, and the triangles after: so that the
@@ -821,6 +837,8 @@ class MTriangularMeshSource(MlabSource):
             pd.point_data.scalars.name = 'scalars'
 
         self.dataset = pd
+        if not new_dataset:
+            self.update()
 
     ######################################################################
     # Non-public interface.

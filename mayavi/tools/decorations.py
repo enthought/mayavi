@@ -370,7 +370,7 @@ class Axes(AxesLikeModuleFactory):
         axes.axes.bounds = self.extent
         if self.ranges is None:
             axes.axes.ranges = \
-                axes.module_manager.source.outputs[0].bounds
+                axes.module_manager.source.get_output_dataset().bounds
 
     def _ranges_changed(self):
         if self.ranges is not None:

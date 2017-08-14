@@ -17,7 +17,7 @@ docs for more details.
 """
 
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2004-2007, Enthought, Inc.
+# Copyright (c) 2004-2016, Enthought, Inc.
 # License: BSD Style.
 
 
@@ -31,9 +31,10 @@ from tvtk import messenger
 from traits.api import Instance, Button, Any
 from traitsui.api import View, Group, Item, InstanceEditor
 
-from pyface.api import Widget, GUI, FileDialog, OK
+from pyface.api import Widget, GUI
 from tvtk.pyface import picker
 from tvtk.pyface import light_manager
+from tvtk.pyface.utils import popup_save
 from tvtk.pyface.tvtk_scene import TVTKScene
 
 from .QVTKRenderWindowInteractor import QVTKRenderWindowInteractor
@@ -50,6 +51,10 @@ class _VTKRenderWindowInteractor(QVTKRenderWindowInteractor):
 
         self._scene = scene
         self._interacting = False
+        if hasattr(self, 'devicePixelRatio'):
+            self._pixel_ratio = self.devicePixelRatio()
+        else:
+            self._pixel_ratio = 1.0
 
     def resizeEvent(self, e):
         """ Reimplemented to refresh the traits of the render window.
@@ -117,14 +122,14 @@ class _VTKRenderWindowInteractor(QVTKRenderWindowInteractor):
             pos = self.mapFromGlobal(QtGui.QCursor.pos())
             x = pos.x()
             y = self.height() - pos.y()
-            scene.picker.pick(x, y)
+            scene.picker.pick(x*self._pixel_ratio, y*self._pixel_ratio)
             return
 
         if key in [QtCore.Qt.Key_F] and modifiers == QtCore.Qt.NoModifier:
             pos = self.mapFromGlobal(QtGui.QCursor.pos())
             x = pos.x()
             y = self.height() - pos.y()
-            data = scene.picker.pick_world(x, y)
+            data = scene.picker.pick_world(x*self._pixel_ratio, y*self._pixel_ratio)
             coord = data.coordinate
             if coord is not None:
                 camera.focal_point = coord
@@ -140,7 +145,7 @@ class _VTKRenderWindowInteractor(QVTKRenderWindowInteractor):
         if key in [QtCore.Qt.Key_S] and modifiers == QtCore.Qt.NoModifier:
             fname = popup_save(self.parent())
             if len(fname) != 0:
-                self.save(fname)
+                self._scene.save(fname)
             return
 
         shift = ((modifiers & QtCore.Qt.ShiftModifier) == QtCore.Qt.ShiftModifier)
@@ -220,29 +225,6 @@ class _VTKRenderWindowInteractor(QVTKRenderWindowInteractor):
             self._scene.busy = False
 
 
-######################################################################
-# Utility functions.
-######################################################################
-def popup_save(parent=None):
-    """Popup a dialog asking for an image name to save the scene to.
-    This is used mainly to save a scene in full screen mode. Returns a
-    filename, returns empty string if action was cancelled. `parent` is
-    the parent widget over which the dialog will be popped up.
-    """
-    extns = ['*.png', '*.jpg', '*.jpeg', '*.tiff', '*.bmp', '*.ps', '*.eps',
-             '*.tex', '*.rib', '*.wrl', '*.oogl', '*.pdf', '*.vrml', '*.obj',
-             '*.iv']
-    wildcard='|'.join(extns)
-
-    dialog = FileDialog(
-        parent = parent, title='Save scene to image',
-        action='save as', wildcard=wildcard
-    )
-    if dialog.open() == OK:
-        return dialog.path
-    else:
-        return ''
-
 
 ######################################################################
 # `Scene` class.
@@ -319,6 +301,12 @@ class Scene(TVTKScene, Widget):
                          Group( Item(name='light_manager',
                                 style='custom', show_label=False),
                                 label='Lights'),
+                         Group(
+                             Item(
+                                 name='movie_maker',
+                                 style='custom', show_label=False
+                             ),
+                             label='Movie'),
                          buttons=['OK', 'Cancel']
                         )
 

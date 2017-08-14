@@ -274,6 +274,14 @@ class SceneModel(TVTKScene):
         self._check_scene_editor()
         self.scene_editor.save_gl2ps(file_name, exp)
 
+    def save_povray(self, file_name):
+        self._check_scene_editor()
+        self.scene_editor.save_povray(file_name)
+
+    def save_x3d(self, filename):
+        self._check_scene_editor()
+        self.scene_editor.save_x3d(file_name)
+
     def get_size(self):
         """Return size of the render window."""
         self._check_scene_editor()

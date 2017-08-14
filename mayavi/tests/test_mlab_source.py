@@ -7,12 +7,14 @@ Test for MlabSource and its subclasses.
 
 import unittest
 import numpy as N
+from mock import patch
 
 from mayavi.tools import sources
 
-################################################################################
+
+###############################################################################
 # `TestMGlyphSource`
-################################################################################
+###############################################################################
 class TestMGlyphSource(unittest.TestCase):
     def setUp(self):
         self.x = x = N.ones(10, float)
@@ -21,7 +23,7 @@ class TestMGlyphSource(unittest.TestCase):
         self.v = v = N.ones((10, 3), float)*10.0
         self.s = s = N.ones(10, float)
         src = sources.MGlyphSource()
-        src.reset(x=x, y=y, z=z, u=v[:,0], v=v[:,1], w=v[:,2], scalars=s)
+        src.reset(x=x, y=y, z=z, u=v[:, 0], v=v[:, 1], w=v[:, 2], scalars=s)
         self.src = src
 
     def tearDown(self):
@@ -34,9 +36,12 @@ class TestMGlyphSource(unittest.TestCase):
         """Check if the sources traits are set correctly."""
         x, y, z, v, s, src = self.get_data()
         # Check if points are set correctly.
-        self.assertEqual(N.alltrue(src.points[:,0].ravel() == x.ravel()), True)
-        self.assertEqual(N.alltrue(src.points[:,1].ravel() == y.ravel()), True)
-        self.assertEqual(N.alltrue(src.points[:,2].ravel() == z.ravel()), True)
+        self.assertEqual(N.alltrue(src.points[:, 0].ravel() == x.ravel()),
+                         True)
+        self.assertEqual(N.alltrue(src.points[:, 1].ravel() == y.ravel()),
+                         True)
+        self.assertEqual(N.alltrue(src.points[:, 2].ravel() == z.ravel()),
+                         True)
         # Check the vectors and scalars.
         self.assertEqual(N.alltrue(src.vectors == v), True)
         self.assertEqual(N.alltrue(src.scalars == s), True)
@@ -46,9 +51,9 @@ class TestMGlyphSource(unittest.TestCase):
         x, y, z, v, s, src = self.get_data()
         # Check if the dataset is setup right.
         pts = src.dataset.points.to_array()
-        self.assertEqual(N.alltrue(pts[:,0].ravel() == x.ravel()), True)
-        self.assertEqual(N.alltrue(pts[:,1].ravel() == y.ravel()), True)
-        self.assertEqual(N.alltrue(pts[:,2].ravel() == z.ravel()), True)
+        self.assertEqual(N.alltrue(pts[:, 0].ravel() == x.ravel()), True)
+        self.assertEqual(N.alltrue(pts[:, 1].ravel() == y.ravel()), True)
+        self.assertEqual(N.alltrue(pts[:, 2].ravel() == z.ravel()), True)
         vec = src.dataset.point_data.vectors.to_array()
         sc = src.dataset.point_data.scalars.to_array()
         self.assertEqual(N.alltrue(vec == v), True)
@@ -64,7 +69,7 @@ class TestMGlyphSource(unittest.TestCase):
         x *= 5
         s *= 10
         v *= 0.1
-        src.reset(x=x, u=v[:,0], v=v[:,1], w=v[:,2], scalars=s)
+        src.reset(x=x, u=v[:, 0], v=v[:, 1], w=v[:, 2], scalars=s)
 
         self.check_traits()
         self.check_dataset()
@@ -79,11 +84,11 @@ class TestMGlyphSource(unittest.TestCase):
         self.x = x = N.ones(20, float)*30.0
         self.y = y = N.ones(20, float)*30.0
         self.z = z = N.ones(20, float)*30.0
-        points = N.ones((20, 3), float)*30.0
         self.s = s = N.ones(20, float)
         self.v = v = N.ones((20, 3), float)*30.0
 
-        src.reset(x=x,y=y,z=z, u=v[:,0], v=v[:,1], w=v[:,2], scalars=s,points=points,vectors=v)
+        src.reset(x=x, y=y, z=z, u=v[:, 0], v=v[:, 1], w=v[:, 2],
+                  scalars=s)
         self.check_traits()
         self.check_dataset()
 
@@ -91,17 +96,16 @@ class TestMGlyphSource(unittest.TestCase):
         " Test the reset method when the inputs are 2-d arrays."
 
         x, y, z, v, s, src = self.get_data()
-        self.x = x = N.reshape(x, (5,2))
-        self.y = y = N.reshape(y, (5,2))
-        self.z = z = N.reshape(z, (5,2))
-        u = N.reshape(v[:,0], (5,2))
-        vv = N.reshape(v[:,1], (5,2))
-        w = N.reshape(v[:,2], (5,2))
-        self.s = s = N.reshape(s, (5,2))
+        self.x = x = N.reshape(x, (5, 2))
+        self.y = y = N.reshape(y, (5, 2))
+        self.z = z = N.reshape(z, (5, 2))
+        u = N.reshape(v[:, 0], (5, 2))
+        vv = N.reshape(v[:, 1], (5, 2))
+        w = N.reshape(v[:, 2], (5, 2))
+        self.s = s = N.reshape(s, (5, 2))
         src.reset(x=x, y=y, z=z, u=u, v=vv, w=w, scalars=s)
         self.check_traits()
         self.check_dataset()
-
 
     def test_handlers(self):
         "Test if the various static handlers work correctly."
@@ -114,24 +118,25 @@ class TestMGlyphSource(unittest.TestCase):
         src.x = x
         src.y = y
         src.z = z
-        src.u = v[:,0]
-        src.v = v[:,1]
-        src.w = v[:,2]
+        src.u = v[:, 0]
+        src.v = v[:, 1]
+        src.w = v[:, 2]
         src.scalars = s
         self.check_traits()
         self.check_dataset()
 
     def test_handlers_strange_shape(self):
-        "Test if the various static handlers work correctly for strange shapes."
+        """Test if the various static handlers work correctly for strange shapes.
+        """
         # Initialize with 2-d array data.
         x, y, z, v, s, src = self.get_data()
-        x = N.reshape(x, (5,2))
-        y = N.reshape(y, (5,2))
-        z = N.reshape(z, (5,2))
-        u = N.reshape(v[:,0], (5,2))
-        vv = N.reshape(v[:,1], (5,2))
-        w = N.reshape(v[:,2], (5,2))
-        s = N.reshape(s, (5,2))
+        x = N.reshape(x, (5, 2))
+        y = N.reshape(y, (5, 2))
+        z = N.reshape(z, (5, 2))
+        u = N.reshape(v[:, 0], (5, 2))
+        vv = N.reshape(v[:, 1], (5, 2))
+        w = N.reshape(v[:, 2], (5, 2))
+        s = N.reshape(s, (5, 2))
         src.reset(x=x, y=y, z=z, u=u, v=vv, w=w, scalars=s)
 
         # modify variables in src to check handlers
@@ -141,9 +146,9 @@ class TestMGlyphSource(unittest.TestCase):
         src.u = 2*z
         src.v = 2*vv
         src.w = 2*w
-        self.v[:,0] = src.u.ravel()
-        self.v[:,1] = src.v.ravel()
-        self.v[:,2] = src.w.ravel()
+        self.v[:, 0] = src.u.ravel()
+        self.v[:, 1] = src.v.ravel()
+        self.v[:, 2] = src.w.ravel()
         self.s = src.scalars = 2*s
         self.check_traits()
         self.check_dataset()
@@ -167,6 +172,21 @@ class TestMGlyphSource(unittest.TestCase):
         x = y = z = v = s = 1
         src.set(x=x, y=y, z=z, u=v, v=v, w=v, scalars=None)
         src.set(x=x, y=y, z=z, u=v, v=v, w=v, scalars=s)
+
+    @patch('mayavi.tools.engine_manager.options.backend', 'test')
+    def test_reset_changes_pipeline(self):
+        # Given
+        from mayavi import mlab
+        x, y, z = N.random.random((3, 10))
+        g = mlab.points3d(x, y, z, x*x + y*y + z*z)
+        bounds = g.actor.actor.bounds
+
+        # When
+        x, y, z = N.random.random((3, 20))
+        g.mlab_source.reset(x=x, y=y, z=z, scalars=x*x + y*y + z*z)
+
+        # Then
+        self.assertFalse(N.allclose(bounds, g.actor.actor.bounds))
 
 
 ################################################################################
@@ -482,12 +502,9 @@ class TestMLineSource(unittest.TestCase):
         self.z = z = N.ones(20, float)*30.0
         points = N.ones((20, 3), float)*30.0
         self.s = s = N.ones(20, float)
-        src.reset(x=x,y=y,z=z,scalars=s,points=points)
+        src.reset(x=x, y=y, z=z, scalars=s, points=points)
         self.check_traits()
         self.check_dataset()
-
-
-
 
     def test_handlers(self):
         "Test if the various static handlers work correctly."
@@ -519,6 +536,20 @@ class TestMLineSource(unittest.TestCase):
         self.check_traits()
         self.check_dataset()
 
+    @patch('mayavi.tools.engine_manager.options.backend', 'test')
+    def test_reset_changes_pipeline(self):
+        # Given
+        from mayavi import mlab
+        x = N.linspace(0, 1, 10)
+        lines = mlab.plot3d(x, x, x, x)
+        bounds = lines.actor.actor.bounds
+
+        # When
+        x = N.linspace(0, 2, 20)
+        lines.mlab_source.reset(x=x, y=x, z=x, scalars=x)
+
+        # Then
+        self.assertFalse(N.allclose(bounds, lines.actor.actor.bounds))
 
 
 ################################################################################
@@ -617,9 +648,10 @@ class TestMArray2DSource(unittest.TestCase):
         self.check_traits()
         self.check_dataset()
 
-################################################################################
+
+###############################################################################
 # `TestMGridSource`
-################################################################################
+###############################################################################
 class TestMGridSource(unittest.TestCase):
     def setUp(self):
         self.x = x = N.ones([10,10], float)
@@ -699,6 +731,24 @@ class TestMGridSource(unittest.TestCase):
         src.set(x=x, z=z, scalars=s)
         self.check_traits()
         self.check_dataset()
+
+    @patch('mayavi.tools.engine_manager.options.backend', 'test')
+    def test_reset_changes_pipeline(self):
+        # Given
+        from mayavi import mlab
+        s = slice(0, 1, 10j)
+        x, y = N.mgrid[s, s]
+        obj = mlab.mesh(x, y, x*y, scalars=x)
+        bounds = obj.actor.actor.bounds
+
+        # When
+        s = slice(0, 5, 20j)
+        x, y = N.mgrid[s, s]
+        obj.mlab_source.reset(x=x, y=y, z=x*y, scalars=x)
+
+        # Then
+        self.assertFalse(N.allclose(bounds, obj.actor.actor.bounds))
+
 
 ################################################################################
 # `TestMArray2DSourceNoArgs`
@@ -894,6 +944,26 @@ class TestMTriangularMeshSource(unittest.TestCase):
 
         self.check_traits()
 
+    @patch('mayavi.tools.engine_manager.options.backend', 'test')
+    def test_reset_changes_pipeline(self):
+        # Given
+        from mayavi import mlab
+        obj = mlab.triangular_mesh(
+            self.x, self.y, self.z, self.triangles, scalars=self.s
+        )
+        bounds = obj.actor.actor.bounds
+
+        # When
+        n = 10
+        x, y, z = N.random.random((3, n))
+        triangles = N.c_[N.arange(n-3),
+                         N.arange(n-3)+1,
+                         n-1-N.arange(n-3)]
+
+        obj.mlab_source.reset(x=x, y=y, z=z, triangles=triangles, scalars=z)
+
+        # Then
+        self.assertFalse(N.allclose(bounds, obj.actor.actor.bounds))
 
 
 if __name__ == '__main__':

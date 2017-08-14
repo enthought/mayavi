@@ -101,7 +101,7 @@ represent lines::
 
 The `mlab.plot3d` function first creates a source made of points
 connected by lines. Then it applies the `Stripper` filter, which
-transforms this succession of lines in a 'strip'. Second, a `Stripper`
+transforms this succession of lines in a 'strip'. Second, a `Tube`
 filter is applied: from the 'strip' it creates tubes with a given radius.
 Finally, the `Surface` module is applied to display the surface of the
 tubes. The `surface` object returned by the `mlab.plot3d` function is

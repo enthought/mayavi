@@ -142,6 +142,92 @@ After installing VTK Python, you can install mayavi using `pip`::
 .. _PyPA: https://packaging.python.org/en/latest/current/
 .. _PyPI: https://pypi.python.org/pypi
 
+.. _install-with-edm:
+
+Installing with `Enthought Deployment Manager(EDM)`
+...................................................
+
+EDM is Enthought's freely available python environment manager. It allows new python users to create light-weight and custom python environments. A major advantage of EDM is its robust state-of-the-art management of package dependencies, with support for resolving conflicts and ensuring consistent package version sets. It can be downloaded from 
+`edmInstaller <https://www.enthought.com/products/edm/installers/>`_.
+
+EDM provides Python 2.7.x as well as Python 3.x runtimes. Python 2.7 is the default version. After installing EDM, mayavi can be easily installed from the terminal by using `edm`:: 
+
+  $ edm install mayavi pyqt
+  
+This will install mayavi along with 'pyqt'. After this, you can start a shell with the default python version by running::
+
+  $ edm shell
+  
+This should set Mayavi for the default python 2.7. 
+
+For python 3.6.x, you can install it by running: 
+
+  $ edm environments create --version 3.6 py3
+
+Where 'py3' is the name of the environment. You may change this name to something else if you wish. Once you create the environment, you can activate it as follows::
+
+  $ edm shell -e py3
+  
+You can now install mayavi as follows::
+
+  $ edm install mayavi pyqt
+  
+Note that 'pyqt' needs to be installed explicitly for python 3.6 as well as for python 2.7. 
+
+.. _installing-with-conda
+
+Installing from `Conda`
+.......................
+
+Conda is an open source package management environment management system for installing multiple versions of software packages and their dependencies. Conda is included in Anaconda and Miniconda.
+
+Miniconda is a small "bootstrap" version that includes conda, python, and the packages they depend on. Depending on your operating system, you can download the `MinicondaInstaller <https://conda.io/miniconda.html>`_
+
+
+After installing conda you need to run the following from command line:: 
+
+  $ conda create -n pyconda python=3.5 pyqt=4
+  $ source activate pyconda
+  $ conda install -c menpo mayavi
+
+You should be all set with this.
+
+
+.. Installing with conda-forge 
+
+Installing with `Conda-forge`
+-----------------------------
+
+Conda-forge is a community-led conda channel of installable packages. For more information on conda-forge, you can vist their their website_.
+
+.. _website: https://conda-forge.org
+
+Follow these steps to install using conda-forge: 
+
+First, clone the environment or build one from scratch::
+
+	$ conda create --name pyforge --clone root
+ 	or
+ 	$ conda create --name pyforge python=2.7	
+
+Then add the conda-forge channel:: 
+	
+	$ conda config --add channels conda-forge
+
+Activate the 'pyforge' environment::
+
+	$ source activate pyforge
+
+You will need to install these dependencies for Mayavi::
+
+	$ conda install vtk
+	$ conda install pyqt=4
+
+Finally, Mayavi can be installed as::
+
+	$ conda install mayavi
+
+
 .. _install-with-easy-install:
 
 Installing with `easy_install`
@@ -377,6 +463,18 @@ from the github repository, you can run the examples in
 ``mayavi*/examples``.  There are plenty of example scripts
 illustrating various features.  Tests are available in the
 ``mayavi*/tests`` sub-directory.
+
+
+Getting the latest Mayavi development version
+..............................................
+
+If you wish to get the latest version, you could clone the Mayavi git repository if you wish:: 
+
+  $ git clone https://github.com/enthought/mayavi.git
+  $ cd mayavi
+  $ python setup.py install
+
+The advantage here is some important bug fixes and you will also get all the Mayavi examples.  
 
 
 Troubleshooting

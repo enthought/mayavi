@@ -279,14 +279,7 @@ class GradientTableOld:
         """Sort control points by position. Call this if the position of
         any control point was changed externally. The control point array
         always has to be sorted."""
-        def pred(x, y):
-            if x < y:
-                return -1
-            elif y < x:
-                return +1
-            else:
-                return 0
-        self.control_points.sort( lambda x, y: pred(x.pos, y.pos) )
+        self.control_points.sort(key=lambda x: x.pos)
 
     def update(self):
         """Recalculate the gradient table from the control points. The colors
@@ -684,14 +677,7 @@ class GradientTable:
         """Sort control points by position. Call this if the position of
         any control point was changed externally. The control point array
         always has to be sorted."""
-        def pred(x, y):
-            if x < y:
-                return -1
-            elif y < x:
-                return +1
-            else:
-                return 0
-        self.control_points.sort( lambda x, y: pred(x.pos, y.pos) )
+        self.control_points.sort(key=lambda x: x.pos)
 
     def update(self):
         """Recalculate the gradient table from the control points. The

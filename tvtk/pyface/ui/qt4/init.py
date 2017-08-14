@@ -25,6 +25,7 @@ import os
 from pyface.qt import qt_api
 if qt_api == 'pyqt':
     from PyQt4 import QtGui, QtCore
+    from PyQt4.QtGui import QApplication
 
     # Check the version numbers are late enough.
     if QtCore.QT_VERSION < 0x040200:
@@ -32,13 +33,17 @@ if qt_api == 'pyqt':
 
     if QtCore.PYQT_VERSION < 0x040100:
         raise RuntimeError("Need PyQt v4.1 or higher, but got v%s" % QtCore.PYQT_VERSION_STR)
+elif qt_api == 'pyqt5':
+    from PyQt5 import QtGui, QtCore
+    from PyQt5.QtWidgets import QApplication
 else:
     from PySide import QtGui, QtCore
+    from PySide.QtGui import QApplication
 
 # It's possible that it has already been initialised.
-_app = QtGui.QApplication.instance()
+_app = QApplication.instance()
 
 if _app is None:
-    _app = QtGui.QApplication(sys.argv)
+    _app = QApplication(sys.argv)
 
 #### EOF ######################################################################

@@ -43,6 +43,7 @@ def show_engine():
 from .tools.helper_functions import contour3d, test_contour3d, \
     quiver3d, test_quiver3d, test_quiver3d_2d_data, \
     points3d, test_points3d, test_molecule, \
+    volume_slice, test_volume_slice, \
     flow, test_flow, \
     imshow, test_imshow, \
     surf, test_surf, mesh, test_mesh, test_simple_surf, \
@@ -51,6 +52,7 @@ from .tools.helper_functions import contour3d, test_contour3d, \
     plot3d, test_plot3d, \
     test_plot3d_anim, test_points3d_anim, test_contour3d_anim,\
     test_simple_surf_anim, test_flow_anim, test_mesh_sphere_anim, \
+    test_volume_slice_anim, \
     triangular_mesh, test_triangular_mesh, barchart, \
     test_barchart, test_mesh_mask_custom_colors
 
@@ -62,6 +64,8 @@ from .tools.decorations import colorbar, scalarbar, vectorbar, \
 from .tools import pipeline
 
 from .tools.tools import start_recording, stop_recording
+
+from .tools.notebook import init as init_notebook
 
 if __name__ == "__main__":
     import numpy

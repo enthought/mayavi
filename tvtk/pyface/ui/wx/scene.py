@@ -1,5 +1,5 @@
 #------------------------------------------------------------------------------
-# Copyright (c) 2005, Enthought, Inc.
+# Copyright (c) 2005-2016, Enthought, Inc.
 # All rights reserved.
 #
 # This software is provided without warranty under the terms of the BSD
@@ -16,7 +16,7 @@ the class docs for more details.
 
 """
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
-# Copyright (c) 2004-2008, Enthought, Inc.
+# Copyright (c) 2004-2016, Enthought, Inc.
 # License: BSD Style.
 
 
@@ -30,36 +30,13 @@ from tvtk import messenger
 from traits.api import Instance, Button, Any, Bool
 from traitsui.api import View, Group, Item, InstanceEditor
 
-from pyface.api import Widget, GUI, FileDialog, OK
+from pyface.api import Widget, GUI
 from tvtk.pyface import picker
 from tvtk.pyface import light_manager
+from tvtk.pyface.utils import popup_save
 from tvtk.pyface.tvtk_scene import TVTKScene
 
 from .wxVTKRenderWindowInteractor import wxVTKRenderWindowInteractor
-
-
-######################################################################
-# Utility functions.
-######################################################################
-def popup_save(parent=None):
-    """Popup a dialog asking for an image name to save the scene to.
-    This is used mainly to save a scene in full screen mode. Returns a
-    filename, returns empty string if action was cancelled. `parent` is
-    the parent widget over which the dialog will be popped up.
-    """
-    extns = ['*.png', '*.jpg', '*.jpeg', '*.tiff', '*.bmp', '*.ps', '*.eps',
-             '*.tex', '*.rib', '*.wrl', '*.oogl', '*.pdf', '*.vrml', '*.obj',
-             '*.iv']
-    wildcard='|'.join(extns)
-
-    dialog = FileDialog(
-        parent = parent, title='Save scene to image',
-        action='save as', wildcard=wildcard
-    )
-    if dialog.open() == OK:
-        return dialog.path
-    else:
-        return ''
 
 
 ######################################################################
@@ -282,6 +259,12 @@ class Scene(TVTKScene, Widget):
                          Group( Item(name='light_manager',
                                 style='custom', show_label=False),
                                 label='Lights'),
+                         Group(
+                             Item(
+                                 name='movie_maker',
+                                 style='custom', show_label=False
+                             ),
+                             label='Movie'),
                          buttons=['OK', 'Cancel']
                         )
 
@@ -513,7 +496,6 @@ class Scene(TVTKScene, Widget):
         self._vtk_control.OnKeyUp(event)
         event.Skip()
 
-
     def OnPaint(self, event):
         """This method is overridden temporarily in order to create
         the light manager.  This is necessary because it makes sense
@@ -523,6 +505,9 @@ class Scene(TVTKScene, Widget):
         correctly.  This handler is removed on the first Paint event
         and the default paint handler of the
         wxVTKRenderWindowInteractor is used instead."""
+
+        if self._vtk_control is None:
+            return
 
         # Call the original handler (this will Show the widget)
         self._vtk_control.OnPaint(event)

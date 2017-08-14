@@ -1,3 +1,163 @@
+Mayavi 4.5.0
+============
+
+Enhancements
+------------
+
+21 Jul 2016 `#415 <https://github.com/enthought/mayavi/pull/415>`_ (PR)
+   - Jupyter notebook support!  Adds support for displaying Mayavi images or
+     x3d scenes on the notebook. The x3d scenes allow one to fully interact
+     with the scene in the notebook.  More documentation is available at
+     :ref:`jupyter_notebook`.
+
+09 Jul 2016 `#411 <https://github.com/enthought/mayavi/pull/411>`_ (PR)
+   - Adds support for recording movies and animating timesteps.  See
+     :ref:`animating_a_timeseries` and :ref:`animating_a_visualization` for
+     more details.
+
+07 Jul 2016 `#410 <https://github.com/enthought/mayavi/pull/410>`_ (daytonb)
+   - Updated LUTs to include new matplotlib colorschemes, this includes the
+     new viridis colormap.
+
+Fixes
+-----
+
+01 Aug 2016 `#416 <https://github.com/enthought/mayavi/pull/416>`_ (PR)
+   - Fix several bugs, `#397 <https://github.com/enthought/mayavi/issues/397>`_
+     where PDF files were not saved properly. Fix issues with ``tvtk.visual``
+     and add many tests for it, this fixes `#387
+     <https://github.com/enthought/mayavi/issues/387>`_.  Refactor the save
+     screenshot dialog popups.  Fix problem with the picker point not showing
+     when "p" is pressed on the scene.
+
+29 Jul 2016 `#417 <https://github.com/enthought/mayavi/pull/417>`_ (patricksnape)
+   - Python 3 fixes for the jupyter notebook support.
+
+08 Jul 2016 `#413 <https://github.com/enthought/mayavi/pull/413>`_ (PR)
+   - Fixes `#388 <https://github.com/enthought/mayavi/issues/388>`_ where
+     tubes were not showing on protein demo.
+
+03 Jul 2016 `#408 <https://github.com/enthought/mayavi/pull/408>`_ (ryanpepper)
+   - Add additional save options.
+
+04 Jul 2016 `#406 <https://github.com/enthought/mayavi/pull/406>`_ (PR)
+   - Fixes `#403 <https://github.com/enthought/mayavi/issues/403>`_ where the
+     image plane widget and volume modules were broken.
+
+06 Jul 2016 `#405 <https://github.com/enthought/mayavi/pull/405>`_ (itziakos)
+   - Debug info on code gen for wrapper generation.
+
+16 Jun 2016 `#394 <https://github.com/enthought/mayavi/pull/394>`_ (PR)
+   - BUG: Fix slice unstructured grid module.
+
+17 Jun 2016 `#391 <https://github.com/enthought/mayavi/pull/391>`_ (SiggyF)
+   - Fix typo in readme.
+
+13 May 2016 `#386 <https://github.com/enthought/mayavi/pull/386>`_ (itziakos)
+   - update codecov configuration
+
+04 May 2016 `#376 <https://github.com/enthought/mayavi/pull/376>`_ (stefanoborini)
+   - Documentation for QString API failure.
+
+04 May 2016 `#375 <https://github.com/enthought/mayavi/pull/375>`_ (stefanoborini)
+   - Fixes incorrect signature of ``EnvisageEngine.new_scene``.
+
+03 May 2016 `#374 <https://github.com/enthought/mayavi/pull/374>`_ (stefanoborini)
+   - Fix for unexpected test code.
+
+13 May 2016 `#370 <https://github.com/enthought/mayavi/pull/370>`_ (kitchoi)
+   - Fix "_p_void" values in TVTK with VTK 6.x
+
+29 Apr 2016 `#364 <https://github.com/enthought/mayavi/pull/364>`_ (stefanoborini)
+   - Fix failing test for custom import in some circumstances
+
+27 Apr 2016 `#358 <https://github.com/enthought/mayavi/pull/358>`_ (stefanoborini)
+   - Removes ``array_ext.so/pyd`` on clean
+
+25 Apr 2016 `#356 <https://github.com/enthought/mayavi/pull/356>`_ (stefanoborini)
+   - Check if test successful with the appropriate filename.
+
+27 Apr 2016 `#355 <https://github.com/enthought/mayavi/pull/355>`_ (stefanoborini)
+   - Unicode trait handling for those vtk methods returning unicode data
+
+24 Apr 2016 `#352 <https://github.com/enthought/mayavi/pull/352>`_ (kitchoi)
+   - ENH: Nice load pylab_luts.pkl
+
+27 Apr 2016 `#351 <https://github.com/enthought/mayavi/pull/351>`_ (stefanoborini)
+   - Document object identity behavior matching VTK
+
+21 Apr 2016 `#349 <https://github.com/enthought/mayavi/pull/349>`_ (kitchoi)
+   - Revert "Fix savefig size and black image"
+
+27 Apr 2016 `#348 <https://github.com/enthought/mayavi/pull/348>`_ (stefanoborini)
+   - Added setup.py documentation for Qt requirements
+
+27 Apr 2016 `#345 <https://github.com/enthought/mayavi/pull/345>`_ (kitchoi)
+   - Add VTK 6.3 and VTK 7 to travis ci
+
+20 Apr 2016 `#341 <https://github.com/enthought/mayavi/pull/341>`_ (kitchoi)
+   - Fix traitsdoc setup and compliance with py3
+
+20 Apr 2016 `#340 <https://github.com/enthought/mayavi/pull/340>`_ (kitchoi)
+   - Import and integer division in python3
+
+20 Apr 2016 `#335 <https://github.com/enthought/mayavi/pull/335>`_ (kitchoi)
+   - Fix texture on ``mlab.surf``, issue `#211 <https://github.com/enthought/mayavi/issues/211>`_.
+
+20 Apr 2016 `#334 <https://github.com/enthought/mayavi/pull/334>`_ (stefanoborini)
+   - Fixes Quiver3d Failure with different argument types
+
+20 Apr 2016 `#332 <https://github.com/enthought/mayavi/pull/332>`_ (kitchoi)
+   - Fix Text3D in VTK 6.0+
+
+21 Apr 2016 `#331 <https://github.com/enthought/mayavi/pull/331>`_ (kitchoi)
+   - Fix savefig size and black image
+
+20 Apr 2016 `#330 <https://github.com/enthought/mayavi/pull/330>`_ (stefanoborini)
+   - Fix for exception when modifying extents
+
+01 Apr 2016 `#329 <https://github.com/enthought/mayavi/pull/329>`_ (stefanoborini)
+   - Suppresses test for VTK 6.2 (solves appVeyor random failure)
+
+20 Apr 2016 `#327 <https://github.com/enthought/mayavi/pull/327>`_ (stefanoborini)
+   - Forces pipeline update when LUT changes
+
+01 Apr 2016 `#326 <https://github.com/enthought/mayavi/pull/326>`_ (stefanoborini)
+   - Fix for test failure on mayavi -t
+
+28 Mar 2016 `#323 <https://github.com/enthought/mayavi/pull/323>`_ (stefanoborini)
+   - Enforce ordering of attribute labels in VTKDataSource.
+
+28 Mar 2016 `#315 <https://github.com/enthought/mayavi/pull/315>`_ (stefanoborini)
+   - Apply has_attribute to the output in VTKFileReader
+
+17 Mar 2016 `#313 <https://github.com/enthought/mayavi/pull/313>`_ (kitchoi)
+   - Replacing links to code. and svn.enthought.com
+
+09 Mar 2016 `#310 <https://github.com/enthought/mayavi/pull/310>`_ (kitchoi)
+   - Fix Camera off-centered when loading saved visualization
+
+09 Mar 2016 `#309 <https://github.com/enthought/mayavi/pull/309>`_ (PR)
+   - Update to use new VTK pipeline where possible.  This fixes a number of
+     issues with the pipeline was not updating properly.
+
+09 Mar 2016 `#306 <https://github.com/enthought/mayavi/pull/306>`_ (kitchoi)
+   - Fix issue with ``mlab.move``
+
+01 Apr 2016 `#304 <https://github.com/enthought/mayavi/pull/304>`_ (kitchoi)
+   - Fix issue `#302 <https://github.com/enthought/mayavi/issues/302>`_,
+     segfault when savefig is called multiple times.
+
+09 Mar 2016 `#303 <https://github.com/enthought/mayavi/pull/303>`_ (kitchoi)
+   - Fix get_engine behavior when backend is changed again.
+
+
+Contributions from itziakos, stefanoborini and kitchoi are funded and supported
+by the `SimPhoNy <http://www.simphony-project.eu/>`_ project, an EU-project
+funded by the 7th Framework Programme (Project number 604005) under the
+call NMP.2013.1.4-1.
+
+
 Mayavi 4.4.4
 ============
 

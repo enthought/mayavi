@@ -18,6 +18,7 @@ import vtk
 vtk_major_version = vtk.vtkVersion.GetVTKMajorVersion()
 vtk_minor_version = vtk.vtkVersion.GetVTKMinorVersion()
 
+
 class TestPDBReader(DataReaderTestBase):
 
     def setup_reader(self):
@@ -34,7 +35,6 @@ class TestPDBReader(DataReaderTestBase):
 
     def test_pdb_data_reader(self):
         "Test if the test fixture works"
-        #Now test.
 
         self.check(self.scene, self.bounds)
 
@@ -67,7 +67,6 @@ class TestBYUReader(DataReaderTestBase):
 
     def test_byu_data_reader(self):
         "Test if the test fixture works"
-        #Now test.
 
         self.check(self.scene, self.bounds)
 
@@ -100,7 +99,6 @@ class TestOBJReader(DataReaderTestBase):
 
     def test_obj_data_reader(self):
         "Test if the test fixture works"
-        #Now test.
 
         self.check(self.scene, self.bounds)
 
@@ -129,12 +127,12 @@ class TestParticleReader(DataReaderTestBase):
         r = PolyDataReader()
         r.initialize(get_example_data('Particles.raw'))
         self.e.add_source(r)
-        r.reader.set(data_byte_order='big_endian', data_type='float', file_type='binary')
+        r.reader.set(data_byte_order='big_endian', data_type='float',
+                     file_type='binary')
         self.bounds = (817.33, 826.09, 545.02, 571.02, 1443.48, 1511.18)
 
     def test_particle_data_reader(self):
         "Test if the test fixture works"
-        #Now test.
 
         self.check(self.scene, self.bounds)
 
@@ -166,33 +164,15 @@ class TestPLYReader(DataReaderTestBase):
         self.bounds = (0.0, 1.0, 0.0, 1.0, 0.0, 1.60)
 
     def test_ply_data_reader(self):
-        "Test if the test fixture works"
-
-        self._skip_if_broken_version()
-        #Now test.
         self.check(self.scene, self.bounds)
 
     def test_save_and_restore(self):
-        """Test if saving a visualization and restoring it works."""
-
-        self._skip_if_broken_version()
         self.check_saving(self.e, self.scene, self.bounds)
 
     def test_deepcopied(self):
         """Test if the MayaVi2 visualization can be deep-copied."""
-        ############################################################
-        # Test if the MayaVi2 visualization can be deep-copied.
-
-        self._skip_if_broken_version()
         self.check_deepcopying(self.scene, self.bounds)
 
-    def _skip_if_broken_version(self):
-        version_str = "{}.{}".format(vtk_major_version, vtk_minor_version)
-
-        # Skipping for known versions. See issue #328
-        if version_str in ["5.6", "5.8", "6.2"]:
-            raise unittest.SkipTest(
-                'PLY reader broken in this version of VTK. See issue #328')
 
 class TestPointsReader(DataReaderTestBase):
 
@@ -206,11 +186,10 @@ class TestPointsReader(DataReaderTestBase):
         r = PolyDataReader()
         r.initialize(get_example_data('points.txt'))
         self.e.add_source(r)
-        self.bounds =  (0.0, 1.0, 0.0, 1.0, 0.0, 1.0)
+        self.bounds = (0.0, 1.0, 0.0, 1.0, 0.0, 1.0)
 
     def test_points_data_reader(self):
         "Test if the test fixture works"
-        #Now test.
 
         self.check(self.scene, self.bounds)
 
@@ -239,12 +218,10 @@ class TestSTLReader(DataReaderTestBase):
         r = PolyDataReader()
         r.initialize(get_example_data('humanoid_tri.stla'))
         self.e.add_source(r)
-        self.bounds =  (0.60, 3.47, -3.96, 3.95, 3.05, 17.39)
-
+        self.bounds = (0.60, 3.47, -3.96, 3.95, 3.05, 17.39)
 
     def test_stl_data_reader(self):
         "Test if the test fixture works"
-        #Now test.
 
         self.check(self.scene, self.bounds)
 
@@ -277,7 +254,6 @@ class TestFacetReader(DataReaderTestBase):
 
     def test_facet_data_reader(self):
         "Test if the test fixture works"
-        #Now test.
 
         self.check(self.scene, self.bounds)
 
@@ -306,11 +282,10 @@ class TestSLCReader(DataReaderTestBase):
         r = PolyDataReader()
         r.initialize(get_example_data('nut.slc'))
         self.e.add_source(r)
-        self.bounds =  (0.0, 67.0, 0.0, 40.0, 0.0, 58.0)
+        self.bounds = (0.0, 67.0, 0.0, 40.0, 0.0, 58.0)
 
     def test_slc_data_reader(self):
         "Test if the test fixture works"
-        #Now test.
 
         self.check(self.scene, self.bounds)
 

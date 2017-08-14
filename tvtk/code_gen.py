@@ -1,5 +1,4 @@
-"""This module generates tvtk (Traited VTK) classes from the
-VTK-Python API.
+"""This module generates tvtk (Traited VTK) classes from the VTK-Python API.
 
 """
 # Author: Prabhu Ramachandran
@@ -15,6 +14,7 @@ import zipfile
 import tempfile
 import shutil
 import glob
+import logging
 from optparse import OptionParser
 
 # Local imports -- these should be relative imports since these are
@@ -29,9 +29,12 @@ except SystemError:
     from special_gen import HelperGenerator
 
 
+logger = logging.getLogger(__name__)
+
 ######################################################################
 # `TVTKGenerator`
 ######################################################################
+
 
 class TVTKGenerator:
     """Generates all the TVTK code."""
@@ -74,8 +77,8 @@ class TVTKGenerator:
         helper_gen = self.helper_gen
         wrap_gen = self.wrap_gen
         # Create an __init__.py file
-        f = open(os.path.join(out_dir, '__init__.py'), 'w')
-        f.close()
+        with open(os.path.join(out_dir, '__init__.py'), 'w'):
+            pass
 
         # Crete a vtk_version.py file that contains VTK build
         # information.
@@ -84,39 +87,41 @@ class TVTKGenerator:
         vtk_src_version = v.GetVTKSourceVersion()
         code ="vtk_build_version = \'%s\'\n"%(vtk_version)
         code += "vtk_build_src_version = \'%s\'\n"%(vtk_src_version)
-        f = open(os.path.join(out_dir, 'vtk_version.py'), 'w')
-        f.write(code)
-        f.close()
+
+        with open(os.path.join(out_dir, 'vtk_version.py'), 'w') as f:
+            f.write(code)
 
         # Write the helper code header.
-        helper_file = open(os.path.join(out_dir, 'tvtk_helper.py'), 'w')
-        helper_gen.write_prelims(helper_file)
+        with open(os.path.join(out_dir, 'tvtk_helper.py'), 'w') as helper_file:
+            helper_gen.write_prelims(helper_file)
 
-        # Write the wrapper files.
-        tree = wrap_gen.get_tree().tree
+            # Write the wrapper files.
+            tree = wrap_gen.get_tree().tree
 
-        classes = []
-        for node in wrap_gen.get_tree():
-            name = node.name
-            if not name.startswith('vtk') or name.startswith('vtkQt'):
-                continue
-            if not hasattr(vtk, name) or not hasattr(getattr(vtk, name), 'IsA'):
-                # We need to wrap VTK classes that are derived from
-                # vtkObjectBase, the others are straightforward VTK classes
-                # that can be used as such.  All of these have an 'IsA' method
-                # so we check for that.  Only the vtkObjectBase subclasses
-                # support observers etc. and hence only those make sense to
-                # wrap into TVTK.
-                continue
-            classes.append(name)
+            classes = []
+            for node in wrap_gen.get_tree():
+                name = node.name
+                if not name.startswith('vtk') or name.startswith('vtkQt'):
+                    continue
+                if not hasattr(vtk, name) or not hasattr(getattr(vtk, name), 'IsA'):  # noqa
+                    # We need to wrap VTK classes that are derived
+                    # from vtkObjectBase, the others are
+                    # straightforward VTK classes that can be used as
+                    # such.  All of these have an 'IsA' method so we
+                    # check for that.  Only the vtkObjectBase
+                    # subclasses support observers etc. and hence only
+                    # those make sense to wrap into TVTK.
+                    continue
+                classes.append(name)
 
-        for nodes in tree:
-            for node in nodes:
-                if node.name in classes:
-                    tvtk_name = get_tvtk_name(node.name)
-                    self._write_wrapper_class(node, tvtk_name)
-                    helper_gen.add_class(tvtk_name, helper_file)
-        helper_file.close()
+            for nodes in tree:
+                for node in nodes:
+                    if node.name in classes:
+                        tvtk_name = get_tvtk_name(node.name)
+                        logger.debug(
+                            'Wrapping %s as %s' % (node.name, tvtk_name))
+                        self._write_wrapper_class(node, tvtk_name)
+                        helper_gen.add_class(tvtk_name, helper_file)
 
     def write_wrapper_classes(self, names):
         """Given VTK class names in the list `names`, write out the
@@ -127,13 +132,13 @@ class TVTKGenerator:
         specified classes.
 
         """
-        # Wrappers for the ancesors are generated in order to get the
+        # Wrappers for the accesors are generated in order to get the
         # _updateable_traits_ information correctly.
         nodes = []
         for name in names:
             node = self.wrap_gen.get_tree().get_node(name)
             if node is None:
-                print('ERROR: Cannot find class: %s'%name)
+                print('ERROR: Cannot find class: %s' % name)
             nodes.append(node)
 
         # Get ancestors.
@@ -143,7 +148,7 @@ class TVTKGenerator:
                 if i not in nodes:
                     nodes.insert(0, i)
         # Sort them as per their level.
-        nodes.sort(lambda x, y: cmp(x.level, y.level))
+        nodes.sort(key=lambda x: x.level)
 
         # Write code.
         for node in nodes:
@@ -156,9 +161,7 @@ class TVTKGenerator:
 
         Parameters
         ----------
-
-        - include_src : `bool` (default: False)
-
+        include_src : `bool` (default: False)
           If True, also includes all the ``*.py`` files in the ZIP file.
           By default only the ``*.pyc`` files are included.
 
@@ -172,7 +175,7 @@ class TVTKGenerator:
             l = glob.glob(os.path.join('tvtk_classes', '*.py'))
             for x in l:
                 fname = os.path.basename(x)
-                z.write(x, 'tvtk_classes/%s'%fname)
+                z.write(x, 'tvtk_classes/%s' % fname)
         z.writepy('tvtk_classes')
         z.close()
         if os.path.exists(cwd + "/" + self.zip_name):
@@ -208,7 +211,6 @@ class TVTKGenerator:
         out.close()
 
 
-
 ######################################################################
 # Utility functions.
 ######################################################################
@@ -221,20 +223,40 @@ which code is to be generated may be specified.  If none are specified
 code will be generated for all the VTK classes.
     """
     parser = OptionParser(usage)
-    parser.add_option("-o", "--output-dir", action="store",
-                      type="string", dest="out_dir", default='',
-                      help="Output directory in which to generate code.")
-    parser.add_option("-n", "--no-clean", action="store_false",
-                      dest="clean", default=True,
-                      help="Do not clean the temporary directory.")
-    parser.add_option("-z", "--no-zipfile", action="store_false",
-                      dest="zip", default=True,
-                      help="Do not create a ZIP file.")
-    parser.add_option("-s", "--source", action="store_true",
-                      dest="src", default=False,
-                      help="Include source files (*.py) in addition to *.pyc files in the ZIP file.")
+    parser.add_option(
+        "-o", "--output-dir", action="store",
+        type="string", dest="out_dir", default='',
+        help="Output directory in which to generate code.")
+    parser.add_option(
+        "-n", "--no-clean", action="store_false",
+        dest="clean", default=True,
+        help="Do not clean the temporary directory.")
+    parser.add_option(
+        "-z", "--no-zipfile", action="store_false",
+        dest="zip", default=True,
+        help="Do not create a ZIP file.")
+    parser.add_option(
+        "-s", "--source", action="store_true",
+        dest="src", default=False,
+        help="Include source files (*.py) in "
+             "addition to *.pyc files in the ZIP file.")
+    parser.add_option(
+        "-v", "--verbose", action="store_true",
+        dest="verbose", default=False,
+        help="Verbose output for debugging")
 
     (options, args) = parser.parse_args()
+
+    if options.verbose:
+        # Log to console
+        logger = logging.getLogger()
+        logger.setLevel(logging.DEBUG)
+        ch = logging.StreamHandler()
+        ch.setLevel(logging.DEBUG)
+        formatter = logging.Formatter(
+            '%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+        ch.setFormatter(formatter)
+        logger.addHandler(ch)
 
     # Now do stuff.
     gen = TVTKGenerator(options.out_dir)

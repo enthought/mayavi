@@ -4,9 +4,14 @@ Integration tests of mlab with the null engine.
 This also tests some numerics with VTK.
 """
 
+import os
+import tempfile
 import unittest
 
+import mock
+
 import numpy as np
+from numpy.testing import assert_allclose
 from traits.testing.unittest_tools import UnittestTools
 
 from mayavi import mlab
@@ -14,6 +19,7 @@ from mayavi.core.engine import Engine
 from tvtk.api import tvtk
 from mayavi.tools.engine_manager import engine_manager
 from mayavi.core.registry import registry
+from mayavi.tests.common import get_example_data
 
 
 class TestMlabNullEngine(unittest.TestCase):
@@ -79,6 +85,7 @@ class TestMlabNullEngineMisc(TestMlabNullEngine):
             (mlab.pipeline.scalar_field, ),
             (mlab.pipeline.scalar_field, mlab.pipeline.image_plane_widget),
             (mlab.contour3d, ),
+            (mlab.volume_slice, ),
             (mlab.points3d, ), )
         data = np.random.random((3, 3, 3))
         for pipeline in pipelines:
@@ -198,6 +205,63 @@ class TestMlabNullEngineMisc(TestMlabNullEngine):
             s1.module_manager.scalar_lut_manager.show_scalar_bar,
             True)
 
+    def test_source_can_save_output_to_file(self):
+        # Given
+        x, y, z = np.random.random((3, 100))
+        src = mlab.pipeline.scalar_scatter(x, y, z)
+
+        # When
+        tmpfname = tempfile.mktemp('.vtk')
+        src.save_output(tmpfname)
+
+        # Then
+        self.assertTrue(os.path.exists(tmpfname))
+
+        # Cleanup
+        if os.path.exists(tmpfname):
+            os.remove(tmpfname)
+
+    def test_slice_unstructured_grid(self):
+        v = tvtk.Version()
+        if v.vtk_major_version < 6 and v.vtk_minor_version < 10:
+            raise unittest.SkipTest('Broken on Travis with VTK-5.8?')
+        # Given
+        src = mlab.pipeline.open(get_example_data('uGridEx.vtk'))
+        eg = mlab.pipeline.extract_unstructured_grid(src)
+        eg.filter.set(cell_clipping=True, cell_maximum=2)
+
+        # When
+        sug = mlab.pipeline.slice_unstructured_grid(eg)
+
+        # Then
+        assert_allclose(
+            sug.actor.actor.bounds, (1.0, 2.0, 0.0, 1.0, 0.0, 1.0)
+        )
+
+    def test_set_active_attribute(self):
+        # Given
+        x, y = np.mgrid[0:10:100j, 0:10:100j]
+        z = x**2 + y**2
+        w = np.arctan(x/(y+0.1))
+
+        # Create the data source
+        src = mlab.pipeline.array2d_source(z)
+
+        # add second array
+        dataset = src.mlab_source.dataset
+        scalar_range = dataset.point_data.scalars.range
+        array_id = dataset.point_data.add_array(w.T.ravel())
+        dataset.point_data.get_array(array_id).name = 'color'
+        dataset.point_data.update()
+
+        # select the array from a copy
+        # When/Then
+        f = mlab.pipeline.set_active_attribute(dataset,
+                                               point_scalars='color')
+        self.assertFalse(np.allclose(
+            f.get_output_dataset().point_data.scalars.range, scalar_range
+        ))
+
 
 class TestMlabPipeline(TestMlabNullEngine):
     """ Test the pipeline functions.
@@ -283,7 +347,16 @@ class TestMlabHelperFunctions(TestMlabNullEngine, UnittestTools):
         with self.assertTraitChanges(actor, 'pipeline_changed'):
             actor.module_manager.scalar_lut_manager.lut_mode = 'jet'
 
+    def test_volume_slice(self):
+        x, y, z = np.ogrid[-5:5:20j, -5:5:20j, -5:5:20j]
+        scalars = x * x * 0.5 + y * y + z * z * 2.0
+        ipw = mlab.volume_slice(scalars, plane_orientation='y_axes')
+        self.assertEqual(ipw.ipw.plane_orientation, 'y_axes')
 
+
+################################################################################
+# class `TestMlabModules`
+################################################################################
 class TestMlabModules(TestMlabNullEngine):
     """ Test the mlab modules.
     """
@@ -369,6 +442,41 @@ class TestMlabModules(TestMlabNullEngine):
         b.mlab_source.update()
         self.assertEqual(b.glyph.glyph.scale_mode,
                          'scale_by_vector_components')
+
+    def test_axes(self):
+        s = mlab.test_plot3d()
+        a = mlab.axes(s)
+        assert_allclose(
+            a.axes.ranges, [-1.5, 1.5, -1.5, 1.5, -0.5, 0.5],
+            rtol=0, atol=0.1
+        )
+
+################################################################################
+# class `TestMlabAnimate`
+################################################################################
+class TestMlabAnimate(TestMlabNullEngine):
+
+    def test_animate_sets_up_movie_maker(self):
+        # Given
+        @mlab.animate(ui=False)
+        def anim():
+            for i in range(5): yield
+
+        self.e.new_scene()
+        from mayavi.tests.test_file_timestep import make_mock_scene
+        self.e.current_scene.scene = make_mock_scene()
+        mm = self.e.current_scene.scene.movie_maker
+
+        # When
+        from mayavi.core.file_data_source import NoUITimer
+        with mock.patch('mayavi.tools.animator.Timer', NoUITimer):
+            a = anim()
+            a.timer.Start()
+
+        # Then
+        mm.animation_start.assert_called_once_with()
+        self.assertEqual(mm.animation_step.call_count, 4)
+        mm.animation_stop.assert_called_once_with()
 
 
 if __name__ == '__main__':

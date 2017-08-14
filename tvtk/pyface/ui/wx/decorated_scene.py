@@ -24,13 +24,13 @@ from os.path import dirname
 import wx
 
 # Enthought library imports.
-from pyface.api import ImageResource, FileDialog, OK
+from pyface.api import ImageResource
 from pyface.action.api import ToolBarManager, Group, Action
 from tvtk.api import tvtk
 from traits.api import Instance, false, List, Either
 
 # Local imports.
-from .scene import Scene
+from .scene import Scene, popup_save
 
 
 ###########################################################################
@@ -163,18 +163,11 @@ class DecoratedScene(Scene):
         determines what image type is saved.  The default is PNG.
         """
         if self._panel is not None:
-            wildcard = "PNG images (*.png)|*.png|Determine by extension (*.*)|*.*"
-            dialog = FileDialog(
-                parent = self._panel,
-                title = 'Save scene to image',
-                action = 'save as',
-                default_filename = "snapshot.png",
-                wildcard = wildcard
-            )
-            if dialog.open() == OK:
+            path = popup_save(self._panel)
+            if len(path) > 0:
                 # The extension of the path will determine the actual
                 # image type saved.
-                self.save(dialog.path)
+                self.save(path)
 
     def _configure_scene(self):
         """Invoked when the toolbar icon for configuration is clicked.
