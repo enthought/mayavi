@@ -1,0 +1,12 @@
+nose
+mock
+Sphinx
+coverage
+numpy
+pyside
+psutil
+traits
+traitsui
+apptools
+pyface
+envisage
