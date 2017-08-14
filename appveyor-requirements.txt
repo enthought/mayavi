@@ -10,3 +10,4 @@ traitsui
 apptools
 pyface
 envisage
+faulthandler
