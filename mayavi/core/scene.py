@@ -214,7 +214,7 @@ class Scene(Base):
         for obj in removed:
             obj.stop()
         for obj in added:
-            obj.set(scene=self.scene, parent=self)
+            obj.trait_set(scene=self.scene, parent=self)
             if self.running:
                 # It makes sense to start children only if we are running.
                 # If not, the children will be started when we start.

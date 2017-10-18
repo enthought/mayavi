@@ -206,7 +206,7 @@ class Source(PipelineBase):
 
         # Process the new objects.
         for obj in added:
-            obj.set(scene=self.scene, parent=self)
+            obj.trait_set(scene=self.scene, parent=self)
             if isinstance(obj, ModuleManager):
                 obj.source = self
             elif is_filter(obj):

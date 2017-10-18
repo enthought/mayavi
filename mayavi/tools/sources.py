@@ -98,7 +98,7 @@ class MlabSource(HasTraits):
         """
         try:
             self._disable_update = True
-            super(MlabSource, self).set(trait_change_notify, **traits)
+            super(MlabSource, self).trait_set(trait_change_notify, **traits)
         finally:
             self._disable_update = False
         if trait_change_notify:
@@ -213,8 +213,8 @@ class MGlyphSource(MlabSource):
         else:
             # Modify existing one.
             pd = self.dataset
-        pd.set(points=points)
-        pd.set(polys=polys)
+        pd.trait_set(points=points)
+        pd.trait_set(polys=polys)
 
         if self.vectors is not None:
             pd.point_data.vectors = self.vectors

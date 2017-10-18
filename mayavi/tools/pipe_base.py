@@ -154,7 +154,7 @@ class PipeFactory(HasPrivateTraits):
             self._target.add_trait('mlab_source', Instance(ms.__class__))
             self._target.mlab_source = ms
 
-        traits = self.get(self.class_trait_names())
+        traits = self.trait_get(self.class_trait_names())
         [traits.pop(key) for key in list(traits.keys())
                                     if key[0] == '_' or key is None]
         traits.update(kwargs)
@@ -167,8 +167,8 @@ class PipeFactory(HasPrivateTraits):
     def set(self, trait_change_notify=True, **traits):
         """ Same as HasTraits.set except that notification is forced,
         unless trait_change_notify==False"""
-        HasPrivateTraits.set(self, trait_change_notify=trait_change_notify,
-                                    **traits)
+        HasPrivateTraits.trait_set(
+            self, trait_change_notify=trait_change_notify, **traits)
         if trait_change_notify == False:
             return
         for trait in traits:

@@ -70,9 +70,9 @@ class Glyph(Module):
         # Create the components
         actor = self.actor = Actor()
         actor.mapper.scalar_visibility = 1
-        actor.property.set(line_width=2,
-                           backface_culling=False,
-                           frontface_culling=False)
+        actor.property.trait_set(line_width=2,
+                                 backface_culling=False,
+                                 frontface_culling=False)
 
     def update_pipeline(self):
         """Override this method so that it *updates* the tvtk pipeline
