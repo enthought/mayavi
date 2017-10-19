@@ -114,7 +114,7 @@ class DecoratedScene(Scene):
             # For VTK versions < 5.0.
             return
 
-        axes.set(
+        axes.trait_set(
             normalized_tip_length=(0.4, 0.4, 0.4),
             normalized_shaft_length=(0.6, 0.6, 0.6),
             shaft_type='cylinder'
@@ -123,10 +123,10 @@ class DecoratedScene(Scene):
         p = axes.x_axis_caption_actor2d.caption_text_property
         axes.y_axis_caption_actor2d.caption_text_property = p
         axes.z_axis_caption_actor2d.caption_text_property = p
-        p.set(color=(1,1,1), shadow=False, italic=False)
+        p.trait_set(color=(1,1,1), shadow=False, italic=False)
         self._background_changed(self.background)
 
-        self.marker.set(key_press_activation=False)
+        self.marker.trait_set(key_press_activation=False)
         self.marker.orientation_marker = axes
 
     def _get_tool_bar_manager(self):

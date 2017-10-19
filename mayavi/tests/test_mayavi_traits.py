@@ -104,7 +104,7 @@ class TestShadowProperty(unittest.TestCase):
         s.x = 10.0
         self.assertEqual(s._test, 1)
         self.assertEqual(s.x, 10.0)
-        s.set(x=20.0, trait_change_notify=False)
+        s.trait_set(x=20.0, trait_change_notify=False)
         self.assertEqual(s._test, 1)
         self.assertEqual(s.x, 20.0)
         # Assert that no new traits were added and no new notifiers were

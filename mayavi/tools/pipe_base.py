@@ -160,11 +160,11 @@ class PipeFactory(HasPrivateTraits):
         traits.update(kwargs)
         # Now calling the traits setter, so that traits handlers are
         # called
-        self.set(**traits)
+        self.trait_set(**traits)
         if scene is not None:
             scene.disable_render = not self._do_redraw
 
-    def set(self, trait_change_notify=True, **traits):
+    def trait_set(self, trait_change_notify=True, **traits):
         """ Same as HasTraits.set except that notification is forced,
         unless trait_change_notify==False"""
         HasPrivateTraits.trait_set(

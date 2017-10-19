@@ -82,19 +82,19 @@ class Lorenz(HasTraits):
     def update_flow(self):
         x, y, z = self.points
         u, v, w = self.get_uvw()
-        self.flow.mlab_source.set(u=u, v=v, w=w)
+        self.flow.mlab_source.trait_set(u=u, v=v, w=w)
 
     @on_trait_change('u')
     def update_u(self):
-        self.flow.mlab_source.set(u=self.get_vel('u'))
+        self.flow.mlab_source.trait_set(u=self.get_vel('u'))
 
     @on_trait_change('v')
     def update_v(self):
-        self.flow.mlab_source.set(v=self.get_vel('v'))
+        self.flow.mlab_source.trait_set(v=self.get_vel('v'))
 
     @on_trait_change('w')
     def update_w(self):
-        self.flow.mlab_source.set(w=self.get_vel('w'))
+        self.flow.mlab_source.trait_set(w=self.get_vel('w'))
 
     def get_uvw(self):
         return self.get_vel('u'), self.get_vel('v'), self.get_vel('w')

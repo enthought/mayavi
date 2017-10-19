@@ -192,7 +192,7 @@ class Explorer3D(HasTraits):
             origin = vol[::2]
             spacing = (vol[1::2] - origin)/(self.dimensions -1)
             # Set the source spacing and origin.
-            src.set(spacing=spacing, origin=origin)
+            src.trait_set(spacing=spacing, origin=origin)
             # Update the sources data.
             src.update_image_data = True
             self._reset_ipw()

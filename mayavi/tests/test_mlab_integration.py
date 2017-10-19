@@ -235,7 +235,7 @@ class TestMlabNullEngineMisc(TestMlabNullEngine):
         # Given
         src = mlab.pipeline.open(get_example_data('uGridEx.vtk'))
         eg = mlab.pipeline.extract_unstructured_grid(src)
-        eg.filter.set(cell_clipping=True, cell_maximum=2)
+        eg.filter.trait_set(cell_clipping=True, cell_maximum=2)
 
         # When
         sug = mlab.pipeline.slice_unstructured_grid(eg)

@@ -159,7 +159,7 @@ class TestMGlyphSource(unittest.TestCase):
         x *= 2
         z *= 2
         s *= 2
-        src.set(x=x, z=z, scalars=s)
+        src.trait_set(x=x, z=z, scalars=s)
         self.check_traits()
         self.check_dataset()
 
@@ -170,8 +170,8 @@ class TestMGlyphSource(unittest.TestCase):
         src.reset(x=x, y=y, z=z, u=v, v=v, w=v, scalars=None)
         src.reset(x=x, y=y, z=z, u=v, v=v, w=v, scalars=s)
         x = y = z = v = s = 1
-        src.set(x=x, y=y, z=z, u=v, v=v, w=v, scalars=None)
-        src.set(x=x, y=y, z=z, u=v, v=v, w=v, scalars=s)
+        src.trait_set(x=x, y=y, z=z, u=v, v=v, w=v, scalars=None)
+        src.trait_set(x=x, y=y, z=z, u=v, v=v, w=v, scalars=s)
 
     @patch('mayavi.tools.engine_manager.options.backend', 'test')
     def test_reset_changes_pipeline(self):
@@ -288,7 +288,7 @@ class TestMVerticalSource(unittest.TestCase):
         x *= 2
         z *= 2
         s *= 2
-        src.set(x=x, z=z, scalars=s)
+        src.trait_set(x=x, z=z, scalars=s)
         self.check_traits()
         self.check_dataset()
 
@@ -413,7 +413,7 @@ class TestMArraySource(unittest.TestCase):
         x *= 2
         z *= 2
         s *= 2
-        src.set(x=x, z=z, scalars=s)
+        src.trait_set(x=x, z=z, scalars=s)
         self.check_traits()
         self.check_dataset()
 
@@ -526,13 +526,13 @@ class TestMLineSource(unittest.TestCase):
         x *= 2
         z *= 2
         s *= 2
-        src.set(x=x, z=z, scalars=s)
+        src.trait_set(x=x, z=z, scalars=s)
         self.check_traits()
         self.check_dataset()
 
         y *= 2
         s *= 2
-        src.set(y=y, scalars=s)
+        src.trait_set(y=y, scalars=s)
         self.check_traits()
         self.check_dataset()
 
@@ -636,7 +636,7 @@ class TestMArray2DSource(unittest.TestCase):
         x, y, s, src  = self.get_data()
         x *= 2
         s *= 2
-        src.set(x=x,scalars=s)
+        src.trait_set(x=x,scalars=s)
 
 
         self.check_traits()
@@ -644,7 +644,7 @@ class TestMArray2DSource(unittest.TestCase):
 
         y *= 9
         s *= 2
-        src.set(y=y, scalars=s)
+        src.trait_set(y=y, scalars=s)
         self.check_traits()
         self.check_dataset()
 
@@ -728,7 +728,7 @@ class TestMGridSource(unittest.TestCase):
         x *= 2
         z *= 2
         s *= 2
-        src.set(x=x, z=z, scalars=s)
+        src.trait_set(x=x, z=z, scalars=s)
         self.check_traits()
         self.check_dataset()
 
@@ -850,7 +850,7 @@ class TestMArray2DSourceNoArgs(unittest.TestCase):
         "Test if the set method works correctly."
         x, y, s, src = self.get_data()
         s *= 2
-        src.set(x=x,y=y,scalars=s)
+        src.trait_set(x=x,y=y,scalars=s)
 
         self.check_traits()
         self.check_dataset()
@@ -934,13 +934,13 @@ class TestMTriangularMeshSource(unittest.TestCase):
         x, y, z, triangles, s, src = self.get_data()
         x *= 2
         s *= 2
-        src.set(x=x,scalars=s)
+        src.trait_set(x=x,scalars=s)
 
         self.check_traits()
 
         y *= 9
         s *= 2
-        src.set(y=y, scalars=s)
+        src.trait_set(y=y, scalars=s)
 
         self.check_traits()
 

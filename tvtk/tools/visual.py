@@ -522,7 +522,7 @@ class Frame(HasTraits):
             a.rotate(angle, axis, origin)
         pts = numpy.array([1.0, 0.0, 0.0])#junk points passed as arguments
         pos, pts, faxis = rotate(axis, angle, origin, self.pos, pts, self.axis)
-        self.set(pos=pos, axis = faxis, trait_change_notify = False)
+        self.trait_set(pos=pos, axis = faxis, trait_change_notify = False)
 
 
 ###################################################################
@@ -634,9 +634,9 @@ class Curve(HasTraits):
         3rd agrument is origin i.e. the point about which to rotate
         the actor, by default it is set to the global origin"""
         p, pi, ax = rotate(axis, angle, origin, self.pos, self.points, numpy.array([0.0, 0.0, 0.0]))
-        self.set(pos = p, trait_change_notify = False)
-        self.set(points = pi, trait_change_notify = False)
-        self.set(axis = ax, trait_change_notify = False)
+        self.trait_set(pos = p, trait_change_notify = False)
+        self.trait_set(points = pi, trait_change_notify = False)
+        self.trait_set(axis = ax, trait_change_notify = False)
         self.polydata.points = self.points
         self.polydata.modified()
         self.stripper.update()
@@ -683,11 +683,11 @@ class Curve(HasTraits):
         self.pos = (self.pos[0], self.pos[1], self.z)
 
     def _pos_changed(self, old, new):
-        self.set(x = new[0], trait_change_notify = False)
-        self.set(y = new[1], trait_change_notify = False)
-        self.set(z = new[2], trait_change_notify = False)
+        self.trait_set(x = new[0], trait_change_notify = False)
+        self.trait_set(y = new[1], trait_change_notify = False)
+        self.trait_set(z = new[2], trait_change_notify = False)
         p = translate(old, new, self.points)
-        self.set(points = p, trait_change_notify = False)
+        self.trait_set(points = p, trait_change_notify = False)
         self.polydata.points = self.points
         self.polydata.modified()
         self.stripper.update()
@@ -847,9 +847,9 @@ class Ring(HasTraits):
         self.pos = (self.pos[0], self.pos[1], self.z)
 
     def _pos_changed(self, old, new):
-        self.set(x = new[0], trait_change_notify = False)
-        self.set(y = new[1], trait_change_notify = False)
-        self.set(z = new[2], trait_change_notify = False)
+        self.trait_set(x = new[0], trait_change_notify = False)
+        self.trait_set(y = new[1], trait_change_notify = False)
+        self.trait_set(z = new[2], trait_change_notify = False)
         self.points = translate(old, new, self.points)
         self.polydata.points = self.points
         self.polydata.modified()
@@ -884,9 +884,9 @@ class Ring(HasTraits):
         actor, the 3rd agrument is origin i.e. the point about which
         to rotate the actor, by default it is set to the global origin"""
         p, pi, ax = rotate(axis, angle, origin, self.pos, self.points, self.axis)
-        self.set(pos = p, trait_change_notify = False)
+        self.trait_set(pos = p, trait_change_notify = False)
         self.points = pi
-        self.set(axis = ax, trait_change_notify = False)
+        self.trait_set(axis = ax, trait_change_notify = False)
         self.polydata.points = self.points
         self.polydata.modified()
         self.normals.update()
@@ -992,9 +992,9 @@ class Cone(HasTraits):
         self.render()
 
     def _pos_changed(self, old, new):
-        self.set(x = new[0], trait_change_notify = False)
-        self.set(y = new[1], trait_change_notify = False)
-        self.set(z = new[2], trait_change_notify = False)
+        self.trait_set(x = new[0], trait_change_notify = False)
+        self.trait_set(y = new[1], trait_change_notify = False)
+        self.trait_set(z = new[2], trait_change_notify = False)
         points, lines = self._create_points(self.radius, self.height, self.pos, self.axis)
         self.points = points
         self.polydata.modified()
@@ -1038,9 +1038,9 @@ class Cone(HasTraits):
         3rd agrument is origin i.e. the point about which to rotate
         the actor, by default it is set to the global origin"""
         p, pi, ax = rotate(axis, angle, origin, self.pos, self.points, self.axis)
-        self.set(pos = p, trait_change_notify = False)
+        self.trait_set(pos = p, trait_change_notify = False)
         self.points = pi
-        self.set(axis = ax, trait_change_notify = False)
+        self.trait_set(axis = ax, trait_change_notify = False)
         self.polydata.points = self.points
         self.polydata.modified()
         self.render()
@@ -1141,9 +1141,9 @@ class Sphere(HasTraits):
         self.actor.property.color = value
 
     def _pos_changed(self, old, new):
-        self.set(x = new[0], trait_change_notify = False)
-        self.set(y = new[1], trait_change_notify = False)
-        self.set(z = new[2], trait_change_notify = False)
+        self.trait_set(x = new[0], trait_change_notify = False)
+        self.trait_set(y = new[1], trait_change_notify = False)
+        self.trait_set(z = new[2], trait_change_notify = False)
         points, lines = self._create_points(self.radius, self.pos)
         self.polydata.points = points
         self.polydata.modified()
@@ -1194,9 +1194,9 @@ class Sphere(HasTraits):
         3rd agrument is origin i.e. the point about which to rotate
         the actor, by default it is set to the global origin"""
         p, pi, ax = rotate(axis, angle, origin, self.pos, self.points, self.axis)
-        self.set(pos = p, trait_change_notify = False)
+        self.trait_set(pos = p, trait_change_notify = False)
         self.points = pi
-        self.set(axis = ax, trait_change_notify = False)
+        self.trait_set(axis = ax, trait_change_notify = False)
         self.polydata.points = self.points
         self.polydata.modified()
         self.render()
@@ -1309,9 +1309,9 @@ class Cylinder(HasTraits):
         self.render()
 
     def _pos_changed(self, old, new):
-        self.set(x = new[0], trait_change_notify = False)
-        self.set(y = new[1], trait_change_notify = False)
-        self.set(z = new[2], trait_change_notify = False)
+        self.trait_set(x = new[0], trait_change_notify = False)
+        self.trait_set(y = new[1], trait_change_notify = False)
+        self.trait_set(z = new[2], trait_change_notify = False)
         self.points = translate(old, new, self.points)
         self.polydata.points = self.points
         self.polydata.modified()
@@ -1353,9 +1353,9 @@ class Cylinder(HasTraits):
         3rd agrument is origin i.e. the point about which to rotate
         the actor, by default it is set to the global origin"""
         p, pi, ax = rotate(axis, angle, origin, self.pos, self.points, self.axis)
-        self.set(pos = p, trait_change_notify = False)
+        self.trait_set(pos = p, trait_change_notify = False)
         self.points = pi
-        self.set(axis = ax, trait_change_notify = False)
+        self.trait_set(axis = ax, trait_change_notify = False)
         self.polydata.points = self.points
         self.polydata.modified()
         self.normals.update()
@@ -1451,18 +1451,18 @@ class Box(HasTraits):
         return points, ps.polys
 
     def _size_changed(self, old, new):
-        self.set(length = new[0], trait_change_notify = False)
-        self.set(height = new[1], trait_change_notify = False)
-        self.set(width = new[2], trait_change_notify = False)
+        self.trait_set(length = new[0], trait_change_notify = False)
+        self.trait_set(height = new[1], trait_change_notify = False)
+        self.trait_set(width = new[2], trait_change_notify = False)
         self.points, lines = self._create_points(self.size, self.pos)
         self.polydata.points = self.points
         self.polydata.modified()
         self.render()
 
     def _pos_changed(self, old, new):
-        self.set(x = new[0], trait_change_notify = False)
-        self.set(y = new[1], trait_change_notify = False)
-        self.set(z = new[2], trait_change_notify = False)
+        self.trait_set(x = new[0], trait_change_notify = False)
+        self.trait_set(y = new[1], trait_change_notify = False)
+        self.trait_set(z = new[2], trait_change_notify = False)
         self.points = translate(old, new, self.points)
         #self.connectivity.points = self.points
         self.polydata.modified()
@@ -1518,9 +1518,9 @@ class Box(HasTraits):
         3rd agrument is origin i.e. the point about which to rotate
         the actor, by default it is set to the global origin"""
         p, pi, ax = rotate(axis, angle, origin, self.pos, self.points, self.axis)
-        self.set(pos = p, trait_change_notify = False)
+        self.trait_set(pos = p, trait_change_notify = False)
         self.points = pi
-        self.set(axis = ax, trait_change_notify = False)
+        self.trait_set(axis = ax, trait_change_notify = False)
         #self.connectivity.points = self.points
         self.polydata.modified()
         self.render()
@@ -1634,9 +1634,9 @@ class Arrow(HasTraits):
         self.render()
 
     def _pos_changed(self, old, new):
-        self.set(x = new[0], trait_change_notify = False)
-        self.set(y = new[1], trait_change_notify = False)
-        self.set(z = new[2], trait_change_notify = False)
+        self.trait_set(x = new[0], trait_change_notify = False)
+        self.trait_set(y = new[1], trait_change_notify = False)
+        self.trait_set(z = new[2], trait_change_notify = False)
         self.points = translate(old, new, self.points)
         self.polydata.points = self.points
         self.polydata.modified()
@@ -1685,9 +1685,9 @@ class Arrow(HasTraits):
         3rd agrument is origin i.e. the point about which to rotate
         the actor, by default it is set to the global origin"""
         p, pi, ax = rotate(axis, angle, origin, self.pos, self.points, self.axis)
-        self.set(pos = p, trait_change_notify = False)
+        self.trait_set(pos = p, trait_change_notify = False)
         self.points = pi
-        self.set(axis = ax, trait_change_notify = False)
+        self.trait_set(axis = ax, trait_change_notify = False)
         self.polydata.points = self.points
         self.polydata.modified()
         self.normals.update()
@@ -1859,9 +1859,9 @@ class Helix(HasTraits):
         self.render()
 
     def _pos_changed(self, old, new):
-        self.set(x = new[0], trait_change_notify = False)
-        self.set(y = new[1], trait_change_notify = False)
-        self.set(z = new[2], trait_change_notify = False)
+        self.trait_set(x = new[0], trait_change_notify = False)
+        self.trait_set(y = new[1], trait_change_notify = False)
+        self.trait_set(z = new[2], trait_change_notify = False)
         self.points = translate(old, new, self.points)
         #self.polydata.points = self.points
         self.polydata.modified()
@@ -1914,9 +1914,9 @@ class Helix(HasTraits):
         3rd agrument is origin i.e. the point about which to rotate
         the actor, by default it is set to the global origin"""
         p, pi, ax = rotate(axis, angle, origin, self.pos, self.points, self.axis)
-        self.set(pos = p, trait_change_notify = False)
+        self.trait_set(pos = p, trait_change_notify = False)
         self.points = pi
-        self.set(axis = ax, trait_change_notify = False)
+        self.trait_set(axis = ax, trait_change_notify = False)
         self.polydata.points = self.points
         self.polydata.modified()
         self.normals.update()
@@ -2023,7 +2023,7 @@ class Ellipsoid(HasTraits):
 
     def _size_changed(self, value):
         points, polys = self._create_points(self.radius, self.pos)
-        self.set(length=value[0], height=value[1],  width=value[2],
+        self.trait_set(length=value[0], height=value[1],  width=value[2],
                  trait_change_notify=False)
         self.polydata.points = points
         self.polydata.modified()
@@ -2034,9 +2034,9 @@ class Ellipsoid(HasTraits):
         self.actor.property.color = value
 
     def _pos_changed(self, old, new):
-        self.set(x = new[0], trait_change_notify = False)
-        self.set(y = new[1], trait_change_notify = False)
-        self.set(z = new[2], trait_change_notify = False)
+        self.trait_set(x = new[0], trait_change_notify = False)
+        self.trait_set(y = new[1], trait_change_notify = False)
+        self.trait_set(z = new[2], trait_change_notify = False)
         points, lines = self._create_points(self.radius, self.pos)
         self.polydata.points = points
         self.polydata.modified()
@@ -2100,9 +2100,9 @@ class Ellipsoid(HasTraits):
         3rd agrument is origin i.e. the point about which to rotate
         the actor, by default it is set to the global origin"""
         p, pi, ax = rotate(axis, angle, origin, self.pos, self.points, self.axis)
-        self.set(pos = p, trait_change_notify = False)
+        self.trait_set(pos = p, trait_change_notify = False)
         self.points = pi
-        self.set(axis = ax, trait_change_notify = False)
+        self.trait_set(axis = ax, trait_change_notify = False)
         self.polydata.points = self.points
         self.polydata.modified()
         self.render()

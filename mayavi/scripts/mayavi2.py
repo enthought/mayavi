@@ -358,7 +358,7 @@ def process_cmd_line(app, opts, args):
             script.new_scene()
             e = script.engine
             s = e.scenes[-1]
-            e.set(current_scene=s, current_object=s)
+            e.trait_set(current_scene=s, current_object=s)
             last_obj = s
 
         if o in ('-x', '--exec' ):

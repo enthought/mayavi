@@ -102,7 +102,7 @@ class VRMLImporter(Source):
     def _file_name_changed(self, value):
         reader = self.reader
         reader.file_name = value
-        self._file_path.set(value)
+        self._file_path.trait_set(value)
         self._update_reader()
         self.render()
         name = "VRML file (%s)"%basename(self.file_name)

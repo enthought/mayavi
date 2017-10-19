@@ -265,7 +265,7 @@ class VTKXMLFileReader(FileDataSource):
                     aa.update()
                     kw = {'%s_%s_name'%(d_type, attr): default,
                           'trait_change_notify': False}
-                    obj.set(**kw)
+                    obj.trait_set(**kw)
 
 
         _setup_data_traits(self, cell_attr, 'cell')

@@ -54,6 +54,6 @@ class ThreeDSImporter(VRMLImporter):
             name += ' [Hidden]'
         self.name = name
 
-        self._file_path.set(value)
+        self._file_path.trait_set(value)
         self._update_reader()
         self.render()

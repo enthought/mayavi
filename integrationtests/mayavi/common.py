@@ -219,19 +219,19 @@ def _handle_failed_image(idiff, src_img, pngr, img_fname):
     jpegw.write()
 
     # write out the image that was generated.
-    pngw.set(file_name=f_base + ".test.png")
+    pngw.trait_set(file_name=f_base + ".test.png")
     configure_input(pngw, src_img)
     pngw.write()
 
     # write out a smaller version of the image that was generated.
     configure_input(shrink, idiff.input)
-    jpegw.set(file_name=f_base + ".test.small.jpg")
+    jpegw.trait_set(file_name=f_base + ".test.small.jpg")
     configure_input(jpegw, shrink)
     jpegw.write()
 
     # write out the valid image that matched.
     configure_input(shrink, idiff.image)
-    jpegw.set(file_name=f_base + ".small.jpg")
+    jpegw.trait_set(file_name=f_base + ".small.jpg")
     configure_input(jpegw, shrink)
     jpegw.write()
 

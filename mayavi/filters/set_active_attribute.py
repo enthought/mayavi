@@ -179,7 +179,7 @@ class SetActiveAttribute(Filter):
                 aa.update()
                 kw = {'%s_%s_name'%(d_type, attr): default,
                       'trait_change_notify': False}
-                self.set(**kw)
+                self.trait_set(**kw)
 
     def _set_data_name(self, data_type, attr_type, value):
         if value is None or len(self.inputs) == 0:

@@ -208,7 +208,7 @@ class PLOT3DReader(Source):
             # No output so the file might be an ASCII file.
             try:
                 # Turn off IBlanking.
-                r.set(i_blanking = False, binary_file = False)
+                r.trait_set(i_blanking = False, binary_file = False)
             except AttributeError:
                 pass
             else:

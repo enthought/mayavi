@@ -86,7 +86,7 @@ class VectorCutPlane(Module):
         self.glyph.glyph_source.glyph_position='tail'
         actor = self.actor = Actor()
         actor.mapper.scalar_visibility = 1
-        actor.property.set(line_width=2, backface_culling=False,
+        actor.property.trait_set(line_width=2, backface_culling=False,
                            frontface_culling=False)
 
     def update_pipeline(self):

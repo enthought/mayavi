@@ -130,7 +130,7 @@ class Labels(Module):
     ######################################################################
     def setup_pipeline(self):
         mask = MaskPoints()
-        mask.filter.set(generate_vertices=True, random_mode=True)
+        mask.filter.trait_set(generate_vertices=True, random_mode=True)
         self.mask = mask
         v = UserDefined(filter=tvtk.SelectVisiblePoints(),
                         name='VisiblePoints')
@@ -165,7 +165,7 @@ class Labels(Module):
             elif self.object_id > -1:
                 obj = mm.children[self.object_id]
                 if hasattr(obj, 'actor'):
-                    self.set(object=obj, trait_change_notify=False)
+                    self.trait_set(object=obj, trait_change_notify=False)
                     self.input = obj.actor.inputs[0]
                 else:
                     self.input = mm.source

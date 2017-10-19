@@ -31,7 +31,7 @@ class TestPlot3dMbReader(unittest.TestCase):
 
         # Read the multi-block plot3d file.
         r = PLOT3DReader()
-        r.reader.set(has_byte_count=True, multi_grid=True,
+        r.reader.trait_set(has_byte_count=True, multi_grid=True,
                      byte_order='little_endian')
         r.initialize(get_example_data('tiny.xyz'),
                      get_example_data('tiny.q'),

@@ -60,21 +60,21 @@ class TestStreamline(unittest.TestCase):
         st = Streamline()
         e.add_module(st)
         widget = st.seed.widget
-        widget.set(radius=1.0, center=(-4.0, -4.0, -4.0),
+        widget.trait_set(radius=1.0, center=(-4.0, -4.0, -4.0),
                    theta_resolution=4, phi_resolution=4)
 
         st = Streamline(streamline_type='ribbon')
         seed = st.seed
         seed.widget = seed.widget_list[1]
         e.add_module(st)
-        seed.widget.set(point1=(-5.0, -4.5, -4.0), point2=(-5.0, -4.5, 4.0))
+        seed.widget.trait_set(point1=(-5.0, -4.5, -4.0), point2=(-5.0, -4.5, 4.0))
         st.ribbon_filter.width = 0.25
 
         st = Streamline(streamline_type='tube')
         seed = st.seed
         seed.widget = seed.widget_list[2]
         e.add_module(st)
-        seed.widget.set(center=(-5.0, 1.5, -2.5))
+        seed.widget.trait_set(center=(-5.0, 1.5, -2.5))
         st.tube_filter.radius = 0.15
 
         st = Streamline(streamline_type='tube')

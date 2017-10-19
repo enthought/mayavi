@@ -46,19 +46,19 @@ class ClassNameTest(unittest.TestCase):
         mirror = self.mirror
         # Save original state.
         saved = pref.get()
-        pref.set(bg = 'white', width=20, show=True)
+        pref.trait_set(bg = 'white', width=20, show=True)
         self.assertEqual(pref.bg, mirror.bg)
         self.assertEqual(pref.width, mirror.width)
         self.assertEqual(pref.show, mirror.show)
         # Reset preferences back to defaults.
-        pref.set(saved)
+        pref.trait_set(saved)
 
     def test_no_reverse_sync(self):
         """mirror must not sync changes back to the original preferences."""
         pref = self.pref
         mirror = self.mirror
         saved = pref.get()
-        mirror.set(bg = 'white', width=20, show=True)
+        mirror.trait_set(bg = 'white', width=20, show=True)
         self.assertNotEqual(pref.bg, mirror.bg)
         self.assertNotEqual(pref.width, mirror.width)
         self.assertNotEqual(pref.show, mirror.show)
@@ -71,13 +71,13 @@ class ClassNameTest(unittest.TestCase):
         pref = self.pref
         mirror = self.mirror
         saved = pref.get()
-        mirror.set(bg = 'white', width=20, show=True)
+        mirror.trait_set(bg = 'white', width=20, show=True)
         mirror.save()
         self.assertEqual(pref.bg, mirror.bg)
         self.assertEqual(pref.width, mirror.width)
         self.assertEqual(pref.show, mirror.show)
         # Reset preferences back to defaults.
-        pref.set(saved)
+        pref.trait_set(saved)
 
 if __name__ == '__main__':
     unittest.main()

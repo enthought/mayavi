@@ -163,7 +163,7 @@ class ContourGridPlane(Module):
     def _actor_changed(self, old, new):
         if old is None:
             # First time this is set.
-            new.property.set(line_width=2.0)
+            new.property.trait_set(line_width=2.0)
 
         # Set the actors scene and input.
         new.scene = self.scene

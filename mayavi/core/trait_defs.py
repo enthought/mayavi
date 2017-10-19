@@ -228,7 +228,7 @@ class ShadowProperty(TraitType):
     def _check_notification(self, object):
         """Checks to see if notifications are allowed or not i.e. has
         the trait been set via:
-         object.set(name=value, trait_change_notify=False)
+         object.trait_set(name=value, trait_change_notify=False)
         """
         if hasattr(object, '_get_trait_change_notify'):
             return object._get_trait_change_notify()

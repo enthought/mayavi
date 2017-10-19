@@ -26,6 +26,6 @@ def set_scene_preferences(scene, prefs_dict=None):
     if prefs_dict is None:
         prefs_dict = get_scene_preferences()
     # Set the preferences.
-    scene.set(**prefs_dict)
+    scene.trait_set(**prefs_dict)
     # If this isn't done the background isn't set.
     scene.renderer.background = scene.background

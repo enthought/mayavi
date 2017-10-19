@@ -120,7 +120,7 @@ def _make_actor(**kwargs):
     if USE_LOD_ACTOR:
         r = tvtk.LODActor(number_of_cloud_points=1500)
         r.property.point_size = 2.0
-        r.set(**kwargs)
+        r.trait_set(**kwargs)
         return r
     else:
         return tvtk.Actor(**kwargs)
@@ -642,9 +642,9 @@ class Title(MLabBase):
 
         ta = self.text_actor
         if VTK_VER > '5.1':
-            ta.set(text_scale_mode='prop', height=0.05, input=self.text)
+            ta.trait_set(text_scale_mode='prop', height=0.05, input=self.text)
         else:
-            ta.set(scaled_text=True, height=0.05, input=self.text)
+            ta.trait_set(scaled_text=True, height=0.05, input=self.text)
         pc = ta.position_coordinate
         pc.coordinate_system = 'normalized_viewport'
         pc.value = 0.25, 0.925, 0.0
@@ -685,12 +685,12 @@ class LUTBase(MLabBase):
         super(LUTBase, self).__init__(**traits)
         self.lut.number_of_colors = 256
         self._lut_type_changed(self.lut_type)
-        self.scalar_bar.set(lookup_table=self.lut,
+        self.scalar_bar.trait_set(lookup_table=self.lut,
                             title=self.legend_text)
         pc = self.scalar_bar.position_coordinate
         pc.coordinate_system = 'normalized_viewport'
         pc.value = 0.1, 0.01, 0.0
-        self.scalar_bar_widget.set(scalar_bar_actor=self.scalar_bar,
+        self.scalar_bar_widget.trait_set(scalar_bar_actor=self.scalar_bar,
                                    key_press_activation=False)
 
     def _lut_type_changed(self, val):
@@ -711,7 +711,7 @@ class LUTBase(MLabBase):
             saturation_range = 0.0, 0.0
             value_range = 1.0, 0.0
         lut = self.lut
-        lut.set(hue_range=hue_range, saturation_range=saturation_range,
+        lut.trait_set(hue_range=hue_range, saturation_range=saturation_range,
                 value_range=value_range, number_of_table_values=256,
                 ramp='sqrt')
         lut.force_build()
@@ -844,10 +844,10 @@ class TriMesh(LUTBase):
         if self.surface:
             representation = 's'
         if representation == 'w':
-            actor.property.set(diffuse=0.0, ambient=1.0, color=self.color,
+            actor.property.trait_set(diffuse=0.0, ambient=1.0, color=self.color,
                                representation=representation)
         else:
-            actor.property.set(diffuse=1.0, ambient=0.0, color=self.color,
+            actor.property.trait_set(diffuse=1.0, ambient=0.0, color=self.color,
                                representation=representation)
 
         self.actors.append(actor)
@@ -866,10 +866,10 @@ class TriMesh(LUTBase):
 
             actor = self.actors[0]
             if representation == 'w':
-                actor.property.set(diffuse=0.0, ambient=1.0,
+                actor.property.trait_set(diffuse=0.0, ambient=1.0,
                                    representation=representation)
             else:
-                actor.property.set(diffuse=1.0, ambient=0.0,
+                actor.property.trait_set(diffuse=1.0, ambient=0.0,
                                    representation=representation)
         self.render()
 
@@ -932,7 +932,7 @@ class FancyTriMesh(LUTBase):
         # Extract the edges and show the lines as tubes.
         self.extract_filter = tvtk.ExtractEdges(input=self.pd)
         extract_f = self.extract_filter
-        self.tube_filter.set(input=extract_f.output,
+        self.tube_filter.trait_set(input=extract_f.output,
                              radius=self.tube_radius)
         edge_mapper = tvtk.PolyDataMapper(input=self.tube_filter.output,
                                           lookup_table=self.lut,
@@ -1069,7 +1069,7 @@ class Surf(LUTBase):
             self.lut.table_range = dr
 
         actor = _make_actor(mapper=mapper)
-        actor.property.set(color=self.color)
+        actor.property.trait_set(color=self.color)
         self.actors.append(actor)
 
     def _scalar_visibility_changed(self, val):

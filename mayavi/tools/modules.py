@@ -181,7 +181,7 @@ class ContourModuleFactory(DataModuleFactory):
             assert type(self.contours) == int, \
                             "The contours argument must be an integer"
             assert self.contours > 0, "The contours argument must be positive"
-            self._target.contour.set(auto_contours=True,
+            self._target.contour.trait_set(auto_contours=True,
                                 number_of_contours=self.contours)
         if hasattr(self._target, 'enable_contours'):
             self._target.enable_contours = True

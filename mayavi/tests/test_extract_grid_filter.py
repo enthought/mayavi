@@ -164,7 +164,7 @@ class TestExtractGridFilter(unittest.TestCase):
 
         # Now changing the VOI and then setting the ratio used to
         # show a stupid bug in the grid plane so we test that here.
-        eg.set(x_min=10, x_max=40)
+        eg.trait_set(x_min=10, x_max=40)
         eg.x_ratio = 5
 
         self.assertEqual(allclose(gpx.actor.actor.bounds,
@@ -175,11 +175,11 @@ class TestExtractGridFilter(unittest.TestCase):
                          (120.0, 180.0, 100.0, 200.0, 100.0, 100.0)), True)
 
         # Set some smaller VOI.
-        eg.set(y_min=20, y_max=40, z_min=10, z_max=30)
-        eg.set(x_ratio = 1, y_ratio=1, z_ratio=1)
+        eg.trait_set(y_min=20, y_max=40, z_min=10, z_max=30)
+        eg.trait_set(x_ratio = 1, y_ratio=1, z_ratio=1)
 
         # Reset it and it should go right back.
-        eg.set(x_min=0, x_max=50, y_min=0, y_max=50, z_min=0, z_max=50)
+        eg.trait_set(x_min=0, x_max=50, y_min=0, y_max=50, z_min=0, z_max=50)
         self.assertEqual(allclose(gpx.actor.actor.bounds,
                         (100.0, 100.0, 100.0, 200.0, 100.0, 200.0)), True)
         self.assertEqual(allclose(gpy.actor.actor.bounds,

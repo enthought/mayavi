@@ -64,7 +64,7 @@ src.update_image_data = True
 # filter.
 blur = mlab.pipeline.user_defined(src, filter='ImageGaussianSmooth')
 voi = mlab.pipeline.extract_grid(blur)
-voi.set(x_min=125, x_max=193, y_min=92, y_max=125, z_min=34, z_max=75)
+voi.trait_set(x_min=125, x_max=193, y_min=92, y_max=125, z_min=34, z_max=75)
 
 mlab.pipeline.iso_surface(voi, contours=[1610, 2480], colormap='Spectral')
 
@@ -90,12 +90,12 @@ cut_plane2.implicit_plane.widget.enabled = False
 # Extract two views of the outside surface. We need to define VOIs in
 # order to leave out a cut in the head.
 voi2 = mlab.pipeline.extract_grid(src)
-voi2.set(y_min=112)
+voi2.trait_set(y_min=112)
 outer = mlab.pipeline.iso_surface(voi2, contours=[1776, ],
                                         color=(0.8, 0.7, 0.6))
 
 voi3 = mlab.pipeline.extract_grid(src)
-voi3.set(y_max=112, z_max=53)
+voi3.trait_set(y_max=112, z_max=53)
 outer3 = mlab.pipeline.iso_surface(voi3, contours=[1776, ],
                                          color=(0.8, 0.7, 0.6))
 

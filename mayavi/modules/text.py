@@ -155,15 +155,15 @@ class Text(Module):
         """
         actor = self.actor = tvtk.TextActor(input=str(self.text))
         if VTK_VER > '5.1':
-            actor.set(text_scale_mode='prop', width=0.4, height=1.0)
+            actor.trait_set(text_scale_mode='prop', width=0.4, height=1.0)
         else:
-            actor.set(scaled_text=True, width=0.4, height=1.0)
+            actor.trait_set(scaled_text=True, width=0.4, height=1.0)
 
         c = actor.position_coordinate
-        c.set(coordinate_system='normalized_viewport',
+        c.trait_set(coordinate_system='normalized_viewport',
               value=(self.x_position, self.y_position, 0.0))
         c = actor.position2_coordinate
-        c.set(coordinate_system='normalized_viewport')
+        c.trait_set(coordinate_system='normalized_viewport')
 
         self._property.opacity = 1.0
 
@@ -230,7 +230,7 @@ class Text(Module):
                 y = 0
             elif y > 1:
                 y = 1
-            self.set(x_position=x, y_position=y,
+            self.trait_set(x_position=x, y_position=y,
                                                     trait_change_notify=False)
         self._shadow_positions(not value)
         self._change_position()

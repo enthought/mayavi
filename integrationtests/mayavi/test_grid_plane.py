@@ -73,7 +73,7 @@ class TestGridPlane(TestCase):
         gp3.grid_plane.position = 6
 
         for gp in (gp1, gp2, gp3):
-            gp.actor.property.set(ambient=1.0)
+            gp.actor.property.trait_set(ambient=1.0)
 
         # Set the scene to an isometric view.
         s.scene.isometric_view()

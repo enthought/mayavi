@@ -76,7 +76,7 @@ class RunAllTests(TestCase):
             print('*'*80)
             print(name)
             obj = klass()
-            obj.set(script=self.script)
+            obj.trait_set(script=self.script)
             obj.test()
 
 
