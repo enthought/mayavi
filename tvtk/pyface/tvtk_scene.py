@@ -711,7 +711,7 @@ class TVTKScene(HasPrivateTraits):
             ex.write()
 
     def save_povray(self, file_name):
-        """Save scene to a POVRAY (Persistance of Vision Raytracer),
+        """Save scene to a POVRAY (Persistence of Vision Raytracer),
         file (http://www.povray.org).
 
         Keyword Arguments:
