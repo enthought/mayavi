@@ -20,6 +20,7 @@ docs are shown.
 import vtk
 import types
 import inspect
+import sys
 
 # Enthought library imports.
 from traits.api import HasTraits, Property, List, Str, \
@@ -49,6 +50,8 @@ def get_tvtk_class_names():
     w = o.GetGlobalWarningDisplay()
     o.SetGlobalWarningDisplay(0) # Turn it off.
 
+    old_stdout = sys.stdout
+
     all = []
     src = []
     filter = []
@@ -58,6 +61,9 @@ def get_tvtk_class_names():
             klass = getattr(vtk, name)
             try:
                 c = klass()
+                # Some classes hijack sys.stdout. Restore it when that happens.
+                if sys.stdout != old_stdout:
+                    sys.stdout = old_stdout
             except (TypeError, NotImplementedError):
                 continue
 
