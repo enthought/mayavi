@@ -51,6 +51,7 @@ def get_tvtk_class_names():
     o.SetGlobalWarningDisplay(0) # Turn it off.
 
     old_stdout = sys.stdout
+    old_stderr = sys.stderr
 
     all = []
     src = []
@@ -61,9 +62,11 @@ def get_tvtk_class_names():
             klass = getattr(vtk, name)
             try:
                 c = klass()
-                # Some classes hijack sys.stdout. Restore it when that happens.
-                if sys.stdout != old_stdout:
+                # Some classes hijack sys.stdout/sys.stderr.
+                # Restore it when that happens.
+                if sys.stdout != old_stdout or sys.stderr != old_stderr:
                     sys.stdout = old_stdout
+                    sys.stderr = old_stderr
             except (TypeError, NotImplementedError):
                 continue
 
