@@ -206,7 +206,7 @@ class TVTKGenerator:
         # The only reason this method is separate is to generate code
         # for an individual class when debugging.
         fname = camel2enthought(tvtk_name) + '.py'
-        out = open(os.path.join(self.out_dir, fname), 'w')
+        out = open(os.path.join(self.out_dir, fname), 'w', encoding='utf-8')
         self.wrap_gen.generate_code(node, out)
         out.close()
 
