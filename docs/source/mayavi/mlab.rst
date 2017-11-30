@@ -60,10 +60,10 @@ It is can be used interactively with IPython_.
 .. _ipython documentation page: http://ipython.readthedocs.io/en/stable/interactive/reference.html#pyqt-and-pyside
 
 In this section, we first introduce simple plotting functions, to create
-3D objects as representations of `numpy` arrays. Then we explain how
+3D objects as representations of `numpy` arrays. Then we explain (1) how
 properties such as color or glyph size can be modified or used to
-represent data, we show how the visualization created through `mlab` can
-be modified interactively with dialogs, we show how scripts and
+represent data; (2) how the visualization created through `mlab` can
+be modified interactively with dialogs, (3) how scripts and
 animations can be ran. Finally, we expose a more advanced use of `mlab`
 in which full visualization pipeline are built in scripts, and we give
 some detailed examples of applying these tools to visualizing volumetric
