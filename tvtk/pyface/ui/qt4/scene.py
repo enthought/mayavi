@@ -405,7 +405,7 @@ class Scene(TVTKScene, Widget):
 
         # Grab the renderwindow.
         renwin = self._renwin = tvtk.to_tvtk(window.GetRenderWindow())
-        renwin.set(point_smoothing=self.point_smoothing,
+        renwin.trait_set(point_smoothing=self.point_smoothing,
                    line_smoothing=self.line_smoothing,
                    polygon_smoothing=self.polygon_smoothing)
         # Create a renderer and add it to the renderwindow

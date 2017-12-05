@@ -424,9 +424,9 @@ class GradientEditor(tk.Toplevel):
         # updates are executed during movement of control points or
         # only at the end of such changes.
         self.show_instant_gradients = tk.IntVar()
-        self.show_instant_gradients.set(1) # enable instant gradients by default
+        self.show_instant_gradients.trait_set(1) # enable instant gradients by default
         self.show_instant_feedback = tk.IntVar()
-        self.show_instant_feedback.set(0) # disable instant feedback by default
+        self.show_instant_feedback.trait_set(0) # disable instant feedback by default
         instant_gradient_button = tk.Checkbutton(button_frame, text="grad")
         instant_gradient_button.grid(row=0,column=8)
         instant_gradient_button.configure(variable=self.show_instant_gradients)
@@ -441,7 +441,7 @@ class GradientEditor(tk.Toplevel):
         # insert a ratio button which decides whether the controls for nonlinear
         # scaling of the gradient are shown and activated.
         self.nonlinear_scaling_enabled = tk.IntVar()
-        self.nonlinear_scaling_enabled.set(0)
+        self.nonlinear_scaling_enabled.trait_set(0)
         nonlinear_enabled_button = tk.Checkbutton(button_frame, text="nonlin")
         nonlinear_enabled_button.grid(column=9,row=1)
         nonlinear_enabled_button.configure(variable=self.nonlinear_scaling_enabled,
@@ -455,7 +455,7 @@ class GradientEditor(tk.Toplevel):
         label = tk.Label(nonlin_frame, text="f(x) =")
         label.grid(row=0, column=0)
         self.nonlinear_function_string = tk.StringVar()
-        self.nonlinear_function_string.set( "x**(4*a)" )
+        self.nonlinear_function_string.trait_set( "x**(4*a)" )
         function_edit = tk.Entry(nonlin_frame, width=35,
             textvariable=self.nonlinear_function_string)
         function_edit.bind("<Return>", self.nonlinear_function_string_changed )
@@ -469,7 +469,7 @@ class GradientEditor(tk.Toplevel):
             lambda event: self.nonlinear_parameter_scale_changed(final_update=True))
         self.parameter_scale.bind("<Motion>",
             lambda event:self.nonlinear_parameter_scale_changed(final_update=False))
-        self.parameter_scale.set(0.5)
+        self.parameter_scale.trait_set(0.5)
         self.parameter_scale.grid(row=1, column=1)
         label = tk.Label(nonlin_frame, text= \
                 "f(x) should map [0..1] to [0..1]. It rescales the gradient.")
@@ -527,12 +527,12 @@ class GradientEditor(tk.Toplevel):
             self.gradient_table.load(file_name)
             self.on_gradient_table_changed(final_update = True)
             if self.gradient_table.scaling_function:
-                self.parameter_scale.set(self.gradient_table.scaling_function_parameter)
-                self.nonlinear_function_string.set(self.gradient_table.scaling_function_string)
-                self.nonlinear_scaling_enabled.set(1)
+                self.parameter_scale.trait_set(self.gradient_table.scaling_function_parameter)
+                self.nonlinear_function_string.trait_set(self.gradient_table.scaling_function_string)
+                self.nonlinear_scaling_enabled.trait_set(1)
                 self.nonlinear_scaling_option_changed()
             else:
-                self.nonlinear_scaling_enabled.set(0)
+                self.nonlinear_scaling_enabled.trait_set(0)
                 self.nonlinear_scaling_option_changed()
 
 

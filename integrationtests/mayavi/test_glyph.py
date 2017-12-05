@@ -104,7 +104,7 @@ class TestGlyph(TestCase):
         gs.glyph_position = 'tail'
         gs.glyph_source = gs.glyph_list[1]
         script.add_module(v)
-        v.implicit_plane.set(normal=(0, 1, 0), origin=(0, 3, 0))
+        v.implicit_plane.trait_set(normal=(0, 1, 0), origin=(0, 3, 0))
 
         v = VectorCutPlane()
         glyph = v.glyph
@@ -112,7 +112,7 @@ class TestGlyph(TestCase):
         gs.glyph_source = gs.glyph_list[2]
         gs.glyph_position = 'head'
         script.add_module(v)
-        v.implicit_plane.set(normal=(0, 1, 0), origin=(0, -2, 0))
+        v.implicit_plane.trait_set(normal=(0, 1, 0), origin=(0, -2, 0))
 
         # Set the scene to a suitable view.
         self.set_view(s)

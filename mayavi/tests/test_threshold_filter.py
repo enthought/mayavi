@@ -125,7 +125,7 @@ class TestThresholdFilter(unittest.TestCase):
         # When
         threshold = Threshold()
         self.e.add_filter(threshold)
-        threshold.set(
+        threshold.trait_set(
             lower_threshold=0.25, upper_threshold=0.75,
             auto_reset_lower=False, auto_reset_upper=False
         )

@@ -81,7 +81,7 @@ class FullScreen(object):
 
         # Gets parameters for stereo visualization
         if self.old_rw.stereo_render:
-            full_rw.set(stereo_type=self.old_rw.stereo_type, stereo_render=True)
+            full_rw.trait_set(stereo_type=self.old_rw.stereo_type, stereo_render=True)
 
         # Starts the interactor
         self.iren.initialize()
@@ -595,7 +595,7 @@ class Scene(TVTKScene, Widget):
 
         # Grab the renderwindow.
         renwin = self._renwin = tvtk.to_tvtk(window.GetRenderWindow())
-        renwin.set(point_smoothing=self.point_smoothing,
+        renwin.trait_set(point_smoothing=self.point_smoothing,
                    line_smoothing=self.line_smoothing,
                    polygon_smoothing=self.polygon_smoothing)
         # Create a renderer and add it to the renderwindow

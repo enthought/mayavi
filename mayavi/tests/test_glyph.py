@@ -74,7 +74,7 @@ class TestGlyph(unittest.TestCase):
         gs.glyph_position = 'tail'
         gs.glyph_source = gs.glyph_list[1]
         e.add_module(v)
-        v.implicit_plane.set(normal=(0, 1, 0), origin=(0, 3, 0))
+        v.implicit_plane.trait_set(normal=(0, 1, 0), origin=(0, 3, 0))
 
         v = VectorCutPlane()
         glyph = v.glyph
@@ -82,7 +82,7 @@ class TestGlyph(unittest.TestCase):
         gs.glyph_source = gs.glyph_list[2]
         gs.glyph_position = 'head'
         e.add_module(v)
-        v.implicit_plane.set(normal=(0, 1, 0), origin=(0, -2, 0))
+        v.implicit_plane.trait_set(normal=(0, 1, 0), origin=(0, -2, 0))
         self.g=g
         self.v=v
         self.scene = e.current_scene

@@ -415,7 +415,7 @@ class Volume(Module):
         # Set the default name and range for our lut.
         lm = self.lut_manager
         slm = mm.scalar_lut_manager
-        lm.set(default_data_name=slm.default_data_name,
+        lm.trait_set(default_data_name=slm.default_data_name,
                default_data_range=slm.default_data_range)
 
         # Set the current range.

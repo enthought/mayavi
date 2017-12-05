@@ -126,7 +126,7 @@ class Loop(HasTraits):
                                     tube_radius=0.007, color=(0, 0, 1),
                                     name='Coil')
         else:
-            self._plot.mlab_source.set(x=coil_x, y=coil_y, z=coil_z)
+            self._plot.mlab_source.trait_set(x=coil_x, y=coil_y, z=coil_z)
 
 
     def _get_Bnorm(self):
@@ -265,7 +265,7 @@ class Application(HasTraits):
         else:
             # Modify in place the data source. The visualization will
             # update automaticaly
-            self.vector_field.mlab_source.set(u=self.Bx, v=self.By, w=self.Bz,
+            self.vector_field.mlab_source.trait_set(u=self.Bx, v=self.By, w=self.Bz,
                                               scalars=self.Bnorm)
         self.scene.scene.disable_render = False
 

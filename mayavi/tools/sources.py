@@ -98,7 +98,7 @@ class MlabSource(HasTraits):
         """
         try:
             self._disable_update = True
-            super(MlabSource, self).set(trait_change_notify, **traits)
+            super(MlabSource, self).trait_set(trait_change_notify, **traits)
         finally:
             self._disable_update = False
         if trait_change_notify:
@@ -150,7 +150,7 @@ class MGlyphSource(MlabSource):
 
         # First set the attributes without really doing anything since
         # the notification handlers are not called.
-        self.set(trait_change_notify=False, **traits)
+        self.trait_set(trait_change_notify=False, **traits)
 
         vectors = self.vectors
         scalars = self.scalars
@@ -164,12 +164,12 @@ class MGlyphSource(MlabSource):
             x = points[:, 0].ravel()
             y = points[:, 1].ravel()
             z = points[:, 2].ravel()
-            self.set(x=x, y=y, z=z, trait_change_notify=False)
+            self.trait_set(x=x, y=y, z=z, trait_change_notify=False)
 
         else:
             points = np.c_[x.ravel(), y.ravel(), z.ravel()].ravel()
             points.shape = (-1, 3)
-            self.set(points=points, trait_change_notify=False)
+            self.trait_set(points=points, trait_change_notify=False)
 
         u, v, w = self.u, self.v, self.w
         if u is not None:
@@ -180,20 +180,20 @@ class MGlyphSource(MlabSource):
                 vectors = np.c_[u.ravel(), v.ravel(),
                                 w.ravel()].ravel()
                 vectors.shape = (-1, 3)
-                self.set(vectors=vectors, trait_change_notify=False)
+                self.trait_set(vectors=vectors, trait_change_notify=False)
 
         if 'vectors' in traits:
             u = vectors[:, 0].ravel()
             v = vectors[:, 1].ravel()
             w = vectors[:, 2].ravel()
-            self.set(u=u, v=v, w=w, trait_change_notify=False)
+            self.trait_set(u=u, v=v, w=w, trait_change_notify=False)
 
         else:
             if u is not None and len(u) > 0:
                 vectors = np.c_[u.ravel(), v.ravel(),
                                 w.ravel()].ravel()
                 vectors.shape = (-1, 3)
-                self.set(vectors=vectors, trait_change_notify=False)
+                self.trait_set(vectors=vectors, trait_change_notify=False)
 
         if vectors is not None and len(vectors) > 0:
             assert len(points) == len(vectors)
@@ -213,8 +213,8 @@ class MGlyphSource(MlabSource):
         else:
             # Modify existing one.
             pd = self.dataset
-        pd.set(points=points)
-        pd.set(polys=polys)
+        pd.trait_set(points=points)
+        pd.trait_set(polys=polys)
 
         if self.vectors is not None:
             pd.point_data.vectors = self.vectors
@@ -304,7 +304,7 @@ class MVerticalGlyphSource(MGlyphSource):
     def _scalars_changed(self, s):
         self.dataset.point_data.scalars = s
         self.dataset.point_data.scalars.name = 'scalars'
-        self.set(vectors=np.c_[np.ones_like(s),
+        self.trait_set(vectors=np.c_[np.ones_like(s),
                                np.ones_like(s),
                                s])
         self.update()
@@ -341,7 +341,7 @@ class MArraySource(MlabSource):
 
         # First set the attributes without really doing anything since
         # the notification handlers are not called.
-        self.set(trait_change_notify=False, **traits)
+        self.trait_set(trait_change_notify=False, **traits)
 
         vectors = self.vectors
         scalars = self.scalars
@@ -352,7 +352,7 @@ class MArraySource(MlabSource):
             u = vectors[:, 0].ravel()
             v = vectors[:, 1].ravel()
             w = vectors[:, 2].ravel()
-            self.set(u=u, v=v, w=w, trait_change_notify=False)
+            self.trait_set(u=u, v=v, w=w, trait_change_notify=False)
 
         else:
             if u is not None and len(u) > 0:
@@ -363,7 +363,7 @@ class MArraySource(MlabSource):
                 vectors = np.c_[u.ravel(), v.ravel(),
                                    w.ravel()].ravel()
                 vectors.shape = (u.shape[0], u.shape[1], w.shape[2], 3)
-                self.set(vectors=vectors, trait_change_notify=False)
+                self.trait_set(vectors=vectors, trait_change_notify=False)
 
         if vectors is not None and len(vectors) > 0 and scalars is not None:
             assert len(scalars) == len(vectors)
@@ -386,7 +386,7 @@ class MArraySource(MlabSource):
         else:
             ds = self.m_data
         old_scalar = ds.scalar_data
-        ds.set(vector_data=vectors,
+        ds.trait_set(vector_data=vectors,
                origin=[x.min(), y.min(), z.min()],
                spacing=[dx, dy, dz],
                scalar_data=scalars)
@@ -409,7 +409,7 @@ class MArraySource(MlabSource):
         ds.origin = [x.min(), y.min(), z.min()]
         ds.spacing = [dx, dy, dz]
         if self.m_data is not None:
-            self.m_data.set(origin=ds.origin, spacing=ds.spacing)
+            self.m_data.trait_set(origin=ds.origin, spacing=ds.spacing)
         self.update()
 
     def _u_changed(self, u):
@@ -460,7 +460,7 @@ class MLineSource(MlabSource):
 
         # First set the attributes without really doing anything since
         # the notification handlers are not called.
-        self.set(trait_change_notify=False, **traits)
+        self.trait_set(trait_change_notify=False, **traits)
 
         points = self.points
         scalars = self.scalars
@@ -470,12 +470,12 @@ class MLineSource(MlabSource):
             x = points[:, 0].ravel()
             y = points[:, 1].ravel()
             z = points[:, 2].ravel()
-            self.set(x=x, y=y, z=z, trait_change_notify=False)
+            self.trait_set(x=x, y=y, z=z, trait_change_notify=False)
 
         else:
             points = np.c_[x.ravel(), y.ravel(), z.ravel()].ravel()
             points.shape = (len(x), 3)
-            self.set(points=points, trait_change_notify=False)
+            self.trait_set(points=points, trait_change_notify=False)
 
         # Create the dataset.
         n_pts = len(points) - 1
@@ -491,9 +491,9 @@ class MLineSource(MlabSource):
         # Avoid lines refering to non existing points: First set the
         # lines to None, then set the points, then set the lines
         # refering to the new points.
-        pd.set(lines=None)
-        pd.set(points=points)
-        pd.set(lines=lines)
+        pd.trait_set(lines=None)
+        pd.trait_set(points=points)
+        pd.trait_set(lines=lines)
 
         if scalars is not None and len(scalars) > 0:
             assert len(x) == len(scalars)
@@ -558,7 +558,7 @@ class MArray2DSource(MlabSource):
 
         # First set the attributes without really doing anything since
         # the notification handlers are not called.
-        self.set(trait_change_notify=False, **traits)
+        self.trait_set(trait_change_notify=False, **traits)
         x, y, mask = self.x, self.y, self.mask
         scalars = self.scalars
 
@@ -574,11 +574,11 @@ class MArray2DSource(MlabSource):
             scalars[mask.astype('bool')] = np.nan
             # The NaN trick only works with floats.
             scalars = scalars.astype('float')
-            self.set(scalars=scalars, trait_change_notify=False)
+            self.trait_set(scalars=scalars, trait_change_notify=False)
 
         z = np.array([0])
 
-        self.set(x=x, y=y, z=z, trait_change_notify=False)
+        self.trait_set(x=x, y=y, z=z, trait_change_notify=False)
         # Do some magic to extract the first row/column, independently of
         # the shape of x and y
 
@@ -598,7 +598,7 @@ class MArray2DSource(MlabSource):
         else:
             ds = self.m_data
         old_scalar = ds.scalar_data
-        ds.set(origin=[x.min(), y.min(), 0],
+        ds.trait_set(origin=[x.min(), y.min(), 0],
                spacing=[dx, dy, 1],
                scalar_data=scalars)
         if old_scalar is scalars:
@@ -628,7 +628,7 @@ class MArray2DSource(MlabSource):
         ds.origin = [x.min(), y.min(), 0]
         ds.spacing = [dx, dy, 1]
         if self.m_data is not None:
-            self.m_data.set(origin=ds.origin, spacing=ds.spacing)
+            self.m_data.trait_set(origin=ds.origin, spacing=ds.spacing)
         self.update()
 
     def _scalars_changed(self, s):
@@ -637,7 +637,7 @@ class MArray2DSource(MlabSource):
             s[mask.astype('bool')] = np.nan
             # The NaN tric only works with floats.
             s = s.astype('float')
-            self.set(scalars=s, trait_change_notify=False)
+            self.trait_set(scalars=s, trait_change_notify=False)
         old = self.m_data.scalar_data
         self.m_data.scalar_data = s
         if s is old:
@@ -673,7 +673,7 @@ class MGridSource(MlabSource):
 
         # First set the attributes without really doing anything since
         # the notification handlers are not called.
-        self.set(trait_change_notify=False, **traits)
+        self.trait_set(trait_change_notify=False, **traits)
 
         points = self.points
         scalars = self.scalars
@@ -683,7 +683,7 @@ class MGridSource(MlabSource):
             scalars[mask.astype('bool')] = np.nan
             # The NaN trick only works with floats.
             scalars = scalars.astype('float')
-            self.set(scalars=scalars, trait_change_notify=False)
+            self.trait_set(scalars=scalars, trait_change_notify=False)
 
         assert len(x.shape) == 2, "Array x must be 2 dimensional."
         assert len(y.shape) == 2, "Array y must be 2 dimensional."
@@ -698,7 +698,7 @@ class MGridSource(MlabSource):
         nx, ny = x.shape
         points = np.c_[x.ravel(), y.ravel(), z.ravel()].ravel()
         points.shape = (nx * ny, 3)
-        self.set(points=points, trait_change_notify=False)
+        self.trait_set(points=points, trait_change_notify=False)
 
         i, j = np.mgrid[0:nx - 1, 0:ny - 1]
         i, j = np.ravel(i), np.ravel(j)
@@ -715,13 +715,13 @@ class MGridSource(MlabSource):
             new_dataset = True
         else:
             pd = self.dataset
-        pd.set(points=points)
-        pd.set(polys=triangles)
+        pd.trait_set(points=points)
+        pd.trait_set(polys=triangles)
 
         if scalars is not None and len(scalars) > 0:
             if not scalars.flags.contiguous:
                 scalars = scalars.copy()
-                self.set(scalars=scalars, trait_change_notify=False)
+                self.trait_set(scalars=scalars, trait_change_notify=False)
             assert x.shape == scalars.shape
             pd.point_data.scalars = scalars.ravel()
             pd.point_data.scalars.name = 'scalars'
@@ -758,7 +758,7 @@ class MGridSource(MlabSource):
             s[mask.astype('bool')] = np.nan
             # The NaN tric only works with floats.
             s = s.astype('float')
-            self.set(scalars=s, trait_change_notify=False)
+            self.trait_set(scalars=s, trait_change_notify=False)
 
         self.dataset.point_data.scalars = s.ravel()
         self.dataset.point_data.scalars.name = 'scalars'
@@ -792,7 +792,7 @@ class MTriangularMeshSource(MlabSource):
 
         # First set the attributes without really doing anything since
         # the notification handlers are not called.
-        self.set(trait_change_notify=False, **traits)
+        self.trait_set(trait_change_notify=False, **traits)
 
         points = self.points
         scalars = self.scalars
@@ -800,7 +800,7 @@ class MTriangularMeshSource(MlabSource):
         x, y, z = self.x, self.y, self.z
         points = np.c_[x.ravel(), y.ravel(), z.ravel()].ravel()
         points.shape = (-1, 3)
-        self.set(points=points, trait_change_notify=False)
+        self.trait_set(points=points, trait_change_notify=False)
 
         triangles = self.triangles
         assert triangles.shape[1] == 3, \
@@ -818,8 +818,8 @@ class MTriangularMeshSource(MlabSource):
             pd = self.dataset
         # Set the points first, and the triangles after: so that the
         # polygone can refer to the right points, in the polydata.
-        pd.set(points=points)
-        pd.set(polys=triangles)
+        pd.trait_set(points=points)
+        pd.trait_set(polys=triangles)
 
         if (not 'scalars' in traits
                     and scalars is not None
@@ -831,7 +831,7 @@ class MTriangularMeshSource(MlabSource):
         if scalars is not None and len(scalars) > 0:
             if not scalars.flags.contiguous:
                 scalars = scalars.copy()
-                self.set(scalars=scalars, trait_change_notify=False)
+                self.trait_set(scalars=scalars, trait_change_notify=False)
             assert x.shape == scalars.shape
             pd.point_data.scalars = scalars.ravel()
             pd.point_data.scalars.name = 'scalars'

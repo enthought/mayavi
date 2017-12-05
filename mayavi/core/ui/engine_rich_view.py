@@ -55,7 +55,7 @@ class EngineRichViewHandler(EngineViewHandler):
         # We switch the selection to None, but we avoid
         # trait callback, to avoid changing the engine's
         # current_selection.
-        tree_editor.set(selected=None, trait_change_notify=False)
+        tree_editor.trait_set(selected=None, trait_change_notify=False)
         current_selection = self.info.object.engine.current_selection
         GUI.set_trait_later(tree_editor, 'selected', current_selection)
 

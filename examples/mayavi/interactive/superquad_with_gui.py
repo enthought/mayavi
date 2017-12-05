@@ -57,7 +57,7 @@ class Visualization(HasTraits):
     @on_trait_change('beta,alpha')
     def update_plot(self):
         x, y, z, = tens_fld(1, 1, 1, self.beta, self.alpha)
-        self.plot.mlab_source.set(x = x, y = y, z = z)
+        self.plot.mlab_source.trait_set(x = x, y = y, z = z)
 
 
     # the layout of the dialog created

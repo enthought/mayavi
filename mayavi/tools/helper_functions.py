@@ -104,7 +104,7 @@ class Pipeline(HasTraits):
                     ', '.join(
                         str(k) for k in
                         set(kwargs.keys()).difference(list(all_traits.keys()))))
-        traits = self.get(self.class_trait_names())
+        traits = self.trait_get(self.class_trait_names())
         [traits.pop(key) for key in list(traits.keys()) if key[0] == '_']
         traits.update(kwargs)
         self.kwargs = traits
@@ -412,7 +412,7 @@ def test_flow_anim(obj=None):
     for i in range(10):
         u = numpy.cos(x / 2. + numpy.pi * (i + 1) / 10.)
         w = numpy.sin(x * z / 4. + numpy.pi * (i + 1) / 10.)
-        ms.set(u=u, w=w)
+        ms.trait_set(u=u, w=w)
         yield
 
 
@@ -612,7 +612,7 @@ def test_plot3d_anim(obj=None):
         x = numpy.cos(mu) * (1 + numpy.cos(n_long * mu / n_mer +
                                           numpy.pi * (i + 1) / 5.) * 0.5)
         scalars = numpy.sin(mu + numpy.pi * (i + 1) / 5)
-        ms.set(x=x, scalars=scalars)
+        ms.trait_set(x=x, scalars=scalars)
         yield
 
 #############################################################################
@@ -941,7 +941,7 @@ def test_mesh_sphere_anim(obj=None, r=1.0, npts=(100, 100), colormap='jet'):
     ms = obj.mlab_source
     for i in range(1, 10):
         z = (r + i * 0.25) * cos(phi)
-        ms.set(z=z, scalars=z)
+        ms.trait_set(z=z, scalars=z)
         yield
 
 def test_mesh_mask_custom_colors(r=1.0, npts=(100, 100)):

@@ -184,7 +184,7 @@ class Threshold(Filter):
         dr = data_range
         if self._first:
             self._data_min, self._data_max = dr
-            self.set(lower_threshold = dr[0], trait_change_notify=False)
+            self.trait_set(lower_threshold = dr[0], trait_change_notify=False)
             self.upper_threshold = dr[1]
             self._first = False
             return
@@ -205,7 +205,7 @@ class Threshold(Filter):
             if self.auto_reset_lower:
                 self._data_min = dr[0]
                 notify = not self.auto_reset_upper
-                self.set(lower_threshold = dr[0],
+                self.trait_set(lower_threshold = dr[0],
                          trait_change_notify=notify)
             if self.auto_reset_upper:
                 self._data_max = dr[1]
@@ -214,7 +214,7 @@ class Threshold(Filter):
             if self.auto_reset_upper:
                 self._data_max = dr[1]
                 notify = not self.auto_reset_lower
-                self.set(upper_threshold = dr[1],
+                self.trait_set(upper_threshold = dr[1],
                          trait_change_notify=notify)
             if self.auto_reset_lower:
                 self._data_min = dr[0]

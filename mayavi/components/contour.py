@@ -243,7 +243,7 @@ class Contour(Component):
             error('Cannot contour: No scalars in input data!')
             rng = (0.0, 1.0)
         if rng != self._current_range:
-            self.set(_data_min=rng[0], _data_max=rng[1],
+            self.trait_set(_data_min=rng[0], _data_max=rng[1],
                      trait_change_notify=False)
             self._clip_contours(rng)
             self._current_range = rng
@@ -329,7 +329,7 @@ class Contour(Component):
         ctr = [min(max(x, dmin), dmax) for x in self.contours]
         if self.auto_contours or ctr != self.contours:
             self.contours = ctr
-            self.set(minimum_contour=self._data_min,
+            self.trait_set(minimum_contour=self._data_min,
                      maximum_contour=self._data_max,
                      trait_change_notify=False)
             self._do_auto_contours()

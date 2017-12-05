@@ -199,7 +199,7 @@ impossible to represent in the Python world since this usually
 involves various pointers to other C++ objects.
 
 It is also important to consider that the identity of objects
-is preserved according to the VTK behavior. For example, in the 
+is preserved according to the VTK behavior. For example, in the
 following code, the default object created by the VTK implementation of
 `GetLines()` is the same for any vtkPolyData::
 
@@ -293,7 +293,7 @@ Also note that it is possible to set many properties of a tvtk object
 in one go using the `set` method.  For example::
 
     >>> p = tvtk.Property()
-    >>> p.set(opacity=0.5, color=(1,0,0), representation='w')
+    >>> p.trait_set(opacity=0.5, color=(1,0,0), representation='w')
 
 Any tvtk object will automatically provide the basic functionality of
 a traited class.  Thus, one can also pop up a standard GUI editor for
@@ -739,12 +739,12 @@ If you need to write out VTK data files given a TVTK dataset.  The
     >>> pd = tvtk.PolyData()
     >>> # ...
     >>> write_data(pd, 'file_name')
-    
+
 This will write out an XML file with basename ``file_name``.  If one specifies
 a ``.vtk`` extension, like say::
 
     >>> write_data(pd, 'file_name.vtk')
-    
+
 It will write out an old-style ASCII file.  See the docstring for more details.
 
 VTK-Python defines several handy colors and these are made available in TVTK.

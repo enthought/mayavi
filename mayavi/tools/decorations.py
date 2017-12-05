@@ -261,7 +261,7 @@ class SingletonModuleFactory(ModuleFactory):
 
         # Now calling the traits setter, so that traits handlers are
         # called
-        self.set(**kwargs)
+        self.trait_set(**kwargs)
         if self._scene.scene is not None:
             self._scene.scene.disable_render = False
 

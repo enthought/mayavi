@@ -218,14 +218,14 @@ class LUTManager(Base):
 
         # Initialize the scalar bar.
         sc_bar = self.scalar_bar
-        sc_bar.set(lookup_table=self.lut,
-                   title=self.data_name,
-                   number_of_labels=self.number_of_labels,
-                   orientation='horizontal',
-                   width=0.8, height=0.17)
+        sc_bar.trait_set(lookup_table=self.lut,
+                         title=self.data_name,
+                         number_of_labels=self.number_of_labels,
+                         orientation='horizontal',
+                         width=0.8, height=0.17)
         pc = sc_bar.position_coordinate
-        pc.set(coordinate_system='normalized_viewport',
-               value=(0.1, 0.01, 0.0))
+        pc.trait_set(coordinate_system='normalized_viewport',
+                     value=(0.1, 0.01, 0.0))
         self._shadow_changed(self.shadow)
 
         # Initialize the lut.
@@ -240,8 +240,8 @@ class LUTManager(Base):
         ltp.on_trait_change(self.render)
 
         # Initialize the scalar_bar_widget
-        self.scalar_bar_widget.set(scalar_bar_actor=self.scalar_bar,
-                                   key_press_activation=False)
+        self.scalar_bar_widget.trait_set(scalar_bar_actor=self.scalar_bar,
+                                         key_press_activation=False)
         self._number_of_colors_changed(self.number_of_colors)
 
 
@@ -319,10 +319,10 @@ class LUTManager(Base):
                 saturation_range = 0.0, 0.0
                 value_range = 0.0, 1.0
         lut = self.lut
-        lut.set(hue_range=hue_range, saturation_range=saturation_range,
-                value_range=value_range,
-                number_of_table_values=self.number_of_colors,
-                ramp='sqrt')
+        lut.trait_set(hue_range=hue_range, saturation_range=saturation_range,
+                      value_range=value_range,
+                      number_of_table_values=self.number_of_colors,
+                      ramp='sqrt')
         lut.modified()
         lut.force_build()
 

@@ -66,7 +66,7 @@ class MyModel(HasTraits):
             self.plot = self.scene.mlab.plot3d(x, y, z, t,
                                 tube_radius=0.025, colormap='Spectral')
         else:
-            self.plot.mlab_source.set(x=x, y=y, z=z, scalars=t)
+            self.plot.mlab_source.trait_set(x=x, y=y, z=z, scalars=t)
 
 
     # The layout of the dialog created

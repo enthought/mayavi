@@ -95,7 +95,7 @@ class VRMLImporter(Source):
     def get_output_object(self):
         """ Return the reader output port."""
         return self.reader.output_port
-    
+
     ######################################################################
     # Non-public interface
     ######################################################################

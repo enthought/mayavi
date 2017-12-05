@@ -9,7 +9,7 @@ Building applications using Mayavi
     This section describes how Mayavi can be used as a scientific data
     visualization and 3D plotting tool in interactive application.
 
-Mayavi can be used as a fully integrated and interactive 3D plotting tool 
+Mayavi can be used as a fully integrated and interactive 3D plotting tool
 in a GUI application. Using the event model behind Traits and TVTK, all
 the different properties of a visualization can be changed dynamically,
 including the data visualized itself.
@@ -28,7 +28,7 @@ i.e. special attributes that can be visualized in dialogs and that fire
 callbacks when they are modified. In particular this means that when a
 visualization object is modified, the scene can update automatically.
 
-We strongly suggest that you refer to the `Traits` 
+We strongly suggest that you refer to the `Traits`
 `documentation <http://docs.enthought.com/traits>`_
 for more details.  There are also a list of introductory
 `materials <https://support.enthought.com/hc/en-us/articles/204469620-Introductory-materials-for-Traits-and-Traits-UI>`
@@ -62,7 +62,7 @@ widget for scene by specifying for it the `SceneEditor`::
                         editor=SceneEditor()))
 
     MyModel().configure_traits()
-    
+
 A `Mayavi` button to pop up the pipeline dialog can be added on the
 toolbar by specifying a different scene view to the `SceneEditor`::
 
@@ -91,7 +91,7 @@ A scene, with `mlab` embedded
 An object representing a scene is interesting only if you can visualize
 data with the scene. For this we can instanciate an `Engine` and assign
 it to the scene. Having an `Engine` only for one scene allows us to
-confine action and visualization objects only to this scene. 
+confine action and visualization objects only to this scene.
 
 We can also use an `MlabSceneModel` instance, rather than a `SceneModel`,
 imported from `mayavi.tools.mlab_scene_model`. This scene model
@@ -118,21 +118,21 @@ achieved with `self.scene.mlab.points3d(x, y, z, s)`.
     :ref:`example_multiple_mlab_scene_models`.
 
     Another way of creating isolation between scene is to explicitly
-    insert them in different engines. This is demonstrated in 
+    insert them in different engines. This is demonstrated in
     :ref:`example_multiple_engines`
 
 Making the visualization live
 ..............................
 
 Having an interactive application is interesting only if you can do
-custom, domain-specific, interaction with the visualization. 
+custom, domain-specific, interaction with the visualization.
 
 An important use case is modifying the data visualized as a parameter is
 changed interactively. For this we can use the inplace modification of
 the data of an mlab object, as for animation of an mlab plot (see
 :ref:`mlab-animating-data`). Suppose we are plotting a line curve defined
 by a function of two parameters::
-    
+
     from numpy import linspace, pi, cos, sin
 
     def curve(n_mer, n_long):
@@ -151,7 +151,7 @@ Using `mlab`, we could plot the curve with `plot3d`::
 Modifying the plot for new parameters could be written::
 
     x, y, z, t = curve(4, 8)
-    plot.mlab_source.set(x=x, y=y, z=z, scalars=t)
+    plot.mlab_source.trait_set(x=x, y=y, z=z, scalars=t)
 
 In a dialog, this would be::
 
@@ -178,12 +178,12 @@ In a dialog, this would be::
         @on_trait_change('meridional,transverse')
         def update_plot(self):
             x, y, z, t = curve(self.meridional, self.transverse)
-            self.plot.mlab_source.set(x=x, y=y, z=z, scalars=t)
+            self.plot.mlab_source.trait_set(x=x, y=y, z=z, scalars=t)
 
 
         # the layout of the dialog created
-        view = View(Item('scene', editor=SceneEditor(scene_class=MayaviScene), 
-                        height=250, width=300, show_label=False), 
+        view = View(Item('scene', editor=SceneEditor(scene_class=MayaviScene),
+                        height=250, width=300, show_label=False),
                     HGroup(
                             '_', 'meridional', 'transverse',
                         ),
@@ -227,8 +227,8 @@ A complete, runnable, code based on the above comments is given in the
  develop an application with visualization and data processing with Traits
  and Mayavi:
 
- * :ref:`example_lorenz_ui`: A didactic and simple example that shows 
-   how the lorenz model can be integrated and visualized interactively 
+ * :ref:`example_lorenz_ui`: A didactic and simple example that shows
+   how the lorenz model can be integrated and visualized interactively
    while changing the model parameters.
 
  * :ref:`example_mayavi_traits_ui`: An example showing how you can mimic
@@ -239,7 +239,7 @@ A complete, runnable, code based on the above comments is given in the
 
  * :ref:`example_coil_design_application`: A full-blown and elaborate
    application enabling specification of a current-loop description for
-   a coil, and integration of the resulting magnetic field with real-time 
+   a coil, and integration of the resulting magnetic field with real-time
    visualization of the field and the coil structure.
 
 
@@ -266,7 +266,7 @@ Two examples of integrating Mayavi visualization with Wx applications are
 given:
 
     * :ref:`example_wx_embedding`: a simple example, as above.
-    * :ref:`example_wx_mayavi_embed_in_notebook`: a more complexe example, 
+    * :ref:`example_wx_mayavi_embed_in_notebook`: a more complexe example,
       showing 2 different Mayavi views embedded in a Wx notebook.
 
 .. _integrating_pyqt:
@@ -307,7 +307,7 @@ Then using the visualization class defined above::
             self.ui = self.visualization.edit_traits().control
             self.setCentralWidget(self.ui)
 
-    window = MainWindow() 
+    window = MainWindow()
     window.show()
     QtGui.qApp.exec_()
 

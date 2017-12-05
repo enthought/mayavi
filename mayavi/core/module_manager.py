@@ -257,7 +257,7 @@ class ModuleManager(Base):
             obj.stop()
         # Setup and start the new ones.
         for obj in added:
-            obj.set(module_manager=self, scene=self.scene, parent=self)
+            obj.trait_set(module_manager=self, scene=self.scene, parent=self)
             if self.running:
                 # It makes sense to start children only if we are running.
                 # If not, the children will be started when we start.

@@ -31,7 +31,7 @@ we could set that too by::
     s.mlab_source.x = new_x
 
 The only thing to keep in mind here is that the shape of `x` should not
-be changed. 
+be changed.
 
 If multiple values have to be changed, you can use the `set` method of
 the `mlab_source` to set them as shown in the more complicated example
@@ -56,7 +56,7 @@ below::
         x = np.cos(mu)*(1+np.cos(n_long*mu/n_mer +
                                           np.pi*(i+1)/5.)*0.5)
         scalars = np.sin(mu + np.pi*(i+1)/5)
-        ms.set(x=x, scalars=scalars)
+        ms.trait_set(x=x, scalars=scalars)
 
 Notice the use of the `set` method above. With this method, the
 visualization is recomputed only once.  In this case, the shape of the
@@ -77,9 +77,9 @@ array changes then one should use the `reset` method as shown below::
 
 Many standard examples for animating data are provided with mlab.  Try
 the examples with the name `mlab.test_<name>_anim`, i.e. where the name
-ends with an `_anim` to see how these work and run.   
+ends with an `_anim` to see how these work and run.
 
-.. note:: 
+.. note::
 
     It is important to remember distinction between `set` and `reset`.
     Use `set` or directly set the attributes (`x`, `y`, `scalars` etc.)

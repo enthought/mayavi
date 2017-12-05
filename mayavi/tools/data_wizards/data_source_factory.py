@@ -159,7 +159,7 @@ class DataSourceFactory(HasStrictTraits):
         """ Uses all the information given by the user on his data
             structure to figure out the right data structure.
         """
-        self.set(**traits)
+        self.trait_set(**traits)
         if not self.lines:
             if self.position_implicit:
                 self._mk_image_data()

@@ -127,7 +127,7 @@ class TestParticleReader(DataReaderTestBase):
         r = PolyDataReader()
         r.initialize(get_example_data('Particles.raw'))
         self.e.add_source(r)
-        r.reader.set(data_byte_order='big_endian', data_type='float',
+        r.reader.trait_set(data_byte_order='big_endian', data_type='float',
                      file_type='binary')
         self.bounds = (817.33, 826.09, 545.02, 571.02, 1443.48, 1511.18)
 

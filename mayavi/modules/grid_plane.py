@@ -61,7 +61,7 @@ class GridPlane(Module):
 
         # Setup the actor suitably for this module.
         prop = self.actor.property
-        prop.set(backface_culling=0, frontface_culling=0,
+        prop.trait_set(backface_culling=0, frontface_culling=0,
                  representation='w')
         self.actor.mapper.scalar_visibility = 0
 

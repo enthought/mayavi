@@ -110,7 +110,7 @@ class OrientationAxes(Module):
         self.axes = tvtk.AxesActor(normalized_tip_length=(0.4, 0.4, 0.4),
                                    normalized_shaft_length=(0.6, 0.6, 0.6),
                                    shaft_type='cylinder')
-        self.text_property.set(color=(1,1,1), shadow=False, italic=False)
+        self.text_property.trait_set(color=(1,1,1), shadow=False, italic=False)
 
         self.marker = tvtk.OrientationMarkerWidget(key_press_activation=False)
 

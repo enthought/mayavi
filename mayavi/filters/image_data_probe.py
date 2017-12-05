@@ -127,9 +127,9 @@ class ImageDataProbe(Filter):
         input = self.inputs[0].get_output_dataset()
         if input.is_a('vtkImageData'):
             self.allow_changes = False
-            self.set(spacing=input.spacing,
+            self.trait_set(spacing=input.spacing,
                      dimensions=input.dimensions)
-            pd.set(origin=input.origin,
+            pd.trait_set(origin=input.origin,
                    dimensions=input.dimensions,
                    spacing=input.spacing)
             pd.update()
@@ -144,12 +144,12 @@ class ImageDataProbe(Filter):
             dims = (l*fac).astype(int) + 1
             extent = (0, dims[0] -1, 0, dims[1] -1, 0, dims[2] -1)
             if tvtk_common.is_old_pipeline():
-                pd.set(extent=extent,
+                pd.trait_set(extent=extent,
                        update_extent=extent,
                        whole_extent=extent,
                        dimensions=dims)
             else:
-                pd.set(extent=extent,
+                pd.trait_set(extent=extent,
                        dimensions=dims)
 
             max_dim = dims.max()
@@ -157,7 +157,7 @@ class ImageDataProbe(Filter):
             l = l.clip(min=1e-3, max=l.max()+1.0)
             pd.spacing = l/dims
             self._event_handled = True
-            self.set(spacing = pd.spacing,
+            self.trait_set(spacing = pd.spacing,
                      dimensions=pd.dimensions)
             self._event_handled = False
 
@@ -219,7 +219,7 @@ class ImageDataProbe(Filter):
         dims1 = (dims -1).clip(min=1, max=maxd)
         sp = l/dims1
         self._event_handled = True
-        self.set(spacing = sp, dimensions=dims)
+        self.trait_set(spacing = sp, dimensions=dims)
         self._event_handled = False
         self._update_probe ()
 
@@ -229,13 +229,13 @@ class ImageDataProbe(Filter):
         spacing = self.spacing
         extent = (0, dims[0] -1, 0, dims[1] -1, 0, dims[2] -1)
         if tvtk_common.is_old_pipeline():
-            pd.set(extent=extent,
+            pd.trait_set(extent=extent,
                    update_extent=extent,
                    whole_extent=extent,
                    dimensions=dims,
                    spacing=spacing)
         else:
-            pd.set(extent=extent,
+            pd.trait_set(extent=extent,
                    dimensions=dims,
                    spacing=spacing)
         pd.modified()
