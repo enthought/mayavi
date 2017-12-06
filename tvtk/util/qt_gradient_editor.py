@@ -72,7 +72,7 @@ class QGradientControl(QtGui.QWidget):
             for x in range(width):
                 f = float(x)/(width-1)
                 (r,g,b,a) = self.gradient_table.get_pos_rgba_color_lerped(xform(f))
-                color.trait_set(int(255*r), int(255*g), int(255*b))
+                color.set(int(255*r), int(255*g), int(255*b))
                 brush.setColor(color)
                 painter.drawLine(x, start_y, x, end_y)
 
