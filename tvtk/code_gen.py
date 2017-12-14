@@ -7,7 +7,6 @@
 
 from __future__ import print_function
 
-import io
 import vtk
 import os
 import os.path
@@ -17,6 +16,7 @@ import shutil
 import glob
 import logging
 from optparse import OptionParser
+import sys
 
 # Local imports -- these should be relative imports since these are
 # imported before the package is installed.
@@ -207,7 +207,10 @@ class TVTKGenerator:
         # The only reason this method is separate is to generate code
         # for an individual class when debugging.
         fname = camel2enthought(tvtk_name) + '.py'
-        out = io.open(os.path.join(self.out_dir, fname), 'w', encoding='utf-8')
+        if sys.version_info[0] > 2:
+            out = open(os.path.join(self.out_dir, fname), 'w', encoding='utf-8')
+        else:
+            out = open(os.path.join(self.out_dir, fname), 'w')
         self.wrap_gen.generate_code(node, out)
         out.close()
 
