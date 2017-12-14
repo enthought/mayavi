@@ -307,7 +307,6 @@ def view(azimuth=None, elevation=None, distance=None, focalpoint=None,
     ren.reset_camera_clipping_range()
 
     if roll is not None:
-        print("setting roll")
         _roll(roll)
     elif reset_roll:
         # Now calculate the view_up vector of the camera.  If the view up is
