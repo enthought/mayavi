@@ -7,6 +7,7 @@
 
 from __future__ import print_function
 
+import io
 import vtk
 import os
 import os.path
@@ -206,7 +207,7 @@ class TVTKGenerator:
         # The only reason this method is separate is to generate code
         # for an individual class when debugging.
         fname = camel2enthought(tvtk_name) + '.py'
-        out = open(os.path.join(self.out_dir, fname), 'w', encoding='utf-8')
+        out = io.open(os.path.join(self.out_dir, fname), 'w', encoding='utf-8')
         self.wrap_gen.generate_code(node, out)
         out.close()
 
