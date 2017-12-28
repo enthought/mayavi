@@ -16,6 +16,7 @@ from traitsui.api import View, Group, Item
 from tvtk.api import tvtk
 from tvtk import array_handler
 from tvtk.common import is_old_pipeline
+from tvtk.vtk_module import VTK_MAJOR_VERSION
 
 # Local imports
 from mayavi.core.source import Source
@@ -188,11 +189,12 @@ class ArraySource(Source):
         img_data.origin = tuple(self.origin)
         img_data.dimensions = tuple(dims)
         img_data.extent = 0, dims[dim0]-1, 0, dims[dim1]-1, 0, dims[dim2]-1
-        if is_old_pipeline():
-            img_data.update_extent = 0, dims[dim0]-1, 0, dims[dim1]-1, 0, dims[dim2]-1
-        else:
-            update_extent = [0, dims[dim0]-1, 0, dims[dim1]-1, 0, dims[dim2]-1]
-            self.change_information_filter.set_update_extent(update_extent)
+        if VTK_MAJOR_VERSION <= 7:
+            if is_old_pipeline():
+                img_data.update_extent = 0, dims[dim0]-1, 0, dims[dim1]-1, 0, dims[dim2]-1
+            else:
+                update_extent = [0, dims[dim0]-1, 0, dims[dim1]-1, 0, dims[dim2]-1]
+                self.change_information_filter.set_update_extent(update_extent)
         if self.transpose_input_array:
             img_data.point_data.scalars = numpy.ravel(numpy.transpose(data))
         else:
@@ -228,12 +230,13 @@ class ArraySource(Source):
         img_data.origin = tuple(self.origin)
         img_data.dimensions = tuple(dims[:-1])
         img_data.extent = 0, dims[0]-1, 0, dims[1]-1, 0, dims[2]-1
-        if is_old_pipeline():
-            img_data.update_extent = 0, dims[0]-1, 0, dims[1]-1, 0, dims[2]-1
-        else:
-            self.change_information_filter.update_information()
-            update_extent = [0, dims[0]-1, 0, dims[1]-1, 0, dims[2]-1]
-            self.change_information_filter.set_update_extent(update_extent)
+        if VTK_MAJOR_VERSION <= 7:
+            if is_old_pipeline():
+                img_data.update_extent = 0, dims[0]-1, 0, dims[1]-1, 0, dims[2]-1
+            else:
+                self.change_information_filter.update_information()
+                update_extent = [0, dims[0]-1, 0, dims[1]-1, 0, dims[2]-1]
+                self.change_information_filter.set_update_extent(update_extent)
         sz = numpy.size(data)
         if self.transpose_input_array:
             data_t = numpy.transpose(data, (2, 1, 0, 3))
