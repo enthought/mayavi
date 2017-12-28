@@ -12,6 +12,7 @@ from traits.api import Instance, Int, Range
 from traitsui.api import View, Group, Item
 
 from tvtk.api import tvtk
+from tvtk.vtk_module import VTK_MAJOR_VERSION
 
 # Local imports
 from mayavi.core.common import error
@@ -191,8 +192,10 @@ class ExtractGrid(FilterBase):
     def _update_limits(self):
         if is_old_pipeline():
             extents = self.filter.input.whole_extent
-        else:
+        elif VTK_MAJOR_VERSION <= 7:
             extents = self.filter.get_update_extent()
+        else:
+            extents = self.filter.input.extent
 
         if (extents[0]>extents[1] or extents[2]>extents[3] or
                 extents[4]>extents[5]):
