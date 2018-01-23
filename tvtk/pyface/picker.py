@@ -140,7 +140,7 @@ class DefaultPickHandler(PickHandler):
                 self.ID = data.point_id
             elif data.cell_id > -1:
                 self.ID = data.cell_id
-            self.coordinate = data.coordinate
+            self.coordinate = list(data.coordinate)
 
             if data.data:
                 array_data = {'scalar': data.data.scalars,
