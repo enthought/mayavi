@@ -265,7 +265,7 @@ def array2vtk(num_array, vtk_array=None):
     shape = z.shape
     assert len(shape) < 3, \
            "Only arrays of dimensionality 2 or lower are allowed!"
-    assert not numpy.issubdtype(z.dtype, complex), \
+    assert not numpy.issubdtype(z.dtype, numpy.complexfloating), \
            "Complex numpy arrays cannot be converted to vtk arrays."\
            "Use real() or imag() to get a component of the array before"\
            " passing it to vtk."
