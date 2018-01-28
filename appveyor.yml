@@ -3,25 +3,31 @@ shallow_clone: true
 environment:
 
   global:
-    distutils_use_sdk: 1
     sdkver: "C:/Program Files/Microsoft SDKs/Windows/v7.0/Setup/WindowsSdkVer.exe"
     python: "C:/Python27-x64"
-    vtk_url: "http://www.vtk.org/files/release/6.2/vtkpython-6.2.0-Windows-64bit.exe"
     pythonpath: "C:/vtk/bin/Lib/site-packages"
+    ets_toolkit: "qt4"
+
+  matrix:
+    - vtk_url: "http://www.vtk.org/files/release/6.3/vtkpython-6.3.0-Windows-64bit.exe"
+
+    - vtk_url: "http://www.vtk.org/files/release/7.1/vtkpython-7.1.1-Windows-64bit.exe"
 
 cache:
-  - c:\temp
+  - C:\Users\appveyor\.cache -> appveyor-reset-cache.txt
 
 init:
-  - ps: $Env:path = $Env:python + ";" + $Env:python + "\scripts;" + "C:\Program Files\Microsoft SDKs\Windows\v7.0\Bin;" + "C:\vtk\bin;" + $Env:path
-  - ps: $env:ETS_TOOLKIT="qt4"
+  - ps: $Env:path = $Env:python + ";" + $Env:python + "\scripts;" + "C:\vtk\bin;" + $Env:path
 install:
-  - ps: if ((Test-Path "c:/temp") -eq 0) { mkdir c:/temp }
   - ps: (new-object net.webclient).DownloadFile($Env:vtk_url, 'c:/vtkpython.exe')
   - ps: c:/vtkpython.exe /S /D=C:\vtk
-  - ps: python -m pip install --upgrade --no-binary ":all:" pip
-  - ps: pip install --upgrade wheel
+  - ps: python -m pip install --upgrade pip wheel
   - ps: pip --version
-  - cmd /v:on /e:on /c ".\appveyor-install.cmd"
+  - pip install -r appveyor-requirements.txt
+  - pip install -e .
 test_script:
-  - cmd /v:on /e:on /c ".\appveyor-test.cmd"
+  - coverage erase
+  - coverage run -p -m nose.core -v tvtk/tests
+  - coverage run -p -m nose.core -v mayavi
+  - coverage combine
+  - coverage report
