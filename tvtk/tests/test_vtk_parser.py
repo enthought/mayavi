@@ -114,18 +114,24 @@ class TestVTKParser(unittest.TestCase):
                'SpecularPower': (1.0, (0.0, 100.0))}
         if ('ReferenceCount' not in p.get_get_set_methods()):
             del res['ReferenceCount']
+        if vtk_major_version > 7:
+            res['MaterialName'] = (None, None)
+            res['VertexColor'] = ((0.5, 1.0, 0.5), None)
+
         result = list(p.get_get_set_methods().keys())
         if hasattr(obj, 'GetTexture'):
             result.remove('Texture')
+        if hasattr(obj, 'GetInformation'):
+            result.remove('Information')
         self.assertEqual(sorted(res.keys()), sorted(result))
         self.assertEqual(p.get_set_meths, p.get_get_set_methods())
         for x in res:
             if res[x][1]:
                 # This is necessary since the returned value is not
                 # usually exactly the same as defined in the header file.
-                default = getattr(obj, 'Get%s'%x)()
-                val = getattr(obj, 'Get%sMinValue'%x)(), \
-                      getattr(obj, 'Get%sMaxValue'%x)()
+                default = getattr(obj, 'Get%s' % x)()
+                val = getattr(obj, 'Get%sMinValue' % x)(), \
+                      getattr(obj, 'Get%sMaxValue' % x)()
                 self.assertEqual(p.get_get_set_methods()[x],
                                  (default, val))
 
@@ -150,7 +156,7 @@ class TestVTKParser(unittest.TestCase):
                 res = ['AddShaderVariable', 'BackfaceRender', 'DeepCopy',
                        'ReleaseGraphicsResources', 'RemoveAllTextures',
                        'RemoveTexture', 'Render']
-                if (vtk_major_version == 7 or vtk_minor_version >= 2):
+                if (vtk_major_version >= 7 or vtk_minor_version >= 2):
                     res.append('VTKTextureUnit')
             else:
                 res = ['AddShaderVariable', 'BackfaceRender', 'DeepCopy',
@@ -269,8 +275,10 @@ class TestVTKParser(unittest.TestCase):
         # Now check that it really works for abstract classes.
         # abstract classes that have state methods
         abs_class = [vtk.vtkDicer, vtk.vtkMapper, vtk.vtkScalarsToColors,
-                     vtk.vtkStreamer, vtk.vtkUnstructuredGridVolumeMapper,
+                     vtk.vtkUnstructuredGridVolumeMapper,
                      vtk.vtkVolumeMapper, vtk.vtkXMLWriter]
+        if hasattr(vtk, 'vtkStreamer'):
+            abs_class.append(vtk.vtkStreamer)
 
         for k in abs_class:
             p.parse(k)
@@ -290,19 +298,18 @@ class TestVTKParser(unittest.TestCase):
         # VTK API is parsed.  A few VTK error messages (not test
         # errors) might be seen on screen but these are normal.
 
-        #t1 = time.clock()
+        # t1 = time.clock()
         p = self.p
         for obj in dir(vtk):
             k = getattr(vtk, obj)
             ignore = ['mutable', 'exc', 'kits', 'util']
             if hasattr(k, '__bases__') and obj not in ignore:
-                #print(k.__name__, end=' ')
-                #sys.stdout.flush()
+                # print(k.__name__, end=' ')
+                # sys.stdout.flush()
                 p.parse(k)
                 for method in p.get_methods(k):
-                    #print method
                     p.get_method_signature(getattr(k, method))
-        #print time.clock() - t1, 'seconds'
+        # print(time.clock() - t1, 'seconds')
 
 
 if __name__ == "__main__":

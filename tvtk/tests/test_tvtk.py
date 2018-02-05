@@ -14,7 +14,6 @@ import weakref
 import sys
 import gc
 import traceback
-import contextlib
 import types
 import inspect
 import re
@@ -134,7 +133,7 @@ class TestTVTK(unittest.TestCase):
         r = tvtk.XMLDataReader()
         self.assertEqual(r.f(), 'f')
         if len(vtk.vtkObjectBase.__bases__) > 0:
-            if is_version_7():
+            if vtk_major_version == 7:
                 expect = ()
             else:
                 expect = (object,)
@@ -625,7 +624,7 @@ class TestTVTK(unittest.TestCase):
     def test_parent_child_input(self):
         """Case where parent has GetInput and child SetInput."""
         if (vtk_major_version >= 6 and vtk_minor_version > 1) or \
-            vtk_major_version == 7:
+            vtk_major_version >= 7:
             vm = tvtk.SmartVolumeMapper()
         else:
             vm = tvtk.VolumeTextureMapper2D()
