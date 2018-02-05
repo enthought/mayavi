@@ -19,8 +19,7 @@ counter = count()
 def init(backend='x3d', width=None, height=None, local=True):
     """Initialize a suitable backend for Jupyter notebooks.
 
-    Parameters
-    ----------
+    **Parameters**
 
     backend :str: one of ('png', 'x3d')
     width :int: suggested default width of the element

@@ -359,18 +359,16 @@ def move(forward=None, right=None, up=None):
     Note that the arguments specify relative motion, although the
     return value with no arguments is in an absolute coordinate system.
 
-
     **Keyword arguments**:
 
-     :forward: float, optional. The distance in space to translate the
-         camera forward (if positive) or backward (if negative)
+    :forward: float, optional. The distance in space to translate the
+        camera forward (if positive) or backward (if negative)
 
+    :right: float, optional.  The distance in space to translate the
+        camera to the right (if positive) or left (if negative)
 
-     :right: float, optional.  The distance in space to translate the
-         camera to the right (if positive) or left (if negative)
-
-     :up: float, optional. The distance in space to translate the
-         camera up (if positive) or down (if negative)
+    :up: float, optional. The distance in space to translate the
+        camera up (if positive) or down (if negative)
 
 
     **Returns**:
@@ -398,18 +396,20 @@ def move(forward=None, right=None, up=None):
        array([ 4.25909623, -0.84307292, -1.57576693]))
 
     Return to the starting position::
-     >>> move(-3,1,1.2)
-     >>> move()
-     (array([-0.06317079, -0.52849738, -1.68316389]),
-      array([ 1.25909623,  0.15692708, -0.37576693]))
 
+      >>> move(-3,1,1.2)
+      >>> move()
+      (array([-0.06317079, -0.52849738, -1.68316389]),
+       array([ 1.25909623,  0.15692708, -0.37576693]))
 
     **See also**
+
     :mlab.yaw: yaw the camera (tilt left-right)
     :mlab.pitch: pitch the camera (tilt up-down)
     :mlab.roll: control the absolute roll angle of the camera
     :mlab.view: set the camera position relative to the focal point instead
                 of in absolute space
+
     """
 
     f = get_engine().current_scene
