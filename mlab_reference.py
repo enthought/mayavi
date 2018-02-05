@@ -3,7 +3,7 @@ Script to generate the function reference for mlab.
 
 """
 # Author: Gael Varoquaux <gael dot varoquaux at normalesup dot org>
-# Copyright (c) 2007-2016, Enthought, Inc.
+# Copyright (c) 2007-2018, Enthought, Inc.
 # License: BSD Style.
 
 from __future__ import print_function
@@ -14,8 +14,8 @@ import sys
 DEFAULT_INPUT_DIR = os.path.join('docs', 'source')
 OUT_DIR = os.sep.join(
         [os.path.dirname(os.path.abspath(__file__)), DEFAULT_INPUT_DIR,
-                'mayavi','auto']
-            )
+         'mayavi','auto']
+)
 
 from mayavi.tools import auto_doc
 from mayavi import mlab
@@ -238,7 +238,7 @@ from mayavi.mlab import *
                             if not ( name[:5] == 'test_' or name[0] == '_')
                                                      and callable(func)])
 
-        outfile = file(os.sep.join([self.out_dir, self.filename]), 'w')
+        outfile = open(os.sep.join([self.out_dir, self.filename]), 'w')
 
         outfile.write(self.header)
 
@@ -263,8 +263,8 @@ from mayavi.mlab import *
                     self.sub_filenames, self.sub_modules_titles):
 
             self.write_doc_submodule(filename, title=title,
-                                    header=header,
-                                    submodulename=submodule)
+                                     header=header,
+                                     submodulename=submodule)
             outfile.write('\t%s\n' % filename)
 
         # And now the rest
@@ -293,7 +293,7 @@ from mayavi.mlab import *
             submodule. If submodule is none, all the non-processed
             functions are processed.
         """
-        outfile = file(os.sep.join([self.out_dir, filename]), 'w')
+        outfile = open(os.sep.join([self.out_dir, filename]), 'w')
 
         if header is not None:
             outfile.write(header)
