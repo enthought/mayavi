@@ -619,11 +619,14 @@ class VolumeFactory(PipeFactory):
         if self.color is None and \
            ((self.vmin is not None) or (self.vmax is not None)):
             # FIXME: We don't use 'rescale_ctfs' because it screws up the
-            # nodes.
+            # nodes, this is because, the values are actually scaled between
+            # the specified vmin/vmax and NOT the full range of values
+            # specified in the CTF or in the volume object.
             if self.__last_vrange:
                 last_min, last_max = self.__last_vrange
             else:
                 last_min, last_max = range_min, range_max
+
             def _rescale_value(x):
                 nx = (x - last_min) / (last_max - last_min)
                 return vmin + nx * (vmax - vmin)
