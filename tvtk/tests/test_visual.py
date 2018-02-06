@@ -133,7 +133,7 @@ class TestVisual(unittest.TestCase):
 
     def test_cylinder(self):
         # When
-        c = visual.cylinder(radius=0.5, length=2, pos=(1,1,1))
+        c = visual.cylinder(radius=0.5, length=2, pos=(1., 1, 1))
 
         # Then
         assert_allclose(
@@ -190,16 +190,15 @@ class TestVisual(unittest.TestCase):
         assert_allclose(a.polydata.bounds, bounds, atol=1e-3, rtol=0)
 
         # Given
-        a = visual.arrow(pos=(1,1,1))
+        a = visual.arrow(pos=(1.0, 1.0, 1.0))
         # Then
         bounds = get_bounds((1.5, 1.0, 1.0), (1.0, 0.16, 0.14))
-        assert_allclose(a.pos, (1,1,1))
+        assert_allclose(a.pos, (1., 1., 1.))
         assert_allclose(a.polydata.bounds, bounds, atol=1e-3, rtol=0)
-
 
     def test_ellipsoid(self):
         # When
-        s = visual.ellipsoid(size=(1.0, 1.0, 1.0), pos=(1,1,1))
+        s = visual.ellipsoid(size=(1.0, 1.0, 1.0), pos=(1., 1., 1.))
 
         # Then
 
@@ -232,28 +231,28 @@ class TestVisual(unittest.TestCase):
 
     def test_curve(self):
         # Given/When
-        c = visual.curve(points=[[0,0,0],[1,1,1]], pos=(1,1,1))
+        c = visual.curve(points=[[0.,0.,0.],[1.,1.,1.]], pos=(1.,1.,1.))
 
         # Then
         bounds = get_bounds((1.5, 1.5, 1.5), (1.0, 1.0, 1.0))
         assert_allclose(c.polydata.bounds, bounds)
 
         # When
-        c = visual.curve(points=[[0,0,0],[1,1,1]], axis=(0, 1, 0))
+        c = visual.curve(points=[[0.,0,0],[1.,1,1]], axis=(0., 1, 0))
         # Then
         bounds = get_bounds((-0.5, 0.5, 0.5), (1.0, 1.0, 1.0))
         assert_allclose(c.polydata.bounds, bounds)
 
     def test_helix(self):
         # Given/When
-        h = visual.helix(pos=(1,1,1))
+        h = visual.helix(pos=(1., 1.,1.))
 
         # Then
         bounds = get_bounds((1.5, 1.0, 1.0), (1.0, 0.4, 0.4))
         assert_allclose(h.polydata.bounds, bounds, atol=3e-2, rtol=0)
 
         # Given/When
-        h.axis = 0, 1, 0
+        h.axis = 0., 1., 0.
         # Then
         bounds = get_bounds((1.0, 1.5, 1.0), (0.4, 1.0, 0.4))
         assert_allclose(h.polydata.bounds, bounds, atol=3e-2, rtol=0)

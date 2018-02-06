@@ -102,6 +102,11 @@ class TVTKGenerator:
             classes = []
             for node in wrap_gen.get_tree():
                 name = node.name
+                # This is another class we should not wrap and exists
+                # in version 8.1.0.
+                ignore = ['vtkOpenGLGL2PSHelperImpl']
+                if name in ignore:
+                    continue
                 if not name.startswith('vtk') or name.startswith('vtkQt'):
                     continue
                 if not hasattr(vtk, name) or not hasattr(getattr(vtk, name), 'IsA'):  # noqa

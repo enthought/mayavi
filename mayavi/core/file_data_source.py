@@ -178,6 +178,7 @@ class FileDataSource(Source):
     _min_timestep = Int(0)
     _max_timestep = Int(0)
     _timer = Any
+    _in_update_files = Any(False)
 
     ######################################################################
     # `object` interface
@@ -307,11 +308,20 @@ class FileDataSource(Source):
 
     def _update_files_fired(self):
         # First get all the siblings before we change the current file list.
-        siblings = self._find_sibling_datasets() if self.sync_timestep else []
-        fname = self.base_file_name
-        file_list = get_file_list(fname)
-        if len(file_list) == 0:
-            file_list = [fname]
-        self.file_list = file_list
-        for sibling in siblings:
-            sibling.update_files = True
+        if self._in_update_files:
+            return
+        try:
+            self._in_update_files = True
+            if self.sync_timestep:
+                siblings = self._find_sibling_datasets()
+            else:
+                siblings = []
+            fname = self.base_file_name
+            file_list = get_file_list(fname)
+            if len(file_list) == 0:
+                file_list = [fname]
+            self.file_list = file_list
+            for sibling in siblings:
+                sibling.update_files = True
+        finally:
+            self._in_update_files = False

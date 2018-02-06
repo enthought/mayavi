@@ -64,19 +64,21 @@ class TestClassTree(unittest.TestCase):
                           'vtkSparseArray', 'vtkTuple',
                           'vtkTypedArray', 'vtkVector', 'vtkVector2',
                           'vtkVector3']
-            elif len(vtk.vtkObjectBase.__bases__) > 0:
+            elif len(vtk.vtkObjectBase.__bases__) == 1:
+                expect = ['object']
+            elif len(vtk.vtkObjectBase.__bases__) > 1:
                 if vtk_major_version == 7:
                     expect = ['object', 'vtkColor3', 'vtkColor4', 'vtkDenseArray',
-                            'vtkQuaternion', 'vtkRect',
-                            'vtkSparseArray', 'vtkTuple',
-                            'vtkTypedArray', 'vtkVariantStrictWeakOrderKey',
-                            'vtkVector', 'vtkVector2', 'vtkVector3']
+                              'vtkQuaternion', 'vtkRect',
+                              'vtkSparseArray', 'vtkTuple',
+                              'vtkTypedArray', 'vtkVariantStrictWeakOrderKey',
+                              'vtkVector', 'vtkVector2', 'vtkVector3']
                 else:
                     expect = ['object', 'vtkColor3', 'vtkColor4', 'vtkDenseArray',
-                            'vtkQuaternion', 'vtkRect',
-                            'vtkSparseArray', 'vtkTuple',
-                            'vtkTypedArray', 'vtkVector', 'vtkVector2',
-                            'vtkVector3']
+                              'vtkQuaternion', 'vtkRect',
+                              'vtkSparseArray', 'vtkTuple',
+                              'vtkTypedArray', 'vtkVector', 'vtkVector2',
+                              'vtkVector3']
             else:
                 expect = ['object', 'vtkColor3', 'vtkColor4', 'vtkDenseArray',
                           'vtkObjectBase', 'vtkQuaternion', 'vtkRect',

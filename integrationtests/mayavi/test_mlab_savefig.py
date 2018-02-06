@@ -65,7 +65,7 @@ class TestMlabSavefigUnitTest(unittest.TestCase):
     def test_many_savefig_offscreen(self):
         """Test if savefig works with off_screen_rendering and Engine"""
         engine = Engine()
-        for _ in xrange(5):
+        for _ in range(5):
             self.setup_engine_and_figure(engine)
 
             # Use off-screen rendering

@@ -397,10 +397,11 @@ class TestMlabModules(TestMlabNullEngine):
         range1 = vol1._ctf.range[1] - vol1._ctf.range[0]
         vol2 = mlab.pipeline.volume(src, vmin=0.25, vmax=0.75)
         range2 = vol2._ctf.range[1] - vol2._ctf.range[0]
-        for value in 0.5*np.random.random(10):
+        for value in np.random.random(10):
             np.testing.assert_array_almost_equal(
-                        vol1._ctf.get_color(2*range1*value),
-                        vol2._ctf.get_color(0.25+range2*value))
+                vol1._ctf.get_color(range1*value),
+                vol2._ctf.get_color(0.25 + 0.5*range2*value)
+            )
         # Test outside the special [0, 1] range
         src = mlab.pipeline.scalar_field(2*scalars)
         vol1 = mlab.pipeline.volume(src)

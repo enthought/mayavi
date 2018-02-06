@@ -20,7 +20,8 @@ from itertools import chain
 
 # Local imports (these are relative imports because the package is not
 # installed when these modules are imported).
-from .common import get_tvtk_name, camel2enthought, is_version_58
+from .common import (get_tvtk_name, camel2enthought, is_version_58,
+                     vtk_major_version)
 
 from . import vtk_parser
 from . import indenter
@@ -285,6 +286,8 @@ class WrapperGenerator:
         except NameError:
             # Silly workaround for Python3.
             long = int
+
+        inf = float('inf')
 
         """
         out.write(self.indent.format(prelim))
@@ -1592,7 +1595,14 @@ class WrapperGenerator:
         # In VTK 5.8, tolerance is initialised as 0 while the range
         # is 1-100
         'vtkAxesTransformRepresentation.Tolerance$': (
-            True, True, '_write_axes_transform_representation_tolerance')
+            True, True, '_write_axes_transform_representation_tolerance'),
+
+        # In VTK 8.x, vtkSmartVolumeMapper.Get/Set VectorComponent is
+        # supposed to be between 0 and 3 but is initialized to some random
+        # value.
+        'vtkSmartVolumeMapper.VectorComponent$': (
+            True, True, '_write_smart_volume_mapper_vector_component'
+        )
     }
 
     @classmethod
@@ -1762,6 +1772,27 @@ class WrapperGenerator:
             message = ("vtkAxesTransformRepresentation: "
                        "tolerance not updatable "
                        "(VTK 5.8 bug - value not properly initialized)")
+            print(message)
+            default = rng[0]
+        t_def = ('traits.Trait({default}, traits.Range{rng}, '
+                 'enter_set=True, auto_set=False)').format(default=default,
+                                                           rng=rng)
+        name = self._reform_name(vtk_attr_name)
+        vtk_set_meth = getattr(klass, 'Set' + vtk_attr_name)
+        self._write_trait(out, name, t_def, vtk_set_meth, mapped=False)
+
+    def _write_smart_volume_mapper_vector_component(self, klass, out,
+                                                    vtk_attr_name):
+        if vtk_attr_name != 'VectorComponent':
+            raise RuntimeError("Not sure why you ask for me! "
+                               "I only deal with VectorComponent. Panicking.")
+
+        default, rng = self.parser.get_get_set_methods()[vtk_attr_name]
+
+        if vtk_major_version >= 8:
+            message = ("vtkSmartVolumeMapper: "
+                       "VectorComponent not updatable "
+                       "(VTK 8.x bug - value not properly initialized)")
             print(message)
             default = rng[0]
         t_def = ('traits.Trait({default}, traits.Range{rng}, '

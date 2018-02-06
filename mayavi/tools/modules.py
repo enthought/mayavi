@@ -570,7 +570,7 @@ class VolumeFactory(PipeFactory):
 
     _target = Instance(modules.Volume, ())
 
-    __ctf_rescaled = Bool(False)
+    __last_vrange = Any(None)
 
     ######################################################################
     # Non-public interface.
@@ -616,13 +616,19 @@ class VolumeFactory(PipeFactory):
         otf.add_point(vmax, 0.2)
         self._target._otf = otf
         self._target._volume_property.set_scalar_opacity(otf)
-        if self.color is None and not self.__ctf_rescaled and \
-                        ((self.vmin is not None) or (self.vmax is not None)):
+        if self.color is None and \
+           ((self.vmin is not None) or (self.vmax is not None)):
             # FIXME: We don't use 'rescale_ctfs' because it screws up the
-            # nodes.
+            # nodes, this is because, the values are actually scaled between
+            # the specified vmin/vmax and NOT the full range of values
+            # specified in the CTF or in the volume object.
+            if self.__last_vrange:
+                last_min, last_max = self.__last_vrange
+            else:
+                last_min, last_max = range_min, range_max
 
             def _rescale_value(x):
-                nx = (x - range_min) / (range_max - range_min)
+                nx = (x - last_min) / (last_max - last_min)
                 return vmin + nx * (vmax - vmin)
             # The range of the existing ctf can vary.
             scale_min, scale_max = self._target._ctf.range
@@ -656,12 +662,12 @@ class VolumeFactory(PipeFactory):
 
             self._target._ctf = ctf
             self._target._volume_property.set_color(ctf)
-            self.__ctf_rescaled = True
+            self.__last_vrange = vmin, vmax
 
         self._target.update_ctf = True
 
     # This is not necessary: the job is already done by _vmin_changed
-    #_vmax_changed = _vmin_changed
+    _vmax_changed = _vmin_changed
 
 volume = make_function(VolumeFactory)
 

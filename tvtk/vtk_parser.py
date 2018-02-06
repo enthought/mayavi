@@ -626,6 +626,9 @@ class VTKMethodParser:
             elif (klass_name == 'vtkVolumeMapper'
                   and method[3:] == 'CroppingRegionPlanes'):
                 continue
+            elif (klass_name == 'vtkContextMouseEvent'
+                  and method[3:] == 'Interactor'):
+                pass
             elif (method[:3] == 'Set') and ('Get' + method[3:]) in methods:
                 key = method[3:]
                 meths.remove('Set' + key)
@@ -650,15 +653,19 @@ class VTKMethodParser:
                         # This class breaks standard VTK conventions.
                         gsm[key] = (3, (1, 3))
                         continue
+                    elif (klass_name == 'vtkContextMouseEvent' and
+                          key == 'Interactor'):
+                        # On VTK 8.1.0 this segfaults when uninitialized.
+                        default = None
                     else:
                         try:
-                            default = getattr(obj, 'Get%s'%key)()
+                            default = getattr(obj, 'Get%s' % key)()
                         except TypeError:
                             default = None
 
                     if value:
-                        low = getattr(obj, 'Get%sMinValue'%key)()
-                        high = getattr(obj, 'Get%sMaxValue'%key)()
+                        low = getattr(obj, 'Get%sMinValue' % key)()
+                        high = getattr(obj, 'Get%sMaxValue' % key)()
                         gsm[key] = (default, (low, high))
                     else:
                         gsm[key] = (default, None)
