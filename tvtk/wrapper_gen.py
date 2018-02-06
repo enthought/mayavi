@@ -262,7 +262,6 @@ class WrapperGenerator:
         """
         prelim = """
         # Automatically generated code: EDIT AT YOUR OWN RISK
-        from math import inf
         from traits import api as traits
         from traitsui.item import Item, spring
         from traitsui.group import HGroup
@@ -287,6 +286,8 @@ class WrapperGenerator:
         except NameError:
             # Silly workaround for Python3.
             long = int
+
+        inf = float('inf')
 
         """
         out.write(self.indent.format(prelim))
