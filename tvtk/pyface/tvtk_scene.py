@@ -7,7 +7,7 @@ functionality. See the class docs for more details.
 
 """
 # Author: Prabhu Ramachandran <prabhu@enthought.com>
-# Copyright (c) 2007-2016, Enthought, Inc.
+# Copyright (c) 2007-2018, Enthought, Inc.
 # License: BSD Style.
 
 
@@ -30,6 +30,12 @@ from tvtk.pyface import light_manager
 
 VTK_VER = tvtk.Version().vtk_version
 
+
+def set_magnification(w2if, magnification):
+    if hasattr(w2if, 'magnification'):
+        w2if.magnification = magnification
+    else:
+        w2if.scale = magnification, magnification
 
 
 ######################################################################
@@ -125,7 +131,10 @@ class TVTKScene(HasPrivateTraits):
     # `self.render_window.aa_frames` in order to produce anti-aliased
     # figures when a scene is saved to an image.  It then restores the
     # `aa_frames` in order to get interactive rendering rates.
-    anti_aliasing_frames = Range(0, 20, 8, desc='number of frames to use for anti-aliasing when saving a scene')
+    anti_aliasing_frames = Range(
+        0, 20, 8,
+        desc='number of frames to use for anti-aliasing when saving a scene'
+    )
 
     # Default JPEG quality.
     jpeg_quality = Range(10, 100, 95, desc='the quality of the JPEG image to produce')
@@ -422,11 +431,7 @@ class TVTKScene(HasPrivateTraits):
         """Saves the rendered scene to a rasterized PostScript image.
         For vector graphics use the save_gl2ps method."""
         if len(file_name) != 0:
-            w2if = tvtk.WindowToImageFilter(read_front_buffer=
-                                              not self.off_screen_rendering)
-            w2if.magnification = self.magnification
-            self._lift()
-            w2if.input = self._renwin
+            w2if = self._get_window_to_image()
             ex = tvtk.PostScriptWriter()
             ex.file_name = file_name
             configure_input(ex, w2if)
@@ -435,11 +440,7 @@ class TVTKScene(HasPrivateTraits):
     def save_bmp(self, file_name):
         """Save to a BMP image file."""
         if len(file_name) != 0:
-            w2if = tvtk.WindowToImageFilter(read_front_buffer=
-                                              not self.off_screen_rendering)
-            w2if.magnification = self.magnification
-            self._lift()
-            w2if.input = self._renwin
+            w2if = self._get_window_to_image()
             ex = tvtk.BMPWriter()
             ex.file_name = file_name
             configure_input(ex, w2if)
@@ -448,11 +449,7 @@ class TVTKScene(HasPrivateTraits):
     def save_tiff(self, file_name):
         """Save to a TIFF image file."""
         if len(file_name) != 0:
-            w2if = tvtk.WindowToImageFilter(read_front_buffer=
-                                              not self.off_screen_rendering)
-            w2if.magnification = self.magnification
-            self._lift()
-            w2if.input = self._renwin
+            w2if = self._get_window_to_image()
             ex = tvtk.TIFFWriter()
             ex.file_name = file_name
             configure_input(ex, w2if)
@@ -461,11 +458,7 @@ class TVTKScene(HasPrivateTraits):
     def save_png(self, file_name):
         """Save to a PNG image file."""
         if len(file_name) != 0:
-            w2if = tvtk.WindowToImageFilter(read_front_buffer=
-                                              not self.off_screen_rendering)
-            w2if.magnification = self.magnification
-            self._lift()
-            w2if.input = self._renwin
+            w2if = self._get_window_to_image()
             ex = tvtk.PNGWriter()
             ex.file_name = file_name
             configure_input(ex, w2if)
@@ -478,11 +471,7 @@ class TVTKScene(HasPrivateTraits):
         if len(file_name) != 0:
             if not quality and not progressive:
                 quality, progressive = self.jpeg_quality, self.jpeg_progressive
-            w2if = tvtk.WindowToImageFilter(read_front_buffer=
-                                              not self.off_screen_rendering)
-            w2if.magnification = self.magnification
-            self._lift()
-            w2if.input = self._renwin
+            w2if = self._get_window_to_image()
             ex = tvtk.JPEGWriter()
             ex.quality = quality
             ex.progressive = progressive
@@ -584,7 +573,7 @@ class TVTKScene(HasPrivateTraits):
                 light.light_type = light_type
             ########################################
 
-            save_lights_type=[]
+            save_lights_type = []
             for light in self.light_manager.lights:
                 save_lights_type.append(light.source.light_type)
 
@@ -600,7 +589,7 @@ class TVTKScene(HasPrivateTraits):
 
             # Now re-convert lights to camera lights.
             xform.invert()
-            for i,light in enumerate(self.light_manager.lights):
+            for i, light in enumerate(self.light_manager.lights):
                 cameralight_transform(light.source, xform, save_lights_type[i])
 
             # Change the camera position. Otherwise VTK would render
@@ -613,7 +602,7 @@ class TVTKScene(HasPrivateTraits):
     def save_wavefront(self, file_name):
         """Save scene to a Wavefront OBJ file.  Two files are
         generated.  One with a .obj extension and another with a .mtl
-        extension which contains the material proerties.
+        extension which contains the material properties.
 
         Keyword Arguments:
 
@@ -839,6 +828,15 @@ class TVTKScene(HasPrivateTraits):
 
         return self._interactor
 
+    def _get_window_to_image(self):
+        w2if = tvtk.WindowToImageFilter(
+            read_front_buffer=not self.off_screen_rendering
+        )
+        set_magnification(w2if, self.magnification)
+        self._lift()
+        w2if.input = self._renwin
+        return w2if
+
     def _lift(self):
         """Lift the window to the top. Useful when saving screen to an
         image."""
@@ -849,13 +847,20 @@ class TVTKScene(HasPrivateTraits):
         # Bumps up the anti-aliasing frames when the image is saved so
         # that the saved picture looks nicer.
         rw = self.render_window
-        aa_frames = rw.aa_frames
-        rw.aa_frames = self.anti_aliasing_frames
+        if hasattr(rw, 'aa_frames'):
+            aa_frames = rw.aa_frames
+            rw.aa_frames = self.anti_aliasing_frames
+        else:
+            aa_frames = rw.multi_samples
+            rw.multi_samples = self.anti_aliasing_frames
         rw.render()
         ex.update()
         ex.write()
         # Set the frames back to original setting.
-        rw.aa_frames = aa_frames
+        if hasattr(rw, 'aa_frames'):
+            rw.aa_frames = aa_frames
+        else:
+            rw.multi_samples = aa_frames
         rw.render()
 
     def _update_view(self, x, y, z, vx, vy, vz):
