@@ -9,13 +9,16 @@ Author: Prabhu Ramachandran <prabhu@enthought.com>
 Copyright (c) 2012-2013 Enthought, Inc., Mumbai, India.
 """
 
+import sys
 
 # Enthought library imports
 from pyface.qt import QtCore, QtGui
 
 # Local imports
 from .gradient_editor import (ColorControlPoint, ChannelBase, FunctionControl,
-    GradientEditorWidget)
+                              GradientEditorWidget)
+
+PY3 = sys.version_info[0] > 2
 
 ##########################################################################
 # `QGradientControl` class.
@@ -23,7 +26,7 @@ from .gradient_editor import (ColorControlPoint, ChannelBase, FunctionControl,
 class QGradientControl(QtGui.QWidget):
     """Widget which displays the gradient represented by an GradientTable
     object (and does nothing beyond that)"""
-    def __init__(self, parent, gradient_table, width, height ):
+    def __init__(self, parent=None, gradient_table=None, width=100, height=100):
         """master: panel in which to place the control. GradientTable is the
         Table to which to attach."""
         super(QGradientControl, self).__init__(parent=parent)
@@ -33,7 +36,7 @@ class QGradientControl(QtGui.QWidget):
         self.width = width
         self.height = height
         self.gradient_table = gradient_table
-        assert( gradient_table.size == width )
+        assert gradient_table.size == width
         self.setMinimumSize(100, 50)
         # currently only able to use gradient tables in the same size as the
         # canvas width
@@ -136,7 +139,8 @@ class QFunctionControl(QtGui.QWidget, FunctionControl):
 
     ChannelFactory = Channel
 
-    def __init__(self, master, gradient_table, color_space, width, height):
+    def __init__(self, master=None, gradient_table=None, color_space=None,
+                 width=100, height=100):
         """Initialize a function control widget on tkframe master.
 
         Parameters:
@@ -158,10 +162,17 @@ class QFunctionControl(QtGui.QWidget, FunctionControl):
         set_status_text: a callback used to set the status text
              when using the editor.
         """
-        FunctionControl.__init__(self, master, gradient_table, color_space,
-                                 width, height)
-
-        QtGui.QWidget.__init__(self, parent=master)
+        if PY3:
+            kw = dict(
+                master=master, gradient_table=gradient_table,
+                color_space=color_space, width=width,
+                height=height
+            )
+            super().__init__(**kw)
+        else:
+            FunctionControl.__init__(self, master, gradient_table, color_space,
+                                     width, height)
+            QtGui.QWidget.__init__(self, parent=master)
         self.resize(width, height)
         self.setMinimumSize(100, 50)
 
@@ -291,9 +302,15 @@ class QGradientEditorWidget(QtGui.QWidget, GradientEditorWidget):
                  'h', 's', 'v', 'r', 'g', 'b', 'a' separately
                  specified creates different panels for each.
         """
-        GradientEditorWidget.__init__(self, master, vtk_table,
-                                      on_change_color_table, colors)
-        QtGui.QWidget.__init__(self, master)
+        if PY3:
+            kw = dict(master=master, vtk_table=vtk_table,
+                      on_change_color_table=on_change_color_table,
+                      colors=colors)
+            super().__init__(**kw)
+        else:
+            QtGui.QWidget.__init__(self, master)
+            GradientEditorWidget.__init__(self, master, vtk_table,
+                                          on_change_color_table, colors)
 
         gradient_preview_width = self.gradient_preview_width
         gradient_preview_height = self.gradient_preview_height
@@ -400,7 +417,7 @@ class QGradientEditor(QtGui.QMainWindow):
     i.e. the thing that contains the gradient display, the function
     controls and the buttons.
     """
-    def __init__(self, vtk_table, on_change_color_table = None, colors=None):
+    def __init__(self, vtk_table, on_change_color_table=None, colors=None):
         """Initialize the gradient editor window.
 
         Parameters
@@ -413,9 +430,11 @@ class QGradientEditor(QtGui.QMainWindow):
         """
         super(QGradientEditor, self).__init__()
         self.setWindowTitle("Color Gradient Editor")
-        self.widget = QGradientEditorWidget(self, vtk_table,
-                                            on_change_color_table,
-                                            colors)
+        self.widget = QGradientEditorWidget(
+            master=self, vtk_table=vtk_table,
+            on_change_color_table=on_change_color_table,
+            colors=colors
+        )
 
         self.setCentralWidget(self.widget)
         self.resize(300, 500)

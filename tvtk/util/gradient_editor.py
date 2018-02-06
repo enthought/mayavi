@@ -1009,7 +1009,8 @@ class FunctionControl(object):
 
     ChannelFactory = ChannelBase
 
-    def __init__(self, master, gradient_table, color_space, width, height):
+    def __init__(self, master=None, gradient_table=None, color_space=None,
+                 width=100, height=100):
         """Initialize a function control widget on tkframe master.
 
         Parameters:
@@ -1134,8 +1135,8 @@ class AbstractGradientEditor(object):
 class GradientEditorWidget(AbstractGradientEditor):
     """A Gradient Editor widget that can be used anywhere.
     """
-    def __init__(self, master, vtk_table, on_change_color_table=None,
-                 colors=None):
+    def __init__(self, master=None, vtk_table=None,
+                 on_change_color_table=None, colors=None):
         """
 
         Parameters:
