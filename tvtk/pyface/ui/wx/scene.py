@@ -529,8 +529,8 @@ class Scene(TVTKScene, Widget):
         messenger.connect(vtk_rw, 'EndEvent', self._end_event_callback)
 
         # Reset the event handler to the default since our job is done.
-        wx.EVT_PAINT(self._vtk_control, None) # Remove the default handler.
-        wx.EVT_PAINT(self._vtk_control, self._vtk_control.OnPaint)
+        self._vtk_control.Bind(wx.EVT_PAINT, None) # Remove the default handler.
+        self._vtk_control.Bind(wx.EVT_PAINT, self._vtk_control.OnPaint)
 
     def OnSize(self, event):
         """Overrides the default OnSize in order to refresh the traits
@@ -569,24 +569,24 @@ class Scene(TVTKScene, Widget):
                                                                  stereo=self.stereo)
 
         # Override these handlers.
-        wx.EVT_CHAR(window, None) # Remove the default handler.
-        wx.EVT_CHAR(window, self.OnKeyDown)
-        wx.EVT_KEY_UP(window, None) # Remove the default handler.
-        wx.EVT_KEY_UP(window, self.OnKeyUp)
-        wx.EVT_PAINT(window, None) # Remove the default handler.
-        wx.EVT_PAINT(window, self.OnPaint)
-        wx.EVT_SIZE(window, None) # Remove the default handler.
-        wx.EVT_SIZE(window, self.OnSize)
+        window.Bind(wx.EVT_CHAR, None) # Remove the default handler.
+        window.Bind(wx.EVT_CHAR, self.OnKeyDown)
+        window.Bind(wx.EVT_KEY_UP, None) # Remove the default handler.
+        window.Bind(wx.EVT_KEY_UP, self.OnKeyUp)
+        window.Bind(wx.EVT_PAINT, None) # Remove the default handler.
+        window.Bind(wx.EVT_PAINT, self.OnPaint)
+        window.Bind(wx.EVT_SIZE, None) # Remove the default handler.
+        window.Bind(wx.EVT_SIZE, self.OnSize)
         # Override the button down and up handlers as well to note the
         # interaction.  This is to toggle the busy status nicely.
         for evt in (wx.EVT_LEFT_DOWN, wx.EVT_RIGHT_DOWN,
                     wx.EVT_MIDDLE_DOWN):
-            evt(window, None)
-            evt(window, self.OnButtonDown)
+            window.Bind(evt, None)
+            window.Bind(evt, self.OnButtonDown)
         for evt in (wx.EVT_LEFT_UP, wx.EVT_RIGHT_UP,
                     wx.EVT_MIDDLE_UP):
-            evt(window, None)
-            evt(window, self.OnButtonUp)
+            window.Bind(evt, None)
+            window.Bind(evt, self.OnButtonUp)
 
         # Enable the widget.
         window.Enable(1)
@@ -654,11 +654,11 @@ class Scene(TVTKScene, Widget):
             w.SetSize(sz)
             window._idle_count -= 1
             if window._idle_count < 1:
-                wx.EVT_IDLE(window, None)
+                window.Bind(wx.EVT_IDLE, None)
                 del window._idle_count
 
         window._idle_count = 2
-        wx.EVT_IDLE(window, _do_idle)
+        window.Bind(wx.EVT_IDLE, _do_idle)
 
         self._interactor = tvtk.to_tvtk(window._Iren)
         return window
