@@ -207,11 +207,20 @@ class QVTKRenderWindowInteractor(QVTKRWIBaseClass):
 
         # create qt-level widget
         if QVTKRWIBase == "QWidget":
-            QWidget.__init__(self, parent)
+            if "wflags" in kw:
+                wflags = kw['wflags']
+            else:
+                wflags = Qt.WindowFlags()
+            QWidget.__init__(self, parent, wflags | Qt.MSWindowsOwnDC)
         elif QVTKRWIBase == "QGLWidget":
             QGLWidget.__init__(self, parent)
 
-        if rw: # user-supplied render window
+        if hasattr(self, 'devicePixelRatio'):
+            self._pixel_ratio = self.devicePixelRatio()
+        else:
+            self._pixel_ratio = 1.0
+
+        if rw:  # user-supplied render window
             self._RenderWindow = rw
         else:
             self._RenderWindow = vtk.vtkRenderWindow()
@@ -221,7 +230,7 @@ class QVTKRenderWindowInteractor(QVTKRWIBaseClass):
 
         self._should_set_parent_info = (sys.platform == 'win32')
 
-        if stereo: # stereo mode
+        if stereo:  # stereo mode
             self._RenderWindow.StereoCapableWindowOn()
             self._RenderWindow.SetStereoTypeToCrystalEyes()
 
@@ -363,8 +372,9 @@ class QVTKRenderWindowInteractor(QVTKRWIBaseClass):
             else:
                 self._RenderWindow.SetParentInfo('')
 
-        w = self.width()
-        h = self.height()
+        pxr = self._pixel_ratio
+        w = self.width()*pxr
+        h = self.height()*pxr
 
         vtk.vtkRenderWindow.SetSize(self._RenderWindow, w, h)
         self._Iren.SetSize(w, h)
@@ -404,7 +414,9 @@ class QVTKRenderWindowInteractor(QVTKRWIBaseClass):
         repeat = 0
         if ev.type() == QEvent.MouseButtonDblClick:
             repeat = 1
-        self._Iren.SetEventInformationFlipY(ev.x(), ev.y(),
+
+        pxr = self._pixel_ratio
+        self._Iren.SetEventInformationFlipY(ev.x()*pxr, ev.y()*pxr,
                                             ctrl, shift, chr(0), repeat, None)
 
         self._ActiveButton = ev.button()
@@ -418,7 +430,8 @@ class QVTKRenderWindowInteractor(QVTKRWIBaseClass):
 
     def mouseReleaseEvent(self, ev):
         ctrl, shift = self._GetCtrlShift(ev)
-        self._Iren.SetEventInformationFlipY(ev.x(), ev.y(),
+        pxr = self._pixel_ratio
+        self._Iren.SetEventInformationFlipY(ev.x()*pxr, ev.y()*pxr,
                                             ctrl, shift, chr(0), 0, None)
 
         if self._ActiveButton == Qt.LeftButton:
@@ -431,11 +444,12 @@ class QVTKRenderWindowInteractor(QVTKRWIBaseClass):
     def mouseMoveEvent(self, ev):
         self.__saveModifiers = ev.modifiers()
         self.__saveButtons = ev.buttons()
-        self.__saveX = ev.x()
-        self.__saveY = ev.y()
+        pxr = self._pixel_ratio
+        self.__saveX = ev.x()*pxr
+        self.__saveY = ev.y()*pxr
 
         ctrl, shift = self._GetCtrlShift(ev)
-        self._Iren.SetEventInformationFlipY(ev.x(), ev.y(),
+        self._Iren.SetEventInformationFlipY(ev.x()*pxr, ev.y()*pxr,
                                             ctrl, shift, chr(0), 0, None)
         self._Iren.MouseMoveEvent()
 
@@ -663,6 +677,7 @@ _keysyms = {
     Qt.Key_ScrollLock: 'Scroll_Lock',
     }
 
+
 def _qt_key_to_key_sym(key):
     """ Convert a Qt key into a vtk keysym.
 
@@ -671,7 +686,7 @@ def _qt_key_to_key_sym(key):
     """
 
     if key not in _keysyms:
-        return None
+        return 'None'
 
     return _keysyms[key]
 
