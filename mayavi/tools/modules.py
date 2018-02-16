@@ -630,7 +630,11 @@ class VolumeFactory(PipeFactory):
             def _rescale_value(x):
                 nx = (x - last_min) / (last_max - last_min)
                 return vmin + nx * (vmax - vmin)
-            # The range of the existing ctf can vary.
+
+            # For some reason on older versions of VTK (< 8.1 at least),
+            # The range trait is not updated correctly when the rgb points
+            # are added, this causes problems so we explicitly update them.
+            self._target._ctf.update_traits()
             scale_min, scale_max = self._target._ctf.range
 
             def _rescale_node(x):

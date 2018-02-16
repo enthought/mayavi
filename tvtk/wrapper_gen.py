@@ -1597,6 +1597,12 @@ class WrapperGenerator:
         'vtkAxesTransformRepresentation.Tolerance$': (
             True, True, '_write_axes_transform_representation_tolerance'),
 
+        # In VTK 7.x, vtkSpanSpace.GetResolution is supposed to be between
+        # 1 and 2147483647L but can be much larger when un-initialized.
+        'vtkSpanSpace.Resolution$': (
+            True, True, '_write_span_space_resolution'
+        ),
+
         # In VTK 8.x, vtkSmartVolumeMapper.Get/Set VectorComponent is
         # supposed to be between 0 and 3 but is initialized to some random
         # value.
@@ -1793,6 +1799,27 @@ class WrapperGenerator:
             message = ("vtkSmartVolumeMapper: "
                        "VectorComponent not updatable "
                        "(VTK 8.x bug - value not properly initialized)")
+            print(message)
+            default = rng[0]
+        t_def = ('traits.Trait({default}, traits.Range{rng}, '
+                 'enter_set=True, auto_set=False)').format(default=default,
+                                                           rng=rng)
+        name = self._reform_name(vtk_attr_name)
+        vtk_set_meth = getattr(klass, 'Set' + vtk_attr_name)
+        self._write_trait(out, name, t_def, vtk_set_meth, mapped=False)
+
+    def _write_span_space_resolution(self, klass, out,
+                                     vtk_attr_name):
+        if vtk_attr_name != 'Resolution':
+            raise RuntimeError("Not sure why you ask for me! "
+                               "I only deal with Resolution. Panicking.")
+
+        default, rng = self.parser.get_get_set_methods()[vtk_attr_name]
+
+        if vtk_major_version == 7:
+            message = ("vtkSpanSpace: "
+                       "Resolution not updatable "
+                       "(VTK 7.x bug - value not properly initialized)")
             print(message)
             default = rng[0]
         t_def = ('traits.Trait({default}, traits.Range{rng}, '

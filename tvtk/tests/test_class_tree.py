@@ -64,27 +64,20 @@ class TestClassTree(unittest.TestCase):
                           'vtkSparseArray', 'vtkTuple',
                           'vtkTypedArray', 'vtkVector', 'vtkVector2',
                           'vtkVector3']
-            elif len(vtk.vtkObjectBase.__bases__) == 1:
-                expect = ['object']
-            elif len(vtk.vtkObjectBase.__bases__) > 1:
-                if vtk_major_version == 7:
-                    expect = ['object', 'vtkColor3', 'vtkColor4', 'vtkDenseArray',
-                              'vtkQuaternion', 'vtkRect',
-                              'vtkSparseArray', 'vtkTuple',
-                              'vtkTypedArray', 'vtkVariantStrictWeakOrderKey',
-                              'vtkVector', 'vtkVector2', 'vtkVector3']
-                else:
-                    expect = ['object', 'vtkColor3', 'vtkColor4', 'vtkDenseArray',
-                              'vtkQuaternion', 'vtkRect',
-                              'vtkSparseArray', 'vtkTuple',
-                              'vtkTypedArray', 'vtkVector', 'vtkVector2',
-                              'vtkVector3']
-            else:
+            elif vtk_major_version == 6:
                 expect = ['object', 'vtkColor3', 'vtkColor4', 'vtkDenseArray',
                           'vtkObjectBase', 'vtkQuaternion', 'vtkRect',
                           'vtkSparseArray', 'vtkTuple',
                           'vtkTypedArray', 'vtkVector', 'vtkVector2',
                           'vtkVector3']
+            elif vtk_major_version == 7:
+                expect = ['object', 'vtkColor3', 'vtkColor4', 'vtkDenseArray',
+                          'vtkQuaternion', 'vtkRect',
+                          'vtkSparseArray', 'vtkTuple',
+                          'vtkTypedArray', 'vtkVariantStrictWeakOrderKey',
+                          'vtkVector', 'vtkVector2', 'vtkVector3']
+            elif vtk_major_version == 8:
+                expect = ['object']
             self.assertEqual(names, expect)
         elif (hasattr(vtk, 'vtkVector')):
             self.assertEqual(len(t.tree[0]), 11)
@@ -96,7 +89,7 @@ class TestClassTree(unittest.TestCase):
                       'vtkVector3']
             self.assertEqual(names, expect)
         elif (hasattr(vtk, 'vtkArrayCoordinates')
-                        and issubclass(vtk.vtkArrayCoordinates, object)):
+              and issubclass(vtk.vtkArrayCoordinates, object)):
             self.assertEqual(len(t.tree[0]), 2)
             names = [x.name for x in t.tree[0]]
             names.sort()

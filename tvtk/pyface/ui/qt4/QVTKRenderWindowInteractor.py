@@ -373,8 +373,8 @@ class QVTKRenderWindowInteractor(QVTKRWIBaseClass):
                 self._RenderWindow.SetParentInfo('')
 
         pxr = self._pixel_ratio
-        w = self.width()*pxr
-        h = self.height()*pxr
+        w = int(self.width()*pxr)
+        h = int(self.height()*pxr)
 
         vtk.vtkRenderWindow.SetSize(self._RenderWindow, w, h)
         self._Iren.SetSize(w, h)
@@ -416,7 +416,7 @@ class QVTKRenderWindowInteractor(QVTKRWIBaseClass):
             repeat = 1
 
         pxr = self._pixel_ratio
-        self._Iren.SetEventInformationFlipY(ev.x()*pxr, ev.y()*pxr,
+        self._Iren.SetEventInformationFlipY(int(ev.x()*pxr), int(ev.y()*pxr),
                                             ctrl, shift, chr(0), repeat, None)
 
         self._ActiveButton = ev.button()
@@ -431,7 +431,7 @@ class QVTKRenderWindowInteractor(QVTKRWIBaseClass):
     def mouseReleaseEvent(self, ev):
         ctrl, shift = self._GetCtrlShift(ev)
         pxr = self._pixel_ratio
-        self._Iren.SetEventInformationFlipY(ev.x()*pxr, ev.y()*pxr,
+        self._Iren.SetEventInformationFlipY(int(ev.x()*pxr), int(ev.y()*pxr),
                                             ctrl, shift, chr(0), 0, None)
 
         if self._ActiveButton == Qt.LeftButton:
@@ -445,11 +445,11 @@ class QVTKRenderWindowInteractor(QVTKRWIBaseClass):
         self.__saveModifiers = ev.modifiers()
         self.__saveButtons = ev.buttons()
         pxr = self._pixel_ratio
-        self.__saveX = ev.x()*pxr
-        self.__saveY = ev.y()*pxr
+        self.__saveX = int(ev.x()*pxr)
+        self.__saveY = int(ev.y()*pxr)
 
         ctrl, shift = self._GetCtrlShift(ev)
-        self._Iren.SetEventInformationFlipY(ev.x()*pxr, ev.y()*pxr,
+        self._Iren.SetEventInformationFlipY(int(ev.x()*pxr), int(ev.y()*pxr),
                                             ctrl, shift, chr(0), 0, None)
         self._Iren.MouseMoveEvent()
 
