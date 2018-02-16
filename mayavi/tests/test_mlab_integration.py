@@ -24,13 +24,21 @@ from mayavi.tests.common import get_example_data
 
 ################################################################################
 # class `TestMlabNullEngine`
-################################################################################
+###############################################################################
 class TestMlabNullEngine(unittest.TestCase):
     """ Stub mlab to isolate as well as possible from creation of a new
         figure.
     """
 
+    def _stop_unregister_all_engines(self):
+        # Some tests leave around engines hanging around, so we clean them
+        # up to avoid strange test errors.
+        for engine in list(registry.engines.values()):
+            engine.stop()
+            registry.unregister_engine(engine)
+
     def setUp(self):
+        self._stop_unregister_all_engines()
         mlab.options.backend = 'test'
         e = mlab.get_engine()
         self.e = e
