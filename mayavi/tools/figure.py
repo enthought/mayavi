@@ -19,6 +19,7 @@ from pyface.timer.api import do_later
 
 #  imports
 from tvtk.api import tvtk
+from tvtk.common import vtk_major_version
 from mayavi.core.scene import Scene
 from mayavi.core.registry import registry
 from .camera import view
@@ -31,7 +32,7 @@ __scene_number_list = set((0,))
 
 
 def figure(figure=None, bgcolor=None, fgcolor=None, engine=None,
-                size=(400, 350)):
+           size=(400, 350)):
     """ Creates a new scene or retrieves an existing scene. If the mayavi
     engine is not running this also starts it.
 
@@ -69,7 +70,7 @@ def figure(figure=None, bgcolor=None, fgcolor=None, engine=None,
             engine.current_scene.name = name
         else:
             if type(figure) in (int, np.int, np.int0, np.int8,
-                            np.int16, np.int32, np.int64):
+                                np.int16, np.int32, np.int64):
                 name = int(figure)
                 __scene_number_list.update((name,))
                 name = 'Mayavi Scene %d' % name
@@ -163,7 +164,7 @@ def close(scene=None, all=False):
             scene = engine.current_scene
         else:
             if type(scene) in (int, np.int, np.int0, np.int8,
-                            np.int16, np.int32, np.int64):
+                               np.int16, np.int32, np.int64):
                 scene = int(scene)
                 name = 'Mayavi Scene %d' % scene
             else:
@@ -193,7 +194,7 @@ def draw(figure=None):
 
 
 def savefig(filename, size=None, figure=None, magnification='auto',
-                    **kwargs):
+            **kwargs):
     """ Save the current scene.
         The output format are deduced by the extension to filename.
         Possibilities are png, jpg, bmp, tiff, ps, eps, pdf, rib (renderman),
@@ -236,7 +237,7 @@ def savefig(filename, size=None, figure=None, magnification='auto',
             target_x, target_y = size
             if magnification is 'auto':
                 magnification = max(target_x // current_x,
-                                            target_y // current_y) + 1
+                                    target_y // current_y) + 1
                 target_x = int(target_x / magnification)
                 target_y = int(target_y / magnification)
                 size = target_x, target_y
@@ -244,8 +245,8 @@ def savefig(filename, size=None, figure=None, magnification='auto',
             magnification = 1
         figure.scene.magnification = int(magnification)
         figure.scene.save(filename,
-                            size=size,
-                            **kwargs)
+                          size=size,
+                          **kwargs)
     finally:
         figure.scene.magnification = int(current_mag)
 
@@ -254,10 +255,12 @@ def sync_camera(reference_figure, target_figure):
     """ Synchronise the camera of the target_figure on the camera of the
         reference_figure.
     """
-    reference_figure.scene._renderer.sync_trait('active_camera',
-                        target_figure.scene._renderer)
+    reference_figure.scene._renderer.sync_trait(
+        'active_camera', target_figure.scene._renderer
+    )
     target_figure.scene._renderer.active_camera.on_trait_change(
-            lambda: do_later(target_figure.scene.render))
+            lambda: do_later(target_figure.scene.render)
+    )
 
 
 def screenshot(figure=None, mode='rgb', antialiased=False):
@@ -305,25 +308,38 @@ def screenshot(figure=None, mode='rgb', antialiased=False):
         out = tvtk.UnsignedCharArray()
         shape = (y, x, 3)
         pixel_getter = figure.scene.render_window.get_pixel_data
-        pg_args = (0, 0, x - 1, y - 1, 1, out)
+        if vtk_major_version > 7:
+            pg_args = (0, 0, x - 1, y - 1, 1, out, 0)
+        else:
+            pg_args = (0, 0, x - 1, y - 1, 1, out)
 
     elif mode == 'rgba':
         out = tvtk.FloatArray()
         shape = (y, x, 4)
         pixel_getter = figure.scene.render_window.get_rgba_pixel_data
-        pg_args = (0, 0, x - 1, y - 1, 1, out)
+        if vtk_major_version > 7:
+            pg_args = (0, 0, x - 1, y - 1, 1, out, 0)
+        else:
+            pg_args = (0, 0, x - 1, y - 1, 1, out)
 
     else:
         raise ValueError('mode type not understood')
 
     if antialiased:
         # save the current aa value to restore it later
-        old_aa = figure.scene.render_window.aa_frames
-
-        figure.scene.render_window.aa_frames = figure.scene.anti_aliasing_frames
+        render_window = figure.scene.render_window
+        if hasattr(render_window, 'aa_frames'):
+            old_aa = render_window.aa_frames
+            render_window.aa_frames = figure.scene.anti_aliasing_frames
+        else:
+            old_aa = render_window.multi_samples
+            render_window.multi_samples = figure.scene.anti_aliasing_frames
         figure.scene.render()
         pixel_getter(*pg_args)
-        figure.scene.render_window.aa_frames = old_aa
+        if hasattr(render_window, 'aa_frames'):
+            render_window.aa_frames = old_aa
+        else:
+            render_window.multi_samples = old_aa
         figure.scene.render()
 
     else:

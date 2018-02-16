@@ -9,7 +9,7 @@ import numpy
 from mayavi import mlab
 from mayavi.core.engine import Engine
 from mayavi.core.off_screen_engine import OffScreenEngine
-from mayavi.tools.figure import savefig
+from mayavi.tools.figure import savefig, screenshot
 
 from common import TestCase
 
@@ -77,6 +77,24 @@ class TestMlabSavefigUnitTest(unittest.TestCase):
             # save the figure
             savefig(self.filename, size=(131, 217),
                     figure=self.figure)
+
+    def test_mlab_screenshot(self):
+        # Given
+        engine = Engine()
+        self.setup_engine_and_figure(engine)
+        create_quiver3d()
+        sz = self.figure.scene.get_size()
+
+        for aa in (False, True):
+            # When
+            data = screenshot(mode='rgb', antialiased=aa)
+            # Then
+            self.assertEqual(data.shape, (sz[1], sz[0], 3))
+
+            # When
+            data = screenshot(mode='rgba', antialiased=aa)
+            # Then
+            self.assertEqual(data.shape, (sz[1], sz[0], 4))
 
 
 class TestMlabSavefig(TestCase):
