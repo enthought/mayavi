@@ -55,6 +55,7 @@ _mapper_group = Group(
 # The Texture's view group
 if vtk_major_version > 7:
     _texture_group = Group(Item(name='interpolate'),
+                           Item(name='color_mode'),
                            Item(name='repeat'),
                            show_border=True)
 else:
