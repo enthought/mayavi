@@ -51,10 +51,6 @@ class _VTKRenderWindowInteractor(QVTKRenderWindowInteractor):
 
         self._scene = scene
         self._interacting = False
-        if hasattr(self, 'devicePixelRatio'):
-            self._pixel_ratio = self.devicePixelRatio()
-        else:
-            self._pixel_ratio = 1.0
 
     def resizeEvent(self, e):
         """ Reimplemented to refresh the traits of the render window.

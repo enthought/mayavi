@@ -215,11 +215,6 @@ class QVTKRenderWindowInteractor(QVTKRWIBaseClass):
         elif QVTKRWIBase == "QGLWidget":
             QGLWidget.__init__(self, parent)
 
-        if hasattr(self, 'devicePixelRatio'):
-            self._pixel_ratio = self.devicePixelRatio()
-        else:
-            self._pixel_ratio = 1.0
-
         if rw:  # user-supplied render window
             self._RenderWindow = rw
         else:
@@ -240,6 +235,11 @@ class QVTKRenderWindowInteractor(QVTKRWIBaseClass):
             self._Iren = vtk.vtkGenericRenderWindowInteractor()
 
         self._Iren.SetRenderWindow(self._RenderWindow)
+
+        if hasattr(self, 'devicePixelRatio'):
+            self._pixel_ratio = self.devicePixelRatio()
+        else:
+            self._pixel_ratio = 1.0
 
         # do all the necessary qt setup
         self.setAttribute(Qt.WA_OpaquePaintEvent)
