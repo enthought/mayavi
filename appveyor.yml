@@ -4,7 +4,9 @@ environment:
 
   global:
     PYTHONBUFFERED: "1"
-    distutils_use_sdk: 1
+    CMD_IN_ENV: "cmd /E:ON /V:ON /C .\\ci\\run_with_env.cmd"
+    PYTHON_VERSION: "3.6.x"
+    PYTHON_ARCH: "64"
 
 cache:
   - c:\temp
@@ -20,9 +22,9 @@ install:
   - start /wait msiexec /a edm_1.9.1_x86_64.msi /qn /log install.log TARGETDIR=c:\
   - edm info
   - edm install --version 3.6 -y numpy mock Sphinx coverage psutil
-  - edm run -- pip install -r travis\travis-requirements.txt
+  - "%CMD_IN_ENV% edm run -- pip install -r travis\travis-requirements.txt"
   - edm run -- pip install vtk pyqt5
-  - edm run -- python setup.py develop
+  - "%CMD_IN_ENV% edm run -- python setup.py develop"
 
 test_script:
   - edm run -- coverage erase
