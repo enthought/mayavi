@@ -106,7 +106,7 @@ def get_trait_def(value, **kwargs):
         if kwargs_code:
             kwargs_code += ', '
 
-        kwargs_code += ('shape={shape}, dtype={dtype}, '
+        kwargs_code += ('shape={shape}, dtype="{dtype}", '
                         'value={value!r}, cols={cols}').format(
                             shape=shape, dtype=dtype,
                             value=value, cols=min(3, cols))
