@@ -3,25 +3,30 @@ shallow_clone: true
 environment:
 
   global:
+    PYTHONBUFFERED: "1"
     distutils_use_sdk: 1
-    sdkver: "C:/Program Files/Microsoft SDKs/Windows/v7.0/Setup/WindowsSdkVer.exe"
-    python: "C:/Python27-x64"
-    vtk_url: "http://www.vtk.org/files/release/6.2/vtkpython-6.2.0-Windows-64bit.exe"
-    pythonpath: "C:/vtk/bin/Lib/site-packages"
 
 cache:
   - c:\temp
 
 init:
-  - ps: $Env:path = $Env:python + ";" + $Env:python + "\scripts;" + "C:\Program Files\Microsoft SDKs\Windows\v7.0\Bin;" + "C:\vtk\bin;" + $Env:path
+  - ps: $Env:path = "C:\Enthought\edm;" + $Env:path
   - ps: $env:ETS_TOOLKIT="qt4"
+  - ps: $env:QT_API="pyqt5"
+
 install:
-  - ps: if ((Test-Path "c:/temp") -eq 0) { mkdir c:/temp }
-  - ps: (new-object net.webclient).DownloadFile($Env:vtk_url, 'c:/vtkpython.exe')
-  - ps: c:/vtkpython.exe /S /D=C:\vtk
-  - ps: python -m pip install --upgrade --no-binary ":all:" pip
-  - ps: pip install --upgrade wheel
-  - ps: pip --version
-  - cmd /v:on /e:on /c ".\appveyor-install.cmd"
+  # Install edm, needed so we can quickly install numpy.
+  - ps: Start-FileDownload "https://package-data.enthought.com/edm/win_x86_64/1.9/edm_1.9.1_x86_64.msi"
+  - start /wait msiexec /a edm_1.9.1_x86_64.msi /qn /log install.log TARGETDIR=c:\
+  - edm info
+  - edm install --version 3.6 -y numpy mock Sphinx coverage psutil
+  - edm run -- pip install -r travis\travis-requirements.txt
+  - edm run -- pip install vtk pyqt5
+  - edm run -- python setup.py develop
+
 test_script:
-  - cmd /v:on /e:on /c ".\appveyor-test.cmd"
+  - edm run -- coverage erase
+  - edm run -- coverage run -p -m nose.core -v tvtk/tests
+  - edm run -- coverage run -p -m nose.core -v mayavi
+  - edm run -- coverage combine
+  - edm run -- coverage report
