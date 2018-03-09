@@ -98,6 +98,9 @@ def get_trait_def(value, **kwargs):
         shape = (len(value),)
         dtypes = set(type(element) for element in value)
         dtype = dtypes.pop().__name__ if len(dtypes) == 1 else None
+        if dtype == 'int' and sys.platform.startswith('win'):
+            dtype = 'int64'
+
         cols = len(value)
 
         if kwargs_code:
@@ -106,7 +109,7 @@ def get_trait_def(value, **kwargs):
         kwargs_code += ('shape={shape}, dtype={dtype}, '
                         'value={value!r}, cols={cols}').format(
                             shape=shape, dtype=dtype,
-                            value=value, cols=min(3, len(value)))
+                            value=value, cols=min(3, cols))
 
         return 'traits.Array', '', kwargs_code
 
