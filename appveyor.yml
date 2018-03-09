@@ -22,7 +22,7 @@ install:
   - start /wait msiexec /a edm_1.9.1_x86_64.msi /qn /log install.log TARGETDIR=c:\
   - edm info
   - edm install --version 3.6 -y numpy mock Sphinx coverage psutil
-  - "%CMD_IN_ENV% edm run -- pip install -r travis\travis-requirements.txt"
+  - "%CMD_IN_ENV% edm run -- pip install -r travis\\travis-requirements.txt"
   - edm run -- pip install vtk pyqt5
   - "%CMD_IN_ENV% edm run -- python setup.py develop"
 
