@@ -321,7 +321,7 @@ class MyBuild(build.build):
 
 
 class MyDevelop(develop.develop):
-    """ A hook to have the docs rebuilt during develop.
+    """ A hook to build the TVTK ZIP file on develop.
 
         Subclassing setuptools' command because numpy.distutils doesn't
         have an implementation.
@@ -329,13 +329,6 @@ class MyDevelop(develop.develop):
     """
 
     def run(self):
-        self.run_command('gen_docs')
-        try:
-            self.run_command('build_docs')
-        except:
-            log.warn("Could not build documentation:\n%s" %
-                     traceback.format_exception(*sys.exc_info()))
-
         # Make sure that the 'build_src' command will
         # always be inplace when we do a 'develop'.
         self.reinitialize_command('build_src', inplace=1)
