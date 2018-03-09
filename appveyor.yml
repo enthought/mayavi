@@ -30,7 +30,7 @@ install:
 
 test_script:
   - edm run -- coverage erase
-  - edm run -- coverage run -p -m nose.core -v tvtk/tests
+  #- edm run -- coverage run -p -m nose.core -v tvtk/tests
   - edm run -- coverage run -p -m nose.core -v mayavi
   - edm run -- coverage combine
   - edm run -- coverage report
