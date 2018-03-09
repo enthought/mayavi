@@ -25,12 +25,12 @@ install:
   - edm info
   - edm install --version 3.6 -y numpy nose mock Sphinx coverage psutil
   - "%CMD_IN_ENV% edm run -- pip install -r travis\\travis-requirements.txt"
-  - edm run -- pip install vtk pyqt5
+  - edm run -- pip install vtk pyqt5==5.9.2
   - "%CMD_IN_ENV% edm run -- python setup.py develop"
 
 test_script:
   - edm run -- coverage erase
-  #- edm run -- coverage run -p -m nose.core -v tvtk/tests
+  - edm run -- coverage run -p -m nose.core -v tvtk/tests
   - edm run -- coverage run -p -m nose.core -v mayavi
   - edm run -- coverage combine
   - edm run -- coverage report
