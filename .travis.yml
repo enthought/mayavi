@@ -30,7 +30,7 @@ before_install:
 install:
   - if [[ ${ETS_TOOLKIT} == 'wx' ]]; then edm install -y wxpython; fi
   - if [[ ${ETS_TOOLKIT} == 'qt4' ]]; then edm install -y pyside; fi
-  - edm run -- pip install -r travis/travis-requirements.txt
+  - edm run -- pip install -r ci/ci-requirements.txt
   - edm run -- pip install vtk
   - edm run -- python -c "import vtk; print(vtk.vtkVersion.GetVTKSourceVersion())"
   - edm run -- python setup.py develop
@@ -39,9 +39,9 @@ script:
   - edm run -- coverage erase
   - edm run -- coverage run -p -m nose.core -v tvtk/tests
   - edm run -- coverage run -p -m nose.core -v mayavi
-  - if [[ ${TRAVIS_OS_NAME} == 'osx' ]]; then sh travis/travis-run-integration-tests.sh; fi
-  - coverage combine
+  #- if [[ ${TRAVIS_OS_NAME} == 'osx' ]]; then sh ci/travis-run-integration-tests.sh; fi
+  - edm run -- coverage combine
 
 after_success:
-  - pip install codecov
-  - codecov
+  - edm run -- pip install codecov
+  - edm run -- codecov

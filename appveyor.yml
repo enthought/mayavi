@@ -22,7 +22,7 @@ install:
   - start /wait msiexec /a edm_1.9.1_x86_64.msi /qn /log install.log TARGETDIR=c:\
   - edm info
   - edm install --version 3.6 -y numpy nose mock Sphinx coverage psutil
-  - "%CMD_IN_ENV% edm run -- pip install -r travis\\travis-requirements.txt"
+  - "%CMD_IN_ENV% edm run -- pip install -r ci\\travis-requirements.txt"
   - edm run -- pip install vtk pyqt5==5.9.2
   - "%CMD_IN_ENV% edm run -- python setup.py develop"
 
@@ -30,5 +30,9 @@ test_script:
   - edm run -- coverage erase
   - edm run -- coverage run -p -m nose.core -v tvtk/tests
   - edm run -- coverage run -p -m nose.core -v mayavi
+  - cd integrationtests\mayavi
+  - edm run -- coverage run --rcfile=..\..\.coveragerc -p run.py
+  - cd ..\..\
+  - copy integrationtests\mayavi\.coverage.* .
   - edm run -- coverage combine
   - edm run -- coverage report
