@@ -100,6 +100,8 @@ def get_trait_def(value, **kwargs):
         dtype = dtypes.pop().__name__ if len(dtypes) == 1 else None
         if dtype == 'int' and sys.platform.startswith('win'):
             dtype = 'int64'
+        elif dtype == 'long':
+            dtype = 'int64'
 
         cols = len(value)
 

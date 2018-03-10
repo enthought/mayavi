@@ -1,6 +1,5 @@
+languate: generic
 sudo: false
-virtualenv:
-  system_site_packages: true
 
 env:
   global:
@@ -40,7 +39,7 @@ script:
   - edm run -- coverage erase
   - edm run -- coverage run -p -m nose.core -v tvtk/tests
   - edm run -- coverage run -p -m nose.core -v mayavi
-  - sh travis/travis-run-integration-tests.sh
+  - if [[ ${TRAVIS_OS_NAME} == 'osx' ]]; then sh travis/travis-run-integration-tests.sh; fi
   - coverage combine
 
 after_success:
