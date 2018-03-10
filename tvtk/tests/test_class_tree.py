@@ -16,8 +16,10 @@ from tvtk import class_tree
 import vtk
 if sys.version_info[0] > 2:
     import builtins as __builtin__
+    PY_VER = 3
 else:
     import __builtin__
+    PY_VER = 2
 
 # This computation can be expensive, so we cache it.
 _cache = class_tree.ClassTree(vtk)
@@ -77,7 +79,10 @@ class TestClassTree(unittest.TestCase):
                           'vtkTypedArray', 'vtkVariantStrictWeakOrderKey',
                           'vtkVector', 'vtkVector2', 'vtkVector3']
             elif vtk_major_version == 8:
-                expect = ['object']
+                if PY_VER == 3:
+                    expect = ['object']
+                else:
+                    expect = ['object', 'vtkVariantStrictWeakOrderKey']
             self.assertEqual(names, expect)
         elif (hasattr(vtk, 'vtkVector')):
             self.assertEqual(len(t.tree[0]), 11)

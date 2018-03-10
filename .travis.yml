@@ -1,84 +1,47 @@
+language: generic
 sudo: false
-virtualenv:
-  system_site_packages: true
+
+env:
+  global:
+    - INSTALL_EDM_VERSION=1.9.1
+      PYTHONUNBUFFERED="1"
 
 matrix:
   include:
-    - os: osx
-      language: generic
-      env: VTK_VERSION=5.8 ETS_TOOLKIT=qt4
-    - os: osx
-      language: generic
-      env: VTK_VERSION=5.8 ETS_TOOLKIT=wx
-    - os: osx
-      language: generic
-      env: VTK_VERSION=7.0 ETS_TOOLKIT=wx
     - os: linux
-      language: python
-      python: 2.7
-      env: VTK_VERSION=5.8 ETS_TOOLKIT=qt4
+      env: RUNTIME=2.7 ETS_TOOLKIT=qt4
     - os: linux
-      language: python
-      python: 2.7
-      env: VTK_VERSION=5.8 ETS_TOOLKIT=wx
-    - os: linux
-      language: python
-      python: 2.7
-      env: VTK_VERSION=6.3 ETS_TOOLKIT=wx
-    - os: linux
-      language: python
-      python: 2.7
-      env: VTK_VERSION=7.0 ETS_TOOLKIT=wx
-  allow_failures:      
+      env: RUNTIME=2.7 ETS_TOOLKIT=wx
     - os: osx
-      language: generic
-      env: VTK_VERSION=5.8 ETS_TOOLKIT=qt4
-    - os: osx
-      language: generic
-      env: VTK_VERSION=5.8 ETS_TOOLKIT=wx
-    - os: osx
-      language: generic
-      env: VTK_VERSION=7.0 ETS_TOOLKIT=wx
-    - os: linux
-      language: python
-      python: 2.7
-      env: VTK_VERSION=6.3 ETS_TOOLKIT=wx
-    - os: linux
-      language: python
-      python: 2.7
-      env: VTK_VERSION=7.0 ETS_TOOLKIT=wx
-    
-# Travis Ubuntu 12 does not allow python-pyside
-addons:
-  apt:
-    packages:
-    - python-vtk
-    - python-qt4
-    - python-qt4-gl
-    - python-imaging
-    - python-pip
-    - python-wxtools
-    - ccache
+      env: RUNTIME=2.7 ETS_TOOLKIT=qt4
+
 cache:
   directories:
     - $HOME/.cache
-    - $HOME/.ccache
+
 before_install:
-  - source travis/before_install.sh
+  - mkdir -p "${HOME}/.cache/download"
+  - export DISPLAY=:99.0
+  - if [[ ${TRAVIS_OS_NAME} == "linux" ]] ; then sh -e /etc/init.d/xvfb start; fi
+  - if [[ ${TRAVIS_OS_NAME} == 'linux' ]]; then ./ci/install-edm-linux.sh; export PATH="${HOME}/edm/bin:${PATH}"; fi
+  - if [[ ${TRAVIS_OS_NAME} == 'osx' ]]; then ./ci/install-edm-osx.sh; export PATH="${PATH}:/usr/local/bin"; fi
+  - edm install --version ${RUNTIME} -y wheel numpy nose mock Sphinx coverage psutil
+
 install:
-  - source travis/setup_vtk_env.sh
-  # Print the VTK version
-  - python -c "from __future__ import print_function; import vtk; print('VTK Version:', vtk.vtkVersion.GetVTKVersion())"
-  - pip install -r travis/travis-requirements.txt
-  - python setup.py develop
+  - if [[ ${ETS_TOOLKIT} == 'wx' ]]; then edm install -y wxpython; fi
+  - if [[ ${ETS_TOOLKIT} == 'qt4' ]]; then edm install -y pyside; fi
+  - edm run -- pip install -r ci/ci-requirements.txt
+  - edm run -- pip install vtk
+  - edm run -- python -c "import vtk; print(vtk.vtkVersion.GetVTKSourceVersion())"
+  - edm run -- python setup.py develop
+
 script:
-  - coverage erase
-  - coverage run -p -m nose.core -v tvtk/tests
-  - coverage run -p -m nose.core -v mayavi
-  # We can't run the integrationtests on travis with qt because python-pyside is forbidden
-  # And PyQt hangs during event loop
-  - if [[ ${ETS_TOOLKIT} == "wx" ]]; then sh travis/travis-run-integration-tests.sh; fi
-  - coverage combine
+  - edm run -- coverage erase
+  - edm run -- coverage run -p -m nose.core -v tvtk/tests
+  - edm run -- coverage run -p -m nose.core -v mayavi
+  #- if [[ ${TRAVIS_OS_NAME} == 'osx' ]]; then sh ci/travis-run-integration-tests.sh; fi
+  - edm run -- coverage combine
+
 after_success:
-  - pip install codecov
-  - codecov
+  - edm run -- pip install codecov
+  - edm run -- codecov

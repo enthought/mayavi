@@ -196,6 +196,11 @@ class TVTKScene(HasPrivateTraits):
     _camera_observer_id = Int(transient=True)
     _script_id = Str(transient=True)
 
+    # Saved light_manager settings while loading a scene.  The light manager
+    # may not be created at the time a scene is loaded from disk, so if it
+    # is saved here, when it is created the state is set.
+    _saved_light_manager_state = Any(transient=True)
+
     # The renderer instance.
     _renderer = Instance(tvtk.Renderer)
     _renwin = Instance(tvtk.RenderWindow)
@@ -214,7 +219,6 @@ class TVTKScene(HasPrivateTraits):
 
         # Used to set the view of the scene.
         self._def_pos = 1
-
         self.control = self._create_control(parent)
         self._renwin.update_traits()
 
@@ -226,6 +230,7 @@ class TVTKScene(HasPrivateTraits):
         for x in ['control', '_renwin', '_interactor', '_camera',
                   '_busy_count', '__sync_trait__', 'recorder',
                   '_last_camera_state', '_camera_observer_id',
+                  '_saved_light_manager_state',
                   '_script_id', '__traits_listener__']:
             d.pop(x, None)
         # Additionally pickle these.
@@ -784,7 +789,6 @@ class TVTKScene(HasPrivateTraits):
     ###########################################################################
     def _create_control(self, parent):
         """ Create the toolkit-specific control that represents the widget. """
-
         # Create the renderwindow.
         renwin = self._renwin = tvtk.RenderWindow()
         # If we are doing offscreen rendering we set the window size to
@@ -819,7 +823,6 @@ class TVTKScene(HasPrivateTraits):
         self._interactor.initialize()
         self._interactor.render()
         self.light_manager = light_manager.LightManager(self)
-
         if self.off_screen_rendering:
             # We want the default size to be the normal (300, 300).
             # Setting the size now should not resize the window if
@@ -931,6 +934,12 @@ class TVTKScene(HasPrivateTraits):
             i_vtk = tvtk.to_vtk(iren)
             messenger.disconnect(i_vtk, 'EndInteractionEvent',
                                  self._record_camera_position)
+
+    def _light_manager_changed(self, lm):
+        if lm is not None:
+            if self._saved_light_manager_state is not None:
+                lm.__set_pure_state__(self._saved_light_manager_state)
+                self._saved_light_manager_state = None
 
     def _movie_maker_default(self):
         from tvtk.pyface.movie_maker import MovieMaker

@@ -11,11 +11,9 @@ from __future__ import print_function
 import re
 import sys
 import vtk
-import types
 import textwrap
 import keyword
 import copy
-from collections import Sequence
 from itertools import chain
 
 # Local imports (these are relative imports because the package is not
@@ -98,15 +96,20 @@ def get_trait_def(value, **kwargs):
         shape = (len(value),)
         dtypes = set(type(element) for element in value)
         dtype = dtypes.pop().__name__ if len(dtypes) == 1 else None
+        if dtype == 'int' and sys.platform.startswith('win'):
+            dtype = 'int64'
+        elif dtype == 'long':
+            dtype = 'int64'
+
         cols = len(value)
 
         if kwargs_code:
             kwargs_code += ', '
 
-        kwargs_code += ('shape={shape}, dtype={dtype}, '
+        kwargs_code += ('shape={shape}, dtype="{dtype}", '
                         'value={value!r}, cols={cols}').format(
                             shape=shape, dtype=dtype,
-                            value=value, cols=min(3, len(value)))
+                            value=value, cols=min(3, cols))
 
         return 'traits.Array', '', kwargs_code
 
@@ -355,7 +358,7 @@ class WrapperGenerator:
         # Generate the code.
 
         # The return values are editable traits.
-        toggle = self._gen_toggle_methods(klass, out)
+        toggle, toggle_allow_failure = self._gen_toggle_methods(klass, out)
         state = self._gen_state_methods(klass, out)
 
         # The first return value contains updateable traits
@@ -363,6 +366,7 @@ class WrapperGenerator:
         # are initialised by VTK on init
         get_set, allow_update_failure = self._gen_get_set_methods(klass, out)
 
+        allow_update_failure.update(toggle_allow_failure)
         # These do not produce editable traits.
         self._gen_get_methods(klass, out)
         self._gen_other_methods(klass, out)
@@ -536,8 +540,29 @@ class WrapperGenerator:
     def _gen_toggle_methods(self, klass, out):
         meths = self.parser.get_toggle_methods()
         updateable_traits = {}
+        allow_update_failure = set()
         for m in meths:
             name = self._reform_name(m)
+            #-----------------------------------------------------------
+            # Some traits have special API or the VTK API is broken that
+            # we need to handle them separately.
+            # Warning: Be critical about whether the case is special
+            # enthough to be added to the `special_traits` mapping
+            # -----------------------------------------------------------
+            if self._is_special(klass, m):
+                updateable, can_fail = self._get_special_updateable_failable(
+                    klass, m)
+
+                if not updateable:
+                    # We cannot update this trait
+                    del updateable_traits[name]
+                elif can_fail:
+                    # We will update this trait but updating can fail
+                    allow_update_failure.add(name)
+
+                self._write_special_trait(klass, out, m)
+                continue
+
             updateable_traits[name] = 'Get' + m
             t_def = 'tvtk_base.false_bool_trait'
             if meths[m]:
@@ -553,7 +578,7 @@ class WrapperGenerator:
             else:
                 self._write_trait(out, name, t_def, vtk_set_meth,
                                   mapped=True)
-        return updateable_traits
+        return updateable_traits, allow_update_failure
 
     def _gen_state_methods(self, klass, out):
         parser = self.parser
@@ -1608,7 +1633,14 @@ class WrapperGenerator:
         # value.
         'vtkSmartVolumeMapper.VectorComponent$': (
             True, True, '_write_smart_volume_mapper_vector_component'
-        )
+        ),
+
+        # In VTK 8.x, HyperTreeGridCellCenter's Get/Set VertexCells is supposed
+        # to be a boolean but the initialized value can be an arbitrary
+        # integer.
+        'vtkHyperTreeGridCellCenters.VertexCells$': (
+            True, True, '_write_hyper_tree_grid_cell_centers_vertex_cells'
+        ),
     }
 
     @classmethod
@@ -1825,6 +1857,24 @@ class WrapperGenerator:
         t_def = ('traits.Trait({default}, traits.Range{rng}, '
                  'enter_set=True, auto_set=False)').format(default=default,
                                                            rng=rng)
+        name = self._reform_name(vtk_attr_name)
+        vtk_set_meth = getattr(klass, 'Set' + vtk_attr_name)
+        self._write_trait(out, name, t_def, vtk_set_meth, mapped=False)
+
+    def _write_hyper_tree_grid_cell_centers_vertex_cells(self, klass, out,
+                                                         vtk_attr_name):
+        if vtk_attr_name != 'VertexCells':
+            raise RuntimeError("Not sure why you ask for me! "
+                               "I only deal with VertexCells. Panicking.")
+
+        if vtk_major_version >= 8:
+            message = ("vtkHyperTreeGridCellCenters: "
+                       "VertexCells not updatable "
+                       "(VTK 8.x bug - value not properly initialized)")
+            print(message)
+
+        t_def = 'tvtk_base.true_bool_trait'
+
         name = self._reform_name(vtk_attr_name)
         vtk_set_meth = getattr(klass, 'Set' + vtk_attr_name)
         self._write_trait(out, name, t_def, vtk_set_meth, mapped=False)

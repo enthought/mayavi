@@ -118,9 +118,9 @@ class Optional(Component):
     def _component_changed(self, old, new):
         if old is not None:
             old.on_trait_change(self._fire_pipeline_changed,
-                                 'pipeline_changed', remove=True)
+                                'pipeline_changed', remove=True)
             old.on_trait_change(self._fire_data_changed,
-                                 'data_changed', remove=True)
+                                'data_changed', remove=True)
 
         new.on_trait_change(self._fire_pipeline_changed, 'pipeline_changed')
         new.on_trait_change(self._fire_data_changed, 'data_changed')
@@ -130,5 +130,3 @@ class Optional(Component):
 
     def _fire_data_changed(self):
         self.data_changed = True
-
-

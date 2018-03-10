@@ -12,6 +12,7 @@ import numpy
 
 # Enthought library imports.
 from traits.api import TraitError
+from pyface.api import GUI
 
 # Local imports.
 from common import TestCase
@@ -41,6 +42,7 @@ class TestImagePlaneWidget(TestCase):
         c.azimuth(30)
         c.elevation(30)
         s.render()
+        GUI.process_events()
 
     def check(self):
         script = self.script

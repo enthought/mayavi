@@ -77,7 +77,15 @@ class Scene(Base):
             state.scene.camera.pop("distance", None)
 
         # Now set our complete state.  Doing the scene last ensures
-        # that the camera view is set right.
+        # that the camera view is set right.  Before doing this though,
+        # if the light_manager is None, the scene hasn't been painted,
+        # in that case save the light manager state and set the state later.
+        # All we do is set the _saved_light_manager_state and the scene
+        # will take care of the rest.
+        if self.scene is not None and self.scene.light_manager is None:
+            lm_state = state['scene'].pop('light_manager', None)
+            self.scene._saved_light_manager_state = lm_state
+
         set_state(self, state, last=['scene'])
 
     ######################################################################
