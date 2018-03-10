@@ -1,4 +1,4 @@
-languate: generic
+language: generic
 sudo: false
 
 env:
