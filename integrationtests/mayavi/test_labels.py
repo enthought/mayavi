@@ -9,6 +9,8 @@ from os.path import abspath
 from io import BytesIO
 import copy
 
+from pyface.api import GUI
+
 # Local imports.
 from common import TestCase, get_example_data
 
@@ -32,19 +34,18 @@ class TestLabels(TestCase):
             l.mapper.label_mode = 'label_scalars'
             l.label_format = '%.1f'
             l.number_of_labels = 45
-            l.property.color = (0,0,0)
+            l.property.color = (0, 0, 0)
             l.property.italic = False
 
         np = l.visible_points.get_output_dataset().number_of_points
-        assert np < 60  and np > 35
-        assert l.visible_points.enabled == True
+        assert np < 60 and np > 35
+        assert l.visible_points.enabled
         assert l.visible_points.get_output_dataset() == \
             l.visible_points.filter.filter.output
-        assert l.property.color == (0,0,0)
-        assert l.property.italic == False
+        assert l.property.color == (0, 0, 0)
+        assert not l.property.italic
         assert l.mapper.label_mode == 'label_scalars'
         assert l.label_format == '%.1f'
-
 
     def test(self):
         self.main()
@@ -79,9 +80,9 @@ class TestLabels(TestCase):
 
         # Save visualization.
         f = BytesIO()
-        f.name = abspath('test.mv2') # We simulate a file.
+        f.name = abspath('test.mv2')  # We simulate a file.
         script.save_visualization(f)
-        f.seek(0) # So we can read this saved data.
+        f.seek(0)
 
         # Remove existing scene.
         engine = script.engine
@@ -95,6 +96,7 @@ class TestLabels(TestCase):
         # Seems to be needed for the test to pass. :(  Just flushes the
         # pipeline.
         s.children[0].pipeline_changed = True
+        GUI.process_events()
 
         # Check.
         # Now do the check.
@@ -122,6 +124,7 @@ class TestLabels(TestCase):
         self.check(saved=True)
 
         # If we have come this far, we are golden!
+
 
 if __name__ == "__main__":
     t = TestLabels()

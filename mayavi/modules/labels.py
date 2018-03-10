@@ -79,7 +79,6 @@ class Labels(Module):
     ########################################
     # View related traits.
 
-
     view = View(Group(Item(name='number_of_labels'),
                       Item(name='label_format'),
                       Item(name='mapper',
@@ -103,10 +102,8 @@ class Labels(Module):
                            style='custom',
                            show_label=False,
                            resizable=True),
-                      label='TextProperty'
-                     ),
-                 resizable=True
-                )
+                      label='TextProperty'),
+                resizable=True)
 
     ######################################################################
     # `object` interface.
