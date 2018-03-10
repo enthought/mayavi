@@ -3,7 +3,7 @@ shallow_clone: true
 environment:
 
   global:
-    PYTHONBUFFERED: "1"
+    PYTHONUNBUFFERED: "1"
     CMD_IN_ENV: "cmd /E:ON /V:ON /C .\\ci\\run_with_env.cmd"
     PYTHON_VERSION: "3.6.x"
     PYTHON_ARCH: "64"
@@ -15,8 +15,6 @@ init:
   - ps: $Env:path = "C:\Enthought\edm;" + $Env:path
   - ps: $env:ETS_TOOLKIT="qt4"
   - ps: $env:QT_API="pyqt5"
-  # Show information on RDP connection https://www.appveyor.com/docs/how-to/rdp-to-build-worker/
-  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 
 install:
   # Install edm, needed so we can quickly install numpy.
