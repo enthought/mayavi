@@ -39,7 +39,7 @@ script:
   - edm run -- coverage erase
   - edm run -- coverage run -p -m nose.core -v tvtk/tests
   - edm run -- coverage run -p -m nose.core -v mayavi
-  #- if [[ ${TRAVIS_OS_NAME} == 'osx' ]]; then sh ci/travis-run-integration-tests.sh; fi
+  - if [[ ${TRAVIS_OS_NAME} == 'osx' ]]; then sh ci/travis-run-integration-tests.sh; fi
   - edm run -- coverage combine
 
 after_success:

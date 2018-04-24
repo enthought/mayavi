@@ -16,7 +16,7 @@ init:
   - ps: $env:ETS_TOOLKIT="qt4"
   - ps: $env:QT_API="pyqt5"
   # Show information on RDP connection https://www.appveyor.com/docs/how-to/rdp-to-build-worker/
-  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+  #- ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 
 
 install:
@@ -33,9 +33,5 @@ test_script:
   - edm run -- coverage erase
   - edm run -- coverage run -p -m nose.core -v tvtk/tests
   - edm run -- coverage run -p -m nose.core -v mayavi
-  - cd integrationtests\mayavi
-  - edm run -- coverage run --rcfile=..\..\.coveragerc -p run.py
-  - cd ..\..\
-  - copy integrationtests\mayavi\.coverage.* .
   - edm run -- coverage combine
   - edm run -- coverage report
