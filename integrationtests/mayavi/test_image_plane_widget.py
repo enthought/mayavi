@@ -121,6 +121,8 @@ class TestImagePlaneWidget(TestCase):
         # Set the scene to a suitable view.
         self.set_view(s)
 
+        # Just flushes the pipeline for the test.
+        s.children[0].pipeline_changed = True
         GUI.process_events()
         self.check()
 
