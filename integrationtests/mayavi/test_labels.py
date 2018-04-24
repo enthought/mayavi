@@ -74,6 +74,7 @@ class TestLabels(TestCase):
         script.add_module(l)
 
         s.scene.isometric_view()
+        GUI.process_events()
         self.check(saved=False)
         ############################################################
         # Test if saving a visualization and restoring it works.

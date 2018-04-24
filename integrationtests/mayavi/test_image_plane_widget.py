@@ -121,6 +121,7 @@ class TestImagePlaneWidget(TestCase):
         # Set the scene to a suitable view.
         self.set_view(s)
 
+        GUI.process_events()
         self.check()
 
         ############################################################
@@ -134,6 +135,7 @@ class TestImagePlaneWidget(TestCase):
 
         self.set_view(s)
 
+        GUI.process_events()
         self.check()
 
         # Now deepcopy the source and replace the existing one with
@@ -145,6 +147,7 @@ class TestImagePlaneWidget(TestCase):
 
         self.set_view(s)
 
+        GUI.process_events()
         self.check()
 
         # If we have come this far, we are golden!
