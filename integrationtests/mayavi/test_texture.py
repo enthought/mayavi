@@ -13,8 +13,8 @@ from mayavi.tools.figure import savefig
 
 from common import TestCase
 
-# path to mayavi source
-MAYAVI_DIR = os.path.split(mlab.__file__)[0]
+# path to this dir
+MY_DIR = os.path.dirname(__file__)
 
 
 class TestTextureUnitTest(unittest.TestCase):
@@ -30,7 +30,8 @@ class TestTextureUnitTest(unittest.TestCase):
         # texture image
         # the image is a black-white checker box pattern
         image_path = os.path.join(
-            MAYAVI_DIR, "../integrationtests/mayavi/images/checker.jpg")
+            MY_DIR, "images", "checker.jpg"
+        )
         img=tvtk.JPEGReader(file_name=image_path)
         self.texture=tvtk.Texture(input_connection=img.output_port,
                                   interpolate=1)

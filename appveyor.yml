@@ -15,6 +15,9 @@ init:
   - ps: $Env:path = "C:\Enthought\edm;" + $Env:path
   - ps: $env:ETS_TOOLKIT="qt4"
   - ps: $env:QT_API="pyqt5"
+  # Show information on RDP connection https://www.appveyor.com/docs/how-to/rdp-to-build-worker/
+  #- ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+
 
 install:
   # Install edm, needed so we can quickly install numpy.

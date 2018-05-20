@@ -74,6 +74,7 @@ class TestLabels(TestCase):
         script.add_module(l)
 
         s.scene.isometric_view()
+        GUI.process_events()
         self.check(saved=False)
         ############################################################
         # Test if saving a visualization and restoring it works.
@@ -109,6 +110,8 @@ class TestLabels(TestCase):
         source = s.children.pop()
         # Add it back to see if that works without error.
         s.children.append(source)
+        GUI.process_events()
+
         # Now do the check.
         s.scene.isometric_view()
         self.check(saved=True)
@@ -119,10 +122,13 @@ class TestLabels(TestCase):
         # view, and pasting the copy back.
         source1 = copy.deepcopy(source)
         s.children[0] = source1
+        GUI.process_events()
+
         # Now do the check.
         s.scene.isometric_view()
         self.check(saved=True)
 
+        GUI.process_events()
         # If we have come this far, we are golden!
 
 
