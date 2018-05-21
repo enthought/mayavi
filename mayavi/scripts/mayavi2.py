@@ -16,7 +16,6 @@ from __future__ import print_function
 
 # Standard library imports.
 import sys
-import types
 import getopt
 import logging
 from os.path import splitext, exists, join, abspath
@@ -35,8 +34,8 @@ mayavi = None
 ###########################################################################
 # Utility functions.
 ###########################################################################
-def usage ():
-    msg="""Usage:\n\nmayavi2 [options] ... [arg1] [arg2] ...
+def usage():
+    msg = """Usage:\n\nmayavi2 [options] ... [arg1] [arg2] ...
 
 Where arg1, arg2 ... are optional file names that correspond to saved
 Mayavi2 visualizations (file.mv2) or Mayavi2 scripts (file.py) or any
@@ -218,13 +217,13 @@ def parse_cmd_line(arguments):
                  'module-mgr', 'new-scene', 'offscreen']
 
     try:
-        opts, args = getopt.getopt (arguments, options, long_opts)
+        opts, args = getopt.getopt(arguments, options, long_opts)
     except getopt.error as msg:
         print(msg)
         print(usage())
         print('-'*70)
         print(msg)
-        sys.exit (1)
+        sys.exit(1)
 
     return opts, args
 
@@ -285,7 +284,7 @@ def process_cmd_line(app, opts, args):
                 script.add_source(src)
                 last_obj = src
             else:
-                error("File/Source %s does not exist!"%a)
+                error("File/Source %s does not exist!" % a)
                 return
 
         if o in ('-m', '--module'):
@@ -294,7 +293,7 @@ def process_cmd_line(app, opts, args):
                 modname = a[:idx]
                 classname = a[idx+1:]
             else:
-                modname = 'mayavi.modules.%s'%camel2enthought(a)
+                modname = 'mayavi.modules.%s' % camel2enthought(a)
                 classname = a
             try:
                 mod = __import__(modname, globals(), locals(), [classname])
@@ -326,7 +325,7 @@ def process_cmd_line(app, opts, args):
                         # Don't worry about errors.
                         extra = None
                 else:
-                    modname = 'mayavi.filters.%s'%camel2enthought(a)
+                    modname = 'mayavi.filters.%s' % camel2enthought(a)
                     classname = a
                     extra = None
             try:
@@ -361,9 +360,9 @@ def process_cmd_line(app, opts, args):
             e.trait_set(current_scene=s, current_object=s)
             last_obj = s
 
-        if o in ('-x', '--exec' ):
+        if o in ('-x', '--exec'):
             err = run_script(script, a)
-            if err: # stop processing options.
+            if err:  # stop processing options.
                 return
 
         if o in ('-s', '--set'):
@@ -378,12 +377,12 @@ def process_cmd_line(app, opts, args):
 
     # for remaining arguments simply load saved visualizations.
     for arg in args:
-        base, ext = splitext (arg)
+        base, ext = splitext(arg)
         if ext == '.mv2':
             script.load_visualization(arg)
         elif ext == '.py':
             err = run_script(script, arg)
-            if err: # stop processing arguments.
+            if err:  # stop processing arguments.
                 return
         else:
             script.open(arg)
@@ -418,6 +417,7 @@ def run_script(mayavi, script_name):
 
     return error
 
+
 # This runs the runtests script and sends any args to it.
 if ('-t' in sys.argv[1:]) or ('--test' in sys.argv[1:]):
     from mayavi.tests import runtests
@@ -433,7 +433,7 @@ if ('-h' in sys.argv[1:]) or ('--help' in sys.argv[1:]):
     sys.exit(0)
 
 if ('-V' in sys.argv[1:]) or ('--version' in sys.argv[1:]):
-    print('Mayavi %s'%__version__)
+    print('Mayavi %s' % __version__)
     sys.exit(0)
 
 for opt, arg in parse_cmd_line(sys.argv[1:])[0]:
@@ -453,46 +453,15 @@ try:
     import vtk
 except ImportError as m:
     msg = '%s\n%s\nDo you have vtk installed properly?\n' \
-        'VTK (and build instructions) can be obtained from http://www.vtk.org\n' \
+        'VTK (and build instructions) can be obtained from '\
+        'http://www.vtk.org\n' \
         % (m, '_'*80)
     raise ImportError(msg)
-
-# Try forcing the use of wx 2.8 before any other import.
-import sys
-if not 'wx' in sys.modules:
-    try:
-        # Try forcing the use of wx 2.8
-        from traits.etsconfig.api import ETSConfig
-        if ETSConfig.toolkit in ('wx', ''):
-            import wxversion
-            wxversion.ensureMinimal('2.8')
-    except ImportError:
-        """ wxversion not installed """
 
 
 # Importing here to avoid time-consuming import when user only wanted
 # version/help information.
-try:
-    from mayavi.plugins.app import Mayavi, setup_logger
-except ImportError as m:
-    msg = '''%s
-%s
-Could not load envisage. You might have a missing dependency.
-Do you have the EnvisageCore and EnvisagePlugins installed?
-
-If you installed Mayavi with easy_install, try 'easy_install <pkg_name>'.
-'easy_install Mayavi[app]' will also work.
-
-If you performed a source checkout and installed via 'python setup.py develop',
-be sure to run the same command in the EnvisageCore and EnvisagePlugins folders.
-
-If these packages appear to be installed, check that your numpy and
-configobj are installed and working. If you need numpy, 'easy_install numpy'
-will install numpy. Similarly, 'easy_install configobj' will install
-configobj.
-        ''' % (m, '_'*80)
-    raise ImportError(msg)
-
+from mayavi.plugins.app import Mayavi, setup_logger
 
 
 ##########################################################################
@@ -520,9 +489,9 @@ class MayaviApp(Mayavi):
         process_cmd_line(self, options, args)
 
 
-################################################################################
+###############################################################################
 # `MayaviOffscreen` class.
-################################################################################
+###############################################################################
 class MayaviOffscreen(MayaviApp):
     """
     The mayavi application used for offscreen rendering.
@@ -568,6 +537,7 @@ def get_mayavi_script_instance():
             return engine.window.get_service(Script)
     return
 
+
 def contains_mayavi(namespace):
     """Returns if the given namespace contains a 'mayavi' name bound to
     a mayavi script instance.
@@ -577,6 +547,7 @@ def contains_mayavi(namespace):
         if isinstance(namespace.get('mayavi'), Script):
             return True
     return False
+
 
 def standalone(func):
     """A decorator to run a function from within mayavi.  This lets
@@ -627,33 +598,16 @@ def main():
     if OFFSCREEN:
         mayavi = MayaviOffscreen()
     else:
-        from traits.etsconfig.api import ETSConfig
-        # Check that we have a traits backend installed
-        from traitsui.toolkit import toolkit
-        toolkit() # This forces the selection of a toolkit.
-        if ETSConfig.toolkit in ('null', ''):
-            raise ImportError('''Could not import backend for traits
-________________________________________________________________________________
-Make sure that you have either the TraitsBackendWx or the TraitsBackendQt
-projects installed. If you installed Mayavi with easy_install, try easy_install
-<pkg_name>. easy_install Mayavi[app] will also work.
-
-If you performed a source checkout, be sure to run 'python setup.py install'
-in Traits, TraitsGUI, and the Traits backend of your choice.
-
-Also make sure that either wxPython or PyQT is installed.
-wxPython: http://www.wxpython.org/
-PyQT: http://www.riverbankcomputing.co.uk/software/pyqt/intro
-'''
-            )
         mayavi = MayaviApp()
     mayavi.main(sys.argv[1:])
+
 
 def close():
     """ This closes the mayavi2 application.
     """
     if mayavi is not None and not OFFSCREEN:
         mayavi.window.close()
+
 
 if __name__ == '__main__':
     main()
