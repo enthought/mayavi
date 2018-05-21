@@ -75,12 +75,12 @@ import re
 import sys
 import traceback
 from os.path import (abspath, basename, dirname, exists, getmtime, isdir,
-                     join, split, splitext)
+                     join, split)
 
 from numpy.distutils.command import build, install_data
 from distutils.command import clean
 from distutils import log
-from setuptools.command import develop, install_scripts
+from setuptools.command import develop
 
 
 info = {}
@@ -90,13 +90,14 @@ exec(compile(open(fname).read(), fname, 'exec'), info)
 DEFAULT_HTML_TARGET_DIR = join('docs', 'build')
 DEFAULT_INPUT_DIR = join('docs', 'source',)
 
+
 class GenDocs(Command):
 
-    description = \
-        "This command generates generated part of the documentation " \
-        "when needed. It's run automatically before a build_docs, and that's " \
+    description = (
+        "This command generates generated part of the documentation "
+        "when needed. It's run automatically before a build_docs, and that's "
         "the only time it needs to be run."
-
+    )
     user_options = [
         ('None', None, 'this command has no options'),
         ]
@@ -163,7 +164,7 @@ class GenDocs(Command):
         # for different projects, but it ended up being. This part is
         # mayavi-specific.
 
-        mlab_ref_dir = join(DEFAULT_INPUT_DIR, 'mayavi','auto')
+        mlab_ref_dir = join(DEFAULT_INPUT_DIR, 'mayavi', 'auto')
 
         source_path = 'mayavi'
         sources = '(\.py)|(\.rst)$'
@@ -176,8 +177,7 @@ class GenDocs(Command):
                                  ignore_dirs=excluded_dirs)[0] > target_time
             or self.latest_modified('mlab_reference.py')[0] > target_time
             or not exists(join('docs', 'source', 'mayavi', 'auto',
-                               'mlab_reference.rst'))
-            ):
+                               'mlab_reference.rst'))):
             try:
                 from mayavi import mlab
                 from mayavi.tools import auto_doc
@@ -189,7 +189,7 @@ class GenDocs(Command):
     def example_files(self):
         """ Generate the documentation files for the examples.
         """
-        mlab_ref_dir = join(DEFAULT_INPUT_DIR, 'mayavi','auto')
+        mlab_ref_dir = join(DEFAULT_INPUT_DIR, 'mayavi', 'auto')
 
         source_path = join('examples', 'mayavi')
         sources = '(\.py)|(\.rst)$'
@@ -216,7 +216,6 @@ class GenDocs(Command):
             except:
                 pass
 
-
     def run(self):
         self.mlab_reference()
         self.example_files()
@@ -227,6 +226,7 @@ class GenDocs(Command):
     def finalize_options(self):
         pass
 
+
 class BuildDocs(Command):
 
     description = \
@@ -236,7 +236,6 @@ class BuildDocs(Command):
     user_options = [
         ('None', None, 'this command has no options'),
         ]
-
 
     def make_docs(self):
         if os.name == 'nt':
@@ -412,6 +411,7 @@ def configuration(parent_package=None, top_path=None):
 
     return config
 
+
 ###########################################################################
 # Similar to package_data, but installed before build
 build_package_data = {'mayavi.images': ['docs/source/mayavi/m2_about.jpg']}
@@ -435,14 +435,14 @@ config['packages'] += packages
 # The actual setup call
 DOCLINES = __doc__.split("\n")
 numpy.distutils.core.setup(
-    name = 'mayavi',
-    version = info['__version__'],
-    author = "Prabhu Ramachandran, et. al.",
-    author_email = "prabhu@aero.iitb.ac.in",
-    maintainer = 'ETS Developers',
-    maintainer_email = 'enthought-dev@enthought.com',
-    url = 'http://docs.enthought.com/mayavi/mayavi/',
-    classifiers = [c.strip() for c in """\
+    name='mayavi',
+    version=info['__version__'],
+    author="Prabhu Ramachandran, et. al.",
+    author_email="prabhu@aero.iitb.ac.in",
+    maintainer='ETS Developers',
+    maintainer_email='mayavi-users@lists.sf.net',
+    url='http://docs.enthought.com/mayavi/mayavi/',
+    classifiers=[c.strip() for c in """\
         Development Status :: 5 - Production/Stable
         Intended Audience :: Developers
         Intended Audience :: Science/Research
@@ -458,7 +458,7 @@ numpy.distutils.core.setup(
         Topic :: Software Development
         Topic :: Software Development :: Libraries
         """.splitlines() if len(c.split()) > 0],
-    cmdclass = {
+    cmdclass={
         # Work around a numpy distutils bug by forcing the use of the
         # setuptools' sdist command.
         'sdist': setuptools.command.sdist.sdist,
@@ -469,9 +469,9 @@ numpy.distutils.core.setup(
         'gen_docs': GenDocs,
         'build_docs': BuildDocs,
         },
-    description = DOCLINES[1],
+    description=DOCLINES[1],
     download_url=('https://www.github.com/enthought/mayavi'),
-    entry_points = {
+    entry_points={
         'gui_scripts': [
             'mayavi2 = mayavi.scripts.mayavi2:main',
             'tvtk_doc = tvtk.tools.tvtk_doc:main'
@@ -483,13 +483,19 @@ numpy.distutils.core.setup(
             'mayavi = mayavi.plugins.mayavi_plugin:MayaviPlugin',
             'mayavi_ui = mayavi.plugins.mayavi_ui_plugin:MayaviUIPlugin'
             ],
-        },
-    extras_require = info['__extras_require__'],
-    include_package_data = True,
-    install_requires = info['__requires__'],
-    license = "BSD",
-    long_description = '\n'.join(DOCLINES[3:]),
-    platforms = ["Windows", "Linux", "Mac OS-X", "Unix", "Solaris"],
-    zip_safe = False,
+        'tvtk.toolkits': [
+            'qt4 = tvtk.pyface.ui.qt4.init:toolkit_object',
+            'qt = tvtk.pyface.ui.qt4.init:toolkit_object',
+            'wx = tvtk.pyface.ui.wx.init:toolkit_object',
+            'null = tvtk.pyface.ui.null.init:toolkit_object',
+        ]
+    },
+    extras_require=info['__extras_require__'],
+    include_package_data=True,
+    install_requires=info['__requires__'],
+    license="BSD",
+    long_description='\n'.join(DOCLINES[3:]),
+    platforms=["Windows", "Linux", "Mac OS-X", "Unix", "Solaris"],
+    zip_safe=False,
     **config
 )

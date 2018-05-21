@@ -12,5 +12,8 @@
 
 # There is nothing for us to initialize, but the toolkit switching code depends
 # on the existence of this module.
+from pyface.base_toolkit import Toolkit
+
+toolkit_object = Toolkit('tvtk', 'null', 'tvtk.pyface.ui.null')
 
 #### EOF ######################################################################
