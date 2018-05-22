@@ -1,5 +1,5 @@
 # Author: Prabhu Ramachandran, Gael Varoquaux
-# Copyright (c) 2004-2016, Enthought, Inc.
+# Copyright (c) 2004-2018, Enthought, Inc.
 # License: BSD Style.
 """ A tool for easy and interactive visualization of data.
     Part of the Mayavi project of the Enthought Tool Suite.
@@ -40,4 +40,5 @@ def _jupyter_nbextension_paths():
         src="tools/static",
         # directory in the `nbextension/` namespace
         dest="mayavi",
+        require="mayavi/x3d/x3dom"
     )]
