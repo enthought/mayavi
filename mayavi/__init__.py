@@ -9,8 +9,10 @@ __version__ = '4.5.1.dev0'
 
 __requires__ = [
     'apptools',
+    'envisage',
+    'numpy',
     'pyface>=6.0.0',
-    'pygments', # This is only needed for the Qt backend but we add it anyway.
+    'pygments',  # This is only needed for the Qt backend but we add it anyway.
     'traits>=4.6.0',
     'traitsui>=6.0.0',
     'vtk'

@@ -1,0 +1,9 @@
+apptools
+envisage
+numpy
+pyface>=6.0.0
+pygments
+Sphinx
+traits>=4.6.0
+traitsui>=6.0.0
+vtk
