@@ -30,4 +30,5 @@ def _jupyter_nbextension_paths():
         src="tools/static",
         # directory in the `nbextension/` namespace
         dest="mayavi",
+        require="mayavi/x3d/x3dom"
     )]
