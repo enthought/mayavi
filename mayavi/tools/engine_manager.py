@@ -32,21 +32,12 @@ def check_backend():
     from mayavi.tools.engine_manager import options
 
     toolkit()  # This forces the selection of a toolkit.
-    if (options.backend != 'test' and options.offscreen != True) and \
+    if (options.backend != 'test' and not options.offscreen) and \
             ETSConfig.toolkit in ('null', ''):
-        raise ImportError('''Could not import backend for traits
-_______________________________________________________________________________
-Make sure that you have either the TraitsBackendWx or the TraitsBackendQt
-projects installed. If you installed Mayavi with easy_install, try
-easy_install <pkg_name>. easy_install Mayavi[app] will also work.
-
-If you performed a source checkout, be sure to run 'python setup.py install'
-in Traits, TraitsGUI, and the Traits backend of your choice.
-
-Also make sure that either wxPython or PyQT is installed.
-wxPython: http://www.wxpython.org/
-PyQT: http://www.riverbankcomputing.co.uk/software/pyqt/intro
-''')
+        msg = '''Could not import backend for traitsui.  Make sure you
+        have a suitable UI toolkit like PyQt/PySide or wxPython
+        installed.'''
+        raise ImportError(msg)
 
 
 ###############################################################################
@@ -83,20 +74,20 @@ class EngineManager(HasTraits):
         engines.extend(list(registry.engines.values()))
         if options.backend == 'envisage':
             suitable = [e for e in engines
-                                if e.__class__.__name__ == 'EnvisageEngine']
+                        if e.__class__.__name__ == 'EnvisageEngine']
         elif options.backend == 'test':
             suitable = [e for e in engines
-                                if e.__class__.__name__ == 'NullEngine']
+                        if e.__class__.__name__ == 'NullEngine']
         elif options.offscreen:
             suitable = [e for e in engines
-                                if e.__class__.__name__ == 'OffScreenEngine']
+                        if e.__class__.__name__ == 'OffScreenEngine']
         elif options.backend == 'auto':
             suitable = [e for e in engines
                         if e.__class__.__name__ not in ('NullEngine',
                                                         'OffScreenEngine')]
         else:
             suitable = [e for e in engines
-                                if e.__class__.__name__ == 'Engine']
+                        if e.__class__.__name__ == 'Engine']
         if len(suitable) == 0:
             return self.new_engine()
         else:
@@ -181,7 +172,7 @@ class EngineManager(HasTraits):
         if engine is None:
             engine = self.get_engine()
         if engine.__class__.__name__ == 'EnvisageEngine' or \
-                                            options.backend == 'test':
+           options.backend == 'test':
             # FIXME: This should pop up the relevent envisage view
             pass
         elif rich_view:

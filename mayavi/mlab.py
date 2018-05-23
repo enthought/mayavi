@@ -7,20 +7,8 @@ application with a compatible UI (Qt or wxPython).
 
 # Author: Prabhu Ramachandran <prabhu_r@users.sf.net>
 #         Gael Varoquaux <gael dot varoquaux at normalesup dot org>
-# Copyright (c) 2007-2016, Enthought, Inc.
+# Copyright (c) 2007-2018, Enthought, Inc.
 # License: BSD Style.
-
-
-# Try forcing the use of wx 2.8 before any other import.
-import sys
-if not 'wx' in sys.modules:
-    try:
-        from traits.etsconfig.api import ETSConfig
-        if ETSConfig.toolkit in ('wx', ''):
-            import wxversion
-            wxversion.ensureMinimal('2.8')
-    except ImportError:
-        """ wxversion not installed """
 
 
 # Mayavi imports
@@ -32,13 +20,15 @@ from mayavi.tools.engine_manager import get_engine, show_pipeline, \
 from mayavi.tools.show import show
 from mayavi.tools.animator import animate
 
+
 def show_engine():
-    """ This function is deprecated, please use show_pipeline.
+    """This function is deprecated, please use show_pipeline.
     """
     import warnings
     warnings.warn('The show_engine function is deprecated, please use'
-                    'show_pipeline', stacklevel=2)
+                  'show_pipeline', stacklevel=2)
     return show_pipeline()
+
 
 from .tools.helper_functions import contour3d, test_contour3d, \
     quiver3d, test_quiver3d, test_quiver3d_2d_data, \
@@ -93,7 +83,7 @@ if __name__ == "__main__":
     s = sin(t)
 
     pts = points3d(x, y, z, s, colormap="YlGnBu", scale_factor=0.1,
-            extent=(-0.3,0.3, -0.3, 0.3, -0.2,0.2))
+                   extent=(-0.3, 0.3, -0.3, 0.3, -0.2, 0.2))
 
     axes(xlabel='X', ylabel='Y', zlabel='Z')
     outline(pl)
