@@ -215,7 +215,8 @@ class VTKDataSource(Source):
         # This tells the VTK pipeline that the data has changed.  This
         # will fire the data_changed event automatically.
         self.data.modified()
-        self._assign_attribute.update()
+        if has_attributes(self.data):
+            self._assign_attribute.update()
 
     ######################################################################
     # Non-public interface
