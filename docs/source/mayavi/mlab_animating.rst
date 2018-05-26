@@ -33,6 +33,34 @@ we could set that too by::
 The only thing to keep in mind here is that the shape of `x` should not
 be changed.
 
+Note that many of the examples discussed here may not appear to be
+animated at all and you may just see the final state of the animation.
+If you save a screenshot of the image at each stage of the animation,
+you would get the correct result.  However, you will not get the
+visual effect on screen.  See the section
+:ref:`animating_a_visualization` to learn more on the use of the
+`@animate` decorator (:func:`mayavi.mlab.animate`) to achieve this.
+We show a small example here, where we rewrite the above to animate
+nicely::
+
+    import numpy as np
+    from mayavi import mlab
+    x, y = np.mgrid[0:3:1,0:3:1]
+    s = mlab.surf(x, y, np.asarray(x*0.1, 'd'))
+
+    @mlab.animate
+    def anim()
+        for i in range(10):
+            s.mlab_source.scalars = np.asarray(x*0.1*(i+1), 'd')
+            yield
+
+    anim()
+    mlab.show()
+
+
+In the above, note that we wrap the iteration in a function which is a
+generator and decorate it with the `@mlab.animate` decorator.
+
 If multiple values have to be changed, you can use the `set` method of
 the `mlab_source` to set them as shown in the more complicated example
 below::
@@ -79,6 +107,8 @@ Many standard examples for animating data are provided with mlab.  Try
 the examples with the name `mlab.test_<name>_anim`, i.e. where the name
 ends with an `_anim` to see how these work and run.
 
+
+
 .. note::
 
     It is important to remember distinction between `set` and `reset`.
@@ -111,4 +141,3 @@ ends with an `_anim` to see how these work and run.
    sentence-end-double-space: t
    fill-column: 70
    End:
-
