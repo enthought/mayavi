@@ -597,6 +597,24 @@ Note that to start the event loop, *i.e.* to get the animation running,
 you will need to call :func:`show` if you do not already have a GUI
 environment running.
 
+Here is another example illustrating the use of the decorator::
+
+    import numpy as np
+    from mayavi import mlab
+
+    @mlab.animate(delay = 100)
+    def updateAnimation():
+        t = 0.0
+        while True:
+            ball.mlab_source.set(x = np.cos(t), y = np.sin(t), z = 0)
+            t += 0.1
+            yield
+
+    ball = mlab.points3d(np.array(1.), np.array(0.), np.array(0.))
+
+    updateAnimation()
+    mlab.show()
+
 For more details check the documentation of the :func:`animate` decorator
 available in the :ref:`mlab-reference`. For an example using it,
 alongside with the `visual` handy for object-movement animation, see

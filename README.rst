@@ -73,32 +73,86 @@ If you are new to mayavi it is a good idea to read the users guide which should
 introduce you to how to install and use it.  The user guide is available in the
 `docs` directory and also available from the mayavi home page.
 
-If you have installed `mayavi` as described in the previous section
-you should be able to launch the `mayavi2` application and also run any of the
-examples in the examples directory.
+If you have installed `mayavi` as described in the next section, you should be
+able to launch the `mayavi2` application and also run any of the examples in
+the examples directory.
 
 
-Getting the package
-===================
+Installation
+=============
 
-The mayavi codebase can be found in github:
+By itself Mayavi is not a difficult package to install but its dependencies
+are unfortunately rather heavy. However, many of these dependencies are now
+available as wheels on PyPI.  The two critical dependencies are,
 
-https://github.com/enthought/mayavi
+  1. VTK_
+  2. A GUI toolkit, either PyQt4_, PySide_, PyQt5_ or wxPython_.
 
-General Build and Installation instructions are available `here
+The latest VTK wheels are available on all the major platforms (Windows,
+MacOS, and Linux), but only for 64 bit machines. Python 3.x is fully supported
+on all these operating systems and Python 2.7.x on MacOS and Linux. If you are
+out of luck, and your platform is not supported then you will need to install
+VTK yourself using your particular distribution as discussed in the `General
+Build and Installation instructions
 <http://docs.enthought.com/mayavi/mayavi/installation.html#installing-ready-made-distributions>`_
 
-Source tarballs for necessary stable ETS packages are available through pypi
+On Python 3.x you will need to install PyQt5_ and wheels are available for
+this. On 2.7.x you have more options, and can use PySide_, PyQt4_, and
+wxPython_. These can be installed from pip or from your package manager.
 
-- `traits <https://pypi.python.org/pypi/traits>`_
-- `traitsui <https://pypi.python.org/pypi/traitsui>`_
-- `pyface <https://pypi.python.org/pypi/pyface>`_
-- `apptools <https://pypi.python.org/pypi/apptools>`_
-- `envisage <https://pypi.python.org/pypi/envisage>`_
-- `mayavi <https://pypi.python.org/pypi/mayavi>`_
+Currently, Mayavi itself should work with the new wxPython 4.x. However,
+traitsui_, pyface_, and other ETS packages do not yet support it so the UI
+will not work correctly. Older versions should work. PyQt/PySide should work
+largely out of the box. PySide2 is still young so YMMV.
 
-Development versions exist in the github `Enthought organization <https://github.com/enthought>`_
 
+.. _PyQt5: https://pypi.org/project/PyQt5/
+.. _PySide: https://pypi.org/project/PySide
+.. _PyQt4: https://pypi.org/project/PyQt4/
+.. _wxPython: https://pypi.org/project/wxPython/
+.. _VTK: https://www.vtk.org
+.. _traitsui: https://github.com/enthought/traitsui
+.. _pyface: https://github.com/enthought/pyface
+
+Latest stable release
+-----------------------
+
+As of the latest release, i.e. 4.6.0 and above, if you are using Python 3.x
+and are on a 64 bit machine, installation via pip_ is the easiest and is as
+follows::
+
+  $ pip install mayavi
+
+  $ pip install PyQt5
+
+Thats it!
+
+If you are unable to do this, read the documentation above and find a way to
+install VTK and a suitable UI toolkit and then repeat the above.
+
+If you are interested in the jupyter notebook support as well, do the
+following (after ensuring that you have jupyter installed of course)::
+
+  $ jupyter nbextension install --py mayavi --user
+  $ jupyter nbextension enable --py mayavi --user
+
+
+.. _pip: https://pip.pypa.io/en/stable/
+
+Bleeding edge
+--------------
+
+If you want to install the latest version of Mayavi from github, you can
+simply do the following::
+
+  $ git clone https://github.com/enthought/mayavi.git
+  $ cd mayavi
+  $ pip install -r requirements.txt
+  $ pip install PyQt5  # replace this with any supported toolkit
+  $ python setup.py install  # or develop
+
+Add the jupyter nbextensions using the instructions in the section above and
+you should be good to go.
 
 Documentation
 ==============
