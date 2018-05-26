@@ -83,7 +83,7 @@ Installation
 
 By itself Mayavi is not a difficult package to install but its dependencies
 are unfortunately rather heavy. However, many of these dependencies are now
-available as wheels available on PyPI.  The two critical dependencies are,
+available as wheels on PyPI.  The two critical dependencies are,
 
   1. VTK_
   2. A GUI toolkit, either PyQt4_, PySide_, PyQt5_ or wxPython_.
