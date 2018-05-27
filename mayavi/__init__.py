@@ -5,7 +5,7 @@
     Part of the Mayavi project of the Enthought Tool Suite.
 """
 
-__version__ = '4.5.1.dev0'
+__version__ = '4.6.1.dev0'
 
 __requires__ = [
     'apptools',
