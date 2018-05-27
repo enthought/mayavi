@@ -1,3 +1,164 @@
+Mayavi 4.6.0
+============
+
+Thanks to the following who contributed to this release (in alphabetical order):
+
+Bhavesh Thakkar, Christian Brodbeck, David Haberthür, Emmanuelle Gouillart,
+Eric Larson, Federico Miorelli, James Booth, Krishna Wadhwani, Marijn van
+Vliet, Min RK, Nelle Varoquaux, Prabhu Ramachandran, Stefano Borini, solarjoe.
+
+48 pull requests were merged for this release.
+
+Enhancements
+------------
+
+Thanks to the VTK wheels now available on PyPI, this release is the first
+version of Mayavi that can be installed via ``pip install mayavi``.
+
+23 May 2018 `#641 <https://github.com/enthought/mayavi/pull/641>`_ (PR)
+   - Use new pyface toolkit
+
+19 Jul 2017 `#528 <https://github.com/enthought/mayavi/pull/528>`_ (PR)
+   - Qt5 support. This is critical for Python 3.x as this is the only toolkit
+     that works with Python 3.x.
+
+Fixes
+-----
+
+26 May 2018 `#646 <https://github.com/enthought/mayavi/pull/646>`_ (PR)
+   - Update installation documentation.
+   - Fix warning message when updating mlab_source data without scalars/vectors.
+
+22 May 2018 `#642 <https://github.com/enthought/mayavi/pull/642>`_ (PR)
+   - Fix nbextension and missing bug with global.
+
+20 May 2018 `#630 <https://github.com/enthought/mayavi/pull/630>`_ (PR)
+   - Improve tests so Python 2.7, 3.x are tested and the tests run using VTK 8.x and 7.x.
+
+06 Mar 2018 `#616 <https://github.com/enthought/mayavi/pull/616>`_ (PR)
+   - Misc fixes for PyQt4 and Python 3.6.
+
+16 Feb 2018 `#609 <https://github.com/enthought/mayavi/pull/609>`_ (PR)
+   - Fix bug with mlab.screenshot and VTK 8.1.0.
+
+16 Feb 2018 `#608 <https://github.com/enthought/mayavi/pull/608>`_ (PR)
+   - Fix travis builds
+
+15 Feb 2018 `#607 <https://github.com/enthought/mayavi/pull/607>`_ (PR)
+   - Fix `#605 <https://github.com/enthought/mayavi/issues/605>`_: Interactors now work correctly with Qt5.
+
+07 Feb 2018 `#599 <https://github.com/enthought/mayavi/pull/599>`_ (PR)
+   - Fix some wxPython issues so mayavi works with recent wxPython releases.
+
+06 Feb 2018 `#597 <https://github.com/enthought/mayavi/pull/597>`_ (PR)
+   - Fix 8.1 issues phase 2
+
+05 Feb 2018 `#596 <https://github.com/enthought/mayavi/pull/596>`_ (PR)
+   - Fix 8.1 issues
+
+23 Jan 2018 `#588 <https://github.com/enthought/mayavi/pull/588>`_ (larsoner)
+   - MRG: Avoid NumPy deprecation
+
+23 Jan 2018 `#584 <https://github.com/enthought/mayavi/pull/584>`_ (FedeMiorelli)
+   - Fix bug with "p" keypress
+
+23 Jan 2018 `#583 <https://github.com/enthought/mayavi/pull/583>`_ (FedeMiorelli)
+   - VTK 8.x compatibility fixes
+
+14 Dec 2017 `#578 <https://github.com/enthought/mayavi/pull/578>`_ (larsoner)
+   - FIX: Remove debug print
+
+06 Dec 2017 `#572 <https://github.com/enthought/mayavi/pull/572>`_ (PR)
+   - BUG: Undo a couple of accidental trait_set changes.
+
+30 Nov 2017 `#571 <https://github.com/enthought/mayavi/pull/571>`_ (NelleV)
+   - DOC improve the mlab introduction
+
+14 Dec 2017 `#566 <https://github.com/enthought/mayavi/pull/566>`_ (ghost)
+   - Bug fix: solve the unicode encode error in windows
+
+23 Nov 2017 `#564 <https://github.com/enthought/mayavi/pull/564>`_ (wmvanvliet)
+   - Prevent get_tvtk_class_names from hijacking stderr
+
+15 Nov 2017 `#559 <https://github.com/enthought/mayavi/pull/559>`_ (wmvanvliet)
+   - Prevent get_tvtk_class_names from hijacking stdout
+
+05 Dec 2017 `#556 <https://github.com/enthought/mayavi/pull/556>`_ (larsoner)
+   - FIX: Tiny spelling fix
+
+05 Dec 2017 `#555 <https://github.com/enthought/mayavi/pull/555>`_ (larsoner)
+   - FIX: Fix deprecated .set / .get use
+
+11 Aug 2017 `#544 <https://github.com/enthought/mayavi/pull/544>`_ (FedeMiorelli)
+   - Fix numpy issues in lut_manager
+
+11 Aug 2017 `#543 <https://github.com/enthought/mayavi/pull/543>`_ (PR)
+   - Fix long standing test failure with ply reader.
+
+06 Aug 2017 `#541 <https://github.com/enthought/mayavi/pull/541>`_ (PR)
+   - Fix numpy warnings.
+
+05 Aug 2017 `#540 <https://github.com/enthought/mayavi/pull/540>`_ (PR)
+   - Try fix appveyor test failures.
+
+05 Aug 2017 `#539 <https://github.com/enthought/mayavi/pull/539>`_ (PR)
+   - Add test for the fix provided in `#514 <https://github.com/enthought/mayavi/issues/514>`_.
+
+05 Aug 2017 `#538 <https://github.com/enthought/mayavi/pull/538>`_ (PR)
+   - Fix bug with reset method of mlab sources.
+
+05 Aug 2017 `#537 <https://github.com/enthought/mayavi/pull/537>`_ (PR)
+   - Fix tests
+
+05 Aug 2017 `#536 <https://github.com/enthought/mayavi/pull/536>`_ (PR)
+   - Update readme and add link to mailing lists.
+
+08 Aug 2017 `#531 <https://github.com/enthought/mayavi/pull/531>`_ (krishnaw14)
+   - Update installation instructions for conda/conda-forge/edm.
+
+11 Jul 2017 `#523 <https://github.com/enthought/mayavi/pull/523>`_ (solarjoe)
+   - doc: Typo fix
+
+11 Jul 2017 `#515 <https://github.com/enthought/mayavi/pull/515>`_ (PR)
+   - Fix a bug with array source and vectors.
+
+05 Aug 2017 `#514 <https://github.com/enthought/mayavi/pull/514>`_ (christianbrodbeck)
+   - FIX shared data in testing backend
+
+09 Jun 2017 `#510 <https://github.com/enthought/mayavi/pull/510>`_ (bhavesh2109)
+   - Update extract_grid.py
+
+11 May 2017 `#508 <https://github.com/enthought/mayavi/pull/508>`_ (FedeMiorelli)
+   - Fix pick_world bug with VTK >= 6
+
+19 Jul 2017 `#507 <https://github.com/enthought/mayavi/pull/507>`_ (FedeMiorelli)
+   - Fix bug in mouse_pick_dispatcher
+
+09 May 2017 `#506 <https://github.com/enthought/mayavi/pull/506>`_ (FedeMiorelli)
+   - Remove focus-stealing code
+
+09 May 2017 `#498 <https://github.com/enthought/mayavi/pull/498>`_ (minrk)
+   - avoid loading nbextension via absolute URL
+
+09 May 2017 `#486 <https://github.com/enthought/mayavi/pull/486>`_ (jabooth)
+   - Remove known bug about Python 3 support
+
+19 Jul 2017 `#471 <https://github.com/enthought/mayavi/pull/471>`_ (habi)
+   - Adding information/tip about figure width
+
+05 Oct 2016 `#444 <https://github.com/enthought/mayavi/pull/444>`_ (stefanoborini)
+   - Fix for setuptools 28.0
+
+05 Oct 2016 `#435 <https://github.com/enthought/mayavi/pull/435>`_ (emmanuelle)
+   - [MRG] Added a volume_slice helper function in mlab.
+
+13 Aug 2016 `#426 <https://github.com/enthought/mayavi/pull/426>`_ (PR)
+   - Update readme.
+
+13 Aug 2016 `#425 <https://github.com/enthought/mayavi/pull/425>`_ (PR)
+   - Fix lurking old pipeline code
+
+
 Mayavi 4.5.0
 ============
 
